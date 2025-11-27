@@ -10,6 +10,16 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  // Exclude patchright/playwright from bundling - they use native modules
+  // and must be loaded dynamically at runtime
+  serverExternalPackages: [
+    'patchright',
+    'patchright-core',
+    'playwright',
+    'playwright-core',
+    'playwright-extra',
+    'puppeteer-extra-plugin-stealth',
+  ],
 };
 
 export default nextConfig;

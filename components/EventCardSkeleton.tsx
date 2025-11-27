@@ -48,10 +48,10 @@ export function FilterBarSkeleton() {
   return (
     <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-2 mb-4 animate-pulse">
       {/* Search input placeholder */}
-      <div className="w-full sm:w-auto sm:flex-grow sm:max-w-md h-10 bg-gray-200 rounded-lg" />
+      <div className="w-full sm:flex-1 sm:min-w-0 h-10 bg-gray-200 rounded-lg" />
 
       {/* Filter buttons */}
-      <div className="flex items-center gap-2 flex-wrap">
+      <div className="flex items-center gap-2 flex-wrap sm:flex-nowrap sm:flex-shrink-0">
         <div className="w-28 h-10 bg-gray-200 rounded-lg" />
         <div className="w-28 h-10 bg-gray-200 rounded-lg" />
         <div className="w-20 h-10 bg-gray-200 rounded-lg" />

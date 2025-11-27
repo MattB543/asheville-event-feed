@@ -9,9 +9,13 @@
  * - Persistent browser context
  * - Human-like behavior patterns
  * - Authenticated session via cookies
+ *
+ * NOTE: Patchright is dynamically imported to prevent bundling issues with Next.js/Turbopack.
+ * The module contains native dependencies that can't be bundled.
  */
 
-import { chromium, type BrowserContext, type Page } from 'patchright';
+// Types only - these are erased at compile time and don't cause bundling issues
+import type { BrowserContext, Page } from 'patchright';
 import { FB_CONFIG, isFacebookEnabled } from '../config/env';
 import {
   buildFacebookCookies,
@@ -65,7 +69,9 @@ export async function discoverFacebookEventIds(): Promise<string[]> {
   try {
     // Launch persistent browser context with Chrome
     // Patchright handles most anti-detection automatically
+    // Dynamic import to prevent bundling issues with Next.js/Turbopack
     log('  Launching browser with Patchright...');
+    const { chromium } = await import('patchright');
     context = await chromium.launchPersistentContext(PROFILE_DIR, {
       channel: 'chrome', // CRITICAL: Use real Chrome, not Chromium
       headless: false, // Better for Facebook - they detect headless well
@@ -224,7 +230,9 @@ export async function discoverAndFetchFacebookEvents(options: {
   let context: BrowserContext | null = null;
 
   try {
+    // Dynamic import to prevent bundling issues with Next.js/Turbopack
     log('  Launching browser with Patchright...');
+    const { chromium } = await import('patchright');
     context = await chromium.launchPersistentContext(PROFILE_DIR, {
       channel: 'chrome',
       headless: false,

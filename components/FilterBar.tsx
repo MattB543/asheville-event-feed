@@ -169,7 +169,7 @@ export default function FilterBar({
       {/* Desktop: single row, Mobile: search on top, filters below */}
       <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-2">
         {/* Search Input */}
-        <div className="relative w-full sm:w-auto sm:flex-grow sm:max-w-md">
+        <div className="relative w-full sm:flex-1 sm:min-w-0">
           <Search
             className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
             size={20}
@@ -184,7 +184,7 @@ export default function FilterBar({
         </div>
 
         {/* Filter Buttons */}
-        <div className="flex items-center gap-2 flex-wrap">
+        <div className="flex items-center gap-2 flex-wrap sm:flex-nowrap sm:flex-shrink-0">
           {/* Date Filter */}
           <div className="relative" ref={dateRef}>
             <button
@@ -199,9 +199,6 @@ export default function FilterBar({
                 className={`transition-transform ${isDateOpen ? "rotate-180" : ""}`}
               />
             </button>
-            {dateFilter !== "all" && (
-              <span className="absolute -top-1 -right-1 w-2 h-2 bg-blue-500 rounded-full" />
-            )}
 
             {isDateOpen && (
               <div className="absolute top-full left-0 mt-1 z-50 bg-white border border-gray-200 rounded-lg shadow-lg min-w-[280px]">
@@ -282,9 +279,6 @@ export default function FilterBar({
                 className={`transition-transform ${isPriceOpen ? "rotate-180" : ""}`}
               />
             </button>
-            {priceFilter !== "any" && (
-              <span className="absolute -top-1 -right-1 w-2 h-2 bg-blue-500 rounded-full" />
-            )}
 
             {isPriceOpen && (
               <div className="absolute top-full left-0 mt-1 z-50 bg-white border border-gray-200 rounded-lg shadow-lg min-w-[200px]">
@@ -369,14 +363,14 @@ export default function FilterBar({
                     <div className="flex gap-2">
                       <button
                         onClick={selectAllTags}
-                        className="text-xs text-blue-600 hover:text-blue-800"
+                        className="text-xs text-blue-600 hover:text-blue-800 cursor-pointer"
                       >
                         Select All
                       </button>
                       <span className="text-gray-300">|</span>
                       <button
                         onClick={deselectAllTags}
-                        className="text-xs text-blue-600 hover:text-blue-800"
+                        className="text-xs text-blue-600 hover:text-blue-800 cursor-pointer"
                       >
                         Deselect All
                       </button>
@@ -471,11 +465,17 @@ export default function FilterBar({
                 </div>
 
                 {selectedTags.length > 0 && (
-                  <div className="px-3 py-2 border-t border-gray-100 bg-gray-50">
+                  <div className="px-3 py-2 border-t border-gray-100 bg-gray-50 flex items-center justify-between">
                     <span className="text-xs text-gray-500">
                       {selectedTags.length} tag{selectedTags.length !== 1 ? "s" : ""}{" "}
                       selected
                     </span>
+                    <button
+                      onClick={deselectAllTags}
+                      className="text-xs text-blue-600 hover:text-blue-800 cursor-pointer"
+                    >
+                      Clear
+                    </button>
                   </div>
                 )}
               </div>

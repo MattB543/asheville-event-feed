@@ -1,5 +1,5 @@
-import Image from 'next/image';
-import { EventFeedSkeleton } from '@/components/EventCardSkeleton';
+import Image from "next/image";
+import { EventFeedSkeleton } from "@/components/EventCardSkeleton";
 
 export default function Loading() {
   return (
@@ -14,7 +14,7 @@ export default function Loading() {
             priority
           />
           <div className="text-sm text-gray-500 hidden sm:block">
-            Aggregating AVL Today & Eventbrite
+            Aggregating all AVL events
           </div>
         </div>
       </header>
@@ -22,7 +22,10 @@ export default function Loading() {
       <EventFeedSkeleton />
 
       <footer className="bg-white border-t border-gray-200 mt-12 py-8 text-center text-sm text-gray-500">
-        <p>&copy; {new Date().getFullYear()} Asheville Event Feed. Not affiliated with AVL Today or Eventbrite.</p>
+        <p>
+          &copy; {new Date().getFullYear()} Asheville Event Feed. Not affiliated
+          with AVL Today or Eventbrite.
+        </p>
       </footer>
     </main>
   );

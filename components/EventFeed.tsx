@@ -402,6 +402,7 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
         filters={activeFilters}
         onRemove={handleRemoveFilter}
         onClearAll={handleClearAllFilters}
+        onClearAllTags={() => setSelectedTags([])}
         totalEvents={events.length}
         filteredCount={filteredEvents.length}
       />

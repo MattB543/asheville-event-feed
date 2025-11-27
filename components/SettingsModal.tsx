@@ -74,7 +74,7 @@ export default function SettingsModal({
               <div className="mt-3">
                 <button
                   onClick={() => setShowDefaultKeywords(!showDefaultKeywords)}
-                  className="flex items-center gap-1 text-sm text-amber-700 hover:text-amber-900"
+                  className="flex items-center gap-1 text-sm text-amber-700 hover:text-amber-900 cursor-pointer"
                 >
                   {showDefaultKeywords ? (
                     <ChevronUp size={16} />
@@ -137,7 +137,7 @@ export default function SettingsModal({
             {hiddenIdsCount > 0 && (
               <button
                 onClick={onClearHidden}
-                className="flex items-center gap-2 text-red-600 hover:text-red-700 text-sm font-medium"
+                className="flex items-center gap-2 text-red-600 hover:text-red-700 text-sm font-medium cursor-pointer"
               >
                 <Trash2 size={16} />
                 Clear Hidden
@@ -149,7 +149,7 @@ export default function SettingsModal({
         <div className="p-6 border-t bg-gray-50 flex justify-end">
           <button
             onClick={onClose}
-            className="px-4 py-2 bg-blue-600 text-white hover:bg-blue-700 rounded-lg transition-colors font-medium"
+            className="px-4 py-2 bg-blue-600 text-white hover:bg-blue-700 rounded-lg transition-colors font-medium cursor-pointer"
           >
             Done
           </button>

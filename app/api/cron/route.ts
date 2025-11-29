@@ -4,6 +4,8 @@ import { scrapeEventbrite } from '@/lib/scrapers/eventbrite';
 import { scrapeMeetup } from '@/lib/scrapers/meetup';
 import { scrapeFacebookEvents } from '@/lib/scrapers/facebook';
 import { scrapeHarrahs } from '@/lib/scrapers/harrahs';
+import { scrapeOrangePeel } from '@/lib/scrapers/orangepeel';
+import { scrapeGreyEagle } from '@/lib/scrapers/greyeagle';
 import { db } from '@/lib/db';
 import { events } from '@/lib/db/schema';
 import { sql, inArray } from 'drizzle-orm';
@@ -24,15 +26,17 @@ export async function GET(request: Request) {
   try {
     console.log('[Cron] Starting scrape job...');
 
-    // Scrape AVL Today, Eventbrite, Meetup, and Harrah's in parallel
-    const [avlEvents, ebEvents, meetupEvents, harrahsEvents] = await Promise.all([
+    // Scrape AVL Today, Eventbrite, Meetup, Harrah's, Orange Peel, and Grey Eagle in parallel
+    const [avlEvents, ebEvents, meetupEvents, harrahsEvents, orangePeelEvents, greyEagleEvents] = await Promise.all([
       scrapeAvlToday(),
       scrapeEventbrite(3), // Scrape 3 pages for regular updates (de-duplication handled by DB)
       scrapeMeetup(3),     // Scrape 3 pages (~150 events)
       scrapeHarrahs(),     // Harrah's Cherokee Center (Ticketmaster API + HTML)
+      scrapeOrangePeel(),  // Orange Peel (Ticketmaster API + Website JSON-LD)
+      scrapeGreyEagle(),   // Grey Eagle (Website JSON-LD)
     ]);
 
-    console.log(`[Cron] Scrape complete. AVL: ${avlEvents.length}, EB: ${ebEvents.length}, Meetup: ${meetupEvents.length}, Harrahs: ${harrahsEvents.length}`);
+    console.log(`[Cron] Scrape complete. AVL: ${avlEvents.length}, EB: ${ebEvents.length}, Meetup: ${meetupEvents.length}, Harrahs: ${harrahsEvents.length}, OrangePeel: ${orangePeelEvents.length}, GreyEagle: ${greyEagleEvents.length}`);
 
     // Facebook scraping (separate due to browser requirements)
     // Note: Facebook scraping uses Playwright/Patchright which is resource-intensive
@@ -42,19 +46,27 @@ export async function GET(request: Request) {
       try {
         console.log('[Cron] Attempting Facebook scrape...');
         const fbRawEvents = await scrapeFacebookEvents();
+        // Filter out low-interest events (must have >1 going OR >3 interested)
+        // "Going" is a stronger signal than "interested"
+        const fbFiltered = fbRawEvents.filter(e =>
+          (e.goingCount !== undefined && e.goingCount > 1) ||
+          (e.interestedCount !== undefined && e.interestedCount > 3)
+        );
         // Transform to ScrapedEventWithTags format
-        fbEvents = fbRawEvents.map(e => ({ ...e, tags: [] }));
-        console.log(`[Cron] Facebook scrape complete: ${fbEvents.length} events`);
+        fbEvents = fbFiltered.map(e => ({ ...e, tags: [] }));
+        console.log(`[Cron] Facebook scrape complete: ${fbEvents.length} events (filtered ${fbRawEvents.length - fbFiltered.length} low-interest)`);
       } catch (fbError) {
         // Log error but don't fail the entire cron job
         console.error('[Cron] Facebook scrape failed (continuing with other sources):', fbError);
       }
     }
 
-    // Transform harrahsEvents to include tags array
+    // Transform venue events to include tags array
     const harrahsWithTags: ScrapedEventWithTags[] = harrahsEvents.map(e => ({ ...e, tags: [] }));
+    const orangePeelWithTags: ScrapedEventWithTags[] = orangePeelEvents.map(e => ({ ...e, tags: [] }));
+    const greyEagleWithTags: ScrapedEventWithTags[] = greyEagleEvents.map(e => ({ ...e, tags: [] }));
 
-    const allEvents: ScrapedEventWithTags[] = [...avlEvents, ...ebEvents, ...meetupEvents, ...fbEvents, ...harrahsWithTags];
+    const allEvents: ScrapedEventWithTags[] = [...avlEvents, ...ebEvents, ...meetupEvents, ...fbEvents, ...harrahsWithTags, ...orangePeelWithTags, ...greyEagleWithTags];
     
     // Optimization: Only generate tags for NEW events
     // 1. Get URLs of all scraped events
@@ -153,6 +165,8 @@ export async function GET(request: Request) {
               url: event.url,
               imageUrl: event.imageUrl,
               tags: event.tags || [],
+              interestedCount: event.interestedCount,
+              goingCount: event.goingCount,
             })
             .onConflictDoUpdate({
               target: events.url,
@@ -164,6 +178,8 @@ export async function GET(request: Request) {
                 organizer: event.organizer,
                 price: event.price,
                 imageUrl: event.imageUrl,
+                interestedCount: event.interestedCount,
+                goingCount: event.goingCount,
               },
             });
           upsertCount++;

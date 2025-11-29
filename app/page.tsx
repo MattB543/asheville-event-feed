@@ -63,6 +63,7 @@ export default async function Home() {
             href="https://mattbrooks.xyz"
             target="_blank"
             rel="noopener noreferrer"
+            className="underline"
           >
             mattbrooks.xyz
           </a>

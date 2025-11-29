@@ -19,6 +19,8 @@ export interface FacebookEventDetails {
   organizer: string | null;
   price: string | null;
   url: string;
+  interestedCount: number | null;
+  goingCount: number | null;
 }
 
 /**
@@ -114,6 +116,8 @@ export async function fetchEventDetailsInBrowser(
       let price: string | null = null;
       let description: string | null = null;
       let organizer: string | null = null;
+      let interestedCount: number | null = null;
+      let goingCount: number | null = null;
 
       // Parse header response
       const headerLines = headerText.split('\n').filter(l => l.trim());
@@ -186,6 +190,27 @@ export async function fetchEventDetailsInBrowser(
               }
             }
           }
+
+          // Extract interested/going counts from can_view_friends_card
+          // Note: can_view_friends_card is inside data.event, not data directly
+          if (parsed?.data?.event?.can_view_friends_card?.event) {
+            const friendsCard = parsed.data.event.can_view_friends_card.event;
+            // "Interested" count (event_connected_users_maybe)
+            if (friendsCard.event_connected_users_maybe?.count !== undefined) {
+              interestedCount = friendsCard.event_connected_users_maybe.count;
+            }
+            // "Going" count (event_connected_users_going)
+            if (friendsCard.event_connected_users_going?.count !== undefined) {
+              goingCount = friendsCard.event_connected_users_going.count;
+            }
+            // Also check unified counts as fallback
+            if (interestedCount === null && friendsCard.unified_associates_count !== undefined) {
+              interestedCount = friendsCard.unified_associates_count;
+            }
+            if (goingCount === null && friendsCard.unified_member_count !== undefined) {
+              goingCount = friendsCard.unified_member_count;
+            }
+          }
         } catch {}
       }
 
@@ -199,6 +224,8 @@ export async function fetchEventDetailsInBrowser(
         imageUrl,
         organizer,
         price,
+        interestedCount,
+        goingCount,
       };
     }, eventId);
 

@@ -86,6 +86,8 @@ function transformBrowserEventToScrapedEvent(fbEvent: FacebookEventDetails): Scr
     price: fbEvent.price || 'Unknown',
     url: fbEvent.url,
     imageUrl: fbEvent.imageUrl || undefined,
+    interestedCount: fbEvent.interestedCount ?? undefined,
+    goingCount: fbEvent.goingCount ?? undefined,
   };
 }
 
@@ -112,8 +114,8 @@ export async function scrapeFacebookEvents(): Promise<ScrapedEvent[]> {
   try {
     // Combined discovery + fetch in single browser session
     const fbEvents = await discoverAndFetchFacebookEvents({
-      maxScrolls: 10,
-      targetEvents: 30,
+      maxScrolls: 25,
+      targetEvents: 100,
       onProgress: (completed, total) => {
         if (completed % 10 === 0 || completed === total) {
           log(`  Progress: ${completed}/${total} events`);

@@ -26,8 +26,18 @@ function safeParseDateString(dateStr: string | null): Date | undefined {
   }
 }
 
-export type DateFilterType = "all" | "today" | "tomorrow" | "weekend" | "custom";
-export type PriceFilterType = "any" | "free" | "under20" | "under100" | "custom";
+export type DateFilterType =
+  | "all"
+  | "today"
+  | "tomorrow"
+  | "weekend"
+  | "custom";
+export type PriceFilterType =
+  | "any"
+  | "free"
+  | "under20"
+  | "under100"
+  | "custom";
 
 export interface DateRange {
   start: string | null;
@@ -102,7 +112,10 @@ export default function FilterBar({
       if (dateRef.current && !dateRef.current.contains(event.target as Node)) {
         setIsDateOpen(false);
       }
-      if (priceRef.current && !priceRef.current.contains(event.target as Node)) {
+      if (
+        priceRef.current &&
+        !priceRef.current.contains(event.target as Node)
+      ) {
         setIsPriceOpen(false);
       }
     }
@@ -155,8 +168,17 @@ export default function FilterBar({
 
   const getDateLabel = (): string => {
     if (dateFilter === "custom" && customDateRange.start) {
-      if (customDateRange.end && customDateRange.end !== customDateRange.start) {
-        return `${new Date(customDateRange.start).toLocaleDateString("en-US", { month: "short", day: "numeric" })} - ${new Date(customDateRange.end).toLocaleDateString("en-US", { month: "short", day: "numeric" })}`;
+      if (
+        customDateRange.end &&
+        customDateRange.end !== customDateRange.start
+      ) {
+        return `${new Date(customDateRange.start).toLocaleDateString("en-US", {
+          month: "short",
+          day: "numeric",
+        })} - ${new Date(customDateRange.end).toLocaleDateString("en-US", {
+          month: "short",
+          day: "numeric",
+        })}`;
       }
       return new Date(customDateRange.start).toLocaleDateString("en-US", {
         month: "short",
@@ -174,7 +196,7 @@ export default function FilterBar({
   };
 
   return (
-    <div className="mb-4">
+    <div className="mb-3">
       {/* Desktop: single row, Mobile: search on top, filters below */}
       <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-2">
         {/* Search Input */}
@@ -205,7 +227,9 @@ export default function FilterBar({
               <span>{getDateLabel()}</span>
               <ChevronDown
                 size={16}
-                className={`transition-transform ${isDateOpen ? "rotate-180" : ""}`}
+                className={`transition-transform ${
+                  isDateOpen ? "rotate-180" : ""
+                }`}
               />
             </button>
 
@@ -236,10 +260,17 @@ export default function FilterBar({
                     <div className="px-3 pt-2 pb-1 flex items-center justify-between">
                       <span className="text-xs text-gray-500">
                         {(() => {
-                          const startDate = safeParseDateString(customDateRange.start);
-                          const endDate = safeParseDateString(customDateRange.end);
+                          const startDate = safeParseDateString(
+                            customDateRange.start
+                          );
+                          const endDate = safeParseDateString(
+                            customDateRange.end
+                          );
                           if (startDate && endDate) {
-                            return `${format(startDate, "MMM d")} - ${format(endDate, "MMM d")}`;
+                            return `${format(startDate, "MMM d")} - ${format(
+                              endDate,
+                              "MMM d"
+                            )}`;
                           } else if (startDate) {
                             return format(startDate, "MMM d, yyyy");
                           }
@@ -248,7 +279,9 @@ export default function FilterBar({
                       </span>
                       {customDateRange.start && (
                         <button
-                          onClick={() => onCustomDateRangeChange({ start: null, end: null })}
+                          onClick={() =>
+                            onCustomDateRangeChange({ start: null, end: null })
+                          }
                           className="text-xs text-brand-600 hover:text-brand-800 cursor-pointer"
                         >
                           Clear
@@ -257,21 +290,23 @@ export default function FilterBar({
                     </div>
                     <Calendar
                       mode="range"
-                      selected={
-                        (() => {
-                          const from = safeParseDateString(customDateRange.start);
-                          if (!from) return undefined;
-                          const to = safeParseDateString(customDateRange.end);
-                          return { from, to };
-                        })()
-                      }
+                      selected={(() => {
+                        const from = safeParseDateString(customDateRange.start);
+                        if (!from) return undefined;
+                        const to = safeParseDateString(customDateRange.end);
+                        return { from, to };
+                      })()}
                       onSelect={(range: DayPickerDateRange | undefined) => {
                         if (!range) {
                           onCustomDateRangeChange({ start: null, end: null });
                         } else {
                           onCustomDateRangeChange({
-                            start: range.from ? format(range.from, "yyyy-MM-dd") : null,
-                            end: range.to ? format(range.to, "yyyy-MM-dd") : null,
+                            start: range.from
+                              ? format(range.from, "yyyy-MM-dd")
+                              : null,
+                            end: range.to
+                              ? format(range.to, "yyyy-MM-dd")
+                              : null,
                           });
                         }
                       }}
@@ -295,7 +330,9 @@ export default function FilterBar({
               <span>{getPriceLabel()}</span>
               <ChevronDown
                 size={16}
-                className={`transition-transform ${isPriceOpen ? "rotate-180" : ""}`}
+                className={`transition-transform ${
+                  isPriceOpen ? "rotate-180" : ""
+                }`}
               />
             </button>
 
@@ -368,7 +405,9 @@ export default function FilterBar({
               )}
               <ChevronDown
                 size={16}
-                className={`transition-transform ${isTagsOpen ? "rotate-180" : ""}`}
+                className={`transition-transform ${
+                  isTagsOpen ? "rotate-180" : ""
+                }`}
               />
             </button>
 
@@ -398,14 +437,18 @@ export default function FilterBar({
                 </div>
 
                 <div className="max-h-80 overflow-y-auto">
-                  {groupedTags.length === 0 && uncategorizedTags.length === 0 ? (
+                  {groupedTags.length === 0 &&
+                  uncategorizedTags.length === 0 ? (
                     <p className="text-sm text-gray-500 px-3 py-2">
                       No tags available
                     </p>
                   ) : (
                     <>
                       {groupedTags.map((category) => (
-                        <div key={category.name} className="border-b border-gray-50 last:border-b-0">
+                        <div
+                          key={category.name}
+                          className="border-b border-gray-50 last:border-b-0"
+                        >
                           <button
                             onClick={() => toggleCategory(category.name)}
                             className="w-full flex items-center justify-between px-3 py-2 hover:bg-gray-50 text-left"
@@ -416,7 +459,10 @@ export default function FilterBar({
                             {expandedCategories.has(category.name) ? (
                               <ChevronUp size={14} className="text-gray-400" />
                             ) : (
-                              <ChevronDown size={14} className="text-gray-400" />
+                              <ChevronDown
+                                size={14}
+                                className="text-gray-400"
+                              />
                             )}
                           </button>
                           {expandedCategories.has(category.name) && (
@@ -454,7 +500,10 @@ export default function FilterBar({
                             {expandedCategories.has("Uncategorized") ? (
                               <ChevronUp size={14} className="text-gray-400" />
                             ) : (
-                              <ChevronDown size={14} className="text-gray-400" />
+                              <ChevronDown
+                                size={14}
+                                className="text-gray-400"
+                              />
                             )}
                           </button>
                           {expandedCategories.has("Uncategorized") && (
@@ -486,8 +535,8 @@ export default function FilterBar({
                 {selectedTags.length > 0 && (
                   <div className="px-3 py-2 border-t border-gray-100 bg-gray-50 flex items-center justify-between">
                     <span className="text-xs text-gray-500">
-                      {selectedTags.length} tag{selectedTags.length !== 1 ? "s" : ""}{" "}
-                      selected
+                      {selectedTags.length} tag
+                      {selectedTags.length !== 1 ? "s" : ""} selected
                     </span>
                     <button
                       onClick={deselectAllTags}

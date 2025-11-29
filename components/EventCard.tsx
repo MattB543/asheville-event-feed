@@ -30,6 +30,7 @@ interface EventCardProps {
   onHide: (title: string, organizer: string | null) => void;
   onBlockHost: (host: string) => void;
   isNewlyHidden?: boolean;
+  hideBorder?: boolean;
 }
 
 // Round price string to nearest dollar (e.g., "$19.10" -> "$19", "$25.50" -> "$26")
@@ -51,6 +52,7 @@ export default function EventCard({
   onHide,
   onBlockHost,
   isNewlyHidden = false,
+  hideBorder = false,
 }: EventCardProps) {
   const [imgError, setImgError] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
@@ -109,7 +111,9 @@ export default function EventCard({
 
   return (
     <div
-      className={`relative border-b border-gray-200 transition-colors flex flex-col sm:flex-row gap-4 px-5 py-6 ${
+      className={`relative transition-colors flex flex-col sm:flex-row gap-4 px-5 py-6 ${
+        hideBorder ? "" : "border-b border-gray-200"
+      } ${
         isNewlyHidden ? "bg-gray-200 opacity-40" : "bg-white hover:bg-gray-50"
       }`}
     >
@@ -220,7 +224,7 @@ export default function EventCard({
             title="Add to Google Calendar"
           >
             <CalendarPlus size={14} />
-            <span>Calendar</span>
+            <span>Add to Calendar</span>
           </a>
           <button
             onClick={() => onHide(event.title, event.organizer)}

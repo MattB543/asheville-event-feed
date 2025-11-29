@@ -3,7 +3,11 @@
 import { useState, useMemo, useEffect, useCallback } from "react";
 import Fuse from "fuse.js";
 import EventCard from "./EventCard";
-import FilterBar, { DateFilterType, PriceFilterType, DateRange } from "./FilterBar";
+import FilterBar, {
+  DateFilterType,
+  PriceFilterType,
+  DateRange,
+} from "./FilterBar";
 import ActiveFilters, { ActiveFilter } from "./ActiveFilters";
 import SettingsModal from "./SettingsModal";
 import { EventFeedSkeleton } from "./EventCardSkeleton";
@@ -13,6 +17,7 @@ import {
   matchesDefaultFilter,
 } from "@/lib/config/defaultFilters";
 import { useToast } from "./ui/Toast";
+import { ArrowDownIcon, ArrowUpIcon } from "lucide-react";
 
 interface Event {
   id: string;
@@ -37,14 +42,17 @@ interface EventFeedProps {
 
 // Fingerprint for hiding recurring events (title + organizer combo)
 interface HiddenEventFingerprint {
-  title: string;      // normalized: lowercase, trimmed
-  organizer: string;  // normalized: lowercase, trimmed (empty if null)
+  title: string; // normalized: lowercase, trimmed
+  organizer: string; // normalized: lowercase, trimmed (empty if null)
 }
 
 // Create a fingerprint key string for comparison
-function createFingerprintKey(title: string, organizer: string | null | undefined): string {
+function createFingerprintKey(
+  title: string,
+  organizer: string | null | undefined
+): string {
   const normalizedTitle = title.toLowerCase().trim();
-  const normalizedOrganizer = (organizer || '').toLowerCase().trim();
+  const normalizedOrganizer = (organizer || "").toLowerCase().trim();
   return `${normalizedTitle}|||${normalizedOrganizer}`;
 }
 
@@ -54,7 +62,7 @@ function matchesHiddenFingerprint(
   hiddenEvents: HiddenEventFingerprint[]
 ): boolean {
   const eventKey = createFingerprintKey(event.title, event.organizer);
-  return hiddenEvents.some(fp => {
+  return hiddenEvents.some((fp) => {
     const fpKey = `${fp.title}|||${fp.organizer}`;
     return eventKey === fpKey;
   });
@@ -175,19 +183,36 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
   const [blockedKeywords, setBlockedKeywords] = useState<string[]>(() =>
     getStorageItem("blockedKeywords", [])
   );
-  const [hiddenEvents, setHiddenEvents] = useState<HiddenEventFingerprint[]>(() =>
-    getStorageItem("hiddenEvents", [])
+  const [hiddenEvents, setHiddenEvents] = useState<HiddenEventFingerprint[]>(
+    () => getStorageItem("hiddenEvents", [])
   );
   // Track events hidden THIS session (not persisted) - these show greyed out instead of being filtered
-  const [sessionHiddenKeys, setSessionHiddenKeys] = useState<Set<string>>(new Set());
+  const [sessionHiddenKeys, setSessionHiddenKeys] = useState<Set<string>>(
+    new Set()
+  );
   const [useDefaultFilters, setUseDefaultFilters] = useState<boolean>(() =>
     getStorageItem("useDefaultFilters", true)
   );
+  const [showAllPreviousEvents, setShowAllPreviousEvents] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [showScrollTop, setShowScrollTop] = useState(false);
 
   // Mark as loaded on mount
   useEffect(() => {
     setIsLoaded(true);
+  }, []);
+
+  // Track scroll position for scroll-to-top button
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowScrollTop(window.scrollY > 400);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const scrollToTop = useCallback(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
 
   // Save filter settings to localStorage
@@ -201,7 +226,10 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
       localStorage.setItem("blockedHosts", JSON.stringify(blockedHosts));
       localStorage.setItem("blockedKeywords", JSON.stringify(blockedKeywords));
       localStorage.setItem("hiddenEvents", JSON.stringify(hiddenEvents));
-      localStorage.setItem("useDefaultFilters", JSON.stringify(useDefaultFilters));
+      localStorage.setItem(
+        "useDefaultFilters",
+        JSON.stringify(useDefaultFilters)
+      );
     }
   }, [
     dateFilter,
@@ -259,7 +287,10 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
       // 1. Hidden Events (by title+organizer fingerprint)
       // Only filter out if it was hidden in a PREVIOUS session (not this session)
       const eventKey = createFingerprintKey(event.title, event.organizer);
-      if (matchesHiddenFingerprint(event, hiddenEvents) && !sessionHiddenKeys.has(eventKey)) {
+      if (
+        matchesHiddenFingerprint(event, hiddenEvents) &&
+        !sessionHiddenKeys.has(eventKey)
+      ) {
         return false;
       }
 
@@ -308,7 +339,11 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
         if (priceFilter === "free" && !isFree) return false;
         if (priceFilter === "under20" && price > 20) return false;
         if (priceFilter === "under100" && price > 100) return false;
-        if (priceFilter === "custom" && customMaxPrice !== null && price > customMaxPrice)
+        if (
+          priceFilter === "custom" &&
+          customMaxPrice !== null &&
+          price > customMaxPrice
+        )
           return false;
       }
 
@@ -355,8 +390,17 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
     if (dateFilter !== "all") {
       let label = dateLabels[dateFilter];
       if (dateFilter === "custom" && customDateRange.start) {
-        if (customDateRange.end && customDateRange.end !== customDateRange.start) {
-          label = `${new Date(customDateRange.start).toLocaleDateString("en-US", { month: "short", day: "numeric" })} - ${new Date(customDateRange.end).toLocaleDateString("en-US", { month: "short", day: "numeric" })}`;
+        if (
+          customDateRange.end &&
+          customDateRange.end !== customDateRange.start
+        ) {
+          label = `${new Date(customDateRange.start).toLocaleDateString(
+            "en-US",
+            { month: "short", day: "numeric" }
+          )} - ${new Date(customDateRange.end).toLocaleDateString("en-US", {
+            month: "short",
+            day: "numeric",
+          })}`;
         } else {
           label = new Date(customDateRange.start).toLocaleDateString("en-US", {
             month: "short",
@@ -378,26 +422,30 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
     });
 
     return filters;
-  }, [search, dateFilter, customDateRange, priceFilter, customMaxPrice, selectedTags]);
+  }, [
+    search,
+    dateFilter,
+    customDateRange,
+    priceFilter,
+    customMaxPrice,
+    selectedTags,
+  ]);
 
   // Handle removing filters
-  const handleRemoveFilter = useCallback(
-    (id: string) => {
-      if (id === "search") {
-        setSearchInput("");
-      } else if (id === "date") {
-        setDateFilter("all");
-        setCustomDateRange({ start: null, end: null });
-      } else if (id === "price") {
-        setPriceFilter("any");
-        setCustomMaxPrice(null);
-      } else if (id.startsWith("tag-")) {
-        const tag = id.replace("tag-", "");
-        setSelectedTags((prev) => prev.filter((t) => t !== tag));
-      }
-    },
-    []
-  );
+  const handleRemoveFilter = useCallback((id: string) => {
+    if (id === "search") {
+      setSearchInput("");
+    } else if (id === "date") {
+      setDateFilter("all");
+      setCustomDateRange({ start: null, end: null });
+    } else if (id === "price") {
+      setPriceFilter("any");
+      setCustomMaxPrice(null);
+    } else if (id.startsWith("tag-")) {
+      const tag = id.replace("tag-", "");
+      setSelectedTags((prev) => prev.filter((t) => t !== tag));
+    }
+  }, []);
 
   // Clear all filters
   const handleClearAllFilters = useCallback(() => {
@@ -414,7 +462,7 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
     (title: string, organizer: string | null) => {
       const fingerprint: HiddenEventFingerprint = {
         title: title.toLowerCase().trim(),
-        organizer: (organizer || '').toLowerCase().trim(),
+        organizer: (organizer || "").toLowerCase().trim(),
       };
       const key = createFingerprintKey(title, organizer);
 
@@ -424,8 +472,10 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
       // Add to persistent hidden events
       setHiddenEvents((prev) => {
         // Avoid duplicates
-        const exists = prev.some(fp =>
-          fp.title === fingerprint.title && fp.organizer === fingerprint.organizer
+        const exists = prev.some(
+          (fp) =>
+            fp.title === fingerprint.title &&
+            fp.organizer === fingerprint.organizer
         );
         if (exists) return prev;
         return [...prev, fingerprint];
@@ -463,7 +513,14 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
 
     const queryString = params.toString();
     return queryString ? `?${queryString}` : "";
-  }, [search, dateFilter, customDateRange, priceFilter, customMaxPrice, selectedTags]);
+  }, [
+    search,
+    dateFilter,
+    customDateRange,
+    priceFilter,
+    customMaxPrice,
+    selectedTags,
+  ]);
 
   if (!isLoaded) return <EventFeedSkeleton />;
 
@@ -496,35 +553,35 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
         exportParams={exportParams}
       />
 
-      <div className="flex flex-col gap-10 mt-4">
+      <div className="flex flex-col gap-10 mt-3">
         {Object.entries(
-          filteredEvents.reduce(
-            (groups, event) => {
-              const date = new Date(event.startDate);
-              const dateKey = date.toLocaleDateString("en-US", {
-                weekday: "short",
-                month: "short",
-                day: "numeric",
-                year: "numeric",
-              });
+          filteredEvents.reduce((groups, event) => {
+            const date = new Date(event.startDate);
+            const dateKey = date.toLocaleDateString("en-US", {
+              weekday: "short",
+              month: "short",
+              day: "numeric",
+              year: "numeric",
+            });
 
-              if (!groups[dateKey]) {
-                groups[dateKey] = { date: date, events: [] };
-              }
-              groups[dateKey].events.push(event);
-              return groups;
-            },
-            {} as Record<string, { date: Date; events: Event[] }>
-          )
+            if (!groups[dateKey]) {
+              groups[dateKey] = { date: date, events: [] };
+            }
+            groups[dateKey].events.push(event);
+            return groups;
+          }, {} as Record<string, { date: Date; events: Event[] }>)
         )
           .sort(([, a], [, b]) => a.date.getTime() - b.date.getTime())
           .map(([dateKey, { date, events: groupEvents }]) => {
             const today = new Date();
             const tomorrow = new Date(today);
             tomorrow.setDate(tomorrow.getDate() + 1);
+            const now = new Date();
+            const oneHourAgo = new Date(now.getTime() - 60 * 60 * 1000);
 
             let headerText = dateKey;
-            if (date.toDateString() === today.toDateString()) {
+            const isTodayGroup = date.toDateString() === today.toDateString();
+            if (isTodayGroup) {
               headerText = `Today, ${date.toLocaleDateString("en-US", {
                 month: "short",
                 day: "numeric",
@@ -536,30 +593,112 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
               })}`;
             }
 
+            // Sort events by start time for display
+            const sortedGroupEvents = [...groupEvents].sort(
+              (a, b) =>
+                new Date(a.startDate).getTime() -
+                new Date(b.startDate).getTime()
+            );
+
+            // For today, filter out events that started more than 1 hour ago (unless showing all)
+            let displayEvents = sortedGroupEvents;
+            let hiddenPreviousCount = 0;
+            if (isTodayGroup && !showAllPreviousEvents) {
+              const recentAndUpcoming = sortedGroupEvents.filter(
+                (event) => new Date(event.startDate) >= oneHourAgo
+              );
+              hiddenPreviousCount =
+                sortedGroupEvents.length - recentAndUpcoming.length;
+              displayEvents = recentAndUpcoming;
+            }
+
+            // For today, find the index where events transition from past to upcoming
+            let nowDividerIndex = -1;
+            if (isTodayGroup) {
+              // Find first event that hasn't started yet
+              const firstUpcomingIndex = displayEvents.findIndex(
+                (event) => new Date(event.startDate) > now
+              );
+              if (firstUpcomingIndex > 0) {
+                // There are both past and upcoming events
+                nowDividerIndex = firstUpcomingIndex;
+              }
+            }
+
             return (
-              <div key={dateKey} className="flex flex-col gap-2">
-                <h2 className="text-xl font-bold text-gray-800 sticky top-0 bg-gray-100 py-2 px-1 z-10">
+              <div key={dateKey} className="flex flex-col">
+                <h2 className="text-xl font-bold text-gray-800 sticky top-9 bg-white border border-b-0 border-gray-200 rounded-t-lg py-2 px-4 z-10">
                   {headerText}
                 </h2>
-                <div className="flex flex-col bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
-                  {groupEvents.map((event) => {
-                    const eventKey = createFingerprintKey(event.title, event.organizer);
+                <div className="flex flex-col bg-white rounded-b-lg shadow-sm border border-gray-200 overflow-hidden">
+                  {/* Show previous events toggle for today when events are hidden */}
+                  {isTodayGroup &&
+                    hiddenPreviousCount > 0 &&
+                    !showAllPreviousEvents && (
+                      <button
+                        onClick={() => setShowAllPreviousEvents(true)}
+                        className="text-xs text-gray-600 hover:text-blue-700 font-medium px-5 py-3 text-left border-b border-gray-200 hover:bg-blue-50 transition-colors cursor-pointer"
+                      >
+                        Show {hiddenPreviousCount} earlier event
+                        {hiddenPreviousCount !== 1 ? "s" : ""} from today
+                      </button>
+                    )}
+                  {/* Show collapse option when viewing all previous events */}
+                  {isTodayGroup &&
+                    showAllPreviousEvents &&
+                    (() => {
+                      // Calculate how many events would be hidden if we collapse
+                      const wouldHideCount = sortedGroupEvents.filter(
+                        (event) => new Date(event.startDate) < oneHourAgo
+                      ).length;
+                      return wouldHideCount > 0 ? (
+                        <button
+                          onClick={() => setShowAllPreviousEvents(false)}
+                          className="text-xs text-gray-500 hover:text-gray-700 font-medium px-5 py-3 text-left border-b border-gray-200 hover:bg-gray-50 transition-colors cursor-pointer"
+                        >
+                          Hide earlier events
+                        </button>
+                      ) : null;
+                    })()}
+                  {displayEvents.map((event, index) => {
+                    const eventKey = createFingerprintKey(
+                      event.title,
+                      event.organizer
+                    );
                     const isNewlyHidden = sessionHiddenKeys.has(eventKey);
+                    const showNowDivider =
+                      isTodayGroup && index === nowDividerIndex;
+                    // Hide border on the card before the divider
+                    const hideCardBorder =
+                      isTodayGroup && index === nowDividerIndex - 1;
                     return (
-                      <EventCard
-                        key={event.id}
-                        event={{
-                          ...event,
-                          sourceId: event.sourceId,
-                          location: event.location ?? null,
-                          organizer: event.organizer ?? null,
-                          price: event.price ?? null,
-                          imageUrl: event.imageUrl ?? null,
-                        }}
-                        onHide={handleHideEvent}
-                        onBlockHost={handleBlockHost}
-                        isNewlyHidden={isNewlyHidden}
-                      />
+                      <div key={event.id}>
+                        {showNowDivider && (
+                          <div className="border-b-2 border-brand-600 pt-0 pb-2 px-5">
+                            <span className="text-xs font-semibold text-brand-600 uppercase tracking-wide">
+                              Upcoming{" "}
+                              <ArrowDownIcon
+                                size={15}
+                                className="inline-block mb-1 text-brand-600"
+                              />
+                            </span>
+                          </div>
+                        )}
+                        <EventCard
+                          event={{
+                            ...event,
+                            sourceId: event.sourceId,
+                            location: event.location ?? null,
+                            organizer: event.organizer ?? null,
+                            price: event.price ?? null,
+                            imageUrl: event.imageUrl ?? null,
+                          }}
+                          onHide={handleHideEvent}
+                          onBlockHost={handleBlockHost}
+                          isNewlyHidden={isNewlyHidden}
+                          hideBorder={hideCardBorder}
+                        />
+                      </div>
                     );
                   })}
                 </div>
@@ -587,6 +726,24 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
         onToggleDefaultFilters={setUseDefaultFilters}
         defaultFilterKeywords={DEFAULT_BLOCKED_KEYWORDS}
       />
+
+      {/* Scroll to top button */}
+      <div
+        className={`fixed bottom-6 left-1/2 -translate-x-1/2 transition-all duration-300 z-50 ${
+          showScrollTop
+            ? "opacity-100 translate-y-0"
+            : "opacity-0 translate-y-4 pointer-events-none"
+        }`}
+      >
+        <button
+          onClick={scrollToTop}
+          className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 rounded-full shadow-lg hover:shadow-xl hover:bg-gray-50 transition-all cursor-pointer"
+          aria-label="Scroll to top"
+        >
+          <ArrowUpIcon size={16} className="text-gray-600" />
+          <span className="text-sm font-medium text-gray-600">Scroll up</span>
+        </button>
+      </div>
     </div>
   );
 }

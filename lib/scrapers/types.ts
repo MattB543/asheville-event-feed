@@ -1,4 +1,4 @@
-export type EventSource = 'AVL_TODAY' | 'EVENTBRITE' | 'MEETUP' | 'FACEBOOK' | 'HARRAHS';
+export type EventSource = 'AVL_TODAY' | 'EVENTBRITE' | 'MEETUP' | 'FACEBOOK' | 'HARRAHS' | 'ORANGE_PEEL' | 'GREY_EAGLE';
 
 export interface ScrapedEvent {
   sourceId: string;
@@ -11,6 +11,8 @@ export interface ScrapedEvent {
   price?: string;
   url: string;
   imageUrl?: string;
+  interestedCount?: number; // Facebook: "maybe" / interested count
+  goingCount?: number;      // Facebook: going count
 }
 
 export interface ScrapedEventWithTags extends ScrapedEvent {

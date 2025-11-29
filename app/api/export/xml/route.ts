@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { events } from '@/lib/db/schema';
 import { asc, gte } from 'drizzle-orm';
+import { getStartOfTodayEastern } from '@/lib/utils/timezone';
 
 export const dynamic = 'force-dynamic';
 
@@ -79,9 +80,8 @@ export async function GET(request: Request) {
     const tagsParam = searchParams.get('tags');
     const selectedTags = tagsParam ? tagsParam.split(',') : [];
 
-    // Get start of today (midnight) so we include all of today's events
-    const startOfToday = new Date();
-    startOfToday.setHours(0, 0, 0, 0);
+    // Get start of today in Eastern timezone (Asheville, NC)
+    const startOfToday = getStartOfTodayEastern();
 
     let allEvents = await db
       .select()

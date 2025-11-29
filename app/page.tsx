@@ -4,6 +4,7 @@ import { gte, asc, InferSelectModel } from "drizzle-orm";
 import EventFeed from "@/components/EventFeed";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import Image from "next/image";
+import { getStartOfTodayEastern } from "@/lib/utils/timezone";
 
 type DbEvent = InferSelectModel<typeof events>;
 
@@ -16,10 +17,9 @@ export default async function Home() {
     // Only fetch if DATABASE_URL is defined
     if (process.env.DATABASE_URL) {
       console.log("[Home] Fetching events from database...");
-      // Get start of today (midnight) so we show all of today's events
+      // Get start of today in Eastern timezone (Asheville, NC)
       // Events that started earlier today may still be ongoing
-      const startOfToday = new Date();
-      startOfToday.setHours(0, 0, 0, 0);
+      const startOfToday = getStartOfTodayEastern();
 
       initialEvents = await db
         .select()

@@ -1,8 +1,16 @@
 "use client";
 
-import { Calendar, ExternalLink, EyeOff, Ban } from "lucide-react";
+import {
+  Calendar,
+  CalendarPlus,
+  ExternalLink,
+  EyeOff,
+  Ban,
+} from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
+import { cleanMarkdown } from "@/lib/utils/cleanMarkdown";
+import { generateCalendarUrlForEvent } from "@/lib/utils/googleCalendar";
 
 interface EventCardProps {
   event: {
@@ -19,8 +27,9 @@ interface EventCardProps {
     url: string;
     tags?: string[] | null;
   };
-  onHide: (id: string) => void;
+  onHide: (title: string, organizer: string | null) => void;
   onBlockHost: (host: string) => void;
+  isNewlyHidden?: boolean;
 }
 
 // Round price string to nearest dollar (e.g., "$19.10" -> "$19", "$25.50" -> "$26")
@@ -41,8 +50,19 @@ export default function EventCard({
   event,
   onHide,
   onBlockHost,
+  isNewlyHidden = false,
 }: EventCardProps) {
   const [imgError, setImgError] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  // Check if description is long enough to need truncation
+  const cleanedDescription =
+    cleanMarkdown(event.description) || "No description available.";
+  const needsTruncation = cleanedDescription.length > 310;
+  const truncatedDescription =
+    needsTruncation && !isExpanded
+      ? cleanedDescription.slice(0, 310).trimEnd() + "..."
+      : cleanedDescription;
 
   const formatDate = (date: Date) => {
     return new Intl.DateTimeFormat("en-US", {
@@ -88,7 +108,24 @@ export default function EventCard({
   const displayPrice = formatPriceDisplay(event.price);
 
   return (
-    <div className="bg-white border-b border-gray-200 hover:bg-gray-50 transition-colors flex flex-col sm:flex-row gap-4 p-4">
+    <div
+      className={`relative border-b border-gray-200 transition-colors flex flex-col sm:flex-row gap-4 px-5 py-6 ${
+        isNewlyHidden ? "bg-gray-200 opacity-40" : "bg-white hover:bg-gray-50"
+      }`}
+    >
+      {/* Hidden banner - outside the opacity container */}
+      {isNewlyHidden && (
+        <div
+          className="absolute inset-0 flex items-center justify-center z-10"
+          style={{ opacity: 1 / 0.4 }}
+        >
+          <span className="bg-gray-800 text-white text-xs px-3 py-1.5 rounded-full font-medium shadow-lg pointer-events-none">
+            Hidden — this title
+            {event.organizer ? ` + "${event.organizer}"` : ""} is added to your
+            filter
+          </span>
+        </div>
+      )}
       {/* Image Column */}
       <div className="relative w-full sm:w-48 h-32 flex-shrink-0 bg-gray-200 rounded overflow-hidden">
         {!imgError && event.imageUrl ? (
@@ -100,7 +137,7 @@ export default function EventCard({
             onError={() => setImgError(true)}
             // Only use unoptimized for base64 data URLs (AI-generated images)
             // External URLs go through Next.js optimization which caches them
-            unoptimized={event.imageUrl.startsWith('data:')}
+            unoptimized={event.imageUrl.startsWith("data:")}
             referrerPolicy="no-referrer"
           />
         ) : (
@@ -111,85 +148,110 @@ export default function EventCard({
       </div>
 
       {/* Details Column */}
-      <div className="flex-shrink-0 w-full sm:w-80 flex flex-col gap-1">
-        <h3 className="text-base font-bold text-blue-600 leading-tight">
-          <a
-            href={event.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:underline"
-          >
-            {event.title}
-          </a>
-        </h3>
+      <div className="flex-shrink-0 w-full sm:w-96 sm:h-32 flex flex-col justify-between">
+        <div>
+          <h3 className="text-base font-bold text-brand-600 leading-tight">
+            <a
+              href={event.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:underline"
+            >
+              {event.title}
+            </a>
+          </h3>
 
-        <div className="text-xs text-gray-500 font-medium">
-          {event.organizer && <div className="mb-1">{event.organizer}</div>}
-          <div className="text-gray-900 mb-1">
+          <div className="text-xs text-gray-900 font-medium mt-1">
             {formatDate(event.startDate)}
           </div>
-          <div className="text-gray-500 mb-1">{event.location || "Online"}</div>
-
-          <div className="flex flex-wrap gap-1 mt-2">
-            {/* Price Tag */}
-            <span
-              className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-bold border ${
-                displayPrice === "Free"
-                  ? "bg-green-50 text-green-700 border-green-200"
-                  : "bg-gray-50 text-gray-700 border-gray-200"
-              }`}
-            >
-              {displayPrice}
-            </span>
-
-            {/* Other Tags */}
-            {event.tags &&
-              event.tags.map((tag, i) => (
-                <span
-                  key={i}
-                  className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-50 text-blue-700 border border-blue-100"
-                >
-                  {tag}
-                </span>
-              ))}
+          <div className="text-xs text-gray-500 mt-2">
+            {event.organizer && event.location
+              ? `${event.organizer} - ${event.location}`
+              : event.organizer || event.location || "Online"}
           </div>
+        </div>
+
+        <div className="flex flex-wrap gap-1">
+          {/* Price Tag */}
+          <span
+            className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-bold border ${
+              displayPrice === "Free"
+                ? "bg-green-50 text-green-700 border-green-200"
+                : "bg-gray-50 text-gray-700 border-gray-200"
+            }`}
+          >
+            {displayPrice}
+          </span>
+
+          {/* Other Tags */}
+          {event.tags &&
+            event.tags.map((tag, i) => (
+              <span
+                key={i}
+                className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-brand-50 text-brand-700 border border-brand-100"
+              >
+                {tag}
+              </span>
+            ))}
         </div>
       </div>
 
-      {/* Description Column */}
-      <div className="flex-grow min-w-0">
-        <p className="text-sm text-gray-600 line-clamp-4 leading-relaxed mb-2">
-          {event.description || "No description available."}
+      {/* Description + Actions Column */}
+      <div className="flex-grow min-w-0 flex flex-col">
+        <p className="text-sm text-gray-600 leading-relaxed mb-3">
+          {truncatedDescription}
+          {needsTruncation && (
+            <button
+              onClick={() => setIsExpanded(!isExpanded)}
+              className="text-xs text-brand-600 hover:text-brand-700 font-medium ml-1 cursor-pointer"
+            >
+              {isExpanded ? "View less" : "View more"}
+            </button>
+          )}
         </p>
-      </div>
 
-      {/* Actions Column */}
-      <div className="flex flex-row sm:flex-col gap-2 flex-shrink-0 items-end sm:items-center justify-start pt-1">
-        <a
-          href={getSourceUrl()}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="p-2 text-gray-500 hover:bg-gray-100 rounded border border-gray-200 cursor-pointer"
-          title="View Source Homepage"
-        >
-          <ExternalLink size={16} />
-        </a>
-        <button
-          onClick={() => onHide(event.id)}
-          className="p-2 text-gray-500 hover:bg-red-50 hover:text-red-600 rounded border border-gray-200 cursor-pointer"
-          title="Hide this event"
-        >
-          <EyeOff size={16} />
-        </button>
-        {event.organizer && (
-          <button
-            onClick={() => onBlockHost(event.organizer!)}
-            className="p-2 text-gray-500 hover:bg-red-50 hover:text-red-600 rounded border border-gray-200 cursor-pointer"
-            title={`Block events from ${event.organizer}`}
+        {/* Actions Row */}
+        <div className="flex flex-wrap gap-2 mt-auto">
+          <a
+            href={generateCalendarUrlForEvent(event)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs text-gray-600 hover:bg-brand-50 hover:text-brand-600 rounded border border-gray-200 cursor-pointer"
+            title="Add to Google Calendar"
           >
-            <Ban size={16} />
+            <CalendarPlus size={14} />
+            <span>Calendar</span>
+          </a>
+          <button
+            onClick={() => onHide(event.title, event.organizer)}
+            className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs text-gray-600 hover:bg-red-50 hover:text-red-600 rounded border border-gray-200 cursor-pointer"
+            title="Hide this event"
+            disabled={isNewlyHidden}
+          >
+            <EyeOff size={14} />
+            <span>Hide event</span>
           </button>
-        )}
+          {event.organizer && (
+            <button
+              onClick={() => onBlockHost(event.organizer!)}
+              className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs text-gray-600 hover:bg-red-50 hover:text-red-600 rounded border border-gray-200 cursor-pointer"
+              title={`Block events from ${event.organizer}`}
+            >
+              <Ban size={14} />
+              <span>Hide host</span>
+            </button>
+          )}
+          <a
+            href={getSourceUrl()}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs text-gray-600 hover:bg-gray-100 rounded border border-gray-200 cursor-pointer"
+            title="View Source Homepage"
+          >
+            <ExternalLink size={14} />
+            <span>Source</span>
+          </a>
+        </div>
       </div>
     </div>
   );

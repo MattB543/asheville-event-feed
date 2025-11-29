@@ -22,6 +22,7 @@ export const DEFAULT_BLOCKED_KEYWORDS = [
   "IIBA",
   "data analytics certification",
   "project management techniques",
+  "Conflict Management Training",
   "Walking Tour",
 
   // App-Based/Self-Guided (Always Available, Not Real Events)
@@ -40,6 +41,23 @@ export const DEFAULT_BLOCKED_KEYWORDS = [
   "Online talk for Asheville",
   "Online event for Asheville",
 
+  // Generic Networking/Business (templated events)
+  "Career Fair: Exclusive",
+  "Empower Your Finances",
+  "DATE THYSELF",
+  "Break The Cycle",
+
+  // Wrong City / Templated Franchise Events
+  "Women in Tech Miami",
+  "Ft. Lauderdale",
+  "OutGeekWomen",
+
+  // Spam Organizers
+  "iCertGlobal",
+  "Shine BrightX",
+  "Learning Zone Inc.",
+  "Guard Your Life Challenge",
+
   // Miscellaneous Low-Signal
   "vendors needed",
   "spirit rock",
@@ -50,7 +68,7 @@ export const DEFAULT_BLOCKED_KEYWORDS = [
   "Dermal Filler",
   "Dinner with Strangers Asheville: Duos Edition",
   "history tour",
-  "at Regina’s",
+  "at Regina's",
   "Embassy Suites",
   "Tanger Outlets",
   "Training Course",

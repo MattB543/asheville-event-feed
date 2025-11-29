@@ -5,6 +5,8 @@ import {
   useContext,
   useState,
   useCallback,
+  useRef,
+  useEffect,
   ReactNode,
 } from "react";
 import { Check, X, AlertCircle, Info } from "lucide-react";
@@ -37,18 +39,35 @@ interface ToastProviderProps {
 
 export function ToastProvider({ children }: ToastProviderProps) {
   const [toasts, setToasts] = useState<Toast[]>([]);
+  const timeoutRefs = useRef<Map<string, NodeJS.Timeout>>(new Map());
+
+  // Clean up all timeouts on unmount
+  useEffect(() => {
+    return () => {
+      timeoutRefs.current.forEach((timeout) => clearTimeout(timeout));
+      timeoutRefs.current.clear();
+    };
+  }, []);
 
   const showToast = useCallback((message: string, type: ToastType = "success") => {
     const id = Math.random().toString(36).substring(2, 9);
     setToasts((prev) => [...prev, { id, message, type }]);
 
     // Auto-dismiss after 3 seconds
-    setTimeout(() => {
+    const timeoutId = setTimeout(() => {
       setToasts((prev) => prev.filter((t) => t.id !== id));
+      timeoutRefs.current.delete(id);
     }, 3000);
+    timeoutRefs.current.set(id, timeoutId);
   }, []);
 
   const dismissToast = useCallback((id: string) => {
+    // Clear the auto-dismiss timeout when manually dismissed
+    const timeoutId = timeoutRefs.current.get(id);
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+      timeoutRefs.current.delete(id);
+    }
     setToasts((prev) => prev.filter((t) => t.id !== id));
   }, []);
 
@@ -91,7 +110,7 @@ const iconMap = {
 const styleMap = {
   success: "bg-gray-900 text-white",
   error: "bg-red-600 text-white",
-  info: "bg-blue-600 text-white",
+  info: "bg-brand-600 text-white",
 };
 
 function ToastItem({ toast, onDismiss }: ToastItemProps) {

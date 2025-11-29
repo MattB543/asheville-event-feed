@@ -7,7 +7,7 @@ export default function Loading() {
       <header className="bg-white border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <Image
-            src="/avlgo_banner_logo.svg"
+            src="/avlgo_banner_logo_v2.svg"
             alt="AVL GO"
             width={180}
             height={49}

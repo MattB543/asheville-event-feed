@@ -1,4 +1,4 @@
-import { pgTable, text, timestamp, boolean, uuid } from 'drizzle-orm/pg-core';
+import { pgTable, text, timestamp, boolean, uuid, index } from 'drizzle-orm/pg-core';
 
 export const events = pgTable('events', {
   id: uuid('id').defaultRandom().primaryKey(),
@@ -15,4 +15,6 @@ export const events = pgTable('events', {
   createdAt: timestamp('created_at').defaultNow(),
   hidden: boolean('hidden').default(false), // Admin moderation flag
   tags: text('tags').array(), // Array of strings for tags
-});
+}, (table) => ({
+  startDateIdx: index('events_start_date_idx').on(table.startDate),
+}));

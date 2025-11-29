@@ -3,11 +3,11 @@
  *
  * Tests the hybrid Ticketmaster API + HTML scraping approach.
  *
- * Usage: npx tsx harrahs/test-harrahs.ts
+ * Usage: npx tsx scripts/test-harrahs.ts
  */
 
 import 'dotenv/config';
-import { scrapeHarrahs, fetchTicketmasterEvents, fetchHTMLEvents } from './harrahs-ticketmaster';
+import { scrapeHarrahs, fetchTicketmasterEvents, fetchHTMLEvents } from '../lib/scrapers/harrahs';
 
 async function main() {
   console.log('='.repeat(60));

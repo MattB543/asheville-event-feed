@@ -11,7 +11,7 @@ interface FilterChipProps {
 
 const variantStyles = {
   default: "bg-gray-100 text-gray-700 border-gray-200 hover:bg-gray-200",
-  active: "bg-blue-100 text-blue-800 border-blue-200 hover:bg-blue-200",
+  active: "bg-brand-100 text-brand-800 border-brand-200 hover:bg-brand-200",
   muted: "bg-gray-50 text-gray-500 border-gray-100",
 };
 

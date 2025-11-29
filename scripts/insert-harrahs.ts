@@ -1,11 +1,11 @@
 /**
  * Insert Harrah's events into the database
  *
- * Usage: npx tsx harrahs/insert-harrahs.ts
+ * Usage: npx tsx scripts/insert-harrahs.ts
  */
 
 import 'dotenv/config';
-import { scrapeHarrahs } from './harrahs-ticketmaster';
+import { scrapeHarrahs } from '../lib/scrapers/harrahs';
 import { db } from '../lib/db';
 import { events } from '../lib/db/schema';
 

@@ -56,13 +56,13 @@ export default function ChipInput({
         </label>
       )}
       <div
-        className="flex flex-wrap gap-2 p-3 border border-gray-200 rounded-lg bg-white min-h-[80px] cursor-text focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-blue-500"
+        className="flex flex-wrap gap-2 p-3 border border-gray-200 rounded-lg bg-white min-h-[80px] cursor-text focus-within:ring-2 focus-within:ring-brand-500 focus-within:border-brand-500"
         onClick={() => inputRef.current?.focus()}
       >
         {values.map((value, index) => (
           <span
             key={`${value}-${index}`}
-            className="inline-flex items-center gap-1 px-2.5 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium"
+            className="inline-flex items-center gap-1 px-2.5 py-1 bg-brand-100 text-brand-800 rounded-full text-sm font-medium"
           >
             {value}
             <button
@@ -71,7 +71,7 @@ export default function ChipInput({
                 e.stopPropagation();
                 handleRemove(index);
               }}
-              className="p-0.5 rounded-full hover:bg-blue-200 transition-colors"
+              className="p-0.5 rounded-full hover:bg-brand-200 transition-colors"
               aria-label={`Remove ${value}`}
             >
               <X size={12} />
@@ -92,7 +92,7 @@ export default function ChipInput({
             <button
               type="button"
               onClick={handleAdd}
-              className="p-1 text-blue-600 hover:bg-blue-50 rounded transition-colors"
+              className="p-1 text-brand-600 hover:bg-brand-50 rounded transition-colors"
               aria-label="Add"
             >
               <Plus size={16} />

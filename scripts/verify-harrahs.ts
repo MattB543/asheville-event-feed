@@ -1,7 +1,7 @@
 /**
  * Verify Harrah's events in database
  *
- * Usage: npx tsx harrahs/verify-db.ts
+ * Usage: npx tsx scripts/verify-harrahs.ts
  */
 
 import 'dotenv/config';

@@ -121,12 +121,12 @@ Single table `events` in PostgreSQL:
 **Schedule**: Every 6 hours via Vercel cron  
 **Behavior**:
 
-1. Scrapes AVL Today, Eventbrite (3 pages), and Meetup (3 pages) in parallel
+1. Scrapes AVL Today, Eventbrite (3 pages), Meetup (3 pages), and Harrah's in parallel
 2. Identifies NEW events (not in database) by URL
 3. Generates AI tags for new events only (batches of 5)
-4. Generates AI images for events without images (batches of 3)
+4. Generates AI images for events without images or with placeholders (batches of 3)
 5. Upserts all events to database
-6. Deletes events older than 24 hours
+6. Runs deduplication to remove duplicate events
 
 ### `GET /api/cron/cleanup`
 

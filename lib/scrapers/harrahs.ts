@@ -9,8 +9,8 @@
  * Requires: TICKETMASTER_API_KEY in environment
  */
 
-import { ScrapedEvent } from '../lib/scrapers/types';
-import { fetchWithRetry } from '../lib/utils/retry';
+import { ScrapedEvent } from './types';
+import { fetchWithRetry } from '../utils/retry';
 
 // Ticketmaster API config
 const TM_API_KEY = process.env.TICKETMASTER_API_KEY;

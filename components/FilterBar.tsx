@@ -8,9 +8,23 @@ import {
   ChevronDown,
   ChevronUp,
   DollarSign,
-  Calendar,
+  Calendar as CalendarIcon,
 } from "lucide-react";
 import { TAG_CATEGORIES } from "@/lib/config/tagCategories";
+import { Calendar } from "./ui/Calendar";
+import { DateRange as DayPickerDateRange } from "react-day-picker";
+import { format, parse, isValid } from "date-fns";
+
+// Safe date parsing helper that returns undefined on invalid dates
+function safeParseDateString(dateStr: string | null): Date | undefined {
+  if (!dateStr) return undefined;
+  try {
+    const parsed = parse(dateStr, "yyyy-MM-dd", new Date());
+    return isValid(parsed) ? parsed : undefined;
+  } catch {
+    return undefined;
+  }
+}
 
 export type DateFilterType = "all" | "today" | "tomorrow" | "weekend" | "custom";
 export type PriceFilterType = "any" | "free" | "under20" | "under100" | "custom";
@@ -137,12 +151,7 @@ export default function FilterBar({
   );
 
   const buttonStyle =
-    "flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors cursor-pointer";
-
-  const formatDateForInput = (dateStr: string | null): string => {
-    if (!dateStr) return "";
-    return dateStr;
-  };
+    "flex items-center gap-2 h-10 px-3 text-sm font-medium text-gray-700 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors cursor-pointer";
 
   const getDateLabel = (): string => {
     if (dateFilter === "custom" && customDateRange.start) {
@@ -179,7 +188,7 @@ export default function FilterBar({
             placeholder="Search events..."
             value={search}
             onChange={(e) => onSearchChange(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 border border-gray-200 bg-white rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+            className="w-full h-10 pl-10 pr-4 text-sm border border-gray-200 bg-white rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none"
           />
         </div>
 
@@ -192,7 +201,7 @@ export default function FilterBar({
               className={buttonStyle}
               aria-expanded={isDateOpen}
             >
-              <Calendar size={16} />
+              <CalendarIcon size={16} />
               <span>{getDateLabel()}</span>
               <ChevronDown
                 size={16}
@@ -215,7 +224,7 @@ export default function FilterBar({
                         name="dateFilter"
                         checked={dateFilter === value}
                         onChange={() => onDateFilterChange(value)}
-                        className="w-4 h-4 text-blue-600"
+                        className="w-4 h-4 text-brand-600"
                       />
                       <span className="text-sm text-gray-700">{label}</span>
                     </label>
@@ -223,42 +232,52 @@ export default function FilterBar({
                 </div>
 
                 {dateFilter === "custom" && (
-                  <div className="px-3 py-3 border-t border-gray-100">
-                    <div className="flex flex-col gap-2">
-                      <div>
-                        <label className="block text-xs text-gray-500 mb-1">
-                          Start Date
-                        </label>
-                        <input
-                          type="date"
-                          value={formatDateForInput(customDateRange.start)}
-                          onChange={(e) =>
-                            onCustomDateRangeChange({
-                              ...customDateRange,
-                              start: e.target.value || null,
-                            })
+                  <div className="border-t border-gray-100">
+                    <div className="px-3 pt-2 pb-1 flex items-center justify-between">
+                      <span className="text-xs text-gray-500">
+                        {(() => {
+                          const startDate = safeParseDateString(customDateRange.start);
+                          const endDate = safeParseDateString(customDateRange.end);
+                          if (startDate && endDate) {
+                            return `${format(startDate, "MMM d")} - ${format(endDate, "MMM d")}`;
+                          } else if (startDate) {
+                            return format(startDate, "MMM d, yyyy");
                           }
-                          className="w-full px-2 py-1.5 text-sm border border-gray-200 rounded focus:ring-2 focus:ring-blue-500 outline-none"
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-xs text-gray-500 mb-1">
-                          End Date
-                        </label>
-                        <input
-                          type="date"
-                          value={formatDateForInput(customDateRange.end)}
-                          min={customDateRange.start || undefined}
-                          onChange={(e) =>
-                            onCustomDateRangeChange({
-                              ...customDateRange,
-                              end: e.target.value || null,
-                            })
-                          }
-                          className="w-full px-2 py-1.5 text-sm border border-gray-200 rounded focus:ring-2 focus:ring-blue-500 outline-none"
-                        />
-                      </div>
+                          return "Select dates";
+                        })()}
+                      </span>
+                      {customDateRange.start && (
+                        <button
+                          onClick={() => onCustomDateRangeChange({ start: null, end: null })}
+                          className="text-xs text-brand-600 hover:text-brand-800 cursor-pointer"
+                        >
+                          Clear
+                        </button>
+                      )}
                     </div>
+                    <Calendar
+                      mode="range"
+                      selected={
+                        (() => {
+                          const from = safeParseDateString(customDateRange.start);
+                          if (!from) return undefined;
+                          const to = safeParseDateString(customDateRange.end);
+                          return { from, to };
+                        })()
+                      }
+                      onSelect={(range: DayPickerDateRange | undefined) => {
+                        if (!range) {
+                          onCustomDateRangeChange({ start: null, end: null });
+                        } else {
+                          onCustomDateRangeChange({
+                            start: range.from ? format(range.from, "yyyy-MM-dd") : null,
+                            end: range.to ? format(range.to, "yyyy-MM-dd") : null,
+                          });
+                        }
+                      }}
+                      numberOfMonths={1}
+                      disabled={{ before: new Date() }}
+                    />
                   </div>
                 )}
               </div>
@@ -295,7 +314,7 @@ export default function FilterBar({
                         name="priceFilter"
                         checked={priceFilter === value}
                         onChange={() => onPriceFilterChange(value)}
-                        className="w-4 h-4 text-blue-600"
+                        className="w-4 h-4 text-brand-600"
                       />
                       <span className="text-sm text-gray-700">{label}</span>
                     </label>
@@ -324,7 +343,7 @@ export default function FilterBar({
                           );
                         }}
                         placeholder="Enter amount"
-                        className="w-full pl-6 pr-2 py-1.5 text-sm border border-gray-200 rounded focus:ring-2 focus:ring-blue-500 outline-none"
+                        className="w-full pl-6 pr-2 py-1.5 text-sm border border-gray-200 rounded focus:ring-2 focus:ring-brand-500 outline-none"
                       />
                     </div>
                   </div>
@@ -343,7 +362,7 @@ export default function FilterBar({
               <Tag size={16} />
               <span>Tags</span>
               {selectedTags.length > 0 && (
-                <span className="bg-blue-500 text-white text-xs px-1.5 py-0.5 rounded-full min-w-[20px] text-center">
+                <span className="bg-brand-500 text-white text-xs px-1.5 py-0.5 rounded-full min-w-[20px] text-center">
                   {selectedTags.length}
                 </span>
               )}
@@ -363,14 +382,14 @@ export default function FilterBar({
                     <div className="flex gap-2">
                       <button
                         onClick={selectAllTags}
-                        className="text-xs text-blue-600 hover:text-blue-800 cursor-pointer"
+                        className="text-xs text-brand-600 hover:text-brand-800 cursor-pointer"
                       >
                         Select All
                       </button>
                       <span className="text-gray-300">|</span>
                       <button
                         onClick={deselectAllTags}
-                        className="text-xs text-blue-600 hover:text-blue-800 cursor-pointer"
+                        className="text-xs text-brand-600 hover:text-brand-800 cursor-pointer"
                       >
                         Deselect All
                       </button>
@@ -411,7 +430,7 @@ export default function FilterBar({
                                     type="checkbox"
                                     checked={selectedTags.includes(tag)}
                                     onChange={() => toggleTag(tag)}
-                                    className="w-4 h-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500"
+                                    className="w-4 h-4 text-brand-600 rounded border-gray-300 focus:ring-brand-500"
                                   />
                                   <span className="text-sm text-gray-700">
                                     {tag}
@@ -449,7 +468,7 @@ export default function FilterBar({
                                     type="checkbox"
                                     checked={selectedTags.includes(tag)}
                                     onChange={() => toggleTag(tag)}
-                                    className="w-4 h-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500"
+                                    className="w-4 h-4 text-brand-600 rounded border-gray-300 focus:ring-brand-500"
                                   />
                                   <span className="text-sm text-gray-700">
                                     {tag}
@@ -472,7 +491,7 @@ export default function FilterBar({
                     </span>
                     <button
                       onClick={deselectAllTags}
-                      className="text-xs text-blue-600 hover:text-blue-800 cursor-pointer"
+                      className="text-xs text-brand-600 hover:text-brand-800 cursor-pointer"
                     >
                       Clear
                     </button>

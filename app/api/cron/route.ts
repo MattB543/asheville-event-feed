@@ -3,7 +3,7 @@ import { scrapeAvlToday } from '@/lib/scrapers/avltoday';
 import { scrapeEventbrite } from '@/lib/scrapers/eventbrite';
 import { scrapeMeetup } from '@/lib/scrapers/meetup';
 import { scrapeFacebookEvents } from '@/lib/scrapers/facebook';
-import { scrapeHarrahs } from '@/harrahs/harrahs-ticketmaster';
+import { scrapeHarrahs } from '@/lib/scrapers/harrahs';
 import { db } from '@/lib/db';
 import { events } from '@/lib/db/schema';
 import { sql, inArray } from 'drizzle-orm';
@@ -11,6 +11,7 @@ import { generateEventTags } from '@/lib/ai/tagging';
 import { generateEventImage } from '@/lib/ai/imageGeneration';
 import { ScrapedEventWithTags } from '@/lib/scrapers/types';
 import { env, isFacebookEnabled } from '@/lib/config/env';
+import { findDuplicates, getIdsToRemove } from '@/lib/utils/deduplication';
 
 export const maxDuration = 300; // 5 minutes
 
@@ -96,9 +97,18 @@ export async function GET(request: Request) {
       await new Promise(r => setTimeout(r, 1000));
     }
 
-    // 5. Generate images for events without images
-    const eventsWithoutImages = allEvents.filter(e => !e.imageUrl);
-    console.log(`[Cron] Found ${eventsWithoutImages.length} events without images. Generating...`);
+    // 5. Generate images for events without images (or with placeholder images)
+    // Also catch Meetup fallback images that should be replaced
+    const needsImage = (url: string | null | undefined): boolean => {
+      if (!url) return true;
+      // Meetup placeholder/fallback images should be replaced with AI-generated ones
+      if (url.includes('/images/fallbacks/') || url.includes('group-cover') || url.includes('default_photo')) {
+        return true;
+      }
+      return false;
+    };
+    const eventsWithoutImages = allEvents.filter(e => needsImage(e.imageUrl));
+    console.log(`[Cron] Found ${eventsWithoutImages.length} events without images (or with placeholders). Generating...`);
 
     for (const batch of chunk(eventsWithoutImages, 3)) {
       await Promise.all(batch.map(async (event) => {
@@ -164,13 +174,37 @@ export async function GET(request: Request) {
     }
     console.log(`[Cron] Upserted ${upsertCount} events.`);
 
-    // Cleanup old events (older than 24 hours ago)
-    const yesterday = new Date(Date.now() - 24 * 60 * 60 * 1000);
-    console.log(`[Cron] Cleaning up events older than ${yesterday.toISOString()}...`);
-    await db.delete(events).where(sql`${events.startDate} < ${yesterday}`);
-    console.log(`[Cron] Deleted old events.`);
+    // Note: We no longer delete old events - they're kept in the DB for historical reference
+    // Only duplicates are removed (see deduplication below)
 
-    return NextResponse.json({ success: true, count: allEvents.length });
+    // Deduplication: Remove duplicate events after upsert
+    // Duplicates = same organizer + same time + share significant word in title
+    console.log(`[Cron] Running deduplication...`);
+    const allDbEvents = await db.select({
+      id: events.id,
+      title: events.title,
+      organizer: events.organizer,
+      startDate: events.startDate,
+      price: events.price,
+      description: events.description,
+      createdAt: events.createdAt,
+    }).from(events);
+
+    const duplicateGroups = findDuplicates(allDbEvents);
+    const duplicateIdsToRemove = getIdsToRemove(duplicateGroups);
+
+    if (duplicateIdsToRemove.length > 0) {
+      await db.delete(events).where(inArray(events.id, duplicateIdsToRemove));
+      console.log(`[Cron] Removed ${duplicateIdsToRemove.length} duplicate events.`);
+    } else {
+      console.log(`[Cron] No duplicates found.`);
+    }
+
+    return NextResponse.json({
+      success: true,
+      count: allEvents.length,
+      duplicatesRemoved: duplicateIdsToRemove.length,
+    });
   } catch (error) {
     console.error('Cron error:', error);
     return NextResponse.json({ success: false, error: String(error) }, { status: 500 });

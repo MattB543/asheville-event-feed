@@ -84,7 +84,15 @@ export async function generateEventTags(event: EventData): Promise<string[]> {
       .replace(/```/g, "")
       .trim();
 
-    return JSON.parse(cleanedText);
+    const parsed = JSON.parse(cleanedText);
+
+    // Validate that the result is an array of strings
+    if (!Array.isArray(parsed)) {
+      console.warn("AI returned non-array response, returning empty array");
+      return [];
+    }
+
+    return parsed.filter((tag): tag is string => typeof tag === "string");
   } catch (error) {
     console.error("Error generating tags:", error);
     return [];

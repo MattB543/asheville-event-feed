@@ -4,15 +4,20 @@ import { X, Trash2, ChevronDown, ChevronUp } from "lucide-react";
 import { useState } from "react";
 import ChipInput from "./ui/ChipInput";
 
+interface HiddenEventFingerprint {
+  title: string;
+  organizer: string;
+}
+
 interface SettingsModalProps {
   isOpen: boolean;
   onClose: () => void;
   blockedHosts: string[];
   blockedKeywords: string[];
-  hiddenIdsCount: number;
+  hiddenEvents: HiddenEventFingerprint[];
   onUpdateHosts: (hosts: string[]) => void;
   onUpdateKeywords: (keywords: string[]) => void;
-  onClearHidden: () => void;
+  onUpdateHiddenEvents: (events: HiddenEventFingerprint[]) => void;
   useDefaultFilters: boolean;
   onToggleDefaultFilters: (enabled: boolean) => void;
   defaultFilterKeywords: string[];
@@ -23,15 +28,16 @@ export default function SettingsModal({
   onClose,
   blockedHosts,
   blockedKeywords,
-  hiddenIdsCount,
+  hiddenEvents,
   onUpdateHosts,
   onUpdateKeywords,
-  onClearHidden,
+  onUpdateHiddenEvents,
   useDefaultFilters,
   onToggleDefaultFilters,
   defaultFilterKeywords,
 }: SettingsModalProps) {
   const [showDefaultKeywords, setShowDefaultKeywords] = useState(false);
+  const [showHiddenEvents, setShowHiddenEvents] = useState(false);
 
   if (!isOpen) return null;
 
@@ -130,26 +136,80 @@ export default function SettingsModal({
           </div>
 
           {/* Hidden Events */}
-          <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
-            <span className="text-sm text-gray-600">
-              You have hidden <strong>{hiddenIdsCount}</strong> specific events.
-            </span>
-            {hiddenIdsCount > 0 && (
-              <button
-                onClick={onClearHidden}
-                className="flex items-center gap-2 text-red-600 hover:text-red-700 text-sm font-medium cursor-pointer"
-              >
-                <Trash2 size={16} />
-                Clear Hidden
-              </button>
+          <div className="p-4 bg-gray-50 rounded-lg">
+            <div className="flex items-center justify-between">
+              <span className="text-sm text-gray-600">
+                You have hidden <strong>{hiddenEvents.length}</strong> event pattern{hiddenEvents.length !== 1 ? 's' : ''}.
+              </span>
+              {hiddenEvents.length > 0 && (
+                <button
+                  onClick={() => onUpdateHiddenEvents([])}
+                  className="flex items-center gap-2 text-red-600 hover:text-red-700 text-sm font-medium cursor-pointer"
+                >
+                  <Trash2 size={16} />
+                  Clear All
+                </button>
+              )}
+            </div>
+
+            {hiddenEvents.length > 0 && (
+              <div className="mt-3">
+                <button
+                  onClick={() => setShowHiddenEvents(!showHiddenEvents)}
+                  className="flex items-center gap-1 text-sm text-gray-500 hover:text-gray-700 cursor-pointer"
+                >
+                  {showHiddenEvents ? (
+                    <ChevronUp size={16} />
+                  ) : (
+                    <ChevronDown size={16} />
+                  )}
+                  {showHiddenEvents ? "Hide" : "View"} hidden events
+                </button>
+
+                {showHiddenEvents && (
+                  <div className="mt-2 space-y-1 max-h-40 overflow-y-auto">
+                    {hiddenEvents.map((event, i) => (
+                      <div
+                        key={i}
+                        className="flex items-center justify-between p-2 bg-white rounded border border-gray-200 text-xs"
+                      >
+                        <div className="flex-1 min-w-0">
+                          <div className="font-medium text-gray-700 truncate">
+                            {event.title}
+                          </div>
+                          {event.organizer && (
+                            <div className="text-gray-500 truncate">
+                              by {event.organizer}
+                            </div>
+                          )}
+                        </div>
+                        <button
+                          onClick={() => {
+                            onUpdateHiddenEvents(
+                              hiddenEvents.filter((_, idx) => idx !== i)
+                            );
+                          }}
+                          className="ml-2 p-1 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded cursor-pointer"
+                          title="Unhide this event"
+                        >
+                          <X size={14} />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
             )}
+            <p className="mt-2 text-xs text-gray-500">
+              Hidden events are matched by title + organizer, so recurring events stay hidden.
+            </p>
           </div>
         </div>
 
         <div className="p-6 border-t bg-gray-50 flex justify-end">
           <button
             onClick={onClose}
-            className="px-4 py-2 bg-blue-600 text-white hover:bg-blue-700 rounded-lg transition-colors font-medium cursor-pointer"
+            className="px-4 py-2 bg-brand-600 text-white hover:bg-brand-700 rounded-lg transition-colors font-medium cursor-pointer"
           >
             Done
           </button>

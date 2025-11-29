@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   title: "AVL GO - Asheville Event Feed",
   description: "Aggregated events from AVL Today and Eventbrite",
   icons: {
-    icon: "/avlgo_favicon.png",
+    icon: "/avlgo_favicon.ico",
   },
 };
 

@@ -16,10 +16,15 @@ export default async function Home() {
     // Only fetch if DATABASE_URL is defined
     if (process.env.DATABASE_URL) {
       console.log("[Home] Fetching events from database...");
+      // Get start of today (midnight) so we show all of today's events
+      // Events that started earlier today may still be ongoing
+      const startOfToday = new Date();
+      startOfToday.setHours(0, 0, 0, 0);
+
       initialEvents = await db
         .select()
         .from(events)
-        .where(gte(events.startDate, new Date()))
+        .where(gte(events.startDate, startOfToday))
         .orderBy(asc(events.startDate));
       console.log(`[Home] Fetched ${initialEvents.length} events.`);
     } else {
@@ -35,7 +40,7 @@ export default async function Home() {
       <header className="bg-white border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
           <Image
-            src="/avlgo_banner_logo.svg"
+            src="/avlgo_banner_logo_v2.svg"
             alt="AVL GO"
             width={140}
             height={38}

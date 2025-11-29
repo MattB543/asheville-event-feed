@@ -15,6 +15,32 @@ interface ActiveFiltersProps {
   onClearAllTags?: () => void;
   totalEvents: number;
   filteredCount: number;
+  exportParams?: string;
+}
+
+function ExportLinks({ exportParams }: { exportParams?: string }) {
+  return (
+    <span className="text-gray-400">
+      {" · "}
+      <a
+        href={`/api/export/xml${exportParams || ""}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="underline hover:text-gray-600"
+      >
+        XML
+      </a>
+      {" | "}
+      <a
+        href={`/api/export/markdown${exportParams || ""}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="underline hover:text-gray-600"
+      >
+        Markdown
+      </a>
+    </span>
+  );
 }
 
 export default function ActiveFilters({
@@ -24,11 +50,15 @@ export default function ActiveFilters({
   onClearAllTags,
   totalEvents,
   filteredCount,
+  exportParams,
 }: ActiveFiltersProps) {
   if (filters.length === 0) {
     return (
-      <div className="flex items-center justify-between text-sm text-gray-500 py-2">
-        <span>Showing {totalEvents} events</span>
+      <div className="flex items-center justify-end text-sm text-gray-500 py-2">
+        <span>
+          Showing {totalEvents} events
+          <ExportLinks exportParams={exportParams} />
+        </span>
       </div>
     );
   }
@@ -68,12 +98,13 @@ export default function ActiveFilters({
       </div>
       <button
         onClick={onClearAll}
-        className="text-sm text-blue-600 hover:text-blue-800 hover:underline ml-2 cursor-pointer"
+        className="text-sm text-brand-600 hover:text-brand-800 hover:underline ml-2 cursor-pointer"
       >
         Clear all
       </button>
       <span className="text-sm text-gray-400 ml-auto">
         Showing {filteredCount} of {totalEvents} events
+        <ExportLinks exportParams={exportParams} />
       </span>
     </div>
   );

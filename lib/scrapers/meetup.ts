@@ -19,18 +19,31 @@ async function fetchOgImage(eventUrl: string): Promise<string | null> {
     const html = await response.text();
 
     // Try og:image meta tag (most reliable)
+    let imageUrl: string | null = null;
     const ogImageMatch = html.match(/<meta[^>]*property="og:image"[^>]*content="([^"]+)"/);
     if (ogImageMatch) {
-      return ogImageMatch[1];
+      imageUrl = ogImageMatch[1];
     }
 
     // Try alternate pattern (content before property)
-    const ogImageMatch2 = html.match(/content="([^"]+)"[^>]*property="og:image"/);
-    if (ogImageMatch2) {
-      return ogImageMatch2[1];
+    if (!imageUrl) {
+      const ogImageMatch2 = html.match(/content="([^"]+)"[^>]*property="og:image"/);
+      if (ogImageMatch2) {
+        imageUrl = ogImageMatch2[1];
+      }
     }
 
-    return null;
+    // Filter out Meetup's generic fallback/placeholder images
+    // These are low-quality placeholders that should be replaced with AI-generated images
+    if (imageUrl && (
+      imageUrl.includes('/images/fallbacks/') ||
+      imageUrl.includes('group-cover') ||
+      imageUrl.includes('default_photo')
+    )) {
+      return null;
+    }
+
+    return imageUrl;
   } catch (error) {
     console.warn(`[Meetup Scraper] Failed to fetch og:image for ${eventUrl}:`, error);
     return null;

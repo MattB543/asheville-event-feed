@@ -78,14 +78,15 @@ function normalizeOrganizer(organizer: string | null): string {
 
 /**
  * Check if two dates are the same (ignoring seconds/milliseconds)
+ * Uses UTC methods to avoid timezone-related comparison issues
  */
 function isSameTime(date1: Date, date2: Date): boolean {
   return (
-    date1.getFullYear() === date2.getFullYear() &&
-    date1.getMonth() === date2.getMonth() &&
-    date1.getDate() === date2.getDate() &&
-    date1.getHours() === date2.getHours() &&
-    date1.getMinutes() === date2.getMinutes()
+    date1.getUTCFullYear() === date2.getUTCFullYear() &&
+    date1.getUTCMonth() === date2.getUTCMonth() &&
+    date1.getUTCDate() === date2.getUTCDate() &&
+    date1.getUTCHours() === date2.getUTCHours() &&
+    date1.getUTCMinutes() === date2.getUTCMinutes()
   );
 }
 

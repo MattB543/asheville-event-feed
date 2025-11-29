@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo, useEffect, useCallback } from "react";
+import Fuse from "fuse.js";
 import EventCard from "./EventCard";
 import FilterBar, { DateFilterType, PriceFilterType, DateRange } from "./FilterBar";
 import ActiveFilters, { ActiveFilter } from "./ActiveFilters";
@@ -32,6 +33,31 @@ interface Event {
 
 interface EventFeedProps {
   initialEvents: Event[];
+}
+
+// Fingerprint for hiding recurring events (title + organizer combo)
+interface HiddenEventFingerprint {
+  title: string;      // normalized: lowercase, trimmed
+  organizer: string;  // normalized: lowercase, trimmed (empty if null)
+}
+
+// Create a fingerprint key string for comparison
+function createFingerprintKey(title: string, organizer: string | null | undefined): string {
+  const normalizedTitle = title.toLowerCase().trim();
+  const normalizedOrganizer = (organizer || '').toLowerCase().trim();
+  return `${normalizedTitle}|||${normalizedOrganizer}`;
+}
+
+// Check if event matches any hidden fingerprint
+function matchesHiddenFingerprint(
+  event: Event,
+  hiddenEvents: HiddenEventFingerprint[]
+): boolean {
+  const eventKey = createFingerprintKey(event.title, event.organizer);
+  return hiddenEvents.some(fp => {
+    const fpKey = `${fp.title}|||${fp.organizer}`;
+    return eventKey === fpKey;
+  });
 }
 
 const parsePrice = (priceStr: string | null | undefined): number => {
@@ -149,9 +175,11 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
   const [blockedKeywords, setBlockedKeywords] = useState<string[]>(() =>
     getStorageItem("blockedKeywords", [])
   );
-  const [hiddenIds, setHiddenIds] = useState<string[]>(() =>
-    getStorageItem("hiddenIds", [])
+  const [hiddenEvents, setHiddenEvents] = useState<HiddenEventFingerprint[]>(() =>
+    getStorageItem("hiddenEvents", [])
   );
+  // Track events hidden THIS session (not persisted) - these show greyed out instead of being filtered
+  const [sessionHiddenKeys, setSessionHiddenKeys] = useState<Set<string>>(new Set());
   const [useDefaultFilters, setUseDefaultFilters] = useState<boolean>(() =>
     getStorageItem("useDefaultFilters", true)
   );
@@ -172,7 +200,7 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
       localStorage.setItem("selectedTags", JSON.stringify(selectedTags));
       localStorage.setItem("blockedHosts", JSON.stringify(blockedHosts));
       localStorage.setItem("blockedKeywords", JSON.stringify(blockedKeywords));
-      localStorage.setItem("hiddenIds", JSON.stringify(hiddenIds));
+      localStorage.setItem("hiddenEvents", JSON.stringify(hiddenEvents));
       localStorage.setItem("useDefaultFilters", JSON.stringify(useDefaultFilters));
     }
   }, [
@@ -183,7 +211,7 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
     selectedTags,
     blockedHosts,
     blockedKeywords,
-    hiddenIds,
+    hiddenEvents,
     useDefaultFilters,
     isLoaded,
   ]);
@@ -201,13 +229,39 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
       .map(([tag]) => tag);
   }, [events]);
 
+  // Create Fuse instance for fuzzy search
+  const fuse = useMemo(() => {
+    return new Fuse(events, {
+      keys: [
+        { name: "title", weight: 0.4 },
+        { name: "description", weight: 0.25 },
+        { name: "organizer", weight: 0.2 },
+        { name: "location", weight: 0.15 },
+      ],
+      threshold: 0.4, // Lower = stricter matching
+      ignoreLocation: true,
+      includeScore: true,
+    });
+  }, [events]);
+
   // Filter events
   const filteredEvents = useMemo(() => {
     if (!isLoaded) return events;
 
+    // First, get search results if there's a search query
+    let searchMatchIds: Set<string> | null = null;
+    if (search) {
+      const fuseResults = fuse.search(search);
+      searchMatchIds = new Set(fuseResults.map((result) => result.item.id));
+    }
+
     return events.filter((event) => {
-      // 1. Hidden IDs
-      if (hiddenIds.includes(event.id)) return false;
+      // 1. Hidden Events (by title+organizer fingerprint)
+      // Only filter out if it was hidden in a PREVIOUS session (not this session)
+      const eventKey = createFingerprintKey(event.title, event.organizer);
+      if (matchesHiddenFingerprint(event, hiddenEvents) && !sessionHiddenKeys.has(eventKey)) {
+        return false;
+      }
 
       // 2. Blocked Hosts
       if (
@@ -267,13 +321,9 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
         if (!hasMatchingTag) return false;
       }
 
-      // 8. Search
-      if (search) {
-        const q = search.toLowerCase();
-        const matchTitle = event.title.toLowerCase().includes(q);
-        const matchVenue = event.organizer?.toLowerCase().includes(q);
-        const matchLocation = event.location?.toLowerCase().includes(q);
-        if (!matchTitle && !matchVenue && !matchLocation) return false;
+      // 8. Fuzzy Search (searches title, description, organizer, location)
+      if (searchMatchIds && !searchMatchIds.has(event.id)) {
+        return false;
       }
 
       return true;
@@ -281,6 +331,7 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
   }, [
     events,
     search,
+    fuse,
     dateFilter,
     customDateRange,
     priceFilter,
@@ -288,7 +339,8 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
     selectedTags,
     blockedHosts,
     blockedKeywords,
-    hiddenIds,
+    hiddenEvents,
+    sessionHiddenKeys,
     useDefaultFilters,
     isLoaded,
   ]);
@@ -357,13 +409,29 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
     setSelectedTags([]);
   }, []);
 
-  // Hide event
+  // Hide event (by title + organizer fingerprint)
   const handleHideEvent = useCallback(
-    (id: string) => {
-      setHiddenIds((prev) => [...prev, id]);
-      showToast("Event hidden");
+    (title: string, organizer: string | null) => {
+      const fingerprint: HiddenEventFingerprint = {
+        title: title.toLowerCase().trim(),
+        organizer: (organizer || '').toLowerCase().trim(),
+      };
+      const key = createFingerprintKey(title, organizer);
+
+      // Add to session hidden keys first (so UI updates immediately)
+      setSessionHiddenKeys((prev) => new Set([...prev, key]));
+
+      // Add to persistent hidden events
+      setHiddenEvents((prev) => {
+        // Avoid duplicates
+        const exists = prev.some(fp =>
+          fp.title === fingerprint.title && fp.organizer === fingerprint.organizer
+        );
+        if (exists) return prev;
+        return [...prev, fingerprint];
+      });
     },
-    [showToast]
+    []
   );
 
   // Block host
@@ -376,6 +444,26 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
     },
     [blockedHosts, showToast]
   );
+
+  // Build export URL with current filters
+  const exportParams = useMemo(() => {
+    const params = new URLSearchParams();
+
+    if (search) params.set("search", search);
+    if (dateFilter !== "all") params.set("dateFilter", dateFilter);
+    if (dateFilter === "custom" && customDateRange.start) {
+      params.set("dateStart", customDateRange.start);
+      if (customDateRange.end) params.set("dateEnd", customDateRange.end);
+    }
+    if (priceFilter !== "any") params.set("priceFilter", priceFilter);
+    if (priceFilter === "custom" && customMaxPrice !== null) {
+      params.set("maxPrice", customMaxPrice.toString());
+    }
+    if (selectedTags.length > 0) params.set("tags", selectedTags.join(","));
+
+    const queryString = params.toString();
+    return queryString ? `?${queryString}` : "";
+  }, [search, dateFilter, customDateRange, priceFilter, customMaxPrice, selectedTags]);
 
   if (!isLoaded) return <EventFeedSkeleton />;
 
@@ -405,9 +493,10 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
         onClearAllTags={() => setSelectedTags([])}
         totalEvents={events.length}
         filteredCount={filteredEvents.length}
+        exportParams={exportParams}
       />
 
-      <div className="flex flex-col gap-6 mt-4">
+      <div className="flex flex-col gap-10 mt-4">
         {Object.entries(
           filteredEvents.reduce(
             (groups, event) => {
@@ -453,21 +542,26 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
                   {headerText}
                 </h2>
                 <div className="flex flex-col bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
-                  {groupEvents.map((event) => (
-                    <EventCard
-                      key={event.id}
-                      event={{
-                        ...event,
-                        sourceId: event.sourceId,
-                        location: event.location ?? null,
-                        organizer: event.organizer ?? null,
-                        price: event.price ?? null,
-                        imageUrl: event.imageUrl ?? null,
-                      }}
-                      onHide={handleHideEvent}
-                      onBlockHost={handleBlockHost}
-                    />
-                  ))}
+                  {groupEvents.map((event) => {
+                    const eventKey = createFingerprintKey(event.title, event.organizer);
+                    const isNewlyHidden = sessionHiddenKeys.has(eventKey);
+                    return (
+                      <EventCard
+                        key={event.id}
+                        event={{
+                          ...event,
+                          sourceId: event.sourceId,
+                          location: event.location ?? null,
+                          organizer: event.organizer ?? null,
+                          price: event.price ?? null,
+                          imageUrl: event.imageUrl ?? null,
+                        }}
+                        onHide={handleHideEvent}
+                        onBlockHost={handleBlockHost}
+                        isNewlyHidden={isNewlyHidden}
+                      />
+                    );
+                  })}
                 </div>
               </div>
             );
@@ -485,10 +579,10 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
         onClose={() => setIsSettingsOpen(false)}
         blockedHosts={blockedHosts}
         blockedKeywords={blockedKeywords}
-        hiddenIdsCount={hiddenIds.length}
+        hiddenEvents={hiddenEvents}
         onUpdateHosts={setBlockedHosts}
         onUpdateKeywords={setBlockedKeywords}
-        onClearHidden={() => setHiddenIds([])}
+        onUpdateHiddenEvents={setHiddenEvents}
         useDefaultFilters={useDefaultFilters}
         onToggleDefaultFilters={setUseDefaultFilters}
         defaultFilterKeywords={DEFAULT_BLOCKED_KEYWORDS}

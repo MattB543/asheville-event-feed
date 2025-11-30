@@ -3,7 +3,7 @@ import { fetchWithRetry } from '@/lib/utils/retry';
 import { isNonNCEvent } from '@/lib/utils/locationFilter';
 import { formatPrice } from '@/lib/utils/formatPrice';
 
-export async function scrapeAvlToday(_daysToScrape = 14): Promise<ScrapedEvent[]> {
+export async function scrapeAvlToday(): Promise<ScrapedEvent[]> {
   const API_URL = "https://portal.cityspark.com/v1/events/AVLT";
   // Get date in Asheville time (America/New_York) to avoid UTC date shift issues
   const startStr = new Date().toLocaleDateString("en-CA", {

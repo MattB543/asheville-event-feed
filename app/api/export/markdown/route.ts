@@ -46,9 +46,11 @@ function isTomorrow(date: Date): boolean {
 
 function isThisWeekend(date: Date): boolean {
   const today = new Date();
-  const dayOfWeek = today.getDay();
+  const dayOfWeek = today.getDay(); // 0 = Sunday, 6 = Saturday
+  // If today is Sunday (0), Saturday was yesterday (-1)
+  const daysUntilSaturday = dayOfWeek === 0 ? -1 : 6 - dayOfWeek;
   const saturday = new Date(today);
-  saturday.setDate(today.getDate() + (6 - dayOfWeek));
+  saturday.setDate(today.getDate() + daysUntilSaturday);
   saturday.setHours(0, 0, 0, 0);
   const sundayEnd = new Date(saturday);
   sundayEnd.setDate(saturday.getDate() + 1);

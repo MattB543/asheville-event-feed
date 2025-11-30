@@ -222,7 +222,7 @@ async function scrapeEventPage(url: string): Promise<ScrapedEvent | null> {
       imageUrl: jsonLd.image,
     };
   } catch (error) {
-    // Silent fail for individual pages
+    console.warn(`[GreyEagle] Failed to scrape event page: ${url}`, error);
     return null;
   }
 }

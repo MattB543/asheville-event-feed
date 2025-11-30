@@ -24,7 +24,6 @@ const USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36
 
 // Venue constants
 const VENUE_NAME = 'The Orange Peel';
-const VENUE_ADDRESS = '101 Biltmore Ave, Asheville, NC';
 
 interface TMEvent {
   id: string;
@@ -199,7 +198,7 @@ function formatTMEvent(event: TMEvent): ScrapedEvent | null {
     || undefined;
 
   // Clean title - remove age restrictions (will be in description if needed)
-  let title = event.name
+  const title = event.name
     .replace(/\s*\(18 and Over\)/gi, '')
     .replace(/\s*\(All Ages[^)]*\)/gi, '')
     .replace(/\s*- Ages?:?\s*18\+?/gi, '')
@@ -380,7 +379,7 @@ async function scrapeEventPage(url: string): Promise<ScrapedEvent | null> {
     const slug = url.match(/\/event\/([^/]+)/)?.[1] || 'unknown';
 
     // Clean title (decode HTML entities)
-    let title = jsonLd.name
+    const title = jsonLd.name
       .replace(/&#8211;/g, '-')
       .replace(/&#8217;/g, "'")
       .replace(/&#8216;/g, "'")
@@ -413,7 +412,7 @@ async function scrapeEventPage(url: string): Promise<ScrapedEvent | null> {
       imageUrl: jsonLd.image,
     };
   } catch (error) {
-    // Silent fail for individual pages
+    console.warn(`[OrangePeel] Failed to scrape event page: ${url}`, error);
     return null;
   }
 }

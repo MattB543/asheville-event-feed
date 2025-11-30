@@ -8,7 +8,7 @@ import { scrapeOrangePeel } from '@/lib/scrapers/orangepeel';
 import { scrapeGreyEagle } from '@/lib/scrapers/greyeagle';
 import { db } from '@/lib/db';
 import { events } from '@/lib/db/schema';
-import { sql, inArray } from 'drizzle-orm';
+import { inArray } from 'drizzle-orm';
 import { generateEventTags } from '@/lib/ai/tagging';
 import { generateEventImage } from '@/lib/ai/imageGeneration';
 import { ScrapedEventWithTags } from '@/lib/scrapers/types';

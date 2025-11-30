@@ -9,6 +9,7 @@ import {
   ChevronUp,
   DollarSign,
   Calendar as CalendarIcon,
+  MapPin,
 } from "lucide-react";
 import { TAG_CATEGORIES } from "@/lib/config/tagCategories";
 import { Calendar } from "./ui/Calendar";
@@ -55,6 +56,9 @@ export interface FilterBarProps {
   onPriceFilterChange: (val: PriceFilterType) => void;
   customMaxPrice: number | null;
   onCustomMaxPriceChange: (val: number | null) => void;
+  selectedLocations: string[];
+  onLocationsChange: (locations: string[]) => void;
+  availableLocations: string[];
   availableTags: string[];
   selectedTags: string[];
   onTagsChange: (tags: string[]) => void;
@@ -88,6 +92,9 @@ export default function FilterBar({
   onPriceFilterChange,
   customMaxPrice,
   onCustomMaxPriceChange,
+  selectedLocations,
+  onLocationsChange,
+  availableLocations,
   availableTags,
   selectedTags,
   onTagsChange,
@@ -96,12 +103,14 @@ export default function FilterBar({
   const [isTagsOpen, setIsTagsOpen] = useState(false);
   const [isDateOpen, setIsDateOpen] = useState(false);
   const [isPriceOpen, setIsPriceOpen] = useState(false);
+  const [isLocationOpen, setIsLocationOpen] = useState(false);
   const [expandedCategories, setExpandedCategories] = useState<Set<string>>(
     new Set(TAG_CATEGORIES.map((c) => c.name))
   );
   const tagsRef = useRef<HTMLDivElement>(null);
   const dateRef = useRef<HTMLDivElement>(null);
   const priceRef = useRef<HTMLDivElement>(null);
+  const locationRef = useRef<HTMLDivElement>(null);
 
   // Close popovers on click outside
   useEffect(() => {
@@ -118,6 +127,12 @@ export default function FilterBar({
       ) {
         setIsPriceOpen(false);
       }
+      if (
+        locationRef.current &&
+        !locationRef.current.contains(event.target as Node)
+      ) {
+        setIsLocationOpen(false);
+      }
     }
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
@@ -129,6 +144,30 @@ export default function FilterBar({
     } else {
       onTagsChange([...selectedTags, tag]);
     }
+  };
+
+  const toggleLocation = (location: string) => {
+    if (selectedLocations.includes(location)) {
+      onLocationsChange(selectedLocations.filter((l) => l !== location));
+    } else {
+      onLocationsChange([...selectedLocations, location]);
+    }
+  };
+
+  const selectAllLocations = () => {
+    // Select "asheville" + all other available locations + "online" if available
+    const allLocs = [
+      "asheville",
+      ...availableLocations.filter((l) => l !== "Asheville"),
+    ];
+    if (availableLocations.includes("Online")) {
+      // Online is already included via availableLocations
+    }
+    onLocationsChange(allLocs);
+  };
+
+  const deselectAllLocations = () => {
+    onLocationsChange([]);
   };
 
   const toggleCategory = (categoryName: string) => {
@@ -195,12 +234,23 @@ export default function FilterBar({
     return priceLabels[priceFilter];
   };
 
+  const getLocationLabel = (): string => {
+    if (selectedLocations.length === 0) return "Location";
+    if (selectedLocations.length === 1) {
+      const loc = selectedLocations[0];
+      if (loc === "asheville") return "Asheville area";
+      if (loc === "Online") return "Online";
+      return loc;
+    }
+    return `${selectedLocations.length} locations`;
+  };
+
   return (
     <div className="mb-3 px-3 sm:px-0">
-      {/* Desktop: single row, Mobile: search on top, filters below */}
-      <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-2">
+      {/* Desktop (>=1153px): single row, Mobile/Tablet: search on top, filters below */}
+      <div className="flex flex-col xl:flex-row xl:items-center gap-3 xl:gap-2">
         {/* Search Input */}
-        <div className="relative w-full sm:flex-1 sm:min-w-0">
+        <div className="relative w-full xl:flex-1 xl:min-w-0">
           <Search
             className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
             size={20}
@@ -215,7 +265,7 @@ export default function FilterBar({
         </div>
 
         {/* Filter Buttons */}
-        <div className="flex items-center gap-2 flex-wrap sm:flex-nowrap sm:flex-shrink-0">
+        <div className="flex items-center gap-2 flex-wrap xl:flex-nowrap xl:flex-shrink-0">
           {/* Date Filter */}
           <div className="relative" ref={dateRef}>
             <button
@@ -389,6 +439,129 @@ export default function FilterBar({
             )}
           </div>
 
+          {/* Location Filter */}
+          <div className="relative" ref={locationRef}>
+            <button
+              onClick={() => setIsLocationOpen(!isLocationOpen)}
+              className={buttonStyle}
+              aria-expanded={isLocationOpen}
+            >
+              <MapPin size={16} />
+              <span>{getLocationLabel()}</span>
+              {selectedLocations.length > 0 && (
+                <span className="bg-brand-500 text-white text-xs px-1.5 py-0.5 rounded-full min-w-[20px] text-center">
+                  {selectedLocations.length}
+                </span>
+              )}
+              <ChevronDown
+                size={16}
+                className={`transition-transform ${
+                  isLocationOpen ? "rotate-180" : ""
+                }`}
+              />
+            </button>
+
+            {isLocationOpen && (
+              <div className="absolute top-full right-0 xl:right-auto xl:left-0 mt-1 z-50 bg-white border border-gray-200 rounded-lg shadow-lg min-w-[220px] max-h-96 flex flex-col">
+                <div className="px-3 py-2 border-b border-gray-100">
+                  <div className="flex items-center justify-between">
+                    <div className="flex gap-2">
+                      <button
+                        onClick={selectAllLocations}
+                        className="text-xs text-brand-600 hover:text-brand-800 cursor-pointer"
+                      >
+                        Select All
+                      </button>
+                      <span className="text-gray-300">|</span>
+                      <button
+                        onClick={deselectAllLocations}
+                        className="text-xs text-brand-600 hover:text-brand-800 cursor-pointer"
+                      >
+                        Deselect All
+                      </button>
+                    </div>
+                  </div>
+                  <p className="text-xs text-gray-400 mt-1">None selected = show all</p>
+                </div>
+
+                <div className="overflow-y-auto p-2">
+                  {/* Asheville area */}
+                  <label className="flex items-center gap-2 px-2 py-1.5 rounded hover:bg-gray-50 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={selectedLocations.includes("asheville")}
+                      onChange={() => toggleLocation("asheville")}
+                      className="w-4 h-4 text-brand-600 rounded border-gray-300 focus:ring-brand-500"
+                    />
+                    <span className="text-sm text-gray-700">
+                      Asheville area
+                    </span>
+                  </label>
+
+                  {/* Divider and other cities */}
+                  {availableLocations.filter(
+                    (loc) => loc !== "Asheville" && loc !== "Online"
+                  ).length > 0 && (
+                    <>
+                      <div className="border-t border-gray-100 my-1.5" />
+                      {availableLocations
+                        .filter(
+                          (loc) => loc !== "Asheville" && loc !== "Online"
+                        )
+                        .map((location) => (
+                          <label
+                            key={location}
+                            className="flex items-center gap-2 px-2 py-1.5 rounded hover:bg-gray-50 cursor-pointer"
+                          >
+                            <input
+                              type="checkbox"
+                              checked={selectedLocations.includes(location)}
+                              onChange={() => toggleLocation(location)}
+                              className="w-4 h-4 text-brand-600 rounded border-gray-300 focus:ring-brand-500"
+                            />
+                            <span className="text-sm text-gray-700">
+                              {location}
+                            </span>
+                          </label>
+                        ))}
+                    </>
+                  )}
+
+                  {/* Online option at the end */}
+                  {availableLocations.includes("Online") && (
+                    <>
+                      <div className="border-t border-gray-100 my-1.5" />
+                      <label className="flex items-center gap-2 px-2 py-1.5 rounded hover:bg-gray-50 cursor-pointer">
+                        <input
+                          type="checkbox"
+                          checked={selectedLocations.includes("Online")}
+                          onChange={() => toggleLocation("Online")}
+                          className="w-4 h-4 text-brand-600 rounded border-gray-300 focus:ring-brand-500"
+                        />
+                        <span className="text-sm text-gray-700">Online</span>
+                      </label>
+                    </>
+                  )}
+                </div>
+
+                {selectedLocations.length > 0 && (
+                  <div className="px-3 py-2 border-t border-gray-100 bg-gray-50 flex items-center justify-between">
+                    <span className="text-xs text-gray-500">
+                      {selectedLocations.length} location
+                      {selectedLocations.length !== 1 ? "s" : ""} selected
+                    </span>
+                    <button
+                      onClick={deselectAllLocations}
+                      className="text-xs text-brand-600 hover:text-brand-800 cursor-pointer"
+                    >
+                      Clear
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+
           {/* Tags Filter */}
           <div className="relative" ref={tagsRef}>
             <button
@@ -412,12 +585,9 @@ export default function FilterBar({
             </button>
 
             {isTagsOpen && (
-              <div className="absolute top-full left-0 mt-1 z-50 bg-white border border-gray-200 rounded-lg shadow-lg min-w-[280px] max-w-[320px]">
+              <div className="absolute top-full right-0 xl:right-auto xl:left-0 mt-1 z-50 bg-white border border-gray-200 rounded-lg shadow-lg min-w-[280px] max-w-[320px]">
                 <div className="px-3 py-2 border-b border-gray-100">
                   <div className="flex items-center justify-between">
-                    <span className="font-medium text-sm text-gray-900">
-                      Filter by Tags
-                    </span>
                     <div className="flex gap-2">
                       <button
                         onClick={selectAllTags}
@@ -434,6 +604,7 @@ export default function FilterBar({
                       </button>
                     </div>
                   </div>
+                  <p className="text-xs text-gray-400 mt-1">None selected = show all</p>
                 </div>
 
                 <div className="max-h-80 overflow-y-auto">

@@ -167,6 +167,10 @@ function formatEventbriteEvent(ev: EventbriteApiEvent): ScrapedEvent {
   const parsedDate = new Date(startDateStr);
   const startDate = isNaN(parsedDate.getTime()) ? new Date() : parsedDate;
 
+  if (isNaN(parsedDate.getTime())) {
+    console.warn(`[Eventbrite] Invalid date for event "${title}" (ID: ${ev.id}), using current date as fallback`);
+  }
+
   // Use venue name if different from city, otherwise use organizer name
   // This gives us "SPWM @ The Orange Peel" type info when venue is meaningful
   const locationDisplay = venueName && venueName !== city ? `${city} @ ${venueName}` : city;

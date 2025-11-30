@@ -4,7 +4,7 @@ import FilterChip from "./ui/FilterChip";
 
 export interface ActiveFilter {
   id: string;
-  type: "date" | "price" | "tag" | "search";
+  type: "date" | "price" | "tag" | "search" | "location";
   label: string;
 }
 

@@ -86,6 +86,13 @@ export async function generateEventImage(
     for (const part of parts) {
       if (part.inlineData?.data) {
         const { data } = part.inlineData;
+
+        // Check if base64 data is too large (10MB base64 ≈ 7.5MB raw)
+        if (data.length > 10_000_000) {
+          console.warn(`[ImageGen] Image too large for "${event.title}" (${(data.length / 1_000_000).toFixed(1)}MB base64), skipping`);
+          return null;
+        }
+
         const originalBuffer = Buffer.from(data, "base64");
         const originalSize = originalBuffer.length;
 

@@ -3,7 +3,7 @@ import { scrapeAvlToday } from '../lib/scrapers/avltoday';
 async function main() {
   console.log('Testing AVL Today Scraper...');
   try {
-    const events = await scrapeAvlToday(1); // Scrape fewer pages for test
+    const events = await scrapeAvlToday();
     console.log(`Found ${events.length} events.`);
     if (events.length > 0) {
       console.log('First event:', events[0]);

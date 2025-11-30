@@ -8,6 +8,7 @@ import FilterBar, {
   PriceFilterType,
   DateRange,
 } from "./FilterBar";
+import { extractCity, isAshevilleArea } from "@/lib/utils/extractCity";
 import ActiveFilters, { ActiveFilter } from "./ActiveFilters";
 import SettingsModal from "./SettingsModal";
 import { EventFeedSkeleton } from "./EventCardSkeleton";
@@ -101,14 +102,17 @@ function isTomorrow(date: Date): boolean {
 
 function isThisWeekend(date: Date): boolean {
   const today = new Date();
-  const dayOfWeek = today.getDay();
+  const dayOfWeek = today.getDay(); // 0 = Sunday, 6 = Saturday
 
-  // Calculate this Saturday
+  // Calculate Saturday of THIS week
+  // If today is Sunday (0), Saturday was yesterday (-1)
+  // Otherwise, Saturday is (6 - dayOfWeek) days away
+  const daysUntilSaturday = dayOfWeek === 0 ? -1 : 6 - dayOfWeek;
   const saturday = new Date(today);
-  saturday.setDate(today.getDate() + (6 - dayOfWeek));
+  saturday.setDate(today.getDate() + daysUntilSaturday);
   saturday.setHours(0, 0, 0, 0);
 
-  // Calculate this Sunday end
+  // Calculate this Sunday end (the day after Saturday)
   const sundayEnd = new Date(saturday);
   sundayEnd.setDate(saturday.getDate() + 1);
   sundayEnd.setHours(23, 59, 59, 999);
@@ -174,6 +178,9 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
   const [selectedTags, setSelectedTags] = useState<string[]>(() =>
     getStorageItem("selectedTags", [])
   );
+  const [selectedLocations, setSelectedLocations] = useState<string[]>(() =>
+    getStorageItem("selectedLocations", [])
+  );
 
   // Settings
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
@@ -197,7 +204,7 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
   const [isLoaded, setIsLoaded] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
 
-  // Mark as loaded on mount
+  // Set isLoaded after mount to prevent hydration mismatch
   useEffect(() => {
     setIsLoaded(true);
   }, []);
@@ -223,6 +230,7 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
       localStorage.setItem("priceFilter", JSON.stringify(priceFilter));
       localStorage.setItem("customMaxPrice", JSON.stringify(customMaxPrice));
       localStorage.setItem("selectedTags", JSON.stringify(selectedTags));
+      localStorage.setItem("selectedLocations", JSON.stringify(selectedLocations));
       localStorage.setItem("blockedHosts", JSON.stringify(blockedHosts));
       localStorage.setItem("blockedKeywords", JSON.stringify(blockedKeywords));
       localStorage.setItem("hiddenEvents", JSON.stringify(hiddenEvents));
@@ -237,6 +245,7 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
     priceFilter,
     customMaxPrice,
     selectedTags,
+    selectedLocations,
     blockedHosts,
     blockedKeywords,
     hiddenEvents,
@@ -255,6 +264,35 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
     return Array.from(tagCounts.entries())
       .sort((a, b) => b[1] - a[1])
       .map(([tag]) => tag);
+  }, [events]);
+
+  // Extract available locations from events (for location filter dropdown)
+  const availableLocations = useMemo(() => {
+    const citySet = new Set<string>();
+    let hasOnline = false;
+
+    events.forEach((event) => {
+      const city = extractCity(event.location);
+      if (city === "Online") {
+        hasOnline = true;
+      } else if (city) {
+        citySet.add(city);
+      }
+    });
+
+    // Sort: Asheville first, then alphabetically
+    const cities = Array.from(citySet).sort((a, b) => {
+      if (a === "Asheville") return -1;
+      if (b === "Asheville") return 1;
+      return a.localeCompare(b);
+    });
+
+    // Add Online at the end if present
+    if (hasOnline) {
+      cities.push("Online");
+    }
+
+    return cities;
   }, [events]);
 
   // Create Fuse instance for fuzzy search
@@ -356,7 +394,38 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
         if (!hasMatchingTag) return false;
       }
 
-      // 8. Fuzzy Search (searches title, description, organizer, location)
+      // 8. Location Filter (multi-select - OR logic)
+      if (selectedLocations.length > 0) {
+        const eventCity = extractCity(event.location);
+        let matchesAnyLocation = false;
+
+        for (const loc of selectedLocations) {
+          if (loc === "asheville") {
+            // "Asheville area" includes: Asheville city + known Asheville venues
+            if (isAshevilleArea(event.location)) {
+              matchesAnyLocation = true;
+              break;
+            }
+          } else if (loc === "Online") {
+            if (eventCity === "Online") {
+              matchesAnyLocation = true;
+              break;
+            }
+          } else {
+            // Specific city - exact match
+            if (eventCity === loc) {
+              matchesAnyLocation = true;
+              break;
+            }
+          }
+        }
+
+        if (!matchesAnyLocation) {
+          return false;
+        }
+      }
+
+      // 9. Fuzzy Search (searches title, description, organizer, location)
       if (searchMatchIds && !searchMatchIds.has(event.id)) {
         return false;
       }
@@ -372,6 +441,7 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
     priceFilter,
     customMaxPrice,
     selectedTags,
+    selectedLocations,
     blockedHosts,
     blockedKeywords,
     hiddenEvents,
@@ -420,6 +490,11 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
     selectedTags.forEach((tag) => {
       filters.push({ id: `tag-${tag}`, type: "tag", label: tag });
     });
+    selectedLocations.forEach((loc) => {
+      let label = loc;
+      if (loc === "asheville") label = "Asheville area";
+      filters.push({ id: `location-${loc}`, type: "location", label });
+    });
 
     return filters;
   }, [
@@ -429,6 +504,7 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
     priceFilter,
     customMaxPrice,
     selectedTags,
+    selectedLocations,
   ]);
 
   // Handle removing filters
@@ -441,6 +517,9 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
     } else if (id === "price") {
       setPriceFilter("any");
       setCustomMaxPrice(null);
+    } else if (id.startsWith("location-")) {
+      const loc = id.replace("location-", "");
+      setSelectedLocations((prev) => prev.filter((l) => l !== loc));
     } else if (id.startsWith("tag-")) {
       const tag = id.replace("tag-", "");
       setSelectedTags((prev) => prev.filter((t) => t !== tag));
@@ -455,6 +534,7 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
     setPriceFilter("any");
     setCustomMaxPrice(null);
     setSelectedTags([]);
+    setSelectedLocations([]);
   }, []);
 
   // Hide event (by title + organizer fingerprint)
@@ -467,7 +547,11 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
       const key = createFingerprintKey(title, organizer);
 
       // Add to session hidden keys first (so UI updates immediately)
-      setSessionHiddenKeys((prev) => new Set([...prev, key]));
+      setSessionHiddenKeys((prev) => {
+        const next = new Set(prev);
+        next.add(key);
+        return next;
+      });
 
       // Add to persistent hidden events
       setHiddenEvents((prev) => {
@@ -537,6 +621,9 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
         onPriceFilterChange={setPriceFilter}
         customMaxPrice={customMaxPrice}
         onCustomMaxPriceChange={setCustomMaxPrice}
+        selectedLocations={selectedLocations}
+        onLocationsChange={setSelectedLocations}
+        availableLocations={availableLocations}
         availableTags={availableTags}
         selectedTags={selectedTags}
         onTagsChange={setSelectedTags}

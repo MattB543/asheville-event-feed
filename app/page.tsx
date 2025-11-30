@@ -37,15 +37,23 @@ export default async function Home() {
   return (
     <main className="min-h-screen bg-gray-50">
       <header className="bg-white border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-3 sm:py-4 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-3 sm:py-4 flex items-center justify-between gap-6">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/avlgo_banner_logo_v2.svg"
             alt="AVL GO"
             className="w-[80px] sm:w-[140px] h-auto"
           />
-          <div className="text-xs sm:text-sm text-gray-500">
-            Aggregating all AVL events
+          <div className="text-xs sm:text-sm text-gray-500 text-right ml-6">
+            All AVL events aggregated, by{" "}
+            <a
+              href="https://mattbrooks.xyz"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline"
+            >
+              mattbrooks.xyz
+            </a>
           </div>
         </div>
       </header>

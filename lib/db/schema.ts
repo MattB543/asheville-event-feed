@@ -19,4 +19,5 @@ export const events = pgTable('events', {
   goingCount: integer('going_count'),           // Facebook: going count
 }, (table) => ({
   startDateIdx: index('events_start_date_idx').on(table.startDate),
+  sourceIdx: index('events_source_idx').on(table.source),
 }));

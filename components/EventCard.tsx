@@ -58,12 +58,18 @@ export default function EventCard({
   const [isExpanded, setIsExpanded] = useState(false);
 
   // Check if description is long enough to need truncation
+  // Mobile: 210 chars, Tablet+: 310 chars
   const cleanedDescription =
     cleanMarkdown(event.description) || "No description available.";
-  const needsTruncation = cleanedDescription.length > 210;
-  const truncatedDescription =
-    needsTruncation && !isExpanded
+  const needsTruncationMobile = cleanedDescription.length > 210;
+  const needsTruncationTablet = cleanedDescription.length > 310;
+  const truncatedDescriptionMobile =
+    needsTruncationMobile && !isExpanded
       ? cleanedDescription.slice(0, 210).trimEnd() + "..."
+      : cleanedDescription;
+  const truncatedDescriptionTablet =
+    needsTruncationTablet && !isExpanded
+      ? cleanedDescription.slice(0, 310).trimEnd() + "..."
       : cleanedDescription;
 
   const formatDate = (date: Date) => {
@@ -111,11 +117,12 @@ export default function EventCard({
 
   return (
     <div
-      className={`relative transition-colors flex flex-col sm:flex-row gap-2 sm:gap-4 px-3 sm:px-5 py-6 ${
-        hideBorder ? "" : "border-b border-gray-200"
-      } ${
-        isNewlyHidden ? "bg-gray-200 opacity-40" : "bg-white hover:bg-gray-50"
-      }`}
+      className={`relative transition-colors grid gap-2 px-3 py-6
+        grid-cols-1
+        sm:grid-cols-[192px_1fr] sm:gap-4 sm:px-5
+        xl:grid-cols-[192px_384px_1fr] xl:grid-rows-[1fr_auto]
+        ${hideBorder ? "" : "border-b border-gray-200"}
+        ${isNewlyHidden ? "bg-gray-200 opacity-40" : "bg-white hover:bg-gray-50"}`}
     >
       {/* Hidden banner - outside the opacity container */}
       {isNewlyHidden && (
@@ -130,8 +137,9 @@ export default function EventCard({
           </span>
         </div>
       )}
-      {/* Image Column */}
-      <div className="relative w-full h-40 sm:w-48 sm:h-32 flex-shrink-0 bg-gray-200 rounded overflow-hidden">
+
+      {/* Image */}
+      <div className="relative w-full h-40 sm:h-32 xl:row-span-2 bg-gray-200 rounded overflow-hidden">
         {!imgError && event.imageUrl ? (
           <Image
             src={event.imageUrl}
@@ -149,8 +157,8 @@ export default function EventCard({
         )}
       </div>
 
-      {/* Details Column */}
-      <div className="flex-shrink-0 w-full sm:w-96 sm:h-32 flex flex-col justify-between mt-2 sm:mt-0">
+      {/* Metadata: Title, Date, Location, Tags */}
+      <div className="flex flex-col justify-between xl:row-span-2 xl:h-32">
         <div>
           <h3 className="text-base font-bold text-brand-600 leading-tight">
             <a
@@ -173,7 +181,7 @@ export default function EventCard({
           </div>
         </div>
 
-        <div className="flex flex-wrap gap-1 mt-2 sm:mt-0 mb-2 sm:mb-0">
+        <div className="flex flex-wrap gap-1 mt-2 xl:mt-0">
           {/* Price Tag */}
           <span
             className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-bold border ${
@@ -187,9 +195,9 @@ export default function EventCard({
 
           {/* Other Tags */}
           {event.tags &&
-            event.tags.map((tag, i) => (
+            event.tags.map((tag) => (
               <span
-                key={i}
+                key={tag}
                 className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-brand-50 text-brand-700 border border-brand-100"
               >
                 {tag}
@@ -198,11 +206,11 @@ export default function EventCard({
         </div>
       </div>
 
-      {/* Description + Actions Column */}
-      <div className="flex-grow min-w-0 flex flex-col">
-        <p className="text-sm text-gray-600 leading-relaxed mb-3">
-          {truncatedDescription}
-          {needsTruncation && (
+      {/* Description - Mobile version (210 chars) */}
+      <div className="sm:hidden">
+        <p className="text-sm text-gray-600 leading-relaxed">
+          {truncatedDescriptionMobile}
+          {needsTruncationMobile && (
             <button
               onClick={() => setIsExpanded(!isExpanded)}
               className="text-xs text-brand-600 hover:text-brand-700 font-medium ml-1 cursor-pointer"
@@ -211,50 +219,65 @@ export default function EventCard({
             </button>
           )}
         </p>
+      </div>
 
-        {/* Actions Row */}
-        <div className="flex flex-wrap gap-2 mt-auto">
-          <a
-            href={generateCalendarUrlForEvent(event)}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs text-gray-600 hover:bg-brand-50 hover:text-brand-600 rounded border border-gray-200 cursor-pointer"
-            title="Add to Google Calendar"
-          >
-            <CalendarPlus2 size={14} />
-            <span className="sm:hidden">Calendar</span>
-            <span className="hidden sm:inline">Add to Calendar</span>
-          </a>
-          <button
-            onClick={() => onHide(event.title, event.organizer)}
-            className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs text-gray-600 hover:bg-red-50 hover:text-red-600 rounded border border-gray-200 cursor-pointer"
-            title="Hide this event"
-            disabled={isNewlyHidden}
-          >
-            <EyeOff size={14} />
-            <span>Hide event</span>
-          </button>
-          {event.organizer && (
+      {/* Description - Tablet/Desktop version (310 chars) */}
+      <div className="hidden sm:block sm:col-span-2 xl:col-span-1 xl:col-start-3">
+        <p className="text-sm text-gray-600 leading-relaxed">
+          {truncatedDescriptionTablet}
+          {needsTruncationTablet && (
             <button
-              onClick={() => onBlockHost(event.organizer!)}
-              className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs text-gray-600 hover:bg-red-50 hover:text-red-600 rounded border border-gray-200 cursor-pointer"
-              title={`Block events from ${event.organizer}`}
+              onClick={() => setIsExpanded(!isExpanded)}
+              className="text-xs text-brand-600 hover:text-brand-700 font-medium ml-1 cursor-pointer"
             >
-              <Ban size={14} />
-              <span>Hide host</span>
+              {isExpanded ? "View less" : "View more"}
             </button>
           )}
-          <a
-            href={getSourceUrl()}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs text-gray-600 hover:bg-gray-100 rounded border border-gray-200 cursor-pointer"
-            title="View Source Homepage"
+        </p>
+      </div>
+
+      {/* Actions */}
+      <div className="sm:col-span-2 xl:col-span-1 xl:col-start-3 flex flex-wrap gap-2 mt-2 xl:mt-0">
+        <a
+          href={generateCalendarUrlForEvent(event)}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs text-gray-600 hover:bg-brand-50 hover:text-brand-600 rounded border border-gray-200 cursor-pointer"
+          title="Add to Google Calendar"
+        >
+          <CalendarPlus2 size={14} />
+          <span className="sm:hidden">Calendar</span>
+          <span className="hidden sm:inline">Add to Calendar</span>
+        </a>
+        <button
+          onClick={() => onHide(event.title, event.organizer)}
+          className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs text-gray-600 hover:bg-red-50 hover:text-red-600 rounded border border-gray-200 cursor-pointer"
+          title="Hide this event"
+          disabled={isNewlyHidden}
+        >
+          <EyeOff size={14} />
+          <span>Hide event</span>
+        </button>
+        {event.organizer && (
+          <button
+            onClick={() => onBlockHost(event.organizer!)}
+            className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs text-gray-600 hover:bg-red-50 hover:text-red-600 rounded border border-gray-200 cursor-pointer"
+            title={`Block events from ${event.organizer}`}
           >
-            <ExternalLink size={14} />
-            <span>Source</span>
-          </a>
-        </div>
+            <Ban size={14} />
+            <span>Hide host</span>
+          </button>
+        )}
+        <a
+          href={getSourceUrl()}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs text-gray-600 hover:bg-gray-100 rounded border border-gray-200 cursor-pointer"
+          title="View Source Homepage"
+        >
+          <ExternalLink size={14} />
+          <span className="hidden sm:inline">Source</span>
+        </a>
       </div>
     </div>
   );

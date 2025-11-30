@@ -714,7 +714,7 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
 
             return (
               <div key={dateKey} className="flex flex-col">
-                <h2 className="text-xl font-bold text-gray-800 sticky top-9 bg-white sm:border sm:border-b-0 sm:border-gray-200 sm:rounded-t-lg py-2 px-3 sm:px-4 z-10">
+                <h2 className="text-xl font-bold text-gray-800 sticky top-0 sm:top-9 bg-white sm:border sm:border-b-0 sm:border-gray-200 sm:rounded-t-lg py-2 px-3 sm:px-4 z-10">
                   {headerText}
                 </h2>
                 <div className="flex flex-col bg-white sm:rounded-b-lg sm:shadow-sm sm:border sm:border-gray-200 overflow-hidden">

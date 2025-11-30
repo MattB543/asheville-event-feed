@@ -20,7 +20,8 @@
     "db:tags": "tsx scripts/check-tags.ts",
     "backfill": "tsx scripts/backfill-eventbrite.ts",
     "tag:events": "tsx scripts/tag-events.ts",
-    "test:image-gen": "tsx scripts/test-image-gen.ts"
+    "test:image-gen": "tsx scripts/test-image-gen.ts",
+    "generate:seo-images": "tsx scripts/generate-seo-images.ts"
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",

@@ -61,10 +61,10 @@ export const metadata: Metadata = {
     description: siteDescription,
     images: [
       {
-        url: "/og-image.png",
+        url: "/avlgo-og.png",
         width: 1200,
         height: 630,
-        alt: "AVL GO - Asheville Events Calendar",
+        alt: "AVL GO - All Asheville events in one place",
       },
     ],
   },
@@ -74,7 +74,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: siteTitle,
     description: siteDescription,
-    images: ["/og-image.png"],
+    images: ["/avlgo-og.png"],
     creator: "@mattbrooksxyz",
   },
 

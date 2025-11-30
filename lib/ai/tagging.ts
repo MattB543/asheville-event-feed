@@ -8,41 +8,71 @@ interface EventData {
   startDate: Date;
 }
 
+// All allowed tags - AI must ONLY use tags from this list
+const ALLOWED_TAGS = [
+  // Entertainment
+  'Live Music', 'Comedy', 'Theater & Film', 'Dance', 'Trivia',
+  // Food & Drink
+  'Dining', 'Beer', 'Wine & Spirits', 'Food Classes',
+  // Activities
+  'Art', 'Crafts', 'Fitness', 'Wellness', 'Spiritual', 'Outdoors', 'Tours', 'Gaming',
+  'Sports', 'Basketball', 'Education', 'Book Club',
+  // Audience/Social
+  'Family', 'Dating', 'Networking', 'Nightlife', 'LGBTQ+', 'Pets',
+  'Community', 'Support Groups',
+  // Seasonal
+  'Holiday', 'Markets',
+] as const;
+
 const TAG_GUIDELINES = `
-##Entertainment
-- **Live Music** – concerts, bands, open mics
-- **Comedy** – stand-up, improv, showcases
-- **Theater & Film** – plays, performances, movie nights
-- **Dance** – lessons, parties, social dance nights
-- **Trivia** – pub trivia, game nights
+ALLOWED TAGS (use ONLY these exact tags, nothing else):
 
-##Food & Drink
-- **Dining** – special dinners, brunches, prix fixe meals
-- **Beer** – brewery events, tastings
-- **Wine & Spirits** – wine tastings, cocktail events
-- **Food Classes** – cooking, baking, cocktail-making workshops
+Entertainment:
+- Live Music – concerts, bands, open mics
+- Comedy – stand-up, improv, showcases
+- Theater & Film – plays, performances, movie nights
+- Dance – lessons, parties, social dance nights
+- Trivia – pub trivia, game nights
 
-##Activities
-- **Art** – galleries, exhibits, visual art events
-- **Crafts** – pottery, jewelry, DIY workshops
-- **Fitness** – yoga, exercise, sports, climbing
-- **Wellness** – sound healing, support groups, holistic health
-- **Spiritual** – meditation, ceremonies, religious gatherings
-- **Outdoors** – hiking, nature, parks
-- **Tours** – walking tours, ghost tours, historical
-- **Gaming** – board games, D&D, video games
+Food & Drink:
+- Dining – special dinners, brunches, prix fixe meals
+- Beer – brewery events, tastings
+- Wine & Spirits – wine tastings, cocktail events
+- Food Classes – cooking, baking, cocktail-making workshops
 
-##Audience/Social
-- **Family** – kid-friendly, all-ages
-- **Dating** – singles events, speed dating
-- **Networking** – business, professional meetups
-- **Nightlife** – 21+, bar events, late-night
-- **LGBTQ+** – pride, queer-specific events
-- **Pets** – dog-friendly, goat yoga, cat lounges
+Activities:
+- Art – galleries, exhibits, visual art events
+- Crafts – pottery, jewelry, DIY workshops
+- Fitness – yoga, exercise, climbing, general fitness
+- Sports – team sports, athletic events, competitions
+- Basketball – basketball games, leagues, pickup games
+- Wellness – sound healing, holistic health, self-care
+- Spiritual – meditation, ceremonies, religious gatherings
+- Outdoors – hiking, nature, parks
+- Tours – walking tours, ghost tours, historical
+- Gaming – board games, D&D, video games
+- Education – classes, workshops, lectures, learning events
+- Book Club – book discussions, reading groups, literary meetups
 
-##Other
-- **Holiday** – seasonal celebrations
-- **Markets** – pop-ups, vendors, shopping
+Audience/Social:
+- Family – kid-friendly, all-ages
+- Dating – singles events, speed dating
+- Networking – business, professional meetups
+- Nightlife – 21+, bar events, late-night
+- LGBTQ+ – pride, queer-specific events
+- Pets – dog-friendly, goat yoga, cat lounges
+- Community – neighborhood events, civic gatherings, local meetups
+- Support Groups – recovery, grief, mental health support meetings
+
+Seasonal:
+- Holiday – seasonal celebrations, Christmas, Halloween, etc.
+- Markets – pop-ups, vendors, shopping, craft fairs
+
+IMPORTANT RULES:
+1. ONLY use tags from the list above. Do NOT create new tags.
+2. NEVER use category names as tags (do NOT use: "Entertainment", "Food & Drink", "Activities", "Audience/Social", "Seasonal", "Other").
+3. An event can have multiple tags if applicable.
+4. Use the exact tag spelling and capitalization shown above.
 `;
 
 export async function generateEventTags(event: EventData): Promise<string[]> {
@@ -56,7 +86,7 @@ export async function generateEventTags(event: EventData): Promise<string[]> {
 
   const prompt = `
     You are an expert event tagger for Asheville, NC.
-    Analyze the following event and assign relevant tags from the provided list.
+    Analyze the following event and assign relevant tags ONLY from the provided list.
     Return ONLY a JSON array of strings. Do not include markdown formatting or explanations.
 
     Event Details:
@@ -66,11 +96,10 @@ export async function generateEventTags(event: EventData): Promise<string[]> {
     Organizer: ${event.organizer || "N/A"}
     Date: ${event.startDate.toISOString()}
 
-    Tag Guidelines:
     ${TAG_GUIDELINES}
 
     Example Output:
-    ["Music", "Beer"]
+    ["Live Music", "Beer", "Nightlife"]
   `;
 
   try {
@@ -92,7 +121,21 @@ export async function generateEventTags(event: EventData): Promise<string[]> {
       return [];
     }
 
-    return parsed.filter((tag): tag is string => typeof tag === "string");
+    // Filter to only allowed tags (safeguard against AI generating invalid tags)
+    const validTags = parsed.filter(
+      (tag): tag is string =>
+        typeof tag === "string" && ALLOWED_TAGS.includes(tag as typeof ALLOWED_TAGS[number])
+    );
+
+    // Log if AI generated invalid tags
+    const invalidTags = parsed.filter(
+      (tag) => typeof tag === "string" && !ALLOWED_TAGS.includes(tag as typeof ALLOWED_TAGS[number])
+    );
+    if (invalidTags.length > 0) {
+      console.warn(`AI generated invalid tags (filtered out): ${invalidTags.join(", ")}`);
+    }
+
+    return validTags;
   } catch (error) {
     console.error("Error generating tags:", error);
     return [];

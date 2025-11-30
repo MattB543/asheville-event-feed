@@ -19,14 +19,14 @@ export const TAG_CATEGORIES: TagCategory[] = [
   },
   {
     name: "Activities",
-    tags: ["Art", "Crafts", "Fitness", "Wellness", "Spiritual", "Outdoors", "Tours", "Gaming"],
+    tags: ["Art", "Crafts", "Fitness", "Sports", "Basketball", "Wellness", "Spiritual", "Outdoors", "Tours", "Gaming", "Education", "Book Club"],
   },
   {
     name: "Audience/Social",
-    tags: ["Family", "Dating", "Networking", "Nightlife", "LGBTQ+", "Pets"],
+    tags: ["Family", "Dating", "Networking", "Nightlife", "LGBTQ+", "Pets", "Community", "Support Groups"],
   },
   {
-    name: "Other",
+    name: "Seasonal",
     tags: ["Holiday", "Markets"],
   },
 ];

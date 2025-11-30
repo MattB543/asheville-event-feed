@@ -369,10 +369,13 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
       if (priceFilter !== "any") {
         const price = parsePrice(event.price);
         const priceStr = event.price?.toLowerCase() || "";
+        const isUnknown =
+          !event.price || priceStr === "unknown" || priceStr.length === 0;
         const isFree =
+          isUnknown ||
           priceStr.includes("free") ||
           priceStr.includes("donation") ||
-          (priceStr.length > 0 && /\d/.test(priceStr) && price === 0);
+          (/\d/.test(priceStr) && price === 0);
 
         if (priceFilter === "free" && !isFree) return false;
         if (priceFilter === "under20" && price > 20) return false;

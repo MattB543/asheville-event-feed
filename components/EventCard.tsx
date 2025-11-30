@@ -2,7 +2,7 @@
 
 import {
   Calendar,
-  CalendarPlus,
+  CalendarPlus2,
   ExternalLink,
   EyeOff,
   Ban,
@@ -60,10 +60,10 @@ export default function EventCard({
   // Check if description is long enough to need truncation
   const cleanedDescription =
     cleanMarkdown(event.description) || "No description available.";
-  const needsTruncation = cleanedDescription.length > 310;
+  const needsTruncation = cleanedDescription.length > 210;
   const truncatedDescription =
     needsTruncation && !isExpanded
-      ? cleanedDescription.slice(0, 310).trimEnd() + "..."
+      ? cleanedDescription.slice(0, 210).trimEnd() + "..."
       : cleanedDescription;
 
   const formatDate = (date: Date) => {
@@ -111,7 +111,7 @@ export default function EventCard({
 
   return (
     <div
-      className={`relative transition-colors flex flex-col sm:flex-row gap-4 px-5 py-6 ${
+      className={`relative transition-colors flex flex-col sm:flex-row gap-2 sm:gap-4 px-3 sm:px-5 py-6 ${
         hideBorder ? "" : "border-b border-gray-200"
       } ${
         isNewlyHidden ? "bg-gray-200 opacity-40" : "bg-white hover:bg-gray-50"
@@ -131,16 +131,14 @@ export default function EventCard({
         </div>
       )}
       {/* Image Column */}
-      <div className="relative w-full sm:w-48 h-32 flex-shrink-0 bg-gray-200 rounded overflow-hidden">
+      <div className="relative w-full h-40 sm:w-48 sm:h-32 flex-shrink-0 bg-gray-200 rounded overflow-hidden">
         {!imgError && event.imageUrl ? (
           <Image
             src={event.imageUrl}
             alt={event.title}
             fill
-            className="object-cover"
+            className="object-cover object-[center_20%]"
             onError={() => setImgError(true)}
-            // Only use unoptimized for base64 data URLs (AI-generated images)
-            // External URLs go through Next.js optimization which caches them
             unoptimized={event.imageUrl.startsWith("data:")}
             referrerPolicy="no-referrer"
           />
@@ -152,7 +150,7 @@ export default function EventCard({
       </div>
 
       {/* Details Column */}
-      <div className="flex-shrink-0 w-full sm:w-96 sm:h-32 flex flex-col justify-between">
+      <div className="flex-shrink-0 w-full sm:w-96 sm:h-32 flex flex-col justify-between mt-2 sm:mt-0">
         <div>
           <h3 className="text-base font-bold text-brand-600 leading-tight">
             <a
@@ -165,7 +163,7 @@ export default function EventCard({
             </a>
           </h3>
 
-          <div className="text-xs text-gray-900 font-medium mt-1">
+          <div className="text-xs text-gray-900 font-medium mt-2 sm:mt-1">
             {formatDate(event.startDate)}
           </div>
           <div className="text-xs text-gray-500 mt-2">
@@ -175,7 +173,7 @@ export default function EventCard({
           </div>
         </div>
 
-        <div className="flex flex-wrap gap-1">
+        <div className="flex flex-wrap gap-1 mt-2 sm:mt-0 mb-2 sm:mb-0">
           {/* Price Tag */}
           <span
             className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-bold border ${
@@ -223,8 +221,9 @@ export default function EventCard({
             className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs text-gray-600 hover:bg-brand-50 hover:text-brand-600 rounded border border-gray-200 cursor-pointer"
             title="Add to Google Calendar"
           >
-            <CalendarPlus size={14} />
-            <span>Add to Calendar</span>
+            <CalendarPlus2 size={14} />
+            <span className="sm:hidden">Calendar</span>
+            <span className="hidden sm:inline">Add to Calendar</span>
           </a>
           <button
             onClick={() => onHide(event.title, event.organizer)}

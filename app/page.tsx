@@ -3,7 +3,6 @@ import { events } from "@/lib/db/schema";
 import { gte, asc, InferSelectModel } from "drizzle-orm";
 import EventFeed from "@/components/EventFeed";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
-import Image from "next/image";
 import { getStartOfTodayEastern } from "@/lib/utils/timezone";
 
 type DbEvent = InferSelectModel<typeof events>;
@@ -38,15 +37,14 @@ export default async function Home() {
   return (
     <main className="min-h-screen bg-gray-50">
       <header className="bg-white border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
-          <Image
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-3 sm:py-4 flex items-center justify-between">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
             src="/avlgo_banner_logo_v2.svg"
             alt="AVL GO"
-            width={140}
-            height={38}
-            priority
+            className="w-[80px] sm:w-[140px] h-auto"
           />
-          <div className="text-sm text-gray-500 hidden sm:block">
+          <div className="text-xs sm:text-sm text-gray-500">
             Aggregating all AVL events
           </div>
         </div>

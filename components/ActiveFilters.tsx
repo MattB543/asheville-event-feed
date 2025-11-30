@@ -54,7 +54,7 @@ export default function ActiveFilters({
 }: ActiveFiltersProps) {
   if (filters.length === 0) {
     return (
-      <div className="flex items-center justify-end text-sm text-gray-500 py-2 pb-3 sticky top-0 z-20 bg-gray-50">
+      <div className="flex items-center justify-start sm:justify-end text-sm text-gray-500 py-2 pb-3 sticky top-0 z-20 bg-gray-50 px-3 sm:px-0">
         <span>
           Showing {totalEvents} events
           <ExportLinks exportParams={exportParams} />
@@ -68,7 +68,7 @@ export default function ActiveFilters({
   const otherFilters = filters.filter((f) => f.type !== "tag");
 
   return (
-    <div className="flex flex-wrap items-center gap-2 py-2 sticky top-0 z-20 bg-gray-50">
+    <div className="flex flex-wrap items-center gap-2 py-2 sticky top-0 z-20 bg-gray-50 px-3 sm:px-0">
       <span className="text-sm text-gray-500">Active filters:</span>
       <div className="flex flex-wrap gap-2">
         {otherFilters.map((filter) => (

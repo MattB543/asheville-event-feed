@@ -196,7 +196,7 @@ export default function FilterBar({
   };
 
   return (
-    <div className="mb-3">
+    <div className="mb-3 px-3 sm:px-0">
       {/* Desktop: single row, Mobile: search on top, filters below */}
       <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-2">
         {/* Search Input */}
@@ -553,7 +553,7 @@ export default function FilterBar({
           {/* Keyword Filter Button */}
           <button onClick={onOpenSettings} className={buttonStyle}>
             <SlidersHorizontal size={16} />
-            <span className="hidden sm:inline">Keyword Filter</span>
+            <span>Keyword Filter</span>
           </button>
         </div>
       </div>

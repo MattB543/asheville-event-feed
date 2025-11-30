@@ -525,7 +525,7 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
   if (!isLoaded) return <EventFeedSkeleton />;
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="max-w-7xl mx-auto px-0 sm:px-6 lg:px-8 py-4 sm:py-8">
       <FilterBar
         search={searchInput}
         onSearchChange={setSearchInput}
@@ -627,20 +627,21 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
 
             return (
               <div key={dateKey} className="flex flex-col">
-                <h2 className="text-xl font-bold text-gray-800 sticky top-9 bg-white border border-b-0 border-gray-200 rounded-t-lg py-2 px-4 z-10">
+                <h2 className="text-xl font-bold text-gray-800 sticky top-9 bg-white sm:border sm:border-b-0 sm:border-gray-200 sm:rounded-t-lg py-2 px-3 sm:px-4 z-10">
                   {headerText}
                 </h2>
-                <div className="flex flex-col bg-white rounded-b-lg shadow-sm border border-gray-200 overflow-hidden">
+                <div className="flex flex-col bg-white sm:rounded-b-lg sm:shadow-sm sm:border sm:border-gray-200 overflow-hidden">
                   {/* Show previous events toggle for today when events are hidden */}
                   {isTodayGroup &&
                     hiddenPreviousCount > 0 &&
                     !showAllPreviousEvents && (
                       <button
                         onClick={() => setShowAllPreviousEvents(true)}
-                        className="text-xs text-gray-600 hover:text-blue-700 font-medium px-5 py-3 text-left border-b border-gray-200 hover:bg-blue-50 transition-colors cursor-pointer"
+                        className="text-xs text-gray-600 hover:text-blue-700 font-medium px-3 sm:px-5 py-3 sm:py-3 pt-0 text-left border-b border-gray-200 hover:bg-blue-50 transition-colors cursor-pointer underline sm:no-underline"
                       >
-                        Show {hiddenPreviousCount} earlier event
-                        {hiddenPreviousCount !== 1 ? "s" : ""} from today
+                        Show {hiddenPreviousCount} event
+                        {hiddenPreviousCount !== 1 ? "s" : ""} from earlier
+                        today
                       </button>
                     )}
                   {/* Show collapse option when viewing all previous events */}
@@ -654,7 +655,7 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
                       return wouldHideCount > 0 ? (
                         <button
                           onClick={() => setShowAllPreviousEvents(false)}
-                          className="text-xs text-gray-500 hover:text-gray-700 font-medium px-5 py-3 text-left border-b border-gray-200 hover:bg-gray-50 transition-colors cursor-pointer"
+                          className="text-xs text-gray-500 hover:text-gray-700 font-medium px-3 sm:px-5 py-3 text-left border-b border-gray-200 hover:bg-gray-50 transition-colors cursor-pointer"
                         >
                           Hide earlier events
                         </button>

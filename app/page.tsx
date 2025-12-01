@@ -4,6 +4,7 @@ import { gte, asc, InferSelectModel } from "drizzle-orm";
 import EventFeed from "@/components/EventFeed";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { getStartOfTodayEastern } from "@/lib/utils/timezone";
+import InfoBanner from "@/components/InfoBanner";
 
 type DbEvent = InferSelectModel<typeof events>;
 
@@ -57,6 +58,8 @@ export default async function Home() {
           </div>
         </div>
       </header>
+
+      <InfoBanner />
 
       <ErrorBoundary>
         <EventFeed initialEvents={initialEvents} />

@@ -127,12 +127,12 @@ export async function generateEventTags(event: EventData): Promise<string[]> {
         typeof tag === "string" && ALLOWED_TAGS.includes(tag as typeof ALLOWED_TAGS[number])
     );
 
-    // Log if AI generated invalid tags
+    // Log if AI generated invalid tags (with event context for debugging)
     const invalidTags = parsed.filter(
       (tag) => typeof tag === "string" && !ALLOWED_TAGS.includes(tag as typeof ALLOWED_TAGS[number])
     );
     if (invalidTags.length > 0) {
-      console.warn(`AI generated invalid tags (filtered out): ${invalidTags.join(", ")}`);
+      console.warn(`[Tagging] Invalid tags for "${event.title}": ${invalidTags.join(", ")} (filtered out)`);
     }
 
     return validTags;

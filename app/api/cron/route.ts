@@ -17,16 +17,39 @@ import { findDuplicates, getIdsToRemove } from '@/lib/utils/deduplication';
 
 export const maxDuration = 300; // 5 minutes
 
+// Helper to format duration in human-readable form
+function formatDuration(ms: number): string {
+  if (ms < 1000) return `${ms}ms`;
+  const seconds = Math.floor(ms / 1000);
+  if (seconds < 60) return `${seconds}s`;
+  const minutes = Math.floor(seconds / 60);
+  const remainingSeconds = seconds % 60;
+  return `${minutes}m ${remainingSeconds}s`;
+}
+
 export async function GET(request: Request) {
   const authHeader = request.headers.get('authorization');
   if (authHeader !== `Bearer ${env.CRON_SECRET}`) {
     return new NextResponse('Unauthorized', { status: 401 });
   }
 
+  const jobStartTime = Date.now();
+
+  // Stats tracking
+  const stats = {
+    scraping: { duration: 0, total: 0 },
+    tagging: { duration: 0, success: 0, failed: 0, skipped: 0 },
+    images: { duration: 0, success: 0, failed: 0 },
+    upsert: { duration: 0, success: 0, failed: 0 },
+    dedup: { removed: 0 },
+  };
+
   try {
+    console.log('[Cron] ════════════════════════════════════════════════');
     console.log('[Cron] Starting scrape job...');
 
     // Scrape AVL Today, Eventbrite, Meetup, Harrah's, Orange Peel, and Grey Eagle in parallel
+    const scrapeStartTime = Date.now();
     const [avlEvents, ebEvents, meetupEvents, harrahsEvents, orangePeelEvents, greyEagleEvents] = await Promise.all([
       scrapeAvlToday(),
       scrapeEventbrite(3), // Scrape 3 pages for regular updates (de-duplication handled by DB)
@@ -35,8 +58,10 @@ export async function GET(request: Request) {
       scrapeOrangePeel(),  // Orange Peel (Ticketmaster API + Website JSON-LD)
       scrapeGreyEagle(),   // Grey Eagle (Website JSON-LD)
     ]);
+    stats.scraping.duration = Date.now() - scrapeStartTime;
+    stats.scraping.total = avlEvents.length + ebEvents.length + meetupEvents.length + harrahsEvents.length + orangePeelEvents.length + greyEagleEvents.length;
 
-    console.log(`[Cron] Scrape complete. AVL: ${avlEvents.length}, EB: ${ebEvents.length}, Meetup: ${meetupEvents.length}, Harrahs: ${harrahsEvents.length}, OrangePeel: ${orangePeelEvents.length}, GreyEagle: ${greyEagleEvents.length}`);
+    console.log(`[Cron] Scrape complete in ${formatDuration(stats.scraping.duration)}. AVL: ${avlEvents.length}, EB: ${ebEvents.length}, Meetup: ${meetupEvents.length}, Harrahs: ${harrahsEvents.length}, OrangePeel: ${orangePeelEvents.length}, GreyEagle: ${greyEagleEvents.length} (Total: ${stats.scraping.total})`);
 
     // Facebook scraping (separate due to browser requirements)
     // Note: Facebook scraping uses Playwright/Patchright which is resource-intensive
@@ -84,12 +109,14 @@ export async function GET(request: Request) {
 
     // 3. Identify new events
     const newEvents = allEvents.filter(e => !existingUrls.has(e.url));
-    console.log(`[Cron] Found ${newEvents.length} new events to tag.`);
+    stats.tagging.skipped = allEvents.length - newEvents.length;
+    console.log(`[Cron] Found ${newEvents.length} new events to tag (${stats.tagging.skipped} existing, skipped).`);
 
     // 4. Generate tags for new events (in parallel with concurrency limit)
     // Helper to process in chunks to avoid rate limits
     const chunk = <T>(arr: T[], size: number) => Array.from({ length: Math.ceil(arr.length / size) }, (_, i) => arr.slice(i * size, i * size + size));
 
+    const tagStartTime = Date.now();
     for (const batch of chunk(newEvents, 5)) {
       await Promise.all(batch.map(async (event) => {
         try {
@@ -101,13 +128,17 @@ export async function GET(request: Request) {
             startDate: event.startDate,
           });
           event.tags = tags;
+          stats.tagging.success++;
         } catch (err) {
-          console.error(`[Cron] Failed to tag event ${event.title}:`, err);
+          stats.tagging.failed++;
+          console.error(`[Cron] Failed to tag "${event.title}":`, err instanceof Error ? err.message : err);
         }
       }));
       // Small delay between batches
       await new Promise(r => setTimeout(r, 1000));
     }
+    stats.tagging.duration = Date.now() - tagStartTime;
+    console.log(`[Cron] Tagging complete in ${formatDuration(stats.tagging.duration)}: ${stats.tagging.success} succeeded, ${stats.tagging.failed} failed`);
 
     // 5. Generate images for events without images (or with placeholder images)
     // Also catch Meetup fallback images that should be replaced
@@ -120,8 +151,9 @@ export async function GET(request: Request) {
       return false;
     };
     const eventsWithoutImages = allEvents.filter(e => needsImage(e.imageUrl));
-    console.log(`[Cron] Found ${eventsWithoutImages.length} events without images (or with placeholders). Generating...`);
+    console.log(`[Cron] Found ${eventsWithoutImages.length} events needing images (no image or placeholder).`);
 
+    const imageStartTime = Date.now();
     for (const batch of chunk(eventsWithoutImages, 3)) {
       await Promise.all(batch.map(async (event) => {
         try {
@@ -133,20 +165,26 @@ export async function GET(request: Request) {
           });
           if (imageUrl) {
             event.imageUrl = imageUrl;
+            stats.images.success++;
+          } else {
+            stats.images.failed++;
+            console.warn(`[Cron] Image generation returned null for "${event.title}"`);
           }
         } catch (err) {
-          console.error(`[Cron] Failed to generate image for ${event.title}:`, err);
+          stats.images.failed++;
+          console.error(`[Cron] Failed to generate image for "${event.title}":`, err instanceof Error ? err.message : err);
         }
       }));
       // Longer delay for image generation (more resource intensive)
       await new Promise(r => setTimeout(r, 2000));
     }
-    console.log(`[Cron] Image generation complete.`);
+    stats.images.duration = Date.now() - imageStartTime;
+    console.log(`[Cron] Image generation complete in ${formatDuration(stats.images.duration)}: ${stats.images.success} succeeded, ${stats.images.failed} failed`);
 
     console.log(`[Cron] Upserting ${allEvents.length} events to database...`);
 
     // Batch upserts in parallel (chunks of 10 to avoid overwhelming the DB)
-    let upsertCount = 0;
+    const upsertStartTime = Date.now();
     const upsertBatches = chunk(allEvents, 10);
 
     for (const batch of upsertBatches) {
@@ -182,13 +220,15 @@ export async function GET(request: Request) {
                 goingCount: event.goingCount,
               },
             });
-          upsertCount++;
+          stats.upsert.success++;
         } catch (err) {
-          console.error(`[Cron] Failed to upsert event ${event.title}:`, err);
+          stats.upsert.failed++;
+          console.error(`[Cron] Failed to upsert "${event.title}" (${event.source}):`, err instanceof Error ? err.message : err);
         }
       }));
     }
-    console.log(`[Cron] Upserted ${upsertCount} events.`);
+    stats.upsert.duration = Date.now() - upsertStartTime;
+    console.log(`[Cron] Upsert complete in ${formatDuration(stats.upsert.duration)}: ${stats.upsert.success} succeeded, ${stats.upsert.failed} failed`);
 
     // Note: We no longer delete old events - they're kept in the DB for historical reference
     // Only duplicates are removed (see deduplication below)
@@ -208,21 +248,50 @@ export async function GET(request: Request) {
 
     const duplicateGroups = findDuplicates(allDbEvents);
     const duplicateIdsToRemove = getIdsToRemove(duplicateGroups);
+    stats.dedup.removed = duplicateIdsToRemove.length;
 
     if (duplicateIdsToRemove.length > 0) {
       await db.delete(events).where(inArray(events.id, duplicateIdsToRemove));
-      console.log(`[Cron] Removed ${duplicateIdsToRemove.length} duplicate events.`);
+      console.log(`[Cron] Deduplication: removed ${duplicateIdsToRemove.length} duplicate events.`);
     } else {
-      console.log(`[Cron] No duplicates found.`);
+      console.log(`[Cron] Deduplication: no duplicates found.`);
     }
+
+    // Final summary
+    const totalDuration = Date.now() - jobStartTime;
+    console.log('[Cron] ────────────────────────────────────────────────');
+    console.log(`[Cron] JOB COMPLETE in ${formatDuration(totalDuration)}`);
+    console.log('[Cron] ────────────────────────────────────────────────');
+    console.log(`[Cron] Scraping:  ${stats.scraping.total} events in ${formatDuration(stats.scraping.duration)}`);
+    console.log(`[Cron]   → AVL: ${avlEvents.length}, EB: ${ebEvents.length}, Meetup: ${meetupEvents.length}, Harrahs: ${harrahsEvents.length}, OrangePeel: ${orangePeelEvents.length}, GreyEagle: ${greyEagleEvents.length}${fbEvents.length > 0 ? `, FB: ${fbEvents.length}` : ''}`);
+    console.log(`[Cron] Tagging:   ${stats.tagging.success}/${newEvents.length} new events tagged in ${formatDuration(stats.tagging.duration)}${stats.tagging.failed > 0 ? ` (${stats.tagging.failed} failed)` : ''}`);
+    console.log(`[Cron] Images:    ${stats.images.success}/${eventsWithoutImages.length} generated in ${formatDuration(stats.images.duration)}${stats.images.failed > 0 ? ` (${stats.images.failed} failed)` : ''}`);
+    console.log(`[Cron] Database:  ${stats.upsert.success} upserted in ${formatDuration(stats.upsert.duration)}${stats.upsert.failed > 0 ? ` (${stats.upsert.failed} failed)` : ''}, ${stats.dedup.removed} duplicates removed`);
+    console.log('[Cron] ════════════════════════════════════════════════');
 
     return NextResponse.json({
       success: true,
-      count: allEvents.length,
-      duplicatesRemoved: duplicateIdsToRemove.length,
+      duration: totalDuration,
+      stats: {
+        scraped: stats.scraping.total,
+        newEvents: newEvents.length,
+        tagged: stats.tagging.success,
+        imagesGenerated: stats.images.success,
+        upserted: stats.upsert.success,
+        duplicatesRemoved: stats.dedup.removed,
+        failures: {
+          tagging: stats.tagging.failed,
+          images: stats.images.failed,
+          upsert: stats.upsert.failed,
+        },
+      },
     });
   } catch (error) {
-    console.error('Cron error:', error);
-    return NextResponse.json({ success: false, error: String(error) }, { status: 500 });
+    const totalDuration = Date.now() - jobStartTime;
+    console.error('[Cron] ════════════════════════════════════════════════');
+    console.error(`[Cron] JOB FAILED after ${formatDuration(totalDuration)}`);
+    console.error('[Cron] Error:', error);
+    console.error('[Cron] ════════════════════════════════════════════════');
+    return NextResponse.json({ success: false, error: String(error), duration: totalDuration }, { status: 500 });
   }
 }

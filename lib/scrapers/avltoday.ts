@@ -55,8 +55,8 @@ export async function scrapeAvlToday(): Promise<ScrapedEvent[]> {
         allEvents.push(...formatted);
         skip += 25;
 
-        if (skip >= 300) {
-            console.log("[AVL Scraper] Reached safety limit of 300 items.");
+        if (skip >= 400) {
+            console.log("[AVL Scraper] Reached safety limit of 400 items.");
             hasMore = false;
         }
         if (data.Value.length < 25) {

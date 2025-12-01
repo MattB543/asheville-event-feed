@@ -412,7 +412,7 @@ async function scrapeEventPage(url: string): Promise<ScrapedEvent | null> {
       imageUrl: jsonLd.image,
     };
   } catch (error) {
-    console.warn(`[OrangePeel] Failed to scrape event page: ${url}`, error);
+    console.warn(`[OrangePeel] Failed to scrape: ${url}`, error instanceof Error ? error.message : error);
     return null;
   }
 }

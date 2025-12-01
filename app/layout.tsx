@@ -45,8 +45,8 @@ export const metadata: Metadata = {
   // Favicon and icons
   icons: {
     icon: [
-      { url: "/avlgo_favicon.ico", sizes: "any" },
       { url: "/avlgo_favicon.svg", type: "image/svg+xml" },
+      { url: "/avlgo_favicon.ico", sizes: "32x32" },
     ],
     apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
   },

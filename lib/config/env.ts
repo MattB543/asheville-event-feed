@@ -14,11 +14,17 @@ export const env = {
   get GEMINI_API_KEY() { return process.env.GEMINI_API_KEY; },
   get GEMINI_IMAGE_MODEL() { return process.env.GEMINI_IMAGE_MODEL; },
   get CRON_SECRET() { return process.env.CRON_SECRET; },
+  get OPENROUTER_API_KEY() { return process.env.OPENROUTER_API_KEY; },
 } as const;
 
 // Helper to check if AI features are enabled
 export function isAIEnabled(): boolean {
   return !!env.GEMINI_API_KEY;
+}
+
+// Helper to check if OpenRouter chat is enabled
+export function isChatEnabled(): boolean {
+  return !!env.OPENROUTER_API_KEY;
 }
 
 // Facebook configuration

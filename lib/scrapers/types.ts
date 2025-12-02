@@ -1,4 +1,4 @@
-export type EventSource = 'AVL_TODAY' | 'EVENTBRITE' | 'MEETUP' | 'FACEBOOK' | 'HARRAHS' | 'ORANGE_PEEL' | 'GREY_EAGLE';
+export type EventSource = 'AVL_TODAY' | 'EVENTBRITE' | 'MEETUP' | 'FACEBOOK' | 'HARRAHS' | 'ORANGE_PEEL' | 'GREY_EAGLE' | 'LIVE_MUSIC_AVL';
 
 export interface ScrapedEvent {
   sourceId: string;

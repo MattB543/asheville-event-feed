@@ -58,6 +58,11 @@ function isThisWeekend(date: Date): boolean {
   return date >= saturday && date <= sundayEnd;
 }
 
+function isDayOfWeek(date: Date, days: number[]): boolean {
+  if (days.length === 0) return true;
+  return days.includes(date.getDay());
+}
+
 function isInDateRange(date: Date, start: string, end?: string): boolean {
   const eventDate = new Date(date);
   eventDate.setHours(0, 0, 0, 0);
@@ -81,8 +86,12 @@ export async function GET(request: Request) {
     const dateEnd = searchParams.get('dateEnd');
     const priceFilter = searchParams.get('priceFilter');
     const maxPrice = searchParams.get('maxPrice');
-    const tagsParam = searchParams.get('tags');
-    const selectedTags = tagsParam ? tagsParam.split(',') : [];
+    const tagsIncludeParam = searchParams.get('tagsInclude');
+    const tagsExcludeParam = searchParams.get('tagsExclude');
+    const includeTags = tagsIncludeParam ? tagsIncludeParam.split(',') : [];
+    const excludeTags = tagsExcludeParam ? tagsExcludeParam.split(',') : [];
+    const daysParam = searchParams.get('days');
+    const selectedDays = daysParam ? daysParam.split(',').map(Number) : [];
 
     // Get start of today in Eastern timezone (Asheville, NC)
     const startOfToday = getStartOfTodayEastern();
@@ -106,6 +115,7 @@ export async function GET(request: Request) {
       if (dateFilter === 'today' && !isToday(eventDate)) return false;
       if (dateFilter === 'tomorrow' && !isTomorrow(eventDate)) return false;
       if (dateFilter === 'weekend' && !isThisWeekend(eventDate)) return false;
+      if (dateFilter === 'dayOfWeek' && !isDayOfWeek(eventDate, selectedDays)) return false;
       if (dateFilter === 'custom' && dateStart && !isInDateRange(eventDate, dateStart, dateEnd || undefined)) return false;
 
       // Price filter
@@ -120,10 +130,17 @@ export async function GET(request: Request) {
         if (priceFilter === 'custom' && maxPrice && price > parseFloat(maxPrice)) return false;
       }
 
-      // Tag filter (OR logic)
-      if (selectedTags.length > 0) {
-        const eventTags = event.tags || [];
-        if (!selectedTags.some(tag => eventTags.includes(tag))) return false;
+      // Tag filter (include AND exclude)
+      const eventTags = event.tags || [];
+
+      // Exclude logic: If event has ANY excluded tag, filter it out
+      if (excludeTags.length > 0) {
+        if (excludeTags.some(tag => eventTags.includes(tag))) return false;
+      }
+
+      // Include logic: If includes are set, event must have at least one
+      if (includeTags.length > 0) {
+        if (!includeTags.some(tag => eventTags.includes(tag))) return false;
       }
 
       return true;

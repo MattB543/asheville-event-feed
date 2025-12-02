@@ -1,10 +1,11 @@
 "use client";
 
+import { Sparkles } from "lucide-react";
 import FilterChip from "./ui/FilterChip";
 
 export interface ActiveFilter {
   id: string;
-  type: "date" | "price" | "tag" | "search" | "location";
+  type: "date" | "price" | "tag" | "tag-include" | "tag-exclude" | "search" | "location";
   label: string;
 }
 
@@ -16,6 +17,7 @@ interface ActiveFiltersProps {
   totalEvents: number;
   filteredCount: number;
   exportParams?: string;
+  onOpenChat?: () => void;
 }
 
 function ExportLinks({ exportParams }: { exportParams?: string }) {
@@ -43,6 +45,18 @@ function ExportLinks({ exportParams }: { exportParams?: string }) {
   );
 }
 
+function AskAIButton({ onClick }: { onClick: () => void }) {
+  return (
+    <button
+      onClick={onClick}
+      className="inline-flex items-center gap-1.5 px-3 py-1 bg-brand-600 hover:bg-brand-700 text-white text-sm font-medium rounded-md cursor-pointer transition-colors"
+    >
+      <Sparkles size={14} />
+      <span>Ask AI</span>
+    </button>
+  );
+}
+
 export default function ActiveFilters({
   filters,
   onRemove,
@@ -51,10 +65,12 @@ export default function ActiveFilters({
   totalEvents,
   filteredCount,
   exportParams,
+  onOpenChat,
 }: ActiveFiltersProps) {
   if (filters.length === 0) {
     return (
-      <div className="flex items-center justify-start sm:justify-end text-sm text-gray-500 py-2 pb-3 sm:sticky sm:top-0 sm:z-20 bg-gray-50 px-3 sm:px-0">
+      <div className="flex items-center justify-start sm:justify-end gap-3 text-sm text-gray-500 py-2 pb-3 sm:sticky sm:top-0 sm:z-20 bg-gray-50 px-3 sm:px-0">
+        {onOpenChat && <AskAIButton onClick={onOpenChat} />}
         <span>
           Showing {totalEvents} events
           <ExportLinks exportParams={exportParams} />
@@ -64,8 +80,10 @@ export default function ActiveFilters({
   }
 
   // Separate tag filters from other filters
-  const tagFilters = filters.filter((f) => f.type === "tag");
-  const otherFilters = filters.filter((f) => f.type !== "tag");
+  const includeTagFilters = filters.filter((f) => f.type === "tag-include");
+  const excludeTagFilters = filters.filter((f) => f.type === "tag-exclude");
+  const otherFilters = filters.filter((f) => f.type !== "tag-include" && f.type !== "tag-exclude" && f.type !== "tag");
+  const totalTagFilters = includeTagFilters.length + excludeTagFilters.length;
 
   return (
     <div className="flex flex-wrap items-center gap-2 py-2 sm:sticky sm:top-0 sm:z-20 bg-gray-50 px-3 sm:px-0">
@@ -79,18 +97,29 @@ export default function ActiveFilters({
             variant="active"
           />
         ))}
-        {tagFilters.length > 0 && tagFilters.length <= 5 ? (
-          tagFilters.map((filter) => (
-            <FilterChip
-              key={filter.id}
-              label={filter.label}
-              onRemove={() => onRemove(filter.id)}
-              variant="active"
-            />
-          ))
-        ) : tagFilters.length > 5 ? (
+        {/* Show individual tag chips if 5 or fewer total tags, otherwise summarize */}
+        {totalTagFilters > 0 && totalTagFilters <= 5 ? (
+          <>
+            {includeTagFilters.map((filter) => (
+              <FilterChip
+                key={filter.id}
+                label={filter.label}
+                onRemove={() => onRemove(filter.id)}
+                variant="include"
+              />
+            ))}
+            {excludeTagFilters.map((filter) => (
+              <FilterChip
+                key={filter.id}
+                label={filter.label}
+                onRemove={() => onRemove(filter.id)}
+                variant="exclude"
+              />
+            ))}
+          </>
+        ) : totalTagFilters > 5 ? (
           <FilterChip
-            label={`${tagFilters.length} tags`}
+            label={`${totalTagFilters} tags`}
             onRemove={onClearAllTags}
             variant="active"
           />
@@ -102,10 +131,13 @@ export default function ActiveFilters({
       >
         Clear all
       </button>
-      <span className="text-sm text-gray-500 sm:ml-auto">
-        Showing {filteredCount} of {totalEvents} events
-        <ExportLinks exportParams={exportParams} />
-      </span>
+      <div className="flex items-center gap-3 sm:ml-auto">
+        {onOpenChat && <AskAIButton onClick={onOpenChat} />}
+        <span className="text-sm text-gray-500">
+          Showing {filteredCount} of {totalEvents} events
+          <ExportLinks exportParams={exportParams} />
+        </span>
+      </div>
     </div>
   );
 }

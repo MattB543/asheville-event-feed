@@ -15,6 +15,8 @@ import { TAG_CATEGORIES } from "@/lib/config/tagCategories";
 import { Calendar } from "./ui/Calendar";
 import { DateRange as DayPickerDateRange } from "react-day-picker";
 import { format, parse, isValid } from "date-fns";
+import TriStateCheckbox, { TriState } from "./ui/TriStateCheckbox";
+import { TagFilterState } from "./EventFeed";
 
 // Safe date parsing helper that returns undefined on invalid dates
 function safeParseDateString(dateStr: string | null): Date | undefined {
@@ -32,6 +34,7 @@ export type DateFilterType =
   | "today"
   | "tomorrow"
   | "weekend"
+  | "dayOfWeek"
   | "custom";
 export type PriceFilterType =
   | "any"
@@ -52,6 +55,8 @@ export interface FilterBarProps {
   onDateFilterChange: (val: DateFilterType) => void;
   customDateRange: DateRange;
   onCustomDateRangeChange: (range: DateRange) => void;
+  selectedDays: number[];
+  onSelectedDaysChange: (days: number[]) => void;
   priceFilter: PriceFilterType;
   onPriceFilterChange: (val: PriceFilterType) => void;
   customMaxPrice: number | null;
@@ -60,8 +65,8 @@ export interface FilterBarProps {
   onLocationsChange: (locations: string[]) => void;
   availableLocations: string[];
   availableTags: string[];
-  selectedTags: string[];
-  onTagsChange: (tags: string[]) => void;
+  tagFilters: TagFilterState;
+  onTagFiltersChange: (filters: TagFilterState) => void;
   onOpenSettings: () => void;
 }
 
@@ -70,6 +75,7 @@ const dateLabels: Record<DateFilterType, string> = {
   today: "Today",
   tomorrow: "Tomorrow",
   weekend: "This Weekend",
+  dayOfWeek: "Day of Week",
   custom: "Custom Dates",
 };
 
@@ -81,6 +87,8 @@ const priceLabels: Record<PriceFilterType, string> = {
   custom: "Custom Max",
 };
 
+const DAY_NAMES = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
 export default function FilterBar({
   search,
   onSearchChange,
@@ -88,6 +96,8 @@ export default function FilterBar({
   onDateFilterChange,
   customDateRange,
   onCustomDateRangeChange,
+  selectedDays,
+  onSelectedDaysChange,
   priceFilter,
   onPriceFilterChange,
   customMaxPrice,
@@ -96,8 +106,8 @@ export default function FilterBar({
   onLocationsChange,
   availableLocations,
   availableTags,
-  selectedTags,
-  onTagsChange,
+  tagFilters,
+  onTagFiltersChange,
   onOpenSettings,
 }: FilterBarProps) {
   const [isTagsOpen, setIsTagsOpen] = useState(false);
@@ -138,11 +148,35 @@ export default function FilterBar({
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const toggleTag = (tag: string) => {
-    if (selectedTags.includes(tag)) {
-      onTagsChange(selectedTags.filter((t) => t !== tag));
+  // Get the current state of a tag filter
+  const getTagState = (tag: string): TriState => {
+    if (tagFilters.include.includes(tag)) return "include";
+    if (tagFilters.exclude.includes(tag)) return "exclude";
+    return "off";
+  };
+
+  // Cycle through tag states: off -> include -> exclude -> off
+  const cycleTagState = (tag: string) => {
+    const currentState = getTagState(tag);
+
+    if (currentState === "off") {
+      // off -> include
+      onTagFiltersChange({
+        ...tagFilters,
+        include: [...tagFilters.include, tag],
+      });
+    } else if (currentState === "include") {
+      // include -> exclude
+      onTagFiltersChange({
+        include: tagFilters.include.filter((t) => t !== tag),
+        exclude: [...tagFilters.exclude, tag],
+      });
     } else {
-      onTagsChange([...selectedTags, tag]);
+      // exclude -> off
+      onTagFiltersChange({
+        ...tagFilters,
+        exclude: tagFilters.exclude.filter((t) => t !== tag),
+      });
     }
   };
 
@@ -183,12 +217,15 @@ export default function FilterBar({
   };
 
   const selectAllTags = () => {
-    onTagsChange([...availableTags]);
+    onTagFiltersChange({ include: [...availableTags], exclude: [] });
   };
 
   const deselectAllTags = () => {
-    onTagsChange([]);
+    onTagFiltersChange({ include: [], exclude: [] });
   };
+
+  // Count of active tag filters (include + exclude)
+  const activeTagCount = tagFilters.include.length + tagFilters.exclude.length;
 
   // Group available tags by category
   const groupedTags = TAG_CATEGORIES.map((category) => ({
@@ -206,6 +243,9 @@ export default function FilterBar({
     "flex items-center gap-2 h-10 px-3 text-sm font-medium text-gray-700 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors cursor-pointer";
 
   const getDateLabel = (): string => {
+    if (dateFilter === "dayOfWeek" && selectedDays.length > 0) {
+      return selectedDays.map((d) => DAY_NAMES[d]).join(", ");
+    }
     if (dateFilter === "custom" && customDateRange.start) {
       if (
         customDateRange.end &&
@@ -304,6 +344,51 @@ export default function FilterBar({
                     </label>
                   ))}
                 </div>
+
+                {dateFilter === "dayOfWeek" && (
+                  <div className="border-t border-gray-100 px-3 py-3">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-xs text-gray-500">
+                        {selectedDays.length === 0
+                          ? "Select days"
+                          : `${selectedDays.length} day${selectedDays.length !== 1 ? "s" : ""} selected`}
+                      </span>
+                      {selectedDays.length > 0 && (
+                        <button
+                          onClick={() => onSelectedDaysChange([])}
+                          className="text-xs text-brand-600 hover:text-brand-800 cursor-pointer"
+                        >
+                          Clear
+                        </button>
+                      )}
+                    </div>
+                    <div className="flex gap-1">
+                      {DAY_NAMES.map((day, index) => (
+                        <button
+                          key={day}
+                          onClick={() => {
+                            if (selectedDays.includes(index)) {
+                              onSelectedDaysChange(
+                                selectedDays.filter((d) => d !== index)
+                              );
+                            } else {
+                              onSelectedDaysChange(
+                                [...selectedDays, index].sort((a, b) => a - b)
+                              );
+                            }
+                          }}
+                          className={`flex-1 py-2 text-xs font-medium rounded transition-colors cursor-pointer ${
+                            selectedDays.includes(index)
+                              ? "bg-brand-600 text-white"
+                              : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                          }`}
+                        >
+                          {day}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
 
                 {dateFilter === "custom" && (
                   <div className="border-t border-gray-100">
@@ -481,7 +566,9 @@ export default function FilterBar({
                       </button>
                     </div>
                   </div>
-                  <p className="text-xs text-gray-400 mt-1">None selected = show all</p>
+                  <p className="text-xs text-gray-400 mt-1">
+                    None selected = show all
+                  </p>
                 </div>
 
                 <div className="overflow-y-auto p-2">
@@ -571,9 +658,9 @@ export default function FilterBar({
             >
               <Tag size={16} />
               <span>Tags</span>
-              {selectedTags.length > 0 && (
+              {activeTagCount > 0 && (
                 <span className="bg-brand-500 text-white text-xs px-1.5 py-0.5 rounded-full min-w-[20px] text-center">
-                  {selectedTags.length}
+                  {activeTagCount}
                 </span>
               )}
               <ChevronDown
@@ -604,7 +691,12 @@ export default function FilterBar({
                       </button>
                     </div>
                   </div>
-                  <p className="text-xs text-gray-400 mt-1">None selected = show all</p>
+                  <p className="text-xs text-gray-400 mt-1">
+                    None selected = show all
+                  </p>
+                  <p className="text-xs text-gray-400 mt-1">
+                    1 click to include, 2 to exclude, 3 to clear
+                  </p>
                 </div>
 
                 <div className="max-h-80 overflow-y-auto">
@@ -639,20 +731,12 @@ export default function FilterBar({
                           {expandedCategories.has(category.name) && (
                             <div className="px-2 pb-2">
                               {category.availableTags.map((tag) => (
-                                <label
+                                <TriStateCheckbox
                                   key={tag}
-                                  className="flex items-center gap-2 px-2 py-1 rounded hover:bg-gray-50 cursor-pointer"
-                                >
-                                  <input
-                                    type="checkbox"
-                                    checked={selectedTags.includes(tag)}
-                                    onChange={() => toggleTag(tag)}
-                                    className="w-4 h-4 text-brand-600 rounded border-gray-300 focus:ring-brand-500"
-                                  />
-                                  <span className="text-sm text-gray-700">
-                                    {tag}
-                                  </span>
-                                </label>
+                                  state={getTagState(tag)}
+                                  onChange={() => cycleTagState(tag)}
+                                  label={tag}
+                                />
                               ))}
                             </div>
                           )}
@@ -680,20 +764,12 @@ export default function FilterBar({
                           {expandedCategories.has("Uncategorized") && (
                             <div className="px-2 pb-2">
                               {uncategorizedTags.map((tag) => (
-                                <label
+                                <TriStateCheckbox
                                   key={tag}
-                                  className="flex items-center gap-2 px-2 py-1 rounded hover:bg-gray-50 cursor-pointer"
-                                >
-                                  <input
-                                    type="checkbox"
-                                    checked={selectedTags.includes(tag)}
-                                    onChange={() => toggleTag(tag)}
-                                    className="w-4 h-4 text-brand-600 rounded border-gray-300 focus:ring-brand-500"
-                                  />
-                                  <span className="text-sm text-gray-700">
-                                    {tag}
-                                  </span>
-                                </label>
+                                  state={getTagState(tag)}
+                                  onChange={() => cycleTagState(tag)}
+                                  label={tag}
+                                />
                               ))}
                             </div>
                           )}
@@ -703,11 +779,22 @@ export default function FilterBar({
                   )}
                 </div>
 
-                {selectedTags.length > 0 && (
+                {activeTagCount > 0 && (
                   <div className="px-3 py-2 border-t border-gray-100 bg-gray-50 flex items-center justify-between">
                     <span className="text-xs text-gray-500">
-                      {selectedTags.length} tag
-                      {selectedTags.length !== 1 ? "s" : ""} selected
+                      {tagFilters.include.length > 0 && (
+                        <span className="text-green-700">
+                          {tagFilters.include.length} included
+                        </span>
+                      )}
+                      {tagFilters.include.length > 0 &&
+                        tagFilters.exclude.length > 0 &&
+                        ", "}
+                      {tagFilters.exclude.length > 0 && (
+                        <span className="text-red-700">
+                          {tagFilters.exclude.length} excluded
+                        </span>
+                      )}
                     </span>
                     <button
                       onClick={deselectAllTags}

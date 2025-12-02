@@ -11,6 +11,7 @@ import FilterBar, {
 import { extractCity, isAshevilleArea } from "@/lib/utils/extractCity";
 import ActiveFilters, { ActiveFilter } from "./ActiveFilters";
 import SettingsModal from "./SettingsModal";
+import AIChatModal from "./AIChatModal";
 import { EventFeedSkeleton } from "./EventCardSkeleton";
 import { useDebounce } from "@/lib/hooks/useDebounce";
 import {
@@ -39,6 +40,12 @@ interface Event {
 
 interface EventFeedProps {
   initialEvents: Event[];
+}
+
+// Tag filter state for include/exclude tri-state filtering
+export interface TagFilterState {
+  include: string[];
+  exclude: string[];
 }
 
 // Fingerprint for hiding recurring events (title + organizer combo)
@@ -138,11 +145,19 @@ function isInDateRange(date: Date, range: DateRange): boolean {
   return eventDate.toDateString() === startDate.toDateString();
 }
 
+function isDayOfWeek(date: Date, days: number[]): boolean {
+  if (days.length === 0) return true; // No filter = show all
+  return days.includes(date.getDay());
+}
+
+const DAY_NAMES = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
 const dateLabels: Record<DateFilterType, string> = {
   all: "All Dates",
   today: "Today",
   tomorrow: "Tomorrow",
   weekend: "This Weekend",
+  dayOfWeek: "Day of Week",
   custom: "Custom Dates",
 };
 
@@ -169,21 +184,32 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
   const [customDateRange, setCustomDateRange] = useState<DateRange>(() =>
     getStorageItem("customDateRange", { start: null, end: null })
   );
+  const [selectedDays, setSelectedDays] = useState<number[]>(() =>
+    getStorageItem("selectedDays", [])
+  );
   const [priceFilter, setPriceFilter] = useState<PriceFilterType>(() =>
     getStorageItem("priceFilter", "any")
   );
   const [customMaxPrice, setCustomMaxPrice] = useState<number | null>(() =>
     getStorageItem("customMaxPrice", null)
   );
-  const [selectedTags, setSelectedTags] = useState<string[]>(() =>
-    getStorageItem("selectedTags", [])
-  );
+  // Tag filters with include/exclude (with migration from old selectedTags format)
+  const [tagFilters, setTagFilters] = useState<TagFilterState>(() => {
+    // Try new format first
+    const newFormat = getStorageItem<TagFilterState | null>("tagFilters", null);
+    if (newFormat && (newFormat.include || newFormat.exclude)) return newFormat;
+
+    // Migrate from old format
+    const oldSelectedTags = getStorageItem<string[]>("selectedTags", []);
+    return { include: oldSelectedTags, exclude: [] };
+  });
   const [selectedLocations, setSelectedLocations] = useState<string[]>(() =>
     getStorageItem("selectedLocations", [])
   );
 
-  // Settings
+  // Settings & Modals
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const [isChatOpen, setIsChatOpen] = useState(false);
   const [blockedHosts, setBlockedHosts] = useState<string[]>(() =>
     getStorageItem("blockedHosts", [])
   );
@@ -227,9 +253,10 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
     if (isLoaded) {
       localStorage.setItem("dateFilter", JSON.stringify(dateFilter));
       localStorage.setItem("customDateRange", JSON.stringify(customDateRange));
+      localStorage.setItem("selectedDays", JSON.stringify(selectedDays));
       localStorage.setItem("priceFilter", JSON.stringify(priceFilter));
       localStorage.setItem("customMaxPrice", JSON.stringify(customMaxPrice));
-      localStorage.setItem("selectedTags", JSON.stringify(selectedTags));
+      localStorage.setItem("tagFilters", JSON.stringify(tagFilters));
       localStorage.setItem("selectedLocations", JSON.stringify(selectedLocations));
       localStorage.setItem("blockedHosts", JSON.stringify(blockedHosts));
       localStorage.setItem("blockedKeywords", JSON.stringify(blockedKeywords));
@@ -242,9 +269,10 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
   }, [
     dateFilter,
     customDateRange,
+    selectedDays,
     priceFilter,
     customMaxPrice,
-    selectedTags,
+    tagFilters,
     selectedLocations,
     blockedHosts,
     blockedKeywords,
@@ -362,6 +390,8 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
       if (dateFilter === "today" && !isToday(eventDate)) return false;
       if (dateFilter === "tomorrow" && !isTomorrow(eventDate)) return false;
       if (dateFilter === "weekend" && !isThisWeekend(eventDate)) return false;
+      if (dateFilter === "dayOfWeek" && !isDayOfWeek(eventDate, selectedDays))
+        return false;
       if (dateFilter === "custom" && !isInDateRange(eventDate, customDateRange))
         return false;
 
@@ -388,13 +418,23 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
           return false;
       }
 
-      // 7. Tag Filter (OR logic - match any selected tag)
-      if (selectedTags.length > 0) {
-        const eventTags = event.tags || [];
-        const hasMatchingTag = selectedTags.some((tag) =>
+      // 7. Tag Filter (include AND exclude)
+      const eventTags = event.tags || [];
+
+      // Exclude logic: If event has ANY excluded tag, filter it out
+      if (tagFilters.exclude.length > 0) {
+        const hasExcludedTag = tagFilters.exclude.some((tag) =>
           eventTags.includes(tag)
         );
-        if (!hasMatchingTag) return false;
+        if (hasExcludedTag) return false;
+      }
+
+      // Include logic: If includes are set, event must have at least one
+      if (tagFilters.include.length > 0) {
+        const hasIncludedTag = tagFilters.include.some((tag) =>
+          eventTags.includes(tag)
+        );
+        if (!hasIncludedTag) return false;
       }
 
       // 8. Location Filter (multi-select - OR logic)
@@ -441,9 +481,10 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
     fuse,
     dateFilter,
     customDateRange,
+    selectedDays,
     priceFilter,
     customMaxPrice,
-    selectedTags,
+    tagFilters,
     selectedLocations,
     blockedHosts,
     blockedKeywords,
@@ -462,7 +503,9 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
     }
     if (dateFilter !== "all") {
       let label = dateLabels[dateFilter];
-      if (dateFilter === "custom" && customDateRange.start) {
+      if (dateFilter === "dayOfWeek" && selectedDays.length > 0) {
+        label = selectedDays.map((d) => DAY_NAMES[d]).join(", ");
+      } else if (dateFilter === "custom" && customDateRange.start) {
         if (
           customDateRange.end &&
           customDateRange.end !== customDateRange.start
@@ -490,8 +533,11 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
       }
       filters.push({ id: "price", type: "price", label });
     }
-    selectedTags.forEach((tag) => {
-      filters.push({ id: `tag-${tag}`, type: "tag", label: tag });
+    tagFilters.include.forEach((tag) => {
+      filters.push({ id: `tag-include-${tag}`, type: "tag-include", label: tag });
+    });
+    tagFilters.exclude.forEach((tag) => {
+      filters.push({ id: `tag-exclude-${tag}`, type: "tag-exclude", label: tag });
     });
     selectedLocations.forEach((loc) => {
       let label = loc;
@@ -504,9 +550,10 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
     search,
     dateFilter,
     customDateRange,
+    selectedDays,
     priceFilter,
     customMaxPrice,
-    selectedTags,
+    tagFilters,
     selectedLocations,
   ]);
 
@@ -517,15 +564,25 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
     } else if (id === "date") {
       setDateFilter("all");
       setCustomDateRange({ start: null, end: null });
+      setSelectedDays([]);
     } else if (id === "price") {
       setPriceFilter("any");
       setCustomMaxPrice(null);
     } else if (id.startsWith("location-")) {
       const loc = id.replace("location-", "");
       setSelectedLocations((prev) => prev.filter((l) => l !== loc));
-    } else if (id.startsWith("tag-")) {
-      const tag = id.replace("tag-", "");
-      setSelectedTags((prev) => prev.filter((t) => t !== tag));
+    } else if (id.startsWith("tag-include-")) {
+      const tag = id.replace("tag-include-", "");
+      setTagFilters((prev) => ({
+        ...prev,
+        include: prev.include.filter((t) => t !== tag),
+      }));
+    } else if (id.startsWith("tag-exclude-")) {
+      const tag = id.replace("tag-exclude-", "");
+      setTagFilters((prev) => ({
+        ...prev,
+        exclude: prev.exclude.filter((t) => t !== tag),
+      }));
     }
   }, []);
 
@@ -534,9 +591,10 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
     setSearchInput("");
     setDateFilter("all");
     setCustomDateRange({ start: null, end: null });
+    setSelectedDays([]);
     setPriceFilter("any");
     setCustomMaxPrice(null);
-    setSelectedTags([]);
+    setTagFilters({ include: [], exclude: [] });
     setSelectedLocations([]);
   }, []);
 
@@ -588,6 +646,9 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
 
     if (search) params.set("search", search);
     if (dateFilter !== "all") params.set("dateFilter", dateFilter);
+    if (dateFilter === "dayOfWeek" && selectedDays.length > 0) {
+      params.set("days", selectedDays.join(","));
+    }
     if (dateFilter === "custom" && customDateRange.start) {
       params.set("dateStart", customDateRange.start);
       if (customDateRange.end) params.set("dateEnd", customDateRange.end);
@@ -596,7 +657,8 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
     if (priceFilter === "custom" && customMaxPrice !== null) {
       params.set("maxPrice", customMaxPrice.toString());
     }
-    if (selectedTags.length > 0) params.set("tags", selectedTags.join(","));
+    if (tagFilters.include.length > 0) params.set("tagsInclude", tagFilters.include.join(","));
+    if (tagFilters.exclude.length > 0) params.set("tagsExclude", tagFilters.exclude.join(","));
 
     const queryString = params.toString();
     return queryString ? `?${queryString}` : "";
@@ -604,9 +666,10 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
     search,
     dateFilter,
     customDateRange,
+    selectedDays,
     priceFilter,
     customMaxPrice,
-    selectedTags,
+    tagFilters,
   ]);
 
   if (!isLoaded) return <EventFeedSkeleton />;
@@ -620,6 +683,8 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
         onDateFilterChange={setDateFilter}
         customDateRange={customDateRange}
         onCustomDateRangeChange={setCustomDateRange}
+        selectedDays={selectedDays}
+        onSelectedDaysChange={setSelectedDays}
         priceFilter={priceFilter}
         onPriceFilterChange={setPriceFilter}
         customMaxPrice={customMaxPrice}
@@ -628,8 +693,8 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
         onLocationsChange={setSelectedLocations}
         availableLocations={availableLocations}
         availableTags={availableTags}
-        selectedTags={selectedTags}
-        onTagsChange={setSelectedTags}
+        tagFilters={tagFilters}
+        onTagFiltersChange={setTagFilters}
         onOpenSettings={() => setIsSettingsOpen(true)}
       />
 
@@ -637,10 +702,11 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
         filters={activeFilters}
         onRemove={handleRemoveFilter}
         onClearAll={handleClearAllFilters}
-        onClearAllTags={() => setSelectedTags([])}
+        onClearAllTags={() => setTagFilters({ include: [], exclude: [] })}
         totalEvents={events.length}
         filteredCount={filteredEvents.length}
         exportParams={exportParams}
+        onOpenChat={() => setIsChatOpen(true)}
       />
 
       <div className="flex flex-col gap-10 mt-3">
@@ -816,6 +882,20 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
         useDefaultFilters={useDefaultFilters}
         onToggleDefaultFilters={setUseDefaultFilters}
         defaultFilterKeywords={DEFAULT_BLOCKED_KEYWORDS}
+      />
+
+      <AIChatModal
+        isOpen={isChatOpen}
+        onClose={() => setIsChatOpen(false)}
+        filteredEvents={filteredEvents}
+        activeFilters={{
+          search: searchInput,
+          dateFilter,
+          priceFilter,
+          tagsInclude: tagFilters.include,
+          tagsExclude: tagFilters.exclude,
+          selectedLocations,
+        }}
       />
 
       {/* Scroll to top button */}

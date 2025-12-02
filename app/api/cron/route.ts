@@ -6,6 +6,7 @@ import { scrapeFacebookEvents } from '@/lib/scrapers/facebook';
 import { scrapeHarrahs } from '@/lib/scrapers/harrahs';
 import { scrapeOrangePeel } from '@/lib/scrapers/orangepeel';
 import { scrapeGreyEagle } from '@/lib/scrapers/greyeagle';
+import { scrapeLiveMusicAvl } from '@/lib/scrapers/livemusicavl';
 import { db } from '@/lib/db';
 import { events } from '@/lib/db/schema';
 import { inArray } from 'drizzle-orm';
@@ -48,20 +49,21 @@ export async function GET(request: Request) {
     console.log('[Cron] ════════════════════════════════════════════════');
     console.log('[Cron] Starting scrape job...');
 
-    // Scrape AVL Today, Eventbrite, Meetup, Harrah's, Orange Peel, and Grey Eagle in parallel
+    // Scrape AVL Today, Eventbrite, Meetup, Harrah's, Orange Peel, Grey Eagle, and Live Music AVL in parallel
     const scrapeStartTime = Date.now();
-    const [avlEvents, ebEvents, meetupEvents, harrahsEvents, orangePeelEvents, greyEagleEvents] = await Promise.all([
+    const [avlEvents, ebEvents, meetupEvents, harrahsEvents, orangePeelEvents, greyEagleEvents, liveMusicAvlEvents] = await Promise.all([
       scrapeAvlToday(),
       scrapeEventbrite(3), // Scrape 3 pages for regular updates (de-duplication handled by DB)
       scrapeMeetup(3),     // Scrape 3 pages (~150 events)
       scrapeHarrahs(),     // Harrah's Cherokee Center (Ticketmaster API + HTML)
       scrapeOrangePeel(),  // Orange Peel (Ticketmaster API + Website JSON-LD)
       scrapeGreyEagle(),   // Grey Eagle (Website JSON-LD)
+      scrapeLiveMusicAvl(), // Live Music Asheville (select venues only)
     ]);
     stats.scraping.duration = Date.now() - scrapeStartTime;
-    stats.scraping.total = avlEvents.length + ebEvents.length + meetupEvents.length + harrahsEvents.length + orangePeelEvents.length + greyEagleEvents.length;
+    stats.scraping.total = avlEvents.length + ebEvents.length + meetupEvents.length + harrahsEvents.length + orangePeelEvents.length + greyEagleEvents.length + liveMusicAvlEvents.length;
 
-    console.log(`[Cron] Scrape complete in ${formatDuration(stats.scraping.duration)}. AVL: ${avlEvents.length}, EB: ${ebEvents.length}, Meetup: ${meetupEvents.length}, Harrahs: ${harrahsEvents.length}, OrangePeel: ${orangePeelEvents.length}, GreyEagle: ${greyEagleEvents.length} (Total: ${stats.scraping.total})`);
+    console.log(`[Cron] Scrape complete in ${formatDuration(stats.scraping.duration)}. AVL: ${avlEvents.length}, EB: ${ebEvents.length}, Meetup: ${meetupEvents.length}, Harrahs: ${harrahsEvents.length}, OrangePeel: ${orangePeelEvents.length}, GreyEagle: ${greyEagleEvents.length}, LiveMusicAVL: ${liveMusicAvlEvents.length} (Total: ${stats.scraping.total})`);
 
     // Facebook scraping (separate due to browser requirements)
     // Note: Facebook scraping uses Playwright/Patchright which is resource-intensive
@@ -90,8 +92,9 @@ export async function GET(request: Request) {
     const harrahsWithTags: ScrapedEventWithTags[] = harrahsEvents.map(e => ({ ...e, tags: [] }));
     const orangePeelWithTags: ScrapedEventWithTags[] = orangePeelEvents.map(e => ({ ...e, tags: [] }));
     const greyEagleWithTags: ScrapedEventWithTags[] = greyEagleEvents.map(e => ({ ...e, tags: [] }));
+    const liveMusicAvlWithTags: ScrapedEventWithTags[] = liveMusicAvlEvents.map(e => ({ ...e, tags: [] }));
 
-    const allEvents: ScrapedEventWithTags[] = [...avlEvents, ...ebEvents, ...meetupEvents, ...fbEvents, ...harrahsWithTags, ...orangePeelWithTags, ...greyEagleWithTags];
+    const allEvents: ScrapedEventWithTags[] = [...avlEvents, ...ebEvents, ...meetupEvents, ...fbEvents, ...harrahsWithTags, ...orangePeelWithTags, ...greyEagleWithTags, ...liveMusicAvlWithTags];
     
     // Optimization: Only generate tags for NEW events
     // 1. Get URLs of all scraped events
@@ -263,7 +266,7 @@ export async function GET(request: Request) {
     console.log(`[Cron] JOB COMPLETE in ${formatDuration(totalDuration)}`);
     console.log('[Cron] ────────────────────────────────────────────────');
     console.log(`[Cron] Scraping:  ${stats.scraping.total} events in ${formatDuration(stats.scraping.duration)}`);
-    console.log(`[Cron]   → AVL: ${avlEvents.length}, EB: ${ebEvents.length}, Meetup: ${meetupEvents.length}, Harrahs: ${harrahsEvents.length}, OrangePeel: ${orangePeelEvents.length}, GreyEagle: ${greyEagleEvents.length}${fbEvents.length > 0 ? `, FB: ${fbEvents.length}` : ''}`);
+    console.log(`[Cron]   → AVL: ${avlEvents.length}, EB: ${ebEvents.length}, Meetup: ${meetupEvents.length}, Harrahs: ${harrahsEvents.length}, OrangePeel: ${orangePeelEvents.length}, GreyEagle: ${greyEagleEvents.length}, LiveMusicAVL: ${liveMusicAvlEvents.length}${fbEvents.length > 0 ? `, FB: ${fbEvents.length}` : ''}`);
     console.log(`[Cron] Tagging:   ${stats.tagging.success}/${newEvents.length} new events tagged in ${formatDuration(stats.tagging.duration)}${stats.tagging.failed > 0 ? ` (${stats.tagging.failed} failed)` : ''}`);
     console.log(`[Cron] Images:    ${stats.images.success}/${eventsWithoutImages.length} generated in ${formatDuration(stats.images.duration)}${stats.images.failed > 0 ? ` (${stats.images.failed} failed)` : ''}`);
     console.log(`[Cron] Database:  ${stats.upsert.success} upserted in ${formatDuration(stats.upsert.duration)}${stats.upsert.failed > 0 ? ` (${stats.upsert.failed} failed)` : ''}, ${stats.dedup.removed} duplicates removed`);

@@ -5,7 +5,7 @@ import { X } from "lucide-react";
 interface FilterChipProps {
   label: string;
   onRemove?: () => void;
-  variant?: "default" | "active" | "muted";
+  variant?: "default" | "active" | "muted" | "include" | "exclude";
   className?: string;
 }
 
@@ -13,6 +13,8 @@ const variantStyles = {
   default: "bg-gray-100 text-gray-700 border-gray-200 hover:bg-gray-200",
   active: "bg-brand-100 text-brand-800 border-brand-200 hover:bg-brand-200",
   muted: "bg-gray-50 text-gray-500 border-gray-100",
+  include: "bg-green-100 text-green-800 border-green-200 hover:bg-green-200",
+  exclude: "bg-red-100 text-red-800 border-red-200 hover:bg-red-200",
 };
 
 export default function FilterChip({

@@ -3,8 +3,35 @@ import { db } from '@/lib/db';
 import { events } from '@/lib/db/schema';
 import { asc, gte } from 'drizzle-orm';
 import { getStartOfTodayEastern } from '@/lib/utils/timezone';
+import { matchesDefaultFilter } from '@/lib/config/defaultFilters';
+import { extractCity, isAshevilleArea } from '@/lib/utils/extractCity';
 
 export const dynamic = 'force-dynamic';
+
+// Hidden event fingerprint type (matches client-side)
+interface HiddenEventFingerprint {
+  title: string;
+  organizer: string;
+}
+
+// Create a fingerprint key for comparison
+function createFingerprintKey(title: string, organizer: string | null | undefined): string {
+  const normalizedTitle = title.toLowerCase().trim();
+  const normalizedOrganizer = (organizer || '').toLowerCase().trim();
+  return `${normalizedTitle}|||${normalizedOrganizer}`;
+}
+
+// Check if event matches any hidden fingerprint
+function matchesHiddenFingerprint(
+  event: { title: string; organizer: string | null },
+  hiddenEvents: HiddenEventFingerprint[]
+): boolean {
+  const eventKey = createFingerprintKey(event.title, event.organizer);
+  return hiddenEvents.some((fp) => {
+    const fpKey = `${fp.title}|||${fp.organizer}`;
+    return eventKey === fpKey;
+  });
+}
 
 function formatDate(date: Date): string {
   return date.toLocaleDateString('en-US', {
@@ -93,6 +120,24 @@ export async function GET(request: Request) {
     const daysParam = searchParams.get('days');
     const selectedDays = daysParam ? daysParam.split(',').map(Number) : [];
 
+    // Client-side filters
+    const blockedHostsParam = searchParams.get('blockedHosts');
+    const blockedHosts = blockedHostsParam ? blockedHostsParam.split(',') : [];
+    const blockedKeywordsParam = searchParams.get('blockedKeywords');
+    const blockedKeywords = blockedKeywordsParam ? blockedKeywordsParam.split(',') : [];
+    const hiddenEventsParam = searchParams.get('hiddenEvents');
+    let hiddenEvents: HiddenEventFingerprint[] = [];
+    if (hiddenEventsParam) {
+      try {
+        hiddenEvents = JSON.parse(hiddenEventsParam);
+      } catch {
+        // Invalid JSON, ignore
+      }
+    }
+    const useDefaultFilters = searchParams.get('useDefaultFilters') !== 'false';
+    const locationsParam = searchParams.get('locations');
+    const selectedLocations = locationsParam ? locationsParam.split(',') : [];
+
     // Get start of today in Eastern timezone (Asheville, NC)
     const startOfToday = getStartOfTodayEastern();
 
@@ -104,13 +149,38 @@ export async function GET(request: Request) {
 
     // Apply filters
     allEvents = allEvents.filter(event => {
-      // Search filter
+      // 1. Hidden Events (by title+organizer fingerprint)
+      if (hiddenEvents.length > 0 && matchesHiddenFingerprint(event, hiddenEvents)) {
+        return false;
+      }
+
+      // 2. Blocked Hosts
+      if (blockedHosts.length > 0 && event.organizer) {
+        if (blockedHosts.some(host => event.organizer!.toLowerCase().includes(host.toLowerCase()))) {
+          return false;
+        }
+      }
+
+      // 3. Blocked Keywords (user custom)
+      if (blockedKeywords.length > 0) {
+        if (blockedKeywords.some(kw => event.title.toLowerCase().includes(kw.toLowerCase()))) {
+          return false;
+        }
+      }
+
+      // 4. Default Filters (spam filter)
+      if (useDefaultFilters) {
+        const textToCheck = `${event.title} ${event.description || ''}`;
+        if (matchesDefaultFilter(textToCheck)) return false;
+      }
+
+      // 5. Search filter
       if (search) {
         const searchText = `${event.title} ${event.description || ''} ${event.organizer || ''} ${event.location || ''}`.toLowerCase();
         if (!searchText.includes(search)) return false;
       }
 
-      // Date filter
+      // 6. Date filter
       const eventDate = new Date(event.startDate);
       if (dateFilter === 'today' && !isToday(eventDate)) return false;
       if (dateFilter === 'tomorrow' && !isTomorrow(eventDate)) return false;
@@ -118,7 +188,7 @@ export async function GET(request: Request) {
       if (dateFilter === 'dayOfWeek' && !isDayOfWeek(eventDate, selectedDays)) return false;
       if (dateFilter === 'custom' && dateStart && !isInDateRange(eventDate, dateStart, dateEnd || undefined)) return false;
 
-      // Price filter
+      // 7. Price filter
       if (priceFilter && priceFilter !== 'any') {
         const price = parsePrice(event.price);
         const priceStr = event.price?.toLowerCase() || '';
@@ -130,7 +200,7 @@ export async function GET(request: Request) {
         if (priceFilter === 'custom' && maxPrice && price > parseFloat(maxPrice)) return false;
       }
 
-      // Tag filter (include AND exclude)
+      // 8. Tag filter (include AND exclude)
       const eventTags = event.tags || [];
 
       // Exclude logic: If event has ANY excluded tag, filter it out
@@ -141,6 +211,37 @@ export async function GET(request: Request) {
       // Include logic: If includes are set, event must have at least one
       if (includeTags.length > 0) {
         if (!includeTags.some(tag => eventTags.includes(tag))) return false;
+      }
+
+      // 9. Location filter (multi-select - OR logic)
+      if (selectedLocations.length > 0) {
+        const eventCity = extractCity(event.location);
+        let matchesAnyLocation = false;
+
+        for (const loc of selectedLocations) {
+          if (loc === 'asheville') {
+            // "Asheville area" includes: Asheville city + known Asheville venues
+            if (isAshevilleArea(event.location)) {
+              matchesAnyLocation = true;
+              break;
+            }
+          } else if (loc === 'Online') {
+            if (eventCity === 'Online') {
+              matchesAnyLocation = true;
+              break;
+            }
+          } else {
+            // Specific city - exact match
+            if (eventCity === loc) {
+              matchesAnyLocation = true;
+              break;
+            }
+          }
+        }
+
+        if (!matchesAnyLocation) {
+          return false;
+        }
       }
 
       return true;

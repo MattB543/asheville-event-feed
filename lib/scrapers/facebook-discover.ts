@@ -71,7 +71,13 @@ export async function discoverFacebookEventIds(): Promise<string[]> {
     // Patchright handles most anti-detection automatically
     // Dynamic import to prevent bundling issues with Next.js/Turbopack
     log('  Launching browser with Patchright...');
-    const { chromium } = await import('patchright');
+    let chromium;
+    try {
+      const patchright = await import('patchright');
+      chromium = patchright.chromium;
+    } catch (e) {
+      throw new Error('patchright is not available. Install it as a dev dependency and run locally.');
+    }
     context = await chromium.launchPersistentContext(PROFILE_DIR, {
       channel: 'chrome', // CRITICAL: Use real Chrome, not Chromium
       headless: false, // Better for Facebook - they detect headless well
@@ -232,7 +238,13 @@ export async function discoverAndFetchFacebookEvents(options: {
   try {
     // Dynamic import to prevent bundling issues with Next.js/Turbopack
     log('  Launching browser with Patchright...');
-    const { chromium } = await import('patchright');
+    let chromium;
+    try {
+      const patchright = await import('patchright');
+      chromium = patchright.chromium;
+    } catch (e) {
+      throw new Error('patchright is not available. Install it as a dev dependency and run locally.');
+    }
     context = await chromium.launchPersistentContext(PROFILE_DIR, {
       channel: 'chrome',
       headless: false,

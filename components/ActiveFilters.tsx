@@ -49,7 +49,7 @@ function AskAIButton({ onClick }: { onClick: () => void }) {
   return (
     <button
       onClick={onClick}
-      className="inline-flex items-center gap-1.5 px-3 py-1 bg-brand-600 hover:bg-brand-700 text-white text-sm font-medium rounded-md cursor-pointer transition-colors"
+      className="inline-flex items-center gap-1.5 px-3 py-1 bg-brand-600 hover:bg-brand-700 text-white text-sm font-medium rounded-md cursor-pointer transition-colors shrink-0"
     >
       <Sparkles size={14} />
       <span>Ask AI</span>
@@ -69,7 +69,7 @@ export default function ActiveFilters({
 }: ActiveFiltersProps) {
   if (filters.length === 0) {
     return (
-      <div className="flex items-center justify-start sm:justify-end gap-3 text-sm text-gray-500 py-2 pb-3 sm:sticky sm:top-0 sm:z-20 bg-gray-50 px-3 sm:px-0">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center sm:justify-end gap-2 sm:gap-3 text-sm text-gray-500 py-2 pb-3 sm:sticky sm:top-0 sm:z-20 bg-gray-50 px-3 sm:px-0">
         {onOpenChat && <AskAIButton onClick={onOpenChat} />}
         <span>
           Showing {totalEvents} events
@@ -86,9 +86,9 @@ export default function ActiveFilters({
   const totalTagFilters = includeTagFilters.length + excludeTagFilters.length;
 
   return (
-    <div className="flex flex-wrap items-center gap-2 py-2 sm:sticky sm:top-0 sm:z-20 bg-gray-50 px-3 sm:px-0">
-      <span className="text-sm text-gray-500">Active filters:</span>
-      <div className="flex flex-wrap gap-2">
+    <div className="flex flex-col sm:flex-row sm:flex-wrap sm:items-center gap-2 py-2 sm:sticky sm:top-0 sm:z-20 bg-gray-50 px-3 sm:px-0">
+      <div className="flex flex-wrap items-center gap-2">
+        <span className="text-sm text-gray-500">Active filters:</span>
         {otherFilters.map((filter) => (
           <FilterChip
             key={filter.id}
@@ -124,14 +124,14 @@ export default function ActiveFilters({
             variant="active"
           />
         ) : null}
+        <button
+          onClick={onClearAll}
+          className="text-sm text-brand-600 hover:text-brand-800 hover:underline cursor-pointer"
+        >
+          Clear all
+        </button>
       </div>
-      <button
-        onClick={onClearAll}
-        className="text-sm text-brand-600 hover:text-brand-800 hover:underline ml-2 cursor-pointer"
-      >
-        Clear all
-      </button>
-      <div className="flex items-center gap-3 sm:ml-auto">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3 sm:ml-auto">
         {onOpenChat && <AskAIButton onClick={onOpenChat} />}
         <span className="text-sm text-gray-500">
           Showing {filteredCount} of {totalEvents} events

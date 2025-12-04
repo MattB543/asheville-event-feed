@@ -122,6 +122,31 @@ export default function FilterBar({
   const priceRef = useRef<HTMLDivElement>(null);
   const locationRef = useRef<HTMLDivElement>(null);
 
+  // Dropdown alignment state for collision detection
+  const [tagsAlign, setTagsAlign] = useState<"left" | "right">("left");
+  const [locationAlign, setLocationAlign] = useState<"left" | "right">("left");
+
+  // Handle opening dropdowns with collision detection
+  const handleTagsOpen = () => {
+    if (!isTagsOpen && tagsRef.current) {
+      const rect = tagsRef.current.getBoundingClientRect();
+      const dropdownWidth = 270; // mobile dropdown width
+      const wouldOverflow = rect.left + dropdownWidth > window.innerWidth - 16; // 16px margin
+      setTagsAlign(wouldOverflow ? "right" : "left");
+    }
+    setIsTagsOpen(!isTagsOpen);
+  };
+
+  const handleLocationOpen = () => {
+    if (!isLocationOpen && locationRef.current) {
+      const rect = locationRef.current.getBoundingClientRect();
+      const dropdownWidth = 220; // mobile dropdown width
+      const wouldOverflow = rect.left + dropdownWidth > window.innerWidth - 16;
+      setLocationAlign(wouldOverflow ? "right" : "left");
+    }
+    setIsLocationOpen(!isLocationOpen);
+  };
+
   // Close popovers on click outside
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -351,7 +376,9 @@ export default function FilterBar({
                       <span className="text-xs text-gray-500">
                         {selectedDays.length === 0
                           ? "Select days"
-                          : `${selectedDays.length} day${selectedDays.length !== 1 ? "s" : ""} selected`}
+                          : `${selectedDays.length} day${
+                              selectedDays.length !== 1 ? "s" : ""
+                            } selected`}
                       </span>
                       {selectedDays.length > 0 && (
                         <button
@@ -527,7 +554,7 @@ export default function FilterBar({
           {/* Location Filter */}
           <div className="relative" ref={locationRef}>
             <button
-              onClick={() => setIsLocationOpen(!isLocationOpen)}
+              onClick={handleLocationOpen}
               className={buttonStyle}
               aria-expanded={isLocationOpen}
             >
@@ -547,7 +574,11 @@ export default function FilterBar({
             </button>
 
             {isLocationOpen && (
-              <div className="absolute top-full right-0 xl:right-auto xl:left-0 mt-1 z-50 bg-white border border-gray-200 rounded-lg shadow-lg min-w-[220px] max-h-96 flex flex-col">
+              <div
+                className={`absolute top-full mt-1 z-50 bg-white border border-gray-200 rounded-lg shadow-lg min-w-[220px] max-h-96 flex flex-col ${
+                  locationAlign === "left" ? "left-0" : "right-0"
+                }`}
+              >
                 <div className="px-3 py-2 border-b border-gray-100">
                   <div className="flex items-center justify-between">
                     <div className="flex gap-2">
@@ -652,7 +683,7 @@ export default function FilterBar({
           {/* Tags Filter */}
           <div className="relative" ref={tagsRef}>
             <button
-              onClick={() => setIsTagsOpen(!isTagsOpen)}
+              onClick={handleTagsOpen}
               className={buttonStyle}
               aria-expanded={isTagsOpen}
             >
@@ -672,7 +703,11 @@ export default function FilterBar({
             </button>
 
             {isTagsOpen && (
-              <div className="absolute top-full right-0 xl:right-auto xl:left-0 mt-1 z-50 bg-white border border-gray-200 rounded-lg shadow-lg min-w-[280px] max-w-[320px]">
+              <div
+                className={`absolute top-full mt-1 z-50 bg-white border border-gray-200 rounded-lg shadow-lg w-[260px] xl:w-auto xl:min-w-[280px] xl:max-w-[320px] ${
+                  tagsAlign === "left" ? "left-0" : "right-0"
+                }`}
+              >
                 <div className="px-3 py-2 border-b border-gray-100">
                   <div className="flex items-center justify-between">
                     <div className="flex gap-2">

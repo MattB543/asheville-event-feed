@@ -20,10 +20,17 @@ const ORANGE_PEEL_VENUE_ID = 'KovZpa3hYe';
 
 // Website scraping config
 const EVENTS_PAGE_URL = 'https://theorangepeel.net/events/';
-const USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36';
+const USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36';
 
 // Venue constants
 const VENUE_NAME = 'The Orange Peel';
+
+// Common headers for Ticketmaster API
+const TM_API_HEADERS = {
+  "User-Agent": USER_AGENT,
+  "Accept": "application/json",
+  "Accept-Language": "en-US,en;q=0.9",
+};
 
 interface TMEvent {
   id: string;
@@ -112,7 +119,10 @@ async function fetchTicketmasterEvents(): Promise<ScrapedEvent[]> {
     try {
       const response = await fetchWithRetry(
         url.toString(),
-        { cache: 'no-store' },
+        {
+          headers: TM_API_HEADERS,
+          cache: 'no-store',
+        },
         { maxRetries: 3, baseDelay: 1000 }
       );
       const data: TMResponse = await response.json();
@@ -165,10 +175,19 @@ function formatTMEvent(event: TMEvent): ScrapedEvent | null {
     return null;
   }
 
-  // Parse date
-  const dateStr = event.dates.start.localDate;
-  const timeStr = event.dates.start.localTime || '20:00:00';
-  const startDate = new Date(`${dateStr}T${timeStr}`);
+  // Parse date - prefer dateTime (includes timezone) to avoid UTC interpretation issues on servers
+  let startDate: Date;
+  if (event.dates.start.dateTime) {
+    // dateTime is ISO format with timezone (e.g., "2025-12-04T20:00:00Z")
+    startDate = new Date(event.dates.start.dateTime);
+  } else {
+    // Fallback: construct from local date/time and assume America/New_York timezone
+    const dateStr = event.dates.start.localDate;
+    const timeStr = event.dates.start.localTime || '20:00:00';
+    // Append timezone offset to ensure correct parsing on UTC servers
+    // EST is -05:00, EDT is -04:00. Use -05:00 as safe default for evening events.
+    startDate = new Date(`${dateStr}T${timeStr}-05:00`);
+  }
 
   // Get best image (prefer 16:9 ratio, largest size)
   let imageUrl: string | undefined;

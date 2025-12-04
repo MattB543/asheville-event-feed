@@ -3,11 +3,33 @@ import { fetchWithRetry } from '@/lib/utils/retry';
 import { isNonNCEvent } from '@/lib/utils/locationFilter';
 import { formatPrice } from '@/lib/utils/formatPrice';
 
-export async function scrapeEventbrite(maxPages: number = 3): Promise<ScrapedEvent[]> {
+// Common headers to avoid blocking
+const BROWSER_HEADERS = {
+  "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+  "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8",
+  "Accept-Language": "en-US,en;q=0.9",
+  "Accept-Encoding": "gzip, deflate, br",
+  "Cache-Control": "no-cache",
+  "Pragma": "no-cache",
+};
+
+const API_HEADERS = {
+  "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+  "Accept": "application/json, text/plain, */*",
+  "Accept-Language": "en-US,en;q=0.9",
+  "Referer": "https://www.eventbrite.com/d/nc--asheville/all-events/",
+};
+
+export async function scrapeEventbrite(maxPages: number = 30): Promise<ScrapedEvent[]> {
   const BROWSE_URL = "https://www.eventbrite.com/d/nc--asheville/all-events/";
   const API_BASE = "https://www.eventbrite.com/api/v3/destination/events/";
 
-  console.log(`[Eventbrite Scraper] Starting fetch (max ${maxPages} pages)...`);
+  // Rate limiting config - conservative to avoid blocks
+  const PAGE_DELAY_MS = 2000;      // 2 seconds between browse pages
+  const BATCH_DELAY_MS = 1500;     // 1.5 seconds between API batches
+  const BATCH_SIZE = 15;           // Smaller batches = gentler on API
+
+  console.log(`[Eventbrite Scraper] Starting fetch (max ${maxPages} pages, ~${PAGE_DELAY_MS}ms between pages)...`);
 
   // Step 1: Scrape browse page to get event IDs
   const eventIds: Set<string> = new Set();
@@ -17,31 +39,30 @@ export async function scrapeEventbrite(maxPages: number = 3): Promise<ScrapedEve
     try {
       const pageUrl = `${BROWSE_URL}?page=${page}`;
       console.log(`[Eventbrite Scraper] Fetching browse page ${page}/${MAX_PAGES}: ${pageUrl}`);
-      
+
       let browseResponse: Response;
       try {
         browseResponse = await fetchWithRetry(
           pageUrl,
           {
-            headers: {
-              "User-Agent":
-                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-            },
+            headers: BROWSER_HEADERS,
           },
-          { maxRetries: 2, baseDelay: 500 }
+          { maxRetries: 2, baseDelay: 1000 }
         );
       } catch (err) {
         console.error(`[Eventbrite Scraper] Browse page ${page} failed after retries:`, err);
-        continue; // Skip to next page on error
+        // On error, wait longer before continuing
+        await new Promise((r) => setTimeout(r, 5000));
+        continue;
       }
 
       const html = await browseResponse.text();
-      
+
       // Extract event IDs from URLs in the page
       const eventIdMatches = html.matchAll(
         /https:\/\/www\.eventbrite\.com\/e\/[^"]*-tickets-(\d+)/g
       );
-      
+
       let count = 0;
       let firstId = "";
       for (const match of eventIdMatches) {
@@ -49,14 +70,17 @@ export async function scrapeEventbrite(maxPages: number = 3): Promise<ScrapedEve
         eventIds.add(match[1]);
         count++;
       }
-      
+
       console.log(`[Eventbrite Scraper] Page ${page}: Found ${count} IDs. First ID: ${firstId}. Total unique: ${eventIds.size}`);
 
-      // Polite delay between pages
-      await new Promise((r) => setTimeout(r, 500));
+      // Polite delay between pages - longer to avoid rate limits
+      if (page < MAX_PAGES) {
+        await new Promise((r) => setTimeout(r, PAGE_DELAY_MS));
+      }
 
     } catch (error) {
       console.error(`[Eventbrite Scraper] Error scraping page ${page}:`, error);
+      await new Promise((r) => setTimeout(r, 3000));
     }
   }
 
@@ -67,41 +91,45 @@ export async function scrapeEventbrite(maxPages: number = 3): Promise<ScrapedEve
     return [];
   }
 
-  // Step 2: Fetch event details via API (batches of 20)
-  const allEvents: ScrapedEvent[] = [];
-  const batchSize = 20;
+  console.log(`[Eventbrite Scraper] Fetching details for ${uniqueEventIds.length} events in batches of ${BATCH_SIZE}...`);
 
-  for (let i = 0; i < uniqueEventIds.length; i += batchSize) {
-    const batch = uniqueEventIds.slice(i, i + batchSize);
-    console.log(`[Eventbrite Scraper] Fetching batch ${i / batchSize + 1} (IDs: ${batch.length})`);
-    const apiUrl = `${API_BASE}?event_ids=${batch.join(",")}&page_size=${batchSize}&expand=image,primary_venue,ticket_availability,primary_organizer`;
+  // Step 2: Fetch event details via API (smaller batches, longer delays)
+  const allEvents: ScrapedEvent[] = [];
+  const totalBatches = Math.ceil(uniqueEventIds.length / BATCH_SIZE);
+
+  for (let i = 0; i < uniqueEventIds.length; i += BATCH_SIZE) {
+    const batch = uniqueEventIds.slice(i, i + BATCH_SIZE);
+    const batchNum = Math.floor(i / BATCH_SIZE) + 1;
+    console.log(`[Eventbrite Scraper] Fetching batch ${batchNum}/${totalBatches} (${batch.length} IDs)`);
+    const apiUrl = `${API_BASE}?event_ids=${batch.join(",")}&page_size=${BATCH_SIZE}&expand=image,primary_venue,ticket_availability,primary_organizer`;
 
     try {
       const apiResponse = await fetchWithRetry(
         apiUrl,
-        undefined,
-        { maxRetries: 2, baseDelay: 500 }
+        {
+          headers: API_HEADERS,
+        },
+        { maxRetries: 2, baseDelay: 1000 }
       );
 
       const data = await apiResponse.json();
-      
+
       if (data.events && Array.isArray(data.events)) {
-        console.log(`[Eventbrite Scraper] Batch received ${data.events.length} events`);
+        console.log(`[Eventbrite Scraper] Batch ${batchNum} received ${data.events.length} events`);
         const formatted = data.events.map((ev: EventbriteApiEvent) => formatEventbriteEvent(ev));
         allEvents.push(...formatted);
       } else {
-        console.log(`[Eventbrite Scraper] Batch received no events or invalid format.`);
+        console.log(`[Eventbrite Scraper] Batch ${batchNum} received no events or invalid format.`);
       }
 
       // Polite delay between batches
-      if (i + batchSize < uniqueEventIds.length) {
-        await new Promise((r) => setTimeout(r, 300));
+      if (i + BATCH_SIZE < uniqueEventIds.length) {
+        await new Promise((r) => setTimeout(r, BATCH_DELAY_MS));
       }
     } catch (error) {
-      console.error(
-        `[Eventbrite Scraper] Error fetching batch ${i / batchSize + 1}:`,
-        error
-      );
+      console.error(`[Eventbrite Scraper] Error fetching batch ${batchNum}:`, error);
+      // On error, wait longer before continuing
+      await new Promise((r) => setTimeout(r, 5000));
     }
   }
 

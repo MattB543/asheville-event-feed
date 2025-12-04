@@ -1,6 +1,85 @@
-import { ScrapedEvent, MeetupApiEvent, MeetupGraphQLResponse } from './types';
+import { ScrapedEvent, MeetupApiEvent } from './types';
 import { withRetry } from '@/lib/utils/retry';
 import { isNonNCEvent } from '@/lib/utils/locationFilter';
+
+/**
+ * Meetup Scraper - Date-Range Based Approach
+ *
+ * Uses Meetup's gql2 endpoint with persisted queries to fetch PHYSICAL events
+ * day-by-day. This approach bypasses the ~380 event limit of the recommendedEvents
+ * endpoint by querying each day separately.
+ *
+ * Key features:
+ * - Filters to PHYSICAL events only (no online/virtual events)
+ * - Fetches events day-by-day for comprehensive coverage
+ * - Uses persisted queries (same as Meetup website)
+ * - Includes Asheville-area location filtering
+ */
+
+// Asheville, NC coordinates (matching Meetup's precision)
+const ASHEVILLE_LAT = 35.59000015258789;
+const ASHEVILLE_LON = -82.55999755859375;
+
+// Meetup GraphQL endpoint (gql2 with persisted queries)
+const ENDPOINT = "https://www.meetup.com/gql2";
+
+// SHA256 hash for the recommendedEventsWithSeries persisted query
+const PERSISTED_QUERY_HASH = "4eda170f69bd7288f7433435dedbd1b2192b7351f8e5bc7b067e27a51d4974d2";
+
+// Request headers
+const API_HEADERS = {
+  "Content-Type": "application/json",
+  "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:145.0) Gecko/20100101 Firefox/145.0",
+  "Accept": "*/*",
+  "Accept-Language": "en-US",
+  "apollographql-client-name": "nextjs-web",
+  "Referer": "https://www.meetup.com/find/",
+  "Origin": "https://www.meetup.com",
+};
+
+interface PageInfo {
+  hasNextPage: boolean;
+  endCursor: string | null;
+}
+
+interface MeetupGql2Event {
+  id: string;
+  title: string;
+  description?: string;
+  dateTime: string;
+  eventType: string;
+  eventUrl: string;
+  featuredEventPhoto?: {
+    baseUrl?: string;
+    highResUrl?: string;
+    id?: string;
+  };
+  feeSettings?: {
+    amount?: number;
+    currency?: string;
+  };
+  group?: {
+    id?: string;
+    name?: string;
+    urlname?: string;
+    timezone?: string;
+    city?: string;
+    state?: string;
+  };
+}
+
+interface Gql2Response {
+  data?: {
+    result?: {
+      pageInfo: PageInfo;
+      totalCount?: number;
+      edges: Array<{
+        node: MeetupGql2Event;
+      }>;
+    };
+  };
+  errors?: Array<{ message: string }>;
+}
 
 /**
  * Fetch og:image from a Meetup event page
@@ -34,7 +113,6 @@ async function fetchOgImage(eventUrl: string): Promise<string | null> {
     }
 
     // Filter out Meetup's generic fallback/placeholder images
-    // These are low-quality placeholders that should be replaced with AI-generated images
     if (imageUrl && (
       imageUrl.includes('/images/fallbacks/') ||
       imageUrl.includes('group-cover') ||
@@ -45,155 +123,147 @@ async function fetchOgImage(eventUrl: string): Promise<string | null> {
 
     return imageUrl;
   } catch (error) {
-    console.warn(`[Meetup Scraper] Failed to fetch og:image for ${eventUrl}:`, error);
+    console.warn(`[Meetup] Failed to fetch og:image for ${eventUrl}:`, error);
     return null;
   }
 }
 
-// Asheville, NC coordinates
-const ASHEVILLE_LAT = 35.5951;
-const ASHEVILLE_LON = -82.5515;
-
-// Meetup GraphQL endpoint (public, no auth required)
-const ENDPOINT = "https://api.meetup.com/gql-ext";
-
-// GraphQL query for recommended events by location
-const EVENTS_QUERY = `
-  query($lat: Float!, $lon: Float!, $first: Int, $after: String) {
-    recommendedEvents(filter: { lat: $lat, lon: $lon }, first: $first, after: $after) {
-      pageInfo {
-        hasNextPage
-        endCursor
-      }
-      edges {
-        node {
-          id
-          title
-          description
-          dateTime
-          endTime
-          eventType
-          eventUrl
-          rsvpState
-          maxTickets
-
-          featuredEventPhoto {
-            id
-            baseUrl
-            highResUrl
-          }
-
-          feeSettings {
-            amount
-            currency
-          }
-
-          group {
-            id
-            name
-            urlname
-            city
-            state
-            country
-          }
-        }
-      }
-    }
-  }
-`;
-
-interface PageInfo {
-  hasNextPage: boolean;
-  endCursor: string | null;
-}
-
 /**
- * Fetch a single page of events from Meetup GraphQL API
+ * Fetch events for a specific date range from Meetup's gql2 API
  */
-async function fetchPage(cursor?: string): Promise<{ events: MeetupApiEvent[]; pageInfo: PageInfo }> {
+async function fetchEventsForDateRange(
+  startDate: string,
+  endDate: string,
+  cursor?: string,
+  pageSize: number = 50
+): Promise<{
+  events: MeetupGql2Event[];
+  pageInfo: PageInfo;
+}> {
+  const variables: Record<string, unknown> = {
+    first: pageSize,
+    lat: ASHEVILLE_LAT,
+    lon: ASHEVILLE_LON,
+    startDateRange: startDate,
+    endDateRange: endDate,
+    eventType: 'PHYSICAL',  // Only fetch in-person events
+    numberOfEventsForSeries: 5,
+    seriesStartDate: startDate.split('T')[0],
+    sortField: "RELEVANCE",
+    doConsolidateEvents: true,
+    doPromotePaypalEvents: false,
+    indexAlias: '"{\"filterOutWrongLanguage\": \"true\",\"modelVersion\": \"split_offline_online\"}"',
+    dataConfiguration: '{"isSimplifiedSearchEnabled": true, "include_events_from_user_chapters": true}',
+  };
+
+  if (cursor) {
+    variables.after = cursor;
+  }
+
+  const body = {
+    operationName: "recommendedEventsWithSeries",
+    variables,
+    extensions: {
+      persistedQuery: {
+        version: 1,
+        sha256Hash: PERSISTED_QUERY_HASH,
+      },
+    },
+  };
+
   const response = await fetch(ENDPOINT, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-    },
-    body: JSON.stringify({
-      query: EVENTS_QUERY,
-      variables: {
-        lat: ASHEVILLE_LAT,
-        lon: ASHEVILLE_LON,
-        first: 50,
-        after: cursor,
-      },
-    }),
+    headers: API_HEADERS,
+    body: JSON.stringify(body),
   });
 
   if (!response.ok) {
-    throw new Error(`GraphQL request failed: ${response.status} ${response.statusText}`);
+    throw new Error(`Meetup API error: ${response.status} ${response.statusText}`);
   }
 
-  const data: MeetupGraphQLResponse = await response.json();
+  const data: Gql2Response = await response.json();
 
   if (data.errors && data.errors.length > 0) {
-    console.error("[Meetup Scraper] GraphQL errors:", data.errors.map(e => e.message));
+    console.error("[Meetup] GraphQL errors:", data.errors.map(e => e.message));
     return { events: [], pageInfo: { hasNextPage: false, endCursor: null } };
   }
 
-  const result = data.data?.recommendedEvents;
+  const result = data.data?.result;
   if (!result) {
     return { events: [], pageInfo: { hasNextPage: false, endCursor: null } };
   }
 
-  const events = result.edges.map(edge => edge.node);
+  const events = result.edges?.map(edge => edge.node) || [];
+
   return {
     events,
-    pageInfo: result.pageInfo,
+    pageInfo: {
+      hasNextPage: result.pageInfo.hasNextPage,
+      endCursor: result.pageInfo.endCursor,
+    },
   };
 }
 
 /**
- * Format a Meetup API event to our standard ScrapedEvent format
+ * Fetch all events for a specific date
  */
-function formatMeetupEvent(event: MeetupApiEvent): ScrapedEvent {
-  // Format price (rounded to nearest dollar)
+async function fetchAllEventsForDate(date: Date): Promise<MeetupGql2Event[]> {
+  const dateStr = date.toISOString().split('T')[0];
+  const startDate = `${dateStr}T00:00:00-05:00`;
+  const endDate = `${dateStr}T23:59:59-05:00`;
+
+  const allEvents: MeetupGql2Event[] = [];
+  let cursor: string | undefined;
+  let page = 0;
+  let hasMore = true;
+  const maxPagesPerDay = 10;  // Safety limit
+
+  while (hasMore && page < maxPagesPerDay) {
+    page++;
+
+    const result = await withRetry(
+      () => fetchEventsForDateRange(startDate, endDate, cursor, 50),
+      { maxRetries: 2, baseDelay: 1000 }
+    );
+
+    allEvents.push(...result.events);
+
+    hasMore = result.pageInfo.hasNextPage;
+    cursor = result.pageInfo.endCursor || undefined;
+
+    // Rate limit between pages
+    if (hasMore) {
+      await new Promise(r => setTimeout(r, 300));
+    }
+  }
+
+  return allEvents;
+}
+
+/**
+ * Format a Meetup event to our standard ScrapedEvent format
+ */
+function formatMeetupEvent(event: MeetupGql2Event): ScrapedEvent {
+  // Format price
   let price = "Free";
   if (event.feeSettings?.amount && event.feeSettings.amount > 0) {
     const amount = Math.round(event.feeSettings.amount);
     price = `$${amount}`;
   }
 
-  // Get location from group (venue details not available in public API)
+  // Get location from group
   const city = event.group?.city || "";
   const state = event.group?.state || "";
-  let location = "Online";
-  if (city && state) {
-    location = `${city}, ${state}`;
-  } else if (city) {
-    location = city;
-  }
-
-  // For online events, mark location appropriately
-  if (event.eventType === 'ONLINE') {
-    location = "Online";
-  }
+  let location = city && state ? `${city}, ${state}` : city || "Asheville, NC";
 
   // Get organizer from group
   const organizer = event.group?.name || event.group?.urlname || "Meetup";
 
-  // Get image URL - prefer highResUrl (complete URL), construct from id if needed
+  // Get image URL
   let imageUrl = "";
   const photo = event.featuredEventPhoto;
-  if (photo) {
-    if (photo.highResUrl) {
-      // highResUrl is a complete, valid URL - use it directly
-      // Convert highres to 600px version for consistency
-      imageUrl = photo.highResUrl.replace('/highres_', '/600_');
-    } else if (photo.id && photo.baseUrl) {
-      // Construct URL from baseUrl and id (baseUrl alone is not valid)
-      // Pattern: https://secure.meetupstatic.com/photos/event/X/X/X/600_PHOTOID.jpeg
-      // But we don't have the path segments, so skip this approach
-      imageUrl = ""; // Will be fetched via og:image fallback
-    }
+  if (photo?.highResUrl) {
+    imageUrl = photo.highResUrl.replace('/highres_', '/600_');
   }
 
   return {
@@ -210,7 +280,7 @@ function formatMeetupEvent(event: MeetupApiEvent): ScrapedEvent {
   };
 }
 
-// Asheville-area cities for filtering (case insensitive)
+// Asheville-area patterns for filtering
 const ASHEVILLE_AREA_PATTERNS = [
   /\basheville\b/i,
   /\bwnc\b/i,
@@ -232,11 +302,8 @@ const ASHEVILLE_AREA_PATTERNS = [
 
 /**
  * Check if an event is Asheville-related
- * For online events, we check if the group name suggests Asheville connection
- * For physical events, we check the group's city
  */
-function isAshevilleRelated(event: MeetupApiEvent): boolean {
-  // Check group city - physical events in Asheville area
+function isAshevilleRelated(event: MeetupGql2Event): boolean {
   const groupCity = event.group?.city?.toLowerCase() || '';
   const groupState = event.group?.state?.toLowerCase() || '';
 
@@ -245,7 +312,7 @@ function isAshevilleRelated(event: MeetupApiEvent): boolean {
     return true;
   }
 
-  // Check group name for Asheville references (catches "AVL Digital Nomads", "Asheville Runners", etc.)
+  // Check group name for Asheville references
   const groupName = event.group?.name || '';
   const groupUrlname = event.group?.urlname || '';
   if (ASHEVILLE_AREA_PATTERNS.some(p => p.test(groupName) || p.test(groupUrlname))) {
@@ -258,8 +325,8 @@ function isAshevilleRelated(event: MeetupApiEvent): boolean {
     return true;
   }
 
-  // Physical events in NC without specific city match - be lenient
-  if (event.eventType === 'PHYSICAL' && groupState === 'nc') {
+  // Physical events in NC - be lenient since we're already filtering by location
+  if (groupState === 'nc') {
     return true;
   }
 
@@ -269,81 +336,82 @@ function isAshevilleRelated(event: MeetupApiEvent): boolean {
 /**
  * Scrape Meetup events near Asheville, NC
  *
- * Uses the public GraphQL API (no authentication required) to fetch events
- * by location with cursor-based pagination.
+ * Uses the date-range approach to fetch PHYSICAL events day-by-day,
+ * bypassing the API's recommendation limit.
  *
- * @param maxPages Maximum number of pages to fetch (default 5, ~250 events)
+ * @param daysToFetch Number of days to fetch (default 30)
  * @returns Array of scraped events filtered to NC area
  */
-export async function scrapeMeetup(maxPages: number = 5): Promise<ScrapedEvent[]> {
-  console.log(`[Meetup Scraper] Starting fetch (max ${maxPages} pages)...`);
+export async function scrapeMeetup(daysToFetch: number = 30): Promise<ScrapedEvent[]> {
+  const PAGE_DELAY_MS = 500;  // Delay between days
+  const IMAGE_BATCH_SIZE = 5;
+  const IMAGE_BATCH_DELAY_MS = 1000;
 
-  const allEvents: MeetupApiEvent[] = [];
-  let pageInfo: PageInfo = { hasNextPage: true, endCursor: null };
-  let page = 0;
+  console.log(`[Meetup] Starting date-range scrape (${daysToFetch} days, PHYSICAL events only)...`);
 
-  while (pageInfo.hasNextPage && page < maxPages) {
-    page++;
+  const allEvents = new Map<string, MeetupGql2Event>();
+  const startDate = new Date();
+
+  for (let i = 0; i < daysToFetch; i++) {
+    const date = new Date(startDate);
+    date.setDate(date.getDate() + i);
+    const dateStr = date.toISOString().split('T')[0];
+
     try {
-      console.log(`[Meetup Scraper] Fetching page ${page}/${maxPages}...`);
+      const events = await fetchAllEventsForDate(date);
 
-      // Use retry wrapper for resilience
-      const result = await withRetry(
-        () => fetchPage(pageInfo.endCursor || undefined),
-        { maxRetries: 2, baseDelay: 1000 }
-      );
+      let newCount = 0;
+      for (const event of events) {
+        if (!allEvents.has(event.id)) {
+          allEvents.set(event.id, event);
+          newCount++;
+        }
+      }
 
-      console.log(`[Meetup Scraper] Page ${page}: ${result.events.length} events (hasNextPage: ${result.pageInfo.hasNextPage})`);
+      // Log progress every 5 days or on first/last day
+      if (i === 0 || i === daysToFetch - 1 || (i + 1) % 5 === 0) {
+        console.log(`[Meetup] Day ${i + 1}/${daysToFetch} (${dateStr}): ${events.length} events, ${newCount} new. Total: ${allEvents.size}`);
+      }
 
-      allEvents.push(...result.events);
-      pageInfo = result.pageInfo;
-
-      // Rate limit: polite delay between pages
-      if (pageInfo.hasNextPage && page < maxPages) {
-        await new Promise(r => setTimeout(r, 500));
+      // Rate limit between days
+      if (i < daysToFetch - 1) {
+        await new Promise(r => setTimeout(r, PAGE_DELAY_MS));
       }
     } catch (error) {
-      console.error(`[Meetup Scraper] Error fetching page ${page}:`, error);
-      break;
+      console.error(`[Meetup] Error fetching ${dateStr}:`, error);
+      // Continue with next day
+      await new Promise(r => setTimeout(r, 2000));
     }
   }
 
-  // Deduplicate by ID (events can appear in multiple pages)
-  const uniqueEvents = new Map<string, MeetupApiEvent>();
-  for (const event of allEvents) {
-    uniqueEvents.set(event.id, event);
-  }
+  console.log(`[Meetup] Fetched ${allEvents.size} unique physical events`);
 
-  console.log(`[Meetup Scraper] Deduped: ${uniqueEvents.size} unique events from ${allEvents.length} total`);
+  // Filter to Asheville-related events
+  const ashevilleEvents = Array.from(allEvents.values()).filter(isAshevilleRelated);
+  const filteredOut = allEvents.size - ashevilleEvents.length;
 
-  // First filter: Only keep Asheville-related events
-  const ashevilleEvents = Array.from(uniqueEvents.values()).filter(isAshevilleRelated);
-  const ashevilleFilteredCount = uniqueEvents.size - ashevilleEvents.length;
-
-  if (ashevilleFilteredCount > 0) {
-    console.log(`[Meetup Scraper] Filtered out ${ashevilleFilteredCount} non-Asheville events`);
+  if (filteredOut > 0) {
+    console.log(`[Meetup] Filtered out ${filteredOut} non-Asheville events`);
   }
 
   // Convert to ScrapedEvent format
   const formattedEvents = ashevilleEvents.map(formatMeetupEvent);
 
-  // Second filter: Apply standard non-NC filter (catches edge cases)
+  // Apply standard non-NC filter
   const ncEvents = formattedEvents.filter(ev => !isNonNCEvent(ev.title, ev.location));
   const ncFilteredCount = formattedEvents.length - ncEvents.length;
 
   if (ncFilteredCount > 0) {
-    console.log(`[Meetup Scraper] Filtered out ${ncFilteredCount} non-NC events`);
+    console.log(`[Meetup] Filtered out ${ncFilteredCount} non-NC events`);
   }
 
-  // Fetch missing images from event pages (og:image fallback)
+  // Fetch missing images
   const eventsWithoutImages = ncEvents.filter(ev => !ev.imageUrl);
   if (eventsWithoutImages.length > 0) {
-    console.log(`[Meetup Scraper] Fetching images for ${eventsWithoutImages.length} events without photos...`);
+    console.log(`[Meetup] Fetching images for ${eventsWithoutImages.length} events...`);
 
-    // Process in batches of 5 to avoid rate limiting
-    const batchSize = 5;
-    for (let i = 0; i < eventsWithoutImages.length; i += batchSize) {
-      const batch = eventsWithoutImages.slice(i, i + batchSize);
+    for (let i = 0; i < eventsWithoutImages.length; i += IMAGE_BATCH_SIZE) {
+      const batch = eventsWithoutImages.slice(i, i + IMAGE_BATCH_SIZE);
 
       await Promise.all(batch.map(async (event) => {
         const ogImage = await fetchOgImage(event.url);
@@ -352,16 +420,15 @@ export async function scrapeMeetup(maxPages: number = 5): Promise<ScrapedEvent[]
         }
       }));
 
-      // Small delay between batches
-      if (i + batchSize < eventsWithoutImages.length) {
-        await new Promise(r => setTimeout(r, 300));
+      if (i + IMAGE_BATCH_SIZE < eventsWithoutImages.length) {
+        await new Promise(r => setTimeout(r, IMAGE_BATCH_DELAY_MS));
       }
     }
 
     const fetched = eventsWithoutImages.filter(ev => ev.imageUrl).length;
-    console.log(`[Meetup Scraper] Fetched ${fetched}/${eventsWithoutImages.length} missing images`);
+    console.log(`[Meetup] Fetched ${fetched}/${eventsWithoutImages.length} images`);
   }
 
-  console.log(`[Meetup Scraper] Finished. Found ${ncEvents.length} Asheville-area events.`);
+  console.log(`[Meetup] Complete. Found ${ncEvents.length} Asheville-area physical events.`);
   return ncEvents;
 }

@@ -3,6 +3,16 @@ import { fetchWithRetry } from '@/lib/utils/retry';
 import { isNonNCEvent } from '@/lib/utils/locationFilter';
 import { formatPrice } from '@/lib/utils/formatPrice';
 
+// Common headers to avoid blocking
+const API_HEADERS = {
+  "Content-Type": "application/json",
+  "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+  "Accept": "application/json, text/plain, */*",
+  "Accept-Language": "en-US,en;q=0.9",
+  "Origin": "https://avltoday.6amcity.com",
+  "Referer": "https://avltoday.6amcity.com/",
+};
+
 export async function scrapeAvlToday(): Promise<ScrapedEvent[]> {
   const API_URL = "https://portal.cityspark.com/v1/events/AVLT";
   // Get date in Asheville time (America/New_York) to avoid UTC date shift issues
@@ -40,7 +50,7 @@ export async function scrapeAvlToday(): Promise<ScrapedEvent[]> {
         API_URL,
         {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: API_HEADERS,
           body: JSON.stringify(payload),
           cache: 'no-store',
         },

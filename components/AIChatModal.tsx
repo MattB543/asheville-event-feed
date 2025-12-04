@@ -1,13 +1,13 @@
 "use client";
 
 import { useState, useRef, useEffect, useCallback } from "react";
-import { X, Send, Sparkles, Loader2, StopCircle } from "lucide-react";
+import { X, Send, Sparkles, Loader2, StopCircle, Calendar } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import remarkBreaks from "remark-breaks";
-import { DateFilterType, PriceFilterType } from "./FilterBar";
+import { PriceFilterType } from "./FilterBar";
 
 interface ChatMessage {
-  role: "user" | "assistant";
+  role: "user" | "assistant" | "system";
   content: string;
 }
 
@@ -23,9 +23,13 @@ interface Event {
   tags?: string[] | null;
 }
 
+interface DateRange {
+  startDate: string;
+  endDate: string;
+}
+
 interface ActiveFilters {
   search: string;
-  dateFilter: DateFilterType;
   priceFilter: PriceFilterType;
   tagsInclude: string[];
   tagsExclude: string[];
@@ -35,36 +39,8 @@ interface ActiveFilters {
 interface AIChatModalProps {
   isOpen: boolean;
   onClose: () => void;
-  filteredEvents: Event[];
+  allEvents: Event[]; // All events, not pre-filtered
   activeFilters: ActiveFilters;
-}
-
-function formatEventsForAI(events: Event[]): string {
-  return events.map((event) => {
-    const date = new Date(event.startDate).toLocaleDateString("en-US", {
-      weekday: "short",
-      month: "short",
-      day: "numeric",
-      hour: "numeric",
-      minute: "2-digit",
-      timeZone: "America/New_York",
-    });
-    const tags = event.tags?.length ? event.tags.join(", ") : "";
-    const desc = event.description || "";
-
-    const lines = [
-      event.title,
-      `URL: ${event.url}`,
-      `When: ${date}`,
-      event.location ? `Where: ${event.location}` : null,
-      event.price ? `Price: ${event.price}` : `Price: ?`,
-      event.organizer ? `Host: ${event.organizer}` : null,
-      tags ? `Tags: ${tags}` : null,
-      desc ? `Description: ${desc}` : null,
-    ].filter(Boolean);
-
-    return lines.join("\n");
-  }).join("\n---\n");
 }
 
 function formatActiveFilters(filters: ActiveFilters): string {
@@ -72,17 +48,6 @@ function formatActiveFilters(filters: ActiveFilters): string {
 
   if (filters.search) {
     lines.push(`Search: "${filters.search}"`);
-  }
-  if (filters.dateFilter !== "all") {
-    const dateLabels: Record<DateFilterType, string> = {
-      all: "All Dates",
-      today: "Today",
-      tomorrow: "Tomorrow",
-      weekend: "This Weekend",
-      dayOfWeek: "Day of Week",
-      custom: "Custom Dates",
-    };
-    lines.push(`Date: ${dateLabels[filters.dateFilter]}`);
   }
   if (filters.priceFilter !== "any") {
     const priceLabels: Record<PriceFilterType, string> = {
@@ -108,9 +73,9 @@ function formatActiveFilters(filters: ActiveFilters): string {
 }
 
 const SUGGESTIONS = [
-  "Find me live music tonight",
-  "What's good for a date night?",
-  "Family-friendly events this weekend",
+  "Find me free live music tonight",
+  "What's good for a date night on Saturday?",
+  "Family-friendly outdoor events this weekend",
 ];
 
 const LOADING_MESSAGES = [
@@ -126,23 +91,25 @@ function getInitialMessage(eventCount: number, filters: ActiveFilters): string {
     return `No events match your current filters. Try adjusting your filters, or tell me what you're looking for and I can suggest which filters to change.`;
   }
 
-  let message = `I can help you find events from the ${eventCount} events currently shown.`;
+  const lines: string[] = [
+    `I can help you find events from the **${eventCount} events** in the database.`,
+  ];
 
   if (filterText) {
-    message += `\n\nYour active filters:\n\n${filterText}`;
-  } else {
-    message += `\n\n*No filters applied - showing all events.*`;
+    lines.push(`**Your active filters:**\n${filterText}`);
   }
 
-  message += `\n\nWhat kind of event are you looking for?`;
+  lines.push(
+    `**What kind of event are you looking for?**\n\n*Be specific about the type of event and the date range you're interested in.*`
+  );
 
-  return message;
+  return lines.join("\n\n");
 }
 
 export default function AIChatModal({
   isOpen,
   onClose,
-  filteredEvents,
+  allEvents,
   activeFilters,
 }: AIChatModalProps) {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
@@ -151,6 +118,10 @@ export default function AIChatModal({
   const [isStreaming, setIsStreaming] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [loadingMessageIndex, setLoadingMessageIndex] = useState(0);
+  const [currentDateRange, setCurrentDateRange] = useState<DateRange | null>(
+    null
+  );
+  const [dateRangeDisplay, setDateRangeDisplay] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const abortControllerRef = useRef<AbortController | null>(null);
@@ -174,21 +145,20 @@ export default function AIChatModal({
   // Initialize with greeting when modal opens
   useEffect(() => {
     if (isOpen) {
-      const initialMessage = getInitialMessage(
-        filteredEvents.length,
-        activeFilters
-      );
+      const initialMessage = getInitialMessage(allEvents.length, activeFilters);
       setMessages([{ role: "assistant", content: initialMessage }]);
       setInput("");
       setError(null);
       setIsStreaming(false);
+      setCurrentDateRange(null); // Reset date range for new conversation
+      setDateRangeDisplay(null);
       // Focus input after a short delay to ensure modal is rendered
       setTimeout(() => inputRef.current?.focus(), 100);
     } else {
       // Cancel any ongoing stream when modal closes
       abortControllerRef.current?.abort();
     }
-  }, [isOpen, filteredEvents.length, activeFilters]);
+  }, [isOpen, allEvents.length, activeFilters]);
 
   // Only auto-scroll when user sends a new message (not during streaming)
   const shouldScrollRef = useRef(false);
@@ -205,54 +175,11 @@ export default function AIChatModal({
     setIsLoading(false);
   }, []);
 
-  const sendMessage = useCallback(async () => {
-    if (!input.trim() || isLoading) return;
-
-    const userMessage: ChatMessage = { role: "user", content: input.trim() };
-    const newMessages = [...messages, userMessage];
-    setMessages(newMessages);
-    setInput("");
-    setIsLoading(true);
-    setIsStreaming(false);
-    setError(null);
-    shouldScrollRef.current = true; // Scroll to show user's message
-
-    // Create new AbortController for this request
-    abortControllerRef.current = new AbortController();
-
-    try {
-      const eventsMarkdown = formatEventsForAI(filteredEvents);
-
-      const response = await fetch("/api/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          messages: messages.slice(1).concat(userMessage), // Skip initial greeting
-          events: eventsMarkdown,
-          filters: {
-            search: activeFilters.search || undefined,
-            dateFilter: activeFilters.dateFilter,
-            priceFilter: activeFilters.priceFilter,
-            tagsInclude: activeFilters.tagsInclude,
-            tagsExclude: activeFilters.tagsExclude,
-            locations: activeFilters.selectedLocations,
-          },
-          eventCount: filteredEvents.length,
-        }),
-        signal: abortControllerRef.current.signal,
-      });
-
-      // Check for non-streaming error responses
-      const contentType = response.headers.get("content-type") || "";
-      if (contentType.includes("application/json")) {
-        const data = await response.json();
-        throw new Error(data.error || "Failed to get response");
-      }
-
-      if (!response.ok) {
-        throw new Error(`API error: ${response.status}`);
-      }
-
+  const processStream = useCallback(
+    async (
+      response: Response,
+      newMessages: ChatMessage[]
+    ): Promise<DateRange | null> => {
       const reader = response.body?.getReader();
       const decoder = new TextDecoder();
 
@@ -260,6 +187,7 @@ export default function AIChatModal({
 
       let assistantContent = "";
       let hasStartedStreaming = false;
+      let extractedDateRange: DateRange | null = null;
 
       while (true) {
         const { done, value } = await reader.read();
@@ -282,6 +210,34 @@ export default function AIChatModal({
 
             try {
               const parsed = JSON.parse(data);
+
+              // Handle our custom message types
+              if (parsed.type === "dateRange") {
+                extractedDateRange = {
+                  startDate: parsed.data.startDate,
+                  endDate: parsed.data.endDate,
+                };
+
+                // Show the date range indicator if we have a display message
+                if (parsed.data.displayMessage) {
+                  setDateRangeDisplay(parsed.data.displayMessage);
+                  // Add a system message showing the date range
+                  setMessages((prev) => [
+                    ...prev,
+                    {
+                      role: "system",
+                      content: `${parsed.data.displayMessage} (${parsed.data.eventCount} events)`,
+                    },
+                  ]);
+                }
+                continue;
+              }
+
+              if (parsed.type === "error") {
+                throw new Error(parsed.data);
+              }
+
+              // Handle regular OpenRouter streaming response
               const token = parsed.choices?.[0]?.delta?.content || "";
               if (token) {
                 // Only switch to streaming mode when we get the first real token
@@ -314,75 +270,69 @@ export default function AIChatModal({
           }
         }
       }
-    } catch (err) {
-      if (err instanceof Error && err.name === "AbortError") {
-        // Stream was cancelled by user - don't show error
-        console.log("Stream cancelled");
-        return;
-      }
 
-      const errorMessage =
-        err instanceof Error ? err.message : "Something went wrong";
-      setError(errorMessage);
-      // Add error message to chat
-      setMessages((prev) => [
-        ...prev,
-        {
-          role: "assistant",
-          content: `Sorry, I encountered an error: ${errorMessage}. Please try again.`,
-        },
-      ]);
-    } finally {
-      setIsLoading(false);
-      setIsStreaming(false);
-    }
-  }, [input, isLoading, messages, filteredEvents, activeFilters]);
+      return extractedDateRange;
+    },
+    []
+  );
 
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter" && !e.shiftKey) {
-      e.preventDefault();
-      sendMessage();
-    }
-  };
+  const sendMessage = useCallback(
+    async (messageText?: string) => {
+      const text = messageText || input.trim();
+      if (!text || isLoading) return;
 
-  // Handle clicking a suggestion button
-  const handleSuggestionClick = useCallback(
-    async (suggestion: string) => {
-      if (isLoading) return;
-
-      const userMessage: ChatMessage = { role: "user", content: suggestion };
+      const userMessage: ChatMessage = { role: "user", content: text };
       const newMessages = [...messages, userMessage];
       setMessages(newMessages);
       setInput("");
       setIsLoading(true);
       setIsStreaming(false);
       setError(null);
-      shouldScrollRef.current = true;
+      setDateRangeDisplay(null);
+      shouldScrollRef.current = true; // Scroll to show user's message
 
+      // Create new AbortController for this request
       abortControllerRef.current = new AbortController();
 
       try {
-        const eventsMarkdown = formatEventsForAI(filteredEvents);
+        // Prepare events data for API
+        const eventsData = allEvents.map((event) => ({
+          id: event.id,
+          title: event.title,
+          description: event.description,
+          startDate:
+            event.startDate instanceof Date
+              ? event.startDate.toISOString()
+              : event.startDate,
+          location: event.location,
+          organizer: event.organizer,
+          price: event.price,
+          url: event.url,
+          tags: event.tags,
+        }));
 
         const response = await fetch("/api/chat", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            messages: messages.slice(1).concat(userMessage),
-            events: eventsMarkdown,
+            messages: messages
+              .filter((m) => m.role !== "system")
+              .slice(1)
+              .concat(userMessage), // Skip initial greeting and system messages
+            allEvents: eventsData,
             filters: {
               search: activeFilters.search || undefined,
-              dateFilter: activeFilters.dateFilter,
               priceFilter: activeFilters.priceFilter,
               tagsInclude: activeFilters.tagsInclude,
               tagsExclude: activeFilters.tagsExclude,
               locations: activeFilters.selectedLocations,
             },
-            eventCount: filteredEvents.length,
+            currentDateRange: currentDateRange,
           }),
           signal: abortControllerRef.current.signal,
         });
 
+        // Check for non-streaming error responses
         const contentType = response.headers.get("content-type") || "";
         if (contentType.includes("application/json")) {
           const data = await response.json();
@@ -393,64 +343,14 @@ export default function AIChatModal({
           throw new Error(`API error: ${response.status}`);
         }
 
-        const reader = response.body?.getReader();
-        const decoder = new TextDecoder();
-
-        if (!reader) throw new Error("No response body");
-
-        let assistantContent = "";
-        let hasStartedStreaming = false;
-
-        while (true) {
-          const { done, value } = await reader.read();
-          if (done) break;
-
-          const chunk = decoder.decode(value, { stream: true });
-          const lines = chunk.split("\n");
-
-          for (const line of lines) {
-            if (!line.trim() || line.startsWith(":")) continue;
-
-            if (line.startsWith("data: ")) {
-              const data = line.slice(6);
-
-              if (data === "[DONE]") {
-                continue;
-              }
-
-              try {
-                const parsed = JSON.parse(data);
-                const token = parsed.choices?.[0]?.delta?.content || "";
-                if (token) {
-                  if (!hasStartedStreaming) {
-                    hasStartedStreaming = true;
-                    setIsStreaming(true);
-                    setIsLoading(false);
-                    setMessages((prev) => [
-                      ...prev,
-                      { role: "assistant", content: token },
-                    ]);
-                    assistantContent = token;
-                  } else {
-                    assistantContent += token;
-                    setMessages((prev) => {
-                      const updated = [...prev];
-                      updated[updated.length - 1] = {
-                        role: "assistant",
-                        content: assistantContent,
-                      };
-                      return updated;
-                    });
-                  }
-                }
-              } catch {
-                // Skip malformed JSON
-              }
-            }
-          }
+        // Process the stream and get any extracted date range
+        const extractedDateRange = await processStream(response, newMessages);
+        if (extractedDateRange) {
+          setCurrentDateRange(extractedDateRange);
         }
       } catch (err) {
         if (err instanceof Error && err.name === "AbortError") {
+          // Stream was cancelled by user - don't show error
           console.log("Stream cancelled");
           return;
         }
@@ -458,6 +358,7 @@ export default function AIChatModal({
         const errorMessage =
           err instanceof Error ? err.message : "Something went wrong";
         setError(errorMessage);
+        // Add error message to chat
         setMessages((prev) => [
           ...prev,
           {
@@ -470,11 +371,39 @@ export default function AIChatModal({
         setIsStreaming(false);
       }
     },
-    [isLoading, messages, filteredEvents, activeFilters]
+    [
+      input,
+      isLoading,
+      messages,
+      allEvents,
+      activeFilters,
+      currentDateRange,
+      processStream,
+    ]
+  );
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      sendMessage();
+    }
+  };
+
+  // Handle clicking a suggestion button
+  const handleSuggestionClick = useCallback(
+    async (suggestion: string) => {
+      if (isLoading) return;
+      sendMessage(suggestion);
+    },
+    [isLoading, sendMessage]
   );
 
   // Check if we should show suggestions (only when just the initial message exists)
-  const showSuggestions = messages.length === 1 && !isLoading && !isStreaming;
+  const showSuggestions =
+    messages.length === 1 &&
+    messages[0].role === "assistant" &&
+    !isLoading &&
+    !isStreaming;
 
   if (!isOpen) return null;
 
@@ -503,42 +432,56 @@ export default function AIChatModal({
             <div
               key={index}
               className={`flex ${
-                message.role === "user" ? "justify-end" : "justify-start"
+                message.role === "user"
+                  ? "justify-end"
+                  : message.role === "system"
+                  ? "justify-center"
+                  : "justify-start"
               }`}
             >
-              <div
-                className={`max-w-[85%] rounded-lg px-4 py-2 ${
-                  message.role === "user"
-                    ? "bg-brand-600 text-white"
-                    : "bg-gray-100 text-gray-800"
-                }`}
-              >
-                {message.role === "user" ? (
-                  <div className="whitespace-pre-wrap text-sm">
+              {message.role === "system" ? (
+                // System message (date range indicator)
+                <div className="flex items-center gap-2 px-3 py-1.5 bg-blue-50 rounded-full">
+                  <Calendar size={14} className="text-blue-500" />
+                  <span className="text-xs text-blue-600 italic">
                     {message.content}
-                  </div>
-                ) : (
-                  <div className="text-sm prose prose-sm max-w-none prose-headings:text-gray-900 prose-headings:font-semibold prose-headings:mt-4 prose-headings:mb-2 prose-p:my-2 prose-ul:my-2 prose-ol:my-2 prose-li:my-0.5 prose-hr:my-4">
-                    <ReactMarkdown
-                      remarkPlugins={[remarkBreaks]}
-                      components={{
-                        a: ({ href, children }) => (
-                          <a
-                            href={href}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-brand-600 hover:text-brand-800 no-underline hover:underline"
-                          >
-                            {children}
-                          </a>
-                        ),
-                      }}
-                    >
+                  </span>
+                </div>
+              ) : (
+                <div
+                  className={`max-w-[85%] rounded-lg px-4 py-2 ${
+                    message.role === "user"
+                      ? "bg-brand-600 text-white"
+                      : "bg-gray-100 text-gray-800"
+                  }`}
+                >
+                  {message.role === "user" ? (
+                    <div className="whitespace-pre-wrap text-sm">
                       {message.content}
-                    </ReactMarkdown>
-                  </div>
-                )}
-              </div>
+                    </div>
+                  ) : (
+                    <div className="text-sm prose prose-sm max-w-none prose-headings:text-gray-900 prose-headings:font-semibold prose-headings:mt-3 prose-headings:mb-2 prose-p:my-2 prose-ul:my-2 prose-ol:my-2 prose-li:my-0.5 prose-hr:my-3 prose-hr:border-gray-300 prose-strong:text-gray-900">
+                      <ReactMarkdown
+                        remarkPlugins={[remarkBreaks]}
+                        components={{
+                          a: ({ href, children }) => (
+                            <a
+                              href={href}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-brand-600 hover:text-brand-800 no-underline hover:underline"
+                            >
+                              {children}
+                            </a>
+                          ),
+                        }}
+                      >
+                        {message.content}
+                      </ReactMarkdown>
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
           ))}
 
@@ -547,7 +490,9 @@ export default function AIChatModal({
               <div className="bg-gray-100 rounded-lg px-4 py-3">
                 <div className="flex items-center gap-2 text-gray-500">
                   <Loader2 className="animate-spin" size={16} />
-                  <span className="text-sm">{LOADING_MESSAGES[loadingMessageIndex]}</span>
+                  <span className="text-sm">
+                    {LOADING_MESSAGES[loadingMessageIndex]}
+                  </span>
                 </div>
               </div>
             </div>
@@ -556,7 +501,7 @@ export default function AIChatModal({
           {error && !isLoading && !isStreaming && (
             <div className="flex justify-center">
               <button
-                onClick={sendMessage}
+                onClick={() => sendMessage()}
                 className="text-sm text-brand-600 hover:text-brand-800 underline cursor-pointer"
               >
                 Try again
@@ -604,7 +549,7 @@ export default function AIChatModal({
               </button>
             ) : (
               <button
-                onClick={sendMessage}
+                onClick={() => sendMessage()}
                 disabled={!input.trim() || isLoading}
                 className="px-4 py-2 bg-brand-600 text-white rounded-lg hover:bg-brand-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors cursor-pointer"
               >
@@ -613,7 +558,7 @@ export default function AIChatModal({
             )}
           </div>
           <p className="text-xs text-gray-400 mt-2 text-center">
-            AI can see all {filteredEvents.length} filtered events
+            AI searches {allEvents.length} events based on your query
           </p>
         </div>
       </div>

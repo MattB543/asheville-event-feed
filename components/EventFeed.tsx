@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useMemo, useEffect, useCallback } from "react";
-import Fuse from "fuse.js";
 import EventCard from "./EventCard";
 import FilterBar, {
   DateFilterType,
@@ -294,60 +293,49 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
       .map(([tag]) => tag);
   }, [events]);
 
+  // Minimum number of events for a location to appear in filter dropdown
+  const LOCATION_MIN_EVENTS = 6;
+
   // Extract available locations from events (for location filter dropdown)
+  // Only includes locations with 10+ events to reduce dropdown clutter
   const availableLocations = useMemo(() => {
-    const citySet = new Set<string>();
-    let hasOnline = false;
+    const cityCount = new Map<string, number>();
+    let onlineCount = 0;
 
     events.forEach((event) => {
       const city = extractCity(event.location);
       if (city === "Online") {
-        hasOnline = true;
+        onlineCount++;
       } else if (city) {
-        citySet.add(city);
+        cityCount.set(city, (cityCount.get(city) || 0) + 1);
       }
     });
 
-    // Sort: Asheville first, then alphabetically
-    const cities = Array.from(citySet).sort((a, b) => {
-      if (a === "Asheville") return -1;
-      if (b === "Asheville") return 1;
-      return a.localeCompare(b);
-    });
+    // Only include cities with enough events (always include Asheville as primary)
+    const cities = Array.from(cityCount.entries())
+      .filter(([city, count]) => city === "Asheville" || count >= LOCATION_MIN_EVENTS)
+      .map(([city]) => city)
+      .sort((a, b) => {
+        if (a === "Asheville") return -1;
+        if (b === "Asheville") return 1;
+        return a.localeCompare(b);
+      });
 
-    // Add Online at the end if present
-    if (hasOnline) {
+    // Add Online at the end if it meets threshold
+    if (onlineCount >= LOCATION_MIN_EVENTS) {
       cities.push("Online");
     }
 
     return cities;
   }, [events]);
 
-  // Create Fuse instance for fuzzy search
-  const fuse = useMemo(() => {
-    return new Fuse(events, {
-      keys: [
-        { name: "title", weight: 0.4 },
-        { name: "description", weight: 0.25 },
-        { name: "organizer", weight: 0.2 },
-        { name: "location", weight: 0.15 },
-      ],
-      threshold: 0.4, // Lower = stricter matching
-      ignoreLocation: true,
-      includeScore: true,
-    });
-  }, [events]);
 
   // Filter events
   const filteredEvents = useMemo(() => {
     if (!isLoaded) return events;
 
-    // First, get search results if there's a search query
-    let searchMatchIds: Set<string> | null = null;
-    if (search) {
-      const fuseResults = fuse.search(search);
-      searchMatchIds = new Set(fuseResults.map((result) => result.item.id));
-    }
+    // Simple case-insensitive search
+    const searchLower = search?.toLowerCase() || "";
 
     return events.filter((event) => {
       // 1. Hidden Events (by title+organizer fingerprint)
@@ -468,9 +456,12 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
         }
       }
 
-      // 9. Fuzzy Search (searches title, description, organizer, location)
-      if (searchMatchIds && !searchMatchIds.has(event.id)) {
-        return false;
+      // 9. Search (searches title, description, organizer, location)
+      if (searchLower) {
+        const searchText = `${event.title} ${event.description || ""} ${event.organizer || ""} ${event.location || ""}`.toLowerCase();
+        if (!searchText.includes(searchLower)) {
+          return false;
+        }
       }
 
       return true;
@@ -478,7 +469,6 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
   }, [
     events,
     search,
-    fuse,
     dateFilter,
     customDateRange,
     selectedDays,
@@ -660,6 +650,13 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
     if (tagFilters.include.length > 0) params.set("tagsInclude", tagFilters.include.join(","));
     if (tagFilters.exclude.length > 0) params.set("tagsExclude", tagFilters.exclude.join(","));
 
+    // Client-side filters that need to be passed to export
+    if (blockedHosts.length > 0) params.set("blockedHosts", blockedHosts.join(","));
+    if (blockedKeywords.length > 0) params.set("blockedKeywords", blockedKeywords.join(","));
+    if (hiddenEvents.length > 0) params.set("hiddenEvents", JSON.stringify(hiddenEvents));
+    params.set("useDefaultFilters", useDefaultFilters.toString());
+    if (selectedLocations.length > 0) params.set("locations", selectedLocations.join(","));
+
     const queryString = params.toString();
     return queryString ? `?${queryString}` : "";
   }, [
@@ -670,6 +667,11 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
     priceFilter,
     customMaxPrice,
     tagFilters,
+    blockedHosts,
+    blockedKeywords,
+    hiddenEvents,
+    useDefaultFilters,
+    selectedLocations,
   ]);
 
   if (!isLoaded) return <EventFeedSkeleton />;
@@ -887,10 +889,9 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
       <AIChatModal
         isOpen={isChatOpen}
         onClose={() => setIsChatOpen(false)}
-        filteredEvents={filteredEvents}
+        allEvents={events}
         activeFilters={{
           search: searchInput,
-          dateFilter,
           priceFilter,
           tagsInclude: tagFilters.include,
           tagsExclude: tagFilters.exclude,

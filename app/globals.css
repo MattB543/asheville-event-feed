@@ -44,3 +44,9 @@ body {
   list-style-type: decimal !important;
   padding-left: 1.5rem !important;
 }
+
+/* Override Tailwind's base hr reset within prose */
+.prose hr,
+.prose-sm hr {
+  margin: 20px 0 !important;
+}

@@ -44,6 +44,14 @@ const PER_PAGE = 50;
 const MAX_PAGES = 15; // ~750 events max to cover all target venue events
 const DELAY_MS = 500;
 
+// Common headers to avoid blocking
+const API_HEADERS = {
+  "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+  "Accept": "application/json, text/plain, */*",
+  "Accept-Language": "en-US,en;q=0.9",
+  "Referer": "https://livemusicasheville.com/events/",
+};
+
 // Types for API response
 interface TribeVenue {
   id: number;
@@ -195,7 +203,8 @@ function formatEvent(event: TribeEvent): ScrapedEvent {
     source: 'LIVE_MUSIC_AVL',
     title: decodeHtmlEntities(event.title),
     description: event.description ? decodeHtmlEntities(event.description).slice(0, 2000) : undefined,
-    startDate: new Date(event.utc_start_date),
+    // Append 'Z' to indicate UTC - the API returns UTC time without timezone indicator
+    startDate: new Date(event.utc_start_date + 'Z'),
     location,
     organizer: organizer?.organizer || (venue?.venue ? decodeHtmlEntities(venue.venue) : undefined),
     price,
@@ -220,10 +229,7 @@ async function fetchEventsPage(page: number, startDate: string): Promise<TribeAp
   const response = await fetchWithRetry(
     url,
     {
-      headers: {
-        'Accept': 'application/json',
-        'User-Agent': 'AshevilleEventFeed/1.0',
-      },
+      headers: API_HEADERS,
       cache: 'no-store',
     },
     { maxRetries: 3, baseDelay: 2000 }

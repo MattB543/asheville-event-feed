@@ -52,13 +52,13 @@ export async function GET(request: Request) {
     // Scrape AVL Today, Eventbrite, Meetup, Harrah's, Orange Peel, Grey Eagle, and Live Music AVL in parallel
     const scrapeStartTime = Date.now();
     const [
-      avlEvents,
-      ebEvents,
-      meetupEvents,
-      harrahsEvents,
-      orangePeelEvents,
-      greyEagleEvents,
-      liveMusicAvlEvents,
+      avlResult,
+      ebResult,
+      meetupResult,
+      harrahsResult,
+      orangePeelResult,
+      greyEagleResult,
+      liveMusicAvlResult,
     ] = await Promise.allSettled([
       scrapeAvlToday(),
       scrapeEventbrite(30), // Scrape 30 pages (~609 events)
@@ -68,6 +68,39 @@ export async function GET(request: Request) {
       scrapeGreyEagle(), // Grey Eagle (Website JSON-LD)
       scrapeLiveMusicAvl(), // Live Music Asheville (select venues only)
     ]);
+
+    // Extract values from settled results, using empty arrays for rejected promises
+    const avlEvents =
+      avlResult.status === "fulfilled" ? avlResult.value : [];
+    const ebEvents =
+      ebResult.status === "fulfilled" ? ebResult.value : [];
+    const meetupEvents =
+      meetupResult.status === "fulfilled" ? meetupResult.value : [];
+    const harrahsEvents =
+      harrahsResult.status === "fulfilled" ? harrahsResult.value : [];
+    const orangePeelEvents =
+      orangePeelResult.status === "fulfilled" ? orangePeelResult.value : [];
+    const greyEagleEvents =
+      greyEagleResult.status === "fulfilled" ? greyEagleResult.value : [];
+    const liveMusicAvlEvents =
+      liveMusicAvlResult.status === "fulfilled" ? liveMusicAvlResult.value : [];
+
+    // Log any scraper failures
+    if (avlResult.status === "rejected")
+      console.error("[Cron] AVL Today scrape failed:", avlResult.reason);
+    if (ebResult.status === "rejected")
+      console.error("[Cron] Eventbrite scrape failed:", ebResult.reason);
+    if (meetupResult.status === "rejected")
+      console.error("[Cron] Meetup scrape failed:", meetupResult.reason);
+    if (harrahsResult.status === "rejected")
+      console.error("[Cron] Harrah's scrape failed:", harrahsResult.reason);
+    if (orangePeelResult.status === "rejected")
+      console.error("[Cron] Orange Peel scrape failed:", orangePeelResult.reason);
+    if (greyEagleResult.status === "rejected")
+      console.error("[Cron] Grey Eagle scrape failed:", greyEagleResult.reason);
+    if (liveMusicAvlResult.status === "rejected")
+      console.error("[Cron] Live Music AVL scrape failed:", liveMusicAvlResult.reason);
+
     stats.scraping.duration = Date.now() - scrapeStartTime;
     stats.scraping.total =
       avlEvents.length +

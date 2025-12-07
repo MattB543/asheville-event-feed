@@ -10,46 +10,12 @@
 
 import { ScrapedEvent } from './types';
 import { fetchWithRetry } from '../utils/retry';
+import { decodeHtmlEntities } from '../utils/htmlEntities';
 
 // Config
 const CALENDAR_URL = 'https://www.thegreyeagle.com/calendar/';
 const USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36';
 const VENUE_NAME = 'The Grey Eagle';
-
-/**
- * Decode HTML entities in a string
- */
-function decodeHtmlEntities(text: string): string {
-  return text
-    // Named entities
-    .replace(/&nbsp;/g, ' ')
-    .replace(/&amp;/g, '&')
-    .replace(/&quot;/g, '"')
-    .replace(/&lt;/g, '<')
-    .replace(/&gt;/g, '>')
-    .replace(/&apos;/g, "'")
-    // Numeric entities for common characters
-    .replace(/&#8211;/g, '–')  // en-dash
-    .replace(/&#8212;/g, '—')  // em-dash
-    .replace(/&#8217;/g, "'")  // right single quote
-    .replace(/&#8216;/g, "'")  // left single quote
-    .replace(/&#8220;/g, '"')  // left double quote
-    .replace(/&#8221;/g, '"')  // right double quote
-    .replace(/&#8230;/g, '…')  // ellipsis
-    .replace(/&#038;/g, '&')
-    .replace(/&#039;/g, "'")
-    // Named entities for special chars
-    .replace(/&rsquo;/g, "'")
-    .replace(/&lsquo;/g, "'")
-    .replace(/&rdquo;/g, '"')
-    .replace(/&ldquo;/g, '"')
-    .replace(/&mdash;/g, '—')
-    .replace(/&ndash;/g, '–')
-    .replace(/&hellip;/g, '…')
-    // Clean up multiple spaces
-    .replace(/\s+/g, ' ')
-    .trim();
-}
 
 /**
  * Extract description from meta tag
@@ -202,10 +168,15 @@ async function scrapeEventPage(url: string): Promise<ScrapedEvent | null> {
         price = `$${min} - $${max}`;
       }
     } else {
-      // Look for single price anywhere
-      const singlePriceMatch = html.match(/\$(\d+(?:\.\d{2})?)/);
-      if (singlePriceMatch) {
-        price = `$${singlePriceMatch[1]}`;
+      // Look for single price in ticket/price context to avoid matching unrelated dollar amounts
+      // Matches patterns like "Tickets: $25", "Price: $30", "$25 advance", "$30 door"
+      const contextualPriceMatch = html.match(
+        /(?:tickets?|price|admission|cover|entry|advance|door)[:\s]*\$(\d+(?:\.\d{2})?)/i
+      ) || html.match(
+        /\$(\d+(?:\.\d{2})?)\s*(?:advance|door|cover|tickets?)/i
+      );
+      if (contextualPriceMatch) {
+        price = `$${contextualPriceMatch[1]}`;
       }
     }
 

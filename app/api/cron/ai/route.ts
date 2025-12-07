@@ -1,0 +1,228 @@
+import { NextResponse } from "next/server";
+import { db } from "@/lib/db";
+import { events } from "@/lib/db/schema";
+import { eq, or, like, sql, isNull } from "drizzle-orm";
+import { generateEventTags } from "@/lib/ai/tagging";
+import { generateEventImage } from "@/lib/ai/imageGeneration";
+import { env, isAIEnabled } from "@/lib/config/env";
+import { verifyAuthToken } from "@/lib/utils/auth";
+
+export const maxDuration = 800; // 13+ minutes (requires Fluid Compute)
+
+// Helper to format duration in human-readable form
+function formatDuration(ms: number): string {
+  if (ms < 1000) return `${ms}ms`;
+  const seconds = Math.floor(ms / 1000);
+  if (seconds < 60) return `${seconds}s`;
+  const minutes = Math.floor(seconds / 60);
+  const remainingSeconds = seconds % 60;
+  return `${minutes}m ${remainingSeconds}s`;
+}
+
+// Helper to chunk arrays
+const chunk = <T>(arr: T[], size: number) =>
+  Array.from({ length: Math.ceil(arr.length / size) }, (_, i) =>
+    arr.slice(i * size, i * size + size)
+  );
+
+// AI-only cron job
+//
+// This route handles ONLY AI tagging and image generation.
+// Scraping and upserts are handled by /api/cron/scrape
+//
+// Schedule: Every 6 hours at :30 (cron: "30 0/6 * * *")
+// Runs 30 minutes after the scrape job to process new events
+export async function GET(request: Request) {
+  const authHeader = request.headers.get("authorization");
+  if (!verifyAuthToken(authHeader, env.CRON_SECRET)) {
+    return new NextResponse("Unauthorized", { status: 401 });
+  }
+
+  if (!isAIEnabled()) {
+    return NextResponse.json({
+      success: false,
+      error: "AI features not enabled (GEMINI_API_KEY not set)",
+    }, { status: 400 });
+  }
+
+  const jobStartTime = Date.now();
+
+  // Stats tracking
+  const stats = {
+    tagging: { duration: 0, success: 0, failed: 0, total: 0 },
+    images: { duration: 0, success: 0, failed: 0, total: 0 },
+  };
+
+  try {
+    console.log("[AI] ════════════════════════════════════════════════");
+    console.log("[AI] Starting AI processing job...");
+
+    // 1. Find events that need tags (empty tags array)
+    console.log("[AI] Finding events needing tags...");
+    const eventsNeedingTags = await db
+      .select({
+        id: events.id,
+        title: events.title,
+        description: events.description,
+        location: events.location,
+        organizer: events.organizer,
+        startDate: events.startDate,
+      })
+      .from(events)
+      .where(
+        sql`${events.tags} = '{}'::text[] OR ${events.tags} IS NULL`
+      )
+      .limit(100); // Process max 100 per run to stay within timeout
+
+    stats.tagging.total = eventsNeedingTags.length;
+    console.log(`[AI] Found ${eventsNeedingTags.length} events needing tags`);
+
+    // 2. Generate tags in batches
+    if (eventsNeedingTags.length > 0) {
+      const tagStartTime = Date.now();
+      for (const batch of chunk(eventsNeedingTags, 5)) {
+        await Promise.all(
+          batch.map(async (event) => {
+            try {
+              const tags = await generateEventTags({
+                title: event.title,
+                description: event.description,
+                location: event.location,
+                organizer: event.organizer,
+                startDate: event.startDate,
+              });
+
+              // Update event with generated tags
+              await db
+                .update(events)
+                .set({ tags })
+                .where(eq(events.id, event.id));
+
+              stats.tagging.success++;
+              console.log(`[AI] Tagged "${event.title}" with ${tags.length} tags`);
+            } catch (err) {
+              stats.tagging.failed++;
+              console.error(
+                `[AI] Failed to tag "${event.title}":`,
+                err instanceof Error ? err.message : err
+              );
+            }
+          })
+        );
+        // Small delay between batches
+        await new Promise((r) => setTimeout(r, 1000));
+      }
+      stats.tagging.duration = Date.now() - tagStartTime;
+      console.log(
+        `[AI] Tagging complete in ${formatDuration(stats.tagging.duration)}: ${stats.tagging.success}/${stats.tagging.total} succeeded`
+      );
+    }
+
+    // 3. Find events that need images
+    console.log("[AI] Finding events needing images...");
+    const eventsNeedingImages = await db
+      .select({
+        id: events.id,
+        title: events.title,
+        description: events.description,
+        location: events.location,
+        tags: events.tags,
+        imageUrl: events.imageUrl,
+      })
+      .from(events)
+      .where(
+        or(
+          isNull(events.imageUrl),
+          eq(events.imageUrl, ""),
+          like(events.imageUrl, "%/images/fallbacks/%"),
+          like(events.imageUrl, "%group-cover%"),
+          like(events.imageUrl, "%default_photo%")
+        )
+      )
+      .limit(50); // Process max 50 per run (image generation is slower)
+
+    stats.images.total = eventsNeedingImages.length;
+    console.log(`[AI] Found ${eventsNeedingImages.length} events needing images`);
+
+    // 4. Generate images in batches
+    if (eventsNeedingImages.length > 0) {
+      const imageStartTime = Date.now();
+      for (const batch of chunk(eventsNeedingImages, 3)) {
+        await Promise.all(
+          batch.map(async (event) => {
+            try {
+              const imageUrl = await generateEventImage({
+                title: event.title,
+                description: event.description,
+                location: event.location,
+                tags: event.tags || [],
+              });
+
+              if (imageUrl) {
+                // Update event with generated image
+                await db
+                  .update(events)
+                  .set({ imageUrl })
+                  .where(eq(events.id, event.id));
+
+                stats.images.success++;
+                console.log(`[AI] Generated image for "${event.title}"`);
+              } else {
+                stats.images.failed++;
+                console.warn(`[AI] Image generation returned null for "${event.title}"`);
+              }
+            } catch (err) {
+              stats.images.failed++;
+              console.error(
+                `[AI] Failed to generate image for "${event.title}":`,
+                err instanceof Error ? err.message : err
+              );
+            }
+          })
+        );
+        // Longer delay for image generation (more resource intensive)
+        await new Promise((r) => setTimeout(r, 2000));
+      }
+      stats.images.duration = Date.now() - imageStartTime;
+      console.log(
+        `[AI] Image generation complete in ${formatDuration(stats.images.duration)}: ${stats.images.success}/${stats.images.total} succeeded`
+      );
+    }
+
+    // Final summary
+    const totalDuration = Date.now() - jobStartTime;
+    console.log("[AI] ────────────────────────────────────────────────");
+    console.log(`[AI] JOB COMPLETE in ${formatDuration(totalDuration)}`);
+    console.log("[AI] ────────────────────────────────────────────────");
+    console.log(`[AI] Tagging: ${stats.tagging.success}/${stats.tagging.total} in ${formatDuration(stats.tagging.duration)}`);
+    console.log(`[AI] Images: ${stats.images.success}/${stats.images.total} in ${formatDuration(stats.images.duration)}`);
+    console.log("[AI] ════════════════════════════════════════════════");
+
+    return NextResponse.json({
+      success: true,
+      duration: totalDuration,
+      stats: {
+        tagging: {
+          total: stats.tagging.total,
+          success: stats.tagging.success,
+          failed: stats.tagging.failed,
+        },
+        images: {
+          total: stats.images.total,
+          success: stats.images.success,
+          failed: stats.images.failed,
+        },
+      },
+    });
+  } catch (error) {
+    const totalDuration = Date.now() - jobStartTime;
+    console.error("[AI] ════════════════════════════════════════════════");
+    console.error(`[AI] JOB FAILED after ${formatDuration(totalDuration)}`);
+    console.error("[AI] Error:", error);
+    console.error("[AI] ════════════════════════════════════════════════");
+    return NextResponse.json(
+      { success: false, error: String(error), duration: totalDuration },
+      { status: 500 }
+    );
+  }
+}

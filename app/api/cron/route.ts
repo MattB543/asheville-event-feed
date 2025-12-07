@@ -15,8 +15,9 @@ import { generateEventImage } from "@/lib/ai/imageGeneration";
 import { ScrapedEventWithTags } from "@/lib/scrapers/types";
 import { env, isFacebookEnabled } from "@/lib/config/env";
 import { findDuplicates, getIdsToRemove } from "@/lib/utils/deduplication";
+import { verifyAuthToken } from "@/lib/utils/auth";
 
-export const maxDuration = 300; // 5 minutes
+export const maxDuration = 800; // 13+ minutes (requires Fluid Compute)
 
 // Helper to format duration in human-readable form
 function formatDuration(ms: number): string {
@@ -30,7 +31,7 @@ function formatDuration(ms: number): string {
 
 export async function GET(request: Request) {
   const authHeader = request.headers.get("authorization");
-  if (authHeader !== `Bearer ${env.CRON_SECRET}`) {
+  if (!verifyAuthToken(authHeader, env.CRON_SECRET)) {
     return new NextResponse("Unauthorized", { status: 401 });
   }
 
@@ -61,7 +62,7 @@ export async function GET(request: Request) {
       liveMusicAvlResult,
     ] = await Promise.allSettled([
       scrapeAvlToday(),
-      scrapeEventbrite(30), // Scrape 30 pages (~609 events)
+      scrapeEventbrite(25), // Scrape 25 pages (~500 events)
       scrapeMeetup(30), // Scrape 30 days of physical events (~236 events)
       scrapeHarrahs(), // Harrah's Cherokee Center (Ticketmaster API + HTML)
       scrapeOrangePeel(), // Orange Peel (Ticketmaster API + Website JSON-LD)

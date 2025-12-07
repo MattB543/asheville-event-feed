@@ -1,8 +1,13 @@
 {
+  "fluid": true,
   "crons": [
     {
-      "path": "/api/cron",
+      "path": "/api/cron/scrape",
       "schedule": "0 */6 * * *"
+    },
+    {
+      "path": "/api/cron/ai",
+      "schedule": "30 */6 * * *"
     },
     {
       "path": "/api/cron/cleanup",

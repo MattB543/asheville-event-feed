@@ -5,6 +5,7 @@ import { eq, inArray } from 'drizzle-orm';
 import { isNonNCEvent } from '@/lib/utils/locationFilter';
 import { findDuplicates, getIdsToRemove } from '@/lib/utils/deduplication';
 import { env } from '@/lib/config/env';
+import { verifyAuthToken } from '@/lib/utils/auth';
 
 export const maxDuration = 300; // 5 minutes max
 
@@ -31,9 +32,9 @@ async function checkUrl(url: string): Promise<number> {
 }
 
 export async function GET(request: Request) {
-  // Verify cron secret
+  // Verify cron secret (timing-safe comparison)
   const authHeader = request.headers.get('authorization');
-  if (authHeader !== `Bearer ${env.CRON_SECRET}`) {
+  if (!verifyAuthToken(authHeader, env.CRON_SECRET)) {
     return new NextResponse('Unauthorized', { status: 401 });
   }
 

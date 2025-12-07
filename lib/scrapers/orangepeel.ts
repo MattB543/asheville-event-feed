@@ -12,6 +12,7 @@
 
 import { ScrapedEvent } from './types';
 import { fetchWithRetry } from '../utils/retry';
+import { parseAsEastern } from '../utils/timezone';
 
 // Ticketmaster API config
 const TM_API_KEY = process.env.TICKETMASTER_API_KEY;
@@ -181,12 +182,10 @@ function formatTMEvent(event: TMEvent): ScrapedEvent | null {
     // dateTime is ISO format with timezone (e.g., "2025-12-04T20:00:00Z")
     startDate = new Date(event.dates.start.dateTime);
   } else {
-    // Fallback: construct from local date/time and assume America/New_York timezone
+    // Fallback: construct from local date/time with correct Eastern offset (handles DST)
     const dateStr = event.dates.start.localDate;
     const timeStr = event.dates.start.localTime || '20:00:00';
-    // Append timezone offset to ensure correct parsing on UTC servers
-    // EST is -05:00, EDT is -04:00. Use -05:00 as safe default for evening events.
-    startDate = new Date(`${dateStr}T${timeStr}-05:00`);
+    startDate = parseAsEastern(dateStr, timeStr);
   }
 
   // Get best image (prefer 16:9 ratio, largest size)

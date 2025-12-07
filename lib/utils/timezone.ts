@@ -58,3 +58,38 @@ export function formatDateEastern(date: Date, options?: Intl.DateTimeFormatOptio
     ...options
   }).format(date);
 }
+
+/**
+ * Get the Eastern timezone offset string for a given date.
+ * Accounts for Daylight Saving Time automatically.
+ *
+ * @param dateStr - Date string in YYYY-MM-DD format (or a Date object)
+ * @returns Offset string like '-05:00' (EST) or '-04:00' (EDT)
+ */
+export function getEasternOffset(dateStr: string | Date): string {
+  // Create a date at noon to avoid any edge cases at midnight
+  const date = typeof dateStr === 'string'
+    ? new Date(`${dateStr}T12:00:00`)
+    : dateStr;
+
+  const offsetPart = new Intl.DateTimeFormat('en-US', {
+    timeZone: 'America/New_York',
+    timeZoneName: 'shortOffset'
+  }).formatToParts(date).find(p => p.type === 'timeZoneName')?.value;
+
+  // EST = GMT-5, EDT = GMT-4
+  return offsetPart?.includes('-4') ? '-04:00' : '-05:00';
+}
+
+/**
+ * Parse a local date/time string as Eastern timezone.
+ * Correctly handles DST for the given date.
+ *
+ * @param dateStr - Date string in YYYY-MM-DD format
+ * @param timeStr - Time string in HH:MM:SS format (defaults to 19:00:00)
+ * @returns Date object with correct UTC time
+ */
+export function parseAsEastern(dateStr: string, timeStr: string = '19:00:00'): Date {
+  const offset = getEasternOffset(dateStr);
+  return new Date(`${dateStr}T${timeStr}${offset}`);
+}

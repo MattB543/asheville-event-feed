@@ -20,4 +20,6 @@ export const events = pgTable('events', {
 }, (table) => ({
   startDateIdx: index('events_start_date_idx').on(table.startDate),
   sourceIdx: index('events_source_idx').on(table.source),
+  // GIN index for efficient tag array queries (e.g., filtering by tags)
+  tagsIdx: index('events_tags_idx').using('gin', table.tags),
 }));

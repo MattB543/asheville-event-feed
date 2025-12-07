@@ -1,6 +1,7 @@
 import { ScrapedEvent, MeetupApiEvent } from './types';
 import { withRetry } from '@/lib/utils/retry';
 import { isNonNCEvent } from '@/lib/utils/locationFilter';
+import { getEasternOffset } from '@/lib/utils/timezone';
 
 /**
  * Meetup Scraper - Date-Range Based Approach
@@ -209,8 +210,10 @@ async function fetchEventsForDateRange(
  */
 async function fetchAllEventsForDate(date: Date): Promise<MeetupGql2Event[]> {
   const dateStr = date.toISOString().split('T')[0];
-  const startDate = `${dateStr}T00:00:00-05:00`;
-  const endDate = `${dateStr}T23:59:59-05:00`;
+  // Get correct Eastern offset for this date (handles DST)
+  const offset = getEasternOffset(dateStr);
+  const startDate = `${dateStr}T00:00:00${offset}`;
+  const endDate = `${dateStr}T23:59:59${offset}`;
 
   const allEvents: MeetupGql2Event[] = [];
   let cursor: string | undefined;

@@ -18,6 +18,7 @@ interface ActiveFiltersProps {
   filteredCount: number;
   exportParams?: string;
   onOpenChat?: () => void;
+  isPending?: boolean;
 }
 
 function ExportLinks({ exportParams }: { exportParams?: string }) {
@@ -66,13 +67,21 @@ export default function ActiveFilters({
   filteredCount,
   exportParams,
   onOpenChat,
+  isPending,
 }: ActiveFiltersProps) {
   if (filters.length === 0) {
     return (
       <div className="flex flex-col sm:flex-row items-start sm:items-center sm:justify-end gap-2 sm:gap-3 text-sm text-gray-500 py-2 pb-3 sm:sticky sm:top-0 sm:z-20 bg-gray-50 px-3 sm:px-0">
         {onOpenChat && <AskAIButton onClick={onOpenChat} />}
         <span>
-          Showing {totalEvents} events
+          {isPending ? (
+            <span className="inline-flex items-center gap-2">
+              <span className="w-3 h-3 border-2 border-gray-400 border-t-transparent rounded-full animate-spin" />
+              <span>Filtering...</span>
+            </span>
+          ) : (
+            <>Showing {totalEvents} events</>
+          )}
           <ExportLinks exportParams={exportParams} />
         </span>
       </div>
@@ -134,7 +143,14 @@ export default function ActiveFilters({
       <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3 sm:ml-auto">
         {onOpenChat && <AskAIButton onClick={onOpenChat} />}
         <span className="text-sm text-gray-500">
-          Showing {filteredCount} of {totalEvents} events
+          {isPending ? (
+            <span className="inline-flex items-center gap-2">
+              <span className="w-3 h-3 border-2 border-gray-400 border-t-transparent rounded-full animate-spin" />
+              <span>Filtering...</span>
+            </span>
+          ) : (
+            <>Showing {filteredCount} of {totalEvents} events</>
+          )}
           <ExportLinks exportParams={exportParams} />
         </span>
       </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useEffect, useCallback } from "react";
+import { useState, useMemo, useEffect, useCallback, useDeferredValue, useTransition } from "react";
 import EventCard from "./EventCard";
 import FilterBar, {
   DateFilterType,
@@ -229,6 +229,31 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
   const [isLoaded, setIsLoaded] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
 
+  // Deferred values for filter computation - allows UI to update immediately
+  // while the heavy filtering computation happens in the background
+  const deferredTagFilters = useDeferredValue(tagFilters);
+  const deferredPriceFilter = useDeferredValue(priceFilter);
+  const deferredDateFilter = useDeferredValue(dateFilter);
+  const deferredSelectedDays = useDeferredValue(selectedDays);
+  const deferredCustomDateRange = useDeferredValue(customDateRange);
+  const deferredCustomMaxPrice = useDeferredValue(customMaxPrice);
+  const deferredSelectedLocations = useDeferredValue(selectedLocations);
+  const deferredSearch = useDeferredValue(search);
+
+  // Detect when filters are pending (deferred value hasn't caught up)
+  const isFilterPending =
+    deferredTagFilters !== tagFilters ||
+    deferredPriceFilter !== priceFilter ||
+    deferredDateFilter !== dateFilter ||
+    deferredSelectedLocations !== selectedLocations ||
+    deferredSearch !== search ||
+    deferredCustomMaxPrice !== customMaxPrice ||
+    deferredSelectedDays !== selectedDays ||
+    deferredCustomDateRange !== customDateRange;
+
+  // Detect when search input is pending (debounce hasn't fired yet)
+  const isSearchPending = searchInput !== search;
+
   // Set isLoaded after mount to prevent hydration mismatch
   useEffect(() => {
     setIsLoaded(true);
@@ -330,12 +355,12 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
   }, [events]);
 
 
-  // Filter events
+  // Filter events - uses deferred values for optimistic UI updates
   const filteredEvents = useMemo(() => {
     if (!isLoaded) return events;
 
-    // Simple case-insensitive search
-    const searchLower = search?.toLowerCase() || "";
+    // Simple case-insensitive search (using deferred value)
+    const searchLower = deferredSearch?.toLowerCase() || "";
 
     return events.filter((event) => {
       // 1. Hidden Events (by title+organizer fingerprint)
@@ -373,18 +398,18 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
         if (matchesDefaultFilter(textToCheck)) return false;
       }
 
-      // 5. Date Filter
+      // 5. Date Filter (using deferred values)
       const eventDate = new Date(event.startDate);
-      if (dateFilter === "today" && !isToday(eventDate)) return false;
-      if (dateFilter === "tomorrow" && !isTomorrow(eventDate)) return false;
-      if (dateFilter === "weekend" && !isThisWeekend(eventDate)) return false;
-      if (dateFilter === "dayOfWeek" && !isDayOfWeek(eventDate, selectedDays))
+      if (deferredDateFilter === "today" && !isToday(eventDate)) return false;
+      if (deferredDateFilter === "tomorrow" && !isTomorrow(eventDate)) return false;
+      if (deferredDateFilter === "weekend" && !isThisWeekend(eventDate)) return false;
+      if (deferredDateFilter === "dayOfWeek" && !isDayOfWeek(eventDate, deferredSelectedDays))
         return false;
-      if (dateFilter === "custom" && !isInDateRange(eventDate, customDateRange))
+      if (deferredDateFilter === "custom" && !isInDateRange(eventDate, deferredCustomDateRange))
         return false;
 
-      // 6. Price Filter
-      if (priceFilter !== "any") {
+      // 6. Price Filter (using deferred values)
+      if (deferredPriceFilter !== "any") {
         const price = parsePrice(event.price);
         const priceStr = event.price?.toLowerCase() || "";
         const isUnknown =
@@ -395,42 +420,42 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
           priceStr.includes("donation") ||
           (/\d/.test(priceStr) && price === 0);
 
-        if (priceFilter === "free" && !isFree) return false;
-        if (priceFilter === "under20" && price > 20) return false;
-        if (priceFilter === "under100" && price > 100) return false;
+        if (deferredPriceFilter === "free" && !isFree) return false;
+        if (deferredPriceFilter === "under20" && price > 20) return false;
+        if (deferredPriceFilter === "under100" && price > 100) return false;
         if (
-          priceFilter === "custom" &&
-          customMaxPrice !== null &&
-          price > customMaxPrice
+          deferredPriceFilter === "custom" &&
+          deferredCustomMaxPrice !== null &&
+          price > deferredCustomMaxPrice
         )
           return false;
       }
 
-      // 7. Tag Filter (include AND exclude)
+      // 7. Tag Filter (include AND exclude) - using deferred values
       const eventTags = event.tags || [];
 
       // Exclude logic: If event has ANY excluded tag, filter it out
-      if (tagFilters.exclude.length > 0) {
-        const hasExcludedTag = tagFilters.exclude.some((tag) =>
+      if (deferredTagFilters.exclude.length > 0) {
+        const hasExcludedTag = deferredTagFilters.exclude.some((tag) =>
           eventTags.includes(tag)
         );
         if (hasExcludedTag) return false;
       }
 
       // Include logic: If includes are set, event must have at least one
-      if (tagFilters.include.length > 0) {
-        const hasIncludedTag = tagFilters.include.some((tag) =>
+      if (deferredTagFilters.include.length > 0) {
+        const hasIncludedTag = deferredTagFilters.include.some((tag) =>
           eventTags.includes(tag)
         );
         if (!hasIncludedTag) return false;
       }
 
-      // 8. Location Filter (multi-select - OR logic)
-      if (selectedLocations.length > 0) {
+      // 8. Location Filter (multi-select - OR logic) - using deferred value
+      if (deferredSelectedLocations.length > 0) {
         const eventCity = extractCity(event.location);
         let matchesAnyLocation = false;
 
-        for (const loc of selectedLocations) {
+        for (const loc of deferredSelectedLocations) {
           if (loc === "asheville") {
             // "Asheville area" includes: Asheville city + known Asheville venues
             if (isAshevilleArea(event.location)) {
@@ -468,14 +493,14 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
     });
   }, [
     events,
-    search,
-    dateFilter,
-    customDateRange,
-    selectedDays,
-    priceFilter,
-    customMaxPrice,
-    tagFilters,
-    selectedLocations,
+    deferredSearch,
+    deferredDateFilter,
+    deferredCustomDateRange,
+    deferredSelectedDays,
+    deferredPriceFilter,
+    deferredCustomMaxPrice,
+    deferredTagFilters,
+    deferredSelectedLocations,
     blockedHosts,
     blockedKeywords,
     hiddenEvents,
@@ -698,6 +723,7 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
         tagFilters={tagFilters}
         onTagFiltersChange={setTagFilters}
         onOpenSettings={() => setIsSettingsOpen(true)}
+        isSearchPending={isSearchPending}
       />
 
       <ActiveFilters
@@ -709,9 +735,22 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
         filteredCount={filteredEvents.length}
         exportParams={exportParams}
         onOpenChat={() => setIsChatOpen(true)}
+        isPending={isFilterPending}
       />
 
-      <div className="flex flex-col gap-10 mt-3">
+      {/* Filtering indicator */}
+      {isFilterPending && (
+        <div className="fixed top-20 left-1/2 -translate-x-1/2 z-50 bg-white/95 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg border border-gray-200">
+          <div className="flex items-center gap-2">
+            <div className="w-4 h-4 border-2 border-brand-500 border-t-transparent rounded-full animate-spin" />
+            <span className="text-sm text-gray-600">Filtering...</span>
+          </div>
+        </div>
+      )}
+
+      <div className={`flex flex-col gap-10 mt-3 transition-opacity duration-150 ${
+        isFilterPending ? "opacity-50" : "opacity-100"
+      }`}>
         {Object.entries(
           filteredEvents.reduce((groups, event) => {
             const date = new Date(event.startDate);

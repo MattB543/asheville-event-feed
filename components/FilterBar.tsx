@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useTransition } from "react";
 import {
   Search,
   SlidersHorizontal,
@@ -68,6 +68,7 @@ export interface FilterBarProps {
   tagFilters: TagFilterState;
   onTagFiltersChange: (filters: TagFilterState) => void;
   onOpenSettings: () => void;
+  isSearchPending?: boolean;
 }
 
 const dateLabels: Record<DateFilterType, string> = {
@@ -109,6 +110,7 @@ export default function FilterBar({
   tagFilters,
   onTagFiltersChange,
   onOpenSettings,
+  isSearchPending,
 }: FilterBarProps) {
   const [isTagsOpen, setIsTagsOpen] = useState(false);
   const [isDateOpen, setIsDateOpen] = useState(false);
@@ -121,6 +123,45 @@ export default function FilterBar({
   const dateRef = useRef<HTMLDivElement>(null);
   const priceRef = useRef<HTMLDivElement>(null);
   const locationRef = useRef<HTMLDivElement>(null);
+
+  // Local optimistic state for instant visual feedback on filter clicks
+  const [localTagFilters, setLocalTagFilters] = useState(tagFilters);
+  const [localDateFilter, setLocalDateFilter] = useState(dateFilter);
+  const [localCustomDateRange, setLocalCustomDateRange] = useState(customDateRange);
+  const [localSelectedDays, setLocalSelectedDays] = useState(selectedDays);
+  const [localPriceFilter, setLocalPriceFilter] = useState(priceFilter);
+  const [localCustomMaxPrice, setLocalCustomMaxPrice] = useState(customMaxPrice);
+  const [localSelectedLocations, setLocalSelectedLocations] = useState(selectedLocations);
+  const [, startTransition] = useTransition();
+
+  // Sync local state with props when they change (e.g., from "Clear all" button)
+  useEffect(() => {
+    setLocalTagFilters(tagFilters);
+  }, [tagFilters]);
+
+  useEffect(() => {
+    setLocalDateFilter(dateFilter);
+  }, [dateFilter]);
+
+  useEffect(() => {
+    setLocalCustomDateRange(customDateRange);
+  }, [customDateRange]);
+
+  useEffect(() => {
+    setLocalSelectedDays(selectedDays);
+  }, [selectedDays]);
+
+  useEffect(() => {
+    setLocalPriceFilter(priceFilter);
+  }, [priceFilter]);
+
+  useEffect(() => {
+    setLocalCustomMaxPrice(customMaxPrice);
+  }, [customMaxPrice]);
+
+  useEffect(() => {
+    setLocalSelectedLocations(selectedLocations);
+  }, [selectedLocations]);
 
   // Dropdown alignment state for collision detection
   const [tagsAlign, setTagsAlign] = useState<"left" | "right">("left");
@@ -173,44 +214,57 @@ export default function FilterBar({
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // Get the current state of a tag filter
+  // Get the current state of a tag filter (uses local state for instant feedback)
   const getTagState = (tag: string): TriState => {
-    if (tagFilters.include.includes(tag)) return "include";
-    if (tagFilters.exclude.includes(tag)) return "exclude";
+    if (localTagFilters.include.includes(tag)) return "include";
+    if (localTagFilters.exclude.includes(tag)) return "exclude";
     return "off";
   };
 
   // Cycle through tag states: off -> include -> exclude -> off
+  // Uses optimistic update pattern: local state updates instantly, parent update is deferred
   const cycleTagState = (tag: string) => {
     const currentState = getTagState(tag);
+    let newFilters: TagFilterState;
 
     if (currentState === "off") {
       // off -> include
-      onTagFiltersChange({
-        ...tagFilters,
-        include: [...tagFilters.include, tag],
-      });
+      newFilters = {
+        ...localTagFilters,
+        include: [...localTagFilters.include, tag],
+      };
     } else if (currentState === "include") {
       // include -> exclude
-      onTagFiltersChange({
-        include: tagFilters.include.filter((t) => t !== tag),
-        exclude: [...tagFilters.exclude, tag],
-      });
+      newFilters = {
+        include: localTagFilters.include.filter((t) => t !== tag),
+        exclude: [...localTagFilters.exclude, tag],
+      };
     } else {
       // exclude -> off
-      onTagFiltersChange({
-        ...tagFilters,
-        exclude: tagFilters.exclude.filter((t) => t !== tag),
-      });
+      newFilters = {
+        ...localTagFilters,
+        exclude: localTagFilters.exclude.filter((t) => t !== tag),
+      };
     }
+
+    // Update local state immediately for instant visual feedback
+    setLocalTagFilters(newFilters);
+
+    // Defer the parent update to keep UI responsive
+    startTransition(() => {
+      onTagFiltersChange(newFilters);
+    });
   };
 
   const toggleLocation = (location: string) => {
-    if (selectedLocations.includes(location)) {
-      onLocationsChange(selectedLocations.filter((l) => l !== location));
-    } else {
-      onLocationsChange([...selectedLocations, location]);
-    }
+    const newLocations = localSelectedLocations.includes(location)
+      ? localSelectedLocations.filter((l) => l !== location)
+      : [...localSelectedLocations, location];
+
+    setLocalSelectedLocations(newLocations);
+    startTransition(() => {
+      onLocationsChange(newLocations);
+    });
   };
 
   const selectAllLocations = () => {
@@ -219,14 +273,17 @@ export default function FilterBar({
       "asheville",
       ...availableLocations.filter((l) => l !== "Asheville"),
     ];
-    if (availableLocations.includes("Online")) {
-      // Online is already included via availableLocations
-    }
-    onLocationsChange(allLocs);
+    setLocalSelectedLocations(allLocs);
+    startTransition(() => {
+      onLocationsChange(allLocs);
+    });
   };
 
   const deselectAllLocations = () => {
-    onLocationsChange([]);
+    setLocalSelectedLocations([]);
+    startTransition(() => {
+      onLocationsChange([]);
+    });
   };
 
   const toggleCategory = (categoryName: string) => {
@@ -242,15 +299,23 @@ export default function FilterBar({
   };
 
   const selectAllTags = () => {
-    onTagFiltersChange({ include: [...availableTags], exclude: [] });
+    const newFilters = { include: [...availableTags], exclude: [] };
+    setLocalTagFilters(newFilters);
+    startTransition(() => {
+      onTagFiltersChange(newFilters);
+    });
   };
 
   const deselectAllTags = () => {
-    onTagFiltersChange({ include: [], exclude: [] });
+    const newFilters = { include: [], exclude: [] };
+    setLocalTagFilters(newFilters);
+    startTransition(() => {
+      onTagFiltersChange(newFilters);
+    });
   };
 
-  // Count of active tag filters (include + exclude)
-  const activeTagCount = tagFilters.include.length + tagFilters.exclude.length;
+  // Count of active tag filters (include + exclude) - uses local state for instant feedback
+  const activeTagCount = localTagFilters.include.length + localTagFilters.exclude.length;
 
   // Group available tags by category
   const groupedTags = TAG_CATEGORIES.map((category) => ({
@@ -268,46 +333,46 @@ export default function FilterBar({
     "flex items-center gap-2 h-10 px-3 text-sm font-medium text-gray-700 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors cursor-pointer";
 
   const getDateLabel = (): string => {
-    if (dateFilter === "dayOfWeek" && selectedDays.length > 0) {
-      return selectedDays.map((d) => DAY_NAMES[d]).join(", ");
+    if (localDateFilter === "dayOfWeek" && localSelectedDays.length > 0) {
+      return localSelectedDays.map((d) => DAY_NAMES[d]).join(", ");
     }
-    if (dateFilter === "custom" && customDateRange.start) {
+    if (localDateFilter === "custom" && localCustomDateRange.start) {
       if (
-        customDateRange.end &&
-        customDateRange.end !== customDateRange.start
+        localCustomDateRange.end &&
+        localCustomDateRange.end !== localCustomDateRange.start
       ) {
-        return `${new Date(customDateRange.start).toLocaleDateString("en-US", {
+        return `${new Date(localCustomDateRange.start).toLocaleDateString("en-US", {
           month: "short",
           day: "numeric",
-        })} - ${new Date(customDateRange.end).toLocaleDateString("en-US", {
+        })} - ${new Date(localCustomDateRange.end).toLocaleDateString("en-US", {
           month: "short",
           day: "numeric",
         })}`;
       }
-      return new Date(customDateRange.start).toLocaleDateString("en-US", {
+      return new Date(localCustomDateRange.start).toLocaleDateString("en-US", {
         month: "short",
         day: "numeric",
       });
     }
-    return dateLabels[dateFilter];
+    return dateLabels[localDateFilter];
   };
 
   const getPriceLabel = (): string => {
-    if (priceFilter === "custom" && customMaxPrice !== null) {
-      return `Under $${customMaxPrice}`;
+    if (localPriceFilter === "custom" && localCustomMaxPrice !== null) {
+      return `Under $${localCustomMaxPrice}`;
     }
-    return priceLabels[priceFilter];
+    return priceLabels[localPriceFilter];
   };
 
   const getLocationLabel = (): string => {
-    if (selectedLocations.length === 0) return "Location";
-    if (selectedLocations.length === 1) {
-      const loc = selectedLocations[0];
+    if (localSelectedLocations.length === 0) return "Location";
+    if (localSelectedLocations.length === 1) {
+      const loc = localSelectedLocations[0];
       if (loc === "asheville") return "Asheville area";
       if (loc === "Online") return "Online";
       return loc;
     }
-    return `${selectedLocations.length} locations`;
+    return `${localSelectedLocations.length} locations`;
   };
 
   return (
@@ -325,8 +390,13 @@ export default function FilterBar({
             placeholder="Search events..."
             value={search}
             onChange={(e) => onSearchChange(e.target.value)}
-            className="w-full h-10 pl-10 pr-4 text-sm border border-gray-200 bg-white rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none"
+            className="w-full h-10 pl-10 pr-10 text-sm border border-gray-200 bg-white rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none"
           />
+          {isSearchPending && (
+            <div className="absolute right-3 top-1/2 -translate-y-1/2">
+              <div className="w-4 h-4 border-2 border-gray-300 border-t-brand-500 rounded-full animate-spin" />
+            </div>
+          )}
         </div>
 
         {/* Filter Buttons */}
@@ -361,8 +431,13 @@ export default function FilterBar({
                       <input
                         type="radio"
                         name="dateFilter"
-                        checked={dateFilter === value}
-                        onChange={() => onDateFilterChange(value)}
+                        checked={localDateFilter === value}
+                        onChange={() => {
+                          setLocalDateFilter(value);
+                          startTransition(() => {
+                            onDateFilterChange(value);
+                          });
+                        }}
                         className="w-4 h-4 text-brand-600"
                       />
                       <span className="text-sm text-gray-700">{label}</span>
@@ -370,19 +445,24 @@ export default function FilterBar({
                   ))}
                 </div>
 
-                {dateFilter === "dayOfWeek" && (
+                {localDateFilter === "dayOfWeek" && (
                   <div className="border-t border-gray-100 px-3 py-3">
                     <div className="flex items-center justify-between mb-2">
                       <span className="text-xs text-gray-500">
-                        {selectedDays.length === 0
+                        {localSelectedDays.length === 0
                           ? "Select days"
-                          : `${selectedDays.length} day${
-                              selectedDays.length !== 1 ? "s" : ""
+                          : `${localSelectedDays.length} day${
+                              localSelectedDays.length !== 1 ? "s" : ""
                             } selected`}
                       </span>
-                      {selectedDays.length > 0 && (
+                      {localSelectedDays.length > 0 && (
                         <button
-                          onClick={() => onSelectedDaysChange([])}
+                          onClick={() => {
+                            setLocalSelectedDays([]);
+                            startTransition(() => {
+                              onSelectedDaysChange([]);
+                            });
+                          }}
                           className="text-xs text-brand-600 hover:text-brand-800 cursor-pointer"
                         >
                           Clear
@@ -390,43 +470,43 @@ export default function FilterBar({
                       )}
                     </div>
                     <div className="flex gap-1">
-                      {DAY_NAMES.map((day, index) => (
-                        <button
-                          key={day}
-                          onClick={() => {
-                            if (selectedDays.includes(index)) {
-                              onSelectedDaysChange(
-                                selectedDays.filter((d) => d !== index)
-                              );
-                            } else {
-                              onSelectedDaysChange(
-                                [...selectedDays, index].sort((a, b) => a - b)
-                              );
-                            }
-                          }}
-                          className={`flex-1 py-2 text-xs font-medium rounded transition-colors cursor-pointer ${
-                            selectedDays.includes(index)
-                              ? "bg-brand-600 text-white"
-                              : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                          }`}
-                        >
-                          {day}
-                        </button>
-                      ))}
+                      {DAY_NAMES.map((day, index) => {
+                        const newDays = localSelectedDays.includes(index)
+                          ? localSelectedDays.filter((d) => d !== index)
+                          : [...localSelectedDays, index].sort((a, b) => a - b);
+                        return (
+                          <button
+                            key={day}
+                            onClick={() => {
+                              setLocalSelectedDays(newDays);
+                              startTransition(() => {
+                                onSelectedDaysChange(newDays);
+                              });
+                            }}
+                            className={`flex-1 py-2 text-xs font-medium rounded transition-colors cursor-pointer ${
+                              localSelectedDays.includes(index)
+                                ? "bg-brand-600 text-white"
+                                : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                            }`}
+                          >
+                            {day}
+                          </button>
+                        );
+                      })}
                     </div>
                   </div>
                 )}
 
-                {dateFilter === "custom" && (
+                {localDateFilter === "custom" && (
                   <div className="border-t border-gray-100">
                     <div className="px-3 pt-2 pb-1 flex items-center justify-between">
                       <span className="text-xs text-gray-500">
                         {(() => {
                           const startDate = safeParseDateString(
-                            customDateRange.start
+                            localCustomDateRange.start
                           );
                           const endDate = safeParseDateString(
-                            customDateRange.end
+                            localCustomDateRange.end
                           );
                           if (startDate && endDate) {
                             return `${format(startDate, "MMM d")} - ${format(
@@ -439,11 +519,15 @@ export default function FilterBar({
                           return "Select dates";
                         })()}
                       </span>
-                      {customDateRange.start && (
+                      {localCustomDateRange.start && (
                         <button
-                          onClick={() =>
-                            onCustomDateRangeChange({ start: null, end: null })
-                          }
+                          onClick={() => {
+                            const newRange = { start: null, end: null };
+                            setLocalCustomDateRange(newRange);
+                            startTransition(() => {
+                              onCustomDateRangeChange(newRange);
+                            });
+                          }}
                           className="text-xs text-brand-600 hover:text-brand-800 cursor-pointer"
                         >
                           Clear
@@ -453,24 +537,26 @@ export default function FilterBar({
                     <Calendar
                       mode="range"
                       selected={(() => {
-                        const from = safeParseDateString(customDateRange.start);
+                        const from = safeParseDateString(localCustomDateRange.start);
                         if (!from) return undefined;
-                        const to = safeParseDateString(customDateRange.end);
+                        const to = safeParseDateString(localCustomDateRange.end);
                         return { from, to };
                       })()}
                       onSelect={(range: DayPickerDateRange | undefined) => {
-                        if (!range) {
-                          onCustomDateRangeChange({ start: null, end: null });
-                        } else {
-                          onCustomDateRangeChange({
-                            start: range.from
-                              ? format(range.from, "yyyy-MM-dd")
-                              : null,
-                            end: range.to
-                              ? format(range.to, "yyyy-MM-dd")
-                              : null,
-                          });
-                        }
+                        const newRange = !range
+                          ? { start: null, end: null }
+                          : {
+                              start: range.from
+                                ? format(range.from, "yyyy-MM-dd")
+                                : null,
+                              end: range.to
+                                ? format(range.to, "yyyy-MM-dd")
+                                : null,
+                            };
+                        setLocalCustomDateRange(newRange);
+                        startTransition(() => {
+                          onCustomDateRangeChange(newRange);
+                        });
                       }}
                       numberOfMonths={1}
                       disabled={{ before: new Date() }}
@@ -511,8 +597,13 @@ export default function FilterBar({
                       <input
                         type="radio"
                         name="priceFilter"
-                        checked={priceFilter === value}
-                        onChange={() => onPriceFilterChange(value)}
+                        checked={localPriceFilter === value}
+                        onChange={() => {
+                          setLocalPriceFilter(value);
+                          startTransition(() => {
+                            onPriceFilterChange(value);
+                          });
+                        }}
                         className="w-4 h-4 text-brand-600"
                       />
                       <span className="text-sm text-gray-700">{label}</span>
@@ -520,7 +611,7 @@ export default function FilterBar({
                   ))}
                 </div>
 
-                {priceFilter === "custom" && (
+                {localPriceFilter === "custom" && (
                   <div className="px-3 py-3 border-t border-gray-100">
                     <label className="block text-xs text-gray-500 mb-1">
                       Maximum Price
@@ -534,12 +625,14 @@ export default function FilterBar({
                         type="number"
                         min="0"
                         step="1"
-                        value={customMaxPrice ?? ""}
+                        value={localCustomMaxPrice ?? ""}
                         onChange={(e) => {
                           const val = e.target.value;
-                          onCustomMaxPriceChange(
-                            val ? parseInt(val, 10) : null
-                          );
+                          const newPrice = val ? parseInt(val, 10) : null;
+                          setLocalCustomMaxPrice(newPrice);
+                          startTransition(() => {
+                            onCustomMaxPriceChange(newPrice);
+                          });
                         }}
                         placeholder="Enter amount"
                         className="w-full pl-6 pr-2 py-1.5 text-sm border border-gray-200 rounded focus:ring-2 focus:ring-brand-500 outline-none"
@@ -560,9 +653,9 @@ export default function FilterBar({
             >
               <MapPin size={16} />
               <span>{getLocationLabel()}</span>
-              {selectedLocations.length > 0 && (
+              {localSelectedLocations.length > 0 && (
                 <span className="bg-brand-500 text-white text-xs px-1.5 py-0.5 rounded-full min-w-[20px] text-center">
-                  {selectedLocations.length}
+                  {localSelectedLocations.length}
                 </span>
               )}
               <ChevronDown
@@ -607,7 +700,7 @@ export default function FilterBar({
                   <label className="flex items-center gap-2 px-2 py-1.5 rounded hover:bg-gray-50 cursor-pointer">
                     <input
                       type="checkbox"
-                      checked={selectedLocations.includes("asheville")}
+                      checked={localSelectedLocations.includes("asheville")}
                       onChange={() => toggleLocation("asheville")}
                       className="w-4 h-4 text-brand-600 rounded border-gray-300 focus:ring-brand-500"
                     />
@@ -633,7 +726,7 @@ export default function FilterBar({
                           >
                             <input
                               type="checkbox"
-                              checked={selectedLocations.includes(location)}
+                              checked={localSelectedLocations.includes(location)}
                               onChange={() => toggleLocation(location)}
                               className="w-4 h-4 text-brand-600 rounded border-gray-300 focus:ring-brand-500"
                             />
@@ -652,7 +745,7 @@ export default function FilterBar({
                       <label className="flex items-center gap-2 px-2 py-1.5 rounded hover:bg-gray-50 cursor-pointer">
                         <input
                           type="checkbox"
-                          checked={selectedLocations.includes("Online")}
+                          checked={localSelectedLocations.includes("Online")}
                           onChange={() => toggleLocation("Online")}
                           className="w-4 h-4 text-brand-600 rounded border-gray-300 focus:ring-brand-500"
                         />
@@ -662,11 +755,11 @@ export default function FilterBar({
                   )}
                 </div>
 
-                {selectedLocations.length > 0 && (
+                {localSelectedLocations.length > 0 && (
                   <div className="px-3 py-2 border-t border-gray-100 bg-gray-50 flex items-center justify-between">
                     <span className="text-xs text-gray-500">
-                      {selectedLocations.length} location
-                      {selectedLocations.length !== 1 ? "s" : ""} selected
+                      {localSelectedLocations.length} location
+                      {localSelectedLocations.length !== 1 ? "s" : ""} selected
                     </span>
                     <button
                       onClick={deselectAllLocations}
@@ -817,17 +910,17 @@ export default function FilterBar({
                 {activeTagCount > 0 && (
                   <div className="px-3 py-2 border-t border-gray-100 bg-gray-50 flex items-center justify-between">
                     <span className="text-xs text-gray-500">
-                      {tagFilters.include.length > 0 && (
+                      {localTagFilters.include.length > 0 && (
                         <span className="text-green-700">
-                          {tagFilters.include.length} included
+                          {localTagFilters.include.length} included
                         </span>
                       )}
-                      {tagFilters.include.length > 0 &&
-                        tagFilters.exclude.length > 0 &&
+                      {localTagFilters.include.length > 0 &&
+                        localTagFilters.exclude.length > 0 &&
                         ", "}
-                      {tagFilters.exclude.length > 0 && (
+                      {localTagFilters.exclude.length > 0 && (
                         <span className="text-red-700">
-                          {tagFilters.exclude.length} excluded
+                          {localTagFilters.exclude.length} excluded
                         </span>
                       )}
                     </span>

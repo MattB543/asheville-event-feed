@@ -14,7 +14,9 @@ export const DEFAULT_BLOCKED_KEYWORDS = [
   "scrum certification",
   "tableau certification",
   "salesforce certification",
-  "SAFe",
+  "SAFe certification",
+  "SAFe training",
+  "Scaled Agile Framework",
   "CBAP",
   "bootcamp training",
   "classroom training",
@@ -44,8 +46,7 @@ export const DEFAULT_BLOCKED_KEYWORDS = [
   // Generic Networking/Business (templated events)
   "Career Fair: Exclusive",
   "Empower Your Finances",
-  "DATE THYSELF",
-  "Break The Cycle",
+  "DATE THYSELF: Break The Cycle",
 
   // Wrong City / Templated Franchise Events
   "Women in Tech Miami",
@@ -69,12 +70,16 @@ export const DEFAULT_BLOCKED_KEYWORDS = [
   "Dinner with Strangers Asheville: Duos Edition",
   "history tour",
   "at Regina's",
-  "Embassy Suites",
-  "Tanger Outlets",
   "Training Course",
-  "CANCELLED",
   "real estate investment",
   "prospective homebuyers",
+  "Pop the Balloon",
+  "Coffee with Strangers Asheville | Duos Edition",
+  "Foodies + New Friends Asheville",
+  "Table 4 Tonight: Hendersonville",
+  "AI & Estate Planning",
+  "Asheville Murder Mystery: Catch the Killer!",
+  "PRETTY LITTLE BLONDE | TAYLORS, SOUTH CAROLINA",
 ];
 
 /**

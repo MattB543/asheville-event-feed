@@ -735,7 +735,7 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
             const tomorrow = new Date(today);
             tomorrow.setDate(tomorrow.getDate() + 1);
             const now = new Date();
-            const oneHourAgo = new Date(now.getTime() - 60 * 60 * 1000);
+            const twoAndHalfHoursAgo = new Date(now.getTime() - 2.5 * 60 * 60 * 1000);
 
             let headerText = dateKey;
             const isTodayGroup = date.toDateString() === today.toDateString();
@@ -758,12 +758,12 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
                 new Date(b.startDate).getTime()
             );
 
-            // For today, filter out events that started more than 1 hour ago (unless showing all)
+            // For today, filter out events that started more than 2.5 hours ago (unless showing all)
             let displayEvents = sortedGroupEvents;
             let hiddenPreviousCount = 0;
             if (isTodayGroup && !showAllPreviousEvents) {
               const recentAndUpcoming = sortedGroupEvents.filter(
-                (event) => new Date(event.startDate) >= oneHourAgo
+                (event) => new Date(event.startDate) >= twoAndHalfHoursAgo
               );
               hiddenPreviousCount =
                 sortedGroupEvents.length - recentAndUpcoming.length;
@@ -808,7 +808,7 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
                     (() => {
                       // Calculate how many events would be hidden if we collapse
                       const wouldHideCount = sortedGroupEvents.filter(
-                        (event) => new Date(event.startDate) < oneHourAgo
+                        (event) => new Date(event.startDate) < twoAndHalfHoursAgo
                       ).length;
                       return wouldHideCount > 0 ? (
                         <button

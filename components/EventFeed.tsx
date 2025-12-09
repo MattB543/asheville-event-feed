@@ -6,7 +6,6 @@ import {
   useEffect,
   useCallback,
   useDeferredValue,
-  useTransition,
 } from "react";
 import EventCard from "./EventCard";
 import FilterBar, {
@@ -19,7 +18,6 @@ import ActiveFilters, { ActiveFilter } from "./ActiveFilters";
 import SettingsModal from "./SettingsModal";
 import AIChatModal from "./AIChatModal";
 import { EventFeedSkeleton } from "./EventCardSkeleton";
-import { useDebounce } from "@/lib/hooks/useDebounce";
 import {
   DEFAULT_BLOCKED_KEYWORDS,
   matchesDefaultFilter,
@@ -180,9 +178,8 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
   const [events] = useState<Event[]>(initialEvents);
   const { showToast } = useToast();
 
-  // Search
-  const [searchInput, setSearchInput] = useState("");
-  const search = useDebounce(searchInput, 300);
+  // Search (committed value only - FilterBar handles local input state)
+  const [search, setSearch] = useState("");
 
   // Filters
   const [dateFilter, setDateFilter] = useState<DateFilterType>(() =>
@@ -259,9 +256,6 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
     deferredSelectedDays !== selectedDays ||
     deferredCustomDateRange !== customDateRange;
 
-  // Detect when search input is pending (debounce hasn't fired yet)
-  const isSearchPending = searchInput !== search;
-
   // Set isLoaded after mount to prevent hydration mismatch
   useEffect(() => {
     setIsLoaded(true);
@@ -335,7 +329,7 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
 
     // Apply URL params to state (overrides localStorage for shared links)
     if (params.has("search")) {
-      setSearchInput(params.get("search") || "");
+      setSearch(params.get("search") || "");
     }
 
     if (params.has("dateFilter")) {
@@ -697,7 +691,7 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
   // Handle removing filters
   const handleRemoveFilter = useCallback((id: string) => {
     if (id === "search") {
-      setSearchInput("");
+      setSearch("");
     } else if (id === "date") {
       setDateFilter("all");
       setCustomDateRange({ start: null, end: null });
@@ -725,7 +719,7 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
 
   // Clear all filters
   const handleClearAllFilters = useCallback(() => {
-    setSearchInput("");
+    setSearch("");
     setDateFilter("all");
     setCustomDateRange({ start: null, end: null });
     setSelectedDays([]);
@@ -872,8 +866,8 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
   return (
     <div className="max-w-7xl mx-auto px-0 sm:px-6 lg:px-8 py-4 sm:py-8">
       <FilterBar
-        search={searchInput}
-        onSearchChange={setSearchInput}
+        search={search}
+        onSearchChange={setSearch}
         dateFilter={dateFilter}
         onDateFilterChange={setDateFilter}
         customDateRange={customDateRange}
@@ -891,7 +885,6 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
         tagFilters={tagFilters}
         onTagFiltersChange={setTagFilters}
         onOpenSettings={() => setIsSettingsOpen(true)}
-        isSearchPending={isSearchPending}
       />
 
       <ActiveFilters
@@ -1107,7 +1100,7 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
         onClose={() => setIsChatOpen(false)}
         allEvents={events}
         activeFilters={{
-          search: searchInput,
+          search,
           priceFilter,
           tagsInclude: tagFilters.include,
           tagsExclude: tagFilters.exclude,

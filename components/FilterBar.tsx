@@ -10,6 +10,8 @@ import {
   DollarSign,
   Calendar as CalendarIcon,
   MapPin,
+  ArrowRight,
+  X,
 } from "lucide-react";
 import { TAG_CATEGORIES } from "@/lib/config/tagCategories";
 import { Calendar } from "./ui/Calendar";
@@ -68,7 +70,6 @@ export interface FilterBarProps {
   tagFilters: TagFilterState;
   onTagFiltersChange: (filters: TagFilterState) => void;
   onOpenSettings: () => void;
-  isSearchPending?: boolean;
 }
 
 const dateLabels: Record<DateFilterType, string> = {
@@ -110,7 +111,6 @@ export default function FilterBar({
   tagFilters,
   onTagFiltersChange,
   onOpenSettings,
-  isSearchPending,
 }: FilterBarProps) {
   const [isTagsOpen, setIsTagsOpen] = useState(false);
   const [isDateOpen, setIsDateOpen] = useState(false);
@@ -132,6 +132,7 @@ export default function FilterBar({
   const [localPriceFilter, setLocalPriceFilter] = useState(priceFilter);
   const [localCustomMaxPrice, setLocalCustomMaxPrice] = useState(customMaxPrice);
   const [localSelectedLocations, setLocalSelectedLocations] = useState(selectedLocations);
+  const [localSearchInput, setLocalSearchInput] = useState(search);
   const [, startTransition] = useTransition();
 
   // Sync local state with props when they change (e.g., from "Clear all" button)
@@ -162,6 +163,36 @@ export default function FilterBar({
   useEffect(() => {
     setLocalSelectedLocations(selectedLocations);
   }, [selectedLocations]);
+
+  useEffect(() => {
+    setLocalSearchInput(search);
+  }, [search]);
+
+  // Search submit handler - only updates parent when user explicitly submits
+  const handleSearchSubmit = () => {
+    if (localSearchInput !== search) {
+      onSearchChange(localSearchInput);
+    }
+  };
+
+  // Handle Enter key to submit search
+  const handleSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      handleSearchSubmit();
+    }
+  };
+
+  // Clear search
+  const handleClearSearch = () => {
+    setLocalSearchInput("");
+    onSearchChange("");
+  };
+
+  // Whether there are uncommitted search changes
+  const hasUncommittedSearch = localSearchInput !== search && localSearchInput.length > 0;
+  // Whether search is currently active (has committed value)
+  const hasActiveSearch = search.length > 0;
 
   // Dropdown alignment state for collision detection
   const [tagsAlign, setTagsAlign] = useState<"left" | "right">("left");
@@ -387,15 +418,31 @@ export default function FilterBar({
           />
           <input
             type="text"
-            placeholder="Search events..."
-            value={search}
-            onChange={(e) => onSearchChange(e.target.value)}
+            placeholder="Search events... (press Enter)"
+            value={localSearchInput}
+            onChange={(e) => setLocalSearchInput(e.target.value)}
+            onKeyDown={handleSearchKeyDown}
             className="w-full h-10 pl-10 pr-10 text-sm border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none"
           />
-          {isSearchPending && (
-            <div className="absolute right-3 top-1/2 -translate-y-1/2">
-              <div className="w-4 h-4 border-2 border-gray-300 dark:border-gray-600 border-t-brand-500 rounded-full animate-spin" />
-            </div>
+          {/* Submit button - shows when there's uncommitted text */}
+          {hasUncommittedSearch && (
+            <button
+              onClick={handleSearchSubmit}
+              className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 bg-brand-500 hover:bg-brand-600 text-white rounded-md transition-colors cursor-pointer"
+              aria-label="Submit search"
+            >
+              <ArrowRight size={16} />
+            </button>
+          )}
+          {/* Clear button - shows when search is active and no uncommitted changes */}
+          {hasActiveSearch && !hasUncommittedSearch && (
+            <button
+              onClick={handleClearSearch}
+              className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md transition-colors cursor-pointer"
+              aria-label="Clear search"
+            >
+              <X size={16} />
+            </button>
           )}
         </div>
 

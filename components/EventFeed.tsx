@@ -12,6 +12,7 @@ import FilterBar, {
   DateFilterType,
   PriceFilterType,
   DateRange,
+  TimeOfDay,
 } from "./FilterBar";
 import { extractCity, isAshevilleArea } from "@/lib/utils/extractCity";
 import ActiveFilters, { ActiveFilter } from "./ActiveFilters";
@@ -41,6 +42,7 @@ interface Event {
   hidden?: boolean | null;
   createdAt?: Date | null;
   timeUnknown?: boolean | null;
+  recurringType?: string | null;
 }
 
 interface EventFeedProps {
@@ -116,20 +118,20 @@ function isThisWeekend(date: Date): boolean {
   const today = new Date();
   const dayOfWeek = today.getDay(); // 0 = Sunday, 6 = Saturday
 
-  // Calculate Saturday of THIS week
-  // If today is Sunday (0), Saturday was yesterday (-1)
-  // Otherwise, Saturday is (6 - dayOfWeek) days away
-  const daysUntilSaturday = dayOfWeek === 0 ? -1 : 6 - dayOfWeek;
-  const saturday = new Date(today);
-  saturday.setDate(today.getDate() + daysUntilSaturday);
-  saturday.setHours(0, 0, 0, 0);
+  // Calculate Friday of THIS week (weekend = Fri, Sat, Sun)
+  // If today is Sunday (0), Friday was 2 days ago
+  // Otherwise, Friday is (5 - dayOfWeek) days away
+  const daysUntilFriday = dayOfWeek === 0 ? -2 : 5 - dayOfWeek;
+  const friday = new Date(today);
+  friday.setDate(today.getDate() + daysUntilFriday);
+  friday.setHours(0, 0, 0, 0);
 
-  // Calculate this Sunday end (the day after Saturday)
-  const sundayEnd = new Date(saturday);
-  sundayEnd.setDate(saturday.getDate() + 1);
+  // Calculate this Sunday end (2 days after Friday)
+  const sundayEnd = new Date(friday);
+  sundayEnd.setDate(friday.getDate() + 2);
   sundayEnd.setHours(23, 59, 59, 999);
 
-  return date >= saturday && date <= sundayEnd;
+  return date >= friday && date <= sundayEnd;
 }
 
 function isInDateRange(date: Date, range: DateRange): boolean {
@@ -153,6 +155,22 @@ function isInDateRange(date: Date, range: DateRange): boolean {
 function isDayOfWeek(date: Date, days: number[]): boolean {
   if (days.length === 0) return true; // No filter = show all
   return days.includes(date.getDay());
+}
+
+// Time of day filter helper
+// Morning: 5 AM - Noon (hours 5-11)
+// Afternoon: Noon - 5 PM (hours 12-16)
+// Evening: 5 PM - 3 AM (hours 17-23, 0-2)
+function isInTimeOfDay(date: Date, times: TimeOfDay[]): boolean {
+  if (times.length === 0) return true; // No filter = show all
+  const hour = date.getHours();
+
+  for (const time of times) {
+    if (time === "morning" && hour >= 5 && hour < 12) return true;
+    if (time === "afternoon" && hour >= 12 && hour < 17) return true;
+    if (time === "evening" && (hour >= 17 || hour < 3)) return true; // 5 PM - 3 AM
+  }
+  return false;
 }
 
 const DAY_NAMES = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -191,6 +209,9 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
   const [selectedDays, setSelectedDays] = useState<number[]>(() =>
     getStorageItem("selectedDays", [])
   );
+  const [selectedTimes, setSelectedTimes] = useState<TimeOfDay[]>(() =>
+    getStorageItem("selectedTimes", [])
+  );
   const [priceFilter, setPriceFilter] = useState<PriceFilterType>(() =>
     getStorageItem("priceFilter", "any")
   );
@@ -209,6 +230,10 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
   });
   const [selectedLocations, setSelectedLocations] = useState<string[]>(() =>
     getStorageItem("selectedLocations", [])
+  );
+  // Daily events filter - default to showing daily events
+  const [showDailyEvents, setShowDailyEvents] = useState<boolean>(() =>
+    getStorageItem("showDailyEvents", true)
   );
 
   // Settings & Modals
@@ -240,10 +265,12 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
   const deferredPriceFilter = useDeferredValue(priceFilter);
   const deferredDateFilter = useDeferredValue(dateFilter);
   const deferredSelectedDays = useDeferredValue(selectedDays);
+  const deferredSelectedTimes = useDeferredValue(selectedTimes);
   const deferredCustomDateRange = useDeferredValue(customDateRange);
   const deferredCustomMaxPrice = useDeferredValue(customMaxPrice);
   const deferredSelectedLocations = useDeferredValue(selectedLocations);
   const deferredSearch = useDeferredValue(search);
+  const deferredShowDailyEvents = useDeferredValue(showDailyEvents);
 
   // Detect when filters are pending (deferred value hasn't caught up)
   const isFilterPending =
@@ -254,7 +281,9 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
     deferredSearch !== search ||
     deferredCustomMaxPrice !== customMaxPrice ||
     deferredSelectedDays !== selectedDays ||
-    deferredCustomDateRange !== customDateRange;
+    deferredSelectedTimes !== selectedTimes ||
+    deferredCustomDateRange !== customDateRange ||
+    deferredShowDailyEvents !== showDailyEvents;
 
   // Set isLoaded after mount to prevent hydration mismatch
   useEffect(() => {
@@ -280,6 +309,7 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
       localStorage.setItem("dateFilter", JSON.stringify(dateFilter));
       localStorage.setItem("customDateRange", JSON.stringify(customDateRange));
       localStorage.setItem("selectedDays", JSON.stringify(selectedDays));
+      localStorage.setItem("selectedTimes", JSON.stringify(selectedTimes));
       localStorage.setItem("priceFilter", JSON.stringify(priceFilter));
       localStorage.setItem("customMaxPrice", JSON.stringify(customMaxPrice));
       localStorage.setItem("tagFilters", JSON.stringify(tagFilters));
@@ -294,11 +324,13 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
         "useDefaultFilters",
         JSON.stringify(useDefaultFilters)
       );
+      localStorage.setItem("showDailyEvents", JSON.stringify(showDailyEvents));
     }
   }, [
     dateFilter,
     customDateRange,
     selectedDays,
+    selectedTimes,
     priceFilter,
     customMaxPrice,
     tagFilters,
@@ -307,6 +339,7 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
     blockedKeywords,
     hiddenEvents,
     useDefaultFilters,
+    showDailyEvents,
     isLoaded,
   ]);
 
@@ -320,6 +353,7 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
     const hasUrlFilters =
       params.has("search") ||
       params.has("dateFilter") ||
+      params.has("times") ||
       params.has("priceFilter") ||
       params.has("tagsInclude") ||
       params.has("tagsExclude") ||
@@ -351,6 +385,15 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
           .map(Number)
           .filter((n) => !isNaN(n) && n >= 0 && n <= 6) || [];
       setSelectedDays(days);
+    }
+
+    if (params.has("times")) {
+      const validTimes = ["morning", "afternoon", "evening"] as const;
+      const times = params
+        .get("times")
+        ?.split(",")
+        .filter((t): t is TimeOfDay => validTimes.includes(t as TimeOfDay)) || [];
+      setSelectedTimes(times);
     }
 
     if (params.has("dateStart")) {
@@ -496,6 +539,11 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
         if (matchesDefaultFilter(textToCheck)) return false;
       }
 
+      // 4b. Daily Events Filter
+      if (!deferredShowDailyEvents && event.recurringType === "daily") {
+        return false;
+      }
+
       // 5. Date Filter (using deferred values)
       const eventDate = new Date(event.startDate);
       if (deferredDateFilter === "today" && !isToday(eventDate)) return false;
@@ -513,6 +561,12 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
         !isInDateRange(eventDate, deferredCustomDateRange)
       )
         return false;
+
+      // 5b. Time of Day Filter (using deferred values)
+      // Skip time filter for events with unknown time (they show regardless)
+      if (deferredSelectedTimes.length > 0 && !event.timeUnknown) {
+        if (!isInTimeOfDay(eventDate, deferredSelectedTimes)) return false;
+      }
 
       // 6. Price Filter (using deferred values)
       if (deferredPriceFilter !== "any") {
@@ -605,6 +659,7 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
     deferredDateFilter,
     deferredCustomDateRange,
     deferredSelectedDays,
+    deferredSelectedTimes,
     deferredPriceFilter,
     deferredCustomMaxPrice,
     deferredTagFilters,
@@ -614,6 +669,7 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
     hiddenEvents,
     sessionHiddenKeys,
     useDefaultFilters,
+    deferredShowDailyEvents,
     isLoaded,
   ]);
 
@@ -649,6 +705,15 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
       }
       filters.push({ id: "date", type: "date", label });
     }
+    if (selectedTimes.length > 0) {
+      const timeLabels: Record<TimeOfDay, string> = {
+        morning: "Morning",
+        afternoon: "Afternoon",
+        evening: "Evening",
+      };
+      const label = selectedTimes.map((t) => timeLabels[t]).join(", ");
+      filters.push({ id: "time", type: "time", label });
+    }
     if (priceFilter !== "any") {
       let label = priceLabels[priceFilter];
       if (priceFilter === "custom" && customMaxPrice !== null) {
@@ -682,6 +747,7 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
     dateFilter,
     customDateRange,
     selectedDays,
+    selectedTimes,
     priceFilter,
     customMaxPrice,
     tagFilters,
@@ -696,6 +762,8 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
       setDateFilter("all");
       setCustomDateRange({ start: null, end: null });
       setSelectedDays([]);
+    } else if (id === "time") {
+      setSelectedTimes([]);
     } else if (id === "price") {
       setPriceFilter("any");
       setCustomMaxPrice(null);
@@ -723,6 +791,7 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
     setDateFilter("all");
     setCustomDateRange({ start: null, end: null });
     setSelectedDays([]);
+    setSelectedTimes([]);
     setPriceFilter("any");
     setCustomMaxPrice(null);
     setTagFilters({ include: [], exclude: [] });
@@ -780,6 +849,9 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
     if (dateFilter === "dayOfWeek" && selectedDays.length > 0) {
       params.set("days", selectedDays.join(","));
     }
+    if (selectedTimes.length > 0) {
+      params.set("times", selectedTimes.join(","));
+    }
     if (dateFilter === "custom" && customDateRange.start) {
       params.set("dateStart", customDateRange.start);
       if (customDateRange.end) params.set("dateEnd", customDateRange.end);
@@ -811,6 +883,7 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
     dateFilter,
     customDateRange,
     selectedDays,
+    selectedTimes,
     priceFilter,
     customMaxPrice,
     tagFilters,
@@ -829,6 +902,9 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
     if (dateFilter !== "all") params.set("dateFilter", dateFilter);
     if (dateFilter === "dayOfWeek" && selectedDays.length > 0) {
       params.set("days", selectedDays.join(","));
+    }
+    if (selectedTimes.length > 0) {
+      params.set("times", selectedTimes.join(","));
     }
     if (dateFilter === "custom" && customDateRange.start) {
       params.set("dateStart", customDateRange.start);
@@ -854,6 +930,7 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
     dateFilter,
     customDateRange,
     selectedDays,
+    selectedTimes,
     priceFilter,
     customMaxPrice,
     tagFilters,
@@ -874,6 +951,8 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
         onCustomDateRangeChange={setCustomDateRange}
         selectedDays={selectedDays}
         onSelectedDaysChange={setSelectedDays}
+        selectedTimes={selectedTimes}
+        onSelectedTimesChange={setSelectedTimes}
         priceFilter={priceFilter}
         onPriceFilterChange={setPriceFilter}
         customMaxPrice={customMaxPrice}
@@ -884,6 +963,8 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
         availableTags={availableTags}
         tagFilters={tagFilters}
         onTagFiltersChange={setTagFilters}
+        showDailyEvents={showDailyEvents}
+        onShowDailyEventsChange={setShowDailyEvents}
         onOpenSettings={() => setIsSettingsOpen(true)}
       />
 
@@ -1060,6 +1141,7 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
                             price: event.price ?? null,
                             imageUrl: event.imageUrl ?? null,
                             timeUnknown: event.timeUnknown ?? false,
+                            recurringType: event.recurringType ?? null,
                           }}
                           onHide={handleHideEvent}
                           onBlockHost={handleBlockHost}

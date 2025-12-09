@@ -27,6 +27,7 @@ interface EventCardProps {
     url: string;
     tags?: string[] | null;
     timeUnknown?: boolean;
+    recurringType?: string | null;
   };
   onHide: (title: string, organizer: string | null) => void;
   onBlockHost: (host: string) => void;
@@ -59,18 +60,18 @@ export default function EventCard({
   const [isExpanded, setIsExpanded] = useState(false);
 
   // Check if description is long enough to need truncation
-  // Mobile: 210 chars, Tablet+: 310 chars
+  // Mobile: 195 chars, Tablet+: 295 chars
   const cleanedDescription =
     cleanMarkdown(event.description) || "No description available.";
-  const needsTruncationMobile = cleanedDescription.length > 210;
-  const needsTruncationTablet = cleanedDescription.length > 310;
+  const needsTruncationMobile = cleanedDescription.length > 195;
+  const needsTruncationTablet = cleanedDescription.length > 295;
   const truncatedDescriptionMobile =
     needsTruncationMobile && !isExpanded
-      ? cleanedDescription.slice(0, 210).trimEnd() + "..."
+      ? cleanedDescription.slice(0, 195).trimEnd() + "..."
       : cleanedDescription;
   const truncatedDescriptionTablet =
     needsTruncationTablet && !isExpanded
-      ? cleanedDescription.slice(0, 310).trimEnd() + "..."
+      ? cleanedDescription.slice(0, 295).trimEnd() + "..."
       : cleanedDescription;
 
   const formatDate = (date: Date, timeUnknown?: boolean) => {
@@ -213,6 +214,13 @@ export default function EventCard({
           >
             {displayPrice}
           </span>
+
+          {/* Daily Recurring Badge */}
+          {event.recurringType === "daily" && (
+            <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-bold bg-purple-50 dark:bg-purple-950/50 text-purple-700 dark:text-purple-400 border border-purple-200 dark:border-purple-800">
+              Daily
+            </span>
+          )}
 
           {/* Other Tags */}
           {event.tags &&

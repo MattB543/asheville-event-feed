@@ -7,6 +7,7 @@ import { scrapeHarrahs } from "@/lib/scrapers/harrahs";
 import { scrapeOrangePeel } from "@/lib/scrapers/orangepeel";
 import { scrapeGreyEagle } from "@/lib/scrapers/greyeagle";
 import { scrapeLiveMusicAvl } from "@/lib/scrapers/livemusicavl";
+import { scrapeExploreAsheville } from "@/lib/scrapers/exploreasheville";
 import { db } from "@/lib/db";
 import { events } from "@/lib/db/schema";
 import { inArray } from "drizzle-orm";
@@ -15,6 +16,7 @@ import { generateEventImage } from "@/lib/ai/imageGeneration";
 import { ScrapedEventWithTags } from "@/lib/scrapers/types";
 import { env, isFacebookEnabled } from "@/lib/config/env";
 import { findDuplicates, getIdsToRemove } from "@/lib/utils/deduplication";
+import { syncRecurringFromExploreAsheville } from "@/lib/utils/syncRecurringFromExploreAsheville";
 import { verifyAuthToken } from "@/lib/utils/auth";
 
 export const maxDuration = 800; // 13+ minutes (requires Fluid Compute)
@@ -44,13 +46,14 @@ export async function GET(request: Request) {
     images: { duration: 0, success: 0, failed: 0 },
     upsert: { duration: 0, success: 0, failed: 0 },
     dedup: { removed: 0 },
+    recurring: { found: 0, updated: 0 },
   };
 
   try {
     console.log("[Cron] ════════════════════════════════════════════════");
     console.log("[Cron] Starting scrape job...");
 
-    // Scrape AVL Today, Eventbrite, Meetup, Harrah's, Orange Peel, Grey Eagle, and Live Music AVL in parallel
+    // Scrape all sources in parallel
     const scrapeStartTime = Date.now();
     const [
       avlResult,
@@ -60,6 +63,7 @@ export async function GET(request: Request) {
       orangePeelResult,
       greyEagleResult,
       liveMusicAvlResult,
+      exploreAshevilleResult,
     ] = await Promise.allSettled([
       scrapeAvlToday(),
       scrapeEventbrite(25), // Scrape 25 pages (~500 events)
@@ -68,6 +72,7 @@ export async function GET(request: Request) {
       scrapeOrangePeel(), // Orange Peel (Ticketmaster API + Website JSON-LD)
       scrapeGreyEagle(), // Grey Eagle (Website JSON-LD)
       scrapeLiveMusicAvl(), // Live Music Asheville (select venues only)
+      scrapeExploreAsheville(), // ExploreAsheville.com public API
     ]);
 
     // Extract values from settled results, using empty arrays for rejected promises
@@ -85,6 +90,8 @@ export async function GET(request: Request) {
       greyEagleResult.status === "fulfilled" ? greyEagleResult.value : [];
     const liveMusicAvlEvents =
       liveMusicAvlResult.status === "fulfilled" ? liveMusicAvlResult.value : [];
+    const exploreAshevilleEvents =
+      exploreAshevilleResult.status === "fulfilled" ? exploreAshevilleResult.value : [];
 
     // Log any scraper failures
     if (avlResult.status === "rejected")
@@ -101,6 +108,8 @@ export async function GET(request: Request) {
       console.error("[Cron] Grey Eagle scrape failed:", greyEagleResult.reason);
     if (liveMusicAvlResult.status === "rejected")
       console.error("[Cron] Live Music AVL scrape failed:", liveMusicAvlResult.reason);
+    if (exploreAshevilleResult.status === "rejected")
+      console.error("[Cron] ExploreAsheville scrape failed:", exploreAshevilleResult.reason);
 
     stats.scraping.duration = Date.now() - scrapeStartTime;
     stats.scraping.total =
@@ -110,7 +119,8 @@ export async function GET(request: Request) {
       harrahsEvents.length +
       orangePeelEvents.length +
       greyEagleEvents.length +
-      liveMusicAvlEvents.length;
+      liveMusicAvlEvents.length +
+      exploreAshevilleEvents.length;
 
     console.log(
       `[Cron] Scrape complete in ${formatDuration(
@@ -121,7 +131,7 @@ export async function GET(request: Request) {
         orangePeelEvents.length
       }, GreyEagle: ${greyEagleEvents.length}, LiveMusicAVL: ${
         liveMusicAvlEvents.length
-      } (Total: ${stats.scraping.total})`
+      }, ExploreAVL: ${exploreAshevilleEvents.length} (Total: ${stats.scraping.total})`
     );
 
     // Facebook scraping (separate due to browser requirements)
@@ -171,8 +181,11 @@ export async function GET(request: Request) {
     const liveMusicAvlWithTags: ScrapedEventWithTags[] = liveMusicAvlEvents.map(
       (e) => ({ ...e, tags: [] })
     );
+    const exploreAshevilleWithTags: ScrapedEventWithTags[] = exploreAshevilleEvents.map(
+      (e) => ({ ...e, tags: [] })
+    );
 
-    const allEvents: ScrapedEventWithTags[] = [
+    const allEventsRaw: ScrapedEventWithTags[] = [
       ...avlEvents,
       ...ebEvents,
       ...meetupEvents,
@@ -181,7 +194,17 @@ export async function GET(request: Request) {
       ...orangePeelWithTags,
       ...greyEagleWithTags,
       ...liveMusicAvlWithTags,
+      ...exploreAshevilleWithTags,
     ];
+
+    // Filter out cancelled events (title starts with "CANCELLED")
+    const allEvents = allEventsRaw.filter(
+      (e) => !e.title.trim().toUpperCase().startsWith("CANCELLED")
+    );
+    const cancelledCount = allEventsRaw.length - allEvents.length;
+    if (cancelledCount > 0) {
+      console.log(`[Cron] Filtered out ${cancelledCount} cancelled events.`);
+    }
 
     // Optimization: Only generate tags for NEW events
     // 1. Get URLs of all scraped events
@@ -329,6 +352,8 @@ export async function GET(request: Request) {
                 interestedCount: event.interestedCount,
                 goingCount: event.goingCount,
                 timeUnknown: event.timeUnknown || false,
+                recurringType: event.recurringType,
+                recurringEndDate: event.recurringEndDate,
               })
               .onConflictDoUpdate({
                 target: events.url,
@@ -343,6 +368,8 @@ export async function GET(request: Request) {
                   interestedCount: event.interestedCount,
                   goingCount: event.goingCount,
                   timeUnknown: event.timeUnknown || false,
+                  recurringType: event.recurringType,
+                  recurringEndDate: event.recurringEndDate,
                 },
               });
             stats.upsert.success++;
@@ -395,6 +422,20 @@ export async function GET(request: Request) {
       console.log(`[Cron] Deduplication: no duplicates found.`);
     }
 
+    // Sync recurring info from Explore Asheville
+    // This enriches events from other sources with daily recurring metadata
+    console.log(`[Cron] Syncing recurring info from Explore Asheville...`);
+    try {
+      const recurringResult = await syncRecurringFromExploreAsheville();
+      stats.recurring.found = recurringResult.dailyRecurringFound;
+      stats.recurring.updated = recurringResult.eventsUpdated;
+      console.log(
+        `[Cron] Recurring sync: found ${recurringResult.dailyRecurringFound} daily events, updated ${recurringResult.eventsUpdated} DB events`
+      );
+    } catch (recurringError) {
+      console.error("[Cron] Recurring sync failed:", recurringError);
+    }
+
     // Final summary
     const totalDuration = Date.now() - jobStartTime;
     console.log("[Cron] ────────────────────────────────────────────────");
@@ -412,7 +453,7 @@ export async function GET(request: Request) {
         orangePeelEvents.length
       }, GreyEagle: ${greyEagleEvents.length}, LiveMusicAVL: ${
         liveMusicAvlEvents.length
-      }${fbEvents.length > 0 ? `, FB: ${fbEvents.length}` : ""}`
+      }, ExploreAVL: ${exploreAshevilleEvents.length}${fbEvents.length > 0 ? `, FB: ${fbEvents.length}` : ""}`
     );
     console.log(
       `[Cron] Tagging:   ${stats.tagging.success}/${
@@ -435,6 +476,9 @@ export async function GET(request: Request) {
         stats.dedup.removed
       } duplicates removed`
     );
+    console.log(
+      `[Cron] Recurring: ${stats.recurring.updated} events tagged as daily (from ${stats.recurring.found} EA daily events)`
+    );
     console.log("[Cron] ════════════════════════════════════════════════");
 
     return NextResponse.json({
@@ -447,6 +491,7 @@ export async function GET(request: Request) {
         imagesGenerated: stats.images.success,
         upserted: stats.upsert.success,
         duplicatesRemoved: stats.dedup.removed,
+        recurringTagged: stats.recurring.updated,
         failures: {
           tagging: stats.tagging.failed,
           images: stats.images.failed,

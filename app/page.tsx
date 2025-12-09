@@ -47,8 +47,8 @@ export default async function Home() {
             alt="AVL GO"
             className="h-[24px] sm:h-[36px] w-auto dark:brightness-0 dark:invert"
           />
-          <div className="flex items-center gap-2 sm:gap-4">
-            <div className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 text-right hidden sm:block">
+          <div className="flex items-center gap-2">
+            <div className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 text-right block">
               All AVL events aggregated, by{" "}
               <a
                 href="https://mattbrooks.xyz"
@@ -59,6 +59,7 @@ export default async function Home() {
                 mattbrooks.xyz
               </a>
             </div>
+
             <SubmitEventButton />
             <ThemeToggle />
           </div>

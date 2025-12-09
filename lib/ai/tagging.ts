@@ -16,10 +16,10 @@ const ALLOWED_TAGS = [
   'Dining', 'Beer', 'Wine & Spirits', 'Food Classes',
   // Activities
   'Art', 'Crafts', 'Fitness', 'Wellness', 'Spiritual', 'Outdoors', 'Tours', 'Gaming',
-  'Sports', 'Basketball', 'Education', 'Book Club',
+  'Sports', 'Education', 'Book Club',
   // Audience/Social
   'Family', 'Dating', 'Networking', 'Nightlife', 'LGBTQ+', 'Pets',
-  'Community', 'Support Groups',
+  'Community', 'Civic', 'Volunteering', 'Support Groups',
   // Seasonal
   'Holiday', 'Markets',
 ] as const;
@@ -45,7 +45,6 @@ Activities:
 - Crafts – pottery, jewelry, DIY workshops
 - Fitness – yoga, exercise, climbing, general fitness
 - Sports – team sports, athletic events, competitions
-- Basketball – basketball games, leagues, pickup games
 - Wellness – sound healing, holistic health, self-care
 - Spiritual – meditation, ceremonies, religious gatherings
 - Outdoors – hiking, nature, parks
@@ -61,7 +60,9 @@ Audience/Social:
 - Nightlife – 21+, bar events, late-night
 - LGBTQ+ – pride, queer-specific events
 - Pets – dog-friendly, goat yoga, cat lounges
-- Community – neighborhood events, civic gatherings, local meetups
+- Community – neighborhood events, local meetups
+- Civic – government meetings, town halls, public forums, political events
+- Volunteering – volunteer opportunities, community service, charity work
 - Support Groups – recovery, grief, mental health support meetings
 
 Seasonal:

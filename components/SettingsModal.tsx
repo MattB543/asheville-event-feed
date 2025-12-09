@@ -56,11 +56,11 @@ export default function SettingsModal({
 
         <div className="p-6 space-y-6">
           {/* Default Filters Section */}
-          <div className="p-4 bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 rounded-lg">
+          <div className="p-4 bg-brand-50 dark:bg-brand-950/30 border border-brand-200 dark:border-brand-800 rounded-lg">
             <div className="flex items-center justify-between">
               <div className="flex-1">
-                <h3 className="font-medium text-amber-900 dark:text-amber-200">Default Spam Filter</h3>
-                <p className="text-sm text-amber-700 dark:text-amber-400 mt-1">
+                <h3 className="font-medium text-brand-900 dark:text-brand-200">Default Spam Filter</h3>
+                <p className="text-sm text-brand-700 dark:text-brand-400 mt-1">
                   Automatically hides certification training, self-guided tours, and
                   other low-quality events.
                 </p>
@@ -72,7 +72,7 @@ export default function SettingsModal({
                   onChange={(e) => onToggleDefaultFilters(e.target.checked)}
                   className="sr-only peer"
                 />
-                <div className="w-11 h-6 bg-gray-200 dark:bg-gray-700 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-amber-300 dark:peer-focus:ring-amber-800 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-amber-500"></div>
+                <div className="w-11 h-6 bg-gray-200 dark:bg-gray-700 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-brand-300 dark:peer-focus:ring-brand-800 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-brand-500"></div>
               </label>
             </div>
 
@@ -80,7 +80,7 @@ export default function SettingsModal({
               <div className="mt-3">
                 <button
                   onClick={() => setShowDefaultKeywords(!showDefaultKeywords)}
-                  className="flex items-center gap-1 text-sm text-amber-700 dark:text-amber-400 hover:text-amber-900 dark:hover:text-amber-300 cursor-pointer"
+                  className="flex items-center gap-1 text-sm text-brand-700 dark:text-brand-400 hover:text-brand-900 dark:hover:text-brand-300 cursor-pointer"
                 >
                   {showDefaultKeywords ? (
                     <ChevronUp size={16} />
@@ -92,12 +92,12 @@ export default function SettingsModal({
                 </button>
 
                 {showDefaultKeywords && (
-                  <div className="mt-2 max-h-40 overflow-y-auto p-2 bg-white dark:bg-gray-800 rounded border border-amber-200 dark:border-amber-800 text-xs text-gray-600 dark:text-gray-300">
+                  <div className="mt-2 max-h-40 overflow-y-auto p-2 bg-white dark:bg-gray-800 rounded border border-brand-200 dark:border-brand-800 text-xs text-gray-600 dark:text-gray-300">
                     <div className="flex flex-wrap gap-1">
                       {defaultFilterKeywords.map((kw, i) => (
                         <span
                           key={i}
-                          className="inline-block bg-amber-100 dark:bg-amber-900/50 text-amber-800 dark:text-amber-300 px-2 py-0.5 rounded"
+                          className="inline-block bg-brand-100 dark:bg-brand-900/50 text-brand-800 dark:text-brand-300 px-2 py-0.5 rounded"
                         >
                           {kw}
                         </span>

@@ -44,6 +44,7 @@ export type PriceFilterType =
   | "under20"
   | "under100"
   | "custom";
+export type TimeOfDay = "morning" | "afternoon" | "evening";
 
 export interface DateRange {
   start: string | null;
@@ -59,6 +60,8 @@ export interface FilterBarProps {
   onCustomDateRangeChange: (range: DateRange) => void;
   selectedDays: number[];
   onSelectedDaysChange: (days: number[]) => void;
+  selectedTimes: TimeOfDay[];
+  onSelectedTimesChange: (times: TimeOfDay[]) => void;
   priceFilter: PriceFilterType;
   onPriceFilterChange: (val: PriceFilterType) => void;
   customMaxPrice: number | null;
@@ -69,6 +72,8 @@ export interface FilterBarProps {
   availableTags: string[];
   tagFilters: TagFilterState;
   onTagFiltersChange: (filters: TagFilterState) => void;
+  showDailyEvents: boolean;
+  onShowDailyEventsChange: (show: boolean) => void;
   onOpenSettings: () => void;
 }
 
@@ -91,6 +96,12 @@ const priceLabels: Record<PriceFilterType, string> = {
 
 const DAY_NAMES = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
+const TIME_OPTIONS: { value: TimeOfDay; label: string; timeRange: string }[] = [
+  { value: "morning", label: "Morning", timeRange: "5 AM - Noon" },
+  { value: "afternoon", label: "Afternoon", timeRange: "Noon - 5 PM" },
+  { value: "evening", label: "Evening", timeRange: "5 PM - 3 AM" },
+];
+
 export default function FilterBar({
   search,
   onSearchChange,
@@ -100,6 +111,8 @@ export default function FilterBar({
   onCustomDateRangeChange,
   selectedDays,
   onSelectedDaysChange,
+  selectedTimes,
+  onSelectedTimesChange,
   priceFilter,
   onPriceFilterChange,
   customMaxPrice,
@@ -110,6 +123,8 @@ export default function FilterBar({
   availableTags,
   tagFilters,
   onTagFiltersChange,
+  showDailyEvents,
+  onShowDailyEventsChange,
   onOpenSettings,
 }: FilterBarProps) {
   const [isTagsOpen, setIsTagsOpen] = useState(false);
@@ -127,12 +142,18 @@ export default function FilterBar({
   // Local optimistic state for instant visual feedback on filter clicks
   const [localTagFilters, setLocalTagFilters] = useState(tagFilters);
   const [localDateFilter, setLocalDateFilter] = useState(dateFilter);
-  const [localCustomDateRange, setLocalCustomDateRange] = useState(customDateRange);
+  const [localCustomDateRange, setLocalCustomDateRange] =
+    useState(customDateRange);
   const [localSelectedDays, setLocalSelectedDays] = useState(selectedDays);
+  const [localSelectedTimes, setLocalSelectedTimes] = useState(selectedTimes);
   const [localPriceFilter, setLocalPriceFilter] = useState(priceFilter);
-  const [localCustomMaxPrice, setLocalCustomMaxPrice] = useState(customMaxPrice);
-  const [localSelectedLocations, setLocalSelectedLocations] = useState(selectedLocations);
+  const [localCustomMaxPrice, setLocalCustomMaxPrice] =
+    useState(customMaxPrice);
+  const [localSelectedLocations, setLocalSelectedLocations] =
+    useState(selectedLocations);
   const [localSearchInput, setLocalSearchInput] = useState(search);
+  const [localShowDailyEvents, setLocalShowDailyEvents] =
+    useState(showDailyEvents);
   const [, startTransition] = useTransition();
 
   // Sync local state with props when they change (e.g., from "Clear all" button)
@@ -153,6 +174,10 @@ export default function FilterBar({
   }, [selectedDays]);
 
   useEffect(() => {
+    setLocalSelectedTimes(selectedTimes);
+  }, [selectedTimes]);
+
+  useEffect(() => {
     setLocalPriceFilter(priceFilter);
   }, [priceFilter]);
 
@@ -167,6 +192,10 @@ export default function FilterBar({
   useEffect(() => {
     setLocalSearchInput(search);
   }, [search]);
+
+  useEffect(() => {
+    setLocalShowDailyEvents(showDailyEvents);
+  }, [showDailyEvents]);
 
   // Search submit handler - only updates parent when user explicitly submits
   const handleSearchSubmit = () => {
@@ -190,7 +219,8 @@ export default function FilterBar({
   };
 
   // Whether there are uncommitted search changes
-  const hasUncommittedSearch = localSearchInput !== search && localSearchInput.length > 0;
+  const hasUncommittedSearch =
+    localSearchInput !== search && localSearchInput.length > 0;
   // Whether search is currently active (has committed value)
   const hasActiveSearch = search.length > 0;
 
@@ -346,7 +376,8 @@ export default function FilterBar({
   };
 
   // Count of active tag filters (include + exclude) - uses local state for instant feedback
-  const activeTagCount = localTagFilters.include.length + localTagFilters.exclude.length;
+  const activeTagCount =
+    localTagFilters.include.length + localTagFilters.exclude.length;
 
   // Group available tags by category
   const groupedTags = TAG_CATEGORIES.map((category) => ({
@@ -361,31 +392,48 @@ export default function FilterBar({
   );
 
   const buttonStyle =
-    "flex items-center gap-2 h-10 px-3 text-sm font-medium text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors cursor-pointer";
+    "flex items-center gap-1.5 sm:gap-2 h-8 sm:h-10 px-2 sm:px-3 text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors cursor-pointer";
 
   const getDateLabel = (): string => {
+    let dateLabel: string;
     if (localDateFilter === "dayOfWeek" && localSelectedDays.length > 0) {
-      return localSelectedDays.map((d) => DAY_NAMES[d]).join(", ");
-    }
-    if (localDateFilter === "custom" && localCustomDateRange.start) {
+      dateLabel = localSelectedDays.map((d) => DAY_NAMES[d]).join(", ");
+    } else if (localDateFilter === "custom" && localCustomDateRange.start) {
       if (
         localCustomDateRange.end &&
         localCustomDateRange.end !== localCustomDateRange.start
       ) {
-        return `${new Date(localCustomDateRange.start).toLocaleDateString("en-US", {
-          month: "short",
-          day: "numeric",
-        })} - ${new Date(localCustomDateRange.end).toLocaleDateString("en-US", {
+        dateLabel = `${new Date(localCustomDateRange.start).toLocaleDateString(
+          "en-US",
+          {
+            month: "short",
+            day: "numeric",
+          }
+        )} - ${new Date(localCustomDateRange.end).toLocaleDateString("en-US", {
           month: "short",
           day: "numeric",
         })}`;
+      } else {
+        dateLabel = new Date(localCustomDateRange.start).toLocaleDateString(
+          "en-US",
+          {
+            month: "short",
+            day: "numeric",
+          }
+        );
       }
-      return new Date(localCustomDateRange.start).toLocaleDateString("en-US", {
-        month: "short",
-        day: "numeric",
-      });
+    } else {
+      dateLabel = dateLabels[localDateFilter];
     }
-    return dateLabels[localDateFilter];
+
+    // Append time filter if selected
+    if (localSelectedTimes.length > 0) {
+      const timeLabels = localSelectedTimes.map(
+        (t) => TIME_OPTIONS.find((o) => o.value === t)?.label || t
+      );
+      return `${dateLabel}, ${timeLabels.join(" & ")}`;
+    }
+    return dateLabel;
   };
 
   const getPriceLabel = (): string => {
@@ -413,16 +461,15 @@ export default function FilterBar({
         {/* Search Input */}
         <div className="relative w-full xl:flex-1 xl:min-w-0">
           <Search
-            className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500"
-            size={20}
+            className="absolute left-2.5 sm:left-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500 w-4 h-4 sm:w-5 sm:h-5"
           />
           <input
             type="text"
-            placeholder="Search events... (press Enter)"
+            placeholder="Search events..."
             value={localSearchInput}
             onChange={(e) => setLocalSearchInput(e.target.value)}
             onKeyDown={handleSearchKeyDown}
-            className="w-full h-10 pl-10 pr-10 text-sm border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none"
+            className="w-full h-8 sm:h-10 pl-9 sm:pl-10 pr-9 sm:pr-10 text-xs sm:text-sm border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none"
           />
           {/* Submit button - shows when there's uncommitted text */}
           {hasUncommittedSearch && (
@@ -487,7 +534,9 @@ export default function FilterBar({
                         }}
                         className="w-4 h-4 text-brand-600"
                       />
-                      <span className="text-sm text-gray-700 dark:text-gray-200">{label}</span>
+                      <span className="text-sm text-gray-700 dark:text-gray-200">
+                        {label}
+                      </span>
                     </label>
                   ))}
                 </div>
@@ -584,9 +633,13 @@ export default function FilterBar({
                     <Calendar
                       mode="range"
                       selected={(() => {
-                        const from = safeParseDateString(localCustomDateRange.start);
+                        const from = safeParseDateString(
+                          localCustomDateRange.start
+                        );
                         if (!from) return undefined;
-                        const to = safeParseDateString(localCustomDateRange.end);
+                        const to = safeParseDateString(
+                          localCustomDateRange.end
+                        );
                         return { from, to };
                       })()}
                       onSelect={(range: DayPickerDateRange | undefined) => {
@@ -610,6 +663,69 @@ export default function FilterBar({
                     />
                   </div>
                 )}
+
+                {/* Time of Day Filter - always visible */}
+                <div className="border-t border-gray-100 dark:border-gray-700 px-3 py-3">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-xs text-gray-500 dark:text-gray-400">
+                      {localSelectedTimes.length === 0
+                        ? "Time of day"
+                        : `${localSelectedTimes.length} time${
+                            localSelectedTimes.length !== 1 ? "s" : ""
+                          } selected`}
+                    </span>
+                    {localSelectedTimes.length > 0 && (
+                      <button
+                        onClick={() => {
+                          setLocalSelectedTimes([]);
+                          startTransition(() => {
+                            onSelectedTimesChange([]);
+                          });
+                        }}
+                        className="text-xs text-brand-600 dark:text-brand-400 hover:text-brand-800 dark:hover:text-brand-300 cursor-pointer"
+                      >
+                        Clear
+                      </button>
+                    )}
+                  </div>
+                  <div className="flex flex-col gap-1">
+                    {TIME_OPTIONS.map((option) => {
+                      const isSelected = localSelectedTimes.includes(
+                        option.value
+                      );
+                      const newTimes = isSelected
+                        ? localSelectedTimes.filter((t) => t !== option.value)
+                        : [...localSelectedTimes, option.value];
+                      return (
+                        <button
+                          key={option.value}
+                          onClick={() => {
+                            setLocalSelectedTimes(newTimes);
+                            startTransition(() => {
+                              onSelectedTimesChange(newTimes);
+                            });
+                          }}
+                          className={`w-full py-2 px-3 text-xs font-medium rounded transition-colors cursor-pointer flex items-center justify-between ${
+                            isSelected
+                              ? "bg-brand-600 text-white"
+                              : "bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-600"
+                          }`}
+                        >
+                          <span>{option.label}</span>
+                          <span
+                            className={
+                              isSelected
+                                ? "text-white/70"
+                                : "text-gray-400 dark:text-gray-500"
+                            }
+                          >
+                            {option.timeRange}
+                          </span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
               </div>
             )}
           </div>
@@ -653,7 +769,9 @@ export default function FilterBar({
                         }}
                         className="w-4 h-4 text-brand-600"
                       />
-                      <span className="text-sm text-gray-700 dark:text-gray-200">{label}</span>
+                      <span className="text-sm text-gray-700 dark:text-gray-200">
+                        {label}
+                      </span>
                     </label>
                   ))}
                 </div>
@@ -728,7 +846,9 @@ export default function FilterBar({
                       >
                         Select All
                       </button>
-                      <span className="text-gray-300 dark:text-gray-600">|</span>
+                      <span className="text-gray-300 dark:text-gray-600">
+                        |
+                      </span>
                       <button
                         onClick={deselectAllLocations}
                         className="text-xs text-brand-600 dark:text-brand-400 hover:text-brand-800 dark:hover:text-brand-300 cursor-pointer"
@@ -773,7 +893,9 @@ export default function FilterBar({
                           >
                             <input
                               type="checkbox"
-                              checked={localSelectedLocations.includes(location)}
+                              checked={localSelectedLocations.includes(
+                                location
+                              )}
                               onChange={() => toggleLocation(location)}
                               className="w-4 h-4 text-brand-600 rounded border-gray-300 focus:ring-brand-500"
                             />
@@ -796,7 +918,9 @@ export default function FilterBar({
                           onChange={() => toggleLocation("Online")}
                           className="w-4 h-4 text-brand-600 rounded border-gray-300 focus:ring-brand-500"
                         />
-                        <span className="text-sm text-gray-700 dark:text-gray-200">Online</span>
+                        <span className="text-sm text-gray-700 dark:text-gray-200">
+                          Online
+                        </span>
                       </label>
                     </>
                   )}
@@ -857,7 +981,9 @@ export default function FilterBar({
                       >
                         Select All
                       </button>
-                      <span className="text-gray-300 dark:text-gray-600">|</span>
+                      <span className="text-gray-300 dark:text-gray-600">
+                        |
+                      </span>
                       <button
                         onClick={deselectAllTags}
                         className="text-xs text-brand-600 dark:text-brand-400 hover:text-brand-800 dark:hover:text-brand-300 cursor-pointer"
@@ -872,6 +998,27 @@ export default function FilterBar({
                   <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">
                     1 click to include, 2 to exclude, 3 to clear
                   </p>
+                </div>
+
+                {/* Daily Events Toggle */}
+                <div className="px-3 py-2 border-b border-gray-100 dark:border-gray-700">
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={localShowDailyEvents}
+                      onChange={(e) => {
+                        const newValue = e.target.checked;
+                        setLocalShowDailyEvents(newValue);
+                        startTransition(() => {
+                          onShowDailyEventsChange(newValue);
+                        });
+                      }}
+                      className="w-4 h-4 text-brand-600 rounded border-gray-300 focus:ring-brand-500"
+                    />
+                    <span className="text-sm text-gray-700 dark:text-gray-200">
+                      Show daily events
+                    </span>
+                  </label>
                 </div>
 
                 <div className="max-h-80 overflow-y-auto">
@@ -895,7 +1042,10 @@ export default function FilterBar({
                               {category.name}
                             </span>
                             {expandedCategories.has(category.name) ? (
-                              <ChevronUp size={14} className="text-gray-400 dark:text-gray-500" />
+                              <ChevronUp
+                                size={14}
+                                className="text-gray-400 dark:text-gray-500"
+                              />
                             ) : (
                               <ChevronDown
                                 size={14}
@@ -928,7 +1078,10 @@ export default function FilterBar({
                               Other
                             </span>
                             {expandedCategories.has("Uncategorized") ? (
-                              <ChevronUp size={14} className="text-gray-400 dark:text-gray-500" />
+                              <ChevronUp
+                                size={14}
+                                className="text-gray-400 dark:text-gray-500"
+                              />
                             ) : (
                               <ChevronDown
                                 size={14}

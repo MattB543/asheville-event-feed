@@ -1,4 +1,4 @@
-export type EventSource = 'AVL_TODAY' | 'EVENTBRITE' | 'MEETUP' | 'FACEBOOK' | 'HARRAHS' | 'ORANGE_PEEL' | 'GREY_EAGLE' | 'LIVE_MUSIC_AVL';
+export type EventSource = 'AVL_TODAY' | 'EVENTBRITE' | 'MEETUP' | 'FACEBOOK' | 'HARRAHS' | 'ORANGE_PEEL' | 'GREY_EAGLE' | 'LIVE_MUSIC_AVL' | 'EXPLORE_ASHEVILLE';
 
 export interface ScrapedEvent {
   sourceId: string;
@@ -14,6 +14,9 @@ export interface ScrapedEvent {
   interestedCount?: number; // Facebook: "maybe" / interested count
   goingCount?: number;      // Facebook: going count
   timeUnknown?: boolean;    // True if source only provided date, no time
+  // Recurring event fields
+  recurringType?: 'daily';  // Daily recurring events shown separately in UI
+  recurringEndDate?: Date;  // When the recurring event ends
 }
 
 export interface ScrapedEventWithTags extends ScrapedEvent {

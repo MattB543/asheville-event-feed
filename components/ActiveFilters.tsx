@@ -4,9 +4,26 @@ import { Sparkles } from "lucide-react";
 import FilterChip from "./ui/FilterChip";
 import { useToast } from "./ui/Toast";
 
+// Format large numbers compactly: 1303 → "1.3k"
+function formatCompact(n: number): string {
+  if (n >= 1000) {
+    const k = n / 1000;
+    return k % 1 === 0 ? `${k}k` : `${k.toFixed(1)}k`;
+  }
+  return n.toString();
+}
+
 export interface ActiveFilter {
   id: string;
-  type: "date" | "price" | "tag" | "tag-include" | "tag-exclude" | "search" | "location";
+  type:
+    | "date"
+    | "time"
+    | "price"
+    | "tag"
+    | "tag-include"
+    | "tag-exclude"
+    | "search"
+    | "location";
   label: string;
 }
 
@@ -33,7 +50,9 @@ function ExportLinks({
   const { showToast } = useToast();
 
   const handleCopyView = async () => {
-    const url = `${window.location.origin}${window.location.pathname}${shareParams || ""}`;
+    const url = `${window.location.origin}${window.location.pathname}${
+      shareParams || ""
+    }`;
     try {
       await navigator.clipboard.writeText(url);
       showToast("Link copied to clipboard!");
@@ -123,13 +142,18 @@ export default function ActiveFilters({
   // Separate tag filters from other filters
   const includeTagFilters = filters.filter((f) => f.type === "tag-include");
   const excludeTagFilters = filters.filter((f) => f.type === "tag-exclude");
-  const otherFilters = filters.filter((f) => f.type !== "tag-include" && f.type !== "tag-exclude" && f.type !== "tag");
+  const otherFilters = filters.filter(
+    (f) =>
+      f.type !== "tag-include" && f.type !== "tag-exclude" && f.type !== "tag"
+  );
   const totalTagFilters = includeTagFilters.length + excludeTagFilters.length;
 
   return (
     <div className="flex flex-col sm:flex-row sm:flex-wrap sm:items-center gap-2 py-2 sm:sticky sm:top-0 sm:z-20 bg-gray-50 dark:bg-gray-950 px-3 sm:px-0">
       <div className="flex flex-wrap items-center gap-2">
-        <span className="text-sm text-gray-500 dark:text-gray-400">Active filters:</span>
+        <span className="text-sm text-gray-500 dark:text-gray-400">
+          Active filters:
+        </span>
         {otherFilters.map((filter) => (
           <FilterChip
             key={filter.id}
@@ -181,7 +205,9 @@ export default function ActiveFilters({
               <span>Filtering...</span>
             </span>
           ) : (
-            <>Showing {filteredCount} of {totalEvents} events</>
+            <>
+              Showing {filteredCount} / {formatCompact(totalEvents)} events
+            </>
           )}
           <ExportLinks exportParams={exportParams} shareParams={shareParams} />
         </span>

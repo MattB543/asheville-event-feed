@@ -18,6 +18,9 @@ export const events = pgTable('events', {
   interestedCount: integer('interested_count'), // Facebook: "maybe" / interested count
   goingCount: integer('going_count'),           // Facebook: going count
   timeUnknown: boolean('time_unknown').default(false), // True if source only provided date, no time
+  // Recurring event fields (for daily recurring like art installations)
+  recurringType: text('recurring_type'), // 'daily' | null - daily events shown separately in UI
+  recurringEndDate: timestamp('recurring_end_date', { withTimezone: true }), // When the recurring event ends
 }, (table) => ({
   startDateIdx: index('events_start_date_idx').on(table.startDate),
   sourceIdx: index('events_source_idx').on(table.source),

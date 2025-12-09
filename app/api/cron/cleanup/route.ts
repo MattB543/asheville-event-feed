@@ -132,7 +132,31 @@ export async function GET(request: Request) {
 
     console.log(`[Cleanup] Non-NC cleanup complete. Deleted ${nonNCEventIds.length} non-NC events.`);
 
-    // Step 3: Remove duplicate events
+    // Step 3: Remove cancelled events (title starts with "CANCELLED")
+    console.log('[Cleanup] Checking for cancelled events...');
+    const cancelledEventIds: string[] = [];
+    const cancelledEventTitles: string[] = [];
+
+    for (const event of allEvents) {
+      if (event.title.trim().toUpperCase().startsWith('CANCELLED')) {
+        cancelledEventIds.push(event.id);
+        cancelledEventTitles.push(event.title);
+      }
+    }
+
+    console.log(`[Cleanup] Found ${cancelledEventIds.length} cancelled events.`);
+
+    // Delete cancelled events in batches
+    if (cancelledEventIds.length > 0) {
+      const deleteBatchSize = 50;
+      for (let i = 0; i < cancelledEventIds.length; i += deleteBatchSize) {
+        const batch = cancelledEventIds.slice(i, i + deleteBatchSize);
+        await db.delete(events).where(inArray(events.id, batch));
+      }
+      console.log(`[Cleanup] Deleted ${cancelledEventIds.length} cancelled events.`);
+    }
+
+    // Step 4: Remove duplicate events
     console.log('[Cleanup] Checking for duplicate events...');
     const allEventsForDedup = await db
       .select({
@@ -161,19 +185,21 @@ export async function GET(request: Request) {
       console.log(`[Cleanup] Deleted ${duplicateIdsToRemove.length} duplicate events.`);
     }
 
-    console.log(`[Cleanup] Cleanup complete. Deleted ${deadEvents.length} dead + ${nonNCEventIds.length} non-NC + ${duplicateIdsToRemove.length} duplicate events.`);
+    console.log(`[Cleanup] Cleanup complete. Deleted ${deadEvents.length} dead + ${nonNCEventIds.length} non-NC + ${cancelledEventIds.length} cancelled + ${duplicateIdsToRemove.length} duplicate events.`);
 
     return NextResponse.json({
       success: true,
       checked: eventbriteEvents.length,
       deletedDead: deadEvents.length,
       deletedNonNC: nonNCEventIds.length,
+      deletedCancelled: cancelledEventIds.length,
       deletedDuplicates: duplicateIdsToRemove.length,
       deadEvents: deadEvents.map((e) => ({
         title: e.title,
         status: e.status,
       })),
       nonNCEvents: nonNCEventTitles.slice(0, 20),
+      cancelledEvents: cancelledEventTitles.slice(0, 20),
       duplicateGroups: duplicateGroups.length,
     });
   } catch (error) {

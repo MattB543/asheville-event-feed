@@ -19,7 +19,7 @@ export default function TriStateCheckbox({
 }: TriStateCheckboxProps) {
   return (
     <label
-      className={`flex items-center gap-2 px-2 py-1 rounded hover:bg-gray-50 cursor-pointer ${className}`}
+      className={`flex items-center gap-2 px-2 py-1 rounded hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer ${className}`}
       onClick={(e) => {
         e.preventDefault();
         onChange();
@@ -28,7 +28,7 @@ export default function TriStateCheckbox({
       <div
         className={`w-4 h-4 rounded border flex items-center justify-center transition-colors ${
           state === "off"
-            ? "border-gray-300 bg-white"
+            ? "border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800"
             : state === "include"
               ? "border-green-500 bg-green-500"
               : "border-red-500 bg-red-500"
@@ -37,7 +37,7 @@ export default function TriStateCheckbox({
         {state === "include" && <Check size={12} className="text-white" strokeWidth={3} />}
         {state === "exclude" && <X size={12} className="text-white" strokeWidth={3} />}
       </div>
-      {label && <span className="text-sm text-gray-700">{label}</span>}
+      {label && <span className="text-sm text-gray-700 dark:text-gray-200">{label}</span>}
     </label>
   );
 }

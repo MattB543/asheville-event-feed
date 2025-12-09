@@ -328,6 +328,7 @@ export async function GET(request: Request) {
                 tags: event.tags || [],
                 interestedCount: event.interestedCount,
                 goingCount: event.goingCount,
+                timeUnknown: event.timeUnknown || false,
               })
               .onConflictDoUpdate({
                 target: events.url,
@@ -341,6 +342,7 @@ export async function GET(request: Request) {
                   imageUrl: event.imageUrl,
                   interestedCount: event.interestedCount,
                   goingCount: event.goingCount,
+                  timeUnknown: event.timeUnknown || false,
                 },
               });
             stats.upsert.success++;

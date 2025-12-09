@@ -51,18 +51,18 @@ export default function ChipInput({
   return (
     <div>
       {label && (
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">
           {label}
         </label>
       )}
       <div
-        className="flex flex-wrap gap-2 p-3 border border-gray-200 rounded-lg bg-white min-h-[80px] cursor-text focus-within:ring-2 focus-within:ring-brand-500 focus-within:border-brand-500"
+        className="flex flex-wrap gap-2 p-3 border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 min-h-[80px] cursor-text focus-within:ring-2 focus-within:ring-brand-500 focus-within:border-brand-500"
         onClick={() => inputRef.current?.focus()}
       >
         {values.map((value, index) => (
           <span
             key={`${value}-${index}`}
-            className="inline-flex items-center gap-1 px-2.5 py-1 bg-brand-100 text-brand-800 rounded-full text-sm font-medium"
+            className="inline-flex items-center gap-1 px-2.5 py-1 bg-brand-100 dark:bg-brand-900/50 text-brand-800 dark:text-brand-200 rounded-full text-sm font-medium"
           >
             {value}
             <button
@@ -71,7 +71,7 @@ export default function ChipInput({
                 e.stopPropagation();
                 handleRemove(index);
               }}
-              className="p-0.5 rounded-full hover:bg-brand-200 transition-colors"
+              className="p-0.5 rounded-full hover:bg-brand-200 dark:hover:bg-brand-800/50 transition-colors"
               aria-label={`Remove ${value}`}
             >
               <X size={12} />
@@ -86,13 +86,13 @@ export default function ChipInput({
             onChange={(e) => setInputValue(e.target.value)}
             onKeyDown={handleKeyDown}
             placeholder={values.length === 0 ? placeholder : "Add more..."}
-            className="flex-grow outline-none text-sm bg-transparent min-w-[80px]"
+            className="flex-grow outline-none text-sm bg-transparent min-w-[80px] text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500"
           />
           {inputValue && (
             <button
               type="button"
               onClick={handleAdd}
-              className="p-1 text-brand-600 hover:bg-brand-50 rounded transition-colors"
+              className="p-1 text-brand-600 dark:text-brand-400 hover:bg-brand-50 dark:hover:bg-brand-900/30 rounded transition-colors"
               aria-label="Add"
             >
               <Plus size={16} />
@@ -100,7 +100,7 @@ export default function ChipInput({
           )}
         </div>
       </div>
-      <p className="mt-1 text-xs text-gray-500">
+      <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
         Press Enter to add, click chip to remove
       </p>
     </div>

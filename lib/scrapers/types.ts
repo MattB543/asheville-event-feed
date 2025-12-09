@@ -13,6 +13,7 @@ export interface ScrapedEvent {
   imageUrl?: string;
   interestedCount?: number; // Facebook: "maybe" / interested count
   goingCount?: number;      // Facebook: going count
+  timeUnknown?: boolean;    // True if source only provided date, no time
 }
 
 export interface ScrapedEventWithTags extends ScrapedEvent {
@@ -41,9 +42,10 @@ export interface EventbriteApiEvent {
   id: string;
   name: string | { text: string };
   summary?: string | { text: string };
-  start?: { local: string };
+  start?: { local: string; timezone?: string };
   start_date?: string;
   start_time?: string;
+  timezone?: string;
   url: string;
   image?: { original?: { url: string }; url?: string };
   primary_venue?: {

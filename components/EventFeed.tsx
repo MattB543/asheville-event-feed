@@ -35,6 +35,7 @@ interface Event {
   tags?: string[] | null;
   hidden?: boolean | null;
   createdAt?: Date | null;
+  timeUnknown?: boolean | null;
 }
 
 interface EventFeedProps {
@@ -740,10 +741,10 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
 
       {/* Filtering indicator */}
       {isFilterPending && (
-        <div className="fixed top-20 left-1/2 -translate-x-1/2 z-50 bg-white/95 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg border border-gray-200">
+        <div className="fixed top-20 left-1/2 -translate-x-1/2 z-50 bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg border border-gray-200 dark:border-gray-700">
           <div className="flex items-center gap-2">
             <div className="w-4 h-4 border-2 border-brand-500 border-t-transparent rounded-full animate-spin" />
-            <span className="text-sm text-gray-600">Filtering...</span>
+            <span className="text-sm text-gray-600 dark:text-gray-300">Filtering...</span>
           </div>
         </div>
       )}
@@ -824,17 +825,17 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
 
             return (
               <div key={dateKey} className="flex flex-col">
-                <h2 className="text-xl font-bold text-gray-800 sticky top-0 sm:top-9 bg-white sm:border sm:border-b-0 sm:border-gray-200 sm:rounded-t-lg py-2 px-3 sm:px-4 z-10">
+                <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100 sticky top-0 sm:top-9 bg-white dark:bg-gray-900 sm:border sm:border-b-0 sm:border-gray-200 dark:sm:border-gray-700 sm:rounded-t-lg py-2 px-3 sm:px-4 z-10">
                   {headerText}
                 </h2>
-                <div className="flex flex-col bg-white sm:rounded-b-lg sm:shadow-sm sm:border sm:border-gray-200 overflow-hidden">
+                <div className="flex flex-col bg-white dark:bg-gray-900 sm:rounded-b-lg sm:shadow-sm sm:border sm:border-gray-200 dark:sm:border-gray-700 overflow-hidden">
                   {/* Show previous events toggle for today when events are hidden */}
                   {isTodayGroup &&
                     hiddenPreviousCount > 0 &&
                     !showAllPreviousEvents && (
                       <button
                         onClick={() => setShowAllPreviousEvents(true)}
-                        className="text-xs text-gray-600 hover:text-blue-700 font-medium px-3 sm:px-5 py-3 sm:py-3 pt-0 text-left border-b border-gray-200 hover:bg-blue-50 transition-colors cursor-pointer underline sm:no-underline"
+                        className="text-xs text-gray-600 dark:text-gray-400 hover:text-blue-700 dark:hover:text-blue-400 font-medium px-3 sm:px-5 py-3 sm:py-3 pt-0 text-left border-b border-gray-200 dark:border-gray-700 hover:bg-blue-50 dark:hover:bg-blue-950/50 transition-colors cursor-pointer underline sm:no-underline"
                       >
                         Show {hiddenPreviousCount} event
                         {hiddenPreviousCount !== 1 ? "s" : ""} from earlier
@@ -852,7 +853,7 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
                       return wouldHideCount > 0 ? (
                         <button
                           onClick={() => setShowAllPreviousEvents(false)}
-                          className="text-xs text-gray-500 hover:text-gray-700 font-medium px-3 sm:px-5 py-3 text-left border-b border-gray-200 hover:bg-gray-50 transition-colors cursor-pointer"
+                          className="text-xs text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 font-medium px-3 sm:px-5 py-3 text-left border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors cursor-pointer"
                         >
                           Hide earlier events
                         </button>
@@ -890,6 +891,7 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
                             organizer: event.organizer ?? null,
                             price: event.price ?? null,
                             imageUrl: event.imageUrl ?? null,
+                            timeUnknown: event.timeUnknown ?? false,
                           }}
                           onHide={handleHideEvent}
                           onBlockHost={handleBlockHost}
@@ -906,7 +908,7 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
       </div>
 
       {filteredEvents.length === 0 && (
-        <div className="text-center py-20 text-gray-500">
+        <div className="text-center py-20 text-gray-500 dark:text-gray-400">
           No events found matching your criteria.
         </div>
       )}
@@ -948,11 +950,11 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
       >
         <button
           onClick={scrollToTop}
-          className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 rounded-full shadow-lg hover:shadow-xl hover:bg-gray-50 transition-all cursor-pointer"
+          className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-full shadow-lg hover:shadow-xl hover:bg-gray-50 dark:hover:bg-gray-700 transition-all cursor-pointer"
           aria-label="Scroll to top"
         >
-          <ArrowUpIcon size={16} className="text-gray-600" />
-          <span className="text-sm font-medium text-gray-600">Scroll up</span>
+          <ArrowUpIcon size={16} className="text-gray-600 dark:text-gray-300" />
+          <span className="text-sm font-medium text-gray-600 dark:text-gray-300">Scroll up</span>
         </button>
       </div>
     </div>

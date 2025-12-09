@@ -23,13 +23,13 @@ interface ActiveFiltersProps {
 
 function ExportLinks({ exportParams }: { exportParams?: string }) {
   return (
-    <span className="text-gray-400">
+    <span className="text-gray-400 dark:text-gray-500">
       {" · "}
       <a
         href={`/api/export/xml${exportParams || ""}`}
         target="_blank"
         rel="noopener noreferrer"
-        className="underline hover:text-gray-600"
+        className="underline hover:text-gray-600 dark:hover:text-gray-300"
       >
         XML
       </a>
@@ -38,7 +38,7 @@ function ExportLinks({ exportParams }: { exportParams?: string }) {
         href={`/api/export/markdown${exportParams || ""}`}
         target="_blank"
         rel="noopener noreferrer"
-        className="underline hover:text-gray-600"
+        className="underline hover:text-gray-600 dark:hover:text-gray-300"
       >
         Markdown
       </a>
@@ -71,12 +71,12 @@ export default function ActiveFilters({
 }: ActiveFiltersProps) {
   if (filters.length === 0) {
     return (
-      <div className="flex flex-col sm:flex-row items-start sm:items-center sm:justify-end gap-2 sm:gap-3 text-sm text-gray-500 py-2 pb-3 sm:sticky sm:top-0 sm:z-20 bg-gray-50 px-3 sm:px-0">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center sm:justify-end gap-2 sm:gap-3 text-sm text-gray-500 dark:text-gray-400 py-2 pb-3 sm:sticky sm:top-0 sm:z-20 bg-gray-50 dark:bg-gray-950 px-3 sm:px-0">
         {onOpenChat && <AskAIButton onClick={onOpenChat} />}
         <span>
           {isPending ? (
             <span className="inline-flex items-center gap-2">
-              <span className="w-3 h-3 border-2 border-gray-400 border-t-transparent rounded-full animate-spin" />
+              <span className="w-3 h-3 border-2 border-gray-400 dark:border-gray-500 border-t-transparent rounded-full animate-spin" />
               <span>Filtering...</span>
             </span>
           ) : (
@@ -95,9 +95,9 @@ export default function ActiveFilters({
   const totalTagFilters = includeTagFilters.length + excludeTagFilters.length;
 
   return (
-    <div className="flex flex-col sm:flex-row sm:flex-wrap sm:items-center gap-2 py-2 sm:sticky sm:top-0 sm:z-20 bg-gray-50 px-3 sm:px-0">
+    <div className="flex flex-col sm:flex-row sm:flex-wrap sm:items-center gap-2 py-2 sm:sticky sm:top-0 sm:z-20 bg-gray-50 dark:bg-gray-950 px-3 sm:px-0">
       <div className="flex flex-wrap items-center gap-2">
-        <span className="text-sm text-gray-500">Active filters:</span>
+        <span className="text-sm text-gray-500 dark:text-gray-400">Active filters:</span>
         {otherFilters.map((filter) => (
           <FilterChip
             key={filter.id}
@@ -135,17 +135,17 @@ export default function ActiveFilters({
         ) : null}
         <button
           onClick={onClearAll}
-          className="text-sm text-brand-600 hover:text-brand-800 hover:underline cursor-pointer"
+          className="text-sm text-brand-600 dark:text-brand-400 hover:text-brand-800 dark:hover:text-brand-300 hover:underline cursor-pointer"
         >
           Clear all
         </button>
       </div>
       <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3 sm:ml-auto">
         {onOpenChat && <AskAIButton onClick={onOpenChat} />}
-        <span className="text-sm text-gray-500">
+        <span className="text-sm text-gray-500 dark:text-gray-400">
           {isPending ? (
             <span className="inline-flex items-center gap-2">
-              <span className="w-3 h-3 border-2 border-gray-400 border-t-transparent rounded-full animate-spin" />
+              <span className="w-3 h-3 border-2 border-gray-400 dark:border-gray-500 border-t-transparent rounded-full animate-spin" />
               <span>Filtering...</span>
             </span>
           ) : (

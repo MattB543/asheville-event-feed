@@ -330,7 +330,7 @@ export default function FilterBar({
   );
 
   const buttonStyle =
-    "flex items-center gap-2 h-10 px-3 text-sm font-medium text-gray-700 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors cursor-pointer";
+    "flex items-center gap-2 h-10 px-3 text-sm font-medium text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors cursor-pointer";
 
   const getDateLabel = (): string => {
     if (localDateFilter === "dayOfWeek" && localSelectedDays.length > 0) {
@@ -382,7 +382,7 @@ export default function FilterBar({
         {/* Search Input */}
         <div className="relative w-full xl:flex-1 xl:min-w-0">
           <Search
-            className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+            className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500"
             size={20}
           />
           <input
@@ -390,11 +390,11 @@ export default function FilterBar({
             placeholder="Search events..."
             value={search}
             onChange={(e) => onSearchChange(e.target.value)}
-            className="w-full h-10 pl-10 pr-10 text-sm border border-gray-200 bg-white rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none"
+            className="w-full h-10 pl-10 pr-10 text-sm border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none"
           />
           {isSearchPending && (
             <div className="absolute right-3 top-1/2 -translate-y-1/2">
-              <div className="w-4 h-4 border-2 border-gray-300 border-t-brand-500 rounded-full animate-spin" />
+              <div className="w-4 h-4 border-2 border-gray-300 dark:border-gray-600 border-t-brand-500 rounded-full animate-spin" />
             </div>
           )}
         </div>
@@ -419,14 +419,14 @@ export default function FilterBar({
             </button>
 
             {isDateOpen && (
-              <div className="absolute top-full left-0 mt-1 z-50 bg-white border border-gray-200 rounded-lg shadow-lg min-w-[280px]">
+              <div className="absolute top-full left-0 mt-1 z-50 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg min-w-[280px]">
                 <div className="p-2">
                   {(
                     Object.entries(dateLabels) as [DateFilterType, string][]
                   ).map(([value, label]) => (
                     <label
                       key={value}
-                      className="flex items-center gap-2 px-2 py-1.5 rounded hover:bg-gray-50 cursor-pointer"
+                      className="flex items-center gap-2 px-2 py-1.5 rounded hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer"
                     >
                       <input
                         type="radio"
@@ -440,15 +440,15 @@ export default function FilterBar({
                         }}
                         className="w-4 h-4 text-brand-600"
                       />
-                      <span className="text-sm text-gray-700">{label}</span>
+                      <span className="text-sm text-gray-700 dark:text-gray-200">{label}</span>
                     </label>
                   ))}
                 </div>
 
                 {localDateFilter === "dayOfWeek" && (
-                  <div className="border-t border-gray-100 px-3 py-3">
+                  <div className="border-t border-gray-100 dark:border-gray-700 px-3 py-3">
                     <div className="flex items-center justify-between mb-2">
-                      <span className="text-xs text-gray-500">
+                      <span className="text-xs text-gray-500 dark:text-gray-400">
                         {localSelectedDays.length === 0
                           ? "Select days"
                           : `${localSelectedDays.length} day${
@@ -463,7 +463,7 @@ export default function FilterBar({
                               onSelectedDaysChange([]);
                             });
                           }}
-                          className="text-xs text-brand-600 hover:text-brand-800 cursor-pointer"
+                          className="text-xs text-brand-600 dark:text-brand-400 hover:text-brand-800 dark:hover:text-brand-300 cursor-pointer"
                         >
                           Clear
                         </button>
@@ -486,7 +486,7 @@ export default function FilterBar({
                             className={`flex-1 py-2 text-xs font-medium rounded transition-colors cursor-pointer ${
                               localSelectedDays.includes(index)
                                 ? "bg-brand-600 text-white"
-                                : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                                : "bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-600"
                             }`}
                           >
                             {day}
@@ -498,9 +498,9 @@ export default function FilterBar({
                 )}
 
                 {localDateFilter === "custom" && (
-                  <div className="border-t border-gray-100">
+                  <div className="border-t border-gray-100 dark:border-gray-700">
                     <div className="px-3 pt-2 pb-1 flex items-center justify-between">
-                      <span className="text-xs text-gray-500">
+                      <span className="text-xs text-gray-500 dark:text-gray-400">
                         {(() => {
                           const startDate = safeParseDateString(
                             localCustomDateRange.start
@@ -528,7 +528,7 @@ export default function FilterBar({
                               onCustomDateRangeChange(newRange);
                             });
                           }}
-                          className="text-xs text-brand-600 hover:text-brand-800 cursor-pointer"
+                          className="text-xs text-brand-600 dark:text-brand-400 hover:text-brand-800 dark:hover:text-brand-300 cursor-pointer"
                         >
                           Clear
                         </button>
@@ -585,14 +585,14 @@ export default function FilterBar({
             </button>
 
             {isPriceOpen && (
-              <div className="absolute top-full left-0 mt-1 z-50 bg-white border border-gray-200 rounded-lg shadow-lg min-w-[200px]">
+              <div className="absolute top-full left-0 mt-1 z-50 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg min-w-[200px]">
                 <div className="p-2">
                   {(
                     Object.entries(priceLabels) as [PriceFilterType, string][]
                   ).map(([value, label]) => (
                     <label
                       key={value}
-                      className="flex items-center gap-2 px-2 py-1.5 rounded hover:bg-gray-50 cursor-pointer"
+                      className="flex items-center gap-2 px-2 py-1.5 rounded hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer"
                     >
                       <input
                         type="radio"
@@ -606,19 +606,19 @@ export default function FilterBar({
                         }}
                         className="w-4 h-4 text-brand-600"
                       />
-                      <span className="text-sm text-gray-700">{label}</span>
+                      <span className="text-sm text-gray-700 dark:text-gray-200">{label}</span>
                     </label>
                   ))}
                 </div>
 
                 {localPriceFilter === "custom" && (
-                  <div className="px-3 py-3 border-t border-gray-100">
-                    <label className="block text-xs text-gray-500 mb-1">
+                  <div className="px-3 py-3 border-t border-gray-100 dark:border-gray-700">
+                    <label className="block text-xs text-gray-500 dark:text-gray-400 mb-1">
                       Maximum Price
                     </label>
                     <div className="relative">
                       <DollarSign
-                        className="absolute left-2 top-1/2 -translate-y-1/2 text-gray-400"
+                        className="absolute left-2 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500"
                         size={14}
                       />
                       <input
@@ -635,7 +635,7 @@ export default function FilterBar({
                           });
                         }}
                         placeholder="Enter amount"
-                        className="w-full pl-6 pr-2 py-1.5 text-sm border border-gray-200 rounded focus:ring-2 focus:ring-brand-500 outline-none"
+                        className="w-full pl-6 pr-2 py-1.5 text-sm border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 rounded focus:ring-2 focus:ring-brand-500 outline-none"
                       />
                     </div>
                   </div>
@@ -668,43 +668,43 @@ export default function FilterBar({
 
             {isLocationOpen && (
               <div
-                className={`absolute top-full mt-1 z-50 bg-white border border-gray-200 rounded-lg shadow-lg min-w-[220px] max-h-96 flex flex-col ${
+                className={`absolute top-full mt-1 z-50 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg min-w-[220px] max-h-96 flex flex-col ${
                   locationAlign === "left" ? "left-0" : "right-0"
                 }`}
               >
-                <div className="px-3 py-2 border-b border-gray-100">
+                <div className="px-3 py-2 border-b border-gray-100 dark:border-gray-700">
                   <div className="flex items-center justify-between">
                     <div className="flex gap-2">
                       <button
                         onClick={selectAllLocations}
-                        className="text-xs text-brand-600 hover:text-brand-800 cursor-pointer"
+                        className="text-xs text-brand-600 dark:text-brand-400 hover:text-brand-800 dark:hover:text-brand-300 cursor-pointer"
                       >
                         Select All
                       </button>
-                      <span className="text-gray-300">|</span>
+                      <span className="text-gray-300 dark:text-gray-600">|</span>
                       <button
                         onClick={deselectAllLocations}
-                        className="text-xs text-brand-600 hover:text-brand-800 cursor-pointer"
+                        className="text-xs text-brand-600 dark:text-brand-400 hover:text-brand-800 dark:hover:text-brand-300 cursor-pointer"
                       >
                         Deselect All
                       </button>
                     </div>
                   </div>
-                  <p className="text-xs text-gray-400 mt-1">
+                  <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">
                     None selected = show all
                   </p>
                 </div>
 
                 <div className="overflow-y-auto p-2">
                   {/* Asheville area */}
-                  <label className="flex items-center gap-2 px-2 py-1.5 rounded hover:bg-gray-50 cursor-pointer">
+                  <label className="flex items-center gap-2 px-2 py-1.5 rounded hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer">
                     <input
                       type="checkbox"
                       checked={localSelectedLocations.includes("asheville")}
                       onChange={() => toggleLocation("asheville")}
                       className="w-4 h-4 text-brand-600 rounded border-gray-300 focus:ring-brand-500"
                     />
-                    <span className="text-sm text-gray-700">
+                    <span className="text-sm text-gray-700 dark:text-gray-200">
                       Asheville area
                     </span>
                   </label>
@@ -714,7 +714,7 @@ export default function FilterBar({
                     (loc) => loc !== "Asheville" && loc !== "Online"
                   ).length > 0 && (
                     <>
-                      <div className="border-t border-gray-100 my-1.5" />
+                      <div className="border-t border-gray-100 dark:border-gray-700 my-1.5" />
                       {availableLocations
                         .filter(
                           (loc) => loc !== "Asheville" && loc !== "Online"
@@ -722,7 +722,7 @@ export default function FilterBar({
                         .map((location) => (
                           <label
                             key={location}
-                            className="flex items-center gap-2 px-2 py-1.5 rounded hover:bg-gray-50 cursor-pointer"
+                            className="flex items-center gap-2 px-2 py-1.5 rounded hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer"
                           >
                             <input
                               type="checkbox"
@@ -730,7 +730,7 @@ export default function FilterBar({
                               onChange={() => toggleLocation(location)}
                               className="w-4 h-4 text-brand-600 rounded border-gray-300 focus:ring-brand-500"
                             />
-                            <span className="text-sm text-gray-700">
+                            <span className="text-sm text-gray-700 dark:text-gray-200">
                               {location}
                             </span>
                           </label>
@@ -741,29 +741,29 @@ export default function FilterBar({
                   {/* Online option at the end */}
                   {availableLocations.includes("Online") && (
                     <>
-                      <div className="border-t border-gray-100 my-1.5" />
-                      <label className="flex items-center gap-2 px-2 py-1.5 rounded hover:bg-gray-50 cursor-pointer">
+                      <div className="border-t border-gray-100 dark:border-gray-700 my-1.5" />
+                      <label className="flex items-center gap-2 px-2 py-1.5 rounded hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer">
                         <input
                           type="checkbox"
                           checked={localSelectedLocations.includes("Online")}
                           onChange={() => toggleLocation("Online")}
                           className="w-4 h-4 text-brand-600 rounded border-gray-300 focus:ring-brand-500"
                         />
-                        <span className="text-sm text-gray-700">Online</span>
+                        <span className="text-sm text-gray-700 dark:text-gray-200">Online</span>
                       </label>
                     </>
                   )}
                 </div>
 
                 {localSelectedLocations.length > 0 && (
-                  <div className="px-3 py-2 border-t border-gray-100 bg-gray-50 flex items-center justify-between">
-                    <span className="text-xs text-gray-500">
+                  <div className="px-3 py-2 border-t border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 flex items-center justify-between">
+                    <span className="text-xs text-gray-500 dark:text-gray-400">
                       {localSelectedLocations.length} location
                       {localSelectedLocations.length !== 1 ? "s" : ""} selected
                     </span>
                     <button
                       onClick={deselectAllLocations}
-                      className="text-xs text-brand-600 hover:text-brand-800 cursor-pointer"
+                      className="text-xs text-brand-600 dark:text-brand-400 hover:text-brand-800 dark:hover:text-brand-300 cursor-pointer"
                     >
                       Clear
                     </button>
@@ -797,32 +797,32 @@ export default function FilterBar({
 
             {isTagsOpen && (
               <div
-                className={`absolute top-full mt-1 z-50 bg-white border border-gray-200 rounded-lg shadow-lg w-[260px] xl:w-auto xl:min-w-[280px] xl:max-w-[320px] ${
+                className={`absolute top-full mt-1 z-50 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg w-[260px] xl:w-auto xl:min-w-[280px] xl:max-w-[320px] ${
                   tagsAlign === "left" ? "left-0" : "right-0"
                 }`}
               >
-                <div className="px-3 py-2 border-b border-gray-100">
+                <div className="px-3 py-2 border-b border-gray-100 dark:border-gray-700">
                   <div className="flex items-center justify-between">
                     <div className="flex gap-2">
                       <button
                         onClick={selectAllTags}
-                        className="text-xs text-brand-600 hover:text-brand-800 cursor-pointer"
+                        className="text-xs text-brand-600 dark:text-brand-400 hover:text-brand-800 dark:hover:text-brand-300 cursor-pointer"
                       >
                         Select All
                       </button>
-                      <span className="text-gray-300">|</span>
+                      <span className="text-gray-300 dark:text-gray-600">|</span>
                       <button
                         onClick={deselectAllTags}
-                        className="text-xs text-brand-600 hover:text-brand-800 cursor-pointer"
+                        className="text-xs text-brand-600 dark:text-brand-400 hover:text-brand-800 dark:hover:text-brand-300 cursor-pointer"
                       >
                         Deselect All
                       </button>
                     </div>
                   </div>
-                  <p className="text-xs text-gray-400 mt-1">
+                  <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">
                     None selected = show all
                   </p>
-                  <p className="text-xs text-gray-400 mt-1">
+                  <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">
                     1 click to include, 2 to exclude, 3 to clear
                   </p>
                 </div>
@@ -830,7 +830,7 @@ export default function FilterBar({
                 <div className="max-h-80 overflow-y-auto">
                   {groupedTags.length === 0 &&
                   uncategorizedTags.length === 0 ? (
-                    <p className="text-sm text-gray-500 px-3 py-2">
+                    <p className="text-sm text-gray-500 dark:text-gray-400 px-3 py-2">
                       No tags available
                     </p>
                   ) : (
@@ -838,21 +838,21 @@ export default function FilterBar({
                       {groupedTags.map((category) => (
                         <div
                           key={category.name}
-                          className="border-b border-gray-50 last:border-b-0"
+                          className="border-b border-gray-50 dark:border-gray-700 last:border-b-0"
                         >
                           <button
                             onClick={() => toggleCategory(category.name)}
-                            className="w-full flex items-center justify-between px-3 py-2 hover:bg-gray-50 text-left"
+                            className="w-full flex items-center justify-between px-3 py-2 hover:bg-gray-50 dark:hover:bg-gray-700 text-left"
                           >
-                            <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                            <span className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                               {category.name}
                             </span>
                             {expandedCategories.has(category.name) ? (
-                              <ChevronUp size={14} className="text-gray-400" />
+                              <ChevronUp size={14} className="text-gray-400 dark:text-gray-500" />
                             ) : (
                               <ChevronDown
                                 size={14}
-                                className="text-gray-400"
+                                className="text-gray-400 dark:text-gray-500"
                               />
                             )}
                           </button>
@@ -872,20 +872,20 @@ export default function FilterBar({
                       ))}
 
                       {uncategorizedTags.length > 0 && (
-                        <div className="border-b border-gray-50 last:border-b-0">
+                        <div className="border-b border-gray-50 dark:border-gray-700 last:border-b-0">
                           <button
                             onClick={() => toggleCategory("Uncategorized")}
-                            className="w-full flex items-center justify-between px-3 py-2 hover:bg-gray-50 text-left"
+                            className="w-full flex items-center justify-between px-3 py-2 hover:bg-gray-50 dark:hover:bg-gray-700 text-left"
                           >
-                            <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                            <span className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                               Other
                             </span>
                             {expandedCategories.has("Uncategorized") ? (
-                              <ChevronUp size={14} className="text-gray-400" />
+                              <ChevronUp size={14} className="text-gray-400 dark:text-gray-500" />
                             ) : (
                               <ChevronDown
                                 size={14}
-                                className="text-gray-400"
+                                className="text-gray-400 dark:text-gray-500"
                               />
                             )}
                           </button>
@@ -908,10 +908,10 @@ export default function FilterBar({
                 </div>
 
                 {activeTagCount > 0 && (
-                  <div className="px-3 py-2 border-t border-gray-100 bg-gray-50 flex items-center justify-between">
-                    <span className="text-xs text-gray-500">
+                  <div className="px-3 py-2 border-t border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 flex items-center justify-between">
+                    <span className="text-xs text-gray-500 dark:text-gray-400">
                       {localTagFilters.include.length > 0 && (
-                        <span className="text-green-700">
+                        <span className="text-green-700 dark:text-green-400">
                           {localTagFilters.include.length} included
                         </span>
                       )}
@@ -919,14 +919,14 @@ export default function FilterBar({
                         localTagFilters.exclude.length > 0 &&
                         ", "}
                       {localTagFilters.exclude.length > 0 && (
-                        <span className="text-red-700">
+                        <span className="text-red-700 dark:text-red-400">
                           {localTagFilters.exclude.length} excluded
                         </span>
                       )}
                     </span>
                     <button
                       onClick={deselectAllTags}
-                      className="text-xs text-brand-600 hover:text-brand-800 cursor-pointer"
+                      className="text-xs text-brand-600 dark:text-brand-400 hover:text-brand-800 dark:hover:text-brand-300 cursor-pointer"
                     >
                       Clear
                     </button>

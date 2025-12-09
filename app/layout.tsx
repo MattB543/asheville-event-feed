@@ -116,9 +116,10 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
+  colorScheme: "light dark",
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "#0871aa" },
-    { media: "(prefers-color-scheme: dark)", color: "#0871aa" },
+    { media: "(prefers-color-scheme: dark)", color: "#0a0a0a" },
   ],
   width: "device-width",
   initialScale: 1,
@@ -131,7 +132,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <JsonLd />
       </head>

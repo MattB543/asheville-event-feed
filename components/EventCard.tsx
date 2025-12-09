@@ -26,6 +26,7 @@ interface EventCardProps {
     imageUrl: string | null;
     url: string;
     tags?: string[] | null;
+    timeUnknown?: boolean;
   };
   onHide: (title: string, organizer: string | null) => void;
   onBlockHost: (host: string) => void;
@@ -72,14 +73,23 @@ export default function EventCard({
       ? cleanedDescription.slice(0, 310).trimEnd() + "..."
       : cleanedDescription;
 
-  const formatDate = (date: Date) => {
-    return new Intl.DateTimeFormat("en-US", {
+  const formatDate = (date: Date, timeUnknown?: boolean) => {
+    const dateOnly = new Intl.DateTimeFormat("en-US", {
       weekday: "short",
       month: "short",
       day: "numeric",
+    }).format(new Date(date));
+
+    if (timeUnknown) {
+      return `${dateOnly}, ???`;
+    }
+
+    const time = new Intl.DateTimeFormat("en-US", {
       hour: "numeric",
       minute: "2-digit",
     }).format(new Date(date));
+
+    return `${dateOnly}, ${time}`;
   };
 
   const getSourceUrl = () => {
@@ -121,8 +131,8 @@ export default function EventCard({
         grid-cols-1
         sm:grid-cols-[192px_1fr] sm:gap-4 sm:px-5
         xl:grid-cols-[192px_384px_1fr] xl:grid-rows-[1fr_auto]
-        ${hideBorder ? "" : "border-b border-gray-200"}
-        ${isNewlyHidden ? "bg-gray-200 opacity-40" : "bg-white hover:bg-gray-50"}`}
+        ${hideBorder ? "" : "border-b border-gray-200 dark:border-gray-700"}
+        ${isNewlyHidden ? "bg-gray-200 dark:bg-gray-700 opacity-40" : "bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800"}`}
     >
       {/* Hidden banner - outside the opacity container */}
       {isNewlyHidden && (
@@ -130,7 +140,7 @@ export default function EventCard({
           className="absolute inset-0 flex items-center justify-center z-10"
           style={{ opacity: 1 / 0.4 }}
         >
-          <span className="bg-gray-800 text-white text-xs px-3 py-1.5 rounded-full font-medium shadow-lg pointer-events-none">
+          <span className="bg-gray-800 dark:bg-gray-200 text-white dark:text-gray-900 text-xs px-3 py-1.5 rounded-full font-medium shadow-lg pointer-events-none">
             Hidden — this title
             {event.organizer ? ` + "${event.organizer}"` : ""} is added to your
             filter
@@ -139,7 +149,7 @@ export default function EventCard({
       )}
 
       {/* Image */}
-      <div className="relative w-full h-40 sm:h-32 xl:row-span-2 bg-gray-200 rounded overflow-hidden">
+      <div className="relative w-full h-40 sm:h-32 xl:row-span-2 bg-gray-200 dark:bg-gray-700 rounded overflow-hidden">
         {!imgError && event.imageUrl ? (
           <Image
             src={event.imageUrl}
@@ -151,7 +161,7 @@ export default function EventCard({
             referrerPolicy="no-referrer"
           />
         ) : (
-          <div className="flex items-center justify-center h-full text-gray-400">
+          <div className="flex items-center justify-center h-full text-gray-400 dark:text-gray-500">
             <Calendar size={32} />
           </div>
         )}
@@ -160,7 +170,7 @@ export default function EventCard({
       {/* Metadata: Title, Date, Location, Tags */}
       <div className="flex flex-col justify-between xl:row-span-2 xl:h-32">
         <div>
-          <h3 className="text-base font-bold text-brand-600 leading-tight">
+          <h3 className="text-base font-bold text-brand-600 dark:text-brand-400 leading-tight">
             <a
               href={event.url}
               target="_blank"
@@ -171,10 +181,10 @@ export default function EventCard({
             </a>
           </h3>
 
-          <div className="text-xs text-gray-900 font-medium mt-2 sm:mt-1">
-            {formatDate(event.startDate)}
+          <div className="text-xs text-gray-900 dark:text-gray-100 font-medium mt-2 sm:mt-1">
+            {formatDate(event.startDate, event.timeUnknown)}
           </div>
-          <div className="text-xs text-gray-500 mt-2">
+          <div className="text-xs text-gray-500 dark:text-gray-400 mt-2">
             {event.organizer && event.location
               ? `${event.organizer} - ${event.location}`
               : event.organizer || event.location || "Online"}
@@ -186,8 +196,8 @@ export default function EventCard({
           <span
             className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-bold border ${
               displayPrice === "Free"
-                ? "bg-green-50 text-green-700 border-green-200"
-                : "bg-gray-50 text-gray-700 border-gray-200"
+                ? "bg-green-50 dark:bg-green-950/50 text-green-700 dark:text-green-400 border-green-200 dark:border-green-800"
+                : "bg-gray-50 dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-gray-200 dark:border-gray-600"
             }`}
           >
             {displayPrice}
@@ -198,7 +208,7 @@ export default function EventCard({
             event.tags.map((tag) => (
               <span
                 key={tag}
-                className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-brand-50 text-brand-700 border border-brand-100"
+                className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-brand-50 dark:bg-brand-950/50 text-brand-700 dark:text-brand-300 border border-brand-100 dark:border-brand-800"
               >
                 {tag}
               </span>
@@ -208,12 +218,12 @@ export default function EventCard({
 
       {/* Description - Mobile version (210 chars) */}
       <div className="sm:hidden">
-        <p className="text-sm text-gray-600 leading-relaxed">
+        <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
           {truncatedDescriptionMobile}
           {needsTruncationMobile && (
             <button
               onClick={() => setIsExpanded(!isExpanded)}
-              className="text-xs text-brand-600 hover:text-brand-700 font-medium ml-1 cursor-pointer"
+              className="text-xs text-brand-600 dark:text-brand-400 hover:text-brand-700 dark:hover:text-brand-300 font-medium ml-1 cursor-pointer"
             >
               {isExpanded ? "View less" : "View more"}
             </button>
@@ -223,12 +233,12 @@ export default function EventCard({
 
       {/* Description - Tablet/Desktop version (310 chars) */}
       <div className="hidden sm:block sm:col-span-2 xl:col-span-1 xl:col-start-3">
-        <p className="text-sm text-gray-600 leading-relaxed">
+        <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
           {truncatedDescriptionTablet}
           {needsTruncationTablet && (
             <button
               onClick={() => setIsExpanded(!isExpanded)}
-              className="text-xs text-brand-600 hover:text-brand-700 font-medium ml-1 cursor-pointer"
+              className="text-xs text-brand-600 dark:text-brand-400 hover:text-brand-700 dark:hover:text-brand-300 font-medium ml-1 cursor-pointer"
             >
               {isExpanded ? "View less" : "View more"}
             </button>
@@ -242,7 +252,7 @@ export default function EventCard({
           href={generateCalendarUrlForEvent(event)}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs text-gray-600 hover:bg-brand-50 hover:text-brand-600 rounded border border-gray-200 cursor-pointer"
+          className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs text-gray-600 dark:text-gray-400 hover:bg-brand-50 dark:hover:bg-brand-950/50 hover:text-brand-600 dark:hover:text-brand-400 rounded border border-gray-200 dark:border-gray-700 cursor-pointer"
           title="Add to Google Calendar"
         >
           <CalendarPlus2 size={14} />
@@ -251,7 +261,7 @@ export default function EventCard({
         </a>
         <button
           onClick={() => onHide(event.title, event.organizer)}
-          className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs text-gray-600 hover:bg-red-50 hover:text-red-600 rounded border border-gray-200 cursor-pointer"
+          className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs text-gray-600 dark:text-gray-400 hover:bg-red-50 dark:hover:bg-red-950/50 hover:text-red-600 dark:hover:text-red-400 rounded border border-gray-200 dark:border-gray-700 cursor-pointer"
           title="Hide this event"
           disabled={isNewlyHidden}
         >
@@ -261,7 +271,7 @@ export default function EventCard({
         {event.organizer && (
           <button
             onClick={() => onBlockHost(event.organizer!)}
-            className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs text-gray-600 hover:bg-red-50 hover:text-red-600 rounded border border-gray-200 cursor-pointer"
+            className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs text-gray-600 dark:text-gray-400 hover:bg-red-50 dark:hover:bg-red-950/50 hover:text-red-600 dark:hover:text-red-400 rounded border border-gray-200 dark:border-gray-700 cursor-pointer"
             title={`Block events from ${event.organizer}`}
           >
             <Ban size={14} />
@@ -272,7 +282,7 @@ export default function EventCard({
           href={getSourceUrl()}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs text-gray-600 hover:bg-gray-100 rounded border border-gray-200 cursor-pointer"
+          className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded border border-gray-200 dark:border-gray-700 cursor-pointer"
           title="View Source Homepage"
         >
           <ExternalLink size={14} />

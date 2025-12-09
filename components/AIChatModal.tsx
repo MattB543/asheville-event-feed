@@ -409,18 +409,18 @@ export default function AIChatModal({
 
   return (
     <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-      <div className="bg-white rounded-xl shadow-xl w-full max-w-2xl h-[80vh] max-h-[600px] flex flex-col">
+      <div className="bg-white dark:bg-gray-900 rounded-xl shadow-xl w-full max-w-2xl h-[80vh] max-h-[600px] flex flex-col">
         {/* Header */}
-        <div className="flex justify-between items-center p-4 border-b border-gray-200">
+        <div className="flex justify-between items-center p-4 border-b border-gray-200 dark:border-gray-700">
           <div className="flex items-center gap-2">
-            <Sparkles className="text-brand-600" size={20} />
-            <h2 className="text-lg font-semibold text-gray-900">
+            <Sparkles className="text-brand-600 dark:text-brand-400" size={20} />
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
               Ask AI about events
             </h2>
           </div>
           <button
             onClick={onClose}
-            className="text-gray-400 hover:text-gray-600 p-1 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer"
+            className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 p-1 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors cursor-pointer"
           >
             <X size={24} />
           </button>
@@ -441,9 +441,9 @@ export default function AIChatModal({
             >
               {message.role === "system" ? (
                 // System message (date range indicator)
-                <div className="flex items-center gap-2 px-3 py-1.5 bg-blue-50 rounded-full">
-                  <Calendar size={14} className="text-blue-500" />
-                  <span className="text-xs text-blue-600 italic">
+                <div className="flex items-center gap-2 px-3 py-1.5 bg-blue-50 dark:bg-blue-950/50 rounded-full">
+                  <Calendar size={14} className="text-blue-500 dark:text-blue-400" />
+                  <span className="text-xs text-blue-600 dark:text-blue-400 italic">
                     {message.content}
                   </span>
                 </div>
@@ -452,7 +452,7 @@ export default function AIChatModal({
                   className={`max-w-[85%] rounded-lg px-4 py-2 ${
                     message.role === "user"
                       ? "bg-brand-600 text-white"
-                      : "bg-gray-100 text-gray-800"
+                      : "bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200"
                   }`}
                 >
                   {message.role === "user" ? (
@@ -460,7 +460,7 @@ export default function AIChatModal({
                       {message.content}
                     </div>
                   ) : (
-                    <div className="text-sm prose prose-sm max-w-none prose-headings:text-gray-900 prose-headings:font-semibold prose-headings:mt-3 prose-headings:mb-2 prose-p:my-2 prose-ul:my-2 prose-ol:my-2 prose-li:my-0.5 prose-hr:my-3 prose-hr:border-gray-300 prose-strong:text-gray-900">
+                    <div className="text-sm prose prose-sm max-w-none prose-headings:text-gray-900 dark:prose-headings:text-gray-100 prose-headings:font-semibold prose-headings:mt-3 prose-headings:mb-2 prose-p:my-2 prose-ul:my-2 prose-ol:my-2 prose-li:my-0.5 prose-hr:my-3 prose-hr:border-gray-300 dark:prose-hr:border-gray-600 prose-strong:text-gray-900 dark:prose-strong:text-gray-100">
                       <ReactMarkdown
                         remarkPlugins={[remarkBreaks]}
                         components={{
@@ -469,7 +469,7 @@ export default function AIChatModal({
                               href={href}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="text-brand-600 hover:text-brand-800 no-underline hover:underline"
+                              className="text-brand-600 dark:text-brand-400 hover:text-brand-800 dark:hover:text-brand-300 no-underline hover:underline"
                             >
                               {children}
                             </a>
@@ -487,8 +487,8 @@ export default function AIChatModal({
 
           {isLoading && !isStreaming && (
             <div className="flex justify-start">
-              <div className="bg-gray-100 rounded-lg px-4 py-3">
-                <div className="flex items-center gap-2 text-gray-500">
+              <div className="bg-gray-100 dark:bg-gray-800 rounded-lg px-4 py-3">
+                <div className="flex items-center gap-2 text-gray-500 dark:text-gray-400">
                   <Loader2 className="animate-spin" size={16} />
                   <span className="text-sm">
                     {LOADING_MESSAGES[loadingMessageIndex]}
@@ -502,7 +502,7 @@ export default function AIChatModal({
             <div className="flex justify-center">
               <button
                 onClick={() => sendMessage()}
-                className="text-sm text-brand-600 hover:text-brand-800 underline cursor-pointer"
+                className="text-sm text-brand-600 dark:text-brand-400 hover:text-brand-800 dark:hover:text-brand-300 underline cursor-pointer"
               >
                 Try again
               </button>
@@ -513,7 +513,7 @@ export default function AIChatModal({
         </div>
 
         {/* Input */}
-        <div className="p-4 border-t border-gray-200">
+        <div className="p-4 border-t border-gray-200 dark:border-gray-700">
           {/* Suggestion buttons */}
           {showSuggestions && (
             <div className="flex flex-wrap gap-2 mb-3">
@@ -521,7 +521,7 @@ export default function AIChatModal({
                 <button
                   key={suggestion}
                   onClick={() => handleSuggestionClick(suggestion)}
-                  className="px-3 py-1.5 text-sm bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-full transition-colors cursor-pointer"
+                  className="px-3 py-1.5 text-sm bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full transition-colors cursor-pointer"
                 >
                   {suggestion}
                 </button>
@@ -537,7 +537,7 @@ export default function AIChatModal({
               onKeyDown={handleKeyDown}
               placeholder="Ask about events..."
               disabled={isLoading || isStreaming}
-              className="flex-1 px-4 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none disabled:bg-gray-50 disabled:text-gray-400"
+              className="flex-1 px-4 py-2 text-sm border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none disabled:bg-gray-50 dark:disabled:bg-gray-900 disabled:text-gray-400"
             />
             {isStreaming ? (
               <button
@@ -551,13 +551,13 @@ export default function AIChatModal({
               <button
                 onClick={() => sendMessage()}
                 disabled={!input.trim() || isLoading}
-                className="px-4 py-2 bg-brand-600 text-white rounded-lg hover:bg-brand-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors cursor-pointer"
+                className="px-4 py-2 bg-brand-600 text-white rounded-lg hover:bg-brand-700 disabled:bg-gray-300 dark:disabled:bg-gray-700 disabled:cursor-not-allowed transition-colors cursor-pointer"
               >
                 <Send size={18} />
               </button>
             )}
           </div>
-          <p className="text-xs text-gray-400 mt-2 text-center">
+          <p className="text-xs text-gray-400 dark:text-gray-500 mt-2 text-center">
             AI searches {allEvents.length} events based on your query
           </p>
         </div>

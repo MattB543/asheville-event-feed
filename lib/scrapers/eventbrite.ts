@@ -20,6 +20,61 @@ const API_HEADERS = {
   "Referer": "https://www.eventbrite.com/d/nc--asheville/all-events/",
 };
 
+/**
+ * Parse a local datetime string in a specific timezone and return a UTC Date.
+ * This handles the case where Eventbrite gives us "2025-11-29T08:00:00" in "America/New_York"
+ * and we need to convert it to the correct UTC timestamp.
+ */
+function parseLocalDateInTimezone(localDateStr: string, timezone: string): Date {
+  // Parse the components from the local date string
+  const match = localDateStr.match(/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})(?::(\d{2}))?/);
+  if (!match) {
+    return new Date(localDateStr); // Fallback to default parsing
+  }
+
+  const [, year, month, day, hour, minute, second = '00'] = match;
+
+  // Strategy: Find the UTC offset for this timezone on this date by comparing
+  // a known UTC time to how it displays in the target timezone
+
+  // Create a reference point at noon UTC on the target date
+  const refUtc = new Date(Date.UTC(parseInt(year), parseInt(month) - 1, parseInt(day), 12, 0, 0));
+
+  // Format this UTC time in the target timezone to see what local time it shows
+  const formatter = new Intl.DateTimeFormat('en-US', {
+    timeZone: timezone,
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false,
+  });
+
+  const parts = formatter.formatToParts(refUtc);
+  const getPart = (type: string) => parts.find(p => p.type === type)?.value || '00';
+
+  // Parse the local representation
+  const localHour = parseInt(getPart('hour'));
+
+  // Calculate offset: if 12:00 UTC shows as 07:00 local, offset is -5 hours (UTC-5)
+  // offsetHours = localHour - 12 (in this case, 7 - 12 = -5)
+  const offsetHours = localHour - 12;
+
+  // Now create the correct UTC time by subtracting the offset from the local time
+  // If local is 08:00 and offset is -5, UTC = 08:00 - (-5) = 13:00
+  const utcTime = new Date(Date.UTC(
+    parseInt(year),
+    parseInt(month) - 1,
+    parseInt(day),
+    parseInt(hour) - offsetHours,
+    parseInt(minute),
+    parseInt(second)
+  ));
+
+  return utcTime;
+}
+
 export async function scrapeEventbrite(maxPages: number = 30): Promise<ScrapedEvent[]> {
   const BROWSE_URL = "https://www.eventbrite.com/d/nc--asheville/all-events/";
   const API_BASE = "https://www.eventbrite.com/api/v3/destination/events/";
@@ -181,22 +236,35 @@ function formatEventbriteEvent(ev: EventbriteApiEvent): ScrapedEvent {
   const title = typeof ev.name === 'string' ? ev.name : ev.name?.text || "Untitled Event";
   const description = typeof ev.summary === 'string' ? ev.summary : ev.summary?.text || "";
 
-  // Combine start_date and start_time into ISO-ish format
-  let startDateStr = "";
-  if (ev.start && ev.start.local) {
-      startDateStr = ev.start.local;
+  // Parse start date with proper timezone handling
+  // Eventbrite API returns either:
+  // 1. start.local - already a local datetime string
+  // 2. start_date + start_time + timezone - separate fields that need combining
+  let startDate: Date;
+
+  if (ev.start?.local) {
+    // start.local is in format "2025-12-13T19:00:00" - local time without timezone
+    // We need to interpret this in the event's timezone
+    const timezone = ev.start.timezone || ev.timezone || 'America/New_York';
+    startDate = parseLocalDateInTimezone(ev.start.local, timezone);
   } else if (ev.start_date && ev.start_time) {
-      startDateStr = `${ev.start_date}T${ev.start_time}`;
+    // Combine date and time, then interpret in the event's timezone
+    const localDateStr = `${ev.start_date}T${ev.start_time}:00`;
+    const timezone = ev.timezone || 'America/New_York';
+    startDate = parseLocalDateInTimezone(localDateStr, timezone);
   } else if (ev.start_date) {
-      startDateStr = ev.start_date;
+    // Date only - default to noon in local timezone
+    const localDateStr = `${ev.start_date}T12:00:00`;
+    const timezone = ev.timezone || 'America/New_York';
+    startDate = parseLocalDateInTimezone(localDateStr, timezone);
+  } else {
+    console.warn(`[Eventbrite] No date for event "${title}" (ID: ${ev.id}), using current date as fallback`);
+    startDate = new Date();
   }
 
-  // Validate date - use current date as fallback to avoid Invalid Date
-  const parsedDate = new Date(startDateStr);
-  const startDate = isNaN(parsedDate.getTime()) ? new Date() : parsedDate;
-
-  if (isNaN(parsedDate.getTime())) {
+  if (isNaN(startDate.getTime())) {
     console.warn(`[Eventbrite] Invalid date for event "${title}" (ID: ${ev.id}), using current date as fallback`);
+    startDate = new Date();
   }
 
   // Use venue name if different from city, otherwise use organizer name

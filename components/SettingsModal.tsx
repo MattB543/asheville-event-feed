@@ -43,12 +43,12 @@ export default function SettingsModal({
 
   return (
     <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-      <div className="bg-white rounded-xl shadow-xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
-        <div className="flex justify-between items-center p-6 border-b">
-          <h2 className="text-xl font-bold text-gray-900">Feed Settings</h2>
+      <div className="bg-white dark:bg-gray-900 rounded-xl shadow-xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
+        <div className="flex justify-between items-center p-6 border-b border-gray-200 dark:border-gray-700">
+          <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">Feed Settings</h2>
           <button
             onClick={onClose}
-            className="text-gray-400 hover:text-gray-600 p-1 rounded-lg hover:bg-gray-100 transition-colors"
+            className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 p-1 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
           >
             <X size={24} />
           </button>
@@ -56,11 +56,11 @@ export default function SettingsModal({
 
         <div className="p-6 space-y-6">
           {/* Default Filters Section */}
-          <div className="p-4 bg-amber-50 border border-amber-200 rounded-lg">
+          <div className="p-4 bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 rounded-lg">
             <div className="flex items-center justify-between">
               <div className="flex-1">
-                <h3 className="font-medium text-amber-900">Default Spam Filter</h3>
-                <p className="text-sm text-amber-700 mt-1">
+                <h3 className="font-medium text-amber-900 dark:text-amber-200">Default Spam Filter</h3>
+                <p className="text-sm text-amber-700 dark:text-amber-400 mt-1">
                   Automatically hides certification training, self-guided tours, and
                   other low-quality events.
                 </p>
@@ -72,7 +72,7 @@ export default function SettingsModal({
                   onChange={(e) => onToggleDefaultFilters(e.target.checked)}
                   className="sr-only peer"
                 />
-                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-amber-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-amber-500"></div>
+                <div className="w-11 h-6 bg-gray-200 dark:bg-gray-700 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-amber-300 dark:peer-focus:ring-amber-800 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-amber-500"></div>
               </label>
             </div>
 
@@ -80,7 +80,7 @@ export default function SettingsModal({
               <div className="mt-3">
                 <button
                   onClick={() => setShowDefaultKeywords(!showDefaultKeywords)}
-                  className="flex items-center gap-1 text-sm text-amber-700 hover:text-amber-900 cursor-pointer"
+                  className="flex items-center gap-1 text-sm text-amber-700 dark:text-amber-400 hover:text-amber-900 dark:hover:text-amber-300 cursor-pointer"
                 >
                   {showDefaultKeywords ? (
                     <ChevronUp size={16} />
@@ -92,12 +92,12 @@ export default function SettingsModal({
                 </button>
 
                 {showDefaultKeywords && (
-                  <div className="mt-2 max-h-40 overflow-y-auto p-2 bg-white rounded border border-amber-200 text-xs text-gray-600">
+                  <div className="mt-2 max-h-40 overflow-y-auto p-2 bg-white dark:bg-gray-800 rounded border border-amber-200 dark:border-amber-800 text-xs text-gray-600 dark:text-gray-300">
                     <div className="flex flex-wrap gap-1">
                       {defaultFilterKeywords.map((kw, i) => (
                         <span
                           key={i}
-                          className="inline-block bg-amber-100 text-amber-800 px-2 py-0.5 rounded"
+                          className="inline-block bg-amber-100 dark:bg-amber-900/50 text-amber-800 dark:text-amber-300 px-2 py-0.5 rounded"
                         >
                           {kw}
                         </span>
@@ -117,7 +117,7 @@ export default function SettingsModal({
               onChange={onUpdateKeywords}
               placeholder="Type keyword and press Enter..."
             />
-            <p className="mt-1 text-xs text-gray-500">
+            <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
               Events with these words in the title will be hidden
             </p>
           </div>
@@ -130,21 +130,21 @@ export default function SettingsModal({
               onChange={onUpdateHosts}
               placeholder="Type host name and press Enter..."
             />
-            <p className="mt-1 text-xs text-gray-500">
+            <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
               All events from these organizers will be hidden
             </p>
           </div>
 
           {/* Hidden Events */}
-          <div className="p-4 bg-gray-50 rounded-lg">
+          <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
             <div className="flex items-center justify-between">
-              <span className="text-sm text-gray-600">
+              <span className="text-sm text-gray-600 dark:text-gray-300">
                 You have hidden <strong>{hiddenEvents.length}</strong> event pattern{hiddenEvents.length !== 1 ? 's' : ''}.
               </span>
               {hiddenEvents.length > 0 && (
                 <button
                   onClick={() => onUpdateHiddenEvents([])}
-                  className="flex items-center gap-2 text-red-600 hover:text-red-700 text-sm font-medium cursor-pointer"
+                  className="flex items-center gap-2 text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 text-sm font-medium cursor-pointer"
                 >
                   <Trash2 size={16} />
                   Clear All
@@ -156,7 +156,7 @@ export default function SettingsModal({
               <div className="mt-3">
                 <button
                   onClick={() => setShowHiddenEvents(!showHiddenEvents)}
-                  className="flex items-center gap-1 text-sm text-gray-500 hover:text-gray-700 cursor-pointer"
+                  className="flex items-center gap-1 text-sm text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 cursor-pointer"
                 >
                   {showHiddenEvents ? (
                     <ChevronUp size={16} />
@@ -171,14 +171,14 @@ export default function SettingsModal({
                     {hiddenEvents.map((event, i) => (
                       <div
                         key={i}
-                        className="flex items-center justify-between p-2 bg-white rounded border border-gray-200 text-xs"
+                        className="flex items-center justify-between p-2 bg-white dark:bg-gray-900 rounded border border-gray-200 dark:border-gray-700 text-xs"
                       >
                         <div className="flex-1 min-w-0">
-                          <div className="font-medium text-gray-700 truncate">
+                          <div className="font-medium text-gray-700 dark:text-gray-200 truncate">
                             {event.title}
                           </div>
                           {event.organizer && (
-                            <div className="text-gray-500 truncate">
+                            <div className="text-gray-500 dark:text-gray-400 truncate">
                               by {event.organizer}
                             </div>
                           )}
@@ -189,7 +189,7 @@ export default function SettingsModal({
                               hiddenEvents.filter((_, idx) => idx !== i)
                             );
                           }}
-                          className="ml-2 p-1 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded cursor-pointer"
+                          className="ml-2 p-1 text-gray-400 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/50 rounded cursor-pointer"
                           title="Unhide this event"
                         >
                           <X size={14} />
@@ -200,13 +200,13 @@ export default function SettingsModal({
                 )}
               </div>
             )}
-            <p className="mt-2 text-xs text-gray-500">
+            <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
               Hidden events are matched by title + organizer, so recurring events stay hidden.
             </p>
           </div>
         </div>
 
-        <div className="p-6 border-t bg-gray-50 flex justify-end">
+        <div className="p-6 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 flex justify-end">
           <button
             onClick={onClose}
             className="px-4 py-2 bg-brand-600 text-white hover:bg-brand-700 rounded-lg transition-colors font-medium cursor-pointer"

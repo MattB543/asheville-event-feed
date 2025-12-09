@@ -115,16 +115,33 @@ function formatAvlEvent(ev: AvlTodayResponse['Value'][0]): ScrapedEvent {
     ? ev.PId.toString()
     : ev.Id || `avl-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
 
+  // Parse the date and check if time is unknown (midnight in local time = date-only from source)
+  const rawDate = new Date(ev.StartUTC || ev.DateStart);
+
+  // Check if the time is midnight in Eastern time (indicates date-only)
+  // Midnight EST = 05:00 UTC, Midnight EDT = 04:00 UTC
+  const hours = rawDate.getUTCHours();
+  const minutes = rawDate.getUTCMinutes();
+  const isTimeUnknown = (hours === 4 || hours === 5) && minutes === 0;
+
+  // If time is unknown, default to 9 AM Eastern (14:00 or 13:00 UTC)
+  let startDate = rawDate;
+  if (isTimeUnknown) {
+    // Set to 9 AM Eastern - add 9 hours from midnight
+    startDate = new Date(rawDate.getTime() + 9 * 60 * 60 * 1000);
+  }
+
   return {
     sourceId,
     source: 'AVL_TODAY',
     title: ev.Name,
     description: ev.Description,
-    startDate: new Date(ev.StartUTC || ev.DateStart),
+    startDate,
     location: ev.CityState || "Asheville, NC",
     organizer: ev.Venue || "AVL Today",
     price: price,
     url: finalUrl,
     imageUrl: ev.LargeImg || ev.MediumImg || "",
+    timeUnknown: isTimeUnknown,
   };
 }

@@ -1,8 +1,29 @@
 @import "tailwindcss";
 
+/* Enable class-based dark mode for Tailwind v4 */
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
+  /* Tell browsers this site supports both color schemes */
+  color-scheme: light dark;
+
   --background: #ffffff;
   --foreground: #171717;
+}
+
+.dark {
+  color-scheme: dark;
+
+  --background: #0a0a0a;
+  --foreground: #ededed;
+}
+
+/* Smooth theme transitions (applied after initial load to prevent FOUC) */
+html.theme-transition,
+html.theme-transition *,
+html.theme-transition *::before,
+html.theme-transition *::after {
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.15s ease !important;
 }
 
 @theme inline {
@@ -11,21 +32,18 @@
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 
-  /* Brand color: #0871aa */
+  /* Brand color: #0871aa - full scale for light and dark modes */
   --color-brand-50: #e8f4f8;
   --color-brand-100: #c5e3ed;
   --color-brand-200: #9fd0e1;
+  --color-brand-300: #6bbdd4;
+  --color-brand-400: #3aa9c7;
   --color-brand-500: #0a8bbf;
   --color-brand-600: #0871aa;
   --color-brand-700: #065c8a;
   --color-brand-800: #044869;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-brand-900: #033651;
+  --color-brand-950: #021f30;
 }
 
 body {

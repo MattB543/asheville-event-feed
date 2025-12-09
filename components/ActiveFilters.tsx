@@ -2,6 +2,7 @@
 
 import { Sparkles } from "lucide-react";
 import FilterChip from "./ui/FilterChip";
+import { useToast } from "./ui/Toast";
 
 export interface ActiveFilter {
   id: string;
@@ -17,13 +18,43 @@ interface ActiveFiltersProps {
   totalEvents: number;
   filteredCount: number;
   exportParams?: string;
+  shareParams?: string;
   onOpenChat?: () => void;
   isPending?: boolean;
 }
 
-function ExportLinks({ exportParams }: { exportParams?: string }) {
+function ExportLinks({
+  exportParams,
+  shareParams,
+}: {
+  exportParams?: string;
+  shareParams?: string;
+}) {
+  const { showToast } = useToast();
+
+  const handleCopyView = async () => {
+    const url = `${window.location.origin}${window.location.pathname}${shareParams || ""}`;
+    try {
+      await navigator.clipboard.writeText(url);
+      showToast("Link copied to clipboard!");
+    } catch {
+      showToast("Failed to copy link", "error");
+    }
+  };
+
   return (
     <span className="text-gray-400 dark:text-gray-500">
+      {shareParams && (
+        <>
+          {" · "}
+          <button
+            onClick={handleCopyView}
+            className="underline hover:text-gray-600 dark:hover:text-gray-300 cursor-pointer"
+          >
+            Copy View
+          </button>
+        </>
+      )}
       {" · "}
       <a
         href={`/api/export/xml${exportParams || ""}`}
@@ -66,6 +97,7 @@ export default function ActiveFilters({
   totalEvents,
   filteredCount,
   exportParams,
+  shareParams,
   onOpenChat,
   isPending,
 }: ActiveFiltersProps) {
@@ -82,7 +114,7 @@ export default function ActiveFilters({
           ) : (
             <>Showing {totalEvents} events</>
           )}
-          <ExportLinks exportParams={exportParams} />
+          <ExportLinks exportParams={exportParams} shareParams={shareParams} />
         </span>
       </div>
     );
@@ -151,7 +183,7 @@ export default function ActiveFilters({
           ) : (
             <>Showing {filteredCount} of {totalEvents} events</>
           )}
-          <ExportLinks exportParams={exportParams} />
+          <ExportLinks exportParams={exportParams} shareParams={shareParams} />
         </span>
       </div>
     </div>

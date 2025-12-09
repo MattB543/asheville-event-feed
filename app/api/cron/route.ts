@@ -367,13 +367,14 @@ export async function GET(request: Request) {
     // Only duplicates are removed (see deduplication below)
 
     // Deduplication: Remove duplicate events after upsert
-    // Duplicates = same organizer + same time + share significant word in title
+    // Uses multiple methods including venue-based matching for cross-source duplicates
     console.log(`[Cron] Running deduplication...`);
     const allDbEvents = await db
       .select({
         id: events.id,
         title: events.title,
         organizer: events.organizer,
+        location: events.location,
         startDate: events.startDate,
         price: events.price,
         description: events.description,

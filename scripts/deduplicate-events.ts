@@ -13,6 +13,7 @@ async function deduplicateEvents() {
       id: events.id,
       title: events.title,
       organizer: events.organizer,
+      location: events.location,
       startDate: events.startDate,
       price: events.price,
       description: events.description,
@@ -33,9 +34,11 @@ async function deduplicateEvents() {
   console.log("=".repeat(80));
 
   for (const group of duplicateGroups) {
-    console.log("\n📌 KEEPING:");
+    console.log(`\n[Method ${group.method}]`);
+    console.log("📌 KEEPING:");
     console.log(`   Title: ${group.keep.title}`);
     console.log(`   Organizer: ${group.keep.organizer}`);
+    console.log(`   Location: ${group.keep.location || 'N/A'}`);
     console.log(`   Time: ${group.keep.startDate}`);
     console.log(`   Price: ${group.keep.price}`);
     console.log(`   Description length: ${group.keep.description?.length || 0}`);
@@ -44,6 +47,7 @@ async function deduplicateEvents() {
     for (const removed of group.remove) {
       console.log(`   Title: ${removed.title}`);
       console.log(`   Organizer: ${removed.organizer}`);
+      console.log(`   Location: ${removed.location || 'N/A'}`);
       console.log(`   Price: ${removed.price}`);
       console.log(`   Description length: ${removed.description?.length || 0}`);
     }

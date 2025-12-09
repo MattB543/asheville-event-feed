@@ -24,3 +24,35 @@ export const events = pgTable('events', {
   // GIN index for efficient tag array queries (e.g., filtering by tags)
   tagsIdx: index('events_tags_idx').using('gin', table.tags),
 }));
+
+// Submitted events table for user-submitted event suggestions
+export const submittedEvents = pgTable('submitted_events', {
+  id: uuid('id').defaultRandom().primaryKey(),
+
+  // Event details (similar to main events table)
+  title: text('title').notNull(),
+  description: text('description'),
+  startDate: timestamp('start_date', { withTimezone: true }).notNull(),
+  endDate: timestamp('end_date', { withTimezone: true }),
+  location: text('location'),
+  organizer: text('organizer'),
+  price: text('price'),
+  url: text('url'),  // Link to original event page (optional)
+  imageUrl: text('image_url'),
+
+  // Submission metadata
+  submitterEmail: text('submitter_email'),  // Optional contact
+  submitterName: text('submitter_name'),    // Optional name
+  notes: text('notes'),                      // Additional context from submitter
+
+  // Review status
+  status: text('status').default('pending').notNull(),  // 'pending' | 'approved' | 'rejected'
+  reviewedAt: timestamp('reviewed_at'),
+
+  // Tracking
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  source: text('source').default('form').notNull(),  // 'form' | 'api'
+}, (table) => ({
+  statusIdx: index('submitted_events_status_idx').on(table.status),
+  createdAtIdx: index('submitted_events_created_at_idx').on(table.createdAt),
+}));

@@ -74,11 +74,22 @@ export default function EventCard({
       : cleanedDescription;
 
   const formatDate = (date: Date, timeUnknown?: boolean) => {
-    const dateOnly = new Intl.DateTimeFormat("en-US", {
-      weekday: "short",
-      month: "short",
-      day: "numeric",
-    }).format(new Date(date));
+    const eventDate = new Date(date);
+    const today = new Date();
+
+    // Check if the event is today
+    const isToday =
+      eventDate.getFullYear() === today.getFullYear() &&
+      eventDate.getMonth() === today.getMonth() &&
+      eventDate.getDate() === today.getDate();
+
+    const dateOnly = isToday
+      ? "Today"
+      : new Intl.DateTimeFormat("en-US", {
+          weekday: "short",
+          month: "short",
+          day: "numeric",
+        }).format(eventDate);
 
     if (timeUnknown) {
       return `${dateOnly}, ???`;
@@ -87,7 +98,7 @@ export default function EventCard({
     const time = new Intl.DateTimeFormat("en-US", {
       hour: "numeric",
       minute: "2-digit",
-    }).format(new Date(date));
+    }).format(eventDate);
 
     return `${dateOnly}, ${time}`;
   };

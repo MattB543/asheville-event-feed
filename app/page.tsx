@@ -6,6 +6,7 @@ import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { getStartOfTodayEastern } from "@/lib/utils/timezone";
 import InfoBanner from "@/components/InfoBanner";
 import ThemeToggle from "@/components/ThemeToggle";
+import SubmitEventButton from "@/components/SubmitEventButton";
 
 type DbEvent = InferSelectModel<typeof events>;
 
@@ -46,8 +47,8 @@ export default async function Home() {
             alt="AVL GO"
             className="h-[24px] sm:h-[36px] w-auto dark:brightness-0 dark:invert"
           />
-          <div className="flex items-center gap-3 sm:gap-4">
-            <div className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 text-right">
+          <div className="flex items-center gap-2 sm:gap-4">
+            <div className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 text-right hidden sm:block">
               All AVL events aggregated, by{" "}
               <a
                 href="https://mattbrooks.xyz"
@@ -58,6 +59,7 @@ export default async function Home() {
                 mattbrooks.xyz
               </a>
             </div>
+            <SubmitEventButton />
             <ThemeToggle />
           </div>
         </div>

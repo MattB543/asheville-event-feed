@@ -8,9 +8,10 @@ const inter = Inter({ subsets: ["latin"] });
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://avlgo.com";
 const siteName = "AVL GO";
-const siteTitle = "AVL GO - Asheville Events Calendar & Things To Do";
+const siteTitle =
+  "AVL GO - The best Asheville Events Aggregator. Calendar & Things To Do";
 const siteDescription =
-  "Discover events in Asheville, NC. AVL GO aggregates concerts, festivals, food & drink events, outdoor activities, and more from AVL Today, Eventbrite, and Meetup. Find things to do in Asheville today.";
+  "Discover events in Asheville, NC. AVLGO aggregates concerts, food & drink events, outdoor activities, & more from AVL Today, Eventbrite, Meetup, & others";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

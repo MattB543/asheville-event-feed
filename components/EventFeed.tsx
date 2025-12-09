@@ -316,6 +316,98 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
     isLoaded,
   ]);
 
+  // Read URL params on mount (for shared links)
+  useEffect(() => {
+    if (!isLoaded) return;
+
+    const params = new URLSearchParams(window.location.search);
+
+    // Check if any filter params exist in URL
+    const hasUrlFilters =
+      params.has("search") ||
+      params.has("dateFilter") ||
+      params.has("priceFilter") ||
+      params.has("tagsInclude") ||
+      params.has("tagsExclude") ||
+      params.has("locations");
+
+    if (!hasUrlFilters) return;
+
+    // Apply URL params to state (overrides localStorage for shared links)
+    if (params.has("search")) {
+      setSearchInput(params.get("search") || "");
+    }
+
+    if (params.has("dateFilter")) {
+      const df = params.get("dateFilter") as DateFilterType;
+      if (
+        ["all", "today", "tomorrow", "weekend", "dayOfWeek", "custom"].includes(
+          df
+        )
+      ) {
+        setDateFilter(df);
+      }
+    }
+
+    if (params.has("days")) {
+      const days =
+        params
+          .get("days")
+          ?.split(",")
+          .map(Number)
+          .filter((n) => !isNaN(n) && n >= 0 && n <= 6) || [];
+      setSelectedDays(days);
+    }
+
+    if (params.has("dateStart")) {
+      setCustomDateRange({
+        start: params.get("dateStart"),
+        end: params.get("dateEnd"),
+      });
+    }
+
+    if (params.has("priceFilter")) {
+      const pf = params.get("priceFilter") as PriceFilterType;
+      if (["any", "free", "under20", "under100", "custom"].includes(pf)) {
+        setPriceFilter(pf);
+      }
+    }
+
+    if (params.has("maxPrice")) {
+      const mp = parseInt(params.get("maxPrice") || "", 10);
+      if (!isNaN(mp) && mp >= 0) setCustomMaxPrice(mp);
+    }
+
+    if (params.has("tagsInclude") || params.has("tagsExclude")) {
+      setTagFilters({
+        include:
+          params
+            .get("tagsInclude")
+            ?.split(",")
+            .filter(Boolean) || [],
+        exclude:
+          params
+            .get("tagsExclude")
+            ?.split(",")
+            .filter(Boolean) || [],
+      });
+    }
+
+    if (params.has("locations")) {
+      setSelectedLocations(
+        params
+          .get("locations")
+          ?.split(",")
+          .filter(Boolean) || []
+      );
+    }
+
+    if (params.has("useDefaultFilters")) {
+      setUseDefaultFilters(params.get("useDefaultFilters") !== "false");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoaded]); // Only run once after hydration
+
   // Extract available tags from events (sorted by frequency)
   const availableTags = useMemo(() => {
     const tagCounts = new Map<string, number>();
@@ -685,7 +777,7 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
     [blockedHosts, showToast]
   );
 
-  // Build export URL with current filters
+  // Build export URL with current filters (includes personal filters for XML/Markdown export)
   const exportParams = useMemo(() => {
     const params = new URLSearchParams();
 
@@ -735,6 +827,46 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
     selectedLocations,
   ]);
 
+  // Build shareable URL with only public filters (excludes personal blockedHosts/blockedKeywords/hiddenEvents)
+  const shareParams = useMemo(() => {
+    const params = new URLSearchParams();
+
+    if (search) params.set("search", search);
+    if (dateFilter !== "all") params.set("dateFilter", dateFilter);
+    if (dateFilter === "dayOfWeek" && selectedDays.length > 0) {
+      params.set("days", selectedDays.join(","));
+    }
+    if (dateFilter === "custom" && customDateRange.start) {
+      params.set("dateStart", customDateRange.start);
+      if (customDateRange.end) params.set("dateEnd", customDateRange.end);
+    }
+    if (priceFilter !== "any") params.set("priceFilter", priceFilter);
+    if (priceFilter === "custom" && customMaxPrice !== null) {
+      params.set("maxPrice", customMaxPrice.toString());
+    }
+    if (tagFilters.include.length > 0)
+      params.set("tagsInclude", tagFilters.include.join(","));
+    if (tagFilters.exclude.length > 0)
+      params.set("tagsExclude", tagFilters.exclude.join(","));
+    if (selectedLocations.length > 0)
+      params.set("locations", selectedLocations.join(","));
+    // Include useDefaultFilters so shared view has same spam filtering
+    if (!useDefaultFilters) params.set("useDefaultFilters", "false");
+
+    const queryString = params.toString();
+    return queryString ? `?${queryString}` : "";
+  }, [
+    search,
+    dateFilter,
+    customDateRange,
+    selectedDays,
+    priceFilter,
+    customMaxPrice,
+    tagFilters,
+    selectedLocations,
+    useDefaultFilters,
+  ]);
+
   if (!isLoaded) return <EventFeedSkeleton />;
 
   return (
@@ -770,6 +902,7 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
         totalEvents={events.length}
         filteredCount={filteredEvents.length}
         exportParams={exportParams}
+        shareParams={shareParams}
         onOpenChat={() => setIsChatOpen(true)}
         isPending={isFilterPending}
       />

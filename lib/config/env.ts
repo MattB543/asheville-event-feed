@@ -15,6 +15,7 @@ export const env = {
   get GEMINI_IMAGE_MODEL() { return process.env.GEMINI_IMAGE_MODEL; },
   get CRON_SECRET() { return process.env.CRON_SECRET; },
   get OPENROUTER_API_KEY() { return process.env.OPENROUTER_API_KEY; },
+  get SLACK_WEBHOOK() { return process.env.SLACK_WEBHOOK; },
 } as const;
 
 // Helper to check if AI features are enabled
@@ -25,6 +26,11 @@ export function isAIEnabled(): boolean {
 // Helper to check if OpenRouter chat is enabled
 export function isChatEnabled(): boolean {
   return !!env.OPENROUTER_API_KEY;
+}
+
+// Helper to check if Slack notifications are enabled
+export function isSlackEnabled(): boolean {
+  return !!env.SLACK_WEBHOOK;
 }
 
 // Facebook configuration

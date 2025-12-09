@@ -139,6 +139,7 @@ export async function GET(request: Request) {
         id: events.id,
         title: events.title,
         organizer: events.organizer,
+        location: events.location,
         startDate: events.startDate,
         price: events.price,
         description: events.description,

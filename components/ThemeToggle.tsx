@@ -10,12 +10,8 @@ export default function ThemeToggle() {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  // Prevent hydration mismatch and enable smooth transitions after mount
-  useEffect(() => {
-    setMounted(true);
-    // Enable smooth theme transitions after initial load (prevents FOUC)
-    document.documentElement.classList.add("theme-transition");
-  }, []);
+  // Prevent hydration mismatch
+  useEffect(() => setMounted(true), []);
 
   // Close dropdown on outside click
   useEffect(() => {

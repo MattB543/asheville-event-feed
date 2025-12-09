@@ -18,14 +18,6 @@
   --foreground: #ededed;
 }
 
-/* Smooth theme transitions (applied after initial load to prevent FOUC) */
-html.theme-transition,
-html.theme-transition *,
-html.theme-transition *::before,
-html.theme-transition *::after {
-  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.15s ease !important;
-}
-
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);

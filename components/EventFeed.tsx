@@ -1,6 +1,13 @@
 "use client";
 
-import { useState, useMemo, useEffect, useCallback, useDeferredValue, useTransition } from "react";
+import {
+  useState,
+  useMemo,
+  useEffect,
+  useCallback,
+  useDeferredValue,
+  useTransition,
+} from "react";
 import EventCard from "./EventCard";
 import FilterBar, {
   DateFilterType,
@@ -282,7 +289,10 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
       localStorage.setItem("priceFilter", JSON.stringify(priceFilter));
       localStorage.setItem("customMaxPrice", JSON.stringify(customMaxPrice));
       localStorage.setItem("tagFilters", JSON.stringify(tagFilters));
-      localStorage.setItem("selectedLocations", JSON.stringify(selectedLocations));
+      localStorage.setItem(
+        "selectedLocations",
+        JSON.stringify(selectedLocations)
+      );
       localStorage.setItem("blockedHosts", JSON.stringify(blockedHosts));
       localStorage.setItem("blockedKeywords", JSON.stringify(blockedKeywords));
       localStorage.setItem("hiddenEvents", JSON.stringify(hiddenEvents));
@@ -339,7 +349,9 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
 
     // Only include cities with enough events (always include Asheville as primary)
     const cities = Array.from(cityCount.entries())
-      .filter(([city, count]) => city === "Asheville" || count >= LOCATION_MIN_EVENTS)
+      .filter(
+        ([city, count]) => city === "Asheville" || count >= LOCATION_MIN_EVENTS
+      )
       .map(([city]) => city)
       .sort((a, b) => {
         if (a === "Asheville") return -1;
@@ -354,7 +366,6 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
 
     return cities;
   }, [events]);
-
 
   // Filter events - uses deferred values for optimistic UI updates
   const filteredEvents = useMemo(() => {
@@ -402,11 +413,19 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
       // 5. Date Filter (using deferred values)
       const eventDate = new Date(event.startDate);
       if (deferredDateFilter === "today" && !isToday(eventDate)) return false;
-      if (deferredDateFilter === "tomorrow" && !isTomorrow(eventDate)) return false;
-      if (deferredDateFilter === "weekend" && !isThisWeekend(eventDate)) return false;
-      if (deferredDateFilter === "dayOfWeek" && !isDayOfWeek(eventDate, deferredSelectedDays))
+      if (deferredDateFilter === "tomorrow" && !isTomorrow(eventDate))
         return false;
-      if (deferredDateFilter === "custom" && !isInDateRange(eventDate, deferredCustomDateRange))
+      if (deferredDateFilter === "weekend" && !isThisWeekend(eventDate))
+        return false;
+      if (
+        deferredDateFilter === "dayOfWeek" &&
+        !isDayOfWeek(eventDate, deferredSelectedDays)
+      )
+        return false;
+      if (
+        deferredDateFilter === "custom" &&
+        !isInDateRange(eventDate, deferredCustomDateRange)
+      )
         return false;
 
       // 6. Price Filter (using deferred values)
@@ -484,7 +503,9 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
 
       // 9. Search (searches title, description, organizer, location)
       if (searchLower) {
-        const searchText = `${event.title} ${event.description || ""} ${event.organizer || ""} ${event.location || ""}`.toLowerCase();
+        const searchText = `${event.title} ${event.description || ""} ${
+          event.organizer || ""
+        } ${event.location || ""}`.toLowerCase();
         if (!searchText.includes(searchLower)) {
           return false;
         }
@@ -550,10 +571,18 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
       filters.push({ id: "price", type: "price", label });
     }
     tagFilters.include.forEach((tag) => {
-      filters.push({ id: `tag-include-${tag}`, type: "tag-include", label: tag });
+      filters.push({
+        id: `tag-include-${tag}`,
+        type: "tag-include",
+        label: tag,
+      });
     });
     tagFilters.exclude.forEach((tag) => {
-      filters.push({ id: `tag-exclude-${tag}`, type: "tag-exclude", label: tag });
+      filters.push({
+        id: `tag-exclude-${tag}`,
+        type: "tag-exclude",
+        label: tag,
+      });
     });
     selectedLocations.forEach((loc) => {
       let label = loc;
@@ -673,15 +702,21 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
     if (priceFilter === "custom" && customMaxPrice !== null) {
       params.set("maxPrice", customMaxPrice.toString());
     }
-    if (tagFilters.include.length > 0) params.set("tagsInclude", tagFilters.include.join(","));
-    if (tagFilters.exclude.length > 0) params.set("tagsExclude", tagFilters.exclude.join(","));
+    if (tagFilters.include.length > 0)
+      params.set("tagsInclude", tagFilters.include.join(","));
+    if (tagFilters.exclude.length > 0)
+      params.set("tagsExclude", tagFilters.exclude.join(","));
 
     // Client-side filters that need to be passed to export
-    if (blockedHosts.length > 0) params.set("blockedHosts", blockedHosts.join(","));
-    if (blockedKeywords.length > 0) params.set("blockedKeywords", blockedKeywords.join(","));
-    if (hiddenEvents.length > 0) params.set("hiddenEvents", JSON.stringify(hiddenEvents));
+    if (blockedHosts.length > 0)
+      params.set("blockedHosts", blockedHosts.join(","));
+    if (blockedKeywords.length > 0)
+      params.set("blockedKeywords", blockedKeywords.join(","));
+    if (hiddenEvents.length > 0)
+      params.set("hiddenEvents", JSON.stringify(hiddenEvents));
     params.set("useDefaultFilters", useDefaultFilters.toString());
-    if (selectedLocations.length > 0) params.set("locations", selectedLocations.join(","));
+    if (selectedLocations.length > 0)
+      params.set("locations", selectedLocations.join(","));
 
     const queryString = params.toString();
     return queryString ? `?${queryString}` : "";
@@ -744,14 +779,18 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
         <div className="fixed top-20 left-1/2 -translate-x-1/2 z-50 bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg border border-gray-200 dark:border-gray-700">
           <div className="flex items-center gap-2">
             <div className="w-4 h-4 border-2 border-brand-500 border-t-transparent rounded-full animate-spin" />
-            <span className="text-sm text-gray-600 dark:text-gray-300">Filtering...</span>
+            <span className="text-sm text-gray-600 dark:text-gray-300">
+              Filtering...
+            </span>
           </div>
         </div>
       )}
 
-      <div className={`flex flex-col gap-10 mt-3 transition-opacity duration-150 ${
-        isFilterPending ? "opacity-50" : "opacity-100"
-      }`}>
+      <div
+        className={`flex flex-col gap-10 mt-3 transition-opacity duration-150 ${
+          isFilterPending ? "opacity-50" : "opacity-100"
+        }`}
+      >
         {Object.entries(
           filteredEvents.reduce((groups, event) => {
             const date = new Date(event.startDate);
@@ -775,7 +814,9 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
             const tomorrow = new Date(today);
             tomorrow.setDate(tomorrow.getDate() + 1);
             const now = new Date();
-            const twoAndHalfHoursAgo = new Date(now.getTime() - 2.5 * 60 * 60 * 1000);
+            const twoAndHalfHoursAgo = new Date(
+              now.getTime() - 2.5 * 60 * 60 * 1000
+            );
 
             let headerText = dateKey;
             const isTodayGroup = date.toDateString() === today.toDateString();
@@ -839,7 +880,7 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
                       >
                         Show {hiddenPreviousCount} event
                         {hiddenPreviousCount !== 1 ? "s" : ""} from earlier
-                        today
+                        today +
                       </button>
                     )}
                   {/* Show collapse option when viewing all previous events */}
@@ -848,7 +889,8 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
                     (() => {
                       // Calculate how many events would be hidden if we collapse
                       const wouldHideCount = sortedGroupEvents.filter(
-                        (event) => new Date(event.startDate) < twoAndHalfHoursAgo
+                        (event) =>
+                          new Date(event.startDate) < twoAndHalfHoursAgo
                       ).length;
                       return wouldHideCount > 0 ? (
                         <button
@@ -954,7 +996,9 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
           aria-label="Scroll to top"
         >
           <ArrowUpIcon size={16} className="text-gray-600 dark:text-gray-300" />
-          <span className="text-sm font-medium text-gray-600 dark:text-gray-300">Scroll up</span>
+          <span className="text-sm font-medium text-gray-600 dark:text-gray-300">
+            Scroll up
+          </span>
         </button>
       </div>
     </div>

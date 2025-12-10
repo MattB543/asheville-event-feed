@@ -1,6 +1,7 @@
 "use client";
 
-import { Sparkles } from "lucide-react";
+import { useState, useRef, useEffect } from "react";
+import { Sparkles, Link, FileText, FileCode } from "lucide-react";
 import FilterChip from "./ui/FilterChip";
 import { useToast } from "./ui/Toast";
 
@@ -48,6 +49,23 @@ function ExportLinks({
   shareParams?: string;
 }) {
   const { showToast } = useToast();
+  const [menuOpen, setMenuOpen] = useState(false);
+  const menuRef = useRef<HTMLSpanElement>(null);
+
+  // Close menu when clicking outside
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setMenuOpen(false);
+      }
+    }
+
+    if (menuOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+      return () =>
+        document.removeEventListener("mousedown", handleClickOutside);
+    }
+  }, [menuOpen]);
 
   const handleCopyView = async () => {
     const url = `${window.location.origin}${window.location.pathname}${
@@ -56,42 +74,70 @@ function ExportLinks({
     try {
       await navigator.clipboard.writeText(url);
       showToast("Link copied to clipboard!");
+      setMenuOpen(false);
     } catch {
       showToast("Failed to copy link", "error");
     }
   };
 
   return (
-    <span className="text-gray-400 dark:text-gray-500">
-      {shareParams && (
-        <>
-          {" · "}
-          <button
-            onClick={handleCopyView}
-            className="underline hover:text-gray-600 dark:hover:text-gray-300 cursor-pointer"
+    <span className="relative inline-block" ref={menuRef}>
+      <span className="mx-1">·</span>
+      <button
+        onClick={() => setMenuOpen(!menuOpen)}
+        className="underline text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 cursor-pointer"
+      >
+        Share & View
+      </button>
+
+      {menuOpen && (
+        <div className="absolute right-0 top-full mt-1 z-30 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded shadow-lg min-w-[220px]">
+          {shareParams && (
+            <button
+              onClick={handleCopyView}
+              className="w-full flex items-start gap-2 px-3 py-2 text-left text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
+            >
+              <Link size={14} className="mt-0.5 shrink-0" />
+              <div>
+                <div className="text-xs font-medium">Copy filtered view</div>
+                <div className="text-[10px] text-gray-500 dark:text-gray-400">
+                  Share link with your current filters
+                </div>
+              </div>
+            </button>
+          )}
+          <a
+            href={`/api/export/xml${exportParams || ""}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => setMenuOpen(false)}
+            className="w-full flex items-start gap-2 px-3 py-2 text-left text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
           >
-            Copy View
-          </button>
-        </>
+            <FileCode size={14} className="mt-0.5 shrink-0" />
+            <div>
+              <div className="text-xs font-medium">View as XML</div>
+              <div className="text-[10px] text-gray-500 dark:text-gray-400">
+                Open filtered view in XML
+              </div>
+            </div>
+          </a>
+          <a
+            href={`/api/export/markdown${exportParams || ""}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => setMenuOpen(false)}
+            className="w-full flex items-start gap-2 px-3 py-2 text-left text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
+          >
+            <FileText size={14} className="mt-0.5 shrink-0" />
+            <div>
+              <div className="text-xs font-medium">View as Markdown</div>
+              <div className="text-[10px] text-gray-500 dark:text-gray-400">
+                Open filtered view in Markdown
+              </div>
+            </div>
+          </a>
+        </div>
       )}
-      {" · "}
-      <a
-        href={`/api/export/xml${exportParams || ""}`}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="underline hover:text-gray-600 dark:hover:text-gray-300"
-      >
-        XML
-      </a>
-      {" · "}
-      <a
-        href={`/api/export/markdown${exportParams || ""}`}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="underline hover:text-gray-600 dark:hover:text-gray-300"
-      >
-        Markdown
-      </a>
     </span>
   );
 }

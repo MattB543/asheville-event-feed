@@ -80,6 +80,8 @@ export const DEFAULT_BLOCKED_KEYWORDS = [
   "AI & Estate Planning",
   "Asheville Murder Mystery: Catch the Killer!",
   "PRETTY LITTLE BLONDE | TAYLORS, SOUTH CAROLINA",
+  "Random Acts of Kindness Spree in Asheville",
+  "LaZoom Hey Asheville Tour: Holiday Edition",
 ];
 
 /**

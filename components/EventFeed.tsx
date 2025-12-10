@@ -983,7 +983,7 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
 
       {/* Filtering indicator */}
       {isFilterPending && (
-        <div className="fixed top-20 left-1/2 -translate-x-1/2 z-50 bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg border border-gray-200 dark:border-gray-700">
+        <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg border border-gray-200 dark:border-gray-700">
           <div className="flex items-center gap-2">
             <div className="w-4 h-4 border-2 border-brand-500 border-t-transparent rounded-full animate-spin" />
             <span className="text-sm text-gray-600 dark:text-gray-300">

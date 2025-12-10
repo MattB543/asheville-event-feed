@@ -8,6 +8,9 @@ import { scrapeOrangePeel } from "@/lib/scrapers/orangepeel";
 import { scrapeGreyEagle } from "@/lib/scrapers/greyeagle";
 import { scrapeLiveMusicAvl } from "@/lib/scrapers/livemusicavl";
 import { scrapeExploreAsheville } from "@/lib/scrapers/exploreasheville";
+import { scrapeMisfitImprov } from "@/lib/scrapers/misfitimprov";
+import { scrapeUDharma } from "@/lib/scrapers/udharma";
+import { scrapeNCStage } from "@/lib/scrapers/ncstage";
 import { db } from "@/lib/db";
 import { events } from "@/lib/db/schema";
 import { inArray } from "drizzle-orm";
@@ -64,6 +67,9 @@ export async function GET(request: Request) {
       greyEagleResult,
       liveMusicAvlResult,
       exploreAshevilleResult,
+      misfitImprovResult,
+      udharmaResult,
+      ncstageResult,
     ] = await Promise.allSettled([
       scrapeAvlToday(),
       scrapeEventbrite(25), // Scrape 25 pages (~500 events)
@@ -73,6 +79,9 @@ export async function GET(request: Request) {
       scrapeGreyEagle(), // Grey Eagle (Website JSON-LD)
       scrapeLiveMusicAvl(), // Live Music Asheville (select venues only)
       scrapeExploreAsheville(), // ExploreAsheville.com public API
+      scrapeMisfitImprov(), // Misfit Improv (Crowdwork API)
+      scrapeUDharma(), // Urban Dharma NC (Squarespace API)
+      scrapeNCStage(), // NC Stage Company (ThunderTix)
     ]);
 
     // Extract values from settled results, using empty arrays for rejected promises
@@ -92,6 +101,12 @@ export async function GET(request: Request) {
       liveMusicAvlResult.status === "fulfilled" ? liveMusicAvlResult.value : [];
     const exploreAshevilleEvents =
       exploreAshevilleResult.status === "fulfilled" ? exploreAshevilleResult.value : [];
+    const misfitImprovEvents =
+      misfitImprovResult.status === "fulfilled" ? misfitImprovResult.value : [];
+    const udharmaEvents =
+      udharmaResult.status === "fulfilled" ? udharmaResult.value : [];
+    const ncstageEvents =
+      ncstageResult.status === "fulfilled" ? ncstageResult.value : [];
 
     // Log any scraper failures
     if (avlResult.status === "rejected")
@@ -110,6 +125,12 @@ export async function GET(request: Request) {
       console.error("[Cron] Live Music AVL scrape failed:", liveMusicAvlResult.reason);
     if (exploreAshevilleResult.status === "rejected")
       console.error("[Cron] ExploreAsheville scrape failed:", exploreAshevilleResult.reason);
+    if (misfitImprovResult.status === "rejected")
+      console.error("[Cron] Misfit Improv scrape failed:", misfitImprovResult.reason);
+    if (udharmaResult.status === "rejected")
+      console.error("[Cron] UDharma scrape failed:", udharmaResult.reason);
+    if (ncstageResult.status === "rejected")
+      console.error("[Cron] NC Stage scrape failed:", ncstageResult.reason);
 
     stats.scraping.duration = Date.now() - scrapeStartTime;
     stats.scraping.total =
@@ -120,7 +141,10 @@ export async function GET(request: Request) {
       orangePeelEvents.length +
       greyEagleEvents.length +
       liveMusicAvlEvents.length +
-      exploreAshevilleEvents.length;
+      exploreAshevilleEvents.length +
+      misfitImprovEvents.length +
+      udharmaEvents.length +
+      ncstageEvents.length;
 
     console.log(
       `[Cron] Scrape complete in ${formatDuration(
@@ -131,7 +155,9 @@ export async function GET(request: Request) {
         orangePeelEvents.length
       }, GreyEagle: ${greyEagleEvents.length}, LiveMusicAVL: ${
         liveMusicAvlEvents.length
-      }, ExploreAVL: ${exploreAshevilleEvents.length} (Total: ${stats.scraping.total})`
+      }, ExploreAVL: ${exploreAshevilleEvents.length}, Misfit: ${
+        misfitImprovEvents.length
+      }, UDharma: ${udharmaEvents.length}, NCStage: ${ncstageEvents.length} (Total: ${stats.scraping.total})`
     );
 
     // Facebook scraping (separate due to browser requirements)
@@ -184,6 +210,15 @@ export async function GET(request: Request) {
     const exploreAshevilleWithTags: ScrapedEventWithTags[] = exploreAshevilleEvents.map(
       (e) => ({ ...e, tags: [] })
     );
+    const misfitImprovWithTags: ScrapedEventWithTags[] = misfitImprovEvents.map(
+      (e) => ({ ...e, tags: [] })
+    );
+    const udharmaWithTags: ScrapedEventWithTags[] = udharmaEvents.map(
+      (e) => ({ ...e, tags: [] })
+    );
+    const ncstageWithTags: ScrapedEventWithTags[] = ncstageEvents.map(
+      (e) => ({ ...e, tags: [] })
+    );
 
     const allEventsRaw: ScrapedEventWithTags[] = [
       ...avlEvents,
@@ -195,6 +230,9 @@ export async function GET(request: Request) {
       ...greyEagleWithTags,
       ...liveMusicAvlWithTags,
       ...exploreAshevilleWithTags,
+      ...misfitImprovWithTags,
+      ...udharmaWithTags,
+      ...ncstageWithTags,
     ];
 
     // Filter out cancelled events (title starts with "CANCELLED")
@@ -453,7 +491,9 @@ export async function GET(request: Request) {
         orangePeelEvents.length
       }, GreyEagle: ${greyEagleEvents.length}, LiveMusicAVL: ${
         liveMusicAvlEvents.length
-      }, ExploreAVL: ${exploreAshevilleEvents.length}${fbEvents.length > 0 ? `, FB: ${fbEvents.length}` : ""}`
+      }, ExploreAVL: ${exploreAshevilleEvents.length}, Misfit: ${
+        misfitImprovEvents.length
+      }, UDharma: ${udharmaEvents.length}, NCStage: ${ncstageEvents.length}${fbEvents.length > 0 ? `, FB: ${fbEvents.length}` : ""}`
     );
     console.log(
       `[Cron] Tagging:   ${stats.tagging.success}/${

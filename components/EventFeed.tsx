@@ -16,6 +16,7 @@ import FilterBar, {
 } from "./FilterBar";
 import { extractCity, isAshevilleArea } from "@/lib/utils/extractCity";
 import ActiveFilters, { ActiveFilter } from "./ActiveFilters";
+import { parse, isValid } from "date-fns";
 import SettingsModal from "./SettingsModal";
 import AIChatModal from "./AIChatModal";
 import { EventFeedSkeleton } from "./EventCardSkeleton";
@@ -25,6 +26,7 @@ import {
 } from "@/lib/config/defaultFilters";
 import { useToast } from "./ui/Toast";
 import { ArrowDownIcon, ArrowUpIcon } from "lucide-react";
+import { getZipName, isAshevilleZip } from "@/lib/config/zipNames";
 
 interface Event {
   id: string;
@@ -34,6 +36,7 @@ interface Event {
   description?: string | null;
   startDate: Date;
   location?: string | null;
+  zip?: string | null;
   organizer?: string | null;
   price?: string | null;
   url: string;
@@ -43,6 +46,7 @@ interface Event {
   createdAt?: Date | null;
   timeUnknown?: boolean | null;
   recurringType?: string | null;
+  favoriteCount?: number | null;
 }
 
 interface EventFeedProps {
@@ -102,6 +106,18 @@ function getStorageItem<T>(key: string, defaultValue: T): T {
   }
 }
 
+// Safe date parsing helper that returns undefined on invalid dates
+// This parses yyyy-MM-dd strings as LOCAL dates (not UTC)
+function safeParseDateString(dateStr: string | null): Date | undefined {
+  if (!dateStr) return undefined;
+  try {
+    const parsed = parse(dateStr, "yyyy-MM-dd", new Date());
+    return isValid(parsed) ? parsed : undefined;
+  } catch {
+    return undefined;
+  }
+}
+
 // Helper functions for date filtering
 function isToday(date: Date): boolean {
   const today = new Date();
@@ -140,13 +156,17 @@ function isInDateRange(date: Date, range: DateRange): boolean {
   const eventDate = new Date(date);
   eventDate.setHours(0, 0, 0, 0);
 
-  const startDate = new Date(range.start);
+  // Use safeParseDateString to parse yyyy-MM-dd as LOCAL date (not UTC)
+  const startDate = safeParseDateString(range.start);
+  if (!startDate) return true;
   startDate.setHours(0, 0, 0, 0);
 
   if (range.end) {
-    const endDate = new Date(range.end);
-    endDate.setHours(23, 59, 59, 999);
-    return eventDate >= startDate && eventDate <= endDate;
+    const endDate = safeParseDateString(range.end);
+    if (endDate) {
+      endDate.setHours(23, 59, 59, 999);
+      return eventDate >= startDate && eventDate <= endDate;
+    }
   }
 
   return eventDate.toDateString() === startDate.toDateString();
@@ -193,8 +213,13 @@ const priceLabels: Record<PriceFilterType, string> = {
 };
 
 export default function EventFeed({ initialEvents }: EventFeedProps) {
-  const [events] = useState<Event[]>(initialEvents);
+  const [events, setEvents] = useState<Event[]>(initialEvents);
   const { showToast } = useToast();
+
+  // Track which events the user has favorited (persisted to localStorage)
+  const [favoritedEventIds, setFavoritedEventIds] = useState<string[]>(() =>
+    getStorageItem("favoritedEventIds", [])
+  );
 
   // Search (committed value only - FilterBar handles local input state)
   const [search, setSearch] = useState("");
@@ -230,6 +255,9 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
   });
   const [selectedLocations, setSelectedLocations] = useState<string[]>(() =>
     getStorageItem("selectedLocations", [])
+  );
+  const [selectedZips, setSelectedZips] = useState<string[]>(() =>
+    getStorageItem("selectedZips", [])
   );
   // Daily events filter - default to showing daily events
   const [showDailyEvents, setShowDailyEvents] = useState<boolean>(() =>
@@ -269,6 +297,7 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
   const deferredCustomDateRange = useDeferredValue(customDateRange);
   const deferredCustomMaxPrice = useDeferredValue(customMaxPrice);
   const deferredSelectedLocations = useDeferredValue(selectedLocations);
+  const deferredSelectedZips = useDeferredValue(selectedZips);
   const deferredSearch = useDeferredValue(search);
   const deferredShowDailyEvents = useDeferredValue(showDailyEvents);
 
@@ -278,6 +307,7 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
     deferredPriceFilter !== priceFilter ||
     deferredDateFilter !== dateFilter ||
     deferredSelectedLocations !== selectedLocations ||
+    deferredSelectedZips !== selectedZips ||
     deferredSearch !== search ||
     deferredCustomMaxPrice !== customMaxPrice ||
     deferredSelectedDays !== selectedDays ||
@@ -317,6 +347,7 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
         "selectedLocations",
         JSON.stringify(selectedLocations)
       );
+      localStorage.setItem("selectedZips", JSON.stringify(selectedZips));
       localStorage.setItem("blockedHosts", JSON.stringify(blockedHosts));
       localStorage.setItem("blockedKeywords", JSON.stringify(blockedKeywords));
       localStorage.setItem("hiddenEvents", JSON.stringify(hiddenEvents));
@@ -325,6 +356,10 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
         JSON.stringify(useDefaultFilters)
       );
       localStorage.setItem("showDailyEvents", JSON.stringify(showDailyEvents));
+      localStorage.setItem(
+        "favoritedEventIds",
+        JSON.stringify(favoritedEventIds)
+      );
     }
   }, [
     dateFilter,
@@ -335,11 +370,13 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
     customMaxPrice,
     tagFilters,
     selectedLocations,
+    selectedZips,
     blockedHosts,
     blockedKeywords,
     hiddenEvents,
     useDefaultFilters,
     showDailyEvents,
+    favoritedEventIds,
     isLoaded,
   ]);
 
@@ -442,7 +479,7 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
     if (params.has("useDefaultFilters")) {
       setUseDefaultFilters(params.get("useDefaultFilters") !== "false");
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+     
   }, [isLoaded]); // Only run once after hydration
 
   // Extract available tags from events (sorted by frequency)
@@ -496,6 +533,26 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
     return cities;
   }, [events]);
 
+  // Minimum number of events for a zip to appear in filter dropdown
+  const ZIP_MIN_EVENTS = 6;
+
+  // Extract available zip codes from events (for zip filter dropdown)
+  const availableZips = useMemo(() => {
+    const zipCounts = new Map<string, number>();
+
+    events.forEach((event) => {
+      if (event.zip) {
+        zipCounts.set(event.zip, (zipCounts.get(event.zip) || 0) + 1);
+      }
+    });
+
+    // Only include zips with enough events, sorted by count (most events first)
+    return Array.from(zipCounts.entries())
+      .filter(([, count]) => count >= ZIP_MIN_EVENTS)
+      .sort((a, b) => b[1] - a[1])
+      .map(([zip, count]) => ({ zip, count }));
+  }, [events]);
+
   // Filter events - uses deferred values for optimistic UI updates
   const filteredEvents = useMemo(() => {
     if (!isLoaded) return events;
@@ -535,7 +592,7 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
 
       // 4. Default Filters
       if (useDefaultFilters) {
-        const textToCheck = `${event.title} ${event.description || ""}`;
+        const textToCheck = `${event.title} ${event.description || ""} ${event.organizer || ""}`;
         if (matchesDefaultFilter(textToCheck)) return false;
       }
 
@@ -610,33 +667,47 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
         if (!hasIncludedTag) return false;
       }
 
-      // 8. Location Filter (multi-select - OR logic) - using deferred value
-      if (deferredSelectedLocations.length > 0) {
-        const eventCity = extractCity(event.location);
-        let matchesAnyLocation = false;
+      // 8. Location & Zip Filter (multi-select - OR logic) - using deferred values
+      const hasLocationFilter = deferredSelectedLocations.length > 0;
+      const hasZipFilter = deferredSelectedZips.length > 0;
 
-        for (const loc of deferredSelectedLocations) {
-          if (loc === "asheville") {
-            // "Asheville area" includes: Asheville city + known Asheville venues
-            if (isAshevilleArea(event.location)) {
-              matchesAnyLocation = true;
-              break;
-            }
-          } else if (loc === "Online") {
-            if (eventCity === "Online") {
-              matchesAnyLocation = true;
-              break;
-            }
-          } else {
-            // Specific city - exact match
-            if (eventCity === loc) {
-              matchesAnyLocation = true;
-              break;
+      if (hasLocationFilter || hasZipFilter) {
+        const eventCity = extractCity(event.location);
+        const eventZip = event.zip;
+        let matchesFilter = false;
+
+        // Check zip filter first (more specific)
+        if (hasZipFilter && eventZip) {
+          if (deferredSelectedZips.includes(eventZip)) {
+            matchesFilter = true;
+          }
+        }
+
+        // Check location filter if no zip match yet
+        if (!matchesFilter && hasLocationFilter) {
+          for (const loc of deferredSelectedLocations) {
+            if (loc === "asheville") {
+              // "Asheville area" includes: Asheville city + known Asheville venues + Asheville zips
+              if (isAshevilleArea(event.location) || (eventZip && isAshevilleZip(eventZip))) {
+                matchesFilter = true;
+                break;
+              }
+            } else if (loc === "Online") {
+              if (eventCity === "Online") {
+                matchesFilter = true;
+                break;
+              }
+            } else {
+              // Specific city - exact match
+              if (eventCity === loc) {
+                matchesFilter = true;
+                break;
+              }
             }
           }
         }
 
-        if (!matchesAnyLocation) {
+        if (!matchesFilter) {
           return false;
         }
       }
@@ -664,6 +735,7 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
     deferredCustomMaxPrice,
     deferredTagFilters,
     deferredSelectedLocations,
+    deferredSelectedZips,
     blockedHosts,
     blockedKeywords,
     hiddenEvents,
@@ -685,19 +757,18 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
       if (dateFilter === "dayOfWeek" && selectedDays.length > 0) {
         label = selectedDays.map((d) => DAY_NAMES[d]).join(", ");
       } else if (dateFilter === "custom" && customDateRange.start) {
-        if (
-          customDateRange.end &&
-          customDateRange.end !== customDateRange.start
-        ) {
-          label = `${new Date(customDateRange.start).toLocaleDateString(
-            "en-US",
-            { month: "short", day: "numeric" }
-          )} - ${new Date(customDateRange.end).toLocaleDateString("en-US", {
+        const startDate = safeParseDateString(customDateRange.start);
+        const endDate = safeParseDateString(customDateRange.end);
+        if (endDate && customDateRange.end !== customDateRange.start) {
+          label = `${startDate!.toLocaleDateString("en-US", {
+            month: "short",
+            day: "numeric",
+          })} - ${endDate.toLocaleDateString("en-US", {
             month: "short",
             day: "numeric",
           })}`;
-        } else {
-          label = new Date(customDateRange.start).toLocaleDateString("en-US", {
+        } else if (startDate) {
+          label = startDate.toLocaleDateString("en-US", {
             month: "short",
             day: "numeric",
           });
@@ -740,6 +811,10 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
       if (loc === "asheville") label = "Asheville area";
       filters.push({ id: `location-${loc}`, type: "location", label });
     });
+    selectedZips.forEach((zip) => {
+      const name = getZipName(zip);
+      filters.push({ id: `zip-${zip}`, type: "zip", label: `${zip} (${name})` });
+    });
 
     return filters;
   }, [
@@ -752,6 +827,7 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
     customMaxPrice,
     tagFilters,
     selectedLocations,
+    selectedZips,
   ]);
 
   // Handle removing filters
@@ -770,6 +846,9 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
     } else if (id.startsWith("location-")) {
       const loc = id.replace("location-", "");
       setSelectedLocations((prev) => prev.filter((l) => l !== loc));
+    } else if (id.startsWith("zip-")) {
+      const zip = id.replace("zip-", "");
+      setSelectedZips((prev) => prev.filter((z) => z !== zip));
     } else if (id.startsWith("tag-include-")) {
       const tag = id.replace("tag-include-", "");
       setTagFilters((prev) => ({
@@ -796,6 +875,7 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
     setCustomMaxPrice(null);
     setTagFilters({ include: [], exclude: [] });
     setSelectedLocations([]);
+    setSelectedZips([]);
   }, []);
 
   // Hide event (by title + organizer fingerprint)
@@ -838,6 +918,77 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
       }
     },
     [blockedHosts, showToast]
+  );
+
+  // Toggle favorite for an event
+  const handleToggleFavorite = useCallback(
+    async (eventId: string) => {
+      const isFavorited = favoritedEventIds.includes(eventId);
+      const action = isFavorited ? "remove" : "add";
+
+      // Optimistically update local state
+      setFavoritedEventIds((prev) =>
+        isFavorited ? prev.filter((id) => id !== eventId) : [...prev, eventId]
+      );
+
+      // Optimistically update event's favorite count
+      setEvents((prev) =>
+        prev.map((event) =>
+          event.id === eventId
+            ? {
+                ...event,
+                favoriteCount: Math.max(
+                  0,
+                  (event.favoriteCount ?? 0) + (isFavorited ? -1 : 1)
+                ),
+              }
+            : event
+        )
+      );
+
+      try {
+        const response = await fetch(`/api/events/${eventId}/favorite`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ action }),
+        });
+
+        if (!response.ok) {
+          throw new Error("Failed to update favorite");
+        }
+
+        const data = await response.json();
+
+        // Update with actual count from server
+        setEvents((prev) =>
+          prev.map((event) =>
+            event.id === eventId
+              ? { ...event, favoriteCount: data.favoriteCount }
+              : event
+          )
+        );
+      } catch (error) {
+        // Revert optimistic updates on error
+        setFavoritedEventIds((prev) =>
+          isFavorited ? [...prev, eventId] : prev.filter((id) => id !== eventId)
+        );
+        setEvents((prev) =>
+          prev.map((event) =>
+            event.id === eventId
+              ? {
+                  ...event,
+                  favoriteCount: Math.max(
+                    0,
+                    (event.favoriteCount ?? 0) + (isFavorited ? 1 : -1)
+                  ),
+                }
+              : event
+          )
+        );
+        console.error("Failed to toggle favorite:", error);
+      }
+    },
+    [favoritedEventIds]
   );
 
   // Build export URL with current filters (includes personal filters for XML/Markdown export)
@@ -960,6 +1111,9 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
         selectedLocations={selectedLocations}
         onLocationsChange={setSelectedLocations}
         availableLocations={availableLocations}
+        selectedZips={selectedZips}
+        onZipsChange={setSelectedZips}
+        availableZips={availableZips}
         availableTags={availableTags}
         tagFilters={tagFilters}
         onTagFiltersChange={setTagFilters}
@@ -1147,6 +1301,10 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
                           onBlockHost={handleBlockHost}
                           isNewlyHidden={isNewlyHidden}
                           hideBorder={hideCardBorder}
+                          isFavorited={favoritedEventIds.includes(event.id)}
+                          favoriteCount={event.favoriteCount ?? 0}
+                          onToggleFavorite={handleToggleFavorite}
+                          isTagFilterActive={tagFilters.include.length > 0}
                         />
                       </div>
                     );

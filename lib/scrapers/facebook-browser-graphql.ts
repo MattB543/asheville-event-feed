@@ -21,6 +21,9 @@ export interface FacebookEventDetails {
   url: string;
   interestedCount: number | null;
   goingCount: number | null;
+  zip: string | null;
+  latitude: number | null;
+  longitude: number | null;
 }
 
 /**
@@ -118,6 +121,9 @@ export async function fetchEventDetailsInBrowser(
       let organizer: string | null = null;
       let interestedCount: number | null = null;
       let goingCount: number | null = null;
+      let zip: string | null = null;
+      let latitude: number | null = null;
+      let longitude: number | null = null;
 
       // Parse header response
       const headerLines = headerText.split('\n').filter(l => l.trim());
@@ -164,6 +170,30 @@ export async function fetchEventDetailsInBrowser(
 
             if (event.event_description?.text) {
               description = event.event_description.text;
+            }
+
+            // Extract location data from About query (has lat/lon and full address)
+            if (event.event_place?.location) {
+              const loc = event.event_place.location;
+              if (typeof loc.latitude === 'number') latitude = loc.latitude;
+              if (typeof loc.longitude === 'number') longitude = loc.longitude;
+            }
+
+            // Extract zip from one_line_address (e.g., "777 Haywood Rd, Asheville, NC 28806")
+            if (event.one_line_address && !zip) {
+              const zipMatch = event.one_line_address.match(/\b(\d{5})(?:-\d{4})?\b/);
+              if (zipMatch) {
+                zip = zipMatch[1];
+              }
+              // Also use one_line_address as location if we don't have one
+              if (!location) {
+                location = event.one_line_address;
+              }
+            }
+
+            // For Page-type venues, check address.street
+            if (event.event_place?.address?.street && !location) {
+              location = event.event_place.address.street;
             }
 
             // Try multiple sources for organizer name
@@ -226,6 +256,9 @@ export async function fetchEventDetailsInBrowser(
         price,
         interestedCount,
         goingCount,
+        zip,
+        latitude,
+        longitude,
       };
     }, eventId);
 

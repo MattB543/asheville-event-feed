@@ -121,7 +121,7 @@ export default function AIChatModal({
   const [currentDateRange, setCurrentDateRange] = useState<DateRange | null>(
     null
   );
-  const [dateRangeDisplay, setDateRangeDisplay] = useState<string | null>(null);
+  const [, setDateRangeDisplay] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const abortControllerRef = useRef<AbortController | null>(null);
@@ -176,10 +176,7 @@ export default function AIChatModal({
   }, []);
 
   const processStream = useCallback(
-    async (
-      response: Response,
-      newMessages: ChatMessage[]
-    ): Promise<DateRange | null> => {
+    async (response: Response): Promise<DateRange | null> => {
       const reader = response.body?.getReader();
       const decoder = new TextDecoder();
 
@@ -344,7 +341,7 @@ export default function AIChatModal({
         }
 
         // Process the stream and get any extracted date range
-        const extractedDateRange = await processStream(response, newMessages);
+        const extractedDateRange = await processStream(response);
         if (extractedDateRange) {
           setCurrentDateRange(extractedDateRange);
         }

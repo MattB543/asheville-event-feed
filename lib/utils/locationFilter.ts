@@ -7,25 +7,16 @@
  * 3. If title has non-NC patterns AND location doesn't confirm NC -> filter it
  */
 
-// NC cities we want to keep (case insensitive)
+// NC cities we want to keep (within ~45 min of Asheville)
 const NC_LOCATIONS = [
   /\bAsheville\b/i,
   /\bNC\b/i,
   /\bNorth Carolina\b/i,
+  // Core Asheville area
   /\bBiltmore\b/i,
   /\bBlack Mountain\b/i,
   /\bWeaverville\b/i,
   /\bSwannanoa\b/i,
-  /\bHendersonville\b/i,
-  /\bBrevard\b/i,
-  /\bMarshall\b/i,
-  /\bWaynesville\b/i,
-  /\bMaggie Valley\b/i,
-  /\bBoone\b/i,
-  /\bBlowing Rock\b/i,
-  /\bBanner Elk\b/i,
-  /\bFlat Rock\b/i,
-  /\bMills River\b/i,
   /\bCandler\b/i,
   /\bEnka\b/i,
   /\bFletcher\b/i,
@@ -34,6 +25,29 @@ const NC_LOCATIONS = [
   /\bLeicester\b/i,
   /\bBarnardsville\b/i,
   /\bWoodfin\b/i,
+  /\bSkyland\b/i,
+  /\bRoyal Pines\b/i,
+  // Within 30 min
+  /\bMontreat\b/i,
+  /\bMills River\b/i,
+  /\bMarshall\b/i,
+  /\bCanton\b/i,
+  /\bClyde\b/i,
+  /\bWaynesville\b/i,
+  /\bFlat Rock\b/i,
+  /\bHendersonville\b/i,
+  // Within 45 min
+  /\bBrevard\b/i,
+  /\bLake Junaluska\b/i,
+  /\bLake Lure\b/i,
+  /\bSaluda\b/i,
+  /\bCedar Mountain\b/i,
+  /\bBurnsville\b/i,
+  /\bBakersville\b/i,
+  /\bCherokee\b/i,
+  /\bMars Hill\b/i,
+  /\bMaggie Valley\b/i,
+  /\bOld Fort\b/i,
 ];
 
 // Non-NC state patterns (in location field = definitely filter)
@@ -50,18 +64,69 @@ const NON_NC_LOCATION_PATTERNS = [
 
 // Non-NC cities that should be filtered (when in location field)
 const NON_NC_CITIES = [
-  /\bGreenville\b/i,     // SC
-  /\bSpartanburg\b/i,    // SC
-  /\bCharleston\b/i,     // SC
-  /\bMyrtle Beach\b/i,   // SC
-  /\bColumbia\b/i,       // SC (be careful, could be generic)
-  /\bAtlanta\b/i,        // GA
-  /\bKnoxville\b/i,      // TN
-  /\bChattanooga\b/i,    // TN
-  /\bNashville\b/i,      // TN
-  /\bJohnson City\b/i,   // TN
-  /\bBristol\b/i,        // TN/VA
-  /\bRoanoke\b/i,        // VA
+  // South Carolina (Greenville/Spartanburg area)
+  /\bGreenville\b/i,
+  /\bSpartanburg\b/i,
+  /\bTaylors\b/i,
+  /\bGreer\b/i,
+  /\bTravelers Rest\b/i,
+  /\bSlater-Marietta\b/i,
+  /\bSlater Marietta\b/i,
+  /\bWellford\b/i,
+  /\bEasley\b/i,
+  /\bPickens\b/i,
+  /\bInman\b/i,
+  /\bCampobello\b/i,
+  /\bBoiling Springs\b/i,
+  /\bSimpsonville\b/i,
+  /\bMauldin\b/i,
+  /\bFountain Inn\b/i,
+  /\bPiedmont\b/i,
+  /\bPelzer\b/i,
+  /\bWilliamston\b/i,
+  /\bPowdersville\b/i,
+  /\bAnderson\b/i,
+  // South Carolina (other)
+  /\bCharleston\b/i,
+  /\bMyrtle Beach\b/i,
+  /\bColumbia\b/i,
+  // Georgia
+  /\bAtlanta\b/i,
+  // Tennessee
+  /\bKnoxville\b/i,
+  /\bChattanooga\b/i,
+  /\bNashville\b/i,
+  /\bJohnson City\b/i,
+  /\bGreeneville\b/i,    // TN (different spelling from Greenville SC)
+  /\bJonesborough\b/i,
+  /\bTelford\b/i,
+  /\bCosby\b/i,
+  /\bErwin\b/i,
+  /\bElizabethton\b/i,
+  /\bKingsport\b/i,
+  /\bBristol\b/i,
+  // Virginia
+  /\bRoanoke\b/i,
+  // Far NC (too far from Asheville, >60 min)
+  /\bMill Spring\b/i,
+  /\bTryon\b/i,
+  /\bRutherfordton\b/i,
+  /\bColumbus\b/i,       // NC (Polk County, far south)
+  /\bBostic\b/i,
+  /\bMooresboro\b/i,
+  /\bSpindale\b/i,
+  /\bForest City\b/i,
+  /\bBlowing Rock\b/i,
+  /\bTweetsie\b/i,
+  /\bBoone\b/i,
+  /\bBanner Elk\b/i,
+  /\bBryson City\b/i,
+  /\bSylva\b/i,
+  /\bFranklin\b/i,
+  /\bMorganton\b/i,
+  /\bNewland\b/i,
+  /\bHighlands\b/i,
+  /\bLake Toxaway\b/i,
 ];
 
 /**

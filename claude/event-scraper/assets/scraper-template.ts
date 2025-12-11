@@ -32,7 +32,7 @@ const USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36
 
 // Rate limiting (adjust based on site behavior)
 const PAGE_DELAY_MS = 500;
-const REQUEST_DELAY_MS = 150;
+const REQUEST_DELAY_MS = 150; // eslint-disable-line @typescript-eslint/no-unused-vars -- Template placeholder
 const MAX_PAGES = 10;
 
 // Venue constants
@@ -245,7 +245,7 @@ export async function scrapeYourSource(): Promise<ScrapedEvent[]> {
 
   let page = 1;
   let hasMore = true;
-  let rawResponses: ApiResponse[] = [];
+  const rawResponses: ApiResponse[] = [];
 
   while (hasMore && page <= MAX_PAGES) {
     try {
@@ -476,8 +476,9 @@ async function scrapeEventPage(
 // ============================================================================
 
 /**
- * Normalize title for comparison
+ * Normalize title for comparison (available for deduplication)
  */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars -- Template utility function
 function normalizeTitle(title: string): string {
   return title
     .toLowerCase()
@@ -487,8 +488,9 @@ function normalizeTitle(title: string): string {
 }
 
 /**
- * Get local date key (YYYY-MM-DD) without timezone conversion
+ * Get local date key (YYYY-MM-DD) without timezone conversion (available for deduplication)
  */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars -- Template utility function
 function getLocalDateKey(date: Date): string {
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, '0');

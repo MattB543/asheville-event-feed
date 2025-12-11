@@ -24,7 +24,8 @@ export interface ActiveFilter {
     | "tag-include"
     | "tag-exclude"
     | "search"
-    | "location";
+    | "location"
+    | "zip";
   label: string;
 }
 
@@ -65,6 +66,7 @@ function ExportLinks({
       return () =>
         document.removeEventListener("mousedown", handleClickOutside);
     }
+    return undefined;
   }, [menuOpen]);
 
   const handleCopyView = async () => {
@@ -87,25 +89,28 @@ function ExportLinks({
         onClick={() => setMenuOpen(!menuOpen)}
         className="underline text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 cursor-pointer"
       >
-        Share & View
+        Share & Export
       </button>
 
       {menuOpen && (
         <div className="absolute right-0 top-full mt-1 z-30 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded shadow-lg min-w-[220px]">
-          {shareParams && (
-            <button
-              onClick={handleCopyView}
-              className="w-full flex items-start gap-2 px-3 py-2 text-left text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
-            >
-              <Link size={14} className="mt-0.5 shrink-0" />
-              <div>
-                <div className="text-xs font-medium">Copy filtered view</div>
-                <div className="text-[10px] text-gray-500 dark:text-gray-400">
-                  Share link with your current filters
-                </div>
+          <button
+            onClick={shareParams ? handleCopyView : undefined}
+            disabled={!shareParams}
+            className={`w-full flex items-start gap-2 px-3 py-2 text-left ${
+              shareParams
+                ? "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
+                : "text-gray-400 dark:text-gray-600 cursor-not-allowed"
+            }`}
+          >
+            <Link size={14} className="mt-0.5 shrink-0" />
+            <div>
+              <div className="text-xs font-medium">Copy filtered view</div>
+              <div className={`text-[10px] ${shareParams ? "text-gray-500 dark:text-gray-400" : "text-gray-400 dark:text-gray-600"}`}>
+                {shareParams ? "Share link with your current filters" : "Apply filters to enable sharing"}
               </div>
-            </button>
-          )}
+            </div>
+          </button>
           <a
             href={`/api/export/xml${exportParams || ""}`}
             target="_blank"
@@ -146,7 +151,7 @@ function AskAIButton({ onClick }: { onClick: () => void }) {
   return (
     <button
       onClick={onClick}
-      className="inline-flex items-center gap-1.5 px-3 py-1 bg-brand-600 hover:bg-brand-700 text-white text-sm font-medium rounded-md cursor-pointer transition-colors shrink-0"
+      className="inline-flex items-center gap-1.5 px-3 py-1 text-sm text-gray-600 dark:text-gray-300 border border-gray-300 dark:border-gray-600 rounded-md hover:border-gray-400 dark:hover:border-gray-500 hover:text-gray-800 dark:hover:text-gray-100 cursor-pointer transition-colors shrink-0"
     >
       <Sparkles size={14} />
       <span>Ask AI</span>

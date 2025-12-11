@@ -14,6 +14,7 @@ import {
   X,
 } from "lucide-react";
 import { TAG_CATEGORIES } from "@/lib/config/tagCategories";
+import { getZipName, ASHEVILLE_ZIPS } from "@/lib/config/zipNames";
 import { Calendar } from "./ui/Calendar";
 import { DateRange as DayPickerDateRange } from "react-day-picker";
 import { format, parse, isValid } from "date-fns";
@@ -69,6 +70,9 @@ export interface FilterBarProps {
   selectedLocations: string[];
   onLocationsChange: (locations: string[]) => void;
   availableLocations: string[];
+  selectedZips: string[];
+  onZipsChange: (zips: string[]) => void;
+  availableZips: { zip: string; count: number }[];
   availableTags: string[];
   tagFilters: TagFilterState;
   onTagFiltersChange: (filters: TagFilterState) => void;
@@ -120,6 +124,9 @@ export default function FilterBar({
   selectedLocations,
   onLocationsChange,
   availableLocations,
+  selectedZips,
+  onZipsChange,
+  availableZips,
   availableTags,
   tagFilters,
   onTagFiltersChange,
@@ -151,6 +158,10 @@ export default function FilterBar({
     useState(customMaxPrice);
   const [localSelectedLocations, setLocalSelectedLocations] =
     useState(selectedLocations);
+  const [localSelectedZips, setLocalSelectedZips] = useState(selectedZips);
+  const [expandedLocationSections, setExpandedLocationSections] = useState<Set<string>>(
+    new Set() // Both collapsed by default, will expand based on selections when opened
+  );
   const [localSearchInput, setLocalSearchInput] = useState(search);
   const [localShowDailyEvents, setLocalShowDailyEvents] =
     useState(showDailyEvents);
@@ -188,6 +199,10 @@ export default function FilterBar({
   useEffect(() => {
     setLocalSelectedLocations(selectedLocations);
   }, [selectedLocations]);
+
+  useEffect(() => {
+    setLocalSelectedZips(selectedZips);
+  }, [selectedZips]);
 
   useEffect(() => {
     setLocalSearchInput(search);
@@ -242,9 +257,19 @@ export default function FilterBar({
   const handleLocationOpen = () => {
     if (!isLocationOpen && locationRef.current) {
       const rect = locationRef.current.getBoundingClientRect();
-      const dropdownWidth = 220; // mobile dropdown width
+      const dropdownWidth = 240; // dropdown width
       const wouldOverflow = rect.left + dropdownWidth > window.innerWidth - 16;
       setLocationAlign(wouldOverflow ? "right" : "left");
+
+      // Auto-expand sections based on what's selected
+      const sectionsToExpand = new Set<string>();
+      if (localSelectedLocations.length > 0) {
+        sectionsToExpand.add("cities");
+      }
+      if (localSelectedZips.length > 0) {
+        sectionsToExpand.add("zips");
+      }
+      setExpandedLocationSections(sectionsToExpand);
     }
     setIsLocationOpen(!isLocationOpen);
   };
@@ -342,9 +367,66 @@ export default function FilterBar({
 
   const deselectAllLocations = () => {
     setLocalSelectedLocations([]);
+    setLocalSelectedZips([]);
     startTransition(() => {
       onLocationsChange([]);
+      onZipsChange([]);
     });
+  };
+
+  const toggleZip = (zip: string) => {
+    const newZips = localSelectedZips.includes(zip)
+      ? localSelectedZips.filter((z) => z !== zip)
+      : [...localSelectedZips, zip];
+
+    setLocalSelectedZips(newZips);
+    startTransition(() => {
+      onZipsChange(newZips);
+    });
+  };
+
+  const toggleLocationSection = (section: string) => {
+    setExpandedLocationSections((prev) => {
+      const next = new Set(prev);
+      if (next.has(section)) {
+        next.delete(section);
+      } else {
+        next.add(section);
+      }
+      return next;
+    });
+  };
+
+  // When "Asheville area" is selected, also select all Asheville zips
+  const handleAshevilleToggle = () => {
+    const isCurrentlySelected = localSelectedLocations.includes("asheville");
+
+    if (isCurrentlySelected) {
+      // Deselect Asheville and all Asheville zips
+      const newLocations = localSelectedLocations.filter((l) => l !== "asheville");
+      const newZips = localSelectedZips.filter((z) => !ASHEVILLE_ZIPS.includes(z));
+
+      setLocalSelectedLocations(newLocations);
+      setLocalSelectedZips(newZips);
+      startTransition(() => {
+        onLocationsChange(newLocations);
+        onZipsChange(newZips);
+      });
+    } else {
+      // Select Asheville and all available Asheville zips
+      const newLocations = [...localSelectedLocations, "asheville"];
+      const ashevilleZipsInData = availableZips
+        .filter(({ zip }) => ASHEVILLE_ZIPS.includes(zip))
+        .map(({ zip }) => zip);
+      const newZips = [...new Set([...localSelectedZips, ...ashevilleZipsInData])];
+
+      setLocalSelectedLocations(newLocations);
+      setLocalSelectedZips(newZips);
+      startTransition(() => {
+        onLocationsChange(newLocations);
+        onZipsChange(newZips);
+      });
+    }
   };
 
   const toggleCategory = (categoryName: string) => {
@@ -399,28 +481,26 @@ export default function FilterBar({
     if (localDateFilter === "dayOfWeek" && localSelectedDays.length > 0) {
       dateLabel = localSelectedDays.map((d) => DAY_NAMES[d]).join(", ");
     } else if (localDateFilter === "custom" && localCustomDateRange.start) {
+      const startDate = safeParseDateString(localCustomDateRange.start);
+      const endDate = safeParseDateString(localCustomDateRange.end);
       if (
-        localCustomDateRange.end &&
+        endDate &&
         localCustomDateRange.end !== localCustomDateRange.start
       ) {
-        dateLabel = `${new Date(localCustomDateRange.start).toLocaleDateString(
-          "en-US",
-          {
-            month: "short",
-            day: "numeric",
-          }
-        )} - ${new Date(localCustomDateRange.end).toLocaleDateString("en-US", {
+        dateLabel = `${startDate!.toLocaleDateString("en-US", {
+          month: "short",
+          day: "numeric",
+        })} - ${endDate.toLocaleDateString("en-US", {
           month: "short",
           day: "numeric",
         })}`;
+      } else if (startDate) {
+        dateLabel = startDate.toLocaleDateString("en-US", {
+          month: "short",
+          day: "numeric",
+        });
       } else {
-        dateLabel = new Date(localCustomDateRange.start).toLocaleDateString(
-          "en-US",
-          {
-            month: "short",
-            day: "numeric",
-          }
-        );
+        dateLabel = dateLabels[localDateFilter];
       }
     } else {
       dateLabel = dateLabels[localDateFilter];
@@ -444,14 +524,19 @@ export default function FilterBar({
   };
 
   const getLocationLabel = (): string => {
-    if (localSelectedLocations.length === 0) return "Location";
-    if (localSelectedLocations.length === 1) {
-      const loc = localSelectedLocations[0];
-      if (loc === "asheville") return "Asheville area";
-      if (loc === "Online") return "Online";
-      return loc;
+    const totalSelected = localSelectedLocations.length + localSelectedZips.length;
+    if (totalSelected === 0) return "Location";
+    if (totalSelected === 1) {
+      if (localSelectedLocations.length === 1) {
+        const loc = localSelectedLocations[0];
+        if (loc === "asheville") return "Asheville area";
+        if (loc === "Online") return "Online";
+        return loc;
+      }
+      // Single zip selected - show just the number
+      return localSelectedZips[0];
     }
-    return `${localSelectedLocations.length} locations`;
+    return `${totalSelected} selected`;
   };
 
   return (
@@ -460,9 +545,7 @@ export default function FilterBar({
       <div className="flex flex-col xl:flex-row xl:items-center gap-3 xl:gap-2">
         {/* Search Input */}
         <div className="relative w-full xl:flex-1 xl:min-w-0">
-          <Search
-            className="absolute left-2.5 sm:left-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500 w-4 h-4 sm:w-5 sm:h-5"
-          />
+          <Search className="absolute left-2.5 sm:left-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500 w-4 h-4 sm:w-5 sm:h-5" />
           <input
             type="text"
             placeholder="Search events..."
@@ -818,9 +901,9 @@ export default function FilterBar({
             >
               <MapPin size={16} />
               <span>{getLocationLabel()}</span>
-              {localSelectedLocations.length > 0 && (
+              {(localSelectedLocations.length > 0 || localSelectedZips.length > 0) && (
                 <span className="bg-brand-500 text-white text-xs px-1.5 py-0.5 rounded-full min-w-[20px] text-center">
-                  {localSelectedLocations.length}
+                  {localSelectedLocations.length + localSelectedZips.length}
                 </span>
               )}
               <ChevronDown
@@ -833,7 +916,7 @@ export default function FilterBar({
 
             {isLocationOpen && (
               <div
-                className={`absolute top-full mt-1 z-50 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg min-w-[220px] max-h-96 flex flex-col ${
+                className={`absolute top-full mt-1 z-50 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg min-w-[240px] max-h-96 flex flex-col ${
                   locationAlign === "left" ? "left-0" : "right-0"
                 }`}
               >
@@ -863,74 +946,119 @@ export default function FilterBar({
                 </div>
 
                 <div className="overflow-y-auto p-2">
-                  {/* Asheville area */}
-                  <label className="flex items-center gap-2 px-2 py-1.5 rounded hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer">
-                    <input
-                      type="checkbox"
-                      checked={localSelectedLocations.includes("asheville")}
-                      onChange={() => toggleLocation("asheville")}
-                      className="w-4 h-4 text-brand-600 rounded border-gray-300 focus:ring-brand-500"
-                    />
-                    <span className="text-sm text-gray-700 dark:text-gray-200">
-                      Asheville area
-                    </span>
-                  </label>
+                  {/* Cities Section - Collapsible */}
+                  <div className="mb-1">
+                    <button
+                      onClick={() => toggleLocationSection("cities")}
+                      className="w-full flex items-center justify-between px-2 py-1.5 text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 rounded cursor-pointer"
+                    >
+                      <span>Cities</span>
+                      <ChevronDown
+                        size={14}
+                        className={`transition-transform ${
+                          expandedLocationSections.has("cities") ? "rotate-180" : ""
+                        }`}
+                      />
+                    </button>
+                    {expandedLocationSections.has("cities") && (
+                      <div className="ml-2 mt-1">
+                        {/* Asheville area */}
+                        <label className="flex items-center gap-2 px-2 py-1.5 rounded hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer">
+                          <input
+                            type="checkbox"
+                            checked={localSelectedLocations.includes("asheville")}
+                            onChange={handleAshevilleToggle}
+                            className="w-4 h-4 text-brand-600 rounded border-gray-300 focus:ring-brand-500"
+                          />
+                          <span className="text-sm text-gray-700 dark:text-gray-200">
+                            Asheville area
+                          </span>
+                        </label>
 
-                  {/* Divider and other cities */}
-                  {availableLocations.filter(
-                    (loc) => loc !== "Asheville" && loc !== "Online"
-                  ).length > 0 && (
-                    <>
-                      <div className="border-t border-gray-100 dark:border-gray-700 my-1.5" />
-                      {availableLocations
-                        .filter(
-                          (loc) => loc !== "Asheville" && loc !== "Online"
-                        )
-                        .map((location) => (
-                          <label
-                            key={location}
-                            className="flex items-center gap-2 px-2 py-1.5 rounded hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer"
-                          >
+                        {/* Other cities */}
+                        {availableLocations
+                          .filter((loc) => loc !== "Asheville" && loc !== "Online")
+                          .map((location) => (
+                            <label
+                              key={location}
+                              className="flex items-center gap-2 px-2 py-1.5 rounded hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer"
+                            >
+                              <input
+                                type="checkbox"
+                                checked={localSelectedLocations.includes(location)}
+                                onChange={() => toggleLocation(location)}
+                                className="w-4 h-4 text-brand-600 rounded border-gray-300 focus:ring-brand-500"
+                              />
+                              <span className="text-sm text-gray-700 dark:text-gray-200">
+                                {location}
+                              </span>
+                            </label>
+                          ))}
+
+                        {/* Online */}
+                        {availableLocations.includes("Online") && (
+                          <label className="flex items-center gap-2 px-2 py-1.5 rounded hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer">
                             <input
                               type="checkbox"
-                              checked={localSelectedLocations.includes(
-                                location
-                              )}
-                              onChange={() => toggleLocation(location)}
+                              checked={localSelectedLocations.includes("Online")}
+                              onChange={() => toggleLocation("Online")}
                               className="w-4 h-4 text-brand-600 rounded border-gray-300 focus:ring-brand-500"
                             />
                             <span className="text-sm text-gray-700 dark:text-gray-200">
-                              {location}
+                              Online
                             </span>
                           </label>
-                        ))}
-                    </>
-                  )}
+                        )}
+                      </div>
+                    )}
+                  </div>
 
-                  {/* Online option at the end */}
-                  {availableLocations.includes("Online") && (
-                    <>
-                      <div className="border-t border-gray-100 dark:border-gray-700 my-1.5" />
-                      <label className="flex items-center gap-2 px-2 py-1.5 rounded hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer">
-                        <input
-                          type="checkbox"
-                          checked={localSelectedLocations.includes("Online")}
-                          onChange={() => toggleLocation("Online")}
-                          className="w-4 h-4 text-brand-600 rounded border-gray-300 focus:ring-brand-500"
+                  {/* Zip Codes Section - Collapsible */}
+                  {availableZips.length > 0 && (
+                    <div className="border-t border-gray-100 dark:border-gray-700 pt-1 mt-1">
+                      <button
+                        onClick={() => toggleLocationSection("zips")}
+                        className="w-full flex items-center justify-between px-2 py-1.5 text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 rounded cursor-pointer"
+                      >
+                        <span>Zip Codes</span>
+                        <ChevronDown
+                          size={14}
+                          className={`transition-transform ${
+                            expandedLocationSections.has("zips") ? "rotate-180" : ""
+                          }`}
                         />
-                        <span className="text-sm text-gray-700 dark:text-gray-200">
-                          Online
-                        </span>
-                      </label>
-                    </>
+                      </button>
+                      {expandedLocationSections.has("zips") && (
+                        <div className="ml-2 mt-1">
+                          {availableZips.map(({ zip }) => (
+                            <label
+                              key={zip}
+                              className="flex items-center gap-2 px-2 py-1.5 rounded hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer"
+                            >
+                              <input
+                                type="checkbox"
+                                checked={localSelectedZips.includes(zip)}
+                                onChange={() => toggleZip(zip)}
+                                className="w-4 h-4 text-brand-600 rounded border-gray-300 focus:ring-brand-500"
+                              />
+                              <span className="text-sm text-gray-700 dark:text-gray-200">
+                                {zip}
+                              </span>
+                              <span className="text-sm text-gray-500 dark:text-gray-400 ml-auto">
+                                {getZipName(zip)}
+                              </span>
+                            </label>
+                          ))}
+                        </div>
+                      )}
+                    </div>
                   )}
                 </div>
 
-                {localSelectedLocations.length > 0 && (
+                {(localSelectedLocations.length > 0 || localSelectedZips.length > 0) && (
                   <div className="px-3 py-2 border-t border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 flex items-center justify-between">
                     <span className="text-xs text-gray-500 dark:text-gray-400">
-                      {localSelectedLocations.length} location
-                      {localSelectedLocations.length !== 1 ? "s" : ""} selected
+                      {localSelectedLocations.length + localSelectedZips.length} selected
                     </span>
                     <button
                       onClick={deselectAllLocations}
@@ -1016,7 +1144,7 @@ export default function FilterBar({
                       className="w-4 h-4 text-brand-600 rounded border-gray-300 focus:ring-brand-500"
                     />
                     <span className="text-sm text-gray-700 dark:text-gray-200">
-                      Show daily events
+                      Show daily recurring events
                     </span>
                   </label>
                 </div>

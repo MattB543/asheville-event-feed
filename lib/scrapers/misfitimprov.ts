@@ -108,7 +108,11 @@ function transformEvent(event: CrowdworkEvent): ScrapedEvent[] {
     : event.description_short
       ? decodeHtmlEntities(event.description_short)
       : undefined;
-  const location = event.venue || undefined;
+  // Misfit Improv is at 573 Fairview Rd, Unit 21A, Asheville, NC 28803
+  const location = event.venue
+    ? `${event.venue}, 573 Fairview Rd, Asheville, NC`
+    : 'Misfit Improv, 573 Fairview Rd, Asheville, NC';
+  const zip = '28803';
   const organizer = event.theatre?.name || 'Misfit Improv AVL';
   const price = formatPrice(event);
   const imageUrl = event.img?.url || undefined;
@@ -137,6 +141,7 @@ function transformEvent(event: CrowdworkEvent): ScrapedEvent[] {
       description,
       startDate,
       location,
+      zip,
       organizer,
       price,
       url,

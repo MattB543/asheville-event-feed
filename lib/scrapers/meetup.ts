@@ -1,7 +1,8 @@
-import { ScrapedEvent, MeetupApiEvent } from './types';
+import { ScrapedEvent } from './types';
 import { withRetry } from '@/lib/utils/retry';
 import { isNonNCEvent } from '@/lib/utils/locationFilter';
 import { getEasternOffset } from '@/lib/utils/timezone';
+import { getZipFromCoords, getZipFromCity } from '@/lib/utils/zipFromCoords';
 
 /**
  * Meetup Scraper - Date-Range Based Approach
@@ -83,10 +84,33 @@ interface Gql2Response {
 }
 
 /**
- * Fetch og:image from a Meetup event page
- * Used as fallback when GraphQL doesn't return featuredEventPhoto
+ * Venue data extracted from Meetup event page HTML
  */
-async function fetchOgImage(eventUrl: string): Promise<string | null> {
+interface MeetupVenue {
+  name?: string;
+  address?: string;
+  city?: string;
+  state?: string;
+  zip?: string;
+  lat?: number;
+  lon?: number;
+}
+
+/**
+ * Data extracted from Meetup event page HTML
+ */
+interface MeetupPageData {
+  imageUrl: string | null;
+  venue: MeetupVenue | null;
+}
+
+/**
+ * Fetch og:image and venue data from a Meetup event page
+ * Extracts venue info from embedded Apollo cache JSON
+ */
+async function fetchEventPageData(eventUrl: string): Promise<MeetupPageData> {
+  const result: MeetupPageData = { imageUrl: null, venue: null };
+
   try {
     const response = await fetch(eventUrl, {
       headers: {
@@ -94,38 +118,50 @@ async function fetchOgImage(eventUrl: string): Promise<string | null> {
       },
     });
 
-    if (!response.ok) return null;
+    if (!response.ok) return result;
 
     const html = await response.text();
 
-    // Try og:image meta tag (most reliable)
-    let imageUrl: string | null = null;
-    const ogImageMatch = html.match(/<meta[^>]*property="og:image"[^>]*content="([^"]+)"/);
-    if (ogImageMatch) {
-      imageUrl = ogImageMatch[1];
-    }
+    // Extract og:image
+    const ogImageMatch = html.match(/<meta[^>]*property="og:image"[^>]*content="([^"]+)"/)
+      || html.match(/content="([^"]+)"[^>]*property="og:image"/);
 
-    // Try alternate pattern (content before property)
-    if (!imageUrl) {
-      const ogImageMatch2 = html.match(/content="([^"]+)"[^>]*property="og:image"/);
-      if (ogImageMatch2) {
-        imageUrl = ogImageMatch2[1];
+    if (ogImageMatch) {
+      const imageUrl = ogImageMatch[1];
+      // Filter out Meetup's generic fallback/placeholder images
+      if (!imageUrl.includes('/images/fallbacks/') &&
+          !imageUrl.includes('group-cover') &&
+          !imageUrl.includes('default_photo')) {
+        result.imageUrl = imageUrl;
       }
     }
 
-    // Filter out Meetup's generic fallback/placeholder images
-    if (imageUrl && (
-      imageUrl.includes('/images/fallbacks/') ||
-      imageUrl.includes('group-cover') ||
-      imageUrl.includes('default_photo')
-    )) {
-      return null;
+    // Extract venue from embedded Apollo cache JSON
+    // Pattern: "Venue:12345":{"__typename":"Venue","id":"12345","name":"...","address":"...","city":"...","state":"..."}
+    const venueMatch = html.match(/"Venue:\d+":\{[^}]+\}/);
+    if (venueMatch) {
+      try {
+        // Parse the JSON value (need to wrap in braces to make valid JSON)
+        const venueJson = venueMatch[0].replace(/"Venue:\d+":/, '');
+        const venueData = JSON.parse(venueJson);
+
+        result.venue = {
+          name: venueData.name,
+          address: venueData.address,
+          city: venueData.city,
+          state: venueData.state,
+          lat: venueData.lat,
+          lon: venueData.lon || venueData.lng,
+        };
+      } catch {
+        // Ignore JSON parse errors
+      }
     }
 
-    return imageUrl;
+    return result;
   } catch (error) {
-    console.warn(`[Meetup] Failed to fetch og:image for ${eventUrl}:`, error);
-    return null;
+    console.warn(`[Meetup] Failed to fetch page data for ${eventUrl}:`, error);
+    return result;
   }
 }
 
@@ -257,7 +293,7 @@ function formatMeetupEvent(event: MeetupGql2Event): ScrapedEvent {
   // Get location from group
   const city = event.group?.city || "";
   const state = event.group?.state || "";
-  let location = city && state ? `${city}, ${state}` : city || "Asheville, NC";
+  const location = city && state ? `${city}, ${state}` : city || "Asheville, NC";
 
   // Get organizer from group
   const organizer = event.group?.name || event.group?.urlname || "Meetup";
@@ -400,37 +436,59 @@ export async function scrapeMeetup(daysToFetch: number = 30): Promise<ScrapedEve
   // Convert to ScrapedEvent format
   const formattedEvents = ashevilleEvents.map(formatMeetupEvent);
 
-  // Apply standard non-NC filter
-  const ncEvents = formattedEvents.filter(ev => !isNonNCEvent(ev.title, ev.location));
+  // Apply standard non-NC filter and skip online events
+  const ncEvents = formattedEvents.filter(ev => {
+    // Skip online events
+    if (ev.location?.toLowerCase() === 'online') return false;
+    // Skip non-NC events
+    return !isNonNCEvent(ev.title, ev.location);
+  });
   const ncFilteredCount = formattedEvents.length - ncEvents.length;
 
   if (ncFilteredCount > 0) {
     console.log(`[Meetup] Filtered out ${ncFilteredCount} non-NC events`);
   }
 
-  // Fetch missing images
-  const eventsWithoutImages = ncEvents.filter(ev => !ev.imageUrl);
-  if (eventsWithoutImages.length > 0) {
-    console.log(`[Meetup] Fetching images for ${eventsWithoutImages.length} events...`);
+  // Fetch venue data and missing images from event pages
+  // We need to fetch all events to get venue/zip data since GraphQL doesn't return it
+  console.log(`[Meetup] Fetching venue data for ${ncEvents.length} events...`);
 
-    for (let i = 0; i < eventsWithoutImages.length; i += IMAGE_BATCH_SIZE) {
-      const batch = eventsWithoutImages.slice(i, i + IMAGE_BATCH_SIZE);
+  let venuesFetched = 0;
+  let imagesFetched = 0;
 
-      await Promise.all(batch.map(async (event) => {
-        const ogImage = await fetchOgImage(event.url);
-        if (ogImage) {
-          event.imageUrl = ogImage;
-        }
-      }));
+  for (let i = 0; i < ncEvents.length; i += IMAGE_BATCH_SIZE) {
+    const batch = ncEvents.slice(i, i + IMAGE_BATCH_SIZE);
 
-      if (i + IMAGE_BATCH_SIZE < eventsWithoutImages.length) {
-        await new Promise(r => setTimeout(r, IMAGE_BATCH_DELAY_MS));
+    await Promise.all(batch.map(async (event) => {
+      const pageData = await fetchEventPageData(event.url);
+
+      // Update image if we don't have one and page has one
+      if (!event.imageUrl && pageData.imageUrl) {
+        event.imageUrl = pageData.imageUrl;
+        imagesFetched++;
       }
-    }
 
-    const fetched = eventsWithoutImages.filter(ev => ev.imageUrl).length;
-    console.log(`[Meetup] Fetched ${fetched}/${eventsWithoutImages.length} images`);
+      // Update venue data if available
+      if (pageData.venue) {
+        // Build better location string with venue address
+        if (pageData.venue.address && pageData.venue.city && pageData.venue.state) {
+          event.location = `${pageData.venue.name || ''}, ${pageData.venue.address}, ${pageData.venue.city}, ${pageData.venue.state}`.replace(/^, /, '');
+        } else if (pageData.venue.name && pageData.venue.city) {
+          event.location = `${pageData.venue.name}, ${pageData.venue.city}, ${pageData.venue.state || 'NC'}`;
+        }
+        // Calculate zip from lat/lon coordinates or fall back to city name
+        event.zip = getZipFromCoords(pageData.venue.lat, pageData.venue.lon)
+          || getZipFromCity(pageData.venue.city);
+        venuesFetched++;
+      }
+    }));
+
+    if (i + IMAGE_BATCH_SIZE < ncEvents.length) {
+      await new Promise(r => setTimeout(r, IMAGE_BATCH_DELAY_MS));
+    }
   }
+
+  console.log(`[Meetup] Fetched ${venuesFetched} venues, ${imagesFetched} images`);
 
   console.log(`[Meetup] Complete. Found ${ncEvents.length} Asheville-area physical events.`);
   return ncEvents;

@@ -2,6 +2,7 @@ import { ScrapedEvent, AvlTodayResponse } from './types';
 import { fetchWithRetry } from '@/lib/utils/retry';
 import { isNonNCEvent } from '@/lib/utils/locationFilter';
 import { formatPrice } from '@/lib/utils/formatPrice';
+import { getZipFromCoords, getZipFromCity } from '@/lib/utils/zipFromCoords';
 
 // Common headers to avoid blocking
 const API_HEADERS = {
@@ -131,17 +132,56 @@ function formatAvlEvent(ev: AvlTodayResponse['Value'][0]): ScrapedEvent {
     startDate = new Date(rawDate.getTime() + 9 * 60 * 60 * 1000);
   }
 
+  // Build location string with address if available
+  let location = ev.CityState || "Asheville, NC";
+  if (ev.Address && ev.Venue) {
+    location = `${ev.Venue}, ${ev.Address}, ${ev.CityState || "Asheville, NC"}`;
+  } else if (ev.Venue) {
+    location = `${ev.Venue}, ${ev.CityState || "Asheville, NC"}`;
+  }
+
+  // Determine zip code with fallbacks
+  let zip = ev.Zip || undefined;
+  if (!zip) {
+    // Try to get zip from coordinates
+    zip = getZipFromCoords(ev.latitude, ev.longitude);
+  }
+  if (!zip) {
+    // Try to get zip from city name (extract city from CityState like "Asheville, NC")
+    const cityMatch = ev.CityState?.match(/^([^,]+)/);
+    if (cityMatch) {
+      zip = getZipFromCity(cityMatch[1]);
+    }
+  }
+  if (!zip) {
+    // City of Asheville government events default to downtown (28801)
+    if (finalUrl.includes('ashevillenc.gov/event/')) {
+      zip = '28801';
+    }
+    // Thrifty Thursday at Asheville Area Habitat ReStore (West Asheville)
+    else if (ev.Name === 'Thrifty Thursday') {
+      zip = '28806';
+    }
+  }
+
+  // Use City Hall image for ashevillenc.gov events, otherwise use API image
+  const isGovEvent = finalUrl.includes('ashevillenc.gov/event/');
+  const imageUrl = isGovEvent
+    ? '/City-Hall-spring-min.jpg'
+    : (ev.LargeImg || ev.MediumImg || "");
+
   return {
     sourceId,
     source: 'AVL_TODAY',
     title: ev.Name,
     description: ev.Description,
     startDate,
-    location: ev.CityState || "Asheville, NC",
+    location,
+    zip,
     organizer: ev.Venue || "AVL Today",
     price: price,
     url: finalUrl,
-    imageUrl: ev.LargeImg || ev.MediumImg || "",
+    imageUrl,
     timeUnknown: isTimeUnknown,
   };
 }

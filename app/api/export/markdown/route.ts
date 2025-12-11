@@ -170,7 +170,7 @@ export async function GET(request: Request) {
 
       // 4. Default Filters (spam filter)
       if (useDefaultFilters) {
-        const textToCheck = `${event.title} ${event.description || ''}`;
+        const textToCheck = `${event.title} ${event.description || ''} ${event.organizer || ''}`;
         if (matchesDefaultFilter(textToCheck)) return false;
       }
 

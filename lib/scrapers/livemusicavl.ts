@@ -39,6 +39,21 @@ const VENUE_FALLBACK_IMAGES: Record<string, string> = {
   'white horse': '/white-horse.png',
 };
 
+// Fallback zip codes for venues when API doesn't provide one
+const VENUE_FALLBACK_ZIPS: Record<string, string> = {
+  'pisgah brewing': '28711',  // Black Mountain
+  'jack of the wood': '28801',  // Downtown Asheville
+  'little jumbo': '28801',  // Downtown Asheville
+  'french broad river': '28806',  // West Asheville
+  'fitz and the wolfe': '28801',  // Downtown Asheville
+  'one world brewing': '28801',  // Downtown (default)
+  'one world west': '28806',  // West Asheville
+  'one world downtown': '28801',  // Downtown Asheville
+  '5 walnut': '28801',  // Downtown Asheville
+  'walnut wine': '28801',  // Downtown Asheville
+  'white horse': '28711',  // Black Mountain
+};
+
 // Config
 const API_BASE = 'https://livemusicasheville.com/wp-json/tribe/events/v1/events';
 const PER_PAGE = 50;
@@ -139,6 +154,22 @@ function getVenueFallbackImage(venueName: string | undefined): string | undefine
 }
 
 /**
+ * Get fallback zip code for a venue when API doesn't provide one
+ */
+function getVenueFallbackZip(venueName: string | undefined): string | undefined {
+  if (!venueName) return undefined;
+  const decoded = decodeHtmlEntities(venueName).toLowerCase();
+
+  // Check each fallback key for a match
+  for (const [key, zip] of Object.entries(VENUE_FALLBACK_ZIPS)) {
+    if (decoded.includes(key)) {
+      return zip;
+    }
+  }
+  return undefined;
+}
+
+/**
  * Format API event to ScrapedEvent
  */
 function formatEvent(event: TribeEvent): ScrapedEvent {
@@ -154,6 +185,9 @@ function formatEvent(event: TribeEvent): ScrapedEvent {
     if (venue.state) parts.push(venue.state);
     location = parts.join(', ');
   }
+
+  // Extract zip code from venue, with fallback for known venues
+  const zip = venue?.zip || getVenueFallbackZip(venue?.venue);
 
   // Format price
   let price: string | undefined;
@@ -176,6 +210,7 @@ function formatEvent(event: TribeEvent): ScrapedEvent {
     // Append 'Z' to indicate UTC - the API returns UTC time without timezone indicator
     startDate: new Date(event.utc_start_date + 'Z'),
     location,
+    zip,
     organizer: organizer?.organizer || (venue?.venue ? decodeHtmlEntities(venue.venue) : undefined),
     price,
     url: event.url,

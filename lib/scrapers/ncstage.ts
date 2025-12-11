@@ -259,6 +259,7 @@ export async function scrapeNCStage(): Promise<ScrapedEvent[]> {
             description: event.description,
             startDate: perf.dateTime,
             location: 'North Carolina Stage Company, 15 Stage Lane, Asheville, NC',
+            zip: '28801',
             organizer: 'North Carolina Stage Company',
             price: 'Unknown', // Could scrape from event page if needed
             url: `${productionUrl}#${perf.dateTime.toISOString()}`,

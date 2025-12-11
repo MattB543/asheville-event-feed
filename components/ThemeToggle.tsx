@@ -10,7 +10,8 @@ export default function ThemeToggle() {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  // Prevent hydration mismatch
+  // Prevent hydration mismatch (SSR-safe pattern)
+  // eslint-disable-next-line react-hooks/set-state-in-effect -- SSR hydration: must delay client render
   useEffect(() => setMounted(true), []);
 
   // Close dropdown on outside click

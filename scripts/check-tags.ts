@@ -1,7 +1,6 @@
 import "../lib/config/env";
 import { db } from "../lib/db";
 import { events } from "../lib/db/schema";
-import { sql } from "drizzle-orm";
 
 async function main() {
   const allEvents = await db.select({ 

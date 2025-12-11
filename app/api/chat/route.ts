@@ -1,4 +1,9 @@
 import { NextRequest } from "next/server";
+import {
+  isAzureAIEnabled,
+  azureChatCompletionMessages,
+  azureChatCompletionStream,
+} from "@/lib/ai/azure-client";
 
 // Simple in-memory rate limiter (1 request per 2 seconds per IP)
 const rateLimitMap = new Map<string, number>();
@@ -115,10 +120,7 @@ function getDefaultDateRange(): DateRange {
   return { startDate: start, endDate: end };
 }
 
-async function extractDateRange(
-  userMessage: string,
-  apiKey: string
-): Promise<{ dateRange: DateRange; displayMessage: string }> {
+function buildDateExtractionPrompt(userMessage: string): string {
   const now = new Date();
   const today = now.toLocaleDateString("en-US", {
     weekday: "long",
@@ -133,7 +135,7 @@ async function extractDateRange(
     timeZone: "America/New_York",
   });
 
-  const prompt = `You are a date range extractor for an event search system.
+  return `You are a date range extractor for an event search system.
 
 Current date/time: ${today} at ${currentTime} (Eastern Time)
 
@@ -154,6 +156,59 @@ Rules:
 - For day names (e.g., "Friday", "this Saturday"), find the next occurrence of that day
 
 User query: "${userMessage}"`;
+}
+
+function parseDateExtractionResponse(content: string): DateRange {
+  // Parse JSON from response (handle potential markdown code blocks)
+  let jsonStr = content.trim();
+  if (jsonStr.startsWith("```")) {
+    jsonStr = jsonStr.replace(/```json?\n?/g, "").replace(/```/g, "");
+  }
+
+  const parsed = JSON.parse(jsonStr);
+  return {
+    startDate: parsed.startDate,
+    endDate: parsed.endDate,
+  };
+}
+
+async function extractDateRangeWithAzure(
+  userMessage: string
+): Promise<{ dateRange: DateRange; displayMessage: string } | null> {
+  const prompt = buildDateExtractionPrompt(userMessage);
+
+  try {
+    const content = await azureChatCompletionMessages(
+      [{ role: "user", content: prompt }],
+      { maxTokens: 500 }
+    );
+
+    if (!content) {
+      return null;
+    }
+
+    const dateRange = parseDateExtractionResponse(content);
+
+    // Create display message
+    let displayMessage: string;
+    if (dateRange.startDate === dateRange.endDate) {
+      displayMessage = `Checking events for ${formatDateForDisplay(dateRange.startDate)}...`;
+    } else {
+      displayMessage = `Checking events from ${formatDateForDisplay(dateRange.startDate)} to ${formatDateForDisplay(dateRange.endDate)}...`;
+    }
+
+    return { dateRange, displayMessage };
+  } catch (error) {
+    console.error("[Chat API] Azure date extraction error:", error);
+    return null;
+  }
+}
+
+async function extractDateRangeWithOpenRouter(
+  userMessage: string,
+  apiKey: string
+): Promise<{ dateRange: DateRange; displayMessage: string } | null> {
+  const prompt = buildDateExtractionPrompt(userMessage);
 
   try {
     const response = await fetch(
@@ -176,31 +231,16 @@ User query: "${userMessage}"`;
 
     if (!response.ok) {
       console.error(
-        "[Chat API] Date extraction failed:",
+        "[Chat API] OpenRouter date extraction failed:",
         response.status,
         await response.text()
       );
-      const defaultRange = getDefaultDateRange();
-      return {
-        dateRange: defaultRange,
-        displayMessage: `Checking events from ${formatDateForDisplay(defaultRange.startDate)} to ${formatDateForDisplay(defaultRange.endDate)}...`,
-      };
+      return null;
     }
 
     const data = await response.json();
     const content = data.choices?.[0]?.message?.content || "";
-
-    // Parse JSON from response (handle potential markdown code blocks)
-    let jsonStr = content.trim();
-    if (jsonStr.startsWith("```")) {
-      jsonStr = jsonStr.replace(/```json?\n?/g, "").replace(/```/g, "");
-    }
-
-    const parsed = JSON.parse(jsonStr);
-    const dateRange: DateRange = {
-      startDate: parsed.startDate,
-      endDate: parsed.endDate,
-    };
+    const dateRange = parseDateExtractionResponse(content);
 
     // Create display message
     let displayMessage: string;
@@ -212,13 +252,37 @@ User query: "${userMessage}"`;
 
     return { dateRange, displayMessage };
   } catch (error) {
-    console.error("[Chat API] Date extraction error:", error);
-    const defaultRange = getDefaultDateRange();
-    return {
-      dateRange: defaultRange,
-      displayMessage: `Checking events from ${formatDateForDisplay(defaultRange.startDate)} to ${formatDateForDisplay(defaultRange.endDate)}...`,
-    };
+    console.error("[Chat API] OpenRouter date extraction error:", error);
+    return null;
   }
+}
+
+async function extractDateRange(
+  userMessage: string,
+  openRouterApiKey: string | undefined
+): Promise<{ dateRange: DateRange; displayMessage: string }> {
+  // Try Azure first if configured
+  if (isAzureAIEnabled()) {
+    console.log("[Chat API] Using Azure for date extraction");
+    const result = await extractDateRangeWithAzure(userMessage);
+    if (result) return result;
+    console.warn("[Chat API] Azure date extraction failed, trying OpenRouter fallback");
+  }
+
+  // Fall back to OpenRouter if Azure fails or isn't configured
+  if (openRouterApiKey) {
+    console.log("[Chat API] Using OpenRouter for date extraction");
+    const result = await extractDateRangeWithOpenRouter(userMessage, openRouterApiKey);
+    if (result) return result;
+  }
+
+  // Default fallback
+  console.warn("[Chat API] All date extraction methods failed, using default range");
+  const defaultRange = getDefaultDateRange();
+  return {
+    dateRange: defaultRange,
+    displayMessage: `Checking events from ${formatDateForDisplay(defaultRange.startDate)} to ${formatDateForDisplay(defaultRange.endDate)}...`,
+  };
 }
 
 function filterEventsByDateRange(
@@ -389,6 +453,105 @@ ${events}
 Want more options? I can show you all live music this weekend, all free events, or the full list of ${eventCount} events.`;
 }
 
+/**
+ * Stream chat response using Azure OpenAI.
+ * Returns true if successful, false if should fall back to OpenRouter.
+ */
+async function streamWithAzure(
+  apiMessages: Array<{ role: "system" | "user" | "assistant"; content: string }>,
+  writer: WritableStreamDefaultWriter<Uint8Array>,
+  encoder: TextEncoder
+): Promise<boolean> {
+  try {
+    const stream = await azureChatCompletionStream(apiMessages);
+    if (!stream) {
+      console.warn("[Chat API] Azure streaming not available");
+      return false;
+    }
+
+    console.log("[Chat API] Using Azure for chat streaming");
+
+    // Stream the response in OpenRouter-compatible SSE format
+    for await (const token of stream) {
+      const chunk = {
+        choices: [{ delta: { content: token } }],
+      };
+      await writer.write(encoder.encode(`data: ${JSON.stringify(chunk)}\n\n`));
+    }
+
+    await writer.write(encoder.encode(`data: [DONE]\n\n`));
+    return true;
+  } catch (error) {
+    console.error("[Chat API] Azure streaming error:", error);
+    return false;
+  }
+}
+
+/**
+ * Stream chat response using OpenRouter.
+ * Returns true if successful.
+ */
+async function streamWithOpenRouter(
+  apiMessages: Array<{ role: string; content: string }>,
+  apiKey: string,
+  writer: WritableStreamDefaultWriter<Uint8Array>,
+  encoder: TextEncoder
+): Promise<boolean> {
+  try {
+    console.log("[Chat API] Using OpenRouter for chat streaming");
+
+    const response = await fetch(
+      "https://openrouter.ai/api/v1/chat/completions",
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${apiKey}`,
+          "Content-Type": "application/json",
+          "HTTP-Referer": "https://avlgo.com",
+          "X-Title": "AVL GO Event Finder",
+        },
+        body: JSON.stringify({
+          model: "google/gemini-2.0-flash-001",
+          messages: apiMessages,
+          stream: true,
+        }),
+      }
+    );
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error(
+        "[Chat API] OpenRouter error:",
+        response.status,
+        errorText
+      );
+      return false;
+    }
+
+    // Stream the response
+    const reader = response.body?.getReader();
+    if (!reader) {
+      console.error("[Chat API] No response body from OpenRouter");
+      return false;
+    }
+
+    const decoder = new TextDecoder();
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+
+      const chunk = decoder.decode(value, { stream: true });
+      // Forward the chunk directly (it's already in SSE format)
+      await writer.write(encoder.encode(chunk));
+    }
+
+    return true;
+  } catch (error) {
+    console.error("[Chat API] OpenRouter streaming error:", error);
+    return false;
+  }
+}
+
 export async function POST(request: NextRequest) {
   try {
     // Rate limit by IP
@@ -403,9 +566,11 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const apiKey = process.env.OPENROUTER_API_KEY;
+    const openRouterApiKey = process.env.OPENROUTER_API_KEY;
+    const azureEnabled = isAzureAIEnabled();
 
-    if (!apiKey) {
+    // Check if at least one AI provider is configured
+    if (!azureEnabled && !openRouterApiKey) {
       return new Response(
         JSON.stringify({ error: "Chat feature is not configured" }),
         { status: 503, headers: { "Content-Type": "application/json" } }
@@ -444,7 +609,7 @@ export async function POST(request: NextRequest) {
         );
 
         if (needsDateExtraction) {
-          const result = await extractDateRange(latestUserMessage, apiKey);
+          const result = await extractDateRange(latestUserMessage, openRouterApiKey);
           dateRange = result.dateRange;
           displayMessage = result.displayMessage;
         } else {
@@ -485,70 +650,41 @@ export async function POST(request: NextRequest) {
           dateRange
         );
 
-        // Build messages for OpenRouter API
+        // Build messages for AI API
         const apiMessages = [
-          { role: "system", content: systemPrompt },
+          { role: "system" as const, content: systemPrompt },
           ...messages.map((msg) => ({
-            role: msg.role,
+            role: msg.role as "user" | "assistant",
             content: msg.content,
           })),
         ];
 
         // Step 4: Get main AI response (streaming)
-        const response = await fetch(
-          "https://openrouter.ai/api/v1/chat/completions",
-          {
-            method: "POST",
-            headers: {
-              Authorization: `Bearer ${apiKey}`,
-              "Content-Type": "application/json",
-              "HTTP-Referer": "https://avlgo.com",
-              "X-Title": "AVL GO Event Finder",
-            },
-            body: JSON.stringify({
-              model: "google/gemini-2.0-flash-001",
-              messages: apiMessages,
-              stream: true,
-            }),
-          }
-        );
+        // Try Azure first, then fall back to OpenRouter
+        let streamSuccess = false;
 
-        if (!response.ok) {
-          const errorText = await response.text();
-          console.error(
-            "[Chat API] OpenRouter error:",
-            response.status,
-            errorText
+        if (azureEnabled) {
+          streamSuccess = await streamWithAzure(apiMessages, writer, encoder);
+        }
+
+        if (!streamSuccess && openRouterApiKey) {
+          if (azureEnabled) {
+            console.warn("[Chat API] Azure streaming failed, falling back to OpenRouter");
+          }
+          streamSuccess = await streamWithOpenRouter(
+            apiMessages,
+            openRouterApiKey,
+            writer,
+            encoder
           );
+        }
+
+        if (!streamSuccess) {
           await writer.write(
             encoder.encode(
               `data: ${JSON.stringify({ type: "error", data: "Failed to get response from AI" })}\n\n`
             )
           );
-          await writer.close();
-          return;
-        }
-
-        // Stream the response
-        const reader = response.body?.getReader();
-        if (!reader) {
-          await writer.write(
-            encoder.encode(
-              `data: ${JSON.stringify({ type: "error", data: "No response body" })}\n\n`
-            )
-          );
-          await writer.close();
-          return;
-        }
-
-        const decoder = new TextDecoder();
-        while (true) {
-          const { done, value } = await reader.read();
-          if (done) break;
-
-          const chunk = decoder.decode(value, { stream: true });
-          // Forward the chunk directly (it's already in SSE format)
-          await writer.write(encoder.encode(chunk));
         }
 
         await writer.close();

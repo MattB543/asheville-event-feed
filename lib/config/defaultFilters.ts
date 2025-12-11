@@ -82,12 +82,37 @@ export const DEFAULT_BLOCKED_KEYWORDS = [
   "PRETTY LITTLE BLONDE | TAYLORS, SOUTH CAROLINA",
   "Random Acts of Kindness Spree in Asheville",
   "LaZoom Hey Asheville Tour: Holiday Edition",
+  "BANG-BROKER ALLIANCE NETWORKING GROUP",
+  "Questo -",
+  "Powerful Voices Open Mic Show",
 ];
 
 /**
+ * Whitelisted event titles or phrases that should NOT be filtered,
+ * even if they contain blocked keywords.
+ */
+export const DEFAULT_WHITELIST = ["Dinner Under Dinos"];
+
+/**
+ * Check if text matches any whitelisted phrase (case insensitive)
+ */
+export function matchesWhitelist(text: string): boolean {
+  const lowerText = text.toLowerCase();
+  return DEFAULT_WHITELIST.some((phrase) =>
+    lowerText.includes(phrase.toLowerCase())
+  );
+}
+
+/**
  * Check if text contains any of the blocked keywords (case insensitive)
+ * Returns false if the text matches a whitelisted phrase.
  */
 export function matchesDefaultFilter(text: string): boolean {
+  // Whitelist overrides blocklist
+  if (matchesWhitelist(text)) {
+    return false;
+  }
+
   const lowerText = text.toLowerCase();
   return DEFAULT_BLOCKED_KEYWORDS.some((keyword) =>
     lowerText.includes(keyword.toLowerCase())

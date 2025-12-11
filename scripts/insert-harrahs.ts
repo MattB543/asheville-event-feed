@@ -24,7 +24,6 @@ async function main() {
   // Insert into database
   console.log('Inserting into database...');
   let inserted = 0;
-  let updated = 0;
   let failed = 0;
 
   for (const event of harrahsEvents) {

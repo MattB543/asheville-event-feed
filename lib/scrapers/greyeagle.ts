@@ -16,6 +16,8 @@ import { decodeHtmlEntities } from '../utils/htmlEntities';
 const CALENDAR_URL = 'https://www.thegreyeagle.com/calendar/';
 const USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36';
 const VENUE_NAME = 'The Grey Eagle';
+const VENUE_ADDRESS = 'The Grey Eagle, 185 Clingman Ave, Asheville, NC';
+const VENUE_ZIP = '28801';
 
 /**
  * Extract description from meta tag
@@ -148,10 +150,10 @@ async function scrapeEventPage(url: string): Promise<ScrapedEvent | null> {
     const description = extractMetaDescription(html);
 
     // Determine venue from location
-    let location = VENUE_NAME;
+    let location = VENUE_ADDRESS;
     if (jsonLd.location?.name) {
       if (jsonLd.location.name.includes('Special Event')) {
-        location = `${VENUE_NAME} (Special Event)`;
+        location = `${VENUE_ADDRESS} (Special Event)`;
       }
     }
 
@@ -187,6 +189,7 @@ async function scrapeEventPage(url: string): Promise<ScrapedEvent | null> {
       description,
       startDate,
       location,
+      zip: VENUE_ZIP,
       organizer: VENUE_NAME,
       price,
       url: jsonLd.url || url,

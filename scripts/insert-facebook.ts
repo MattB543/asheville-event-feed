@@ -16,6 +16,7 @@ import { events } from '../lib/db/schema';
 import { scrapeFacebookEvents } from '../lib/scrapers/facebook';
 import { generateEventTags } from '../lib/ai/tagging';
 import { isAIEnabled, isFacebookEnabled } from '../lib/config/env';
+import type { ScrapedEventWithTags } from '../lib/scrapers/types';
 
 async function main() {
   console.log('='.repeat(70));
@@ -61,6 +62,8 @@ async function main() {
 
   // Generate tags if AI is enabled
   let taggedCount = 0;
+  const eventsWithTags: ScrapedEventWithTags[] = [];
+
   if (isAIEnabled()) {
     console.log('Generating tags for events...');
     for (const event of scrapedEvents) {
@@ -72,7 +75,7 @@ async function main() {
           organizer: event.organizer,
           startDate: event.startDate,
         });
-        (event as any).tags = tags;
+        eventsWithTags.push({ ...event, tags });
         taggedCount++;
 
         // Show progress
@@ -84,14 +87,14 @@ async function main() {
         await new Promise(r => setTimeout(r, 500));
       } catch (err) {
         console.error(`  Failed to tag "${event.title}":`, err);
-        (event as any).tags = [];
+        eventsWithTags.push({ ...event, tags: [] });
       }
     }
     console.log(`Tagged ${taggedCount} events`);
   } else {
     console.log('AI not enabled, skipping tag generation');
     for (const event of scrapedEvents) {
-      (event as any).tags = [];
+      eventsWithTags.push({ ...event, tags: [] });
     }
   }
   console.log();
@@ -101,7 +104,7 @@ async function main() {
   let insertedCount = 0;
   let errorCount = 0;
 
-  for (const event of scrapedEvents) {
+  for (const event of eventsWithTags) {
     try {
       await db.insert(events)
         .values({
@@ -115,7 +118,7 @@ async function main() {
           price: event.price,
           url: event.url,
           imageUrl: event.imageUrl,
-          tags: (event as any).tags || [],
+          tags: event.tags || [],
           interestedCount: event.interestedCount,
           goingCount: event.goingCount,
         })

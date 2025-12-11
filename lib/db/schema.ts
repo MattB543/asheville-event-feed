@@ -8,6 +8,7 @@ export const events = pgTable('events', {
   description: text('description'),
   startDate: timestamp('start_date', { withTimezone: true }).notNull(),
   location: text('location'),
+  zip: text('zip'),                      // Zip code for the event location
   organizer: text('organizer'),
   price: text('price'),                  // Stored as string for display: "$20.00", "Free"
   url: text('url').unique().notNull(),   // Unique constraint to prevent duplicates
@@ -21,6 +22,8 @@ export const events = pgTable('events', {
   // Recurring event fields (for daily recurring like art installations)
   recurringType: text('recurring_type'), // 'daily' | null - daily events shown separately in UI
   recurringEndDate: timestamp('recurring_end_date', { withTimezone: true }), // When the recurring event ends
+  // User engagement
+  favoriteCount: integer('favorite_count').default(0), // Number of users who favorited this event
 }, (table) => ({
   startDateIdx: index('events_start_date_idx').on(table.startDate),
   sourceIdx: index('events_source_idx').on(table.source),

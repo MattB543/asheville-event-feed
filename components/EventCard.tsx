@@ -7,6 +7,7 @@ import {
   EyeOff,
   Ban,
   ChevronDown,
+  Heart,
 } from "lucide-react";
 import Image from "next/image";
 import { useState, useRef, useEffect } from "react";
@@ -35,6 +36,10 @@ interface EventCardProps {
   onBlockHost: (host: string) => void;
   isNewlyHidden?: boolean;
   hideBorder?: boolean;
+  isFavorited: boolean;
+  favoriteCount: number;
+  onToggleFavorite: (eventId: string) => void;
+  isTagFilterActive?: boolean;
 }
 
 // Round price string to nearest dollar (e.g., "$19.10" -> "$19", "$25.50" -> "$26")
@@ -57,11 +62,16 @@ export default function EventCard({
   onBlockHost,
   isNewlyHidden = false,
   hideBorder = false,
+  isFavorited,
+  favoriteCount,
+  onToggleFavorite,
+  isTagFilterActive = false,
 }: EventCardProps) {
   const [imgError, setImgError] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   const [calendarMenuOpen, setCalendarMenuOpen] = useState(false);
   const [hideMenuOpen, setHideMenuOpen] = useState(false);
+  const [isHeartAnimating, setIsHeartAnimating] = useState(false);
   const calendarMenuRef = useRef<HTMLDivElement>(null);
   const hideMenuRef = useRef<HTMLDivElement>(null);
 
@@ -87,6 +97,7 @@ export default function EventCard({
       return () =>
         document.removeEventListener("mousedown", handleClickOutside);
     }
+    return undefined;
   }, [calendarMenuOpen, hideMenuOpen]);
 
   const handleAddToAppleCalendar = () => {
@@ -236,7 +247,7 @@ export default function EventCard({
       </div>
 
       {/* Metadata: Title, Date, Location, Tags */}
-      <div className="flex flex-col justify-between xl:row-span-2 xl:h-32">
+      <div className="flex flex-col justify-between xl:row-span-2">
         <div>
           <h3 className="text-base font-bold text-brand-600 dark:text-brand-400 leading-tight">
             <a
@@ -278,16 +289,55 @@ export default function EventCard({
             </span>
           )}
 
-          {/* Other Tags */}
+          {/* Other Tags - show first 3-4 unless filtering by tag */}
           {event.tags &&
-            event.tags.map((tag) => (
-              <span
-                key={tag}
-                className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-brand-50 dark:bg-brand-950/50 text-brand-700 dark:text-brand-300 border border-brand-100 dark:border-brand-800"
-              >
-                {tag}
-              </span>
-            ))}
+            (() => {
+              if (isTagFilterActive) {
+                return event.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-brand-50 dark:bg-brand-950/50 text-brand-700 dark:text-brand-300 border border-brand-100 dark:border-brand-800"
+                  >
+                    {tag}
+                  </span>
+                ));
+              }
+              // Check if first 4 tags exceed 40 chars total
+              const first4 = event.tags.slice(0, 4);
+              const first4Chars = first4.join("").length;
+              const maxTags = first4Chars > 40 ? 3 : 4;
+              const visibleTags = event.tags.slice(0, maxTags);
+              const hiddenCount = event.tags.length - visibleTags.length;
+              return (
+                <>
+                  {visibleTags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-brand-50 dark:bg-brand-950/50 text-brand-700 dark:text-brand-300 border border-brand-100 dark:border-brand-800"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                  {hiddenCount > 0 && (
+                    <span className="relative inline-flex group/tags">
+                      <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-brand-50 dark:bg-brand-950/50 text-brand-700 dark:text-brand-300 border border-brand-100 dark:border-brand-800 cursor-default leading-4">
+                        +{hiddenCount}
+                      </span>
+                      <span className="absolute bottom-full left-0 mb-1 hidden group-hover/tags:flex flex-col bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded shadow-lg px-2 py-1.5 z-20 whitespace-nowrap">
+                        {event.tags.slice(maxTags).map((tag) => (
+                          <span
+                            key={tag}
+                            className="text-xs text-gray-700 dark:text-gray-300"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </span>
+                    </span>
+                  )}
+                </>
+              );
+            })()}
         </div>
       </div>
 
@@ -347,6 +397,7 @@ export default function EventCard({
                 onClick={handleAddToGoogleCalendar}
                 className="w-full flex items-center gap-2 px-3 py-2 text-xs text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
               >
+                {/* eslint-disable-next-line @next/next/no-img-element -- Small static SVG icon, no optimization needed */}
                 <img
                   src="/google_cal.svg"
                   alt="Google Calendar"
@@ -420,6 +471,28 @@ export default function EventCard({
             </div>
           )}
         </div>
+        {/* Favorite button */}
+        <button
+          onClick={() => {
+            setIsHeartAnimating(true);
+            onToggleFavorite(event.id);
+            setTimeout(() => setIsHeartAnimating(false), 300);
+          }}
+          className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs rounded border cursor-pointer transition-colors ${
+            isFavorited
+              ? "text-red-500 dark:text-red-400 border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-950/50 hover:bg-red-100 dark:hover:bg-red-900/50"
+              : "text-gray-600 dark:text-gray-400 border-gray-200 dark:border-gray-700 hover:bg-red-50 dark:hover:bg-red-950/50 hover:text-red-500 dark:hover:text-red-400 hover:border-red-200 dark:hover:border-red-800"
+          }`}
+          title={isFavorited ? "Remove from favorites" : "Add to favorites"}
+        >
+          <Heart
+            size={14}
+            className={`transition-transform ${isFavorited ? "fill-current" : ""} ${
+              isHeartAnimating ? "animate-heart-pop" : ""
+            }`}
+          />
+          {favoriteCount > 0 && <span>{favoriteCount}</span>}
+        </button>
         <a
           href={getSourceUrl()}
           target="_blank"

@@ -10,7 +10,7 @@
 import 'dotenv/config';
 import * as fs from 'fs';
 import * as path from 'path';
-import { scrapeOrangePeel, fetchTicketmasterEvents, fetchWebsiteEvents } from '../lib/scrapers/orangepeel';
+import { scrapeOrangePeel } from '../lib/scrapers/orangepeel';
 
 async function main() {
   console.log('='.repeat(70));

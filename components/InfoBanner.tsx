@@ -9,10 +9,13 @@ export default function InfoBanner() {
   const [isDismissed, setIsDismissed] = useState(true); // Start hidden to prevent flash
   const [isLoaded, setIsLoaded] = useState(false);
 
+  // Read localStorage on mount to initialize state (SSR-safe pattern)
   useEffect(() => {
     const dismissed = localStorage.getItem(STORAGE_KEY) === "true";
+    /* eslint-disable react-hooks/set-state-in-effect -- SSR hydration: can't read localStorage during server render */
     setIsDismissed(dismissed);
     setIsLoaded(true);
+    /* eslint-enable react-hooks/set-state-in-effect */
   }, []);
 
   const handleDismiss = () => {

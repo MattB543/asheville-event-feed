@@ -211,7 +211,8 @@ function formatSquarespaceEvent(rawEvent: SquarespaceEvent, description: string)
     title: rawEvent.title,
     description: description || undefined,
     startDate: new Date(rawEvent.startDate),
-    location: 'Urban Dharma, Asheville, NC',
+    location: 'Urban Dharma, 697 Haywood Rd, Asheville, NC',
+    zip: '28806',
     organizer: 'Urban Dharma',
     price: 'Free',
     url: `${BASE_URL}${rawEvent.fullUrl}`,
@@ -261,7 +262,8 @@ async function scrapeGoogleCalendarEvents(): Promise<ScrapedEvent[]> {
       if (shouldExclude(title)) continue;
 
       const description = event.description ? stripHtml(event.description) : undefined;
-      const location = event.location || 'Urban Dharma, Asheville, NC';
+      const location = event.location || 'Urban Dharma, 697 Haywood Rd, Asheville, NC';
+      const zip = '28806';
 
       // Handle recurring events using rrule
       if (event.rrule) {
@@ -304,6 +306,8 @@ async function scrapeGoogleCalendarEvents(): Promise<ScrapedEvent[]> {
             if (seenEvents.has(dedupKey)) continue;
             seenEvents.add(dedupKey);
 
+            // Create unique URL with date fragment (DB uses URL as unique key)
+            const dateFragment = startDate.toISOString().split('T')[0];
             events.push({
               sourceId: `udharma-gc-${event.uid || key}-${startDate.getTime()}`,
               source: 'UDHARMA',
@@ -311,9 +315,10 @@ async function scrapeGoogleCalendarEvents(): Promise<ScrapedEvent[]> {
               description: description,
               startDate: startDate,
               location: location,
+              zip: zip,
               organizer: 'Urban Dharma',
               price: 'Free',
-              url: `${BASE_URL}/events`,
+              url: `${BASE_URL}/events#${dateFragment}-${startDate.getTime()}`,
               imageUrl: DEFAULT_IMAGE_URL,
             });
           }
@@ -335,6 +340,8 @@ async function scrapeGoogleCalendarEvents(): Promise<ScrapedEvent[]> {
         if (seenEvents.has(dedupKey)) continue;
         seenEvents.add(dedupKey);
 
+        // Create unique URL with date fragment (DB uses URL as unique key)
+        const dateFragment = startDate.toISOString().split('T')[0];
         events.push({
           sourceId: `udharma-gc-${event.uid || key}`,
           source: 'UDHARMA',
@@ -342,9 +349,10 @@ async function scrapeGoogleCalendarEvents(): Promise<ScrapedEvent[]> {
           description: description,
           startDate: startDate,
           location: location,
+          zip: zip,
           organizer: 'Urban Dharma',
           price: 'Free',
-          url: `${BASE_URL}/events`,
+          url: `${BASE_URL}/events#${dateFragment}-${startDate.getTime()}`,
           imageUrl: DEFAULT_IMAGE_URL,
         });
       }

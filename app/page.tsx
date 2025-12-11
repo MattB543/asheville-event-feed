@@ -1,6 +1,6 @@
 import { db } from "@/lib/db";
 import { events } from "@/lib/db/schema";
-import { gte, asc, InferSelectModel } from "drizzle-orm";
+import { gte, asc, and, notIlike, or, isNull, InferSelectModel } from "drizzle-orm";
 import EventFeed from "@/components/EventFeed";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { getStartOfTodayEastern } from "@/lib/utils/timezone";
@@ -26,7 +26,19 @@ export default async function Home() {
       initialEvents = await db
         .select()
         .from(events)
-        .where(gte(events.startDate, startOfToday))
+        .where(
+          and(
+            gte(events.startDate, startOfToday),
+            // Exclude online/virtual events (but keep events with null location)
+            or(
+              isNull(events.location),
+              and(
+                notIlike(events.location, '%online%'),
+                notIlike(events.location, '%virtual%')
+              )
+            )
+          )
+        )
         .orderBy(asc(events.startDate));
       console.log(`[Home] Fetched ${initialEvents.length} events.`);
     } else {

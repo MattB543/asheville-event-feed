@@ -7,7 +7,7 @@
  */
 
 import 'dotenv/config';
-import { scrapeHarrahs, fetchTicketmasterEvents, fetchHTMLEvents } from '../lib/scrapers/harrahs';
+import { scrapeHarrahs } from '../lib/scrapers/harrahs';
 
 async function main() {
   console.log('='.repeat(60));

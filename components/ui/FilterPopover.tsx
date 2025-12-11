@@ -36,6 +36,7 @@ export default function FilterPopover({
       return () =>
         document.removeEventListener("mousedown", handleClickOutside);
     }
+    return undefined;
   }, [isOpen]);
 
   // Close on escape key
@@ -51,6 +52,7 @@ export default function FilterPopover({
       document.addEventListener("keydown", handleEscape);
       return () => document.removeEventListener("keydown", handleEscape);
     }
+    return undefined;
   }, [isOpen]);
 
   return (

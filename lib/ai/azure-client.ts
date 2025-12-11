@@ -130,3 +130,64 @@ export async function azureChatCompletion(
     },
   };
 }
+
+/**
+ * Streaming chat completion with Azure OpenAI.
+ * Returns an async iterable of content chunks.
+ */
+export async function azureChatCompletionStream(
+  messages: Array<{ role: "system" | "user" | "assistant"; content: string }>,
+  options?: {
+    maxTokens?: number;
+  }
+): Promise<AsyncIterable<string> | null> {
+  const azureClient = getAzureClient();
+  if (!azureClient) {
+    console.warn("[Azure AI] Client not configured");
+    return null;
+  }
+
+  const stream = await azureClient.chat.completions.create({
+    model: getDeployment(),
+    messages,
+    max_completion_tokens: options?.maxTokens ?? 4000,
+    stream: true,
+  });
+
+  // Return an async generator that yields content chunks
+  return (async function* () {
+    for await (const chunk of stream) {
+      const content = chunk.choices[0]?.delta?.content;
+      if (content) {
+        yield content;
+      }
+    }
+  })();
+}
+
+/**
+ * Non-streaming chat completion with Azure OpenAI (with multiple messages).
+ * Used for simpler requests like date extraction.
+ *
+ * Note: GPT-5-mini does not support temperature parameter (only default 1).
+ */
+export async function azureChatCompletionMessages(
+  messages: Array<{ role: "system" | "user" | "assistant"; content: string }>,
+  options?: {
+    maxTokens?: number;
+  }
+): Promise<string | null> {
+  const azureClient = getAzureClient();
+  if (!azureClient) {
+    console.warn("[Azure AI] Client not configured");
+    return null;
+  }
+
+  const response = await azureClient.chat.completions.create({
+    model: getDeployment(),
+    messages,
+    max_completion_tokens: options?.maxTokens ?? 2000,
+  });
+
+  return response.choices[0]?.message?.content || null;
+}

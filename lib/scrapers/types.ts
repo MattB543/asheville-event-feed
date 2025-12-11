@@ -7,6 +7,7 @@ export interface ScrapedEvent {
   description?: string;
   startDate: Date;
   location?: string;
+  zip?: string;
   organizer?: string;
   price?: string;
   url: string;
@@ -31,6 +32,10 @@ export interface AvlTodayResponse {
     DateStart: string;
     Venue: string;
     CityState: string;
+    Address?: string;        // Street address (e.g., "697 D Haywood Rd")
+    Zip?: string;            // Zip code (e.g., "28806")
+    latitude?: number;
+    longitude?: number;
     Price: number | string | null;
     Links: Array<{ url: string }>;
     TicketUrl: string;
@@ -53,7 +58,16 @@ export interface EventbriteApiEvent {
   image?: { original?: { url: string }; url?: string };
   primary_venue?: {
     name: string;
-    address?: { city: string };
+    address?: {
+      city: string;
+      region?: string;           // State (e.g., "NC")
+      country?: string;          // Country code (e.g., "US")
+      postal_code?: string;      // Zip code (e.g., "28801")
+      address_1?: string;        // Street address
+      address_2?: string;        // Unit/suite
+      latitude?: string;
+      longitude?: string;
+    };
   };
   primary_organizer?: { name: string };
   ticket_availability?: {

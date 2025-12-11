@@ -7,6 +7,7 @@
 
 import { ScrapedEvent } from './types';
 import { isNonNCEvent } from '@/lib/utils/locationFilter';
+import { getZipFromCoords, getZipFromCity } from '@/lib/utils/zipFromCoords';
 import { exec } from 'child_process';
 import { promisify } from 'util';
 
@@ -227,6 +228,10 @@ function formatEvents(event: ExploreAshevilleEvent): ScrapedEvent[] {
     ? `${event.venueName}, ${cityName}, NC`
     : `${cityName}, NC`;
 
+  // Calculate zip from coordinates or fall back to city name
+  const zip = getZipFromCoords(event.position?.lat, event.position?.lng)
+    || getZipFromCity(cityName);
+
   let imageUrl = event.previewImage?.src;
   if (imageUrl && imageUrl.startsWith('/')) {
     imageUrl = `${BASE_URL}${imageUrl}`;
@@ -251,6 +256,7 @@ function formatEvents(event: ExploreAshevilleEvent): ScrapedEvent[] {
       title: event.title,
       startDate,
       location,
+      zip,
       organizer,
       url,
       imageUrl,
@@ -271,6 +277,7 @@ function formatEvents(event: ExploreAshevilleEvent): ScrapedEvent[] {
       title: event.title,
       startDate: date,
       location,
+      zip,
       organizer,
       // Add date to URL to make each occurrence unique (URL is unique constraint)
       url: `${url}#${date.toISOString().split('T')[0]}`,
@@ -287,6 +294,7 @@ function formatEvents(event: ExploreAshevilleEvent): ScrapedEvent[] {
     title: event.title,
     startDate,
     location,
+    zip,
     organizer,
     url,
     imageUrl,

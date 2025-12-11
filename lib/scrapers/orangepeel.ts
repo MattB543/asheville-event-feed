@@ -25,6 +25,9 @@ const USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36
 
 // Venue constants
 const VENUE_NAME = 'The Orange Peel';
+const VENUE_ADDRESS = 'The Orange Peel, 101 Biltmore Ave, Asheville, NC';
+const PULP_ADDRESS = 'Pulp, 103 Hilliard Ave, Asheville, NC';
+const VENUE_ZIP = '28801';
 
 // Common headers for Ticketmaster API
 const TM_API_HEADERS = {
@@ -229,7 +232,8 @@ function formatTMEvent(event: TMEvent): ScrapedEvent | null {
     title,
     description,
     startDate,
-    location: VENUE_NAME,
+    location: VENUE_ADDRESS,
+    zip: VENUE_ZIP,
     organizer: VENUE_NAME,
     price,
     url: event.url,
@@ -410,11 +414,11 @@ async function scrapeEventPage(url: string): Promise<ScrapedEvent | null> {
       .trim();
 
     // Determine venue from location or URL
-    let location = VENUE_NAME;
-    if (jsonLd.location?.name) {
+    let location = VENUE_ADDRESS;
+    if (url.includes('/pulp/') || jsonLd.location?.name?.toLowerCase().includes('pulp')) {
+      location = PULP_ADDRESS;
+    } else if (jsonLd.location?.name && !jsonLd.location.name.toLowerCase().includes('orange peel')) {
       location = jsonLd.location.name;
-    } else if (url.includes('/pulp/')) {
-      location = 'Pulp'; // Orange Peel's smaller venue
     }
 
     return {
@@ -424,6 +428,7 @@ async function scrapeEventPage(url: string): Promise<ScrapedEvent | null> {
       description: jsonLd.description,
       startDate,
       location,
+      zip: VENUE_ZIP,
       organizer: VENUE_NAME,
       price: 'Unknown', // JSON-LD price is always 0, not usable
       url: jsonLd.url || url,

@@ -2,7 +2,7 @@ import { env } from "../lib/config/env";
 import { db } from "../lib/db";
 import { events } from "../lib/db/schema";
 import { generateEventTags } from "../lib/ai/tagging";
-import { isNull, eq } from "drizzle-orm";
+import { eq } from "drizzle-orm";
 
 async function main() {
   const apiKey = env.GEMINI_API_KEY;

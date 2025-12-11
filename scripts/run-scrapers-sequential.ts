@@ -9,6 +9,7 @@ import { db } from '../lib/db';
 import { events } from '../lib/db/schema';
 import { inArray } from 'drizzle-orm';
 import { findDuplicates, getIdsToRemove } from '../lib/utils/deduplication';
+import type { ScrapedEventWithTags } from '../lib/scrapers/types';
 
 // Helper to chunk arrays
 const chunk = <T>(arr: T[], size: number) =>
@@ -17,7 +18,7 @@ const chunk = <T>(arr: T[], size: number) =>
   );
 
 // Upsert events to database
-async function upsertEvents(scrapedEvents: any[], sourceName: string) {
+async function upsertEvents(scrapedEvents: ScrapedEventWithTags[], sourceName: string) {
   let success = 0;
   let failed = 0;
 
@@ -34,6 +35,7 @@ async function upsertEvents(scrapedEvents: any[], sourceName: string) {
               description: event.description,
               startDate: event.startDate,
               location: event.location,
+              zip: event.zip,
               organizer: event.organizer,
               price: event.price,
               url: event.url,
@@ -49,6 +51,7 @@ async function upsertEvents(scrapedEvents: any[], sourceName: string) {
                 description: event.description,
                 startDate: event.startDate,
                 location: event.location,
+                zip: event.zip,
                 organizer: event.organizer,
                 price: event.price,
                 imageUrl: event.imageUrl,

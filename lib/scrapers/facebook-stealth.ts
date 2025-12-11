@@ -10,7 +10,7 @@
  * - https://roundproxies.com/blog/patchright/
  */
 
-import type { Page, BrowserContext } from 'patchright';
+import type { Page } from 'patchright';
 
 /**
  * Random delay between min and max milliseconds

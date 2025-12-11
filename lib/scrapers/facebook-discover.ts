@@ -15,13 +15,12 @@
  */
 
 // Types only - these are erased at compile time and don't cause bundling issues
-import type { BrowserContext, Page } from 'patchright';
+import type { BrowserContext } from 'patchright';
 import { FB_CONFIG, isFacebookEnabled } from '../config/env';
 import {
   buildFacebookCookies,
   randomMouseMovements,
   naturalScroll,
-  scrollToBottom,
   waitForPageLoad,
   checkForBlocking,
   extractEventIdsFromPage,
@@ -75,7 +74,7 @@ export async function discoverFacebookEventIds(): Promise<string[]> {
     try {
       const patchright = await import('patchright');
       chromium = patchright.chromium;
-    } catch (e) {
+    } catch {
       throw new Error('patchright is not available. Install it as a dev dependency and run locally.');
     }
     context = await chromium.launchPersistentContext(PROFILE_DIR, {
@@ -242,7 +241,7 @@ export async function discoverAndFetchFacebookEvents(options: {
     try {
       const patchright = await import('patchright');
       chromium = patchright.chromium;
-    } catch (e) {
+    } catch {
       throw new Error('patchright is not available. Install it as a dev dependency and run locally.');
     }
     context = await chromium.launchPersistentContext(PROFILE_DIR, {

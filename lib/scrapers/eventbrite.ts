@@ -2,6 +2,7 @@ import { ScrapedEvent, EventbriteApiEvent } from './types';
 import { fetchWithRetry } from '@/lib/utils/retry';
 import { isNonNCEvent } from '@/lib/utils/locationFilter';
 import { formatPrice } from '@/lib/utils/formatPrice';
+import { getZipFromCoords, getZipFromCity } from '@/lib/utils/zipFromCoords';
 
 // Common headers to avoid blocking
 const BROWSER_HEADERS = {
@@ -188,8 +189,13 @@ export async function scrapeEventbrite(maxPages: number = 30): Promise<ScrapedEv
     }
   }
 
-  // Filter out non-NC events
-  const ncEvents = allEvents.filter(ev => !isNonNCEvent(ev.title, ev.location));
+  // Filter out non-NC events and online events
+  const ncEvents = allEvents.filter(ev => {
+    // Skip online events
+    if (ev.location?.toLowerCase() === 'online') return false;
+    // Skip non-NC events
+    return !isNonNCEvent(ev.title, ev.location);
+  });
   const filteredCount = allEvents.length - ncEvents.length;
 
   if (filteredCount > 0) {
@@ -220,8 +226,22 @@ function formatEventbriteEvent(ev: EventbriteApiEvent): ScrapedEvent {
   // Extract organizer name (prefer primary_organizer, fallback to venue name)
   const organizerName = ev.primary_organizer?.name || ev.primary_venue?.name || "Unknown";
 
-  // Extract city (for location display)
-  const city = ev.primary_venue?.address?.city || "Online";
+  // Extract address components
+  const address = ev.primary_venue?.address;
+  const city = address?.city || "Online";
+  const state = address?.region || "NC";
+  const streetAddress = address?.address_1 || undefined;
+
+  // Determine zip code with fallbacks
+  let zip = address?.postal_code || undefined;
+  if (!zip && address?.latitude && address?.longitude) {
+    // Try to get zip from coordinates
+    zip = getZipFromCoords(parseFloat(address.latitude), parseFloat(address.longitude));
+  }
+  if (!zip && city !== "Online") {
+    // Try to get zip from city name
+    zip = getZipFromCity(city);
+  }
 
   // Extract venue name for display (separate from organizer)
   const venueName = ev.primary_venue?.name;
@@ -267,9 +287,15 @@ function formatEventbriteEvent(ev: EventbriteApiEvent): ScrapedEvent {
     startDate = new Date();
   }
 
-  // Use venue name if different from city, otherwise use organizer name
-  // This gives us "SPWM @ The Orange Peel" type info when venue is meaningful
-  const locationDisplay = venueName && venueName !== city ? `${city} @ ${venueName}` : city;
+  // Build location string with full address when available
+  let locationDisplay: string;
+  if (venueName && streetAddress) {
+    locationDisplay = `${venueName}, ${streetAddress}, ${city}, ${state}`;
+  } else if (venueName && venueName !== city) {
+    locationDisplay = `${venueName}, ${city}, ${state}`;
+  } else {
+    locationDisplay = city !== "Online" ? `${city}, ${state}` : city;
+  }
 
   return {
     sourceId: ev.id,
@@ -278,6 +304,7 @@ function formatEventbriteEvent(ev: EventbriteApiEvent): ScrapedEvent {
     description: description,
     startDate: startDate,
     location: locationDisplay,
+    zip: zip,
     organizer: organizerName,
     price: price,
     url: url,

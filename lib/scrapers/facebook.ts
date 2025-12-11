@@ -21,7 +21,6 @@
 import { isFacebookEnabled } from '../config/env';
 import {
   discoverAndFetchFacebookEvents,
-  discoverFacebookEventIds,
   type FacebookEventDetails,
 } from './facebook-discover';
 import { fetchAllEventDetails, type FacebookGraphQLEvent } from './facebook-graphql';
@@ -75,6 +74,14 @@ function transformBrowserEventToScrapedEvent(fbEvent: FacebookEventDetails): Scr
     startDate.setDate(startDate.getDate() + 7);
   }
 
+  // Get zip - either from About query extraction or fallback to lat/lon lookup
+  let zip = fbEvent.zip || undefined;
+  if (!zip && fbEvent.latitude && fbEvent.longitude) {
+    // Import dynamically to avoid circular deps
+    const { getZipFromCoords } = require('../utils/zipFromCoords');
+    zip = getZipFromCoords(fbEvent.latitude, fbEvent.longitude) || undefined;
+  }
+
   return {
     sourceId: fbEvent.eventId,
     source: 'FACEBOOK',
@@ -82,6 +89,7 @@ function transformBrowserEventToScrapedEvent(fbEvent: FacebookEventDetails): Scr
     description: fbEvent.description || undefined,
     startDate,
     location: fbEvent.location || 'Asheville, NC',
+    zip,
     organizer: fbEvent.organizer || undefined,
     price: fbEvent.price || 'Unknown',
     url: fbEvent.url,

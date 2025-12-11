@@ -78,13 +78,6 @@ function countSharedTitleWords(title1: string, title2: string): number {
 }
 
 /**
- * Check if two titles share at least N significant words
- */
-function titlesShareWords(title1: string, title2: string, minWords: number = 1): boolean {
-  return countSharedTitleWords(title1, title2) >= minWords;
-}
-
-/**
  * Extract significant words from a title as an ordered array (preserving order)
  */
 function extractWordsOrdered(title: string): string[] {

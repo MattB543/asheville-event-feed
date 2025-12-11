@@ -19,7 +19,70 @@ A web app that aggregates events from AVL Today and Eventbrite for the Asheville
 - **Styling:** Tailwind CSS
 - **Deployment:** Vercel
 
-## Getting Started
+## Quickstart (5 minutes)
+
+Want to get this running locally? Here's the fastest path:
+
+### 1. Get a free database
+
+Head to [neon.tech](https://neon.tech) and sign up (it's free). Create a new project - the defaults are fine. Once it's created, click "Connect" and copy the connection string. It looks something like:
+
+```
+postgresql://username:password@ep-cool-name-123.us-east-2.aws.neon.tech/neondb?sslmode=require
+```
+
+### 2. Set up your environment
+
+Copy the example env file and add your database URL:
+
+```bash
+cp .env.example .env
+```
+
+Then edit `.env` and paste your Neon connection string:
+
+```bash
+DATABASE_URL=postgresql://your-connection-string-here
+```
+
+That's the only required variable. The others are optional.
+
+### 3. Install and set up the database
+
+```bash
+npm install
+npx drizzle-kit push
+```
+
+The first command installs dependencies. The second creates the tables in your database.
+
+### 4. Get some events
+
+```bash
+npm run backfill
+```
+
+This scrapes ~30 pages of Eventbrite events and saves them to your database. Takes a couple minutes.
+
+### 5. Run it
+
+```bash
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) and you should see events!
+
+### Troubleshooting
+
+**"tsx: command not found"** - Run `npm install -D tsx` to add it locally.
+
+**No events showing** - Make sure the backfill completed. Check with `npm run db:count`.
+
+**Database connection errors** - Double-check your `DATABASE_URL` in `.env`. Make sure you copied the full string including `?sslmode=require`.
+
+---
+
+## Getting Started (Detailed)
 
 ### Prerequisites
 

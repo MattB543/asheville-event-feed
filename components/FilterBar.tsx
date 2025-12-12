@@ -473,71 +473,18 @@ export default function FilterBar({
     (tag) => !categorizedTags.includes(tag)
   );
 
-  const buttonStyle =
-    "flex items-center gap-1.5 sm:gap-2 h-8 sm:h-10 px-2 sm:px-3 text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors cursor-pointer";
+  const buttonBaseStyle =
+    "flex items-center gap-1.5 sm:gap-2 h-8 sm:h-10 px-2 sm:px-3 text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-800 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors cursor-pointer";
+  const buttonInactiveStyle = `${buttonBaseStyle} border border-gray-200 dark:border-gray-700`;
+  const buttonActiveStyle = `${buttonBaseStyle} border-2 border-brand-500 dark:border-brand-400`;
 
-  const getDateLabel = (): string => {
-    let dateLabel: string;
-    if (localDateFilter === "dayOfWeek" && localSelectedDays.length > 0) {
-      dateLabel = localSelectedDays.map((d) => DAY_NAMES[d]).join(", ");
-    } else if (localDateFilter === "custom" && localCustomDateRange.start) {
-      const startDate = safeParseDateString(localCustomDateRange.start);
-      const endDate = safeParseDateString(localCustomDateRange.end);
-      if (
-        endDate &&
-        localCustomDateRange.end !== localCustomDateRange.start
-      ) {
-        dateLabel = `${startDate!.toLocaleDateString("en-US", {
-          month: "short",
-          day: "numeric",
-        })} - ${endDate.toLocaleDateString("en-US", {
-          month: "short",
-          day: "numeric",
-        })}`;
-      } else if (startDate) {
-        dateLabel = startDate.toLocaleDateString("en-US", {
-          month: "short",
-          day: "numeric",
-        });
-      } else {
-        dateLabel = dateLabels[localDateFilter];
-      }
-    } else {
-      dateLabel = dateLabels[localDateFilter];
-    }
-
-    // Append time filter if selected
-    if (localSelectedTimes.length > 0) {
-      const timeLabels = localSelectedTimes.map(
-        (t) => TIME_OPTIONS.find((o) => o.value === t)?.label || t
-      );
-      return `${dateLabel}, ${timeLabels.join(" & ")}`;
-    }
-    return dateLabel;
-  };
-
-  const getPriceLabel = (): string => {
-    if (localPriceFilter === "custom" && localCustomMaxPrice !== null) {
-      return `Under $${localCustomMaxPrice}`;
-    }
-    return priceLabels[localPriceFilter];
-  };
-
-  const getLocationLabel = (): string => {
-    const totalSelected = localSelectedLocations.length + localSelectedZips.length;
-    if (totalSelected === 0) return "Location";
-    if (totalSelected === 1) {
-      if (localSelectedLocations.length === 1) {
-        const loc = localSelectedLocations[0];
-        if (loc === "asheville") return "Asheville area";
-        if (loc === "Online") return "Online";
-        return loc;
-      }
-      // Single zip selected - show just the number
-      return localSelectedZips[0];
-    }
-    return `${totalSelected} selected`;
-  };
+  // Check if filters are active
+  const isDateFilterActive =
+    localDateFilter !== "all" || localSelectedTimes.length > 0;
+  const isPriceFilterActive = localPriceFilter !== "any";
+  const isLocationFilterActive =
+    localSelectedLocations.length > 0 || localSelectedZips.length > 0;
+  const isTagsFilterActive = activeTagCount > 0 || !localShowDailyEvents;
 
   return (
     <div className="mb-3 px-3 sm:px-0">
@@ -582,11 +529,11 @@ export default function FilterBar({
           <div className="relative" ref={dateRef}>
             <button
               onClick={() => setIsDateOpen(!isDateOpen)}
-              className={buttonStyle}
+              className={isDateFilterActive ? buttonActiveStyle : buttonInactiveStyle}
               aria-expanded={isDateOpen}
             >
               <CalendarIcon size={16} />
-              <span>{getDateLabel()}</span>
+              <span>Dates</span>
               <ChevronDown
                 size={16}
                 className={`transition-transform ${
@@ -817,11 +764,11 @@ export default function FilterBar({
           <div className="relative" ref={priceRef}>
             <button
               onClick={() => setIsPriceOpen(!isPriceOpen)}
-              className={buttonStyle}
+              className={isPriceFilterActive ? buttonActiveStyle : buttonInactiveStyle}
               aria-expanded={isPriceOpen}
             >
               <DollarSign size={16} />
-              <span>{getPriceLabel()}</span>
+              <span>Price</span>
               <ChevronDown
                 size={16}
                 className={`transition-transform ${
@@ -896,16 +843,11 @@ export default function FilterBar({
           <div className="relative" ref={locationRef}>
             <button
               onClick={handleLocationOpen}
-              className={buttonStyle}
+              className={isLocationFilterActive ? buttonActiveStyle : buttonInactiveStyle}
               aria-expanded={isLocationOpen}
             >
               <MapPin size={16} />
-              <span>{getLocationLabel()}</span>
-              {(localSelectedLocations.length > 0 || localSelectedZips.length > 0) && (
-                <span className="bg-brand-500 text-white text-xs px-1.5 py-0.5 rounded-full min-w-[20px] text-center">
-                  {localSelectedLocations.length + localSelectedZips.length}
-                </span>
-              )}
+              <span>Location</span>
               <ChevronDown
                 size={16}
                 className={`transition-transform ${
@@ -1076,16 +1018,11 @@ export default function FilterBar({
           <div className="relative" ref={tagsRef}>
             <button
               onClick={handleTagsOpen}
-              className={buttonStyle}
+              className={isTagsFilterActive ? buttonActiveStyle : buttonInactiveStyle}
               aria-expanded={isTagsOpen}
             >
               <Tag size={16} />
               <span>Tags</span>
-              {activeTagCount > 0 && (
-                <span className="bg-brand-500 text-white text-xs px-1.5 py-0.5 rounded-full min-w-[20px] text-center">
-                  {activeTagCount}
-                </span>
-              )}
               <ChevronDown
                 size={16}
                 className={`transition-transform ${
@@ -1265,9 +1202,9 @@ export default function FilterBar({
           </div>
 
           {/* Keyword Filter Button */}
-          <button onClick={onOpenSettings} className={buttonStyle}>
+          <button onClick={onOpenSettings} className={buttonInactiveStyle}>
             <SlidersHorizontal size={16} />
-            <span>Keyword Filter</span>
+            <span>Keywords</span>
           </button>
         </div>
       </div>

@@ -36,7 +36,7 @@ async function main() {
 
   const invalidTags: { tag: string; count: number }[] = [];
 
-  for (const row of allTagsResult.rows) {
+  for (const row of allTagsResult) {
     const r = row as { tag: string; count: number };
     if (!ALLOWED_TAGS.includes(r.tag)) {
       invalidTags.push({ tag: r.tag, count: Number(r.count) });
@@ -74,8 +74,8 @@ async function main() {
     ORDER BY count DESC
   `);
 
-  console.log(`\nRemaining tags (${verifyResult.rows.length} total):`);
-  for (const row of verifyResult.rows) {
+  console.log(`\nRemaining tags (${verifyResult.length} total):`);
+  for (const row of verifyResult) {
     const r = row as { tag: string; count: number };
     console.log(`  ${r.tag}: ${r.count}`);
   }

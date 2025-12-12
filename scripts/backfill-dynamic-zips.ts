@@ -89,7 +89,7 @@ async function main() {
   `);
 
   console.log('\nFinal coverage:');
-  for (const row of coverage.rows as { source: string; total: number; with_zip: number; coverage_pct: number }[]) {
+  for (const row of coverage as unknown as { source: string; total: number; with_zip: number; coverage_pct: number }[]) {
     console.log(`  ${row.source.padEnd(18)} ${row.with_zip}/${row.total} (${row.coverage_pct}%)`);
   }
 }

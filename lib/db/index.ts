@@ -1,19 +1,20 @@
-import { neon, NeonQueryFunction } from '@neondatabase/serverless';
-import { drizzle, NeonHttpDatabase } from 'drizzle-orm/neon-http';
+import { drizzle, PostgresJsDatabase } from 'drizzle-orm/postgres-js';
+import postgres, { Sql } from 'postgres';
 import * as schema from './schema';
 import { env } from '../config/env';
 
-type DbType = NeonHttpDatabase<typeof schema>;
+type DbType = PostgresJsDatabase<typeof schema>;
 
 let _db: DbType | null = null;
-let _sql: NeonQueryFunction<false, false> | null = null;
+let _client: Sql | null = null;
 
 function createDb(): DbType {
   if (!env.DATABASE_URL) {
     throw new Error('DATABASE_URL is not defined');
   }
-  _sql = neon(env.DATABASE_URL);
-  return drizzle(_sql, { schema });
+  // Disable prepare for Supabase transaction pooling (required for serverless)
+  _client = postgres(env.DATABASE_URL, { prepare: false });
+  return drizzle(_client, { schema });
 }
 
 // Lazy initialization - only creates connection when first used

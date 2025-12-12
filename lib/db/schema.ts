@@ -1,4 +1,4 @@
-import { pgTable, text, timestamp, boolean, uuid, index, integer } from 'drizzle-orm/pg-core';
+import { pgTable, text, timestamp, boolean, uuid, index, integer, jsonb } from 'drizzle-orm/pg-core';
 
 export const events = pgTable('events', {
   id: uuid('id').defaultRandom().primaryKey(),
@@ -62,3 +62,26 @@ export const submittedEvents = pgTable('submitted_events', {
   statusIdx: index('submitted_events_status_idx').on(table.status),
   createdAtIdx: index('submitted_events_created_at_idx').on(table.createdAt),
 }));
+
+// User preferences for authenticated users
+// Synced from localStorage when user logs in
+export const userPreferences = pgTable('user_preferences', {
+  // Uses Supabase auth.users UUID
+  userId: uuid('user_id').primaryKey(),
+
+  // Content filtering preferences
+  blockedHosts: text('blocked_hosts').array().default([]),     // Organizers to hide
+  blockedKeywords: text('blocked_keywords').array().default([]), // Keywords to hide
+  hiddenEvents: jsonb('hidden_events').default([]),            // Array of {title, organizer} fingerprints
+  useDefaultFilters: boolean('use_default_filters').default(true),
+
+  // User engagement
+  favoritedEventIds: text('favorited_event_ids').array().default([]), // Event IDs
+
+  // Optional: Filter settings (date, price, tags, etc.)
+  // Stored as JSON for flexibility
+  filterSettings: jsonb('filter_settings'),
+
+  // Tracking
+  updatedAt: timestamp('updated_at').defaultNow().notNull(),
+});

@@ -30,7 +30,7 @@ async function main() {
   console.log(`Coverage: ${Math.round(Number(withZip[0].count) / Number(total[0].count) * 100)}%`);
   console.log('');
   console.log('By Source:');
-  for (const row of bySource.rows as { source: string; total: number; with_zip: number; without_zip: number; coverage_pct: number }[]) {
+  for (const row of bySource as unknown as { source: string; total: number; with_zip: number; without_zip: number; coverage_pct: number }[]) {
     const src = String(row.source).padEnd(18);
     console.log(`  ${src} ${row.with_zip}/${row.total} (${row.coverage_pct}%)`);
   }

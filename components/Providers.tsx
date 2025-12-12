@@ -3,6 +3,7 @@
 import { ReactNode } from "react";
 import { ToastProvider, ToastStyles } from "./ui/Toast";
 import { ThemeProvider } from "./ThemeProvider";
+import { AuthProvider } from "./AuthProvider";
 
 interface ProvidersProps {
   children: ReactNode;
@@ -11,10 +12,12 @@ interface ProvidersProps {
 export default function Providers({ children }: ProvidersProps) {
   return (
     <ThemeProvider>
-      <ToastProvider>
-        <ToastStyles />
-        {children}
-      </ToastProvider>
+      <AuthProvider>
+        <ToastProvider>
+          <ToastStyles />
+          {children}
+        </ToastProvider>
+      </AuthProvider>
     </ThemeProvider>
   );
 }

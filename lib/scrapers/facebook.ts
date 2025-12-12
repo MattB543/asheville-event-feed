@@ -74,13 +74,8 @@ function transformBrowserEventToScrapedEvent(fbEvent: FacebookEventDetails): Scr
     startDate.setDate(startDate.getDate() + 7);
   }
 
-  // Get zip - either from About query extraction or fallback to lat/lon lookup
-  let zip = fbEvent.zip || undefined;
-  if (!zip && fbEvent.latitude && fbEvent.longitude) {
-    // Import dynamically to avoid circular deps
-    const { getZipFromCoords } = require('../utils/zipFromCoords');
-    zip = getZipFromCoords(fbEvent.latitude, fbEvent.longitude) || undefined;
-  }
+  // Get zip from About query extraction (lat/lon lookup done synchronously at call site if needed)
+  const zip = fbEvent.zip || undefined;
 
   return {
     sourceId: fbEvent.eventId,

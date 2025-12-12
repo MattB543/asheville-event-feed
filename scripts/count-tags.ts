@@ -12,11 +12,11 @@ async function main() {
 
   console.log('Tag | Count');
   console.log('--- | ---');
-  for (const row of result.rows) {
+  for (const row of result) {
     const r = row as { tag: string; count: number };
     console.log(`${r.tag} | ${r.count}`);
   }
-  console.log(`\nTotal unique tags: ${result.rows.length}`);
+  console.log(`\nTotal unique tags: ${result.length}`);
   process.exit(0);
 }
 

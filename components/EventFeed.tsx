@@ -6,6 +6,7 @@ import {
   useEffect,
   useCallback,
   useDeferredValue,
+  useRef,
 } from "react";
 import EventCard from "./EventCard";
 import FilterBar, {
@@ -20,13 +21,11 @@ import { parse, isValid } from "date-fns";
 import SettingsModal from "./SettingsModal";
 import AIChatModal from "./AIChatModal";
 import { EventFeedSkeleton } from "./EventCardSkeleton";
-import {
-  DEFAULT_BLOCKED_KEYWORDS,
-  matchesDefaultFilter,
-} from "@/lib/config/defaultFilters";
+import { DEFAULT_BLOCKED_KEYWORDS } from "@/lib/config/defaultFilters";
 import { useToast } from "./ui/Toast";
 import { ArrowDownIcon, ArrowUpIcon } from "lucide-react";
 import { getZipName, isAshevilleZip } from "@/lib/config/zipNames";
+import { usePreferenceSync } from "@/lib/hooks/usePreferenceSync";
 
 interface Event {
   id: string;
@@ -280,9 +279,6 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
   const [sessionHiddenKeys, setSessionHiddenKeys] = useState<Set<string>>(
     new Set()
   );
-  const [useDefaultFilters, setUseDefaultFilters] = useState<boolean>(() =>
-    getStorageItem("useDefaultFilters", true)
-  );
   const [showAllPreviousEvents, setShowAllPreviousEvents] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
@@ -314,6 +310,31 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
     deferredSelectedTimes !== selectedTimes ||
     deferredCustomDateRange !== customDateRange ||
     deferredShowDailyEvents !== showDailyEvents;
+
+  // Preference sync with database (for logged-in users)
+  // Uses refs to avoid stale closures in callbacks
+  const blockedHostsRef = useRef(blockedHosts);
+  const blockedKeywordsRef = useRef(blockedKeywords);
+  const hiddenEventsRef = useRef(hiddenEvents);
+  const favoritedEventIdsRef = useRef(favoritedEventIds);
+
+  useEffect(() => {
+    blockedHostsRef.current = blockedHosts;
+    blockedKeywordsRef.current = blockedKeywords;
+    hiddenEventsRef.current = hiddenEvents;
+    favoritedEventIdsRef.current = favoritedEventIds;
+  }, [blockedHosts, blockedKeywords, hiddenEvents, favoritedEventIds]);
+
+  const { saveToDatabase, isLoggedIn } = usePreferenceSync({
+    getBlockedHosts: () => blockedHostsRef.current,
+    getBlockedKeywords: () => blockedKeywordsRef.current,
+    getHiddenEvents: () => hiddenEventsRef.current,
+    getFavoritedEventIds: () => favoritedEventIdsRef.current,
+    setBlockedHosts,
+    setBlockedKeywords,
+    setHiddenEvents,
+    setFavoritedEventIds,
+  });
 
   // Set isLoaded after mount to prevent hydration mismatch
   useEffect(() => {
@@ -351,10 +372,6 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
       localStorage.setItem("blockedHosts", JSON.stringify(blockedHosts));
       localStorage.setItem("blockedKeywords", JSON.stringify(blockedKeywords));
       localStorage.setItem("hiddenEvents", JSON.stringify(hiddenEvents));
-      localStorage.setItem(
-        "useDefaultFilters",
-        JSON.stringify(useDefaultFilters)
-      );
       localStorage.setItem("showDailyEvents", JSON.stringify(showDailyEvents));
       localStorage.setItem(
         "favoritedEventIds",
@@ -374,11 +391,17 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
     blockedHosts,
     blockedKeywords,
     hiddenEvents,
-    useDefaultFilters,
     showDailyEvents,
     favoritedEventIds,
     isLoaded,
   ]);
+
+  // Sync preferences to database when they change (for logged-in users)
+  useEffect(() => {
+    if (isLoaded && isLoggedIn) {
+      saveToDatabase();
+    }
+  }, [blockedHosts, blockedKeywords, hiddenEvents, favoritedEventIds, isLoaded, isLoggedIn, saveToDatabase]);
 
   // Read URL params on mount (for shared links)
   useEffect(() => {
@@ -475,11 +498,6 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
           .filter(Boolean) || []
       );
     }
-
-    if (params.has("useDefaultFilters")) {
-      setUseDefaultFilters(params.get("useDefaultFilters") !== "false");
-    }
-     
   }, [isLoaded]); // Only run once after hydration
 
   // Extract available tags from events (sorted by frequency)
@@ -590,13 +608,7 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
         return false;
       }
 
-      // 4. Default Filters
-      if (useDefaultFilters) {
-        const textToCheck = `${event.title} ${event.description || ""} ${event.organizer || ""}`;
-        if (matchesDefaultFilter(textToCheck)) return false;
-      }
-
-      // 4b. Daily Events Filter
+      // 4. Daily Events Filter
       if (!deferredShowDailyEvents && event.recurringType === "daily") {
         return false;
       }
@@ -740,7 +752,6 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
     blockedKeywords,
     hiddenEvents,
     sessionHiddenKeys,
-    useDefaultFilters,
     deferredShowDailyEvents,
     isLoaded,
   ]);
@@ -1023,7 +1034,6 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
       params.set("blockedKeywords", blockedKeywords.join(","));
     if (hiddenEvents.length > 0)
       params.set("hiddenEvents", JSON.stringify(hiddenEvents));
-    params.set("useDefaultFilters", useDefaultFilters.toString());
     if (selectedLocations.length > 0)
       params.set("locations", selectedLocations.join(","));
 
@@ -1041,7 +1051,6 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
     blockedHosts,
     blockedKeywords,
     hiddenEvents,
-    useDefaultFilters,
     selectedLocations,
   ]);
 
@@ -1071,8 +1080,6 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
       params.set("tagsExclude", tagFilters.exclude.join(","));
     if (selectedLocations.length > 0)
       params.set("locations", selectedLocations.join(","));
-    // Include useDefaultFilters so shared view has same spam filtering
-    if (!useDefaultFilters) params.set("useDefaultFilters", "false");
 
     const queryString = params.toString();
     return queryString ? `?${queryString}` : "";
@@ -1086,7 +1093,6 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
     customMaxPrice,
     tagFilters,
     selectedLocations,
-    useDefaultFilters,
   ]);
 
   if (!isLoaded) return <EventFeedSkeleton />;
@@ -1330,8 +1336,6 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
         onUpdateHosts={setBlockedHosts}
         onUpdateKeywords={setBlockedKeywords}
         onUpdateHiddenEvents={setHiddenEvents}
-        useDefaultFilters={useDefaultFilters}
-        onToggleDefaultFilters={setUseDefaultFilters}
         defaultFilterKeywords={DEFAULT_BLOCKED_KEYWORDS}
       />
 

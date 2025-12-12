@@ -16,6 +16,9 @@ export const env = {
   get CRON_SECRET() { return process.env.CRON_SECRET; },
   get OPENROUTER_API_KEY() { return process.env.OPENROUTER_API_KEY; },
   get SLACK_WEBHOOK() { return process.env.SLACK_WEBHOOK; },
+  // Supabase Auth
+  get NEXT_PUBLIC_SUPABASE_URL() { return process.env.NEXT_PUBLIC_SUPABASE_URL; },
+  get NEXT_PUBLIC_SUPABASE_ANON_KEY() { return process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY; },
 } as const;
 
 // Helper to check if AI features are enabled
@@ -31,6 +34,14 @@ export function isChatEnabled(): boolean {
 // Helper to check if Slack notifications are enabled
 export function isSlackEnabled(): boolean {
   return !!env.SLACK_WEBHOOK;
+}
+
+// Helper to check if Supabase Auth is configured
+export function isAuthEnabled(): boolean {
+  return !!(
+    process.env.NEXT_PUBLIC_SUPABASE_URL &&
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+  );
 }
 
 // Facebook configuration

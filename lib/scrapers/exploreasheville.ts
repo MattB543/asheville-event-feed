@@ -13,6 +13,90 @@ import { promisify } from 'util';
 
 const execAsync = promisify(exec);
 
+/**
+ * Parse a date string from the API as Eastern Time.
+ * The API returns dates like "2025-12-12T10:00:00.000Z" but the times are actually ET,
+ * not UTC. We need to strip the Z and interpret as America/New_York timezone.
+ */
+function parseAsEasternTime(dateStr: string): Date {
+  // Remove the Z suffix if present - the times are NOT actually UTC
+  const cleanedStr = dateStr.replace(/Z$/, '');
+
+  // Parse the date components
+  const [datePart, timePart] = cleanedStr.split('T');
+  const [year, month, day] = datePart.split('-').map(Number);
+  const [hours, minutes, seconds] = (timePart || '00:00:00').split(':').map(s => parseFloat(s));
+
+  // Create a date string with explicit ET timezone
+  // Format: "2025-12-12T10:00:00" in America/New_York
+  const dateInET = new Date(
+    Date.UTC(year, month - 1, day, hours, Math.floor(minutes), Math.floor(seconds || 0))
+  );
+
+  // Calculate Eastern Time offset (handles DST automatically)
+  // ET is UTC-5 (EST) or UTC-4 (EDT)
+  const etOffset = getEasternTimeOffset(dateInET);
+
+  // Adjust from "fake UTC" (which is actually ET) to real UTC
+  // If API says 10:00Z but means 10:00 ET, we need to ADD the offset to get UTC
+  return new Date(dateInET.getTime() + etOffset * 60 * 60 * 1000);
+}
+
+/**
+ * Get the Eastern Time offset for a given date (handles DST).
+ * Returns hours to add to convert from ET to UTC (5 for EST, 4 for EDT).
+ */
+function getEasternTimeOffset(date: Date): number {
+  // Use Intl to determine if DST is in effect for the given date
+  const jan = new Date(date.getFullYear(), 0, 1);
+  const jul = new Date(date.getFullYear(), 6, 1);
+
+  const janOffset = getTimezoneOffsetForDate(jan);
+  const julOffset = getTimezoneOffsetForDate(jul);
+  const dateOffset = getTimezoneOffsetForDate(date);
+
+  // In ET: EST (standard) = UTC-5, EDT (daylight) = UTC-4
+  // The offset with MORE negative minutes is standard time
+  const standardOffset = Math.max(janOffset, julOffset);
+
+  // If current date has the standard offset, it's EST (return 5)
+  // Otherwise it's EDT (return 4)
+  return dateOffset === standardOffset ? 5 : 4;
+}
+
+/**
+ * Get timezone offset in minutes for a specific date using America/New_York
+ */
+function getTimezoneOffsetForDate(date: Date): number {
+  // Create formatter for America/New_York
+  const formatter = new Intl.DateTimeFormat('en-US', {
+    timeZone: 'America/New_York',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false,
+  });
+
+  const parts = formatter.formatToParts(date);
+  const getPart = (type: string) => parts.find(p => p.type === type)?.value || '0';
+
+  const etYear = parseInt(getPart('year'));
+  const etMonth = parseInt(getPart('month')) - 1;
+  const etDay = parseInt(getPart('day'));
+  const etHour = parseInt(getPart('hour'));
+  const etMinute = parseInt(getPart('minute'));
+  const etSecond = parseInt(getPart('second'));
+
+  // Create a Date from ET components (as if they were UTC)
+  const etAsUtc = Date.UTC(etYear, etMonth, etDay, etHour, etMinute, etSecond);
+
+  // The difference between UTC time and "ET as UTC" gives us the offset
+  return Math.round((date.getTime() - etAsUtc) / (60 * 1000));
+}
+
 // API Configuration
 const API_URL = 'https://www.exploreasheville.com/api/getListingGridData';
 const BASE_URL = 'https://www.exploreasheville.com';
@@ -115,6 +199,77 @@ async function fetchWithCurl(url: string): Promise<ExploreAshevilleResponse> {
 let useCurlFallback = false;
 
 /**
+ * Fetch HTML page with fallback: try native fetch first, then curl
+ */
+async function fetchHTML(url: string): Promise<string> {
+  if (useCurlFallback) {
+    const command = `curl -s "${url}" ${CURL_HEADERS}`;
+    const { stdout } = await execAsync(command, { maxBuffer: 10 * 1024 * 1024 });
+    return stdout;
+  }
+
+  try {
+    const response = await fetch(url, {
+      headers: FETCH_HEADERS,
+      cache: 'no-store',
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+    }
+    return await response.text();
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    if (message.includes('403') || message.includes('Forbidden')) {
+      useCurlFallback = true;
+      const command = `curl -s "${url}" ${CURL_HEADERS}`;
+      const { stdout } = await execAsync(command, { maxBuffer: 10 * 1024 * 1024 });
+      return stdout;
+    }
+    throw error;
+  }
+}
+
+/**
+ * Fetch event description from detail page
+ * Extracts from og:description meta tag
+ * Exported for use in cron route to fetch descriptions for new events
+ */
+export async function fetchEventDescription(pathOrUrl: string): Promise<string | undefined> {
+  try {
+    // Handle both full URLs and paths
+    const fullUrl = pathOrUrl.startsWith('http')
+      ? pathOrUrl
+      : `${BASE_URL}${pathOrUrl}`;
+    const html = await fetchHTML(fullUrl);
+
+    // Try og:description first (usually cleaner)
+    let match = html.match(/<meta\s+property="og:description"\s+content="([^"]+)"/i)
+      || html.match(/<meta\s+content="([^"]+)"\s+property="og:description"/i);
+
+    // Fallback to regular description meta tag
+    if (!match) {
+      match = html.match(/<meta\s+name="description"\s+content="([^"]+)"/i)
+        || html.match(/<meta\s+content="([^"]+)"\s+name="description"/i);
+    }
+
+    if (match?.[1]) {
+      // Decode HTML entities
+      return match[1]
+        .replace(/&amp;/g, '&')
+        .replace(/&lt;/g, '<')
+        .replace(/&gt;/g, '>')
+        .replace(/&quot;/g, '"')
+        .replace(/&#39;/g, "'")
+        .trim();
+    }
+    return undefined;
+  } catch {
+    // Silently fail - description is optional
+    return undefined;
+  }
+}
+
+/**
  * Fetch API with fallback: try native fetch first, then curl
  * Native fetch may work on Vercel but get blocked locally (TLS fingerprinting)
  */
@@ -209,18 +364,22 @@ const MAX_RECURRING_OCCURRENCES = 10;
  * - Weekly/Monthly recurring: Multiple events (up to MAX_RECURRING_OCCURRENCES)
  * - Non-recurring: Single event
  */
-function formatEvents(event: ExploreAshevilleEvent): ScrapedEvent[] {
-  const dates = event.dates || [];
+function formatEvents(event: ExploreAshevilleEvent, description?: string): ScrapedEvent[] {
+  const dateStrings = event.dates || [];
   const now = new Date();
 
-  // Filter to future dates only
-  const futureDates = dates
-    .map(d => new Date(d))
-    .filter(d => !isNaN(d.getTime()) && d > now);
+  // Filter to future dates only, keeping both original string and parsed date
+  // Use parseAsEasternTime since API returns ET times with incorrect Z suffix
+  const futureDatePairs = dateStrings
+    .map(str => ({ str, date: parseAsEasternTime(str) }))
+    .filter(({ date }) => !isNaN(date.getTime()) && date > now);
 
-  if (futureDates.length === 0) {
+  if (futureDatePairs.length === 0) {
     return [];
   }
+
+  const futureDates = futureDatePairs.map(p => p.date);
+  const futureDateStrs = futureDatePairs.map(p => p.str);
 
   // Build common fields
   const cityName = event.cities?.[0]?.name || 'Asheville';
@@ -240,9 +399,10 @@ function formatEvents(event: ExploreAshevilleEvent): ScrapedEvent[] {
   const organizer = event.partnerName || event.venueName || undefined;
   const url = `${BASE_URL}${event.path}`;
 
-  // Helper to check if time is midnight (date-only, no specific time)
-  const isTimeUnknown = (date: Date) => {
-    return date.getUTCHours() === 0 && date.getUTCMinutes() === 0;
+  // Helper to check if original time string was midnight (date-only, no specific time)
+  // We check the original string because after ET->UTC conversion, midnight ET becomes 05:00 UTC
+  const isTimeUnknownStr = (dateStr: string) => {
+    return dateStr.includes('T00:00:00');
   };
 
   // Handle daily recurring events - store as ONE event with recurring metadata
@@ -254,13 +414,14 @@ function formatEvents(event: ExploreAshevilleEvent): ScrapedEvent[] {
       sourceId: `ea-${event.listingId}`,
       source: 'EXPLORE_ASHEVILLE',
       title: event.title,
+      description,
       startDate,
       location,
       zip,
       organizer,
       url,
       imageUrl,
-      timeUnknown: isTimeUnknown(startDate),
+      timeUnknown: isTimeUnknownStr(futureDateStrs[0]),
       recurringType: 'daily',
       recurringEndDate: endDate,
     }];
@@ -268,13 +429,14 @@ function formatEvents(event: ExploreAshevilleEvent): ScrapedEvent[] {
 
   // Handle weekly/monthly recurring - create individual events (limited)
   if (event.recurringLabel === 'Recurring Weekly' || event.recurringLabel === 'Recurring Monthly') {
-    const datesToUse = futureDates.slice(0, MAX_RECURRING_OCCURRENCES);
+    const pairsToUse = futureDatePairs.slice(0, MAX_RECURRING_OCCURRENCES);
 
-    return datesToUse.map((date, index) => ({
+    return pairsToUse.map(({ str, date }, index) => ({
       // Add index to sourceId to make each occurrence unique
       sourceId: `ea-${event.listingId}-${index}`,
       source: 'EXPLORE_ASHEVILLE' as const,
       title: event.title,
+      description,
       startDate: date,
       location,
       zip,
@@ -282,7 +444,7 @@ function formatEvents(event: ExploreAshevilleEvent): ScrapedEvent[] {
       // Add date to URL to make each occurrence unique (URL is unique constraint)
       url: `${url}#${date.toISOString().split('T')[0]}`,
       imageUrl,
-      timeUnknown: isTimeUnknown(date),
+      timeUnknown: isTimeUnknownStr(str),
     }));
   }
 
@@ -292,13 +454,14 @@ function formatEvents(event: ExploreAshevilleEvent): ScrapedEvent[] {
     sourceId: `ea-${event.listingId}`,
     source: 'EXPLORE_ASHEVILLE',
     title: event.title,
+    description,
     startDate,
     location,
     zip,
     organizer,
     url,
     imageUrl,
-    timeUnknown: isTimeUnknown(startDate),
+    timeUnknown: isTimeUnknownStr(futureDateStrs[0]),
   }];
 }
 

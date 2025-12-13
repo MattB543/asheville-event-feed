@@ -11,6 +11,7 @@ import { scrapeExploreAsheville, fetchEventDescription } from "@/lib/scrapers/ex
 import { scrapeMisfitImprov } from "@/lib/scrapers/misfitimprov";
 import { scrapeUDharma } from "@/lib/scrapers/udharma";
 import { scrapeNCStage } from "@/lib/scrapers/ncstage";
+import { scrapeStoryParlor } from "@/lib/scrapers/storyparlor";
 import { db } from "@/lib/db";
 import { events } from "@/lib/db/schema";
 import { inArray } from "drizzle-orm";
@@ -70,6 +71,7 @@ export async function GET(request: Request) {
       misfitImprovResult,
       udharmaResult,
       ncstageResult,
+      storyParlorResult,
     ] = await Promise.allSettled([
       scrapeAvlToday(),
       scrapeEventbrite(25), // Scrape 25 pages (~500 events)
@@ -82,6 +84,7 @@ export async function GET(request: Request) {
       scrapeMisfitImprov(), // Misfit Improv (Crowdwork API)
       scrapeUDharma(), // Urban Dharma NC (Squarespace API)
       scrapeNCStage(), // NC Stage Company (ThunderTix)
+      scrapeStoryParlor(), // Story Parlor (Squarespace JSON-LD)
     ]);
 
     // Extract values from settled results, using empty arrays for rejected promises
@@ -107,6 +110,8 @@ export async function GET(request: Request) {
       udharmaResult.status === "fulfilled" ? udharmaResult.value : [];
     const ncstageEvents =
       ncstageResult.status === "fulfilled" ? ncstageResult.value : [];
+    const storyParlorEvents =
+      storyParlorResult.status === "fulfilled" ? storyParlorResult.value : [];
 
     // Log any scraper failures
     if (avlResult.status === "rejected")
@@ -131,6 +136,8 @@ export async function GET(request: Request) {
       console.error("[Cron] UDharma scrape failed:", udharmaResult.reason);
     if (ncstageResult.status === "rejected")
       console.error("[Cron] NC Stage scrape failed:", ncstageResult.reason);
+    if (storyParlorResult.status === "rejected")
+      console.error("[Cron] Story Parlor scrape failed:", storyParlorResult.reason);
 
     stats.scraping.duration = Date.now() - scrapeStartTime;
     stats.scraping.total =
@@ -144,7 +151,8 @@ export async function GET(request: Request) {
       exploreAshevilleEvents.length +
       misfitImprovEvents.length +
       udharmaEvents.length +
-      ncstageEvents.length;
+      ncstageEvents.length +
+      storyParlorEvents.length;
 
     console.log(
       `[Cron] Scrape complete in ${formatDuration(
@@ -157,7 +165,7 @@ export async function GET(request: Request) {
         liveMusicAvlEvents.length
       }, ExploreAVL: ${exploreAshevilleEvents.length}, Misfit: ${
         misfitImprovEvents.length
-      }, UDharma: ${udharmaEvents.length}, NCStage: ${ncstageEvents.length} (Total: ${stats.scraping.total})`
+      }, UDharma: ${udharmaEvents.length}, NCStage: ${ncstageEvents.length}, StoryParlor: ${storyParlorEvents.length} (Total: ${stats.scraping.total})`
     );
 
     // Facebook scraping (separate due to browser requirements)
@@ -219,6 +227,9 @@ export async function GET(request: Request) {
     const ncstageWithTags: ScrapedEventWithTags[] = ncstageEvents.map(
       (e) => ({ ...e, tags: [] })
     );
+    const storyParlorWithTags: ScrapedEventWithTags[] = storyParlorEvents.map(
+      (e) => ({ ...e, tags: [] })
+    );
 
     const allEventsRaw: ScrapedEventWithTags[] = [
       ...avlEvents,
@@ -233,6 +244,7 @@ export async function GET(request: Request) {
       ...misfitImprovWithTags,
       ...udharmaWithTags,
       ...ncstageWithTags,
+      ...storyParlorWithTags,
     ];
 
     // Filter out cancelled events (title starts with "CANCELLED")
@@ -525,7 +537,7 @@ export async function GET(request: Request) {
         liveMusicAvlEvents.length
       }, ExploreAVL: ${exploreAshevilleEvents.length}, Misfit: ${
         misfitImprovEvents.length
-      }, UDharma: ${udharmaEvents.length}, NCStage: ${ncstageEvents.length}${fbEvents.length > 0 ? `, FB: ${fbEvents.length}` : ""}`
+      }, UDharma: ${udharmaEvents.length}, NCStage: ${ncstageEvents.length}, StoryParlor: ${storyParlorEvents.length}${fbEvents.length > 0 ? `, FB: ${fbEvents.length}` : ""}`
     );
     console.log(
       `[Cron] Tagging:   ${stats.tagging.success}/${

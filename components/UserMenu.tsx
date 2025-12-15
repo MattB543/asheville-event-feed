@@ -65,6 +65,7 @@ export default function UserMenu() {
             src={avatarUrl}
             alt="Profile"
             className="w-7 h-7 rounded-full object-cover"
+            referrerPolicy="no-referrer"
           />
         ) : (
           <div className="w-7 h-7 rounded-full bg-blue-600 flex items-center justify-center">

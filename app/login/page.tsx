@@ -7,7 +7,6 @@ import { useAuth } from "@/components/AuthProvider";
 import { Mail, Loader2, CheckCircle, AlertCircle } from "lucide-react";
 import Link from "next/link";
 import { GoogleSignInButton } from "@/components/GoogleSignInButton";
-import { GoogleOneTap } from "@/components/GoogleOneTap";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -99,9 +98,6 @@ export default function LoginPage() {
             Save your preferences across devices
           </p>
         </div>
-
-        {/* Google One Tap - loads automatically */}
-        <GoogleOneTap />
 
         {/* Login Form */}
         <div className="bg-white dark:bg-gray-900 rounded-xl shadow-lg border border-gray-200 dark:border-gray-800 p-6">

@@ -83,3 +83,17 @@ body {
 .animate-heart-pop {
   animation: heart-pop 0.3s ease-out;
 }
+
+/* Fade in animation for tooltips */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.15s ease-out;
+}

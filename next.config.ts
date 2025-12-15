@@ -8,6 +8,11 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: '**',
       },
+      {
+        // Allow any HTTP image (some sources like Squarespace use http)
+        protocol: 'http',
+        hostname: '**',
+      },
     ],
   },
   // Exclude patchright/playwright from bundling - they use native modules

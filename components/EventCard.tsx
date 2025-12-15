@@ -8,12 +8,20 @@ import {
   Ban,
   ChevronDown,
   Heart,
+  MoreVertical,
+  AlertTriangle,
+  Copy,
+  ShieldAlert,
+  Share,
 } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { useState, useRef, useEffect } from "react";
 import { cleanMarkdown } from "@/lib/utils/cleanMarkdown";
 import { generateCalendarUrlForEvent } from "@/lib/utils/googleCalendar";
 import { downloadEventAsICS } from "@/lib/utils/icsGenerator";
+import { useToast } from "@/components/ui/Toast";
+import { generateEventSlug } from "@/lib/utils/slugify";
 
 interface EventCardProps {
   event: {
@@ -71,9 +79,13 @@ export default function EventCard({
   const [isExpanded, setIsExpanded] = useState(false);
   const [calendarMenuOpen, setCalendarMenuOpen] = useState(false);
   const [hideMenuOpen, setHideMenuOpen] = useState(false);
+  const [moreMenuOpen, setMoreMenuOpen] = useState(false);
   const [isHeartAnimating, setIsHeartAnimating] = useState(false);
+  const [copied, setCopied] = useState(false);
   const calendarMenuRef = useRef<HTMLDivElement>(null);
   const hideMenuRef = useRef<HTMLDivElement>(null);
+  const moreMenuRef = useRef<HTMLDivElement>(null);
+  const { showToast } = useToast();
 
   // Close dropdown menus when clicking outside
   useEffect(() => {
@@ -90,15 +102,21 @@ export default function EventCard({
       ) {
         setHideMenuOpen(false);
       }
+      if (
+        moreMenuRef.current &&
+        !moreMenuRef.current.contains(event.target as Node)
+      ) {
+        setMoreMenuOpen(false);
+      }
     }
 
-    if (calendarMenuOpen || hideMenuOpen) {
+    if (calendarMenuOpen || hideMenuOpen || moreMenuOpen) {
       document.addEventListener("mousedown", handleClickOutside);
       return () =>
         document.removeEventListener("mousedown", handleClickOutside);
     }
     return undefined;
-  }, [calendarMenuOpen, hideMenuOpen]);
+  }, [calendarMenuOpen, hideMenuOpen, moreMenuOpen]);
 
   const handleAddToAppleCalendar = () => {
     downloadEventAsICS(event);
@@ -120,6 +138,25 @@ export default function EventCard({
       onBlockHost(event.organizer);
       setHideMenuOpen(false);
     }
+  };
+
+  const handleReport = (
+    reportType: "incorrect_info" | "duplicate" | "spam"
+  ) => {
+    setMoreMenuOpen(false);
+    showToast("Thanks for the feedback!");
+    fetch("/api/events/report", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        eventId: event.id,
+        eventTitle: event.title,
+        eventUrl: getSourceUrl(),
+        reportType,
+      }),
+    }).catch((error) => {
+      console.error("Failed to submit report:", error);
+    });
   };
 
   // Check if description is long enough to need truncation
@@ -250,14 +287,16 @@ export default function EventCard({
       <div className="flex flex-col justify-between xl:row-span-2">
         <div>
           <h3 className="text-base font-bold text-brand-600 dark:text-brand-400 leading-tight">
-            <a
-              href={event.url}
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              href={`/events/${generateEventSlug(
+                event.title,
+                event.startDate,
+                event.id
+              )}`}
               className="hover:underline"
             >
               {event.title}
-            </a>
+            </Link>
           </h3>
 
           <div className="text-xs text-gray-900 dark:text-gray-100 font-medium mt-2 sm:mt-1">
@@ -487,21 +526,87 @@ export default function EventCard({
         >
           <Heart
             size={14}
-            className={`transition-transform ${isFavorited ? "fill-current" : ""} ${
-              isHeartAnimating ? "animate-heart-pop" : ""
-            }`}
+            className={`transition-transform ${
+              isFavorited ? "fill-current" : ""
+            } ${isHeartAnimating ? "animate-heart-pop" : ""}`}
           />
           {favoriteCount > 0 && <span>{favoriteCount}</span>}
         </button>
-        <a
-          href={getSourceUrl()}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded border border-gray-200 dark:border-gray-700 cursor-pointer"
-          title="View Source Homepage"
-        >
-          <ExternalLink size={14} />
-        </a>
+        {/* Share button */}
+        <div className="relative">
+          <button
+            onClick={async () => {
+              const eventUrl = `${
+                window.location.origin
+              }/events/${generateEventSlug(
+                event.title,
+                event.startDate,
+                event.id
+              )}`;
+              await navigator.clipboard.writeText(eventUrl);
+              setCopied(true);
+              setTimeout(() => setCopied(false), 2000);
+            }}
+            className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs text-gray-600 dark:text-gray-400 rounded border border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer transition-colors"
+            title="Copy link"
+          >
+            <Share size={14} />
+          </button>
+          {/* Copied tooltip */}
+          {copied && (
+            <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-1.5 px-2 py-1 text-xs font-medium text-white bg-gray-800 dark:bg-gray-700 rounded shadow-lg whitespace-nowrap animate-fade-in">
+              Copied!
+              <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-gray-800 dark:border-t-gray-700" />
+            </div>
+          )}
+        </div>
+        {/* More options dropdown */}
+        <div className="relative" ref={moreMenuRef}>
+          <button
+            onClick={() => setMoreMenuOpen(!moreMenuOpen)}
+            className="inline-flex items-center gap-1.5 px-2 py-1.5 text-xs text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded border border-gray-200 dark:border-gray-700 cursor-pointer h-[30px]"
+            title="More options"
+          >
+            <MoreVertical size={14} />
+          </button>
+
+          {moreMenuOpen && (
+            <div className="absolute right-0 top-full mt-1 z-20 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded shadow-lg min-w-[180px]">
+              <a
+                href={getSourceUrl()}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full flex items-center gap-2 px-3 py-2 text-xs text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
+                onClick={() => setMoreMenuOpen(false)}
+              >
+                <ExternalLink size={14} />
+                Open source
+              </a>
+              <div className="border-t border-gray-200 dark:border-gray-700" />
+              <button
+                onClick={() => handleReport("incorrect_info")}
+                className="w-full flex items-center gap-2 px-3 py-2 text-xs text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
+              >
+                <AlertTriangle size={14} />
+                Flag incorrect info
+              </button>
+              <button
+                onClick={() => handleReport("duplicate")}
+                className="w-full flex items-center gap-2 px-3 py-2 text-xs text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
+              >
+                <Copy size={14} />
+                Flag as duplicate
+              </button>
+              <button
+                onClick={() => handleReport("spam")}
+                className="w-full flex items-center gap-2 px-3 py-2 text-xs text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
+              >
+                <ShieldAlert size={14} />
+                Report as spam
+              </button>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

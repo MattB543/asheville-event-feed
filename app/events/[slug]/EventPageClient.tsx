@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useMemo } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import {
@@ -10,23 +10,45 @@ import {
   Clock,
   User,
   Tag,
+  DollarSign,
   ExternalLink,
   ArrowLeft,
   Heart,
-  Share2,
   ChevronDown,
-  Check,
-  Copy,
+  Share,
 } from "lucide-react";
 import { cleanMarkdown } from "@/lib/utils/cleanMarkdown";
 import { generateCalendarUrlForEvent } from "@/lib/utils/googleCalendar";
 import { downloadEventAsICS } from "@/lib/utils/icsGenerator";
+import EventCard from "@/components/EventCard";
+import { ToastProvider } from "@/components/ui/Toast";
+
+interface SimilarEvent {
+  id: string;
+  sourceId: string;
+  source: string;
+  title: string;
+  description: string | null;
+  aiSummary: string | null;
+  startDate: string;
+  location: string | null;
+  organizer: string | null;
+  price: string | null;
+  url: string;
+  imageUrl: string | null;
+  tags: string[] | null;
+  timeUnknown: boolean;
+  recurringType: string | null;
+  favoriteCount: number;
+  similarity: number;
+}
 
 interface EventPageClientProps {
   event: {
     id: string;
     title: string;
     description: string | null;
+    aiSummary: string | null;
     startDate: string;
     location: string | null;
     organizer: string | null;
@@ -39,6 +61,7 @@ interface EventPageClientProps {
     favoriteCount: number;
   };
   eventPageUrl: string;
+  similarEvents?: SimilarEvent[];
 }
 
 // Helper to get initial favorite state from localStorage
@@ -56,35 +79,155 @@ function getInitialFavorited(eventId: string): boolean {
   return false;
 }
 
-export default function EventPageClient({ event, eventPageUrl }: EventPageClientProps) {
+export default function EventPageClient({
+  event,
+  eventPageUrl,
+  similarEvents = [],
+}: EventPageClientProps) {
   const [imgError, setImgError] = useState(false);
   const [calendarMenuOpen, setCalendarMenuOpen] = useState(false);
-  const [shareMenuOpen, setShareMenuOpen] = useState(false);
-  const [isFavorited, setIsFavorited] = useState(() => getInitialFavorited(event.id));
+  const [isFavorited, setIsFavorited] = useState(() =>
+    getInitialFavorited(event.id)
+  );
   const [favoriteCount, setFavoriteCount] = useState(event.favoriteCount);
   const [copied, setCopied] = useState(false);
+  const [isHeartAnimating, setIsHeartAnimating] = useState(false);
   const calendarMenuRef = useRef<HTMLDivElement>(null);
-  const shareMenuRef = useRef<HTMLDivElement>(null);
+
+  // Similar events favorites state
+  const [similarFavorites, setSimilarFavorites] = useState<Set<string>>(() => {
+    if (typeof window === "undefined") return new Set();
+    try {
+      const saved = localStorage.getItem("favoritedEventIds");
+      return new Set(saved ? JSON.parse(saved) : []);
+    } catch {
+      return new Set();
+    }
+  });
+  const [similarFavoriteCounts, setSimilarFavoriteCounts] = useState<Record<string, number>>(() => {
+    const counts: Record<string, number> = {};
+    similarEvents.forEach((e) => {
+      counts[e.id] = e.favoriteCount;
+    });
+    return counts;
+  });
+
+  // Similar events sorting state
+  const [similarSortBy, setSimilarSortBy] = useState<'similarity' | 'date'>('similarity');
+
+  // Type for deduplicated similar event with recurring info
+  type DedupedSimilarEvent = SimilarEvent & {
+    isRecurring: boolean;
+    recurringCount: number;
+  };
+
+  // Deduplicate recurring events (same title + description = recurring)
+  // Group by title+description, keep earliest date, mark as recurring
+  const dedupedSimilarEvents = useMemo(() => {
+    const groups = new Map<string, SimilarEvent[]>();
+
+    for (const event of similarEvents) {
+      // Create a key from title + description (normalize nulls)
+      const key = `${event.title}|||${event.description || ''}`;
+      const existing = groups.get(key);
+      if (existing) {
+        existing.push(event);
+      } else {
+        groups.set(key, [event]);
+      }
+    }
+
+    // For each group, pick the earliest future date and mark as recurring if multiple
+    const deduped: DedupedSimilarEvent[] = [];
+    for (const [, events] of groups) {
+      // Sort by date to get earliest
+      const sorted = [...events].sort(
+        (a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime()
+      );
+      const earliest = sorted[0];
+      deduped.push({
+        ...earliest,
+        isRecurring: events.length > 1,
+        recurringCount: events.length,
+      });
+    }
+
+    // Sort by similarity (server order preserved for most similar)
+    // Re-sort by original similarity score
+    return deduped.sort((a, b) => b.similarity - a.similarity).slice(0, 20);
+  }, [similarEvents]);
+
+  // Sort deduped events based on selected sort option
+  const sortedSimilarEvents = useMemo(() => {
+    if (similarSortBy === 'date') {
+      return [...dedupedSimilarEvents].sort(
+        (a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime()
+      );
+    }
+    // Already sorted by similarity
+    return dedupedSimilarEvents;
+  }, [dedupedSimilarEvents, similarSortBy]);
+
+  // Group similar events by date (only when sorted by date)
+  const groupedSimilarEvents = useMemo(() => {
+    if (similarSortBy !== 'date') return null;
+
+    return Object.entries(
+      sortedSimilarEvents.reduce((groups, event) => {
+        const date = new Date(event.startDate);
+        const dateKey = date.toLocaleDateString("en-US", {
+          weekday: "short",
+          month: "short",
+          day: "numeric",
+          year: "numeric",
+        });
+        if (!groups[dateKey]) groups[dateKey] = { date, events: [] as DedupedSimilarEvent[] };
+        groups[dateKey].events.push(event);
+        return groups;
+      }, {} as Record<string, { date: Date; events: DedupedSimilarEvent[] }>)
+    ).sort(([, a], [, b]) => a.date.getTime() - b.date.getTime());
+  }, [sortedSimilarEvents, similarSortBy]);
+
+  // Format date header with Today/Tomorrow support
+  const formatDateHeader = (date: Date): string => {
+    const today = new Date();
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+
+    if (date.toDateString() === today.toDateString()) {
+      return `Today, ${date.toLocaleDateString("en-US", { month: "short", day: "numeric" })}`;
+    }
+    if (date.toDateString() === tomorrow.toDateString()) {
+      return `Tomorrow, ${date.toLocaleDateString("en-US", { month: "short", day: "numeric" })}`;
+    }
+    return date.toLocaleDateString("en-US", {
+      weekday: "short",
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    });
+  };
 
   const startDate = new Date(event.startDate);
 
   // Close dropdowns when clicking outside
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
-      if (calendarMenuRef.current && !calendarMenuRef.current.contains(e.target as Node)) {
+      if (
+        calendarMenuRef.current &&
+        !calendarMenuRef.current.contains(e.target as Node)
+      ) {
         setCalendarMenuOpen(false);
-      }
-      if (shareMenuRef.current && !shareMenuRef.current.contains(e.target as Node)) {
-        setShareMenuOpen(false);
       }
     }
 
-    if (calendarMenuOpen || shareMenuOpen) {
+    if (calendarMenuOpen) {
       document.addEventListener("mousedown", handleClickOutside);
-      return () => document.removeEventListener("mousedown", handleClickOutside);
+      return () =>
+        document.removeEventListener("mousedown", handleClickOutside);
     }
     return undefined;
-  }, [calendarMenuOpen, shareMenuOpen]);
+  }, [calendarMenuOpen]);
 
   const handleAddToGoogleCalendar = () => {
     window.open(
@@ -111,14 +254,22 @@ export default function EventPageClient({ event, eventPageUrl }: EventPageClient
   };
 
   const handleToggleFavorite = async () => {
+    // Trigger animation
+    setIsHeartAnimating(true);
+    setTimeout(() => setIsHeartAnimating(false), 300);
+
     // Optimistic update
     const newIsFavorited = !isFavorited;
     setIsFavorited(newIsFavorited);
-    setFavoriteCount((prev) => (newIsFavorited ? prev + 1 : Math.max(0, prev - 1)));
+    setFavoriteCount((prev) =>
+      newIsFavorited ? prev + 1 : Math.max(0, prev - 1)
+    );
 
     // Update localStorage
     const savedFavorites = localStorage.getItem("favoritedEventIds");
-    const favorites: string[] = savedFavorites ? JSON.parse(savedFavorites) : [];
+    const favorites: string[] = savedFavorites
+      ? JSON.parse(savedFavorites)
+      : [];
     if (newIsFavorited) {
       favorites.push(event.id);
     } else {
@@ -137,7 +288,9 @@ export default function EventPageClient({ event, eventPageUrl }: EventPageClient
     } catch {
       // Revert on error
       setIsFavorited(!newIsFavorited);
-      setFavoriteCount((prev) => (!newIsFavorited ? prev + 1 : Math.max(0, prev - 1)));
+      setFavoriteCount((prev) =>
+        !newIsFavorited ? prev + 1 : Math.max(0, prev - 1)
+      );
     }
   };
 
@@ -145,22 +298,60 @@ export default function EventPageClient({ event, eventPageUrl }: EventPageClient
     await navigator.clipboard.writeText(eventPageUrl);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
-    setShareMenuOpen(false);
   };
 
-  const handleShare = async () => {
-    if (navigator.share) {
-      try {
-        await navigator.share({
-          title: event.title,
-          text: `Check out ${event.title} in Asheville!`,
-          url: eventPageUrl,
-        });
-      } catch {
-        // User cancelled or share failed
+  // Handler for toggling favorites on similar events
+  const handleToggleSimilarFavorite = async (eventId: string) => {
+    const newIsFavorited = !similarFavorites.has(eventId);
+
+    // Optimistic update
+    setSimilarFavorites((prev) => {
+      const next = new Set(prev);
+      if (newIsFavorited) {
+        next.add(eventId);
+      } else {
+        next.delete(eventId);
       }
+      return next;
+    });
+    setSimilarFavoriteCounts((prev) => ({
+      ...prev,
+      [eventId]: newIsFavorited ? (prev[eventId] || 0) + 1 : Math.max(0, (prev[eventId] || 0) - 1),
+    }));
+
+    // Update localStorage
+    const savedFavorites = localStorage.getItem("favoritedEventIds");
+    const favorites: string[] = savedFavorites ? JSON.parse(savedFavorites) : [];
+    if (newIsFavorited) {
+      favorites.push(eventId);
     } else {
-      setShareMenuOpen(true);
+      const index = favorites.indexOf(eventId);
+      if (index > -1) favorites.splice(index, 1);
+    }
+    localStorage.setItem("favoritedEventIds", JSON.stringify(favorites));
+
+    // Update server
+    try {
+      await fetch(`/api/events/${eventId}/favorite`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: newIsFavorited ? "add" : "remove" }),
+      });
+    } catch {
+      // Revert on error
+      setSimilarFavorites((prev) => {
+        const next = new Set(prev);
+        if (!newIsFavorited) {
+          next.add(eventId);
+        } else {
+          next.delete(eventId);
+        }
+        return next;
+      });
+      setSimilarFavoriteCounts((prev) => ({
+        ...prev,
+        [eventId]: !newIsFavorited ? (prev[eventId] || 0) + 1 : Math.max(0, (prev[eventId] || 0) - 1),
+      }));
     }
   };
 
@@ -196,144 +387,171 @@ export default function EventPageClient({ event, eventPageUrl }: EventPageClient
     return price;
   };
 
-  const { date: dateStr, time: timeStr } = formatDate(startDate, event.timeUnknown);
-  const cleanedDescription = cleanMarkdown(event.description) || "No description available.";
+  const { date: dateStr, time: timeStr } = formatDate(
+    startDate,
+    event.timeUnknown
+  );
+
+  // AI Summary vs Original Description logic
+  const [showOriginalDescription, setShowOriginalDescription] = useState(false);
+  const hasAiSummary = !!event.aiSummary;
+  const cleanedAiSummary = event.aiSummary ? cleanMarkdown(event.aiSummary) : null;
+  const cleanedDescription =
+    cleanMarkdown(event.description) || "No description available.";
+  const displayDescription = showOriginalDescription
+    ? cleanedDescription
+    : (cleanedAiSummary || cleanedDescription);
+
   const displayPrice = formatPriceDisplay(event.price);
 
   return (
     <main className="min-h-screen bg-gray-50 dark:bg-gray-950">
       {/* Header */}
       <header className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <Link
             href="/"
             className="inline-flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
           >
             <ArrowLeft size={16} />
-            Back to all events
+            Back to all Asheville events
           </Link>
         </div>
       </header>
 
       {/* Main Content */}
-      <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Hero Image */}
-        <div className="relative w-full h-64 sm:h-80 lg:h-96 bg-gray-200 dark:bg-gray-800 rounded-lg overflow-hidden mb-6">
-          {!imgError && event.imageUrl ? (
-            <Image
-              src={event.imageUrl}
-              alt={event.title}
-              fill
-              className="object-cover"
-              onError={() => setImgError(true)}
-              unoptimized={event.imageUrl.startsWith("data:")}
-              priority
-            />
-          ) : (
-            <div className="flex items-center justify-center h-full text-gray-400 dark:text-gray-500">
-              <Calendar size={64} />
-            </div>
-          )}
-        </div>
-
-        {/* Title & Meta */}
-        <div className="mb-6">
-          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-gray-100 mb-4">
-            {event.title}
-          </h1>
-
-          {/* Quick Info Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
-            {/* Date & Time */}
-            <div className="flex items-start gap-3">
-              <Clock className="w-5 h-5 text-brand-600 dark:text-brand-400 mt-0.5 shrink-0" />
-              <div>
-                <div className="font-medium text-gray-900 dark:text-gray-100">{dateStr}</div>
-                <div className="text-gray-600 dark:text-gray-400">{timeStr}</div>
+      <article className="max-w-7xl mx-auto px-0 sm:px-6 lg:px-8 py-4 sm:py-8">
+        {/* Hero Section - Image left, metadata right on tablet+ */}
+        <div className="flex flex-col sm:flex-row gap-6 mb-6 px-4 sm:px-0">
+          {/* Hero Image */}
+          <div className="relative w-full sm:w-72 md:w-80 lg:w-96 xl:w-[420px] h-48 sm:h-48 md:h-56 lg:h-64 xl:h-72 shrink-0 bg-gray-200 dark:bg-gray-800 sm:rounded-lg overflow-hidden">
+            {!imgError && event.imageUrl ? (
+              <Image
+                src={event.imageUrl}
+                alt={event.title}
+                fill
+                className="object-cover"
+                onError={() => setImgError(true)}
+                unoptimized={event.imageUrl.startsWith("data:")}
+                priority
+              />
+            ) : (
+              <div className="flex items-center justify-center h-full text-gray-400 dark:text-gray-500">
+                <Calendar size={64} />
               </div>
-            </div>
+            )}
+          </div>
 
-            {/* Location */}
-            {event.location && (
-              <div className="flex items-start gap-3">
-                <MapPin className="w-5 h-5 text-brand-600 dark:text-brand-400 mt-0.5 shrink-0" />
-                <div>
-                  <div className="font-medium text-gray-900 dark:text-gray-100">
-                    {event.location}
-                  </div>
+          {/* Title & Meta */}
+          <div className="flex-1 flex flex-col">
+            <h1 className="text-2xl sm:text-2xl lg:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4">
+              {event.title}
+            </h1>
+
+            {/* Quick Info - Single Column */}
+            <div className="flex flex-col gap-3 text-sm mb-4">
+              {/* Date & Time */}
+              <div className="flex items-center gap-3">
+                <Clock className="w-4 h-4 text-brand-600 dark:text-brand-400 shrink-0" />
+                <span className="text-gray-900 dark:text-gray-100">
+                  {dateStr}, {timeStr}
+                </span>
+              </div>
+
+              {/* Location */}
+              {event.location && (
+                <div className="flex items-center gap-3">
+                  <MapPin className="w-4 h-4 text-brand-600 dark:text-brand-400 shrink-0" />
                   <a
-                    href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(event.location)}`}
+                    href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+                      event.location
+                    )}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-brand-600 dark:text-brand-400 hover:underline"
+                    className="text-gray-900 dark:text-gray-100 hover:text-brand-600 dark:hover:text-brand-400"
                   >
-                    View on map
+                    {event.location}
                   </a>
                 </div>
-              </div>
-            )}
+              )}
 
-            {/* Organizer */}
-            {event.organizer && (
-              <div className="flex items-start gap-3">
-                <User className="w-5 h-5 text-brand-600 dark:text-brand-400 mt-0.5 shrink-0" />
-                <div>
-                  <div className="text-gray-600 dark:text-gray-400">Hosted by</div>
-                  <div className="font-medium text-gray-900 dark:text-gray-100">
+              {/* Organizer */}
+              {event.organizer && (
+                <div className="flex items-center gap-3">
+                  <User className="w-4 h-4 text-brand-600 dark:text-brand-400 shrink-0" />
+                  <span className="text-gray-900 dark:text-gray-100">
                     {event.organizer}
-                  </div>
+                  </span>
                 </div>
-              </div>
-            )}
+              )}
 
-            {/* Price */}
-            <div className="flex items-start gap-3">
-              <Tag className="w-5 h-5 text-brand-600 dark:text-brand-400 mt-0.5 shrink-0" />
-              <div>
-                <div className="text-gray-600 dark:text-gray-400">Price</div>
-                <div
-                  className={`font-medium ${
+              {/* Price */}
+              <div className="flex items-center gap-3">
+                <DollarSign className="w-4 h-4 text-brand-600 dark:text-brand-400 shrink-0" />
+                <span
+                  className={
                     displayPrice === "Free"
-                      ? "text-green-600 dark:text-green-400"
+                      ? "text-green-600 dark:text-green-400 font-medium"
                       : "text-gray-900 dark:text-gray-100"
-                  }`}
+                  }
                 >
                   {displayPrice}
-                </div>
+                </span>
               </div>
-            </div>
-          </div>
-        </div>
 
-        {/* Action Buttons */}
-        <div className="flex flex-wrap gap-3 mb-8 pb-8 border-b border-gray-200 dark:border-gray-700">
+              {/* Tags */}
+              {event.tags && event.tags.length > 0 && (
+                <div className="flex items-start gap-3">
+                  <Tag className="w-4 h-4 text-brand-600 dark:text-brand-400 shrink-0 mt-0.5" />
+                  <div className="flex flex-wrap gap-1.5">
+                    {event.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-brand-50 dark:bg-brand-950/50 text-brand-700 dark:text-brand-300 border border-brand-100 dark:border-brand-800"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Action Buttons - moved into metadata column */}
+            <div className="flex flex-wrap gap-2 mt-auto">
           {/* Add to Calendar */}
           <div className="relative" ref={calendarMenuRef}>
             <button
               onClick={() => setCalendarMenuOpen(!calendarMenuOpen)}
-              className="inline-flex items-center gap-2 px-4 py-2 bg-brand-600 hover:bg-brand-700 text-white rounded-lg font-medium transition-colors cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-brand-600 hover:bg-brand-700 text-white text-sm rounded-lg font-medium transition-colors cursor-pointer"
             >
-              <CalendarPlus2 size={18} />
-              Add to Calendar
+              <CalendarPlus2 size={15} />
+              Calendar
               <ChevronDown
-                size={16}
-                className={`transition-transform ${calendarMenuOpen ? "rotate-180" : ""}`}
+                size={13}
+                className={`transition-transform ${
+                  calendarMenuOpen ? "rotate-180" : ""
+                }`}
               />
             </button>
 
             {calendarMenuOpen && (
-              <div className="absolute left-0 top-full mt-2 z-20 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg min-w-[180px]">
+              <div className="absolute left-0 top-full mt-1 z-20 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg min-w-[160px]">
                 <button
                   onClick={handleAddToGoogleCalendar}
-                  className="w-full flex items-center gap-2 px-4 py-3 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer rounded-t-lg"
+                  className="w-full flex items-center gap-2 px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer rounded-t-lg"
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src="/google_cal.svg" alt="Google Calendar" className="w-4 h-4" />
+                  <img
+                    src="/google_cal.svg"
+                    alt="Google Calendar"
+                    className="w-3.5 h-3.5"
+                  />
                   Google Calendar
                 </button>
                 <button
                   onClick={handleAddToAppleCalendar}
-                  className="w-full flex items-center gap-2 px-4 py-3 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer rounded-b-lg"
+                  className="w-full flex items-center gap-2 px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer rounded-b-lg"
                 >
                   <svg
                     className="w-4 h-4"
@@ -352,44 +570,36 @@ export default function EventPageClient({ event, eventPageUrl }: EventPageClient
           {/* Favorite */}
           <button
             onClick={handleToggleFavorite}
-            className={`inline-flex items-center gap-2 px-4 py-2 rounded-lg font-medium border transition-colors cursor-pointer ${
+            className={`inline-flex items-center gap-1.5 px-3 py-1.5 text-sm rounded-lg border transition-colors cursor-pointer ${
               isFavorited
-                ? "bg-red-50 dark:bg-red-950/50 text-red-600 dark:text-red-400 border-red-200 dark:border-red-800"
-                : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600 hover:bg-red-50 dark:hover:bg-red-950/50 hover:text-red-600 dark:hover:text-red-400 hover:border-red-200 dark:hover:border-red-800"
+                ? "bg-red-50 dark:bg-red-950/50 text-red-500 dark:text-red-400 border-red-200 dark:border-red-800 hover:bg-red-100 dark:hover:bg-red-900/50"
+                : "bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-400 border-gray-300 dark:border-gray-600 hover:bg-red-50 dark:hover:bg-red-950/50 hover:text-red-500 dark:hover:text-red-400 hover:border-red-200 dark:hover:border-red-800"
             }`}
+            title={isFavorited ? "Remove from favorites" : "Add to favorites"}
           >
-            <Heart size={18} className={isFavorited ? "fill-current" : ""} />
-            {favoriteCount > 0 ? favoriteCount : "Favorite"}
+            <Heart
+              size={15}
+              className={`transition-transform ${
+                isFavorited ? "fill-current" : ""
+              } ${isHeartAnimating ? "animate-heart-pop" : ""}`}
+            />
+            {favoriteCount > 0 && <span>{favoriteCount}</span>}
           </button>
 
           {/* Share */}
-          <div className="relative" ref={shareMenuRef}>
+          <div className="relative">
             <button
-              onClick={handleShare}
-              className="inline-flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-lg font-medium border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors cursor-pointer"
+              onClick={handleCopyLink}
+              className="inline-flex items-center justify-center px-3 py-1.5 text-sm bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-400 rounded-lg border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors cursor-pointer h-[34px]"
+              title="Copy link"
             >
-              <Share2 size={18} />
-              Share
+              <Share size={15} />
             </button>
-
-            {shareMenuOpen && (
-              <div className="absolute left-0 top-full mt-2 z-20 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg min-w-[180px]">
-                <button
-                  onClick={handleCopyLink}
-                  className="w-full flex items-center gap-2 px-4 py-3 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer rounded-lg"
-                >
-                  {copied ? (
-                    <>
-                      <Check size={16} className="text-green-600" />
-                      Copied!
-                    </>
-                  ) : (
-                    <>
-                      <Copy size={16} />
-                      Copy link
-                    </>
-                  )}
-                </button>
+            {/* Copied tooltip */}
+            {copied && (
+              <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-1.5 px-2 py-1 text-xs font-medium text-white bg-gray-800 dark:bg-gray-700 rounded shadow-lg whitespace-nowrap animate-fade-in">
+                Copied!
+                <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-gray-800 dark:border-t-gray-700" />
               </div>
             )}
           </div>
@@ -399,44 +609,163 @@ export default function EventPageClient({ event, eventPageUrl }: EventPageClient
             href={event.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-lg font-medium border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-400 rounded-lg border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
           >
-            <ExternalLink size={18} />
-            View on {event.source === "EVENTBRITE" ? "Eventbrite" : event.source === "MEETUP" ? "Meetup" : "Source"}
+            <ExternalLink size={15} />
+            View on{" "}
+            {event.source === "EVENTBRITE"
+              ? "Eventbrite"
+              : event.source === "MEETUP"
+              ? "Meetup"
+              : "Source"}
           </a>
+            </div>
+          </div>
         </div>
 
         {/* Description */}
-        <section className="mb-8">
+        <section className="mb-8 px-4 sm:px-0">
           <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">
             About this event
           </h2>
           <div className="prose prose-gray dark:prose-invert max-w-none">
             <p className="text-gray-700 dark:text-gray-300 whitespace-pre-wrap leading-relaxed">
-              {cleanedDescription}
+              {displayDescription}
+              {hasAiSummary && (
+                <button
+                  onClick={() => setShowOriginalDescription(!showOriginalDescription)}
+                  className="text-sm text-brand-600 dark:text-brand-400 hover:text-brand-700 dark:hover:text-brand-300 font-medium ml-2 cursor-pointer"
+                >
+                  {showOriginalDescription ? "View less" : "View original"}
+                </button>
+              )}
             </p>
           </div>
         </section>
 
-        {/* Tags */}
-        {event.tags && event.tags.length > 0 && (
-          <section className="mb-8">
-            <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Tags</h2>
-            <div className="flex flex-wrap gap-2">
-              {event.tags.map((tag) => (
-                <span
-                  key={tag}
-                  className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-brand-50 dark:bg-brand-950/50 text-brand-700 dark:text-brand-300 border border-brand-100 dark:border-brand-800"
+        {/* Similar Events */}
+        {similarEvents.length > 0 && (
+          <section className="mb-8 pt-6 border-t-2 border-gray-300 dark:border-gray-600">
+            <div className="flex items-center justify-between mb-4 px-4 sm:px-0">
+              <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
+                Similar Events
+              </h2>
+              <div className="flex items-center gap-3">
+                {/* Sort toggle buttons */}
+                <div className="flex rounded-lg border border-gray-300 dark:border-gray-600 overflow-hidden text-sm">
+                  <button
+                    onClick={() => setSimilarSortBy('similarity')}
+                    className={`px-3 py-1 transition-colors cursor-pointer ${
+                      similarSortBy === 'similarity'
+                        ? 'bg-brand-600 text-white'
+                        : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700'
+                    }`}
+                  >
+                    Most Similar
+                  </button>
+                  <button
+                    onClick={() => setSimilarSortBy('date')}
+                    className={`px-3 py-1 transition-colors cursor-pointer ${
+                      similarSortBy === 'date'
+                        ? 'bg-brand-600 text-white'
+                        : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700'
+                    }`}
+                  >
+                    By Date
+                  </button>
+                </div>
+                <Link
+                  href="/"
+                  className="text-sm text-gray-500 dark:text-gray-400 hover:text-brand-600 dark:hover:text-brand-400 transition-colors hidden sm:block"
                 >
-                  {tag}
-                </span>
-              ))}
+                  View all
+                </Link>
+              </div>
             </div>
+            <ToastProvider>
+              <div>
+                {similarSortBy === 'date' && groupedSimilarEvents ? (
+                  // Grouped by date with headers
+                  groupedSimilarEvents.map(([dateKey, { date, events: groupEvents }], groupIndex) => (
+                    <div key={dateKey} className="flex flex-col">
+                      <h3 className="text-lg font-bold text-gray-800 dark:text-gray-100 sticky top-0 bg-gray-50 dark:bg-gray-950 py-2 px-3 sm:px-4 z-10 border-b border-gray-200 dark:border-gray-700">
+                        {formatDateHeader(date)}
+                      </h3>
+                      <div>
+                        {groupEvents.map((similarEvent, index) => (
+                          <EventCard
+                            key={similarEvent.id}
+                            event={{
+                              id: similarEvent.id,
+                              sourceId: similarEvent.sourceId,
+                              source: similarEvent.source,
+                              title: similarEvent.title,
+                              description: similarEvent.description,
+                              aiSummary: similarEvent.aiSummary,
+                              startDate: new Date(similarEvent.startDate),
+                              location: similarEvent.location,
+                              organizer: similarEvent.organizer,
+                              price: similarEvent.price,
+                              imageUrl: similarEvent.imageUrl,
+                              url: similarEvent.url,
+                              tags: similarEvent.tags,
+                              timeUnknown: similarEvent.timeUnknown,
+                              recurringType: similarEvent.recurringType,
+                            }}
+                            onHide={() => {}}
+                            onBlockHost={() => {}}
+                            isFavorited={similarFavorites.has(similarEvent.id)}
+                            favoriteCount={similarFavoriteCounts[similarEvent.id] || 0}
+                            onToggleFavorite={handleToggleSimilarFavorite}
+                            hideBorder={
+                              groupIndex === groupedSimilarEvents.length - 1 &&
+                              index === groupEvents.length - 1
+                            }
+                            showRecurringBadge={similarEvent.isRecurring}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  ))
+                ) : (
+                  // Flat list sorted by similarity (default)
+                  sortedSimilarEvents.map((similarEvent, index) => (
+                    <EventCard
+                      key={similarEvent.id}
+                      event={{
+                        id: similarEvent.id,
+                        sourceId: similarEvent.sourceId,
+                        source: similarEvent.source,
+                        title: similarEvent.title,
+                        description: similarEvent.description,
+                        aiSummary: similarEvent.aiSummary,
+                        startDate: new Date(similarEvent.startDate),
+                        location: similarEvent.location,
+                        organizer: similarEvent.organizer,
+                        price: similarEvent.price,
+                        imageUrl: similarEvent.imageUrl,
+                        url: similarEvent.url,
+                        tags: similarEvent.tags,
+                        timeUnknown: similarEvent.timeUnknown,
+                        recurringType: similarEvent.recurringType,
+                      }}
+                      onHide={() => {}}
+                      onBlockHost={() => {}}
+                      isFavorited={similarFavorites.has(similarEvent.id)}
+                      favoriteCount={similarFavoriteCounts[similarEvent.id] || 0}
+                      onToggleFavorite={handleToggleSimilarFavorite}
+                      hideBorder={index === sortedSimilarEvents.length - 1}
+                      showRecurringBadge={similarEvent.isRecurring}
+                    />
+                  ))
+                )}
+              </div>
+            </ToastProvider>
           </section>
         )}
 
         {/* Back Link */}
-        <div className="pt-8 border-t border-gray-200 dark:border-gray-700">
+        <div className="pt-8 border-t border-gray-200 dark:border-gray-700 px-4 sm:px-0">
           <Link
             href="/"
             className="inline-flex items-center gap-2 text-brand-600 dark:text-brand-400 hover:text-brand-700 dark:hover:text-brand-300 font-medium"
@@ -461,8 +790,8 @@ export default function EventPageClient({ event, eventPageUrl }: EventPageClient
           </a>
         </p>
         <p>
-          &copy; {new Date().getFullYear()} Asheville Event Feed. Not affiliated with AVL Today,
-          Eventbrite, Facebook Events, or Meetup.
+          &copy; {new Date().getFullYear()} Asheville Event Feed. Not affiliated
+          with AVL Today, Eventbrite, Facebook Events, or Meetup.
         </p>
       </footer>
     </main>

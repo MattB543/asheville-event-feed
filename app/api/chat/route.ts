@@ -4,6 +4,7 @@ import {
   azureChatCompletionMessages,
   azureChatCompletionStream,
 } from "@/lib/ai/azure-client";
+import { generateEventUrl } from "@/lib/utils/slugify";
 
 // Simple in-memory rate limiter (1 request per 2 seconds per IP)
 const rateLimitMap = new Map<string, number>();
@@ -301,7 +302,8 @@ function filterEventsByDateRange(
 function formatEventsForAI(events: EventData[]): string {
   return events
     .map((event) => {
-      const date = new Date(event.startDate).toLocaleDateString("en-US", {
+      const eventDate = new Date(event.startDate);
+      const date = eventDate.toLocaleDateString("en-US", {
         weekday: "short",
         month: "short",
         day: "numeric",
@@ -312,9 +314,12 @@ function formatEventsForAI(events: EventData[]): string {
       const tags = event.tags?.length ? event.tags.join(", ") : "";
       const desc = event.description || "";
 
+      // Generate internal AVL GO event page URL instead of external source URL
+      const internalUrl = generateEventUrl(event.title, eventDate, event.id);
+
       const lines = [
         event.title,
-        `URL: ${event.url}`,
+        `URL: ${internalUrl}`,
         `When: ${date}`,
         event.location ? `Where: ${event.location}` : null,
         event.price ? `Price: ${event.price}` : `Price: ?`,
@@ -426,13 +431,13 @@ ${events}
 
 **Friday, December 5**
 
-1. [**OK Go**](https://example.com/ok-go)
+1. [**OK Go**](https://avlgo.com/events/ok-go-2025-12-05-a1b2c3)
    Fri, Dec 5 at 8:00 PM
    The Orange Peel
    Price: $35
    *The iconic alt-rock band known for their creative music videos - rare Asheville stop*
 
-2. [**Southern Culture on the Skids**](https://example.com/scots)
+2. [**Southern Culture on the Skids**](https://avlgo.com/events/southern-culture-on-the-skids-2025-12-05-d4e5f6)
    Fri, Dec 5 at 8:00 PM
    The Grey Eagle
    Price: $27
@@ -442,7 +447,7 @@ ${events}
 
 **Saturday, December 6**
 
-3. [**The Big Crafty**](https://example.com/big-crafty)
+3. [**The Big Crafty**](https://avlgo.com/events/the-big-crafty-2025-12-06-g7h8i9)
    Sat, Dec 6 at 10:00 AM
    Harrah's Cherokee Center
    Price: Free

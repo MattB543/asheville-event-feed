@@ -15,6 +15,7 @@
     "test:greyeagle": "tsx scripts/test-greyeagle.ts",
     "test:storyparlor": "tsx scripts/test-storyparlor.ts",
     "test:misfit": "tsx scripts/test-misfitimprov.ts",
+    "test:udharma": "tsx scripts/test-udharma.ts",
     "test:exploreasheville": "tsx lib/scrapers/exploreasheville.ts",
     "test:tagging": "tsx scripts/test-tagging.ts",
     "db:check": "tsx scripts/count-events.ts",
@@ -24,7 +25,11 @@
     "backfill": "tsx scripts/backfill-eventbrite.ts",
     "tag:events": "tsx scripts/tag-events.ts",
     "test:image-gen": "tsx scripts/test-image-gen.ts",
-    "generate:seo-images": "tsx scripts/generate-seo-images.ts"
+    "generate:seo-images": "tsx scripts/generate-seo-images.ts",
+    "test:summary": "tsx scripts/test-summary.ts",
+    "test:embedding": "tsx scripts/test-embedding.ts",
+    "test:similarity": "tsx scripts/test-similarity.ts",
+    "backfill:embeddings": "tsx scripts/backfill-embeddings.ts"
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",

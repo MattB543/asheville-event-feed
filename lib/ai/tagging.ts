@@ -70,10 +70,10 @@ Seasonal:
 - Markets – pop-ups, vendors, shopping, craft fairs
 
 IMPORTANT RULES:
-1. ONLY use tags from the list above. Do NOT create new tags.
+1. For official tags: ONLY use tags from the list above. Do NOT create new tags for the official list.
 2. NEVER use category names as tags (do NOT use: "Entertainment", "Food & Drink", "Activities", "Audience/Social", "Seasonal", "Other").
-3. An event can have multiple tags if applicable.
-4. Use the exact tag spelling and capitalization shown above.
+3. Use the exact tag spelling and capitalization shown above for official tags.
+4. Custom tags should be lowercase, descriptive, and specific to the event (e.g., "jazz", "local venue", "beginner friendly", "outdoor seating").
 `;
 
 export async function generateEventTags(event: EventData): Promise<string[]> {
@@ -87,8 +87,12 @@ export async function generateEventTags(event: EventData): Promise<string[]> {
 
   const prompt = `
     You are an expert event tagger for Asheville, NC.
-    Analyze the following event and assign relevant tags ONLY from the provided list.
-    Return ONLY a JSON array of strings. Do not include markdown formatting or explanations.
+    Analyze the following event and assign tags in two categories:
+
+    1. OFFICIAL TAGS (1-4 tags): Select from the provided list below. These are curated, user-facing tags.
+    2. CUSTOM TAGS (1-5 tags): Create additional descriptive tags that capture specific details about the event (genre, vibe, skill level, venue type, etc.). These are for internal use.
+
+    Return a JSON object with two arrays. Do not include markdown formatting or explanations.
 
     Event Details:
     Title: ${event.title}
@@ -100,7 +104,7 @@ export async function generateEventTags(event: EventData): Promise<string[]> {
     ${TAG_GUIDELINES}
 
     Example Output:
-    ["Live Music", "Beer", "Nightlife"]
+    {"official": ["Live Music", "Beer", "Nightlife"], "custom": ["jazz", "brewery venue", "weekend nightlife"]}
   `;
 
   try {
@@ -116,27 +120,46 @@ export async function generateEventTags(event: EventData): Promise<string[]> {
 
     const parsed = JSON.parse(cleanedText);
 
-    // Validate that the result is an array of strings
-    if (!Array.isArray(parsed)) {
-      console.warn("AI returned non-array response, returning empty array");
-      return [];
+    // Handle new format: { official: [...], custom: [...] }
+    if (typeof parsed === "object" && parsed !== null && !Array.isArray(parsed)) {
+      const officialTags = Array.isArray(parsed.official) ? parsed.official : [];
+      const customTags = Array.isArray(parsed.custom) ? parsed.custom : [];
+
+      // Validate official tags against allowed list
+      const validOfficialTags = officialTags.filter(
+        (tag: unknown): tag is string =>
+          typeof tag === "string" && ALLOWED_TAGS.includes(tag as typeof ALLOWED_TAGS[number])
+      );
+
+      // Log if AI generated invalid official tags
+      const invalidOfficialTags = officialTags.filter(
+        (tag: unknown) => typeof tag === "string" && !ALLOWED_TAGS.includes(tag as typeof ALLOWED_TAGS[number])
+      );
+      if (invalidOfficialTags.length > 0) {
+        console.warn(`[Tagging] Invalid official tags for "${event.title}": ${invalidOfficialTags.join(", ")} (filtered out)`);
+      }
+
+      // Custom tags are allowed as-is (just ensure they're strings)
+      const validCustomTags = customTags.filter(
+        (tag: unknown): tag is string => typeof tag === "string" && (tag as string).trim().length > 0
+      );
+
+      // Return official tags first, then custom tags
+      return [...validOfficialTags, ...validCustomTags];
     }
 
-    // Filter to only allowed tags (safeguard against AI generating invalid tags)
-    const validTags = parsed.filter(
-      (tag): tag is string =>
-        typeof tag === "string" && ALLOWED_TAGS.includes(tag as typeof ALLOWED_TAGS[number])
-    );
-
-    // Log if AI generated invalid tags (with event context for debugging)
-    const invalidTags = parsed.filter(
-      (tag) => typeof tag === "string" && !ALLOWED_TAGS.includes(tag as typeof ALLOWED_TAGS[number])
-    );
-    if (invalidTags.length > 0) {
-      console.warn(`[Tagging] Invalid tags for "${event.title}": ${invalidTags.join(", ")} (filtered out)`);
+    // Fallback: handle old array format for backwards compatibility
+    if (Array.isArray(parsed)) {
+      console.warn("[Tagging] AI returned old array format, processing as official tags only");
+      const validTags = parsed.filter(
+        (tag): tag is string =>
+          typeof tag === "string" && ALLOWED_TAGS.includes(tag as typeof ALLOWED_TAGS[number])
+      );
+      return validTags;
     }
 
-    return validTags;
+    console.warn("AI returned unexpected response format, returning empty array");
+    return [];
   } catch (error) {
     console.error("Error generating tags:", error);
     return [];

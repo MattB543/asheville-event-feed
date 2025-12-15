@@ -1,4 +1,4 @@
-import { pgTable, text, timestamp, boolean, uuid, index, integer, jsonb } from 'drizzle-orm/pg-core';
+import { pgTable, text, timestamp, boolean, uuid, index, integer, jsonb, vector } from 'drizzle-orm/pg-core';
 
 export const events = pgTable('events', {
   id: uuid('id').defaultRandom().primaryKey(),
@@ -24,11 +24,16 @@ export const events = pgTable('events', {
   recurringEndDate: timestamp('recurring_end_date', { withTimezone: true }), // When the recurring event ends
   // User engagement
   favoriteCount: integer('favorite_count').default(0), // Number of users who favorited this event
+  // AI-generated fields for semantic search
+  aiSummary: text('ai_summary'), // 1-2 sentence structured summary from Azure AI
+  embedding: vector('embedding', { dimensions: 1536 }), // Gemini embedding of "${title}: ${aiSummary}"
 }, (table) => ({
   startDateIdx: index('events_start_date_idx').on(table.startDate),
   sourceIdx: index('events_source_idx').on(table.source),
   // GIN index for efficient tag array queries (e.g., filtering by tags)
   tagsIdx: index('events_tags_idx').using('gin', table.tags),
+  // HNSW index for fast cosine similarity vector search
+  embeddingIdx: index('events_embedding_idx').using('hnsw', table.embedding.op('vector_cosine_ops')),
 }));
 
 // Submitted events table for user-submitted event suggestions

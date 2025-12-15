@@ -6,6 +6,7 @@ import { sql, InferSelectModel } from "drizzle-orm";
 import { parseEventSlug, generateEventSlug } from "@/lib/utils/slugify";
 import { cleanMarkdown } from "@/lib/utils/cleanMarkdown";
 import EventPageClient from "./EventPageClient";
+import { findSimilarEvents } from "@/lib/db/similaritySearch";
 
 type DbEvent = InferSelectModel<typeof events>;
 
@@ -135,6 +136,53 @@ export default async function EventPage({ params }: PageProps) {
 
   const eventUrl = `${siteUrl}/events/${expectedSlug}`;
 
+  // Fetch similar events (only if event has embedding)
+  let similarEvents: Array<{
+    id: string;
+    sourceId: string;
+    source: string;
+    title: string;
+    description: string | null;
+    aiSummary: string | null;
+    startDate: string;
+    location: string | null;
+    organizer: string | null;
+    price: string | null;
+    url: string;
+    imageUrl: string | null;
+    tags: string[] | null;
+    timeUnknown: boolean;
+    recurringType: string | null;
+    favoriteCount: number;
+    similarity: number;
+  }> = [];
+
+  try {
+    // Fetch extra events to allow for recurring event deduplication on client
+    const similar = await findSimilarEvents(event.id, { limit: 50, futureOnly: true, orderBy: 'similarity' });
+    similarEvents = similar.map((e) => ({
+      id: e.id,
+      sourceId: e.sourceId,
+      source: e.source,
+      title: e.title,
+      description: e.description,
+      aiSummary: e.aiSummary,
+      startDate: e.startDate.toISOString(),
+      location: e.location,
+      organizer: e.organizer,
+      price: e.price,
+      url: e.url,
+      imageUrl: e.imageUrl,
+      tags: e.tags,
+      timeUnknown: e.timeUnknown || false,
+      recurringType: e.recurringType,
+      favoriteCount: e.favoriteCount || 0,
+      similarity: e.similarity,
+    }));
+  } catch {
+    // Silently fail if similarity search fails (e.g., no embedding)
+  }
+
   // JSON-LD structured data for SEO
   const jsonLd = {
     "@context": "https://schema.org",
@@ -191,6 +239,7 @@ export default async function EventPage({ params }: PageProps) {
           id: event.id,
           title: event.title,
           description: event.description,
+          aiSummary: event.aiSummary,
           startDate: event.startDate.toISOString(),
           location: event.location,
           organizer: event.organizer,
@@ -203,6 +252,7 @@ export default async function EventPage({ params }: PageProps) {
           favoriteCount: event.favoriteCount || 0,
         }}
         eventPageUrl={eventUrl}
+        similarEvents={similarEvents}
       />
     </>
   );

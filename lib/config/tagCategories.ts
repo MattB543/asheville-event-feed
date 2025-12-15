@@ -34,6 +34,9 @@ export const TAG_CATEGORIES: TagCategory[] = [
 // Flat list of all known tags
 export const ALL_KNOWN_TAGS = TAG_CATEGORIES.flatMap((cat) => cat.tags);
 
+// Set of official tags for O(1) lookup (used by frontend to filter displayed tags)
+export const OFFICIAL_TAGS_SET = new Set(ALL_KNOWN_TAGS);
+
 // Get category for a tag
 export function getTagCategory(tag: string): string | null {
   for (const category of TAG_CATEGORIES) {

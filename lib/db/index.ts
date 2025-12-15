@@ -12,8 +12,13 @@ function createDb(): DbType {
   if (!env.DATABASE_URL) {
     throw new Error('DATABASE_URL is not defined');
   }
-  // Disable prepare for Supabase transaction pooling (required for serverless)
-  _client = postgres(env.DATABASE_URL, { prepare: false });
+  // Configure for Supabase transaction pooling (serverless)
+  _client = postgres(env.DATABASE_URL, {
+    prepare: false,      // Required for Supabase transaction mode (pgbouncer)
+    max: 1,              // Limit postgres.js internal pool to 1 connection per instance
+    idle_timeout: 20,    // Close idle connections after 20s
+    connect_timeout: 30, // 30s connection timeout (matches URL param)
+  });
   return drizzle(_client, { schema });
 }
 

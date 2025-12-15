@@ -120,9 +120,22 @@ export async function azureChatCompletion(
   });
 
   const usage = response.usage;
+  const content = response.choices[0]?.message?.content || "";
+
+  // Debug log to help troubleshoot empty responses
+  if (!content) {
+    console.warn("[Azure AI] Response details:", {
+      finishReason: response.choices[0]?.finish_reason,
+      promptTokens: usage?.prompt_tokens,
+      completionTokens: usage?.completion_tokens,
+      hasMessage: !!response.choices[0]?.message,
+      // Check for reasoning model response
+      message: JSON.stringify(response.choices[0]?.message),
+    });
+  }
 
   return {
-    content: response.choices[0]?.message?.content || "",
+    content,
     usage: {
       inputTokens: usage?.prompt_tokens || 0,
       outputTokens: usage?.completion_tokens || 0,

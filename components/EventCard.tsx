@@ -10,9 +10,10 @@ import {
   Heart,
   MoreVertical,
   AlertTriangle,
-  Copy,
+  Files,
   ShieldAlert,
   Share,
+  Sparkles,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -22,6 +23,7 @@ import { generateCalendarUrlForEvent } from "@/lib/utils/googleCalendar";
 import { downloadEventAsICS } from "@/lib/utils/icsGenerator";
 import { useToast } from "@/components/ui/Toast";
 import { generateEventSlug } from "@/lib/utils/slugify";
+import { OFFICIAL_TAGS_SET } from "@/lib/config/tagCategories";
 
 interface EventCardProps {
   event: {
@@ -30,6 +32,7 @@ interface EventCardProps {
     source: string;
     title: string;
     description?: string | null;
+    aiSummary?: string | null;
     startDate: Date;
     location: string | null;
     organizer: string | null;
@@ -48,6 +51,8 @@ interface EventCardProps {
   favoriteCount: number;
   onToggleFavorite: (eventId: string) => void;
   isTagFilterActive?: boolean;
+  /** Show a "Recurring" badge for similar events that appear multiple times */
+  showRecurringBadge?: boolean;
 }
 
 // Round price string to nearest dollar (e.g., "$19.10" -> "$19", "$25.50" -> "$26")
@@ -74,6 +79,7 @@ export default function EventCard({
   favoriteCount,
   onToggleFavorite,
   isTagFilterActive = false,
+  showRecurringBadge = false,
 }: EventCardProps) {
   const [imgError, setImgError] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
@@ -159,20 +165,36 @@ export default function EventCard({
     });
   };
 
-  // Check if description is long enough to need truncation
-  // Mobile: 195 chars, Tablet+: 295 chars
+  // Use AI summary if available, otherwise use original description
+  const hasAiSummary = !!event.aiSummary;
+  const cleanedAiSummary = event.aiSummary ? cleanMarkdown(event.aiSummary) : null;
   const cleanedDescription =
     cleanMarkdown(event.description) || "No description available.";
-  const needsTruncationMobile = cleanedDescription.length > 195;
-  const needsTruncationTablet = cleanedDescription.length > 295;
+
+  // When collapsed: show AI summary (or truncated description if no AI summary)
+  // When expanded: show full original description
+  const displayText = isExpanded
+    ? cleanedDescription
+    : (cleanedAiSummary || cleanedDescription);
+
+  // Only need truncation if no AI summary and description is long
+  const needsTruncationMobile = !hasAiSummary && cleanedDescription.length > 195;
+  const needsTruncationTablet = !hasAiSummary && cleanedDescription.length > 295;
   const truncatedDescriptionMobile =
     needsTruncationMobile && !isExpanded
       ? cleanedDescription.slice(0, 195).trimEnd() + "..."
-      : cleanedDescription;
+      : displayText;
   const truncatedDescriptionTablet =
     needsTruncationTablet && !isExpanded
       ? cleanedDescription.slice(0, 295).trimEnd() + "..."
-      : cleanedDescription;
+      : displayText;
+
+  // Show expand button if: has AI summary, or description needs truncation
+  const showExpandButtonMobile = hasAiSummary || needsTruncationMobile;
+  const showExpandButtonTablet = hasAiSummary || needsTruncationTablet;
+  const expandButtonText = isExpanded
+    ? "View less"
+    : (hasAiSummary ? "View original" : "View more");
 
   const formatDate = (date: Date, timeUnknown?: boolean) => {
     const eventDate = new Date(date);
@@ -328,11 +350,23 @@ export default function EventCard({
             </span>
           )}
 
-          {/* Other Tags - show first 3-4 unless filtering by tag */}
+          {/* Recurring Badge (for similar events) */}
+          {showRecurringBadge && (
+            <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-50 dark:bg-blue-950/50 text-blue-700 dark:text-blue-400 border border-blue-200 dark:border-blue-800">
+              Recurring
+            </span>
+          )}
+
+          {/* Other Tags - show first 3-4 official tags unless filtering by tag */}
           {event.tags &&
             (() => {
+              // Filter to only show official tags in the UI (custom tags are stored but not displayed)
+              const officialTags = event.tags.filter((tag) => OFFICIAL_TAGS_SET.has(tag));
+
+              if (officialTags.length === 0) return null;
+
               if (isTagFilterActive) {
-                return event.tags.map((tag) => (
+                return officialTags.map((tag) => (
                   <span
                     key={tag}
                     className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-brand-50 dark:bg-brand-950/50 text-brand-700 dark:text-brand-300 border border-brand-100 dark:border-brand-800"
@@ -342,11 +376,11 @@ export default function EventCard({
                 ));
               }
               // Check if first 4 tags exceed 40 chars total
-              const first4 = event.tags.slice(0, 4);
+              const first4 = officialTags.slice(0, 4);
               const first4Chars = first4.join("").length;
               const maxTags = first4Chars > 40 ? 3 : 4;
-              const visibleTags = event.tags.slice(0, maxTags);
-              const hiddenCount = event.tags.length - visibleTags.length;
+              const visibleTags = officialTags.slice(0, maxTags);
+              const hiddenCount = officialTags.length - visibleTags.length;
               return (
                 <>
                   {visibleTags.map((tag) => (
@@ -363,7 +397,7 @@ export default function EventCard({
                         +{hiddenCount}
                       </span>
                       <span className="absolute bottom-full left-0 mb-1 hidden group-hover/tags:flex flex-col bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded shadow-lg px-2 py-1.5 z-20 whitespace-nowrap">
-                        {event.tags.slice(maxTags).map((tag) => (
+                        {officialTags.slice(maxTags).map((tag) => (
                           <span
                             key={tag}
                             className="text-xs text-gray-700 dark:text-gray-300"
@@ -380,31 +414,31 @@ export default function EventCard({
         </div>
       </div>
 
-      {/* Description - Mobile version (210 chars) */}
+      {/* Description - Mobile version */}
       <div className="sm:hidden">
         <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
           {truncatedDescriptionMobile}
-          {needsTruncationMobile && (
+          {showExpandButtonMobile && (
             <button
               onClick={() => setIsExpanded(!isExpanded)}
               className="text-xs text-brand-600 dark:text-brand-400 hover:text-brand-700 dark:hover:text-brand-300 font-medium ml-1 cursor-pointer"
             >
-              {isExpanded ? "View less" : "View more"}
+              {expandButtonText}
             </button>
           )}
         </p>
       </div>
 
-      {/* Description - Tablet/Desktop version (310 chars) */}
+      {/* Description - Tablet/Desktop version */}
       <div className="hidden sm:block sm:col-span-2 xl:col-span-1 xl:col-start-3">
         <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
           {truncatedDescriptionTablet}
-          {needsTruncationTablet && (
+          {showExpandButtonTablet && (
             <button
               onClick={() => setIsExpanded(!isExpanded)}
               className="text-xs text-brand-600 dark:text-brand-400 hover:text-brand-700 dark:hover:text-brand-300 font-medium ml-1 cursor-pointer"
             >
-              {isExpanded ? "View less" : "View more"}
+              {expandButtonText}
             </button>
           )}
         </p>
@@ -465,12 +499,11 @@ export default function EventCard({
         <div className="relative" ref={hideMenuRef}>
           <button
             onClick={() => setHideMenuOpen(!hideMenuOpen)}
-            className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs text-gray-600 dark:text-gray-400 hover:bg-red-50 dark:hover:bg-red-950/50 hover:text-red-600 dark:hover:text-red-400 rounded border border-gray-200 dark:border-gray-700 cursor-pointer"
+            className="inline-flex items-center gap-1 px-2.5 py-1.5 text-xs text-gray-600 dark:text-gray-400 hover:bg-red-50 dark:hover:bg-red-950/50 hover:text-red-600 dark:hover:text-red-400 rounded border border-gray-200 dark:border-gray-700 cursor-pointer h-[30px]"
             title="Hide options"
             disabled={isNewlyHidden}
           >
             <EyeOff size={14} />
-            <span>Hide</span>
             <ChevronDown
               size={12}
               className={`transition-transform ${
@@ -547,7 +580,7 @@ export default function EventCard({
               setCopied(true);
               setTimeout(() => setCopied(false), 2000);
             }}
-            className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs text-gray-600 dark:text-gray-400 rounded border border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer transition-colors"
+            className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs text-gray-600 dark:text-gray-400 rounded border border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer transition-colors h-[30px]"
             title="Copy link"
           >
             <Share size={14} />
@@ -573,6 +606,16 @@ export default function EventCard({
           {moreMenuOpen && (
             <div className="absolute right-0 top-full mt-1 z-20 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded shadow-lg min-w-[180px]">
               <a
+                href={`/events/${generateEventSlug(event.title, event.startDate, event.id)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full flex items-center gap-2 px-3 py-2 text-xs text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
+                onClick={() => setMoreMenuOpen(false)}
+              >
+                <Sparkles size={14} />
+                See similar events
+              </a>
+              <a
                 href={getSourceUrl()}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -594,7 +637,7 @@ export default function EventCard({
                 onClick={() => handleReport("duplicate")}
                 className="w-full flex items-center gap-2 px-3 py-2 text-xs text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
               >
-                <Copy size={14} />
+                <Files size={14} />
                 Flag as duplicate
               </button>
               <button

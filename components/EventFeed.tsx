@@ -33,6 +33,7 @@ interface Event {
   source: string;
   title: string;
   description?: string | null;
+  aiSummary?: string | null;
   startDate: Date;
   location?: string | null;
   zip?: string | null;
@@ -401,7 +402,15 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
     if (isLoaded && isLoggedIn) {
       saveToDatabase();
     }
-  }, [blockedHosts, blockedKeywords, hiddenEvents, favoritedEventIds, isLoaded, isLoggedIn, saveToDatabase]);
+  }, [
+    blockedHosts,
+    blockedKeywords,
+    hiddenEvents,
+    favoritedEventIds,
+    isLoaded,
+    isLoggedIn,
+    saveToDatabase,
+  ]);
 
   // Read URL params on mount (for shared links)
   useEffect(() => {
@@ -449,10 +458,12 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
 
     if (params.has("times")) {
       const validTimes = ["morning", "afternoon", "evening"] as const;
-      const times = params
-        .get("times")
-        ?.split(",")
-        .filter((t): t is TimeOfDay => validTimes.includes(t as TimeOfDay)) || [];
+      const times =
+        params
+          .get("times")
+          ?.split(",")
+          .filter((t): t is TimeOfDay => validTimes.includes(t as TimeOfDay)) ||
+        [];
       setSelectedTimes(times);
     }
 
@@ -477,25 +488,14 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
 
     if (params.has("tagsInclude") || params.has("tagsExclude")) {
       setTagFilters({
-        include:
-          params
-            .get("tagsInclude")
-            ?.split(",")
-            .filter(Boolean) || [],
-        exclude:
-          params
-            .get("tagsExclude")
-            ?.split(",")
-            .filter(Boolean) || [],
+        include: params.get("tagsInclude")?.split(",").filter(Boolean) || [],
+        exclude: params.get("tagsExclude")?.split(",").filter(Boolean) || [],
       });
     }
 
     if (params.has("locations")) {
       setSelectedLocations(
-        params
-          .get("locations")
-          ?.split(",")
-          .filter(Boolean) || []
+        params.get("locations")?.split(",").filter(Boolean) || []
       );
     }
   }, [isLoaded]); // Only run once after hydration
@@ -700,7 +700,10 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
           for (const loc of deferredSelectedLocations) {
             if (loc === "asheville") {
               // "Asheville area" includes: Asheville city + known Asheville venues + Asheville zips
-              if (isAshevilleArea(event.location) || (eventZip && isAshevilleZip(eventZip))) {
+              if (
+                isAshevilleArea(event.location) ||
+                (eventZip && isAshevilleZip(eventZip))
+              ) {
                 matchesFilter = true;
                 break;
               }
@@ -824,7 +827,11 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
     });
     selectedZips.forEach((zip) => {
       const name = getZipName(zip);
-      filters.push({ id: `zip-${zip}`, type: "zip", label: `${zip} (${name})` });
+      filters.push({
+        id: `zip-${zip}`,
+        type: "zip",
+        label: `${zip} (${name})`,
+      });
     });
 
     return filters;
@@ -1367,7 +1374,7 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
         >
           <ArrowUpIcon size={16} className="text-gray-600 dark:text-gray-300" />
           <span className="text-sm font-medium text-gray-600 dark:text-gray-300">
-            Scroll up
+            Scroll to top
           </span>
         </button>
       </div>

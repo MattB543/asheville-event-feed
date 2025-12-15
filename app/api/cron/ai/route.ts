@@ -1,10 +1,13 @@
 import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { events } from "@/lib/db/schema";
-import { eq, or, like, sql, isNull } from "drizzle-orm";
+import { eq, or, like, sql, isNull, and, isNotNull } from "drizzle-orm";
 import { generateEventTags } from "@/lib/ai/tagging";
 import { generateEventImage } from "@/lib/ai/imageGeneration";
+import { generateEventSummary } from "@/lib/ai/summary";
+import { generateEmbedding, createEmbeddingText } from "@/lib/ai/embedding";
 import { env, isAIEnabled } from "@/lib/config/env";
+import { isAzureAIEnabled } from "@/lib/ai/azure-client";
 import { verifyAuthToken } from "@/lib/utils/auth";
 
 export const maxDuration = 800; // 13+ minutes (requires Fluid Compute)
@@ -50,6 +53,8 @@ export async function GET(request: Request) {
   // Stats tracking
   const stats = {
     tagging: { duration: 0, success: 0, failed: 0, total: 0 },
+    summaries: { duration: 0, success: 0, failed: 0, total: 0 },
+    embeddings: { duration: 0, success: 0, failed: 0, total: 0 },
     images: { duration: 0, success: 0, failed: 0, total: 0 },
   };
 
@@ -118,7 +123,130 @@ export async function GET(request: Request) {
       );
     }
 
-    // 3. Find events that need images
+    // 3. Generate AI summaries for events that need them
+    if (isAzureAIEnabled()) {
+      console.log("[AI] Finding events needing summaries...");
+      const eventsNeedingSummaries = await db
+        .select({
+          id: events.id,
+          title: events.title,
+          description: events.description,
+          location: events.location,
+          organizer: events.organizer,
+          tags: events.tags,
+        })
+        .from(events)
+        .where(isNull(events.aiSummary))
+        .limit(100); // Process max 100 per run
+
+      stats.summaries.total = eventsNeedingSummaries.length;
+      console.log(`[AI] Found ${eventsNeedingSummaries.length} events needing summaries`);
+
+      if (eventsNeedingSummaries.length > 0) {
+        const summaryStartTime = Date.now();
+        for (const batch of chunk(eventsNeedingSummaries, 5)) {
+          await Promise.all(
+            batch.map(async (event) => {
+              try {
+                const summary = await generateEventSummary({
+                  title: event.title,
+                  description: event.description,
+                  location: event.location,
+                  organizer: event.organizer,
+                  tags: event.tags,
+                });
+
+                if (summary) {
+                  await db
+                    .update(events)
+                    .set({ aiSummary: summary })
+                    .where(eq(events.id, event.id));
+
+                  stats.summaries.success++;
+                  console.log(`[AI] Generated summary for "${event.title.slice(0, 40)}..."`);
+                } else {
+                  stats.summaries.failed++;
+                }
+              } catch (err) {
+                stats.summaries.failed++;
+                console.error(
+                  `[AI] Failed to generate summary for "${event.title}":`,
+                  err instanceof Error ? err.message : err
+                );
+              }
+            })
+          );
+          // Delay between batches
+          await new Promise((r) => setTimeout(r, 1000));
+        }
+        stats.summaries.duration = Date.now() - summaryStartTime;
+        console.log(
+          `[AI] Summary generation complete in ${formatDuration(stats.summaries.duration)}: ${stats.summaries.success}/${stats.summaries.total} succeeded`
+        );
+      }
+    } else {
+      console.log("[AI] Azure AI not configured, skipping summary generation");
+    }
+
+    // 4. Generate embeddings for events that have summaries but no embedding
+    console.log("[AI] Finding events needing embeddings...");
+    const eventsNeedingEmbeddings = await db
+      .select({
+        id: events.id,
+        title: events.title,
+        aiSummary: events.aiSummary,
+      })
+      .from(events)
+      .where(
+        and(
+          isNotNull(events.aiSummary),
+          isNull(events.embedding)
+        )
+      )
+      .limit(100); // Process max 100 per run
+
+    stats.embeddings.total = eventsNeedingEmbeddings.length;
+    console.log(`[AI] Found ${eventsNeedingEmbeddings.length} events needing embeddings`);
+
+    if (eventsNeedingEmbeddings.length > 0) {
+      const embeddingStartTime = Date.now();
+      for (const batch of chunk(eventsNeedingEmbeddings, 10)) {
+        await Promise.all(
+          batch.map(async (event) => {
+            try {
+              const text = createEmbeddingText(event.title, event.aiSummary!);
+              const embedding = await generateEmbedding(text);
+
+              if (embedding) {
+                await db
+                  .update(events)
+                  .set({ embedding })
+                  .where(eq(events.id, event.id));
+
+                stats.embeddings.success++;
+                console.log(`[AI] Generated embedding for "${event.title.slice(0, 40)}..."`);
+              } else {
+                stats.embeddings.failed++;
+              }
+            } catch (err) {
+              stats.embeddings.failed++;
+              console.error(
+                `[AI] Failed to generate embedding for "${event.title}":`,
+                err instanceof Error ? err.message : err
+              );
+            }
+          })
+        );
+        // Delay between batches
+        await new Promise((r) => setTimeout(r, 500));
+      }
+      stats.embeddings.duration = Date.now() - embeddingStartTime;
+      console.log(
+        `[AI] Embedding generation complete in ${formatDuration(stats.embeddings.duration)}: ${stats.embeddings.success}/${stats.embeddings.total} succeeded`
+      );
+    }
+
+    // 5. Find events that need images
     console.log("[AI] Finding events needing images...");
     const eventsNeedingImages = await db
       .select({
@@ -139,7 +267,7 @@ export async function GET(request: Request) {
           like(events.imageUrl, "%default_photo%")
         )
       )
-      .limit(50); // Process max 50 per run (image generation is slower)
+      .limit(10); // Process max 10 per run (image generation is slow and expensive)
 
     stats.images.total = eventsNeedingImages.length;
     console.log(`[AI] Found ${eventsNeedingImages.length} events needing images`);
@@ -195,6 +323,8 @@ export async function GET(request: Request) {
     console.log(`[AI] JOB COMPLETE in ${formatDuration(totalDuration)}`);
     console.log("[AI] ────────────────────────────────────────────────");
     console.log(`[AI] Tagging: ${stats.tagging.success}/${stats.tagging.total} in ${formatDuration(stats.tagging.duration)}`);
+    console.log(`[AI] Summaries: ${stats.summaries.success}/${stats.summaries.total} in ${formatDuration(stats.summaries.duration)}`);
+    console.log(`[AI] Embeddings: ${stats.embeddings.success}/${stats.embeddings.total} in ${formatDuration(stats.embeddings.duration)}`);
     console.log(`[AI] Images: ${stats.images.success}/${stats.images.total} in ${formatDuration(stats.images.duration)}`);
     console.log("[AI] ════════════════════════════════════════════════");
 
@@ -206,6 +336,16 @@ export async function GET(request: Request) {
           total: stats.tagging.total,
           success: stats.tagging.success,
           failed: stats.tagging.failed,
+        },
+        summaries: {
+          total: stats.summaries.total,
+          success: stats.summaries.success,
+          failed: stats.summaries.failed,
+        },
+        embeddings: {
+          total: stats.embeddings.total,
+          success: stats.embeddings.success,
+          failed: stats.embeddings.failed,
         },
         images: {
           total: stats.images.total,

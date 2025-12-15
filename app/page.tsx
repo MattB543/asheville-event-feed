@@ -10,7 +10,8 @@ import SubmitEventButton from "@/components/SubmitEventButton";
 import UserMenu from "@/components/UserMenu";
 import { matchesDefaultFilter } from "@/lib/config/defaultFilters";
 
-type DbEvent = InferSelectModel<typeof events>;
+// Omit embedding from the type since we exclude it from queries (server-side only)
+type DbEvent = Omit<InferSelectModel<typeof events>, 'embedding'>;
 
 export const revalidate = 3600; // Revalidate every hour
 
@@ -25,8 +26,34 @@ export default async function Home() {
       // Events that started earlier today may still be ongoing
       const startOfToday = getStartOfTodayEastern();
 
+      // Select all fields EXCEPT embedding to reduce payload size
+      // embedding is 1536-dim vector used only for server-side similarity search
       const allEvents = await db
-        .select()
+        .select({
+          id: events.id,
+          sourceId: events.sourceId,
+          source: events.source,
+          title: events.title,
+          description: events.description,
+          startDate: events.startDate,
+          location: events.location,
+          zip: events.zip,
+          organizer: events.organizer,
+          price: events.price,
+          url: events.url,
+          imageUrl: events.imageUrl,
+          tags: events.tags,
+          createdAt: events.createdAt,
+          hidden: events.hidden,
+          interestedCount: events.interestedCount,
+          goingCount: events.goingCount,
+          timeUnknown: events.timeUnknown,
+          recurringType: events.recurringType,
+          recurringEndDate: events.recurringEndDate,
+          favoriteCount: events.favoriteCount,
+          aiSummary: events.aiSummary,
+          // Excluded: embedding (1536 floats, server-side only)
+        })
         .from(events)
         .where(
           and(

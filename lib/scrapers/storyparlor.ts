@@ -18,8 +18,6 @@
 import { ScrapedEvent } from './types';
 import { fetchWithRetry } from '../utils/retry';
 import { decodeHtmlEntities } from '../utils/htmlEntities';
-import * as fs from 'fs';
-import * as path from 'path';
 
 // Config
 const BASE_URL = 'https://storyparloravl.com';
@@ -36,11 +34,16 @@ const REQUEST_DELAY_MS = 300;
 // DEBUG UTILITIES
 // ============================================================================
 
-function debugSave(filename: string, data: unknown): void {
+// Debug helper - only works when DEBUG_DIR is set (local testing only)
+async function debugSave(filename: string, data: unknown): Promise<void> {
   const debugDir = process.env.DEBUG_DIR;
   if (!debugDir) return;
 
   try {
+    // Dynamic import to avoid bundling fs/path in serverless
+    const fs = await import('fs');
+    const path = await import('path');
+
     if (!fs.existsSync(debugDir)) {
       fs.mkdirSync(debugDir, { recursive: true });
     }
@@ -228,9 +231,9 @@ function cleanTitle(rawTitle: string): string {
   // Remove " — Story Parlor" or similar suffix
   let title = rawTitle.replace(/\s*[—–-]\s*Story Parlor\s*$/i, '');
 
-  // Remove date/time patterns like "| Saturday Dec 13 | 7:30pm"
-  // Match: | Day Month DD and everything after (including time)
-  title = title.replace(/\s*\|\s*(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)\s+\w+\s+\d{1,2}.*$/i, '');
+  // Remove date/time patterns like "| Saturday Dec 13 | 7:30pm" or "| Friday | February 20 | 7:30pm"
+  // Match: | Day (optional |) Month DD and everything after (including time)
+  title = title.replace(/\s*\|\s*(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)\s*\|?\s*\w+\s+\d{1,2}.*$/i, '');
 
   // Clean up any trailing pipes
   title = title.replace(/\s*\|\s*$/, '');
@@ -302,7 +305,7 @@ async function fetchEventUrls(): Promise<string[]> {
     const data = await response.json();
 
     // Save raw response for debugging
-    debugSave('01-raw-listing-response.json', data);
+    await debugSave('01-raw-listing-response.json', data);
 
     // Extract event URLs from mainContent HTML
     const mainContent = data.mainContent || '';
@@ -424,7 +427,7 @@ export async function scrapeStoryParlor(): Promise<ScrapedEvent[]> {
   }
 
   // Save URLs for debugging
-  debugSave('02-event-urls.json', urls);
+  await debugSave('02-event-urls.json', urls);
 
   // Scrape each event page
   console.log(`[StoryParlor] Scraping ${urls.length} event pages...`);
@@ -449,17 +452,17 @@ export async function scrapeStoryParlor(): Promise<ScrapedEvent[]> {
   }
 
   // Save raw scraped events for debugging
-  debugSave('03-scraped-events.json', rawEvents);
+  await debugSave('03-scraped-events.json', rawEvents);
 
   // Sort by date
   events.sort((a, b) => a.startDate.getTime() - b.startDate.getTime());
 
   // Save final events
-  debugSave('04-final-events.json', events);
+  await debugSave('04-final-events.json', events);
 
   // Save validation report
   const report = generateValidationReport(events);
-  debugSave('05-validation-report.txt', report);
+  await debugSave('05-validation-report.txt', report);
 
   console.log(`[StoryParlor] Scraped ${scraped} events (${failed} failed)`);
 

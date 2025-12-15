@@ -25,6 +25,7 @@ export function decodeHtmlEntities(text: string): string {
     .replace(/&#8230;/g, '…')  // ellipsis
     .replace(/&#038;/g, '&')
     .replace(/&#039;/g, "'")
+    .replace(/&#124;/g, '|')   // pipe/vertical bar
     // Named entities for special punctuation
     .replace(/&rsquo;/g, "'")
     .replace(/&lsquo;/g, "'")

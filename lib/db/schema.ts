@@ -1,4 +1,4 @@
-import { pgTable, text, timestamp, boolean, uuid, index, integer, jsonb, vector } from 'drizzle-orm/pg-core';
+import { pgTable, text, timestamp, boolean, uuid, index, integer, jsonb, vector, uniqueIndex } from 'drizzle-orm/pg-core';
 
 export const events = pgTable('events', {
   id: uuid('id').defaultRandom().primaryKey(),
@@ -92,3 +92,31 @@ export const userPreferences = pgTable('user_preferences', {
   // Tracking
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
 });
+
+// Curator profiles for the Curate feature
+export const curatorProfiles = pgTable('curator_profiles', {
+  userId: uuid('user_id').primaryKey(), // matches Supabase auth.users
+  slug: text('slug').unique().notNull(), // e.g., "john-abc123"
+  displayName: text('display_name').notNull(),
+  bio: text('bio'), // nullable, max 500 chars
+  isPublic: boolean('is_public').default(false).notNull(),
+  showProfilePicture: boolean('show_profile_picture').default(false).notNull(),
+  avatarUrl: text('avatar_url'), // stored from auth provider when showProfilePicture is enabled
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  updatedAt: timestamp('updated_at').defaultNow().notNull(),
+}, (table) => ({
+  slugIdx: index('curator_profiles_slug_idx').on(table.slug),
+}));
+
+// Curated events for the Curate feature
+export const curatedEvents = pgTable('curated_events', {
+  id: uuid('id').defaultRandom().primaryKey(),
+  userId: uuid('user_id').notNull().references(() => curatorProfiles.userId, { onDelete: 'cascade' }),
+  eventId: uuid('event_id').notNull().references(() => events.id, { onDelete: 'cascade' }),
+  note: text('note'), // nullable, max 280 chars
+  curatedAt: timestamp('curated_at').defaultNow().notNull(),
+}, (table) => ({
+  userEventUnique: uniqueIndex('curated_events_user_event_unique').on(table.userId, table.eventId),
+  userIdIdx: index('curated_events_user_id_idx').on(table.userId),
+  eventIdIdx: index('curated_events_event_id_idx').on(table.eventId),
+}));

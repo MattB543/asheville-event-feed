@@ -438,9 +438,9 @@ export default function AIChatModal({
             >
               {message.role === "system" ? (
                 // System message (date range indicator)
-                <div className="flex items-center gap-2 px-3 py-1.5 bg-blue-50 dark:bg-blue-950/50 rounded-full">
-                  <Calendar size={14} className="text-blue-500 dark:text-blue-400" />
-                  <span className="text-xs text-blue-600 dark:text-blue-400 italic">
+                <div className="flex items-center gap-2 px-3 py-1.5 bg-brand-50 dark:bg-brand-950/50 rounded-full">
+                  <Calendar size={14} className="text-brand-500 dark:text-brand-400" />
+                  <span className="text-xs text-brand-600 dark:text-brand-400 italic">
                     {message.content}
                   </span>
                 </div>

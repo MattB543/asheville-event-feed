@@ -18,7 +18,7 @@ export function getModel(): GenerativeModel | null {
   }
 
   if (!_model) {
-    _model = _genAI.getGenerativeModel({ model: "gemini-2.5-flash-lite" });
+    _model = _genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
   }
 
   return _model;
@@ -37,7 +37,9 @@ export function getEmbeddingModel(): GenerativeModel | null {
   }
 
   if (!_embeddingModel) {
-    _embeddingModel = _genAI.getGenerativeModel({ model: "gemini-embedding-001" });
+    _embeddingModel = _genAI.getGenerativeModel({
+      model: "gemini-embedding-001",
+    });
   }
 
   return _embeddingModel;
@@ -46,4 +48,3 @@ export function getEmbeddingModel(): GenerativeModel | null {
 export function isAIEnabled(): boolean {
   return checkAIEnabled();
 }
-

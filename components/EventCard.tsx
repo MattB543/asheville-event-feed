@@ -10,10 +10,10 @@ import {
   Heart,
   MoreVertical,
   AlertTriangle,
-  Files,
   ShieldAlert,
   Share,
   Sparkles,
+  Bookmark,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -54,6 +54,10 @@ interface EventCardProps {
   isTagFilterActive?: boolean;
   /** Show a "Recurring" badge for similar events that appear multiple times */
   showRecurringBadge?: boolean;
+  isCurated?: boolean;
+  onCurate?: (eventId: string) => void;
+  onUncurate?: (eventId: string) => void;
+  isLoggedIn?: boolean;
 }
 
 // Round price string to nearest dollar (e.g., "$19.10" -> "$19", "$25.50" -> "$26")
@@ -81,6 +85,10 @@ export default function EventCard({
   onToggleFavorite,
   isTagFilterActive = false,
   showRecurringBadge = false,
+  isCurated = false,
+  onCurate,
+  onUncurate,
+  isLoggedIn = false,
 }: EventCardProps) {
   const [imgError, setImgError] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
@@ -178,11 +186,13 @@ export default function EventCard({
   // When expanded: show full original description
   const displayText = isExpanded
     ? cleanedDescription
-    : (cleanedAiSummary || cleanedDescription);
+    : cleanedAiSummary || cleanedDescription;
 
   // Only need truncation if no AI summary and description is long
-  const needsTruncationMobile = !hasAiSummary && cleanedDescription.length > 195;
-  const needsTruncationTablet = !hasAiSummary && cleanedDescription.length > 295;
+  const needsTruncationMobile =
+    !hasAiSummary && cleanedDescription.length > 195;
+  const needsTruncationTablet =
+    !hasAiSummary && cleanedDescription.length > 295;
   const truncatedDescriptionMobile =
     needsTruncationMobile && !isExpanded
       ? cleanedDescription.slice(0, 195).trimEnd() + "..."
@@ -197,7 +207,9 @@ export default function EventCard({
   const showExpandButtonTablet = hasAiSummary || needsTruncationTablet;
   const expandButtonText = isExpanded
     ? "View less"
-    : (hasAiSummary ? "View original" : "View more");
+    : hasAiSummary
+    ? "View original"
+    : "View more";
 
   const formatDate = (date: Date, timeUnknown?: boolean) => {
     const eventDate = new Date(date);
@@ -329,7 +341,9 @@ export default function EventCard({
           </div>
           <div className="text-xs text-gray-500 dark:text-gray-400 mt-2">
             {event.organizer && event.location
-              ? event.location.toLowerCase().startsWith(event.organizer.toLowerCase())
+              ? event.location
+                  .toLowerCase()
+                  .startsWith(event.organizer.toLowerCase())
                 ? event.location
                 : `${event.organizer} - ${event.location}`
               : event.organizer || event.location || "Online"}
@@ -357,7 +371,7 @@ export default function EventCard({
 
           {/* Recurring Badge (for similar events) */}
           {showRecurringBadge && (
-            <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-50 dark:bg-blue-950/50 text-blue-700 dark:text-blue-400 border border-blue-200 dark:border-blue-800">
+            <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-brand-50 dark:bg-brand-950/50 text-brand-700 dark:text-brand-400 border border-brand-200 dark:border-brand-800">
               Recurring
             </span>
           )}
@@ -366,7 +380,9 @@ export default function EventCard({
           {event.tags &&
             (() => {
               // Filter to only show official tags in the UI (custom tags are stored but not displayed)
-              const officialTags = event.tags.filter((tag) => OFFICIAL_TAGS_SET.has(tag));
+              const officialTags = event.tags.filter((tag) =>
+                OFFICIAL_TAGS_SET.has(tag)
+              );
 
               if (officialTags.length === 0) return null;
 
@@ -610,8 +626,42 @@ export default function EventCard({
 
           {moreMenuOpen && (
             <div className="absolute right-0 top-full mt-1 z-20 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded shadow-lg min-w-[180px]">
+              {/* Curate section */}
+              <button
+                onClick={() => {
+                  if (!isLoggedIn) {
+                    window.location.href = "/login";
+                    return;
+                  }
+                  if (isCurated) {
+                    onUncurate?.(event.id);
+                  } else {
+                    onCurate?.(event.id);
+                  }
+                  setMoreMenuOpen(false);
+                }}
+                className={`w-full flex items-center gap-2 px-3 py-2 text-xs transition-colors cursor-pointer ${
+                  isLoggedIn
+                    ? "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                    : "text-gray-400 dark:text-gray-500"
+                }`}
+              >
+                <Bookmark
+                  size={14}
+                  className={isCurated ? "fill-current text-brand-600" : ""}
+                />
+                {isLoggedIn
+                  ? isCurated
+                    ? "Remove from profile"
+                    : "Curate"
+                  : "Curate - log in to use"}
+              </button>
               <a
-                href={`/events/${generateEventSlug(event.title, event.startDate, event.id)}`}
+                href={`/events/${generateEventSlug(
+                  event.title,
+                  event.startDate,
+                  event.id
+                )}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full flex items-center gap-2 px-3 py-2 text-xs text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
@@ -642,7 +692,7 @@ export default function EventCard({
                 onClick={() => handleReport("duplicate")}
                 className="w-full flex items-center gap-2 px-3 py-2 text-xs text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
               >
-                <Files size={14} />
+                <AlertTriangle size={14} />
                 Flag as duplicate
               </button>
               <button

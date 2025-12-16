@@ -68,7 +68,7 @@ export default function UserMenu() {
             referrerPolicy="no-referrer"
           />
         ) : (
-          <div className="w-7 h-7 rounded-full bg-blue-600 flex items-center justify-center">
+          <div className="w-7 h-7 rounded-full bg-brand-600 flex items-center justify-center">
             <User className="w-4 h-4 text-white" />
           </div>
         )}

@@ -2,14 +2,18 @@
 
 ## Project Overview
 
-Asheville Event Feed is a Next.js web application that aggregates local events from multiple sources (AVL Today, Eventbrite, and Meetup) for the Asheville, NC area. It features AI-powered event tagging and image generation using Google Gemini, client-side filtering, and user preferences for blocking unwanted content.
+Asheville Event Feed (AVL GO) is a Next.js web application that aggregates local events from 10+ sources for the Asheville, NC area. It features AI-powered event tagging, image generation, semantic search, and user authentication with Supabase.
 
 ### Core Functionality
 
-- **Event Aggregation**: Scrapes events from 3 sources (AVL Today/CitySpark API, Eventbrite, Meetup GraphQL)
-- **AI Enhancement**: Auto-generates tags and images for events using Google Gemini
-- **User Filtering**: Client-side search, price filters, blocked hosts/keywords, hidden events
-- **Data Management**: PostgreSQL database with automatic deduplication and cleanup
+- **Event Aggregation**: Scrapes events from 10+ sources (AVL Today, Eventbrite, Meetup, Facebook, venue calendars, and more)
+- **AI Enhancement**: Auto-generates tags, images, summaries, and embeddings using Google Gemini and Azure OpenAI
+- **Semantic Search**: Vector similarity search via pgvector for intelligent event discovery
+- **AI Chat**: Conversational event discovery powered by Azure OpenAI / OpenRouter
+- **User Authentication**: Supabase Auth with Google OAuth
+- **Curator Profiles**: Public curated event lists at `/u/[slug]`
+- **User Preferences**: Server-synced filtering preferences
+- **Data Management**: PostgreSQL with automatic deduplication (rule-based + AI-powered)
 
 ---
 
@@ -22,16 +26,22 @@ Reminders for Claude:
 
 ## Tech Stack
 
-| Layer            | Technology                                                                        |
-| ---------------- | --------------------------------------------------------------------------------- |
-| Framework        | Next.js 16 (App Router)                                                           |
-| Language         | TypeScript                                                                        |
-| Database         | PostgreSQL (Neon serverless)                                                      |
-| ORM              | Drizzle ORM                                                                       |
-| AI               | Google Gemini (gemini-2.5-flash-lite for tags, gemini-2.5-flash-image for images) |
-| Styling          | Tailwind CSS v4                                                                   |
-| Deployment       | Vercel (with cron jobs)                                                           |
-| Image Processing | Sharp (compression)                                                               |
+| Layer            | Technology                                                                              |
+| ---------------- | --------------------------------------------------------------------------------------- |
+| Framework        | Next.js 16 (App Router)                                                                 |
+| Language         | TypeScript                                                                              |
+| Database         | PostgreSQL (Supabase) with pgvector                                                     |
+| ORM              | Drizzle ORM                                                                             |
+| AI - Tagging     | Google Gemini (`gemini-2.5-flash`)                                                      |
+| AI - Images      | Google Gemini (`gemini-2.5-flash-image`)                                                |
+| AI - Embeddings  | Google Gemini (`gemini-embedding-001`, 1536 dimensions)                                 |
+| AI - Summaries   | Azure OpenAI (`gpt-5-mini` or configurable)                                             |
+| AI - Chat        | Azure OpenAI + OpenRouter fallback                                                      |
+| Authentication   | Supabase Auth + Google OAuth                                                            |
+| Image Storage    | Supabase Storage                                                                        |
+| Styling          | Tailwind CSS v4                                                                         |
+| Deployment       | Vercel (with Fluid Compute + cron jobs)                                                 |
+| Image Processing | Sharp (compression)                                                                     |
 
 ---
 
@@ -39,138 +49,243 @@ Reminders for Claude:
 
 ```
 asheville-event-feed/
-├── app/                      # Next.js App Router
+├── app/                          # Next.js App Router
 │   ├── api/
 │   │   ├── cron/
-│   │   │   ├── route.ts      # Main scraping cron (runs every 6h)
-│   │   │   └── cleanup/
-│   │   │       └── route.ts  # Dead event cleanup (runs every 3h)
-│   │   └── health/
-│   │       └── route.ts      # Health check endpoint
-│   ├── globals.css           # Tailwind imports
-│   ├── layout.tsx            # Root layout with Inter font
-│   └── page.tsx              # Main page (SSR event fetch)
+│   │   │   ├── scrape/route.ts   # Scraping cron (every 6h)
+│   │   │   ├── ai/route.ts       # AI processing cron (every 6h, +10min)
+│   │   │   ├── cleanup/route.ts  # Dead event cleanup (8x daily)
+│   │   │   └── dedup/route.ts    # AI deduplication (daily 5AM ET)
+│   │   ├── chat/route.ts         # AI conversational discovery
+│   │   ├── preferences/route.ts  # User preferences sync
+│   │   ├── events/
+│   │   │   ├── [id]/favorite/    # Event favoriting
+│   │   │   ├── submit/           # Event submission (form)
+│   │   │   ├── submit-url/       # Event submission (URL)
+│   │   │   └── report/           # Event reporting
+│   │   ├── export/
+│   │   │   ├── xml/              # RSS XML export
+│   │   │   └── markdown/         # Markdown export
+│   │   ├── curate/               # Curate events
+│   │   ├── curator/
+│   │   │   ├── settings/         # Curator profile settings
+│   │   │   └── [slug]/           # Public curator data
+│   │   └── health/route.ts       # Health check
+│   ├── auth/
+│   │   ├── callback/route.ts     # OAuth callback
+│   │   ├── confirm/route.ts      # Email confirmation
+│   │   └── signout/route.ts      # Sign out
+│   ├── events/[slug]/page.tsx    # Individual event pages
+│   ├── login/page.tsx            # Login page
+│   ├── profile/page.tsx          # User profile
+│   ├── u/[slug]/page.tsx         # Curator profiles
+│   ├── globals.css               # Tailwind imports
+│   ├── layout.tsx                # Root layout
+│   └── page.tsx                  # Main page (SSR event fetch)
 ├── components/
-│   ├── ErrorBoundary.tsx     # React error boundary
-│   ├── EventCard.tsx         # Individual event display
-│   ├── EventFeed.tsx         # Main feed with filtering logic
-│   ├── FilterBar.tsx         # Search/price filter UI
-│   └── SettingsModal.tsx     # Block hosts/keywords settings
+│   ├── AIChatModal.tsx           # AI chat interface
+│   ├── AuthProvider.tsx          # Auth context provider
+│   ├── CurateModal.tsx           # Curate event modal
+│   ├── CuratedEventList.tsx      # Curated events display
+│   ├── CuratorProfileCard.tsx    # Curator profile display
+│   ├── CuratorProfileSettings.tsx # Curator settings form
+│   ├── ErrorBoundary.tsx         # React error boundary
+│   ├── EventCard.tsx             # Individual event display
+│   ├── EventCardSkeleton.tsx     # Loading skeleton
+│   ├── EventFeed.tsx             # Main feed with filtering
+│   ├── FilterBar.tsx             # Search/filter UI
+│   ├── GoogleSignInButton.tsx    # Google OAuth button
+│   ├── SettingsModal.tsx         # Block hosts/keywords settings
+│   ├── SubmitEventButton.tsx     # Submit event trigger
+│   ├── SubmitEventModal.tsx      # Event submission form
+│   ├── ThemeProvider.tsx         # Dark mode provider
+│   ├── ThemeToggle.tsx           # Dark/light toggle
+│   ├── UserMenu.tsx              # User account menu
+│   └── Providers.tsx             # Combined providers
 ├── lib/
 │   ├── ai/
-│   │   ├── client.ts         # Gemini client (lazy initialization)
-│   │   ├── imageGeneration.ts # AI image generation + compression
-│   │   └── tagging.ts        # AI tag generation
+│   │   ├── client.ts             # Gemini client (tagging + embeddings)
+│   │   ├── azure-client.ts       # Azure OpenAI client
+│   │   ├── tagging.ts            # AI tag generation
+│   │   ├── imageGeneration.ts    # AI image generation + Supabase upload
+│   │   ├── summary.ts            # AI summary generation
+│   │   ├── embedding.ts          # Vector embedding generation
+│   │   ├── aiDeduplication.ts    # AI-powered duplicate detection
+│   │   └── dataEnrichment.ts     # Price/time extraction
+│   ├── cache/
+│   │   └── invalidation.ts       # Cache invalidation utilities
 │   ├── config/
-│   │   ├── defaultFilters.ts # Default spam filter keywords
-│   │   └── env.ts            # Environment variable handling
+│   │   ├── defaultFilters.ts     # Default spam filter keywords
+│   │   ├── env.ts                # Environment variable handling
+│   │   ├── tagCategories.ts      # Tag categorization
+│   │   └── zipNames.ts           # Zip code mappings
 │   ├── db/
-│   │   ├── index.ts          # Database connection (lazy proxy)
-│   │   └── schema.ts         # Drizzle schema definition
+│   │   ├── index.ts              # Database connection (lazy proxy)
+│   │   ├── schema.ts             # Drizzle schema definition
+│   │   └── similaritySearch.ts   # Vector similarity queries
 │   ├── hooks/
-│   │   └── useDebounce.ts    # Debounce hook for search
+│   │   ├── useDebounce.ts        # Debounce hook for search
+│   │   └── usePreferenceSync.ts  # Preference sync hook
+│   ├── notifications/
+│   │   └── slack.ts              # Slack webhook notifications
 │   ├── scrapers/
-│   │   ├── avltoday.ts       # AVL Today/CitySpark scraper
-│   │   ├── eventbrite.ts     # Eventbrite scraper
-│   │   ├── meetup.ts         # Meetup GraphQL scraper
-│   │   └── types.ts          # Shared scraper types
+│   │   ├── avltoday.ts           # AVL Today/CitySpark
+│   │   ├── eventbrite.ts         # Eventbrite
+│   │   ├── meetup.ts             # Meetup GraphQL
+│   │   ├── facebook.ts           # Facebook (main)
+│   │   ├── facebook-*.ts         # Facebook variants (4 files)
+│   │   ├── harrahs.ts            # Harrah's Cherokee Center
+│   │   ├── orangepeel.ts         # Orange Peel
+│   │   ├── greyeagle.ts          # Grey Eagle
+│   │   ├── livemusicavl.ts       # Live Music Asheville
+│   │   ├── exploreasheville.ts   # Explore Asheville
+│   │   ├── misfitimprov.ts       # Misfit Improv
+│   │   ├── udharma.ts            # UDharma
+│   │   ├── ncstage.ts            # NC Stage
+│   │   ├── storyparlor.ts        # Story Parlor
+│   │   └── types.ts              # Shared scraper types
+│   ├── supabase/
+│   │   ├── client.ts             # Browser Supabase client
+│   │   ├── server.ts             # Server Supabase client
+│   │   ├── middleware.ts         # Auth middleware
+│   │   ├── preferences.ts        # Preferences sync logic
+│   │   ├── storage.ts            # Image storage utilities
+│   │   └── curatorProfile.ts     # Curator profile queries
 │   └── utils/
-│       ├── deduplication.ts  # Event deduplication logic
-│       ├── formatPrice.ts    # Price string formatting
-│       ├── locationFilter.ts # NC location filtering
-│       └── retry.ts          # Fetch retry utility
-├── scripts/                  # CLI utility scripts
-└── drizzle.config.ts         # Drizzle Kit configuration
+│       ├── auth.ts               # Auth token verification
+│       ├── deduplication.ts      # Rule-based deduplication
+│       ├── formatPrice.ts        # Price string formatting
+│       ├── icsGenerator.ts       # ICS calendar export
+│       ├── locationFilter.ts     # NC location filtering
+│       ├── retry.ts              # Fetch retry utility
+│       ├── slugify.ts            # URL slug generation
+│       └── ...                   # Additional utilities
+├── scripts/                      # CLI utility scripts
+└── drizzle.config.ts             # Drizzle Kit configuration
 ```
 
 ---
 
 ## Database Schema
 
-Single table `events` in PostgreSQL:
+PostgreSQL database hosted on Supabase with pgvector extension.
+
+### `events` Table
 
 ```typescript
 {
   id: uuid (primary key, auto-generated),
   sourceId: text (ID from source platform),
-  source: text ('AVL_TODAY' | 'EVENTBRITE' | 'MEETUP'),
+  source: text ('AVL_TODAY' | 'EVENTBRITE' | 'MEETUP' | 'FACEBOOK' | ...),
   title: text,
   description: text (nullable),
   startDate: timestamp with timezone,
   location: text (nullable),
+  zip: text (nullable),
   organizer: text (nullable),
   price: text (nullable, e.g., "$20", "Free", "Unknown"),
   url: text (unique constraint - prevents duplicates),
-  imageUrl: text (nullable, stores data URLs for AI-generated images),
+  imageUrl: text (nullable, Supabase Storage URL or external),
   tags: text[] (array of tag strings),
   createdAt: timestamp (default now),
-  hidden: boolean (default false, for admin moderation)
+  updatedAt: timestamp (when event data changes),
+  lastSeenAt: timestamp (every time scraper sees event),
+  hidden: boolean (default false, for admin moderation),
+  // Facebook engagement
+  interestedCount: integer (Facebook interested count),
+  goingCount: integer (Facebook going count),
+  // Recurring events
+  timeUnknown: boolean (true if source only provided date),
+  recurringType: text ('daily' | null),
+  recurringEndDate: timestamp (when recurring event ends),
+  // User engagement
+  favoriteCount: integer (default 0),
+  // AI-generated fields
+  aiSummary: text (1-2 sentence structured summary),
+  embedding: vector(1536) (Gemini embedding for semantic search)
 }
 ```
 
-**Key constraint**: `url` is unique, enabling upsert logic (insert or update on conflict).
+**Indexes**: `startDate`, `source`, `tags` (GIN), `embedding` (HNSW for cosine similarity)
+
+### `submittedEvents` Table
+
+User-submitted event suggestions awaiting review.
+
+### `userPreferences` Table
+
+Server-synced user preferences (blocked hosts, keywords, hidden events, favorites).
+
+### `curatorProfiles` Table
+
+Curator profile data (slug, display name, bio, public visibility).
+
+### `curatedEvents` Table
+
+Events curated by users with optional notes.
 
 ---
 
 ## API Routes
 
-### `GET /api/cron`
+### Cron Jobs (require `Authorization: Bearer {CRON_SECRET}`)
 
-**Purpose**: Main scraping job  
-**Auth**: Requires `Authorization: Bearer {CRON_SECRET}` header  
-**Schedule**: Every 6 hours via Vercel cron  
-**Behavior**:
+| Route | Schedule | Purpose |
+|-------|----------|---------|
+| `/api/cron/scrape` | Every 6h at :00 | Scrape all sources, upsert to DB, rule-based dedup |
+| `/api/cron/ai` | Every 6h at :10 | AI tagging, summaries, embeddings, image generation |
+| `/api/cron/cleanup` | 8x daily | Dead events, non-NC, cancelled, duplicates |
+| `/api/cron/dedup` | Daily 5 AM ET | AI semantic deduplication |
 
-1. Scrapes AVL Today, Eventbrite (3 pages), Meetup (3 pages), and Harrah's in parallel
-2. Identifies NEW events (not in database) by URL
-3. Generates AI tags for new events only (batches of 5)
-4. Generates AI images for events without images or with placeholders (batches of 3)
-5. Upserts all events to database
-6. Runs deduplication to remove duplicate events
+### Public APIs
 
-### `GET /api/cron/cleanup`
+| Route | Method | Purpose |
+|-------|--------|---------|
+| `/api/health` | GET | Health check (DB status, event count) |
+| `/api/chat` | POST | AI conversational event discovery (rate limited) |
+| `/api/export/xml` | GET | RSS XML feed export |
+| `/api/export/markdown` | GET | Markdown export |
+| `/api/events/submit` | POST | Submit event via form |
+| `/api/events/submit-url` | POST | Submit event via URL |
+| `/api/events/report` | POST | Report an event |
+| `/api/curator/[slug]` | GET | Public curator profile data |
 
-**Purpose**: Remove dead/invalid events  
-**Auth**: Requires `Authorization: Bearer {CRON_SECRET}` header  
-**Schedule**: Every 3 hours via Vercel cron  
-**Behavior**:
+### Authenticated APIs (require Supabase Auth)
 
-1. Checks all Eventbrite event URLs for 404/410 status
-2. Removes non-NC events using location filter
-3. Removes duplicate events using deduplication logic
+| Route | Method | Purpose |
+|-------|--------|---------|
+| `/api/preferences` | GET/POST | Sync user preferences |
+| `/api/events/[id]/favorite` | POST/DELETE | Favorite/unfavorite event |
+| `/api/curate` | POST/DELETE | Add/remove curated events |
+| `/api/curator/settings` | GET/POST | Curator profile settings |
 
-### `GET /api/health`
+### Auth Routes
 
-**Purpose**: Health check  
-**Auth**: None  
-**Returns**: Database connection status, event count, response time
+| Route | Purpose |
+|-------|---------|
+| `/auth/callback` | OAuth callback handler |
+| `/auth/confirm` | Email confirmation |
+| `/auth/signout` | Sign out |
 
 ---
 
 ## Scrapers
 
-### AVL Today (`lib/scrapers/avltoday.ts`)
-
-- **API**: `https://portal.cityspark.com/v1/events/AVLT` (POST)
-- **Pagination**: Uses `skip` parameter, fetches up to 300 events
-- **Rate limiting**: 200ms delay between pages
-- **Key fields**: `PId` or `Id` as sourceId, `StartUTC` or `DateStart` for time
-
-### Eventbrite (`lib/scrapers/eventbrite.ts`)
-
-- **Step 1**: Scrape browse page HTML (`/d/nc--asheville/all-events/?page=N`)
-- **Step 2**: Extract event IDs via regex from URLs
-- **Step 3**: Fetch details via API (`/api/v3/destination/events/`)
-- **Rate limiting**: 500ms between pages, 300ms between API batches
-- **De-duplication**: Uses Set for unique IDs
-
-### Meetup (`lib/scrapers/meetup.ts`)
-
-- **API**: GraphQL endpoint at `https://api.meetup.com/gql-ext`
-- **No authentication required** (public API)
-- **Location-based**: Uses Asheville coordinates (35.5951, -82.5515)
-- **Filtering**: Checks group city, group name, and event title for Asheville-area patterns
-- **Image fallback**: Fetches `og:image` from event pages if GraphQL doesn't return photo
+| Source | File | Method | Notes |
+|--------|------|--------|-------|
+| AVL_TODAY | `avltoday.ts` | CitySpark API | POST to portal.cityspark.com |
+| EVENTBRITE | `eventbrite.ts` | HTML + API | Browse page scrape + API details |
+| MEETUP | `meetup.ts` | GraphQL | Public API, location-based |
+| FACEBOOK | `facebook.ts` | Browser automation | Disabled on Vercel (requires Playwright) |
+| HARRAHS | `harrahs.ts` | Ticketmaster API + HTML | Harrah's Cherokee Center |
+| ORANGE_PEEL | `orangepeel.ts` | Ticketmaster API + JSON-LD | The Orange Peel venue |
+| GREY_EAGLE | `greyeagle.ts` | JSON-LD | Grey Eagle Taqueria |
+| LIVE_MUSIC_AVL | `livemusicavl.ts` | ICS feeds | Select venues only |
+| EXPLORE_ASHEVILLE | `exploreasheville.ts` | Public API | Tourism board events |
+| MISFIT_IMPROV | `misfitimprov.ts` | Crowdwork API | Improv comedy shows |
+| UDHARMA | `udharma.ts` | Squarespace API | Meditation/yoga events |
+| NC_STAGE | `ncstage.ts` | ThunderTix | NC Stage Company theater |
+| STORY_PARLOR | `storyparlor.ts` | Squarespace JSON-LD | Storytelling events |
 
 ---
 
@@ -178,169 +293,186 @@ Single table `events` in PostgreSQL:
 
 ### Tagging (`lib/ai/tagging.ts`)
 
-- **Model**: `gemini-2.5-flash-lite`
+- **Model**: `gemini-2.5-flash`
 - **Input**: Event title, description, location, organizer, date
 - **Output**: JSON array of tag strings
 - **Categories**: Entertainment, Food & Drink, Activities, Audience/Social, Other
-- **Error handling**: Returns empty array on failure
 
 ### Image Generation (`lib/ai/imageGeneration.ts`)
 
-- **Model**: `gemini-2.5-flash-image` (configurable via `GEMINI_IMAGE_MODEL` env var)
-- **Output**: Base64 data URL (JPEG)
-- **Compression**: Uses Sharp to resize to 512px width, 80% JPEG quality
+- **Model**: `gemini-2.5-flash-image` (configurable via `GEMINI_IMAGE_MODEL`)
+- **Output**: Uploaded to Supabase Storage, returns public URL
+- **Compression**: Sharp resizes to 512px width, 80% JPEG quality
 - **Prompt**: Generates promotional event graphics with Asheville mountain vibe
 
-### Client Setup (`lib/ai/client.ts`)
+### Summaries (`lib/ai/summary.ts`)
 
-- **Lazy initialization**: Model created on first use (allows dotenv to load in scripts)
-- **Singleton pattern**: Reuses client instance
+- **Model**: Azure OpenAI (`gpt-5-mini` or configurable)
+- **Output**: 1-2 sentence structured summary optimized for semantic search
+- **Format**: "[Event type] at [venue] featuring [key details]."
 
----
+### Embeddings (`lib/ai/embedding.ts`)
 
-## Utility Functions
+- **Model**: `gemini-embedding-001`
+- **Dimensions**: 1536
+- **Input**: `"${title}: ${aiSummary}"`
+- **Used for**: Semantic search, similarity matching
 
-### Location Filter (`lib/utils/locationFilter.ts`)
+### AI Deduplication (`lib/ai/aiDeduplication.ts`)
 
-- `isNonNCEvent(title, location)`: Returns true if event should be REMOVED
-- Checks for NC cities (Asheville, Black Mountain, etc.)
-- Filters out SC, GA, TN, VA locations
-- Used during scraping and cleanup
+- **Model**: Azure OpenAI
+- **Purpose**: Catch semantic duplicates rule-based dedup misses
+- **Process**: Groups events by date, asks AI to identify duplicates
 
-### Deduplication (`lib/utils/deduplication.ts`)
+### AI Chat (`app/api/chat/route.ts`)
 
-- **Criteria**: Same organizer + same start time + share ≥1 significant word in title
-- **Keep preference**: Known price > longer description > newer createdAt
-- `findDuplicates(events)`: Returns groups of duplicates
-- `getIdsToRemove(groups)`: Returns IDs to delete
-
-### Price Formatting (`lib/utils/formatPrice.ts`)
-
-- Converts numeric/string prices to display format
-- 0 → "Free", null → "Unknown", number → "$X" (rounded)
-
-### Retry (`lib/utils/retry.ts`)
-
-- `withRetry(fn, options)`: Generic retry wrapper with exponential backoff
-- `fetchWithRetry(url, options, retryOptions)`: Fetch with automatic retries
+- **Primary**: Azure OpenAI (streaming)
+- **Fallback**: OpenRouter (google/gemini-2.0-flash)
+- **Features**: Date extraction, event filtering, curated recommendations
 
 ---
 
 ## Environment Variables
 
 ```bash
-# Required
-DATABASE_URL=postgresql://...      # Neon PostgreSQL connection string
-CRON_SECRET=your-secret-here       # Min 16 chars, for API auth
+# ===========================================
+# REQUIRED
+# ===========================================
 
-# Optional
-GEMINI_API_KEY=your-key-here       # Enables AI tagging and image generation
-GEMINI_IMAGE_MODEL=gemini-2.5-flash-image  # Image generation model
+# PostgreSQL connection string (Supabase)
+# Use the "Connection Pooler" URL from Supabase Dashboard -> Settings -> Database
+DATABASE_URL=postgresql://postgres.[project-ref]:[password]@aws-0-[region].pooler.supabase.com:6543/postgres
+
+# ===========================================
+# OPTIONAL - Cron Jobs
+# ===========================================
+
+# Secret for authenticating cron endpoint calls (min 16 chars)
+CRON_SECRET=your-random-secret-here
+
+# ===========================================
+# OPTIONAL - AI Features (Google Gemini)
+# ===========================================
+
+# Google Gemini API key - enables tagging, images, embeddings
+GEMINI_API_KEY=
+GEMINI_IMAGE_MODEL=gemini-2.5-flash-image
+
+# ===========================================
+# OPTIONAL - AI Features (Azure OpenAI)
+# ===========================================
+
+# Azure OpenAI - enables summaries, AI dedup, chat
+AZURE_OPENAI_API_KEY=        # or AZURE_KEY_1
+AZURE_OPENAI_ENDPOINT=       # or AZURE_ENDPOINT
+AZURE_OPENAI_DEPLOYMENT=     # default: gpt-5-mini
+AZURE_OPENAI_API_VERSION=    # default: 2024-12-01-preview
+
+# ===========================================
+# OPTIONAL - AI Chat (OpenRouter fallback)
+# ===========================================
+
+OPENROUTER_API_KEY=
+
+# ===========================================
+# OPTIONAL - Supabase Auth
+# ===========================================
+
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_ANON_KEY=
+SUPABASE_SERVICE_ROLE_KEY=
+
+# Google OAuth Client ID
+NEXT_PUBLIC_GOOGLE_CLIENT_ID=
+
+# ===========================================
+# OPTIONAL - Notifications
+# ===========================================
+
+SLACK_WEBHOOK=
+
+# ===========================================
+# OPTIONAL - Facebook Scraping (Advanced)
+# ===========================================
+# Requires browser automation, won't work on Vercel
+
+FB_ENABLED=false
+FB_C_USER=
+FB_XS=
+# ... (see .env.example for full list)
 ```
 
-**Important**: `lib/config/env.ts` uses `dotenv.config({ override: true })` to prefer local `.env` over OS environment variables.
-
 ---
 
-## Default Filters
+## Key Features
 
-Located in `lib/config/defaultFilters.ts`, automatically hides spam events:
+### Authentication
 
-- Certification training (Six Sigma, PMP, etc.)
-- Self-guided tours and app-based experiences
-- Generic online events marketed as local
-- Low-signal events (vendors needed, cancelled, etc.)
+- Supabase Auth with Google OAuth
+- `AuthProvider` component wraps app
+- `UserMenu` component for account actions
+- Server-side session validation
 
-Users can disable default filters in settings and add custom keywords.
+### User Preferences Sync
 
----
+- Preferences stored in localStorage (offline-first)
+- Synced to `userPreferences` table when authenticated
+- Includes: blocked hosts, blocked keywords, hidden events, favorites
 
-## Client-Side State
+### Curator Profiles
 
-`components/EventFeed.tsx` manages:
+- Users can create public profiles at `/u/[slug]`
+- Curate events with optional notes (280 char max)
+- Profile includes display name and bio (500 char max)
 
-- `blockedHosts`: Array of organizer names to hide
-- `blockedKeywords`: Array of title keywords to hide
-- `hiddenIds`: Array of specific event IDs to hide
-- `useDefaultFilters`: Boolean to enable/disable default spam filter
+### Semantic Search
 
-All persisted to `localStorage` and loaded on mount (with hydration handling).
+- Events get AI summaries and embeddings
+- pgvector HNSW index for fast similarity search
+- Used by AI chat for intelligent recommendations
+
+### Event Submission
+
+- Public form at `/api/events/submit`
+- URL-based submission at `/api/events/submit-url`
+- Events go to `submittedEvents` table for review
+
+### Dark Mode
+
+- `next-themes` for theme management
+- `ThemeToggle` component
+- Persists preference in localStorage
 
 ---
 
 ## Scripts Reference
 
-| Script                    | Purpose                                |
-| ------------------------- | -------------------------------------- |
-| `npm run test:avl`        | Test AVL Today scraper                 |
-| `npm run test:eventbrite` | Test Eventbrite scraper                |
-| `npm run test:meetup`     | Test Meetup scraper                    |
-| `npm run test:tagging`    | Test AI tag generation                 |
-| `npm run test:image-gen`  | Test AI image generation               |
-| `npm run db:check`        | Check database connection              |
-| `npm run db:count`        | Count events by source                 |
-| `npm run db:tags`         | Check tag statistics                   |
-| `npm run db:clear`        | Clear all events (destructive!)        |
-| `npm run backfill`        | Backfill 30 pages of Eventbrite events |
-| `npm run tag:events`      | Tag all untagged events                |
-
-### Standalone scripts (run with `npx tsx scripts/...`):
-
-- `check-dead-events.ts`: Find/delete 404 Eventbrite events
-- `deduplicate-events.ts`: Find/remove duplicate events
-- `delete-non-nc-events.ts`: Remove events outside NC
-- `generate-missing-images.ts`: Generate images for events without them
-- `fix-eventbrite-organizers.ts`: Re-fetch organizer names from API
-
----
-
-## Important Patterns
-
-### Lazy Database Connection
-
-```typescript
-// lib/db/index.ts uses a Proxy for lazy initialization
-export const db: DbType = new Proxy({} as DbType, {
-  get(_target, prop) {
-    if (!_db) _db = createDb();
-    return Reflect.get(_db, prop);
-  },
-});
-```
-
-This allows scripts to import the db module without immediately requiring `DATABASE_URL`.
-
-### Upsert Pattern
-
-```typescript
-await db.insert(events)
-  .values({ ... })
-  .onConflictDoUpdate({
-    target: events.url,  // Unique constraint
-    set: { title, description, ... }  // Fields to update
-  });
-```
-
-### Batch Processing
-
-Most operations use chunked batches to avoid overwhelming APIs/database:
-
-```typescript
-const chunk = <T>(arr: T[], size: number) =>
-  Array.from({ length: Math.ceil(arr.length / size) }, (_, i) =>
-    arr.slice(i * size, i * size + size)
-  );
-```
-
-### Hydration Safety
-
-```typescript
-const [isLoaded, setIsLoaded] = useState(false);
-useEffect(() => {
-  setIsLoaded(true);
-}, []);
-if (!isLoaded) return null; // Prevent hydration mismatch
-```
+| Script | Purpose |
+|--------|---------|
+| `npm run dev` | Start development server |
+| `npm run build` | Build for production |
+| `npm run test:avl` | Test AVL Today scraper |
+| `npm run test:eventbrite` | Test Eventbrite scraper |
+| `npm run test:meetup` | Test Meetup scraper |
+| `npm run test:harrahs` | Test Harrah's scraper |
+| `npm run test:orangepeel` | Test Orange Peel scraper |
+| `npm run test:greyeagle` | Test Grey Eagle scraper |
+| `npm run test:storyparlor` | Test Story Parlor scraper |
+| `npm run test:misfit` | Test Misfit Improv scraper |
+| `npm run test:udharma` | Test UDharma scraper |
+| `npm run test:tagging` | Test AI tag generation |
+| `npm run test:image-gen` | Test AI image generation |
+| `npm run test:summary` | Test AI summary generation |
+| `npm run test:embedding` | Test embedding generation |
+| `npm run test:similarity` | Test similarity search |
+| `npm run db:check` | Check database connection |
+| `npm run db:count` | Count events by source |
+| `npm run db:tags` | Check tag statistics |
+| `npm run db:clear` | Clear all events (destructive!) |
+| `npm run backfill` | Backfill Eventbrite events |
+| `npm run backfill:embeddings` | Backfill embeddings for existing events |
+| `npm run tag:events` | Tag all untagged events |
+| `npm run generate:seo-images` | Generate SEO images |
 
 ---
 
@@ -350,21 +482,30 @@ if (!isLoaded) return null; // Prevent hydration mismatch
 
 ```json
 {
+  "fluid": true,
   "crons": [
-    { "path": "/api/cron", "schedule": "0 */6 * * *" },
-    { "path": "/api/cron/cleanup", "schedule": "0 */3 * * *" }
+    { "path": "/api/cron/scrape", "schedule": "0 */6 * * *" },
+    { "path": "/api/cron/ai", "schedule": "10 */6 * * *" },
+    { "path": "/api/cron/cleanup", "schedule": "30 1,4,7,10,13,16,19,22 * * *" },
+    { "path": "/api/cron/dedup", "schedule": "0 10 * * *" }
   ]
 }
 ```
 
+- **Fluid Compute**: Enabled for longer function execution (up to 800s for scrape/ai jobs)
+- **Cron Schedule**: Scrape at :00, AI processing at :10, cleanup 8x daily, dedup daily at 5 AM ET
+
 ### Max Duration
 
-API routes set `export const maxDuration = 300;` (5 minutes) for long-running scrape jobs.
+- `/api/cron/scrape`: 800s (13+ minutes, requires Fluid Compute)
+- `/api/cron/ai`: 800s (13+ minutes, requires Fluid Compute)
+- `/api/cron/cleanup`: 300s (5 minutes)
+- `/api/cron/dedup`: 300s (5 minutes)
 
 ### Manual Cron Trigger
 
 ```bash
-curl -X GET https://your-domain.vercel.app/api/cron \
+curl -X GET https://your-domain.vercel.app/api/cron/scrape \
   -H "Authorization: Bearer YOUR_CRON_SECRET"
 ```
 
@@ -383,22 +524,28 @@ curl -X GET https://your-domain.vercel.app/api/cron \
 - Check `isAIEnabled()` returns true
 - Model may be unavailable; check Gemini API status
 
+### AI summaries not generating
+
+- Verify Azure OpenAI credentials are set
+- Check `isAzureAIEnabled()` returns true
+
 ### Events not appearing
 
-- Check if filtered by default spam filter (Settings → disable)
+- Check if filtered by default spam filter (Settings -> disable)
 - Verify events are in NC (location filter may be removing them)
 - Check database has events: `npm run db:count`
 
 ### Duplicate events appearing
 
-- Run cleanup: `npx tsx scripts/deduplicate-events.ts`
-- Deduplication relies on same organizer + same time + shared word
+- Run cleanup: `curl /api/cron/cleanup -H "Authorization: Bearer ..."`
+- Rule-based dedup runs in scrape job
+- AI dedup runs daily at 5 AM ET
 
 ### Images not loading
 
-- AI-generated images are stored as base64 data URLs
-- Large images may fail; compression should keep under ~50KB
-- External images (from scrapers) may have CORS issues
+- AI-generated images are now in Supabase Storage
+- Check Supabase Storage bucket permissions
+- Legacy base64 images may still exist for older events
 
 ---
 
@@ -408,36 +555,40 @@ curl -X GET https://your-domain.vercel.app/api/cron \
 [Scraper Sources]
     │
     ├── AVL Today API ─────┐
-    ├── Eventbrite HTML ───┼──▶ [Scraped Events]
-    └── Meetup GraphQL ────┘         │
-                                     ▼
-                            [Location Filter]
-                            (remove non-NC)
+    ├── Eventbrite ────────┤
+    ├── Meetup GraphQL ────┤
+    ├── Facebook* ─────────┤
+    ├── Harrah's ──────────┼──▶ [Scraped Events]
+    ├── Orange Peel ───────┤         │
+    ├── Grey Eagle ────────┤         ▼
+    ├── Live Music AVL ────┤   [Location Filter]
+    ├── Explore Asheville ─┤   (remove non-NC)
+    ├── Misfit Improv ─────┤         │
+    ├── UDharma ───────────┤         ▼
+    ├── NC Stage ──────────┤   [Upsert to DB]
+    └── Story Parlor ──────┘   (scrape job)
                                      │
                                      ▼
-                            [Check Existing URLs]
+                            [AI Processing Job]
+                            (tags, summaries,
+                             embeddings, images)
                                      │
-                     ┌───────────────┴───────────────┐
-                     ▼                               ▼
-              [New Events]                    [Existing Events]
-                     │                               │
-                     ▼                               │
-              [AI Tagging]                           │
-                     │                               │
-                     ▼                               │
-            [AI Image Gen]                           │
-            (if no image)                            │
-                     │                               │
-                     └───────────────┬───────────────┘
                                      ▼
-                              [Upsert to DB]
+                            [Cleanup Job]
+                            (dead, non-NC,
+                             cancelled, dupes)
+                                     │
+                                     ▼
+                            [AI Dedup Job]
+                            (semantic dupes)
                                      │
                                      ▼
                               [SSR Page Load]
                                      │
                                      ▼
                             [Client Filtering]
-                            (search, price, blocked)
+                            (search, price,
+                             blocked, tags)
                                      │
                                      ▼
                               [EventFeed UI]
@@ -453,7 +604,7 @@ npm install
 
 # 2. Set up environment
 cp .env.example .env
-# Edit .env with your DATABASE_URL and optional GEMINI_API_KEY
+# Edit .env with your Supabase DATABASE_URL and optional API keys
 
 # 3. Push database schema
 npx drizzle-kit push
@@ -470,26 +621,15 @@ npm run backfill
 npm run dev
 
 # 7. Trigger manual scrape (in another terminal)
-curl http://localhost:3000/api/cron -H "Authorization: Bearer YOUR_CRON_SECRET"
+curl http://localhost:3000/api/cron/scrape -H "Authorization: Bearer YOUR_CRON_SECRET"
 ```
 
 ---
 
 ## Code Quality Notes
 
-- **No explicit linting rules**: Uses Next.js defaults
 - **TypeScript strict mode**: Enabled
 - **No test framework**: Uses manual script-based testing
-- **Component styling**: Inline Tailwind classes, no CSS modules
-- **State management**: React hooks only, no external state library
-
----
-
-## Future Enhancement Ideas
-
-1. Add Supabase or Clerk for user accounts
-2. Implement server-side filtering for better performance
-3. Add email notifications for saved searches
-4. Create admin dashboard for content moderation
-5. Add more event sources (Facebook Events, local venue calendars)
-6. Implement event favoriting/calendar export
+- **Component styling**: Inline Tailwind classes
+- **State management**: React hooks + Supabase for persistence
+- **Theme**: next-themes for dark mode support

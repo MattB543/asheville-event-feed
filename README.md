@@ -1,23 +1,30 @@
-# Asheville Event Feed
+# Asheville Event Feed (AVL GO)
 
-A web app that aggregates events from AVL Today and Eventbrite for the Asheville, NC area.
+A web app that aggregates events from 10+ sources for the Asheville, NC area, featuring AI-powered tagging, semantic search, and user authentication.
 
 ## Features
 
-- Aggregates events from multiple sources (AVL Today/CitySpark, Eventbrite)
-- AI-powered event tagging using Google Gemini
-- Client-side filtering and search
+- Aggregates events from multiple sources (AVL Today, Eventbrite, Meetup, Facebook, venue calendars, and more)
+- AI-powered event tagging and image generation using Google Gemini
+- AI summaries and semantic search with vector embeddings
+- Conversational AI chat for event discovery
+- User authentication with Google OAuth
+- Curator profiles - create public curated event lists
+- Client-side filtering, search, and preferences sync
 - Block hosts/keywords you don't want to see
 - Hide individual events
+- Dark mode support
 - Responsive design for mobile and desktop
 
 ## Tech Stack
 
 - **Framework:** Next.js 16 (App Router)
-- **Database:** Neon PostgreSQL with Drizzle ORM
-- **AI:** Google Gemini for event tagging
-- **Styling:** Tailwind CSS
-- **Deployment:** Vercel
+- **Database:** Supabase PostgreSQL with pgvector
+- **ORM:** Drizzle ORM
+- **AI:** Google Gemini (tagging, images, embeddings) + Azure OpenAI (summaries, chat)
+- **Auth:** Supabase Auth + Google OAuth
+- **Styling:** Tailwind CSS v4
+- **Deployment:** Vercel (with Fluid Compute)
 
 ## Quickstart (5 minutes)
 
@@ -25,10 +32,10 @@ Want to get this running locally? Here's the fastest path:
 
 ### 1. Get a free database
 
-Head to [neon.tech](https://neon.tech) and sign up (it's free). Create a new project - the defaults are fine. Once it's created, click "Connect" and copy the connection string. It looks something like:
+Head to [supabase.com](https://supabase.com) and create a new project. Once it's created, go to **Settings > Database** and copy the **Connection Pooler** URI (Transaction mode). It looks something like:
 
 ```
-postgresql://username:password@ep-cool-name-123.us-east-2.aws.neon.tech/neondb?sslmode=require
+postgresql://postgres.[project-ref]:[password]@aws-0-us-east-1.pooler.supabase.com:6543/postgres
 ```
 
 ### 2. Set up your environment
@@ -39,13 +46,13 @@ Copy the example env file and add your database URL:
 cp .env.example .env
 ```
 
-Then edit `.env` and paste your Neon connection string:
+Then edit `.env` and paste your Supabase connection string:
 
 ```bash
 DATABASE_URL=postgresql://your-connection-string-here
 ```
 
-That's the only required variable. The others are optional.
+That's the only required variable. The others are optional (AI features, auth, etc.).
 
 ### 3. Install and set up the database
 
@@ -78,7 +85,7 @@ Open [http://localhost:3000](http://localhost:3000) and you should see events!
 
 **No events showing** - Make sure the backfill completed. Check with `npm run db:count`.
 
-**Database connection errors** - Double-check your `DATABASE_URL` in `.env`. Make sure you copied the full string including `?sslmode=require`.
+**Database connection errors** - Double-check your `DATABASE_URL` in `.env`. Make sure you're using the Connection Pooler URL from Supabase.
 
 ---
 
@@ -87,18 +94,36 @@ Open [http://localhost:3000](http://localhost:3000) and you should see events!
 ### Prerequisites
 
 - Node.js 20+
-- PostgreSQL database (Neon recommended)
-- Gemini API key (optional, for tagging)
+- Supabase account (free tier works)
+- Optional: Gemini API key (for AI tagging/images)
+- Optional: Azure OpenAI (for AI summaries/chat)
 
 ### Environment Variables
 
 Create a `.env` file in the project root:
 
 ```bash
+# Required
 DATABASE_URL=postgresql://...
+
+# Optional - Cron authentication
 CRON_SECRET=your-random-secret-min-16-chars
-GEMINI_API_KEY=your-gemini-api-key  # Optional
+
+# Optional - AI Features (Google Gemini)
+GEMINI_API_KEY=your-gemini-api-key
+
+# Optional - AI Features (Azure OpenAI)
+AZURE_OPENAI_API_KEY=
+AZURE_OPENAI_ENDPOINT=
+
+# Optional - Supabase Auth
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_ANON_KEY=
+SUPABASE_SERVICE_ROLE_KEY=
+NEXT_PUBLIC_GOOGLE_CLIENT_ID=
 ```
+
+See `.env.example` for the full list of optional variables.
 
 ### Installation
 
@@ -140,23 +165,58 @@ npm run db:clear     # Clear all events (use with caution)
 ```bash
 npm run test:avl         # Test AVL Today scraper
 npm run test:eventbrite  # Test Eventbrite scraper
-npm run backfill         # Backfill events from Eventbrite (30 pages)
+npm run test:meetup      # Test Meetup scraper
+npm run test:harrahs     # Test Harrah's scraper
+npm run test:orangepeel  # Test Orange Peel scraper
+npm run test:greyeagle   # Test Grey Eagle scraper
+npm run backfill         # Backfill events from Eventbrite
 ```
 
-### Tagging
+### AI Features
 
 ```bash
-npm run test:tagging  # Test AI tagging
-npm run tag:events    # Tag all untagged events
+npm run test:tagging     # Test AI tagging
+npm run test:image-gen   # Test AI image generation
+npm run test:summary     # Test AI summary generation
+npm run test:embedding   # Test embedding generation
+npm run tag:events       # Tag all untagged events
+npm run backfill:embeddings  # Backfill embeddings
 ```
 
 ## API Routes
 
 | Endpoint | Method | Description |
 |----------|--------|-------------|
-| `/api/cron` | GET | Trigger event scraping (requires `Authorization: Bearer {CRON_SECRET}`) |
-| `/api/cron/cleanup` | GET | Remove dead/404 Eventbrite events (requires auth, runs every 3h) |
+| `/api/cron/scrape` | GET | Trigger event scraping (requires auth) |
+| `/api/cron/ai` | GET | Trigger AI processing (requires auth) |
+| `/api/cron/cleanup` | GET | Cleanup dead/duplicate events (requires auth) |
+| `/api/cron/dedup` | GET | AI semantic deduplication (requires auth) |
 | `/api/health` | GET | Health check endpoint |
+| `/api/chat` | POST | AI conversational event discovery |
+| `/api/preferences` | GET/POST | User preferences sync |
+| `/api/events/[id]/favorite` | POST/DELETE | Favorite/unfavorite events |
+| `/api/events/submit` | POST | Submit new event |
+| `/api/export/xml` | GET | RSS XML export |
+| `/api/export/markdown` | GET | Markdown export |
+
+## Event Sources
+
+The app scrapes events from 10+ sources:
+
+| Source | Method |
+|--------|--------|
+| AVL Today | CitySpark API |
+| Eventbrite | HTML scraping + API |
+| Meetup | GraphQL API |
+| Facebook | Browser automation (local only) |
+| Harrah's Cherokee | Ticketmaster API |
+| Orange Peel | Ticketmaster API + JSON-LD |
+| Grey Eagle | JSON-LD |
+| Live Music AVL | ICS feeds |
+| Explore Asheville | Public API |
+| Misfit Improv | Crowdwork API |
+| NC Stage | ThunderTix |
+| Story Parlor | Squarespace JSON-LD |
 
 ## Deployment
 
@@ -167,12 +227,16 @@ npm run tag:events    # Tag all untagged events
 3. Add environment variables in Vercel dashboard
 4. Deploy
 
-The cron job is configured in `vercel.json` to run every 6 hours.
+The cron jobs are configured in `vercel.json`:
+- Scraping runs every 6 hours
+- AI processing runs 10 minutes after scraping
+- Cleanup runs 8 times daily
+- AI deduplication runs daily at 5 AM ET
 
 ### Manual Cron Trigger
 
 ```bash
-curl -X GET https://your-domain.vercel.app/api/cron \
+curl -X GET https://your-domain.vercel.app/api/cron/scrape \
   -H "Authorization: Bearer YOUR_CRON_SECRET"
 ```
 
@@ -180,34 +244,22 @@ curl -X GET https://your-domain.vercel.app/api/cron \
 
 ```
 asheville-event-feed/
-├── app/
-│   ├── api/
-│   │   ├── cron/route.ts      # Scraping cron job
-│   │   └── health/route.ts    # Health check
-│   ├── page.tsx               # Main page
-│   └── layout.tsx             # Root layout
-├── components/
-│   ├── EventCard.tsx          # Individual event card
-│   ├── EventFeed.tsx          # Event list with filtering
-│   ├── FilterBar.tsx          # Search and price filters
-│   ├── SettingsModal.tsx      # Block hosts/keywords settings
-│   └── ErrorBoundary.tsx      # Error handling
+├── app/                      # Next.js App Router
+│   ├── api/                  # API routes (cron, chat, preferences, etc.)
+│   ├── auth/                 # Auth routes (callback, signout)
+│   ├── events/[slug]/        # Individual event pages
+│   ├── login/                # Login page
+│   ├── profile/              # User profile page
+│   ├── u/[slug]/             # Curator profile pages
+│   └── page.tsx              # Main page
+├── components/               # React components
 ├── lib/
-│   ├── db/
-│   │   ├── index.ts           # Database connection
-│   │   └── schema.ts          # Drizzle schema
-│   ├── scrapers/
-│   │   ├── avlToday.ts        # AVL Today scraper
-│   │   ├── eventbrite.ts      # Eventbrite scraper
-│   │   └── types.ts           # Shared types
-│   ├── ai/
-│   │   ├── client.ts          # Gemini client
-│   │   └── tagging.ts         # Event tagging logic
-│   ├── hooks/
-│   │   └── useDebounce.ts     # Debounce hook
-│   └── utils/
-│       └── retry.ts           # Retry utility
-└── scripts/                   # Utility scripts
+│   ├── ai/                   # AI integrations (Gemini, Azure OpenAI)
+│   ├── db/                   # Database schema and queries
+│   ├── scrapers/             # Event source scrapers
+│   ├── supabase/             # Supabase client and utilities
+│   └── utils/                # Utility functions
+└── scripts/                  # CLI utility scripts
 ```
 
 ## License

@@ -20,12 +20,14 @@ import ActiveFilters, { ActiveFilter } from "./ActiveFilters";
 import { parse, isValid } from "date-fns";
 import SettingsModal from "./SettingsModal";
 import AIChatModal from "./AIChatModal";
+import CurateModal from "./CurateModal";
 import { EventFeedSkeleton } from "./EventCardSkeleton";
 import { DEFAULT_BLOCKED_KEYWORDS } from "@/lib/config/defaultFilters";
 import { useToast } from "./ui/Toast";
 import { ArrowDownIcon, ArrowUpIcon } from "lucide-react";
 import { getZipName, isAshevilleZip } from "@/lib/config/zipNames";
 import { usePreferenceSync } from "@/lib/hooks/usePreferenceSync";
+import { useAuth } from "./AuthProvider";
 
 interface Event {
   id: string;
@@ -215,11 +217,18 @@ const priceLabels: Record<PriceFilterType, string> = {
 export default function EventFeed({ initialEvents }: EventFeedProps) {
   const [events, setEvents] = useState<Event[]>(initialEvents);
   const { showToast } = useToast();
+  const { user } = useAuth();
+  const isLoggedIn = !!user;
 
   // Track which events the user has favorited (persisted to localStorage)
   const [favoritedEventIds, setFavoritedEventIds] = useState<string[]>(() =>
     getStorageItem("favoritedEventIds", [])
   );
+
+  const [curatedEventIds, setCuratedEventIds] = useState<Set<string>>(new Set());
+  const [curateModalOpen, setCurateModalOpen] = useState(false);
+  const [curateModalEventId, setCurateModalEventId] = useState<string | null>(null);
+  const [curateModalEventTitle, setCurateModalEventTitle] = useState("");
 
   // Search (committed value only - FilterBar handles local input state)
   const [search, setSearch] = useState("");
@@ -326,7 +335,7 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
     favoritedEventIdsRef.current = favoritedEventIds;
   }, [blockedHosts, blockedKeywords, hiddenEvents, favoritedEventIds]);
 
-  const { saveToDatabase, isLoggedIn } = usePreferenceSync({
+  const { saveToDatabase, isLoggedIn: isPrefSyncLoggedIn } = usePreferenceSync({
     getBlockedHosts: () => blockedHostsRef.current,
     getBlockedKeywords: () => blockedKeywordsRef.current,
     getHiddenEvents: () => hiddenEventsRef.current,
@@ -341,6 +350,21 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
   useEffect(() => {
     setIsLoaded(true);
   }, []);
+
+  // Fetch curations on mount for logged-in users
+  useEffect(() => {
+    if (isLoggedIn) {
+      fetch('/api/curate')
+        .then(res => res.json())
+        .then(data => {
+          if (data.curations) {
+            const ids = new Set<string>(data.curations.map((c: { eventId: string }) => c.eventId));
+            setCuratedEventIds(ids);
+          }
+        })
+        .catch(console.error);
+    }
+  }, [isLoggedIn]);
 
   // Track scroll position for scroll-to-top button
   useEffect(() => {
@@ -399,7 +423,7 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
 
   // Sync preferences to database when they change (for logged-in users)
   useEffect(() => {
-    if (isLoaded && isLoggedIn) {
+    if (isLoaded && isPrefSyncLoggedIn) {
       saveToDatabase();
     }
   }, [
@@ -408,7 +432,7 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
     hiddenEvents,
     favoritedEventIds,
     isLoaded,
-    isLoggedIn,
+    isPrefSyncLoggedIn,
     saveToDatabase,
   ]);
 
@@ -1009,6 +1033,74 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
     [favoritedEventIds]
   );
 
+  const handleOpenCurateModal = (eventId: string) => {
+    const event = filteredEvents.find(e => e.id === eventId);
+    if (event) {
+      setCurateModalEventId(eventId);
+      setCurateModalEventTitle(event.title);
+      setCurateModalOpen(true);
+    }
+  };
+
+  const handleCurate = async (note?: string) => {
+    if (!curateModalEventId) return;
+
+    // Optimistic update
+    setCuratedEventIds(prev => new Set([...prev, curateModalEventId]));
+
+    try {
+      const res = await fetch('/api/curate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ eventId: curateModalEventId, action: 'add', note }),
+      });
+
+      if (!res.ok) {
+        // Revert on error
+        setCuratedEventIds(prev => {
+          const next = new Set(prev);
+          next.delete(curateModalEventId);
+          return next;
+        });
+      }
+    } catch {
+      // Revert on error
+      setCuratedEventIds(prev => {
+        const next = new Set(prev);
+        next.delete(curateModalEventId);
+        return next;
+      });
+    }
+
+    setCurateModalOpen(false);
+    setCurateModalEventId(null);
+  };
+
+  const handleUncurate = async (eventId: string) => {
+    // Optimistic update
+    setCuratedEventIds(prev => {
+      const next = new Set(prev);
+      next.delete(eventId);
+      return next;
+    });
+
+    try {
+      const res = await fetch('/api/curate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ eventId, action: 'remove' }),
+      });
+
+      if (!res.ok) {
+        // Revert on error
+        setCuratedEventIds(prev => new Set([...prev, eventId]));
+      }
+    } catch {
+      // Revert on error
+      setCuratedEventIds(prev => new Set([...prev, eventId]));
+    }
+  };
+
   // Build export URL with current filters (includes personal filters for XML/Markdown export)
   const exportParams = useMemo(() => {
     const params = new URLSearchParams();
@@ -1250,7 +1342,7 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
                     !showAllPreviousEvents && (
                       <button
                         onClick={() => setShowAllPreviousEvents(true)}
-                        className="text-xs text-gray-600 dark:text-gray-400 hover:text-blue-700 dark:hover:text-blue-400 font-medium px-3 sm:px-5 py-3 sm:py-3 pt-0 text-left border-b border-gray-200 dark:border-gray-700 hover:bg-blue-50 dark:hover:bg-blue-950/50 transition-colors cursor-pointer underline sm:no-underline"
+                        className="text-xs text-gray-600 dark:text-gray-400 hover:text-brand-700 dark:hover:text-brand-400 font-medium px-3 sm:px-5 py-3 sm:py-3 pt-0 text-left border-b border-gray-200 dark:border-gray-700 hover:bg-brand-50 dark:hover:bg-brand-950/50 transition-colors cursor-pointer underline sm:no-underline"
                       >
                         Show {hiddenPreviousCount} event
                         {hiddenPreviousCount !== 1 ? "s" : ""} from earlier
@@ -1318,6 +1410,10 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
                           favoriteCount={event.favoriteCount ?? 0}
                           onToggleFavorite={handleToggleFavorite}
                           isTagFilterActive={tagFilters.include.length > 0}
+                          isCurated={curatedEventIds.has(event.id)}
+                          onCurate={handleOpenCurateModal}
+                          onUncurate={handleUncurate}
+                          isLoggedIn={isLoggedIn}
                         />
                       </div>
                     );
@@ -1357,6 +1453,16 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
           tagsExclude: tagFilters.exclude,
           selectedLocations,
         }}
+      />
+
+      <CurateModal
+        isOpen={curateModalOpen}
+        onClose={() => {
+          setCurateModalOpen(false);
+          setCurateModalEventId(null);
+        }}
+        onConfirm={handleCurate}
+        eventTitle={curateModalEventTitle}
       />
 
       {/* Scroll to top button */}

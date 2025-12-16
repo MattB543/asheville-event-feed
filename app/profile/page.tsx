@@ -1,7 +1,8 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import Link from "next/link";
-import { ArrowLeft, Mail, Calendar, Shield, User } from "lucide-react";
+import { ArrowLeft, Mail, Shield, User } from "lucide-react";
+import CuratorProfileSettings from "@/components/CuratorProfileSettings";
 
 export default async function ProfilePage() {
   const supabase = await createClient();
@@ -22,22 +23,6 @@ export default async function ProfilePage() {
   const fullName = metadata.full_name || metadata.name || null;
   const avatarUrl = metadata.avatar_url || metadata.picture || null;
   const provider = user.app_metadata?.provider || "email";
-  const createdAt = user.created_at
-    ? new Date(user.created_at).toLocaleDateString("en-US", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-      })
-    : "Unknown";
-  const lastSignIn = user.last_sign_in_at
-    ? new Date(user.last_sign_in_at).toLocaleDateString("en-US", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-        hour: "numeric",
-        minute: "2-digit",
-      })
-    : "Unknown";
 
   return (
     <main className="min-h-screen bg-gray-50 dark:bg-gray-950 py-8 px-4">
@@ -54,7 +39,7 @@ export default async function ProfilePage() {
         {/* Profile Card */}
         <div className="bg-white dark:bg-gray-900 rounded-xl shadow-lg border border-gray-200 dark:border-gray-800 overflow-hidden">
           {/* Header with avatar */}
-          <div className="bg-gradient-to-r from-blue-600 to-blue-700 px-6 py-8">
+          <div className="bg-gradient-to-r from-brand-600 to-brand-700 px-6 py-8">
             <div className="flex items-center gap-4">
               {avatarUrl ? (
                 // eslint-disable-next-line @next/next/no-img-element
@@ -64,7 +49,7 @@ export default async function ProfilePage() {
                   className="w-20 h-20 rounded-full border-4 border-white shadow-lg"
                 />
               ) : (
-                <div className="w-20 h-20 rounded-full border-4 border-white shadow-lg bg-blue-500 flex items-center justify-center">
+                <div className="w-20 h-20 rounded-full border-4 border-white shadow-lg bg-brand-500 flex items-center justify-center">
                   <User className="w-10 h-10 text-white" />
                 </div>
               )}
@@ -72,7 +57,7 @@ export default async function ProfilePage() {
                 <h1 className="text-2xl font-bold text-white">
                   {fullName || "AVL GO User"}
                 </h1>
-                <p className="text-blue-100">{email}</p>
+                <p className="text-brand-100">{email}</p>
               </div>
             </div>
           </div>
@@ -126,61 +111,42 @@ export default async function ProfilePage() {
                   </p>
                 </div>
               </div>
-
-              {/* Account created */}
-              <div className="flex items-start gap-3">
-                <div className="p-2 bg-gray-100 dark:bg-gray-800 rounded-lg">
-                  <Calendar className="w-5 h-5 text-gray-600 dark:text-gray-400" />
-                </div>
-                <div>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">
-                    Account Created
-                  </p>
-                  <p className="text-gray-900 dark:text-white">{createdAt}</p>
-                </div>
-              </div>
-
-              {/* Last sign in */}
-              <div className="flex items-start gap-3">
-                <div className="p-2 bg-gray-100 dark:bg-gray-800 rounded-lg">
-                  <Calendar className="w-5 h-5 text-gray-600 dark:text-gray-400" />
-                </div>
-                <div>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">
-                    Last Sign In
-                  </p>
-                  <p className="text-gray-900 dark:text-white">{lastSignIn}</p>
-                </div>
-              </div>
             </div>
 
-            {/* Divider */}
-            <hr className="border-gray-200 dark:border-gray-700" />
-
-            {/* Raw metadata for debugging (collapsible) */}
-            <details className="group">
-              <summary className="cursor-pointer text-sm text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300">
-                View raw account data
-              </summary>
-              <div className="mt-3 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg overflow-x-auto">
-                <pre className="text-xs text-gray-600 dark:text-gray-300 whitespace-pre-wrap">
-                  {JSON.stringify(
-                    {
-                      id: user.id,
-                      email: user.email,
-                      email_confirmed_at: user.email_confirmed_at,
-                      created_at: user.created_at,
-                      last_sign_in_at: user.last_sign_in_at,
-                      app_metadata: user.app_metadata,
-                      user_metadata: user.user_metadata,
-                    },
-                    null,
-                    2
-                  )}
-                </pre>
-              </div>
-            </details>
+            {/* Raw metadata for debugging (dev only) */}
+            {process.env.NODE_ENV === "development" && (
+              <>
+                <hr className="border-gray-200 dark:border-gray-700" />
+                <details className="group">
+                  <summary className="cursor-pointer text-sm text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300">
+                    View raw account data
+                  </summary>
+                  <div className="mt-3 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg overflow-x-auto">
+                    <pre className="text-xs text-gray-600 dark:text-gray-300 whitespace-pre-wrap">
+                      {JSON.stringify(
+                        {
+                          id: user.id,
+                          email: user.email,
+                          email_confirmed_at: user.email_confirmed_at,
+                          created_at: user.created_at,
+                          last_sign_in_at: user.last_sign_in_at,
+                          app_metadata: user.app_metadata,
+                          user_metadata: user.user_metadata,
+                        },
+                        null,
+                        2
+                      )}
+                    </pre>
+                  </div>
+                </details>
+              </>
+            )}
           </div>
+        </div>
+
+        {/* Curator Profile Settings */}
+        <div className="mt-8">
+          <CuratorProfileSettings userId={user.id} email={email} avatarUrl={avatarUrl} />
         </div>
       </div>
     </main>

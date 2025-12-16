@@ -47,6 +47,7 @@ interface SimilarEvent {
 interface EventPageClientProps {
   event: {
     id: string;
+    sourceId: string;
     title: string;
     description: string | null;
     aiSummary: string | null;
@@ -388,6 +389,35 @@ export default function EventPageClient({
     return price;
   };
 
+  // Build the source URL (same logic as EventCard)
+  const getSourceUrl = () => {
+    if (event.source === "AVL_TODAY") {
+      const slug = event.title
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/(^-|-$)+/g, "");
+
+      // Format date as YYYY-MM-DDTHH in local time (assuming ET for AVL)
+      const formatter = new Intl.DateTimeFormat("en-US", {
+        timeZone: "America/New_York",
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        hour: "2-digit",
+        hour12: false,
+      });
+      const parts = formatter.formatToParts(startDate);
+      const getPart = (type: string) =>
+        parts.find((p) => p.type === type)?.value;
+      const dateStr = `${getPart("year")}-${getPart("month")}-${getPart(
+        "day"
+      )}T${getPart("hour")}`;
+
+      return `https://avltoday.6amcity.com/events#/details/${slug}/${event.sourceId}/${dateStr}`;
+    }
+    return event.url;
+  };
+
   const { date: dateStr, time: timeStr } = formatDate(
     startDate,
     event.timeUnknown
@@ -609,14 +639,16 @@ export default function EventPageClient({
 
           {/* View Source */}
           <a
-            href={event.url}
+            href={getSourceUrl()}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-400 rounded-lg border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
           >
             <ExternalLink size={15} />
             View on{" "}
-            {event.source === "EVENTBRITE"
+            {event.source === "AVL_TODAY"
+              ? "AVL Today"
+              : event.source === "EVENTBRITE"
               ? "Eventbrite"
               : event.source === "MEETUP"
               ? "Meetup"

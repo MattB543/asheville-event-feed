@@ -18,6 +18,19 @@ import { azureChatCompletion, isAzureAIEnabled } from '@/lib/ai/azure-client';
 import { fetchAndConvertToMarkdown } from '@/lib/utils/htmlToMarkdown';
 import * as fs from 'fs';
 
+// Type interface for DB query rows
+interface EventDbRow {
+  id: string;
+  title: string;
+  source: string;
+  organizer: string | null;
+  url: string;
+  price: string | null;
+  time_unknown: boolean | null;
+  description: string | null;
+  start_date: string;
+}
+
 interface DebugEntry {
   eventId: string;
   title: string;
@@ -41,7 +54,7 @@ interface DebugEntry {
   contentSource: 'page' | 'description' | 'none';
   aiPrompt: string | null;
   aiRawResponse: string | null;
-  aiParsedResponse: any | null;
+  aiParsedResponse: Record<string, unknown> | null;
   aiParseError: string | null;
   aiPriceResult: string | null;
   aiTimeResult: string | null;
@@ -101,7 +114,7 @@ async function debugEnrichment() {
     LIMIT ${limit}
   `);
 
-  const rows = (results as any).rows || results;
+  const rows = ((results as { rows?: unknown[] }).rows || (results as unknown[])) as EventDbRow[];
   const debugEntries: DebugEntry[] = [];
 
   let regexSuccessCount = 0;

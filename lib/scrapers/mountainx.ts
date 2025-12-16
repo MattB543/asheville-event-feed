@@ -213,7 +213,7 @@ function formatEvent(event: TribeEvent): ScrapedEvent | null {
   const organizer = event.organizer?.[0]?.organizer || undefined;
 
   // Get image URL (prefer larger sizes)
-  let imageUrl = event.image?.sizes?.large?.url
+  const imageUrl = event.image?.sizes?.large?.url
     || event.image?.sizes?.medium?.url
     || event.image?.url
     || undefined;

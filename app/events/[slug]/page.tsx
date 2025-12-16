@@ -237,6 +237,7 @@ export default async function EventPage({ params }: PageProps) {
       <EventPageClient
         event={{
           id: event.id,
+          sourceId: event.sourceId,
           title: event.title,
           description: event.description,
           aiSummary: event.aiSummary,

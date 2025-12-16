@@ -12,6 +12,20 @@ import { db } from '../lib/db';
 import { events } from '../lib/db/schema';
 import { sql } from 'drizzle-orm';
 
+// Type interface for query results
+interface DataQualityRow {
+  source: string;
+  total_events: number;
+  unknown_price: number;
+  unknown_price_pct: number;
+  time_unknown: number;
+  time_unknown_pct: number;
+  missing_description: number;
+  missing_location: number;
+  missing_organizer: number;
+  missing_image: number;
+}
+
 async function checkDataQuality() {
   console.log('\n=== EVENT DATA QUALITY REPORT ===\n');
 
@@ -38,8 +52,8 @@ async function checkDataQuality() {
   `);
 
   // Handle different result formats from db.execute
-  const rows = (results as any).rows || results;
-  const stats = Array.isArray(rows) ? rows : [];
+  const rows = (results as { rows?: unknown[] }).rows || results;
+  const stats = (Array.isArray(rows) ? rows : []) as DataQualityRow[];
 
   // Print summary table
   console.log('Future Events Data Quality by Source:\n');

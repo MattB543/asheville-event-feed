@@ -75,17 +75,17 @@ async function backfillEnrichment() {
   }
 
   const results = await db.execute(query);
-  const rows = (results as any).rows || results;
-  const eventsToProcess = (rows as any[]).slice(0, limit).map(row => ({
-    id: row.id,
-    source: row.source,
-    title: row.title,
-    description: row.description,
-    organizer: row.organizer,
-    price: row.price,
-    timeUnknown: row.time_unknown,
-    startDate: new Date(row.start_date),
-    url: row.url,
+  const rows = (results as { rows?: unknown[] }).rows || (results as unknown[]);
+  const eventsToProcess = (rows as Record<string, unknown>[]).slice(0, limit).map(row => ({
+    id: row.id as string,
+    source: row.source as string,
+    title: row.title as string,
+    description: row.description as string | null,
+    organizer: row.organizer as string | null,
+    price: row.price as string | null,
+    timeUnknown: row.time_unknown as boolean,
+    startDate: new Date(row.start_date as string),
+    url: row.url as string,
   })) as EventToEnrich[];
 
   console.log(`Found ${rows.length} events needing enrichment, processing ${eventsToProcess.length}...\n`);

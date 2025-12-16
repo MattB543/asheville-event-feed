@@ -3,7 +3,7 @@ import { db } from "@/lib/db";
 import { events } from "@/lib/db/schema";
 import { eq, or, like, sql, isNull, and, isNotNull } from "drizzle-orm";
 import { generateEventTags } from "@/lib/ai/tagging";
-import { generateAndUploadEventImage } from "@/lib/ai/imageGeneration";
+// import { generateAndUploadEventImage } from "@/lib/ai/imageGeneration"; // Disabled - using static fallback
 import { generateEventSummary } from "@/lib/ai/summary";
 import { generateEmbedding, createEmbeddingText } from "@/lib/ai/embedding";
 import { env, isAIEnabled } from "@/lib/config/env";

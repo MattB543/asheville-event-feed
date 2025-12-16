@@ -124,9 +124,13 @@ export async function GET(request: Request) {
       );
     }
 
-    // 3. Generate AI summaries for events that need them
+    // 3. Generate AI summaries for events that need them (next 3 months only)
+    const now = new Date();
+    const threeMonthsFromNow = new Date();
+    threeMonthsFromNow.setMonth(threeMonthsFromNow.getMonth() + 3);
+
     if (isAzureAIEnabled()) {
-      console.log("[AI] Finding events needing summaries...");
+      console.log("[AI] Finding events needing summaries (next 3 months)...");
       const eventsNeedingSummaries = await db
         .select({
           id: events.id,
@@ -137,7 +141,13 @@ export async function GET(request: Request) {
           tags: events.tags,
         })
         .from(events)
-        .where(isNull(events.aiSummary))
+        .where(
+          and(
+            isNull(events.aiSummary),
+            sql`${events.startDate} >= ${now}`,
+            sql`${events.startDate} <= ${threeMonthsFromNow}`
+          )
+        )
         .limit(100); // Process max 100 per run
 
       stats.summaries.total = eventsNeedingSummaries.length;
@@ -189,8 +199,8 @@ export async function GET(request: Request) {
       console.log("[AI] Azure AI not configured, skipping summary generation");
     }
 
-    // 4. Generate embeddings for events that have summaries but no embedding
-    console.log("[AI] Finding events needing embeddings...");
+    // 4. Generate embeddings for events that have summaries but no embedding (next 3 months only)
+    console.log("[AI] Finding events needing embeddings (next 3 months)...");
     const eventsNeedingEmbeddings = await db
       .select({
         id: events.id,
@@ -201,7 +211,9 @@ export async function GET(request: Request) {
       .where(
         and(
           isNotNull(events.aiSummary),
-          isNull(events.embedding)
+          isNull(events.embedding),
+          sql`${events.startDate} >= ${now}`,
+          sql`${events.startDate} <= ${threeMonthsFromNow}`
         )
       )
       .limit(100); // Process max 100 per run
@@ -247,16 +259,13 @@ export async function GET(request: Request) {
       );
     }
 
-    // 5. Find events that need images
+    // 5. Find events that need images and set default fallback
+    // NOTE: AI image generation is disabled - using static fallback instead
     console.log("[AI] Finding events needing images...");
     const eventsNeedingImages = await db
       .select({
         id: events.id,
         title: events.title,
-        description: events.description,
-        location: events.location,
-        tags: events.tags,
-        imageUrl: events.imageUrl,
       })
       .from(events)
       .where(
@@ -268,19 +277,37 @@ export async function GET(request: Request) {
           like(events.imageUrl, "%default_photo%")
         )
       )
-      .limit(10); // Process max 10 per run (image generation is slow and expensive)
+      .limit(500); // Process more since we're just setting a static URL
 
     stats.images.total = eventsNeedingImages.length;
     console.log(`[AI] Found ${eventsNeedingImages.length} events needing images`);
 
-    // 4. Generate images in batches
+    // Set default fallback image for all events without images
+    if (eventsNeedingImages.length > 0) {
+      const imageStartTime = Date.now();
+      const DEFAULT_IMAGE = "/asheville-default.jpg";
+
+      // Batch update all events without images
+      const ids = eventsNeedingImages.map(e => e.id);
+      await db
+        .update(events)
+        .set({ imageUrl: DEFAULT_IMAGE })
+        .where(sql`${events.id} = ANY(${ids})`);
+
+      stats.images.success = eventsNeedingImages.length;
+      stats.images.duration = Date.now() - imageStartTime;
+      console.log(
+        `[AI] Set default image for ${stats.images.success} events in ${formatDuration(stats.images.duration)}`
+      );
+    }
+
+    /* AI IMAGE GENERATION DISABLED - uncomment to re-enable
     if (eventsNeedingImages.length > 0) {
       const imageStartTime = Date.now();
       for (const batch of chunk(eventsNeedingImages, 3)) {
         await Promise.all(
           batch.map(async (event) => {
             try {
-              // Use event ID as filename key for storage
               const imageUrl = await generateAndUploadEventImage(
                 {
                   title: event.title,
@@ -292,7 +319,6 @@ export async function GET(request: Request) {
               );
 
               if (imageUrl) {
-                // Update event with generated image URL
                 await db
                   .update(events)
                   .set({ imageUrl })
@@ -302,18 +328,13 @@ export async function GET(request: Request) {
                 console.log(`[AI] Generated and uploaded image for "${event.title}"`);
               } else {
                 stats.images.failed++;
-                console.warn(`[AI] Image generation returned null for "${event.title}"`);
               }
             } catch (err) {
               stats.images.failed++;
-              console.error(
-                `[AI] Failed to generate image for "${event.title}":`,
-                err instanceof Error ? err.message : err
-              );
+              console.error(`[AI] Failed to generate image for "${event.title}":`, err);
             }
           })
         );
-        // Longer delay for image generation (more resource intensive)
         await new Promise((r) => setTimeout(r, 2000));
       }
       stats.images.duration = Date.now() - imageStartTime;
@@ -321,6 +342,7 @@ export async function GET(request: Request) {
         `[AI] Image generation complete in ${formatDuration(stats.images.duration)}: ${stats.images.success}/${stats.images.total} succeeded`
       );
     }
+    */
 
     // Final summary
     const totalDuration = Date.now() - jobStartTime;

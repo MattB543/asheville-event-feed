@@ -1,4 +1,4 @@
-export type EventSource = 'AVL_TODAY' | 'EVENTBRITE' | 'MEETUP' | 'FACEBOOK' | 'HARRAHS' | 'ORANGE_PEEL' | 'GREY_EAGLE' | 'LIVE_MUSIC_AVL' | 'EXPLORE_ASHEVILLE' | 'MISFIT_IMPROV' | 'UDHARMA' | 'NC_STAGE' | 'STORY_PARLOR';
+export type EventSource = 'AVL_TODAY' | 'EVENTBRITE' | 'MEETUP' | 'FACEBOOK' | 'HARRAHS' | 'ORANGE_PEEL' | 'GREY_EAGLE' | 'LIVE_MUSIC_AVL' | 'EXPLORE_ASHEVILLE' | 'MISFIT_IMPROV' | 'UDHARMA' | 'NC_STAGE' | 'STORY_PARLOR' | 'MOUNTAIN_X';
 
 export interface ScrapedEvent {
   sourceId: string;

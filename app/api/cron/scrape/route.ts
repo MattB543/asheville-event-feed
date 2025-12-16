@@ -7,6 +7,7 @@ import { scrapeHarrahs } from "@/lib/scrapers/harrahs";
 import { scrapeOrangePeel } from "@/lib/scrapers/orangepeel";
 import { scrapeGreyEagle } from "@/lib/scrapers/greyeagle";
 import { scrapeLiveMusicAvl } from "@/lib/scrapers/livemusicavl";
+import { scrapeMountainX } from "@/lib/scrapers/mountainx";
 import { db } from "@/lib/db";
 import { events } from "@/lib/db/schema";
 import { inArray } from "drizzle-orm";
@@ -63,6 +64,7 @@ export async function GET(request: Request) {
       orangePeelResult,
       greyEagleResult,
       liveMusicAvlResult,
+      mountainXResult,
     ] = await Promise.allSettled([
       scrapeAvlToday(),
       scrapeEventbrite(25), // Scrape 25 pages (~500 events)
@@ -71,6 +73,7 @@ export async function GET(request: Request) {
       scrapeOrangePeel(), // Orange Peel (Ticketmaster API + Website JSON-LD)
       scrapeGreyEagle(), // Grey Eagle (Website JSON-LD)
       scrapeLiveMusicAvl(), // Live Music Asheville (select venues only)
+      scrapeMountainX(), // Mountain Xpress (Tribe Events REST API)
     ]);
 
     // Extract values from settled results
@@ -81,6 +84,7 @@ export async function GET(request: Request) {
     const orangePeelEvents = orangePeelResult.status === "fulfilled" ? orangePeelResult.value : [];
     const greyEagleEvents = greyEagleResult.status === "fulfilled" ? greyEagleResult.value : [];
     const liveMusicAvlEvents = liveMusicAvlResult.status === "fulfilled" ? liveMusicAvlResult.value : [];
+    const mountainXEvents = mountainXResult.status === "fulfilled" ? mountainXResult.value : [];
 
     // Log any scraper failures
     if (avlResult.status === "rejected")
@@ -97,6 +101,8 @@ export async function GET(request: Request) {
       console.error("[Scrape] Grey Eagle scrape failed:", greyEagleResult.reason);
     if (liveMusicAvlResult.status === "rejected")
       console.error("[Scrape] Live Music AVL scrape failed:", liveMusicAvlResult.reason);
+    if (mountainXResult.status === "rejected")
+      console.error("[Scrape] Mountain Xpress scrape failed:", mountainXResult.reason);
 
     stats.scraping.duration = Date.now() - scrapeStartTime;
     stats.scraping.total =
@@ -106,10 +112,11 @@ export async function GET(request: Request) {
       harrahsEvents.length +
       orangePeelEvents.length +
       greyEagleEvents.length +
-      liveMusicAvlEvents.length;
+      liveMusicAvlEvents.length +
+      mountainXEvents.length;
 
     console.log(
-      `[Scrape] Scrape complete in ${formatDuration(stats.scraping.duration)}. AVL: ${avlEvents.length}, EB: ${ebEvents.length}, Meetup: ${meetupEvents.length}, Harrahs: ${harrahsEvents.length}, OrangePeel: ${orangePeelEvents.length}, GreyEagle: ${greyEagleEvents.length}, LiveMusicAVL: ${liveMusicAvlEvents.length} (Total: ${stats.scraping.total})`
+      `[Scrape] Scrape complete in ${formatDuration(stats.scraping.duration)}. AVL: ${avlEvents.length}, EB: ${ebEvents.length}, Meetup: ${meetupEvents.length}, Harrahs: ${harrahsEvents.length}, OrangePeel: ${orangePeelEvents.length}, GreyEagle: ${greyEagleEvents.length}, LiveMusicAVL: ${liveMusicAvlEvents.length}, MountainX: ${mountainXEvents.length} (Total: ${stats.scraping.total})`
     );
 
     // Facebook scraping (separate due to browser requirements)
@@ -142,6 +149,7 @@ export async function GET(request: Request) {
       ...orangePeelEvents,
       ...greyEagleEvents,
       ...liveMusicAvlEvents,
+      ...mountainXEvents,
     ];
 
     console.log(`[Scrape] Upserting ${allEvents.length} events to database...`);
@@ -177,6 +185,7 @@ export async function GET(request: Request) {
                 tags: [], // Empty tags - AI job will populate
                 interestedCount: event.interestedCount,
                 goingCount: event.goingCount,
+                timeUnknown: event.timeUnknown || false,
                 lastSeenAt: new Date(),
               })
               .onConflictDoUpdate({

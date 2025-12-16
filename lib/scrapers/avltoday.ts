@@ -3,6 +3,7 @@ import { fetchWithRetry } from '@/lib/utils/retry';
 import { isNonNCEvent } from '@/lib/utils/locationFilter';
 import { formatPrice } from '@/lib/utils/formatPrice';
 import { getZipFromCoords, getZipFromCity } from '@/lib/utils/zipFromCoords';
+import { tryExtractPrice } from '@/lib/utils/extractPrice';
 
 // Common headers to avoid blocking
 const API_HEADERS = {
@@ -109,7 +110,11 @@ function formatAvlEvent(ev: AvlTodayResponse['Value'][0]): ScrapedEvent {
   }
 
   // Format price (rounded to nearest dollar)
-  const price = formatPrice(ev.Price);
+  // If API price is null/undefined, try to extract from description
+  let price = formatPrice(ev.Price);
+  if (price === 'Unknown') {
+    price = tryExtractPrice(ev.Description, 'Unknown', ev.Venue);
+  }
 
   // Generate unique sourceId - prefer PId, fallback to Id, then generate unique fallback
   const sourceId = ev.PId

@@ -16,12 +16,15 @@ import { db } from "@/lib/db";
 import { events } from "@/lib/db/schema";
 import { inArray } from "drizzle-orm";
 import { generateEventTags } from "@/lib/ai/tagging";
-import { generateEventImage } from "@/lib/ai/imageGeneration";
+import { generateAndUploadEventImage } from "@/lib/ai/imageGeneration";
 import { ScrapedEventWithTags } from "@/lib/scrapers/types";
 import { env, isFacebookEnabled } from "@/lib/config/env";
 import { findDuplicates, getIdsToRemove } from "@/lib/utils/deduplication";
 import { syncRecurringFromExploreAsheville } from "@/lib/utils/syncRecurringFromExploreAsheville";
 import { verifyAuthToken } from "@/lib/utils/auth";
+import { enrichEventData } from "@/lib/ai/dataEnrichment";
+import { isAzureAIEnabled } from "@/lib/ai/azure-client";
+import { invalidateEventsCache } from "@/lib/cache/invalidation";
 
 export const maxDuration = 800; // 13+ minutes (requires Fluid Compute)
 
@@ -47,6 +50,7 @@ export async function GET(request: Request) {
   const stats = {
     scraping: { duration: 0, total: 0 },
     tagging: { duration: 0, success: 0, failed: 0, skipped: 0 },
+    enrichment: { duration: 0, priceExtracted: 0, timeExtracted: 0, skipped: 0 },
     images: { duration: 0, success: 0, failed: 0 },
     upsert: { duration: 0, success: 0, failed: 0 },
     dedup: { removed: 0 },
@@ -347,6 +351,66 @@ export async function GET(request: Request) {
       } succeeded, ${stats.tagging.failed} failed`
     );
 
+    // 4.5 AI Enrichment: Extract missing price/time for new events
+    // Only process events that still have Unknown price or timeUnknown=true
+    // Limit to 10 events per cron run to avoid excessive API calls
+    const MAX_ENRICHMENT_PER_RUN = 10;
+    const eventsNeedingEnrichment = newEvents.filter(
+      (e) =>
+        !e.price || e.price === "Unknown" || e.timeUnknown === true
+    );
+
+    if (eventsNeedingEnrichment.length > 0 && isAzureAIEnabled()) {
+      const eventsToEnrich = eventsNeedingEnrichment.slice(0, MAX_ENRICHMENT_PER_RUN);
+      stats.enrichment.skipped = eventsNeedingEnrichment.length - eventsToEnrich.length;
+
+      console.log(
+        `[Cron] AI enrichment: processing ${eventsToEnrich.length} events (${stats.enrichment.skipped} skipped due to limit)`
+      );
+
+      const enrichmentStartTime = Date.now();
+      for (const event of eventsToEnrich) {
+        try {
+          const result = await enrichEventData({
+            title: event.title,
+            description: event.description,
+            url: event.url,
+            organizer: event.organizer,
+            currentPrice: event.price,
+            timeUnknown: event.timeUnknown,
+            currentStartDate: event.startDate,
+          });
+
+          if (result) {
+            if (result.price && (!event.price || event.price === "Unknown")) {
+              event.price = result.price;
+              stats.enrichment.priceExtracted++;
+            }
+            if (result.updatedStartDate && event.timeUnknown) {
+              event.startDate = result.updatedStartDate;
+              event.timeUnknown = false;
+              stats.enrichment.timeExtracted++;
+            }
+          }
+        } catch (err) {
+          console.warn(
+            `[Cron] Enrichment failed for "${event.title}":`,
+            err instanceof Error ? err.message : err
+          );
+        }
+        // Rate limit between enrichment calls
+        await new Promise((r) => setTimeout(r, 500));
+      }
+      stats.enrichment.duration = Date.now() - enrichmentStartTime;
+      console.log(
+        `[Cron] Enrichment complete in ${formatDuration(stats.enrichment.duration)}: ${
+          stats.enrichment.priceExtracted
+        } prices, ${stats.enrichment.timeExtracted} times extracted`
+      );
+    } else if (eventsNeedingEnrichment.length > 0) {
+      console.log(`[Cron] Skipping AI enrichment: Azure AI not configured`);
+    }
+
     // 5. Generate images for events without images (or with placeholder images)
     // Also catch Meetup fallback images that should be replaced
     const needsImage = (url: string | null | undefined): boolean => {
@@ -371,12 +435,17 @@ export async function GET(request: Request) {
       await Promise.all(
         batch.map(async (event) => {
           try {
-            const imageUrl = await generateEventImage({
-              title: event.title,
-              description: event.description,
-              location: event.location,
-              tags: event.tags,
-            });
+            // Use source-sourceId as unique key for storage (since we don't have DB ID yet)
+            const storageKey = `${event.source}-${event.sourceId}`;
+            const imageUrl = await generateAndUploadEventImage(
+              {
+                title: event.title,
+                description: event.description,
+                location: event.location,
+                tags: event.tags,
+              },
+              storageKey
+            );
             if (imageUrl) {
               event.imageUrl = imageUrl;
               stats.images.success++;
@@ -435,6 +504,7 @@ export async function GET(request: Request) {
                 timeUnknown: event.timeUnknown || false,
                 recurringType: event.recurringType,
                 recurringEndDate: event.recurringEndDate,
+                lastSeenAt: new Date(),
               })
               .onConflictDoUpdate({
                 target: events.url,
@@ -452,6 +522,7 @@ export async function GET(request: Request) {
                   timeUnknown: event.timeUnknown || false,
                   recurringType: event.recurringType,
                   recurringEndDate: event.recurringEndDate,
+                  lastSeenAt: new Date(),
                 },
               });
             stats.upsert.success++;
@@ -564,6 +635,9 @@ export async function GET(request: Request) {
       `[Cron] Recurring: ${stats.recurring.updated} events tagged as daily (from ${stats.recurring.found} EA daily events)`
     );
     console.log("[Cron] ════════════════════════════════════════════════");
+
+    // Invalidate cache so home page shows updated events
+    invalidateEventsCache();
 
     return NextResponse.json({
       success: true,

@@ -6,6 +6,7 @@ import { isNonNCEvent } from '@/lib/utils/locationFilter';
 import { findDuplicates, getIdsToRemove } from '@/lib/utils/deduplication';
 import { env } from '@/lib/config/env';
 import { verifyAuthToken } from '@/lib/utils/auth';
+import { invalidateEventsCache } from '@/lib/cache/invalidation';
 
 export const maxDuration = 300; // 5 minutes max
 
@@ -186,6 +187,9 @@ export async function GET(request: Request) {
     }
 
     console.log(`[Cleanup] Cleanup complete. Deleted ${deadEvents.length} dead + ${nonNCEventIds.length} non-NC + ${cancelledEventIds.length} cancelled + ${duplicateIdsToRemove.length} duplicate events.`);
+
+    // Invalidate cache so home page reflects removed events
+    invalidateEventsCache();
 
     return NextResponse.json({
       success: true,

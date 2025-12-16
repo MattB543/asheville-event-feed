@@ -11,6 +11,7 @@ import { events } from "@/lib/db/schema";
 import { inArray } from "drizzle-orm";
 import { env } from "@/lib/config/env";
 import { verifyAuthToken } from "@/lib/utils/auth";
+import { invalidateEventsCache } from "@/lib/cache/invalidation";
 import {
   runAIDeduplication,
   isAIDeduplicationAvailable,
@@ -91,6 +92,9 @@ export async function GET(request: Request) {
       `[AI Dedup Cron] Complete in ${Math.round(duration / 1000)}s: ${result.idsToRemove.length} removed, ${result.totalTokensUsed} tokens used`
     );
     console.log("[AI Dedup Cron] ════════════════════════════════════════════════");
+
+    // Invalidate cache so home page reflects deduplicated events
+    invalidateEventsCache();
 
     return NextResponse.json({
       success: true,

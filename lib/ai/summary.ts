@@ -18,11 +18,11 @@ export interface EventSummaryInput {
 
 const SUMMARY_SYSTEM_PROMPT = `You are a concise event summarizer. Generate a 1-2 sentence structured summary of events for semantic search indexing.
 
-Format: "[Event type] at [venue/location] featuring [key details]. [Target audience or special note if relevant]."
+Format: "[Event type] at [venue name] featuring [key details]. [Target audience or special note if relevant]."
 
 Rules:
 - Be factual and specific
-- Include the venue/location if provided
+- Include the venue name if provided, but do NOT include the city name (e.g., "Asheville", "Asheville, NC") - the city is already displayed separately in the UI
 - Mention key activities or features
 - Keep under 50 words
 - Use present tense

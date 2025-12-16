@@ -3,12 +3,13 @@ import { db } from "@/lib/db";
 import { events } from "@/lib/db/schema";
 import { eq, or, like, sql, isNull, and, isNotNull } from "drizzle-orm";
 import { generateEventTags } from "@/lib/ai/tagging";
-import { generateEventImage } from "@/lib/ai/imageGeneration";
+import { generateAndUploadEventImage } from "@/lib/ai/imageGeneration";
 import { generateEventSummary } from "@/lib/ai/summary";
 import { generateEmbedding, createEmbeddingText } from "@/lib/ai/embedding";
 import { env, isAIEnabled } from "@/lib/config/env";
 import { isAzureAIEnabled } from "@/lib/ai/azure-client";
 import { verifyAuthToken } from "@/lib/utils/auth";
+import { invalidateEventsCache } from "@/lib/cache/invalidation";
 
 export const maxDuration = 800; // 13+ minutes (requires Fluid Compute)
 
@@ -279,22 +280,26 @@ export async function GET(request: Request) {
         await Promise.all(
           batch.map(async (event) => {
             try {
-              const imageUrl = await generateEventImage({
-                title: event.title,
-                description: event.description,
-                location: event.location,
-                tags: event.tags || [],
-              });
+              // Use event ID as filename key for storage
+              const imageUrl = await generateAndUploadEventImage(
+                {
+                  title: event.title,
+                  description: event.description,
+                  location: event.location,
+                  tags: event.tags || [],
+                },
+                event.id
+              );
 
               if (imageUrl) {
-                // Update event with generated image
+                // Update event with generated image URL
                 await db
                   .update(events)
                   .set({ imageUrl })
                   .where(eq(events.id, event.id));
 
                 stats.images.success++;
-                console.log(`[AI] Generated image for "${event.title}"`);
+                console.log(`[AI] Generated and uploaded image for "${event.title}"`);
               } else {
                 stats.images.failed++;
                 console.warn(`[AI] Image generation returned null for "${event.title}"`);
@@ -327,6 +332,9 @@ export async function GET(request: Request) {
     console.log(`[AI] Embeddings: ${stats.embeddings.success}/${stats.embeddings.total} in ${formatDuration(stats.embeddings.duration)}`);
     console.log(`[AI] Images: ${stats.images.success}/${stats.images.total} in ${formatDuration(stats.images.duration)}`);
     console.log("[AI] ════════════════════════════════════════════════");
+
+    // Invalidate cache so home page shows updated events
+    invalidateEventsCache();
 
     return NextResponse.json({
       success: true,

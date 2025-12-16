@@ -14,6 +14,7 @@ import { ScrapedEvent } from "@/lib/scrapers/types";
 import { env, isFacebookEnabled } from "@/lib/config/env";
 import { findDuplicates, getIdsToRemove } from "@/lib/utils/deduplication";
 import { verifyAuthToken } from "@/lib/utils/auth";
+import { invalidateEventsCache } from "@/lib/cache/invalidation";
 
 export const maxDuration = 800; // 13+ minutes (requires Fluid Compute)
 
@@ -176,6 +177,7 @@ export async function GET(request: Request) {
                 tags: [], // Empty tags - AI job will populate
                 interestedCount: event.interestedCount,
                 goingCount: event.goingCount,
+                lastSeenAt: new Date(),
               })
               .onConflictDoUpdate({
                 target: events.url,
@@ -190,6 +192,7 @@ export async function GET(request: Request) {
                   imageUrl: event.imageUrl,
                   interestedCount: event.interestedCount,
                   goingCount: event.goingCount,
+                  lastSeenAt: new Date(),
                   // Note: tags are NOT updated on conflict - preserves AI-generated tags
                 },
               });
@@ -243,6 +246,9 @@ export async function GET(request: Request) {
     console.log(`[Scrape] Upserted: ${stats.upsert.success} (${stats.upsert.failed} failed)`);
     console.log(`[Scrape] Duplicates removed: ${stats.dedup.removed}`);
     console.log("[Scrape] ════════════════════════════════════════════════");
+
+    // Invalidate cache so home page shows updated events
+    invalidateEventsCache();
 
     return NextResponse.json({
       success: true,

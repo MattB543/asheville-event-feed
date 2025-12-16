@@ -18,6 +18,7 @@ import {
   Share,
 } from "lucide-react";
 import { cleanMarkdown } from "@/lib/utils/cleanMarkdown";
+import { cleanAshevilleFromSummary } from "@/lib/utils/cleanAsheville";
 import { generateCalendarUrlForEvent } from "@/lib/utils/googleCalendar";
 import { downloadEventAsICS } from "@/lib/utils/icsGenerator";
 import EventCard from "@/components/EventCard";
@@ -395,7 +396,9 @@ export default function EventPageClient({
   // AI Summary vs Original Description logic
   const [showOriginalDescription, setShowOriginalDescription] = useState(false);
   const hasAiSummary = !!event.aiSummary;
-  const cleanedAiSummary = event.aiSummary ? cleanMarkdown(event.aiSummary) : null;
+  const cleanedAiSummary = event.aiSummary
+    ? cleanAshevilleFromSummary(cleanMarkdown(event.aiSummary))
+    : null;
   const cleanedDescription =
     cleanMarkdown(event.description) || "No description available.";
   const displayDescription = showOriginalDescription

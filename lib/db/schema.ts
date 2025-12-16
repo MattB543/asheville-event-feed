@@ -14,6 +14,8 @@ export const events = pgTable('events', {
   url: text('url').unique().notNull(),   // Unique constraint to prevent duplicates
   imageUrl: text('image_url'),
   createdAt: timestamp('created_at').defaultNow(),
+  updatedAt: timestamp('updated_at').defaultNow(),      // Set when event data changes
+  lastSeenAt: timestamp('last_seen_at').defaultNow(),   // Set every time scraper sees this event
   hidden: boolean('hidden').default(false), // Admin moderation flag
   tags: text('tags').array(), // Array of strings for tags
   interestedCount: integer('interested_count'), // Facebook: "maybe" / interested count

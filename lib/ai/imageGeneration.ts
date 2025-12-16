@@ -1,6 +1,7 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import sharp from "sharp";
 import { env } from "../config/env";
+import { uploadEventImage } from "../supabase/storage";
 
 interface EventImagePromptData {
   title: string;
@@ -53,6 +54,7 @@ Location: ${locationContext}
 ${tagContext}
 
 Style guidelines:
+- Generate a 4:3 aspect ratio image
 - Create a modern, eye-catching event promotional graphic
 - Use vibrant colors that match the event theme
 - The image should feel welcoming and professional
@@ -113,6 +115,75 @@ export async function generateEventImage(
           `(${(originalSize / 1024).toFixed(0)}KB → ${(compressedSize / 1024).toFixed(0)}KB, -${compressionRatio}%)`
         );
         return dataUrl;
+      }
+    }
+
+    console.log(`[ImageGen] No image returned for: ${event.title}`);
+    return null;
+  } catch (error) {
+    console.error(`[ImageGen] Error generating image for "${event.title}":`, error);
+    return null;
+  }
+}
+
+/**
+ * Generate an event image and upload it to Supabase Storage.
+ * Returns the public URL instead of a base64 data URL.
+ *
+ * @param event - Event data for prompt generation
+ * @param eventId - The event's database ID (used for filename)
+ * @returns Public URL of the uploaded image, or null if generation fails
+ */
+export async function generateAndUploadEventImage(
+  event: EventImagePromptData,
+  eventId: string
+): Promise<string | null> {
+  const model = getImageModel();
+
+  if (!model) {
+    console.log("[ImageGen] Gemini API key not configured, skipping image generation");
+    return null;
+  }
+
+  const prompt = buildImagePrompt(event);
+
+  try {
+    console.log(`[ImageGen] Generating image for: ${event.title}`);
+    const result = await model.generateContent(prompt);
+    const response = result.response;
+    const parts = response.candidates?.[0]?.content?.parts || [];
+
+    // Find the image part in the response
+    for (const part of parts) {
+      if (part.inlineData?.data) {
+        const { data } = part.inlineData;
+
+        // Check if base64 data is too large (10MB base64 ≈ 7.5MB raw)
+        if (data.length > 10_000_000) {
+          console.warn(`[ImageGen] Image too large for "${event.title}" (${(data.length / 1_000_000).toFixed(1)}MB base64), skipping`);
+          return null;
+        }
+
+        const originalBuffer = Buffer.from(data, "base64");
+        const originalSize = originalBuffer.length;
+
+        // Compress with sharp: resize to 512px width, convert to JPEG at 80% quality
+        const compressedBuffer = await sharp(originalBuffer)
+          .resize(COMPRESS_WIDTH, null, { withoutEnlargement: true })
+          .jpeg({ quality: COMPRESS_QUALITY })
+          .toBuffer();
+
+        const compressedSize = compressedBuffer.length;
+
+        // Upload to Supabase Storage
+        const publicUrl = await uploadEventImage(compressedBuffer, eventId);
+
+        console.log(
+          `[ImageGen] Generated and uploaded image for: ${event.title} ` +
+          `(${(originalSize / 1024).toFixed(0)}KB → ${(compressedSize / 1024).toFixed(0)}KB)`
+        );
+
+        return publicUrl;
       }
     }
 

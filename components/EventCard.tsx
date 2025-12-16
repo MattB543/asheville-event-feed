@@ -19,6 +19,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState, useRef, useEffect } from "react";
 import { cleanMarkdown } from "@/lib/utils/cleanMarkdown";
+import { cleanAshevilleFromSummary } from "@/lib/utils/cleanAsheville";
 import { generateCalendarUrlForEvent } from "@/lib/utils/googleCalendar";
 import { downloadEventAsICS } from "@/lib/utils/icsGenerator";
 import { useToast } from "@/components/ui/Toast";
@@ -167,7 +168,9 @@ export default function EventCard({
 
   // Use AI summary if available, otherwise use original description
   const hasAiSummary = !!event.aiSummary;
-  const cleanedAiSummary = event.aiSummary ? cleanMarkdown(event.aiSummary) : null;
+  const cleanedAiSummary = event.aiSummary
+    ? cleanAshevilleFromSummary(cleanMarkdown(event.aiSummary))
+    : null;
   const cleanedDescription =
     cleanMarkdown(event.description) || "No description available.";
 
@@ -326,7 +329,9 @@ export default function EventCard({
           </div>
           <div className="text-xs text-gray-500 dark:text-gray-400 mt-2">
             {event.organizer && event.location
-              ? `${event.organizer} - ${event.location}`
+              ? event.location.toLowerCase().startsWith(event.organizer.toLowerCase())
+                ? event.location
+                : `${event.organizer} - ${event.location}`
               : event.organizer || event.location || "Online"}
           </div>
         </div>

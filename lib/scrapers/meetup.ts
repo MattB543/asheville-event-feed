@@ -3,6 +3,7 @@ import { withRetry } from '@/lib/utils/retry';
 import { isNonNCEvent } from '@/lib/utils/locationFilter';
 import { getEasternOffset } from '@/lib/utils/timezone';
 import { getZipFromCoords, getZipFromCity } from '@/lib/utils/zipFromCoords';
+import { tryExtractPrice } from '@/lib/utils/extractPrice';
 
 /**
  * Meetup Scraper - Date-Range Based Approach
@@ -284,10 +285,21 @@ async function fetchAllEventsForDate(date: Date): Promise<MeetupGql2Event[]> {
  */
 function formatMeetupEvent(event: MeetupGql2Event): ScrapedEvent {
   // Format price
-  let price = "Free";
-  if (event.feeSettings?.amount && event.feeSettings.amount > 0) {
-    const amount = Math.round(event.feeSettings.amount);
-    price = `$${amount}`;
+  // Be more conservative: only mark as "Free" if we have explicit fee info with amount = 0
+  // If feeSettings is missing entirely, mark as "Unknown" (don't assume free)
+  let price: string;
+  if (event.feeSettings) {
+    if (event.feeSettings.amount && event.feeSettings.amount > 0) {
+      const amount = Math.round(event.feeSettings.amount);
+      price = `$${amount}`;
+    } else {
+      // feeSettings exists but amount is 0 or undefined - likely free
+      price = "Free";
+    }
+  } else {
+    // No feeSettings at all - we don't know the price
+    // Try to extract from description as fallback
+    price = tryExtractPrice(event.description, 'Unknown', event.group?.name);
   }
 
   // Get location from group

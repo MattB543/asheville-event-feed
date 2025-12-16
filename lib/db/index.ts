@@ -15,7 +15,7 @@ function createDb(): DbType {
   // Configure for Supabase transaction pooling (serverless)
   _client = postgres(env.DATABASE_URL, {
     prepare: false,      // Required for Supabase transaction mode (pgbouncer)
-    max: 1,              // Limit postgres.js internal pool to 1 connection per instance
+    max: 5,              // Allow concurrent requests with Vercel Fluid compute
     idle_timeout: 20,    // Close idle connections after 20s
     connect_timeout: 30, // 30s connection timeout (matches URL param)
   });

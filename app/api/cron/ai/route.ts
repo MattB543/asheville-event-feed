@@ -144,8 +144,8 @@ export async function GET(request: Request) {
         .where(
           and(
             isNull(events.aiSummary),
-            sql`${events.startDate} >= ${now}`,
-            sql`${events.startDate} <= ${threeMonthsFromNow}`
+            sql`${events.startDate} >= ${now.toISOString()}`,
+            sql`${events.startDate} <= ${threeMonthsFromNow.toISOString()}`
           )
         )
         .limit(100); // Process max 100 per run
@@ -212,8 +212,8 @@ export async function GET(request: Request) {
         and(
           isNotNull(events.aiSummary),
           isNull(events.embedding),
-          sql`${events.startDate} >= ${now}`,
-          sql`${events.startDate} <= ${threeMonthsFromNow}`
+          sql`${events.startDate} >= ${now.toISOString()}`,
+          sql`${events.startDate} <= ${threeMonthsFromNow.toISOString()}`
         )
       )
       .limit(100); // Process max 100 per run

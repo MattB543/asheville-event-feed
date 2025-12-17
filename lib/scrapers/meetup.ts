@@ -8,26 +8,75 @@ import { tryExtractPrice } from '@/lib/utils/extractPrice';
 /**
  * Meetup Scraper - Date-Range Based Approach
  *
- * Uses Meetup's gql2 endpoint with persisted queries to fetch PHYSICAL events
- * day-by-day. This approach bypasses the ~380 event limit of the recommendedEvents
- * endpoint by querying each day separately.
+ * Uses Meetup's gql2 GraphQL endpoint to fetch PHYSICAL events day-by-day.
+ * This approach bypasses the ~380 event limit by querying each day separately.
  *
  * Key features:
  * - Filters to PHYSICAL events only (no online/virtual events)
  * - Fetches events day-by-day for comprehensive coverage
- * - Uses persisted queries (same as Meetup website)
+ * - Uses the recommendedEvents query with full query text
  * - Includes Asheville-area location filtering
+ *
+ * Note: As of Dec 2024, Meetup deprecated the old persisted query hash approach.
+ * The scraper now sends the full GraphQL query text instead.
  */
 
 // Asheville, NC coordinates (matching Meetup's precision)
 const ASHEVILLE_LAT = 35.59000015258789;
 const ASHEVILLE_LON = -82.55999755859375;
 
-// Meetup GraphQL endpoint (gql2 with persisted queries)
+// Meetup GraphQL endpoint
 const ENDPOINT = "https://www.meetup.com/gql2";
 
-// SHA256 hash for the recommendedEventsWithSeries persisted query
-const PERSISTED_QUERY_HASH = "4eda170f69bd7288f7433435dedbd1b2192b7351f8e5bc7b067e27a51d4974d2";
+// Full GraphQL query (Meetup removed support for the old persisted query hash)
+const RECOMMENDED_EVENTS_QUERY = `
+  query recommendedEvents(
+    $first: Int,
+    $after: String,
+    $filter: RecommendedEventsFilter!,
+    $sort: RecommendedEventsSort
+  ) {
+    recommendedEvents(
+      first: $first,
+      after: $after,
+      filter: $filter,
+      sort: $sort
+    ) {
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+      totalCount
+      edges {
+        node {
+          id
+          title
+          description
+          dateTime
+          eventType
+          eventUrl
+          featuredEventPhoto {
+            baseUrl
+            highResUrl
+            id
+          }
+          feeSettings {
+            amount
+            currency
+          }
+          group {
+            id
+            name
+            urlname
+            timezone
+            city
+            state
+          }
+        }
+      }
+    }
+  }
+`;
 
 // Request headers
 const API_HEADERS = {
@@ -73,7 +122,7 @@ interface MeetupGql2Event {
 
 interface Gql2Response {
   data?: {
-    result?: {
+    recommendedEvents?: {
       pageInfo: PageInfo;
       totalCount?: number;
       edges: Array<{
@@ -103,14 +152,15 @@ interface MeetupVenue {
 interface MeetupPageData {
   imageUrl: string | null;
   venue: MeetupVenue | null;
+  price: string | null;
 }
 
 /**
- * Fetch og:image and venue data from a Meetup event page
- * Extracts venue info from embedded Apollo cache JSON
+ * Fetch og:image, venue, and price data from a Meetup event page
+ * Extracts data from embedded Apollo cache JSON and page content
  */
 async function fetchEventPageData(eventUrl: string): Promise<MeetupPageData> {
-  const result: MeetupPageData = { imageUrl: null, venue: null };
+  const result: MeetupPageData = { imageUrl: null, venue: null, price: null };
 
   try {
     const response = await fetch(eventUrl, {
@@ -159,6 +209,35 @@ async function fetchEventPageData(eventUrl: string): Promise<MeetupPageData> {
       }
     }
 
+    // Extract price/fee from Apollo cache JSON
+    // Pattern: "feeSettings":{"__typename":"FeeSettings","amount":25,"currency":"USD"}
+    const feeMatch = html.match(/"feeSettings":\s*\{[^}]*"amount":\s*(\d+(?:\.\d+)?)[^}]*\}/);
+    if (feeMatch) {
+      const amount = Math.round(parseFloat(feeMatch[1]));
+      if (amount > 0) {
+        result.price = `$${amount}`;
+      } else {
+        result.price = 'Free';
+      }
+    }
+
+    // If no fee in Apollo cache, try extracting from visible page content
+    if (!result.price) {
+      // Look for common price patterns in the HTML text content
+      // Strip HTML tags for cleaner text search
+      const textContent = html
+        .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '')
+        .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, '')
+        .replace(/<[^>]+>/g, ' ')
+        .replace(/\s+/g, ' ');
+
+      // Use the existing price extraction utility
+      const extracted = tryExtractPrice(textContent, null, null, 'low');
+      if (extracted && extracted !== 'Unknown') {
+        result.price = extracted;
+      }
+    }
+
     return result;
   } catch (error) {
     console.warn(`[Meetup] Failed to fetch page data for ${eventUrl}:`, error);
@@ -178,20 +257,20 @@ async function fetchEventsForDateRange(
   events: MeetupGql2Event[];
   pageInfo: PageInfo;
 }> {
-  const variables: Record<string, unknown> = {
-    first: pageSize,
+  // Build the filter object for the new recommendedEvents query
+  // Note: Date range filters require full ISO format with timezone (e.g., 2025-12-17T00:00:00-05:00)
+  const filter: Record<string, unknown> = {
     lat: ASHEVILLE_LAT,
     lon: ASHEVILLE_LON,
-    startDateRange: startDate,
+    startDateRange: startDate, // Full ISO format with timezone
     endDateRange: endDate,
     eventType: 'PHYSICAL',  // Only fetch in-person events
-    numberOfEventsForSeries: 5,
-    seriesStartDate: startDate.split('T')[0],
-    sortField: "RELEVANCE",
-    doConsolidateEvents: true,
-    doPromotePaypalEvents: false,
-    indexAlias: '"{\"filterOutWrongLanguage\": \"true\",\"modelVersion\": \"split_offline_online\"}"',
-    dataConfiguration: '{"isSimplifiedSearchEnabled": true, "include_events_from_user_chapters": true}',
+  };
+
+  const variables: Record<string, unknown> = {
+    first: pageSize,
+    filter,
+    sort: { sortField: "RELEVANCE" },
   };
 
   if (cursor) {
@@ -199,14 +278,9 @@ async function fetchEventsForDateRange(
   }
 
   const body = {
-    operationName: "recommendedEventsWithSeries",
+    operationName: "recommendedEvents",
+    query: RECOMMENDED_EVENTS_QUERY,
     variables,
-    extensions: {
-      persistedQuery: {
-        version: 1,
-        sha256Hash: PERSISTED_QUERY_HASH,
-      },
-    },
   };
 
   const response = await fetch(ENDPOINT, {
@@ -226,7 +300,7 @@ async function fetchEventsForDateRange(
     return { events: [], pageInfo: { hasNextPage: false, endCursor: null } };
   }
 
-  const result = data.data?.result;
+  const result = data.data?.recommendedEvents;
   if (!result) {
     return { events: [], pageInfo: { hasNextPage: false, endCursor: null } };
   }
@@ -297,9 +371,12 @@ function formatMeetupEvent(event: MeetupGql2Event): ScrapedEvent {
       price = "Free";
     }
   } else {
-    // No feeSettings at all - we don't know the price
-    // Try to extract from description as fallback
-    price = tryExtractPrice(event.description, 'Unknown', event.group?.name);
+    // No feeSettings at all - try to extract from title + description
+    // Combine title and description for better extraction coverage
+    const searchText = `${event.title || ''}\n${event.description || ''}`;
+    // Use 'low' confidence threshold to catch more prices
+    // Default to "Free" since most Meetup events are free community gatherings
+    price = tryExtractPrice(searchText, 'Free', event.group?.name, 'low');
   }
 
   // Get location from group
@@ -461,12 +538,13 @@ export async function scrapeMeetup(daysToFetch: number = 30): Promise<ScrapedEve
     console.log(`[Meetup] Filtered out ${ncFilteredCount} non-NC events`);
   }
 
-  // Fetch venue data and missing images from event pages
-  // We need to fetch all events to get venue/zip data since GraphQL doesn't return it
-  console.log(`[Meetup] Fetching venue data for ${ncEvents.length} events...`);
+  // Fetch venue data, prices, and missing images from event pages
+  // We need to fetch all events to get venue/zip/price data since GraphQL doesn't return it
+  console.log(`[Meetup] Fetching page data for ${ncEvents.length} events...`);
 
   let venuesFetched = 0;
   let imagesFetched = 0;
+  let pricesFetched = 0;
 
   for (let i = 0; i < ncEvents.length; i += IMAGE_BATCH_SIZE) {
     const batch = ncEvents.slice(i, i + IMAGE_BATCH_SIZE);
@@ -478,6 +556,12 @@ export async function scrapeMeetup(daysToFetch: number = 30): Promise<ScrapedEve
       if (!event.imageUrl && pageData.imageUrl) {
         event.imageUrl = pageData.imageUrl;
         imagesFetched++;
+      }
+
+      // Update price if we don't have one and page has one
+      if (event.price === 'Unknown' && pageData.price) {
+        event.price = pageData.price;
+        pricesFetched++;
       }
 
       // Update venue data if available
@@ -500,7 +584,7 @@ export async function scrapeMeetup(daysToFetch: number = 30): Promise<ScrapedEve
     }
   }
 
-  console.log(`[Meetup] Fetched ${venuesFetched} venues, ${imagesFetched} images`);
+  console.log(`[Meetup] Fetched ${venuesFetched} venues, ${imagesFetched} images, ${pricesFetched} prices`);
 
   console.log(`[Meetup] Complete. Found ${ncEvents.length} Asheville-area physical events.`);
   return ncEvents;

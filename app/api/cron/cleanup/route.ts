@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { events } from '@/lib/db/schema';
-import { eq, inArray } from 'drizzle-orm';
+import { eq, inArray, sql } from 'drizzle-orm';
 import { isNonNCEvent } from '@/lib/utils/locationFilter';
 import { findDuplicates, getIdsToRemove } from '@/lib/utils/deduplication';
 import { env } from '@/lib/config/env';
@@ -9,6 +9,25 @@ import { verifyAuthToken } from '@/lib/utils/auth';
 import { invalidateEventsCache } from '@/lib/cache/invalidation';
 
 export const maxDuration = 300; // 5 minutes max
+
+/**
+ * Determine which date window to check based on time of day.
+ * - Daytime runs (6x): Check events happening in days 0-7 (imminent events)
+ * - Nighttime runs (2x): Check events happening in days 8-14 (upcoming events)
+ *
+ * This ensures events happening soon get checked 6x/day while events
+ * further out still get checked 2x/day.
+ */
+function getDateWindowForRun(): { startDays: number; endDays: number; label: string } {
+  const hour = new Date().getUTCHours();
+  // Daytime (7-22 UTC): Next 7 days (imminent events, checked 6x/day)
+  // Nighttime (outside 7-22 UTC): Days 8-14 (upcoming events, checked 2x/day)
+  if (hour >= 7 && hour < 23) {
+    return { startDays: 0, endDays: 7, label: 'days 0-7 (imminent)' };
+  } else {
+    return { startDays: 8, endDays: 14, label: 'days 8-14 (upcoming)' };
+  }
+}
 
 interface DeadEvent {
   id: string;
@@ -40,9 +59,22 @@ export async function GET(request: Request) {
   }
 
   try {
-    console.log('[Cleanup] Starting dead event cleanup...');
+    const startTime = Date.now();
+    const { startDays, endDays, label } = getDateWindowForRun();
 
-    // Fetch all Eventbrite events (they're the ones that get moderated/deleted)
+    console.log(`[Cleanup] Starting cleanup job (window: ${label})...`);
+
+    // Calculate date window based on time of day
+    // Daytime: check events happening in next 7 days (imminent, 6x/day coverage)
+    // Nighttime: check events happening in days 8-14 (upcoming, 2x/day coverage)
+    const windowStart = new Date();
+    windowStart.setDate(windowStart.getDate() + startDays);
+    windowStart.setHours(0, 0, 0, 0);
+
+    const windowEnd = new Date();
+    windowEnd.setDate(windowEnd.getDate() + endDays);
+    windowEnd.setHours(23, 59, 59, 999);
+
     const eventbriteEvents = await db
       .select({
         id: events.id,
@@ -50,16 +82,22 @@ export async function GET(request: Request) {
         url: events.url,
       })
       .from(events)
-      .where(eq(events.source, 'EVENTBRITE'));
+      .where(sql`
+        ${events.source} = 'EVENTBRITE'
+        AND ${events.startDate} >= ${windowStart.toISOString()}
+        AND ${events.startDate} <= ${windowEnd.toISOString()}
+      `);
 
-    console.log(`[Cleanup] Checking ${eventbriteEvents.length} Eventbrite events...`);
+    console.log(`[Cleanup] Checking ${eventbriteEvents.length} Eventbrite events (${label})...`);
 
     const deadEvents: DeadEvent[] = [];
     const batchSize = 10;
 
-    // Check URLs in batches
+    // Check URLs in batches with progress logging
+    const totalBatches = Math.ceil(eventbriteEvents.length / batchSize);
     for (let i = 0; i < eventbriteEvents.length; i += batchSize) {
       const batch = eventbriteEvents.slice(i, i + batchSize);
+      const batchNum = Math.floor(i / batchSize) + 1;
 
       const results = await Promise.all(
         batch.map(async (event) => {
@@ -78,6 +116,12 @@ export async function GET(request: Request) {
             status,
           });
         }
+      }
+
+      // Log progress every 5 batches
+      if (batchNum % 5 === 0 || batchNum === totalBatches) {
+        const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
+        console.log(`[Cleanup] URL check progress: ${Math.min(i + batchSize, eventbriteEvents.length)}/${eventbriteEvents.length} (${elapsed}s elapsed)`);
       }
 
       // Small delay between batches to be polite to Eventbrite
@@ -186,13 +230,17 @@ export async function GET(request: Request) {
       console.log(`[Cleanup] Deleted ${duplicateIdsToRemove.length} duplicate events.`);
     }
 
-    console.log(`[Cleanup] Cleanup complete. Deleted ${deadEvents.length} dead + ${nonNCEventIds.length} non-NC + ${cancelledEventIds.length} cancelled + ${duplicateIdsToRemove.length} duplicate events.`);
+    const totalDuration = ((Date.now() - startTime) / 1000).toFixed(1);
+    const totalDeleted = deadEvents.length + nonNCEventIds.length + cancelledEventIds.length + duplicateIdsToRemove.length;
+    console.log(`[Cleanup] Complete in ${totalDuration}s. Deleted ${totalDeleted} events (${deadEvents.length} dead, ${nonNCEventIds.length} non-NC, ${cancelledEventIds.length} cancelled, ${duplicateIdsToRemove.length} duplicates)`);
 
     // Invalidate cache so home page reflects removed events
     invalidateEventsCache();
 
     return NextResponse.json({
       success: true,
+      durationSeconds: parseFloat(totalDuration),
+      window: label,
       checked: eventbriteEvents.length,
       deletedDead: deadEvents.length,
       deletedNonNC: nonNCEventIds.length,

@@ -1,175 +1,63 @@
-import { db } from "@/lib/db";
-import { events } from "@/lib/db/schema";
-import { gte, asc, and, notIlike, or, isNull, InferSelectModel } from "drizzle-orm";
-import { unstable_cache } from "next/cache";
-import EventFeed from "@/components/EventFeed";
-import { ErrorBoundary } from "@/components/ErrorBoundary";
-import { getStartOfTodayEastern } from "@/lib/utils/timezone";
-import InfoBanner from "@/components/InfoBanner";
+import { Metadata } from "next";
+import Link from "next/link";
+import Image from "next/image";
 import ThemeToggle from "@/components/ThemeToggle";
 import SubmitEventButton from "@/components/SubmitEventButton";
 import UserMenu from "@/components/UserMenu";
-import { matchesDefaultFilter } from "@/lib/config/defaultFilters";
-import { extractCity } from "@/lib/utils/extractCity";
+import HomeFilterButton from "@/components/HomeFilterButton";
+import PublicCuratorCard from "@/components/PublicCuratorCard";
+import { getPublicCuratorProfiles } from "@/lib/supabase/curatorProfile";
+import {
+  Users,
+  Music,
+  Trophy,
+  Gamepad2,
+  Utensils,
+  Mountain,
+  Gift,
+  Calendar,
+  Sparkles,
+} from "lucide-react";
 
-// Omit embedding from the type since we exclude it from queries (server-side only)
-type DbEvent = Omit<InferSelectModel<typeof events>, 'embedding'>;
+export const metadata: Metadata = {
+  title: "AVL GO - Asheville Events",
+  description:
+    "Discover Asheville events aggregated from 10+ sources. Find family events, live music, sports, trivia, and more.",
+};
 
-// Pre-computed metadata for filter dropdowns (computed server-side to avoid client O(n) operations)
-export interface EventMetadata {
-  availableTags: string[];
-  availableLocations: string[];
-  availableZips: { zip: string; count: number }[];
-}
+export const revalidate = 3600; // Revalidate every hour
 
-const LOCATION_MIN_EVENTS = 6;
-const ZIP_MIN_EVENTS = 6;
-
-// Compute filter metadata server-side (avoids 3 expensive O(n) useMemo operations on client)
-function computeEventMetadata(events: DbEvent[]): EventMetadata {
-  const tagCounts = new Map<string, number>();
-  const locationCounts = new Map<string, number>();
-  const zipCounts = new Map<string, number>();
-  let onlineCount = 0;
-
-  // Single pass through events to compute all metadata
-  events.forEach((event) => {
-    // Tags
-    event.tags?.forEach((tag) => {
-      tagCounts.set(tag, (tagCounts.get(tag) || 0) + 1);
-    });
-
-    // Locations
-    const city = extractCity(event.location);
-    if (city === "Online") {
-      onlineCount++;
-    } else if (city) {
-      locationCounts.set(city, (locationCounts.get(city) || 0) + 1);
-    }
-
-    // Zips
-    if (event.zip) {
-      zipCounts.set(event.zip, (zipCounts.get(event.zip) || 0) + 1);
-    }
-  });
-
-  // Process tags - sorted by frequency
-  const availableTags = Array.from(tagCounts.entries())
-    .sort((a, b) => b[1] - a[1])
-    .map(([tag]) => tag);
-
-  // Process locations - filtered and sorted with Asheville first
-  const availableLocations = Array.from(locationCounts.entries())
-    .filter(([city, count]) => city === "Asheville" || count >= LOCATION_MIN_EVENTS)
-    .map(([city]) => city)
-    .sort((a, b) => {
-      if (a === "Asheville") return -1;
-      if (b === "Asheville") return 1;
-      return a.localeCompare(b);
-    });
-
-  // Add Online if it meets threshold
-  if (onlineCount >= LOCATION_MIN_EVENTS) {
-    availableLocations.push("Online");
-  }
-
-  // Process zips - filtered and sorted by count
-  const availableZips = Array.from(zipCounts.entries())
-    .filter(([, count]) => count >= ZIP_MIN_EVENTS)
-    .sort((a, b) => b[1] - a[1])
-    .map(([zip, count]) => ({ zip, count }));
-
-  return { availableTags, availableLocations, availableZips };
-}
-
-export const revalidate = 3600; // Fallback revalidation every hour
-
-// Cached query function - invalidated via revalidateTag('events') in cron routes
-const getHomeEvents = unstable_cache(
-  async (): Promise<DbEvent[]> => {
-    if (!process.env.DATABASE_URL) {
-      console.warn("[Home] DATABASE_URL is not defined. Showing empty feed.");
-      return [];
-    }
-
-    console.log("[Home] Fetching events from database...");
-    // Get start of today in Eastern timezone (Asheville, NC)
-    // Events that started earlier today may still be ongoing
-    const startOfToday = getStartOfTodayEastern();
-
-    // Select all fields EXCEPT embedding to reduce payload size
-    // embedding is 1536-dim vector used only for server-side similarity search
-    const allEvents = await db
-      .select({
-        id: events.id,
-        sourceId: events.sourceId,
-        source: events.source,
-        title: events.title,
-        description: events.description,
-        startDate: events.startDate,
-        location: events.location,
-        zip: events.zip,
-        organizer: events.organizer,
-        price: events.price,
-        url: events.url,
-        imageUrl: events.imageUrl,
-        tags: events.tags,
-        createdAt: events.createdAt,
-        hidden: events.hidden,
-        interestedCount: events.interestedCount,
-        goingCount: events.goingCount,
-        timeUnknown: events.timeUnknown,
-        recurringType: events.recurringType,
-        recurringEndDate: events.recurringEndDate,
-        favoriteCount: events.favoriteCount,
-        aiSummary: events.aiSummary,
-        updatedAt: events.updatedAt,
-        lastSeenAt: events.lastSeenAt,
-        // Excluded: embedding (1536 floats, server-side only)
-      })
-      .from(events)
-      .where(
-        and(
-          gte(events.startDate, startOfToday),
-          // Exclude online/virtual events (but keep events with null location)
-          or(
-            isNull(events.location),
-            and(
-              notIlike(events.location, '%online%'),
-              notIlike(events.location, '%virtual%')
-            )
-          )
-        )
-      )
-      .orderBy(asc(events.startDate));
-
-    // Apply default spam filters server-side
-    const filteredEvents = allEvents.filter((event) => {
-      const textToCheck = `${event.title} ${event.description || ""} ${event.organizer || ""}`;
-      return !matchesDefaultFilter(textToCheck);
-    });
-    console.log(`[Home] Fetched ${allEvents.length} events, ${filteredEvents.length} after spam filter.`);
-    return filteredEvents;
+const FILTER_BUTTONS = [
+  { label: "Family", href: "/events?tagsInclude=Family", icon: Users },
+  {
+    label: "Live Music",
+    href: "/events?tagsInclude=Live%20Music",
+    icon: Music,
   },
-  ['home-events'],
-  { tags: ['events'], revalidate: 3600 }
-);
+  { label: "Sports", href: "/events?tagsInclude=Sports", icon: Trophy },
+  {
+    label: "Trivia & Games",
+    href: "/events?tagsInclude=Trivia",
+    icon: Gamepad2,
+  },
+  { label: "Food & Drink", href: "/events?tagsInclude=Dining", icon: Utensils },
+  { label: "Outdoors", href: "/events?tagsInclude=Outdoors", icon: Mountain },
+  { label: "Free Events", href: "/events?priceFilter=free", icon: Gift },
+  { label: "This Weekend", href: "/events?dateFilter=weekend", icon: Calendar },
+];
 
-export default async function Home() {
-  let initialEvents: DbEvent[] = [];
-  let metadata: EventMetadata = { availableTags: [], availableLocations: [], availableZips: [] };
+export default async function HomePage() {
+  let curators: Awaited<ReturnType<typeof getPublicCuratorProfiles>> = [];
 
   try {
-    initialEvents = await getHomeEvents();
-    // Compute metadata server-side (single pass through events)
-    metadata = computeEventMetadata(initialEvents);
+    curators = await getPublicCuratorProfiles(6);
   } catch (error) {
-    console.error("[Home] Failed to fetch events:", error);
-    // Fallback to empty arrays
+    console.error("[Home] Failed to fetch curators:", error);
   }
 
   return (
     <main className="min-h-screen bg-gray-50 dark:bg-gray-950">
+      {/* Header */}
       <header className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
         <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-3 sm:py-4">
           {/* Mobile: two-row layout */}
@@ -229,12 +117,76 @@ export default async function Home() {
         </div>
       </header>
 
-      <InfoBanner />
+      {/* Hero Section */}
+      <section className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-12 sm:py-16 text-center">
+          <div className="mb-8 flex justify-center">
+            <Image
+              src="/asheville-default.jpg"
+              alt="Asheville"
+              width={400}
+              height={200}
+              className="rounded-lg"
+              priority
+            />
+          </div>
+          <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+            Discover Asheville Events
+          </h1>
+          <p className="text-lg text-gray-600 dark:text-gray-400 mb-8 max-w-lg mx-auto">
+            All local events in one place so you can find the events made for
+            you.
+          </p>
+          <Link
+            href="/create"
+            className="inline-flex items-center gap-2 bg-brand-600 hover:bg-brand-700 text-white font-medium rounded-lg px-6 py-3 transition-colors cursor-pointer"
+          >
+            <Sparkles className="w-5 h-5" />
+            Create your custom feed
+          </Link>
+        </div>
+      </section>
 
-      <ErrorBoundary>
-        <EventFeed initialEvents={initialEvents} initialMetadata={metadata} />
-      </ErrorBoundary>
+      {/* Quick Filters Section */}
+      <section className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-10">
+        <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-6">
+          Jump to...
+        </h2>
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+          {FILTER_BUTTONS.map((button) => (
+            <HomeFilterButton
+              key={button.label}
+              label={button.label}
+              href={button.href}
+              icon={button.icon}
+            />
+          ))}
+        </div>
+      </section>
 
+      {/* Public Curators Section */}
+      {curators.length > 0 && (
+        <section className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-10 border-t border-gray-200 dark:border-gray-800">
+          <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-6">
+            Curated feeds by local experts...
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {curators.map((curator) => (
+              <PublicCuratorCard
+                key={curator.userId}
+                slug={curator.slug}
+                displayName={curator.displayName}
+                bio={curator.bio}
+                avatarUrl={curator.avatarUrl}
+                showProfilePicture={curator.showProfilePicture}
+                curationCount={curator.curationCount}
+              />
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* Footer */}
       <footer className="bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 mt-8 py-8 text-center text-sm text-gray-500 dark:text-gray-400">
         <p className="mb-2">
           Built by Matt Brooks at Brooks Solutions, LLC. Learn more at{" "}

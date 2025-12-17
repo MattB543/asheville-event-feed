@@ -1,6 +1,6 @@
 import { db } from "@/lib/db";
 import { curatorProfiles, curatedEvents, events } from "@/lib/db/schema";
-import { eq, desc, and } from "drizzle-orm";
+import { eq, desc, and, sql } from "drizzle-orm";
 import { generateProfileSlug } from "@/lib/utils/generateProfileSlug";
 
 // Get or create a curator profile (used on first curation)
@@ -79,4 +79,26 @@ export async function removeCuration(userId: string, eventId: string) {
       eq(curatedEvents.userId, userId),
       eq(curatedEvents.eventId, eventId)
     ));
+}
+
+// Get all public curator profiles with curation counts (for home page)
+export async function getPublicCuratorProfiles(limit = 6) {
+  const results = await db
+    .select({
+      userId: curatorProfiles.userId,
+      slug: curatorProfiles.slug,
+      displayName: curatorProfiles.displayName,
+      bio: curatorProfiles.bio,
+      avatarUrl: curatorProfiles.avatarUrl,
+      showProfilePicture: curatorProfiles.showProfilePicture,
+      curationCount: sql<number>`count(${curatedEvents.id})::int`,
+    })
+    .from(curatorProfiles)
+    .leftJoin(curatedEvents, eq(curatorProfiles.userId, curatedEvents.userId))
+    .where(eq(curatorProfiles.isPublic, true))
+    .groupBy(curatorProfiles.userId)
+    .orderBy(desc(sql`count(${curatedEvents.id})`))
+    .limit(limit);
+
+  return results;
 }

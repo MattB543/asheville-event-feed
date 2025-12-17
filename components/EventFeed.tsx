@@ -25,6 +25,8 @@ import { EventFeedSkeleton } from "./EventCardSkeleton";
 const SettingsModal = dynamic(() => import("./SettingsModal"), { ssr: false });
 const AIChatModal = dynamic(() => import("./AIChatModal"), { ssr: false });
 const CurateModal = dynamic(() => import("./CurateModal"), { ssr: false });
+// SaveFeedModal is not lazy loaded to avoid delay when showSavePrompt is in URL
+import SaveFeedModal from "./SaveFeedModal";
 import { DEFAULT_BLOCKED_KEYWORDS } from "@/lib/config/defaultFilters";
 import { useToast } from "./ui/Toast";
 import { ArrowDownIcon, ArrowUpIcon } from "lucide-react";
@@ -287,6 +289,7 @@ export default function EventFeed({ initialEvents, initialMetadata }: EventFeedP
   // Settings & Modals
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isChatOpen, setIsChatOpen] = useState(false);
+  const [showSaveModal, setShowSaveModal] = useState(false);
   const [blockedHosts, setBlockedHosts] = useState<string[]>(() =>
     getStorageItem("blockedHosts", [])
   );
@@ -532,6 +535,20 @@ export default function EventFeed({ initialEvents, initialMetadata }: EventFeedP
       setSelectedLocations(
         params.get("locations")?.split(",").filter(Boolean) || []
       );
+    }
+
+    // Check for save feed prompt (from custom feed builder)
+    if (params.has("showSavePrompt")) {
+      // Only show once per session
+      const hasShownSavePrompt = sessionStorage.getItem("hasShownSavePrompt");
+      if (!hasShownSavePrompt) {
+        setShowSaveModal(true);
+        sessionStorage.setItem("hasShownSavePrompt", "true");
+      }
+      // Remove the param from URL without triggering a reload
+      const newUrl = new URL(window.location.href);
+      newUrl.searchParams.delete("showSavePrompt");
+      window.history.replaceState({}, "", newUrl.toString());
     }
   }, [isLoaded]); // Only run once after hydration
 
@@ -1491,6 +1508,11 @@ export default function EventFeed({ initialEvents, initialMetadata }: EventFeedP
         }}
         onConfirm={handleCurate}
         eventTitle={curateModalEventTitle}
+      />
+
+      <SaveFeedModal
+        isOpen={showSaveModal}
+        onClose={() => setShowSaveModal(false)}
       />
 
       {/* Scroll to top button */}

@@ -19,6 +19,7 @@ import { extractCity, isAshevilleArea } from "@/lib/utils/extractCity";
 import ActiveFilters, { ActiveFilter } from "./ActiveFilters";
 import { parse, isValid } from "date-fns";
 import dynamic from "next/dynamic";
+import { EventFeedSkeleton } from "./EventCardSkeleton";
 
 // Lazy load modals to reduce initial JS bundle - they're only needed when opened
 const SettingsModal = dynamic(() => import("./SettingsModal"), { ssr: false });
@@ -1219,9 +1220,9 @@ export default function EventFeed({ initialEvents, initialMetadata }: EventFeedP
     }
   }, [shareParams, isLoaded]);
 
-  // Note: Removed skeleton blocking here. SSR now renders unfiltered events,
-  // then after hydration, user preferences apply. This eliminates the ~300ms
-  // artificial delay from the skeleton animation.
+  // SSR renders skeleton, client renders events after hydration (no artificial delay)
+  // This keeps the page size small for Vercel's ISR limits
+  if (!isLoaded) return <EventFeedSkeleton />;
 
   return (
     <div className="max-w-7xl mx-auto px-0 sm:px-6 lg:px-8 py-4 sm:py-8">

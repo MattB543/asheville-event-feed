@@ -112,7 +112,7 @@ function ExportLinks({
             </div>
           </button>
           <a
-            href={`/api/export/xml${exportParams || ""}`}
+            href={`/api/export/json${exportParams || ""}`}
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => setMenuOpen(false)}
@@ -120,9 +120,9 @@ function ExportLinks({
           >
             <FileCode size={14} className="mt-0.5 shrink-0" />
             <div>
-              <div className="text-xs font-medium">View as XML</div>
+              <div className="text-xs font-medium">View as JSON</div>
               <div className="text-[10px] text-gray-500 dark:text-gray-400">
-                Open filtered view in XML
+                Open filtered view in JSON
               </div>
             </div>
           </a>

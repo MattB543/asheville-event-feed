@@ -1194,6 +1194,18 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
     selectedLocations,
   ]);
 
+  // Sync URL with current filter state (enables sharing via address bar)
+  useEffect(() => {
+    if (!isLoaded) return;
+
+    const newUrl = `${window.location.pathname}${shareParams}`;
+
+    // Only update if URL actually changed
+    if (window.location.pathname + window.location.search !== newUrl) {
+      window.history.replaceState(null, "", newUrl);
+    }
+  }, [shareParams, isLoaded]);
+
   if (!isLoaded) return <EventFeedSkeleton />;
 
   return (

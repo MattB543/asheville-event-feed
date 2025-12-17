@@ -8,20 +8,17 @@ import { extractCity, isAshevilleArea } from '@/lib/utils/extractCity';
 
 export const dynamic = 'force-dynamic';
 
-// Hidden event fingerprint type (matches client-side)
 interface HiddenEventFingerprint {
   title: string;
   organizer: string;
 }
 
-// Create a fingerprint key for comparison
 function createFingerprintKey(title: string, organizer: string | null | undefined): string {
   const normalizedTitle = title.toLowerCase().trim();
   const normalizedOrganizer = (organizer || '').toLowerCase().trim();
   return `${normalizedTitle}|||${normalizedOrganizer}`;
 }
 
-// Check if event matches any hidden fingerprint
 function matchesHiddenFingerprint(
   event: { title: string; organizer: string | null },
   hiddenEvents: HiddenEventFingerprint[]
@@ -33,19 +30,9 @@ function matchesHiddenFingerprint(
   });
 }
 
-function escapeXml(str: string | null | undefined): string {
-  if (!str) return '';
-  return str
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&apos;');
-}
-
-function getImageUrl(imageUrl: string | null | undefined): string {
+function getImageUrl(imageUrl: string | null | undefined): string | null {
   // Filter out base64 data URLs (AI-generated images) - they're too large
-  if (!imageUrl || imageUrl.startsWith('data:')) return '';
+  if (!imageUrl || imageUrl.startsWith('data:')) return null;
   return imageUrl;
 }
 
@@ -71,8 +58,7 @@ function isTomorrow(date: Date): boolean {
 
 function isThisWeekend(date: Date): boolean {
   const today = new Date();
-  const dayOfWeek = today.getDay(); // 0 = Sunday, 6 = Saturday
-  // If today is Sunday (0), Saturday was yesterday (-1)
+  const dayOfWeek = today.getDay();
   const daysUntilSaturday = dayOfWeek === 0 ? -1 : 6 - dayOfWeek;
   const saturday = new Date(today);
   saturday.setDate(today.getDate() + daysUntilSaturday);
@@ -146,7 +132,12 @@ export async function GET(request: Request) {
       .orderBy(asc(events.startDate));
 
     // Apply filters
-    allEvents = allEvents.filter(event => {
+    allEvents = allEvents.filter((event) => {
+      // 0. Admin-hidden events (moderation)
+      if (event.hidden) {
+        return false;
+      }
+
       // 1. Hidden Events (by title+organizer fingerprint)
       if (hiddenEvents.length > 0 && matchesHiddenFingerprint(event, hiddenEvents)) {
         return false;
@@ -154,14 +145,14 @@ export async function GET(request: Request) {
 
       // 2. Blocked Hosts
       if (blockedHosts.length > 0 && event.organizer) {
-        if (blockedHosts.some(host => event.organizer!.toLowerCase().includes(host.toLowerCase()))) {
+        if (blockedHosts.some((host) => event.organizer!.toLowerCase().includes(host.toLowerCase()))) {
           return false;
         }
       }
 
       // 3. Blocked Keywords (user custom)
       if (blockedKeywords.length > 0) {
-        if (blockedKeywords.some(kw => event.title.toLowerCase().includes(kw.toLowerCase()))) {
+        if (blockedKeywords.some((kw) => event.title.toLowerCase().includes(kw.toLowerCase()))) {
           return false;
         }
       }
@@ -174,7 +165,8 @@ export async function GET(request: Request) {
 
       // 5. Search filter
       if (search) {
-        const searchText = `${event.title} ${event.description || ''} ${event.organizer || ''} ${event.location || ''}`.toLowerCase();
+        const searchText =
+          `${event.title} ${event.description || ''} ${event.organizer || ''} ${event.location || ''}`.toLowerCase();
         if (!searchText.includes(search)) return false;
       }
 
@@ -184,7 +176,8 @@ export async function GET(request: Request) {
       if (dateFilter === 'tomorrow' && !isTomorrow(eventDate)) return false;
       if (dateFilter === 'weekend' && !isThisWeekend(eventDate)) return false;
       if (dateFilter === 'dayOfWeek' && !isDayOfWeek(eventDate, selectedDays)) return false;
-      if (dateFilter === 'custom' && dateStart && !isInDateRange(eventDate, dateStart, dateEnd || undefined)) return false;
+      if (dateFilter === 'custom' && dateStart && !isInDateRange(eventDate, dateStart, dateEnd || undefined))
+        return false;
 
       // 7. Price filter
       if (priceFilter && priceFilter !== 'any') {
@@ -203,12 +196,12 @@ export async function GET(request: Request) {
 
       // Exclude logic: If event has ANY excluded tag, filter it out
       if (excludeTags.length > 0) {
-        if (excludeTags.some(tag => eventTags.includes(tag))) return false;
+        if (excludeTags.some((tag) => eventTags.includes(tag))) return false;
       }
 
       // Include logic: If includes are set, event must have at least one
       if (includeTags.length > 0) {
-        if (!includeTags.some(tag => eventTags.includes(tag))) return false;
+        if (!includeTags.some((tag) => eventTags.includes(tag))) return false;
       }
 
       // 9. Location filter (multi-select - OR logic)
@@ -218,7 +211,6 @@ export async function GET(request: Request) {
 
         for (const loc of selectedLocations) {
           if (loc === 'asheville') {
-            // "Asheville area" includes: Asheville city + known Asheville venues
             if (isAshevilleArea(event.location)) {
               matchesAnyLocation = true;
               break;
@@ -229,7 +221,6 @@ export async function GET(request: Request) {
               break;
             }
           } else {
-            // Specific city - exact match
             if (eventCity === loc) {
               matchesAnyLocation = true;
               break;
@@ -245,48 +236,52 @@ export async function GET(request: Request) {
       return true;
     });
 
-    const eventItems = allEvents.map(event => {
-      const tagsXml = (event.tags || [])
-        .map((t: string) => `        <tag>${escapeXml(t)}</tag>`)
-        .join('\n');
+    // Transform events to clean JSON format
+    const jsonEvents = allEvents.map((event) => ({
+      id: event.id,
+      sourceId: event.sourceId,
+      source: event.source,
+      title: event.title,
+      description: event.description || null,
+      startDate: event.startDate.toISOString(),
+      location: event.location || null,
+      zip: event.zip || null,
+      organizer: event.organizer || null,
+      price: event.price || null,
+      url: event.url,
+      imageUrl: getImageUrl(event.imageUrl),
+      tags: event.tags || [],
+      aiSummary: event.aiSummary || null,
+      // Engagement metrics
+      interestedCount: event.interestedCount || null,
+      goingCount: event.goingCount || null,
+      favoriteCount: event.favoriteCount || 0,
+      // Recurring event info
+      recurringType: event.recurringType || null,
+      recurringEndDate: event.recurringEndDate?.toISOString() || null,
+      // Metadata
+      timeUnknown: event.timeUnknown || false,
+      createdAt: event.createdAt?.toISOString() || null,
+      updatedAt: event.updatedAt?.toISOString() || null,
+      lastSeenAt: event.lastSeenAt?.toISOString() || null,
+    }));
 
-      return `  <event>
-    <id>${escapeXml(event.id)}</id>
-    <sourceId>${escapeXml(event.sourceId)}</sourceId>
-    <source>${escapeXml(event.source)}</source>
-    <title>${escapeXml(event.title)}</title>
-    <description>${escapeXml(event.description)}</description>
-    <startDate>${event.startDate.toISOString()}</startDate>
-    <location>${escapeXml(event.location)}</location>
-    <organizer>${escapeXml(event.organizer)}</organizer>
-    <price>${escapeXml(event.price)}</price>
-    <url>${escapeXml(event.url)}</url>
-    <imageUrl>${escapeXml(getImageUrl(event.imageUrl))}</imageUrl>
-    <tags>
-${tagsXml}
-    </tags>
-    <createdAt>${event.createdAt?.toISOString() || ''}</createdAt>
-  </event>`;
-    }).join('\n');
+    const response = {
+      count: jsonEvents.length,
+      generated: new Date().toISOString(),
+      events: jsonEvents,
+    };
 
-    const xml = `<?xml version="1.0" encoding="UTF-8"?>
-<events count="${allEvents.length}" generated="${new Date().toISOString()}">
-${eventItems}
-</events>`;
-
-    return new NextResponse(xml, {
+    return NextResponse.json(response, {
       headers: {
-        'Content-Type': 'application/xml; charset=utf-8',
+        'Cache-Control': 'public, max-age=300', // Cache for 5 minutes
       },
     });
   } catch (error) {
-    console.error('[XML Export] Error:', error);
-    return new NextResponse(
-      `<?xml version="1.0" encoding="UTF-8"?>\n<error>Failed to generate XML feed</error>`,
-      {
-        status: 500,
-        headers: { 'Content-Type': 'application/xml; charset=utf-8' },
-      }
+    console.error('[JSON Export] Error:', error);
+    return NextResponse.json(
+      { error: 'Failed to generate JSON feed' },
+      { status: 500 }
     );
   }
 }

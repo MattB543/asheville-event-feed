@@ -14,7 +14,7 @@ import {
   X,
 } from "lucide-react";
 import { TAG_CATEGORIES } from "@/lib/config/tagCategories";
-import { getZipName, ASHEVILLE_ZIPS } from "@/lib/config/zipNames";
+import { getZipName } from "@/lib/config/zipNames";
 import { Calendar } from "./ui/Calendar";
 import { DateRange as DayPickerDateRange } from "react-day-picker";
 import { format, parse, isValid } from "date-fns";
@@ -397,34 +397,21 @@ export default function FilterBar({
     });
   };
 
-  // When "Asheville area" is selected, also select all Asheville zips
+  // Toggle "Asheville area" location (filtering logic handles Asheville zips automatically)
   const handleAshevilleToggle = () => {
     const isCurrentlySelected = localSelectedLocations.includes("asheville");
 
     if (isCurrentlySelected) {
-      // Deselect Asheville and all Asheville zips
       const newLocations = localSelectedLocations.filter((l) => l !== "asheville");
-      const newZips = localSelectedZips.filter((z) => !ASHEVILLE_ZIPS.includes(z));
-
       setLocalSelectedLocations(newLocations);
-      setLocalSelectedZips(newZips);
       startTransition(() => {
         onLocationsChange(newLocations);
-        onZipsChange(newZips);
       });
     } else {
-      // Select Asheville and all available Asheville zips
       const newLocations = [...localSelectedLocations, "asheville"];
-      const ashevilleZipsInData = availableZips
-        .filter(({ zip }) => ASHEVILLE_ZIPS.includes(zip))
-        .map(({ zip }) => zip);
-      const newZips = [...new Set([...localSelectedZips, ...ashevilleZipsInData])];
-
       setLocalSelectedLocations(newLocations);
-      setLocalSelectedZips(newZips);
       startTransition(() => {
         onLocationsChange(newLocations);
-        onZipsChange(newZips);
       });
     }
   };

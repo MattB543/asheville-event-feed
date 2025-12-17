@@ -10,9 +10,77 @@ import ThemeToggle from "@/components/ThemeToggle";
 import SubmitEventButton from "@/components/SubmitEventButton";
 import UserMenu from "@/components/UserMenu";
 import { matchesDefaultFilter } from "@/lib/config/defaultFilters";
+import { extractCity } from "@/lib/utils/extractCity";
 
 // Omit embedding from the type since we exclude it from queries (server-side only)
 type DbEvent = Omit<InferSelectModel<typeof events>, 'embedding'>;
+
+// Pre-computed metadata for filter dropdowns (computed server-side to avoid client O(n) operations)
+export interface EventMetadata {
+  availableTags: string[];
+  availableLocations: string[];
+  availableZips: { zip: string; count: number }[];
+}
+
+const LOCATION_MIN_EVENTS = 6;
+const ZIP_MIN_EVENTS = 6;
+
+// Compute filter metadata server-side (avoids 3 expensive O(n) useMemo operations on client)
+function computeEventMetadata(events: DbEvent[]): EventMetadata {
+  const tagCounts = new Map<string, number>();
+  const locationCounts = new Map<string, number>();
+  const zipCounts = new Map<string, number>();
+  let onlineCount = 0;
+
+  // Single pass through events to compute all metadata
+  events.forEach((event) => {
+    // Tags
+    event.tags?.forEach((tag) => {
+      tagCounts.set(tag, (tagCounts.get(tag) || 0) + 1);
+    });
+
+    // Locations
+    const city = extractCity(event.location);
+    if (city === "Online") {
+      onlineCount++;
+    } else if (city) {
+      locationCounts.set(city, (locationCounts.get(city) || 0) + 1);
+    }
+
+    // Zips
+    if (event.zip) {
+      zipCounts.set(event.zip, (zipCounts.get(event.zip) || 0) + 1);
+    }
+  });
+
+  // Process tags - sorted by frequency
+  const availableTags = Array.from(tagCounts.entries())
+    .sort((a, b) => b[1] - a[1])
+    .map(([tag]) => tag);
+
+  // Process locations - filtered and sorted with Asheville first
+  const availableLocations = Array.from(locationCounts.entries())
+    .filter(([city, count]) => city === "Asheville" || count >= LOCATION_MIN_EVENTS)
+    .map(([city]) => city)
+    .sort((a, b) => {
+      if (a === "Asheville") return -1;
+      if (b === "Asheville") return 1;
+      return a.localeCompare(b);
+    });
+
+  // Add Online if it meets threshold
+  if (onlineCount >= LOCATION_MIN_EVENTS) {
+    availableLocations.push("Online");
+  }
+
+  // Process zips - filtered and sorted by count
+  const availableZips = Array.from(zipCounts.entries())
+    .filter(([, count]) => count >= ZIP_MIN_EVENTS)
+    .sort((a, b) => b[1] - a[1])
+    .map(([zip, count]) => ({ zip, count }));
+
+  return { availableTags, availableLocations, availableZips };
+}
 
 export const revalidate = 3600; // Fallback revalidation every hour
 
@@ -89,12 +157,15 @@ const getHomeEvents = unstable_cache(
 
 export default async function Home() {
   let initialEvents: DbEvent[] = [];
+  let metadata: EventMetadata = { availableTags: [], availableLocations: [], availableZips: [] };
 
   try {
     initialEvents = await getHomeEvents();
+    // Compute metadata server-side (single pass through events)
+    metadata = computeEventMetadata(initialEvents);
   } catch (error) {
     console.error("[Home] Failed to fetch events:", error);
-    // Fallback to empty array
+    // Fallback to empty arrays
   }
 
   return (
@@ -161,7 +232,7 @@ export default async function Home() {
       <InfoBanner />
 
       <ErrorBoundary>
-        <EventFeed initialEvents={initialEvents} />
+        <EventFeed initialEvents={initialEvents} initialMetadata={metadata} />
       </ErrorBoundary>
 
       <footer className="bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 mt-8 py-8 text-center text-sm text-gray-500 dark:text-gray-400">

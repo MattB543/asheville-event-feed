@@ -18,10 +18,12 @@ import FilterBar, {
 import { extractCity, isAshevilleArea } from "@/lib/utils/extractCity";
 import ActiveFilters, { ActiveFilter } from "./ActiveFilters";
 import { parse, isValid } from "date-fns";
-import SettingsModal from "./SettingsModal";
-import AIChatModal from "./AIChatModal";
-import CurateModal from "./CurateModal";
-import { EventFeedSkeleton } from "./EventCardSkeleton";
+import dynamic from "next/dynamic";
+
+// Lazy load modals to reduce initial JS bundle - they're only needed when opened
+const SettingsModal = dynamic(() => import("./SettingsModal"), { ssr: false });
+const AIChatModal = dynamic(() => import("./AIChatModal"), { ssr: false });
+const CurateModal = dynamic(() => import("./CurateModal"), { ssr: false });
 import { DEFAULT_BLOCKED_KEYWORDS } from "@/lib/config/defaultFilters";
 import { useToast } from "./ui/Toast";
 import { ArrowDownIcon, ArrowUpIcon } from "lucide-react";
@@ -51,8 +53,16 @@ interface Event {
   favoriteCount?: number | null;
 }
 
+// Pre-computed metadata from server (avoids client-side O(n) computations)
+interface EventMetadata {
+  availableTags: string[];
+  availableLocations: string[];
+  availableZips: { zip: string; count: number }[];
+}
+
 interface EventFeedProps {
   initialEvents: Event[];
+  initialMetadata?: EventMetadata; // Optional for backwards compatibility
 }
 
 // Tag filter state for include/exclude tri-state filtering
@@ -214,7 +224,7 @@ const priceLabels: Record<PriceFilterType, string> = {
   custom: "Custom Max",
 };
 
-export default function EventFeed({ initialEvents }: EventFeedProps) {
+export default function EventFeed({ initialEvents, initialMetadata }: EventFeedProps) {
   const [events, setEvents] = useState<Event[]>(initialEvents);
   const { showToast } = useToast();
   const { user } = useAuth();
@@ -524,8 +534,13 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
     }
   }, [isLoaded]); // Only run once after hydration
 
-  // Extract available tags from events (sorted by frequency)
+  // Use pre-computed metadata from server when available (avoids client-side O(n) computations)
+  // Falls back to computing on client for backwards compatibility
   const availableTags = useMemo(() => {
+    if (initialMetadata?.availableTags) {
+      return initialMetadata.availableTags;
+    }
+    // Fallback: compute on client (only if server didn't provide metadata)
     const tagCounts = new Map<string, number>();
     events.forEach((event) => {
       event.tags?.forEach((tag) => {
@@ -535,14 +550,14 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
     return Array.from(tagCounts.entries())
       .sort((a, b) => b[1] - a[1])
       .map(([tag]) => tag);
-  }, [events]);
+  }, [events, initialMetadata?.availableTags]);
 
-  // Minimum number of events for a location to appear in filter dropdown
-  const LOCATION_MIN_EVENTS = 6;
-
-  // Extract available locations from events (for location filter dropdown)
-  // Only includes locations with 10+ events to reduce dropdown clutter
   const availableLocations = useMemo(() => {
+    if (initialMetadata?.availableLocations) {
+      return initialMetadata.availableLocations;
+    }
+    // Fallback: compute on client
+    const LOCATION_MIN_EVENTS = 6;
     const cityCount = new Map<string, number>();
     let onlineCount = 0;
 
@@ -555,7 +570,6 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
       }
     });
 
-    // Only include cities with enough events (always include Asheville as primary)
     const cities = Array.from(cityCount.entries())
       .filter(
         ([city, count]) => city === "Asheville" || count >= LOCATION_MIN_EVENTS
@@ -567,19 +581,19 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
         return a.localeCompare(b);
       });
 
-    // Add Online at the end if it meets threshold
     if (onlineCount >= LOCATION_MIN_EVENTS) {
       cities.push("Online");
     }
 
     return cities;
-  }, [events]);
+  }, [events, initialMetadata?.availableLocations]);
 
-  // Minimum number of events for a zip to appear in filter dropdown
-  const ZIP_MIN_EVENTS = 6;
-
-  // Extract available zip codes from events (for zip filter dropdown)
   const availableZips = useMemo(() => {
+    if (initialMetadata?.availableZips) {
+      return initialMetadata.availableZips;
+    }
+    // Fallback: compute on client
+    const ZIP_MIN_EVENTS = 6;
     const zipCounts = new Map<string, number>();
 
     events.forEach((event) => {
@@ -588,12 +602,11 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
       }
     });
 
-    // Only include zips with enough events, sorted by count (most events first)
     return Array.from(zipCounts.entries())
       .filter(([, count]) => count >= ZIP_MIN_EVENTS)
       .sort((a, b) => b[1] - a[1])
       .map(([zip, count]) => ({ zip, count }));
-  }, [events]);
+  }, [events, initialMetadata?.availableZips]);
 
   // Filter events - uses deferred values for optimistic UI updates
   const filteredEvents = useMemo(() => {
@@ -1206,7 +1219,9 @@ export default function EventFeed({ initialEvents }: EventFeedProps) {
     }
   }, [shareParams, isLoaded]);
 
-  if (!isLoaded) return <EventFeedSkeleton />;
+  // Note: Removed skeleton blocking here. SSR now renders unfiltered events,
+  // then after hydration, user preferences apply. This eliminates the ~300ms
+  // artificial delay from the skeleton animation.
 
   return (
     <div className="max-w-7xl mx-auto px-0 sm:px-6 lg:px-8 py-4 sm:py-8">

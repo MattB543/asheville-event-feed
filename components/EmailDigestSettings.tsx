@@ -6,13 +6,11 @@ import { Mail, Bell, BellOff, Calendar, Tag, Loader2 } from "lucide-react";
 type DigestFrequency = "none" | "daily" | "weekly";
 
 interface EmailDigestSettingsProps {
-  userId: string;
   email: string;
   availableTags?: string[];
 }
 
 export default function EmailDigestSettings({
-  userId,
   email,
   availableTags = [],
 }: EmailDigestSettingsProps) {

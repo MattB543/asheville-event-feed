@@ -172,7 +172,6 @@ export default async function ProfilePage() {
         {/* Email Digest Settings */}
         <div className="mt-8">
           <EmailDigestSettings
-            userId={user.id}
             email={email}
             availableTags={availableTags}
           />

@@ -1,5 +1,6 @@
 import { env } from '@/lib/config/env';
 import { format } from 'date-fns';
+import { generateEventSlug } from '@/lib/utils/slugify';
 
 interface DigestEvent {
   id: string;
@@ -154,7 +155,7 @@ export function generateDigestEmailHtml(options: DigestEmailOptions): string {
  * Generate a single event card for the digest email.
  */
 function generateEventCard(event: DigestEvent, appUrl: string): string {
-  const eventUrl = `${appUrl}/events/${slugify(event.title)}-${event.id.slice(0, 8)}`;
+  const eventUrl = `${appUrl}/events/${generateEventSlug(event.title, new Date(event.startDate), event.id)}`;
   const time = format(new Date(event.startDate), 'h:mm a');
   const imageUrl = event.imageUrl?.startsWith('http') 
     ? event.imageUrl 
@@ -252,7 +253,7 @@ Manage preferences: ${appUrl}/profile
       const eventList = dateEvents
         .map((event) => {
           const time = format(new Date(event.startDate), 'h:mm a');
-          const eventUrl = `${appUrl}/events/${slugify(event.title)}-${event.id.slice(0, 8)}`;
+          const eventUrl = `${appUrl}/events/${generateEventSlug(event.title, new Date(event.startDate), event.id)}`;
           return `  • ${event.title}
     ${time}${event.location ? ` at ${event.location}` : ''}${event.price ? ` - ${event.price}` : ''}
     ${eventUrl}`;
@@ -301,15 +302,4 @@ function truncate(text: string, maxLength: number): string {
   return text.slice(0, maxLength - 1) + '…';
 }
 
-/**
- * Create a URL-friendly slug from text.
- */
-function slugify(text: string): string {
-  return text
-    .toLowerCase()
-    .replace(/[^\w\s-]/g, '')
-    .replace(/\s+/g, '-')
-    .replace(/-+/g, '-')
-    .slice(0, 50);
-}
 

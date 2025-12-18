@@ -89,6 +89,11 @@ export const userPreferences = pgTable('user_preferences', {
   // Stored as JSON for flexibility
   filterSettings: jsonb('filter_settings'),
 
+  // Email digest preferences
+  emailDigestFrequency: text('email_digest_frequency').default('none'), // 'none' | 'daily' | 'weekly'
+  emailDigestLastSentAt: timestamp('email_digest_last_sent_at'), // When last digest was sent
+  emailDigestTags: text('email_digest_tags').array().default([]), // Optional: only include events with these tags
+
   // Tracking
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
 });

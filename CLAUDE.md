@@ -214,7 +214,24 @@ User-submitted event suggestions awaiting review.
 
 ### `userPreferences` Table
 
-Server-synced user preferences (blocked hosts, keywords, hidden events, favorites).
+Server-synced user preferences (blocked hosts, keywords, hidden events, favorites, email digests).
+
+```typescript
+{
+  userId: uuid (primary key, from Supabase auth),
+  blockedHosts: text[] (organizers to hide),
+  blockedKeywords: text[] (keywords to hide),
+  hiddenEvents: jsonb (array of {title, organizer} fingerprints),
+  useDefaultFilters: boolean (default true),
+  favoritedEventIds: text[] (event IDs),
+  filterSettings: jsonb (optional filter settings),
+  // Email digest settings
+  emailDigestFrequency: text ('none' | 'daily' | 'weekly'),
+  emailDigestLastSentAt: timestamp (when last digest was sent),
+  emailDigestTags: text[] (optional tag filter for digests),
+  updatedAt: timestamp
+}
+```
 
 ### `curatorProfiles` Table
 
@@ -236,6 +253,7 @@ Events curated by users with optional notes.
 | `/api/cron/ai` | Every 6h at :10 | AI tagging, summaries, embeddings, image generation |
 | `/api/cron/cleanup` | 8x daily | Dead events, non-NC, cancelled, duplicates |
 | `/api/cron/dedup` | Daily 5 AM ET | AI semantic deduplication |
+| `/api/cron/email-digest` | Daily 7 AM ET | Send daily/weekly email digests to subscribers |
 
 ### Public APIs
 
@@ -258,6 +276,7 @@ Events curated by users with optional notes.
 | `/api/events/[id]/favorite` | POST/DELETE | Favorite/unfavorite event |
 | `/api/curate` | POST/DELETE | Add/remove curated events |
 | `/api/curator/settings` | GET/POST | Curator profile settings |
+| `/api/email-digest/settings` | GET/POST | Email digest preferences |
 
 ### Auth Routes
 
@@ -392,6 +411,14 @@ NEXT_PUBLIC_GOOGLE_CLIENT_ID=
 SLACK_WEBHOOK=
 
 # ===========================================
+# OPTIONAL - Email Digests (Postmark)
+# ===========================================
+
+# Postmark API - enables daily/weekly email digests
+POSTMARK_API_KEY=
+POSTMARK_FROM_EMAIL=hello@avlgo.com
+
+# ===========================================
 # OPTIONAL - Facebook Scraping (Advanced)
 # ===========================================
 # Requires browser automation, won't work on Vercel
@@ -487,13 +514,14 @@ FB_XS=
     { "path": "/api/cron/scrape", "schedule": "0 */6 * * *" },
     { "path": "/api/cron/ai", "schedule": "10 */6 * * *" },
     { "path": "/api/cron/cleanup", "schedule": "30 1,4,7,10,13,16,19,22 * * *" },
-    { "path": "/api/cron/dedup", "schedule": "0 10 * * *" }
+    { "path": "/api/cron/dedup", "schedule": "0 10 * * *" },
+    { "path": "/api/cron/email-digest", "schedule": "0 12 * * *" }
   ]
 }
 ```
 
 - **Fluid Compute**: Enabled for longer function execution (up to 800s for scrape/ai jobs)
-- **Cron Schedule**: Scrape at :00, AI processing at :10, cleanup 8x daily, dedup daily at 5 AM ET
+- **Cron Schedule**: Scrape at :00, AI processing at :10, cleanup 8x daily, dedup daily at 5 AM ET, email digests daily at 7 AM ET
 
 ### Max Duration
 

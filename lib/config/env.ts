@@ -19,6 +19,10 @@ export const env = {
   // Supabase Auth
   get NEXT_PUBLIC_SUPABASE_URL() { return process.env.NEXT_PUBLIC_SUPABASE_URL; },
   get NEXT_PUBLIC_SUPABASE_ANON_KEY() { return process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY; },
+  // Postmark Email
+  get POSTMARK_API_KEY() { return process.env.POSTMARK_API_KEY; },
+  get POSTMARK_FROM_EMAIL() { return process.env.POSTMARK_FROM_EMAIL; },
+  get NEXT_PUBLIC_APP_URL() { return process.env.NEXT_PUBLIC_APP_URL || 'https://avlgo.com'; },
 } as const;
 
 // Helper to check if AI features are enabled
@@ -34,6 +38,11 @@ export function isChatEnabled(): boolean {
 // Helper to check if Slack notifications are enabled
 export function isSlackEnabled(): boolean {
   return !!env.SLACK_WEBHOOK;
+}
+
+// Helper to check if Postmark email is enabled
+export function isPostmarkEnabled(): boolean {
+  return !!(env.POSTMARK_API_KEY && env.POSTMARK_FROM_EMAIL);
 }
 
 // Helper to check if Supabase Auth is configured

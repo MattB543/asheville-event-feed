@@ -1,3 +1,6 @@
+/* Google Fonts - DM Sans for body, Fraunces for display */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700&display=swap');
+
 @import "tailwindcss";
 
 /* Enable class-based dark mode for Tailwind v4 */
@@ -7,15 +10,19 @@
   /* Tell browsers this site supports both color schemes */
   color-scheme: light dark;
 
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #faf9f7;
+  --foreground: #1a1a1a;
+  --accent-warm: #e8825f;
+  --accent-warm-soft: #fdf0eb;
 }
 
 .dark {
   color-scheme: dark;
 
-  --background: #0a0a0a;
-  --foreground: #ededed;
+  --background: #0f0f0f;
+  --foreground: #f0ede8;
+  --accent-warm: #e8825f;
+  --accent-warm-soft: #2a1f1a;
 }
 
 @theme inline {
@@ -36,12 +43,34 @@
   --color-brand-800: #044869;
   --color-brand-900: #033651;
   --color-brand-950: #021f30;
+
+  /* Warm accent */
+  --color-warm-500: #e8825f;
+  --color-warm-600: #d4714f;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'DM Sans', system-ui, sans-serif;
+}
+
+/* Display font for headlines */
+.font-display {
+  font-family: 'Fraunces', Georgia, serif;
+}
+
+/* Subtle page texture */
+.bg-texture {
+  background-image:
+    radial-gradient(circle at 20% 50%, rgba(8, 113, 170, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(232, 130, 95, 0.03) 0%, transparent 50%);
+}
+
+.dark .bg-texture {
+  background-image:
+    radial-gradient(circle at 20% 50%, rgba(8, 113, 170, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(232, 130, 95, 0.05) 0%, transparent 50%);
 }
 
 /* Restore list styles for markdown content */
@@ -96,4 +125,129 @@ body {
 
 .animate-fade-in {
   animation: fade-in 0.15s ease-out;
+}
+
+/* Staggered fade-up animation for cards */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.5s ease-out forwards;
+  opacity: 0;
+}
+
+.delay-1 { animation-delay: 0.05s; }
+.delay-2 { animation-delay: 0.1s; }
+.delay-3 { animation-delay: 0.15s; }
+.delay-4 { animation-delay: 0.2s; }
+.delay-5 { animation-delay: 0.25s; }
+.delay-6 { animation-delay: 0.3s; }
+
+/* Gentle float animation for hero elements */
+@keyframes gentle-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+.animate-float {
+  animation: gentle-float 4s ease-in-out infinite;
+}
+
+/* CTA button shimmer effect */
+.btn-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-shimmer::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.btn-shimmer:hover::after {
+  left: 100%;
+}
+
+/* Value prop card hover lift */
+.card-lift {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px -8px rgba(0, 0, 0, 0.1);
+}
+
+.dark .card-lift:hover {
+  box-shadow: 0 8px 24px -8px rgba(0, 0, 0, 0.4);
+}
+
+/* Icon background circle */
+.icon-circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--color-brand-50) 0%, #f0f9ff 100%);
+  flex-shrink: 0;
+}
+
+.dark .icon-circle {
+  background: linear-gradient(135deg, rgba(8, 113, 170, 0.15) 0%, rgba(8, 113, 170, 0.08) 100%);
+}
+
+/* Hero gradient overlay */
+.hero-gradient {
+  background: linear-gradient(
+    180deg,
+    rgba(250, 249, 247, 0) 0%,
+    rgba(250, 249, 247, 0.6) 60%,
+    rgba(250, 249, 247, 1) 100%
+  );
+}
+
+.dark .hero-gradient {
+  background: linear-gradient(
+    180deg,
+    rgba(15, 15, 15, 0) 0%,
+    rgba(15, 15, 15, 0.7) 60%,
+    rgba(15, 15, 15, 1) 100%
+  );
+}
+
+/* Mountain wave divider */
+.wave-divider {
+  position: relative;
+  height: 40px;
+  overflow: hidden;
+}
+
+.wave-divider::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 40px;
+  background: currentColor;
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 40' preserveAspectRatio='none'%3E%3Cpath d='M0,40 L0,20 Q150,0 300,20 T600,20 T900,20 T1200,20 L1200,40 Z' fill='%23000'/%3E%3C/svg%3E");
+  mask-size: 100% 100%;
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 40' preserveAspectRatio='none'%3E%3Cpath d='M0,40 L0,20 Q150,0 300,20 T600,20 T900,20 T1200,20 L1200,40 Z' fill='%23000'/%3E%3C/svg%3E");
+  -webkit-mask-size: 100% 100%;
 }

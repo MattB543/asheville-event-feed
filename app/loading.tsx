@@ -12,9 +12,24 @@ export default function Loading() {
             className="h-[24px] sm:h-[36px] w-auto dark:brightness-0 dark:invert"
           />
           <div className="flex items-center gap-3 sm:gap-4">
-            <div className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 text-right">
-              All AVL events aggregated, by{" "}
-              <span className="underline">mattbrooks.xyz</span>
+            <div className="text-xs sm:text-sm text-gray-500/70 dark:text-gray-400/70 text-right">
+              <a
+                href="https://github.com/MattB543/asheville-event-feed"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline hover:text-gray-700 dark:hover:text-gray-300"
+              >
+                Open-sourced
+              </a>{" "}
+              by{" "}
+              <a
+                href="https://mattbrooks.xyz"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline hover:text-gray-700 dark:hover:text-gray-300"
+              >
+                mattbrooks.xyz
+              </a>
             </div>
             {/* Theme toggle placeholder */}
             <div className="w-[28px] h-[28px] rounded-md border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800" />

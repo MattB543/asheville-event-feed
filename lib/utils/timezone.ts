@@ -93,3 +93,31 @@ export function parseAsEastern(dateStr: string, timeStr: string = '19:00:00'): D
   const offset = getEasternOffset(dateStr);
   return new Date(`${dateStr}T${timeStr}${offset}`);
 }
+
+/**
+ * Get start of tomorrow (midnight) in Eastern timezone
+ * Returns a Date object that represents 00:00:00 Eastern time tomorrow
+ */
+export function getStartOfTomorrowEastern(): Date {
+  const todayStr = getTodayStringEastern(); // "2024-12-19"
+
+  // Parse today and add 1 day
+  const [year, month, day] = todayStr.split('-').map(Number);
+  const tomorrowDate = new Date(year, month - 1, day + 1);
+  const tomorrowStr = `${tomorrowDate.getFullYear()}-${String(tomorrowDate.getMonth() + 1).padStart(2, '0')}-${String(tomorrowDate.getDate()).padStart(2, '0')}`;
+
+  const offset = getEasternOffset(tomorrowStr);
+  return new Date(`${tomorrowStr}T00:00:00${offset}`);
+}
+
+/**
+ * Get day boundaries (start and end) for a date in Eastern timezone
+ * @param dateStr - Date string in YYYY-MM-DD format
+ * @returns { start: Date, end: Date } representing 00:00:00 to 23:59:59.999 Eastern
+ */
+export function getDayBoundariesEastern(dateStr: string): { start: Date; end: Date } {
+  const offset = getEasternOffset(dateStr);
+  const start = new Date(`${dateStr}T00:00:00${offset}`);
+  const end = new Date(`${dateStr}T23:59:59.999${offset}`);
+  return { start, end };
+}

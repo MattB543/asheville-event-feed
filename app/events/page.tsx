@@ -76,8 +76,16 @@ export default async function EventsPage() {
                 <UserMenu />
               </div>
             </div>
-            <div className="text-xs text-gray-500 dark:text-gray-400">
-              All AVL events aggregated, by{" "}
+            <div className="text-xs text-gray-500/70 dark:text-gray-400/70">
+              <a
+                href="https://github.com/MattB543/asheville-event-feed"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline hover:text-gray-700 dark:hover:text-gray-300"
+              >
+                Open-sourced
+              </a>{" "}
+              by{" "}
               <a
                 href="https://mattbrooks.xyz"
                 target="_blank"
@@ -90,17 +98,25 @@ export default async function EventsPage() {
           </div>
           {/* Desktop: horizontal layout */}
           <div className="hidden sm:flex items-center justify-between gap-4">
+            <Link href="/">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/avlgo_banner_logo_v2.svg"
+                alt="AVL GO"
+                className="h-[36px] w-auto dark:brightness-0 dark:invert"
+              />
+            </Link>
             <div className="flex items-center gap-4">
-              <Link href="/">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/avlgo_banner_logo_v2.svg"
-                  alt="AVL GO"
-                  className="h-[36px] w-auto dark:brightness-0 dark:invert"
-                />
-              </Link>
-              <div className="text-sm text-gray-500 dark:text-gray-400">
-                All AVL events aggregated, by{" "}
+              <div className="text-sm text-gray-500/70 dark:text-gray-400/70">
+                <a
+                  href="https://github.com/MattB543/asheville-event-feed"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline hover:text-gray-700 dark:hover:text-gray-300"
+                >
+                  Open-sourced
+                </a>{" "}
+                by{" "}
                 <a
                   href="https://mattbrooks.xyz"
                   target="_blank"
@@ -110,8 +126,6 @@ export default async function EventsPage() {
                   mattbrooks.xyz
                 </a>
               </div>
-            </div>
-            <div className="flex items-center gap-2">
               <SubmitEventButton />
               <ThemeToggle />
               <UserMenu />

@@ -14,7 +14,7 @@ import {
   arrayOverlaps,
   InferSelectModel,
 } from "drizzle-orm";
-import { getStartOfTodayEastern, parseAsEastern } from "@/lib/utils/timezone";
+import { getStartOfTodayEastern, getTodayStringEastern, getDayBoundariesEastern, parseAsEastern } from "@/lib/utils/timezone";
 import { matchesDefaultFilter } from "@/lib/config/defaultFilters";
 import { extractCity, isAshevilleArea } from "@/lib/utils/extractCity";
 import { isAshevilleZip } from "@/lib/config/zipNames";
@@ -96,13 +96,11 @@ function createCursor(event: DbEvent): string {
   return `${event.startDate.toISOString()}_${event.id}`;
 }
 
-// Helper to get day boundaries in Eastern timezone
-function getDayBoundaries(date: Date): { start: Date; end: Date } {
-  const start = new Date(date);
-  start.setHours(0, 0, 0, 0);
-  const end = new Date(date);
-  end.setHours(23, 59, 59, 999);
-  return { start, end };
+// Helper to add days to a date string (YYYY-MM-DD format)
+function addDaysToDateString(dateStr: string, days: number): string {
+  const [year, month, day] = dateStr.split('-').map(Number);
+  const date = new Date(year, month - 1, day + days);
+  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
 }
 
 // Parse price string to number
@@ -128,23 +126,22 @@ function isFreeEvent(price: string | null | undefined): boolean {
   );
 }
 
-// Get this weekend's boundaries (Fri-Sun)
+// Get this weekend's boundaries (Fri-Sun) in Eastern timezone
 function getWeekendBoundaries(): { start: Date; end: Date } {
-  const today = new Date();
-  const dayOfWeek = today.getDay();
+  const todayStr = getTodayStringEastern();
+  const [year, month, day] = todayStr.split('-').map(Number);
+  const todayDate = new Date(year, month - 1, day);
+  const dayOfWeek = todayDate.getDay();
 
-  // Calculate Friday of this week
+  // Calculate Friday of this week (in Eastern)
   const daysUntilFriday = dayOfWeek === 0 ? -2 : 5 - dayOfWeek;
-  const friday = new Date(today);
-  friday.setDate(today.getDate() + daysUntilFriday);
-  friday.setHours(0, 0, 0, 0);
+  const fridayStr = addDaysToDateString(todayStr, daysUntilFriday);
+  const sundayStr = addDaysToDateString(fridayStr, 2);
 
-  // Sunday end
-  const sundayEnd = new Date(friday);
-  sundayEnd.setDate(friday.getDate() + 2);
-  sundayEnd.setHours(23, 59, 59, 999);
+  const { start } = getDayBoundariesEastern(fridayStr);
+  const { end } = getDayBoundariesEastern(sundayStr);
 
-  return { start: friday, end: sundayEnd };
+  return { start, end };
 }
 
 /**
@@ -196,21 +193,20 @@ export async function queryFilteredEvents(
   // NOTE: Cursor-based pagination is handled in the iterative fetch loop below,
   // not here, to allow multiple batches with updated cursors.
 
-  // Date filter
+  // Date filter - use Eastern timezone for all date calculations
   if (params.dateFilter && params.dateFilter !== "all") {
-    const today = new Date();
+    const todayStr = getTodayStringEastern(); // "2024-12-19" in Eastern
 
     switch (params.dateFilter) {
       case "today": {
-        const { start, end } = getDayBoundaries(today);
+        const { start, end } = getDayBoundariesEastern(todayStr);
         conditions.push(gte(events.startDate, start));
         conditions.push(lte(events.startDate, end));
         break;
       }
       case "tomorrow": {
-        const tomorrow = new Date(today);
-        tomorrow.setDate(tomorrow.getDate() + 1);
-        const { start, end } = getDayBoundaries(tomorrow);
+        const tomorrowStr = addDaysToDateString(todayStr, 1);
+        const { start, end } = getDayBoundariesEastern(tomorrowStr);
         conditions.push(gte(events.startDate, start));
         conditions.push(lte(events.startDate, end));
         break;

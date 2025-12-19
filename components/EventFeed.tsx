@@ -479,7 +479,6 @@ export default function EventFeed({
   const {
     events: apiEvents,
     metadata: queryMetadata,
-    totalCount,
     hasMore,
     isFetching,
     isFetchingNextPage,
@@ -1124,8 +1123,6 @@ export default function EventFeed({
         onRemove={handleRemoveFilter}
         onClearAll={handleClearAllFilters}
         onClearAllTags={() => setTagFilters({ include: [], exclude: [] })}
-        totalEvents={totalCount}
-        filteredCount={filteredEvents.length}
         exportParams={exportParams}
         shareParams={shareParams}
         onOpenChat={() => setIsChatOpen(true)}

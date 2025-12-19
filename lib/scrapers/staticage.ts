@@ -349,7 +349,7 @@ function formatEvent(event: StaticAgeEvent): ScrapedEvent | null {
   const url = `${BASE_URL}/events/${slug}`;
 
   // Build title - include bands if no main title or useTitleInCalendar is false
-  let title = decodeHtmlEntities(event.title);
+  const title = decodeHtmlEntities(event.title);
 
   // If we have bands, could add them to description
   const bandNames = event.bands?.map(b => b.name).filter(Boolean) || [];

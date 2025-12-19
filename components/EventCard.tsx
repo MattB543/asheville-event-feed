@@ -99,7 +99,7 @@ export default function EventCard({
   isLoggedIn = false,
   displayMode = 'full',
   onExpandMinimized,
-  scoreTier = 'quality',
+  scoreTier: _scoreTier = 'quality',
   eventScore,
 }: EventCardProps) {
   const [imgError, setImgError] = useState(false);

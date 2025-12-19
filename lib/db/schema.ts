@@ -29,6 +29,12 @@ export const events = pgTable('events', {
   // AI-generated fields for semantic search
   aiSummary: text('ai_summary'), // 1-2 sentence structured summary from Azure AI
   embedding: vector('embedding', { dimensions: 1536 }), // Gemini embedding of "${title}: ${aiSummary}"
+  // Event quality scoring (AI-generated, 0-30 total)
+  score: integer('score'),                    // Total: rarity + unique + magnitude (0-30)
+  scoreRarity: integer('score_rarity'),       // 0-10: How rare/urgent is this event
+  scoreUnique: integer('score_unique'),       // 0-10: How cool/novel is this event
+  scoreMagnitude: integer('score_magnitude'), // 0-10: Production scale/talent level
+  scoreReason: text('score_reason'),          // One-sentence AI reasoning for the score
 }, (table) => ({
   startDateIdx: index('events_start_date_idx').on(table.startDate),
   sourceIdx: index('events_source_idx').on(table.source),

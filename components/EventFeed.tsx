@@ -1,13 +1,6 @@
 "use client";
 
-import {
-  useState,
-  useMemo,
-  useEffect,
-  useCallback,
-  useDeferredValue,
-  useRef,
-} from "react";
+import { useState, useMemo, useEffect, useCallback, useRef } from "react";
 import EventCard from "./EventCard";
 import FilterBar, {
   DateFilterType,
@@ -15,11 +8,16 @@ import FilterBar, {
   DateRange,
   TimeOfDay,
 } from "./FilterBar";
-import { extractCity, isAshevilleArea } from "@/lib/utils/extractCity";
 import ActiveFilters, { ActiveFilter } from "./ActiveFilters";
 import { parse, isValid } from "date-fns";
 import dynamic from "next/dynamic";
 import { EventFeedSkeleton } from "./EventCardSkeleton";
+import {
+  useEventQuery,
+  useInfiniteScrollTrigger,
+  type Event as ApiEvent,
+  type EventMetadata,
+} from "@/lib/hooks/useEventQuery";
 
 // Lazy load modals to reduce initial JS bundle - they're only needed when opened
 const SettingsModal = dynamic(() => import("./SettingsModal"), { ssr: false });
@@ -29,19 +27,23 @@ const CurateModal = dynamic(() => import("./CurateModal"), { ssr: false });
 import SaveFeedModal from "./SaveFeedModal";
 import { DEFAULT_BLOCKED_KEYWORDS } from "@/lib/config/defaultFilters";
 import { useToast } from "./ui/Toast";
-import { ArrowDownIcon, ArrowUpIcon } from "lucide-react";
-import { getZipName, isAshevilleZip } from "@/lib/config/zipNames";
+import { ArrowDownIcon, ArrowUpIcon, Loader2Icon } from "lucide-react";
+import { getZipName } from "@/lib/config/zipNames";
 import { usePreferenceSync } from "@/lib/hooks/usePreferenceSync";
 import { useAuth } from "./AuthProvider";
 
-interface Event {
+// Use the Event type from API, but with Date for startDate (parsed client-side)
+type Event = Omit<ApiEvent, "startDate"> & { startDate: Date };
+
+// Initial event type from SSR (database format - may use Date objects or strings after serialization)
+interface InitialEvent {
   id: string;
   sourceId: string;
   source: string;
   title: string;
   description?: string | null;
   aiSummary?: string | null;
-  startDate: Date;
+  startDate: Date | string; // May be Date or string after SSR serialization
   location?: string | null;
   zip?: string | null;
   organizer?: string | null;
@@ -50,22 +52,20 @@ interface Event {
   imageUrl?: string | null;
   tags?: string[] | null;
   hidden?: boolean | null;
-  createdAt?: Date | null;
+  createdAt?: Date | string | null; // May be Date or string after SSR serialization
   timeUnknown?: boolean | null;
   recurringType?: string | null;
   favoriteCount?: number | null;
-}
-
-// Pre-computed metadata from server (avoids client-side O(n) computations)
-interface EventMetadata {
-  availableTags: string[];
-  availableLocations: string[];
-  availableZips: { zip: string; count: number }[];
+  score?: number | null;
+  scoreRarity?: number | null;
+  scoreUnique?: number | null;
+  scoreMagnitude?: number | null;
+  scoreReason?: string | null;
 }
 
 interface EventFeedProps {
-  initialEvents: Event[];
-  initialMetadata?: EventMetadata; // Optional for backwards compatibility
+  initialEvents?: InitialEvent[];
+  initialMetadata?: EventMetadata;
 }
 
 // Tag filter state for include/exclude tri-state filtering
@@ -90,26 +90,16 @@ function createFingerprintKey(
   return `${normalizedTitle}|||${normalizedOrganizer}`;
 }
 
-// Check if event matches any hidden fingerprint
-function matchesHiddenFingerprint(
-  event: Event,
-  hiddenEvents: HiddenEventFingerprint[]
-): boolean {
-  const eventKey = createFingerprintKey(event.title, event.organizer);
-  return hiddenEvents.some((fp) => {
-    const fpKey = `${fp.title}|||${fp.organizer}`;
-    return eventKey === fpKey;
-  });
-}
+// Score tier for filtering events by quality
+export type ScoreTier = "hidden" | "quality" | "outstanding";
 
-const parsePrice = (priceStr: string | null | undefined): number => {
-  if (!priceStr) return 0;
-  const lower = priceStr.toLowerCase();
-  if (lower.includes("free") || lower.includes("donation")) return 0;
-  const matches = priceStr.match(/(\d+(\.\d+)?)/);
-  if (matches) return parseFloat(matches[0]);
-  return 0;
-};
+// Get the score tier for an event based on its score
+function getEventScoreTier(score: number | null | undefined): ScoreTier {
+  if (score === null || score === undefined) return "quality"; // null treated as quality
+  if (score <= 8) return "hidden"; // Common: 0-8
+  if (score <= 13) return "quality"; // Quality: 9-13
+  return "outstanding"; // Outstanding: 14+
+}
 
 function getStorageItem<T>(key: string, defaultValue: T): T {
   if (typeof window === "undefined") return defaultValue;
@@ -119,6 +109,142 @@ function getStorageItem<T>(key: string, defaultValue: T): T {
   } catch {
     return defaultValue;
   }
+}
+
+// Parse URL filters on initial load (client-side only)
+// Returns null if no filter params present, otherwise returns parsed filters
+interface UrlFilters {
+  search?: string;
+  dateFilter?: DateFilterType;
+  customDateRange?: DateRange;
+  selectedDays?: number[];
+  selectedTimes?: TimeOfDay[];
+  priceFilter?: PriceFilterType;
+  customMaxPrice?: number | null;
+  tagsInclude?: string[];
+  tagsExclude?: string[];
+  selectedLocations?: string[];
+}
+
+function getInitialFiltersFromUrl(): {
+  filters: UrlFilters;
+  hasFilters: boolean;
+} {
+  if (typeof window === "undefined") {
+    return { filters: {}, hasFilters: false };
+  }
+
+  const params = new URLSearchParams(window.location.search);
+
+  // Check if any filter params exist
+  const hasFilters =
+    params.has("search") ||
+    params.has("dateFilter") ||
+    params.has("times") ||
+    params.has("priceFilter") ||
+    params.has("tagsInclude") ||
+    params.has("tagsExclude") ||
+    params.has("locations") ||
+    params.has("dateStart");
+
+  if (!hasFilters) {
+    return { filters: {}, hasFilters: false };
+  }
+
+  console.log(
+    "[EventFeed] URL filters detected, parsing params:",
+    Object.fromEntries(params.entries())
+  );
+
+  const filters: UrlFilters = {};
+
+  // Search
+  if (params.has("search")) {
+    filters.search = params.get("search") || "";
+  }
+
+  // Date filter
+  if (params.has("dateFilter")) {
+    const df = params.get("dateFilter") as DateFilterType;
+    if (
+      ["all", "today", "tomorrow", "weekend", "dayOfWeek", "custom"].includes(
+        df
+      )
+    ) {
+      filters.dateFilter = df;
+    }
+  }
+
+  // Days
+  if (params.has("days")) {
+    const days =
+      params
+        .get("days")
+        ?.split(",")
+        .map(Number)
+        .filter((n) => !isNaN(n) && n >= 0 && n <= 6) || [];
+    filters.selectedDays = days;
+  }
+
+  // Times
+  if (params.has("times")) {
+    const validTimes = ["morning", "afternoon", "evening"] as const;
+    const times =
+      params
+        .get("times")
+        ?.split(",")
+        .filter((t): t is TimeOfDay => validTimes.includes(t as TimeOfDay)) ||
+      [];
+    filters.selectedTimes = times;
+  }
+
+  // Custom date range
+  if (params.has("dateStart")) {
+    filters.customDateRange = {
+      start: params.get("dateStart"),
+      end: params.get("dateEnd"),
+    };
+    // If dateStart is present but dateFilter isn't explicitly set, assume custom
+    if (!filters.dateFilter) {
+      filters.dateFilter = "custom";
+    }
+  }
+
+  // Price filter
+  if (params.has("priceFilter")) {
+    const pf = params.get("priceFilter") as PriceFilterType;
+    if (["any", "free", "under20", "under100", "custom"].includes(pf)) {
+      filters.priceFilter = pf;
+    }
+  }
+
+  // Custom max price
+  if (params.has("maxPrice")) {
+    const mp = parseInt(params.get("maxPrice") || "", 10);
+    if (!isNaN(mp) && mp >= 0) {
+      filters.customMaxPrice = mp;
+    }
+  }
+
+  // Tags include/exclude
+  if (params.has("tagsInclude")) {
+    filters.tagsInclude =
+      params.get("tagsInclude")?.split(",").filter(Boolean) || [];
+  }
+  if (params.has("tagsExclude")) {
+    filters.tagsExclude =
+      params.get("tagsExclude")?.split(",").filter(Boolean) || [];
+  }
+
+  // Locations
+  if (params.has("locations")) {
+    filters.selectedLocations =
+      params.get("locations")?.split(",").filter(Boolean) || [];
+  }
+
+  console.log("[EventFeed] Parsed URL filters:", filters);
+
+  return { filters, hasFilters: true };
 }
 
 // Safe date parsing helper that returns undefined on invalid dates
@@ -131,81 +257,6 @@ function safeParseDateString(dateStr: string | null): Date | undefined {
   } catch {
     return undefined;
   }
-}
-
-// Helper functions for date filtering
-function isToday(date: Date): boolean {
-  const today = new Date();
-  return date.toDateString() === today.toDateString();
-}
-
-function isTomorrow(date: Date): boolean {
-  const tomorrow = new Date();
-  tomorrow.setDate(tomorrow.getDate() + 1);
-  return date.toDateString() === tomorrow.toDateString();
-}
-
-function isThisWeekend(date: Date): boolean {
-  const today = new Date();
-  const dayOfWeek = today.getDay(); // 0 = Sunday, 6 = Saturday
-
-  // Calculate Friday of THIS week (weekend = Fri, Sat, Sun)
-  // If today is Sunday (0), Friday was 2 days ago
-  // Otherwise, Friday is (5 - dayOfWeek) days away
-  const daysUntilFriday = dayOfWeek === 0 ? -2 : 5 - dayOfWeek;
-  const friday = new Date(today);
-  friday.setDate(today.getDate() + daysUntilFriday);
-  friday.setHours(0, 0, 0, 0);
-
-  // Calculate this Sunday end (2 days after Friday)
-  const sundayEnd = new Date(friday);
-  sundayEnd.setDate(friday.getDate() + 2);
-  sundayEnd.setHours(23, 59, 59, 999);
-
-  return date >= friday && date <= sundayEnd;
-}
-
-function isInDateRange(date: Date, range: DateRange): boolean {
-  if (!range.start) return true;
-
-  const eventDate = new Date(date);
-  eventDate.setHours(0, 0, 0, 0);
-
-  // Use safeParseDateString to parse yyyy-MM-dd as LOCAL date (not UTC)
-  const startDate = safeParseDateString(range.start);
-  if (!startDate) return true;
-  startDate.setHours(0, 0, 0, 0);
-
-  if (range.end) {
-    const endDate = safeParseDateString(range.end);
-    if (endDate) {
-      endDate.setHours(23, 59, 59, 999);
-      return eventDate >= startDate && eventDate <= endDate;
-    }
-  }
-
-  return eventDate.toDateString() === startDate.toDateString();
-}
-
-function isDayOfWeek(date: Date, days: number[]): boolean {
-  if (days.length === 0) return true; // No filter = show all
-  return days.includes(date.getDay());
-}
-
-// Time of day filter helper
-// Morning: 5 AM - Noon (hours 5-11)
-// Afternoon: Noon - 5 PM (hours 12-16)
-// Evening: 5 PM - 3 AM (hours 17-23, 0-2)
-function isInTimeOfDay(date: Date, times: TimeOfDay[]): boolean {
-  if (times.length === 0) return true; // No filter = show all
-  const hour = date.getHours();
-
-  for (const time of times) {
-    if (time === "morning" && hour >= 5 && hour < 12) return true;
-    if (time === "afternoon" && hour >= 12 && hour < 17) return true;
-    if (time === "evening" && (hour >= 17 || hour < 3)) return true; // 5 PM - 3 AM
-  }
-  return false;
 }
 
 const DAY_NAMES = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -227,46 +278,70 @@ const priceLabels: Record<PriceFilterType, string> = {
   custom: "Custom Max",
 };
 
-export default function EventFeed({ initialEvents, initialMetadata }: EventFeedProps) {
-  const [events, setEvents] = useState<Event[]>(initialEvents);
+export default function EventFeed({
+  initialEvents,
+  initialMetadata,
+}: EventFeedProps) {
   const { showToast } = useToast();
   const { user } = useAuth();
   const isLoggedIn = !!user;
+
+  // Parse URL filters once at initialization (not in useEffect)
+  // This ensures filters are correct from the first render
+  const [urlFilterState] = useState(() => getInitialFiltersFromUrl());
+  const urlFilters = urlFilterState.filters;
+  const hasUrlFilters = urlFilterState.hasFilters;
 
   // Track which events the user has favorited (persisted to localStorage)
   const [favoritedEventIds, setFavoritedEventIds] = useState<string[]>(() =>
     getStorageItem("favoritedEventIds", [])
   );
 
-  const [curatedEventIds, setCuratedEventIds] = useState<Set<string>>(new Set());
+  const [curatedEventIds, setCuratedEventIds] = useState<Set<string>>(
+    new Set()
+  );
   const [curateModalOpen, setCurateModalOpen] = useState(false);
-  const [curateModalEventId, setCurateModalEventId] = useState<string | null>(null);
+  const [curateModalEventId, setCurateModalEventId] = useState<string | null>(
+    null
+  );
   const [curateModalEventTitle, setCurateModalEventTitle] = useState("");
 
   // Search (committed value only - FilterBar handles local input state)
-  const [search, setSearch] = useState("");
+  // URL params take priority over localStorage
+  const [search, setSearch] = useState(() => urlFilters.search ?? "");
 
-  // Filters
-  const [dateFilter, setDateFilter] = useState<DateFilterType>(() =>
-    getStorageItem("dateFilter", "all")
+  // Filters - URL params take priority over localStorage for shared links
+  const [dateFilter, setDateFilter] = useState<DateFilterType>(
+    () => urlFilters.dateFilter ?? getStorageItem("dateFilter", "all")
   );
-  const [customDateRange, setCustomDateRange] = useState<DateRange>(() =>
-    getStorageItem("customDateRange", { start: null, end: null })
+  const [customDateRange, setCustomDateRange] = useState<DateRange>(
+    () =>
+      urlFilters.customDateRange ??
+      getStorageItem("customDateRange", { start: null, end: null })
   );
-  const [selectedDays, setSelectedDays] = useState<number[]>(() =>
-    getStorageItem("selectedDays", [])
+  const [selectedDays, setSelectedDays] = useState<number[]>(
+    () => urlFilters.selectedDays ?? getStorageItem("selectedDays", [])
   );
-  const [selectedTimes, setSelectedTimes] = useState<TimeOfDay[]>(() =>
-    getStorageItem("selectedTimes", [])
+  const [selectedTimes, setSelectedTimes] = useState<TimeOfDay[]>(
+    () => urlFilters.selectedTimes ?? getStorageItem("selectedTimes", [])
   );
-  const [priceFilter, setPriceFilter] = useState<PriceFilterType>(() =>
-    getStorageItem("priceFilter", "any")
+  const [priceFilter, setPriceFilter] = useState<PriceFilterType>(
+    () => urlFilters.priceFilter ?? getStorageItem("priceFilter", "any")
   );
   const [customMaxPrice, setCustomMaxPrice] = useState<number | null>(() =>
-    getStorageItem("customMaxPrice", null)
+    urlFilters.customMaxPrice !== undefined
+      ? urlFilters.customMaxPrice
+      : getStorageItem("customMaxPrice", null)
   );
   // Tag filters with include/exclude (with migration from old selectedTags format)
   const [tagFilters, setTagFilters] = useState<TagFilterState>(() => {
+    // URL params take priority
+    if (urlFilters.tagsInclude || urlFilters.tagsExclude) {
+      return {
+        include: urlFilters.tagsInclude || [],
+        exclude: urlFilters.tagsExclude || [],
+      };
+    }
     // Try new format first
     const newFormat = getStorageItem<TagFilterState | null>("tagFilters", null);
     if (newFormat && (newFormat.include || newFormat.exclude)) return newFormat;
@@ -275,8 +350,9 @@ export default function EventFeed({ initialEvents, initialMetadata }: EventFeedP
     const oldSelectedTags = getStorageItem<string[]>("selectedTags", []);
     return { include: oldSelectedTags, exclude: [] };
   });
-  const [selectedLocations, setSelectedLocations] = useState<string[]>(() =>
-    getStorageItem("selectedLocations", [])
+  const [selectedLocations, setSelectedLocations] = useState<string[]>(
+    () =>
+      urlFilters.selectedLocations ?? getStorageItem("selectedLocations", [])
   );
   const [selectedZips, setSelectedZips] = useState<string[]>(() =>
     getStorageItem("selectedZips", [])
@@ -284,6 +360,16 @@ export default function EventFeed({ initialEvents, initialMetadata }: EventFeedP
   // Daily events filter - default to showing daily events
   const [showDailyEvents, setShowDailyEvents] = useState<boolean>(() =>
     getStorageItem("showDailyEvents", true)
+  );
+
+  // Score tier filter - defaults to quality + outstanding (hide low-score events)
+  const [selectedScoreTiers, setSelectedScoreTiers] = useState<ScoreTier[]>(
+    () => getStorageItem("selectedScoreTiers", ["quality", "outstanding"])
+  );
+
+  // Track expanded minimized events (session only - resets on page reload)
+  const [expandedMinimizedIds, setExpandedMinimizedIds] = useState<Set<string>>(
+    new Set()
   );
 
   // Settings & Modals
@@ -307,33 +393,137 @@ export default function EventFeed({ initialEvents, initialMetadata }: EventFeedP
   const [isLoaded, setIsLoaded] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
 
-  // Deferred values for filter computation - allows UI to update immediately
-  // while the heavy filtering computation happens in the background
-  const deferredTagFilters = useDeferredValue(tagFilters);
-  const deferredPriceFilter = useDeferredValue(priceFilter);
-  const deferredDateFilter = useDeferredValue(dateFilter);
-  const deferredSelectedDays = useDeferredValue(selectedDays);
-  const deferredSelectedTimes = useDeferredValue(selectedTimes);
-  const deferredCustomDateRange = useDeferredValue(customDateRange);
-  const deferredCustomMaxPrice = useDeferredValue(customMaxPrice);
-  const deferredSelectedLocations = useDeferredValue(selectedLocations);
-  const deferredSelectedZips = useDeferredValue(selectedZips);
-  const deferredSearch = useDeferredValue(search);
-  const deferredShowDailyEvents = useDeferredValue(showDailyEvents);
+  // Build filters object for the query
+  const filters = useMemo(
+    () => ({
+      search,
+      dateFilter,
+      customDateRange,
+      selectedDays,
+      selectedTimes,
+      priceFilter,
+      customMaxPrice,
+      tagsInclude: tagFilters.include,
+      tagsExclude: tagFilters.exclude,
+      selectedLocations,
+      selectedZips,
+      blockedHosts,
+      blockedKeywords,
+      hiddenFingerprints: hiddenEvents,
+      showDailyEvents,
+      useDefaultFilters: true,
+    }),
+    [
+      search,
+      dateFilter,
+      customDateRange,
+      selectedDays,
+      selectedTimes,
+      priceFilter,
+      customMaxPrice,
+      tagFilters,
+      selectedLocations,
+      selectedZips,
+      blockedHosts,
+      blockedKeywords,
+      hiddenEvents,
+      showDailyEvents,
+    ]
+  );
 
-  // Detect when filters are pending (deferred value hasn't caught up)
-  const isFilterPending =
-    deferredTagFilters !== tagFilters ||
-    deferredPriceFilter !== priceFilter ||
-    deferredDateFilter !== dateFilter ||
-    deferredSelectedLocations !== selectedLocations ||
-    deferredSelectedZips !== selectedZips ||
-    deferredSearch !== search ||
-    deferredCustomMaxPrice !== customMaxPrice ||
-    deferredSelectedDays !== selectedDays ||
-    deferredSelectedTimes !== selectedTimes ||
-    deferredCustomDateRange !== customDateRange ||
-    deferredShowDailyEvents !== showDailyEvents;
+  // Prepare initial data for hydration (convert Date objects to ISO strings for API format)
+  const preparedInitialData = useMemo(() => {
+    if (!initialEvents || initialEvents.length === 0) return undefined;
+    return {
+      events: initialEvents.map((e) => ({
+        ...e,
+        // Handle both Date objects and string dates (from SSR serialization)
+        startDate:
+          typeof e.startDate === "string"
+            ? e.startDate
+            : e.startDate.toISOString(),
+        createdAt: e.createdAt
+          ? typeof e.createdAt === "string"
+            ? e.createdAt
+            : e.createdAt.toISOString()
+          : null,
+      })) as ApiEvent[],
+      metadata: initialMetadata,
+    };
+  }, [initialEvents, initialMetadata]);
+
+  // Use the event query hook for server-side filtering
+  // When URL filters exist, skip SSR initialData (it's unfiltered and wrong)
+  const {
+    events: apiEvents,
+    metadata: queryMetadata,
+    totalCount,
+    hasMore,
+    isFetching,
+    isFetchingNextPage,
+    fetchNextPage,
+  } = useEventQuery({
+    filters,
+    // Don't use SSR data when URL has filters - SSR data is always unfiltered
+    initialData: hasUrlFilters ? undefined : preparedInitialData,
+    enabled: isLoaded, // Only fetch after client hydration
+  });
+
+  // Log when URL filters cause fresh fetch
+  useEffect(() => {
+    if (hasUrlFilters && isLoaded) {
+      console.log(
+        "[EventFeed] Fetching fresh data (URL filters present, skipped SSR data)"
+      );
+    }
+  }, [hasUrlFilters, isLoaded]);
+
+  // Convert API events to component format (parse startDate string to Date)
+  const events = useMemo(
+    () =>
+      apiEvents.map((e) => ({
+        ...e,
+        startDate: new Date(e.startDate),
+      })),
+    [apiEvents]
+  );
+
+  // Use query metadata or initial metadata
+  const metadata = queryMetadata || initialMetadata;
+
+  // Infinite scroll trigger
+  const loadMoreRef = useInfiniteScrollTrigger(
+    () => {
+      if (hasMore && !isFetchingNextPage) {
+        fetchNextPage();
+      }
+    },
+    { enabled: hasMore && !isFetchingNextPage }
+  );
+
+  // Show loading indicator when fetching
+  const isFilterPending = isFetching && !isFetchingNextPage;
+
+  // filteredEvents is now just events from the query (server already filtered)
+  // We apply session-hidden keys and score tier filtering client-side
+  const filteredEvents = useMemo(() => {
+    return events.filter((event) => {
+      // Filter by score tier
+      const tier = getEventScoreTier(event.score);
+      if (!selectedScoreTiers.includes(tier)) {
+        return false;
+      }
+
+      // Only filter out events hidden in THIS session if they're newly hidden
+      // Events hidden in previous sessions are already filtered server-side
+      const eventKey = createFingerprintKey(event.title, event.organizer);
+      if (sessionHiddenKeys.has(eventKey)) {
+        // Don't filter, just mark as hidden (will show greyed out)
+        return true;
+      }
+      return true;
+    });
+  }, [events, sessionHiddenKeys, selectedScoreTiers]);
 
   // Preference sync with database (for logged-in users)
   // Uses refs to avoid stale closures in callbacks
@@ -368,11 +558,13 @@ export default function EventFeed({ initialEvents, initialMetadata }: EventFeedP
   // Fetch curations on mount for logged-in users
   useEffect(() => {
     if (isLoggedIn) {
-      fetch('/api/curate')
-        .then(res => res.json())
-        .then(data => {
+      fetch("/api/curate")
+        .then((res) => res.json())
+        .then((data) => {
           if (data.curations) {
-            const ids = new Set<string>(data.curations.map((c: { eventId: string }) => c.eventId));
+            const ids = new Set<string>(
+              data.curations.map((c: { eventId: string }) => c.eventId)
+            );
             setCuratedEventIds(ids);
           }
         })
@@ -413,6 +605,10 @@ export default function EventFeed({ initialEvents, initialMetadata }: EventFeedP
       localStorage.setItem("hiddenEvents", JSON.stringify(hiddenEvents));
       localStorage.setItem("showDailyEvents", JSON.stringify(showDailyEvents));
       localStorage.setItem(
+        "selectedScoreTiers",
+        JSON.stringify(selectedScoreTiers)
+      );
+      localStorage.setItem(
         "favoritedEventIds",
         JSON.stringify(favoritedEventIds)
       );
@@ -431,6 +627,7 @@ export default function EventFeed({ initialEvents, initialMetadata }: EventFeedP
     blockedKeywords,
     hiddenEvents,
     showDailyEvents,
+    selectedScoreTiers,
     favoritedEventIds,
     isLoaded,
   ]);
@@ -450,92 +647,11 @@ export default function EventFeed({ initialEvents, initialMetadata }: EventFeedP
     saveToDatabase,
   ]);
 
-  // Read URL params on mount (for shared links)
+  // Handle non-filter URL params on mount (filter params are handled at initialization)
   useEffect(() => {
     if (!isLoaded) return;
 
     const params = new URLSearchParams(window.location.search);
-
-    // Check if any filter params exist in URL
-    const hasUrlFilters =
-      params.has("search") ||
-      params.has("dateFilter") ||
-      params.has("times") ||
-      params.has("priceFilter") ||
-      params.has("tagsInclude") ||
-      params.has("tagsExclude") ||
-      params.has("locations");
-
-    if (!hasUrlFilters) return;
-
-    // Apply URL params to state (overrides localStorage for shared links)
-    if (params.has("search")) {
-      setSearch(params.get("search") || "");
-    }
-
-    if (params.has("dateFilter")) {
-      const df = params.get("dateFilter") as DateFilterType;
-      if (
-        ["all", "today", "tomorrow", "weekend", "dayOfWeek", "custom"].includes(
-          df
-        )
-      ) {
-        setDateFilter(df);
-      }
-    }
-
-    if (params.has("days")) {
-      const days =
-        params
-          .get("days")
-          ?.split(",")
-          .map(Number)
-          .filter((n) => !isNaN(n) && n >= 0 && n <= 6) || [];
-      setSelectedDays(days);
-    }
-
-    if (params.has("times")) {
-      const validTimes = ["morning", "afternoon", "evening"] as const;
-      const times =
-        params
-          .get("times")
-          ?.split(",")
-          .filter((t): t is TimeOfDay => validTimes.includes(t as TimeOfDay)) ||
-        [];
-      setSelectedTimes(times);
-    }
-
-    if (params.has("dateStart")) {
-      setCustomDateRange({
-        start: params.get("dateStart"),
-        end: params.get("dateEnd"),
-      });
-    }
-
-    if (params.has("priceFilter")) {
-      const pf = params.get("priceFilter") as PriceFilterType;
-      if (["any", "free", "under20", "under100", "custom"].includes(pf)) {
-        setPriceFilter(pf);
-      }
-    }
-
-    if (params.has("maxPrice")) {
-      const mp = parseInt(params.get("maxPrice") || "", 10);
-      if (!isNaN(mp) && mp >= 0) setCustomMaxPrice(mp);
-    }
-
-    if (params.has("tagsInclude") || params.has("tagsExclude")) {
-      setTagFilters({
-        include: params.get("tagsInclude")?.split(",").filter(Boolean) || [],
-        exclude: params.get("tagsExclude")?.split(",").filter(Boolean) || [],
-      });
-    }
-
-    if (params.has("locations")) {
-      setSelectedLocations(
-        params.get("locations")?.split(",").filter(Boolean) || []
-      );
-    }
 
     // Check for save feed prompt (from custom feed builder)
     if (params.has("showSavePrompt")) {
@@ -552,267 +668,10 @@ export default function EventFeed({ initialEvents, initialMetadata }: EventFeedP
     }
   }, [isLoaded]); // Only run once after hydration
 
-  // Use pre-computed metadata from server when available (avoids client-side O(n) computations)
-  // Falls back to computing on client for backwards compatibility
-  const availableTags = useMemo(() => {
-    if (initialMetadata?.availableTags) {
-      return initialMetadata.availableTags;
-    }
-    // Fallback: compute on client (only if server didn't provide metadata)
-    const tagCounts = new Map<string, number>();
-    events.forEach((event) => {
-      event.tags?.forEach((tag) => {
-        tagCounts.set(tag, (tagCounts.get(tag) || 0) + 1);
-      });
-    });
-    return Array.from(tagCounts.entries())
-      .sort((a, b) => b[1] - a[1])
-      .map(([tag]) => tag);
-  }, [events, initialMetadata?.availableTags]);
-
-  const availableLocations = useMemo(() => {
-    if (initialMetadata?.availableLocations) {
-      return initialMetadata.availableLocations;
-    }
-    // Fallback: compute on client
-    const LOCATION_MIN_EVENTS = 6;
-    const cityCount = new Map<string, number>();
-    let onlineCount = 0;
-
-    events.forEach((event) => {
-      const city = extractCity(event.location);
-      if (city === "Online") {
-        onlineCount++;
-      } else if (city) {
-        cityCount.set(city, (cityCount.get(city) || 0) + 1);
-      }
-    });
-
-    const cities = Array.from(cityCount.entries())
-      .filter(
-        ([city, count]) => city === "Asheville" || count >= LOCATION_MIN_EVENTS
-      )
-      .map(([city]) => city)
-      .sort((a, b) => {
-        if (a === "Asheville") return -1;
-        if (b === "Asheville") return 1;
-        return a.localeCompare(b);
-      });
-
-    if (onlineCount >= LOCATION_MIN_EVENTS) {
-      cities.push("Online");
-    }
-
-    return cities;
-  }, [events, initialMetadata?.availableLocations]);
-
-  const availableZips = useMemo(() => {
-    if (initialMetadata?.availableZips) {
-      return initialMetadata.availableZips;
-    }
-    // Fallback: compute on client
-    const ZIP_MIN_EVENTS = 6;
-    const zipCounts = new Map<string, number>();
-
-    events.forEach((event) => {
-      if (event.zip) {
-        zipCounts.set(event.zip, (zipCounts.get(event.zip) || 0) + 1);
-      }
-    });
-
-    return Array.from(zipCounts.entries())
-      .filter(([, count]) => count >= ZIP_MIN_EVENTS)
-      .sort((a, b) => b[1] - a[1])
-      .map(([zip, count]) => ({ zip, count }));
-  }, [events, initialMetadata?.availableZips]);
-
-  // Filter events - uses deferred values for optimistic UI updates
-  const filteredEvents = useMemo(() => {
-    if (!isLoaded) return events;
-
-    // Simple case-insensitive search (using deferred value)
-    const searchLower = deferredSearch?.toLowerCase() || "";
-
-    return events.filter((event) => {
-      // 1. Hidden Events (by title+organizer fingerprint)
-      // Only filter out if it was hidden in a PREVIOUS session (not this session)
-      const eventKey = createFingerprintKey(event.title, event.organizer);
-      if (
-        matchesHiddenFingerprint(event, hiddenEvents) &&
-        !sessionHiddenKeys.has(eventKey)
-      ) {
-        return false;
-      }
-
-      // 2. Blocked Hosts
-      if (
-        event.organizer &&
-        blockedHosts.some((host) =>
-          event.organizer!.toLowerCase().includes(host.toLowerCase())
-        )
-      ) {
-        return false;
-      }
-
-      // 3. Blocked Keywords (user custom)
-      if (
-        blockedKeywords.some((kw) =>
-          event.title.toLowerCase().includes(kw.toLowerCase())
-        )
-      ) {
-        return false;
-      }
-
-      // 4. Daily Events Filter
-      if (!deferredShowDailyEvents && event.recurringType === "daily") {
-        return false;
-      }
-
-      // 5. Date Filter (using deferred values)
-      const eventDate = new Date(event.startDate);
-      if (deferredDateFilter === "today" && !isToday(eventDate)) return false;
-      if (deferredDateFilter === "tomorrow" && !isTomorrow(eventDate))
-        return false;
-      if (deferredDateFilter === "weekend" && !isThisWeekend(eventDate))
-        return false;
-      if (
-        deferredDateFilter === "dayOfWeek" &&
-        !isDayOfWeek(eventDate, deferredSelectedDays)
-      )
-        return false;
-      if (
-        deferredDateFilter === "custom" &&
-        !isInDateRange(eventDate, deferredCustomDateRange)
-      )
-        return false;
-
-      // 5b. Time of Day Filter (using deferred values)
-      // Skip time filter for events with unknown time (they show regardless)
-      if (deferredSelectedTimes.length > 0 && !event.timeUnknown) {
-        if (!isInTimeOfDay(eventDate, deferredSelectedTimes)) return false;
-      }
-
-      // 6. Price Filter (using deferred values)
-      if (deferredPriceFilter !== "any") {
-        const price = parsePrice(event.price);
-        const priceStr = event.price?.toLowerCase() || "";
-        const isUnknown =
-          !event.price || priceStr === "unknown" || priceStr.length === 0;
-        const isFree =
-          isUnknown ||
-          priceStr.includes("free") ||
-          priceStr.includes("donation") ||
-          (/\d/.test(priceStr) && price === 0);
-
-        if (deferredPriceFilter === "free" && !isFree) return false;
-        if (deferredPriceFilter === "under20" && price > 20) return false;
-        if (deferredPriceFilter === "under100" && price > 100) return false;
-        if (
-          deferredPriceFilter === "custom" &&
-          deferredCustomMaxPrice !== null &&
-          price > deferredCustomMaxPrice
-        )
-          return false;
-      }
-
-      // 7. Tag Filter (include AND exclude) - using deferred values
-      const eventTags = event.tags || [];
-
-      // Exclude logic: If event has ANY excluded tag, filter it out
-      if (deferredTagFilters.exclude.length > 0) {
-        const hasExcludedTag = deferredTagFilters.exclude.some((tag) =>
-          eventTags.includes(tag)
-        );
-        if (hasExcludedTag) return false;
-      }
-
-      // Include logic: If includes are set, event must have at least one
-      if (deferredTagFilters.include.length > 0) {
-        const hasIncludedTag = deferredTagFilters.include.some((tag) =>
-          eventTags.includes(tag)
-        );
-        if (!hasIncludedTag) return false;
-      }
-
-      // 8. Location & Zip Filter (multi-select - OR logic) - using deferred values
-      const hasLocationFilter = deferredSelectedLocations.length > 0;
-      const hasZipFilter = deferredSelectedZips.length > 0;
-
-      if (hasLocationFilter || hasZipFilter) {
-        const eventCity = extractCity(event.location);
-        const eventZip = event.zip;
-        let matchesFilter = false;
-
-        // Check zip filter first (more specific)
-        if (hasZipFilter && eventZip) {
-          if (deferredSelectedZips.includes(eventZip)) {
-            matchesFilter = true;
-          }
-        }
-
-        // Check location filter if no zip match yet
-        if (!matchesFilter && hasLocationFilter) {
-          for (const loc of deferredSelectedLocations) {
-            if (loc === "asheville") {
-              // "Asheville area" includes: Asheville city + known Asheville venues + Asheville zips
-              if (
-                isAshevilleArea(event.location) ||
-                (eventZip && isAshevilleZip(eventZip))
-              ) {
-                matchesFilter = true;
-                break;
-              }
-            } else if (loc === "Online") {
-              if (eventCity === "Online") {
-                matchesFilter = true;
-                break;
-              }
-            } else {
-              // Specific city - exact match
-              if (eventCity === loc) {
-                matchesFilter = true;
-                break;
-              }
-            }
-          }
-        }
-
-        if (!matchesFilter) {
-          return false;
-        }
-      }
-
-      // 9. Search (searches title, description, organizer, location)
-      if (searchLower) {
-        const searchText = `${event.title} ${event.description || ""} ${
-          event.organizer || ""
-        } ${event.location || ""}`.toLowerCase();
-        if (!searchText.includes(searchLower)) {
-          return false;
-        }
-      }
-
-      return true;
-    });
-  }, [
-    events,
-    deferredSearch,
-    deferredDateFilter,
-    deferredCustomDateRange,
-    deferredSelectedDays,
-    deferredSelectedTimes,
-    deferredPriceFilter,
-    deferredCustomMaxPrice,
-    deferredTagFilters,
-    deferredSelectedLocations,
-    deferredSelectedZips,
-    blockedHosts,
-    blockedKeywords,
-    hiddenEvents,
-    sessionHiddenKeys,
-    deferredShowDailyEvents,
-    isLoaded,
-  ]);
+  // Use pre-computed metadata from server (API returns this with first page)
+  const availableTags = metadata?.availableTags || [];
+  const availableLocations = metadata?.availableLocations || [];
+  const availableZips = metadata?.availableZips || [];
 
   // Build active filters list for display
   const activeFilters = useMemo<ActiveFilter[]>(() => {
@@ -1004,21 +863,6 @@ export default function EventFeed({ initialEvents, initialMetadata }: EventFeedP
         isFavorited ? prev.filter((id) => id !== eventId) : [...prev, eventId]
       );
 
-      // Optimistically update event's favorite count
-      setEvents((prev) =>
-        prev.map((event) =>
-          event.id === eventId
-            ? {
-                ...event,
-                favoriteCount: Math.max(
-                  0,
-                  (event.favoriteCount ?? 0) + (isFavorited ? -1 : 1)
-                ),
-              }
-            : event
-        )
-      );
-
       try {
         const response = await fetch(`/api/events/${eventId}/favorite`, {
           method: "POST",
@@ -1029,34 +873,10 @@ export default function EventFeed({ initialEvents, initialMetadata }: EventFeedP
         if (!response.ok) {
           throw new Error("Failed to update favorite");
         }
-
-        const data = await response.json();
-
-        // Update with actual count from server
-        setEvents((prev) =>
-          prev.map((event) =>
-            event.id === eventId
-              ? { ...event, favoriteCount: data.favoriteCount }
-              : event
-          )
-        );
       } catch (error) {
-        // Revert optimistic updates on error
+        // Revert optimistic update on error
         setFavoritedEventIds((prev) =>
           isFavorited ? [...prev, eventId] : prev.filter((id) => id !== eventId)
-        );
-        setEvents((prev) =>
-          prev.map((event) =>
-            event.id === eventId
-              ? {
-                  ...event,
-                  favoriteCount: Math.max(
-                    0,
-                    (event.favoriteCount ?? 0) + (isFavorited ? 1 : -1)
-                  ),
-                }
-              : event
-          )
         );
         console.error("Failed to toggle favorite:", error);
       }
@@ -1065,7 +885,7 @@ export default function EventFeed({ initialEvents, initialMetadata }: EventFeedP
   );
 
   const handleOpenCurateModal = (eventId: string) => {
-    const event = filteredEvents.find(e => e.id === eventId);
+    const event = filteredEvents.find((e) => e.id === eventId);
     if (event) {
       setCurateModalEventId(eventId);
       setCurateModalEventTitle(event.title);
@@ -1077,18 +897,22 @@ export default function EventFeed({ initialEvents, initialMetadata }: EventFeedP
     if (!curateModalEventId) return;
 
     // Optimistic update
-    setCuratedEventIds(prev => new Set([...prev, curateModalEventId]));
+    setCuratedEventIds((prev) => new Set([...prev, curateModalEventId]));
 
     try {
-      const res = await fetch('/api/curate', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ eventId: curateModalEventId, action: 'add', note }),
+      const res = await fetch("/api/curate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          eventId: curateModalEventId,
+          action: "add",
+          note,
+        }),
       });
 
       if (!res.ok) {
         // Revert on error
-        setCuratedEventIds(prev => {
+        setCuratedEventIds((prev) => {
           const next = new Set(prev);
           next.delete(curateModalEventId);
           return next;
@@ -1096,7 +920,7 @@ export default function EventFeed({ initialEvents, initialMetadata }: EventFeedP
       }
     } catch {
       // Revert on error
-      setCuratedEventIds(prev => {
+      setCuratedEventIds((prev) => {
         const next = new Set(prev);
         next.delete(curateModalEventId);
         return next;
@@ -1109,26 +933,26 @@ export default function EventFeed({ initialEvents, initialMetadata }: EventFeedP
 
   const handleUncurate = async (eventId: string) => {
     // Optimistic update
-    setCuratedEventIds(prev => {
+    setCuratedEventIds((prev) => {
       const next = new Set(prev);
       next.delete(eventId);
       return next;
     });
 
     try {
-      const res = await fetch('/api/curate', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ eventId, action: 'remove' }),
+      const res = await fetch("/api/curate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ eventId, action: "remove" }),
       });
 
       if (!res.ok) {
         // Revert on error
-        setCuratedEventIds(prev => new Set([...prev, eventId]));
+        setCuratedEventIds((prev) => new Set([...prev, eventId]));
       }
     } catch {
       // Revert on error
-      setCuratedEventIds(prev => new Set([...prev, eventId]));
+      setCuratedEventIds((prev) => new Set([...prev, eventId]));
     }
   };
 
@@ -1269,6 +1093,8 @@ export default function EventFeed({ initialEvents, initialMetadata }: EventFeedP
         onTagFiltersChange={setTagFilters}
         showDailyEvents={showDailyEvents}
         onShowDailyEventsChange={setShowDailyEvents}
+        selectedScoreTiers={selectedScoreTiers}
+        onScoreTiersChange={setSelectedScoreTiers}
         onOpenSettings={() => setIsSettingsOpen(true)}
       />
 
@@ -1277,8 +1103,8 @@ export default function EventFeed({ initialEvents, initialMetadata }: EventFeedP
         onRemove={handleRemoveFilter}
         onClearAll={handleClearAllFilters}
         onClearAllTags={() => setTagFilters({ include: [], exclude: [] })}
-        totalEvents={events.length}
-        filteredCount={filteredEvents.length}
+        totalEvents={totalCount}
+        filteredCount={totalCount}
         exportParams={exportParams}
         shareParams={shareParams}
         onOpenChat={() => setIsChatOpen(true)}
@@ -1423,6 +1249,12 @@ export default function EventFeed({ initialEvents, initialMetadata }: EventFeedP
                     // Hide border on the card before the divider
                     const hideCardBorder =
                       isTodayGroup && index === nowDividerIndex - 1;
+
+                    // Determine display mode based on score tier
+                    const tier = getEventScoreTier(event.score);
+                    const isMinimized =
+                      tier === "quality" && !expandedMinimizedIds.has(event.id);
+
                     return (
                       <div key={event.id}>
                         {showNowDivider && (
@@ -1459,6 +1291,14 @@ export default function EventFeed({ initialEvents, initialMetadata }: EventFeedP
                           onCurate={handleOpenCurateModal}
                           onUncurate={handleUncurate}
                           isLoggedIn={isLoggedIn}
+                          displayMode={isMinimized ? "minimized" : "full"}
+                          onExpandMinimized={(id) =>
+                            setExpandedMinimizedIds(
+                              (prev) => new Set([...prev, id])
+                            )
+                          }
+                          scoreTier={tier}
+                          eventScore={event.score}
                         />
                       </div>
                     );
@@ -1469,9 +1309,32 @@ export default function EventFeed({ initialEvents, initialMetadata }: EventFeedP
           })}
       </div>
 
-      {filteredEvents.length === 0 && (
+      {filteredEvents.length === 0 && !isFetching && (
         <div className="text-center py-20 text-gray-500 dark:text-gray-400">
           No events found matching your criteria.
+        </div>
+      )}
+
+      {/* Infinite scroll trigger + Show more button */}
+      {hasMore && (
+        <div
+          ref={loadMoreRef}
+          className="py-8 flex flex-col items-center justify-center gap-4"
+        >
+          {isFetchingNextPage ? (
+            <div className="flex items-center gap-2 text-gray-500 dark:text-gray-400">
+              <Loader2Icon size={20} className="animate-spin" />
+              <span className="text-sm">Loading more events...</span>
+            </div>
+          ) : (
+            <button
+              onClick={() => fetchNextPage()}
+              className="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors flex items-center gap-2"
+            >
+              <ArrowDownIcon size={18} />
+              Show More Events
+            </button>
+          )}
         </div>
       )}
 

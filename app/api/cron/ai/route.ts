@@ -2,11 +2,12 @@ import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { events } from "@/lib/db/schema";
 import { eq, or, like, sql, isNull, and, isNotNull } from "drizzle-orm";
-import { generateEventTags } from "@/lib/ai/tagging";
-// import { generateAndUploadEventImage } from "@/lib/ai/imageGeneration"; // Disabled - using static fallback
-import { generateEventSummary } from "@/lib/ai/summary";
+import { generateTagsAndSummary } from "@/lib/ai/tagAndSummarize";
 import { generateEmbedding, createEmbeddingText } from "@/lib/ai/embedding";
-import { env, isAIEnabled } from "@/lib/config/env";
+import { generateEventScore, getRecurringEventScore } from "@/lib/ai/scoring";
+import { checkWeeklyRecurring } from "@/lib/ai/recurringDetection";
+import { findSimilarEvents } from "@/lib/db/similaritySearch";
+import { env } from "@/lib/config/env";
 import { isAzureAIEnabled } from "@/lib/ai/azure-client";
 import { verifyAuthToken } from "@/lib/utils/auth";
 import { invalidateEventsCache } from "@/lib/cache/invalidation";
@@ -29,23 +30,28 @@ const chunk = <T>(arr: T[], size: number) =>
     arr.slice(i * size, i * size + size)
   );
 
-// AI-only cron job
+// AI processing cron job
 //
-// This route handles ONLY AI tagging and image generation.
+// This route handles AI tagging, summary generation, embeddings, scoring, and images.
 // Scraping and upserts are handled by /api/cron/scrape
 //
-// Schedule: Every 6 hours at :30 (cron: "30 0/6 * * *")
-// Runs 30 minutes after the scrape job to process new events
+// Schedule: Every 6 hours at :10 (runs 10 minutes after the scrape job)
+//
+// Processing Flow:
+// 1. Combined Pass: Generate tags + summary in one Azure call
+// 2. Embeddings Pass: Generate Gemini embeddings for events with summaries
+// 3. Scoring Pass: Score events using similar events context (daily/weekly skip AI)
+// 4. Images Pass: Set default fallback images
 export async function GET(request: Request) {
   const authHeader = request.headers.get("authorization");
   if (!verifyAuthToken(authHeader, env.CRON_SECRET)) {
     return new NextResponse("Unauthorized", { status: 401 });
   }
 
-  if (!isAIEnabled()) {
+  if (!isAzureAIEnabled()) {
     return NextResponse.json({
       success: false,
-      error: "AI features not enabled (GEMINI_API_KEY not set)",
+      error: "Azure AI not enabled (AZURE_OPENAI_API_KEY and AZURE_OPENAI_ENDPOINT required)",
     }, { status: 400 });
   }
 
@@ -53,9 +59,9 @@ export async function GET(request: Request) {
 
   // Stats tracking
   const stats = {
-    tagging: { duration: 0, success: 0, failed: 0, total: 0 },
-    summaries: { duration: 0, success: 0, failed: 0, total: 0 },
+    combined: { duration: 0, success: 0, failed: 0, total: 0 },
     embeddings: { duration: 0, success: 0, failed: 0, total: 0 },
+    scoring: { duration: 0, success: 0, failed: 0, total: 0, skippedRecurring: 0 },
     images: { duration: 0, success: 0, failed: 0, total: 0 },
   };
 
@@ -63,9 +69,15 @@ export async function GET(request: Request) {
     console.log("[AI] ════════════════════════════════════════════════");
     console.log("[AI] Starting AI processing job...");
 
-    // 1. Find events that need tags (empty tags array)
-    console.log("[AI] Finding events needing tags...");
-    const eventsNeedingTags = await db
+    const now = new Date();
+    const threeMonthsFromNow = new Date();
+    threeMonthsFromNow.setMonth(threeMonthsFromNow.getMonth() + 3);
+
+    // ═══════════════════════════════════════════════════════════════
+    // 1. COMBINED PASS: Tags + Summary in one Azure call
+    // ═══════════════════════════════════════════════════════════════
+    console.log("[AI] Finding events needing tags or summaries (next 3 months)...");
+    const eventsNeedingProcessing = await db
       .select({
         id: events.id,
         title: events.title,
@@ -73,24 +85,37 @@ export async function GET(request: Request) {
         location: events.location,
         organizer: events.organizer,
         startDate: events.startDate,
+        tags: events.tags,
+        aiSummary: events.aiSummary,
       })
       .from(events)
       .where(
-        sql`${events.tags} = '{}'::text[] OR ${events.tags} IS NULL`
+        and(
+          or(
+            sql`${events.tags} = '{}'::text[] OR ${events.tags} IS NULL`,
+            isNull(events.aiSummary)
+          ),
+          sql`${events.startDate} >= ${now.toISOString()}`,
+          sql`${events.startDate} <= ${threeMonthsFromNow.toISOString()}`
+        )
       )
-      .limit(100); // Process max 100 per run to stay within timeout
+      .limit(100); // Process max 100 per run
 
-    stats.tagging.total = eventsNeedingTags.length;
-    console.log(`[AI] Found ${eventsNeedingTags.length} events needing tags`);
+    stats.combined.total = eventsNeedingProcessing.length;
+    console.log(`[AI] Found ${eventsNeedingProcessing.length} events needing tags/summaries`);
 
-    // 2. Generate tags in batches
-    if (eventsNeedingTags.length > 0) {
-      const tagStartTime = Date.now();
-      for (const batch of chunk(eventsNeedingTags, 5)) {
+    if (eventsNeedingProcessing.length > 0) {
+      const combinedStartTime = Date.now();
+      for (const batch of chunk(eventsNeedingProcessing, 5)) {
         await Promise.all(
           batch.map(async (event) => {
             try {
-              const tags = await generateEventTags({
+              // Check if we already have tags or summary
+              const needsTags = !event.tags || event.tags.length === 0;
+              const needsSummary = !event.aiSummary;
+
+              // If we need either, generate both (combined call is more efficient)
+              const result = await generateTagsAndSummary({
                 title: event.title,
                 description: event.description,
                 location: event.location,
@@ -98,108 +123,48 @@ export async function GET(request: Request) {
                 startDate: event.startDate,
               });
 
-              // Update event with generated tags
-              await db
-                .update(events)
-                .set({ tags })
-                .where(eq(events.id, event.id));
+              // Update with results (only update fields that were empty)
+              const updateData: { tags?: string[]; aiSummary?: string } = {};
+              if (needsTags && result.tags.length > 0) {
+                updateData.tags = result.tags;
+              }
+              if (needsSummary && result.summary) {
+                updateData.aiSummary = result.summary;
+              }
 
-              stats.tagging.success++;
-              console.log(`[AI] Tagged "${event.title}" with ${tags.length} tags`);
+              if (Object.keys(updateData).length > 0) {
+                await db
+                  .update(events)
+                  .set(updateData)
+                  .where(eq(events.id, event.id));
+
+                stats.combined.success++;
+                console.log(`[AI] Processed "${event.title.slice(0, 40)}..." - ${result.tags.length} tags, summary: ${result.summary ? 'yes' : 'no'}`);
+              } else {
+                stats.combined.failed++;
+                console.warn(`[AI] No results for "${event.title.slice(0, 40)}..."`);
+              }
             } catch (err) {
-              stats.tagging.failed++;
+              stats.combined.failed++;
               console.error(
-                `[AI] Failed to tag "${event.title}":`,
+                `[AI] Failed to process "${event.title}":`,
                 err instanceof Error ? err.message : err
               );
             }
           })
         );
-        // Small delay between batches
+        // Delay between batches
         await new Promise((r) => setTimeout(r, 1000));
       }
-      stats.tagging.duration = Date.now() - tagStartTime;
+      stats.combined.duration = Date.now() - combinedStartTime;
       console.log(
-        `[AI] Tagging complete in ${formatDuration(stats.tagging.duration)}: ${stats.tagging.success}/${stats.tagging.total} succeeded`
+        `[AI] Combined pass complete in ${formatDuration(stats.combined.duration)}: ${stats.combined.success}/${stats.combined.total} succeeded`
       );
     }
 
-    // 3. Generate AI summaries for events that need them (next 3 months only)
-    const now = new Date();
-    const threeMonthsFromNow = new Date();
-    threeMonthsFromNow.setMonth(threeMonthsFromNow.getMonth() + 3);
-
-    if (isAzureAIEnabled()) {
-      console.log("[AI] Finding events needing summaries (next 3 months)...");
-      const eventsNeedingSummaries = await db
-        .select({
-          id: events.id,
-          title: events.title,
-          description: events.description,
-          location: events.location,
-          organizer: events.organizer,
-          tags: events.tags,
-        })
-        .from(events)
-        .where(
-          and(
-            isNull(events.aiSummary),
-            sql`${events.startDate} >= ${now.toISOString()}`,
-            sql`${events.startDate} <= ${threeMonthsFromNow.toISOString()}`
-          )
-        )
-        .limit(100); // Process max 100 per run
-
-      stats.summaries.total = eventsNeedingSummaries.length;
-      console.log(`[AI] Found ${eventsNeedingSummaries.length} events needing summaries`);
-
-      if (eventsNeedingSummaries.length > 0) {
-        const summaryStartTime = Date.now();
-        for (const batch of chunk(eventsNeedingSummaries, 5)) {
-          await Promise.all(
-            batch.map(async (event) => {
-              try {
-                const summary = await generateEventSummary({
-                  title: event.title,
-                  description: event.description,
-                  location: event.location,
-                  organizer: event.organizer,
-                  tags: event.tags,
-                });
-
-                if (summary) {
-                  await db
-                    .update(events)
-                    .set({ aiSummary: summary })
-                    .where(eq(events.id, event.id));
-
-                  stats.summaries.success++;
-                  console.log(`[AI] Generated summary for "${event.title.slice(0, 40)}..."`);
-                } else {
-                  stats.summaries.failed++;
-                }
-              } catch (err) {
-                stats.summaries.failed++;
-                console.error(
-                  `[AI] Failed to generate summary for "${event.title}":`,
-                  err instanceof Error ? err.message : err
-                );
-              }
-            })
-          );
-          // Delay between batches
-          await new Promise((r) => setTimeout(r, 1000));
-        }
-        stats.summaries.duration = Date.now() - summaryStartTime;
-        console.log(
-          `[AI] Summary generation complete in ${formatDuration(stats.summaries.duration)}: ${stats.summaries.success}/${stats.summaries.total} succeeded`
-        );
-      }
-    } else {
-      console.log("[AI] Azure AI not configured, skipping summary generation");
-    }
-
-    // 4. Generate embeddings for events that have summaries but no embedding (next 3 months only)
+    // ═══════════════════════════════════════════════════════════════
+    // 2. EMBEDDINGS PASS: Generate Gemini embeddings
+    // ═══════════════════════════════════════════════════════════════
     console.log("[AI] Finding events needing embeddings (next 3 months)...");
     const eventsNeedingEmbeddings = await db
       .select({
@@ -259,8 +224,157 @@ export async function GET(request: Request) {
       );
     }
 
-    // 5. Find events that need images and set default fallback
-    // NOTE: AI image generation is disabled - using static fallback instead
+    // ═══════════════════════════════════════════════════════════════
+    // 3. SCORING PASS: Score events with similar events context
+    // ═══════════════════════════════════════════════════════════════
+    console.log("[AI] Finding events needing scores (next 3 months, with embeddings)...");
+    const eventsNeedingScores = await db
+      .select({
+        id: events.id,
+        title: events.title,
+        description: events.description,
+        location: events.location,
+        organizer: events.organizer,
+        tags: events.tags,
+        aiSummary: events.aiSummary,
+        startDate: events.startDate,
+        price: events.price,
+        recurringType: events.recurringType,
+      })
+      .from(events)
+      .where(
+        and(
+          isNull(events.score),
+          isNotNull(events.embedding),
+          isNotNull(events.aiSummary),
+          sql`${events.startDate} >= ${now.toISOString()}`,
+          sql`${events.startDate} <= ${threeMonthsFromNow.toISOString()}`
+        )
+      )
+      .limit(50); // Smaller batch - scoring uses more context
+
+    stats.scoring.total = eventsNeedingScores.length;
+    console.log(`[AI] Found ${eventsNeedingScores.length} events needing scores`);
+
+    if (eventsNeedingScores.length > 0) {
+      const scoringStartTime = Date.now();
+
+      for (const event of eventsNeedingScores) {
+        try {
+          // Check if daily recurring (existing field)
+          if (event.recurringType === 'daily') {
+            const recurringScore = getRecurringEventScore('daily');
+            await db
+              .update(events)
+              .set({
+                score: recurringScore.score,
+                scoreRarity: recurringScore.rarity,
+                scoreUnique: recurringScore.unique,
+                scoreMagnitude: recurringScore.magnitude,
+                scoreReason: recurringScore.reason,
+              })
+              .where(eq(events.id, event.id));
+
+            stats.scoring.skippedRecurring++;
+            console.log(`[AI] Auto-scored daily recurring: "${event.title.slice(0, 40)}..." = 5/30`);
+            continue;
+          }
+
+          // Check if weekly recurring
+          const recurringCheck = await checkWeeklyRecurring(
+            event.title,
+            event.location,
+            event.organizer,
+            event.id,
+            event.startDate
+          );
+
+          if (recurringCheck.isWeeklyRecurring) {
+            const recurringScore = getRecurringEventScore('weekly');
+            await db
+              .update(events)
+              .set({
+                score: recurringScore.score,
+                scoreRarity: recurringScore.rarity,
+                scoreUnique: recurringScore.unique,
+                scoreMagnitude: recurringScore.magnitude,
+                scoreReason: recurringScore.reason,
+              })
+              .where(eq(events.id, event.id));
+
+            stats.scoring.skippedRecurring++;
+            console.log(`[AI] Auto-scored weekly recurring (${recurringCheck.matchCount} matches): "${event.title.slice(0, 40)}..." = 5/30`);
+            continue;
+          }
+
+          // Get similar events for context
+          const similarEvents = await findSimilarEvents(event.id, {
+            limit: 20,
+            minSimilarity: 0.4,
+            futureOnly: true,
+            orderBy: 'similarity'
+          });
+
+          // Generate AI score
+          const scoreResult = await generateEventScore(
+            {
+              id: event.id,
+              title: event.title,
+              description: event.description,
+              location: event.location,
+              organizer: event.organizer,
+              tags: event.tags,
+              aiSummary: event.aiSummary,
+              startDate: event.startDate,
+              price: event.price,
+            },
+            similarEvents.map(e => ({
+              title: e.title,
+              location: e.location,
+              organizer: e.organizer,
+              startDate: e.startDate,
+              similarity: e.similarity,
+            }))
+          );
+
+          if (scoreResult) {
+            await db
+              .update(events)
+              .set({
+                score: scoreResult.score,
+                scoreRarity: scoreResult.rarity,
+                scoreUnique: scoreResult.unique,
+                scoreMagnitude: scoreResult.magnitude,
+                scoreReason: scoreResult.reason,
+              })
+              .where(eq(events.id, event.id));
+
+            stats.scoring.success++;
+            console.log(`[AI] Scored "${event.title.slice(0, 30)}...": ${scoreResult.score}/30 (R:${scoreResult.rarity} U:${scoreResult.unique} M:${scoreResult.magnitude})`);
+          } else {
+            stats.scoring.failed++;
+          }
+
+          // Delay between scoring calls (more expensive)
+          await new Promise((r) => setTimeout(r, 500));
+        } catch (err) {
+          stats.scoring.failed++;
+          console.error(
+            `[AI] Failed to score "${event.title}":`,
+            err instanceof Error ? err.message : err
+          );
+        }
+      }
+
+      stats.scoring.duration = Date.now() - scoringStartTime;
+      console.log(
+        `[AI] Scoring complete in ${formatDuration(stats.scoring.duration)}: ${stats.scoring.success}/${stats.scoring.total} succeeded, ${stats.scoring.skippedRecurring} recurring skipped`
+      );
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // 4. IMAGES PASS: Set default fallback images
+    // ═══════════════════════════════════════════════════════════════
     console.log("[AI] Finding events needing images...");
     const eventsNeedingImages = await db
       .select({
@@ -301,57 +415,16 @@ export async function GET(request: Request) {
       );
     }
 
-    /* AI IMAGE GENERATION DISABLED - uncomment to re-enable
-    if (eventsNeedingImages.length > 0) {
-      const imageStartTime = Date.now();
-      for (const batch of chunk(eventsNeedingImages, 3)) {
-        await Promise.all(
-          batch.map(async (event) => {
-            try {
-              const imageUrl = await generateAndUploadEventImage(
-                {
-                  title: event.title,
-                  description: event.description,
-                  location: event.location,
-                  tags: event.tags || [],
-                },
-                event.id
-              );
-
-              if (imageUrl) {
-                await db
-                  .update(events)
-                  .set({ imageUrl })
-                  .where(eq(events.id, event.id));
-
-                stats.images.success++;
-                console.log(`[AI] Generated and uploaded image for "${event.title}"`);
-              } else {
-                stats.images.failed++;
-              }
-            } catch (err) {
-              stats.images.failed++;
-              console.error(`[AI] Failed to generate image for "${event.title}":`, err);
-            }
-          })
-        );
-        await new Promise((r) => setTimeout(r, 2000));
-      }
-      stats.images.duration = Date.now() - imageStartTime;
-      console.log(
-        `[AI] Image generation complete in ${formatDuration(stats.images.duration)}: ${stats.images.success}/${stats.images.total} succeeded`
-      );
-    }
-    */
-
-    // Final summary
+    // ═══════════════════════════════════════════════════════════════
+    // Final Summary
+    // ═══════════════════════════════════════════════════════════════
     const totalDuration = Date.now() - jobStartTime;
     console.log("[AI] ────────────────────────────────────────────────");
     console.log(`[AI] JOB COMPLETE in ${formatDuration(totalDuration)}`);
     console.log("[AI] ────────────────────────────────────────────────");
-    console.log(`[AI] Tagging: ${stats.tagging.success}/${stats.tagging.total} in ${formatDuration(stats.tagging.duration)}`);
-    console.log(`[AI] Summaries: ${stats.summaries.success}/${stats.summaries.total} in ${formatDuration(stats.summaries.duration)}`);
+    console.log(`[AI] Combined (tags+summary): ${stats.combined.success}/${stats.combined.total} in ${formatDuration(stats.combined.duration)}`);
     console.log(`[AI] Embeddings: ${stats.embeddings.success}/${stats.embeddings.total} in ${formatDuration(stats.embeddings.duration)}`);
+    console.log(`[AI] Scoring: ${stats.scoring.success}/${stats.scoring.total} (${stats.scoring.skippedRecurring} recurring) in ${formatDuration(stats.scoring.duration)}`);
     console.log(`[AI] Images: ${stats.images.success}/${stats.images.total} in ${formatDuration(stats.images.duration)}`);
     console.log("[AI] ════════════════════════════════════════════════");
 
@@ -362,20 +435,21 @@ export async function GET(request: Request) {
       success: true,
       duration: totalDuration,
       stats: {
-        tagging: {
-          total: stats.tagging.total,
-          success: stats.tagging.success,
-          failed: stats.tagging.failed,
-        },
-        summaries: {
-          total: stats.summaries.total,
-          success: stats.summaries.success,
-          failed: stats.summaries.failed,
+        combined: {
+          total: stats.combined.total,
+          success: stats.combined.success,
+          failed: stats.combined.failed,
         },
         embeddings: {
           total: stats.embeddings.total,
           success: stats.embeddings.success,
           failed: stats.embeddings.failed,
+        },
+        scoring: {
+          total: stats.scoring.total,
+          success: stats.scoring.success,
+          failed: stats.scoring.failed,
+          skippedRecurring: stats.scoring.skippedRecurring,
         },
         images: {
           total: stats.images.total,

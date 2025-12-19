@@ -58,6 +58,14 @@ interface EventCardProps {
   onCurate?: (eventId: string) => void;
   onUncurate?: (eventId: string) => void;
   isLoggedIn?: boolean;
+  /** Display mode for the card: 'full' shows all content, 'minimized' shows only title + date */
+  displayMode?: 'full' | 'minimized';
+  /** Callback when user clicks "Expand" on a minimized card */
+  onExpandMinimized?: (eventId: string) => void;
+  /** Score tier for display mode */
+  scoreTier?: 'hidden' | 'quality' | 'outstanding';
+  /** Event score for gold title styling (16+ gets gold) */
+  eventScore?: number | null;
 }
 
 // Round price string to nearest dollar (e.g., "$19.10" -> "$19", "$25.50" -> "$26")
@@ -89,6 +97,10 @@ export default function EventCard({
   onCurate,
   onUncurate,
   isLoggedIn = false,
+  displayMode = 'full',
+  onExpandMinimized,
+  scoreTier = 'quality',
+  eventScore,
 }: EventCardProps) {
   const [imgError, setImgError] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
@@ -274,6 +286,64 @@ export default function EventCard({
 
   const displayPrice = formatPriceDisplay(event.price);
 
+  // Generate event URL for links
+  const eventUrl = `/events/${generateEventSlug(event.title, event.startDate, event.id)}`;
+
+  // Minimized display mode - single line: title - summary - date badge - Expand
+  // Clicking anywhere except the title expands the row
+  if (displayMode === 'minimized') {
+    // Get summary text (max 200 chars, will be truncated by CSS to fit one line)
+    const summaryText = event.aiSummary
+      ? cleanAshevilleFromSummary(cleanMarkdown(event.aiSummary)).slice(0, 200)
+      : (event.description ? cleanMarkdown(event.description).slice(0, 200) : '');
+
+    const handleRowClick = (e: React.MouseEvent) => {
+      // Don't expand if clicking on the title link
+      if ((e.target as HTMLElement).closest('a')) return;
+      onExpandMinimized?.(event.id);
+    };
+
+    return (
+      <div
+        onClick={handleRowClick}
+        className={`flex items-center gap-2 px-3 py-2.5 sm:px-5 cursor-pointer opacity-80 hover:opacity-100
+          ${hideBorder ? "" : "border-b border-gray-200 dark:border-gray-700"}
+          bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800 transition-opacity`}
+      >
+        {/* Title */}
+        <Link
+          href={eventUrl}
+          className="text-sm font-medium text-brand-600 dark:text-brand-400 hover:underline whitespace-nowrap shrink-0"
+          onClick={(e) => e.stopPropagation()}
+        >
+          {event.title}
+        </Link>
+
+        {/* Separator */}
+        {summaryText && (
+          <span className="text-gray-400 dark:text-gray-500 shrink-0">-</span>
+        )}
+
+        {/* Summary (truncated to fit) */}
+        {summaryText && (
+          <span className="text-sm text-gray-500 dark:text-gray-400 truncate min-w-0">
+            {summaryText}
+          </span>
+        )}
+
+        {/* Date/Time Badge - pushed to the right */}
+        <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-600 whitespace-nowrap shrink-0 ml-auto">
+          {formatDate(event.startDate, event.timeUnknown)}
+        </span>
+
+        {/* Expand text */}
+        <span className="text-xs text-brand-600 dark:text-brand-400 font-medium whitespace-nowrap shrink-0">
+          Expand
+        </span>
+      </div>
+    );
+  }
+
   return (
     <div
       className={`relative transition-colors grid gap-2 px-3 py-6
@@ -323,7 +393,11 @@ export default function EventCard({
       {/* Metadata: Title, Date, Location, Tags */}
       <div className="flex flex-col justify-between xl:row-span-2">
         <div>
-          <h3 className="text-base font-bold text-brand-600 dark:text-brand-400 leading-tight">
+          <h3 className={`text-base font-bold leading-tight ${
+            eventScore !== null && eventScore !== undefined && eventScore >= 16
+              ? 'text-amber-600 dark:text-amber-400'
+              : 'text-brand-600 dark:text-brand-400'
+          }`}>
             <Link
               href={`/events/${generateEventSlug(
                 event.title,

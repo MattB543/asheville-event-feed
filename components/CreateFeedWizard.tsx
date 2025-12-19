@@ -303,7 +303,7 @@ function TagsStep({
 
           return (
             <div key={category.name}>
-              <div className="flex items-center justify-between mb-3">
+              <div className="flex flex-col items-start gap-1 sm:flex-row sm:items-center sm:justify-between mb-3">
                 <h3 className="font-semibold text-gray-900 dark:text-white">
                   {category.name}
                 </h3>

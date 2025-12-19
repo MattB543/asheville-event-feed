@@ -12,6 +12,7 @@ import {
   MapPin,
   ArrowRight,
   X,
+  Sparkles,
 } from "lucide-react";
 import { TAG_CATEGORIES } from "@/lib/config/tagCategories";
 import { getZipName } from "@/lib/config/zipNames";
@@ -19,7 +20,7 @@ import { Calendar } from "./ui/Calendar";
 import { DateRange as DayPickerDateRange } from "react-day-picker";
 import { format, parse, isValid } from "date-fns";
 import TriStateCheckbox, { TriState } from "./ui/TriStateCheckbox";
-import { TagFilterState } from "./EventFeed";
+import { TagFilterState, ScoreTier } from "./EventFeed";
 
 // Safe date parsing helper that returns undefined on invalid dates
 function safeParseDateString(dateStr: string | null): Date | undefined {
@@ -78,6 +79,8 @@ export interface FilterBarProps {
   onTagFiltersChange: (filters: TagFilterState) => void;
   showDailyEvents: boolean;
   onShowDailyEventsChange: (show: boolean) => void;
+  selectedScoreTiers: ScoreTier[];
+  onScoreTiersChange: (tiers: ScoreTier[]) => void;
   onOpenSettings: () => void;
 }
 
@@ -132,12 +135,15 @@ export default function FilterBar({
   onTagFiltersChange,
   showDailyEvents,
   onShowDailyEventsChange,
+  selectedScoreTiers,
+  onScoreTiersChange,
   onOpenSettings,
 }: FilterBarProps) {
   const [isTagsOpen, setIsTagsOpen] = useState(false);
   const [isDateOpen, setIsDateOpen] = useState(false);
   const [isPriceOpen, setIsPriceOpen] = useState(false);
   const [isLocationOpen, setIsLocationOpen] = useState(false);
+  const [isQualityOpen, setIsQualityOpen] = useState(false);
   const [expandedCategories, setExpandedCategories] = useState<Set<string>>(
     new Set(TAG_CATEGORIES.map((c) => c.name))
   );
@@ -145,6 +151,7 @@ export default function FilterBar({
   const dateRef = useRef<HTMLDivElement>(null);
   const priceRef = useRef<HTMLDivElement>(null);
   const locationRef = useRef<HTMLDivElement>(null);
+  const qualityRef = useRef<HTMLDivElement>(null);
 
   // Local optimistic state for instant visual feedback on filter clicks
   const [localTagFilters, setLocalTagFilters] = useState(tagFilters);
@@ -159,12 +166,16 @@ export default function FilterBar({
   const [localSelectedLocations, setLocalSelectedLocations] =
     useState(selectedLocations);
   const [localSelectedZips, setLocalSelectedZips] = useState(selectedZips);
-  const [expandedLocationSections, setExpandedLocationSections] = useState<Set<string>>(
+  const [expandedLocationSections, setExpandedLocationSections] = useState<
+    Set<string>
+  >(
     new Set() // Both collapsed by default, will expand based on selections when opened
   );
   const [localSearchInput, setLocalSearchInput] = useState(search);
   const [localShowDailyEvents, setLocalShowDailyEvents] =
     useState(showDailyEvents);
+  const [localSelectedScoreTiers, setLocalSelectedScoreTiers] =
+    useState(selectedScoreTiers);
   const [, startTransition] = useTransition();
 
   // Sync local state with props when they change (e.g., from "Clear all" button)
@@ -211,6 +222,10 @@ export default function FilterBar({
   useEffect(() => {
     setLocalShowDailyEvents(showDailyEvents);
   }, [showDailyEvents]);
+
+  useEffect(() => {
+    setLocalSelectedScoreTiers(selectedScoreTiers);
+  }, [selectedScoreTiers]);
 
   // Search submit handler - only updates parent when user explicitly submits
   const handleSearchSubmit = () => {
@@ -294,6 +309,12 @@ export default function FilterBar({
         !locationRef.current.contains(event.target as Node)
       ) {
         setIsLocationOpen(false);
+      }
+      if (
+        qualityRef.current &&
+        !qualityRef.current.contains(event.target as Node)
+      ) {
+        setIsQualityOpen(false);
       }
     }
     document.addEventListener("mousedown", handleClickOutside);
@@ -402,7 +423,9 @@ export default function FilterBar({
     const isCurrentlySelected = localSelectedLocations.includes("asheville");
 
     if (isCurrentlySelected) {
-      const newLocations = localSelectedLocations.filter((l) => l !== "asheville");
+      const newLocations = localSelectedLocations.filter(
+        (l) => l !== "asheville"
+      );
       setLocalSelectedLocations(newLocations);
       startTransition(() => {
         onLocationsChange(newLocations);
@@ -461,9 +484,20 @@ export default function FilterBar({
   );
 
   const buttonBaseStyle =
-    "flex items-center gap-1.5 sm:gap-2 h-8 sm:h-10 px-2 sm:px-3 text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-800 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors cursor-pointer";
+    "flex items-center gap-1 h-8 sm:h-10 px-2 sm:px-2.5 text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-800 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors cursor-pointer";
   const buttonInactiveStyle = `${buttonBaseStyle} border border-gray-200 dark:border-gray-700`;
   const buttonActiveStyle = `${buttonBaseStyle} border-2 border-brand-500 dark:border-brand-400`;
+
+  // Toggle score tier filter
+  const toggleScoreTier = (tier: ScoreTier) => {
+    const newTiers = localSelectedScoreTiers.includes(tier)
+      ? localSelectedScoreTiers.filter((t) => t !== tier)
+      : [...localSelectedScoreTiers, tier];
+    setLocalSelectedScoreTiers(newTiers);
+    startTransition(() => {
+      onScoreTiersChange(newTiers);
+    });
+  };
 
   // Check if filters are active
   const isDateFilterActive =
@@ -472,6 +506,11 @@ export default function FilterBar({
   const isLocationFilterActive =
     localSelectedLocations.length > 0 || localSelectedZips.length > 0;
   const isTagsFilterActive = activeTagCount > 0 || !localShowDailyEvents;
+  // Quality filter is active when not showing default (quality + outstanding)
+  const isQualityFilterActive =
+    localSelectedScoreTiers.length !== 2 ||
+    !localSelectedScoreTiers.includes("quality") ||
+    !localSelectedScoreTiers.includes("outstanding");
 
   return (
     <div className="mb-3 px-3 sm:px-0">
@@ -516,13 +555,15 @@ export default function FilterBar({
           <div className="relative" ref={dateRef}>
             <button
               onClick={() => setIsDateOpen(!isDateOpen)}
-              className={isDateFilterActive ? buttonActiveStyle : buttonInactiveStyle}
+              className={
+                isDateFilterActive ? buttonActiveStyle : buttonInactiveStyle
+              }
               aria-expanded={isDateOpen}
+              aria-label="Date filter"
             >
-              <CalendarIcon size={16} />
-              <span>Dates</span>
+              <CalendarIcon size={18} />
               <ChevronDown
-                size={16}
+                size={14}
                 className={`transition-transform ${
                   isDateOpen ? "rotate-180" : ""
                 }`}
@@ -751,13 +792,15 @@ export default function FilterBar({
           <div className="relative" ref={priceRef}>
             <button
               onClick={() => setIsPriceOpen(!isPriceOpen)}
-              className={isPriceFilterActive ? buttonActiveStyle : buttonInactiveStyle}
+              className={
+                isPriceFilterActive ? buttonActiveStyle : buttonInactiveStyle
+              }
               aria-expanded={isPriceOpen}
+              aria-label="Price filter"
             >
-              <DollarSign size={16} />
-              <span>Price</span>
+              <DollarSign size={18} />
               <ChevronDown
-                size={16}
+                size={14}
                 className={`transition-transform ${
                   isPriceOpen ? "rotate-180" : ""
                 }`}
@@ -830,13 +873,15 @@ export default function FilterBar({
           <div className="relative" ref={locationRef}>
             <button
               onClick={handleLocationOpen}
-              className={isLocationFilterActive ? buttonActiveStyle : buttonInactiveStyle}
+              className={
+                isLocationFilterActive ? buttonActiveStyle : buttonInactiveStyle
+              }
               aria-expanded={isLocationOpen}
+              aria-label="Location filter"
             >
-              <MapPin size={16} />
-              <span>Location</span>
+              <MapPin size={18} />
               <ChevronDown
-                size={16}
+                size={14}
                 className={`transition-transform ${
                   isLocationOpen ? "rotate-180" : ""
                 }`}
@@ -885,7 +930,9 @@ export default function FilterBar({
                       <ChevronDown
                         size={14}
                         className={`transition-transform ${
-                          expandedLocationSections.has("cities") ? "rotate-180" : ""
+                          expandedLocationSections.has("cities")
+                            ? "rotate-180"
+                            : ""
                         }`}
                       />
                     </button>
@@ -895,7 +942,9 @@ export default function FilterBar({
                         <label className="flex items-center gap-2 px-2 py-1.5 rounded hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer">
                           <input
                             type="checkbox"
-                            checked={localSelectedLocations.includes("asheville")}
+                            checked={localSelectedLocations.includes(
+                              "asheville"
+                            )}
                             onChange={handleAshevilleToggle}
                             className="w-4 h-4 text-brand-600 rounded border-gray-300 focus:ring-brand-500"
                           />
@@ -906,7 +955,9 @@ export default function FilterBar({
 
                         {/* Other cities */}
                         {availableLocations
-                          .filter((loc) => loc !== "Asheville" && loc !== "Online")
+                          .filter(
+                            (loc) => loc !== "Asheville" && loc !== "Online"
+                          )
                           .map((location) => (
                             <label
                               key={location}
@@ -914,7 +965,9 @@ export default function FilterBar({
                             >
                               <input
                                 type="checkbox"
-                                checked={localSelectedLocations.includes(location)}
+                                checked={localSelectedLocations.includes(
+                                  location
+                                )}
                                 onChange={() => toggleLocation(location)}
                                 className="w-4 h-4 text-brand-600 rounded border-gray-300 focus:ring-brand-500"
                               />
@@ -929,7 +982,9 @@ export default function FilterBar({
                           <label className="flex items-center gap-2 px-2 py-1.5 rounded hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer">
                             <input
                               type="checkbox"
-                              checked={localSelectedLocations.includes("Online")}
+                              checked={localSelectedLocations.includes(
+                                "Online"
+                              )}
                               onChange={() => toggleLocation("Online")}
                               className="w-4 h-4 text-brand-600 rounded border-gray-300 focus:ring-brand-500"
                             />
@@ -953,7 +1008,9 @@ export default function FilterBar({
                         <ChevronDown
                           size={14}
                           className={`transition-transform ${
-                            expandedLocationSections.has("zips") ? "rotate-180" : ""
+                            expandedLocationSections.has("zips")
+                              ? "rotate-180"
+                              : ""
                           }`}
                         />
                       </button>
@@ -984,10 +1041,12 @@ export default function FilterBar({
                   )}
                 </div>
 
-                {(localSelectedLocations.length > 0 || localSelectedZips.length > 0) && (
+                {(localSelectedLocations.length > 0 ||
+                  localSelectedZips.length > 0) && (
                   <div className="px-3 py-2 border-t border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 flex items-center justify-between">
                     <span className="text-xs text-gray-500 dark:text-gray-400">
-                      {localSelectedLocations.length + localSelectedZips.length} selected
+                      {localSelectedLocations.length + localSelectedZips.length}{" "}
+                      selected
                     </span>
                     <button
                       onClick={deselectAllLocations}
@@ -1005,13 +1064,15 @@ export default function FilterBar({
           <div className="relative" ref={tagsRef}>
             <button
               onClick={handleTagsOpen}
-              className={isTagsFilterActive ? buttonActiveStyle : buttonInactiveStyle}
+              className={
+                isTagsFilterActive ? buttonActiveStyle : buttonInactiveStyle
+              }
               aria-expanded={isTagsOpen}
+              aria-label="Tags filter"
             >
-              <Tag size={16} />
-              <span>Tags</span>
+              <Tag size={18} />
               <ChevronDown
-                size={16}
+                size={14}
                 className={`transition-transform ${
                   isTagsOpen ? "rotate-180" : ""
                 }`}
@@ -1188,10 +1249,73 @@ export default function FilterBar({
             )}
           </div>
 
+          {/* Quality Filter */}
+          <div className="relative" ref={qualityRef}>
+            <button
+              onClick={() => setIsQualityOpen(!isQualityOpen)}
+              className={
+                isQualityFilterActive ? buttonActiveStyle : buttonInactiveStyle
+              }
+              aria-expanded={isQualityOpen}
+              aria-label="Quality filter"
+            >
+              <Sparkles size={18} />
+              <ChevronDown
+                size={14}
+                className={`transition-transform ${
+                  isQualityOpen ? "rotate-180" : ""
+                }`}
+              />
+            </button>
+
+            {isQualityOpen && (
+              <div className="absolute top-full right-0 mt-1 z-50 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg min-w-[180px]">
+                <div className="p-2">
+                  <label className="flex items-center gap-2 px-2 py-1.5 rounded hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={localSelectedScoreTiers.includes("hidden")}
+                      onChange={() => toggleScoreTier("hidden")}
+                      className="w-4 h-4 text-brand-600 rounded border-gray-300 focus:ring-brand-500"
+                    />
+                    <span className="text-sm text-gray-700 dark:text-gray-200">
+                      Common
+                    </span>
+                  </label>
+                  <label className="flex items-center gap-2 px-2 py-1.5 rounded hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={localSelectedScoreTiers.includes("quality")}
+                      onChange={() => toggleScoreTier("quality")}
+                      className="w-4 h-4 text-brand-600 rounded border-gray-300 focus:ring-brand-500"
+                    />
+                    <span className="text-sm text-gray-700 dark:text-gray-200">
+                      Quality
+                    </span>
+                  </label>
+                  <label className="flex items-center gap-2 px-2 py-1.5 rounded hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={localSelectedScoreTiers.includes("outstanding")}
+                      onChange={() => toggleScoreTier("outstanding")}
+                      className="w-4 h-4 text-brand-600 rounded border-gray-300 focus:ring-brand-500"
+                    />
+                    <span className="text-sm text-gray-700 dark:text-gray-200">
+                      Outstanding
+                    </span>
+                  </label>
+                </div>
+              </div>
+            )}
+          </div>
+
           {/* Keyword Filter Button */}
-          <button onClick={onOpenSettings} className={buttonInactiveStyle}>
-            <SlidersHorizontal size={16} />
-            <span>Keywords</span>
+          <button
+            onClick={onOpenSettings}
+            className={buttonInactiveStyle}
+            aria-label="Keyword settings"
+          >
+            <SlidersHorizontal size={18} />
           </button>
         </div>
       </div>

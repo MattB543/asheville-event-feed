@@ -306,40 +306,72 @@ export default function EventCard({
     return (
       <div
         onClick={handleRowClick}
-        className={`flex items-center gap-2 px-3 py-2.5 sm:px-5 cursor-pointer opacity-80 hover:opacity-100
+        className={`px-3 py-2.5 sm:px-5 cursor-pointer opacity-80 hover:opacity-100
           ${hideBorder ? "" : "border-b border-gray-200 dark:border-gray-700"}
           bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800 transition-opacity`}
       >
-        {/* Title */}
-        <Link
-          href={eventUrl}
-          className="text-sm font-medium text-brand-600 dark:text-brand-400 hover:underline whitespace-nowrap shrink-0"
-          onClick={(e) => e.stopPropagation()}
-        >
-          {event.title}
-        </Link>
+        {/* Mobile layout: stacked */}
+        <div className="sm:hidden">
+          {/* Title */}
+          <Link
+            href={eventUrl}
+            className="text-sm font-medium text-brand-600 dark:text-brand-400 hover:underline line-clamp-1"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {event.title}
+          </Link>
 
-        {/* Separator */}
-        {summaryText && (
-          <span className="text-gray-400 dark:text-gray-500 shrink-0">-</span>
-        )}
+          {/* Summary */}
+          {summaryText && (
+            <p className="text-sm text-gray-500 dark:text-gray-400 line-clamp-1 mt-0.5">
+              {summaryText}
+            </p>
+          )}
 
-        {/* Summary (truncated to fit) */}
-        {summaryText && (
-          <span className="text-sm text-gray-500 dark:text-gray-400 truncate min-w-0">
-            {summaryText}
+          {/* Date badge (left) and Expand (right) */}
+          <div className="flex items-center justify-between mt-1.5">
+            <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-600">
+              {formatDate(event.startDate, event.timeUnknown)}
+            </span>
+            <span className="text-xs text-brand-600 dark:text-brand-400 font-medium">
+              Expand
+            </span>
+          </div>
+        </div>
+
+        {/* Desktop layout: single row */}
+        <div className="hidden sm:flex sm:items-center sm:gap-2">
+          {/* Title */}
+          <Link
+            href={eventUrl}
+            className="text-sm font-medium text-brand-600 dark:text-brand-400 hover:underline whitespace-nowrap shrink-0"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {event.title}
+          </Link>
+
+          {/* Separator */}
+          {summaryText && (
+            <span className="text-gray-400 dark:text-gray-500 shrink-0">-</span>
+          )}
+
+          {/* Summary (truncated to fit) */}
+          {summaryText && (
+            <span className="text-sm text-gray-500 dark:text-gray-400 truncate min-w-0">
+              {summaryText}
+            </span>
+          )}
+
+          {/* Date/Time Badge - pushed to the right */}
+          <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-600 whitespace-nowrap shrink-0 ml-auto">
+            {formatDate(event.startDate, event.timeUnknown)}
           </span>
-        )}
 
-        {/* Date/Time Badge - pushed to the right */}
-        <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-600 whitespace-nowrap shrink-0 ml-auto">
-          {formatDate(event.startDate, event.timeUnknown)}
-        </span>
-
-        {/* Expand text */}
-        <span className="text-xs text-brand-600 dark:text-brand-400 font-medium whitespace-nowrap shrink-0">
-          Expand
-        </span>
+          {/* Expand text */}
+          <span className="text-xs text-brand-600 dark:text-brand-400 font-medium whitespace-nowrap shrink-0">
+            Expand
+          </span>
+        </div>
       </div>
     );
   }

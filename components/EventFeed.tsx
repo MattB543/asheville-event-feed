@@ -393,6 +393,11 @@ export default function EventFeed({
   const [isLoaded, setIsLoaded] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
 
+  // Track if filters have been modified after initial load
+  // This ensures we don't use SSR initialData after user changes filters
+  const hasModifiedFilters = useRef(false);
+  const isFirstFilterChange = useRef(true);
+
   // Build filters object for the query
   const filters = useMemo(
     () => ({
@@ -431,6 +436,20 @@ export default function EventFeed({
     ]
   );
 
+  // Detect when filters change after initial load - this means we shouldn't use SSR data
+  useEffect(() => {
+    if (!isLoaded) return;
+
+    // Skip the first change (which is the initial load)
+    if (isFirstFilterChange.current) {
+      isFirstFilterChange.current = false;
+      return;
+    }
+
+    // Mark that filters have been modified by user interaction
+    hasModifiedFilters.current = true;
+  }, [filters, isLoaded]);
+
   // Prepare initial data for hydration (convert Date objects to ISO strings for API format)
   const preparedInitialData = useMemo(() => {
     if (!initialEvents || initialEvents.length === 0) return undefined;
@@ -453,7 +472,10 @@ export default function EventFeed({
   }, [initialEvents, initialMetadata]);
 
   // Use the event query hook for server-side filtering
-  // When URL filters exist, skip SSR initialData (it's unfiltered and wrong)
+  // Only use SSR initialData on first load with no URL filters and no user filter changes
+  // Once filters change, we must fetch fresh data to avoid showing stale SSR results
+  const shouldUseInitialData = !hasUrlFilters && !hasModifiedFilters.current;
+
   const {
     events: apiEvents,
     metadata: queryMetadata,
@@ -464,8 +486,7 @@ export default function EventFeed({
     fetchNextPage,
   } = useEventQuery({
     filters,
-    // Don't use SSR data when URL has filters - SSR data is always unfiltered
-    initialData: hasUrlFilters ? undefined : preparedInitialData,
+    initialData: shouldUseInitialData ? preparedInitialData : undefined,
     enabled: isLoaded, // Only fetch after client hydration
   });
 
@@ -1104,7 +1125,7 @@ export default function EventFeed({
         onClearAll={handleClearAllFilters}
         onClearAllTags={() => setTagFilters({ include: [], exclude: [] })}
         totalEvents={totalCount}
-        filteredCount={totalCount}
+        filteredCount={filteredEvents.length}
         exportParams={exportParams}
         shareParams={shareParams}
         onOpenChat={() => setIsChatOpen(true)}
@@ -1251,9 +1272,10 @@ export default function EventFeed({
                       isTodayGroup && index === nowDividerIndex - 1;
 
                     // Determine display mode based on score tier
+                    // Common and Quality tiers are minimized by default, Outstanding is full
                     const tier = getEventScoreTier(event.score);
                     const isMinimized =
-                      tier === "quality" && !expandedMinimizedIds.has(event.id);
+                      (tier === "quality" || tier === "hidden") && !expandedMinimizedIds.has(event.id);
 
                     return (
                       <div key={event.id}>

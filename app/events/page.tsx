@@ -56,7 +56,7 @@ export default async function EventsPage() {
   }
 
   return (
-    <main className="min-h-screen bg-gray-50 dark:bg-gray-950">
+    <main className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-950">
       <header className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
         <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-3 sm:py-4">
           {/* Mobile: two-row layout */}
@@ -122,9 +122,11 @@ export default async function EventsPage() {
 
       <InfoBanner />
 
-      <ErrorBoundary>
-        <EventFeed initialEvents={initialEvents} initialMetadata={metadata} />
-      </ErrorBoundary>
+      <div className="flex-grow">
+        <ErrorBoundary>
+          <EventFeed initialEvents={initialEvents} initialMetadata={metadata} />
+        </ErrorBoundary>
+      </div>
 
       <footer className="bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 mt-8 py-8 text-center text-sm text-gray-500 dark:text-gray-400">
         <p className="mb-2">

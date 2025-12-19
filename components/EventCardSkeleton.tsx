@@ -63,7 +63,7 @@ export function FilterBarSkeleton() {
 
 export function EventFeedSkeleton() {
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 min-h-[calc(100vh-200px)]">
       <FilterBarSkeleton />
 
       <div className="flex flex-col gap-6">
@@ -74,12 +74,23 @@ export function EventFeedSkeleton() {
             <EventCardSkeleton />
             <EventCardSkeleton />
             <EventCardSkeleton />
+            <EventCardSkeleton />
           </div>
         </div>
 
         {/* Tomorrow's events group */}
         <div className="flex flex-col gap-2">
           <div className="h-7 w-48 bg-gray-300 dark:bg-gray-600 rounded animate-pulse" />
+          <div className="flex flex-col bg-white dark:bg-gray-900 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
+            <EventCardSkeleton />
+            <EventCardSkeleton />
+            <EventCardSkeleton />
+          </div>
+        </div>
+
+        {/* Third day group */}
+        <div className="flex flex-col gap-2">
+          <div className="h-7 w-44 bg-gray-300 dark:bg-gray-600 rounded animate-pulse" />
           <div className="flex flex-col bg-white dark:bg-gray-900 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
             <EventCardSkeleton />
             <EventCardSkeleton />

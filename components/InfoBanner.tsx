@@ -27,9 +27,9 @@ export default function InfoBanner() {
   if (!isLoaded || isDismissed) return null;
 
   return (
-    <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
-      <div className="bg-brand-50 dark:bg-brand-950/30 border border-t-0 border-brand-200 dark:border-brand-800 rounded-b-lg py-2 px-3 sm:px-4 flex items-center justify-between gap-3">
-        <p className="text-xs sm:text-sm text-brand-800 dark:text-brand-200 flex-1 text-center">
+    <div className="w-full max-w-7xl mx-auto px-0 sm:px-6 lg:px-8">
+      <div className="bg-brand-50/50 dark:bg-brand-950/20 border border-t-0 border-brand-200/50 dark:border-brand-800/50 sm:rounded-b-lg py-2 px-3 sm:px-4 flex items-center justify-between gap-3">
+        <p className="text-xs sm:text-sm text-brand-800/80 dark:text-brand-200/80 flex-1 text-center">
           Your settings &amp; filters will be saved for next time. Email{" "}
           <span className="font-medium">hi@avlgo.com</span> with questions or
           feedback

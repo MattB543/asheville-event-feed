@@ -13,13 +13,13 @@ import { checkWeeklyRecurring } from '../../lib/ai/recurringDetection';
 import { findSimilarEvents } from '../../lib/db/similaritySearch';
 import { isAzureAIEnabled } from '../../lib/ai/provider-clients';
 
-// Configuration - FAST MODE
+// Configuration - MAX SPEED MODE
 // Azure OpenAI can handle 60-300 RPM depending on tier
-// We'll use 20-25 concurrent requests to be safe
-const BATCH_SIZE_COMBINED = 25;   // Was 5 - now 5x faster
-const BATCH_SIZE_EMBEDDINGS = 30; // Was 10 - now 3x faster
-const BATCH_SIZE_SCORING = 20;    // Was 1 (sequential!) - now 20x faster
-const LIMIT_PER_PASS = 200;       // Was 100 - process more per pass
+// Running at max throughput with no delays
+const BATCH_SIZE_COMBINED = 30;
+const BATCH_SIZE_EMBEDDINGS = 30;
+const BATCH_SIZE_SCORING = 30;
+const LIMIT_PER_PASS = 200;
 
 // Helper to format duration
 function formatDuration(ms: number): string {
@@ -103,17 +103,38 @@ async function processCombinedPass(stats: Stats): Promise<number> {
             stats.combined.success++;
             stats.combined.total++;
           } else {
+            // AI returned empty results - mark with placeholders to prevent infinite retry
             stats.combined.failed++;
             stats.combined.total++;
+            console.error(`✗ Empty result: "${event.title.slice(0, 40)}..."`);
+            const fallbackData: { tags?: string[]; aiSummary?: string } = {};
+            if (needsTags) fallbackData.tags = ['Event'];
+            if (needsSummary) fallbackData.aiSummary = '[AI processing returned no results]';
+            if (Object.keys(fallbackData).length > 0) {
+              await db.update(events).set(fallbackData).where(eq(events.id, event.id));
+            }
           }
         } catch (err) {
           stats.combined.failed++;
           stats.combined.total++;
-          console.error(`✗ Failed: "${event.title.slice(0, 40)}..."`);
+          const errMsg = err instanceof Error ? err.message : String(err);
+          const isContentFilter = errMsg.includes('content_filter') || errMsg.includes('content management policy');
+          console.error(`✗ Failed: "${event.title.slice(0, 40)}..."${isContentFilter ? ' [CONTENT FILTER]' : ''}`);
+
+          // Mark failed events with placeholder to prevent infinite retry loops
+          const needsTags = !event.tags || event.tags.length === 0;
+          const needsSummary = !event.aiSummary;
+          const updateData: { tags?: string[]; aiSummary?: string } = {};
+          if (needsTags) updateData.tags = ['Event'];
+          if (needsSummary) updateData.aiSummary = isContentFilter ? '[Content filtered by AI safety policy]' : '[AI processing failed]';
+
+          if (Object.keys(updateData).length > 0) {
+            await db.update(events).set(updateData).where(eq(events.id, event.id));
+          }
         }
       })
     );
-    await new Promise((r) => setTimeout(r, 300)); // Reduced from 1000ms
+    // No delay - max throughput
   }
 
   return eventsNeedingProcessing.length;
@@ -172,7 +193,7 @@ async function processEmbeddingsPass(stats: Stats): Promise<number> {
         }
       })
     );
-    await new Promise((r) => setTimeout(r, 100)); // Reduced from 500ms
+    // No delay - max throughput
   }
 
   return eventsNeedingEmbeddings.length;
@@ -318,8 +339,7 @@ async function processScoringPass(stats: Stats): Promise<number> {
           }
         })
       );
-      // Brief delay between batches
-      await new Promise((r) => setTimeout(r, 200));
+      // No delay - max throughput
     }
   }
 
@@ -374,7 +394,6 @@ async function main() {
   }
 
   const jobStartTime = Date.now();
-  let passNumber = 0;
 
   const stats: Stats = {
     combined: { success: 0, failed: 0, total: 0 },
@@ -383,7 +402,7 @@ async function main() {
   };
 
   console.log('════════════════════════════════════════════════════════════');
-  console.log('  AI PROCESSING - Running until all events are complete');
+  console.log('  AI PROCESSING - Sequential Pipeline');
   console.log('════════════════════════════════════════════════════════════');
 
   // Get initial counts
@@ -393,39 +412,51 @@ async function main() {
   console.log(`  • Need embedding: ${initial.needsEmbedding}`);
   console.log(`  • Need score: ${initial.needsScore}`);
 
-  // Main loop - keep processing until nothing left
+  // STEP 1: Process ALL tags/summaries first
+  console.log(`\n════════════════════════════════════════════════════════════`);
+  console.log(`  STEP 1: TAGS & SUMMARIES`);
+  console.log(`════════════════════════════════════════════════════════════`);
+  let stepStart = Date.now();
+  let batchNum = 0;
   while (true) {
-    passNumber++;
-    const passStart = Date.now();
-
-    console.log(`\n────────────────────────────────────────────────────────────`);
-    console.log(`  PASS ${passNumber} - ${formatDuration(Date.now() - jobStartTime)} elapsed`);
-    console.log(`────────────────────────────────────────────────────────────`);
-
-    // Process each phase
-    const combinedProcessed = await processCombinedPass(stats);
-    const embeddingsProcessed = await processEmbeddingsPass(stats);
-    const scoringProcessed = await processScoringPass(stats);
-
-    const totalProcessed = combinedProcessed + embeddingsProcessed + scoringProcessed;
-
-    console.log(`\n  Pass ${passNumber} complete in ${formatDuration(Date.now() - passStart)}`);
-    console.log(`  Processed: ${combinedProcessed} summaries, ${embeddingsProcessed} embeddings, ${scoringProcessed} scores`);
-
-    // Check if we're done
-    if (totalProcessed === 0) {
-      console.log('\n  ✅ All events processed!');
-      break;
-    }
-
-    // Show remaining
+    const processed = await processCombinedPass(stats);
+    if (processed === 0) break;
+    batchNum++;
     const remaining = await getRemainingCounts();
-    const totalRemaining = remaining.needsSummary + remaining.needsEmbedding + remaining.needsScore;
-    console.log(`  Remaining: ${totalRemaining} total (${remaining.needsSummary} summaries, ${remaining.needsEmbedding} embeddings, ${remaining.needsScore} scores)`);
-
-    // Brief pause between passes
-    await new Promise((r) => setTimeout(r, 2000));
+    console.log(`  Batch ${batchNum} done. ${remaining.needsSummary} remaining...`);
   }
+  console.log(`\n  ✅ All tags/summaries complete in ${formatDuration(Date.now() - stepStart)}`);
+
+  // STEP 2: Process ALL embeddings
+  console.log(`\n════════════════════════════════════════════════════════════`);
+  console.log(`  STEP 2: EMBEDDINGS`);
+  console.log(`════════════════════════════════════════════════════════════`);
+  stepStart = Date.now();
+  batchNum = 0;
+  while (true) {
+    const processed = await processEmbeddingsPass(stats);
+    if (processed === 0) break;
+    batchNum++;
+    const remaining = await getRemainingCounts();
+    console.log(`  Batch ${batchNum} done. ${remaining.needsEmbedding} remaining...`);
+  }
+  console.log(`\n  ✅ All embeddings complete in ${formatDuration(Date.now() - stepStart)}`);
+
+  // STEP 3: Process ALL scores
+  console.log(`\n════════════════════════════════════════════════════════════`);
+  console.log(`  STEP 3: SCORING`);
+  console.log(`════════════════════════════════════════════════════════════`);
+  stepStart = Date.now();
+  batchNum = 0;
+  while (true) {
+    const processed = await processScoringPass(stats);
+    if (processed === 0) break;
+    batchNum++;
+    const remaining = await getRemainingCounts();
+    console.log(`  Batch ${batchNum} done. ${remaining.needsScore} remaining...`);
+  }
+  console.log(`\n  ✅ All scoring complete in ${formatDuration(Date.now() - stepStart)}`);
+
 
   // Final Summary
   const totalDuration = Date.now() - jobStartTime;

@@ -38,7 +38,7 @@ export default async function ProfilePage() {
       <div className="max-w-2xl mx-auto">
         {/* Back link */}
         <Link
-          href="/"
+          href="/events"
           className="inline-flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white mb-6 transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />

@@ -4,6 +4,7 @@ import Image from "next/image";
 interface PublicCuratorCardProps {
   slug: string;
   displayName: string;
+  title?: string | null;
   bio: string | null;
   avatarUrl: string | null;
   showProfilePicture: boolean;
@@ -13,6 +14,7 @@ interface PublicCuratorCardProps {
 export default function PublicCuratorCard({
   slug,
   displayName,
+  title,
   bio,
   avatarUrl,
   showProfilePicture,
@@ -43,7 +45,12 @@ export default function PublicCuratorCard({
           <h3 className="font-semibold text-gray-900 dark:text-white truncate">
             {displayName}
           </h3>
-          <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">
+          {title && (
+            <p className="text-xs text-gray-500 dark:text-gray-400">
+              {title}
+            </p>
+          )}
+          <p className="text-xs text-gray-500/90 dark:text-gray-400/90 mb-1">
             {curationCount} curated event{curationCount !== 1 ? "s" : ""}
           </p>
           {bio && (

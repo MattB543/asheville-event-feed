@@ -12,7 +12,6 @@ import {
   MapPin,
   ArrowRight,
   X,
-  Sparkles,
 } from "lucide-react";
 import { TAG_CATEGORIES } from "@/lib/config/tagCategories";
 import { getZipName } from "@/lib/config/zipNames";
@@ -20,7 +19,7 @@ import { Calendar } from "./ui/Calendar";
 import { DateRange as DayPickerDateRange } from "react-day-picker";
 import { format, parse, isValid } from "date-fns";
 import TriStateCheckbox, { TriState } from "./ui/TriStateCheckbox";
-import { TagFilterState, ScoreTier } from "./EventFeed";
+import { TagFilterState } from "./EventFeed";
 
 // Safe date parsing helper that returns undefined on invalid dates
 function safeParseDateString(dateStr: string | null): Date | undefined {
@@ -79,8 +78,6 @@ export interface FilterBarProps {
   onTagFiltersChange: (filters: TagFilterState) => void;
   showDailyEvents: boolean;
   onShowDailyEventsChange: (show: boolean) => void;
-  selectedScoreTiers: ScoreTier[];
-  onScoreTiersChange: (tiers: ScoreTier[]) => void;
   onOpenSettings: () => void;
 }
 
@@ -135,15 +132,12 @@ export default function FilterBar({
   onTagFiltersChange,
   showDailyEvents,
   onShowDailyEventsChange,
-  selectedScoreTiers,
-  onScoreTiersChange,
   onOpenSettings,
 }: FilterBarProps) {
   const [isTagsOpen, setIsTagsOpen] = useState(false);
   const [isDateOpen, setIsDateOpen] = useState(false);
   const [isPriceOpen, setIsPriceOpen] = useState(false);
   const [isLocationOpen, setIsLocationOpen] = useState(false);
-  const [isQualityOpen, setIsQualityOpen] = useState(false);
   const [expandedCategories, setExpandedCategories] = useState<Set<string>>(
     new Set(TAG_CATEGORIES.map((c) => c.name))
   );
@@ -151,7 +145,6 @@ export default function FilterBar({
   const dateRef = useRef<HTMLDivElement>(null);
   const priceRef = useRef<HTMLDivElement>(null);
   const locationRef = useRef<HTMLDivElement>(null);
-  const qualityRef = useRef<HTMLDivElement>(null);
 
   // Local optimistic state for instant visual feedback on filter clicks
   const [localTagFilters, setLocalTagFilters] = useState(tagFilters);
@@ -174,8 +167,6 @@ export default function FilterBar({
   const [localSearchInput, setLocalSearchInput] = useState(search);
   const [localShowDailyEvents, setLocalShowDailyEvents] =
     useState(showDailyEvents);
-  const [localSelectedScoreTiers, setLocalSelectedScoreTiers] =
-    useState(selectedScoreTiers);
   const [, startTransition] = useTransition();
 
   // Sync local state with props when they change (e.g., from "Clear all" button)
@@ -222,10 +213,6 @@ export default function FilterBar({
   useEffect(() => {
     setLocalShowDailyEvents(showDailyEvents);
   }, [showDailyEvents]);
-
-  useEffect(() => {
-    setLocalSelectedScoreTiers(selectedScoreTiers);
-  }, [selectedScoreTiers]);
 
   // Search submit handler - only updates parent when user explicitly submits
   const handleSearchSubmit = () => {
@@ -309,12 +296,6 @@ export default function FilterBar({
         !locationRef.current.contains(event.target as Node)
       ) {
         setIsLocationOpen(false);
-      }
-      if (
-        qualityRef.current &&
-        !qualityRef.current.contains(event.target as Node)
-      ) {
-        setIsQualityOpen(false);
       }
     }
     document.addEventListener("mousedown", handleClickOutside);
@@ -484,17 +465,6 @@ export default function FilterBar({
   const buttonInactiveStyle = `${buttonBaseStyle} border border-gray-200 dark:border-gray-700`;
   const buttonActiveStyle = `${buttonBaseStyle} border-2 border-brand-500 dark:border-brand-400`;
 
-  // Toggle score tier filter
-  const toggleScoreTier = (tier: ScoreTier) => {
-    const newTiers = localSelectedScoreTiers.includes(tier)
-      ? localSelectedScoreTiers.filter((t) => t !== tier)
-      : [...localSelectedScoreTiers, tier];
-    setLocalSelectedScoreTiers(newTiers);
-    startTransition(() => {
-      onScoreTiersChange(newTiers);
-    });
-  };
-
   // Check if filters are active
   const isDateFilterActive =
     localDateFilter !== "all" || localSelectedTimes.length > 0;
@@ -502,11 +472,6 @@ export default function FilterBar({
   const isLocationFilterActive =
     localSelectedLocations.length > 0 || localSelectedZips.length > 0;
   const isTagsFilterActive = activeTagCount > 0 || !localShowDailyEvents;
-  // Quality filter is active when not showing default (quality + outstanding)
-  const isQualityFilterActive =
-    localSelectedScoreTiers.length !== 2 ||
-    !localSelectedScoreTiers.includes("quality") ||
-    !localSelectedScoreTiers.includes("outstanding");
 
   return (
     <div className="mb-3 px-3 sm:px-0">
@@ -1204,66 +1169,6 @@ export default function FilterBar({
                     </button>
                   </div>
                 )}
-              </div>
-            )}
-          </div>
-
-          {/* Quality Filter */}
-          <div className="relative" ref={qualityRef}>
-            <button
-              onClick={() => setIsQualityOpen(!isQualityOpen)}
-              className={
-                isQualityFilterActive ? buttonActiveStyle : buttonInactiveStyle
-              }
-              aria-expanded={isQualityOpen}
-              aria-label="Quality filter"
-            >
-              <Sparkles size={18} />
-              <ChevronDown
-                size={14}
-                className={`transition-transform ${
-                  isQualityOpen ? "rotate-180" : ""
-                }`}
-              />
-            </button>
-
-            {isQualityOpen && (
-              <div className="absolute top-full right-0 mt-1 z-50 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg min-w-[180px]">
-                <div className="p-2">
-                  <label className="flex items-center gap-2 px-2 py-1.5 rounded hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer">
-                    <input
-                      type="checkbox"
-                      checked={localSelectedScoreTiers.includes("hidden")}
-                      onChange={() => toggleScoreTier("hidden")}
-                      className="w-4 h-4 text-brand-600 rounded border-gray-300 focus:ring-brand-500"
-                    />
-                    <span className="text-sm text-gray-700 dark:text-gray-200">
-                      Common
-                    </span>
-                  </label>
-                  <label className="flex items-center gap-2 px-2 py-1.5 rounded hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer">
-                    <input
-                      type="checkbox"
-                      checked={localSelectedScoreTiers.includes("quality")}
-                      onChange={() => toggleScoreTier("quality")}
-                      className="w-4 h-4 text-brand-600 rounded border-gray-300 focus:ring-brand-500"
-                    />
-                    <span className="text-sm text-gray-700 dark:text-gray-200">
-                      Quality
-                    </span>
-                  </label>
-                  <label className="flex items-center gap-2 px-2 py-1.5 rounded hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer">
-                    <input
-                      type="checkbox"
-                      checked={localSelectedScoreTiers.includes("outstanding")}
-                      onChange={() => toggleScoreTier("outstanding")}
-                      className="w-4 h-4 text-brand-600 rounded border-gray-300 focus:ring-brand-500"
-                    />
-                    <span className="text-sm text-gray-700 dark:text-gray-200">
-                      Outstanding
-                    </span>
-                  </label>
-                </div>
               </div>
             )}
           </div>

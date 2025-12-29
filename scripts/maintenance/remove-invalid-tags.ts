@@ -9,15 +9,15 @@ import { sql } from 'drizzle-orm';
 // Must match the ALLOWED_TAGS in lib/ai/tagAndSummarize.ts
 const ALLOWED_TAGS = [
   // Entertainment
-  'Live Music', 'Comedy', 'Theater & Film', 'Dance', 'Trivia',
+  'Live Music', 'Comedy', 'Theater & Film', 'Dance', 'Trivia', 'Open Mic', 'Karaoke',
   // Food & Drink
-  'Dining', 'Beer', 'Wine & Spirits', 'Food Classes',
+  'Dining', 'Beer', 'Wine & Spirits',
   // Activities
-  'Art', 'Crafts', 'Fitness', 'Wellness', 'Spiritual', 'Outdoors', 'Tours', 'Gaming',
-  'Sports', 'Basketball', 'Education', 'Book Club',
+  'Art', 'Crafts', 'Fitness', 'Wellness', 'Spiritual', 'Meditation', 'Outdoors', 'Tours', 'Gaming',
+  'Sports', 'Education', 'Tech', 'Book Club', 'Museum Exhibition',
   // Audience/Social
   'Family', 'Dating', 'Networking', 'Nightlife', 'LGBTQ+', 'Pets',
-  'Community', 'Support Groups',
+  'Community', 'Volunteering', 'Support Groups',
   // Seasonal
   'Holiday', 'Markets',
 ];

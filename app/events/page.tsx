@@ -8,11 +8,17 @@ import UserMenu from "@/components/UserMenu";
 import EventTabSwitcher from "@/components/EventTabSwitcher";
 import { Metadata } from "next";
 import Link from "next/link";
-import { queryFilteredEvents, getEventMetadata, DbEvent, EventMetadata } from "@/lib/db/queries/events";
+import {
+  queryFilteredEvents,
+  getEventMetadata,
+  DbEvent,
+  EventMetadata,
+} from "@/lib/db/queries/events";
 
 export const metadata: Metadata = {
   title: "All Events | AVL GO",
-  description: "Browse all Asheville events aggregated from 10+ sources. Filter by date, price, tags, and location.",
+  description:
+    "Browse all Asheville events aggregated from 10+ sources. Filter by date, price, tags, and location.",
 };
 
 export const revalidate = 3600; // Fallback revalidation every hour
@@ -24,8 +30,8 @@ const getFirstPageEvents = unstable_cache(
     console.log("[Events] Fetching first page (250 events) for SSR...");
     return queryFilteredEvents({ limit: 250 });
   },
-  ['events-first-page'],
-  { tags: ['events'], revalidate: 3600 }
+  ["events-first-page"],
+  { tags: ["events"], revalidate: 3600 }
 );
 
 // Cached metadata - computed from ALL events for filter dropdowns
@@ -34,8 +40,8 @@ const getCachedMetadata = unstable_cache(
     console.log("[Events] Fetching filter metadata...");
     return getEventMetadata();
   },
-  ['events-metadata'],
-  { tags: ['events'], revalidate: 3600 }
+  ["events-metadata"],
+  { tags: ["events"], revalidate: 3600 }
 );
 
 interface EventsPageProps {
@@ -47,7 +53,11 @@ export default async function EventsPage({ searchParams }: EventsPageProps) {
   const activeTab = params.tab === "forYou" ? "forYou" : "all";
 
   let initialEvents: DbEvent[] = [];
-  let metadata: EventMetadata = { availableTags: [], availableLocations: [], availableZips: [] };
+  let metadata: EventMetadata = {
+    availableTags: [],
+    availableLocations: [],
+    availableZips: [],
+  };
 
   try {
     // Fetch first page and metadata in parallel
@@ -57,7 +67,9 @@ export default async function EventsPage({ searchParams }: EventsPageProps) {
     ]);
     initialEvents = firstPageResult.events;
     metadata = metadataResult;
-    console.log(`[Events] SSR loaded ${initialEvents.length} events (of ${firstPageResult.totalCount} total)`);
+    console.log(
+      `[Events] SSR loaded ${initialEvents.length} events (of ${firstPageResult.totalCount} total)`
+    );
   } catch (error) {
     console.error("[Events] Failed to fetch events:", error);
     // Fallback to empty arrays
@@ -117,7 +129,7 @@ export default async function EventsPage({ searchParams }: EventsPageProps) {
               </Link>
               <EventTabSwitcher activeTab={activeTab} />
             </div>
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2">
               <div className="text-sm text-gray-500/70 dark:text-gray-400/70">
                 <a
                   href="https://github.com/MattB543/asheville-event-feed"
@@ -149,7 +161,11 @@ export default async function EventsPage({ searchParams }: EventsPageProps) {
 
       <div className="flex-grow">
         <ErrorBoundary>
-          <EventFeed initialEvents={initialEvents} initialMetadata={metadata} activeTab={activeTab} />
+          <EventFeed
+            initialEvents={initialEvents}
+            initialMetadata={metadata}
+            activeTab={activeTab}
+          />
         </ErrorBoundary>
       </div>
 

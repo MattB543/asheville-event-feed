@@ -18,7 +18,7 @@
  * 3. If still tie, the newer one (by createdAt)
  */
 
-import { getVenueForEvent, venuesMatch, isKnownVenue } from './venues';
+import { getVenueForEvent, isKnownVenue } from './venues';
 
 interface EventForDedup {
   id: string;
@@ -30,6 +30,21 @@ interface EventForDedup {
   description: string | null;
   createdAt: Date | null;
 }
+
+interface PreparedEventForDedup extends EventForDedup {
+  index: number;
+  dateKey: string;
+  timeKey: string;
+  normOrganizer: string;
+  normTitle: string;
+  titleWordsOrdered: string[];
+  titleWordSet: Set<string>;
+  venueKey: string | null;
+  knownVenue: boolean;
+  descriptionWordSet?: Set<string>;
+}
+
+const EMPTY_WORD_SET = new Set<string>();
 
 // Words to ignore when comparing titles (common words)
 const STOP_WORDS = new Set([
@@ -64,15 +79,13 @@ function extractWords(title: string): Set<string> {
 /**
  * Count how many significant words two titles share
  */
-function countSharedTitleWords(title1: string, title2: string): number {
-  const words1 = extractWords(title1);
-  const words2 = extractWords(title2);
+function countSharedTitleWordsFromSets(words1: Set<string>, words2: Set<string>): number {
+  if (words1.size === 0 || words2.size === 0) return 0;
 
+  const [small, large] = words1.size <= words2.size ? [words1, words2] : [words2, words1];
   let count = 0;
-  for (const word of words1) {
-    if (words2.has(word)) {
-      count++;
-    }
+  for (const word of small) {
+    if (large.has(word)) count++;
   }
   return count;
 }
@@ -92,10 +105,8 @@ function extractWordsOrdered(title: string): string[] {
  * Get the minimum consecutive words required based on title lengths.
  * Shorter titles require fewer consecutive words.
  */
-function getMinConsecutiveWords(title1: string, title2: string): number {
-  const words1 = extractWordsOrdered(title1);
-  const words2 = extractWordsOrdered(title2);
-  const minLength = Math.min(words1.length, words2.length);
+function getMinConsecutiveWordsFromLengths(len1: number, len2: number): number {
+  const minLength = Math.min(len1, len2);
 
   if (minLength <= 2) return 2;  // Short titles: require 2 consecutive
   if (minLength <= 4) return 3;  // Medium titles: require 3 consecutive
@@ -106,12 +117,12 @@ function getMinConsecutiveWords(title1: string, title2: string): number {
  * Check if two titles share at least N consecutive significant words in the same order.
  * Uses longest common subsequence approach to find shared word sequences.
  */
-function titlesShareOrderedWords(title1: string, title2: string, minWords?: number): boolean {
-  const words1 = extractWordsOrdered(title1);
-  const words2 = extractWordsOrdered(title2);
-
-  // Use dynamic minimum based on title length if not specified
-  const required = minWords ?? getMinConsecutiveWords(title1, title2);
+function titlesShareOrderedWordsPrepared(
+  words1: string[],
+  words2: string[],
+  minWords?: number
+): boolean {
+  const required = minWords ?? getMinConsecutiveWordsFromLengths(words1.length, words2.length);
 
   if (words1.length < required || words2.length < required) {
     return false;
@@ -146,26 +157,30 @@ function normalizeTitle(title: string): string {
 }
 
 /**
- * Check if two titles are exactly the same (case-insensitive)
- */
-function titlesExactMatch(title1: string, title2: string): boolean {
-  return normalizeTitle(title1) === normalizeTitle(title2);
-}
-
-/**
  * Count how many significant words two descriptions share
  */
-function countSharedDescriptionWords(desc1: string | null, desc2: string | null): number {
-  if (!desc1 || !desc2) return 0;
+function getDescriptionWordSet(event: PreparedEventForDedup): Set<string> {
+  if (event.descriptionWordSet) return event.descriptionWordSet;
+  if (!event.description) {
+    event.descriptionWordSet = EMPTY_WORD_SET;
+    return EMPTY_WORD_SET;
+  }
+  event.descriptionWordSet = extractWords(event.description);
+  return event.descriptionWordSet;
+}
 
-  const words1 = extractWords(desc1);
-  const words2 = extractWords(desc2);
+function countSharedDescriptionWordsPrepared(
+  event1: PreparedEventForDedup,
+  event2: PreparedEventForDedup
+): number {
+  const words1 = getDescriptionWordSet(event1);
+  const words2 = getDescriptionWordSet(event2);
+  if (words1.size === 0 || words2.size === 0) return 0;
 
+  const [small, large] = words1.size <= words2.size ? [words1, words2] : [words2, words1];
   let count = 0;
-  for (const word of words1) {
-    if (words2.has(word)) {
-      count++;
-    }
+  for (const word of small) {
+    if (large.has(word)) count++;
   }
   return count;
 }
@@ -180,32 +195,6 @@ function normalizeOrganizer(organizer: string | null): string {
     .replace(/[^\w\s]/g, '')
     .replace(/\s+/g, ' ')
     .trim();
-}
-
-/**
- * Check if two dates are the same (ignoring seconds/milliseconds)
- * Uses UTC methods to avoid timezone-related comparison issues
- */
-function isSameTime(date1: Date, date2: Date): boolean {
-  return (
-    date1.getUTCFullYear() === date2.getUTCFullYear() &&
-    date1.getUTCMonth() === date2.getUTCMonth() &&
-    date1.getUTCDate() === date2.getUTCDate() &&
-    date1.getUTCHours() === date2.getUTCHours() &&
-    date1.getUTCMinutes() === date2.getUTCMinutes()
-  );
-}
-
-/**
- * Check if two dates are on the same day (ignoring time)
- * Uses UTC methods to avoid timezone-related comparison issues
- */
-function isSameDate(date1: Date, date2: Date): boolean {
-  return (
-    date1.getUTCFullYear() === date2.getUTCFullYear() &&
-    date1.getUTCMonth() === date2.getUTCMonth() &&
-    date1.getUTCDate() === date2.getUTCDate()
-  );
 }
 
 /**
@@ -246,6 +235,39 @@ export interface DuplicateGroup {
   method: string; // Which method detected this duplicate (for debugging)
 }
 
+function pad2(value: number): string {
+  return value.toString().padStart(2, '0');
+}
+
+function getDateKey(date: Date): string {
+  return `${date.getUTCFullYear()}-${pad2(date.getUTCMonth() + 1)}-${pad2(date.getUTCDate())}`;
+}
+
+function getTimeKey(date: Date): string {
+  return `${getDateKey(date)}T${pad2(date.getUTCHours())}:${pad2(date.getUTCMinutes())}`;
+}
+
+function prepareEvents(events: EventForDedup[]): PreparedEventForDedup[] {
+  return events.map((event, index) => {
+    const titleWordsOrdered = extractWordsOrdered(event.title);
+    const titleWordSet = new Set(titleWordsOrdered);
+    const venueKey = getVenueForEvent(event.organizer, event.location);
+
+    return {
+      ...event,
+      index,
+      dateKey: getDateKey(event.startDate),
+      timeKey: getTimeKey(event.startDate),
+      normOrganizer: normalizeOrganizer(event.organizer),
+      normTitle: normalizeTitle(event.title),
+      titleWordsOrdered,
+      titleWordSet,
+      venueKey,
+      knownVenue: venueKey ? isKnownVenue(venueKey) : false,
+    };
+  });
+}
+
 /**
  * Find duplicate events and determine which to keep/remove.
  * Returns groups of duplicates with decisions.
@@ -253,108 +275,171 @@ export interface DuplicateGroup {
 export function findDuplicates(events: EventForDedup[]): DuplicateGroup[] {
   const duplicateGroups: DuplicateGroup[] = [];
   const processed = new Set<string>();
+  const preparedEvents = prepareEvents(events);
+  const eventById = new Map(preparedEvents.map((event) => [event.id, event]));
+  const eventsByDate = new Map<string, PreparedEventForDedup[]>();
 
-  for (let i = 0; i < events.length; i++) {
-    const event1 = events[i];
+  for (const event of preparedEvents) {
+    const group = eventsByDate.get(event.dateKey);
+    if (group) {
+      group.push(event);
+    } else {
+      eventsByDate.set(event.dateKey, [event]);
+    }
+  }
 
-    if (processed.has(event1.id)) continue;
+  for (const dateEvents of eventsByDate.values()) {
+    if (dateEvents.length < 2) continue;
 
-    const duplicates: { event: EventForDedup; method: string }[] = [];
+    dateEvents.sort((a, b) => a.index - b.index);
 
-    for (let j = i + 1; j < events.length; j++) {
-      const event2 = events[j];
+    const timeGroups = new Map<string, PreparedEventForDedup[]>();
+    const venueGroups = new Map<string, PreparedEventForDedup[]>();
 
-      if (processed.has(event2.id)) continue;
-
-      // Pre-compute common values
-      const sameOrganizer = normalizeOrganizer(event1.organizer) === normalizeOrganizer(event2.organizer);
-      const sameTime = isSameTime(event1.startDate, event2.startDate);
-      const sameDate = isSameDate(event1.startDate, event2.startDate);
-
-      // Get venues for both events
-      const venue1 = getVenueForEvent(event1.organizer, event1.location);
-      const venue2 = getVenueForEvent(event2.organizer, event2.location);
-      const sameVenue = venue1 && venue2 && venuesMatch(venue1, venue2);
-      const bothKnownVenue = venue1 && venue2 && isKnownVenue(venue1) && isKnownVenue(venue2) && venuesMatch(venue1, venue2);
-
-      let matchedMethod: string | null = null;
-
-      // Method A: Same organizer + Same time + Share 2+ significant words in title
-      // (Strengthened from 1 word to 2 words)
-      // Only apply if both events have organizers (not empty strings)
-      const org1 = normalizeOrganizer(event1.organizer);
-      const org2 = normalizeOrganizer(event2.organizer);
-      if (!matchedMethod && org1 && org2 && sameOrganizer && sameTime) {
-        const sharedWords = countSharedTitleWords(event1.title, event2.title);
-        if (sharedWords >= 2) {
-          matchedMethod = 'A';
-        }
+    for (const event of dateEvents) {
+      const timeGroup = timeGroups.get(event.timeKey);
+      if (timeGroup) {
+        timeGroup.push(event);
+      } else {
+        timeGroups.set(event.timeKey, [event]);
       }
 
-      // Method B: Exact same title + Same time + Similar descriptions (10+ shared words)
-      if (!matchedMethod && sameTime) {
-        const exactTitleMatch = titlesExactMatch(event1.title, event2.title);
-        const sharedDescWords = countSharedDescriptionWords(event1.description, event2.description);
-        if (exactTitleMatch && sharedDescWords >= 10) {
-          matchedMethod = 'B';
+      if (event.venueKey) {
+        const venueGroup = venueGroups.get(event.venueKey);
+        if (venueGroup) {
+          venueGroup.push(event);
+        } else {
+          venueGroups.set(event.venueKey, [event]);
         }
-      }
-
-      // Method C: Same time + N+ consecutive significant words in title (N based on length)
-      // (Relaxed for short titles)
-      if (!matchedMethod && sameTime) {
-        if (titlesShareOrderedWords(event1.title, event2.title)) {
-          matchedMethod = 'C';
-        }
-      }
-
-      // Method D: Same venue + Same date + 2+ shared title words
-      // (New - catches cross-source duplicates)
-      if (!matchedMethod && sameVenue && sameDate) {
-        const sharedWords = countSharedTitleWords(event1.title, event2.title);
-        if (sharedWords >= 2) {
-          matchedMethod = 'D';
-        }
-      }
-
-      // Method E: Known venue + Same date + Any title word overlap
-      // (New - aggressive matching for known venues on same day)
-      if (!matchedMethod && bothKnownVenue && sameDate) {
-        const sharedWords = countSharedTitleWords(event1.title, event2.title);
-        if (sharedWords >= 1) {
-          matchedMethod = 'E';
-        }
-      }
-
-      if (matchedMethod) {
-        duplicates.push({ event: event2, method: matchedMethod });
-        processed.add(event2.id);
       }
     }
 
-    if (duplicates.length > 0) {
-      // Find the best event to keep among all duplicates
-      let keep = event1;
-      const remove: EventForDedup[] = [];
-      const methods: string[] = [];
+    for (let i = 0; i < dateEvents.length; i++) {
+      const event1 = dateEvents[i];
+      if (processed.has(event1.id)) continue;
 
-      for (const { event: dup, method } of duplicates) {
-        methods.push(method);
-        const winner = chooseEventToKeep(keep, dup);
-        if (winner.id === dup.id) {
-          remove.push(keep);
-          keep = dup;
-        } else {
-          remove.push(dup);
+      const duplicates: { event: PreparedEventForDedup; method: string }[] = [];
+
+      const candidateIds = new Set<string>();
+      const timeGroup = timeGroups.get(event1.timeKey) ?? [];
+      for (const candidate of timeGroup) {
+        if (candidate.index > event1.index) candidateIds.add(candidate.id);
+      }
+
+      if (event1.venueKey) {
+        const venueGroup = venueGroups.get(event1.venueKey) ?? [];
+        for (const candidate of venueGroup) {
+          if (candidate.index > event1.index) candidateIds.add(candidate.id);
         }
       }
 
-      duplicateGroups.push({
-        keep,
-        remove,
-        method: methods.join(','),
-      });
-      processed.add(event1.id);
+      if (candidateIds.size === 0) continue;
+
+      const candidates = Array.from(candidateIds)
+        .map((id) => eventById.get(id))
+        .filter((event): event is PreparedEventForDedup => Boolean(event))
+        .sort((a, b) => a.index - b.index);
+
+      for (const event2 of candidates) {
+        if (processed.has(event2.id)) continue;
+
+        // Pre-compute common values
+        const sameOrganizer = event1.normOrganizer === event2.normOrganizer;
+        const sameTime = event1.timeKey === event2.timeKey;
+        const sameDate = event1.dateKey === event2.dateKey;
+        const sameVenue =
+          Boolean(event1.venueKey) &&
+          Boolean(event2.venueKey) &&
+          event1.venueKey === event2.venueKey;
+        const bothKnownVenue = sameVenue && event1.knownVenue && event2.knownVenue;
+
+        let matchedMethod: string | null = null;
+        let sharedTitleWords: number | null = null;
+        const getSharedTitleWords = () => {
+          if (sharedTitleWords === null) {
+            sharedTitleWords = countSharedTitleWordsFromSets(event1.titleWordSet, event2.titleWordSet);
+          }
+          return sharedTitleWords;
+        };
+
+        // Method A: Same organizer + Same time + Share 2+ significant words in title
+        // (Strengthened from 1 word to 2 words)
+        // Only apply if both events have organizers (not empty strings)
+        const org1 = event1.normOrganizer;
+        const org2 = event2.normOrganizer;
+        if (!matchedMethod && org1 && org2 && sameOrganizer && sameTime) {
+          const sharedWords = getSharedTitleWords();
+          if (sharedWords >= 2) {
+            matchedMethod = 'A';
+          }
+        }
+
+        // Method B: Exact same title + Same time + Similar descriptions (10+ shared words)
+        if (!matchedMethod && sameTime) {
+          if (event1.normTitle === event2.normTitle) {
+            const sharedDescWords = countSharedDescriptionWordsPrepared(event1, event2);
+            if (sharedDescWords >= 10) {
+              matchedMethod = 'B';
+            }
+          }
+        }
+
+        // Method C: Same time + N+ consecutive significant words in title (N based on length)
+        // (Relaxed for short titles)
+        if (!matchedMethod && sameTime) {
+          if (titlesShareOrderedWordsPrepared(event1.titleWordsOrdered, event2.titleWordsOrdered)) {
+            matchedMethod = 'C';
+          }
+        }
+
+        // Method D: Same venue + Same date + 2+ shared title words
+        // (New - catches cross-source duplicates)
+        if (!matchedMethod && sameVenue && sameDate) {
+          const sharedWords = getSharedTitleWords();
+          if (sharedWords >= 2) {
+            matchedMethod = 'D';
+          }
+        }
+
+        // Method E: Known venue + Same date + Any title word overlap
+        // (New - aggressive matching for known venues on same day)
+        if (!matchedMethod && bothKnownVenue && sameDate) {
+          const sharedWords = getSharedTitleWords();
+          if (sharedWords >= 1) {
+            matchedMethod = 'E';
+          }
+        }
+
+        if (matchedMethod) {
+          duplicates.push({ event: event2, method: matchedMethod });
+          processed.add(event2.id);
+        }
+      }
+
+      if (duplicates.length > 0) {
+        // Find the best event to keep among all duplicates
+        let keep: EventForDedup = event1;
+        const remove: EventForDedup[] = [];
+        const methods: string[] = [];
+
+        for (const { event: dup, method } of duplicates) {
+          methods.push(method);
+          const winner = chooseEventToKeep(keep, dup);
+          if (winner.id === dup.id) {
+            remove.push(keep);
+            keep = dup;
+          } else {
+            remove.push(dup);
+          }
+        }
+
+        duplicateGroups.push({
+          keep,
+          remove,
+          method: methods.join(','),
+        });
+        processed.add(event1.id);
+      }
     }
   }
 

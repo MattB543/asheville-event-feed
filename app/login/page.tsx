@@ -33,7 +33,7 @@ export default function LoginPage() {
   // Redirect if already logged in
   useEffect(() => {
     if (!isLoading && user) {
-      router.push("/");
+      router.push("/events");
     }
   }, [user, isLoading, router]);
 
@@ -95,7 +95,7 @@ export default function LoginPage() {
             Sign in to AVL GO
           </h1>
           <p className="text-gray-600 dark:text-gray-400">
-            Save your preferences across devices
+            Save your feed filters, receive a custom newsletter, and more!
           </p>
         </div>
 
@@ -183,7 +183,7 @@ export default function LoginPage() {
         {/* Back link */}
         <div className="mt-6 text-center">
           <Link
-            href="/"
+            href="/events"
             className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
           >
             ← Back to events

@@ -42,6 +42,11 @@ export async function POST(request: NextRequest) {
     const displayName = isString(parsed.displayName)
       ? parsed.displayName
       : undefined;
+    const title = isString(parsed.title)
+      ? parsed.title
+      : parsed.title === null
+      ? null
+      : undefined;
     const bio = isString(parsed.bio) ? parsed.bio : undefined;
     const isPublic = isBoolean(parsed.isPublic) ? parsed.isPublic : undefined;
     const showProfilePicture = isBoolean(parsed.showProfilePicture)
@@ -55,6 +60,7 @@ export async function POST(request: NextRequest) {
     // Update with provided values
     await updateCuratorProfile(user.id, {
       ...(displayName !== undefined && { displayName }),
+      ...(title !== undefined && { title }),
       ...(bio !== undefined && { bio }),
       ...(isPublic !== undefined && { isPublic }),
       ...(showProfilePicture !== undefined && { showProfilePicture }),

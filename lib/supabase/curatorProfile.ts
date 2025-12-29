@@ -36,6 +36,7 @@ export async function getCuratorProfileByUserId(userId: string) {
 // Update profile settings
 export async function updateCuratorProfile(userId: string, data: {
   displayName?: string;
+  title?: string | null;
   bio?: string;
   isPublic?: boolean;
   showProfilePicture?: boolean;
@@ -88,6 +89,7 @@ export async function getPublicCuratorProfiles(limit = 6) {
       userId: curatorProfiles.userId,
       slug: curatorProfiles.slug,
       displayName: curatorProfiles.displayName,
+      title: curatorProfiles.title,
       bio: curatorProfiles.bio,
       avatarUrl: curatorProfiles.avatarUrl,
       showProfilePicture: curatorProfiles.showProfilePicture,

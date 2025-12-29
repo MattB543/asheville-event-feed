@@ -134,6 +134,7 @@ export const curatorProfiles = pgTable('curator_profiles', {
   userId: uuid('user_id').primaryKey(), // matches Supabase auth.users
   slug: text('slug').unique().notNull(), // e.g., "john-abc123"
   displayName: text('display_name').notNull(),
+  title: text('title'), // Optional title/role (e.g., "Founder of XYZ")
   bio: text('bio'), // nullable, max 500 chars
   isPublic: boolean('is_public').default(false).notNull(),
   showProfilePicture: boolean('show_profile_picture').default(false).notNull(),

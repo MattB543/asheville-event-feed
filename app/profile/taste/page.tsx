@@ -247,7 +247,7 @@ export default function MyTastePage() {
               Start favoriting, sharing, or hiding events to build your personalized feed.
             </p>
             <Link
-              href="/"
+              href="/events"
               className="inline-flex items-center gap-2 px-4 py-2 bg-brand-600 text-white rounded-lg hover:bg-brand-700 transition-colors"
             >
               Browse events

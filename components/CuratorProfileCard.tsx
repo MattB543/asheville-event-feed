@@ -2,6 +2,7 @@ import Image from "next/image";
 
 interface CuratorProfileCardProps {
   displayName: string;
+  title?: string | null;
   bio: string | null;
   curationCount: number;
   showProfilePicture?: boolean;
@@ -10,6 +11,7 @@ interface CuratorProfileCardProps {
 
 export default function CuratorProfileCard({
   displayName,
+  title,
   bio,
   curationCount,
   showProfilePicture = false,
@@ -29,13 +31,24 @@ export default function CuratorProfileCard({
               unoptimized
             />
           </div>
-        ) : null}
+        ) : (
+          <div className="w-16 h-16 rounded-full bg-brand-100 dark:bg-brand-900 flex items-center justify-center flex-shrink-0">
+            <span className="text-brand-600 dark:text-brand-400 font-semibold text-xl">
+              {displayName.charAt(0).toUpperCase()}
+            </span>
+          </div>
+        )}
         <div>
           <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
             {displayName}
           </h1>
-          <p className="text-sm text-gray-500 dark:text-gray-400">
-            {curationCount} curated event{curationCount !== 1 ? 's' : ''}
+          {title && (
+            <p className="text-sm text-gray-500 dark:text-gray-400">
+              {title}
+            </p>
+          )}
+          <p className="text-xs text-gray-500 dark:text-gray-400">
+            {curationCount} curated event{curationCount !== 1 ? "s" : ""}
           </p>
         </div>
       </div>

@@ -68,6 +68,14 @@ What is the scale of the "Draw"?
 - If it's a TOURING ACT at a major venue (Orange Peel, Grey Eagle, Rabbit Rabbit), it should automatically start at 18+ total.
 - If it's a massive ASHEVILLE TRADITION (Gingerbread competition, Crankie Fest), it should score 20+.
 - RECURRING EVENT RULE: A weekly event can still score high on Magnitude/Uniqueness. Don't let a "1" in Rarity crush a "9" in Magnitude.
+- THE TRIVIA/KARAOKE CAP: Standard pub trivia, karaoke, and open mics should NEVER score higher than a 4 in "Unique" and "Magnitude" unless there is a significant, documented "Main Character" twist.
+- THE "ASHEVILLE WEIRD" BONUS: Reward events that are uniquely "Asheville" (e.g., busking festivals, mountain-specific crafts, or "Crankie Fest") with +2 to the "Unique" score.
+- MAGNITUDE CLARITY:
+    - 1-3: Small bars, cafes, or virtual-only.
+    - 4-6: Established local venues (Ginger's Revenge, One World West, Jack of the Wood).
+    - 7-8: Major regional venues (The Grey Eagle, Orange Peel, Wortham Center).
+    - 9-10: Stadium/Arena (Harrah's Cherokee Center).
+- RECURRING CLIFF: While you auto-score weekly events as 5, if an event is NOT recurring but feels low-effort (like a basic bar DJ), it should stay in the 8-10 range, not the 11-17 range.
 - BELL CURVE: Aim for a broader spread.
   - 0-10: Standard weekly/utility.
   - 11-17: High-quality local weekend options.

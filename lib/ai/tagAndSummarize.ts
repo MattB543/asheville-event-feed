@@ -6,7 +6,7 @@
  */
 
 import { azureChatCompletion, isAzureAIEnabled } from './provider-clients';
-import { normalizeTagFromAI } from '@/lib/utils/formatTag';
+import { normalizeTagFromAI, tryExtractOfficialTag } from '@/lib/utils/formatTag';
 
 export interface EventData {
   title: string;
@@ -45,65 +45,70 @@ const SYSTEM_PROMPT = `You are an expert event analyzer for Asheville, NC. You w
 
 2. SUMMARY - Generate a 1-2 sentence structured summary for semantic search.
 
-## ALLOWED OFFICIAL TAGS (use ONLY these exact tags):
+## ALLOWED OFFICIAL TAGS (use ONLY these exact tag names):
+
+IMPORTANT: Return ONLY the tag name (e.g., "Live Music"), NOT the description after the dash.
 
 Entertainment:
-- Live Music – concerts, bands, live performances
-- Comedy – stand-up, improv, showcases
-- Theater & Film – plays, performances, movie nights
-- Dance – lessons, parties, social dance nights
-- Trivia – pub trivia, game nights
-- Open Mic – open mic nights, poetry slams, showcases
-- Karaoke – karaoke nights, sing-along events
+• Live Music (concerts, bands, live performances)
+• Comedy (stand-up, improv, showcases)
+• Theater & Film (plays, performances, movie nights)
+• Dance (lessons, parties, social dance nights)
+• Trivia (pub trivia, game nights)
+• Open Mic (open mic nights, poetry slams, showcases)
+• Karaoke (karaoke nights, sing-along events)
 
 Food & Drink:
-- Dining – special dinners, brunches, prix fixe meals
-- Beer – brewery events, tastings
-- Wine & Spirits – wine tastings, cocktail events
+• Dining (special dinners, brunches, prix fixe meals)
+• Beer (brewery events, tastings)
+• Wine & Spirits (wine tastings, cocktail events)
 
 Activities:
-- Art – galleries, visual art events, art classes
-- Crafts – pottery, jewelry, DIY workshops
-- Fitness – yoga, exercise, climbing, general fitness
-- Sports – team sports, athletic events, competitions
-- Wellness – sound healing, holistic health, self-care
-- Spiritual – ceremonies, religious gatherings, dharma talks
-- Meditation – meditation sits, mindfulness, guided meditation
-- Outdoors – hiking, nature, parks
-- Tours – walking tours, ghost tours, historical
-- Gaming – board games, D&D, video games
-- Education – classes, workshops, lectures, learning events
-- Tech – technology meetups, coding, maker events
-- Book Club – book discussions, reading groups, literary meetups
-- Museum Exhibition – museum exhibits, gallery shows, curated displays
+• Art (galleries, visual art events, art classes)
+• Crafts (pottery, jewelry, DIY workshops)
+• Fitness (yoga, exercise, climbing, general fitness)
+• Sports (team sports, athletic events, competitions)
+• Wellness (sound healing, holistic health, self-care)
+• Spiritual (ceremonies, religious gatherings, dharma talks)
+• Meditation (meditation sits, mindfulness, guided meditation)
+• Outdoors (hiking, nature, parks)
+• Tours (walking tours, ghost tours, historical)
+• Gaming (board games, D&D, video games)
+• Education (classes, workshops, lectures, learning events)
+• Tech (technology meetups, coding, maker events)
+• Book Club (book discussions, reading groups, literary meetups)
+• Museum Exhibition (museum exhibits, gallery shows, curated displays)
 
 Audience/Social:
-- Family – kid-friendly, all-ages
-- Dating – singles events, speed dating
-- Networking – business, professional meetups
-- Nightlife – 21+, bar events, late-night
-- LGBTQ+ – pride, queer-specific events
-- Pets – dog-friendly, goat yoga, cat lounges
-- Community – neighborhood events, local meetups
-- Volunteering – volunteer opportunities, community service, charity work
-- Support Groups – recovery, grief, mental health support meetings
+• Family (kid-friendly, all-ages)
+• Dating (singles events, speed dating)
+• Networking (business, professional meetups)
+• Nightlife (21+, bar events, late-night)
+• LGBTQ+ (pride, queer-specific events)
+• Pets (dog-friendly, goat yoga, cat lounges)
+• Community (neighborhood events, local meetups)
+• Volunteering (volunteer opportunities, community service, charity work)
+• Support Groups (recovery, grief, mental health support meetings)
 
 Seasonal:
-- Holiday – seasonal celebrations, Christmas, Halloween, etc.
-- Markets – pop-ups, vendors, shopping, craft fairs
+• Holiday (seasonal celebrations, Christmas, Halloween, etc.)
+• Markets (pop-ups, vendors, shopping, craft fairs)
 
 ## TAG RULES:
-1. For official tags: ONLY use tags from the list above. Do NOT create new official tags.
+1. For official tags: ONLY use the tag name from the list above (e.g., "Live Music", NOT "Live Music – concerts, bands").
 2. NEVER use category names as tags (not "Entertainment", "Food & Drink", etc.)
 3. Use the exact spelling and capitalization for official tags.
-4. Custom tags should be lowercase, descriptive, and specific (e.g., "jazz", "beginner friendly").
+4. Custom tags: lowercase, descriptive, specific, and MAX 3 WORDS (e.g., "jazz", "beginner friendly", "rooftop venue").
+5. DEDUPLICATION: Custom tags must provide NEW information not found in the Official tags. If the official tag is "Live Music," do not use "live music" as a custom tag; use "honky-tonk" or "psych-rock" instead.
+6. Custom tags should NOT contain hyphens or dashes. Use spaces instead (e.g., "all ages" not "all-ages").
 
 ## SUMMARY RULES:
-- NEVER repeat the event title or venue name (assume the user has already read them).
-- Focus on the "Hook": What is the specific vibe, a unique detail not in the title, or the exact activity?
-- Format: A single, active sentence under 20 words.
-- Start with a verb (e.g., "Featuring," "Blending," "Showcasing," "Exploring") or a direct descriptor.
-- No city names, no dates, no prices.
+- LENGTH: 1 to 2 descriptive sentences (approx 25-35 words).
+- NO REPETITION: assume the user has read the title/venue.
+- DYNAMIC OPENING: Never start with "Featuring," "Offering," "Showcasing," "This event is," or "Join us." Jump straight into the sensory details or the core action.
+- VIVID DETAIL: Use specific adjectives from the description (e.g., instead of "instruments," use "fiddles and upright bass"; instead of "food," use "hand-tossed wood-fired pizza").
+- SEARCH OPTIMIZATION: Ensure the summary contains the most important keywords for semantic search (vibe, genre, specific activities).
+- GOOD EXAMPLE: "Participatory acoustic circle jams of Appalachian old-time fiddle, banjo, and guitar. Players and listeners gather in a low-lit taproom for traditional mountain melodies and community connection."
 - Bad: "Live music at The Orange Peel featuring Mersiv." (Redundant)
 - Good: "Bass-heavy electronic sets with immersive lighting and experimental beat-driven performances."
 - Bad: "Group meditation at Urban Dharma featuring silent sits." (Redundant)
@@ -156,26 +161,56 @@ export async function generateTagsAndSummary(
     const officialTags = Array.isArray(parsed.official) ? parsed.official : [];
     const customTags = Array.isArray(parsed.custom) ? parsed.custom : [];
 
-    // Validate official tags against allowed list
-    const validOfficialTags = officialTags.filter(
-      (tag: unknown): tag is string =>
-        typeof tag === 'string' && ALLOWED_TAGS.includes(tag as typeof ALLOWED_TAGS[number])
-    );
+    // Validate official tags - try to extract valid tags from malformed AI output
+    // e.g., "Live Music – concerts, bands" → "Live Music"
+    const validOfficialTags: string[] = [];
+    const unrecoverableOfficialTags: string[] = [];
 
-    // Log invalid official tags
-    const invalidOfficialTags = officialTags.filter(
-      (tag: unknown) => typeof tag === 'string' && !ALLOWED_TAGS.includes(tag as typeof ALLOWED_TAGS[number])
-    );
-    if (invalidOfficialTags.length > 0) {
-      console.warn(`[TagAndSummarize] Invalid official tags for "${event.title}": ${invalidOfficialTags.join(', ')}`);
+    for (const tag of officialTags) {
+      if (typeof tag !== 'string') continue;
+
+      // Try to extract a valid official tag (handles malformed tags like "Live Music – concerts")
+      const extracted = tryExtractOfficialTag(tag, ALLOWED_TAGS);
+      if (extracted) {
+        // Avoid duplicates
+        if (!validOfficialTags.includes(extracted)) {
+          validOfficialTags.push(extracted);
+        }
+      } else {
+        unrecoverableOfficialTags.push(tag);
+      }
     }
 
-    // Custom tags: validate they're strings, then normalize (capitalize words, replace hyphens)
-    const validCustomTags = customTags
-      .filter(
-        (tag: unknown): tag is string => typeof tag === 'string' && (tag as string).trim().length > 0
-      )
-      .map((tag: string) => normalizeTagFromAI(tag));
+    // Log truly invalid official tags (ones we couldn't recover)
+    if (unrecoverableOfficialTags.length > 0) {
+      console.warn(`[TagAndSummarize] Invalid official tags for "${event.title}": ${unrecoverableOfficialTags.join(', ')}`);
+    }
+
+    // Custom tags: validate, normalize, and filter
+    // - Extract core tag if AI included description
+    // - Capitalize words, replace hyphens
+    // - Reject tags with more than 3 words
+    // - Reject duplicates of official tags
+    const validCustomTags: string[] = [];
+    for (const tag of customTags) {
+      if (typeof tag !== 'string' || !tag.trim()) continue;
+
+      const normalized = normalizeTagFromAI(tag);
+
+      // Skip if normalization failed (e.g., more than 3 words)
+      if (!normalized) continue;
+
+      // Skip if it duplicates an official tag (case-insensitive)
+      const isDuplicateOfOfficial = validOfficialTags.some(
+        (official) => official.toLowerCase() === normalized.toLowerCase()
+      );
+      if (isDuplicateOfOfficial) continue;
+
+      // Skip duplicates within custom tags
+      if (validCustomTags.some(t => t.toLowerCase() === normalized.toLowerCase())) continue;
+
+      validCustomTags.push(normalized);
+    }
 
     // Extract and clean summary
     let summary: string | null = null;

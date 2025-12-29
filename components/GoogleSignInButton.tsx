@@ -61,6 +61,7 @@ interface GoogleSignInButtonProps {
 }
 
 export function GoogleSignInButton({ className }: GoogleSignInButtonProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLDivElement>(null);
   const [isScriptLoaded, setIsScriptLoaded] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -69,7 +70,7 @@ export function GoogleSignInButton({ className }: GoogleSignInButtonProps) {
 
   const initializeButton = useCallback(async () => {
     // Prevent re-initialization
-    if (initializedRef.current || !buttonRef.current) return;
+    if (initializedRef.current || !buttonRef.current || !containerRef.current) return;
 
     const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
     if (!clientId) {
@@ -102,7 +103,7 @@ export function GoogleSignInButton({ className }: GoogleSignInButtonProps) {
           if (error) throw error;
 
           console.log('Successfully signed in with Google');
-          router.push('/');
+          router.push('/events');
           router.refresh();
         } catch (err) {
           console.error('Google sign-in error:', err);
@@ -113,6 +114,10 @@ export function GoogleSignInButton({ className }: GoogleSignInButtonProps) {
       use_fedcm_for_prompt: true,
     });
 
+    // Calculate responsive width: use container width, clamped between 200-400 (Google's limits)
+    const containerWidth = containerRef.current.offsetWidth;
+    const buttonWidth = Math.max(200, Math.min(400, containerWidth));
+
     // Render the Google Sign-In button
     window.google.accounts.id.renderButton(buttonRef.current, {
       type: 'standard',
@@ -120,7 +125,7 @@ export function GoogleSignInButton({ className }: GoogleSignInButtonProps) {
       size: 'large',
       text: 'continue_with',
       shape: 'rectangular',
-      width: 400,
+      width: buttonWidth,
     });
   }, [router]);
 
@@ -137,11 +142,11 @@ export function GoogleSignInButton({ className }: GoogleSignInButtonProps) {
         onReady={() => setIsScriptLoaded(true)}
         strategy="afterInteractive"
       />
-      <div className={className}>
+      <div ref={containerRef} className={className}>
         {/* Google's rendered button will appear here */}
         <div
           ref={buttonRef}
-          className="flex justify-center [&>div]:w-full"
+          className="flex justify-center"
         />
         {error && (
           <p className="text-red-500 text-sm mt-2 text-center">{error}</p>

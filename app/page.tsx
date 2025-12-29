@@ -103,14 +103,14 @@ export default async function HomePage() {
             </div>
           </div>
           {/* Desktop: horizontal layout */}
-          <div className="hidden sm:flex items-center justify-between gap-4">
+          <div className="hidden sm:flex items-center justify-between gap-2">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/avlgo_banner_logo_v2.svg"
               alt="AVL GO"
               className="h-[36px] w-auto dark:brightness-0 dark:invert"
             />
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2">
               <div className="text-sm text-gray-500/70 dark:text-gray-400/70">
                 <a
                   href="https://github.com/MattB543/asheville-event-feed"
@@ -219,6 +219,7 @@ export default async function HomePage() {
                 key={curator.userId}
                 slug={curator.slug}
                 displayName={curator.displayName}
+                title={curator.title}
                 bio={curator.bio}
                 avatarUrl={curator.avatarUrl}
                 showProfilePicture={curator.showProfilePicture}

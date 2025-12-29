@@ -1,0 +1,1 @@
+ALTER TABLE "curator_profiles" ADD COLUMN "title" text;

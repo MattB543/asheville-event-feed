@@ -776,7 +776,7 @@ export default function EventPageClient({
                   </button>
                 </div>
                 <Link
-                  href="/"
+                  href="/events"
                   className="text-sm text-gray-500 dark:text-gray-400 hover:text-brand-600 dark:hover:text-brand-400 transition-colors hidden sm:block"
                 >
                   View all
@@ -870,7 +870,7 @@ export default function EventPageClient({
         {/* Back Link */}
         <div className="pt-8 border-t border-gray-200 dark:border-gray-700 px-4 sm:px-0">
           <Link
-            href="/"
+            href="/events"
             className="inline-flex items-center gap-2 text-brand-600 dark:text-brand-400 hover:text-brand-700 dark:hover:text-brand-300 font-medium"
           >
             <ArrowLeft size={18} />

@@ -11,7 +11,7 @@ export default function NotFound() {
           This curator profile doesn&apos;t exist or is set to private.
         </p>
         <Link
-          href="/"
+          href="/events"
           className="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-brand-600 rounded-lg hover:bg-brand-700 transition-colors cursor-pointer"
         >
           Back to Events

@@ -409,6 +409,9 @@ export default function EventCard({
     );
   }
 
+  // Elevate card z-index when any dropdown is open so it appears above subsequent cards
+  const hasOpenDropdown = calendarMenuOpen || hideMenuOpen || moreMenuOpen;
+
   return (
     <div
       className={`relative transition-all duration-300 grid gap-2 px-3 py-6
@@ -418,6 +421,7 @@ export default function EventCard({
         ${hideBorder ? "" : "border-b border-gray-200 dark:border-gray-700"}
         ${matchTier === 'great' ? "border-l-2 border-l-green-400 dark:border-l-green-600" : ""}
         ${isHiding ? "opacity-0 -translate-x-4" : "opacity-100 translate-x-0"}
+        ${hasOpenDropdown ? "z-40" : ""}
         ${
           isNewlyHidden
             ? "bg-gray-200 dark:bg-gray-700 opacity-40"
@@ -651,7 +655,7 @@ export default function EventCard({
           </button>
 
           {calendarMenuOpen && (
-            <div className="absolute left-0 top-full mt-1 z-20 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded shadow-lg min-w-[160px]">
+            <div className="absolute left-0 top-full mt-1 z-50 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded shadow-lg min-w-[160px]">
               <button
                 onClick={handleAddToGoogleCalendar}
                 className="w-full flex items-center gap-2 px-3 py-2 text-xs text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
@@ -699,7 +703,7 @@ export default function EventCard({
           </button>
 
           {hideMenuOpen && (
-            <div className="absolute left-0 top-full mt-1 z-20 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded shadow-lg min-w-[200px]">
+            <div className="absolute left-0 top-full mt-1 z-50 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded shadow-lg min-w-[200px]">
               <button
                 onClick={handleHideEvent}
                 className="w-full flex items-start gap-2 px-3 py-2 text-left text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
@@ -791,7 +795,7 @@ export default function EventCard({
           </button>
 
           {moreMenuOpen && (
-            <div className="absolute right-0 top-full mt-1 z-20 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded shadow-lg min-w-[180px]">
+            <div className="absolute right-0 top-full mt-1 z-50 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded shadow-lg min-w-[180px]">
               {/* Curate section */}
               <button
                 onClick={() => {

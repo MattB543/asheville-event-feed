@@ -5,7 +5,7 @@
  * using cosine similarity on event embeddings.
  */
 
-import { cosineDistance, desc, asc, gt, sql, ne, and, isNotNull, gte } from 'drizzle-orm';
+import { cosineDistance, desc, asc, gt, sql, ne, and, isNotNull, gte, lte } from 'drizzle-orm';
 import { db } from './index';
 import { events } from './schema';
 import { generateQueryEmbedding } from '../ai/embedding';
@@ -148,6 +148,75 @@ export async function semanticSearchEvents(
   // Only future events
   if (futureOnly) {
     conditions.push(gte(events.startDate, new Date()));
+  }
+
+  const results = await db
+    .select({
+      id: events.id,
+      sourceId: events.sourceId,
+      source: events.source,
+      title: events.title,
+      description: events.description,
+      startDate: events.startDate,
+      location: events.location,
+      organizer: events.organizer,
+      price: events.price,
+      url: events.url,
+      imageUrl: events.imageUrl,
+      tags: events.tags,
+      timeUnknown: events.timeUnknown,
+      recurringType: events.recurringType,
+      favoriteCount: events.favoriteCount,
+      aiSummary: events.aiSummary,
+      similarity,
+    })
+    .from(events)
+    .where(and(...conditions))
+    .orderBy(desc(similarity))
+    .limit(limit);
+
+  return results as SimilarEvent[];
+}
+
+/**
+ * Find events similar to a given embedding vector.
+ * Used for personalization when we already have the embedding.
+ */
+export async function findSimilarByEmbedding(
+  embedding: number[],
+  options: SimilaritySearchOptions & {
+    startDate?: Date;
+    endDate?: Date;
+  } = {}
+): Promise<SimilarEvent[]> {
+  const {
+    limit = 10,
+    minSimilarity = 0.4,
+    excludeIds = [],
+    startDate,
+    endDate,
+  } = options;
+
+  // Calculate similarity score (1 - cosine distance)
+  const similarity = sql<number>`1 - (${cosineDistance(events.embedding, embedding)})`;
+
+  // Build conditions
+  const conditions = [
+    isNotNull(events.embedding),
+    gt(similarity, minSimilarity),
+  ];
+
+  // Exclude specific IDs
+  for (const id of excludeIds) {
+    conditions.push(ne(events.id, id));
+  }
+
+  // Date range filtering
+  if (startDate) {
+    conditions.push(gte(events.startDate, startDate));
+  }
+  if (endDate) {
+    conditions.push(lte(events.startDate, endDate));
   }
 
   const results = await db

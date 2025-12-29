@@ -93,7 +93,7 @@ export default async function CuratorProfilePage({ params }: PageProps) {
         {/* Top navigation bar */}
         <div className="flex items-center justify-between mb-6">
           <Link
-            href="/"
+            href="/events"
             target="_blank"
             className="inline-flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
           >
@@ -122,6 +122,7 @@ export default async function CuratorProfilePage({ params }: PageProps) {
         )}
         <CuratorProfileCard
           displayName={profile.displayName}
+          title={profile.title}
           bio={profile.bio}
           curationCount={curations.length}
           showProfilePicture={profile.showProfilePicture}

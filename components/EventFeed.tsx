@@ -371,9 +371,9 @@ export default function EventFeed({
     getStorageItem("showDailyEvents", true)
   );
 
-  // Score tier filter - defaults to quality + outstanding (hide low-score events)
-  const [selectedScoreTiers, setSelectedScoreTiers] = useState<ScoreTier[]>(
-    () => getStorageItem("selectedScoreTiers", ["quality", "outstanding"])
+  // Track which date groups show all events (session only)
+  const [expandedDateGroups, setExpandedDateGroups] = useState<Set<string>>(
+    new Set()
   );
 
   // Track expanded minimized events (session only - resets on page reload)
@@ -534,21 +534,9 @@ export default function EventFeed({
   const isFilterPending = isFetching && !isFetchingNextPage;
 
   // filteredEvents is now just events from the query (server already filtered)
-  // We apply session-hidden keys and score tier filtering client-side
+  // Score tier filtering is now done per-day in the rendering logic
   const filteredEvents = useMemo(() => {
-    const hasActiveSearch = search.trim().length > 0;
-    const hasIncludedTags = tagFilters.include.length > 0;
-
     return events.filter((event) => {
-      // Skip score tier filtering when there's an active search or tags selected
-      // This ensures search/tag results show all matching events regardless of score
-      if (!hasActiveSearch && !hasIncludedTags) {
-        const tier = getEventScoreTier(event.score);
-        if (!selectedScoreTiers.includes(tier)) {
-          return false;
-        }
-      }
-
       // Only filter out events hidden in THIS session if they're newly hidden
       // Events hidden in previous sessions are already filtered server-side
       const eventKey = createFingerprintKey(event.title, event.organizer);
@@ -558,7 +546,14 @@ export default function EventFeed({
       }
       return true;
     });
-  }, [events, sessionHiddenKeys, selectedScoreTiers, search, tagFilters.include]);
+  }, [events, sessionHiddenKeys]);
+
+  // Whether we should show the per-day toggle (hide during search/tags)
+  const showDayToggle = useMemo(() => {
+    const hasActiveSearch = search.trim().length > 0;
+    const hasIncludedTags = tagFilters.include.length > 0;
+    return !hasActiveSearch && !hasIncludedTags;
+  }, [search, tagFilters.include]);
 
   // Preference sync with database (for logged-in users)
   // Uses refs to avoid stale closures in callbacks
@@ -675,10 +670,6 @@ export default function EventFeed({
       localStorage.setItem("hiddenEvents", JSON.stringify(hiddenEvents));
       localStorage.setItem("showDailyEvents", JSON.stringify(showDailyEvents));
       localStorage.setItem(
-        "selectedScoreTiers",
-        JSON.stringify(selectedScoreTiers)
-      );
-      localStorage.setItem(
         "favoritedEventIds",
         JSON.stringify(favoritedEventIds)
       );
@@ -697,7 +688,6 @@ export default function EventFeed({
     blockedKeywords,
     hiddenEvents,
     showDailyEvents,
-    selectedScoreTiers,
     favoritedEventIds,
     isLoaded,
     search,
@@ -1247,8 +1237,6 @@ export default function EventFeed({
         onTagFiltersChange={setTagFilters}
         showDailyEvents={showDailyEvents}
         onShowDailyEventsChange={setShowDailyEvents}
-        selectedScoreTiers={selectedScoreTiers}
-        onScoreTiersChange={setSelectedScoreTiers}
         onOpenSettings={() => setIsSettingsOpen(true)}
       />
 
@@ -1456,15 +1444,24 @@ export default function EventFeed({
                 new Date(b.startDate).getTime()
             );
 
+            // Per-day score tier filtering: Top Events (default) vs All Events
+            const showAllForDay = expandedDateGroups.has(dateKey);
+            const scoreTierFilteredEvents = showDayToggle && !showAllForDay
+              ? sortedGroupEvents.filter((event) => {
+                  const tier = getEventScoreTier(event.score);
+                  return tier === "quality" || tier === "outstanding";
+                })
+              : sortedGroupEvents;
+
             // For today, filter out events that started more than 2.5 hours ago (unless showing all)
-            let displayEvents = sortedGroupEvents;
+            let displayEvents = scoreTierFilteredEvents;
             let hiddenPreviousCount = 0;
             if (isTodayGroup && !showAllPreviousEvents) {
-              const recentAndUpcoming = sortedGroupEvents.filter(
+              const recentAndUpcoming = scoreTierFilteredEvents.filter(
                 (event) => new Date(event.startDate) >= twoAndHalfHoursAgo
               );
               hiddenPreviousCount =
-                sortedGroupEvents.length - recentAndUpcoming.length;
+                scoreTierFilteredEvents.length - recentAndUpcoming.length;
               displayEvents = recentAndUpcoming;
             }
 
@@ -1481,10 +1478,56 @@ export default function EventFeed({
               }
             }
 
+            // Skip rendering this date group if no events match the filter
+            if (displayEvents.length === 0) {
+              return null;
+            }
+
             return (
               <div key={dateKey} className="flex flex-col">
-                <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100 sticky top-0 sm:top-9 bg-white dark:bg-gray-900 sm:border sm:border-b-0 sm:border-gray-200 dark:sm:border-gray-700 sm:rounded-t-lg py-2 px-3 sm:px-4 z-10">
-                  {headerText}
+                <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100 sticky top-0 sm:top-9 bg-white dark:bg-gray-900 sm:border sm:border-b-0 sm:border-gray-200 dark:sm:border-gray-700 sm:rounded-t-lg pt-3 pb-2 px-3 sm:px-4 z-10 flex items-center justify-between">
+                  <span>{headerText}</span>
+                  {showDayToggle && (
+                    <div className="flex items-center gap-1 text-sm font-normal">
+                      <button
+                        onClick={() => {
+                          if (showAllForDay) {
+                            setExpandedDateGroups((prev) => {
+                              const next = new Set(prev);
+                              next.delete(dateKey);
+                              return next;
+                            });
+                          }
+                        }}
+                        className={`transition-colors cursor-pointer ${
+                          !showAllForDay
+                            ? "text-brand-600 dark:text-brand-400 opacity-80"
+                            : "text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-400"
+                        }`}
+                      >
+                        Top Events
+                      </button>
+                      <span className="text-gray-300 dark:text-gray-600">|</span>
+                      <button
+                        onClick={() => {
+                          if (!showAllForDay) {
+                            setExpandedDateGroups((prev) => {
+                              const next = new Set(prev);
+                              next.add(dateKey);
+                              return next;
+                            });
+                          }
+                        }}
+                        className={`transition-colors cursor-pointer ${
+                          showAllForDay
+                            ? "text-brand-600 dark:text-brand-400 opacity-80"
+                            : "text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-400"
+                        }`}
+                      >
+                        All Events
+                      </button>
+                    </div>
+                  )}
                 </h2>
                 <div className="flex flex-col bg-white dark:bg-gray-900 sm:rounded-b-lg sm:shadow-sm sm:border sm:border-gray-200 dark:sm:border-gray-700">
                   {/* Show previous events toggle for today when events are hidden */}
@@ -1505,7 +1548,7 @@ export default function EventFeed({
                     showAllPreviousEvents &&
                     (() => {
                       // Calculate how many events would be hidden if we collapse
-                      const wouldHideCount = sortedGroupEvents.filter(
+                      const wouldHideCount = scoreTierFilteredEvents.filter(
                         (event) =>
                           new Date(event.startDate) < twoAndHalfHoursAgo
                       ).length;

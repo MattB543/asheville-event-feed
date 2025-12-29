@@ -1,54 +1,10 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { db } from "@/lib/db";
-import { events, userPreferences } from "@/lib/db/schema";
-import { eq, and, gte, lte, or, isNull, notIlike, sql } from "drizzle-orm";
 import {
-  getUserCentroids,
-  scoreEvent,
-  getScoreTier,
-  findNearestLikedEvent,
-  type PositiveSignal,
-  type NegativeSignal,
+  getMultiAnchorPersonalizedFeed,
+  type PersonalizedEvent,
 } from "@/lib/ai/personalization";
 import { getStartOfTodayEastern, getDayBoundariesEastern, getTodayStringEastern } from "@/lib/utils/timezone";
-import { isBoolean, isRecord, isString } from "@/lib/utils/validation";
-
-// Date range options for filtering
-type DateRange = 'today' | 'tomorrow' | 'week' | 'later' | 'all';
-
-// Time bucket for grouping events
-type TimeBucket = 'today' | 'tomorrow' | 'week' | 'later';
-
-const DATE_RANGES: DateRange[] = ['today', 'tomorrow', 'week', 'later', 'all'];
-const POSITIVE_SIGNAL_TYPES = new Set<PositiveSignal["signalType"]>([
-  'favorite',
-  'calendar',
-  'share',
-  'viewSource',
-]);
-
-function isPositiveSignal(value: unknown): value is PositiveSignal {
-  if (!isRecord(value)) return false;
-  if (!isString(value.eventId) || !isString(value.timestamp)) return false;
-  if (!isBoolean(value.active)) return false;
-  if (!isString(value.signalType)) return false;
-  return POSITIVE_SIGNAL_TYPES.has(value.signalType as PositiveSignal["signalType"]);
-}
-
-function isNegativeSignal(value: unknown): value is NegativeSignal {
-  if (!isRecord(value)) return false;
-  if (!isString(value.eventId) || !isString(value.timestamp)) return false;
-  return isBoolean(value.active);
-}
-
-function parseSignals<T>(
-  value: unknown,
-  isSignal: (entry: unknown) => entry is T
-): T[] {
-  if (!Array.isArray(value)) return [];
-  return value.filter(isSignal);
-}
 
 // Helper to add days to a date string (YYYY-MM-DD format)
 function addDaysToDateString(dateStr: string, days: number): string {
@@ -57,7 +13,8 @@ function addDaysToDateString(dateStr: string, days: number): string {
   return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
 }
 
-interface ScoredEvent {
+// Response format (compatible with frontend)
+interface ScoredEventResponse {
   event: {
     id: string;
     sourceId: string;
@@ -66,73 +23,79 @@ interface ScoredEvent {
     description: string | null;
     startDate: Date;
     location: string | null;
-    zip: string | null;
     organizer: string | null;
     price: string | null;
     url: string;
     imageUrl: string | null;
     tags: string[] | null;
-    createdAt: Date | null;
-    hidden: boolean | null;
-    interestedCount: number | null;
-    goingCount: number | null;
     timeUnknown: boolean | null;
     recurringType: string | null;
-    recurringEndDate: Date | null;
     favoriteCount: number | null;
     aiSummary: string | null;
-    updatedAt: Date | null;
-    lastSeenAt: Date | null;
-    score: number | null;
-    scoreRarity: number | null;
-    scoreUnique: number | null;
-    scoreMagnitude: number | null;
-    scoreReason: string | null;
   };
   score: number;
   tier: 'great' | 'good' | null;
   explanation: {
     primary: { eventId: string; title: string } | null;
   };
-  bucket: TimeBucket;
+  bucket: 'today' | 'tomorrow' | 'week' | 'later';
+  // New fields from multi-anchor algorithm
+  matchCount?: number;
+  sources?: Array<{ signalEventId: string; signalEventTitle: string; similarity: number }>;
 }
 
 /**
- * Determine which time bucket an event belongs to.
+ * Convert PersonalizedEvent to frontend-compatible format.
  */
-function getTimeBucket(eventDate: Date): TimeBucket {
-  const todayStr = getTodayStringEastern();
-  const todayBoundaries = getDayBoundariesEastern(todayStr);
+function toResponseFormat(pe: PersonalizedEvent): ScoredEventResponse {
+  // Get the best explanation from sources (highest similarity)
+  const bestSource = pe.sources.length > 0
+    ? pe.sources.reduce((best, curr) => curr.similarity > best.similarity ? curr : best)
+    : null;
 
-  const tomorrowStr = addDaysToDateString(todayStr, 1);
-  const tomorrowBoundaries = getDayBoundariesEastern(tomorrowStr);
-
-  const weekEndStr = addDaysToDateString(todayStr, 7);
-  const weekEndBoundaries = getDayBoundariesEastern(weekEndStr);
-
-  if (eventDate >= todayBoundaries.start && eventDate <= todayBoundaries.end) {
-    return 'today';
-  }
-  if (eventDate >= tomorrowBoundaries.start && eventDate <= tomorrowBoundaries.end) {
-    return 'tomorrow';
-  }
-  if (eventDate < weekEndBoundaries.start) {
-    return 'week';
-  }
-  return 'later';
+  return {
+    event: {
+      id: pe.event.id,
+      sourceId: pe.event.sourceId,
+      source: pe.event.source,
+      title: pe.event.title,
+      description: pe.event.description,
+      startDate: pe.event.startDate,
+      location: pe.event.location,
+      organizer: pe.event.organizer,
+      price: pe.event.price,
+      url: pe.event.url,
+      imageUrl: pe.event.imageUrl,
+      tags: pe.event.tags,
+      timeUnknown: pe.event.timeUnknown,
+      recurringType: pe.event.recurringType,
+      favoriteCount: pe.event.favoriteCount,
+      aiSummary: pe.event.aiSummary,
+    },
+    score: pe.finalScore,
+    tier: pe.tier,
+    explanation: {
+      primary: bestSource
+        ? { eventId: bestSource.signalEventId, title: bestSource.signalEventTitle }
+        : null,
+    },
+    bucket: pe.bucket,
+    matchCount: pe.matchCount,
+    sources: pe.sources,
+  };
 }
 
 /**
  * GET /api/for-you
  *
- * Returns personalized event feed based on user's positive/negative signals.
- *
- * Query params:
- * - dateRange: 'today' | 'tomorrow' | 'week' | 'later' | 'all' (default: 'all')
+ * Returns personalized event feed using multi-anchor algorithm.
+ * Instead of just using a centroid (which can get "watered down"),
+ * this finds top matches for EACH liked event individually, then
+ * aggregates with boosts for events that match multiple interests.
  */
-export async function GET(request: NextRequest) {
+export async function GET(_request: NextRequest) {
   try {
-    console.log("[ForYou API] Request received");
+    console.log("[ForYou API] Request received (V2 multi-anchor algorithm)");
 
     const supabase = await createClient();
     const { data: { user } } = await supabase.auth.getUser();
@@ -144,240 +107,78 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    // Parse query params
-    const { searchParams } = new URL(request.url);
-    const dateRangeParam = searchParams.get('dateRange') || 'all';
-    const dateRange = DATE_RANGES.includes(dateRangeParam as DateRange)
-      ? (dateRangeParam as DateRange)
-      : 'all';
-
-    console.log("[ForYou API] Fetching user preferences...");
-
-    // Fetch user preferences
-    const prefs = await db
-      .select()
-      .from(userPreferences)
-      .where(eq(userPreferences.userId, user.id))
-      .limit(1);
-
-    console.log("[ForYou API] User preferences found:", prefs.length > 0);
-
-    if (prefs.length === 0) {
-      console.log("[ForYou API] No preferences, returning empty");
-      return NextResponse.json({
-        events: [],
-        meta: {
-          signalCount: 0,
-          minimumMet: false,
-        },
-      });
-    }
-
-    const userPref = prefs[0];
-    const positiveSignals = parseSignals(userPref.positiveSignals, isPositiveSignal);
-    const negativeSignals = parseSignals(userPref.negativeSignals, isNegativeSignal);
-
-    console.log("[ForYou API] Signals parsed:", { positive: positiveSignals.length, negative: negativeSignals.length });
-
-    // Count active signals (within 12 months)
-    const now = Date.now();
-    const twelveMonthsAgo = now - (12 * 30 * 24 * 60 * 60 * 1000);
-    const activePositiveSignals = positiveSignals.filter(
-      s => s.active && new Date(s.timestamp).getTime() >= twelveMonthsAgo
-    );
-    const activeNegativeSignals = negativeSignals.filter(
-      s => s.active && new Date(s.timestamp).getTime() >= twelveMonthsAgo
-    );
-    const signalCount = activePositiveSignals.length + activeNegativeSignals.length;
-
-    console.log("[ForYou API] Active signals:", { positive: activePositiveSignals.length, negative: activeNegativeSignals.length, total: signalCount });
-
-    // Get or compute centroids
-    console.log("[ForYou API] Getting user centroids...");
-    const { positive: positiveCentroid, negative: negativeCentroid } =
-      await getUserCentroids(user.id);
-    console.log("[ForYou API] Centroids retrieved:", { hasPositive: !!positiveCentroid, hasNegative: !!negativeCentroid });
-
-    if (!positiveCentroid) {
-      // No positive signals = no personalization
-      return NextResponse.json({
-        events: [],
-        meta: {
-          signalCount,
-          minimumMet: signalCount >= 5,
-        },
-      });
-    }
-
-    // Build date filter based on dateRange param
+    // Calculate date range (next 14 days)
     const todayStr = getTodayStringEastern();
     const startOfToday = getStartOfTodayEastern();
     const fourteenDaysFromNowStr = addDaysToDateString(todayStr, 14);
     const fourteenDaysFromNow = getDayBoundariesEastern(fourteenDaysFromNowStr).end;
 
-    const dateConditions = [
-      gte(events.startDate, startOfToday),
-      lte(events.startDate, fourteenDaysFromNow),
-    ];
+    console.log("[ForYou API] Date range:", {
+      start: startOfToday.toISOString(),
+      end: fourteenDaysFromNow.toISOString(),
+    });
 
-    // Apply specific date range if not 'all'
-    if (dateRange !== 'all') {
-      const todayBoundaries = getDayBoundariesEastern(todayStr);
-      const tomorrowStr = addDaysToDateString(todayStr, 1);
-      const tomorrowBoundaries = getDayBoundariesEastern(tomorrowStr);
-      const weekEndStr = addDaysToDateString(todayStr, 7);
-      const weekEndBoundaries = getDayBoundariesEastern(weekEndStr);
+    // Call the new multi-anchor personalization algorithm
+    const result = await getMultiAnchorPersonalizedFeed(user.id, {
+      startDate: startOfToday,
+      endDate: fourteenDaysFromNow,
+    });
 
-      switch (dateRange) {
-        case 'today':
-          dateConditions.push(lte(events.startDate, todayBoundaries.end));
-          break;
-        case 'tomorrow':
-          dateConditions.push(gte(events.startDate, tomorrowBoundaries.start));
-          dateConditions.push(lte(events.startDate, tomorrowBoundaries.end));
-          break;
-        case 'week':
-          dateConditions.push(lte(events.startDate, weekEndBoundaries.start));
-          break;
-        case 'later':
-          dateConditions.push(gte(events.startDate, weekEndBoundaries.start));
-          break;
-      }
-    }
+    console.log("[ForYou API] Algorithm result:", {
+      eventCount: result.events.length,
+      signalCount: result.meta.signalCount,
+      signalEventsUsed: result.meta.signalEventsUsed,
+      candidatesFound: result.meta.candidatesFound,
+    });
 
-    // Fetch events for the next 14 days (or filtered range)
-    const fetchedEvents = await db
-      .select({
-        id: events.id,
-        sourceId: events.sourceId,
-        source: events.source,
-        title: events.title,
-        description: events.description,
-        startDate: events.startDate,
-        location: events.location,
-        zip: events.zip,
-        organizer: events.organizer,
-        price: events.price,
-        url: events.url,
-        imageUrl: events.imageUrl,
-        tags: events.tags,
-        createdAt: events.createdAt,
-        hidden: events.hidden,
-        interestedCount: events.interestedCount,
-        goingCount: events.goingCount,
-        timeUnknown: events.timeUnknown,
-        recurringType: events.recurringType,
-        recurringEndDate: events.recurringEndDate,
-        favoriteCount: events.favoriteCount,
-        aiSummary: events.aiSummary,
-        updatedAt: events.updatedAt,
-        lastSeenAt: events.lastSeenAt,
-        score: events.score,
-        scoreRarity: events.scoreRarity,
-        scoreUnique: events.scoreUnique,
-        scoreMagnitude: events.scoreMagnitude,
-        scoreReason: events.scoreReason,
-        embedding: events.embedding,
-      })
-      .from(events)
-      .where(
-        and(
-          ...dateConditions,
-          // Exclude hidden events
-          or(isNull(events.hidden), sql`${events.hidden} = false`),
-          // Exclude online/virtual events
-          or(
-            isNull(events.location),
-            and(
-              notIlike(events.location, "%online%"),
-              notIlike(events.location, "%virtual%")
-            )
-          )
-        )
-      );
+    // Convert to response format
+    const scoredEvents = result.events.map(toResponseFormat);
 
-    console.log(`[ForYou] Fetched ${fetchedEvents.length} events for scoring`);
+    // Sort by bucket priority, then by score within bucket
+    const bucketOrder: Record<string, number> = {
+      today: 0,
+      tomorrow: 1,
+      week: 2,
+      later: 3,
+    };
 
-    // Score each event
-    const scoredEvents: ScoredEvent[] = [];
-
-    for (const event of fetchedEvents) {
-      // Skip events without embeddings
-      if (!event.embedding) {
-        continue;
-      }
-
-      const embedding =
-        Array.isArray(event.embedding) &&
-        event.embedding.every((value) => typeof value === "number")
-          ? event.embedding
-          : null;
-      if (!embedding) {
-        continue;
-      }
-      const eventScore = scoreEvent(embedding, positiveCentroid, negativeCentroid);
-
-      // Filter out Hidden tier (score ≤ 0.3)
-      if (eventScore <= 0.3) {
-        continue;
-      }
-
-      const tier = getScoreTier(eventScore);
-      const bucket = getTimeBucket(event.startDate);
-
-      // Find explanation for Great and Good tier events
-      const explanation: { primary: { eventId: string; title: string } | null } = {
-        primary: null,
-      };
-
-      if (tier === 'great' || tier === 'good') {
-        const nearestEvent = await findNearestLikedEvent(embedding, activePositiveSignals);
-        explanation.primary = nearestEvent;
-      }
-
-      // Remove embedding from response (not needed on client)
-      const { embedding: eventEmbedding, ...eventWithoutEmbedding } = event;
-      void eventEmbedding;
-
-      scoredEvents.push({
-        event: eventWithoutEmbedding,
-        score: eventScore,
-        tier,
-        explanation,
-        bucket,
-      });
-    }
-
-    // Sort events by score within each bucket
     scoredEvents.sort((a, b) => {
-      // First sort by bucket priority
-      const bucketOrder: Record<TimeBucket, number> = {
-        today: 0,
-        tomorrow: 1,
-        week: 2,
-        later: 3,
-      };
-
       const bucketDiff = bucketOrder[a.bucket] - bucketOrder[b.bucket];
       if (bucketDiff !== 0) return bucketDiff;
-
-      // Then sort by score within bucket (descending)
       return b.score - a.score;
     });
 
-    console.log(
-      `[ForYou] Returning ${scoredEvents.length} personalized events (signalCount=${signalCount})`
-    );
+    console.log(`[ForYou API] Returning ${scoredEvents.length} personalized events`);
+
+    // Log tier breakdown for debugging
+    const tierCounts = {
+      great: scoredEvents.filter(e => e.tier === 'great').length,
+      good: scoredEvents.filter(e => e.tier === 'good').length,
+      okay: scoredEvents.filter(e => e.tier === null).length,
+    };
+    console.log("[ForYou API] Tier breakdown:", tierCounts);
+
+    // Log multi-match events (events that matched multiple liked events)
+    const multiMatchEvents = scoredEvents.filter(e => (e.matchCount ?? 0) > 1);
+    if (multiMatchEvents.length > 0) {
+      console.log(`[ForYou API] ${multiMatchEvents.length} events matched multiple interests:`);
+      for (const e of multiMatchEvents.slice(0, 5)) {
+        console.log(`  - "${e.event.title.substring(0, 40)}..." matched ${e.matchCount} interests`);
+      }
+    }
 
     return NextResponse.json({
       events: scoredEvents,
       meta: {
-        signalCount,
-        minimumMet: signalCount >= 5,
+        signalCount: result.meta.signalCount,
+        minimumMet: result.meta.minimumMet,
+        // New metadata from V2 algorithm
+        signalEventsUsed: result.meta.signalEventsUsed,
+        candidatesFound: result.meta.candidatesFound,
       },
     });
   } catch (error) {
-    console.error("[ForYou] Error generating personalized feed:", error);
+    console.error("[ForYou API] Error generating personalized feed:", error);
     return NextResponse.json(
       { error: "Failed to generate personalized feed" },
       { status: 500 }

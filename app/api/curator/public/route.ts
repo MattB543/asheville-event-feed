@@ -13,6 +13,7 @@ export async function GET(request: NextRequest) {
       conditions.push(
         or(
           ilike(curatorProfiles.displayName, `%${search}%`),
+          ilike(curatorProfiles.title, `%${search}%`),
           ilike(curatorProfiles.bio, `%${search}%`)
         )!
       );
@@ -23,6 +24,7 @@ export async function GET(request: NextRequest) {
         userId: curatorProfiles.userId,
         slug: curatorProfiles.slug,
         displayName: curatorProfiles.displayName,
+        title: curatorProfiles.title,
         bio: curatorProfiles.bio,
         avatarUrl: curatorProfiles.avatarUrl,
         showProfilePicture: curatorProfiles.showProfilePicture,

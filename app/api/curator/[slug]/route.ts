@@ -19,6 +19,7 @@ export async function GET(
     return NextResponse.json({
       profile: {
         displayName: profile.displayName,
+        title: profile.title,
         bio: profile.bio,
         slug: profile.slug,
       },

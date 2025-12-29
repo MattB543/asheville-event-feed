@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import Image from "next/image";
 import {
   Mail,
   Bell,
@@ -27,6 +28,7 @@ interface PublicCurator {
   userId: string;
   slug: string;
   displayName: string;
+  title: string | null;
   bio: string | null;
   avatarUrl: string | null;
   showProfilePicture: boolean;
@@ -122,8 +124,9 @@ export default function EmailDigestSettings({ email }: EmailDigestSettingsProps)
     const term = curatorSearch.toLowerCase();
     return curators.filter((curator) => {
       const name = curator.displayName.toLowerCase();
+      const title = curator.title?.toLowerCase() || "";
       const bio = curator.bio?.toLowerCase() || "";
-      return name.includes(term) || bio.includes(term);
+      return name.includes(term) || title.includes(term) || bio.includes(term);
     });
   }, [curators, curatorSearch]);
 
@@ -559,26 +562,51 @@ export default function EmailDigestSettings({ email }: EmailDigestSettingsProps)
                         : "border-gray-200 dark:border-gray-700 hover:border-brand-300"
                     }`}
                   >
+                    <div className="flex items-start gap-3 min-w-0 flex-1">
+                      {curator.showProfilePicture && curator.avatarUrl ? (
+                        <div className="w-10 h-10 rounded-full overflow-hidden flex-shrink-0">
+                          <Image
+                            src={curator.avatarUrl}
+                            alt={curator.displayName}
+                            width={40}
+                            height={40}
+                            className="w-full h-full object-cover"
+                            unoptimized
+                          />
+                        </div>
+                      ) : (
+                        <div className="w-10 h-10 rounded-full bg-brand-100 dark:bg-brand-900 flex items-center justify-center flex-shrink-0">
+                          <span className="text-brand-600 dark:text-brand-400 font-semibold text-sm">
+                            {curator.displayName.charAt(0).toUpperCase()}
+                          </span>
+                        </div>
+                      )}
+                      <div className="flex-1 min-w-0">
+                        <div className="text-sm font-medium text-gray-900 dark:text-white">
+                          {curator.displayName}
+                        </div>
+                        {curator.title && (
+                          <div className="text-xs text-gray-500 dark:text-gray-400">
+                            {curator.title}
+                          </div>
+                        )}
+                        <div className="text-xs text-gray-500 dark:text-gray-400">
+                          {curator.curationCount} curated event
+                          {curator.curationCount === 1 ? "" : "s"}
+                        </div>
+                        {curator.bio && (
+                          <div className="text-xs text-gray-500 dark:text-gray-400 line-clamp-2 mt-1">
+                            {curator.bio}
+                          </div>
+                        )}
+                      </div>
+                    </div>
                     <input
                       type="checkbox"
                       checked={isSelected}
                       onChange={() => handleToggleCurator(curator.userId)}
                       className="mt-1"
                     />
-                    <div className="flex-1 min-w-0">
-                      <div className="text-sm font-medium text-gray-900 dark:text-white">
-                        {curator.displayName}
-                      </div>
-                      <div className="text-xs text-gray-500 dark:text-gray-400">
-                        {curator.curationCount} curated event
-                        {curator.curationCount === 1 ? "" : "s"}
-                      </div>
-                      {curator.bio && (
-                        <div className="text-xs text-gray-500 dark:text-gray-400 line-clamp-2 mt-1">
-                          {curator.bio}
-                        </div>
-                      )}
-                    </div>
                   </label>
                 );
               })

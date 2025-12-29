@@ -8,6 +8,7 @@ interface CuratorProfile {
   userId: string;
   slug: string;
   displayName: string;
+  title: string | null;
   bio: string | null;
   isPublic: boolean;
   showProfilePicture: boolean;
@@ -32,6 +33,7 @@ export default function CuratorProfileSettings({
 
   // Form state
   const [displayName, setDisplayName] = useState("");
+  const [title, setTitle] = useState("");
   const [bio, setBio] = useState("");
   const [isPublic, setIsPublic] = useState(false);
   const [showProfilePicture, setShowProfilePicture] = useState(false);
@@ -44,6 +46,7 @@ export default function CuratorProfileSettings({
         if (data.profile) {
           setProfile(data.profile);
           setDisplayName(data.profile.displayName);
+          setTitle(data.profile.title || "");
           setBio(data.profile.bio || "");
           setIsPublic(data.profile.isPublic);
           setShowProfilePicture(data.profile.showProfilePicture || false);
@@ -63,11 +66,13 @@ export default function CuratorProfileSettings({
   const handleSave = async () => {
     setIsSaving(true);
     try {
+      const trimmedTitle = title.trim();
       const res = await fetch("/api/curator/settings", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           displayName,
+          title: trimmedTitle ? trimmedTitle : null,
           bio,
           isPublic,
           showProfilePicture,
@@ -221,8 +226,23 @@ export default function CuratorProfileSettings({
             value={displayName}
             onChange={(e) => setDisplayName(e.target.value.slice(0, 50))}
             className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-500"
-            placeholder="Your name"
+            placeholder="First name, full name, whatever you want shown"
             maxLength={50}
+          />
+        </div>
+
+        {/* Title / Role */}
+        <div className="mb-6">
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            Title / Role / Job (optional)
+          </label>
+          <input
+            type="text"
+            value={title}
+            onChange={(e) => setTitle(e.target.value.slice(0, 80))}
+            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-500"
+            placeholder="Founder of XYZ"
+            maxLength={80}
           />
         </div>
 

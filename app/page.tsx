@@ -5,8 +5,6 @@ import ThemeToggle from "@/components/ThemeToggle";
 import SubmitEventButton from "@/components/SubmitEventButton";
 import UserMenu from "@/components/UserMenu";
 import HomeFilterButton from "@/components/HomeFilterButton";
-import PublicCuratorCard from "@/components/PublicCuratorCard";
-import { getPublicCuratorProfiles } from "@/lib/supabase/curatorProfile";
 import {
   Users,
   Music,
@@ -54,14 +52,6 @@ const FILTER_BUTTONS = [
 ];
 
 export default async function HomePage() {
-  let curators: Awaited<ReturnType<typeof getPublicCuratorProfiles>> = [];
-
-  try {
-    curators = await getPublicCuratorProfiles(6);
-  } catch (error) {
-    console.error("[Home] Failed to fetch curators:", error);
-  }
-
   return (
     <main className="min-h-screen bg-[var(--background)] bg-texture">
       {/* Header */}

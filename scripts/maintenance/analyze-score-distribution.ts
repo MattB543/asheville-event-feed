@@ -80,7 +80,7 @@ async function main() {
     GROUP BY score
     ORDER BY score
   `);
-  const distribution = distributionResult as DistributionRow[];
+  const distribution = distributionResult as unknown as DistributionRow[];
 
   const tierResult = await db.execute(sql`
     SELECT

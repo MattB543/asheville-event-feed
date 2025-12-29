@@ -35,7 +35,7 @@ const TARGETS = {
   goldAvg: 1.5,
 };
 
-const RANGES = {
+const RANGES: Record<string, [number, number]> = {
   hiddenAvg: [23, 27],
   collapsedAvg: [18, 22],
   expandedAvg: [5, 7],
@@ -116,7 +116,7 @@ async function main() {
     GROUP BY score
     ORDER BY score
   `);
-  const distribution = distributionResult as DistributionRow[];
+  const distribution = distributionResult as unknown as DistributionRow[];
 
   const maxScore = 30;
   const scoreCounts = Array.from({ length: maxScore + 1 }, () => 0);

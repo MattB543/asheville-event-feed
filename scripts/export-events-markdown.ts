@@ -1,7 +1,7 @@
 import 'dotenv/config';
 import { db } from '../lib/db';
 import { events } from '../lib/db/schema';
-import { gte, asc, eq } from 'drizzle-orm';
+import { gte, asc } from 'drizzle-orm';
 import { writeFileSync } from 'fs';
 
 async function exportEventsToMarkdown() {

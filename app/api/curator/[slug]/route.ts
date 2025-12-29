@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse, type NextRequest } from "next/server";
 import { getCuratorProfileBySlug, getCuratedEventsWithDetails } from "@/lib/supabase/curatorProfile";
 
 export async function GET(

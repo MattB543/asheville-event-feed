@@ -1,10 +1,18 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse, type NextRequest } from "next/server";
 import {
   queryFilteredEvents,
   getEventMetadata,
-  EventFilterParams,
+  type EventFilterParams,
 } from "@/lib/db/queries/events";
 import { unstable_cache } from "next/cache";
+import {
+  isBoolean,
+  isNumber,
+  isNumberArray,
+  isRecord,
+  isString,
+  isStringArray,
+} from "@/lib/utils/validation";
 
 // Cache metadata separately (less volatile than filtered events)
 const getCachedMetadata = unstable_cache(
@@ -26,6 +34,63 @@ function parseNumberArray(value: string | null): number[] {
     .split(",")
     .map((s) => parseInt(s.trim(), 10))
     .filter((n) => !isNaN(n));
+}
+
+const DATE_FILTERS = new Set<EventFilterParams["dateFilter"]>([
+  "all",
+  "today",
+  "tomorrow",
+  "weekend",
+  "custom",
+  "dayOfWeek",
+]);
+
+const PRICE_FILTERS = new Set<EventFilterParams["priceFilter"]>([
+  "any",
+  "free",
+  "under20",
+  "under100",
+  "custom",
+]);
+
+type TimeFilter = NonNullable<EventFilterParams["times"]>[number];
+
+const TIME_FILTERS = new Set<TimeFilter>([
+  "morning",
+  "afternoon",
+  "evening",
+]);
+
+function parseDateFilter(value: unknown): EventFilterParams["dateFilter"] | undefined {
+  return isString(value) && DATE_FILTERS.has(value)
+    ? value
+    : undefined;
+}
+
+function parsePriceFilter(value: unknown): EventFilterParams["priceFilter"] | undefined {
+  return isString(value) && PRICE_FILTERS.has(value)
+    ? value
+    : undefined;
+}
+
+function parseTimes(value: unknown): EventFilterParams["times"] | undefined {
+  if (!isStringArray(value)) return undefined;
+  const times = value.filter(
+    (time): time is TimeFilter => TIME_FILTERS.has(time as TimeFilter)
+  );
+  return times.length > 0 ? times : undefined;
+}
+
+function parseHiddenFingerprints(
+  value: unknown
+): EventFilterParams["hiddenFingerprints"] | undefined {
+  if (!Array.isArray(value)) return undefined;
+  const fingerprints = value.flatMap((entry) => {
+    if (!isRecord(entry) || !isString(entry.title)) return [];
+    const organizer = isString(entry.organizer) ? entry.organizer : "";
+    return [{ title: entry.title, organizer }];
+  });
+  return fingerprints.length > 0 ? fingerprints : undefined;
 }
 
 /**
@@ -153,32 +218,95 @@ export async function GET(request: NextRequest) {
  */
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json();
+    const parsed: unknown = await request.json();
+    if (!isRecord(parsed)) {
+      return NextResponse.json(
+        { error: "Invalid request body" },
+        { status: 400 }
+      );
+    }
+    const body = parsed;
     const { searchParams } = new URL(request.url);
 
     // Merge URL params with body params (body takes precedence)
+    const bodyCursor = isString(body.cursor) ? body.cursor : undefined;
+    const bodyLimit = isNumber(body.limit) ? body.limit : undefined;
+    const bodySearch = isString(body.search) ? body.search : undefined;
+    const bodyDateFilter = parseDateFilter(body.dateFilter);
+    const bodyDateStart = isString(body.dateStart) ? body.dateStart : undefined;
+    const bodyDateEnd = isString(body.dateEnd) ? body.dateEnd : undefined;
+    const bodyDays = isNumberArray(body.days) ? body.days : undefined;
+    const bodyTimes = parseTimes(body.times);
+    const bodyPriceFilter = parsePriceFilter(body.priceFilter);
+    const bodyMaxPrice = isNumber(body.maxPrice)
+      ? body.maxPrice
+      : isString(body.maxPrice)
+        ? parseFloat(body.maxPrice)
+        : undefined;
+    const bodyTagsInclude = isStringArray(body.tagsInclude)
+      ? body.tagsInclude
+      : undefined;
+    const bodyTagsExclude = isStringArray(body.tagsExclude)
+      ? body.tagsExclude
+      : undefined;
+    const bodyLocations = isStringArray(body.locations)
+      ? body.locations
+      : undefined;
+    const bodyZips = isStringArray(body.zips) ? body.zips : undefined;
+    const bodyBlockedHosts = isStringArray(body.blockedHosts)
+      ? body.blockedHosts
+      : undefined;
+    const bodyBlockedKeywords = isStringArray(body.blockedKeywords)
+      ? body.blockedKeywords
+      : undefined;
+    const bodyHiddenFingerprints = parseHiddenFingerprints(body.hiddenFingerprints);
+    const bodyUseDefaultFilters = isBoolean(body.useDefaultFilters)
+      ? body.useDefaultFilters
+      : undefined;
+    const bodyShowDailyEvents = isBoolean(body.showDailyEvents)
+      ? body.showDailyEvents
+      : undefined;
+    const bodyIncludeMetadata = isBoolean(body.includeMetadata)
+      ? body.includeMetadata
+      : undefined;
+
     const params: EventFilterParams = {
-      cursor: body.cursor || searchParams.get("cursor") || undefined,
-      limit: Math.min(body.limit || parseInt(searchParams.get("limit") || "50", 10), 100),
-      search: body.search || searchParams.get("search") || undefined,
-      dateFilter: body.dateFilter || searchParams.get("dateFilter") || undefined,
-      dateStart: body.dateStart || searchParams.get("dateStart") || undefined,
-      dateEnd: body.dateEnd || searchParams.get("dateEnd") || undefined,
-      days: body.days || parseNumberArray(searchParams.get("days")),
-      times: body.times || parseArray(searchParams.get("times")) as EventFilterParams["times"],
-      priceFilter: body.priceFilter || searchParams.get("priceFilter") || undefined,
-      maxPrice: body.maxPrice ?? (searchParams.get("maxPrice")
-        ? parseFloat(searchParams.get("maxPrice")!)
-        : undefined),
-      tagsInclude: body.tagsInclude || parseArray(searchParams.get("tagsInclude")),
-      tagsExclude: body.tagsExclude || parseArray(searchParams.get("tagsExclude")),
-      locations: body.locations || parseArray(searchParams.get("locations")),
-      zips: body.zips || parseArray(searchParams.get("zips")),
-      blockedHosts: body.blockedHosts || parseArray(searchParams.get("blockedHosts")),
-      blockedKeywords: body.blockedKeywords || parseArray(searchParams.get("blockedKeywords")),
-      hiddenFingerprints: body.hiddenFingerprints,
-      useDefaultFilters: body.useDefaultFilters ?? searchParams.get("useDefaultFilters") !== "false",
-      showDailyEvents: body.showDailyEvents ?? searchParams.get("showDailyEvents") !== "false",
+      cursor: bodyCursor || searchParams.get("cursor") || undefined,
+      limit: Math.min(
+        bodyLimit ?? parseInt(searchParams.get("limit") || "50", 10),
+        100
+      ),
+      search: bodySearch || searchParams.get("search") || undefined,
+      dateFilter:
+        bodyDateFilter ||
+        parseDateFilter(searchParams.get("dateFilter")) ||
+        undefined,
+      dateStart: bodyDateStart || searchParams.get("dateStart") || undefined,
+      dateEnd: bodyDateEnd || searchParams.get("dateEnd") || undefined,
+      days: bodyDays || parseNumberArray(searchParams.get("days")),
+      times: bodyTimes || parseArray(searchParams.get("times")) as EventFilterParams["times"],
+      priceFilter:
+        bodyPriceFilter ||
+        parsePriceFilter(searchParams.get("priceFilter")) ||
+        undefined,
+      maxPrice:
+        bodyMaxPrice ??
+        (searchParams.get("maxPrice")
+          ? parseFloat(searchParams.get("maxPrice")!)
+          : undefined),
+      tagsInclude: bodyTagsInclude || parseArray(searchParams.get("tagsInclude")),
+      tagsExclude: bodyTagsExclude || parseArray(searchParams.get("tagsExclude")),
+      locations: bodyLocations || parseArray(searchParams.get("locations")),
+      zips: bodyZips || parseArray(searchParams.get("zips")),
+      blockedHosts:
+        bodyBlockedHosts || parseArray(searchParams.get("blockedHosts")),
+      blockedKeywords:
+        bodyBlockedKeywords || parseArray(searchParams.get("blockedKeywords")),
+      hiddenFingerprints: bodyHiddenFingerprints,
+      useDefaultFilters:
+        bodyUseDefaultFilters ?? searchParams.get("useDefaultFilters") !== "false",
+      showDailyEvents:
+        bodyShowDailyEvents ?? searchParams.get("showDailyEvents") !== "false",
     };
 
     // Clean up empty arrays
@@ -197,9 +325,9 @@ export async function POST(request: NextRequest) {
 
     // Include metadata on first page by default
     const includeMetadata =
-      body.includeMetadata === true ||
+      bodyIncludeMetadata === true ||
       searchParams.get("includeMetadata") === "true" ||
-      (body.includeMetadata !== false &&
+      (bodyIncludeMetadata !== false &&
         searchParams.get("includeMetadata") !== "false" &&
         !params.cursor);
 

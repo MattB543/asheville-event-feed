@@ -5,6 +5,7 @@ import { asc, gte } from 'drizzle-orm';
 import { getStartOfTodayEastern } from '@/lib/utils/timezone';
 import { matchesDefaultFilter } from '@/lib/config/defaultFilters';
 import { extractCity, isAshevilleArea } from '@/lib/utils/geo';
+import { isRecord, isString } from '@/lib/utils/validation';
 
 export const dynamic = 'force-dynamic';
 
@@ -28,6 +29,22 @@ function matchesHiddenFingerprint(
     const fpKey = `${fp.title}|||${fp.organizer}`;
     return eventKey === fpKey;
   });
+}
+
+function parseHiddenEvents(value: string | null): HiddenEventFingerprint[] {
+  if (!value) return [];
+  try {
+    const parsed: unknown = JSON.parse(value);
+    if (!Array.isArray(parsed)) return [];
+    return parsed.flatMap((entry) => {
+      if (!isRecord(entry) || !isString(entry.title) || !isString(entry.organizer)) {
+        return [];
+      }
+      return [{ title: entry.title, organizer: entry.organizer }];
+    });
+  } catch {
+    return [];
+  }
 }
 
 function getImageUrl(imageUrl: string | null | undefined): string | null {
@@ -110,14 +127,7 @@ export async function GET(request: Request) {
     const blockedKeywordsParam = searchParams.get('blockedKeywords');
     const blockedKeywords = blockedKeywordsParam ? blockedKeywordsParam.split(',') : [];
     const hiddenEventsParam = searchParams.get('hiddenEvents');
-    let hiddenEvents: HiddenEventFingerprint[] = [];
-    if (hiddenEventsParam) {
-      try {
-        hiddenEvents = JSON.parse(hiddenEventsParam);
-      } catch {
-        // Invalid JSON, ignore
-      }
-    }
+    const hiddenEvents = parseHiddenEvents(hiddenEventsParam);
     const useDefaultFilters = searchParams.get('useDefaultFilters') !== 'false';
     const locationsParam = searchParams.get('locations');
     const selectedLocations = locationsParam ? locationsParam.split(',') : [];

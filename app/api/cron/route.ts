@@ -17,7 +17,7 @@ import { events } from "@/lib/db/schema";
 import { inArray } from "drizzle-orm";
 import { generateEventTags } from "@/lib/ai/tagAndSummarize";
 import { generateAndUploadEventImage } from "@/lib/ai/imageGeneration";
-import { ScrapedEventWithTags } from "@/lib/scrapers/types";
+import type { ScrapedEventWithTags } from "@/lib/scrapers/types";
 import { env, isFacebookEnabled } from "@/lib/config/env";
 import { findDuplicates, getIdsToRemove } from "@/lib/utils/deduplication";
 import { syncRecurringFromExploreAsheville } from "@/lib/utils/syncRecurringFromExploreAsheville";

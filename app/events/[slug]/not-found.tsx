@@ -8,7 +8,7 @@ export default function EventNotFound() {
       <header className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <Link
-            href="/"
+            href="/events"
             className="inline-flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
           >
             <ArrowLeft size={16} />
@@ -36,7 +36,7 @@ export default function EventNotFound() {
 
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link
-              href="/"
+              href="/events"
               className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-brand-600 hover:bg-brand-700 text-white rounded-lg font-medium transition-colors"
             >
               <Search size={18} />

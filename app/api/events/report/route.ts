@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
-import { sendEventReport, ReportType } from '@/lib/notifications/slack';
+import { sendEventReport, type ReportType } from '@/lib/notifications/slack';
 import { isRateLimited } from '@/lib/utils/rate-limit';
+import { isRecord, isString } from '@/lib/utils/validation';
 
 const VALID_REPORT_TYPES: ReportType[] = ['incorrect_info', 'duplicate', 'spam'];
 
@@ -21,9 +22,9 @@ export async function POST(request: Request) {
     );
   }
 
-  let body: Record<string, unknown>;
+  let parsed: unknown;
   try {
-    body = await request.json();
+    parsed = await request.json();
   } catch {
     return NextResponse.json(
       { success: false, error: 'Invalid JSON body' },
@@ -31,31 +32,43 @@ export async function POST(request: Request) {
     );
   }
 
-  // Validate required fields
-  const { eventId, eventTitle, eventUrl, reportType } = body;
+  if (!isRecord(parsed)) {
+    return NextResponse.json(
+      { success: false, error: 'Invalid request body' },
+      { status: 400 }
+    );
+  }
 
-  if (!eventId || typeof eventId !== 'string') {
+  const eventId = isString(parsed.eventId) ? parsed.eventId : undefined;
+  const eventTitle = isString(parsed.eventTitle) ? parsed.eventTitle : undefined;
+  const eventUrl = isString(parsed.eventUrl) ? parsed.eventUrl : undefined;
+  const reportType = isString(parsed.reportType) && VALID_REPORT_TYPES.includes(parsed.reportType as ReportType)
+    ? (parsed.reportType as ReportType)
+    : undefined;
+
+  // Validate required fields
+  if (!eventId) {
     return NextResponse.json(
       { success: false, error: 'Event ID is required' },
       { status: 400 }
     );
   }
 
-  if (!eventTitle || typeof eventTitle !== 'string') {
+  if (!eventTitle) {
     return NextResponse.json(
       { success: false, error: 'Event title is required' },
       { status: 400 }
     );
   }
 
-  if (!eventUrl || typeof eventUrl !== 'string') {
+  if (!eventUrl) {
     return NextResponse.json(
       { success: false, error: 'Event URL is required' },
       { status: 400 }
     );
   }
 
-  if (!reportType || !VALID_REPORT_TYPES.includes(reportType as ReportType)) {
+  if (!reportType) {
     return NextResponse.json(
       { success: false, error: 'Invalid report type' },
       { status: 400 }
@@ -64,10 +77,10 @@ export async function POST(request: Request) {
 
   try {
     await sendEventReport({
-      eventId: eventId as string,
-      eventTitle: eventTitle as string,
-      eventUrl: eventUrl as string,
-      reportType: reportType as ReportType,
+      eventId,
+      eventTitle,
+      eventUrl,
+      reportType,
     });
 
     return NextResponse.json({ success: true });

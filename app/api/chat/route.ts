@@ -1,4 +1,4 @@
-import { NextRequest } from "next/server";
+import type { NextRequest } from "next/server";
 import {
   isAzureAIEnabled,
   azureChatCompletionMessages,
@@ -6,6 +6,7 @@ import {
 } from "@/lib/ai/provider-clients";
 import { generateEventUrl } from "@/lib/utils/slugify";
 import { isRateLimited } from "@/lib/utils/rate-limit";
+import { isRecord, isString, isStringArray } from "@/lib/utils/validation";
 
 // Simple in-memory rate limiter (1 request per 2 seconds per IP)
 const RATE_LIMIT_MS = 2000; // 2 seconds between requests
@@ -43,6 +44,98 @@ interface ChatRequest {
     locations?: string[];
   };
   currentDateRange?: DateRange; // Previous date range from conversation (for follow-ups)
+}
+
+function isChatMessage(value: unknown): value is ChatMessage {
+  return (
+    isRecord(value) &&
+    (value.role === "user" || value.role === "assistant") &&
+    isString(value.content)
+  );
+}
+
+function isEventData(value: unknown): value is EventData {
+  if (!isRecord(value)) return false;
+  if (!isString(value.id) || !isString(value.title)) return false;
+  if (!isString(value.startDate) || !isString(value.url)) return false;
+  if (
+    value.description !== undefined &&
+    value.description !== null &&
+    !isString(value.description)
+  ) {
+    return false;
+  }
+  if (
+    value.location !== undefined &&
+    value.location !== null &&
+    !isString(value.location)
+  ) {
+    return false;
+  }
+  if (
+    value.organizer !== undefined &&
+    value.organizer !== null &&
+    !isString(value.organizer)
+  ) {
+    return false;
+  }
+  if (value.price !== undefined && value.price !== null && !isString(value.price)) {
+    return false;
+  }
+  if (value.tags !== undefined && value.tags !== null && !isStringArray(value.tags)) {
+    return false;
+  }
+  return true;
+}
+
+function parseChatFilters(value: unknown): ChatRequest["filters"] {
+  if (!isRecord(value)) return {};
+  const filters: ChatRequest["filters"] = {};
+  if (isString(value.search)) filters.search = value.search;
+  if (isString(value.priceFilter)) filters.priceFilter = value.priceFilter;
+  if (isStringArray(value.tagsInclude)) filters.tagsInclude = value.tagsInclude;
+  if (isStringArray(value.tagsExclude)) filters.tagsExclude = value.tagsExclude;
+  if (isStringArray(value.locations)) filters.locations = value.locations;
+  return filters;
+}
+
+function parseDateRange(value: unknown): DateRange | undefined {
+  if (!isRecord(value)) return undefined;
+  if (!isString(value.startDate) || !isString(value.endDate)) return undefined;
+  return { startDate: value.startDate, endDate: value.endDate };
+}
+
+function parseChatRequest(value: unknown): {
+  messages: ChatMessage[];
+  allEvents: EventData[];
+  filters: ChatRequest["filters"];
+  currentDateRange?: DateRange;
+} | null {
+  if (!isRecord(value)) return null;
+  const messages = Array.isArray(value.messages) && value.messages.every(isChatMessage)
+    ? value.messages
+    : null;
+  const allEvents = Array.isArray(value.allEvents) && value.allEvents.every(isEventData)
+    ? value.allEvents
+    : null;
+
+  if (!messages || !allEvents) return null;
+
+  return {
+    messages,
+    allEvents,
+    filters: parseChatFilters(value.filters),
+    currentDateRange: parseDateRange(value.currentDateRange),
+  };
+}
+
+function getOpenRouterContent(value: unknown): string | null {
+  if (!isRecord(value) || !Array.isArray(value.choices)) return null;
+  const firstChoice = value.choices[0];
+  if (!isRecord(firstChoice)) return null;
+  const message = firstChoice.message;
+  if (!isRecord(message)) return null;
+  return isString(message.content) ? message.content : null;
 }
 
 // Date-changing phrases that should trigger re-extraction
@@ -145,7 +238,15 @@ function parseDateExtractionResponse(content: string): DateRange {
     jsonStr = jsonStr.replace(/```json?\n?/g, "").replace(/```/g, "");
   }
 
-  const parsed = JSON.parse(jsonStr);
+  let parsed: unknown;
+  try {
+    parsed = JSON.parse(jsonStr);
+  } catch {
+    throw new Error("Invalid JSON response");
+  }
+  if (!isRecord(parsed) || !isString(parsed.startDate) || !isString(parsed.endDate)) {
+    throw new Error("Invalid date range response");
+  }
   return {
     startDate: parsed.startDate,
     endDate: parsed.endDate,
@@ -218,8 +319,11 @@ async function extractDateRangeWithOpenRouter(
       return null;
     }
 
-    const data = await response.json();
-    const content = data.choices?.[0]?.message?.content || "";
+    const data: unknown = await response.json();
+    const content = getOpenRouterContent(data);
+    if (!content) {
+      return null;
+    }
     const dateRange = parseDateExtractionResponse(content);
 
     // Create display message
@@ -562,7 +666,14 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const body: ChatRequest = await request.json();
+    const parsed: unknown = await request.json();
+    const body = parseChatRequest(parsed);
+    if (!body) {
+      return new Response(
+        JSON.stringify({ error: "Invalid request body" }),
+        { status: 400, headers: { "Content-Type": "application/json" } }
+      );
+    }
     const { messages, allEvents, filters, currentDateRange } = body;
 
     if (!messages || !Array.isArray(messages)) {
@@ -578,11 +689,11 @@ export async function POST(request: NextRequest) {
 
     // Create a custom streaming response
     const encoder = new TextEncoder();
-    const stream = new TransformStream();
+    const stream = new TransformStream<Uint8Array, Uint8Array>();
     const writer = stream.writable.getWriter();
 
     // Process in background
-    (async () => {
+    void (async () => {
       try {
         // Step 1: Determine if we need to extract a new date range
         let dateRange: DateRange;
@@ -639,7 +750,7 @@ export async function POST(request: NextRequest) {
         const apiMessages = [
           { role: "system" as const, content: systemPrompt },
           ...messages.map((msg) => ({
-            role: msg.role as "user" | "assistant",
+            role: msg.role,
             content: msg.content,
           })),
         ];

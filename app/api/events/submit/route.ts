@@ -3,13 +3,14 @@ import { db } from '@/lib/db';
 import { submittedEvents } from '@/lib/db/schema';
 import { sendSubmissionNotification } from '@/lib/notifications/slack';
 import { isRateLimited } from '@/lib/utils/rate-limit';
+import { isRecord, isString } from '@/lib/utils/validation';
 
 // Simple in-memory rate limiting
 const RATE_LIMIT_MAX = 10; // 10 submissions per hour
 const RATE_LIMIT_WINDOW = 60 * 60 * 1000; // 1 hour in ms
 
 // GET: Return API documentation
-export async function GET() {
+export function GET() {
   return NextResponse.json({
     endpoint: 'POST /api/events/submit',
     description: 'Submit an event suggestion for review. Events are manually reviewed before appearing on the site.',
@@ -63,9 +64,9 @@ export async function POST(request: Request) {
     );
   }
 
-  let body: Record<string, unknown>;
+  let parsed: unknown;
   try {
-    body = await request.json();
+    parsed = await request.json();
   } catch {
     return NextResponse.json(
       {
@@ -76,8 +77,35 @@ export async function POST(request: Request) {
     );
   }
 
+  if (!isRecord(parsed)) {
+    return NextResponse.json(
+      {
+        success: false,
+        error: 'Invalid request body',
+      },
+      { status: 400 }
+    );
+  }
+
+  const title = isString(parsed.title) ? parsed.title.trim() : '';
+  const startDateRaw = isString(parsed.startDate) ? parsed.startDate : '';
+  const description = isString(parsed.description) ? parsed.description.trim() : null;
+  const location = isString(parsed.location) ? parsed.location.trim() : null;
+  const organizer = isString(parsed.organizer) ? parsed.organizer.trim() : null;
+  const price = isString(parsed.price) ? parsed.price.trim() : null;
+  const url = isString(parsed.url) ? parsed.url.trim() : null;
+  const imageUrl = isString(parsed.imageUrl) ? parsed.imageUrl.trim() : null;
+  const submitterEmail = isString(parsed.submitterEmail)
+    ? parsed.submitterEmail.trim().toLowerCase()
+    : null;
+  const submitterName = isString(parsed.submitterName)
+    ? parsed.submitterName.trim()
+    : null;
+  const notes = isString(parsed.notes) ? parsed.notes.trim() : null;
+  const endDateRaw = isString(parsed.endDate) ? parsed.endDate : null;
+
   // Validate required fields
-  if (!body.title || typeof body.title !== 'string' || body.title.trim().length === 0) {
+  if (!title) {
     return NextResponse.json(
       {
         success: false,
@@ -88,7 +116,7 @@ export async function POST(request: Request) {
     );
   }
 
-  if (!body.startDate) {
+  if (!startDateRaw) {
     return NextResponse.json(
       {
         success: false,
@@ -100,7 +128,7 @@ export async function POST(request: Request) {
   }
 
   // Parse and validate start date
-  const startDate = new Date(body.startDate as string);
+  const startDate = new Date(startDateRaw);
   if (isNaN(startDate.getTime())) {
     return NextResponse.json(
       {
@@ -114,8 +142,8 @@ export async function POST(request: Request) {
 
   // Parse optional end date
   let endDate: Date | null = null;
-  if (body.endDate) {
-    endDate = new Date(body.endDate as string);
+  if (endDateRaw) {
+    endDate = new Date(endDateRaw);
     if (isNaN(endDate.getTime())) {
       return NextResponse.json(
         {
@@ -129,9 +157,9 @@ export async function POST(request: Request) {
   }
 
   // Validate URL if provided
-  if (body.url && typeof body.url === 'string') {
+  if (url) {
     try {
-      new URL(body.url);
+      new URL(url);
     } catch {
       return NextResponse.json(
         {
@@ -145,9 +173,9 @@ export async function POST(request: Request) {
   }
 
   // Validate email if provided
-  if (body.submitterEmail && typeof body.submitterEmail === 'string') {
+  if (submitterEmail) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(body.submitterEmail)) {
+    if (!emailRegex.test(submitterEmail)) {
       return NextResponse.json(
         {
           success: false,
@@ -169,18 +197,18 @@ export async function POST(request: Request) {
     const result = await db
       .insert(submittedEvents)
       .values({
-        title: (body.title as string).trim(),
-        description: body.description ? String(body.description).trim() : null,
+        title,
+        description,
         startDate,
         endDate,
-        location: body.location ? String(body.location).trim() : null,
-        organizer: body.organizer ? String(body.organizer).trim() : null,
-        price: body.price ? String(body.price).trim() : null,
-        url: body.url ? String(body.url).trim() : null,
-        imageUrl: body.imageUrl ? String(body.imageUrl).trim() : null,
-        submitterEmail: body.submitterEmail ? String(body.submitterEmail).trim().toLowerCase() : null,
-        submitterName: body.submitterName ? String(body.submitterName).trim() : null,
-        notes: body.notes ? String(body.notes).trim() : null,
+        location,
+        organizer,
+        price,
+        url,
+        imageUrl,
+        submitterEmail,
+        submitterName,
+        notes,
         source: isApi ? 'api' : 'form',
         status: 'pending',
       })
@@ -195,13 +223,13 @@ export async function POST(request: Request) {
     // Send Slack notification (async, don't block response)
     sendSubmissionNotification({
       id: submissionId,
-      title: (body.title as string).trim(),
+      title,
       startDate,
-      organizer: body.organizer ? String(body.organizer).trim() : null,
-      location: body.location ? String(body.location).trim() : null,
-      url: body.url ? String(body.url).trim() : null,
-      submitterEmail: body.submitterEmail ? String(body.submitterEmail).trim() : null,
-      submitterName: body.submitterName ? String(body.submitterName).trim() : null,
+      organizer,
+      location,
+      url,
+      submitterEmail,
+      submitterName,
       source: isApi ? 'api' : 'form',
     }).catch(err => {
       console.error('[Submit] Failed to send Slack notification:', err);

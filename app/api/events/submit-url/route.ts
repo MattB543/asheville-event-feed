@@ -3,6 +3,7 @@ import { db } from '@/lib/db';
 import { submittedEvents } from '@/lib/db/schema';
 import { sendUrlSubmissionNotification } from '@/lib/notifications/slack';
 import { isRateLimited } from '@/lib/utils/rate-limit';
+import { isRecord, isString } from '@/lib/utils/validation';
 
 // Simple in-memory rate limiting (shared logic with submit endpoint)
 const RATE_LIMIT_MAX = 10; // 10 submissions per hour
@@ -26,9 +27,9 @@ export async function POST(request: Request) {
     );
   }
 
-  let body: Record<string, unknown>;
+  let parsed: unknown;
   try {
-    body = await request.json();
+    parsed = await request.json();
   } catch {
     return NextResponse.json(
       {
@@ -39,8 +40,27 @@ export async function POST(request: Request) {
     );
   }
 
+  if (!isRecord(parsed)) {
+    return NextResponse.json(
+      {
+        success: false,
+        error: 'Invalid request body',
+      },
+      { status: 400 }
+    );
+  }
+
+  const url = isString(parsed.url) ? parsed.url.trim() : '';
+  const submitterEmail = isString(parsed.submitterEmail)
+    ? parsed.submitterEmail.trim().toLowerCase()
+    : null;
+  const submitterName = isString(parsed.submitterName)
+    ? parsed.submitterName.trim()
+    : null;
+  const notes = isString(parsed.notes) ? parsed.notes.trim() : null;
+
   // Validate required URL field
-  if (!body.url || typeof body.url !== 'string' || body.url.trim().length === 0) {
+  if (!url) {
     return NextResponse.json(
       {
         success: false,
@@ -53,7 +73,7 @@ export async function POST(request: Request) {
 
   // Validate URL format
   try {
-    new URL(body.url as string);
+    new URL(url);
   } catch {
     return NextResponse.json(
       {
@@ -66,9 +86,9 @@ export async function POST(request: Request) {
   }
 
   // Validate email if provided
-  if (body.submitterEmail && typeof body.submitterEmail === 'string') {
+  if (submitterEmail) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(body.submitterEmail)) {
+    if (!emailRegex.test(submitterEmail)) {
       return NextResponse.json(
         {
           success: false,
@@ -87,10 +107,10 @@ export async function POST(request: Request) {
       .values({
         title: 'URL Submission',
         startDate: new Date(), // Placeholder - will be updated during review
-        url: (body.url as string).trim(),
-        submitterEmail: body.submitterEmail ? String(body.submitterEmail).trim().toLowerCase() : null,
-        submitterName: body.submitterName ? String(body.submitterName).trim() : null,
-        notes: body.notes ? String(body.notes).trim() : null,
+        url,
+        submitterEmail,
+        submitterName,
+        notes,
         source: 'url',
         status: 'pending',
       })
@@ -105,9 +125,9 @@ export async function POST(request: Request) {
     // Send Slack notification (async, don't block response)
     sendUrlSubmissionNotification({
       id: submissionId,
-      url: (body.url as string).trim(),
-      submitterEmail: body.submitterEmail ? String(body.submitterEmail).trim() : null,
-      submitterName: body.submitterName ? String(body.submitterName).trim() : null,
+      url,
+      submitterEmail: submitterEmail ? submitterEmail.trim() : null,
+      submitterName,
     }).catch(err => {
       console.error('[SubmitURL] Failed to send Slack notification:', err);
     });

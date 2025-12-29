@@ -1,6 +1,7 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse, type NextRequest } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { getOrCreateCuratorProfile, getUserCurations, addCuration, removeCuration } from "@/lib/supabase/curatorProfile";
+import { isRecord, isString } from "@/lib/utils/validation";
 
 // GET - Get current user's curations
 export async function GET() {
@@ -33,8 +34,14 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const body = await request.json();
-    const { eventId, action, note } = body;
+    const parsed: unknown = await request.json();
+    if (!isRecord(parsed)) {
+      return NextResponse.json({ error: "Invalid request body" }, { status: 400 });
+    }
+
+    const eventId = isString(parsed.eventId) ? parsed.eventId : undefined;
+    const action = isString(parsed.action) ? parsed.action : undefined;
+    const note = isString(parsed.note) ? parsed.note : undefined;
 
     if (!eventId || !action) {
       return NextResponse.json({ error: "Missing eventId or action" }, { status: 400 });

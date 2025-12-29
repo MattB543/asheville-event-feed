@@ -15,7 +15,7 @@ import { invalidateEventsCache } from "@/lib/cache/invalidation";
 import {
   runAIDeduplication,
   isAIDeduplicationAvailable,
-  EventForAIDedup,
+  type EventForAIDedup,
 } from "@/lib/ai/aiDeduplication";
 
 export const maxDuration = 300; // 5 minutes

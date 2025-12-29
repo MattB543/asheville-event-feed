@@ -14,7 +14,7 @@ import { scrapeBMCMuseum } from "@/lib/scrapers/bmcmuseum";
 import { db } from "@/lib/db";
 import { events } from "@/lib/db/schema";
 import { inArray } from "drizzle-orm";
-import { ScrapedEvent } from "@/lib/scrapers/types";
+import type { ScrapedEvent } from "@/lib/scrapers/types";
 import { env, isFacebookEnabled } from "@/lib/config/env";
 import { findDuplicates, getIdsToRemove } from "@/lib/utils/deduplication";
 import { verifyAuthToken } from "@/lib/utils/auth";

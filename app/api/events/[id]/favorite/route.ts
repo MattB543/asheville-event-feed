@@ -3,6 +3,7 @@ import { db } from '@/lib/db';
 import { events } from '@/lib/db/schema';
 import { eq, sql } from 'drizzle-orm';
 import { isRateLimited } from '@/lib/utils/rate-limit';
+import { isRecord, isString } from '@/lib/utils/validation';
 
 // Simple in-memory rate limiting
 const RATE_LIMIT_MAX = 60; // 60 favorites per hour per IP
@@ -35,9 +36,9 @@ export async function POST(request: Request, { params }: RouteParams) {
   }
 
   // Parse request body
-  let body: { action?: string };
+  let parsed: unknown;
   try {
-    body = await request.json();
+    parsed = await request.json();
   } catch {
     return NextResponse.json(
       {
@@ -48,8 +49,20 @@ export async function POST(request: Request, { params }: RouteParams) {
     );
   }
 
+  if (!isRecord(parsed)) {
+    return NextResponse.json(
+      {
+        success: false,
+        error: 'Invalid request body',
+      },
+      { status: 400 }
+    );
+  }
+
+  const action = isString(parsed.action) ? parsed.action : undefined;
+
   // Validate action
-  if (!body.action || !['add', 'remove'].includes(body.action)) {
+  if (!action || !['add', 'remove'].includes(action)) {
     return NextResponse.json(
       {
         success: false,
@@ -73,7 +86,7 @@ export async function POST(request: Request, { params }: RouteParams) {
 
   try {
     // Update favorite count (increment or decrement, but never below 0)
-    const increment = body.action === 'add' ? 1 : -1;
+    const increment = action === 'add' ? 1 : -1;
 
     const result = await db
       .update(events)

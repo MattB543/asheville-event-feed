@@ -33,6 +33,11 @@ interface PublicCurator {
   curationCount: number;
 }
 
+interface StoredTagFilters {
+  include: string[];
+  exclude: string[];
+}
+
 const DEFAULT_FILTERS: NewsletterFilters = {
   search: "",
   selectedTimes: [],
@@ -45,6 +50,16 @@ const DEFAULT_FILTERS: NewsletterFilters = {
   showDailyEvents: true,
   useDefaultFilters: true,
 };
+
+function getStorageItem<T>(key: string, defaultValue: T): T {
+  if (typeof window === "undefined") return defaultValue;
+  try {
+    const item = localStorage.getItem(key);
+    return item ? JSON.parse(item) : defaultValue;
+  } catch {
+    return defaultValue;
+  }
+}
 
 export default function EmailDigestSettings({ email }: EmailDigestSettingsProps) {
   const [frequency, setFrequency] = useState<NewsletterFrequency>("none");
@@ -61,6 +76,7 @@ export default function EmailDigestSettings({ email }: EmailDigestSettingsProps)
   const [curatorSearch, setCuratorSearch] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
+  const [isSavingFilters, setIsSavingFilters] = useState(false);
   const [message, setMessage] =
     useState<{ type: "success" | "error"; text: string } | null>(null);
 
@@ -175,6 +191,75 @@ export default function EmailDigestSettings({ email }: EmailDigestSettingsProps)
       console.error("Failed to save newsletter settings:", error);
     } finally {
       setIsSaving(false);
+    }
+  };
+
+  const handleSaveCurrentFilters = async () => {
+    setIsSavingFilters(true);
+    setMessage(null);
+
+    const tagFilters = getStorageItem<StoredTagFilters | null>(
+      "tagFilters",
+      null
+    );
+    const legacyTags = getStorageItem<string[]>("selectedTags", []);
+
+    const filters: NewsletterFilters = {
+      search: getStorageItem<string>("search", ""),
+      selectedTimes: getStorageItem<NewsletterFilters["selectedTimes"]>(
+        "selectedTimes",
+        []
+      ),
+      priceFilter: getStorageItem<NewsletterFilters["priceFilter"]>(
+        "priceFilter",
+        "any"
+      ),
+      customMaxPrice: getStorageItem<NewsletterFilters["customMaxPrice"]>(
+        "customMaxPrice",
+        null
+      ),
+      tagsInclude: tagFilters?.include?.length ? tagFilters.include : legacyTags,
+      tagsExclude: tagFilters?.exclude ?? [],
+      selectedLocations: getStorageItem<NewsletterFilters["selectedLocations"]>(
+        "selectedLocations",
+        []
+      ),
+      selectedZips: getStorageItem<NewsletterFilters["selectedZips"]>(
+        "selectedZips",
+        []
+      ),
+      showDailyEvents: getStorageItem<NewsletterFilters["showDailyEvents"]>(
+        "showDailyEvents",
+        true
+      ),
+      useDefaultFilters: true,
+    };
+
+    try {
+      const res = await fetch("/api/email-digest/settings", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ filters }),
+      });
+
+      if (res.ok) {
+        setSavedFilters(filters);
+        setUpdatedAt(new Date().toISOString());
+        setMessage({
+          type: "success",
+          text: "Saved current feed filters to your newsletter.",
+        });
+      } else {
+        throw new Error("Failed to save filters");
+      }
+    } catch (error) {
+      setMessage({
+        type: "error",
+        text: "Failed to save current filters. Please try again.",
+      });
+      console.error("Failed to save current newsletter filters:", error);
+    } finally {
+      setIsSavingFilters(false);
     }
   };
 
@@ -390,7 +475,7 @@ export default function EmailDigestSettings({ email }: EmailDigestSettingsProps)
               onChange={setScoreTier}
               icon={<Star className="w-5 h-5" />}
               label="Somewhat unique"
-              description="Score 6+"
+              description="Score 13+"
             />
             <ScoreTierOption
               value="top10"
@@ -398,7 +483,7 @@ export default function EmailDigestSettings({ email }: EmailDigestSettingsProps)
               onChange={setScoreTier}
               icon={<Sparkles className="w-5 h-5" />}
               label="Very unique"
-              description="Score 14+"
+              description="Score 17+"
             />
           </div>
         </div>
@@ -409,8 +494,8 @@ export default function EmailDigestSettings({ email }: EmailDigestSettingsProps)
           </p>
           {filterSummary.length === 0 ? (
             <p className="text-sm text-brand-700 dark:text-brand-300 mt-2">
-              No filters saved yet. Open the events page, customize your feed,
-              then click "Save newsletter filters" to lock them in.
+              No filters saved yet. Set your filters on the events page, then
+              save them here.
             </p>
           ) : (
             <div className="mt-2 space-y-1 text-sm text-brand-700 dark:text-brand-300">
@@ -424,6 +509,20 @@ export default function EmailDigestSettings({ email }: EmailDigestSettingsProps)
               Last updated {new Date(updatedAt).toLocaleString()}
             </p>
           )}
+          <div className="mt-4 flex flex-col sm:flex-row sm:items-center gap-3">
+            <button
+              onClick={handleSaveCurrentFilters}
+              disabled={isSavingFilters}
+              className="px-4 py-2 text-sm font-medium rounded-lg bg-brand-600 text-white hover:bg-brand-700 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+            >
+              {isSavingFilters
+                ? "Saving current filters..."
+                : "Save current feed filters as newsletter filter"}
+            </button>
+            <span className="text-xs text-brand-700/70 dark:text-brand-300/70">
+              Uses the filters saved from your events feed.
+            </span>
+          </div>
         </div>
 
         <div>

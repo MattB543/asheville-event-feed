@@ -97,9 +97,9 @@ export type ScoreTier = "hidden" | "quality" | "outstanding";
 // Get the score tier for an event based on its score
 function getEventScoreTier(score: number | null | undefined): ScoreTier {
   if (score === null || score === undefined) return "quality"; // null treated as quality
-  if (score <= 8) return "hidden"; // Common: 0-8
-  if (score <= 13) return "quality"; // Quality: 9-13
-  return "outstanding"; // Outstanding: 14+
+  if (score <= 12) return "hidden"; // Common: 0-12
+  if (score <= 16) return "quality"; // Quality: 13-16
+  return "outstanding"; // Outstanding: 17+
 }
 
 function getStorageItem<T>(key: string, defaultValue: T): T {
@@ -285,7 +285,7 @@ export default function EventFeed({
   activeTab = "all",
 }: EventFeedProps) {
   const { showToast } = useToast();
-  const { user } = useAuth();
+  const { user, isLoading: authLoading } = useAuth();
   const isLoggedIn = !!user;
 
   // For You feed state
@@ -385,8 +385,6 @@ export default function EventFeed({
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [showSaveModal, setShowSaveModal] = useState(false);
-  const [isSavingNewsletterFilters, setIsSavingNewsletterFilters] =
-    useState(false);
   const [blockedHosts, setBlockedHosts] = useState<string[]>(() =>
     getStorageItem("blockedHosts", [])
   );
@@ -538,11 +536,17 @@ export default function EventFeed({
   // filteredEvents is now just events from the query (server already filtered)
   // We apply session-hidden keys and score tier filtering client-side
   const filteredEvents = useMemo(() => {
+    const hasActiveSearch = search.trim().length > 0;
+    const hasIncludedTags = tagFilters.include.length > 0;
+
     return events.filter((event) => {
-      // Filter by score tier
-      const tier = getEventScoreTier(event.score);
-      if (!selectedScoreTiers.includes(tier)) {
-        return false;
+      // Skip score tier filtering when there's an active search or tags selected
+      // This ensures search/tag results show all matching events regardless of score
+      if (!hasActiveSearch && !hasIncludedTags) {
+        const tier = getEventScoreTier(event.score);
+        if (!selectedScoreTiers.includes(tier)) {
+          return false;
+        }
       }
 
       // Only filter out events hidden in THIS session if they're newly hidden
@@ -554,7 +558,7 @@ export default function EventFeed({
       }
       return true;
     });
-  }, [events, sessionHiddenKeys, selectedScoreTiers]);
+  }, [events, sessionHiddenKeys, selectedScoreTiers, search, tagFilters.include]);
 
   // Preference sync with database (for logged-in users)
   // Uses refs to avoid stale closures in callbacks
@@ -588,28 +592,37 @@ export default function EventFeed({
 
   // Fetch For You feed when tab switches to forYou
   useEffect(() => {
-    if (!isLoaded || activeTab !== "forYou" || !isLoggedIn) return;
+    console.log("[ForYou] useEffect triggered:", { isLoaded, activeTab, isLoggedIn, authLoading });
+
+    if (!isLoaded || activeTab !== "forYou" || !isLoggedIn) {
+      console.log("[ForYou] Early return - conditions not met:", { isLoaded, activeTab, isLoggedIn });
+      return;
+    }
 
     const fetchForYou = async () => {
+      console.log("[ForYou] Starting fetch...");
       setForYouLoading(true);
       try {
         const response = await fetch("/api/for-you");
+        console.log("[ForYou] Response status:", response.status);
         if (!response.ok) {
           throw new Error("Failed to fetch personalized feed");
         }
         const data = await response.json();
+        console.log("[ForYou] Data received:", { eventCount: data.events?.length, meta: data.meta });
         setForYouEvents(data.events || []);
         setForYouMeta(data.meta || { signalCount: 0, minimumMet: false });
       } catch (error) {
-        console.error("Error fetching For You feed:", error);
+        console.error("[ForYou] Error fetching:", error);
         showToast("Failed to load personalized feed", "error");
       } finally {
+        console.log("[ForYou] Fetch complete, setting loading to false");
         setForYouLoading(false);
       }
     };
 
     fetchForYou();
-  }, [activeTab, isLoaded, isLoggedIn, showToast]);
+  }, [activeTab, isLoaded, isLoggedIn, authLoading, showToast]);
 
   // Fetch curations on mount for logged-in users
   useEffect(() => {
@@ -644,6 +657,7 @@ export default function EventFeed({
   // Save filter settings to localStorage
   useEffect(() => {
     if (isLoaded) {
+      localStorage.setItem("search", JSON.stringify(search));
       localStorage.setItem("dateFilter", JSON.stringify(dateFilter));
       localStorage.setItem("customDateRange", JSON.stringify(customDateRange));
       localStorage.setItem("selectedDays", JSON.stringify(selectedDays));
@@ -686,6 +700,7 @@ export default function EventFeed({
     selectedScoreTiers,
     favoritedEventIds,
     isLoaded,
+    search,
   ]);
 
   // Sync preferences to database when they change (for logged-in users)
@@ -868,21 +883,46 @@ export default function EventFeed({
 
   // Helper to capture signal
   const captureSignal = useCallback(
-    async (eventId: string, signalType: 'favorite' | 'calendar' | 'share' | 'viewSource' | 'hide') => {
-      if (!isLoggedIn) return; // Only capture signals for logged-in users
+    async (eventId: string, signalType: 'favorite' | 'calendar' | 'share' | 'viewSource' | 'hide'): Promise<boolean> => {
+      console.log("[Signal] captureSignal called:", { eventId, signalType, isLoggedIn, authLoading, userId: user?.id });
 
+      // If auth is still loading, wait a moment
+      if (authLoading) {
+        console.log("[Signal] Auth still loading, waiting 500ms...");
+        await new Promise(resolve => setTimeout(resolve, 500));
+        console.log("[Signal] Done waiting, isLoggedIn now:", isLoggedIn);
+      }
+
+      if (!isLoggedIn) {
+        console.log("[Signal] Skipped - user not logged in (authLoading:", authLoading, ")");
+        return false;
+      }
+
+      console.log("[Signal] Making API call to /api/signals...");
       try {
-        await fetch("/api/signals", {
+        const response = await fetch("/api/signals", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ eventId, signalType }),
         });
+
+        console.log("[Signal] API response status:", response.status);
+
+        if (!response.ok) {
+          const errorData = await response.json().catch(() => ({}));
+          console.error("[Signal] API error:", response.status, errorData);
+          return false;
+        }
+
+        const data = await response.json();
+        console.log("[Signal] Captured successfully:", signalType, eventId, data);
+        return true;
       } catch (error) {
-        console.error("Failed to capture signal:", error);
-        // Don't show error to user - this is a background operation
+        console.error("[Signal] Network error:", error);
+        return false;
       }
     },
-    [isLoggedIn]
+    [isLoggedIn, authLoading, user?.id]
   );
 
   // Handler for capturing calendar/share/viewSource signals
@@ -962,6 +1002,8 @@ export default function EventFeed({
       const isFavorited = favoritedEventIds.includes(eventId);
       const action = isFavorited ? "remove" : "add";
 
+      console.log("[Favorite] Toggle:", eventId, "action:", action, "isLoggedIn:", isLoggedIn);
+
       // Optimistically update local state
       setFavoritedEventIds((prev) =>
         isFavorited ? prev.filter((id) => id !== eventId) : [...prev, eventId]
@@ -980,17 +1022,20 @@ export default function EventFeed({
 
         // Capture signal for favorites (only when adding, not removing)
         if (!isFavorited) {
-          captureSignal(eventId, "favorite");
+          // Await to ensure signal is captured before function returns
+          await captureSignal(eventId, "favorite");
+        } else {
+          console.log("[Favorite] Unfavorite - no signal captured (expected)");
         }
       } catch (error) {
         // Revert optimistic update on error
         setFavoritedEventIds((prev) =>
           isFavorited ? [...prev, eventId] : prev.filter((id) => id !== eventId)
         );
-        console.error("Failed to toggle favorite:", error);
+        console.error("[Favorite] Failed to toggle:", error);
       }
     },
-    [favoritedEventIds, captureSignal]
+    [favoritedEventIds, captureSignal, isLoggedIn]
   );
 
   const handleOpenCurateModal = (eventId: string) => {
@@ -1062,48 +1107,6 @@ export default function EventFeed({
     } catch {
       // Revert on error
       setCuratedEventIds((prev) => new Set([...prev, eventId]));
-    }
-  };
-
-  const handleSaveNewsletterFilters = async () => {
-    if (!isLoggedIn) {
-      showToast("Log in to save newsletter filters", "error");
-      return;
-    }
-
-    setIsSavingNewsletterFilters(true);
-    try {
-      const payload: Record<string, unknown> = {
-        filters: {
-          search,
-          selectedTimes,
-          priceFilter,
-          customMaxPrice,
-          tagsInclude: tagFilters.include,
-          tagsExclude: tagFilters.exclude,
-          selectedLocations,
-          selectedZips,
-          showDailyEvents,
-          useDefaultFilters: true,
-        },
-      };
-
-      const res = await fetch("/api/email-digest/settings", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-
-      if (res.ok) {
-        showToast("Newsletter filters saved");
-      } else {
-        showToast("Failed to save newsletter filters", "error");
-      }
-    } catch (error) {
-      console.error("Failed to save newsletter filters:", error);
-      showToast("Failed to save newsletter filters", "error");
-    } finally {
-      setIsSavingNewsletterFilters(false);
     }
   };
 
@@ -1257,8 +1260,6 @@ export default function EventFeed({
         exportParams={exportParams}
         shareParams={shareParams}
         onOpenChat={() => setIsChatOpen(true)}
-        onSaveNewsletterFilters={isLoggedIn ? handleSaveNewsletterFilters : undefined}
-        isSavingNewsletterFilters={isSavingNewsletterFilters}
         isPending={isFilterPending}
         activeTab={activeTab}
       />

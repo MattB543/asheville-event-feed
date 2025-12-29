@@ -6,6 +6,8 @@
  * Options:
  *   --summaries-only   Only generate summaries, skip embeddings
  *   --embeddings-only  Only generate embeddings (requires summaries to exist)
+ *   --force            Regenerate embeddings even if they already exist
+ *   --all              Include past events (default: future only)
  *   --limit N          Process at most N events (default: all)
  *   --dry-run          Show what would be processed without making changes
  */
@@ -23,6 +25,8 @@ import { isAIEnabled } from '../../lib/ai/provider-clients';
 const args = process.argv.slice(2);
 const summariesOnly = args.includes('--summaries-only');
 const embeddingsOnly = args.includes('--embeddings-only');
+const forceEmbeddings = args.includes('--force');
+const allEvents = args.includes('--all');
 const dryRun = args.includes('--dry-run');
 const limitArg = args.find(a => a.startsWith('--limit'));
 const limit = limitArg ? parseInt(limitArg.split('=')[1] || args[args.indexOf('--limit') + 1]) : undefined;
@@ -80,6 +84,13 @@ async function backfill() {
   if (!embeddingsOnly) {
     console.log('Step 1: Generating AI summaries...');
 
+    const summaryConditions = [
+      isNull(events.aiSummary),
+    ];
+    if (!allEvents) {
+      summaryConditions.push(gte(events.startDate, new Date()));
+    }
+
     const eventsNeedingSummaries = await db
       .select({
         id: events.id,
@@ -90,7 +101,7 @@ async function backfill() {
         startDate: events.startDate,
       })
       .from(events)
-      .where(and(isNull(events.aiSummary), gte(events.startDate, new Date())))
+      .where(and(...summaryConditions))
       .limit(limit || 10000);
 
     stats.summaries.total = eventsNeedingSummaries.length;
@@ -148,20 +159,26 @@ async function backfill() {
   if (!summariesOnly) {
     console.log('Step 2: Generating embeddings...');
 
+    const embeddingConditions = [
+      isNotNull(events.aiSummary),
+    ];
+    if (!forceEmbeddings) {
+      embeddingConditions.push(isNull(events.embedding));
+    }
+    if (!allEvents) {
+      embeddingConditions.push(gte(events.startDate, new Date()));
+    }
+
     const eventsNeedingEmbeddings = await db
       .select({
         id: events.id,
         title: events.title,
         aiSummary: events.aiSummary,
+        tags: events.tags,
+        organizer: events.organizer,
       })
       .from(events)
-      .where(
-        and(
-          isNotNull(events.aiSummary),
-          isNull(events.embedding),
-          gte(events.startDate, new Date())
-        )
-      )
+      .where(and(...embeddingConditions))
       .limit(limit || 10000);
 
     stats.embeddings.total = eventsNeedingEmbeddings.length;
@@ -175,7 +192,12 @@ async function backfill() {
         await Promise.all(
           batch.map(async (event) => {
             try {
-              const text = createEmbeddingText(event.title, event.aiSummary!);
+              const text = createEmbeddingText(
+                event.title,
+                event.aiSummary!,
+                event.tags,
+                event.organizer
+              );
               const embedding = await generateEmbedding(text);
 
               if (embedding) {

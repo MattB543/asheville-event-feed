@@ -49,7 +49,10 @@ export async function POST(request: NextRequest) {
     const supabase = await createClient();
     const { data: { user } } = await supabase.auth.getUser();
 
+    console.log("[Signals API] POST request, user:", user?.id ?? "none");
+
     if (!user) {
+      console.log("[Signals API] Unauthorized - no user session");
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
@@ -58,6 +61,7 @@ export async function POST(request: NextRequest) {
 
     // Validate inputs
     if (!parsedBody) {
+      console.log("[Signals API] Invalid request body:", parsed);
       return NextResponse.json(
         { error: "Invalid request body" },
         { status: 400 }
@@ -65,6 +69,7 @@ export async function POST(request: NextRequest) {
     }
 
     const { eventId, signalType } = parsedBody;
+    console.log("[Signals API] Adding signal:", signalType, "for event:", eventId);
     const timestamp = new Date().toISOString();
     const isNegativeSignal = signalType === 'hide';
 
@@ -146,10 +151,11 @@ export async function POST(request: NextRequest) {
         WHERE user_id = ${user.id}
       `);
 
+      console.log("[Signals API] Signal added successfully:", signalType, eventId);
       return NextResponse.json({ success: true, signal: newPositiveSignal });
     }
   } catch (error) {
-    console.error("Error adding signal:", error);
+    console.error("[Signals API] Error adding signal:", error);
     return NextResponse.json(
       { error: "Failed to add signal" },
       { status: 500 }

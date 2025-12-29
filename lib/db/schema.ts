@@ -28,7 +28,7 @@ export const events = pgTable('events', {
   favoriteCount: integer('favorite_count').default(0), // Number of users who favorited this event
   // AI-generated fields for semantic search
   aiSummary: text('ai_summary'), // 1-2 sentence structured summary from Azure AI
-  embedding: vector('embedding', { dimensions: 1536 }), // Gemini embedding of "${title}: ${aiSummary}"
+  embedding: vector('embedding', { dimensions: 1536 }), // Gemini embedding of title + summary + tags + organizer
   // Event quality scoring (AI-generated, 0-30 total)
   score: integer('score'),                    // Total: rarity + unique + magnitude (0-30)
   scoreRarity: integer('score_rarity'),       // 0-10: How rare/urgent is this event

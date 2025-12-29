@@ -1,7 +1,15 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import Link from "next/link";
-import { ArrowLeft, Mail, Shield, User, Heart, ChevronRight } from "lucide-react";
+import {
+  ArrowLeft,
+  Mail,
+  Shield,
+  User,
+  Heart,
+  ChevronRight,
+  Sparkles,
+} from "lucide-react";
 import CuratorProfileSettings from "@/components/CuratorProfileSettings";
 import EmailDigestSettings from "@/components/EmailDigestSettings";
 
@@ -170,6 +178,31 @@ export default async function ProfilePage() {
           </Link>
         </div>
 
+        {/* Create Custom Feed */}
+        <div className="mt-4">
+          <Link
+            href="/create"
+            className="block bg-white dark:bg-gray-900 rounded-xl shadow-lg border border-gray-200 dark:border-gray-800 p-6 hover:border-brand-500 dark:hover:border-brand-600 transition-colors group"
+          >
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-4">
+                <div className="p-3 bg-brand-50 dark:bg-brand-900/20 rounded-lg group-hover:bg-brand-100 dark:group-hover:bg-brand-900/30 transition-colors">
+                  <Sparkles className="w-6 h-6 text-brand-600 dark:text-brand-400" />
+                </div>
+                <div>
+                  <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+                    Create Custom Feed
+                  </h2>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                    Build a personalized event feed
+                  </p>
+                </div>
+              </div>
+              <ChevronRight className="w-5 h-5 text-gray-400 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors" />
+            </div>
+          </Link>
+        </div>
+
         {/* Email Digest Settings */}
         <div className="mt-8">
           <EmailDigestSettings email={email} />
@@ -177,7 +210,11 @@ export default async function ProfilePage() {
 
         {/* Curator Profile Settings */}
         <div className="mt-8">
-          <CuratorProfileSettings userId={user.id} email={email} avatarUrl={avatarUrl} />
+          <CuratorProfileSettings
+            userId={user.id}
+            email={email}
+            avatarUrl={avatarUrl}
+          />
         </div>
       </div>
     </main>

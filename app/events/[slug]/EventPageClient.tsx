@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect, useMemo } from "react";
+import { useState, useRef, useEffect, useMemo, useCallback } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import {
@@ -18,10 +18,12 @@ import {
   Share,
 } from "lucide-react";
 import { cleanAshevilleFromSummary, cleanMarkdown } from "@/lib/utils/parsers";
+import { formatTagForDisplay } from "@/lib/utils/formatTag";
 import { generateCalendarUrlForEvent } from "@/lib/utils/googleCalendar";
 import { downloadEventAsICS } from "@/lib/utils/icsGenerator";
 import EventCard from "@/components/EventCard";
 import { ToastProvider } from "@/components/ui/Toast";
+import { useAuth } from "@/components/AuthProvider";
 
 interface SimilarEvent {
   id: string;
@@ -85,6 +87,9 @@ export default function EventPageClient({
   eventPageUrl,
   similarEvents = [],
 }: EventPageClientProps) {
+  const { user, isLoading: authLoading } = useAuth();
+  const isLoggedIn = !!user;
+
   const [imgError, setImgError] = useState(false);
   const [calendarMenuOpen, setCalendarMenuOpen] = useState(false);
   const [isFavorited, setIsFavorited] = useState(() =>
@@ -94,6 +99,43 @@ export default function EventPageClient({
   const [copied, setCopied] = useState(false);
   const [isHeartAnimating, setIsHeartAnimating] = useState(false);
   const calendarMenuRef = useRef<HTMLDivElement>(null);
+
+  // Helper to capture signals for personalization
+  const captureSignal = useCallback(
+    async (eventId: string, signalType: 'favorite' | 'calendar' | 'share' | 'viewSource') => {
+      console.log("[Signal:EventPage] captureSignal called:", { eventId, signalType, isLoggedIn, authLoading });
+
+      if (authLoading) {
+        console.log("[Signal:EventPage] Auth still loading, waiting...");
+        await new Promise(resolve => setTimeout(resolve, 500));
+      }
+
+      if (!isLoggedIn) {
+        console.log("[Signal:EventPage] Skipped - user not logged in");
+        return;
+      }
+
+      console.log("[Signal:EventPage] Making API call...");
+      try {
+        const response = await fetch("/api/signals", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ eventId, signalType }),
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json().catch(() => ({}));
+          console.error("[Signal:EventPage] API error:", response.status, errorData);
+          return;
+        }
+
+        console.log("[Signal:EventPage] Captured successfully:", signalType, eventId);
+      } catch (error) {
+        console.error("[Signal:EventPage] Network error:", error);
+      }
+    },
+    [isLoggedIn, authLoading]
+  );
 
   // Similar events favorites state
   const [similarFavorites, setSimilarFavorites] = useState<Set<string>>(() => {
@@ -240,6 +282,7 @@ export default function EventPageClient({
       }),
       "_blank"
     );
+    captureSignal(event.id, "calendar");
     setCalendarMenuOpen(false);
   };
 
@@ -251,6 +294,7 @@ export default function EventPageClient({
       location: event.location,
       url: event.url,
     });
+    captureSignal(event.id, "calendar");
     setCalendarMenuOpen(false);
   };
 
@@ -265,6 +309,8 @@ export default function EventPageClient({
     setFavoriteCount((prev) =>
       newIsFavorited ? prev + 1 : Math.max(0, prev - 1)
     );
+
+    console.log("[Favorite:EventPage] Toggle:", event.id, "action:", newIsFavorited ? "add" : "remove");
 
     // Update localStorage
     const savedFavorites = localStorage.getItem("favoritedEventIds");
@@ -286,6 +332,11 @@ export default function EventPageClient({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ action: newIsFavorited ? "add" : "remove" }),
       });
+
+      // Capture signal for personalization (only when adding)
+      if (newIsFavorited) {
+        await captureSignal(event.id, "favorite");
+      }
     } catch {
       // Revert on error
       setIsFavorited(!newIsFavorited);
@@ -297,13 +348,24 @@ export default function EventPageClient({
 
   const handleCopyLink = async () => {
     await navigator.clipboard.writeText(eventPageUrl);
+    captureSignal(event.id, "share");
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
 
+  // Handler for capturing signals from similar event cards (calendar, share, viewSource)
+  const handleSimilarEventSignal = useCallback(
+    (eventId: string, signalType: 'calendar' | 'share' | 'viewSource') => {
+      captureSignal(eventId, signalType);
+    },
+    [captureSignal]
+  );
+
   // Handler for toggling favorites on similar events
   const handleToggleSimilarFavorite = async (eventId: string) => {
     const newIsFavorited = !similarFavorites.has(eventId);
+
+    console.log("[Favorite:SimilarEvent] Toggle:", eventId, "action:", newIsFavorited ? "add" : "remove");
 
     // Optimistic update
     setSimilarFavorites((prev) => {
@@ -338,6 +400,11 @@ export default function EventPageClient({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ action: newIsFavorited ? "add" : "remove" }),
       });
+
+      // Capture signal for personalization (only when adding)
+      if (newIsFavorited) {
+        await captureSignal(eventId, "favorite");
+      }
     } catch {
       // Revert on error
       setSimilarFavorites((prev) => {
@@ -541,7 +608,7 @@ export default function EventPageClient({
                         key={tag}
                         className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-brand-50 dark:bg-brand-950/50 text-brand-700 dark:text-brand-300 border border-brand-100 dark:border-brand-800"
                       >
-                        {tag}
+                        {formatTagForDisplay(tag)}
                       </span>
                     ))}
                   </div>
@@ -751,6 +818,7 @@ export default function EventPageClient({
                             isFavorited={similarFavorites.has(similarEvent.id)}
                             favoriteCount={similarFavoriteCounts[similarEvent.id] || 0}
                             onToggleFavorite={handleToggleSimilarFavorite}
+                            onSignalCapture={handleSimilarEventSignal}
                             hideBorder={
                               groupIndex === groupedSimilarEvents.length - 1 &&
                               index === groupEvents.length - 1
@@ -788,6 +856,7 @@ export default function EventPageClient({
                       isFavorited={similarFavorites.has(similarEvent.id)}
                       favoriteCount={similarFavoriteCounts[similarEvent.id] || 0}
                       onToggleFavorite={handleToggleSimilarFavorite}
+                      onSignalCapture={handleSimilarEventSignal}
                       hideBorder={index === sortedSimilarEvents.length - 1}
                       showRecurringBadge={similarEvent.isRecurring}
                     />

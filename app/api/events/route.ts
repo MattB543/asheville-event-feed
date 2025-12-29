@@ -110,7 +110,7 @@ function parseHiddenFingerprints(
  * Query params:
  *   - cursor: Pagination cursor (startDate_id)
  *   - limit: Results per page (default 50, max 100)
- *   - search: Text search (title, description, organizer, location)
+ *   - search: Text search (title, description, aiSummary, tags, organizer, location)
  *   - dateFilter: all | today | tomorrow | weekend | custom | dayOfWeek
  *   - dateStart: YYYY-MM-DD for custom range
  *   - dateEnd: YYYY-MM-DD for custom range

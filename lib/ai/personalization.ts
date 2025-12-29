@@ -47,11 +47,15 @@ function filterActiveSignals<T extends { timestamp: string; active: boolean }>(
  * Returns null if no events have embeddings.
  */
 export async function computeCentroid(eventIds: string[]): Promise<number[] | null> {
+  console.log(`[Personalization] computeCentroid called with ${eventIds.length} event IDs`);
+
   if (eventIds.length === 0) {
+    console.log(`[Personalization] No event IDs provided, returning null`);
     return null;
   }
 
   // Fetch embeddings for all events
+  console.log(`[Personalization] Fetching embeddings for ${eventIds.length} events...`);
   const eventsWithEmbeddings = await db
     .select({
       id: events.id,
@@ -59,6 +63,7 @@ export async function computeCentroid(eventIds: string[]): Promise<number[] | nu
     })
     .from(events)
     .where(inArray(events.id, eventIds));
+  console.log(`[Personalization] Fetched ${eventsWithEmbeddings.length} events with embeddings`);
 
   // Filter out events without embeddings
   const validEmbeddings = eventsWithEmbeddings
@@ -99,12 +104,16 @@ export async function getUserCentroids(userId: string): Promise<{
   positive: number[] | null;
   negative: number[] | null;
 }> {
+  console.log(`[Personalization] getUserCentroids called for user ${userId}`);
+
   // Fetch user preferences
+  console.log(`[Personalization] Fetching user preferences...`);
   const prefs = await db
     .select()
     .from(userPreferences)
     .where(eq(userPreferences.userId, userId))
     .limit(1);
+  console.log(`[Personalization] User preferences fetched:`, prefs.length > 0);
 
   if (prefs.length === 0) {
     console.log(`[Personalization] No preferences found for user ${userId}`);
@@ -117,6 +126,13 @@ export async function getUserCentroids(userId: string): Promise<{
   const cacheIsFresh =
     userPref.centroidUpdatedAt &&
     Date.now() - userPref.centroidUpdatedAt.getTime() < CENTROID_CACHE_TTL_MS;
+
+  console.log(`[Personalization] Cache check:`, {
+    hasCentroidUpdatedAt: !!userPref.centroidUpdatedAt,
+    cacheIsFresh,
+    hasPositiveCentroid: userPref.positiveCentroid !== null,
+    hasNegativeCentroid: userPref.negativeCentroid !== null,
+  });
 
   if (
     cacheIsFresh &&

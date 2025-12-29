@@ -312,15 +312,18 @@ export async function queryFilteredEvents(
     }
   }
 
-  // Search (title, description, organizer, location)
+  // Search (title, description, aiSummary, tags, organizer/venue, location)
   if (params.search && params.search.trim()) {
     const searchTerm = `%${params.search.trim()}%`;
     conditions.push(
       or(
         ilike(events.title, searchTerm),
         ilike(events.description, searchTerm),
+        ilike(events.aiSummary, searchTerm),
         ilike(events.organizer, searchTerm),
-        ilike(events.location, searchTerm)
+        ilike(events.location, searchTerm),
+        // Search within tags array (convert to text and search)
+        sql`array_to_string(${events.tags}, ' ') ILIKE ${searchTerm}`
       )!
     );
   }

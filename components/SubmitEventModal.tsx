@@ -216,7 +216,7 @@ export default function SubmitEventModal({
           <form onSubmit={handleUrlSubmit}>
             <div className="space-y-4">
               <p className="text-gray-600 dark:text-gray-400 text-sm">
-                Found an event online? Share the link and we&apos;ll add it!
+                Paste the event link or click below and enter the details!
               </p>
 
               {/* Event URL */}
@@ -359,7 +359,9 @@ export default function SubmitEventModal({
           {/* Manual Entry Form (Accordion) */}
           <div
             className={`overflow-hidden transition-all duration-300 ease-in-out ${
-              showManualForm ? "max-h-[2000px] opacity-100" : "max-h-0 opacity-0"
+              showManualForm
+                ? "max-h-[2000px] opacity-100"
+                : "max-h-0 opacity-0"
             }`}
           >
             <form onSubmit={handleManualSubmit} className="space-y-4 pt-2">

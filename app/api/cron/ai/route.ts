@@ -171,6 +171,8 @@ export async function GET(request: Request) {
         id: events.id,
         title: events.title,
         aiSummary: events.aiSummary,
+        tags: events.tags,
+        organizer: events.organizer,
       })
       .from(events)
       .where(
@@ -192,7 +194,7 @@ export async function GET(request: Request) {
         await Promise.all(
           batch.map(async (event) => {
             try {
-              const text = createEmbeddingText(event.title, event.aiSummary!);
+              const text = createEmbeddingText(event.title, event.aiSummary!, event.tags, event.organizer);
               const embedding = await generateEmbedding(text);
 
               if (embedding) {

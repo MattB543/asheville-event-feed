@@ -6,6 +6,7 @@
  */
 
 import { azureChatCompletion, isAzureAIEnabled } from './provider-clients';
+import { normalizeTagFromAI } from '@/lib/utils/formatTag';
 
 export interface EventData {
   title: string;
@@ -23,15 +24,15 @@ export interface TagAndSummaryResult {
 // All allowed official tags - AI must ONLY use tags from this list
 const ALLOWED_TAGS = [
   // Entertainment
-  'Live Music', 'Comedy', 'Theater & Film', 'Dance', 'Trivia',
+  'Live Music', 'Comedy', 'Theater & Film', 'Dance', 'Trivia', 'Open Mic', 'Karaoke',
   // Food & Drink
-  'Dining', 'Beer', 'Wine & Spirits', 'Food Classes',
+  'Dining', 'Beer', 'Wine & Spirits',
   // Activities
-  'Art', 'Crafts', 'Fitness', 'Wellness', 'Spiritual', 'Outdoors', 'Tours', 'Gaming',
-  'Sports', 'Education', 'Book Club',
+  'Art', 'Crafts', 'Fitness', 'Wellness', 'Spiritual', 'Meditation', 'Outdoors', 'Tours', 'Gaming',
+  'Sports', 'Education', 'Tech', 'Book Club', 'Museum Exhibition',
   // Audience/Social
   'Family', 'Dating', 'Networking', 'Nightlife', 'LGBTQ+', 'Pets',
-  'Community', 'Civic', 'Volunteering', 'Support Groups',
+  'Community', 'Volunteering', 'Support Groups',
   // Seasonal
   'Holiday', 'Markets',
 ] as const;
@@ -47,30 +48,34 @@ const SYSTEM_PROMPT = `You are an expert event analyzer for Asheville, NC. You w
 ## ALLOWED OFFICIAL TAGS (use ONLY these exact tags):
 
 Entertainment:
-- Live Music – concerts, bands, open mics
+- Live Music – concerts, bands, live performances
 - Comedy – stand-up, improv, showcases
 - Theater & Film – plays, performances, movie nights
 - Dance – lessons, parties, social dance nights
 - Trivia – pub trivia, game nights
+- Open Mic – open mic nights, poetry slams, showcases
+- Karaoke – karaoke nights, sing-along events
 
 Food & Drink:
 - Dining – special dinners, brunches, prix fixe meals
 - Beer – brewery events, tastings
 - Wine & Spirits – wine tastings, cocktail events
-- Food Classes – cooking, baking, cocktail-making workshops
 
 Activities:
-- Art – galleries, exhibits, visual art events
+- Art – galleries, visual art events, art classes
 - Crafts – pottery, jewelry, DIY workshops
 - Fitness – yoga, exercise, climbing, general fitness
 - Sports – team sports, athletic events, competitions
 - Wellness – sound healing, holistic health, self-care
-- Spiritual – meditation, ceremonies, religious gatherings
+- Spiritual – ceremonies, religious gatherings, dharma talks
+- Meditation – meditation sits, mindfulness, guided meditation
 - Outdoors – hiking, nature, parks
 - Tours – walking tours, ghost tours, historical
 - Gaming – board games, D&D, video games
 - Education – classes, workshops, lectures, learning events
+- Tech – technology meetups, coding, maker events
 - Book Club – book discussions, reading groups, literary meetups
+- Museum Exhibition – museum exhibits, gallery shows, curated displays
 
 Audience/Social:
 - Family – kid-friendly, all-ages
@@ -80,7 +85,6 @@ Audience/Social:
 - LGBTQ+ – pride, queer-specific events
 - Pets – dog-friendly, goat yoga, cat lounges
 - Community – neighborhood events, local meetups
-- Civic – government meetings, town halls, public forums, political events
 - Volunteering – volunteer opportunities, community service, charity work
 - Support Groups – recovery, grief, mental health support meetings
 
@@ -166,10 +170,12 @@ export async function generateTagsAndSummary(
       console.warn(`[TagAndSummarize] Invalid official tags for "${event.title}": ${invalidOfficialTags.join(', ')}`);
     }
 
-    // Custom tags are allowed as-is (just ensure they're strings)
-    const validCustomTags = customTags.filter(
-      (tag: unknown): tag is string => typeof tag === 'string' && (tag as string).trim().length > 0
-    );
+    // Custom tags: validate they're strings, then normalize (capitalize words, replace hyphens)
+    const validCustomTags = customTags
+      .filter(
+        (tag: unknown): tag is string => typeof tag === 'string' && (tag as string).trim().length > 0
+      )
+      .map((tag: string) => normalizeTagFromAI(tag));
 
     // Extract and clean summary
     let summary: string | null = null;

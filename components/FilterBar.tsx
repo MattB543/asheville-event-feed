@@ -477,11 +477,7 @@ export default function FilterBar({
     availableTags: category.tags.filter((tag) => availableTags.includes(tag)),
   })).filter((cat) => cat.availableTags.length > 0);
 
-  // Find uncategorized tags
-  const categorizedTags = TAG_CATEGORIES.flatMap((c) => c.tags);
-  const uncategorizedTags = availableTags.filter(
-    (tag) => !categorizedTags.includes(tag)
-  );
+  // Note: We no longer show uncategorized tags in the dropdown
 
   const buttonBaseStyle =
     "flex items-center gap-1 h-8 sm:h-10 px-2 sm:px-2.5 text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-800 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors cursor-pointer";
@@ -1135,8 +1131,7 @@ export default function FilterBar({
                 </div>
 
                 <div className="max-h-80 overflow-y-auto">
-                  {groupedTags.length === 0 &&
-                  uncategorizedTags.length === 0 ? (
+                  {groupedTags.length === 0 ? (
                     <p className="text-sm text-gray-500 dark:text-gray-400 px-3 py-2">
                       No tags available
                     </p>
@@ -1180,42 +1175,6 @@ export default function FilterBar({
                           )}
                         </div>
                       ))}
-
-                      {uncategorizedTags.length > 0 && (
-                        <div className="border-b border-gray-50 dark:border-gray-700 last:border-b-0">
-                          <button
-                            onClick={() => toggleCategory("Uncategorized")}
-                            className="w-full flex items-center justify-between px-3 py-2 hover:bg-gray-50 dark:hover:bg-gray-700 text-left"
-                          >
-                            <span className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                              Other
-                            </span>
-                            {expandedCategories.has("Uncategorized") ? (
-                              <ChevronUp
-                                size={14}
-                                className="text-gray-400 dark:text-gray-500"
-                              />
-                            ) : (
-                              <ChevronDown
-                                size={14}
-                                className="text-gray-400 dark:text-gray-500"
-                              />
-                            )}
-                          </button>
-                          {expandedCategories.has("Uncategorized") && (
-                            <div className="px-2 pb-2">
-                              {uncategorizedTags.map((tag) => (
-                                <TriStateCheckbox
-                                  key={tag}
-                                  state={getTagState(tag)}
-                                  onChange={() => cycleTagState(tag)}
-                                  label={tag}
-                                />
-                              ))}
-                            </div>
-                          )}
-                        </div>
-                      )}
                     </>
                   )}
                 </div>

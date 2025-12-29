@@ -65,7 +65,7 @@ interface EventCardProps {
   onExpandMinimized?: (eventId: string) => void;
   /** Score tier for display mode */
   scoreTier?: 'hidden' | 'quality' | 'outstanding';
-  /** Event score for gold title styling (16+ gets gold) */
+  /** Event score for gold title styling (21+ gets gold) */
   eventScore?: number | null;
   /** Match tier for personalized feed */
   matchTier?: 'great' | 'good' | null;
@@ -352,7 +352,7 @@ export default function EventCard({
             {minimizedTags.map((tag) => (
               <span
                 key={tag}
-                className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-medium bg-brand-50 dark:bg-brand-950/50 text-brand-700 dark:text-brand-300 border border-brand-100 dark:border-brand-800"
+                className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-brand-50 dark:bg-brand-950/50 text-brand-700 dark:text-brand-300 border border-brand-100 dark:border-brand-800"
               >
                 {tag}
               </span>
@@ -392,7 +392,7 @@ export default function EventCard({
               {minimizedTags.map((tag) => (
                 <span
                   key={tag}
-                  className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-medium bg-brand-50 dark:bg-brand-950/50 text-brand-700 dark:text-brand-300 border border-brand-100 dark:border-brand-800 whitespace-nowrap"
+                  className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-brand-50 dark:bg-brand-950/50 text-brand-700 dark:text-brand-300 border border-brand-100 dark:border-brand-800 whitespace-nowrap"
                 >
                   {tag}
                 </span>
@@ -462,7 +462,7 @@ export default function EventCard({
         <div>
           <div className="flex items-start gap-2 flex-wrap">
             <h3 className={`text-base font-bold leading-tight ${
-              eventScore !== null && eventScore !== undefined && eventScore >= 16
+              eventScore !== null && eventScore !== undefined && eventScore >= 21
                 ? 'text-amber-600 dark:text-amber-400'
                 : 'text-brand-600 dark:text-brand-400'
             }`}>

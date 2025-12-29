@@ -132,10 +132,15 @@ function getTimeBucket(eventDate: Date): TimeBucket {
  */
 export async function GET(request: NextRequest) {
   try {
+    console.log("[ForYou API] Request received");
+
     const supabase = await createClient();
     const { data: { user } } = await supabase.auth.getUser();
 
+    console.log("[ForYou API] User:", user?.id ?? "none");
+
     if (!user) {
+      console.log("[ForYou API] Unauthorized - no user");
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
@@ -146,6 +151,8 @@ export async function GET(request: NextRequest) {
       ? (dateRangeParam as DateRange)
       : 'all';
 
+    console.log("[ForYou API] Fetching user preferences...");
+
     // Fetch user preferences
     const prefs = await db
       .select()
@@ -153,7 +160,10 @@ export async function GET(request: NextRequest) {
       .where(eq(userPreferences.userId, user.id))
       .limit(1);
 
+    console.log("[ForYou API] User preferences found:", prefs.length > 0);
+
     if (prefs.length === 0) {
+      console.log("[ForYou API] No preferences, returning empty");
       return NextResponse.json({
         events: [],
         meta: {
@@ -167,6 +177,8 @@ export async function GET(request: NextRequest) {
     const positiveSignals = parseSignals(userPref.positiveSignals, isPositiveSignal);
     const negativeSignals = parseSignals(userPref.negativeSignals, isNegativeSignal);
 
+    console.log("[ForYou API] Signals parsed:", { positive: positiveSignals.length, negative: negativeSignals.length });
+
     // Count active signals (within 12 months)
     const now = Date.now();
     const twelveMonthsAgo = now - (12 * 30 * 24 * 60 * 60 * 1000);
@@ -178,9 +190,13 @@ export async function GET(request: NextRequest) {
     );
     const signalCount = activePositiveSignals.length + activeNegativeSignals.length;
 
+    console.log("[ForYou API] Active signals:", { positive: activePositiveSignals.length, negative: activeNegativeSignals.length, total: signalCount });
+
     // Get or compute centroids
+    console.log("[ForYou API] Getting user centroids...");
     const { positive: positiveCentroid, negative: negativeCentroid } =
       await getUserCentroids(user.id);
+    console.log("[ForYou API] Centroids retrieved:", { hasPositive: !!positiveCentroid, hasNegative: !!negativeCentroid });
 
     if (!positiveCentroid) {
       // No positive signals = no personalization

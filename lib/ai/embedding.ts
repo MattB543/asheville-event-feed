@@ -95,11 +95,29 @@ export async function generateEmbeddings(
 }
 
 /**
- * Create the embedding text from event title and summary.
- * Format: "${title}: ${aiSummary}"
+ * Create the embedding text from event title, summary, tags, and organizer.
+ * Format: "Title - Summary - tag1, tag2 - Organizer"
  */
-export function createEmbeddingText(title: string, aiSummary: string): string {
-  return `${title}: ${aiSummary}`;
+export function createEmbeddingText(
+  title: string,
+  aiSummary: string,
+  tags?: string[] | null,
+  organizer?: string | null
+): string {
+  const parts: string[] = [];
+  const cleanTitle = title.trim();
+  if (cleanTitle) parts.push(cleanTitle);
+
+  const cleanSummary = aiSummary?.trim();
+  if (cleanSummary) parts.push(cleanSummary);
+
+  const cleanTags = (tags || []).map((tag) => tag.trim()).filter(Boolean);
+  if (cleanTags.length > 0) parts.push(cleanTags.join(', '));
+
+  const cleanOrganizer = organizer?.trim();
+  if (cleanOrganizer) parts.push(cleanOrganizer);
+
+  return parts.join(' - ');
 }
 
 /**

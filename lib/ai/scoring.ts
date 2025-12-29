@@ -39,64 +39,43 @@ export interface SimilarEventContext {
   similarity: number;
 }
 
-const SCORING_SYSTEM_PROMPT = `You are an expert Event Curator scoring events for a local events calendar in Asheville, NC. Score each event on THREE dimensions (0-10 each) to help users discover the most interesting events.
+const SCORING_SYSTEM_PROMPT = `You are an expert Event Curator for Asheville, NC. Your goal is to rank events so that the "Score" acts as a discovery heat-map.
 
-## DIMENSION 1 - Rarity & Urgency (How often does this happen?)
+## DIMENSION 1 - Rarity & Urgency (0-10)
+How "missable" is this?
+- 1-3: Daily/Weekly (Trivia, regular yoga, open mics).
+- 4-5: Monthly or Seasonal (Monthly markets, standard holiday displays like Winter Lights).
+- 6-7: Special Limited Runs (A 2-week theater run, a 3-stop workshop series).
+- 8-9: True One-Offs (A touring band's only stop, a specific guest speaker, a unique gala).
+- 10: Once-in-a-decade (Legendary artist, Centennial celebration, Solar Eclipse).
 
-IMPORTANT: Determine if this event is recurring BEFORE scoring:
-- Weekly recurring: rarity 0-2 (even if it's at a nice venue)
-- Monthly recurring: rarity 2-3
-- Annual recurring (including holiday events): rarity 3-4
-- True one-offs (tours, festivals, special collaborations): rarity 5-10
+## DIMENSION 2 - Cool & Unique Factor (0-10)
+How much "Main Character Energy" does this event have?
+- 1-3: Standard/Utility (AA meetings, generic classes, basic networking).
+- 4-6: Solid Entertainment (Local bands, standard stand-up, local brewery jams).
+- 7-8: High Concept (Themed masquerades, specialized workshops like "Tarot with Cats," niche festivals).
+- 9-10: Truly Novel (GWAR, extreme circus, "Crankie Fest," events with high production "weirdness").
 
-Score guide:
-- 0-2: Daily/weekly recurring (trivia nights, open mics, weekly classes)
-- 3-4: Monthly events OR annual recurring (monthly showcases, annual Christmas parties)
-- 5-6: Limited runs (3-week theater run, seasonal exhibit)
-- 7-8: One-time special events (specific tour dates, unique collaborations)
-- 9-10: Major one-offs (legendary artist tour, major festival)
+## DIMENSION 3 - Magnitude & Caliber (0-10)
+What is the scale of the "Draw"?
+- 1-3: Hyper-local/Peer-led (Small meetups, student groups, neighborhood walks).
+- 4-5: Professional Local (Established local acts, venue-staple performers, paid workshops).
+- 6-7: Regional Draw (Well-known SE touring acts, mid-sized venue headliners like at Grey Eagle).
+- 8-9: National Headliner (Acts at Orange Peel, Harrah's Arena, or major touring theater).
+- 10: Global Icon (A-list celebrities, stadium-level acts, massive 10k+ person festivals).
 
-HOLIDAY RULE: Holiday timing (Christmas, NYE) does NOT automatically increase rarity. An annual Christmas event = rarity 3-4, not 6-8.
-
-## DIMENSION 2 - Cool & Unique Factor (How novel/interesting is this?)
-
-IMPORTANT: If there are 10+ similar events with >70% similarity, uniqueness should rarely exceed 5.
-
-Score guide:
-- 0-2: Standard/utility (support groups, basic classes, city meetings)
-- 3-4: Common entertainment (cover bands, standard yoga, regular comedy)
-- 5-6: Somewhat distinctive (themed events, niche interests)
-- 7-8: Genuinely creative (unusual format, specialized skills, immersive)
-- 9-10: Truly exceptional ("GWAR", mini wrestling, major art installations)
-
-SIMILARITY RULE: A creatively-produced event that's similar to many others still has LOW uniqueness. Novel format + common type = moderate uniqueness (4-6), not high (7+).
-
-## DIMENSION 3 - Talent & Production Magnitude (What's the scale/caliber?)
-
-IMPORTANT: Venue prestige alone doesn't determine magnitude. A bar cover band at Orange Peel is still magnitude 3-4.
-
-Score guide:
-- 1-2: Casual, minimal production (meetups, group walks, peer-led)
-- 3-4: Local professional (bar bands, small workshops, local instructors)
-- 5-6: Established local production (monthly showcases, established series, local theater)
-- 7-8: Regional draw or major local production (touring regional acts, symphony, professional theater)
-- 9-10: National/international (Bob Dylan, arena acts, legendary status)
-
-COVER BAND RULE: Cover bands at bars = magnitude 3-4 max, regardless of venue.
-
-## SIMILAR EVENTS CONTEXT
-
-Use the similar events list to calibrate your scores:
-- 15+ similar events at 80%+ similarity = this is a COMMON event type, lower rarity and uniqueness
-- 5-15 similar events = moderate commonality
-- <5 similar events = potentially unique
-
-## OUTPUT FORMAT
+## CALIBRATION LOGIC:
+- If it's a TOURING ACT at a major venue (Orange Peel, Grey Eagle, Rabbit Rabbit), it should automatically start at 18+ total.
+- If it's a massive ASHEVILLE TRADITION (Gingerbread competition, Crankie Fest), it should score 20+.
+- RECURRING EVENT RULE: A weekly event can still score high on Magnitude/Uniqueness. Don't let a "1" in Rarity crush a "9" in Magnitude.
+- BELL CURVE: Aim for a broader spread.
+  - 0-10: Standard weekly/utility.
+  - 11-17: High-quality local weekend options.
+  - 18-24: Major touring shows and significant local productions.
+  - 25-30: "The biggest event of the month."
 
 Return ONLY valid JSON:
-{"rarity": N, "unique": N, "magnitude": N, "reason": "One sentence explaining the total score."}
-
-Where N is an integer from 0-10. Be conservative - most events should score 8-18 total, not 20+.`;
+{"rarity": N, "unique": N, "magnitude": N, "reason": "Short explanation."}`;
 
 /**
  * Generate a quality score for an event using Azure OpenAI.

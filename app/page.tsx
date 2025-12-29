@@ -17,12 +17,10 @@ import {
   Gift,
   Calendar,
   Sparkles,
-  Database,
-  ShieldOff,
-  Code,
-  Upload,
-  SlidersHorizontal,
+  List,
+  ArrowRight,
 } from "lucide-react";
+import WhySection from "@/components/WhySection";
 
 export const metadata: Metadata = {
   title: "AVL GO - Asheville Events",
@@ -171,106 +169,14 @@ export default async function HomePage() {
             <Sparkles className="w-5 h-5" />
             Create your custom feed
           </Link>
-        </div>
-      </section>
-
-      {/* Why AVL GO Section */}
-      <section className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          <div className="card-lift animate-fade-up delay-1 flex items-center gap-4 p-5 bg-white dark:bg-gray-900 rounded-xl border border-gray-200/80 dark:border-gray-800/80">
-            <div className="flex-1">
-              <h3 className="font-semibold text-gray-900 dark:text-white mb-1">
-                All in one place
-              </h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
-                Every AVL event source in one clean feed.
-              </p>
-            </div>
-            <div className="icon-circle">
-              <Database className="w-6 h-6 text-brand-600" />
-            </div>
-          </div>
-          <div className="card-lift animate-fade-up delay-2 flex items-center gap-4 p-5 bg-white dark:bg-gray-900 rounded-xl border border-gray-200/80 dark:border-gray-800/80">
-            <div className="flex-1">
-              <h3 className="font-semibold text-gray-900 dark:text-white mb-1">
-                No ads, ever
-              </h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
-                No sponsors. No promotions. Free forever.
-              </p>
-            </div>
-            <div className="icon-circle">
-              <ShieldOff className="w-6 h-6 text-brand-600" />
-            </div>
-          </div>
-          <div className="card-lift animate-fade-up delay-3 flex items-center gap-4 p-5 bg-white dark:bg-gray-900 rounded-xl border border-gray-200/80 dark:border-gray-800/80">
-            <div className="flex-1">
-              <h3 className="font-semibold text-gray-900 dark:text-white mb-1">
-                Open source, open data
-              </h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
-                All data available via{" "}
-                <a
-                  href="https://avlgo.com/api/export/json"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="underline hover:text-gray-700 dark:hover:text-gray-300"
-                >
-                  JSON API
-                </a>
-                .
-              </p>
-            </div>
-            <div className="icon-circle">
-              <Code className="w-6 h-6 text-brand-600" />
-            </div>
-          </div>
-          <div className="card-lift animate-fade-up delay-4 flex items-center gap-4 p-5 bg-white dark:bg-gray-900 rounded-xl border border-gray-200/80 dark:border-gray-800/80">
-            <div className="flex-1">
-              <h3 className="font-semibold text-gray-900 dark:text-white mb-1">
-                AI-enhanced
-              </h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
-                Auto-tags, smart search, similar events.
-              </p>
-            </div>
-            <div className="icon-circle">
-              <Sparkles className="w-6 h-6 text-brand-600" />
-            </div>
-          </div>
-          <div className="card-lift animate-fade-up delay-5 flex items-center gap-4 p-5 bg-white dark:bg-gray-900 rounded-xl border border-gray-200/80 dark:border-gray-800/80">
-            <div className="flex-1">
-              <h3 className="font-semibold text-gray-900 dark:text-white mb-1">
-                Easy for hosts
-              </h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
-                We&apos;ll grab your events automatically!
-              </p>
-            </div>
-            <div className="icon-circle">
-              <Upload className="w-6 h-6 text-brand-600" />
-            </div>
-          </div>
-          <div className="card-lift animate-fade-up delay-6 flex items-center gap-4 p-5 bg-white dark:bg-gray-900 rounded-xl border border-gray-200/80 dark:border-gray-800/80">
-            <div className="flex-1">
-              <h3 className="font-semibold text-gray-900 dark:text-white mb-1">
-                Your feed, your way
-              </h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
-                Filter, customize, curate. Make it yours.
-              </p>
-            </div>
-            <div className="icon-circle">
-              <SlidersHorizontal className="w-6 h-6 text-brand-600" />
-            </div>
-          </div>
+          <WhySection />
         </div>
       </section>
 
       {/* Quick Filters Section */}
-      <section className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-12">
+      <section className="relative z-10 max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-12">
         <h2 className="font-display text-2xl sm:text-3xl font-semibold text-gray-900 dark:text-white mb-8 text-center">
-          Jump to a filtered event list
+          Jump into an event list
         </h2>
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
           {FILTER_BUTTONS.map((button) => (
@@ -282,11 +188,22 @@ export default async function HomePage() {
             />
           ))}
         </div>
+        <div className="flex justify-center mt-3">
+          <Link href="/events" className="w-full max-w-xs">
+            <div className="group flex items-center gap-3 p-4 bg-white dark:bg-gray-900 rounded-xl border border-brand-300 dark:border-brand-700 hover:border-brand-400 dark:hover:border-brand-500 hover:shadow-lg hover:shadow-brand-600/5 dark:hover:shadow-brand-400/5 transition-all duration-200 cursor-pointer hover:-translate-y-0.5">
+              <div className="flex items-center justify-center w-9 h-9 rounded-lg bg-brand-50 dark:bg-brand-950/50 group-hover:bg-brand-100 dark:group-hover:bg-brand-900/50 transition-colors">
+                <List className="w-5 h-5 text-brand-600 dark:text-brand-400" />
+              </div>
+              <span className="text-sm font-medium text-gray-900 dark:text-white flex-1">All Events</span>
+              <ArrowRight className="w-4 h-4 text-gray-400 dark:text-gray-500 group-hover:text-brand-500 dark:group-hover:text-brand-400 group-hover:translate-x-1 transition-all duration-200" />
+            </div>
+          </Link>
+        </div>
       </section>
 
       {/* Public Curators Section */}
       {curators.length > 0 && (
-        <section className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-12">
+        <section className="relative z-10 max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-12">
           <h2 className="font-display text-2xl sm:text-3xl font-semibold text-gray-900 dark:text-white mb-8 text-center">
             Curated feeds by local experts
           </h2>
@@ -307,7 +224,7 @@ export default async function HomePage() {
       )}
 
       {/* Footer */}
-      <footer className="mt-16 py-12 border-t border-gray-200 dark:border-gray-800">
+      <footer className="relative z-10 mt-16 py-12 border-t border-gray-200 dark:border-gray-800">
         <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 text-center">
           <p className="font-display text-xl sm:text-2xl text-gray-800 dark:text-gray-200 mb-6">
             Built for Asheville, not for profit.

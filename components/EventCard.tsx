@@ -289,13 +289,17 @@ export default function EventCard({
   // Generate event URL for links
   const eventUrl = `/events/${generateEventSlug(event.title, event.startDate, event.id)}`;
 
-  // Minimized display mode - single line: title - summary - date badge - Expand
+  // Minimized display mode - single line: title - summary - tags - date badge
   // Clicking anywhere except the title expands the row
   if (displayMode === 'minimized') {
     // Get summary text (max 200 chars, will be truncated by CSS to fit one line)
     const summaryText = event.aiSummary
       ? cleanAshevilleFromSummary(cleanMarkdown(event.aiSummary)).slice(0, 200)
       : (event.description ? cleanMarkdown(event.description).slice(0, 200) : '');
+
+    // Get first 3 official tags for minimized display
+    const officialTags = event.tags?.filter((tag) => OFFICIAL_TAGS_SET.has(tag)) || [];
+    const minimizedTags = officialTags.slice(0, 3);
 
     const handleRowClick = (e: React.MouseEvent) => {
       // Don't expand if clicking on the title link
@@ -328,13 +332,18 @@ export default function EventCard({
             </p>
           )}
 
-          {/* Date badge (left) and Expand (right) */}
-          <div className="flex items-center justify-between mt-1.5">
+          {/* Tags and Date badge */}
+          <div className="flex items-center gap-1.5 mt-1.5 flex-wrap">
+            {minimizedTags.map((tag) => (
+              <span
+                key={tag}
+                className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-medium bg-brand-50 dark:bg-brand-950/50 text-brand-700 dark:text-brand-300 border border-brand-100 dark:border-brand-800"
+              >
+                {tag}
+              </span>
+            ))}
             <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-600">
               {formatDate(event.startDate, event.timeUnknown)}
-            </span>
-            <span className="text-xs text-brand-600 dark:text-brand-400 font-medium">
-              Expand
             </span>
           </div>
         </div>
@@ -362,14 +371,23 @@ export default function EventCard({
             </span>
           )}
 
-          {/* Date/Time Badge - pushed to the right */}
-          <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-600 whitespace-nowrap shrink-0 ml-auto">
-            {formatDate(event.startDate, event.timeUnknown)}
-          </span>
+          {/* Tags - pushed to the right */}
+          {minimizedTags.length > 0 && (
+            <div className="flex items-center gap-1 shrink-0 ml-auto">
+              {minimizedTags.map((tag) => (
+                <span
+                  key={tag}
+                  className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-medium bg-brand-50 dark:bg-brand-950/50 text-brand-700 dark:text-brand-300 border border-brand-100 dark:border-brand-800 whitespace-nowrap"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )}
 
-          {/* Expand text */}
-          <span className="text-xs text-brand-600 dark:text-brand-400 font-medium whitespace-nowrap shrink-0">
-            Expand
+          {/* Date/Time Badge */}
+          <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-600 whitespace-nowrap shrink-0 ${minimizedTags.length === 0 ? 'ml-auto' : ''}`}>
+            {formatDate(event.startDate, event.timeUnknown)}
           </span>
         </div>
       </div>

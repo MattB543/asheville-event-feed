@@ -198,23 +198,36 @@ export default function CreateFeedWizard() {
 
   return (
     <div className="bg-white dark:bg-gray-900 rounded-xl shadow-lg border border-gray-200 dark:border-gray-800 overflow-hidden">
-      {/* Progress Bar */}
+      {/* Progress Steps */}
       <div className="px-6 pt-6">
-        <div className="flex items-center justify-between mb-2">
-          <span className="text-sm font-medium text-gray-600 dark:text-gray-400">
-            Step {state.step} of 3
-          </span>
-          <span className="text-sm text-gray-500 dark:text-gray-500">
-            {state.step === 1 && "Select your interests"}
-            {state.step === 2 && "Set your budget"}
-            {state.step === 3 && "Choose location"}
-          </span>
-        </div>
-        <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+        <div className="flex items-center gap-2">
           <div
-            className="h-full bg-brand-600 rounded-full transition-all duration-300"
-            style={{ width: `${progressPercent}%` }}
-          />
+            className={`flex-1 py-2 rounded-full text-center text-xs font-medium transition-colors ${
+              state.step >= 1
+                ? "bg-brand-600 text-white"
+                : "bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400"
+            }`}
+          >
+            1. Interests
+          </div>
+          <div
+            className={`flex-1 py-2 rounded-full text-center text-xs font-medium transition-colors ${
+              state.step >= 2
+                ? "bg-brand-600 text-white"
+                : "bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400"
+            }`}
+          >
+            2. Budget
+          </div>
+          <div
+            className={`flex-1 py-2 rounded-full text-center text-xs font-medium transition-colors ${
+              state.step >= 3
+                ? "bg-brand-600 text-white"
+                : "bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400"
+            }`}
+          >
+            3. Location
+          </div>
         </div>
       </div>
 
@@ -303,23 +316,23 @@ function TagsStep({
 
           return (
             <div key={category.name}>
-              <div className="flex flex-col items-start gap-1 sm:flex-row sm:items-center sm:justify-between mb-3">
+              <div className="flex items-center gap-3 mb-3">
                 <h3 className="font-semibold text-gray-900 dark:text-white">
                   {category.name}
                 </h3>
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2 text-xs text-gray-400 dark:text-gray-500">
                   <button
                     onClick={() => handleSelectAll(category.tags)}
-                    className="text-sm text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200 cursor-pointer"
+                    className="hover:text-gray-800 dark:hover:text-gray-200 cursor-pointer"
                   >
-                    {allIncluded ? "− Clear All" : "+ Include All"}
+                    {allIncluded ? "Clear" : "All"}
                   </button>
                   <span className="text-gray-300 dark:text-gray-600">|</span>
                   <button
                     onClick={() => handleExcludeAll(category.tags)}
-                    className="text-sm text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200 cursor-pointer"
+                    className="hover:text-gray-800 dark:hover:text-gray-200 cursor-pointer"
                   >
-                    {allExcluded ? "− Clear All" : "− Exclude All"}
+                    {allExcluded ? "Clear" : "None"}
                   </button>
                 </div>
               </div>

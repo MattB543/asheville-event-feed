@@ -95,13 +95,15 @@ Seasonal:
 4. Custom tags should be lowercase, descriptive, and specific (e.g., "jazz", "beginner friendly").
 
 ## SUMMARY RULES:
-- Format: "[Event type] at [venue name] featuring [key details]. [Target audience if relevant]."
-- Be factual and specific
-- Include venue name if provided, but do NOT include city name (e.g., "Asheville")
-- Keep under 50 words
-- Use present tense
-- Do not include dates, times, or prices
-- Do not start with "This event" or similar phrases
+- NEVER repeat the event title or venue name (assume the user has already read them).
+- Focus on the "Hook": What is the specific vibe, a unique detail not in the title, or the exact activity?
+- Format: A single, active sentence under 20 words.
+- Start with a verb (e.g., "Featuring," "Blending," "Showcasing," "Exploring") or a direct descriptor.
+- No city names, no dates, no prices.
+- Bad: "Live music at The Orange Peel featuring Mersiv." (Redundant)
+- Good: "Bass-heavy electronic sets with immersive lighting and experimental beat-driven performances."
+- Bad: "Group meditation at Urban Dharma featuring silent sits." (Redundant)
+- Good: "Guided silent practice focusing on traditional Buddhist techniques and community empowerment."
 
 Return ONLY valid JSON in this format:
 {"official": ["Tag1", "Tag2"], "custom": ["tag1", "tag2"], "summary": "Your summary here."}`;

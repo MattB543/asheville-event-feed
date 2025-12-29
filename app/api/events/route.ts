@@ -36,7 +36,10 @@ function parseNumberArray(value: string | null): number[] {
     .filter((n) => !isNaN(n));
 }
 
-const DATE_FILTERS = new Set<EventFilterParams["dateFilter"]>([
+type DateFilter = NonNullable<EventFilterParams["dateFilter"]>;
+type PriceFilter = NonNullable<EventFilterParams["priceFilter"]>;
+
+const DATE_FILTERS = new Set<DateFilter>([
   "all",
   "today",
   "tomorrow",
@@ -45,7 +48,7 @@ const DATE_FILTERS = new Set<EventFilterParams["dateFilter"]>([
   "dayOfWeek",
 ]);
 
-const PRICE_FILTERS = new Set<EventFilterParams["priceFilter"]>([
+const PRICE_FILTERS = new Set<PriceFilter>([
   "any",
   "free",
   "under20",
@@ -61,16 +64,22 @@ const TIME_FILTERS = new Set<TimeFilter>([
   "evening",
 ]);
 
-function parseDateFilter(value: unknown): EventFilterParams["dateFilter"] | undefined {
-  return isString(value) && DATE_FILTERS.has(value)
-    ? value
-    : undefined;
+function isDateFilter(value: string): value is DateFilter {
+  return DATE_FILTERS.has(value as DateFilter);
+}
+
+function isPriceFilter(value: string): value is PriceFilter {
+  return PRICE_FILTERS.has(value as PriceFilter);
+}
+
+function parseDateFilter(
+  value: unknown
+): EventFilterParams["dateFilter"] | undefined {
+  return isString(value) && isDateFilter(value) ? value : undefined;
 }
 
 function parsePriceFilter(value: unknown): EventFilterParams["priceFilter"] | undefined {
-  return isString(value) && PRICE_FILTERS.has(value)
-    ? value
-    : undefined;
+  return isString(value) && isPriceFilter(value) ? value : undefined;
 }
 
 function parseTimes(value: unknown): EventFilterParams["times"] | undefined {

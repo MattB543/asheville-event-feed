@@ -21,6 +21,7 @@ import {
   buildFacebookCookies,
   randomMouseMovements,
   naturalScroll,
+  jiggleScroll,
   waitForPageLoad,
   checkForBlocking,
   extractEventIdsFromPage,
@@ -142,9 +143,11 @@ export async function discoverFacebookEventIds(): Promise<string[]> {
 
     // Scroll to load more events (Facebook uses infinite scroll)
     log('  Scrolling to load more events...');
-    for (let scrollAttempt = 0; scrollAttempt < 5; scrollAttempt++) {
-      await naturalScroll(page, 2);
+    let noNewEventsCount = 0;
+    for (let scrollAttempt = 0; scrollAttempt < 8 && noNewEventsCount < 5; scrollAttempt++) {
+      await naturalScroll(page, 3);
       await mediumDelay();
+      await randomDelay(1500, 2600);
 
       // Extract event IDs again
       const newIds = await extractEventIdsFromPage(page);
@@ -153,10 +156,12 @@ export async function discoverFacebookEventIds(): Promise<string[]> {
       if (newCount > 0) {
         log(`  Scroll ${scrollAttempt + 1}: Found ${newCount} new events`);
         eventIds = newIds;
+        noNewEventsCount = 0;
       } else {
-        log(`  Scroll ${scrollAttempt + 1}: No new events found`);
-        // If no new events after 2 consecutive scrolls, stop
-        if (scrollAttempt > 0) break;
+        noNewEventsCount++;
+        log(`  Scroll ${scrollAttempt + 1}: No new events found (${noNewEventsCount}/5)`);
+        await jiggleScroll(page, 2);
+        await randomDelay(1200, 2200);
       }
 
       // Rate limiting
@@ -304,9 +309,14 @@ export async function discoverAndFetchFacebookEvents(options: {
     log(`  Scrolling to discover ${targetEvents}+ events...`);
     let noNewEventsCount = 0;
 
-    for (let scrollAttempt = 0; scrollAttempt < maxScrolls && eventIds.length < targetEvents && noNewEventsCount < 3; scrollAttempt++) {
-      await naturalScroll(page, 2);
+    for (
+      let scrollAttempt = 0;
+      scrollAttempt < maxScrolls && eventIds.length < targetEvents && noNewEventsCount < 6;
+      scrollAttempt++
+    ) {
+      await naturalScroll(page, 3);
       await mediumDelay();
+      await randomDelay(1500, 2600);
 
       const newIds = await extractEventIdsFromPage(page);
       const newCount = newIds.length - eventIds.length;
@@ -317,6 +327,9 @@ export async function discoverAndFetchFacebookEvents(options: {
         noNewEventsCount = 0;
       } else {
         noNewEventsCount++;
+        log(`  Scroll ${scrollAttempt + 1}: No new events (${noNewEventsCount}/6)`);
+        await jiggleScroll(page, 2);
+        await randomDelay(1200, 2200);
       }
 
       await longDelay();

@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import Link from "next/link";
-import { ArrowLeft, Mail, Shield, User } from "lucide-react";
+import { ArrowLeft, Mail, Shield, User, Heart, ChevronRight } from "lucide-react";
 import CuratorProfileSettings from "@/components/CuratorProfileSettings";
 import EmailDigestSettings from "@/components/EmailDigestSettings";
 
@@ -143,6 +143,31 @@ export default async function ProfilePage() {
               </>
             )}
           </div>
+        </div>
+
+        {/* My Taste Profile */}
+        <div className="mt-8">
+          <Link
+            href="/profile/taste"
+            className="block bg-white dark:bg-gray-900 rounded-xl shadow-lg border border-gray-200 dark:border-gray-800 p-6 hover:border-brand-500 dark:hover:border-brand-600 transition-colors group"
+          >
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-4">
+                <div className="p-3 bg-brand-50 dark:bg-brand-900/20 rounded-lg group-hover:bg-brand-100 dark:group-hover:bg-brand-900/30 transition-colors">
+                  <Heart className="w-6 h-6 text-brand-600 dark:text-brand-400" />
+                </div>
+                <div>
+                  <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+                    My Taste Profile
+                  </h2>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                    View and manage your event preferences
+                  </p>
+                </div>
+              </div>
+              <ChevronRight className="w-5 h-5 text-gray-400 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors" />
+            </div>
+          </Link>
         </div>
 
         {/* Email Digest Settings */}

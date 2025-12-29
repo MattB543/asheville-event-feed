@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { Sparkles, Link, FileText, FileCode, Mail } from "lucide-react";
 import FilterChip from "./ui/FilterChip";
 import { useToast } from "./ui/Toast";
+import EventTabSwitcher from "./EventTabSwitcher";
 
 export interface ActiveFilter {
   id: string;
@@ -31,6 +32,7 @@ interface ActiveFiltersProps {
   onSaveNewsletterFilters?: () => void;
   isSavingNewsletterFilters?: boolean;
   isPending?: boolean;
+  activeTab?: "all" | "forYou";
 }
 
 function ExportLinks({
@@ -179,11 +181,20 @@ export default function ActiveFilters({
   onSaveNewsletterFilters,
   isSavingNewsletterFilters,
   isPending,
+  activeTab = "all",
 }: ActiveFiltersProps) {
   if (filters.length === 0) {
     return (
       <div className="flex flex-col sm:flex-row items-start sm:items-center sm:justify-end gap-2 sm:gap-3 text-sm text-gray-500 dark:text-gray-400 py-2 pb-3 sm:sticky sm:top-0 sm:z-20 bg-gray-50 dark:bg-gray-950 px-3 sm:px-0">
-        {onOpenChat && <AskAIButton onClick={onOpenChat} />}
+        {/* Tabs + Ask AI row on mobile/tablet only */}
+        <div className="flex items-center gap-2 lg:hidden">
+          <EventTabSwitcher activeTab={activeTab} />
+          {onOpenChat && <AskAIButton onClick={onOpenChat} />}
+        </div>
+        {/* Ask AI on desktop only (tabs are in header) */}
+        <div className="hidden lg:block">
+          {onOpenChat && <AskAIButton onClick={onOpenChat} />}
+        </div>
         {onSaveNewsletterFilters && (
           <SaveNewsletterButton
             onClick={onSaveNewsletterFilters}
@@ -261,7 +272,15 @@ export default function ActiveFilters({
         </button>
       </div>
       <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3 sm:ml-auto">
-        {onOpenChat && <AskAIButton onClick={onOpenChat} />}
+        {/* Tabs + Ask AI row on mobile/tablet only */}
+        <div className="flex items-center gap-2 lg:hidden">
+          <EventTabSwitcher activeTab={activeTab} />
+          {onOpenChat && <AskAIButton onClick={onOpenChat} />}
+        </div>
+        {/* Ask AI on desktop only (tabs are in header) */}
+        <div className="hidden lg:block">
+          {onOpenChat && <AskAIButton onClick={onOpenChat} />}
+        </div>
         {onSaveNewsletterFilters && (
           <SaveNewsletterButton
             onClick={onSaveNewsletterFilters}

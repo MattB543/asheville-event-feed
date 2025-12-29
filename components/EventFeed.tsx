@@ -27,7 +27,7 @@ const CurateModal = dynamic(() => import("./CurateModal"), { ssr: false });
 import SaveFeedModal from "./SaveFeedModal";
 import { DEFAULT_BLOCKED_KEYWORDS } from "@/lib/config/defaultFilters";
 import { useToast } from "./ui/Toast";
-import { ArrowDownIcon, ArrowUpIcon, Loader2Icon } from "lucide-react";
+import { ArrowDownIcon, ArrowUpIcon, Loader2Icon, Sparkles } from "lucide-react";
 import { getZipName } from "@/lib/config/zipNames";
 import { usePreferenceSync } from "@/lib/hooks/usePreferenceSync";
 import { useAuth } from "./AuthProvider";
@@ -66,6 +66,7 @@ interface InitialEvent {
 interface EventFeedProps {
   initialEvents?: InitialEvent[];
   initialMetadata?: EventMetadata;
+  activeTab?: "all" | "forYou";
 }
 
 // Tag filter state for include/exclude tri-state filtering
@@ -281,10 +282,18 @@ const priceLabels: Record<PriceFilterType, string> = {
 export default function EventFeed({
   initialEvents,
   initialMetadata,
+  activeTab = "all",
 }: EventFeedProps) {
   const { showToast } = useToast();
   const { user } = useAuth();
   const isLoggedIn = !!user;
+
+  // For You feed state
+  const [forYouEvents, setForYouEvents] = useState<any[]>([]);
+  const [forYouMeta, setForYouMeta] = useState<{ signalCount: number; minimumMet: boolean } | null>(null);
+  const [forYouLoading, setForYouLoading] = useState(false);
+  // Track events being hidden (for animation)
+  const [hidingEventIds, setHidingEventIds] = useState<Set<string>>(new Set());
 
   // Parse URL filters once at initialization (not in useEffect)
   // This ensures filters are correct from the first render
@@ -577,6 +586,31 @@ export default function EventFeed({
     setIsLoaded(true);
   }, []);
 
+  // Fetch For You feed when tab switches to forYou
+  useEffect(() => {
+    if (!isLoaded || activeTab !== "forYou" || !isLoggedIn) return;
+
+    const fetchForYou = async () => {
+      setForYouLoading(true);
+      try {
+        const response = await fetch("/api/for-you");
+        if (!response.ok) {
+          throw new Error("Failed to fetch personalized feed");
+        }
+        const data = await response.json();
+        setForYouEvents(data.events || []);
+        setForYouMeta(data.meta || { signalCount: 0, minimumMet: false });
+      } catch (error) {
+        console.error("Error fetching For You feed:", error);
+        showToast("Failed to load personalized feed", "error");
+      } finally {
+        setForYouLoading(false);
+      }
+    };
+
+    fetchForYou();
+  }, [activeTab, isLoaded, isLoggedIn, showToast]);
+
   // Fetch curations on mount for logged-in users
   useEffect(() => {
     if (isLoggedIn) {
@@ -832,14 +866,62 @@ export default function EventFeed({
     setSelectedZips([]);
   }, []);
 
+  // Helper to capture signal
+  const captureSignal = useCallback(
+    async (eventId: string, signalType: 'favorite' | 'calendar' | 'share' | 'viewSource' | 'hide') => {
+      if (!isLoggedIn) return; // Only capture signals for logged-in users
+
+      try {
+        await fetch("/api/signals", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ eventId, signalType }),
+        });
+      } catch (error) {
+        console.error("Failed to capture signal:", error);
+        // Don't show error to user - this is a background operation
+      }
+    },
+    [isLoggedIn]
+  );
+
+  // Handler for capturing calendar/share/viewSource signals
+  const handleSignalCapture = useCallback(
+    (eventId: string, signalType: 'calendar' | 'share' | 'viewSource') => {
+      captureSignal(eventId, signalType);
+    },
+    [captureSignal]
+  );
+
   // Hide event (by title + organizer fingerprint)
   const handleHideEvent = useCallback(
-    (title: string, organizer: string | null) => {
+    (title: string, organizer: string | null, eventId?: string) => {
       const fingerprint: HiddenEventFingerprint = {
         title: title.toLowerCase().trim(),
         organizer: (organizer || "").toLowerCase().trim(),
       };
       const key = createFingerprintKey(title, organizer);
+
+      // Capture hide signal if eventId provided
+      if (eventId) {
+        captureSignal(eventId, "hide");
+      }
+
+      // If on For You tab and eventId provided, add animation
+      if (activeTab === "forYou" && eventId) {
+        setHidingEventIds((prev) => new Set([...prev, eventId]));
+        // Remove from For You feed after animation (300ms)
+        setTimeout(() => {
+          setForYouEvents((prev) =>
+            prev.filter((e: any) => e.event.id !== eventId)
+          );
+          setHidingEventIds((prev) => {
+            const next = new Set(prev);
+            next.delete(eventId);
+            return next;
+          });
+        }, 300);
+      }
 
       // Add to session hidden keys first (so UI updates immediately)
       setSessionHiddenKeys((prev) => {
@@ -860,7 +942,7 @@ export default function EventFeed({
         return [...prev, fingerprint];
       });
     },
-    []
+    [activeTab, captureSignal]
   );
 
   // Block host
@@ -895,6 +977,11 @@ export default function EventFeed({
         if (!response.ok) {
           throw new Error("Failed to update favorite");
         }
+
+        // Capture signal for favorites (only when adding, not removing)
+        if (!isFavorited) {
+          captureSignal(eventId, "favorite");
+        }
       } catch (error) {
         // Revert optimistic update on error
         setFavoritedEventIds((prev) =>
@@ -903,7 +990,7 @@ export default function EventFeed({
         console.error("Failed to toggle favorite:", error);
       }
     },
-    [favoritedEventIds]
+    [favoritedEventIds, captureSignal]
   );
 
   const handleOpenCurateModal = (eventId: string) => {
@@ -986,26 +1073,25 @@ export default function EventFeed({
 
     setIsSavingNewsletterFilters(true);
     try {
+      const payload: Record<string, unknown> = {
+        filters: {
+          search,
+          selectedTimes,
+          priceFilter,
+          customMaxPrice,
+          tagsInclude: tagFilters.include,
+          tagsExclude: tagFilters.exclude,
+          selectedLocations,
+          selectedZips,
+          showDailyEvents,
+          useDefaultFilters: true,
+        },
+      };
+
       const res = await fetch("/api/email-digest/settings", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          filters: {
-            search,
-            dateFilter,
-            customDateRange,
-            selectedDays,
-            selectedTimes,
-            priceFilter,
-            customMaxPrice,
-            tagsInclude: tagFilters.include,
-            tagsExclude: tagFilters.exclude,
-            selectedLocations,
-            selectedZips,
-            showDailyEvents,
-            useDefaultFilters: true,
-          },
-        }),
+        body: JSON.stringify(payload),
       });
 
       if (res.ok) {
@@ -1174,6 +1260,7 @@ export default function EventFeed({
         onSaveNewsletterFilters={isLoggedIn ? handleSaveNewsletterFilters : undefined}
         isSavingNewsletterFilters={isSavingNewsletterFilters}
         isPending={isFilterPending}
+        activeTab={activeTab}
       />
 
       {/* Filtering indicator */}
@@ -1188,13 +1275,140 @@ export default function EventFeed({
         </div>
       )}
 
-      <div
-        className={`flex flex-col gap-10 mt-3 transition-opacity duration-150 ${
-          isFilterPending ? "opacity-50" : "opacity-100"
-        }`}
-      >
-        {Object.entries(
-          filteredEvents.reduce((groups, event) => {
+      {/* For You Feed */}
+      {activeTab === "forYou" && (
+        <>
+          {/* Sign-in Prompt for Anonymous Users */}
+          {!isLoggedIn && (
+            <div className="text-center py-20 px-4">
+              <Sparkles size={48} className="mx-auto text-brand-500 mb-4" />
+              <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-2">
+                Get personalized recommendations
+              </h3>
+              <p className="text-sm text-gray-500 dark:text-gray-400 max-w-md mx-auto mb-6">
+                Sign in to build a feed tailored to your interests. Like events you love, and we'll show you more like them.
+              </p>
+              <a
+                href="/login"
+                className="inline-flex items-center gap-2 px-6 py-2.5 bg-brand-600 hover:bg-brand-700 text-white font-medium rounded-lg transition-colors"
+              >
+                Sign in to get started
+              </a>
+            </div>
+          )}
+
+          {/* Onboarding Banner */}
+          {isLoggedIn && forYouMeta && !forYouMeta.minimumMet && forYouMeta.signalCount > 0 && (
+            <div className="mb-4 px-3 sm:px-0">
+              <div className="bg-brand-50 dark:bg-brand-950/50 border border-brand-200 dark:border-brand-800 rounded-lg px-4 py-3 flex items-center gap-3">
+                <Sparkles size={18} className="text-brand-600 dark:text-brand-400 shrink-0" />
+                <p className="text-sm text-brand-700 dark:text-brand-300">
+                  <strong>{forYouMeta.signalCount}/5 events liked</strong> — keep going to improve your recommendations!
+                </p>
+              </div>
+            </div>
+          )}
+
+          {/* Empty State */}
+          {isLoggedIn && forYouMeta && forYouMeta.signalCount === 0 && forYouEvents.length === 0 && !forYouLoading && (
+            <div className="text-center py-20 px-4">
+              <Sparkles size={48} className="mx-auto text-gray-400 dark:text-gray-500 mb-4" />
+              <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                Build your personalized feed
+              </h3>
+              <p className="text-sm text-gray-500 dark:text-gray-400 max-w-md mx-auto">
+                Search and favorite events you're interested in to build your custom feed
+              </p>
+            </div>
+          )}
+
+          {/* Loading State */}
+          {isLoggedIn && forYouLoading && (
+            <div className="text-center py-20">
+              <div className="inline-block w-8 h-8 border-4 border-brand-500 border-t-transparent rounded-full animate-spin mb-4" />
+              <p className="text-sm text-gray-500 dark:text-gray-400">
+                Loading your personalized feed...
+              </p>
+            </div>
+          )}
+
+          {/* Time Bucket Sections */}
+          {isLoggedIn && !forYouLoading && forYouEvents.length > 0 && (
+            <div className="flex flex-col gap-10 mt-3">
+              {['today', 'tomorrow', 'week', 'later'].map((bucket) => {
+                const bucketEvents = forYouEvents.filter((e: any) => e.bucket === bucket);
+                if (bucketEvents.length === 0) return null;
+
+                const bucketLabels: Record<string, string> = {
+                  today: "Today",
+                  tomorrow: "Tomorrow",
+                  week: "This Week",
+                  later: "Later",
+                };
+
+                return (
+                  <div key={bucket} className="flex flex-col">
+                    <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100 sticky top-0 sm:top-9 bg-white dark:bg-gray-900 sm:border sm:border-b-0 sm:border-gray-200 dark:sm:border-gray-700 sm:rounded-t-lg py-2 px-3 sm:px-4 z-10">
+                      {bucketLabels[bucket]}
+                    </h2>
+                    <div className="flex flex-col bg-white dark:bg-gray-900 sm:rounded-b-lg sm:shadow-sm sm:border sm:border-gray-200 dark:sm:border-gray-700">
+                      {bucketEvents.map((scoredEvent: any) => {
+                        const event = {
+                          ...scoredEvent.event,
+                          startDate: new Date(scoredEvent.event.startDate),
+                        };
+                        return (
+                          <EventCard
+                            key={event.id}
+                            event={{
+                              ...event,
+                              sourceId: event.sourceId,
+                              location: event.location ?? null,
+                              organizer: event.organizer ?? null,
+                              price: event.price ?? null,
+                              imageUrl: event.imageUrl ?? null,
+                              timeUnknown: event.timeUnknown ?? false,
+                              recurringType: event.recurringType ?? null,
+                            }}
+                            onHide={handleHideEvent}
+                            onBlockHost={handleBlockHost}
+                            onSignalCapture={handleSignalCapture}
+                            isNewlyHidden={false}
+                            hideBorder={false}
+                            isFavorited={favoritedEventIds.includes(event.id)}
+                            favoriteCount={event.favoriteCount ?? 0}
+                            onToggleFavorite={handleToggleFavorite}
+                            isTagFilterActive={false}
+                            isCurated={curatedEventIds.has(event.id)}
+                            onCurate={handleOpenCurateModal}
+                            onUncurate={handleUncurate}
+                            isLoggedIn={isLoggedIn}
+                            displayMode="full"
+                            matchTier={scoredEvent.tier}
+                            matchExplanation={scoredEvent.explanation}
+                            isHiding={hidingEventIds.has(event.id)}
+                          />
+                        );
+                      })}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </>
+      )}
+
+      {/* All Events Feed */}
+      {activeTab === "all" && (
+        <>
+          <div
+            className={`flex flex-col gap-10 mt-3 transition-opacity duration-150 ${
+              isFilterPending ? "opacity-50" : "opacity-100"
+            }`}
+          >
+          {Object.entries(
+            filteredEvents.reduce((groups, event) => {
             const date = new Date(event.startDate);
             const dateKey = date.toLocaleDateString("en-US", {
               weekday: "short",
@@ -1347,6 +1561,7 @@ export default function EventFeed({
                           }}
                           onHide={handleHideEvent}
                           onBlockHost={handleBlockHost}
+                          onSignalCapture={handleSignalCapture}
                           isNewlyHidden={isNewlyHidden}
                           hideBorder={hideCardBorder}
                           isFavorited={favoritedEventIds.includes(event.id)}
@@ -1373,35 +1588,37 @@ export default function EventFeed({
               </div>
             );
           })}
-      </div>
-
-      {filteredEvents.length === 0 && !isFetching && (
-        <div className="text-center py-20 text-gray-500 dark:text-gray-400">
-          No events found matching your criteria.
         </div>
-      )}
 
-      {/* Infinite scroll trigger + Show more button */}
-      {hasMore && (
-        <div
-          ref={loadMoreRef}
-          className="py-8 flex flex-col items-center justify-center gap-4"
-        >
-          {isFetchingNextPage ? (
-            <div className="flex items-center gap-2 text-gray-500 dark:text-gray-400">
-              <Loader2Icon size={20} className="animate-spin" />
-              <span className="text-sm">Loading more events...</span>
-            </div>
-          ) : (
-            <button
-              onClick={() => fetchNextPage()}
-              className="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors flex items-center gap-2"
-            >
-              <ArrowDownIcon size={18} />
-              Show More Events
-            </button>
-          )}
-        </div>
+        {filteredEvents.length === 0 && !isFetching && (
+          <div className="text-center py-20 text-gray-500 dark:text-gray-400">
+            No events found matching your criteria.
+          </div>
+        )}
+
+        {/* Infinite scroll trigger + Show more button */}
+        {hasMore && (
+          <div
+            ref={loadMoreRef}
+            className="py-8 flex flex-col items-center justify-center gap-4"
+          >
+            {isFetchingNextPage ? (
+              <div className="flex items-center gap-2 text-gray-500 dark:text-gray-400">
+                <Loader2Icon size={20} className="animate-spin" />
+                <span className="text-sm">Loading more events...</span>
+              </div>
+            ) : (
+              <button
+                onClick={() => fetchNextPage()}
+                className="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors flex items-center gap-2"
+              >
+                <ArrowDownIcon size={18} />
+                Show More Events
+              </button>
+            )}
+          </div>
+        )}
+        </>
       )}
 
       <SettingsModal

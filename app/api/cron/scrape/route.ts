@@ -146,11 +146,11 @@ export async function GET(request: Request) {
       try {
         console.log("[Scrape] Attempting Facebook scrape...");
         const fbRawEvents = await scrapeFacebookEvents();
-        // Filter out low-interest events
+        // Filter out low-interest events (must have >=4 going OR >=9 interested)
         fbEvents = fbRawEvents.filter(
           (e) =>
-            (e.goingCount !== undefined && e.goingCount > 1) ||
-            (e.interestedCount !== undefined && e.interestedCount > 3)
+            (e.goingCount !== undefined && e.goingCount >= 4) ||
+            (e.interestedCount !== undefined && e.interestedCount >= 9)
         );
         console.log(
           `[Scrape] Facebook scrape complete: ${fbEvents.length} events (filtered ${fbRawEvents.length - fbEvents.length} low-interest)`

@@ -7,14 +7,12 @@ import {
   type NewsletterFilters,
   type NewsletterSettingsPayload,
   type NewsletterFrequency,
+  type NewsletterDaySelection,
   type NewsletterScoreTier,
 } from "@/lib/newsletter/types";
 
 const DEFAULT_FILTERS: NewsletterFilters = {
   search: "",
-  dateFilter: "all",
-  customDateRange: { start: null, end: null },
-  selectedDays: [],
   selectedTimes: [],
   priceFilter: "any",
   customMaxPrice: null,
@@ -28,22 +26,20 @@ const DEFAULT_FILTERS: NewsletterFilters = {
 
 const ALLOWED_FREQUENCIES: NewsletterFrequency[] = ["none", "daily", "weekly"];
 const ALLOWED_SCORE_TIERS: NewsletterScoreTier[] = ["all", "top50", "top10"];
+const ALLOWED_DAY_SELECTIONS: NewsletterDaySelection[] = [
+  "everyday",
+  "weekend",
+  "specific",
+];
 
 function normalizeFilters(filters?: NewsletterFilters): NewsletterFilters {
   const merged = {
     ...DEFAULT_FILTERS,
     ...filters,
-    customDateRange: {
-      ...DEFAULT_FILTERS.customDateRange,
-      ...(filters?.customDateRange || {}),
-    },
   };
 
   return {
     ...merged,
-    selectedDays: Array.isArray(merged.selectedDays)
-      ? merged.selectedDays.filter((d) => Number.isInteger(d) && d >= 0 && d <= 6)
-      : [],
     selectedTimes: Array.isArray(merged.selectedTimes)
       ? merged.selectedTimes
       : [],
@@ -54,6 +50,17 @@ function normalizeFilters(filters?: NewsletterFilters): NewsletterFilters {
       : [],
     selectedZips: Array.isArray(merged.selectedZips) ? merged.selectedZips : [],
   };
+}
+
+function normalizeSelectedDays(selectedDays?: number[]): number[] {
+  if (!Array.isArray(selectedDays)) return [];
+  return Array.from(
+    new Set(
+      selectedDays.filter(
+        (day) => Number.isInteger(day) && day >= 0 && day <= 6
+      )
+    )
+  ).sort((a, b) => a - b);
 }
 
 // GET /api/email-digest/settings - Get current user's email digest settings
@@ -96,6 +103,8 @@ export async function GET() {
         await db.insert(newsletterSettings).values({
           userId: user.id,
           frequency: legacyFrequency,
+          daySelection: "everyday",
+          selectedDays: [],
           weekendEdition: false,
           scoreTier: "all",
           filters: legacyFilters,
@@ -105,6 +114,8 @@ export async function GET() {
 
         return NextResponse.json({
           frequency: legacyFrequency,
+          daySelection: "everyday",
+          selectedDays: [],
           weekendEdition: false,
           scoreTier: "all",
           filters: legacyFilters,
@@ -114,6 +125,8 @@ export async function GET() {
 
       return NextResponse.json({
         frequency: "none",
+        daySelection: "everyday",
+        selectedDays: [],
         weekendEdition: false,
         scoreTier: "all",
         filters: DEFAULT_FILTERS,
@@ -124,6 +137,8 @@ export async function GET() {
     const row = result[0];
     return NextResponse.json({
       frequency: (row.frequency as NewsletterFrequency) || "none",
+      daySelection: (row.daySelection as NewsletterDaySelection) || "everyday",
+      selectedDays: row.selectedDays ?? [],
       weekendEdition: row.weekendEdition ?? false,
       scoreTier: (row.scoreTier as NewsletterScoreTier) || "all",
       filters: normalizeFilters(row.filters as NewsletterFilters),
@@ -160,6 +175,13 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    if (body.daySelection && !ALLOWED_DAY_SELECTIONS.includes(body.daySelection)) {
+      return NextResponse.json(
+        { error: "Invalid day selection value" },
+        { status: 400 }
+      );
+    }
+
     if (body.scoreTier && !ALLOWED_SCORE_TIERS.includes(body.scoreTier)) {
       return NextResponse.json(
         { error: "Invalid score tier value" },
@@ -179,19 +201,37 @@ export async function POST(request: NextRequest) {
       : normalizeFilters(current?.filters as NewsletterFilters | undefined);
 
     const nextFrequency = body.frequency ?? (current?.frequency as NewsletterFrequency) ?? "none";
+    const nextDaySelection =
+      body.daySelection ??
+      (current?.daySelection as NewsletterDaySelection) ??
+      "everyday";
+    const nextSelectedDays = normalizeSelectedDays(
+      body.selectedDays ?? (current?.selectedDays as number[] | undefined)
+    );
     const nextWeekendEdition =
       body.weekendEdition ?? current?.weekendEdition ?? false;
     const nextScoreTier = body.scoreTier ?? (current?.scoreTier as NewsletterScoreTier) ?? "all";
     const nextCuratorUserIds =
       body.curatorUserIds ?? current?.curatorUserIds ?? [];
-    const normalizedWeekendEdition =
-      nextFrequency === "daily" ? nextWeekendEdition : false;
+    const normalizedSelectedDays =
+      nextDaySelection === "specific" ? nextSelectedDays : [];
+    const weekendEditionEligible =
+      nextFrequency === "daily" &&
+      (nextDaySelection === "everyday" ||
+        nextDaySelection === "weekend" ||
+        (nextDaySelection === "specific" &&
+          [0, 5, 6].every((day) => normalizedSelectedDays.includes(day))));
+    const normalizedWeekendEdition = weekendEditionEligible
+      ? nextWeekendEdition
+      : false;
 
     await db
       .insert(newsletterSettings)
       .values({
         userId: user.id,
         frequency: nextFrequency,
+        daySelection: nextDaySelection,
+        selectedDays: normalizedSelectedDays,
         weekendEdition: normalizedWeekendEdition,
         scoreTier: nextScoreTier,
         filters: nextFilters,
@@ -202,6 +242,8 @@ export async function POST(request: NextRequest) {
         target: newsletterSettings.userId,
         set: {
           frequency: nextFrequency,
+          daySelection: nextDaySelection,
+          selectedDays: normalizedSelectedDays,
           weekendEdition: normalizedWeekendEdition,
           scoreTier: nextScoreTier,
           filters: nextFilters,

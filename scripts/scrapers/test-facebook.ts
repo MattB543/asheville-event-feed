@@ -20,8 +20,8 @@ async function main() {
     // Filter low-interest events (same as cron)
     const fbFiltered = fbRawEvents.filter(
       (e) =>
-        (e.goingCount !== undefined && e.goingCount > 1) ||
-        (e.interestedCount !== undefined && e.interestedCount > 3)
+        (e.goingCount !== undefined && e.goingCount >= 4) ||
+        (e.interestedCount !== undefined && e.interestedCount >= 9)
     );
     console.log(`After interest filter: ${fbFiltered.length} (filtered ${fbRawEvents.length - fbFiltered.length} low-interest)`);
 

@@ -34,6 +34,7 @@ import {
 } from "@/lib/utils/timezone";
 import type {
   NewsletterFilters,
+  NewsletterDaySelection,
   NewsletterFrequency,
   NewsletterScoreTier,
 } from "@/lib/newsletter/types";
@@ -48,9 +49,6 @@ const SCORE_FLOORS: Record<NewsletterScoreTier, number> = {
 
 const DEFAULT_FILTERS: NewsletterFilters = {
   search: "",
-  dateFilter: "all",
-  customDateRange: { start: null, end: null },
-  selectedDays: [],
   selectedTimes: [],
   priceFilter: "any",
   customMaxPrice: null,
@@ -66,13 +64,6 @@ function normalizeFilters(filters?: NewsletterFilters): NewsletterFilters {
   return {
     ...DEFAULT_FILTERS,
     ...filters,
-    customDateRange: {
-      ...DEFAULT_FILTERS.customDateRange,
-      ...(filters?.customDateRange || {}),
-    },
-    selectedDays: Array.isArray(filters?.selectedDays)
-      ? filters?.selectedDays
-      : [],
     selectedTimes: Array.isArray(filters?.selectedTimes)
       ? filters?.selectedTimes
       : [],
@@ -119,86 +110,17 @@ function getEasternDateKey(date: Date): string {
   }).format(date);
 }
 
-function getEasternDayOfWeek(date: Date): number {
-  const dateKey = getEasternDateKey(date);
-  return parseAsEastern(dateKey, "12:00:00").getDay();
+function normalizeSelectedDays(selectedDays?: number[] | null): number[] {
+  if (!Array.isArray(selectedDays)) return [];
+  return Array.from(
+    new Set(
+      selectedDays.filter(
+        (day) => Number.isInteger(day) && day >= 0 && day <= 6
+      )
+    )
+  );
 }
 
-function getWeekendRange(todayStr: string): { start: Date; end: Date } {
-  const [year, month, day] = todayStr.split("-").map(Number);
-  const todayDate = new Date(year, month - 1, day);
-  const dayOfWeek = todayDate.getDay();
-  const daysUntilFriday = dayOfWeek === 0 ? -2 : 5 - dayOfWeek;
-  const fridayStr = addDaysToDateString(todayStr, daysUntilFriday);
-  const sundayStr = addDaysToDateString(fridayStr, 2);
-  const { start } = getDayBoundariesEastern(fridayStr);
-  const { end } = getDayBoundariesEastern(sundayStr);
-  return { start, end };
-}
-
-function filterByDateFilter(
-  eventsToFilter: DbEvent[],
-  filters: NewsletterFilters,
-  todayStr: string
-): DbEvent[] {
-  const dateFilter = filters.dateFilter || "all";
-
-  if (dateFilter === "all") return eventsToFilter;
-
-  if (dateFilter === "custom") {
-    const startStr = filters.customDateRange?.start;
-    const endStr = filters.customDateRange?.end;
-    if (!startStr && !endStr) return eventsToFilter;
-
-    const start = startStr
-      ? parseAsEastern(startStr, "00:00:00")
-      : null;
-    const end = endStr ? parseAsEastern(endStr, "23:59:59") : null;
-
-    return eventsToFilter.filter((event) => {
-      const eventDate = new Date(event.startDate);
-      if (start && eventDate < start) return false;
-      if (end && eventDate > end) return false;
-      return true;
-    });
-  }
-
-  if (dateFilter === "today") {
-    const { start, end } = getDayBoundariesEastern(todayStr);
-    return eventsToFilter.filter((event) => {
-      const eventDate = new Date(event.startDate);
-      return eventDate >= start && eventDate <= end;
-    });
-  }
-
-  if (dateFilter === "tomorrow") {
-    const tomorrowStr = addDaysToDateString(todayStr, 1);
-    const { start, end } = getDayBoundariesEastern(tomorrowStr);
-    return eventsToFilter.filter((event) => {
-      const eventDate = new Date(event.startDate);
-      return eventDate >= start && eventDate <= end;
-    });
-  }
-
-  if (dateFilter === "weekend") {
-    const { start, end } = getWeekendRange(todayStr);
-    return eventsToFilter.filter((event) => {
-      const eventDate = new Date(event.startDate);
-      return eventDate >= start && eventDate <= end;
-    });
-  }
-
-  if (dateFilter === "dayOfWeek") {
-    const selectedDays = filters.selectedDays || [];
-    if (selectedDays.length === 0) return eventsToFilter;
-
-    return eventsToFilter.filter((event) =>
-      selectedDays.includes(getEasternDayOfWeek(new Date(event.startDate)))
-    );
-  }
-
-  return eventsToFilter;
-}
 
 async function fetchAllEvents(params: Omit<EventFilterParams, "limit">) {
   const allEvents: DbEvent[] = [];
@@ -270,6 +192,8 @@ function applyDailyCaps(
 
 function buildSchedule(
   frequency: NewsletterFrequency,
+  daySelection: NewsletterDaySelection | null | undefined,
+  selectedDays: number[] | null | undefined,
   weekendEdition: boolean,
   todayStr: string
 ): {
@@ -280,6 +204,9 @@ function buildSchedule(
   capPerDay: number;
 } | null {
   const dayOfWeek = parseAsEastern(todayStr, "12:00:00").getDay();
+  const normalizedDaySelection = daySelection ?? "everyday";
+  const normalizedSelectedDays = normalizeSelectedDays(selectedDays);
+  const weekendDays = new Set([0, 5, 6]);
 
   if (frequency === "weekly") {
     if (dayOfWeek !== 1) {
@@ -295,7 +222,23 @@ function buildSchedule(
   }
 
   if (frequency === "daily") {
-    if (weekendEdition) {
+    const matchesSelection =
+      normalizedDaySelection === "everyday" ||
+      (normalizedDaySelection === "weekend" && weekendDays.has(dayOfWeek)) ||
+      (normalizedDaySelection === "specific" &&
+        normalizedSelectedDays.includes(dayOfWeek));
+
+    if (!matchesSelection) {
+      return null;
+    }
+
+    const hasFullWeekend =
+      normalizedDaySelection === "everyday" ||
+      normalizedDaySelection === "weekend" ||
+      (normalizedDaySelection === "specific" &&
+        [0, 5, 6].every((day) => normalizedSelectedDays.includes(day)));
+
+    if (weekendEdition && hasFullWeekend && weekendDays.has(dayOfWeek)) {
       if (dayOfWeek === 5) {
         return {
           startStr: todayStr,
@@ -305,6 +248,7 @@ function buildSchedule(
           capPerDay: 40,
         };
       }
+      return null;
     }
 
     return {
@@ -324,6 +268,8 @@ interface DigestUser {
   email: string;
   name?: string;
   frequency: NewsletterFrequency;
+  daySelection: NewsletterDaySelection;
+  selectedDays: number[];
   weekendEdition: boolean;
   scoreTier: NewsletterScoreTier;
   filters: NewsletterFilters;
@@ -377,6 +323,8 @@ export async function GET(request: Request) {
       .select({
         userId: newsletterSettings.userId,
         frequency: newsletterSettings.frequency,
+        daySelection: newsletterSettings.daySelection,
+        selectedDays: newsletterSettings.selectedDays,
         weekendEdition: newsletterSettings.weekendEdition,
         scoreTier: newsletterSettings.scoreTier,
         filters: newsletterSettings.filters,
@@ -416,6 +364,8 @@ export async function GET(request: Request) {
       );
 
     for (const legacy of legacyUsers) {
+      const legacyFrequency =
+        (legacy.frequency as NewsletterFrequency) || "none";
       const legacyFilters = normalizeFilters({
         ...DEFAULT_FILTERS,
         tagsInclude: legacy.tags ?? [],
@@ -425,7 +375,9 @@ export async function GET(request: Request) {
         .insert(newsletterSettings)
         .values({
           userId: legacy.userId,
-          frequency: (legacy.frequency as NewsletterFrequency) || "none",
+          frequency: legacyFrequency,
+          daySelection: "everyday",
+          selectedDays: [],
           weekendEdition: false,
           scoreTier: "all",
           filters: legacyFilters,
@@ -436,7 +388,9 @@ export async function GET(request: Request) {
 
       usersToProcess.push({
         userId: legacy.userId,
-        frequency: legacy.frequency,
+        frequency: legacyFrequency,
+        daySelection: "everyday",
+        selectedDays: [],
         weekendEdition: false,
         scoreTier: "all",
         filters: legacyFilters,
@@ -497,6 +451,8 @@ export async function GET(request: Request) {
       const filters = normalizeFilters(userPref.filters as NewsletterFilters);
       const schedule = buildSchedule(
         userPref.frequency as NewsletterFrequency,
+        userPref.daySelection as NewsletterDaySelection,
+        userPref.selectedDays as number[] | undefined,
         userPref.weekendEdition ?? false,
         todayStr
       );
@@ -511,6 +467,9 @@ export async function GET(request: Request) {
         email: userAuth.email,
         name: userAuth.name,
         frequency: userPref.frequency as NewsletterFrequency,
+        daySelection:
+          (userPref.daySelection as NewsletterDaySelection) ?? "everyday",
+        selectedDays: normalizeSelectedDays(userPref.selectedDays as number[]),
         weekendEdition: userPref.weekendEdition ?? false,
         scoreTier: (userPref.scoreTier as NewsletterScoreTier) || "all",
         filters,
@@ -545,7 +504,6 @@ export async function GET(request: Request) {
       };
 
       let filteredEvents = await fetchAllEvents(params);
-      filteredEvents = filterByDateFilter(filteredEvents, digestUser.filters, todayStr);
       filteredEvents = applyScoreTier(filteredEvents, digestUser.scoreTier);
 
       let curatedEventList: DigestEvent[] = [];

@@ -181,12 +181,12 @@ export async function GET(request: Request) {
       try {
         console.log("[Cron] Attempting Facebook scrape...");
         const fbRawEvents = await scrapeFacebookEvents();
-        // Filter out low-interest events (must have >1 going OR >3 interested)
+        // Filter out low-interest events (must have >=4 going OR >=9 interested)
         // "Going" is a stronger signal than "interested"
         const fbFiltered = fbRawEvents.filter(
           (e) =>
-            (e.goingCount !== undefined && e.goingCount > 1) ||
-            (e.interestedCount !== undefined && e.interestedCount > 3)
+            (e.goingCount !== undefined && e.goingCount >= 4) ||
+            (e.interestedCount !== undefined && e.interestedCount >= 9)
         );
         // Transform to ScrapedEventWithTags format
         fbEvents = fbFiltered.map((e) => ({ ...e, tags: [] }));

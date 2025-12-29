@@ -5,6 +5,7 @@ import InfoBanner from "@/components/InfoBanner";
 import ThemeToggle from "@/components/ThemeToggle";
 import SubmitEventButton from "@/components/SubmitEventButton";
 import UserMenu from "@/components/UserMenu";
+import EventTabSwitcher from "@/components/EventTabSwitcher";
 import { Metadata } from "next";
 import Link from "next/link";
 import { queryFilteredEvents, getEventMetadata, DbEvent, EventMetadata } from "@/lib/db/queries/events";
@@ -37,7 +38,14 @@ const getCachedMetadata = unstable_cache(
   { tags: ['events'], revalidate: 3600 }
 );
 
-export default async function EventsPage() {
+interface EventsPageProps {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}
+
+export default async function EventsPage({ searchParams }: EventsPageProps) {
+  const params = await searchParams;
+  const activeTab = params.tab === "forYou" ? "forYou" : "all";
+
   let initialEvents: DbEvent[] = [];
   let metadata: EventMetadata = { availableTags: [], availableLocations: [], availableZips: [] };
 
@@ -59,15 +67,15 @@ export default async function EventsPage() {
     <main className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-950">
       <header className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
         <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-3 sm:py-4">
-          {/* Mobile: two-row layout */}
-          <div className="flex flex-col gap-2 sm:hidden">
+          {/* Mobile/Tablet: simpler layout - tabs shown in feed area */}
+          <div className="flex flex-col gap-2 lg:hidden">
             <div className="flex items-center justify-between">
               <Link href="/">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src="/avlgo_banner_logo_v2.svg"
                   alt="AVL GO"
-                  className="h-[24px] w-auto dark:brightness-0 dark:invert"
+                  className="h-[24px] sm:h-[30px] w-auto dark:brightness-0 dark:invert"
                 />
               </Link>
               <div className="flex items-center gap-2">
@@ -96,16 +104,19 @@ export default async function EventsPage() {
               </a>
             </div>
           </div>
-          {/* Desktop: horizontal layout */}
-          <div className="hidden sm:flex items-center justify-between gap-4">
-            <Link href="/">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/avlgo_banner_logo_v2.svg"
-                alt="AVL GO"
-                className="h-[36px] w-auto dark:brightness-0 dark:invert"
-              />
-            </Link>
+          {/* Desktop: horizontal layout with tabs in header */}
+          <div className="hidden lg:flex items-center justify-between gap-4">
+            <div className="flex items-center gap-6">
+              <Link href="/">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/avlgo_banner_logo_v2.svg"
+                  alt="AVL GO"
+                  className="h-[36px] w-auto dark:brightness-0 dark:invert"
+                />
+              </Link>
+              <EventTabSwitcher activeTab={activeTab} />
+            </div>
             <div className="flex items-center gap-4">
               <div className="text-sm text-gray-500/70 dark:text-gray-400/70">
                 <a
@@ -138,7 +149,7 @@ export default async function EventsPage() {
 
       <div className="flex-grow">
         <ErrorBoundary>
-          <EventFeed initialEvents={initialEvents} initialMetadata={metadata} />
+          <EventFeed initialEvents={initialEvents} initialMetadata={metadata} activeTab={activeTab} />
         </ErrorBoundary>
       </div>
 

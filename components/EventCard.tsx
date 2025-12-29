@@ -44,8 +44,9 @@ interface EventCardProps {
     timeUnknown?: boolean;
     recurringType?: string | null;
   };
-  onHide: (title: string, organizer: string | null) => void;
+  onHide: (title: string, organizer: string | null, eventId?: string) => void;
   onBlockHost: (host: string) => void;
+  onSignalCapture?: (eventId: string, signalType: 'calendar' | 'share' | 'viewSource') => void;
   isNewlyHidden?: boolean;
   hideBorder?: boolean;
   isFavorited: boolean;
@@ -66,6 +67,14 @@ interface EventCardProps {
   scoreTier?: 'hidden' | 'quality' | 'outstanding';
   /** Event score for gold title styling (16+ gets gold) */
   eventScore?: number | null;
+  /** Match tier for personalized feed */
+  matchTier?: 'great' | 'good' | null;
+  /** Explanation for match (shows which event it's similar to) */
+  matchExplanation?: {
+    primary: { eventId: string; title: string } | null;
+  };
+  /** Whether this event is being hidden (for animation) */
+  isHiding?: boolean;
 }
 
 // Round price string to nearest dollar (e.g., "$19.10" -> "$19", "$25.50" -> "$26")
@@ -86,6 +95,7 @@ export default function EventCard({
   event,
   onHide,
   onBlockHost,
+  onSignalCapture,
   isNewlyHidden = false,
   hideBorder = false,
   isFavorited,
@@ -101,6 +111,9 @@ export default function EventCard({
   onExpandMinimized,
   scoreTier: _scoreTier = 'quality',
   eventScore,
+  matchTier,
+  matchExplanation,
+  isHiding = false,
 }: EventCardProps) {
   const [imgError, setImgError] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
@@ -147,16 +160,18 @@ export default function EventCard({
 
   const handleAddToAppleCalendar = () => {
     downloadEventAsICS(event);
+    onSignalCapture?.(event.id, 'calendar');
     setCalendarMenuOpen(false);
   };
 
   const handleAddToGoogleCalendar = () => {
     window.open(generateCalendarUrlForEvent(event), "_blank");
+    onSignalCapture?.(event.id, 'calendar');
     setCalendarMenuOpen(false);
   };
 
   const handleHideEvent = () => {
-    onHide(event.title, event.organizer);
+    onHide(event.title, event.organizer, event.id);
     setHideMenuOpen(false);
   };
 
@@ -396,11 +411,13 @@ export default function EventCard({
 
   return (
     <div
-      className={`relative transition-colors grid gap-2 px-3 py-6
+      className={`relative transition-all duration-300 grid gap-2 px-3 py-6
         grid-cols-1
         sm:grid-cols-[192px_1fr] sm:gap-4 sm:px-5
         xl:grid-cols-[192px_384px_1fr] xl:grid-rows-[1fr_auto]
         ${hideBorder ? "" : "border-b border-gray-200 dark:border-gray-700"}
+        ${matchTier === 'great' ? "border-l-2 border-l-green-400 dark:border-l-green-600" : ""}
+        ${isHiding ? "opacity-0 -translate-x-4" : "opacity-100 translate-x-0"}
         ${
           isNewlyHidden
             ? "bg-gray-200 dark:bg-gray-700 opacity-40"
@@ -443,22 +460,46 @@ export default function EventCard({
       {/* Metadata: Title, Date, Location, Tags */}
       <div className="flex flex-col justify-between xl:row-span-2">
         <div>
-          <h3 className={`text-base font-bold leading-tight ${
-            eventScore !== null && eventScore !== undefined && eventScore >= 16
-              ? 'text-amber-600 dark:text-amber-400'
-              : 'text-brand-600 dark:text-brand-400'
-          }`}>
-            <Link
-              href={`/events/${generateEventSlug(
-                event.title,
-                event.startDate,
-                event.id
-              )}`}
-              className="hover:underline"
-            >
-              {event.title}
-            </Link>
-          </h3>
+          <div className="flex items-start gap-2 flex-wrap">
+            <h3 className={`text-base font-bold leading-tight ${
+              eventScore !== null && eventScore !== undefined && eventScore >= 16
+                ? 'text-amber-600 dark:text-amber-400'
+                : 'text-brand-600 dark:text-brand-400'
+            }`}>
+              <Link
+                href={`/events/${generateEventSlug(
+                  event.title,
+                  event.startDate,
+                  event.id
+                )}`}
+                className="hover:underline"
+              >
+                {event.title}
+              </Link>
+            </h3>
+            {/* Match Badge */}
+            {matchTier && (
+              <div className="relative group/match">
+                <span className={`inline-flex items-center px-2 py-0.5 rounded text-[10px] font-semibold uppercase tracking-wide ${
+                  matchTier === 'great'
+                    ? 'bg-green-100 dark:bg-green-950/50 text-green-700 dark:text-green-400 border border-green-300 dark:border-green-800'
+                    : 'bg-blue-100 dark:bg-blue-950/50 text-blue-700 dark:text-blue-400 border border-blue-300 dark:border-blue-800'
+                }`}>
+                  <Sparkles size={10} className="mr-1" />
+                  {matchTier === 'great' ? 'Great Match' : 'Good Match'}
+                </span>
+                {/* Tooltip with explanation */}
+                {matchExplanation?.primary && (
+                  <div className="absolute bottom-full left-0 mb-2 hidden group-hover/match:block z-20 w-48">
+                    <div className="bg-gray-900 dark:bg-gray-800 text-white text-xs rounded px-3 py-2 shadow-lg">
+                      Similar to <strong>{matchExplanation.primary.title}</strong> you liked
+                      <div className="absolute top-full left-4 border-4 border-transparent border-t-gray-900 dark:border-t-gray-800" />
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
 
           <div className="text-xs text-gray-900 dark:text-gray-100 font-medium mt-2 sm:mt-1">
             {formatDate(event.startDate, event.timeUnknown)}
@@ -722,6 +763,7 @@ export default function EventCard({
                 event.id
               )}`;
               await navigator.clipboard.writeText(eventUrl);
+              onSignalCapture?.(event.id, 'share');
               setCopied(true);
               setTimeout(() => setCopied(false), 2000);
             }}
@@ -799,7 +841,10 @@ export default function EventCard({
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full flex items-center gap-2 px-3 py-2 text-xs text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
-                onClick={() => setMoreMenuOpen(false)}
+                onClick={() => {
+                  onSignalCapture?.(event.id, 'viewSource');
+                  setMoreMenuOpen(false);
+                }}
               >
                 <ExternalLink size={14} />
                 Open source

@@ -194,8 +194,6 @@ export default function CreateFeedWizard() {
     return queryString ? `/events?${queryString}` : "/events?showSavePrompt=true";
   };
 
-  const progressPercent = ((state.step - 1) / 2) * 100;
-
   return (
     <div className="bg-white dark:bg-gray-900 rounded-xl shadow-lg border border-gray-200 dark:border-gray-800 overflow-hidden">
       {/* Progress Steps */}

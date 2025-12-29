@@ -64,6 +64,24 @@ export async function naturalScroll(page: Page, times: number = 3): Promise<void
 }
 
 /**
+ * Small up/down scrolls to coax lazy-loaded content
+ */
+export async function jiggleScroll(page: Page, cycles: number = 2): Promise<void> {
+  for (let i = 0; i < cycles; i++) {
+    const up = Math.floor(Math.random() * 150) + 80;
+    const down = up + Math.floor(Math.random() * 200) + 120;
+    await page.evaluate((amount) => {
+      window.scrollBy({ top: -amount, behavior: 'smooth' });
+    }, up);
+    await randomDelay(600, 1200);
+    await page.evaluate((amount) => {
+      window.scrollBy({ top: amount, behavior: 'smooth' });
+    }, down);
+    await randomDelay(700, 1400);
+  }
+}
+
+/**
  * Scroll to bottom of page with human-like pauses
  */
 export async function scrollToBottom(page: Page): Promise<void> {

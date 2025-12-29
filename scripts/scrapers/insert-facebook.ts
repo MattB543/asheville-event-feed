@@ -43,15 +43,15 @@ async function main() {
   const allScrapedEvents = await scrapeFacebookEvents();
   console.log(`Scraped ${allScrapedEvents.length} events`);
 
-  // Filter out low-interest events (must have >1 going OR >3 interested)
+  // Filter out low-interest events (must have >=4 going OR >=9 interested)
   // "Going" is a stronger signal than "interested"
   const scrapedEvents = allScrapedEvents.filter(e =>
-    (e.goingCount !== undefined && e.goingCount > 1) ||
-    (e.interestedCount !== undefined && e.interestedCount > 3)
+    (e.goingCount !== undefined && e.goingCount >= 4) ||
+    (e.interestedCount !== undefined && e.interestedCount >= 9)
   );
   const filteredOut = allScrapedEvents.length - scrapedEvents.length;
   if (filteredOut > 0) {
-    console.log(`Filtered out ${filteredOut} low-interest events (≤1 going AND ≤3 interested)`);
+    console.log(`Filtered out ${filteredOut} low-interest events (<4 going AND <9 interested)`);
   }
   console.log(`Keeping ${scrapedEvents.length} events with sufficient interest`);
   console.log();

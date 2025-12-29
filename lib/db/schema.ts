@@ -100,6 +100,16 @@ export const userPreferences = pgTable('user_preferences', {
   emailDigestLastSentAt: timestamp('email_digest_last_sent_at'), // When last digest was sent
   emailDigestTags: text('email_digest_tags').array().default([]), // Optional: only include events with these tags
 
+  // Semantic personalization (Phase 1)
+  // Array of {eventId: string, signalType: 'favorite' | 'calendar' | 'share' | 'viewSource', timestamp: string (ISO), active: boolean}
+  positiveSignals: jsonb('positive_signals').default([]),
+  // Array of {eventId: string, timestamp: string (ISO), active: boolean}
+  negativeSignals: jsonb('negative_signals').default([]),
+  // Cached centroids for performance (1536-dimensional vectors)
+  positiveCentroid: vector('positive_centroid', { dimensions: 1536 }),
+  negativeCentroid: vector('negative_centroid', { dimensions: 1536 }),
+  centroidUpdatedAt: timestamp('centroid_updated_at'),
+
   // Tracking
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
 });
@@ -108,6 +118,8 @@ export const userPreferences = pgTable('user_preferences', {
 export const newsletterSettings = pgTable('newsletter_settings', {
   userId: uuid('user_id').primaryKey(), // Supabase auth.users UUID
   frequency: text('frequency').default('none').notNull(), // 'none' | 'daily' | 'weekly'
+  daySelection: text('day_selection').default('everyday').notNull(), // 'everyday' | 'weekend' | 'specific'
+  selectedDays: integer('selected_days').array().default([]), // Day of week 0-6 when specific
   weekendEdition: boolean('weekend_edition').default(false).notNull(), // Daily only
   scoreTier: text('score_tier').default('all').notNull(), // 'all' | 'top50' | 'top10'
   filters: jsonb('filters'), // Stored newsletter filter settings (JSON)

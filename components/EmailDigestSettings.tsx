@@ -15,6 +15,7 @@ import {
 import type {
   NewsletterFilters,
   NewsletterFrequency,
+  NewsletterDaySelection,
   NewsletterScoreTier,
 } from "@/lib/newsletter/types";
 
@@ -34,9 +35,6 @@ interface PublicCurator {
 
 const DEFAULT_FILTERS: NewsletterFilters = {
   search: "",
-  dateFilter: "all",
-  customDateRange: { start: null, end: null },
-  selectedDays: [],
   selectedTimes: [],
   priceFilter: "any",
   customMaxPrice: null,
@@ -50,6 +48,9 @@ const DEFAULT_FILTERS: NewsletterFilters = {
 
 export default function EmailDigestSettings({ email }: EmailDigestSettingsProps) {
   const [frequency, setFrequency] = useState<NewsletterFrequency>("none");
+  const [daySelection, setDaySelection] =
+    useState<NewsletterDaySelection>("everyday");
+  const [selectedDays, setSelectedDays] = useState<number[]>([]);
   const [weekendEdition, setWeekendEdition] = useState(false);
   const [scoreTier, setScoreTier] = useState<NewsletterScoreTier>("all");
   const [curatorUserIds, setCuratorUserIds] = useState<string[]>([]);
@@ -70,6 +71,8 @@ export default function EmailDigestSettings({ email }: EmailDigestSettingsProps)
         if (res.ok) {
           const data = await res.json();
           setFrequency(data.frequency || "none");
+          setDaySelection(data.daySelection || "everyday");
+          setSelectedDays(data.selectedDays || []);
           setWeekendEdition(!!data.weekendEdition);
           setScoreTier(data.scoreTier || "all");
           setCuratorUserIds(data.curatorUserIds || []);
@@ -116,6 +119,25 @@ export default function EmailDigestSettings({ email }: EmailDigestSettingsProps)
     );
   };
 
+  const toggleDay = (day: number) => {
+    setSelectedDays((prev) =>
+      prev.includes(day) ? prev.filter((d) => d !== day) : [...prev, day]
+    );
+  };
+
+  const weekendEditionEnabled =
+    frequency === "daily" &&
+    (daySelection === "everyday" ||
+      daySelection === "weekend" ||
+      (daySelection === "specific" &&
+        [0, 5, 6].every((day) => selectedDays.includes(day))));
+
+  useEffect(() => {
+    if (!weekendEditionEnabled && weekendEdition) {
+      setWeekendEdition(false);
+    }
+  }, [weekendEditionEnabled, weekendEdition]);
+
   const handleSave = async () => {
     setIsSaving(true);
     setMessage(null);
@@ -126,6 +148,8 @@ export default function EmailDigestSettings({ email }: EmailDigestSettingsProps)
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           frequency,
+          daySelection,
+          selectedDays,
           weekendEdition: frequency === "daily" ? weekendEdition : false,
           scoreTier,
           curatorUserIds,
@@ -187,10 +211,6 @@ export default function EmailDigestSettings({ email }: EmailDigestSettingsProps)
 
     if (savedFilters.selectedTimes?.length) {
       summary.push(`Times: ${savedFilters.selectedTimes.join(", ")}`);
-    }
-
-    if (savedFilters.dateFilter && savedFilters.dateFilter !== "all") {
-      summary.push(`Date filter: ${savedFilters.dateFilter}`);
     }
 
     if (savedFilters.showDailyEvents === false) {
@@ -265,27 +285,89 @@ export default function EmailDigestSettings({ email }: EmailDigestSettingsProps)
         </div>
 
         {frequency === "daily" && (
-          <div className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
+          <div className="space-y-4">
             <div>
-              <p className="text-sm font-medium text-gray-900 dark:text-white">
-                Weekend Edition
-              </p>
-              <p className="text-xs text-gray-500 dark:text-gray-400">
-                Send Friday with events for Friday through Sunday.
-              </p>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
+                Delivery days
+              </label>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <DeliveryOption
+                  value="everyday"
+                  current={daySelection}
+                  onChange={setDaySelection}
+                  label="Every day"
+                  description="Monday through Sunday"
+                />
+                <DeliveryOption
+                  value="weekend"
+                  current={daySelection}
+                  onChange={setDaySelection}
+                  label="Weekend only"
+                  description="Friday, Saturday, Sunday"
+                />
+                <DeliveryOption
+                  value="specific"
+                  current={daySelection}
+                  onChange={setDaySelection}
+                  label="Specific days"
+                  description="Pick the days"
+                />
+              </div>
             </div>
-            <button
-              onClick={() => setWeekendEdition((prev) => !prev)}
-              className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors cursor-pointer ${
-                weekendEdition ? "bg-brand-600" : "bg-gray-300 dark:bg-gray-600"
-              }`}
-            >
-              <span
-                className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                  weekendEdition ? "translate-x-6" : "translate-x-1"
-                }`}
-              />
-            </button>
+
+            {daySelection === "specific" && (
+              <div className="flex flex-wrap gap-2">
+                {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map(
+                  (label, index) => {
+                    const active = selectedDays.includes(index);
+                    return (
+                      <button
+                        key={label}
+                        onClick={() => toggleDay(index)}
+                        className={`px-3 py-1.5 text-sm rounded-full border transition-colors cursor-pointer ${
+                          active
+                            ? "bg-brand-600 text-white border-brand-600"
+                            : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600 hover:border-brand-500"
+                        }`}
+                      >
+                        {label}
+                      </button>
+                    );
+                  }
+                )}
+              </div>
+            )}
+
+            <div className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
+              <div>
+                <p className="text-sm font-medium text-gray-900 dark:text-white">
+                  Weekend Edition
+                </p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">
+                  Send Friday with events for Friday through Sunday.
+                </p>
+              </div>
+              <button
+                onClick={() => setWeekendEdition((prev) => !prev)}
+                disabled={!weekendEditionEnabled}
+                className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
+                  weekendEdition ? "bg-brand-600" : "bg-gray-300 dark:bg-gray-600"
+                } ${weekendEditionEnabled ? "cursor-pointer" : "cursor-not-allowed opacity-60"}`}
+              >
+                <span
+                  className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                    weekendEdition ? "translate-x-6" : "translate-x-1"
+                  }`}
+                />
+              </button>
+            </div>
+          </div>
+        )}
+
+        {frequency === "weekly" && (
+          <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 text-sm text-gray-600 dark:text-gray-300">
+            Weekly newsletters go out Monday morning with events through Sunday
+            night.
           </div>
         )}
 
@@ -534,6 +616,48 @@ function ScoreTierOption({
       >
         {icon}
       </div>
+      <span
+        className={`font-medium ${
+          isSelected
+            ? "text-brand-600 dark:text-brand-400"
+            : "text-gray-700 dark:text-gray-300"
+        }`}
+      >
+        {label}
+      </span>
+      <span className="text-xs text-gray-500 dark:text-gray-400">
+        {description}
+      </span>
+    </button>
+  );
+}
+
+interface DeliveryOptionProps {
+  value: NewsletterDaySelection;
+  current: NewsletterDaySelection;
+  onChange: (value: NewsletterDaySelection) => void;
+  label: string;
+  description: string;
+}
+
+function DeliveryOption({
+  value,
+  current,
+  onChange,
+  label,
+  description,
+}: DeliveryOptionProps) {
+  const isSelected = current === value;
+
+  return (
+    <button
+      onClick={() => onChange(value)}
+      className={`flex flex-col items-center p-4 rounded-lg border-2 transition-all cursor-pointer ${
+        isSelected
+          ? "border-brand-600 bg-brand-50 dark:bg-brand-900/20"
+          : "border-gray-200 dark:border-gray-700 hover:border-brand-300 dark:hover:border-brand-700"
+      }`}
+    >
       <span
         className={`font-medium ${
           isSelected

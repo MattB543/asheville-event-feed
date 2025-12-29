@@ -108,7 +108,8 @@ const DELAY_MS = 200;
 const CURL_HEADERS = [
   '-H "Accept: */*"',
   '-H "Accept-Language: en-US,en;q=0.5"',
-  '-H "Accept-Encoding: gzip, deflate, br"',
+  // Avoid br since Windows curl can fail with CURLE_BAD_CONTENT_ENCODING (code 61)
+  '-H "Accept-Encoding: gzip, deflate"',
   '-H "Referer: https://www.exploreasheville.com/events"',
   '-H "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:133.0) Gecko/20100101 Firefox/133.0"',
   '-H "Connection: keep-alive"',

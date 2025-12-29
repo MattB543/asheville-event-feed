@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { Sparkles, Link, FileText, FileCode } from "lucide-react";
+import { Sparkles, Link, FileText, FileCode, Mail } from "lucide-react";
 import FilterChip from "./ui/FilterChip";
 import { useToast } from "./ui/Toast";
 
@@ -28,6 +28,8 @@ interface ActiveFiltersProps {
   exportParams?: string;
   shareParams?: string;
   onOpenChat?: () => void;
+  onSaveNewsletterFilters?: () => void;
+  isSavingNewsletterFilters?: boolean;
   isPending?: boolean;
 }
 
@@ -147,6 +149,25 @@ function AskAIButton({ onClick }: { onClick: () => void }) {
   );
 }
 
+function SaveNewsletterButton({
+  onClick,
+  isSaving,
+}: {
+  onClick: () => void;
+  isSaving?: boolean;
+}) {
+  return (
+    <button
+      onClick={onClick}
+      disabled={isSaving}
+      className="inline-flex items-center gap-1.5 px-3 py-1 text-sm text-gray-600 dark:text-gray-300 border border-gray-300 dark:border-gray-600 rounded-md hover:border-gray-400 dark:hover:border-gray-500 hover:text-gray-800 dark:hover:text-gray-100 cursor-pointer transition-colors shrink-0 disabled:opacity-60 disabled:cursor-not-allowed"
+    >
+      <Mail size={14} />
+      <span>{isSaving ? "Saving..." : "Save newsletter filters"}</span>
+    </button>
+  );
+}
+
 export default function ActiveFilters({
   filters,
   onRemove,
@@ -155,12 +176,20 @@ export default function ActiveFilters({
   exportParams,
   shareParams,
   onOpenChat,
+  onSaveNewsletterFilters,
+  isSavingNewsletterFilters,
   isPending,
 }: ActiveFiltersProps) {
   if (filters.length === 0) {
     return (
       <div className="flex flex-col sm:flex-row items-start sm:items-center sm:justify-end gap-2 sm:gap-3 text-sm text-gray-500 dark:text-gray-400 py-2 pb-3 sm:sticky sm:top-0 sm:z-20 bg-gray-50 dark:bg-gray-950 px-3 sm:px-0">
         {onOpenChat && <AskAIButton onClick={onOpenChat} />}
+        {onSaveNewsletterFilters && (
+          <SaveNewsletterButton
+            onClick={onSaveNewsletterFilters}
+            isSaving={isSavingNewsletterFilters}
+          />
+        )}
         <span>
           {isPending && (
             <span className="inline-flex items-center gap-2 mr-2">
@@ -233,6 +262,12 @@ export default function ActiveFilters({
       </div>
       <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3 sm:ml-auto">
         {onOpenChat && <AskAIButton onClick={onOpenChat} />}
+        {onSaveNewsletterFilters && (
+          <SaveNewsletterButton
+            onClick={onSaveNewsletterFilters}
+            isSaving={isSavingNewsletterFilters}
+          />
+        )}
         <span className="text-sm text-gray-500 dark:text-gray-400">
           {isPending && (
             <span className="inline-flex items-center gap-2 mr-2">

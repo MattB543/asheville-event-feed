@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { events } from '@/lib/db/schema';
 import { inArray, sql } from 'drizzle-orm';
-import { isNonNCEvent } from '@/lib/utils/locationFilter';
+import { isNonNCEvent } from '@/lib/utils/geo';
 import { findDuplicates, getIdsToRemove } from '@/lib/utils/deduplication';
 import { env } from '@/lib/config/env';
 import { verifyAuthToken } from '@/lib/utils/auth';

@@ -5,7 +5,7 @@
  * in a single API call for efficiency.
  */
 
-import { azureChatCompletion, isAzureAIEnabled } from './azure-client';
+import { azureChatCompletion, isAzureAIEnabled } from './provider-clients';
 
 export interface EventData {
   title: string;
@@ -189,6 +189,24 @@ export async function generateTagsAndSummary(
     console.error('[TagAndSummarize] Error:', error);
     return { tags: [], summary: null };
   }
+}
+
+/**
+ * Generate tags only using the combined pipeline.
+ */
+export async function generateEventTags(event: EventData): Promise<string[]> {
+  const result = await generateTagsAndSummary(event);
+  return result.tags;
+}
+
+/**
+ * Generate summary only using the combined pipeline.
+ */
+export async function generateEventSummary(
+  event: EventData
+): Promise<string | null> {
+  const result = await generateTagsAndSummary(event);
+  return result.summary;
 }
 
 /**

@@ -4,9 +4,6 @@ import Link from "next/link";
 import { ArrowLeft, Mail, Shield, User } from "lucide-react";
 import CuratorProfileSettings from "@/components/CuratorProfileSettings";
 import EmailDigestSettings from "@/components/EmailDigestSettings";
-import { db } from "@/lib/db";
-import { events } from "@/lib/db/schema";
-import { sql } from "drizzle-orm";
 
 export default async function ProfilePage() {
   const supabase = await createClient();
@@ -27,27 +24,6 @@ export default async function ProfilePage() {
   const fullName = metadata.full_name || metadata.name || null;
   const avatarUrl = metadata.avatar_url || metadata.picture || null;
   const provider = user.app_metadata?.provider || "email";
-
-  // Fetch available tags for the email digest settings
-  const tagResults = await db
-    .select({
-      tags: events.tags,
-    })
-    .from(events)
-    .where(sql`${events.tags} IS NOT NULL AND array_length(${events.tags}, 1) > 0`)
-    .limit(500);
-
-  // Count tag occurrences and get top tags
-  const tagCounts = new Map<string, number>();
-  tagResults.forEach((row) => {
-    row.tags?.forEach((tag) => {
-      tagCounts.set(tag, (tagCounts.get(tag) || 0) + 1);
-    });
-  });
-  const availableTags = Array.from(tagCounts.entries())
-    .sort((a, b) => b[1] - a[1])
-    .slice(0, 30)
-    .map(([tag]) => tag);
 
   return (
     <main className="min-h-screen bg-gray-50 dark:bg-gray-950 py-8 px-4">
@@ -171,10 +147,7 @@ export default async function ProfilePage() {
 
         {/* Email Digest Settings */}
         <div className="mt-8">
-          <EmailDigestSettings
-            email={email}
-            availableTags={availableTags}
-          />
+          <EmailDigestSettings email={email} />
         </div>
 
         {/* Curator Profile Settings */}

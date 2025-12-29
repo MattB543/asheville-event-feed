@@ -16,7 +16,7 @@ import {
 } from "drizzle-orm";
 import { getStartOfTodayEastern, getTodayStringEastern, getDayBoundariesEastern, parseAsEastern } from "@/lib/utils/timezone";
 import { matchesDefaultFilter } from "@/lib/config/defaultFilters";
-import { extractCity, isAshevilleArea } from "@/lib/utils/extractCity";
+import { extractCity, isAshevilleArea } from "@/lib/utils/geo";
 import { isAshevilleZip } from "@/lib/config/zipNames";
 
 // Type for events without embedding (server-side only field)

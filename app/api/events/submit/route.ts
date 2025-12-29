@@ -2,28 +2,11 @@ import { NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { submittedEvents } from '@/lib/db/schema';
 import { sendSubmissionNotification } from '@/lib/notifications/slack';
+import { isRateLimited } from '@/lib/utils/rate-limit';
 
 // Simple in-memory rate limiting
-const rateLimitMap = new Map<string, { count: number; resetTime: number }>();
 const RATE_LIMIT_MAX = 10; // 10 submissions per hour
 const RATE_LIMIT_WINDOW = 60 * 60 * 1000; // 1 hour in ms
-
-function checkRateLimit(ip: string): boolean {
-  const now = Date.now();
-  const record = rateLimitMap.get(ip);
-
-  if (!record || now > record.resetTime) {
-    rateLimitMap.set(ip, { count: 1, resetTime: now + RATE_LIMIT_WINDOW });
-    return true;
-  }
-
-  if (record.count >= RATE_LIMIT_MAX) {
-    return false;
-  }
-
-  record.count++;
-  return true;
-}
 
 // GET: Return API documentation
 export async function GET() {
@@ -69,7 +52,8 @@ export async function POST(request: Request) {
   const ip = forwardedFor?.split(',')[0]?.trim() || 'unknown';
 
   // Check rate limit
-  if (!checkRateLimit(ip)) {
+  const rateLimitKey = `submit:${ip}`;
+  if (isRateLimited(rateLimitKey, RATE_LIMIT_MAX, RATE_LIMIT_WINDOW)) {
     return NextResponse.json(
       {
         success: false,

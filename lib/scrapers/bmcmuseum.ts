@@ -17,8 +17,8 @@
  */
 
 import { ScrapedEvent } from './types';
-import { fetchWithRetry } from '../utils/retry';
-import { decodeHtmlEntities } from '../utils/htmlEntities';
+import { BROWSER_HEADERS, fetchEventData } from './base';
+import { decodeHtmlEntities } from '../utils/parsers';
 import { parseAsEastern } from '../utils/timezone';
 
 // Config
@@ -36,10 +36,9 @@ const LAKE_EDEN_ADDRESS = 'Lake Eden, Black Mountain, NC';
 const LAKE_EDEN_ZIP = '28711';
 
 // Required headers to avoid 403 errors
-const BROWSER_HEADERS = {
-  'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
-  'Accept': 'application/json',
-  'Accept-Language': 'en-US,en;q=0.9',
+const API_HEADERS = {
+  ...BROWSER_HEADERS,
+  Accept: 'application/json',
 };
 
 // Rate limiting
@@ -265,13 +264,14 @@ async function fetchFeaturedImage(mediaId: number): Promise<string | undefined> 
   if (!mediaId) return undefined;
 
   try {
-    const response = await fetchWithRetry(
+    const response = await fetchEventData(
       `${API_BASE}/media/${mediaId}?_fields=source_url`,
       {
-        headers: BROWSER_HEADERS,
+        headers: API_HEADERS,
         cache: 'no-store',
       },
-      { maxRetries: 2, baseDelay: 500 }
+      { maxRetries: 2, baseDelay: 500 },
+      'BMCMuseum'
     );
 
     const media: WPMedia = await response.json();
@@ -303,13 +303,14 @@ export async function scrapeBMCMuseum(): Promise<ScrapedEvent[]> {
 
     console.log('[BMCMuseum] Fetching events...');
 
-    const response = await fetchWithRetry(
+    const response = await fetchEventData(
       url.toString(),
       {
-        headers: BROWSER_HEADERS,
+        headers: API_HEADERS,
         cache: 'no-store',
       },
-      { maxRetries: 3, baseDelay: 1000 }
+      { maxRetries: 3, baseDelay: 1000 },
+      'BMCMuseum'
     );
 
     const posts: WPPost[] = await response.json();

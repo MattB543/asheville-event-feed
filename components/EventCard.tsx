@@ -18,8 +18,8 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useRef, useEffect } from "react";
-import { cleanMarkdown } from "@/lib/utils/cleanMarkdown";
-import { cleanAshevilleFromSummary } from "@/lib/utils/cleanAsheville";
+import { cleanMarkdown } from "@/lib/utils/parsers";
+import { cleanAshevilleFromSummary } from "@/lib/utils/parsers";
 import { generateCalendarUrlForEvent } from "@/lib/utils/googleCalendar";
 import { downloadEventAsICS } from "@/lib/utils/icsGenerator";
 import { useToast } from "@/components/ui/Toast";

@@ -6,8 +6,8 @@
  */
 
 import { ScrapedEvent } from './types';
-import { isNonNCEvent } from '@/lib/utils/locationFilter';
-import { getZipFromCoords, getZipFromCity } from '@/lib/utils/zipFromCoords';
+import { isNonNCEvent } from '@/lib/utils/geo';
+import { getZipFromCoords, getZipFromCity } from '@/lib/utils/geo';
 import { exec } from 'child_process';
 import { promisify } from 'util';
 

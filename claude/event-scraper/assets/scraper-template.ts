@@ -14,9 +14,9 @@
 
 import { ScrapedEvent } from './types';
 import { fetchWithRetry } from '@/lib/utils/retry';
-import { formatPrice } from '@/lib/utils/formatPrice';
-import { isNonNCEvent } from '@/lib/utils/locationFilter';
-import { decodeHtmlEntities } from '@/lib/utils/htmlEntities';
+import { formatPrice } from '@/lib/utils/parsers';
+import { isNonNCEvent } from '@/lib/utils/geo';
+import { decodeHtmlEntities } from '@/lib/utils/parsers';
 import { parseAsEastern } from '@/lib/utils/timezone';
 import * as fs from 'fs';
 import * as path from 'path';

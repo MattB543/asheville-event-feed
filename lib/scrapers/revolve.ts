@@ -13,15 +13,14 @@
  */
 
 import { ScrapedEvent } from './types';
-import { fetchWithRetry } from '../utils/retry';
-import { decodeHtmlEntities } from '../utils/htmlEntities';
-import { getZipFromCity } from '../utils/zipFromCoords';
+import { BROWSER_HEADERS, debugSave, fetchEventData } from './base';
+import { decodeHtmlEntities } from '../utils/parsers';
+import { getZipFromCity } from '../utils/geo';
 import { parseAsEastern } from '../utils/timezone';
 
 // Config
 const EVENTS_URL = 'https://withfriends.events/o/revolve/upcoming/';
 const BASE_URL = 'https://withfriends.events';
-const USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36';
 
 // Filter to only include events from these organizers (case-insensitive match)
 const ALLOWED_ORGANIZERS = ['REVOLVE'];
@@ -30,26 +29,6 @@ const ALLOWED_ORGANIZERS = ['REVOLVE'];
 // DEBUG UTILITIES
 // ============================================================================
 
-async function debugSave(filename: string, data: unknown): Promise<void> {
-  const debugDir = process.env.DEBUG_DIR;
-  if (!debugDir) return;
-
-  try {
-    const fs = await import('fs');
-    const path = await import('path');
-
-    if (!fs.existsSync(debugDir)) {
-      fs.mkdirSync(debugDir, { recursive: true });
-    }
-
-    const filepath = path.join(debugDir, filename);
-    const content = typeof data === 'string' ? data : JSON.stringify(data, null, 2);
-    fs.writeFileSync(filepath, content);
-    console.log(`[DEBUG] Saved: ${filepath}`);
-  } catch (err) {
-    console.warn(`[DEBUG] Failed to save ${filename}:`, err);
-  }
-}
 
 function generateValidationReport(events: ScrapedEvent[]): string {
   const lines: string[] = [
@@ -357,16 +336,17 @@ export async function scrapeRevolve(): Promise<ScrapedEvent[]> {
 
   try {
     // Fetch the events page
-    const response = await fetchWithRetry(
+    const response = await fetchEventData(
       EVENTS_URL,
       {
         headers: {
-          'User-Agent': USER_AGENT,
-          'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+          ...BROWSER_HEADERS,
+          Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
         },
         cache: 'no-store',
       },
-      { maxRetries: 3, baseDelay: 1000 }
+      { maxRetries: 3, baseDelay: 1000 },
+      'Revolve'
     );
 
     const html = await response.text();

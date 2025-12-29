@@ -2,28 +2,11 @@ import { NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { events } from '@/lib/db/schema';
 import { eq, sql } from 'drizzle-orm';
+import { isRateLimited } from '@/lib/utils/rate-limit';
 
 // Simple in-memory rate limiting
-const rateLimitMap = new Map<string, { count: number; resetTime: number }>();
 const RATE_LIMIT_MAX = 60; // 60 favorites per hour per IP
 const RATE_LIMIT_WINDOW = 60 * 60 * 1000; // 1 hour in ms
-
-function checkRateLimit(ip: string): boolean {
-  const now = Date.now();
-  const record = rateLimitMap.get(ip);
-
-  if (!record || now > record.resetTime) {
-    rateLimitMap.set(ip, { count: 1, resetTime: now + RATE_LIMIT_WINDOW });
-    return true;
-  }
-
-  if (record.count >= RATE_LIMIT_MAX) {
-    return false;
-  }
-
-  record.count++;
-  return true;
-}
 
 interface RouteParams {
   params: Promise<{ id: string }>;
@@ -40,7 +23,8 @@ export async function POST(request: Request, { params }: RouteParams) {
   const ip = forwardedFor?.split(',')[0]?.trim() || 'unknown';
 
   // Check rate limit
-  if (!checkRateLimit(ip)) {
+  const rateLimitKey = `favorite:${ip}`;
+  if (isRateLimited(rateLimitKey, RATE_LIMIT_MAX, RATE_LIMIT_WINDOW)) {
     return NextResponse.json(
       {
         success: false,

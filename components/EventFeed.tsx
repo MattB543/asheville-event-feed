@@ -376,6 +376,8 @@ export default function EventFeed({
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [showSaveModal, setShowSaveModal] = useState(false);
+  const [isSavingNewsletterFilters, setIsSavingNewsletterFilters] =
+    useState(false);
   const [blockedHosts, setBlockedHosts] = useState<string[]>(() =>
     getStorageItem("blockedHosts", [])
   );
@@ -976,6 +978,49 @@ export default function EventFeed({
     }
   };
 
+  const handleSaveNewsletterFilters = async () => {
+    if (!isLoggedIn) {
+      showToast("Log in to save newsletter filters", "error");
+      return;
+    }
+
+    setIsSavingNewsletterFilters(true);
+    try {
+      const res = await fetch("/api/email-digest/settings", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          filters: {
+            search,
+            dateFilter,
+            customDateRange,
+            selectedDays,
+            selectedTimes,
+            priceFilter,
+            customMaxPrice,
+            tagsInclude: tagFilters.include,
+            tagsExclude: tagFilters.exclude,
+            selectedLocations,
+            selectedZips,
+            showDailyEvents,
+            useDefaultFilters: true,
+          },
+        }),
+      });
+
+      if (res.ok) {
+        showToast("Newsletter filters saved");
+      } else {
+        showToast("Failed to save newsletter filters", "error");
+      }
+    } catch (error) {
+      console.error("Failed to save newsletter filters:", error);
+      showToast("Failed to save newsletter filters", "error");
+    } finally {
+      setIsSavingNewsletterFilters(false);
+    }
+  };
+
   // Build export URL with current filters (includes personal filters for XML/Markdown export)
   const exportParams = useMemo(() => {
     const params = new URLSearchParams();
@@ -1126,6 +1171,8 @@ export default function EventFeed({
         exportParams={exportParams}
         shareParams={shareParams}
         onOpenChat={() => setIsChatOpen(true)}
+        onSaveNewsletterFilters={isLoggedIn ? handleSaveNewsletterFilters : undefined}
+        isSavingNewsletterFilters={isSavingNewsletterFilters}
         isPending={isFilterPending}
       />
 

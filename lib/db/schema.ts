@@ -104,6 +104,19 @@ export const userPreferences = pgTable('user_preferences', {
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
 });
 
+// Newsletter settings (independent from live feed filters)
+export const newsletterSettings = pgTable('newsletter_settings', {
+  userId: uuid('user_id').primaryKey(), // Supabase auth.users UUID
+  frequency: text('frequency').default('none').notNull(), // 'none' | 'daily' | 'weekly'
+  weekendEdition: boolean('weekend_edition').default(false).notNull(), // Daily only
+  scoreTier: text('score_tier').default('all').notNull(), // 'all' | 'top50' | 'top10'
+  filters: jsonb('filters'), // Stored newsletter filter settings (JSON)
+  curatorUserIds: uuid('curator_user_ids').array().default([]), // Curators to include
+  lastSentAt: timestamp('last_sent_at', { withTimezone: true }),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  updatedAt: timestamp('updated_at').defaultNow().notNull(),
+});
+
 // Curator profiles for the Curate feature
 export const curatorProfiles = pgTable('curator_profiles', {
   userId: uuid('user_id').primaryKey(), // matches Supabase auth.users

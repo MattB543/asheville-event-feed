@@ -8,7 +8,7 @@ import { generateEventScore, getRecurringEventScore } from "@/lib/ai/scoring";
 import { checkWeeklyRecurring } from "@/lib/ai/recurringDetection";
 import { findSimilarEvents } from "@/lib/db/similaritySearch";
 import { env } from "@/lib/config/env";
-import { isAzureAIEnabled } from "@/lib/ai/azure-client";
+import { isAzureAIEnabled } from "@/lib/ai/provider-clients";
 import { verifyAuthToken } from "@/lib/utils/auth";
 import { invalidateEventsCache } from "@/lib/cache/invalidation";
 

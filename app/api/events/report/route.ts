@@ -1,36 +1,20 @@
 import { NextResponse } from 'next/server';
 import { sendEventReport, ReportType } from '@/lib/notifications/slack';
+import { isRateLimited } from '@/lib/utils/rate-limit';
 
 const VALID_REPORT_TYPES: ReportType[] = ['incorrect_info', 'duplicate', 'spam'];
 
 // Simple in-memory rate limiting per IP
-const rateLimitMap = new Map<string, { count: number; resetTime: number }>();
 const RATE_LIMIT_MAX = 20; // 20 reports per hour per IP
 const RATE_LIMIT_WINDOW = 60 * 60 * 1000; // 1 hour in ms
-
-function checkRateLimit(ip: string): boolean {
-  const now = Date.now();
-  const record = rateLimitMap.get(ip);
-
-  if (!record || now > record.resetTime) {
-    rateLimitMap.set(ip, { count: 1, resetTime: now + RATE_LIMIT_WINDOW });
-    return true;
-  }
-
-  if (record.count >= RATE_LIMIT_MAX) {
-    return false;
-  }
-
-  record.count++;
-  return true;
-}
 
 export async function POST(request: Request) {
   // Get client IP for rate limiting
   const forwardedFor = request.headers.get('x-forwarded-for');
   const ip = forwardedFor?.split(',')[0]?.trim() || 'unknown';
 
-  if (!checkRateLimit(ip)) {
+  const rateLimitKey = `report:${ip}`;
+  if (isRateLimited(rateLimitKey, RATE_LIMIT_MAX, RATE_LIMIT_WINDOW)) {
     return NextResponse.json(
       { success: false, error: 'Rate limit exceeded. Please try again later.' },
       { status: 429 }

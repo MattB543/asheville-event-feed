@@ -1,15 +1,9 @@
 import { ScrapedEvent } from './types';
-import { fetchWithRetry } from '@/lib/utils/retry';
-import { decodeHtmlEntities } from '@/lib/utils/htmlEntities';
+import { BROWSER_HEADERS, debugSave, fetchEventData } from './base';
+import { decodeHtmlEntities } from '@/lib/utils/parsers';
 
 const THUNDERTIX_BASE = 'https://northcarolinastagecompany.thundertix.com';
 const NC_STAGE_BASE = 'https://www.ncstage.org';
-
-const BROWSER_HEADERS = {
-  'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-  'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8',
-  'Accept-Language': 'en-US,en;q=0.9',
-};
 
 interface ThunderTixEvent {
   id: string;
@@ -25,20 +19,6 @@ interface Performance {
   dateStr: string;
 }
 
-// Debug helper - only works when DEBUG_DIR is set (local testing only)
-async function debugSave(filename: string, data: unknown): Promise<void> {
-  const debugDir = process.env.DEBUG_DIR;
-  if (!debugDir) return;
-
-  // Dynamic import to avoid bundling fs/path in serverless
-  const fs = await import('fs');
-  const path = await import('path');
-
-  const filepath = path.join(debugDir, filename);
-  const content = typeof data === 'string' ? data : JSON.stringify(data, null, 2);
-  fs.writeFileSync(filepath, content);
-  console.log(`[DEBUG] Saved: ${filepath}`);
-}
 
 /**
  * Parse ThunderTix date string like "Thursday, December 11, 2025 - 07:30 PM"
@@ -204,14 +184,12 @@ export async function scrapeNCStage(): Promise<ScrapedEvent[]> {
   try {
     // Step 1: Fetch ThunderTix events page
     console.log('[NC Stage] Fetching ThunderTix events...');
-    const eventsResponse = await fetchWithRetry(`${THUNDERTIX_BASE}/events`, {
-      headers: BROWSER_HEADERS
-    });
-
-    if (!eventsResponse.ok) {
-      console.error(`[NC Stage] ThunderTix events page returned ${eventsResponse.status}`);
-      return [];
-    }
+    const eventsResponse = await fetchEventData(
+      `${THUNDERTIX_BASE}/events`,
+      { headers: BROWSER_HEADERS },
+      { maxRetries: 2, baseDelay: 1000 },
+      'NCStage'
+    );
 
     const eventsHtml = await eventsResponse.text();
     await debugSave('01-thundertix-events.html', eventsHtml);
@@ -227,15 +205,12 @@ export async function scrapeNCStage(): Promise<ScrapedEvent[]> {
       await new Promise(r => setTimeout(r, 500)); // Rate limiting
 
       try {
-        const perfResponse = await fetchWithRetry(
+        const perfResponse = await fetchEventData(
           `${THUNDERTIX_BASE}/events/${event.id}/performances`,
-          { headers: BROWSER_HEADERS }
+          { headers: BROWSER_HEADERS },
+          { maxRetries: 2, baseDelay: 1000 },
+          'NCStage'
         );
-
-        if (!perfResponse.ok) {
-          console.warn(`[NC Stage] Could not fetch performances for ${event.title}`);
-          continue;
-        }
 
         const perfHtml = await perfResponse.text();
         await debugSave(`03-performances-${event.id}.html`, perfHtml);

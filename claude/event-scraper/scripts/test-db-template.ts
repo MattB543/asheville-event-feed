@@ -6,9 +6,9 @@
  *
  * Usage:
  *   1. Run the main test script first to generate debug files
- *   2. Copy this file to scripts/test-yoursource-db.ts
+ *   2. Copy this file to scripts/scrapers/test-yoursource-db.ts
  *   3. Update SOURCE_NAME and YOUR_SOURCE constant
- *   4. Run: npx tsx scripts/test-yoursource-db.ts
+ *   4. Run: npx tsx scripts/scrapers/test-yoursource-db.ts
  */
 
 import 'dotenv/config';

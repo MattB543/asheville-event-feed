@@ -1,8 +1,9 @@
 import { ScrapedEvent, EventbriteApiEvent } from './types';
 import { fetchWithRetry } from '@/lib/utils/retry';
-import { isNonNCEvent } from '@/lib/utils/locationFilter';
-import { formatPrice } from '@/lib/utils/formatPrice';
-import { getZipFromCoords, getZipFromCity } from '@/lib/utils/zipFromCoords';
+import { isNonNCEvent } from '@/lib/utils/geo';
+import { formatPrice } from '@/lib/utils/parsers';
+import { getZipFromCoords, getZipFromCity } from '@/lib/utils/geo';
+import { parseLocalDateInTimezone } from '@/lib/utils/timezone';
 
 // Common headers to avoid blocking
 const BROWSER_HEADERS = {
@@ -21,60 +22,6 @@ const API_HEADERS = {
   "Referer": "https://www.eventbrite.com/d/nc--asheville/all-events/",
 };
 
-/**
- * Parse a local datetime string in a specific timezone and return a UTC Date.
- * This handles the case where Eventbrite gives us "2025-11-29T08:00:00" in "America/New_York"
- * and we need to convert it to the correct UTC timestamp.
- */
-function parseLocalDateInTimezone(localDateStr: string, timezone: string): Date {
-  // Parse the components from the local date string
-  const match = localDateStr.match(/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})(?::(\d{2}))?/);
-  if (!match) {
-    return new Date(localDateStr); // Fallback to default parsing
-  }
-
-  const [, year, month, day, hour, minute, second = '00'] = match;
-
-  // Strategy: Find the UTC offset for this timezone on this date by comparing
-  // a known UTC time to how it displays in the target timezone
-
-  // Create a reference point at noon UTC on the target date
-  const refUtc = new Date(Date.UTC(parseInt(year), parseInt(month) - 1, parseInt(day), 12, 0, 0));
-
-  // Format this UTC time in the target timezone to see what local time it shows
-  const formatter = new Intl.DateTimeFormat('en-US', {
-    timeZone: timezone,
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-    hour: '2-digit',
-    minute: '2-digit',
-    hour12: false,
-  });
-
-  const parts = formatter.formatToParts(refUtc);
-  const getPart = (type: string) => parts.find(p => p.type === type)?.value || '00';
-
-  // Parse the local representation
-  const localHour = parseInt(getPart('hour'));
-
-  // Calculate offset: if 12:00 UTC shows as 07:00 local, offset is -5 hours (UTC-5)
-  // offsetHours = localHour - 12 (in this case, 7 - 12 = -5)
-  const offsetHours = localHour - 12;
-
-  // Now create the correct UTC time by subtracting the offset from the local time
-  // If local is 08:00 and offset is -5, UTC = 08:00 - (-5) = 13:00
-  const utcTime = new Date(Date.UTC(
-    parseInt(year),
-    parseInt(month) - 1,
-    parseInt(day),
-    parseInt(hour) - offsetHours,
-    parseInt(minute),
-    parseInt(second)
-  ));
-
-  return utcTime;
-}
 
 export async function scrapeEventbrite(maxPages: number = 30): Promise<ScrapedEvent[]> {
   const BROWSE_URL = "https://www.eventbrite.com/d/nc--asheville/all-events/";

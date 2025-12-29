@@ -17,8 +17,7 @@ import {
   ChevronDown,
   Share,
 } from "lucide-react";
-import { cleanMarkdown } from "@/lib/utils/cleanMarkdown";
-import { cleanAshevilleFromSummary } from "@/lib/utils/cleanAsheville";
+import { cleanAshevilleFromSummary, cleanMarkdown } from "@/lib/utils/parsers";
 import { generateCalendarUrlForEvent } from "@/lib/utils/googleCalendar";
 import { downloadEventAsICS } from "@/lib/utils/icsGenerator";
 import EventCard from "@/components/EventCard";

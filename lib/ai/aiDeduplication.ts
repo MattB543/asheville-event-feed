@@ -8,7 +8,7 @@
  * - Subtle duplicates requiring semantic understanding
  */
 
-import { azureChatCompletion, isAzureAIEnabled } from "./azure-client";
+import { azureChatCompletion, isAzureAIEnabled } from "./provider-clients";
 import { matchesDefaultFilter } from "../config/defaultFilters";
 
 /**

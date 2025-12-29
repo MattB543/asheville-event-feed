@@ -4,7 +4,7 @@ import { db } from "@/lib/db";
 import { events } from "@/lib/db/schema";
 import { sql, InferSelectModel } from "drizzle-orm";
 import { parseEventSlug, generateEventSlug } from "@/lib/utils/slugify";
-import { cleanMarkdown } from "@/lib/utils/cleanMarkdown";
+import { cleanMarkdown } from "@/lib/utils/parsers";
 import EventPageClient from "./EventPageClient";
 import { findSimilarEvents } from "@/lib/db/similaritySearch";
 

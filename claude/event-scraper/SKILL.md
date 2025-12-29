@@ -241,9 +241,9 @@ Create `lib/scrapers/yoursource.ts`:
 ```typescript
 import { ScrapedEvent } from './types';
 import { fetchWithRetry } from '@/lib/utils/retry';
-import { isNonNCEvent } from '@/lib/utils/locationFilter';
-import { decodeHtmlEntities } from '@/lib/utils/htmlEntities';
-import { getZipFromCoords, getZipFromCity } from '@/lib/utils/zipFromCoords';
+import { isNonNCEvent } from '@/lib/utils/geo';
+import { decodeHtmlEntities } from '@/lib/utils/parsers';
+import { getZipFromCoords, getZipFromCity } from '@/lib/utils/geo';
 import { getTodayStringEastern } from '@/lib/utils/timezone';
 
 const API_BASE = 'https://example.com/wp-json/tribe/events/v1/events';
@@ -350,7 +350,7 @@ function formatEvent(event: ApiEvent): ScrapedEvent | null {
 
 ## Step 2.3: Create Test Script
 
-Create `scripts/test-yoursource.ts`:
+Create `scripts/scrapers/test-yoursource.ts`:
 
 ```typescript
 import 'dotenv/config';
@@ -414,7 +414,7 @@ main().catch(console.error);
 ## Step 2.4: Add to package.json
 
 ```json
-"test:yoursource": "npx tsx scripts/test-yoursource.ts"
+"test:yoursource": "npx tsx scripts/scrapers/test-yoursource.ts"
 ```
 
 ---
@@ -454,7 +454,7 @@ Scraper output validation alone is NOT sufficient. Database insertion can reveal
 ## Step 4.1: Insert Test Events
 
 ```typescript
-// scripts/test-yoursource-db.ts
+// scripts/scrapers/test-yoursource-db.ts
 import 'dotenv/config';
 import { db } from '../lib/db';
 import { events } from '../lib/db/schema';
@@ -573,7 +573,7 @@ npx tsc --noEmit
 rm -rf debug-scraper-yoursource
 
 # Remove test DB script if created
-rm scripts/test-yoursource-db.ts
+rm scripts/scrapers/test-yoursource-db.ts
 ```
 
 ---
@@ -627,7 +627,7 @@ const date = parseAsEastern('2025-12-25', '19:00:00');
 
 ### Price Formatting
 ```typescript
-import { formatPrice } from '@/lib/utils/formatPrice';
+import { formatPrice } from '@/lib/utils/parsers';
 
 formatPrice(0);        // "Free"
 formatPrice(25.50);    // "$26"
@@ -636,7 +636,7 @@ formatPrice(null);     // "Unknown"
 
 ### HTML Entities
 ```typescript
-import { decodeHtmlEntities } from '@/lib/utils/htmlEntities';
+import { decodeHtmlEntities } from '@/lib/utils/parsers';
 
 decodeHtmlEntities('Rock &amp; Roll &#8211; Live');
 // "Rock & Roll – Live"
@@ -644,7 +644,7 @@ decodeHtmlEntities('Rock &amp; Roll &#8211; Live');
 
 ### Location Filtering
 ```typescript
-import { isNonNCEvent } from '@/lib/utils/locationFilter';
+import { isNonNCEvent } from '@/lib/utils/geo';
 
 // Returns true if event should be EXCLUDED (not in NC)
 if (isNonNCEvent(event.title, event.location)) continue;
@@ -652,7 +652,7 @@ if (isNonNCEvent(event.title, event.location)) continue;
 
 ### Zip Code Fallbacks
 ```typescript
-import { getZipFromCoords, getZipFromCity } from '@/lib/utils/zipFromCoords';
+import { getZipFromCoords, getZipFromCity } from '@/lib/utils/geo';
 
 let zip = venue.zip || getZipFromCoords(lat, lng) || getZipFromCity(city);
 ```

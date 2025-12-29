@@ -4,7 +4,7 @@ import { events } from '@/lib/db/schema';
 import { asc, gte } from 'drizzle-orm';
 import { getStartOfTodayEastern } from '@/lib/utils/timezone';
 import { matchesDefaultFilter } from '@/lib/config/defaultFilters';
-import { extractCity, isAshevilleArea } from '@/lib/utils/extractCity';
+import { extractCity, isAshevilleArea } from '@/lib/utils/geo';
 
 export const dynamic = 'force-dynamic';
 

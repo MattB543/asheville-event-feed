@@ -15,7 +15,7 @@ import { scrapeStoryParlor } from "@/lib/scrapers/storyparlor";
 import { db } from "@/lib/db";
 import { events } from "@/lib/db/schema";
 import { inArray } from "drizzle-orm";
-import { generateEventTags } from "@/lib/ai/tagging";
+import { generateEventTags } from "@/lib/ai/tagAndSummarize";
 import { generateAndUploadEventImage } from "@/lib/ai/imageGeneration";
 import { ScrapedEventWithTags } from "@/lib/scrapers/types";
 import { env, isFacebookEnabled } from "@/lib/config/env";
@@ -23,7 +23,7 @@ import { findDuplicates, getIdsToRemove } from "@/lib/utils/deduplication";
 import { syncRecurringFromExploreAsheville } from "@/lib/utils/syncRecurringFromExploreAsheville";
 import { verifyAuthToken } from "@/lib/utils/auth";
 import { enrichEventData } from "@/lib/ai/dataEnrichment";
-import { isAzureAIEnabled } from "@/lib/ai/azure-client";
+import { isAzureAIEnabled } from "@/lib/ai/provider-clients";
 import { invalidateEventsCache } from "@/lib/cache/invalidation";
 
 export const maxDuration = 800; // 13+ minutes (requires Fluid Compute)
@@ -45,6 +45,7 @@ export async function GET(request: Request) {
   }
 
   const jobStartTime = Date.now();
+  const azureEnabled = isAzureAIEnabled();
 
   // Stats tracking
   const stats = {
@@ -318,38 +319,43 @@ export async function GET(request: Request) {
         arr.slice(i * size, i * size + size)
       );
 
-    const tagStartTime = Date.now();
-    for (const batch of chunk(newEvents, 5)) {
-      await Promise.all(
-        batch.map(async (event) => {
-          try {
-            const tags = await generateEventTags({
-              title: event.title,
-              description: event.description,
-              location: event.location,
-              organizer: event.organizer,
-              startDate: event.startDate,
-            });
-            event.tags = tags;
-            stats.tagging.success++;
-          } catch (err) {
-            stats.tagging.failed++;
-            console.error(
-              `[Cron] Failed to tag "${event.title}":`,
-              err instanceof Error ? err.message : err
-            );
-          }
-        })
+    if (azureEnabled) {
+      const tagStartTime = Date.now();
+      for (const batch of chunk(newEvents, 5)) {
+        await Promise.all(
+          batch.map(async (event) => {
+            try {
+              const tags = await generateEventTags({
+                title: event.title,
+                description: event.description,
+                location: event.location,
+                organizer: event.organizer,
+                startDate: event.startDate,
+              });
+              event.tags = tags;
+              stats.tagging.success++;
+            } catch (err) {
+              stats.tagging.failed++;
+              console.error(
+                `[Cron] Failed to tag "${event.title}":`,
+                err instanceof Error ? err.message : err
+              );
+            }
+          })
+        );
+        // Small delay between batches
+        await new Promise((r) => setTimeout(r, 1000));
+      }
+      stats.tagging.duration = Date.now() - tagStartTime;
+      console.log(
+        `[Cron] Tagging complete in ${formatDuration(stats.tagging.duration)}: ${
+          stats.tagging.success
+        } succeeded, ${stats.tagging.failed} failed`
       );
-      // Small delay between batches
-      await new Promise((r) => setTimeout(r, 1000));
+    } else {
+      console.log("[Cron] Skipping tagging: Azure AI not configured");
+      stats.tagging.failed = 0;
     }
-    stats.tagging.duration = Date.now() - tagStartTime;
-    console.log(
-      `[Cron] Tagging complete in ${formatDuration(stats.tagging.duration)}: ${
-        stats.tagging.success
-      } succeeded, ${stats.tagging.failed} failed`
-    );
 
     // 4.5 AI Enrichment: Extract missing price/time for new events
     // Only process events that still have Unknown price or timeUnknown=true
@@ -360,7 +366,7 @@ export async function GET(request: Request) {
         !e.price || e.price === "Unknown" || e.timeUnknown === true
     );
 
-    if (eventsNeedingEnrichment.length > 0 && isAzureAIEnabled()) {
+    if (eventsNeedingEnrichment.length > 0 && azureEnabled) {
       const eventsToEnrich = eventsNeedingEnrichment.slice(0, MAX_ENRICHMENT_PER_RUN);
       stats.enrichment.skipped = eventsNeedingEnrichment.length - eventsToEnrich.length;
 

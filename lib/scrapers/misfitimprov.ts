@@ -1,6 +1,6 @@
 import { ScrapedEvent } from './types';
 import { fetchWithRetry } from '@/lib/utils/retry';
-import { decodeHtmlEntities } from '@/lib/utils/htmlEntities';
+import { decodeHtmlEntities } from '@/lib/utils/parsers';
 
 /**
  * Misfit Improv Scraper

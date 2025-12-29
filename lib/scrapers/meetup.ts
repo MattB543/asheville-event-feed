@@ -1,9 +1,9 @@
 import { ScrapedEvent } from './types';
 import { withRetry } from '@/lib/utils/retry';
-import { isNonNCEvent } from '@/lib/utils/locationFilter';
+import { isNonNCEvent } from '@/lib/utils/geo';
 import { getEasternOffset } from '@/lib/utils/timezone';
-import { getZipFromCoords, getZipFromCity } from '@/lib/utils/zipFromCoords';
-import { tryExtractPrice } from '@/lib/utils/extractPrice';
+import { getZipFromCoords, getZipFromCity } from '@/lib/utils/geo';
+import { tryExtractPrice } from '@/lib/utils/parsers';
 
 /**
  * Meetup Scraper - Date-Range Based Approach

@@ -1,6 +1,6 @@
-import { env } from '@/lib/config/env';
-import { format } from 'date-fns';
-import { generateEventSlug } from '@/lib/utils/slugify';
+import { env } from "@/lib/config/env";
+import { format } from "date-fns";
+import { generateEventSlug } from "@/lib/utils/slugify";
 
 interface DigestEvent {
   id: string;
@@ -12,28 +12,42 @@ interface DigestEvent {
   imageUrl?: string | null;
   tags?: string[] | null;
   url: string;
+  curators?: Array<{ name: string; note?: string | null }>;
 }
 
 interface DigestEmailOptions {
   recipientName?: string;
-  frequency: 'daily' | 'weekly';
+  frequency: "daily" | "weekly";
+  headerText: string;
+  periodText: string;
   events: DigestEvent[];
+  curatedEvents?: DigestEvent[];
   unsubscribeUrl: string;
+  capNotice?: string | null;
 }
 
 /**
  * Generate HTML email for event digest.
  */
 export function generateDigestEmailHtml(options: DigestEmailOptions): string {
-  const { recipientName, frequency, events, unsubscribeUrl } = options;
+  const {
+    recipientName,
+    frequency,
+    events,
+    curatedEvents,
+    unsubscribeUrl,
+    headerText,
+    periodText,
+    capNotice,
+  } = options;
   const appUrl = env.NEXT_PUBLIC_APP_URL;
-  const greeting = recipientName ? `Hey ${recipientName.split(' ')[0]}` : 'Hey there';
-  const periodText = frequency === 'daily' ? 'today' : 'this week';
-  const headerText = frequency === 'daily' ? 'Daily Event Digest' : 'Weekly Event Digest';
+  const greeting = recipientName
+    ? `Hey ${recipientName.split(" ")[0]}`
+    : "Hey there";
 
   // Group events by date
   const eventsByDate = events.reduce((acc, event) => {
-    const dateKey = format(new Date(event.startDate), 'EEEE, MMM d');
+    const dateKey = format(new Date(event.startDate), "EEEE, MMM d");
     if (!acc[dateKey]) {
       acc[dateKey] = [];
     }
@@ -43,7 +57,9 @@ export function generateDigestEmailHtml(options: DigestEmailOptions): string {
 
   const eventSections = Object.entries(eventsByDate)
     .map(([dateKey, dateEvents]) => {
-      const eventCards = dateEvents.map((event) => generateEventCard(event, appUrl)).join('');
+      const eventCards = dateEvents
+        .map((event) => generateEventCard(event, appUrl))
+        .join("");
       return `
         <tr>
           <td style="padding: 0 24px;">
@@ -55,7 +71,25 @@ export function generateDigestEmailHtml(options: DigestEmailOptions): string {
         ${eventCards}
       `;
     })
-    .join('');
+    .join("");
+
+  const curatedSection =
+    curatedEvents && curatedEvents.length > 0
+      ? `
+        <tr>
+          <td style="padding: 0 24px;">
+            <h2 style="color: #1a1a1a; font-size: 18px; font-weight: 600; margin: 24px 0 16px 0; padding-bottom: 8px; border-bottom: 2px solid #f59e0b;">
+              Curated picks
+            </h2>
+          </td>
+        </tr>
+        ${curatedEvents
+          .map((event) => generateEventCard(event, appUrl))
+          .join("")}
+      `
+      : "";
+
+  const totalEventCount = events.length + (curatedEvents?.length || 0);
 
   return `
 <!DOCTYPE html>
@@ -79,7 +113,7 @@ export function generateDigestEmailHtml(options: DigestEmailOptions): string {
     <tr>
       <td align="center" style="padding: 40px 16px;">
         <table role="presentation" width="600" cellspacing="0" cellpadding="0" style="max-width: 600px; width: 100%; background-color: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);">
-          
+
           <!-- Header -->
           <tr>
             <td style="background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); padding: 32px 24px; text-align: center;">
@@ -96,19 +130,32 @@ export function generateDigestEmailHtml(options: DigestEmailOptions): string {
           <tr>
             <td style="padding: 24px 24px 8px 24px;">
               <p style="color: #374151; font-size: 16px; line-height: 1.6; margin: 0;">
-                ${greeting}! 👋
+                ${greeting}!
               </p>
               <p style="color: #374151; font-size: 16px; line-height: 1.6; margin: 12px 0 0 0;">
-                ${events.length === 0 
-                  ? `No new events match your filters ${periodText}. Check back soon!`
-                  : `Here are <strong>${events.length} new event${events.length === 1 ? '' : 's'}</strong> matching your preferences ${periodText}:`
+                ${
+                  totalEventCount === 0
+                    ? `No events match your filters ${periodText}. Check back soon!`
+                    : `Here are <strong>${totalEventCount} event${totalEventCount === 1 ? "" : "s"}</strong> matching your preferences ${periodText}:`
                 }
               </p>
+              ${
+                capNotice
+                  ? `
+                <p style="color: #6b7280; font-size: 14px; line-height: 1.6; margin: 12px 0 0 0;">
+                  ${capNotice}
+                </p>
+              `
+                  : ""
+              }
             </td>
           </tr>
 
+          <!-- Curated Picks -->
+          ${curatedSection}
+
           <!-- Events -->
-          ${events.length > 0 ? eventSections : ''}
+          ${events.length > 0 ? eventSections : ""}
 
           <!-- CTA Button -->
           <tr>
@@ -117,7 +164,7 @@ export function generateDigestEmailHtml(options: DigestEmailOptions): string {
                 <tr>
                   <td align="center">
                     <a href="${appUrl}" style="display: inline-block; background-color: #2563eb; color: #ffffff; text-decoration: none; font-weight: 600; font-size: 16px; padding: 14px 32px; border-radius: 8px;">
-                      Browse All Events →
+                      Browse all events
                     </a>
                   </td>
                 </tr>
@@ -129,15 +176,15 @@ export function generateDigestEmailHtml(options: DigestEmailOptions): string {
           <tr>
             <td style="background-color: #f9fafb; padding: 24px; text-align: center; border-top: 1px solid #e5e7eb;">
               <p style="color: #6b7280; font-size: 14px; line-height: 1.6; margin: 0;">
-                You're receiving this because you subscribed to ${frequency} event digests on AVL GO.
+                You are receiving this because you subscribed to ${frequency} event digests on AVL GO.
               </p>
               <p style="color: #6b7280; font-size: 14px; line-height: 1.6; margin: 12px 0 0 0;">
                 <a href="${unsubscribeUrl}" style="color: #2563eb; text-decoration: underline;">Unsubscribe</a>
-                &nbsp;•&nbsp;
+                &nbsp;|&nbsp;
                 <a href="${appUrl}/profile" style="color: #2563eb; text-decoration: underline;">Manage Preferences</a>
               </p>
               <p style="color: #9ca3af; font-size: 12px; margin: 16px 0 0 0;">
-                © ${new Date().getFullYear()} AVL GO • Asheville, NC
+                (c) ${new Date().getFullYear()} AVL GO - Asheville, NC
               </p>
             </td>
           </tr>
@@ -155,16 +202,40 @@ export function generateDigestEmailHtml(options: DigestEmailOptions): string {
  * Generate a single event card for the digest email.
  */
 function generateEventCard(event: DigestEvent, appUrl: string): string {
-  const eventUrl = `${appUrl}/events/${generateEventSlug(event.title, new Date(event.startDate), event.id)}`;
-  const time = format(new Date(event.startDate), 'h:mm a');
-  const imageUrl = event.imageUrl?.startsWith('http') 
-    ? event.imageUrl 
-    : event.imageUrl 
-      ? `${appUrl}${event.imageUrl}` 
+  const eventUrl = `${appUrl}/events/${generateEventSlug(
+    event.title,
+    new Date(event.startDate),
+    event.id
+  )}`;
+  const time = format(new Date(event.startDate), "h:mm a");
+  const imageUrl = event.imageUrl?.startsWith("http")
+    ? event.imageUrl
+    : event.imageUrl
+      ? `${appUrl}${event.imageUrl}`
       : `${appUrl}/asheville-default.jpg`;
 
   // Limit tags to first 3
   const displayTags = (event.tags || []).slice(0, 3);
+
+  const curatorLines = event.curators?.length
+    ? `
+      <p style="color: #92400e; font-size: 13px; margin: 8px 0 0 0;">
+        Curated by ${event.curators
+          .map((curator) => escapeHtml(curator.name))
+          .join(", ")}
+      </p>
+      ${event.curators
+        .filter((curator) => curator.note)
+        .map(
+          (curator) => `
+            <p style="color: #78350f; font-size: 12px; margin: 4px 0 0 0; font-style: italic;">
+              "${escapeHtml(curator.note || "")}" - ${escapeHtml(curator.name)}
+            </p>
+          `
+        )
+        .join("")}
+    `
+    : "";
 
   return `
     <tr>
@@ -188,23 +259,34 @@ function generateEventCard(event: DigestEvent, appUrl: string): string {
                       </h3>
                     </a>
                     <p style="color: #6b7280; font-size: 14px; margin: 0 0 4px 0;">
-                      🕐 ${time}
-                      ${event.location ? ` &nbsp;•&nbsp; 📍 ${escapeHtml(truncate(event.location, 30))}` : ''}
+                      Time: ${time}
+                      ${event.location ? ` | ${escapeHtml(truncate(event.location, 30))}` : ""}
                     </p>
-                    ${event.price ? `
+                    ${
+                      event.price
+                        ? `
                       <p style="color: #6b7280; font-size: 14px; margin: 0 0 8px 0;">
-                        💵 ${escapeHtml(event.price)}
+                        Price: ${escapeHtml(event.price)}
                       </p>
-                    ` : ''}
-                    ${displayTags.length > 0 ? `
+                    `
+                        : ""
+                    }
+                    ${displayTags.length > 0
+                      ? `
                       <p style="margin: 0;">
-                        ${displayTags.map(tag => `
+                        ${displayTags
+                          .map(
+                            (tag) => `
                           <span style="display: inline-block; background-color: #e5e7eb; color: #374151; font-size: 12px; padding: 2px 8px; border-radius: 4px; margin-right: 4px;">
                             ${escapeHtml(tag)}
                           </span>
-                        `).join('')}
+                        `
+                          )
+                          .join("")}
                       </p>
-                    ` : ''}
+                    `
+                      : ""}
+                    ${curatorLines}
                   </td>
                 </tr>
               </table>
@@ -220,16 +302,26 @@ function generateEventCard(event: DigestEvent, appUrl: string): string {
  * Generate plain text version of the digest email.
  */
 export function generateDigestEmailText(options: DigestEmailOptions): string {
-  const { recipientName, frequency, events, unsubscribeUrl } = options;
+  const {
+    recipientName,
+    events,
+    curatedEvents,
+    unsubscribeUrl,
+    periodText,
+    capNotice,
+  } = options;
   const appUrl = env.NEXT_PUBLIC_APP_URL;
-  const greeting = recipientName ? `Hey ${recipientName.split(' ')[0]}` : 'Hey there';
-  const periodText = frequency === 'daily' ? 'today' : 'this week';
+  const greeting = recipientName
+    ? `Hey ${recipientName.split(" ")[0]}`
+    : "Hey there";
 
-  if (events.length === 0) {
+  const totalEventCount = events.length + (curatedEvents?.length || 0);
+
+  if (totalEventCount === 0) {
     return `
 ${greeting}!
 
-No new events match your filters ${periodText}. Check back soon!
+No events match your filters ${periodText}. Check back soon!
 
 Browse all events: ${appUrl}
 
@@ -240,7 +332,7 @@ Manage preferences: ${appUrl}/profile
   }
 
   const eventsByDate = events.reduce((acc, event) => {
-    const dateKey = format(new Date(event.startDate), 'EEEE, MMM d');
+    const dateKey = format(new Date(event.startDate), "EEEE, MMM d");
     if (!acc[dateKey]) {
       acc[dateKey] = [];
     }
@@ -248,27 +340,60 @@ Manage preferences: ${appUrl}/profile
     return acc;
   }, {} as Record<string, DigestEvent[]>);
 
+  const curatedSection =
+    curatedEvents && curatedEvents.length > 0
+      ? `Curated picks\n${"-".repeat(13)}\n${curatedEvents
+          .map((event) => {
+            const time = format(new Date(event.startDate), "h:mm a");
+            const eventUrl = `${appUrl}/events/${generateEventSlug(
+              event.title,
+              new Date(event.startDate),
+              event.id
+            )}`;
+            const curatorText = event.curators?.length
+              ? `\n    Curated by: ${event.curators
+                  .map((curator) => curator.name)
+                  .join(", ")}`
+              : "";
+            const notesText = event.curators
+              ?.filter((curator) => curator.note)
+              .map(
+                (curator) => `\n    Note: "${curator.note}" - ${curator.name}`
+              )
+              .join("") || "";
+            return `  - ${event.title}\n    ${time}${
+              event.location ? ` at ${event.location}` : ""
+            }${event.price ? ` - ${event.price}` : ""}\n    ${eventUrl}${curatorText}${notesText}`;
+          })
+          .join("\n\n")}\n\n`
+      : "";
+
   const eventSections = Object.entries(eventsByDate)
     .map(([dateKey, dateEvents]) => {
       const eventList = dateEvents
         .map((event) => {
-          const time = format(new Date(event.startDate), 'h:mm a');
-          const eventUrl = `${appUrl}/events/${generateEventSlug(event.title, new Date(event.startDate), event.id)}`;
-          return `  • ${event.title}
-    ${time}${event.location ? ` at ${event.location}` : ''}${event.price ? ` - ${event.price}` : ''}
-    ${eventUrl}`;
+          const time = format(new Date(event.startDate), "h:mm a");
+          const eventUrl = `${appUrl}/events/${generateEventSlug(
+            event.title,
+            new Date(event.startDate),
+            event.id
+          )}`;
+          return `  - ${event.title}\n    ${time}${
+            event.location ? ` at ${event.location}` : ""
+          }${event.price ? ` - ${event.price}` : ""}\n    ${eventUrl}`;
         })
-        .join('\n\n');
-      return `${dateKey}\n${'─'.repeat(dateKey.length)}\n${eventList}`;
+        .join("\n\n");
+      return `${dateKey}\n${"-".repeat(dateKey.length)}\n${eventList}`;
     })
-    .join('\n\n');
+    .join("\n\n");
 
   return `
 ${greeting}!
 
-Here are ${events.length} new event${events.length === 1 ? '' : 's'} matching your preferences ${periodText}:
+Here are ${totalEventCount} event${totalEventCount === 1 ? "" : "s"} matching your preferences ${periodText}:
+${capNotice ? `\n${capNotice}\n` : ""}
 
-${eventSections}
+${curatedSection}${eventSections}
 
 ---
 
@@ -278,7 +403,7 @@ Browse all events: ${appUrl}
 Unsubscribe: ${unsubscribeUrl}
 Manage preferences: ${appUrl}/profile
 
-© ${new Date().getFullYear()} AVL GO • Asheville, NC
+(c) ${new Date().getFullYear()} AVL GO - Asheville, NC
   `.trim();
 }
 
@@ -287,11 +412,11 @@ Manage preferences: ${appUrl}/profile
  */
 function escapeHtml(text: string): string {
   return text
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;');
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
 }
 
 /**
@@ -299,7 +424,5 @@ function escapeHtml(text: string): string {
  */
 function truncate(text: string, maxLength: number): string {
   if (text.length <= maxLength) return text;
-  return text.slice(0, maxLength - 1) + '…';
+  return text.slice(0, maxLength - 1) + ".";
 }
-
-

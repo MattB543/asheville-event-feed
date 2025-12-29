@@ -3,33 +3,12 @@ import {
   isAzureAIEnabled,
   azureChatCompletionMessages,
   azureChatCompletionStream,
-} from "@/lib/ai/azure-client";
+} from "@/lib/ai/provider-clients";
 import { generateEventUrl } from "@/lib/utils/slugify";
+import { isRateLimited } from "@/lib/utils/rate-limit";
 
 // Simple in-memory rate limiter (1 request per 2 seconds per IP)
-const rateLimitMap = new Map<string, number>();
 const RATE_LIMIT_MS = 2000; // 2 seconds between requests
-
-function isRateLimited(ip: string): boolean {
-  const now = Date.now();
-  const lastRequest = rateLimitMap.get(ip);
-
-  if (lastRequest && now - lastRequest < RATE_LIMIT_MS) {
-    return true;
-  }
-
-  rateLimitMap.set(ip, now);
-
-  // Clean up old entries every 100 requests to prevent memory leak
-  if (rateLimitMap.size > 1000) {
-    const cutoff = now - RATE_LIMIT_MS * 10;
-    for (const [key, time] of rateLimitMap.entries()) {
-      if (time < cutoff) rateLimitMap.delete(key);
-    }
-  }
-
-  return false;
-}
 
 interface ChatMessage {
   role: "user" | "assistant";
@@ -562,7 +541,8 @@ export async function POST(request: NextRequest) {
     // Rate limit by IP
     const ip =
       request.headers.get("x-forwarded-for")?.split(",")[0] ?? "unknown";
-    if (isRateLimited(ip)) {
+    const rateLimitKey = `chat:${ip}`;
+    if (isRateLimited(rateLimitKey, 1, RATE_LIMIT_MS)) {
       return new Response(
         JSON.stringify({
           error: "Please wait a moment before sending another message.",

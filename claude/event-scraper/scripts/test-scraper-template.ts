@@ -5,9 +5,9 @@
  * reports to a debug folder for inspection.
  *
  * Usage:
- *   1. Copy this file to scripts/test-yoursource.ts
+ *   1. Copy this file to scripts/scrapers/test-yoursource.ts
  *   2. Update SOURCE_NAME and the scraper import
- *   3. Run: npx tsx scripts/test-yoursource.ts
+ *   3. Run: npx tsx scripts/scrapers/test-yoursource.ts
  *   4. Review debug output files
  */
 
@@ -146,7 +146,7 @@ async function main() {
     console.log(`     grep -E "&amp;|&quot;|&#" "${path.join(DEBUG_DIR, '03-final-events.json')}"`);
     console.log();
     console.log('  5. When validation passes, run database test:');
-    console.log(`     npx tsx scripts/test-${SOURCE_NAME}-db.ts`);
+    console.log(`     npx tsx scripts/scrapers/test-${SOURCE_NAME}-db.ts`);
     console.log();
 
   } catch (error) {

@@ -9,12 +9,11 @@
  */
 
 import { ScrapedEvent } from './types';
-import { fetchWithRetry } from '../utils/retry';
-import { decodeHtmlEntities } from '../utils/htmlEntities';
+import { fetchEventData } from './base';
+import { decodeHtmlEntities } from '../utils/parsers';
 
 // Config
 const CALENDAR_URL = 'https://www.thegreyeagle.com/calendar/';
-const USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36';
 const VENUE_NAME = 'The Grey Eagle';
 const VENUE_ADDRESS = 'The Grey Eagle, 185 Clingman Ave, Asheville, NC';
 const VENUE_ZIP = '28801';
@@ -75,16 +74,16 @@ async function fetchEventUrls(): Promise<string[]> {
   console.log('[GreyEagle] Fetching calendar page...');
 
   try {
-    const response = await fetchWithRetry(
+    const response = await fetchEventData(
       CALENDAR_URL,
       {
         headers: {
-          'User-Agent': USER_AGENT,
           'Accept': 'text/html,application/xhtml+xml',
         },
         cache: 'no-store',
       },
-      { maxRetries: 3, baseDelay: 1000 }
+      { maxRetries: 3, baseDelay: 1000 },
+      'GreyEagle'
     );
     const html = await response.text();
 
@@ -110,16 +109,16 @@ async function fetchEventUrls(): Promise<string[]> {
  */
 async function scrapeEventPage(url: string): Promise<ScrapedEvent | null> {
   try {
-    const response = await fetchWithRetry(
+    const response = await fetchEventData(
       url,
       {
         headers: {
-          'User-Agent': USER_AGENT,
           'Accept': 'text/html',
         },
         cache: 'no-store',
       },
-      { maxRetries: 2, baseDelay: 500 }
+      { maxRetries: 2, baseDelay: 500 },
+      'GreyEagle'
     );
     const html = await response.text();
 

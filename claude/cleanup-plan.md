@@ -97,7 +97,7 @@ Your `scripts/` folder has **61 files**. This makes it impossible to find what y
 
 ### 7. Consolidate Location Filtering
 
-You have `lib/utils/extractCity.ts`, `lib/utils/locationFilter.ts`, and `lib/utils/zipFromCoords.ts`.
+You have `lib/utils/geo.ts`, `lib/utils/geo.ts`, and `lib/utils/geo.ts`.
 
 **Action:** These are all solving the same problem: "Where is this event?". Combine them into `lib/utils/geo.ts`.
 
@@ -113,9 +113,9 @@ In `lib/scrapers/udharma.ts` and `lib/scrapers/eventbrite.ts`, you have local im
 
 ### Summary of Files to Delete (after merging logic):
 
-1.  `lib/utils/formatPrice.ts` (merge into `parsers.ts`)
-2.  `lib/utils/htmlEntities.ts` (merge into `parsers.ts`)
-3.  `lib/utils/cleanMarkdown.ts` (merge into `parsers.ts`)
+1.  `lib/utils/parsers.ts` (merge into `parsers.ts`)
+2.  `lib/utils/parsers.ts` (merge into `parsers.ts`)
+3.  `lib/utils/parsers.ts` (merge into `parsers.ts`)
 4.  `lib/ai/tagging.ts` (merge into `tagAndSummarize.ts`)
 5.  `lib/ai/summary.ts` (merge into `tagAndSummarize.ts`)
 6.  `lib/scrapers/facebook-stealth.ts` (merge into `facebook/utils.ts`)

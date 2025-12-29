@@ -10,7 +10,7 @@
  */
 
 import { ScrapedEvent } from './types';
-import { fetchWithRetry } from '../utils/retry';
+import { fetchEventData } from './base';
 import { parseAsEastern } from '../utils/timezone';
 
 // Ticketmaster API config
@@ -20,13 +20,10 @@ const HARRAHS_VENUE_ID = 'KovZpZAJvnIA';
 
 // HTML scraping config (fallback)
 const EVENTS_PAGE_URL = 'https://www.harrahscherokeecenterasheville.com/events-tickets/';
-const USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36';
 
 // Common headers for Ticketmaster API
 const TM_API_HEADERS = {
-  "User-Agent": USER_AGENT,
-  "Accept": "application/json",
-  "Accept-Language": "en-US,en;q=0.9",
+  Accept: 'application/json',
 };
 
 interface TMEvent {
@@ -95,13 +92,14 @@ async function fetchTicketmasterEvents(): Promise<ScrapedEvent[]> {
     url.searchParams.set('sort', 'date,asc');
 
     try {
-      const response = await fetchWithRetry(
+      const response = await fetchEventData(
         url.toString(),
         {
           headers: TM_API_HEADERS,
           cache: 'no-store',
         },
-        { maxRetries: 3, baseDelay: 1000 }
+        { maxRetries: 3, baseDelay: 1000 },
+        'Harrahs-TM'
       );
       const data: TMResponse = await response.json();
 
@@ -276,16 +274,13 @@ async function fetchHTMLEvents(tmEvents: ScrapedEvent[]): Promise<ScrapedEvent[]
   }
 
   try {
-    const response = await fetchWithRetry(
+    const response = await fetchEventData(
       EVENTS_PAGE_URL,
       {
-        headers: {
-          'User-Agent': USER_AGENT,
-          'Accept': 'text/html',
-        },
         cache: 'no-store',
       },
-      { maxRetries: 3, baseDelay: 1000 }
+      { maxRetries: 3, baseDelay: 1000 },
+      'Harrahs-HTML'
     );
     const html = await response.text();
 
@@ -390,13 +385,13 @@ async function fetchHTMLEvents(tmEvents: ScrapedEvent[]): Promise<ScrapedEvent[]
  */
 async function scrapeEventPage(url: string): Promise<ScrapedEvent | null> {
   try {
-    const response = await fetchWithRetry(
+    const response = await fetchEventData(
       url,
       {
-        headers: { 'User-Agent': USER_AGENT, 'Accept': 'text/html' },
         cache: 'no-store',
       },
-      { maxRetries: 2, baseDelay: 1000 }
+      { maxRetries: 2, baseDelay: 1000 },
+      'Harrahs-HTML'
     );
     const html = await response.text();
 

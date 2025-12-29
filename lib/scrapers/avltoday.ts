@@ -1,9 +1,9 @@
 import { ScrapedEvent, AvlTodayResponse } from './types';
 import { fetchWithRetry } from '@/lib/utils/retry';
-import { isNonNCEvent } from '@/lib/utils/locationFilter';
-import { formatPrice } from '@/lib/utils/formatPrice';
-import { getZipFromCoords, getZipFromCity } from '@/lib/utils/zipFromCoords';
-import { tryExtractPrice } from '@/lib/utils/extractPrice';
+import { isNonNCEvent } from '@/lib/utils/geo';
+import { formatPrice } from '@/lib/utils/parsers';
+import { getZipFromCoords, getZipFromCity } from '@/lib/utils/geo';
+import { tryExtractPrice } from '@/lib/utils/parsers';
 
 // Common headers to avoid blocking
 const API_HEADERS = {

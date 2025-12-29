@@ -1,5 +1,7 @@
 import { ScrapedEvent } from './types';
 import { fetchWithRetry } from '@/lib/utils/retry';
+import { parseAsEastern } from '@/lib/utils/timezone';
+import { debugSave } from './base';
 
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 const ical = require('node-ical');
@@ -66,23 +68,6 @@ const EXCLUDED_TITLES = [
 // Default image for Urban Dharma events
 const DEFAULT_IMAGE_URL = '/urban_dharma.jpg';
 
-// Debug helper - saves data to debug folder if DEBUG_DIR is set (local dev only)
-async function debugSave(filename: string, data: unknown): Promise<void> {
-  const debugDir = process.env.DEBUG_DIR;
-  if (!debugDir) return;
-
-  try {
-    // Dynamic imports to avoid bundling fs/path in production
-    const fs = await import('fs');
-    const path = await import('path');
-    const filepath = path.join(debugDir, filename);
-    const content = typeof data === 'string' ? data : JSON.stringify(data, null, 2);
-    fs.writeFileSync(filepath, content);
-    console.log(`[UDharma Debug] Saved: ${filepath}`);
-  } catch {
-    // Ignore debug save errors in production
-  }
-}
 
 // Strip HTML tags from description
 function stripHtml(html: string): string {
@@ -104,49 +89,6 @@ function shouldExclude(title: string): boolean {
   return EXCLUDED_TITLES.some(excluded => lowerTitle.includes(excluded));
 }
 
-// Convert a local time in a specific timezone to a UTC Date
-// This handles DST correctly by using Intl.DateTimeFormat
-function getDateInTimezone(
-  year: number,
-  month: number, // 1-12
-  day: number,
-  hours: number,
-  minutes: number,
-  timezone: string
-): Date {
-  // Create a reference date at noon UTC on the target day (avoids DST edge cases)
-  const refDate = new Date(Date.UTC(year, month - 1, day, 12, 0, 0));
-
-  // Get the timezone offset for this specific date
-  // We compare UTC time with the local time in the target timezone
-  const formatter = new Intl.DateTimeFormat('en-US', {
-    timeZone: timezone,
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-    hour: '2-digit',
-    minute: '2-digit',
-    second: '2-digit',
-    hour12: false,
-  });
-
-  // Parse the formatted local time to get offset
-  const parts = formatter.formatToParts(refDate);
-  const getPart = (type: string) => parseInt(parts.find(p => p.type === type)?.value || '0', 10);
-
-  const localHour = getPart('hour');
-  const utcHour = refDate.getUTCHours();
-
-  // Calculate offset in hours (positive = behind UTC, negative = ahead)
-  let offsetHours = utcHour - localHour;
-  // Handle day boundary wraparound
-  if (offsetHours > 12) offsetHours -= 24;
-  if (offsetHours < -12) offsetHours += 24;
-
-  // Create the target date in UTC by adding the offset
-  // Target local time -> UTC: add the offset hours
-  return new Date(Date.UTC(year, month - 1, day, hours + offsetHours, minutes, 0));
-}
 
 // Scrape special events from Squarespace API
 async function scrapeSpecialEvents(): Promise<ScrapedEvent[]> {
@@ -298,8 +240,9 @@ async function scrapeGoogleCalendarEvents(): Promise<ScrapedEvent[]> {
             const [month, day, year] = occLocalDate.split('/').map(Number);
 
             // Create the target datetime in America/New_York and convert to UTC
-            // We use the fact that getTimezoneOffset gives us the offset we need
-            const startDate = getDateInTimezone(year, month, day, localHours, localMinutes, 'America/New_York');
+            const dateStr = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+            const timeStr = `${String(localHours).padStart(2, '0')}:${String(localMinutes).padStart(2, '0')}:00`;
+            const startDate = parseAsEastern(dateStr, timeStr);
 
             // Create dedup key (same title + same day)
             const dedupKey = `${title}-${startDate.toISOString().split('T')[0]}`;

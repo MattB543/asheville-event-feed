@@ -7,9 +7,9 @@
 
 import { ScrapedEvent } from './types';
 import { fetchWithRetry } from '@/lib/utils/retry';
-import { isNonNCEvent } from '@/lib/utils/locationFilter';
-import { decodeHtmlEntities } from '@/lib/utils/htmlEntities';
-import { getZipFromCoords, getZipFromCity } from '@/lib/utils/zipFromCoords';
+import { isNonNCEvent } from '@/lib/utils/geo';
+import { decodeHtmlEntities } from '@/lib/utils/parsers';
+import { getZipFromCoords, getZipFromCity } from '@/lib/utils/geo';
 import { getTodayStringEastern } from '@/lib/utils/timezone';
 
 // API Configuration

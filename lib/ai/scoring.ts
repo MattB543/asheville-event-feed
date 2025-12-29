@@ -9,7 +9,7 @@
  * Uses similar events context to assess uniqueness and rarity.
  */
 
-import { azureChatCompletion, isAzureAIEnabled } from './azure-client';
+import { azureChatCompletion, isAzureAIEnabled } from './provider-clients';
 
 export interface EventScoreResult {
   score: number;      // Total 0-30

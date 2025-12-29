@@ -5,9 +5,9 @@
  * when regex-based extraction fails.
  */
 
-import { azureChatCompletion, isAzureAIEnabled } from './azure-client';
+import { azureChatCompletion, isAzureAIEnabled } from './provider-clients';
 import { fetchAndConvertToMarkdown } from '@/lib/utils/htmlToMarkdown';
-import { applyTimeToDate } from '@/lib/utils/extractTime';
+import { applyTimeToDate } from '@/lib/utils/parsers';
 
 export interface EnrichmentInput {
   title: string;

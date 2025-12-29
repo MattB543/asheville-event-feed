@@ -11,7 +11,7 @@
  */
 
 import { ScrapedEvent } from './types';
-import { fetchWithRetry } from '../utils/retry';
+import { fetchEventData } from './base';
 import { parseAsEastern } from '../utils/timezone';
 
 // Ticketmaster API config
@@ -21,7 +21,6 @@ const ORANGE_PEEL_VENUE_ID = 'KovZpa3hYe';
 
 // Website scraping config
 const EVENTS_PAGE_URL = 'https://theorangepeel.net/events/';
-const USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36';
 
 // Venue constants
 const VENUE_NAME = 'The Orange Peel';
@@ -31,9 +30,7 @@ const VENUE_ZIP = '28801';
 
 // Common headers for Ticketmaster API
 const TM_API_HEADERS = {
-  "User-Agent": USER_AGENT,
-  "Accept": "application/json",
-  "Accept-Language": "en-US,en;q=0.9",
+  Accept: 'application/json',
 };
 
 interface TMEvent {
@@ -121,13 +118,14 @@ async function fetchTicketmasterEvents(): Promise<ScrapedEvent[]> {
     url.searchParams.set('sort', 'date,asc');
 
     try {
-      const response = await fetchWithRetry(
+      const response = await fetchEventData(
         url.toString(),
         {
           headers: TM_API_HEADERS,
           cache: 'no-store',
         },
-        { maxRetries: 3, baseDelay: 1000 }
+        { maxRetries: 3, baseDelay: 1000 },
+        'OrangePeel-TM'
       );
       const data: TMResponse = await response.json();
 
@@ -307,16 +305,13 @@ async function fetchWebsiteEvents(): Promise<ScrapedEvent[]> {
   console.log('[OrangePeel-Web] Fetching event links from website...');
 
   try {
-    const response = await fetchWithRetry(
+    const response = await fetchEventData(
       EVENTS_PAGE_URL,
       {
-        headers: {
-          'User-Agent': USER_AGENT,
-          'Accept': 'text/html,application/xhtml+xml',
-        },
         cache: 'no-store',
       },
-      { maxRetries: 3, baseDelay: 1000 }
+      { maxRetries: 3, baseDelay: 1000 },
+      'OrangePeel-Web'
     );
     const html = await response.text();
 
@@ -367,16 +362,13 @@ async function fetchWebsiteEvents(): Promise<ScrapedEvent[]> {
  */
 async function scrapeEventPage(url: string): Promise<ScrapedEvent | null> {
   try {
-    const response = await fetchWithRetry(
+    const response = await fetchEventData(
       url,
       {
-        headers: {
-          'User-Agent': USER_AGENT,
-          'Accept': 'text/html',
-        },
         cache: 'no-store',
       },
-      { maxRetries: 2, baseDelay: 500 }
+      { maxRetries: 2, baseDelay: 500 },
+      'OrangePeel-Web'
     );
     const html = await response.text();
 

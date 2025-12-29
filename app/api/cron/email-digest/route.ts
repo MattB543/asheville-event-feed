@@ -1,7 +1,23 @@
 import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
-import { events, userPreferences } from "@/lib/db/schema";
-import { sql, gte, and, or, eq, isNotNull } from "drizzle-orm";
+import {
+  curatedEvents,
+  curatorProfiles,
+  events,
+  newsletterSettings,
+  userPreferences,
+} from "@/lib/db/schema";
+import {
+  and,
+  eq,
+  gte,
+  inArray,
+  isNull,
+  lte,
+  notIlike,
+  or,
+  sql,
+} from "drizzle-orm";
 import { env, isPostmarkEnabled } from "@/lib/config/env";
 import { verifyAuthToken } from "@/lib/utils/auth";
 import { sendEmail } from "@/lib/notifications/postmark";
@@ -9,10 +25,71 @@ import {
   generateDigestEmailHtml,
   generateDigestEmailText,
 } from "@/lib/notifications/email-templates";
-import { matchesDefaultFilter } from "@/lib/config/defaultFilters";
+import { queryFilteredEvents, type DbEvent } from "@/lib/db/queries/events";
 import { createServiceClient } from "@/lib/supabase/service";
+import {
+  getDayBoundariesEastern,
+  getTodayStringEastern,
+  parseAsEastern,
+} from "@/lib/utils/timezone";
+import type {
+  NewsletterFilters,
+  NewsletterFrequency,
+  NewsletterScoreTier,
+} from "@/lib/newsletter/types";
 
 export const maxDuration = 300; // 5 minutes
+
+const SCORE_FLOORS: Record<NewsletterScoreTier, number> = {
+  all: 0,
+  top50: 6,
+  top10: 14,
+};
+
+const DEFAULT_FILTERS: NewsletterFilters = {
+  search: "",
+  dateFilter: "all",
+  customDateRange: { start: null, end: null },
+  selectedDays: [],
+  selectedTimes: [],
+  priceFilter: "any",
+  customMaxPrice: null,
+  tagsInclude: [],
+  tagsExclude: [],
+  selectedLocations: [],
+  selectedZips: [],
+  showDailyEvents: true,
+  useDefaultFilters: true,
+};
+
+function normalizeFilters(filters?: NewsletterFilters): NewsletterFilters {
+  return {
+    ...DEFAULT_FILTERS,
+    ...filters,
+    customDateRange: {
+      ...DEFAULT_FILTERS.customDateRange,
+      ...(filters?.customDateRange || {}),
+    },
+    selectedDays: Array.isArray(filters?.selectedDays)
+      ? filters?.selectedDays
+      : [],
+    selectedTimes: Array.isArray(filters?.selectedTimes)
+      ? filters?.selectedTimes
+      : [],
+    tagsInclude: Array.isArray(filters?.tagsInclude)
+      ? filters?.tagsInclude
+      : [],
+    tagsExclude: Array.isArray(filters?.tagsExclude)
+      ? filters?.tagsExclude
+      : [],
+    selectedLocations: Array.isArray(filters?.selectedLocations)
+      ? filters?.selectedLocations
+      : [],
+    selectedZips: Array.isArray(filters?.selectedZips)
+      ? filters?.selectedZips
+      : [],
+  };
+}
 
 // Helper to format duration in human-readable form
 function formatDuration(ms: number): string {
@@ -24,22 +101,237 @@ function formatDuration(ms: number): string {
   return `${minutes}m ${remainingSeconds}s`;
 }
 
-interface HiddenEventFingerprint {
-  title: string;
-  organizer: string;
+function addDaysToDateString(dateStr: string, days: number): string {
+  const [year, month, day] = dateStr.split("-").map(Number);
+  const date = new Date(year, month - 1, day + days);
+  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(
+    2,
+    "0"
+  )}-${String(date.getDate()).padStart(2, "0")}`;
+}
+
+function getEasternDateKey(date: Date): string {
+  return new Intl.DateTimeFormat("en-CA", {
+    timeZone: "America/New_York",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).format(date);
+}
+
+function getEasternDayOfWeek(date: Date): number {
+  const dateKey = getEasternDateKey(date);
+  return parseAsEastern(dateKey, "12:00:00").getDay();
+}
+
+function getWeekendRange(todayStr: string): { start: Date; end: Date } {
+  const [year, month, day] = todayStr.split("-").map(Number);
+  const todayDate = new Date(year, month - 1, day);
+  const dayOfWeek = todayDate.getDay();
+  const daysUntilFriday = dayOfWeek === 0 ? -2 : 5 - dayOfWeek;
+  const fridayStr = addDaysToDateString(todayStr, daysUntilFriday);
+  const sundayStr = addDaysToDateString(fridayStr, 2);
+  const { start } = getDayBoundariesEastern(fridayStr);
+  const { end } = getDayBoundariesEastern(sundayStr);
+  return { start, end };
+}
+
+function filterByDateFilter(
+  eventsToFilter: DbEvent[],
+  filters: NewsletterFilters,
+  todayStr: string
+): DbEvent[] {
+  const dateFilter = filters.dateFilter || "all";
+
+  if (dateFilter === "all") return eventsToFilter;
+
+  if (dateFilter === "custom") {
+    const startStr = filters.customDateRange?.start;
+    const endStr = filters.customDateRange?.end;
+    if (!startStr && !endStr) return eventsToFilter;
+
+    const start = startStr
+      ? parseAsEastern(startStr, "00:00:00")
+      : null;
+    const end = endStr ? parseAsEastern(endStr, "23:59:59") : null;
+
+    return eventsToFilter.filter((event) => {
+      const eventDate = new Date(event.startDate);
+      if (start && eventDate < start) return false;
+      if (end && eventDate > end) return false;
+      return true;
+    });
+  }
+
+  if (dateFilter === "today") {
+    const { start, end } = getDayBoundariesEastern(todayStr);
+    return eventsToFilter.filter((event) => {
+      const eventDate = new Date(event.startDate);
+      return eventDate >= start && eventDate <= end;
+    });
+  }
+
+  if (dateFilter === "tomorrow") {
+    const tomorrowStr = addDaysToDateString(todayStr, 1);
+    const { start, end } = getDayBoundariesEastern(tomorrowStr);
+    return eventsToFilter.filter((event) => {
+      const eventDate = new Date(event.startDate);
+      return eventDate >= start && eventDate <= end;
+    });
+  }
+
+  if (dateFilter === "weekend") {
+    const { start, end } = getWeekendRange(todayStr);
+    return eventsToFilter.filter((event) => {
+      const eventDate = new Date(event.startDate);
+      return eventDate >= start && eventDate <= end;
+    });
+  }
+
+  if (dateFilter === "dayOfWeek") {
+    const selectedDays = filters.selectedDays || [];
+    if (selectedDays.length === 0) return eventsToFilter;
+
+    return eventsToFilter.filter((event) =>
+      selectedDays.includes(getEasternDayOfWeek(new Date(event.startDate)))
+    );
+  }
+
+  return eventsToFilter;
+}
+
+async function fetchAllEvents(params: Omit<EventFilterParams, "limit">) {
+  const allEvents: DbEvent[] = [];
+  let cursor: string | undefined = params.cursor;
+  let iterations = 0;
+  const MAX_ITERATIONS = 20;
+
+  while (iterations < MAX_ITERATIONS) {
+    const batch = await queryFilteredEvents({
+      ...params,
+      cursor,
+      limit: 100,
+    });
+
+    allEvents.push(...batch.events);
+
+    if (!batch.hasMore || !batch.nextCursor) {
+      break;
+    }
+
+    cursor = batch.nextCursor;
+    iterations += 1;
+  }
+
+  return allEvents;
+}
+
+function applyScoreTier(eventsToFilter: DbEvent[], scoreTier: NewsletterScoreTier) {
+  const floor = SCORE_FLOORS[scoreTier];
+  if (scoreTier === "all") return eventsToFilter;
+
+  return eventsToFilter.filter((event) => (event.score ?? 0) >= floor);
+}
+
+function applyDailyCaps(
+  eventsToCap: DbEvent[],
+  capPerDay: number
+): { events: DbEvent[]; trimmed: boolean } {
+  const grouped = new Map<string, DbEvent[]>();
+
+  for (const event of eventsToCap) {
+    const key = getEasternDateKey(new Date(event.startDate));
+    const existing = grouped.get(key) || [];
+    existing.push(event);
+    grouped.set(key, existing);
+  }
+
+  const sortedKeys = Array.from(grouped.keys()).sort();
+  const result: DbEvent[] = [];
+  let trimmed = false;
+
+  for (const key of sortedKeys) {
+    const dayEvents = grouped.get(key) || [];
+    const sorted = [...dayEvents].sort((a, b) => {
+      const scoreDiff = (b.score ?? 0) - (a.score ?? 0);
+      if (scoreDiff !== 0) return scoreDiff;
+      return new Date(a.startDate).getTime() - new Date(b.startDate).getTime();
+    });
+
+    if (sorted.length > capPerDay) {
+      trimmed = true;
+    }
+
+    result.push(...sorted.slice(0, capPerDay));
+  }
+
+  return { events: result, trimmed };
+}
+
+function buildSchedule(
+  frequency: NewsletterFrequency,
+  weekendEdition: boolean,
+  todayStr: string
+): {
+  startStr: string;
+  endStr: string;
+  headerText: string;
+  periodText: string;
+  capPerDay: number;
+} | null {
+  const dayOfWeek = parseAsEastern(todayStr, "12:00:00").getDay();
+
+  if (frequency === "weekly") {
+    if (dayOfWeek !== 1) {
+      return null;
+    }
+    return {
+      startStr: todayStr,
+      endStr: addDaysToDateString(todayStr, 6),
+      headerText: "Weekly Event Digest",
+      periodText: "this week",
+      capPerDay: 25,
+    };
+  }
+
+  if (frequency === "daily") {
+    if (weekendEdition) {
+      if (dayOfWeek === 5) {
+        return {
+          startStr: todayStr,
+          endStr: addDaysToDateString(todayStr, 2),
+          headerText: "Weekend Event Digest",
+          periodText: "this weekend",
+          capPerDay: 40,
+        };
+      }
+    }
+
+    return {
+      startStr: todayStr,
+      endStr: todayStr,
+      headerText: "Daily Event Digest",
+      periodText: "today",
+      capPerDay: 50,
+    };
+  }
+
+  return null;
 }
 
 interface DigestUser {
   userId: string;
   email: string;
   name?: string;
-  frequency: "daily" | "weekly";
-  lastSentAt: Date | null;
+  frequency: NewsletterFrequency;
+  weekendEdition: boolean;
+  scoreTier: NewsletterScoreTier;
+  filters: NewsletterFilters;
+  curatorUserIds: string[];
   blockedHosts: string[];
   blockedKeywords: string[];
-  hiddenEvents: HiddenEventFingerprint[];
+  hiddenEvents: { title: string; organizer: string }[];
   useDefaultFilters: boolean;
-  emailDigestTags: string[];
 }
 
 // Email digest cron job
@@ -67,10 +359,8 @@ export async function GET(request: Request) {
   }
 
   const jobStartTime = Date.now();
-  const now = new Date();
-  const isMonday = now.getDay() === 1;
+  const todayStr = getTodayStringEastern();
 
-  // Stats tracking
   const stats = {
     usersQueried: 0,
     emailsSent: 0,
@@ -79,50 +369,93 @@ export async function GET(request: Request) {
   };
 
   try {
-    console.log("[EmailDigest] ════════════════════════════════════════════════");
-    console.log("[EmailDigest] Starting email digest job...");
-    console.log(`[EmailDigest] Day of week: ${now.getDay()} (Monday = 1), isMonday: ${isMonday}`);
+    console.log("[Newsletter] Starting email digest job...");
 
-    // Get Supabase service client to fetch user emails
     const supabase = createServiceClient();
 
-    // 1. Find users who need digests
-    // - Daily users: always
-    // - Weekly users: only on Mondays
-    console.log("[EmailDigest] Finding users needing digests...");
-
-    const frequencyCondition = isMonday
-      ? or(
-          eq(userPreferences.emailDigestFrequency, "daily"),
-          eq(userPreferences.emailDigestFrequency, "weekly")
-        )
-      : eq(userPreferences.emailDigestFrequency, "daily");
-
-    const usersNeedingDigests = await db
+    const usersToProcess = await db
       .select({
-        userId: userPreferences.userId,
-        emailDigestFrequency: userPreferences.emailDigestFrequency,
-        emailDigestLastSentAt: userPreferences.emailDigestLastSentAt,
+        userId: newsletterSettings.userId,
+        frequency: newsletterSettings.frequency,
+        weekendEdition: newsletterSettings.weekendEdition,
+        scoreTier: newsletterSettings.scoreTier,
+        filters: newsletterSettings.filters,
+        curatorUserIds: newsletterSettings.curatorUserIds,
         blockedHosts: userPreferences.blockedHosts,
         blockedKeywords: userPreferences.blockedKeywords,
         hiddenEvents: userPreferences.hiddenEvents,
         useDefaultFilters: userPreferences.useDefaultFilters,
-        emailDigestTags: userPreferences.emailDigestTags,
+      })
+      .from(newsletterSettings)
+      .leftJoin(
+        userPreferences,
+        eq(newsletterSettings.userId, userPreferences.userId)
+      );
+
+    const legacyUsers = await db
+      .select({
+        userId: userPreferences.userId,
+        frequency: userPreferences.emailDigestFrequency,
+        tags: userPreferences.emailDigestTags,
+        blockedHosts: userPreferences.blockedHosts,
+        blockedKeywords: userPreferences.blockedKeywords,
+        hiddenEvents: userPreferences.hiddenEvents,
+        useDefaultFilters: userPreferences.useDefaultFilters,
       })
       .from(userPreferences)
+      .leftJoin(
+        newsletterSettings,
+        eq(userPreferences.userId, newsletterSettings.userId)
+      )
       .where(
         and(
-          frequencyCondition!,
-          isNotNull(userPreferences.emailDigestFrequency)
+          isNull(newsletterSettings.userId),
+          sql`${userPreferences.emailDigestFrequency} IS NOT NULL`,
+          sql`${userPreferences.emailDigestFrequency} != 'none'`
         )
       );
 
-    stats.usersQueried = usersNeedingDigests.length;
-    console.log(`[EmailDigest] Found ${usersNeedingDigests.length} users needing digests`);
+    for (const legacy of legacyUsers) {
+      const legacyFilters = normalizeFilters({
+        ...DEFAULT_FILTERS,
+        tagsInclude: legacy.tags ?? [],
+      });
 
-    if (usersNeedingDigests.length === 0) {
+      await db
+        .insert(newsletterSettings)
+        .values({
+          userId: legacy.userId,
+          frequency: (legacy.frequency as NewsletterFrequency) || "none",
+          weekendEdition: false,
+          scoreTier: "all",
+          filters: legacyFilters,
+          curatorUserIds: [],
+          updatedAt: new Date(),
+        })
+        .onConflictDoNothing();
+
+      usersToProcess.push({
+        userId: legacy.userId,
+        frequency: legacy.frequency,
+        weekendEdition: false,
+        scoreTier: "all",
+        filters: legacyFilters,
+        curatorUserIds: [],
+        blockedHosts: legacy.blockedHosts,
+        blockedKeywords: legacy.blockedKeywords,
+        hiddenEvents: legacy.hiddenEvents,
+        useDefaultFilters: legacy.useDefaultFilters,
+      });
+    }
+
+    const activeUsers = usersToProcess.filter(
+      (user) => user.frequency && user.frequency !== "none"
+    );
+
+    stats.usersQueried = activeUsers.length;
+
+    if (activeUsers.length === 0) {
       const totalDuration = Date.now() - jobStartTime;
-      console.log(`[EmailDigest] No users to process, completed in ${formatDuration(totalDuration)}`);
       return NextResponse.json({
         success: true,
         duration: totalDuration,
@@ -130,21 +463,20 @@ export async function GET(request: Request) {
       });
     }
 
-    // 2. Fetch user emails from Supabase Auth
-    const userIds = usersNeedingDigests.map((u) => u.userId);
-    const { data: authUsers, error: authError } = await supabase.auth.admin.listUsers({
-      perPage: 1000,
-    });
+    const userIds = activeUsers.map((user) => user.userId);
+    const { data: authUsers, error: authError } =
+      await supabase.auth.admin.listUsers({
+        perPage: 1000,
+      });
 
     if (authError) {
-      console.error("[EmailDigest] Failed to fetch auth users:", authError);
+      console.error("[Newsletter] Failed to fetch auth users:", authError);
       return NextResponse.json(
         { success: false, error: "Failed to fetch user emails" },
         { status: 500 }
       );
     }
 
-    // Create lookup map for user emails and names
     const userEmailMap = new Map<string, { email: string; name?: string }>();
     authUsers.users.forEach((user) => {
       if (user.email && userIds.includes(user.id)) {
@@ -155,41 +487,21 @@ export async function GET(request: Request) {
       }
     });
 
-    // 3. Get upcoming events (next 14 days for weekly, next 2 days for daily)
-    const twoWeeksFromNow = new Date();
-    twoWeeksFromNow.setDate(twoWeeksFromNow.getDate() + 14);
-
-    const upcomingEvents = await db
-      .select({
-        id: events.id,
-        title: events.title,
-        startDate: events.startDate,
-        location: events.location,
-        organizer: events.organizer,
-        price: events.price,
-        imageUrl: events.imageUrl,
-        tags: events.tags,
-        url: events.url,
-        createdAt: events.createdAt,
-        hidden: events.hidden,
-      })
-      .from(events)
-      .where(
-        and(
-          gte(events.startDate, now),
-          sql`${events.startDate} <= ${twoWeeksFromNow.toISOString()}`,
-          eq(events.hidden, false)
-        )
-      )
-      .orderBy(events.startDate);
-
-    console.log(`[EmailDigest] Found ${upcomingEvents.length} upcoming events`);
-
-    // 4. Process each user
-    for (const userPref of usersNeedingDigests) {
+    for (const userPref of activeUsers) {
       const userAuth = userEmailMap.get(userPref.userId);
       if (!userAuth?.email) {
-        console.log(`[EmailDigest] Skipping user ${userPref.userId}: no email found`);
+        stats.usersSkipped++;
+        continue;
+      }
+
+      const filters = normalizeFilters(userPref.filters as NewsletterFilters);
+      const schedule = buildSchedule(
+        userPref.frequency as NewsletterFrequency,
+        userPref.weekendEdition ?? false,
+        todayStr
+      );
+
+      if (!schedule) {
         stats.usersSkipped++;
         continue;
       }
@@ -198,65 +510,162 @@ export async function GET(request: Request) {
         userId: userPref.userId,
         email: userAuth.email,
         name: userAuth.name,
-        frequency: userPref.emailDigestFrequency as "daily" | "weekly",
-        lastSentAt: userPref.emailDigestLastSentAt,
+        frequency: userPref.frequency as NewsletterFrequency,
+        weekendEdition: userPref.weekendEdition ?? false,
+        scoreTier: (userPref.scoreTier as NewsletterScoreTier) || "all",
+        filters,
+        curatorUserIds: userPref.curatorUserIds ?? [],
         blockedHosts: userPref.blockedHosts ?? [],
         blockedKeywords: userPref.blockedKeywords ?? [],
-        hiddenEvents: (userPref.hiddenEvents as HiddenEventFingerprint[]) ?? [],
+        hiddenEvents: (userPref.hiddenEvents as { title: string; organizer: string }[]) ?? [],
         useDefaultFilters: userPref.useDefaultFilters ?? true,
-        emailDigestTags: userPref.emailDigestTags ?? [],
       };
 
-      // Filter events for this user
-      const filteredEvents = filterEventsForUser(
-        upcomingEvents,
-        digestUser,
-        digestUser.frequency === "daily" ? 2 : 14
-      );
+      const { startStr, endStr, headerText, periodText, capPerDay } = schedule;
+      const { start: rangeStart } = getDayBoundariesEastern(startStr);
+      const { end: rangeEnd } = getDayBoundariesEastern(endStr);
 
-      // Only filter to NEW events since last sent (if applicable)
-      const newEvents = digestUser.lastSentAt
-        ? filteredEvents.filter(
-            (e) => e.createdAt && new Date(e.createdAt) > digestUser.lastSentAt!
-          )
-        : filteredEvents;
+      const params: Omit<EventFilterParams, "limit"> = {
+        search: digestUser.filters.search || undefined,
+        dateFilter: "custom",
+        dateStart: startStr,
+        dateEnd: endStr,
+        times: digestUser.filters.selectedTimes as EventFilterParams["times"],
+        priceFilter: digestUser.filters.priceFilter,
+        maxPrice: digestUser.filters.customMaxPrice ?? undefined,
+        tagsInclude: digestUser.filters.tagsInclude,
+        tagsExclude: digestUser.filters.tagsExclude,
+        locations: digestUser.filters.selectedLocations,
+        zips: digestUser.filters.selectedZips,
+        blockedHosts: digestUser.blockedHosts,
+        blockedKeywords: digestUser.blockedKeywords,
+        hiddenFingerprints: digestUser.hiddenEvents,
+        showDailyEvents: digestUser.filters.showDailyEvents,
+        useDefaultFilters: digestUser.useDefaultFilters,
+      };
 
-      // For weekly digests, include all upcoming events even if not new
-      // For daily digests, only include new events
-      const eventsToSend =
-        digestUser.frequency === "weekly" ? filteredEvents : newEvents;
+      let filteredEvents = await fetchAllEvents(params);
+      filteredEvents = filterByDateFilter(filteredEvents, digestUser.filters, todayStr);
+      filteredEvents = applyScoreTier(filteredEvents, digestUser.scoreTier);
 
-      // Skip if no events to send (for daily)
-      if (digestUser.frequency === "daily" && eventsToSend.length === 0) {
-        console.log(
-          `[EmailDigest] Skipping ${digestUser.email}: no new events since ${digestUser.lastSentAt?.toISOString()}`
-        );
+      let curatedEventList: DigestEvent[] = [];
+      if (digestUser.curatorUserIds.length > 0) {
+        const curatedRows = await db
+          .select({
+            event: {
+              id: events.id,
+              title: events.title,
+              startDate: events.startDate,
+              location: events.location,
+              organizer: events.organizer,
+              price: events.price,
+              imageUrl: events.imageUrl,
+              tags: events.tags,
+              url: events.url,
+            },
+            curatorName: curatorProfiles.displayName,
+            curatorId: curatorProfiles.userId,
+            note: curatedEvents.note,
+          })
+          .from(curatedEvents)
+          .innerJoin(events, eq(curatedEvents.eventId, events.id))
+          .innerJoin(curatorProfiles, eq(curatedEvents.userId, curatorProfiles.userId))
+          .where(
+            and(
+              inArray(curatedEvents.userId, digestUser.curatorUserIds),
+              eq(curatorProfiles.isPublic, true),
+              gte(events.startDate, rangeStart),
+              lte(events.startDate, rangeEnd),
+              or(isNull(events.hidden), sql`${events.hidden} = false`)!,
+              or(
+                isNull(events.location),
+                and(
+                  notIlike(events.location, "%online%"),
+                  notIlike(events.location, "%virtual%")
+                )
+              )!
+            )
+          );
+
+        const curatedMap = new Map<string, DigestEvent>();
+        for (const row of curatedRows) {
+          const existing = curatedMap.get(row.event.id);
+          const curatorEntry = {
+            name: row.curatorName,
+            note: row.note,
+          };
+
+          if (existing) {
+            existing.curators = [...(existing.curators || []), curatorEntry];
+          } else {
+            curatedMap.set(row.event.id, {
+              ...row.event,
+              curators: [curatorEntry],
+            });
+          }
+        }
+
+        curatedEventList = Array.from(curatedMap.values()).sort((a, b) => {
+          return new Date(a.startDate).getTime() - new Date(b.startDate).getTime();
+        });
+      }
+
+      const curatedIds = new Set(curatedEventList.map((event) => event.id));
+      filteredEvents = filteredEvents.filter((event) => !curatedIds.has(event.id));
+
+      const capped = applyDailyCaps(filteredEvents, capPerDay);
+      const cappedEvents = capped.events;
+
+      const capNotice = capped.trimmed
+        ? `Showing top ${capPerDay} events per day. Update your filters to see more.`
+        : null;
+
+      const eventsToSend: DigestEvent[] = cappedEvents.map((event) => ({
+        id: event.id,
+        title: event.title,
+        startDate: event.startDate,
+        location: event.location,
+        organizer: event.organizer,
+        price: event.price,
+        imageUrl: event.imageUrl,
+        tags: event.tags,
+        url: event.url,
+      }));
+
+      const totalCount = eventsToSend.length + curatedEventList.length;
+      if (totalCount === 0) {
         stats.usersSkipped++;
         continue;
       }
 
-      // Generate and send email
       const appUrl = env.NEXT_PUBLIC_APP_URL;
       const unsubscribeUrl = `${appUrl}/profile?unsubscribe=true`;
 
       const htmlBody = generateDigestEmailHtml({
         recipientName: digestUser.name,
-        frequency: digestUser.frequency,
-        events: eventsToSend.slice(0, 20), // Limit to 20 events per email
+        frequency: digestUser.frequency === "weekly" ? "weekly" : "daily",
+        headerText,
+        periodText,
+        events: eventsToSend,
+        curatedEvents: curatedEventList,
         unsubscribeUrl,
+        capNotice,
       });
 
       const textBody = generateDigestEmailText({
         recipientName: digestUser.name,
-        frequency: digestUser.frequency,
-        events: eventsToSend.slice(0, 20),
+        frequency: digestUser.frequency === "weekly" ? "weekly" : "daily",
+        headerText,
+        periodText,
+        events: eventsToSend,
+        curatedEvents: curatedEventList,
         unsubscribeUrl,
+        capNotice,
       });
 
-      const subject =
-        digestUser.frequency === "daily"
-          ? `🎉 ${eventsToSend.length} new event${eventsToSend.length === 1 ? "" : "s"} in Asheville today`
-          : `🎉 Your weekly Asheville events roundup (${eventsToSend.length} events)`;
+      const subjectPrefix =
+        headerText === "Weekend Event Digest" ? "Weekend" : headerText.split(" ")[0];
+      const subject = `${subjectPrefix} Asheville events (${totalCount} events)`;
 
       try {
         const sent = await sendEmail({
@@ -268,36 +677,25 @@ export async function GET(request: Request) {
 
         if (sent) {
           stats.emailsSent++;
-          console.log(`[EmailDigest] Sent ${digestUser.frequency} digest to ${digestUser.email} (${eventsToSend.length} events)`);
-
-          // Update lastSentAt
           await db
-            .update(userPreferences)
-            .set({ emailDigestLastSentAt: now })
-            .where(eq(userPreferences.userId, digestUser.userId));
+            .update(newsletterSettings)
+            .set({ lastSentAt: new Date() })
+            .where(eq(newsletterSettings.userId, digestUser.userId));
         } else {
           stats.emailsFailed++;
-          console.error(`[EmailDigest] Failed to send to ${digestUser.email}`);
         }
       } catch (error) {
         stats.emailsFailed++;
-        console.error(`[EmailDigest] Error sending to ${digestUser.email}:`, error);
+        console.error(`[Newsletter] Error sending to ${digestUser.email}:`, error);
       }
 
-      // Small delay between emails to avoid rate limiting
       await new Promise((r) => setTimeout(r, 100));
     }
 
-    // Final summary
     const totalDuration = Date.now() - jobStartTime;
-    console.log("[EmailDigest] ────────────────────────────────────────────────");
-    console.log(`[EmailDigest] JOB COMPLETE in ${formatDuration(totalDuration)}`);
-    console.log("[EmailDigest] ────────────────────────────────────────────────");
-    console.log(`[EmailDigest] Users queried: ${stats.usersQueried}`);
-    console.log(`[EmailDigest] Emails sent: ${stats.emailsSent}`);
-    console.log(`[EmailDigest] Emails failed: ${stats.emailsFailed}`);
-    console.log(`[EmailDigest] Users skipped: ${stats.usersSkipped}`);
-    console.log("[EmailDigest] ════════════════════════════════════════════════");
+    console.log(
+      `[Newsletter] Job complete in ${formatDuration(totalDuration)}`
+    );
 
     return NextResponse.json({
       success: true,
@@ -306,10 +704,10 @@ export async function GET(request: Request) {
     });
   } catch (error) {
     const totalDuration = Date.now() - jobStartTime;
-    console.error("[EmailDigest] ════════════════════════════════════════════════");
-    console.error(`[EmailDigest] JOB FAILED after ${formatDuration(totalDuration)}`);
-    console.error("[EmailDigest] Error:", error);
-    console.error("[EmailDigest] ════════════════════════════════════════════════");
+    console.error(
+      `[Newsletter] Job failed after ${formatDuration(totalDuration)}`
+    );
+    console.error("[Newsletter] Error:", error);
     return NextResponse.json(
       { success: false, error: String(error), duration: totalDuration },
       { status: 500 }
@@ -317,112 +715,17 @@ export async function GET(request: Request) {
   }
 }
 
-/**
- * Filter events based on user preferences.
- * Matches the client-side filtering logic.
- */
-function filterEventsForUser(
-  allEvents: Array<{
-    id: string;
-    title: string;
-    startDate: Date;
-    location: string | null;
-    organizer: string | null;
-    price: string | null;
-    imageUrl: string | null;
-    tags: string[] | null;
-    url: string;
-    createdAt: Date | null;
-    hidden: boolean | null;
-  }>,
-  user: DigestUser,
-  daysAhead: number
-): Array<{
+type EventFilterParams = Parameters<typeof queryFilteredEvents>[0];
+
+interface DigestEvent {
   id: string;
   title: string;
   startDate: Date;
-  location: string | null;
-  organizer: string | null;
-  price: string | null;
-  imageUrl: string | null;
-  tags: string[] | null;
+  location?: string | null;
+  organizer?: string | null;
+  price?: string | null;
+  imageUrl?: string | null;
+  tags?: string[] | null;
   url: string;
-  createdAt: Date | null;
-}> {
-  const now = new Date();
-  const cutoffDate = new Date();
-  cutoffDate.setDate(cutoffDate.getDate() + daysAhead);
-
-  return allEvents.filter((event) => {
-    // 1. Date range filter
-    const eventDate = new Date(event.startDate);
-    if (eventDate < now || eventDate > cutoffDate) {
-      return false;
-    }
-
-    // 2. Hidden events filter
-    if (event.hidden) {
-      return false;
-    }
-
-    // 3. Blocked hosts filter
-    if (event.organizer && user.blockedHosts.length > 0) {
-      const organizerLower = event.organizer.toLowerCase();
-      if (user.blockedHosts.some((host) => organizerLower.includes(host.toLowerCase()))) {
-        return false;
-      }
-    }
-
-    // 4. Blocked keywords filter (user custom)
-    if (user.blockedKeywords.length > 0) {
-      const titleLower = event.title.toLowerCase();
-      if (user.blockedKeywords.some((kw) => titleLower.includes(kw.toLowerCase()))) {
-        return false;
-      }
-    }
-
-    // 5. Default filters (spam filter)
-    if (user.useDefaultFilters) {
-      if (matchesDefaultFilter(event.title)) {
-        return false;
-      }
-    }
-
-    // 6. Hidden events fingerprint filter
-    if (user.hiddenEvents.length > 0) {
-      const eventKey = createFingerprintKey(event.title, event.organizer);
-      if (user.hiddenEvents.some((fp) => {
-        const fpKey = `${fp.title.toLowerCase().trim()}|||${fp.organizer.toLowerCase().trim()}`;
-        return eventKey === fpKey;
-      })) {
-        return false;
-      }
-    }
-
-    // 7. Tag filter (if user has specific tags configured)
-    if (user.emailDigestTags.length > 0) {
-      const eventTags = event.tags || [];
-      const hasMatchingTag = user.emailDigestTags.some((tag) =>
-        eventTags.includes(tag)
-      );
-      if (!hasMatchingTag) {
-        return false;
-      }
-    }
-
-    return true;
-  });
+  curators?: Array<{ name: string; note?: string | null }>;
 }
-
-/**
- * Create a fingerprint key for event matching (title + organizer).
- */
-function createFingerprintKey(
-  title: string,
-  organizer: string | null | undefined
-): string {
-  const normalizedTitle = title.toLowerCase().trim();
-  const normalizedOrganizer = (organizer || "").toLowerCase().trim();
-  return `${normalizedTitle}|||${normalizedOrganizer}`;
-}
-

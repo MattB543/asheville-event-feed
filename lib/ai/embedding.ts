@@ -6,7 +6,7 @@
  */
 
 import { TaskType } from "@google/generative-ai";
-import { getEmbeddingModel, isAIEnabled } from "./client";
+import { getEmbeddingModel, isAIEnabled } from "./provider-clients";
 
 // Embedding configuration
 export const EMBEDDING_DIMENSIONS = 1536;

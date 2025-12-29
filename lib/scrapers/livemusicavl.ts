@@ -9,7 +9,7 @@
 
 import { ScrapedEvent } from './types';
 import { fetchWithRetry } from '@/lib/utils/retry';
-import { decodeHtmlEntities } from '@/lib/utils/htmlEntities';
+import { decodeHtmlEntities } from '@/lib/utils/parsers';
 
 // Target venues to include (partial match, case-insensitive)
 const TARGET_VENUES = [

@@ -2,7 +2,8 @@ import { NextResponse, type NextRequest } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { db } from "@/lib/db";
 import { userPreferences } from "@/lib/db/schema";
-import { eq } from "drizzle-orm";
+import { eq, sql } from "drizzle-orm";
+import { isRecord, isString } from "@/lib/utils/validation";
 
 // Signal types
 type PositiveSignalType = 'favorite' | 'calendar' | 'share' | 'viewSource';
@@ -21,6 +22,27 @@ interface NegativeSignal {
   active: boolean;
 }
 
+const VALID_SIGNAL_TYPES: SignalType[] = [
+  'favorite',
+  'calendar',
+  'share',
+  'viewSource',
+  'hide',
+];
+
+function parseSignalRequest(
+  value: unknown
+): { eventId: string; signalType: SignalType } | null {
+  if (!isRecord(value)) return null;
+  const eventId = isString(value.eventId) ? value.eventId : undefined;
+  const signalType = isString(value.signalType) && VALID_SIGNAL_TYPES.includes(value.signalType as SignalType)
+    ? (value.signalType as SignalType)
+    : undefined;
+
+  if (!eventId || !signalType) return null;
+  return { eventId, signalType };
+}
+
 // POST /api/signals - Add a signal
 export async function POST(request: NextRequest) {
   try {
@@ -31,122 +53,98 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const body = await request.json();
-    const { eventId, signalType } = body as { eventId?: string; signalType?: SignalType };
+    const parsed: unknown = await request.json();
+    const parsedBody = parseSignalRequest(parsed);
 
     // Validate inputs
-    if (!eventId || typeof eventId !== 'string') {
+    if (!parsedBody) {
       return NextResponse.json(
-        { error: "Invalid eventId" },
+        { error: "Invalid request body" },
         { status: 400 }
       );
     }
 
-    const validSignalTypes: SignalType[] = ['favorite', 'calendar', 'share', 'viewSource', 'hide'];
-    if (!signalType || !validSignalTypes.includes(signalType)) {
-      return NextResponse.json(
-        { error: "Invalid signalType. Must be one of: favorite, calendar, share, viewSource, hide" },
-        { status: 400 }
-      );
-    }
-
-    // Fetch existing preferences or create empty structure
-    const existingPrefs = await db
-      .select()
-      .from(userPreferences)
-      .where(eq(userPreferences.userId, user.id))
-      .limit(1);
-
+    const { eventId, signalType } = parsedBody;
     const timestamp = new Date().toISOString();
-
-    // Determine which signals array to update
     const isNegativeSignal = signalType === 'hide';
 
     if (isNegativeSignal) {
-      // Add to negative signals
-      const existingNegativeSignals = (existingPrefs[0]?.negativeSignals as NegativeSignal[]) ?? [];
-
-      // Check if signal already exists
-      const signalExists = existingNegativeSignals.some(s => s.eventId === eventId);
-      if (signalExists) {
-        return NextResponse.json(
-          { error: "Signal already exists" },
-          { status: 400 }
-        );
-      }
-
       const newNegativeSignal: NegativeSignal = {
         eventId,
         timestamp,
         active: true,
       };
 
-      const updatedNegativeSignals = [...existingNegativeSignals, newNegativeSignal];
-
-      // Upsert preferences with new signal and invalidate centroid
+      // Use atomic JSONB append to avoid race conditions
+      // First, ensure user preferences row exists
       await db
         .insert(userPreferences)
         .values({
           userId: user.id,
-          negativeSignals: updatedNegativeSignals,
-          negativeCentroid: null,
-          centroidUpdatedAt: null,
+          negativeSignals: [],
           updatedAt: new Date(),
         })
-        .onConflictDoUpdate({
-          target: userPreferences.userId,
-          set: {
-            negativeSignals: updatedNegativeSignals,
-            negativeCentroid: null,
-            centroidUpdatedAt: null,
-            updatedAt: new Date(),
-          },
-        });
+        .onConflictDoNothing();
+
+      // Then atomically append the new signal (only if it doesn't already exist)
+      await db.execute(sql`
+        UPDATE user_preferences
+        SET
+          negative_signals = (
+            CASE
+              WHEN NOT EXISTS (
+                SELECT 1 FROM jsonb_array_elements(COALESCE(negative_signals, '[]'::jsonb)) elem
+                WHERE elem->>'eventId' = ${eventId}
+              )
+              THEN COALESCE(negative_signals, '[]'::jsonb) || ${JSON.stringify(newNegativeSignal)}::jsonb
+              ELSE negative_signals
+            END
+          ),
+          negative_centroid = NULL,
+          centroid_updated_at = NULL,
+          updated_at = NOW()
+        WHERE user_id = ${user.id}
+      `);
 
       return NextResponse.json({ success: true, signal: newNegativeSignal });
     } else {
-      // Add to positive signals
-      const existingPositiveSignals = (existingPrefs[0]?.positiveSignals as PositiveSignal[]) ?? [];
-
-      // Check if signal already exists
-      const signalExists = existingPositiveSignals.some(
-        s => s.eventId === eventId && s.signalType === signalType
-      );
-      if (signalExists) {
-        return NextResponse.json(
-          { error: "Signal already exists" },
-          { status: 400 }
-        );
-      }
-
       const newPositiveSignal: PositiveSignal = {
         eventId,
-        signalType: signalType as PositiveSignalType,
+        signalType,
         timestamp,
         active: true,
       };
 
-      const updatedPositiveSignals = [...existingPositiveSignals, newPositiveSignal];
-
-      // Upsert preferences with new signal and invalidate centroid
+      // Use atomic JSONB append to avoid race conditions
+      // First, ensure user preferences row exists
       await db
         .insert(userPreferences)
         .values({
           userId: user.id,
-          positiveSignals: updatedPositiveSignals,
-          positiveCentroid: null,
-          centroidUpdatedAt: null,
+          positiveSignals: [],
           updatedAt: new Date(),
         })
-        .onConflictDoUpdate({
-          target: userPreferences.userId,
-          set: {
-            positiveSignals: updatedPositiveSignals,
-            positiveCentroid: null,
-            centroidUpdatedAt: null,
-            updatedAt: new Date(),
-          },
-        });
+        .onConflictDoNothing();
+
+      // Then atomically append the new signal (only if it doesn't already exist for this eventId+signalType)
+      await db.execute(sql`
+        UPDATE user_preferences
+        SET
+          positive_signals = (
+            CASE
+              WHEN NOT EXISTS (
+                SELECT 1 FROM jsonb_array_elements(COALESCE(positive_signals, '[]'::jsonb)) elem
+                WHERE elem->>'eventId' = ${eventId} AND elem->>'signalType' = ${signalType}
+              )
+              THEN COALESCE(positive_signals, '[]'::jsonb) || ${JSON.stringify(newPositiveSignal)}::jsonb
+              ELSE positive_signals
+            END
+          ),
+          positive_centroid = NULL,
+          centroid_updated_at = NULL,
+          updated_at = NOW()
+        WHERE user_id = ${user.id}
+      `);
 
       return NextResponse.json({ success: true, signal: newPositiveSignal });
     }
@@ -169,25 +167,18 @@ export async function DELETE(request: NextRequest) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const body = await request.json();
-    const { eventId, signalType } = body as { eventId?: string; signalType?: SignalType };
+    const parsed: unknown = await request.json();
+    const parsedBody = parseSignalRequest(parsed);
 
     // Validate inputs
-    if (!eventId || typeof eventId !== 'string') {
+    if (!parsedBody) {
       return NextResponse.json(
-        { error: "Invalid eventId" },
+        { error: "Invalid request body" },
         { status: 400 }
       );
     }
 
-    const validSignalTypes: SignalType[] = ['favorite', 'calendar', 'share', 'viewSource', 'hide'];
-    if (!signalType || !validSignalTypes.includes(signalType)) {
-      return NextResponse.json(
-        { error: "Invalid signalType. Must be one of: favorite, calendar, share, viewSource, hide" },
-        { status: 400 }
-      );
-    }
-
+    const { eventId, signalType } = parsedBody;
     // Fetch existing preferences
     const existingPrefs = await db
       .select()

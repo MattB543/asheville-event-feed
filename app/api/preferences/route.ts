@@ -3,6 +3,7 @@ import { createClient } from "@/lib/supabase/server";
 import { db } from "@/lib/db";
 import { userPreferences } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
+import { isRecord, isString, isStringArray } from "@/lib/utils/validation";
 
 export interface HiddenEventFingerprint {
   title: string;
@@ -14,6 +15,16 @@ export interface UserPreferencesData {
   blockedKeywords: string[];
   hiddenEvents: HiddenEventFingerprint[];
   favoritedEventIds: string[];
+}
+
+function parseHiddenEvents(value: unknown): HiddenEventFingerprint[] {
+  if (!Array.isArray(value)) return [];
+  return value.flatMap((entry) => {
+    if (!isRecord(entry) || !isString(entry.title) || !isString(entry.organizer)) {
+      return [];
+    }
+    return [{ title: entry.title, organizer: entry.organizer }];
+  });
 }
 
 // GET /api/preferences - Get current user's preferences
@@ -64,26 +75,43 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const body = await request.json();
-    const prefs: Partial<UserPreferencesData> = body.preferences;
+    const parsed: unknown = await request.json();
+    if (!isRecord(parsed) || !isRecord(parsed.preferences)) {
+      return NextResponse.json(
+        { error: "Invalid request body" },
+        { status: 400 }
+      );
+    }
+
+    const prefs = parsed.preferences;
+    const blockedHosts = isStringArray(prefs.blockedHosts)
+      ? prefs.blockedHosts
+      : [];
+    const blockedKeywords = isStringArray(prefs.blockedKeywords)
+      ? prefs.blockedKeywords
+      : [];
+    const hiddenEvents = parseHiddenEvents(prefs.hiddenEvents);
+    const favoritedEventIds = isStringArray(prefs.favoritedEventIds)
+      ? prefs.favoritedEventIds
+      : [];
 
     await db
       .insert(userPreferences)
       .values({
         userId: user.id,
-        blockedHosts: prefs.blockedHosts ?? [],
-        blockedKeywords: prefs.blockedKeywords ?? [],
-        hiddenEvents: prefs.hiddenEvents ?? [],
-        favoritedEventIds: prefs.favoritedEventIds ?? [],
+        blockedHosts,
+        blockedKeywords,
+        hiddenEvents,
+        favoritedEventIds,
         updatedAt: new Date(),
       })
       .onConflictDoUpdate({
         target: userPreferences.userId,
         set: {
-          blockedHosts: prefs.blockedHosts,
-          blockedKeywords: prefs.blockedKeywords,
-          hiddenEvents: prefs.hiddenEvents,
-          favoritedEventIds: prefs.favoritedEventIds,
+          blockedHosts,
+          blockedKeywords,
+          hiddenEvents,
+          favoritedEventIds,
           updatedAt: new Date(),
         },
       });

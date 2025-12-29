@@ -32,6 +32,14 @@ import {
   getTodayStringEastern,
   parseAsEastern,
 } from "@/lib/utils/timezone";
+import {
+  isBoolean,
+  isNumber,
+  isNumberArray,
+  isRecord,
+  isString,
+  isStringArray,
+} from "@/lib/utils/validation";
 import type {
   NewsletterFilters,
   NewsletterDaySelection,
@@ -80,6 +88,97 @@ function normalizeFilters(filters?: NewsletterFilters): NewsletterFilters {
       ? filters?.selectedZips
       : [],
   };
+}
+
+type NewsletterTime = NonNullable<NewsletterFilters["selectedTimes"]>[number];
+type NewsletterPriceFilter = NonNullable<NewsletterFilters["priceFilter"]>;
+
+const NEWSLETTER_FREQUENCIES = new Set<NewsletterFrequency>([
+  "none",
+  "daily",
+  "weekly",
+]);
+const NEWSLETTER_DAY_SELECTIONS = new Set<NewsletterDaySelection>([
+  "everyday",
+  "weekend",
+  "specific",
+]);
+const NEWSLETTER_SCORE_TIERS = new Set<NewsletterScoreTier>([
+  "all",
+  "top50",
+  "top10",
+]);
+const NEWSLETTER_TIMES = new Set<NewsletterTime>([
+  "morning",
+  "afternoon",
+  "evening",
+]);
+const NEWSLETTER_PRICE_FILTERS = new Set<NewsletterPriceFilter>([
+  "any",
+  "free",
+  "under20",
+  "under100",
+  "custom",
+]);
+
+function parseNewsletterFrequency(value: unknown): NewsletterFrequency {
+  return isString(value) && NEWSLETTER_FREQUENCIES.has(value as NewsletterFrequency)
+    ? (value as NewsletterFrequency)
+    : "none";
+}
+
+function parseNewsletterDaySelection(value: unknown): NewsletterDaySelection {
+  return isString(value) && NEWSLETTER_DAY_SELECTIONS.has(value as NewsletterDaySelection)
+    ? (value as NewsletterDaySelection)
+    : "everyday";
+}
+
+function parseNewsletterScoreTier(value: unknown): NewsletterScoreTier {
+  return isString(value) && NEWSLETTER_SCORE_TIERS.has(value as NewsletterScoreTier)
+    ? (value as NewsletterScoreTier)
+    : "all";
+}
+
+function parseNewsletterFilters(value: unknown): NewsletterFilters | undefined {
+  if (!isRecord(value)) return undefined;
+  const filters: NewsletterFilters = {};
+
+  if (isString(value.search)) filters.search = value.search;
+
+  if (isStringArray(value.selectedTimes)) {
+    const times = value.selectedTimes.filter(
+      (time): time is NewsletterTime => NEWSLETTER_TIMES.has(time as NewsletterTime)
+    );
+    if (times.length > 0) filters.selectedTimes = times;
+  }
+
+  if (isString(value.priceFilter) && NEWSLETTER_PRICE_FILTERS.has(value.priceFilter as NewsletterPriceFilter)) {
+    filters.priceFilter = value.priceFilter as NewsletterPriceFilter;
+  }
+
+  const customMaxPrice = value.customMaxPrice;
+  if (customMaxPrice === null || isNumber(customMaxPrice)) {
+    filters.customMaxPrice = customMaxPrice;
+  }
+
+  if (isStringArray(value.tagsInclude)) filters.tagsInclude = value.tagsInclude;
+  if (isStringArray(value.tagsExclude)) filters.tagsExclude = value.tagsExclude;
+  if (isStringArray(value.selectedLocations)) filters.selectedLocations = value.selectedLocations;
+  if (isStringArray(value.selectedZips)) filters.selectedZips = value.selectedZips;
+  if (isBoolean(value.showDailyEvents)) filters.showDailyEvents = value.showDailyEvents;
+  if (isBoolean(value.useDefaultFilters)) filters.useDefaultFilters = value.useDefaultFilters;
+
+  return filters;
+}
+
+function parseHiddenEvents(value: unknown): { title: string; organizer: string }[] {
+  if (!Array.isArray(value)) return [];
+  return value.flatMap((entry) => {
+    if (!isRecord(entry) || !isString(entry.title) || !isString(entry.organizer)) {
+      return [];
+    }
+    return [{ title: entry.title, organizer: entry.organizer }];
+  });
 }
 
 // Helper to format duration in human-readable form
@@ -364,8 +463,7 @@ export async function GET(request: Request) {
       );
 
     for (const legacy of legacyUsers) {
-      const legacyFrequency =
-        (legacy.frequency as NewsletterFrequency) || "none";
+      const legacyFrequency = parseNewsletterFrequency(legacy.frequency);
       const legacyFilters = normalizeFilters({
         ...DEFAULT_FILTERS,
         tagsInclude: legacy.tags ?? [],
@@ -433,10 +531,17 @@ export async function GET(request: Request) {
 
     const userEmailMap = new Map<string, { email: string; name?: string }>();
     authUsers.users.forEach((user) => {
+      const metadataName = isRecord(user.user_metadata)
+        ? isString(user.user_metadata.full_name)
+          ? user.user_metadata.full_name
+          : isString(user.user_metadata.name)
+            ? user.user_metadata.name
+            : undefined
+        : undefined;
       if (user.email && userIds.includes(user.id)) {
         userEmailMap.set(user.id, {
           email: user.email,
-          name: user.user_metadata?.full_name || user.user_metadata?.name,
+          name: metadataName,
         });
       }
     });
@@ -448,12 +553,35 @@ export async function GET(request: Request) {
         continue;
       }
 
-      const filters = normalizeFilters(userPref.filters as NewsletterFilters);
+      const frequency = parseNewsletterFrequency(userPref.frequency);
+      const daySelection = parseNewsletterDaySelection(userPref.daySelection);
+      const selectedDays = normalizeSelectedDays(
+        isNumberArray(userPref.selectedDays) ? userPref.selectedDays : undefined
+      );
+      const weekendEdition = isBoolean(userPref.weekendEdition)
+        ? userPref.weekendEdition
+        : false;
+      const scoreTier = parseNewsletterScoreTier(userPref.scoreTier);
+      const filters = normalizeFilters(parseNewsletterFilters(userPref.filters));
+      const curatorUserIds = isStringArray(userPref.curatorUserIds)
+        ? userPref.curatorUserIds
+        : [];
+      const blockedHosts = isStringArray(userPref.blockedHosts)
+        ? userPref.blockedHosts
+        : [];
+      const blockedKeywords = isStringArray(userPref.blockedKeywords)
+        ? userPref.blockedKeywords
+        : [];
+      const hiddenEvents = parseHiddenEvents(userPref.hiddenEvents);
+      const useDefaultFilters = isBoolean(userPref.useDefaultFilters)
+        ? userPref.useDefaultFilters
+        : true;
+
       const schedule = buildSchedule(
-        userPref.frequency as NewsletterFrequency,
-        userPref.daySelection as NewsletterDaySelection,
-        userPref.selectedDays as number[] | undefined,
-        userPref.weekendEdition ?? false,
+        frequency,
+        daySelection,
+        selectedDays,
+        weekendEdition,
         todayStr
       );
 
@@ -466,18 +594,17 @@ export async function GET(request: Request) {
         userId: userPref.userId,
         email: userAuth.email,
         name: userAuth.name,
-        frequency: userPref.frequency as NewsletterFrequency,
-        daySelection:
-          (userPref.daySelection as NewsletterDaySelection) ?? "everyday",
-        selectedDays: normalizeSelectedDays(userPref.selectedDays as number[]),
-        weekendEdition: userPref.weekendEdition ?? false,
-        scoreTier: (userPref.scoreTier as NewsletterScoreTier) || "all",
+        frequency,
+        daySelection,
+        selectedDays,
+        weekendEdition,
+        scoreTier,
         filters,
-        curatorUserIds: userPref.curatorUserIds ?? [],
-        blockedHosts: userPref.blockedHosts ?? [],
-        blockedKeywords: userPref.blockedKeywords ?? [],
-        hiddenEvents: (userPref.hiddenEvents as { title: string; organizer: string }[]) ?? [],
-        useDefaultFilters: userPref.useDefaultFilters ?? true,
+        curatorUserIds,
+        blockedHosts,
+        blockedKeywords,
+        hiddenEvents,
+        useDefaultFilters,
       };
 
       const { startStr, endStr, headerText, periodText, capPerDay } = schedule;
@@ -489,7 +616,11 @@ export async function GET(request: Request) {
         dateFilter: "custom",
         dateStart: startStr,
         dateEnd: endStr,
-        times: digestUser.filters.selectedTimes as EventFilterParams["times"],
+        times:
+          digestUser.filters.selectedTimes &&
+          digestUser.filters.selectedTimes.length > 0
+            ? digestUser.filters.selectedTimes
+            : undefined,
         priceFilter: digestUser.filters.priceFilter,
         maxPrice: digestUser.filters.customMaxPrice ?? undefined,
         tagsInclude: digestUser.filters.tagsInclude,
@@ -534,14 +665,14 @@ export async function GET(request: Request) {
               eq(curatorProfiles.isPublic, true),
               gte(events.startDate, rangeStart),
               lte(events.startDate, rangeEnd),
-              or(isNull(events.hidden), sql`${events.hidden} = false`)!,
+              or(isNull(events.hidden), sql`${events.hidden} = false`),
               or(
                 isNull(events.location),
                 and(
                   notIlike(events.location, "%online%"),
                   notIlike(events.location, "%virtual%")
                 )
-              )!
+              )
             )
           );
 

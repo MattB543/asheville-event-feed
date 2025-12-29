@@ -6,7 +6,7 @@ import {
 } from "@/lib/ai/provider-clients";
 import { generateEventUrl } from "@/lib/utils/slugify";
 import { isRateLimited } from "@/lib/utils/rate-limit";
-import { isRecord, isString, isStringArray } from "@/lib/utils/validation";
+import { isRecord, isString, isStringArray, isUnknownArray } from "@/lib/utils/validation";
 
 // Simple in-memory rate limiter (1 request per 2 seconds per IP)
 const RATE_LIMIT_MS = 2000; // 2 seconds between requests
@@ -112,14 +112,14 @@ function parseChatRequest(value: unknown): {
   currentDateRange?: DateRange;
 } | null {
   if (!isRecord(value)) return null;
-  const messages = Array.isArray(value.messages) && value.messages.every(isChatMessage)
-    ? value.messages
+  const messages = Array.isArray(value.messages)
+    ? value.messages.filter(isChatMessage)
     : null;
-  const allEvents = Array.isArray(value.allEvents) && value.allEvents.every(isEventData)
-    ? value.allEvents
+  const allEvents = Array.isArray(value.allEvents)
+    ? value.allEvents.filter(isEventData)
     : null;
 
-  if (!messages || !allEvents) return null;
+  if (!messages || messages.length === 0 || !allEvents) return null;
 
   return {
     messages,
@@ -130,7 +130,7 @@ function parseChatRequest(value: unknown): {
 }
 
 function getOpenRouterContent(value: unknown): string | null {
-  if (!isRecord(value) || !Array.isArray(value.choices)) return null;
+  if (!isRecord(value) || !isUnknownArray(value.choices)) return null;
   const firstChoice = value.choices[0];
   if (!isRecord(firstChoice)) return null;
   const message = firstChoice.message;

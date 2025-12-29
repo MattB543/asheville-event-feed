@@ -9,14 +9,46 @@ import {
   getScoreTier,
   findNearestLikedEvent,
   type PositiveSignal,
+  type NegativeSignal,
 } from "@/lib/ai/personalization";
 import { getStartOfTodayEastern, getDayBoundariesEastern, getTodayStringEastern } from "@/lib/utils/timezone";
+import { isBoolean, isRecord, isString } from "@/lib/utils/validation";
 
 // Date range options for filtering
 type DateRange = 'today' | 'tomorrow' | 'week' | 'later' | 'all';
 
 // Time bucket for grouping events
 type TimeBucket = 'today' | 'tomorrow' | 'week' | 'later';
+
+const DATE_RANGES: DateRange[] = ['today', 'tomorrow', 'week', 'later', 'all'];
+const POSITIVE_SIGNAL_TYPES = new Set<PositiveSignal["signalType"]>([
+  'favorite',
+  'calendar',
+  'share',
+  'viewSource',
+]);
+
+function isPositiveSignal(value: unknown): value is PositiveSignal {
+  if (!isRecord(value)) return false;
+  if (!isString(value.eventId) || !isString(value.timestamp)) return false;
+  if (!isBoolean(value.active)) return false;
+  if (!isString(value.signalType)) return false;
+  return POSITIVE_SIGNAL_TYPES.has(value.signalType as PositiveSignal["signalType"]);
+}
+
+function isNegativeSignal(value: unknown): value is NegativeSignal {
+  if (!isRecord(value)) return false;
+  if (!isString(value.eventId) || !isString(value.timestamp)) return false;
+  return isBoolean(value.active);
+}
+
+function parseSignals<T>(
+  value: unknown,
+  isSignal: (entry: unknown) => entry is T
+): T[] {
+  if (!Array.isArray(value)) return [];
+  return value.filter(isSignal);
+}
 
 // Helper to add days to a date string (YYYY-MM-DD format)
 function addDaysToDateString(dateStr: string, days: number): string {
@@ -109,7 +141,10 @@ export async function GET(request: NextRequest) {
 
     // Parse query params
     const { searchParams } = new URL(request.url);
-    const dateRange = (searchParams.get('dateRange') || 'all') as DateRange;
+    const dateRangeParam = searchParams.get('dateRange') || 'all';
+    const dateRange = DATE_RANGES.includes(dateRangeParam as DateRange)
+      ? (dateRangeParam as DateRange)
+      : 'all';
 
     // Fetch user preferences
     const prefs = await db
@@ -129,8 +164,8 @@ export async function GET(request: NextRequest) {
     }
 
     const userPref = prefs[0];
-    const positiveSignals = (userPref.positiveSignals as PositiveSignal[]) ?? [];
-    const negativeSignals = (userPref.negativeSignals as any[]) ?? [];
+    const positiveSignals = parseSignals(userPref.positiveSignals, isPositiveSignal);
+    const negativeSignals = parseSignals(userPref.negativeSignals, isNegativeSignal);
 
     // Count active signals (within 12 months)
     const now = Date.now();
@@ -164,7 +199,7 @@ export async function GET(request: NextRequest) {
     const fourteenDaysFromNowStr = addDaysToDateString(todayStr, 14);
     const fourteenDaysFromNow = getDayBoundariesEastern(fourteenDaysFromNowStr).end;
 
-    const dateConditions: any[] = [
+    const dateConditions = [
       gte(events.startDate, startOfToday),
       lte(events.startDate, fourteenDaysFromNow),
     ];
@@ -233,7 +268,7 @@ export async function GET(request: NextRequest) {
         and(
           ...dateConditions,
           // Exclude hidden events
-          or(isNull(events.hidden), sql`${events.hidden} = false`)!,
+          or(isNull(events.hidden), sql`${events.hidden} = false`),
           // Exclude online/virtual events
           or(
             isNull(events.location),
@@ -241,7 +276,7 @@ export async function GET(request: NextRequest) {
               notIlike(events.location, "%online%"),
               notIlike(events.location, "%virtual%")
             )
-          )!
+          )
         )
       );
 
@@ -256,7 +291,14 @@ export async function GET(request: NextRequest) {
         continue;
       }
 
-      const embedding = event.embedding as number[];
+      const embedding =
+        Array.isArray(event.embedding) &&
+        event.embedding.every((value) => typeof value === "number")
+          ? event.embedding
+          : null;
+      if (!embedding) {
+        continue;
+      }
       const eventScore = scoreEvent(embedding, positiveCentroid, negativeCentroid);
 
       // Filter out Hidden tier (score ≤ 0.3)
@@ -268,7 +310,7 @@ export async function GET(request: NextRequest) {
       const bucket = getTimeBucket(event.startDate);
 
       // Find explanation for Great and Good tier events
-      let explanation: { primary: { eventId: string; title: string } | null } = {
+      const explanation: { primary: { eventId: string; title: string } | null } = {
         primary: null,
       };
 
@@ -278,7 +320,8 @@ export async function GET(request: NextRequest) {
       }
 
       // Remove embedding from response (not needed on client)
-      const { embedding: _, ...eventWithoutEmbedding } = event;
+      const { embedding: eventEmbedding, ...eventWithoutEmbedding } = event;
+      void eventEmbedding;
 
       scoredEvents.push({
         event: eventWithoutEmbedding,

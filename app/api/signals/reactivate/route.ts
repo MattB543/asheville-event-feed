@@ -3,6 +3,7 @@ import { createClient } from "@/lib/supabase/server";
 import { db } from "@/lib/db";
 import { userPreferences } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
+import { isRecord, isString } from "@/lib/utils/validation";
 
 interface PositiveSignal {
   eventId: string;
@@ -27,8 +28,14 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const body = await request.json();
-    const { eventId } = body as { eventId?: string };
+    const parsed: unknown = await request.json();
+    if (!isRecord(parsed)) {
+      return NextResponse.json(
+        { error: "Invalid request body" },
+        { status: 400 }
+      );
+    }
+    const eventId = isString(parsed.eventId) ? parsed.eventId : undefined;
 
     // Validate input
     if (!eventId || typeof eventId !== 'string') {

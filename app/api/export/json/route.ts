@@ -173,11 +173,14 @@ export async function GET(request: Request) {
         if (matchesDefaultFilter(textToCheck)) return false;
       }
 
-      // 5. Search filter
+      // 5. Search filter (supports comma-separated OR logic)
       if (search) {
         const searchText =
           `${event.title} ${event.description || ''} ${event.organizer || ''} ${event.location || ''}`.toLowerCase();
-        if (!searchText.includes(search)) return false;
+        const searchTerms = search.split(',').map(term => term.trim()).filter(term => term.length > 0);
+        // Event must match at least one search term (OR logic)
+        const matchesAnyTerm = searchTerms.some(term => searchText.includes(term));
+        if (!matchesAnyTerm) return false;
       }
 
       // 6. Date filter

@@ -191,6 +191,7 @@ interface UseEventQueryOptions {
   filters: EventFilters;
   initialData?: {
     events: Event[];
+    totalCount?: number;
     metadata?: EventMetadata;
   };
   enabled?: boolean;
@@ -224,7 +225,7 @@ export function useEventQuery({
               return `${lastEvent.startDate}_${lastEvent.id}`;
             })(),
             hasMore: true, // Assume there are more events until proven otherwise
-            totalCount: initialData.events.length,
+            totalCount: initialData.totalCount ?? initialData.events.length,
             metadata: initialData.metadata,
           },
         ],

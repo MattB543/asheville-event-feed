@@ -7,6 +7,7 @@ import {
 import { generateEventUrl } from "@/lib/utils/slugify";
 import { isRateLimited } from "@/lib/utils/rate-limit";
 import { isRecord, isString, isStringArray, isUnknownArray } from "@/lib/utils/validation";
+import { queryFilteredEvents, type DbEvent } from "@/lib/db/queries/events";
 
 // Simple in-memory rate limiter (1 request per 2 seconds per IP)
 const RATE_LIMIT_MS = 2000; // 2 seconds between requests
@@ -16,34 +17,17 @@ interface ChatMessage {
   content: string;
 }
 
-interface EventData {
-  id: string;
-  title: string;
-  description?: string | null;
-  startDate: string; // ISO string
-  location?: string | null;
-  organizer?: string | null;
-  price?: string | null;
-  url: string;
-  tags?: string[] | null;
-}
-
 interface DateRange {
   startDate: string; // YYYY-MM-DD
   endDate: string; // YYYY-MM-DD
 }
 
-interface ChatRequest {
-  messages: ChatMessage[];
-  allEvents: EventData[]; // All events from the database
-  filters: {
-    search?: string;
-    priceFilter?: string;
-    tagsInclude?: string[];
-    tagsExclude?: string[];
-    locations?: string[];
-  };
-  currentDateRange?: DateRange; // Previous date range from conversation (for follow-ups)
+interface ChatFilters {
+  search?: string;
+  priceFilter?: string;
+  tagsInclude?: string[];
+  tagsExclude?: string[];
+  locations?: string[];
 }
 
 function isChatMessage(value: unknown): value is ChatMessage {
@@ -54,43 +38,9 @@ function isChatMessage(value: unknown): value is ChatMessage {
   );
 }
 
-function isEventData(value: unknown): value is EventData {
-  if (!isRecord(value)) return false;
-  if (!isString(value.id) || !isString(value.title)) return false;
-  if (!isString(value.startDate) || !isString(value.url)) return false;
-  if (
-    value.description !== undefined &&
-    value.description !== null &&
-    !isString(value.description)
-  ) {
-    return false;
-  }
-  if (
-    value.location !== undefined &&
-    value.location !== null &&
-    !isString(value.location)
-  ) {
-    return false;
-  }
-  if (
-    value.organizer !== undefined &&
-    value.organizer !== null &&
-    !isString(value.organizer)
-  ) {
-    return false;
-  }
-  if (value.price !== undefined && value.price !== null && !isString(value.price)) {
-    return false;
-  }
-  if (value.tags !== undefined && value.tags !== null && !isStringArray(value.tags)) {
-    return false;
-  }
-  return true;
-}
-
-function parseChatFilters(value: unknown): ChatRequest["filters"] {
+function parseChatFilters(value: unknown): ChatFilters {
   if (!isRecord(value)) return {};
-  const filters: ChatRequest["filters"] = {};
+  const filters: ChatFilters = {};
   if (isString(value.search)) filters.search = value.search;
   if (isString(value.priceFilter)) filters.priceFilter = value.priceFilter;
   if (isStringArray(value.tagsInclude)) filters.tagsInclude = value.tagsInclude;
@@ -107,23 +57,18 @@ function parseDateRange(value: unknown): DateRange | undefined {
 
 function parseChatRequest(value: unknown): {
   messages: ChatMessage[];
-  allEvents: EventData[];
-  filters: ChatRequest["filters"];
+  filters: ChatFilters;
   currentDateRange?: DateRange;
 } | null {
   if (!isRecord(value)) return null;
   const messages = Array.isArray(value.messages)
     ? value.messages.filter(isChatMessage)
     : null;
-  const allEvents = Array.isArray(value.allEvents)
-    ? value.allEvents.filter(isEventData)
-    : null;
 
-  if (!messages || messages.length === 0 || !allEvents) return null;
+  if (!messages || messages.length === 0) return null;
 
   return {
     messages,
-    allEvents,
     filters: parseChatFilters(value.filters),
     currentDateRange: parseDateRange(value.currentDateRange),
   };
@@ -369,23 +314,29 @@ async function extractDateRange(
   };
 }
 
-function filterEventsByDateRange(
-  events: EventData[],
-  dateRange: DateRange
-): EventData[] {
-  const startDate = new Date(dateRange.startDate + "T00:00:00");
-  const endDate = new Date(dateRange.endDate + "T23:59:59");
-
-  return events.filter((event) => {
-    const eventDate = new Date(event.startDate);
-    return eventDate >= startDate && eventDate <= endDate;
+/**
+ * Fetch events from database for chat within a date range
+ */
+async function fetchEventsForChat(dateRange: DateRange): Promise<{ events: DbEvent[]; totalCount: number }> {
+  const result = await queryFilteredEvents({
+    dateFilter: "custom",
+    dateStart: dateRange.startDate,
+    dateEnd: dateRange.endDate,
+    limit: 500, // Modern models can handle 200k+ tokens, so 500 events is fine
+    useDefaultFilters: true, // Filters out spam from defaultFilters.ts
+    showDailyEvents: false, // Exclude daily recurring events from chat
   });
+
+  return {
+    events: result.events,
+    totalCount: result.totalCount,
+  };
 }
 
-function formatEventsForAI(events: EventData[]): string {
+function formatEventsForAI(events: DbEvent[]): string {
   return events
     .map((event) => {
-      const eventDate = new Date(event.startDate);
+      const eventDate = event.startDate;
       const date = eventDate.toLocaleDateString("en-US", {
         weekday: "short",
         month: "short",
@@ -418,7 +369,7 @@ function formatEventsForAI(events: EventData[]): string {
 
 function buildSystemPrompt(
   events: string,
-  filters: ChatRequest["filters"],
+  filters: ChatFilters,
   eventCount: number,
   dateRange: DateRange
 ): string {
@@ -674,7 +625,7 @@ export async function POST(request: NextRequest) {
         { status: 400, headers: { "Content-Type": "application/json" } }
       );
     }
-    const { messages, allEvents, filters, currentDateRange } = body;
+    const { messages, filters, currentDateRange } = body;
 
     if (!messages || !Array.isArray(messages)) {
       return new Response(
@@ -712,6 +663,9 @@ export async function POST(request: NextRequest) {
           dateRange = currentDateRange!;
         }
 
+        // Step 2: Fetch events from database for the date range
+        const { events: dateFilteredEvents, totalCount } = await fetchEventsForChat(dateRange);
+
         // Send date range info to client
         const dateRangeMessage = {
           type: "dateRange",
@@ -719,18 +673,10 @@ export async function POST(request: NextRequest) {
             startDate: dateRange.startDate,
             endDate: dateRange.endDate,
             displayMessage: displayMessage,
-            eventCount: 0, // Will update below
+            eventCount: dateFilteredEvents.length,
+            totalCount: totalCount, // Total events in database (for display)
           },
         };
-
-        // Step 2: Filter events by date range
-        const dateFilteredEvents = filterEventsByDateRange(
-          allEvents,
-          dateRange
-        );
-
-        // Update event count in the message
-        dateRangeMessage.data.eventCount = dateFilteredEvents.length;
 
         // Send the date range info
         await writer.write(

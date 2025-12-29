@@ -11,18 +11,6 @@ interface ChatMessage {
   content: string;
 }
 
-interface Event {
-  id: string;
-  title: string;
-  description?: string | null;
-  startDate: Date;
-  location?: string | null;
-  organizer?: string | null;
-  price?: string | null;
-  url: string;
-  tags?: string[] | null;
-}
-
 interface DateRange {
   startDate: string;
   endDate: string;
@@ -39,7 +27,7 @@ interface ActiveFilters {
 interface AIChatModalProps {
   isOpen: boolean;
   onClose: () => void;
-  allEvents: Event[]; // All events, not pre-filtered
+  totalCount: number; // Total events in database
   activeFilters: ActiveFilters;
 }
 
@@ -109,7 +97,7 @@ function getInitialMessage(eventCount: number, filters: ActiveFilters): string {
 export default function AIChatModal({
   isOpen,
   onClose,
-  allEvents,
+  totalCount,
   activeFilters,
 }: AIChatModalProps) {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
@@ -145,7 +133,7 @@ export default function AIChatModal({
   // Initialize with greeting when modal opens
   useEffect(() => {
     if (isOpen) {
-      const initialMessage = getInitialMessage(allEvents.length, activeFilters);
+      const initialMessage = getInitialMessage(totalCount, activeFilters);
       setMessages([{ role: "assistant", content: initialMessage }]);
       setInput("");
       setError(null);
@@ -158,7 +146,7 @@ export default function AIChatModal({
       // Cancel any ongoing stream when modal closes
       abortControllerRef.current?.abort();
     }
-  }, [isOpen, allEvents.length, activeFilters]);
+  }, [isOpen, totalCount, activeFilters]);
 
   // Only auto-scroll when user sends a new message (not during streaming)
   const shouldScrollRef = useRef(false);
@@ -292,22 +280,6 @@ export default function AIChatModal({
       abortControllerRef.current = new AbortController();
 
       try {
-        // Prepare events data for API
-        const eventsData = allEvents.map((event) => ({
-          id: event.id,
-          title: event.title,
-          description: event.description,
-          startDate:
-            event.startDate instanceof Date
-              ? event.startDate.toISOString()
-              : event.startDate,
-          location: event.location,
-          organizer: event.organizer,
-          price: event.price,
-          url: event.url,
-          tags: event.tags,
-        }));
-
         const response = await fetch("/api/chat", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -316,7 +288,6 @@ export default function AIChatModal({
               .filter((m) => m.role !== "system")
               .slice(1)
               .concat(userMessage), // Skip initial greeting and system messages
-            allEvents: eventsData,
             filters: {
               search: activeFilters.search || undefined,
               priceFilter: activeFilters.priceFilter,
@@ -372,7 +343,6 @@ export default function AIChatModal({
       input,
       isLoading,
       messages,
-      allEvents,
       activeFilters,
       currentDateRange,
       processStream,
@@ -555,7 +525,7 @@ export default function AIChatModal({
             )}
           </div>
           <p className="text-xs text-gray-400 dark:text-gray-500 mt-2 text-center">
-            AI searches {allEvents.length} events based on your query
+            AI searches {totalCount} events based on your query
           </p>
         </div>
       </div>

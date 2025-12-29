@@ -151,7 +151,7 @@ function getWeekendBoundaries(): { start: Date; end: Date } {
 export async function queryFilteredEvents(
   params: EventFilterParams
 ): Promise<EventQueryResult> {
-  const limit = Math.min(params.limit || 50, 100);
+  const limit = Math.min(params.limit || 50, 500);
   const startOfToday = getStartOfTodayEastern();
 
   // Debug logging for filter params

@@ -53,6 +53,7 @@ export default async function EventsPage({ searchParams }: EventsPageProps) {
   const activeTab = params.tab === "forYou" ? "forYou" : "all";
 
   let initialEvents: DbEvent[] = [];
+  let initialTotalCount = 0;
   let metadata: EventMetadata = {
     availableTags: [],
     availableLocations: [],
@@ -66,9 +67,10 @@ export default async function EventsPage({ searchParams }: EventsPageProps) {
       getCachedMetadata(),
     ]);
     initialEvents = firstPageResult.events;
+    initialTotalCount = firstPageResult.totalCount;
     metadata = metadataResult;
     console.log(
-      `[Events] SSR loaded ${initialEvents.length} events (of ${firstPageResult.totalCount} total)`
+      `[Events] SSR loaded ${initialEvents.length} events (of ${initialTotalCount} total)`
     );
   } catch (error) {
     console.error("[Events] Failed to fetch events:", error);
@@ -163,6 +165,7 @@ export default async function EventsPage({ searchParams }: EventsPageProps) {
         <ErrorBoundary>
           <EventFeed
             initialEvents={initialEvents}
+            initialTotalCount={initialTotalCount}
             initialMetadata={metadata}
             activeTab={activeTab}
           />

@@ -65,6 +65,7 @@ interface InitialEvent {
 
 interface EventFeedProps {
   initialEvents?: InitialEvent[];
+  initialTotalCount?: number;
   initialMetadata?: EventMetadata;
   activeTab?: "all" | "forYou";
 }
@@ -281,6 +282,7 @@ const priceLabels: Record<PriceFilterType, string> = {
 
 export default function EventFeed({
   initialEvents,
+  initialTotalCount,
   initialMetadata,
   activeTab = "all",
 }: EventFeedProps) {
@@ -476,9 +478,10 @@ export default function EventFeed({
             : e.createdAt.toISOString()
           : null,
       })) as ApiEvent[],
+      totalCount: initialTotalCount,
       metadata: initialMetadata,
     };
-  }, [initialEvents, initialMetadata]);
+  }, [initialEvents, initialTotalCount, initialMetadata]);
 
   // Use the event query hook for server-side filtering
   // Only use SSR initialData on first load with no URL filters and no user filter changes
@@ -488,6 +491,7 @@ export default function EventFeed({
   const {
     events: apiEvents,
     metadata: queryMetadata,
+    totalCount,
     hasMore,
     isFetching,
     isFetchingNextPage,
@@ -1680,7 +1684,7 @@ export default function EventFeed({
       <AIChatModal
         isOpen={isChatOpen}
         onClose={() => setIsChatOpen(false)}
-        allEvents={events}
+        totalCount={totalCount}
         activeFilters={{
           search,
           priceFilter,

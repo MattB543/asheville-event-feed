@@ -19,6 +19,7 @@ import { env, isFacebookEnabled } from "@/lib/config/env";
 import { findDuplicates, getIdsToRemove, getDescriptionUpdates } from "@/lib/utils/deduplication";
 import { verifyAuthToken } from "@/lib/utils/auth";
 import { invalidateEventsCache } from "@/lib/cache/invalidation";
+import { startCronJob, completeCronJob, failCronJob } from "@/lib/cron/jobTracker";
 
 export const maxDuration = 800; // 13+ minutes (requires Fluid Compute)
 
@@ -45,6 +46,7 @@ export async function GET(request: Request) {
   }
 
   const jobStartTime = Date.now();
+  const runId = await startCronJob('scrape');
 
   // Stats tracking
   const stats = {
@@ -295,17 +297,21 @@ export async function GET(request: Request) {
     // Invalidate cache so home page shows updated events
     invalidateEventsCache();
 
+    const result = {
+      scraped: stats.scraping.total,
+      upserted: stats.upsert.success,
+      duplicatesRemoved: stats.dedup.removed,
+      failures: {
+        upsert: stats.upsert.failed,
+      },
+    };
+
+    await completeCronJob(runId, result);
+
     return NextResponse.json({
       success: true,
       duration: totalDuration,
-      stats: {
-        scraped: stats.scraping.total,
-        upserted: stats.upsert.success,
-        duplicatesRemoved: stats.dedup.removed,
-        failures: {
-          upsert: stats.upsert.failed,
-        },
-      },
+      stats: result,
     });
   } catch (error) {
     const totalDuration = Date.now() - jobStartTime;
@@ -313,6 +319,9 @@ export async function GET(request: Request) {
     console.error(`[Scrape] JOB FAILED after ${formatDuration(totalDuration)}`);
     console.error("[Scrape] Error:", error);
     console.error("[Scrape] ════════════════════════════════════════════════");
+
+    await failCronJob(runId, error);
+
     return NextResponse.json(
       { success: false, error: String(error), duration: totalDuration },
       { status: 500 }

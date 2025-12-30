@@ -7,6 +7,7 @@ import { findDuplicates, getIdsToRemove, getDescriptionUpdates } from '@/lib/uti
 import { env } from '@/lib/config/env';
 import { verifyAuthToken } from '@/lib/utils/auth';
 import { invalidateEventsCache } from '@/lib/cache/invalidation';
+import { startCronJob, completeCronJob, failCronJob } from '@/lib/cron/jobTracker';
 
 export const maxDuration = 300; // 5 minutes max
 
@@ -58,8 +59,10 @@ export async function GET(request: Request) {
     return new NextResponse('Unauthorized', { status: 401 });
   }
 
+  const startTime = Date.now();
+  const runId = await startCronJob('cleanup');
+
   try {
-    const startTime = Date.now();
     const { startDays, endDays, label } = getDateWindowForRun();
 
     console.log(`[Cleanup] Starting cleanup job (window: ${label})...`);
@@ -249,25 +252,34 @@ export async function GET(request: Request) {
     // Invalidate cache so home page reflects removed events
     invalidateEventsCache();
 
-    return NextResponse.json({
-      success: true,
-      durationSeconds: parseFloat(totalDuration),
+    const result = {
       window: label,
       checked: eventbriteEvents.length,
       deletedDead: deadEvents.length,
       deletedNonNC: nonNCEventIds.length,
       deletedCancelled: cancelledEventIds.length,
       deletedDuplicates: duplicateIdsToRemove.length,
+      duplicateGroups: duplicateGroups.length,
+    };
+
+    await completeCronJob(runId, result);
+
+    return NextResponse.json({
+      success: true,
+      durationSeconds: parseFloat(totalDuration),
+      ...result,
       deadEvents: deadEvents.map((e) => ({
         title: e.title,
         status: e.status,
       })),
       nonNCEvents: nonNCEventTitles.slice(0, 20),
       cancelledEvents: cancelledEventTitles.slice(0, 20),
-      duplicateGroups: duplicateGroups.length,
     });
   } catch (error) {
     console.error('[Cleanup] Error:', error);
+
+    await failCronJob(runId, error);
+
     return NextResponse.json(
       { success: false, error: String(error) },
       { status: 500 }

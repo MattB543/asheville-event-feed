@@ -46,6 +46,7 @@ import type {
   NewsletterFrequency,
   NewsletterScoreTier,
 } from "@/lib/newsletter/types";
+import { startCronJob, completeCronJob, failCronJob } from "@/lib/cron/jobTracker";
 
 export const maxDuration = 300; // 5 minutes
 
@@ -404,6 +405,7 @@ export async function GET(request: Request) {
   }
 
   const jobStartTime = Date.now();
+  const runId = await startCronJob('email-digest');
   const todayStr = getTodayStringEastern();
 
   const stats = {
@@ -788,6 +790,8 @@ export async function GET(request: Request) {
       `[Newsletter] Job complete in ${formatDuration(totalDuration)}`
     );
 
+    await completeCronJob(runId, stats);
+
     return NextResponse.json({
       success: true,
       duration: totalDuration,
@@ -799,6 +803,9 @@ export async function GET(request: Request) {
       `[Newsletter] Job failed after ${formatDuration(totalDuration)}`
     );
     console.error("[Newsletter] Error:", error);
+
+    await failCronJob(runId, error);
+
     return NextResponse.json(
       { success: false, error: String(error), duration: totalDuration },
       { status: 500 }

@@ -17,6 +17,7 @@ import {
   isAIDeduplicationAvailable,
   type EventForAIDedup,
 } from "@/lib/ai/aiDeduplication";
+import { startCronJob, completeCronJob, failCronJob } from "@/lib/cron/jobTracker";
 
 export const maxDuration = 300; // 5 minutes
 
@@ -27,6 +28,7 @@ export async function GET(request: Request) {
   }
 
   const startTime = Date.now();
+  const runId = await startCronJob('dedup');
 
   try {
     console.log("[AI Dedup Cron] ════════════════════════════════════════════════");
@@ -35,6 +37,7 @@ export async function GET(request: Request) {
     // Check if Azure AI is configured
     if (!isAIDeduplicationAvailable()) {
       console.log("[AI Dedup Cron] Azure AI not configured, skipping.");
+      await completeCronJob(runId, { skipped: true, reason: "Azure AI not configured" });
       return NextResponse.json({
         success: true,
         skipped: true,
@@ -96,19 +99,28 @@ export async function GET(request: Request) {
     // Invalidate cache so home page reflects deduplicated events
     invalidateEventsCache();
 
-    return NextResponse.json({
-      success: true,
-      duration,
+    const jobResult = {
       daysProcessed: result.daysProcessed,
       duplicatesRemoved: result.idsToRemove.length,
       tokensUsed: result.totalTokensUsed,
       errors: result.errors,
+    };
+
+    await completeCronJob(runId, jobResult);
+
+    return NextResponse.json({
+      success: true,
+      duration,
+      ...jobResult,
     });
   } catch (error) {
     const duration = Date.now() - startTime;
     console.error("[AI Dedup Cron] ════════════════════════════════════════════════");
     console.error("[AI Dedup Cron] Job failed:", error);
     console.error("[AI Dedup Cron] ════════════════════════════════════════════════");
+
+    await failCronJob(runId, error);
+
     return NextResponse.json(
       { success: false, error: String(error), duration },
       { status: 500 }

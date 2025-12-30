@@ -157,3 +157,17 @@ export const curatedEvents = pgTable('curated_events', {
   userIdIdx: index('curated_events_user_id_idx').on(table.userId),
   eventIdIdx: index('curated_events_event_id_idx').on(table.eventId),
 }));
+
+// Cron job execution history for monitoring
+export const cronJobRuns = pgTable('cron_job_runs', {
+  id: uuid('id').defaultRandom().primaryKey(),
+  jobName: text('job_name').notNull(), // 'scrape', 'ai', 'cleanup', 'dedup', 'email-digest'
+  status: text('status').notNull(), // 'running', 'success', 'failed'
+  startedAt: timestamp('started_at', { withTimezone: true }).defaultNow().notNull(),
+  completedAt: timestamp('completed_at', { withTimezone: true }),
+  durationMs: integer('duration_ms'),
+  result: jsonb('result'), // Store stats or error info
+}, (table) => ({
+  jobNameIdx: index('cron_job_runs_job_name_idx').on(table.jobName),
+  startedAtIdx: index('cron_job_runs_started_at_idx').on(table.startedAt),
+}));

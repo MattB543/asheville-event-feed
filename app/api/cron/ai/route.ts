@@ -11,6 +11,7 @@ import { env } from "@/lib/config/env";
 import { isAzureAIEnabled } from "@/lib/ai/provider-clients";
 import { verifyAuthToken } from "@/lib/utils/auth";
 import { invalidateEventsCache } from "@/lib/cache/invalidation";
+import { startCronJob, completeCronJob, failCronJob } from "@/lib/cron/jobTracker";
 
 export const maxDuration = 800; // 13+ minutes (requires Fluid Compute)
 
@@ -56,6 +57,7 @@ export async function GET(request: Request) {
   }
 
   const jobStartTime = Date.now();
+  const runId = await startCronJob('ai');
 
   // Stats tracking
   const stats = {
@@ -433,32 +435,36 @@ export async function GET(request: Request) {
     // Invalidate cache so home page shows updated events
     invalidateEventsCache();
 
+    const result = {
+      combined: {
+        total: stats.combined.total,
+        success: stats.combined.success,
+        failed: stats.combined.failed,
+      },
+      embeddings: {
+        total: stats.embeddings.total,
+        success: stats.embeddings.success,
+        failed: stats.embeddings.failed,
+      },
+      scoring: {
+        total: stats.scoring.total,
+        success: stats.scoring.success,
+        failed: stats.scoring.failed,
+        skippedRecurring: stats.scoring.skippedRecurring,
+      },
+      images: {
+        total: stats.images.total,
+        success: stats.images.success,
+        failed: stats.images.failed,
+      },
+    };
+
+    await completeCronJob(runId, result);
+
     return NextResponse.json({
       success: true,
       duration: totalDuration,
-      stats: {
-        combined: {
-          total: stats.combined.total,
-          success: stats.combined.success,
-          failed: stats.combined.failed,
-        },
-        embeddings: {
-          total: stats.embeddings.total,
-          success: stats.embeddings.success,
-          failed: stats.embeddings.failed,
-        },
-        scoring: {
-          total: stats.scoring.total,
-          success: stats.scoring.success,
-          failed: stats.scoring.failed,
-          skippedRecurring: stats.scoring.skippedRecurring,
-        },
-        images: {
-          total: stats.images.total,
-          success: stats.images.success,
-          failed: stats.images.failed,
-        },
-      },
+      stats: result,
     });
   } catch (error) {
     const totalDuration = Date.now() - jobStartTime;
@@ -466,6 +472,9 @@ export async function GET(request: Request) {
     console.error(`[AI] JOB FAILED after ${formatDuration(totalDuration)}`);
     console.error("[AI] Error:", error);
     console.error("[AI] ════════════════════════════════════════════════");
+
+    await failCronJob(runId, error);
+
     return NextResponse.json(
       { success: false, error: String(error), duration: totalDuration },
       { status: 500 }

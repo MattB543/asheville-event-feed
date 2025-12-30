@@ -726,9 +726,6 @@ export default function EventPageClient({
 
         {/* Description */}
         <section className="mb-8 px-4 sm:px-0">
-          <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">
-            About this event
-          </h2>
           <div className="prose prose-gray dark:prose-invert max-w-none">
             <p className="text-gray-700 dark:text-gray-300 whitespace-pre-wrap leading-relaxed">
               {displayDescription}
@@ -747,11 +744,18 @@ export default function EventPageClient({
         {/* Similar Events */}
         {similarEvents.length > 0 && (
           <section className="mb-8 pt-6 border-t-2 border-gray-300 dark:border-gray-600">
-            <div className="flex items-center justify-between mb-4 px-4 sm:px-0">
+            <div className="flex items-center justify-between mb-4 px-4 sm:px-0 sticky top-0 bg-gray-50 dark:bg-gray-950 py-3 z-20 -mx-4 sm:mx-0 sm:rounded-lg">
               <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
                 Similar Events
               </h2>
               <div className="flex items-center gap-3">
+                <Link
+                  href="/events"
+                  className="text-sm text-gray-500 dark:text-gray-400 hover:text-brand-600 dark:hover:text-brand-400 transition-colors hidden sm:flex items-center gap-1"
+                >
+                  <ArrowLeft size={14} />
+                  Back to main list
+                </Link>
                 {/* Sort toggle buttons */}
                 <div className="flex rounded-lg border border-gray-300 dark:border-gray-600 overflow-hidden text-sm">
                   <button
@@ -775,12 +779,6 @@ export default function EventPageClient({
                     By Date
                   </button>
                 </div>
-                <Link
-                  href="/events"
-                  className="text-sm text-gray-500 dark:text-gray-400 hover:text-brand-600 dark:hover:text-brand-400 transition-colors hidden sm:block"
-                >
-                  View all
-                </Link>
               </div>
             </div>
             <ToastProvider>

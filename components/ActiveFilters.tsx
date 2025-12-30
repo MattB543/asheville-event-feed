@@ -4,7 +4,6 @@ import { useState, useRef, useEffect } from "react";
 import { Sparkles, Link, FileText, FileCode } from "lucide-react";
 import FilterChip from "./ui/FilterChip";
 import { useToast } from "./ui/Toast";
-import EventTabSwitcher from "./EventTabSwitcher";
 
 export interface ActiveFilter {
   id: string;
@@ -30,7 +29,6 @@ interface ActiveFiltersProps {
   shareParams?: string;
   onOpenChat?: () => void;
   isPending?: boolean;
-  activeTab?: "all" | "forYou";
 }
 
 function ExportLinks({
@@ -158,29 +156,28 @@ export default function ActiveFilters({
   shareParams,
   onOpenChat,
   isPending,
-  activeTab = "all",
 }: ActiveFiltersProps) {
   if (filters.length === 0) {
     return (
-      <div className="flex flex-col sm:flex-row items-start sm:items-center sm:justify-end gap-2 sm:gap-3 text-sm text-gray-500 dark:text-gray-400 py-2 pb-3 sm:sticky sm:top-0 sm:z-20 bg-gray-50 dark:bg-gray-950 px-3 sm:px-0">
-        {/* Tabs + Ask AI row on mobile/tablet only */}
-        <div className="flex items-center gap-2 lg:hidden">
-          <EventTabSwitcher activeTab={activeTab} />
+      <div className="flex items-center justify-between sm:justify-end gap-3 text-sm text-gray-500 dark:text-gray-400 py-2 pb-3 sm:sticky sm:top-0 sm:z-20 bg-gray-50 dark:bg-gray-950 px-3 sm:px-0">
+        {/* Mobile: Ask AI left, Export right */}
+        <div className="sm:hidden">
           {onOpenChat && <AskAIButton onClick={onOpenChat} />}
         </div>
-        {/* Ask AI on desktop only (tabs are in header) */}
-        <div className="hidden lg:block">
-          {onOpenChat && <AskAIButton onClick={onOpenChat} />}
+        <div className="sm:hidden">
+          <ExportLinks exportParams={exportParams} shareParams={shareParams} />
         </div>
-        <span>
+        {/* Tablet+: Export left, Ask AI right */}
+        <div className="hidden sm:flex items-center gap-3">
           {isPending && (
-            <span className="inline-flex items-center gap-2 mr-2">
+            <span className="inline-flex items-center gap-2">
               <span className="w-3 h-3 border-2 border-gray-400 dark:border-gray-500 border-t-transparent rounded-full animate-spin" />
               <span>Filtering...</span>
             </span>
           )}
           <ExportLinks exportParams={exportParams} shareParams={shareParams} />
-        </span>
+          {onOpenChat && <AskAIButton onClick={onOpenChat} />}
+        </div>
       </div>
     );
   }
@@ -242,25 +239,25 @@ export default function ActiveFilters({
           Clear all
         </button>
       </div>
-      <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3 sm:ml-auto">
-        {/* Tabs + Ask AI row on mobile/tablet only */}
-        <div className="flex items-center gap-2 lg:hidden">
-          <EventTabSwitcher activeTab={activeTab} />
+      <div className="flex items-center justify-between sm:justify-end gap-3 sm:ml-auto">
+        {/* Mobile: Ask AI left, Export right */}
+        <div className="sm:hidden">
           {onOpenChat && <AskAIButton onClick={onOpenChat} />}
         </div>
-        {/* Ask AI on desktop only (tabs are in header) */}
-        <div className="hidden lg:block">
-          {onOpenChat && <AskAIButton onClick={onOpenChat} />}
+        <div className="sm:hidden text-sm text-gray-500 dark:text-gray-400">
+          <ExportLinks exportParams={exportParams} shareParams={shareParams} />
         </div>
-        <span className="text-sm text-gray-500 dark:text-gray-400">
+        {/* Tablet+: Export left, Ask AI right */}
+        <div className="hidden sm:flex items-center gap-3 text-sm text-gray-500 dark:text-gray-400">
           {isPending && (
-            <span className="inline-flex items-center gap-2 mr-2">
+            <span className="inline-flex items-center gap-2">
               <span className="w-3 h-3 border-2 border-gray-400 dark:border-gray-500 border-t-transparent rounded-full animate-spin" />
               <span>Filtering...</span>
             </span>
           )}
           <ExportLinks exportParams={exportParams} shareParams={shareParams} />
-        </span>
+          {onOpenChat && <AskAIButton onClick={onOpenChat} />}
+        </div>
       </div>
     </div>
   );

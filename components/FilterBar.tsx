@@ -79,6 +79,8 @@ export interface FilterBarProps {
   showDailyEvents: boolean;
   onShowDailyEventsChange: (show: boolean) => void;
   onOpenSettings: () => void;
+  /** When true, only show search, date, and price filters (for Top 30 tab) */
+  simplified?: boolean;
 }
 
 const dateLabels: Record<DateFilterType, string> = {
@@ -133,6 +135,7 @@ export default function FilterBar({
   showDailyEvents,
   onShowDailyEventsChange,
   onOpenSettings,
+  simplified = false,
 }: FilterBarProps) {
   const [isTagsOpen, setIsTagsOpen] = useState(false);
   const [isDateOpen, setIsDateOpen] = useState(false);
@@ -852,7 +855,8 @@ export default function FilterBar({
             )}
           </div>
 
-          {/* Location Filter */}
+          {/* Location Filter - hidden in simplified mode */}
+          {!simplified && (
           <div className="relative" ref={locationRef}>
             <button
               onClick={handleLocationOpen}
@@ -1046,8 +1050,10 @@ export default function FilterBar({
               </div>
             )}
           </div>
+          )}
 
-          {/* Tags Filter */}
+          {/* Tags Filter - hidden in simplified mode */}
+          {!simplified && (
           <div className="relative" ref={tagsRef}>
             <button
               onClick={handleTagsOpen}
@@ -1198,8 +1204,10 @@ export default function FilterBar({
               </div>
             )}
           </div>
+          )}
 
-          {/* Keyword Filter Button */}
+          {/* Keyword Filter Button - hidden in simplified mode */}
+          {!simplified && (
           <button
             onClick={onOpenSettings}
             className={buttonInactiveStyle}
@@ -1207,6 +1215,7 @@ export default function FilterBar({
           >
             <SlidersHorizontal size={18} />
           </button>
+          )}
         </div>
       </div>
     </div>

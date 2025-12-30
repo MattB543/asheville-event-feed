@@ -2,7 +2,7 @@ import { db } from '@/lib/db';
 import { cronJobRuns } from '@/lib/db/schema';
 import { eq, desc, and } from 'drizzle-orm';
 
-export type CronJobName = 'scrape' | 'ai' | 'cleanup' | 'dedup' | 'email-digest';
+export type CronJobName = 'scrape' | 'ai' | 'cleanup' | 'dedup' | 'email-digest' | 'verify';
 export type CronJobStatus = 'running' | 'success' | 'failed';
 
 /**
@@ -94,7 +94,7 @@ export async function getLatestJobRuns(): Promise<
     result: Record<string, unknown> | null;
   }>
 > {
-  const jobNames: CronJobName[] = ['scrape', 'ai', 'cleanup', 'dedup', 'email-digest'];
+  const jobNames: CronJobName[] = ['scrape', 'ai', 'cleanup', 'dedup', 'email-digest', 'verify'];
 
   const results = await Promise.all(
     jobNames.map(async (jobName) => {
@@ -125,7 +125,7 @@ export async function getLatestJobRuns(): Promise<
  * Clean up old job runs (keep last 100 per job)
  */
 export async function cleanupOldRuns(): Promise<number> {
-  const jobNames: CronJobName[] = ['scrape', 'ai', 'cleanup', 'dedup', 'email-digest'];
+  const jobNames: CronJobName[] = ['scrape', 'ai', 'cleanup', 'dedup', 'email-digest', 'verify'];
   let totalDeleted = 0;
 
   for (const jobName of jobNames) {

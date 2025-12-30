@@ -6,8 +6,12 @@
       "schedule": "0 */6 * * *"
     },
     {
+      "path": "/api/cron/verify",
+      "schedule": "5 */6 * * *"
+    },
+    {
       "path": "/api/cron/ai",
-      "schedule": "10 */6 * * *"
+      "schedule": "20 */6 * * *"
     },
     {
       "path": "/api/cron/cleanup",

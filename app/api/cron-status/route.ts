@@ -7,9 +7,13 @@ const JOB_INFO: Record<CronJobName, { description: string; schedule: string }> =
     description: 'Scrapes 10+ event sources (AVL Today, Eventbrite, Meetup, etc.) and upserts to database.',
     schedule: '0 */6 * * *', // Every 6 hours at :00
   },
+  verify: {
+    description: 'Fetches event source URLs via Jina Reader and uses AI to verify/update/hide events.',
+    schedule: '5 */6 * * *', // Every 6 hours at :05 (after scrape)
+  },
   ai: {
     description: 'Generates AI tags, summaries, embeddings, and scores for new events.',
-    schedule: '10 */6 * * *', // Every 6 hours at :10
+    schedule: '20 */6 * * *', // Every 6 hours at :20 (after verify)
   },
   cleanup: {
     description: 'Removes dead links, non-NC events, cancelled events, and duplicates.',

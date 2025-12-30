@@ -218,16 +218,15 @@ export function scoreEvent(
 /**
  * Get tier based on score.
  *
- * Thresholds from spec:
- * - Great Match: > 0.7
- * - Good Match: > 0.5
- * - Okay: > 0.3
- * - Hidden: ≤ 0.3 (not returned in feed)
+ * Thresholds:
+ * - Great Match: > 0.90
+ * - Good Match: > 0.85
+ * - Hidden: ≤ 0.85 (not returned in feed)
  */
 export function getScoreTier(score: number): 'great' | 'good' | null {
-  if (score > 0.7) return 'great';
-  if (score > 0.5) return 'good';
-  return null; // 'okay' tier gets no visual treatment
+  if (score > 0.90) return 'great';
+  if (score > 0.85) return 'good';
+  return null;
 }
 
 /**
@@ -322,15 +321,15 @@ export interface PersonalizedFeedResult {
 // Configuration for the algorithm
 const MATCHES_PER_SIGNAL = 15;  // Top N matches per liked event
 const CENTROID_MATCHES = 10;    // Top N matches for centroid
-const MIN_SIMILARITY = 0.35;    // Minimum similarity threshold
+const MIN_SIMILARITY = 0.85;    // Minimum similarity threshold
 const MULTI_MATCH_BOOST_PER = 0.04;  // Boost per additional source
 const MULTI_MATCH_BOOST_CAP = 0.12;  // Maximum multi-match boost
 const CENTROID_BONUS = 0.02;    // Bonus if also matched centroid
 
 // Tier thresholds
-const TIER_GREAT = 0.65;
-const TIER_GOOD = 0.50;
-const TIER_HIDDEN = 0.35;
+const TIER_GREAT = 0.90;
+const TIER_GOOD = 0.85;
+const TIER_HIDDEN = 0.85;
 
 /**
  * Get the time bucket for an event based on its date.

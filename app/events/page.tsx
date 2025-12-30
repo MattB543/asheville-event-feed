@@ -11,6 +11,7 @@ import Link from "next/link";
 import {
   queryFilteredEvents,
   getEventMetadata,
+  queryTop30Events,
   DbEvent,
   EventMetadata,
 } from "@/lib/db/queries/events";
@@ -44,16 +45,27 @@ const getCachedMetadata = unstable_cache(
   { tags: ["events"], revalidate: 3600 }
 );
 
+// Cached top 30 events query
+const getTop30Events = unstable_cache(
+  async () => {
+    console.log("[Events] Fetching top 30 events...");
+    return queryTop30Events();
+  },
+  ["events-top30"],
+  { tags: ["events"], revalidate: 3600 }
+);
+
 interface EventsPageProps {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 
 export default async function EventsPage({ searchParams }: EventsPageProps) {
   const params = await searchParams;
-  const activeTab = params.tab === "forYou" ? "forYou" : "all";
+  const activeTab = params.tab === "forYou" ? "forYou" : params.tab === "top30" ? "top30" : "all";
 
   let initialEvents: DbEvent[] = [];
   let initialTotalCount = 0;
+  let top30Events: DbEvent[] = [];
   let metadata: EventMetadata = {
     availableTags: [],
     availableLocations: [],
@@ -61,16 +73,18 @@ export default async function EventsPage({ searchParams }: EventsPageProps) {
   };
 
   try {
-    // Fetch first page and metadata in parallel
-    const [firstPageResult, metadataResult] = await Promise.all([
+    // Fetch first page, metadata, and top 30 in parallel
+    const [firstPageResult, metadataResult, top30Result] = await Promise.all([
       getFirstPageEvents(),
       getCachedMetadata(),
+      activeTab === "top30" ? getTop30Events() : Promise.resolve([]),
     ]);
     initialEvents = firstPageResult.events;
     initialTotalCount = firstPageResult.totalCount;
     metadata = metadataResult;
+    top30Events = top30Result;
     console.log(
-      `[Events] SSR loaded ${initialEvents.length} events (of ${initialTotalCount} total)`
+      `[Events] SSR loaded ${initialEvents.length} events (of ${initialTotalCount} total)${activeTab === "top30" ? `, ${top30Events.length} top 30 events` : ""}`
     );
   } catch (error) {
     console.error("[Events] Failed to fetch events:", error);
@@ -81,8 +95,9 @@ export default async function EventsPage({ searchParams }: EventsPageProps) {
     <main className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-950">
       <header className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
         <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-3 sm:py-4">
-          {/* Mobile/Tablet: simpler layout - tabs shown in feed area */}
+          {/* Mobile/Tablet: tabs always in header */}
           <div className="flex flex-col gap-2 lg:hidden">
+            {/* Row 1: Logo + buttons */}
             <div className="flex items-center justify-between">
               <Link href="/">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -92,30 +107,34 @@ export default async function EventsPage({ searchParams }: EventsPageProps) {
                   className="h-[24px] sm:h-[30px] w-auto dark:brightness-0 dark:invert"
                 />
               </Link>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1 sm:gap-2">
                 <SubmitEventButton />
                 <ThemeToggle />
                 <UserMenu />
               </div>
             </div>
-            <div className="text-xs text-gray-500/70 dark:text-gray-400/70">
-              <a
-                href="https://github.com/MattB543/asheville-event-feed"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="underline hover:text-gray-700 dark:hover:text-gray-300"
-              >
-                Open-sourced
-              </a>{" "}
-              by{" "}
-              <a
-                href="https://mattbrooks.xyz"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="underline hover:text-gray-700 dark:hover:text-gray-300"
-              >
-                mattbrooks.xyz
-              </a>
+            {/* Row 2: Tabs + attribution */}
+            <div className="flex items-center justify-between">
+              <EventTabSwitcher activeTab={activeTab} />
+              <div className="text-xs text-gray-500/50 dark:text-gray-400/50">
+                <a
+                  href="https://github.com/MattB543/asheville-event-feed"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline hover:text-gray-600 dark:hover:text-gray-300"
+                >
+                  Open-sourced
+                </a>{" "}
+                by{" "}
+                <a
+                  href="https://mattbrooks.xyz"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline hover:text-gray-600 dark:hover:text-gray-300"
+                >
+                  matt
+                </a>
+              </div>
             </div>
           </div>
           {/* Desktop: horizontal layout with tabs in header */}
@@ -132,12 +151,12 @@ export default async function EventsPage({ searchParams }: EventsPageProps) {
               <EventTabSwitcher activeTab={activeTab} />
             </div>
             <div className="flex items-center gap-2">
-              <div className="text-sm text-gray-500/70 dark:text-gray-400/70">
+              <div className="text-sm text-gray-500/50 dark:text-gray-400/50">
                 <a
                   href="https://github.com/MattB543/asheville-event-feed"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="underline hover:text-gray-700 dark:hover:text-gray-300"
+                  className="underline hover:text-gray-600 dark:hover:text-gray-300"
                 >
                   Open-sourced
                 </a>{" "}
@@ -146,7 +165,7 @@ export default async function EventsPage({ searchParams }: EventsPageProps) {
                   href="https://mattbrooks.xyz"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="underline hover:text-gray-700 dark:hover:text-gray-300"
+                  className="underline hover:text-gray-600 dark:hover:text-gray-300"
                 >
                   mattbrooks.xyz
                 </a>
@@ -168,6 +187,7 @@ export default async function EventsPage({ searchParams }: EventsPageProps) {
             initialTotalCount={initialTotalCount}
             initialMetadata={metadata}
             activeTab={activeTab}
+            top30Events={top30Events}
           />
         </ErrorBoundary>
       </div>

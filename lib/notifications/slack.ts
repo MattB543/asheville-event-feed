@@ -368,3 +368,123 @@ export async function sendUrlSubmissionNotification(submission: UrlSubmission): 
     return false;
   }
 }
+
+/**
+ * Verification result for Slack notification
+ */
+interface VerificationNotification {
+  eventsChecked: number;
+  eventsHidden: number;
+  eventsUpdated: number;
+  eventsKept: number;
+  hiddenEvents: Array<{ title: string; reason: string; url?: string }>;
+  updatedEvents: Array<{ title: string; reason: string; url?: string }>;
+  durationSeconds: number;
+}
+
+/**
+ * Send a Slack notification for event verification results.
+ * Only sends if there are hidden or updated events.
+ */
+export async function sendVerificationNotification(results: VerificationNotification): Promise<boolean> {
+  if (!isSlackEnabled()) {
+    console.log('[Slack] Webhook not configured, skipping verification notification');
+    return false;
+  }
+
+  // Only notify if there are actions taken
+  if (results.eventsHidden === 0 && results.eventsUpdated === 0) {
+    console.log('[Slack] No events hidden or updated, skipping notification');
+    return false;
+  }
+
+  const webhookUrl = env.SLACK_WEBHOOK!;
+
+  const blocks: SlackBlock[] = [
+    {
+      type: 'header',
+      text: {
+        type: 'plain_text',
+        text: ':mag: Event Verification Report',
+        emoji: true,
+      },
+    },
+    {
+      type: 'section',
+      fields: [
+        {
+          type: 'mrkdwn',
+          text: `*Events Checked:*\n${results.eventsChecked}`,
+        },
+        {
+          type: 'mrkdwn',
+          text: `*Duration:*\n${results.durationSeconds.toFixed(1)}s`,
+        },
+      ],
+    },
+  ];
+
+  // Add hidden events section
+  if (results.eventsHidden > 0) {
+    const hiddenList = results.hiddenEvents
+      .slice(0, 10) // Limit to 10 for readability
+      .map(e => `• ${e.title.slice(0, 40)}${e.title.length > 40 ? '...' : ''} - ${e.reason}`)
+      .join('\n');
+
+    blocks.push({
+      type: 'section',
+      text: {
+        type: 'mrkdwn',
+        text: `*:no_entry: Hidden Events (${results.eventsHidden}):*\n${hiddenList}${results.eventsHidden > 10 ? `\n_...and ${results.eventsHidden - 10} more_` : ''}`,
+      },
+    });
+  }
+
+  // Add updated events section
+  if (results.eventsUpdated > 0) {
+    const updatedList = results.updatedEvents
+      .slice(0, 10) // Limit to 10 for readability
+      .map(e => `• ${e.title.slice(0, 40)}${e.title.length > 40 ? '...' : ''} - ${e.reason}`)
+      .join('\n');
+
+    blocks.push({
+      type: 'section',
+      text: {
+        type: 'mrkdwn',
+        text: `*:arrows_counterclockwise: Updated Events (${results.eventsUpdated}):*\n${updatedList}${results.eventsUpdated > 10 ? `\n_...and ${results.eventsUpdated - 10} more_` : ''}`,
+      },
+    });
+  }
+
+  // Add summary context
+  blocks.push({
+    type: 'context',
+    elements: [
+      {
+        type: 'mrkdwn',
+        text: `Kept: ${results.eventsKept} | Hidden: ${results.eventsHidden} | Updated: ${results.eventsUpdated}`,
+      },
+    ],
+  });
+
+  try {
+    const response = await fetch(webhookUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ blocks }),
+    });
+
+    if (!response.ok) {
+      console.error('[Slack] Failed to send verification notification:', response.status, await response.text());
+      return false;
+    }
+
+    console.log('[Slack] Verification notification sent');
+    return true;
+  } catch (error) {
+    console.error('[Slack] Error sending verification notification:', error);
+    return false;
+  }
+}

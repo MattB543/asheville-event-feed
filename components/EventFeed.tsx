@@ -67,7 +67,8 @@ interface EventFeedProps {
   initialEvents?: InitialEvent[];
   initialTotalCount?: number;
   initialMetadata?: EventMetadata;
-  activeTab?: "all" | "forYou";
+  activeTab?: "all" | "top30" | "forYou";
+  top30Events?: InitialEvent[];
 }
 
 // Tag filter state for include/exclude tri-state filtering
@@ -97,7 +98,7 @@ export type ScoreTier = "hidden" | "quality" | "outstanding";
 
 // Get the score tier for an event based on its score
 function getEventScoreTier(score: number | null | undefined): ScoreTier {
-  if (score === null || score === undefined) return "quality"; // null treated as quality
+  if (score === null || score === undefined) return "hidden"; // null excluded from top events
   if (score <= 12) return "hidden"; // Common: 0-12
   if (score <= 16) return "quality"; // Quality: 13-16
   return "outstanding"; // Outstanding: 17+
@@ -326,6 +327,7 @@ export default function EventFeed({
   initialTotalCount,
   initialMetadata,
   activeTab = "all",
+  top30Events: initialTop30Events,
 }: EventFeedProps) {
   const { showToast } = useToast();
   const { user, isLoading: authLoading } = useAuth();
@@ -337,6 +339,10 @@ export default function EventFeed({
   const [forYouLoading, setForYouLoading] = useState(false);
   // Track events being hidden (for animation)
   const [hidingEventIds, setHidingEventIds] = useState<Set<string>>(new Set());
+
+  // Top 30 feed state
+  const [top30SortMode, setTop30SortMode] = useState<"score" | "date">("score");
+  const [forYouSortMode, setForYouSortMode] = useState<"score" | "date">("score");
 
   // Parse URL filters once at initialization (not in useEffect)
   // This ensures filters are correct from the first render
@@ -1296,6 +1302,7 @@ export default function EventFeed({
         showDailyEvents={showDailyEvents}
         onShowDailyEventsChange={setShowDailyEvents}
         onOpenSettings={() => setIsSettingsOpen(true)}
+        simplified={activeTab === "top30"}
       />
 
       <ActiveFilters
@@ -1307,7 +1314,6 @@ export default function EventFeed({
         shareParams={shareParams}
         onOpenChat={() => setIsChatOpen(true)}
         isPending={isFilterPending}
-        activeTab={activeTab}
       />
 
       {/* Filtering indicator */}
@@ -1379,32 +1385,384 @@ export default function EventFeed({
             </div>
           )}
 
-          {/* Time Bucket Sections */}
+          {/* Sort Mode Toggle */}
           {isLoggedIn && !forYouLoading && forYouEvents.length > 0 && (
-            <div className="flex flex-col gap-10 mt-3">
-              {['today', 'tomorrow', 'week', 'later'].map((bucket) => {
-                const bucketEvents = forYouEvents.filter((e: any) => e.bucket === bucket);
-                if (bucketEvents.length === 0) return null;
+            <div className="flex items-center justify-between mb-4 px-3 sm:px-0">
+              <div className="flex items-center gap-2 bg-gray-100 dark:bg-gray-800 rounded-lg p-1">
+                <button
+                  onClick={() => setForYouSortMode("score")}
+                  className={`px-3 py-1.5 text-sm font-medium rounded-md transition-colors cursor-pointer ${
+                    forYouSortMode === "score"
+                      ? "bg-white dark:bg-gray-700 text-brand-600 dark:text-brand-400 shadow-sm"
+                      : "text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200"
+                  }`}
+                >
+                  By Score
+                </button>
+                <button
+                  onClick={() => setForYouSortMode("date")}
+                  className={`px-3 py-1.5 text-sm font-medium rounded-md transition-colors cursor-pointer ${
+                    forYouSortMode === "date"
+                      ? "bg-white dark:bg-gray-700 text-brand-600 dark:text-brand-400 shadow-sm"
+                      : "text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200"
+                  }`}
+                >
+                  By Date
+                </button>
+              </div>
+              <a
+                href="/profile/taste"
+                className="text-sm text-gray-500 dark:text-gray-400 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+              >
+                Edit taste profile →
+              </a>
+            </div>
+          )}
 
-                const bucketLabels: Record<string, string> = {
-                  today: "Today",
-                  tomorrow: "Tomorrow",
-                  week: "This Week",
-                  later: "Later",
+          {/* Score-ranked view */}
+          {isLoggedIn && !forYouLoading && forYouEvents.length > 0 && forYouSortMode === "score" && (
+            <div className="flex flex-col bg-white dark:bg-gray-900 sm:rounded-lg sm:shadow-sm sm:border sm:border-gray-200 dark:sm:border-gray-700">
+              {[...forYouEvents]
+                .sort((a: any, b: any) => b.score - a.score)
+                .map((scoredEvent: any, index: number) => {
+                const event = {
+                  ...scoredEvent.event,
+                  startDate: new Date(scoredEvent.event.startDate),
                 };
-
                 return (
-                  <div key={bucket} className="flex flex-col">
-                    <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100 sticky top-0 sm:top-9 bg-white dark:bg-gray-900 sm:border sm:border-b-0 sm:border-gray-200 dark:sm:border-gray-700 sm:rounded-t-lg py-2 px-3 sm:px-4 z-10">
-                      {bucketLabels[bucket]}
-                    </h2>
-                    <div className="flex flex-col bg-white dark:bg-gray-900 sm:rounded-b-lg sm:shadow-sm sm:border sm:border-gray-200 dark:sm:border-gray-700">
-                      {bucketEvents.map((scoredEvent: any) => {
-                        const event = {
-                          ...scoredEvent.event,
-                          startDate: new Date(scoredEvent.event.startDate),
-                        };
-                        return (
+                  <EventCard
+                    key={event.id}
+                    event={{
+                      ...event,
+                      title: `${index + 1}. ${event.title}`,
+                      sourceId: event.sourceId,
+                      location: event.location ?? null,
+                      organizer: event.organizer ?? null,
+                      price: event.price ?? null,
+                      imageUrl: event.imageUrl ?? null,
+                      timeUnknown: event.timeUnknown ?? false,
+                      recurringType: event.recurringType ?? null,
+                    }}
+                    onHide={handleHideEvent}
+                    onBlockHost={handleBlockHost}
+                    onSignalCapture={handleSignalCapture}
+                    isNewlyHidden={false}
+                    hideBorder={false}
+                    isFavorited={favoritedEventIds.includes(event.id)}
+                    favoriteCount={event.favoriteCount ?? 0}
+                    onToggleFavorite={handleToggleFavorite}
+                    isTagFilterActive={false}
+                    isCurated={curatedEventIds.has(event.id)}
+                    onCurate={handleOpenCurateModal}
+                    onUncurate={handleUncurate}
+                    isLoggedIn={isLoggedIn}
+                    displayMode="full"
+                    isHiding={hidingEventIds.has(event.id)}
+                    isGreatMatch={scoredEvent.tier === 'great'}
+                  />
+                );
+              })}
+            </div>
+          )}
+
+          {/* Date-grouped view */}
+          {isLoggedIn && !forYouLoading && forYouEvents.length > 0 && forYouSortMode === "date" && (
+            <div className="flex flex-col gap-10 mt-3">
+              {Object.entries(
+                forYouEvents
+                  .reduce((groups: Record<string, { date: Date; events: any[] }>, scoredEvent: any) => {
+                    const date = new Date(scoredEvent.event.startDate);
+                    const dateKey = date.toLocaleDateString("en-US", {
+                      weekday: "short",
+                      month: "short",
+                      day: "numeric",
+                      year: "numeric",
+                    });
+                    if (!groups[dateKey]) {
+                      groups[dateKey] = { date: date, events: [] };
+                    }
+                    groups[dateKey].events.push(scoredEvent);
+                    return groups;
+                  }, {} as Record<string, { date: Date; events: any[] }>)
+              )
+                .sort(([, a], [, b]) => a.date.getTime() - b.date.getTime())
+                .map(([dateKey, { date, events: groupEvents }]) => {
+                  const today = new Date();
+                  const tomorrow = new Date(today);
+                  tomorrow.setDate(tomorrow.getDate() + 1);
+
+                  let headerText = dateKey;
+                  if (date.toDateString() === today.toDateString()) {
+                    headerText = `Today, ${date.toLocaleDateString("en-US", { month: "short", day: "numeric" })}`;
+                  } else if (date.toDateString() === tomorrow.toDateString()) {
+                    headerText = `Tomorrow, ${date.toLocaleDateString("en-US", { month: "short", day: "numeric" })}`;
+                  }
+
+                  // Sort by score within each day
+                  const sortedGroupEvents = [...groupEvents].sort(
+                    (a, b) => (b.score ?? 0) - (a.score ?? 0)
+                  );
+
+                  return (
+                    <div key={dateKey} className="flex flex-col">
+                      <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100 sticky top-0 sm:top-9 bg-white dark:bg-gray-900 sm:border sm:border-b-0 sm:border-gray-200 dark:sm:border-gray-700 sm:rounded-t-lg pt-3 pb-2 px-3 sm:px-4 z-10">
+                        {headerText}
+                      </h2>
+                      <div className="flex flex-col bg-white dark:bg-gray-900 sm:rounded-b-lg sm:shadow-sm sm:border sm:border-gray-200 dark:sm:border-gray-700">
+                        {sortedGroupEvents.map((scoredEvent: any) => {
+                          const event = {
+                            ...scoredEvent.event,
+                            startDate: new Date(scoredEvent.event.startDate),
+                          };
+                          return (
+                            <EventCard
+                              key={event.id}
+                              event={{
+                                ...event,
+                                sourceId: event.sourceId,
+                                location: event.location ?? null,
+                                organizer: event.organizer ?? null,
+                                price: event.price ?? null,
+                                imageUrl: event.imageUrl ?? null,
+                                timeUnknown: event.timeUnknown ?? false,
+                                recurringType: event.recurringType ?? null,
+                              }}
+                              onHide={handleHideEvent}
+                              onBlockHost={handleBlockHost}
+                              onSignalCapture={handleSignalCapture}
+                              isNewlyHidden={false}
+                              hideBorder={false}
+                              isFavorited={favoritedEventIds.includes(event.id)}
+                              favoriteCount={event.favoriteCount ?? 0}
+                              onToggleFavorite={handleToggleFavorite}
+                              isTagFilterActive={false}
+                              isCurated={curatedEventIds.has(event.id)}
+                              onCurate={handleOpenCurateModal}
+                              onUncurate={handleUncurate}
+                              isLoggedIn={isLoggedIn}
+                              displayMode="full"
+                              isHiding={hidingEventIds.has(event.id)}
+                              isGreatMatch={scoredEvent.tier === 'great'}
+                            />
+                          );
+                        })}
+                      </div>
+                    </div>
+                  );
+                })}
+            </div>
+          )}
+        </>
+      )}
+
+      {/* Top 30 Feed */}
+      {activeTab === "top30" && (
+        <>
+          {/* Page Title */}
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4 px-3 sm:px-0">
+            Top events in the next 30 days
+          </h1>
+
+          {/* Sort Mode Toggle */}
+          <div className="flex items-center mb-4 px-3 sm:px-0">
+            <div className="flex items-center gap-2 bg-gray-100 dark:bg-gray-800 rounded-lg p-1">
+              <button
+                onClick={() => setTop30SortMode("score")}
+                className={`px-3 py-1.5 text-sm font-medium rounded-md transition-colors cursor-pointer ${
+                  top30SortMode === "score"
+                    ? "bg-white dark:bg-gray-700 text-brand-600 dark:text-brand-400 shadow-sm"
+                    : "text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200"
+                }`}
+              >
+                By Score
+              </button>
+              <button
+                onClick={() => setTop30SortMode("date")}
+                className={`px-3 py-1.5 text-sm font-medium rounded-md transition-colors cursor-pointer ${
+                  top30SortMode === "date"
+                    ? "bg-white dark:bg-gray-700 text-brand-600 dark:text-brand-400 shadow-sm"
+                    : "text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200"
+                }`}
+              >
+                By Date
+              </button>
+            </div>
+          </div>
+
+          {/* Empty State */}
+          {(!initialTop30Events || initialTop30Events.length === 0) && (
+            <div className="text-center py-20 px-4">
+              <div className="text-4xl mb-4">🏆</div>
+              <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                No top-rated events found
+              </h3>
+              <p className="text-sm text-gray-500 dark:text-gray-400 max-w-md mx-auto">
+                Check back later for the highest-scored events in the next 30 days.
+              </p>
+            </div>
+          )}
+
+          {/* Score-ranked view */}
+          {top30SortMode === "score" && initialTop30Events && initialTop30Events.length > 0 && (
+            <div className="flex flex-col bg-white dark:bg-gray-900 sm:rounded-lg sm:shadow-sm sm:border sm:border-gray-200 dark:sm:border-gray-700">
+              {(initialTop30Events || [])
+                .map((event) => ({
+                  ...event,
+                  startDate: typeof event.startDate === "string" ? new Date(event.startDate) : event.startDate,
+                }))
+                .filter((event) => {
+                  // Apply search filter
+                  if (search.trim()) {
+                    const searchLower = search.toLowerCase();
+                    const matchesSearch =
+                      event.title.toLowerCase().includes(searchLower) ||
+                      (event.description?.toLowerCase().includes(searchLower)) ||
+                      (event.organizer?.toLowerCase().includes(searchLower)) ||
+                      (event.location?.toLowerCase().includes(searchLower));
+                    if (!matchesSearch) return false;
+                  }
+                  // Apply price filter
+                  if (priceFilter !== "any") {
+                    const priceStr = event.price?.toLowerCase() || "";
+                    const isFree = !event.price || priceStr === "unknown" || priceStr === "" || priceStr.includes("free");
+                    const priceNum = parseFloat(event.price?.replace(/[^0-9.]/g, "") || "0");
+                    if (priceFilter === "free" && !isFree) return false;
+                    if (priceFilter === "under20" && priceNum > 20) return false;
+                    if (priceFilter === "under100" && priceNum > 100) return false;
+                  }
+                  // Apply date filter
+                  if (dateFilter !== "all") {
+                    const eventDate = new Date(event.startDate);
+                    const today = new Date();
+                    today.setHours(0, 0, 0, 0);
+                    const tomorrow = new Date(today);
+                    tomorrow.setDate(tomorrow.getDate() + 1);
+                    const dayAfterTomorrow = new Date(tomorrow);
+                    dayAfterTomorrow.setDate(dayAfterTomorrow.getDate() + 1);
+
+                    if (dateFilter === "today" && (eventDate < today || eventDate >= tomorrow)) return false;
+                    if (dateFilter === "tomorrow" && (eventDate < tomorrow || eventDate >= dayAfterTomorrow)) return false;
+                  }
+                  return true;
+                })
+                .map((event, index) => (
+                  <EventCard
+                    key={event.id}
+                    event={{
+                      ...event,
+                      title: `${index + 1}. ${event.title}`,
+                      sourceId: event.sourceId,
+                      location: event.location ?? null,
+                      organizer: event.organizer ?? null,
+                      price: event.price ?? null,
+                      imageUrl: event.imageUrl ?? null,
+                      timeUnknown: event.timeUnknown ?? false,
+                      recurringType: event.recurringType ?? null,
+                    }}
+                    onHide={handleHideEvent}
+                    onBlockHost={handleBlockHost}
+                    onSignalCapture={handleSignalCapture}
+                    isNewlyHidden={false}
+                    hideBorder={false}
+                    isFavorited={favoritedEventIds.includes(event.id)}
+                    favoriteCount={event.favoriteCount ?? 0}
+                    onToggleFavorite={handleToggleFavorite}
+                    isTagFilterActive={false}
+                    isCurated={curatedEventIds.has(event.id)}
+                    onCurate={handleOpenCurateModal}
+                    onUncurate={handleUncurate}
+                    isLoggedIn={isLoggedIn}
+                    displayMode="full"
+                    eventScore={event.score}
+                  />
+                ))}
+            </div>
+          )}
+
+          {/* Date-grouped view */}
+          {top30SortMode === "date" && initialTop30Events && initialTop30Events.length > 0 && (
+            <div className="flex flex-col gap-10 mt-3">
+              {Object.entries(
+                (initialTop30Events || [])
+                  .map((event) => ({
+                    ...event,
+                    startDate: typeof event.startDate === "string" ? new Date(event.startDate) : event.startDate,
+                  }))
+                  .filter((event) => {
+                    // Apply search filter
+                    if (search.trim()) {
+                      const searchLower = search.toLowerCase();
+                      const matchesSearch =
+                        event.title.toLowerCase().includes(searchLower) ||
+                        (event.description?.toLowerCase().includes(searchLower)) ||
+                        (event.organizer?.toLowerCase().includes(searchLower)) ||
+                        (event.location?.toLowerCase().includes(searchLower));
+                      if (!matchesSearch) return false;
+                    }
+                    // Apply price filter
+                    if (priceFilter !== "any") {
+                      const priceStr = event.price?.toLowerCase() || "";
+                      const isFree = !event.price || priceStr === "unknown" || priceStr === "" || priceStr.includes("free");
+                      const priceNum = parseFloat(event.price?.replace(/[^0-9.]/g, "") || "0");
+                      if (priceFilter === "free" && !isFree) return false;
+                      if (priceFilter === "under20" && priceNum > 20) return false;
+                      if (priceFilter === "under100" && priceNum > 100) return false;
+                    }
+                    // Apply date filter
+                    if (dateFilter !== "all") {
+                      const eventDate = new Date(event.startDate);
+                      const today = new Date();
+                      today.setHours(0, 0, 0, 0);
+                      const tomorrow = new Date(today);
+                      tomorrow.setDate(tomorrow.getDate() + 1);
+                      const dayAfterTomorrow = new Date(tomorrow);
+                      dayAfterTomorrow.setDate(dayAfterTomorrow.getDate() + 1);
+
+                      if (dateFilter === "today" && (eventDate < today || eventDate >= tomorrow)) return false;
+                      if (dateFilter === "tomorrow" && (eventDate < tomorrow || eventDate >= dayAfterTomorrow)) return false;
+                    }
+                    return true;
+                  })
+                  .reduce((groups, event) => {
+                    const date = new Date(event.startDate);
+                    const dateKey = date.toLocaleDateString("en-US", {
+                      weekday: "short",
+                      month: "short",
+                      day: "numeric",
+                      year: "numeric",
+                    });
+                    if (!groups[dateKey]) {
+                      groups[dateKey] = { date: date, events: [] };
+                    }
+                    groups[dateKey].events.push(event);
+                    return groups;
+                  }, {} as Record<string, { date: Date; events: any[] }>)
+              )
+                .sort(([, a], [, b]) => a.date.getTime() - b.date.getTime())
+                .map(([dateKey, { date, events: groupEvents }]) => {
+                  const today = new Date();
+                  const tomorrow = new Date(today);
+                  tomorrow.setDate(tomorrow.getDate() + 1);
+
+                  let headerText = dateKey;
+                  if (date.toDateString() === today.toDateString()) {
+                    headerText = `Today, ${date.toLocaleDateString("en-US", { month: "short", day: "numeric" })}`;
+                  } else if (date.toDateString() === tomorrow.toDateString()) {
+                    headerText = `Tomorrow, ${date.toLocaleDateString("en-US", { month: "short", day: "numeric" })}`;
+                  }
+
+                  // Sort by score within each day
+                  const sortedGroupEvents = [...groupEvents].sort(
+                    (a, b) => (b.score ?? 0) - (a.score ?? 0)
+                  );
+
+                  return (
+                    <div key={dateKey} className="flex flex-col">
+                      <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100 sticky top-0 sm:top-9 bg-white dark:bg-gray-900 sm:border sm:border-b-0 sm:border-gray-200 dark:sm:border-gray-700 sm:rounded-t-lg pt-3 pb-2 px-3 sm:px-4 z-10">
+                        {headerText}
+                      </h2>
+                      <div className="flex flex-col bg-white dark:bg-gray-900 sm:rounded-b-lg sm:shadow-sm sm:border sm:border-gray-200 dark:sm:border-gray-700">
+                        {sortedGroupEvents.map((event) => (
                           <EventCard
                             key={event.id}
                             event={{
@@ -1431,16 +1789,13 @@ export default function EventFeed({
                             onUncurate={handleUncurate}
                             isLoggedIn={isLoggedIn}
                             displayMode="full"
-                            matchTier={scoredEvent.tier}
-                            matchExplanation={scoredEvent.explanation}
-                            isHiding={hidingEventIds.has(event.id)}
+                            eventScore={event.score}
                           />
-                        );
-                      })}
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
             </div>
           )}
         </>

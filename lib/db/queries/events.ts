@@ -6,9 +6,11 @@ import {
   gte,
   lte,
   asc,
+  desc,
   ilike,
   notIlike,
   isNull,
+  isNotNull,
   sql,
   SQL,
   arrayOverlaps,
@@ -359,6 +361,7 @@ export async function queryFilteredEvents(
     scoreUnique: events.scoreUnique,
     scoreMagnitude: events.scoreMagnitude,
     scoreReason: events.scoreReason,
+    lastVerifiedAt: events.lastVerifiedAt,
   };
 
   // Client-side filter function - returns true if event passes all filters
@@ -652,4 +655,78 @@ export async function getEventMetadata(): Promise<EventMetadata> {
     .map(([zip, count]) => ({ zip, count }));
 
   return { availableTags, availableLocations, availableZips };
+}
+
+/**
+ * Get the top 30 highest-scored events in the next 30 days.
+ * Used for the "Top 30" tab.
+ */
+export async function queryTop30Events(): Promise<DbEvent[]> {
+  const startOfToday = getStartOfTodayEastern();
+  const todayStr = getTodayStringEastern();
+  const thirtyDaysLaterStr = addDaysToDateString(todayStr, 30);
+  const thirtyDaysLater = parseAsEastern(thirtyDaysLaterStr, "23:59:59");
+
+  console.log("[queryTop30Events] Fetching top 30 scored events...");
+
+  const selectFields = {
+    id: events.id,
+    sourceId: events.sourceId,
+    source: events.source,
+    title: events.title,
+    description: events.description,
+    startDate: events.startDate,
+    location: events.location,
+    zip: events.zip,
+    organizer: events.organizer,
+    price: events.price,
+    url: events.url,
+    imageUrl: events.imageUrl,
+    tags: events.tags,
+    createdAt: events.createdAt,
+    hidden: events.hidden,
+    interestedCount: events.interestedCount,
+    goingCount: events.goingCount,
+    timeUnknown: events.timeUnknown,
+    recurringType: events.recurringType,
+    recurringEndDate: events.recurringEndDate,
+    favoriteCount: events.favoriteCount,
+    aiSummary: events.aiSummary,
+    updatedAt: events.updatedAt,
+    lastSeenAt: events.lastSeenAt,
+    lastVerifiedAt: events.lastVerifiedAt,
+    score: events.score,
+    scoreRarity: events.scoreRarity,
+    scoreUnique: events.scoreUnique,
+    scoreMagnitude: events.scoreMagnitude,
+    scoreReason: events.scoreReason,
+  };
+
+  const results = await db
+    .select(selectFields)
+    .from(events)
+    .where(
+      and(
+        // Next 30 days
+        gte(events.startDate, startOfToday),
+        lte(events.startDate, thirtyDaysLater),
+        // Must have a score
+        isNotNull(events.score),
+        // Exclude hidden events
+        or(isNull(events.hidden), sql`${events.hidden} = false`)!,
+        // Exclude online/virtual events
+        or(
+          isNull(events.location),
+          and(
+            notIlike(events.location, "%online%"),
+            notIlike(events.location, "%virtual%")
+          )
+        )!
+      )
+    )
+    .orderBy(desc(events.score), asc(events.startDate), asc(events.id))
+    .limit(30);
+
+  console.log(`[queryTop30Events] Found ${results.length} top events`);
+  return results;
 }

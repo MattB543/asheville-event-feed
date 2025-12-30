@@ -1,0 +1,197 @@
+[dotenv@17.2.3] injecting env (30) from .env -- tip: ΓÜÖ∩╕Å  override existing env vars with { override: true }
+Limiting to SCRAPER_ONLY=AVL_TODAY, EVENTBRITE
+
+======================================================================
+Running AVL Today scraper
+======================================================================
+[AVL Scraper] Starting fetch...
+[AVL Scraper] Fetching page with skip=0
+[AVL Scraper] Page response received. Items: 25
+[AVL Scraper] Fetching page with skip=25
+[AVL Scraper] Page response received. Items: 25
+[AVL Scraper] Fetching page with skip=50
+[AVL Scraper] Page response received. Items: 25
+[AVL Scraper] Fetching page with skip=75
+[AVL Scraper] Page response received. Items: 25
+[AVL Scraper] Fetching page with skip=100
+[AVL Scraper] Page response received. Items: 25
+[AVL Scraper] Fetching page with skip=125
+[AVL Scraper] Page response received. Items: 25
+[AVL Scraper] Fetching page with skip=150
+[AVL Scraper] Page response received. Items: 25
+[AVL Scraper] Fetching page with skip=175
+[AVL Scraper] Page response received. Items: 25
+[AVL Scraper] Fetching page with skip=200
+[AVL Scraper] Page response received. Items: 25
+[AVL Scraper] Fetching page with skip=225
+[AVL Scraper] Page response received. Items: 25
+[AVL Scraper] Fetching page with skip=250
+[AVL Scraper] Page response received. Items: 25
+[AVL Scraper] Fetching page with skip=275
+[AVL Scraper] Page response received. Items: 25
+[AVL Scraper] Fetching page with skip=300
+[AVL Scraper] Page response received. Items: 25
+[AVL Scraper] Fetching page with skip=325
+[AVL Scraper] Page response received. Items: 25
+[AVL Scraper] Fetching page with skip=350
+[AVL Scraper] Page response received. Items: 25
+[AVL Scraper] Fetching page with skip=375
+[AVL Scraper] Page response received. Items: 25
+[AVL Scraper] Reached safety limit of 400 items.
+[AVL Scraper] Filtered out 2 non-NC events
+[AVL Scraper] Finished. Found 398 NC events (400 total, 2 filtered).
+Scraped 398 events
+Upserted 398 events (0 failed)
+Count before: 820 after: 871 delta: 51
+Duration: 13s
+
+======================================================================
+Running Eventbrite scraper
+======================================================================
+[Eventbrite Scraper] Starting fetch (max 25 pages, ~2000ms between pages)...
+[Eventbrite Scraper] Fetching browse page 1/25: https://www.eventbrite.com/d/nc--asheville/all-events/?page=1
+[Eventbrite Scraper] Page 1: Found 128 IDs. First ID: 1975858650412. Total unique: 15
+[Eventbrite Scraper] Fetching browse page 2/25: https://www.eventbrite.com/d/nc--asheville/all-events/?page=2
+[Eventbrite Scraper] Page 2: Found 93 IDs. First ID: 1556445513429. Total unique: 26
+[Eventbrite Scraper] Fetching browse page 3/25: https://www.eventbrite.com/d/nc--asheville/all-events/?page=3
+[Eventbrite Scraper] Page 3: Found 135 IDs. First ID: 1788678659019. Total unique: 42
+[Eventbrite Scraper] Fetching browse page 4/25: https://www.eventbrite.com/d/nc--asheville/all-events/?page=4
+[Eventbrite Scraper] Page 4: Found 118 IDs. First ID: 1563229133419. Total unique: 59
+[Eventbrite Scraper] Fetching browse page 5/25: https://www.eventbrite.com/d/nc--asheville/all-events/?page=5
+[Eventbrite Scraper] Page 5: Found 162 IDs. First ID: 1305866284209. Total unique: 82
+[Eventbrite Scraper] Fetching browse page 6/25: https://www.eventbrite.com/d/nc--asheville/all-events/?page=6
+[Eventbrite Scraper] Page 6: Found 175 IDs. First ID: 1800910625159. Total unique: 109
+[Eventbrite Scraper] Fetching browse page 7/25: https://www.eventbrite.com/d/nc--asheville/all-events/?page=7
+[Eventbrite Scraper] Page 7: Found 186 IDs. First ID: 1968200554842. Total unique: 141
+[Eventbrite Scraper] Fetching browse page 8/25: https://www.eventbrite.com/d/nc--asheville/all-events/?page=8
+[Eventbrite Scraper] Page 8: Found 170 IDs. First ID: 1975000447504. Total unique: 165
+[Eventbrite Scraper] Fetching browse page 9/25: https://www.eventbrite.com/d/nc--asheville/all-events/?page=9
+[Eventbrite Scraper] Page 9: Found 168 IDs. First ID: 1972834906312. Total unique: 188
+[Eventbrite Scraper] Fetching browse page 10/25: https://www.eventbrite.com/d/nc--asheville/all-events/?page=10
+[Eventbrite Scraper] Page 10: Found 170 IDs. First ID: 1979032646921. Total unique: 209
+[Eventbrite Scraper] Fetching browse page 11/25: https://www.eventbrite.com/d/nc--asheville/all-events/?page=11
+[Eventbrite Scraper] Page 11: Found 182 IDs. First ID: 1298671143349. Total unique: 242
+[Eventbrite Scraper] Fetching browse page 12/25: https://www.eventbrite.com/d/nc--asheville/all-events/?page=12
+[Eventbrite Scraper] Page 12: Found 169 IDs. First ID: 1978746477982. Total unique: 266
+[Eventbrite Scraper] Fetching browse page 13/25: https://www.eventbrite.com/d/nc--asheville/all-events/?page=13
+[Eventbrite Scraper] Page 13: Found 182 IDs. First ID: 1979192726724. Total unique: 293
+[Eventbrite Scraper] Fetching browse page 14/25: https://www.eventbrite.com/d/nc--asheville/all-events/?page=14
+[Eventbrite Scraper] Page 14: Found 152 IDs. First ID: 1948078387899. Total unique: 314
+[Eventbrite Scraper] Fetching browse page 15/25: https://www.eventbrite.com/d/nc--asheville/all-events/?page=15
+[Eventbrite Scraper] Page 15: Found 171 IDs. First ID: 1975352999998. Total unique: 339
+[Eventbrite Scraper] Fetching browse page 16/25: https://www.eventbrite.com/d/nc--asheville/all-events/?page=16
+[Eventbrite Scraper] Page 16: Found 180 IDs. First ID: 1574537617399. Total unique: 368
+[Eventbrite Scraper] Fetching browse page 17/25: https://www.eventbrite.com/d/nc--asheville/all-events/?page=17
+[Eventbrite Scraper] Page 17: Found 164 IDs. First ID: 1977715450150. Total unique: 389
+[Eventbrite Scraper] Fetching browse page 18/25: https://www.eventbrite.com/d/nc--asheville/all-events/?page=18
+[Eventbrite Scraper] Page 18: Found 157 IDs. First ID: 1967699171190. Total unique: 410
+[Eventbrite Scraper] Fetching browse page 19/25: https://www.eventbrite.com/d/nc--asheville/all-events/?page=19
+[Eventbrite Scraper] Page 19: Found 174 IDs. First ID: 1977030928728. Total unique: 433
+[Eventbrite Scraper] Fetching browse page 20/25: https://www.eventbrite.com/d/nc--asheville/all-events/?page=20
+[Eventbrite Scraper] Page 20: Found 174 IDs. First ID: 1977030590717. Total unique: 459
+[Eventbrite Scraper] Fetching browse page 21/25: https://www.eventbrite.com/d/nc--asheville/all-events/?page=21
+[Eventbrite Scraper] Page 21: Found 182 IDs. First ID: 1596805952589. Total unique: 486
+[Eventbrite Scraper] Fetching browse page 22/25: https://www.eventbrite.com/d/nc--asheville/all-events/?page=22
+[Eventbrite Scraper] Page 22: Found 180 IDs. First ID: 1977079978437. Total unique: 515
+[Eventbrite Scraper] Fetching browse page 23/25: https://www.eventbrite.com/d/nc--asheville/all-events/?page=23
+[Eventbrite Scraper] Page 23: Found 167 IDs. First ID: 1977079271322. Total unique: 538
+[Eventbrite Scraper] Fetching browse page 24/25: https://www.eventbrite.com/d/nc--asheville/all-events/?page=24
+[Eventbrite Scraper] Page 24: Found 166 IDs. First ID: 1295663507429. Total unique: 560
+[Eventbrite Scraper] Fetching browse page 25/25: https://www.eventbrite.com/d/nc--asheville/all-events/?page=25
+[Eventbrite Scraper] Page 25: Found 146 IDs. First ID: 1854450253629. Total unique: 581
+[Eventbrite Scraper] Fetching details for 581 events in batches of 15...
+[Eventbrite Scraper] Fetching batch 1/39 (15 IDs)
+[Eventbrite Scraper] Batch 1 received 15 events
+[Eventbrite Scraper] Fetching batch 2/39 (15 IDs)
+[Eventbrite Scraper] Batch 2 received 15 events
+[Eventbrite Scraper] Fetching batch 3/39 (15 IDs)
+[Eventbrite Scraper] Batch 3 received 15 events
+[Eventbrite Scraper] Fetching batch 4/39 (15 IDs)
+[Eventbrite Scraper] Batch 4 received 15 events
+[Eventbrite Scraper] Fetching batch 5/39 (15 IDs)
+[Eventbrite Scraper] Batch 5 received 15 events
+[Eventbrite Scraper] Fetching batch 6/39 (15 IDs)
+[Eventbrite Scraper] Batch 6 received 15 events
+[Eventbrite Scraper] Fetching batch 7/39 (15 IDs)
+[Eventbrite Scraper] Batch 7 received 15 events
+[Eventbrite Scraper] Fetching batch 8/39 (15 IDs)
+[Eventbrite Scraper] Batch 8 received 15 events
+[Eventbrite Scraper] Fetching batch 9/39 (15 IDs)
+[Eventbrite Scraper] Batch 9 received 15 events
+[Eventbrite Scraper] Fetching batch 10/39 (15 IDs)
+[Eventbrite Scraper] Batch 10 received 15 events
+[Eventbrite Scraper] Fetching batch 11/39 (15 IDs)
+[Eventbrite Scraper] Batch 11 received 15 events
+[Eventbrite Scraper] Fetching batch 12/39 (15 IDs)
+[Eventbrite Scraper] Batch 12 received 15 events
+[Eventbrite Scraper] Fetching batch 13/39 (15 IDs)
+[Eventbrite Scraper] Batch 13 received 15 events
+[Eventbrite Scraper] Fetching batch 14/39 (15 IDs)
+[Eventbrite Scraper] Batch 14 received 14 events
+[Eventbrite Scraper] Fetching batch 15/39 (15 IDs)
+[Eventbrite Scraper] Batch 15 received 15 events
+[Eventbrite Scraper] Fetching batch 16/39 (15 IDs)
+[Eventbrite Scraper] Batch 16 received 15 events
+[Eventbrite Scraper] Fetching batch 17/39 (15 IDs)
+[Eventbrite Scraper] Batch 17 received 15 events
+[Eventbrite Scraper] Fetching batch 18/39 (15 IDs)
+[Eventbrite Scraper] Batch 18 received 14 events
+[Eventbrite Scraper] Fetching batch 19/39 (15 IDs)
+[Eventbrite Scraper] Batch 19 received 15 events
+[Eventbrite Scraper] Fetching batch 20/39 (15 IDs)
+[Eventbrite Scraper] Batch 20 received 15 events
+[Eventbrite Scraper] Fetching batch 21/39 (15 IDs)
+[Eventbrite Scraper] Batch 21 received 15 events
+[Eventbrite Scraper] Fetching batch 22/39 (15 IDs)
+[Eventbrite Scraper] Batch 22 received 15 events
+[Eventbrite Scraper] Fetching batch 23/39 (15 IDs)
+[Eventbrite Scraper] Batch 23 received 11 events
+[Eventbrite Scraper] Fetching batch 24/39 (15 IDs)
+[Eventbrite Scraper] Batch 24 received 14 events
+[Eventbrite Scraper] Fetching batch 25/39 (15 IDs)
+[Eventbrite Scraper] Batch 25 received 15 events
+[Eventbrite Scraper] Fetching batch 26/39 (15 IDs)
+[Eventbrite Scraper] Batch 26 received 15 events
+[Eventbrite Scraper] Fetching batch 27/39 (15 IDs)
+[Eventbrite Scraper] Batch 27 received 15 events
+[Eventbrite Scraper] Fetching batch 28/39 (15 IDs)
+[Eventbrite Scraper] Batch 28 received 15 events
+[Eventbrite Scraper] Fetching batch 29/39 (15 IDs)
+[Eventbrite Scraper] Batch 29 received 15 events
+[Eventbrite Scraper] Fetching batch 30/39 (15 IDs)
+[Eventbrite Scraper] Batch 30 received 15 events
+[Eventbrite Scraper] Fetching batch 31/39 (15 IDs)
+[Eventbrite Scraper] Batch 31 received 15 events
+[Eventbrite Scraper] Fetching batch 32/39 (15 IDs)
+[Eventbrite Scraper] Batch 32 received 15 events
+[Eventbrite Scraper] Fetching batch 33/39 (15 IDs)
+[Eventbrite Scraper] Batch 33 received 15 events
+[Eventbrite Scraper] Fetching batch 34/39 (15 IDs)
+[Eventbrite Scraper] Batch 34 received 15 events
+[Eventbrite Scraper] Fetching batch 35/39 (15 IDs)
+[Eventbrite Scraper] Batch 35 received 13 events
+[Eventbrite Scraper] Fetching batch 36/39 (15 IDs)
+[Eventbrite Scraper] Batch 36 received 15 events
+[Eventbrite Scraper] Fetching batch 37/39 (15 IDs)
+[Eventbrite Scraper] Batch 37 received 15 events
+[Eventbrite Scraper] Fetching batch 38/39 (15 IDs)
+[Eventbrite Scraper] Batch 38 received 15 events
+[Eventbrite Scraper] Fetching batch 39/39 (11 IDs)
+[Eventbrite Scraper] Batch 39 received 11 events
+[Eventbrite Scraper] Filtered out 175 non-NC events
+[Eventbrite Scraper] Finished. Found 397 NC events (572 total, 175 filtered).
+Scraped 397 events
+Upserted 397 events (0 failed)
+Count before: 937 after: 1005 delta: 68
+Duration: 2m 43s
+
+======================================================================
+Summary
+======================================================================
+AVL Today          | OK      | scraped  398 | upserted  398 | failed   0 | delta   51 | 13s
+Eventbrite         | OK      | scraped  397 | upserted  397 | failed   0 | delta   68 | 2m 43s
+Facebook           | SKIPPED | scraped    0 | upserted    0 | failed   0 | delta    0 | 0s
+----------------------------------------------------------------------
+TOTAL scraped 795, upserted 795, failed 0
+Total duration: 2m 57s
+Summary written to C:\Users\matth\projects\asheville-event-feed\claude\debug\scraper-run-summary.json

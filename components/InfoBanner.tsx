@@ -3,28 +3,32 @@
 import { useState, useEffect } from "react";
 import { X } from "lucide-react";
 
-const STORAGE_KEY = "infoBannerDismissed";
+const STORAGE_KEY = "infoBannerSeen";
 
 export default function InfoBanner() {
-  const [isDismissed, setIsDismissed] = useState(true); // Start hidden to prevent flash
+  const [isVisible, setIsVisible] = useState(false); // Start hidden to prevent flash
   const [isLoaded, setIsLoaded] = useState(false);
 
   // Read localStorage on mount to initialize state (SSR-safe pattern)
   useEffect(() => {
-    const dismissed = localStorage.getItem(STORAGE_KEY) === "true";
+    const hasSeenBefore = localStorage.getItem(STORAGE_KEY) === "true";
     /* eslint-disable react-hooks/set-state-in-effect -- SSR hydration: can't read localStorage during server render */
-    setIsDismissed(dismissed);
+    // Show banner only on first visit, auto-hide on subsequent visits
+    setIsVisible(!hasSeenBefore);
     setIsLoaded(true);
+    // Mark as seen for next visit
+    if (!hasSeenBefore) {
+      localStorage.setItem(STORAGE_KEY, "true");
+    }
     /* eslint-enable react-hooks/set-state-in-effect */
   }, []);
 
   const handleDismiss = () => {
-    setIsDismissed(true);
-    localStorage.setItem(STORAGE_KEY, "true");
+    setIsVisible(false);
   };
 
-  // Don't render anything until we've checked localStorage
-  if (!isLoaded || isDismissed) return null;
+  // Don't render anything until we've checked localStorage or if not visible
+  if (!isLoaded || !isVisible) return null;
 
   return (
     <div className="w-full max-w-7xl mx-auto px-0 sm:px-6 lg:px-8">

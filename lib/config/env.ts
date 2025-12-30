@@ -23,6 +23,8 @@ export const env = {
   get POSTMARK_API_KEY() { return process.env.POSTMARK_API_KEY; },
   get POSTMARK_FROM_EMAIL() { return process.env.POSTMARK_FROM_EMAIL; },
   get NEXT_PUBLIC_APP_URL() { return process.env.NEXT_PUBLIC_APP_URL || 'https://avlgo.com'; },
+  // Jina Reader API (for event verification)
+  get JINA_API_KEY() { return process.env.JINA_API_KEY; },
 } as const;
 
 // Helper to check if AI features are enabled
@@ -43,6 +45,11 @@ export function isSlackEnabled(): boolean {
 // Helper to check if Postmark email is enabled
 export function isPostmarkEnabled(): boolean {
   return !!(env.POSTMARK_API_KEY && env.POSTMARK_FROM_EMAIL);
+}
+
+// Helper to check if Jina Reader API is configured
+export function isJinaEnabled(): boolean {
+  return !!env.JINA_API_KEY;
 }
 
 // Helper to check if Supabase Auth is configured

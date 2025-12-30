@@ -35,6 +35,8 @@ export const events = pgTable('events', {
   scoreUnique: integer('score_unique'),       // 0-10: How cool/novel is this event
   scoreMagnitude: integer('score_magnitude'), // 0-10: Production scale/talent level
   scoreReason: text('score_reason'),          // One-sentence AI reasoning for the score
+  // Event verification (via Jina Reader API)
+  lastVerifiedAt: timestamp('last_verified_at', { withTimezone: true }), // When event source URL was last checked
 }, (table) => ({
   startDateIdx: index('events_start_date_idx').on(table.startDate),
   sourceIdx: index('events_source_idx').on(table.source),

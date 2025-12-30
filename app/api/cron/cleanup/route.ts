@@ -1,9 +1,9 @@
 import { NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { events } from '@/lib/db/schema';
-import { inArray, sql } from 'drizzle-orm';
+import { inArray, sql, eq } from 'drizzle-orm';
 import { isNonNCEvent } from '@/lib/utils/geo';
-import { findDuplicates, getIdsToRemove } from '@/lib/utils/deduplication';
+import { findDuplicates, getIdsToRemove, getDescriptionUpdates } from '@/lib/utils/deduplication';
 import { env } from '@/lib/config/env';
 import { verifyAuthToken } from '@/lib/utils/auth';
 import { invalidateEventsCache } from '@/lib/cache/invalidation';
@@ -218,8 +218,20 @@ export async function GET(request: Request) {
 
     const duplicateGroups = findDuplicates(allEventsForDedup);
     const duplicateIdsToRemove = getIdsToRemove(duplicateGroups);
+    const descriptionUpdates = getDescriptionUpdates(duplicateGroups);
 
     console.log(`[Cleanup] Found ${duplicateIdsToRemove.length} duplicate events to remove.`);
+
+    // Apply description merges before deleting duplicates
+    // (keep the longer description from removed events)
+    if (descriptionUpdates.length > 0) {
+      for (const update of descriptionUpdates) {
+        await db.update(events)
+          .set({ description: update.description })
+          .where(eq(events.id, update.id));
+      }
+      console.log(`[Cleanup] Merged ${descriptionUpdates.length} longer descriptions.`);
+    }
 
     if (duplicateIdsToRemove.length > 0) {
       const deleteBatchSize = 50;

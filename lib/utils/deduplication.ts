@@ -12,10 +12,12 @@
  * E) Known venue + Same date + Any title word overlap
  *    (catches venue-specific events across sources with different naming)
  *
- * When duplicates are found, keep:
- * 1. The one with a known price (not "Unknown")
- * 2. If tie, the one with longer description
- * 3. If still tie, the newer one (by createdAt)
+ * When duplicates are found:
+ * 1. Keep the event with a known price (not "Unknown")
+ * 2. If tie, keep the one with longer description
+ * 3. If still tie, keep the newer one (by createdAt)
+ * 4. Merge the longer description from any removed event into the kept event
+ *    (so we always preserve the best description regardless of which event wins)
  */
 
 import { getVenueForEvent, isKnownVenue } from './venues';
@@ -233,6 +235,7 @@ export interface DuplicateGroup {
   keep: EventForDedup;
   remove: EventForDedup[];
   method: string; // Which method detected this duplicate (for debugging)
+  descriptionUpdate?: string; // Longer description from a removed event to merge into keep
 }
 
 function pad2(value: number): string {
@@ -433,10 +436,25 @@ export function findDuplicates(events: EventForDedup[]): DuplicateGroup[] {
           }
         }
 
+        // Check if any removed event has a longer description than the keep event
+        // If so, we should merge that description into the keep event
+        const keepDescLen = keep.description?.length || 0;
+        let longestDesc: string | undefined;
+        let longestDescLen = keepDescLen;
+
+        for (const removed of remove) {
+          const removedDescLen = removed.description?.length || 0;
+          if (removedDescLen > longestDescLen) {
+            longestDescLen = removedDescLen;
+            longestDesc = removed.description!;
+          }
+        }
+
         duplicateGroups.push({
           keep,
           remove,
           method: methods.join(','),
+          descriptionUpdate: longestDesc,
         });
         processed.add(event1.id);
       }
@@ -457,6 +475,22 @@ export function getIdsToRemove(duplicateGroups: DuplicateGroup[]): string[] {
     }
   }
   return ids;
+}
+
+/**
+ * Get description updates to apply (merging longer descriptions from removed events)
+ */
+export function getDescriptionUpdates(duplicateGroups: DuplicateGroup[]): { id: string; description: string }[] {
+  const updates: { id: string; description: string }[] = [];
+  for (const group of duplicateGroups) {
+    if (group.descriptionUpdate) {
+      updates.push({
+        id: group.keep.id,
+        description: group.descriptionUpdate,
+      });
+    }
+  }
+  return updates;
 }
 
 /**

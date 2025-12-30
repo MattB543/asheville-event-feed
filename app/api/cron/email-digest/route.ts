@@ -651,6 +651,7 @@ export async function GET(request: Request) {
               imageUrl: events.imageUrl,
               tags: events.tags,
               url: events.url,
+              aiSummary: events.aiSummary,
             },
             curatorName: curatorProfiles.displayName,
             curatorId: curatorProfiles.userId,
@@ -719,6 +720,7 @@ export async function GET(request: Request) {
         imageUrl: event.imageUrl,
         tags: event.tags,
         url: event.url,
+        aiSummary: event.aiSummary,
       }));
 
       const totalCount = eventsToSend.length + curatedEventList.length;
@@ -816,5 +818,6 @@ interface DigestEvent {
   imageUrl?: string | null;
   tags?: string[] | null;
   url: string;
+  aiSummary?: string | null;
   curators?: Array<{ name: string; note?: string | null }>;
 }

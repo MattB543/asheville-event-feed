@@ -1,6 +1,29 @@
 import { env } from "@/lib/config/env";
-import { format } from "date-fns";
 import { generateEventSlug } from "@/lib/utils/slugify";
+
+/**
+ * Format a date in Eastern timezone for display (e.g., "Monday, Dec 30")
+ */
+function formatEasternDate(date: Date): string {
+  return new Intl.DateTimeFormat("en-US", {
+    timeZone: "America/New_York",
+    weekday: "long",
+    month: "short",
+    day: "numeric",
+  }).format(date);
+}
+
+/**
+ * Format a time in Eastern timezone for display (e.g., "7:00 PM")
+ */
+function formatEasternTime(date: Date): string {
+  return new Intl.DateTimeFormat("en-US", {
+    timeZone: "America/New_York",
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true,
+  }).format(date);
+}
 
 interface DigestEvent {
   id: string;
@@ -12,6 +35,7 @@ interface DigestEvent {
   imageUrl?: string | null;
   tags?: string[] | null;
   url: string;
+  aiSummary?: string | null;
   curators?: Array<{ name: string; note?: string | null }>;
 }
 
@@ -45,9 +69,9 @@ export function generateDigestEmailHtml(options: DigestEmailOptions): string {
     ? `Hey ${recipientName.split(" ")[0]}`
     : "Hey there";
 
-  // Group events by date
+  // Group events by date (using Eastern timezone)
   const eventsByDate = events.reduce((acc, event) => {
-    const dateKey = format(new Date(event.startDate), "EEEE, MMM d");
+    const dateKey = formatEasternDate(new Date(event.startDate));
     if (!acc[dateKey]) {
       acc[dateKey] = [];
     }
@@ -121,7 +145,7 @@ export function generateDigestEmailHtml(options: DigestEmailOptions): string {
                 <img src="${appUrl}/avlgo_banner_logo_v2.svg" alt="AVL GO" width="120" style="max-width: 120px; height: auto;" />
               </a>
               <h1 style="color: #ffffff; font-size: 24px; font-weight: 700; margin: 16px 0 0 0;">
-                ${headerText}
+                ${headerText} from AVLGo.com
               </h1>
             </td>
           </tr>
@@ -207,7 +231,7 @@ function generateEventCard(event: DigestEvent, appUrl: string): string {
     new Date(event.startDate),
     event.id
   )}`;
-  const time = format(new Date(event.startDate), "h:mm a");
+  const time = formatEasternTime(new Date(event.startDate));
   const imageUrl = event.imageUrl?.startsWith("http")
     ? event.imageUrl
     : event.imageUrl
@@ -237,6 +261,12 @@ function generateEventCard(event: DigestEvent, appUrl: string): string {
     `
     : "";
 
+  // Build the details line: "8:00 AM | $40 | The Omni Grove Park Inn"
+  const detailParts = [time];
+  if (event.price) detailParts.push(escapeHtml(event.price));
+  if (event.location) detailParts.push(escapeHtml(truncate(event.location, 30)));
+  const detailsLine = detailParts.join(" | ");
+
   return `
     <tr>
       <td style="padding: 8px 24px;">
@@ -258,19 +288,14 @@ function generateEventCard(event: DigestEvent, appUrl: string): string {
                         ${escapeHtml(event.title)}
                       </h3>
                     </a>
-                    <p style="color: #6b7280; font-size: 14px; margin: 0 0 4px 0;">
-                      Time: ${time}
-                      ${event.location ? ` | ${escapeHtml(truncate(event.location, 30))}` : ""}
+                    ${event.aiSummary ? `
+                    <p style="color: #4b5563; font-size: 13px; margin: 0 0 6px 0; line-height: 1.4;">
+                      ${escapeHtml(event.aiSummary)}
                     </p>
-                    ${
-                      event.price
-                        ? `
-                      <p style="color: #6b7280; font-size: 14px; margin: 0 0 8px 0;">
-                        Price: ${escapeHtml(event.price)}
-                      </p>
-                    `
-                        : ""
-                    }
+                    ` : ""}
+                    <p style="color: #6b7280; font-size: 14px; margin: 0 0 8px 0;">
+                      ${detailsLine}
+                    </p>
                     ${displayTags.length > 0
                       ? `
                       <p style="margin: 0;">
@@ -332,7 +357,7 @@ Manage preferences: ${appUrl}/profile
   }
 
   const eventsByDate = events.reduce((acc, event) => {
-    const dateKey = format(new Date(event.startDate), "EEEE, MMM d");
+    const dateKey = formatEasternDate(new Date(event.startDate));
     if (!acc[dateKey]) {
       acc[dateKey] = [];
     }
@@ -344,7 +369,7 @@ Manage preferences: ${appUrl}/profile
     curatedEvents && curatedEvents.length > 0
       ? `Curated picks\n${"-".repeat(13)}\n${curatedEvents
           .map((event) => {
-            const time = format(new Date(event.startDate), "h:mm a");
+            const time = formatEasternTime(new Date(event.startDate));
             const eventUrl = `${appUrl}/events/${generateEventSlug(
               event.title,
               new Date(event.startDate),
@@ -361,9 +386,12 @@ Manage preferences: ${appUrl}/profile
                 (curator) => `\n    Note: "${curator.note}" - ${curator.name}`
               )
               .join("") || "";
-            return `  - ${event.title}\n    ${time}${
-              event.location ? ` at ${event.location}` : ""
-            }${event.price ? ` - ${event.price}` : ""}\n    ${eventUrl}${curatorText}${notesText}`;
+            // Build details line: time | price | location
+            const detailParts = [time];
+            if (event.price) detailParts.push(event.price);
+            if (event.location) detailParts.push(event.location);
+            const summaryLine = event.aiSummary ? `\n    ${event.aiSummary}` : "";
+            return `  - ${event.title}${summaryLine}\n    ${detailParts.join(" | ")}\n    ${eventUrl}${curatorText}${notesText}`;
           })
           .join("\n\n")}\n\n`
       : "";
@@ -372,15 +400,18 @@ Manage preferences: ${appUrl}/profile
     .map(([dateKey, dateEvents]) => {
       const eventList = dateEvents
         .map((event) => {
-          const time = format(new Date(event.startDate), "h:mm a");
+          const time = formatEasternTime(new Date(event.startDate));
           const eventUrl = `${appUrl}/events/${generateEventSlug(
             event.title,
             new Date(event.startDate),
             event.id
           )}`;
-          return `  - ${event.title}\n    ${time}${
-            event.location ? ` at ${event.location}` : ""
-          }${event.price ? ` - ${event.price}` : ""}\n    ${eventUrl}`;
+          // Build details line: time | price | location
+          const detailParts = [time];
+          if (event.price) detailParts.push(event.price);
+          if (event.location) detailParts.push(event.location);
+          const summaryLine = event.aiSummary ? `\n    ${event.aiSummary}` : "";
+          return `  - ${event.title}${summaryLine}\n    ${detailParts.join(" | ")}\n    ${eventUrl}`;
         })
         .join("\n\n");
       return `${dateKey}\n${"-".repeat(dateKey.length)}\n${eventList}`;

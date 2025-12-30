@@ -14,12 +14,12 @@ import { scrapeNCStage } from "@/lib/scrapers/ncstage";
 import { scrapeStoryParlor } from "@/lib/scrapers/storyparlor";
 import { db } from "@/lib/db";
 import { events } from "@/lib/db/schema";
-import { inArray } from "drizzle-orm";
+import { inArray, eq } from "drizzle-orm";
 import { generateEventTags } from "@/lib/ai/tagAndSummarize";
 import { generateAndUploadEventImage } from "@/lib/ai/imageGeneration";
 import type { ScrapedEventWithTags } from "@/lib/scrapers/types";
 import { env, isFacebookEnabled } from "@/lib/config/env";
-import { findDuplicates, getIdsToRemove } from "@/lib/utils/deduplication";
+import { findDuplicates, getIdsToRemove, getDescriptionUpdates } from "@/lib/utils/deduplication";
 import { syncRecurringFromExploreAsheville } from "@/lib/utils/syncRecurringFromExploreAsheville";
 import { verifyAuthToken } from "@/lib/utils/auth";
 import { enrichEventData } from "@/lib/ai/dataEnrichment";
@@ -570,7 +570,19 @@ export async function GET(request: Request) {
 
     const duplicateGroups = findDuplicates(allDbEvents);
     const duplicateIdsToRemove = getIdsToRemove(duplicateGroups);
+    const descriptionUpdates = getDescriptionUpdates(duplicateGroups);
     stats.dedup.removed = duplicateIdsToRemove.length;
+
+    // Apply description merges before deleting duplicates
+    // (keep the longer description from removed events)
+    if (descriptionUpdates.length > 0) {
+      for (const update of descriptionUpdates) {
+        await db.update(events)
+          .set({ description: update.description })
+          .where(eq(events.id, update.id));
+      }
+      console.log(`[Cron] Deduplication: merged ${descriptionUpdates.length} longer descriptions.`);
+    }
 
     if (duplicateIdsToRemove.length > 0) {
       await db.delete(events).where(inArray(events.id, duplicateIdsToRemove));

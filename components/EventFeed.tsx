@@ -113,6 +113,47 @@ function getStorageItem<T>(key: string, defaultValue: T): T {
   }
 }
 
+// Check if localStorage contains non-default filters that would affect query results
+// This runs synchronously at initialization to detect if we should skip SSR data
+function hasNonDefaultLocalStorageFilters(): boolean {
+  if (typeof window === "undefined") return false;
+
+  try {
+    const dateFilter = getStorageItem("dateFilter", "all");
+    const priceFilter = getStorageItem("priceFilter", "any");
+    const tagFilters = getStorageItem<{
+      include: string[];
+      exclude: string[];
+    } | null>("tagFilters", null);
+    const selectedTags = getStorageItem<string[]>("selectedTags", []); // old format
+    const selectedLocations = getStorageItem<string[]>("selectedLocations", []);
+    const selectedZips = getStorageItem<string[]>("selectedZips", []);
+    const selectedTimes = getStorageItem<TimeOfDay[]>("selectedTimes", []);
+    const selectedDays = getStorageItem<number[]>("selectedDays", []);
+    const customDateRange = getStorageItem<{
+      start: string | null;
+      end: string | null;
+    }>("customDateRange", { start: null, end: null });
+    const search = getStorageItem<string>("search", "");
+
+    return (
+      dateFilter !== "all" ||
+      priceFilter !== "any" ||
+      (tagFilters?.include?.length ?? 0) > 0 ||
+      (tagFilters?.exclude?.length ?? 0) > 0 ||
+      selectedTags.length > 0 ||
+      selectedLocations.length > 0 ||
+      selectedZips.length > 0 ||
+      selectedTimes.length > 0 ||
+      selectedDays.length > 0 ||
+      customDateRange.start !== null ||
+      search.trim().length > 0
+    );
+  } catch {
+    return false;
+  }
+}
+
 // Parse URL filters on initial load (client-side only)
 // Returns null if no filter params present, otherwise returns parsed filters
 interface UrlFilters {
@@ -303,6 +344,12 @@ export default function EventFeed({
   const urlFilters = urlFilterState.filters;
   const hasUrlFilters = urlFilterState.hasFilters;
 
+  // Check if localStorage has non-default filters at initialization
+  // This runs synchronously before useEventQuery decides to use SSR data
+  const [hasLocalStorageFilters] = useState(() =>
+    hasNonDefaultLocalStorageFilters()
+  );
+
   // Track which events the user has favorited (persisted to localStorage)
   const [favoritedEventIds, setFavoritedEventIds] = useState<string[]>(() =>
     getStorageItem("favoritedEventIds", [])
@@ -486,7 +533,8 @@ export default function EventFeed({
   // Use the event query hook for server-side filtering
   // Only use SSR initialData on first load with no URL filters and no user filter changes
   // Once filters change, we must fetch fresh data to avoid showing stale SSR results
-  const shouldUseInitialData = !hasUrlFilters && !hasModifiedFilters.current;
+  const shouldUseInitialData =
+    !hasUrlFilters && !hasLocalStorageFilters && !hasModifiedFilters.current;
 
   const {
     events: apiEvents,
@@ -502,14 +550,20 @@ export default function EventFeed({
     enabled: isLoaded, // Only fetch after client hydration
   });
 
-  // Log when URL filters cause fresh fetch
+  // Log when URL or localStorage filters cause fresh fetch
   useEffect(() => {
-    if (hasUrlFilters && isLoaded) {
-      console.log(
-        "[EventFeed] Fetching fresh data (URL filters present, skipped SSR data)"
-      );
+    if (isLoaded) {
+      if (hasUrlFilters) {
+        console.log(
+          "[EventFeed] Fetching fresh data (URL filters present, skipped SSR data)"
+        );
+      } else if (hasLocalStorageFilters) {
+        console.log(
+          "[EventFeed] Fetching fresh data (localStorage filters present, skipped SSR data)"
+        );
+      }
     }
-  }, [hasUrlFilters, isLoaded]);
+  }, [hasUrlFilters, hasLocalStorageFilters, isLoaded]);
 
   // Convert API events to component format (parse startDate string to Date)
   const events = useMemo(

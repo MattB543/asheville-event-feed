@@ -243,7 +243,7 @@ export default function FilterBar({
 
   // Dropdown alignment state for collision detection
   const [tagsAlign, setTagsAlign] = useState<"left" | "right">("left");
-  const [locationAlign, setLocationAlign] = useState<"left" | "right">("left");
+  const [locationAlign, setLocationAlign] = useState<"left" | "right" | "center">("left");
 
   // Handle opening dropdowns with collision detection
   const handleTagsOpen = () => {
@@ -259,9 +259,31 @@ export default function FilterBar({
   const handleLocationOpen = () => {
     if (!isLocationOpen && locationRef.current) {
       const rect = locationRef.current.getBoundingClientRect();
-      const dropdownWidth = 240; // dropdown width
-      const wouldOverflow = rect.left + dropdownWidth > window.innerWidth - 16;
-      setLocationAlign(wouldOverflow ? "right" : "left");
+      const dropdownWidth = 240;
+      const margin = 16;
+      const isMobile = window.innerWidth < 640; // sm breakpoint
+
+      if (isMobile) {
+        // On mobile, prefer centering the dropdown on the button
+        const buttonCenter = rect.left + rect.width / 2;
+        const halfDropdown = dropdownWidth / 2;
+
+        const canCenter =
+          buttonCenter - halfDropdown >= margin &&
+          buttonCenter + halfDropdown <= window.innerWidth - margin;
+        const canLeft = rect.left + dropdownWidth <= window.innerWidth - margin;
+
+        if (canCenter) {
+          setLocationAlign("center");
+        } else if (canLeft) {
+          setLocationAlign("left");
+        } else {
+          setLocationAlign("right");
+        }
+      } else {
+        // On tablet+, just left-align like other dropdowns
+        setLocationAlign("left");
+      }
 
       // Auto-expand sections based on what's selected
       const sectionsToExpand = new Set<string>();
@@ -852,7 +874,11 @@ export default function FilterBar({
             {isLocationOpen && (
               <div
                 className={`absolute top-full mt-1 z-50 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg min-w-[240px] max-h-96 flex flex-col ${
-                  locationAlign === "left" ? "left-0" : "right-0"
+                  locationAlign === "center"
+                    ? "left-1/2 -translate-x-1/2"
+                    : locationAlign === "left"
+                      ? "left-0"
+                      : "right-0"
                 }`}
               >
                 <div className="px-3 py-2 border-b border-gray-100 dark:border-gray-700">
@@ -1042,7 +1068,7 @@ export default function FilterBar({
 
             {isTagsOpen && (
               <div
-                className={`absolute top-full mt-1 z-50 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg w-[260px] xl:w-auto xl:min-w-[280px] xl:max-w-[320px] ${
+                className={`absolute top-full mt-1 z-50 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg w-[238px] xl:w-auto xl:min-w-[257px] xl:max-w-[290px] ${
                   tagsAlign === "left" ? "left-0" : "right-0"
                 }`}
               >
@@ -1070,7 +1096,7 @@ export default function FilterBar({
                     None selected = show all
                   </p>
                   <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">
-                    1 click to include, 2 to exclude, 3 to clear
+                    1 tap to include, 2 to exclude, 3 to clear
                   </p>
                 </div>
 

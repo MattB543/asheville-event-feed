@@ -316,29 +316,26 @@ export default function EventCard({
     const officialTags = event.tags?.filter((tag) => OFFICIAL_TAGS_SET.has(tag)) || [];
     const minimizedTags = officialTags.slice(0, 3);
 
-    const handleRowClick = (e: React.MouseEvent) => {
-      // Don't expand if clicking on the title link
-      if ((e.target as HTMLElement).closest('a')) return;
-      onExpandMinimized?.(event.id);
-    };
-
     return (
       <div
-        onClick={handleRowClick}
+        onClick={() => onExpandMinimized?.(event.id)}
         className={`px-3 py-2.5 sm:px-5 cursor-pointer opacity-80 hover:opacity-100
           ${hideBorder ? "" : "border-b border-gray-200 dark:border-gray-700"}
           bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800 transition-opacity`}
       >
         {/* Mobile layout: stacked */}
         <div className="sm:hidden">
-          {/* Title */}
-          <Link
-            href={eventUrl}
-            className="text-sm font-medium text-brand-600 dark:text-brand-400 hover:underline line-clamp-1"
-            onClick={(e) => e.stopPropagation()}
-          >
-            {event.title}
-          </Link>
+          {/* Title row with chevron */}
+          <div className="flex items-center gap-2">
+            <Link
+              href={eventUrl}
+              className="text-sm font-medium text-brand-600 dark:text-brand-400 hover:underline line-clamp-1 flex-1 min-w-0"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {event.title}
+            </Link>
+            <ChevronDown size={14} className="text-gray-400 dark:text-gray-500 opacity-60 shrink-0" />
+          </div>
 
           {/* Summary */}
           {summaryText && (
@@ -404,6 +401,7 @@ export default function EventCard({
           <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-600 whitespace-nowrap shrink-0 ${minimizedTags.length === 0 ? 'ml-auto' : ''}`}>
             {formatDate(event.startDate, event.timeUnknown)}
           </span>
+          <ChevronDown size={14} className="text-gray-400 dark:text-gray-500 opacity-60 shrink-0 ml-auto" />
         </div>
       </div>
     );

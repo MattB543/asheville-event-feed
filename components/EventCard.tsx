@@ -168,13 +168,13 @@ export default function EventCard({
 
   const handleHideEvent = () => {
     onHide(event.title, event.organizer, event.id);
-    setHideMenuOpen(false);
+    setMoreMenuOpen(false);
   };
 
   const handleBlockHost = () => {
     if (event.organizer) {
       onBlockHost(event.organizer);
-      setHideMenuOpen(false);
+      setMoreMenuOpen(false);
     }
   };
 
@@ -226,7 +226,6 @@ export default function EventCard({
       : displayText;
 
   // Show expand button if: has AI summary, or description needs truncation
-  const showExpandButtonMobile = hasAiSummary || needsTruncationMobile;
   const showExpandButtonTablet = hasAiSummary || needsTruncationTablet;
   const expandButtonText = isExpanded
     ? "View less"

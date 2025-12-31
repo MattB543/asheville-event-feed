@@ -612,12 +612,13 @@ export default function EventFeed({
     });
   }, [events, sessionHiddenKeys]);
 
-  // Whether we should show the per-day toggle (hide during search/tags)
+  // Whether we should show the per-day toggle (hide during search/tags/locations)
   const showDayToggle = useMemo(() => {
     const hasActiveSearch = search.trim().length > 0;
     const hasIncludedTags = tagFilters.include.length > 0;
-    return !hasActiveSearch && !hasIncludedTags;
-  }, [search, tagFilters.include]);
+    const hasLocationFilter = selectedLocations.length > 0;
+    return !hasActiveSearch && !hasIncludedTags && !hasLocationFilter;
+  }, [search, tagFilters.include, selectedLocations]);
 
   // Preference sync with database (for logged-in users)
   // Uses refs to avoid stale closures in callbacks
@@ -798,6 +799,9 @@ export default function EventFeed({
   const availableLocations = metadata?.availableLocations || [];
   const availableZips = metadata?.availableZips || [];
 
+  // Check if all locations are selected (empty array means "all selected" = no filter)
+  const allLocationsSelected = selectedLocations.length === 0;
+
   // Build active filters list for display
   const activeFilters = useMemo<ActiveFilter[]>(() => {
     const filters: ActiveFilter[] = [];
@@ -859,11 +863,14 @@ export default function EventFeed({
         label: tag,
       });
     });
-    selectedLocations.forEach((loc) => {
-      let label = loc;
-      if (loc === "asheville") label = "Asheville area";
-      filters.push({ id: `location-${loc}`, type: "location", label });
-    });
+    // Only show location filters if not all locations are selected
+    if (!allLocationsSelected) {
+      selectedLocations.forEach((loc) => {
+        let label = loc;
+        if (loc === "asheville") label = "Asheville area";
+        filters.push({ id: `location-${loc}`, type: "location", label });
+      });
+    }
     selectedZips.forEach((zip) => {
       const name = getZipName(zip);
       filters.push({
@@ -885,6 +892,7 @@ export default function EventFeed({
     tagFilters,
     selectedLocations,
     selectedZips,
+    allLocationsSelected,
   ]);
 
   // Handle removing filters

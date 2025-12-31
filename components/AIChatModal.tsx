@@ -375,8 +375,14 @@ export default function AIChatModal({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-0 sm:p-4">
-      <div className="bg-white dark:bg-gray-900 sm:rounded-xl shadow-xl w-full sm:max-w-2xl h-full sm:h-[80vh] sm:max-h-[600px] flex flex-col">
+    <div
+      className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-0 sm:p-4"
+      onClick={onClose}
+    >
+      <div
+        className="bg-white dark:bg-gray-900 sm:rounded-xl shadow-xl w-full sm:max-w-2xl h-full sm:h-[80vh] sm:max-h-[600px] flex flex-col"
+        onClick={(e) => e.stopPropagation()}
+      >
         {/* Header */}
         <div className="flex justify-between items-center p-4 border-b border-gray-200 dark:border-gray-700">
           <div className="flex items-center gap-2">

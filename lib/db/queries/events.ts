@@ -238,8 +238,9 @@ export async function queryFilteredEvents(
       case "dayOfWeek": {
         if (params.days && params.days.length > 0) {
           // PostgreSQL: EXTRACT(DOW FROM date) returns 0=Sun, 1=Mon, etc.
+          // Convert to Eastern time first so day matches user's local day, not UTC
           const dayConditions = params.days.map(
-            (day) => sql`EXTRACT(DOW FROM ${events.startDate}) = ${day}`
+            (day) => sql`EXTRACT(DOW FROM ${events.startDate} AT TIME ZONE 'America/New_York') = ${day}`
           );
           conditions.push(or(...dayConditions)!);
         }
@@ -604,8 +605,8 @@ export async function getEventMetadata(): Promise<EventMetadata> {
   const zipCounts = new Map<string, number>();
   let onlineCount = 0;
 
-  const LOCATION_MIN_EVENTS = 6;
-  const ZIP_MIN_EVENTS = 6;
+  const LOCATION_MIN_EVENTS = 8;
+  const ZIP_MIN_EVENTS = 8;
 
   for (const event of allEvents) {
     // Tags

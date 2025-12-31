@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useTransition } from "react";
+import { useState, useEffect, useTransition, useRef } from "react";
 import {
   X,
   Calendar as CalendarIcon,
@@ -202,7 +202,15 @@ export default function FilterModal({
     setLocalPriceValue(filterStateToSliderValue(priceFilter, customMaxPrice));
   }, [priceFilter, customMaxPrice]);
 
+  // Track if user clicked "Deselect All" (to prevent sync from resetting)
+  const isNoneSelectedModeRef = useRef(false);
+
   useEffect(() => {
+    // Don't sync if we're in "none selected" mode and parent is empty
+    if (isNoneSelectedModeRef.current && selectedLocations.length === 0) {
+      return;
+    }
+    isNoneSelectedModeRef.current = false;
     setLocalSelectedLocations(selectedLocations);
   }, [selectedLocations]);
 
@@ -282,27 +290,65 @@ export default function FilterModal({
   };
 
   // Location helpers
+  // Build the full list of all location keys
+  const allLocationKeys = [
+    "asheville",
+    ...availableLocations.filter((l) => l !== "Asheville"),
+  ];
+
+  // Special marker for "none selected" state (visually all unchecked, but no filter applied)
+  const NONE_SELECTED_MARKER = "__none__";
+  const isNoneSelected = localSelectedLocations.length === 1 && localSelectedLocations[0] === NONE_SELECTED_MARKER;
+
+  // Empty array means "all selected" (no filter), marker means "none selected" (also no filter)
+  const isAllLocationsSelected = localSelectedLocations.length === 0;
+  const hasNoLocationFilter = isAllLocationsSelected || isNoneSelected;
+
+  // Check if a location is selected (empty = all selected, marker = none selected)
+  const isLocationSelected = (location: string) => {
+    if (isNoneSelected) return false;
+    if (isAllLocationsSelected) return true;
+    return localSelectedLocations.includes(location);
+  };
+
   const toggleLocation = (location: string) => {
-    const newLocations = localSelectedLocations.includes(location)
-      ? localSelectedLocations.filter((l) => l !== location)
-      : [...localSelectedLocations, location];
+    let newLocations: string[];
+
+    // Clear the "none selected" mode when user interacts
+    isNoneSelectedModeRef.current = false;
+
+    if (isNoneSelected) {
+      // Currently none selected, user is checking one → set to just that one
+      newLocations = [location];
+    } else if (isAllLocationsSelected) {
+      // Currently all selected, user is unchecking one → set to all EXCEPT this one
+      newLocations = allLocationKeys.filter((l) => l !== location);
+    } else if (localSelectedLocations.includes(location)) {
+      // Unchecking - remove from list
+      newLocations = localSelectedLocations.filter((l) => l !== location);
+      // If none left, set to marker (none selected = no filter)
+      if (newLocations.length === 0) {
+        newLocations = [NONE_SELECTED_MARKER];
+      }
+    } else {
+      // Checking - add to list
+      newLocations = [...localSelectedLocations, location];
+      // If all are now selected, set to empty (meaning "all")
+      if (newLocations.length === allLocationKeys.length &&
+          allLocationKeys.every((l) => newLocations.includes(l))) {
+        newLocations = [];
+      }
+    }
 
     setLocalSelectedLocations(newLocations);
     startTransition(() => {
-      onLocationsChange(newLocations);
+      // Pass empty array to parent if it's the marker (no filter either way)
+      onLocationsChange(newLocations[0] === NONE_SELECTED_MARKER ? [] : newLocations);
     });
   };
 
   const handleAshevilleToggle = () => {
-    const isCurrentlySelected = localSelectedLocations.includes("asheville");
-    const newLocations = isCurrentlySelected
-      ? localSelectedLocations.filter((l) => l !== "asheville")
-      : [...localSelectedLocations, "asheville"];
-
-    setLocalSelectedLocations(newLocations);
-    startTransition(() => {
-      onLocationsChange(newLocations);
-    });
+    toggleLocation("asheville");
   };
 
   const toggleZip = (zip: string) => {
@@ -317,20 +363,20 @@ export default function FilterModal({
   };
 
   const selectAllLocations = () => {
-    const allLocs = [
-      "asheville",
-      ...availableLocations.filter((l) => l !== "Asheville"),
-    ];
-    setLocalSelectedLocations(allLocs);
+    // Empty array means all selected
+    setLocalSelectedLocations([]);
     startTransition(() => {
-      onLocationsChange(allLocs);
+      onLocationsChange([]);
     });
   };
 
   const deselectAllLocations = () => {
-    setLocalSelectedLocations([]);
+    // Set to marker meaning "none selected" (visually unchecked, but no filter)
+    isNoneSelectedModeRef.current = true;
+    setLocalSelectedLocations([NONE_SELECTED_MARKER]);
     setLocalSelectedZips([]);
     startTransition(() => {
+      // Pass empty to parent - no filter applied
       onLocationsChange([]);
       onZipsChange([]);
     });
@@ -346,8 +392,14 @@ export default function FilterModal({
     localTagFilters.include.length + localTagFilters.exclude.length;
 
   return (
-    <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center">
-      <div className="bg-white dark:bg-gray-900 w-full h-full md:h-auto md:max-h-[90vh] md:max-w-2xl md:mx-4 md:rounded-xl shadow-xl flex flex-col overflow-hidden">
+    <div
+      className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center"
+      onClick={onClose}
+    >
+      <div
+        className="bg-white dark:bg-gray-900 w-full h-full md:h-auto md:max-h-[90vh] md:max-w-2xl md:mx-4 md:rounded-xl shadow-xl flex flex-col overflow-hidden"
+        onClick={(e) => e.stopPropagation()}
+      >
         {/* Header */}
         <div className="flex justify-between items-center px-4 py-4 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 sticky top-0 z-10">
           <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">
@@ -592,25 +644,20 @@ export default function FilterModal({
               </h3>
             </div>
 
-            <div className="flex items-center justify-between mb-3">
-              <div className="flex gap-2">
-                <button
-                  onClick={selectAllLocations}
-                  className="text-sm text-brand-600 dark:text-brand-400 hover:text-brand-800 dark:hover:text-brand-300 cursor-pointer"
-                >
-                  Select All
-                </button>
-                <span className="text-gray-300 dark:text-gray-600">|</span>
-                <button
-                  onClick={deselectAllLocations}
-                  className="text-sm text-brand-600 dark:text-brand-400 hover:text-brand-800 dark:hover:text-brand-300 cursor-pointer"
-                >
-                  Deselect All
-                </button>
-              </div>
-              <span className="text-xs text-gray-400 dark:text-gray-500">
-                None = show all
-              </span>
+            <div className="flex gap-2 mb-3">
+              <button
+                onClick={selectAllLocations}
+                className="text-sm text-brand-600 dark:text-brand-400 hover:text-brand-800 dark:hover:text-brand-300 cursor-pointer"
+              >
+                Select All
+              </button>
+              <span className="text-gray-300 dark:text-gray-600">|</span>
+              <button
+                onClick={deselectAllLocations}
+                className="text-sm text-brand-600 dark:text-brand-400 hover:text-brand-800 dark:hover:text-brand-300 cursor-pointer"
+              >
+                Deselect All
+              </button>
             </div>
 
             {/* Cities */}
@@ -642,7 +689,7 @@ export default function FilterModal({
                   <label className="flex items-center gap-2 py-1.5 px-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 cursor-pointer">
                     <input
                       type="checkbox"
-                      checked={localSelectedLocations.includes("asheville")}
+                      checked={isLocationSelected("asheville")}
                       onChange={handleAshevilleToggle}
                       className="w-4 h-4 text-brand-600 rounded border-gray-300 focus:ring-brand-500"
                     />
@@ -660,7 +707,7 @@ export default function FilterModal({
                       >
                         <input
                           type="checkbox"
-                          checked={localSelectedLocations.includes(location)}
+                          checked={isLocationSelected(location)}
                           onChange={() => toggleLocation(location)}
                           className="w-4 h-4 text-brand-600 rounded border-gray-300 focus:ring-brand-500"
                         />
@@ -674,7 +721,7 @@ export default function FilterModal({
                     <label className="flex items-center gap-2 py-1.5 px-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 cursor-pointer">
                       <input
                         type="checkbox"
-                        checked={localSelectedLocations.includes("Online")}
+                        checked={isLocationSelected("Online")}
                         onChange={() => toggleLocation("Online")}
                         className="w-4 h-4 text-brand-600 rounded border-gray-300 focus:ring-brand-500"
                       />
@@ -738,13 +785,26 @@ export default function FilterModal({
               </div>
             )}
 
-            {(localSelectedLocations.length > 0 || localSelectedZips.length > 0) && (
+            {/* Show filter summary when locations are filtered (some but not all/none selected) or zips are selected */}
+            {((!hasNoLocationFilter && localSelectedLocations.length > 0) || localSelectedZips.length > 0) && (
               <div className="mt-3 p-2 bg-gray-50 dark:bg-gray-800 rounded-lg flex items-center justify-between">
                 <span className="text-xs text-gray-500 dark:text-gray-400">
-                  {localSelectedLocations.length + localSelectedZips.length} selected
+                  {!hasNoLocationFilter && localSelectedLocations.length > 0
+                    ? `${localSelectedLocations.length} of ${allLocationKeys.length} cities`
+                    : ""}
+                  {!hasNoLocationFilter && localSelectedLocations.length > 0 && localSelectedZips.length > 0 ? ", " : ""}
+                  {localSelectedZips.length > 0
+                    ? `${localSelectedZips.length} zip${localSelectedZips.length !== 1 ? "s" : ""}`
+                    : ""}
                 </span>
                 <button
-                  onClick={deselectAllLocations}
+                  onClick={() => {
+                    selectAllLocations();
+                    setLocalSelectedZips([]);
+                    startTransition(() => {
+                      onZipsChange([]);
+                    });
+                  }}
                   className="text-xs text-brand-600 dark:text-brand-400 hover:text-brand-800 dark:hover:text-brand-300 cursor-pointer"
                 >
                   Clear

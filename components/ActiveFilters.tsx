@@ -47,14 +47,22 @@ export default function ActiveFilters({
     return null;
   }
 
-  // Separate tag filters from other filters
+  // Separate tag filters and location filters from other filters
   const includeTagFilters = filters.filter((f) => f.type === "tag-include");
   const excludeTagFilters = filters.filter((f) => f.type === "tag-exclude");
+  const locationFilters = filters.filter(
+    (f) => f.type === "location" || f.type === "zip"
+  );
   const otherFilters = filters.filter(
     (f) =>
-      f.type !== "tag-include" && f.type !== "tag-exclude" && f.type !== "tag"
+      f.type !== "tag-include" &&
+      f.type !== "tag-exclude" &&
+      f.type !== "tag" &&
+      f.type !== "location" &&
+      f.type !== "zip"
   );
   const totalTagFilters = includeTagFilters.length + excludeTagFilters.length;
+  const totalLocationFilters = locationFilters.length;
 
   return (
     <div className="flex flex-wrap items-center gap-2 pb-3 px-3 sm:px-0">
@@ -69,6 +77,23 @@ export default function ActiveFilters({
           variant="active"
         />
       ))}
+      {/* Show individual location chips if 3 or fewer, otherwise summarize */}
+      {totalLocationFilters > 0 && totalLocationFilters <= 3 ? (
+        locationFilters.map((filter) => (
+          <FilterChip
+            key={filter.id}
+            label={filter.label}
+            onRemove={() => onRemove(filter.id)}
+            variant="active"
+          />
+        ))
+      ) : totalLocationFilters > 3 ? (
+        <FilterChip
+          label={`${totalLocationFilters} locations`}
+          onRemove={() => locationFilters.forEach((f) => onRemove(f.id))}
+          variant="active"
+        />
+      ) : null}
       {/* Show individual tag chips if 5 or fewer total tags, otherwise summarize */}
       {totalTagFilters > 0 && totalTagFilters <= 5 ? (
         <>

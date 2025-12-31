@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { useAuth } from "./AuthProvider";
-import { User, LogOut, LogIn, ChevronDown, UserCircle } from "lucide-react";
+import { User, LogOut, ChevronDown, UserCircle } from "lucide-react";
 import Link from "next/link";
 
 export default function UserMenu() {
@@ -43,7 +43,7 @@ export default function UserMenu() {
         className="p-1.5 rounded-md border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
         aria-label="Sign in"
       >
-        <LogIn size={16} className="text-gray-600 dark:text-gray-300" />
+        <User size={16} className="text-gray-600 dark:text-gray-300" />
       </Link>
     );
   }

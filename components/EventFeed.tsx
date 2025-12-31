@@ -20,7 +20,7 @@ import {
 } from "@/lib/hooks/useEventQuery";
 
 // Lazy load modals to reduce initial JS bundle - they're only needed when opened
-const SettingsModal = dynamic(() => import("./SettingsModal"), { ssr: false });
+const FilterModal = dynamic(() => import("./FilterModal"), { ssr: false });
 const AIChatModal = dynamic(() => import("./AIChatModal"), { ssr: false });
 const CurateModal = dynamic(() => import("./CurateModal"), { ssr: false });
 // SaveFeedModal is not lazy loaded to avoid delay when showSavePrompt is in URL
@@ -437,7 +437,7 @@ export default function EventFeed({
   );
 
   // Settings & Modals
-  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [showSaveModal, setShowSaveModal] = useState(false);
   const [blockedHosts, setBlockedHosts] = useState<string[]>(() =>
@@ -1274,34 +1274,24 @@ export default function EventFeed({
   if (!isLoaded) return <EventFeedSkeleton />;
 
   return (
-    <div className="max-w-7xl mx-auto px-0 sm:px-6 lg:px-8 py-4 sm:py-8">
+    <div className="max-w-7xl mx-auto px-0 sm:px-6 lg:px-8 py-6">
       <FilterBar
         search={search}
         onSearchChange={setSearch}
         dateFilter={dateFilter}
-        onDateFilterChange={setDateFilter}
         customDateRange={customDateRange}
-        onCustomDateRangeChange={setCustomDateRange}
         selectedDays={selectedDays}
-        onSelectedDaysChange={setSelectedDays}
         selectedTimes={selectedTimes}
-        onSelectedTimesChange={setSelectedTimes}
         priceFilter={priceFilter}
-        onPriceFilterChange={setPriceFilter}
         customMaxPrice={customMaxPrice}
-        onCustomMaxPriceChange={setCustomMaxPrice}
         selectedLocations={selectedLocations}
-        onLocationsChange={setSelectedLocations}
-        availableLocations={availableLocations}
         selectedZips={selectedZips}
-        onZipsChange={setSelectedZips}
-        availableZips={availableZips}
-        availableTags={availableTags}
         tagFilters={tagFilters}
-        onTagFiltersChange={setTagFilters}
         showDailyEvents={showDailyEvents}
-        onShowDailyEventsChange={setShowDailyEvents}
-        onOpenSettings={() => setIsSettingsOpen(true)}
+        onOpenFilters={() => setIsFilterModalOpen(true)}
+        exportParams={exportParams}
+        shareParams={shareParams}
+        onOpenChat={() => setIsChatOpen(true)}
         simplified={activeTab === "top30"}
       />
 
@@ -1310,9 +1300,6 @@ export default function EventFeed({
         onRemove={handleRemoveFilter}
         onClearAll={handleClearAllFilters}
         onClearAllTags={() => setTagFilters({ include: [], exclude: [] })}
-        exportParams={exportParams}
-        shareParams={shareParams}
-        onOpenChat={() => setIsChatOpen(true)}
         isPending={isFilterPending}
       />
 
@@ -1434,7 +1421,6 @@ export default function EventFeed({
                     key={event.id}
                     event={{
                       ...event,
-                      title: `${index + 1}. ${event.title}`,
                       sourceId: event.sourceId,
                       location: event.location ?? null,
                       organizer: event.organizer ?? null,
@@ -1459,6 +1445,7 @@ export default function EventFeed({
                     displayMode="full"
                     isHiding={hidingEventIds.has(event.id)}
                     isGreatMatch={scoredEvent.tier === 'great'}
+                    ranking={index + 1}
                   />
                 );
               })}
@@ -1505,7 +1492,7 @@ export default function EventFeed({
 
                   return (
                     <div key={dateKey} className="flex flex-col">
-                      <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100 sticky top-0 sm:top-9 bg-white dark:bg-gray-900 sm:border sm:border-b-0 sm:border-gray-200 dark:sm:border-gray-700 sm:rounded-t-lg pt-3 pb-2 px-3 sm:px-4 z-10">
+                      <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100 sticky top-0 bg-white dark:bg-gray-900 sm:border sm:border-b-0 sm:border-gray-200 dark:sm:border-gray-700 sm:rounded-t-lg pt-3 pb-2 px-3 sm:px-4 z-10">
                         {headerText}
                       </h2>
                       <div className="flex flex-col bg-white dark:bg-gray-900 sm:rounded-b-lg sm:shadow-sm sm:border sm:border-gray-200 dark:sm:border-gray-700">
@@ -1650,7 +1637,6 @@ export default function EventFeed({
                     key={event.id}
                     event={{
                       ...event,
-                      title: `${index + 1}. ${event.title}`,
                       sourceId: event.sourceId,
                       location: event.location ?? null,
                       organizer: event.organizer ?? null,
@@ -1674,6 +1660,7 @@ export default function EventFeed({
                     isLoggedIn={isLoggedIn}
                     displayMode="full"
                     eventScore={event.score}
+                    ranking={index + 1}
                   />
                 ))}
             </div>
@@ -1758,7 +1745,7 @@ export default function EventFeed({
 
                   return (
                     <div key={dateKey} className="flex flex-col">
-                      <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100 sticky top-0 sm:top-9 bg-white dark:bg-gray-900 sm:border sm:border-b-0 sm:border-gray-200 dark:sm:border-gray-700 sm:rounded-t-lg pt-3 pb-2 px-3 sm:px-4 z-10">
+                      <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100 sticky top-0 bg-white dark:bg-gray-900 sm:border sm:border-b-0 sm:border-gray-200 dark:sm:border-gray-700 sm:rounded-t-lg pt-3 pb-2 px-3 sm:px-4 z-10">
                         {headerText}
                       </h2>
                       <div className="flex flex-col bg-white dark:bg-gray-900 sm:rounded-b-lg sm:shadow-sm sm:border sm:border-gray-200 dark:sm:border-gray-700">
@@ -1898,7 +1885,7 @@ export default function EventFeed({
 
             return (
               <div key={dateKey} className="flex flex-col">
-                <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100 sticky top-0 sm:top-9 bg-white dark:bg-gray-900 sm:border sm:border-b-0 sm:border-gray-200 dark:sm:border-gray-700 sm:rounded-t-lg pt-3 pb-2 px-3 sm:px-4 z-10 flex items-center justify-between">
+                <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100 sticky top-0 bg-white dark:bg-gray-900 sm:border sm:border-b-0 sm:border-gray-200 dark:sm:border-gray-700 sm:rounded-t-lg pt-3 pb-2 px-3 sm:px-4 z-10 flex items-center justify-between">
                   <span>{headerText}</span>
                   {showDayToggle && (
                     <div className="flex items-center gap-1 text-sm font-normal">
@@ -2078,9 +2065,37 @@ export default function EventFeed({
         </>
       )}
 
-      <SettingsModal
-        isOpen={isSettingsOpen}
-        onClose={() => setIsSettingsOpen(false)}
+      <FilterModal
+        isOpen={isFilterModalOpen}
+        onClose={() => setIsFilterModalOpen(false)}
+        // Date filters
+        dateFilter={dateFilter}
+        onDateFilterChange={setDateFilter}
+        customDateRange={customDateRange}
+        onCustomDateRangeChange={setCustomDateRange}
+        selectedDays={selectedDays}
+        onSelectedDaysChange={setSelectedDays}
+        selectedTimes={selectedTimes}
+        onSelectedTimesChange={setSelectedTimes}
+        // Price filters
+        priceFilter={priceFilter}
+        onPriceFilterChange={setPriceFilter}
+        customMaxPrice={customMaxPrice}
+        onCustomMaxPriceChange={setCustomMaxPrice}
+        // Location filters
+        selectedLocations={selectedLocations}
+        onLocationsChange={setSelectedLocations}
+        availableLocations={availableLocations}
+        selectedZips={selectedZips}
+        onZipsChange={setSelectedZips}
+        availableZips={availableZips}
+        // Tag filters
+        availableTags={availableTags}
+        tagFilters={tagFilters}
+        onTagFiltersChange={setTagFilters}
+        showDailyEvents={showDailyEvents}
+        onShowDailyEventsChange={setShowDailyEvents}
+        // Keyword filters (from SettingsModal)
         blockedHosts={blockedHosts}
         blockedKeywords={blockedKeywords}
         hiddenEvents={hiddenEvents}

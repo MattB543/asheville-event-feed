@@ -61,7 +61,12 @@ interface EventsPageProps {
 
 export default async function EventsPage({ searchParams }: EventsPageProps) {
   const params = await searchParams;
-  const activeTab = params.tab === "forYou" ? "forYou" : params.tab === "top30" ? "top30" : "all";
+  const activeTab =
+    params.tab === "forYou"
+      ? "forYou"
+      : params.tab === "top30"
+      ? "top30"
+      : "all";
 
   let initialEvents: DbEvent[] = [];
   let initialTotalCount = 0;
@@ -84,7 +89,11 @@ export default async function EventsPage({ searchParams }: EventsPageProps) {
     metadata = metadataResult;
     top30Events = top30Result;
     console.log(
-      `[Events] SSR loaded ${initialEvents.length} events (of ${initialTotalCount} total)${activeTab === "top30" ? `, ${top30Events.length} top 30 events` : ""}`
+      `[Events] SSR loaded ${
+        initialEvents.length
+      } events (of ${initialTotalCount} total)${
+        activeTab === "top30" ? `, ${top30Events.length} top 30 events` : ""
+      }`
     );
   } catch (error) {
     console.error("[Events] Failed to fetch events:", error);
@@ -132,7 +141,7 @@ export default async function EventsPage({ searchParams }: EventsPageProps) {
                   rel="noopener noreferrer"
                   className="underline hover:text-gray-600 dark:hover:text-gray-300"
                 >
-                  matt
+                  Matt
                 </a>
               </div>
             </div>

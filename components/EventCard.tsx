@@ -75,6 +75,8 @@ interface EventCardProps {
   isHiding?: boolean;
   /** Whether this is a great match (shows star icons around title) */
   isGreatMatch?: boolean;
+  /** Optional ranking number to display before title (e.g., "1." for top 30) */
+  ranking?: number;
 }
 
 // Round price string to nearest dollar (e.g., "$19.10" -> "$19", "$25.50" -> "$26")
@@ -113,16 +115,17 @@ export default function EventCard({
   eventScore: _eventScore,
   isHiding = false,
   isGreatMatch = false,
+  ranking,
 }: EventCardProps) {
   const [imgError, setImgError] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
+  // Mobile expansion state: 0 = truncated AI summary, 1 = full AI summary, 2 = original description
+  const [mobileExpansionState, setMobileExpansionState] = useState<0 | 1 | 2>(0);
   const [calendarMenuOpen, setCalendarMenuOpen] = useState(false);
-  const [hideMenuOpen, setHideMenuOpen] = useState(false);
   const [moreMenuOpen, setMoreMenuOpen] = useState(false);
   const [isHeartAnimating, setIsHeartAnimating] = useState(false);
   const [copied, setCopied] = useState(false);
   const calendarMenuRef = useRef<HTMLDivElement>(null);
-  const hideMenuRef = useRef<HTMLDivElement>(null);
   const moreMenuRef = useRef<HTMLDivElement>(null);
   const { showToast } = useToast();
 
@@ -136,12 +139,6 @@ export default function EventCard({
         setCalendarMenuOpen(false);
       }
       if (
-        hideMenuRef.current &&
-        !hideMenuRef.current.contains(event.target as Node)
-      ) {
-        setHideMenuOpen(false);
-      }
-      if (
         moreMenuRef.current &&
         !moreMenuRef.current.contains(event.target as Node)
       ) {
@@ -149,13 +146,13 @@ export default function EventCard({
       }
     }
 
-    if (calendarMenuOpen || hideMenuOpen || moreMenuOpen) {
+    if (calendarMenuOpen || moreMenuOpen) {
       document.addEventListener("mousedown", handleClickOutside);
       return () =>
         document.removeEventListener("mousedown", handleClickOutside);
     }
     return undefined;
-  }, [calendarMenuOpen, hideMenuOpen, moreMenuOpen]);
+  }, [calendarMenuOpen, moreMenuOpen]);
 
   const handleAddToAppleCalendar = () => {
     downloadEventAsICS(event);
@@ -428,7 +425,7 @@ export default function EventCard({
   }
 
   // Elevate card z-index when any dropdown is open so it appears above subsequent cards
-  const hasOpenDropdown = calendarMenuOpen || hideMenuOpen || moreMenuOpen;
+  const hasOpenDropdown = calendarMenuOpen || moreMenuOpen;
 
   return (
     <div
@@ -493,7 +490,7 @@ export default function EventCard({
                 )}`}
                 className="hover:underline"
               >
-                {event.title}
+                {ranking ? `${ranking}. ${event.title}` : event.title}
               </Link>
               {isGreatMatch && (
                 <Star
@@ -508,7 +505,7 @@ export default function EventCard({
           <div className="text-xs text-gray-900 dark:text-gray-100 font-medium mt-2 sm:mt-1">
             {formatDate(event.startDate, event.timeUnknown)}
           </div>
-          <div className="text-xs text-gray-500 dark:text-gray-400 mt-2">
+          <div className="text-xs text-gray-500 dark:text-gray-400 mt-2 line-clamp-1">
             {event.organizer && event.location
               ? event.location
                   .toLowerCase()
@@ -604,17 +601,58 @@ export default function EventCard({
         </div>
       </div>
 
-      {/* Description - Mobile version */}
+      {/* Description - Mobile version with 3-state expansion */}
       <div className="sm:hidden">
         <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
-          {truncatedDescriptionMobile}
-          {showExpandButtonMobile && (
-            <button
-              onClick={() => setIsExpanded(!isExpanded)}
-              className="text-xs text-brand-600 dark:text-brand-400 hover:text-brand-700 dark:hover:text-brand-300 font-medium ml-1 cursor-pointer"
-            >
-              {expandButtonText}
-            </button>
+          {/* State 0: Show AI summary truncated to 3 lines (or full description if no AI summary) */}
+          {mobileExpansionState === 0 && hasAiSummary && (
+            <>
+              <span className="line-clamp-3">{cleanedAiSummary}</span>
+              <button
+                onClick={() => setMobileExpansionState(1)}
+                className="block text-xs text-gray-500 dark:text-gray-400 mt-1 cursor-pointer"
+              >
+                View more
+              </button>
+            </>
+          )}
+          {/* State 0 without AI summary: Show truncated description */}
+          {mobileExpansionState === 0 && !hasAiSummary && (
+            <>
+              {truncatedDescriptionMobile}
+              {needsTruncationMobile && (
+                <button
+                  onClick={() => setMobileExpansionState(2)}
+                  className="block text-xs text-gray-500 dark:text-gray-400 mt-1 cursor-pointer"
+                >
+                  View more
+                </button>
+              )}
+            </>
+          )}
+          {/* State 1: Show full AI summary with View original button */}
+          {mobileExpansionState === 1 && hasAiSummary && (
+            <>
+              {cleanedAiSummary}
+              <button
+                onClick={() => setMobileExpansionState(2)}
+                className="block text-xs text-gray-500 dark:text-gray-400 mt-1 cursor-pointer"
+              >
+                View original
+              </button>
+            </>
+          )}
+          {/* State 2: Show full original description */}
+          {mobileExpansionState === 2 && (
+            <>
+              {cleanedDescription}
+              <button
+                onClick={() => setMobileExpansionState(0)}
+                className="block text-xs text-gray-500 dark:text-gray-400 mt-1 cursor-pointer"
+              >
+                View less
+              </button>
+            </>
           )}
         </p>
       </div>
@@ -685,54 +723,6 @@ export default function EventCard({
             </div>
           )}
         </div>
-        {/* Hide dropdown */}
-        <div className="relative" ref={hideMenuRef}>
-          <button
-            onClick={() => setHideMenuOpen(!hideMenuOpen)}
-            className="inline-flex items-center gap-1 px-2.5 py-1.5 text-xs text-gray-600 dark:text-gray-400 hover:bg-red-50 dark:hover:bg-red-950/50 hover:text-red-600 dark:hover:text-red-400 rounded border border-gray-200 dark:border-gray-700 cursor-pointer h-[30px]"
-            title="Hide options"
-            disabled={isNewlyHidden}
-          >
-            <EyeOff size={14} />
-            <ChevronDown
-              size={12}
-              className={`transition-transform ${
-                hideMenuOpen ? "rotate-180" : ""
-              }`}
-            />
-          </button>
-
-          {hideMenuOpen && (
-            <div className="absolute left-0 top-full mt-1 z-50 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded shadow-lg min-w-[200px]">
-              <button
-                onClick={handleHideEvent}
-                className="w-full flex items-start gap-2 px-3 py-2 text-left text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
-              >
-                <EyeOff size={14} className="mt-0.5 shrink-0" />
-                <div>
-                  <div className="text-xs font-medium">Hide event</div>
-                  <div className="text-[10px] text-gray-500 dark:text-gray-400">
-                    Hide now & future occurrences
-                  </div>
-                </div>
-              </button>
-              {event.organizer && (
-                <button
-                  onClick={handleBlockHost}
-                  className="w-full flex items-start gap-2 px-3 py-2 text-left text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
-                >
-                  <Ban size={14} className="mt-0.5 shrink-0" />
-                  <div>
-                    <div className="text-xs font-medium">Hide host</div>
-                    <div className="text-[10px] text-gray-500 dark:text-gray-400">
-                      Hide all events from this host
-                    </div>
-                  </div>
-                </button>
-              )}
-            </div>
-          )}
-        </div>
         {/* Favorite button */}
         <button
           onClick={() => {
@@ -795,7 +785,7 @@ export default function EventCard({
           </button>
 
           {moreMenuOpen && (
-            <div className="absolute right-0 top-full mt-1 z-50 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded shadow-lg min-w-[180px]">
+            <div className="absolute right-0 top-full mt-1 z-50 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded shadow-lg min-w-[200px]">
               {/* Curate section */}
               <button
                 onClick={() => {
@@ -853,6 +843,46 @@ export default function EventCard({
                 <ExternalLink size={14} />
                 Open source
               </a>
+              {/* Hide section */}
+              <div className="border-t border-gray-200 dark:border-gray-700" />
+              <button
+                onClick={() => {
+                  handleHideEvent();
+                  setMoreMenuOpen(false);
+                }}
+                disabled={isNewlyHidden}
+                className={`w-full flex items-start gap-2 px-3 py-2 text-left cursor-pointer ${
+                  isNewlyHidden
+                    ? "text-gray-400 dark:text-gray-600"
+                    : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                }`}
+              >
+                <EyeOff size={14} className="mt-0.5 shrink-0" />
+                <div>
+                  <div className="text-xs font-medium">Hide event</div>
+                  <div className={`text-[10px] ${isNewlyHidden ? "text-gray-400 dark:text-gray-600" : "text-gray-500 dark:text-gray-400"}`}>
+                    Hide now & future occurrences
+                  </div>
+                </div>
+              </button>
+              {event.organizer && (
+                <button
+                  onClick={() => {
+                    handleBlockHost();
+                    setMoreMenuOpen(false);
+                  }}
+                  className="w-full flex items-start gap-2 px-3 py-2 text-left text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
+                >
+                  <Ban size={14} className="mt-0.5 shrink-0" />
+                  <div>
+                    <div className="text-xs font-medium">Hide host</div>
+                    <div className="text-[10px] text-gray-500 dark:text-gray-400">
+                      Hide all events from this host
+                    </div>
+                  </div>
+                </button>
+              )}
+              {/* Flag section */}
               <div className="border-t border-gray-200 dark:border-gray-700" />
               <button
                 onClick={() => handleReport("incorrect_info")}
@@ -860,13 +890,6 @@ export default function EventCard({
               >
                 <AlertTriangle size={14} />
                 Flag incorrect info
-              </button>
-              <button
-                onClick={() => handleReport("duplicate")}
-                className="w-full flex items-center gap-2 px-3 py-2 text-xs text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
-              >
-                <AlertTriangle size={14} />
-                Flag as duplicate
               </button>
               <button
                 onClick={() => handleReport("spam")}

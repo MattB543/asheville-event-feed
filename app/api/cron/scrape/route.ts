@@ -254,6 +254,7 @@ export async function GET(request: Request) {
         id: events.id,
         title: events.title,
         organizer: events.organizer,
+        location: events.location,
         startDate: events.startDate,
         price: events.price,
         description: events.description,
@@ -265,6 +266,14 @@ export async function GET(request: Request) {
     const duplicateIdsToRemove = getIdsToRemove(duplicateGroups);
     const descriptionUpdates = getDescriptionUpdates(duplicateGroups);
     stats.dedup.removed = duplicateIdsToRemove.length;
+
+    // Log duplicate groups for visibility
+    for (const group of duplicateGroups) {
+      console.log(`[Scrape] Dedup: Keep "${group.keep.title}" (${group.keep.id.substring(0, 6)})`);
+      for (const removed of group.remove) {
+        console.log(`[Scrape]   Remove: "${removed.title}" (${removed.id.substring(0, 6)}) via Method ${group.method}`);
+      }
+    }
 
     // Apply description merges before deleting duplicates
     // (keep the longer description from removed events)

@@ -223,6 +223,14 @@ export async function GET(request: Request) {
     const duplicateIdsToRemove = getIdsToRemove(duplicateGroups);
     const descriptionUpdates = getDescriptionUpdates(duplicateGroups);
 
+    // Log duplicate groups for visibility
+    for (const group of duplicateGroups) {
+      console.log(`[Cleanup] Dedup: Keep "${group.keep.title}" (${group.keep.id.substring(0, 6)})`);
+      for (const removed of group.remove) {
+        console.log(`[Cleanup]   Remove: "${removed.title}" (${removed.id.substring(0, 6)}) via Method ${group.method}`);
+      }
+    }
+
     console.log(`[Cleanup] Found ${duplicateIdsToRemove.length} duplicate events to remove.`);
 
     // Apply description merges before deleting duplicates

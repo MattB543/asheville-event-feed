@@ -824,7 +824,15 @@ export default function EventPageClient({
                             }
                             showRecurringBadge={similarEvent.isRecurring}
                             isMobileExpanded={mobileExpandedIds.has(similarEvent.id)}
-                            onMobileExpand={(id) => setMobileExpandedIds((prev) => new Set([...prev, id]))}
+                            onMobileExpand={(id) => setMobileExpandedIds((prev) => {
+                              const next = new Set(prev);
+                              if (next.has(id)) {
+                                next.delete(id);
+                              } else {
+                                next.add(id);
+                              }
+                              return next;
+                            })}
                           />
                         ))}
                       </div>
@@ -861,7 +869,15 @@ export default function EventPageClient({
                       hideBorder={index === sortedSimilarEvents.length - 1}
                       showRecurringBadge={similarEvent.isRecurring}
                       isMobileExpanded={mobileExpandedIds.has(similarEvent.id)}
-                      onMobileExpand={(id) => setMobileExpandedIds((prev) => new Set([...prev, id]))}
+                      onMobileExpand={(id) => setMobileExpandedIds((prev) => {
+                        const next = new Set(prev);
+                        if (next.has(id)) {
+                          next.delete(id);
+                        } else {
+                          next.add(id);
+                        }
+                        return next;
+                      })}
                     />
                   ))
                 )}

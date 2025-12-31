@@ -302,9 +302,9 @@ export default function EventCard({
 
   const displayPrice = formatPriceDisplay(event.price);
 
-  // Handler for mobile card click (expand collapsed card)
+  // Handler for mobile card click (toggle expand/collapse)
   const handleMobileCardClick = () => {
-    if (!isMobileExpanded && onMobileExpand) {
+    if (onMobileExpand) {
       onMobileExpand(event.id);
     }
   };
@@ -393,28 +393,18 @@ export default function EventCard({
         <div className="pt-3">
           {/* Title row */}
           <div className="flex items-start gap-2">
-            {isMobileExpanded ? (
-              <h3 className="text-base font-bold leading-tight text-brand-600 dark:text-brand-400 flex-1">
-                <Link href={eventUrl} className="hover:underline" onClick={(e) => e.stopPropagation()}>
-                  {ranking ? `${ranking}. ${event.title}` : event.title}
-                </Link>
-                {isGreatMatch && (
-                  <Star size={12} className="inline-block ml-1.5 text-amber-500 fill-amber-500 mt-[-2px]" style={{ verticalAlign: "middle" }} />
-                )}
-              </h3>
-            ) : (
-              <>
-                <h3 className="text-base font-bold leading-tight text-brand-600 dark:text-brand-400 flex-1">
-                  <Link href={eventUrl} className="hover:underline" onClick={(e) => e.stopPropagation()}>
-                    {ranking ? `${ranking}. ${event.title}` : event.title}
-                  </Link>
-                  {isGreatMatch && (
-                    <Star size={12} className="inline-block ml-1.5 text-amber-500 fill-amber-500 mt-[-2px]" style={{ verticalAlign: "middle" }} />
-                  )}
-                </h3>
-                <ChevronDown size={16} className="text-gray-600 dark:text-gray-400 mt-0.5 shrink-0 opacity-80" />
-              </>
-            )}
+            <h3 className="text-base font-bold leading-tight text-brand-600 dark:text-brand-400 flex-1">
+              <Link href={eventUrl} className="hover:underline" onClick={(e) => e.stopPropagation()}>
+                {ranking ? `${ranking}. ${event.title}` : event.title}
+              </Link>
+              {isGreatMatch && (
+                <Star size={12} className="inline-block ml-1.5 text-amber-500 fill-amber-500 mt-[-2px]" style={{ verticalAlign: "middle" }} />
+              )}
+            </h3>
+            <ChevronDown
+              size={16}
+              className={`text-gray-600 dark:text-gray-400 mt-0.5 shrink-0 opacity-80 transition-transform duration-200 ${isMobileExpanded ? "rotate-180" : ""}`}
+            />
           </div>
 
           {/* Location/venue - only when expanded */}

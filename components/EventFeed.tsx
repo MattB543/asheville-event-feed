@@ -1460,7 +1460,15 @@ export default function EventFeed({
                     isGreatMatch={scoredEvent.tier === 'great'}
                     ranking={index + 1}
                     isMobileExpanded={mobileExpandedIds.has(event.id)}
-                    onMobileExpand={(id) => setMobileExpandedIds((prev) => new Set([...prev, id]))}
+                    onMobileExpand={(id) => setMobileExpandedIds((prev) => {
+                      const next = new Set(prev);
+                      if (next.has(id)) {
+                        next.delete(id);
+                      } else {
+                        next.add(id);
+                      }
+                      return next;
+                    })}
                   />
                 );
               })}
@@ -1546,7 +1554,15 @@ export default function EventFeed({
                               isHiding={hidingEventIds.has(event.id)}
                               isGreatMatch={scoredEvent.tier === 'great'}
                               isMobileExpanded={mobileExpandedIds.has(event.id)}
-                              onMobileExpand={(id) => setMobileExpandedIds((prev) => new Set([...prev, id]))}
+                              onMobileExpand={(id) => setMobileExpandedIds((prev) => {
+                      const next = new Set(prev);
+                      if (next.has(id)) {
+                        next.delete(id);
+                      } else {
+                        next.add(id);
+                      }
+                      return next;
+                    })}
                             />
                           );
                         })}
@@ -1679,7 +1695,15 @@ export default function EventFeed({
                     eventScore={event.score}
                     ranking={index + 1}
                     isMobileExpanded={mobileExpandedIds.has(event.id)}
-                    onMobileExpand={(id) => setMobileExpandedIds((prev) => new Set([...prev, id]))}
+                    onMobileExpand={(id) => setMobileExpandedIds((prev) => {
+                      const next = new Set(prev);
+                      if (next.has(id)) {
+                        next.delete(id);
+                      } else {
+                        next.add(id);
+                      }
+                      return next;
+                    })}
                   />
                 ))}
             </div>
@@ -1797,7 +1821,15 @@ export default function EventFeed({
                             displayMode="full"
                             eventScore={event.score}
                             isMobileExpanded={mobileExpandedIds.has(event.id)}
-                            onMobileExpand={(id) => setMobileExpandedIds((prev) => new Set([...prev, id]))}
+                            onMobileExpand={(id) => setMobileExpandedIds((prev) => {
+                      const next = new Set(prev);
+                      if (next.has(id)) {
+                        next.delete(id);
+                      } else {
+                        next.add(id);
+                      }
+                      return next;
+                    })}
                           />
                         ))}
                       </div>
@@ -2017,7 +2049,15 @@ export default function EventFeed({
                           scoreTier={tier}
                           eventScore={event.score}
                           isMobileExpanded={mobileExpandedIds.has(event.id)}
-                          onMobileExpand={(id) => setMobileExpandedIds((prev) => new Set([...prev, id]))}
+                          onMobileExpand={(id) => setMobileExpandedIds((prev) => {
+                      const next = new Set(prev);
+                      if (next.has(id)) {
+                        next.delete(id);
+                      } else {
+                        next.add(id);
+                      }
+                      return next;
+                    })}
                         />
                     );
                   })}

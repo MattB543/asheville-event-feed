@@ -436,6 +436,11 @@ export default function EventFeed({
     new Set()
   );
 
+  // Track expanded mobile cards (session only - resets on page reload)
+  const [mobileExpandedIds, setMobileExpandedIds] = useState<Set<string>>(
+    new Set()
+  );
+
   // Settings & Modals
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
   const [isChatOpen, setIsChatOpen] = useState(false);
@@ -1416,7 +1421,7 @@ export default function EventFeed({
 
           {/* Score-ranked view */}
           {isLoggedIn && !forYouLoading && forYouEvents.length > 0 && forYouSortMode === "score" && (
-            <div className="flex flex-col bg-white dark:bg-gray-900 sm:rounded-lg sm:shadow-sm sm:border sm:border-gray-200 dark:sm:border-gray-700">
+            <div className="flex flex-col bg-white dark:bg-gray-900 sm:rounded-lg sm:shadow-sm sm:border sm:border-gray-200 dark:sm:border-gray-700 ">
               {[...forYouEvents]
                 .sort((a: any, b: any) => b.score - a.score)
                 .map((scoredEvent: any, index: number) => {
@@ -1441,7 +1446,7 @@ export default function EventFeed({
                     onBlockHost={handleBlockHost}
                     onSignalCapture={handleSignalCapture}
                     isNewlyHidden={false}
-                    hideBorder={false}
+                    hideBorder
                     isFavorited={favoritedEventIds.includes(event.id)}
                     favoriteCount={event.favoriteCount ?? 0}
                     onToggleFavorite={handleToggleFavorite}
@@ -1454,6 +1459,8 @@ export default function EventFeed({
                     isHiding={hidingEventIds.has(event.id)}
                     isGreatMatch={scoredEvent.tier === 'great'}
                     ranking={index + 1}
+                    isMobileExpanded={mobileExpandedIds.has(event.id)}
+                    onMobileExpand={(id) => setMobileExpandedIds((prev) => new Set([...prev, id]))}
                   />
                 );
               })}
@@ -1503,7 +1510,7 @@ export default function EventFeed({
                       <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100 sticky top-0 bg-white dark:bg-gray-900 sm:border sm:border-b-0 sm:border-gray-200 dark:sm:border-gray-700 sm:rounded-t-lg pt-3 pb-2 px-3 sm:px-4 z-10">
                         {headerText}
                       </h2>
-                      <div className="flex flex-col bg-white dark:bg-gray-900 sm:rounded-b-lg sm:shadow-sm sm:border sm:border-gray-200 dark:sm:border-gray-700">
+                      <div className="flex flex-col bg-white dark:bg-gray-900 sm:rounded-b-lg sm:shadow-sm sm:border sm:border-gray-200 dark:sm:border-gray-700 ">
                         {sortedGroupEvents.map((scoredEvent: any) => {
                           const event = {
                             ...scoredEvent.event,
@@ -1526,7 +1533,7 @@ export default function EventFeed({
                               onBlockHost={handleBlockHost}
                               onSignalCapture={handleSignalCapture}
                               isNewlyHidden={false}
-                              hideBorder={false}
+                              hideBorder
                               isFavorited={favoritedEventIds.includes(event.id)}
                               favoriteCount={event.favoriteCount ?? 0}
                               onToggleFavorite={handleToggleFavorite}
@@ -1538,6 +1545,8 @@ export default function EventFeed({
                               displayMode="full"
                               isHiding={hidingEventIds.has(event.id)}
                               isGreatMatch={scoredEvent.tier === 'great'}
+                              isMobileExpanded={mobileExpandedIds.has(event.id)}
+                              onMobileExpand={(id) => setMobileExpandedIds((prev) => new Set([...prev, id]))}
                             />
                           );
                         })}
@@ -1599,7 +1608,7 @@ export default function EventFeed({
 
           {/* Score-ranked view */}
           {top30SortMode === "score" && initialTop30Events && initialTop30Events.length > 0 && (
-            <div className="flex flex-col bg-white dark:bg-gray-900 sm:rounded-lg sm:shadow-sm sm:border sm:border-gray-200 dark:sm:border-gray-700">
+            <div className="flex flex-col bg-white dark:bg-gray-900 sm:rounded-lg sm:shadow-sm sm:border sm:border-gray-200 dark:sm:border-gray-700 ">
               {(initialTop30Events || [])
                 .map((event) => ({
                   ...event,
@@ -1657,7 +1666,7 @@ export default function EventFeed({
                     onBlockHost={handleBlockHost}
                     onSignalCapture={handleSignalCapture}
                     isNewlyHidden={false}
-                    hideBorder={false}
+                    hideBorder
                     isFavorited={favoritedEventIds.includes(event.id)}
                     favoriteCount={event.favoriteCount ?? 0}
                     onToggleFavorite={handleToggleFavorite}
@@ -1669,6 +1678,8 @@ export default function EventFeed({
                     displayMode="full"
                     eventScore={event.score}
                     ranking={index + 1}
+                    isMobileExpanded={mobileExpandedIds.has(event.id)}
+                    onMobileExpand={(id) => setMobileExpandedIds((prev) => new Set([...prev, id]))}
                   />
                 ))}
             </div>
@@ -1756,7 +1767,7 @@ export default function EventFeed({
                       <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100 sticky top-0 bg-white dark:bg-gray-900 sm:border sm:border-b-0 sm:border-gray-200 dark:sm:border-gray-700 sm:rounded-t-lg pt-3 pb-2 px-3 sm:px-4 z-10">
                         {headerText}
                       </h2>
-                      <div className="flex flex-col bg-white dark:bg-gray-900 sm:rounded-b-lg sm:shadow-sm sm:border sm:border-gray-200 dark:sm:border-gray-700">
+                      <div className="flex flex-col bg-white dark:bg-gray-900 sm:rounded-b-lg sm:shadow-sm sm:border sm:border-gray-200 dark:sm:border-gray-700 ">
                         {sortedGroupEvents.map((event) => (
                           <EventCard
                             key={event.id}
@@ -1774,7 +1785,7 @@ export default function EventFeed({
                             onBlockHost={handleBlockHost}
                             onSignalCapture={handleSignalCapture}
                             isNewlyHidden={false}
-                            hideBorder={false}
+                            hideBorder
                             isFavorited={favoritedEventIds.includes(event.id)}
                             favoriteCount={event.favoriteCount ?? 0}
                             onToggleFavorite={handleToggleFavorite}
@@ -1785,6 +1796,8 @@ export default function EventFeed({
                             isLoggedIn={isLoggedIn}
                             displayMode="full"
                             eventScore={event.score}
+                            isMobileExpanded={mobileExpandedIds.has(event.id)}
+                            onMobileExpand={(id) => setMobileExpandedIds((prev) => new Set([...prev, id]))}
                           />
                         ))}
                       </div>
@@ -1873,19 +1886,6 @@ export default function EventFeed({
               displayEvents = recentAndUpcoming;
             }
 
-            // For today, find the index where events transition from past to upcoming
-            let nowDividerIndex = -1;
-            if (isTodayGroup) {
-              // Find first event that hasn't started yet
-              const firstUpcomingIndex = displayEvents.findIndex(
-                (event) => new Date(event.startDate) > now
-              );
-              if (firstUpcomingIndex > 0) {
-                // There are both past and upcoming events
-                nowDividerIndex = firstUpcomingIndex;
-              }
-            }
-
             // Skip rendering this date group if no events match the filter
             if (displayEvents.length === 0) {
               return null;
@@ -1937,14 +1937,14 @@ export default function EventFeed({
                     </div>
                   )}
                 </h2>
-                <div className="flex flex-col bg-white dark:bg-gray-900 sm:rounded-b-lg sm:shadow-sm sm:border sm:border-gray-200 dark:sm:border-gray-700">
+                <div className="flex flex-col bg-white dark:bg-gray-900 sm:rounded-b-lg sm:shadow-sm sm:border sm:border-gray-200 dark:sm:border-gray-700 ">
                   {/* Show previous events toggle for today when events are hidden */}
                   {isTodayGroup &&
                     hiddenPreviousCount > 0 &&
                     !showAllPreviousEvents && (
                       <button
                         onClick={() => setShowAllPreviousEvents(true)}
-                        className="text-xs text-gray-600 dark:text-gray-400 hover:text-brand-700 dark:hover:text-brand-400 font-medium px-3 sm:px-5 py-3 sm:py-3 pt-0 text-left border-b border-gray-200 dark:border-gray-700 hover:bg-brand-50 dark:hover:bg-brand-950/50 transition-colors cursor-pointer underline sm:no-underline"
+                        className="text-xs text-gray-600 dark:text-gray-400 hover:text-brand-700 dark:hover:text-brand-400 font-medium px-3 sm:px-5 py-3 sm:py-3 pt-0 text-left hover:bg-brand-50 dark:hover:bg-brand-950/50 transition-colors cursor-pointer underline sm:no-underline"
                       >
                         Show {hiddenPreviousCount} event
                         {hiddenPreviousCount !== 1 ? "s" : ""} from earlier
@@ -1963,23 +1963,18 @@ export default function EventFeed({
                       return wouldHideCount > 0 ? (
                         <button
                           onClick={() => setShowAllPreviousEvents(false)}
-                          className="text-xs text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 font-medium px-3 sm:px-5 py-3 text-left border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors cursor-pointer"
+                          className="text-xs text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 font-medium px-3 sm:px-5 py-3 text-left hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors cursor-pointer"
                         >
                           Hide earlier events
                         </button>
                       ) : null;
                     })()}
-                  {displayEvents.map((event, index) => {
+                  {displayEvents.map((event) => {
                     const eventKey = createFingerprintKey(
                       event.title,
                       event.organizer
                     );
                     const isNewlyHidden = sessionHiddenKeys.has(eventKey);
-                    const showNowDivider =
-                      isTodayGroup && index === nowDividerIndex;
-                    // Hide border on the card before the divider
-                    const hideCardBorder =
-                      isTodayGroup && index === nowDividerIndex - 1;
 
                     // Determine display mode based on score tier
                     // Common and Quality tiers are minimized by default, Outstanding is full
@@ -1988,19 +1983,8 @@ export default function EventFeed({
                       (tier === "quality" || tier === "hidden") && !expandedMinimizedIds.has(event.id);
 
                     return (
-                      <div key={event.id}>
-                        {showNowDivider && (
-                          <div className="border-b-2 border-brand-600 pt-0 pb-2 px-5">
-                            <span className="text-xs font-semibold text-brand-600 uppercase tracking-wide">
-                              Upcoming{" "}
-                              <ArrowDownIcon
-                                size={15}
-                                className="inline-block mb-1 text-brand-600"
-                              />
-                            </span>
-                          </div>
-                        )}
                         <EventCard
+                          key={event.id}
                           event={{
                             ...event,
                             sourceId: event.sourceId,
@@ -2015,7 +1999,7 @@ export default function EventFeed({
                           onBlockHost={handleBlockHost}
                           onSignalCapture={handleSignalCapture}
                           isNewlyHidden={isNewlyHidden}
-                          hideBorder={hideCardBorder}
+                          hideBorder
                           isFavorited={favoritedEventIds.includes(event.id)}
                           favoriteCount={event.favoriteCount ?? 0}
                           onToggleFavorite={handleToggleFavorite}
@@ -2032,8 +2016,9 @@ export default function EventFeed({
                           }
                           scoreTier={tier}
                           eventScore={event.score}
+                          isMobileExpanded={mobileExpandedIds.has(event.id)}
+                          onMobileExpand={(id) => setMobileExpandedIds((prev) => new Set([...prev, id]))}
                         />
-                      </div>
                     );
                   })}
                 </div>

@@ -98,6 +98,7 @@ export default function EventPageClient({
   const [favoriteCount, setFavoriteCount] = useState(event.favoriteCount);
   const [copied, setCopied] = useState(false);
   const [isHeartAnimating, setIsHeartAnimating] = useState(false);
+  const [mobileExpandedIds, setMobileExpandedIds] = useState<Set<string>>(new Set());
   const calendarMenuRef = useRef<HTMLDivElement>(null);
 
   // Helper to capture signals for personalization
@@ -523,7 +524,7 @@ export default function EventPageClient({
         {/* Hero Section - Image left, metadata right on tablet+ */}
         <div className="flex flex-col sm:flex-row gap-6 mb-6 px-4 sm:px-0">
           {/* Hero Image */}
-          <div className="relative w-full sm:w-72 md:w-80 lg:w-96 xl:w-[420px] h-48 sm:h-48 md:h-56 lg:h-64 xl:h-72 shrink-0 bg-gray-200 dark:bg-gray-800 sm:rounded-lg overflow-hidden">
+          <div className="relative w-full sm:w-72 md:w-80 lg:w-96 xl:w-[420px] h-48 sm:h-48 md:h-56 lg:h-64 xl:h-72 shrink-0 bg-gray-200 dark:bg-gray-800 rounded-lg overflow-hidden">
             {!imgError && event.imageUrl ? (
               <Image
                 src={event.imageUrl}
@@ -744,7 +745,7 @@ export default function EventPageClient({
         {/* Similar Events */}
         {similarEvents.length > 0 && (
           <section className="mb-8 pt-6 border-t-2 border-gray-300 dark:border-gray-600">
-            <div className="flex items-center justify-between mb-4 px-4 sm:px-0 sticky top-0 bg-gray-50 dark:bg-gray-950 py-3 z-20 -mx-4 sm:mx-0 sm:rounded-lg">
+            <div className="flex items-center justify-between mb-4 px-4 sm:px-0 sticky top-0 bg-gray-50 dark:bg-gray-950 py-3 z-20 sm:rounded-lg">
               <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
                 Similar Events
               </h2>
@@ -782,12 +783,12 @@ export default function EventPageClient({
               </div>
             </div>
             <ToastProvider>
-              <div>
+              <div className="bg-white dark:bg-gray-900 sm:rounded-lg sm:shadow-sm sm:border sm:border-gray-200 dark:sm:border-gray-700">
                 {similarSortBy === 'date' && groupedSimilarEvents ? (
                   // Grouped by date with headers
                   groupedSimilarEvents.map(([dateKey, { date, events: groupEvents }], groupIndex) => (
                     <div key={dateKey} className="flex flex-col">
-                      <h3 className="text-lg font-bold text-gray-800 dark:text-gray-100 sticky top-0 bg-gray-50 dark:bg-gray-950 py-2 px-3 sm:px-4 z-10 border-b border-gray-200 dark:border-gray-700">
+                      <h3 className="text-lg font-bold text-gray-800 dark:text-gray-100 sticky top-[52px] bg-white dark:bg-gray-900 py-2 px-3 sm:px-4 z-10 border-b border-gray-200 dark:border-gray-700">
                         {formatDateHeader(date)}
                       </h3>
                       <div>
@@ -822,6 +823,8 @@ export default function EventPageClient({
                               index === groupEvents.length - 1
                             }
                             showRecurringBadge={similarEvent.isRecurring}
+                            isMobileExpanded={mobileExpandedIds.has(similarEvent.id)}
+                            onMobileExpand={(id) => setMobileExpandedIds((prev) => new Set([...prev, id]))}
                           />
                         ))}
                       </div>
@@ -857,6 +860,8 @@ export default function EventPageClient({
                       onSignalCapture={handleSimilarEventSignal}
                       hideBorder={index === sortedSimilarEvents.length - 1}
                       showRecurringBadge={similarEvent.isRecurring}
+                      isMobileExpanded={mobileExpandedIds.has(similarEvent.id)}
+                      onMobileExpand={(id) => setMobileExpandedIds((prev) => new Set([...prev, id]))}
                     />
                   ))
                 )}

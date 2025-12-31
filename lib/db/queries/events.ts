@@ -14,6 +14,7 @@ import {
   sql,
   SQL,
   arrayOverlaps,
+  not,
   InferSelectModel,
 } from "drizzle-orm";
 import { getStartOfTodayEastern, getTodayStringEastern, getDayBoundariesEastern, parseAsEastern } from "@/lib/utils/timezone";
@@ -293,10 +294,7 @@ export async function queryFilteredEvents(
 
   // Tags exclude (event must not have any excluded tags)
   if (params.tagsExclude && params.tagsExclude.length > 0) {
-    // NOT (tags && excluded_tags)
-    conditions.push(
-      sql`NOT (${events.tags} && ${params.tagsExclude}::text[])`
-    );
+    conditions.push(not(arrayOverlaps(events.tags, params.tagsExclude)));
   }
 
   // Daily events filter

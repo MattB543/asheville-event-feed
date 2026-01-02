@@ -1,8 +1,7 @@
 import { NextResponse } from 'next/server';
 import { getLatestJobRuns, type CronJobName, type CronJobStatus } from '@/lib/cron/jobTracker';
 import { formatDistanceToNow, intervalToDuration } from 'date-fns';
-import { readFileSync } from 'fs';
-import { join } from 'path';
+import vercelConfig from '@/vercel.json';
 
 // Job display metadata (descriptions and display names)
 const JOB_METADATA: Record<CronJobName, { displayName: string; description: string }> = {
@@ -32,16 +31,28 @@ const JOB_METADATA: Record<CronJobName, { displayName: string; description: stri
   },
 };
 
-// Read actual cron schedules from vercel.json (single source of truth)
-function getCronSchedules(): Record<string, string> {
-  const vercelConfigPath = join(process.cwd(), 'vercel.json');
-  const vercelConfig = JSON.parse(readFileSync(vercelConfigPath, 'utf-8'));
+// Valid cron job names from vercel.json
+const VALID_JOB_NAMES = ['scrape', 'verify', 'ai', 'cleanup', 'dedup', 'email-digest'] as const;
 
+// Type guard to check if a string is a valid CronJobName
+function isValidJobName(name: string): name is CronJobName {
+  return (VALID_JOB_NAMES as readonly string[]).includes(name);
+}
+
+// Read actual cron schedules from vercel.json (single source of truth)
+// Imported as module at build time to avoid file system access in serverless environment
+function getCronSchedules(): Record<string, string> {
   const schedules: Record<string, string> = {};
-  for (const cron of vercelConfig.crons || []) {
+  const crons = vercelConfig.crons || [];
+
+  for (const cron of crons) {
     // Extract job name from path: /api/cron/scrape -> scrape
     const jobName = cron.path.split('/').pop();
-    schedules[jobName] = cron.schedule;
+    if (jobName && isValidJobName(jobName)) {
+      schedules[jobName] = cron.schedule;
+    } else if (jobName) {
+      console.warn(`[Cron Status] Ignoring unknown job "${jobName}" in vercel.json`);
+    }
   }
 
   return schedules;
@@ -142,17 +153,24 @@ export async function GET() {
     const latestRuns = await getLatestJobRuns();
     const cronSchedules = getCronSchedules();
 
-    // Build response for each job
-    const jobs: CronJobStatusResponse[] = (Object.keys(JOB_METADATA) as CronJobName[]).map((name) => {
-      const metadata = JOB_METADATA[name];
-      const schedule = cronSchedules[name];
-      const latestRun = latestRuns.find((r) => r.jobName === name);
+    // Build response for each job in vercel.json (source of truth for what actually runs)
+    // Type is already narrowed by isValidJobName in getCronSchedules
+    const jobs: CronJobStatusResponse[] = Object.entries(cronSchedules).map(([name, schedule]) => {
+      // Name is guaranteed to be a valid CronJobName due to type guard in getCronSchedules
+      const jobName = name as CronJobName;
+      const metadata = JOB_METADATA[jobName];
+
+      if (!metadata) {
+        console.warn(`[Cron Status] Job "${jobName}" in vercel.json has no metadata in JOB_METADATA`);
+      }
+
+      const latestRun = latestRuns.find((r) => r.jobName === jobName);
       const nextRunTime = getNextRunTime(schedule);
 
       return {
-        name,
-        displayName: metadata.displayName,
-        description: metadata.description,
+        name: jobName,
+        displayName: metadata?.displayName ?? jobName,
+        description: metadata?.description ?? 'No description available',
         schedule,
         lastRun: latestRun
           ? {

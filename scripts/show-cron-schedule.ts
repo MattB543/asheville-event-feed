@@ -24,6 +24,8 @@ function getEstTimes(schedule: string): string {
   // Helper to convert UTC hour to EST using proper timezone handling
   const utcToEst = (utcHour: number): number => {
     // Create a date with the given UTC hour (using today's date)
+    // Note: Uses current date to reflect active DST offset (EST vs EDT)
+    // This is intentional - shows when jobs actually run in local time right now
     const date = new Date();
     date.setUTCHours(utcHour, 0, 0, 0);
 
@@ -62,18 +64,34 @@ function formatNextRun(isoString: string, relative: string): string {
   return `${estTime} (${cleanRelative})`;
 }
 
+// Build MySQL-style table border
+function buildBorder(columnWidths: number[]): string {
+  return '+' + columnWidths.map(w => '-'.repeat(w + 2)).join('+') + '+';
+}
+
+// Format and print a table row
+function printRow(values: string[], columnWidths: number[]): void {
+  const cells = values.map((val, i) => ` ${val.padEnd(columnWidths[i])} `).join('|');
+  console.log(`|${cells}|`);
+}
+
 async function main() {
   try {
     // Try localhost first, fall back to production
     let response: Response;
     try {
       response = await fetch('http://localhost:3000/api/cron-status');
-      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      if (!response.ok) {
+        const errorText = await response.text().catch(() => 'Unknown error');
+        console.error(`Error: Local API returned ${response.status}: ${errorText}`);
+        process.exit(1);
+      }
     } catch (localError) {
       console.log('Local dev server not available, trying production...\n');
       response = await fetch('https://avlgo.com/api/cron-status');
       if (!response.ok) {
-        console.error(`Error: Production API returned ${response.status}`);
+        const errorText = await response.text().catch(() => 'Unknown error');
+        console.error(`Error: Production API returned ${response.status}: ${errorText}`);
         process.exit(1);
       }
     }
@@ -81,7 +99,8 @@ async function main() {
     const data: CronStatusResponse = await response.json();
 
     if (!data.success) {
-      console.error('Error: API returned unsuccessful response');
+      const errorMsg = 'error' in data ? `: ${data.error}` : '';
+      console.error(`Error: API returned unsuccessful response${errorMsg}`);
       process.exit(1);
     }
 
@@ -98,25 +117,28 @@ async function main() {
     };
 
     // Calculate column widths
-    const jobWidth = Math.max(15, ...data.jobs.map(j => j.displayName.length));
-    const typeWidth = 11; // "Pipeline #1" or "Independent"
-    const timesWidth = Math.max('Times (EST)'.length, ...data.jobs.map(j => getEstTimes(j.schedule).length));
-    const nextRunWidth = Math.max('Next Run'.length, ...data.jobs.map(j => formatNextRun(j.nextRun.at, j.nextRun.atRelative).length));
-    const descWidth = Math.max('Description'.length, ...data.jobs.map(j => j.description.length));
+    const columnWidths = [
+      Math.max('Job'.length, ...data.jobs.map(j => j.displayName.length)),
+      Math.max('Type'.length, 'Pipeline #1'.length), // "Pipeline #X" or "Independent"
+      Math.max('Times (EST)'.length, ...data.jobs.map(j => getEstTimes(j.schedule).length)),
+      Math.max('Next Run'.length, ...data.jobs.map(j => formatNextRun(j.nextRun.at, j.nextRun.atRelative).length)),
+      Math.max('Description'.length, ...data.jobs.map(j => j.description.length)),
+    ];
 
-    // MySQL-style table border
-    const border = '+' + '-'.repeat(jobWidth + 2) + '+' + '-'.repeat(typeWidth + 2) + '+' + '-'.repeat(timesWidth + 2) + '+' + '-'.repeat(nextRunWidth + 2) + '+' + '-'.repeat(descWidth + 2) + '+';
+    const border = buildBorder(columnWidths);
 
     // Print header
     console.log(border);
-    console.log(`| ${'Job'.padEnd(jobWidth)} | ${'Type'.padEnd(typeWidth)} | ${'Times (EST)'.padEnd(timesWidth)} | ${'Next Run'.padEnd(nextRunWidth)} | ${'Description'.padEnd(descWidth)} |`);
+    printRow(['Job', 'Type', 'Times (EST)', 'Next Run', 'Description'], columnWidths);
     console.log(border);
 
     // Print rows
     data.jobs.forEach((job) => {
       const meta = jobMeta[job.displayName];
       const typeLabel = meta?.type === 'pipeline' ? `Pipeline #${meta.order}` : 'Independent';
-      console.log(`| ${job.displayName.padEnd(jobWidth)} | ${typeLabel.padEnd(typeWidth)} | ${getEstTimes(job.schedule).padEnd(timesWidth)} | ${formatNextRun(job.nextRun.at, job.nextRun.atRelative).padEnd(nextRunWidth)} | ${job.description.padEnd(descWidth)} |`);
+      const times = getEstTimes(job.schedule);
+      const nextRun = formatNextRun(job.nextRun.at, job.nextRun.atRelative);
+      printRow([job.displayName, typeLabel, times, nextRun, job.description], columnWidths);
     });
 
     console.log(border);

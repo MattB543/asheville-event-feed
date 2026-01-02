@@ -10,18 +10,17 @@ import {
 } from "@/lib/db/queries/events";
 
 export const metadata: Metadata = {
-  title: "All Events",
+  title: "Top 30 Events",
   description:
-    "Browse all Asheville events aggregated from 10+ sources. Filter by date, price, tags, and location.",
+    "Discover the top 30 most popular Asheville events, ranked by community interest and engagement.",
 };
 
 export const revalidate = 3600; // Fallback revalidation every hour
 
-// Cached first page query - loads 250 events for SSR to ensure enough content
-// for users who have many events hidden/collapsed
+// Cached first page query - loads 250 events for SSR
 const getFirstPageEvents = unstable_cache(
   async () => {
-    console.log("[Events] Fetching first page (250 events) for SSR...");
+    console.log("[Top30] Fetching first page (250 events) for SSR...");
     return queryFilteredEvents({ limit: 250 });
   },
   ["events-first-page"],
@@ -31,7 +30,7 @@ const getFirstPageEvents = unstable_cache(
 // Cached metadata - computed from ALL events for filter dropdowns
 const getCachedMetadata = unstable_cache(
   async () => {
-    console.log("[Events] Fetching filter metadata...");
+    console.log("[Top30] Fetching filter metadata...");
     return getEventMetadata();
   },
   ["events-metadata"],
@@ -41,26 +40,14 @@ const getCachedMetadata = unstable_cache(
 // Cached top 30 events query
 const getTop30Events = unstable_cache(
   async () => {
-    console.log("[Events] Fetching top 30 events...");
+    console.log("[Top30] Fetching top 30 events...");
     return queryTop30Events();
   },
   ["events-top30"],
   { tags: ["events"], revalidate: 3600 }
 );
 
-interface EventsPageProps {
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
-}
-
-export default async function EventsPage({ searchParams }: EventsPageProps) {
-  const params = await searchParams;
-  const activeTab =
-    params.tab === "forYou"
-      ? "forYou"
-      : params.tab === "top30"
-      ? "top30"
-      : "all";
-
+export default async function Top30Page() {
   let initialEvents: DbEvent[] = [];
   let initialTotalCount = 0;
   let top30Events: DbEvent[] = [];
@@ -75,27 +62,23 @@ export default async function EventsPage({ searchParams }: EventsPageProps) {
     const [firstPageResult, metadataResult, top30Result] = await Promise.all([
       getFirstPageEvents(),
       getCachedMetadata(),
-      activeTab === "top30" ? getTop30Events() : Promise.resolve([]),
+      getTop30Events(),
     ]);
     initialEvents = firstPageResult.events;
     initialTotalCount = firstPageResult.totalCount;
     metadata = metadataResult;
     top30Events = top30Result;
     console.log(
-      `[Events] SSR loaded ${
-        initialEvents.length
-      } events (of ${initialTotalCount} total)${
-        activeTab === "top30" ? `, ${top30Events.length} top 30 events` : ""
-      }`
+      `[Top30] SSR loaded ${initialEvents.length} events (of ${initialTotalCount} total), ${top30Events.length} top 30 events`
     );
   } catch (error) {
-    console.error("[Events] Failed to fetch events:", error);
+    console.error("[Top30] Failed to fetch events:", error);
     // Fallback to empty arrays
   }
 
   return (
     <EventPageLayout
-      activeTab={activeTab}
+      activeTab="top30"
       initialEvents={initialEvents}
       initialTotalCount={initialTotalCount}
       metadata={metadata}

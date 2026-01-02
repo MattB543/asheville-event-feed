@@ -13,9 +13,16 @@ export default function EventTabSwitcher({ activeTab }: EventTabSwitcherProps) {
   // Build URL preserving other query params
   const buildTabUrl = (tab: "all" | "top30" | "forYou") => {
     const params = new URLSearchParams(searchParams.toString());
-    if (tab === "all") {
-      params.delete("tab");
-    } else {
+    params.delete("tab"); // No longer using tab query param
+
+    // Top30 has its own route
+    if (tab === "top30") {
+      const queryString = params.toString();
+      return `/events/top30${queryString ? `?${queryString}` : ""}`;
+    }
+
+    // All and forYou use query params on /events
+    if (tab === "forYou") {
       params.set("tab", tab);
     }
     const queryString = params.toString();

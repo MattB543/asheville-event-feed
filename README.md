@@ -145,10 +145,11 @@ npx drizzle-kit push
 ### Development
 
 ```bash
-npm run dev          # Start development server
-npm run build        # Build for production
-npm run start        # Start production server
-npm run lint         # Run ESLint
+npm run dev             # Start development server
+npm run build           # Build for production
+npm run start           # Start production server
+npm run lint            # Run ESLint
+npm run cron:schedule   # View cron job schedules and next run times
 ```
 
 ### Database Management

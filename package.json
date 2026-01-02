@@ -33,7 +33,8 @@
     "test:summary": "tsx scripts/test-summary.ts",
     "test:embedding": "tsx scripts/test-embedding.ts",
     "test:similarity": "tsx scripts/test-similarity.ts",
-    "backfill:embeddings": "tsx scripts/ai/backfill-embeddings.ts"
+    "backfill:embeddings": "tsx scripts/ai/backfill-embeddings.ts",
+    "cron:schedule": "tsx scripts/show-cron-schedule.ts"
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",

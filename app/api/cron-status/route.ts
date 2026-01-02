@@ -1,33 +1,51 @@
 import { NextResponse } from 'next/server';
 import { getLatestJobRuns, type CronJobName, type CronJobStatus } from '@/lib/cron/jobTracker';
+import { formatDistanceToNow, intervalToDuration } from 'date-fns';
+import { readFileSync } from 'fs';
+import { join } from 'path';
 
-// Job descriptions and schedules
-const JOB_INFO: Record<CronJobName, { description: string; schedule: string }> = {
+// Job display metadata (descriptions and display names)
+const JOB_METADATA: Record<CronJobName, { displayName: string; description: string }> = {
   scrape: {
+    displayName: 'Scraping',
     description: 'Scrapes 10+ event sources (AVL Today, Eventbrite, Meetup, etc.) and upserts to database.',
-    schedule: '0 */6 * * *', // Every 6 hours at :00
   },
   verify: {
+    displayName: 'Verify',
     description: 'Fetches event source URLs via Jina Reader and uses AI to verify/update/hide events.',
-    schedule: '5 */6 * * *', // Every 6 hours at :05 (after scrape)
   },
   ai: {
+    displayName: 'AI Processing',
     description: 'Generates AI tags, summaries, embeddings, and scores for new events.',
-    schedule: '20 */6 * * *', // Every 6 hours at :20 (after verify)
   },
   cleanup: {
+    displayName: 'Cleanup',
     description: 'Removes dead links, non-NC events, cancelled events, and duplicates.',
-    schedule: '30 1,4,7,10,13,16,19,22 * * *', // 8x daily
   },
   dedup: {
+    displayName: 'AI Dedup',
     description: 'Uses AI to find semantic duplicates that rule-based dedup might miss.',
-    schedule: '0 10 * * *', // Daily at 5 AM ET (10:00 UTC)
   },
   'email-digest': {
+    displayName: 'Email Digest',
     description: 'Sends daily/weekly email digests to subscribed users.',
-    schedule: '0 12 * * *', // Daily at 7 AM ET (12:00 UTC)
   },
 };
+
+// Read actual cron schedules from vercel.json (single source of truth)
+function getCronSchedules(): Record<string, string> {
+  const vercelConfigPath = join(process.cwd(), 'vercel.json');
+  const vercelConfig = JSON.parse(readFileSync(vercelConfigPath, 'utf-8'));
+
+  const schedules: Record<string, string> = {};
+  for (const cron of vercelConfig.crons || []) {
+    // Extract job name from path: /api/cron/scrape -> scrape
+    const jobName = cron.path.split('/').pop();
+    schedules[jobName] = cron.schedule;
+  }
+
+  return schedules;
+}
 
 /**
  * Parse a cron schedule and calculate the next run time
@@ -73,50 +91,30 @@ function getNextRunTime(schedule: string): Date {
 }
 
 /**
- * Format duration in human-readable form
+ * Format duration in human-readable form using date-fns
  */
 function formatDuration(ms: number): string {
-  if (ms < 1000) return `${ms}ms`;
-  const seconds = Math.floor(ms / 1000);
-  if (seconds < 60) return `${seconds}s`;
-  const minutes = Math.floor(seconds / 60);
-  const remainingSeconds = seconds % 60;
-  if (minutes < 60) return `${minutes}m ${remainingSeconds}s`;
-  const hours = Math.floor(minutes / 60);
-  const remainingMinutes = minutes % 60;
-  return `${hours}h ${remainingMinutes}m`;
+  const duration = intervalToDuration({ start: 0, end: ms });
+  const parts: string[] = [];
+
+  if (duration.hours) parts.push(`${duration.hours}h`);
+  if (duration.minutes) parts.push(`${duration.minutes}m`);
+  if (duration.seconds && !duration.hours) parts.push(`${duration.seconds}s`);
+
+  return parts.length > 0 ? parts.join(' ') : '< 1s';
 }
 
 /**
- * Format relative time (e.g., "2 hours ago", "in 30 minutes")
+ * Format relative time using date-fns (without "about")
  */
 function formatRelativeTime(date: Date): string {
-  const now = new Date();
-  const diffMs = date.getTime() - now.getTime();
-  const absDiffMs = Math.abs(diffMs);
-  const isPast = diffMs < 0;
-
-  const seconds = Math.floor(absDiffMs / 1000);
-  const minutes = Math.floor(seconds / 60);
-  const hours = Math.floor(minutes / 60);
-  const days = Math.floor(hours / 24);
-
-  let value: string;
-  if (days > 0) {
-    value = `${days} day${days > 1 ? 's' : ''}`;
-  } else if (hours > 0) {
-    value = `${hours} hour${hours > 1 ? 's' : ''}`;
-  } else if (minutes > 0) {
-    value = `${minutes} minute${minutes > 1 ? 's' : ''}`;
-  } else {
-    value = 'less than a minute';
-  }
-
-  return isPast ? `${value} ago` : `in ${value}`;
+  return formatDistanceToNow(date, { addSuffix: true, includeSeconds: false })
+    .replace('about ', '');
 }
 
-interface CronJobStatusResponse {
+export interface CronJobStatusResponse {
   name: CronJobName;
+  displayName: string;
   description: string;
   schedule: string;
   lastRun: {
@@ -133,20 +131,29 @@ interface CronJobStatusResponse {
   };
 }
 
+export interface CronStatusResponse {
+  success: boolean;
+  generatedAt: string;
+  jobs: CronJobStatusResponse[];
+}
+
 export async function GET() {
   try {
     const latestRuns = await getLatestJobRuns();
+    const cronSchedules = getCronSchedules();
 
     // Build response for each job
-    const jobs: CronJobStatusResponse[] = (Object.keys(JOB_INFO) as CronJobName[]).map((name) => {
-      const info = JOB_INFO[name];
+    const jobs: CronJobStatusResponse[] = (Object.keys(JOB_METADATA) as CronJobName[]).map((name) => {
+      const metadata = JOB_METADATA[name];
+      const schedule = cronSchedules[name];
       const latestRun = latestRuns.find((r) => r.jobName === name);
-      const nextRunTime = getNextRunTime(info.schedule);
+      const nextRunTime = getNextRunTime(schedule);
 
       return {
         name,
-        description: info.description,
-        schedule: info.schedule,
+        displayName: metadata.displayName,
+        description: metadata.description,
+        schedule,
         lastRun: latestRun
           ? {
               startedAt: latestRun.startedAt.toISOString(),
@@ -164,11 +171,13 @@ export async function GET() {
       };
     });
 
-    return NextResponse.json({
+    const response: CronStatusResponse = {
       success: true,
       generatedAt: new Date().toISOString(),
       jobs,
-    });
+    };
+
+    return NextResponse.json(response);
   } catch (error) {
     console.error('[Cron Status] Error:', error);
     return NextResponse.json(

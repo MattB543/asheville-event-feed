@@ -3,6 +3,14 @@ import { db } from '@/lib/db';
 import { events } from '@/lib/db/schema';
 import { asc, gte } from 'drizzle-orm';
 import { getStartOfTodayEastern } from '@/lib/utils/timezone';
+import {
+  computeDateFilterBounds,
+  isTodayEastern,
+  isTomorrowEastern,
+  isThisWeekendEastern,
+  isDayOfWeekEastern,
+  isInDateRangeEastern,
+} from '@/lib/utils/dateFilters';
 import { matchesDefaultFilter } from '@/lib/config/defaultFilters';
 import { extractCity, isAshevilleArea } from '@/lib/utils/geo';
 import { isRecord, isString } from '@/lib/utils/validation';
@@ -77,50 +85,6 @@ function parsePrice(priceStr: string | null | undefined): number {
   return 0;
 }
 
-function isToday(date: Date): boolean {
-  const today = new Date();
-  return date.toDateString() === today.toDateString();
-}
-
-function isTomorrow(date: Date): boolean {
-  const tomorrow = new Date();
-  tomorrow.setDate(tomorrow.getDate() + 1);
-  return date.toDateString() === tomorrow.toDateString();
-}
-
-function isThisWeekend(date: Date): boolean {
-  const today = new Date();
-  const dayOfWeek = today.getDay(); // 0 = Sunday, 6 = Saturday
-  // If today is Sunday (0), Saturday was yesterday (-1)
-  const daysUntilSaturday = dayOfWeek === 0 ? -1 : 6 - dayOfWeek;
-  const saturday = new Date(today);
-  saturday.setDate(today.getDate() + daysUntilSaturday);
-  saturday.setHours(0, 0, 0, 0);
-  const sundayEnd = new Date(saturday);
-  sundayEnd.setDate(saturday.getDate() + 1);
-  sundayEnd.setHours(23, 59, 59, 999);
-  return date >= saturday && date <= sundayEnd;
-}
-
-function isDayOfWeek(date: Date, days: number[]): boolean {
-  if (days.length === 0) return true;
-  return days.includes(date.getDay());
-}
-
-function isInDateRange(date: Date, start: string, end?: string): boolean {
-  const eventDate = new Date(date);
-  eventDate.setHours(0, 0, 0, 0);
-  const startDate = new Date(start);
-  startDate.setHours(0, 0, 0, 0);
-
-  if (end) {
-    const endDate = new Date(end);
-    endDate.setHours(23, 59, 59, 999);
-    return eventDate >= startDate && eventDate <= endDate;
-  }
-  return eventDate.toDateString() === startDate.toDateString();
-}
-
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
@@ -150,6 +114,10 @@ export async function GET(request: Request) {
 
     // Get start of today in Eastern timezone (Asheville, NC)
     const startOfToday = getStartOfTodayEastern();
+
+    // Pre-compute date filter boundaries once for the entire request
+    // (avoids redundant timezone calculations for each event in the filter loop)
+    const dateFilterBounds = computeDateFilterBounds();
 
     let allEvents = await db
       .select()
@@ -190,13 +158,13 @@ export async function GET(request: Request) {
         if (!searchText.includes(search)) return false;
       }
 
-      // 6. Date filter
+      // 6. Date filter (using Eastern timezone for Asheville, NC)
       const eventDate = new Date(event.startDate);
-      if (dateFilter === 'today' && !isToday(eventDate)) return false;
-      if (dateFilter === 'tomorrow' && !isTomorrow(eventDate)) return false;
-      if (dateFilter === 'weekend' && !isThisWeekend(eventDate)) return false;
-      if (dateFilter === 'dayOfWeek' && !isDayOfWeek(eventDate, selectedDays)) return false;
-      if (dateFilter === 'custom' && dateStart && !isInDateRange(eventDate, dateStart, dateEnd || undefined)) return false;
+      if (dateFilter === 'today' && !isTodayEastern(eventDate, dateFilterBounds)) return false;
+      if (dateFilter === 'tomorrow' && !isTomorrowEastern(eventDate, dateFilterBounds)) return false;
+      if (dateFilter === 'weekend' && !isThisWeekendEastern(eventDate, dateFilterBounds)) return false;
+      if (dateFilter === 'dayOfWeek' && !isDayOfWeekEastern(eventDate, selectedDays)) return false;
+      if (dateFilter === 'custom' && dateStart && !isInDateRangeEastern(eventDate, dateStart, dateEnd || undefined)) return false;
 
       // 7. Price filter
       if (priceFilter && priceFilter !== 'any') {

@@ -75,44 +75,73 @@ function addDaysToDateString(dateStr: string, days: number): string {
   return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
 }
 
-/**
- * Check if an event date falls on "today" in Eastern timezone.
- * Uses getDayBoundariesEastern to get proper midnight-to-midnight bounds.
- */
-function isTodayEastern(date: Date): boolean {
-  const todayStr = getTodayStringEastern();
-  const { start, end } = getDayBoundariesEastern(todayStr);
-  return date >= start && date <= end;
-}
+// Day name to number mapping (module-level to avoid recreation per call)
+const DAY_NAME_TO_NUMBER: Record<string, number> = {
+  'Sun': 0, 'Mon': 1, 'Tue': 2, 'Wed': 3, 'Thu': 4, 'Fri': 5, 'Sat': 6
+};
 
 /**
- * Check if an event date falls on "tomorrow" in Eastern timezone.
+ * Pre-computed date boundaries for filtering.
+ * 
+ * PERFORMANCE OPTIMIZATION: These boundaries are computed once per request
+ * rather than per-event. When filtering hundreds of events, this avoids
+ * redundant calls to getTodayStringEastern() and getDayBoundariesEastern()
+ * for each event in the filter loop.
  */
-function isTomorrowEastern(date: Date): boolean {
-  const todayStr = getTodayStringEastern();
-  const tomorrowStr = addDaysToDateString(todayStr, 1);
-  const { start, end } = getDayBoundariesEastern(tomorrowStr);
-  return date >= start && date <= end;
+interface DateFilterBounds {
+  today: { start: Date; end: Date };
+  tomorrow: { start: Date; end: Date };
+  weekend: { start: Date; end: Date };
 }
 
-/**
- * Check if an event date falls on "this weekend" (Fri-Sun) in Eastern timezone.
- */
-function isThisWeekendEastern(date: Date): boolean {
+function computeDateFilterBounds(): DateFilterBounds {
   const todayStr = getTodayStringEastern();
   const [year, month, day] = todayStr.split('-').map(Number);
   const todayDate = new Date(year, month - 1, day);
   const dayOfWeek = todayDate.getDay();
 
-  // Calculate Friday of this week (in Eastern)
+  // Today bounds
+  const todayBounds = getDayBoundariesEastern(todayStr);
+
+  // Tomorrow bounds
+  const tomorrowStr = addDaysToDateString(todayStr, 1);
+  const tomorrowBounds = getDayBoundariesEastern(tomorrowStr);
+
+  // Weekend bounds (Fri-Sun)
   const daysUntilFriday = dayOfWeek === 0 ? -2 : 5 - dayOfWeek;
   const fridayStr = addDaysToDateString(todayStr, daysUntilFriday);
   const sundayStr = addDaysToDateString(fridayStr, 2);
+  const weekendBounds = {
+    start: getDayBoundariesEastern(fridayStr).start,
+    end: getDayBoundariesEastern(sundayStr).end,
+  };
 
-  const { start } = getDayBoundariesEastern(fridayStr);
-  const { end } = getDayBoundariesEastern(sundayStr);
+  return {
+    today: todayBounds,
+    tomorrow: tomorrowBounds,
+    weekend: weekendBounds,
+  };
+}
 
-  return date >= start && date <= end;
+/**
+ * Check if an event date falls on "today" in Eastern timezone.
+ */
+function isTodayEastern(date: Date, bounds: DateFilterBounds): boolean {
+  return date >= bounds.today.start && date <= bounds.today.end;
+}
+
+/**
+ * Check if an event date falls on "tomorrow" in Eastern timezone.
+ */
+function isTomorrowEastern(date: Date, bounds: DateFilterBounds): boolean {
+  return date >= bounds.tomorrow.start && date <= bounds.tomorrow.end;
+}
+
+/**
+ * Check if an event date falls on "this weekend" (Fri-Sun) in Eastern timezone.
+ */
+function isThisWeekendEastern(date: Date, bounds: DateFilterBounds): boolean {
+  return date >= bounds.weekend.start && date <= bounds.weekend.end;
 }
 
 /**
@@ -123,10 +152,7 @@ function isDayOfWeekEastern(date: Date, days: number[]): boolean {
   if (days.length === 0) return true;
   // Get day of week in Eastern timezone (0=Sun, 1=Mon, ..., 6=Sat)
   const dayName = formatDateEastern(date, { weekday: 'short' });
-  const dayMap: Record<string, number> = {
-    'Sun': 0, 'Mon': 1, 'Tue': 2, 'Wed': 3, 'Thu': 4, 'Fri': 5, 'Sat': 6
-  };
-  const eventDayOfWeek = dayMap[dayName] ?? date.getDay();
+  const eventDayOfWeek = DAY_NAME_TO_NUMBER[dayName] ?? date.getDay();
   return days.includes(eventDayOfWeek);
 }
 
@@ -178,6 +204,10 @@ export async function GET(request: Request) {
     // Get start of today in Eastern timezone (Asheville, NC)
     const startOfToday = getStartOfTodayEastern();
 
+    // Pre-compute date filter boundaries once for the entire request
+    // (avoids redundant timezone calculations for each event in the filter loop)
+    const dateFilterBounds = computeDateFilterBounds();
+
     let allEvents = await db
       .select()
       .from(events)
@@ -228,9 +258,9 @@ export async function GET(request: Request) {
 
       // 6. Date filter (using Eastern timezone for Asheville, NC)
       const eventDate = new Date(event.startDate);
-      if (dateFilter === 'today' && !isTodayEastern(eventDate)) return false;
-      if (dateFilter === 'tomorrow' && !isTomorrowEastern(eventDate)) return false;
-      if (dateFilter === 'weekend' && !isThisWeekendEastern(eventDate)) return false;
+      if (dateFilter === 'today' && !isTodayEastern(eventDate, dateFilterBounds)) return false;
+      if (dateFilter === 'tomorrow' && !isTomorrowEastern(eventDate, dateFilterBounds)) return false;
+      if (dateFilter === 'weekend' && !isThisWeekendEastern(eventDate, dateFilterBounds)) return false;
       if (dateFilter === 'dayOfWeek' && !isDayOfWeekEastern(eventDate, selectedDays)) return false;
       if (dateFilter === 'custom' && dateStart && !isInDateRangeEastern(eventDate, dateStart, dateEnd || undefined))
         return false;

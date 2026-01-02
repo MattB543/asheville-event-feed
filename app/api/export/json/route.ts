@@ -2,7 +2,13 @@ import { NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { events } from '@/lib/db/schema';
 import { asc, gte } from 'drizzle-orm';
-import { getStartOfTodayEastern } from '@/lib/utils/timezone';
+import {
+  getStartOfTodayEastern,
+  getTodayStringEastern,
+  getDayBoundariesEastern,
+  parseAsEastern,
+  formatDateEastern,
+} from '@/lib/utils/timezone';
 import { matchesDefaultFilter } from '@/lib/config/defaultFilters';
 import { extractCity, isAshevilleArea } from '@/lib/utils/geo';
 import { isRecord, isString } from '@/lib/utils/validation';
@@ -62,47 +68,84 @@ function parsePrice(priceStr: string | null | undefined): number {
   return 0;
 }
 
-function isToday(date: Date): boolean {
-  const today = new Date();
-  return date.toDateString() === today.toDateString();
+// Helper to add days to a date string (YYYY-MM-DD format)
+function addDaysToDateString(dateStr: string, days: number): string {
+  const [year, month, day] = dateStr.split('-').map(Number);
+  const date = new Date(year, month - 1, day + days);
+  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
 }
 
-function isTomorrow(date: Date): boolean {
-  const tomorrow = new Date();
-  tomorrow.setDate(tomorrow.getDate() + 1);
-  return date.toDateString() === tomorrow.toDateString();
+/**
+ * Check if an event date falls on "today" in Eastern timezone.
+ * Uses getDayBoundariesEastern to get proper midnight-to-midnight bounds.
+ */
+function isTodayEastern(date: Date): boolean {
+  const todayStr = getTodayStringEastern();
+  const { start, end } = getDayBoundariesEastern(todayStr);
+  return date >= start && date <= end;
 }
 
-function isThisWeekend(date: Date): boolean {
-  const today = new Date();
-  const dayOfWeek = today.getDay();
-  const daysUntilSaturday = dayOfWeek === 0 ? -1 : 6 - dayOfWeek;
-  const saturday = new Date(today);
-  saturday.setDate(today.getDate() + daysUntilSaturday);
-  saturday.setHours(0, 0, 0, 0);
-  const sundayEnd = new Date(saturday);
-  sundayEnd.setDate(saturday.getDate() + 1);
-  sundayEnd.setHours(23, 59, 59, 999);
-  return date >= saturday && date <= sundayEnd;
+/**
+ * Check if an event date falls on "tomorrow" in Eastern timezone.
+ */
+function isTomorrowEastern(date: Date): boolean {
+  const todayStr = getTodayStringEastern();
+  const tomorrowStr = addDaysToDateString(todayStr, 1);
+  const { start, end } = getDayBoundariesEastern(tomorrowStr);
+  return date >= start && date <= end;
 }
 
-function isDayOfWeek(date: Date, days: number[]): boolean {
+/**
+ * Check if an event date falls on "this weekend" (Fri-Sun) in Eastern timezone.
+ */
+function isThisWeekendEastern(date: Date): boolean {
+  const todayStr = getTodayStringEastern();
+  const [year, month, day] = todayStr.split('-').map(Number);
+  const todayDate = new Date(year, month - 1, day);
+  const dayOfWeek = todayDate.getDay();
+
+  // Calculate Friday of this week (in Eastern)
+  const daysUntilFriday = dayOfWeek === 0 ? -2 : 5 - dayOfWeek;
+  const fridayStr = addDaysToDateString(todayStr, daysUntilFriday);
+  const sundayStr = addDaysToDateString(fridayStr, 2);
+
+  const { start } = getDayBoundariesEastern(fridayStr);
+  const { end } = getDayBoundariesEastern(sundayStr);
+
+  return date >= start && date <= end;
+}
+
+/**
+ * Check if an event date falls on specific days of week in Eastern timezone.
+ * Uses formatDateEastern to get the correct day of week for the event.
+ */
+function isDayOfWeekEastern(date: Date, days: number[]): boolean {
   if (days.length === 0) return true;
-  return days.includes(date.getDay());
+  // Get day of week in Eastern timezone (0=Sun, 1=Mon, ..., 6=Sat)
+  const dayName = formatDateEastern(date, { weekday: 'short' });
+  const dayMap: Record<string, number> = {
+    'Sun': 0, 'Mon': 1, 'Tue': 2, 'Wed': 3, 'Thu': 4, 'Fri': 5, 'Sat': 6
+  };
+  const eventDayOfWeek = dayMap[dayName] ?? date.getDay();
+  return days.includes(eventDayOfWeek);
 }
 
-function isInDateRange(date: Date, start: string, end?: string): boolean {
-  const eventDate = new Date(date);
-  eventDate.setHours(0, 0, 0, 0);
-  const startDate = new Date(start);
-  startDate.setHours(0, 0, 0, 0);
+/**
+ * Check if an event date falls within a custom date range, parsed as Eastern timezone.
+ */
+function isInDateRangeEastern(date: Date, start: string, end?: string): boolean {
+  // Parse start date as Eastern midnight
+  const startDate = parseAsEastern(start, "00:00:00");
 
   if (end) {
-    const endDate = new Date(end);
-    endDate.setHours(23, 59, 59, 999);
-    return eventDate >= startDate && eventDate <= endDate;
+    // Parse end date as Eastern end-of-day
+    const endDate = parseAsEastern(end, "23:59:59");
+    return date >= startDate && date <= endDate;
   }
-  return eventDate.toDateString() === startDate.toDateString();
+
+  // Single day: check if within that day's boundaries
+  const { start: dayStart, end: dayEnd } = getDayBoundariesEastern(start);
+  return date >= dayStart && date <= dayEnd;
 }
 
 export async function GET(request: Request) {
@@ -183,13 +226,13 @@ export async function GET(request: Request) {
         if (!matchesAnyTerm) return false;
       }
 
-      // 6. Date filter
+      // 6. Date filter (using Eastern timezone for Asheville, NC)
       const eventDate = new Date(event.startDate);
-      if (dateFilter === 'today' && !isToday(eventDate)) return false;
-      if (dateFilter === 'tomorrow' && !isTomorrow(eventDate)) return false;
-      if (dateFilter === 'weekend' && !isThisWeekend(eventDate)) return false;
-      if (dateFilter === 'dayOfWeek' && !isDayOfWeek(eventDate, selectedDays)) return false;
-      if (dateFilter === 'custom' && dateStart && !isInDateRange(eventDate, dateStart, dateEnd || undefined))
+      if (dateFilter === 'today' && !isTodayEastern(eventDate)) return false;
+      if (dateFilter === 'tomorrow' && !isTomorrowEastern(eventDate)) return false;
+      if (dateFilter === 'weekend' && !isThisWeekendEastern(eventDate)) return false;
+      if (dateFilter === 'dayOfWeek' && !isDayOfWeekEastern(eventDate, selectedDays)) return false;
+      if (dateFilter === 'custom' && dateStart && !isInDateRangeEastern(eventDate, dateStart, dateEnd || undefined))
         return false;
 
       // 7. Price filter

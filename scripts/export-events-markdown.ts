@@ -65,7 +65,9 @@ async function exportEventsToMarkdown() {
   lines.push('# Asheville Events Export - Next 30 Days');
   lines.push('');
   lines.push(`*Generated: ${now.toLocaleString('en-US', { timeZone: 'America/New_York' })} ET*`);
-  lines.push(`*Date Range: ${now.toLocaleDateString()} - ${thirtyDaysFromNow.toLocaleDateString()}*`);
+  lines.push(
+    `*Date Range: ${now.toLocaleDateString()} - ${thirtyDaysFromNow.toLocaleDateString()}*`
+  );
   lines.push(`*Total Events: ${eventList.length}*`);
   lines.push('');
   lines.push('---');
@@ -175,9 +177,10 @@ async function exportEventsToMarkdown() {
       lines.push('### Description');
       lines.push('');
       // Trim long descriptions
-      const desc = event.description.length > 2000
-        ? event.description.slice(0, 2000) + '...'
-        : event.description;
+      const desc =
+        event.description.length > 2000
+          ? event.description.slice(0, 2000) + '...'
+          : event.description;
       lines.push(desc);
       lines.push('');
     }
@@ -188,16 +191,24 @@ async function exportEventsToMarkdown() {
     lines.push('');
     lines.push(`- **Event ID:** ${event.id}`);
     if (event.createdAt) {
-      lines.push(`- **Created:** ${event.createdAt.toLocaleString('en-US', { timeZone: 'America/New_York' })}`);
+      lines.push(
+        `- **Created:** ${event.createdAt.toLocaleString('en-US', { timeZone: 'America/New_York' })}`
+      );
     }
     if (event.updatedAt) {
-      lines.push(`- **Updated:** ${event.updatedAt.toLocaleString('en-US', { timeZone: 'America/New_York' })}`);
+      lines.push(
+        `- **Updated:** ${event.updatedAt.toLocaleString('en-US', { timeZone: 'America/New_York' })}`
+      );
     }
     if (event.lastSeenAt) {
-      lines.push(`- **Last Seen:** ${event.lastSeenAt.toLocaleString('en-US', { timeZone: 'America/New_York' })}`);
+      lines.push(
+        `- **Last Seen:** ${event.lastSeenAt.toLocaleString('en-US', { timeZone: 'America/New_York' })}`
+      );
     }
     if (event.lastVerifiedAt) {
-      lines.push(`- **Last Verified:** ${event.lastVerifiedAt.toLocaleString('en-US', { timeZone: 'America/New_York' })}`);
+      lines.push(
+        `- **Last Verified:** ${event.lastVerifiedAt.toLocaleString('en-US', { timeZone: 'America/New_York' })}`
+      );
     }
     lines.push('');
     lines.push('</details>');

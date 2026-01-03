@@ -7,6 +7,14 @@ interface EmailOptions {
   textBody?: string;
 }
 
+interface PostmarkSendResponse {
+  MessageID?: string;
+}
+
+interface PostmarkBatchResponseItem {
+  ErrorCode?: number;
+}
+
 /**
  * Send an email via Postmark API.
  * Returns true if sent successfully, false if Postmark is not configured or failed.
@@ -24,7 +32,7 @@ export async function sendEmail(options: EmailOptions): Promise<boolean> {
     const response = await fetch('https://api.postmarkapp.com/email', {
       method: 'POST',
       headers: {
-        'Accept': 'application/json',
+        Accept: 'application/json',
         'Content-Type': 'application/json',
         'X-Postmark-Server-Token': apiKey,
       },
@@ -44,8 +52,8 @@ export async function sendEmail(options: EmailOptions): Promise<boolean> {
       return false;
     }
 
-    const result = await response.json();
-    console.log('[Postmark] Email sent successfully:', result.MessageID);
+    const result = (await response.json()) as PostmarkSendResponse;
+    console.log('[Postmark] Email sent successfully:', result.MessageID ?? 'unknown');
     return true;
   } catch (error) {
     console.error('[Postmark] Error sending email:', error);
@@ -80,7 +88,7 @@ export async function sendBatchEmails(emails: EmailOptions[]): Promise<number> {
       const response = await fetch('https://api.postmarkapp.com/email/batch', {
         method: 'POST',
         headers: {
-          'Accept': 'application/json',
+          Accept: 'application/json',
           'Content-Type': 'application/json',
           'X-Postmark-Server-Token': apiKey,
         },
@@ -102,8 +110,10 @@ export async function sendBatchEmails(emails: EmailOptions[]): Promise<number> {
         continue;
       }
 
-      const results = await response.json();
-      const batchSuccess = results.filter((r: { ErrorCode: number }) => r.ErrorCode === 0).length;
+      const results = (await response.json()) as PostmarkBatchResponseItem[];
+      const batchSuccess = Array.isArray(results)
+        ? results.filter((r) => r.ErrorCode === 0).length
+        : 0;
       successCount += batchSuccess;
       console.log(`[Postmark] Batch sent: ${batchSuccess}/${batch.length} successful`);
     } catch (error) {
@@ -139,4 +149,3 @@ function chunk<T>(arr: T[], size: number): T[][] {
     arr.slice(i * size, i * size + size)
   );
 }
-

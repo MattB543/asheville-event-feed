@@ -5,7 +5,7 @@
  * The API provides properly formatted JSON with timezone-aware dates.
  */
 
-import { ScrapedEvent } from './types';
+import { type ScrapedEvent } from './types';
 import { fetchWithRetry } from '@/lib/utils/retry';
 import { isNonNCEvent } from '@/lib/utils/geo';
 import { decodeHtmlEntities } from '@/lib/utils/parsers';
@@ -20,8 +20,9 @@ const DELAY_MS = 200;
 
 // Browser headers to avoid blocking
 const API_HEADERS = {
-  'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-  'Accept': 'application/json',
+  'User-Agent':
+    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+  Accept: 'application/json',
   'Accept-Language': 'en-US,en;q=0.9',
 };
 
@@ -67,14 +68,14 @@ interface TribeEvent {
   description?: string;
   excerpt?: string;
   url: string;
-  start_date: string;        // Local time: "2025-12-16 19:00:00"
+  start_date: string; // Local time: "2025-12-16 19:00:00"
   end_date?: string;
-  utc_start_date: string;    // UTC time: "2025-12-17 00:00:00"
+  utc_start_date: string; // UTC time: "2025-12-17 00:00:00"
   utc_end_date?: string;
-  timezone: string;          // "America/New_York"
-  timezone_abbr?: string;    // "EST" or "EDT"
+  timezone: string; // "America/New_York"
+  timezone_abbr?: string; // "EST" or "EDT"
   all_day: boolean;
-  cost?: string;             // "$18", "Free", etc.
+  cost?: string; // "$18", "Free", etc.
   cost_details?: {
     currency_symbol?: string;
     currency_code?: string;
@@ -143,7 +144,7 @@ export async function scrapeMountainX(): Promise<ScrapedEvent[]> {
 
       // Rate limiting
       if (hasMore) {
-        await new Promise(r => setTimeout(r, DELAY_MS));
+        await new Promise((r) => setTimeout(r, DELAY_MS));
       }
     } catch (error) {
       console.error(`[MountainX] Error fetching page ${page}:`, error);
@@ -152,14 +153,16 @@ export async function scrapeMountainX(): Promise<ScrapedEvent[]> {
   }
 
   // Filter out non-NC events
-  const ncEvents = allEvents.filter(ev => !isNonNCEvent(ev.title, ev.location));
+  const ncEvents = allEvents.filter((ev) => !isNonNCEvent(ev.title, ev.location));
   const filteredCount = allEvents.length - ncEvents.length;
 
   if (filteredCount > 0) {
     console.log(`[MountainX] Filtered out ${filteredCount} non-NC events`);
   }
 
-  console.log(`[MountainX] Finished. Found ${ncEvents.length} NC events (${allEvents.length} total)`);
+  console.log(
+    `[MountainX] Finished. Found ${ncEvents.length} NC events (${allEvents.length} total)`
+  );
   return ncEvents;
 }
 
@@ -213,10 +216,11 @@ function formatEvent(event: TribeEvent): ScrapedEvent | null {
   const organizer = event.organizer?.[0]?.organizer || undefined;
 
   // Get image URL (prefer larger sizes)
-  const imageUrl = event.image?.sizes?.large?.url
-    || event.image?.sizes?.medium?.url
-    || event.image?.url
-    || undefined;
+  const imageUrl =
+    event.image?.sizes?.large?.url ||
+    event.image?.sizes?.medium?.url ||
+    event.image?.url ||
+    undefined;
 
   // Clean up cost string
   let price = event.cost || 'Unknown';
@@ -265,7 +269,9 @@ if (require.main === module || process.argv[1]?.includes('mountainx')) {
       for (const event of events.slice(0, 15)) {
         console.log(`\n${event.title}`);
         console.log(`  Date (UTC): ${event.startDate.toISOString()}`);
-        console.log(`  Date (ET):  ${event.startDate.toLocaleString('en-US', { timeZone: 'America/New_York' })}`);
+        console.log(
+          `  Date (ET):  ${event.startDate.toLocaleString('en-US', { timeZone: 'America/New_York' })}`
+        );
         console.log(`  Location: ${event.location || 'N/A'}`);
         console.log(`  Zip: ${event.zip || 'N/A'}`);
         console.log(`  Price: ${event.price || 'N/A'}`);
@@ -277,14 +283,22 @@ if (require.main === module || process.argv[1]?.includes('mountainx')) {
 
       console.log('\n' + '='.repeat(60));
       console.log('Field Completeness:');
-      const withImages = events.filter(e => e.imageUrl).length;
-      const withPrices = events.filter(e => e.price && e.price !== 'Unknown').length;
-      const withDescriptions = events.filter(e => e.description).length;
-      const withZips = events.filter(e => e.zip).length;
-      console.log(`  With images: ${withImages}/${events.length} (${Math.round(withImages/events.length*100)}%)`);
-      console.log(`  With prices: ${withPrices}/${events.length} (${Math.round(withPrices/events.length*100)}%)`);
-      console.log(`  With descriptions: ${withDescriptions}/${events.length} (${Math.round(withDescriptions/events.length*100)}%)`);
-      console.log(`  With zip codes: ${withZips}/${events.length} (${Math.round(withZips/events.length*100)}%)`);
+      const withImages = events.filter((e) => e.imageUrl).length;
+      const withPrices = events.filter((e) => e.price && e.price !== 'Unknown').length;
+      const withDescriptions = events.filter((e) => e.description).length;
+      const withZips = events.filter((e) => e.zip).length;
+      console.log(
+        `  With images: ${withImages}/${events.length} (${Math.round((withImages / events.length) * 100)}%)`
+      );
+      console.log(
+        `  With prices: ${withPrices}/${events.length} (${Math.round((withPrices / events.length) * 100)}%)`
+      );
+      console.log(
+        `  With descriptions: ${withDescriptions}/${events.length} (${Math.round((withDescriptions / events.length) * 100)}%)`
+      );
+      console.log(
+        `  With zip codes: ${withZips}/${events.length} (${Math.round((withZips / events.length) * 100)}%)`
+      );
       console.log('='.repeat(60));
     })
     .catch((error) => {

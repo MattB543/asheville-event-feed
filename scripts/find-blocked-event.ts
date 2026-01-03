@@ -4,26 +4,29 @@ import { sql, isNull, gte, and, or } from 'drizzle-orm';
 
 async function main() {
   const now = new Date();
-  
-  const problematic = await db.select({
-    id: events.id,
-    title: events.title,
-    description: events.description,
-    source: events.source,
-    tags: events.tags,
-    aiSummary: events.aiSummary,
-    organizer: events.organizer,
-  })
+
+  const problematic = await db
+    .select({
+      id: events.id,
+      title: events.title,
+      description: events.description,
+      source: events.source,
+      tags: events.tags,
+      aiSummary: events.aiSummary,
+      organizer: events.organizer,
+    })
     .from(events)
-    .where(and(
-      gte(events.startDate, now),
-      or(
-        sql`array_length(tags, 1) IS NULL OR array_length(tags, 1) = 0`,
-        isNull(events.aiSummary)
+    .where(
+      and(
+        gte(events.startDate, now),
+        or(
+          sql`array_length(tags, 1) IS NULL OR array_length(tags, 1) = 0`,
+          isNull(events.aiSummary)
+        )
       )
-    ))
+    )
     .limit(10);
-  
+
   console.log('Found', problematic.length, 'events needing processing');
   for (const e of problematic) {
     const hasTags = e.tags && e.tags.length > 0;
@@ -40,7 +43,7 @@ async function main() {
       console.log('Description:', e.description?.substring(0, 300));
     }
   }
-  
+
   process.exit(0);
 }
 

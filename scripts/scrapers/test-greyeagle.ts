@@ -31,15 +31,17 @@ async function main() {
   console.log();
 
   // Stats
-  const withDesc = events.filter(e => e.description).length;
-  const withImage = events.filter(e => e.imageUrl).length;
-  const withPrice = events.filter(e => e.price && e.price !== 'Unknown').length;
-  const specialEvents = events.filter(e => e.location?.includes('Special')).length;
+  const withDesc = events.filter((e) => e.description).length;
+  const withImage = events.filter((e) => e.imageUrl).length;
+  const withPrice = events.filter((e) => e.price && e.price !== 'Unknown').length;
+  const specialEvents = events.filter((e) => e.location?.includes('Special')).length;
 
   console.log('Statistics:');
-  console.log(`  - With description: ${withDesc} (${Math.round(withDesc/events.length*100)}%)`);
-  console.log(`  - With image: ${withImage} (${Math.round(withImage/events.length*100)}%)`);
-  console.log(`  - With price: ${withPrice} (${Math.round(withPrice/events.length*100)}%)`);
+  console.log(
+    `  - With description: ${withDesc} (${Math.round((withDesc / events.length) * 100)}%)`
+  );
+  console.log(`  - With image: ${withImage} (${Math.round((withImage / events.length) * 100)}%)`);
+  console.log(`  - With price: ${withPrice} (${Math.round((withPrice / events.length) * 100)}%)`);
   console.log(`  - Special events: ${specialEvents}`);
   console.log();
 
@@ -50,7 +52,9 @@ async function main() {
   for (const event of events.slice(0, 10)) {
     console.log();
     console.log(`${event.title}`);
-    console.log(`  Date: ${event.startDate.toLocaleDateString()} ${event.startDate.toLocaleTimeString()}`);
+    console.log(
+      `  Date: ${event.startDate.toLocaleDateString()} ${event.startDate.toLocaleTimeString()}`
+    );
     console.log(`  Location: ${event.location}`);
     console.log(`  Source ID: ${event.sourceId}`);
     console.log(`  Price: ${event.price}`);
@@ -76,7 +80,7 @@ async function main() {
   }
   const outputFile = path.join(outputDir, 'scraped-data.json');
 
-  const jsonData = events.map(e => ({
+  const jsonData = events.map((e) => ({
     ...e,
     startDate: e.startDate.toISOString(),
   }));

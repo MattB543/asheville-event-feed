@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { X, Loader2, Send, ChevronDown, Link } from "lucide-react";
-import { useState, FormEvent } from "react";
-import { useToast } from "./ui/Toast";
+import { X, Loader2, Send, ChevronDown, Link } from 'lucide-react';
+import { useState, type FormEvent } from 'react';
+import { useToast } from './ui/Toast';
 
 interface SubmitEventModalProps {
   isOpen: boolean;
@@ -25,26 +25,28 @@ interface FormData {
   notes: string;
 }
 
+interface SubmitEventResponse {
+  field?: string;
+  error?: string;
+}
+
 const initialFormData: FormData = {
-  title: "",
-  startDate: "",
-  startTime: "",
-  endDate: "",
-  endTime: "",
-  location: "",
-  organizer: "",
-  price: "",
-  url: "",
-  description: "",
-  submitterEmail: "",
-  submitterName: "",
-  notes: "",
+  title: '',
+  startDate: '',
+  startTime: '',
+  endDate: '',
+  endTime: '',
+  location: '',
+  organizer: '',
+  price: '',
+  url: '',
+  description: '',
+  submitterEmail: '',
+  submitterName: '',
+  notes: '',
 };
 
-export default function SubmitEventModal({
-  isOpen,
-  onClose,
-}: SubmitEventModalProps) {
+export default function SubmitEventModal({ isOpen, onClose }: SubmitEventModalProps) {
   const { showToast } = useToast();
   const [formData, setFormData] = useState<FormData>(initialFormData);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -52,7 +54,7 @@ export default function SubmitEventModal({
   const [showManualForm, setShowManualForm] = useState(false);
 
   // URL-only submission state
-  const [urlOnly, setUrlOnly] = useState("");
+  const [urlOnly, setUrlOnly] = useState('');
 
   if (!isOpen) return null;
 
@@ -66,7 +68,7 @@ export default function SubmitEventModal({
     setFieldError(null);
 
     if (!urlOnly.trim()) {
-      setFieldError("urlOnly");
+      setFieldError('urlOnly');
       return;
     }
 
@@ -74,18 +76,18 @@ export default function SubmitEventModal({
     try {
       new URL(urlOnly.trim());
     } catch {
-      setFieldError("urlOnly");
-      showToast("Please enter a valid URL", "error");
+      setFieldError('urlOnly');
+      showToast('Please enter a valid URL', 'error');
       return;
     }
 
     setIsSubmitting(true);
 
     try {
-      const response = await fetch("/api/events/submit-url", {
-        method: "POST",
+      const response = await fetch('/api/events/submit-url', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           url: urlOnly.trim(),
@@ -94,22 +96,22 @@ export default function SubmitEventModal({
         }),
       });
 
-      const result = await response.json();
+      const result = (await response.json()) as SubmitEventResponse;
 
       if (!response.ok) {
         if (result.field) {
-          setFieldError(result.field === "url" ? "urlOnly" : result.field);
+          setFieldError(result.field === 'url' ? 'urlOnly' : result.field);
         }
-        showToast(result.error || "Failed to submit URL", "error");
+        showToast(result.error || 'Failed to submit URL', 'error');
         return;
       }
 
-      showToast("URL submitted! We'll review it soon.", "success");
-      setUrlOnly("");
+      showToast("URL submitted! We'll review it soon.", 'success');
+      setUrlOnly('');
       setFormData(initialFormData);
       onClose();
     } catch {
-      showToast("Failed to submit URL. Please try again.", "error");
+      showToast('Failed to submit URL. Please try again.', 'error');
     } finally {
       setIsSubmitting(false);
     }
@@ -121,11 +123,11 @@ export default function SubmitEventModal({
 
     // Basic client-side validation
     if (!formData.title.trim()) {
-      setFieldError("title");
+      setFieldError('title');
       return;
     }
     if (!formData.startDate) {
-      setFieldError("startDate");
+      setFieldError('startDate');
       return;
     }
 
@@ -144,10 +146,10 @@ export default function SubmitEventModal({
           : `${formData.endDate}T23:59:59`;
       }
 
-      const response = await fetch("/api/events/submit", {
-        method: "POST",
+      const response = await fetch('/api/events/submit', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           title: formData.title.trim(),
@@ -164,22 +166,22 @@ export default function SubmitEventModal({
         }),
       });
 
-      const result = await response.json();
+      const result = (await response.json()) as SubmitEventResponse;
 
       if (!response.ok) {
         if (result.field) {
           setFieldError(result.field);
         }
-        showToast(result.error || "Failed to submit event", "error");
+        showToast(result.error || 'Failed to submit event', 'error');
         return;
       }
 
-      showToast("Event submitted! We'll review it soon.", "success");
+      showToast("Event submitted! We'll review it soon.", 'success');
       setFormData(initialFormData);
       setShowManualForm(false);
       onClose();
     } catch {
-      showToast("Failed to submit event. Please try again.", "error");
+      showToast('Failed to submit event. Please try again.', 'error');
     } finally {
       setIsSubmitting(false);
     }
@@ -188,7 +190,7 @@ export default function SubmitEventModal({
   const handleClose = () => {
     if (!isSubmitting) {
       setShowManualForm(false);
-      setUrlOnly("");
+      setUrlOnly('');
       setFormData(initialFormData);
       setFieldError(null);
       onClose();
@@ -199,9 +201,7 @@ export default function SubmitEventModal({
     <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
       <div className="bg-white dark:bg-gray-900 rounded-xl shadow-xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
         <div className="flex justify-between items-center p-6 border-b border-gray-200 dark:border-gray-700">
-          <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">
-            Submit an Event
-          </h2>
+          <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">Submit an Event</h2>
           <button
             onClick={handleClose}
             disabled={isSubmitting}
@@ -213,7 +213,7 @@ export default function SubmitEventModal({
 
         <div className="p-6 space-y-6">
           {/* URL Submission Section */}
-          <form onSubmit={handleUrlSubmit}>
+          <form onSubmit={(e) => void handleUrlSubmit(e)}>
             <div className="space-y-4">
               <p className="text-gray-600 dark:text-gray-400 text-sm">
                 Paste the event link or click below and enter the details!
@@ -241,18 +241,16 @@ export default function SubmitEventModal({
                       setFieldError(null);
                     }}
                     className={`w-full pl-10 pr-3 py-2 border rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 ${
-                      fieldError === "urlOnly"
-                        ? "border-red-500"
-                        : "border-gray-300 dark:border-gray-600"
+                      fieldError === 'urlOnly'
+                        ? 'border-red-500'
+                        : 'border-gray-300 dark:border-gray-600'
                     }`}
                     placeholder="https://example.com/event"
                     disabled={isSubmitting}
                   />
                 </div>
-                {fieldError === "urlOnly" && (
-                  <p className="mt-1 text-sm text-red-500">
-                    Please enter a valid URL
-                  </p>
+                {fieldError === 'urlOnly' && (
+                  <p className="mt-1 text-sm text-red-500">Please enter a valid URL</p>
                 )}
               </div>
 
@@ -269,9 +267,7 @@ export default function SubmitEventModal({
                     type="text"
                     id="submitterNameUrl"
                     value={formData.submitterName}
-                    onChange={(e) =>
-                      handleChange("submitterName", e.target.value)
-                    }
+                    onChange={(e) => handleChange('submitterName', e.target.value)}
                     className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 focus:border-brand-500"
                     placeholder="Optional"
                     disabled={isSubmitting}
@@ -288,21 +284,17 @@ export default function SubmitEventModal({
                     type="email"
                     id="submitterEmailUrl"
                     value={formData.submitterEmail}
-                    onChange={(e) =>
-                      handleChange("submitterEmail", e.target.value)
-                    }
+                    onChange={(e) => handleChange('submitterEmail', e.target.value)}
                     className={`w-full px-3 py-2 border rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 ${
-                      fieldError === "submitterEmail"
-                        ? "border-red-500"
-                        : "border-gray-300 dark:border-gray-600"
+                      fieldError === 'submitterEmail'
+                        ? 'border-red-500'
+                        : 'border-gray-300 dark:border-gray-600'
                     }`}
                     placeholder="Optional"
                     disabled={isSubmitting}
                   />
-                  {fieldError === "submitterEmail" && (
-                    <p className="mt-1 text-sm text-red-500">
-                      Please enter a valid email
-                    </p>
+                  {fieldError === 'submitterEmail' && (
+                    <p className="mt-1 text-sm text-red-500">Please enter a valid email</p>
                   )}
                 </div>
               </div>
@@ -350,21 +342,17 @@ export default function SubmitEventModal({
             <span className="font-medium">Enter event details manually</span>
             <ChevronDown
               size={20}
-              className={`transition-transform duration-200 ${
-                showManualForm ? "rotate-180" : ""
-              }`}
+              className={`transition-transform duration-200 ${showManualForm ? 'rotate-180' : ''}`}
             />
           </button>
 
           {/* Manual Entry Form (Accordion) */}
           <div
             className={`overflow-hidden transition-all duration-300 ease-in-out ${
-              showManualForm
-                ? "max-h-[2000px] opacity-100"
-                : "max-h-0 opacity-0"
+              showManualForm ? 'max-h-[2000px] opacity-100' : 'max-h-0 opacity-0'
             }`}
           >
-            <form onSubmit={handleManualSubmit} className="space-y-4 pt-2">
+            <form onSubmit={(e) => void handleManualSubmit(e)} className="space-y-4 pt-2">
               {/* Event Title */}
               <div>
                 <label
@@ -377,19 +365,17 @@ export default function SubmitEventModal({
                   type="text"
                   id="title"
                   value={formData.title}
-                  onChange={(e) => handleChange("title", e.target.value)}
+                  onChange={(e) => handleChange('title', e.target.value)}
                   className={`w-full px-3 py-2 border rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 ${
-                    fieldError === "title"
-                      ? "border-red-500"
-                      : "border-gray-300 dark:border-gray-600"
+                    fieldError === 'title'
+                      ? 'border-red-500'
+                      : 'border-gray-300 dark:border-gray-600'
                   }`}
                   placeholder="e.g., Live Music at The Orange Peel"
                   disabled={isSubmitting}
                 />
-                {fieldError === "title" && (
-                  <p className="mt-1 text-sm text-red-500">
-                    Event title is required
-                  </p>
+                {fieldError === 'title' && (
+                  <p className="mt-1 text-sm text-red-500">Event title is required</p>
                 )}
               </div>
 
@@ -406,18 +392,16 @@ export default function SubmitEventModal({
                     type="date"
                     id="startDate"
                     value={formData.startDate}
-                    onChange={(e) => handleChange("startDate", e.target.value)}
+                    onChange={(e) => handleChange('startDate', e.target.value)}
                     className={`w-full px-3 py-2 border rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 ${
-                      fieldError === "startDate"
-                        ? "border-red-500"
-                        : "border-gray-300 dark:border-gray-600"
+                      fieldError === 'startDate'
+                        ? 'border-red-500'
+                        : 'border-gray-300 dark:border-gray-600'
                     }`}
                     disabled={isSubmitting}
                   />
-                  {fieldError === "startDate" && (
-                    <p className="mt-1 text-sm text-red-500">
-                      Start date is required
-                    </p>
+                  {fieldError === 'startDate' && (
+                    <p className="mt-1 text-sm text-red-500">Start date is required</p>
                   )}
                 </div>
                 <div>
@@ -431,7 +415,7 @@ export default function SubmitEventModal({
                     type="time"
                     id="startTime"
                     value={formData.startTime}
-                    onChange={(e) => handleChange("startTime", e.target.value)}
+                    onChange={(e) => handleChange('startTime', e.target.value)}
                     className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 focus:border-brand-500"
                     disabled={isSubmitting}
                   />
@@ -450,7 +434,7 @@ export default function SubmitEventModal({
                     type="date"
                     id="endDate"
                     value={formData.endDate}
-                    onChange={(e) => handleChange("endDate", e.target.value)}
+                    onChange={(e) => handleChange('endDate', e.target.value)}
                     className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 focus:border-brand-500"
                     disabled={isSubmitting}
                   />
@@ -466,7 +450,7 @@ export default function SubmitEventModal({
                     type="time"
                     id="endTime"
                     value={formData.endTime}
-                    onChange={(e) => handleChange("endTime", e.target.value)}
+                    onChange={(e) => handleChange('endTime', e.target.value)}
                     className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 focus:border-brand-500"
                     disabled={isSubmitting}
                   />
@@ -485,7 +469,7 @@ export default function SubmitEventModal({
                   type="text"
                   id="location"
                   value={formData.location}
-                  onChange={(e) => handleChange("location", e.target.value)}
+                  onChange={(e) => handleChange('location', e.target.value)}
                   className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 focus:border-brand-500"
                   placeholder="e.g., The Orange Peel, 101 Biltmore Ave"
                   disabled={isSubmitting}
@@ -505,7 +489,7 @@ export default function SubmitEventModal({
                     type="text"
                     id="organizer"
                     value={formData.organizer}
-                    onChange={(e) => handleChange("organizer", e.target.value)}
+                    onChange={(e) => handleChange('organizer', e.target.value)}
                     className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 focus:border-brand-500"
                     placeholder="e.g., Local Arts Collective"
                     disabled={isSubmitting}
@@ -522,7 +506,7 @@ export default function SubmitEventModal({
                     type="text"
                     id="price"
                     value={formData.price}
-                    onChange={(e) => handleChange("price", e.target.value)}
+                    onChange={(e) => handleChange('price', e.target.value)}
                     className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 focus:border-brand-500"
                     placeholder="e.g., Free, $15, $10-$25"
                     disabled={isSubmitting}
@@ -542,19 +526,15 @@ export default function SubmitEventModal({
                   type="url"
                   id="url"
                   value={formData.url}
-                  onChange={(e) => handleChange("url", e.target.value)}
+                  onChange={(e) => handleChange('url', e.target.value)}
                   className={`w-full px-3 py-2 border rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 ${
-                    fieldError === "url"
-                      ? "border-red-500"
-                      : "border-gray-300 dark:border-gray-600"
+                    fieldError === 'url' ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
                   }`}
                   placeholder="https://example.com/event"
                   disabled={isSubmitting}
                 />
-                {fieldError === "url" && (
-                  <p className="mt-1 text-sm text-red-500">
-                    Please enter a valid URL
-                  </p>
+                {fieldError === 'url' && (
+                  <p className="mt-1 text-sm text-red-500">Please enter a valid URL</p>
                 )}
               </div>
 
@@ -569,7 +549,7 @@ export default function SubmitEventModal({
                 <textarea
                   id="description"
                   value={formData.description}
-                  onChange={(e) => handleChange("description", e.target.value)}
+                  onChange={(e) => handleChange('description', e.target.value)}
                   rows={3}
                   className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 resize-none"
                   placeholder="Tell us about the event..."
@@ -588,7 +568,7 @@ export default function SubmitEventModal({
                 <textarea
                   id="notes"
                   value={formData.notes}
-                  onChange={(e) => handleChange("notes", e.target.value)}
+                  onChange={(e) => handleChange('notes', e.target.value)}
                   rows={2}
                   className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 resize-none"
                   placeholder="Anything else we should know?"

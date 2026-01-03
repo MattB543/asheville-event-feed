@@ -7,12 +7,12 @@ import { events } from '../../lib/db/schema';
 import { eq, isNull, and, sql } from 'drizzle-orm';
 
 const STATIC_VENUE_ZIPS: Record<string, string> = {
-  'NC_STAGE': '28801',       // 15 Stage Lane, Asheville
-  'MISFIT_IMPROV': '28803',  // 573 Fairview Rd, Asheville
-  'GREY_EAGLE': '28801',     // 185 Clingman Ave, Asheville
-  'ORANGE_PEEL': '28801',    // 101 Biltmore Ave, Asheville
-  'HARRAHS': '28801',        // 777 Casino Dr, Cherokee (using 28801 as configured)
-  'UDHARMA': '28806',        // 85 N Lexington Ave, Asheville (West Asheville)
+  NC_STAGE: '28801', // 15 Stage Lane, Asheville
+  MISFIT_IMPROV: '28803', // 573 Fairview Rd, Asheville
+  GREY_EAGLE: '28801', // 185 Clingman Ave, Asheville
+  ORANGE_PEEL: '28801', // 101 Biltmore Ave, Asheville
+  HARRAHS: '28801', // 777 Casino Dr, Cherokee (using 28801 as configured)
+  UDHARMA: '28806', // 85 N Lexington Ave, Asheville (West Asheville)
 };
 
 async function main() {
@@ -48,9 +48,19 @@ async function main() {
   `);
 
   console.log('\nFinal coverage:');
-  for (const row of coverage as unknown as { source: string; total: number; with_zip: number; coverage_pct: number }[]) {
+  for (const row of coverage as unknown as {
+    source: string;
+    total: number;
+    with_zip: number;
+    coverage_pct: number;
+  }[]) {
     console.log(`  ${row.source}: ${row.with_zip}/${row.total} (${row.coverage_pct}%)`);
   }
 }
 
-main().then(() => process.exit(0)).catch(e => { console.error(e); process.exit(1); });
+main()
+  .then(() => process.exit(0))
+  .catch((e) => {
+    console.error(e);
+    process.exit(1);
+  });

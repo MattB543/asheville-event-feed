@@ -1,30 +1,30 @@
-import { NextResponse } from "next/server";
-import { scrapeAvlToday } from "@/lib/scrapers/avltoday";
-import { scrapeEventbrite } from "@/lib/scrapers/eventbrite";
-import { scrapeMeetup } from "@/lib/scrapers/meetup";
-import { scrapeFacebookEvents } from "@/lib/scrapers/facebook";
-import { scrapeHarrahs } from "@/lib/scrapers/harrahs";
-import { scrapeOrangePeel } from "@/lib/scrapers/orangepeel";
-import { scrapeGreyEagle } from "@/lib/scrapers/greyeagle";
-import { scrapeLiveMusicAvl } from "@/lib/scrapers/livemusicavl";
-import { scrapeExploreAsheville, fetchEventDescription } from "@/lib/scrapers/exploreasheville";
-import { scrapeMisfitImprov } from "@/lib/scrapers/misfitimprov";
-import { scrapeUDharma } from "@/lib/scrapers/udharma";
-import { scrapeNCStage } from "@/lib/scrapers/ncstage";
-import { scrapeStoryParlor } from "@/lib/scrapers/storyparlor";
-import { db } from "@/lib/db";
-import { events } from "@/lib/db/schema";
-import { inArray, eq } from "drizzle-orm";
-import { generateEventTags } from "@/lib/ai/tagAndSummarize";
-import { generateAndUploadEventImage } from "@/lib/ai/imageGeneration";
-import type { ScrapedEventWithTags } from "@/lib/scrapers/types";
-import { env, isFacebookEnabled } from "@/lib/config/env";
-import { findDuplicates, getIdsToRemove, getDescriptionUpdates } from "@/lib/utils/deduplication";
-import { syncRecurringFromExploreAsheville } from "@/lib/utils/syncRecurringFromExploreAsheville";
-import { verifyAuthToken } from "@/lib/utils/auth";
-import { enrichEventData } from "@/lib/ai/dataEnrichment";
-import { isAzureAIEnabled } from "@/lib/ai/provider-clients";
-import { invalidateEventsCache } from "@/lib/cache/invalidation";
+import { NextResponse } from 'next/server';
+import { scrapeAvlToday } from '@/lib/scrapers/avltoday';
+import { scrapeEventbrite } from '@/lib/scrapers/eventbrite';
+import { scrapeMeetup } from '@/lib/scrapers/meetup';
+import { scrapeFacebookEvents } from '@/lib/scrapers/facebook';
+import { scrapeHarrahs } from '@/lib/scrapers/harrahs';
+import { scrapeOrangePeel } from '@/lib/scrapers/orangepeel';
+import { scrapeGreyEagle } from '@/lib/scrapers/greyeagle';
+import { scrapeLiveMusicAvl } from '@/lib/scrapers/livemusicavl';
+import { scrapeExploreAsheville, fetchEventDescription } from '@/lib/scrapers/exploreasheville';
+import { scrapeMisfitImprov } from '@/lib/scrapers/misfitimprov';
+import { scrapeUDharma } from '@/lib/scrapers/udharma';
+import { scrapeNCStage } from '@/lib/scrapers/ncstage';
+import { scrapeStoryParlor } from '@/lib/scrapers/storyparlor';
+import { db } from '@/lib/db';
+import { events } from '@/lib/db/schema';
+import { inArray, eq } from 'drizzle-orm';
+import { generateEventTags } from '@/lib/ai/tagAndSummarize';
+import { generateAndUploadEventImage } from '@/lib/ai/imageGeneration';
+import type { ScrapedEventWithTags } from '@/lib/scrapers/types';
+import { env, isFacebookEnabled } from '@/lib/config/env';
+import { findDuplicates, getIdsToRemove, getDescriptionUpdates } from '@/lib/utils/deduplication';
+import { syncRecurringFromExploreAsheville } from '@/lib/utils/syncRecurringFromExploreAsheville';
+import { verifyAuthToken } from '@/lib/utils/auth';
+import { enrichEventData } from '@/lib/ai/dataEnrichment';
+import { isAzureAIEnabled } from '@/lib/ai/provider-clients';
+import { invalidateEventsCache } from '@/lib/cache/invalidation';
 
 export const maxDuration = 800; // 13+ minutes (requires Fluid Compute)
 
@@ -39,9 +39,9 @@ function formatDuration(ms: number): string {
 }
 
 export async function GET(request: Request) {
-  const authHeader = request.headers.get("authorization");
+  const authHeader = request.headers.get('authorization');
   if (!verifyAuthToken(authHeader, env.CRON_SECRET)) {
-    return new NextResponse("Unauthorized", { status: 401 });
+    return new NextResponse('Unauthorized', { status: 401 });
   }
 
   const jobStartTime = Date.now();
@@ -59,8 +59,8 @@ export async function GET(request: Request) {
   };
 
   try {
-    console.log("[Cron] ════════════════════════════════════════════════");
-    console.log("[Cron] Starting scrape job...");
+    console.log('[Cron] ════════════════════════════════════════════════');
+    console.log('[Cron] Starting scrape job...');
 
     // Scrape all sources in parallel
     const scrapeStartTime = Date.now();
@@ -93,56 +93,48 @@ export async function GET(request: Request) {
     ]);
 
     // Extract values from settled results, using empty arrays for rejected promises
-    const avlEvents =
-      avlResult.status === "fulfilled" ? avlResult.value : [];
-    const ebEvents =
-      ebResult.status === "fulfilled" ? ebResult.value : [];
-    const meetupEvents =
-      meetupResult.status === "fulfilled" ? meetupResult.value : [];
-    const harrahsEvents =
-      harrahsResult.status === "fulfilled" ? harrahsResult.value : [];
-    const orangePeelEvents =
-      orangePeelResult.status === "fulfilled" ? orangePeelResult.value : [];
-    const greyEagleEvents =
-      greyEagleResult.status === "fulfilled" ? greyEagleResult.value : [];
+    const avlEvents = avlResult.status === 'fulfilled' ? avlResult.value : [];
+    const ebEvents = ebResult.status === 'fulfilled' ? ebResult.value : [];
+    const meetupEvents = meetupResult.status === 'fulfilled' ? meetupResult.value : [];
+    const harrahsEvents = harrahsResult.status === 'fulfilled' ? harrahsResult.value : [];
+    const orangePeelEvents = orangePeelResult.status === 'fulfilled' ? orangePeelResult.value : [];
+    const greyEagleEvents = greyEagleResult.status === 'fulfilled' ? greyEagleResult.value : [];
     const liveMusicAvlEvents =
-      liveMusicAvlResult.status === "fulfilled" ? liveMusicAvlResult.value : [];
+      liveMusicAvlResult.status === 'fulfilled' ? liveMusicAvlResult.value : [];
     const exploreAshevilleEvents =
-      exploreAshevilleResult.status === "fulfilled" ? exploreAshevilleResult.value : [];
+      exploreAshevilleResult.status === 'fulfilled' ? exploreAshevilleResult.value : [];
     const misfitImprovEvents =
-      misfitImprovResult.status === "fulfilled" ? misfitImprovResult.value : [];
-    const udharmaEvents =
-      udharmaResult.status === "fulfilled" ? udharmaResult.value : [];
-    const ncstageEvents =
-      ncstageResult.status === "fulfilled" ? ncstageResult.value : [];
+      misfitImprovResult.status === 'fulfilled' ? misfitImprovResult.value : [];
+    const udharmaEvents = udharmaResult.status === 'fulfilled' ? udharmaResult.value : [];
+    const ncstageEvents = ncstageResult.status === 'fulfilled' ? ncstageResult.value : [];
     const storyParlorEvents =
-      storyParlorResult.status === "fulfilled" ? storyParlorResult.value : [];
+      storyParlorResult.status === 'fulfilled' ? storyParlorResult.value : [];
 
     // Log any scraper failures
-    if (avlResult.status === "rejected")
-      console.error("[Cron] AVL Today scrape failed:", avlResult.reason);
-    if (ebResult.status === "rejected")
-      console.error("[Cron] Eventbrite scrape failed:", ebResult.reason);
-    if (meetupResult.status === "rejected")
-      console.error("[Cron] Meetup scrape failed:", meetupResult.reason);
-    if (harrahsResult.status === "rejected")
+    if (avlResult.status === 'rejected')
+      console.error('[Cron] AVL Today scrape failed:', avlResult.reason);
+    if (ebResult.status === 'rejected')
+      console.error('[Cron] Eventbrite scrape failed:', ebResult.reason);
+    if (meetupResult.status === 'rejected')
+      console.error('[Cron] Meetup scrape failed:', meetupResult.reason);
+    if (harrahsResult.status === 'rejected')
       console.error("[Cron] Harrah's scrape failed:", harrahsResult.reason);
-    if (orangePeelResult.status === "rejected")
-      console.error("[Cron] Orange Peel scrape failed:", orangePeelResult.reason);
-    if (greyEagleResult.status === "rejected")
-      console.error("[Cron] Grey Eagle scrape failed:", greyEagleResult.reason);
-    if (liveMusicAvlResult.status === "rejected")
-      console.error("[Cron] Live Music AVL scrape failed:", liveMusicAvlResult.reason);
-    if (exploreAshevilleResult.status === "rejected")
-      console.error("[Cron] ExploreAsheville scrape failed:", exploreAshevilleResult.reason);
-    if (misfitImprovResult.status === "rejected")
-      console.error("[Cron] Misfit Improv scrape failed:", misfitImprovResult.reason);
-    if (udharmaResult.status === "rejected")
-      console.error("[Cron] UDharma scrape failed:", udharmaResult.reason);
-    if (ncstageResult.status === "rejected")
-      console.error("[Cron] NC Stage scrape failed:", ncstageResult.reason);
-    if (storyParlorResult.status === "rejected")
-      console.error("[Cron] Story Parlor scrape failed:", storyParlorResult.reason);
+    if (orangePeelResult.status === 'rejected')
+      console.error('[Cron] Orange Peel scrape failed:', orangePeelResult.reason);
+    if (greyEagleResult.status === 'rejected')
+      console.error('[Cron] Grey Eagle scrape failed:', greyEagleResult.reason);
+    if (liveMusicAvlResult.status === 'rejected')
+      console.error('[Cron] Live Music AVL scrape failed:', liveMusicAvlResult.reason);
+    if (exploreAshevilleResult.status === 'rejected')
+      console.error('[Cron] ExploreAsheville scrape failed:', exploreAshevilleResult.reason);
+    if (misfitImprovResult.status === 'rejected')
+      console.error('[Cron] Misfit Improv scrape failed:', misfitImprovResult.reason);
+    if (udharmaResult.status === 'rejected')
+      console.error('[Cron] UDharma scrape failed:', udharmaResult.reason);
+    if (ncstageResult.status === 'rejected')
+      console.error('[Cron] NC Stage scrape failed:', ncstageResult.reason);
+    if (storyParlorResult.status === 'rejected')
+      console.error('[Cron] Story Parlor scrape failed:', storyParlorResult.reason);
 
     stats.scraping.duration = Date.now() - scrapeStartTime;
     stats.scraping.total =
@@ -179,7 +171,7 @@ export async function GET(request: Request) {
     let fbEvents: ScrapedEventWithTags[] = [];
     if (isFacebookEnabled()) {
       try {
-        console.log("[Cron] Attempting Facebook scrape...");
+        console.log('[Cron] Attempting Facebook scrape...');
         const fbRawEvents = await scrapeFacebookEvents();
         // Filter out low-interest events (must have >=4 going OR >=9 interested)
         // "Going" is a stronger signal than "interested"
@@ -191,18 +183,13 @@ export async function GET(request: Request) {
         // Transform to ScrapedEventWithTags format
         fbEvents = fbFiltered.map((e) => ({ ...e, tags: [] }));
         console.log(
-          `[Cron] Facebook scrape complete: ${
-            fbEvents.length
-          } events (filtered ${
+          `[Cron] Facebook scrape complete: ${fbEvents.length} events (filtered ${
             fbRawEvents.length - fbFiltered.length
           } low-interest)`
         );
       } catch (fbError) {
         // Log error but don't fail the entire cron job
-        console.error(
-          "[Cron] Facebook scrape failed (continuing with other sources):",
-          fbError
-        );
+        console.error('[Cron] Facebook scrape failed (continuing with other sources):', fbError);
       }
     }
 
@@ -211,30 +198,32 @@ export async function GET(request: Request) {
       ...e,
       tags: [],
     }));
-    const orangePeelWithTags: ScrapedEventWithTags[] = orangePeelEvents.map(
-      (e) => ({ ...e, tags: [] })
-    );
-    const greyEagleWithTags: ScrapedEventWithTags[] = greyEagleEvents.map(
-      (e) => ({ ...e, tags: [] })
-    );
-    const liveMusicAvlWithTags: ScrapedEventWithTags[] = liveMusicAvlEvents.map(
-      (e) => ({ ...e, tags: [] })
-    );
-    const exploreAshevilleWithTags: ScrapedEventWithTags[] = exploreAshevilleEvents.map(
-      (e) => ({ ...e, tags: [] })
-    );
-    const misfitImprovWithTags: ScrapedEventWithTags[] = misfitImprovEvents.map(
-      (e) => ({ ...e, tags: [] })
-    );
-    const udharmaWithTags: ScrapedEventWithTags[] = udharmaEvents.map(
-      (e) => ({ ...e, tags: [] })
-    );
-    const ncstageWithTags: ScrapedEventWithTags[] = ncstageEvents.map(
-      (e) => ({ ...e, tags: [] })
-    );
-    const storyParlorWithTags: ScrapedEventWithTags[] = storyParlorEvents.map(
-      (e) => ({ ...e, tags: [] })
-    );
+    const orangePeelWithTags: ScrapedEventWithTags[] = orangePeelEvents.map((e) => ({
+      ...e,
+      tags: [],
+    }));
+    const greyEagleWithTags: ScrapedEventWithTags[] = greyEagleEvents.map((e) => ({
+      ...e,
+      tags: [],
+    }));
+    const liveMusicAvlWithTags: ScrapedEventWithTags[] = liveMusicAvlEvents.map((e) => ({
+      ...e,
+      tags: [],
+    }));
+    const exploreAshevilleWithTags: ScrapedEventWithTags[] = exploreAshevilleEvents.map((e) => ({
+      ...e,
+      tags: [],
+    }));
+    const misfitImprovWithTags: ScrapedEventWithTags[] = misfitImprovEvents.map((e) => ({
+      ...e,
+      tags: [],
+    }));
+    const udharmaWithTags: ScrapedEventWithTags[] = udharmaEvents.map((e) => ({ ...e, tags: [] }));
+    const ncstageWithTags: ScrapedEventWithTags[] = ncstageEvents.map((e) => ({ ...e, tags: [] }));
+    const storyParlorWithTags: ScrapedEventWithTags[] = storyParlorEvents.map((e) => ({
+      ...e,
+      tags: [],
+    }));
 
     const allEventsRaw: ScrapedEventWithTags[] = [
       ...avlEvents,
@@ -254,7 +243,7 @@ export async function GET(request: Request) {
 
     // Filter out cancelled events (title starts with "CANCELLED")
     const allEvents = allEventsRaw.filter(
-      (e) => !e.title.trim().toUpperCase().startsWith("CANCELLED")
+      (e) => !e.title.trim().toUpperCase().startsWith('CANCELLED')
     );
     const cancelledCount = allEventsRaw.length - allEvents.length;
     if (cancelledCount > 0) {
@@ -285,7 +274,7 @@ export async function GET(request: Request) {
     // 3.5 Fetch descriptions for new ExploreAsheville events
     // The grid API doesn't include descriptions, so we fetch from detail pages
     const newExploreEvents = newEvents.filter(
-      (e) => e.source === "EXPLORE_ASHEVILLE" && !e.description
+      (e) => e.source === 'EXPLORE_ASHEVILLE' && !e.description
     );
     if (newExploreEvents.length > 0) {
       console.log(
@@ -295,7 +284,7 @@ export async function GET(request: Request) {
       for (const event of newExploreEvents) {
         try {
           // Strip hash fragment for recurring events (URL like ...#2025-12-15)
-          const cleanUrl = event.url.split("#")[0];
+          const cleanUrl = event.url.split('#')[0];
           const description = await fetchEventDescription(cleanUrl);
           if (description) {
             event.description = description;
@@ -353,7 +342,7 @@ export async function GET(request: Request) {
         } succeeded, ${stats.tagging.failed} failed`
       );
     } else {
-      console.log("[Cron] Skipping tagging: Azure AI not configured");
+      console.log('[Cron] Skipping tagging: Azure AI not configured');
       stats.tagging.failed = 0;
     }
 
@@ -362,8 +351,7 @@ export async function GET(request: Request) {
     // Limit to 10 events per cron run to avoid excessive API calls
     const MAX_ENRICHMENT_PER_RUN = 10;
     const eventsNeedingEnrichment = newEvents.filter(
-      (e) =>
-        !e.price || e.price === "Unknown" || e.timeUnknown === true
+      (e) => !e.price || e.price === 'Unknown' || e.timeUnknown === true
     );
 
     if (eventsNeedingEnrichment.length > 0 && azureEnabled) {
@@ -388,7 +376,7 @@ export async function GET(request: Request) {
           });
 
           if (result) {
-            if (result.price && (!event.price || event.price === "Unknown")) {
+            if (result.price && (!event.price || event.price === 'Unknown')) {
               event.price = result.price;
               stats.enrichment.priceExtracted++;
             }
@@ -423,9 +411,9 @@ export async function GET(request: Request) {
       if (!url) return true;
       // Meetup placeholder/fallback images should be replaced with AI-generated ones
       if (
-        url.includes("/images/fallbacks/") ||
-        url.includes("group-cover") ||
-        url.includes("default_photo")
+        url.includes('/images/fallbacks/') ||
+        url.includes('group-cover') ||
+        url.includes('default_photo')
       ) {
         return true;
       }
@@ -457,9 +445,7 @@ export async function GET(request: Request) {
               stats.images.success++;
             } else {
               stats.images.failed++;
-              console.warn(
-                `[Cron] Image generation returned null for "${event.title}"`
-              );
+              console.warn(`[Cron] Image generation returned null for "${event.title}"`);
             }
           } catch (err) {
             stats.images.failed++;
@@ -577,7 +563,8 @@ export async function GET(request: Request) {
     // (keep the longer description from removed events)
     if (descriptionUpdates.length > 0) {
       for (const update of descriptionUpdates) {
-        await db.update(events)
+        await db
+          .update(events)
           .set({ description: update.description })
           .where(eq(events.id, update.id));
       }
@@ -586,9 +573,7 @@ export async function GET(request: Request) {
 
     if (duplicateIdsToRemove.length > 0) {
       await db.delete(events).where(inArray(events.id, duplicateIdsToRemove));
-      console.log(
-        `[Cron] Deduplication: removed ${duplicateIdsToRemove.length} duplicate events.`
-      );
+      console.log(`[Cron] Deduplication: removed ${duplicateIdsToRemove.length} duplicate events.`);
     } else {
       console.log(`[Cron] Deduplication: no duplicates found.`);
     }
@@ -604,14 +589,14 @@ export async function GET(request: Request) {
         `[Cron] Recurring sync: found ${recurringResult.dailyRecurringFound} daily events, updated ${recurringResult.eventsUpdated} DB events`
       );
     } catch (recurringError) {
-      console.error("[Cron] Recurring sync failed:", recurringError);
+      console.error('[Cron] Recurring sync failed:', recurringError);
     }
 
     // Final summary
     const totalDuration = Date.now() - jobStartTime;
-    console.log("[Cron] ────────────────────────────────────────────────");
+    console.log('[Cron] ────────────────────────────────────────────────');
     console.log(`[Cron] JOB COMPLETE in ${formatDuration(totalDuration)}`);
-    console.log("[Cron] ────────────────────────────────────────────────");
+    console.log('[Cron] ────────────────────────────────────────────────');
     console.log(
       `[Cron] Scraping:  ${stats.scraping.total} events in ${formatDuration(
         stats.scraping.duration
@@ -626,33 +611,33 @@ export async function GET(request: Request) {
         liveMusicAvlEvents.length
       }, ExploreAVL: ${exploreAshevilleEvents.length}, Misfit: ${
         misfitImprovEvents.length
-      }, UDharma: ${udharmaEvents.length}, NCStage: ${ncstageEvents.length}, StoryParlor: ${storyParlorEvents.length}${fbEvents.length > 0 ? `, FB: ${fbEvents.length}` : ""}`
+      }, UDharma: ${udharmaEvents.length}, NCStage: ${ncstageEvents.length}, StoryParlor: ${storyParlorEvents.length}${fbEvents.length > 0 ? `, FB: ${fbEvents.length}` : ''}`
     );
     console.log(
       `[Cron] Tagging:   ${stats.tagging.success}/${
         newEvents.length
       } new events tagged in ${formatDuration(stats.tagging.duration)}${
-        stats.tagging.failed > 0 ? ` (${stats.tagging.failed} failed)` : ""
+        stats.tagging.failed > 0 ? ` (${stats.tagging.failed} failed)` : ''
       }`
     );
     console.log(
       `[Cron] Images:    ${stats.images.success}/${
         eventsWithoutImages.length
       } generated in ${formatDuration(stats.images.duration)}${
-        stats.images.failed > 0 ? ` (${stats.images.failed} failed)` : ""
+        stats.images.failed > 0 ? ` (${stats.images.failed} failed)` : ''
       }`
     );
     console.log(
       `[Cron] Database:  ${stats.upsert.success} upserted in ${formatDuration(
         stats.upsert.duration
-      )}${stats.upsert.failed > 0 ? ` (${stats.upsert.failed} failed)` : ""}, ${
+      )}${stats.upsert.failed > 0 ? ` (${stats.upsert.failed} failed)` : ''}, ${
         stats.dedup.removed
       } duplicates removed`
     );
     console.log(
       `[Cron] Recurring: ${stats.recurring.updated} events tagged as daily (from ${stats.recurring.found} EA daily events)`
     );
-    console.log("[Cron] ════════════════════════════════════════════════");
+    console.log('[Cron] ════════════════════════════════════════════════');
 
     // Invalidate cache so home page shows updated events
     invalidateEventsCache();
@@ -677,10 +662,10 @@ export async function GET(request: Request) {
     });
   } catch (error) {
     const totalDuration = Date.now() - jobStartTime;
-    console.error("[Cron] ════════════════════════════════════════════════");
+    console.error('[Cron] ════════════════════════════════════════════════');
     console.error(`[Cron] JOB FAILED after ${formatDuration(totalDuration)}`);
-    console.error("[Cron] Error:", error);
-    console.error("[Cron] ════════════════════════════════════════════════");
+    console.error('[Cron] Error:', error);
+    console.error('[Cron] ════════════════════════════════════════════════');
     return NextResponse.json(
       { success: false, error: String(error), duration: totalDuration },
       { status: 500 }

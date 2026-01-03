@@ -7,39 +7,39 @@
  * - Zip code estimation from coords/cities
  */
 
-import { ASHEVILLE_VENUES, KNOWN_CITIES } from "./geo-constants";
+import { ASHEVILLE_VENUES, KNOWN_CITIES } from './geo-constants';
 
 // Known NON-NC cities that sometimes appear in results
 // These should NOT be included in "Asheville area" filter
 const NON_NC_CITIES = [
   // South Carolina
-  "travelers rest",
-  "taylors",
-  "greer",
-  "wellford",
-  "boiling springs", // SC version - be careful, there might be NC too
-  "easley",
-  "inman",
-  "pickens",
-  "campobello",
-  "greenville", // SC
-  "spartanburg",
+  'travelers rest',
+  'taylors',
+  'greer',
+  'wellford',
+  'boiling springs', // SC version - be careful, there might be NC too
+  'easley',
+  'inman',
+  'pickens',
+  'campobello',
+  'greenville', // SC
+  'spartanburg',
 
   // Tennessee
-  "jonesborough",
-  "telford",
-  "cosby",
-  "gatlinburg",
-  "pigeon forge",
-  "sevierville",
-  "knoxville",
-  "johnson city",
+  'jonesborough',
+  'telford',
+  'cosby',
+  'gatlinburg',
+  'pigeon forge',
+  'sevierville',
+  'knoxville',
+  'johnson city',
 
   // Georgia
-  "atlanta",
+  'atlanta',
 
   // Other
-  "hudson falls", // NY
+  'hudson falls', // NY
 ];
 
 // NC cities we want to keep (within ~45 min of Asheville)
@@ -175,70 +175,70 @@ interface ZipZone {
 // These are rough approximations - zip code boundaries are irregular
 const ZIP_ZONES: ZipZone[] = [
   // Black Mountain area
-  { zip: "28711", name: "Black Mountain", bounds: [35.58, 35.68, -82.38, -82.28] },
+  { zip: '28711', name: 'Black Mountain', bounds: [35.58, 35.68, -82.38, -82.28] },
 
   // West Asheville / Candler
-  { zip: "28806", name: "West Asheville", bounds: [35.54, 35.62, -82.62, -82.54] },
+  { zip: '28806', name: 'West Asheville', bounds: [35.54, 35.62, -82.62, -82.54] },
 
   // South Asheville / Biltmore
-  { zip: "28803", name: "South Asheville", bounds: [35.48, 35.56, -82.58, -82.48] },
+  { zip: '28803', name: 'South Asheville', bounds: [35.48, 35.56, -82.58, -82.48] },
 
   // East Asheville / Swannanoa
-  { zip: "28805", name: "East Asheville", bounds: [35.56, 35.64, -82.48, -82.40] },
+  { zip: '28805', name: 'East Asheville', bounds: [35.56, 35.64, -82.48, -82.4] },
 
   // North Asheville / Weaverville area
-  { zip: "28804", name: "North Asheville", bounds: [35.62, 35.72, -82.58, -82.48] },
+  { zip: '28804', name: 'North Asheville', bounds: [35.62, 35.72, -82.58, -82.48] },
 
   // Arden
-  { zip: "28704", name: "Arden", bounds: [35.42, 35.50, -82.56, -82.46] },
+  { zip: '28704', name: 'Arden', bounds: [35.42, 35.5, -82.56, -82.46] },
 
   // Weaverville
-  { zip: "28787", name: "Weaverville", bounds: [35.68, 35.76, -82.58, -82.48] },
+  { zip: '28787', name: 'Weaverville', bounds: [35.68, 35.76, -82.58, -82.48] },
 
   // Woodfin
-  { zip: "28804", name: "Woodfin", bounds: [35.62, 35.68, -82.54, -82.48] },
+  { zip: '28804', name: 'Woodfin', bounds: [35.62, 35.68, -82.54, -82.48] },
 
   // Downtown Asheville (default area)
-  { zip: "28801", name: "Downtown Asheville", bounds: [35.56, 35.62, -82.58, -82.52] },
+  { zip: '28801', name: 'Downtown Asheville', bounds: [35.56, 35.62, -82.58, -82.52] },
 ];
 
 const CITY_ZIPS: Record<string, string> = {
   // Core Asheville area
-  asheville: "28801",
-  "black mountain": "28711",
-  weaverville: "28787",
-  arden: "28704",
-  fletcher: "28732",
-  candler: "28715",
-  leicester: "28748",
-  swannanoa: "28778",
-  woodfin: "28804",
-  fairview: "28730",
-  enka: "28806",
-  skyland: "28803",
-  "royal pines": "28704",
+  asheville: '28801',
+  'black mountain': '28711',
+  weaverville: '28787',
+  arden: '28704',
+  fletcher: '28732',
+  candler: '28715',
+  leicester: '28748',
+  swannanoa: '28778',
+  woodfin: '28804',
+  fairview: '28730',
+  enka: '28806',
+  skyland: '28803',
+  'royal pines': '28704',
   // Within 30 min
-  montreat: "28757",
-  "mills river": "28759",
-  marshall: "28753",
-  canton: "28716",
-  clyde: "28721",
-  waynesville: "28786",
-  "flat rock": "28731",
-  hendersonville: "28739",
+  montreat: '28757',
+  'mills river': '28759',
+  marshall: '28753',
+  canton: '28716',
+  clyde: '28721',
+  waynesville: '28786',
+  'flat rock': '28731',
+  hendersonville: '28739',
   // Within 45 min
-  brevard: "28712",
-  "lake junaluska": "28745",
-  "lake lure": "28746",
-  saluda: "28773",
-  "cedar mountain": "28718",
-  burnsville: "28714",
-  bakersville: "28705",
-  cherokee: "28719",
-  "mars hill": "28754",
-  alexander: "28701",
-  "old fort": "28762",
-  "maggie valley": "28751",
+  brevard: '28712',
+  'lake junaluska': '28745',
+  'lake lure': '28746',
+  saluda: '28773',
+  'cedar mountain': '28718',
+  burnsville: '28714',
+  bakersville: '28705',
+  cherokee: '28719',
+  'mars hill': '28754',
+  alexander: '28701',
+  'old fort': '28762',
+  'maggie valley': '28751',
 };
 
 /**
@@ -253,12 +253,12 @@ export function extractCity(location: string | null | undefined): string | null 
   const lowerLocation = location.toLowerCase().trim();
 
   // Check for online events
-  if (lowerLocation === "online") return "Online";
+  if (lowerLocation === 'online') return 'Online';
 
   // Check if it's a known Asheville venue first
   for (const venue of ASHEVILLE_VENUES) {
     if (lowerLocation.includes(venue)) {
-      return "Asheville";
+      return 'Asheville';
     }
   }
 
@@ -309,7 +309,7 @@ export function isAshevilleArea(location: string | null | undefined): boolean {
   const city = extractCity(location);
 
   // Explicitly Asheville
-  if (city === "Asheville") return true;
+  if (city === 'Asheville') return true;
 
   // If no city extracted, check if it's a known venue
   if (city === null) {
@@ -352,10 +352,7 @@ function isNonNCLocationPattern(location: string | null | undefined): boolean {
  * Determine if an event should be filtered out (is NOT in NC).
  * Returns true if the event should be REMOVED.
  */
-export function isNonNCEvent(
-  title: string,
-  location: string | null | undefined
-): boolean {
+export function isNonNCEvent(title: string, location: string | null | undefined): boolean {
   // First, check the location field (most reliable)
   if (isNCLocation(location)) {
     // Location explicitly says NC - keep it regardless of title
@@ -390,10 +387,7 @@ export function isNonNCEvent(
 /**
  * Get a reason why an event was flagged as non-NC (for logging)
  */
-export function getNonNCReason(
-  title: string,
-  location: string | null | undefined
-): string | null {
+export function getNonNCReason(title: string, location: string | null | undefined): string | null {
   if (isNCLocation(location)) {
     return null;
   }
@@ -437,11 +431,7 @@ export function getNonNCReason(
 /**
  * Check if coordinates fall within a bounding box
  */
-function isInBounds(
-  lat: number,
-  lng: number,
-  bounds: [number, number, number, number]
-): boolean {
+function isInBounds(lat: number, lng: number, bounds: [number, number, number, number]): boolean {
   const [minLat, maxLat, minLng, maxLng] = bounds;
   return lat >= minLat && lat <= maxLat && lng >= minLng && lng <= maxLng;
 }
@@ -471,7 +461,7 @@ export function getZipFromCoords(
   }
 
   // Default to downtown Asheville if in the general area but no specific zone matched
-  return "28801";
+  return '28801';
 }
 
 /**

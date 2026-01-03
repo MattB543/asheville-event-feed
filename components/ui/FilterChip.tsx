@@ -1,27 +1,32 @@
-"use client";
+'use client';
 
-import { X } from "lucide-react";
+import { X } from 'lucide-react';
 
 interface FilterChipProps {
   label: string;
   onRemove?: () => void;
-  variant?: "default" | "active" | "muted" | "include" | "exclude";
+  variant?: 'default' | 'active' | 'muted' | 'include' | 'exclude';
   className?: string;
 }
 
 const variantStyles = {
-  default: "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200 border-gray-200 dark:border-gray-700 hover:bg-gray-200 dark:hover:bg-gray-700",
-  active: "bg-brand-100 dark:bg-brand-900/50 text-brand-800 dark:text-brand-200 border-brand-200 dark:border-brand-700 hover:bg-brand-200 dark:hover:bg-brand-800/50",
-  muted: "bg-gray-50 dark:bg-gray-800 text-gray-500 dark:text-gray-400 border-gray-100 dark:border-gray-700",
-  include: "bg-green-100 dark:bg-green-900/50 text-green-800 dark:text-green-200 border-green-200 dark:border-green-700 hover:bg-green-200 dark:hover:bg-green-800/50",
-  exclude: "bg-red-100 dark:bg-red-900/50 text-red-800 dark:text-red-200 border-red-200 dark:border-red-700 hover:bg-red-200 dark:hover:bg-red-800/50",
+  default:
+    'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200 border-gray-200 dark:border-gray-700 hover:bg-gray-200 dark:hover:bg-gray-700',
+  active:
+    'bg-brand-100 dark:bg-brand-900/50 text-brand-800 dark:text-brand-200 border-brand-200 dark:border-brand-700 hover:bg-brand-200 dark:hover:bg-brand-800/50',
+  muted:
+    'bg-gray-50 dark:bg-gray-800 text-gray-500 dark:text-gray-400 border-gray-100 dark:border-gray-700',
+  include:
+    'bg-green-100 dark:bg-green-900/50 text-green-800 dark:text-green-200 border-green-200 dark:border-green-700 hover:bg-green-200 dark:hover:bg-green-800/50',
+  exclude:
+    'bg-red-100 dark:bg-red-900/50 text-red-800 dark:text-red-200 border-red-200 dark:border-red-700 hover:bg-red-200 dark:hover:bg-red-800/50',
 };
 
 export default function FilterChip({
   label,
   onRemove,
-  variant = "active",
-  className = "",
+  variant = 'active',
+  className = '',
 }: FilterChipProps) {
   return (
     <span

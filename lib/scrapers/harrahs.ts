@@ -9,7 +9,7 @@
  * Requires: TICKETMASTER_API_KEY in environment
  */
 
-import { ScrapedEvent } from './types';
+import { type ScrapedEvent } from './types';
 import { fetchEventData } from './base';
 import { parseAsEastern } from '../utils/timezone';
 
@@ -48,8 +48,8 @@ interface TMEvent {
     height: number;
     ratio: string;
   }>;
-  info?: string;        // Event info/logistics
-  pleaseNote?: string;  // Additional notes
+  info?: string; // Event info/logistics
+  pleaseNote?: string; // Additional notes
   description?: string; // Rarely populated
   _embedded?: {
     venues?: Array<{ name: string }>;
@@ -101,7 +101,7 @@ async function fetchTicketmasterEvents(): Promise<ScrapedEvent[]> {
         { maxRetries: 3, baseDelay: 1000 },
         'Harrahs-TM'
       );
-      const data: TMResponse = await response.json();
+      const data = (await response.json()) as TMResponse;
 
       if (data._embedded?.events) {
         for (const event of data._embedded.events) {
@@ -122,8 +122,7 @@ async function fetchTicketmasterEvents(): Promise<ScrapedEvent[]> {
       }
 
       // Rate limit: 200ms between requests
-      await new Promise(r => setTimeout(r, 200));
-
+      await new Promise((r) => setTimeout(r, 200));
     } catch (error) {
       console.error('[Harrahs-TM] API error:', error);
       hasMore = false;
@@ -158,7 +157,7 @@ function formatTMEvent(event: TMEvent): ScrapedEvent | null {
   let imageUrl: string | undefined;
   if (event.images?.length) {
     const preferred = event.images
-      .filter(img => img.ratio === '16_9')
+      .filter((img) => img.ratio === '16_9')
       .sort((a, b) => b.width - a.width)[0];
     imageUrl = preferred?.url || event.images[0].url;
   }
@@ -175,11 +174,12 @@ function formatTMEvent(event: TMEvent): ScrapedEvent | null {
   }
 
   // Build description from available fields
-  const description = event.description
-    || event.info
-    || event.pleaseNote
-    || event._embedded?.attractions?.[0]?.description
-    || undefined;
+  const description =
+    event.description ||
+    event.info ||
+    event.pleaseNote ||
+    event._embedded?.attractions?.[0]?.description ||
+    undefined;
 
   return {
     sourceId: `tm-${event.id}`,
@@ -200,22 +200,27 @@ function formatTMEvent(event: TMEvent): ScrapedEvent | null {
  * Normalize title for comparison - strips venue info and common variations
  */
 function normalizeTitle(title: string): string {
-  return title
-    .toLowerCase()
-    // Remove venue suffixes
-    .replace(/\s*\|.*harrah.*$/i, '')
-    .replace(/\s*-\s*hcca.*$/i, '')
-    .replace(/\s*at harrah.*$/i, '')
-    // Remove date suffixes
-    .replace(/\s*\|\s*(january|february|march|april|may|june|july|august|september|october|november|december).*$/i, '')
-    // Normalize punctuation and whitespace
-    .replace(/[^\w\s]/g, ' ')
-    .replace(/\s+/g, ' ')
-    // Normalize common abbreviations
-    .replace(/\bmbb\b/g, 'mens basketball')
-    .replace(/\bwbb\b/g, 'womens basketball')
-    .replace(/\bvs\.?\b/g, 'vs')
-    .trim();
+  return (
+    title
+      .toLowerCase()
+      // Remove venue suffixes
+      .replace(/\s*\|.*harrah.*$/i, '')
+      .replace(/\s*-\s*hcca.*$/i, '')
+      .replace(/\s*at harrah.*$/i, '')
+      // Remove date suffixes
+      .replace(
+        /\s*\|\s*(january|february|march|april|may|june|july|august|september|october|november|december).*$/i,
+        ''
+      )
+      // Normalize punctuation and whitespace
+      .replace(/[^\w\s]/g, ' ')
+      .replace(/\s+/g, ' ')
+      // Normalize common abbreviations
+      .replace(/\bmbb\b/g, 'mens basketball')
+      .replace(/\bwbb\b/g, 'womens basketball')
+      .replace(/\bvs\.?\b/g, 'vs')
+      .trim()
+  );
 }
 
 /**
@@ -231,7 +236,10 @@ function getLocalDateKey(date: Date): string {
 /**
  * Check if two events are duplicates (same date + similar title)
  */
-function isDuplicate(event: { title: string; date: string }, existing: Map<string, Set<string>>): boolean {
+function isDuplicate(
+  event: { title: string; date: string },
+  existing: Map<string, Set<string>>
+): boolean {
   const normalizedTitle = normalizeTitle(event.title);
   const titlesOnDate = existing.get(event.date);
 
@@ -245,9 +253,9 @@ function isDuplicate(event: { title: string; date: string }, existing: Map<strin
     }
 
     // Check for shared significant words (more than 2 chars)
-    const words1 = normalizedTitle.split(' ').filter(w => w.length > 2);
-    const words2 = existingTitle.split(' ').filter(w => w.length > 2);
-    const shared = words1.filter(w => words2.includes(w));
+    const words1 = normalizedTitle.split(' ').filter((w) => w.length > 2);
+    const words2 = existingTitle.split(' ').filter((w) => w.length > 2);
+    const shared = words1.filter((w) => words2.includes(w));
 
     if (shared.length >= 2 || (shared.length >= 1 && shared[0].length > 5)) {
       return true;
@@ -285,7 +293,8 @@ async function fetchHTMLEvents(tmEvents: ScrapedEvent[]): Promise<ScrapedEvent[]
     const html = await response.text();
 
     // Extract event URLs
-    const eventUrlPattern = /href="(https:\/\/www\.harrahscherokeecenterasheville\.com\/events\/[^"]+)"/g;
+    const eventUrlPattern =
+      /href="(https:\/\/www\.harrahscherokeecenterasheville\.com\/events\/[^"]+)"/g;
     const urls = new Set<string>();
     let match;
 
@@ -319,7 +328,7 @@ async function fetchHTMLEvents(tmEvents: ScrapedEvent[]): Promise<ScrapedEvent[]
           allDescriptions.push({
             date: dateKey,
             title: normalizeTitle(event.title),
-            description: event.description
+            description: event.description,
           });
         }
 
@@ -334,7 +343,7 @@ async function fetchHTMLEvents(tmEvents: ScrapedEvent[]): Promise<ScrapedEvent[]
           existingByDate.get(dateKey)!.add(normalizeTitle(event.title));
         }
       }
-      await new Promise(r => setTimeout(r, 300));
+      await new Promise((r) => setTimeout(r, 300));
     }
 
     // Enrich TM events with HTML descriptions (including from duplicates)
@@ -356,9 +365,9 @@ async function fetchHTMLEvents(tmEvents: ScrapedEvent[]): Promise<ScrapedEvent[]
         }
 
         // Check shared significant words
-        const words1 = tmTitle.split(' ').filter(w => w.length > 3);
-        const words2 = title.split(' ').filter(w => w.length > 3);
-        const shared = words1.filter(w => words2.includes(w));
+        const words1 = tmTitle.split(' ').filter((w) => w.length > 3);
+        const words2 = title.split(' ').filter((w) => w.length > 3);
+        const shared = words1.filter((w) => words2.includes(w));
         if (shared.length >= 2) {
           tmEvent.description = description;
           enriched++;
@@ -371,9 +380,10 @@ async function fetchHTMLEvents(tmEvents: ScrapedEvent[]): Promise<ScrapedEvent[]
       console.log(`[Harrahs-HTML] Enriched ${enriched} TM events with HTML descriptions`);
     }
 
-    console.log(`[Harrahs-HTML] Found ${events.length} unique events (${skipped} duplicates skipped)`);
+    console.log(
+      `[Harrahs-HTML] Found ${events.length} unique events (${skipped} duplicates skipped)`
+    );
     return events;
-
   } catch (error) {
     console.error('[Harrahs-HTML] Error:', error);
     return [];
@@ -469,7 +479,9 @@ export async function scrapeHarrahs(): Promise<ScrapedEvent[]> {
   const allEvents = [...tmEvents, ...htmlEvents];
   allEvents.sort((a, b) => a.startDate.getTime() - b.startDate.getTime());
 
-  console.log(`[Harrahs] Total: ${allEvents.length} events (${tmEvents.length} from TM, ${htmlEvents.length} from HTML)`);
+  console.log(
+    `[Harrahs] Total: ${allEvents.length} events (${tmEvents.length} from TM, ${htmlEvents.length} from HTML)`
+  );
 
   return allEvents;
 }

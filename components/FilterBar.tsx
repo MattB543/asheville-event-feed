@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from 'react';
 import {
   Search,
   SlidersHorizontal,
@@ -11,24 +11,13 @@ import {
   Link,
   FileText,
   FileCode,
-} from "lucide-react";
-import { useToast } from "./ui/Toast";
+} from 'lucide-react';
+import { useToast } from './ui/Toast';
 
 // Re-export types for backwards compatibility
-export type DateFilterType =
-  | "all"
-  | "today"
-  | "tomorrow"
-  | "weekend"
-  | "dayOfWeek"
-  | "custom";
-export type PriceFilterType =
-  | "any"
-  | "free"
-  | "under20"
-  | "under100"
-  | "custom";
-export type TimeOfDay = "morning" | "afternoon" | "evening";
+export type DateFilterType = 'all' | 'today' | 'tomorrow' | 'weekend' | 'dayOfWeek' | 'custom';
+export type PriceFilterType = 'any' | 'free' | 'under20' | 'under100' | 'custom';
+export type TimeOfDay = 'morning' | 'afternoon' | 'evening';
 
 export interface DateRange {
   start: string | null;
@@ -88,18 +77,14 @@ export default function FilterBar({
   // Close share menu when clicking outside
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
-      if (
-        shareMenuRef.current &&
-        !shareMenuRef.current.contains(event.target as Node)
-      ) {
+      if (shareMenuRef.current && !shareMenuRef.current.contains(event.target as Node)) {
         setShareMenuOpen(false);
       }
     }
 
     if (shareMenuOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-      return () =>
-        document.removeEventListener("mousedown", handleClickOutside);
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => document.removeEventListener('mousedown', handleClickOutside);
     }
     return undefined;
   }, [shareMenuOpen]);
@@ -113,7 +98,7 @@ export default function FilterBar({
 
   // Handle Enter key to submit search
   const handleSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
+    if (e.key === 'Enter') {
       e.preventDefault();
       handleSearchSubmit();
     }
@@ -121,27 +106,24 @@ export default function FilterBar({
 
   // Clear search
   const handleClearSearch = () => {
-    setLocalSearchInput("");
-    onSearchChange("");
+    setLocalSearchInput('');
+    onSearchChange('');
   };
 
   // Copy share link
   const handleCopyView = async () => {
-    const url = `${window.location.origin}${window.location.pathname}${
-      shareParams || ""
-    }`;
+    const url = `${window.location.origin}${window.location.pathname}${shareParams || ''}`;
     try {
       await navigator.clipboard.writeText(url);
-      showToast("Link copied to clipboard!");
+      showToast('Link copied to clipboard!');
       setShareMenuOpen(false);
     } catch {
-      showToast("Failed to copy link", "error");
+      showToast('Failed to copy link', 'error');
     }
   };
 
   // Whether there are uncommitted search changes
-  const hasUncommittedSearch =
-    localSearchInput !== search && localSearchInput.length > 0;
+  const hasUncommittedSearch = localSearchInput !== search && localSearchInput.length > 0;
   // Whether search is currently active (has committed value)
   const hasActiveSearch = search.length > 0;
 
@@ -160,7 +142,7 @@ export default function FilterBar({
   });
 
   const buttonBaseStyle =
-    "flex items-center justify-center h-9 sm:h-10 rounded-lg transition-colors cursor-pointer bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700";
+    'flex items-center justify-center h-9 sm:h-10 rounded-lg transition-colors cursor-pointer bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700';
 
   return (
     <div className="mb-6 px-3 sm:px-0">
@@ -202,9 +184,7 @@ export default function FilterBar({
         <button
           onClick={onOpenFilters}
           className={`${buttonBaseStyle} px-2.5 sm:px-3 ${
-            activeFilterCount > 0
-              ? "!border-brand-500 dark:!border-brand-400"
-              : ""
+            activeFilterCount > 0 ? '!border-brand-500 dark:!border-brand-400' : ''
           }`}
           aria-label="Open filters"
         >
@@ -229,12 +209,12 @@ export default function FilterBar({
           {shareMenuOpen && (
             <div className="absolute right-0 top-full mt-1 z-30 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg min-w-[220px]">
               <button
-                onClick={shareParams ? handleCopyView : undefined}
+                onClick={shareParams ? () => void handleCopyView() : undefined}
                 disabled={!shareParams}
                 className={`w-full flex items-start gap-2 px-3 py-2 text-left ${
                   shareParams
-                    ? "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
-                    : "text-gray-400 dark:text-gray-600 cursor-not-allowed"
+                    ? 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer'
+                    : 'text-gray-400 dark:text-gray-600 cursor-not-allowed'
                 }`}
               >
                 <Link size={14} className="mt-0.5 shrink-0" />
@@ -243,18 +223,18 @@ export default function FilterBar({
                   <div
                     className={`text-[10px] ${
                       shareParams
-                        ? "text-gray-500 dark:text-gray-400"
-                        : "text-gray-400 dark:text-gray-600"
+                        ? 'text-gray-500 dark:text-gray-400'
+                        : 'text-gray-400 dark:text-gray-600'
                     }`}
                   >
                     {shareParams
-                      ? "Share link with your current filters"
-                      : "Apply filters to enable sharing"}
+                      ? 'Share link with your current filters'
+                      : 'Apply filters to enable sharing'}
                   </div>
                 </div>
               </button>
               <a
-                href={`/api/export/json${exportParams || ""}`}
+                href={`/api/export/json${exportParams || ''}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => setShareMenuOpen(false)}
@@ -269,7 +249,7 @@ export default function FilterBar({
                 </div>
               </a>
               <a
-                href={`/api/export/markdown${exportParams || ""}`}
+                href={`/api/export/markdown${exportParams || ''}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => setShareMenuOpen(false)}
@@ -330,17 +310,16 @@ function calculateActiveFilters({
   let count = 0;
 
   // Date filter
-  if (dateFilter !== "all") count++;
-  if (dateFilter === "dayOfWeek" && selectedDays.length > 0) count++;
-  if (dateFilter === "custom" && (customDateRange.start || customDateRange.end))
-    count++;
+  if (dateFilter !== 'all') count++;
+  if (dateFilter === 'dayOfWeek' && selectedDays.length > 0) count++;
+  if (dateFilter === 'custom' && (customDateRange.start || customDateRange.end)) count++;
 
   // Time filter
   if (selectedTimes.length > 0) count++;
 
   // Price filter
-  if (priceFilter !== "any") count++;
-  if (priceFilter === "custom" && customMaxPrice !== null) count++;
+  if (priceFilter !== 'any') count++;
+  if (priceFilter === 'custom' && customMaxPrice !== null) count++;
 
   // Location filter
   if (selectedLocations.length > 0 || selectedZips.length > 0) count++;

@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import { useState, useRef, useEffect, useCallback } from "react";
-import { X, Send, Sparkles, Loader2, StopCircle, Calendar } from "lucide-react";
-import ReactMarkdown from "react-markdown";
-import remarkBreaks from "remark-breaks";
-import { PriceFilterType } from "./FilterBar";
+import { useState, useRef, useEffect, useCallback } from 'react';
+import { X, Send, Sparkles, Loader2, StopCircle, Calendar } from 'lucide-react';
+import ReactMarkdown from 'react-markdown';
+import remarkBreaks from 'remark-breaks';
+import type { PriceFilterType } from './FilterBar';
 
 interface ChatMessage {
-  role: "user" | "assistant" | "system";
+  role: 'user' | 'assistant' | 'system';
   content: string;
 }
 
@@ -37,40 +37,36 @@ function formatActiveFilters(filters: ActiveFilters): string {
   if (filters.search) {
     lines.push(`Search: "${filters.search}"`);
   }
-  if (filters.priceFilter !== "any") {
+  if (filters.priceFilter !== 'any') {
     const priceLabels: Record<PriceFilterType, string> = {
-      any: "Any Price",
-      free: "Free",
-      under20: "Under $20",
-      under100: "Under $100",
-      custom: "Custom",
+      any: 'Any Price',
+      free: 'Free',
+      under20: 'Under $20',
+      under100: 'Under $100',
+      custom: 'Custom',
     };
     lines.push(`Price: ${priceLabels[filters.priceFilter]}`);
   }
   if (filters.tagsInclude.length > 0) {
-    lines.push(`Tags (include): ${filters.tagsInclude.join(", ")}`);
+    lines.push(`Tags (include): ${filters.tagsInclude.join(', ')}`);
   }
   if (filters.tagsExclude.length > 0) {
-    lines.push(`Tags (exclude): ${filters.tagsExclude.join(", ")}`);
+    lines.push(`Tags (exclude): ${filters.tagsExclude.join(', ')}`);
   }
   if (filters.selectedLocations.length > 0) {
-    lines.push(`Locations: ${filters.selectedLocations.join(", ")}`);
+    lines.push(`Locations: ${filters.selectedLocations.join(', ')}`);
   }
 
-  return lines.length > 0 ? lines.map((l) => `- ${l}`).join("\n") : "";
+  return lines.length > 0 ? lines.map((l) => `- ${l}`).join('\n') : '';
 }
 
 const SUGGESTIONS = [
-  "Find me free live music tonight",
+  'Find me free live music tonight',
   "What's good for a date night on Saturday?",
-  "Family-friendly outdoor events this weekend",
+  'Family-friendly outdoor events this weekend',
 ];
 
-const LOADING_MESSAGES = [
-  "Reading request...",
-  "Reviewing events...",
-  "Thinking...",
-];
+const LOADING_MESSAGES = ['Reading request...', 'Reviewing events...', 'Thinking...'];
 
 function getInitialMessage(eventCount: number, filters: ActiveFilters): string {
   const filterText = formatActiveFilters(filters);
@@ -91,7 +87,7 @@ function getInitialMessage(eventCount: number, filters: ActiveFilters): string {
     `**What kind of event are you looking for?**\n\n*Be specific about the type of event and the date range you're interested in.*`
   );
 
-  return lines.join("\n\n");
+  return lines.join('\n\n');
 }
 
 export default function AIChatModal({
@@ -101,14 +97,12 @@ export default function AIChatModal({
   activeFilters,
 }: AIChatModalProps) {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
-  const [input, setInput] = useState("");
+  const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isStreaming, setIsStreaming] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [loadingMessageIndex, setLoadingMessageIndex] = useState(0);
-  const [currentDateRange, setCurrentDateRange] = useState<DateRange | null>(
-    null
-  );
+  const [currentDateRange, setCurrentDateRange] = useState<DateRange | null>(null);
   const [, setDateRangeDisplay] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -122,9 +116,7 @@ export default function AIChatModal({
     }
 
     const interval = setInterval(() => {
-      setLoadingMessageIndex((prev) =>
-        prev < LOADING_MESSAGES.length - 1 ? prev + 1 : prev
-      );
+      setLoadingMessageIndex((prev) => (prev < LOADING_MESSAGES.length - 1 ? prev + 1 : prev));
     }, 3000);
 
     return () => clearInterval(interval);
@@ -134,8 +126,8 @@ export default function AIChatModal({
   useEffect(() => {
     if (isOpen) {
       const initialMessage = getInitialMessage(totalCount, activeFilters);
-      setMessages([{ role: "assistant", content: initialMessage }]);
-      setInput("");
+      setMessages([{ role: 'assistant', content: initialMessage }]);
+      setInput('');
       setError(null);
       setIsStreaming(false);
       setCurrentDateRange(null); // Reset date range for new conversation
@@ -152,7 +144,7 @@ export default function AIChatModal({
   const shouldScrollRef = useRef(false);
   useEffect(() => {
     if (shouldScrollRef.current) {
-      messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+      messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
       shouldScrollRef.current = false;
     }
   }, [messages.length]); // Only trigger on message count change, not content updates
@@ -163,113 +155,122 @@ export default function AIChatModal({
     setIsLoading(false);
   }, []);
 
-  const processStream = useCallback(
-    async (response: Response): Promise<DateRange | null> => {
-      const reader = response.body?.getReader();
-      const decoder = new TextDecoder();
+  const processStream = useCallback(async (response: Response): Promise<DateRange | null> => {
+    const reader = response.body?.getReader();
+    const decoder = new TextDecoder();
 
-      if (!reader) throw new Error("No response body");
+    if (!reader) throw new Error('No response body');
 
-      let assistantContent = "";
-      let hasStartedStreaming = false;
-      let extractedDateRange: DateRange | null = null;
+    let assistantContent = '';
+    let hasStartedStreaming = false;
+    let extractedDateRange: DateRange | null = null;
 
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
 
-        const chunk = decoder.decode(value, { stream: true });
-        const lines = chunk.split("\n");
+      const chunk = decoder.decode(value, { stream: true });
+      const lines = chunk.split('\n');
 
-        for (const line of lines) {
-          // Skip empty lines and SSE comments
-          if (!line.trim() || line.startsWith(":")) continue;
+      for (const line of lines) {
+        // Skip empty lines and SSE comments
+        if (!line.trim() || line.startsWith(':')) continue;
 
-          if (line.startsWith("data: ")) {
-            const data = line.slice(6); // Remove "data: " prefix
+        if (line.startsWith('data: ')) {
+          const data = line.slice(6); // Remove "data: " prefix
 
-            // Check for stream end
-            if (data === "[DONE]") {
+          // Check for stream end
+          if (data === '[DONE]') {
+            continue;
+          }
+
+          try {
+            const parsed = JSON.parse(data) as {
+              type?: string;
+              data?: {
+                startDate?: string;
+                endDate?: string;
+                displayMessage?: string;
+                eventCount?: number;
+              };
+              choices?: Array<{
+                delta?: {
+                  content?: string;
+                };
+              }>;
+            };
+
+            // Handle our custom message types
+            if (parsed.type === 'dateRange' && parsed.data) {
+              extractedDateRange = {
+                startDate: parsed.data.startDate ?? '',
+                endDate: parsed.data.endDate ?? '',
+              };
+
+              // Show the date range indicator if we have a display message
+              if (parsed.data.displayMessage) {
+                const displayMessage = parsed.data.displayMessage;
+                const eventCount = parsed.data.eventCount ?? 0;
+                setDateRangeDisplay(displayMessage);
+                // Add a system message showing the date range
+                setMessages((prev) => [
+                  ...prev,
+                  {
+                    role: 'system',
+                    content: `${displayMessage} (${eventCount} events)`,
+                  },
+                ]);
+              }
               continue;
             }
 
-            try {
-              const parsed = JSON.parse(data);
-
-              // Handle our custom message types
-              if (parsed.type === "dateRange") {
-                extractedDateRange = {
-                  startDate: parsed.data.startDate,
-                  endDate: parsed.data.endDate,
-                };
-
-                // Show the date range indicator if we have a display message
-                if (parsed.data.displayMessage) {
-                  setDateRangeDisplay(parsed.data.displayMessage);
-                  // Add a system message showing the date range
-                  setMessages((prev) => [
-                    ...prev,
-                    {
-                      role: "system",
-                      content: `${parsed.data.displayMessage} (${parsed.data.eventCount} events)`,
-                    },
-                  ]);
-                }
-                continue;
-              }
-
-              if (parsed.type === "error") {
-                throw new Error(parsed.data);
-              }
-
-              // Handle regular OpenRouter streaming response
-              const token = parsed.choices?.[0]?.delta?.content || "";
-              if (token) {
-                // Only switch to streaming mode when we get the first real token
-                if (!hasStartedStreaming) {
-                  hasStartedStreaming = true;
-                  setIsStreaming(true);
-                  setIsLoading(false);
-                  // Add assistant message with the first token
-                  setMessages((prev) => [
-                    ...prev,
-                    { role: "assistant", content: token },
-                  ]);
-                  assistantContent = token;
-                } else {
-                  assistantContent += token;
-                  // Update the last message (assistant) with new content
-                  setMessages((prev) => {
-                    const updated = [...prev];
-                    updated[updated.length - 1] = {
-                      role: "assistant",
-                      content: assistantContent,
-                    };
-                    return updated;
-                  });
-                }
-              }
-            } catch {
-              // Skip malformed JSON lines (SSE comments, etc.)
+            if (parsed.type === 'error') {
+              throw new Error(typeof parsed.data === 'string' ? parsed.data : 'Unknown error');
             }
+
+            // Handle regular OpenRouter streaming response
+            const token = parsed.choices?.[0]?.delta?.content ?? '';
+            if (token) {
+              // Only switch to streaming mode when we get the first real token
+              if (!hasStartedStreaming) {
+                hasStartedStreaming = true;
+                setIsStreaming(true);
+                setIsLoading(false);
+                // Add assistant message with the first token
+                setMessages((prev) => [...prev, { role: 'assistant', content: token }]);
+                assistantContent = token;
+              } else {
+                assistantContent += token;
+                // Update the last message (assistant) with new content
+                setMessages((prev) => {
+                  const updated = [...prev];
+                  updated[updated.length - 1] = {
+                    role: 'assistant',
+                    content: assistantContent,
+                  };
+                  return updated;
+                });
+              }
+            }
+          } catch {
+            // Skip malformed JSON lines (SSE comments, etc.)
           }
         }
       }
+    }
 
-      return extractedDateRange;
-    },
-    []
-  );
+    return extractedDateRange;
+  }, []);
 
   const sendMessage = useCallback(
     async (messageText?: string) => {
       const text = messageText || input.trim();
       if (!text || isLoading) return;
 
-      const userMessage: ChatMessage = { role: "user", content: text };
+      const userMessage: ChatMessage = { role: 'user', content: text };
       const newMessages = [...messages, userMessage];
       setMessages(newMessages);
-      setInput("");
+      setInput('');
       setIsLoading(true);
       setIsStreaming(false);
       setError(null);
@@ -280,12 +281,12 @@ export default function AIChatModal({
       abortControllerRef.current = new AbortController();
 
       try {
-        const response = await fetch("/api/chat", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
+        const response = await fetch('/api/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             messages: messages
-              .filter((m) => m.role !== "system")
+              .filter((m) => m.role !== 'system')
               .slice(1)
               .concat(userMessage), // Skip initial greeting and system messages
             filters: {
@@ -301,10 +302,10 @@ export default function AIChatModal({
         });
 
         // Check for non-streaming error responses
-        const contentType = response.headers.get("content-type") || "";
-        if (contentType.includes("application/json")) {
-          const data = await response.json();
-          throw new Error(data.error || "Failed to get response");
+        const contentType = response.headers.get('content-type') || '';
+        if (contentType.includes('application/json')) {
+          const data = (await response.json()) as { error?: string };
+          throw new Error(data.error ?? 'Failed to get response');
         }
 
         if (!response.ok) {
@@ -317,20 +318,19 @@ export default function AIChatModal({
           setCurrentDateRange(extractedDateRange);
         }
       } catch (err) {
-        if (err instanceof Error && err.name === "AbortError") {
+        if (err instanceof Error && err.name === 'AbortError') {
           // Stream was cancelled by user - don't show error
-          console.log("Stream cancelled");
+          console.log('Stream cancelled');
           return;
         }
 
-        const errorMessage =
-          err instanceof Error ? err.message : "Something went wrong";
+        const errorMessage = err instanceof Error ? err.message : 'Something went wrong';
         setError(errorMessage);
         // Add error message to chat
         setMessages((prev) => [
           ...prev,
           {
-            role: "assistant",
+            role: 'assistant',
             content: `Sorry, I encountered an error: ${errorMessage}. Please try again.`,
           },
         ]);
@@ -339,38 +339,28 @@ export default function AIChatModal({
         setIsStreaming(false);
       }
     },
-    [
-      input,
-      isLoading,
-      messages,
-      activeFilters,
-      currentDateRange,
-      processStream,
-    ]
+    [input, isLoading, messages, activeFilters, currentDateRange, processStream]
   );
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter" && !e.shiftKey) {
+    if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
-      sendMessage();
+      void sendMessage();
     }
   };
 
   // Handle clicking a suggestion button
   const handleSuggestionClick = useCallback(
-    async (suggestion: string) => {
+    (suggestion: string) => {
       if (isLoading) return;
-      sendMessage(suggestion);
+      void sendMessage(suggestion);
     },
     [isLoading, sendMessage]
   );
 
   // Check if we should show suggestions (only when just the initial message exists)
   const showSuggestions =
-    messages.length === 1 &&
-    messages[0].role === "assistant" &&
-    !isLoading &&
-    !isStreaming;
+    messages.length === 1 && messages[0].role === 'assistant' && !isLoading && !isStreaming;
 
   if (!isOpen) return null;
 
@@ -405,14 +395,14 @@ export default function AIChatModal({
             <div
               key={index}
               className={`flex ${
-                message.role === "user"
-                  ? "justify-end"
-                  : message.role === "system"
-                  ? "justify-center"
-                  : "justify-start"
+                message.role === 'user'
+                  ? 'justify-end'
+                  : message.role === 'system'
+                    ? 'justify-center'
+                    : 'justify-start'
               }`}
             >
-              {message.role === "system" ? (
+              {message.role === 'system' ? (
                 // System message (date range indicator)
                 <div className="flex items-center gap-2 px-3 py-1.5 bg-brand-50 dark:bg-brand-950/50 rounded-full">
                   <Calendar size={14} className="text-brand-500 dark:text-brand-400" />
@@ -423,15 +413,13 @@ export default function AIChatModal({
               ) : (
                 <div
                   className={`max-w-[85%] rounded-lg px-4 py-2 ${
-                    message.role === "user"
-                      ? "bg-brand-600 text-white"
-                      : "bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200"
+                    message.role === 'user'
+                      ? 'bg-brand-600 text-white'
+                      : 'bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200'
                   }`}
                 >
-                  {message.role === "user" ? (
-                    <div className="whitespace-pre-wrap text-sm">
-                      {message.content}
-                    </div>
+                  {message.role === 'user' ? (
+                    <div className="whitespace-pre-wrap text-sm">{message.content}</div>
                   ) : (
                     <div className="text-sm prose prose-sm max-w-none prose-headings:text-gray-900 dark:prose-headings:text-gray-100 prose-headings:font-semibold prose-headings:mt-3 prose-headings:mb-2 prose-p:my-2 prose-ul:my-2 prose-ol:my-2 prose-li:my-0.5 prose-hr:my-3 prose-hr:border-gray-300 dark:prose-hr:border-gray-600 prose-strong:text-gray-900 dark:prose-strong:text-gray-100">
                       <ReactMarkdown
@@ -463,9 +451,7 @@ export default function AIChatModal({
               <div className="bg-gray-100 dark:bg-gray-800 rounded-lg px-4 py-3">
                 <div className="flex items-center gap-2 text-gray-500 dark:text-gray-400">
                   <Loader2 className="animate-spin" size={16} />
-                  <span className="text-sm">
-                    {LOADING_MESSAGES[loadingMessageIndex]}
-                  </span>
+                  <span className="text-sm">{LOADING_MESSAGES[loadingMessageIndex]}</span>
                 </div>
               </div>
             </div>
@@ -474,7 +460,7 @@ export default function AIChatModal({
           {error && !isLoading && !isStreaming && (
             <div className="flex justify-center">
               <button
-                onClick={() => sendMessage()}
+                onClick={() => void sendMessage()}
                 className="text-sm text-brand-600 dark:text-brand-400 hover:text-brand-800 dark:hover:text-brand-300 underline cursor-pointer"
               >
                 Try again
@@ -493,7 +479,7 @@ export default function AIChatModal({
               {SUGGESTIONS.map((suggestion) => (
                 <button
                   key={suggestion}
-                  onClick={() => handleSuggestionClick(suggestion)}
+                  onClick={() => void handleSuggestionClick(suggestion)}
                   className="px-3 py-1.5 text-sm bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full transition-colors cursor-pointer"
                 >
                   {suggestion}
@@ -522,7 +508,7 @@ export default function AIChatModal({
               </button>
             ) : (
               <button
-                onClick={() => sendMessage()}
+                onClick={() => void sendMessage()}
                 disabled={!input.trim() || isLoading}
                 className="px-4 py-2 bg-brand-600 text-white rounded-lg hover:bg-brand-700 disabled:bg-gray-300 dark:disabled:bg-gray-700 disabled:cursor-not-allowed transition-colors cursor-pointer"
               >

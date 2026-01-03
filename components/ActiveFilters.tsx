@@ -1,19 +1,19 @@
-"use client";
+'use client';
 
-import FilterChip from "./ui/FilterChip";
+import FilterChip from './ui/FilterChip';
 
 export interface ActiveFilter {
   id: string;
   type:
-    | "date"
-    | "time"
-    | "price"
-    | "tag"
-    | "tag-include"
-    | "tag-exclude"
-    | "search"
-    | "location"
-    | "zip";
+    | 'date'
+    | 'time'
+    | 'price'
+    | 'tag'
+    | 'tag-include'
+    | 'tag-exclude'
+    | 'search'
+    | 'location'
+    | 'zip';
   label: string;
 }
 
@@ -48,27 +48,23 @@ export default function ActiveFilters({
   }
 
   // Separate tag filters and location filters from other filters
-  const includeTagFilters = filters.filter((f) => f.type === "tag-include");
-  const excludeTagFilters = filters.filter((f) => f.type === "tag-exclude");
-  const locationFilters = filters.filter(
-    (f) => f.type === "location" || f.type === "zip"
-  );
+  const includeTagFilters = filters.filter((f) => f.type === 'tag-include');
+  const excludeTagFilters = filters.filter((f) => f.type === 'tag-exclude');
+  const locationFilters = filters.filter((f) => f.type === 'location' || f.type === 'zip');
   const otherFilters = filters.filter(
     (f) =>
-      f.type !== "tag-include" &&
-      f.type !== "tag-exclude" &&
-      f.type !== "tag" &&
-      f.type !== "location" &&
-      f.type !== "zip"
+      f.type !== 'tag-include' &&
+      f.type !== 'tag-exclude' &&
+      f.type !== 'tag' &&
+      f.type !== 'location' &&
+      f.type !== 'zip'
   );
   const totalTagFilters = includeTagFilters.length + excludeTagFilters.length;
   const totalLocationFilters = locationFilters.length;
 
   return (
     <div className="flex flex-wrap items-center gap-2 pb-3 px-3 sm:px-0">
-      <span className="text-sm text-gray-500 dark:text-gray-400">
-        Active filters:
-      </span>
+      <span className="text-sm text-gray-500 dark:text-gray-400">Active filters:</span>
       {otherFilters.map((filter) => (
         <FilterChip
           key={filter.id}
@@ -115,11 +111,7 @@ export default function ActiveFilters({
           ))}
         </>
       ) : totalTagFilters > 5 ? (
-        <FilterChip
-          label={`${totalTagFilters} tags`}
-          onRemove={onClearAllTags}
-          variant="active"
-        />
+        <FilterChip label={`${totalTagFilters} tags`} onRemove={onClearAllTags} variant="active" />
       ) : null}
       <button
         onClick={onClearAll}

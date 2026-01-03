@@ -26,22 +26,22 @@ Reminders for Claude:
 
 ## Tech Stack
 
-| Layer            | Technology                                                                              |
-| ---------------- | --------------------------------------------------------------------------------------- |
-| Framework        | Next.js 16 (App Router)                                                                 |
-| Language         | TypeScript                                                                              |
-| Database         | PostgreSQL (Supabase) with pgvector                                                     |
-| ORM              | Drizzle ORM                                                                             |
-| AI - Tagging     | Google Gemini (`gemini-2.5-flash`)                                                      |
-| AI - Images      | Google Gemini (`gemini-2.5-flash-image`)                                                |
-| AI - Embeddings  | Google Gemini (`gemini-embedding-001`, 1536 dimensions)                                 |
-| AI - Summaries   | Azure OpenAI (`gpt-5-mini` or configurable)                                             |
-| AI - Chat        | Azure OpenAI + OpenRouter fallback                                                      |
-| Authentication   | Supabase Auth + Google OAuth                                                            |
-| Image Storage    | Supabase Storage                                                                        |
-| Styling          | Tailwind CSS v4                                                                         |
-| Deployment       | Vercel (with Fluid Compute + cron jobs)                                                 |
-| Image Processing | Sharp (compression)                                                                     |
+| Layer            | Technology                                              |
+| ---------------- | ------------------------------------------------------- |
+| Framework        | Next.js 16 (App Router)                                 |
+| Language         | TypeScript                                              |
+| Database         | PostgreSQL (Supabase) with pgvector                     |
+| ORM              | Drizzle ORM                                             |
+| AI - Tagging     | Google Gemini (`gemini-2.5-flash`)                      |
+| AI - Images      | Google Gemini (`gemini-2.5-flash-image`)                |
+| AI - Embeddings  | Google Gemini (`gemini-embedding-001`, 1536 dimensions) |
+| AI - Summaries   | Azure OpenAI (`gpt-5-mini` or configurable)             |
+| AI - Chat        | Azure OpenAI + OpenRouter fallback                      |
+| Authentication   | Supabase Auth + Google OAuth                            |
+| Image Storage    | Supabase Storage                                        |
+| Styling          | Tailwind CSS v4                                         |
+| Deployment       | Vercel (with Fluid Compute + cron jobs)                 |
+| Image Processing | Sharp (compression)                                     |
 
 ---
 
@@ -247,64 +247,64 @@ Events curated by users with optional notes.
 
 ### Cron Jobs (require `Authorization: Bearer {CRON_SECRET}`)
 
-| Route | Schedule | Purpose |
-|-------|----------|---------|
-| `/api/cron/scrape` | Every 6h at :00 | Scrape all sources, upsert to DB, rule-based dedup |
-| `/api/cron/ai` | Every 6h at :10 | AI tagging, summaries, embeddings, image generation |
-| `/api/cron/cleanup` | 8x daily | Dead events, non-NC, cancelled, duplicates |
-| `/api/cron/dedup` | Daily 5 AM ET | AI semantic deduplication |
-| `/api/cron/email-digest` | Daily 7 AM ET | Send daily/weekly email digests to subscribers |
+| Route                    | Schedule        | Purpose                                             |
+| ------------------------ | --------------- | --------------------------------------------------- |
+| `/api/cron/scrape`       | Every 6h at :00 | Scrape all sources, upsert to DB, rule-based dedup  |
+| `/api/cron/ai`           | Every 6h at :10 | AI tagging, summaries, embeddings, image generation |
+| `/api/cron/cleanup`      | 8x daily        | Dead events, non-NC, cancelled, duplicates          |
+| `/api/cron/dedup`        | Daily 5 AM ET   | AI semantic deduplication                           |
+| `/api/cron/email-digest` | Daily 7 AM ET   | Send daily/weekly email digests to subscribers      |
 
 ### Public APIs
 
-| Route | Method | Purpose |
-|-------|--------|---------|
-| `/api/health` | GET | Health check (DB status, event count) |
-| `/api/chat` | POST | AI conversational event discovery (rate limited) |
-| `/api/export/xml` | GET | RSS XML feed export |
-| `/api/export/markdown` | GET | Markdown export |
-| `/api/events/submit` | POST | Submit event via form |
-| `/api/events/submit-url` | POST | Submit event via URL |
-| `/api/events/report` | POST | Report an event |
-| `/api/curator/[slug]` | GET | Public curator profile data |
+| Route                    | Method | Purpose                                          |
+| ------------------------ | ------ | ------------------------------------------------ |
+| `/api/health`            | GET    | Health check (DB status, event count)            |
+| `/api/chat`              | POST   | AI conversational event discovery (rate limited) |
+| `/api/export/xml`        | GET    | RSS XML feed export                              |
+| `/api/export/markdown`   | GET    | Markdown export                                  |
+| `/api/events/submit`     | POST   | Submit event via form                            |
+| `/api/events/submit-url` | POST   | Submit event via URL                             |
+| `/api/events/report`     | POST   | Report an event                                  |
+| `/api/curator/[slug]`    | GET    | Public curator profile data                      |
 
 ### Authenticated APIs (require Supabase Auth)
 
-| Route | Method | Purpose |
-|-------|--------|---------|
-| `/api/preferences` | GET/POST | Sync user preferences |
-| `/api/events/[id]/favorite` | POST/DELETE | Favorite/unfavorite event |
-| `/api/curate` | POST/DELETE | Add/remove curated events |
-| `/api/curator/settings` | GET/POST | Curator profile settings |
-| `/api/email-digest/settings` | GET/POST | Email digest preferences |
+| Route                        | Method      | Purpose                   |
+| ---------------------------- | ----------- | ------------------------- |
+| `/api/preferences`           | GET/POST    | Sync user preferences     |
+| `/api/events/[id]/favorite`  | POST/DELETE | Favorite/unfavorite event |
+| `/api/curate`                | POST/DELETE | Add/remove curated events |
+| `/api/curator/settings`      | GET/POST    | Curator profile settings  |
+| `/api/email-digest/settings` | GET/POST    | Email digest preferences  |
 
 ### Auth Routes
 
-| Route | Purpose |
-|-------|---------|
+| Route            | Purpose                |
+| ---------------- | ---------------------- |
 | `/auth/callback` | OAuth callback handler |
-| `/auth/confirm` | Email confirmation |
-| `/auth/signout` | Sign out |
+| `/auth/confirm`  | Email confirmation     |
+| `/auth/signout`  | Sign out               |
 
 ---
 
 ## Scrapers
 
-| Source | File | Method | Notes |
-|--------|------|--------|-------|
-| AVL_TODAY | `avltoday.ts` | CitySpark API | POST to portal.cityspark.com |
-| EVENTBRITE | `eventbrite.ts` | HTML + API | Browse page scrape + API details |
-| MEETUP | `meetup.ts` | GraphQL | Public API, location-based |
-| FACEBOOK | `facebook.ts` | Browser automation | Disabled on Vercel (requires Playwright) |
-| HARRAHS | `harrahs.ts` | Ticketmaster API + HTML | Harrah's Cherokee Center |
-| ORANGE_PEEL | `orangepeel.ts` | Ticketmaster API + JSON-LD | The Orange Peel venue |
-| GREY_EAGLE | `greyeagle.ts` | JSON-LD | Grey Eagle Taqueria |
-| LIVE_MUSIC_AVL | `livemusicavl.ts` | ICS feeds | Select venues only |
-| EXPLORE_ASHEVILLE | `exploreasheville.ts` | Public API | Tourism board events |
-| MISFIT_IMPROV | `misfitimprov.ts` | Crowdwork API | Improv comedy shows |
-| UDHARMA | `udharma.ts` | Squarespace API | Meditation/yoga events |
-| NC_STAGE | `ncstage.ts` | ThunderTix | NC Stage Company theater |
-| STORY_PARLOR | `storyparlor.ts` | Squarespace JSON-LD | Storytelling events |
+| Source            | File                  | Method                     | Notes                                    |
+| ----------------- | --------------------- | -------------------------- | ---------------------------------------- |
+| AVL_TODAY         | `avltoday.ts`         | CitySpark API              | POST to portal.cityspark.com             |
+| EVENTBRITE        | `eventbrite.ts`       | HTML + API                 | Browse page scrape + API details         |
+| MEETUP            | `meetup.ts`           | GraphQL                    | Public API, location-based               |
+| FACEBOOK          | `facebook.ts`         | Browser automation         | Disabled on Vercel (requires Playwright) |
+| HARRAHS           | `harrahs.ts`          | Ticketmaster API + HTML    | Harrah's Cherokee Center                 |
+| ORANGE_PEEL       | `orangepeel.ts`       | Ticketmaster API + JSON-LD | The Orange Peel venue                    |
+| GREY_EAGLE        | `greyeagle.ts`        | JSON-LD                    | Grey Eagle Taqueria                      |
+| LIVE_MUSIC_AVL    | `livemusicavl.ts`     | ICS feeds                  | Select venues only                       |
+| EXPLORE_ASHEVILLE | `exploreasheville.ts` | Public API                 | Tourism board events                     |
+| MISFIT_IMPROV     | `misfitimprov.ts`     | Crowdwork API              | Improv comedy shows                      |
+| UDHARMA           | `udharma.ts`          | Squarespace API            | Meditation/yoga events                   |
+| NC_STAGE          | `ncstage.ts`          | ThunderTix                 | NC Stage Company theater                 |
+| STORY_PARLOR      | `storyparlor.ts`      | Squarespace JSON-LD        | Storytelling events                      |
 
 ---
 
@@ -474,32 +474,32 @@ FB_XS=
 
 ## Scripts Reference
 
-| Script | Purpose |
-|--------|---------|
-| `npm run dev` | Start development server |
-| `npm run build` | Build for production |
-| `npm run test:avl` | Test AVL Today scraper |
-| `npm run test:eventbrite` | Test Eventbrite scraper |
-| `npm run test:meetup` | Test Meetup scraper |
-| `npm run test:harrahs` | Test Harrah's scraper |
-| `npm run test:orangepeel` | Test Orange Peel scraper |
-| `npm run test:greyeagle` | Test Grey Eagle scraper |
-| `npm run test:storyparlor` | Test Story Parlor scraper |
-| `npm run test:misfit` | Test Misfit Improv scraper |
-| `npm run test:udharma` | Test UDharma scraper |
-| `npm run test:tagging` | Test AI tag generation |
-| `npm run test:image-gen` | Test AI image generation |
-| `npm run test:summary` | Test AI summary generation |
-| `npm run test:embedding` | Test embedding generation |
-| `npm run test:similarity` | Test similarity search |
-| `npm run db:check` | Check database connection |
-| `npm run db:count` | Count events by source |
-| `npm run db:tags` | Check tag statistics |
-| `npm run db:clear` | Clear all events (destructive!) |
-| `npm run backfill` | Backfill Eventbrite events |
+| Script                        | Purpose                                 |
+| ----------------------------- | --------------------------------------- |
+| `npm run dev`                 | Start development server                |
+| `npm run build`               | Build for production                    |
+| `npm run test:avl`            | Test AVL Today scraper                  |
+| `npm run test:eventbrite`     | Test Eventbrite scraper                 |
+| `npm run test:meetup`         | Test Meetup scraper                     |
+| `npm run test:harrahs`        | Test Harrah's scraper                   |
+| `npm run test:orangepeel`     | Test Orange Peel scraper                |
+| `npm run test:greyeagle`      | Test Grey Eagle scraper                 |
+| `npm run test:storyparlor`    | Test Story Parlor scraper               |
+| `npm run test:misfit`         | Test Misfit Improv scraper              |
+| `npm run test:udharma`        | Test UDharma scraper                    |
+| `npm run test:tagging`        | Test AI tag generation                  |
+| `npm run test:image-gen`      | Test AI image generation                |
+| `npm run test:summary`        | Test AI summary generation              |
+| `npm run test:embedding`      | Test embedding generation               |
+| `npm run test:similarity`     | Test similarity search                  |
+| `npm run db:check`            | Check database connection               |
+| `npm run db:count`            | Count events by source                  |
+| `npm run db:tags`             | Check tag statistics                    |
+| `npm run db:clear`            | Clear all events (destructive!)         |
+| `npm run backfill`            | Backfill Eventbrite events              |
 | `npm run backfill:embeddings` | Backfill embeddings for existing events |
-| `npm run tag:events` | Tag all untagged events |
-| `npm run generate:seo-images` | Generate SEO images |
+| `npm run tag:events`          | Tag all untagged events                 |
+| `npm run generate:seo-images` | Generate SEO images                     |
 
 ---
 

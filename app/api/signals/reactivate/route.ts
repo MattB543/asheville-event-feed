@@ -1,9 +1,9 @@
-import { NextResponse, type NextRequest } from "next/server";
-import { createClient } from "@/lib/supabase/server";
-import { db } from "@/lib/db";
-import { userPreferences } from "@/lib/db/schema";
-import { eq } from "drizzle-orm";
-import { isRecord, isString } from "@/lib/utils/validation";
+import { NextResponse, type NextRequest } from 'next/server';
+import { createClient } from '@/lib/supabase/server';
+import { db } from '@/lib/db';
+import { userPreferences } from '@/lib/db/schema';
+import { eq } from 'drizzle-orm';
+import { isRecord, isString } from '@/lib/utils/validation';
 
 interface PositiveSignal {
   eventId: string;
@@ -22,27 +22,23 @@ interface NegativeSignal {
 export async function POST(request: NextRequest) {
   try {
     const supabase = await createClient();
-    const { data: { user } } = await supabase.auth.getUser();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
 
     if (!user) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
     const parsed: unknown = await request.json();
     if (!isRecord(parsed)) {
-      return NextResponse.json(
-        { error: "Invalid request body" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: 'Invalid request body' }, { status: 400 });
     }
     const eventId = isString(parsed.eventId) ? parsed.eventId : undefined;
 
     // Validate input
     if (!eventId || typeof eventId !== 'string') {
-      return NextResponse.json(
-        { error: "Invalid eventId" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: 'Invalid eventId' }, { status: 400 });
     }
 
     // Fetch existing preferences
@@ -53,10 +49,7 @@ export async function POST(request: NextRequest) {
       .limit(1);
 
     if (existingPrefs.length === 0) {
-      return NextResponse.json(
-        { error: "No preferences found" },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: 'No preferences found' }, { status: 404 });
     }
 
     const prefs = existingPrefs[0];
@@ -64,14 +57,11 @@ export async function POST(request: NextRequest) {
     const negativeSignals = (prefs.negativeSignals as NegativeSignal[]) ?? [];
 
     // Find the signal in either positive or negative signals
-    const positiveSignalIndex = positiveSignals.findIndex(s => s.eventId === eventId);
-    const negativeSignalIndex = negativeSignals.findIndex(s => s.eventId === eventId);
+    const positiveSignalIndex = positiveSignals.findIndex((s) => s.eventId === eventId);
+    const negativeSignalIndex = negativeSignals.findIndex((s) => s.eventId === eventId);
 
     if (positiveSignalIndex === -1 && negativeSignalIndex === -1) {
-      return NextResponse.json(
-        { error: "Signal not found" },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: 'Signal not found' }, { status: 404 });
     }
 
     // Re-activate the signal by setting active: true
@@ -121,10 +111,7 @@ export async function POST(request: NextRequest) {
       });
     }
   } catch (error) {
-    console.error("Error reactivating signal:", error);
-    return NextResponse.json(
-      { error: "Failed to reactivate signal" },
-      { status: 500 }
-    );
+    console.error('Error reactivating signal:', error);
+    return NextResponse.json({ error: 'Failed to reactivate signal' }, { status: 500 });
   }
 }

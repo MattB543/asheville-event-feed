@@ -54,7 +54,7 @@ async function main() {
     }
 
     // Small delay between requests
-    await new Promise(r => setTimeout(r, 1000));
+    await new Promise((r) => setTimeout(r, 1000));
   }
 
   console.log('\nDone! Check your dev server to see the images.');

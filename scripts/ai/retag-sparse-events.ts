@@ -4,36 +4,34 @@
  * from the updated allowed tags list.
  */
 
-import { db } from "../../lib/db";
-import { events } from "../../lib/db/schema";
-import { generateEventTags } from "../../lib/ai/tagAndSummarize";
-import { eq } from "drizzle-orm";
-import { isAzureAIEnabled } from "../../lib/ai/provider-clients";
+import { db } from '../../lib/db';
+import { events } from '../../lib/db/schema';
+import { generateEventTags } from '../../lib/ai/tagAndSummarize';
+import { eq } from 'drizzle-orm';
+import { isAzureAIEnabled } from '../../lib/ai/provider-clients';
 
 async function main() {
   const azureEnabled = isAzureAIEnabled();
-  console.log("Environment check:");
+  console.log('Environment check:');
   console.log(`Azure OpenAI enabled: ${azureEnabled}`);
   if (!azureEnabled) {
-    console.error("Azure OpenAI is not configured (AZURE_OPENAI_API_KEY/AZURE_OPENAI_ENDPOINT).");
+    console.error('Azure OpenAI is not configured (AZURE_OPENAI_API_KEY/AZURE_OPENAI_ENDPOINT).');
     process.exit(1);
   }
 
-  console.log("\nFetching events with 0 or 1 tags...");
+  console.log('\nFetching events with 0 or 1 tags...');
 
   // Fetch all events and filter locally
   const allEvents = await db.select().from(events);
 
-  const sparseEvents = allEvents.filter(
-    (e) => !e.tags || e.tags.length <= 1
-  );
+  const sparseEvents = allEvents.filter((e) => !e.tags || e.tags.length <= 1);
 
   console.log(
     `Found ${sparseEvents.length} events with 0 or 1 tags (out of ${allEvents.length} total).`
   );
 
   if (sparseEvents.length === 0) {
-    console.log("Nothing to re-tag!");
+    console.log('Nothing to re-tag!');
     process.exit(0);
   }
 
@@ -43,9 +41,7 @@ async function main() {
 
   for (const [index, event] of sparseEvents.entries()) {
     const currentTagCount = event.tags?.length || 0;
-    console.log(
-      `\n[${index + 1}/${sparseEvents.length}] "${event.title}"`
-    );
+    console.log(`\n[${index + 1}/${sparseEvents.length}] "${event.title}"`);
     console.log(`   Current tags (${currentTagCount}): ${JSON.stringify(event.tags || [])}`);
 
     try {
@@ -65,10 +61,7 @@ async function main() {
         const mergedTags = [...new Set([...existingTags, ...newTags])];
 
         if (mergedTags.length > currentTagCount) {
-          await db
-            .update(events)
-            .set({ tags: mergedTags })
-            .where(eq(events.id, event.id));
+          await db.update(events).set({ tags: mergedTags }).where(eq(events.id, event.id));
           console.log(`   -> Updated: ${JSON.stringify(mergedTags)}`);
           successCount++;
         } else {
@@ -88,8 +81,8 @@ async function main() {
     await new Promise((resolve) => setTimeout(resolve, 1000));
   }
 
-  console.log("\n--------------------------------------------------");
-  console.log("Re-tagging complete!");
+  console.log('\n--------------------------------------------------');
+  console.log('Re-tagging complete!');
   console.log(`Updated: ${successCount}`);
   console.log(`Unchanged: ${unchangedCount}`);
   console.log(`Failed: ${failCount}`);
@@ -98,6 +91,6 @@ async function main() {
 }
 
 main().catch((err) => {
-  console.error("Fatal error:", err);
+  console.error('Fatal error:', err);
   process.exit(1);
 });

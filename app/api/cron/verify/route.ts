@@ -1,19 +1,19 @@
-import { NextResponse } from "next/server";
-import { db } from "@/lib/db";
-import { events } from "@/lib/db/schema";
-import { and, eq, gte, inArray, isNull, lte, or } from "drizzle-orm";
-import { env } from "@/lib/config/env";
-import { verifyAuthToken } from "@/lib/utils/auth";
-import { startCronJob, completeCronJob, failCronJob } from "@/lib/cron/jobTracker";
-import { invalidateEventsCache } from "@/lib/cache/invalidation";
-import { sendVerificationNotification } from "@/lib/notifications/slack";
+import { NextResponse } from 'next/server';
+import { db } from '@/lib/db';
+import { events } from '@/lib/db/schema';
+import { and, eq, gte, inArray, isNull, lte, or } from 'drizzle-orm';
+import { env } from '@/lib/config/env';
+import { verifyAuthToken } from '@/lib/utils/auth';
+import { startCronJob, completeCronJob, failCronJob } from '@/lib/cron/jobTracker';
+import { invalidateEventsCache } from '@/lib/cache/invalidation';
+import { sendVerificationNotification } from '@/lib/notifications/slack';
 import {
   VERIFIABLE_SOURCES,
   isVerificationEnabled,
   processEventVerification,
   type EventForVerification,
-} from "@/lib/ai/eventVerification";
-import { matchesDefaultFilter } from "@/lib/config/defaultFilters";
+} from '@/lib/ai/eventVerification';
+import { matchesDefaultFilter } from '@/lib/config/defaultFilters';
 
 export const maxDuration = 800; // ~13 minutes max (Fluid Compute)
 
@@ -29,20 +29,20 @@ export const maxDuration = 800; // ~13 minutes max (Fluid Compute)
  */
 export async function GET(request: Request) {
   // Verify cron secret
-  const authHeader = request.headers.get("authorization");
+  const authHeader = request.headers.get('authorization');
   if (!verifyAuthToken(authHeader, env.CRON_SECRET)) {
-    return new NextResponse("Unauthorized", { status: 401 });
+    return new NextResponse('Unauthorized', { status: 401 });
   }
 
   const startTime = Date.now();
-  const runId = await startCronJob("verify");
+  const runId = await startCronJob('verify');
 
   try {
-    console.log("[Verify] Starting event verification job...");
+    console.log('[Verify] Starting event verification job...');
 
     // Check if verification is enabled
     if (!isVerificationEnabled()) {
-      const message = "Verification not enabled - check JINA_API_KEY and Azure AI config";
+      const message = 'Verification not enabled - check JINA_API_KEY and Azure AI config';
       console.warn(`[Verify] ${message}`);
       await completeCronJob(runId, { skipped: true, reason: message });
       return NextResponse.json({ success: true, skipped: true, reason: message });
@@ -77,10 +77,7 @@ export async function GET(request: Request) {
           inArray(events.source, [...VERIFIABLE_SOURCES]),
           eq(events.hidden, false),
           gte(events.startDate, now),
-          or(
-            isNull(events.lastVerifiedAt),
-            lte(events.lastVerifiedAt, tenDaysAgo)
-          )
+          or(isNull(events.lastVerifiedAt), lte(events.lastVerifiedAt, tenDaysAgo))
         )
       )
       .orderBy(events.startDate) // Most imminent first
@@ -117,7 +114,7 @@ export async function GET(request: Request) {
     for (const result of verificationResult.results) {
       const event = filteredEvents.find((e) => e.id === result.eventId);
 
-      if (result.action === "hide" && result.confidence >= 0.8) {
+      if (result.action === 'hide' && result.confidence >= 0.8) {
         // Hide the event (set hidden = true)
         await db
           .update(events)
@@ -135,7 +132,7 @@ export async function GET(request: Request) {
         });
 
         console.log(`[Verify] Hidden: ${result.eventTitle} - ${result.reason}`);
-      } else if (result.action === "update" && result.updates) {
+      } else if (result.action === 'update' && result.updates) {
         // Update the event with new details
         const updateData: Record<string, unknown> = {
           lastVerifiedAt: now,
@@ -152,10 +149,7 @@ export async function GET(request: Request) {
           updateData.location = result.updates.location;
         }
 
-        await db
-          .update(events)
-          .set(updateData)
-          .where(eq(events.id, result.eventId));
+        await db.update(events).set(updateData).where(eq(events.id, result.eventId));
 
         updatedEvents.push({
           title: result.eventTitle,
@@ -167,10 +161,7 @@ export async function GET(request: Request) {
       } else if (!result.error) {
         // Only update lastVerifiedAt for successful "keep" events
         // Don't update if fetch failed - we need to retry when site is back up
-        await db
-          .update(events)
-          .set({ lastVerifiedAt: now })
-          .where(eq(events.id, result.eventId));
+        await db.update(events).set({ lastVerifiedAt: now }).where(eq(events.id, result.eventId));
       }
       // Skip updating lastVerifiedAt if there was an error (site down, fetch failed, etc.)
     }
@@ -218,13 +209,10 @@ export async function GET(request: Request) {
       updatedEvents: updatedEvents.slice(0, 20),
     });
   } catch (error) {
-    console.error("[Verify] Error:", error);
+    console.error('[Verify] Error:', error);
 
     await failCronJob(runId, error);
 
-    return NextResponse.json(
-      { success: false, error: String(error) },
-      { status: 500 }
-    );
+    return NextResponse.json({ success: false, error: String(error) }, { status: 500 });
   }
 }

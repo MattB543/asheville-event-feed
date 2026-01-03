@@ -36,11 +36,15 @@ function getEstTimes(schedule: string): string {
 
   if (hour === '*/6') {
     // Every 6 hours: 0,6,12,18 UTC
-    return [0, 6, 12, 18].map(h => fmt(utcToEst(h))).join(', ');
+    return [0, 6, 12, 18].map((h) => fmt(utcToEst(h))).join(', ');
   }
   if (hour.includes(',')) {
     // Multiple specific hours
-    const hours = hour.split(',').map(Number).map(utcToEst).sort((a, b) => a - b);
+    const hours = hour
+      .split(',')
+      .map(Number)
+      .map(utcToEst)
+      .sort((a, b) => a - b);
     return `${fmt(hours[0])}–${fmt(hours[hours.length - 1])}`;
   }
   // Single hour
@@ -55,8 +59,10 @@ function formatNextRun(isoString: string, relative: string): string {
   const estTime = formatDateEastern(date, {
     hour: 'numeric',
     minute: '2-digit',
-    hour12: true
-  }).toLowerCase().replace(' ', '');
+    hour12: true,
+  })
+    .toLowerCase()
+    .replace(' ', '');
 
   // Remove "in" and "about" for more compact display
   const cleanRelative = relative.replace('in ', '').replace('about ', '');
@@ -66,7 +72,7 @@ function formatNextRun(isoString: string, relative: string): string {
 
 // Build MySQL-style table border
 function buildBorder(columnWidths: number[]): string {
-  return '+' + columnWidths.map(w => '-'.repeat(w + 2)).join('+') + '+';
+  return '+' + columnWidths.map((w) => '-'.repeat(w + 2)).join('+') + '+';
 }
 
 // Format and print a table row
@@ -86,7 +92,7 @@ async function main() {
         console.error(`Error: Local API returned ${response.status}: ${errorText}`);
         process.exit(1);
       }
-    } catch (localError) {
+    } catch {
       console.log('Local dev server not available, trying production...\n');
       response = await fetch('https://avlgo.com/api/cron-status');
       if (!response.ok) {
@@ -108,21 +114,24 @@ async function main() {
 
     // Define job relationships
     const jobMeta: Record<string, { type: 'pipeline' | 'independent'; order?: number }> = {
-      'Scraping': { type: 'pipeline', order: 1 },
-      'Verify': { type: 'pipeline', order: 2 },
+      Scraping: { type: 'pipeline', order: 1 },
+      Verify: { type: 'pipeline', order: 2 },
       'AI Processing': { type: 'pipeline', order: 3 },
-      'Cleanup': { type: 'independent' },
+      Cleanup: { type: 'independent' },
       'AI Dedup': { type: 'independent' },
       'Email Digest': { type: 'independent' },
     };
 
     // Calculate column widths
     const columnWidths = [
-      Math.max('Job'.length, ...data.jobs.map(j => j.displayName.length)),
+      Math.max('Job'.length, ...data.jobs.map((j) => j.displayName.length)),
       Math.max('Type'.length, 'Pipeline #1'.length), // "Pipeline #X" or "Independent"
-      Math.max('Times (EST)'.length, ...data.jobs.map(j => getEstTimes(j.schedule).length)),
-      Math.max('Next Run'.length, ...data.jobs.map(j => formatNextRun(j.nextRun.at, j.nextRun.atRelative).length)),
-      Math.max('Description'.length, ...data.jobs.map(j => j.description.length)),
+      Math.max('Times (EST)'.length, ...data.jobs.map((j) => getEstTimes(j.schedule).length)),
+      Math.max(
+        'Next Run'.length,
+        ...data.jobs.map((j) => formatNextRun(j.nextRun.at, j.nextRun.atRelative).length)
+      ),
+      Math.max('Description'.length, ...data.jobs.map((j) => j.description.length)),
     ];
 
     const border = buildBorder(columnWidths);
@@ -142,9 +151,10 @@ async function main() {
     });
 
     console.log(border);
-    console.log('\nPipeline: Jobs run sequentially every 6 hours (Scraping → Verify → AI Processing)');
+    console.log(
+      '\nPipeline: Jobs run sequentially every 6 hours (Scraping → Verify → AI Processing)'
+    );
     console.log('Independent: Jobs run on their own schedule, not dependent on pipeline\n');
-
   } catch (error) {
     console.error('Error:', error);
     process.exit(1);

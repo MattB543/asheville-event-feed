@@ -4,10 +4,7 @@ export interface RetryOptions {
   maxDelay?: number;
 }
 
-export async function withRetry<T>(
-  fn: () => Promise<T>,
-  options: RetryOptions = {}
-): Promise<T> {
+export async function withRetry<T>(fn: () => Promise<T>, options: RetryOptions = {}): Promise<T> {
   const { maxRetries = 3, baseDelay = 1000, maxDelay = 10000 } = options;
 
   let lastError: Error | undefined;
@@ -31,7 +28,11 @@ export async function withRetry<T>(
     }
   }
 
-  throw lastError;
+  if (lastError) {
+    throw lastError;
+  }
+
+  throw new Error('Retry failed without capturing an error');
 }
 
 export async function fetchWithRetry(

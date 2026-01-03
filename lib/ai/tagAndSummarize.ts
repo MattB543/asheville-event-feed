@@ -21,20 +21,54 @@ export interface TagAndSummaryResult {
   summary: string | null;
 }
 
+interface TagAndSummaryAIResponse {
+  official?: unknown;
+  custom?: unknown;
+  summary?: string;
+}
+
 // All allowed official tags - AI must ONLY use tags from this list
 const ALLOWED_TAGS = [
   // Entertainment
-  'Live Music', 'Comedy', 'Theater & Film', 'Dance', 'Trivia', 'Open Mic', 'Karaoke',
+  'Live Music',
+  'Comedy',
+  'Theater & Film',
+  'Dance',
+  'Trivia',
+  'Open Mic',
+  'Karaoke',
   // Food & Drink
-  'Dining', 'Beer', 'Wine & Spirits',
+  'Dining',
+  'Beer',
+  'Wine & Spirits',
   // Activities
-  'Art', 'Crafts', 'Fitness', 'Wellness', 'Spiritual', 'Meditation', 'Outdoors', 'Tours', 'Gaming',
-  'Sports', 'Education', 'Tech', 'Book Club', 'Museum Exhibition',
+  'Art',
+  'Crafts',
+  'Fitness',
+  'Wellness',
+  'Spiritual',
+  'Meditation',
+  'Outdoors',
+  'Tours',
+  'Gaming',
+  'Sports',
+  'Education',
+  'Tech',
+  'Book Club',
+  'Museum Exhibition',
   // Audience/Social
-  'Family', 'Dating', 'Networking', 'Nightlife', 'LGBTQ+', 'Pets',
-  'Community', 'Volunteering', 'Support Groups',
+  'Family',
+  'Dating',
+  'Networking',
+  'Nightlife',
+  'LGBTQ+',
+  'Pets',
+  'Community',
+  'Volunteering',
+  'Support Groups',
   // Seasonal
-  'Holiday', 'Markets',
+  'Holiday',
+  'Markets',
 ] as const;
 
 const SYSTEM_PROMPT = `You are an expert event analyzer for Asheville, NC. You will analyze events and provide two things:
@@ -121,9 +155,7 @@ Return ONLY valid JSON in this format:
  * Generate both tags and summary for an event in a single Azure OpenAI call.
  * Returns empty tags array and null summary if Azure AI is not configured.
  */
-export async function generateTagsAndSummary(
-  event: EventData
-): Promise<TagAndSummaryResult> {
+export async function generateTagsAndSummary(event: EventData): Promise<TagAndSummaryResult> {
   if (!isAzureAIEnabled()) {
     console.warn('[TagAndSummarize] Azure AI not configured, skipping');
     return { tags: [], summary: null };
@@ -135,7 +167,9 @@ export async function generateTagsAndSummary(
     event.location ? `Location: ${event.location}` : null,
     event.organizer ? `Organizer: ${event.organizer}` : null,
     `Date: ${event.startDate.toISOString()}`,
-  ].filter(Boolean).join('\n');
+  ]
+    .filter(Boolean)
+    .join('\n');
 
   try {
     const result = await azureChatCompletion(
@@ -155,7 +189,7 @@ export async function generateTagsAndSummary(
       .replace(/```/g, '')
       .trim();
 
-    const parsed = JSON.parse(cleanedText);
+    const parsed = JSON.parse(cleanedText) as TagAndSummaryAIResponse;
 
     // Validate and extract tags
     const officialTags = Array.isArray(parsed.official) ? parsed.official : [];
@@ -183,7 +217,9 @@ export async function generateTagsAndSummary(
 
     // Log truly invalid official tags (ones we couldn't recover)
     if (unrecoverableOfficialTags.length > 0) {
-      console.warn(`[TagAndSummarize] Invalid official tags for "${event.title}": ${unrecoverableOfficialTags.join(', ')}`);
+      console.warn(
+        `[TagAndSummarize] Invalid official tags for "${event.title}": ${unrecoverableOfficialTags.join(', ')}`
+      );
     }
 
     // Custom tags: validate, normalize, and filter
@@ -207,7 +243,7 @@ export async function generateTagsAndSummary(
       if (isDuplicateOfOfficial) continue;
 
       // Skip duplicates within custom tags
-      if (validCustomTags.some(t => t.toLowerCase() === normalized.toLowerCase())) continue;
+      if (validCustomTags.some((t) => t.toLowerCase() === normalized.toLowerCase())) continue;
 
       validCustomTags.push(normalized);
     }
@@ -223,7 +259,9 @@ export async function generateTagsAndSummary(
 
     const tags = [...validOfficialTags, ...validCustomTags];
 
-    console.log(`[TagAndSummarize] Generated ${tags.length} tags, summary: ${summary?.slice(0, 50)}... (${result.usage.totalTokens} tokens)`);
+    console.log(
+      `[TagAndSummarize] Generated ${tags.length} tags, summary: ${summary?.slice(0, 50)}... (${result.usage.totalTokens} tokens)`
+    );
 
     return { tags, summary };
   } catch (error) {
@@ -243,9 +281,7 @@ export async function generateEventTags(event: EventData): Promise<string[]> {
 /**
  * Generate summary only using the combined pipeline.
  */
-export async function generateEventSummary(
-  event: EventData
-): Promise<string | null> {
+export async function generateEventSummary(event: EventData): Promise<string | null> {
   const result = await generateTagsAndSummary(event);
   return result.summary;
 }
@@ -272,7 +308,7 @@ export async function generateTagsAndSummariesBatch(
 
     // Add delay between requests to avoid rate limits
     if (i < events.length - 1 && delayMs > 0) {
-      await new Promise(resolve => setTimeout(resolve, delayMs));
+      await new Promise((resolve) => setTimeout(resolve, delayMs));
     }
   }
 

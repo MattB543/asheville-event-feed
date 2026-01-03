@@ -1,6 +1,6 @@
 /**
  * Date filtering utilities for Eastern timezone (America/New_York).
- * 
+ *
  * These functions are used by the export APIs to filter events by date
  * while correctly handling timezone boundaries for Asheville, NC.
  */
@@ -21,12 +21,18 @@ function addDaysToDateString(dateStr: string, days: number): string {
 
 // Day name to number mapping (module-level to avoid recreation per call)
 const DAY_NAME_TO_NUMBER: Record<string, number> = {
-  'Sun': 0, 'Mon': 1, 'Tue': 2, 'Wed': 3, 'Thu': 4, 'Fri': 5, 'Sat': 6
+  Sun: 0,
+  Mon: 1,
+  Tue: 2,
+  Wed: 3,
+  Thu: 4,
+  Fri: 5,
+  Sat: 6,
 };
 
 /**
  * Pre-computed date boundaries for filtering.
- * 
+ *
  * PERFORMANCE OPTIMIZATION: These boundaries are computed once per request
  * rather than per-event. When filtering hundreds of events, this avoids
  * redundant calls to getTodayStringEastern() and getDayBoundariesEastern()
@@ -105,11 +111,11 @@ export function isDayOfWeekEastern(date: Date, days: number[]): boolean {
  */
 export function isInDateRangeEastern(date: Date, start: string, end?: string): boolean {
   // Parse start date as Eastern midnight
-  const startDate = parseAsEastern(start, "00:00:00");
+  const startDate = parseAsEastern(start, '00:00:00');
 
   if (end) {
     // Parse end date as Eastern end-of-day
-    const endDate = parseAsEastern(end, "23:59:59");
+    const endDate = parseAsEastern(end, '23:59:59');
     return date >= startDate && date <= endDate;
   }
 
@@ -117,4 +123,3 @@ export function isInDateRangeEastern(date: Date, start: string, end?: string): b
   const { start: dayStart, end: dayEnd } = getDayBoundariesEastern(start);
   return date >= dayStart && date <= dayEnd;
 }
-

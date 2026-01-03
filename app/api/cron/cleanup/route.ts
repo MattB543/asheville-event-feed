@@ -84,8 +84,7 @@ export async function GET(request: Request) {
         title: events.title,
         url: events.url,
       })
-      .from(events)
-      .where(sql`
+      .from(events).where(sql`
         ${events.source} = 'EVENTBRITE'
         AND ${events.startDate} >= ${windowStart.toISOString()}
         AND ${events.startDate} <= ${windowEnd.toISOString()}
@@ -124,7 +123,9 @@ export async function GET(request: Request) {
       // Log progress every 5 batches
       if (batchNum % 5 === 0 || batchNum === totalBatches) {
         const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
-        console.log(`[Cleanup] URL check progress: ${Math.min(i + batchSize, eventbriteEvents.length)}/${eventbriteEvents.length} (${elapsed}s elapsed)`);
+        console.log(
+          `[Cleanup] URL check progress: ${Math.min(i + batchSize, eventbriteEvents.length)}/${eventbriteEvents.length} (${elapsed}s elapsed)`
+        );
       }
 
       // Small delay between batches to be polite to Eventbrite
@@ -137,7 +138,7 @@ export async function GET(request: Request) {
 
     // Delete dead events in batch (instead of one at a time)
     if (deadEvents.length > 0) {
-      const deadIds = deadEvents.map(e => e.id);
+      const deadIds = deadEvents.map((e) => e.id);
       await db.delete(events).where(inArray(events.id, deadIds));
       for (const deadEvent of deadEvents) {
         console.log(`[Cleanup] Deleted: ${deadEvent.title.substring(0, 40)}...`);
@@ -178,7 +179,9 @@ export async function GET(request: Request) {
       console.log(`[Cleanup] Deleted ${nonNCEventIds.length} non-NC events.`);
     }
 
-    console.log(`[Cleanup] Non-NC cleanup complete. Deleted ${nonNCEventIds.length} non-NC events.`);
+    console.log(
+      `[Cleanup] Non-NC cleanup complete. Deleted ${nonNCEventIds.length} non-NC events.`
+    );
 
     // Step 3: Remove cancelled events (title starts with "CANCELLED")
     console.log('[Cleanup] Checking for cancelled events...');
@@ -227,7 +230,9 @@ export async function GET(request: Request) {
     for (const group of duplicateGroups) {
       console.log(`[Cleanup] Dedup: Keep "${group.keep.title}" (${group.keep.id.substring(0, 6)})`);
       for (const removed of group.remove) {
-        console.log(`[Cleanup]   Remove: "${removed.title}" (${removed.id.substring(0, 6)}) via Method ${group.method}`);
+        console.log(
+          `[Cleanup]   Remove: "${removed.title}" (${removed.id.substring(0, 6)}) via Method ${group.method}`
+        );
       }
     }
 
@@ -237,7 +242,8 @@ export async function GET(request: Request) {
     // (keep the longer description from removed events)
     if (descriptionUpdates.length > 0) {
       for (const update of descriptionUpdates) {
-        await db.update(events)
+        await db
+          .update(events)
           .set({ description: update.description })
           .where(eq(events.id, update.id));
       }
@@ -254,8 +260,14 @@ export async function GET(request: Request) {
     }
 
     const totalDuration = ((Date.now() - startTime) / 1000).toFixed(1);
-    const totalDeleted = deadEvents.length + nonNCEventIds.length + cancelledEventIds.length + duplicateIdsToRemove.length;
-    console.log(`[Cleanup] Complete in ${totalDuration}s. Deleted ${totalDeleted} events (${deadEvents.length} dead, ${nonNCEventIds.length} non-NC, ${cancelledEventIds.length} cancelled, ${duplicateIdsToRemove.length} duplicates)`);
+    const totalDeleted =
+      deadEvents.length +
+      nonNCEventIds.length +
+      cancelledEventIds.length +
+      duplicateIdsToRemove.length;
+    console.log(
+      `[Cleanup] Complete in ${totalDuration}s. Deleted ${totalDeleted} events (${deadEvents.length} dead, ${nonNCEventIds.length} non-NC, ${cancelledEventIds.length} cancelled, ${duplicateIdsToRemove.length} duplicates)`
+    );
 
     // Invalidate cache so home page reflects removed events
     invalidateEventsCache();
@@ -288,9 +300,6 @@ export async function GET(request: Request) {
 
     await failCronJob(runId, error);
 
-    return NextResponse.json(
-      { success: false, error: String(error) },
-      { status: 500 }
-    );
+    return NextResponse.json({ success: false, error: String(error) }, { status: 500 });
   }
 }

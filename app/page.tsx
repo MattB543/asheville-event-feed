@@ -1,10 +1,8 @@
-import { Metadata } from "next";
-import Link from "next/link";
-import Image from "next/image";
-import ThemeToggle from "@/components/ThemeToggle";
-import SubmitEventButton from "@/components/SubmitEventButton";
-import UserMenu from "@/components/UserMenu";
-import HomeFilterButton from "@/components/HomeFilterButton";
+import type { Metadata } from 'next';
+import Link from 'next/link';
+import Image from 'next/image';
+import Header from '@/components/Header';
+import HomeFilterButton from '@/components/HomeFilterButton';
 import {
   Users,
   Music,
@@ -16,117 +14,46 @@ import {
   Calendar,
   List,
   ArrowRight,
+  Star,
   Database,
   ShieldOff,
   Code,
   Sparkles,
   Upload,
   SlidersHorizontal,
-} from "lucide-react";
+} from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: "AVL GO - Asheville Events",
+  title: 'AVL GO - Asheville Events',
   description:
-    "Discover Asheville events aggregated from 10+ sources. Find family events, live music, sports, trivia, and more.",
+    'Discover Asheville events aggregated from 10+ sources. Find family events, live music, sports, trivia, and more.',
 };
 
 export const revalidate = 3600; // Revalidate every hour
 
 const FILTER_BUTTONS = [
-  { label: "Family", href: "/events?tagsInclude=Family", icon: Users },
+  { label: 'Family', href: '/events?tagsInclude=Family', icon: Users },
   {
-    label: "Live Music",
-    href: "/events?tagsInclude=Live%20Music",
+    label: 'Live Music',
+    href: '/events?tagsInclude=Live%20Music',
     icon: Music,
   },
-  { label: "Sports", href: "/events?tagsInclude=Sports", icon: Trophy },
+  { label: 'Sports', href: '/events?tagsInclude=Sports', icon: Trophy },
   {
-    label: "Trivia & Games",
-    href: "/events?tagsInclude=Trivia",
+    label: 'Trivia & Games',
+    href: '/events?tagsInclude=Trivia',
     icon: Gamepad2,
   },
-  { label: "Food & Drink", href: "/events?tagsInclude=Dining", icon: Utensils },
-  { label: "Outdoors", href: "/events?tagsInclude=Outdoors", icon: Mountain },
-  { label: "Free Events", href: "/events?priceFilter=free", icon: Gift },
-  { label: "This Weekend", href: "/events?dateFilter=weekend", icon: Calendar },
+  { label: 'Food & Drink', href: '/events?tagsInclude=Dining', icon: Utensils },
+  { label: 'Outdoors', href: '/events?tagsInclude=Outdoors', icon: Mountain },
+  { label: 'Free Events', href: '/events?priceFilter=free', icon: Gift },
+  { label: 'This Weekend', href: '/events?dateFilter=weekend', icon: Calendar },
 ];
 
-export default async function HomePage() {
+export default function HomePage() {
   return (
     <main className="min-h-screen bg-[var(--background)] bg-texture">
-      {/* Header */}
-      <header className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
-        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-3 sm:py-4">
-          {/* Mobile: two-row layout */}
-          <div className="flex flex-col gap-2 sm:hidden">
-            <div className="flex items-center justify-between">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/avlgo_banner_logo_v2.svg"
-                alt="AVL GO"
-                className="h-[24px] w-auto dark:brightness-0 dark:invert"
-              />
-              <div className="flex items-center gap-2">
-                <SubmitEventButton />
-                <ThemeToggle />
-                <UserMenu />
-              </div>
-            </div>
-            <div className="text-xs text-gray-500/70 dark:text-gray-400/70">
-              <a
-                href="https://github.com/MattB543/asheville-event-feed"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="underline hover:text-gray-700 dark:hover:text-gray-300"
-              >
-                Open-sourced
-              </a>{" "}
-              by{" "}
-              <a
-                href="https://mattbrooks.xyz"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="underline hover:text-gray-700 dark:hover:text-gray-300"
-              >
-                mattbrooks.xyz
-              </a>
-            </div>
-          </div>
-          {/* Desktop: horizontal layout */}
-          <div className="hidden sm:flex items-center justify-between gap-2">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/avlgo_banner_logo_v2.svg"
-              alt="AVL GO"
-              className="h-[36px] w-auto dark:brightness-0 dark:invert"
-            />
-            <div className="flex items-center gap-2">
-              <div className="text-sm text-gray-500/70 dark:text-gray-400/70">
-                <a
-                  href="https://github.com/MattB543/asheville-event-feed"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="underline hover:text-gray-700 dark:hover:text-gray-300"
-                >
-                  Open-sourced
-                </a>{" "}
-                by{" "}
-                <a
-                  href="https://mattbrooks.xyz"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="underline hover:text-gray-700 dark:hover:text-gray-300"
-                >
-                  mattbrooks.xyz
-                </a>
-              </div>
-              <SubmitEventButton />
-              <ThemeToggle />
-              <UserMenu />
-            </div>
-          </div>
-        </div>
-      </header>
+      <Header />
 
       {/* Hero Section */}
       <section className="relative">
@@ -147,9 +74,7 @@ export default async function HomePage() {
           <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-4 tracking-tight -mt-5">
             Asheville events
             <br />
-            <span className="text-brand-600 dark:text-brand-400">
-              All in one place
-            </span>
+            <span className="text-brand-600 dark:text-brand-400">All in one place</span>
           </h1>
           <p className="text-lg sm:text-xl font-medium text-gray-800 dark:text-gray-200 mb-10 max-w-2xl mx-auto leading-relaxed">
             Dozens of sources. No ads or sponsorships. No broken incentives.
@@ -171,18 +96,8 @@ export default async function HomePage() {
         <h2 className="font-display text-2xl sm:text-3xl font-semibold text-gray-900 dark:text-white mb-8 text-center">
           Jump into an event list
         </h2>
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
-          {FILTER_BUTTONS.map((button) => (
-            <HomeFilterButton
-              key={button.label}
-              label={button.label}
-              href={button.href}
-              icon={button.icon}
-            />
-          ))}
-        </div>
-        <div className="flex justify-center mt-3">
-          <Link href="/events" className="w-full max-w-xs">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-3">
+          <Link href="/events" className="sm:col-start-2">
             <div className="group flex items-center gap-3 p-4 bg-white dark:bg-gray-900 rounded-xl border border-brand-300 dark:border-brand-700 hover:border-brand-400 dark:hover:border-brand-500 hover:shadow-lg hover:shadow-brand-600/5 dark:hover:shadow-brand-400/5 transition-all duration-200 cursor-pointer hover:-translate-y-0.5">
               <div className="flex items-center justify-center w-9 h-9 rounded-lg bg-brand-50 dark:bg-brand-950/50 group-hover:bg-brand-100 dark:group-hover:bg-brand-900/50 transition-colors">
                 <List className="w-5 h-5 text-brand-600 dark:text-brand-400" />
@@ -193,6 +108,27 @@ export default async function HomePage() {
               <ArrowRight className="w-4 h-4 text-gray-400 dark:text-gray-500 group-hover:text-brand-500 dark:group-hover:text-brand-400 group-hover:translate-x-1 transition-all duration-200" />
             </div>
           </Link>
+          <Link href="/events/top30">
+            <div className="group flex items-center gap-3 p-4 bg-white dark:bg-gray-900 rounded-xl border border-brand-300 dark:border-brand-700 hover:border-brand-400 dark:hover:border-brand-500 hover:shadow-lg hover:shadow-brand-600/5 dark:hover:shadow-brand-400/5 transition-all duration-200 cursor-pointer hover:-translate-y-0.5">
+              <div className="flex items-center justify-center w-9 h-9 rounded-lg bg-brand-50 dark:bg-brand-950/50 group-hover:bg-brand-100 dark:group-hover:bg-brand-900/50 transition-colors">
+                <Star className="w-5 h-5 text-brand-600 dark:text-brand-400" />
+              </div>
+              <span className="text-sm font-medium text-gray-900 dark:text-white flex-1">
+                Top 30 Events
+              </span>
+              <ArrowRight className="w-4 h-4 text-gray-400 dark:text-gray-500 group-hover:text-brand-500 dark:group-hover:text-brand-400 group-hover:translate-x-1 transition-all duration-200" />
+            </div>
+          </Link>
+        </div>
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+          {FILTER_BUTTONS.map((button) => (
+            <HomeFilterButton
+              key={button.label}
+              label={button.label}
+              href={button.href}
+              icon={button.icon}
+            />
+          ))}
         </div>
       </section>
 
@@ -230,9 +166,7 @@ export default async function HomePage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           <div className="card-lift flex items-center gap-4 p-5 bg-white dark:bg-gray-900 rounded-xl border border-gray-200/80 dark:border-gray-800/80">
             <div className="flex-1 text-left">
-              <h3 className="font-semibold text-gray-900 dark:text-white mb-1">
-                All in one place
-              </h3>
+              <h3 className="font-semibold text-gray-900 dark:text-white mb-1">All in one place</h3>
               <p className="text-sm text-gray-600 dark:text-gray-400">
                 Every AVL event source in one clean feed.
               </p>
@@ -243,9 +177,7 @@ export default async function HomePage() {
           </div>
           <div className="card-lift flex items-center gap-4 p-5 bg-white dark:bg-gray-900 rounded-xl border border-gray-200/80 dark:border-gray-800/80">
             <div className="flex-1 text-left">
-              <h3 className="font-semibold text-gray-900 dark:text-white mb-1">
-                No ads, ever
-              </h3>
+              <h3 className="font-semibold text-gray-900 dark:text-white mb-1">No ads, ever</h3>
               <p className="text-sm text-gray-600 dark:text-gray-400">
                 No sponsors. No promotions. Free forever.
               </p>
@@ -260,7 +192,7 @@ export default async function HomePage() {
                 Open source, open data
               </h3>
               <p className="text-sm text-gray-600 dark:text-gray-400">
-                All data available via{" "}
+                All data available via{' '}
                 <a
                   href="https://avlgo.com/api/export/json"
                   target="_blank"
@@ -278,9 +210,7 @@ export default async function HomePage() {
           </div>
           <div className="card-lift flex items-center gap-4 p-5 bg-white dark:bg-gray-900 rounded-xl border border-gray-200/80 dark:border-gray-800/80">
             <div className="flex-1 text-left">
-              <h3 className="font-semibold text-gray-900 dark:text-white mb-1">
-                AI-enhanced
-              </h3>
+              <h3 className="font-semibold text-gray-900 dark:text-white mb-1">AI-enhanced</h3>
               <p className="text-sm text-gray-600 dark:text-gray-400">
                 Auto-tags, smart search, similar events.
               </p>
@@ -291,9 +221,7 @@ export default async function HomePage() {
           </div>
           <div className="card-lift flex items-center gap-4 p-5 bg-white dark:bg-gray-900 rounded-xl border border-gray-200/80 dark:border-gray-800/80">
             <div className="flex-1 text-left">
-              <h3 className="font-semibold text-gray-900 dark:text-white mb-1">
-                Easy for hosts
-              </h3>
+              <h3 className="font-semibold text-gray-900 dark:text-white mb-1">Easy for hosts</h3>
               <p className="text-sm text-gray-600 dark:text-gray-400">
                 We&apos;ll grab your events automatically!
               </p>
@@ -344,7 +272,7 @@ export default async function HomePage() {
           </div>
           <div className="text-sm text-gray-500 dark:text-gray-400 space-y-1">
             <p>
-              Built by Matt Brooks at Brooks Solutions, LLC.{" "}
+              Built by Matt Brooks at Brooks Solutions, LLC.{' '}
               <a
                 href="https://mattbrooks.xyz"
                 target="_blank"
@@ -355,8 +283,8 @@ export default async function HomePage() {
               </a>
             </p>
             <p>
-              © {new Date().getFullYear()} Asheville Event Feed. Not affiliated
-              with AVL Today, Eventbrite, Facebook Events, or Meetup.
+              © {new Date().getFullYear()} Asheville Event Feed. Not affiliated with AVL Today,
+              Eventbrite, Facebook Events, or Meetup.
             </p>
           </div>
         </div>

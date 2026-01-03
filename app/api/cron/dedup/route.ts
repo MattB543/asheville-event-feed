@@ -5,43 +5,43 @@
  * deduplication might miss.
  */
 
-import { NextResponse } from "next/server";
-import { db } from "@/lib/db";
-import { events } from "@/lib/db/schema";
-import { inArray } from "drizzle-orm";
-import { env } from "@/lib/config/env";
-import { verifyAuthToken } from "@/lib/utils/auth";
-import { invalidateEventsCache } from "@/lib/cache/invalidation";
+import { NextResponse } from 'next/server';
+import { db } from '@/lib/db';
+import { events } from '@/lib/db/schema';
+import { inArray } from 'drizzle-orm';
+import { env } from '@/lib/config/env';
+import { verifyAuthToken } from '@/lib/utils/auth';
+import { invalidateEventsCache } from '@/lib/cache/invalidation';
 import {
   runAIDeduplication,
   isAIDeduplicationAvailable,
   type EventForAIDedup,
-} from "@/lib/ai/aiDeduplication";
-import { startCronJob, completeCronJob, failCronJob } from "@/lib/cron/jobTracker";
+} from '@/lib/ai/aiDeduplication';
+import { startCronJob, completeCronJob, failCronJob } from '@/lib/cron/jobTracker';
 
 export const maxDuration = 300; // 5 minutes
 
 export async function GET(request: Request) {
-  const authHeader = request.headers.get("authorization");
+  const authHeader = request.headers.get('authorization');
   if (!verifyAuthToken(authHeader, env.CRON_SECRET)) {
-    return new NextResponse("Unauthorized", { status: 401 });
+    return new NextResponse('Unauthorized', { status: 401 });
   }
 
   const startTime = Date.now();
   const runId = await startCronJob('dedup');
 
   try {
-    console.log("[AI Dedup Cron] ════════════════════════════════════════════════");
-    console.log("[AI Dedup Cron] Starting AI deduplication job...");
+    console.log('[AI Dedup Cron] ════════════════════════════════════════════════');
+    console.log('[AI Dedup Cron] Starting AI deduplication job...');
 
     // Check if Azure AI is configured
     if (!isAIDeduplicationAvailable()) {
-      console.log("[AI Dedup Cron] Azure AI not configured, skipping.");
-      await completeCronJob(runId, { skipped: true, reason: "Azure AI not configured" });
+      console.log('[AI Dedup Cron] Azure AI not configured, skipping.');
+      await completeCronJob(runId, { skipped: true, reason: 'Azure AI not configured' });
       return NextResponse.json({
         success: true,
         skipped: true,
-        reason: "Azure AI not configured",
+        reason: 'Azure AI not configured',
       });
     }
 
@@ -82,19 +82,17 @@ export async function GET(request: Request) {
     // Delete duplicates
     if (result.idsToRemove.length > 0) {
       await db.delete(events).where(inArray(events.id, result.idsToRemove));
-      console.log(
-        `[AI Dedup Cron] Removed ${result.idsToRemove.length} duplicate events.`
-      );
+      console.log(`[AI Dedup Cron] Removed ${result.idsToRemove.length} duplicate events.`);
     } else {
-      console.log("[AI Dedup Cron] No duplicates found.");
+      console.log('[AI Dedup Cron] No duplicates found.');
     }
 
     const duration = Date.now() - startTime;
-    console.log("[AI Dedup Cron] ────────────────────────────────────────────────");
+    console.log('[AI Dedup Cron] ────────────────────────────────────────────────');
     console.log(
       `[AI Dedup Cron] Complete in ${Math.round(duration / 1000)}s: ${result.idsToRemove.length} removed, ${result.totalTokensUsed} tokens used`
     );
-    console.log("[AI Dedup Cron] ════════════════════════════════════════════════");
+    console.log('[AI Dedup Cron] ════════════════════════════════════════════════');
 
     // Invalidate cache so home page reflects deduplicated events
     invalidateEventsCache();
@@ -115,15 +113,12 @@ export async function GET(request: Request) {
     });
   } catch (error) {
     const duration = Date.now() - startTime;
-    console.error("[AI Dedup Cron] ════════════════════════════════════════════════");
-    console.error("[AI Dedup Cron] Job failed:", error);
-    console.error("[AI Dedup Cron] ════════════════════════════════════════════════");
+    console.error('[AI Dedup Cron] ════════════════════════════════════════════════');
+    console.error('[AI Dedup Cron] Job failed:', error);
+    console.error('[AI Dedup Cron] ════════════════════════════════════════════════');
 
     await failCronJob(runId, error);
 
-    return NextResponse.json(
-      { success: false, error: String(error), duration },
-      { status: 500 }
-    );
+    return NextResponse.json({ success: false, error: String(error), duration }, { status: 500 });
   }
 }

@@ -10,21 +10,45 @@ dotenv.config({
 
 // Export typed environment variables
 export const env = {
-  get DATABASE_URL() { return process.env.DATABASE_URL!; },
-  get GEMINI_API_KEY() { return process.env.GEMINI_API_KEY; },
-  get GEMINI_IMAGE_MODEL() { return process.env.GEMINI_IMAGE_MODEL; },
-  get CRON_SECRET() { return process.env.CRON_SECRET; },
-  get OPENROUTER_API_KEY() { return process.env.OPENROUTER_API_KEY; },
-  get SLACK_WEBHOOK() { return process.env.SLACK_WEBHOOK; },
+  get DATABASE_URL() {
+    return process.env.DATABASE_URL!;
+  },
+  get GEMINI_API_KEY() {
+    return process.env.GEMINI_API_KEY;
+  },
+  get GEMINI_IMAGE_MODEL() {
+    return process.env.GEMINI_IMAGE_MODEL;
+  },
+  get CRON_SECRET() {
+    return process.env.CRON_SECRET;
+  },
+  get OPENROUTER_API_KEY() {
+    return process.env.OPENROUTER_API_KEY;
+  },
+  get SLACK_WEBHOOK() {
+    return process.env.SLACK_WEBHOOK;
+  },
   // Supabase Auth
-  get NEXT_PUBLIC_SUPABASE_URL() { return process.env.NEXT_PUBLIC_SUPABASE_URL; },
-  get NEXT_PUBLIC_SUPABASE_ANON_KEY() { return process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY; },
+  get NEXT_PUBLIC_SUPABASE_URL() {
+    return process.env.NEXT_PUBLIC_SUPABASE_URL;
+  },
+  get NEXT_PUBLIC_SUPABASE_ANON_KEY() {
+    return process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  },
   // Postmark Email
-  get POSTMARK_API_KEY() { return process.env.POSTMARK_API_KEY; },
-  get POSTMARK_FROM_EMAIL() { return process.env.POSTMARK_FROM_EMAIL; },
-  get NEXT_PUBLIC_APP_URL() { return process.env.NEXT_PUBLIC_APP_URL || 'https://avlgo.com'; },
+  get POSTMARK_API_KEY() {
+    return process.env.POSTMARK_API_KEY;
+  },
+  get POSTMARK_FROM_EMAIL() {
+    return process.env.POSTMARK_FROM_EMAIL;
+  },
+  get NEXT_PUBLIC_APP_URL() {
+    return process.env.NEXT_PUBLIC_APP_URL || 'https://avlgo.com';
+  },
   // Jina Reader API (for event verification)
-  get JINA_API_KEY() { return process.env.JINA_API_KEY; },
+  get JINA_API_KEY() {
+    return process.env.JINA_API_KEY;
+  },
 } as const;
 
 // Helper to check if AI features are enabled
@@ -54,10 +78,7 @@ export function isJinaEnabled(): boolean {
 
 // Helper to check if Supabase Auth is configured
 export function isAuthEnabled(): boolean {
-  return !!(
-    process.env.NEXT_PUBLIC_SUPABASE_URL &&
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-  );
+  return !!(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
 }
 
 // Facebook configuration

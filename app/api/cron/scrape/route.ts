@@ -1,25 +1,25 @@
-import { NextResponse } from "next/server";
-import { scrapeAvlToday } from "@/lib/scrapers/avltoday";
-import { scrapeEventbrite } from "@/lib/scrapers/eventbrite";
-import { scrapeMeetup } from "@/lib/scrapers/meetup";
-import { scrapeFacebookEvents } from "@/lib/scrapers/facebook";
-import { scrapeHarrahs } from "@/lib/scrapers/harrahs";
-import { scrapeOrangePeel } from "@/lib/scrapers/orangepeel";
-import { scrapeGreyEagle } from "@/lib/scrapers/greyeagle";
-import { scrapeLiveMusicAvl } from "@/lib/scrapers/livemusicavl";
-import { scrapeMountainX } from "@/lib/scrapers/mountainx";
-import { scrapeStaticAge } from "@/lib/scrapers/staticage";
-import { scrapeRevolve } from "@/lib/scrapers/revolve";
-import { scrapeBMCMuseum } from "@/lib/scrapers/bmcmuseum";
-import { db } from "@/lib/db";
-import { events } from "@/lib/db/schema";
-import { inArray, eq } from "drizzle-orm";
-import type { ScrapedEvent } from "@/lib/scrapers/types";
-import { env, isFacebookEnabled } from "@/lib/config/env";
-import { findDuplicates, getIdsToRemove, getDescriptionUpdates } from "@/lib/utils/deduplication";
-import { verifyAuthToken } from "@/lib/utils/auth";
-import { invalidateEventsCache } from "@/lib/cache/invalidation";
-import { startCronJob, completeCronJob, failCronJob } from "@/lib/cron/jobTracker";
+import { NextResponse } from 'next/server';
+import { scrapeAvlToday } from '@/lib/scrapers/avltoday';
+import { scrapeEventbrite } from '@/lib/scrapers/eventbrite';
+import { scrapeMeetup } from '@/lib/scrapers/meetup';
+import { scrapeFacebookEvents } from '@/lib/scrapers/facebook';
+import { scrapeHarrahs } from '@/lib/scrapers/harrahs';
+import { scrapeOrangePeel } from '@/lib/scrapers/orangepeel';
+import { scrapeGreyEagle } from '@/lib/scrapers/greyeagle';
+import { scrapeLiveMusicAvl } from '@/lib/scrapers/livemusicavl';
+import { scrapeMountainX } from '@/lib/scrapers/mountainx';
+import { scrapeStaticAge } from '@/lib/scrapers/staticage';
+import { scrapeRevolve } from '@/lib/scrapers/revolve';
+import { scrapeBMCMuseum } from '@/lib/scrapers/bmcmuseum';
+import { db } from '@/lib/db';
+import { events } from '@/lib/db/schema';
+import { inArray, eq } from 'drizzle-orm';
+import type { ScrapedEvent } from '@/lib/scrapers/types';
+import { env, isFacebookEnabled } from '@/lib/config/env';
+import { findDuplicates, getIdsToRemove, getDescriptionUpdates } from '@/lib/utils/deduplication';
+import { verifyAuthToken } from '@/lib/utils/auth';
+import { invalidateEventsCache } from '@/lib/cache/invalidation';
+import { startCronJob, completeCronJob, failCronJob } from '@/lib/cron/jobTracker';
 
 export const maxDuration = 800; // 13+ minutes (requires Fluid Compute)
 
@@ -40,9 +40,9 @@ function formatDuration(ms: number): string {
 //
 // Schedule: Every 6 hours at :00 (cron: "0 0/6 * * *")
 export async function GET(request: Request) {
-  const authHeader = request.headers.get("authorization");
+  const authHeader = request.headers.get('authorization');
   if (!verifyAuthToken(authHeader, env.CRON_SECRET)) {
-    return new NextResponse("Unauthorized", { status: 401 });
+    return new NextResponse('Unauthorized', { status: 401 });
   }
 
   const jobStartTime = Date.now();
@@ -56,8 +56,8 @@ export async function GET(request: Request) {
   };
 
   try {
-    console.log("[Scrape] ════════════════════════════════════════════════");
-    console.log("[Scrape] Starting scrape-only job...");
+    console.log('[Scrape] ════════════════════════════════════════════════');
+    console.log('[Scrape] Starting scrape-only job...');
 
     // Scrape all sources in parallel
     const scrapeStartTime = Date.now();
@@ -88,41 +88,42 @@ export async function GET(request: Request) {
     ]);
 
     // Extract values from settled results
-    const avlEvents = avlResult.status === "fulfilled" ? avlResult.value : [];
-    const ebEvents = ebResult.status === "fulfilled" ? ebResult.value : [];
-    const meetupEvents = meetupResult.status === "fulfilled" ? meetupResult.value : [];
-    const harrahsEvents = harrahsResult.status === "fulfilled" ? harrahsResult.value : [];
-    const orangePeelEvents = orangePeelResult.status === "fulfilled" ? orangePeelResult.value : [];
-    const greyEagleEvents = greyEagleResult.status === "fulfilled" ? greyEagleResult.value : [];
-    const liveMusicAvlEvents = liveMusicAvlResult.status === "fulfilled" ? liveMusicAvlResult.value : [];
-    const mountainXEvents = mountainXResult.status === "fulfilled" ? mountainXResult.value : [];
-    const staticAgeEvents = staticAgeResult.status === "fulfilled" ? staticAgeResult.value : [];
-    const revolveEvents = revolveResult.status === "fulfilled" ? revolveResult.value : [];
-    const bmcMuseumEvents = bmcMuseumResult.status === "fulfilled" ? bmcMuseumResult.value : [];
+    const avlEvents = avlResult.status === 'fulfilled' ? avlResult.value : [];
+    const ebEvents = ebResult.status === 'fulfilled' ? ebResult.value : [];
+    const meetupEvents = meetupResult.status === 'fulfilled' ? meetupResult.value : [];
+    const harrahsEvents = harrahsResult.status === 'fulfilled' ? harrahsResult.value : [];
+    const orangePeelEvents = orangePeelResult.status === 'fulfilled' ? orangePeelResult.value : [];
+    const greyEagleEvents = greyEagleResult.status === 'fulfilled' ? greyEagleResult.value : [];
+    const liveMusicAvlEvents =
+      liveMusicAvlResult.status === 'fulfilled' ? liveMusicAvlResult.value : [];
+    const mountainXEvents = mountainXResult.status === 'fulfilled' ? mountainXResult.value : [];
+    const staticAgeEvents = staticAgeResult.status === 'fulfilled' ? staticAgeResult.value : [];
+    const revolveEvents = revolveResult.status === 'fulfilled' ? revolveResult.value : [];
+    const bmcMuseumEvents = bmcMuseumResult.status === 'fulfilled' ? bmcMuseumResult.value : [];
 
     // Log any scraper failures
-    if (avlResult.status === "rejected")
-      console.error("[Scrape] AVL Today scrape failed:", avlResult.reason);
-    if (ebResult.status === "rejected")
-      console.error("[Scrape] Eventbrite scrape failed:", ebResult.reason);
-    if (meetupResult.status === "rejected")
-      console.error("[Scrape] Meetup scrape failed:", meetupResult.reason);
-    if (harrahsResult.status === "rejected")
+    if (avlResult.status === 'rejected')
+      console.error('[Scrape] AVL Today scrape failed:', avlResult.reason);
+    if (ebResult.status === 'rejected')
+      console.error('[Scrape] Eventbrite scrape failed:', ebResult.reason);
+    if (meetupResult.status === 'rejected')
+      console.error('[Scrape] Meetup scrape failed:', meetupResult.reason);
+    if (harrahsResult.status === 'rejected')
       console.error("[Scrape] Harrah's scrape failed:", harrahsResult.reason);
-    if (orangePeelResult.status === "rejected")
-      console.error("[Scrape] Orange Peel scrape failed:", orangePeelResult.reason);
-    if (greyEagleResult.status === "rejected")
-      console.error("[Scrape] Grey Eagle scrape failed:", greyEagleResult.reason);
-    if (liveMusicAvlResult.status === "rejected")
-      console.error("[Scrape] Live Music AVL scrape failed:", liveMusicAvlResult.reason);
-    if (mountainXResult.status === "rejected")
-      console.error("[Scrape] Mountain Xpress scrape failed:", mountainXResult.reason);
-    if (staticAgeResult.status === "rejected")
-      console.error("[Scrape] Static Age scrape failed:", staticAgeResult.reason);
-    if (revolveResult.status === "rejected")
-      console.error("[Scrape] Revolve scrape failed:", revolveResult.reason);
-    if (bmcMuseumResult.status === "rejected")
-      console.error("[Scrape] BMC Museum scrape failed:", bmcMuseumResult.reason);
+    if (orangePeelResult.status === 'rejected')
+      console.error('[Scrape] Orange Peel scrape failed:', orangePeelResult.reason);
+    if (greyEagleResult.status === 'rejected')
+      console.error('[Scrape] Grey Eagle scrape failed:', greyEagleResult.reason);
+    if (liveMusicAvlResult.status === 'rejected')
+      console.error('[Scrape] Live Music AVL scrape failed:', liveMusicAvlResult.reason);
+    if (mountainXResult.status === 'rejected')
+      console.error('[Scrape] Mountain Xpress scrape failed:', mountainXResult.reason);
+    if (staticAgeResult.status === 'rejected')
+      console.error('[Scrape] Static Age scrape failed:', staticAgeResult.reason);
+    if (revolveResult.status === 'rejected')
+      console.error('[Scrape] Revolve scrape failed:', revolveResult.reason);
+    if (bmcMuseumResult.status === 'rejected')
+      console.error('[Scrape] BMC Museum scrape failed:', bmcMuseumResult.reason);
 
     stats.scraping.duration = Date.now() - scrapeStartTime;
     stats.scraping.total =
@@ -146,7 +147,7 @@ export async function GET(request: Request) {
     let fbEvents: ScrapedEvent[] = [];
     if (isFacebookEnabled()) {
       try {
-        console.log("[Scrape] Attempting Facebook scrape...");
+        console.log('[Scrape] Attempting Facebook scrape...');
         const fbRawEvents = await scrapeFacebookEvents();
         // Filter out low-interest events (must have >=4 going OR >=9 interested)
         fbEvents = fbRawEvents.filter(
@@ -158,15 +159,15 @@ export async function GET(request: Request) {
           `[Scrape] Facebook scrape complete: ${fbEvents.length} events (filtered ${fbRawEvents.length - fbEvents.length} low-interest)`
         );
       } catch (fbError) {
-        console.error("[Scrape] Facebook scrape failed (continuing):", fbError);
+        console.error('[Scrape] Facebook scrape failed (continuing):', fbError);
       }
     }
 
     // Combine all events (no tags - AI job will add them later)
     const allEvents: ScrapedEvent[] = [
-      ...avlEvents.map(e => ({ ...e, tags: undefined })),
-      ...ebEvents.map(e => ({ ...e, tags: undefined })),
-      ...meetupEvents.map(e => ({ ...e, tags: undefined })),
+      ...avlEvents.map((e) => ({ ...e, tags: undefined })),
+      ...ebEvents.map((e) => ({ ...e, tags: undefined })),
+      ...meetupEvents.map((e) => ({ ...e, tags: undefined })),
       ...fbEvents,
       ...harrahsEvents,
       ...orangePeelEvents,
@@ -271,7 +272,9 @@ export async function GET(request: Request) {
     for (const group of duplicateGroups) {
       console.log(`[Scrape] Dedup: Keep "${group.keep.title}" (${group.keep.id.substring(0, 6)})`);
       for (const removed of group.remove) {
-        console.log(`[Scrape]   Remove: "${removed.title}" (${removed.id.substring(0, 6)}) via Method ${group.method}`);
+        console.log(
+          `[Scrape]   Remove: "${removed.title}" (${removed.id.substring(0, 6)}) via Method ${group.method}`
+        );
       }
     }
 
@@ -279,29 +282,34 @@ export async function GET(request: Request) {
     // (keep the longer description from removed events)
     if (descriptionUpdates.length > 0) {
       for (const update of descriptionUpdates) {
-        await db.update(events)
+        await db
+          .update(events)
           .set({ description: update.description })
           .where(eq(events.id, update.id));
       }
-      console.log(`[Scrape] Deduplication: merged ${descriptionUpdates.length} longer descriptions.`);
+      console.log(
+        `[Scrape] Deduplication: merged ${descriptionUpdates.length} longer descriptions.`
+      );
     }
 
     if (duplicateIdsToRemove.length > 0) {
       await db.delete(events).where(inArray(events.id, duplicateIdsToRemove));
-      console.log(`[Scrape] Deduplication: removed ${duplicateIdsToRemove.length} duplicate events.`);
+      console.log(
+        `[Scrape] Deduplication: removed ${duplicateIdsToRemove.length} duplicate events.`
+      );
     } else {
       console.log(`[Scrape] Deduplication: no duplicates found.`);
     }
 
     // Final summary
     const totalDuration = Date.now() - jobStartTime;
-    console.log("[Scrape] ────────────────────────────────────────────────");
+    console.log('[Scrape] ────────────────────────────────────────────────');
     console.log(`[Scrape] JOB COMPLETE in ${formatDuration(totalDuration)}`);
-    console.log("[Scrape] ────────────────────────────────────────────────");
+    console.log('[Scrape] ────────────────────────────────────────────────');
     console.log(`[Scrape] Scraped: ${stats.scraping.total} events`);
     console.log(`[Scrape] Upserted: ${stats.upsert.success} (${stats.upsert.failed} failed)`);
     console.log(`[Scrape] Duplicates removed: ${stats.dedup.removed}`);
-    console.log("[Scrape] ════════════════════════════════════════════════");
+    console.log('[Scrape] ════════════════════════════════════════════════');
 
     // Invalidate cache so home page shows updated events
     invalidateEventsCache();
@@ -324,10 +332,10 @@ export async function GET(request: Request) {
     });
   } catch (error) {
     const totalDuration = Date.now() - jobStartTime;
-    console.error("[Scrape] ════════════════════════════════════════════════");
+    console.error('[Scrape] ════════════════════════════════════════════════');
     console.error(`[Scrape] JOB FAILED after ${formatDuration(totalDuration)}`);
-    console.error("[Scrape] Error:", error);
-    console.error("[Scrape] ════════════════════════════════════════════════");
+    console.error('[Scrape] Error:', error);
+    console.error('[Scrape] ════════════════════════════════════════════════');
 
     await failCronJob(runId, error);
 

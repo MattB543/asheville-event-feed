@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { useState } from "react";
+import { useState } from 'react';
 import {
   Database,
   ShieldOff,
@@ -9,7 +9,7 @@ import {
   Upload,
   SlidersHorizontal,
   ChevronDown,
-} from "lucide-react";
+} from 'lucide-react';
 
 export default function WhySection() {
   const [isOpen, setIsOpen] = useState(false);
@@ -22,16 +22,14 @@ export default function WhySection() {
       >
         How / why / what is this?
         <ChevronDown
-          className={`w-4 h-4 transition-transform duration-300 ${
-            isOpen ? "rotate-180" : ""
-          }`}
+          className={`w-4 h-4 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}
         />
       </button>
 
       {/* CSS grid for smooth height animation */}
       <div
         className={`grid transition-[grid-template-rows] duration-300 ease-out ${
-          isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+          isOpen ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'
         }`}
       >
         <div className="overflow-hidden">
@@ -52,9 +50,7 @@ export default function WhySection() {
               </div>
               <div className="card-lift flex items-center gap-4 p-5 bg-white dark:bg-gray-900 rounded-xl border border-gray-200/80 dark:border-gray-800/80">
                 <div className="flex-1 text-left">
-                  <h3 className="font-semibold text-gray-900 dark:text-white mb-1">
-                    No ads, ever
-                  </h3>
+                  <h3 className="font-semibold text-gray-900 dark:text-white mb-1">No ads, ever</h3>
                   <p className="text-sm text-gray-600 dark:text-gray-400">
                     No sponsors. No promotions. Free forever.
                   </p>
@@ -69,7 +65,7 @@ export default function WhySection() {
                     Open source, open data
                   </h3>
                   <p className="text-sm text-gray-600 dark:text-gray-400">
-                    All data available via{" "}
+                    All data available via{' '}
                     <a
                       href="https://avlgo.com/api/export/json"
                       target="_blank"
@@ -87,9 +83,7 @@ export default function WhySection() {
               </div>
               <div className="card-lift flex items-center gap-4 p-5 bg-white dark:bg-gray-900 rounded-xl border border-gray-200/80 dark:border-gray-800/80">
                 <div className="flex-1 text-left">
-                  <h3 className="font-semibold text-gray-900 dark:text-white mb-1">
-                    AI-enhanced
-                  </h3>
+                  <h3 className="font-semibold text-gray-900 dark:text-white mb-1">AI-enhanced</h3>
                   <p className="text-sm text-gray-600 dark:text-gray-400">
                     Auto-tags, smart search, similar events.
                   </p>

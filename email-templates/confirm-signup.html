@@ -1,111 +1,215 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Confirm your AVL GO account</title>
-</head>
-<body style="margin: 0; padding: 0; background-color: #f3f4f6; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">
-  <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color: #f3f4f6;">
-    <tr>
-      <td align="center" style="padding: 40px 20px;">
-        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="max-width: 480px; background-color: #ffffff; border-radius: 12px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Confirm your AVL GO account</title>
+  </head>
+  <body
+    style="
+      margin: 0;
+      padding: 0;
+      background-color: #f3f4f6;
+      font-family:
+        -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    "
+  >
+    <table
+      role="presentation"
+      width="100%"
+      cellspacing="0"
+      cellpadding="0"
+      border="0"
+      style="background-color: #f3f4f6"
+    >
+      <tr>
+        <td align="center" style="padding: 40px 20px">
+          <table
+            role="presentation"
+            width="100%"
+            cellspacing="0"
+            cellpadding="0"
+            border="0"
+            style="
+              max-width: 480px;
+              background-color: #ffffff;
+              border-radius: 12px;
+              box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            "
+          >
+            <!-- Header with gradient -->
+            <tr>
+              <td
+                style="
+                  background: linear-gradient(135deg, #0871aa 0%, #065c8a 100%);
+                  padding: 32px 40px;
+                  border-radius: 12px 12px 0 0;
+                  text-align: center;
+                "
+              >
+                <span
+                  style="font-size: 28px; font-weight: 700; color: #ffffff; letter-spacing: -0.5px"
+                  >AVL GO</span
+                >
+              </td>
+            </tr>
 
-          <!-- Header with gradient -->
-          <tr>
-            <td style="background: linear-gradient(135deg, #0871aa 0%, #065c8a 100%); padding: 32px 40px; border-radius: 12px 12px 0 0; text-align: center;">
-              <span style="font-size: 28px; font-weight: 700; color: #ffffff; letter-spacing: -0.5px;">AVL GO</span>
-            </td>
-          </tr>
+            <!-- Main content -->
+            <tr>
+              <td style="padding: 40px">
+                <h1
+                  style="
+                    margin: 0 0 16px 0;
+                    font-size: 24px;
+                    font-weight: 700;
+                    color: #111827;
+                    text-align: center;
+                  "
+                >
+                  Welcome to AVL GO! 🎉
+                </h1>
+                <p
+                  style="
+                    margin: 0 0 24px 0;
+                    font-size: 16px;
+                    line-height: 24px;
+                    color: #4b5563;
+                    text-align: center;
+                  "
+                >
+                  Thanks for signing up! Click the button below to confirm your email address and
+                  start discovering Asheville events.
+                </p>
 
-          <!-- Main content -->
-          <tr>
-            <td style="padding: 40px;">
-              <h1 style="margin: 0 0 16px 0; font-size: 24px; font-weight: 700; color: #111827; text-align: center;">
-                Welcome to AVL GO! 🎉
-              </h1>
-              <p style="margin: 0 0 24px 0; font-size: 16px; line-height: 24px; color: #4b5563; text-align: center;">
-                Thanks for signing up! Click the button below to confirm your email address and start discovering Asheville events.
-              </p>
+                <!-- CTA Button -->
+                <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
+                  <tr>
+                    <td align="center" style="padding: 8px 0 24px 0">
+                      <a
+                        href="{{ .ConfirmationURL }}"
+                        target="_blank"
+                        style="
+                          display: inline-block;
+                          padding: 14px 32px;
+                          background-color: #0871aa;
+                          color: #ffffff;
+                          font-size: 16px;
+                          font-weight: 600;
+                          text-decoration: none;
+                          border-radius: 8px;
+                        "
+                      >
+                        Confirm Email Address
+                      </a>
+                    </td>
+                  </tr>
+                </table>
 
-              <!-- CTA Button -->
-              <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
-                <tr>
-                  <td align="center" style="padding: 8px 0 24px 0;">
-                    <a href="{{ .ConfirmationURL }}" target="_blank" style="display: inline-block; padding: 14px 32px; background-color: #0871aa; color: #ffffff; font-size: 16px; font-weight: 600; text-decoration: none; border-radius: 8px;">
-                      Confirm Email Address
-                    </a>
-                  </td>
-                </tr>
-              </table>
+                <!-- Features list -->
+                <table
+                  role="presentation"
+                  width="100%"
+                  cellspacing="0"
+                  cellpadding="0"
+                  border="0"
+                  style="background-color: #e8f4f8; border-radius: 8px; padding: 20px"
+                >
+                  <tr>
+                    <td style="padding: 20px">
+                      <p
+                        style="
+                          margin: 0 0 12px 0;
+                          font-size: 14px;
+                          font-weight: 600;
+                          color: #044869;
+                        "
+                      >
+                        With your account you can:
+                      </p>
+                      <p style="margin: 0 0 8px 0; font-size: 14px; color: #065c8a">
+                        ✓ Save your favorite events
+                      </p>
+                      <p style="margin: 0 0 8px 0; font-size: 14px; color: #065c8a">
+                        ✓ Sync preferences across devices
+                      </p>
+                      <p style="margin: 0; font-size: 14px; color: #065c8a">
+                        ✓ Hide events you're not interested in
+                      </p>
+                    </td>
+                  </tr>
+                </table>
 
-              <!-- Features list -->
-              <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color: #e8f4f8; border-radius: 8px; padding: 20px;">
-                <tr>
-                  <td style="padding: 20px;">
-                    <p style="margin: 0 0 12px 0; font-size: 14px; font-weight: 600; color: #044869;">
-                      With your account you can:
-                    </p>
-                    <p style="margin: 0 0 8px 0; font-size: 14px; color: #065c8a;">
-                      ✓ Save your favorite events
-                    </p>
-                    <p style="margin: 0 0 8px 0; font-size: 14px; color: #065c8a;">
-                      ✓ Sync preferences across devices
-                    </p>
-                    <p style="margin: 0; font-size: 14px; color: #065c8a;">
-                      ✓ Hide events you're not interested in
-                    </p>
-                  </td>
-                </tr>
-              </table>
+                <!-- Divider -->
+                <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
+                  <tr>
+                    <td style="padding: 24px 0 16px 0">
+                      <div style="height: 1px; background-color: #e5e7eb"></div>
+                    </td>
+                  </tr>
+                </table>
 
-              <!-- Divider -->
-              <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
-                <tr>
-                  <td style="padding: 24px 0 16px 0;">
-                    <div style="height: 1px; background-color: #e5e7eb;"></div>
-                  </td>
-                </tr>
-              </table>
+                <!-- Alternative link -->
+                <p style="margin: 0 0 12px 0; font-size: 14px; color: #6b7280; text-align: center">
+                  Or copy and paste this link into your browser:
+                </p>
+                <p
+                  style="
+                    margin: 0;
+                    font-size: 12px;
+                    color: #0871aa;
+                    word-break: break-all;
+                    text-align: center;
+                    background-color: #f9fafb;
+                    padding: 12px;
+                    border-radius: 6px;
+                    border: 1px solid #e5e7eb;
+                  "
+                >
+                  {{ .ConfirmationURL }}
+                </p>
+              </td>
+            </tr>
 
-              <!-- Alternative link -->
-              <p style="margin: 0 0 12px 0; font-size: 14px; color: #6b7280; text-align: center;">
-                Or copy and paste this link into your browser:
-              </p>
-              <p style="margin: 0; font-size: 12px; color: #0871aa; word-break: break-all; text-align: center; background-color: #f9fafb; padding: 12px; border-radius: 6px; border: 1px solid #e5e7eb;">
-                {{ .ConfirmationURL }}
-              </p>
-            </td>
-          </tr>
+            <!-- Footer -->
+            <tr>
+              <td
+                style="
+                  padding: 24px 40px;
+                  background-color: #f9fafb;
+                  border-radius: 0 0 12px 12px;
+                  border-top: 1px solid #e5e7eb;
+                "
+              >
+                <p style="margin: 0 0 8px 0; font-size: 13px; color: #6b7280; text-align: center">
+                  Didn't create an account? You can safely ignore this email.
+                </p>
+                <p style="margin: 0; font-size: 13px; color: #9ca3af; text-align: center">
+                  © {{ .SiteURL }} · Asheville's Event Aggregator
+                </p>
+              </td>
+            </tr>
+          </table>
 
-          <!-- Footer -->
-          <tr>
-            <td style="padding: 24px 40px; background-color: #f9fafb; border-radius: 0 0 12px 12px; border-top: 1px solid #e5e7eb;">
-              <p style="margin: 0 0 8px 0; font-size: 13px; color: #6b7280; text-align: center;">
-                Didn't create an account? You can safely ignore this email.
-              </p>
-              <p style="margin: 0; font-size: 13px; color: #9ca3af; text-align: center;">
-                © {{ .SiteURL }} · Asheville's Event Aggregator
-              </p>
-            </td>
-          </tr>
-
-        </table>
-
-        <!-- Sub-footer -->
-        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="max-width: 480px;">
-          <tr>
-            <td style="padding: 24px 20px; text-align: center;">
-              <p style="margin: 0; font-size: 12px; color: #9ca3af;">
-                This email was sent to {{ .Email }}
-              </p>
-            </td>
-          </tr>
-        </table>
-
-      </td>
-    </tr>
-  </table>
-</body>
+          <!-- Sub-footer -->
+          <table
+            role="presentation"
+            width="100%"
+            cellspacing="0"
+            cellpadding="0"
+            border="0"
+            style="max-width: 480px"
+          >
+            <tr>
+              <td style="padding: 24px 20px; text-align: center">
+                <p style="margin: 0; font-size: 12px; color: #9ca3af">
+                  This email was sent to {{ .Email }}
+                </p>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
 </html>

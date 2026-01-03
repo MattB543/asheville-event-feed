@@ -20,9 +20,9 @@ export interface EnrichmentInput {
 }
 
 export interface EnrichmentResult {
-  price?: string;           // Extracted price: "Free", "$20", "$20+", "Ticketed"
-  time?: string;            // Extracted time: "19:00" (24-hour format)
-  updatedStartDate?: Date;  // If time was extracted, the updated start date
+  price?: string; // Extracted price: "Free", "$20", "$20+", "Ticketed"
+  time?: string; // Extracted time: "19:00" (24-hour format)
+  updatedStartDate?: Date; // If time was extracted, the updated start date
   confidence: 'high' | 'medium' | 'low';
   source: 'ai' | 'page_content';
 }
@@ -59,9 +59,7 @@ Return ONLY a JSON object with this structure (no markdown, no explanation):
  * @param input - Event information and what needs to be extracted
  * @returns EnrichmentResult or null if extraction fails
  */
-export async function enrichEventData(
-  input: EnrichmentInput
-): Promise<EnrichmentResult | null> {
+export async function enrichEventData(input: EnrichmentInput): Promise<EnrichmentResult | null> {
   if (!isAzureAIEnabled()) {
     console.warn('[Enrichment] Azure AI not configured');
     return null;
@@ -87,7 +85,9 @@ export async function enrichEventData(
       contentSource = 'description';
       console.log(`[Enrichment] Using description fallback for "${input.title}"`);
     } else {
-      console.warn(`[Enrichment] No content available for "${input.title}" (page fetch failed, no description)`);
+      console.warn(
+        `[Enrichment] No content available for "${input.title}" (page fetch failed, no description)`
+      );
       return null;
     }
   }
@@ -107,11 +107,9 @@ ${pageMarkdown}
 Extract the requested information. If the event appears to be a free community event/meetup with no price mentioned, return "Free". If it's clearly a ticketed show (concert, comedy, theater) but no price is shown, return "Ticketed".`;
 
   try {
-    const result = await azureChatCompletion(
-      EXTRACTION_SYSTEM_PROMPT,
-      userPrompt,
-      { maxTokens: 4000 }
-    );
+    const result = await azureChatCompletion(EXTRACTION_SYSTEM_PROMPT, userPrompt, {
+      maxTokens: 4000,
+    });
 
     if (!result || !result.content) {
       console.warn(`[Enrichment] No response for "${input.title}"`);
@@ -126,7 +124,11 @@ Extract the requested information. If the event appears to be a free community e
         .replace(/```json\s*/g, '')
         .replace(/```\s*/g, '')
         .trim();
-      parsed = JSON.parse(cleanContent);
+      parsed = JSON.parse(cleanContent) as {
+        price?: string | null;
+        time?: string | null;
+        confidence?: string;
+      };
     } catch {
       console.warn(`[Enrichment] Failed to parse response for "${input.title}": ${result.content}`);
       return null;
@@ -156,7 +158,9 @@ Extract the requested information. If the event appears to be a free community e
         const priceMatch = parsed.price.match(/^\$(\d+(?:\.\d{2})?)/);
         if (priceMatch) {
           enrichmentResult.price = `$${Math.round(parseFloat(priceMatch[1]))}`;
-          console.log(`[Enrichment] Normalized complex price "${parsed.price}" → "${enrichmentResult.price}"`);
+          console.log(
+            `[Enrichment] Normalized complex price "${parsed.price}" → "${enrichmentResult.price}"`
+          );
         }
       }
     }
@@ -170,18 +174,16 @@ Extract the requested information. If the event appears to be a free community e
         const minute = parseInt(timeMatch[2], 10);
         if (hour >= 0 && hour <= 23 && minute >= 0 && minute <= 59) {
           enrichmentResult.time = parsed.time;
-          enrichmentResult.updatedStartDate = applyTimeToDate(
-            input.currentStartDate,
-            hour,
-            minute
-          );
+          enrichmentResult.updatedStartDate = applyTimeToDate(input.currentStartDate, hour, minute);
         }
       }
     }
 
     // Only return if we actually extracted something
     if (enrichmentResult.price || enrichmentResult.time) {
-      console.log(`[Enrichment] Extracted for "${input.title}": price=${enrichmentResult.price}, time=${enrichmentResult.time}`);
+      console.log(
+        `[Enrichment] Extracted for "${input.title}": price=${enrichmentResult.price}, time=${enrichmentResult.time}`
+      );
       return enrichmentResult;
     }
 
@@ -221,7 +223,7 @@ export async function batchEnrichEvents(
 
     // Rate limit delay (except for last item)
     if (i < events.length - 1 && delayMs > 0) {
-      await new Promise(resolve => setTimeout(resolve, delayMs));
+      await new Promise((resolve) => setTimeout(resolve, delayMs));
     }
   }
 

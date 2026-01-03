@@ -1,4 +1,4 @@
-import { ScrapedEvent } from './types';
+import { type ScrapedEvent } from './types';
 import { BROWSER_HEADERS, debugSave, fetchEventData } from './base';
 import { decodeHtmlEntities } from '@/lib/utils/parsers';
 
@@ -19,7 +19,6 @@ interface Performance {
   dateStr: string;
 }
 
-
 /**
  * Parse ThunderTix date string like "Thursday, December 11, 2025 - 07:30 PM"
  * Returns a Date object in UTC
@@ -27,9 +26,7 @@ interface Performance {
 function parseThunderTixDate(dateStr: string): Date | null {
   // Format: "Thursday, December 11, 2025 - 07:30 PM EST"
   // or: "Thursday, December 11, 2025 - 07:30 PM"
-  const match = dateStr.match(
-    /(\w+), (\w+) (\d+), (\d+) - (\d+):(\d+) (AM|PM)/i
-  );
+  const match = dateStr.match(/(\w+), (\w+) (\d+), (\d+) - (\d+):(\d+) (AM|PM)/i);
 
   if (!match) {
     console.warn(`[NC Stage] Could not parse date: ${dateStr}`);
@@ -39,9 +36,18 @@ function parseThunderTixDate(dateStr: string): Date | null {
   const [, , monthName, day, year, hour, minute, ampm] = match;
 
   const months: Record<string, number> = {
-    January: 0, February: 1, March: 2, April: 3,
-    May: 4, June: 5, July: 6, August: 7,
-    September: 8, October: 9, November: 10, December: 11
+    January: 0,
+    February: 1,
+    March: 2,
+    April: 3,
+    May: 4,
+    June: 5,
+    July: 6,
+    August: 7,
+    September: 8,
+    October: 9,
+    November: 10,
+    December: 11,
   };
 
   const month = months[monthName];
@@ -65,8 +71,10 @@ function parseThunderTixDate(dateStr: string): Date | null {
   const testDate = new Date(`${dateOnly}T12:00:00`);
   const offsetPart = new Intl.DateTimeFormat('en-US', {
     timeZone: 'America/New_York',
-    timeZoneName: 'shortOffset'
-  }).formatToParts(testDate).find(p => p.type === 'timeZoneName')?.value;
+    timeZoneName: 'shortOffset',
+  })
+    .formatToParts(testDate)
+    .find((p) => p.type === 'timeZoneName')?.value;
 
   const offset = offsetPart?.includes('-4') ? '-04:00' : '-05:00';
 
@@ -80,7 +88,8 @@ function parseEventsPage(html: string): ThunderTixEvent[] {
   const events: ThunderTixEvent[] = [];
 
   // Match event boxes
-  const eventBoxRegex = /<div class="panel panel-default event_box">([\s\S]*?)<\/div>\s*<\/div>\s*<\/div>/g;
+  const eventBoxRegex =
+    /<div class="panel panel-default event_box">([\s\S]*?)<\/div>\s*<\/div>\s*<\/div>/g;
   let match;
 
   while ((match = eventBoxRegex.exec(html)) !== null) {
@@ -96,7 +105,9 @@ function parseEventsPage(html: string): ThunderTixEvent[] {
     const title = titleMatch ? decodeHtmlEntities(titleMatch[1].trim()) : '';
 
     // Extract description
-    const descMatch = eventHtml.match(/<div class="[^"]*event_description[^"]*"[^>]*>([\s\S]*?)<\/div>/);
+    const descMatch = eventHtml.match(
+      /<div class="[^"]*event_description[^"]*"[^>]*>([\s\S]*?)<\/div>/
+    );
     let description = '';
     if (descMatch) {
       description = descMatch[1]
@@ -108,7 +119,9 @@ function parseEventsPage(html: string): ThunderTixEvent[] {
     }
 
     // Extract image URL
-    const imgMatch = eventHtml.match(/src="([^"]+)" width="\d+" height="\d+"[^>]*class="event_image_tag"/);
+    const imgMatch = eventHtml.match(
+      /src="([^"]+)" width="\d+" height="\d+"[^>]*class="event_image_tag"/
+    );
     const imageUrl = imgMatch ? imgMatch[1] : '';
 
     // Extract date range
@@ -142,7 +155,7 @@ function parsePerformancesPage(html: string, eventId: string): Performance[] {
       performances.push({
         id: `${eventId}-${perfIndex}`,
         dateTime,
-        dateStr
+        dateStr,
       });
       perfIndex++;
     }
@@ -166,7 +179,8 @@ function getProductionUrl(title: string): string {
 
   // Known mappings (from exploration)
   const mappings: Record<string, string> = {
-    'a-christmas-carol': 'art-anvil-entertainment-presents-charles-dickens-a-christmas-carol-a-play-with-music',
+    'a-christmas-carol':
+      'art-anvil-entertainment-presents-charles-dickens-a-christmas-carol-a-play-with-music',
     'jeeves-in-bloom': 'jeeves-in-bloom-2',
     'tiny-beautiful-things': 'tiny-beautiful-things',
     'no-child': 'no-child',
@@ -202,7 +216,7 @@ export async function scrapeNCStage(): Promise<ScrapedEvent[]> {
     for (const event of events) {
       console.log(`[NC Stage] Fetching performances for: ${event.title}`);
 
-      await new Promise(r => setTimeout(r, 500)); // Rate limiting
+      await new Promise((r) => setTimeout(r, 500)); // Rate limiting
 
       try {
         const perfResponse = await fetchEventData(
@@ -238,7 +252,7 @@ export async function scrapeNCStage(): Promise<ScrapedEvent[]> {
             organizer: 'North Carolina Stage Company',
             price: 'Unknown', // Could scrape from event page if needed
             url: `${productionUrl}#${perf.dateTime.toISOString()}`,
-            imageUrl: event.imageUrl || undefined
+            imageUrl: event.imageUrl || undefined,
           };
 
           allEvents.push(scrapedEvent);
@@ -258,7 +272,6 @@ export async function scrapeNCStage(): Promise<ScrapedEvent[]> {
     }
 
     return allEvents;
-
   } catch (err) {
     console.error('[NC Stage] Scrape failed:', err);
     return [];
@@ -295,25 +308,35 @@ function generateValidationReport(events: ScrapedEvent[]): string {
 
     if (issues.length > 0) {
       lines.push(`  ${event.title.slice(0, 50)}`);
-      lines.push(`    Date: ${date.toISOString()} -> ${date.toLocaleString('en-US', { timeZone: 'America/New_York' })}`);
+      lines.push(
+        `    Date: ${date.toISOString()} -> ${date.toLocaleString('en-US', { timeZone: 'America/New_York' })}`
+      );
       lines.push(`    Issues: ${issues.join(', ')}`);
     }
   }
 
   lines.push('', '=== FIELD COMPLETENESS ===');
-  const withImages = events.filter(e => e.imageUrl).length;
-  const withPrices = events.filter(e => e.price && e.price !== 'Unknown').length;
-  const withDescriptions = events.filter(e => e.description).length;
+  const withImages = events.filter((e) => e.imageUrl).length;
+  const withPrices = events.filter((e) => e.price && e.price !== 'Unknown').length;
+  const withDescriptions = events.filter((e) => e.description).length;
 
-  lines.push(`  With images: ${withImages}/${events.length} (${Math.round(withImages / events.length * 100) || 0}%)`);
-  lines.push(`  With prices: ${withPrices}/${events.length} (${Math.round(withPrices / events.length * 100) || 0}%)`);
-  lines.push(`  With descriptions: ${withDescriptions}/${events.length} (${Math.round(withDescriptions / events.length * 100) || 0}%)`);
+  lines.push(
+    `  With images: ${withImages}/${events.length} (${Math.round((withImages / events.length) * 100) || 0}%)`
+  );
+  lines.push(
+    `  With prices: ${withPrices}/${events.length} (${Math.round((withPrices / events.length) * 100) || 0}%)`
+  );
+  lines.push(
+    `  With descriptions: ${withDescriptions}/${events.length} (${Math.round((withDescriptions / events.length) * 100) || 0}%)`
+  );
 
   lines.push('', '=== SAMPLE EVENTS ===');
   for (const event of events.slice(0, 5)) {
     lines.push(`  Title: ${event.title}`);
     lines.push(`  Date (UTC): ${event.startDate.toISOString()}`);
-    lines.push(`  Date (ET): ${event.startDate.toLocaleString('en-US', { timeZone: 'America/New_York' })}`);
+    lines.push(
+      `  Date (ET): ${event.startDate.toLocaleString('en-US', { timeZone: 'America/New_York' })}`
+    );
     lines.push(`  Location: ${event.location || 'N/A'}`);
     lines.push(`  Price: ${event.price || 'N/A'}`);
     lines.push(`  URL: ${event.url}`);

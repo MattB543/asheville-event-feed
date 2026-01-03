@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { useState, useEffect, useTransition, useRef } from "react";
+import { useState, useEffect, useTransition, useRef } from 'react';
 import {
   X,
   Calendar as CalendarIcon,
@@ -11,44 +11,30 @@ import {
   ChevronDown,
   ChevronUp,
   Trash2,
-} from "lucide-react";
-import { TAG_CATEGORIES } from "@/lib/config/tagCategories";
-import { getZipName } from "@/lib/config/zipNames";
-import { Calendar } from "./ui/Calendar";
-import { DateRange as DayPickerDateRange } from "react-day-picker";
-import { format, parse, isValid } from "date-fns";
-import TriStateCheckbox, { TriState } from "./ui/TriStateCheckbox";
-import ChipInput from "./ui/ChipInput";
-import PriceSlider, {
-  filterStateToSliderValue,
-  sliderValueToFilterState,
-} from "./ui/PriceSlider";
+} from 'lucide-react';
+import { TAG_CATEGORIES } from '@/lib/config/tagCategories';
+import { getZipName } from '@/lib/config/zipNames';
+import { Calendar } from './ui/Calendar';
+import { type DateRange as DayPickerDateRange } from 'react-day-picker';
+import { format, parse, isValid } from 'date-fns';
+import TriStateCheckbox, { type TriState } from './ui/TriStateCheckbox';
+import ChipInput from './ui/ChipInput';
+import PriceSlider, { filterStateToSliderValue, sliderValueToFilterState } from './ui/PriceSlider';
 
 // Safe date parsing helper
 function safeParseDateString(dateStr: string | null): Date | undefined {
   if (!dateStr) return undefined;
   try {
-    const parsed = parse(dateStr, "yyyy-MM-dd", new Date());
+    const parsed = parse(dateStr, 'yyyy-MM-dd', new Date());
     return isValid(parsed) ? parsed : undefined;
   } catch {
     return undefined;
   }
 }
 
-export type DateFilterType =
-  | "all"
-  | "today"
-  | "tomorrow"
-  | "weekend"
-  | "dayOfWeek"
-  | "custom";
-export type PriceFilterType =
-  | "any"
-  | "free"
-  | "under20"
-  | "under100"
-  | "custom";
-export type TimeOfDay = "morning" | "afternoon" | "evening";
+export type DateFilterType = 'all' | 'today' | 'tomorrow' | 'weekend' | 'dayOfWeek' | 'custom';
+export type PriceFilterType = 'any' | 'free' | 'under20' | 'under100' | 'custom';
+export type TimeOfDay = 'morning' | 'afternoon' | 'evening';
 
 export interface DateRange {
   start: string | null;
@@ -106,20 +92,20 @@ export interface FilterModalProps {
 }
 
 const dateLabels: Record<DateFilterType, string> = {
-  all: "All Dates",
-  today: "Today",
-  tomorrow: "Tomorrow",
-  weekend: "This Weekend",
-  dayOfWeek: "Day of Week",
-  custom: "Custom Dates",
+  all: 'All Dates',
+  today: 'Today',
+  tomorrow: 'Tomorrow',
+  weekend: 'This Weekend',
+  dayOfWeek: 'Day of Week',
+  custom: 'Custom Dates',
 };
 
-const DAY_NAMES = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+const DAY_NAMES = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
 const TIME_OPTIONS: { value: TimeOfDay; label: string; timeRange: string }[] = [
-  { value: "morning", label: "Morning", timeRange: "5 AM - Noon" },
-  { value: "afternoon", label: "Afternoon", timeRange: "Noon - 5 PM" },
-  { value: "evening", label: "Evening", timeRange: "5 PM - 3 AM" },
+  { value: 'morning', label: 'Morning', timeRange: '5 AM - Noon' },
+  { value: 'afternoon', label: 'Afternoon', timeRange: 'Noon - 5 PM' },
+  { value: 'evening', label: 'Evening', timeRange: '5 PM - 3 AM' },
 ];
 
 export default function FilterModal({
@@ -175,9 +161,7 @@ export default function FilterModal({
   const [expandedCategories, setExpandedCategories] = useState<Set<string>>(
     new Set(TAG_CATEGORIES.map((c) => c.name))
   );
-  const [expandedLocationSections, setExpandedLocationSections] = useState<Set<string>>(
-    new Set()
-  );
+  const [expandedLocationSections, setExpandedLocationSections] = useState<Set<string>>(new Set());
   const [showDefaultKeywords, setShowDefaultKeywords] = useState(false);
   const [showHiddenEvents, setShowHiddenEvents] = useState(false);
 
@@ -229,33 +213,33 @@ export default function FilterModal({
   // Handle escape key
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === "Escape" && isOpen) {
+      if (e.key === 'Escape' && isOpen) {
         onClose();
       }
     };
-    document.addEventListener("keydown", handleEscape);
-    return () => document.removeEventListener("keydown", handleEscape);
+    document.addEventListener('keydown', handleEscape);
+    return () => document.removeEventListener('keydown', handleEscape);
   }, [isOpen, onClose]);
 
   if (!isOpen) return null;
 
   // Tag helpers
   const getTagState = (tag: string): TriState => {
-    if (localTagFilters.include.includes(tag)) return "include";
-    if (localTagFilters.exclude.includes(tag)) return "exclude";
-    return "off";
+    if (localTagFilters.include.includes(tag)) return 'include';
+    if (localTagFilters.exclude.includes(tag)) return 'exclude';
+    return 'off';
   };
 
   const cycleTagState = (tag: string) => {
     const currentState = getTagState(tag);
     let newFilters: TagFilterState;
 
-    if (currentState === "off") {
+    if (currentState === 'off') {
       newFilters = {
         ...localTagFilters,
         include: [...localTagFilters.include, tag],
       };
-    } else if (currentState === "include") {
+    } else if (currentState === 'include') {
       newFilters = {
         include: localTagFilters.include.filter((t) => t !== tag),
         exclude: [...localTagFilters.exclude, tag],
@@ -291,14 +275,12 @@ export default function FilterModal({
 
   // Location helpers
   // Build the full list of all location keys
-  const allLocationKeys = [
-    "asheville",
-    ...availableLocations.filter((l) => l !== "Asheville"),
-  ];
+  const allLocationKeys = ['asheville', ...availableLocations.filter((l) => l !== 'Asheville')];
 
   // Special marker for "none selected" state (visually all unchecked, but no filter applied)
-  const NONE_SELECTED_MARKER = "__none__";
-  const isNoneSelected = localSelectedLocations.length === 1 && localSelectedLocations[0] === NONE_SELECTED_MARKER;
+  const NONE_SELECTED_MARKER = '__none__';
+  const isNoneSelected =
+    localSelectedLocations.length === 1 && localSelectedLocations[0] === NONE_SELECTED_MARKER;
 
   // Empty array means "all selected" (no filter), marker means "none selected" (also no filter)
   const isAllLocationsSelected = localSelectedLocations.length === 0;
@@ -334,8 +316,10 @@ export default function FilterModal({
       // Checking - add to list
       newLocations = [...localSelectedLocations, location];
       // If all are now selected, set to empty (meaning "all")
-      if (newLocations.length === allLocationKeys.length &&
-          allLocationKeys.every((l) => newLocations.includes(l))) {
+      if (
+        newLocations.length === allLocationKeys.length &&
+        allLocationKeys.every((l) => newLocations.includes(l))
+      ) {
         newLocations = [];
       }
     }
@@ -348,7 +332,7 @@ export default function FilterModal({
   };
 
   const handleAshevilleToggle = () => {
-    toggleLocation("asheville");
+    toggleLocation('asheville');
   };
 
   const toggleZip = (zip: string) => {
@@ -388,8 +372,7 @@ export default function FilterModal({
     availableTags: category.tags.filter((tag) => availableTags.includes(tag)),
   })).filter((cat) => cat.availableTags.length > 0);
 
-  const activeTagCount =
-    localTagFilters.include.length + localTagFilters.exclude.length;
+  const activeTagCount = localTagFilters.include.length + localTagFilters.exclude.length;
 
   return (
     <div
@@ -402,9 +385,7 @@ export default function FilterModal({
       >
         {/* Header */}
         <div className="flex justify-between items-center px-4 py-4 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 sticky top-0 z-10">
-          <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">
-            Filters
-          </h2>
+          <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">Filters</h2>
           <button
             onClick={onClose}
             className="p-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors cursor-pointer"
@@ -420,46 +401,40 @@ export default function FilterModal({
           <section className="p-4 border-b border-gray-200 dark:border-gray-700">
             <div className="flex items-center gap-2 mb-4">
               <CalendarIcon size={20} className="text-brand-600 dark:text-brand-400" />
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
-                Date
-              </h3>
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Date</h3>
             </div>
 
             <div className="space-y-0.5">
-              {(Object.entries(dateLabels) as [DateFilterType, string][]).map(
-                ([value, label]) => (
-                  <label
-                    key={value}
-                    className="flex items-center gap-2 py-1.5 px-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 cursor-pointer"
-                  >
-                    <input
-                      type="radio"
-                      name="dateFilter"
-                      checked={localDateFilter === value}
-                      onChange={() => {
-                        setLocalDateFilter(value);
-                        startTransition(() => {
-                          onDateFilterChange(value);
-                        });
-                      }}
-                      className="w-4 h-4 text-brand-600"
-                    />
-                    <span className="text-sm text-gray-700 dark:text-gray-200">
-                      {label}
-                    </span>
-                  </label>
-                )
-              )}
+              {(Object.entries(dateLabels) as [DateFilterType, string][]).map(([value, label]) => (
+                <label
+                  key={value}
+                  className="flex items-center gap-2 py-1.5 px-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 cursor-pointer"
+                >
+                  <input
+                    type="radio"
+                    name="dateFilter"
+                    checked={localDateFilter === value}
+                    onChange={() => {
+                      setLocalDateFilter(value);
+                      startTransition(() => {
+                        onDateFilterChange(value);
+                      });
+                    }}
+                    className="w-4 h-4 text-brand-600"
+                  />
+                  <span className="text-sm text-gray-700 dark:text-gray-200">{label}</span>
+                </label>
+              ))}
             </div>
 
             {/* Day of Week selector */}
-            {localDateFilter === "dayOfWeek" && (
+            {localDateFilter === 'dayOfWeek' && (
               <div className="mt-4 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-xs text-gray-500 dark:text-gray-400">
                     {localSelectedDays.length === 0
-                      ? "Select days"
-                      : `${localSelectedDays.length} day${localSelectedDays.length !== 1 ? "s" : ""} selected`}
+                      ? 'Select days'
+                      : `${localSelectedDays.length} day${localSelectedDays.length !== 1 ? 's' : ''} selected`}
                   </span>
                   {localSelectedDays.length > 0 && (
                     <button
@@ -491,8 +466,8 @@ export default function FilterModal({
                         }}
                         className={`flex-1 py-2 text-xs font-medium rounded transition-colors cursor-pointer ${
                           localSelectedDays.includes(index)
-                            ? "bg-brand-600 text-white"
-                            : "bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600"
+                            ? 'bg-brand-600 text-white'
+                            : 'bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600'
                         }`}
                       >
                         {day}
@@ -504,7 +479,7 @@ export default function FilterModal({
             )}
 
             {/* Custom date range */}
-            {localDateFilter === "custom" && (
+            {localDateFilter === 'custom' && (
               <div className="mt-4 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-xs text-gray-500 dark:text-gray-400">
@@ -512,11 +487,11 @@ export default function FilterModal({
                       const startDate = safeParseDateString(localCustomDateRange.start);
                       const endDate = safeParseDateString(localCustomDateRange.end);
                       if (startDate && endDate) {
-                        return `${format(startDate, "MMM d")} - ${format(endDate, "MMM d")}`;
+                        return `${format(startDate, 'MMM d')} - ${format(endDate, 'MMM d')}`;
                       } else if (startDate) {
-                        return format(startDate, "MMM d, yyyy");
+                        return format(startDate, 'MMM d, yyyy');
                       }
-                      return "Select dates";
+                      return 'Select dates';
                     })()}
                   </span>
                   {localCustomDateRange.start && (
@@ -546,8 +521,8 @@ export default function FilterModal({
                     const newRange = !range
                       ? { start: null, end: null }
                       : {
-                          start: range.from ? format(range.from, "yyyy-MM-dd") : null,
-                          end: range.to ? format(range.to, "yyyy-MM-dd") : null,
+                          start: range.from ? format(range.from, 'yyyy-MM-dd') : null,
+                          end: range.to ? format(range.to, 'yyyy-MM-dd') : null,
                         };
                     setLocalCustomDateRange(newRange);
                     startTransition(() => {
@@ -597,12 +572,16 @@ export default function FilterModal({
                       }}
                       className={`w-full py-2 px-3 text-sm font-medium rounded-lg transition-colors cursor-pointer flex items-center justify-between ${
                         isSelected
-                          ? "bg-brand-600 text-white"
-                          : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700"
+                          ? 'bg-brand-600 text-white'
+                          : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700'
                       }`}
                     >
                       <span>{option.label}</span>
-                      <span className={isSelected ? "text-white/70" : "text-gray-400 dark:text-gray-500"}>
+                      <span
+                        className={
+                          isSelected ? 'text-white/70' : 'text-gray-400 dark:text-gray-500'
+                        }
+                      >
                         {option.timeRange}
                       </span>
                     </button>
@@ -616,9 +595,7 @@ export default function FilterModal({
           <section className="p-4 border-b border-gray-200 dark:border-gray-700">
             <div className="flex items-center gap-2 mb-4">
               <DollarSign size={20} className="text-brand-600 dark:text-brand-400" />
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
-                Price
-              </h3>
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Price</h3>
             </div>
 
             <PriceSlider
@@ -639,9 +616,7 @@ export default function FilterModal({
           <section className="p-4 border-b border-gray-200 dark:border-gray-700">
             <div className="flex items-center gap-2 mb-4">
               <MapPin size={20} className="text-brand-600 dark:text-brand-400" />
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
-                Location
-              </h3>
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Location</h3>
             </div>
 
             <div className="flex gap-2 mb-3">
@@ -666,10 +641,10 @@ export default function FilterModal({
                 onClick={() => {
                   setExpandedLocationSections((prev) => {
                     const next = new Set(prev);
-                    if (next.has("cities")) {
-                      next.delete("cities");
+                    if (next.has('cities')) {
+                      next.delete('cities');
                     } else {
-                      next.add("cities");
+                      next.add('cities');
                     }
                     return next;
                   });
@@ -680,26 +655,24 @@ export default function FilterModal({
                 <ChevronDown
                   size={16}
                   className={`transition-transform ${
-                    expandedLocationSections.has("cities") ? "rotate-180" : ""
+                    expandedLocationSections.has('cities') ? 'rotate-180' : ''
                   }`}
                 />
               </button>
-              {expandedLocationSections.has("cities") && (
+              {expandedLocationSections.has('cities') && (
                 <div className="ml-2 mt-1 space-y-0.5">
                   <label className="flex items-center gap-2 py-1.5 px-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 cursor-pointer">
                     <input
                       type="checkbox"
-                      checked={isLocationSelected("asheville")}
+                      checked={isLocationSelected('asheville')}
                       onChange={handleAshevilleToggle}
                       className="w-4 h-4 text-brand-600 rounded border-gray-300 focus:ring-brand-500"
                     />
-                    <span className="text-sm text-gray-700 dark:text-gray-200">
-                      Asheville area
-                    </span>
+                    <span className="text-sm text-gray-700 dark:text-gray-200">Asheville area</span>
                   </label>
 
                   {availableLocations
-                    .filter((loc) => loc !== "Asheville" && loc !== "Online")
+                    .filter((loc) => loc !== 'Asheville' && loc !== 'Online')
                     .map((location) => (
                       <label
                         key={location}
@@ -711,23 +684,19 @@ export default function FilterModal({
                           onChange={() => toggleLocation(location)}
                           className="w-4 h-4 text-brand-600 rounded border-gray-300 focus:ring-brand-500"
                         />
-                        <span className="text-sm text-gray-700 dark:text-gray-200">
-                          {location}
-                        </span>
+                        <span className="text-sm text-gray-700 dark:text-gray-200">{location}</span>
                       </label>
                     ))}
 
-                  {availableLocations.includes("Online") && (
+                  {availableLocations.includes('Online') && (
                     <label className="flex items-center gap-2 py-1.5 px-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 cursor-pointer">
                       <input
                         type="checkbox"
-                        checked={isLocationSelected("Online")}
-                        onChange={() => toggleLocation("Online")}
+                        checked={isLocationSelected('Online')}
+                        onChange={() => toggleLocation('Online')}
                         className="w-4 h-4 text-brand-600 rounded border-gray-300 focus:ring-brand-500"
                       />
-                      <span className="text-sm text-gray-700 dark:text-gray-200">
-                        Online
-                      </span>
+                      <span className="text-sm text-gray-700 dark:text-gray-200">Online</span>
                     </label>
                   )}
                 </div>
@@ -741,10 +710,10 @@ export default function FilterModal({
                   onClick={() => {
                     setExpandedLocationSections((prev) => {
                       const next = new Set(prev);
-                      if (next.has("zips")) {
-                        next.delete("zips");
+                      if (next.has('zips')) {
+                        next.delete('zips');
                       } else {
-                        next.add("zips");
+                        next.add('zips');
                       }
                       return next;
                     });
@@ -755,11 +724,11 @@ export default function FilterModal({
                   <ChevronDown
                     size={16}
                     className={`transition-transform ${
-                      expandedLocationSections.has("zips") ? "rotate-180" : ""
+                      expandedLocationSections.has('zips') ? 'rotate-180' : ''
                     }`}
                   />
                 </button>
-                {expandedLocationSections.has("zips") && (
+                {expandedLocationSections.has('zips') && (
                   <div className="ml-2 mt-1 space-y-0.5">
                     {availableZips.map(({ zip }) => (
                       <label
@@ -772,9 +741,7 @@ export default function FilterModal({
                           onChange={() => toggleZip(zip)}
                           className="w-4 h-4 text-brand-600 rounded border-gray-300 focus:ring-brand-500"
                         />
-                        <span className="text-sm text-gray-700 dark:text-gray-200">
-                          {zip}
-                        </span>
+                        <span className="text-sm text-gray-700 dark:text-gray-200">{zip}</span>
                         <span className="text-sm text-gray-400 dark:text-gray-500 ml-auto">
                           {getZipName(zip)}
                         </span>
@@ -786,16 +753,21 @@ export default function FilterModal({
             )}
 
             {/* Show filter summary when locations are filtered (some but not all/none selected) or zips are selected */}
-            {((!hasNoLocationFilter && localSelectedLocations.length > 0) || localSelectedZips.length > 0) && (
+            {((!hasNoLocationFilter && localSelectedLocations.length > 0) ||
+              localSelectedZips.length > 0) && (
               <div className="mt-3 p-2 bg-gray-50 dark:bg-gray-800 rounded-lg flex items-center justify-between">
                 <span className="text-xs text-gray-500 dark:text-gray-400">
                   {!hasNoLocationFilter && localSelectedLocations.length > 0
                     ? `${localSelectedLocations.length} of ${allLocationKeys.length} cities`
-                    : ""}
-                  {!hasNoLocationFilter && localSelectedLocations.length > 0 && localSelectedZips.length > 0 ? ", " : ""}
+                    : ''}
+                  {!hasNoLocationFilter &&
+                  localSelectedLocations.length > 0 &&
+                  localSelectedZips.length > 0
+                    ? ', '
+                    : ''}
                   {localSelectedZips.length > 0
-                    ? `${localSelectedZips.length} zip${localSelectedZips.length !== 1 ? "s" : ""}`
-                    : ""}
+                    ? `${localSelectedZips.length} zip${localSelectedZips.length !== 1 ? 's' : ''}`
+                    : ''}
                 </span>
                 <button
                   onClick={() => {
@@ -817,9 +789,7 @@ export default function FilterModal({
           <section className="p-4 border-b border-gray-200 dark:border-gray-700">
             <div className="flex items-center gap-2 mb-4">
               <Tag size={20} className="text-brand-600 dark:text-brand-400" />
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
-                Tags
-              </h3>
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Tags</h3>
             </div>
 
             <div className="flex items-center justify-between mb-3">
@@ -865,9 +835,7 @@ export default function FilterModal({
 
             {/* Tag Categories */}
             {groupedTags.length === 0 ? (
-              <p className="text-sm text-gray-500 dark:text-gray-400 p-2">
-                No tags available
-              </p>
+              <p className="text-sm text-gray-500 dark:text-gray-400 p-2">No tags available</p>
             ) : (
               <div className="space-y-2">
                 {groupedTags.map((category) => (
@@ -923,7 +891,7 @@ export default function FilterModal({
                       {localTagFilters.include.length} included
                     </span>
                   )}
-                  {localTagFilters.include.length > 0 && localTagFilters.exclude.length > 0 && ", "}
+                  {localTagFilters.include.length > 0 && localTagFilters.exclude.length > 0 && ', '}
                   {localTagFilters.exclude.length > 0 && (
                     <span className="text-red-700 dark:text-red-400">
                       {localTagFilters.exclude.length} excluded
@@ -951,11 +919,10 @@ export default function FilterModal({
 
             {/* Default Filters Info */}
             <div className="p-4 bg-brand-50 dark:bg-brand-950/30 border border-brand-200 dark:border-brand-800 rounded-lg mb-4">
-              <h4 className="font-medium text-brand-900 dark:text-brand-200">
-                Spam Filter
-              </h4>
+              <h4 className="font-medium text-brand-900 dark:text-brand-200">Spam Filter</h4>
               <p className="text-sm text-brand-700 dark:text-brand-400 mt-1">
-                Certification training, self-guided tours, and other low-quality events are automatically hidden.
+                Certification training, self-guided tours, and other low-quality events are
+                automatically hidden.
               </p>
 
               <button
@@ -963,7 +930,8 @@ export default function FilterModal({
                 className="flex items-center gap-1 text-sm text-brand-700 dark:text-brand-400 hover:text-brand-900 dark:hover:text-brand-300 mt-3 cursor-pointer"
               >
                 {showDefaultKeywords ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
-                {showDefaultKeywords ? "Hide" : "View"} blocked keywords ({defaultFilterKeywords.length})
+                {showDefaultKeywords ? 'Hide' : 'View'} blocked keywords (
+                {defaultFilterKeywords.length})
               </button>
 
               {showDefaultKeywords && (
@@ -1013,7 +981,7 @@ export default function FilterModal({
               <div className="flex items-center justify-between">
                 <span className="text-sm text-gray-600 dark:text-gray-300">
                   You have hidden <strong>{hiddenEvents.length}</strong> event pattern
-                  {hiddenEvents.length !== 1 ? "s" : ""}.
+                  {hiddenEvents.length !== 1 ? 's' : ''}.
                 </span>
                 {hiddenEvents.length > 0 && (
                   <button
@@ -1033,7 +1001,7 @@ export default function FilterModal({
                     className="flex items-center gap-1 text-sm text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 cursor-pointer"
                   >
                     {showHiddenEvents ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
-                    {showHiddenEvents ? "Hide" : "View"} hidden events
+                    {showHiddenEvents ? 'Hide' : 'View'} hidden events
                   </button>
 
                   {showHiddenEvents && (

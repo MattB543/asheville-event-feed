@@ -1,4 +1,4 @@
-import { ScrapedEvent } from './types';
+import { type ScrapedEvent } from './types';
 import { fetchWithRetry } from '@/lib/utils/retry';
 import { decodeHtmlEntities } from '@/lib/utils/parsers';
 
@@ -18,8 +18,9 @@ const SHOWS_ENDPOINT = `${API_BASE}/shows`;
 const CLASSES_ENDPOINT = `${API_BASE}/classes`;
 
 const API_HEADERS = {
-  'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-  'Accept': 'application/json',
+  'User-Agent':
+    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+  Accept: 'application/json',
 };
 
 // Crowdwork API response types
@@ -77,7 +78,7 @@ function formatPrice(event: CrowdworkEvent): string {
 
   // If "Multiple prices", calculate from tiers
   if (formatted === 'Multiple prices' && event.cost_tiers?.length > 0) {
-    const costs = event.cost_tiers.map(t => t.cost);
+    const costs = event.cost_tiers.map((t) => t.cost);
     const minCents = Math.min(...costs);
     if (minCents === 0) {
       return 'Free';
@@ -157,19 +158,23 @@ function transformEvent(event: CrowdworkEvent): ScrapedEvent[] {
  */
 async function fetchCrowdworkEvents(endpoint: string, type: string): Promise<CrowdworkEvent[]> {
   try {
-    const response = await fetchWithRetry(endpoint, {
-      headers: API_HEADERS,
-    }, {
-      maxRetries: 3,
-      baseDelay: 1000,
-    });
+    const response = await fetchWithRetry(
+      endpoint,
+      {
+        headers: API_HEADERS,
+      },
+      {
+        maxRetries: 3,
+        baseDelay: 1000,
+      }
+    );
 
     if (!response.ok) {
       console.error(`[MisfitImprov] ${type} API error: ${response.status} ${response.statusText}`);
       return [];
     }
 
-    const data: CrowdworkResponse = await response.json();
+    const data = (await response.json()) as CrowdworkResponse;
 
     if (data.status !== 200 || data.type !== 'success') {
       console.error(`[MisfitImprov] ${type} API returned error:`, data.message);

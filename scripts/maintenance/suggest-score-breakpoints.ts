@@ -139,8 +139,7 @@ async function main() {
         const expandedCount = sumRange(scoreCounts, expandedMin, maxScore);
         const goldCount = sumRange(scoreCounts, goldMin, maxScore);
 
-        const collapsedCount =
-          totalWithMissing - hiddenCount - expandedCount;
+        const collapsedCount = totalWithMissing - hiddenCount - expandedCount;
 
         const hiddenAvg = avg(hiddenCount, daysInRange);
         const collapsedAvg = avg(collapsedCount, daysInRange);
@@ -169,11 +168,12 @@ async function main() {
 
   candidates.sort((a, b) => a.error - b.error);
 
-  const matching = candidates.filter((candidate) =>
-    inRange(candidate.hiddenAvg, RANGES.hiddenAvg) &&
-    inRange(candidate.collapsedAvg, RANGES.collapsedAvg) &&
-    inRange(candidate.expandedAvg, RANGES.expandedAvg) &&
-    inRange(candidate.goldAvg, RANGES.goldAvg)
+  const matching = candidates.filter(
+    (candidate) =>
+      inRange(candidate.hiddenAvg, RANGES.hiddenAvg) &&
+      inRange(candidate.collapsedAvg, RANGES.collapsedAvg) &&
+      inRange(candidate.expandedAvg, RANGES.expandedAvg) &&
+      inRange(candidate.goldAvg, RANGES.goldAvg)
   );
 
   console.log('='.repeat(72));
@@ -192,7 +192,7 @@ async function main() {
   console.log('Target daily averages:');
   console.log(
     `Hidden ${TARGETS.hiddenAvg} | Collapsed ${TARGETS.collapsedAvg} | ` +
-    `Expanded ${TARGETS.expandedAvg} | Gold ${TARGETS.goldAvg}`
+      `Expanded ${TARGETS.expandedAvg} | Gold ${TARGETS.goldAvg}`
   );
   console.log('');
 
@@ -222,12 +222,15 @@ async function main() {
     { label: 'old gold 20', hiddenMax: 12, expandedMin: 17, goldMin: 20 },
   ];
 
-  const parsedEval =
-    tiersArg
-      ? tiersArg.split(',').map((value) => Number.parseInt(value.trim(), 10))
-      : null;
+  const parsedEval = tiersArg
+    ? tiersArg.split(',').map((value) => Number.parseInt(value.trim(), 10))
+    : null;
 
-  if (parsedEval && parsedEval.length === 3 && parsedEval.every((value) => Number.isFinite(value))) {
+  if (
+    parsedEval &&
+    parsedEval.length === 3 &&
+    parsedEval.every((value) => Number.isFinite(value))
+  ) {
     evalSets.push({
       label: `custom (${parsedEval.join(',')})`,
       hiddenMax: parsedEval[0],
@@ -242,12 +245,14 @@ async function main() {
     const goldCount = sumRange(scoreCounts, set.goldMin, maxScore);
     const collapsedCount = totalWithMissing - hiddenCount - expandedCount;
     console.log('');
-    console.log(`Eval (${set.label}) hidden<=${set.hiddenMax}, expanded>=${set.expandedMin}, gold>=${set.goldMin}:`);
+    console.log(
+      `Eval (${set.label}) hidden<=${set.hiddenMax}, expanded>=${set.expandedMin}, gold>=${set.goldMin}:`
+    );
     console.log(
       `Hidden ${avg(hiddenCount, daysInRange).toFixed(2)} | ` +
-      `Collapsed ${avg(collapsedCount, daysInRange).toFixed(2)} | ` +
-      `Expanded ${avg(expandedCount, daysInRange).toFixed(2)} | ` +
-      `Gold ${avg(goldCount, daysInRange).toFixed(2)}`
+        `Collapsed ${avg(collapsedCount, daysInRange).toFixed(2)} | ` +
+        `Expanded ${avg(expandedCount, daysInRange).toFixed(2)} | ` +
+        `Gold ${avg(goldCount, daysInRange).toFixed(2)}`
     );
   }
 }

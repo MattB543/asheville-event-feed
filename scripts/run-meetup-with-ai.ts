@@ -41,7 +41,9 @@ async function main() {
   let scrapedEvents;
   try {
     scrapedEvents = await scrapeMeetup(30); // 30 days
-    console.log(`Scraped ${scrapedEvents.length} events in ${formatDuration(Date.now() - scrapeStart)}`);
+    console.log(
+      `Scraped ${scrapedEvents.length} events in ${formatDuration(Date.now() - scrapeStart)}`
+    );
   } catch (error) {
     console.error('Failed to scrape Meetup:', error);
     process.exit(1);
@@ -105,13 +107,18 @@ async function main() {
           upsertSuccess++;
         } catch (err) {
           upsertFailed++;
-          console.error(`Failed to upsert "${event.title}":`, err instanceof Error ? err.message : err);
+          console.error(
+            `Failed to upsert "${event.title}":`,
+            err instanceof Error ? err.message : err
+          );
         }
       })
     );
   }
 
-  console.log(`Upserted ${upsertSuccess} events (${upsertFailed} failed) in ${formatDuration(Date.now() - upsertStart)}`);
+  console.log(
+    `Upserted ${upsertSuccess} events (${upsertFailed} failed) in ${formatDuration(Date.now() - upsertStart)}`
+  );
 
   // ═══════════════════════════════════════════════════════════════
   // 3. AI PROCESSING - TAGS + SUMMARIES
@@ -189,7 +196,9 @@ async function main() {
     await new Promise((r) => setTimeout(r, 1000));
   }
 
-  console.log(`Tags/summaries: ${tagSuccess}/${eventsNeedingProcessing.length} in ${formatDuration(Date.now() - aiStart)}`);
+  console.log(
+    `Tags/summaries: ${tagSuccess}/${eventsNeedingProcessing.length} in ${formatDuration(Date.now() - aiStart)}`
+  );
 
   // ═══════════════════════════════════════════════════════════════
   // 4. EMBEDDINGS + SCORING
@@ -223,7 +232,12 @@ async function main() {
     await Promise.all(
       batch.map(async (event) => {
         try {
-          const text = createEmbeddingText(event.title, event.aiSummary!, event.tags, event.organizer);
+          const text = createEmbeddingText(
+            event.title,
+            event.aiSummary!,
+            event.tags,
+            event.organizer
+          );
           const embedding = await generateEmbedding(text);
 
           if (embedding) {
@@ -231,7 +245,10 @@ async function main() {
             embedSuccess++;
           }
         } catch (err) {
-          console.error(`Embedding failed for "${event.title}":`, err instanceof Error ? err.message : err);
+          console.error(
+            `Embedding failed for "${event.title}":`,
+            err instanceof Error ? err.message : err
+          );
         }
       })
     );
@@ -367,7 +384,9 @@ async function main() {
     }
   }
 
-  console.log(`Scores: ${scoreSuccess}/${eventsNeedingScores.length} (${scoreSkipped} recurring skipped)`);
+  console.log(
+    `Scores: ${scoreSuccess}/${eventsNeedingScores.length} (${scoreSkipped} recurring skipped)`
+  );
 
   // ═══════════════════════════════════════════════════════════════
   // SUMMARY
@@ -378,7 +397,7 @@ async function main() {
   console.log('═══════════════════════════════════════════════════════════');
   console.log(`Scraped: ${scrapedEvents.length} events`);
   console.log(`Upserted: ${upsertSuccess} (${upsertFailed} failed)`);
-  console.log(`Tags/summaries: ${tagSuccess}`);
+  console.log(`Tags/summaries: ${tagSuccess} (${tagFailed} failed)`);
   console.log(`Embeddings: ${embedSuccess}`);
   console.log(`Scores: ${scoreSuccess} (${scoreSkipped} recurring)`);
 }

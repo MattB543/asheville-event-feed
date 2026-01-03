@@ -1,5 +1,5 @@
-import Link from "next/link";
-import { Calendar, ArrowLeft, Search } from "lucide-react";
+import Link from 'next/link';
+import { Calendar, ArrowLeft, Search } from 'lucide-react';
 
 export default function EventNotFound() {
   return (
@@ -29,9 +29,8 @@ export default function EventNotFound() {
           </h1>
 
           <p className="text-gray-600 dark:text-gray-400 mb-8">
-            The event you&apos;re looking for doesn&apos;t exist or may have
-            been removed. It might have already passed or the link could be
-            incorrect.
+            The event you&apos;re looking for doesn&apos;t exist or may have been removed. It might
+            have already passed or the link could be incorrect.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-3 justify-center">

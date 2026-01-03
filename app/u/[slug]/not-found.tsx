@@ -1,12 +1,10 @@
-import Link from "next/link";
+import Link from 'next/link';
 
 export default function NotFound() {
   return (
     <main className="min-h-screen bg-gray-50 dark:bg-gray-950 flex items-center justify-center px-4">
       <div className="text-center">
-        <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
-          Profile Not Found
-        </h1>
+        <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">Profile Not Found</h1>
         <p className="text-gray-600 dark:text-gray-400 mb-6">
           This curator profile doesn&apos;t exist or is set to private.
         </p>

@@ -7,9 +7,9 @@
  * Run with: npx tsx scripts/ai/backfill-favorites-to-signals.ts
  */
 
-import { db } from "@/lib/db";
-import { userPreferences } from "@/lib/db/schema";
-import { sql } from "drizzle-orm";
+import { db } from '@/lib/db';
+import { userPreferences } from '@/lib/db/schema';
+import { sql } from 'drizzle-orm';
 
 interface PositiveSignal {
   eventId: string;
@@ -19,7 +19,7 @@ interface PositiveSignal {
 }
 
 async function backfillFavoritesToSignals() {
-  console.log("Starting backfill of favorites to signals...\n");
+  console.log('Starting backfill of favorites to signals...\n');
 
   // Fetch all user preferences with favorited event IDs
   const allPrefs = await db
@@ -45,15 +45,15 @@ async function backfillFavoritesToSignals() {
 
     // Find favorited IDs that don't already have a signal
     const existingFavoriteEventIds = new Set(
-      existingSignals
-        .filter(s => s.signalType === 'favorite')
-        .map(s => s.eventId)
+      existingSignals.filter((s) => s.signalType === 'favorite').map((s) => s.eventId)
     );
 
-    const newFavoriteIds = favoritedIds.filter(id => !existingFavoriteEventIds.has(id));
+    const newFavoriteIds = favoritedIds.filter((id) => !existingFavoriteEventIds.has(id));
 
     if (newFavoriteIds.length === 0) {
-      console.log(`User ${prefs.userId}: All ${favoritedIds.length} favorites already have signals`);
+      console.log(
+        `User ${prefs.userId}: All ${favoritedIds.length} favorites already have signals`
+      );
       continue;
     }
 
@@ -61,7 +61,7 @@ async function backfillFavoritesToSignals() {
     // Use a backdated timestamp (1 day ago) so new favorites appear more recent
     const backdatedTimestamp = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
 
-    const newSignals: PositiveSignal[] = newFavoriteIds.map(eventId => ({
+    const newSignals: PositiveSignal[] = newFavoriteIds.map((eventId) => ({
       eventId,
       signalType: 'favorite' as const,
       timestamp: backdatedTimestamp,
@@ -81,7 +81,9 @@ async function backfillFavoritesToSignals() {
       WHERE user_id = ${prefs.userId}
     `);
 
-    console.log(`User ${prefs.userId}: Added ${newSignals.length} signals (had ${existingSignals.length} existing)`);
+    console.log(
+      `User ${prefs.userId}: Added ${newSignals.length} signals (had ${existingSignals.length} existing)`
+    );
     totalSignalsAdded += newSignals.length;
     usersUpdated++;
   }
@@ -95,6 +97,6 @@ async function backfillFavoritesToSignals() {
 backfillFavoritesToSignals()
   .then(() => process.exit(0))
   .catch((error) => {
-    console.error("Backfill failed:", error);
+    console.error('Backfill failed:', error);
     process.exit(1);
   });

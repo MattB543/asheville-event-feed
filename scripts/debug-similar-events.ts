@@ -33,11 +33,7 @@ async function getEventByInput(input: string): Promise<DbEvent | null> {
   }
 
   if (/^[a-f0-9-]{36}$/i.test(input)) {
-    const result = await db
-      .select()
-      .from(events)
-      .where(eq(events.id, input))
-      .limit(1);
+    const result = await db.select().from(events).where(eq(events.id, input)).limit(1);
     return result[0] || null;
   }
 
@@ -169,10 +165,7 @@ async function main() {
   );
 
   if (eventA.embedding && eventB.embedding) {
-    const similarity = cosineSimilarity(
-      eventA.embedding as number[],
-      eventB.embedding as number[]
-    );
+    const similarity = cosineSimilarity(eventA.embedding as number[], eventB.embedding as number[]);
     console.log('\n=== DIRECT SIMILARITY ===');
     console.log(`Similarity (A vs B): ${similarity.toFixed(4)}`);
   } else {

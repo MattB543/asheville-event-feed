@@ -5,27 +5,23 @@
  * Usage: npx tsx scripts/analyze-tags.ts
  */
 
-import { db } from "../lib/db";
-import { events } from "../lib/db/schema";
-import { gte } from "drizzle-orm";
-import { ALL_KNOWN_TAGS } from "../lib/config/tagCategories";
+import { db } from '../lib/db';
+import { events } from '../lib/db/schema';
+import { gte } from 'drizzle-orm';
+import { ALL_KNOWN_TAGS } from '../lib/config/tagCategories';
 
 const MIN_COUNT = 10; // Filter out tags used less than this many times
 
 // Normalize a tag for comparison (lowercase, replace hyphens with spaces, trim)
 function normalizeTag(tag: string): string {
-  return tag
-    .toLowerCase()
-    .replace(/-/g, " ")
-    .replace(/\s+/g, " ")
-    .trim();
+  return tag.toLowerCase().replace(/-/g, ' ').replace(/\s+/g, ' ').trim();
 }
 
 // Create a set of normalized known tags for comparison
 const normalizedKnownTags = new Set(ALL_KNOWN_TAGS.map(normalizeTag));
 
 async function analyzeTags() {
-  console.log("Fetching all events with tags...\n");
+  console.log('Fetching all events with tags...\n');
 
   // Get all events with tags (future events only, not hidden)
   const startOfToday = new Date();
@@ -41,10 +37,7 @@ async function analyzeTags() {
   // Count raw tags
   const rawTagCounts = new Map<string, number>();
   // Count normalized tags (for grouping similar ones)
-  const normalizedTagCounts = new Map<
-    string,
-    { count: number; variants: Set<string> }
-  >();
+  const normalizedTagCounts = new Map<string, { count: number; variants: Set<string> }>();
 
   for (const event of allEvents) {
     if (event.tags) {
@@ -70,8 +63,7 @@ async function analyzeTags() {
   );
 
   // Categorize (only tags with MIN_COUNT or more usages)
-  const knownTags: Array<{ tag: string; count: number; normalized: string }> =
-    [];
+  const knownTags: Array<{ tag: string; count: number; normalized: string }> = [];
   const otherTags: Array<{
     tag: string;
     count: number;
@@ -87,9 +79,7 @@ async function analyzeTags() {
 
     if (isKnown) {
       // Find the canonical version from ALL_KNOWN_TAGS
-      const canonical =
-        ALL_KNOWN_TAGS.find((t) => normalizeTag(t) === normalized) ||
-        variants[0];
+      const canonical = ALL_KNOWN_TAGS.find((t) => normalizeTag(t) === normalized) || variants[0];
       knownTags.push({
         tag: canonical,
         count: data.count,
@@ -108,15 +98,15 @@ async function analyzeTags() {
   // Build markdown content
   const md: string[] = [];
 
-  md.push("# Tag Analysis Report");
-  md.push("");
-  md.push(`Generated: ${new Date().toISOString().split("T")[0]}`);
+  md.push('# Tag Analysis Report');
+  md.push('');
+  md.push(`Generated: ${new Date().toISOString().split('T')[0]}`);
   md.push(`Future events analyzed: ${allEvents.length}`);
   md.push(`Minimum usage threshold: ${MIN_COUNT}`);
-  md.push("");
+  md.push('');
 
-  md.push("## Summary");
-  md.push("");
+  md.push('## Summary');
+  md.push('');
   md.push(`| Metric | Value |`);
   md.push(`|--------|-------|`);
   md.push(`| Total unique tags (raw) | ${rawTagCounts.size} |`);
@@ -127,37 +117,37 @@ async function analyzeTags() {
   md.push(
     `| Other tags (≥${MIN_COUNT} uses) | ${otherTags.length} (${otherTags.reduce((sum, t) => sum + t.count, 0)} usages) |`
   );
-  md.push("");
+  md.push('');
 
-  md.push("## Known Tags (in TAG_CATEGORIES)");
-  md.push("");
-  md.push("| Tag | Count |");
-  md.push("|-----|------:|");
+  md.push('## Known Tags (in TAG_CATEGORIES)');
+  md.push('');
+  md.push('| Tag | Count |');
+  md.push('|-----|------:|');
   for (const { tag, count } of knownTags) {
     md.push(`| ${tag} | ${count} |`);
   }
-  md.push("");
+  md.push('');
 
-  md.push("## Other Tags (not in TAG_CATEGORIES)");
-  md.push("");
-  md.push("| Tag | Count | Variants |");
-  md.push("|-----|------:|----------|");
+  md.push('## Other Tags (not in TAG_CATEGORIES)');
+  md.push('');
+  md.push('| Tag | Count | Variants |');
+  md.push('|-----|------:|----------|');
   for (const { tag, count, variants } of otherTags) {
-    const variantStr = variants.length > 0 ? variants.join(", ") : "-";
+    const variantStr = variants.length > 0 ? variants.join(', ') : '-';
     md.push(`| ${tag} | ${count} | ${variantStr} |`);
   }
-  md.push("");
+  md.push('');
 
   // Write markdown file
-  const fs = await import("fs");
-  const outputPath = "scripts/tag-analysis.md";
-  fs.writeFileSync(outputPath, md.join("\n"));
+  const fs = await import('fs');
+  const outputPath = 'scripts/tag-analysis.md';
+  fs.writeFileSync(outputPath, md.join('\n'));
   console.log(`Markdown exported to: ${outputPath}`);
 
   process.exit(0);
 }
 
 analyzeTags().catch((error) => {
-  console.error("Error:", error);
+  console.error('Error:', error);
   process.exit(1);
 });

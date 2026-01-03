@@ -50,19 +50,110 @@ const EMPTY_WORD_SET = new Set<string>();
 
 // Words to ignore when comparing titles (common words)
 const STOP_WORDS = new Set([
-  'a', 'an', 'the', 'and', 'or', 'but', 'in', 'on', 'at', 'to', 'for',
-  'of', 'with', 'by', 'from', 'as', 'is', 'was', 'are', 'were', 'been',
-  'be', 'have', 'has', 'had', 'do', 'does', 'did', 'will', 'would', 'could',
-  'should', 'may', 'might', 'must', 'shall', 'can', 'need', 'dare', 'ought',
-  'used', 'it', 'its', "it's", 'this', 'that', 'these', 'those', 'i', 'you',
-  'he', 'she', 'we', 'they', 'what', 'which', 'who', 'whom', 'when', 'where',
-  'why', 'how', 'all', 'each', 'every', 'both', 'few', 'more', 'most', 'other',
-  'some', 'such', 'no', 'nor', 'not', 'only', 'own', 'same', 'so', 'than',
-  'too', 'very', 'just', 'also', 'now', 'here', 'there', 'then', 'once',
-  '-', '&', '+', '@',
+  'a',
+  'an',
+  'the',
+  'and',
+  'or',
+  'but',
+  'in',
+  'on',
+  'at',
+  'to',
+  'for',
+  'of',
+  'with',
+  'by',
+  'from',
+  'as',
+  'is',
+  'was',
+  'are',
+  'were',
+  'been',
+  'be',
+  'have',
+  'has',
+  'had',
+  'do',
+  'does',
+  'did',
+  'will',
+  'would',
+  'could',
+  'should',
+  'may',
+  'might',
+  'must',
+  'shall',
+  'can',
+  'need',
+  'dare',
+  'ought',
+  'used',
+  'it',
+  'its',
+  "it's",
+  'this',
+  'that',
+  'these',
+  'those',
+  'i',
+  'you',
+  'he',
+  'she',
+  'we',
+  'they',
+  'what',
+  'which',
+  'who',
+  'whom',
+  'when',
+  'where',
+  'why',
+  'how',
+  'all',
+  'each',
+  'every',
+  'both',
+  'few',
+  'more',
+  'most',
+  'other',
+  'some',
+  'such',
+  'no',
+  'nor',
+  'not',
+  'only',
+  'own',
+  'same',
+  'so',
+  'than',
+  'too',
+  'very',
+  'just',
+  'also',
+  'now',
+  'here',
+  'there',
+  'then',
+  'once',
+  '-',
+  '&',
+  '+',
+  '@',
   // Common event-related words that don't distinguish events
-  'event', 'events', 'night', 'live', 'show', 'presents', 'featuring',
-  'asheville', 'avl', 'wnc',
+  'event',
+  'events',
+  'night',
+  'live',
+  'show',
+  'presents',
+  'featuring',
+  'asheville',
+  'avl',
+  'wnc',
 ]);
 
 /**
@@ -71,9 +162,9 @@ const STOP_WORDS = new Set([
 function extractWords(title: string): Set<string> {
   const words = title
     .toLowerCase()
-    .replace(/[^\w\s-]/g, ' ')  // Remove punctuation except hyphens
+    .replace(/[^\w\s-]/g, ' ') // Remove punctuation except hyphens
     .split(/\s+/)
-    .filter(word => word.length >= 3 && !STOP_WORDS.has(word));
+    .filter((word) => word.length >= 3 && !STOP_WORDS.has(word));
 
   return new Set(words);
 }
@@ -100,7 +191,7 @@ function extractWordsOrdered(title: string): string[] {
     .toLowerCase()
     .replace(/[^\w\s-]/g, ' ')
     .split(/\s+/)
-    .filter(word => word.length >= 3 && !STOP_WORDS.has(word));
+    .filter((word) => word.length >= 3 && !STOP_WORDS.has(word));
 }
 
 /**
@@ -110,9 +201,9 @@ function extractWordsOrdered(title: string): string[] {
 function getMinConsecutiveWordsFromLengths(len1: number, len2: number): number {
   const minLength = Math.min(len1, len2);
 
-  if (minLength <= 2) return 2;  // Short titles: require 2 consecutive
-  if (minLength <= 4) return 3;  // Medium titles: require 3 consecutive
-  return 4;                       // Long titles: require 4 consecutive
+  if (minLength <= 2) return 2; // Short titles: require 2 consecutive
+  if (minLength <= 4) return 3; // Medium titles: require 3 consecutive
+  return 4; // Long titles: require 4 consecutive
 }
 
 /**
@@ -238,16 +329,35 @@ export interface DuplicateGroup {
   descriptionUpdate?: string; // Longer description from a removed event to merge into keep
 }
 
-function pad2(value: number): string {
-  return value.toString().padStart(2, '0');
-}
-
+/**
+ * Get date key in Eastern Time (America/New_York).
+ * This ensures events on the same local day are grouped together,
+ * even if they cross the UTC midnight boundary.
+ */
 function getDateKey(date: Date): string {
-  return `${date.getUTCFullYear()}-${pad2(date.getUTCMonth() + 1)}-${pad2(date.getUTCDate())}`;
+  // toLocaleDateString with 'en-CA' locale returns YYYY-MM-DD format
+  return date.toLocaleDateString('en-CA', { timeZone: 'America/New_York' });
 }
 
+/**
+ * Get time key in Eastern Time (America/New_York).
+ * Format: YYYY-MM-DDTHH:MM
+ */
 function getTimeKey(date: Date): string {
-  return `${getDateKey(date)}T${pad2(date.getUTCHours())}:${pad2(date.getUTCMinutes())}`;
+  const formatter = new Intl.DateTimeFormat('en-CA', {
+    timeZone: 'America/New_York',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false,
+  });
+
+  const parts = formatter.formatToParts(date);
+  const get = (type: string) => parts.find((p) => p.type === type)?.value || '00';
+
+  return `${get('year')}-${get('month')}-${get('day')}T${get('hour')}:${get('minute')}`;
 }
 
 function prepareEvents(events: EventForDedup[]): PreparedEventForDedup[] {
@@ -360,7 +470,10 @@ export function findDuplicates(events: EventForDedup[]): DuplicateGroup[] {
         let sharedTitleWords: number | null = null;
         const getSharedTitleWords = () => {
           if (sharedTitleWords === null) {
-            sharedTitleWords = countSharedTitleWordsFromSets(event1.titleWordSet, event2.titleWordSet);
+            sharedTitleWords = countSharedTitleWordsFromSets(
+              event1.titleWordSet,
+              event2.titleWordSet
+            );
           }
           return sharedTitleWords;
         };
@@ -480,7 +593,9 @@ export function getIdsToRemove(duplicateGroups: DuplicateGroup[]): string[] {
 /**
  * Get description updates to apply (merging longer descriptions from removed events)
  */
-export function getDescriptionUpdates(duplicateGroups: DuplicateGroup[]): { id: string; description: string }[] {
+export function getDescriptionUpdates(
+  duplicateGroups: DuplicateGroup[]
+): { id: string; description: string }[] {
   const updates: { id: string; description: string }[] = [];
   for (const group of duplicateGroups) {
     if (group.descriptionUpdate) {

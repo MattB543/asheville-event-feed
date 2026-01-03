@@ -186,38 +186,38 @@ npm run backfill:embeddings  # Backfill embeddings
 
 ## API Routes
 
-| Endpoint | Method | Description |
-|----------|--------|-------------|
-| `/api/cron/scrape` | GET | Trigger event scraping (requires auth) |
-| `/api/cron/ai` | GET | Trigger AI processing (requires auth) |
-| `/api/cron/cleanup` | GET | Cleanup dead/duplicate events (requires auth) |
-| `/api/cron/dedup` | GET | AI semantic deduplication (requires auth) |
-| `/api/health` | GET | Health check endpoint |
-| `/api/chat` | POST | AI conversational event discovery |
-| `/api/preferences` | GET/POST | User preferences sync |
-| `/api/events/[id]/favorite` | POST/DELETE | Favorite/unfavorite events |
-| `/api/events/submit` | POST | Submit new event |
-| `/api/export/xml` | GET | RSS XML export |
-| `/api/export/markdown` | GET | Markdown export |
+| Endpoint                    | Method      | Description                                   |
+| --------------------------- | ----------- | --------------------------------------------- |
+| `/api/cron/scrape`          | GET         | Trigger event scraping (requires auth)        |
+| `/api/cron/ai`              | GET         | Trigger AI processing (requires auth)         |
+| `/api/cron/cleanup`         | GET         | Cleanup dead/duplicate events (requires auth) |
+| `/api/cron/dedup`           | GET         | AI semantic deduplication (requires auth)     |
+| `/api/health`               | GET         | Health check endpoint                         |
+| `/api/chat`                 | POST        | AI conversational event discovery             |
+| `/api/preferences`          | GET/POST    | User preferences sync                         |
+| `/api/events/[id]/favorite` | POST/DELETE | Favorite/unfavorite events                    |
+| `/api/events/submit`        | POST        | Submit new event                              |
+| `/api/export/xml`           | GET         | RSS XML export                                |
+| `/api/export/markdown`      | GET         | Markdown export                               |
 
 ## Event Sources
 
 The app scrapes events from 10+ sources:
 
-| Source | Method |
-|--------|--------|
-| AVL Today | CitySpark API |
-| Eventbrite | HTML scraping + API |
-| Meetup | GraphQL API |
-| Facebook | Browser automation (local only) |
-| Harrah's Cherokee | Ticketmaster API |
-| Orange Peel | Ticketmaster API + JSON-LD |
-| Grey Eagle | JSON-LD |
-| Live Music AVL | ICS feeds |
-| Explore Asheville | Public API |
-| Misfit Improv | Crowdwork API |
-| NC Stage | ThunderTix |
-| Story Parlor | Squarespace JSON-LD |
+| Source            | Method                          |
+| ----------------- | ------------------------------- |
+| AVL Today         | CitySpark API                   |
+| Eventbrite        | HTML scraping + API             |
+| Meetup            | GraphQL API                     |
+| Facebook          | Browser automation (local only) |
+| Harrah's Cherokee | Ticketmaster API                |
+| Orange Peel       | Ticketmaster API + JSON-LD      |
+| Grey Eagle        | JSON-LD                         |
+| Live Music AVL    | ICS feeds                       |
+| Explore Asheville | Public API                      |
+| Misfit Improv     | Crowdwork API                   |
+| NC Stage          | ThunderTix                      |
+| Story Parlor      | Squarespace JSON-LD             |
 
 ## Deployment
 
@@ -229,6 +229,7 @@ The app scrapes events from 10+ sources:
 4. Deploy
 
 The cron jobs are configured in `vercel.json`:
+
 - Scraping runs every 6 hours
 - AI processing runs 10 minutes after scraping
 - Cleanup runs 8 times daily

@@ -1,10 +1,8 @@
-import { ScrapedEvent } from './types';
+import { type ScrapedEvent } from './types';
 import { fetchWithRetry } from '@/lib/utils/retry';
 import { parseAsEastern } from '@/lib/utils/timezone';
 import { debugSave } from './base';
-
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const ical = require('node-ical');
+import * as ical from 'node-ical';
 
 // Squarespace API types
 interface SquarespaceEvent {
@@ -30,6 +28,10 @@ interface SquarespaceCollectionResponse {
   items?: SquarespaceEvent[];
 }
 
+interface SquarespaceEventDetail {
+  body?: string;
+}
+
 // iCal event type (from node-ical)
 interface ICalEvent {
   type: string;
@@ -47,11 +49,13 @@ interface ICalEvent {
 
 const BASE_URL = 'https://www.udharmanc.com';
 const SPECIAL_EVENTS_URL = `${BASE_URL}/special-events?format=json`;
-const GOOGLE_CALENDAR_URL = 'https://calendar.google.com/calendar/ical/info%40udharmanc.com/public/basic.ics';
+const GOOGLE_CALENDAR_URL =
+  'https://calendar.google.com/calendar/ical/info%40udharmanc.com/public/basic.ics';
 
 const API_HEADERS = {
-  'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-  'Accept': 'application/json',
+  'User-Agent':
+    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+  Accept: 'application/json',
   'Accept-Language': 'en-US,en;q=0.9',
 };
 
@@ -67,7 +71,6 @@ const EXCLUDED_TITLES = [
 
 // Default image for Urban Dharma events
 const DEFAULT_IMAGE_URL = '/urban_dharma.jpg';
-
 
 // Strip HTML tags from description
 function stripHtml(html: string): string {
@@ -86,9 +89,8 @@ function stripHtml(html: string): string {
 // Check if event should be excluded
 function shouldExclude(title: string): boolean {
   const lowerTitle = title.toLowerCase();
-  return EXCLUDED_TITLES.some(excluded => lowerTitle.includes(excluded));
+  return EXCLUDED_TITLES.some((excluded) => lowerTitle.includes(excluded));
 }
-
 
 // Scrape special events from Squarespace API
 async function scrapeSpecialEvents(): Promise<ScrapedEvent[]> {
@@ -101,8 +103,8 @@ async function scrapeSpecialEvents(): Promise<ScrapedEvent[]> {
       { maxRetries: 3, baseDelay: 1000 }
     );
 
-    const data: SquarespaceCollectionResponse = await response.json();
-    debugSave('01-squarespace-response.json', data);
+    const data = (await response.json()) as SquarespaceCollectionResponse;
+    await debugSave('01-squarespace-response.json', data);
 
     const allRawEvents: SquarespaceEvent[] = [
       ...(data.past || []),
@@ -113,7 +115,7 @@ async function scrapeSpecialEvents(): Promise<ScrapedEvent[]> {
     console.log(`[UDharma] Found ${allRawEvents.length} raw special events`);
 
     const now = Date.now();
-    const futureEvents = allRawEvents.filter(ev => ev.startDate > now);
+    const futureEvents = allRawEvents.filter((ev) => ev.startDate > now);
     console.log(`[UDharma] ${futureEvents.length} future special events`);
 
     const events: ScrapedEvent[] = [];
@@ -125,13 +127,13 @@ async function scrapeSpecialEvents(): Promise<ScrapedEvent[]> {
           { headers: API_HEADERS, cache: 'no-store' },
           { maxRetries: 2, baseDelay: 500 }
         );
-        const eventData = await eventResponse.json();
+        const eventData = (await eventResponse.json()) as SquarespaceEventDetail;
 
         const fullBody = eventData.body || rawEvent.excerpt || '';
         const description = stripHtml(fullBody);
 
         events.push(formatSquarespaceEvent(rawEvent, description));
-        await new Promise(r => setTimeout(r, 200));
+        await new Promise((r) => setTimeout(r, 200));
       } catch {
         console.warn(`[UDharma] Failed to fetch details for "${rawEvent.title}"`);
         const description = rawEvent.excerpt ? stripHtml(rawEvent.excerpt) : '';
@@ -179,15 +181,17 @@ async function scrapeGoogleCalendarEvents(): Promise<ScrapedEvent[]> {
     }
 
     const icsData = await response.text();
-    debugSave('02-google-calendar.ics', icsData);
+    await debugSave('02-google-calendar.ics', icsData);
 
     // Parse iCal
     const now = new Date();
     const threeMonthsLater = new Date(now.getTime() + 90 * 24 * 60 * 60 * 1000);
 
     const parsedEvents = await ical.async.parseICS(icsData);
-    const eventCount = Object.keys(parsedEvents).filter(k => parsedEvents[k].type === 'VEVENT').length;
-    debugSave('03-parsed-ical.json', `${eventCount} VEVENT entries parsed`);
+    const eventCount = Object.keys(parsedEvents).filter(
+      (k) => parsedEvents[k].type === 'VEVENT'
+    ).length;
+    await debugSave('03-parsed-ical.json', `${eventCount} VEVENT entries parsed`);
 
     const events: ScrapedEvent[] = [];
     const seenEvents = new Set<string>(); // For deduplication
@@ -301,7 +305,9 @@ async function scrapeGoogleCalendarEvents(): Promise<ScrapedEvent[]> {
       }
     }
 
-    console.log(`[UDharma] Found ${events.length} future calendar events (from ${eventCount} base events)`);
+    console.log(
+      `[UDharma] Found ${events.length} future calendar events (from ${eventCount} base events)`
+    );
     return events;
   } catch (error) {
     console.error('[UDharma] Google Calendar scrape failed:', error);
@@ -320,7 +326,7 @@ export async function scrapeUDharma(): Promise<ScrapedEvent[]> {
 
   // Combine and deduplicate
   const allEvents: ScrapedEvent[] = [...specialEvents];
-  const specialTitles = new Set(specialEvents.map(e => e.title.toLowerCase()));
+  const specialTitles = new Set(specialEvents.map((e) => e.title.toLowerCase()));
 
   // Add calendar events that don't duplicate special events
   for (const calEvent of calendarEvents) {
@@ -329,13 +335,15 @@ export async function scrapeUDharma(): Promise<ScrapedEvent[]> {
     }
   }
 
-  debugSave('04-combined-events.json', allEvents);
+  await debugSave('04-combined-events.json', allEvents);
 
   // Generate validation report
   const report = generateValidationReport(allEvents);
-  debugSave('05-validation-report.txt', report);
+  await debugSave('05-validation-report.txt', report);
 
-  console.log(`[UDharma] Finished. Found ${allEvents.length} total events (${specialEvents.length} special, ${calendarEvents.length} calendar)`);
+  console.log(
+    `[UDharma] Finished. Found ${allEvents.length} total events (${specialEvents.length} special, ${calendarEvents.length} calendar)`
+  );
   return allEvents;
 }
 
@@ -371,25 +379,35 @@ function generateValidationReport(events: ScrapedEvent[]): string {
 
     if (issues.length > 0) {
       lines.push(`  ${event.title.slice(0, 50)}`);
-      lines.push(`    Date: ${date.toISOString()} -> ${date.toLocaleString('en-US', { timeZone: 'America/New_York' })}`);
+      lines.push(
+        `    Date: ${date.toISOString()} -> ${date.toLocaleString('en-US', { timeZone: 'America/New_York' })}`
+      );
       lines.push(`    Issues: ${issues.join(', ')}`);
     }
   }
 
   lines.push('', '=== FIELD COMPLETENESS ===');
-  const withImages = events.filter(e => e.imageUrl).length;
-  const withPrices = events.filter(e => e.price && e.price !== 'Unknown').length;
-  const withDescriptions = events.filter(e => e.description).length;
+  const withImages = events.filter((e) => e.imageUrl).length;
+  const withPrices = events.filter((e) => e.price && e.price !== 'Unknown').length;
+  const withDescriptions = events.filter((e) => e.description).length;
 
-  lines.push(`  With images: ${withImages}/${events.length} (${events.length > 0 ? Math.round(withImages/events.length*100) : 0}%)`);
-  lines.push(`  With prices: ${withPrices}/${events.length} (${events.length > 0 ? Math.round(withPrices/events.length*100) : 0}%)`);
-  lines.push(`  With descriptions: ${withDescriptions}/${events.length} (${events.length > 0 ? Math.round(withDescriptions/events.length*100) : 0}%)`);
+  lines.push(
+    `  With images: ${withImages}/${events.length} (${events.length > 0 ? Math.round((withImages / events.length) * 100) : 0}%)`
+  );
+  lines.push(
+    `  With prices: ${withPrices}/${events.length} (${events.length > 0 ? Math.round((withPrices / events.length) * 100) : 0}%)`
+  );
+  lines.push(
+    `  With descriptions: ${withDescriptions}/${events.length} (${events.length > 0 ? Math.round((withDescriptions / events.length) * 100) : 0}%)`
+  );
 
   lines.push('', '=== SAMPLE EVENTS ===');
   for (const event of events.slice(0, 10)) {
     lines.push(`  Title: ${event.title}`);
     lines.push(`  Date (UTC): ${event.startDate.toISOString()}`);
-    lines.push(`  Date (ET): ${event.startDate.toLocaleString('en-US', { timeZone: 'America/New_York' })}`);
+    lines.push(
+      `  Date (ET): ${event.startDate.toLocaleString('en-US', { timeZone: 'America/New_York' })}`
+    );
     lines.push(`  Location: ${event.location || 'N/A'}`);
     lines.push(`  Price: ${event.price || 'N/A'}`);
     lines.push(`  URL: ${event.url}`);

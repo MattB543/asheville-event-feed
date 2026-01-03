@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { useTheme } from "next-themes";
-import { Moon, Sun, Monitor } from "lucide-react";
-import { useState, useEffect, useRef } from "react";
+import { useTheme } from 'next-themes';
+import { Moon, Sun, Monitor } from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
 
 export default function ThemeToggle() {
   const { theme, setTheme, resolvedTheme } = useTheme();
@@ -17,15 +17,12 @@ export default function ThemeToggle() {
   // Close dropdown on outside click
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
-      ) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setIsOpen(false);
       }
     }
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
   if (!mounted) {
@@ -37,12 +34,12 @@ export default function ThemeToggle() {
   }
 
   const options = [
-    { value: "light", label: "Light", icon: Sun },
-    { value: "dark", label: "Dark", icon: Moon },
-    { value: "system", label: "System", icon: Monitor },
+    { value: 'light', label: 'Light', icon: Sun },
+    { value: 'dark', label: 'Dark', icon: Moon },
+    { value: 'system', label: 'System', icon: Monitor },
   ];
 
-  const CurrentIcon = resolvedTheme === "dark" ? Moon : Sun;
+  const CurrentIcon = resolvedTheme === 'dark' ? Moon : Sun;
 
   return (
     <div className="relative" ref={dropdownRef}>
@@ -65,8 +62,8 @@ export default function ThemeToggle() {
               }}
               className={`w-full flex items-center gap-1.5 px-2 py-1.5 text-xs hover:bg-gray-100 dark:hover:bg-gray-700 first:rounded-t-md last:rounded-b-md cursor-pointer ${
                 theme === value
-                  ? "text-brand-600 dark:text-brand-400 font-medium"
-                  : "text-gray-700 dark:text-gray-300"
+                  ? 'text-brand-600 dark:text-brand-400 font-medium'
+                  : 'text-gray-700 dark:text-gray-300'
               }`}
             >
               <Icon size={14} />

@@ -1,12 +1,12 @@
-import { NextResponse, type NextRequest } from "next/server";
-import { db } from "@/lib/db";
-import { curatorProfiles, curatedEvents } from "@/lib/db/schema";
-import { and, desc, eq, ilike, or, sql } from "drizzle-orm";
+import { NextResponse, type NextRequest } from 'next/server';
+import { db } from '@/lib/db';
+import { curatorProfiles, curatedEvents } from '@/lib/db/schema';
+import { and, desc, eq, ilike, or, sql } from 'drizzle-orm';
 
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
-    const search = searchParams.get("search")?.trim();
+    const search = searchParams.get('search')?.trim();
 
     const conditions = [eq(curatorProfiles.isPublic, true)];
     if (search) {
@@ -38,10 +38,7 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json({ curators: results });
   } catch (error) {
-    console.error("Error fetching public curators:", error);
-    return NextResponse.json(
-      { error: "Failed to fetch curators" },
-      { status: 500 }
-    );
+    console.error('Error fetching public curators:', error);
+    return NextResponse.json({ error: 'Failed to fetch curators' }, { status: 500 });
   }
 }

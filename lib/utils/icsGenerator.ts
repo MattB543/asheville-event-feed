@@ -22,10 +22,10 @@ interface ICSEventParams {
  */
 function escapeICSText(text: string): string {
   return text
-    .replace(/\\/g, "\\\\")
-    .replace(/;/g, "\\;")
-    .replace(/,/g, "\\,")
-    .replace(/\n/g, "\\n");
+    .replace(/\\/g, '\\\\')
+    .replace(/;/g, '\\;')
+    .replace(/,/g, '\\,')
+    .replace(/\n/g, '\\n');
 }
 
 /**
@@ -33,11 +33,11 @@ function escapeICSText(text: string): string {
  */
 function formatICSDate(date: Date): string {
   const year = date.getUTCFullYear();
-  const month = String(date.getUTCMonth() + 1).padStart(2, "0");
-  const day = String(date.getUTCDate()).padStart(2, "0");
-  const hours = String(date.getUTCHours()).padStart(2, "0");
-  const minutes = String(date.getUTCMinutes()).padStart(2, "0");
-  const seconds = String(date.getUTCSeconds()).padStart(2, "0");
+  const month = String(date.getUTCMonth() + 1).padStart(2, '0');
+  const day = String(date.getUTCDate()).padStart(2, '0');
+  const hours = String(date.getUTCHours()).padStart(2, '0');
+  const minutes = String(date.getUTCMinutes()).padStart(2, '0');
+  const seconds = String(date.getUTCSeconds()).padStart(2, '0');
   return `${year}${month}${day}T${hours}${minutes}${seconds}Z`;
 }
 
@@ -62,9 +62,7 @@ function addHours(date: Date, hours: number): Date {
  */
 export function generateICSContent(params: ICSEventParams): string {
   const startDate =
-    params.startDate instanceof Date
-      ? params.startDate
-      : new Date(params.startDate);
+    params.startDate instanceof Date ? params.startDate : new Date(params.startDate);
 
   const endDate = params.endDate
     ? params.endDate instanceof Date
@@ -73,12 +71,12 @@ export function generateICSContent(params: ICSEventParams): string {
     : addHours(startDate, 2); // Default 2 hour duration
 
   const lines: string[] = [
-    "BEGIN:VCALENDAR",
-    "VERSION:2.0",
-    "PRODID:-//Asheville Event Feed//ashevilleeventfeed.com//EN",
-    "CALSCALE:GREGORIAN",
-    "METHOD:PUBLISH",
-    "BEGIN:VEVENT",
+    'BEGIN:VCALENDAR',
+    'VERSION:2.0',
+    'PRODID:-//Asheville Event Feed//ashevilleeventfeed.com//EN',
+    'CALSCALE:GREGORIAN',
+    'METHOD:PUBLISH',
+    'BEGIN:VEVENT',
     `UID:${generateUID()}`,
     `DTSTAMP:${formatICSDate(new Date())}`,
     `DTSTART:${formatICSDate(startDate)}`,
@@ -100,10 +98,10 @@ export function generateICSContent(params: ICSEventParams): string {
     lines.push(`URL:${params.url}`);
   }
 
-  lines.push("END:VEVENT", "END:VCALENDAR");
+  lines.push('END:VEVENT', 'END:VCALENDAR');
 
   // ICS files use CRLF line endings
-  return lines.join("\r\n");
+  return lines.join('\r\n');
 }
 
 /**
@@ -129,12 +127,12 @@ export function generateICSForEvent(event: {
  * Download ICS file in the browser
  */
 export function downloadICSFile(icsContent: string, filename: string): void {
-  const blob = new Blob([icsContent], { type: "text/calendar;charset=utf-8" });
+  const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
   const url = URL.createObjectURL(blob);
 
-  const link = document.createElement("a");
+  const link = document.createElement('a');
   link.href = url;
-  link.download = filename.endsWith(".ics") ? filename : `${filename}.ics`;
+  link.download = filename.endsWith('.ics') ? filename : `${filename}.ics`;
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
@@ -156,8 +154,8 @@ export function downloadEventAsICS(event: {
   const icsContent = generateICSForEvent(event);
   // Create safe filename from title
   const safeTitle = event.title
-    .replace(/[^a-zA-Z0-9 ]/g, "")
-    .replace(/\s+/g, "-")
+    .replace(/[^a-zA-Z0-9 ]/g, '')
+    .replace(/\s+/g, '-')
     .slice(0, 50);
   downloadICSFile(icsContent, `${safeTitle}.ics`);
 }

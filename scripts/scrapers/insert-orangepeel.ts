@@ -51,7 +51,7 @@ async function main() {
         }
 
         // Rate limit
-        await new Promise(r => setTimeout(r, 500));
+        await new Promise((r) => setTimeout(r, 500));
       } catch (err) {
         console.error(`  Failed to tag "${event.title}":`, err);
         eventsWithTags.push({ ...event, tags: [] });
@@ -73,7 +73,8 @@ async function main() {
 
   for (const event of eventsWithTags) {
     try {
-      await db.insert(events)
+      await db
+        .insert(events)
         .values({
           sourceId: event.sourceId,
           source: event.source,

@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from 'next/image';
 
 interface CuratorProfileCardProps {
   displayName: string;
@@ -39,25 +39,15 @@ export default function CuratorProfileCard({
           </div>
         )}
         <div>
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
-            {displayName}
-          </h1>
-          {title && (
-            <p className="text-sm text-gray-500 dark:text-gray-400">
-              {title}
-            </p>
-          )}
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">{displayName}</h1>
+          {title && <p className="text-sm text-gray-500 dark:text-gray-400">{title}</p>}
           <p className="text-xs text-gray-500 dark:text-gray-400">
-            {curationCount} curated event{curationCount !== 1 ? "s" : ""}
+            {curationCount} curated event{curationCount !== 1 ? 's' : ''}
           </p>
         </div>
       </div>
 
-      {bio && (
-        <p className="text-gray-700 dark:text-gray-300 whitespace-pre-wrap">
-          {bio}
-        </p>
-      )}
+      {bio && <p className="text-gray-700 dark:text-gray-300 whitespace-pre-wrap">{bio}</p>}
     </div>
   );
 }

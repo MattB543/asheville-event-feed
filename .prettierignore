@@ -1,0 +1,31 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+.next/
+out/
+build/
+dist/
+
+# Generated files
+next-env.d.ts
+*.lock
+package-lock.json
+
+# Large data files
+neon/
+scripts/ai/scoring-test-results.json
+drizzle/
+
+# Hidden directories
+.claude/
+.husky/
+
+# Test directories
+old-extension/
+test/
+orange-peel-tests/
+grey-eagle-tests/
+test-music-scrape/
+claude/
+debug-scraper-exploreasheville/

@@ -67,10 +67,7 @@ async function migrateImages() {
       const publicUrl = await uploadEventImage(buffer, event.id);
 
       // Update event with new URL
-      await db
-        .update(events)
-        .set({ imageUrl: publicUrl })
-        .where(eq(events.id, event.id));
+      await db.update(events).set({ imageUrl: publicUrl }).where(eq(events.id, event.id));
 
       success++;
       console.log(`[Migration] Migrated: ${event.title.substring(0, 50)}...`);

@@ -5,11 +5,11 @@
  * events based on similarity to user preferences.
  */
 
-import { db } from "@/lib/db";
-import { events, userPreferences } from "@/lib/db/schema";
-import { eq, inArray, sql } from "drizzle-orm";
-import { cosineSimilarity } from "./embedding";
-import { findSimilarByEmbedding, type SimilarEvent } from "@/lib/db/similaritySearch";
+import { db } from '@/lib/db';
+import { events, userPreferences } from '@/lib/db/schema';
+import { eq, inArray, sql } from 'drizzle-orm';
+import { cosineSimilarity } from './embedding';
+import { findSimilarByEmbedding, type SimilarEvent } from '@/lib/db/similaritySearch';
 
 // Signal types from Phase 1
 export type PositiveSignalType = 'favorite' | 'calendar' | 'share' | 'viewSource';
@@ -34,13 +34,9 @@ const CENTROID_CACHE_TTL_MS = 60 * 60 * 1000; // 1 hour in milliseconds
 /**
  * Filter signals to only include those active within the 12-month window.
  */
-function filterActiveSignals<T extends { timestamp: string; active: boolean }>(
-  signals: T[]
-): T[] {
+function filterActiveSignals<T extends { timestamp: string; active: boolean }>(signals: T[]): T[] {
   const cutoffDate = new Date(Date.now() - SIGNAL_TIME_WINDOW_MS);
-  return signals.filter(
-    signal => signal.active && new Date(signal.timestamp) >= cutoffDate
-  );
+  return signals.filter((signal) => signal.active && new Date(signal.timestamp) >= cutoffDate);
 }
 
 /**
@@ -68,8 +64,8 @@ export async function computeCentroid(eventIds: string[]): Promise<number[] | nu
 
   // Filter out events without embeddings
   const validEmbeddings = eventsWithEmbeddings
-    .filter(e => e.embedding !== null)
-    .map(e => e.embedding as number[]);
+    .filter((e) => e.embedding !== null)
+    .map((e) => e.embedding as number[]);
 
   if (validEmbeddings.length === 0) {
     return null;
@@ -77,7 +73,7 @@ export async function computeCentroid(eventIds: string[]): Promise<number[] | nu
 
   // Compute average of all embeddings
   const dimensions = validEmbeddings[0].length;
-  const centroid = new Array(dimensions).fill(0);
+  const centroid = Array.from({ length: dimensions }, () => 0);
 
   for (const embedding of validEmbeddings) {
     for (let i = 0; i < dimensions; i++) {
@@ -135,14 +131,11 @@ export async function getUserCentroids(userId: string): Promise<{
     hasNegativeCentroid: userPref.negativeCentroid !== null,
   });
 
-  if (
-    cacheIsFresh &&
-    (userPref.positiveCentroid !== null || userPref.negativeCentroid !== null)
-  ) {
+  if (cacheIsFresh && (userPref.positiveCentroid !== null || userPref.negativeCentroid !== null)) {
     console.log(`[Personalization] Using cached centroids for user ${userId}`);
     return {
-      positive: userPref.positiveCentroid as number[] | null,
-      negative: userPref.negativeCentroid as number[] | null,
+      positive: userPref.positiveCentroid,
+      negative: userPref.negativeCentroid,
     };
   }
 
@@ -155,8 +148,8 @@ export async function getUserCentroids(userId: string): Promise<{
   const activePositiveSignals = filterActiveSignals(positiveSignals);
   const activeNegativeSignals = filterActiveSignals(negativeSignals);
 
-  const positiveEventIds = activePositiveSignals.map(s => s.eventId);
-  const negativeEventIds = activeNegativeSignals.map(s => s.eventId);
+  const positiveEventIds = activePositiveSignals.map((s) => s.eventId);
+  const negativeEventIds = activeNegativeSignals.map((s) => s.eventId);
 
   const [positiveCentroid, negativeCentroid] = await Promise.all([
     computeCentroid(positiveEventIds),
@@ -167,12 +160,8 @@ export async function getUserCentroids(userId: string): Promise<{
   await db
     .update(userPreferences)
     .set({
-      positiveCentroid: positiveCentroid
-        ? sql`${JSON.stringify(positiveCentroid)}::vector`
-        : null,
-      negativeCentroid: negativeCentroid
-        ? sql`${JSON.stringify(negativeCentroid)}::vector`
-        : null,
+      positiveCentroid: positiveCentroid ? sql`${JSON.stringify(positiveCentroid)}::vector` : null,
+      negativeCentroid: negativeCentroid ? sql`${JSON.stringify(negativeCentroid)}::vector` : null,
       centroidUpdatedAt: new Date(),
     })
     .where(eq(userPreferences.userId, userId));
@@ -224,7 +213,7 @@ export function scoreEvent(
  * - Hidden: ≤ 0.85 (not returned in feed)
  */
 export function getScoreTier(score: number): 'great' | 'good' | null {
-  if (score > 0.90) return 'great';
+  if (score > 0.9) return 'great';
   if (score > 0.85) return 'good';
   return null;
 }
@@ -244,7 +233,7 @@ export async function findNearestLikedEvent(
     return null;
   }
 
-  const signalEventIds = activeSignals.map(s => s.eventId);
+  const signalEventIds = activeSignals.map((s) => s.eventId);
 
   // Fetch signal events with embeddings
   const signalEvents = await db
@@ -258,8 +247,8 @@ export async function findNearestLikedEvent(
 
   // Filter out events without embeddings and compute similarities
   const similarities = signalEvents
-    .filter(e => e.embedding !== null)
-    .map(e => ({
+    .filter((e) => e.embedding !== null)
+    .map((e) => ({
       eventId: e.id,
       title: e.title,
       similarity: cosineSimilarity(eventEmbedding, e.embedding as number[]),
@@ -319,15 +308,15 @@ export interface PersonalizedFeedResult {
 }
 
 // Configuration for the algorithm
-const MATCHES_PER_SIGNAL = 15;  // Top N matches per liked event
-const CENTROID_MATCHES = 10;    // Top N matches for centroid
-const MIN_SIMILARITY = 0.85;    // Minimum similarity threshold
-const MULTI_MATCH_BOOST_PER = 0.04;  // Boost per additional source
-const MULTI_MATCH_BOOST_CAP = 0.12;  // Maximum multi-match boost
-const CENTROID_BONUS = 0.02;    // Bonus if also matched centroid
+const MATCHES_PER_SIGNAL = 15; // Top N matches per liked event
+const CENTROID_MATCHES = 10; // Top N matches for centroid
+const MIN_SIMILARITY = 0.85; // Minimum similarity threshold
+const MULTI_MATCH_BOOST_PER = 0.04; // Boost per additional source
+const MULTI_MATCH_BOOST_CAP = 0.12; // Maximum multi-match boost
+const CENTROID_BONUS = 0.02; // Bonus if also matched centroid
 
 // Tier thresholds
-const TIER_GREAT = 0.90;
+const TIER_GREAT = 0.9;
 const TIER_GOOD = 0.85;
 const TIER_HIDDEN = 0.85;
 
@@ -393,15 +382,13 @@ export async function getMultiAnchorPersonalizedFeed(
   }
 
   const userPref = prefs[0];
-  const positiveSignals = filterActiveSignals(
-    (userPref.positiveSignals as PositiveSignal[]) ?? []
-  );
-  const negativeSignals = filterActiveSignals(
-    (userPref.negativeSignals as NegativeSignal[]) ?? []
-  );
+  const positiveSignals = filterActiveSignals((userPref.positiveSignals as PositiveSignal[]) ?? []);
+  const negativeSignals = filterActiveSignals((userPref.negativeSignals as NegativeSignal[]) ?? []);
   const signalCount = positiveSignals.length + negativeSignals.length;
 
-  console.log(`[PersonalizationV2] Found ${positiveSignals.length} positive, ${negativeSignals.length} negative signals`);
+  console.log(
+    `[PersonalizationV2] Found ${positiveSignals.length} positive, ${negativeSignals.length} negative signals`
+  );
 
   if (positiveSignals.length === 0) {
     console.log(`[PersonalizationV2] No positive signals, returning empty`);
@@ -412,7 +399,7 @@ export async function getMultiAnchorPersonalizedFeed(
   }
 
   // 2. Get embeddings for all signal events
-  const signalEventIds = positiveSignals.map(s => s.eventId);
+  const signalEventIds = positiveSignals.map((s) => s.eventId);
   const signalEvents = await db
     .select({
       id: events.id,
@@ -422,8 +409,10 @@ export async function getMultiAnchorPersonalizedFeed(
     .from(events)
     .where(inArray(events.id, signalEventIds));
 
-  const signalEventsWithEmbeddings = signalEvents.filter(e => e.embedding !== null);
-  console.log(`[PersonalizationV2] ${signalEventsWithEmbeddings.length}/${signalEvents.length} signal events have embeddings`);
+  const signalEventsWithEmbeddings = signalEvents.filter((e) => e.embedding !== null);
+  console.log(
+    `[PersonalizationV2] ${signalEventsWithEmbeddings.length}/${signalEvents.length} signal events have embeddings`
+  );
 
   if (signalEventsWithEmbeddings.length === 0) {
     console.log(`[PersonalizationV2] No signal events with embeddings`);
@@ -434,15 +423,20 @@ export async function getMultiAnchorPersonalizedFeed(
   }
 
   // 3. Build candidate map: eventId -> candidate info
-  const candidateMap = new Map<string, {
-    event: SimilarEvent;
-    sources: MatchSource[];
-    maxSimilarity: number;
-    centroidSimilarity: number | null;
-  }>();
+  const candidateMap = new Map<
+    string,
+    {
+      event: SimilarEvent;
+      sources: MatchSource[];
+      maxSimilarity: number;
+      centroidSimilarity: number | null;
+    }
+  >();
 
   // 4. For each signal event, find top N similar upcoming events
-  console.log(`[PersonalizationV2] Finding matches for ${signalEventsWithEmbeddings.length} signal events...`);
+  console.log(
+    `[PersonalizationV2] Finding matches for ${signalEventsWithEmbeddings.length} signal events...`
+  );
 
   for (const signalEvent of signalEventsWithEmbeddings) {
     const embedding = signalEvent.embedding as number[];
@@ -455,7 +449,9 @@ export async function getMultiAnchorPersonalizedFeed(
       endDate: options.endDate,
     });
 
-    console.log(`[PersonalizationV2] Signal "${signalEvent.title.substring(0, 30)}..." -> ${matches.length} matches`);
+    console.log(
+      `[PersonalizationV2] Signal "${signalEvent.title.substring(0, 30)}..." -> ${matches.length} matches`
+    );
 
     for (const match of matches) {
       if (!candidateMap.has(match.id)) {
@@ -477,10 +473,12 @@ export async function getMultiAnchorPersonalizedFeed(
     }
   }
 
-  console.log(`[PersonalizationV2] Found ${candidateMap.size} unique candidates from individual signals`);
+  console.log(
+    `[PersonalizationV2] Found ${candidateMap.size} unique candidates from individual signals`
+  );
 
   // 5. Compute centroid and find its matches
-  const embeddings = signalEventsWithEmbeddings.map(e => e.embedding as number[]);
+  const embeddings = signalEventsWithEmbeddings.map((e) => e.embedding as number[]);
   const centroid = computeCentroidFromEmbeddings(embeddings);
 
   if (centroid) {
@@ -516,19 +514,21 @@ export async function getMultiAnchorPersonalizedFeed(
   // 6. Get negative centroid for penalty (if user has hidden events)
   let negativeCentroid: number[] | null = null;
   if (negativeSignals.length > 0) {
-    const negativeEventIds = negativeSignals.map(s => s.eventId);
+    const negativeEventIds = negativeSignals.map((s) => s.eventId);
     const negativeEvents = await db
       .select({ embedding: events.embedding })
       .from(events)
       .where(inArray(events.id, negativeEventIds));
 
     const negativeEmbeddings = negativeEvents
-      .filter(e => e.embedding !== null)
-      .map(e => e.embedding as number[]);
+      .filter((e) => e.embedding !== null)
+      .map((e) => e.embedding as number[]);
 
     if (negativeEmbeddings.length > 0) {
       negativeCentroid = computeCentroidFromEmbeddings(negativeEmbeddings);
-      console.log(`[PersonalizationV2] Computed negative centroid from ${negativeEmbeddings.length} hidden events`);
+      console.log(
+        `[PersonalizationV2] Computed negative centroid from ${negativeEmbeddings.length} hidden events`
+      );
     }
   }
 
@@ -554,10 +554,10 @@ export async function getMultiAnchorPersonalizedFeed(
       : 0;
 
     // Centroid bonus: small reward if matched both individual AND centroid
-    const centroidBonus = (hasIndividualMatch && hasCentroidMatch) ? CENTROID_BONUS : 0;
+    const centroidBonus = hasIndividualMatch && hasCentroidMatch ? CENTROID_BONUS : 0;
 
     // Negative penalty: penalize if similar to hidden events
-    let negativePenalty = 0;
+    const negativePenalty = 0;
     if (negativeCentroid && candidate.event.similarity) {
       // We need the event's embedding to compute similarity to negative centroid
       // For now, we'll skip this and just use the candidates as-is
@@ -593,7 +593,9 @@ export async function getMultiAnchorPersonalizedFeed(
   results.sort((a, b) => b.finalScore - a.finalScore);
 
   console.log(`[PersonalizationV2] Returning ${results.length} personalized events`);
-  console.log(`[PersonalizationV2] Tier breakdown: ${results.filter(e => e.tier === 'great').length} great, ${results.filter(e => e.tier === 'good').length} good, ${results.filter(e => e.tier === null).length} okay`);
+  console.log(
+    `[PersonalizationV2] Tier breakdown: ${results.filter((e) => e.tier === 'great').length} great, ${results.filter((e) => e.tier === 'good').length} good, ${results.filter((e) => e.tier === null).length} okay`
+  );
 
   return {
     events: results,
@@ -614,7 +616,7 @@ function computeCentroidFromEmbeddings(embeddings: number[][]): number[] | null 
   if (embeddings.length === 0) return null;
 
   const dimensions = embeddings[0].length;
-  const centroid = new Array(dimensions).fill(0);
+  const centroid = Array.from({ length: dimensions }, () => 0);
 
   for (const embedding of embeddings) {
     for (let i = 0; i < dimensions; i++) {

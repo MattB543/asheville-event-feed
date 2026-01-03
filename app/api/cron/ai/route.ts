@@ -1,17 +1,17 @@
-import { NextResponse } from "next/server";
-import { db } from "@/lib/db";
-import { events } from "@/lib/db/schema";
-import { eq, or, like, sql, isNull, and, isNotNull } from "drizzle-orm";
-import { generateTagsAndSummary } from "@/lib/ai/tagAndSummarize";
-import { generateEmbedding, createEmbeddingText } from "@/lib/ai/embedding";
-import { generateEventScore, getRecurringEventScore } from "@/lib/ai/scoring";
-import { checkWeeklyRecurring } from "@/lib/ai/recurringDetection";
-import { findSimilarEvents } from "@/lib/db/similaritySearch";
-import { env } from "@/lib/config/env";
-import { isAzureAIEnabled } from "@/lib/ai/provider-clients";
-import { verifyAuthToken } from "@/lib/utils/auth";
-import { invalidateEventsCache } from "@/lib/cache/invalidation";
-import { startCronJob, completeCronJob, failCronJob } from "@/lib/cron/jobTracker";
+import { NextResponse } from 'next/server';
+import { db } from '@/lib/db';
+import { events } from '@/lib/db/schema';
+import { eq, or, like, sql, isNull, and, isNotNull, inArray } from 'drizzle-orm';
+import { generateTagsAndSummary } from '@/lib/ai/tagAndSummarize';
+import { generateEmbedding, createEmbeddingText } from '@/lib/ai/embedding';
+import { generateEventScore, getRecurringEventScore } from '@/lib/ai/scoring';
+import { checkWeeklyRecurring } from '@/lib/ai/recurringDetection';
+import { findSimilarEvents } from '@/lib/db/similaritySearch';
+import { env } from '@/lib/config/env';
+import { isAzureAIEnabled } from '@/lib/ai/provider-clients';
+import { verifyAuthToken } from '@/lib/utils/auth';
+import { invalidateEventsCache } from '@/lib/cache/invalidation';
+import { startCronJob, completeCronJob, failCronJob } from '@/lib/cron/jobTracker';
 
 export const maxDuration = 800; // 13+ minutes (requires Fluid Compute)
 
@@ -44,16 +44,19 @@ const chunk = <T>(arr: T[], size: number) =>
 // 3. Scoring Pass: Score events using similar events context (daily/weekly skip AI)
 // 4. Images Pass: Set default fallback images
 export async function GET(request: Request) {
-  const authHeader = request.headers.get("authorization");
+  const authHeader = request.headers.get('authorization');
   if (!verifyAuthToken(authHeader, env.CRON_SECRET)) {
-    return new NextResponse("Unauthorized", { status: 401 });
+    return new NextResponse('Unauthorized', { status: 401 });
   }
 
   if (!isAzureAIEnabled()) {
-    return NextResponse.json({
-      success: false,
-      error: "Azure AI not enabled (AZURE_OPENAI_API_KEY and AZURE_OPENAI_ENDPOINT required)",
-    }, { status: 400 });
+    return NextResponse.json(
+      {
+        success: false,
+        error: 'Azure AI not enabled (AZURE_OPENAI_API_KEY and AZURE_OPENAI_ENDPOINT required)',
+      },
+      { status: 400 }
+    );
   }
 
   const jobStartTime = Date.now();
@@ -68,8 +71,8 @@ export async function GET(request: Request) {
   };
 
   try {
-    console.log("[AI] ════════════════════════════════════════════════");
-    console.log("[AI] Starting AI processing job...");
+    console.log('[AI] ════════════════════════════════════════════════');
+    console.log('[AI] Starting AI processing job...');
 
     const now = new Date();
     const threeMonthsFromNow = new Date();
@@ -78,7 +81,7 @@ export async function GET(request: Request) {
     // ═══════════════════════════════════════════════════════════════
     // 1. COMBINED PASS: Tags + Summary in one Azure call
     // ═══════════════════════════════════════════════════════════════
-    console.log("[AI] Finding events needing tags or summaries (next 3 months)...");
+    console.log('[AI] Finding events needing tags or summaries (next 3 months)...');
     const eventsNeedingProcessing = await db
       .select({
         id: events.id,
@@ -135,13 +138,12 @@ export async function GET(request: Request) {
               }
 
               if (Object.keys(updateData).length > 0) {
-                await db
-                  .update(events)
-                  .set(updateData)
-                  .where(eq(events.id, event.id));
+                await db.update(events).set(updateData).where(eq(events.id, event.id));
 
                 stats.combined.success++;
-                console.log(`[AI] Processed "${event.title.slice(0, 40)}..." - ${result.tags.length} tags, summary: ${result.summary ? 'yes' : 'no'}`);
+                console.log(
+                  `[AI] Processed "${event.title.slice(0, 40)}..." - ${result.tags.length} tags, summary: ${result.summary ? 'yes' : 'no'}`
+                );
               } else {
                 stats.combined.failed++;
                 console.warn(`[AI] No results for "${event.title.slice(0, 40)}..."`);
@@ -167,7 +169,7 @@ export async function GET(request: Request) {
     // ═══════════════════════════════════════════════════════════════
     // 2. EMBEDDINGS PASS: Generate Gemini embeddings
     // ═══════════════════════════════════════════════════════════════
-    console.log("[AI] Finding events needing embeddings (next 3 months)...");
+    console.log('[AI] Finding events needing embeddings (next 3 months)...');
     const eventsNeedingEmbeddings = await db
       .select({
         id: events.id,
@@ -196,14 +198,16 @@ export async function GET(request: Request) {
         await Promise.all(
           batch.map(async (event) => {
             try {
-              const text = createEmbeddingText(event.title, event.aiSummary!, event.tags, event.organizer);
+              const text = createEmbeddingText(
+                event.title,
+                event.aiSummary!,
+                event.tags,
+                event.organizer
+              );
               const embedding = await generateEmbedding(text);
 
               if (embedding) {
-                await db
-                  .update(events)
-                  .set({ embedding })
-                  .where(eq(events.id, event.id));
+                await db.update(events).set({ embedding }).where(eq(events.id, event.id));
 
                 stats.embeddings.success++;
                 console.log(`[AI] Generated embedding for "${event.title.slice(0, 40)}..."`);
@@ -231,7 +235,7 @@ export async function GET(request: Request) {
     // ═══════════════════════════════════════════════════════════════
     // 3. SCORING PASS: Score events with similar events context
     // ═══════════════════════════════════════════════════════════════
-    console.log("[AI] Finding events needing scores (next 3 months, with embeddings)...");
+    console.log('[AI] Finding events needing scores (next 3 months, with embeddings)...');
     const eventsNeedingScores = await db
       .select({
         id: events.id,
@@ -280,7 +284,9 @@ export async function GET(request: Request) {
               .where(eq(events.id, event.id));
 
             stats.scoring.skippedRecurring++;
-            console.log(`[AI] Auto-scored daily recurring: "${event.title.slice(0, 40)}..." = 5/30`);
+            console.log(
+              `[AI] Auto-scored daily recurring: "${event.title.slice(0, 40)}..." = 5/30`
+            );
             continue;
           }
 
@@ -307,7 +313,9 @@ export async function GET(request: Request) {
               .where(eq(events.id, event.id));
 
             stats.scoring.skippedRecurring++;
-            console.log(`[AI] Auto-scored weekly recurring (${recurringCheck.matchCount} matches): "${event.title.slice(0, 40)}..." = 5/30`);
+            console.log(
+              `[AI] Auto-scored weekly recurring (${recurringCheck.matchCount} matches): "${event.title.slice(0, 40)}..." = 5/30`
+            );
             continue;
           }
 
@@ -316,7 +324,7 @@ export async function GET(request: Request) {
             limit: 20,
             minSimilarity: 0.4,
             futureOnly: true,
-            orderBy: 'similarity'
+            orderBy: 'similarity',
           });
 
           // Generate AI score
@@ -332,7 +340,7 @@ export async function GET(request: Request) {
               startDate: event.startDate,
               price: event.price,
             },
-            similarEvents.map(e => ({
+            similarEvents.map((e) => ({
               title: e.title,
               location: e.location,
               organizer: e.organizer,
@@ -354,7 +362,9 @@ export async function GET(request: Request) {
               .where(eq(events.id, event.id));
 
             stats.scoring.success++;
-            console.log(`[AI] Scored "${event.title.slice(0, 30)}...": ${scoreResult.score}/30 (R:${scoreResult.rarity} U:${scoreResult.unique} M:${scoreResult.magnitude})`);
+            console.log(
+              `[AI] Scored "${event.title.slice(0, 30)}...": ${scoreResult.score}/30 (R:${scoreResult.rarity} U:${scoreResult.unique} M:${scoreResult.magnitude})`
+            );
           } else {
             stats.scoring.failed++;
           }
@@ -379,7 +389,7 @@ export async function GET(request: Request) {
     // ═══════════════════════════════════════════════════════════════
     // 4. IMAGES PASS: Set default fallback images
     // ═══════════════════════════════════════════════════════════════
-    console.log("[AI] Finding events needing images...");
+    console.log('[AI] Finding events needing images...');
     const eventsNeedingImages = await db
       .select({
         id: events.id,
@@ -389,10 +399,10 @@ export async function GET(request: Request) {
       .where(
         or(
           isNull(events.imageUrl),
-          eq(events.imageUrl, ""),
-          like(events.imageUrl, "%/images/fallbacks/%"),
-          like(events.imageUrl, "%group-cover%"),
-          like(events.imageUrl, "%default_photo%")
+          eq(events.imageUrl, ''),
+          like(events.imageUrl, '%/images/fallbacks/%'),
+          like(events.imageUrl, '%group-cover%'),
+          like(events.imageUrl, '%default_photo%')
         )
       )
       .limit(500); // Process more since we're just setting a static URL
@@ -403,14 +413,11 @@ export async function GET(request: Request) {
     // Set default fallback image for all events without images
     if (eventsNeedingImages.length > 0) {
       const imageStartTime = Date.now();
-      const DEFAULT_IMAGE = "/asheville-default.jpg";
+      const DEFAULT_IMAGE = '/asheville-default.jpg';
 
       // Batch update all events without images
-      const ids = eventsNeedingImages.map(e => e.id);
-      await db
-        .update(events)
-        .set({ imageUrl: DEFAULT_IMAGE })
-        .where(sql`${events.id} = ANY(${ids})`);
+      const ids = eventsNeedingImages.map((e) => e.id);
+      await db.update(events).set({ imageUrl: DEFAULT_IMAGE }).where(inArray(events.id, ids));
 
       stats.images.success = eventsNeedingImages.length;
       stats.images.duration = Date.now() - imageStartTime;
@@ -423,14 +430,22 @@ export async function GET(request: Request) {
     // Final Summary
     // ═══════════════════════════════════════════════════════════════
     const totalDuration = Date.now() - jobStartTime;
-    console.log("[AI] ────────────────────────────────────────────────");
+    console.log('[AI] ────────────────────────────────────────────────');
     console.log(`[AI] JOB COMPLETE in ${formatDuration(totalDuration)}`);
-    console.log("[AI] ────────────────────────────────────────────────");
-    console.log(`[AI] Combined (tags+summary): ${stats.combined.success}/${stats.combined.total} in ${formatDuration(stats.combined.duration)}`);
-    console.log(`[AI] Embeddings: ${stats.embeddings.success}/${stats.embeddings.total} in ${formatDuration(stats.embeddings.duration)}`);
-    console.log(`[AI] Scoring: ${stats.scoring.success}/${stats.scoring.total} (${stats.scoring.skippedRecurring} recurring) in ${formatDuration(stats.scoring.duration)}`);
-    console.log(`[AI] Images: ${stats.images.success}/${stats.images.total} in ${formatDuration(stats.images.duration)}`);
-    console.log("[AI] ════════════════════════════════════════════════");
+    console.log('[AI] ────────────────────────────────────────────────');
+    console.log(
+      `[AI] Combined (tags+summary): ${stats.combined.success}/${stats.combined.total} in ${formatDuration(stats.combined.duration)}`
+    );
+    console.log(
+      `[AI] Embeddings: ${stats.embeddings.success}/${stats.embeddings.total} in ${formatDuration(stats.embeddings.duration)}`
+    );
+    console.log(
+      `[AI] Scoring: ${stats.scoring.success}/${stats.scoring.total} (${stats.scoring.skippedRecurring} recurring) in ${formatDuration(stats.scoring.duration)}`
+    );
+    console.log(
+      `[AI] Images: ${stats.images.success}/${stats.images.total} in ${formatDuration(stats.images.duration)}`
+    );
+    console.log('[AI] ════════════════════════════════════════════════');
 
     // Invalidate cache so home page shows updated events
     invalidateEventsCache();
@@ -468,10 +483,10 @@ export async function GET(request: Request) {
     });
   } catch (error) {
     const totalDuration = Date.now() - jobStartTime;
-    console.error("[AI] ════════════════════════════════════════════════");
+    console.error('[AI] ════════════════════════════════════════════════');
     console.error(`[AI] JOB FAILED after ${formatDuration(totalDuration)}`);
-    console.error("[AI] Error:", error);
-    console.error("[AI] ════════════════════════════════════════════════");
+    console.error('[AI] Error:', error);
+    console.error('[AI] ════════════════════════════════════════════════');
 
     await failCronJob(runId, error);
 

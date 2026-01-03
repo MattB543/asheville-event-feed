@@ -10,24 +10,49 @@ export interface TagCategory {
 
 export const TAG_CATEGORIES: TagCategory[] = [
   {
-    name: "Entertainment",
-    tags: ["Live Music", "Comedy", "Theater & Film", "Dance", "Trivia", "Open Mic", "Karaoke"],
+    name: 'Entertainment',
+    tags: ['Live Music', 'Comedy', 'Theater & Film', 'Dance', 'Trivia', 'Open Mic', 'Karaoke'],
   },
   {
-    name: "Food & Drink",
-    tags: ["Dining", "Beer", "Wine & Spirits"],
+    name: 'Food & Drink',
+    tags: ['Dining', 'Beer', 'Wine & Spirits'],
   },
   {
-    name: "Activities",
-    tags: ["Art", "Crafts", "Fitness", "Sports", "Wellness", "Spiritual", "Meditation", "Outdoors", "Tours", "Gaming", "Education", "Tech", "Book Club", "Museum Exhibition"],
+    name: 'Activities',
+    tags: [
+      'Art',
+      'Crafts',
+      'Fitness',
+      'Sports',
+      'Wellness',
+      'Spiritual',
+      'Meditation',
+      'Outdoors',
+      'Tours',
+      'Gaming',
+      'Education',
+      'Tech',
+      'Book Club',
+      'Museum Exhibition',
+    ],
   },
   {
-    name: "Audience/Social",
-    tags: ["Family", "Dating", "Networking", "Nightlife", "LGBTQ+", "Pets", "Community", "Volunteering", "Support Groups"],
+    name: 'Audience/Social',
+    tags: [
+      'Family',
+      'Dating',
+      'Networking',
+      'Nightlife',
+      'LGBTQ+',
+      'Pets',
+      'Community',
+      'Volunteering',
+      'Support Groups',
+    ],
   },
   {
-    name: "Seasonal",
-    tags: ["Holiday", "Markets"],
+    name: 'Seasonal',
+    tags: ['Holiday', 'Markets'],
   },
 ];
 

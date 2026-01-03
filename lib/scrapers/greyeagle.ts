@@ -8,7 +8,7 @@
  * Venue: The Grey Eagle - 185 Clingman Ave, Asheville, NC
  */
 
-import { ScrapedEvent } from './types';
+import { type ScrapedEvent } from './types';
 import { fetchEventData } from './base';
 import { decodeHtmlEntities } from '../utils/parsers';
 
@@ -23,8 +23,9 @@ const VENUE_ZIP = '28801';
  */
 function extractMetaDescription(html: string): string | undefined {
   // Try name="description" first (both attribute orders)
-  const metaDesc = html.match(/<meta[^>]*name=["']description["'][^>]*content=["']([^"']*)["']/i)
-    || html.match(/<meta[^>]*content=["']([^"']*)["'][^>]*name=["']description["']/i);
+  const metaDesc =
+    html.match(/<meta[^>]*name=["']description["'][^>]*content=["']([^"']*)["']/i) ||
+    html.match(/<meta[^>]*content=["']([^"']*)["'][^>]*name=["']description["']/i);
 
   if (metaDesc && metaDesc[1]) {
     const decoded = decodeHtmlEntities(metaDesc[1]);
@@ -35,8 +36,9 @@ function extractMetaDescription(html: string): string | undefined {
   }
 
   // Fallback to og:description
-  const ogDesc = html.match(/<meta[^>]*property=["']og:description["'][^>]*content=["']([^"']*)["']/i)
-    || html.match(/<meta[^>]*content=["']([^"']*)["'][^>]*property=["']og:description["']/i);
+  const ogDesc =
+    html.match(/<meta[^>]*property=["']og:description["'][^>]*content=["']([^"']*)["']/i) ||
+    html.match(/<meta[^>]*content=["']([^"']*)["'][^>]*property=["']og:description["']/i);
 
   if (ogDesc && ogDesc[1]) {
     const decoded = decodeHtmlEntities(ogDesc[1]);
@@ -78,7 +80,7 @@ async function fetchEventUrls(): Promise<string[]> {
       CALENDAR_URL,
       {
         headers: {
-          'Accept': 'text/html,application/xhtml+xml',
+          Accept: 'text/html,application/xhtml+xml',
         },
         cache: 'no-store',
       },
@@ -113,7 +115,7 @@ async function scrapeEventPage(url: string): Promise<ScrapedEvent | null> {
       url,
       {
         headers: {
-          'Accept': 'text/html',
+          Accept: 'text/html',
         },
         cache: 'no-store',
       },
@@ -128,7 +130,7 @@ async function scrapeEventPage(url: string): Promise<ScrapedEvent | null> {
 
     let jsonLd: JSONLDEvent;
     try {
-      jsonLd = JSON.parse(jsonLdMatch[1]);
+      jsonLd = JSON.parse(jsonLdMatch[1]) as JSONLDEvent;
     } catch {
       return null;
     }
@@ -171,11 +173,10 @@ async function scrapeEventPage(url: string): Promise<ScrapedEvent | null> {
     } else {
       // Look for single price in ticket/price context to avoid matching unrelated dollar amounts
       // Matches patterns like "Tickets: $25", "Price: $30", "$25 advance", "$30 door"
-      const contextualPriceMatch = html.match(
-        /(?:tickets?|price|admission|cover|entry|advance|door)[:\s]*\$(\d+(?:\.\d{2})?)/i
-      ) || html.match(
-        /\$(\d+(?:\.\d{2})?)\s*(?:advance|door|cover|tickets?)/i
-      );
+      const contextualPriceMatch =
+        html.match(
+          /(?:tickets?|price|admission|cover|entry|advance|door)[:\s]*\$(\d+(?:\.\d{2})?)/i
+        ) || html.match(/\$(\d+(?:\.\d{2})?)\s*(?:advance|door|cover|tickets?)/i);
       if (contextualPriceMatch) {
         price = `$${contextualPriceMatch[1]}`;
       }
@@ -195,7 +196,10 @@ async function scrapeEventPage(url: string): Promise<ScrapedEvent | null> {
       imageUrl: jsonLd.image,
     };
   } catch (error) {
-    console.warn(`[GreyEagle] Failed to scrape: ${url}`, error instanceof Error ? error.message : error);
+    console.warn(
+      `[GreyEagle] Failed to scrape: ${url}`,
+      error instanceof Error ? error.message : error
+    );
     return null;
   }
 }
@@ -230,7 +234,7 @@ export async function scrapeGreyEagle(): Promise<ScrapedEvent[]> {
     }
 
     // Rate limit: 150ms between requests
-    await new Promise(r => setTimeout(r, 150));
+    await new Promise((r) => setTimeout(r, 150));
   }
 
   // Sort by date

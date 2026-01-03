@@ -43,15 +43,21 @@ async function main() {
   }
 
   // Field completeness
-  const withImages = events.filter(e => e.imageUrl).length;
-  const withPrices = events.filter(e => e.price && e.price !== 'Unknown').length;
-  const withDescriptions = events.filter(e => e.description).length;
-  const withRecurring = events.filter(e => e.recurringType).length;
+  const withImages = events.filter((e) => e.imageUrl).length;
+  const withPrices = events.filter((e) => e.price && e.price !== 'Unknown').length;
+  const withDescriptions = events.filter((e) => e.description).length;
+  const withRecurring = events.filter((e) => e.recurringType).length;
 
   console.log('\nField Completeness:');
-  console.log(`  Images:       ${withImages}/${events.length} (${Math.round(withImages / events.length * 100)}%)`);
-  console.log(`  Prices:       ${withPrices}/${events.length} (${Math.round(withPrices / events.length * 100)}%)`);
-  console.log(`  Descriptions: ${withDescriptions}/${events.length} (${Math.round(withDescriptions / events.length * 100)}%)`);
+  console.log(
+    `  Images:       ${withImages}/${events.length} (${Math.round((withImages / events.length) * 100)}%)`
+  );
+  console.log(
+    `  Prices:       ${withPrices}/${events.length} (${Math.round((withPrices / events.length) * 100)}%)`
+  );
+  console.log(
+    `  Descriptions: ${withDescriptions}/${events.length} (${Math.round((withDescriptions / events.length) * 100)}%)`
+  );
   console.log(`  Recurring:    ${withRecurring}/${events.length}`);
 
   // Price distribution
@@ -72,7 +78,9 @@ async function main() {
     console.log('');
     console.log(`  ${e.title}`);
     console.log(`    UTC:      ${e.startDate.toISOString()}`);
-    console.log(`    Eastern:  ${e.startDate.toLocaleString('en-US', { timeZone: 'America/New_York' })}`);
+    console.log(
+      `    Eastern:  ${e.startDate.toLocaleString('en-US', { timeZone: 'America/New_York' })}`
+    );
     console.log(`    Location: ${e.location || 'N/A'}`);
     console.log(`    Price:    ${e.price}`);
     console.log(`    URL:      ${e.url}`);

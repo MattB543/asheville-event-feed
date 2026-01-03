@@ -1,6 +1,6 @@
-import { db } from "@/lib/db";
-import { userPreferences } from "@/lib/db/schema";
-import { eq } from "drizzle-orm";
+import { db } from '@/lib/db';
+import { userPreferences } from '@/lib/db/schema';
+import { eq } from 'drizzle-orm';
 
 // Types matching localStorage structure
 export interface HiddenEventFingerprint {
@@ -30,9 +30,7 @@ export const DEFAULT_PREFERENCES: UserPreferencesData = {
 /**
  * Get user preferences from database
  */
-export async function getUserPreferences(
-  userId: string
-): Promise<UserPreferencesData | null> {
+export async function getUserPreferences(userId: string): Promise<UserPreferencesData | null> {
   try {
     const result = await db
       .select()
@@ -55,7 +53,7 @@ export async function getUserPreferences(
       updatedAt: row.updatedAt,
     };
   } catch (error) {
-    console.error("Error fetching user preferences:", error);
+    console.error('Error fetching user preferences:', error);
     return null;
   }
 }
@@ -94,7 +92,7 @@ export async function saveUserPreferences(
       });
     return true;
   } catch (error) {
-    console.error("Error saving user preferences:", error);
+    console.error('Error saving user preferences:', error);
     return false;
   }
 }
@@ -108,15 +106,9 @@ export function mergePreferences(
   remote: UserPreferencesData
 ): UserPreferencesData {
   // Union arrays (deduplicate)
-  const mergedBlockedHosts = [
-    ...new Set([...local.blockedHosts, ...remote.blockedHosts]),
-  ];
-  const mergedBlockedKeywords = [
-    ...new Set([...local.blockedKeywords, ...remote.blockedKeywords]),
-  ];
-  const mergedFavorites = [
-    ...new Set([...local.favoritedEventIds, ...remote.favoritedEventIds]),
-  ];
+  const mergedBlockedHosts = [...new Set([...local.blockedHosts, ...remote.blockedHosts])];
+  const mergedBlockedKeywords = [...new Set([...local.blockedKeywords, ...remote.blockedKeywords])];
+  const mergedFavorites = [...new Set([...local.favoritedEventIds, ...remote.favoritedEventIds])];
 
   // Merge hidden events by fingerprint key
   const hiddenMap = new Map<string, HiddenEventFingerprint>();

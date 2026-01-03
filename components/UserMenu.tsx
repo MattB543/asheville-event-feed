@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { useState, useRef, useEffect } from "react";
-import { useAuth } from "./AuthProvider";
-import { User, LogOut, ChevronDown, UserCircle } from "lucide-react";
-import Link from "next/link";
+import { useState, useRef, useEffect } from 'react';
+import { useAuth } from './AuthProvider';
+import { User, LogOut, ChevronDown, UserCircle } from 'lucide-react';
+import Link from 'next/link';
 
 export default function UserMenu() {
   const { user, isLoading, signOut } = useAuth();
@@ -18,8 +18,8 @@ export default function UserMenu() {
       }
     }
 
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
   // Handle sign out
@@ -30,9 +30,7 @@ export default function UserMenu() {
 
   // Show nothing while loading
   if (isLoading) {
-    return (
-      <div className="w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-700 animate-pulse" />
-    );
+    return <div className="w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-700 animate-pulse" />;
   }
 
   // Not logged in - show sign in button
@@ -49,9 +47,14 @@ export default function UserMenu() {
   }
 
   // Logged in - show user menu dropdown
-  const email = user.email || "User";
+  const email = user.email || 'User';
+  const metadata = user.user_metadata as Record<string, unknown> | null;
   const avatarUrl =
-    user.user_metadata?.avatar_url || user.user_metadata?.picture || null;
+    metadata && typeof metadata.avatar_url === 'string'
+      ? metadata.avatar_url
+      : metadata && typeof metadata.picture === 'string'
+        ? metadata.picture
+        : null;
 
   return (
     <div className="relative" ref={menuRef}>
@@ -72,9 +75,7 @@ export default function UserMenu() {
             <User className="w-4 h-4 text-white" />
           </div>
         )}
-        <ChevronDown
-          className={`w-4 h-4 transition-transform ${isOpen ? "rotate-180" : ""}`}
-        />
+        <ChevronDown className={`w-4 h-4 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
       </button>
 
       {/* Dropdown Menu */}
@@ -82,12 +83,8 @@ export default function UserMenu() {
         <div className="absolute right-0 mt-2 w-56 bg-white dark:bg-gray-900 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 py-1 z-50">
           {/* User info */}
           <div className="px-4 py-3 border-b border-gray-200 dark:border-gray-700">
-            <p className="text-sm font-medium text-gray-900 dark:text-white truncate">
-              {email}
-            </p>
-            <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
-              Signed in
-            </p>
+            <p className="text-sm font-medium text-gray-900 dark:text-white truncate">{email}</p>
+            <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Signed in</p>
           </div>
 
           {/* Menu items */}
@@ -100,7 +97,7 @@ export default function UserMenu() {
             Profile
           </Link>
           <button
-            onClick={handleSignOut}
+            onClick={() => void handleSignOut()}
             className="w-full flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors cursor-pointer"
           >
             <LogOut className="w-4 h-4" />

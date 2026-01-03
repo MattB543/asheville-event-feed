@@ -46,7 +46,13 @@ export async function findSimilarEvents(
   eventId: string,
   options: SimilaritySearchOptions = {}
 ): Promise<SimilarEvent[]> {
-  const { limit = 5, minSimilarity = 0.5, excludeIds = [], futureOnly = true, orderBy = 'similarity' } = options;
+  const {
+    limit = 5,
+    minSimilarity = 0.5,
+    excludeIds = [],
+    futureOnly = true,
+    orderBy = 'similarity',
+  } = options;
 
   // Get the source event's embedding
   const sourceEvent = await db
@@ -133,10 +139,7 @@ export async function semanticSearchEvents(
   const similarity = sql<number>`1 - (${cosineDistance(events.embedding, queryEmbedding)})`;
 
   // Build conditions
-  const conditions = [
-    isNotNull(events.embedding),
-    gt(similarity, minSimilarity),
-  ];
+  const conditions = [isNotNull(events.embedding), gt(similarity, minSimilarity)];
 
   // Exclude specific IDs
   if (excludeIds.length > 0) {
@@ -189,22 +192,13 @@ export async function findSimilarByEmbedding(
     endDate?: Date;
   } = {}
 ): Promise<SimilarEvent[]> {
-  const {
-    limit = 10,
-    minSimilarity = 0.4,
-    excludeIds = [],
-    startDate,
-    endDate,
-  } = options;
+  const { limit = 10, minSimilarity = 0.4, excludeIds = [], startDate, endDate } = options;
 
   // Calculate similarity score (1 - cosine distance)
   const similarity = sql<number>`1 - (${cosineDistance(events.embedding, embedding)})`;
 
   // Build conditions
-  const conditions = [
-    isNotNull(events.embedding),
-    gt(similarity, minSimilarity),
-  ];
+  const conditions = [isNotNull(events.embedding), gt(similarity, minSimilarity)];
 
   // Exclude specific IDs
   for (const id of excludeIds) {
@@ -255,9 +249,7 @@ export async function getEmbeddingStats(): Promise<{
   withEmbedding: number;
   withSummary: number;
 }> {
-  const [totalResult] = await db
-    .select({ count: sql<number>`count(*)` })
-    .from(events);
+  const [totalResult] = await db.select({ count: sql<number>`count(*)` }).from(events);
 
   const [withEmbeddingResult] = await db
     .select({ count: sql<number>`count(*)` })

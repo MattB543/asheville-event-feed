@@ -28,20 +28,18 @@ export async function uploadEventImage(
   const fileName = `${eventId}.jpg`;
   const filePath = `generated/${fileName}`;
 
-  const { error } = await client.storage
-    .from(BUCKET_NAME)
-    .upload(filePath, buffer, {
-      contentType: mimeType,
-      upsert: true,
-    });
+  const { error } = await client.storage.from(BUCKET_NAME).upload(filePath, buffer, {
+    contentType: mimeType,
+    upsert: true,
+  });
 
   if (error) {
     throw new Error(`Storage upload failed: ${error.message}`);
   }
 
-  const { data: { publicUrl } } = client.storage
-    .from(BUCKET_NAME)
-    .getPublicUrl(filePath);
+  const {
+    data: { publicUrl },
+  } = client.storage.from(BUCKET_NAME).getPublicUrl(filePath);
 
   return publicUrl;
 }

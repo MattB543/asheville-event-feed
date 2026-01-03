@@ -23,7 +23,9 @@ async function main() {
         (e.goingCount !== undefined && e.goingCount >= 4) ||
         (e.interestedCount !== undefined && e.interestedCount >= 9)
     );
-    console.log(`After interest filter: ${fbFiltered.length} (filtered ${fbRawEvents.length - fbFiltered.length} low-interest)`);
+    console.log(
+      `After interest filter: ${fbFiltered.length} (filtered ${fbRawEvents.length - fbFiltered.length} low-interest)`
+    );
 
     if (fbFiltered.length === 0) {
       console.log('No events to insert.');
@@ -35,38 +37,44 @@ async function main() {
     let failed = 0;
     for (const event of fbFiltered) {
       try {
-        await db.insert(events).values({
-          sourceId: event.sourceId,
-          source: event.source,
-          title: event.title,
-          description: event.description,
-          startDate: event.startDate,
-          location: event.location,
-          organizer: event.organizer,
-          price: event.price,
-          url: event.url,
-          imageUrl: event.imageUrl,
-          tags: [],
-          interestedCount: event.interestedCount,
-          goingCount: event.goingCount,
-        }).onConflictDoUpdate({
-          target: events.url,
-          set: {
+        await db
+          .insert(events)
+          .values({
+            sourceId: event.sourceId,
+            source: event.source,
             title: event.title,
             description: event.description,
             startDate: event.startDate,
             location: event.location,
             organizer: event.organizer,
             price: event.price,
+            url: event.url,
             imageUrl: event.imageUrl,
+            tags: [],
             interestedCount: event.interestedCount,
             goingCount: event.goingCount,
-          },
-        });
+          })
+          .onConflictDoUpdate({
+            target: events.url,
+            set: {
+              title: event.title,
+              description: event.description,
+              startDate: event.startDate,
+              location: event.location,
+              organizer: event.organizer,
+              price: event.price,
+              imageUrl: event.imageUrl,
+              interestedCount: event.interestedCount,
+              goingCount: event.goingCount,
+            },
+          });
         success++;
       } catch (err) {
         failed++;
-        console.error(`Failed to upsert "${event.title}":`, err instanceof Error ? err.message : err);
+        console.error(
+          `Failed to upsert "${event.title}":`,
+          err instanceof Error ? err.message : err
+        );
       }
     }
 
@@ -76,7 +84,9 @@ async function main() {
   }
 }
 
-main().then(() => process.exit(0)).catch(err => {
-  console.error('Fatal error:', err);
-  process.exit(1);
-});
+main()
+  .then(() => process.exit(0))
+  .catch((err) => {
+    console.error('Fatal error:', err);
+    process.exit(1);
+  });

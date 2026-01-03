@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { Calendar, MapPin, User as UserIcon, ArrowRight } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
-import { generateEventSlug } from "@/lib/utils/slugify";
+import { Calendar, MapPin, User as UserIcon, ArrowRight } from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { generateEventSlug } from '@/lib/utils/slugify';
 
 interface CuratedEvent {
   id: string;
@@ -33,9 +33,7 @@ export default function CuratedEventList({ curations }: CuratedEventListProps) {
   if (curations.length === 0) {
     return (
       <div className="text-center py-12">
-        <p className="text-gray-500 dark:text-gray-400">
-          No curated events yet.
-        </p>
+        <p className="text-gray-500 dark:text-gray-400">No curated events yet.</p>
       </div>
     );
   }

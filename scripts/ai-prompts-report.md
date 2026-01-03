@@ -1,6 +1,6 @@
 # AI Prompts & Flow Report
 
-*Generated: 2025-12-29*
+_Generated: 2025-12-29_
 
 This document details all AI prompts used in the Asheville Event Feed system (excluding image generation).
 
@@ -23,16 +23,16 @@ This document details all AI prompts used in the Asheville Event Feed system (ex
 
 ## Overview
 
-| Feature | Model | Has Prompt? | Trigger |
-|---------|-------|-------------|---------|
-| Tags & Summary | Azure OpenAI (gpt-5-mini) | Yes | Cron `/api/cron/ai` |
-| Embeddings | Google Gemini (gemini-embedding-001) | No (text formatting) | Cron `/api/cron/ai` |
-| Scoring | Azure OpenAI (gpt-5-mini) | Yes | Cron `/api/cron/ai` |
-| AI Dedup | Azure OpenAI (gpt-5-mini) | Yes | Cron `/api/cron/dedup` |
-| Enrichment | Azure OpenAI (gpt-5-mini) | Yes | Manual |
-| Chat | Azure OpenAI + OpenRouter fallback | Yes (2-step) | User POST `/api/chat` |
-| Personalization | None (math only) | No | Real-time |
-| Recurring Detection | None (DB query) | No | Cron `/api/cron/ai` |
+| Feature             | Model                                | Has Prompt?          | Trigger                |
+| ------------------- | ------------------------------------ | -------------------- | ---------------------- |
+| Tags & Summary      | Azure OpenAI (gpt-5-mini)            | Yes                  | Cron `/api/cron/ai`    |
+| Embeddings          | Google Gemini (gemini-embedding-001) | No (text formatting) | Cron `/api/cron/ai`    |
+| Scoring             | Azure OpenAI (gpt-5-mini)            | Yes                  | Cron `/api/cron/ai`    |
+| AI Dedup            | Azure OpenAI (gpt-5-mini)            | Yes                  | Cron `/api/cron/dedup` |
+| Enrichment          | Azure OpenAI (gpt-5-mini)            | Yes                  | Manual                 |
+| Chat                | Azure OpenAI + OpenRouter fallback   | Yes (2-step)         | User POST `/api/chat`  |
+| Personalization     | None (math only)                     | No                   | Real-time              |
+| Recurring Detection | None (DB query)                      | No                   | Cron `/api/cron/ai`    |
 
 ---
 
@@ -168,6 +168,7 @@ The embedding is generated from a formatted text string:
 ```
 
 **Example:**
+
 ```
 "Jazz Night at Grey Eagle: Featuring local jazz trio with improvisation and soul-influenced grooves."
 ```
@@ -183,19 +184,22 @@ export function createEmbeddingText(title: string, aiSummary: string): string {
 ### Key Implementation Details
 
 **Task Types:**
+
 - Documents (stored events): `TaskType.RETRIEVAL_DOCUMENT`
 - Search queries: `TaskType.RETRIEVAL_QUERY`
 
 **API Call Configuration:**
+
 ```typescript
 const result = await model.embedContent({
-  content: { role: "user", parts: [{ text }] },
+  content: { role: 'user', parts: [{ text }] },
   taskType: TaskType.RETRIEVAL_DOCUMENT,
   outputDimensionality: 1536,
 });
 ```
 
 **Helper Functions:**
+
 - `generateEmbedding(text, options)` - Generate embedding for stored documents
 - `generateQueryEmbedding(query)` - Generate embedding for search queries
 - `cosineSimilarity(a, b)` - Calculate similarity between two embeddings (returns -1 to 1)
@@ -218,7 +222,7 @@ export async function generateEmbeddings(
     delayMs?: number;
     onProgress?: (current: number, total: number) => void;
   }
-): Promise<(number[] | null)[]>
+): Promise<(number[] | null)[]>;
 ```
 
 Default delay: 100ms between requests to avoid rate limits
@@ -313,21 +317,24 @@ Similar upcoming events (by semantic similarity):
 The scoring system uses pgvector similarity search to provide context about how rare/unique an event is:
 
 1. **Query Similar Events** (`lib/db/similaritySearch.ts`):
+
 ```typescript
 const similarEvents = await findSimilarEvents(event.id, {
   limit: 20,
-  minSimilarity: 0.4,  // 40% similarity threshold
-  futureOnly: true,     // Only upcoming events
-  orderBy: 'similarity' // Most similar first
+  minSimilarity: 0.4, // 40% similarity threshold
+  futureOnly: true, // Only upcoming events
+  orderBy: 'similarity', // Most similar first
 });
 ```
 
 2. **Calculate Similarity** (using pgvector's cosine distance):
+
 ```typescript
 const similarity = sql<number>`1 - (${cosineDistance(events.embedding, sourceEmbedding)})`;
 ```
 
 3. **Pass to AI as Context**:
+
 ```
 Similar upcoming events (by semantic similarity):
 1. "Jazz Night at Grey Eagle" at Grey Eagle on Jan 15 (78% similar)
@@ -341,6 +348,7 @@ Similar upcoming events (by semantic similarity):
    - Similar events but different magnitude → can still score high
 
 **Database Query Implementation:**
+
 ```typescript
 export async function findSimilarEvents(
   eventId: string,
@@ -351,10 +359,11 @@ export async function findSimilarEvents(
     futureOnly?: boolean;
     orderBy?: 'similarity' | 'date';
   }
-): Promise<SimilarEvent[]>
+): Promise<SimilarEvent[]>;
 ```
 
 **Key Features:**
+
 - Uses HNSW index on embedding column for fast similarity search
 - Filters: exclude source event, minimum similarity threshold, future-only option
 - Returns similarity score (0.0 to 1.0) with each result
@@ -380,16 +389,18 @@ export async function findSimilarEvents(
 ### Cost Optimization via Recurring Detection
 
 **Auto-Scoring Rules:**
+
 ```typescript
 export function getRecurringEventScore(type: 'daily' | 'weekly'): EventScoreResult {
   return {
     score: 5,
-    rarity: 1,  // Very low - happens frequently
-    unique: 2,  // Low - common activity type
+    rarity: 1, // Very low - happens frequently
+    unique: 2, // Low - common activity type
     magnitude: 2, // Low - typically local/community level
-    reason: type === 'daily'
-      ? 'Daily recurring event - happens every day.'
-      : 'Weekly recurring event - happens every week.'
+    reason:
+      type === 'daily'
+        ? 'Daily recurring event - happens every day.'
+        : 'Weekly recurring event - happens every week.',
   };
 }
 ```
@@ -468,6 +479,7 @@ Here are {N} events on {YYYY-MM-DD}. Identify any duplicates:
 ### Key Implementation Details
 
 **Spam Filtering Before AI:**
+
 ```typescript
 function filterSpamEvents(events: EventForAIDedup[]): EventForAIDedup[] {
   return events.filter((event) => {
@@ -481,22 +493,24 @@ function filterSpamEvents(events: EventForAIDedup[]): EventForAIDedup[] {
 ```
 
 **Date Grouping:**
+
 ```typescript
 function groupEventsByDate(events: EventForAIDedup[]): Map<string, EventForAIDedup[]> {
   // Uses Eastern time date to match local event dates
-  const dateKey = event.startDate.toLocaleDateString("en-CA", {
-    timeZone: "America/New_York",
+  const dateKey = event.startDate.toLocaleDateString('en-CA', {
+    timeZone: 'America/New_York',
   }); // YYYY-MM-DD format
   // ...
 }
 ```
 
 **Index Mapping Strategy:**
+
 ```typescript
 // Create 1-indexed mapping for human readability
 const indexToId = new Map<number, string>();
 filteredEvents.forEach((event, i) => {
-  indexToId.set(i + 1, event.id);  // 1-indexed
+  indexToId.set(i + 1, event.id); // 1-indexed
 });
 
 // AI receives numeric indices (1, 2, 3...)
@@ -504,6 +518,7 @@ filteredEvents.forEach((event, i) => {
 ```
 
 **Error Handling:**
+
 ```typescript
 interface DayResult {
   date: string;
@@ -516,6 +531,7 @@ interface DayResult {
 ```
 
 **Debug Mode:**
+
 ```typescript
 // Set AI_DEDUP_DEBUG_DIR env var to save inputs/outputs
 const debugDir = process.env.AI_DEDUP_DEBUG_DIR;
@@ -646,15 +662,17 @@ The chat API uses a **2-step AI pipeline**:
 2. **Main Response** - Stream curated event recommendations with context
 
 **Rate Limiting:**
+
 ```typescript
 const RATE_LIMIT_MS = 2000; // 2 seconds between requests per IP
 const rateLimitKey = `chat:${ip}`;
 if (isRateLimited(rateLimitKey, 1, RATE_LIMIT_MS)) {
-  return new Response({ error: "Please wait..." }, { status: 429 });
+  return new Response({ error: 'Please wait...' }, { status: 429 });
 }
 ```
 
 **Provider Fallback:**
+
 ```typescript
 // Try Azure first, fall back to OpenRouter if unavailable
 if (isAzureAIEnabled()) {
@@ -668,7 +686,7 @@ if (openRouterApiKey) {
 }
 
 // Ultimate fallback: 14 days from today
-return { dateRange: getDefaultDateRange(), displayMessage: "..." };
+return { dateRange: getDefaultDateRange(), displayMessage: '...' };
 ```
 
 ### Step 1: Date Range Extraction Prompt
@@ -811,23 +829,28 @@ Description: {truncated description}
 ### Date Re-Extraction Logic
 
 **When to re-extract dates:**
+
 ```typescript
 const DATE_CHANGE_PATTERNS = [
-  /\btonight\b/i, /\btomorrow\b/i, /\btoday\b/i, /\bweekend\b/i,
-  /\bthis week\b/i, /\bnext week\b/i, /\bnext month\b/i,
-  /\bfriday\b/i, /\bsaturday\b/i, /\bsunday\b/i,
+  /\btonight\b/i,
+  /\btomorrow\b/i,
+  /\btoday\b/i,
+  /\bweekend\b/i,
+  /\bthis week\b/i,
+  /\bnext week\b/i,
+  /\bnext month\b/i,
+  /\bfriday\b/i,
+  /\bsaturday\b/i,
+  /\bsunday\b/i,
   // ... more patterns
 ];
 
-function shouldReExtractDates(
-  userMessage: string,
-  hasExistingDateRange: boolean
-): boolean {
+function shouldReExtractDates(userMessage: string, hasExistingDateRange: boolean): boolean {
   // Always extract on first message
   if (!hasExistingDateRange) return true;
 
   // Check if user mentions date-related phrases
-  return DATE_CHANGE_PATTERNS.some(pattern => pattern.test(userMessage));
+  return DATE_CHANGE_PATTERNS.some((pattern) => pattern.test(userMessage));
 }
 ```
 
@@ -837,34 +860,42 @@ This avoids redundant AI calls when user continues asking about the same date ra
 
 ```typescript
 function formatEventsForAI(events: EventData[]): string {
-  return events.map((event) => {
-    const eventDate = new Date(event.startDate);
-    const date = eventDate.toLocaleDateString("en-US", {
-      weekday: "short", month: "short", day: "numeric",
-      hour: "numeric", minute: "2-digit",
-      timeZone: "America/New_York",
-    });
+  return events
+    .map((event) => {
+      const eventDate = new Date(event.startDate);
+      const date = eventDate.toLocaleDateString('en-US', {
+        weekday: 'short',
+        month: 'short',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: '2-digit',
+        timeZone: 'America/New_York',
+      });
 
-    // Generate internal AVL GO event page URL
-    const internalUrl = generateEventUrl(event.title, eventDate, event.id);
+      // Generate internal AVL GO event page URL
+      const internalUrl = generateEventUrl(event.title, eventDate, event.id);
 
-    return [
-      event.title,
-      `URL: ${internalUrl}`,
-      `When: ${date}`,
-      event.location ? `Where: ${event.location}` : null,
-      event.price ? `Price: ${event.price}` : `Price: ?`,
-      event.organizer ? `Host: ${event.organizer}` : null,
-      event.tags?.length ? `Tags: ${event.tags.join(", ")}` : null,
-      event.description || null,
-    ].filter(Boolean).join("\n");
-  }).join("\n---\n");
+      return [
+        event.title,
+        `URL: ${internalUrl}`,
+        `When: ${date}`,
+        event.location ? `Where: ${event.location}` : null,
+        event.price ? `Price: ${event.price}` : `Price: ?`,
+        event.organizer ? `Host: ${event.organizer}` : null,
+        event.tags?.length ? `Tags: ${event.tags.join(', ')}` : null,
+        event.description || null,
+      ]
+        .filter(Boolean)
+        .join('\n');
+    })
+    .join('\n---\n');
 }
 ```
 
 ### Streaming Architecture
 
 **Server-Sent Events (SSE) Format:**
+
 ```typescript
 const encoder = new TextEncoder();
 const stream = new TransformStream<Uint8Array, Uint8Array>();
@@ -872,10 +903,12 @@ const writer = stream.writable.getWriter();
 
 // Send date range info first
 await writer.write(
-  encoder.encode(`data: ${JSON.stringify({
-    type: "dateRange",
-    data: { startDate, endDate, displayMessage, eventCount }
-  })}\n\n`)
+  encoder.encode(
+    `data: ${JSON.stringify({
+      type: 'dateRange',
+      data: { startDate, endDate, displayMessage, eventCount },
+    })}\n\n`
+  )
 );
 
 // Stream AI response chunks
@@ -889,6 +922,7 @@ await writer.close();
 ```
 
 **Azure Streaming:**
+
 ```typescript
 async function streamWithAzure(
   apiMessages: Array<{ role: string; content: string }>,
@@ -908,6 +942,7 @@ async function streamWithAzure(
 ```
 
 **OpenRouter Streaming:**
+
 ```typescript
 async function streamWithOpenRouter(
   apiMessages: Array<{ role: string; content: string }>,
@@ -915,16 +950,16 @@ async function streamWithOpenRouter(
   writer: WritableStreamDefaultWriter<Uint8Array>,
   encoder: TextEncoder
 ): Promise<boolean> {
-  const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
-    method: "POST",
+  const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+    method: 'POST',
     headers: {
       Authorization: `Bearer ${apiKey}`,
-      "Content-Type": "application/json",
-      "HTTP-Referer": "https://avlgo.com",
-      "X-Title": "AVL GO Event Finder",
+      'Content-Type': 'application/json',
+      'HTTP-Referer': 'https://avlgo.com',
+      'X-Title': 'AVL GO Event Finder',
     },
     body: JSON.stringify({
-      model: "google/gemini-2.0-flash-001",
+      model: 'google/gemini-2.0-flash-001',
       messages: apiMessages,
       stream: true,
     }),
@@ -964,6 +999,7 @@ async function streamWithOpenRouter(
 ### Message Format
 
 **Request:**
+
 ```typescript
 {
   messages: ChatMessage[];
@@ -980,6 +1016,7 @@ async function streamWithOpenRouter(
 ```
 
 **Response (SSE stream):**
+
 ```
 data: {"type":"dateRange","data":{"startDate":"2025-01-15","endDate":"2025-01-31","displayMessage":"Checking events from Jan 15 to Jan 31...","eventCount":42}}
 
@@ -1021,6 +1058,7 @@ Uses pre-generated embeddings to compute similarity scores without AI:
 ### Key Implementation Details
 
 **Signal Types:**
+
 ```typescript
 export type PositiveSignalType = 'favorite' | 'calendar' | 'share' | 'viewSource';
 
@@ -1039,6 +1077,7 @@ export interface NegativeSignal {
 ```
 
 **Centroid Computation:**
+
 ```typescript
 export async function computeCentroid(eventIds: string[]): Promise<number[] | null> {
   // 1. Fetch embeddings for all events
@@ -1049,8 +1088,8 @@ export async function computeCentroid(eventIds: string[]): Promise<number[] | nu
 
   // 2. Filter out events without embeddings
   const validEmbeddings = eventsWithEmbeddings
-    .filter(e => e.embedding !== null)
-    .map(e => e.embedding as number[]);
+    .filter((e) => e.embedding !== null)
+    .map((e) => e.embedding as number[]);
 
   // 3. Compute average of all embeddings
   const dimensions = validEmbeddings[0].length;
@@ -1071,6 +1110,7 @@ export async function computeCentroid(eventIds: string[]): Promise<number[] | nu
 ```
 
 **Scoring Function:**
+
 ```typescript
 export function scoreEvent(
   eventEmbedding: number[],
@@ -1093,6 +1133,7 @@ export function scoreEvent(
 ```
 
 **Tier Mapping:**
+
 ```typescript
 export function getScoreTier(score: number): 'great' | 'good' | null {
   if (score > 0.7) return 'great';
@@ -1102,6 +1143,7 @@ export function getScoreTier(score: number): 'great' | 'good' | null {
 ```
 
 **Caching Strategy:**
+
 ```typescript
 // Centroids cached in userPreferences table
 const CENTROID_CACHE_TTL_MS = 60 * 60 * 1000; // 1 hour
@@ -1113,31 +1155,25 @@ const cacheIsFresh =
 
 // Store in database as pgvector
 await db.update(userPreferences).set({
-  positiveCentroid: positiveCentroid
-    ? sql`${JSON.stringify(positiveCentroid)}::vector`
-    : null,
-  negativeCentroid: negativeCentroid
-    ? sql`${JSON.stringify(negativeCentroid)}::vector`
-    : null,
+  positiveCentroid: positiveCentroid ? sql`${JSON.stringify(positiveCentroid)}::vector` : null,
+  negativeCentroid: negativeCentroid ? sql`${JSON.stringify(negativeCentroid)}::vector` : null,
   centroidUpdatedAt: new Date(),
 });
 ```
 
 **Signal Time Window:**
+
 ```typescript
 const SIGNAL_TIME_WINDOW_MS = 12 * 30 * 24 * 60 * 60 * 1000; // 12 months
 
-function filterActiveSignals<T extends { timestamp: string; active: boolean }>(
-  signals: T[]
-): T[] {
+function filterActiveSignals<T extends { timestamp: string; active: boolean }>(signals: T[]): T[] {
   const cutoffDate = new Date(Date.now() - SIGNAL_TIME_WINDOW_MS);
-  return signals.filter(
-    signal => signal.active && new Date(signal.timestamp) >= cutoffDate
-  );
+  return signals.filter((signal) => signal.active && new Date(signal.timestamp) >= cutoffDate);
 }
 ```
 
 **Explainability Helper:**
+
 ```typescript
 export async function findNearestLikedEvent(
   eventEmbedding: number[],
@@ -1204,6 +1240,7 @@ Detects weekly recurring events without AI to save costs:
 ### Key Implementation Details
 
 **Database Query:**
+
 ```typescript
 export async function checkWeeklyRecurring(
   title: string,
@@ -1254,17 +1291,18 @@ export async function checkWeeklyRecurring(
     );
 
   // If no venue/organizer info, require more matches to be confident
-  const threshold = (!normalizedLocation && !normalizedOrganizer) ? 3 : 2;
+  const threshold = !normalizedLocation && !normalizedOrganizer ? 3 : 2;
 
   return {
     isWeeklyRecurring: matches.length >= threshold,
     matchCount: matches.length,
-    matchingEventIds: matches.map(m => m.id)
+    matchingEventIds: matches.map((m) => m.id),
   };
 }
 ```
 
 **Batch Processing:**
+
 ```typescript
 export async function checkWeeklyRecurringBatch(
   eventsToCheck: Array<{
@@ -1296,6 +1334,7 @@ export async function checkWeeklyRecurringBatch(
 ```
 
 **Return Interface:**
+
 ```typescript
 export interface WeeklyRecurringCheck {
   isWeeklyRecurring: boolean;
@@ -1325,13 +1364,16 @@ for (const event of eventsNeedingScores) {
   // Check if daily recurring (existing field)
   if (event.recurringType === 'daily') {
     const recurringScore = getRecurringEventScore('daily');
-    await db.update(events).set({
-      score: recurringScore.score,
-      scoreRarity: recurringScore.rarity,
-      scoreUnique: recurringScore.unique,
-      scoreMagnitude: recurringScore.magnitude,
-      scoreReason: recurringScore.reason,
-    }).where(eq(events.id, event.id));
+    await db
+      .update(events)
+      .set({
+        score: recurringScore.score,
+        scoreRarity: recurringScore.rarity,
+        scoreUnique: recurringScore.unique,
+        scoreMagnitude: recurringScore.magnitude,
+        scoreReason: recurringScore.reason,
+      })
+      .where(eq(events.id, event.id));
 
     stats.scoring.skippedRecurring++;
     continue; // Skip AI scoring
@@ -1348,7 +1390,9 @@ for (const event of eventsNeedingScores) {
 
   if (recurringCheck.isWeeklyRecurring) {
     const recurringScore = getRecurringEventScore('weekly');
-    await db.update(events).set({ /* ... */ });
+    await db.update(events).set({
+      /* ... */
+    });
     stats.scoring.skippedRecurring++;
     continue; // Skip AI scoring
   }
@@ -1396,16 +1440,14 @@ export async function GET(request: Request) {
 ### Pass 1: Combined Tags + Summary
 
 **Query:**
+
 ```typescript
 const eventsNeedingProcessing = await db
   .select(/* ... */)
   .from(events)
   .where(
     and(
-      or(
-        sql`${events.tags} = '{}'::text[] OR ${events.tags} IS NULL`,
-        isNull(events.aiSummary)
-      ),
+      or(sql`${events.tags} = '{}'::text[] OR ${events.tags} IS NULL`, isNull(events.aiSummary)),
       sql`${events.startDate} >= ${now.toISOString()}`,
       sql`${events.startDate} <= ${threeMonthsFromNow.toISOString()}`
     )
@@ -1414,6 +1456,7 @@ const eventsNeedingProcessing = await db
 ```
 
 **Processing:**
+
 - Batch size: 5 events
 - Delay: 1 second between batches
 - Single API call generates both tags and summary
@@ -1423,13 +1466,14 @@ const eventsNeedingProcessing = await db
 ### Pass 2: Embeddings
 
 **Query:**
+
 ```typescript
 const eventsNeedingEmbeddings = await db
   .select(/* ... */)
   .from(events)
   .where(
     and(
-      isNotNull(events.aiSummary),  // Requires summary from Pass 1
+      isNotNull(events.aiSummary), // Requires summary from Pass 1
       isNull(events.embedding),
       sql`${events.startDate} >= ${now.toISOString()}`,
       sql`${events.startDate} <= ${threeMonthsFromNow.toISOString()}`
@@ -1439,6 +1483,7 @@ const eventsNeedingEmbeddings = await db
 ```
 
 **Processing:**
+
 - Batch size: 10 events
 - Delay: 500ms between batches
 - Uses Google Gemini `gemini-embedding-001`
@@ -1448,6 +1493,7 @@ const eventsNeedingEmbeddings = await db
 ### Pass 3: Scoring
 
 **Query:**
+
 ```typescript
 const eventsNeedingScores = await db
   .select(/* ... */)
@@ -1455,8 +1501,8 @@ const eventsNeedingScores = await db
   .where(
     and(
       isNull(events.score),
-      isNotNull(events.embedding),     // Requires embedding from Pass 2
-      isNotNull(events.aiSummary),     // Requires summary from Pass 1
+      isNotNull(events.embedding), // Requires embedding from Pass 2
+      isNotNull(events.aiSummary), // Requires summary from Pass 1
       sql`${events.startDate} >= ${now.toISOString()}`,
       sql`${events.startDate} <= ${threeMonthsFromNow.toISOString()}`
     )
@@ -1465,6 +1511,7 @@ const eventsNeedingScores = await db
 ```
 
 **Processing Logic:**
+
 ```typescript
 for (const event of eventsNeedingScores) {
   // 1. Check daily recurring (existing field)
@@ -1487,7 +1534,7 @@ for (const event of eventsNeedingScores) {
     limit: 20,
     minSimilarity: 0.4,
     futureOnly: true,
-    orderBy: 'similarity'
+    orderBy: 'similarity',
   });
 
   // 4. Generate AI score with context
@@ -1503,11 +1550,12 @@ for (const event of eventsNeedingScores) {
   });
 
   // 6. Rate limit delay
-  await new Promise(r => setTimeout(r, 500));
+  await new Promise((r) => setTimeout(r, 500));
 }
 ```
 
 **Cost Optimization:**
+
 - ~50% of events auto-scored as recurring (5/30)
 - Only non-recurring events use AI scoring API
 - Similar events context helps AI assess rarity
@@ -1515,6 +1563,7 @@ for (const event of eventsNeedingScores) {
 ### Pass 4: Images
 
 **Query:**
+
 ```typescript
 const eventsNeedingImages = await db
   .select({ id: events.id, title: events.title })
@@ -1522,16 +1571,17 @@ const eventsNeedingImages = await db
   .where(
     or(
       isNull(events.imageUrl),
-      eq(events.imageUrl, ""),
-      like(events.imageUrl, "%/images/fallbacks/%"),
-      like(events.imageUrl, "%group-cover%"),
-      like(events.imageUrl, "%default_photo%")
+      eq(events.imageUrl, ''),
+      like(events.imageUrl, '%/images/fallbacks/%'),
+      like(events.imageUrl, '%group-cover%'),
+      like(events.imageUrl, '%default_photo%')
     )
   )
   .limit(500);
 ```
 
 **Processing:**
+
 - Batch update: all events at once
 - Sets default fallback image: `/asheville-default.jpg`
 - No AI calls (just database update)
@@ -1543,7 +1593,9 @@ const totalDuration = Date.now() - jobStartTime;
 console.log(`[AI] JOB COMPLETE in ${formatDuration(totalDuration)}`);
 console.log(`[AI] Combined (tags+summary): ${stats.combined.success}/${stats.combined.total}`);
 console.log(`[AI] Embeddings: ${stats.embeddings.success}/${stats.embeddings.total}`);
-console.log(`[AI] Scoring: ${stats.scoring.success}/${stats.scoring.total} (${stats.scoring.skippedRecurring} recurring)`);
+console.log(
+  `[AI] Scoring: ${stats.scoring.success}/${stats.scoring.total} (${stats.scoring.skippedRecurring} recurring)`
+);
 console.log(`[AI] Images: ${stats.images.success}/${stats.images.total}`);
 
 invalidateEventsCache(); // Refresh home page cache
@@ -1552,6 +1604,7 @@ return NextResponse.json({ success: true, duration: totalDuration, stats });
 ```
 
 **Helper Functions:**
+
 ```typescript
 // Format duration for logs
 function formatDuration(ms: number): string {
@@ -1580,6 +1633,7 @@ const chunk = <T>(arr: T[], size: number) =>
 ### Cache Invalidation
 
 After all passes complete:
+
 ```typescript
 invalidateEventsCache(); // Revalidates Next.js cache tags
 // Home page will show updated events on next request
@@ -1681,16 +1735,16 @@ invalidateEventsCache(); // Revalidates Next.js cache tags
 
 ### AI Models Used
 
-| Feature | Provider | Model | Cost |
-|---------|----------|-------|------|
-| Tags & Summary | Azure OpenAI | gpt-5-mini | Low |
-| Embeddings | Google Gemini | gemini-embedding-001 | Very Low |
-| Scoring | Azure OpenAI | gpt-5-mini | Low |
-| Deduplication | Azure OpenAI | gpt-5-mini | Low |
-| Enrichment | Azure OpenAI | gpt-5-mini | Low |
-| Chat | Azure OpenAI + OpenRouter | gpt-5-mini / gemini-2.0-flash | Low |
-| Personalization | None | Math only | Free |
-| Recurring Detection | None | DB query only | Free |
+| Feature             | Provider                  | Model                         | Cost     |
+| ------------------- | ------------------------- | ----------------------------- | -------- |
+| Tags & Summary      | Azure OpenAI              | gpt-5-mini                    | Low      |
+| Embeddings          | Google Gemini             | gemini-embedding-001          | Very Low |
+| Scoring             | Azure OpenAI              | gpt-5-mini                    | Low      |
+| Deduplication       | Azure OpenAI              | gpt-5-mini                    | Low      |
+| Enrichment          | Azure OpenAI              | gpt-5-mini                    | Low      |
+| Chat                | Azure OpenAI + OpenRouter | gpt-5-mini / gemini-2.0-flash | Low      |
+| Personalization     | None                      | Math only                     | Free     |
+| Recurring Detection | None                      | DB query only                 | Free     |
 
 ### Processing Pipeline
 
@@ -1736,28 +1790,31 @@ negativeSignals jsonb,
 ### API Endpoints
 
 **Automated (Cron):**
+
 - `/api/cron/ai` - Tags, embeddings, scoring (every 6h)
 - `/api/cron/dedup` - Semantic deduplication (daily)
 
 **User-Triggered:**
+
 - `/api/chat` - Conversational event discovery
 - `/api/events/submit` - Event submission with enrichment
 
 **Real-Time:**
+
 - Personalization scoring (computed per request)
 - Similarity search (via database queries)
 
 ### Cost Breakdown (Estimated per 1000 Events)
 
-| Operation | AI Calls | Est. Cost |
-|-----------|----------|-----------|
-| Tags + Summary | 1000 | $0.10 |
-| Embeddings | 1000 | $0.02 |
-| Scoring | ~500 (50% auto-scored) | $0.05 |
-| Deduplication | ~50 days × 1 call | $0.01 |
-| **Total** | | **~$0.18** |
+| Operation      | AI Calls               | Est. Cost  |
+| -------------- | ---------------------- | ---------- |
+| Tags + Summary | 1000                   | $0.10      |
+| Embeddings     | 1000                   | $0.02      |
+| Scoring        | ~500 (50% auto-scored) | $0.05      |
+| Deduplication  | ~50 days × 1 call      | $0.01      |
+| **Total**      |                        | **~$0.18** |
 
-*Note: Actual costs vary based on token usage and provider pricing*
+_Note: Actual costs vary based on token usage and provider pricing_
 
 ### Performance Optimizations
 

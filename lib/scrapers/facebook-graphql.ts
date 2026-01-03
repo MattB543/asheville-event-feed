@@ -15,7 +15,7 @@ const GRAPHQL_ENDPOINT = 'https://www.facebook.com/api/graphql/';
 // GraphQL doc IDs discovered from HAR analysis
 const DOC_IDS = {
   header: '24852752747670056', // EventCometPermalinkHeaderQuery
-  about: '24522924877384967',  // PublicEventCometAboutRootQuery
+  about: '24522924877384967', // PublicEventCometAboutRootQuery
 };
 
 /**
@@ -54,16 +54,17 @@ function buildCookieString(): string {
  */
 function buildHeaders(queryName: string): Record<string, string> {
   return {
-    'Host': 'www.facebook.com',
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:145.0) Gecko/20100101 Firefox/145.0',
-    'Accept': '*/*',
+    Host: 'www.facebook.com',
+    'User-Agent':
+      'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:145.0) Gecko/20100101 Firefox/145.0',
+    Accept: '*/*',
     'Accept-Language': 'en-US,en;q=0.5',
     'Content-Type': 'application/x-www-form-urlencoded',
     'X-FB-Friendly-Name': queryName,
     'X-FB-LSD': FB_CONFIG.tokens.lsd!,
-    'Origin': 'https://www.facebook.com',
-    'Referer': 'https://www.facebook.com/events/',
-    'Cookie': buildCookieString(),
+    Origin: 'https://www.facebook.com',
+    Referer: 'https://www.facebook.com/events/',
+    Cookie: buildCookieString(),
     'Sec-Fetch-Dest': 'empty',
     'Sec-Fetch-Mode': 'cors',
     'Sec-Fetch-Site': 'same-origin',
@@ -109,7 +110,7 @@ function buildGraphQLBody(
  */
 function parseStreamingResponse(text: string): unknown[] {
   const results: unknown[] = [];
-  const lines = text.split('\n').filter(l => l.trim());
+  const lines = text.split('\n').filter((l) => l.trim());
 
   for (const line of lines) {
     try {
@@ -164,13 +165,15 @@ async function fetchEventHeader(eventId: string): Promise<{
 
         // Extract cover image
         let imageUrl: string | null = null;
-        const coverMedia = event.cover_media_renderer as {
-          cover_photo?: {
-            photo?: {
-              full_image?: { uri?: string };
-            };
-          };
-        } | undefined;
+        const coverMedia = event.cover_media_renderer as
+          | {
+              cover_photo?: {
+                photo?: {
+                  full_image?: { uri?: string };
+                };
+              };
+            }
+          | undefined;
         if (coverMedia?.cover_photo?.photo?.full_image?.uri) {
           imageUrl = coverMedia.cover_photo.photo.full_image.uri;
         }
@@ -212,7 +215,8 @@ async function fetchEventHeader(eventId: string): Promise<{
       organizer: null,
     };
   } catch (error) {
-    log(`    ⚠️ Header query failed for ${eventId}: ${error}`);
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    log(`    ⚠️ Header query failed for ${eventId}: ${errorMessage}`);
     return {
       title: null,
       startTimestamp: null,
@@ -281,7 +285,8 @@ async function fetchEventAbout(eventId: string): Promise<{
 
     return { description, organizer };
   } catch (error) {
-    log(`    ⚠️ About query failed for ${eventId}: ${error}`);
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    log(`    ⚠️ About query failed for ${eventId}: ${errorMessage}`);
     return { description: null, organizer: null };
   }
 }
@@ -291,10 +296,7 @@ async function fetchEventAbout(eventId: string): Promise<{
  */
 export async function fetchEventDetails(eventId: string): Promise<FacebookGraphQLEvent | null> {
   // Fetch header and about data in parallel
-  const [header, about] = await Promise.all([
-    fetchEventHeader(eventId),
-    fetchEventAbout(eventId),
-  ]);
+  const [header, about] = await Promise.all([fetchEventHeader(eventId), fetchEventAbout(eventId)]);
 
   // If we couldn't get a title, the event might not exist
   if (!header.title) {
@@ -356,7 +358,7 @@ export async function fetchAllEventDetails(
 
     // Rate limiting delay between batches
     if (i + concurrency < eventIds.length) {
-      await new Promise(r => setTimeout(r, delayMs));
+      await new Promise((r) => setTimeout(r, delayMs));
     }
   }
 

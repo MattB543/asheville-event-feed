@@ -1,6 +1,6 @@
-import { AzureOpenAI } from "openai";
-import { GoogleGenerativeAI, GenerativeModel } from "@google/generative-ai";
-import { env, isAIEnabled as checkAIEnabled } from "../config/env";
+import { AzureOpenAI } from 'openai';
+import { GoogleGenerativeAI, type GenerativeModel } from '@google/generative-ai';
+import { env, isAIEnabled as checkAIEnabled } from '../config/env';
 
 // ============================================================================
 // GEMINI CLIENTS
@@ -23,7 +23,7 @@ export function getModel(): GenerativeModel | null {
   }
 
   if (!geminiModel) {
-    geminiModel = geminiClient.getGenerativeModel({ model: "gemini-2.5-flash" });
+    geminiModel = geminiClient.getGenerativeModel({ model: 'gemini-2.5-flash' });
   }
 
   return geminiModel;
@@ -43,7 +43,7 @@ export function getEmbeddingModel(): GenerativeModel | null {
 
   if (!geminiEmbeddingModel) {
     geminiEmbeddingModel = geminiClient.getGenerativeModel({
-      model: "gemini-embedding-001",
+      model: 'gemini-embedding-001',
     });
   }
 
@@ -80,14 +80,14 @@ function getAzureEndpoint(): string | undefined {
  * Get the Azure OpenAI deployment name.
  */
 function getAzureDeployment(): string {
-  return process.env.AZURE_OPENAI_DEPLOYMENT || "gpt-5-mini";
+  return process.env.AZURE_OPENAI_DEPLOYMENT || 'gpt-5-mini';
 }
 
 /**
  * Get the Azure OpenAI API version.
  */
 function getAzureApiVersion(): string {
-  return process.env.AZURE_OPENAI_API_VERSION || "2024-12-01-preview";
+  return process.env.AZURE_OPENAI_API_VERSION || '2024-12-01-preview';
 }
 
 /**
@@ -150,26 +150,26 @@ export async function azureChatCompletion(
 } | null> {
   const client = getAzureClient();
   if (!client) {
-    console.warn("[Azure AI] Client not configured");
+    console.warn('[Azure AI] Client not configured');
     return null;
   }
 
   const response = await client.chat.completions.create({
     model: getAzureDeployment(),
     messages: [
-      { role: "system", content: systemPrompt },
-      { role: "user", content: userPrompt },
+      { role: 'system', content: systemPrompt },
+      { role: 'user', content: userPrompt },
     ],
     max_completion_tokens: options?.maxTokens ?? 2000,
     // Note: GPT-5-mini doesn't support temperature parameter
   });
 
   const usage = response.usage;
-  const content = response.choices[0]?.message?.content || "";
+  const content = response.choices[0]?.message?.content || '';
 
   // Debug log to help troubleshoot empty responses
   if (!content) {
-    console.warn("[Azure AI] Response details:", {
+    console.warn('[Azure AI] Response details:', {
       finishReason: response.choices[0]?.finish_reason,
       promptTokens: usage?.prompt_tokens,
       completionTokens: usage?.completion_tokens,
@@ -194,14 +194,14 @@ export async function azureChatCompletion(
  * Returns an async iterable of content chunks.
  */
 export async function azureChatCompletionStream(
-  messages: Array<{ role: "system" | "user" | "assistant"; content: string }>,
+  messages: Array<{ role: 'system' | 'user' | 'assistant'; content: string }>,
   options?: {
     maxTokens?: number;
   }
 ): Promise<AsyncIterable<string> | null> {
   const client = getAzureClient();
   if (!client) {
-    console.warn("[Azure AI] Client not configured");
+    console.warn('[Azure AI] Client not configured');
     return null;
   }
 
@@ -230,14 +230,14 @@ export async function azureChatCompletionStream(
  * Note: GPT-5-mini does not support temperature parameter (only default 1).
  */
 export async function azureChatCompletionMessages(
-  messages: Array<{ role: "system" | "user" | "assistant"; content: string }>,
+  messages: Array<{ role: 'system' | 'user' | 'assistant'; content: string }>,
   options?: {
     maxTokens?: number;
   }
 ): Promise<string | null> {
   const client = getAzureClient();
   if (!client) {
-    console.warn("[Azure AI] Client not configured");
+    console.warn('[Azure AI] Client not configured');
     return null;
   }
 

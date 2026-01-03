@@ -53,10 +53,7 @@ export async function completeCronJob(
 /**
  * Mark a cron job as failed
  */
-export async function failCronJob(
-  runId: string,
-  error: unknown
-): Promise<void> {
+export async function failCronJob(runId: string, error: unknown): Promise<void> {
   const completedAt = new Date();
 
   // Get the start time to calculate duration
@@ -146,18 +143,13 @@ export async function cleanupOldRuns(): Promise<number> {
         .from(cronJobRuns)
         .where(eq(cronJobRuns.jobName, jobName));
 
-      const deleteIds = allRuns
-        .map((r) => r.id)
-        .filter((id) => !keepIds.includes(id));
+      const deleteIds = allRuns.map((r) => r.id).filter((id) => !keepIds.includes(id));
 
       if (deleteIds.length > 0) {
         const { sql } = await import('drizzle-orm');
-        await db.delete(cronJobRuns).where(
-          and(
-            eq(cronJobRuns.jobName, jobName),
-            sql`${cronJobRuns.id} = ANY(${deleteIds})`
-          )
-        );
+        await db
+          .delete(cronJobRuns)
+          .where(and(eq(cronJobRuns.jobName, jobName), sql`${cronJobRuns.id} = ANY(${deleteIds})`));
         totalDeleted += deleteIds.length;
       }
     }

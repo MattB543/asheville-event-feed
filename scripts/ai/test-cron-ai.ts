@@ -24,7 +24,7 @@ async function main() {
 
     const response = await fetch(url, {
       headers: {
-        'Authorization': `Bearer ${CRON_SECRET}`,
+        Authorization: `Bearer ${CRON_SECRET}`,
       },
       signal: controller.signal,
     });

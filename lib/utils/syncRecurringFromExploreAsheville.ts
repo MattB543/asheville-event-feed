@@ -30,8 +30,17 @@ interface ExploreAshevilleEvent {
   venueName?: string;
 }
 
+interface ExploreAshevilleResponse {
+  results?: ExploreAshevilleEvent[];
+  pageInfo?: {
+    total?: number;
+  };
+}
+
 // Fetch from Explore Asheville API using curl (to bypass TLS fingerprinting)
-async function fetchPage(page: number): Promise<{ results: ExploreAshevilleEvent[], total: number }> {
+async function fetchPage(
+  page: number
+): Promise<{ results: ExploreAshevilleEvent[]; total: number }> {
   const params = new URLSearchParams({
     type: 'event',
     page: page.toString(),
@@ -57,11 +66,13 @@ async function fetchPage(page: number): Promise<{ results: ExploreAshevilleEvent
   const cmd = `curl -s "${url}" ${curlHeaders}`;
 
   const { stdout } = await execAsync(cmd, { maxBuffer: 10 * 1024 * 1024 });
-  const data = JSON.parse(stdout);
+  const data = JSON.parse(stdout) as ExploreAshevilleResponse;
+  const results = Array.isArray(data.results) ? data.results : [];
+  const total = typeof data.pageInfo?.total === 'number' ? data.pageInfo.total : 0;
 
   return {
-    results: data.results || [],
-    total: data.pageInfo?.total || 0
+    results,
+    total,
   };
 }
 
@@ -91,7 +102,7 @@ function titlesSimilar(title1: string, title2: string): boolean {
   // Get significant words (length > 3, not common words)
   const commonWords = new Set(['the', 'and', 'for', 'with', 'from', 'this', 'that', 'your']);
   const getSignificantWords = (s: string) =>
-    s.split(' ').filter(w => w.length > 3 && !commonWords.has(w));
+    s.split(' ').filter((w) => w.length > 3 && !commonWords.has(w));
 
   const words1 = getSignificantWords(norm1);
   const words2 = getSignificantWords(norm2);
@@ -102,8 +113,8 @@ function titlesSimilar(title1: string, title2: string): boolean {
   const set1 = new Set(words1);
   const set2 = new Set(words2);
 
-  const overlap1 = words1.filter(w => set2.has(w)).length / words1.length;
-  const overlap2 = words2.filter(w => set1.has(w)).length / words2.length;
+  const overlap1 = words1.filter((w) => set2.has(w)).length / words1.length;
+  const overlap2 = words2.filter((w) => set1.has(w)).length / words2.length;
 
   return overlap1 >= 0.8 && overlap2 >= 0.8;
 }
@@ -111,7 +122,7 @@ function titlesSimilar(title1: string, title2: string): boolean {
 // Check if dates overlap
 function datesOverlap(dbDate: Date, eaDates: Date[]): boolean {
   const dbDateStr = dbDate.toISOString().split('T')[0];
-  return eaDates.some(d => d.toISOString().split('T')[0] === dbDateStr);
+  return eaDates.some((d) => d.toISOString().split('T')[0] === dbDateStr);
 }
 
 export interface SyncRecurringResult {
@@ -133,21 +144,23 @@ export async function syncRecurringFromExploreAsheville(): Promise<SyncRecurring
     try {
       const { results, total } = await fetchPage(page);
 
-      const dailyOnPage = results.filter(e => e.recurringLabel === 'Recurring Daily');
+      const dailyOnPage = results.filter((e) => e.recurringLabel === 'Recurring Daily');
       dailyRecurringEvents.push(...dailyOnPage);
 
       if (results.length < PAGE_SIZE || (page + 1) * PAGE_SIZE >= total) {
         break;
       }
 
-      await new Promise(r => setTimeout(r, 200));
+      await new Promise((r) => setTimeout(r, 200));
     } catch (error) {
       console.error(`[SyncRecurring] Error fetching page ${page}:`, error);
       break;
     }
   }
 
-  console.log(`[SyncRecurring] Found ${dailyRecurringEvents.length} daily recurring events on Explore Asheville`);
+  console.log(
+    `[SyncRecurring] Found ${dailyRecurringEvents.length} daily recurring events on Explore Asheville`
+  );
 
   // 2. Get all DB events that don't have recurringType set
   const dbEvents = await db
@@ -164,18 +177,17 @@ export async function syncRecurringFromExploreAsheville(): Promise<SyncRecurring
   const matches: Array<{ dbTitle: string; eaTitle: string; source: string }> = [];
 
   for (const eaEvent of dailyRecurringEvents) {
-    const eaDates = (eaEvent.dates || []).map(d => new Date(d));
+    const eaDates = (eaEvent.dates || []).map((d) => new Date(d));
     if (eaDates.length === 0) continue;
 
     const endDate = eaDates[eaDates.length - 1];
 
     // Find matching DB events
     for (const dbEvent of dbEvents) {
-      if (titlesSimilar(dbEvent.title, eaEvent.title) &&
-          datesOverlap(dbEvent.startDate, eaDates)) {
-
+      if (titlesSimilar(dbEvent.title, eaEvent.title) && datesOverlap(dbEvent.startDate, eaDates)) {
         // Update the DB event
-        await db.update(events)
+        await db
+          .update(events)
           .set({
             recurringType: 'daily',
             recurringEndDate: endDate,

@@ -92,7 +92,9 @@ async function fixExploreAshevilleTimes() {
       let newRecurringEndDate: Date | null = null;
       if (event.recurringEndDate) {
         const recurringHoursToAdd = getHoursToAdd(event.recurringEndDate);
-        newRecurringEndDate = new Date(event.recurringEndDate.getTime() + recurringHoursToAdd * 60 * 60 * 1000);
+        newRecurringEndDate = new Date(
+          event.recurringEndDate.getTime() + recurringHoursToAdd * 60 * 60 * 1000
+        );
       }
 
       if (!isDryRun) {

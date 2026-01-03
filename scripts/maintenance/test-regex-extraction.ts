@@ -13,7 +13,11 @@ import '../../lib/config/env';
 import { db } from '../../lib/db';
 import { events } from '../../lib/db/schema';
 import { sql } from 'drizzle-orm';
-import { extractPriceFromText, isTicketedEvent, isTypicallyTicketedVenue } from '../../lib/utils/parsers';
+import {
+  extractPriceFromText,
+  isTicketedEvent,
+  isTypicallyTicketedVenue,
+} from '../../lib/utils/parsers';
 import { extractTimeFromText } from '../../lib/utils/parsers';
 
 interface TestEvent {
@@ -35,7 +39,7 @@ async function testPriceExtraction() {
   const nowISO = new Date().toISOString();
 
   // Get 50 random events with Unknown price
-  const unknownPriceEvents = await db
+  const unknownPriceEvents = (await db
     .select({
       id: events.id,
       source: events.source,
@@ -49,7 +53,7 @@ async function testPriceExtraction() {
     .from(events)
     .where(sql`(price IS NULL OR price = 'Unknown') AND start_date >= ${nowISO}::timestamp`)
     .orderBy(sql`RANDOM()`)
-    .limit(50) as TestEvent[];
+    .limit(50)) as TestEvent[];
 
   console.log(`Found ${unknownPriceEvents.length} events with Unknown price\n`);
 
@@ -67,7 +71,9 @@ async function testPriceExtraction() {
     console.log(`[${ev.source}] ${ev.title}`);
     console.log(`Organizer: ${ev.organizer || '(none)'}`);
     console.log(`URL: ${ev.url}`);
-    console.log(`Description: ${(ev.description || '').slice(0, 200)}${(ev.description?.length || 0) > 200 ? '...' : ''}`);
+    console.log(
+      `Description: ${(ev.description || '').slice(0, 200)}${(ev.description?.length || 0) > 200 ? '...' : ''}`
+    );
     console.log('');
 
     if (result) {
@@ -94,10 +100,18 @@ async function testPriceExtraction() {
   console.log('PRICE EXTRACTION SUMMARY');
   console.log('='.repeat(80));
   console.log(`Total tested: ${unknownPriceEvents.length}`);
-  console.log(`Extracted price: ${extractedCount} (${((extractedCount / unknownPriceEvents.length) * 100).toFixed(1)}%)`);
-  console.log(`Detected Free: ${freeCount} (${((freeCount / unknownPriceEvents.length) * 100).toFixed(1)}%)`);
-  console.log(`Detected Ticketed: ${ticketedCount} (${((ticketedCount / unknownPriceEvents.length) * 100).toFixed(1)}%)`);
-  console.log(`No extraction: ${noExtractCount} (${((noExtractCount / unknownPriceEvents.length) * 100).toFixed(1)}%)`);
+  console.log(
+    `Extracted price: ${extractedCount} (${((extractedCount / unknownPriceEvents.length) * 100).toFixed(1)}%)`
+  );
+  console.log(
+    `Detected Free: ${freeCount} (${((freeCount / unknownPriceEvents.length) * 100).toFixed(1)}%)`
+  );
+  console.log(
+    `Detected Ticketed: ${ticketedCount} (${((ticketedCount / unknownPriceEvents.length) * 100).toFixed(1)}%)`
+  );
+  console.log(
+    `No extraction: ${noExtractCount} (${((noExtractCount / unknownPriceEvents.length) * 100).toFixed(1)}%)`
+  );
   console.log('');
 }
 
@@ -109,7 +123,7 @@ async function testTimeExtraction() {
   const nowISO = new Date().toISOString();
 
   // Get all events with timeUnknown=true
-  const unknownTimeEvents = await db
+  const unknownTimeEvents = (await db
     .select({
       id: events.id,
       source: events.source,
@@ -122,7 +136,7 @@ async function testTimeExtraction() {
     })
     .from(events)
     .where(sql`time_unknown = true AND start_date >= ${nowISO}::timestamp`)
-    .limit(50) as TestEvent[];
+    .limit(50)) as TestEvent[];
 
   console.log(`Found ${unknownTimeEvents.length} events with timeUnknown=true\n`);
 
@@ -134,7 +148,9 @@ async function testTimeExtraction() {
     console.log('-'.repeat(80));
     console.log(`[${ev.source}] ${ev.title}`);
     console.log(`URL: ${ev.url}`);
-    console.log(`Description: ${(ev.description || '').slice(0, 300)}${(ev.description?.length || 0) > 300 ? '...' : ''}`);
+    console.log(
+      `Description: ${(ev.description || '').slice(0, 300)}${(ev.description?.length || 0) > 300 ? '...' : ''}`
+    );
     console.log('');
 
     if (result) {
@@ -153,7 +169,9 @@ async function testTimeExtraction() {
   console.log('TIME EXTRACTION SUMMARY');
   console.log('='.repeat(80));
   console.log(`Total tested: ${unknownTimeEvents.length}`);
-  console.log(`Extracted time: ${extractedCount} (${unknownTimeEvents.length > 0 ? ((extractedCount / unknownTimeEvents.length) * 100).toFixed(1) : 0}%)`);
+  console.log(
+    `Extracted time: ${extractedCount} (${unknownTimeEvents.length > 0 ? ((extractedCount / unknownTimeEvents.length) * 100).toFixed(1) : 0}%)`
+  );
   console.log('');
 }
 

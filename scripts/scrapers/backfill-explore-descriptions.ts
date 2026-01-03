@@ -32,10 +32,7 @@ async function main() {
       .where(
         and(
           eq(events.source, 'EXPLORE_ASHEVILLE'),
-          or(
-            isNull(events.description),
-            eq(events.description, '')
-          )
+          or(isNull(events.description), eq(events.description, ''))
         )
       );
 
@@ -61,10 +58,7 @@ async function main() {
 
         if (description) {
           // Update the event with the description
-          await db
-            .update(events)
-            .set({ description })
-            .where(eq(events.id, event.id));
+          await db.update(events).set({ description }).where(eq(events.id, event.id));
 
           successCount++;
         } else {
@@ -72,17 +66,21 @@ async function main() {
         }
       } catch (err) {
         failedCount++;
-        console.error(`[Backfill] Failed to fetch description for "${event.title}":`,
-          err instanceof Error ? err.message : err);
+        console.error(
+          `[Backfill] Failed to fetch description for "${event.title}":`,
+          err instanceof Error ? err.message : err
+        );
       }
 
       // Progress logging every 10 events
       if ((i + 1) % 10 === 0 || i === eventsToUpdate.length - 1) {
-        console.log(`[Backfill] Progress: ${i + 1}/${eventsToUpdate.length} (${successCount} success, ${failedCount} failed)`);
+        console.log(
+          `[Backfill] Progress: ${i + 1}/${eventsToUpdate.length} (${successCount} success, ${failedCount} failed)`
+        );
       }
 
       // Rate limit: 150ms between fetches
-      await new Promise(r => setTimeout(r, 150));
+      await new Promise((r) => setTimeout(r, 150));
     }
 
     console.log('\n' + '='.repeat(60));
@@ -91,7 +89,6 @@ async function main() {
     console.log(`Descriptions fetched: ${successCount}`);
     console.log(`Failed/No description: ${failedCount}`);
     console.log('='.repeat(60));
-
   } catch (error) {
     console.error('\n[Backfill] Fatal error:', error);
     process.exit(1);

@@ -8,8 +8,8 @@
  * - Subtle duplicates requiring semantic understanding
  */
 
-import { azureChatCompletion, isAzureAIEnabled } from "./provider-clients";
-import { matchesDefaultFilter } from "../config/defaultFilters";
+import { azureChatCompletion, isAzureAIEnabled } from './provider-clients';
+import { matchesDefaultFilter } from '../config/defaultFilters';
 
 /**
  * Event data structure for AI deduplication.
@@ -29,8 +29,8 @@ export interface EventForAIDedup {
  * Result from AI duplicate detection.
  */
 export interface AIDuplicateGroup {
-  remove: string[];    // IDs to remove
-  reason: string;      // AI's explanation
+  remove: string[]; // IDs to remove
+  reason: string; // AI's explanation
 }
 
 /**
@@ -89,27 +89,27 @@ If no duplicates: {"duplicates":[]}`;
  * Uses a simple index instead of UUID for easier AI processing.
  */
 function formatEventForPrompt(event: EventForAIDedup, index: number): string {
-  const time = event.startDate.toLocaleTimeString("en-US", {
-    hour: "numeric",
-    minute: "2-digit",
+  const time = event.startDate.toLocaleTimeString('en-US', {
+    hour: 'numeric',
+    minute: '2-digit',
     hour12: true,
-    timeZone: "America/New_York",
+    timeZone: 'America/New_York',
   });
 
   // Truncate description to avoid excessive token usage
-  let description = event.description || "";
+  let description = event.description || '';
   if (description.length > 300) {
-    description = description.slice(0, 300) + "...";
+    description = description.slice(0, 300) + '...';
   }
 
   return JSON.stringify({
     id: index,
     title: event.title,
-    description: description || "No description",
-    organizer: event.organizer || "Unknown",
-    location: event.location || "Unknown",
+    description: description || 'No description',
+    organizer: event.organizer || 'Unknown',
+    location: event.location || 'Unknown',
     time,
-    price: event.price || "Unknown",
+    price: event.price || 'Unknown',
     source: event.source,
   });
 }
@@ -143,8 +143,8 @@ function groupEventsByDate(events: EventForAIDedup[]): Map<string, EventForAIDed
 
   for (const event of events) {
     // Use Eastern time date to match local event dates
-    const dateKey = event.startDate.toLocaleDateString("en-CA", {
-      timeZone: "America/New_York",
+    const dateKey = event.startDate.toLocaleDateString('en-CA', {
+      timeZone: 'America/New_York',
     }); // YYYY-MM-DD format
 
     const existing = grouped.get(dateKey) || [];
@@ -170,21 +170,23 @@ function parseAIResponse(response: string): ParsedDuplicateGroup[] {
   try {
     // Clean up response - remove any markdown formatting
     let cleaned = response.trim();
-    if (cleaned.startsWith("```json")) {
+    if (cleaned.startsWith('```json')) {
       cleaned = cleaned.slice(7);
     }
-    if (cleaned.startsWith("```")) {
+    if (cleaned.startsWith('```')) {
       cleaned = cleaned.slice(3);
     }
-    if (cleaned.endsWith("```")) {
+    if (cleaned.endsWith('```')) {
       cleaned = cleaned.slice(0, -3);
     }
     cleaned = cleaned.trim();
 
-    const parsed = JSON.parse(cleaned);
+    const parsed = JSON.parse(cleaned) as {
+      duplicates?: Array<{ remove?: number[]; reason?: string }>;
+    };
 
     if (!parsed.duplicates || !Array.isArray(parsed.duplicates)) {
-      console.warn("[AI Dedup] Invalid response format: missing duplicates array");
+      console.warn('[AI Dedup] Invalid response format: missing duplicates array');
       return [];
     }
 
@@ -194,22 +196,22 @@ function parseAIResponse(response: string): ParsedDuplicateGroup[] {
       if (
         Array.isArray(group.remove) &&
         group.remove.length > 0 &&
-        group.remove.every((id: unknown) => typeof id === "number") &&
-        typeof group.reason === "string"
+        group.remove.every((id: unknown) => typeof id === 'number') &&
+        typeof group.reason === 'string'
       ) {
         validGroups.push({
           remove: group.remove,
           reason: group.reason,
         });
       } else {
-        console.warn("[AI Dedup] Skipping invalid group:", group);
+        console.warn('[AI Dedup] Skipping invalid group:', group);
       }
     }
 
     return validGroups;
   } catch (error) {
-    console.error("[AI Dedup] Failed to parse AI response:", error);
-    console.error("[AI Dedup] Raw response:", response);
+    console.error('[AI Dedup] Failed to parse AI response:', error);
+    console.error('[AI Dedup] Raw response:', response);
     return [];
   }
 }
@@ -237,7 +239,7 @@ function mapIndicesToUUIDs(
     }
 
     if (invalidIndices.length > 0) {
-      console.warn(`[AI Dedup] Invalid indices in group: ${invalidIndices.join(", ")}`);
+      console.warn(`[AI Dedup] Invalid indices in group: ${invalidIndices.join(', ')}`);
     }
 
     if (mappedIds.length > 0) {
@@ -254,10 +256,7 @@ function mapIndicesToUUIDs(
 /**
  * Process a single day's events for duplicates.
  */
-async function processDayEvents(
-  date: string,
-  events: EventForAIDedup[]
-): Promise<DayResult> {
+async function processDayEvents(date: string, events: EventForAIDedup[]): Promise<DayResult> {
   // Filter out spam events first
   const filteredEvents = filterSpamEvents(events);
 
@@ -281,16 +280,22 @@ async function processDayEvents(
   });
 
   // Format events for prompt with indices
-  const eventLines = filteredEvents.map((event, i) => formatEventForPrompt(event, i + 1)).join("\n");
+  const eventLines = filteredEvents
+    .map((event, i) => formatEventForPrompt(event, i + 1))
+    .join('\n');
   const userPrompt = `Here are ${filteredEvents.length} events on ${date}. Identify any duplicates:\n\n${eventLines}`;
 
   try {
     // Save input to file for debugging (if debugDir is set)
     const debugDir = process.env.AI_DEDUP_DEBUG_DIR;
     if (debugDir) {
-      const fs = await import("fs/promises");
+      const fs = await import('fs/promises');
       const inputPath = `${debugDir}/input-${date}.txt`;
-      await fs.writeFile(inputPath, `SYSTEM PROMPT:\n${SYSTEM_PROMPT}\n\nUSER PROMPT:\n${userPrompt}`, "utf-8");
+      await fs.writeFile(
+        inputPath,
+        `SYSTEM PROMPT:\n${SYSTEM_PROMPT}\n\nUSER PROMPT:\n${userPrompt}`,
+        'utf-8'
+      );
     }
 
     const response = await azureChatCompletion(SYSTEM_PROMPT, userPrompt, {
@@ -298,15 +303,15 @@ async function processDayEvents(
     });
 
     if (!response) {
-      result.error = "AI client not available";
+      result.error = 'AI client not available';
       return result;
     }
 
     // Save output to file for debugging (if debugDir is set)
     if (debugDir) {
-      const fs = await import("fs/promises");
+      const fs = await import('fs/promises');
       const outputPath = `${debugDir}/output-${date}.txt`;
-      await fs.writeFile(outputPath, response.content, "utf-8");
+      await fs.writeFile(outputPath, response.content, 'utf-8');
     }
 
     result.tokensUsed = response.usage.totalTokens;
@@ -316,10 +321,7 @@ async function processDayEvents(
     const validGroups = mapIndicesToUUIDs(groups, indexToId);
 
     result.groups = validGroups;
-    result.duplicatesFound = validGroups.reduce(
-      (sum, g) => sum + g.remove.length,
-      0
-    );
+    result.duplicatesFound = validGroups.reduce((sum, g) => sum + g.remove.length, 0);
 
     return result;
   } catch (error) {
@@ -340,9 +342,9 @@ async function processDayEvents(
 export async function runAIDeduplication(
   events: EventForAIDedup[],
   options?: {
-    maxDays?: number;         // Max days to process (for testing)
+    maxDays?: number; // Max days to process (for testing)
     delayBetweenDays?: number; // Delay in ms between API calls
-    verbose?: boolean;         // Log progress
+    verbose?: boolean; // Log progress
   }
 ): Promise<AIDeduplicationResult> {
   const verbose = options?.verbose ?? true;
@@ -362,7 +364,7 @@ export async function runAIDeduplication(
   // Check if AI is available
   if (!isAzureAIEnabled()) {
     result.success = false;
-    result.errors.push("Azure OpenAI not configured");
+    result.errors.push('Azure OpenAI not configured');
     return result;
   }
 
@@ -415,7 +417,7 @@ export async function runAIDeduplication(
         console.log(`[AI Dedup] Found ${dayResult.duplicatesFound} to remove on ${date}`);
         for (const group of dayResult.groups) {
           for (const removeId of group.remove) {
-            const ev = events.find(e => e.id === removeId);
+            const ev = events.find((e) => e.id === removeId);
             console.log(`  - Remove: "${ev?.title}" (${ev?.source})`);
           }
           console.log(`    Reason: ${group.reason}`);
@@ -432,7 +434,9 @@ export async function runAIDeduplication(
   }
 
   if (verbose) {
-    console.log(`[AI Dedup] Complete: ${result.totalDuplicatesFound} duplicates found across ${result.daysProcessed} days`);
+    console.log(
+      `[AI Dedup] Complete: ${result.totalDuplicatesFound} duplicates found across ${result.daysProcessed} days`
+    );
     console.log(`[AI Dedup] Total tokens used: ${result.totalTokensUsed}`);
   }
 

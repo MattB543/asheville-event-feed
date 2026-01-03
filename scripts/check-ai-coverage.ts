@@ -13,8 +13,14 @@ async function main() {
     WHERE start_date >= NOW() 
       AND start_date <= NOW() + INTERVAL '3 months'
   `);
-  
-  const row = result[0] as any;
+
+  const row = result[0] as {
+    total: number;
+    missing_summary: number;
+    missing_tags: number;
+    missing_score: number;
+    missing_embedding: number;
+  };
   console.log('=== FUTURE EVENTS (next 3 months) ===');
   console.log('Total:', row.total);
   console.log('Missing Summary:', row.missing_summary);
@@ -22,7 +28,9 @@ async function main() {
   console.log('Missing Score:', row.missing_score);
   console.log('Missing Embedding:', row.missing_embedding);
   console.log('');
-  const complete = row.total - Math.max(row.missing_summary, row.missing_tags, row.missing_score, row.missing_embedding);
+  const complete =
+    row.total -
+    Math.max(row.missing_summary, row.missing_tags, row.missing_score, row.missing_embedding);
   console.log('Fully Complete:', complete, '/', row.total);
   process.exit(0);
 }

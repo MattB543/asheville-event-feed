@@ -78,19 +78,19 @@ export async function checkWeeklyRecurring(
       );
 
     // If no venue/organizer info, require more matches to be confident
-    const threshold = (!normalizedLocation && !normalizedOrganizer) ? 3 : 2;
+    const threshold = !normalizedLocation && !normalizedOrganizer ? 3 : 2;
 
     return {
       isWeeklyRecurring: matches.length >= threshold,
       matchCount: matches.length,
-      matchingEventIds: matches.map(m => m.id)
+      matchingEventIds: matches.map((m) => m.id),
     };
   } catch (error) {
     console.error('[RecurringDetection] Error checking weekly recurring:', error);
     return {
       isWeeklyRecurring: false,
       matchCount: 0,
-      matchingEventIds: []
+      matchingEventIds: [],
     };
   }
 }

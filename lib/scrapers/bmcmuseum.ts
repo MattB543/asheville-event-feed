@@ -16,7 +16,7 @@
  * Note: Site requires browser-like headers to avoid 403 errors.
  */
 
-import { ScrapedEvent } from './types';
+import { type ScrapedEvent } from './types';
 import { BROWSER_HEADERS, fetchEventData } from './base';
 import { decodeHtmlEntities } from '../utils/parsers';
 import { parseAsEastern } from '../utils/timezone';
@@ -28,7 +28,8 @@ const PER_PAGE = 50;
 
 // Static venue info
 const VENUE_NAME = 'Black Mountain College Museum + Arts Center';
-const VENUE_ADDRESS = 'Black Mountain College Museum + Arts Center, 120 College Street, Asheville, NC';
+const VENUE_ADDRESS =
+  'Black Mountain College Museum + Arts Center, 120 College Street, Asheville, NC';
 const VENUE_ZIP = '28801';
 
 // Lake Eden Tours location (different from main museum)
@@ -93,18 +94,30 @@ function parseEventDate(excerpt: string, content: string): Date | null {
 
       // Convert month name to number
       const monthMap: Record<string, number> = {
-        'january': 0, 'jan': 0,
-        'february': 1, 'feb': 1,
-        'march': 2, 'mar': 2,
-        'april': 3, 'apr': 3,
-        'may': 4,
-        'june': 5, 'jun': 5,
-        'july': 6, 'jul': 6,
-        'august': 7, 'aug': 7,
-        'september': 8, 'sept': 8, 'sep': 8,
-        'october': 9, 'oct': 9,
-        'november': 10, 'nov': 10,
-        'december': 11, 'dec': 11,
+        january: 0,
+        jan: 0,
+        february: 1,
+        feb: 1,
+        march: 2,
+        mar: 2,
+        april: 3,
+        apr: 3,
+        may: 4,
+        june: 5,
+        jun: 5,
+        july: 6,
+        jul: 6,
+        august: 7,
+        aug: 7,
+        september: 8,
+        sept: 8,
+        sep: 8,
+        october: 9,
+        oct: 9,
+        november: 10,
+        nov: 10,
+        december: 11,
+        dec: 11,
       };
 
       const month = monthMap[monthStr.toLowerCase()];
@@ -186,25 +199,38 @@ function parseLakeEdenTourDates(content: string): Date[] {
   const cleanContent = decodeHtmlEntities(content);
 
   // Match patterns like "Friday, Sept. 12, 2025, 10am-12pm" or "Friday, Feb. 27, 2026, 10am-12pm"
-  const datePattern = /Friday,?\s+(\w+)\.?\s+(\d{1,2}),?\s+(\d{4}),?\s+(\d{1,2})(?::(\d{2}))?\s*(am|pm)/gi;
+  const datePattern =
+    /Friday,?\s+(\w+)\.?\s+(\d{1,2}),?\s+(\d{4}),?\s+(\d{1,2})(?::(\d{2}))?\s*(am|pm)/gi;
 
   let match;
   while ((match = datePattern.exec(cleanContent)) !== null) {
     const [, monthStr, dayStr, yearStr, hourStr, minuteStr, ampm] = match;
 
     const monthMap: Record<string, number> = {
-      'jan': 0, 'january': 0,
-      'feb': 1, 'february': 1,
-      'mar': 2, 'march': 2,
-      'apr': 3, 'april': 3,
-      'may': 4,
-      'jun': 5, 'june': 5,
-      'jul': 6, 'july': 6,
-      'aug': 7, 'august': 7,
-      'sep': 8, 'sept': 8, 'september': 8,
-      'oct': 9, 'october': 9,
-      'nov': 10, 'november': 10,
-      'dec': 11, 'december': 11,
+      jan: 0,
+      january: 0,
+      feb: 1,
+      february: 1,
+      mar: 2,
+      march: 2,
+      apr: 3,
+      april: 3,
+      may: 4,
+      jun: 5,
+      june: 5,
+      jul: 6,
+      july: 6,
+      aug: 7,
+      august: 7,
+      sep: 8,
+      sept: 8,
+      september: 8,
+      oct: 9,
+      october: 9,
+      nov: 10,
+      november: 10,
+      dec: 11,
+      december: 11,
     };
 
     const month = monthMap[monthStr.toLowerCase()];
@@ -239,7 +265,9 @@ function extractDescription(excerpt: string, content: string): string | undefine
   const cleanExcerpt = decodeHtmlEntities(excerpt).trim();
 
   // Remove date/location suffix like "January 10, 2025 at 7PM | BMCM+AC"
-  const withoutDateLoc = cleanExcerpt.replace(/[A-Za-z]+\s+\d{1,2},?\s+\d{4}[^|]*\|[^|]+$/i, '').trim();
+  const withoutDateLoc = cleanExcerpt
+    .replace(/[A-Za-z]+\s+\d{1,2},?\s+\d{4}[^|]*\|[^|]+$/i, '')
+    .trim();
 
   if (withoutDateLoc && withoutDateLoc.length > 20) {
     return withoutDateLoc;
@@ -274,7 +302,7 @@ async function fetchFeaturedImage(mediaId: number): Promise<string | undefined> 
       'BMCMuseum'
     );
 
-    const media: WPMedia = await response.json();
+    const media = (await response.json()) as WPMedia;
     return media.source_url;
   } catch {
     // Image fetch is optional, don't fail the event
@@ -313,7 +341,7 @@ export async function scrapeBMCMuseum(): Promise<ScrapedEvent[]> {
       'BMCMuseum'
     );
 
-    const posts: WPPost[] = await response.json();
+    const posts = (await response.json()) as WPPost[];
     console.log(`[BMCMuseum] Found ${posts.length} posts`);
 
     // Process each post
@@ -327,7 +355,7 @@ export async function scrapeBMCMuseum(): Promise<ScrapedEvent[]> {
       // Special handling for Lake Eden Tours (recurring event with multiple dates)
       if (post.link.includes('lake-eden-tours')) {
         const tourDates = parseLakeEdenTourDates(post.content.rendered);
-        const futureDates = tourDates.filter(d => d > now);
+        const futureDates = tourDates.filter((d) => d > now);
 
         if (futureDates.length > 0) {
           console.log(`[BMCMuseum] Lake Eden Tours: found ${futureDates.length} future dates`);
@@ -335,7 +363,7 @@ export async function scrapeBMCMuseum(): Promise<ScrapedEvent[]> {
           // Fetch image once for all tour dates
           let imageUrl: string | undefined;
           if (post.featured_media) {
-            await new Promise(r => setTimeout(r, REQUEST_DELAY_MS));
+            await new Promise((r) => setTimeout(r, REQUEST_DELAY_MS));
             imageUrl = await fetchFeaturedImage(post.featured_media);
           }
 
@@ -346,7 +374,8 @@ export async function scrapeBMCMuseum(): Promise<ScrapedEvent[]> {
               sourceId: `bmc-${post.id}-${dateStr}`,
               source: 'BMC_MUSEUM',
               title,
-              description: 'Two-hour walking tour of the historic Black Mountain College campus at Lake Eden, covering the Dining Hall, Lodges, Quiet House, Studies Building, and Jean Charlot frescos.',
+              description:
+                'Two-hour walking tour of the historic Black Mountain College campus at Lake Eden, covering the Dining Hall, Lodges, Quiet House, Studies Building, and Jean Charlot frescos.',
               startDate: tourDate,
               location: LAKE_EDEN_ADDRESS,
               zip: LAKE_EDEN_ZIP,
@@ -384,7 +413,7 @@ export async function scrapeBMCMuseum(): Promise<ScrapedEvent[]> {
       // Fetch featured image (with delay)
       let imageUrl: string | undefined;
       if (post.featured_media) {
-        await new Promise(r => setTimeout(r, REQUEST_DELAY_MS));
+        await new Promise((r) => setTimeout(r, REQUEST_DELAY_MS));
         imageUrl = await fetchFeaturedImage(post.featured_media);
       }
 
@@ -406,7 +435,9 @@ export async function scrapeBMCMuseum(): Promise<ScrapedEvent[]> {
     // Sort by date
     events.sort((a, b) => a.startDate.getTime() - b.startDate.getTime());
 
-    console.log(`[BMCMuseum] Complete. Found ${events.length} future events (skipped: ${skippedPast} past, ${skippedNoDate} no date)`);
+    console.log(
+      `[BMCMuseum] Complete. Found ${events.length} future events (skipped: ${skippedPast} past, ${skippedNoDate} no date)`
+    );
   } catch (error) {
     console.error('[BMCMuseum] Error:', error);
   }

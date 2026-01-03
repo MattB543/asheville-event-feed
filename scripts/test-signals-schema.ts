@@ -27,9 +27,12 @@ async function testSignalsSchema() {
 
     console.log('✅ Schema columns are accessible');
     console.log('Result:', result.length === 0 ? 'No test user found (expected)' : result[0]);
-  } catch (error: any) {
-    const errorMessage = error?.message || String(error);
-    const causeMessage = error?.cause?.message || '';
+  } catch (error: unknown) {
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    const causeMessage =
+      error && typeof error === 'object' && 'cause' in error
+        ? ((error as { cause?: { message?: string } }).cause?.message ?? '')
+        : '';
     const isMissingColumn =
       errorMessage.includes('column') ||
       errorMessage.includes('does not exist') ||

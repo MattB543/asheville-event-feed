@@ -11,7 +11,11 @@ async function checkEmbeddings() {
     WHERE start_date > NOW()
   `);
 
-  const row = result[0] as any;
+  const row = result[0] as {
+    total: number;
+    with_embeddings: number;
+    without_embeddings: number;
+  };
   console.log('Future Events Statistics:');
   console.log('-------------------------');
   console.log('With embeddings:', row.with_embeddings);
@@ -23,4 +27,7 @@ async function checkEmbeddings() {
   process.exit(0);
 }
 
-checkEmbeddings().catch(e => { console.error(e); process.exit(1); });
+checkEmbeddings().catch((e) => {
+  console.error(e);
+  process.exit(1);
+});

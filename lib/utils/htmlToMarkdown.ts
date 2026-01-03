@@ -50,8 +50,14 @@ export function htmlToMarkdown(html: string, maxLength: number = 10000): string 
   // Remove common ad/tracking elements by class/id patterns
   // Note: Can't use 's' flag for dotAll, so using [\s\S] instead
   cleaned = cleaned
-    .replace(/<[^>]*class="[^"]*(?:ad|advertisement|banner|promo|cookie|tracking|analytics|popup|modal)[^"]*"[^>]*>[\s\S]*?<\/[^>]+>/gi, '')
-    .replace(/<[^>]*id="[^"]*(?:ad|advertisement|banner|promo|cookie|tracking|analytics|popup|modal)[^"]*"[^>]*>[\s\S]*?<\/[^>]+>/gi, '');
+    .replace(
+      /<[^>]*class="[^"]*(?:ad|advertisement|banner|promo|cookie|tracking|analytics|popup|modal)[^"]*"[^>]*>[\s\S]*?<\/[^>]+>/gi,
+      ''
+    )
+    .replace(
+      /<[^>]*id="[^"]*(?:ad|advertisement|banner|promo|cookie|tracking|analytics|popup|modal)[^"]*"[^>]*>[\s\S]*?<\/[^>]+>/gi,
+      ''
+    );
 
   // Convert headers to markdown
   cleaned = cleaned
@@ -93,10 +99,10 @@ export function htmlToMarkdown(html: string, maxLength: number = 10000): string 
 
   // Clean up whitespace
   cleaned = cleaned
-    .replace(/\n{3,}/g, '\n\n')  // Max 2 consecutive newlines
-    .replace(/[ \t]+/g, ' ')     // Collapse horizontal whitespace
-    .replace(/\n /g, '\n')       // Remove leading spaces on lines
-    .replace(/ \n/g, '\n')       // Remove trailing spaces on lines
+    .replace(/\n{3,}/g, '\n\n') // Max 2 consecutive newlines
+    .replace(/[ \t]+/g, ' ') // Collapse horizontal whitespace
+    .replace(/\n /g, '\n') // Remove leading spaces on lines
+    .replace(/ \n/g, '\n') // Remove trailing spaces on lines
     .trim();
 
   // Truncate if too long
@@ -137,16 +143,18 @@ export function extractEventDetails(html: string): {
   } = {};
 
   // Try to extract title from common patterns
-  const titleMatch = html.match(/<h1[^>]*>(.*?)<\/h1>/i)
-    || html.match(/<meta[^>]*property="og:title"[^>]*content="([^"]+)"/i)
-    || html.match(/<title[^>]*>(.*?)<\/title>/i);
+  const titleMatch =
+    html.match(/<h1[^>]*>(.*?)<\/h1>/i) ||
+    html.match(/<meta[^>]*property="og:title"[^>]*content="([^"]+)"/i) ||
+    html.match(/<title[^>]*>(.*?)<\/title>/i);
   if (titleMatch) {
     result.title = stripTags(titleMatch[1]);
   }
 
   // Try to extract description from og:description or meta description
-  const descMatch = html.match(/<meta[^>]*property="og:description"[^>]*content="([^"]+)"/i)
-    || html.match(/<meta[^>]*name="description"[^>]*content="([^"]+)"/i);
+  const descMatch =
+    html.match(/<meta[^>]*property="og:description"[^>]*content="([^"]+)"/i) ||
+    html.match(/<meta[^>]*name="description"[^>]*content="([^"]+)"/i);
   if (descMatch) {
     result.description = stripTags(descMatch[1]);
   }
@@ -166,10 +174,7 @@ export function extractEventDetails(html: string): {
   }
 
   // Try to find time patterns
-  const timePatterns = [
-    /<[^>]*class="[^"]*time[^"]*"[^>]*>([^<]+)/i,
-    /<time[^>]*>([^<]+)/i,
-  ];
+  const timePatterns = [/<[^>]*class="[^"]*time[^"]*"[^>]*>([^<]+)/i, /<time[^>]*>([^<]+)/i];
   for (const pattern of timePatterns) {
     const match = html.match(pattern);
     if (match) {
@@ -206,7 +211,7 @@ export async function fetchAndConvertToMarkdown(
     const response = await fetch(url, {
       headers: {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+        Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
       },
     });
 

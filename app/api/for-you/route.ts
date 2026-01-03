@@ -1,10 +1,11 @@
-import { NextResponse, type NextRequest } from "next/server";
-import { createClient } from "@/lib/supabase/server";
+import { NextResponse } from 'next/server';
+import { createClient } from '@/lib/supabase/server';
+import { getMultiAnchorPersonalizedFeed, type PersonalizedEvent } from '@/lib/ai/personalization';
 import {
-  getMultiAnchorPersonalizedFeed,
-  type PersonalizedEvent,
-} from "@/lib/ai/personalization";
-import { getStartOfTodayEastern, getDayBoundariesEastern, getTodayStringEastern } from "@/lib/utils/timezone";
+  getStartOfTodayEastern,
+  getDayBoundariesEastern,
+  getTodayStringEastern,
+} from '@/lib/utils/timezone';
 
 // Helper to add days to a date string (YYYY-MM-DD format)
 function addDaysToDateString(dateStr: string, days: number): string {
@@ -49,9 +50,10 @@ interface ScoredEventResponse {
  */
 function toResponseFormat(pe: PersonalizedEvent): ScoredEventResponse {
   // Get the best explanation from sources (highest similarity)
-  const bestSource = pe.sources.length > 0
-    ? pe.sources.reduce((best, curr) => curr.similarity > best.similarity ? curr : best)
-    : null;
+  const bestSource =
+    pe.sources.length > 0
+      ? pe.sources.reduce((best, curr) => (curr.similarity > best.similarity ? curr : best))
+      : null;
 
   return {
     event: {
@@ -93,18 +95,20 @@ function toResponseFormat(pe: PersonalizedEvent): ScoredEventResponse {
  * this finds top matches for EACH liked event individually, then
  * aggregates with boosts for events that match multiple interests.
  */
-export async function GET(_request: NextRequest) {
+export async function GET() {
   try {
-    console.log("[ForYou API] Request received (V2 multi-anchor algorithm)");
+    console.log('[ForYou API] Request received (V2 multi-anchor algorithm)');
 
     const supabase = await createClient();
-    const { data: { user } } = await supabase.auth.getUser();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
 
-    console.log("[ForYou API] User:", user?.id ?? "none");
+    console.log('[ForYou API] User:', user?.id ?? 'none');
 
     if (!user) {
-      console.log("[ForYou API] Unauthorized - no user");
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      console.log('[ForYou API] Unauthorized - no user');
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
     // Calculate date range (next 14 days)
@@ -113,7 +117,7 @@ export async function GET(_request: NextRequest) {
     const fourteenDaysFromNowStr = addDaysToDateString(todayStr, 14);
     const fourteenDaysFromNow = getDayBoundariesEastern(fourteenDaysFromNowStr).end;
 
-    console.log("[ForYou API] Date range:", {
+    console.log('[ForYou API] Date range:', {
       start: startOfToday.toISOString(),
       end: fourteenDaysFromNow.toISOString(),
     });
@@ -124,7 +128,7 @@ export async function GET(_request: NextRequest) {
       endDate: fourteenDaysFromNow,
     });
 
-    console.log("[ForYou API] Algorithm result:", {
+    console.log('[ForYou API] Algorithm result:', {
       eventCount: result.events.length,
       signalCount: result.meta.signalCount,
       signalEventsUsed: result.meta.signalEventsUsed,
@@ -152,14 +156,14 @@ export async function GET(_request: NextRequest) {
 
     // Log tier breakdown for debugging
     const tierCounts = {
-      great: scoredEvents.filter(e => e.tier === 'great').length,
-      good: scoredEvents.filter(e => e.tier === 'good').length,
-      okay: scoredEvents.filter(e => e.tier === null).length,
+      great: scoredEvents.filter((e) => e.tier === 'great').length,
+      good: scoredEvents.filter((e) => e.tier === 'good').length,
+      okay: scoredEvents.filter((e) => e.tier === null).length,
     };
-    console.log("[ForYou API] Tier breakdown:", tierCounts);
+    console.log('[ForYou API] Tier breakdown:', tierCounts);
 
     // Log multi-match events (events that matched multiple liked events)
-    const multiMatchEvents = scoredEvents.filter(e => (e.matchCount ?? 0) > 1);
+    const multiMatchEvents = scoredEvents.filter((e) => (e.matchCount ?? 0) > 1);
     if (multiMatchEvents.length > 0) {
       console.log(`[ForYou API] ${multiMatchEvents.length} events matched multiple interests:`);
       for (const e of multiMatchEvents.slice(0, 5)) {
@@ -178,10 +182,7 @@ export async function GET(_request: NextRequest) {
       },
     });
   } catch (error) {
-    console.error("[ForYou API] Error generating personalized feed:", error);
-    return NextResponse.json(
-      { error: "Failed to generate personalized feed" },
-      { status: 500 }
-    );
+    console.error('[ForYou API] Error generating personalized feed:', error);
+    return NextResponse.json({ error: 'Failed to generate personalized feed' }, { status: 500 });
   }
 }

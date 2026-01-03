@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { ReactNode } from "react";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ToastProvider, ToastStyles } from "./ui/Toast";
-import { ThemeProvider } from "./ThemeProvider";
-import { AuthProvider } from "./AuthProvider";
+import { type ReactNode } from 'react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ToastProvider, ToastStyles } from './ui/Toast';
+import { ThemeProvider } from './ThemeProvider';
+import { AuthProvider } from './AuthProvider';
 
 interface ProvidersProps {
   children: ReactNode;
@@ -26,7 +26,7 @@ function makeQueryClient() {
 let browserQueryClient: QueryClient | undefined = undefined;
 
 function getQueryClient() {
-  if (typeof window === "undefined") {
+  if (typeof window === 'undefined') {
     // Server: always make a new query client
     return makeQueryClient();
   } else {

@@ -32,11 +32,7 @@ async function getEventByInput(input: string): Promise<DbEvent | null> {
   }
 
   if (/^[a-f0-9-]{36}$/i.test(input)) {
-    const result = await db
-      .select()
-      .from(events)
-      .where(eq(events.id, input))
-      .limit(1);
+    const result = await db.select().from(events).where(eq(events.id, input)).limit(1);
     return result[0] || null;
   }
 
@@ -44,12 +40,7 @@ async function getEventByInput(input: string): Promise<DbEvent | null> {
 }
 
 function buildEmbeddingString(event: DbEvent): string {
-  return createEmbeddingText(
-    event.title,
-    event.aiSummary || '',
-    event.tags,
-    event.organizer
-  );
+  return createEmbeddingText(event.title, event.aiSummary || '', event.tags, event.organizer);
 }
 
 async function embedText(label: string, text: string): Promise<number[]> {

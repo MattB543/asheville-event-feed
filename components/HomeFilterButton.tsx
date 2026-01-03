@@ -1,5 +1,5 @@
-import Link from "next/link";
-import { LucideIcon, ArrowRight } from "lucide-react";
+import Link from 'next/link';
+import { type LucideIcon, ArrowRight } from 'lucide-react';
 
 interface HomeFilterButtonProps {
   label: string;

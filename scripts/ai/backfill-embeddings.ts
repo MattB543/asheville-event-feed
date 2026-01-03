@@ -28,8 +28,10 @@ const embeddingsOnly = args.includes('--embeddings-only');
 const forceEmbeddings = args.includes('--force');
 const allEvents = args.includes('--all');
 const dryRun = args.includes('--dry-run');
-const limitArg = args.find(a => a.startsWith('--limit'));
-const limit = limitArg ? parseInt(limitArg.split('=')[1] || args[args.indexOf('--limit') + 1]) : undefined;
+const limitArg = args.find((a) => a.startsWith('--limit'));
+const limit = limitArg
+  ? parseInt(limitArg.split('=')[1] || args[args.indexOf('--limit') + 1])
+  : undefined;
 
 // Helper to format duration
 function formatDuration(ms: number): string {
@@ -84,9 +86,7 @@ async function backfill() {
   if (!embeddingsOnly) {
     console.log('Step 1: Generating AI summaries...');
 
-    const summaryConditions = [
-      isNull(events.aiSummary),
-    ];
+    const summaryConditions = [isNull(events.aiSummary)];
     if (!allEvents) {
       summaryConditions.push(gte(events.startDate, new Date()));
     }
@@ -124,10 +124,7 @@ async function backfill() {
               });
 
               if (summary) {
-                await db
-                  .update(events)
-                  .set({ aiSummary: summary })
-                  .where(eq(events.id, event.id));
+                await db.update(events).set({ aiSummary: summary }).where(eq(events.id, event.id));
 
                 stats.summaries.success++;
               } else {
@@ -141,7 +138,9 @@ async function backfill() {
         );
 
         processed += batch.length;
-        console.log(`  Progress: ${processed}/${stats.summaries.total} (${stats.summaries.success} success, ${stats.summaries.failed} failed)`);
+        console.log(
+          `  Progress: ${processed}/${stats.summaries.total} (${stats.summaries.success} success, ${stats.summaries.failed} failed)`
+        );
 
         // Delay between batches
         await new Promise((r) => setTimeout(r, 1000));
@@ -159,9 +158,7 @@ async function backfill() {
   if (!summariesOnly) {
     console.log('Step 2: Generating embeddings...');
 
-    const embeddingConditions = [
-      isNotNull(events.aiSummary),
-    ];
+    const embeddingConditions = [isNotNull(events.aiSummary)];
     if (!forceEmbeddings) {
       embeddingConditions.push(isNull(events.embedding));
     }
@@ -201,10 +198,7 @@ async function backfill() {
               const embedding = await generateEmbedding(text);
 
               if (embedding) {
-                await db
-                  .update(events)
-                  .set({ embedding })
-                  .where(eq(events.id, event.id));
+                await db.update(events).set({ embedding }).where(eq(events.id, event.id));
 
                 stats.embeddings.success++;
               } else {
@@ -218,14 +212,18 @@ async function backfill() {
         );
 
         processed += batch.length;
-        console.log(`  Progress: ${processed}/${stats.embeddings.total} (${stats.embeddings.success} success, ${stats.embeddings.failed} failed)`);
+        console.log(
+          `  Progress: ${processed}/${stats.embeddings.total} (${stats.embeddings.success} success, ${stats.embeddings.failed} failed)`
+        );
 
         // Delay between batches
         await new Promise((r) => setTimeout(r, 500));
       }
 
       stats.embeddings.duration = Date.now() - startTime;
-      console.log(`\nEmbedding generation complete in ${formatDuration(stats.embeddings.duration)}`);
+      console.log(
+        `\nEmbedding generation complete in ${formatDuration(stats.embeddings.duration)}`
+      );
       console.log(`  Success: ${stats.embeddings.success}/${stats.embeddings.total}`);
       console.log(`  Failed: ${stats.embeddings.failed}`);
     }
@@ -236,13 +234,23 @@ async function backfill() {
 
   // Get current database stats
   const [totalResult] = await db.select({ count: sql<number>`count(*)` }).from(events);
-  const [withSummaryResult] = await db.select({ count: sql<number>`count(*)` }).from(events).where(isNotNull(events.aiSummary));
-  const [withEmbeddingResult] = await db.select({ count: sql<number>`count(*)` }).from(events).where(isNotNull(events.embedding));
+  const [withSummaryResult] = await db
+    .select({ count: sql<number>`count(*)` })
+    .from(events)
+    .where(isNotNull(events.aiSummary));
+  const [withEmbeddingResult] = await db
+    .select({ count: sql<number>`count(*)` })
+    .from(events)
+    .where(isNotNull(events.embedding));
 
   console.log('\nDatabase status:');
   console.log(`  Total events: ${totalResult.count}`);
-  console.log(`  With summary: ${withSummaryResult.count} (${Math.round(Number(withSummaryResult.count) / Number(totalResult.count) * 100)}%)`);
-  console.log(`  With embedding: ${withEmbeddingResult.count} (${Math.round(Number(withEmbeddingResult.count) / Number(totalResult.count) * 100)}%)`);
+  console.log(
+    `  With summary: ${withSummaryResult.count} (${Math.round((Number(withSummaryResult.count) / Number(totalResult.count)) * 100)}%)`
+  );
+  console.log(
+    `  With embedding: ${withEmbeddingResult.count} (${Math.round((Number(withEmbeddingResult.count) / Number(totalResult.count)) * 100)}%)`
+  );
 
   process.exit(0);
 }

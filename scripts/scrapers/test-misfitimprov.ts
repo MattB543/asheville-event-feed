@@ -34,20 +34,22 @@ async function main() {
   console.log();
 
   // Stats
-  const withDesc = events.filter(e => e.description).length;
-  const withImage = events.filter(e => e.imageUrl).length;
-  const withPrice = events.filter(e => e.price && e.price !== 'Unknown').length;
-  const freeEvents = events.filter(e => e.price === 'Free').length;
+  const withDesc = events.filter((e) => e.description).length;
+  const withImage = events.filter((e) => e.imageUrl).length;
+  const withPrice = events.filter((e) => e.price && e.price !== 'Unknown').length;
+  const freeEvents = events.filter((e) => e.price === 'Free').length;
 
   console.log('Statistics:');
-  console.log(`  - With description: ${withDesc} (${Math.round(withDesc/events.length*100)}%)`);
-  console.log(`  - With image: ${withImage} (${Math.round(withImage/events.length*100)}%)`);
-  console.log(`  - With price: ${withPrice} (${Math.round(withPrice/events.length*100)}%)`);
+  console.log(
+    `  - With description: ${withDesc} (${Math.round((withDesc / events.length) * 100)}%)`
+  );
+  console.log(`  - With image: ${withImage} (${Math.round((withImage / events.length) * 100)}%)`);
+  console.log(`  - With price: ${withPrice} (${Math.round((withPrice / events.length) * 100)}%)`);
   console.log(`  - Free events: ${freeEvents}`);
   console.log();
 
   // Check for unique URLs (critical for DB)
-  const urls = events.map(e => e.url);
+  const urls = events.map((e) => e.url);
   const uniqueUrls = new Set(urls);
   if (uniqueUrls.size !== urls.length) {
     console.log('WARNING: Duplicate URLs found!');
@@ -61,8 +63,8 @@ async function main() {
   // Verify date handling
   console.log('Date Validation:');
   const now = new Date();
-  const pastEvents = events.filter(e => e.startDate < now);
-  const futureEvents = events.filter(e => e.startDate >= now);
+  const pastEvents = events.filter((e) => e.startDate < now);
+  const futureEvents = events.filter((e) => e.startDate >= now);
   console.log(`  - Past events: ${pastEvents.length} (should be 0)`);
   console.log(`  - Future events: ${futureEvents.length}`);
   console.log();
@@ -75,7 +77,9 @@ async function main() {
     console.log();
     console.log(`${event.title}`);
     console.log(`  Date (UTC): ${event.startDate.toISOString()}`);
-    console.log(`  Date (Eastern): ${event.startDate.toLocaleString('en-US', { timeZone: 'America/New_York' })}`);
+    console.log(
+      `  Date (Eastern): ${event.startDate.toLocaleString('en-US', { timeZone: 'America/New_York' })}`
+    );
     console.log(`  Location: ${event.location}`);
     console.log(`  Organizer: ${event.organizer}`);
     console.log(`  Source ID: ${event.sourceId}`);
@@ -94,7 +98,11 @@ async function main() {
 
   for (const event of sortedEvents) {
     const date = event.startDate.toLocaleDateString('en-US', { timeZone: 'America/New_York' });
-    const time = event.startDate.toLocaleTimeString('en-US', { timeZone: 'America/New_York', hour: '2-digit', minute: '2-digit' });
+    const time = event.startDate.toLocaleTimeString('en-US', {
+      timeZone: 'America/New_York',
+      hour: '2-digit',
+      minute: '2-digit',
+    });
     const price = event.price === 'Free' ? '[FREE]' : `[${event.price}]`;
     console.log(`${date} ${time} - ${event.title} ${price}`);
   }
@@ -106,7 +114,7 @@ async function main() {
   }
   const outputFile = path.join(outputDir, 'scraped-data.json');
 
-  const jsonData = events.map(e => ({
+  const jsonData = events.map((e) => ({
     ...e,
     startDate: e.startDate.toISOString(),
   }));

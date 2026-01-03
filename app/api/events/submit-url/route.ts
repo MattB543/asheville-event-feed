@@ -54,9 +54,7 @@ export async function POST(request: Request) {
   const submitterEmail = isString(parsed.submitterEmail)
     ? parsed.submitterEmail.trim().toLowerCase()
     : null;
-  const submitterName = isString(parsed.submitterName)
-    ? parsed.submitterName.trim()
-    : null;
+  const submitterName = isString(parsed.submitterName) ? parsed.submitterName.trim() : null;
   const notes = isString(parsed.notes) ? parsed.notes.trim() : null;
 
   // Validate required URL field
@@ -128,7 +126,7 @@ export async function POST(request: Request) {
       url,
       submitterEmail: submitterEmail ? submitterEmail.trim() : null,
       submitterName,
-    }).catch(err => {
+    }).catch((err) => {
       console.error('[SubmitURL] Failed to send Slack notification:', err);
     });
 

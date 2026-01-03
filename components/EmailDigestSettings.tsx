@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { useEffect, useMemo, useState } from "react";
-import Image from "next/image";
+import { useEffect, useMemo, useState } from 'react';
+import Image from 'next/image';
 import {
   Mail,
   Bell,
@@ -12,13 +12,13 @@ import {
   Sparkles,
   ListChecks,
   Search,
-} from "lucide-react";
+} from 'lucide-react';
 import type {
   NewsletterFilters,
   NewsletterFrequency,
   NewsletterDaySelection,
   NewsletterScoreTier,
-} from "@/lib/newsletter/types";
+} from '@/lib/newsletter/types';
 
 interface EmailDigestSettingsProps {
   email: string;
@@ -41,9 +41,9 @@ interface StoredTagFilters {
 }
 
 const DEFAULT_FILTERS: NewsletterFilters = {
-  search: "",
+  search: '',
   selectedTimes: [],
-  priceFilter: "any",
+  priceFilter: 'any',
   customMaxPrice: null,
   tagsInclude: [],
   tagsExclude: [],
@@ -54,69 +54,73 @@ const DEFAULT_FILTERS: NewsletterFilters = {
 };
 
 function getStorageItem<T>(key: string, defaultValue: T): T {
-  if (typeof window === "undefined") return defaultValue;
+  if (typeof window === 'undefined') return defaultValue;
   try {
     const item = localStorage.getItem(key);
-    return item ? JSON.parse(item) : defaultValue;
+    return item ? (JSON.parse(item) as T) : defaultValue;
   } catch {
     return defaultValue;
   }
 }
 
 export default function EmailDigestSettings({ email }: EmailDigestSettingsProps) {
-  const [frequency, setFrequency] = useState<NewsletterFrequency>("none");
-  const [daySelection, setDaySelection] =
-    useState<NewsletterDaySelection>("everyday");
+  const [frequency, setFrequency] = useState<NewsletterFrequency>('none');
+  const [daySelection, setDaySelection] = useState<NewsletterDaySelection>('everyday');
   const [selectedDays, setSelectedDays] = useState<number[]>([]);
   const [weekendEdition, setWeekendEdition] = useState(false);
-  const [scoreTier, setScoreTier] = useState<NewsletterScoreTier>("all");
+  const [scoreTier, setScoreTier] = useState<NewsletterScoreTier>('all');
   const [curatorUserIds, setCuratorUserIds] = useState<string[]>([]);
-  const [savedFilters, setSavedFilters] =
-    useState<NewsletterFilters>(DEFAULT_FILTERS);
+  const [savedFilters, setSavedFilters] = useState<NewsletterFilters>(DEFAULT_FILTERS);
   const [updatedAt, setUpdatedAt] = useState<string | null>(null);
   const [curators, setCurators] = useState<PublicCurator[]>([]);
-  const [curatorSearch, setCuratorSearch] = useState("");
+  const [curatorSearch, setCuratorSearch] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
   const [isSavingFilters, setIsSavingFilters] = useState(false);
-  const [message, setMessage] =
-    useState<{ type: "success" | "error"; text: string } | null>(null);
+  const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
 
   useEffect(() => {
     async function loadSettings() {
       try {
-        const res = await fetch("/api/email-digest/settings");
+        const res = await fetch('/api/email-digest/settings');
         if (res.ok) {
-          const data = await res.json();
-          setFrequency(data.frequency || "none");
-          setDaySelection(data.daySelection || "everyday");
-          setSelectedDays(data.selectedDays || []);
+          const data = (await res.json()) as {
+            frequency?: NewsletterFrequency;
+            daySelection?: NewsletterDaySelection;
+            selectedDays?: number[];
+            weekendEdition?: boolean;
+            scoreTier?: NewsletterScoreTier;
+            curatorUserIds?: string[];
+            filters?: NewsletterFilters;
+            updatedAt?: string;
+          };
+          setFrequency(data.frequency ?? 'none');
+          setDaySelection(data.daySelection ?? 'everyday');
+          setSelectedDays(data.selectedDays ?? []);
           setWeekendEdition(!!data.weekendEdition);
-          setScoreTier(data.scoreTier || "all");
-          setCuratorUserIds(data.curatorUserIds || []);
-          setSavedFilters(data.filters || DEFAULT_FILTERS);
-          setUpdatedAt(data.updatedAt || null);
+          setScoreTier(data.scoreTier ?? 'all');
+          setCuratorUserIds(data.curatorUserIds ?? []);
+          setSavedFilters(data.filters ?? DEFAULT_FILTERS);
+          setUpdatedAt(data.updatedAt ?? null);
         }
       } catch (error) {
-        console.error("Failed to load newsletter settings:", error);
+        console.error('Failed to load newsletter settings:', error);
       }
     }
 
     async function loadCurators() {
       try {
-        const res = await fetch("/api/curator/public");
+        const res = await fetch('/api/curator/public');
         if (res.ok) {
-          const data = await res.json();
-          setCurators(data.curators || []);
+          const data = (await res.json()) as { curators?: PublicCurator[] };
+          setCurators(data.curators ?? []);
         }
       } catch (error) {
-        console.error("Failed to load curators:", error);
+        console.error('Failed to load curators:', error);
       }
     }
 
-    Promise.all([loadSettings(), loadCurators()]).finally(() =>
-      setIsLoading(false)
-    );
+    void Promise.all([loadSettings(), loadCurators()]).finally(() => setIsLoading(false));
   }, []);
 
   const filteredCurators = useMemo(() => {
@@ -124,17 +128,15 @@ export default function EmailDigestSettings({ email }: EmailDigestSettingsProps)
     const term = curatorSearch.toLowerCase();
     return curators.filter((curator) => {
       const name = curator.displayName.toLowerCase();
-      const title = curator.title?.toLowerCase() || "";
-      const bio = curator.bio?.toLowerCase() || "";
+      const title = curator.title?.toLowerCase() || '';
+      const bio = curator.bio?.toLowerCase() || '';
       return name.includes(term) || title.includes(term) || bio.includes(term);
     });
   }, [curators, curatorSearch]);
 
   const handleToggleCurator = (userId: string) => {
     setCuratorUserIds((prev) =>
-      prev.includes(userId)
-        ? prev.filter((id) => id !== userId)
-        : [...prev, userId]
+      prev.includes(userId) ? prev.filter((id) => id !== userId) : [...prev, userId]
     );
   };
 
@@ -145,11 +147,10 @@ export default function EmailDigestSettings({ email }: EmailDigestSettingsProps)
   };
 
   const weekendEditionEnabled =
-    frequency === "daily" &&
-    (daySelection === "everyday" ||
-      daySelection === "weekend" ||
-      (daySelection === "specific" &&
-        [0, 5, 6].every((day) => selectedDays.includes(day))));
+    frequency === 'daily' &&
+    (daySelection === 'everyday' ||
+      daySelection === 'weekend' ||
+      (daySelection === 'specific' && [0, 5, 6].every((day) => selectedDays.includes(day))));
 
   useEffect(() => {
     if (!weekendEditionEnabled && weekendEdition) {
@@ -162,14 +163,14 @@ export default function EmailDigestSettings({ email }: EmailDigestSettingsProps)
     setMessage(null);
 
     try {
-      const res = await fetch("/api/email-digest/settings", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+      const res = await fetch('/api/email-digest/settings', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           frequency,
           daySelection,
           selectedDays,
-          weekendEdition: frequency === "daily" ? weekendEdition : false,
+          weekendEdition: frequency === 'daily' ? weekendEdition : false,
           scoreTier,
           curatorUserIds,
         }),
@@ -177,21 +178,21 @@ export default function EmailDigestSettings({ email }: EmailDigestSettingsProps)
 
       if (res.ok) {
         setMessage({
-          type: "success",
+          type: 'success',
           text:
-            frequency === "none"
-              ? "Newsletter emails disabled"
+            frequency === 'none'
+              ? 'Newsletter emails disabled'
               : `Newsletter settings saved for ${email}`,
         });
       } else {
-        throw new Error("Failed to save");
+        throw new Error('Failed to save');
       }
     } catch (error) {
       setMessage({
-        type: "error",
-        text: "Failed to save settings. Please try again.",
+        type: 'error',
+        text: 'Failed to save settings. Please try again.',
       });
-      console.error("Failed to save newsletter settings:", error);
+      console.error('Failed to save newsletter settings:', error);
     } finally {
       setIsSaving(false);
     }
@@ -201,47 +202,32 @@ export default function EmailDigestSettings({ email }: EmailDigestSettingsProps)
     setIsSavingFilters(true);
     setMessage(null);
 
-    const tagFilters = getStorageItem<StoredTagFilters | null>(
-      "tagFilters",
-      null
-    );
-    const legacyTags = getStorageItem<string[]>("selectedTags", []);
+    const tagFilters = getStorageItem<StoredTagFilters | null>('tagFilters', null);
+    const legacyTags = getStorageItem<string[]>('selectedTags', []);
 
     const filters: NewsletterFilters = {
-      search: getStorageItem<string>("search", ""),
-      selectedTimes: getStorageItem<NewsletterFilters["selectedTimes"]>(
-        "selectedTimes",
-        []
-      ),
-      priceFilter: getStorageItem<NewsletterFilters["priceFilter"]>(
-        "priceFilter",
-        "any"
-      ),
-      customMaxPrice: getStorageItem<NewsletterFilters["customMaxPrice"]>(
-        "customMaxPrice",
-        null
-      ),
+      search: getStorageItem<string>('search', ''),
+      selectedTimes: getStorageItem<NewsletterFilters['selectedTimes']>('selectedTimes', []),
+      priceFilter: getStorageItem<NewsletterFilters['priceFilter']>('priceFilter', 'any'),
+      customMaxPrice: getStorageItem<NewsletterFilters['customMaxPrice']>('customMaxPrice', null),
       tagsInclude: tagFilters?.include?.length ? tagFilters.include : legacyTags,
       tagsExclude: tagFilters?.exclude ?? [],
-      selectedLocations: getStorageItem<NewsletterFilters["selectedLocations"]>(
-        "selectedLocations",
+      selectedLocations: getStorageItem<NewsletterFilters['selectedLocations']>(
+        'selectedLocations',
         []
       ),
-      selectedZips: getStorageItem<NewsletterFilters["selectedZips"]>(
-        "selectedZips",
-        []
-      ),
-      showDailyEvents: getStorageItem<NewsletterFilters["showDailyEvents"]>(
-        "showDailyEvents",
+      selectedZips: getStorageItem<NewsletterFilters['selectedZips']>('selectedZips', []),
+      showDailyEvents: getStorageItem<NewsletterFilters['showDailyEvents']>(
+        'showDailyEvents',
         true
       ),
       useDefaultFilters: true,
     };
 
     try {
-      const res = await fetch("/api/email-digest/settings", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+      const res = await fetch('/api/email-digest/settings', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ filters }),
       });
 
@@ -249,18 +235,18 @@ export default function EmailDigestSettings({ email }: EmailDigestSettingsProps)
         setSavedFilters(filters);
         setUpdatedAt(new Date().toISOString());
         setMessage({
-          type: "success",
-          text: "Saved current feed filters to your newsletter.",
+          type: 'success',
+          text: 'Saved current feed filters to your newsletter.',
         });
       } else {
-        throw new Error("Failed to save filters");
+        throw new Error('Failed to save filters');
       }
     } catch (error) {
       setMessage({
-        type: "error",
-        text: "Failed to save current filters. Please try again.",
+        type: 'error',
+        text: 'Failed to save current filters. Please try again.',
       });
-      console.error("Failed to save current newsletter filters:", error);
+      console.error('Failed to save current newsletter filters:', error);
     } finally {
       setIsSavingFilters(false);
     }
@@ -274,15 +260,15 @@ export default function EmailDigestSettings({ email }: EmailDigestSettingsProps)
     }
 
     if (savedFilters.tagsInclude?.length) {
-      summary.push(`Include tags: ${savedFilters.tagsInclude.join(", ")}`);
+      summary.push(`Include tags: ${savedFilters.tagsInclude.join(', ')}`);
     }
 
     if (savedFilters.tagsExclude?.length) {
-      summary.push(`Exclude tags: ${savedFilters.tagsExclude.join(", ")}`);
+      summary.push(`Exclude tags: ${savedFilters.tagsExclude.join(', ')}`);
     }
 
-    if (savedFilters.priceFilter && savedFilters.priceFilter !== "any") {
-      if (savedFilters.priceFilter === "custom" && savedFilters.customMaxPrice) {
+    if (savedFilters.priceFilter && savedFilters.priceFilter !== 'any') {
+      if (savedFilters.priceFilter === 'custom' && savedFilters.customMaxPrice) {
         summary.push(`Price: under $${savedFilters.customMaxPrice}`);
       } else {
         summary.push(`Price: ${savedFilters.priceFilter}`);
@@ -290,19 +276,19 @@ export default function EmailDigestSettings({ email }: EmailDigestSettingsProps)
     }
 
     if (savedFilters.selectedLocations?.length) {
-      summary.push(`Locations: ${savedFilters.selectedLocations.join(", ")}`);
+      summary.push(`Locations: ${savedFilters.selectedLocations.join(', ')}`);
     }
 
     if (savedFilters.selectedZips?.length) {
-      summary.push(`Zips: ${savedFilters.selectedZips.join(", ")}`);
+      summary.push(`Zips: ${savedFilters.selectedZips.join(', ')}`);
     }
 
     if (savedFilters.selectedTimes?.length) {
-      summary.push(`Times: ${savedFilters.selectedTimes.join(", ")}`);
+      summary.push(`Times: ${savedFilters.selectedTimes.join(', ')}`);
     }
 
     if (savedFilters.showDailyEvents === false) {
-      summary.push("Daily recurring events hidden");
+      summary.push('Daily recurring events hidden');
     }
 
     return summary;
@@ -313,9 +299,7 @@ export default function EmailDigestSettings({ email }: EmailDigestSettingsProps)
       <div className="bg-white dark:bg-gray-900 rounded-xl shadow-lg border border-gray-200 dark:border-gray-800 p-6">
         <div className="flex items-center gap-3">
           <Loader2 className="w-5 h-5 animate-spin text-gray-400" />
-          <span className="text-gray-500 dark:text-gray-400">
-            Loading newsletter settings...
-          </span>
+          <span className="text-gray-500 dark:text-gray-400">Loading newsletter settings...</span>
         </div>
       </div>
     );
@@ -329,9 +313,7 @@ export default function EmailDigestSettings({ email }: EmailDigestSettingsProps)
             <Mail className="w-5 h-5 text-brand-600 dark:text-brand-400" />
           </div>
           <div>
-            <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
-              Newsletter
-            </h2>
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Newsletter</h2>
             <p className="text-sm text-gray-500 dark:text-gray-400">
               Personalized event email settings for {email}
             </p>
@@ -372,7 +354,7 @@ export default function EmailDigestSettings({ email }: EmailDigestSettingsProps)
           </div>
         </div>
 
-        {frequency === "daily" && (
+        {frequency === 'daily' && (
           <div className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
@@ -403,34 +385,30 @@ export default function EmailDigestSettings({ email }: EmailDigestSettingsProps)
               </div>
             </div>
 
-            {daySelection === "specific" && (
+            {daySelection === 'specific' && (
               <div className="flex flex-wrap gap-2">
-                {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map(
-                  (label, index) => {
-                    const active = selectedDays.includes(index);
-                    return (
-                      <button
-                        key={label}
-                        onClick={() => toggleDay(index)}
-                        className={`px-3 py-1.5 text-sm rounded-full border transition-colors cursor-pointer ${
-                          active
-                            ? "bg-brand-600 text-white border-brand-600"
-                            : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600 hover:border-brand-500"
-                        }`}
-                      >
-                        {label}
-                      </button>
-                    );
-                  }
-                )}
+                {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((label, index) => {
+                  const active = selectedDays.includes(index);
+                  return (
+                    <button
+                      key={label}
+                      onClick={() => toggleDay(index)}
+                      className={`px-3 py-1.5 text-sm rounded-full border transition-colors cursor-pointer ${
+                        active
+                          ? 'bg-brand-600 text-white border-brand-600'
+                          : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600 hover:border-brand-500'
+                      }`}
+                    >
+                      {label}
+                    </button>
+                  );
+                })}
               </div>
             )}
 
             <div className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
               <div>
-                <p className="text-sm font-medium text-gray-900 dark:text-white">
-                  Weekend Edition
-                </p>
+                <p className="text-sm font-medium text-gray-900 dark:text-white">Weekend Edition</p>
                 <p className="text-xs text-gray-500 dark:text-gray-400">
                   Send Friday with events for Friday through Sunday.
                 </p>
@@ -439,12 +417,12 @@ export default function EmailDigestSettings({ email }: EmailDigestSettingsProps)
                 onClick={() => setWeekendEdition((prev) => !prev)}
                 disabled={!weekendEditionEnabled}
                 className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                  weekendEdition ? "bg-brand-600" : "bg-gray-300 dark:bg-gray-600"
-                } ${weekendEditionEnabled ? "cursor-pointer" : "cursor-not-allowed opacity-60"}`}
+                  weekendEdition ? 'bg-brand-600' : 'bg-gray-300 dark:bg-gray-600'
+                } ${weekendEditionEnabled ? 'cursor-pointer' : 'cursor-not-allowed opacity-60'}`}
               >
                 <span
                   className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                    weekendEdition ? "translate-x-6" : "translate-x-1"
+                    weekendEdition ? 'translate-x-6' : 'translate-x-1'
                   }`}
                 />
               </button>
@@ -452,10 +430,9 @@ export default function EmailDigestSettings({ email }: EmailDigestSettingsProps)
           </div>
         )}
 
-        {frequency === "weekly" && (
+        {frequency === 'weekly' && (
           <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 text-sm text-gray-600 dark:text-gray-300">
-            Weekly newsletters go out Monday morning with events through Sunday
-            night.
+            Weekly newsletters go out Monday morning with events through Sunday night.
           </div>
         )}
 
@@ -497,8 +474,7 @@ export default function EmailDigestSettings({ email }: EmailDigestSettingsProps)
           </p>
           {filterSummary.length === 0 ? (
             <p className="text-sm text-brand-700 dark:text-brand-300 mt-2">
-              No filters saved yet. Set your filters on the events page, then
-              save them here.
+              No filters saved yet. Set your filters on the events page, then save them here.
             </p>
           ) : (
             <div className="mt-2 space-y-1 text-sm text-brand-700 dark:text-brand-300">
@@ -514,13 +490,13 @@ export default function EmailDigestSettings({ email }: EmailDigestSettingsProps)
           )}
           <div className="mt-4 flex flex-col sm:flex-row sm:items-center gap-3">
             <button
-              onClick={handleSaveCurrentFilters}
+              onClick={() => void handleSaveCurrentFilters()}
               disabled={isSavingFilters}
               className="px-4 py-2 text-sm font-medium rounded-lg bg-brand-600 text-white hover:bg-brand-700 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
             >
               {isSavingFilters
-                ? "Saving current filters..."
-                : "Save current feed filters as newsletter filter"}
+                ? 'Saving current filters...'
+                : 'Save current feed filters as newsletter filter'}
             </button>
             <span className="text-xs text-brand-700/70 dark:text-brand-300/70">
               Uses the filters saved from your events feed.
@@ -558,8 +534,8 @@ export default function EmailDigestSettings({ email }: EmailDigestSettingsProps)
                     key={curator.userId}
                     className={`flex items-start gap-3 p-3 rounded-lg border cursor-pointer transition-colors ${
                       isSelected
-                        ? "border-brand-500 bg-brand-50 dark:bg-brand-900/20"
-                        : "border-gray-200 dark:border-gray-700 hover:border-brand-300"
+                        ? 'border-brand-500 bg-brand-50 dark:bg-brand-900/20'
+                        : 'border-gray-200 dark:border-gray-700 hover:border-brand-300'
                     }`}
                   >
                     <div className="flex items-start gap-3 min-w-0 flex-1">
@@ -592,7 +568,7 @@ export default function EmailDigestSettings({ email }: EmailDigestSettingsProps)
                         )}
                         <div className="text-xs text-gray-500 dark:text-gray-400">
                           {curator.curationCount} curated event
-                          {curator.curationCount === 1 ? "" : "s"}
+                          {curator.curationCount === 1 ? '' : 's'}
                         </div>
                         {curator.bio && (
                           <div className="text-xs text-gray-500 dark:text-gray-400 line-clamp-2 mt-1">
@@ -615,7 +591,7 @@ export default function EmailDigestSettings({ email }: EmailDigestSettingsProps)
           {curatorUserIds.length > 0 && (
             <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
               {curatorUserIds.length} curator
-              {curatorUserIds.length === 1 ? "" : "s"} selected
+              {curatorUserIds.length === 1 ? '' : 's'} selected
             </p>
           )}
         </div>
@@ -623,9 +599,9 @@ export default function EmailDigestSettings({ email }: EmailDigestSettingsProps)
         {message && (
           <div
             className={`p-4 rounded-lg ${
-              message.type === "success"
-                ? "bg-green-50 dark:bg-green-900/20 text-green-800 dark:text-green-200"
-                : "bg-red-50 dark:bg-red-900/20 text-red-800 dark:text-red-200"
+              message.type === 'success'
+                ? 'bg-green-50 dark:bg-green-900/20 text-green-800 dark:text-green-200'
+                : 'bg-red-50 dark:bg-red-900/20 text-red-800 dark:text-red-200'
             }`}
           >
             {message.text}
@@ -634,7 +610,7 @@ export default function EmailDigestSettings({ email }: EmailDigestSettingsProps)
 
         <div className="flex justify-end">
           <button
-            onClick={handleSave}
+            onClick={() => void handleSave()}
             disabled={isSaving}
             className="px-6 py-2.5 bg-brand-600 hover:bg-brand-700 text-white font-medium rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 cursor-pointer"
           >
@@ -644,7 +620,7 @@ export default function EmailDigestSettings({ email }: EmailDigestSettingsProps)
                 Saving...
               </>
             ) : (
-              "Save Newsletter Settings"
+              'Save Newsletter Settings'
             )}
           </button>
         </div>
@@ -677,31 +653,25 @@ function FrequencyOption({
       onClick={() => onChange(value)}
       className={`flex flex-col items-center p-4 rounded-lg border-2 transition-all cursor-pointer ${
         isSelected
-          ? "border-brand-600 bg-brand-50 dark:bg-brand-900/20"
-          : "border-gray-200 dark:border-gray-700 hover:border-brand-300 dark:hover:border-brand-700"
+          ? 'border-brand-600 bg-brand-50 dark:bg-brand-900/20'
+          : 'border-gray-200 dark:border-gray-700 hover:border-brand-300 dark:hover:border-brand-700'
       }`}
     >
       <div
         className={`mb-2 ${
-          isSelected
-            ? "text-brand-600 dark:text-brand-400"
-            : "text-gray-400 dark:text-gray-500"
+          isSelected ? 'text-brand-600 dark:text-brand-400' : 'text-gray-400 dark:text-gray-500'
         }`}
       >
         {icon}
       </div>
       <span
         className={`font-medium ${
-          isSelected
-            ? "text-brand-600 dark:text-brand-400"
-            : "text-gray-700 dark:text-gray-300"
+          isSelected ? 'text-brand-600 dark:text-brand-400' : 'text-gray-700 dark:text-gray-300'
         }`}
       >
         {label}
       </span>
-      <span className="text-xs text-gray-500 dark:text-gray-400">
-        {description}
-      </span>
+      <span className="text-xs text-gray-500 dark:text-gray-400">{description}</span>
     </button>
   );
 }
@@ -730,31 +700,25 @@ function ScoreTierOption({
       onClick={() => onChange(value)}
       className={`flex flex-col items-center p-4 rounded-lg border-2 transition-all cursor-pointer ${
         isSelected
-          ? "border-brand-600 bg-brand-50 dark:bg-brand-900/20"
-          : "border-gray-200 dark:border-gray-700 hover:border-brand-300 dark:hover:border-brand-700"
+          ? 'border-brand-600 bg-brand-50 dark:bg-brand-900/20'
+          : 'border-gray-200 dark:border-gray-700 hover:border-brand-300 dark:hover:border-brand-700'
       }`}
     >
       <div
         className={`mb-2 ${
-          isSelected
-            ? "text-brand-600 dark:text-brand-400"
-            : "text-gray-400 dark:text-gray-500"
+          isSelected ? 'text-brand-600 dark:text-brand-400' : 'text-gray-400 dark:text-gray-500'
         }`}
       >
         {icon}
       </div>
       <span
         className={`font-medium ${
-          isSelected
-            ? "text-brand-600 dark:text-brand-400"
-            : "text-gray-700 dark:text-gray-300"
+          isSelected ? 'text-brand-600 dark:text-brand-400' : 'text-gray-700 dark:text-gray-300'
         }`}
       >
         {label}
       </span>
-      <span className="text-xs text-gray-500 dark:text-gray-400">
-        {description}
-      </span>
+      <span className="text-xs text-gray-500 dark:text-gray-400">{description}</span>
     </button>
   );
 }
@@ -767,13 +731,7 @@ interface DeliveryOptionProps {
   description: string;
 }
 
-function DeliveryOption({
-  value,
-  current,
-  onChange,
-  label,
-  description,
-}: DeliveryOptionProps) {
+function DeliveryOption({ value, current, onChange, label, description }: DeliveryOptionProps) {
   const isSelected = current === value;
 
   return (
@@ -781,22 +739,18 @@ function DeliveryOption({
       onClick={() => onChange(value)}
       className={`flex flex-col items-center p-4 rounded-lg border-2 transition-all cursor-pointer ${
         isSelected
-          ? "border-brand-600 bg-brand-50 dark:bg-brand-900/20"
-          : "border-gray-200 dark:border-gray-700 hover:border-brand-300 dark:hover:border-brand-700"
+          ? 'border-brand-600 bg-brand-50 dark:bg-brand-900/20'
+          : 'border-gray-200 dark:border-gray-700 hover:border-brand-300 dark:hover:border-brand-700'
       }`}
     >
       <span
         className={`font-medium ${
-          isSelected
-            ? "text-brand-600 dark:text-brand-400"
-            : "text-gray-700 dark:text-gray-300"
+          isSelected ? 'text-brand-600 dark:text-brand-400' : 'text-gray-700 dark:text-gray-300'
         }`}
       >
         {label}
       </span>
-      <span className="text-xs text-gray-500 dark:text-gray-400">
-        {description}
-      </span>
+      <span className="text-xs text-gray-500 dark:text-gray-400">{description}</span>
     </button>
   );
 }

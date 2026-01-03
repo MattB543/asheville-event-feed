@@ -1,4 +1,21 @@
-export type EventSource = 'AVL_TODAY' | 'EVENTBRITE' | 'MEETUP' | 'FACEBOOK' | 'HARRAHS' | 'ORANGE_PEEL' | 'GREY_EAGLE' | 'LIVE_MUSIC_AVL' | 'EXPLORE_ASHEVILLE' | 'MISFIT_IMPROV' | 'UDHARMA' | 'NC_STAGE' | 'STORY_PARLOR' | 'MOUNTAIN_X' | 'STATIC_AGE' | 'REVOLVE' | 'BMC_MUSEUM';
+export type EventSource =
+  | 'AVL_TODAY'
+  | 'EVENTBRITE'
+  | 'MEETUP'
+  | 'FACEBOOK'
+  | 'HARRAHS'
+  | 'ORANGE_PEEL'
+  | 'GREY_EAGLE'
+  | 'LIVE_MUSIC_AVL'
+  | 'EXPLORE_ASHEVILLE'
+  | 'MISFIT_IMPROV'
+  | 'UDHARMA'
+  | 'NC_STAGE'
+  | 'STORY_PARLOR'
+  | 'MOUNTAIN_X'
+  | 'STATIC_AGE'
+  | 'REVOLVE'
+  | 'BMC_MUSEUM';
 
 export interface ScrapedEvent {
   sourceId: string;
@@ -13,11 +30,11 @@ export interface ScrapedEvent {
   url: string;
   imageUrl?: string;
   interestedCount?: number; // Facebook: "maybe" / interested count
-  goingCount?: number;      // Facebook: going count
-  timeUnknown?: boolean;    // True if source only provided date, no time
+  goingCount?: number; // Facebook: going count
+  timeUnknown?: boolean; // True if source only provided date, no time
   // Recurring event fields
-  recurringType?: 'daily';  // Daily recurring events shown separately in UI
-  recurringEndDate?: Date;  // When the recurring event ends
+  recurringType?: 'daily'; // Daily recurring events shown separately in UI
+  recurringEndDate?: Date; // When the recurring event ends
 }
 
 export interface ScrapedEventWithTags extends ScrapedEvent {
@@ -32,8 +49,8 @@ export interface AvlTodayResponse {
     DateStart: string;
     Venue: string;
     CityState: string;
-    Address?: string;        // Street address (e.g., "697 D Haywood Rd")
-    Zip?: string;            // Zip code (e.g., "28806")
+    Address?: string; // Street address (e.g., "697 D Haywood Rd")
+    Zip?: string; // Zip code (e.g., "28806")
     latitude?: number;
     longitude?: number;
     Price: number | string | null;
@@ -60,11 +77,11 @@ export interface EventbriteApiEvent {
     name: string;
     address?: {
       city: string;
-      region?: string;           // State (e.g., "NC")
-      country?: string;          // Country code (e.g., "US")
-      postal_code?: string;      // Zip code (e.g., "28801")
-      address_1?: string;        // Street address
-      address_2?: string;        // Unit/suite
+      region?: string; // State (e.g., "NC")
+      country?: string; // Country code (e.g., "US")
+      postal_code?: string; // Zip code (e.g., "28801")
+      address_1?: string; // Street address
+      address_2?: string; // Unit/suite
       latitude?: string;
       longitude?: string;
     };

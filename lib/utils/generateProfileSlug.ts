@@ -5,7 +5,8 @@
  */
 export function generateProfileSlug(email: string, userId: string): string {
   // Extract email prefix (before @)
-  const emailPrefix = email.split('@')[0]
+  const emailPrefix = email
+    .split('@')[0]
     .toLowerCase()
     .replace(/[^a-z0-9]/g, '') // Remove special chars
     .slice(0, 20); // Limit length

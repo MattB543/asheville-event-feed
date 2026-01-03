@@ -106,11 +106,7 @@ export async function scrollToBottom(page: Page): Promise<void> {
  * Type text with random delays between keystrokes
  * Simulates human typing speed
  */
-export async function typeWithDelay(
-  page: Page,
-  selector: string,
-  text: string
-): Promise<void> {
+export async function typeWithDelay(page: Page, selector: string, text: string): Promise<void> {
   await page.click(selector);
   await shortDelay();
 
@@ -338,11 +334,11 @@ export async function extractEventsFromPage(page: Page): Promise<DiscoveredEvent
       let dateText: string | null = null;
       const allText = container?.textContent || '';
       // Match patterns like "TUE, NOV 26" or "NOV 26 AT 6:00 PM" or "Tomorrow at 7 PM"
-      const dateMatch = allText.match(
-        /((?:MON|TUE|WED|THU|FRI|SAT|SUN)[A-Z]*,?\s*)?(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)\s+\d{1,2}(?:\s+AT\s+\d{1,2}(?::\d{2})?\s*(?:AM|PM))?/i
-      ) || allText.match(
-        /(?:Today|Tomorrow|This\s+\w+)\s*(?:at\s+\d{1,2}(?::\d{2})?\s*(?:AM|PM))?/i
-      );
+      const dateMatch =
+        allText.match(
+          /((?:MON|TUE|WED|THU|FRI|SAT|SUN)[A-Z]*,?\s*)?(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)\s+\d{1,2}(?:\s+AT\s+\d{1,2}(?::\d{2})?\s*(?:AM|PM))?/i
+        ) ||
+        allText.match(/(?:Today|Tomorrow|This\s+\w+)\s*(?:at\s+\d{1,2}(?::\d{2})?\s*(?:AM|PM))?/i);
       if (dateMatch) {
         dateText = dateMatch[0].trim();
       }
@@ -358,7 +354,9 @@ export async function extractEventsFromPage(page: Page): Promise<DiscoveredEvent
           text.length > 3 &&
           text.length < 100 &&
           text !== title &&
-          !text.match(/^(MON|TUE|WED|THU|FRI|SAT|SUN|JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC|Today|Tomorrow)/i) &&
+          !text.match(
+            /^(MON|TUE|WED|THU|FRI|SAT|SUN|JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC|Today|Tomorrow)/i
+          ) &&
           !text.match(/^\d+\s*(interested|going)/i)
         ) {
           // Could be venue

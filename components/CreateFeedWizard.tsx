@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { TAG_CATEGORIES } from "@/lib/config/tagCategories";
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { TAG_CATEGORIES } from '@/lib/config/tagCategories';
 import {
   ChevronLeft,
   ChevronRight,
@@ -38,12 +38,12 @@ import {
   ListChecks,
   DollarSign,
   MapPin,
-  LucideIcon,
-} from "lucide-react";
+  type LucideIcon,
+} from 'lucide-react';
 
-type TagState = "none" | "include" | "exclude";
-type PriceFilter = "any" | "free" | "custom";
-type LocationFilter = "asheville" | "all";
+type TagState = 'none' | 'include' | 'exclude';
+type PriceFilter = 'any' | 'free' | 'custom';
+type LocationFilter = 'asheville' | 'all';
 
 interface WizardState {
   step: 1 | 2 | 3;
@@ -56,16 +56,16 @@ interface WizardState {
 // Map tags to icons
 const TAG_ICONS: Record<string, LucideIcon> = {
   // Entertainment
-  "Live Music": Music,
+  'Live Music': Music,
   Comedy: Laugh,
-  "Theater & Film": Film,
+  'Theater & Film': Film,
   Dance: Disc,
   Trivia: HelpCircle,
   // Food & Drink
   Dining: Utensils,
   Beer: Beer,
-  "Wine & Spirits": Wine,
-  "Food Classes": ChefHat,
+  'Wine & Spirits': Wine,
+  'Food Classes': ChefHat,
   // Activities
   Art: Palette,
   Crafts: Scissors,
@@ -77,18 +77,18 @@ const TAG_ICONS: Record<string, LucideIcon> = {
   Tours: Map,
   Gaming: Gamepad2,
   Education: GraduationCap,
-  "Book Club": BookOpen,
+  'Book Club': BookOpen,
   // Audience/Social
   Family: Users,
   Dating: Heart,
   Networking: Users,
   Nightlife: Moon,
-  "LGBTQ+": Rainbow,
+  'LGBTQ+': Rainbow,
   Pets: PawPrint,
   Community: Users,
   Civic: Building2,
   Volunteering: HandHeart,
-  "Support Groups": HeartHandshake,
+  'Support Groups': HeartHandshake,
   // Seasonal
   Holiday: Gift,
   Markets: ShoppingBag,
@@ -99,17 +99,17 @@ export default function CreateFeedWizard() {
   const [state, setState] = useState<WizardState>({
     step: 1,
     tagStates: {},
-    priceFilter: "any",
+    priceFilter: 'any',
     maxPrice: 50,
-    locationFilter: "all",
+    locationFilter: 'all',
   });
 
-  const getTagState = (tag: string): TagState => state.tagStates[tag] || "none";
+  const getTagState = (tag: string): TagState => state.tagStates[tag] || 'none';
 
   const cycleTagState = (tag: string) => {
     const current = getTagState(tag);
     const next: TagState =
-      current === "none" ? "include" : current === "include" ? "exclude" : "none";
+      current === 'none' ? 'include' : current === 'include' ? 'exclude' : 'none';
     setState((prev) => ({
       ...prev,
       tagStates: { ...prev.tagStates, [tag]: next },
@@ -117,8 +117,8 @@ export default function CreateFeedWizard() {
   };
 
   const handleSelectAll = (categoryTags: string[]) => {
-    const allIncluded = categoryTags.every((tag) => getTagState(tag) === "include");
-    const newState = allIncluded ? "none" : "include";
+    const allIncluded = categoryTags.every((tag) => getTagState(tag) === 'include');
+    const newState = allIncluded ? 'none' : 'include';
     setState((prev) => {
       const newTagStates = { ...prev.tagStates };
       categoryTags.forEach((tag) => {
@@ -129,8 +129,8 @@ export default function CreateFeedWizard() {
   };
 
   const handleExcludeAll = (categoryTags: string[]) => {
-    const allExcluded = categoryTags.every((tag) => getTagState(tag) === "exclude");
-    const newState = allExcluded ? "none" : "exclude";
+    const allExcluded = categoryTags.every((tag) => getTagState(tag) === 'exclude');
+    const newState = allExcluded ? 'none' : 'exclude';
     setState((prev) => {
       const newTagStates = { ...prev.tagStates };
       categoryTags.forEach((tag) => {
@@ -161,37 +161,37 @@ export default function CreateFeedWizard() {
 
     // Tags
     const tagsInclude = Object.entries(state.tagStates)
-      .filter(([, s]) => s === "include")
+      .filter(([, s]) => s === 'include')
       .map(([tag]) => tag);
     const tagsExclude = Object.entries(state.tagStates)
-      .filter(([, s]) => s === "exclude")
+      .filter(([, s]) => s === 'exclude')
       .map(([tag]) => tag);
 
     if (tagsInclude.length > 0) {
-      params.set("tagsInclude", tagsInclude.join(","));
+      params.set('tagsInclude', tagsInclude.join(','));
     }
     if (tagsExclude.length > 0) {
-      params.set("tagsExclude", tagsExclude.join(","));
+      params.set('tagsExclude', tagsExclude.join(','));
     }
 
     // Price
-    if (state.priceFilter === "free") {
-      params.set("priceFilter", "free");
-    } else if (state.priceFilter === "custom") {
-      params.set("priceFilter", "custom");
-      params.set("maxPrice", state.maxPrice.toString());
+    if (state.priceFilter === 'free') {
+      params.set('priceFilter', 'free');
+    } else if (state.priceFilter === 'custom') {
+      params.set('priceFilter', 'custom');
+      params.set('maxPrice', state.maxPrice.toString());
     }
 
     // Location
-    if (state.locationFilter === "asheville") {
-      params.set("locations", "asheville");
+    if (state.locationFilter === 'asheville') {
+      params.set('locations', 'asheville');
     }
 
     // Trigger save modal
-    params.set("showSavePrompt", "true");
+    params.set('showSavePrompt', 'true');
 
     const queryString = params.toString();
-    return queryString ? `/events?${queryString}` : "/events?showSavePrompt=true";
+    return queryString ? `/events?${queryString}` : '/events?showSavePrompt=true';
   };
 
   return (
@@ -202,8 +202,8 @@ export default function CreateFeedWizard() {
           <div
             className={`flex-1 py-2 rounded-full text-center text-xs font-medium transition-colors ${
               state.step >= 1
-                ? "bg-brand-600 text-white"
-                : "bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400"
+                ? 'bg-brand-600 text-white'
+                : 'bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400'
             }`}
           >
             1. Interests
@@ -211,8 +211,8 @@ export default function CreateFeedWizard() {
           <div
             className={`flex-1 py-2 rounded-full text-center text-xs font-medium transition-colors ${
               state.step >= 2
-                ? "bg-brand-600 text-white"
-                : "bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400"
+                ? 'bg-brand-600 text-white'
+                : 'bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400'
             }`}
           >
             2. Budget
@@ -220,8 +220,8 @@ export default function CreateFeedWizard() {
           <div
             className={`flex-1 py-2 rounded-full text-center text-xs font-medium transition-colors ${
               state.step >= 3
-                ? "bg-brand-600 text-white"
-                : "bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400"
+                ? 'bg-brand-600 text-white'
+                : 'bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400'
             }`}
           >
             3. Location
@@ -309,28 +309,26 @@ function TagsStep({
 
       <div className="space-y-6">
         {TAG_CATEGORIES.map((category) => {
-          const allIncluded = category.tags.every((tag) => getTagState(tag) === "include");
-          const allExcluded = category.tags.every((tag) => getTagState(tag) === "exclude");
+          const allIncluded = category.tags.every((tag) => getTagState(tag) === 'include');
+          const allExcluded = category.tags.every((tag) => getTagState(tag) === 'exclude');
 
           return (
             <div key={category.name}>
               <div className="flex items-center gap-3 mb-3">
-                <h3 className="font-semibold text-gray-900 dark:text-white">
-                  {category.name}
-                </h3>
+                <h3 className="font-semibold text-gray-900 dark:text-white">{category.name}</h3>
                 <div className="flex items-center gap-2 text-xs text-gray-400 dark:text-gray-500">
                   <button
                     onClick={() => handleSelectAll(category.tags)}
                     className="hover:text-gray-800 dark:hover:text-gray-200 cursor-pointer"
                   >
-                    {allIncluded ? "Clear" : "All"}
+                    {allIncluded ? 'Clear' : 'All'}
                   </button>
                   <span className="text-gray-300 dark:text-gray-600">|</span>
                   <button
                     onClick={() => handleExcludeAll(category.tags)}
                     className="hover:text-gray-800 dark:hover:text-gray-200 cursor-pointer"
                   >
-                    {allExcluded ? "Clear" : "None"}
+                    {allExcluded ? 'Clear' : 'None'}
                   </button>
                 </div>
               </div>
@@ -343,11 +341,11 @@ function TagsStep({
                       key={tag}
                       onClick={() => cycleTagState(tag)}
                       className={`flex items-center gap-2 px-3 py-2 rounded-lg border-2 text-sm font-medium cursor-pointer transition-all ${
-                        tagState === "none"
-                          ? "border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500"
-                          : tagState === "include"
-                          ? "border-green-500 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300"
-                          : "border-red-500 bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300"
+                        tagState === 'none'
+                          ? 'border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500'
+                          : tagState === 'include'
+                            ? 'border-green-500 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300'
+                            : 'border-red-500 bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300'
                       }`}
                     >
                       {TagIcon && <TagIcon className="w-4 h-4" />}
@@ -390,8 +388,8 @@ function PriceStep({
           <input
             type="radio"
             name="priceFilter"
-            checked={priceFilter === "any"}
-            onChange={() => setPriceFilter("any")}
+            checked={priceFilter === 'any'}
+            onChange={() => setPriceFilter('any')}
             className="w-5 h-5 text-brand-600 cursor-pointer"
           />
           <ListChecks className="w-5 h-5 text-gray-500 dark:text-gray-400" />
@@ -407,8 +405,8 @@ function PriceStep({
           <input
             type="radio"
             name="priceFilter"
-            checked={priceFilter === "free"}
-            onChange={() => setPriceFilter("free")}
+            checked={priceFilter === 'free'}
+            onChange={() => setPriceFilter('free')}
             className="w-5 h-5 text-brand-600 cursor-pointer"
           />
           <Gift className="w-5 h-5 text-gray-500 dark:text-gray-400" />
@@ -424,8 +422,8 @@ function PriceStep({
           <input
             type="radio"
             name="priceFilter"
-            checked={priceFilter === "custom"}
-            onChange={() => setPriceFilter("custom")}
+            checked={priceFilter === 'custom'}
+            onChange={() => setPriceFilter('custom')}
             className="w-5 h-5 text-brand-600 mt-1 cursor-pointer"
           />
           <DollarSign className="w-5 h-5 text-gray-500 dark:text-gray-400 mt-0.5" />
@@ -434,7 +432,7 @@ function PriceStep({
             <div className="text-sm text-gray-500 dark:text-gray-400 mb-3">
               Hide events that are confirmed to be above your budget
             </div>
-            {priceFilter === "custom" && (
+            {priceFilter === 'custom' && (
               <div className="space-y-2">
                 <div className="flex items-center gap-4">
                   <input
@@ -476,17 +474,15 @@ function LocationStep({
       <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
         Where do you want to find events?
       </h2>
-      <p className="text-sm text-gray-600 dark:text-gray-400 mb-6">
-        Choose your preferred area
-      </p>
+      <p className="text-sm text-gray-600 dark:text-gray-400 mb-6">Choose your preferred area</p>
 
       <div className="space-y-4">
         <label className="flex items-center gap-3 p-4 rounded-lg border-2 cursor-pointer transition-all hover:border-brand-300 dark:hover:border-brand-600 border-gray-200 dark:border-gray-700 has-[:checked]:border-brand-500 has-[:checked]:bg-brand-50 dark:has-[:checked]:bg-brand-900/20">
           <input
             type="radio"
             name="locationFilter"
-            checked={locationFilter === "asheville"}
-            onChange={() => setLocationFilter("asheville")}
+            checked={locationFilter === 'asheville'}
+            onChange={() => setLocationFilter('asheville')}
             className="w-5 h-5 text-brand-600 cursor-pointer"
           />
           <MapPin className="w-5 h-5 text-gray-500 dark:text-gray-400" />
@@ -502,8 +498,8 @@ function LocationStep({
           <input
             type="radio"
             name="locationFilter"
-            checked={locationFilter === "all"}
-            onChange={() => setLocationFilter("all")}
+            checked={locationFilter === 'all'}
+            onChange={() => setLocationFilter('all')}
             className="w-5 h-5 text-brand-600 cursor-pointer"
           />
           <Map className="w-5 h-5 text-gray-500 dark:text-gray-400" />

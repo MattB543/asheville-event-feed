@@ -13,7 +13,7 @@ async function main() {
       location: events.location,
       startDate: events.startDate,
       source: events.source,
-      description: events.description
+      description: events.description,
     })
     .from(events)
     .where(gte(events.startDate, now))

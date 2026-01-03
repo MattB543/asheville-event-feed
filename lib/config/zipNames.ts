@@ -36,8 +36,17 @@ export const ZIP_NAMES: Record<string, string> = {
  * Used to determine if a zip should be auto-selected with "Asheville area"
  */
 export const ASHEVILLE_ZIPS = [
-  '28801', '28802', '28803', '28804', '28805', '28806',
-  '28810', '28813', '28814', '28815', '28816',
+  '28801',
+  '28802',
+  '28803',
+  '28804',
+  '28805',
+  '28806',
+  '28810',
+  '28813',
+  '28814',
+  '28815',
+  '28816',
 ];
 
 /**

@@ -1,12 +1,12 @@
-import "../../lib/config/env";
+import '../../lib/config/env';
 
-import { db } from "../../lib/db";
-import { events } from "../../lib/db/schema";
-import { inArray } from "drizzle-orm";
-import { findDuplicates, getIdsToRemove } from "../../lib/utils/deduplication";
+import { db } from '../../lib/db';
+import { events } from '../../lib/db/schema';
+import { inArray } from 'drizzle-orm';
+import { findDuplicates, getIdsToRemove } from '../../lib/utils/deduplication';
 
 async function deduplicateEvents() {
-  console.log("Finding duplicate events in database...\n");
+  console.log('Finding duplicate events in database...\n');
 
   const allEvents = await db
     .select({
@@ -26,16 +26,16 @@ async function deduplicateEvents() {
   const duplicateGroups = findDuplicates(allEvents);
 
   if (duplicateGroups.length === 0) {
-    console.log("No duplicates found!");
+    console.log('No duplicates found!');
     return;
   }
 
   console.log(`Found ${duplicateGroups.length} duplicate groups:\n`);
-  console.log("=".repeat(80));
+  console.log('='.repeat(80));
 
   for (const group of duplicateGroups) {
     console.log(`\n[Method ${group.method}]`);
-    console.log("📌 KEEPING:");
+    console.log('📌 KEEPING:');
     console.log(`   Title: ${group.keep.title}`);
     console.log(`   Organizer: ${group.keep.organizer}`);
     console.log(`   Location: ${group.keep.location || 'N/A'}`);
@@ -43,7 +43,7 @@ async function deduplicateEvents() {
     console.log(`   Price: ${group.keep.price}`);
     console.log(`   Description length: ${group.keep.description?.length || 0}`);
 
-    console.log("\n🗑️  REMOVING:");
+    console.log('\n🗑️  REMOVING:');
     for (const removed of group.remove) {
       console.log(`   Title: ${removed.title}`);
       console.log(`   Organizer: ${removed.organizer}`);
@@ -51,25 +51,27 @@ async function deduplicateEvents() {
       console.log(`   Price: ${removed.price}`);
       console.log(`   Description length: ${removed.description?.length || 0}`);
     }
-    console.log("-".repeat(80));
+    console.log('-'.repeat(80));
   }
 
   const idsToRemove = getIdsToRemove(duplicateGroups);
   console.log(`\nTotal events to remove: ${idsToRemove.length}`);
 
   if (idsToRemove.length === 0) {
-    console.log("Nothing to delete.");
+    console.log('Nothing to delete.');
     return;
   }
 
   // Delete duplicates in batches
-  console.log("\nDeleting duplicate events...");
+  console.log('\nDeleting duplicate events...');
   const batchSize = 50;
 
   for (let i = 0; i < idsToRemove.length; i += batchSize) {
     const batch = idsToRemove.slice(i, i + batchSize);
     await db.delete(events).where(inArray(events.id, batch));
-    console.log(`  Deleted batch ${Math.floor(i / batchSize) + 1}/${Math.ceil(idsToRemove.length / batchSize)}`);
+    console.log(
+      `  Deleted batch ${Math.floor(i / batchSize) + 1}/${Math.ceil(idsToRemove.length / batchSize)}`
+    );
   }
 
   console.log(`\nSuccessfully deleted ${idsToRemove.length} duplicate events.`);
@@ -84,6 +86,6 @@ deduplicateEvents()
     process.exit(0);
   })
   .catch((err) => {
-    console.error("Error:", err);
+    console.error('Error:', err);
     process.exit(1);
   });

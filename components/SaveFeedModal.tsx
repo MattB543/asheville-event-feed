@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { useRouter } from "next/navigation";
-import { X, UserPlus, Bell } from "lucide-react";
+import { useRouter } from 'next/navigation';
+import { X, UserPlus, Bell } from 'lucide-react';
 
 interface SaveFeedModalProps {
   isOpen: boolean;
@@ -14,16 +14,13 @@ export default function SaveFeedModal({ isOpen, onClose }: SaveFeedModalProps) {
   if (!isOpen) return null;
 
   const handleCreateAccount = () => {
-    router.push("/login");
+    router.push('/login');
   };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       {/* Backdrop */}
-      <div
-        className="absolute inset-0 bg-black/50 backdrop-blur-sm"
-        onClick={onClose}
-      />
+      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={onClose} />
 
       {/* Modal */}
       <div className="relative bg-white dark:bg-gray-900 rounded-xl shadow-2xl border border-gray-200 dark:border-gray-800 max-w-md w-full p-6 animate-fade-in">

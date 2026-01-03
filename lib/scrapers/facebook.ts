@@ -19,10 +19,7 @@
  */
 
 import { isFacebookEnabled } from '../config/env';
-import {
-  discoverAndFetchFacebookEvents,
-  type FacebookEventDetails,
-} from './facebook-discover';
+import { discoverAndFetchFacebookEvents, type FacebookEventDetails } from './facebook-discover';
 import { fetchAllEventDetails, type FacebookGraphQLEvent } from './facebook-graphql';
 import type { ScrapedEvent } from './types';
 import { log } from './facebook-stealth';
@@ -137,9 +134,9 @@ export async function scrapeFacebookEvents(): Promise<ScrapedEvent[]> {
     const events = fbEvents.map(transformBrowserEventToScrapedEvent);
 
     // Log some stats
-    const withDesc = events.filter(e => e.description).length;
-    const withImage = events.filter(e => e.imageUrl).length;
-    const withOrg = events.filter(e => e.organizer).length;
+    const withDesc = events.filter((e) => e.description).length;
+    const withImage = events.filter((e) => e.imageUrl).length;
+    const withOrg = events.filter((e) => e.organizer).length;
     console.log(`  📊 Stats: ${withDesc} desc, ${withImage} img, ${withOrg} organizer`);
 
     console.log(`  ✅ Scraped ${events.length} Facebook events\n`);
@@ -166,9 +163,7 @@ export async function scrapeFacebookEvents(): Promise<ScrapedEvent[]> {
  * @param eventIds Specific event IDs to fetch
  * @returns Array of ScrapedEvent objects
  */
-export async function scrapeFacebookEventsByIds(
-  eventIds: string[]
-): Promise<ScrapedEvent[]> {
+export async function scrapeFacebookEventsByIds(eventIds: string[]): Promise<ScrapedEvent[]> {
   console.log(`\n🔵 Scraping ${eventIds.length} specific Facebook events...`);
 
   if (!isFacebookEnabled()) {
@@ -195,13 +190,13 @@ export async function scrapeFacebookEventsByIds(
  * Quick health check for Facebook scraping
  * Tests both discovery and API without full scrape
  */
-export async function checkFacebookHealth(): Promise<{
+export function checkFacebookHealth(): {
   enabled: boolean;
   configValid: boolean;
   discoveryWorking?: boolean;
   apiWorking?: boolean;
   error?: string;
-}> {
+} {
   const enabled = isFacebookEnabled();
 
   if (!enabled) {

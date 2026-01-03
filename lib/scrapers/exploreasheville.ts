@@ -5,7 +5,7 @@
  * Uses curl for HTTP requests as the API blocks Node.js fetch (TLS fingerprinting).
  */
 
-import { ScrapedEvent } from './types';
+import { type ScrapedEvent } from './types';
 import { isNonNCEvent } from '@/lib/utils/geo';
 import { getZipFromCoords, getZipFromCity } from '@/lib/utils/geo';
 import { exec } from 'child_process';
@@ -25,7 +25,7 @@ function parseAsEasternTime(dateStr: string): Date {
   // Parse the date components
   const [datePart, timePart] = cleanedStr.split('T');
   const [year, month, day] = datePart.split('-').map(Number);
-  const [hours, minutes, seconds] = (timePart || '00:00:00').split(':').map(s => parseFloat(s));
+  const [hours, minutes, seconds] = (timePart || '00:00:00').split(':').map((s) => parseFloat(s));
 
   // Create a date string with explicit ET timezone
   // Format: "2025-12-12T10:00:00" in America/New_York
@@ -81,7 +81,7 @@ function getTimezoneOffsetForDate(date: Date): number {
   });
 
   const parts = formatter.formatToParts(date);
-  const getPart = (type: string) => parts.find(p => p.type === type)?.value || '0';
+  const getPart = (type: string) => parts.find((p) => p.type === type)?.value || '0';
 
   const etYear = parseInt(getPart('year'));
   const etMonth = parseInt(getPart('month')) - 1;
@@ -118,7 +118,7 @@ const CURL_HEADERS = [
   '-H "Sec-Fetch-Site: same-origin"',
   '-H "DNT: 1"',
   '-H "Priority: u=4"',
-  '--compressed',  // Handle gzip/br compression
+  '--compressed', // Handle gzip/br compression
 ].join(' ');
 
 /**
@@ -161,8 +161,7 @@ const FETCH_HEADERS: Record<string, string> = {
   'Accept-Language': 'en-US,en;q=0.5',
   'Accept-Encoding': 'gzip, deflate, br',
   Referer: 'https://www.exploreasheville.com/events',
-  'User-Agent':
-    'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:133.0) Gecko/20100101 Firefox/133.0',
+  'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:133.0) Gecko/20100101 Firefox/133.0',
   Connection: 'keep-alive',
   'Sec-Fetch-Dest': 'empty',
   'Sec-Fetch-Mode': 'cors',
@@ -174,9 +173,7 @@ const FETCH_HEADERS: Record<string, string> = {
 /**
  * Fetch a page using native fetch (works on Vercel, may be blocked locally)
  */
-async function fetchWithNativeFetch(
-  url: string
-): Promise<ExploreAshevilleResponse> {
+async function fetchWithNativeFetch(url: string): Promise<ExploreAshevilleResponse> {
   const response = await fetch(url, {
     headers: FETCH_HEADERS,
     cache: 'no-store',
@@ -238,19 +235,19 @@ async function fetchHTML(url: string): Promise<string> {
 export async function fetchEventDescription(pathOrUrl: string): Promise<string | undefined> {
   try {
     // Handle both full URLs and paths
-    const fullUrl = pathOrUrl.startsWith('http')
-      ? pathOrUrl
-      : `${BASE_URL}${pathOrUrl}`;
+    const fullUrl = pathOrUrl.startsWith('http') ? pathOrUrl : `${BASE_URL}${pathOrUrl}`;
     const html = await fetchHTML(fullUrl);
 
     // Try og:description first (usually cleaner)
-    let match = html.match(/<meta\s+property="og:description"\s+content="([^"]+)"/i)
-      || html.match(/<meta\s+content="([^"]+)"\s+property="og:description"/i);
+    let match =
+      html.match(/<meta\s+property="og:description"\s+content="([^"]+)"/i) ||
+      html.match(/<meta\s+content="([^"]+)"\s+property="og:description"/i);
 
     // Fallback to regular description meta tag
     if (!match) {
-      match = html.match(/<meta\s+name="description"\s+content="([^"]+)"/i)
-        || html.match(/<meta\s+content="([^"]+)"\s+name="description"/i);
+      match =
+        html.match(/<meta\s+name="description"\s+content="([^"]+)"/i) ||
+        html.match(/<meta\s+content="([^"]+)"\s+name="description"/i);
     }
 
     if (match?.[1]) {
@@ -319,7 +316,9 @@ export async function scrapeExploreAsheville(): Promise<ScrapedEvent[]> {
       const data = await fetchAPI(url);
       const events = data.results || [];
 
-      console.log(`[ExploreAsheville] Page ${page}: ${events.length} events (total in API: ${data.pageInfo.total})`);
+      console.log(
+        `[ExploreAsheville] Page ${page}: ${events.length} events (total in API: ${data.pageInfo.total})`
+      );
 
       // Format events (may return multiple for weekly/monthly recurring)
       for (const event of events) {
@@ -337,7 +336,6 @@ export async function scrapeExploreAsheville(): Promise<ScrapedEvent[]> {
 
       // Rate limiting
       await new Promise((r) => setTimeout(r, DELAY_MS));
-
     } catch (error) {
       console.error(`[ExploreAsheville] Error fetching page ${page}:`, error);
       break;
@@ -345,14 +343,16 @@ export async function scrapeExploreAsheville(): Promise<ScrapedEvent[]> {
   }
 
   // Filter out non-NC events
-  const ncEvents = allEvents.filter(ev => !isNonNCEvent(ev.title, ev.location));
+  const ncEvents = allEvents.filter((ev) => !isNonNCEvent(ev.title, ev.location));
   const filteredCount = allEvents.length - ncEvents.length;
 
   if (filteredCount > 0) {
     console.log(`[ExploreAsheville] Filtered out ${filteredCount} non-NC events`);
   }
 
-  console.log(`[ExploreAsheville] Finished. Found ${ncEvents.length} NC events (${allEvents.length} total)`);
+  console.log(
+    `[ExploreAsheville] Finished. Found ${ncEvents.length} NC events (${allEvents.length} total)`
+  );
   return ncEvents;
 }
 
@@ -372,25 +372,23 @@ function formatEvents(event: ExploreAshevilleEvent, description?: string): Scrap
   // Filter to future dates only, keeping both original string and parsed date
   // Use parseAsEasternTime since API returns ET times with incorrect Z suffix
   const futureDatePairs = dateStrings
-    .map(str => ({ str, date: parseAsEasternTime(str) }))
+    .map((str) => ({ str, date: parseAsEasternTime(str) }))
     .filter(({ date }) => !isNaN(date.getTime()) && date > now);
 
   if (futureDatePairs.length === 0) {
     return [];
   }
 
-  const futureDates = futureDatePairs.map(p => p.date);
-  const futureDateStrs = futureDatePairs.map(p => p.str);
+  const futureDates = futureDatePairs.map((p) => p.date);
+  const futureDateStrs = futureDatePairs.map((p) => p.str);
 
   // Build common fields
   const cityName = event.cities?.[0]?.name || 'Asheville';
-  const location = event.venueName
-    ? `${event.venueName}, ${cityName}, NC`
-    : `${cityName}, NC`;
+  const location = event.venueName ? `${event.venueName}, ${cityName}, NC` : `${cityName}, NC`;
 
   // Calculate zip from coordinates or fall back to city name
-  const zip = getZipFromCoords(event.position?.lat, event.position?.lng)
-    || getZipFromCity(cityName);
+  const zip =
+    getZipFromCoords(event.position?.lat, event.position?.lng) || getZipFromCity(cityName);
 
   let imageUrl = event.previewImage?.src;
   if (imageUrl && imageUrl.startsWith('/')) {
@@ -411,21 +409,23 @@ function formatEvents(event: ExploreAshevilleEvent, description?: string): Scrap
     const startDate = futureDates[0];
     const endDate = futureDates[futureDates.length - 1];
 
-    return [{
-      sourceId: `ea-${event.listingId}`,
-      source: 'EXPLORE_ASHEVILLE',
-      title: event.title,
-      description,
-      startDate,
-      location,
-      zip,
-      organizer,
-      url,
-      imageUrl,
-      timeUnknown: isTimeUnknownStr(futureDateStrs[0]),
-      recurringType: 'daily',
-      recurringEndDate: endDate,
-    }];
+    return [
+      {
+        sourceId: `ea-${event.listingId}`,
+        source: 'EXPLORE_ASHEVILLE',
+        title: event.title,
+        description,
+        startDate,
+        location,
+        zip,
+        organizer,
+        url,
+        imageUrl,
+        timeUnknown: isTimeUnknownStr(futureDateStrs[0]),
+        recurringType: 'daily',
+        recurringEndDate: endDate,
+      },
+    ];
   }
 
   // Handle weekly/monthly recurring - create individual events (limited)
@@ -451,19 +451,21 @@ function formatEvents(event: ExploreAshevilleEvent, description?: string): Scrap
 
   // Non-recurring or unknown - single event
   const startDate = futureDates[0];
-  return [{
-    sourceId: `ea-${event.listingId}`,
-    source: 'EXPLORE_ASHEVILLE',
-    title: event.title,
-    description,
-    startDate,
-    location,
-    zip,
-    organizer,
-    url,
-    imageUrl,
-    timeUnknown: isTimeUnknownStr(futureDateStrs[0]),
-  }];
+  return [
+    {
+      sourceId: `ea-${event.listingId}`,
+      source: 'EXPLORE_ASHEVILLE',
+      title: event.title,
+      description,
+      startDate,
+      location,
+      zip,
+      organizer,
+      url,
+      imageUrl,
+      timeUnknown: isTimeUnknownStr(futureDateStrs[0]),
+    },
+  ];
 }
 
 // Allow running standalone for testing

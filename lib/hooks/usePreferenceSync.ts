@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { useEffect, useRef, useCallback } from "react";
-import { useAuth } from "@/components/AuthProvider";
+import { useEffect, useRef, useCallback } from 'react';
+import { useAuth } from '@/components/AuthProvider';
 
 // Types matching the API
 export interface HiddenEventFingerprint {
@@ -14,6 +14,10 @@ export interface UserPreferencesData {
   blockedKeywords: string[];
   hiddenEvents: HiddenEventFingerprint[];
   favoritedEventIds: string[];
+}
+
+interface PreferencesResponse {
+  preferences?: UserPreferencesData | null;
 }
 
 interface PreferenceSyncCallbacks {
@@ -39,15 +43,9 @@ function mergePreferences(
   remote: UserPreferencesData
 ): UserPreferencesData {
   // Union arrays (deduplicate)
-  const mergedBlockedHosts = [
-    ...new Set([...local.blockedHosts, ...remote.blockedHosts]),
-  ];
-  const mergedBlockedKeywords = [
-    ...new Set([...local.blockedKeywords, ...remote.blockedKeywords]),
-  ];
-  const mergedFavorites = [
-    ...new Set([...local.favoritedEventIds, ...remote.favoritedEventIds]),
-  ];
+  const mergedBlockedHosts = [...new Set([...local.blockedHosts, ...remote.blockedHosts])];
+  const mergedBlockedKeywords = [...new Set([...local.blockedKeywords, ...remote.blockedKeywords])];
+  const mergedFavorites = [...new Set([...local.favoritedEventIds, ...remote.favoritedEventIds])];
 
   // Merge hidden events by fingerprint key
   const hiddenMap = new Map<string, HiddenEventFingerprint>();
@@ -120,12 +118,12 @@ export function usePreferenceSync(callbacks: PreferenceSyncCallbacks) {
 
       try {
         // Fetch from API
-        const response = await fetch("/api/preferences");
+        const response = await fetch('/api/preferences');
         if (!response.ok) {
-          throw new Error("Failed to fetch preferences");
+          throw new Error('Failed to fetch preferences');
         }
 
-        const { preferences: remotePrefs } = await response.json();
+        const { preferences: remotePrefs } = (await response.json()) as PreferencesResponse;
         const localPrefs = getCurrentPreferences();
 
         if (remotePrefs) {
@@ -134,29 +132,29 @@ export function usePreferenceSync(callbacks: PreferenceSyncCallbacks) {
           applyPreferences(merged);
 
           // Save merged back to DB
-          await fetch("/api/preferences", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
+          await fetch('/api/preferences', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ preferences: merged }),
           });
         } else {
           // No remote prefs yet - save current local to DB
-          await fetch("/api/preferences", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
+          await fetch('/api/preferences', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ preferences: localPrefs }),
           });
         }
 
         lastSyncedUserRef.current = user.id;
       } catch (error) {
-        console.error("Error syncing preferences on login:", error);
+        console.error('Error syncing preferences on login:', error);
       } finally {
         isSyncingRef.current = false;
       }
     };
 
-    syncOnLogin();
+    void syncOnLogin();
   }, [user, authLoading, getCurrentPreferences, applyPreferences]);
 
   // Debounced save to DB when preferences change
@@ -169,17 +167,19 @@ export function usePreferenceSync(callbacks: PreferenceSyncCallbacks) {
     }
 
     // Debounce save to avoid too many API calls
-    saveTimeoutRef.current = setTimeout(async () => {
-      try {
-        const currentPrefs = getCurrentPreferences();
-        await fetch("/api/preferences", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ preferences: currentPrefs }),
-        });
-      } catch (error) {
-        console.error("Error saving preferences to database:", error);
-      }
+    saveTimeoutRef.current = setTimeout(() => {
+      void (async () => {
+        try {
+          const currentPrefs = getCurrentPreferences();
+          await fetch('/api/preferences', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ preferences: currentPrefs }),
+          });
+        } catch (error) {
+          console.error('Error saving preferences to database:', error);
+        }
+      })();
     }, 1000); // 1 second debounce
   }, [user, getCurrentPreferences]);
 

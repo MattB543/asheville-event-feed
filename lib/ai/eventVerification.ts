@@ -5,19 +5,15 @@
  * detect cancellations, and update event details.
  */
 
-import { env, isJinaEnabled } from "@/lib/config/env";
-import { azureChatCompletion, isAzureAIEnabled } from "./provider-clients";
-import { matchesDefaultFilter } from "@/lib/config/defaultFilters";
+import { env, isJinaEnabled } from '@/lib/config/env';
+import { azureChatCompletion, isAzureAIEnabled } from './provider-clients';
+import { matchesDefaultFilter } from '@/lib/config/defaultFilters';
 
 /**
  * Sources that have useful external event URLs worth verifying.
  * These link to actual event pages (not aggregator platforms like Eventbrite/Meetup).
  */
-export const VERIFIABLE_SOURCES = [
-  "AVL_TODAY",
-  "EXPLORE_ASHEVILLE",
-  "MOUNTAIN_X",
-] as const;
+export const VERIFIABLE_SOURCES = ['AVL_TODAY', 'EXPLORE_ASHEVILLE', 'MOUNTAIN_X'] as const;
 
 /**
  * Event data structure for verification.
@@ -41,7 +37,7 @@ export interface EventForVerification {
 export interface VerificationResult {
   eventId: string;
   eventTitle: string;
-  action: "keep" | "hide" | "update";
+  action: 'keep' | 'hide' | 'update';
   reason: string;
   confidence: number;
   updates?: {
@@ -50,6 +46,17 @@ export interface VerificationResult {
     location?: string | null;
   };
   error?: string;
+}
+
+interface VerificationAIResponse {
+  action?: VerificationResult['action'];
+  reason?: string;
+  confidence?: number;
+  updates?: {
+    price?: string | null;
+    description?: string | null;
+    location?: string | null;
+  };
 }
 
 /**
@@ -150,7 +157,7 @@ export function isVerificationEnabled(): boolean {
  */
 export async function fetchPageContent(url: string): Promise<string | null> {
   if (!isJinaEnabled()) {
-    console.warn("[Verify] Jina API key not configured");
+    console.warn('[Verify] Jina API key not configured');
     return null;
   }
 
@@ -160,8 +167,8 @@ export async function fetchPageContent(url: string): Promise<string | null> {
     const response = await fetch(jinaUrl, {
       headers: {
         Authorization: `Bearer ${env.JINA_API_KEY}`,
-        "x-respond-with": "markdown",
-        "x-timeout": "30",
+        'x-respond-with': 'markdown',
+        'x-timeout': '30',
       },
     });
 
@@ -199,45 +206,45 @@ export async function verifyEventWithAI(
   const result: VerificationResult = {
     eventId: event.id,
     eventTitle: event.title,
-    action: "keep",
-    reason: "Default - no AI response",
+    action: 'keep',
+    reason: 'Default - no AI response',
     confidence: 0,
   };
 
   if (!isAzureAIEnabled()) {
-    result.error = "Azure AI not configured";
+    result.error = 'Azure AI not configured';
     return result;
   }
 
   // Build user prompt with event data and page content
-  const eventDate = event.startDate.toLocaleDateString("en-US", {
-    weekday: "long",
-    month: "long",
-    day: "numeric",
-    year: "numeric",
-    timeZone: "America/New_York",
+  const eventDate = event.startDate.toLocaleDateString('en-US', {
+    weekday: 'long',
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric',
+    timeZone: 'America/New_York',
   });
 
-  const eventTime = event.startDate.toLocaleTimeString("en-US", {
-    hour: "numeric",
-    minute: "2-digit",
+  const eventTime = event.startDate.toLocaleTimeString('en-US', {
+    hour: 'numeric',
+    minute: '2-digit',
     hour12: true,
-    timeZone: "America/New_York",
+    timeZone: 'America/New_York',
   });
 
   // Truncate page content to avoid token limits
   const truncatedContent =
     pageContent.length > 8000
-      ? pageContent.slice(0, 8000) + "\n\n[Content truncated...]"
+      ? pageContent.slice(0, 8000) + '\n\n[Content truncated...]'
       : pageContent;
 
   const userPrompt = `## Stored Event Data
 Title: ${event.title}
 Date: ${eventDate}
 Time: ${eventTime}
-Location: ${event.location || "Not specified"}
-Organizer: ${event.organizer || "Not specified"}
-Price: ${event.price || "Unknown"}
+Location: ${event.location || 'Not specified'}
+Organizer: ${event.organizer || 'Not specified'}
+Price: ${event.price || 'Unknown'}
 Source URL: ${event.url}
 
 ## Web Page Content
@@ -251,24 +258,24 @@ Analyze the page content and determine if this event is still active and accurat
     });
 
     if (!aiResponse || !aiResponse.content) {
-      result.error = "No AI response";
+      result.error = 'No AI response';
       return result;
     }
 
     // Parse JSON response
     const jsonMatch = aiResponse.content.match(/\{[\s\S]*\}/);
     if (!jsonMatch) {
-      result.error = "Invalid AI response format";
+      result.error = 'Invalid AI response format';
       return result;
     }
 
-    const parsed = JSON.parse(jsonMatch[0]);
+    const parsed = JSON.parse(jsonMatch[0]) as VerificationAIResponse;
 
-    result.action = parsed.action || "keep";
-    result.reason = parsed.reason || "No reason provided";
+    result.action = parsed.action || 'keep';
+    result.reason = parsed.reason || 'No reason provided';
     result.confidence = parsed.confidence || 0;
 
-    if (parsed.updates && result.action === "update") {
+    if (parsed.updates && result.action === 'update') {
       result.updates = {
         price: parsed.updates.price || undefined,
         description: parsed.updates.description || undefined,
@@ -295,12 +302,14 @@ export function filterEventsForVerification(
   options: Required<VerificationOptions>
 ): EventForVerification[] {
   const now = new Date();
-  const tenDaysAgo = new Date(now.getTime() - options.verificationIntervalDays * 24 * 60 * 60 * 1000);
+  const tenDaysAgo = new Date(
+    now.getTime() - options.verificationIntervalDays * 24 * 60 * 60 * 1000
+  );
 
   return events
     .filter((event) => {
       // 1. Only verifiable sources
-      if (!VERIFIABLE_SOURCES.includes(event.source as typeof VERIFIABLE_SOURCES[number])) {
+      if (!VERIFIABLE_SOURCES.includes(event.source as (typeof VERIFIABLE_SOURCES)[number])) {
         return false;
       }
 
@@ -367,7 +376,7 @@ export async function processEventVerification(
 
   if (!isVerificationEnabled()) {
     result.success = false;
-    console.error("[Verify] Verification not enabled - check JINA_API_KEY and Azure AI config");
+    console.error('[Verify] Verification not enabled - check JINA_API_KEY and Azure AI config');
     return result;
   }
 
@@ -375,7 +384,9 @@ export async function processEventVerification(
   const eventsToCheck = filterEventsForVerification(events, opts).slice(0, opts.maxEvents);
 
   if (opts.verbose) {
-    console.log(`[Verify] Processing ${eventsToCheck.length} events (filtered from ${events.length})`);
+    console.log(
+      `[Verify] Processing ${eventsToCheck.length} events (filtered from ${events.length})`
+    );
   }
 
   for (const event of eventsToCheck) {
@@ -392,10 +403,10 @@ export async function processEventVerification(
         result.results.push({
           eventId: event.id,
           eventTitle: event.title,
-          action: "keep",
-          reason: "Could not fetch page content",
+          action: 'keep',
+          reason: 'Could not fetch page content',
           confidence: 0,
-          error: "Jina fetch failed",
+          error: 'Jina fetch failed',
         });
         continue;
       }
@@ -410,19 +421,19 @@ export async function processEventVerification(
 
       // Count results
       switch (verificationResult.action) {
-        case "hide":
+        case 'hide':
           result.eventsHidden++;
           if (opts.verbose) {
             console.log(`[Verify] HIDE: ${event.title} - ${verificationResult.reason}`);
           }
           break;
-        case "update":
+        case 'update':
           result.eventsUpdated++;
           if (opts.verbose) {
             console.log(`[Verify] UPDATE: ${event.title} - ${verificationResult.reason}`);
           }
           break;
-        case "keep":
+        case 'keep':
           result.eventsKept++;
           break;
       }
@@ -438,8 +449,8 @@ export async function processEventVerification(
       result.results.push({
         eventId: event.id,
         eventTitle: event.title,
-        action: "keep",
-        reason: "Processing error",
+        action: 'keep',
+        reason: 'Processing error',
         confidence: 0,
         error: error instanceof Error ? error.message : String(error),
       });
@@ -450,7 +461,9 @@ export async function processEventVerification(
 
   if (opts.verbose) {
     console.log(`[Verify] Complete in ${(result.durationMs / 1000).toFixed(1)}s`);
-    console.log(`[Verify] Checked: ${result.eventsChecked}, Hidden: ${result.eventsHidden}, Updated: ${result.eventsUpdated}, Kept: ${result.eventsKept}, Skipped: ${result.eventsSkipped}, Errors: ${result.errors}`);
+    console.log(
+      `[Verify] Checked: ${result.eventsChecked}, Hidden: ${result.eventsHidden}, Updated: ${result.eventsUpdated}, Kept: ${result.eventsKept}, Skipped: ${result.eventsSkipped}, Errors: ${result.errors}`
+    );
   }
 
   return result;
@@ -462,17 +475,15 @@ export async function processEventVerification(
  * @param event - The event to verify
  * @returns Verification result
  */
-export async function verifySingleEvent(
-  event: EventForVerification
-): Promise<VerificationResult> {
+export async function verifySingleEvent(event: EventForVerification): Promise<VerificationResult> {
   if (!isVerificationEnabled()) {
     return {
       eventId: event.id,
       eventTitle: event.title,
-      action: "keep",
-      reason: "Verification not enabled",
+      action: 'keep',
+      reason: 'Verification not enabled',
       confidence: 0,
-      error: "Check JINA_API_KEY and Azure AI config",
+      error: 'Check JINA_API_KEY and Azure AI config',
     };
   }
 
@@ -483,10 +494,10 @@ export async function verifySingleEvent(
     return {
       eventId: event.id,
       eventTitle: event.title,
-      action: "keep",
-      reason: "Could not fetch page content",
+      action: 'keep',
+      reason: 'Could not fetch page content',
       confidence: 0,
-      error: "Jina fetch failed",
+      error: 'Jina fetch failed',
     };
   }
 

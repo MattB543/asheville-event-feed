@@ -5,8 +5,8 @@
  * for semantic search and similarity matching.
  */
 
-import { TaskType } from "@google/generative-ai";
-import { getEmbeddingModel, isAIEnabled } from "./provider-clients";
+import { TaskType } from '@google/generative-ai';
+import { getEmbeddingModel, isAIEnabled } from './provider-clients';
 
 // Embedding configuration
 export const EMBEDDING_DIMENSIONS = 1536;
@@ -39,13 +39,15 @@ export async function generateEmbedding(
     // Using type assertion because SDK types don't include outputDimensionality yet
     // but the API supports it (tested and working)
     const result = await model.embedContent({
-      content: { role: "user", parts: [{ text }] },
+      content: { role: 'user', parts: [{ text }] },
       taskType: options?.taskType ?? TaskType.RETRIEVAL_DOCUMENT,
       outputDimensionality: EMBEDDING_DIMENSIONS,
     } as Parameters<typeof model.embedContent>[0]);
 
     const embedding = result.embedding.values;
-    console.log(`[Embedding] Generated ${embedding.length}-dim embedding for: ${text.slice(0, 50)}...`);
+    console.log(
+      `[Embedding] Generated ${embedding.length}-dim embedding for: ${text.slice(0, 50)}...`
+    );
     return embedding;
   } catch (error) {
     console.error('[Embedding] Error generating embedding:', error);
@@ -58,9 +60,7 @@ export async function generateEmbedding(
  * Uses RETRIEVAL_QUERY task type for optimal search performance.
  * Returns 1536-dimensional embeddings (same as document embeddings).
  */
-export async function generateQueryEmbedding(
-  query: string
-): Promise<number[] | null> {
+export async function generateQueryEmbedding(query: string): Promise<number[] | null> {
   return generateEmbedding(query, { taskType: TaskType.RETRIEVAL_QUERY });
 }
 
@@ -87,7 +87,7 @@ export async function generateEmbeddings(
 
     // Add delay between requests to avoid rate limits
     if (i < texts.length - 1 && delayMs > 0) {
-      await new Promise(resolve => setTimeout(resolve, delayMs));
+      await new Promise((resolve) => setTimeout(resolve, delayMs));
     }
   }
 

@@ -39,10 +39,7 @@ async function runScraperTest(): Promise<ScrapedEvent[]> {
   if (!fs.existsSync(DEBUG_DIR)) {
     fs.mkdirSync(DEBUG_DIR, { recursive: true });
   }
-  fs.writeFileSync(
-    path.join(DEBUG_DIR, 'events.json'),
-    JSON.stringify(events, null, 2)
-  );
+  fs.writeFileSync(path.join(DEBUG_DIR, 'events.json'), JSON.stringify(events, null, 2));
 
   // Print summary
   console.log();
@@ -56,15 +53,21 @@ async function runScraperTest(): Promise<ScrapedEvent[]> {
 
   // Statistics
   if (events.length > 0) {
-    const withImages = events.filter(e => e.imageUrl).length;
-    const withPrices = events.filter(e => e.price && e.price !== 'Unknown').length;
-    const withDescriptions = events.filter(e => e.description).length;
-    const freeEvents = events.filter(e => e.price === 'Free').length;
+    const withImages = events.filter((e) => e.imageUrl).length;
+    const withPrices = events.filter((e) => e.price && e.price !== 'Unknown').length;
+    const withDescriptions = events.filter((e) => e.description).length;
+    const freeEvents = events.filter((e) => e.price === 'Free').length;
 
     console.log('FIELD COVERAGE:');
-    console.log(`  With images:       ${withImages}/${events.length} (${pct(withImages, events.length)}%)`);
-    console.log(`  With prices:       ${withPrices}/${events.length} (${pct(withPrices, events.length)}%)`);
-    console.log(`  With descriptions: ${withDescriptions}/${events.length} (${pct(withDescriptions, events.length)}%)`);
+    console.log(
+      `  With images:       ${withImages}/${events.length} (${pct(withImages, events.length)}%)`
+    );
+    console.log(
+      `  With prices:       ${withPrices}/${events.length} (${pct(withPrices, events.length)}%)`
+    );
+    console.log(
+      `  With descriptions: ${withDescriptions}/${events.length} (${pct(withDescriptions, events.length)}%)`
+    );
     console.log(`  Free events:       ${freeEvents}`);
     console.log();
 
@@ -81,7 +84,10 @@ async function runScraperTest(): Promise<ScrapedEvent[]> {
     console.log();
 
     // Date range
-    const dates = events.map(e => e.startDate).filter(d => !isNaN(d.getTime())).sort((a, b) => a.getTime() - b.getTime());
+    const dates = events
+      .map((e) => e.startDate)
+      .filter((d) => !isNaN(d.getTime()))
+      .sort((a, b) => a.getTime() - b.getTime());
     if (dates.length > 0) {
       console.log('DATE RANGE:');
       console.log(`  Earliest: ${formatDate(dates[0])}`);
@@ -136,30 +142,33 @@ async function runDatabaseTest(scrapedEvents: ScrapedEvent[]): Promise<void> {
 
   for (const event of testEvents) {
     try {
-      await db.insert(events).values({
-        sourceId: event.sourceId,
-        source: event.source,
-        title: event.title,
-        description: event.description,
-        startDate: event.startDate,
-        location: event.location,
-        zip: event.zip,
-        organizer: event.organizer,
-        price: event.price,
-        url: event.url,
-        imageUrl: event.imageUrl,
-        tags: [],
-        timeUnknown: event.timeUnknown || false,
-      }).onConflictDoUpdate({
-        target: events.url,
-        set: {
+      await db
+        .insert(events)
+        .values({
+          sourceId: event.sourceId,
+          source: event.source,
           title: event.title,
           description: event.description,
           startDate: event.startDate,
+          location: event.location,
+          zip: event.zip,
+          organizer: event.organizer,
           price: event.price,
+          url: event.url,
           imageUrl: event.imageUrl,
-        },
-      });
+          tags: [],
+          timeUnknown: event.timeUnknown || false,
+        })
+        .onConflictDoUpdate({
+          target: events.url,
+          set: {
+            title: event.title,
+            description: event.description,
+            startDate: event.startDate,
+            price: event.price,
+            imageUrl: event.imageUrl,
+          },
+        });
       console.log(`  Inserted: ${event.title.slice(0, 50)}`);
     } catch (err) {
       console.error(`  Failed: ${event.title.slice(0, 50)}`, err);
@@ -173,10 +182,7 @@ async function runDatabaseTest(scrapedEvents: ScrapedEvent[]): Promise<void> {
   console.log('='.repeat(70));
   console.log();
 
-  const inserted = await db.select()
-    .from(events)
-    .where(eq(events.source, SOURCE))
-    .limit(10);
+  const inserted = await db.select().from(events).where(eq(events.source, SOURCE)).limit(10);
 
   console.log(`Found ${inserted.length} events with source='${SOURCE}'`);
   console.log();
@@ -184,7 +190,9 @@ async function runDatabaseTest(scrapedEvents: ScrapedEvent[]): Promise<void> {
   for (const event of inserted) {
     console.log(`Title: ${event.title}`);
     console.log(`  DB startDate: ${event.startDate}`);
-    console.log(`  As Eastern: ${event.startDate.toLocaleString('en-US', { timeZone: 'America/New_York' })}`);
+    console.log(
+      `  As Eastern: ${event.startDate.toLocaleString('en-US', { timeZone: 'America/New_York' })}`
+    );
     console.log(`  Price: ${event.price}`);
     console.log(`  URL: ${event.url}`);
     console.log();
@@ -192,7 +200,9 @@ async function runDatabaseTest(scrapedEvents: ScrapedEvent[]): Promise<void> {
 
   // Cleanup instructions
   console.log('To remove test events:');
-  console.log(`  npx tsx -e "import { db } from './lib/db'; import { events } from './lib/db/schema'; import { eq } from 'drizzle-orm'; await db.delete(events).where(eq(events.source, '${SOURCE}'))"`);
+  console.log(
+    `  npx tsx -e "import { db } from './lib/db'; import { events } from './lib/db/schema'; import { eq } from 'drizzle-orm'; await db.delete(events).where(eq(events.source, '${SOURCE}'))"`
+  );
 }
 
 async function main() {

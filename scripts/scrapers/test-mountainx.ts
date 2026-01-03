@@ -29,8 +29,9 @@ function debugSave(filename: string, data: unknown): void {
 
 const API_BASE = 'https://mountainx.com/wp-json/tribe/events/v1/events';
 const API_HEADERS = {
-  'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-  'Accept': 'application/json',
+  'User-Agent':
+    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+  Accept: 'application/json',
 };
 
 async function main() {
@@ -124,7 +125,7 @@ function generateValidationReport(events: TransformedEvent[], rawEvents: RawEven
     `Generated: ${new Date().toISOString()}`,
     `Total events: ${events.length}`,
     '',
-    '=' .repeat(60),
+    '='.repeat(60),
     'TIMEZONE VALIDATION',
     '='.repeat(60),
     '',
@@ -136,7 +137,7 @@ function generateValidationReport(events: TransformedEvent[], rawEvents: RawEven
   const samplesToCheck = Math.min(10, rawEvents.length);
   for (let i = 0; i < samplesToCheck; i++) {
     const raw = rawEvents[i];
-    const transformed = events.find(e => e.sourceId === `mx-${raw.id}`);
+    const transformed = events.find((e) => e.sourceId === `mx-${raw.id}`);
 
     if (!raw || !transformed) continue;
 
@@ -156,7 +157,11 @@ function generateValidationReport(events: TransformedEvent[], rawEvents: RawEven
     if (apiLocalParts) {
       // Simple check - does our ET time contain the same hour?
       const apiHour = parseInt(apiLocalParts[4]);
-      const ourHour = parsedDate.toLocaleString('en-US', { timeZone: 'America/New_York', hour: 'numeric', hour12: false });
+      const ourHour = parsedDate.toLocaleString('en-US', {
+        timeZone: 'America/New_York',
+        hour: 'numeric',
+        hour12: false,
+      });
       if (parseInt(ourHour) === apiHour) {
         lines.push(`  Status: OK - Times match`);
       } else {
@@ -194,17 +199,27 @@ function generateValidationReport(events: TransformedEvent[], rawEvents: RawEven
   lines.push('='.repeat(60));
   lines.push('');
 
-  const withImages = events.filter(e => (e as { imageUrl?: string }).imageUrl).length;
-  const withPrices = events.filter(e => e.price && e.price !== 'Unknown').length;
-  const withDescriptions = events.filter(e => (e as { description?: string }).description).length;
-  const withZips = events.filter(e => e.zip).length;
-  const withLocations = events.filter(e => e.location).length;
+  const withImages = events.filter((e) => (e as { imageUrl?: string }).imageUrl).length;
+  const withPrices = events.filter((e) => e.price && e.price !== 'Unknown').length;
+  const withDescriptions = events.filter((e) => (e as { description?: string }).description).length;
+  const withZips = events.filter((e) => e.zip).length;
+  const withLocations = events.filter((e) => e.location).length;
 
-  lines.push(`With images:       ${withImages}/${events.length} (${Math.round(withImages/events.length*100)}%)`);
-  lines.push(`With prices:       ${withPrices}/${events.length} (${Math.round(withPrices/events.length*100)}%)`);
-  lines.push(`With descriptions: ${withDescriptions}/${events.length} (${Math.round(withDescriptions/events.length*100)}%)`);
-  lines.push(`With locations:    ${withLocations}/${events.length} (${Math.round(withLocations/events.length*100)}%)`);
-  lines.push(`With zip codes:    ${withZips}/${events.length} (${Math.round(withZips/events.length*100)}%)`);
+  lines.push(
+    `With images:       ${withImages}/${events.length} (${Math.round((withImages / events.length) * 100)}%)`
+  );
+  lines.push(
+    `With prices:       ${withPrices}/${events.length} (${Math.round((withPrices / events.length) * 100)}%)`
+  );
+  lines.push(
+    `With descriptions: ${withDescriptions}/${events.length} (${Math.round((withDescriptions / events.length) * 100)}%)`
+  );
+  lines.push(
+    `With locations:    ${withLocations}/${events.length} (${Math.round((withLocations / events.length) * 100)}%)`
+  );
+  lines.push(
+    `With zip codes:    ${withZips}/${events.length} (${Math.round((withZips / events.length) * 100)}%)`
+  );
   lines.push('');
 
   lines.push('='.repeat(60));
@@ -244,7 +259,7 @@ function generateValidationReport(events: TransformedEvent[], rawEvents: RawEven
   return lines.join('\n');
 }
 
-main().catch(err => {
+main().catch((err) => {
   console.error('Test failed:', err);
   process.exit(1);
 });

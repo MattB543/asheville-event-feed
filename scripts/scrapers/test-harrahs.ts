@@ -39,18 +39,20 @@ async function main() {
   console.log();
 
   // Stats
-  const withDesc = events.filter(e => e.description).length;
-  const withImage = events.filter(e => e.imageUrl).length;
-  const withPrice = events.filter(e => e.price && e.price !== 'Unknown').length;
-  const fromTM = events.filter(e => e.sourceId.startsWith('tm-')).length;
-  const fromHTML = events.filter(e => e.sourceId.startsWith('harrahs-')).length;
+  const withDesc = events.filter((e) => e.description).length;
+  const withImage = events.filter((e) => e.imageUrl).length;
+  const withPrice = events.filter((e) => e.price && e.price !== 'Unknown').length;
+  const fromTM = events.filter((e) => e.sourceId.startsWith('tm-')).length;
+  const fromHTML = events.filter((e) => e.sourceId.startsWith('harrahs-')).length;
 
   console.log('📊 Statistics:');
   console.log(`  - From Ticketmaster: ${fromTM}`);
   console.log(`  - From HTML: ${fromHTML}`);
-  console.log(`  - With description: ${withDesc} (${Math.round(withDesc/events.length*100)}%)`);
-  console.log(`  - With image: ${withImage} (${Math.round(withImage/events.length*100)}%)`);
-  console.log(`  - With price: ${withPrice} (${Math.round(withPrice/events.length*100)}%)`);
+  console.log(
+    `  - With description: ${withDesc} (${Math.round((withDesc / events.length) * 100)}%)`
+  );
+  console.log(`  - With image: ${withImage} (${Math.round((withImage / events.length) * 100)}%)`);
+  console.log(`  - With price: ${withPrice} (${Math.round((withPrice / events.length) * 100)}%)`);
   console.log();
 
   // Show sample events
@@ -60,12 +62,16 @@ async function main() {
   for (const event of events.slice(0, 5)) {
     console.log();
     console.log(`Title: ${event.title}`);
-    console.log(`Date: ${event.startDate.toLocaleDateString()} ${event.startDate.toLocaleTimeString()}`);
+    console.log(
+      `Date: ${event.startDate.toLocaleDateString()} ${event.startDate.toLocaleTimeString()}`
+    );
     console.log(`Source ID: ${event.sourceId}`);
     console.log(`Price: ${event.price}`);
     console.log(`URL: ${event.url}`);
     console.log(`Image: ${event.imageUrl ? 'Yes' : 'No'}`);
-    console.log(`Description: ${event.description ? event.description.slice(0, 100) + '...' : 'None'}`);
+    console.log(
+      `Description: ${event.description ? event.description.slice(0, 100) + '...' : 'None'}`
+    );
   }
 
   console.log();

@@ -7,4 +7,4 @@ export {
   getTodayStringEastern,
   parseAsEastern,
   parseLocalDateInTimezone,
-} from "./parsers";
+} from './parsers';

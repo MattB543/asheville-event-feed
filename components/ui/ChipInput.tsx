@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { useState, useRef, KeyboardEvent } from "react";
-import { X, Plus } from "lucide-react";
+import { useState, useRef, type KeyboardEvent } from 'react';
+import { X, Plus } from 'lucide-react';
 
 interface ChipInputProps {
   values: string[];
@@ -13,21 +13,21 @@ interface ChipInputProps {
 export default function ChipInput({
   values,
   onChange,
-  placeholder = "Type and press Enter...",
+  placeholder = 'Type and press Enter...',
   label,
 }: ChipInputProps) {
-  const [inputValue, setInputValue] = useState("");
+  const [inputValue, setInputValue] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter" && inputValue.trim()) {
+    if (e.key === 'Enter' && inputValue.trim()) {
       e.preventDefault();
       const newValue = inputValue.trim();
       if (!values.includes(newValue)) {
         onChange([...values, newValue]);
       }
-      setInputValue("");
-    } else if (e.key === "Backspace" && !inputValue && values.length > 0) {
+      setInputValue('');
+    } else if (e.key === 'Backspace' && !inputValue && values.length > 0) {
       // Remove last chip on backspace when input is empty
       onChange(values.slice(0, -1));
     }
@@ -43,7 +43,7 @@ export default function ChipInput({
       if (!values.includes(newValue)) {
         onChange([...values, newValue]);
       }
-      setInputValue("");
+      setInputValue('');
       inputRef.current?.focus();
     }
   };
@@ -85,7 +85,7 @@ export default function ChipInput({
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
             onKeyDown={handleKeyDown}
-            placeholder={values.length === 0 ? placeholder : "Add more..."}
+            placeholder={values.length === 0 ? placeholder : 'Add more...'}
             className="flex-grow outline-none text-sm bg-transparent min-w-[80px] text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500"
           />
           {inputValue && (

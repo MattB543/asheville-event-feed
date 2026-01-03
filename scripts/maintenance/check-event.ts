@@ -18,7 +18,9 @@ async function main() {
     console.log(`Title: ${e.title}`);
     console.log(`Source: ${e.source}`);
     console.log(`Start Date (stored UTC): ${e.startDate.toISOString()}`);
-    console.log(`Start Date (displayed as ET): ${e.startDate.toLocaleString('en-US', { timeZone: 'America/New_York' })}`);
+    console.log(
+      `Start Date (displayed as ET): ${e.startDate.toLocaleString('en-US', { timeZone: 'America/New_York' })}`
+    );
     console.log(`URL: ${e.url}`);
     console.log();
   }

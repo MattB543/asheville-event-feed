@@ -8,9 +8,22 @@ import { db } from '../../lib/db';
 import { sql } from 'drizzle-orm';
 
 // Type interfaces for query results
-interface PriceCountRow { price: string; count: number }
-interface EventRow { title: string; price?: string; source: string }
-interface StatsRow { free_count: number; ticketed_count: number; dollar_price_count: number; unknown_count: number; total: number }
+interface PriceCountRow {
+  price: string;
+  count: number;
+}
+interface EventRow {
+  title: string;
+  price?: string;
+  source: string;
+}
+interface StatsRow {
+  free_count: number;
+  ticketed_count: number;
+  dollar_price_count: number;
+  unknown_count: number;
+  total: number;
+}
 
 async function sanityCheck() {
   console.log('=== SANITY CHECK: ENRICHED EVENTS ===\n');
@@ -29,7 +42,8 @@ async function sanityCheck() {
 
   console.log('TOP 20 PRICE VALUES:');
   console.log('-'.repeat(40));
-  const priceRows = ((priceDist as { rows?: unknown[] }).rows || (priceDist as unknown[])) as PriceCountRow[];
+  const priceRows = ((priceDist as { rows?: unknown[] }).rows ||
+    (priceDist as unknown[])) as PriceCountRow[];
   for (const row of priceRows) {
     console.log(`  ${String(row.price).padEnd(20)} ${row.count} events`);
   }
@@ -47,7 +61,8 @@ async function sanityCheck() {
     LIMIT 12
   `);
 
-  const specificRows = ((specificPrices as { rows?: unknown[] }).rows || (specificPrices as unknown[])) as EventRow[];
+  const specificRows = ((specificPrices as { rows?: unknown[] }).rows ||
+    (specificPrices as unknown[])) as EventRow[];
   for (const row of specificRows) {
     const title = row.title.length > 45 ? row.title.slice(0, 45) + '...' : row.title;
     console.log(`  [${row.source}] ${title}`);
@@ -66,7 +81,8 @@ async function sanityCheck() {
     LIMIT 10
   `);
 
-  const freeRows = ((freeEvents as { rows?: unknown[] }).rows || (freeEvents as unknown[])) as EventRow[];
+  const freeRows = ((freeEvents as { rows?: unknown[] }).rows ||
+    (freeEvents as unknown[])) as EventRow[];
   for (const row of freeRows) {
     const title = row.title.length > 55 ? row.title.slice(0, 55) + '...' : row.title;
     console.log(`  [${row.source}] ${title}`);
@@ -84,7 +100,8 @@ async function sanityCheck() {
     LIMIT 10
   `);
 
-  const ticketedRows = ((ticketedEvents as { rows?: unknown[] }).rows || (ticketedEvents as unknown[])) as EventRow[];
+  const ticketedRows = ((ticketedEvents as { rows?: unknown[] }).rows ||
+    (ticketedEvents as unknown[])) as EventRow[];
   for (const row of ticketedRows) {
     const title = row.title.length > 55 ? row.title.slice(0, 55) + '...' : row.title;
     console.log(`  [${row.source}] ${title}`);
@@ -106,10 +123,16 @@ async function sanityCheck() {
   const statsRows = ((stats as { rows?: unknown[] }).rows || (stats as unknown[])) as StatsRow[];
   const s = statsRows[0];
   const total = s.total;
-  console.log(`  Free:           ${s.free_count} (${Math.round(s.free_count/total*100)}%)`);
-  console.log(`  Ticketed:       ${s.ticketed_count} (${Math.round(s.ticketed_count/total*100)}%)`);
-  console.log(`  Specific ($):   ${s.dollar_price_count} (${Math.round(s.dollar_price_count/total*100)}%)`);
-  console.log(`  Unknown/null:   ${s.unknown_count} (${Math.round(s.unknown_count/total*100)}%)`);
+  console.log(`  Free:           ${s.free_count} (${Math.round((s.free_count / total) * 100)}%)`);
+  console.log(
+    `  Ticketed:       ${s.ticketed_count} (${Math.round((s.ticketed_count / total) * 100)}%)`
+  );
+  console.log(
+    `  Specific ($):   ${s.dollar_price_count} (${Math.round((s.dollar_price_count / total) * 100)}%)`
+  );
+  console.log(
+    `  Unknown/null:   ${s.unknown_count} (${Math.round((s.unknown_count / total) * 100)}%)`
+  );
   console.log(`  -------------------------`);
   console.log(`  Total:          ${total}`);
 }

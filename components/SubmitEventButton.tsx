@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { Plus } from "lucide-react";
-import SubmitEventModal from "./SubmitEventModal";
+import { useState } from 'react';
+import { Plus } from 'lucide-react';
+import SubmitEventModal from './SubmitEventModal';
 
 export default function SubmitEventButton() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -18,10 +18,7 @@ export default function SubmitEventButton() {
         <Plus size={16} className="text-gray-600 dark:text-gray-300" />
       </button>
 
-      <SubmitEventModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-      />
+      <SubmitEventModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </>
   );
 }

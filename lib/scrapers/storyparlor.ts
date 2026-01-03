@@ -15,7 +15,7 @@
  *   Set DEBUG_DIR env var to save raw data and validation reports
  */
 
-import { ScrapedEvent } from './types';
+import { type ScrapedEvent } from './types';
 import { BROWSER_HEADERS, debugSave, fetchEventData } from './base';
 import { decodeHtmlEntities } from '../utils/parsers';
 
@@ -32,7 +32,6 @@ const REQUEST_DELAY_MS = 300;
 // ============================================================================
 // DEBUG UTILITIES
 // ============================================================================
-
 
 function generateValidationReport(events: ScrapedEvent[]): string {
   const lines: string[] = [
@@ -93,11 +92,11 @@ function generateValidationReport(events: ScrapedEvent[]): string {
   lines.push('='.repeat(60));
 
   const total = events.length;
-  const withImages = events.filter(e => e.imageUrl).length;
-  const withPrices = events.filter(e => e.price && e.price !== 'Unknown').length;
-  const withDescriptions = events.filter(e => e.description).length;
+  const withImages = events.filter((e) => e.imageUrl).length;
+  const withPrices = events.filter((e) => e.price && e.price !== 'Unknown').length;
+  const withDescriptions = events.filter((e) => e.description).length;
 
-  const pct = (n: number) => total === 0 ? '0' : Math.round((n / total) * 100).toString();
+  const pct = (n: number) => (total === 0 ? '0' : Math.round((n / total) * 100).toString());
 
   lines.push(`  Images:       ${withImages}/${total} (${pct(withImages)}%)`);
   lines.push(`  Prices:       ${withPrices}/${total} (${pct(withPrices)}%)`);
@@ -130,7 +129,9 @@ function generateValidationReport(events: ScrapedEvent[]): string {
     lines.push('');
     lines.push(`  Title: ${event.title}`);
     lines.push(`  Date (UTC):     ${event.startDate.toISOString()}`);
-    lines.push(`  Date (Eastern): ${event.startDate.toLocaleString('en-US', { timeZone: 'America/New_York' })}`);
+    lines.push(
+      `  Date (Eastern): ${event.startDate.toLocaleString('en-US', { timeZone: 'America/New_York' })}`
+    );
     lines.push(`  Location:  ${event.location || 'N/A'}`);
     lines.push(`  Price:     ${event.price || 'N/A'}`);
     lines.push(`  URL:       ${event.url}`);
@@ -165,6 +166,10 @@ interface JSONLDEvent {
   };
 }
 
+interface SquarespaceListingResponse {
+  mainContent?: string;
+}
+
 // ============================================================================
 // HELPER FUNCTIONS
 // ============================================================================
@@ -174,8 +179,9 @@ interface JSONLDEvent {
  */
 function extractMetaDescription(html: string): string | undefined {
   // Try name="description" first (both attribute orders)
-  const metaDesc = html.match(/<meta[^>]*name=["']description["'][^>]*content=["']([^"']*)["']/i)
-    || html.match(/<meta[^>]*content=["']([^"']*)["'][^>]*name=["']description["']/i);
+  const metaDesc =
+    html.match(/<meta[^>]*name=["']description["'][^>]*content=["']([^"']*)["']/i) ||
+    html.match(/<meta[^>]*content=["']([^"']*)["'][^>]*name=["']description["']/i);
 
   if (metaDesc && metaDesc[1]) {
     const decoded = decodeHtmlEntities(metaDesc[1]);
@@ -186,8 +192,9 @@ function extractMetaDescription(html: string): string | undefined {
   }
 
   // Fallback to og:description
-  const ogDesc = html.match(/<meta[^>]*property=["']og:description["'][^>]*content=["']([^"']*)["']/i)
-    || html.match(/<meta[^>]*content=["']([^"']*)["'][^>]*property=["']og:description["']/i);
+  const ogDesc =
+    html.match(/<meta[^>]*property=["']og:description["'][^>]*content=["']([^"']*)["']/i) ||
+    html.match(/<meta[^>]*content=["']([^"']*)["'][^>]*property=["']og:description["']/i);
 
   if (ogDesc && ogDesc[1]) {
     const decoded = decodeHtmlEntities(ogDesc[1]);
@@ -210,7 +217,10 @@ function cleanTitle(rawTitle: string): string {
 
   // Remove date/time patterns like "| Saturday Dec 13 | 7:30pm" or "| Friday | February 20 | 7:30pm"
   // Match: | Day (optional |) Month DD and everything after (including time)
-  title = title.replace(/\s*\|\s*(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)\s*\|?\s*\w+\s+\d{1,2}.*$/i, '');
+  title = title.replace(
+    /\s*\|\s*(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)\s*\|?\s*\w+\s+\d{1,2}.*$/i,
+    ''
+  );
 
   // Clean up any trailing pipes
   title = title.replace(/\s*\|\s*$/, '');
@@ -223,8 +233,8 @@ function cleanTitle(rawTitle: string): string {
  */
 function extractPrice(html: string): string {
   // Look for patterns like "Tickets $25" or "$25 tickets"
-  const ticketMatch = html.match(/tickets?\s*\$(\d+(?:\.\d{2})?)/i)
-    || html.match(/\$(\d+(?:\.\d{2})?)\s*tickets?/i);
+  const ticketMatch =
+    html.match(/tickets?\s*\$(\d+(?:\.\d{2})?)/i) || html.match(/\$(\d+(?:\.\d{2})?)\s*tickets?/i);
 
   if (ticketMatch) {
     return `$${ticketMatch[1]}`;
@@ -280,7 +290,7 @@ async function fetchEventUrls(): Promise<string[]> {
       { maxRetries: 3, baseDelay: 1000 },
       'StoryParlor'
     );
-    const data = await response.json();
+    const data = (await response.json()) as SquarespaceListingResponse;
 
     // Save raw response for debugging
     await debugSave('01-raw-listing-response.json', data);
@@ -323,12 +333,14 @@ async function scrapeEventPage(url: string): Promise<ScrapedEvent | null> {
     const html = await response.text();
 
     // Extract JSON-LD structured data - find the Event type specifically
-    const jsonLdMatches = html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g);
+    const jsonLdMatches = html.matchAll(
+      /<script type="application\/ld\+json">([\s\S]*?)<\/script>/g
+    );
     let eventJsonLd: JSONLDEvent | null = null;
 
     for (const match of jsonLdMatches) {
       try {
-        const parsed = JSON.parse(match[1]);
+        const parsed = JSON.parse(match[1]) as JSONLDEvent;
         if (parsed['@type'] === 'Event') {
           eventJsonLd = parsed;
           break;
@@ -382,7 +394,10 @@ async function scrapeEventPage(url: string): Promise<ScrapedEvent | null> {
       imageUrl,
     };
   } catch (error) {
-    console.warn(`[StoryParlor] Failed to scrape: ${url}`, error instanceof Error ? error.message : error);
+    console.warn(
+      `[StoryParlor] Failed to scrape: ${url}`,
+      error instanceof Error ? error.message : error
+    );
     return null;
   }
 }
@@ -427,7 +442,7 @@ export async function scrapeStoryParlor(): Promise<ScrapedEvent[]> {
     }
 
     // Rate limit
-    await new Promise(r => setTimeout(r, REQUEST_DELAY_MS));
+    await new Promise((r) => setTimeout(r, REQUEST_DELAY_MS));
   }
 
   // Save raw scraped events for debugging

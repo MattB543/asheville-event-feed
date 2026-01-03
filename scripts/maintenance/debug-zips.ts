@@ -17,12 +17,12 @@ async function main() {
   console.log(`Total future events: ${futureEvents.length}`);
 
   // Count events with zips
-  const eventsWithZip = futureEvents.filter(e => e.zip);
+  const eventsWithZip = futureEvents.filter((e) => e.zip);
   console.log(`Future events with zip: ${eventsWithZip.length}`);
 
   // Count per zip
   const zipCounts = new Map<string, number>();
-  futureEvents.forEach(e => {
+  futureEvents.forEach((e) => {
     if (e.zip) {
       zipCounts.set(e.zip, (zipCounts.get(e.zip) || 0) + 1);
     }
@@ -46,4 +46,9 @@ async function main() {
   }
 }
 
-main().then(() => process.exit(0)).catch(e => { console.error(e); process.exit(1); });
+main()
+  .then(() => process.exit(0))
+  .catch((e) => {
+    console.error(e);
+    process.exit(1);
+  });

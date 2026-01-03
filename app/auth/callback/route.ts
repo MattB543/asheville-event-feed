@@ -11,7 +11,9 @@ export async function GET(request: Request) {
   // Handle OAuth errors
   if (error) {
     console.error('OAuth error:', error, errorDescription);
-    return NextResponse.redirect(`${origin}/login?error=${encodeURIComponent(errorDescription || error)}`);
+    return NextResponse.redirect(
+      `${origin}/login?error=${encodeURIComponent(errorDescription || error)}`
+    );
   }
 
   if (code) {

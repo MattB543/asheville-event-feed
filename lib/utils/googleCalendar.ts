@@ -22,8 +22,8 @@ interface GoogleCalendarEventParams {
  */
 function formatDateOnly(date: Date): string {
   const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, "0");
-  const day = String(date.getDate()).padStart(2, "0");
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
   return `${year}${month}${day}`;
 }
 
@@ -32,11 +32,11 @@ function formatDateOnly(date: Date): string {
  */
 function formatDateTime(date: Date): string {
   const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, "0");
-  const day = String(date.getDate()).padStart(2, "0");
-  const hours = String(date.getHours()).padStart(2, "0");
-  const minutes = String(date.getMinutes()).padStart(2, "0");
-  const seconds = String(date.getSeconds()).padStart(2, "0");
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  const hours = String(date.getHours()).padStart(2, '0');
+  const minutes = String(date.getMinutes()).padStart(2, '0');
+  const seconds = String(date.getSeconds()).padStart(2, '0');
   return `${year}${month}${day}T${hours}${minutes}${seconds}`;
 }
 
@@ -73,20 +73,16 @@ function addDays(date: Date, days: number): Date {
  * });
  * ```
  */
-export function generateGoogleCalendarUrl(
-  params: GoogleCalendarEventParams
-): string {
-  const baseUrl = "https://calendar.google.com/calendar/r/eventedit";
+export function generateGoogleCalendarUrl(params: GoogleCalendarEventParams): string {
+  const baseUrl = 'https://calendar.google.com/calendar/r/eventedit';
   const urlParams = new URLSearchParams();
 
   // Required: Event title
-  urlParams.set("text", params.title);
+  urlParams.set('text', params.title);
 
   // Ensure startDate is a Date object
   const startDate =
-    params.startDate instanceof Date
-      ? params.startDate
-      : new Date(params.startDate);
+    params.startDate instanceof Date ? params.startDate : new Date(params.startDate);
 
   // Required: Dates
   if (params.isAllDay) {
@@ -98,7 +94,7 @@ export function generateGoogleCalendarUrl(
         : new Date(params.endDate)
       : startDate;
     const endStr = formatDateOnly(addDays(endDate, 1));
-    urlParams.set("dates", `${startStr}/${endStr}`);
+    urlParams.set('dates', `${startStr}/${endStr}`);
   } else {
     // Timed format: YYYYMMDDTHHmmss/YYYYMMDDTHHmmss
     const startStr = formatDateTime(startDate);
@@ -108,20 +104,20 @@ export function generateGoogleCalendarUrl(
         : new Date(params.endDate)
       : addHours(startDate, 2); // Default to 2 hours duration
     const endStr = formatDateTime(endDate);
-    urlParams.set("dates", `${startStr}/${endStr}`);
+    urlParams.set('dates', `${startStr}/${endStr}`);
 
     // Set timezone for timed events (Asheville is in Eastern Time)
-    urlParams.set("ctz", params.timezone || "America/New_York");
+    urlParams.set('ctz', params.timezone || 'America/New_York');
   }
 
   // Optional: Description (truncate to 500 chars for best compatibility)
   if (params.description) {
-    urlParams.set("details", params.description.slice(0, 500));
+    urlParams.set('details', params.description.slice(0, 500));
   }
 
   // Optional: Location
   if (params.location) {
-    urlParams.set("location", params.location);
+    urlParams.set('location', params.location);
   }
 
   return `${baseUrl}?${urlParams.toString()}`;
@@ -142,6 +138,6 @@ export function generateCalendarUrlForEvent(event: {
     startDate: event.startDate,
     description: event.description,
     location: event.location,
-    timezone: "America/New_York", // Asheville timezone
+    timezone: 'America/New_York', // Asheville timezone
   });
 }

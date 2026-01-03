@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   createContext,
@@ -7,11 +7,11 @@ import {
   useCallback,
   useRef,
   useEffect,
-  ReactNode,
-} from "react";
-import { Check, X, AlertCircle, Info } from "lucide-react";
+  type ReactNode,
+} from 'react';
+import { Check, X, AlertCircle, Info } from 'lucide-react';
 
-type ToastType = "success" | "error" | "info";
+type ToastType = 'success' | 'error' | 'info';
 
 interface Toast {
   id: string;
@@ -28,7 +28,7 @@ const ToastContext = createContext<ToastContextType | undefined>(undefined);
 export function useToast() {
   const context = useContext(ToastContext);
   if (!context) {
-    throw new Error("useToast must be used within a ToastProvider");
+    throw new Error('useToast must be used within a ToastProvider');
   }
   return context;
 }
@@ -50,7 +50,7 @@ export function ToastProvider({ children }: ToastProviderProps) {
     };
   }, []);
 
-  const showToast = useCallback((message: string, type: ToastType = "success") => {
+  const showToast = useCallback((message: string, type: ToastType = 'success') => {
     const id = Math.random().toString(36).substring(2, 9);
     setToasts((prev) => [...prev, { id, message, type }]);
 
@@ -109,9 +109,9 @@ const iconMap = {
 };
 
 const styleMap = {
-  success: "bg-gray-900 text-white",
-  error: "bg-red-600 text-white",
-  info: "bg-brand-600 text-white",
+  success: 'bg-gray-900 text-white',
+  error: 'bg-red-600 text-white',
+  info: 'bg-brand-600 text-white',
 };
 
 function ToastItem({ toast, onDismiss }: ToastItemProps) {

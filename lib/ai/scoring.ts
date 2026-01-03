@@ -12,11 +12,11 @@
 import { azureChatCompletion, isAzureAIEnabled } from './provider-clients';
 
 export interface EventScoreResult {
-  score: number;      // Total 0-30
-  rarity: number;     // 0-10
-  unique: number;     // 0-10
-  magnitude: number;  // 0-10
-  reason: string;     // One sentence explanation
+  score: number; // Total 0-30
+  rarity: number; // 0-10
+  unique: number; // 0-10
+  magnitude: number; // 0-10
+  reason: string; // One sentence explanation
 }
 
 export interface EventForScoring {
@@ -37,6 +37,13 @@ export interface SimilarEventContext {
   organizer: string | null;
   startDate: Date;
   similarity: number;
+}
+
+interface ScoreAIResponse {
+  rarity?: number;
+  unique?: number;
+  magnitude?: number;
+  reason?: string;
 }
 
 const SCORING_SYSTEM_PROMPT = `You are an expert Event Curator for Asheville, NC. Your goal is to rank events so that the "Score" acts as a discovery heat-map.
@@ -108,7 +115,9 @@ export async function generateEventScore(
     event.aiSummary ? `Summary: ${event.aiSummary}` : null,
     `Date: ${event.startDate.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}`,
     event.price ? `Price: ${event.price}` : null,
-  ].filter(Boolean).join('\n');
+  ]
+    .filter(Boolean)
+    .join('\n');
 
   // Build similar events context
   let similarEventsText = '(No similar events found - this may indicate a unique event)';
@@ -130,11 +139,9 @@ Similar upcoming events (by semantic similarity):
 ${similarEventsText}`;
 
   try {
-    const result = await azureChatCompletion(
-      SCORING_SYSTEM_PROMPT,
-      userPrompt,
-      { maxTokens: 20000 }
-    );
+    const result = await azureChatCompletion(SCORING_SYSTEM_PROMPT, userPrompt, {
+      maxTokens: 20000,
+    });
 
     if (!result) {
       console.warn('[Scoring] No response from Azure AI');
@@ -147,7 +154,7 @@ ${similarEventsText}`;
       .replace(/```/g, '')
       .trim();
 
-    const parsed = JSON.parse(cleanedText);
+    const parsed = JSON.parse(cleanedText) as ScoreAIResponse;
 
     // Validate and clamp scores to 0-10
     const clamp = (n: unknown): number => {
@@ -167,7 +174,9 @@ ${similarEventsText}`;
       reason = parsed.reason.trim().slice(0, 500); // Cap at 500 chars
     }
 
-    console.log(`[Scoring] "${event.title.slice(0, 30)}...": ${score}/30 (R:${rarity} U:${unique} M:${magnitude}) - ${result.usage.totalTokens} tokens`);
+    console.log(
+      `[Scoring] "${event.title.slice(0, 30)}...": ${score}/30 (R:${rarity} U:${unique} M:${magnitude}) - ${result.usage.totalTokens} tokens`
+    );
 
     return { score, rarity, unique, magnitude, reason };
   } catch (error) {
@@ -187,7 +196,12 @@ export async function generateEventScoresBatch(
   }>,
   options?: {
     delayMs?: number;
-    onProgress?: (current: number, total: number, event: EventForScoring, result: EventScoreResult | null) => void;
+    onProgress?: (
+      current: number,
+      total: number,
+      event: EventForScoring,
+      result: EventScoreResult | null
+    ) => void;
   }
 ): Promise<Map<string, EventScoreResult | null>> {
   const { delayMs = 500, onProgress } = options || {};
@@ -202,7 +216,7 @@ export async function generateEventScoresBatch(
 
     // Add delay between requests to avoid rate limits
     if (i < eventsWithContext.length - 1 && delayMs > 0) {
-      await new Promise(resolve => setTimeout(resolve, delayMs));
+      await new Promise((resolve) => setTimeout(resolve, delayMs));
     }
   }
 
@@ -216,11 +230,12 @@ export async function generateEventScoresBatch(
 export function getRecurringEventScore(type: 'daily' | 'weekly'): EventScoreResult {
   return {
     score: 5,
-    rarity: 1,  // Very low - happens frequently
-    unique: 2,  // Low - common activity type
+    rarity: 1, // Very low - happens frequently
+    unique: 2, // Low - common activity type
     magnitude: 2, // Low - typically local/community level
-    reason: type === 'daily'
-      ? 'Daily recurring event - happens every day.'
-      : 'Weekly recurring event - happens every week.'
+    reason:
+      type === 'daily'
+        ? 'Daily recurring event - happens every day.'
+        : 'Weekly recurring event - happens every week.',
   };
 }

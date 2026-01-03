@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
-import { X } from "lucide-react";
+import { useState, useEffect } from 'react';
+import { X } from 'lucide-react';
 
-const STORAGE_KEY = "infoBannerSeen";
+const STORAGE_KEY = 'infoBannerSeen';
 
 export default function InfoBanner() {
   const [isVisible, setIsVisible] = useState(false); // Start hidden to prevent flash
@@ -11,14 +11,14 @@ export default function InfoBanner() {
 
   // Read localStorage on mount to initialize state (SSR-safe pattern)
   useEffect(() => {
-    const hasSeenBefore = localStorage.getItem(STORAGE_KEY) === "true";
+    const hasSeenBefore = localStorage.getItem(STORAGE_KEY) === 'true';
     /* eslint-disable react-hooks/set-state-in-effect -- SSR hydration: can't read localStorage during server render */
     // Show banner only on first visit, auto-hide on subsequent visits
     setIsVisible(!hasSeenBefore);
     setIsLoaded(true);
     // Mark as seen for next visit
     if (!hasSeenBefore) {
-      localStorage.setItem(STORAGE_KEY, "true");
+      localStorage.setItem(STORAGE_KEY, 'true');
     }
     /* eslint-enable react-hooks/set-state-in-effect */
   }, []);
@@ -34,9 +34,8 @@ export default function InfoBanner() {
     <div className="w-full max-w-7xl mx-auto px-0 sm:px-6 lg:px-8">
       <div className="bg-brand-50/50 dark:bg-brand-950/20 border border-t-0 border-brand-200/50 dark:border-brand-800/50 sm:rounded-b-lg py-2 px-3 sm:px-4 flex items-center justify-between gap-3">
         <p className="text-xs sm:text-sm text-brand-800/80 dark:text-brand-200/80 flex-1 text-center">
-          Your settings &amp; filters will be saved for next time. Email{" "}
-          <span className="font-medium">hi@avlgo.com</span> with questions or
-          feedback
+          Your settings &amp; filters will be saved for next time. Email{' '}
+          <span className="font-medium">hi@avlgo.com</span> with questions or feedback
         </p>
         <button
           onClick={handleDismiss}

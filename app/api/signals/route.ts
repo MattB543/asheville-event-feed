@@ -1,9 +1,9 @@
-import { NextResponse, type NextRequest } from "next/server";
-import { createClient } from "@/lib/supabase/server";
-import { db } from "@/lib/db";
-import { userPreferences } from "@/lib/db/schema";
-import { eq, sql } from "drizzle-orm";
-import { isRecord, isString } from "@/lib/utils/validation";
+import { NextResponse, type NextRequest } from 'next/server';
+import { createClient } from '@/lib/supabase/server';
+import { db } from '@/lib/db';
+import { userPreferences } from '@/lib/db/schema';
+import { eq, sql } from 'drizzle-orm';
+import { isRecord, isString } from '@/lib/utils/validation';
 
 // Signal types
 type PositiveSignalType = 'favorite' | 'calendar' | 'share' | 'viewSource';
@@ -22,22 +22,15 @@ interface NegativeSignal {
   active: boolean;
 }
 
-const VALID_SIGNAL_TYPES: SignalType[] = [
-  'favorite',
-  'calendar',
-  'share',
-  'viewSource',
-  'hide',
-];
+const VALID_SIGNAL_TYPES: SignalType[] = ['favorite', 'calendar', 'share', 'viewSource', 'hide'];
 
-function parseSignalRequest(
-  value: unknown
-): { eventId: string; signalType: SignalType } | null {
+function parseSignalRequest(value: unknown): { eventId: string; signalType: SignalType } | null {
   if (!isRecord(value)) return null;
   const eventId = isString(value.eventId) ? value.eventId : undefined;
-  const signalType = isString(value.signalType) && VALID_SIGNAL_TYPES.includes(value.signalType as SignalType)
-    ? (value.signalType as SignalType)
-    : undefined;
+  const signalType =
+    isString(value.signalType) && VALID_SIGNAL_TYPES.includes(value.signalType as SignalType)
+      ? (value.signalType as SignalType)
+      : undefined;
 
   if (!eventId || !signalType) return null;
   return { eventId, signalType };
@@ -47,13 +40,15 @@ function parseSignalRequest(
 export async function POST(request: NextRequest) {
   try {
     const supabase = await createClient();
-    const { data: { user } } = await supabase.auth.getUser();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
 
-    console.log("[Signals API] POST request, user:", user?.id ?? "none");
+    console.log('[Signals API] POST request, user:', user?.id ?? 'none');
 
     if (!user) {
-      console.log("[Signals API] Unauthorized - no user session");
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      console.log('[Signals API] Unauthorized - no user session');
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
     const parsed: unknown = await request.json();
@@ -61,15 +56,12 @@ export async function POST(request: NextRequest) {
 
     // Validate inputs
     if (!parsedBody) {
-      console.log("[Signals API] Invalid request body:", parsed);
-      return NextResponse.json(
-        { error: "Invalid request body" },
-        { status: 400 }
-      );
+      console.log('[Signals API] Invalid request body:', parsed);
+      return NextResponse.json({ error: 'Invalid request body' }, { status: 400 });
     }
 
     const { eventId, signalType } = parsedBody;
-    console.log("[Signals API] Adding signal:", signalType, "for event:", eventId);
+    console.log('[Signals API] Adding signal:', signalType, 'for event:', eventId);
     const timestamp = new Date().toISOString();
     const isNegativeSignal = signalType === 'hide';
 
@@ -151,15 +143,12 @@ export async function POST(request: NextRequest) {
         WHERE user_id = ${user.id}
       `);
 
-      console.log("[Signals API] Signal added successfully:", signalType, eventId);
+      console.log('[Signals API] Signal added successfully:', signalType, eventId);
       return NextResponse.json({ success: true, signal: newPositiveSignal });
     }
   } catch (error) {
-    console.error("[Signals API] Error adding signal:", error);
-    return NextResponse.json(
-      { error: "Failed to add signal" },
-      { status: 500 }
-    );
+    console.error('[Signals API] Error adding signal:', error);
+    return NextResponse.json({ error: 'Failed to add signal' }, { status: 500 });
   }
 }
 
@@ -167,10 +156,12 @@ export async function POST(request: NextRequest) {
 export async function DELETE(request: NextRequest) {
   try {
     const supabase = await createClient();
-    const { data: { user } } = await supabase.auth.getUser();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
 
     if (!user) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
     const parsed: unknown = await request.json();
@@ -178,10 +169,7 @@ export async function DELETE(request: NextRequest) {
 
     // Validate inputs
     if (!parsedBody) {
-      return NextResponse.json(
-        { error: "Invalid request body" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: 'Invalid request body' }, { status: 400 });
     }
 
     const { eventId, signalType } = parsedBody;
@@ -193,10 +181,7 @@ export async function DELETE(request: NextRequest) {
       .limit(1);
 
     if (existingPrefs.length === 0) {
-      return NextResponse.json(
-        { error: "No preferences found" },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: 'No preferences found' }, { status: 404 });
     }
 
     const isNegativeSignal = signalType === 'hide';
@@ -204,9 +189,7 @@ export async function DELETE(request: NextRequest) {
     if (isNegativeSignal) {
       // Remove from negative signals
       const existingNegativeSignals = (existingPrefs[0].negativeSignals as NegativeSignal[]) ?? [];
-      const updatedNegativeSignals = existingNegativeSignals.filter(
-        s => s.eventId !== eventId
-      );
+      const updatedNegativeSignals = existingNegativeSignals.filter((s) => s.eventId !== eventId);
 
       // Update preferences and invalidate centroid
       await db
@@ -224,7 +207,7 @@ export async function DELETE(request: NextRequest) {
       // Remove from positive signals
       const existingPositiveSignals = (existingPrefs[0].positiveSignals as PositiveSignal[]) ?? [];
       const updatedPositiveSignals = existingPositiveSignals.filter(
-        s => !(s.eventId === eventId && s.signalType === signalType)
+        (s) => !(s.eventId === eventId && s.signalType === signalType)
       );
 
       // Update preferences and invalidate centroid
@@ -241,10 +224,7 @@ export async function DELETE(request: NextRequest) {
       return NextResponse.json({ success: true });
     }
   } catch (error) {
-    console.error("Error removing signal:", error);
-    return NextResponse.json(
-      { error: "Failed to remove signal" },
-      { status: 500 }
-    );
+    console.error('Error removing signal:', error);
+    return NextResponse.json({ error: 'Failed to remove signal' }, { status: 500 });
   }
 }

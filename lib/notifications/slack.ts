@@ -98,7 +98,7 @@ export async function sendSubmissionNotification(submission: EventSubmission): P
 
   blocks.push({
     type: 'context',
-    elements: submitterInfo.map(text => ({
+    elements: submitterInfo.map((text) => ({
       type: 'mrkdwn',
       text,
     })),
@@ -238,7 +238,11 @@ export async function sendEventReport(report: EventReport): Promise<boolean> {
     });
 
     if (!response.ok) {
-      console.error('[Slack] Failed to send report notification:', response.status, await response.text());
+      console.error(
+        '[Slack] Failed to send report notification:',
+        response.status,
+        await response.text()
+      );
       return false;
     }
 
@@ -264,11 +268,13 @@ interface SlackBlock {
   }>;
   elements?: Array<{
     type: string;
-    text?: string | {
-      type: string;
-      text: string;
-      emoji?: boolean;
-    };
+    text?:
+      | string
+      | {
+          type: string;
+          text: string;
+          emoji?: boolean;
+        };
     url?: string;
     action_id?: string;
   }>;
@@ -323,7 +329,7 @@ export async function sendUrlSubmissionNotification(submission: UrlSubmission): 
   if (submitterInfo.length > 0) {
     blocks.push({
       type: 'context',
-      elements: submitterInfo.map(text => ({
+      elements: submitterInfo.map((text) => ({
         type: 'mrkdwn',
         text,
       })),
@@ -357,7 +363,11 @@ export async function sendUrlSubmissionNotification(submission: UrlSubmission): 
     });
 
     if (!response.ok) {
-      console.error('[Slack] Failed to send URL submission notification:', response.status, await response.text());
+      console.error(
+        '[Slack] Failed to send URL submission notification:',
+        response.status,
+        await response.text()
+      );
       return false;
     }
 
@@ -386,7 +396,9 @@ interface VerificationNotification {
  * Send a Slack notification for event verification results.
  * Only sends if there are hidden or updated events.
  */
-export async function sendVerificationNotification(results: VerificationNotification): Promise<boolean> {
+export async function sendVerificationNotification(
+  results: VerificationNotification
+): Promise<boolean> {
   if (!isSlackEnabled()) {
     console.log('[Slack] Webhook not configured, skipping verification notification');
     return false;
@@ -428,7 +440,7 @@ export async function sendVerificationNotification(results: VerificationNotifica
   if (results.eventsHidden > 0) {
     const hiddenList = results.hiddenEvents
       .slice(0, 10) // Limit to 10 for readability
-      .map(e => `• ${e.title.slice(0, 40)}${e.title.length > 40 ? '...' : ''} - ${e.reason}`)
+      .map((e) => `• ${e.title.slice(0, 40)}${e.title.length > 40 ? '...' : ''} - ${e.reason}`)
       .join('\n');
 
     blocks.push({
@@ -444,7 +456,7 @@ export async function sendVerificationNotification(results: VerificationNotifica
   if (results.eventsUpdated > 0) {
     const updatedList = results.updatedEvents
       .slice(0, 10) // Limit to 10 for readability
-      .map(e => `• ${e.title.slice(0, 40)}${e.title.length > 40 ? '...' : ''} - ${e.reason}`)
+      .map((e) => `• ${e.title.slice(0, 40)}${e.title.length > 40 ? '...' : ''} - ${e.reason}`)
       .join('\n');
 
     blocks.push({
@@ -477,7 +489,11 @@ export async function sendVerificationNotification(results: VerificationNotifica
     });
 
     if (!response.ok) {
-      console.error('[Slack] Failed to send verification notification:', response.status, await response.text());
+      console.error(
+        '[Slack] Failed to send verification notification:',
+        response.status,
+        await response.text()
+      );
       return false;
     }
 

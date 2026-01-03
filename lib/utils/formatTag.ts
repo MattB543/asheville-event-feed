@@ -11,7 +11,7 @@ export function formatTagForDisplay(tag: string): string {
   return tag
     .replace(/-/g, ' ') // Replace hyphens with spaces
     .split(' ')
-    .filter(w => w.length > 0) // Remove empty strings
+    .filter((w) => w.length > 0) // Remove empty strings
     .map((word) => {
       // Handle special cases
       const upper = word.toUpperCase();
@@ -44,7 +44,7 @@ function extractCoreTag(tag: string): string {
  * Count words in a tag (for validation).
  */
 function countWords(tag: string): number {
-  return tag.split(/\s+/).filter(w => w.length > 0).length;
+  return tag.split(/\s+/).filter((w) => w.length > 0).length;
 }
 
 /**
@@ -78,19 +78,19 @@ export function normalizeTagFromAI(tag: string): string | null {
  */
 export function tryExtractOfficialTag(tag: string, allowedTags: readonly string[]): string | null {
   // First try exact match
-  if (allowedTags.includes(tag as typeof allowedTags[number])) {
+  if (allowedTags.includes(tag)) {
     return tag;
   }
 
   // Extract core tag and try to match
   const core = extractCoreTag(tag);
-  if (allowedTags.includes(core as typeof allowedTags[number])) {
+  if (allowedTags.includes(core)) {
     return core;
   }
 
   // Try with proper formatting
   const formatted = formatTagForDisplay(core);
-  if (allowedTags.includes(formatted as typeof allowedTags[number])) {
+  if (allowedTags.includes(formatted)) {
     return formatted;
   }
 

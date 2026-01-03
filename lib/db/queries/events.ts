@@ -1,5 +1,5 @@
-import { db } from "@/lib/db";
-import { events } from "@/lib/db/schema";
+import { db } from '@/lib/db';
+import { events } from '@/lib/db/schema';
 import {
   and,
   or,
@@ -12,18 +12,23 @@ import {
   isNull,
   isNotNull,
   sql,
-  SQL,
+  type SQL,
   arrayOverlaps,
   not,
-  InferSelectModel,
-} from "drizzle-orm";
-import { getStartOfTodayEastern, getTodayStringEastern, getDayBoundariesEastern, parseAsEastern } from "@/lib/utils/timezone";
-import { matchesDefaultFilter } from "@/lib/config/defaultFilters";
-import { extractCity, isAshevilleArea } from "@/lib/utils/geo";
-import { isAshevilleZip } from "@/lib/config/zipNames";
+  type InferSelectModel,
+} from 'drizzle-orm';
+import {
+  getStartOfTodayEastern,
+  getTodayStringEastern,
+  getDayBoundariesEastern,
+  parseAsEastern,
+} from '@/lib/utils/timezone';
+import { matchesDefaultFilter } from '@/lib/config/defaultFilters';
+import { extractCity, isAshevilleArea } from '@/lib/utils/geo';
+import { isAshevilleZip } from '@/lib/config/zipNames';
 
 // Type for events without embedding (server-side only field)
-export type DbEvent = Omit<InferSelectModel<typeof events>, "embedding">;
+export type DbEvent = Omit<InferSelectModel<typeof events>, 'embedding'>;
 
 // Filter parameters accepted by the API
 export interface EventFilterParams {
@@ -35,16 +40,16 @@ export interface EventFilterParams {
   search?: string;
 
   // Date filters
-  dateFilter?: "all" | "today" | "tomorrow" | "weekend" | "custom" | "dayOfWeek";
+  dateFilter?: 'all' | 'today' | 'tomorrow' | 'weekend' | 'custom' | 'dayOfWeek';
   dateStart?: string; // YYYY-MM-DD for custom range
   dateEnd?: string; // YYYY-MM-DD for custom range
   days?: number[]; // Day of week (0=Sun to 6=Sat)
 
   // Time of day
-  times?: ("morning" | "afternoon" | "evening")[];
+  times?: ('morning' | 'afternoon' | 'evening')[];
 
   // Price
-  priceFilter?: "any" | "free" | "under20" | "under100" | "custom";
+  priceFilter?: 'any' | 'free' | 'under20' | 'under100' | 'custom';
   maxPrice?: number;
 
   // Tags
@@ -80,13 +85,13 @@ export interface EventMetadata {
 
 // Helper to parse cursor
 function parseCursor(cursor: string): { startDate: Date; id: string } | null {
-  const parts = cursor.split("_");
+  const parts = cursor.split('_');
   if (parts.length < 2) return null;
 
   // ID is always the last part (UUID)
   const id = parts.pop()!;
   // Everything before is the ISO date (which may contain underscores if using different format)
-  const dateStr = parts.join("_");
+  const dateStr = parts.join('_');
 
   const startDate = new Date(dateStr);
   if (isNaN(startDate.getTime())) return null;
@@ -110,7 +115,7 @@ function addDaysToDateString(dateStr: string, days: number): string {
 function parsePrice(priceStr: string | null | undefined): number {
   if (!priceStr) return 0;
   const lower = priceStr.toLowerCase();
-  if (lower.includes("free") || lower.includes("donation")) return 0;
+  if (lower.includes('free') || lower.includes('donation')) return 0;
   const matches = priceStr.match(/(\d+(\.\d+)?)/);
   if (matches) return parseFloat(matches[0]);
   return 0;
@@ -121,10 +126,10 @@ function isFreeEvent(price: string | null | undefined): boolean {
   if (!price) return true; // Unknown = assume free
   const lower = price.toLowerCase();
   return (
-    lower === "unknown" ||
-    lower === "" ||
-    lower.includes("free") ||
-    lower.includes("donation") ||
+    lower === 'unknown' ||
+    lower === '' ||
+    lower.includes('free') ||
+    lower.includes('donation') ||
     parsePrice(price) === 0
   );
 }
@@ -151,9 +156,7 @@ function getWeekendBoundaries(): { start: Date; end: Date } {
  * Build filtered events query.
  * Returns paginated results with cursor for infinite scroll.
  */
-export async function queryFilteredEvents(
-  params: EventFilterParams
-): Promise<EventQueryResult> {
+export async function queryFilteredEvents(params: EventFilterParams): Promise<EventQueryResult> {
   const limit = Math.min(params.limit || 50, 500);
   const startOfToday = getStartOfTodayEastern();
 
@@ -164,11 +167,11 @@ export async function queryFilteredEvents(
     dateEnd: params.dateEnd,
     priceFilter: params.priceFilter,
     tagsInclude: params.tagsInclude?.length,
-    cursor: params.cursor ? "yes" : "no",
+    cursor: params.cursor ? 'yes' : 'no',
   };
   const hasFilters = params.dateFilter || params.priceFilter || params.tagsInclude?.length;
   if (hasFilters) {
-    console.log("[queryFilteredEvents] Filtering with:", filterDebug);
+    console.log('[queryFilteredEvents] Filtering with:', filterDebug);
   }
 
   // Build WHERE conditions
@@ -181,67 +184,71 @@ export async function queryFilteredEvents(
   conditions.push(
     or(
       isNull(events.location),
-      and(
-        notIlike(events.location, "%online%"),
-        notIlike(events.location, "%virtual%")
-      )
+      and(notIlike(events.location, '%online%'), notIlike(events.location, '%virtual%'))
     )!
   );
 
   // Exclude hidden (admin moderated) events
-  conditions.push(
-    or(isNull(events.hidden), sql`${events.hidden} = false`)!
-  );
+  conditions.push(or(isNull(events.hidden), sql`${events.hidden} = false`)!);
 
   // NOTE: Cursor-based pagination is handled in the iterative fetch loop below,
   // not here, to allow multiple batches with updated cursors.
 
   // Date filter - use Eastern timezone for all date calculations
-  if (params.dateFilter && params.dateFilter !== "all") {
+  if (params.dateFilter && params.dateFilter !== 'all') {
     const todayStr = getTodayStringEastern(); // "2024-12-19" in Eastern
 
     switch (params.dateFilter) {
-      case "today": {
+      case 'today': {
         const { start, end } = getDayBoundariesEastern(todayStr);
         conditions.push(gte(events.startDate, start));
         conditions.push(lte(events.startDate, end));
         break;
       }
-      case "tomorrow": {
+      case 'tomorrow': {
         const tomorrowStr = addDaysToDateString(todayStr, 1);
         const { start, end } = getDayBoundariesEastern(tomorrowStr);
         conditions.push(gte(events.startDate, start));
         conditions.push(lte(events.startDate, end));
         break;
       }
-      case "weekend": {
+      case 'weekend': {
         const { start, end } = getWeekendBoundaries();
         conditions.push(gte(events.startDate, start));
         conditions.push(lte(events.startDate, end));
         break;
       }
-      case "custom": {
+      case 'custom': {
         if (params.dateStart) {
           // Parse as Eastern timezone to avoid off-by-one errors
           // e.g., "2025-12-29" should be Dec 29 midnight ET, not UTC
-          const startDate = parseAsEastern(params.dateStart, "00:00:00");
+          const startDate = parseAsEastern(params.dateStart, '00:00:00');
           conditions.push(gte(events.startDate, startDate));
-          console.log("[queryFilteredEvents] Custom date start:", startDate.toISOString(), "(ET midnight)");
+          console.log(
+            '[queryFilteredEvents] Custom date start:',
+            startDate.toISOString(),
+            '(ET midnight)'
+          );
         }
         if (params.dateEnd) {
           // Parse as Eastern timezone, end of day
-          const endDate = parseAsEastern(params.dateEnd, "23:59:59");
+          const endDate = parseAsEastern(params.dateEnd, '23:59:59');
           conditions.push(lte(events.startDate, endDate));
-          console.log("[queryFilteredEvents] Custom date end:", endDate.toISOString(), "(ET end of day)");
+          console.log(
+            '[queryFilteredEvents] Custom date end:',
+            endDate.toISOString(),
+            '(ET end of day)'
+          );
         }
         break;
       }
-      case "dayOfWeek": {
+      case 'dayOfWeek': {
         if (params.days && params.days.length > 0) {
           // PostgreSQL: EXTRACT(DOW FROM date) returns 0=Sun, 1=Mon, etc.
           // Convert to Eastern time first so day matches user's local day, not UTC
           const dayConditions = params.days.map(
-            (day) => sql`EXTRACT(DOW FROM ${events.startDate} AT TIME ZONE 'America/New_York') = ${day}`
+            (day) =>
+              sql`EXTRACT(DOW FROM ${events.startDate} AT TIME ZONE 'America/New_York') = ${day}`
           );
           conditions.push(or(...dayConditions)!);
         }
@@ -258,17 +265,13 @@ export async function queryFilteredEvents(
       // PostgreSQL: EXTRACT(HOUR FROM timestamp)
       // Morning: 5-11, Afternoon: 12-16, Evening: 17-23 or 0-2
       switch (time) {
-        case "morning":
-          timeConditions.push(
-            sql`EXTRACT(HOUR FROM ${events.startDate}) BETWEEN 5 AND 11`
-          );
+        case 'morning':
+          timeConditions.push(sql`EXTRACT(HOUR FROM ${events.startDate}) BETWEEN 5 AND 11`);
           break;
-        case "afternoon":
-          timeConditions.push(
-            sql`EXTRACT(HOUR FROM ${events.startDate}) BETWEEN 12 AND 16`
-          );
+        case 'afternoon':
+          timeConditions.push(sql`EXTRACT(HOUR FROM ${events.startDate}) BETWEEN 12 AND 16`);
           break;
-        case "evening":
+        case 'evening':
           timeConditions.push(
             or(
               sql`EXTRACT(HOUR FROM ${events.startDate}) >= 17`,
@@ -281,9 +284,7 @@ export async function queryFilteredEvents(
 
     if (timeConditions.length > 0) {
       // Also include events with unknown time
-      conditions.push(
-        or(sql`${events.timeUnknown} = true`, ...timeConditions)!
-      );
+      conditions.push(or(sql`${events.timeUnknown} = true`, ...timeConditions)!);
     }
   }
 
@@ -299,17 +300,13 @@ export async function queryFilteredEvents(
 
   // Daily events filter
   if (params.showDailyEvents === false) {
-    conditions.push(
-      or(isNull(events.recurringType), sql`${events.recurringType} != 'daily'`)!
-    );
+    conditions.push(or(isNull(events.recurringType), sql`${events.recurringType} != 'daily'`)!);
   }
 
   // Blocked hosts (organizer contains any blocked string)
   if (params.blockedHosts && params.blockedHosts.length > 0) {
     for (const host of params.blockedHosts) {
-      conditions.push(
-        or(isNull(events.organizer), notIlike(events.organizer, `%${host}%`))!
-      );
+      conditions.push(or(isNull(events.organizer), notIlike(events.organizer, `%${host}%`))!);
     }
   }
 
@@ -367,7 +364,7 @@ export async function queryFilteredEvents(
   const passesClientFilters = (event: DbEvent): boolean => {
     // Default spam filter
     if (params.useDefaultFilters !== false) {
-      const textToCheck = `${event.title} ${event.description || ""} ${event.organizer || ""}`;
+      const textToCheck = `${event.title} ${event.description || ''} ${event.organizer || ''}`;
       if (matchesDefaultFilter(textToCheck)) {
         return false;
       }
@@ -384,7 +381,7 @@ export async function queryFilteredEvents(
     // Hidden fingerprints (title + organizer combo)
     if (params.hiddenFingerprints && params.hiddenFingerprints.length > 0) {
       const eventTitle = event.title.toLowerCase().trim();
-      const eventOrganizer = (event.organizer || "").toLowerCase().trim();
+      const eventOrganizer = (event.organizer || '').toLowerCase().trim();
       if (
         params.hiddenFingerprints.some(
           (fp) =>
@@ -397,21 +394,21 @@ export async function queryFilteredEvents(
     }
 
     // Price filter (complex logic, easier client-side)
-    if (params.priceFilter && params.priceFilter !== "any") {
+    if (params.priceFilter && params.priceFilter !== 'any') {
       const price = parsePrice(event.price);
       const isFree = isFreeEvent(event.price);
 
       switch (params.priceFilter) {
-        case "free":
+        case 'free':
           if (!isFree) return false;
           break;
-        case "under20":
+        case 'under20':
           if (price > 20) return false;
           break;
-        case "under100":
+        case 'under100':
           if (price > 100) return false;
           break;
-        case "custom":
+        case 'custom':
           if (params.maxPrice !== undefined && price > params.maxPrice) {
             return false;
           }
@@ -426,14 +423,14 @@ export async function queryFilteredEvents(
       let matchesLocation = false;
 
       for (const loc of params.locations) {
-        if (loc.toLowerCase() === "asheville") {
+        if (loc.toLowerCase() === 'asheville') {
           // Asheville area includes known venues + Asheville zips
           if (isAshevilleArea(event.location) || (eventZip && isAshevilleZip(eventZip))) {
             matchesLocation = true;
             break;
           }
-        } else if (loc === "Online") {
-          if (eventCity === "Online") {
+        } else if (loc === 'Online') {
+          if (eventCity === 'Online') {
             matchesLocation = true;
             break;
           }
@@ -478,10 +475,7 @@ export async function queryFilteredEvents(
         batchConditions.push(
           or(
             sql`${events.startDate} > ${cursorDateStr}`,
-            and(
-              sql`${events.startDate} = ${cursorDateStr}`,
-              sql`${events.id} > ${parsed.id}`
-            )
+            and(sql`${events.startDate} = ${cursorDateStr}`, sql`${events.id} > ${parsed.id}`)
           )!
         );
       }
@@ -508,7 +502,9 @@ export async function queryFilteredEvents(
     allFiltered.push(...filtered);
 
     if (hasFilters) {
-      console.log(`[queryFilteredEvents] Iteration ${iteration + 1}: batch=${batch.length}, filtered=${filtered.length}, total=${allFiltered.length}, target=${limit}`);
+      console.log(
+        `[queryFilteredEvents] Iteration ${iteration + 1}: batch=${batch.length}, filtered=${filtered.length}, total=${allFiltered.length}, target=${limit}`
+      );
     }
 
     // Check if we have enough results (need limit + 1 to know if there are more)
@@ -534,12 +530,12 @@ export async function queryFilteredEvents(
 
   // Create next cursor from the last returned event
   const nextCursor =
-    hasMore && resultEvents.length > 0
-      ? createCursor(resultEvents[resultEvents.length - 1])
-      : null;
+    hasMore && resultEvents.length > 0 ? createCursor(resultEvents[resultEvents.length - 1]) : null;
 
   if (hasFilters) {
-    console.log(`[queryFilteredEvents] Final: returning ${resultEvents.length} events, hasMore=${hasMore}`);
+    console.log(
+      `[queryFilteredEvents] Final: returning ${resultEvents.length} events, hasMore=${hasMore}`
+    );
   }
 
   // For total count, we need a separate count query (simplified - just base conditions)
@@ -552,11 +548,8 @@ export async function queryFilteredEvents(
         gte(events.startDate, startOfToday),
         or(
           isNull(events.location),
-          and(
-            notIlike(events.location, "%online%"),
-            notIlike(events.location, "%virtual%")
-          )
-        )!
+          and(notIlike(events.location, '%online%'), notIlike(events.location, '%virtual%'))
+        )
       )
     );
 
@@ -587,14 +580,11 @@ export async function getEventMetadata(): Promise<EventMetadata> {
     .where(
       and(
         gte(events.startDate, startOfToday),
-        or(isNull(events.hidden), sql`${events.hidden} = false`)!,
+        or(isNull(events.hidden), sql`${events.hidden} = false`),
         or(
           isNull(events.location),
-          and(
-            notIlike(events.location, "%online%"),
-            notIlike(events.location, "%virtual%")
-          )
-        )!
+          and(notIlike(events.location, '%online%'), notIlike(events.location, '%virtual%'))
+        )
       )
     );
 
@@ -616,7 +606,7 @@ export async function getEventMetadata(): Promise<EventMetadata> {
 
     // Locations
     const city = extractCity(event.location);
-    if (city === "Online") {
+    if (city === 'Online') {
       onlineCount++;
     } else if (city) {
       locationCounts.set(city, (locationCounts.get(city) || 0) + 1);
@@ -635,16 +625,16 @@ export async function getEventMetadata(): Promise<EventMetadata> {
 
   // Process locations - filtered and sorted with Asheville first
   const availableLocations = Array.from(locationCounts.entries())
-    .filter(([city, count]) => city === "Asheville" || count >= LOCATION_MIN_EVENTS)
+    .filter(([city, count]) => city === 'Asheville' || count >= LOCATION_MIN_EVENTS)
     .map(([city]) => city)
     .sort((a, b) => {
-      if (a === "Asheville") return -1;
-      if (b === "Asheville") return 1;
+      if (a === 'Asheville') return -1;
+      if (b === 'Asheville') return 1;
       return a.localeCompare(b);
     });
 
   if (onlineCount >= LOCATION_MIN_EVENTS) {
-    availableLocations.push("Online");
+    availableLocations.push('Online');
   }
 
   // Process zips - filtered and sorted by count
@@ -664,9 +654,9 @@ export async function queryTop30Events(): Promise<DbEvent[]> {
   const startOfToday = getStartOfTodayEastern();
   const todayStr = getTodayStringEastern();
   const thirtyDaysLaterStr = addDaysToDateString(todayStr, 30);
-  const thirtyDaysLater = parseAsEastern(thirtyDaysLaterStr, "23:59:59");
+  const thirtyDaysLater = parseAsEastern(thirtyDaysLaterStr, '23:59:59');
 
-  console.log("[queryTop30Events] Fetching top 30 scored events...");
+  console.log('[queryTop30Events] Fetching top 30 scored events...');
 
   const selectFields = {
     id: events.id,
@@ -712,15 +702,12 @@ export async function queryTop30Events(): Promise<DbEvent[]> {
         // Must have a score
         isNotNull(events.score),
         // Exclude hidden events
-        or(isNull(events.hidden), sql`${events.hidden} = false`)!,
+        or(isNull(events.hidden), sql`${events.hidden} = false`),
         // Exclude online/virtual events
         or(
           isNull(events.location),
-          and(
-            notIlike(events.location, "%online%"),
-            notIlike(events.location, "%virtual%")
-          )
-        )!
+          and(notIlike(events.location, '%online%'), notIlike(events.location, '%virtual%'))
+        )
       )
     )
     .orderBy(desc(events.score), asc(events.startDate), asc(events.id))

@@ -97,36 +97,41 @@ async function importData() {
 
     for (const event of batch) {
       try {
-        await db.insert(events).values({
-          id: event.id,
-          sourceId: event.source_id,
-          source: event.source,
-          title: event.title,
-          description: event.description,
-          startDate: new Date(event.start_date),
-          location: event.location,
-          zip: event.zip,
-          organizer: event.organizer,
-          price: event.price,
-          url: event.url,
-          imageUrl: event.image_url,
-          createdAt: event.created_at ? new Date(event.created_at) : undefined,
-          hidden: event.hidden,
-          tags: event.tags,
-          interestedCount: event.interested_count,
-          goingCount: event.going_count,
-          timeUnknown: event.time_unknown,
-          recurringType: event.recurring_type,
-          recurringEndDate: event.recurring_end_date ? new Date(event.recurring_end_date) : null,
-          favoriteCount: event.favorite_count,
-        }).onConflictDoNothing();
+        await db
+          .insert(events)
+          .values({
+            id: event.id,
+            sourceId: event.source_id,
+            source: event.source,
+            title: event.title,
+            description: event.description,
+            startDate: new Date(event.start_date),
+            location: event.location,
+            zip: event.zip,
+            organizer: event.organizer,
+            price: event.price,
+            url: event.url,
+            imageUrl: event.image_url,
+            createdAt: event.created_at ? new Date(event.created_at) : undefined,
+            hidden: event.hidden,
+            tags: event.tags,
+            interestedCount: event.interested_count,
+            goingCount: event.going_count,
+            timeUnknown: event.time_unknown,
+            recurringType: event.recurring_type,
+            recurringEndDate: event.recurring_end_date ? new Date(event.recurring_end_date) : null,
+            favoriteCount: event.favorite_count,
+          })
+          .onConflictDoNothing();
         imported++;
       } catch {
         skipped++;
       }
     }
 
-    process.stdout.write(`  Progress: ${Math.min(i + BATCH_SIZE, data.events.length)}/${data.events.length} (imported: ${imported}, skipped: ${skipped})\r`);
+    process.stdout.write(
+      `  Progress: ${Math.min(i + BATCH_SIZE, data.events.length)}/${data.events.length} (imported: ${imported}, skipped: ${skipped})\r`
+    );
   }
   console.log(`\n  Imported ${imported} events, skipped ${skipped}`);
 
@@ -138,25 +143,28 @@ async function importData() {
 
     for (const event of data.submittedEvents) {
       try {
-        await db.insert(submittedEvents).values({
-          id: event.id,
-          title: event.title,
-          description: event.description,
-          startDate: new Date(event.start_date),
-          endDate: event.end_date ? new Date(event.end_date) : null,
-          location: event.location,
-          organizer: event.organizer,
-          price: event.price,
-          url: event.url,
-          imageUrl: event.image_url,
-          submitterEmail: event.submitter_email,
-          submitterName: event.submitter_name,
-          notes: event.notes,
-          status: event.status,
-          reviewedAt: event.reviewed_at ? new Date(event.reviewed_at) : null,
-          createdAt: event.created_at ? new Date(event.created_at) : undefined,
-          source: event.source,
-        }).onConflictDoNothing();
+        await db
+          .insert(submittedEvents)
+          .values({
+            id: event.id,
+            title: event.title,
+            description: event.description,
+            startDate: new Date(event.start_date),
+            endDate: event.end_date ? new Date(event.end_date) : null,
+            location: event.location,
+            organizer: event.organizer,
+            price: event.price,
+            url: event.url,
+            imageUrl: event.image_url,
+            submitterEmail: event.submitter_email,
+            submitterName: event.submitter_name,
+            notes: event.notes,
+            status: event.status,
+            reviewedAt: event.reviewed_at ? new Date(event.reviewed_at) : null,
+            createdAt: event.created_at ? new Date(event.created_at) : undefined,
+            source: event.source,
+          })
+          .onConflictDoNothing();
         submittedImported++;
       } catch {
         submittedSkipped++;
@@ -185,7 +193,9 @@ async function main() {
     console.log('');
     console.log('Usage:');
     console.log('  npx tsx scripts/maintenance/migrate-to-supabase.ts export  - Export from Neon');
-    console.log('  npx tsx scripts/maintenance/migrate-to-supabase.ts import  - Import to Supabase');
+    console.log(
+      '  npx tsx scripts/maintenance/migrate-to-supabase.ts import  - Import to Supabase'
+    );
     console.log('');
     console.log('Steps:');
     console.log('  1. Run export (with Neon DATABASE_URL in .env)');

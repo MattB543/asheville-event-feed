@@ -4,26 +4,28 @@ import * as fs from 'fs';
 
 const testEvents = [
   {
-    title: "Live Jazz Night at The Orange Peel",
-    description: "Join us for an evening of smooth jazz with local musicians. Great drinks and atmosphere in downtown Asheville.",
-    location: "The Orange Peel, Asheville, NC",
-    tags: ["Live Music", "Nightlife", "Beer"],
+    title: 'Live Jazz Night at The Orange Peel',
+    description:
+      'Join us for an evening of smooth jazz with local musicians. Great drinks and atmosphere in downtown Asheville.',
+    location: 'The Orange Peel, Asheville, NC',
+    tags: ['Live Music', 'Nightlife', 'Beer'],
   },
   {
-    title: "Sunday Morning Yoga in the Park",
-    description: "Start your weekend right with a relaxing outdoor yoga session. All levels welcome.",
-    location: "Pack Square Park, Asheville, NC",
-    tags: ["Fitness", "Wellness", "Outdoors"],
+    title: 'Sunday Morning Yoga in the Park',
+    description:
+      'Start your weekend right with a relaxing outdoor yoga session. All levels welcome.',
+    location: 'Pack Square Park, Asheville, NC',
+    tags: ['Fitness', 'Wellness', 'Outdoors'],
   },
   {
-    title: "Craft Beer Tasting & Trivia",
-    description: "Sample local brews while testing your knowledge at our weekly trivia night.",
-    location: "Burial Beer Co, Asheville, NC",
-    tags: ["Beer", "Trivia", "Nightlife"],
+    title: 'Craft Beer Tasting & Trivia',
+    description: 'Sample local brews while testing your knowledge at our weekly trivia night.',
+    location: 'Burial Beer Co, Asheville, NC',
+    tags: ['Beer', 'Trivia', 'Nightlife'],
   },
 ];
 
-async function testSingleEvent(event: typeof testEvents[0], index: number) {
+async function testSingleEvent(event: (typeof testEvents)[0], index: number) {
   console.log(`\n--- Test ${index + 1}: ${event.title} ---`);
   console.log('Tags:', event.tags.join(', '));
 
@@ -65,7 +67,7 @@ async function main() {
     if (success) passed++;
     // Small delay between requests
     if (i < eventsToTest.length - 1) {
-      await new Promise(r => setTimeout(r, 2000));
+      await new Promise((r) => setTimeout(r, 2000));
     }
   }
 

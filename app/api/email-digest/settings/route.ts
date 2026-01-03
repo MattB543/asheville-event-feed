@@ -1,20 +1,20 @@
-import { NextResponse, type NextRequest } from "next/server";
-import { createClient } from "@/lib/supabase/server";
-import { db } from "@/lib/db";
-import { newsletterSettings, userPreferences } from "@/lib/db/schema";
-import { eq } from "drizzle-orm";
+import { NextResponse, type NextRequest } from 'next/server';
+import { createClient } from '@/lib/supabase/server';
+import { db } from '@/lib/db';
+import { newsletterSettings, userPreferences } from '@/lib/db/schema';
+import { eq } from 'drizzle-orm';
 import {
   type NewsletterFilters,
   type NewsletterSettingsPayload,
   type NewsletterFrequency,
   type NewsletterDaySelection,
   type NewsletterScoreTier,
-} from "@/lib/newsletter/types";
+} from '@/lib/newsletter/types';
 
 const DEFAULT_FILTERS: NewsletterFilters = {
-  search: "",
+  search: '',
   selectedTimes: [],
-  priceFilter: "any",
+  priceFilter: 'any',
   customMaxPrice: null,
   tagsInclude: [],
   tagsExclude: [],
@@ -24,13 +24,9 @@ const DEFAULT_FILTERS: NewsletterFilters = {
   useDefaultFilters: true,
 };
 
-const ALLOWED_FREQUENCIES: NewsletterFrequency[] = ["none", "daily", "weekly"];
-const ALLOWED_SCORE_TIERS: NewsletterScoreTier[] = ["all", "top50", "top10"];
-const ALLOWED_DAY_SELECTIONS: NewsletterDaySelection[] = [
-  "everyday",
-  "weekend",
-  "specific",
-];
+const ALLOWED_FREQUENCIES: NewsletterFrequency[] = ['none', 'daily', 'weekly'];
+const ALLOWED_SCORE_TIERS: NewsletterScoreTier[] = ['all', 'top50', 'top10'];
+const ALLOWED_DAY_SELECTIONS: NewsletterDaySelection[] = ['everyday', 'weekend', 'specific'];
 
 function normalizeFilters(filters?: NewsletterFilters): NewsletterFilters {
   const merged = {
@@ -40,14 +36,10 @@ function normalizeFilters(filters?: NewsletterFilters): NewsletterFilters {
 
   return {
     ...merged,
-    selectedTimes: Array.isArray(merged.selectedTimes)
-      ? merged.selectedTimes
-      : [],
+    selectedTimes: Array.isArray(merged.selectedTimes) ? merged.selectedTimes : [],
     tagsInclude: Array.isArray(merged.tagsInclude) ? merged.tagsInclude : [],
     tagsExclude: Array.isArray(merged.tagsExclude) ? merged.tagsExclude : [],
-    selectedLocations: Array.isArray(merged.selectedLocations)
-      ? merged.selectedLocations
-      : [],
+    selectedLocations: Array.isArray(merged.selectedLocations) ? merged.selectedLocations : [],
     selectedZips: Array.isArray(merged.selectedZips) ? merged.selectedZips : [],
   };
 }
@@ -55,11 +47,7 @@ function normalizeFilters(filters?: NewsletterFilters): NewsletterFilters {
 function normalizeSelectedDays(selectedDays?: number[]): number[] {
   if (!Array.isArray(selectedDays)) return [];
   return Array.from(
-    new Set(
-      selectedDays.filter(
-        (day) => Number.isInteger(day) && day >= 0 && day <= 6
-      )
-    )
+    new Set(selectedDays.filter((day) => Number.isInteger(day) && day >= 0 && day <= 6))
   ).sort((a, b) => a - b);
 }
 
@@ -72,7 +60,7 @@ export async function GET() {
     } = await supabase.auth.getUser();
 
     if (!user) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
     const result = await db
@@ -93,8 +81,7 @@ export async function GET() {
 
       if (legacy.length > 0) {
         const legacySettings = legacy[0];
-        const legacyFrequency =
-          (legacySettings.frequency as NewsletterFrequency) || "none";
+        const legacyFrequency = (legacySettings.frequency as NewsletterFrequency) || 'none';
         const legacyFilters = normalizeFilters({
           ...DEFAULT_FILTERS,
           tagsInclude: legacySettings.tags ?? [],
@@ -103,10 +90,10 @@ export async function GET() {
         await db.insert(newsletterSettings).values({
           userId: user.id,
           frequency: legacyFrequency,
-          daySelection: "everyday",
+          daySelection: 'everyday',
           selectedDays: [],
           weekendEdition: false,
-          scoreTier: "all",
+          scoreTier: 'all',
           filters: legacyFilters,
           curatorUserIds: [],
           updatedAt: new Date(),
@@ -114,21 +101,21 @@ export async function GET() {
 
         return NextResponse.json({
           frequency: legacyFrequency,
-          daySelection: "everyday",
+          daySelection: 'everyday',
           selectedDays: [],
           weekendEdition: false,
-          scoreTier: "all",
+          scoreTier: 'all',
           filters: legacyFilters,
           curatorUserIds: [],
         });
       }
 
       return NextResponse.json({
-        frequency: "none",
-        daySelection: "everyday",
+        frequency: 'none',
+        daySelection: 'everyday',
         selectedDays: [],
         weekendEdition: false,
-        scoreTier: "all",
+        scoreTier: 'all',
         filters: DEFAULT_FILTERS,
         curatorUserIds: [],
       });
@@ -136,21 +123,18 @@ export async function GET() {
 
     const row = result[0];
     return NextResponse.json({
-      frequency: (row.frequency as NewsletterFrequency) || "none",
-      daySelection: (row.daySelection as NewsletterDaySelection) || "everyday",
+      frequency: (row.frequency as NewsletterFrequency) || 'none',
+      daySelection: (row.daySelection as NewsletterDaySelection) || 'everyday',
       selectedDays: row.selectedDays ?? [],
       weekendEdition: row.weekendEdition ?? false,
-      scoreTier: (row.scoreTier as NewsletterScoreTier) || "all",
+      scoreTier: (row.scoreTier as NewsletterScoreTier) || 'all',
       filters: normalizeFilters(row.filters as NewsletterFilters),
       curatorUserIds: row.curatorUserIds ?? [],
       updatedAt: row.updatedAt,
     });
   } catch (error) {
-    console.error("Error fetching email digest settings:", error);
-    return NextResponse.json(
-      { error: "Failed to fetch settings" },
-      { status: 500 }
-    );
+    console.error('Error fetching email digest settings:', error);
+    return NextResponse.json({ error: 'Failed to fetch settings' }, { status: 500 });
   }
 }
 
@@ -163,30 +147,21 @@ export async function POST(request: NextRequest) {
     } = await supabase.auth.getUser();
 
     if (!user) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
     const body = (await request.json()) as NewsletterSettingsPayload;
 
     if (body.frequency && !ALLOWED_FREQUENCIES.includes(body.frequency)) {
-      return NextResponse.json(
-        { error: "Invalid frequency value" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: 'Invalid frequency value' }, { status: 400 });
     }
 
     if (body.daySelection && !ALLOWED_DAY_SELECTIONS.includes(body.daySelection)) {
-      return NextResponse.json(
-        { error: "Invalid day selection value" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: 'Invalid day selection value' }, { status: 400 });
     }
 
     if (body.scoreTier && !ALLOWED_SCORE_TIERS.includes(body.scoreTier)) {
-      return NextResponse.json(
-        { error: "Invalid score tier value" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: 'Invalid score tier value' }, { status: 400 });
     }
 
     const existing = await db
@@ -200,30 +175,23 @@ export async function POST(request: NextRequest) {
       ? normalizeFilters(body.filters)
       : normalizeFilters(current?.filters as NewsletterFilters | undefined);
 
-    const nextFrequency = body.frequency ?? (current?.frequency as NewsletterFrequency) ?? "none";
+    const nextFrequency = body.frequency ?? (current?.frequency as NewsletterFrequency) ?? 'none';
     const nextDaySelection =
-      body.daySelection ??
-      (current?.daySelection as NewsletterDaySelection) ??
-      "everyday";
+      body.daySelection ?? (current?.daySelection as NewsletterDaySelection) ?? 'everyday';
     const nextSelectedDays = normalizeSelectedDays(
       body.selectedDays ?? (current?.selectedDays as number[] | undefined)
     );
-    const nextWeekendEdition =
-      body.weekendEdition ?? current?.weekendEdition ?? false;
-    const nextScoreTier = body.scoreTier ?? (current?.scoreTier as NewsletterScoreTier) ?? "all";
-    const nextCuratorUserIds =
-      body.curatorUserIds ?? current?.curatorUserIds ?? [];
-    const normalizedSelectedDays =
-      nextDaySelection === "specific" ? nextSelectedDays : [];
+    const nextWeekendEdition = body.weekendEdition ?? current?.weekendEdition ?? false;
+    const nextScoreTier = body.scoreTier ?? (current?.scoreTier as NewsletterScoreTier) ?? 'all';
+    const nextCuratorUserIds = body.curatorUserIds ?? current?.curatorUserIds ?? [];
+    const normalizedSelectedDays = nextDaySelection === 'specific' ? nextSelectedDays : [];
     const weekendEditionEligible =
-      nextFrequency === "daily" &&
-      (nextDaySelection === "everyday" ||
-        nextDaySelection === "weekend" ||
-        (nextDaySelection === "specific" &&
+      nextFrequency === 'daily' &&
+      (nextDaySelection === 'everyday' ||
+        nextDaySelection === 'weekend' ||
+        (nextDaySelection === 'specific' &&
           [0, 5, 6].every((day) => normalizedSelectedDays.includes(day))));
-    const normalizedWeekendEdition = weekendEditionEligible
-      ? nextWeekendEdition
-      : false;
+    const normalizedWeekendEdition = weekendEditionEligible ? nextWeekendEdition : false;
 
     await db
       .insert(newsletterSettings)
@@ -258,11 +226,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error("Error saving email digest settings:", error);
-    return NextResponse.json(
-      { error: "Failed to save settings" },
-      { status: 500 }
-    );
+    console.error('Error saving email digest settings:', error);
+    return NextResponse.json({ error: 'Failed to save settings' }, { status: 500 });
   }
 }
-

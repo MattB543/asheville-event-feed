@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { Check, X } from "lucide-react";
+import { Check, X } from 'lucide-react';
 
-export type TriState = "off" | "include" | "exclude";
+export type TriState = 'off' | 'include' | 'exclude';
 
 interface TriStateCheckboxProps {
   state: TriState;
@@ -15,7 +15,7 @@ export default function TriStateCheckbox({
   state,
   onChange,
   label,
-  className = "",
+  className = '',
 }: TriStateCheckboxProps) {
   return (
     <label
@@ -27,15 +27,15 @@ export default function TriStateCheckbox({
     >
       <div
         className={`w-4 h-4 rounded border flex items-center justify-center transition-colors ${
-          state === "off"
-            ? "border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800"
-            : state === "include"
-              ? "border-green-500 bg-green-500"
-              : "border-red-500 bg-red-500"
+          state === 'off'
+            ? 'border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800'
+            : state === 'include'
+              ? 'border-green-500 bg-green-500'
+              : 'border-red-500 bg-red-500'
         }`}
       >
-        {state === "include" && <Check size={12} className="text-white" strokeWidth={3} />}
-        {state === "exclude" && <X size={12} className="text-white" strokeWidth={3} />}
+        {state === 'include' && <Check size={12} className="text-white" strokeWidth={3} />}
+        {state === 'exclude' && <X size={12} className="text-white" strokeWidth={3} />}
       </div>
       {label && <span className="text-sm text-gray-700 dark:text-gray-200">{label}</span>}
     </label>

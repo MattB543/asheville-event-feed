@@ -12,11 +12,12 @@
  *   Set DEBUG_DIR env var to save raw data and validation reports
  */
 
-import { ScrapedEvent } from './types';
+import { type ScrapedEvent } from './types';
 import { BROWSER_HEADERS, debugSave, fetchEventData } from './base';
 import { decodeHtmlEntities } from '../utils/parsers';
 import { getZipFromCity } from '../utils/geo';
 import { parseAsEastern } from '../utils/timezone';
+import { isRecord, isString } from '../utils/validation';
 
 // Config
 const EVENTS_URL = 'https://withfriends.events/o/revolve/upcoming/';
@@ -28,7 +29,6 @@ const ALLOWED_ORGANIZERS = ['REVOLVE'];
 // ============================================================================
 // DEBUG UTILITIES
 // ============================================================================
-
 
 function generateValidationReport(events: ScrapedEvent[]): string {
   const lines: string[] = [
@@ -83,11 +83,11 @@ function generateValidationReport(events: ScrapedEvent[]): string {
   lines.push('='.repeat(60));
 
   const total = events.length;
-  const withImages = events.filter(e => e.imageUrl).length;
-  const withPrices = events.filter(e => e.price && e.price !== 'Unknown').length;
-  const withLocations = events.filter(e => e.location).length;
+  const withImages = events.filter((e) => e.imageUrl).length;
+  const withPrices = events.filter((e) => e.price && e.price !== 'Unknown').length;
+  const withLocations = events.filter((e) => e.location).length;
 
-  const pct = (n: number) => total === 0 ? '0' : Math.round((n / total) * 100).toString();
+  const pct = (n: number) => (total === 0 ? '0' : Math.round((n / total) * 100).toString());
 
   lines.push(`  Images:    ${withImages}/${total} (${pct(withImages)}%)`);
   lines.push(`  Prices:    ${withPrices}/${total} (${pct(withPrices)}%)`);
@@ -103,7 +103,9 @@ function generateValidationReport(events: ScrapedEvent[]): string {
     lines.push('');
     lines.push(`  Title: ${event.title}`);
     lines.push(`  Date (UTC):     ${event.startDate.toISOString()}`);
-    lines.push(`  Date (Eastern): ${event.startDate.toLocaleString('en-US', { timeZone: 'America/New_York' })}`);
+    lines.push(
+      `  Date (Eastern): ${event.startDate.toLocaleString('en-US', { timeZone: 'America/New_York' })}`
+    );
     lines.push(`  Location:  ${event.location || 'N/A'}`);
     lines.push(`  Price:     ${event.price || 'N/A'}`);
     lines.push(`  URL:       ${event.url}`);
@@ -131,6 +133,17 @@ interface WithFriendsEvent {
   profile_url: string; // "/event/v81shAMe/"
   is_cancelled?: boolean;
   venue_address_google_maps_url?: string;
+}
+
+function isWithFriendsEvent(value: unknown): value is WithFriendsEvent {
+  if (!isRecord(value)) return false;
+  return (
+    isString(value.unique_code_public) &&
+    isString(value.event_name) &&
+    isString(value.event_datetime) &&
+    isString(value.organization_name) &&
+    isString(value.profile_url)
+  );
 }
 
 // ============================================================================
@@ -196,7 +209,7 @@ function formatPrice(price?: string): string {
  */
 function isAllowedOrganizer(organizer: string): boolean {
   const orgLower = organizer.toLowerCase();
-  return ALLOWED_ORGANIZERS.some(allowed => orgLower.includes(allowed.toLowerCase()));
+  return ALLOWED_ORGANIZERS.some((allowed) => orgLower.includes(allowed.toLowerCase()));
 }
 
 /**
@@ -229,7 +242,8 @@ function formatEvent(event: WithFriendsEvent): ScrapedEvent | null {
   const url = `${BASE_URL}${event.profile_url}`;
 
   // Get location
-  const location = event.format_one_line_address ||
+  const location =
+    event.format_one_line_address ||
     (event.city && event.state ? `${event.city}, ${event.state}` : undefined);
 
   // Get zip from city
@@ -272,10 +286,13 @@ function extractEventsFromHtml(html: string): WithFriendsEvent[] {
 
   if (jsonArrayMatch) {
     try {
-      const events = JSON.parse(jsonArrayMatch[0]);
-      if (Array.isArray(events) && events.length > 0) {
-        console.log(`[Revolve] Found ${events.length} events via direct JSON match`);
-        return events;
+      const parsed = JSON.parse(jsonArrayMatch[0]) as unknown;
+      if (Array.isArray(parsed)) {
+        const events = parsed.filter(isWithFriendsEvent);
+        if (events.length > 0) {
+          console.log(`[Revolve] Found ${events.length} events via direct JSON match`);
+          return events;
+        }
       }
     } catch {
       // Continue to other patterns
@@ -288,10 +305,13 @@ function extractEventsFromHtml(html: string): WithFriendsEvent[] {
     for (const match of matches) {
       const jsonStr = match[1] || match[0];
       try {
-        const parsed = JSON.parse(jsonStr);
-        if (Array.isArray(parsed) && parsed.length > 0 && parsed[0].unique_code_public) {
-          console.log(`[Revolve] Found ${parsed.length} events via pattern match`);
-          return parsed;
+        const parsed = JSON.parse(jsonStr) as unknown;
+        if (Array.isArray(parsed)) {
+          const events = parsed.filter(isWithFriendsEvent);
+          if (events.length > 0) {
+            console.log(`[Revolve] Found ${events.length} events via pattern match`);
+            return events;
+          }
         }
       } catch {
         // Continue to next match
@@ -301,13 +321,14 @@ function extractEventsFromHtml(html: string): WithFriendsEvent[] {
 
   // Fallback: look for individual event objects and collect them
   const eventObjects: WithFriendsEvent[] = [];
-  const objectPattern = /\{\s*"unique_code_public"\s*:\s*"[^"]+"\s*,[\s\S]*?"profile_url"\s*:\s*"[^"]+"\s*\}/g;
+  const objectPattern =
+    /\{\s*"unique_code_public"\s*:\s*"[^"]+"\s*,[\s\S]*?"profile_url"\s*:\s*"[^"]+"\s*\}/g;
   const objectMatches = html.matchAll(objectPattern);
 
   for (const match of objectMatches) {
     try {
-      const obj = JSON.parse(match[0]);
-      if (obj.unique_code_public && obj.event_name) {
+      const obj = JSON.parse(match[0]) as unknown;
+      if (isWithFriendsEvent(obj)) {
         eventObjects.push(obj);
       }
     } catch {

@@ -1,5 +1,8 @@
-import { NextResponse, type NextRequest } from "next/server";
-import { getCuratorProfileBySlug, getCuratedEventsWithDetails } from "@/lib/supabase/curatorProfile";
+import { NextResponse, type NextRequest } from 'next/server';
+import {
+  getCuratorProfileBySlug,
+  getCuratedEventsWithDetails,
+} from '@/lib/supabase/curatorProfile';
 
 export async function GET(
   _request: NextRequest,
@@ -11,7 +14,7 @@ export async function GET(
     const profile = await getCuratorProfileBySlug(slug);
 
     if (!profile || !profile.isPublic) {
-      return NextResponse.json({ error: "Profile not found" }, { status: 404 });
+      return NextResponse.json({ error: 'Profile not found' }, { status: 404 });
     }
 
     const curationsWithEvents = await getCuratedEventsWithDetails(profile.userId);
@@ -26,10 +29,7 @@ export async function GET(
       curations: curationsWithEvents,
     });
   } catch (error) {
-    console.error("Error fetching curator profile:", error);
-    return NextResponse.json(
-      { error: "Failed to fetch profile" },
-      { status: 500 }
-    );
+    console.error('Error fetching curator profile:', error);
+    return NextResponse.json({ error: 'Failed to fetch profile' }, { status: 500 });
   }
 }

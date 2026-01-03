@@ -20,71 +20,73 @@
  * Also strips HTML tags and normalizes whitespace.
  */
 export function decodeHtmlEntities(text: string): string {
-  return text
-    // Strip any HTML tags first
-    .replace(/<[^>]*>/g, "")
-    // Named entities - common
-    .replace(/&nbsp;/g, " ")
-    .replace(/&amp;/g, "&")
-    .replace(/&quot;/g, '"')
-    .replace(/&lt;/g, "<")
-    .replace(/&gt;/g, ">")
-    .replace(/&apos;/g, "'")
-    // Numeric entities for common characters
-    .replace(/&#8211;/g, "-") // en-dash
-    .replace(/&#8212;/g, "-") // em-dash
-    .replace(/&#8217;/g, "'") // right single quote
-    .replace(/&#8216;/g, "'") // left single quote
-    .replace(/&#8220;/g, '"') // left double quote
-    .replace(/&#8221;/g, '"') // right double quote
-    .replace(/&#8230;/g, ".") // ellipsis
-    .replace(/&#038;/g, "&")
-    .replace(/&#039;/g, "'")
-    .replace(/&#124;/g, "|") // pipe/vertical bar
-    // Named entities for special punctuation
-    .replace(/&rsquo;/g, "'")
-    .replace(/&lsquo;/g, "'")
-    .replace(/&rdquo;/g, '"')
-    .replace(/&ldquo;/g, '"')
-    .replace(/&mdash;/g, "-")
-    .replace(/&ndash;/g, "-")
-    .replace(/&hellip;/g, ".")
-    // Clean up multiple spaces and trim
-    .replace(/\s+/g, " ")
-    .trim();
+  return (
+    text
+      // Strip any HTML tags first
+      .replace(/<[^>]*>/g, '')
+      // Named entities - common
+      .replace(/&nbsp;/g, ' ')
+      .replace(/&amp;/g, '&')
+      .replace(/&quot;/g, '"')
+      .replace(/&lt;/g, '<')
+      .replace(/&gt;/g, '>')
+      .replace(/&apos;/g, "'")
+      // Numeric entities for common characters
+      .replace(/&#8211;/g, '-') // en-dash
+      .replace(/&#8212;/g, '-') // em-dash
+      .replace(/&#8217;/g, "'") // right single quote
+      .replace(/&#8216;/g, "'") // left single quote
+      .replace(/&#8220;/g, '"') // left double quote
+      .replace(/&#8221;/g, '"') // right double quote
+      .replace(/&#8230;/g, '.') // ellipsis
+      .replace(/&#038;/g, '&')
+      .replace(/&#039;/g, "'")
+      .replace(/&#124;/g, '|') // pipe/vertical bar
+      // Named entities for special punctuation
+      .replace(/&rsquo;/g, "'")
+      .replace(/&lsquo;/g, "'")
+      .replace(/&rdquo;/g, '"')
+      .replace(/&ldquo;/g, '"')
+      .replace(/&mdash;/g, '-')
+      .replace(/&ndash;/g, '-')
+      .replace(/&hellip;/g, '.')
+      // Clean up multiple spaces and trim
+      .replace(/\s+/g, ' ')
+      .trim()
+  );
 }
 
 /**
  * Remove markdown formatting from text while preserving the content.
  */
 export function cleanMarkdown(text: string | null | undefined): string {
-  if (!text) return "";
+  if (!text) return '';
 
   let result = text;
 
   // Remove escaped characters (e.g., \*, \[, \()
-  result = result.replace(/\\([*[\]()#>`~|])/g, "$1");
+  result = result.replace(/\\([*[\]()#>`~|])/g, '$1');
 
   // Remove bold/italic markers
-  result = result.replace(/\*{1,2}([^*]+)\*{1,2}/g, "$1");
+  result = result.replace(/\*{1,2}([^*]+)\*{1,2}/g, '$1');
 
   // Remove links but keep text: [text](url) -> text
-  result = result.replace(/\[([^\]]+)\]\([^)]+\)/g, "$1");
+  result = result.replace(/\[([^\]]+)\]\([^)]+\)/g, '$1');
 
   // Remove headers (# ## ### etc.)
-  result = result.replace(/^#{1,6}\s*/gm, "");
+  result = result.replace(/^#{1,6}\s*/gm, '');
 
   // Remove inline code backticks
-  result = result.replace(/`{1,3}([^`]+)`{1,3}/g, "$1");
+  result = result.replace(/`{1,3}([^`]+)`{1,3}/g, '$1');
 
   // Remove blockquotes
-  result = result.replace(/^>\s*/gm, "");
+  result = result.replace(/^>\s*/gm, '');
 
   // Remove strikethrough
-  result = result.replace(/~~([^~]+)~~/g, "$1");
+  result = result.replace(/~~([^~]+)~~/g, '$1');
 
   // Remove horizontal rules
-  result = result.replace(/^[-*_]{3,}$/gm, "");
+  result = result.replace(/^[-*_]{3,}$/gm, '');
 
   return result;
 }
@@ -96,21 +98,23 @@ export function cleanMarkdown(text: string | null | undefined): string {
 export function cleanAshevilleFromSummary(text: string): string {
   if (!text) return text;
 
-  return text
-    // ", Asheville, NC" or ", Asheville" (most common)
-    .replace(/, Asheville,? NC?\b/gi, ",")
-    .replace(/, Asheville\b(?!, NC)/gi, ",")
-    // " in Asheville, NC" or " in Asheville"
-    .replace(/ in Asheville,? NC?\b/gi, "")
-    .replace(/ in Asheville\b(?!, NC)/gi, "")
-    // "(Asheville, NC)" or "(Asheville)" at end of parenthetical
-    .replace(/,? Asheville,? NC?\)/gi, ")")
-    // Clean up any double commas or comma-space-comma that might result
-    .replace(/,\s*,/g, ",")
-    // Clean up ", )" that might result
-    .replace(/,\s*\)/g, ")")
-    // Clean up any trailing commas before periods
-    .replace(/,\s*\./g, ".");
+  return (
+    text
+      // ", Asheville, NC" or ", Asheville" (most common)
+      .replace(/, Asheville,? NC?\b/gi, ',')
+      .replace(/, Asheville\b(?!, NC)/gi, ',')
+      // " in Asheville, NC" or " in Asheville"
+      .replace(/ in Asheville,? NC?\b/gi, '')
+      .replace(/ in Asheville\b(?!, NC)/gi, '')
+      // "(Asheville, NC)" or "(Asheville)" at end of parenthetical
+      .replace(/,? Asheville,? NC?\)/gi, ')')
+      // Clean up any double commas or comma-space-comma that might result
+      .replace(/,\s*,/g, ',')
+      // Clean up ", )" that might result
+      .replace(/,\s*\)/g, ')')
+      // Clean up any trailing commas before periods
+      .replace(/,\s*\./g, '.')
+  );
 }
 
 // ============================================================================
@@ -125,21 +129,21 @@ export function cleanAshevilleFromSummary(text: string): string {
  */
 export function formatPrice(value: number | string | null | undefined): string {
   // Handle null/undefined/empty
-  if (value === null || value === undefined || value === "" || value === "null") {
-    return "Unknown";
+  if (value === null || value === undefined || value === '' || value === 'null') {
+    return 'Unknown';
   }
 
   // Convert to number if string
-  const numValue = typeof value === "string" ? parseFloat(value) : value;
+  const numValue = typeof value === 'string' ? parseFloat(value) : value;
 
   // Handle NaN
   if (isNaN(numValue)) {
-    return "Unknown";
+    return 'Unknown';
   }
 
   // Handle free
   if (numValue === 0) {
-    return "Free";
+    return 'Free';
   }
 
   // Round to nearest dollar
@@ -153,7 +157,7 @@ export function formatPrice(value: number | string | null | undefined): string {
  */
 export interface PriceExtractionResult {
   price: string; // Formatted price: "Free", "$20", "$20+", "Ticketed"
-  confidence: "high" | "medium" | "low";
+  confidence: 'high' | 'medium' | 'low';
   matchedPattern: string; // What pattern matched (for debugging)
 }
 
@@ -259,28 +263,28 @@ export function isTypicallyTicketedVenue(organizer: string | null | undefined): 
 
   const ticketedVenues = [
     // Major music venues
-    "orange peel",
-    "grey eagle",
-    "salvage station",
-    "rabbit rabbit",
+    'orange peel',
+    'grey eagle',
+    'salvage station',
+    'rabbit rabbit',
     // Arenas/large venues
-    "harrah",
-    "exploreasheville.com arena",
-    "explore asheville arena",
-    "thomas wolfe",
-    "asheville civic center",
-    "us cellular center",
+    'harrah',
+    'exploreasheville.com arena',
+    'explore asheville arena',
+    'thomas wolfe',
+    'asheville civic center',
+    'us cellular center',
     // Theaters
-    "wortham center",
-    "diana wortham",
-    "nc stage",
-    "north carolina stage",
-    "asheville community theatre",
-    "act asheville",
+    'wortham center',
+    'diana wortham',
+    'nc stage',
+    'north carolina stage',
+    'asheville community theatre',
+    'act asheville',
     // Comedy/shows
-    "story parlor",
-    "misfit improv",
-    "laugh asheville",
+    'story parlor',
+    'misfit improv',
+    'laugh asheville',
   ];
 
   return ticketedVenues.some((venue) => lowerOrganizer.includes(venue));
@@ -302,9 +306,9 @@ export function extractPriceFromText(
   if (!text || text.trim().length === 0) {
     if (isTypicallyTicketedVenue(organizer)) {
       return {
-        price: "Ticketed",
-        confidence: "medium",
-        matchedPattern: "ticketed_venue_no_description",
+        price: 'Ticketed',
+        confidence: 'medium',
+        matchedPattern: 'ticketed_venue_no_description',
       };
     }
     return null;
@@ -313,9 +317,9 @@ export function extractPriceFromText(
   // Check for free first
   if (isFreeEvent(text)) {
     return {
-      price: "Free",
-      confidence: "high",
-      matchedPattern: "free_event",
+      price: 'Free',
+      confidence: 'high',
+      matchedPattern: 'free_event',
     };
   }
 
@@ -329,26 +333,22 @@ export function extractPriceFromText(
     const max = Math.round(parseFloat(contextualRangeMatch[2]));
     return {
       price: `$${min} - $${max}`,
-      confidence: "high",
-      matchedPattern: "contextual_range",
+      confidence: 'high',
+      matchedPattern: 'contextual_range',
     };
   }
 
   // Pattern 2: Single price with context (high confidence)
   // "Tickets: $25", "Admission $15", "Cover: $10", "$20 tickets"
   const contextualSingleMatch =
-    text.match(
-      /(?:tickets?|price|admission|cover|entry)[:\s]*\$(\d+(?:\.\d{2})?)/i
-    ) ||
-    text.match(
-      /\$(\d+(?:\.\d{2})?)\s*(?:tickets?|admission|cover|entry|per\s+person)/i
-    );
+    text.match(/(?:tickets?|price|admission|cover|entry)[:\s]*\$(\d+(?:\.\d{2})?)/i) ||
+    text.match(/\$(\d+(?:\.\d{2})?)\s*(?:tickets?|admission|cover|entry|per\s+person)/i);
   if (contextualSingleMatch) {
     const price = Math.round(parseFloat(contextualSingleMatch[1]));
     return {
       price: `$${price}`,
-      confidence: "high",
-      matchedPattern: "contextual_single",
+      confidence: 'high',
+      matchedPattern: 'contextual_single',
     };
   }
 
@@ -362,22 +362,20 @@ export function extractPriceFromText(
     const door = Math.round(parseFloat(advanceDoorMatch[2]));
     return {
       price: `$${advance} - $${door}`,
-      confidence: "high",
-      matchedPattern: "advance_door",
+      confidence: 'high',
+      matchedPattern: 'advance_door',
     };
   }
 
   // Pattern 4: Suggested donation (medium confidence)
   // "Suggested donation: $10", "Donation $15-$25"
-  const donationMatch = text.match(
-    /(?:suggested\s+)?donation[:\s]*\$(\d+(?:\.\d{2})?)/i
-  );
+  const donationMatch = text.match(/(?:suggested\s+)?donation[:\s]*\$(\d+(?:\.\d{2})?)/i);
   if (donationMatch) {
     const price = Math.round(parseFloat(donationMatch[1]));
     return {
       price: `$${price}`,
-      confidence: "medium",
-      matchedPattern: "donation",
+      confidence: 'medium',
+      matchedPattern: 'donation',
     };
   }
 
@@ -391,16 +389,14 @@ export function extractPriceFromText(
     const max = Math.round(parseFloat(slidingScaleMatch[2]));
     return {
       price: `$${min} - $${max}`,
-      confidence: "medium",
-      matchedPattern: "sliding_scale",
+      confidence: 'medium',
+      matchedPattern: 'sliding_scale',
     };
   }
 
   // Pattern 6: Price range without context (medium confidence)
   // "$15 - $30" anywhere in text (but not part of time like "5 - 7pm")
-  const standaloneRangeMatch = text.match(
-    /\$(\d+(?:\.\d{2})?)\s*[--]\s*\$(\d+(?:\.\d{2})?)/
-  );
+  const standaloneRangeMatch = text.match(/\$(\d+(?:\.\d{2})?)\s*[--]\s*\$(\d+(?:\.\d{2})?)/);
   if (standaloneRangeMatch) {
     const min = Math.round(parseFloat(standaloneRangeMatch[1]));
     const max = Math.round(parseFloat(standaloneRangeMatch[2]));
@@ -408,8 +404,8 @@ export function extractPriceFromText(
     if (min >= 1 && max >= min && max <= 1000) {
       return {
         price: `$${min} - $${max}`,
-        confidence: "medium",
-        matchedPattern: "standalone_range",
+        confidence: 'medium',
+        matchedPattern: 'standalone_range',
       };
     }
   }
@@ -417,7 +413,7 @@ export function extractPriceFromText(
   // Pattern 7: Single price without context (low confidence)
   // Only match if preceded by common price indicators or at start of line
   // Avoid matching phone numbers, years, etc.
-  const lines = text.split("\n");
+  const lines = text.split('\n');
   for (const line of lines) {
     // Check for prices in short lines (likely labels)
     if (line.length < 50) {
@@ -427,8 +423,8 @@ export function extractPriceFromText(
         if (price >= 1 && price <= 500) {
           return {
             price: `$${price}`,
-            confidence: "low",
-            matchedPattern: "standalone_line",
+            confidence: 'low',
+            matchedPattern: 'standalone_line',
           };
         }
       }
@@ -436,15 +432,13 @@ export function extractPriceFromText(
   }
 
   // Pattern 8: Price mentioned after "cost" or "fee" (medium confidence)
-  const costMatch = text.match(
-    /(?:cost|fee|costs?|fees?)[:\s]+\$(\d+(?:\.\d{2})?)/i
-  );
+  const costMatch = text.match(/(?:cost|fee|costs?|fees?)[:\s]+\$(\d+(?:\.\d{2})?)/i);
   if (costMatch) {
     const price = Math.round(parseFloat(costMatch[1]));
     return {
       price: `$${price}`,
-      confidence: "medium",
-      matchedPattern: "cost_fee",
+      confidence: 'medium',
+      matchedPattern: 'cost_fee',
     };
   }
 
@@ -456,17 +450,17 @@ export function extractPriceFromText(
     const price = Math.round(parseFloat(startingAtMatch[1]));
     return {
       price: `$${price}+`,
-      confidence: "high",
-      matchedPattern: "starting_at",
+      confidence: 'high',
+      matchedPattern: 'starting_at',
     };
   }
 
   // Pattern 10: Check if it's a ticketed event without a clear price
   if (isTicketedEvent(text) || isTypicallyTicketedVenue(organizer)) {
     return {
-      price: "Ticketed",
-      confidence: "medium",
-      matchedPattern: "ticketed_event",
+      price: 'Ticketed',
+      confidence: 'medium',
+      matchedPattern: 'ticketed_event',
     };
   }
 
@@ -488,22 +482,22 @@ export function tryExtractPrice(
   description: string | null | undefined,
   currentPrice: string | null | undefined,
   organizer?: string | null,
-  minConfidence: "high" | "medium" | "low" = "medium"
+  minConfidence: 'high' | 'medium' | 'low' = 'medium'
 ): string {
   // If we already have a known price, keep it
-  if (currentPrice && currentPrice !== "Unknown") {
+  if (currentPrice && currentPrice !== 'Unknown') {
     return currentPrice;
   }
 
   // Try to extract from description
-  const result = extractPriceFromText(description || "", organizer);
+  const result = extractPriceFromText(description || '', organizer);
 
   if (!result) {
     // Last resort: check if venue typically requires tickets
     if (isTypicallyTicketedVenue(organizer)) {
-      return "Ticketed";
+      return 'Ticketed';
     }
-    return currentPrice || "Unknown";
+    return currentPrice || 'Unknown';
   }
 
   // Check confidence threshold
@@ -515,7 +509,7 @@ export function tryExtractPrice(
     return result.price;
   }
 
-  return currentPrice || "Unknown";
+  return currentPrice || 'Unknown';
 }
 
 // ============================================================================
@@ -528,7 +522,7 @@ export function tryExtractPrice(
 export interface TimeExtractionResult {
   hour: number; // 0-23
   minute: number; // 0-59
-  confidence: "high" | "medium" | "low";
+  confidence: 'high' | 'medium' | 'low';
   matchedPattern: string; // What pattern matched (for debugging)
   rawMatch: string; // The original text that was matched
 }
@@ -543,7 +537,7 @@ function parse12HourTime(
 ): { hour: number; minute: number } {
   let hour = parseInt(hourStr, 10);
   const minute = minuteStr ? parseInt(minuteStr, 10) : 0;
-  const isPM = ampm.toLowerCase().startsWith("p");
+  const isPM = ampm.toLowerCase().startsWith('p');
 
   // Handle 12 AM/PM edge cases
   if (hour === 12) {
@@ -572,16 +566,12 @@ export function extractTimeFromText(text: string): TimeExtractionResult | null {
     /show[:\s]+(?:at\s+)?(\d{1,2})(?::(\d{2}))?\s*(am|pm|a\.m\.|p\.m\.)/i
   );
   if (showTimeMatch) {
-    const { hour, minute } = parse12HourTime(
-      showTimeMatch[1],
-      showTimeMatch[2],
-      showTimeMatch[3]
-    );
+    const { hour, minute } = parse12HourTime(showTimeMatch[1], showTimeMatch[2], showTimeMatch[3]);
     return {
       hour,
       minute,
-      confidence: "high",
-      matchedPattern: "show_time",
+      confidence: 'high',
+      matchedPattern: 'show_time',
       rawMatch: showTimeMatch[0],
     };
   }
@@ -599,8 +589,8 @@ export function extractTimeFromText(text: string): TimeExtractionResult | null {
     return {
       hour,
       minute,
-      confidence: "high",
-      matchedPattern: "doors_show",
+      confidence: 'high',
+      matchedPattern: 'doors_show',
       rawMatch: doorsShowMatch[0],
     };
   }
@@ -610,16 +600,12 @@ export function extractTimeFromText(text: string): TimeExtractionResult | null {
     /start(?:s|ing)?[:\s]+(?:at\s+)?(\d{1,2})(?::(\d{2}))?\s*(am|pm|a\.m\.|p\.m\.)/i
   );
   if (startsAtMatch) {
-    const { hour, minute } = parse12HourTime(
-      startsAtMatch[1],
-      startsAtMatch[2],
-      startsAtMatch[3]
-    );
+    const { hour, minute } = parse12HourTime(startsAtMatch[1], startsAtMatch[2], startsAtMatch[3]);
     return {
       hour,
       minute,
-      confidence: "high",
-      matchedPattern: "starts_at",
+      confidence: 'high',
+      matchedPattern: 'starts_at',
       rawMatch: startsAtMatch[0],
     };
   }
@@ -637,8 +623,8 @@ export function extractTimeFromText(text: string): TimeExtractionResult | null {
     return {
       hour,
       minute,
-      confidence: "medium",
-      matchedPattern: "time_range",
+      confidence: 'medium',
+      matchedPattern: 'time_range',
       rawMatch: timeRangeMatch[0],
     };
   }
@@ -654,8 +640,8 @@ export function extractTimeFromText(text: string): TimeExtractionResult | null {
       return {
         hour,
         minute,
-        confidence: "medium",
-        matchedPattern: "time_24h",
+        confidence: 'medium',
+        matchedPattern: 'time_24h',
         rawMatch: time24Match[0],
       };
     }
@@ -674,17 +660,15 @@ export function extractTimeFromText(text: string): TimeExtractionResult | null {
     return {
       hour,
       minute,
-      confidence: "medium",
-      matchedPattern: "contextual_time",
+      confidence: 'medium',
+      matchedPattern: 'contextual_time',
       rawMatch: contextualTimeMatch[0],
     };
   }
 
   // Pattern 7: Standalone time like "7:30 PM" without context (low confidence)
   // Only match if it looks like an evening time (5pm-11pm) for events
-  const standaloneMatch = text.match(
-    /\b(\d{1,2}):(\d{2})\s*(am|pm|a\.m\.|p\.m\.)\b/i
-  );
+  const standaloneMatch = text.match(/\b(\d{1,2}):(\d{2})\s*(am|pm|a\.m\.|p\.m\.)\b/i);
   if (standaloneMatch) {
     const { hour, minute } = parse12HourTime(
       standaloneMatch[1],
@@ -696,8 +680,8 @@ export function extractTimeFromText(text: string): TimeExtractionResult | null {
       return {
         hour,
         minute,
-        confidence: "low",
-        matchedPattern: "standalone_evening",
+        confidence: 'low',
+        matchedPattern: 'standalone_evening',
         rawMatch: standaloneMatch[0],
       };
     }
@@ -721,43 +705,37 @@ export function applyTimeToDate(
   date: Date,
   hour: number,
   minute: number,
-  timezone: string = "America/New_York"
+  timezone: string = 'America/New_York'
 ): Date {
   // Get the date components in the target timezone
-  const formatter = new Intl.DateTimeFormat("en-US", {
+  const formatter = new Intl.DateTimeFormat('en-US', {
     timeZone: timezone,
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
   });
 
   const parts = formatter.formatToParts(date);
-  const getPart = (type: string) =>
-    parts.find((p) => p.type === type)?.value || "00";
+  const getPart = (type: string) => parts.find((p) => p.type === type)?.value || '00';
 
-  const year = parseInt(getPart("year"), 10);
-  const month = parseInt(getPart("month"), 10) - 1; // 0-indexed
-  const day = parseInt(getPart("day"), 10);
+  const year = parseInt(getPart('year'), 10);
+  const month = parseInt(getPart('month'), 10) - 1; // 0-indexed
+  const day = parseInt(getPart('day'), 10);
 
   // Calculate timezone offset for the target date at the target time
   const refUtc = new Date(Date.UTC(year, month, day, 12, 0, 0));
-  const offsetFormatter = new Intl.DateTimeFormat("en-US", {
+  const offsetFormatter = new Intl.DateTimeFormat('en-US', {
     timeZone: timezone,
-    hour: "2-digit",
-    minute: "2-digit",
+    hour: '2-digit',
+    minute: '2-digit',
     hour12: false,
   });
   const offsetParts = offsetFormatter.formatToParts(refUtc);
-  const localHour = parseInt(
-    offsetParts.find((p) => p.type === "hour")?.value || "12",
-    10
-  );
+  const localHour = parseInt(offsetParts.find((p) => p.type === 'hour')?.value || '12', 10);
   const offsetHours = localHour - 12;
 
   // Create the correct UTC time
-  const utcTime = new Date(
-    Date.UTC(year, month, day, hour - offsetHours, minute, 0)
-  );
+  const utcTime = new Date(Date.UTC(year, month, day, hour - offsetHours, minute, 0));
 
   return utcTime;
 }
@@ -774,7 +752,7 @@ export function applyTimeToDate(
 export function tryExtractAndApplyTime(
   date: Date,
   description: string | null | undefined,
-  minConfidence: "high" | "medium" | "low" = "medium"
+  minConfidence: 'high' | 'medium' | 'low' = 'medium'
 ): { date: Date; timeUpdated: boolean; extractedTime?: string } {
   if (!description) {
     return { date, timeUpdated: false };
@@ -793,9 +771,9 @@ export function tryExtractAndApplyTime(
 
   if (resultLevel >= minLevel) {
     const newDate = applyTimeToDate(date, result.hour, result.minute);
-    const timeStr = `${result.hour.toString().padStart(2, "0")}:${result.minute
+    const timeStr = `${result.hour.toString().padStart(2, '0')}:${result.minute
       .toString()
-      .padStart(2, "0")}`;
+      .padStart(2, '0')}`;
     return {
       date: newDate,
       timeUpdated: true,
@@ -820,24 +798,24 @@ export function getStartOfTodayEastern(): Date {
   const now = new Date();
 
   // Get today's date in Eastern timezone (YYYY-MM-DD format)
-  const formatter = new Intl.DateTimeFormat("en-CA", {
-    timeZone: "America/New_York",
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
+  const formatter = new Intl.DateTimeFormat('en-CA', {
+    timeZone: 'America/New_York',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
   });
   const todayEastern = formatter.format(now); // "2024-11-29" format
 
   // Determine current Eastern offset by checking the formatted timezone
-  const nowOffset = new Intl.DateTimeFormat("en-US", {
-    timeZone: "America/New_York",
-    timeZoneName: "shortOffset",
+  const nowOffset = new Intl.DateTimeFormat('en-US', {
+    timeZone: 'America/New_York',
+    timeZoneName: 'shortOffset',
   })
     .formatToParts(now)
-    .find((p) => p.type === "timeZoneName")?.value;
+    .find((p) => p.type === 'timeZoneName')?.value;
 
   // EST = GMT-5, EDT = GMT-4
-  const offset = nowOffset?.includes("-4") ? "-04:00" : "-05:00";
+  const offset = nowOffset?.includes('-4') ? '-04:00' : '-05:00';
 
   // Return midnight Eastern as a proper Date (stored as UTC internally)
   return new Date(`${todayEastern}T00:00:00${offset}`);
@@ -847,11 +825,11 @@ export function getStartOfTodayEastern(): Date {
  * Get current date string in Eastern timezone (YYYY-MM-DD format)
  */
 export function getTodayStringEastern(): string {
-  const formatter = new Intl.DateTimeFormat("en-CA", {
-    timeZone: "America/New_York",
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
+  const formatter = new Intl.DateTimeFormat('en-CA', {
+    timeZone: 'America/New_York',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
   });
   return formatter.format(new Date());
 }
@@ -859,12 +837,9 @@ export function getTodayStringEastern(): string {
 /**
  * Format a date for display in Eastern timezone
  */
-export function formatDateEastern(
-  date: Date,
-  options?: Intl.DateTimeFormatOptions
-): string {
-  return new Intl.DateTimeFormat("en-US", {
-    timeZone: "America/New_York",
+export function formatDateEastern(date: Date, options?: Intl.DateTimeFormatOptions): string {
+  return new Intl.DateTimeFormat('en-US', {
+    timeZone: 'America/New_York',
     ...options,
   }).format(date);
 }
@@ -878,17 +853,17 @@ export function formatDateEastern(
  */
 export function getEasternOffset(dateStr: string | Date): string {
   // Create a date at noon to avoid any edge cases at midnight
-  const date = typeof dateStr === "string" ? new Date(`${dateStr}T12:00:00`) : dateStr;
+  const date = typeof dateStr === 'string' ? new Date(`${dateStr}T12:00:00`) : dateStr;
 
-  const offsetPart = new Intl.DateTimeFormat("en-US", {
-    timeZone: "America/New_York",
-    timeZoneName: "shortOffset",
+  const offsetPart = new Intl.DateTimeFormat('en-US', {
+    timeZone: 'America/New_York',
+    timeZoneName: 'shortOffset',
   })
     .formatToParts(date)
-    .find((p) => p.type === "timeZoneName")?.value;
+    .find((p) => p.type === 'timeZoneName')?.value;
 
   // EST = GMT-5, EDT = GMT-4
-  return offsetPart?.includes("-4") ? "-04:00" : "-05:00";
+  return offsetPart?.includes('-4') ? '-04:00' : '-05:00';
 }
 
 /**
@@ -899,10 +874,7 @@ export function getEasternOffset(dateStr: string | Date): string {
  * @param timeStr - Time string in HH:MM:SS format (defaults to 19:00:00)
  * @returns Date object with correct UTC time
  */
-export function parseAsEastern(
-  dateStr: string,
-  timeStr: string = "19:00:00"
-): Date {
+export function parseAsEastern(dateStr: string, timeStr: string = '19:00:00'): Date {
   const offset = getEasternOffset(dateStr);
   return new Date(`${dateStr}T${timeStr}${offset}`);
 }
@@ -911,47 +883,34 @@ export function parseAsEastern(
  * Parse a local datetime string in a specific timezone and return a UTC Date.
  * Useful for APIs that provide local timestamps without timezone offsets.
  */
-export function parseLocalDateInTimezone(
-  localDateStr: string,
-  timezone: string
-): Date {
-  const match = localDateStr.match(
-    /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})(?::(\d{2}))?/
-  );
+export function parseLocalDateInTimezone(localDateStr: string, timezone: string): Date {
+  const match = localDateStr.match(/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})(?::(\d{2}))?/);
   if (!match) {
     return new Date(localDateStr);
   }
 
-  const [, year, month, day, hour, minute, second = "00"] = match;
+  const [, year, month, day, hour, minute, second = '00'] = match;
 
   // Create a reference point at noon UTC on the target date
   const refUtc = new Date(
-    Date.UTC(
-      parseInt(year, 10),
-      parseInt(month, 10) - 1,
-      parseInt(day, 10),
-      12,
-      0,
-      0
-    )
+    Date.UTC(parseInt(year, 10), parseInt(month, 10) - 1, parseInt(day, 10), 12, 0, 0)
   );
 
   // Format this UTC time in the target timezone to see what local time it shows
-  const formatter = new Intl.DateTimeFormat("en-US", {
+  const formatter = new Intl.DateTimeFormat('en-US', {
     timeZone: timezone,
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-    hour: "2-digit",
-    minute: "2-digit",
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
     hour12: false,
   });
 
   const parts = formatter.formatToParts(refUtc);
-  const getPart = (type: string) =>
-    parts.find((p) => p.type === type)?.value || "00";
+  const getPart = (type: string) => parts.find((p) => p.type === type)?.value || '00';
 
-  const localHour = parseInt(getPart("hour"), 10);
+  const localHour = parseInt(getPart('hour'), 10);
   const offsetHours = localHour - 12;
 
   return new Date(
@@ -974,11 +933,12 @@ export function getStartOfTomorrowEastern(): Date {
   const todayStr = getTodayStringEastern(); // "2024-12-19"
 
   // Parse today and add 1 day
-  const [year, month, day] = todayStr.split("-").map(Number);
+  const [year, month, day] = todayStr.split('-').map(Number);
   const tomorrowDate = new Date(year, month - 1, day + 1);
-  const tomorrowStr = `${tomorrowDate.getFullYear()}-${String(
-    tomorrowDate.getMonth() + 1
-  ).padStart(2, "0")}-${String(tomorrowDate.getDate()).padStart(2, "0")}`;
+  const tomorrowStr = `${tomorrowDate.getFullYear()}-${String(tomorrowDate.getMonth() + 1).padStart(
+    2,
+    '0'
+  )}-${String(tomorrowDate.getDate()).padStart(2, '0')}`;
 
   const offset = getEasternOffset(tomorrowStr);
   return new Date(`${tomorrowStr}T00:00:00${offset}`);
@@ -989,9 +949,7 @@ export function getStartOfTomorrowEastern(): Date {
  * @param dateStr - Date string in YYYY-MM-DD format
  * @returns { start: Date, end: Date } representing 00:00:00 to 23:59:59.999 Eastern
  */
-export function getDayBoundariesEastern(
-  dateStr: string
-): { start: Date; end: Date } {
+export function getDayBoundariesEastern(dateStr: string): { start: Date; end: Date } {
   const offset = getEasternOffset(dateStr);
   const start = new Date(`${dateStr}T00:00:00${offset}`);
   const end = new Date(`${dateStr}T23:59:59.999${offset}`);

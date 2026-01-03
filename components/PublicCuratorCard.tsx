@@ -1,5 +1,5 @@
-import Link from "next/link";
-import Image from "next/image";
+import Link from 'next/link';
+import Image from 'next/image';
 
 interface PublicCuratorCardProps {
   slug: string;
@@ -42,22 +42,12 @@ export default function PublicCuratorCard({
           </div>
         )}
         <div className="min-w-0 flex-1">
-          <h3 className="font-semibold text-gray-900 dark:text-white truncate">
-            {displayName}
-          </h3>
-          {title && (
-            <p className="text-xs text-gray-500 dark:text-gray-400">
-              {title}
-            </p>
-          )}
+          <h3 className="font-semibold text-gray-900 dark:text-white truncate">{displayName}</h3>
+          {title && <p className="text-xs text-gray-500 dark:text-gray-400">{title}</p>}
           <p className="text-xs text-gray-500/90 dark:text-gray-400/90 mb-1">
-            {curationCount} curated event{curationCount !== 1 ? "s" : ""}
+            {curationCount} curated event{curationCount !== 1 ? 's' : ''}
           </p>
-          {bio && (
-            <p className="text-sm text-gray-600 dark:text-gray-300 line-clamp-2">
-              {bio}
-            </p>
-          )}
+          {bio && <p className="text-sm text-gray-600 dark:text-gray-300 line-clamp-2">{bio}</p>}
         </div>
       </div>
     </Link>

@@ -1,39 +1,74 @@
-"use client";
+'use client';
 
-import { useState, useMemo, useEffect, useCallback, useRef } from "react";
-import EventCard from "./EventCard";
+import { useState, useMemo, useEffect, useCallback, useRef } from 'react';
+import EventCard from './EventCard';
 import FilterBar, {
-  DateFilterType,
-  PriceFilterType,
-  DateRange,
-  TimeOfDay,
-} from "./FilterBar";
-import ActiveFilters, { ActiveFilter } from "./ActiveFilters";
-import { parse, isValid } from "date-fns";
-import dynamic from "next/dynamic";
-import { EventFeedSkeleton } from "./EventCardSkeleton";
+  type DateFilterType,
+  type PriceFilterType,
+  type DateRange,
+  type TimeOfDay,
+} from './FilterBar';
+import ActiveFilters, { type ActiveFilter } from './ActiveFilters';
+import { parse, isValid } from 'date-fns';
+import dynamic from 'next/dynamic';
+import { EventFeedSkeleton } from './EventCardSkeleton';
 import {
   useEventQuery,
   useInfiniteScrollTrigger,
   type Event as ApiEvent,
   type EventMetadata,
-} from "@/lib/hooks/useEventQuery";
+} from '@/lib/hooks/useEventQuery';
 
 // Lazy load modals to reduce initial JS bundle - they're only needed when opened
-const FilterModal = dynamic(() => import("./FilterModal"), { ssr: false });
-const AIChatModal = dynamic(() => import("./AIChatModal"), { ssr: false });
-const CurateModal = dynamic(() => import("./CurateModal"), { ssr: false });
+const FilterModal = dynamic(() => import('./FilterModal'), { ssr: false });
+const AIChatModal = dynamic(() => import('./AIChatModal'), { ssr: false });
+const CurateModal = dynamic(() => import('./CurateModal'), { ssr: false });
 // SaveFeedModal is not lazy loaded to avoid delay when showSavePrompt is in URL
-import SaveFeedModal from "./SaveFeedModal";
-import { DEFAULT_BLOCKED_KEYWORDS } from "@/lib/config/defaultFilters";
-import { useToast } from "./ui/Toast";
-import { ArrowDownIcon, ArrowUpIcon, Loader2Icon, Sparkles } from "lucide-react";
-import { getZipName } from "@/lib/config/zipNames";
-import { usePreferenceSync } from "@/lib/hooks/usePreferenceSync";
-import { useAuth } from "./AuthProvider";
+import SaveFeedModal from './SaveFeedModal';
+import { DEFAULT_BLOCKED_KEYWORDS } from '@/lib/config/defaultFilters';
+import { useToast } from './ui/Toast';
+import { ArrowDownIcon, ArrowUpIcon, Loader2Icon, Sparkles } from 'lucide-react';
+import { getZipName } from '@/lib/config/zipNames';
+import { usePreferenceSync } from '@/lib/hooks/usePreferenceSync';
+import { useAuth } from './AuthProvider';
 
 // Use the Event type from API, but with Date for startDate (parsed client-side)
-type Event = Omit<ApiEvent, "startDate"> & { startDate: Date };
+type Event = Omit<ApiEvent, 'startDate'> & { startDate: Date };
+
+type ForYouTier = 'great' | 'good' | null;
+type ForYouBucket = 'today' | 'tomorrow' | 'week' | 'later';
+
+interface ForYouScoredEvent {
+  event: ApiEvent;
+  score: number;
+  tier: ForYouTier;
+  explanation?: {
+    primary: { eventId: string; title: string } | null;
+  };
+  bucket: ForYouBucket;
+  matchCount?: number;
+  sources?: Array<{
+    signalEventId: string;
+    signalEventTitle: string;
+    similarity: number;
+  }>;
+}
+
+interface ForYouMeta {
+  signalCount: number;
+  minimumMet: boolean;
+  signalEventsUsed?: number;
+  candidatesFound?: number;
+}
+
+interface ForYouResponse {
+  events?: ForYouScoredEvent[];
+  meta?: ForYouMeta;
+}
+
+interface CurationsResponse {
+  curations?: Array<{ eventId: string }>;
+}
 
 // Initial event type from SSR (database format - may use Date objects or strings after serialization)
 interface InitialEvent {
@@ -63,11 +98,13 @@ interface InitialEvent {
   scoreReason?: string | null;
 }
 
+type DatedInitialEvent = Omit<InitialEvent, 'startDate'> & { startDate: Date };
+
 interface EventFeedProps {
   initialEvents?: InitialEvent[];
   initialTotalCount?: number;
   initialMetadata?: EventMetadata;
-  activeTab?: "all" | "top30" | "forYou";
+  activeTab?: 'all' | 'top30' | 'yourList';
   top30Events?: InitialEvent[];
 }
 
@@ -84,31 +121,29 @@ interface HiddenEventFingerprint {
 }
 
 // Create a fingerprint key string for comparison
-function createFingerprintKey(
-  title: string,
-  organizer: string | null | undefined
-): string {
+function createFingerprintKey(title: string, organizer: string | null | undefined): string {
   const normalizedTitle = title.toLowerCase().trim();
-  const normalizedOrganizer = (organizer || "").toLowerCase().trim();
+  const normalizedOrganizer = (organizer || '').toLowerCase().trim();
   return `${normalizedTitle}|||${normalizedOrganizer}`;
 }
 
 // Score tier for filtering events by quality
-export type ScoreTier = "hidden" | "quality" | "outstanding";
+export type ScoreTier = 'hidden' | 'quality' | 'outstanding';
 
 // Get the score tier for an event based on its score
 function getEventScoreTier(score: number | null | undefined): ScoreTier {
-  if (score === null || score === undefined) return "hidden"; // null excluded from top events
-  if (score <= 12) return "hidden"; // Common: 0-12
-  if (score <= 16) return "quality"; // Quality: 13-16
-  return "outstanding"; // Outstanding: 17+
+  if (score === null || score === undefined) return 'hidden'; // null excluded from top events
+  if (score <= 12) return 'hidden'; // Common: 0-12
+  if (score <= 16) return 'quality'; // Quality: 13-16
+  return 'outstanding'; // Outstanding: 17+
 }
 
 function getStorageItem<T>(key: string, defaultValue: T): T {
-  if (typeof window === "undefined") return defaultValue;
+  if (typeof window === 'undefined') return defaultValue;
   try {
     const item = localStorage.getItem(key);
-    return item ? JSON.parse(item) : defaultValue;
+    if (!item) return defaultValue;
+    return JSON.parse(item) as T;
   } catch {
     return defaultValue;
   }
@@ -117,29 +152,33 @@ function getStorageItem<T>(key: string, defaultValue: T): T {
 // Check if localStorage contains non-default filters that would affect query results
 // This runs synchronously at initialization to detect if we should skip SSR data
 function hasNonDefaultLocalStorageFilters(): boolean {
-  if (typeof window === "undefined") return false;
+  if (typeof window === 'undefined') return false;
 
   try {
-    const dateFilter = getStorageItem("dateFilter", "all");
-    const priceFilter = getStorageItem("priceFilter", "any");
+    const dateFilter = getStorageItem('dateFilter', 'all');
+    const priceFilter = getStorageItem('priceFilter', 'any');
     const tagFilters = getStorageItem<{
       include: string[];
       exclude: string[];
-    } | null>("tagFilters", null);
-    const selectedTags = getStorageItem<string[]>("selectedTags", []); // old format
-    const selectedLocations = getStorageItem<string[]>("selectedLocations", []);
-    const selectedZips = getStorageItem<string[]>("selectedZips", []);
-    const selectedTimes = getStorageItem<TimeOfDay[]>("selectedTimes", []);
-    const selectedDays = getStorageItem<number[]>("selectedDays", []);
+    } | null>('tagFilters', null);
+    const selectedTags = getStorageItem<string[]>('selectedTags', []); // old format
+    const selectedLocations = getStorageItem<string[]>('selectedLocations', []);
+    const selectedZips = getStorageItem<string[]>('selectedZips', []);
+    const selectedTimes = getStorageItem<TimeOfDay[]>('selectedTimes', []);
+    const selectedDays = getStorageItem<number[]>('selectedDays', []);
+    const blockedHosts = getStorageItem<string[]>('blockedHosts', []);
+    const blockedKeywords = getStorageItem<string[]>('blockedKeywords', []);
+    const hiddenEvents = getStorageItem<HiddenEventFingerprint[]>('hiddenEvents', []);
+    const showDailyEvents = getStorageItem<boolean>('showDailyEvents', true);
     const customDateRange = getStorageItem<{
       start: string | null;
       end: string | null;
-    }>("customDateRange", { start: null, end: null });
-    const search = getStorageItem<string>("search", "");
+    }>('customDateRange', { start: null, end: null });
+    const search = getStorageItem<string>('search', '');
 
     return (
-      dateFilter !== "all" ||
-      priceFilter !== "any" ||
+      dateFilter !== 'all' ||
+      priceFilter !== 'any' ||
       (tagFilters?.include?.length ?? 0) > 0 ||
       (tagFilters?.exclude?.length ?? 0) > 0 ||
       selectedTags.length > 0 ||
@@ -147,6 +186,10 @@ function hasNonDefaultLocalStorageFilters(): boolean {
       selectedZips.length > 0 ||
       selectedTimes.length > 0 ||
       selectedDays.length > 0 ||
+      blockedHosts.length > 0 ||
+      blockedKeywords.length > 0 ||
+      hiddenEvents.length > 0 ||
+      showDailyEvents === false ||
       customDateRange.start !== null ||
       search.trim().length > 0
     );
@@ -174,7 +217,7 @@ function getInitialFiltersFromUrl(): {
   filters: UrlFilters;
   hasFilters: boolean;
 } {
-  if (typeof window === "undefined") {
+  if (typeof window === 'undefined') {
     return { filters: {}, hasFilters: false };
   }
 
@@ -182,111 +225,103 @@ function getInitialFiltersFromUrl(): {
 
   // Check if any filter params exist
   const hasFilters =
-    params.has("search") ||
-    params.has("dateFilter") ||
-    params.has("times") ||
-    params.has("priceFilter") ||
-    params.has("tagsInclude") ||
-    params.has("tagsExclude") ||
-    params.has("locations") ||
-    params.has("dateStart");
+    params.has('search') ||
+    params.has('dateFilter') ||
+    params.has('times') ||
+    params.has('priceFilter') ||
+    params.has('tagsInclude') ||
+    params.has('tagsExclude') ||
+    params.has('locations') ||
+    params.has('dateStart');
 
   if (!hasFilters) {
     return { filters: {}, hasFilters: false };
   }
 
   console.log(
-    "[EventFeed] URL filters detected, parsing params:",
+    '[EventFeed] URL filters detected, parsing params:',
     Object.fromEntries(params.entries())
   );
 
   const filters: UrlFilters = {};
 
   // Search
-  if (params.has("search")) {
-    filters.search = params.get("search") || "";
+  if (params.has('search')) {
+    filters.search = params.get('search') || '';
   }
 
   // Date filter
-  if (params.has("dateFilter")) {
-    const df = params.get("dateFilter") as DateFilterType;
-    if (
-      ["all", "today", "tomorrow", "weekend", "dayOfWeek", "custom"].includes(
-        df
-      )
-    ) {
+  if (params.has('dateFilter')) {
+    const df = params.get('dateFilter') as DateFilterType;
+    if (['all', 'today', 'tomorrow', 'weekend', 'dayOfWeek', 'custom'].includes(df)) {
       filters.dateFilter = df;
     }
   }
 
   // Days
-  if (params.has("days")) {
+  if (params.has('days')) {
     const days =
       params
-        .get("days")
-        ?.split(",")
+        .get('days')
+        ?.split(',')
         .map(Number)
         .filter((n) => !isNaN(n) && n >= 0 && n <= 6) || [];
     filters.selectedDays = days;
   }
 
   // Times
-  if (params.has("times")) {
-    const validTimes = ["morning", "afternoon", "evening"] as const;
+  if (params.has('times')) {
+    const validTimes = ['morning', 'afternoon', 'evening'] as const;
     const times =
       params
-        .get("times")
-        ?.split(",")
-        .filter((t): t is TimeOfDay => validTimes.includes(t as TimeOfDay)) ||
-      [];
+        .get('times')
+        ?.split(',')
+        .filter((t): t is TimeOfDay => validTimes.includes(t as TimeOfDay)) || [];
     filters.selectedTimes = times;
   }
 
   // Custom date range
-  if (params.has("dateStart")) {
+  if (params.has('dateStart')) {
     filters.customDateRange = {
-      start: params.get("dateStart"),
-      end: params.get("dateEnd"),
+      start: params.get('dateStart'),
+      end: params.get('dateEnd'),
     };
     // If dateStart is present but dateFilter isn't explicitly set, assume custom
     if (!filters.dateFilter) {
-      filters.dateFilter = "custom";
+      filters.dateFilter = 'custom';
     }
   }
 
   // Price filter
-  if (params.has("priceFilter")) {
-    const pf = params.get("priceFilter") as PriceFilterType;
-    if (["any", "free", "under20", "under100", "custom"].includes(pf)) {
+  if (params.has('priceFilter')) {
+    const pf = params.get('priceFilter') as PriceFilterType;
+    if (['any', 'free', 'under20', 'under100', 'custom'].includes(pf)) {
       filters.priceFilter = pf;
     }
   }
 
   // Custom max price
-  if (params.has("maxPrice")) {
-    const mp = parseInt(params.get("maxPrice") || "", 10);
+  if (params.has('maxPrice')) {
+    const mp = parseInt(params.get('maxPrice') || '', 10);
     if (!isNaN(mp) && mp >= 0) {
       filters.customMaxPrice = mp;
     }
   }
 
   // Tags include/exclude
-  if (params.has("tagsInclude")) {
-    filters.tagsInclude =
-      params.get("tagsInclude")?.split(",").filter(Boolean) || [];
+  if (params.has('tagsInclude')) {
+    filters.tagsInclude = params.get('tagsInclude')?.split(',').filter(Boolean) || [];
   }
-  if (params.has("tagsExclude")) {
-    filters.tagsExclude =
-      params.get("tagsExclude")?.split(",").filter(Boolean) || [];
+  if (params.has('tagsExclude')) {
+    filters.tagsExclude = params.get('tagsExclude')?.split(',').filter(Boolean) || [];
   }
 
   // Locations
-  if (params.has("locations")) {
-    filters.selectedLocations =
-      params.get("locations")?.split(",").filter(Boolean) || [];
+  if (params.has('locations')) {
+    filters.selectedLocations = params.get('locations')?.split(',').filter(Boolean) || [];
   }
 
-  console.log("[EventFeed] Parsed URL filters:", filters);
+  console.log('[EventFeed] Parsed URL filters:', filters);
 
   return { filters, hasFilters: true };
 }
@@ -296,37 +331,37 @@ function getInitialFiltersFromUrl(): {
 function safeParseDateString(dateStr: string | null): Date | undefined {
   if (!dateStr) return undefined;
   try {
-    const parsed = parse(dateStr, "yyyy-MM-dd", new Date());
+    const parsed = parse(dateStr, 'yyyy-MM-dd', new Date());
     return isValid(parsed) ? parsed : undefined;
   } catch {
     return undefined;
   }
 }
 
-const DAY_NAMES = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+const DAY_NAMES = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
 const dateLabels: Record<DateFilterType, string> = {
-  all: "All Dates",
-  today: "Today",
-  tomorrow: "Tomorrow",
-  weekend: "This Weekend",
-  dayOfWeek: "Day of Week",
-  custom: "Custom Dates",
+  all: 'All Dates',
+  today: 'Today',
+  tomorrow: 'Tomorrow',
+  weekend: 'This Weekend',
+  dayOfWeek: 'Day of Week',
+  custom: 'Custom Dates',
 };
 
 const priceLabels: Record<PriceFilterType, string> = {
-  any: "Any Price",
-  free: "Free",
-  under20: "Under $20",
-  under100: "Under $100",
-  custom: "Custom Max",
+  any: 'Any Price',
+  free: 'Free',
+  under20: 'Under $20',
+  under100: 'Under $100',
+  custom: 'Custom Max',
 };
 
 export default function EventFeed({
   initialEvents,
   initialTotalCount,
   initialMetadata,
-  activeTab = "all",
+  activeTab = 'all',
   top30Events: initialTop30Events,
 }: EventFeedProps) {
   const { showToast } = useToast();
@@ -334,15 +369,18 @@ export default function EventFeed({
   const isLoggedIn = !!user;
 
   // For You feed state
-  const [forYouEvents, setForYouEvents] = useState<any[]>([]);
-  const [forYouMeta, setForYouMeta] = useState<{ signalCount: number; minimumMet: boolean } | null>(null);
+  const [forYouEvents, setForYouEvents] = useState<ForYouScoredEvent[]>([]);
+  const [forYouMeta, setForYouMeta] = useState<ForYouMeta | null>(null);
   const [forYouLoading, setForYouLoading] = useState(false);
   // Track events being hidden (for animation)
   const [hidingEventIds, setHidingEventIds] = useState<Set<string>>(new Set());
 
   // Top 30 feed state
-  const [top30SortMode, setTop30SortMode] = useState<"score" | "date">("score");
-  const [forYouSortMode, setForYouSortMode] = useState<"score" | "date">("score");
+  const [top30SortMode, setTop30SortMode] = useState<'score' | 'date'>('score');
+  const [forYouSortMode, setForYouSortMode] = useState<'score' | 'date'>('score');
+
+  // Your List sub-tab state (recommended vs favorites)
+  const [yourListSubTab, setYourListSubTab] = useState<'recommended' | 'favorites'>('recommended');
 
   // Parse URL filters once at initialization (not in useEffect)
   // This ensures filters are correct from the first render
@@ -352,50 +390,45 @@ export default function EventFeed({
 
   // Check if localStorage has non-default filters at initialization
   // This runs synchronously before useEventQuery decides to use SSR data
-  const [hasLocalStorageFilters] = useState(() =>
-    hasNonDefaultLocalStorageFilters()
-  );
+  const [hasLocalStorageFilters] = useState(() => hasNonDefaultLocalStorageFilters());
 
   // Track which events the user has favorited (persisted to localStorage)
   const [favoritedEventIds, setFavoritedEventIds] = useState<string[]>(() =>
-    getStorageItem("favoritedEventIds", [])
+    getStorageItem('favoritedEventIds', [])
   );
+  const [favoriteEventsData, setFavoriteEventsData] = useState<ApiEvent[]>([]);
+  const [favoriteEventsLoading, setFavoriteEventsLoading] = useState(false);
 
-  const [curatedEventIds, setCuratedEventIds] = useState<Set<string>>(
-    new Set()
-  );
+  const [curatedEventIds, setCuratedEventIds] = useState<Set<string>>(new Set());
   const [curateModalOpen, setCurateModalOpen] = useState(false);
-  const [curateModalEventId, setCurateModalEventId] = useState<string | null>(
-    null
-  );
-  const [curateModalEventTitle, setCurateModalEventTitle] = useState("");
+  const [curateModalEventId, setCurateModalEventId] = useState<string | null>(null);
+  const [curateModalEventTitle, setCurateModalEventTitle] = useState('');
 
   // Search (committed value only - FilterBar handles local input state)
   // URL params take priority over localStorage
-  const [search, setSearch] = useState(() => urlFilters.search ?? "");
+  const [search, setSearch] = useState(() => urlFilters.search ?? '');
 
   // Filters - URL params take priority over localStorage for shared links
   const [dateFilter, setDateFilter] = useState<DateFilterType>(
-    () => urlFilters.dateFilter ?? getStorageItem("dateFilter", "all")
+    () => urlFilters.dateFilter ?? getStorageItem('dateFilter', 'all')
   );
   const [customDateRange, setCustomDateRange] = useState<DateRange>(
     () =>
-      urlFilters.customDateRange ??
-      getStorageItem("customDateRange", { start: null, end: null })
+      urlFilters.customDateRange ?? getStorageItem('customDateRange', { start: null, end: null })
   );
   const [selectedDays, setSelectedDays] = useState<number[]>(
-    () => urlFilters.selectedDays ?? getStorageItem("selectedDays", [])
+    () => urlFilters.selectedDays ?? getStorageItem('selectedDays', [])
   );
   const [selectedTimes, setSelectedTimes] = useState<TimeOfDay[]>(
-    () => urlFilters.selectedTimes ?? getStorageItem("selectedTimes", [])
+    () => urlFilters.selectedTimes ?? getStorageItem('selectedTimes', [])
   );
   const [priceFilter, setPriceFilter] = useState<PriceFilterType>(
-    () => urlFilters.priceFilter ?? getStorageItem("priceFilter", "any")
+    () => urlFilters.priceFilter ?? getStorageItem('priceFilter', 'any')
   );
   const [customMaxPrice, setCustomMaxPrice] = useState<number | null>(() =>
     urlFilters.customMaxPrice !== undefined
       ? urlFilters.customMaxPrice
-      : getStorageItem("customMaxPrice", null)
+      : getStorageItem('customMaxPrice', null)
   );
   // Tag filters with include/exclude (with migration from old selectedTags format)
   const [tagFilters, setTagFilters] = useState<TagFilterState>(() => {
@@ -407,57 +440,48 @@ export default function EventFeed({
       };
     }
     // Try new format first
-    const newFormat = getStorageItem<TagFilterState | null>("tagFilters", null);
+    const newFormat = getStorageItem<TagFilterState | null>('tagFilters', null);
     if (newFormat && (newFormat.include || newFormat.exclude)) return newFormat;
 
     // Migrate from old format
-    const oldSelectedTags = getStorageItem<string[]>("selectedTags", []);
+    const oldSelectedTags = getStorageItem<string[]>('selectedTags', []);
     return { include: oldSelectedTags, exclude: [] };
   });
   const [selectedLocations, setSelectedLocations] = useState<string[]>(
-    () =>
-      urlFilters.selectedLocations ?? getStorageItem("selectedLocations", [])
+    () => urlFilters.selectedLocations ?? getStorageItem('selectedLocations', [])
   );
   const [selectedZips, setSelectedZips] = useState<string[]>(() =>
-    getStorageItem("selectedZips", [])
+    getStorageItem('selectedZips', [])
   );
   // Daily events filter - default to showing daily events
   const [showDailyEvents, setShowDailyEvents] = useState<boolean>(() =>
-    getStorageItem("showDailyEvents", true)
+    getStorageItem('showDailyEvents', true)
   );
 
   // Track which date groups show all events (session only)
-  const [expandedDateGroups, setExpandedDateGroups] = useState<Set<string>>(
-    new Set()
-  );
+  const [expandedDateGroups, setExpandedDateGroups] = useState<Set<string>>(new Set());
 
   // Track expanded minimized events (session only - resets on page reload)
-  const [expandedMinimizedIds, setExpandedMinimizedIds] = useState<Set<string>>(
-    new Set()
-  );
+  const [expandedMinimizedIds, setExpandedMinimizedIds] = useState<Set<string>>(new Set());
 
   // Track expanded mobile cards (session only - resets on page reload)
-  const [mobileExpandedIds, setMobileExpandedIds] = useState<Set<string>>(
-    new Set()
-  );
+  const [mobileExpandedIds, setMobileExpandedIds] = useState<Set<string>>(new Set());
 
   // Settings & Modals
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [showSaveModal, setShowSaveModal] = useState(false);
   const [blockedHosts, setBlockedHosts] = useState<string[]>(() =>
-    getStorageItem("blockedHosts", [])
+    getStorageItem('blockedHosts', [])
   );
   const [blockedKeywords, setBlockedKeywords] = useState<string[]>(() =>
-    getStorageItem("blockedKeywords", [])
+    getStorageItem('blockedKeywords', [])
   );
-  const [hiddenEvents, setHiddenEvents] = useState<HiddenEventFingerprint[]>(
-    () => getStorageItem("hiddenEvents", [])
+  const [hiddenEvents, setHiddenEvents] = useState<HiddenEventFingerprint[]>(() =>
+    getStorageItem('hiddenEvents', [])
   );
   // Track events hidden THIS session (not persisted) - these show greyed out instead of being filtered
-  const [sessionHiddenKeys, setSessionHiddenKeys] = useState<Set<string>>(
-    new Set()
-  );
+  const [sessionHiddenKeys, setSessionHiddenKeys] = useState<Set<string>>(new Set());
   const [showAllPreviousEvents, setShowAllPreviousEvents] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
@@ -526,12 +550,9 @@ export default function EventFeed({
       events: initialEvents.map((e) => ({
         ...e,
         // Handle both Date objects and string dates (from SSR serialization)
-        startDate:
-          typeof e.startDate === "string"
-            ? e.startDate
-            : e.startDate.toISOString(),
+        startDate: typeof e.startDate === 'string' ? e.startDate : e.startDate.toISOString(),
         createdAt: e.createdAt
-          ? typeof e.createdAt === "string"
+          ? typeof e.createdAt === 'string'
             ? e.createdAt
             : e.createdAt.toISOString()
           : null,
@@ -565,12 +586,10 @@ export default function EventFeed({
   useEffect(() => {
     if (isLoaded) {
       if (hasUrlFilters) {
-        console.log(
-          "[EventFeed] Fetching fresh data (URL filters present, skipped SSR data)"
-        );
+        console.log('[EventFeed] Fetching fresh data (URL filters present, skipped SSR data)');
       } else if (hasLocalStorageFilters) {
         console.log(
-          "[EventFeed] Fetching fresh data (localStorage filters present, skipped SSR data)"
+          '[EventFeed] Fetching fresh data (localStorage filters present, skipped SSR data)'
         );
       }
     }
@@ -593,7 +612,7 @@ export default function EventFeed({
   const loadMoreRef = useInfiniteScrollTrigger(
     () => {
       if (hasMore && !isFetchingNextPage) {
-        fetchNextPage();
+        void fetchNextPage();
       }
     },
     { enabled: hasMore && !isFetchingNextPage }
@@ -625,6 +644,28 @@ export default function EventFeed({
     return !hasActiveSearch && !hasIncludedTags && !hasLocationFilter;
   }, [search, tagFilters.include, selectedLocations]);
 
+  const favoritedEvents = useMemo(() => {
+    if (favoritedEventIds.length === 0) return [];
+    const favoriteIds = new Set(favoritedEventIds);
+    const seen = new Set<string>();
+    const results: DatedInitialEvent[] = [];
+
+    const addEvent = (event: InitialEvent | ApiEvent) => {
+      if (!favoriteIds.has(event.id) || seen.has(event.id)) return;
+      seen.add(event.id);
+      results.push({
+        ...event,
+        startDate:
+          typeof event.startDate === 'string' ? new Date(event.startDate) : event.startDate,
+      });
+    };
+
+    favoriteEventsData.forEach(addEvent);
+    initialEvents?.forEach(addEvent);
+
+    return results.sort((a, b) => a.startDate.getTime() - b.startDate.getTime());
+  }, [favoritedEventIds, favoriteEventsData, initialEvents]);
+
   // Preference sync with database (for logged-in users)
   // Uses refs to avoid stale closures in callbacks
   const blockedHostsRef = useRef(blockedHosts);
@@ -655,55 +696,115 @@ export default function EventFeed({
     setIsLoaded(true);
   }, []);
 
-  // Fetch For You feed when tab switches to forYou
   useEffect(() => {
-    console.log("[ForYou] useEffect triggered:", { isLoaded, activeTab, isLoggedIn, authLoading });
+    if (!isLoaded) return;
 
-    if (!isLoaded || activeTab !== "forYou" || !isLoggedIn) {
-      console.log("[ForYou] Early return - conditions not met:", { isLoaded, activeTab, isLoggedIn });
+    const uniqueIds = Array.from(new Set(favoritedEventIds)).filter((id) => id.trim().length > 0);
+    if (uniqueIds.length === 0) {
+      setFavoriteEventsData([]);
+      setFavoriteEventsLoading(false);
+      return;
+    }
+
+    const controller = new AbortController();
+    setFavoriteEventsLoading(true);
+
+    void (async () => {
+      try {
+        const response = await fetch('/api/events/favorites', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ ids: uniqueIds.slice(0, 200) }),
+          signal: controller.signal,
+        });
+
+        if (!response.ok) {
+          throw new Error(`Failed to load favorites: ${response.status}`);
+        }
+
+        const data = (await response.json()) as { events?: ApiEvent[] };
+        const events = Array.isArray(data.events) ? data.events : [];
+        setFavoriteEventsData(events);
+      } catch (error) {
+        if ((error as DOMException).name === 'AbortError') return;
+        console.error('[Favorites] Failed to load favorites:', error);
+      } finally {
+        setFavoriteEventsLoading(false);
+      }
+    })();
+
+    return () => {
+      controller.abort();
+    };
+  }, [favoritedEventIds, isLoaded]);
+
+  // Fetch For You feed when tab switches to yourList
+  useEffect(() => {
+    console.log('[YourList] useEffect triggered:', {
+      isLoaded,
+      activeTab,
+      isLoggedIn,
+      authLoading,
+    });
+
+    if (!isLoaded || activeTab !== 'yourList' || !isLoggedIn) {
+      console.log('[YourList] Early return - conditions not met:', {
+        isLoaded,
+        activeTab,
+        isLoggedIn,
+      });
       return;
     }
 
     const fetchForYou = async () => {
-      console.log("[ForYou] Starting fetch...");
+      console.log('[ForYou] Starting fetch...');
       setForYouLoading(true);
       try {
-        const response = await fetch("/api/for-you");
-        console.log("[ForYou] Response status:", response.status);
+        const response = await fetch('/api/for-you');
+        console.log('[ForYou] Response status:', response.status);
         if (!response.ok) {
-          throw new Error("Failed to fetch personalized feed");
+          throw new Error('Failed to fetch personalized feed');
         }
-        const data = await response.json();
-        console.log("[ForYou] Data received:", { eventCount: data.events?.length, meta: data.meta });
-        setForYouEvents(data.events || []);
-        setForYouMeta(data.meta || { signalCount: 0, minimumMet: false });
+        const data = (await response.json()) as ForYouResponse;
+        const events = Array.isArray(data.events) ? data.events : [];
+        const meta = data.meta ?? { signalCount: 0, minimumMet: false };
+        console.log('[ForYou] Data received:', {
+          eventCount: events.length,
+          meta,
+        });
+        setForYouEvents(events);
+        setForYouMeta(meta);
       } catch (error) {
-        console.error("[ForYou] Error fetching:", error);
-        showToast("Failed to load personalized feed", "error");
+        console.error('[ForYou] Error fetching:', error);
+        showToast('Failed to load personalized feed', 'error');
       } finally {
-        console.log("[ForYou] Fetch complete, setting loading to false");
+        console.log('[ForYou] Fetch complete, setting loading to false');
         setForYouLoading(false);
       }
     };
 
-    fetchForYou();
+    void fetchForYou();
   }, [activeTab, isLoaded, isLoggedIn, authLoading, showToast]);
 
   // Fetch curations on mount for logged-in users
   useEffect(() => {
-    if (isLoggedIn) {
-      fetch("/api/curate")
-        .then((res) => res.json())
-        .then((data) => {
-          if (data.curations) {
-            const ids = new Set<string>(
-              data.curations.map((c: { eventId: string }) => c.eventId)
-            );
-            setCuratedEventIds(ids);
-          }
-        })
-        .catch(console.error);
-    }
+    if (!isLoggedIn) return;
+
+    const fetchCurations = async () => {
+      try {
+        const res = await fetch('/api/curate');
+        if (!res.ok) return;
+        const data = (await res.json()) as CurationsResponse;
+        const curations = Array.isArray(data.curations) ? data.curations : [];
+        if (curations.length === 0) return;
+        const ids = new Set<string>(curations.map((c) => c.eventId));
+        setCuratedEventIds(ids);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    void fetchCurations();
   }, [isLoggedIn]);
 
   // Track scroll position for scroll-to-top button
@@ -711,38 +812,32 @@ export default function EventFeed({
     const handleScroll = () => {
       setShowScrollTop(window.scrollY > 400);
     };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const scrollToTop = useCallback(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
 
   // Save filter settings to localStorage
   useEffect(() => {
     if (isLoaded) {
-      localStorage.setItem("search", JSON.stringify(search));
-      localStorage.setItem("dateFilter", JSON.stringify(dateFilter));
-      localStorage.setItem("customDateRange", JSON.stringify(customDateRange));
-      localStorage.setItem("selectedDays", JSON.stringify(selectedDays));
-      localStorage.setItem("selectedTimes", JSON.stringify(selectedTimes));
-      localStorage.setItem("priceFilter", JSON.stringify(priceFilter));
-      localStorage.setItem("customMaxPrice", JSON.stringify(customMaxPrice));
-      localStorage.setItem("tagFilters", JSON.stringify(tagFilters));
-      localStorage.setItem(
-        "selectedLocations",
-        JSON.stringify(selectedLocations)
-      );
-      localStorage.setItem("selectedZips", JSON.stringify(selectedZips));
-      localStorage.setItem("blockedHosts", JSON.stringify(blockedHosts));
-      localStorage.setItem("blockedKeywords", JSON.stringify(blockedKeywords));
-      localStorage.setItem("hiddenEvents", JSON.stringify(hiddenEvents));
-      localStorage.setItem("showDailyEvents", JSON.stringify(showDailyEvents));
-      localStorage.setItem(
-        "favoritedEventIds",
-        JSON.stringify(favoritedEventIds)
-      );
+      localStorage.setItem('search', JSON.stringify(search));
+      localStorage.setItem('dateFilter', JSON.stringify(dateFilter));
+      localStorage.setItem('customDateRange', JSON.stringify(customDateRange));
+      localStorage.setItem('selectedDays', JSON.stringify(selectedDays));
+      localStorage.setItem('selectedTimes', JSON.stringify(selectedTimes));
+      localStorage.setItem('priceFilter', JSON.stringify(priceFilter));
+      localStorage.setItem('customMaxPrice', JSON.stringify(customMaxPrice));
+      localStorage.setItem('tagFilters', JSON.stringify(tagFilters));
+      localStorage.setItem('selectedLocations', JSON.stringify(selectedLocations));
+      localStorage.setItem('selectedZips', JSON.stringify(selectedZips));
+      localStorage.setItem('blockedHosts', JSON.stringify(blockedHosts));
+      localStorage.setItem('blockedKeywords', JSON.stringify(blockedKeywords));
+      localStorage.setItem('hiddenEvents', JSON.stringify(hiddenEvents));
+      localStorage.setItem('showDailyEvents', JSON.stringify(showDailyEvents));
+      localStorage.setItem('favoritedEventIds', JSON.stringify(favoritedEventIds));
     }
   }, [
     dateFilter,
@@ -785,17 +880,17 @@ export default function EventFeed({
     const params = new URLSearchParams(window.location.search);
 
     // Check for save feed prompt (from custom feed builder)
-    if (params.has("showSavePrompt")) {
+    if (params.has('showSavePrompt')) {
       // Only show once per session
-      const hasShownSavePrompt = sessionStorage.getItem("hasShownSavePrompt");
+      const hasShownSavePrompt = sessionStorage.getItem('hasShownSavePrompt');
       if (!hasShownSavePrompt) {
         setShowSaveModal(true);
-        sessionStorage.setItem("hasShownSavePrompt", "true");
+        sessionStorage.setItem('hasShownSavePrompt', 'true');
       }
       // Remove the param from URL without triggering a reload
       const newUrl = new URL(window.location.href);
-      newUrl.searchParams.delete("showSavePrompt");
-      window.history.replaceState({}, "", newUrl.toString());
+      newUrl.searchParams.delete('showSavePrompt');
+      window.history.replaceState({}, '', newUrl.toString());
     }
   }, [isLoaded]); // Only run once after hydration
 
@@ -812,59 +907,59 @@ export default function EventFeed({
     const filters: ActiveFilter[] = [];
 
     if (search) {
-      filters.push({ id: "search", type: "search", label: `"${search}"` });
+      filters.push({ id: 'search', type: 'search', label: `"${search}"` });
     }
-    if (dateFilter !== "all") {
+    if (dateFilter !== 'all') {
       let label = dateLabels[dateFilter];
-      if (dateFilter === "dayOfWeek" && selectedDays.length > 0) {
-        label = selectedDays.map((d) => DAY_NAMES[d]).join(", ");
-      } else if (dateFilter === "custom" && customDateRange.start) {
+      if (dateFilter === 'dayOfWeek' && selectedDays.length > 0) {
+        label = selectedDays.map((d) => DAY_NAMES[d]).join(', ');
+      } else if (dateFilter === 'custom' && customDateRange.start) {
         const startDate = safeParseDateString(customDateRange.start);
         const endDate = safeParseDateString(customDateRange.end);
         if (endDate && customDateRange.end !== customDateRange.start) {
-          label = `${startDate!.toLocaleDateString("en-US", {
-            month: "short",
-            day: "numeric",
-          })} - ${endDate.toLocaleDateString("en-US", {
-            month: "short",
-            day: "numeric",
+          label = `${startDate!.toLocaleDateString('en-US', {
+            month: 'short',
+            day: 'numeric',
+          })} - ${endDate.toLocaleDateString('en-US', {
+            month: 'short',
+            day: 'numeric',
           })}`;
         } else if (startDate) {
-          label = startDate.toLocaleDateString("en-US", {
-            month: "short",
-            day: "numeric",
+          label = startDate.toLocaleDateString('en-US', {
+            month: 'short',
+            day: 'numeric',
           });
         }
       }
-      filters.push({ id: "date", type: "date", label });
+      filters.push({ id: 'date', type: 'date', label });
     }
     if (selectedTimes.length > 0) {
       const timeLabels: Record<TimeOfDay, string> = {
-        morning: "Morning",
-        afternoon: "Afternoon",
-        evening: "Evening",
+        morning: 'Morning',
+        afternoon: 'Afternoon',
+        evening: 'Evening',
       };
-      const label = selectedTimes.map((t) => timeLabels[t]).join(", ");
-      filters.push({ id: "time", type: "time", label });
+      const label = selectedTimes.map((t) => timeLabels[t]).join(', ');
+      filters.push({ id: 'time', type: 'time', label });
     }
-    if (priceFilter !== "any") {
+    if (priceFilter !== 'any') {
       let label = priceLabels[priceFilter];
-      if (priceFilter === "custom" && customMaxPrice !== null) {
+      if (priceFilter === 'custom' && customMaxPrice !== null) {
         label = `Under $${customMaxPrice}`;
       }
-      filters.push({ id: "price", type: "price", label });
+      filters.push({ id: 'price', type: 'price', label });
     }
     tagFilters.include.forEach((tag) => {
       filters.push({
         id: `tag-include-${tag}`,
-        type: "tag-include",
+        type: 'tag-include',
         label: tag,
       });
     });
     tagFilters.exclude.forEach((tag) => {
       filters.push({
         id: `tag-exclude-${tag}`,
-        type: "tag-exclude",
+        type: 'tag-exclude',
         label: tag,
       });
     });
@@ -872,15 +967,15 @@ export default function EventFeed({
     if (!allLocationsSelected) {
       selectedLocations.forEach((loc) => {
         let label = loc;
-        if (loc === "asheville") label = "Asheville area";
-        filters.push({ id: `location-${loc}`, type: "location", label });
+        if (loc === 'asheville') label = 'Asheville area';
+        filters.push({ id: `location-${loc}`, type: 'location', label });
       });
     }
     selectedZips.forEach((zip) => {
       const name = getZipName(zip);
       filters.push({
         id: `zip-${zip}`,
-        type: "zip",
+        type: 'zip',
         label: `${zip} (${name})`,
       });
     });
@@ -902,31 +997,31 @@ export default function EventFeed({
 
   // Handle removing filters
   const handleRemoveFilter = useCallback((id: string) => {
-    if (id === "search") {
-      setSearch("");
-    } else if (id === "date") {
-      setDateFilter("all");
+    if (id === 'search') {
+      setSearch('');
+    } else if (id === 'date') {
+      setDateFilter('all');
       setCustomDateRange({ start: null, end: null });
       setSelectedDays([]);
-    } else if (id === "time") {
+    } else if (id === 'time') {
       setSelectedTimes([]);
-    } else if (id === "price") {
-      setPriceFilter("any");
+    } else if (id === 'price') {
+      setPriceFilter('any');
       setCustomMaxPrice(null);
-    } else if (id.startsWith("location-")) {
-      const loc = id.replace("location-", "");
+    } else if (id.startsWith('location-')) {
+      const loc = id.replace('location-', '');
       setSelectedLocations((prev) => prev.filter((l) => l !== loc));
-    } else if (id.startsWith("zip-")) {
-      const zip = id.replace("zip-", "");
+    } else if (id.startsWith('zip-')) {
+      const zip = id.replace('zip-', '');
       setSelectedZips((prev) => prev.filter((z) => z !== zip));
-    } else if (id.startsWith("tag-include-")) {
-      const tag = id.replace("tag-include-", "");
+    } else if (id.startsWith('tag-include-')) {
+      const tag = id.replace('tag-include-', '');
       setTagFilters((prev) => ({
         ...prev,
         include: prev.include.filter((t) => t !== tag),
       }));
-    } else if (id.startsWith("tag-exclude-")) {
-      const tag = id.replace("tag-exclude-", "");
+    } else if (id.startsWith('tag-exclude-')) {
+      const tag = id.replace('tag-exclude-', '');
       setTagFilters((prev) => ({
         ...prev,
         exclude: prev.exclude.filter((t) => t !== tag),
@@ -936,12 +1031,12 @@ export default function EventFeed({
 
   // Clear all filters
   const handleClearAllFilters = useCallback(() => {
-    setSearch("");
-    setDateFilter("all");
+    setSearch('');
+    setDateFilter('all');
     setCustomDateRange({ start: null, end: null });
     setSelectedDays([]);
     setSelectedTimes([]);
-    setPriceFilter("any");
+    setPriceFilter('any');
     setCustomMaxPrice(null);
     setTagFilters({ include: [], exclude: [] });
     setSelectedLocations([]);
@@ -950,42 +1045,51 @@ export default function EventFeed({
 
   // Helper to capture signal
   const captureSignal = useCallback(
-    async (eventId: string, signalType: 'favorite' | 'calendar' | 'share' | 'viewSource' | 'hide'): Promise<boolean> => {
-      console.log("[Signal] captureSignal called:", { eventId, signalType, isLoggedIn, authLoading, userId: user?.id });
+    async (
+      eventId: string,
+      signalType: 'favorite' | 'calendar' | 'share' | 'viewSource' | 'hide'
+    ): Promise<boolean> => {
+      console.log('[Signal] captureSignal called:', {
+        eventId,
+        signalType,
+        isLoggedIn,
+        authLoading,
+        userId: user?.id,
+      });
 
       // If auth is still loading, wait a moment
       if (authLoading) {
-        console.log("[Signal] Auth still loading, waiting 500ms...");
-        await new Promise(resolve => setTimeout(resolve, 500));
-        console.log("[Signal] Done waiting, isLoggedIn now:", isLoggedIn);
+        console.log('[Signal] Auth still loading, waiting 500ms...');
+        await new Promise((resolve) => setTimeout(resolve, 500));
+        console.log('[Signal] Done waiting, isLoggedIn now:', isLoggedIn);
       }
 
       if (!isLoggedIn) {
-        console.log("[Signal] Skipped - user not logged in (authLoading:", authLoading, ")");
+        console.log('[Signal] Skipped - user not logged in (authLoading:', authLoading, ')');
         return false;
       }
 
-      console.log("[Signal] Making API call to /api/signals...");
+      console.log('[Signal] Making API call to /api/signals...');
       try {
-        const response = await fetch("/api/signals", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
+        const response = await fetch('/api/signals', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ eventId, signalType }),
         });
 
-        console.log("[Signal] API response status:", response.status);
+        console.log('[Signal] API response status:', response.status);
 
         if (!response.ok) {
-          const errorData = await response.json().catch(() => ({}));
-          console.error("[Signal] API error:", response.status, errorData);
+          const errorData: unknown = await response.json().catch(() => ({}));
+          console.error('[Signal] API error:', response.status, errorData);
           return false;
         }
 
-        const data = await response.json();
-        console.log("[Signal] Captured successfully:", signalType, eventId, data);
+        const data: unknown = await response.json();
+        console.log('[Signal] Captured successfully:', signalType, eventId, data);
         return true;
       } catch (error) {
-        console.error("[Signal] Network error:", error);
+        console.error('[Signal] Network error:', error);
         return false;
       }
     },
@@ -995,7 +1099,7 @@ export default function EventFeed({
   // Handler for capturing calendar/share/viewSource signals
   const handleSignalCapture = useCallback(
     (eventId: string, signalType: 'calendar' | 'share' | 'viewSource') => {
-      captureSignal(eventId, signalType);
+      void captureSignal(eventId, signalType);
     },
     [captureSignal]
   );
@@ -1005,23 +1109,21 @@ export default function EventFeed({
     (title: string, organizer: string | null, eventId?: string) => {
       const fingerprint: HiddenEventFingerprint = {
         title: title.toLowerCase().trim(),
-        organizer: (organizer || "").toLowerCase().trim(),
+        organizer: (organizer || '').toLowerCase().trim(),
       };
       const key = createFingerprintKey(title, organizer);
 
       // Capture hide signal if eventId provided
       if (eventId) {
-        captureSignal(eventId, "hide");
+        void captureSignal(eventId, 'hide');
       }
 
-      // If on For You tab and eventId provided, add animation
-      if (activeTab === "forYou" && eventId) {
+      // If on Your List tab and eventId provided, add animation
+      if (activeTab === 'yourList' && eventId) {
         setHidingEventIds((prev) => new Set([...prev, eventId]));
         // Remove from For You feed after animation (300ms)
         setTimeout(() => {
-          setForYouEvents((prev) =>
-            prev.filter((e: any) => e.event.id !== eventId)
-          );
+          setForYouEvents((prev) => prev.filter((e) => e.event.id !== eventId));
           setHidingEventIds((prev) => {
             const next = new Set(prev);
             next.delete(eventId);
@@ -1041,9 +1143,7 @@ export default function EventFeed({
       setHiddenEvents((prev) => {
         // Avoid duplicates
         const exists = prev.some(
-          (fp) =>
-            fp.title === fingerprint.title &&
-            fp.organizer === fingerprint.organizer
+          (fp) => fp.title === fingerprint.title && fp.organizer === fingerprint.organizer
         );
         if (exists) return prev;
         return [...prev, fingerprint];
@@ -1064,12 +1164,12 @@ export default function EventFeed({
   );
 
   // Toggle favorite for an event
-  const handleToggleFavorite = useCallback(
+  const toggleFavorite = useCallback(
     async (eventId: string) => {
       const isFavorited = favoritedEventIds.includes(eventId);
-      const action = isFavorited ? "remove" : "add";
+      const action = isFavorited ? 'remove' : 'add';
 
-      console.log("[Favorite] Toggle:", eventId, "action:", action, "isLoggedIn:", isLoggedIn);
+      console.log('[Favorite] Toggle:', eventId, 'action:', action, 'isLoggedIn:', isLoggedIn);
 
       // Optimistically update local state
       setFavoritedEventIds((prev) =>
@@ -1078,31 +1178,38 @@ export default function EventFeed({
 
       try {
         const response = await fetch(`/api/events/${eventId}/favorite`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ action }),
         });
 
         if (!response.ok) {
-          throw new Error("Failed to update favorite");
+          throw new Error('Failed to update favorite');
         }
 
         // Capture signal for favorites (only when adding, not removing)
         if (!isFavorited) {
           // Await to ensure signal is captured before function returns
-          await captureSignal(eventId, "favorite");
+          await captureSignal(eventId, 'favorite');
         } else {
-          console.log("[Favorite] Unfavorite - no signal captured (expected)");
+          console.log('[Favorite] Unfavorite - no signal captured (expected)');
         }
       } catch (error) {
         // Revert optimistic update on error
         setFavoritedEventIds((prev) =>
           isFavorited ? [...prev, eventId] : prev.filter((id) => id !== eventId)
         );
-        console.error("[Favorite] Failed to toggle:", error);
+        console.error('[Favorite] Failed to toggle:', error);
       }
     },
     [favoritedEventIds, captureSignal, isLoggedIn]
+  );
+
+  const handleToggleFavorite = useCallback(
+    (eventId: string) => {
+      void toggleFavorite(eventId);
+    },
+    [toggleFavorite]
   );
 
   const handleOpenCurateModal = (eventId: string) => {
@@ -1114,24 +1221,33 @@ export default function EventFeed({
     }
   };
 
-  const handleCurate = async (note?: string) => {
-    if (!curateModalEventId) return;
+  const curateEvent = useCallback(
+    async (note?: string) => {
+      if (!curateModalEventId) return;
 
-    // Optimistic update
-    setCuratedEventIds((prev) => new Set([...prev, curateModalEventId]));
+      // Optimistic update
+      setCuratedEventIds((prev) => new Set([...prev, curateModalEventId]));
 
-    try {
-      const res = await fetch("/api/curate", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          eventId: curateModalEventId,
-          action: "add",
-          note,
-        }),
-      });
+      try {
+        const res = await fetch('/api/curate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            eventId: curateModalEventId,
+            action: 'add',
+            note,
+          }),
+        });
 
-      if (!res.ok) {
+        if (!res.ok) {
+          // Revert on error
+          setCuratedEventIds((prev) => {
+            const next = new Set(prev);
+            next.delete(curateModalEventId);
+            return next;
+          });
+        }
+      } catch {
         // Revert on error
         setCuratedEventIds((prev) => {
           const next = new Set(prev);
@@ -1139,20 +1255,21 @@ export default function EventFeed({
           return next;
         });
       }
-    } catch {
-      // Revert on error
-      setCuratedEventIds((prev) => {
-        const next = new Set(prev);
-        next.delete(curateModalEventId);
-        return next;
-      });
-    }
 
-    setCurateModalOpen(false);
-    setCurateModalEventId(null);
-  };
+      setCurateModalOpen(false);
+      setCurateModalEventId(null);
+    },
+    [curateModalEventId]
+  );
 
-  const handleUncurate = async (eventId: string) => {
+  const handleCurate = useCallback(
+    (note?: string) => {
+      void curateEvent(note);
+    },
+    [curateEvent]
+  );
+
+  const uncurateEvent = useCallback(async (eventId: string) => {
     // Optimistic update
     setCuratedEventIds((prev) => {
       const next = new Set(prev);
@@ -1161,10 +1278,10 @@ export default function EventFeed({
     });
 
     try {
-      const res = await fetch("/api/curate", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ eventId, action: "remove" }),
+      const res = await fetch('/api/curate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ eventId, action: 'remove' }),
       });
 
       if (!res.ok) {
@@ -1175,45 +1292,48 @@ export default function EventFeed({
       // Revert on error
       setCuratedEventIds((prev) => new Set([...prev, eventId]));
     }
-  };
+  }, []);
+
+  const handleUncurate = useCallback(
+    (eventId: string) => {
+      void uncurateEvent(eventId);
+    },
+    [uncurateEvent]
+  );
 
   // Build export URL with current filters (includes personal filters for XML/Markdown export)
   const exportParams = useMemo(() => {
     const params = new URLSearchParams();
 
-    if (search) params.set("search", search);
-    if (dateFilter !== "all") params.set("dateFilter", dateFilter);
-    if (dateFilter === "dayOfWeek" && selectedDays.length > 0) {
-      params.set("days", selectedDays.join(","));
+    if (search) params.set('search', search);
+    if (dateFilter !== 'all') params.set('dateFilter', dateFilter);
+    if (dateFilter === 'dayOfWeek' && selectedDays.length > 0) {
+      params.set('days', selectedDays.join(','));
     }
     if (selectedTimes.length > 0) {
-      params.set("times", selectedTimes.join(","));
+      params.set('times', selectedTimes.join(','));
     }
-    if (dateFilter === "custom" && customDateRange.start) {
-      params.set("dateStart", customDateRange.start);
-      if (customDateRange.end) params.set("dateEnd", customDateRange.end);
+    if (dateFilter === 'custom' && customDateRange.start) {
+      params.set('dateStart', customDateRange.start);
+      if (customDateRange.end) params.set('dateEnd', customDateRange.end);
     }
-    if (priceFilter !== "any") params.set("priceFilter", priceFilter);
-    if (priceFilter === "custom" && customMaxPrice !== null) {
-      params.set("maxPrice", customMaxPrice.toString());
+    if (priceFilter !== 'any') params.set('priceFilter', priceFilter);
+    if (priceFilter === 'custom' && customMaxPrice !== null) {
+      params.set('maxPrice', customMaxPrice.toString());
     }
-    if (tagFilters.include.length > 0)
-      params.set("tagsInclude", tagFilters.include.join(","));
-    if (tagFilters.exclude.length > 0)
-      params.set("tagsExclude", tagFilters.exclude.join(","));
+    if (tagFilters.include.length > 0) params.set('tagsInclude', tagFilters.include.join(','));
+    if (tagFilters.exclude.length > 0) params.set('tagsExclude', tagFilters.exclude.join(','));
 
     // Client-side filters that need to be passed to export
-    if (blockedHosts.length > 0)
-      params.set("blockedHosts", blockedHosts.join(","));
-    if (blockedKeywords.length > 0)
-      params.set("blockedKeywords", blockedKeywords.join(","));
-    if (hiddenEvents.length > 0)
-      params.set("hiddenEvents", JSON.stringify(hiddenEvents));
-    if (selectedLocations.length > 0)
-      params.set("locations", selectedLocations.join(","));
+    if (blockedHosts.length > 0) params.set('blockedHosts', blockedHosts.join(','));
+    if (blockedKeywords.length > 0) params.set('blockedKeywords', blockedKeywords.join(','));
+    if (hiddenEvents.length > 0) params.set('hiddenEvents', JSON.stringify(hiddenEvents));
+    if (selectedLocations.length > 0) params.set('locations', selectedLocations.join(','));
+    if (selectedZips.length > 0) params.set('zips', selectedZips.join(','));
+    if (!showDailyEvents) params.set('showDailyEvents', 'false');
 
     const queryString = params.toString();
-    return queryString ? `?${queryString}` : "";
+    return queryString ? `?${queryString}` : '';
   }, [
     search,
     dateFilter,
@@ -1227,37 +1347,38 @@ export default function EventFeed({
     blockedKeywords,
     hiddenEvents,
     selectedLocations,
+    selectedZips,
+    showDailyEvents,
   ]);
 
   // Build shareable URL with only public filters (excludes personal blockedHosts/blockedKeywords/hiddenEvents)
   const shareParams = useMemo(() => {
     const params = new URLSearchParams();
 
-    if (search) params.set("search", search);
-    if (dateFilter !== "all") params.set("dateFilter", dateFilter);
-    if (dateFilter === "dayOfWeek" && selectedDays.length > 0) {
-      params.set("days", selectedDays.join(","));
+    if (search) params.set('search', search);
+    if (dateFilter !== 'all') params.set('dateFilter', dateFilter);
+    if (dateFilter === 'dayOfWeek' && selectedDays.length > 0) {
+      params.set('days', selectedDays.join(','));
     }
     if (selectedTimes.length > 0) {
-      params.set("times", selectedTimes.join(","));
+      params.set('times', selectedTimes.join(','));
     }
-    if (dateFilter === "custom" && customDateRange.start) {
-      params.set("dateStart", customDateRange.start);
-      if (customDateRange.end) params.set("dateEnd", customDateRange.end);
+    if (dateFilter === 'custom' && customDateRange.start) {
+      params.set('dateStart', customDateRange.start);
+      if (customDateRange.end) params.set('dateEnd', customDateRange.end);
     }
-    if (priceFilter !== "any") params.set("priceFilter", priceFilter);
-    if (priceFilter === "custom" && customMaxPrice !== null) {
-      params.set("maxPrice", customMaxPrice.toString());
+    if (priceFilter !== 'any') params.set('priceFilter', priceFilter);
+    if (priceFilter === 'custom' && customMaxPrice !== null) {
+      params.set('maxPrice', customMaxPrice.toString());
     }
-    if (tagFilters.include.length > 0)
-      params.set("tagsInclude", tagFilters.include.join(","));
-    if (tagFilters.exclude.length > 0)
-      params.set("tagsExclude", tagFilters.exclude.join(","));
-    if (selectedLocations.length > 0)
-      params.set("locations", selectedLocations.join(","));
+    if (tagFilters.include.length > 0) params.set('tagsInclude', tagFilters.include.join(','));
+    if (tagFilters.exclude.length > 0) params.set('tagsExclude', tagFilters.exclude.join(','));
+    if (selectedLocations.length > 0) params.set('locations', selectedLocations.join(','));
+    if (selectedZips.length > 0) params.set('zips', selectedZips.join(','));
+    if (!showDailyEvents) params.set('showDailyEvents', 'false');
 
     const queryString = params.toString();
-    return queryString ? `?${queryString}` : "";
+    return queryString ? `?${queryString}` : '';
   }, [
     search,
     dateFilter,
@@ -1268,6 +1389,8 @@ export default function EventFeed({
     customMaxPrice,
     tagFilters,
     selectedLocations,
+    selectedZips,
+    showDailyEvents,
   ]);
 
   // Sync URL with current filter state (enables sharing via address bar)
@@ -1278,7 +1401,7 @@ export default function EventFeed({
 
     // Only update if URL actually changed
     if (window.location.pathname + window.location.search !== newUrl) {
-      window.history.replaceState(null, "", newUrl);
+      window.history.replaceState(null, '', newUrl);
     }
   }, [shareParams, isLoaded]);
 
@@ -1305,7 +1428,7 @@ export default function EventFeed({
         exportParams={exportParams}
         shareParams={shareParams}
         onOpenChat={() => setIsChatOpen(true)}
-        simplified={activeTab === "top30"}
+        simplified={activeTab === 'top30'}
       />
 
       <ActiveFilters
@@ -1321,61 +1444,365 @@ export default function EventFeed({
         <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg border border-gray-200 dark:border-gray-700">
           <div className="flex items-center gap-2">
             <div className="w-4 h-4 border-2 border-brand-500 border-t-transparent rounded-full animate-spin" />
-            <span className="text-sm text-gray-600 dark:text-gray-300">
-              Filtering...
-            </span>
+            <span className="text-sm text-gray-600 dark:text-gray-300">Filtering...</span>
           </div>
         </div>
       )}
 
-      {/* For You Feed */}
-      {activeTab === "forYou" && (
+      {/* Your List Feed */}
+      {activeTab === 'yourList' && (
         <>
-          {/* Sign-in Prompt for Anonymous Users */}
+          {/* Sign-in Prompt + Favorites for Anonymous Users */}
           {!isLoggedIn && (
-            <div className="text-center py-20 px-4">
-              <Sparkles size={48} className="mx-auto text-brand-500 mb-4" />
-              <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-2">
-                Get personalized recommendations
-              </h3>
-              <p className="text-sm text-gray-500 dark:text-gray-400 max-w-md mx-auto mb-6">
-                Sign in to build a feed tailored to your interests. Like events you love, and we'll show you more like them.
-              </p>
-              <a
-                href="/login"
-                className="inline-flex items-center gap-2 px-6 py-2.5 bg-brand-600 hover:bg-brand-700 text-white font-medium rounded-lg transition-colors"
-              >
-                Sign in to get started
-              </a>
-            </div>
-          )}
-
-          {/* Onboarding Banner */}
-          {isLoggedIn && forYouMeta && !forYouMeta.minimumMet && forYouMeta.signalCount > 0 && (
-            <div className="mb-4 px-3 sm:px-0">
-              <div className="bg-brand-50 dark:bg-brand-950/50 border border-brand-200 dark:border-brand-800 rounded-lg px-4 py-3 flex items-center gap-3">
-                <Sparkles size={18} className="text-brand-600 dark:text-brand-400 shrink-0" />
-                <p className="text-sm text-brand-700 dark:text-brand-300">
-                  <strong>{forYouMeta.signalCount}/5 events liked</strong> — keep going to improve your recommendations!
+            <>
+              <div className="text-center py-12 px-4">
+                <Sparkles size={48} className="mx-auto text-brand-500 mb-4" />
+                <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-2">
+                  Get personalized recommendations
+                </h3>
+                <p className="text-sm text-gray-500 dark:text-gray-400 max-w-md mx-auto mb-6">
+                  Sign in to build a feed tailored to your interests. Like events you love, and
+                  we&apos;ll show you more like them.
                 </p>
+                <a
+                  href="/login"
+                  className="inline-flex items-center gap-2 px-6 py-2.5 bg-brand-600 hover:bg-brand-700 text-white font-medium rounded-lg transition-colors"
+                >
+                  Sign in to get started
+                </a>
               </div>
+
+              {/* Your Favorites Section (below CTA) */}
+              {favoritedEventIds.length > 0 && (
+                <div className="mt-4">
+                  <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-4 px-3 sm:px-0">
+                    Your Favorites (
+                    {favoritedEvents.length > 0 ? favoritedEvents.length : favoritedEventIds.length}
+                    )
+                  </h2>
+                  {favoriteEventsLoading && favoritedEvents.length === 0 ? (
+                    <div className="flex items-center justify-center py-10 text-sm text-gray-500 dark:text-gray-400">
+                      Loading your favorites...
+                    </div>
+                  ) : (
+                    <div className="flex flex-col bg-white dark:bg-gray-900 sm:rounded-lg sm:shadow-sm sm:border sm:border-gray-200 dark:sm:border-gray-700">
+                      {favoritedEvents.map((event) => (
+                        <EventCard
+                          key={event.id}
+                          event={{
+                            ...event,
+                            sourceId: event.sourceId,
+                            location: event.location ?? null,
+                            organizer: event.organizer ?? null,
+                            price: event.price ?? null,
+                            imageUrl: event.imageUrl ?? null,
+                            timeUnknown: event.timeUnknown ?? false,
+                            recurringType: event.recurringType ?? null,
+                          }}
+                          onHide={handleHideEvent}
+                          onBlockHost={handleBlockHost}
+                          onSignalCapture={handleSignalCapture}
+                          isNewlyHidden={false}
+                          hideBorder
+                          isFavorited={true}
+                          favoriteCount={event.favoriteCount ?? 0}
+                          onToggleFavorite={handleToggleFavorite}
+                          isTagFilterActive={false}
+                          isCurated={curatedEventIds.has(event.id)}
+                          onCurate={handleOpenCurateModal}
+                          onUncurate={handleUncurate}
+                          isLoggedIn={isLoggedIn}
+                          displayMode="full"
+                          isHiding={hidingEventIds.has(event.id)}
+                          isMobileExpanded={mobileExpandedIds.has(event.id)}
+                          onMobileExpand={(id) =>
+                            setMobileExpandedIds((prev) => {
+                              const next = new Set(prev);
+                              if (next.has(id)) {
+                                next.delete(id);
+                              } else {
+                                next.add(id);
+                              }
+                              return next;
+                            })
+                          }
+                        />
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )}
+            </>
+          )}
+
+          {/* Sub-Tab Switcher for Logged-In Users */}
+          {isLoggedIn && !forYouLoading && (
+            <div className="flex items-center gap-1 mb-4 px-3 sm:px-0">
+              <button
+                onClick={() => setYourListSubTab('recommended')}
+                className={`px-3 py-1.5 text-sm font-medium rounded-md transition-colors cursor-pointer ${
+                  yourListSubTab === 'recommended'
+                    ? 'bg-brand-100 dark:bg-brand-900/50 text-brand-700 dark:text-brand-300'
+                    : 'text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800'
+                }`}
+              >
+                Recommended
+              </button>
+              <span className="text-gray-300 dark:text-gray-600">|</span>
+              <button
+                onClick={() => setYourListSubTab('favorites')}
+                className={`px-3 py-1.5 text-sm font-medium rounded-md transition-colors cursor-pointer ${
+                  yourListSubTab === 'favorites'
+                    ? 'bg-brand-100 dark:bg-brand-900/50 text-brand-700 dark:text-brand-300'
+                    : 'text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800'
+                }`}
+              >
+                Your Favorites
+                {favoritedEventIds.length > 0 && (
+                  <span className="ml-1.5 text-xs text-gray-500 dark:text-gray-400">
+                    ({favoritedEventIds.length})
+                  </span>
+                )}
+              </button>
             </div>
           )}
 
-          {/* Empty State */}
-          {isLoggedIn && forYouMeta && forYouMeta.signalCount === 0 && forYouEvents.length === 0 && !forYouLoading && (
-            <div className="text-center py-20 px-4">
-              <Sparkles size={48} className="mx-auto text-gray-400 dark:text-gray-500 mb-4" />
-              <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                Build your personalized feed
-              </h3>
-              <p className="text-sm text-gray-500 dark:text-gray-400 max-w-md mx-auto">
-                Search and favorite events you're interested in to build your custom feed
-              </p>
-            </div>
+          {/* Recommended Tab Content */}
+          {isLoggedIn && yourListSubTab === 'recommended' && (
+            <>
+              {/* Onboarding Banner */}
+              {forYouMeta && !forYouMeta.minimumMet && forYouMeta.signalCount > 0 && (
+                <div className="mb-4 px-3 sm:px-0">
+                  <div className="bg-brand-50 dark:bg-brand-950/50 border border-brand-200 dark:border-brand-800 rounded-lg px-4 py-3 flex items-center gap-3">
+                    <Sparkles size={18} className="text-brand-600 dark:text-brand-400 shrink-0" />
+                    <p className="text-sm text-brand-700 dark:text-brand-300">
+                      <strong>{forYouMeta.signalCount}/5 events liked</strong> — keep going to
+                      improve your recommendations!
+                    </p>
+                  </div>
+                </div>
+              )}
+
+              {/* Empty State */}
+              {forYouMeta &&
+                forYouMeta.signalCount === 0 &&
+                forYouEvents.length === 0 &&
+                !forYouLoading && (
+                  <div className="text-center py-20 px-4">
+                    <Sparkles size={48} className="mx-auto text-gray-400 dark:text-gray-500 mb-4" />
+                    <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                      Build your personalized feed
+                    </h3>
+                    <p className="text-sm text-gray-500 dark:text-gray-400 max-w-md mx-auto">
+                      Search and favorite events you&apos;re interested in to build your custom feed
+                    </p>
+                  </div>
+                )}
+
+              {/* Sort Mode Toggle */}
+              {!forYouLoading && forYouEvents.length > 0 && (
+                <div className="flex items-center justify-between mb-4 px-3 sm:px-0">
+                  <div className="flex items-center gap-2 bg-gray-100 dark:bg-gray-800 rounded-lg p-1">
+                    <button
+                      onClick={() => setForYouSortMode('score')}
+                      className={`px-3 py-1.5 text-sm font-medium rounded-md transition-colors cursor-pointer ${
+                        forYouSortMode === 'score'
+                          ? 'bg-white dark:bg-gray-700 text-brand-600 dark:text-brand-400 shadow-sm'
+                          : 'text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200'
+                      }`}
+                    >
+                      By Score
+                    </button>
+                    <button
+                      onClick={() => setForYouSortMode('date')}
+                      className={`px-3 py-1.5 text-sm font-medium rounded-md transition-colors cursor-pointer ${
+                        forYouSortMode === 'date'
+                          ? 'bg-white dark:bg-gray-700 text-brand-600 dark:text-brand-400 shadow-sm'
+                          : 'text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200'
+                      }`}
+                    >
+                      By Date
+                    </button>
+                  </div>
+                  <a
+                    href="/profile/taste"
+                    className="text-sm text-gray-500 dark:text-gray-400 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+                  >
+                    Edit taste profile →
+                  </a>
+                </div>
+              )}
+
+              {/* Score-ranked view */}
+              {!forYouLoading && forYouEvents.length > 0 && forYouSortMode === 'score' && (
+                <div className="flex flex-col bg-white dark:bg-gray-900 sm:rounded-lg sm:shadow-sm sm:border sm:border-gray-200 dark:sm:border-gray-700 ">
+                  {[...forYouEvents]
+                    .sort((a, b) => b.score - a.score)
+                    .map((scoredEvent, index) => {
+                      const event: Event = {
+                        ...scoredEvent.event,
+                        startDate: new Date(scoredEvent.event.startDate),
+                      };
+                      return (
+                        <EventCard
+                          key={event.id}
+                          event={{
+                            ...event,
+                            sourceId: event.sourceId,
+                            location: event.location ?? null,
+                            organizer: event.organizer ?? null,
+                            price: event.price ?? null,
+                            imageUrl: event.imageUrl ?? null,
+                            timeUnknown: event.timeUnknown ?? false,
+                            recurringType: event.recurringType ?? null,
+                          }}
+                          onHide={handleHideEvent}
+                          onBlockHost={handleBlockHost}
+                          onSignalCapture={handleSignalCapture}
+                          isNewlyHidden={false}
+                          hideBorder
+                          isFavorited={favoritedEventIds.includes(event.id)}
+                          favoriteCount={event.favoriteCount ?? 0}
+                          onToggleFavorite={handleToggleFavorite}
+                          isTagFilterActive={false}
+                          isCurated={curatedEventIds.has(event.id)}
+                          onCurate={handleOpenCurateModal}
+                          onUncurate={handleUncurate}
+                          isLoggedIn={isLoggedIn}
+                          displayMode="full"
+                          isHiding={hidingEventIds.has(event.id)}
+                          isGreatMatch={scoredEvent.tier === 'great'}
+                          ranking={index + 1}
+                          isMobileExpanded={mobileExpandedIds.has(event.id)}
+                          onMobileExpand={(id) =>
+                            setMobileExpandedIds((prev) => {
+                              const next = new Set(prev);
+                              if (next.has(id)) {
+                                next.delete(id);
+                              } else {
+                                next.add(id);
+                              }
+                              return next;
+                            })
+                          }
+                        />
+                      );
+                    })}
+                </div>
+              )}
+
+              {/* Date-grouped view */}
+              {!forYouLoading && forYouEvents.length > 0 && forYouSortMode === 'date' && (
+                <div className="flex flex-col gap-10 mt-3">
+                  {Object.entries(
+                    forYouEvents.reduce(
+                      (
+                        groups: Record<string, { date: Date; events: ForYouScoredEvent[] }>,
+                        scoredEvent
+                      ) => {
+                        const date = new Date(scoredEvent.event.startDate);
+                        const dateKey = date.toLocaleDateString('en-US', {
+                          weekday: 'short',
+                          month: 'short',
+                          day: 'numeric',
+                          year: 'numeric',
+                        });
+                        if (!groups[dateKey]) {
+                          groups[dateKey] = { date: date, events: [] };
+                        }
+                        groups[dateKey].events.push(scoredEvent);
+                        return groups;
+                      },
+                      {} as Record<string, { date: Date; events: ForYouScoredEvent[] }>
+                    )
+                  )
+                    .sort(([, a], [, b]) => a.date.getTime() - b.date.getTime())
+                    .map(([dateKey, { date, events: groupEvents }]) => {
+                      const today = new Date();
+                      const tomorrow = new Date(today);
+                      tomorrow.setDate(tomorrow.getDate() + 1);
+
+                      let headerText = dateKey;
+                      if (date.toDateString() === today.toDateString()) {
+                        headerText = `Today, ${date.toLocaleDateString('en-US', {
+                          month: 'short',
+                          day: 'numeric',
+                        })}`;
+                      } else if (date.toDateString() === tomorrow.toDateString()) {
+                        headerText = `Tomorrow, ${date.toLocaleDateString('en-US', {
+                          month: 'short',
+                          day: 'numeric',
+                        })}`;
+                      }
+
+                      // Sort by score within each day
+                      const sortedGroupEvents = [...groupEvents].sort((a, b) => b.score - a.score);
+
+                      return (
+                        <div key={dateKey} className="flex flex-col">
+                          <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100 sticky top-0 bg-white dark:bg-gray-900 sm:border sm:border-b-0 sm:border-gray-200 dark:sm:border-gray-700 sm:rounded-t-lg pt-3 pb-2 px-3 sm:px-4 z-10">
+                            {headerText}
+                          </h2>
+                          <div className="flex flex-col bg-white dark:bg-gray-900 sm:rounded-b-lg sm:shadow-sm sm:border sm:border-gray-200 dark:sm:border-gray-700 ">
+                            {sortedGroupEvents.map((scoredEvent) => {
+                              const event: Event = {
+                                ...scoredEvent.event,
+                                startDate: new Date(scoredEvent.event.startDate),
+                              };
+                              return (
+                                <EventCard
+                                  key={event.id}
+                                  event={{
+                                    ...event,
+                                    sourceId: event.sourceId,
+                                    location: event.location ?? null,
+                                    organizer: event.organizer ?? null,
+                                    price: event.price ?? null,
+                                    imageUrl: event.imageUrl ?? null,
+                                    timeUnknown: event.timeUnknown ?? false,
+                                    recurringType: event.recurringType ?? null,
+                                  }}
+                                  onHide={handleHideEvent}
+                                  onBlockHost={handleBlockHost}
+                                  onSignalCapture={handleSignalCapture}
+                                  isNewlyHidden={false}
+                                  hideBorder
+                                  isFavorited={favoritedEventIds.includes(event.id)}
+                                  favoriteCount={event.favoriteCount ?? 0}
+                                  onToggleFavorite={handleToggleFavorite}
+                                  isTagFilterActive={false}
+                                  isCurated={curatedEventIds.has(event.id)}
+                                  onCurate={handleOpenCurateModal}
+                                  onUncurate={handleUncurate}
+                                  isLoggedIn={isLoggedIn}
+                                  displayMode="full"
+                                  isHiding={hidingEventIds.has(event.id)}
+                                  isGreatMatch={scoredEvent.tier === 'great'}
+                                  isMobileExpanded={mobileExpandedIds.has(event.id)}
+                                  onMobileExpand={(id) =>
+                                    setMobileExpandedIds((prev) => {
+                                      const next = new Set(prev);
+                                      if (next.has(id)) {
+                                        next.delete(id);
+                                      } else {
+                                        next.add(id);
+                                      }
+                                      return next;
+                                    })
+                                  }
+                                />
+                              );
+                            })}
+                          </div>
+                        </div>
+                      );
+                    })}
+                </div>
+              )}
+            </>
           )}
 
-          {/* Loading State */}
+          {/* Loading State (applies to both sub-tabs) */}
           {isLoggedIn && forYouLoading && (
             <div className="text-center py-20">
               <div className="inline-block w-8 h-8 border-4 border-brand-500 border-t-transparent rounded-full animate-spin mb-4" />
@@ -1385,223 +1812,121 @@ export default function EventFeed({
             </div>
           )}
 
-          {/* Sort Mode Toggle */}
-          {isLoggedIn && !forYouLoading && forYouEvents.length > 0 && (
-            <div className="flex items-center justify-between mb-4 px-3 sm:px-0">
-              <div className="flex items-center gap-2 bg-gray-100 dark:bg-gray-800 rounded-lg p-1">
-                <button
-                  onClick={() => setForYouSortMode("score")}
-                  className={`px-3 py-1.5 text-sm font-medium rounded-md transition-colors cursor-pointer ${
-                    forYouSortMode === "score"
-                      ? "bg-white dark:bg-gray-700 text-brand-600 dark:text-brand-400 shadow-sm"
-                      : "text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200"
-                  }`}
-                >
-                  By Score
-                </button>
-                <button
-                  onClick={() => setForYouSortMode("date")}
-                  className={`px-3 py-1.5 text-sm font-medium rounded-md transition-colors cursor-pointer ${
-                    forYouSortMode === "date"
-                      ? "bg-white dark:bg-gray-700 text-brand-600 dark:text-brand-400 shadow-sm"
-                      : "text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200"
-                  }`}
-                >
-                  By Date
-                </button>
-              </div>
-              <a
-                href="/profile/taste"
-                className="text-sm text-gray-500 dark:text-gray-400 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
-              >
-                Edit taste profile →
-              </a>
-            </div>
-          )}
+          {/* Your Favorites Tab Content */}
+          {isLoggedIn && yourListSubTab === 'favorites' && (
+            <>
+              {/* Loading state */}
+              {favoriteEventsLoading && favoritedEventIds.length > 0 && (
+                <div className="text-center py-20 px-4 text-sm text-gray-500 dark:text-gray-400">
+                  Loading your favorites...
+                </div>
+              )}
 
-          {/* Score-ranked view */}
-          {isLoggedIn && !forYouLoading && forYouEvents.length > 0 && forYouSortMode === "score" && (
-            <div className="flex flex-col bg-white dark:bg-gray-900 sm:rounded-lg sm:shadow-sm sm:border sm:border-gray-200 dark:sm:border-gray-700 ">
-              {[...forYouEvents]
-                .sort((a: any, b: any) => b.score - a.score)
-                .map((scoredEvent: any, index: number) => {
-                const event = {
-                  ...scoredEvent.event,
-                  startDate: new Date(scoredEvent.event.startDate),
-                };
-                return (
-                  <EventCard
-                    key={event.id}
-                    event={{
-                      ...event,
-                      sourceId: event.sourceId,
-                      location: event.location ?? null,
-                      organizer: event.organizer ?? null,
-                      price: event.price ?? null,
-                      imageUrl: event.imageUrl ?? null,
-                      timeUnknown: event.timeUnknown ?? false,
-                      recurringType: event.recurringType ?? null,
-                    }}
-                    onHide={handleHideEvent}
-                    onBlockHost={handleBlockHost}
-                    onSignalCapture={handleSignalCapture}
-                    isNewlyHidden={false}
-                    hideBorder
-                    isFavorited={favoritedEventIds.includes(event.id)}
-                    favoriteCount={event.favoriteCount ?? 0}
-                    onToggleFavorite={handleToggleFavorite}
-                    isTagFilterActive={false}
-                    isCurated={curatedEventIds.has(event.id)}
-                    onCurate={handleOpenCurateModal}
-                    onUncurate={handleUncurate}
-                    isLoggedIn={isLoggedIn}
-                    displayMode="full"
-                    isHiding={hidingEventIds.has(event.id)}
-                    isGreatMatch={scoredEvent.tier === 'great'}
-                    ranking={index + 1}
-                    isMobileExpanded={mobileExpandedIds.has(event.id)}
-                    onMobileExpand={(id) => setMobileExpandedIds((prev) => {
-                      const next = new Set(prev);
-                      if (next.has(id)) {
-                        next.delete(id);
-                      } else {
-                        next.add(id);
+              {/* Empty state for no favorites */}
+              {!favoriteEventsLoading && favoritedEvents.length === 0 && (
+                <div className="text-center py-20 px-4">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="mx-auto h-12 w-12 text-gray-400 dark:text-gray-500 mb-4"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={1.5}
+                      d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                    />
+                  </svg>
+                  <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                    No favorites yet
+                  </h3>
+                  <p className="text-sm text-gray-500 dark:text-gray-400 max-w-md mx-auto">
+                    Tap the heart icon on any event to add it to your favorites.
+                  </p>
+                </div>
+              )}
+
+              {/* Favorites list */}
+              {!favoriteEventsLoading && favoritedEvents.length > 0 && (
+                <div className="flex flex-col bg-white dark:bg-gray-900 sm:rounded-lg sm:shadow-sm sm:border sm:border-gray-200 dark:sm:border-gray-700">
+                  {favoritedEvents.map((event) => (
+                    <EventCard
+                      key={event.id}
+                      event={{
+                        ...event,
+                        sourceId: event.sourceId,
+                        location: event.location ?? null,
+                        organizer: event.organizer ?? null,
+                        price: event.price ?? null,
+                        imageUrl: event.imageUrl ?? null,
+                        timeUnknown: event.timeUnknown ?? false,
+                        recurringType: event.recurringType ?? null,
+                      }}
+                      onHide={handleHideEvent}
+                      onBlockHost={handleBlockHost}
+                      onSignalCapture={handleSignalCapture}
+                      isNewlyHidden={false}
+                      hideBorder
+                      isFavorited={true}
+                      favoriteCount={event.favoriteCount ?? 0}
+                      onToggleFavorite={handleToggleFavorite}
+                      isTagFilterActive={false}
+                      isCurated={curatedEventIds.has(event.id)}
+                      onCurate={handleOpenCurateModal}
+                      onUncurate={handleUncurate}
+                      isLoggedIn={isLoggedIn}
+                      displayMode="full"
+                      isHiding={hidingEventIds.has(event.id)}
+                      isMobileExpanded={mobileExpandedIds.has(event.id)}
+                      onMobileExpand={(id) =>
+                        setMobileExpandedIds((prev) => {
+                          const next = new Set(prev);
+                          if (next.has(id)) {
+                            next.delete(id);
+                          } else {
+                            next.add(id);
+                          }
+                          return next;
+                        })
                       }
-                      return next;
-                    })}
-                  />
-                );
-              })}
-            </div>
-          )}
-
-          {/* Date-grouped view */}
-          {isLoggedIn && !forYouLoading && forYouEvents.length > 0 && forYouSortMode === "date" && (
-            <div className="flex flex-col gap-10 mt-3">
-              {Object.entries(
-                forYouEvents
-                  .reduce((groups: Record<string, { date: Date; events: any[] }>, scoredEvent: any) => {
-                    const date = new Date(scoredEvent.event.startDate);
-                    const dateKey = date.toLocaleDateString("en-US", {
-                      weekday: "short",
-                      month: "short",
-                      day: "numeric",
-                      year: "numeric",
-                    });
-                    if (!groups[dateKey]) {
-                      groups[dateKey] = { date: date, events: [] };
-                    }
-                    groups[dateKey].events.push(scoredEvent);
-                    return groups;
-                  }, {} as Record<string, { date: Date; events: any[] }>)
-              )
-                .sort(([, a], [, b]) => a.date.getTime() - b.date.getTime())
-                .map(([dateKey, { date, events: groupEvents }]) => {
-                  const today = new Date();
-                  const tomorrow = new Date(today);
-                  tomorrow.setDate(tomorrow.getDate() + 1);
-
-                  let headerText = dateKey;
-                  if (date.toDateString() === today.toDateString()) {
-                    headerText = `Today, ${date.toLocaleDateString("en-US", { month: "short", day: "numeric" })}`;
-                  } else if (date.toDateString() === tomorrow.toDateString()) {
-                    headerText = `Tomorrow, ${date.toLocaleDateString("en-US", { month: "short", day: "numeric" })}`;
-                  }
-
-                  // Sort by score within each day
-                  const sortedGroupEvents = [...groupEvents].sort(
-                    (a, b) => (b.score ?? 0) - (a.score ?? 0)
-                  );
-
-                  return (
-                    <div key={dateKey} className="flex flex-col">
-                      <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100 sticky top-0 bg-white dark:bg-gray-900 sm:border sm:border-b-0 sm:border-gray-200 dark:sm:border-gray-700 sm:rounded-t-lg pt-3 pb-2 px-3 sm:px-4 z-10">
-                        {headerText}
-                      </h2>
-                      <div className="flex flex-col bg-white dark:bg-gray-900 sm:rounded-b-lg sm:shadow-sm sm:border sm:border-gray-200 dark:sm:border-gray-700 ">
-                        {sortedGroupEvents.map((scoredEvent: any) => {
-                          const event = {
-                            ...scoredEvent.event,
-                            startDate: new Date(scoredEvent.event.startDate),
-                          };
-                          return (
-                            <EventCard
-                              key={event.id}
-                              event={{
-                                ...event,
-                                sourceId: event.sourceId,
-                                location: event.location ?? null,
-                                organizer: event.organizer ?? null,
-                                price: event.price ?? null,
-                                imageUrl: event.imageUrl ?? null,
-                                timeUnknown: event.timeUnknown ?? false,
-                                recurringType: event.recurringType ?? null,
-                              }}
-                              onHide={handleHideEvent}
-                              onBlockHost={handleBlockHost}
-                              onSignalCapture={handleSignalCapture}
-                              isNewlyHidden={false}
-                              hideBorder
-                              isFavorited={favoritedEventIds.includes(event.id)}
-                              favoriteCount={event.favoriteCount ?? 0}
-                              onToggleFavorite={handleToggleFavorite}
-                              isTagFilterActive={false}
-                              isCurated={curatedEventIds.has(event.id)}
-                              onCurate={handleOpenCurateModal}
-                              onUncurate={handleUncurate}
-                              isLoggedIn={isLoggedIn}
-                              displayMode="full"
-                              isHiding={hidingEventIds.has(event.id)}
-                              isGreatMatch={scoredEvent.tier === 'great'}
-                              isMobileExpanded={mobileExpandedIds.has(event.id)}
-                              onMobileExpand={(id) => setMobileExpandedIds((prev) => {
-                      const next = new Set(prev);
-                      if (next.has(id)) {
-                        next.delete(id);
-                      } else {
-                        next.add(id);
-                      }
-                      return next;
-                    })}
-                            />
-                          );
-                        })}
-                      </div>
-                    </div>
-                  );
-                })}
-            </div>
+                    />
+                  ))}
+                </div>
+              )}
+            </>
           )}
         </>
       )}
 
       {/* Top 30 Feed */}
-      {activeTab === "top30" && (
+      {activeTab === 'top30' && (
         <>
           {/* Page Title */}
           <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4 px-3 sm:px-0">
-            Top events in the next 30 days
+            Top 30 events in the next 30 days
           </h1>
 
           {/* Sort Mode Toggle */}
           <div className="flex items-center mb-4 px-3 sm:px-0">
             <div className="flex items-center gap-2 bg-gray-100 dark:bg-gray-800 rounded-lg p-1">
               <button
-                onClick={() => setTop30SortMode("score")}
+                onClick={() => setTop30SortMode('score')}
                 className={`px-3 py-1.5 text-sm font-medium rounded-md transition-colors cursor-pointer ${
-                  top30SortMode === "score"
-                    ? "bg-white dark:bg-gray-700 text-brand-600 dark:text-brand-400 shadow-sm"
-                    : "text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200"
+                  top30SortMode === 'score'
+                    ? 'bg-white dark:bg-gray-700 text-brand-600 dark:text-brand-400 shadow-sm'
+                    : 'text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200'
                 }`}
               >
                 By Score
               </button>
               <button
-                onClick={() => setTop30SortMode("date")}
+                onClick={() => setTop30SortMode('date')}
                 className={`px-3 py-1.5 text-sm font-medium rounded-md transition-colors cursor-pointer ${
-                  top30SortMode === "date"
-                    ? "bg-white dark:bg-gray-700 text-brand-600 dark:text-brand-400 shadow-sm"
-                    : "text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200"
+                  top30SortMode === 'date'
+                    ? 'bg-white dark:bg-gray-700 text-brand-600 dark:text-brand-400 shadow-sm'
+                    : 'text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200'
                 }`}
               >
                 By Date
@@ -1623,12 +1948,15 @@ export default function EventFeed({
           )}
 
           {/* Score-ranked view */}
-          {top30SortMode === "score" && initialTop30Events && initialTop30Events.length > 0 && (
+          {top30SortMode === 'score' && initialTop30Events && initialTop30Events.length > 0 && (
             <div className="flex flex-col bg-white dark:bg-gray-900 sm:rounded-lg sm:shadow-sm sm:border sm:border-gray-200 dark:sm:border-gray-700 ">
               {(initialTop30Events || [])
                 .map((event) => ({
                   ...event,
-                  startDate: typeof event.startDate === "string" ? new Date(event.startDate) : event.startDate,
+                  startDate:
+                    typeof event.startDate === 'string'
+                      ? new Date(event.startDate)
+                      : event.startDate,
                 }))
                 .filter((event) => {
                   // Apply search filter
@@ -1636,22 +1964,26 @@ export default function EventFeed({
                     const searchLower = search.toLowerCase();
                     const matchesSearch =
                       event.title.toLowerCase().includes(searchLower) ||
-                      (event.description?.toLowerCase().includes(searchLower)) ||
-                      (event.organizer?.toLowerCase().includes(searchLower)) ||
-                      (event.location?.toLowerCase().includes(searchLower));
+                      event.description?.toLowerCase().includes(searchLower) ||
+                      event.organizer?.toLowerCase().includes(searchLower) ||
+                      event.location?.toLowerCase().includes(searchLower);
                     if (!matchesSearch) return false;
                   }
                   // Apply price filter
-                  if (priceFilter !== "any") {
-                    const priceStr = event.price?.toLowerCase() || "";
-                    const isFree = !event.price || priceStr === "unknown" || priceStr === "" || priceStr.includes("free");
-                    const priceNum = parseFloat(event.price?.replace(/[^0-9.]/g, "") || "0");
-                    if (priceFilter === "free" && !isFree) return false;
-                    if (priceFilter === "under20" && priceNum > 20) return false;
-                    if (priceFilter === "under100" && priceNum > 100) return false;
+                  if (priceFilter !== 'any') {
+                    const priceStr = event.price?.toLowerCase() || '';
+                    const isFree =
+                      !event.price ||
+                      priceStr === 'unknown' ||
+                      priceStr === '' ||
+                      priceStr.includes('free');
+                    const priceNum = parseFloat(event.price?.replace(/[^0-9.]/g, '') || '0');
+                    if (priceFilter === 'free' && !isFree) return false;
+                    if (priceFilter === 'under20' && priceNum > 20) return false;
+                    if (priceFilter === 'under100' && priceNum > 100) return false;
                   }
                   // Apply date filter
-                  if (dateFilter !== "all") {
+                  if (dateFilter !== 'all') {
                     const eventDate = new Date(event.startDate);
                     const today = new Date();
                     today.setHours(0, 0, 0, 0);
@@ -1660,8 +1992,13 @@ export default function EventFeed({
                     const dayAfterTomorrow = new Date(tomorrow);
                     dayAfterTomorrow.setDate(dayAfterTomorrow.getDate() + 1);
 
-                    if (dateFilter === "today" && (eventDate < today || eventDate >= tomorrow)) return false;
-                    if (dateFilter === "tomorrow" && (eventDate < tomorrow || eventDate >= dayAfterTomorrow)) return false;
+                    if (dateFilter === 'today' && (eventDate < today || eventDate >= tomorrow))
+                      return false;
+                    if (
+                      dateFilter === 'tomorrow' &&
+                      (eventDate < tomorrow || eventDate >= dayAfterTomorrow)
+                    )
+                      return false;
                   }
                   return true;
                 })
@@ -1695,51 +2032,62 @@ export default function EventFeed({
                     eventScore={event.score}
                     ranking={index + 1}
                     isMobileExpanded={mobileExpandedIds.has(event.id)}
-                    onMobileExpand={(id) => setMobileExpandedIds((prev) => {
-                      const next = new Set(prev);
-                      if (next.has(id)) {
-                        next.delete(id);
-                      } else {
-                        next.add(id);
-                      }
-                      return next;
-                    })}
+                    onMobileExpand={(id) =>
+                      setMobileExpandedIds((prev) => {
+                        const next = new Set(prev);
+                        if (next.has(id)) {
+                          next.delete(id);
+                        } else {
+                          next.add(id);
+                        }
+                        return next;
+                      })
+                    }
                   />
                 ))}
             </div>
           )}
 
           {/* Date-grouped view */}
-          {top30SortMode === "date" && initialTop30Events && initialTop30Events.length > 0 && (
+          {top30SortMode === 'date' && initialTop30Events && initialTop30Events.length > 0 && (
             <div className="flex flex-col gap-10 mt-3">
               {Object.entries(
                 (initialTop30Events || [])
-                  .map((event) => ({
-                    ...event,
-                    startDate: typeof event.startDate === "string" ? new Date(event.startDate) : event.startDate,
-                  }))
+                  .map(
+                    (event): DatedInitialEvent => ({
+                      ...event,
+                      startDate:
+                        typeof event.startDate === 'string'
+                          ? new Date(event.startDate)
+                          : event.startDate,
+                    })
+                  )
                   .filter((event) => {
                     // Apply search filter
                     if (search.trim()) {
                       const searchLower = search.toLowerCase();
                       const matchesSearch =
                         event.title.toLowerCase().includes(searchLower) ||
-                        (event.description?.toLowerCase().includes(searchLower)) ||
-                        (event.organizer?.toLowerCase().includes(searchLower)) ||
-                        (event.location?.toLowerCase().includes(searchLower));
+                        event.description?.toLowerCase().includes(searchLower) ||
+                        event.organizer?.toLowerCase().includes(searchLower) ||
+                        event.location?.toLowerCase().includes(searchLower);
                       if (!matchesSearch) return false;
                     }
                     // Apply price filter
-                    if (priceFilter !== "any") {
-                      const priceStr = event.price?.toLowerCase() || "";
-                      const isFree = !event.price || priceStr === "unknown" || priceStr === "" || priceStr.includes("free");
-                      const priceNum = parseFloat(event.price?.replace(/[^0-9.]/g, "") || "0");
-                      if (priceFilter === "free" && !isFree) return false;
-                      if (priceFilter === "under20" && priceNum > 20) return false;
-                      if (priceFilter === "under100" && priceNum > 100) return false;
+                    if (priceFilter !== 'any') {
+                      const priceStr = event.price?.toLowerCase() || '';
+                      const isFree =
+                        !event.price ||
+                        priceStr === 'unknown' ||
+                        priceStr === '' ||
+                        priceStr.includes('free');
+                      const priceNum = parseFloat(event.price?.replace(/[^0-9.]/g, '') || '0');
+                      if (priceFilter === 'free' && !isFree) return false;
+                      if (priceFilter === 'under20' && priceNum > 20) return false;
+                      if (priceFilter === 'under100' && priceNum > 100) return false;
                     }
                     // Apply date filter
-                    if (dateFilter !== "all") {
+                    if (dateFilter !== 'all') {
                       const eventDate = new Date(event.startDate);
                       const today = new Date();
                       today.setHours(0, 0, 0, 0);
@@ -1748,25 +2096,33 @@ export default function EventFeed({
                       const dayAfterTomorrow = new Date(tomorrow);
                       dayAfterTomorrow.setDate(dayAfterTomorrow.getDate() + 1);
 
-                      if (dateFilter === "today" && (eventDate < today || eventDate >= tomorrow)) return false;
-                      if (dateFilter === "tomorrow" && (eventDate < tomorrow || eventDate >= dayAfterTomorrow)) return false;
+                      if (dateFilter === 'today' && (eventDate < today || eventDate >= tomorrow))
+                        return false;
+                      if (
+                        dateFilter === 'tomorrow' &&
+                        (eventDate < tomorrow || eventDate >= dayAfterTomorrow)
+                      )
+                        return false;
                     }
                     return true;
                   })
-                  .reduce((groups, event) => {
-                    const date = new Date(event.startDate);
-                    const dateKey = date.toLocaleDateString("en-US", {
-                      weekday: "short",
-                      month: "short",
-                      day: "numeric",
-                      year: "numeric",
-                    });
-                    if (!groups[dateKey]) {
-                      groups[dateKey] = { date: date, events: [] };
-                    }
-                    groups[dateKey].events.push(event);
-                    return groups;
-                  }, {} as Record<string, { date: Date; events: any[] }>)
+                  .reduce(
+                    (groups, event) => {
+                      const date = new Date(event.startDate);
+                      const dateKey = date.toLocaleDateString('en-US', {
+                        weekday: 'short',
+                        month: 'short',
+                        day: 'numeric',
+                        year: 'numeric',
+                      });
+                      if (!groups[dateKey]) {
+                        groups[dateKey] = { date: date, events: [] };
+                      }
+                      groups[dateKey].events.push(event);
+                      return groups;
+                    },
+                    {} as Record<string, { date: Date; events: DatedInitialEvent[] }>
+                  )
               )
                 .sort(([, a], [, b]) => a.date.getTime() - b.date.getTime())
                 .map(([dateKey, { date, events: groupEvents }]) => {
@@ -1776,9 +2132,15 @@ export default function EventFeed({
 
                   let headerText = dateKey;
                   if (date.toDateString() === today.toDateString()) {
-                    headerText = `Today, ${date.toLocaleDateString("en-US", { month: "short", day: "numeric" })}`;
+                    headerText = `Today, ${date.toLocaleDateString('en-US', {
+                      month: 'short',
+                      day: 'numeric',
+                    })}`;
                   } else if (date.toDateString() === tomorrow.toDateString()) {
-                    headerText = `Tomorrow, ${date.toLocaleDateString("en-US", { month: "short", day: "numeric" })}`;
+                    headerText = `Tomorrow, ${date.toLocaleDateString('en-US', {
+                      month: 'short',
+                      day: 'numeric',
+                    })}`;
                   }
 
                   // Sort by score within each day
@@ -1821,15 +2183,17 @@ export default function EventFeed({
                             displayMode="full"
                             eventScore={event.score}
                             isMobileExpanded={mobileExpandedIds.has(event.id)}
-                            onMobileExpand={(id) => setMobileExpandedIds((prev) => {
-                      const next = new Set(prev);
-                      if (next.has(id)) {
-                        next.delete(id);
-                      } else {
-                        next.add(id);
-                      }
-                      return next;
-                    })}
+                            onMobileExpand={(id) =>
+                              setMobileExpandedIds((prev) => {
+                                const next = new Set(prev);
+                                if (next.has(id)) {
+                                  next.delete(id);
+                                } else {
+                                  next.add(id);
+                                }
+                                return next;
+                              })
+                            }
                           />
                         ))}
                       </div>
@@ -1842,259 +2206,249 @@ export default function EventFeed({
       )}
 
       {/* All Events Feed */}
-      {activeTab === "all" && (
+      {activeTab === 'all' && (
         <>
           <div
             className={`flex flex-col gap-10 mt-3 transition-opacity duration-150 ${
-              isFilterPending ? "opacity-50" : "opacity-100"
+              isFilterPending ? 'opacity-50' : 'opacity-100'
             }`}
           >
-          {Object.entries(
-            filteredEvents.reduce((groups, event) => {
-            const date = new Date(event.startDate);
-            const dateKey = date.toLocaleDateString("en-US", {
-              weekday: "short",
-              month: "short",
-              day: "numeric",
-              year: "numeric",
-            });
+            {Object.entries(
+              filteredEvents.reduce(
+                (groups, event) => {
+                  const date = new Date(event.startDate);
+                  const dateKey = date.toLocaleDateString('en-US', {
+                    weekday: 'short',
+                    month: 'short',
+                    day: 'numeric',
+                    year: 'numeric',
+                  });
 
-            if (!groups[dateKey]) {
-              groups[dateKey] = { date: date, events: [] };
-            }
-            groups[dateKey].events.push(event);
-            return groups;
-          }, {} as Record<string, { date: Date; events: Event[] }>)
-        )
-          .sort(([, a], [, b]) => a.date.getTime() - b.date.getTime())
-          .map(([dateKey, { date, events: groupEvents }]) => {
-            const today = new Date();
-            const tomorrow = new Date(today);
-            tomorrow.setDate(tomorrow.getDate() + 1);
-            const now = new Date();
-            const twoAndHalfHoursAgo = new Date(
-              now.getTime() - 2.5 * 60 * 60 * 1000
-            );
+                  if (!groups[dateKey]) {
+                    groups[dateKey] = { date: date, events: [] };
+                  }
+                  groups[dateKey].events.push(event);
+                  return groups;
+                },
+                {} as Record<string, { date: Date; events: Event[] }>
+              )
+            )
+              .sort(([, a], [, b]) => a.date.getTime() - b.date.getTime())
+              .map(([dateKey, { date, events: groupEvents }]) => {
+                const today = new Date();
+                const tomorrow = new Date(today);
+                tomorrow.setDate(tomorrow.getDate() + 1);
+                const now = new Date();
+                const twoAndHalfHoursAgo = new Date(now.getTime() - 2.5 * 60 * 60 * 1000);
 
-            let headerText = dateKey;
-            const isTodayGroup = date.toDateString() === today.toDateString();
-            if (isTodayGroup) {
-              headerText = `Today, ${date.toLocaleDateString("en-US", {
-                month: "short",
-                day: "numeric",
-              })}`;
-            } else if (date.toDateString() === tomorrow.toDateString()) {
-              headerText = `Tomorrow, ${date.toLocaleDateString("en-US", {
-                month: "short",
-                day: "numeric",
-              })}`;
-            }
+                let headerText = dateKey;
+                const isTodayGroup = date.toDateString() === today.toDateString();
+                if (isTodayGroup) {
+                  headerText = `Today, ${date.toLocaleDateString('en-US', {
+                    month: 'short',
+                    day: 'numeric',
+                  })}`;
+                } else if (date.toDateString() === tomorrow.toDateString()) {
+                  headerText = `Tomorrow, ${date.toLocaleDateString('en-US', {
+                    month: 'short',
+                    day: 'numeric',
+                  })}`;
+                }
 
-            // Sort events by start time for display
-            const sortedGroupEvents = [...groupEvents].sort(
-              (a, b) =>
-                new Date(a.startDate).getTime() -
-                new Date(b.startDate).getTime()
-            );
+                // Sort events by start time for display
+                const sortedGroupEvents = [...groupEvents].sort(
+                  (a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime()
+                );
 
-            // Per-day score tier filtering: Top Events (default) vs All Events
-            const showAllForDay = expandedDateGroups.has(dateKey);
-            const scoreTierFilteredEvents = showDayToggle && !showAllForDay
-              ? sortedGroupEvents.filter((event) => {
-                  const tier = getEventScoreTier(event.score);
-                  return tier === "quality" || tier === "outstanding";
-                })
-              : sortedGroupEvents;
+                // Per-day score tier filtering: Top Events (default) vs All Events
+                const showAllForDay = expandedDateGroups.has(dateKey);
+                const scoreTierFilteredEvents =
+                  showDayToggle && !showAllForDay
+                    ? sortedGroupEvents.filter((event) => {
+                        const tier = getEventScoreTier(event.score);
+                        return tier === 'quality' || tier === 'outstanding';
+                      })
+                    : sortedGroupEvents;
 
-            // For today, filter out events that started more than 2.5 hours ago (unless showing all)
-            let displayEvents = scoreTierFilteredEvents;
-            let hiddenPreviousCount = 0;
-            if (isTodayGroup && !showAllPreviousEvents) {
-              const recentAndUpcoming = scoreTierFilteredEvents.filter(
-                (event) => new Date(event.startDate) >= twoAndHalfHoursAgo
-              );
-              hiddenPreviousCount =
-                scoreTierFilteredEvents.length - recentAndUpcoming.length;
-              displayEvents = recentAndUpcoming;
-            }
+                // For today, filter out events that started more than 2.5 hours ago (unless showing all)
+                let displayEvents = scoreTierFilteredEvents;
+                let hiddenPreviousCount = 0;
+                if (isTodayGroup && !showAllPreviousEvents) {
+                  const recentAndUpcoming = scoreTierFilteredEvents.filter(
+                    (event) => new Date(event.startDate) >= twoAndHalfHoursAgo
+                  );
+                  hiddenPreviousCount = scoreTierFilteredEvents.length - recentAndUpcoming.length;
+                  displayEvents = recentAndUpcoming;
+                }
 
-            // Skip rendering this date group if no events match the filter
-            if (displayEvents.length === 0) {
-              return null;
-            }
+                // Skip rendering this date group if no events match the filter
+                if (displayEvents.length === 0) {
+                  return null;
+                }
 
-            return (
-              <div key={dateKey} className="flex flex-col">
-                <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100 sticky top-0 bg-white dark:bg-gray-900 sm:border sm:border-b-0 sm:border-gray-200 dark:sm:border-gray-700 sm:rounded-t-lg pt-3 pb-2 px-3 sm:px-4 z-10 flex items-center justify-between">
-                  <span>{headerText}</span>
-                  {showDayToggle && (
-                    <div className="flex items-center gap-1 text-sm font-normal">
-                      <button
-                        onClick={() => {
-                          if (showAllForDay) {
-                            setExpandedDateGroups((prev) => {
-                              const next = new Set(prev);
-                              next.delete(dateKey);
-                              return next;
-                            });
-                          }
-                        }}
-                        className={`transition-colors cursor-pointer ${
-                          !showAllForDay
-                            ? "text-brand-600 dark:text-brand-400 opacity-80"
-                            : "text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-400"
-                        }`}
-                      >
-                        Top Events
-                      </button>
-                      <span className="text-gray-300 dark:text-gray-600">|</span>
-                      <button
-                        onClick={() => {
-                          if (!showAllForDay) {
-                            setExpandedDateGroups((prev) => {
-                              const next = new Set(prev);
-                              next.add(dateKey);
-                              return next;
-                            });
-                          }
-                        }}
-                        className={`transition-colors cursor-pointer ${
-                          showAllForDay
-                            ? "text-brand-600 dark:text-brand-400 opacity-80"
-                            : "text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-400"
-                        }`}
-                      >
-                        All Events
-                      </button>
-                    </div>
-                  )}
-                </h2>
-                <div className="flex flex-col bg-white dark:bg-gray-900 sm:rounded-b-lg sm:shadow-sm sm:border sm:border-gray-200 dark:sm:border-gray-700 ">
-                  {/* Show previous events toggle for today when events are hidden */}
-                  {isTodayGroup &&
-                    hiddenPreviousCount > 0 &&
-                    !showAllPreviousEvents && (
-                      <button
-                        onClick={() => setShowAllPreviousEvents(true)}
-                        className="text-xs text-gray-600 dark:text-gray-400 hover:text-brand-700 dark:hover:text-brand-400 font-medium px-3 sm:px-5 py-3 sm:py-3 pt-0 text-left hover:bg-brand-50 dark:hover:bg-brand-950/50 transition-colors cursor-pointer underline sm:no-underline"
-                      >
-                        Show {hiddenPreviousCount} event
-                        {hiddenPreviousCount !== 1 ? "s" : ""} from earlier
-                        today +
-                      </button>
-                    )}
-                  {/* Show collapse option when viewing all previous events */}
-                  {isTodayGroup &&
-                    showAllPreviousEvents &&
-                    (() => {
-                      // Calculate how many events would be hidden if we collapse
-                      const wouldHideCount = scoreTierFilteredEvents.filter(
-                        (event) =>
-                          new Date(event.startDate) < twoAndHalfHoursAgo
-                      ).length;
-                      return wouldHideCount > 0 ? (
+                return (
+                  <div key={dateKey} className="flex flex-col">
+                    <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100 sticky top-0 bg-white dark:bg-gray-900 sm:border sm:border-b-0 sm:border-gray-200 dark:sm:border-gray-700 sm:rounded-t-lg pt-3 pb-2 px-3 sm:px-4 z-10 flex items-center justify-between">
+                      <span>{headerText}</span>
+                      {showDayToggle && (
+                        <div className="flex items-center gap-1 text-sm font-normal">
+                          <button
+                            onClick={() => {
+                              if (showAllForDay) {
+                                setExpandedDateGroups((prev) => {
+                                  const next = new Set(prev);
+                                  next.delete(dateKey);
+                                  return next;
+                                });
+                              }
+                            }}
+                            className={`transition-colors cursor-pointer ${
+                              !showAllForDay
+                                ? 'text-brand-600 dark:text-brand-400 opacity-80'
+                                : 'text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-400'
+                            }`}
+                          >
+                            Top Events
+                          </button>
+                          <span className="text-gray-300 dark:text-gray-600">|</span>
+                          <button
+                            onClick={() => {
+                              if (!showAllForDay) {
+                                setExpandedDateGroups((prev) => {
+                                  const next = new Set(prev);
+                                  next.add(dateKey);
+                                  return next;
+                                });
+                              }
+                            }}
+                            className={`transition-colors cursor-pointer ${
+                              showAllForDay
+                                ? 'text-brand-600 dark:text-brand-400 opacity-80'
+                                : 'text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-400'
+                            }`}
+                          >
+                            All Events
+                          </button>
+                        </div>
+                      )}
+                    </h2>
+                    <div className="flex flex-col bg-white dark:bg-gray-900 sm:rounded-b-lg sm:shadow-sm sm:border sm:border-gray-200 dark:sm:border-gray-700 ">
+                      {/* Show previous events toggle for today when events are hidden */}
+                      {isTodayGroup && hiddenPreviousCount > 0 && !showAllPreviousEvents && (
                         <button
-                          onClick={() => setShowAllPreviousEvents(false)}
-                          className="text-xs text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 font-medium px-3 sm:px-5 py-3 text-left hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors cursor-pointer"
+                          onClick={() => setShowAllPreviousEvents(true)}
+                          className="text-xs text-gray-600 dark:text-gray-400 hover:text-brand-700 dark:hover:text-brand-400 font-medium px-3 sm:px-5 py-3 sm:py-3 pt-0 text-left hover:bg-brand-50 dark:hover:bg-brand-950/50 transition-colors cursor-pointer underline sm:no-underline"
                         >
-                          Hide earlier events
+                          Show {hiddenPreviousCount} event
+                          {hiddenPreviousCount !== 1 ? 's' : ''} from earlier today +
                         </button>
-                      ) : null;
-                    })()}
-                  {displayEvents.map((event) => {
-                    const eventKey = createFingerprintKey(
-                      event.title,
-                      event.organizer
-                    );
-                    const isNewlyHidden = sessionHiddenKeys.has(eventKey);
+                      )}
+                      {/* Show collapse option when viewing all previous events */}
+                      {isTodayGroup &&
+                        showAllPreviousEvents &&
+                        (() => {
+                          // Calculate how many events would be hidden if we collapse
+                          const wouldHideCount = scoreTierFilteredEvents.filter(
+                            (event) => new Date(event.startDate) < twoAndHalfHoursAgo
+                          ).length;
+                          return wouldHideCount > 0 ? (
+                            <button
+                              onClick={() => setShowAllPreviousEvents(false)}
+                              className="text-xs text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 font-medium px-3 sm:px-5 py-3 text-left hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors cursor-pointer"
+                            >
+                              Hide earlier events
+                            </button>
+                          ) : null;
+                        })()}
+                      {displayEvents.map((event) => {
+                        const eventKey = createFingerprintKey(event.title, event.organizer);
+                        const isNewlyHidden = sessionHiddenKeys.has(eventKey);
 
-                    // Determine display mode based on score tier
-                    // Common and Quality tiers are minimized by default, Outstanding is full
-                    const tier = getEventScoreTier(event.score);
-                    const isMinimized =
-                      (tier === "quality" || tier === "hidden") && !expandedMinimizedIds.has(event.id);
+                        // Determine display mode based on score tier
+                        // Common and Quality tiers are minimized by default, Outstanding is full
+                        const tier = getEventScoreTier(event.score);
+                        const isMinimized =
+                          (tier === 'quality' || tier === 'hidden') &&
+                          !expandedMinimizedIds.has(event.id);
 
-                    return (
-                        <EventCard
-                          key={event.id}
-                          event={{
-                            ...event,
-                            sourceId: event.sourceId,
-                            location: event.location ?? null,
-                            organizer: event.organizer ?? null,
-                            price: event.price ?? null,
-                            imageUrl: event.imageUrl ?? null,
-                            timeUnknown: event.timeUnknown ?? false,
-                            recurringType: event.recurringType ?? null,
-                          }}
-                          onHide={handleHideEvent}
-                          onBlockHost={handleBlockHost}
-                          onSignalCapture={handleSignalCapture}
-                          isNewlyHidden={isNewlyHidden}
-                          hideBorder
-                          isFavorited={favoritedEventIds.includes(event.id)}
-                          favoriteCount={event.favoriteCount ?? 0}
-                          onToggleFavorite={handleToggleFavorite}
-                          isTagFilterActive={tagFilters.include.length > 0}
-                          isCurated={curatedEventIds.has(event.id)}
-                          onCurate={handleOpenCurateModal}
-                          onUncurate={handleUncurate}
-                          isLoggedIn={isLoggedIn}
-                          displayMode={isMinimized ? "minimized" : "full"}
-                          onExpandMinimized={(id) =>
-                            setExpandedMinimizedIds(
-                              (prev) => new Set([...prev, id])
-                            )
-                          }
-                          scoreTier={tier}
-                          eventScore={event.score}
-                          isMobileExpanded={mobileExpandedIds.has(event.id)}
-                          onMobileExpand={(id) => setMobileExpandedIds((prev) => {
-                      const next = new Set(prev);
-                      if (next.has(id)) {
-                        next.delete(id);
-                      } else {
-                        next.add(id);
-                      }
-                      return next;
-                    })}
-                        />
-                    );
-                  })}
+                        return (
+                          <EventCard
+                            key={event.id}
+                            event={{
+                              ...event,
+                              sourceId: event.sourceId,
+                              location: event.location ?? null,
+                              organizer: event.organizer ?? null,
+                              price: event.price ?? null,
+                              imageUrl: event.imageUrl ?? null,
+                              timeUnknown: event.timeUnknown ?? false,
+                              recurringType: event.recurringType ?? null,
+                            }}
+                            onHide={handleHideEvent}
+                            onBlockHost={handleBlockHost}
+                            onSignalCapture={handleSignalCapture}
+                            isNewlyHidden={isNewlyHidden}
+                            hideBorder
+                            isFavorited={favoritedEventIds.includes(event.id)}
+                            favoriteCount={event.favoriteCount ?? 0}
+                            onToggleFavorite={handleToggleFavorite}
+                            isTagFilterActive={tagFilters.include.length > 0}
+                            isCurated={curatedEventIds.has(event.id)}
+                            onCurate={handleOpenCurateModal}
+                            onUncurate={handleUncurate}
+                            isLoggedIn={isLoggedIn}
+                            displayMode={isMinimized ? 'minimized' : 'full'}
+                            onExpandMinimized={(id) =>
+                              setExpandedMinimizedIds((prev) => new Set([...prev, id]))
+                            }
+                            scoreTier={tier}
+                            eventScore={event.score}
+                            isMobileExpanded={mobileExpandedIds.has(event.id)}
+                            onMobileExpand={(id) =>
+                              setMobileExpandedIds((prev) => {
+                                const next = new Set(prev);
+                                if (next.has(id)) {
+                                  next.delete(id);
+                                } else {
+                                  next.add(id);
+                                }
+                                return next;
+                              })
+                            }
+                          />
+                        );
+                      })}
+                    </div>
+                  </div>
+                );
+              })}
+          </div>
+
+          {filteredEvents.length === 0 && !isFetching && (
+            <div className="text-center py-20 text-gray-500 dark:text-gray-400">
+              No events found matching your criteria.
+            </div>
+          )}
+
+          {/* Infinite scroll trigger + Show more button */}
+          {hasMore && (
+            <div ref={loadMoreRef} className="py-8 flex flex-col items-center justify-center gap-4">
+              {isFetchingNextPage ? (
+                <div className="flex items-center gap-2 text-gray-500 dark:text-gray-400">
+                  <Loader2Icon size={20} className="animate-spin" />
+                  <span className="text-sm">Loading more events...</span>
                 </div>
-              </div>
-            );
-          })}
-        </div>
-
-        {filteredEvents.length === 0 && !isFetching && (
-          <div className="text-center py-20 text-gray-500 dark:text-gray-400">
-            No events found matching your criteria.
-          </div>
-        )}
-
-        {/* Infinite scroll trigger + Show more button */}
-        {hasMore && (
-          <div
-            ref={loadMoreRef}
-            className="py-8 flex flex-col items-center justify-center gap-4"
-          >
-            {isFetchingNextPage ? (
-              <div className="flex items-center gap-2 text-gray-500 dark:text-gray-400">
-                <Loader2Icon size={20} className="animate-spin" />
-                <span className="text-sm">Loading more events...</span>
-              </div>
-            ) : (
-              <button
-                onClick={() => fetchNextPage()}
-                className="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors flex items-center gap-2"
-              >
-                <ArrowDownIcon size={18} />
-                Show More Events
-              </button>
-            )}
-          </div>
-        )}
+              ) : (
+                <button
+                  onClick={() => void fetchNextPage()}
+                  className="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors flex items-center gap-2"
+                >
+                  <ArrowDownIcon size={18} />
+                  Show More Events
+                </button>
+              )}
+            </div>
+          )}
         </>
       )}
 
@@ -2161,17 +2515,14 @@ export default function EventFeed({
         eventTitle={curateModalEventTitle}
       />
 
-      <SaveFeedModal
-        isOpen={showSaveModal}
-        onClose={() => setShowSaveModal(false)}
-      />
+      <SaveFeedModal isOpen={showSaveModal} onClose={() => setShowSaveModal(false)} />
 
       {/* Scroll to top button */}
       <div
         className={`fixed bottom-6 left-1/2 -translate-x-1/2 transition-all duration-300 z-50 ${
           showScrollTop
-            ? "opacity-100 translate-y-0"
-            : "opacity-0 translate-y-4 pointer-events-none"
+            ? 'opacity-100 translate-y-0'
+            : 'opacity-0 translate-y-4 pointer-events-none'
         }`}
       >
         <button

@@ -13,7 +13,8 @@ const RATE_LIMIT_WINDOW = 60 * 60 * 1000; // 1 hour in ms
 export function GET() {
   return NextResponse.json({
     endpoint: 'POST /api/events/submit',
-    description: 'Submit an event suggestion for review. Events are manually reviewed before appearing on the site.',
+    description:
+      'Submit an event suggestion for review. Events are manually reviewed before appearing on the site.',
     required: ['title', 'startDate'],
     optional: [
       'description',
@@ -98,9 +99,7 @@ export async function POST(request: Request) {
   const submitterEmail = isString(parsed.submitterEmail)
     ? parsed.submitterEmail.trim().toLowerCase()
     : null;
-  const submitterName = isString(parsed.submitterName)
-    ? parsed.submitterName.trim()
-    : null;
+  const submitterName = isString(parsed.submitterName) ? parsed.submitterName.trim() : null;
   const notes = isString(parsed.notes) ? parsed.notes.trim() : null;
   const endDateRaw = isString(parsed.endDate) ? parsed.endDate : null;
 
@@ -189,8 +188,8 @@ export async function POST(request: Request) {
 
   // Determine source (check for API indicator in user agent or custom header)
   const userAgent = request.headers.get('user-agent') || '';
-  const isApi = request.headers.get('x-submission-source') === 'api' ||
-    !userAgent.includes('Mozilla'); // Simple heuristic: browsers have Mozilla in UA
+  const isApi =
+    request.headers.get('x-submission-source') === 'api' || !userAgent.includes('Mozilla'); // Simple heuristic: browsers have Mozilla in UA
 
   try {
     // Insert into database
@@ -231,7 +230,7 @@ export async function POST(request: Request) {
       submitterEmail,
       submitterName,
       source: isApi ? 'api' : 'form',
-    }).catch(err => {
+    }).catch((err) => {
       console.error('[Submit] Failed to send Slack notification:', err);
     });
 

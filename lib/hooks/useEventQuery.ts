@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import { useInfiniteQuery } from "@tanstack/react-query";
-import { useEffect, useRef } from "react";
-import { useDebounce } from "./useDebounce";
+import { useInfiniteQuery } from '@tanstack/react-query';
+import { useEffect, useRef } from 'react';
+import { useDebounce } from './useDebounce';
 
 // Filter parameter types
-export type DateFilterType = "all" | "today" | "tomorrow" | "weekend" | "dayOfWeek" | "custom";
-export type PriceFilterType = "any" | "free" | "under20" | "under100" | "custom";
-export type TimeOfDay = "morning" | "afternoon" | "evening";
+export type DateFilterType = 'all' | 'today' | 'tomorrow' | 'weekend' | 'dayOfWeek' | 'custom';
+export type PriceFilterType = 'any' | 'free' | 'under20' | 'under100' | 'custom';
+export type TimeOfDay = 'morning' | 'afternoon' | 'evening';
 
 export interface DateRange {
   start: string | null;
@@ -92,79 +92,85 @@ export interface EventFilters {
 function buildQueryParams(filters: EventFilters, cursor?: string): URLSearchParams {
   const params = new URLSearchParams();
 
-  if (cursor) params.set("cursor", cursor);
-  params.set("limit", "100"); // Load 100 events per page for smooth scrolling
+  if (cursor) params.set('cursor', cursor);
+  params.set('limit', '100'); // Load 100 events per page for smooth scrolling
 
-  if (filters.search) params.set("search", filters.search);
-  if (filters.dateFilter !== "all") params.set("dateFilter", filters.dateFilter);
-  if (filters.dateFilter === "custom" && filters.customDateRange.start) {
-    params.set("dateStart", filters.customDateRange.start);
+  if (filters.search) params.set('search', filters.search);
+  if (filters.dateFilter !== 'all') params.set('dateFilter', filters.dateFilter);
+  if (filters.dateFilter === 'custom' && filters.customDateRange.start) {
+    params.set('dateStart', filters.customDateRange.start);
     if (filters.customDateRange.end) {
-      params.set("dateEnd", filters.customDateRange.end);
+      params.set('dateEnd', filters.customDateRange.end);
     }
   }
   if (filters.selectedDays.length > 0) {
-    params.set("days", filters.selectedDays.join(","));
+    params.set('days', filters.selectedDays.join(','));
   }
   if (filters.selectedTimes.length > 0) {
-    params.set("times", filters.selectedTimes.join(","));
+    params.set('times', filters.selectedTimes.join(','));
   }
-  if (filters.priceFilter !== "any") params.set("priceFilter", filters.priceFilter);
-  if (filters.priceFilter === "custom" && filters.customMaxPrice !== null) {
-    params.set("maxPrice", filters.customMaxPrice.toString());
+  if (filters.priceFilter !== 'any') params.set('priceFilter', filters.priceFilter);
+  if (filters.priceFilter === 'custom' && filters.customMaxPrice !== null) {
+    params.set('maxPrice', filters.customMaxPrice.toString());
   }
   if (filters.tagsInclude.length > 0) {
-    params.set("tagsInclude", filters.tagsInclude.join(","));
+    params.set('tagsInclude', filters.tagsInclude.join(','));
   }
   if (filters.tagsExclude.length > 0) {
-    params.set("tagsExclude", filters.tagsExclude.join(","));
+    params.set('tagsExclude', filters.tagsExclude.join(','));
   }
   if (filters.selectedLocations.length > 0) {
-    params.set("locations", filters.selectedLocations.join(","));
+    params.set('locations', filters.selectedLocations.join(','));
   }
   if (filters.selectedZips.length > 0) {
-    params.set("zips", filters.selectedZips.join(","));
+    params.set('zips', filters.selectedZips.join(','));
   }
   if (filters.blockedHosts.length > 0) {
-    params.set("blockedHosts", filters.blockedHosts.join(","));
+    params.set('blockedHosts', filters.blockedHosts.join(','));
   }
   if (filters.blockedKeywords.length > 0) {
-    params.set("blockedKeywords", filters.blockedKeywords.join(","));
+    params.set('blockedKeywords', filters.blockedKeywords.join(','));
   }
   if (!filters.showDailyEvents) {
-    params.set("showDailyEvents", "false");
+    params.set('showDailyEvents', 'false');
   }
   if (!filters.useDefaultFilters) {
-    params.set("useDefaultFilters", "false");
+    params.set('useDefaultFilters', 'false');
   }
 
   return params;
 }
 
 // Fetch events from API
-async function fetchEvents(
-  filters: EventFilters,
-  cursor?: string
-): Promise<EventsApiResponse> {
+async function fetchEvents(filters: EventFilters, cursor?: string): Promise<EventsApiResponse> {
   const params = buildQueryParams(filters, cursor);
 
   // Log API request for debugging
   const activeFilters = {
     dateFilter: filters.dateFilter,
-    dateRange: filters.customDateRange.start ? `${filters.customDateRange.start} to ${filters.customDateRange.end}` : undefined,
+    dateRange: filters.customDateRange.start
+      ? `${filters.customDateRange.start} to ${filters.customDateRange.end}`
+      : undefined,
     priceFilter: filters.priceFilter,
     tagsInclude: filters.tagsInclude.length > 0 ? filters.tagsInclude : undefined,
   };
-  const hasActiveFilters = Object.values(activeFilters).some(v => v !== undefined && v !== "all" && v !== "any");
+  const hasActiveFilters = Object.values(activeFilters).some(
+    (v) => v !== undefined && v !== 'all' && v !== 'any'
+  );
   if (hasActiveFilters) {
-    console.log("[useEventQuery] Fetching with filters:", activeFilters, "cursor:", cursor || "none");
+    console.log(
+      '[useEventQuery] Fetching with filters:',
+      activeFilters,
+      'cursor:',
+      cursor || 'none'
+    );
   }
 
   // Use POST for complex filters (hidden fingerprints)
   if (filters.hiddenFingerprints.length > 0) {
     const response = await fetch(`/api/events?${params.toString()}`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         hiddenFingerprints: filters.hiddenFingerprints,
       }),
@@ -174,7 +180,7 @@ async function fetchEvents(
       throw new Error(`Failed to fetch events: ${response.status}`);
     }
 
-    return response.json();
+    return response.json() as Promise<EventsApiResponse>;
   }
 
   // Use GET for simple filters
@@ -184,7 +190,7 @@ async function fetchEvents(
     throw new Error(`Failed to fetch events: ${response.status}`);
   }
 
-  return response.json();
+  return response.json() as Promise<EventsApiResponse>;
 }
 
 interface UseEventQueryOptions {
@@ -197,41 +203,38 @@ interface UseEventQueryOptions {
   enabled?: boolean;
 }
 
-export function useEventQuery({
-  filters,
-  initialData,
-  enabled = true,
-}: UseEventQueryOptions) {
+export function useEventQuery({ filters, initialData, enabled = true }: UseEventQueryOptions) {
   // Debounce filters to avoid too many API calls
   const debouncedFilters = useDebounce(filters, 150);
 
   const query = useInfiniteQuery({
-    queryKey: ["events", debouncedFilters],
+    queryKey: ['events', debouncedFilters],
     queryFn: async ({ pageParam }) => {
-      return fetchEvents(debouncedFilters, pageParam as string | undefined);
+      return fetchEvents(debouncedFilters, pageParam);
     },
     getNextPageParam: (lastPage) => lastPage.nextCursor,
     initialPageParam: undefined as string | undefined,
     enabled,
     // Use initialData for SSR hydration
-    ...(initialData && initialData.events.length > 0 && {
-      initialData: {
-        pages: [
-          {
-            events: initialData.events,
-            // Generate cursor from last event so we can fetch more
-            nextCursor: (() => {
-              const lastEvent = initialData.events[initialData.events.length - 1];
-              return `${lastEvent.startDate}_${lastEvent.id}`;
-            })(),
-            hasMore: true, // Assume there are more events until proven otherwise
-            totalCount: initialData.totalCount ?? initialData.events.length,
-            metadata: initialData.metadata,
-          },
-        ],
-        pageParams: [undefined],
-      },
-    }),
+    ...(initialData &&
+      initialData.events.length > 0 && {
+        initialData: {
+          pages: [
+            {
+              events: initialData.events,
+              // Generate cursor from last event so we can fetch more
+              nextCursor: (() => {
+                const lastEvent = initialData.events[initialData.events.length - 1];
+                return `${lastEvent.startDate}_${lastEvent.id}`;
+              })(),
+              hasMore: true, // Assume there are more events until proven otherwise
+              totalCount: initialData.totalCount ?? initialData.events.length,
+              metadata: initialData.metadata,
+            },
+          ],
+          pageParams: [undefined],
+        },
+      }),
     staleTime: 30 * 1000, // 30 seconds
     refetchOnMount: !initialData, // Don't refetch on mount if we have SSR data
   });
@@ -270,7 +273,7 @@ export function useInfiniteScrollTrigger(
     rootMargin?: string;
   } = {}
 ) {
-  const { enabled = true, rootMargin = "200px" } = options;
+  const { enabled = true, rootMargin = '200px' } = options;
   const triggerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

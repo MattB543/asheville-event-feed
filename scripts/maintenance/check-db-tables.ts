@@ -7,7 +7,8 @@ async function main() {
   const sql = neon(env.DATABASE_URL);
 
   console.log('\nChecking tables in public schema...');
-  const tables = await sql`SELECT table_name FROM information_schema.tables WHERE table_schema = 'public'`;
+  const tables =
+    await sql`SELECT table_name FROM information_schema.tables WHERE table_schema = 'public'`;
 
   if (tables.length === 0) {
     console.log('No tables found! Database appears to be empty.');
@@ -20,7 +21,7 @@ async function main() {
   }
 }
 
-main().catch(e => {
+main().catch((e) => {
   console.error('Error:', e.message);
   process.exit(1);
 });

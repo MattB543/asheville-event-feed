@@ -1,4 +1,4 @@
-import { EventFeedSkeleton } from "@/components/EventCardSkeleton";
+import { EventFeedSkeleton } from '@/components/EventCardSkeleton';
 
 export default function Loading() {
   return (
@@ -20,8 +20,8 @@ export default function Loading() {
                 className="underline hover:text-gray-700 dark:hover:text-gray-300"
               >
                 Open-sourced
-              </a>{" "}
-              by{" "}
+              </a>{' '}
+              by{' '}
               <a
                 href="https://mattbrooks.xyz"
                 target="_blank"
@@ -41,8 +41,8 @@ export default function Loading() {
 
       <footer className="bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 mt-8 py-8 text-center text-sm text-gray-500 dark:text-gray-400">
         <p>
-          &copy; {new Date().getFullYear()} Asheville Event Feed. Not affiliated
-          with AVL Today or Eventbrite.
+          &copy; {new Date().getFullYear()} Asheville Event Feed. Not affiliated with AVL Today or
+          Eventbrite.
         </p>
       </footer>
     </main>

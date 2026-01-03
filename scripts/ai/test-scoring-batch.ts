@@ -180,7 +180,13 @@ async function main() {
       // Skip if already daily recurring
       if (event.recurringType === 'daily') {
         result.isWeeklyRecurring = false;
-        result.parsedScore = { score: 5, rarity: 1, unique: 2, magnitude: 2, reason: 'Daily recurring event' };
+        result.parsedScore = {
+          score: 5,
+          rarity: 1,
+          unique: 2,
+          magnitude: 2,
+          reason: 'Daily recurring event',
+        };
         results.push(result);
         console.log(`  -> Daily recurring, auto-scored 5/30`);
         continue;
@@ -198,9 +204,17 @@ async function main() {
       result.recurringMatchCount = recurringCheck.matchCount;
 
       if (recurringCheck.isWeeklyRecurring) {
-        result.parsedScore = { score: 5, rarity: 1, unique: 2, magnitude: 2, reason: 'Weekly recurring event' };
+        result.parsedScore = {
+          score: 5,
+          rarity: 1,
+          unique: 2,
+          magnitude: 2,
+          reason: 'Weekly recurring event',
+        };
         results.push(result);
-        console.log(`  -> Weekly recurring (${recurringCheck.matchCount} matches), auto-scored 5/30`);
+        console.log(
+          `  -> Weekly recurring (${recurringCheck.matchCount} matches), auto-scored 5/30`
+        );
         continue;
       }
 
@@ -209,11 +223,11 @@ async function main() {
         limit: 20,
         minSimilarity: 0.4,
         futureOnly: true,
-        orderBy: 'similarity'
+        orderBy: 'similarity',
       });
 
       result.similarEventsCount = similarEvents.length;
-      result.similarEvents = similarEvents.map(e => ({
+      result.similarEvents = similarEvents.map((e) => ({
         title: e.title,
         location: e.location,
         date: e.startDate.toISOString(),
@@ -230,12 +244,17 @@ async function main() {
         event.aiSummary ? `Summary: ${event.aiSummary}` : null,
         `Date: ${event.startDate.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}`,
         event.price ? `Price: ${event.price}` : null,
-      ].filter(Boolean).join('\n');
+      ]
+        .filter(Boolean)
+        .join('\n');
 
       let similarEventsText = '(No similar events found - this may indicate a unique event)';
       if (similarEvents.length > 0) {
         const eventLines = similarEvents.map((e, idx) => {
-          const dateStr = e.startDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+          const dateStr = e.startDate.toLocaleDateString('en-US', {
+            month: 'short',
+            day: 'numeric',
+          });
           const location = e.location || e.organizer || 'Unknown venue';
           const similarity = Math.round(e.similarity * 100);
           return `${idx + 1}. "${e.title}" at ${location} on ${dateStr} (${similarity}% similar)`;
@@ -253,11 +272,9 @@ ${similarEventsText}`;
       result.rawPrompt = userPrompt;
 
       // Call AI
-      const aiResult = await azureChatCompletion(
-        SCORING_SYSTEM_PROMPT,
-        userPrompt,
-        { maxTokens: 20000 }
-      );
+      const aiResult = await azureChatCompletion(SCORING_SYSTEM_PROMPT, userPrompt, {
+        maxTokens: 20000,
+      });
 
       if (aiResult) {
         result.rawResponse = aiResult.content;
@@ -288,7 +305,9 @@ ${similarEventsText}`;
           reason: parsed.reason || 'No reason provided',
         };
 
-        console.log(`  -> Score: ${result.parsedScore.score}/30 (R:${rarity} U:${unique} M:${magnitude})`);
+        console.log(
+          `  -> Score: ${result.parsedScore.score}/30 (R:${rarity} U:${unique} M:${magnitude})`
+        );
       } else {
         result.error = 'No response from Azure AI';
         console.log(`  -> ERROR: No response`);
@@ -301,7 +320,7 @@ ${similarEventsText}`;
     results.push(result);
 
     // Delay between requests
-    await new Promise(r => setTimeout(r, 500));
+    await new Promise((r) => setTimeout(r, 500));
   }
 
   // Save results to file
@@ -310,9 +329,11 @@ ${similarEventsText}`;
   console.log(`\n✓ Results saved to ${outputPath}`);
 
   // Print summary
-  const scored = results.filter(r => r.parsedScore);
-  const errors = results.filter(r => r.error);
-  const recurring = results.filter(r => r.isWeeklyRecurring || r.parsedScore?.reason.includes('recurring'));
+  const scored = results.filter((r) => r.parsedScore);
+  const errors = results.filter((r) => r.error);
+  const recurring = results.filter(
+    (r) => r.isWeeklyRecurring || r.parsedScore?.reason.includes('recurring')
+  );
 
   console.log('\n═══════════════════════════════════════════════════');
   console.log('SUMMARY');
@@ -323,7 +344,7 @@ ${similarEventsText}`;
   console.log(`Auto-scored recurring: ${recurring.length}`);
 
   if (scored.length > 0) {
-    const scores = scored.map(r => r.parsedScore!.score);
+    const scores = scored.map((r) => r.parsedScore!.score);
     const avgScore = scores.reduce((a, b) => a + b, 0) / scores.length;
     const minScore = Math.min(...scores);
     const maxScore = Math.max(...scores);
@@ -333,9 +354,9 @@ ${similarEventsText}`;
     console.log(`  Min: ${minScore}/30`);
     console.log(`  Max: ${maxScore}/30`);
 
-    const lowScores = scored.filter(r => r.parsedScore!.score <= 10);
-    const midScores = scored.filter(r => r.parsedScore!.score > 10 && r.parsedScore!.score <= 20);
-    const highScores = scored.filter(r => r.parsedScore!.score > 20);
+    const lowScores = scored.filter((r) => r.parsedScore!.score <= 10);
+    const midScores = scored.filter((r) => r.parsedScore!.score > 10 && r.parsedScore!.score <= 20);
+    const highScores = scored.filter((r) => r.parsedScore!.score > 20);
 
     console.log(`  Low (0-10): ${lowScores.length}`);
     console.log(`  Mid (11-20): ${midScores.length}`);

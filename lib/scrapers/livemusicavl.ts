@@ -7,7 +7,7 @@
  * API Endpoint: https://livemusicasheville.com/wp-json/tribe/events/v1/events
  */
 
-import { ScrapedEvent } from './types';
+import { type ScrapedEvent } from './types';
 import { fetchWithRetry } from '@/lib/utils/retry';
 import { decodeHtmlEntities } from '@/lib/utils/parsers';
 
@@ -18,7 +18,7 @@ const TARGET_VENUES = [
   'Little Jumbo',
   'French Broad River Brewery',
   'Fitz and the Wolfe',
-  'One World Brewing',  // Matches "One World Brewing – West"
+  'One World Brewing', // Matches "One World Brewing – West"
   '5 Walnut Wine Bar',
   'White Horse Black Mountain',
 ];
@@ -41,17 +41,17 @@ const VENUE_FALLBACK_IMAGES: Record<string, string> = {
 
 // Fallback zip codes for venues when API doesn't provide one
 const VENUE_FALLBACK_ZIPS: Record<string, string> = {
-  'pisgah brewing': '28711',  // Black Mountain
-  'jack of the wood': '28801',  // Downtown Asheville
-  'little jumbo': '28801',  // Downtown Asheville
-  'french broad river': '28806',  // West Asheville
-  'fitz and the wolfe': '28801',  // Downtown Asheville
-  'one world brewing': '28801',  // Downtown (default)
-  'one world west': '28806',  // West Asheville
-  'one world downtown': '28801',  // Downtown Asheville
-  '5 walnut': '28801',  // Downtown Asheville
-  'walnut wine': '28801',  // Downtown Asheville
-  'white horse': '28711',  // Black Mountain
+  'pisgah brewing': '28711', // Black Mountain
+  'jack of the wood': '28801', // Downtown Asheville
+  'little jumbo': '28801', // Downtown Asheville
+  'french broad river': '28806', // West Asheville
+  'fitz and the wolfe': '28801', // Downtown Asheville
+  'one world brewing': '28801', // Downtown (default)
+  'one world west': '28806', // West Asheville
+  'one world downtown': '28801', // Downtown Asheville
+  '5 walnut': '28801', // Downtown Asheville
+  'walnut wine': '28801', // Downtown Asheville
+  'white horse': '28711', // Black Mountain
 };
 
 // Config
@@ -62,10 +62,11 @@ const DELAY_MS = 500;
 
 // Common headers to avoid blocking
 const API_HEADERS = {
-  "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-  "Accept": "application/json, text/plain, */*",
-  "Accept-Language": "en-US,en;q=0.9",
-  "Referer": "https://livemusicasheville.com/events/",
+  'User-Agent':
+    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+  Accept: 'application/json, text/plain, */*',
+  'Accept-Language': 'en-US,en;q=0.9',
+  Referer: 'https://livemusicasheville.com/events/',
 };
 
 // Types for API response
@@ -94,12 +95,14 @@ interface TribeEvent {
     currency_code: string;
     values: string[];
   };
-  image: {
-    url: string;
-    id: number;
-    width: number;
-    height: number;
-  } | false;
+  image:
+    | {
+        url: string;
+        id: number;
+        width: number;
+        height: number;
+      }
+    | false;
   venue: TribeVenue | TribeVenue[] | [];
   organizer: Array<{
     id: number;
@@ -123,7 +126,7 @@ function getVenue(event: TribeEvent): TribeVenue | undefined {
   if (Array.isArray(event.venue)) {
     return event.venue[0];
   } else if (event.venue && typeof event.venue === 'object' && 'venue' in event.venue) {
-    return event.venue as TribeVenue;
+    return event.venue;
   }
   return undefined;
 }
@@ -134,7 +137,7 @@ function getVenue(event: TribeEvent): TribeVenue | undefined {
 function isTargetVenue(venueName: string | undefined): boolean {
   if (!venueName) return false;
   const decoded = decodeHtmlEntities(venueName).toLowerCase();
-  return TARGET_VENUES.some(target => decoded.includes(target.toLowerCase()));
+  return TARGET_VENUES.some((target) => decoded.includes(target.toLowerCase()));
 }
 
 /**
@@ -206,7 +209,9 @@ function formatEvent(event: TribeEvent): ScrapedEvent {
     sourceId: event.id.toString(),
     source: 'LIVE_MUSIC_AVL',
     title: decodeHtmlEntities(event.title),
-    description: event.description ? decodeHtmlEntities(event.description).slice(0, 2000) : undefined,
+    description: event.description
+      ? decodeHtmlEntities(event.description).slice(0, 2000)
+      : undefined,
     // Append 'Z' to indicate UTC - the API returns UTC time without timezone indicator
     startDate: new Date(event.utc_start_date + 'Z'),
     location,
@@ -240,7 +245,8 @@ async function fetchEventsPage(page: number, startDate: string): Promise<TribeAp
     { maxRetries: 3, baseDelay: 2000 }
   );
 
-  return response.json();
+  const data = (await response.json()) as TribeApiResponse;
+  return data;
 }
 
 /**
@@ -281,7 +287,9 @@ export async function scrapeLiveMusicAvl(): Promise<ScrapedEvent[]> {
         }
       }
 
-      console.log(`[LiveMusicAVL] Page ${page}: ${matchedThisPage}/${data.events.length} matched target venues`);
+      console.log(
+        `[LiveMusicAVL] Page ${page}: ${matchedThisPage}/${data.events.length} matched target venues`
+      );
 
       // Check for more pages
       if (!data.next_rest_url || page >= data.total_pages || page >= MAX_PAGES) {
@@ -289,7 +297,7 @@ export async function scrapeLiveMusicAvl(): Promise<ScrapedEvent[]> {
       } else {
         page++;
         // Rate limiting delay
-        await new Promise(r => setTimeout(r, DELAY_MS));
+        await new Promise((r) => setTimeout(r, DELAY_MS));
       }
     } catch (error) {
       console.error(`[LiveMusicAVL] Error on page ${page}:`, error);
@@ -308,7 +316,7 @@ export async function scrapeLiveMusicAvl(): Promise<ScrapedEvent[]> {
 // Allow running standalone for testing
 if (require.main === module || process.argv[1]?.includes('livemusicavl')) {
   scrapeLiveMusicAvl()
-    .then(events => {
+    .then((events) => {
       console.log('\n' + '='.repeat(60));
       console.log('SCRAPE RESULTS');
       console.log('='.repeat(60));
@@ -337,7 +345,7 @@ if (require.main === module || process.argv[1]?.includes('livemusicavl')) {
 
       console.log('\n✅ Scrape complete!');
     })
-    .catch(error => {
+    .catch((error) => {
       console.error('❌ Scrape failed:', error);
       process.exit(1);
     });

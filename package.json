@@ -34,7 +34,20 @@
     "test:embedding": "tsx scripts/test-embedding.ts",
     "test:similarity": "tsx scripts/test-similarity.ts",
     "backfill:embeddings": "tsx scripts/ai/backfill-embeddings.ts",
-    "cron:schedule": "tsx scripts/show-cron-schedule.ts"
+    "cron:schedule": "tsx scripts/show-cron-schedule.ts",
+    "format": "prettier --write \"app/**\" \"components/**\" \"lib/**\" \"scripts/**/*.ts\" \".github/**/*.yml\" \"*.json\" \"*.md\" \"*.ts\" \"*.mjs\"",
+    "format:check": "prettier --check \"app/**\" \"components/**\" \"lib/**\" \"scripts/**/*.ts\" \".github/**/*.yml\" \"*.json\" \"*.md\" \"*.ts\" \"*.mjs\"",
+    "typecheck": "tsc --noEmit",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,mts}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md,css,yml,yaml}": [
+      "prettier --write"
+    ]
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
@@ -70,7 +83,10 @@
     "drizzle-kit": "^0.31.7",
     "eslint": "^9",
     "eslint-config-next": "16.0.3",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.7",
     "patchright": "^1.57.0",
+    "prettier": "^3.7.4",
     "tailwindcss": "^4",
     "tsx": "^4.21.0",
     "typescript": "^5",

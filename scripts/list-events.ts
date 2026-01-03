@@ -1,9 +1,9 @@
-import { db } from "../lib/db";
-import { events } from "../lib/db/schema";
-import { eq, and } from "drizzle-orm";
+import { db } from '../lib/db';
+import { events } from '../lib/db/schema';
+import { eq, and } from 'drizzle-orm';
 
 async function main() {
-  const sources = ["AVL_TODAY", "EXPLORE_ASHEVILLE", "MOUNTAIN_X"];
+  const sources = ['AVL_TODAY', 'EXPLORE_ASHEVILLE', 'MOUNTAIN_X'];
 
   for (const source of sources) {
     const result = await db

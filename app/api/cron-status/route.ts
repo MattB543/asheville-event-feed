@@ -7,11 +7,13 @@ import vercelConfig from '@/vercel.json';
 const JOB_METADATA: Record<CronJobName, { displayName: string; description: string }> = {
   scrape: {
     displayName: 'Scraping',
-    description: 'Scrapes 10+ event sources (AVL Today, Eventbrite, Meetup, etc.) and upserts to database.',
+    description:
+      'Scrapes 10+ event sources (AVL Today, Eventbrite, Meetup, etc.) and upserts to database.',
   },
   verify: {
     displayName: 'Verify',
-    description: 'Fetches event source URLs via Jina Reader and uses AI to verify/update/hide events.',
+    description:
+      'Fetches event source URLs via Jina Reader and uses AI to verify/update/hide events.',
   },
   ai: {
     displayName: 'AI Processing',
@@ -70,7 +72,10 @@ function getNextRunTime(schedule: string): Date {
     if (field === '*') return Array.from({ length: max + 1 }, (_, i) => i);
     if (field.includes('/')) {
       const [, step] = field.split('/');
-      return Array.from({ length: Math.ceil((max + 1) / parseInt(step)) }, (_, i) => i * parseInt(step));
+      return Array.from(
+        { length: Math.ceil((max + 1) / parseInt(step)) },
+        (_, i) => i * parseInt(step)
+      );
     }
     if (field.includes(',')) {
       return field.split(',').map(Number);
@@ -119,8 +124,10 @@ function formatDuration(ms: number): string {
  * Format relative time using date-fns (without "about")
  */
 function formatRelativeTime(date: Date): string {
-  return formatDistanceToNow(date, { addSuffix: true, includeSeconds: false })
-    .replace('about ', '');
+  return formatDistanceToNow(date, { addSuffix: true, includeSeconds: false }).replace(
+    'about ',
+    ''
+  );
 }
 
 export interface CronJobStatusResponse {
@@ -161,7 +168,9 @@ export async function GET() {
       const metadata = JOB_METADATA[jobName];
 
       if (!metadata) {
-        console.warn(`[Cron Status] Job "${jobName}" in vercel.json has no metadata in JOB_METADATA`);
+        console.warn(
+          `[Cron Status] Job "${jobName}" in vercel.json has no metadata in JOB_METADATA`
+        );
       }
 
       const latestRun = latestRuns.find((r) => r.jobName === jobName);
@@ -198,9 +207,6 @@ export async function GET() {
     return NextResponse.json(response);
   } catch (error) {
     console.error('[Cron Status] Error:', error);
-    return NextResponse.json(
-      { success: false, error: String(error) },
-      { status: 500 }
-    );
+    return NextResponse.json({ success: false, error: String(error) }, { status: 500 });
   }
 }

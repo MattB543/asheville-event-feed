@@ -42,20 +42,22 @@ async function main() {
   console.log();
 
   // Stats
-  const withDesc = events.filter(e => e.description).length;
-  const withImage = events.filter(e => e.imageUrl).length;
-  const withPrice = events.filter(e => e.price && e.price !== 'Unknown').length;
-  const fromTM = events.filter(e => e.sourceId.startsWith('tm-')).length;
-  const fromWeb = events.filter(e => e.sourceId.startsWith('op-web-')).length;
-  const atPulp = events.filter(e => e.location === 'Pulp').length;
+  const withDesc = events.filter((e) => e.description).length;
+  const withImage = events.filter((e) => e.imageUrl).length;
+  const withPrice = events.filter((e) => e.price && e.price !== 'Unknown').length;
+  const fromTM = events.filter((e) => e.sourceId.startsWith('tm-')).length;
+  const fromWeb = events.filter((e) => e.sourceId.startsWith('op-web-')).length;
+  const atPulp = events.filter((e) => e.location === 'Pulp').length;
 
   console.log('Statistics:');
   console.log(`  - From Ticketmaster: ${fromTM}`);
   console.log(`  - From Website: ${fromWeb}`);
   console.log(`  - At Pulp (smaller venue): ${atPulp}`);
-  console.log(`  - With description: ${withDesc} (${Math.round(withDesc/events.length*100)}%)`);
-  console.log(`  - With image: ${withImage} (${Math.round(withImage/events.length*100)}%)`);
-  console.log(`  - With price: ${withPrice} (${Math.round(withPrice/events.length*100)}%)`);
+  console.log(
+    `  - With description: ${withDesc} (${Math.round((withDesc / events.length) * 100)}%)`
+  );
+  console.log(`  - With image: ${withImage} (${Math.round((withImage / events.length) * 100)}%)`);
+  console.log(`  - With price: ${withPrice} (${Math.round((withPrice / events.length) * 100)}%)`);
   console.log();
 
   // Show sample events
@@ -66,13 +68,17 @@ async function main() {
     const source = event.sourceId.startsWith('tm-') ? '[TM]' : '[WEB]';
     console.log();
     console.log(`${source} ${event.title}`);
-    console.log(`  Date: ${event.startDate.toLocaleDateString()} ${event.startDate.toLocaleTimeString()}`);
+    console.log(
+      `  Date: ${event.startDate.toLocaleDateString()} ${event.startDate.toLocaleTimeString()}`
+    );
     console.log(`  Location: ${event.location}`);
     console.log(`  Source ID: ${event.sourceId}`);
     console.log(`  Price: ${event.price}`);
     console.log(`  URL: ${event.url.slice(0, 60)}...`);
     console.log(`  Image: ${event.imageUrl ? 'Yes' : 'No'}`);
-    console.log(`  Description: ${event.description ? event.description.slice(0, 80) + '...' : 'None'}`);
+    console.log(
+      `  Description: ${event.description ? event.description.slice(0, 80) + '...' : 'None'}`
+    );
   }
 
   console.log();
@@ -92,7 +98,7 @@ async function main() {
   const outputFile = path.join(outputDir, 'scraped-data.json');
 
   // Convert dates to ISO strings for JSON serialization
-  const jsonData = events.map(e => ({
+  const jsonData = events.map((e) => ({
     ...e,
     startDate: e.startDate.toISOString(),
   }));

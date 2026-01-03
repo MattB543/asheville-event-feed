@@ -10,7 +10,7 @@
  * Requires: TICKETMASTER_API_KEY in environment
  */
 
-import { ScrapedEvent } from './types';
+import { type ScrapedEvent } from './types';
 import { fetchEventData } from './base';
 import { parseAsEastern } from '../utils/timezone';
 
@@ -127,7 +127,7 @@ async function fetchTicketmasterEvents(): Promise<ScrapedEvent[]> {
         { maxRetries: 3, baseDelay: 1000 },
         'OrangePeel-TM'
       );
-      const data: TMResponse = await response.json();
+      const data = (await response.json()) as TMResponse;
 
       if (data._embedded?.events) {
         for (const event of data._embedded.events) {
@@ -148,8 +148,7 @@ async function fetchTicketmasterEvents(): Promise<ScrapedEvent[]> {
       }
 
       // Rate limit: 200ms between requests
-      await new Promise(r => setTimeout(r, 200));
-
+      await new Promise((r) => setTimeout(r, 200));
     } catch (error) {
       console.error('[OrangePeel-TM] API error:', error);
       hasMore = false;
@@ -158,14 +157,16 @@ async function fetchTicketmasterEvents(): Promise<ScrapedEvent[]> {
 
   // Deduplicate by date + normalized title (TM returns duplicates with different ticket URLs)
   const seen = new Set<string>();
-  const deduped = events.filter(e => {
+  const deduped = events.filter((e) => {
     const key = `${getLocalDateKey(e.startDate)}-${normalizeTitle(e.title)}`;
     if (seen.has(key)) return false;
     seen.add(key);
     return true;
   });
 
-  console.log(`[OrangePeel-TM] Found ${deduped.length} unique events (${events.length} total with dupes)`);
+  console.log(
+    `[OrangePeel-TM] Found ${deduped.length} unique events (${events.length} total with dupes)`
+  );
   return deduped;
 }
 
@@ -193,7 +194,7 @@ function formatTMEvent(event: TMEvent): ScrapedEvent | null {
   let imageUrl: string | undefined;
   if (event.images?.length) {
     const preferred = event.images
-      .filter(img => img.ratio === '16_9')
+      .filter((img) => img.ratio === '16_9')
       .sort((a, b) => b.width - a.width)[0];
     imageUrl = preferred?.url || event.images[0].url;
   }
@@ -210,11 +211,12 @@ function formatTMEvent(event: TMEvent): ScrapedEvent | null {
   }
 
   // Build description from available fields
-  const description = event.description
-    || event.info
-    || event.pleaseNote
-    || event._embedded?.attractions?.[0]?.description
-    || undefined;
+  const description =
+    event.description ||
+    event.info ||
+    event.pleaseNote ||
+    event._embedded?.attractions?.[0]?.description ||
+    undefined;
 
   // Clean title - remove age restrictions (will be in description if needed)
   const title = event.name
@@ -243,16 +245,21 @@ function formatTMEvent(event: TMEvent): ScrapedEvent | null {
  * Normalize title for comparison - strips common variations
  */
 function normalizeTitle(title: string): string {
-  return title
-    .toLowerCase()
-    // Remove tour names and suffixes
-    .replace(/\s*-\s*(tour|mirrorverse|house of mirrors|winter|north american|the denali|rituals of hate|visions|know your enemy|too many flooz|2026|2025)[^-]*/gi, '')
-    // Remove "w/" featuring artists
-    .replace(/\s*w\/[^-]*/gi, '')
-    // Remove punctuation and extra whitespace
-    .replace(/[^\w\s]/g, ' ')
-    .replace(/\s+/g, ' ')
-    .trim();
+  return (
+    title
+      .toLowerCase()
+      // Remove tour names and suffixes
+      .replace(
+        /\s*-\s*(tour|mirrorverse|house of mirrors|winter|north american|the denali|rituals of hate|visions|know your enemy|too many flooz|2026|2025)[^-]*/gi,
+        ''
+      )
+      // Remove "w/" featuring artists
+      .replace(/\s*w\/[^-]*/gi, '')
+      // Remove punctuation and extra whitespace
+      .replace(/[^\w\s]/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim()
+  );
 }
 
 /**
@@ -285,9 +292,9 @@ function isDuplicate(
     }
 
     // Check for shared significant words (more than 3 chars)
-    const words1 = normalizedTitle.split(' ').filter(w => w.length > 3);
-    const words2 = existingTitle.split(' ').filter(w => w.length > 3);
-    const shared = words1.filter(w => words2.includes(w));
+    const words1 = normalizedTitle.split(' ').filter((w) => w.length > 3);
+    const words2 = existingTitle.split(' ').filter((w) => w.length > 3);
+    const shared = words1.filter((w) => words2.includes(w));
 
     // 2+ shared words, or 1 word if it's long (likely artist name)
     if (shared.length >= 2 || (shared.length >= 1 && shared[0].length > 5)) {
@@ -345,12 +352,11 @@ async function fetchWebsiteEvents(): Promise<ScrapedEvent[]> {
       }
 
       // Rate limit: 150ms between requests
-      await new Promise(r => setTimeout(r, 150));
+      await new Promise((r) => setTimeout(r, 150));
     }
 
     console.log(`[OrangePeel-Web] Scraped ${scraped} events (${failed} failed)`);
     return events;
-
   } catch (error) {
     console.error('[OrangePeel-Web] Error fetching events page:', error);
     return [];
@@ -378,7 +384,7 @@ async function scrapeEventPage(url: string): Promise<ScrapedEvent | null> {
 
     let jsonLd: JSONLDEvent;
     try {
-      jsonLd = JSON.parse(jsonLdMatch[1]);
+      jsonLd = JSON.parse(jsonLdMatch[1]) as JSONLDEvent;
     } catch {
       return null;
     }
@@ -409,7 +415,10 @@ async function scrapeEventPage(url: string): Promise<ScrapedEvent | null> {
     let location = VENUE_ADDRESS;
     if (url.includes('/pulp/') || jsonLd.location?.name?.toLowerCase().includes('pulp')) {
       location = PULP_ADDRESS;
-    } else if (jsonLd.location?.name && !jsonLd.location.name.toLowerCase().includes('orange peel')) {
+    } else if (
+      jsonLd.location?.name &&
+      !jsonLd.location.name.toLowerCase().includes('orange peel')
+    ) {
       location = jsonLd.location.name;
     }
 
@@ -427,7 +436,10 @@ async function scrapeEventPage(url: string): Promise<ScrapedEvent | null> {
       imageUrl: jsonLd.image,
     };
   } catch (error) {
-    console.warn(`[OrangePeel] Failed to scrape: ${url}`, error instanceof Error ? error.message : error);
+    console.warn(
+      `[OrangePeel] Failed to scrape: ${url}`,
+      error instanceof Error ? error.message : error
+    );
     return null;
   }
 }
@@ -478,7 +490,9 @@ export async function scrapeOrangePeel(): Promise<ScrapedEvent[]> {
   const allEvents = [...tmEvents, ...uniqueWebEvents];
   allEvents.sort((a, b) => a.startDate.getTime() - b.startDate.getTime());
 
-  console.log(`[OrangePeel] Total: ${allEvents.length} events (${tmEvents.length} from TM, ${uniqueWebEvents.length} from Web)`);
+  console.log(
+    `[OrangePeel] Total: ${allEvents.length} events (${tmEvents.length} from TM, ${uniqueWebEvents.length} from Web)`
+  );
 
   return allEvents;
 }

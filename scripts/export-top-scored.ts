@@ -26,12 +26,7 @@ async function exportTopScoredEvents() {
       scoreReason: events.scoreReason,
     })
     .from(events)
-    .where(
-      and(
-        gte(events.startDate, now),
-        isNotNull(events.score)
-      )
-    )
+    .where(and(gte(events.startDate, now), isNotNull(events.score)))
     .orderBy(desc(events.score), events.startDate)
     .limit(50);
 
@@ -57,7 +52,9 @@ async function exportTopScoredEvents() {
     lines.push('');
 
     // Score prominently
-    lines.push(`**SCORE: ${event.score}/30** (Rarity: ${event.scoreRarity}, Unique: ${event.scoreUnique}, Magnitude: ${event.scoreMagnitude})`);
+    lines.push(
+      `**SCORE: ${event.score}/30** (Rarity: ${event.scoreRarity}, Unique: ${event.scoreUnique}, Magnitude: ${event.scoreMagnitude})`
+    );
     lines.push('');
 
     // Score reason

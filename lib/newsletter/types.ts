@@ -1,12 +1,12 @@
-export type NewsletterFrequency = "none" | "daily" | "weekly";
+export type NewsletterFrequency = 'none' | 'daily' | 'weekly';
 
-export type NewsletterScoreTier = "all" | "top50" | "top10";
+export type NewsletterScoreTier = 'all' | 'top50' | 'top10';
 
-export type NewsletterDaySelection = "everyday" | "weekend" | "specific";
+export type NewsletterDaySelection = 'everyday' | 'weekend' | 'specific';
 
-export type PriceFilterType = "any" | "free" | "under20" | "under100" | "custom";
+export type PriceFilterType = 'any' | 'free' | 'under20' | 'under100' | 'custom';
 
-export type TimeOfDay = "morning" | "afternoon" | "evening";
+export type TimeOfDay = 'morning' | 'afternoon' | 'evening';
 
 export interface NewsletterFilters {
   search?: string;

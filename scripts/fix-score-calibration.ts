@@ -23,7 +23,8 @@ const corrections: ScoreCorrection[] = [
       scoreRarity: 3,
       scoreUnique: 8,
       scoreMagnitude: 5,
-      scoreReason: 'Major museum exhibit at Asheville Art Museum celebrating Thomas Wolfe - deeply tied to Asheville\'s literary identity.',
+      scoreReason:
+        "Major museum exhibit at Asheville Art Museum celebrating Thomas Wolfe - deeply tied to Asheville's literary identity.",
     },
   },
   {
@@ -33,7 +34,8 @@ const corrections: ScoreCorrection[] = [
       scoreRarity: 3,
       scoreUnique: 8,
       scoreMagnitude: 4,
-      scoreReason: 'Museum exhibit on Asheville architecture history - uniquely local subject matter at a major cultural institution.',
+      scoreReason:
+        'Museum exhibit on Asheville architecture history - uniquely local subject matter at a major cultural institution.',
     },
   },
   {
@@ -43,7 +45,8 @@ const corrections: ScoreCorrection[] = [
       scoreRarity: 3,
       scoreUnique: 5,
       scoreMagnitude: 6,
-      scoreReason: 'Professional museum exhibit at Asheville Art Museum - significant cultural institution, though not Asheville-specific subject.',
+      scoreReason:
+        'Professional museum exhibit at Asheville Art Museum - significant cultural institution, though not Asheville-specific subject.',
     },
   },
   {
@@ -53,7 +56,8 @@ const corrections: ScoreCorrection[] = [
       scoreRarity: 3,
       scoreUnique: 5,
       scoreMagnitude: 6,
-      scoreReason: 'Professional museum exhibit at Asheville Art Museum - major downtown cultural institution.',
+      scoreReason:
+        'Professional museum exhibit at Asheville Art Museum - major downtown cultural institution.',
     },
   },
 
@@ -65,7 +69,8 @@ const corrections: ScoreCorrection[] = [
       scoreRarity: 7,
       scoreUnique: 6,
       scoreMagnitude: 2,
-      scoreReason: 'Intimate trauma-informed workshop - unique concept but small-scale private class, not a public draw.',
+      scoreReason:
+        'Intimate trauma-informed workshop - unique concept but small-scale private class, not a public draw.',
     },
   },
   {
@@ -75,7 +80,8 @@ const corrections: ScoreCorrection[] = [
       scoreRarity: 8,
       scoreUnique: 7,
       scoreMagnitude: 2,
-      scoreReason: 'Specialized personal development workshop - niche and rare but small private gathering.',
+      scoreReason:
+        'Specialized personal development workshop - niche and rare but small private gathering.',
     },
   },
 
@@ -87,7 +93,8 @@ const corrections: ScoreCorrection[] = [
       scoreRarity: 8,
       scoreUnique: 4,
       scoreMagnitude: 9,
-      scoreReason: 'Major touring comedy show at Thomas Wolfe Auditorium - high-draw national act, but cookie-cutter roadshow format.',
+      scoreReason:
+        'Major touring comedy show at Thomas Wolfe Auditorium - high-draw national act, but cookie-cutter roadshow format.',
     },
   },
 
@@ -99,7 +106,8 @@ const corrections: ScoreCorrection[] = [
       scoreRarity: 8,
       scoreUnique: 7,
       scoreMagnitude: 7,
-      scoreReason: 'World-famous artist\'s troll sculptures - rare destination attraction that draws visitors specifically to the region.',
+      scoreReason:
+        "World-famous artist's troll sculptures - rare destination attraction that draws visitors specifically to the region.",
     },
   },
 
@@ -111,7 +119,8 @@ const corrections: ScoreCorrection[] = [
       scoreRarity: 9,
       scoreUnique: 9,
       scoreMagnitude: 6,
-      scoreReason: 'Once-a-year cult event - people camp out overnight. Quintessential Asheville maker culture moment.',
+      scoreReason:
+        'Once-a-year cult event - people camp out overnight. Quintessential Asheville maker culture moment.',
     },
   },
   {
@@ -121,7 +130,8 @@ const corrections: ScoreCorrection[] = [
       scoreRarity: 9,
       scoreUnique: 9,
       scoreMagnitude: 6,
-      scoreReason: 'Once-a-year cult event - people camp out overnight. Quintessential Asheville maker culture moment.',
+      scoreReason:
+        'Once-a-year cult event - people camp out overnight. Quintessential Asheville maker culture moment.',
     },
   },
 
@@ -133,7 +143,8 @@ const corrections: ScoreCorrection[] = [
       scoreRarity: 6,
       scoreUnique: 5,
       scoreMagnitude: 3,
-      scoreReason: 'Sold-out private scrapbooking retreat - not accessible to general public despite 200 participants.',
+      scoreReason:
+        'Sold-out private scrapbooking retreat - not accessible to general public despite 200 participants.',
     },
   },
 ];
@@ -160,7 +171,9 @@ async function fixScoreCalibration() {
       console.log(`✓ Updated ${result.length} event(s) matching "${correction.titlePattern}":`);
       for (const event of result) {
         console.log(`  - ${event.title}`);
-        console.log(`    New score: ${correction.scores.score}/30 (R:${correction.scores.scoreRarity}, U:${correction.scores.scoreUnique}, M:${correction.scores.scoreMagnitude})`);
+        console.log(
+          `    New score: ${correction.scores.score}/30 (R:${correction.scores.scoreRarity}, U:${correction.scores.scoreUnique}, M:${correction.scores.scoreMagnitude})`
+        );
       }
       totalUpdated += result.length;
     } else {

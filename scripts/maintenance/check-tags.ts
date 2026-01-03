@@ -1,13 +1,15 @@
-import "../../lib/config/env";
-import { db } from "../../lib/db";
-import { events } from "../../lib/db/schema";
+import '../../lib/config/env';
+import { db } from '../../lib/db';
+import { events } from '../../lib/db/schema';
 
 async function main() {
-  const allEvents = await db.select({ 
-    id: events.id, 
-    title: events.title, 
-    tags: events.tags 
-  }).from(events);
+  const allEvents = await db
+    .select({
+      id: events.id,
+      title: events.title,
+      tags: events.tags,
+    })
+    .from(events);
 
   let nullTags = 0;
   let emptyTags = 0;
@@ -29,10 +31,13 @@ async function main() {
   console.log(`Tags HAS VALUES: ${hasTags}`);
 
   if (emptyTags > 0) {
-    console.log("\nSample events with empty tags:");
-    allEvents.filter(e => Array.isArray(e.tags) && e.tags.length === 0).slice(0, 5).forEach(e => {
-      console.log(`- ${e.title}`);
-    });
+    console.log('\nSample events with empty tags:');
+    allEvents
+      .filter((e) => Array.isArray(e.tags) && e.tags.length === 0)
+      .slice(0, 5)
+      .forEach((e) => {
+        console.log(`- ${e.title}`);
+      });
   }
 }
 

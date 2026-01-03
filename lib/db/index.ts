@@ -1,5 +1,5 @@
-import { drizzle, PostgresJsDatabase } from 'drizzle-orm/postgres-js';
-import postgres, { Sql } from 'postgres';
+import { drizzle, type PostgresJsDatabase } from 'drizzle-orm/postgres-js';
+import postgres, { type Sql } from 'postgres';
 import * as schema from './schema';
 import { env } from '../config/env';
 
@@ -14,9 +14,9 @@ function createDb(): DbType {
   }
   // Configure for Supabase transaction pooling (serverless)
   _client = postgres(env.DATABASE_URL, {
-    prepare: false,      // Required for Supabase transaction mode (pgbouncer)
-    max: 5,              // Allow concurrent requests with Vercel Fluid compute
-    idle_timeout: 20,    // Close idle connections after 20s
+    prepare: false, // Required for Supabase transaction mode (pgbouncer)
+    max: 5, // Allow concurrent requests with Vercel Fluid compute
+    idle_timeout: 20, // Close idle connections after 20s
     connect_timeout: 30, // 30s connection timeout (matches URL param)
   });
   return drizzle(_client, { schema });
@@ -28,6 +28,6 @@ export const db: DbType = new Proxy({} as DbType, {
     if (!_db) {
       _db = createDb();
     }
-    return Reflect.get(_db, prop);
+    return Reflect.get(_db, prop) as DbType[keyof DbType];
   },
 });

@@ -8,7 +8,8 @@
 import type { Page } from 'patchright';
 import { log } from './facebook-stealth';
 
-export interface FacebookEventDetails {
+// Result from browser evaluate (before url is added)
+interface BrowserEvaluateResult {
   eventId: string;
   title: string | null;
   description: string | null;
@@ -18,13 +19,61 @@ export interface FacebookEventDetails {
   imageUrl: string | null;
   organizer: string | null;
   price: string | null;
-  url: string;
   interestedCount: number | null;
   goingCount: number | null;
   zip: string | null;
   latitude: number | null;
   longitude: number | null;
 }
+
+// Final event details with url added
+export interface FacebookEventDetails extends BrowserEvaluateResult {
+  url: string;
+}
+
+interface FacebookGraphQLHostEntry {
+  host?: { name?: string };
+  user_type_renderer?: { host?: { name?: string } };
+}
+
+interface FacebookGraphQLFriendsCard {
+  event_connected_users_maybe?: { count?: number };
+  event_connected_users_going?: { count?: number };
+  unified_associates_count?: number;
+  unified_member_count?: number;
+}
+
+interface FacebookGraphQLCoverMediaRenderer {
+  cover_photo?: { photo?: { full_image?: { uri?: string } } };
+  cover_media?: Array<{ full_image?: { uri?: string } }>;
+}
+
+interface FacebookGraphQLEventPlace {
+  name?: string;
+  location?: { latitude?: number; longitude?: number };
+  address?: { street?: string };
+}
+
+interface FacebookGraphQLEvent {
+  name?: string;
+  start_timestamp?: number;
+  end_timestamp?: number;
+  event_place?: FacebookGraphQLEventPlace;
+  cover_media_renderer?: FacebookGraphQLCoverMediaRenderer;
+  price_info?: { summary?: string };
+  event_description?: { text?: string };
+  one_line_address?: string;
+  event_creator?: { name?: string };
+  event_hosts_that_can_view_guestlist?: Array<{ name?: string }>;
+  event_hosts_meet_your_host?: FacebookGraphQLHostEntry[];
+  can_view_friends_card?: { event?: FacebookGraphQLFriendsCard };
+}
+
+interface FacebookGraphQLLine {
+  data?: { event?: FacebookGraphQLEvent };
+}
+
+type BrowserGraphQLResult = BrowserEvaluateResult | { error: string };
 
 /**
  * Fetch event details using GraphQL from within the browser context
@@ -34,9 +83,13 @@ export async function fetchEventDetailsInBrowser(
   eventId: string
 ): Promise<FacebookEventDetails | null> {
   try {
-    const result = await page.evaluate(async (eventId: string) => {
+    const result = await page.evaluate<BrowserGraphQLResult, string>(async (eventId: string) => {
       // Extract tokens from page
-      let fb_dtsg = '', lsd = '', jazoest = '', rev = '', userId = '';
+      let fb_dtsg = '',
+        lsd = '',
+        jazoest = '',
+        rev = '',
+        userId = '';
 
       const scripts = document.querySelectorAll('script');
       const html = document.documentElement.innerHTML;
@@ -72,7 +125,10 @@ export async function fetchEventDetailsInBrowser(
       headerParams.append('lsd', lsd);
       headerParams.append('fb_api_caller_class', 'RelayModern');
       headerParams.append('fb_api_req_friendly_name', 'EventCometPermalinkHeaderQuery');
-      headerParams.append('variables', JSON.stringify({ eventID: eventId, isCrawler: false, scale: 1 }));
+      headerParams.append(
+        'variables',
+        JSON.stringify({ eventID: eventId, isCrawler: false, scale: 1 })
+      );
       headerParams.append('doc_id', '24852752747670056');
 
       // Fetch about data (description, organizer)
@@ -87,7 +143,10 @@ export async function fetchEventDetailsInBrowser(
       aboutParams.append('lsd', lsd);
       aboutParams.append('fb_api_caller_class', 'RelayModern');
       aboutParams.append('fb_api_req_friendly_name', 'PublicEventCometAboutRootQuery');
-      aboutParams.append('variables', JSON.stringify({ eventID: eventId, isLoggedOut: false, scale: 1 }));
+      aboutParams.append(
+        'variables',
+        JSON.stringify({ eventID: eventId, isLoggedOut: false, scale: 1 })
+      );
       aboutParams.append('doc_id', '24522924877384967');
 
       const [headerRes, aboutRes] = await Promise.all([
@@ -105,10 +164,7 @@ export async function fetchEventDetailsInBrowser(
         }),
       ]);
 
-      const [headerText, aboutText] = await Promise.all([
-        headerRes.text(),
-        aboutRes.text(),
-      ]);
+      const [headerText, aboutText] = await Promise.all([headerRes.text(), aboutRes.text()]);
 
       // Parse responses
       let title: string | null = null;
@@ -126,10 +182,10 @@ export async function fetchEventDetailsInBrowser(
       let longitude: number | null = null;
 
       // Parse header response
-      const headerLines = headerText.split('\n').filter(l => l.trim());
+      const headerLines = headerText.split('\n').filter((l) => l.trim());
       for (const line of headerLines) {
         try {
-          const parsed = JSON.parse(line);
+          const parsed = JSON.parse(line) as FacebookGraphQLLine;
           if (parsed?.data?.event) {
             const event = parsed.data.event;
             title = event.name || null;
@@ -148,7 +204,10 @@ export async function fetchEventDetailsInBrowser(
                 imageUrl = coverRenderer.cover_photo.photo.full_image.uri;
               }
               // EventMultiCoverMediaRenderer - multiple cover images, take first
-              else if (Array.isArray(coverRenderer.cover_media) && coverRenderer.cover_media[0]?.full_image?.uri) {
+              else if (
+                Array.isArray(coverRenderer.cover_media) &&
+                coverRenderer.cover_media[0]?.full_image?.uri
+              ) {
                 imageUrl = coverRenderer.cover_media[0].full_image.uri;
               }
             }
@@ -161,10 +220,10 @@ export async function fetchEventDetailsInBrowser(
       }
 
       // Parse about response
-      const aboutLines = aboutText.split('\n').filter(l => l.trim());
+      const aboutLines = aboutText.split('\n').filter((l) => l.trim());
       for (const line of aboutLines) {
         try {
-          const parsed = JSON.parse(line);
+          const parsed = JSON.parse(line) as FacebookGraphQLLine;
           if (parsed?.data?.event) {
             const event = parsed.data.event;
 
@@ -276,7 +335,8 @@ export async function fetchEventDetailsInBrowser(
       url: `https://www.facebook.com/events/${eventId}/`,
     } as FacebookEventDetails;
   } catch (error) {
-    log(`    ⚠️ Error fetching ${eventId}: ${error}`);
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    log(`    ⚠️ Error fetching ${eventId}: ${errorMessage}`);
     return null;
   }
 }
@@ -297,7 +357,9 @@ export async function fetchAllEventDetailsInBrowser(
   const results: FacebookEventDetails[] = [];
   let completed = 0;
 
-  log(`📡 Fetching details for ${eventIds.length} events in browser (concurrency: ${concurrency})...`);
+  log(
+    `📡 Fetching details for ${eventIds.length} events in browser (concurrency: ${concurrency})...`
+  );
 
   // Process in batches
   for (let i = 0; i < eventIds.length; i += concurrency) {
@@ -320,7 +382,7 @@ export async function fetchAllEventDetailsInBrowser(
 
     // Small delay between batches
     if (i + concurrency < eventIds.length) {
-      await new Promise(r => setTimeout(r, delayMs));
+      await new Promise((r) => setTimeout(r, delayMs));
     }
   }
 

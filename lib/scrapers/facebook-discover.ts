@@ -76,7 +76,9 @@ export async function discoverFacebookEventIds(): Promise<string[]> {
       const patchright = await import('patchright');
       chromium = patchright.chromium;
     } catch {
-      throw new Error('patchright is not available. Install it as a dev dependency and run locally.');
+      throw new Error(
+        'patchright is not available. Install it as a dev dependency and run locally.'
+      );
     }
     context = await chromium.launchPersistentContext(PROFILE_DIR, {
       channel: 'chrome', // CRITICAL: Use real Chrome, not Chromium
@@ -171,7 +173,8 @@ export async function discoverFacebookEventIds(): Promise<string[]> {
     log(`  ✅ Discovered ${eventIds.length} unique event IDs`);
     return eventIds;
   } catch (error) {
-    log(`  ❌ Error during discovery: ${error}`);
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    log(`  ❌ Error during discovery: ${errorMessage}`);
 
     if (error instanceof Error) {
       // Check for specific error types
@@ -223,11 +226,13 @@ export async function testDiscovery(): Promise<{
  * @param options Configuration options
  * @returns Array of Facebook event details
  */
-export async function discoverAndFetchFacebookEvents(options: {
-  maxScrolls?: number;
-  targetEvents?: number;
-  onProgress?: (completed: number, total: number) => void;
-} = {}): Promise<FacebookEventDetails[]> {
+export async function discoverAndFetchFacebookEvents(
+  options: {
+    maxScrolls?: number;
+    targetEvents?: number;
+    onProgress?: (completed: number, total: number) => void;
+  } = {}
+): Promise<FacebookEventDetails[]> {
   const { maxScrolls = 10, targetEvents = 30, onProgress } = options;
 
   log('🔍 Starting Facebook event discovery and fetch...');
@@ -247,7 +252,9 @@ export async function discoverAndFetchFacebookEvents(options: {
       const patchright = await import('patchright');
       chromium = patchright.chromium;
     } catch {
-      throw new Error('patchright is not available. Install it as a dev dependency and run locally.');
+      throw new Error(
+        'patchright is not available. Install it as a dev dependency and run locally.'
+      );
     }
     context = await chromium.launchPersistentContext(PROFILE_DIR, {
       channel: 'chrome',
@@ -322,7 +329,9 @@ export async function discoverAndFetchFacebookEvents(options: {
       const newCount = newIds.length - eventIds.length;
 
       if (newCount > 0) {
-        log(`  Scroll ${scrollAttempt + 1}: Found ${newCount} new events (total: ${newIds.length})`);
+        log(
+          `  Scroll ${scrollAttempt + 1}: Found ${newCount} new events (total: ${newIds.length})`
+        );
         eventIds = newIds;
         noNewEventsCount = 0;
       } else {
@@ -352,7 +361,8 @@ export async function discoverAndFetchFacebookEvents(options: {
     log(`  ✅ Fetched ${events.length} events with full details`);
     return events;
   } catch (error) {
-    log(`  ❌ Error: ${error}`);
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    log(`  ❌ Error: ${errorMessage}`);
     throw error;
   } finally {
     if (context) {

@@ -17,6 +17,10 @@ import { isRecord, isString } from '@/lib/utils/validation';
 
 export const dynamic = 'force-dynamic';
 
+type TimeOfDay = 'morning' | 'afternoon' | 'evening';
+
+const TIME_OF_DAY = new Set<TimeOfDay>(['morning', 'afternoon', 'evening']);
+
 // Hidden event fingerprint type (matches client-side)
 interface HiddenEventFingerprint {
   title: string;
@@ -56,6 +60,40 @@ function parseHiddenEvents(value: string | null): HiddenEventFingerprint[] {
   } catch {
     return [];
   }
+}
+
+function parseTimes(value: string | null): TimeOfDay[] {
+  if (!value) return [];
+  const times = value
+    .split(',')
+    .map((time) => time.trim())
+    .filter((time): time is TimeOfDay => TIME_OF_DAY.has(time as TimeOfDay));
+  return times.length > 0 ? times : [];
+}
+
+function getHourEastern(date: Date): number {
+  const parts = new Intl.DateTimeFormat('en-US', {
+    timeZone: 'America/New_York',
+    hour: 'numeric',
+    hour12: false,
+  }).formatToParts(date);
+  const hourPart = parts.find((part) => part.type === 'hour');
+  if (hourPart) {
+    const parsed = parseInt(hourPart.value, 10);
+    if (!Number.isNaN(parsed)) {
+      return parsed;
+    }
+  }
+  return date.getHours();
+}
+
+function matchesTimeOfDay(date: Date, times: TimeOfDay[]): boolean {
+  const hour = getHourEastern(date);
+  return times.some((time) => {
+    if (time === 'morning') return hour >= 5 && hour <= 11;
+    if (time === 'afternoon') return hour >= 12 && hour <= 16;
+    return hour >= 17 || hour <= 2;
+  });
 }
 
 function formatDate(date: Date): string {
@@ -100,6 +138,8 @@ export async function GET(request: Request) {
     const excludeTags = tagsExcludeParam ? tagsExcludeParam.split(',') : [];
     const daysParam = searchParams.get('days');
     const selectedDays = daysParam ? daysParam.split(',').map(Number) : [];
+    const timesParam = searchParams.get('times');
+    const selectedTimes = parseTimes(timesParam);
 
     // Client-side filters
     const blockedHostsParam = searchParams.get('blockedHosts');
@@ -111,6 +151,9 @@ export async function GET(request: Request) {
     const useDefaultFilters = searchParams.get('useDefaultFilters') !== 'false';
     const locationsParam = searchParams.get('locations');
     const selectedLocations = locationsParam ? locationsParam.split(',') : [];
+    const zipsParam = searchParams.get('zips');
+    const selectedZips = zipsParam ? zipsParam.split(',').filter(Boolean) : [];
+    const showDailyEvents = searchParams.get('showDailyEvents') !== 'false';
 
     // Get start of today in Eastern timezone (Asheville, NC)
     const startOfToday = getStartOfTodayEastern();
@@ -126,7 +169,17 @@ export async function GET(request: Request) {
       .orderBy(asc(events.startDate));
 
     // Apply filters
-    allEvents = allEvents.filter(event => {
+    allEvents = allEvents.filter((event) => {
+      // 0. Admin-hidden events (moderation)
+      if (event.hidden) {
+        return false;
+      }
+
+      // 0.5 Daily events toggle
+      if (!showDailyEvents && event.recurringType === 'daily') {
+        return false;
+      }
+
       // 1. Hidden Events (by title+organizer fingerprint)
       if (hiddenEvents.length > 0 && matchesHiddenFingerprint(event, hiddenEvents)) {
         return false;
@@ -134,14 +187,16 @@ export async function GET(request: Request) {
 
       // 2. Blocked Hosts
       if (blockedHosts.length > 0 && event.organizer) {
-        if (blockedHosts.some(host => event.organizer!.toLowerCase().includes(host.toLowerCase()))) {
+        if (
+          blockedHosts.some((host) => event.organizer!.toLowerCase().includes(host.toLowerCase()))
+        ) {
           return false;
         }
       }
 
       // 3. Blocked Keywords (user custom)
       if (blockedKeywords.length > 0) {
-        if (blockedKeywords.some(kw => event.title.toLowerCase().includes(kw.toLowerCase()))) {
+        if (blockedKeywords.some((kw) => event.title.toLowerCase().includes(kw.toLowerCase()))) {
           return false;
         }
       }
@@ -154,19 +209,32 @@ export async function GET(request: Request) {
 
       // 5. Search filter
       if (search) {
-        const searchText = `${event.title} ${event.description || ''} ${event.organizer || ''} ${event.location || ''}`.toLowerCase();
+        const searchText =
+          `${event.title} ${event.description || ''} ${event.organizer || ''} ${event.location || ''}`.toLowerCase();
         if (!searchText.includes(search)) return false;
       }
 
       // 6. Date filter (using Eastern timezone for Asheville, NC)
       const eventDate = new Date(event.startDate);
       if (dateFilter === 'today' && !isTodayEastern(eventDate, dateFilterBounds)) return false;
-      if (dateFilter === 'tomorrow' && !isTomorrowEastern(eventDate, dateFilterBounds)) return false;
-      if (dateFilter === 'weekend' && !isThisWeekendEastern(eventDate, dateFilterBounds)) return false;
+      if (dateFilter === 'tomorrow' && !isTomorrowEastern(eventDate, dateFilterBounds))
+        return false;
+      if (dateFilter === 'weekend' && !isThisWeekendEastern(eventDate, dateFilterBounds))
+        return false;
       if (dateFilter === 'dayOfWeek' && !isDayOfWeekEastern(eventDate, selectedDays)) return false;
-      if (dateFilter === 'custom' && dateStart && !isInDateRangeEastern(eventDate, dateStart, dateEnd || undefined)) return false;
+      if (
+        dateFilter === 'custom' &&
+        dateStart &&
+        !isInDateRangeEastern(eventDate, dateStart, dateEnd || undefined)
+      )
+        return false;
 
-      // 7. Price filter
+      // 7. Time filter (allow unknown times)
+      if (selectedTimes.length > 0 && !event.timeUnknown) {
+        if (!matchesTimeOfDay(eventDate, selectedTimes)) return false;
+      }
+
+      // 8. Price filter
       if (priceFilter && priceFilter !== 'any') {
         const price = parsePrice(event.price);
         const priceStr = event.price?.toLowerCase() || '';
@@ -178,20 +246,20 @@ export async function GET(request: Request) {
         if (priceFilter === 'custom' && maxPrice && price > parseFloat(maxPrice)) return false;
       }
 
-      // 8. Tag filter (include AND exclude)
+      // 9. Tag filter (include AND exclude)
       const eventTags = event.tags || [];
 
       // Exclude logic: If event has ANY excluded tag, filter it out
       if (excludeTags.length > 0) {
-        if (excludeTags.some(tag => eventTags.includes(tag))) return false;
+        if (excludeTags.some((tag) => eventTags.includes(tag))) return false;
       }
 
       // Include logic: If includes are set, event must have at least one
       if (includeTags.length > 0) {
-        if (!includeTags.some(tag => eventTags.includes(tag))) return false;
+        if (!includeTags.some((tag) => eventTags.includes(tag))) return false;
       }
 
-      // 9. Location filter (multi-select - OR logic)
+      // 10. Location filter (multi-select - OR logic)
       if (selectedLocations.length > 0) {
         const eventCity = extractCity(event.location);
         let matchesAnyLocation = false;
@@ -222,6 +290,13 @@ export async function GET(request: Request) {
         }
       }
 
+      // 11. Zip filter
+      if (selectedZips.length > 0) {
+        if (!event.zip || !selectedZips.includes(event.zip)) {
+          return false;
+        }
+      }
+
       return true;
     });
 
@@ -234,55 +309,58 @@ export async function GET(request: Request) {
 
 `;
 
-    const eventsList = allEvents.map(event => {
-      const lines: string[] = [];
+    const eventsList = allEvents
+      .map((event) => {
+        const lines: string[] = [];
 
-      // Title with link
-      const safeTitle = escapeMarkdown(event.title);
-      lines.push(`## [${safeTitle}](${event.url})`);
-      lines.push('');
-
-      // Date
-      lines.push(`**Date:** ${formatDate(new Date(event.startDate))}`);
-
-      // Location
-      if (event.location) {
-        lines.push(`**Location:** ${event.location}`);
-      }
-
-      // Organizer
-      if (event.organizer) {
-        lines.push(`**Organizer:** ${event.organizer}`);
-      }
-
-      // Price
-      if (event.price) {
-        lines.push(`**Price:** ${event.price}`);
-      }
-
-      // Source
-      lines.push(`**Source:** ${event.source}`);
-
-      // Tags
-      if (event.tags && event.tags.length > 0) {
-        lines.push(`**Tags:** ${event.tags.join(', ')}`);
-      }
-
-      // Description (truncated)
-      if (event.description) {
-        const truncated = event.description.length > 500
-          ? event.description.slice(0, 500) + '...'
-          : event.description;
+        // Title with link
+        const safeTitle = escapeMarkdown(event.title);
+        lines.push(`## [${safeTitle}](${event.url})`);
         lines.push('');
-        lines.push(truncated);
-      }
 
-      lines.push('');
-      lines.push('---');
-      lines.push('');
+        // Date
+        lines.push(`**Date:** ${formatDate(new Date(event.startDate))}`);
 
-      return lines.join('\n');
-    }).join('\n');
+        // Location
+        if (event.location) {
+          lines.push(`**Location:** ${event.location}`);
+        }
+
+        // Organizer
+        if (event.organizer) {
+          lines.push(`**Organizer:** ${event.organizer}`);
+        }
+
+        // Price
+        if (event.price) {
+          lines.push(`**Price:** ${event.price}`);
+        }
+
+        // Source
+        lines.push(`**Source:** ${event.source}`);
+
+        // Tags
+        if (event.tags && event.tags.length > 0) {
+          lines.push(`**Tags:** ${event.tags.join(', ')}`);
+        }
+
+        // Description (truncated)
+        if (event.description) {
+          const truncated =
+            event.description.length > 500
+              ? event.description.slice(0, 500) + '...'
+              : event.description;
+          lines.push('');
+          lines.push(truncated);
+        }
+
+        lines.push('');
+        lines.push('---');
+        lines.push('');
+
+        return lines.join('\n');
+      })
+      .join('\n');
 
     const markdown = header + eventsList;
 
@@ -293,12 +371,9 @@ export async function GET(request: Request) {
     });
   } catch (error) {
     console.error('[Markdown Export] Error:', error);
-    return new NextResponse(
-      '# Error\n\nFailed to generate Markdown feed.',
-      {
-        status: 500,
-        headers: { 'Content-Type': 'text/markdown; charset=utf-8' },
-      }
-    );
+    return new NextResponse('# Error\n\nFailed to generate Markdown feed.', {
+      status: 500,
+      headers: { 'Content-Type': 'text/markdown; charset=utf-8' },
+    });
   }
 }

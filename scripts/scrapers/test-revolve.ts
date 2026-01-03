@@ -43,16 +43,24 @@ async function main() {
   }
 
   // Field completeness
-  const withImages = events.filter(e => e.imageUrl).length;
-  const withPrices = events.filter(e => e.price && e.price !== 'Unknown').length;
-  const withLocations = events.filter(e => e.location).length;
-  const withZips = events.filter(e => e.zip).length;
+  const withImages = events.filter((e) => e.imageUrl).length;
+  const withPrices = events.filter((e) => e.price && e.price !== 'Unknown').length;
+  const withLocations = events.filter((e) => e.location).length;
+  const withZips = events.filter((e) => e.zip).length;
 
   console.log('\nField Completeness:');
-  console.log(`  Images:    ${withImages}/${events.length} (${Math.round(withImages / events.length * 100)}%)`);
-  console.log(`  Prices:    ${withPrices}/${events.length} (${Math.round(withPrices / events.length * 100)}%)`);
-  console.log(`  Locations: ${withLocations}/${events.length} (${Math.round(withLocations / events.length * 100)}%)`);
-  console.log(`  Zips:      ${withZips}/${events.length} (${Math.round(withZips / events.length * 100)}%)`);
+  console.log(
+    `  Images:    ${withImages}/${events.length} (${Math.round((withImages / events.length) * 100)}%)`
+  );
+  console.log(
+    `  Prices:    ${withPrices}/${events.length} (${Math.round((withPrices / events.length) * 100)}%)`
+  );
+  console.log(
+    `  Locations: ${withLocations}/${events.length} (${Math.round((withLocations / events.length) * 100)}%)`
+  );
+  console.log(
+    `  Zips:      ${withZips}/${events.length} (${Math.round((withZips / events.length) * 100)}%)`
+  );
 
   // Price distribution
   console.log('\nPrice Distribution:');
@@ -72,7 +80,9 @@ async function main() {
     console.log('');
     console.log(`  ${e.title}`);
     console.log(`    UTC:      ${e.startDate.toISOString()}`);
-    console.log(`    Eastern:  ${e.startDate.toLocaleString('en-US', { timeZone: 'America/New_York' })}`);
+    console.log(
+      `    Eastern:  ${e.startDate.toLocaleString('en-US', { timeZone: 'America/New_York' })}`
+    );
     console.log(`    Location: ${e.location || 'N/A'}`);
     console.log(`    Zip:      ${e.zip || 'N/A'}`);
     console.log(`    Price:    ${e.price}`);

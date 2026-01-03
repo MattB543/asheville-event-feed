@@ -1,19 +1,19 @@
-import type { NextRequest } from "next/server";
+import type { NextRequest } from 'next/server';
 import {
   isAzureAIEnabled,
   azureChatCompletionMessages,
   azureChatCompletionStream,
-} from "@/lib/ai/provider-clients";
-import { generateEventUrl } from "@/lib/utils/slugify";
-import { isRateLimited } from "@/lib/utils/rate-limit";
-import { isRecord, isString, isStringArray, isUnknownArray } from "@/lib/utils/validation";
-import { queryFilteredEvents, type DbEvent } from "@/lib/db/queries/events";
+} from '@/lib/ai/provider-clients';
+import { generateEventUrl } from '@/lib/utils/slugify';
+import { isRateLimited } from '@/lib/utils/rate-limit';
+import { isRecord, isString, isStringArray, isUnknownArray } from '@/lib/utils/validation';
+import { queryFilteredEvents, type DbEvent } from '@/lib/db/queries/events';
 
 // Simple in-memory rate limiter (1 request per 2 seconds per IP)
 const RATE_LIMIT_MS = 2000; // 2 seconds between requests
 
 interface ChatMessage {
-  role: "user" | "assistant";
+  role: 'user' | 'assistant';
   content: string;
 }
 
@@ -33,7 +33,7 @@ interface ChatFilters {
 function isChatMessage(value: unknown): value is ChatMessage {
   return (
     isRecord(value) &&
-    (value.role === "user" || value.role === "assistant") &&
+    (value.role === 'user' || value.role === 'assistant') &&
     isString(value.content)
   );
 }
@@ -61,9 +61,7 @@ function parseChatRequest(value: unknown): {
   currentDateRange?: DateRange;
 } | null {
   if (!isRecord(value)) return null;
-  const messages = Array.isArray(value.messages)
-    ? value.messages.filter(isChatMessage)
-    : null;
+  const messages = Array.isArray(value.messages) ? value.messages.filter(isChatMessage) : null;
 
   if (!messages || messages.length === 0) return null;
 
@@ -108,10 +106,7 @@ const DATE_CHANGE_PATTERNS = [
   /\bholiday\b/i,
 ];
 
-function shouldReExtractDates(
-  userMessage: string,
-  hasExistingDateRange: boolean
-): boolean {
+function shouldReExtractDates(userMessage: string, hasExistingDateRange: boolean): boolean {
   // Always extract on first message
   if (!hasExistingDateRange) return true;
 
@@ -120,37 +115,35 @@ function shouldReExtractDates(
 }
 
 function formatDateForDisplay(dateStr: string): string {
-  const date = new Date(dateStr + "T12:00:00");
-  return date.toLocaleDateString("en-US", {
-    weekday: "short",
-    month: "short",
-    day: "numeric",
-    timeZone: "America/New_York",
+  const date = new Date(dateStr + 'T12:00:00');
+  return date.toLocaleDateString('en-US', {
+    weekday: 'short',
+    month: 'short',
+    day: 'numeric',
+    timeZone: 'America/New_York',
   });
 }
 
 function getDefaultDateRange(): DateRange {
   const now = new Date();
-  const start = now.toISOString().split("T")[0];
-  const end = new Date(now.getTime() + 14 * 24 * 60 * 60 * 1000)
-    .toISOString()
-    .split("T")[0];
+  const start = now.toISOString().split('T')[0];
+  const end = new Date(now.getTime() + 14 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
   return { startDate: start, endDate: end };
 }
 
 function buildDateExtractionPrompt(userMessage: string): string {
   const now = new Date();
-  const today = now.toLocaleDateString("en-US", {
-    weekday: "long",
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-    timeZone: "America/New_York",
+  const today = now.toLocaleDateString('en-US', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    timeZone: 'America/New_York',
   });
-  const currentTime = now.toLocaleTimeString("en-US", {
-    hour: "numeric",
-    minute: "2-digit",
-    timeZone: "America/New_York",
+  const currentTime = now.toLocaleTimeString('en-US', {
+    hour: 'numeric',
+    minute: '2-digit',
+    timeZone: 'America/New_York',
   });
 
   return `You are a date range extractor for an event search system.
@@ -163,7 +156,7 @@ Respond with ONLY a JSON object in this exact format (no markdown, no code block
 {"startDate": "YYYY-MM-DD", "endDate": "YYYY-MM-DD", "reasoning": "brief explanation"}
 
 Rules:
-- "tonight" or "today" = today's date only (${now.toISOString().split("T")[0]})
+- "tonight" or "today" = today's date only (${now.toISOString().split('T')[0]})
 - "tomorrow" = the next day only
 - "this weekend" = upcoming Friday through Sunday (if today is Sat/Sun, use today through Sunday)
 - "this week" = today through Sunday
@@ -179,18 +172,18 @@ User query: "${userMessage}"`;
 function parseDateExtractionResponse(content: string): DateRange {
   // Parse JSON from response (handle potential markdown code blocks)
   let jsonStr = content.trim();
-  if (jsonStr.startsWith("```")) {
-    jsonStr = jsonStr.replace(/```json?\n?/g, "").replace(/```/g, "");
+  if (jsonStr.startsWith('```')) {
+    jsonStr = jsonStr.replace(/```json?\n?/g, '').replace(/```/g, '');
   }
 
   let parsed: unknown;
   try {
     parsed = JSON.parse(jsonStr);
   } catch {
-    throw new Error("Invalid JSON response");
+    throw new Error('Invalid JSON response');
   }
   if (!isRecord(parsed) || !isString(parsed.startDate) || !isString(parsed.endDate)) {
-    throw new Error("Invalid date range response");
+    throw new Error('Invalid date range response');
   }
   return {
     startDate: parsed.startDate,
@@ -204,10 +197,9 @@ async function extractDateRangeWithAzure(
   const prompt = buildDateExtractionPrompt(userMessage);
 
   try {
-    const content = await azureChatCompletionMessages(
-      [{ role: "user", content: prompt }],
-      { maxTokens: 500 }
-    );
+    const content = await azureChatCompletionMessages([{ role: 'user', content: prompt }], {
+      maxTokens: 500,
+    });
 
     if (!content) {
       return null;
@@ -225,7 +217,7 @@ async function extractDateRangeWithAzure(
 
     return { dateRange, displayMessage };
   } catch (error) {
-    console.error("[Chat API] Azure date extraction error:", error);
+    console.error('[Chat API] Azure date extraction error:', error);
     return null;
   }
 }
@@ -237,27 +229,24 @@ async function extractDateRangeWithOpenRouter(
   const prompt = buildDateExtractionPrompt(userMessage);
 
   try {
-    const response = await fetch(
-      "https://openrouter.ai/api/v1/chat/completions",
-      {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${apiKey}`,
-          "Content-Type": "application/json",
-          "HTTP-Referer": "https://avlgo.com",
-          "X-Title": "AVL GO Event Finder",
-        },
-        body: JSON.stringify({
-          model: "google/gemini-2.0-flash-lite-001",
-          messages: [{ role: "user", content: prompt }],
-          temperature: 0,
-        }),
-      }
-    );
+    const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        'Content-Type': 'application/json',
+        'HTTP-Referer': 'https://avlgo.com',
+        'X-Title': 'AVL GO Event Finder',
+      },
+      body: JSON.stringify({
+        model: 'google/gemini-2.0-flash-lite-001',
+        messages: [{ role: 'user', content: prompt }],
+        temperature: 0,
+      }),
+    });
 
     if (!response.ok) {
       console.error(
-        "[Chat API] OpenRouter date extraction failed:",
+        '[Chat API] OpenRouter date extraction failed:',
         response.status,
         await response.text()
       );
@@ -281,7 +270,7 @@ async function extractDateRangeWithOpenRouter(
 
     return { dateRange, displayMessage };
   } catch (error) {
-    console.error("[Chat API] OpenRouter date extraction error:", error);
+    console.error('[Chat API] OpenRouter date extraction error:', error);
     return null;
   }
 }
@@ -292,21 +281,21 @@ async function extractDateRange(
 ): Promise<{ dateRange: DateRange; displayMessage: string }> {
   // Try Azure first if configured
   if (isAzureAIEnabled()) {
-    console.log("[Chat API] Using Azure for date extraction");
+    console.log('[Chat API] Using Azure for date extraction');
     const result = await extractDateRangeWithAzure(userMessage);
     if (result) return result;
-    console.warn("[Chat API] Azure date extraction failed, trying OpenRouter fallback");
+    console.warn('[Chat API] Azure date extraction failed, trying OpenRouter fallback');
   }
 
   // Fall back to OpenRouter if Azure fails or isn't configured
   if (openRouterApiKey) {
-    console.log("[Chat API] Using OpenRouter for date extraction");
+    console.log('[Chat API] Using OpenRouter for date extraction');
     const result = await extractDateRangeWithOpenRouter(userMessage, openRouterApiKey);
     if (result) return result;
   }
 
   // Default fallback
-  console.warn("[Chat API] All date extraction methods failed, using default range");
+  console.warn('[Chat API] All date extraction methods failed, using default range');
   const defaultRange = getDefaultDateRange();
   return {
     dateRange: defaultRange,
@@ -317,9 +306,11 @@ async function extractDateRange(
 /**
  * Fetch events from database for chat within a date range
  */
-async function fetchEventsForChat(dateRange: DateRange): Promise<{ events: DbEvent[]; totalCount: number }> {
+async function fetchEventsForChat(
+  dateRange: DateRange
+): Promise<{ events: DbEvent[]; totalCount: number }> {
   const result = await queryFilteredEvents({
-    dateFilter: "custom",
+    dateFilter: 'custom',
     dateStart: dateRange.startDate,
     dateEnd: dateRange.endDate,
     limit: 500, // Modern models can handle 200k+ tokens, so 500 events is fine
@@ -337,16 +328,16 @@ function formatEventsForAI(events: DbEvent[]): string {
   return events
     .map((event) => {
       const eventDate = event.startDate;
-      const date = eventDate.toLocaleDateString("en-US", {
-        weekday: "short",
-        month: "short",
-        day: "numeric",
-        hour: "numeric",
-        minute: "2-digit",
-        timeZone: "America/New_York",
+      const date = eventDate.toLocaleDateString('en-US', {
+        weekday: 'short',
+        month: 'short',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: '2-digit',
+        timeZone: 'America/New_York',
       });
-      const tags = event.tags?.length ? event.tags.join(", ") : "";
-      const desc = event.description || "";
+      const tags = event.tags?.length ? event.tags.join(', ') : '';
+      const desc = event.description || '';
 
       // Generate internal AVL GO event page URL instead of external source URL
       const internalUrl = generateEventUrl(event.title, eventDate, event.id);
@@ -362,9 +353,9 @@ function formatEventsForAI(events: DbEvent[]): string {
         desc ? `Description: ${desc}` : null,
       ].filter(Boolean);
 
-      return lines.join("\n");
+      return lines.join('\n');
     })
-    .join("\n---\n");
+    .join('\n---\n');
 }
 
 function buildSystemPrompt(
@@ -374,17 +365,17 @@ function buildSystemPrompt(
   dateRange: DateRange
 ): string {
   const now = new Date();
-  const today = now.toLocaleDateString("en-US", {
-    weekday: "long",
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-    timeZone: "America/New_York",
+  const today = now.toLocaleDateString('en-US', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    timeZone: 'America/New_York',
   });
-  const currentTime = now.toLocaleTimeString("en-US", {
-    hour: "numeric",
-    minute: "2-digit",
-    timeZone: "America/New_York",
+  const currentTime = now.toLocaleTimeString('en-US', {
+    hour: 'numeric',
+    minute: '2-digit',
+    timeZone: 'America/New_York',
   });
 
   const filterLines: string[] = [];
@@ -392,20 +383,20 @@ function buildSystemPrompt(
     `- Date range: ${formatDateForDisplay(dateRange.startDate)} to ${formatDateForDisplay(dateRange.endDate)}`
   );
   if (filters.search) filterLines.push(`- Search: "${filters.search}"`);
-  if (filters.priceFilter && filters.priceFilter !== "any") {
+  if (filters.priceFilter && filters.priceFilter !== 'any') {
     filterLines.push(`- Price: ${filters.priceFilter}`);
   }
   if (filters.tagsInclude && filters.tagsInclude.length > 0) {
-    filterLines.push(`- Tags (included): ${filters.tagsInclude.join(", ")}`);
+    filterLines.push(`- Tags (included): ${filters.tagsInclude.join(', ')}`);
   }
   if (filters.tagsExclude && filters.tagsExclude.length > 0) {
-    filterLines.push(`- Tags (excluded): ${filters.tagsExclude.join(", ")}`);
+    filterLines.push(`- Tags (excluded): ${filters.tagsExclude.join(', ')}`);
   }
   if (filters.locations && filters.locations.length > 0) {
-    filterLines.push(`- Locations: ${filters.locations.join(", ")}`);
+    filterLines.push(`- Locations: ${filters.locations.join(', ')}`);
   }
 
-  const filtersSection = `## User's Active Filters:\n${filterLines.join("\n")}`;
+  const filtersSection = `## User's Active Filters:\n${filterLines.join('\n')}`;
 
   return `You are a knowledgeable local guide helping users discover events in Asheville, NC. Today is ${today} and the current time is ${currentTime} (Eastern Time).
 
@@ -497,18 +488,18 @@ Want more options? I can show you all live music this weekend, all free events, 
  * Returns true if successful, false if should fall back to OpenRouter.
  */
 async function streamWithAzure(
-  apiMessages: Array<{ role: "system" | "user" | "assistant"; content: string }>,
+  apiMessages: Array<{ role: 'system' | 'user' | 'assistant'; content: string }>,
   writer: WritableStreamDefaultWriter<Uint8Array>,
   encoder: TextEncoder
 ): Promise<boolean> {
   try {
     const stream = await azureChatCompletionStream(apiMessages);
     if (!stream) {
-      console.warn("[Chat API] Azure streaming not available");
+      console.warn('[Chat API] Azure streaming not available');
       return false;
     }
 
-    console.log("[Chat API] Using Azure for chat streaming");
+    console.log('[Chat API] Using Azure for chat streaming');
 
     // Stream the response in OpenRouter-compatible SSE format
     for await (const token of stream) {
@@ -521,7 +512,7 @@ async function streamWithAzure(
     await writer.write(encoder.encode(`data: [DONE]\n\n`));
     return true;
   } catch (error) {
-    console.error("[Chat API] Azure streaming error:", error);
+    console.error('[Chat API] Azure streaming error:', error);
     return false;
   }
 }
@@ -537,40 +528,33 @@ async function streamWithOpenRouter(
   encoder: TextEncoder
 ): Promise<boolean> {
   try {
-    console.log("[Chat API] Using OpenRouter for chat streaming");
+    console.log('[Chat API] Using OpenRouter for chat streaming');
 
-    const response = await fetch(
-      "https://openrouter.ai/api/v1/chat/completions",
-      {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${apiKey}`,
-          "Content-Type": "application/json",
-          "HTTP-Referer": "https://avlgo.com",
-          "X-Title": "AVL GO Event Finder",
-        },
-        body: JSON.stringify({
-          model: "google/gemini-2.0-flash-001",
-          messages: apiMessages,
-          stream: true,
-        }),
-      }
-    );
+    const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        'Content-Type': 'application/json',
+        'HTTP-Referer': 'https://avlgo.com',
+        'X-Title': 'AVL GO Event Finder',
+      },
+      body: JSON.stringify({
+        model: 'google/gemini-2.0-flash-001',
+        messages: apiMessages,
+        stream: true,
+      }),
+    });
 
     if (!response.ok) {
       const errorText = await response.text();
-      console.error(
-        "[Chat API] OpenRouter error:",
-        response.status,
-        errorText
-      );
+      console.error('[Chat API] OpenRouter error:', response.status, errorText);
       return false;
     }
 
     // Stream the response
     const reader = response.body?.getReader();
     if (!reader) {
-      console.error("[Chat API] No response body from OpenRouter");
+      console.error('[Chat API] No response body from OpenRouter');
       return false;
     }
 
@@ -586,7 +570,7 @@ async function streamWithOpenRouter(
 
     return true;
   } catch (error) {
-    console.error("[Chat API] OpenRouter streaming error:", error);
+    console.error('[Chat API] OpenRouter streaming error:', error);
     return false;
   }
 }
@@ -594,15 +578,14 @@ async function streamWithOpenRouter(
 export async function POST(request: NextRequest) {
   try {
     // Rate limit by IP
-    const ip =
-      request.headers.get("x-forwarded-for")?.split(",")[0] ?? "unknown";
+    const ip = request.headers.get('x-forwarded-for')?.split(',')[0] ?? 'unknown';
     const rateLimitKey = `chat:${ip}`;
     if (isRateLimited(rateLimitKey, 1, RATE_LIMIT_MS)) {
       return new Response(
         JSON.stringify({
-          error: "Please wait a moment before sending another message.",
+          error: 'Please wait a moment before sending another message.',
         }),
-        { status: 429, headers: { "Content-Type": "application/json" } }
+        { status: 429, headers: { 'Content-Type': 'application/json' } }
       );
     }
 
@@ -611,32 +594,31 @@ export async function POST(request: NextRequest) {
 
     // Check if at least one AI provider is configured
     if (!azureEnabled && !openRouterApiKey) {
-      return new Response(
-        JSON.stringify({ error: "Chat feature is not configured" }),
-        { status: 503, headers: { "Content-Type": "application/json" } }
-      );
+      return new Response(JSON.stringify({ error: 'Chat feature is not configured' }), {
+        status: 503,
+        headers: { 'Content-Type': 'application/json' },
+      });
     }
 
     const parsed: unknown = await request.json();
     const body = parseChatRequest(parsed);
     if (!body) {
-      return new Response(
-        JSON.stringify({ error: "Invalid request body" }),
-        { status: 400, headers: { "Content-Type": "application/json" } }
-      );
+      return new Response(JSON.stringify({ error: 'Invalid request body' }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' },
+      });
     }
     const { messages, filters, currentDateRange } = body;
 
     if (!messages || !Array.isArray(messages)) {
-      return new Response(
-        JSON.stringify({ error: "Invalid request: messages array required" }),
-        { status: 400, headers: { "Content-Type": "application/json" } }
-      );
+      return new Response(JSON.stringify({ error: 'Invalid request: messages array required' }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' },
+      });
     }
 
     // Get the latest user message
-    const latestUserMessage =
-      messages.filter((m) => m.role === "user").pop()?.content || "";
+    const latestUserMessage = messages.filter((m) => m.role === 'user').pop()?.content || '';
 
     // Create a custom streaming response
     const encoder = new TextEncoder();
@@ -650,10 +632,7 @@ export async function POST(request: NextRequest) {
         let dateRange: DateRange;
         let displayMessage: string | null = null;
 
-        const needsDateExtraction = shouldReExtractDates(
-          latestUserMessage,
-          !!currentDateRange
-        );
+        const needsDateExtraction = shouldReExtractDates(latestUserMessage, !!currentDateRange);
 
         if (needsDateExtraction) {
           const result = await extractDateRange(latestUserMessage, openRouterApiKey);
@@ -668,7 +647,7 @@ export async function POST(request: NextRequest) {
 
         // Send date range info to client
         const dateRangeMessage = {
-          type: "dateRange",
+          type: 'dateRange',
           data: {
             startDate: dateRange.startDate,
             endDate: dateRange.endDate,
@@ -679,9 +658,7 @@ export async function POST(request: NextRequest) {
         };
 
         // Send the date range info
-        await writer.write(
-          encoder.encode(`data: ${JSON.stringify(dateRangeMessage)}\n\n`)
-        );
+        await writer.write(encoder.encode(`data: ${JSON.stringify(dateRangeMessage)}\n\n`));
 
         // Step 3: Format events for AI
         const eventsMarkdown = formatEventsForAI(dateFilteredEvents);
@@ -694,7 +671,7 @@ export async function POST(request: NextRequest) {
 
         // Build messages for AI API
         const apiMessages = [
-          { role: "system" as const, content: systemPrompt },
+          { role: 'system' as const, content: systemPrompt },
           ...messages.map((msg) => ({
             role: msg.role,
             content: msg.content,
@@ -711,7 +688,7 @@ export async function POST(request: NextRequest) {
 
         if (!streamSuccess && openRouterApiKey) {
           if (azureEnabled) {
-            console.warn("[Chat API] Azure streaming failed, falling back to OpenRouter");
+            console.warn('[Chat API] Azure streaming failed, falling back to OpenRouter');
           }
           streamSuccess = await streamWithOpenRouter(
             apiMessages,
@@ -724,17 +701,17 @@ export async function POST(request: NextRequest) {
         if (!streamSuccess) {
           await writer.write(
             encoder.encode(
-              `data: ${JSON.stringify({ type: "error", data: "Failed to get response from AI" })}\n\n`
+              `data: ${JSON.stringify({ type: 'error', data: 'Failed to get response from AI' })}\n\n`
             )
           );
         }
 
         await writer.close();
       } catch (error) {
-        console.error("[Chat API] Stream error:", error);
+        console.error('[Chat API] Stream error:', error);
         await writer.write(
           encoder.encode(
-            `data: ${JSON.stringify({ type: "error", data: "An unexpected error occurred" })}\n\n`
+            `data: ${JSON.stringify({ type: 'error', data: 'An unexpected error occurred' })}\n\n`
           )
         );
         await writer.close();
@@ -743,16 +720,16 @@ export async function POST(request: NextRequest) {
 
     return new Response(stream.readable, {
       headers: {
-        "Content-Type": "text/event-stream",
-        "Cache-Control": "no-cache",
-        Connection: "keep-alive",
+        'Content-Type': 'text/event-stream',
+        'Cache-Control': 'no-cache',
+        Connection: 'keep-alive',
       },
     });
   } catch (error) {
-    console.error("[Chat API] Error:", error);
-    return new Response(
-      JSON.stringify({ error: "An unexpected error occurred" }),
-      { status: 500, headers: { "Content-Type": "application/json" } }
-    );
+    console.error('[Chat API] Error:', error);
+    return new Response(JSON.stringify({ error: 'An unexpected error occurred' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
   }
 }

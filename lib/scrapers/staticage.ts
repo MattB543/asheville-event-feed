@@ -17,7 +17,7 @@
  *   Set DEBUG_DIR env var to save raw data and validation reports
  */
 
-import { ScrapedEvent } from './types';
+import { type ScrapedEvent } from './types';
 import { BROWSER_HEADERS, debugSave, fetchEventData } from './base';
 import { decodeHtmlEntities } from '../utils/parsers';
 
@@ -89,11 +89,11 @@ function generateValidationReport(events: ScrapedEvent[]): string {
   lines.push('='.repeat(60));
 
   const total = events.length;
-  const withImages = events.filter(e => e.imageUrl).length;
-  const withPrices = events.filter(e => e.price && e.price !== 'Unknown').length;
-  const withDescriptions = events.filter(e => e.description).length;
+  const withImages = events.filter((e) => e.imageUrl).length;
+  const withPrices = events.filter((e) => e.price && e.price !== 'Unknown').length;
+  const withDescriptions = events.filter((e) => e.description).length;
 
-  const pct = (n: number) => total === 0 ? '0' : Math.round((n / total) * 100).toString();
+  const pct = (n: number) => (total === 0 ? '0' : Math.round((n / total) * 100).toString());
 
   lines.push(`  Images:       ${withImages}/${total} (${pct(withImages)}%)`);
   lines.push(`  Prices:       ${withPrices}/${total} (${pct(withPrices)}%)`);
@@ -126,7 +126,9 @@ function generateValidationReport(events: ScrapedEvent[]): string {
     lines.push('');
     lines.push(`  Title: ${event.title}`);
     lines.push(`  Date (UTC):     ${event.startDate.toISOString()}`);
-    lines.push(`  Date (Eastern): ${event.startDate.toLocaleString('en-US', { timeZone: 'America/New_York' })}`);
+    lines.push(
+      `  Date (Eastern): ${event.startDate.toLocaleString('en-US', { timeZone: 'America/New_York' })}`
+    );
     lines.push(`  Location:  ${event.location || 'N/A'}`);
     lines.push(`  Price:     ${event.price || 'N/A'}`);
     lines.push(`  URL:       ${event.url}`);
@@ -269,7 +271,10 @@ function formatPrice(price?: number | null, dayOfPrice?: number | null): string 
   }
 
   // If both undefined/null, assume free (common for recurring events)
-  if ((price === undefined || price === null) && (dayOfPrice === undefined || dayOfPrice === null)) {
+  if (
+    (price === undefined || price === null) &&
+    (dayOfPrice === undefined || dayOfPrice === null)
+  ) {
     return 'Free';
   }
 
@@ -330,7 +335,7 @@ function formatEvent(event: StaticAgeEvent): ScrapedEvent | null {
   const title = decodeHtmlEntities(event.title);
 
   // If we have bands, could add them to description
-  const bandNames = event.bands?.map(b => b.name).filter(Boolean) || [];
+  const bandNames = event.bands?.map((b) => b.name).filter(Boolean) || [];
 
   // Build description - include bands list if available
   let description = extractDescriptionText(event.description);
@@ -380,7 +385,9 @@ export async function scrapeStaticAge(): Promise<ScrapedEvent[]> {
     const html = await response.text();
 
     // Extract __NEXT_DATA__ JSON
-    const nextDataMatch = html.match(/<script id="__NEXT_DATA__" type="application\/json">([\s\S]*?)<\/script>/);
+    const nextDataMatch = html.match(
+      /<script id="__NEXT_DATA__" type="application\/json">([\s\S]*?)<\/script>/
+    );
     if (!nextDataMatch) {
       console.error('[StaticAge] Could not find __NEXT_DATA__ script tag');
       return [];
@@ -388,7 +395,7 @@ export async function scrapeStaticAge(): Promise<ScrapedEvent[]> {
 
     let nextData: NextData;
     try {
-      nextData = JSON.parse(nextDataMatch[1]);
+      nextData = JSON.parse(nextDataMatch[1]) as NextData;
     } catch (parseError) {
       console.error('[StaticAge] Failed to parse __NEXT_DATA__:', parseError);
       return [];

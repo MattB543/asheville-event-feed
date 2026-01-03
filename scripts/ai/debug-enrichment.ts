@@ -200,7 +200,8 @@ async function debugEnrichment() {
     let pageMarkdown = await fetchAndConvertToMarkdown(row.url, 12000);
 
     if (pageMarkdown) {
-      entry.pageMarkdown = pageMarkdown.slice(0, 2000) + (pageMarkdown.length > 2000 ? '...[truncated]' : '');
+      entry.pageMarkdown =
+        pageMarkdown.slice(0, 2000) + (pageMarkdown.length > 2000 ? '...[truncated]' : '');
       entry.pageMarkdownLength = pageMarkdown.length;
       entry.contentSource = 'page';
     } else if (row.description && row.description.trim().length > 10) {
@@ -236,11 +237,9 @@ Extract the requested information. If the event appears to be a free community e
     entry.aiPrompt = userPrompt.slice(0, 3000) + (userPrompt.length > 3000 ? '...[truncated]' : '');
 
     try {
-      const result = await azureChatCompletion(
-        EXTRACTION_SYSTEM_PROMPT,
-        userPrompt,
-        { maxTokens: 4000 }
-      );
+      const result = await azureChatCompletion(EXTRACTION_SYSTEM_PROMPT, userPrompt, {
+        maxTokens: 4000,
+      });
 
       entry.aiRawResponse = result?.content || null;
 
@@ -304,7 +303,6 @@ Extract the requested information. If the event appears to be a free community e
           if (parsed.price === null && parsed.time === null) {
             entry.failureReason = `AI could not extract data (returned nulls). Confidence: ${parsed.confidence}`;
           }
-
         } catch (parseErr) {
           entry.aiParseError = `JSON parse error: ${parseErr}`;
           entry.failureReason = `Failed to parse AI response: ${result.content.slice(0, 200)}`;
@@ -326,7 +324,9 @@ Extract the requested information. If the event appears to be a free community e
     } else if (entry.regexPriceResult || entry.aiPriceResult || entry.finalTimeExtracted) {
       entry.outcome = 'partial_success';
       partialSuccessCount++;
-      console.log(`    ⚠️ Partial: price=${entry.finalPrice}, time=${entry.aiTimeResult || entry.regexTimeResult}`);
+      console.log(
+        `    ⚠️ Partial: price=${entry.finalPrice}, time=${entry.aiTimeResult || entry.regexTimeResult}`
+      );
     } else {
       entry.outcome = 'failure';
       failureCount++;
@@ -336,7 +336,7 @@ Extract the requested information. If the event appears to be a free community e
     debugEntries.push(entry);
 
     // Rate limit
-    await new Promise(r => setTimeout(r, 500));
+    await new Promise((r) => setTimeout(r, 500));
   }
 
   // Save debug output
@@ -348,25 +348,36 @@ Extract the requested information. If the event appears to be a free community e
   console.log('DEBUG SUMMARY');
   console.log('='.repeat(60));
   console.log(`Total processed: ${rows.length}`);
-  console.log(`Regex success: ${regexSuccessCount} (${Math.round(regexSuccessCount / rows.length * 100)}%)`);
-  console.log(`AI success: ${aiSuccessCount} (${Math.round(aiSuccessCount / rows.length * 100)}%)`);
-  console.log(`Partial success: ${partialSuccessCount} (${Math.round(partialSuccessCount / rows.length * 100)}%)`);
-  console.log(`Failures: ${failureCount} (${Math.round(failureCount / rows.length * 100)}%)`);
+  console.log(
+    `Regex success: ${regexSuccessCount} (${Math.round((regexSuccessCount / rows.length) * 100)}%)`
+  );
+  console.log(
+    `AI success: ${aiSuccessCount} (${Math.round((aiSuccessCount / rows.length) * 100)}%)`
+  );
+  console.log(
+    `Partial success: ${partialSuccessCount} (${Math.round((partialSuccessCount / rows.length) * 100)}%)`
+  );
+  console.log(`Failures: ${failureCount} (${Math.round((failureCount / rows.length) * 100)}%)`);
   console.log(`\nDetailed output saved to: ${outputPath}`);
 
   // Analyze failures
-  const failures = debugEntries.filter(e => e.outcome === 'failure');
+  const failures = debugEntries.filter((e) => e.outcome === 'failure');
   if (failures.length > 0) {
     console.log('\n--- FAILURE ANALYSIS ---');
     const reasonCounts: Record<string, number> = {};
     for (const f of failures) {
       const reason = f.failureReason || 'Unknown';
-      const category = reason.includes('No content') ? 'No content available'
-        : reason.includes('empty response') ? 'AI empty response'
-        : reason.includes('parse') ? 'JSON parse error'
-        : reason.includes('null') ? 'AI returned null (no data found)'
-        : reason.includes('Invalid') ? 'Invalid format'
-        : 'Other';
+      const category = reason.includes('No content')
+        ? 'No content available'
+        : reason.includes('empty response')
+          ? 'AI empty response'
+          : reason.includes('parse')
+            ? 'JSON parse error'
+            : reason.includes('null')
+              ? 'AI returned null (no data found)'
+              : reason.includes('Invalid')
+                ? 'Invalid format'
+                : 'Other';
       reasonCounts[category] = (reasonCounts[category] || 0) + 1;
     }
     for (const [reason, count] of Object.entries(reasonCounts).sort((a, b) => b[1] - a[1])) {

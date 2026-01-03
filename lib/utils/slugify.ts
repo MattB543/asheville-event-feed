@@ -16,10 +16,10 @@ export function cleanTitle(title: string): string {
   return title
     .toLowerCase()
     .trim()
-    .replace(/[^a-z0-9\s-]/g, "") // Remove special chars except spaces and hyphens
-    .replace(/[\s_]+/g, "-") // Replace spaces/underscores with hyphens
-    .replace(/-+/g, "-") // Collapse multiple hyphens
-    .replace(/^-+|-+$/g, "") // Remove leading/trailing hyphens
+    .replace(/[^a-z0-9\s-]/g, '') // Remove special chars except spaces and hyphens
+    .replace(/[\s_]+/g, '-') // Replace spaces/underscores with hyphens
+    .replace(/-+/g, '-') // Collapse multiple hyphens
+    .replace(/^-+|-+$/g, '') // Remove leading/trailing hyphens
     .slice(0, 60); // Limit length
 }
 
@@ -29,8 +29,8 @@ export function cleanTitle(title: string): string {
 export function formatDateForSlug(date: Date): string {
   const d = new Date(date);
   const year = d.getFullYear();
-  const month = String(d.getMonth() + 1).padStart(2, "0");
-  const day = String(d.getDate()).padStart(2, "0");
+  const month = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
   return `${year}-${month}-${day}`;
 }
 
@@ -42,11 +42,7 @@ export function formatDateForSlug(date: Date): string {
  * @param id - Event UUID
  * @returns SEO-friendly slug like "summer-music-festival-2025-12-14-a1b2c3"
  */
-export function generateEventSlug(
-  title: string,
-  startDate: Date,
-  id: string
-): string {
+export function generateEventSlug(title: string, startDate: Date, id: string): string {
   const cleanedTitle = cleanTitle(title);
   const dateStr = formatDateForSlug(startDate);
   const shortId = id.slice(0, 6);
@@ -97,6 +93,6 @@ export function generateEventUrl(
   baseUrl?: string
 ): string {
   const slug = generateEventSlug(title, startDate, id);
-  const base = baseUrl || process.env.NEXT_PUBLIC_SITE_URL || "https://avlgo.com";
+  const base = baseUrl || process.env.NEXT_PUBLIC_SITE_URL || 'https://avlgo.com';
   return `${base}/events/${slug}`;
 }

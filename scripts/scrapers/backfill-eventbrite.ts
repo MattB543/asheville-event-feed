@@ -31,21 +31,23 @@ async function main() {
 
     // Check which events are new
     console.log('\n[Backfill] Step 2: Checking for existing events...');
-    const scrapedUrls = ebEvents.map(e => e.url);
+    const scrapedUrls = ebEvents.map((e) => e.url);
     let existingUrls = new Set<string>();
     if (scrapedUrls.length > 0) {
       const existingEvents = await db
         .select({ url: events.url })
         .from(events)
         .where(inArray(events.url, scrapedUrls));
-      existingUrls = new Set(existingEvents.map(e => e.url));
+      existingUrls = new Set(existingEvents.map((e) => e.url));
     }
     // Convert to ScrapedEventWithTags for proper typing
     const newEvents: ScrapedEventWithTags[] = ebEvents
-      .filter(e => !existingUrls.has(e.url))
-      .map(e => ({ ...e, tags: [] }));
+      .filter((e) => !existingUrls.has(e.url))
+      .map((e) => ({ ...e, tags: [] }));
 
-    console.log(`[Backfill] Found ${newEvents.length} new events (${existingUrls.size} already exist)`);
+    console.log(
+      `[Backfill] Found ${newEvents.length} new events (${existingUrls.size} already exist)`
+    );
 
     if (newEvents.length === 0) {
       console.log('[Backfill] All events already in database. Exiting.');
@@ -56,35 +58,40 @@ async function main() {
     console.log('\n[Backfill] Step 3: Generating tags for new events...');
     const chunk = <T>(arr: T[], size: number) =>
       Array.from({ length: Math.ceil(arr.length / size) }, (_, i) =>
-        arr.slice(i * size, i * size + size));
+        arr.slice(i * size, i * size + size)
+      );
 
     let taggedCount = 0;
     const batches = chunk(newEvents, 5);
 
     for (let i = 0; i < batches.length; i++) {
       const batch = batches[i];
-      console.log(`[Backfill] Tagging batch ${i + 1}/${batches.length} (${batch.length} events)...`);
+      console.log(
+        `[Backfill] Tagging batch ${i + 1}/${batches.length} (${batch.length} events)...`
+      );
 
-      await Promise.all(batch.map(async (event) => {
-        try {
-          const tags = await generateEventTags({
-            title: event.title,
-            description: event.description,
-            location: event.location,
-            organizer: event.organizer,
-            startDate: event.startDate,
-          });
-          event.tags = tags;
-          taggedCount++;
-        } catch (err) {
-          console.error(`[Backfill] Failed to tag event "${event.title}":`, err);
-          event.tags = [];
-        }
-      }));
+      await Promise.all(
+        batch.map(async (event) => {
+          try {
+            const tags = await generateEventTags({
+              title: event.title,
+              description: event.description,
+              location: event.location,
+              organizer: event.organizer,
+              startDate: event.startDate,
+            });
+            event.tags = tags;
+            taggedCount++;
+          } catch (err) {
+            console.error(`[Backfill] Failed to tag event "${event.title}":`, err);
+            event.tags = [];
+          }
+        })
+      );
 
       // Small delay between batches to avoid rate limits
       if (i < batches.length - 1) {
-        await new Promise(r => setTimeout(r, 1000));
+        await new Promise((r) => setTimeout(r, 1000));
       }
     }
 
@@ -96,19 +103,22 @@ async function main() {
 
     for (const event of newEvents) {
       try {
-        await db.insert(events).values({
-          sourceId: event.sourceId,
-          source: event.source,
-          title: event.title,
-          description: event.description,
-          startDate: event.startDate,
-          location: event.location,
-          organizer: event.organizer,
-          price: event.price,
-          url: event.url,
-          imageUrl: event.imageUrl,
-          tags: event.tags || [],
-        }).onConflictDoNothing({ target: events.url });
+        await db
+          .insert(events)
+          .values({
+            sourceId: event.sourceId,
+            source: event.source,
+            title: event.title,
+            description: event.description,
+            startDate: event.startDate,
+            location: event.location,
+            organizer: event.organizer,
+            price: event.price,
+            url: event.url,
+            imageUrl: event.imageUrl,
+            tags: event.tags || [],
+          })
+          .onConflictDoNothing({ target: events.url });
 
         insertedCount++;
 
@@ -128,7 +138,6 @@ async function main() {
     console.log(`Total events scraped: ${ebEvents.length}`);
     console.log(`New events inserted: ${insertedCount}`);
     console.log('='.repeat(60));
-
   } catch (error) {
     console.error('\n[Backfill] Fatal error:', error);
     process.exit(1);

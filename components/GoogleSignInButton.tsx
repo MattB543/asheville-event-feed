@@ -43,9 +43,7 @@ interface GISButtonOptions {
 
 // Generate nonce for security
 function genNonce(): string {
-  return btoa(
-    String.fromCharCode(...crypto.getRandomValues(new Uint8Array(32)))
-  );
+  return btoa(String.fromCharCode(...crypto.getRandomValues(new Uint8Array(32))));
 }
 
 async function sha256Hex(input: string): Promise<string> {
@@ -92,23 +90,25 @@ export function GoogleSignInButton({ className }: GoogleSignInButtonProps) {
 
     window.google.accounts.id.initialize({
       client_id: clientId,
-      callback: async (response: CredentialResponse) => {
-        try {
-          const { error } = await supabase.auth.signInWithIdToken({
-            provider: 'google',
-            token: response.credential,
-            nonce, // raw nonce
-          });
+      callback: (response: CredentialResponse) => {
+        void (async () => {
+          try {
+            const { error } = await supabase.auth.signInWithIdToken({
+              provider: 'google',
+              token: response.credential,
+              nonce, // raw nonce
+            });
 
-          if (error) throw error;
+            if (error) throw error;
 
-          console.log('Successfully signed in with Google');
-          router.push('/events');
-          router.refresh();
-        } catch (err) {
-          console.error('Google sign-in error:', err);
-          setError('Failed to sign in with Google');
-        }
+            console.log('Successfully signed in with Google');
+            router.push('/events');
+            router.refresh();
+          } catch (err) {
+            console.error('Google sign-in error:', err);
+            setError('Failed to sign in with Google');
+          }
+        })();
       },
       nonce: hashedNonce, // hashed nonce to Google
       use_fedcm_for_prompt: true,
@@ -131,7 +131,7 @@ export function GoogleSignInButton({ className }: GoogleSignInButtonProps) {
 
   useEffect(() => {
     if (isScriptLoaded) {
-      initializeButton();
+      void initializeButton();
     }
   }, [isScriptLoaded, initializeButton]);
 
@@ -144,13 +144,8 @@ export function GoogleSignInButton({ className }: GoogleSignInButtonProps) {
       />
       <div ref={containerRef} className={className}>
         {/* Google's rendered button will appear here */}
-        <div
-          ref={buttonRef}
-          className="flex justify-center"
-        />
-        {error && (
-          <p className="text-red-500 text-sm mt-2 text-center">{error}</p>
-        )}
+        <div ref={buttonRef} className="flex justify-center" />
+        {error && <p className="text-red-500 text-sm mt-2 text-center">{error}</p>}
       </div>
     </>
   );

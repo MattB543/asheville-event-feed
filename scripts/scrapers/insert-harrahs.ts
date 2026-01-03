@@ -28,7 +28,8 @@ async function main() {
 
   for (const event of harrahsEvents) {
     try {
-      const result = await db.insert(events)
+      const result = await db
+        .insert(events)
         .values({
           sourceId: event.sourceId,
           source: event.source,

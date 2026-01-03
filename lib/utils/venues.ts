@@ -26,7 +26,17 @@ const KNOWN_VENUES: Map<string, string[]> = new Map([
   ['static age records', ['static age', 'static age asheville']],
 
   // Large venues
-  ['harrahs cherokee center', ['harrahs cherokee center asheville', 'hcca', "harrah's cherokee center", "harrah's cherokee center asheville", 'harrahs', 'harrahs asheville']],
+  [
+    'harrahs cherokee center',
+    [
+      'harrahs cherokee center asheville',
+      'hcca',
+      "harrah's cherokee center",
+      "harrah's cherokee center asheville",
+      'harrahs',
+      'harrahs asheville',
+    ],
+  ],
   ['thomas wolfe auditorium', ['thomas wolfe', 'the thomas wolfe auditorium']],
   ['us cellular center', ['us cellular', 'civic center']],
   ['exploreasheville arena', ['exploreasheville.com arena', 'explore asheville arena']],
@@ -35,13 +45,19 @@ const KNOWN_VENUES: Map<string, string[]> = new Map([
   ['highland brewing', ['highland brewing company', 'highland brewery', 'highland asheville']],
   ['burial beer', ['burial beer co', 'burial brewing', 'burial asheville']],
   ['new belgium', ['new belgium brewing', 'new belgium asheville']],
-  ['sierra nevada', ['sierra nevada brewing', 'sierra nevada mills river', 'sierra nevada taproom']],
+  [
+    'sierra nevada',
+    ['sierra nevada brewing', 'sierra nevada mills river', 'sierra nevada taproom'],
+  ],
   ['wicked weed', ['wicked weed brewing', 'wicked weed funkatorium', 'funkatorium']],
   ['bhramari', ['bhramari brewing', 'bhramari brewhouse']],
   ['zillicoah', ['zillicoah beer', 'zillicoah beer co']],
 
   // Theaters/Arts
-  ['asheville community theatre', ['act', 'asheville community theater', 'the asheville community theatre']],
+  [
+    'asheville community theatre',
+    ['act', 'asheville community theater', 'the asheville community theatre'],
+  ],
   ['diana wortham', ['diana wortham theatre', 'diana wortham theater', 'wortham theatre']],
   ['pack square park', ['pack square', 'pack square asheville']],
   ['pritchard park', ['pritchard park asheville']],
@@ -82,20 +98,22 @@ const ALIAS_MAP = buildAliasMap();
  * Removes articles, punctuation, common suffixes, and normalizes whitespace.
  */
 export function normalizeVenueName(venue: string): string {
-  return venue
-    .toLowerCase()
-    // Remove possessive apostrophes and their s
-    .replace(/'s\b/g, 's')
-    .replace(/[']/g, '')
-    // Remove common articles and prefixes
-    .replace(/^the\s+/i, '')
-    // Remove common suffixes
-    .replace(/\s+(asheville|avl|nc)$/i, '')
-    // Remove punctuation
-    .replace(/[^\w\s]/g, '')
-    // Normalize whitespace
-    .replace(/\s+/g, ' ')
-    .trim();
+  return (
+    venue
+      .toLowerCase()
+      // Remove possessive apostrophes and their s
+      .replace(/'s\b/g, 's')
+      .replace(/[']/g, '')
+      // Remove common articles and prefixes
+      .replace(/^the\s+/i, '')
+      // Remove common suffixes
+      .replace(/\s+(asheville|avl|nc)$/i, '')
+      // Remove punctuation
+      .replace(/[^\w\s]/g, '')
+      // Normalize whitespace
+      .replace(/\s+/g, ' ')
+      .trim()
+  );
 }
 
 /**

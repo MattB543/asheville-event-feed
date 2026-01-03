@@ -25,7 +25,14 @@ async function main() {
   let totalAIScored = 0;
   let totalRecurring = 0;
   let highestScore = 0;
-  let highestEvent: { title: string; score: number; rarity: number; unique: number; magnitude: number; reason: string } | null = null;
+  let highestEvent: {
+    title: string;
+    score: number;
+    rarity: number;
+    unique: number;
+    magnitude: number;
+    reason: string;
+  } | null = null;
   let found21Plus = false;
 
   while (!found21Plus) {
@@ -69,13 +76,16 @@ async function main() {
         // Check if daily recurring
         if (event.recurringType === 'daily') {
           const recurringScore = getRecurringEventScore('daily');
-          await db.update(events).set({
-            score: recurringScore.score,
-            scoreRarity: recurringScore.rarity,
-            scoreUnique: recurringScore.unique,
-            scoreMagnitude: recurringScore.magnitude,
-            scoreReason: recurringScore.reason,
-          }).where(eq(events.id, event.id));
+          await db
+            .update(events)
+            .set({
+              score: recurringScore.score,
+              scoreRarity: recurringScore.rarity,
+              scoreUnique: recurringScore.unique,
+              scoreMagnitude: recurringScore.magnitude,
+              scoreReason: recurringScore.reason,
+            })
+            .where(eq(events.id, event.id));
 
           totalRecurring++;
           console.log(`[${totalProcessed}] ${shortTitle} → 5/30 (daily recurring) ✓ saved`);
@@ -93,16 +103,21 @@ async function main() {
 
         if (recurringCheck.isWeeklyRecurring) {
           const recurringScore = getRecurringEventScore('weekly');
-          await db.update(events).set({
-            score: recurringScore.score,
-            scoreRarity: recurringScore.rarity,
-            scoreUnique: recurringScore.unique,
-            scoreMagnitude: recurringScore.magnitude,
-            scoreReason: recurringScore.reason,
-          }).where(eq(events.id, event.id));
+          await db
+            .update(events)
+            .set({
+              score: recurringScore.score,
+              scoreRarity: recurringScore.rarity,
+              scoreUnique: recurringScore.unique,
+              scoreMagnitude: recurringScore.magnitude,
+              scoreReason: recurringScore.reason,
+            })
+            .where(eq(events.id, event.id));
 
           totalRecurring++;
-          console.log(`[${totalProcessed}] ${shortTitle} → 5/30 (weekly, ${recurringCheck.matchCount} matches) ✓ saved`);
+          console.log(
+            `[${totalProcessed}] ${shortTitle} → 5/30 (weekly, ${recurringCheck.matchCount} matches) ✓ saved`
+          );
           continue;
         }
 
@@ -111,7 +126,7 @@ async function main() {
           limit: 20,
           minSimilarity: 0.4,
           futureOnly: true,
-          orderBy: 'similarity'
+          orderBy: 'similarity',
         });
 
         // Generate AI score
@@ -127,7 +142,7 @@ async function main() {
             startDate: event.startDate,
             price: event.price,
           },
-          similarEvents.map(e => ({
+          similarEvents.map((e) => ({
             title: e.title,
             location: e.location,
             organizer: e.organizer,
@@ -138,13 +153,16 @@ async function main() {
 
         if (scoreResult) {
           // Save to database
-          await db.update(events).set({
-            score: scoreResult.score,
-            scoreRarity: scoreResult.rarity,
-            scoreUnique: scoreResult.unique,
-            scoreMagnitude: scoreResult.magnitude,
-            scoreReason: scoreResult.reason,
-          }).where(eq(events.id, event.id));
+          await db
+            .update(events)
+            .set({
+              score: scoreResult.score,
+              scoreRarity: scoreResult.rarity,
+              scoreUnique: scoreResult.unique,
+              scoreMagnitude: scoreResult.magnitude,
+              scoreReason: scoreResult.reason,
+            })
+            .where(eq(events.id, event.id));
 
           totalAIScored++;
 
@@ -193,10 +211,11 @@ async function main() {
         }
 
         // Delay between AI calls
-        await new Promise(r => setTimeout(r, 500));
-
+        await new Promise((r) => setTimeout(r, 500));
       } catch (err) {
-        console.log(`[${totalProcessed}] ${shortTitle} → ERROR: ${err instanceof Error ? err.message : err}`);
+        console.log(
+          `[${totalProcessed}] ${shortTitle} → ERROR: ${err instanceof Error ? err.message : err}`
+        );
       }
     }
   }
@@ -210,7 +229,9 @@ async function main() {
   console.log(`Auto-scored recurring: ${totalRecurring}`);
   console.log(`Highest score seen: ${highestScore}/30`);
   if (highestEvent) {
-    console.log(`Highest event: "${highestEvent.title.slice(0, 50)}..." (${highestEvent.score}/30)`);
+    console.log(
+      `Highest event: "${highestEvent.title.slice(0, 50)}..." (${highestEvent.score}/30)`
+    );
   }
   console.log('═'.repeat(70));
 }

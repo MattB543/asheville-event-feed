@@ -1,15 +1,15 @@
-import { env } from "@/lib/config/env";
-import { generateEventSlug } from "@/lib/utils/slugify";
+import { env } from '@/lib/config/env';
+import { generateEventSlug } from '@/lib/utils/slugify';
 
 /**
  * Format a date in Eastern timezone for display (e.g., "Monday, Dec 30")
  */
 function formatEasternDate(date: Date): string {
-  return new Intl.DateTimeFormat("en-US", {
-    timeZone: "America/New_York",
-    weekday: "long",
-    month: "short",
-    day: "numeric",
+  return new Intl.DateTimeFormat('en-US', {
+    timeZone: 'America/New_York',
+    weekday: 'long',
+    month: 'short',
+    day: 'numeric',
   }).format(date);
 }
 
@@ -17,10 +17,10 @@ function formatEasternDate(date: Date): string {
  * Format a time in Eastern timezone for display (e.g., "7:00 PM")
  */
 function formatEasternTime(date: Date): string {
-  return new Intl.DateTimeFormat("en-US", {
-    timeZone: "America/New_York",
-    hour: "numeric",
-    minute: "2-digit",
+  return new Intl.DateTimeFormat('en-US', {
+    timeZone: 'America/New_York',
+    hour: 'numeric',
+    minute: '2-digit',
     hour12: true,
   }).format(date);
 }
@@ -41,7 +41,7 @@ interface DigestEvent {
 
 interface DigestEmailOptions {
   recipientName?: string;
-  frequency: "daily" | "weekly";
+  frequency: 'daily' | 'weekly';
   headerText: string;
   periodText: string;
   events: DigestEvent[];
@@ -65,25 +65,24 @@ export function generateDigestEmailHtml(options: DigestEmailOptions): string {
     capNotice,
   } = options;
   const appUrl = env.NEXT_PUBLIC_APP_URL;
-  const greeting = recipientName
-    ? `Hey ${recipientName.split(" ")[0]}`
-    : "Hey there";
+  const greeting = recipientName ? `Hey ${recipientName.split(' ')[0]}` : 'Hey there';
 
   // Group events by date (using Eastern timezone)
-  const eventsByDate = events.reduce((acc, event) => {
-    const dateKey = formatEasternDate(new Date(event.startDate));
-    if (!acc[dateKey]) {
-      acc[dateKey] = [];
-    }
-    acc[dateKey].push(event);
-    return acc;
-  }, {} as Record<string, DigestEvent[]>);
+  const eventsByDate = events.reduce(
+    (acc, event) => {
+      const dateKey = formatEasternDate(new Date(event.startDate));
+      if (!acc[dateKey]) {
+        acc[dateKey] = [];
+      }
+      acc[dateKey].push(event);
+      return acc;
+    },
+    {} as Record<string, DigestEvent[]>
+  );
 
   const eventSections = Object.entries(eventsByDate)
     .map(([dateKey, dateEvents]) => {
-      const eventCards = dateEvents
-        .map((event) => generateEventCard(event, appUrl))
-        .join("");
+      const eventCards = dateEvents.map((event) => generateEventCard(event, appUrl)).join('');
       return `
         <tr>
           <td style="padding: 0 24px;">
@@ -95,7 +94,7 @@ export function generateDigestEmailHtml(options: DigestEmailOptions): string {
         ${eventCards}
       `;
     })
-    .join("");
+    .join('');
 
   const curatedSection =
     curatedEvents && curatedEvents.length > 0
@@ -107,11 +106,9 @@ export function generateDigestEmailHtml(options: DigestEmailOptions): string {
             </h2>
           </td>
         </tr>
-        ${curatedEvents
-          .map((event) => generateEventCard(event, appUrl))
-          .join("")}
+        ${curatedEvents.map((event) => generateEventCard(event, appUrl)).join('')}
       `
-      : "";
+      : '';
 
   const totalEventCount = events.length + (curatedEvents?.length || 0);
 
@@ -160,7 +157,7 @@ export function generateDigestEmailHtml(options: DigestEmailOptions): string {
                 ${
                   totalEventCount === 0
                     ? `No events match your filters ${periodText}. Check back soon!`
-                    : `Here are <strong>${totalEventCount} event${totalEventCount === 1 ? "" : "s"}</strong> matching your preferences ${periodText}:`
+                    : `Here are <strong>${totalEventCount} event${totalEventCount === 1 ? '' : 's'}</strong> matching your preferences ${periodText}:`
                 }
               </p>
               ${
@@ -170,7 +167,7 @@ export function generateDigestEmailHtml(options: DigestEmailOptions): string {
                   ${capNotice}
                 </p>
               `
-                  : ""
+                  : ''
               }
             </td>
           </tr>
@@ -179,7 +176,7 @@ export function generateDigestEmailHtml(options: DigestEmailOptions): string {
           ${curatedSection}
 
           <!-- Events -->
-          ${events.length > 0 ? eventSections : ""}
+          ${events.length > 0 ? eventSections : ''}
 
           <!-- CTA Button -->
           <tr>
@@ -232,7 +229,7 @@ function generateEventCard(event: DigestEvent, appUrl: string): string {
     event.id
   )}`;
   const time = formatEasternTime(new Date(event.startDate));
-  const imageUrl = event.imageUrl?.startsWith("http")
+  const imageUrl = event.imageUrl?.startsWith('http')
     ? event.imageUrl
     : event.imageUrl
       ? `${appUrl}${event.imageUrl}`
@@ -244,28 +241,26 @@ function generateEventCard(event: DigestEvent, appUrl: string): string {
   const curatorLines = event.curators?.length
     ? `
       <p style="color: #92400e; font-size: 13px; margin: 8px 0 0 0;">
-        Curated by ${event.curators
-          .map((curator) => escapeHtml(curator.name))
-          .join(", ")}
+        Curated by ${event.curators.map((curator) => escapeHtml(curator.name)).join(', ')}
       </p>
       ${event.curators
         .filter((curator) => curator.note)
         .map(
           (curator) => `
             <p style="color: #78350f; font-size: 12px; margin: 4px 0 0 0; font-style: italic;">
-              "${escapeHtml(curator.note || "")}" - ${escapeHtml(curator.name)}
+              "${escapeHtml(curator.note || '')}" - ${escapeHtml(curator.name)}
             </p>
           `
         )
-        .join("")}
+        .join('')}
     `
-    : "";
+    : '';
 
   // Build the details line: "8:00 AM | $40 | The Omni Grove Park Inn"
   const detailParts = [time];
   if (event.price) detailParts.push(escapeHtml(event.price));
   if (event.location) detailParts.push(escapeHtml(truncate(event.location, 30)));
-  const detailsLine = detailParts.join(" | ");
+  const detailsLine = detailParts.join(' | ');
 
   return `
     <tr>
@@ -288,16 +283,21 @@ function generateEventCard(event: DigestEvent, appUrl: string): string {
                         ${escapeHtml(event.title)}
                       </h3>
                     </a>
-                    ${event.aiSummary ? `
+                    ${
+                      event.aiSummary
+                        ? `
                     <p style="color: #4b5563; font-size: 13px; margin: 0 0 6px 0; line-height: 1.4;">
                       ${escapeHtml(event.aiSummary)}
                     </p>
-                    ` : ""}
+                    `
+                        : ''
+                    }
                     <p style="color: #6b7280; font-size: 14px; margin: 0 0 8px 0;">
                       ${detailsLine}
                     </p>
-                    ${displayTags.length > 0
-                      ? `
+                    ${
+                      displayTags.length > 0
+                        ? `
                       <p style="margin: 0;">
                         ${displayTags
                           .map(
@@ -307,10 +307,11 @@ function generateEventCard(event: DigestEvent, appUrl: string): string {
                           </span>
                         `
                           )
-                          .join("")}
+                          .join('')}
                       </p>
                     `
-                      : ""}
+                        : ''
+                    }
                     ${curatorLines}
                   </td>
                 </tr>
@@ -327,18 +328,9 @@ function generateEventCard(event: DigestEvent, appUrl: string): string {
  * Generate plain text version of the digest email.
  */
 export function generateDigestEmailText(options: DigestEmailOptions): string {
-  const {
-    recipientName,
-    events,
-    curatedEvents,
-    unsubscribeUrl,
-    periodText,
-    capNotice,
-  } = options;
+  const { recipientName, events, curatedEvents, unsubscribeUrl, periodText, capNotice } = options;
   const appUrl = env.NEXT_PUBLIC_APP_URL;
-  const greeting = recipientName
-    ? `Hey ${recipientName.split(" ")[0]}`
-    : "Hey there";
+  const greeting = recipientName ? `Hey ${recipientName.split(' ')[0]}` : 'Hey there';
 
   const totalEventCount = events.length + (curatedEvents?.length || 0);
 
@@ -356,18 +348,21 @@ Manage preferences: ${appUrl}/profile
     `.trim();
   }
 
-  const eventsByDate = events.reduce((acc, event) => {
-    const dateKey = formatEasternDate(new Date(event.startDate));
-    if (!acc[dateKey]) {
-      acc[dateKey] = [];
-    }
-    acc[dateKey].push(event);
-    return acc;
-  }, {} as Record<string, DigestEvent[]>);
+  const eventsByDate = events.reduce(
+    (acc, event) => {
+      const dateKey = formatEasternDate(new Date(event.startDate));
+      if (!acc[dateKey]) {
+        acc[dateKey] = [];
+      }
+      acc[dateKey].push(event);
+      return acc;
+    },
+    {} as Record<string, DigestEvent[]>
+  );
 
   const curatedSection =
     curatedEvents && curatedEvents.length > 0
-      ? `Curated picks\n${"-".repeat(13)}\n${curatedEvents
+      ? `Curated picks\n${'-'.repeat(13)}\n${curatedEvents
           .map((event) => {
             const time = formatEasternTime(new Date(event.startDate));
             const eventUrl = `${appUrl}/events/${generateEventSlug(
@@ -376,25 +371,22 @@ Manage preferences: ${appUrl}/profile
               event.id
             )}`;
             const curatorText = event.curators?.length
-              ? `\n    Curated by: ${event.curators
-                  .map((curator) => curator.name)
-                  .join(", ")}`
-              : "";
-            const notesText = event.curators
-              ?.filter((curator) => curator.note)
-              .map(
-                (curator) => `\n    Note: "${curator.note}" - ${curator.name}`
-              )
-              .join("") || "";
+              ? `\n    Curated by: ${event.curators.map((curator) => curator.name).join(', ')}`
+              : '';
+            const notesText =
+              event.curators
+                ?.filter((curator) => curator.note)
+                .map((curator) => `\n    Note: "${curator.note}" - ${curator.name}`)
+                .join('') || '';
             // Build details line: time | price | location
             const detailParts = [time];
             if (event.price) detailParts.push(event.price);
             if (event.location) detailParts.push(event.location);
-            const summaryLine = event.aiSummary ? `\n    ${event.aiSummary}` : "";
-            return `  - ${event.title}${summaryLine}\n    ${detailParts.join(" | ")}\n    ${eventUrl}${curatorText}${notesText}`;
+            const summaryLine = event.aiSummary ? `\n    ${event.aiSummary}` : '';
+            return `  - ${event.title}${summaryLine}\n    ${detailParts.join(' | ')}\n    ${eventUrl}${curatorText}${notesText}`;
           })
-          .join("\n\n")}\n\n`
-      : "";
+          .join('\n\n')}\n\n`
+      : '';
 
   const eventSections = Object.entries(eventsByDate)
     .map(([dateKey, dateEvents]) => {
@@ -410,19 +402,19 @@ Manage preferences: ${appUrl}/profile
           const detailParts = [time];
           if (event.price) detailParts.push(event.price);
           if (event.location) detailParts.push(event.location);
-          const summaryLine = event.aiSummary ? `\n    ${event.aiSummary}` : "";
-          return `  - ${event.title}${summaryLine}\n    ${detailParts.join(" | ")}\n    ${eventUrl}`;
+          const summaryLine = event.aiSummary ? `\n    ${event.aiSummary}` : '';
+          return `  - ${event.title}${summaryLine}\n    ${detailParts.join(' | ')}\n    ${eventUrl}`;
         })
-        .join("\n\n");
-      return `${dateKey}\n${"-".repeat(dateKey.length)}\n${eventList}`;
+        .join('\n\n');
+      return `${dateKey}\n${'-'.repeat(dateKey.length)}\n${eventList}`;
     })
-    .join("\n\n");
+    .join('\n\n');
 
   return `
 ${greeting}!
 
-Here are ${totalEventCount} event${totalEventCount === 1 ? "" : "s"} matching your preferences ${periodText}:
-${capNotice ? `\n${capNotice}\n` : ""}
+Here are ${totalEventCount} event${totalEventCount === 1 ? '' : 's'} matching your preferences ${periodText}:
+${capNotice ? `\n${capNotice}\n` : ''}
 
 ${curatedSection}${eventSections}
 
@@ -443,11 +435,11 @@ Manage preferences: ${appUrl}/profile
  */
 function escapeHtml(text: string): string {
   return text
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;");
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
 }
 
 /**
@@ -455,5 +447,5 @@ function escapeHtml(text: string): string {
  */
 function truncate(text: string, maxLength: number): string {
   if (text.length <= maxLength) return text;
-  return text.slice(0, maxLength - 1) + ".";
+  return text.slice(0, maxLength - 1) + '.';
 }

@@ -132,11 +132,11 @@ async function main() {
     console.log('Percentiles (score):');
     console.log(
       `P10 ${formatNumber(percentiles.p10)} | P25 ${formatNumber(percentiles.p25)} | ` +
-      `P50 ${formatNumber(percentiles.p50)} | P75 ${formatNumber(percentiles.p75)}`
+        `P50 ${formatNumber(percentiles.p50)} | P75 ${formatNumber(percentiles.p75)}`
     );
     console.log(
       `P90 ${formatNumber(percentiles.p90)} | P95 ${formatNumber(percentiles.p95)} | ` +
-      `P99 ${formatNumber(percentiles.p99)}`
+        `P99 ${formatNumber(percentiles.p99)}`
     );
     console.log('');
   }

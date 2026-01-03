@@ -37,12 +37,20 @@ async function main() {
     if (ncMatch) {
       const cityCandidate = ncMatch[1].trim();
       // If it looks like a street address, try the word before the comma
-      if (!/^\d/.test(cityCandidate) && !cityCandidate.toLowerCase().includes('street') &&
-          !cityCandidate.toLowerCase().includes(' st') && !cityCandidate.toLowerCase().includes(' rd') &&
-          !cityCandidate.toLowerCase().includes(' ave') && !cityCandidate.toLowerCase().includes(' dr')) {
+      if (
+        !/^\d/.test(cityCandidate) &&
+        !cityCandidate.toLowerCase().includes('street') &&
+        !cityCandidate.toLowerCase().includes(' st') &&
+        !cityCandidate.toLowerCase().includes(' rd') &&
+        !cityCandidate.toLowerCase().includes(' ave') &&
+        !cityCandidate.toLowerCase().includes(' dr')
+      ) {
         const zip = getZipFromCity(cityCandidate);
         if (zip) {
-          await db.update(events).set({ zip }).where(sql`id = ${event.id}`);
+          await db
+            .update(events)
+            .set({ zip })
+            .where(sql`id = ${event.id}`);
           updated++;
           updatesBySource[event.source] = (updatesBySource[event.source] || 0) + 1;
           continue;
@@ -52,16 +60,31 @@ async function main() {
 
     // Pattern 2: Look for known city names anywhere in the location
     const knownCities = [
-      'Asheville', 'Black Mountain', 'Weaverville', 'Arden', 'Fletcher',
-      'Hendersonville', 'Brevard', 'Candler', 'Leicester', 'Swannanoa',
-      'Woodfin', 'Fairview', 'Mars Hill', 'Alexander', 'Old Fort'
+      'Asheville',
+      'Black Mountain',
+      'Weaverville',
+      'Arden',
+      'Fletcher',
+      'Hendersonville',
+      'Brevard',
+      'Candler',
+      'Leicester',
+      'Swannanoa',
+      'Woodfin',
+      'Fairview',
+      'Mars Hill',
+      'Alexander',
+      'Old Fort',
     ];
 
     for (const city of knownCities) {
       if (location.toLowerCase().includes(city.toLowerCase())) {
         const zip = getZipFromCity(city);
         if (zip) {
-          await db.update(events).set({ zip }).where(sql`id = ${event.id}`);
+          await db
+            .update(events)
+            .set({ zip })
+            .where(sql`id = ${event.id}`);
           updated++;
           updatesBySource[event.source] = (updatesBySource[event.source] || 0) + 1;
           break;
@@ -89,9 +112,19 @@ async function main() {
   `);
 
   console.log('\nFinal coverage:');
-  for (const row of coverage as unknown as { source: string; total: number; with_zip: number; coverage_pct: number }[]) {
+  for (const row of coverage as unknown as {
+    source: string;
+    total: number;
+    with_zip: number;
+    coverage_pct: number;
+  }[]) {
     console.log(`  ${row.source.padEnd(18)} ${row.with_zip}/${row.total} (${row.coverage_pct}%)`);
   }
 }
 
-main().then(() => process.exit(0)).catch(e => { console.error(e); process.exit(1); });
+main()
+  .then(() => process.exit(0))
+  .catch((e) => {
+    console.error(e);
+    process.exit(1);
+  });

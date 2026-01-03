@@ -76,7 +76,7 @@ async function backfillEnrichment() {
 
   const results = await db.execute(query);
   const rows = (results as { rows?: unknown[] }).rows || (results as unknown[]);
-  const eventsToProcess = (rows as Record<string, unknown>[]).slice(0, limit).map(row => ({
+  const eventsToProcess = (rows as Record<string, unknown>[]).slice(0, limit).map((row) => ({
     id: row.id as string,
     source: row.source as string,
     title: row.title as string,
@@ -88,7 +88,9 @@ async function backfillEnrichment() {
     url: row.url as string,
   })) as EventToEnrich[];
 
-  console.log(`Found ${rows.length} events needing enrichment, processing ${eventsToProcess.length}...\n`);
+  console.log(
+    `Found ${rows.length} events needing enrichment, processing ${eventsToProcess.length}...\n`
+  );
 
   let regexPriceExtracted = 0;
   let regexTimeExtracted = 0;
@@ -167,7 +169,7 @@ async function backfillEnrichment() {
         }
 
         // Rate limit between AI calls
-        await new Promise(r => setTimeout(r, 500));
+        await new Promise((r) => setTimeout(r, 500));
       } catch (error) {
         console.log(`    ❌ AI error: ${error}`);
         errors++;
@@ -184,14 +186,13 @@ async function backfillEnrichment() {
           updates.timeUnknown = false;
         }
 
-        await db
-          .update(events)
-          .set(updates)
-          .where(eq(events.id, event.id));
+        await db.update(events).set(updates).where(eq(events.id, event.id));
 
         console.log(`    💾 Saved to database`);
       } else {
-        console.log(`    [DRY RUN] Would save: price=${newPrice}, startDate=${newStartDate?.toISOString()}`);
+        console.log(
+          `    [DRY RUN] Would save: price=${newPrice}, startDate=${newStartDate?.toISOString()}`
+        );
       }
     } else {
       unchanged++;

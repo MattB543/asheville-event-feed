@@ -57,7 +57,9 @@ async function checkDataQuality() {
 
   // Print summary table
   console.log('Future Events Data Quality by Source:\n');
-  console.log('Source           | Total | Unknown Price | Time Unknown | No Desc | No Loc | No Org | No Img');
+  console.log(
+    'Source           | Total | Unknown Price | Time Unknown | No Desc | No Loc | No Org | No Img'
+  );
   console.log('-'.repeat(100));
 
   let totalEvents = 0;
@@ -75,7 +77,9 @@ async function checkDataQuality() {
     const noOrg = String(row.missing_organizer).padStart(6);
     const noImg = String(row.missing_image).padStart(6);
 
-    console.log(`${source} | ${total} | ${unknownPrice} | ${timeUnknownStr} | ${noDesc} | ${noLoc} | ${noOrg} | ${noImg}`);
+    console.log(
+      `${source} | ${total} | ${unknownPrice} | ${timeUnknownStr} | ${noDesc} | ${noLoc} | ${noOrg} | ${noImg}`
+    );
 
     totalEvents += Number(row.total_events) || 0;
     totalUnknownPrice += Number(row.unknown_price) || 0;
@@ -84,8 +88,12 @@ async function checkDataQuality() {
 
   console.log('-'.repeat(100));
   console.log(`\nTOTAL: ${totalEvents} future events`);
-  console.log(`  Unknown Price: ${totalUnknownPrice} (${((totalUnknownPrice / totalEvents) * 100).toFixed(1)}%)`);
-  console.log(`  Time Unknown:  ${totalTimeUnknown} (${((totalTimeUnknown / totalEvents) * 100).toFixed(1)}%)`);
+  console.log(
+    `  Unknown Price: ${totalUnknownPrice} (${((totalUnknownPrice / totalEvents) * 100).toFixed(1)}%)`
+  );
+  console.log(
+    `  Time Unknown:  ${totalTimeUnknown} (${((totalTimeUnknown / totalEvents) * 100).toFixed(1)}%)`
+  );
 
   // Get sample events with unknown price
   console.log('\n\n=== SAMPLE EVENTS WITH UNKNOWN PRICE ===\n');

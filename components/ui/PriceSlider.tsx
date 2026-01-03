@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { useMemo } from "react";
+import { useMemo } from 'react';
 
 // Slider stops: Free, $10-$100 in $10 increments, then "All Events" (no limit)
 const PRICE_STOPS = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, null] as const;
@@ -34,8 +34,8 @@ export default function PriceSlider({ value, onChange }: PriceSliderProps) {
 
   // Get display label for current value
   const getLabel = () => {
-    if (value === null) return "All Events";
-    if (value === 0) return "Free";
+    if (value === null) return 'All Events';
+    if (value === 0) return 'Free';
     return `Under $${value}`;
   };
 
@@ -43,9 +43,7 @@ export default function PriceSlider({ value, onChange }: PriceSliderProps) {
     <div className="w-full">
       {/* Current selection label */}
       <div className="text-center mb-3">
-        <span className="text-lg font-semibold text-gray-900 dark:text-gray-100">
-          {getLabel()}
-        </span>
+        <span className="text-lg font-semibold text-gray-900 dark:text-gray-100">{getLabel()}</span>
       </div>
 
       {/* Slider */}
@@ -85,16 +83,24 @@ export default function PriceSlider({ value, onChange }: PriceSliderProps) {
 
       {/* Labels */}
       <div className="flex justify-between mt-2">
-        <span className={`text-xs ${sliderIndex === 0 ? "text-brand-600 dark:text-brand-400 font-medium" : "text-gray-500 dark:text-gray-400"}`}>
+        <span
+          className={`text-xs ${sliderIndex === 0 ? 'text-brand-600 dark:text-brand-400 font-medium' : 'text-gray-500 dark:text-gray-400'}`}
+        >
           Free
         </span>
-        <span className={`text-xs ${sliderIndex === 5 ? "text-brand-600 dark:text-brand-400 font-medium" : "text-gray-500 dark:text-gray-400"}`}>
+        <span
+          className={`text-xs ${sliderIndex === 5 ? 'text-brand-600 dark:text-brand-400 font-medium' : 'text-gray-500 dark:text-gray-400'}`}
+        >
           $50
         </span>
-        <span className={`text-xs ${sliderIndex === 10 ? "text-brand-600 dark:text-brand-400 font-medium" : "text-gray-500 dark:text-gray-400"}`}>
+        <span
+          className={`text-xs ${sliderIndex === 10 ? 'text-brand-600 dark:text-brand-400 font-medium' : 'text-gray-500 dark:text-gray-400'}`}
+        >
           $100
         </span>
-        <span className={`text-xs ${sliderIndex === MAX_INDEX ? "text-brand-600 dark:text-brand-400 font-medium" : "text-gray-500 dark:text-gray-400"}`}>
+        <span
+          className={`text-xs ${sliderIndex === MAX_INDEX ? 'text-brand-600 dark:text-brand-400 font-medium' : 'text-gray-500 dark:text-gray-400'}`}
+        >
           All
         </span>
       </div>
@@ -104,24 +110,24 @@ export default function PriceSlider({ value, onChange }: PriceSliderProps) {
 
 // Helper functions to convert between filter state and slider value
 export function filterStateToSliderValue(
-  priceFilter: "any" | "free" | "under20" | "under100" | "custom",
+  priceFilter: 'any' | 'free' | 'under20' | 'under100' | 'custom',
   customMaxPrice: number | null
 ): number | null {
-  if (priceFilter === "free") return 0;
-  if (priceFilter === "any") return null;
-  if (priceFilter === "under20") return 20;
-  if (priceFilter === "under100") return 100;
-  if (priceFilter === "custom") return customMaxPrice;
+  if (priceFilter === 'free') return 0;
+  if (priceFilter === 'any') return null;
+  if (priceFilter === 'under20') return 20;
+  if (priceFilter === 'under100') return 100;
+  if (priceFilter === 'custom') return customMaxPrice;
   return null;
 }
 
 export function sliderValueToFilterState(value: number | null): {
-  priceFilter: "any" | "free" | "under20" | "under100" | "custom";
+  priceFilter: 'any' | 'free' | 'under20' | 'under100' | 'custom';
   customMaxPrice: number | null;
 } {
-  if (value === null) return { priceFilter: "any", customMaxPrice: null };
-  if (value === 0) return { priceFilter: "free", customMaxPrice: null };
-  if (value === 20) return { priceFilter: "under20", customMaxPrice: null };
-  if (value === 100) return { priceFilter: "under100", customMaxPrice: null };
-  return { priceFilter: "custom", customMaxPrice: value };
+  if (value === null) return { priceFilter: 'any', customMaxPrice: null };
+  if (value === 0) return { priceFilter: 'free', customMaxPrice: null };
+  if (value === 20) return { priceFilter: 'under20', customMaxPrice: null };
+  if (value === 100) return { priceFilter: 'under100', customMaxPrice: null };
+  return { priceFilter: 'custom', customMaxPrice: value };
 }

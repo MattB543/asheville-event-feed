@@ -122,16 +122,16 @@ async function main() {
   console.log();
 
   // 4. Harrah's
-  console.log('4️⃣  Harrah\'s...');
+  console.log("4️⃣  Harrah's...");
   try {
     const harrahsEvents = await scrapeHarrahs();
     console.log(`   Scraped ${harrahsEvents.length} events`);
-    const eventsWithTags = harrahsEvents.map(e => ({ ...e, tags: [] }));
-    const { success, failed } = await upsertEvents(eventsWithTags, 'Harrah\'s');
-    results.push({ source: 'Harrah\'s', scraped: harrahsEvents.length, inserted: success, failed });
+    const eventsWithTags = harrahsEvents.map((e) => ({ ...e, tags: [] }));
+    const { success, failed } = await upsertEvents(eventsWithTags, "Harrah's");
+    results.push({ source: "Harrah's", scraped: harrahsEvents.length, inserted: success, failed });
   } catch (err) {
-    console.error('   ❌ Harrah\'s scraper failed:', err);
-    results.push({ source: 'Harrah\'s', scraped: 0, inserted: 0, failed: 0 });
+    console.error("   ❌ Harrah's scraper failed:", err);
+    results.push({ source: "Harrah's", scraped: 0, inserted: 0, failed: 0 });
   }
   console.log();
 
@@ -140,9 +140,14 @@ async function main() {
   try {
     const orangePeelEvents = await scrapeOrangePeel();
     console.log(`   Scraped ${orangePeelEvents.length} events`);
-    const eventsWithTags = orangePeelEvents.map(e => ({ ...e, tags: [] }));
+    const eventsWithTags = orangePeelEvents.map((e) => ({ ...e, tags: [] }));
     const { success, failed } = await upsertEvents(eventsWithTags, 'Orange Peel');
-    results.push({ source: 'Orange Peel', scraped: orangePeelEvents.length, inserted: success, failed });
+    results.push({
+      source: 'Orange Peel',
+      scraped: orangePeelEvents.length,
+      inserted: success,
+      failed,
+    });
   } catch (err) {
     console.error('   ❌ Orange Peel scraper failed:', err);
     results.push({ source: 'Orange Peel', scraped: 0, inserted: 0, failed: 0 });
@@ -154,9 +159,14 @@ async function main() {
   try {
     const greyEagleEvents = await scrapeGreyEagle();
     console.log(`   Scraped ${greyEagleEvents.length} events`);
-    const eventsWithTags = greyEagleEvents.map(e => ({ ...e, tags: [] }));
+    const eventsWithTags = greyEagleEvents.map((e) => ({ ...e, tags: [] }));
     const { success, failed } = await upsertEvents(eventsWithTags, 'Grey Eagle');
-    results.push({ source: 'Grey Eagle', scraped: greyEagleEvents.length, inserted: success, failed });
+    results.push({
+      source: 'Grey Eagle',
+      scraped: greyEagleEvents.length,
+      inserted: success,
+      failed,
+    });
   } catch (err) {
     console.error('   ❌ Grey Eagle scraper failed:', err);
     results.push({ source: 'Grey Eagle', scraped: 0, inserted: 0, failed: 0 });
@@ -168,9 +178,14 @@ async function main() {
   try {
     const liveMusicEvents = await scrapeLiveMusicAvl();
     console.log(`   Scraped ${liveMusicEvents.length} events`);
-    const eventsWithTags = liveMusicEvents.map(e => ({ ...e, tags: [] }));
+    const eventsWithTags = liveMusicEvents.map((e) => ({ ...e, tags: [] }));
     const { success, failed } = await upsertEvents(eventsWithTags, 'Live Music AVL');
-    results.push({ source: 'Live Music AVL', scraped: liveMusicEvents.length, inserted: success, failed });
+    results.push({
+      source: 'Live Music AVL',
+      scraped: liveMusicEvents.length,
+      inserted: success,
+      failed,
+    });
   } catch (err) {
     console.error('   ❌ Live Music AVL scraper failed:', err);
     results.push({ source: 'Live Music AVL', scraped: 0, inserted: 0, failed: 0 });
@@ -210,13 +225,17 @@ async function main() {
   let totalInserted = 0;
   let totalFailed = 0;
   for (const r of results) {
-    console.log(`${r.source.padEnd(15)} | Scraped: ${String(r.scraped).padStart(4)} | Inserted: ${String(r.inserted).padStart(4)} | Failed: ${r.failed}`);
+    console.log(
+      `${r.source.padEnd(15)} | Scraped: ${String(r.scraped).padStart(4)} | Inserted: ${String(r.inserted).padStart(4)} | Failed: ${r.failed}`
+    );
     totalScraped += r.scraped;
     totalInserted += r.inserted;
     totalFailed += r.failed;
   }
   console.log('───────────────────────────────────────────────────────────');
-  console.log(`${'TOTAL'.padEnd(15)} | Scraped: ${String(totalScraped).padStart(4)} | Inserted: ${String(totalInserted).padStart(4)} | Failed: ${totalFailed}`);
+  console.log(
+    `${'TOTAL'.padEnd(15)} | Scraped: ${String(totalScraped).padStart(4)} | Inserted: ${String(totalInserted).padStart(4)} | Failed: ${totalFailed}`
+  );
   console.log(`Duplicates removed: ${duplicateIdsToRemove.length}`);
   console.log('═══════════════════════════════════════════════════════════');
 }

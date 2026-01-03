@@ -6,7 +6,7 @@ import { writeFileSync } from 'fs';
 async function main() {
   const allEvents = await db.select().from(events);
 
-  const filtered = allEvents.filter(event => {
+  const filtered = allEvents.filter((event) => {
     const textToCheck = `${event.title} ${event.description || ''} ${event.organizer || ''}`;
     return matchesDefaultFilter(textToCheck);
   });

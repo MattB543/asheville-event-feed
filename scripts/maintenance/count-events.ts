@@ -7,10 +7,16 @@ async function main() {
   const result = await db.select({ count: sql`count(*)` }).from(events);
   const totalEvents = result[0]?.count || 0;
 
-  const ebResult = await db.select({ count: sql`count(*)` }).from(events).where(sql`source = 'EVENTBRITE'`);
+  const ebResult = await db
+    .select({ count: sql`count(*)` })
+    .from(events)
+    .where(sql`source = 'EVENTBRITE'`);
   const ebCount = ebResult[0]?.count || 0;
 
-  const avlResult = await db.select({ count: sql`count(*)` }).from(events).where(sql`source = 'AVL_TODAY'`);
+  const avlResult = await db
+    .select({ count: sql`count(*)` })
+    .from(events)
+    .where(sql`source = 'AVL_TODAY'`);
   const avlCount = avlResult[0]?.count || 0;
 
   console.log('='.repeat(50));

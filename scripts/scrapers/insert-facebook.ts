@@ -45,9 +45,10 @@ async function main() {
 
   // Filter out low-interest events (must have >=4 going OR >=9 interested)
   // "Going" is a stronger signal than "interested"
-  const scrapedEvents = allScrapedEvents.filter(e =>
-    (e.goingCount !== undefined && e.goingCount >= 4) ||
-    (e.interestedCount !== undefined && e.interestedCount >= 9)
+  const scrapedEvents = allScrapedEvents.filter(
+    (e) =>
+      (e.goingCount !== undefined && e.goingCount >= 4) ||
+      (e.interestedCount !== undefined && e.interestedCount >= 9)
   );
   const filteredOut = allScrapedEvents.length - scrapedEvents.length;
   if (filteredOut > 0) {
@@ -85,7 +86,7 @@ async function main() {
         }
 
         // Rate limit
-        await new Promise(r => setTimeout(r, 500));
+        await new Promise((r) => setTimeout(r, 500));
       } catch (err) {
         console.error(`  Failed to tag "${event.title}":`, err);
         eventsWithTags.push({ ...event, tags: [] });
@@ -107,7 +108,8 @@ async function main() {
 
   for (const event of eventsWithTags) {
     try {
-      await db.insert(events)
+      await db
+        .insert(events)
         .values({
           sourceId: event.sourceId,
           source: event.source,
@@ -155,14 +157,16 @@ async function main() {
   console.log();
 
   // Show interested/going stats
-  const eventsWithCounts = scrapedEvents.filter(e => e.interestedCount || e.goingCount);
+  const eventsWithCounts = scrapedEvents.filter((e) => e.interestedCount || e.goingCount);
   if (eventsWithCounts.length > 0) {
     console.log('📊 Events with Interested/Going counts:');
     console.log('-'.repeat(70));
     // Sort by interested count descending
     eventsWithCounts.sort((a, b) => (b.interestedCount || 0) - (a.interestedCount || 0));
     for (const event of eventsWithCounts.slice(0, 10)) {
-      console.log(`  ⭐ ${event.interestedCount || 0} interested, ✅ ${event.goingCount || 0} going`);
+      console.log(
+        `  ⭐ ${event.interestedCount || 0} interested, ✅ ${event.goingCount || 0} going`
+      );
       console.log(`     ${event.title}`);
     }
     if (eventsWithCounts.length > 10) {

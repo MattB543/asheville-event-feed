@@ -1,7 +1,7 @@
-import { GoogleGenerativeAI } from "@google/generative-ai";
-import sharp from "sharp";
-import { env } from "../config/env";
-import { uploadEventImage } from "../supabase/storage";
+import { GoogleGenerativeAI } from '@google/generative-ai';
+import sharp from 'sharp';
+import { env } from '../config/env';
+import { uploadEventImage } from '../supabase/storage';
 
 interface EventImagePromptData {
   title: string;
@@ -19,7 +19,7 @@ let _imageGenAI: GoogleGenerativeAI | null = null;
 // Model name for image generation - configurable via env var
 // Options: "gemini-2.5-flash-image" (recommended, best quality)
 //          "gemini-2.0-flash-exp" (older, experimental)
-const IMAGE_MODEL = env.GEMINI_IMAGE_MODEL || "gemini-2.5-flash-image";
+const IMAGE_MODEL = env.GEMINI_IMAGE_MODEL || 'gemini-2.5-flash-image';
 
 function getImageModel() {
   const apiKey = env.GEMINI_API_KEY;
@@ -36,20 +36,20 @@ function getImageModel() {
     model: IMAGE_MODEL,
     generationConfig: {
       // @ts-expect-error - responseModalities is supported but not typed in the SDK
-      responseModalities: ["Text", "Image"],
+      responseModalities: ['Text', 'Image'],
     },
   });
 }
 
 function buildImagePrompt(event: EventImagePromptData): string {
-  const tagContext = event.tags?.length ? `Tags: ${event.tags.join(", ")}` : "";
-  const locationContext = event.location || "Asheville, NC";
+  const tagContext = event.tags?.length ? `Tags: ${event.tags.join(', ')}` : '';
+  const locationContext = event.location || 'Asheville, NC';
 
   // Build a descriptive prompt for the event
   return `Create a visually appealing promotional image for this event:
 
 Title: ${event.title}
-${event.description ? `Description: ${event.description.slice(0, 200)}` : ""}
+${event.description ? `Description: ${event.description.slice(0, 200)}` : ''}
 Location: ${locationContext}
 ${tagContext}
 
@@ -66,13 +66,11 @@ Style guidelines:
 Generate an image only, no text response needed.`;
 }
 
-export async function generateEventImage(
-  event: EventImagePromptData
-): Promise<string | null> {
+export async function generateEventImage(event: EventImagePromptData): Promise<string | null> {
   const model = getImageModel();
 
   if (!model) {
-    console.log("[ImageGen] Gemini API key not configured, skipping image generation");
+    console.log('[ImageGen] Gemini API key not configured, skipping image generation');
     return null;
   }
 
@@ -91,11 +89,13 @@ export async function generateEventImage(
 
         // Check if base64 data is too large (10MB base64 ≈ 7.5MB raw)
         if (data.length > 10_000_000) {
-          console.warn(`[ImageGen] Image too large for "${event.title}" (${(data.length / 1_000_000).toFixed(1)}MB base64), skipping`);
+          console.warn(
+            `[ImageGen] Image too large for "${event.title}" (${(data.length / 1_000_000).toFixed(1)}MB base64), skipping`
+          );
           return null;
         }
 
-        const originalBuffer = Buffer.from(data, "base64");
+        const originalBuffer = Buffer.from(data, 'base64');
         const originalSize = originalBuffer.length;
 
         // Compress with sharp: resize to 512px width, convert to JPEG at 80% quality
@@ -107,12 +107,12 @@ export async function generateEventImage(
         const compressedSize = compressedBuffer.length;
         const compressionRatio = ((1 - compressedSize / originalSize) * 100).toFixed(1);
 
-        const compressedBase64 = compressedBuffer.toString("base64");
+        const compressedBase64 = compressedBuffer.toString('base64');
         const dataUrl = `data:image/jpeg;base64,${compressedBase64}`;
 
         console.log(
           `[ImageGen] Generated image for: ${event.title} ` +
-          `(${(originalSize / 1024).toFixed(0)}KB → ${(compressedSize / 1024).toFixed(0)}KB, -${compressionRatio}%)`
+            `(${(originalSize / 1024).toFixed(0)}KB → ${(compressedSize / 1024).toFixed(0)}KB, -${compressionRatio}%)`
         );
         return dataUrl;
       }
@@ -141,7 +141,7 @@ export async function generateAndUploadEventImage(
   const model = getImageModel();
 
   if (!model) {
-    console.log("[ImageGen] Gemini API key not configured, skipping image generation");
+    console.log('[ImageGen] Gemini API key not configured, skipping image generation');
     return null;
   }
 
@@ -160,11 +160,13 @@ export async function generateAndUploadEventImage(
 
         // Check if base64 data is too large (10MB base64 ≈ 7.5MB raw)
         if (data.length > 10_000_000) {
-          console.warn(`[ImageGen] Image too large for "${event.title}" (${(data.length / 1_000_000).toFixed(1)}MB base64), skipping`);
+          console.warn(
+            `[ImageGen] Image too large for "${event.title}" (${(data.length / 1_000_000).toFixed(1)}MB base64), skipping`
+          );
           return null;
         }
 
-        const originalBuffer = Buffer.from(data, "base64");
+        const originalBuffer = Buffer.from(data, 'base64');
         const originalSize = originalBuffer.length;
 
         // Compress with sharp: resize to 512px width, convert to JPEG at 80% quality
@@ -180,7 +182,7 @@ export async function generateAndUploadEventImage(
 
         console.log(
           `[ImageGen] Generated and uploaded image for: ${event.title} ` +
-          `(${(originalSize / 1024).toFixed(0)}KB → ${(compressedSize / 1024).toFixed(0)}KB)`
+            `(${(originalSize / 1024).toFixed(0)}KB → ${(compressedSize / 1024).toFixed(0)}KB)`
         );
 
         return publicUrl;

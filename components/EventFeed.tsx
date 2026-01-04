@@ -28,7 +28,8 @@ const EventDetailModal = dynamic(() => import('./EventDetailModal'), { ssr: fals
 import SaveFeedModal from './SaveFeedModal';
 import { DEFAULT_BLOCKED_KEYWORDS } from '@/lib/config/defaultFilters';
 import { useToast } from './ui/Toast';
-import { ArrowDownIcon, ArrowUpIcon, Loader2Icon, Sparkles } from 'lucide-react';
+import { ArrowDownIcon, ArrowUpIcon, ArrowRight, Loader2Icon, Sparkles } from 'lucide-react';
+import Link from 'next/link';
 import { getZipName } from '@/lib/config/zipNames';
 import { usePreferenceSync } from '@/lib/hooks/usePreferenceSync';
 import { useAuth } from './AuthProvider';
@@ -2243,6 +2244,17 @@ export default function EventFeed({
                 })}
             </div>
           )}
+
+          {/* View All Events CTA */}
+          <div className="flex justify-center mt-8 mb-4">
+            <Link
+              href="/events"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-brand-600 hover:bg-brand-700 text-white font-semibold rounded-full transition-colors shadow-md hover:shadow-lg"
+            >
+              View All Asheville Events
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
         </>
       )}
 

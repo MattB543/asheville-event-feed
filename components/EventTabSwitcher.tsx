@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 
 interface EventTabSwitcherProps {
-  activeTab: 'all' | 'top30' | 'yourList';
+  activeTab?: 'all' | 'top30' | 'yourList';
 }
 
 export default function EventTabSwitcher({ activeTab }: EventTabSwitcherProps) {

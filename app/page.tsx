@@ -82,11 +82,11 @@ export default function HomePage() {
             Just awesome events.
           </p>
           <Link
-            href="/events"
+            href="/events/top30"
             className="btn-shimmer inline-flex items-center gap-2.5 bg-brand-600 hover:bg-brand-700 text-white font-semibold rounded-full px-8 py-4 transition-colors cursor-pointer shadow-lg shadow-brand-600/25 hover:shadow-brand-600/40"
           >
             <Calendar className="w-5 h-5" />
-            View Today&apos;s Events
+            View Top Events
           </Link>
         </div>
       </section>
@@ -272,15 +272,16 @@ export default function HomePage() {
           </div>
           <div className="text-sm text-gray-500 dark:text-gray-400 space-y-1">
             <p>
-              Built by Matt Brooks at Brooks Solutions, LLC.{' '}
+              Built by{' '}
               <a
                 href="https://mattbrooks.xyz"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="underline hover:text-gray-700 dark:hover:text-gray-300"
               >
-                mattbrooks.xyz
-              </a>
+                Matt
+              </a>{' '}
+              at Brooks Solutions, LLC.
             </p>
             <p>
               © {new Date().getFullYear()} Asheville Event Feed. Not affiliated with AVL Today,

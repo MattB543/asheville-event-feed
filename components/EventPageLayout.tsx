@@ -39,15 +39,16 @@ export default function EventPageLayout({
 
       <footer className="bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 mt-8 py-8 text-center text-sm text-gray-500 dark:text-gray-400">
         <p className="mb-2">
-          Built by Matt Brooks at Brooks Solutions, LLC. Learn more at{' '}
+          Built by{' '}
           <a
             href="https://mattbrooks.xyz"
             target="_blank"
             rel="noopener noreferrer"
             className="underline hover:text-gray-700 dark:hover:text-gray-300"
           >
-            mattbrooks.xyz
-          </a>
+            Matt
+          </a>{' '}
+          at Brooks Solutions, LLC.
         </p>
         <p>
           © {new Date().getFullYear()} Asheville Event Feed. Not affiliated with AVL Today,

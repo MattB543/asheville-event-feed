@@ -152,6 +152,17 @@ interface EventReport {
   eventTitle: string;
   eventUrl: string;
   reportType: ReportType;
+  verificationResult?: {
+    action: 'keep' | 'hide' | 'update';
+    reason: string;
+    confidence: number;
+    applied: boolean;
+    updates?: {
+      price?: string | null;
+      description?: string | null;
+      location?: string | null;
+    };
+  };
 }
 
 const REPORT_TYPE_LABELS: Record<ReportType, string> = {
@@ -202,6 +213,50 @@ export async function sendEventReport(report: EventReport): Promise<boolean> {
         },
       ],
     },
+  ];
+
+  // Add verification result section for incorrect_info reports
+  if (report.verificationResult) {
+    const vr = report.verificationResult;
+    const actionEmoji =
+      vr.action === 'keep'
+        ? ':white_check_mark:'
+        : vr.action === 'update'
+          ? ':arrows_counterclockwise:'
+          : ':no_entry:';
+    const actionLabel =
+      vr.action === 'keep' ? 'Verified OK' : vr.action === 'update' ? 'Updated' : 'Hidden';
+
+    blocks.push({
+      type: 'section',
+      text: {
+        type: 'mrkdwn',
+        text: `*${actionEmoji} Auto-Verification: ${actionLabel}*\n${vr.reason}\n_Confidence: ${(vr.confidence * 100).toFixed(0)}% | Applied: ${vr.applied ? 'Yes' : 'No'}_`,
+      },
+    });
+
+    // Show what was updated if applicable
+    if (vr.updates && vr.action === 'update') {
+      const updateDetails: string[] = [];
+      if (vr.updates.price) updateDetails.push(`Price: ${vr.updates.price}`);
+      if (vr.updates.location) updateDetails.push(`Location: ${vr.updates.location}`);
+      if (vr.updates.description) updateDetails.push(`Description: (updated)`);
+
+      if (updateDetails.length > 0) {
+        blocks.push({
+          type: 'context',
+          elements: [
+            {
+              type: 'mrkdwn',
+              text: `*Updates:* ${updateDetails.join(' | ')}`,
+            },
+          ],
+        });
+      }
+    }
+  }
+
+  blocks.push(
     {
       type: 'context',
       elements: [
@@ -225,8 +280,8 @@ export async function sendEventReport(report: EventReport): Promise<boolean> {
           action_id: 'view_reported_event',
         },
       ],
-    },
-  ];
+    }
+  );
 
   try {
     const response = await fetch(webhookUrl, {

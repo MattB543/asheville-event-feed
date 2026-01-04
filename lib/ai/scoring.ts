@@ -82,11 +82,11 @@ What is the scale of the "Draw"?
     - 4-6: Established local venues (Ginger's Revenge, One World West, Jack of the Wood).
     - 7-8: Major regional venues (The Grey Eagle, Orange Peel, Wortham Center).
     - 9-10: Stadium/Arena (Harrah's Cherokee Center).
-- RECURRING CLIFF: While you auto-score weekly events as 5, if an event is NOT recurring but feels low-effort (like a basic bar DJ), it should stay in the 8-10 range, not the 11-17 range.
+- RECURRING CLIFF: While you auto-score weekly events as 5, if an event is NOT recurring but feels low-effort (like a basic bar DJ), it should stay in the 8-12 range, not the 15-18 range.
 - BELL CURVE: Aim for a broader spread.
-  - 0-10: Standard weekly/utility.
-  - 11-17: High-quality local weekend options.
-  - 18-24: Major touring shows and significant local productions.
+  - 0-14: Standard weekly/utility (hidden by default).
+  - 15-18: High-quality local weekend options.
+  - 19-24: Major touring shows and significant local productions.
   - 25-30: "The biggest event of the month."
 
 Return ONLY valid JSON:

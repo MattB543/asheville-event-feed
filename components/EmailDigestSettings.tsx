@@ -455,7 +455,7 @@ export default function EmailDigestSettings({ email }: EmailDigestSettingsProps)
               onChange={setScoreTier}
               icon={<Star className="w-5 h-5" />}
               label="Somewhat unique"
-              description="Score 13+"
+              description="Score 15+"
             />
             <ScoreTierOption
               value="top10"
@@ -463,7 +463,7 @@ export default function EmailDigestSettings({ email }: EmailDigestSettingsProps)
               onChange={setScoreTier}
               icon={<Sparkles className="w-5 h-5" />}
               label="Very unique"
-              description="Score 17+"
+              description="Score 19+"
             />
           </div>
         </div>

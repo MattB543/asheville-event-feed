@@ -195,9 +195,12 @@ function formatEvent(event: TribeEvent): ScrapedEvent {
   // Format price
   let price: string | undefined;
   if (event.cost) {
-    const costLower = event.cost.toLowerCase();
+    const costLower = event.cost.toLowerCase().trim();
     if (costLower === 'free' || costLower === '$0') {
       price = 'Free';
+    } else if (event.cost.trim() === '$') {
+      // Just "$" with no amount means unknown price
+      price = undefined;
     } else {
       price = event.cost;
     }

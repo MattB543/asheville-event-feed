@@ -21,7 +21,6 @@ type TierRow = {
   hidden_count: number;
   quality_count: number;
   outstanding_count: number;
-  gold_count: number;
 };
 
 type PercentileRow = {
@@ -84,10 +83,9 @@ async function main() {
 
   const tierResult = await db.execute(sql`
     SELECT
-      COUNT(*) FILTER (WHERE score <= 12)::int as hidden_count,
-      COUNT(*) FILTER (WHERE score BETWEEN 13 AND 16)::int as quality_count,
-      COUNT(*) FILTER (WHERE score >= 17)::int as outstanding_count,
-      COUNT(*) FILTER (WHERE score >= 21)::int as gold_count
+      COUNT(*) FILTER (WHERE score <= 14)::int as hidden_count,
+      COUNT(*) FILTER (WHERE score BETWEEN 15 AND 18)::int as quality_count,
+      COUNT(*) FILTER (WHERE score >= 19)::int as outstanding_count
     ${baseFilter}
       AND score IS NOT NULL
   `);
@@ -121,10 +119,9 @@ async function main() {
 
   if (tiers) {
     console.log('Score tiers (current feed breakpoints):');
-    console.log(`Hidden (0-12):     ${tiers.hidden_count}`);
-    console.log(`Quality (13-16):   ${tiers.quality_count}`);
-    console.log(`Outstanding (17+): ${tiers.outstanding_count}`);
-    console.log(`Gold title (21+):  ${tiers.gold_count}`);
+    console.log(`Hidden (0-14):     ${tiers.hidden_count}`);
+    console.log(`Quality (15-18):   ${tiers.quality_count}`);
+    console.log(`Outstanding (19+): ${tiers.outstanding_count}`);
     console.log('');
   }
 

@@ -113,7 +113,7 @@ function parseHiddenFingerprints(
  *   - blockedHosts: Comma-separated organizer substrings to block
  *   - blockedKeywords: Comma-separated keywords to block
  *   - useDefaultFilters: "true" or "false" (default true)
- *   - showDailyEvents: "true" or "false" (default true)
+ *   - showDailyEvents: "true" or "false" (default false)
  *   - includeMetadata: "true" to include filter dropdown metadata (default true on first page)
  */
 export async function GET(request: NextRequest) {
@@ -148,7 +148,7 @@ export async function GET(request: NextRequest) {
       blockedHosts: parseArray(searchParams.get('blockedHosts')),
       blockedKeywords: parseArray(searchParams.get('blockedKeywords')),
       useDefaultFilters: searchParams.get('useDefaultFilters') !== 'false',
-      showDailyEvents: searchParams.get('showDailyEvents') !== 'false',
+      showDailyEvents: searchParams.get('showDailyEvents') === 'true',
     };
 
     // Clean up empty arrays
@@ -276,7 +276,7 @@ export async function POST(request: NextRequest) {
       blockedKeywords: bodyBlockedKeywords || parseArray(searchParams.get('blockedKeywords')),
       hiddenFingerprints: bodyHiddenFingerprints,
       useDefaultFilters: bodyUseDefaultFilters ?? searchParams.get('useDefaultFilters') !== 'false',
-      showDailyEvents: bodyShowDailyEvents ?? searchParams.get('showDailyEvents') !== 'false',
+      showDailyEvents: bodyShowDailyEvents ?? searchParams.get('showDailyEvents') === 'true',
     };
 
     // Clean up empty arrays

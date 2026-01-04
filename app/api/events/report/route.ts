@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { sendEventReport, type ReportType } from '@/lib/notifications/slack';
 import { isRateLimited } from '@/lib/utils/rate-limit';
 import { isRecord, isString } from '@/lib/utils/validation';
+import { verifyEventById, isVerificationEnabled } from '@/lib/ai/eventVerification';
 
 const VALID_REPORT_TYPES: ReportType[] = ['incorrect_info', 'duplicate', 'spam'];
 
@@ -59,14 +60,57 @@ export async function POST(request: Request) {
   }
 
   try {
+    // For "incorrect_info" reports, auto-verify the event against its source
+    // Use a timeout to prevent blocking the user response for too long
+    let verificationResult = null;
+    if (reportType === 'incorrect_info' && isVerificationEnabled()) {
+      console.log(`[Report] Auto-verifying event: ${eventId}`);
+      try {
+        // Race verification against a 5-second timeout
+        const timeoutPromise = new Promise<null>((resolve) => {
+          setTimeout(() => resolve(null), 5000);
+        });
+
+        verificationResult = await Promise.race([verifyEventById(eventId, true), timeoutPromise]);
+
+        if (verificationResult) {
+          console.log(
+            `[Report] Verification result: ${verificationResult.action} (${verificationResult.confidence * 100}%)`
+          );
+        } else {
+          console.log('[Report] Verification timed out, continuing without result');
+        }
+      } catch (verifyError) {
+        console.error('[Report] Verification failed:', verifyError);
+        // Continue with report even if verification fails
+      }
+    }
+
     await sendEventReport({
       eventId,
       eventTitle,
       eventUrl,
       reportType,
+      verificationResult: verificationResult
+        ? {
+            action: verificationResult.action,
+            reason: verificationResult.reason,
+            confidence: verificationResult.confidence,
+            applied: verificationResult.applied || false,
+            updates: verificationResult.updates,
+          }
+        : undefined,
     });
 
-    return NextResponse.json({ success: true });
+    return NextResponse.json({
+      success: true,
+      verification: verificationResult
+        ? {
+            action: verificationResult.action,
+            applied: verificationResult.applied || false,
+          }
+        : undefined,
+    });
   } catch (error) {
     console.error('[Report] Failed to send report:', error);
     return NextResponse.json({ success: false, error: 'Failed to submit report' }, { status: 500 });

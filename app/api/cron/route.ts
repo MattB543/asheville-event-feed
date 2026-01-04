@@ -12,6 +12,7 @@ import { scrapeMisfitImprov } from '@/lib/scrapers/misfitimprov';
 import { scrapeUDharma } from '@/lib/scrapers/udharma';
 import { scrapeNCStage } from '@/lib/scrapers/ncstage';
 import { scrapeStoryParlor } from '@/lib/scrapers/storyparlor';
+import { scrapeLittleAnimals } from '@/lib/scrapers/littleanimals';
 import { db } from '@/lib/db';
 import { events } from '@/lib/db/schema';
 import { inArray, eq } from 'drizzle-orm';
@@ -77,6 +78,7 @@ export async function GET(request: Request) {
       udharmaResult,
       ncstageResult,
       storyParlorResult,
+      littleAnimalsResult,
     ] = await Promise.allSettled([
       scrapeAvlToday(),
       scrapeEventbrite(25), // Scrape 25 pages (~500 events)
@@ -90,6 +92,7 @@ export async function GET(request: Request) {
       scrapeUDharma(), // Urban Dharma NC (Squarespace API)
       scrapeNCStage(), // NC Stage Company (ThunderTix)
       scrapeStoryParlor(), // Story Parlor (Squarespace JSON-LD)
+      scrapeLittleAnimals(), // Little Animals Space (Squarespace API)
     ]);
 
     // Extract values from settled results, using empty arrays for rejected promises
@@ -109,6 +112,8 @@ export async function GET(request: Request) {
     const ncstageEvents = ncstageResult.status === 'fulfilled' ? ncstageResult.value : [];
     const storyParlorEvents =
       storyParlorResult.status === 'fulfilled' ? storyParlorResult.value : [];
+    const littleAnimalsEvents =
+      littleAnimalsResult.status === 'fulfilled' ? littleAnimalsResult.value : [];
 
     // Log any scraper failures
     if (avlResult.status === 'rejected')
@@ -135,6 +140,8 @@ export async function GET(request: Request) {
       console.error('[Cron] NC Stage scrape failed:', ncstageResult.reason);
     if (storyParlorResult.status === 'rejected')
       console.error('[Cron] Story Parlor scrape failed:', storyParlorResult.reason);
+    if (littleAnimalsResult.status === 'rejected')
+      console.error('[Cron] Little Animals scrape failed:', littleAnimalsResult.reason);
 
     stats.scraping.duration = Date.now() - scrapeStartTime;
     stats.scraping.total =
@@ -149,7 +156,8 @@ export async function GET(request: Request) {
       misfitImprovEvents.length +
       udharmaEvents.length +
       ncstageEvents.length +
-      storyParlorEvents.length;
+      storyParlorEvents.length +
+      littleAnimalsEvents.length;
 
     console.log(
       `[Cron] Scrape complete in ${formatDuration(
@@ -162,7 +170,7 @@ export async function GET(request: Request) {
         liveMusicAvlEvents.length
       }, ExploreAVL: ${exploreAshevilleEvents.length}, Misfit: ${
         misfitImprovEvents.length
-      }, UDharma: ${udharmaEvents.length}, NCStage: ${ncstageEvents.length}, StoryParlor: ${storyParlorEvents.length} (Total: ${stats.scraping.total})`
+      }, UDharma: ${udharmaEvents.length}, NCStage: ${ncstageEvents.length}, StoryParlor: ${storyParlorEvents.length}, LittleAnimals: ${littleAnimalsEvents.length} (Total: ${stats.scraping.total})`
     );
 
     // Facebook scraping (separate due to browser requirements)
@@ -224,6 +232,10 @@ export async function GET(request: Request) {
       ...e,
       tags: [],
     }));
+    const littleAnimalsWithTags: ScrapedEventWithTags[] = littleAnimalsEvents.map((e) => ({
+      ...e,
+      tags: [],
+    }));
 
     const allEventsRaw: ScrapedEventWithTags[] = [
       ...avlEvents,
@@ -239,6 +251,7 @@ export async function GET(request: Request) {
       ...udharmaWithTags,
       ...ncstageWithTags,
       ...storyParlorWithTags,
+      ...littleAnimalsWithTags,
     ];
 
     // Filter out cancelled events (title starts with "CANCELLED")

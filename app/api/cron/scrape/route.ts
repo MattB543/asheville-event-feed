@@ -8,9 +8,16 @@ import { scrapeOrangePeel } from '@/lib/scrapers/orangepeel';
 import { scrapeGreyEagle } from '@/lib/scrapers/greyeagle';
 import { scrapeLiveMusicAvl } from '@/lib/scrapers/livemusicavl';
 import { scrapeMountainX } from '@/lib/scrapers/mountainx';
+import { scrapeUncaEvents } from '@/lib/scrapers/unca';
 import { scrapeStaticAge } from '@/lib/scrapers/staticage';
 import { scrapeRevolve } from '@/lib/scrapers/revolve';
 import { scrapeBMCMuseum } from '@/lib/scrapers/bmcmuseum';
+import { scrapeAshevilleOnBikes } from '@/lib/scrapers/ashevilleonbikes';
+import { scrapeExploreAsheville } from '@/lib/scrapers/exploreasheville';
+import { scrapeMisfitImprov } from '@/lib/scrapers/misfitimprov';
+import { scrapeUDharma } from '@/lib/scrapers/udharma';
+import { scrapeNCStage } from '@/lib/scrapers/ncstage';
+import { scrapeStoryParlor } from '@/lib/scrapers/storyparlor';
 import { db } from '@/lib/db';
 import { events } from '@/lib/db/schema';
 import { inArray, eq } from 'drizzle-orm';
@@ -70,9 +77,16 @@ export async function GET(request: Request) {
       greyEagleResult,
       liveMusicAvlResult,
       mountainXResult,
+      uncaResult,
       staticAgeResult,
       revolveResult,
       bmcMuseumResult,
+      ashevilleOnBikesResult,
+      exploreAshevilleResult,
+      misfitImprovResult,
+      uDharmaResult,
+      ncStageResult,
+      storyParlorResult,
     ] = await Promise.allSettled([
       scrapeAvlToday(),
       scrapeEventbrite(25), // Scrape 25 pages (~500 events)
@@ -82,9 +96,16 @@ export async function GET(request: Request) {
       scrapeGreyEagle(), // Grey Eagle (Website JSON-LD)
       scrapeLiveMusicAvl(), // Live Music Asheville (select venues only)
       scrapeMountainX(), // Mountain Xpress (Tribe Events REST API)
+      scrapeUncaEvents(), // UNC Asheville (Tribe Events REST API)
       scrapeStaticAge(), // Static Age NC (Next.js + Sanity CMS)
       scrapeRevolve(), // Revolve (Asheville arts collective)
       scrapeBMCMuseum(), // Black Mountain College Museum + Arts Center
+      scrapeAshevilleOnBikes(), // Asheville on Bikes (Google Calendar)
+      scrapeExploreAsheville(), // Explore Asheville (Tourism board events)
+      scrapeMisfitImprov(), // Misfit Improv (Crowdwork API)
+      scrapeUDharma(), // Urban Dharma (Squarespace + Google Calendar)
+      scrapeNCStage(), // NC Stage Company (ThunderTix)
+      scrapeStoryParlor(), // Story Parlor (Squarespace JSON-LD)
     ]);
 
     // Extract values from settled results
@@ -97,9 +118,20 @@ export async function GET(request: Request) {
     const liveMusicAvlEvents =
       liveMusicAvlResult.status === 'fulfilled' ? liveMusicAvlResult.value : [];
     const mountainXEvents = mountainXResult.status === 'fulfilled' ? mountainXResult.value : [];
+    const uncaEvents = uncaResult.status === 'fulfilled' ? uncaResult.value : [];
     const staticAgeEvents = staticAgeResult.status === 'fulfilled' ? staticAgeResult.value : [];
     const revolveEvents = revolveResult.status === 'fulfilled' ? revolveResult.value : [];
     const bmcMuseumEvents = bmcMuseumResult.status === 'fulfilled' ? bmcMuseumResult.value : [];
+    const ashevilleOnBikesEvents =
+      ashevilleOnBikesResult.status === 'fulfilled' ? ashevilleOnBikesResult.value : [];
+    const exploreAshevilleEvents =
+      exploreAshevilleResult.status === 'fulfilled' ? exploreAshevilleResult.value : [];
+    const misfitImprovEvents =
+      misfitImprovResult.status === 'fulfilled' ? misfitImprovResult.value : [];
+    const uDharmaEvents = uDharmaResult.status === 'fulfilled' ? uDharmaResult.value : [];
+    const ncStageEvents = ncStageResult.status === 'fulfilled' ? ncStageResult.value : [];
+    const storyParlorEvents =
+      storyParlorResult.status === 'fulfilled' ? storyParlorResult.value : [];
 
     // Log any scraper failures
     if (avlResult.status === 'rejected')
@@ -118,12 +150,26 @@ export async function GET(request: Request) {
       console.error('[Scrape] Live Music AVL scrape failed:', liveMusicAvlResult.reason);
     if (mountainXResult.status === 'rejected')
       console.error('[Scrape] Mountain Xpress scrape failed:', mountainXResult.reason);
+    if (uncaResult.status === 'rejected')
+      console.error('[Scrape] UNCA scrape failed:', uncaResult.reason);
     if (staticAgeResult.status === 'rejected')
       console.error('[Scrape] Static Age scrape failed:', staticAgeResult.reason);
     if (revolveResult.status === 'rejected')
       console.error('[Scrape] Revolve scrape failed:', revolveResult.reason);
     if (bmcMuseumResult.status === 'rejected')
       console.error('[Scrape] BMC Museum scrape failed:', bmcMuseumResult.reason);
+    if (ashevilleOnBikesResult.status === 'rejected')
+      console.error('[Scrape] Asheville on Bikes scrape failed:', ashevilleOnBikesResult.reason);
+    if (exploreAshevilleResult.status === 'rejected')
+      console.error('[Scrape] Explore Asheville scrape failed:', exploreAshevilleResult.reason);
+    if (misfitImprovResult.status === 'rejected')
+      console.error('[Scrape] Misfit Improv scrape failed:', misfitImprovResult.reason);
+    if (uDharmaResult.status === 'rejected')
+      console.error('[Scrape] UDharma scrape failed:', uDharmaResult.reason);
+    if (ncStageResult.status === 'rejected')
+      console.error('[Scrape] NC Stage scrape failed:', ncStageResult.reason);
+    if (storyParlorResult.status === 'rejected')
+      console.error('[Scrape] Story Parlor scrape failed:', storyParlorResult.reason);
 
     stats.scraping.duration = Date.now() - scrapeStartTime;
     stats.scraping.total =
@@ -135,12 +181,19 @@ export async function GET(request: Request) {
       greyEagleEvents.length +
       liveMusicAvlEvents.length +
       mountainXEvents.length +
+      uncaEvents.length +
       staticAgeEvents.length +
       revolveEvents.length +
-      bmcMuseumEvents.length;
+      bmcMuseumEvents.length +
+      ashevilleOnBikesEvents.length +
+      exploreAshevilleEvents.length +
+      misfitImprovEvents.length +
+      uDharmaEvents.length +
+      ncStageEvents.length +
+      storyParlorEvents.length;
 
     console.log(
-      `[Scrape] Scrape complete in ${formatDuration(stats.scraping.duration)}. AVL: ${avlEvents.length}, EB: ${ebEvents.length}, Meetup: ${meetupEvents.length}, Harrahs: ${harrahsEvents.length}, OrangePeel: ${orangePeelEvents.length}, GreyEagle: ${greyEagleEvents.length}, LiveMusicAVL: ${liveMusicAvlEvents.length}, MountainX: ${mountainXEvents.length}, StaticAge: ${staticAgeEvents.length}, Revolve: ${revolveEvents.length}, BMCMuseum: ${bmcMuseumEvents.length} (Total: ${stats.scraping.total})`
+      `[Scrape] Scrape complete in ${formatDuration(stats.scraping.duration)}. AVL: ${avlEvents.length}, EB: ${ebEvents.length}, Meetup: ${meetupEvents.length}, Harrahs: ${harrahsEvents.length}, OrangePeel: ${orangePeelEvents.length}, GreyEagle: ${greyEagleEvents.length}, LiveMusicAVL: ${liveMusicAvlEvents.length}, MountainX: ${mountainXEvents.length}, StaticAge: ${staticAgeEvents.length}, Revolve: ${revolveEvents.length}, BMCMuseum: ${bmcMuseumEvents.length}, AshevilleOnBikes: ${ashevilleOnBikesEvents.length}, ExploreAsheville: ${exploreAshevilleEvents.length}, MisfitImprov: ${misfitImprovEvents.length}, UDharma: ${uDharmaEvents.length}, NCStage: ${ncStageEvents.length}, StoryParlor: ${storyParlorEvents.length} (Total: ${stats.scraping.total})`
     );
 
     // Facebook scraping (separate due to browser requirements)
@@ -174,9 +227,16 @@ export async function GET(request: Request) {
       ...greyEagleEvents,
       ...liveMusicAvlEvents,
       ...mountainXEvents,
+      ...uncaEvents,
       ...staticAgeEvents,
       ...revolveEvents,
       ...bmcMuseumEvents,
+      ...ashevilleOnBikesEvents,
+      ...exploreAshevilleEvents,
+      ...misfitImprovEvents,
+      ...uDharmaEvents,
+      ...ncStageEvents,
+      ...storyParlorEvents,
     ];
 
     console.log(`[Scrape] Upserting ${allEvents.length} events to database...`);

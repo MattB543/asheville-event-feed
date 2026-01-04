@@ -1,7 +1,6 @@
 'use client';
 
 import {
-  Calendar,
   CalendarPlus2,
   ExternalLink,
   EyeOff,
@@ -18,7 +17,7 @@ import {
 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useLayoutEffect } from 'react';
 import { cleanMarkdown } from '@/lib/utils/parsers';
 import { cleanAshevilleFromSummary } from '@/lib/utils/parsers';
 import { generateCalendarUrlForEvent } from '@/lib/utils/googleCalendar';
@@ -26,6 +25,90 @@ import { downloadEventAsICS } from '@/lib/utils/icsGenerator';
 import { useToast } from '@/components/ui/Toast';
 import { generateEventSlug } from '@/lib/utils/slugify';
 import { OFFICIAL_TAGS_SET } from '@/lib/config/tagCategories';
+
+/**
+ * Component that renders only the tags that fit on one line.
+ * Uses a hidden measurement layer to determine how many tags can be displayed.
+ */
+function FittingTags({
+  tags,
+  className,
+  tagClassName,
+}: {
+  tags: string[];
+  className?: string;
+  tagClassName?: string;
+}) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const measureRef = useRef<HTMLDivElement>(null);
+  const [visibleCount, setVisibleCount] = useState(tags.length);
+
+  // Use useLayoutEffect to measure before paint (avoids flicker)
+  const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect;
+
+  useIsomorphicLayoutEffect(() => {
+    const container = containerRef.current;
+    const measureContainer = measureRef.current;
+    if (!container || !measureContainer || tags.length === 0) return;
+
+    const measure = () => {
+      const containerWidth = container.offsetWidth;
+      const children = Array.from(measureContainer.children) as HTMLElement[];
+      const gap = 6; // gap-1.5 = 6px
+
+      let totalWidth = 0;
+      let count = 0;
+
+      for (const child of children) {
+        const childWidth = child.offsetWidth;
+        const widthWithGap = count === 0 ? childWidth : childWidth + gap;
+
+        if (totalWidth + widthWithGap <= containerWidth) {
+          totalWidth += widthWithGap;
+          count++;
+        } else {
+          break;
+        }
+      }
+
+      setVisibleCount(Math.max(1, count));
+    };
+
+    // Measure after DOM is ready
+    requestAnimationFrame(measure);
+
+    // Re-measure on resize
+    const resizeObserver = new ResizeObserver(measure);
+    resizeObserver.observe(container);
+
+    return () => resizeObserver.disconnect();
+  }, [tags]);
+
+  if (tags.length === 0) return null;
+
+  return (
+    <div ref={containerRef} className={`relative ${className || ''}`}>
+      {/* Hidden measurement layer - renders all tags to measure their widths */}
+      <div
+        ref={measureRef}
+        className="flex items-center gap-1.5 absolute top-0 left-0 invisible pointer-events-none whitespace-nowrap"
+        aria-hidden="true"
+      >
+        {tags.map((tag) => (
+          <span key={tag} className={tagClassName}>
+            {tag}
+          </span>
+        ))}
+      </div>
+      {/* Visible tags - only render what fits */}
+      {tags.slice(0, visibleCount).map((tag) => (
+        <span key={tag} className={tagClassName}>
+          {tag}
+        </span>
+      ))}
+    </div>
+  );
+}
 
 interface EventCardProps {
   event: {
@@ -66,7 +149,7 @@ interface EventCardProps {
   onExpandMinimized?: (eventId: string) => void;
   /** Score tier for display mode */
   scoreTier?: 'hidden' | 'quality' | 'outstanding';
-  /** Event score for gold title styling (21+ gets gold) */
+  /** Event score (0-30) */
   eventScore?: number | null;
   /** Whether this event is being hidden (for animation) */
   isHiding?: boolean;
@@ -78,11 +161,15 @@ interface EventCardProps {
   isMobileExpanded?: boolean;
   /** Callback when user taps to expand on mobile */
   onMobileExpand?: (eventId: string) => void;
+  /** Callback to open event in modal instead of navigating to full page */
+  onOpenModal?: (event: EventCardProps['event']) => void;
+  /** Callback when user clicks to collapse an expanded desktop card */
+  onCollapseDesktop?: (eventId: string) => void;
 }
 
 // Round price string to nearest dollar (e.g., "$19.10" -> "$19", "$25.50" -> "$26")
 const formatPriceDisplay = (price: string | null): string => {
-  if (!price || price === 'Unknown') return '$ ??';
+  if (!price || price === 'Unknown') return 'Price TBD';
   if (price.toLowerCase() === 'free') return 'Free';
 
   // Extract number from price string and round
@@ -91,6 +178,8 @@ const formatPriceDisplay = (price: string | null): string => {
     const rounded = Math.round(parseFloat(match[1]));
     return `$${rounded}`;
   }
+  // If price is just "$" with no number, treat as unknown
+  if (price.trim() === '$') return 'Price TBD';
   return price;
 };
 
@@ -116,6 +205,8 @@ export default function EventCard({
   ranking,
   isMobileExpanded = false,
   onMobileExpand,
+  onOpenModal,
+  onCollapseDesktop,
 }: EventCardProps) {
   const [imgError, setImgError] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
@@ -242,7 +333,7 @@ export default function EventCard({
       minute: '2-digit',
     }).format(eventDate);
 
-    return `${dateOnly}, ${time}`;
+    return `${dateOnly} · ${time}`;
   };
 
   const getSourceUrl = () => {
@@ -282,6 +373,22 @@ export default function EventCard({
     }
   };
 
+  // Handler for opening event in modal
+  const handleOpenModal = (e: React.MouseEvent) => {
+    if (onOpenModal) {
+      e.preventDefault();
+      e.stopPropagation();
+      onOpenModal(event);
+    }
+  };
+
+  // Handler for collapsing expanded desktop card
+  const handleDesktopCardClick = () => {
+    if (onCollapseDesktop && displayMode === 'full') {
+      onCollapseDesktop(event.id);
+    }
+  };
+
   // Generate event URL for links
   const eventUrl = `/events/${generateEventSlug(event.title, event.startDate, event.id)}`;
 
@@ -290,22 +397,36 @@ export default function EventCard({
 
   // Get first 3 official tags for mobile/minimized display
   const officialTags = event.tags?.filter((tag) => OFFICIAL_TAGS_SET.has(tag)) || [];
+  const customTags = event.tags?.filter((tag) => !OFFICIAL_TAGS_SET.has(tag)) || [];
+  // For minimized view: up to 3 tags, official first, then custom to fill
+  // If 3 tags exceed 36 chars combined, only show 2
+  const allTagsSorted = [...officialTags, ...customTags];
+  const threeTagsCharCount = allTagsSorted.slice(0, 3).join('').length;
+  const minimizedTags = allTagsSorted.slice(0, threeTagsCharCount > 36 ? 2 : 3);
+  // For mobile expanded: just first 3 official tags
   const mobileTags = officialTags.slice(0, 3);
 
-  // Get summary text for minimized desktop display
-  const minimizedSummaryText = event.aiSummary
-    ? cleanAshevilleFromSummary(cleanMarkdown(event.aiSummary)).slice(0, 200)
-    : event.description
-      ? cleanMarkdown(event.description).slice(0, 200)
-      : '';
-
-  // Location/venue/host display text
+  // Location/venue/host display text (full, for expanded view)
   const locationText =
     event.organizer && event.location
       ? event.location.toLowerCase().startsWith(event.organizer.toLowerCase())
         ? event.location
         : `${event.organizer} - ${event.location}`
       : event.organizer || event.location || 'Online';
+
+  // Venue name only (for minimized view) - extract venue from location if organizer is missing
+  // Location often has format "Venue Name, Street Address, City, State" - we want just the venue
+  const venueName =
+    event.organizer ||
+    (() => {
+      if (!event.location) return null;
+      // If location contains a comma followed by a number (street address), extract just the venue part
+      const match = event.location.match(/^([^,]+),\s*\d/);
+      if (match) return match[1].trim();
+      // Otherwise just take the first comma-separated part if there are multiple
+      const parts = event.location.split(',');
+      return parts.length > 2 ? parts[0].trim() : event.location;
+    })();
 
   return (
     <div>
@@ -339,7 +460,11 @@ export default function EventCard({
         )}
 
         {/* Image - 130px collapsed, 192px expanded */}
-        <Link href={eventUrl} onClick={(e) => e.stopPropagation()} className="block">
+        <Link
+          href={eventUrl}
+          onClick={onOpenModal ? handleOpenModal : (e) => e.stopPropagation()}
+          className="block"
+        >
           <div
             className={`relative w-full ${
               isMobileExpanded ? 'h-48' : 'h-[130px]'
@@ -356,9 +481,12 @@ export default function EventCard({
                 referrerPolicy="no-referrer"
               />
             ) : (
-              <div className="flex items-center justify-center h-full text-gray-400 dark:text-gray-500">
-                <Calendar size={32} />
-              </div>
+              <Image
+                src="/asheville-default.jpg"
+                alt="Asheville, NC"
+                fill
+                className="object-cover"
+              />
             )}
           </div>
         </Link>
@@ -371,7 +499,7 @@ export default function EventCard({
               <Link
                 href={eventUrl}
                 className="hover:underline"
-                onClick={(e) => e.stopPropagation()}
+                onClick={onOpenModal ? handleOpenModal : (e) => e.stopPropagation()}
               >
                 {ranking ? `${ranking}. ${event.title}` : event.title}
               </Link>
@@ -391,10 +519,10 @@ export default function EventCard({
             />
           </div>
 
-          {/* Location/venue - only when expanded */}
-          {isMobileExpanded && (
+          {/* Host/venue - collapsed shows organizer only; expanded shows full location */}
+          {(isMobileExpanded ? event.organizer || event.location : event.organizer) && (
             <div className="text-xs text-gray-500 dark:text-gray-400 mt-1.5 line-clamp-1">
-              {locationText}
+              {isMobileExpanded ? locationText : event.organizer}
             </div>
           )}
 
@@ -410,15 +538,15 @@ export default function EventCard({
           )}
 
           {/* Badges: Date/Time, Price, Tags */}
-          <div className="flex flex-wrap gap-1.5 mt-3">
+          <div className="flex items-center gap-1.5 mt-3">
             {/* Date/Time Badge */}
-            <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-600">
+            <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-600 shrink-0">
               {formatDate(event.startDate, event.timeUnknown)}
             </span>
 
             {/* Price Badge */}
             <span
-              className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-bold border ${
+              className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-bold border shrink-0 ${
                 displayPrice === 'Free'
                   ? 'bg-green-50 dark:bg-green-950/50 text-green-700 dark:text-green-400 border-green-200 dark:border-green-800'
                   : 'bg-gray-50 dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-gray-200 dark:border-gray-600'
@@ -427,15 +555,14 @@ export default function EventCard({
               {displayPrice}
             </span>
 
-            {/* Tags */}
-            {mobileTags.map((tag) => (
-              <span
-                key={tag}
-                className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-brand-50 dark:bg-brand-950/50 text-brand-700 dark:text-brand-300 border border-brand-100 dark:border-brand-800"
-              >
-                {tag}
-              </span>
-            ))}
+            {/* Tags - only show what fits on one line */}
+            {mobileTags.length > 0 && (
+              <FittingTags
+                tags={mobileTags}
+                className="flex items-center gap-1.5 flex-1 min-w-0 overflow-hidden"
+                tagClassName="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-brand-50 dark:bg-brand-950/50 text-brand-700 dark:text-brand-300 border border-brand-100 dark:border-brand-800 shrink-0"
+              />
+            )}
           </div>
 
           {/* Action buttons - only when expanded */}
@@ -674,7 +801,7 @@ export default function EventCard({
       {displayMode === 'minimized' && (
         <div
           onClick={() => onExpandMinimized?.(event.id)}
-          className={`hidden sm:flex sm:items-center sm:gap-2 px-5 py-2.5 cursor-pointer opacity-80 hover:opacity-100
+          className={`hidden sm:flex sm:items-center sm:gap-1 px-5 py-2.5 cursor-pointer opacity-80 hover:opacity-100
             border-b border-gray-300 dark:border-gray-600
             bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800 transition-opacity`}
         >
@@ -682,27 +809,25 @@ export default function EventCard({
           <Link
             href={eventUrl}
             className="text-sm font-medium text-brand-600 dark:text-brand-400 hover:underline whitespace-nowrap shrink-0"
-            onClick={(e) => e.stopPropagation()}
+            onClick={onOpenModal ? handleOpenModal : (e) => e.stopPropagation()}
           >
             {event.title}
           </Link>
 
           {/* Separator */}
-          {minimizedSummaryText && (
-            <span className="text-gray-400 dark:text-gray-500 shrink-0">-</span>
-          )}
+          {venueName && <span className="text-gray-400 dark:text-gray-500 shrink-0">-</span>}
 
-          {/* Summary (truncated to fit) */}
-          {minimizedSummaryText && (
+          {/* Venue/Host */}
+          {venueName && (
             <span className="text-sm text-gray-500 dark:text-gray-400 truncate min-w-0">
-              {minimizedSummaryText}
+              {venueName}
             </span>
           )}
 
           {/* Tags - pushed to the right */}
-          {mobileTags.length > 0 && (
+          {minimizedTags.length > 0 && (
             <div className="flex items-center gap-1 shrink-0 ml-auto">
-              {mobileTags.map((tag) => (
+              {minimizedTags.map((tag) => (
                 <span
                   key={tag}
                   className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-brand-50 dark:bg-brand-950/50 text-brand-700 dark:text-brand-300 border border-brand-100 dark:border-brand-800 whitespace-nowrap"
@@ -716,7 +841,7 @@ export default function EventCard({
           {/* Date/Time Badge */}
           <span
             className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-600 whitespace-nowrap shrink-0 ${
-              mobileTags.length === 0 && !minimizedSummaryText ? 'ml-auto' : ''
+              minimizedTags.length === 0 && !venueName ? 'ml-auto' : ''
             }`}
           >
             {formatDate(event.startDate, event.timeUnknown)}
@@ -728,12 +853,14 @@ export default function EventCard({
       {/* Desktop/Tablet Full Layout - grid with image */}
       {displayMode !== 'minimized' && (
         <div
+          onClick={onCollapseDesktop ? handleDesktopCardClick : undefined}
           className={`hidden sm:grid relative transition-all duration-300 gap-2 px-3 py-6
           sm:grid-cols-[192px_1fr] sm:gap-4 sm:px-5
           xl:grid-cols-[192px_384px_1fr] xl:grid-rows-[1fr_auto]
           border-b border-gray-300 dark:border-gray-600
           ${isHiding ? 'opacity-0 -translate-x-4' : 'opacity-100 translate-x-0'}
           ${hasOpenDropdown ? 'z-40' : ''}
+          ${onCollapseDesktop ? 'cursor-pointer' : ''}
           ${
             isNewlyHidden
               ? 'bg-gray-200 dark:bg-gray-700 opacity-40'
@@ -756,7 +883,14 @@ export default function EventCard({
           )}
 
           {/* Image */}
-          <div className="relative w-full h-40 sm:h-32 xl:row-span-2 bg-gray-200 dark:bg-gray-700 rounded overflow-hidden">
+          <Link
+            href={eventUrl}
+            onClick={(e) => {
+              e.stopPropagation();
+              if (onOpenModal) handleOpenModal(e);
+            }}
+            className="relative w-full h-40 sm:h-32 xl:row-span-2 bg-gray-200 dark:bg-gray-700 rounded overflow-hidden block"
+          >
             {!imgError && event.imageUrl ? (
               <Image
                 src={event.imageUrl}
@@ -768,11 +902,14 @@ export default function EventCard({
                 referrerPolicy="no-referrer"
               />
             ) : (
-              <div className="flex items-center justify-center h-full text-gray-400 dark:text-gray-500">
-                <Calendar size={32} />
-              </div>
+              <Image
+                src="/asheville-default.jpg"
+                alt="Asheville, NC"
+                fill
+                className="object-cover"
+              />
             )}
-          </div>
+          </Link>
 
           {/* Metadata: Title, Date, Location, Tags */}
           <div className="flex flex-col justify-between xl:row-span-2">
@@ -780,8 +917,12 @@ export default function EventCard({
               <div className="flex items-start gap-2 flex-wrap">
                 <h3 className="text-base font-bold leading-tight text-brand-600 dark:text-brand-400">
                   <Link
-                    href={`/events/${generateEventSlug(event.title, event.startDate, event.id)}`}
+                    href={eventUrl}
                     className="hover:underline"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      if (onOpenModal) handleOpenModal(e);
+                    }}
                   >
                     {ranking ? `${ranking}. ${event.title}` : event.title}
                   </Link>
@@ -964,7 +1105,10 @@ export default function EventCard({
               {truncatedDescriptionTablet}
               {showExpandButtonTablet && (
                 <button
-                  onClick={() => setIsExpanded(!isExpanded)}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setIsExpanded(!isExpanded);
+                  }}
                   className="text-xs text-brand-600 dark:text-brand-400 hover:text-brand-700 dark:hover:text-brand-300 font-medium ml-1 cursor-pointer"
                 >
                   {expandButtonText}
@@ -974,7 +1118,10 @@ export default function EventCard({
           </div>
 
           {/* Actions */}
-          <div className="sm:col-span-2 xl:col-span-1 xl:col-start-3 flex flex-wrap gap-2 mt-2 xl:mt-0">
+          <div
+            className="sm:col-span-2 xl:col-span-1 xl:col-start-3 flex flex-wrap gap-2 mt-2 xl:mt-0"
+            onClick={(e) => e.stopPropagation()}
+          >
             {/* Calendar dropdown */}
             <div className="relative" ref={calendarMenuRef}>
               <button

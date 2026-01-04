@@ -404,11 +404,11 @@ export default function FilterModal({
               <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Date</h3>
             </div>
 
-            <div className="space-y-0.5">
+            <div>
               {(Object.entries(dateLabels) as [DateFilterType, string][]).map(([value, label]) => (
                 <label
                   key={value}
-                  className="flex items-center gap-2 py-1.5 px-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 cursor-pointer"
+                  className="flex items-center gap-2 py-1 px-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 cursor-pointer"
                 >
                   <input
                     type="radio"
@@ -555,7 +555,7 @@ export default function FilterModal({
                   </button>
                 )}
               </div>
-              <div className="flex flex-col gap-1">
+              <div className="grid grid-cols-3 gap-1">
                 {TIME_OPTIONS.map((option) => {
                   const isSelected = localSelectedTimes.includes(option.value);
                   const newTimes = isSelected
@@ -570,17 +570,17 @@ export default function FilterModal({
                           onSelectedTimesChange(newTimes);
                         });
                       }}
-                      className={`w-full py-2 px-3 text-sm font-medium rounded-lg transition-colors cursor-pointer flex items-center justify-between ${
+                      className={`py-2 px-1 text-xs font-medium rounded border transition-colors cursor-pointer flex flex-col items-center ${
                         isSelected
-                          ? 'bg-brand-600 text-white'
-                          : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700'
+                          ? 'bg-brand-600 text-white border-brand-600'
+                          : 'bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 border-gray-200 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-600'
                       }`}
                     >
                       <span>{option.label}</span>
                       <span
-                        className={
+                        className={`text-[10px] ${
                           isSelected ? 'text-white/70' : 'text-gray-400 dark:text-gray-500'
-                        }
+                        }`}
                       >
                         {option.timeRange}
                       </span>
@@ -589,6 +589,129 @@ export default function FilterModal({
                 })}
               </div>
             </div>
+          </section>
+
+          {/* Tags Filter Section */}
+          <section className="p-4 border-b border-gray-200 dark:border-gray-700">
+            <div className="flex items-center gap-2 mb-4">
+              <Tag size={20} className="text-brand-600 dark:text-brand-400" />
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Tags</h3>
+            </div>
+
+            <div className="flex items-center justify-between mb-3">
+              <div className="flex gap-2">
+                <button
+                  onClick={selectAllTags}
+                  className="text-sm text-brand-600 dark:text-brand-400 hover:text-brand-800 dark:hover:text-brand-300 cursor-pointer"
+                >
+                  Select All
+                </button>
+                <span className="text-gray-300 dark:text-gray-600">|</span>
+                <button
+                  onClick={deselectAllTags}
+                  className="text-sm text-brand-600 dark:text-brand-400 hover:text-brand-800 dark:hover:text-brand-300 cursor-pointer"
+                >
+                  Deselect All
+                </button>
+              </div>
+            </div>
+
+            <p className="text-xs text-gray-400 dark:text-gray-500 mb-3">
+              1 tap to include, 2 to exclude, 3 to clear
+            </p>
+
+            {/* Daily Events Toggle */}
+            <label className="flex items-center gap-3 p-2 mb-3 bg-gray-50 dark:bg-gray-800 rounded-lg cursor-pointer">
+              <input
+                type="checkbox"
+                checked={localShowDailyEvents}
+                onChange={(e) => {
+                  const newValue = e.target.checked;
+                  setLocalShowDailyEvents(newValue);
+                  startTransition(() => {
+                    onShowDailyEventsChange(newValue);
+                  });
+                }}
+                className="w-4 h-4 text-brand-600 rounded border-gray-300 focus:ring-brand-500"
+              />
+              <span className="text-sm text-gray-700 dark:text-gray-200">
+                Show daily recurring events
+              </span>
+            </label>
+
+            {/* Tag Categories */}
+            {groupedTags.length === 0 ? (
+              <p className="text-sm text-gray-500 dark:text-gray-400 p-2">No tags available</p>
+            ) : (
+              <div className="space-y-2">
+                {groupedTags.map((category) => (
+                  <div
+                    key={category.name}
+                    className="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden"
+                  >
+                    <button
+                      onClick={() => {
+                        setExpandedCategories((prev) => {
+                          const next = new Set(prev);
+                          if (next.has(category.name)) {
+                            next.delete(category.name);
+                          } else {
+                            next.add(category.name);
+                          }
+                          return next;
+                        });
+                      }}
+                      className="w-full flex items-center justify-between px-3 py-2 hover:bg-gray-50 dark:hover:bg-gray-800 text-left cursor-pointer"
+                    >
+                      <span className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                        {category.name}
+                      </span>
+                      {expandedCategories.has(category.name) ? (
+                        <ChevronUp size={16} className="text-gray-400 dark:text-gray-500" />
+                      ) : (
+                        <ChevronDown size={16} className="text-gray-400 dark:text-gray-500" />
+                      )}
+                    </button>
+                    {expandedCategories.has(category.name) && (
+                      <div className="px-2 pb-2 grid grid-cols-2 gap-1">
+                        {category.availableTags.map((tag) => (
+                          <TriStateCheckbox
+                            key={tag}
+                            state={getTagState(tag)}
+                            onChange={() => cycleTagState(tag)}
+                            label={tag}
+                          />
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {activeTagCount > 0 && (
+              <div className="mt-3 p-2 bg-gray-50 dark:bg-gray-800 rounded-lg flex items-center justify-between">
+                <span className="text-xs text-gray-500 dark:text-gray-400">
+                  {localTagFilters.include.length > 0 && (
+                    <span className="text-green-700 dark:text-green-400">
+                      {localTagFilters.include.length} included
+                    </span>
+                  )}
+                  {localTagFilters.include.length > 0 && localTagFilters.exclude.length > 0 && ', '}
+                  {localTagFilters.exclude.length > 0 && (
+                    <span className="text-red-700 dark:text-red-400">
+                      {localTagFilters.exclude.length} excluded
+                    </span>
+                  )}
+                </span>
+                <button
+                  onClick={deselectAllTags}
+                  className="text-xs text-brand-600 dark:text-brand-400 hover:text-brand-800 dark:hover:text-brand-300 cursor-pointer"
+                >
+                  Clear
+                </button>
+              </div>
+            )}
           </section>
 
           {/* Price Filter Section */}
@@ -777,129 +900,6 @@ export default function FilterModal({
                       onZipsChange([]);
                     });
                   }}
-                  className="text-xs text-brand-600 dark:text-brand-400 hover:text-brand-800 dark:hover:text-brand-300 cursor-pointer"
-                >
-                  Clear
-                </button>
-              </div>
-            )}
-          </section>
-
-          {/* Tags Filter Section */}
-          <section className="p-4 border-b border-gray-200 dark:border-gray-700">
-            <div className="flex items-center gap-2 mb-4">
-              <Tag size={20} className="text-brand-600 dark:text-brand-400" />
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Tags</h3>
-            </div>
-
-            <div className="flex items-center justify-between mb-3">
-              <div className="flex gap-2">
-                <button
-                  onClick={selectAllTags}
-                  className="text-sm text-brand-600 dark:text-brand-400 hover:text-brand-800 dark:hover:text-brand-300 cursor-pointer"
-                >
-                  Select All
-                </button>
-                <span className="text-gray-300 dark:text-gray-600">|</span>
-                <button
-                  onClick={deselectAllTags}
-                  className="text-sm text-brand-600 dark:text-brand-400 hover:text-brand-800 dark:hover:text-brand-300 cursor-pointer"
-                >
-                  Deselect All
-                </button>
-              </div>
-            </div>
-
-            <p className="text-xs text-gray-400 dark:text-gray-500 mb-3">
-              1 tap to include, 2 to exclude, 3 to clear
-            </p>
-
-            {/* Daily Events Toggle */}
-            <label className="flex items-center gap-3 p-2 mb-3 bg-gray-50 dark:bg-gray-800 rounded-lg cursor-pointer">
-              <input
-                type="checkbox"
-                checked={localShowDailyEvents}
-                onChange={(e) => {
-                  const newValue = e.target.checked;
-                  setLocalShowDailyEvents(newValue);
-                  startTransition(() => {
-                    onShowDailyEventsChange(newValue);
-                  });
-                }}
-                className="w-4 h-4 text-brand-600 rounded border-gray-300 focus:ring-brand-500"
-              />
-              <span className="text-sm text-gray-700 dark:text-gray-200">
-                Show daily recurring events
-              </span>
-            </label>
-
-            {/* Tag Categories */}
-            {groupedTags.length === 0 ? (
-              <p className="text-sm text-gray-500 dark:text-gray-400 p-2">No tags available</p>
-            ) : (
-              <div className="space-y-2">
-                {groupedTags.map((category) => (
-                  <div
-                    key={category.name}
-                    className="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden"
-                  >
-                    <button
-                      onClick={() => {
-                        setExpandedCategories((prev) => {
-                          const next = new Set(prev);
-                          if (next.has(category.name)) {
-                            next.delete(category.name);
-                          } else {
-                            next.add(category.name);
-                          }
-                          return next;
-                        });
-                      }}
-                      className="w-full flex items-center justify-between px-3 py-2 hover:bg-gray-50 dark:hover:bg-gray-800 text-left cursor-pointer"
-                    >
-                      <span className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                        {category.name}
-                      </span>
-                      {expandedCategories.has(category.name) ? (
-                        <ChevronUp size={16} className="text-gray-400 dark:text-gray-500" />
-                      ) : (
-                        <ChevronDown size={16} className="text-gray-400 dark:text-gray-500" />
-                      )}
-                    </button>
-                    {expandedCategories.has(category.name) && (
-                      <div className="px-2 pb-2 grid grid-cols-2 gap-1">
-                        {category.availableTags.map((tag) => (
-                          <TriStateCheckbox
-                            key={tag}
-                            state={getTagState(tag)}
-                            onChange={() => cycleTagState(tag)}
-                            label={tag}
-                          />
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                ))}
-              </div>
-            )}
-
-            {activeTagCount > 0 && (
-              <div className="mt-3 p-2 bg-gray-50 dark:bg-gray-800 rounded-lg flex items-center justify-between">
-                <span className="text-xs text-gray-500 dark:text-gray-400">
-                  {localTagFilters.include.length > 0 && (
-                    <span className="text-green-700 dark:text-green-400">
-                      {localTagFilters.include.length} included
-                    </span>
-                  )}
-                  {localTagFilters.include.length > 0 && localTagFilters.exclude.length > 0 && ', '}
-                  {localTagFilters.exclude.length > 0 && (
-                    <span className="text-red-700 dark:text-red-400">
-                      {localTagFilters.exclude.length} excluded
-                    </span>
-                  )}
-                </span>
-                <button
-                  onClick={deselectAllTags}
                   className="text-xs text-brand-600 dark:text-brand-400 hover:text-brand-800 dark:hover:text-brand-300 cursor-pointer"
                 >
                   Clear

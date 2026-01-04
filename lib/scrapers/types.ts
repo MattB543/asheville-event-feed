@@ -15,7 +15,10 @@ export type EventSource =
   | 'MOUNTAIN_X'
   | 'STATIC_AGE'
   | 'REVOLVE'
-  | 'BMC_MUSEUM';
+  | 'BMC_MUSEUM'
+  | 'ASHEVILLE_ON_BIKES'
+  | 'UNCA'
+  | 'LITTLE_ANIMALS';
 
 export interface ScrapedEvent {
   sourceId: string;

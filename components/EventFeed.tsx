@@ -23,6 +23,7 @@ import {
 const FilterModal = dynamic(() => import('./FilterModal'), { ssr: false });
 const AIChatModal = dynamic(() => import('./AIChatModal'), { ssr: false });
 const CurateModal = dynamic(() => import('./CurateModal'), { ssr: false });
+const EventDetailModal = dynamic(() => import('./EventDetailModal'), { ssr: false });
 // SaveFeedModal is not lazy loaded to avoid delay when showSavePrompt is in URL
 import SaveFeedModal from './SaveFeedModal';
 import { DEFAULT_BLOCKED_KEYWORDS } from '@/lib/config/defaultFilters';
@@ -31,6 +32,7 @@ import { ArrowDownIcon, ArrowUpIcon, Loader2Icon, Sparkles } from 'lucide-react'
 import { getZipName } from '@/lib/config/zipNames';
 import { usePreferenceSync } from '@/lib/hooks/usePreferenceSync';
 import { useAuth } from './AuthProvider';
+import { extractMonthFromSearch, getMonthDateRange } from '@/lib/utils/monthSearch';
 
 // Use the Event type from API, but with Date for startDate (parsed client-side)
 type Event = Omit<ApiEvent, 'startDate'> & { startDate: Date };
@@ -133,9 +135,9 @@ export type ScoreTier = 'hidden' | 'quality' | 'outstanding';
 // Get the score tier for an event based on its score
 function getEventScoreTier(score: number | null | undefined): ScoreTier {
   if (score === null || score === undefined) return 'hidden'; // null excluded from top events
-  if (score <= 12) return 'hidden'; // Common: 0-12
-  if (score <= 16) return 'quality'; // Quality: 13-16
-  return 'outstanding'; // Outstanding: 17+
+  if (score <= 14) return 'hidden'; // Common: 0-14
+  if (score <= 18) return 'quality'; // Quality: 15-18
+  return 'outstanding'; // Outstanding: 19+
 }
 
 function getStorageItem<T>(key: string, defaultValue: T): T {
@@ -169,7 +171,7 @@ function hasNonDefaultLocalStorageFilters(): boolean {
     const blockedHosts = getStorageItem<string[]>('blockedHosts', []);
     const blockedKeywords = getStorageItem<string[]>('blockedKeywords', []);
     const hiddenEvents = getStorageItem<HiddenEventFingerprint[]>('hiddenEvents', []);
-    const showDailyEvents = getStorageItem<boolean>('showDailyEvents', true);
+    const showDailyEvents = getStorageItem<boolean>('showDailyEvents', false);
     const customDateRange = getStorageItem<{
       start: string | null;
       end: string | null;
@@ -189,7 +191,7 @@ function hasNonDefaultLocalStorageFilters(): boolean {
       blockedHosts.length > 0 ||
       blockedKeywords.length > 0 ||
       hiddenEvents.length > 0 ||
-      showDailyEvents === false ||
+      showDailyEvents === true ||
       customDateRange.start !== null ||
       search.trim().length > 0
     );
@@ -404,6 +406,10 @@ export default function EventFeed({
   const [curateModalEventId, setCurateModalEventId] = useState<string | null>(null);
   const [curateModalEventTitle, setCurateModalEventTitle] = useState('');
 
+  // Event detail modal state
+  const [eventModalOpen, setEventModalOpen] = useState(false);
+  const [selectedEventForModal, setSelectedEventForModal] = useState<Event | null>(null);
+
   // Search (committed value only - FilterBar handles local input state)
   // URL params take priority over localStorage
   const [search, setSearch] = useState(() => urlFilters.search ?? '');
@@ -453,9 +459,9 @@ export default function EventFeed({
   const [selectedZips, setSelectedZips] = useState<string[]>(() =>
     getStorageItem('selectedZips', [])
   );
-  // Daily events filter - default to showing daily events
+  // Daily events filter - default to hiding daily events
   const [showDailyEvents, setShowDailyEvents] = useState<boolean>(() =>
-    getStorageItem('showDailyEvents', true)
+    getStorageItem('showDailyEvents', false)
   );
 
   // Track which date groups show all events (session only)
@@ -482,7 +488,6 @@ export default function EventFeed({
   );
   // Track events hidden THIS session (not persisted) - these show greyed out instead of being filtered
   const [sessionHiddenKeys, setSessionHiddenKeys] = useState<Set<string>>(new Set());
-  const [showAllPreviousEvents, setShowAllPreviousEvents] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
 
@@ -902,6 +907,25 @@ export default function EventFeed({
   // Check if all locations are selected (empty array means "all selected" = no filter)
   const allLocationsSelected = selectedLocations.length === 0;
 
+  // Handle search changes with month detection
+  // If user searches a month name (e.g., "March", "events in jan"), convert to date filter
+  const handleSearchChange = useCallback(
+    (value: string) => {
+      const monthResult = extractMonthFromSearch(value);
+
+      if (monthResult) {
+        const { month, year, remainingText } = monthResult;
+        const dateRange = getMonthDateRange(month, year);
+        setDateFilter('custom');
+        setCustomDateRange({ start: dateRange.start, end: dateRange.end });
+        setSearch(remainingText); // Keep remaining keywords as search
+      } else {
+        setSearch(value); // Normal search
+      }
+    },
+    [setDateFilter, setCustomDateRange, setSearch]
+  );
+
   // Build active filters list for display
   const activeFilters = useMemo<ActiveFilter[]>(() => {
     const filters: ActiveFilter[] = [];
@@ -1221,6 +1245,17 @@ export default function EventFeed({
     }
   };
 
+  // Event detail modal handlers
+  const handleOpenEventModal = useCallback((event: Event) => {
+    setSelectedEventForModal(event);
+    setEventModalOpen(true);
+  }, []);
+
+  const handleCloseEventModal = useCallback(() => {
+    setEventModalOpen(false);
+    setSelectedEventForModal(null);
+  }, []);
+
   const curateEvent = useCallback(
     async (note?: string) => {
       if (!curateModalEventId) return;
@@ -1330,7 +1365,7 @@ export default function EventFeed({
     if (hiddenEvents.length > 0) params.set('hiddenEvents', JSON.stringify(hiddenEvents));
     if (selectedLocations.length > 0) params.set('locations', selectedLocations.join(','));
     if (selectedZips.length > 0) params.set('zips', selectedZips.join(','));
-    if (!showDailyEvents) params.set('showDailyEvents', 'false');
+    if (showDailyEvents) params.set('showDailyEvents', 'true');
 
     const queryString = params.toString();
     return queryString ? `?${queryString}` : '';
@@ -1375,7 +1410,7 @@ export default function EventFeed({
     if (tagFilters.exclude.length > 0) params.set('tagsExclude', tagFilters.exclude.join(','));
     if (selectedLocations.length > 0) params.set('locations', selectedLocations.join(','));
     if (selectedZips.length > 0) params.set('zips', selectedZips.join(','));
-    if (!showDailyEvents) params.set('showDailyEvents', 'false');
+    if (showDailyEvents) params.set('showDailyEvents', 'true');
 
     const queryString = params.toString();
     return queryString ? `?${queryString}` : '';
@@ -1413,7 +1448,7 @@ export default function EventFeed({
     <div className="max-w-7xl mx-auto px-0 sm:px-6 lg:px-8 py-6">
       <FilterBar
         search={search}
-        onSearchChange={setSearch}
+        onSearchChange={handleSearchChange}
         dateFilter={dateFilter}
         customDateRange={customDateRange}
         selectedDays={selectedDays}
@@ -1526,6 +1561,7 @@ export default function EventFeed({
                               return next;
                             })
                           }
+                          onOpenModal={handleOpenEventModal}
                         />
                       ))}
                     </div>
@@ -1685,6 +1721,7 @@ export default function EventFeed({
                               return next;
                             })
                           }
+                          onOpenModal={handleOpenEventModal}
                         />
                       );
                     })}
@@ -1790,6 +1827,7 @@ export default function EventFeed({
                                       return next;
                                     })
                                   }
+                                  onOpenModal={handleOpenEventModal}
                                 />
                               );
                             })}
@@ -1891,6 +1929,7 @@ export default function EventFeed({
                           return next;
                         })
                       }
+                      onOpenModal={handleOpenEventModal}
                     />
                   ))}
                 </div>
@@ -2043,6 +2082,7 @@ export default function EventFeed({
                         return next;
                       })
                     }
+                    onOpenModal={handleOpenEventModal}
                   />
                 ))}
             </div>
@@ -2194,6 +2234,7 @@ export default function EventFeed({
                                 return next;
                               })
                             }
+                            onOpenModal={handleOpenEventModal}
                           />
                         ))}
                       </div>
@@ -2238,8 +2279,6 @@ export default function EventFeed({
                 const today = new Date();
                 const tomorrow = new Date(today);
                 tomorrow.setDate(tomorrow.getDate() + 1);
-                const now = new Date();
-                const twoAndHalfHoursAgo = new Date(now.getTime() - 2.5 * 60 * 60 * 1000);
 
                 let headerText = dateKey;
                 const isTodayGroup = date.toDateString() === today.toDateString();
@@ -2270,16 +2309,7 @@ export default function EventFeed({
                       })
                     : sortedGroupEvents;
 
-                // For today, filter out events that started more than 2.5 hours ago (unless showing all)
-                let displayEvents = scoreTierFilteredEvents;
-                let hiddenPreviousCount = 0;
-                if (isTodayGroup && !showAllPreviousEvents) {
-                  const recentAndUpcoming = scoreTierFilteredEvents.filter(
-                    (event) => new Date(event.startDate) >= twoAndHalfHoursAgo
-                  );
-                  hiddenPreviousCount = scoreTierFilteredEvents.length - recentAndUpcoming.length;
-                  displayEvents = recentAndUpcoming;
-                }
+                const displayEvents = scoreTierFilteredEvents;
 
                 // Skip rendering this date group if no events match the filter
                 if (displayEvents.length === 0) {
@@ -2304,7 +2334,7 @@ export default function EventFeed({
                             }}
                             className={`transition-colors cursor-pointer ${
                               !showAllForDay
-                                ? 'text-brand-600 dark:text-brand-400 opacity-80'
+                                ? 'text-brand-600 dark:text-brand-400'
                                 : 'text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-400'
                             }`}
                           >
@@ -2323,7 +2353,7 @@ export default function EventFeed({
                             }}
                             className={`transition-colors cursor-pointer ${
                               showAllForDay
-                                ? 'text-brand-600 dark:text-brand-400 opacity-80'
+                                ? 'text-brand-600 dark:text-brand-400'
                                 : 'text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-400'
                             }`}
                           >
@@ -2333,33 +2363,6 @@ export default function EventFeed({
                       )}
                     </h2>
                     <div className="flex flex-col bg-white dark:bg-gray-900 sm:rounded-b-lg sm:shadow-sm sm:border sm:border-gray-200 dark:sm:border-gray-700 ">
-                      {/* Show previous events toggle for today when events are hidden */}
-                      {isTodayGroup && hiddenPreviousCount > 0 && !showAllPreviousEvents && (
-                        <button
-                          onClick={() => setShowAllPreviousEvents(true)}
-                          className="text-xs text-gray-600 dark:text-gray-400 hover:text-brand-700 dark:hover:text-brand-400 font-medium px-3 sm:px-5 py-3 sm:py-3 pt-0 text-left hover:bg-brand-50 dark:hover:bg-brand-950/50 transition-colors cursor-pointer underline sm:no-underline"
-                        >
-                          Show {hiddenPreviousCount} event
-                          {hiddenPreviousCount !== 1 ? 's' : ''} from earlier today +
-                        </button>
-                      )}
-                      {/* Show collapse option when viewing all previous events */}
-                      {isTodayGroup &&
-                        showAllPreviousEvents &&
-                        (() => {
-                          // Calculate how many events would be hidden if we collapse
-                          const wouldHideCount = scoreTierFilteredEvents.filter(
-                            (event) => new Date(event.startDate) < twoAndHalfHoursAgo
-                          ).length;
-                          return wouldHideCount > 0 ? (
-                            <button
-                              onClick={() => setShowAllPreviousEvents(false)}
-                              className="text-xs text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 font-medium px-3 sm:px-5 py-3 text-left hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors cursor-pointer"
-                            >
-                              Hide earlier events
-                            </button>
-                          ) : null;
-                        })()}
                       {displayEvents.map((event) => {
                         const eventKey = createFingerprintKey(event.title, event.organizer);
                         const isNewlyHidden = sessionHiddenKeys.has(eventKey);
@@ -2401,6 +2404,13 @@ export default function EventFeed({
                             onExpandMinimized={(id) =>
                               setExpandedMinimizedIds((prev) => new Set([...prev, id]))
                             }
+                            onCollapseDesktop={(id) =>
+                              setExpandedMinimizedIds((prev) => {
+                                const next = new Set(prev);
+                                next.delete(id);
+                                return next;
+                              })
+                            }
                             scoreTier={tier}
                             eventScore={event.score}
                             isMobileExpanded={mobileExpandedIds.has(event.id)}
@@ -2415,6 +2425,7 @@ export default function EventFeed({
                                 return next;
                               })
                             }
+                            onOpenModal={handleOpenEventModal}
                           />
                         );
                       })}
@@ -2514,6 +2525,17 @@ export default function EventFeed({
         onConfirm={handleCurate}
         eventTitle={curateModalEventTitle}
       />
+
+      {selectedEventForModal && (
+        <EventDetailModal
+          isOpen={eventModalOpen}
+          onClose={handleCloseEventModal}
+          event={selectedEventForModal}
+          isFavorited={favoritedEventIds.includes(selectedEventForModal.id)}
+          favoriteCount={selectedEventForModal.favoriteCount ?? 0}
+          onToggleFavorite={handleToggleFavorite}
+        />
+      )}
 
       <SaveFeedModal isOpen={showSaveModal} onClose={() => setShowSaveModal(false)} />
 

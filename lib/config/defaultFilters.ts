@@ -16,6 +16,7 @@ export const DEFAULT_BLOCKED_KEYWORDS = [
   'salesforce certification',
   'SAFe certification',
   'SAFe training',
+  'SAFe®',
   'Scaled Agile Framework',
   'CBAP',
   'bootcamp training',

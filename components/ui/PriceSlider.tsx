@@ -81,25 +81,27 @@ export default function PriceSlider({ value, onChange }: PriceSliderProps) {
         />
       </div>
 
-      {/* Labels */}
-      <div className="flex justify-between mt-2">
+      {/* Labels - positioned to match slider stops */}
+      <div className="relative mt-2 h-4">
         <span
-          className={`text-xs ${sliderIndex === 0 ? 'text-brand-600 dark:text-brand-400 font-medium' : 'text-gray-500 dark:text-gray-400'}`}
+          className={`absolute left-0 text-xs ${sliderIndex === 0 ? 'text-brand-600 dark:text-brand-400 font-medium' : 'text-gray-500 dark:text-gray-400'}`}
         >
           Free
         </span>
         <span
-          className={`text-xs ${sliderIndex === 5 ? 'text-brand-600 dark:text-brand-400 font-medium' : 'text-gray-500 dark:text-gray-400'}`}
+          className={`absolute text-xs -translate-x-1/2 ${sliderIndex === 3 ? 'text-brand-600 dark:text-brand-400 font-medium' : 'text-gray-500 dark:text-gray-400'}`}
+          style={{ left: `${(3 / MAX_INDEX) * 100}%` }}
         >
-          $50
+          $30
         </span>
         <span
-          className={`text-xs ${sliderIndex === 10 ? 'text-brand-600 dark:text-brand-400 font-medium' : 'text-gray-500 dark:text-gray-400'}`}
+          className={`absolute text-xs -translate-x-1/2 ${sliderIndex === 7 ? 'text-brand-600 dark:text-brand-400 font-medium' : 'text-gray-500 dark:text-gray-400'}`}
+          style={{ left: `${(7 / MAX_INDEX) * 100}%` }}
         >
-          $100
+          $70
         </span>
         <span
-          className={`text-xs ${sliderIndex === MAX_INDEX ? 'text-brand-600 dark:text-brand-400 font-medium' : 'text-gray-500 dark:text-gray-400'}`}
+          className={`absolute right-0 text-xs ${sliderIndex === MAX_INDEX ? 'text-brand-600 dark:text-brand-400 font-medium' : 'text-gray-500 dark:text-gray-400'}`}
         >
           All
         </span>

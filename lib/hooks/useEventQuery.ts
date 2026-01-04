@@ -131,8 +131,8 @@ function buildQueryParams(filters: EventFilters, cursor?: string): URLSearchPara
   if (filters.blockedKeywords.length > 0) {
     params.set('blockedKeywords', filters.blockedKeywords.join(','));
   }
-  if (!filters.showDailyEvents) {
-    params.set('showDailyEvents', 'false');
+  if (filters.showDailyEvents) {
+    params.set('showDailyEvents', 'true');
   }
   if (!filters.useDefaultFilters) {
     params.set('useDefaultFilters', 'false');

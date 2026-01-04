@@ -504,3 +504,113 @@ export async function verifySingleEvent(event: EventForVerification): Promise<Ve
   console.log(`[Verify] Page content fetched (${pageContent.length} chars), analyzing with AI...`);
   return verifyEventWithAI(event, pageContent);
 }
+
+/**
+ * Verify an event by ID and optionally apply updates.
+ * Used for on-demand verification (e.g., when a user reports incorrect info).
+ *
+ * @param eventId - The event UUID
+ * @param applyUpdates - Whether to apply updates to the database (default: true)
+ * @returns Verification result with any updates applied
+ */
+export async function verifyEventById(
+  eventId: string,
+  applyUpdates: boolean = true
+): Promise<VerificationResult & { applied?: boolean }> {
+  // Import here to avoid circular dependencies
+  const { db } = await import('@/lib/db');
+  const { events } = await import('@/lib/db/schema');
+  const { eq } = await import('drizzle-orm');
+
+  // Fetch event from database
+  const result = await db.select().from(events).where(eq(events.id, eventId)).limit(1);
+
+  if (result.length === 0) {
+    return {
+      eventId,
+      eventTitle: 'Unknown',
+      action: 'keep',
+      reason: 'Event not found in database',
+      confidence: 0,
+      error: 'Event not found',
+    };
+  }
+
+  const event = result[0];
+
+  // Check if event source is verifiable (only verify sources with direct event URLs)
+  if (!VERIFIABLE_SOURCES.includes(event.source as (typeof VERIFIABLE_SOURCES)[number])) {
+    return {
+      eventId: event.id,
+      eventTitle: event.title,
+      action: 'keep',
+      reason: `Source '${event.source}' not eligible for verification`,
+      confidence: 0,
+      error: `Verification only available for: ${VERIFIABLE_SOURCES.join(', ')}`,
+    };
+  }
+
+  // Check if verification is enabled
+  if (!isVerificationEnabled()) {
+    return {
+      eventId: event.id,
+      eventTitle: event.title,
+      action: 'keep',
+      reason: 'Verification not enabled',
+      confidence: 0,
+      error: 'Check JINA_API_KEY and Azure AI config',
+    };
+  }
+
+  // Fetch and verify
+  const eventForVerification: EventForVerification = {
+    id: event.id,
+    title: event.title,
+    description: event.description,
+    startDate: event.startDate,
+    location: event.location,
+    organizer: event.organizer,
+    price: event.price,
+    url: event.url,
+    source: event.source,
+    lastVerifiedAt: event.lastVerifiedAt,
+  };
+
+  const verificationResult = await verifySingleEvent(eventForVerification);
+
+  // Apply updates if requested and action is 'update' or 'hide'
+  let applied = false;
+  if (applyUpdates) {
+    if (verificationResult.action === 'hide') {
+      await db.update(events).set({ hidden: true }).where(eq(events.id, eventId));
+      applied = true;
+      console.log(`[Verify] Event hidden: ${event.title}`);
+    } else if (verificationResult.action === 'update' && verificationResult.updates) {
+      const updateData: Record<string, unknown> = {};
+
+      if (verificationResult.updates.price) {
+        updateData.price = verificationResult.updates.price;
+      }
+      if (verificationResult.updates.location) {
+        updateData.location = verificationResult.updates.location;
+      }
+      if (verificationResult.updates.description) {
+        updateData.description = verificationResult.updates.description;
+      }
+
+      if (Object.keys(updateData).length > 0) {
+        updateData.lastVerifiedAt = new Date();
+        await db.update(events).set(updateData).where(eq(events.id, eventId));
+        applied = true;
+        console.log(`[Verify] Event updated: ${event.title}`, Object.keys(updateData));
+      }
+    }
+
+    // Update lastVerifiedAt even if no changes
+    if (!applied && verificationResult.action === 'keep') {
+      await db.update(events).set({ lastVerifiedAt: new Date() }).where(eq(events.id, eventId));
+    }
+  }
+
+  return { ...verificationResult, applied };
+}

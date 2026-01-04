@@ -164,6 +164,7 @@ function extractWords(title: string): Set<string> {
     .toLowerCase()
     .replace(/[^\w\s-]/g, ' ') // Remove punctuation except hyphens
     .split(/\s+/)
+    .map((word) => word.replace(/^-+|-+$/g, '')) // Strip leading/trailing hyphens
     .filter((word) => word.length >= 3 && !STOP_WORDS.has(word));
 
   return new Set(words);
@@ -191,6 +192,7 @@ function extractWordsOrdered(title: string): string[] {
     .toLowerCase()
     .replace(/[^\w\s-]/g, ' ')
     .split(/\s+/)
+    .map((word) => word.replace(/^-+|-+$/g, '')) // Strip leading/trailing hyphens
     .filter((word) => word.length >= 3 && !STOP_WORDS.has(word));
 }
 

@@ -42,8 +42,8 @@ export const maxDuration = 300; // 5 minutes
 
 const SCORE_FLOORS: Record<NewsletterScoreTier, number> = {
   all: 0,
-  top50: 13,
-  top10: 17,
+  top50: 15,
+  top10: 19,
 };
 
 const DEFAULT_FILTERS: NewsletterFilters = {

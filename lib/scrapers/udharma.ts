@@ -1,6 +1,7 @@
 import { type ScrapedEvent } from './types';
 import { fetchWithRetry } from '@/lib/utils/retry';
 import { parseAsEastern } from '@/lib/utils/timezone';
+import { stripHtml } from '@/lib/utils/parsers';
 import { debugSave } from './base';
 import * as ical from 'node-ical';
 
@@ -71,20 +72,6 @@ const EXCLUDED_TITLES = [
 
 // Default image for Urban Dharma events
 const DEFAULT_IMAGE_URL = '/urban_dharma.jpg';
-
-// Strip HTML tags from description
-function stripHtml(html: string): string {
-  return html
-    .replace(/<[^>]*>/g, ' ')
-    .replace(/&nbsp;/g, ' ')
-    .replace(/&amp;/g, '&')
-    .replace(/&lt;/g, '<')
-    .replace(/&gt;/g, '>')
-    .replace(/&quot;/g, '"')
-    .replace(/&#39;/g, "'")
-    .replace(/\s+/g, ' ')
-    .trim();
-}
 
 // Check if event should be excluded
 function shouldExclude(title: string): boolean {

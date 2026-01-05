@@ -8,6 +8,7 @@ import {
   queryTop30Events,
   type DbEvent,
   type EventMetadata,
+  type Top30EventsByCategory,
 } from '@/lib/db/queries/events';
 
 export const metadata: Metadata = {
@@ -72,7 +73,7 @@ export default async function EventsPage({ searchParams }: EventsPageProps) {
 
   let initialEvents: DbEvent[] = [];
   let initialTotalCount = 0;
-  let top30Events: DbEvent[] = [];
+  let top30Events: Top30EventsByCategory = { overall: [], weird: [], social: [] };
   let metadata: EventMetadata = {
     availableTags: [],
     availableLocations: [],
@@ -84,7 +85,9 @@ export default async function EventsPage({ searchParams }: EventsPageProps) {
     const [firstPageResult, metadataResult, top30Result] = await Promise.all([
       getFirstPageEvents(),
       getCachedMetadata(),
-      activeTab === 'top30' ? getTop30Events() : Promise.resolve([]),
+      activeTab === 'top30'
+        ? getTop30Events()
+        : Promise.resolve({ overall: [], weird: [], social: [] }),
     ]);
     initialEvents = firstPageResult.events;
     initialTotalCount = firstPageResult.totalCount;
@@ -92,7 +95,9 @@ export default async function EventsPage({ searchParams }: EventsPageProps) {
     top30Events = top30Result;
     console.log(
       `[Events] SSR loaded ${initialEvents.length} events (of ${initialTotalCount} total)${
-        activeTab === 'top30' ? `, ${top30Events.length} top 30 events` : ''
+        activeTab === 'top30'
+          ? `, top30: ${top30Events.overall.length} overall, ${top30Events.weird.length} weird, ${top30Events.social.length} social`
+          : ''
       }`
     );
   } catch (error) {

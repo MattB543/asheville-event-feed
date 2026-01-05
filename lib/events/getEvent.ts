@@ -41,6 +41,13 @@ export interface SerializedEvent {
   source: string;
   timeUnknown: boolean;
   favoriteCount: number;
+  // Score fields for admin/verified curator display
+  score: number | null;
+  scoreRarity: number | null;
+  scoreUnique: number | null;
+  scoreMagnitude: number | null;
+  scoreReason: string | null;
+  scoreOverride: Record<string, unknown> | null; // ScoreOverride type from scoreCalculation.ts
 }
 
 /**
@@ -116,5 +123,12 @@ export function serializeEvent(event: DbEvent): SerializedEvent {
     source: event.source,
     timeUnknown: event.timeUnknown || false,
     favoriteCount: event.favoriteCount || 0,
+    // Score fields
+    score: event.score,
+    scoreRarity: event.scoreRarity,
+    scoreUnique: event.scoreUnique,
+    scoreMagnitude: event.scoreMagnitude,
+    scoreReason: event.scoreReason,
+    scoreOverride: event.scoreOverride as Record<string, unknown> | null,
   };
 }

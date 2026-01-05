@@ -7,7 +7,9 @@ import { ArrowLeft } from 'lucide-react';
 import Header from '@/components/Header';
 import EventContent from '@/components/EventContent';
 import SimilarEventsSection from '@/components/SimilarEventsSection';
+import AdminScorePanel from '@/components/AdminScorePanel';
 import { useAuth } from '@/components/AuthProvider';
+import type { ScoreOverride } from '@/lib/utils/scoreCalculation';
 
 // Lazy load modal to reduce initial JS bundle
 const EventDetailModal = dynamic(() => import('@/components/EventDetailModal'), { ssr: false });
@@ -49,9 +51,18 @@ interface EventPageClientProps {
     source: string;
     timeUnknown: boolean;
     favoriteCount: number;
+    // Score fields
+    score: number | null;
+    scoreRarity: number | null;
+    scoreUnique: number | null;
+    scoreMagnitude: number | null;
+    scoreReason: string | null;
+    scoreOverride: ScoreOverride | null;
   };
   eventPageUrl: string;
   similarEvents?: SimilarEvent[];
+  canViewScores?: boolean;
+  canEditScores?: boolean;
 }
 
 // Helper to get initial favorite state from localStorage
@@ -73,12 +84,15 @@ export default function EventPageClient({
   event,
   eventPageUrl,
   similarEvents = [],
+  canViewScores = false,
+  canEditScores = false,
 }: EventPageClientProps) {
   const { user, isLoading: authLoading } = useAuth();
   const isLoggedIn = !!user;
 
   const [isFavorited, setIsFavorited] = useState(() => getInitialFavorited(event.id));
   const [favoriteCount, setFavoriteCount] = useState(event.favoriteCount);
+  const [scoreOverride, setScoreOverride] = useState<ScoreOverride | null>(event.scoreOverride);
 
   // Similar event modal state
   type ModalEvent = {
@@ -286,6 +300,24 @@ export default function EventPageClient({
           showTitle={true}
           className="mb-8"
         />
+
+        {/* Admin Score Panel - only show if event has scores and user has permission */}
+        {canViewScores && event.score !== null && (
+          <div className="px-4 sm:px-0">
+            <AdminScorePanel
+              eventId={event.id}
+              aiScores={{
+                rarity: event.scoreRarity,
+                unique: event.scoreUnique,
+                magnitude: event.scoreMagnitude,
+              }}
+              scoreReason={event.scoreReason}
+              scoreOverride={scoreOverride}
+              canEdit={canEditScores}
+              onScoreUpdate={setScoreOverride}
+            />
+          </div>
+        )}
 
         {/* Similar Events */}
         {similarEvents.length > 0 && (

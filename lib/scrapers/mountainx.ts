@@ -212,8 +212,9 @@ function formatEvent(event: TribeEvent): ScrapedEvent | null {
     zip = getZipFromCity(venue.city);
   }
 
-  // Get organizer name
-  const organizer = event.organizer?.[0]?.organizer || undefined;
+  // Get organizer name (fall back to venue name if no explicit organizer)
+  const organizer =
+    event.organizer?.[0]?.organizer || (venue?.venue ? decodeHtmlEntities(venue.venue) : undefined);
 
   // Get image URL (prefer larger sizes)
   const imageUrl =

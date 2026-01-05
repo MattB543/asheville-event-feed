@@ -5,6 +5,59 @@ import { formatPrice } from '@/lib/utils/parsers';
 import { getZipFromCoords, getZipFromCity } from '@/lib/utils/geo';
 import { tryExtractPrice } from '@/lib/utils/parsers';
 
+// URL domain to organizer mapping
+const DOMAIN_TO_ORGANIZER: Record<string, string> = {
+  'ashevillenc.gov': 'City of Asheville',
+  'buncombecounty.org': 'Buncombe County Library',
+  'blueridgepride.org': 'Blue Ridge Pride',
+  'unca.edu': 'UNC Asheville',
+  'warren-wilson.edu': 'Warren Wilson College',
+  'abtech.edu': 'A-B Tech',
+  'mars-hill.edu': 'Mars Hill University',
+};
+
+/**
+ * Extract organizer from URL domain or title patterns when venue is missing
+ */
+function extractOrganizerFallback(url: string, title: string): string | null {
+  // 1. Try URL domain mapping
+  for (const [domain, organizer] of Object.entries(DOMAIN_TO_ORGANIZER)) {
+    if (url.includes(domain)) {
+      return organizer;
+    }
+  }
+
+  // 2. Try .edu domains (universities)
+  const eduMatch = url.match(/https?:\/\/(?:www\.)?([^./]+)\.edu/);
+  if (eduMatch) {
+    // Convert domain to title case (e.g., "queens" -> "Queens University")
+    const name = eduMatch[1].charAt(0).toUpperCase() + eduMatch[1].slice(1);
+    return `${name} University`;
+  }
+
+  // 3. Try title patterns
+
+  // "... at [Venue]" or "... @ [Venue]" pattern
+  const atMatch = title.match(/\s+(?:at|@)\s+([^,()]+?)(?:\s*[-–—]|\s*$)/i);
+  if (atMatch && atMatch[1].length > 2 && atMatch[1].length < 50) {
+    return atMatch[1].trim();
+  }
+
+  // "[Branch] Library ..." pattern (e.g., "Skyland Library Knitting Club")
+  const libraryMatch = title.match(/^([A-Z][a-z]+(?:\s+[A-Z][a-z]+)?)\s+Library\b/);
+  if (libraryMatch) {
+    return `${libraryMatch[1]} Library`;
+  }
+
+  // "University of X" or "X University" at start of title
+  const uniMatch = title.match(/^((?:University of [A-Z][a-z]+|[A-Z][A-Za-z]+\s+University))/);
+  if (uniMatch) {
+    return uniMatch[1];
+  }
+
+  return null;
+}
+
 // Common headers to avoid blocking
 const API_HEADERS = {
   'Content-Type': 'application/json',
@@ -187,7 +240,7 @@ function formatAvlEvent(ev: AvlTodayResponse['Value'][0]): ScrapedEvent {
     startDate,
     location,
     zip,
-    organizer: ev.Venue || 'AVL Today',
+    organizer: ev.Venue || extractOrganizerFallback(finalUrl, ev.Name) || 'AVL Today',
     price: price,
     url: finalUrl,
     imageUrl,

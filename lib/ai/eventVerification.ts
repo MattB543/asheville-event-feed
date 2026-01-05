@@ -7,7 +7,6 @@
 
 import { env, isJinaEnabled } from '@/lib/config/env';
 import { azureChatCompletion, isAzureAIEnabled } from './provider-clients';
-import { matchesDefaultFilter } from '@/lib/config/defaultFilters';
 
 /**
  * Sources that have useful external event URLs worth verifying.
@@ -96,10 +95,10 @@ export interface VerificationOptions {
 }
 
 const DEFAULT_OPTIONS: Required<VerificationOptions> = {
-  maxEvents: 100,
+  maxEvents: 30, // Conservative - ~20s/event means 30 events fits in 800s timeout
   jinaDelayMs: 120, // ~500 RPM = 120ms between requests
   aiDelayMs: 100,
-  verificationIntervalDays: 10,
+  verificationIntervalDays: 10, // Not used anymore - we don't re-verify
   maxFutureEvents: 1000,
   verbose: false,
   dryRun: false,
@@ -291,9 +290,12 @@ Analyze the page content and determine if this event is still active and accurat
 }
 
 /**
- * Filter events for verification based on criteria.
+ * Filter events for verification - minimal safety checks.
  *
- * @param events - All events to potentially verify
+ * Note: Most filtering is now done in the database query for efficiency.
+ * This function just ensures events have a URL (required for verification).
+ *
+ * @param events - Events to verify (pre-filtered by query)
  * @param options - Verification options
  * @returns Filtered list of events to verify
  */
@@ -301,50 +303,15 @@ export function filterEventsForVerification(
   events: EventForVerification[],
   options: Required<VerificationOptions>
 ): EventForVerification[] {
-  const now = new Date();
-  const tenDaysAgo = new Date(
-    now.getTime() - options.verificationIntervalDays * 24 * 60 * 60 * 1000
-  );
-
   return events
     .filter((event) => {
-      // 1. Only verifiable sources
-      if (!VERIFIABLE_SOURCES.includes(event.source as (typeof VERIFIABLE_SOURCES)[number])) {
-        return false;
-      }
-
-      // 2. Skip hidden events
-      // (handled in query, but safety check)
-
-      // 3. Skip spam events based on default filters
-      if (matchesDefaultFilter(event.title)) {
-        return false;
-      }
-      if (event.description && matchesDefaultFilter(event.description)) {
-        return false;
-      }
-      if (event.organizer && matchesDefaultFilter(event.organizer)) {
-        return false;
-      }
-
-      // 4. Only future events
-      if (event.startDate < now) {
-        return false;
-      }
-
-      // 5. Skip recently verified events (within verificationIntervalDays)
-      if (event.lastVerifiedAt && event.lastVerifiedAt > tenDaysAgo) {
-        return false;
-      }
-
-      // 6. Must have a URL
+      // Must have a URL to verify
       if (!event.url) {
         return false;
       }
-
       return true;
     })
-    .slice(0, options.maxFutureEvents); // Limit to maxFutureEvents
+    .slice(0, options.maxEvents);
 }
 
 /**

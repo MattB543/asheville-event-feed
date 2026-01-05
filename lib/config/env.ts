@@ -49,6 +49,10 @@ export const env = {
   get JINA_API_KEY() {
     return process.env.JINA_API_KEY;
   },
+  // Super Admin (for verified curator management and score overrides)
+  get SUPER_ADMIN() {
+    return process.env.SUPER_ADMIN;
+  },
 } as const;
 
 // Helper to check if AI features are enabled

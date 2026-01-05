@@ -7,6 +7,7 @@ import {
   queryTop30Events,
   type DbEvent,
   type EventMetadata,
+  type Top30EventsByCategory,
 } from '@/lib/db/queries/events';
 
 export const metadata: Metadata = {
@@ -50,7 +51,7 @@ const getTop30Events = unstable_cache(
 export default async function Top30Page() {
   let initialEvents: DbEvent[] = [];
   let initialTotalCount = 0;
-  let top30Events: DbEvent[] = [];
+  let top30Events: Top30EventsByCategory = { overall: [], weird: [], social: [] };
   let metadata: EventMetadata = {
     availableTags: [],
     availableLocations: [],
@@ -69,7 +70,7 @@ export default async function Top30Page() {
     metadata = metadataResult;
     top30Events = top30Result;
     console.log(
-      `[Top30] SSR loaded ${initialEvents.length} events (of ${initialTotalCount} total), ${top30Events.length} top 30 events`
+      `[Top30] SSR loaded ${initialEvents.length} events (of ${initialTotalCount} total), top30: ${top30Events.overall.length} overall, ${top30Events.weird.length} weird, ${top30Events.social.length} social`
     );
   } catch (error) {
     console.error('[Top30] Failed to fetch events:', error);

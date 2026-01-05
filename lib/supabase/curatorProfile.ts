@@ -114,6 +114,7 @@ export async function getPublicCuratorProfiles(limit = 6) {
       bio: curatorProfiles.bio,
       avatarUrl: curatorProfiles.avatarUrl,
       showProfilePicture: curatorProfiles.showProfilePicture,
+      isVerified: curatorProfiles.isVerified,
       curationCount: sql<number>`count(${curatedEvents.id})::int`,
     })
     .from(curatorProfiles)
@@ -124,4 +125,32 @@ export async function getPublicCuratorProfiles(limit = 6) {
     .limit(limit);
 
   return results;
+}
+
+// Set curator verification status (super admin only)
+export async function setCuratorVerification(
+  curatorUserId: string,
+  verified: boolean,
+  verifiedByUserId: string
+) {
+  await db
+    .update(curatorProfiles)
+    .set({
+      isVerified: verified,
+      verifiedAt: verified ? new Date() : null,
+      verifiedBy: verified ? verifiedByUserId : null,
+      updatedAt: new Date(),
+    })
+    .where(eq(curatorProfiles.userId, curatorUserId));
+}
+
+// Check if a user is a verified curator
+export async function isUserVerifiedCurator(userId: string): Promise<boolean> {
+  const results = await db
+    .select({ isVerified: curatorProfiles.isVerified })
+    .from(curatorProfiles)
+    .where(eq(curatorProfiles.userId, userId))
+    .limit(1);
+
+  return results[0]?.isVerified ?? false;
 }

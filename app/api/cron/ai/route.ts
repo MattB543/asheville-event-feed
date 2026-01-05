@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { db } from '@/lib/db';
-import { events } from '@/lib/db/schema';
+import { events, newsletterSettings } from '@/lib/db/schema';
 import { eq, or, like, sql, isNull, and, isNotNull, inArray } from 'drizzle-orm';
 import { generateTagsAndSummary } from '@/lib/ai/tagAndSummarize';
 import { generateEmbedding, createEmbeddingText } from '@/lib/ai/embedding';
@@ -12,6 +12,16 @@ import { isAzureAIEnabled } from '@/lib/ai/provider-clients';
 import { verifyAuthToken } from '@/lib/utils/auth';
 import { invalidateEventsCache } from '@/lib/cache/invalidation';
 import { startCronJob, completeCronJob, failCronJob } from '@/lib/cron/jobTracker';
+import { queryTop30Events } from '@/lib/db/queries/events';
+import { sendEmail } from '@/lib/notifications/postmark';
+import { isPostmarkEnabled } from '@/lib/config/env';
+import { createServiceClient } from '@/lib/supabase/service';
+import {
+  generateTop30LiveEmailHtml,
+  generateTop30LiveEmailText,
+  type Top30Event,
+} from '@/lib/notifications/top30-email-templates';
+import { encodeUnsubscribeToken } from '@/app/api/top30/unsubscribe/route';
 
 export const maxDuration = 800; // 13+ minutes (requires Fluid Compute)
 
@@ -68,6 +78,7 @@ export async function GET(request: Request) {
     embeddings: { duration: 0, success: 0, failed: 0, total: 0 },
     scoring: { duration: 0, success: 0, failed: 0, total: 0, skippedRecurring: 0 },
     images: { duration: 0, success: 0, failed: 0, total: 0 },
+    top30Notifications: { duration: 0, sent: 0, skipped: 0, newEvents: 0 },
   };
 
   try {
@@ -280,6 +291,8 @@ export async function GET(request: Request) {
                 scoreUnique: recurringScore.unique,
                 scoreMagnitude: recurringScore.magnitude,
                 scoreReason: recurringScore.reason,
+                scoreAshevilleWeird: recurringScore.ashevilleWeird,
+                scoreSocial: recurringScore.social,
               })
               .where(eq(events.id, event.id));
 
@@ -309,6 +322,8 @@ export async function GET(request: Request) {
                 scoreUnique: recurringScore.unique,
                 scoreMagnitude: recurringScore.magnitude,
                 scoreReason: recurringScore.reason,
+                scoreAshevilleWeird: recurringScore.ashevilleWeird,
+                scoreSocial: recurringScore.social,
               })
               .where(eq(events.id, event.id));
 
@@ -358,12 +373,14 @@ export async function GET(request: Request) {
                 scoreUnique: scoreResult.unique,
                 scoreMagnitude: scoreResult.magnitude,
                 scoreReason: scoreResult.reason,
+                scoreAshevilleWeird: scoreResult.ashevilleWeird,
+                scoreSocial: scoreResult.social,
               })
               .where(eq(events.id, event.id));
 
             stats.scoring.success++;
             console.log(
-              `[AI] Scored "${event.title.slice(0, 30)}...": ${scoreResult.score}/30 (R:${scoreResult.rarity} U:${scoreResult.unique} M:${scoreResult.magnitude})`
+              `[AI] Scored "${event.title.slice(0, 30)}...": ${scoreResult.score}/30 (R:${scoreResult.rarity} U:${scoreResult.unique} M:${scoreResult.magnitude} AW:${scoreResult.ashevilleWeird} S:${scoreResult.social})`
             );
           } else {
             stats.scoring.failed++;
@@ -387,7 +404,172 @@ export async function GET(request: Request) {
     }
 
     // ═══════════════════════════════════════════════════════════════
-    // 4. IMAGES PASS: Set default fallback images
+    // 4. TOP 30 LIVE NOTIFICATIONS: Email users when new events enter top 30
+    // ═══════════════════════════════════════════════════════════════
+    if (isPostmarkEnabled() && stats.scoring.success > 0) {
+      console.log('[AI] Checking for top 30 live notification subscribers...');
+      const top30NotifStartTime = Date.now();
+
+      try {
+        // Get current top 30 events (use overall category for live notifications)
+        const top30Result = await queryTop30Events();
+        const currentTop30 = top30Result.overall;
+        const currentTop30Ids = currentTop30.map((e) => e.id);
+
+        // Get users with live subscription
+        const liveSubscribers = await db
+          .select({
+            userId: newsletterSettings.userId,
+            top30LastEventIds: newsletterSettings.top30LastEventIds,
+          })
+          .from(newsletterSettings)
+          .where(eq(newsletterSettings.top30Subscription, 'live'));
+
+        if (liveSubscribers.length > 0) {
+          console.log(`[AI] Found ${liveSubscribers.length} live top 30 subscribers`);
+
+          // Get user emails from Supabase
+          const supabase = createServiceClient();
+          const { data: authUsers, error: authError } = await supabase.auth.admin.listUsers({
+            perPage: 1000,
+          });
+
+          if (authError) {
+            console.error('[AI] Failed to fetch auth users:', authError);
+          } else {
+            const userEmailMap = new Map<string, { email: string; name?: string }>();
+            authUsers.users.forEach((user) => {
+              if (user.email) {
+                const metadata = user.user_metadata as Record<string, unknown> | undefined;
+                const name =
+                  typeof metadata?.full_name === 'string'
+                    ? metadata.full_name
+                    : typeof metadata?.name === 'string'
+                      ? metadata.name
+                      : undefined;
+                userEmailMap.set(user.id, { email: user.email, name });
+              }
+            });
+
+            const appUrl = env.NEXT_PUBLIC_APP_URL;
+
+            for (const subscriber of liveSubscribers) {
+              const userInfo = userEmailMap.get(subscriber.userId);
+              if (!userInfo) {
+                stats.top30Notifications.skipped++;
+                continue;
+              }
+
+              // Find new events (in current top 30 but not in their last known list)
+              const previousIds = new Set(subscriber.top30LastEventIds || []);
+              const newEventIds = currentTop30Ids.filter((id) => !previousIds.has(id));
+
+              if (newEventIds.length === 0) {
+                // No new events for this user, update their last event IDs anyway
+                await db
+                  .update(newsletterSettings)
+                  .set({
+                    top30LastEventIds: currentTop30Ids,
+                    updatedAt: new Date(),
+                  })
+                  .where(eq(newsletterSettings.userId, subscriber.userId));
+                stats.top30Notifications.skipped++;
+                continue;
+              }
+
+              // Get the new event details
+              const newEvents: Top30Event[] = currentTop30
+                .filter((e) => newEventIds.includes(e.id))
+                .map((e) => ({
+                  id: e.id,
+                  title: e.title,
+                  startDate: e.startDate,
+                  location: e.location,
+                  organizer: e.organizer,
+                  price: e.price,
+                  imageUrl: e.imageUrl,
+                  tags: e.tags,
+                  url: e.url,
+                  aiSummary: e.aiSummary,
+                  score: e.score,
+                }));
+
+              if (newEvents.length > stats.top30Notifications.newEvents) {
+                stats.top30Notifications.newEvents = newEvents.length;
+              }
+
+              const unsubscribeUrl = `${appUrl}/api/top30/unsubscribe?token=${encodeUnsubscribeToken(subscriber.userId)}`;
+
+              const htmlBody = generateTop30LiveEmailHtml({
+                recipientName: userInfo.name,
+                newEvents,
+                unsubscribeUrl,
+              });
+
+              const textBody = generateTop30LiveEmailText({
+                recipientName: userInfo.name,
+                newEvents,
+                unsubscribeUrl,
+              });
+
+              const subject =
+                newEvents.length === 1
+                  ? "New event in Asheville's Top 30!"
+                  : `${newEvents.length} new events in Asheville's Top 30!`;
+
+              try {
+                const sent = await sendEmail({
+                  to: userInfo.email,
+                  subject,
+                  htmlBody,
+                  textBody,
+                });
+
+                if (sent) {
+                  stats.top30Notifications.sent++;
+                  console.log(
+                    `[AI] Sent top 30 notification to ${userInfo.email}: ${newEvents.length} new events`
+                  );
+
+                  // Update their last known top 30 IDs
+                  await db
+                    .update(newsletterSettings)
+                    .set({
+                      top30LastEventIds: currentTop30Ids,
+                      top30LastNotifiedAt: new Date(),
+                      updatedAt: new Date(),
+                    })
+                    .where(eq(newsletterSettings.userId, subscriber.userId));
+                } else {
+                  stats.top30Notifications.skipped++;
+                }
+              } catch (emailError) {
+                console.error(
+                  `[AI] Failed to send top 30 notification to ${userInfo.email}:`,
+                  emailError
+                );
+                stats.top30Notifications.skipped++;
+              }
+
+              // Small delay between emails
+              await new Promise((r) => setTimeout(r, 100));
+            }
+          }
+        } else {
+          console.log('[AI] No live top 30 subscribers found');
+        }
+      } catch (top30Error) {
+        console.error('[AI] Error in top 30 notifications:', top30Error);
+      }
+
+      stats.top30Notifications.duration = Date.now() - top30NotifStartTime;
+      console.log(
+        `[AI] Top 30 notifications complete in ${formatDuration(stats.top30Notifications.duration)}: ${stats.top30Notifications.sent} sent, ${stats.top30Notifications.skipped} skipped`
+      );
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // 5. IMAGES PASS: Set default fallback images
     // ═══════════════════════════════════════════════════════════════
     console.log('[AI] Finding events needing images...');
     const eventsNeedingImages = await db
@@ -443,6 +625,9 @@ export async function GET(request: Request) {
       `[AI] Scoring: ${stats.scoring.success}/${stats.scoring.total} (${stats.scoring.skippedRecurring} recurring) in ${formatDuration(stats.scoring.duration)}`
     );
     console.log(
+      `[AI] Top 30 Notifications: ${stats.top30Notifications.sent} sent, ${stats.top30Notifications.skipped} skipped in ${formatDuration(stats.top30Notifications.duration)}`
+    );
+    console.log(
       `[AI] Images: ${stats.images.success}/${stats.images.total} in ${formatDuration(stats.images.duration)}`
     );
     console.log('[AI] ════════════════════════════════════════════════');
@@ -466,6 +651,11 @@ export async function GET(request: Request) {
         success: stats.scoring.success,
         failed: stats.scoring.failed,
         skippedRecurring: stats.scoring.skippedRecurring,
+      },
+      top30Notifications: {
+        sent: stats.top30Notifications.sent,
+        skipped: stats.top30Notifications.skipped,
+        newEvents: stats.top30Notifications.newEvents,
       },
       images: {
         total: stats.images.total,

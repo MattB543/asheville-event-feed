@@ -2,6 +2,8 @@ export type NewsletterFrequency = 'none' | 'daily' | 'weekly';
 
 export type NewsletterScoreTier = 'all' | 'top50' | 'top10';
 
+export type Top30SubscriptionType = 'none' | 'live' | 'weekly';
+
 export type NewsletterDaySelection = 'everyday' | 'weekend' | 'specific';
 
 export type PriceFilterType = 'any' | 'free' | 'under20' | 'under100' | 'custom';

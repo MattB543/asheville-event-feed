@@ -9,7 +9,7 @@ import * as ical from 'node-ical';
 import { type ScrapedEvent } from './types';
 import { debugSave } from './base';
 import { fetchWithRetry } from '@/lib/utils/retry';
-import { decodeHtmlEntities, tryExtractPrice } from '@/lib/utils/parsers';
+import { decodeHtmlEntities, stripHtml, tryExtractPrice } from '@/lib/utils/parsers';
 import { parseAsEastern } from '@/lib/utils/timezone';
 
 interface ICalEvent {
@@ -31,15 +31,6 @@ const EVENTS_PAGE_URL = 'https://ashevilleonbikes.com/events';
 const ORGANIZER_NAME = 'Asheville on Bikes';
 const DEFAULT_IMAGE_URL = '/avl_on_bikes.jpg';
 const LOOKAHEAD_DAYS = 183;
-
-function stripHtml(html: string): string {
-  return decodeHtmlEntities(
-    html
-      .replace(/<[^>]*>/g, ' ')
-      .replace(/\s+/g, ' ')
-      .trim()
-  );
-}
 
 function normalizeText(text: string | undefined): string | undefined {
   if (!text) return undefined;

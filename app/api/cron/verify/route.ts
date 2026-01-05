@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { events } from '@/lib/db/schema';
-import { and, eq, gte, inArray, isNull, lte, or } from 'drizzle-orm';
+import { and, eq, gte, inArray, isNull, or, sql } from 'drizzle-orm';
 import { env } from '@/lib/config/env';
 import { verifyAuthToken } from '@/lib/utils/auth';
 import { startCronJob, completeCronJob, failCronJob } from '@/lib/cron/jobTracker';
@@ -17,15 +17,24 @@ import { matchesDefaultFilter } from '@/lib/config/defaultFilters';
 
 export const maxDuration = 800; // ~13 minutes max (Fluid Compute)
 
+/** Max events to verify per run - conservative to fit within timeout */
+const MAX_EVENTS_PER_RUN = 30;
+
 /**
  * Event verification cron job.
  *
- * Fetches event source pages via Jina Reader API and uses AI to verify:
- * - Cancelled or postponed events
- * - Updated event details (price, description, location)
- * - Wrong pages (404, generic content)
+ * Fetches event source pages via Jina Reader API and uses AI to:
+ * - Fill in missing descriptions
+ * - Fill in missing price data
+ * - Detect cancelled/postponed events
  *
- * Runs twice daily at 6 AM and 6 PM ET.
+ * Only verifies events that:
+ * - Have never been verified before
+ * - Are missing description (null or < 50 chars) OR missing price data
+ * - Are future events (startDate >= now)
+ * - Are from verifiable sources (AVL_TODAY, EXPLORE_ASHEVILLE, MOUNTAIN_X)
+ *
+ * Runs every 3 hours, processes up to 30 events per run.
  */
 export async function GET(request: Request) {
   // Verify cron secret
@@ -48,16 +57,12 @@ export async function GET(request: Request) {
       return NextResponse.json({ success: true, skipped: true, reason: message });
     }
 
-    // Calculate date windows
     const now = new Date();
-    const tenDaysAgo = new Date(now.getTime() - 10 * 24 * 60 * 60 * 1000);
 
-    // Query events to verify:
-    // - From verifiable sources (AVL_TODAY, EXPLORE_ASHEVILLE, MOUNTAIN_X)
-    // - Not hidden
-    // - Future events
-    // - Not verified in last 10 days (or never verified)
-    // - Limit to 1000 events into the future
+    // Query events to verify - only events that:
+    // 1. Have NEVER been verified (no re-verification)
+    // 2. Are MISSING data: short/no description OR no price (either triggers verification)
+    // 3. Are future events from verifiable sources
     const eventsToVerify = await db
       .select({
         id: events.id,
@@ -74,16 +79,31 @@ export async function GET(request: Request) {
       .from(events)
       .where(
         and(
+          // Only verifiable sources
           inArray(events.source, [...VERIFIABLE_SOURCES]),
+          // Not hidden
           eq(events.hidden, false),
+          // Future events only
           gte(events.startDate, now),
-          or(isNull(events.lastVerifiedAt), lte(events.lastVerifiedAt, tenDaysAgo))
+          // NEVER verified before (no re-verification)
+          isNull(events.lastVerifiedAt),
+          // Missing description OR missing price (either triggers verification)
+          or(
+            // Missing/short description
+            isNull(events.description),
+            sql`LENGTH(${events.description}) < 50`,
+            // Missing price (NULL or 'Unknown', but 'Ticketed'/'Free'/'$X' are OK)
+            isNull(events.price),
+            eq(events.price, 'Unknown')
+          )
         )
       )
-      .orderBy(events.startDate) // Most imminent first
-      .limit(1000);
+      .orderBy(events.startDate) // Closest events first
+      .limit(MAX_EVENTS_PER_RUN);
 
-    console.log(`[Verify] Found ${eventsToVerify.length} events eligible for verification`);
+    console.log(
+      `[Verify] Found ${eventsToVerify.length} events needing verification (missing data)`
+    );
 
     // Filter out spam events based on default filters
     const filteredEvents = eventsToVerify.filter((event) => {
@@ -98,11 +118,11 @@ export async function GET(request: Request) {
       console.log(`[Verify] Filtered out ${spamFiltered} spam events`);
     }
 
-    // Process verification (limit to 500 per run, within 500 RPM rate limit)
+    // Process verification (already limited by query, but enforce here too)
     const verificationResult = await processEventVerification(
       filteredEvents as EventForVerification[],
       {
-        maxEvents: 500,
+        maxEvents: MAX_EVENTS_PER_RUN,
         verbose: true,
       }
     );

@@ -169,7 +169,7 @@ interface EventCardProps {
 
 // Round price string to nearest dollar (e.g., "$19.10" -> "$19", "$25.50" -> "$26")
 const formatPriceDisplay = (price: string | null): string => {
-  if (!price || price === 'Unknown') return 'Price TBD';
+  if (!price || price === 'Unknown') return '$ Unknown';
   if (price.toLowerCase() === 'free') return 'Free';
 
   // Extract number from price string and round
@@ -179,7 +179,7 @@ const formatPriceDisplay = (price: string | null): string => {
     return `$${rounded}`;
   }
   // If price is just "$" with no number, treat as unknown
-  if (price.trim() === '$') return 'Price TBD';
+  if (price.trim() === '$') return '$ Unknown';
   return price;
 };
 

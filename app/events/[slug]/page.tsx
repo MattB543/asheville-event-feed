@@ -4,6 +4,9 @@ import { parseEventSlug, generateEventSlug } from '@/lib/utils/slugify';
 import { cleanMarkdown } from '@/lib/utils/parsers';
 import EventPageClient from './EventPageClient';
 import { getEventByShortId, getSimilarEvents, serializeEvent } from '@/lib/events/getEvent';
+import { createClient } from '@/lib/supabase/server';
+import { isSuperAdmin } from '@/lib/utils/superAdmin';
+import { isUserVerifiedCurator } from '@/lib/supabase/curatorProfile';
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://avlgo.com';
 
@@ -114,6 +117,19 @@ export default async function EventPage({ params }: PageProps) {
 
   const eventUrl = `${siteUrl}/events/${expectedSlug}`;
 
+  // Check user permissions for score viewing/editing
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  const viewerIsSuperAdmin = isSuperAdmin(user?.id);
+  const viewerIsVerifiedCurator = user?.id ? await isUserVerifiedCurator(user.id) : false;
+
+  // Determine score permissions
+  const canViewScores = viewerIsSuperAdmin || viewerIsVerifiedCurator;
+  const canEditScores = viewerIsSuperAdmin;
+
   // Fetch similar events
   const similarEvents = await getSimilarEvents(event.id);
 
@@ -172,6 +188,8 @@ export default async function EventPage({ params }: PageProps) {
         event={serializeEvent(event)}
         eventPageUrl={eventUrl}
         similarEvents={similarEvents}
+        canViewScores={canViewScores}
+        canEditScores={canEditScores}
       />
     </>
   );

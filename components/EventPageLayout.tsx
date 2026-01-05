@@ -2,14 +2,18 @@ import EventFeed from '@/components/EventFeed';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import InfoBanner from '@/components/InfoBanner';
 import Header from '@/components/Header';
-import { type DbEvent, type EventMetadata } from '@/lib/db/queries/events';
+import {
+  type DbEvent,
+  type EventMetadata,
+  type Top30EventsByCategory,
+} from '@/lib/db/queries/events';
 
 interface EventPageLayoutProps {
   activeTab: 'all' | 'top30' | 'yourList';
   initialEvents: DbEvent[];
   initialTotalCount: number;
   metadata: EventMetadata;
-  top30Events: DbEvent[];
+  top30Events: Top30EventsByCategory;
 }
 
 export default function EventPageLayout({

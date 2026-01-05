@@ -1,4 +1,5 @@
 import { env, isPostmarkEnabled } from '@/lib/config/env';
+import { stripHtml } from '@/lib/utils/parsers';
 
 interface EmailOptions {
   to: string;
@@ -122,23 +123,6 @@ export async function sendBatchEmails(emails: EmailOptions[]): Promise<number> {
   }
 
   return successCount;
-}
-
-/**
- * Simple HTML to plain text conversion for email text body.
- */
-function stripHtml(html: string): string {
-  return html
-    .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, '')
-    .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '')
-    .replace(/<[^>]+>/g, ' ')
-    .replace(/\s+/g, ' ')
-    .replace(/&nbsp;/g, ' ')
-    .replace(/&amp;/g, '&')
-    .replace(/&lt;/g, '<')
-    .replace(/&gt;/g, '>')
-    .replace(/&quot;/g, '"')
-    .trim();
 }
 
 /**

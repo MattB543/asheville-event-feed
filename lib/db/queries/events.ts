@@ -83,6 +83,13 @@ export interface EventMetadata {
   availableZips: { zip: string; count: number }[];
 }
 
+// Top 30 events organized by category (each array is pre-sorted, limited to 30)
+export interface Top30EventsByCategory {
+  overall: DbEvent[];
+  weird: DbEvent[];
+  social: DbEvent[];
+}
+
 // Helper to parse cursor
 function parseCursor(cursor: string): { startDate: Date; id: string } | null {
   const parts = cursor.split('_');
@@ -357,6 +364,9 @@ export async function queryFilteredEvents(params: EventFilterParams): Promise<Ev
     scoreUnique: events.scoreUnique,
     scoreMagnitude: events.scoreMagnitude,
     scoreReason: events.scoreReason,
+    scoreOverride: events.scoreOverride,
+    scoreAshevilleWeird: events.scoreAshevilleWeird,
+    scoreSocial: events.scoreSocial,
     lastVerifiedAt: events.lastVerifiedAt,
   };
 
@@ -647,16 +657,17 @@ export async function getEventMetadata(): Promise<EventMetadata> {
 }
 
 /**
- * Get the top 30 highest-scored events in the next 30 days.
- * Used for the "Top 30" tab.
+ * Get top events for the "Top 30" tab across all categories.
+ * Returns separate pre-sorted arrays for each category (overall, weird, social).
+ * Each array contains exactly the top 30 for that category.
  */
-export async function queryTop30Events(): Promise<DbEvent[]> {
+export async function queryTop30Events(): Promise<Top30EventsByCategory> {
   const startOfToday = getStartOfTodayEastern();
   const todayStr = getTodayStringEastern();
   const thirtyDaysLaterStr = addDaysToDateString(todayStr, 30);
   const thirtyDaysLater = parseAsEastern(thirtyDaysLaterStr, '23:59:59');
 
-  console.log('[queryTop30Events] Fetching top 30 scored events...');
+  console.log('[queryTop30Events] Fetching top events for all categories...');
 
   const selectFields = {
     id: events.id,
@@ -689,30 +700,59 @@ export async function queryTop30Events(): Promise<DbEvent[]> {
     scoreUnique: events.scoreUnique,
     scoreMagnitude: events.scoreMagnitude,
     scoreReason: events.scoreReason,
+    scoreOverride: events.scoreOverride,
+    scoreAshevilleWeird: events.scoreAshevilleWeird,
+    scoreSocial: events.scoreSocial,
   };
 
-  const results = await db
-    .select(selectFields)
-    .from(events)
-    .where(
-      and(
-        // Next 30 days
-        gte(events.startDate, startOfToday),
-        lte(events.startDate, thirtyDaysLater),
-        // Must have a score
-        isNotNull(events.score),
-        // Exclude hidden events
-        or(isNull(events.hidden), sql`${events.hidden} = false`),
-        // Exclude online/virtual events
-        or(
-          isNull(events.location),
-          and(notIlike(events.location, '%online%'), notIlike(events.location, '%virtual%'))
-        )
-      )
+  const baseWhere = and(
+    // Next 30 days
+    gte(events.startDate, startOfToday),
+    lte(events.startDate, thirtyDaysLater),
+    // Must have a score
+    isNotNull(events.score),
+    // Exclude hidden events
+    or(isNull(events.hidden), sql`${events.hidden} = false`),
+    // Exclude online/virtual events
+    or(
+      isNull(events.location),
+      and(notIlike(events.location, '%online%'), notIlike(events.location, '%virtual%'))
     )
-    .orderBy(desc(events.score), asc(events.startDate), asc(events.id))
-    .limit(30);
+  );
 
-  console.log(`[queryTop30Events] Found ${results.length} top events`);
-  return results;
+  // Fetch top 30 by each category in parallel
+  const [topByScore, topByWeird, topBySocial] = await Promise.all([
+    // Top 30 by base score (for "Top Overall")
+    db
+      .select(selectFields)
+      .from(events)
+      .where(baseWhere)
+      .orderBy(desc(events.score), asc(events.startDate), asc(events.id))
+      .limit(30),
+    // Top 30 by Asheville Weird (for "Asheville Weird" category)
+    db
+      .select(selectFields)
+      .from(events)
+      .where(and(baseWhere, isNotNull(events.scoreAshevilleWeird)))
+      .orderBy(desc(events.scoreAshevilleWeird), desc(events.score), asc(events.startDate))
+      .limit(30),
+    // Top 30 by Social (for "Meet People" category)
+    db
+      .select(selectFields)
+      .from(events)
+      .where(and(baseWhere, isNotNull(events.scoreSocial)))
+      .orderBy(desc(events.scoreSocial), desc(events.score), asc(events.startDate))
+      .limit(30),
+  ]);
+
+  console.log(
+    `[queryTop30Events] Fetched ${topByScore.length} overall, ${topByWeird.length} weird, ${topBySocial.length} social`
+  );
+
+  // Return separate arrays - each is already sorted and limited to 30
+  return {
+    overall: topByScore,
+    weird: topByWeird,
+    social: topBySocial,
+  };
 }

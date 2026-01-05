@@ -26,6 +26,9 @@ const CurateModal = dynamic(() => import('./CurateModal'), { ssr: false });
 const EventDetailModal = dynamic(() => import('./EventDetailModal'), { ssr: false });
 // SaveFeedModal is not lazy loaded to avoid delay when showSavePrompt is in URL
 import SaveFeedModal from './SaveFeedModal';
+import Top30SubscribeBanner from './Top30SubscribeBanner';
+import Top30SubscribeModal from './Top30SubscribeModal';
+import { type Top30SubscriptionType } from '@/lib/newsletter/types';
 import { DEFAULT_BLOCKED_KEYWORDS } from '@/lib/config/defaultFilters';
 import { useToast } from './ui/Toast';
 import { ArrowDownIcon, ArrowUpIcon, ArrowRight, Loader2Icon, Sparkles } from 'lucide-react';
@@ -69,8 +72,20 @@ interface ForYouResponse {
   meta?: ForYouMeta;
 }
 
+interface ScoreBoost {
+  rarity?: number;
+  unique?: number;
+  magnitude?: number;
+}
+
+interface CurationData {
+  eventId: string;
+  scoreBoost?: ScoreBoost | null;
+}
+
 interface CurationsResponse {
-  curations?: Array<{ eventId: string }>;
+  curations?: CurationData[];
+  canBoostScore?: boolean;
 }
 
 // Initial event type from SSR (database format - may use Date objects or strings after serialization)
@@ -99,16 +114,25 @@ interface InitialEvent {
   scoreUnique?: number | null;
   scoreMagnitude?: number | null;
   scoreReason?: string | null;
+  scoreAshevilleWeird?: number | null;
+  scoreSocial?: number | null;
 }
 
 type DatedInitialEvent = Omit<InitialEvent, 'startDate'> & { startDate: Date };
+
+// Top 30 events organized by category (each array is pre-sorted, limited to 30)
+interface Top30EventsByCategory {
+  overall: InitialEvent[];
+  weird: InitialEvent[];
+  social: InitialEvent[];
+}
 
 interface EventFeedProps {
   initialEvents?: InitialEvent[];
   initialTotalCount?: number;
   initialMetadata?: EventMetadata;
   activeTab?: 'all' | 'top30' | 'yourList';
-  top30Events?: InitialEvent[];
+  top30Events?: Top30EventsByCategory;
 }
 
 // Tag filter state for include/exclude tri-state filtering
@@ -380,7 +404,17 @@ export default function EventFeed({
 
   // Top 30 feed state
   const [top30SortMode, setTop30SortMode] = useState<'score' | 'date'>('score');
+  const [top30Category, setTop30Category] = useState<'overall' | 'weird' | 'social'>(() => {
+    if (typeof window === 'undefined') return 'overall';
+    const params = new URLSearchParams(window.location.search);
+    const list = params.get('list');
+    if (list === 'avl_weird') return 'weird';
+    if (list === 'social') return 'social';
+    return 'overall';
+  });
   const [forYouSortMode, setForYouSortMode] = useState<'score' | 'date'>('score');
+  const [top30Subscription, setTop30Subscription] = useState<Top30SubscriptionType>('none');
+  const [top30SubscribeModalOpen, setTop30SubscribeModalOpen] = useState(false);
 
   // Your List sub-tab state (recommended vs favorites)
   const [yourListSubTab, setYourListSubTab] = useState<'recommended' | 'favorites'>('recommended');
@@ -403,9 +437,18 @@ export default function EventFeed({
   const [favoriteEventsLoading, setFavoriteEventsLoading] = useState(false);
 
   const [curatedEventIds, setCuratedEventIds] = useState<Set<string>>(new Set());
+  const [curationsMap, setCurationsMap] = useState<Map<string, CurationData>>(new Map());
   const [curateModalOpen, setCurateModalOpen] = useState(false);
   const [curateModalEventId, setCurateModalEventId] = useState<string | null>(null);
   const [curateModalEventTitle, setCurateModalEventTitle] = useState('');
+  const [canBoostScore, setCanBoostScore] = useState(false);
+  const [curateModalScores, setCurateModalScores] = useState<{
+    rarity: number | null;
+    unique: number | null;
+    magnitude: number | null;
+    total: number | null;
+  } | null>(null);
+  const [curateModalExistingBoost, setCurateModalExistingBoost] = useState<ScoreBoost | null>(null);
 
   // Event detail modal state
   const [eventModalOpen, setEventModalOpen] = useState(false);
@@ -600,6 +643,25 @@ export default function EventFeed({
       }
     }
   }, [hasUrlFilters, hasLocalStorageFilters, isLoaded]);
+
+  // Fetch top 30 subscription status when user is logged in
+  useEffect(() => {
+    if (!isLoggedIn || authLoading) return;
+
+    const fetchTop30Subscription = async () => {
+      try {
+        const response = await fetch('/api/top30/subscribe');
+        if (response.ok) {
+          const data = (await response.json()) as { subscription?: Top30SubscriptionType };
+          setTop30Subscription(data.subscription || 'none');
+        }
+      } catch (error) {
+        console.error('[EventFeed] Failed to fetch top 30 subscription:', error);
+      }
+    };
+
+    void fetchTop30Subscription();
+  }, [isLoggedIn, authLoading]);
 
   // Convert API events to component format (parse startDate string to Date)
   const events = useMemo(
@@ -802,9 +864,14 @@ export default function EventFeed({
         if (!res.ok) return;
         const data = (await res.json()) as CurationsResponse;
         const curations = Array.isArray(data.curations) ? data.curations : [];
+        setCanBoostScore(data.canBoostScore ?? false);
         if (curations.length === 0) return;
         const ids = new Set<string>(curations.map((c) => c.eventId));
         setCuratedEventIds(ids);
+        // Store full curation data for boost lookup
+        const curationMap = new Map<string, CurationData>();
+        curations.forEach((c) => curationMap.set(c.eventId, c));
+        setCurationsMap(curationMap);
       } catch (error) {
         console.error(error);
       }
@@ -907,6 +974,22 @@ export default function EventFeed({
 
   // Check if all locations are selected (empty array means "all selected" = no filter)
   const allLocationsSelected = selectedLocations.length === 0;
+
+  // Handle top30 category change with URL sync
+  const handleTop30CategoryChange = useCallback((category: 'overall' | 'weird' | 'social') => {
+    setTop30Category(category);
+
+    // Update URL to reflect the selected list
+    const url = new URL(window.location.href);
+    if (category === 'overall') {
+      url.searchParams.delete('list');
+    } else if (category === 'weird') {
+      url.searchParams.set('list', 'avl_weird');
+    } else {
+      url.searchParams.set('list', 'social');
+    }
+    window.history.replaceState(null, '', url.toString());
+  }, []);
 
   // Handle search changes with month detection
   // If user searches a month name (e.g., "March", "events in jan"), convert to date filter
@@ -1242,6 +1325,19 @@ export default function EventFeed({
     if (event) {
       setCurateModalEventId(eventId);
       setCurateModalEventTitle(event.title);
+      setCurateModalScores(
+        event.score !== null && event.score !== undefined
+          ? {
+              rarity: event.scoreRarity ?? null,
+              unique: event.scoreUnique ?? null,
+              magnitude: event.scoreMagnitude ?? null,
+              total: event.score,
+            }
+          : null
+      );
+      // Look up existing boost from curations map
+      const existingCuration = curationsMap.get(eventId);
+      setCurateModalExistingBoost(existingCuration?.scoreBoost ?? null);
       setCurateModalOpen(true);
     }
   };
@@ -1258,11 +1354,20 @@ export default function EventFeed({
   }, []);
 
   const curateEvent = useCallback(
-    async (note?: string) => {
+    async (note?: string, scoreBoost?: ScoreBoost) => {
       if (!curateModalEventId) return;
 
       // Optimistic update
       setCuratedEventIds((prev) => new Set([...prev, curateModalEventId]));
+      // Update curations map with new boost
+      setCurationsMap((prev) => {
+        const next = new Map(prev);
+        next.set(curateModalEventId, {
+          eventId: curateModalEventId,
+          scoreBoost: scoreBoost ?? null,
+        });
+        return next;
+      });
 
       try {
         const res = await fetch('/api/curate', {
@@ -1272,6 +1377,7 @@ export default function EventFeed({
             eventId: curateModalEventId,
             action: 'add',
             note,
+            scoreBoost,
           }),
         });
 
@@ -1282,11 +1388,21 @@ export default function EventFeed({
             next.delete(curateModalEventId);
             return next;
           });
+          setCurationsMap((prev) => {
+            const next = new Map(prev);
+            next.delete(curateModalEventId);
+            return next;
+          });
         }
       } catch {
         // Revert on error
         setCuratedEventIds((prev) => {
           const next = new Set(prev);
+          next.delete(curateModalEventId);
+          return next;
+        });
+        setCurationsMap((prev) => {
+          const next = new Map(prev);
           next.delete(curateModalEventId);
           return next;
         });
@@ -1299,8 +1415,8 @@ export default function EventFeed({
   );
 
   const handleCurate = useCallback(
-    (note?: string) => {
-      void curateEvent(note);
+    (note?: string, scoreBoost?: ScoreBoost) => {
+      void curateEvent(note, scoreBoost);
     },
     [curateEvent]
   );
@@ -1948,34 +2064,83 @@ export default function EventFeed({
             Top 30 events in the next 30 days
           </h1>
 
-          {/* Sort Mode Toggle */}
-          <div className="flex items-center mb-4 px-3 sm:px-0">
+          {/* Top 30 Subscribe Banner */}
+          <div className="px-3 sm:px-0">
+            <Top30SubscribeBanner
+              currentSubscription={top30Subscription}
+              onSubscribeClick={() => setTop30SubscribeModalOpen(true)}
+            />
+          </div>
+
+          {/* Category and Sort Controls */}
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-0 mb-4 px-3 sm:px-0">
+            {/* Category Selector */}
             <div className="flex items-center gap-2 bg-gray-100 dark:bg-gray-800 rounded-lg p-1">
               <button
-                onClick={() => setTop30SortMode('score')}
+                onClick={() => handleTop30CategoryChange('overall')}
                 className={`px-3 py-1.5 text-sm font-medium rounded-md transition-colors cursor-pointer ${
-                  top30SortMode === 'score'
+                  top30Category === 'overall'
                     ? 'bg-white dark:bg-gray-700 text-brand-600 dark:text-brand-400 shadow-sm'
                     : 'text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200'
                 }`}
               >
-                By Score
+                Top Overall
               </button>
               <button
-                onClick={() => setTop30SortMode('date')}
+                onClick={() => handleTop30CategoryChange('weird')}
                 className={`px-3 py-1.5 text-sm font-medium rounded-md transition-colors cursor-pointer ${
-                  top30SortMode === 'date'
+                  top30Category === 'weird'
                     ? 'bg-white dark:bg-gray-700 text-brand-600 dark:text-brand-400 shadow-sm'
                     : 'text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200'
                 }`}
               >
-                By Date
+                Asheville Weird
               </button>
+              <button
+                onClick={() => handleTop30CategoryChange('social')}
+                className={`px-3 py-1.5 text-sm font-medium rounded-md transition-colors cursor-pointer ${
+                  top30Category === 'social'
+                    ? 'bg-white dark:bg-gray-700 text-brand-600 dark:text-brand-400 shadow-sm'
+                    : 'text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200'
+                }`}
+              >
+                Meet People
+              </button>
+            </div>
+
+            {/* Sort Mode Toggle */}
+            <div className="flex flex-col items-start gap-1 sm:items-auto">
+              <span className="text-xs text-gray-500 dark:text-gray-400 sm:hidden">Sort by</span>
+              <div className="flex items-center gap-1.5 sm:gap-2 bg-gray-100 dark:bg-gray-800 rounded-lg p-0.5 sm:p-1 w-fit">
+                <button
+                  onClick={() => setTop30SortMode('score')}
+                  className={`px-2 sm:px-3 py-1 sm:py-1.5 text-xs sm:text-sm font-medium rounded-md transition-colors cursor-pointer ${
+                    top30SortMode === 'score'
+                      ? 'bg-white dark:bg-gray-700 text-brand-600 dark:text-brand-400 shadow-sm'
+                      : 'text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200'
+                  }`}
+                >
+                  Score
+                </button>
+                <button
+                  onClick={() => setTop30SortMode('date')}
+                  className={`px-2 sm:px-3 py-1 sm:py-1.5 text-xs sm:text-sm font-medium rounded-md transition-colors cursor-pointer ${
+                    top30SortMode === 'date'
+                      ? 'bg-white dark:bg-gray-700 text-brand-600 dark:text-brand-400 shadow-sm'
+                      : 'text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200'
+                  }`}
+                >
+                  Date
+                </button>
+              </div>
             </div>
           </div>
 
           {/* Empty State */}
-          {(!initialTop30Events || initialTop30Events.length === 0) && (
+          {(() => {
+            const categoryEvents = initialTop30Events?.[top30Category] || [];
+            return categoryEvents.length === 0;
+          })() && (
             <div className="text-center py-20 px-4">
               <div className="text-4xl mb-4">🏆</div>
               <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-2">
@@ -1988,9 +2153,9 @@ export default function EventFeed({
           )}
 
           {/* Score-ranked view */}
-          {top30SortMode === 'score' && initialTop30Events && initialTop30Events.length > 0 && (
+          {top30SortMode === 'score' && (initialTop30Events?.[top30Category]?.length || 0) > 0 && (
             <div className="flex flex-col bg-white dark:bg-gray-900 sm:rounded-lg sm:shadow-sm sm:border sm:border-gray-200 dark:sm:border-gray-700 ">
-              {(initialTop30Events || [])
+              {(initialTop30Events?.[top30Category] || [])
                 .map((event) => ({
                   ...event,
                   startDate:
@@ -2042,6 +2207,7 @@ export default function EventFeed({
                   }
                   return true;
                 })
+                // No sorting needed - arrays are pre-sorted by the server
                 .map((event, index) => (
                   <EventCard
                     key={event.id}
@@ -2090,10 +2256,12 @@ export default function EventFeed({
           )}
 
           {/* Date-grouped view */}
-          {top30SortMode === 'date' && initialTop30Events && initialTop30Events.length > 0 && (
+          {top30SortMode === 'date' && (initialTop30Events?.[top30Category]?.length || 0) > 0 && (
             <div className="flex flex-col gap-10 mt-3">
-              {Object.entries(
-                (initialTop30Events || [])
+              {(() => {
+                // Get the pre-sorted category events and apply filters
+                const categoryEvents = initialTop30Events?.[top30Category] || [];
+                const filteredForDateView = categoryEvents
                   .map(
                     (event): DatedInitialEvent => ({
                       ...event,
@@ -2146,8 +2314,17 @@ export default function EventFeed({
                         return false;
                     }
                     return true;
-                  })
-                  .reduce(
+                  });
+                // No sorting needed - arrays are pre-sorted by the server
+
+                // Create ranking map using original array order (pre-sorted by server)
+                const rankingMap = new Map<string, number>();
+                categoryEvents.forEach((event, index) => {
+                  rankingMap.set(event.id, index + 1);
+                });
+
+                return Object.entries(
+                  filteredForDateView.reduce(
                     (groups, event) => {
                       const date = new Date(event.startDate);
                       const dateKey = date.toLocaleDateString('en-US', {
@@ -2164,84 +2341,86 @@ export default function EventFeed({
                     },
                     {} as Record<string, { date: Date; events: DatedInitialEvent[] }>
                   )
-              )
-                .sort(([, a], [, b]) => a.date.getTime() - b.date.getTime())
-                .map(([dateKey, { date, events: groupEvents }]) => {
-                  const today = new Date();
-                  const tomorrow = new Date(today);
-                  tomorrow.setDate(tomorrow.getDate() + 1);
+                )
+                  .sort(([, a], [, b]) => a.date.getTime() - b.date.getTime())
+                  .map(([dateKey, { date, events: groupEvents }]) => {
+                    const today = new Date();
+                    const tomorrow = new Date(today);
+                    tomorrow.setDate(tomorrow.getDate() + 1);
 
-                  let headerText = dateKey;
-                  if (date.toDateString() === today.toDateString()) {
-                    headerText = `Today, ${date.toLocaleDateString('en-US', {
-                      month: 'short',
-                      day: 'numeric',
-                    })}`;
-                  } else if (date.toDateString() === tomorrow.toDateString()) {
-                    headerText = `Tomorrow, ${date.toLocaleDateString('en-US', {
-                      month: 'short',
-                      day: 'numeric',
-                    })}`;
-                  }
+                    let headerText = dateKey;
+                    if (date.toDateString() === today.toDateString()) {
+                      headerText = `Today, ${date.toLocaleDateString('en-US', {
+                        month: 'short',
+                        day: 'numeric',
+                      })}`;
+                    } else if (date.toDateString() === tomorrow.toDateString()) {
+                      headerText = `Tomorrow, ${date.toLocaleDateString('en-US', {
+                        month: 'short',
+                        day: 'numeric',
+                      })}`;
+                    }
 
-                  // Sort by score within each day
-                  const sortedGroupEvents = [...groupEvents].sort(
-                    (a, b) => (b.score ?? 0) - (a.score ?? 0)
-                  );
+                    // Sort by ranking (pre-sorted by server) within each day
+                    const sortedGroupEvents = [...groupEvents].sort(
+                      (a, b) => (rankingMap.get(a.id) || 999) - (rankingMap.get(b.id) || 999)
+                    );
 
-                  return (
-                    <div key={dateKey} className="flex flex-col">
-                      <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100 sticky top-0 bg-white dark:bg-gray-900 sm:border sm:border-b-0 sm:border-gray-200 dark:sm:border-gray-700 sm:rounded-t-lg pt-3 pb-2 px-3 sm:px-4 z-10">
-                        {headerText}
-                      </h2>
-                      <div className="flex flex-col bg-white dark:bg-gray-900 sm:rounded-b-lg sm:shadow-sm sm:border sm:border-gray-200 dark:sm:border-gray-700 ">
-                        {sortedGroupEvents.map((event) => (
-                          <EventCard
-                            key={event.id}
-                            event={{
-                              ...event,
-                              sourceId: event.sourceId,
-                              location: event.location ?? null,
-                              organizer: event.organizer ?? null,
-                              price: event.price ?? null,
-                              imageUrl: event.imageUrl ?? null,
-                              timeUnknown: event.timeUnknown ?? false,
-                              recurringType: event.recurringType ?? null,
-                            }}
-                            onHide={handleHideEvent}
-                            onBlockHost={handleBlockHost}
-                            onSignalCapture={handleSignalCapture}
-                            isNewlyHidden={false}
-                            hideBorder
-                            isFavorited={favoritedEventIds.includes(event.id)}
-                            favoriteCount={event.favoriteCount ?? 0}
-                            onToggleFavorite={handleToggleFavorite}
-                            isTagFilterActive={false}
-                            isCurated={curatedEventIds.has(event.id)}
-                            onCurate={handleOpenCurateModal}
-                            onUncurate={handleUncurate}
-                            isLoggedIn={isLoggedIn}
-                            displayMode="full"
-                            eventScore={event.score}
-                            isMobileExpanded={mobileExpandedIds.has(event.id)}
-                            onMobileExpand={(id) =>
-                              setMobileExpandedIds((prev) => {
-                                const next = new Set(prev);
-                                if (next.has(id)) {
-                                  next.delete(id);
-                                } else {
-                                  next.add(id);
-                                }
-                                return next;
-                              })
-                            }
-                            onOpenModal={handleOpenEventModal}
-                          />
-                        ))}
+                    return (
+                      <div key={dateKey} className="flex flex-col">
+                        <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100 sticky top-0 bg-white dark:bg-gray-900 sm:border sm:border-b-0 sm:border-gray-200 dark:sm:border-gray-700 sm:rounded-t-lg pt-3 pb-2 px-3 sm:px-4 z-10">
+                          {headerText}
+                        </h2>
+                        <div className="flex flex-col bg-white dark:bg-gray-900 sm:rounded-b-lg sm:shadow-sm sm:border sm:border-gray-200 dark:sm:border-gray-700 ">
+                          {sortedGroupEvents.map((event) => (
+                            <EventCard
+                              key={event.id}
+                              event={{
+                                ...event,
+                                sourceId: event.sourceId,
+                                location: event.location ?? null,
+                                organizer: event.organizer ?? null,
+                                price: event.price ?? null,
+                                imageUrl: event.imageUrl ?? null,
+                                timeUnknown: event.timeUnknown ?? false,
+                                recurringType: event.recurringType ?? null,
+                              }}
+                              onHide={handleHideEvent}
+                              onBlockHost={handleBlockHost}
+                              onSignalCapture={handleSignalCapture}
+                              isNewlyHidden={false}
+                              hideBorder
+                              isFavorited={favoritedEventIds.includes(event.id)}
+                              favoriteCount={event.favoriteCount ?? 0}
+                              onToggleFavorite={handleToggleFavorite}
+                              isTagFilterActive={false}
+                              isCurated={curatedEventIds.has(event.id)}
+                              onCurate={handleOpenCurateModal}
+                              onUncurate={handleUncurate}
+                              isLoggedIn={isLoggedIn}
+                              displayMode="full"
+                              eventScore={event.score}
+                              ranking={rankingMap.get(event.id)}
+                              isMobileExpanded={mobileExpandedIds.has(event.id)}
+                              onMobileExpand={(id) =>
+                                setMobileExpandedIds((prev) => {
+                                  const next = new Set(prev);
+                                  if (next.has(id)) {
+                                    next.delete(id);
+                                  } else {
+                                    next.add(id);
+                                  }
+                                  return next;
+                                })
+                              }
+                              onOpenModal={handleOpenEventModal}
+                            />
+                          ))}
+                        </div>
                       </div>
-                    </div>
-                  );
-                })}
+                    );
+                  });
+              })()}
             </div>
           )}
 
@@ -2536,6 +2715,9 @@ export default function EventFeed({
         }}
         onConfirm={handleCurate}
         eventTitle={curateModalEventTitle}
+        canBoostScore={canBoostScore}
+        currentScores={curateModalScores}
+        existingBoost={curateModalExistingBoost}
       />
 
       {selectedEventForModal && (
@@ -2550,6 +2732,14 @@ export default function EventFeed({
       )}
 
       <SaveFeedModal isOpen={showSaveModal} onClose={() => setShowSaveModal(false)} />
+
+      <Top30SubscribeModal
+        isOpen={top30SubscribeModalOpen}
+        onClose={() => setTop30SubscribeModalOpen(false)}
+        isLoggedIn={isLoggedIn}
+        currentSubscription={top30Subscription}
+        onSubscriptionChange={setTop30Subscription}
+      />
 
       {/* Scroll to top button */}
       <div

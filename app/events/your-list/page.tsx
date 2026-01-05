@@ -2,7 +2,7 @@ import { unstable_cache } from 'next/cache';
 import EventPageLayout from '@/components/EventPageLayout';
 import type { Metadata } from 'next';
 import { queryFilteredEvents, getEventMetadata, queryTop30Events } from '@/lib/db/queries/events';
-import type { DbEvent, EventMetadata } from '@/lib/db/queries/events';
+import type { DbEvent, EventMetadata, Top30EventsByCategory } from '@/lib/db/queries/events';
 
 export const metadata: Metadata = {
   title: 'Your List',
@@ -45,7 +45,7 @@ const getTop30Events = unstable_cache(
 export default async function YourListPage() {
   let initialEvents: DbEvent[] = [];
   let initialTotalCount = 0;
-  let top30Events: DbEvent[] = [];
+  let top30Events: Top30EventsByCategory = { overall: [], weird: [], social: [] };
   let metadata: EventMetadata = {
     availableTags: [],
     availableLocations: [],

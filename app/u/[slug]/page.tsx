@@ -6,6 +6,7 @@ import { db } from '@/lib/db';
 import { curatorProfiles, curatedEvents, events } from '@/lib/db/schema';
 import { eq, desc } from 'drizzle-orm';
 import { createClient } from '@/lib/supabase/server';
+import { isSuperAdmin } from '@/lib/utils/superAdmin';
 import Header from '@/components/Header';
 import CuratorProfileCard from '@/components/CuratorProfileCard';
 import CuratedEventList from '@/components/CuratedEventList';
@@ -60,8 +61,11 @@ export default async function CuratorProfilePage({ params }: PageProps) {
   // Check if this is the owner viewing their own profile
   const isOwner = user?.id === profile.userId;
 
-  // If profile is private and viewer is not the owner, show not found
-  if (!profile.isPublic && !isOwner) {
+  // Check if viewer is super admin
+  const viewerIsSuperAdmin = isSuperAdmin(user?.id);
+
+  // If profile is private and viewer is not the owner (and not super admin), show not found
+  if (!profile.isPublic && !isOwner && !viewerIsSuperAdmin) {
     notFound();
   }
 
@@ -117,6 +121,16 @@ export default async function CuratorProfilePage({ params }: PageProps) {
               </p>
             </div>
           )}
+
+          {/* Verified curator banner for verified users viewing their own profile */}
+          {isOwner && profile.isVerified && (
+            <div className="mb-6 px-4 py-3 bg-brand-50 dark:bg-brand-900/20 border border-brand-200 dark:border-brand-800 rounded-lg">
+              <p className="text-sm text-brand-800 dark:text-brand-200">
+                You&apos;re a verified curator! Your curations can now boost event scores.
+              </p>
+            </div>
+          )}
+
           <CuratorProfileCard
             displayName={profile.displayName}
             title={profile.title}
@@ -124,6 +138,9 @@ export default async function CuratorProfilePage({ params }: PageProps) {
             curationCount={curations.length}
             showProfilePicture={profile.showProfilePicture}
             avatarUrl={profile.avatarUrl}
+            isVerified={profile.isVerified}
+            showVerifyToggle={viewerIsSuperAdmin}
+            curatorUserId={profile.userId}
           />
           <CuratedEventList curations={curations} />
         </div>

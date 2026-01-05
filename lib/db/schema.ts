@@ -48,6 +48,10 @@ export const events = pgTable(
     scoreUnique: integer('score_unique'), // 0-10: How cool/novel is this event
     scoreMagnitude: integer('score_magnitude'), // 0-10: Production scale/talent level
     scoreReason: text('score_reason'), // One-sentence AI reasoning for the score
+    scoreOverride: jsonb('score_override'), // Admin overrides and curator boosts - see ScoreOverride type
+    // Secondary score dimensions (1-10, for future "Top 30" lists, not used for display/filtering)
+    scoreAshevilleWeird: integer('score_asheville_weird'), // 1-10: How "Asheville weird" is this event
+    scoreSocial: integer('score_social'), // 1-10: How good is this for meeting new people
     // Event verification (via Jina Reader API)
     lastVerifiedAt: timestamp('last_verified_at', { withTimezone: true }), // When event source URL was last checked
   },
@@ -149,6 +153,10 @@ export const newsletterSettings = pgTable('newsletter_settings', {
   filters: jsonb('filters'), // Stored newsletter filter settings (JSON)
   curatorUserIds: uuid('curator_user_ids').array().default([]), // Curators to include
   lastSentAt: timestamp('last_sent_at', { withTimezone: true }),
+  // Top 30 notification preferences
+  top30Subscription: text('top30_subscription').default('none').notNull(), // 'none' | 'live' | 'weekly'
+  top30LastNotifiedAt: timestamp('top30_last_notified_at', { withTimezone: true }),
+  top30LastEventIds: text('top30_last_event_ids').array().default([]), // Previous top 30 IDs for change detection
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
 });
@@ -165,6 +173,10 @@ export const curatorProfiles = pgTable(
     isPublic: boolean('is_public').default(false).notNull(),
     showProfilePicture: boolean('show_profile_picture').default(false).notNull(),
     avatarUrl: text('avatar_url'), // stored from auth provider when showProfilePicture is enabled
+    // Verified curator status (super admin controlled)
+    isVerified: boolean('is_verified').default(false).notNull(),
+    verifiedAt: timestamp('verified_at', { withTimezone: true }),
+    verifiedBy: uuid('verified_by'), // User ID of super admin who verified
     createdAt: timestamp('created_at').defaultNow().notNull(),
     updatedAt: timestamp('updated_at').defaultNow().notNull(),
   },
@@ -185,6 +197,7 @@ export const curatedEvents = pgTable(
       .notNull()
       .references(() => events.id, { onDelete: 'cascade' }),
     note: text('note'), // nullable, max 280 chars
+    scoreBoost: jsonb('score_boost'), // { rarity?: number, unique?: number, magnitude?: number } - each -2 to +2
     curatedAt: timestamp('curated_at').defaultNow().notNull(),
   },
   (table) => ({

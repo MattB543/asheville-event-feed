@@ -7,7 +7,7 @@
     },
     {
       "path": "/api/cron/verify",
-      "schedule": "5 */6 * * *"
+      "schedule": "5 */3 * * *"
     },
     {
       "path": "/api/cron/ai",
@@ -24,6 +24,10 @@
     {
       "path": "/api/cron/email-digest",
       "schedule": "0 12 * * *"
+    },
+    {
+      "path": "/api/cron/top30-weekly",
+      "schedule": "0 15 * * 5"
     }
   ]
 }

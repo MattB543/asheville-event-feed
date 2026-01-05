@@ -250,7 +250,8 @@ Events curated by users with optional notes.
 | Route                    | Schedule        | Purpose                                             |
 | ------------------------ | --------------- | --------------------------------------------------- |
 | `/api/cron/scrape`       | Every 6h at :00 | Scrape all sources, upsert to DB, rule-based dedup  |
-| `/api/cron/ai`           | Every 6h at :10 | AI tagging, summaries, embeddings, image generation |
+| `/api/cron/verify`       | Every 3h at :05 | Verify events missing data via Jina + AI (30/run)   |
+| `/api/cron/ai`           | Every 6h at :20 | AI tagging, summaries, embeddings, image generation |
 | `/api/cron/cleanup`      | 8x daily        | Dead events, non-NC, cancelled, duplicates          |
 | `/api/cron/dedup`        | Daily 5 AM ET   | AI semantic deduplication                           |
 | `/api/cron/email-digest` | Daily 7 AM ET   | Send daily/weekly email digests to subscribers      |
@@ -512,7 +513,8 @@ FB_XS=
   "fluid": true,
   "crons": [
     { "path": "/api/cron/scrape", "schedule": "0 */6 * * *" },
-    { "path": "/api/cron/ai", "schedule": "10 */6 * * *" },
+    { "path": "/api/cron/verify", "schedule": "5 */3 * * *" },
+    { "path": "/api/cron/ai", "schedule": "20 */6 * * *" },
     { "path": "/api/cron/cleanup", "schedule": "30 1,4,7,10,13,16,19,22 * * *" },
     { "path": "/api/cron/dedup", "schedule": "0 10 * * *" },
     { "path": "/api/cron/email-digest", "schedule": "0 12 * * *" }
@@ -520,12 +522,13 @@ FB_XS=
 }
 ```
 
-- **Fluid Compute**: Enabled for longer function execution (up to 800s for scrape/ai jobs)
-- **Cron Schedule**: Scrape at :00, AI processing at :10, cleanup 8x daily, dedup daily at 5 AM ET, email digests daily at 7 AM ET
+- **Fluid Compute**: Enabled for longer function execution (up to 800s for scrape/ai/verify jobs)
+- **Cron Schedule**: Scrape at :00, verify at :05 (every 3h), AI processing at :20, cleanup 8x daily, dedup daily at 5 AM ET, email digests daily at 7 AM ET
 
 ### Max Duration
 
 - `/api/cron/scrape`: 800s (13+ minutes, requires Fluid Compute)
+- `/api/cron/verify`: 800s (verifies up to 30 events missing data)
 - `/api/cron/ai`: 800s (13+ minutes, requires Fluid Compute)
 - `/api/cron/cleanup`: 300s (5 minutes)
 - `/api/cron/dedup`: 300s (5 minutes)

@@ -50,6 +50,8 @@ export interface Event {
   scoreUnique?: number | null;
   scoreMagnitude?: number | null;
   scoreReason?: string | null;
+  scoreAshevilleWeird?: number | null;
+  scoreSocial?: number | null;
 }
 
 // Metadata for filter dropdowns

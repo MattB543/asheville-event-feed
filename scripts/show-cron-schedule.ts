@@ -10,7 +10,7 @@
 
 // Import types from the API
 import type { CronStatusResponse } from '@/app/api/cron-status/route';
-import { formatDateEastern } from '@/lib/utils/parsers';
+import { formatDateEastern } from '@/lib/utils/timezone';
 
 // Convert UTC cron schedule to EST display times
 function getEstTimes(schedule: string): string {

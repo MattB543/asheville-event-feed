@@ -14,6 +14,7 @@
 
 import { type ScrapedEvent } from './types';
 import { fetchWithRetry } from '@/lib/utils/retry';
+import { stripHtml } from '@/lib/utils/parsers';
 import { debugSave } from './base';
 
 // Config
@@ -83,28 +84,6 @@ interface SquarespaceCalendarResponse {
 // ============================================================================
 // HELPER FUNCTIONS
 // ============================================================================
-
-/**
- * Strip HTML tags and decode entities from description
- */
-function stripHtml(html: string): string {
-  return html
-    .replace(/<[^>]*>/g, ' ')
-    .replace(/&nbsp;/g, ' ')
-    .replace(/&amp;/g, '&')
-    .replace(/&lt;/g, '<')
-    .replace(/&gt;/g, '>')
-    .replace(/&quot;/g, '"')
-    .replace(/&#39;/g, "'")
-    .replace(/&rsquo;/g, "'")
-    .replace(/&lsquo;/g, "'")
-    .replace(/&rdquo;/g, '"')
-    .replace(/&ldquo;/g, '"')
-    .replace(/&mdash;/g, '—')
-    .replace(/&ndash;/g, '–')
-    .replace(/\s+/g, ' ')
-    .trim();
-}
 
 /**
  * Extract price from event body/description

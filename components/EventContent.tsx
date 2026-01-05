@@ -141,7 +141,7 @@ export default function EventContent({
   };
 
   const formatPriceDisplay = (price: string | null | undefined): string => {
-    if (!price || price === 'Unknown') return 'Price TBD';
+    if (!price || price === 'Unknown') return '$ Unknown';
     if (price.toLowerCase() === 'free') return 'Free';
     const match = price.match(/\$?([\d.]+)/);
     if (match) {

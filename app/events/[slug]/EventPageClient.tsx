@@ -132,9 +132,9 @@ export default function EventPageClient({
     return counts;
   });
 
-  // Helper to capture signals for personalization
+  // Helper to capture signals for personalization (only 'favorite' signals now)
   const captureSignal = useCallback(
-    async (eventId: string, signalType: 'favorite' | 'calendar' | 'share' | 'viewSource') => {
+    async (eventId: string, signalType: 'favorite') => {
       if (authLoading) {
         await new Promise((resolve) => setTimeout(resolve, 500));
       }
@@ -189,14 +189,6 @@ export default function EventPageClient({
       setFavoriteCount((prev) => (!newIsFavorited ? prev + 1 : Math.max(0, prev - 1)));
     }
   };
-
-  // Handler for capturing signals from EventContent
-  const handleSignalCapture = useCallback(
-    (eventId: string, signalType: 'calendar' | 'share' | 'viewSource') => {
-      void captureSignal(eventId, signalType);
-    },
-    [captureSignal]
-  );
 
   // Handler for toggling favorites on similar events
   const handleToggleSimilarFavorite = async (eventId: string) => {
@@ -260,14 +252,6 @@ export default function EventPageClient({
     }
   };
 
-  // Handler for capturing signals from similar event cards
-  const handleSimilarEventSignal = useCallback(
-    (eventId: string, signalType: 'calendar' | 'share' | 'viewSource') => {
-      void captureSignal(eventId, signalType);
-    },
-    [captureSignal]
-  );
-
   // Handler to open similar event in modal
   const handleOpenSimilarEventModal = useCallback((eventData: ModalEvent) => {
     setSelectedSimilarEvent(eventData);
@@ -296,7 +280,6 @@ export default function EventPageClient({
           isFavorited={isFavorited}
           favoriteCount={favoriteCount}
           onToggleFavorite={(id) => void handleToggleFavorite(id)}
-          onSignalCapture={handleSignalCapture}
           showTitle={true}
           className="mb-8"
         />
@@ -328,7 +311,6 @@ export default function EventPageClient({
             favoriteIds={similarFavorites}
             favoriteCounts={similarFavoriteCounts}
             onOpenEventModal={handleOpenSimilarEventModal}
-            onSignalCapture={handleSimilarEventSignal}
             showBackLink={true}
           />
         )}

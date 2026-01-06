@@ -5,9 +5,10 @@ import { userPreferences } from '@/lib/db/schema';
 import { eq } from 'drizzle-orm';
 import { isRecord, isString } from '@/lib/utils/validation';
 
+// Note: New signals are only 'favorite', but legacy signals may have other types
 interface PositiveSignal {
   eventId: string;
-  signalType: 'favorite' | 'calendar' | 'share' | 'viewSource';
+  signalType: 'favorite' | 'calendar' | 'share' | 'viewSource'; // Legacy support
   timestamp: string;
   active: boolean;
 }

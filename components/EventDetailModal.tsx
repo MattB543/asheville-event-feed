@@ -48,7 +48,6 @@ interface EventDetailModalProps {
   isFavorited: boolean;
   favoriteCount: number;
   onToggleFavorite: (eventId: string) => void;
-  onSignalCapture?: (eventId: string, signalType: 'calendar' | 'share' | 'viewSource') => void;
 }
 
 export default function EventDetailModal({
@@ -58,7 +57,6 @@ export default function EventDetailModal({
   isFavorited,
   favoriteCount,
   onToggleFavorite,
-  onSignalCapture,
 }: EventDetailModalProps) {
   const didPushStateRef = useRef(false);
   const modalRef = useRef<HTMLDivElement>(null);
@@ -248,7 +246,6 @@ export default function EventDetailModal({
               isFavorited={isFavorited}
               favoriteCount={favoriteCount}
               onToggleFavorite={onToggleFavorite}
-              onSignalCapture={onSignalCapture}
               showTitle={true}
             />
 

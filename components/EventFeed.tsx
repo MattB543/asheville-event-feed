@@ -1151,12 +1151,9 @@ export default function EventFeed({
     setSelectedZips([]);
   }, []);
 
-  // Helper to capture signal
+  // Helper to capture signal (only 'favorite' and 'hide' signals now)
   const captureSignal = useCallback(
-    async (
-      eventId: string,
-      signalType: 'favorite' | 'calendar' | 'share' | 'viewSource' | 'hide'
-    ): Promise<boolean> => {
+    async (eventId: string, signalType: 'favorite' | 'hide'): Promise<boolean> => {
       console.log('[Signal] captureSignal called:', {
         eventId,
         signalType,
@@ -1202,14 +1199,6 @@ export default function EventFeed({
       }
     },
     [isLoggedIn, authLoading, user?.id]
-  );
-
-  // Handler for capturing calendar/share/viewSource signals
-  const handleSignalCapture = useCallback(
-    (eventId: string, signalType: 'calendar' | 'share' | 'viewSource') => {
-      void captureSignal(eventId, signalType);
-    },
-    [captureSignal]
   );
 
   // Hide event (by title + organizer fingerprint)
@@ -1653,7 +1642,6 @@ export default function EventFeed({
                           }}
                           onHide={handleHideEvent}
                           onBlockHost={handleBlockHost}
-                          onSignalCapture={handleSignalCapture}
                           isNewlyHidden={false}
                           hideBorder
                           isFavorited={true}
@@ -1811,7 +1799,6 @@ export default function EventFeed({
                           }}
                           onHide={handleHideEvent}
                           onBlockHost={handleBlockHost}
-                          onSignalCapture={handleSignalCapture}
                           isNewlyHidden={false}
                           hideBorder
                           isFavorited={favoritedEventIds.includes(event.id)}
@@ -1918,7 +1905,6 @@ export default function EventFeed({
                                   }}
                                   onHide={handleHideEvent}
                                   onBlockHost={handleBlockHost}
-                                  onSignalCapture={handleSignalCapture}
                                   isNewlyHidden={false}
                                   hideBorder
                                   isFavorited={favoritedEventIds.includes(event.id)}
@@ -2021,7 +2007,6 @@ export default function EventFeed({
                       }}
                       onHide={handleHideEvent}
                       onBlockHost={handleBlockHost}
-                      onSignalCapture={handleSignalCapture}
                       isNewlyHidden={false}
                       hideBorder
                       isFavorited={true}
@@ -2223,7 +2208,6 @@ export default function EventFeed({
                     }}
                     onHide={handleHideEvent}
                     onBlockHost={handleBlockHost}
-                    onSignalCapture={handleSignalCapture}
                     isNewlyHidden={false}
                     hideBorder
                     isFavorited={favoritedEventIds.includes(event.id)}
@@ -2387,7 +2371,6 @@ export default function EventFeed({
                               }}
                               onHide={handleHideEvent}
                               onBlockHost={handleBlockHost}
-                              onSignalCapture={handleSignalCapture}
                               isNewlyHidden={false}
                               hideBorder
                               isFavorited={favoritedEventIds.includes(event.id)}
@@ -2580,7 +2563,6 @@ export default function EventFeed({
                             }}
                             onHide={handleHideEvent}
                             onBlockHost={handleBlockHost}
-                            onSignalCapture={handleSignalCapture}
                             isNewlyHidden={isNewlyHidden}
                             hideBorder
                             isFavorited={favoritedEventIds.includes(event.id)}

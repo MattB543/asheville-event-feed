@@ -4,9 +4,10 @@ import { db } from '@/lib/db';
 import { userPreferences, events } from '@/lib/db/schema';
 import { eq, inArray } from 'drizzle-orm';
 
+// Note: New signals are only 'favorite', but legacy signals may have other types
 interface PositiveSignal {
   eventId: string;
-  signalType: 'favorite' | 'calendar' | 'share' | 'viewSource';
+  signalType: 'favorite' | 'calendar' | 'share' | 'viewSource'; // Legacy support
   timestamp: string;
   active: boolean;
 }
@@ -27,7 +28,7 @@ interface TasteEvent {
     url: string;
     imageUrl: string | null;
   };
-  signalType?: 'favorite' | 'calendar' | 'share' | 'viewSource' | 'hide';
+  signalType?: 'favorite' | 'calendar' | 'share' | 'viewSource' | 'hide'; // Legacy support for old signal types
   timestamp: string;
   active: boolean;
 }

@@ -52,7 +52,6 @@ interface SimilarEventsSectionProps {
   favoriteIds: Set<string>;
   favoriteCounts: Record<string, number>;
   onOpenEventModal?: (event: ModalEvent) => void;
-  onSignalCapture?: (eventId: string, signalType: 'calendar' | 'share' | 'viewSource') => void;
   showBackLink?: boolean;
   navigateOnSimilarClick?: boolean; // If true, navigate to page instead of opening modal
 }
@@ -70,7 +69,6 @@ export default function SimilarEventsSection({
   favoriteIds,
   favoriteCounts,
   onOpenEventModal,
-  onSignalCapture,
   showBackLink = true,
   navigateOnSimilarClick = false,
 }: SimilarEventsSectionProps) {
@@ -266,7 +264,6 @@ export default function SimilarEventsSection({
                       isFavorited={favoriteIds.has(similarEvent.id)}
                       favoriteCount={favoriteCounts[similarEvent.id] || 0}
                       onToggleFavorite={onToggleFavorite}
-                      onSignalCapture={onSignalCapture}
                       hideBorder={
                         groupIndex === groupedSimilarEvents.length - 1 &&
                         index === groupEvents.length - 1
@@ -322,7 +319,6 @@ export default function SimilarEventsSection({
                 isFavorited={favoriteIds.has(similarEvent.id)}
                 favoriteCount={favoriteCounts[similarEvent.id] || 0}
                 onToggleFavorite={onToggleFavorite}
-                onSignalCapture={onSignalCapture}
                 hideBorder={index === sortedSimilarEvents.length - 1}
                 showRecurringBadge={similarEvent.isRecurring}
                 isMobileExpanded={mobileExpandedIds.has(similarEvent.id)}

@@ -29,7 +29,7 @@ interface TasteEvent {
     url: string;
     imageUrl: string | null;
   };
-  signalType?: 'favorite' | 'calendar' | 'share' | 'viewSource' | 'hide';
+  signalType?: 'favorite' | 'calendar' | 'share' | 'viewSource' | 'hide'; // Legacy support for old signal types
   timestamp: string;
   active: boolean;
 }

@@ -40,7 +40,6 @@ interface EventContentProps {
   isFavorited: boolean;
   favoriteCount: number;
   onToggleFavorite: (eventId: string) => void;
-  onSignalCapture?: (eventId: string, signalType: 'calendar' | 'share' | 'viewSource') => void;
   showTitle?: boolean;
   className?: string;
 }
@@ -51,7 +50,6 @@ export default function EventContent({
   isFavorited,
   favoriteCount,
   onToggleFavorite,
-  onSignalCapture,
   showTitle = true,
   className = '',
 }: EventContentProps) {
@@ -90,7 +88,6 @@ export default function EventContent({
       }),
       '_blank'
     );
-    onSignalCapture?.(event.id, 'calendar');
     setCalendarMenuOpen(false);
   };
 
@@ -102,7 +99,6 @@ export default function EventContent({
       location: event.location ?? null,
       url: event.url,
     });
-    onSignalCapture?.(event.id, 'calendar');
     setCalendarMenuOpen(false);
   };
 
@@ -114,7 +110,6 @@ export default function EventContent({
 
   const handleCopyLink = async () => {
     await navigator.clipboard.writeText(eventPageUrl);
-    onSignalCapture?.(event.id, 'share');
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -418,7 +413,6 @@ export default function EventContent({
               href={getSourceUrl()}
               target="_blank"
               rel="noopener noreferrer"
-              onClick={() => onSignalCapture?.(event.id, 'viewSource')}
               className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-400 rounded-lg border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
             >
               <ExternalLink size={15} />

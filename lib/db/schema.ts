@@ -129,7 +129,8 @@ export const userPreferences = pgTable('user_preferences', {
   emailDigestTags: text('email_digest_tags').array().default([]), // Optional: only include events with these tags
 
   // Semantic personalization (Phase 1)
-  // Array of {eventId: string, signalType: 'favorite' | 'calendar' | 'share' | 'viewSource', timestamp: string (ISO), active: boolean}
+  // Array of {eventId: string, signalType: 'favorite', timestamp: string (ISO), active: boolean}
+  // Note: Legacy signals may have 'calendar' | 'share' | 'viewSource' types, but new signals are only 'favorite'
   positiveSignals: jsonb('positive_signals').default([]),
   // Array of {eventId: string, timestamp: string (ISO), active: boolean}
   negativeSignals: jsonb('negative_signals').default([]),

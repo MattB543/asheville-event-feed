@@ -5,8 +5,8 @@ import { userPreferences } from '@/lib/db/schema';
 import { eq, sql } from 'drizzle-orm';
 import { isRecord, isString } from '@/lib/utils/validation';
 
-// Signal types
-type PositiveSignalType = 'favorite' | 'calendar' | 'share' | 'viewSource';
+// Signal types - only 'favorite' for positive signals (simplified from calendar/share/viewSource)
+type PositiveSignalType = 'favorite';
 type SignalType = PositiveSignalType | 'hide';
 
 interface PositiveSignal {
@@ -22,7 +22,7 @@ interface NegativeSignal {
   active: boolean;
 }
 
-const VALID_SIGNAL_TYPES: SignalType[] = ['favorite', 'calendar', 'share', 'viewSource', 'hide'];
+const VALID_SIGNAL_TYPES: SignalType[] = ['favorite', 'hide'];
 
 function parseSignalRequest(value: unknown): { eventId: string; signalType: SignalType } | null {
   if (!isRecord(value)) return null;

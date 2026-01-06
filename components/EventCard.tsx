@@ -130,7 +130,6 @@ interface EventCardProps {
   };
   onHide: (title: string, organizer: string | null, eventId?: string) => void;
   onBlockHost: (host: string) => void;
-  onSignalCapture?: (eventId: string, signalType: 'calendar' | 'share' | 'viewSource') => void;
   isNewlyHidden?: boolean;
   hideBorder?: boolean;
   isFavorited: boolean;
@@ -187,7 +186,6 @@ export default function EventCard({
   event,
   onHide,
   onBlockHost,
-  onSignalCapture,
   isNewlyHidden = false,
   isFavorited,
   favoriteCount,
@@ -240,13 +238,11 @@ export default function EventCard({
 
   const handleAddToAppleCalendar = () => {
     downloadEventAsICS(event);
-    onSignalCapture?.(event.id, 'calendar');
     setCalendarMenuOpen(false);
   };
 
   const handleAddToGoogleCalendar = () => {
     window.open(generateCalendarUrlForEvent(event), '_blank');
-    onSignalCapture?.(event.id, 'calendar');
     setCalendarMenuOpen(false);
   };
 
@@ -649,7 +645,6 @@ export default function EventCard({
                       event.id
                     )}`;
                     void navigator.clipboard.writeText(shareUrl);
-                    onSignalCapture?.(event.id, 'share');
                     setCopied(true);
                     setTimeout(() => setCopied(false), 2000);
                   }}
@@ -722,10 +717,7 @@ export default function EventCard({
                       target="_blank"
                       rel="noopener noreferrer"
                       className="w-full flex items-center gap-2 px-3 py-2 text-xs text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
-                      onClick={() => {
-                        onSignalCapture?.(event.id, 'viewSource');
-                        setMoreMenuOpen(false);
-                      }}
+                      onClick={() => setMoreMenuOpen(false)}
                     >
                       <ExternalLink size={14} />
                       Open source
@@ -1202,7 +1194,6 @@ export default function EventCard({
                     event.id
                   )}`;
                   void navigator.clipboard.writeText(eventUrl);
-                  onSignalCapture?.(event.id, 'share');
                   setCopied(true);
                   setTimeout(() => setCopied(false), 2000);
                 }}
@@ -1276,10 +1267,7 @@ export default function EventCard({
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-full flex items-center gap-2 px-3 py-2 text-xs text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
-                    onClick={() => {
-                      onSignalCapture?.(event.id, 'viewSource');
-                      setMoreMenuOpen(false);
-                    }}
+                    onClick={() => setMoreMenuOpen(false)}
                   >
                     <ExternalLink size={14} />
                     Open source

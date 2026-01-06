@@ -11,8 +11,8 @@ import { eq, inArray, sql } from 'drizzle-orm';
 import { cosineSimilarity } from './embedding';
 import { findSimilarByEmbedding, type SimilarEvent } from '@/lib/db/similaritySearch';
 
-// Signal types from Phase 1
-export type PositiveSignalType = 'favorite' | 'calendar' | 'share' | 'viewSource';
+// Signal types - only 'favorite' for positive signals (simplified from calendar/share/viewSource)
+export type PositiveSignalType = 'favorite';
 
 export interface PositiveSignal {
   eventId: string;

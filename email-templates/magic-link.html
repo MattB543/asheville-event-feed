@@ -87,7 +87,7 @@
                   <tr>
                     <td align="center" style="padding: 8px 0 24px 0">
                       <a
-                        href="{{ .ConfirmationURL }}"
+                        href="{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=email"
                         target="_blank"
                         style="
                           display: inline-block;
@@ -133,7 +133,7 @@
                     border: 1px solid #e5e7eb;
                   "
                 >
-                  {{ .ConfirmationURL }}
+                  {{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=email
                 </p>
               </td>
             </tr>

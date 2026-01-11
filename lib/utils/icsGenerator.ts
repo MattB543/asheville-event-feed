@@ -213,11 +213,17 @@ export function generateTop30ICS(
       `DESCRIPTION:${escapeICSText(description.trim())}`,
       `LOCATION:${escapeICSText(event.location || 'Asheville, NC')}`,
       `URL:${eventUrl}`,
-      // 2-hour reminder
+      // 24-hour reminder
       'BEGIN:VALARM',
       'ACTION:DISPLAY',
-      `DESCRIPTION:${escapeICSText(`Reminder: ${event.title}`)}`,
-      'TRIGGER:-PT2H',
+      `DESCRIPTION:${escapeICSText(`In 24 hrs: ${event.title} (from AVL GO)`)}`,
+      'TRIGGER:-P1D',
+      'END:VALARM',
+      // 1-hour reminder
+      'BEGIN:VALARM',
+      'ACTION:DISPLAY',
+      `DESCRIPTION:${escapeICSText(`In 1 hr: ${event.title} (from AVL GO)`)}`,
+      'TRIGGER:-PT1H',
       'END:VALARM',
       'END:VEVENT'
     );

@@ -83,17 +83,18 @@ export default function HomePage() {
           </p>
           <Link
             href="/events/top30"
-            className="btn-shimmer inline-flex items-center gap-2.5 bg-brand-600 hover:bg-brand-700 text-white font-semibold rounded-full px-8 py-4 transition-colors cursor-pointer shadow-lg shadow-brand-600/25 hover:shadow-brand-600/40"
+            className="btn-shimmer inline-flex items-center gap-2.5 bg-brand-600 hover:bg-brand-700 text-white font-semibold rounded-full px-12 py-4 transition-colors cursor-pointer shadow-lg shadow-brand-600/25 hover:shadow-brand-600/40"
           >
             <Calendar className="w-5 h-5" />
             View Top Events
           </Link>
-          <div className="mt-4">
+          <div className="mt-2">
             <Link
               href="/events?dateFilter=today"
-              className="text-sm text-gray-600 dark:text-gray-400 hover:text-brand-600 dark:hover:text-brand-400 underline underline-offset-2 transition-colors"
+              className="inline-flex items-center gap-1 text-base font-medium text-brand-600 hover:text-brand-700 transition-colors"
             >
-              View today&apos;s events
+              or view today&apos;s events
+              <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
         </div>

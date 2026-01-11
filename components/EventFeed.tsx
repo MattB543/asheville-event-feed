@@ -26,13 +26,21 @@ const CurateModal = dynamic(() => import('./CurateModal'), { ssr: false });
 const EventDetailModal = dynamic(() => import('./EventDetailModal'), { ssr: false });
 // SaveFeedModal is not lazy loaded to avoid delay when showSavePrompt is in URL
 import SaveFeedModal from './SaveFeedModal';
-import Top30SubscribeBanner from './Top30SubscribeBanner';
 import Top30SubscribeModal from './Top30SubscribeModal';
 import Top30CalendarModal from './Top30CalendarModal';
 import { type Top30SubscriptionType } from '@/lib/newsletter/types';
 import { DEFAULT_BLOCKED_KEYWORDS } from '@/lib/config/defaultFilters';
 import { useToast } from './ui/Toast';
-import { ArrowDownIcon, ArrowUpIcon, ArrowRight, Loader2Icon, Sparkles } from 'lucide-react';
+import {
+  ArrowDownIcon,
+  ArrowUpIcon,
+  ArrowRight,
+  Loader2Icon,
+  Sparkles,
+  Bell,
+  CalendarPlus2,
+  ChevronDown,
+} from 'lucide-react';
 import Link from 'next/link';
 import { getZipName } from '@/lib/config/zipNames';
 import { usePreferenceSync } from '@/lib/hooks/usePreferenceSync';
@@ -2046,18 +2054,27 @@ export default function EventFeed({
       {/* Top 30 Feed */}
       {activeTab === 'top30' && (
         <>
-          {/* Page Title */}
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4 px-3 sm:px-0">
-            Top 30 events in the next 30 days
-          </h1>
-
-          {/* Top 30 Subscribe Banner */}
-          <div className="px-3 sm:px-0">
-            <Top30SubscribeBanner
-              currentSubscription={top30Subscription}
-              onEmailAlertsClick={() => setTop30SubscribeModalOpen(true)}
-              onCalendarSyncClick={() => setTop30CalendarModalOpen(true)}
-            />
+          {/* Page Title + Subscribe Buttons */}
+          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-2 lg:gap-4 mb-4 px-3 sm:px-0">
+            <h1 className="text-lg sm:text-2xl font-bold text-gray-900 dark:text-gray-100">
+              Top 30 events in the next 30 days
+            </h1>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => setTop30SubscribeModalOpen(true)}
+                className="flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg border border-[#a8d8e8] dark:border-[#3a6a7a] text-[#2a7d9c] dark:text-[#7ec8e3] hover:bg-[#e8f4f8] dark:hover:bg-[#1a3a4a] transition-colors cursor-pointer"
+              >
+                <Bell className="w-4 h-4" />
+                Email Alerts
+              </button>
+              <button
+                onClick={() => setTop30CalendarModalOpen(true)}
+                className="flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg border border-[#a8d8e8] dark:border-[#3a6a7a] text-[#2a7d9c] dark:text-[#7ec8e3] hover:bg-[#e8f4f8] dark:hover:bg-[#1a3a4a] transition-colors cursor-pointer"
+              >
+                <CalendarPlus2 className="w-4 h-4" />
+                Cal Sync
+              </button>
+            </div>
           </div>
 
           {/* Category and Sort Controls */}
@@ -2102,23 +2119,25 @@ export default function EventFeed({
               <div className="flex items-center gap-1.5 sm:gap-2 bg-gray-100 dark:bg-gray-800 rounded-lg p-0.5 sm:p-1 w-fit">
                 <button
                   onClick={() => setTop30SortMode('score')}
-                  className={`px-2 sm:px-3 py-1 sm:py-1.5 text-xs sm:text-sm font-medium rounded-md transition-colors cursor-pointer ${
+                  className={`flex items-center gap-1 px-2 sm:px-3 py-1 sm:py-1.5 text-xs sm:text-sm font-medium rounded-md transition-colors cursor-pointer ${
                     top30SortMode === 'score'
-                      ? 'bg-white dark:bg-gray-700 text-brand-600 dark:text-brand-400 shadow-sm'
+                      ? 'bg-white dark:bg-gray-700 text-[#2a7d9c] dark:text-[#7ec8e3] shadow-sm'
                       : 'text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200'
                   }`}
                 >
                   Score
+                  {top30SortMode === 'score' && <ChevronDown className="w-3 h-3" />}
                 </button>
                 <button
                   onClick={() => setTop30SortMode('date')}
-                  className={`px-2 sm:px-3 py-1 sm:py-1.5 text-xs sm:text-sm font-medium rounded-md transition-colors cursor-pointer ${
+                  className={`flex items-center gap-1 px-2 sm:px-3 py-1 sm:py-1.5 text-xs sm:text-sm font-medium rounded-md transition-colors cursor-pointer ${
                     top30SortMode === 'date'
-                      ? 'bg-white dark:bg-gray-700 text-brand-600 dark:text-brand-400 shadow-sm'
+                      ? 'bg-white dark:bg-gray-700 text-[#2a7d9c] dark:text-[#7ec8e3] shadow-sm'
                       : 'text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200'
                   }`}
                 >
                   Date
+                  {top30SortMode === 'date' && <ChevronDown className="w-3 h-3" />}
                 </button>
               </div>
             </div>

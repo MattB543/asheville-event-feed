@@ -83,8 +83,8 @@ export default function Top30SubscribeModal({
           </button>
 
           <div className="flex justify-center mb-4">
-            <div className="w-16 h-16 rounded-full bg-[#9E6240]/20 dark:bg-[#9E6240]/30 flex items-center justify-center">
-              <Bell className="w-8 h-8 text-[#9E6240] dark:text-[#C4876A]" />
+            <div className="w-16 h-16 rounded-full bg-secondary-200 dark:bg-secondary-800/50 flex items-center justify-center">
+              <Bell className="w-8 h-8 text-secondary-600 dark:text-secondary-300" />
             </div>
           </div>
 
@@ -98,7 +98,7 @@ export default function Top30SubscribeModal({
           <div className="space-y-3">
             <button
               onClick={handleCreateAccount}
-              className="w-full flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-[#9E6240] hover:bg-[#8A553A] text-white font-medium transition-colors cursor-pointer"
+              className="w-full flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-secondary-600 hover:bg-secondary-700 text-white font-medium transition-colors cursor-pointer"
             >
               <UserPlus className="w-5 h-5" />
               Create Account
@@ -128,8 +128,8 @@ export default function Top30SubscribeModal({
         </button>
 
         <div className="flex justify-center mb-4">
-          <div className="w-16 h-16 rounded-full bg-[#9E6240]/20 dark:bg-[#9E6240]/30 flex items-center justify-center">
-            <Bell className="w-8 h-8 text-[#9E6240] dark:text-[#C4876A]" />
+          <div className="w-16 h-16 rounded-full bg-secondary-200 dark:bg-secondary-800/50 flex items-center justify-center">
+            <Bell className="w-8 h-8 text-secondary-600 dark:text-secondary-300" />
           </div>
         </div>
 
@@ -144,7 +144,7 @@ export default function Top30SubscribeModal({
           <label
             className={`flex items-start gap-3 p-4 rounded-lg border cursor-pointer transition-colors ${
               selectedOption === 'none'
-                ? 'border-[#9E6240] bg-[#9E6240]/10 dark:bg-[#9E6240]/20'
+                ? 'border-secondary-500 bg-secondary-100 dark:bg-secondary-800/30'
                 : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600'
             }`}
           >
@@ -154,7 +154,7 @@ export default function Top30SubscribeModal({
               value="none"
               checked={selectedOption === 'none'}
               onChange={() => setSelectedOption('none')}
-              className="mt-0.5 accent-[#9E6240]"
+              className="mt-0.5 accent-secondary-600"
             />
             <div>
               <div className="font-medium text-gray-900 dark:text-white">Off</div>
@@ -165,7 +165,7 @@ export default function Top30SubscribeModal({
           <label
             className={`flex items-start gap-3 p-4 rounded-lg border cursor-pointer transition-colors ${
               selectedOption === 'live'
-                ? 'border-[#9E6240] bg-[#9E6240]/10 dark:bg-[#9E6240]/20'
+                ? 'border-secondary-500 bg-secondary-100 dark:bg-secondary-800/30'
                 : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600'
             }`}
           >
@@ -175,7 +175,7 @@ export default function Top30SubscribeModal({
               value="live"
               checked={selectedOption === 'live'}
               onChange={() => setSelectedOption('live')}
-              className="mt-0.5 accent-[#9E6240]"
+              className="mt-0.5 accent-secondary-600"
             />
             <div>
               <div className="font-medium text-gray-900 dark:text-white">Live Updates</div>
@@ -188,7 +188,7 @@ export default function Top30SubscribeModal({
           <label
             className={`flex items-start gap-3 p-4 rounded-lg border cursor-pointer transition-colors ${
               selectedOption === 'weekly'
-                ? 'border-[#9E6240] bg-[#9E6240]/10 dark:bg-[#9E6240]/20'
+                ? 'border-secondary-500 bg-secondary-100 dark:bg-secondary-800/30'
                 : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600'
             }`}
           >
@@ -198,7 +198,7 @@ export default function Top30SubscribeModal({
               value="weekly"
               checked={selectedOption === 'weekly'}
               onChange={() => setSelectedOption('weekly')}
-              className="mt-0.5 accent-[#9E6240]"
+              className="mt-0.5 accent-secondary-600"
             />
             <div>
               <div className="font-medium text-gray-900 dark:text-white">Weekly Digest</div>
@@ -218,7 +218,7 @@ export default function Top30SubscribeModal({
         <button
           onClick={() => void handleSave()}
           disabled={isSaving}
-          className="w-full flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-[#9E6240] hover:bg-[#8A553A] disabled:bg-[#9E6240]/60 text-white font-medium transition-colors cursor-pointer disabled:cursor-not-allowed"
+          className="w-full flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-secondary-600 hover:bg-secondary-700 disabled:bg-secondary-400 text-white font-medium transition-colors cursor-pointer disabled:cursor-not-allowed"
         >
           {isSaving ? (
             <>

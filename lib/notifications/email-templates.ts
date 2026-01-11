@@ -273,7 +273,7 @@ function generateEventCard(event: DigestEvent, appUrl: string): string {
                   <!-- Event Image -->
                   <td width="80" valign="top" style="padding-right: 16px;">
                     <a href="${eventUrl}" style="text-decoration: none;">
-                      <img src="${imageUrl}" alt="" width="80" height="80" style="width: 80px; height: 80px; object-fit: cover; border-radius: 8px; display: block;" />
+                      <img src="${imageUrl}" alt="" width="80" height="80" style="width: 80px; height: 80px; object-fit: cover; border-radius: 8px; display: block;" onerror="this.src='${appUrl}/asheville-default.jpg';" />
                     </a>
                   </td>
                   <!-- Event Details -->
@@ -283,15 +283,6 @@ function generateEventCard(event: DigestEvent, appUrl: string): string {
                         ${escapeHtml(event.title)}
                       </h3>
                     </a>
-                    ${
-                      event.aiSummary
-                        ? `
-                    <p style="color: #4b5563; font-size: 13px; margin: 0 0 6px 0; line-height: 1.4;">
-                      ${escapeHtml(event.aiSummary)}
-                    </p>
-                    `
-                        : ''
-                    }
                     <p style="color: #6b7280; font-size: 14px; margin: 0 0 8px 0;">
                       ${detailsLine}
                     </p>
@@ -315,6 +306,19 @@ function generateEventCard(event: DigestEvent, appUrl: string): string {
                     ${curatorLines}
                   </td>
                 </tr>
+                ${
+                  event.aiSummary
+                    ? `
+                <tr>
+                  <td colspan="2" style="padding-top: 12px;">
+                    <p style="color: #4b5563; font-size: 13px; margin: 0; line-height: 1.4;">
+                      ${escapeHtml(event.aiSummary)}
+                    </p>
+                  </td>
+                </tr>
+                `
+                    : ''
+                }
               </table>
             </td>
           </tr>

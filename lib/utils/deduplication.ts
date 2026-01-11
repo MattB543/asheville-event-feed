@@ -157,7 +157,9 @@ const STOP_WORDS = new Set([
 ]);
 
 /**
- * Extract significant words from a title
+ * Extract significant words from a title.
+ * Splits hyphenated words (e.g., "midget-wrestling" -> ["midget", "wrestling"])
+ * to improve matching across different title formats.
  */
 function extractWords(title: string): Set<string> {
   const words = title
@@ -165,6 +167,7 @@ function extractWords(title: string): Set<string> {
     .replace(/[^\w\s-]/g, ' ') // Remove punctuation except hyphens
     .split(/\s+/)
     .map((word) => word.replace(/^-+|-+$/g, '')) // Strip leading/trailing hyphens
+    .flatMap((word) => word.split(/-+/)) // Split hyphenated words
     .filter((word) => word.length >= 3 && !STOP_WORDS.has(word));
 
   return new Set(words);
@@ -185,7 +188,9 @@ function countSharedTitleWordsFromSets(words1: Set<string>, words2: Set<string>)
 }
 
 /**
- * Extract significant words from a title as an ordered array (preserving order)
+ * Extract significant words from a title as an ordered array (preserving order).
+ * Splits hyphenated words (e.g., "midget-wrestling" -> ["midget", "wrestling"])
+ * to improve matching across different title formats.
  */
 function extractWordsOrdered(title: string): string[] {
   return title
@@ -193,6 +198,7 @@ function extractWordsOrdered(title: string): string[] {
     .replace(/[^\w\s-]/g, ' ')
     .split(/\s+/)
     .map((word) => word.replace(/^-+|-+$/g, '')) // Strip leading/trailing hyphens
+    .flatMap((word) => word.split(/-+/)) // Split hyphenated words
     .filter((word) => word.length >= 3 && !STOP_WORDS.has(word));
 }
 
@@ -366,7 +372,7 @@ function prepareEvents(events: EventForDedup[]): PreparedEventForDedup[] {
   return events.map((event, index) => {
     const titleWordsOrdered = extractWordsOrdered(event.title);
     const titleWordSet = new Set(titleWordsOrdered);
-    const venueKey = getVenueForEvent(event.organizer, event.location);
+    const venueKey = getVenueForEvent(event.organizer, event.location, event.title);
 
     return {
       ...event,

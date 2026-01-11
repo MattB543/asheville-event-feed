@@ -72,18 +72,6 @@ interface Top30WeeklyEmailOptions {
 }
 
 /**
- * Generate a score badge for display in email
- */
-function generateScoreBadge(score: number | null | undefined): string {
-  if (!score) return '';
-  return `
-    <span style="display: inline-block; background-color: #fef3c7; color: #92400e; font-size: 11px; font-weight: 600; padding: 2px 6px; border-radius: 4px; margin-left: 8px;">
-      Score: ${score}/30
-    </span>
-  `;
-}
-
-/**
  * Generate a single event card for top 30 emails.
  */
 function generateTop30EventCard(event: Top30Event, appUrl: string): string {
@@ -120,25 +108,16 @@ function generateTop30EventCard(event: Top30Event, appUrl: string): string {
                   <!-- Event Image -->
                   <td width="80" valign="top" style="padding-right: 16px;">
                     <a href="${eventUrl}" style="text-decoration: none;">
-                      <img src="${imageUrl}" alt="" width="80" height="80" style="width: 80px; height: 80px; object-fit: cover; border-radius: 8px; display: block;" />
+                      <img src="${imageUrl}" alt="" width="80" height="80" style="width: 80px; height: 80px; object-fit: cover; border-radius: 8px; display: block;" onerror="this.src='${appUrl}/asheville-default.jpg';" />
                     </a>
                   </td>
                   <!-- Event Details -->
                   <td valign="top">
                     <a href="${eventUrl}" style="text-decoration: none;">
                       <h3 style="color: #1a1a1a; font-size: 16px; font-weight: 600; margin: 0 0 4px 0; line-height: 1.3;">
-                        ${escapeHtml(event.title)}${generateScoreBadge(event.score)}
+                        ${escapeHtml(event.title)}
                       </h3>
                     </a>
-                    ${
-                      event.aiSummary
-                        ? `
-                    <p style="color: #4b5563; font-size: 13px; margin: 0 0 6px 0; line-height: 1.4;">
-                      ${escapeHtml(event.aiSummary)}
-                    </p>
-                    `
-                        : ''
-                    }
                     <p style="color: #6b7280; font-size: 14px; margin: 0 0 8px 0;">
                       ${detailsLine}
                     </p>
@@ -161,6 +140,19 @@ function generateTop30EventCard(event: Top30Event, appUrl: string): string {
                     }
                   </td>
                 </tr>
+                ${
+                  event.aiSummary
+                    ? `
+                <tr>
+                  <td colspan="2" style="padding-top: 12px;">
+                    <p style="color: #4b5563; font-size: 13px; margin: 0; line-height: 1.4;">
+                      ${escapeHtml(event.aiSummary)}
+                    </p>
+                  </td>
+                </tr>
+                `
+                    : ''
+                }
               </table>
             </td>
           </tr>
@@ -305,9 +297,8 @@ export function generateTop30LiveEmailText(options: Top30LiveEmailOptions): stri
       const detailParts = [`${date} at ${time}`];
       if (event.price) detailParts.push(event.price);
       if (event.location) detailParts.push(event.location);
-      const scoreText = event.score ? ` (Score: ${event.score}/30)` : '';
       const summaryLine = event.aiSummary ? `\n    ${event.aiSummary}` : '';
-      return `  - ${event.title}${scoreText}${summaryLine}\n    ${detailParts.join(' | ')}\n    ${eventUrl}`;
+      return `  - ${event.title}${summaryLine}\n    ${detailParts.join(' | ')}\n    ${eventUrl}`;
     })
     .join('\n\n');
 
@@ -494,9 +485,8 @@ export function generateTop30WeeklyEmailText(options: Top30WeeklyEmailOptions): 
           const detailParts = [time];
           if (event.price) detailParts.push(event.price);
           if (event.location) detailParts.push(event.location);
-          const scoreText = event.score ? ` (Score: ${event.score}/30)` : '';
           const summaryLine = event.aiSummary ? `\n    ${event.aiSummary}` : '';
-          return `  - ${event.title}${scoreText}${summaryLine}\n    ${detailParts.join(' | ')}\n    ${eventUrl}`;
+          return `  - ${event.title}${summaryLine}\n    ${detailParts.join(' | ')}\n    ${eventUrl}`;
         })
         .join('\n\n');
       return `${dateKey}\n${'-'.repeat(dateKey.length)}\n${eventList}`;

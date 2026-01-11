@@ -21,8 +21,8 @@ export default function CreateFeedPage() {
       {/* Footer */}
       <footer className="bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-8 text-center text-sm text-gray-500 dark:text-gray-400">
         <p>
-          © {new Date().getFullYear()} Asheville Event Feed. Not affiliated with AVL Today,
-          Eventbrite, Facebook Events, or Meetup.
+          © {new Date().getFullYear()} AVL GO. Not affiliated with AVL Today, Eventbrite, Facebook
+          Events, or Meetup.
         </p>
       </footer>
     </main>

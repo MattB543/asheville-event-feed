@@ -28,6 +28,7 @@ const EventDetailModal = dynamic(() => import('./EventDetailModal'), { ssr: fals
 import SaveFeedModal from './SaveFeedModal';
 import Top30SubscribeBanner from './Top30SubscribeBanner';
 import Top30SubscribeModal from './Top30SubscribeModal';
+import Top30CalendarModal from './Top30CalendarModal';
 import { type Top30SubscriptionType } from '@/lib/newsletter/types';
 import { DEFAULT_BLOCKED_KEYWORDS } from '@/lib/config/defaultFilters';
 import { useToast } from './ui/Toast';
@@ -415,6 +416,7 @@ export default function EventFeed({
   const [forYouSortMode, setForYouSortMode] = useState<'score' | 'date'>('score');
   const [top30Subscription, setTop30Subscription] = useState<Top30SubscriptionType>('none');
   const [top30SubscribeModalOpen, setTop30SubscribeModalOpen] = useState(false);
+  const [top30CalendarModalOpen, setTop30CalendarModalOpen] = useState(false);
 
   // Your List sub-tab state (recommended vs favorites)
   const [yourListSubTab, setYourListSubTab] = useState<'recommended' | 'favorites'>('recommended');
@@ -2053,7 +2055,8 @@ export default function EventFeed({
           <div className="px-3 sm:px-0">
             <Top30SubscribeBanner
               currentSubscription={top30Subscription}
-              onSubscribeClick={() => setTop30SubscribeModalOpen(true)}
+              onEmailAlertsClick={() => setTop30SubscribeModalOpen(true)}
+              onCalendarSyncClick={() => setTop30CalendarModalOpen(true)}
             />
           </div>
 
@@ -2721,6 +2724,11 @@ export default function EventFeed({
         isLoggedIn={isLoggedIn}
         currentSubscription={top30Subscription}
         onSubscriptionChange={setTop30Subscription}
+      />
+
+      <Top30CalendarModal
+        isOpen={top30CalendarModalOpen}
+        onClose={() => setTop30CalendarModalOpen(false)}
       />
 
       {/* Scroll to top button */}

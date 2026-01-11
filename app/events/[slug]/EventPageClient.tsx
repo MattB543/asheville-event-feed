@@ -342,8 +342,8 @@ export default function EventPageClient({
           at Brooks Solutions, LLC.
         </p>
         <p>
-          &copy; {new Date().getFullYear()} Asheville Event Feed. Not affiliated with AVL Today,
-          Eventbrite, Facebook Events, or Meetup.
+          &copy; {new Date().getFullYear()} AVL GO. Not affiliated with AVL Today, Eventbrite,
+          Facebook Events, or Meetup.
         </p>
       </footer>
 

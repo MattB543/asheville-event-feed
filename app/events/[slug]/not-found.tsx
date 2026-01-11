@@ -55,7 +55,7 @@ export default function EventNotFound() {
 
       {/* Footer */}
       <footer className="bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-8 text-center text-sm text-gray-500 dark:text-gray-400">
-        <p>&copy; {new Date().getFullYear()} AVL GO - Asheville Event Feed</p>
+        <p>&copy; {new Date().getFullYear()} AVL GO</p>
       </footer>
     </main>
   );

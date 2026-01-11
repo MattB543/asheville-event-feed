@@ -416,6 +416,14 @@ export async function GET(request: Request) {
         const currentTop30 = top30Result.overall;
         const currentTop30Ids = currentTop30.map((e) => e.id);
 
+        // Get all future event IDs for cleanup (events that have passed can be removed from tracking)
+        const now = new Date();
+        const futureEventIds = await db
+          .select({ id: events.id })
+          .from(events)
+          .where(sql`${events.startDate} >= ${now}`);
+        const futureEventIdSet = new Set(futureEventIds.map((e) => e.id));
+
         // Get users with live subscription
         const liveSubscribers = await db
           .select({
@@ -460,19 +468,15 @@ export async function GET(request: Request) {
                 continue;
               }
 
-              // Find new events (in current top 30 but not in their last known list)
-              const previousIds = new Set(subscriber.top30LastEventIds || []);
-              const newEventIds = currentTop30Ids.filter((id) => !previousIds.has(id));
+              // Find new events (in current top 30 but not in user's notified list)
+              // We track ALL events ever notified, not just current Top 30 composition,
+              // to prevent duplicate notifications when events bounce in/out of Top 30
+              const notifiedIds = new Set(subscriber.top30LastEventIds || []);
+              const newEventIds = currentTop30Ids.filter((id) => !notifiedIds.has(id));
 
               if (newEventIds.length === 0) {
-                // No new events for this user, update their last event IDs anyway
-                await db
-                  .update(newsletterSettings)
-                  .set({
-                    top30LastEventIds: currentTop30Ids,
-                    updatedAt: new Date(),
-                  })
-                  .where(eq(newsletterSettings.userId, subscriber.userId));
+                // No new events for this user - don't update the notified list
+                // (preserves history of all events they've been notified about)
                 stats.top30Notifications.skipped++;
                 continue;
               }
@@ -531,11 +535,17 @@ export async function GET(request: Request) {
                     `[AI] Sent top 30 notification to ${userInfo.email}: ${newEvents.length} new events`
                   );
 
-                  // Update their last known top 30 IDs
+                  // Append new event IDs to the notified list (don't replace)
+                  // This ensures events are only notified once, even if they bounce in/out of Top 30
+                  // Also clean up IDs for events that have already passed (to prevent unbounded growth)
+                  const existingValidIds = (subscriber.top30LastEventIds || []).filter((id) =>
+                    futureEventIdSet.has(id)
+                  );
+                  const updatedNotifiedIds = [...existingValidIds, ...newEventIds];
                   await db
                     .update(newsletterSettings)
                     .set({
-                      top30LastEventIds: currentTop30Ids,
+                      top30LastEventIds: updatedNotifiedIds,
                       top30LastNotifiedAt: new Date(),
                       updatedAt: new Date(),
                     })

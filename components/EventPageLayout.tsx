@@ -55,8 +55,8 @@ export default function EventPageLayout({
           at Brooks Solutions, LLC.
         </p>
         <p>
-          © {new Date().getFullYear()} Asheville Event Feed. Not affiliated with AVL Today,
-          Eventbrite, Facebook Events, or Meetup.
+          © {new Date().getFullYear()} AVL GO. Not affiliated with AVL Today, Eventbrite, Facebook
+          Events, or Meetup.
         </p>
       </footer>
     </main>

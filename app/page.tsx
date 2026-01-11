@@ -88,6 +88,14 @@ export default function HomePage() {
             <Calendar className="w-5 h-5" />
             View Top Events
           </Link>
+          <div className="mt-4">
+            <Link
+              href="/events?dateFilter=today"
+              className="text-sm text-gray-600 dark:text-gray-400 hover:text-brand-600 dark:hover:text-brand-400 underline underline-offset-2 transition-colors"
+            >
+              View today&apos;s events
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -284,8 +292,8 @@ export default function HomePage() {
               at Brooks Solutions, LLC.
             </p>
             <p>
-              © {new Date().getFullYear()} Asheville Event Feed. Not affiliated with AVL Today,
-              Eventbrite, Facebook Events, or Meetup.
+              © {new Date().getFullYear()} AVL GO. Not affiliated with AVL Today, Eventbrite,
+              Facebook Events, or Meetup.
             </p>
           </div>
         </div>

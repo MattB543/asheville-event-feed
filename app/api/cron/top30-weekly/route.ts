@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { db } from '@/lib/db';
-import { newsletterSettings } from '@/lib/db/schema';
-import { eq } from 'drizzle-orm';
+import { events, newsletterSettings } from '@/lib/db/schema';
+import { eq, sql } from 'drizzle-orm';
 import { env } from '@/lib/config/env';
 import { verifyAuthToken } from '@/lib/utils/auth';
 import { sendEmail } from '@/lib/notifications/postmark';
@@ -102,6 +102,14 @@ export async function GET(request: Request) {
 
     console.log(`[Top30Weekly] Found ${currentTop30.length} top events`);
 
+    // Get all future event IDs for cleanup (events that have passed can be removed from tracking)
+    const now = new Date();
+    const futureEventIds = await db
+      .select({ id: events.id })
+      .from(events)
+      .where(sql`${events.startDate} >= ${now}`);
+    const futureEventIdSet = new Set(futureEventIds.map((e) => e.id));
+
     // Get user emails from Supabase
     const supabase = createServiceClient();
     const { data: authUsers, error: authError } = await supabase.auth.admin.listUsers({
@@ -184,12 +192,29 @@ export async function GET(request: Request) {
           stats.sent++;
           console.log(`[Top30Weekly] Sent weekly digest to ${userInfo.email}`);
 
-          // Update last notified timestamp
+          // Fetch current notified IDs for this user to append (not replace)
+          const currentSettings = await db
+            .select({ top30LastEventIds: newsletterSettings.top30LastEventIds })
+            .from(newsletterSettings)
+            .where(eq(newsletterSettings.userId, subscriber.userId))
+            .limit(1);
+
+          const existingIds = currentSettings[0]?.top30LastEventIds || [];
+          const currentIds = currentTop30.map((e) => e.id);
+          // Filter existing IDs to only keep future events (cleanup past events)
+          // Then append new IDs (deduplicated) to prevent duplicates if user switches to live
+          const existingValidIds = existingIds.filter((id) => futureEventIdSet.has(id));
+          const existingIdSet = new Set(existingValidIds);
+          const updatedNotifiedIds = [
+            ...existingValidIds,
+            ...currentIds.filter((id) => !existingIdSet.has(id)),
+          ];
+
           await db
             .update(newsletterSettings)
             .set({
               top30LastNotifiedAt: new Date(),
-              top30LastEventIds: currentTop30.map((e) => e.id),
+              top30LastEventIds: updatedNotifiedIds,
               updatedAt: new Date(),
             })
             .where(eq(newsletterSettings.userId, subscriber.userId));

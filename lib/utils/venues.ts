@@ -19,6 +19,7 @@ const KNOWN_VENUES: Map<string, string[]> = new Map([
   ['rabbit rabbit', ['rabbit rabbit asheville', 'the rabbit rabbit']],
 
   // Bars/small venues
+  ['tbirds', ['t birds', 'tbirds weaverville', 't birds weaverville']],
   ['vowl bar', ['vowl', 'the vowl bar', 'vowl asheville']],
   ['fleetwoods', ['fleetwoods asheville', "fleetwood's"]],
   ['odd', ['odd asheville', 'the odd']],
@@ -184,13 +185,15 @@ export function extractVenueFromLocation(location: string | null | undefined): s
 }
 
 /**
- * Get venue from either the organizer field or extracted from location.
+ * Get venue from organizer, location, or title.
  * For sources like AVL Today, the organizer IS the venue.
  * For sources like Eventbrite, the venue is in the location field.
+ * Some events have the venue in the title (e.g., "@ Tbirds").
  */
 export function getVenueForEvent(
   organizer: string | null | undefined,
-  location: string | null | undefined
+  location: string | null | undefined,
+  title?: string | null
 ): string | null {
   // First try organizer (for AVL Today, venue scrapers, etc.)
   const orgVenue = getCanonicalVenue(organizer);
@@ -202,6 +205,14 @@ export function getVenueForEvent(
   const locVenue = extractVenueFromLocation(location);
   if (locVenue) {
     return getCanonicalVenue(locVenue) || normalizeVenueName(locVenue);
+  }
+
+  // Finally try extracting from title (handles "@ Venue" patterns)
+  if (title) {
+    const titleVenue = extractVenueFromLocation(title);
+    if (titleVenue) {
+      return getCanonicalVenue(titleVenue) || normalizeVenueName(titleVenue);
+    }
   }
 
   return null;

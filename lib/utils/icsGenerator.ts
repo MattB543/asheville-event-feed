@@ -7,6 +7,8 @@
  * @see https://icalendar.org/iCalendar-RFC-5545/
  */
 
+import { generateEventUrl } from '@/lib/utils/slugify';
+
 interface ICSEventParams {
   title: string;
   startDate: Date;
@@ -158,4 +160,71 @@ export function downloadEventAsICS(event: {
     .replace(/\s+/g, '-')
     .slice(0, 50);
   downloadICSFile(icsContent, `${safeTitle}.ics`);
+}
+
+/**
+ * Generate ICS calendar feed for Top 30 events
+ * Designed for calendar subscription (auto-updating feed)
+ */
+export function generateTop30ICS(
+  events: Array<{
+    id: string;
+    title: string;
+    startDate: Date;
+    location?: string | null;
+    aiSummary?: string | null;
+    url: string;
+  }>
+): string {
+  const lines: string[] = [
+    'BEGIN:VCALENDAR',
+    'VERSION:2.0',
+    'PRODID:-//AVL GO//avlgo.com//EN',
+    'CALSCALE:GREGORIAN',
+    'METHOD:PUBLISH',
+    'X-WR-CALNAME:AVL GO: Top 30 Asheville',
+    'X-WR-TIMEZONE:America/New_York',
+    'REFRESH-INTERVAL;VALUE=DURATION:PT1H',
+    'X-PUBLISHED-TTL:PT1H',
+  ];
+
+  // Generate VEVENT for each event
+  for (const event of events) {
+    const startDate = event.startDate instanceof Date ? event.startDate : new Date(event.startDate);
+    const endDate = addHours(startDate, 2); // Default 2-hour duration
+
+    // Generate AVL GO event URL
+    const eventUrl = generateEventUrl(event.title, startDate, event.id);
+
+    // Build description with AI summary and event link
+    let description = '';
+    if (event.aiSummary) {
+      description = event.aiSummary;
+    }
+    description += `\n\nView on AVL GO: ${eventUrl}`;
+
+    lines.push(
+      'BEGIN:VEVENT',
+      `UID:${event.id}@avlgo.com`,
+      `DTSTAMP:${formatICSDate(new Date())}`,
+      `DTSTART:${formatICSDate(startDate)}`,
+      `DTEND:${formatICSDate(endDate)}`,
+      `SUMMARY:${escapeICSText(`★ ${event.title}`)}`,
+      `DESCRIPTION:${escapeICSText(description.trim())}`,
+      `LOCATION:${escapeICSText(event.location || 'Asheville, NC')}`,
+      `URL:${eventUrl}`,
+      // 2-hour reminder
+      'BEGIN:VALARM',
+      'ACTION:DISPLAY',
+      `DESCRIPTION:${escapeICSText(`Reminder: ${event.title}`)}`,
+      'TRIGGER:-PT2H',
+      'END:VALARM',
+      'END:VEVENT'
+    );
+  }
+
+  lines.push('END:VCALENDAR');
+
+  // ICS files use CRLF line endings
+  return lines.join('\r\n');
 }

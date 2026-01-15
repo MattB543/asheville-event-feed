@@ -260,7 +260,9 @@ export default function EventCard({
 
   const handleReport = (reportType: 'incorrect_info' | 'duplicate' | 'spam') => {
     setMoreMenuOpen(false);
-    showToast('Thanks for the feedback! This event will be automatically reviewed for correctness.');
+    showToast(
+      'Thanks for the feedback! This event will be automatically reviewed for correctness.'
+    );
     fetch('/api/events/report', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

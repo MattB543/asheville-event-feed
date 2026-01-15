@@ -7,13 +7,11 @@ import vercelConfig from '@/vercel.json';
 const JOB_METADATA: Record<CronJobName, { displayName: string; description: string }> = {
   scrape: {
     displayName: 'Scraping',
-    description:
-      'Scrapes 10+ event sources and upserts to database.',
+    description: 'Scrapes 10+ event sources and upserts to database.',
   },
   verify: {
     displayName: 'Verify',
-    description:
-      'Fetches event source URLs and uses AI to verify/update/hide events.',
+    description: 'Fetches event source URLs and uses AI to verify/update/hide events.',
   },
   ai: {
     displayName: 'AI Processing',

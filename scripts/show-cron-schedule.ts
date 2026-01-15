@@ -34,9 +34,14 @@ function getEstTimes(schedule: string): string {
     return parseInt(estHourStr);
   };
 
-  if (hour === '*/6') {
-    // Every 6 hours: 0,6,12,18 UTC
-    return [0, 6, 12, 18].map((h) => fmt(utcToEst(h))).join(', ');
+  if (hour.startsWith('*/')) {
+    // Every N hours: extract the interval
+    const interval = parseInt(hour.substring(2));
+    const hours = [];
+    for (let h = 0; h < 24; h += interval) {
+      hours.push(h);
+    }
+    return hours.map((h) => fmt(utcToEst(h))).join(', ');
   }
   if (hour.includes(',')) {
     // Multiple specific hours

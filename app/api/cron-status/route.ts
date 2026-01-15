@@ -8,12 +8,12 @@ const JOB_METADATA: Record<CronJobName, { displayName: string; description: stri
   scrape: {
     displayName: 'Scraping',
     description:
-      'Scrapes 10+ event sources (AVL Today, Eventbrite, Meetup, etc.) and upserts to database.',
+      'Scrapes 10+ event sources and upserts to database.',
   },
   verify: {
     displayName: 'Verify',
     description:
-      'Fetches event source URLs via Jina Reader and uses AI to verify/update/hide events.',
+      'Fetches event source URLs and uses AI to verify/update/hide events.',
   },
   ai: {
     displayName: 'AI Processing',

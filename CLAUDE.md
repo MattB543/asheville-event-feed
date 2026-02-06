@@ -241,6 +241,27 @@ Curator profile data (slug, display name, bio, public visibility).
 
 Events curated by users with optional notes.
 
+### Row Level Security (RLS)
+
+RLS is enabled on all tables. Supabase's "RLS auto-enable trigger" is active, so new tables will have RLS enabled automatically. All database writes from the app go through server-side Drizzle ORM using `DATABASE_URL` (the `postgres` role), which bypasses RLS. RLS policies only govern access via Supabase's PostgREST API (the `anon` and `authenticated` roles exposed by the client-side anon key).
+
+**Important:** Drizzle ORM does not manage RLS. When adding new tables via `drizzle-kit push`, you must manually create RLS policies and configure grants via SQL (Supabase Dashboard SQL Editor or a migration file). Without policies, RLS defaults to deny-all for `anon`/`authenticated`.
+
+| Table                 | anon                 | authenticated                                     |
+| --------------------- | -------------------- | ------------------------------------------------- |
+| `events`              | SELECT               | SELECT                                            |
+| `curated_events`      | SELECT               | SELECT, INSERT, UPDATE, DELETE (own)              |
+| `curator_profiles`    | SELECT (public only) | SELECT (own + public), INSERT (own), UPDATE (own) |
+| `matching_questions`  | SELECT (active only) | SELECT (active only)                              |
+| `submitted_events`    | INSERT               | INSERT                                            |
+| `user_preferences`    | —                    | SELECT, INSERT, UPDATE (own)                      |
+| `newsletter_settings` | —                    | SELECT, INSERT, UPDATE (own)                      |
+| `matching_profiles`   | —                    | SELECT, INSERT, UPDATE (own)                      |
+| `matching_answers`    | —                    | SELECT, INSERT, UPDATE (own)                      |
+| `cron_job_runs`       | —                    | —                                                 |
+
+"Own" means the policy restricts access to rows where `user_id = auth.uid()` (or `profile_id` belongs to the user for `matching_answers`).
+
 ---
 
 ## API Routes

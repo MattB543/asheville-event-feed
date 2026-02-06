@@ -22,6 +22,9 @@ export default function LoginPage() {
 
   // Get OAuth error from URL params (computed, not in effect)
   const errorFromUrl = searchParams.get('error');
+  const nextParam = searchParams.get('next');
+  const safeNext =
+    nextParam && nextParam.startsWith('/') && !nextParam.startsWith('//') ? nextParam : null;
 
   // Set initial message from URL error on mount only
   useEffect(() => {
@@ -34,9 +37,9 @@ export default function LoginPage() {
   // Redirect if already logged in
   useEffect(() => {
     if (!isLoading && user) {
-      router.push('/events');
+      router.push(safeNext || '/events');
     }
-  }, [user, isLoading, router]);
+  }, [user, isLoading, router, safeNext]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -44,11 +47,16 @@ export default function LoginPage() {
     setMessage(null);
 
     const supabase = createClient();
+    const redirectBase = `${window.location.origin}/auth/confirm`;
+    const redirectUrl = safeNext
+      ? `${redirectBase}?next=${encodeURIComponent(safeNext)}`
+      : redirectBase;
+
     const { error } = await supabase.auth.signInWithOtp({
       email,
       options: {
         shouldCreateUser: true,
-        emailRedirectTo: `${window.location.origin}/auth/confirm`,
+        emailRedirectTo: redirectUrl,
       },
     });
 
@@ -100,7 +108,7 @@ export default function LoginPage() {
           {/* Login Form */}
           <div className="bg-white dark:bg-gray-900 rounded-xl shadow-lg border border-gray-200 dark:border-gray-800 p-6">
             {/* Google Sign-In */}
-            <GoogleSignInButton />
+            <GoogleSignInButton redirectTo={safeNext || '/events'} />
 
             {/* Divider */}
             <div className="relative my-6">

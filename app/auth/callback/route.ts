@@ -4,7 +4,9 @@ import { createClient } from '@/lib/supabase/server';
 export async function GET(request: Request) {
   const { searchParams, origin } = new URL(request.url);
   const code = searchParams.get('code');
-  const next = searchParams.get('next') ?? '/';
+  const nextParam = searchParams.get('next');
+  const next =
+    nextParam && nextParam.startsWith('/') && !nextParam.startsWith('//') ? nextParam : '/';
   const error = searchParams.get('error');
   const errorDescription = searchParams.get('error_description');
 

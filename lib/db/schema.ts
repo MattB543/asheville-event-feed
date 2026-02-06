@@ -123,6 +123,9 @@ export const userPreferences = pgTable('user_preferences', {
   // Stored as JSON for flexibility
   filterSettings: jsonb('filter_settings'),
 
+  // Matching opt-in (profile matching)
+  aiMatching: boolean('ai_matching').default(false),
+
   // Email digest preferences
   emailDigestFrequency: text('email_digest_frequency').default('none'), // 'none' | 'daily' | 'weekly'
   emailDigestLastSentAt: timestamp('email_digest_last_sent_at'), // When last digest was sent
@@ -161,6 +164,83 @@ export const newsletterSettings = pgTable('newsletter_settings', {
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
 });
+
+// Matching profiles for attendee/profile matching flows (TEDx pilot)
+export const matchingProfiles = pgTable(
+  'matching_profiles',
+  {
+    id: uuid('id').defaultRandom().primaryKey(),
+    userId: uuid('user_id').notNull(),
+    program: text('program').default('tedx').notNull(),
+    displayName: text('display_name'),
+    email: text('email'),
+    aiMatching: boolean('ai_matching').default(false).notNull(),
+    consentAt: timestamp('consent_at', { withTimezone: true }),
+    consentVersion: text('consent_version'),
+    status: text('status').default('draft').notNull(), // 'draft' | 'submitted'
+    submittedAt: timestamp('submitted_at', { withTimezone: true }),
+    createdAt: timestamp('created_at').defaultNow().notNull(),
+    updatedAt: timestamp('updated_at').defaultNow().notNull(),
+  },
+  (table) => ({
+    userIdUnique: uniqueIndex('matching_profiles_user_id_unique').on(table.userId),
+    programIdx: index('matching_profiles_program_idx').on(table.program),
+  })
+);
+
+// Matching survey questions (DB-driven)
+export const matchingQuestions = pgTable(
+  'matching_questions',
+  {
+    id: text('id').primaryKey(), // e.g., 'resume', 'linkedin', 'q1'
+    program: text('program').notNull(),
+    version: text('version').notNull(),
+    section: text('section').notNull(), // 'passive' | 'survey'
+    order: integer('order').notNull(),
+    prompt: text('prompt').notNull(),
+    helpText: text('help_text'),
+    required: boolean('required').default(false).notNull(),
+    inputType: text('input_type').notNull(), // 'long_text' | 'short_text' | 'url' | 'multi_url' | 'file_markdown'
+    maxLength: integer('max_length'),
+    websearch: boolean('websearch').default(false).notNull(),
+    active: boolean('active').default(true).notNull(),
+    createdAt: timestamp('created_at').defaultNow().notNull(),
+    updatedAt: timestamp('updated_at').defaultNow().notNull(),
+  },
+  (table) => ({
+    programIdx: index('matching_questions_program_idx').on(table.program),
+    programVersionIdx: index('matching_questions_program_version_idx').on(
+      table.program,
+      table.version
+    ),
+  })
+);
+
+// Matching survey answers
+export const matchingAnswers = pgTable(
+  'matching_answers',
+  {
+    id: uuid('id').defaultRandom().primaryKey(),
+    profileId: uuid('profile_id')
+      .notNull()
+      .references(() => matchingProfiles.id, { onDelete: 'cascade' }),
+    questionId: text('question_id')
+      .notNull()
+      .references(() => matchingQuestions.id, { onDelete: 'cascade' }),
+    answerText: text('answer_text'),
+    answerJson: jsonb('answer_json'),
+    createdAt: timestamp('created_at').defaultNow().notNull(),
+    updatedAt: timestamp('updated_at').defaultNow().notNull(),
+  },
+  (table) => ({
+    profileQuestionUnique: uniqueIndex('matching_answers_profile_question_unique').on(
+      table.profileId,
+      table.questionId
+    ),
+    profileIdIdx: index('matching_answers_profile_id_idx').on(table.profileId),
+    questionIdIdx: index('matching_answers_question_id_idx').on(table.questionId),
+  })
+);
 
 // Curator profiles for the Curate feature
 export const curatorProfiles = pgTable(

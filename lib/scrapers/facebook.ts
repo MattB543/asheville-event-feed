@@ -114,8 +114,8 @@ export async function scrapeFacebookEvents(): Promise<ScrapedEvent[]> {
   try {
     // Combined discovery + fetch in single browser session
     const fbEvents = await discoverAndFetchFacebookEvents({
-      maxScrolls: 35,
-      targetEvents: 120,
+      maxScrolls: 70,
+      targetEvents: 240,
       onProgress: (completed, total) => {
         if (completed % 10 === 0 || completed === total) {
           log(`  Progress: ${completed}/${total} events`);

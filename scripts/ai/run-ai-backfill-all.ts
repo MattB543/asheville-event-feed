@@ -1,40 +1,28 @@
-/**
- * Standalone script to run AI processing for ALL future events.
- * Runs in a loop until all events are processed.
- */
-
-import { db } from '../../lib/db';
-import { events } from '../../lib/db/schema';
+import { db } from '@/lib/db';
+import { events } from '@/lib/db/schema';
 import { eq, or, sql, isNull, and, isNotNull } from 'drizzle-orm';
-import { generateTagsAndSummary } from '../../lib/ai/tagAndSummarize';
-import { generateEmbedding, createEmbeddingText } from '../../lib/ai/embedding';
-import { generateEventScore, getRecurringEventScore } from '../../lib/ai/scoring';
-import { checkWeeklyRecurring } from '../../lib/ai/recurringDetection';
-import { findSimilarEvents } from '../../lib/db/similaritySearch';
-import { isAzureAIEnabled } from '../../lib/ai/provider-clients';
+import { generateTagsAndSummary } from '@/lib/ai/tagAndSummarize';
+import { generateEmbedding, createEmbeddingText } from '@/lib/ai/embedding';
+import { generateEventScore, type EventScoreResult } from '@/lib/ai/scoring';
+import { checkWeeklyRecurring } from '@/lib/ai/recurringDetection';
+import { findSimilarEvents } from '@/lib/db/similaritySearch';
+import { isAzureAIEnabled } from '@/lib/ai/provider-clients';
 
-// Configuration - MAX SPEED MODE
-// Azure OpenAI can handle 60-300 RPM depending on tier
-// Running at max throughput with no delays
 const BATCH_SIZE_COMBINED = 30;
 const BATCH_SIZE_EMBEDDINGS = 30;
-const BATCH_SIZE_SCORING = 30;
+const BATCH_SIZE_SCORING = 20;
 const LIMIT_PER_PASS = 200;
 
-// Helper to format duration
-function formatDuration(ms: number): string {
-  if (ms < 1000) return `${ms}ms`;
-  const seconds = Math.floor(ms / 1000);
-  if (seconds < 60) return `${seconds}s`;
-  const minutes = Math.floor(seconds / 60);
-  const remainingSeconds = seconds % 60;
-  if (minutes < 60) return `${minutes}m ${remainingSeconds}s`;
-  const hours = Math.floor(minutes / 60);
-  const remainingMinutes = minutes % 60;
-  return `${hours}h ${remainingMinutes}m`;
-}
+const fallbackScore: EventScoreResult = {
+  score: 5,
+  rarity: 1,
+  unique: 2,
+  magnitude: 2,
+  reason: '[AI scoring failed]',
+  ashevilleWeird: 3,
+  social: 5,
+};
 
-// Helper to chunk arrays
 const chunk = <T>(arr: T[], size: number) =>
   Array.from({ length: Math.ceil(arr.length / size) }, (_, i) =>
     arr.slice(i * size, i * size + size)
@@ -46,8 +34,32 @@ interface Stats {
   scoring: { success: number; failed: number; total: number; skippedRecurring: number };
 }
 
+async function getRemainingCounts() {
+  const [needsSummary] = await db
+    .select({ count: sql<number>`count(*)` })
+    .from(events)
+    .where(
+      or(sql`${events.tags} = '{}'::text[] OR ${events.tags} IS NULL`, isNull(events.aiSummary))
+    );
+
+  const [needsEmbedding] = await db
+    .select({ count: sql<number>`count(*)` })
+    .from(events)
+    .where(and(isNotNull(events.aiSummary), isNull(events.embedding)));
+
+  const [needsScore] = await db
+    .select({ count: sql<number>`count(*)` })
+    .from(events)
+    .where(and(isNull(events.score), isNotNull(events.embedding), isNotNull(events.aiSummary)));
+
+  return {
+    needsSummary: Number(needsSummary.count),
+    needsEmbedding: Number(needsEmbedding.count),
+    needsScore: Number(needsScore.count),
+  };
+}
+
 async function processCombinedPass(stats: Stats): Promise<number> {
-  const now = new Date();
   const eventsNeedingProcessing = await db
     .select({
       id: events.id,
@@ -61,16 +73,15 @@ async function processCombinedPass(stats: Stats): Promise<number> {
     })
     .from(events)
     .where(
-      and(
-        or(sql`${events.tags} = '{}'::text[] OR ${events.tags} IS NULL`, isNull(events.aiSummary)),
-        sql`${events.startDate} >= ${now.toISOString()}`
-      )
+      or(sql`${events.tags} = '{}'::text[] OR ${events.tags} IS NULL`, isNull(events.aiSummary))
     )
     .limit(LIMIT_PER_PASS);
 
   if (eventsNeedingProcessing.length === 0) return 0;
 
-  console.log(`\n📝 Processing ${eventsNeedingProcessing.length} events for tags/summaries...`);
+  console.log(
+    `\n[Backfill] Processing ${eventsNeedingProcessing.length} events for tags/summaries...`
+  );
 
   for (const batch of chunk(eventsNeedingProcessing, BATCH_SIZE_COMBINED)) {
     await Promise.all(
@@ -96,10 +107,9 @@ async function processCombinedPass(stats: Stats): Promise<number> {
             stats.combined.success++;
             stats.combined.total++;
           } else {
-            // AI returned empty results - mark with placeholders to prevent infinite retry
             stats.combined.failed++;
             stats.combined.total++;
-            console.error(`✗ Empty result: "${event.title.slice(0, 40)}..."`);
+            console.error(`[Backfill] Empty result: "${event.title.slice(0, 40)}..."`);
             const fallbackData: { tags?: string[]; aiSummary?: string } = {};
             if (needsTags) fallbackData.tags = ['Event'];
             if (needsSummary) fallbackData.aiSummary = '[AI processing returned no results]';
@@ -114,10 +124,9 @@ async function processCombinedPass(stats: Stats): Promise<number> {
           const isContentFilter =
             errMsg.includes('content_filter') || errMsg.includes('content management policy');
           console.error(
-            `✗ Failed: "${event.title.slice(0, 40)}..."${isContentFilter ? ' [CONTENT FILTER]' : ''}`
+            `[Backfill] Failed: "${event.title.slice(0, 40)}..."${isContentFilter ? ' [CONTENT FILTER]' : ''}`
           );
 
-          // Mark failed events with placeholder to prevent infinite retry loops
           const needsTags = !event.tags || event.tags.length === 0;
           const needsSummary = !event.aiSummary;
           const updateData: { tags?: string[]; aiSummary?: string } = {};
@@ -133,14 +142,12 @@ async function processCombinedPass(stats: Stats): Promise<number> {
         }
       })
     );
-    // No delay - max throughput
   }
 
   return eventsNeedingProcessing.length;
 }
 
 async function processEmbeddingsPass(stats: Stats): Promise<number> {
-  const now = new Date();
   const eventsNeedingEmbeddings = await db
     .select({
       id: events.id,
@@ -150,18 +157,12 @@ async function processEmbeddingsPass(stats: Stats): Promise<number> {
       organizer: events.organizer,
     })
     .from(events)
-    .where(
-      and(
-        isNotNull(events.aiSummary),
-        isNull(events.embedding),
-        sql`${events.startDate} >= ${now.toISOString()}`
-      )
-    )
+    .where(and(isNotNull(events.aiSummary), isNull(events.embedding)))
     .limit(LIMIT_PER_PASS);
 
   if (eventsNeedingEmbeddings.length === 0) return 0;
 
-  console.log(`\n🔢 Generating embeddings for ${eventsNeedingEmbeddings.length} events...`);
+  console.log(`\n[Backfill] Generating embeddings for ${eventsNeedingEmbeddings.length} events...`);
 
   for (const batch of chunk(eventsNeedingEmbeddings, BATCH_SIZE_EMBEDDINGS)) {
     await Promise.all(
@@ -188,14 +189,12 @@ async function processEmbeddingsPass(stats: Stats): Promise<number> {
         }
       })
     );
-    // No delay - max throughput
   }
 
   return eventsNeedingEmbeddings.length;
 }
 
 async function processScoringPass(stats: Stats): Promise<number> {
-  const now = new Date();
   const eventsNeedingScores = await db
     .select({
       id: events.id,
@@ -210,24 +209,25 @@ async function processScoringPass(stats: Stats): Promise<number> {
       recurringType: events.recurringType,
     })
     .from(events)
-    .where(
-      and(
-        isNull(events.score),
-        isNotNull(events.embedding),
-        isNotNull(events.aiSummary),
-        sql`${events.startDate} >= ${now.toISOString()}`
-      )
-    )
+    .where(and(isNull(events.score), isNotNull(events.embedding), isNotNull(events.aiSummary)))
     .limit(LIMIT_PER_PASS);
 
   if (eventsNeedingScores.length === 0) return 0;
 
-  console.log(`\n⭐ Scoring ${eventsNeedingScores.length} events...`);
+  console.log(`\n[Backfill] Scoring ${eventsNeedingScores.length} events...`);
 
-  // First: Handle daily recurring in parallel (no API call)
   const dailyRecurring = eventsNeedingScores.filter((e) => e.recurringType === 'daily');
   if (dailyRecurring.length > 0) {
-    const recurringScore = getRecurringEventScore('daily');
+    const recurringScore = {
+      score: 5,
+      rarity: 1,
+      unique: 2,
+      magnitude: 2,
+      reason: 'Daily recurring event - happens every day.',
+      ashevilleWeird: 3,
+      social: 5,
+    } as EventScoreResult;
+
     await Promise.all(
       dailyRecurring.map(async (event) => {
         await db
@@ -238,16 +238,17 @@ async function processScoringPass(stats: Stats): Promise<number> {
             scoreUnique: recurringScore.unique,
             scoreMagnitude: recurringScore.magnitude,
             scoreReason: recurringScore.reason,
+            scoreAshevilleWeird: recurringScore.ashevilleWeird,
+            scoreSocial: recurringScore.social,
           })
           .where(eq(events.id, event.id));
         stats.scoring.skippedRecurring++;
         stats.scoring.total++;
       })
     );
-    console.log(`  ⟲ Auto-scored ${dailyRecurring.length} daily recurring`);
+    console.log(`[Backfill] Auto-scored ${dailyRecurring.length} daily recurring`);
   }
 
-  // Second: Check weekly recurring in parallel (DB only)
   const nonDailyEvents = eventsNeedingScores.filter((e) => e.recurringType !== 'daily');
   const recurringChecks = await Promise.all(
     nonDailyEvents.map(async (event) => {
@@ -266,7 +267,16 @@ async function processScoringPass(stats: Stats): Promise<number> {
   const needsAIScoring = recurringChecks.filter((r) => !r.isWeekly).map((r) => r.event);
 
   if (weeklyRecurring.length > 0) {
-    const recurringScore = getRecurringEventScore('weekly');
+    const recurringScore = {
+      score: 5,
+      rarity: 1,
+      unique: 2,
+      magnitude: 2,
+      reason: 'Weekly recurring event - happens every week.',
+      ashevilleWeird: 3,
+      social: 5,
+    } as EventScoreResult;
+
     await Promise.all(
       weeklyRecurring.map(async ({ event }) => {
         await db
@@ -277,19 +287,20 @@ async function processScoringPass(stats: Stats): Promise<number> {
             scoreUnique: recurringScore.unique,
             scoreMagnitude: recurringScore.magnitude,
             scoreReason: recurringScore.reason,
+            scoreAshevilleWeird: recurringScore.ashevilleWeird,
+            scoreSocial: recurringScore.social,
           })
           .where(eq(events.id, event.id));
         stats.scoring.skippedRecurring++;
         stats.scoring.total++;
       })
     );
-    console.log(`  ⟲ Auto-scored ${weeklyRecurring.length} weekly recurring`);
+    console.log(`[Backfill] Auto-scored ${weeklyRecurring.length} weekly recurring`);
   }
 
-  // Third: AI scoring in PARALLEL BATCHES (the big speedup!)
   if (needsAIScoring.length > 0) {
     console.log(
-      `  🤖 AI scoring ${needsAIScoring.length} events in batches of ${BATCH_SIZE_SCORING}...`
+      `[Backfill] AI scoring ${needsAIScoring.length} events in batches of ${BATCH_SIZE_SCORING}...`
     );
 
     for (const batch of chunk(needsAIScoring, BATCH_SIZE_SCORING)) {
@@ -299,7 +310,7 @@ async function processScoringPass(stats: Stats): Promise<number> {
             const similarEvents = await findSimilarEvents(event.id, {
               limit: 20,
               minSimilarity: 0.4,
-              futureOnly: true,
+              futureOnly: false,
               orderBy: 'similarity',
             });
 
@@ -324,77 +335,48 @@ async function processScoringPass(stats: Stats): Promise<number> {
               }))
             );
 
-            if (scoreResult) {
-              await db
-                .update(events)
-                .set({
-                  score: scoreResult.score,
-                  scoreRarity: scoreResult.rarity,
-                  scoreUnique: scoreResult.unique,
-                  scoreMagnitude: scoreResult.magnitude,
-                  scoreReason: scoreResult.reason,
-                })
-                .where(eq(events.id, event.id));
-              stats.scoring.success++;
-              if (scoreResult.score >= 18) {
-                console.log(`  ★ ${scoreResult.score}/30: "${event.title.slice(0, 50)}..."`);
-              }
-            } else {
+            const finalScore = scoreResult ?? fallbackScore;
+            if (!scoreResult) {
               stats.scoring.failed++;
+            } else {
+              stats.scoring.success++;
             }
+
+            await db
+              .update(events)
+              .set({
+                score: finalScore.score,
+                scoreRarity: finalScore.rarity,
+                scoreUnique: finalScore.unique,
+                scoreMagnitude: finalScore.magnitude,
+                scoreReason: finalScore.reason,
+                scoreAshevilleWeird: finalScore.ashevilleWeird,
+                scoreSocial: finalScore.social,
+              })
+              .where(eq(events.id, event.id));
             stats.scoring.total++;
           } catch {
             stats.scoring.failed++;
             stats.scoring.total++;
+            await db
+              .update(events)
+              .set({
+                score: fallbackScore.score,
+                scoreRarity: fallbackScore.rarity,
+                scoreUnique: fallbackScore.unique,
+                scoreMagnitude: fallbackScore.magnitude,
+                scoreReason: fallbackScore.reason,
+                scoreAshevilleWeird: fallbackScore.ashevilleWeird,
+                scoreSocial: fallbackScore.social,
+              })
+              .where(eq(events.id, event.id));
           }
         })
       );
-      // No delay - max throughput
     }
   }
 
   return eventsNeedingScores.length;
-}
-
-async function getRemainingCounts() {
-  const now = new Date();
-  const needsSummary = await db
-    .select({ count: sql<number>`count(*)` })
-    .from(events)
-    .where(
-      and(
-        or(sql`${events.tags} = '{}'::text[] OR ${events.tags} IS NULL`, isNull(events.aiSummary)),
-        sql`${events.startDate} >= ${now.toISOString()}`
-      )
-    );
-
-  const needsEmbedding = await db
-    .select({ count: sql<number>`count(*)` })
-    .from(events)
-    .where(
-      and(
-        isNotNull(events.aiSummary),
-        isNull(events.embedding),
-        sql`${events.startDate} >= ${now.toISOString()}`
-      )
-    );
-
-  const needsScore = await db
-    .select({ count: sql<number>`count(*)` })
-    .from(events)
-    .where(
-      and(
-        isNull(events.score),
-        isNotNull(events.embedding),
-        sql`${events.startDate} >= ${now.toISOString()}`
-      )
-    );
-
-  return {
-    needsSummary: Number(needsSummary[0].count),
-    needsEmbedding: Number(needsEmbedding[0].count),
-    needsScore: Number(needsScore[0].count),
-  };
 }
 
 async function main() {
@@ -403,87 +385,47 @@ async function main() {
     process.exit(1);
   }
 
-  const jobStartTime = Date.now();
-
   const stats: Stats = {
     combined: { success: 0, failed: 0, total: 0 },
     embeddings: { success: 0, failed: 0, total: 0 },
     scoring: { success: 0, failed: 0, total: 0, skippedRecurring: 0 },
   };
 
-  console.log('════════════════════════════════════════════════════════════');
-  console.log('  AI PROCESSING - Sequential Pipeline');
-  console.log('════════════════════════════════════════════════════════════');
-
-  // Get initial counts
   const initial = await getRemainingCounts();
-  console.log(`\nInitial counts:`);
-  console.log(`  • Need tags/summary: ${initial.needsSummary}`);
-  console.log(`  • Need embedding: ${initial.needsEmbedding}`);
-  console.log(`  • Need score: ${initial.needsScore}`);
+  console.log(`[Backfill] Initial: ${JSON.stringify(initial)}`);
 
-  // STEP 1: Process ALL tags/summaries first
-  console.log(`\n════════════════════════════════════════════════════════════`);
-  console.log(`  STEP 1: TAGS & SUMMARIES`);
-  console.log(`════════════════════════════════════════════════════════════`);
-  let stepStart = Date.now();
-  let batchNum = 0;
+  console.log('\n[Backfill] STEP 1: TAGS & SUMMARIES');
   while (true) {
     const processed = await processCombinedPass(stats);
     if (processed === 0) break;
-    batchNum++;
     const remaining = await getRemainingCounts();
-    console.log(`  Batch ${batchNum} done. ${remaining.needsSummary} remaining...`);
+    console.log(`[Backfill] Remaining after batch: ${JSON.stringify(remaining)}`);
   }
-  console.log(`\n  ✅ All tags/summaries complete in ${formatDuration(Date.now() - stepStart)}`);
 
-  // STEP 2: Process ALL embeddings
-  console.log(`\n════════════════════════════════════════════════════════════`);
-  console.log(`  STEP 2: EMBEDDINGS`);
-  console.log(`════════════════════════════════════════════════════════════`);
-  stepStart = Date.now();
-  batchNum = 0;
+  console.log('\n[Backfill] STEP 2: EMBEDDINGS');
   while (true) {
     const processed = await processEmbeddingsPass(stats);
     if (processed === 0) break;
-    batchNum++;
     const remaining = await getRemainingCounts();
-    console.log(`  Batch ${batchNum} done. ${remaining.needsEmbedding} remaining...`);
+    console.log(`[Backfill] Remaining after batch: ${JSON.stringify(remaining)}`);
   }
-  console.log(`\n  ✅ All embeddings complete in ${formatDuration(Date.now() - stepStart)}`);
 
-  // STEP 3: Process ALL scores
-  console.log(`\n════════════════════════════════════════════════════════════`);
-  console.log(`  STEP 3: SCORING`);
-  console.log(`════════════════════════════════════════════════════════════`);
-  stepStart = Date.now();
-  batchNum = 0;
+  console.log('\n[Backfill] STEP 3: SCORING');
   while (true) {
     const processed = await processScoringPass(stats);
     if (processed === 0) break;
-    batchNum++;
     const remaining = await getRemainingCounts();
-    console.log(`  Batch ${batchNum} done. ${remaining.needsScore} remaining...`);
+    console.log(`[Backfill] Remaining after batch: ${JSON.stringify(remaining)}`);
   }
-  console.log(`\n  ✅ All scoring complete in ${formatDuration(Date.now() - stepStart)}`);
 
-  // Final Summary
-  const totalDuration = Date.now() - jobStartTime;
-  console.log('\n════════════════════════════════════════════════════════════');
-  console.log(`  JOB COMPLETE in ${formatDuration(totalDuration)}`);
-  console.log('════════════════════════════════════════════════════════════');
+  const finalCounts = await getRemainingCounts();
+  console.log(`[Backfill] Final: ${JSON.stringify(finalCounts)}`);
   console.log(
-    `  Tags/Summaries: ${stats.combined.success} succeeded, ${stats.combined.failed} failed`
+    `[Backfill] Summary: tags/summaries ${stats.combined.success} ok, ${stats.combined.failed} failed; embeddings ${stats.embeddings.success} ok, ${stats.embeddings.failed} failed; scoring ${stats.scoring.success} ok, ${stats.scoring.failed} failed, ${stats.scoring.skippedRecurring} recurring`
   );
-  console.log(
-    `  Embeddings:     ${stats.embeddings.success} succeeded, ${stats.embeddings.failed} failed`
-  );
-  console.log(
-    `  Scores:         ${stats.scoring.success} AI scored, ${stats.scoring.skippedRecurring} recurring auto-scored, ${stats.scoring.failed} failed`
-  );
-  console.log('════════════════════════════════════════════════════════════\n');
 }
 
-main()
-  .catch(console.error)
-  .finally(() => process.exit(0));
+main().catch((error) => {
+  console.error('[Backfill] Fatal error:', error instanceof Error ? error.message : error);
+  process.exit(1);
+});

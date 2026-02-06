@@ -418,10 +418,11 @@ export async function GET(request: Request) {
 
         // Get all future event IDs for cleanup (events that have passed can be removed from tracking)
         const now = new Date();
+        const nowIso = now.toISOString();
         const futureEventIds = await db
           .select({ id: events.id })
           .from(events)
-          .where(sql`${events.startDate} >= ${now}`);
+          .where(sql`${events.startDate} >= ${nowIso}`);
         const futureEventIdSet = new Set(futureEventIds.map((e) => e.id));
 
         // Get users with live subscription

@@ -1,10 +1,13 @@
 import { redirect } from 'next/navigation';
 import { createClient } from '@/lib/supabase/server';
 import Link from 'next/link';
-import { Mail, Shield, User, Heart, ChevronRight, Sparkles } from 'lucide-react';
+import { Mail, Shield, User, Heart, ChevronRight, Sparkles, Users } from 'lucide-react';
 import Header from '@/components/Header';
 import CuratorProfileSettings from '@/components/CuratorProfileSettings';
 import EmailDigestSettings from '@/components/EmailDigestSettings';
+import { db } from '@/lib/db';
+import { matchingProfiles } from '@/lib/db/schema';
+import { eq } from 'drizzle-orm';
 
 export default async function ProfilePage() {
   const supabase = await createClient();
@@ -17,6 +20,18 @@ export default async function ProfilePage() {
 
   if (error || !user) {
     redirect('/login');
+  }
+
+  let matchingProfile = null;
+  try {
+    const [result] = await db
+      .select()
+      .from(matchingProfiles)
+      .where(eq(matchingProfiles.userId, user.id))
+      .limit(1);
+    matchingProfile = result ?? null;
+  } catch {
+    // Matching profiles table may not exist yet — silently continue
   }
 
   // Extract user metadata
@@ -182,6 +197,35 @@ export default async function ProfilePage() {
               </div>
             </Link>
           </div>
+
+          {/* Matching Profile (only if started) */}
+          {matchingProfile && (
+            <div className="mt-4">
+              <Link
+                href="/tedx"
+                className="block bg-white dark:bg-gray-900 rounded-xl shadow-lg border border-gray-200 dark:border-gray-800 p-6 hover:border-brand-500 dark:hover:border-brand-600 transition-colors group"
+              >
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-4">
+                    <div className="p-3 bg-brand-50 dark:bg-brand-900/20 rounded-lg group-hover:bg-brand-100 dark:group-hover:bg-brand-900/30 transition-colors">
+                      <Users className="w-6 h-6 text-brand-600 dark:text-brand-400" />
+                    </div>
+                    <div>
+                      <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+                        Matching Profile
+                      </h2>
+                      <p className="text-sm text-gray-600 dark:text-gray-400">
+                        {matchingProfile.status === 'submitted'
+                          ? 'View your submitted answers'
+                          : 'Continue your matching profile'}
+                      </p>
+                    </div>
+                  </div>
+                  <ChevronRight className="w-5 h-5 text-gray-400 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors" />
+                </div>
+              </Link>
+            </div>
+          )}
 
           {/* Email Digest Settings */}
           <div className="mt-8">

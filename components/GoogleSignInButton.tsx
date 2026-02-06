@@ -56,15 +56,18 @@ async function sha256Hex(input: string): Promise<string> {
 
 interface GoogleSignInButtonProps {
   className?: string;
+  redirectTo?: string;
 }
 
-export function GoogleSignInButton({ className }: GoogleSignInButtonProps) {
+export function GoogleSignInButton({ className, redirectTo = '/events' }: GoogleSignInButtonProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLDivElement>(null);
   const [isScriptLoaded, setIsScriptLoaded] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
   const initializedRef = useRef(false);
+  const safeRedirect =
+    redirectTo.startsWith('/') && !redirectTo.startsWith('//') ? redirectTo : '/events';
 
   const initializeButton = useCallback(async () => {
     // Prevent re-initialization
@@ -102,7 +105,7 @@ export function GoogleSignInButton({ className }: GoogleSignInButtonProps) {
             if (error) throw error;
 
             console.log('Successfully signed in with Google');
-            router.push('/events');
+            router.push(safeRedirect);
             router.refresh();
           } catch (err) {
             console.error('Google sign-in error:', err);
@@ -127,7 +130,7 @@ export function GoogleSignInButton({ className }: GoogleSignInButtonProps) {
       shape: 'rectangular',
       width: buttonWidth,
     });
-  }, [router]);
+  }, [router, safeRedirect]);
 
   useEffect(() => {
     if (isScriptLoaded) {

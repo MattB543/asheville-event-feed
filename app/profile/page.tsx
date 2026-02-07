@@ -216,7 +216,9 @@ export default async function ProfilePage() {
                       </h2>
                       <p className="text-sm text-gray-600 dark:text-gray-400">
                         {matchingProfile.status === 'submitted'
-                          ? 'View your submitted answers'
+                          ? matchingProfile.allowEditing
+                            ? 'View or edit your matching profile'
+                            : 'View your submitted answers'
                           : 'Continue your matching profile'}
                       </p>
                     </div>

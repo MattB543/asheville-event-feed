@@ -13,6 +13,13 @@ type IncomingAnswer = {
   answerJson?: unknown;
 };
 
+class ValidationError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = 'ValidationError';
+  }
+}
+
 function isValidUrl(value: string): boolean {
   try {
     const url = new URL(value);
@@ -26,6 +33,18 @@ function normalizeUrlList(values: string[]): { urls: string[] } {
   const trimmed = values.map((value) => value.trim()).filter((value) => value.length > 0);
   const urls = Array.from(new Set(trimmed.filter((value) => isValidUrl(value))));
   return { urls };
+}
+
+function normalizeTextList(values: string[], maxLength: number): { items: string[] } {
+  const items = Array.from(
+    new Set(
+      values
+        .map((value) => value.trim())
+        .filter((value) => value.length > 0)
+        .map((value) => value.slice(0, maxLength))
+    )
+  );
+  return { items };
 }
 
 async function getOrCreateProfile(user: User, program: string) {
@@ -115,117 +134,137 @@ export async function POST(request: NextRequest) {
     }
 
     const profile = await getOrCreateProfile(user, program);
-    if (profile.status === 'submitted') {
-      return NextResponse.json({ error: 'Profile already submitted' }, { status: 403 });
+    if (!profile.allowEditing) {
+      return NextResponse.json({ error: 'Profile editing is locked' }, { status: 403 });
     }
 
     const now = new Date();
 
-    for (const answer of answers) {
-      const question = questionMap.get(answer.questionId);
-      if (!question) continue;
+    // Default max item counts by input type
+    const MAX_ITEMS_BY_TYPE: Record<string, number> = {
+      multi_url: 5,
+      multi_text: 10,
+    };
 
-      let answerText: string | null = null;
-      let answerJson: unknown = null;
-      let shouldDelete = false;
+    await db.transaction(async (tx) => {
+      for (const answer of answers) {
+        const question = questionMap.get(answer.questionId);
+        if (!question) continue;
 
-      if (question.inputType === 'long_text' || question.inputType === 'short_text') {
-        const text = typeof answer.answerText === 'string' ? answer.answerText.trim() : '';
-        if (!text) {
-          shouldDelete = true;
-        } else if (question.maxLength && text.length > question.maxLength) {
-          return NextResponse.json(
-            { error: `Answer for ${question.id} exceeds max length` },
-            { status: 400 }
-          );
+        let answerText: string | null = null;
+        let answerJson: unknown = null;
+        let shouldDelete = false;
+
+        if (question.inputType === 'long_text' || question.inputType === 'short_text') {
+          const text = typeof answer.answerText === 'string' ? answer.answerText.trim() : '';
+          if (!text) {
+            shouldDelete = true;
+          } else if (question.maxLength && text.length > question.maxLength) {
+            throw new ValidationError(`Answer for ${question.id} exceeds max length`);
+          } else {
+            answerText = text;
+          }
+        } else if (question.inputType === 'file_markdown') {
+          const text = typeof answer.answerText === 'string' ? answer.answerText.trim() : '';
+          const maxLen = question.maxLength || 20000;
+          if (!text) {
+            shouldDelete = true;
+          } else if (text.length > maxLen) {
+            throw new ValidationError(`Answer for ${question.id} exceeds max length`);
+          } else {
+            answerText = text;
+          }
+        } else if (question.inputType === 'url') {
+          const text = typeof answer.answerText === 'string' ? answer.answerText.trim() : '';
+          if (!text) {
+            shouldDelete = true;
+          } else if (!isValidUrl(text)) {
+            // Silently treat incomplete/invalid URLs as empty during draft autosave
+            // so users don't see "Autosave failed" while still typing a URL
+            shouldDelete = true;
+          } else {
+            answerText = text;
+          }
+        } else if (question.inputType === 'multi_url') {
+          const rawList = isStringArray(answer.answerJson)
+            ? answer.answerJson
+            : typeof answer.answerText === 'string'
+              ? answer.answerText.split(/[\n,]+/)
+              : [];
+          // Filter out incomplete/invalid URLs silently rather than rejecting the
+          // whole request -- this prevents autosave failures while users are typing
+          const { urls } = normalizeUrlList(rawList);
+          const maxItems = MAX_ITEMS_BY_TYPE[question.inputType] ?? 10;
+          const limitedUrls = urls.slice(0, maxItems);
+
+          if (limitedUrls.length === 0) {
+            shouldDelete = true;
+          } else {
+            answerJson = limitedUrls;
+          }
+        } else if (question.inputType === 'multi_text') {
+          const rawList = isStringArray(answer.answerJson)
+            ? answer.answerJson
+            : typeof answer.answerText === 'string'
+              ? answer.answerText.split(/\n+/)
+              : [];
+          const itemMaxLength = question.maxLength || 300;
+          const { items } = normalizeTextList(rawList, itemMaxLength);
+          const maxItems = MAX_ITEMS_BY_TYPE[question.inputType] ?? 20;
+          const limitedItems = items.slice(0, maxItems);
+
+          if (limitedItems.length === 0) {
+            shouldDelete = true;
+          } else {
+            answerJson = limitedItems;
+          }
         } else {
-          answerText = text;
+          throw new ValidationError(`Unsupported input type for ${question.id}`);
         }
-      } else if (question.inputType === 'file_markdown') {
-        const text = typeof answer.answerText === 'string' ? answer.answerText.trim() : '';
-        const maxLen = question.maxLength || 20000;
-        if (!text) {
-          shouldDelete = true;
-        } else if (text.length > maxLen) {
-          return NextResponse.json(
-            { error: `Answer for ${question.id} exceeds max length` },
-            { status: 400 }
-          );
-        } else {
-          answerText = text;
-        }
-      } else if (question.inputType === 'url') {
-        const text = typeof answer.answerText === 'string' ? answer.answerText.trim() : '';
-        if (!text) {
-          shouldDelete = true;
-        } else if (!isValidUrl(text)) {
-          // Silently treat incomplete/invalid URLs as empty during draft autosave
-          // so users don't see "Autosave failed" while still typing a URL
-          shouldDelete = true;
-        } else {
-          answerText = text;
-        }
-      } else if (question.inputType === 'multi_url') {
-        const rawList = isStringArray(answer.answerJson)
-          ? answer.answerJson
-          : typeof answer.answerText === 'string'
-            ? answer.answerText.split(/[\n,]+/)
-            : [];
-        // Filter out incomplete/invalid URLs silently rather than rejecting the
-        // whole request -- this prevents autosave failures while users are typing
-        const { urls } = normalizeUrlList(rawList);
 
-        if (urls.length === 0) {
-          shouldDelete = true;
-        } else {
-          answerJson = urls;
+        if (shouldDelete) {
+          await tx
+            .delete(matchingAnswers)
+            .where(
+              and(
+                eq(matchingAnswers.profileId, profile.id),
+                eq(matchingAnswers.questionId, question.id)
+              )
+            );
+          continue;
         }
-      } else {
-        return NextResponse.json(
-          { error: `Unsupported input type for ${question.id}` },
-          { status: 400 }
-        );
-      }
 
-      if (shouldDelete) {
-        await db
-          .delete(matchingAnswers)
-          .where(
-            and(
-              eq(matchingAnswers.profileId, profile.id),
-              eq(matchingAnswers.questionId, question.id)
-            )
-          );
-        continue;
-      }
-
-      await db
-        .insert(matchingAnswers)
-        .values({
-          profileId: profile.id,
-          questionId: question.id,
-          answerText,
-          answerJson,
-          updatedAt: now,
-          createdAt: now,
-        })
-        .onConflictDoUpdate({
-          target: [matchingAnswers.profileId, matchingAnswers.questionId],
-          set: {
+        await tx
+          .insert(matchingAnswers)
+          .values({
+            profileId: profile.id,
+            questionId: question.id,
             answerText,
             answerJson,
             updatedAt: now,
-          },
-        });
-    }
+            createdAt: now,
+          })
+          .onConflictDoUpdate({
+            target: [matchingAnswers.profileId, matchingAnswers.questionId],
+            set: {
+              answerText,
+              answerJson,
+              updatedAt: now,
+            },
+          });
+      }
 
-    await db
-      .update(matchingProfiles)
-      .set({ updatedAt: now })
-      .where(eq(matchingProfiles.id, profile.id));
+      await tx
+        .update(matchingProfiles)
+        .set({ updatedAt: now })
+        .where(eq(matchingProfiles.id, profile.id));
+    });
 
     return NextResponse.json({ success: true });
   } catch (error) {
+    if (error instanceof ValidationError) {
+      return NextResponse.json({ error: error.message }, { status: 400 });
+    }
     console.error('Error saving matching answers:', error);
     return NextResponse.json({ error: 'Failed to save answers' }, { status: 500 });
   }

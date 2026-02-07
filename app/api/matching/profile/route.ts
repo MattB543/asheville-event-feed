@@ -55,8 +55,17 @@ export async function POST(request: NextRequest) {
 
     const program = getSafeProgram(isString(parsed.program) ? parsed.program : null);
     const displayName = isString(parsed.displayName) ? parsed.displayName.trim() : undefined;
+
+    if (displayName && displayName.length > 50) {
+      return NextResponse.json(
+        { error: 'Display name must be 50 characters or fewer' },
+        { status: 400 }
+      );
+    }
+
     const aiMatching = isBoolean(parsed.aiMatching) ? parsed.aiMatching : undefined;
     const consentVersion = isString(parsed.consentVersion) ? parsed.consentVersion : undefined;
+    const source = isString(parsed.source) ? parsed.source.trim().slice(0, 80) : undefined;
 
     const [existing] = await db
       .select()
@@ -64,8 +73,8 @@ export async function POST(request: NextRequest) {
       .where(eq(matchingProfiles.userId, user.id))
       .limit(1);
 
-    if (existing && existing.status === 'submitted') {
-      return NextResponse.json({ error: 'Profile already submitted' }, { status: 403 });
+    if (existing && !existing.allowEditing) {
+      return NextResponse.json({ error: 'Profile editing is locked' }, { status: 403 });
     }
 
     const now = new Date();
@@ -75,6 +84,7 @@ export async function POST(request: NextRequest) {
     const nextConsentVersion = nextAiMatching
       ? consentVersion || existing?.consentVersion || null
       : null;
+    const nextSource = source || existing?.source || null;
 
     let profile = existing ?? null;
 
@@ -86,6 +96,7 @@ export async function POST(request: NextRequest) {
           program,
           displayName: nextDisplayName,
           email: user.email || null,
+          source: nextSource,
           aiMatching: nextAiMatching,
           consentAt: nextConsentAt,
           consentVersion: nextConsentVersion,
@@ -102,6 +113,7 @@ export async function POST(request: NextRequest) {
           program,
           displayName: nextDisplayName,
           email: user.email || profile.email,
+          source: nextSource,
           aiMatching: nextAiMatching,
           consentAt: nextConsentAt,
           consentVersion: nextConsentVersion,

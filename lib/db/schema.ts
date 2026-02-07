@@ -174,10 +174,12 @@ export const matchingProfiles = pgTable(
     program: text('program').default('tedx').notNull(),
     displayName: text('display_name'),
     email: text('email'),
+    source: text('source'),
     aiMatching: boolean('ai_matching').default(false).notNull(),
     consentAt: timestamp('consent_at', { withTimezone: true }),
     consentVersion: text('consent_version'),
     status: text('status').default('draft').notNull(), // 'draft' | 'submitted'
+    allowEditing: boolean('allow_editing').default(true).notNull(),
     submittedAt: timestamp('submitted_at', { withTimezone: true }),
     createdAt: timestamp('created_at').defaultNow().notNull(),
     updatedAt: timestamp('updated_at').defaultNow().notNull(),
@@ -200,7 +202,7 @@ export const matchingQuestions = pgTable(
     prompt: text('prompt').notNull(),
     helpText: text('help_text'),
     required: boolean('required').default(false).notNull(),
-    inputType: text('input_type').notNull(), // 'long_text' | 'short_text' | 'url' | 'multi_url' | 'file_markdown'
+    inputType: text('input_type').notNull(), // 'long_text' | 'short_text' | 'url' | 'multi_url' | 'multi_text' | 'file_markdown'
     maxLength: integer('max_length'),
     websearch: boolean('websearch').default(false).notNull(),
     active: boolean('active').default(true).notNull(),

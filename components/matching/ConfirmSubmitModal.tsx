@@ -1,13 +1,15 @@
 'use client';
 
 import { useEffect, useRef, useCallback } from 'react';
-import { X, AlertTriangle, Loader2 } from 'lucide-react';
+import { X, CheckCircle, Loader2 } from 'lucide-react';
 
 interface ConfirmSubmitModalProps {
   isOpen: boolean;
   onClose: () => void;
   onConfirm: () => void;
   isSubmitting?: boolean;
+  answeredCount?: number;
+  canEditAfterSubmit?: boolean;
 }
 
 export default function ConfirmSubmitModal({
@@ -15,6 +17,8 @@ export default function ConfirmSubmitModal({
   onClose,
   onConfirm,
   isSubmitting = false,
+  answeredCount = 0,
+  canEditAfterSubmit = true,
 }: ConfirmSubmitModalProps) {
   const modalRef = useRef<HTMLDivElement>(null);
 
@@ -76,17 +80,26 @@ export default function ConfirmSubmitModal({
         </button>
 
         <div className="flex justify-center mb-4">
-          <div className="w-16 h-16 rounded-full bg-red-50 dark:bg-red-900/20 flex items-center justify-center">
-            <AlertTriangle className="w-8 h-8 text-red-600 dark:text-red-400" />
+          <div className="w-16 h-16 rounded-full bg-brand-50 dark:bg-brand-900/20 flex items-center justify-center">
+            <CheckCircle className="w-8 h-8 text-brand-600 dark:text-brand-400" />
           </div>
         </div>
 
         <h2 className="text-xl font-bold text-gray-900 dark:text-white text-center mb-2">
           Ready to submit?
         </h2>
-        <p className="text-gray-600 dark:text-gray-400 text-center mb-6">
-          You will not be able to edit your answers after submitting.
-        </p>
+        <div className="text-center mb-6 space-y-2">
+          <p className="text-gray-600 dark:text-gray-400">
+            {canEditAfterSubmit
+              ? 'You can still edit your answers anytime until event day.'
+              : 'You will not be able to edit after this submission.'}
+          </p>
+          {answeredCount === 1 && (
+            <p className="text-sm text-brand-700 dark:text-brand-300">
+              You answered one question. More answers can improve match quality.
+            </p>
+          )}
+        </div>
 
         <div className="space-y-3">
           <button

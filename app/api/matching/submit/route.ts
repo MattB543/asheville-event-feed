@@ -33,8 +33,19 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'No matching profile found' }, { status: 404 });
     }
 
-    if (profile.status === 'submitted') {
+    if (!profile.allowEditing && profile.status === 'submitted') {
       return NextResponse.json({ success: true, profile });
+    }
+
+    if (!profile.allowEditing) {
+      return NextResponse.json({ error: 'Profile editing is locked' }, { status: 403 });
+    }
+
+    if (!profile.displayName || !profile.displayName.trim()) {
+      return NextResponse.json(
+        { error: 'Display name is required before submitting' },
+        { status: 400 }
+      );
     }
 
     if (!profile.aiMatching || !profile.consentAt) {
@@ -53,22 +64,29 @@ export async function POST(request: NextRequest) {
 
     const answerMap = new Map(answers.map((answer) => [answer.questionId, answer]));
     const missingRequired: string[] = [];
+    let answeredSurveyCount = 0;
 
     for (const question of questions) {
-      if (!question.required) continue;
-
       const answer = answerMap.get(question.id);
-      if (!answer) {
-        missingRequired.push(question.id);
-        continue;
+      const hasAnswer = (() => {
+        if (!answer) return false;
+
+        if (question.inputType === 'multi_url' || question.inputType === 'multi_text') {
+          const list = Array.isArray(answer.answerJson) ? answer.answerJson : [];
+          return list.length > 0;
+        }
+
+        const text = typeof answer.answerText === 'string' ? answer.answerText.trim() : '';
+        return text.length > 0;
+      })();
+
+      if (question.section === 'survey' && hasAnswer) {
+        answeredSurveyCount += 1;
       }
 
-      if (question.inputType === 'multi_url') {
-        const list = Array.isArray(answer.answerJson) ? answer.answerJson : [];
-        if (list.length === 0) missingRequired.push(question.id);
-      } else {
-        const text = typeof answer.answerText === 'string' ? answer.answerText.trim() : '';
-        if (!text) missingRequired.push(question.id);
+      if (!question.required) continue;
+      if (!hasAnswer) {
+        missingRequired.push(question.id);
       }
     }
 
@@ -79,12 +97,19 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    if (answeredSurveyCount < 1) {
+      return NextResponse.json(
+        { error: 'Please answer at least one question before submitting' },
+        { status: 400 }
+      );
+    }
+
     const now = new Date();
     const [updated] = await db
       .update(matchingProfiles)
       .set({
         status: 'submitted',
-        submittedAt: now,
+        submittedAt: profile.submittedAt || now,
         updatedAt: now,
         consentVersion: profile.consentVersion || version,
       })

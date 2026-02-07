@@ -1,15 +1,22 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { redirect } from 'next/navigation';
+import { ArrowRight, Users } from 'lucide-react';
+import { eq } from 'drizzle-orm';
 import Header from '@/components/Header';
 import { createClient } from '@/lib/supabase/server';
 import { db } from '@/lib/db';
-import { matchingProfiles } from '@/lib/db/schema';
-import { eq } from 'drizzle-orm';
-import { ArrowRight, Users } from 'lucide-react';
+import { matchingAnswers, matchingProfiles } from '@/lib/db/schema';
+import { getLatestQuestions } from '@/lib/matching/utils';
+import {
+  getMatchingFlowPath,
+  inferMatchingFlowStep,
+  type MatchingFlowStep,
+} from '@/lib/matching/flow';
 
 export const metadata: Metadata = {
   title: 'TEDx Matching | AVL GO',
-  description: 'Create your matching profile for the TEDx Asheville attendee pilot.',
+  description: 'Find your people at TEDxAsheville.',
   robots: {
     index: false,
     follow: false,
@@ -22,28 +29,43 @@ export default async function TedxLandingPage() {
     data: { user },
   } = await supabase.auth.getUser();
 
-  let profile = null;
+  let nextStep: MatchingFlowStep = 'intro';
+  const ctaLabel = 'Get Started';
+
   if (user) {
     try {
-      const [result] = await db
+      const [profile] = await db
         .select()
         .from(matchingProfiles)
         .where(eq(matchingProfiles.userId, user.id))
         .limit(1);
-      profile = result ?? null;
+
+      if (profile) {
+        const answers = await db
+          .select({ questionId: matchingAnswers.questionId })
+          .from(matchingAnswers)
+          .where(eq(matchingAnswers.profileId, profile.id));
+        const { questions } = await getLatestQuestions(profile.program);
+        const surveyQuestionIds = questions
+          .filter((question) => question.section === 'survey')
+          .map((question) => question.id);
+
+        nextStep = inferMatchingFlowStep({ profile, answers, surveyQuestionIds });
+      }
     } catch {
-      // Matching profiles table may not exist yet — silently continue
-      profile = null;
+      // Matching tables may not exist yet in some environments.
+      nextStep = 'intro';
     }
   }
 
-  const ctaHref = user ? '/tedx/onboarding' : '/login?next=/tedx/onboarding';
-  let ctaLabel = 'Start profile matching';
-  if (profile?.status === 'submitted') {
-    ctaLabel = 'View your submitted profile';
-  } else if (profile) {
-    ctaLabel = 'Continue your profile';
+  if (user) {
+    const redirectPath =
+      nextStep === 'intro' ? '/tedx/intro?from=tedx_landing' : getMatchingFlowPath(nextStep);
+    redirect(redirectPath);
   }
+
+  const loggedOutNext = encodeURIComponent('/tedx/intro?from=tedx_landing');
+  const ctaHref = `/login?next=${loggedOutNext}`;
 
   return (
     <main className="min-h-screen bg-gray-50 dark:bg-gray-950 flex flex-col">
@@ -57,22 +79,26 @@ export default async function TedxLandingPage() {
               </div>
               <div>
                 <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
-                  TEDx Asheville Matching
+                  Find Your People at TEDxAsheville
                 </h1>
                 <p className="text-sm text-gray-600 dark:text-gray-400">
-                  Help us match you with other attendees for meaningful conversations.
+                  Get matched with the attendees you&apos;ll actually want to meet.
                 </p>
               </div>
             </div>
 
-            <div className="space-y-4 text-sm text-gray-600 dark:text-gray-400">
+            <div className="space-y-4 text-md text-gray-600 dark:text-gray-400">
               <p>
-                This is a private pilot flow. You will create an AVL GO account, answer a short
-                survey, and opt in to having your profile analyzed for matching.
+                This private pilot helps attendees discover stronger 1:1 conversations before the
+                event.
               </p>
               <p>
-                Your answers are used only for this matching experiment. You can view your
-                submission afterward, but edits require support.
+                Share as much or as little as you want, but the more you share, the better your
+                matches will be!
+              </p>
+              <p>
+                Your specific answers stay private. We only use your data to build better match
+                recommendations.
               </p>
             </div>
 

@@ -277,6 +277,9 @@ export default function EventCard({
     });
   };
 
+  const isTedxEvent =
+    event.title?.toLowerCase().includes('tedx') || event.organizer?.toLowerCase().includes('tedx');
+
   // Use AI summary if available, otherwise use original description
   const hasAiSummary = !!event.aiSummary;
   const cleanedAiSummary = event.aiSummary
@@ -1070,24 +1073,52 @@ export default function EventCard({
               {mobileExpansionState === 1 && hasAiSummary && (
                 <>
                   {cleanedAiSummary}
-                  <button
-                    onClick={() => setMobileExpansionState(2)}
-                    className="block text-xs text-gray-500 dark:text-gray-400 mt-1 cursor-pointer"
-                  >
-                    View original
-                  </button>
+                  <span className="flex items-center gap-2 mt-1">
+                    <button
+                      onClick={() => setMobileExpansionState(2)}
+                      className="text-xs text-gray-500 dark:text-gray-400 cursor-pointer"
+                    >
+                      View original
+                    </button>
+                    {isTedxEvent && (
+                      <>
+                        <span className="text-xs text-gray-500 dark:text-gray-400">·</span>
+                        <Link
+                          href="/tedx"
+                          className="text-xs text-brand-600 dark:text-brand-400 hover:text-brand-700 dark:hover:text-brand-300 font-medium"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          Open TEDx Matching
+                        </Link>
+                      </>
+                    )}
+                  </span>
                 </>
               )}
               {/* State 2: Show full original description */}
               {mobileExpansionState === 2 && (
                 <>
                   {cleanedDescription}
-                  <button
-                    onClick={() => setMobileExpansionState(0)}
-                    className="block text-xs text-gray-500 dark:text-gray-400 mt-1 cursor-pointer"
-                  >
-                    View less
-                  </button>
+                  <span className="flex items-center gap-2 mt-1">
+                    <button
+                      onClick={() => setMobileExpansionState(0)}
+                      className="text-xs text-gray-500 dark:text-gray-400 cursor-pointer"
+                    >
+                      View less
+                    </button>
+                    {isTedxEvent && (
+                      <>
+                        <span className="text-xs text-gray-500 dark:text-gray-400">·</span>
+                        <Link
+                          href="/tedx"
+                          className="text-xs text-brand-600 dark:text-brand-400 hover:text-brand-700 dark:hover:text-brand-300 font-medium"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          Open TEDx Matching
+                        </Link>
+                      </>
+                    )}
+                  </span>
                 </>
               )}
             </p>
@@ -1107,6 +1138,18 @@ export default function EventCard({
                 >
                   {expandButtonText}
                 </button>
+              )}
+              {isTedxEvent && (
+                <>
+                  <span className="text-xs text-gray-500 dark:text-gray-400 ml-1">·</span>
+                  <Link
+                    href="/tedx"
+                    className="text-xs text-brand-600 dark:text-brand-400 hover:text-brand-700 dark:hover:text-brand-300 font-medium ml-1"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    Open TEDx Matching
+                  </Link>
+                </>
               )}
             </p>
           </div>

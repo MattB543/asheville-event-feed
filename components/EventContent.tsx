@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import {
   CalendarPlus2,
   MapPin,
@@ -13,6 +14,7 @@ import {
   Heart,
   ChevronDown,
   Share,
+  Users,
 } from 'lucide-react';
 import { cleanAshevilleFromSummary, cleanMarkdown } from '@/lib/utils/parsers';
 import { formatTagForDisplay } from '@/lib/utils/formatTag';
@@ -418,6 +420,18 @@ export default function EventContent({
               <ExternalLink size={15} />
               View on {getSourceName()}
             </a>
+
+            {/* TEDx Matching Link */}
+            {(event.title?.toLowerCase().includes('tedx') ||
+              event.organizer?.toLowerCase().includes('tedx')) && (
+              <Link
+                href="/tedx"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm bg-brand-600 text-white rounded-lg hover:bg-brand-700 transition-colors"
+              >
+                <Users size={15} />
+                Open TEDx Matching
+              </Link>
+            )}
           </div>
         </div>
       </div>

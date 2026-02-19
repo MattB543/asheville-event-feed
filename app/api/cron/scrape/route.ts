@@ -19,6 +19,7 @@ import { scrapeUDharma } from '@/lib/scrapers/udharma';
 import { scrapeNCStage } from '@/lib/scrapers/ncstage';
 import { scrapeStoryParlor } from '@/lib/scrapers/storyparlor';
 import { scrapeTheaterAlliance } from '@/lib/scrapers/theateralliance';
+import { scrapePechaKucha } from '@/lib/scrapers/pechakucha';
 import { db } from '@/lib/db';
 import { events } from '@/lib/db/schema';
 import { inArray, eq } from 'drizzle-orm';
@@ -89,6 +90,7 @@ export async function GET(request: Request) {
       ncStageResult,
       storyParlorResult,
       theaterAllianceResult,
+      pechaKuchaResult,
     ] = await Promise.allSettled([
       scrapeAvlToday(),
       scrapeEventbrite(25), // Scrape 25 pages (~500 events)
@@ -109,6 +111,7 @@ export async function GET(request: Request) {
       scrapeNCStage(), // NC Stage Company (ThunderTix)
       scrapeStoryParlor(), // Story Parlor (Squarespace JSON-LD)
       scrapeTheaterAlliance(), // Asheville Theater Alliance (WP REST API + JetEngine)
+      scrapePechaKucha(), // PechaKucha Night Asheville (Universe.com API)
     ]);
 
     // Extract values from settled results
@@ -137,6 +140,7 @@ export async function GET(request: Request) {
       storyParlorResult.status === 'fulfilled' ? storyParlorResult.value : [];
     const theaterAllianceEvents =
       theaterAllianceResult.status === 'fulfilled' ? theaterAllianceResult.value : [];
+    const pechaKuchaEvents = pechaKuchaResult.status === 'fulfilled' ? pechaKuchaResult.value : [];
 
     // Log any scraper failures
     if (avlResult.status === 'rejected')
@@ -177,6 +181,8 @@ export async function GET(request: Request) {
       console.error('[Scrape] Story Parlor scrape failed:', storyParlorResult.reason);
     if (theaterAllianceResult.status === 'rejected')
       console.error('[Scrape] Theater Alliance scrape failed:', theaterAllianceResult.reason);
+    if (pechaKuchaResult.status === 'rejected')
+      console.error('[Scrape] PechaKucha scrape failed:', pechaKuchaResult.reason);
 
     stats.scraping.duration = Date.now() - scrapeStartTime;
     stats.scraping.total =
@@ -198,10 +204,11 @@ export async function GET(request: Request) {
       uDharmaEvents.length +
       ncStageEvents.length +
       storyParlorEvents.length +
-      theaterAllianceEvents.length;
+      theaterAllianceEvents.length +
+      pechaKuchaEvents.length;
 
     console.log(
-      `[Scrape] Scrape complete in ${formatDuration(stats.scraping.duration)}. AVL: ${avlEvents.length}, EB: ${ebEvents.length}, Meetup: ${meetupEvents.length}, Harrahs: ${harrahsEvents.length}, OrangePeel: ${orangePeelEvents.length}, GreyEagle: ${greyEagleEvents.length}, LiveMusicAVL: ${liveMusicAvlEvents.length}, MountainX: ${mountainXEvents.length}, StaticAge: ${staticAgeEvents.length}, Revolve: ${revolveEvents.length}, BMCMuseum: ${bmcMuseumEvents.length}, AshevilleOnBikes: ${ashevilleOnBikesEvents.length}, ExploreAsheville: ${exploreAshevilleEvents.length}, MisfitImprov: ${misfitImprovEvents.length}, UDharma: ${uDharmaEvents.length}, NCStage: ${ncStageEvents.length}, StoryParlor: ${storyParlorEvents.length}, TheaterAlliance: ${theaterAllianceEvents.length} (Total: ${stats.scraping.total})`
+      `[Scrape] Scrape complete in ${formatDuration(stats.scraping.duration)}. AVL: ${avlEvents.length}, EB: ${ebEvents.length}, Meetup: ${meetupEvents.length}, Harrahs: ${harrahsEvents.length}, OrangePeel: ${orangePeelEvents.length}, GreyEagle: ${greyEagleEvents.length}, LiveMusicAVL: ${liveMusicAvlEvents.length}, MountainX: ${mountainXEvents.length}, StaticAge: ${staticAgeEvents.length}, Revolve: ${revolveEvents.length}, BMCMuseum: ${bmcMuseumEvents.length}, AshevilleOnBikes: ${ashevilleOnBikesEvents.length}, ExploreAsheville: ${exploreAshevilleEvents.length}, MisfitImprov: ${misfitImprovEvents.length}, UDharma: ${uDharmaEvents.length}, NCStage: ${ncStageEvents.length}, StoryParlor: ${storyParlorEvents.length}, TheaterAlliance: ${theaterAllianceEvents.length}, PechaKucha: ${pechaKuchaEvents.length} (Total: ${stats.scraping.total})`
     );
 
     // Facebook scraping (separate due to browser requirements)
@@ -246,6 +253,7 @@ export async function GET(request: Request) {
       ...ncStageEvents,
       ...storyParlorEvents,
       ...theaterAllianceEvents,
+      ...pechaKuchaEvents,
     ];
 
     console.log(`[Scrape] Upserting ${allEvents.length} events to database...`);

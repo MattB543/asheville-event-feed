@@ -18,7 +18,8 @@ export type EventSource =
   | 'BMC_MUSEUM'
   | 'ASHEVILLE_ON_BIKES'
   | 'UNCA'
-  | 'LITTLE_ANIMALS';
+  | 'LITTLE_ANIMALS'
+  | 'THEATER_ALLIANCE';
 
 export interface ScrapedEvent {
   sourceId: string;

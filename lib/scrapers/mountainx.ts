@@ -11,6 +11,7 @@ import { isNonNCEvent } from '@/lib/utils/geo';
 import { decodeHtmlEntities } from '@/lib/utils/parsers';
 import { getZipFromCoords, getZipFromCity } from '@/lib/utils/geo';
 import { getTodayStringEastern } from '@/lib/utils/timezone';
+import type { Browser, BrowserContext, Page } from 'patchright';
 
 // API Configuration
 const API_BASE = 'https://mountainx.com/wp-json/tribe/events/v1/events';
@@ -25,6 +26,12 @@ const API_HEADERS = {
   Accept: 'application/json',
   'Accept-Language': 'en-US,en;q=0.9',
 };
+
+interface BrowserFetcher {
+  browser: Browser;
+  context: BrowserContext;
+  page: Page;
+}
 
 /**
  * Tribe Events API Response Types
@@ -109,9 +116,11 @@ export async function scrapeMountainX(): Promise<ScrapedEvent[]> {
   const today = getTodayStringEastern();
   let page = 1;
   let hasMore = true;
+  let useBrowserFallback = false;
+  let browserFetcher: BrowserFetcher | null = null;
 
-  while (hasMore && page <= MAX_PAGES) {
-    try {
+  try {
+    while (hasMore && page <= MAX_PAGES) {
       const url = new URL(API_BASE);
       url.searchParams.set('start_date', today);
       url.searchParams.set('per_page', PER_PAGE.toString());
@@ -119,13 +128,27 @@ export async function scrapeMountainX(): Promise<ScrapedEvent[]> {
 
       console.log(`[MountainX] Fetching page ${page}...`);
 
-      const response = await fetchWithRetry(
-        url.toString(),
-        { headers: API_HEADERS, cache: 'no-store' },
-        { maxRetries: 3, baseDelay: 1000 }
-      );
+      let data: TribeEventsResponse;
+      try {
+        if (useBrowserFallback) {
+          const browserResult = await fetchEventsPageWithBrowser(url.toString(), browserFetcher);
+          data = browserResult.data;
+          browserFetcher = browserResult.fetcher;
+        } else {
+          data = await fetchEventsPageWithHttp(url.toString());
+        }
+      } catch (error) {
+        const message = error instanceof Error ? error.message : String(error);
+        if (!useBrowserFallback && message.includes('HTTP 403')) {
+          console.warn(
+            '[MountainX] HTTP client blocked by Cloudflare (403). Switching to browser fallback...'
+          );
+          useBrowserFallback = true;
+          continue;
+        }
+        throw error;
+      }
 
-      const data = (await response.json()) as TribeEventsResponse;
       const events = data.events || [];
 
       console.log(`[MountainX] Page ${page}: ${events.length} events (total: ${data.total})`);
@@ -146,10 +169,11 @@ export async function scrapeMountainX(): Promise<ScrapedEvent[]> {
       if (hasMore) {
         await new Promise((r) => setTimeout(r, DELAY_MS));
       }
-    } catch (error) {
-      console.error(`[MountainX] Error fetching page ${page}:`, error);
-      break;
     }
+  } catch (error) {
+    console.error(`[MountainX] Error fetching page ${page}:`, error);
+  } finally {
+    await closeBrowserFetcher(browserFetcher);
   }
 
   // Filter out non-NC events
@@ -164,6 +188,90 @@ export async function scrapeMountainX(): Promise<ScrapedEvent[]> {
     `[MountainX] Finished. Found ${ncEvents.length} NC events (${allEvents.length} total)`
   );
   return ncEvents;
+}
+
+async function fetchEventsPageWithHttp(url: string): Promise<TribeEventsResponse> {
+  const response = await fetchWithRetry(
+    url,
+    { headers: API_HEADERS, cache: 'no-store' },
+    { maxRetries: 3, baseDelay: 1000 }
+  );
+  return (await response.json()) as TribeEventsResponse;
+}
+
+async function getBrowserFetcher(existing: BrowserFetcher | null): Promise<BrowserFetcher> {
+  if (existing) return existing;
+
+  let chromium;
+  try {
+    const patchright = await import('patchright');
+    chromium = patchright.chromium;
+  } catch {
+    throw new Error(
+      'patchright is not available. Install it as a dev dependency to use MountainX browser fallback.'
+    );
+  }
+
+  const browser = await chromium.launch({ headless: true });
+  const context = await browser.newContext({
+    userAgent:
+      'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36',
+    locale: 'en-US',
+    timezoneId: 'America/New_York',
+  });
+  const page = await context.newPage();
+
+  // Prime Cloudflare/session cookies once in real browser context.
+  await page.goto('https://mountainx.com/', {
+    waitUntil: 'domcontentloaded',
+    timeout: 60000,
+  });
+
+  return { browser, context, page };
+}
+
+async function fetchEventsPageWithBrowser(
+  url: string,
+  existingFetcher: BrowserFetcher | null
+): Promise<{ data: TribeEventsResponse; fetcher: BrowserFetcher }> {
+  const fetcher = await getBrowserFetcher(existingFetcher);
+
+  const result = await fetcher.page.evaluate(async (apiUrl) => {
+    const response = await fetch(apiUrl, {
+      credentials: 'include',
+      headers: { Accept: 'application/json' },
+    });
+    const text = await response.text();
+    return {
+      status: response.status,
+      statusText: response.statusText,
+      text,
+    };
+  }, url);
+
+  if (result.status < 200 || result.status >= 300) {
+    throw new Error(`HTTP ${result.status}: ${result.statusText}`);
+  }
+
+  try {
+    return { data: JSON.parse(result.text) as TribeEventsResponse, fetcher };
+  } catch {
+    throw new Error('MountainX browser fallback returned non-JSON response');
+  }
+}
+
+async function closeBrowserFetcher(fetcher: BrowserFetcher | null): Promise<void> {
+  if (!fetcher) return;
+  try {
+    await fetcher.context.close();
+  } catch {
+    // no-op
+  }
+  try {
+    await fetcher.browser.close();
+  } catch {
+    // no-op
+  }
 }
 
 /**

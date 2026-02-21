@@ -391,8 +391,18 @@ function formatEvents(event: ExploreAshevilleEvent, description?: string): Scrap
     getZipFromCoords(event.position?.lat, event.position?.lng) || getZipFromCity(cityName);
 
   let imageUrl = event.previewImage?.src;
-  if (imageUrl && imageUrl.startsWith('/')) {
-    imageUrl = `${BASE_URL}${imageUrl}`;
+  if (imageUrl) {
+    // The API returns image URLs with %3A (encoded colon) and no file extension,
+    // which 404 on their server. The working URLs use "-" instead and end with .jpg.
+    // e.g. broken: /sites/default/files/listing_images/eu-west-1%3Aced5e211-...-filename_jfif
+    //      working: /sites/default/files/listing_images/eu-west-1-ced5e211-...-filename_jfif.jpg
+    imageUrl = imageUrl.replace(/%3A/gi, '-');
+    if (!/\.(jpe?g|png|gif|webp|avif)$/i.test(imageUrl)) {
+      imageUrl += '.jpg';
+    }
+    if (imageUrl.startsWith('/')) {
+      imageUrl = `${BASE_URL}${imageUrl}`;
+    }
   }
 
   const organizer = event.partnerName || event.venueName || undefined;

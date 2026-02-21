@@ -82,7 +82,15 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ markdown, truncated });
   } catch (error) {
-    console.error('Error parsing resume PDF:', error);
+    const errMsg = error instanceof Error ? error.message : String(error);
+    const errName = error instanceof Error ? error.constructor.name : typeof error;
+    console.error('Error parsing resume PDF:', {
+      name: errName,
+      message: errMsg,
+      status: error instanceof Error ? (error as Error & { status?: number }).status : undefined,
+      code: error instanceof Error ? (error as Error & { code?: string }).code : undefined,
+      stack: error instanceof Error ? error.stack?.split('\n').slice(0, 5).join('\n') : undefined,
+    });
     return NextResponse.json(
       { error: 'Failed to parse resume. Please try pasting your resume text manually.' },
       { status: 500 }

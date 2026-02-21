@@ -717,7 +717,9 @@ export async function queryTop30Events(): Promise<Top30EventsByCategory> {
     or(
       isNull(events.location),
       and(notIlike(events.location, '%online%'), notIlike(events.location, '%virtual%'))
-    )
+    ),
+    // Exclude LaZoom events (repetitive tourist-oriented tours)
+    notIlike(events.title, '%LaZoom%')
   );
 
   // Fetch top 30 by each category in parallel

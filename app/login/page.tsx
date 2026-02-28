@@ -48,19 +48,13 @@ export default function LoginPage() {
 
     const supabase = createClient();
     const redirectBase = `${window.location.origin}/auth/confirm`;
-    const redirectUrl = safeNext
-      ? `${redirectBase}?next=${encodeURIComponent(safeNext)}`
-      : redirectBase;
+    const targetNext = safeNext || '/events';
+    const redirectUrl = `${redirectBase}?next=${encodeURIComponent(targetNext)}`;
     const secureAttr = window.location.protocol === 'https:' ? '; Secure' : '';
 
     // Store redirect in cookie as fallback. Supabase email templates
     // may not preserve query params from emailRedirectTo.
-    if (safeNext) {
-      document.cookie = `auth_redirect=${encodeURIComponent(safeNext)}; path=/; max-age=86400; SameSite=Lax${secureAttr}`;
-    } else {
-      // Clear any stale redirect to avoid reusing old TEDx return paths.
-      document.cookie = `auth_redirect=; path=/; max-age=0; SameSite=Lax${secureAttr}`;
-    }
+    document.cookie = `auth_redirect=${encodeURIComponent(targetNext)}; path=/; max-age=86400; SameSite=Lax${secureAttr}`;
 
     const { error } = await supabase.auth.signInWithOtp({
       email,

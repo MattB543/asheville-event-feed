@@ -2,10 +2,11 @@ export interface RetryOptions {
   maxRetries?: number;
   baseDelay?: number;
   maxDelay?: number;
+  shouldRetry?: (error: unknown, attempt: number) => boolean;
 }
 
 export async function withRetry<T>(fn: () => Promise<T>, options: RetryOptions = {}): Promise<T> {
-  const { maxRetries = 3, baseDelay = 1000, maxDelay = 10000 } = options;
+  const { maxRetries = 3, baseDelay = 1000, maxDelay = 10000, shouldRetry } = options;
 
   let lastError: Error | undefined;
 
@@ -14,6 +15,11 @@ export async function withRetry<T>(fn: () => Promise<T>, options: RetryOptions =
       return await fn();
     } catch (error) {
       lastError = error as Error;
+
+      if (shouldRetry && !shouldRetry(error, attempt)) {
+        throw lastError;
+      }
+
       console.warn(
         `[Retry] Attempt ${attempt}/${maxRetries} failed:`,
         error instanceof Error ? error.message : String(error)

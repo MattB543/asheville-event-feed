@@ -23,7 +23,7 @@ export async function GET(request: NextRequest) {
   }
 
   if (!next) {
-    next = '/';
+    next = '/events';
   }
 
   const supabase = await createClient();

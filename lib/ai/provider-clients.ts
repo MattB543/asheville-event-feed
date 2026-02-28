@@ -65,7 +65,7 @@ let azureClient: AzureOpenAI | null = null;
  * Supports multiple variable names for flexibility.
  */
 function getAzureApiKey(): string | undefined {
-  return process.env.AZURE_OPENAI_API_KEY || process.env.AZURE_KEY_1;
+  return process.env.AZURE_OPENAI_API_KEY || process.env.AZURE_API_KEY || process.env.AZURE_KEY_1;
 }
 
 /**

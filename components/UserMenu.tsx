@@ -1,14 +1,32 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useMemo } from 'react';
 import { useAuth } from './AuthProvider';
 import { User, LogOut, ChevronDown, UserCircle } from 'lucide-react';
 import Link from 'next/link';
+import { usePathname, useSearchParams } from 'next/navigation';
 
 export default function UserMenu() {
   const { user, isLoading, signOut } = useAuth();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
+
+  const loginHref = useMemo(() => {
+    if (!pathname) {
+      return '/login';
+    }
+
+    // Avoid redirect loops on auth pages.
+    if (pathname === '/login' || pathname.startsWith('/auth')) {
+      return '/login';
+    }
+
+    const query = searchParams.toString();
+    const currentPath = query ? `${pathname}?${query}` : pathname;
+    return `/login?next=${encodeURIComponent(currentPath)}`;
+  }, [pathname, searchParams]);
 
   // Close menu when clicking outside
   useEffect(() => {
@@ -37,7 +55,7 @@ export default function UserMenu() {
   if (!user) {
     return (
       <Link
-        href="/login"
+        href={loginHref}
         className="p-1.5 rounded-md border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
         aria-label="Sign in"
       >

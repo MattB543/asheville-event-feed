@@ -139,6 +139,16 @@ export async function POST(request: NextRequest) {
     }
 
     const now = new Date();
+    const existingAnswers = await db
+      .select()
+      .from(matchingAnswers)
+      .where(
+        and(
+          eq(matchingAnswers.profileId, profile.id),
+          inArray(matchingAnswers.questionId, questionIds)
+        )
+      );
+    const existingByQuestionId = new Map(existingAnswers.map((row) => [row.questionId, row]));
 
     // Default max item counts by input type
     const MAX_ITEMS_BY_TYPE: Record<string, number> = {
@@ -147,9 +157,12 @@ export async function POST(request: NextRequest) {
     };
 
     await db.transaction(async (tx) => {
+      let changedAny = false;
+
       for (const answer of answers) {
         const question = questionMap.get(answer.questionId);
         if (!question) continue;
+        const existing = existingByQuestionId.get(question.id);
 
         let answerText: string | null = null;
         let answerJson: unknown = null;
@@ -223,14 +236,24 @@ export async function POST(request: NextRequest) {
         }
 
         if (shouldDelete) {
-          await tx
-            .delete(matchingAnswers)
-            .where(
-              and(
-                eq(matchingAnswers.profileId, profile.id),
-                eq(matchingAnswers.questionId, question.id)
-              )
-            );
+          if (existing) {
+            await tx
+              .delete(matchingAnswers)
+              .where(
+                and(
+                  eq(matchingAnswers.profileId, profile.id),
+                  eq(matchingAnswers.questionId, question.id)
+                )
+              );
+            changedAny = true;
+          }
+          continue;
+        }
+
+        const sameText = (existing?.answerText ?? null) === answerText;
+        const sameJson =
+          JSON.stringify(existing?.answerJson ?? null) === JSON.stringify(answerJson ?? null);
+        if (existing && sameText && sameJson) {
           continue;
         }
 
@@ -252,12 +275,16 @@ export async function POST(request: NextRequest) {
               updatedAt: now,
             },
           });
+
+        changedAny = true;
       }
 
-      await tx
-        .update(matchingProfiles)
-        .set({ updatedAt: now })
-        .where(eq(matchingProfiles.id, profile.id));
+      if (changedAny) {
+        await tx
+          .update(matchingProfiles)
+          .set({ updatedAt: now })
+          .where(eq(matchingProfiles.id, profile.id));
+      }
     });
 
     return NextResponse.json({ success: true });

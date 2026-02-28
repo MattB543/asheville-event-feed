@@ -49,6 +49,19 @@ export const env = {
   get JINA_API_KEY() {
     return process.env.JINA_API_KEY;
   },
+  // Clay webhook/API integration for TEDx LinkedIn enrichment
+  get CLAY_WEBHOOK() {
+    return process.env.CLAY_WEBHOOK;
+  },
+  get CLAY_WEBHOOK_SECRET() {
+    return process.env.CLAY_WEBHOOK_SECRET;
+  },
+  get CLAY_API_KEY() {
+    return process.env.CLAY_API_KEY;
+  },
+  get CLAY_TABLE_ID() {
+    return process.env.CLAY_TABLE_ID;
+  },
   // Super Admin (for verified curator management and score overrides)
   get SUPER_ADMIN() {
     return process.env.SUPER_ADMIN;
@@ -78,6 +91,11 @@ export function isPostmarkEnabled(): boolean {
 // Helper to check if Jina Reader API is configured
 export function isJinaEnabled(): boolean {
   return !!env.JINA_API_KEY;
+}
+
+// Helper to check if outbound Clay webhook is configured
+export function isClayWebhookEnabled(): boolean {
+  return !!env.CLAY_WEBHOOK;
 }
 
 // Helper to check if Supabase Auth is configured

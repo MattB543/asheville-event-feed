@@ -47,6 +47,9 @@
     "logs:cron": "tsx scripts/vercel-logs.ts cron",
     "logs:errors": "tsx scripts/vercel-logs.ts errors",
     "logs:health": "tsx scripts/check-cron-health.ts",
+    "matching:tedx": "tsx scripts/tedx-matching.ts",
+    "matching:email": "tsx scripts/send-tedx-match-emails.ts",
+    "matching:cleanup": "tsx scripts/cleanup-matching-enrichment.ts",
     "format": "prettier --write \"app/**\" \"components/**\" \"lib/**\" \"scripts/**/*.ts\" \".github/**/*.yml\" \"*.json\" \"*.md\" \"*.ts\" \"*.mjs\"",
     "format:check": "prettier --check \"app/**\" \"components/**\" \"lib/**\" \"scripts/**/*.ts\" \".github/**/*.yml\" \"*.json\" \"*.md\" \"*.ts\" \"*.mjs\"",
     "typecheck": "tsc --noEmit",
@@ -85,7 +88,8 @@
     "react-markdown": "^10.1.0",
     "remark-breaks": "^4.0.0",
     "sharp": "^0.34.5",
-    "tailwind-merge": "^3.4.0"
+    "tailwind-merge": "^3.4.0",
+    "unpdf": "^1.4.0"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

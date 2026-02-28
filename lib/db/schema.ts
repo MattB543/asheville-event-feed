@@ -244,6 +244,152 @@ export const matchingAnswers = pgTable(
   })
 );
 
+// Matching pipeline execution runs (internal, script-driven)
+export const matchingRuns = pgTable(
+  'matching_runs',
+  {
+    id: uuid('id').defaultRandom().primaryKey(),
+    program: text('program').notNull(),
+    cohortLabel: text('cohort_label'),
+    status: text('status').notNull(), // 'created' | 'enriching' | 'synthesizing' | 'matching' | 'completed' | 'failed' | 'interrupted'
+    configJson: jsonb('config_json').default({}).notNull(),
+    startedAt: timestamp('started_at', { withTimezone: true }).defaultNow().notNull(),
+    completedAt: timestamp('completed_at', { withTimezone: true }),
+    createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
+    updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow().notNull(),
+  },
+  (table) => ({
+    programIdx: index('matching_runs_program_idx').on(table.program),
+    statusIdx: index('matching_runs_status_idx').on(table.status),
+    startedAtIdx: index('matching_runs_started_at_idx').on(table.startedAt),
+  })
+);
+
+// Matching enrichment records (LinkedIn via Clay + URLs via Jina)
+export const matchingEnrichmentItems = pgTable(
+  'matching_enrichment_items',
+  {
+    id: uuid('id').defaultRandom().primaryKey(),
+    runId: uuid('run_id')
+      .notNull()
+      .references(() => matchingRuns.id, { onDelete: 'cascade' }),
+    profileId: uuid('profile_id')
+      .notNull()
+      .references(() => matchingProfiles.id, { onDelete: 'cascade' }),
+    sourceKind: text('source_kind').notNull(), // 'linkedin' | 'url' | 'topic_text'
+    sourceValue: text('source_value').notNull(),
+    sourceHash: text('source_hash').notNull(),
+    provider: text('provider').notNull(), // 'clay' | 'jina' | 'manual'
+    status: text('status').notNull(), // 'pending' | 'completed' | 'failed' | 'timeout' | 'skipped'
+    sourceSurveyUpdatedAt: timestamp('source_survey_updated_at', { withTimezone: true }),
+    externalId: text('external_id'),
+    rawPayload: jsonb('raw_payload'),
+    normalizedText: text('normalized_text'),
+    httpStatus: integer('http_status'),
+    errorText: text('error_text'),
+    createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
+    updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow().notNull(),
+  },
+  (table) => ({
+    runStatusIdx: index('matching_enrichment_items_run_status_idx').on(table.runId, table.status),
+    runProviderHashIdx: index('matching_enrichment_items_run_provider_hash_idx').on(
+      table.runId,
+      table.provider,
+      table.sourceHash
+    ),
+    externalIdIdx: index('matching_enrichment_items_external_id_idx').on(table.externalId),
+    runProfileSourceUnique: uniqueIndex('matching_enrichment_items_run_profile_source_unique').on(
+      table.runId,
+      table.profileId,
+      table.sourceKind,
+      table.provider,
+      table.sourceHash
+    ),
+  })
+);
+
+// Detailed attendee synthesis report per run (high-context profile understanding)
+export const matchingProfileReports = pgTable(
+  'matching_profile_reports',
+  {
+    id: uuid('id').defaultRandom().primaryKey(),
+    runId: uuid('run_id')
+      .notNull()
+      .references(() => matchingRuns.id, { onDelete: 'cascade' }),
+    profileId: uuid('profile_id')
+      .notNull()
+      .references(() => matchingProfiles.id, { onDelete: 'cascade' }),
+    sourceSurveyUpdatedAt: timestamp('source_survey_updated_at', { withTimezone: true }),
+    reportJson: jsonb('report_json').notNull(),
+    reportText: text('report_text').notNull(),
+    model: text('model').notNull(),
+    promptVersion: text('prompt_version').notNull(),
+    createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
+    updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow().notNull(),
+  },
+  (table) => ({
+    runProfileUnique: uniqueIndex('matching_profile_reports_run_profile_unique').on(
+      table.runId,
+      table.profileId
+    ),
+    runIdIdx: index('matching_profile_reports_run_id_idx').on(table.runId),
+  })
+);
+
+// Final LLM-ready profile cards per run
+export const matchingProfileCards = pgTable(
+  'matching_profile_cards',
+  {
+    id: uuid('id').defaultRandom().primaryKey(),
+    runId: uuid('run_id')
+      .notNull()
+      .references(() => matchingRuns.id, { onDelete: 'cascade' }),
+    profileId: uuid('profile_id')
+      .notNull()
+      .references(() => matchingProfiles.id, { onDelete: 'cascade' }),
+    sourceSurveyUpdatedAt: timestamp('source_survey_updated_at', { withTimezone: true }),
+    cardJson: jsonb('card_json').notNull(),
+    cardText: text('card_text').notNull(),
+    model: text('model').notNull(),
+    promptVersion: text('prompt_version').notNull(),
+    createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
+    updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow().notNull(),
+  },
+  (table) => ({
+    runProfileUnique: uniqueIndex('matching_profile_cards_run_profile_unique').on(
+      table.runId,
+      table.profileId
+    ),
+    runIdIdx: index('matching_profile_cards_run_id_idx').on(table.runId),
+  })
+);
+
+// Top match output per attendee per run
+export const matchingTopMatches = pgTable(
+  'matching_top_matches',
+  {
+    id: uuid('id').defaultRandom().primaryKey(),
+    runId: uuid('run_id')
+      .notNull()
+      .references(() => matchingRuns.id, { onDelete: 'cascade' }),
+    profileId: uuid('profile_id')
+      .notNull()
+      .references(() => matchingProfiles.id, { onDelete: 'cascade' }),
+    matchesJson: jsonb('matches_json').notNull(),
+    model: text('model').notNull(),
+    promptVersion: text('prompt_version').notNull(),
+    createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
+    updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow().notNull(),
+  },
+  (table) => ({
+    runProfileUnique: uniqueIndex('matching_top_matches_run_profile_unique').on(
+      table.runId,
+      table.profileId
+    ),
+    runIdIdx: index('matching_top_matches_run_id_idx').on(table.runId),
+  })
+);
+
 // Curator profiles for the Curate feature
 export const curatorProfiles = pgTable(
   'curator_profiles',

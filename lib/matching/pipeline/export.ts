@@ -38,7 +38,11 @@ export async function writeRunExports(args: {
   await mkdir(runDir, { recursive: true });
 
   await writeFile(path.join(runDir, 'cohort.json'), JSON.stringify(args.cohort, null, 2), 'utf-8');
-  await writeFile(path.join(runDir, 'cohort-audit.json'), JSON.stringify(args.audit, null, 2), 'utf-8');
+  await writeFile(
+    path.join(runDir, 'cohort-audit.json'),
+    JSON.stringify(args.audit, null, 2),
+    'utf-8'
+  );
 
   const enrichmentSummary = await db
     .select({
@@ -145,10 +149,16 @@ export async function writeRunExports(args: {
     for (const match of matches) {
       const rank = typeof match.rank === 'number' ? match.rank : 0;
       const matchProfileId =
-        typeof match.profile_id === 'string' ? match.profile_id : typeof match.profileId === 'string' ? match.profileId : '';
+        typeof match.profile_id === 'string'
+          ? match.profile_id
+          : typeof match.profileId === 'string'
+            ? match.profileId
+            : '';
       const matchProfile = profileById.get(matchProfileId);
       const matchName =
-        (typeof match.name === 'string' && match.name) || matchProfile?.displayName || 'TEDx Attendee';
+        (typeof match.name === 'string' && match.name) ||
+        matchProfile?.displayName ||
+        'TEDx Attendee';
       const whyMatch = typeof match.why_match === 'string' ? match.why_match : '';
       const mutualValue = typeof match.mutual_value === 'string' ? match.mutual_value : '';
       const conversationStarter =

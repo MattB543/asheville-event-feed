@@ -165,11 +165,6 @@ export default function MatchingOnboardingClient({
     profileDirtyRef.current = true;
   };
 
-  const markAnswersDirty = () => {
-    if (!canEdit) return;
-    answersDirtyRef.current = true;
-  };
-
   const answerHasValue = useCallback(
     (question: MatchingQuestion, answer: AnswerState | undefined): boolean => {
       if (!answer) return false;
@@ -294,24 +289,27 @@ export default function MatchingOnboardingClient({
     });
   }, [makeRowId, questions]);
 
-  const updateAnswer = (questionId: string, update: AnswerState) => {
-    if (!canEdit) return;
-    setAnswers((prev) => ({
-      ...prev,
-      [questionId]: {
-        ...prev[questionId],
-        ...update,
-      },
-    }));
-    markAnswersDirty();
-  };
+  const updateAnswer = useCallback(
+    (questionId: string, update: AnswerState) => {
+      if (!canEdit) return;
+      setAnswers((prev) => ({
+        ...prev,
+        [questionId]: {
+          ...prev[questionId],
+          ...update,
+        },
+      }));
+      answersDirtyRef.current = true;
+    },
+    [canEdit]
+  );
 
   const syncMultiValues = useCallback(
     (questionId: string, rows: { id: string; value: string }[]) => {
       if (!canEdit) return;
       updateAnswer(questionId, { answerJson: rows.map((row) => row.value) });
     },
-    [canEdit]
+    [canEdit, updateAnswer]
   );
 
   const updateMultiValue = (questionId: string, index: number, value: string) => {

@@ -40,7 +40,7 @@ function clipNormalizedText(value: string): string {
   return value.trim().slice(0, CLAY_NORMALIZED_MAX_CHARS);
 }
 
-function tryParseJsonString(value: string): unknown | null {
+function tryParseJsonString(value: string): unknown {
   const trimmed = value.trim();
   if (!trimmed) return null;
   try {
@@ -50,7 +50,7 @@ function tryParseJsonString(value: string): unknown | null {
   }
 }
 
-function extractClayEnrichedJson(payload: Record<string, unknown>): unknown | null {
+function extractClayEnrichedJson(payload: Record<string, unknown>): unknown {
   const keys = [
     'enriched_json',
     'enrichedJson',
@@ -94,7 +94,10 @@ function stringifyJson(value: unknown): string | null {
   }
 }
 
-function buildNormalizedClayText(enrichedText: string | null, enrichedJson: unknown | null): string | null {
+function buildNormalizedClayText(
+  enrichedText: string | null,
+  enrichedJson: unknown
+): string | null {
   const jsonText = enrichedJson ? stringifyJson(enrichedJson) : null;
 
   if (enrichedText && jsonText) {
@@ -258,7 +261,10 @@ export async function POST(request: Request) {
       updateValues.externalId = externalId;
     }
 
-    await db.update(matchingEnrichmentItems).set(updateValues).where(eq(matchingEnrichmentItems.id, targetItem.id));
+    await db
+      .update(matchingEnrichmentItems)
+      .set(updateValues)
+      .where(eq(matchingEnrichmentItems.id, targetItem.id));
 
     return NextResponse.json({
       success: true,

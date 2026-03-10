@@ -206,7 +206,9 @@ export async function seedEnrichmentItems(runId: string, profiles: NormalizedTed
 }
 
 export async function dispatchClayLinkedinJobs(runId: string): Promise<void> {
-  if (!env.CLAY_WEBHOOK) {
+  const clayWebhook = env.CLAY_WEBHOOK;
+
+  if (!clayWebhook) {
     await db
       .update(matchingEnrichmentItems)
       .set({
@@ -267,7 +269,7 @@ export async function dispatchClayLinkedinJobs(runId: string): Promise<void> {
     try {
       // Do not auto-retry Clay POSTs. The webhook is side-effectful and retrying can create
       // duplicate rows/jobs in Clay if the upstream accepted a prior attempt.
-      const response = await fetch(env.CLAY_WEBHOOK!, {
+      const response = await fetch(clayWebhook, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -558,7 +560,8 @@ export async function processJinaEnrichment(runId: string): Promise<void> {
 }
 
 export async function getEnrichmentSummaryByProfile(runId: string, profileIds: string[]) {
-  if (profileIds.length === 0) return new Map<string, { clay: string[]; jina: string[]; topics: string[] }>();
+  if (profileIds.length === 0)
+    return new Map<string, { clay: string[]; jina: string[]; topics: string[] }>();
 
   const rows = await db
     .select({

@@ -64,7 +64,8 @@ function readMatches(matchesJson: unknown): MatchEmailEntry[] {
       typeof row.conversation_starter === 'string' && row.conversation_starter.trim()
         ? row.conversation_starter.trim()
         : 'What are you most excited to explore at TEDx Asheville this year?';
-    const rank = typeof row.rank === 'number' && Number.isFinite(row.rank) ? row.rank : parsed.length + 1;
+    const rank =
+      typeof row.rank === 'number' && Number.isFinite(row.rank) ? row.rank : parsed.length + 1;
     parsed.push({ name, whyMatch, conversationStarter, rank });
   }
 

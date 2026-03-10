@@ -97,6 +97,12 @@ interface CurationsResponse {
   canBoostScore?: boolean;
 }
 
+interface Top30Occurrence {
+  id: string;
+  startDate: Date | string;
+  timeUnknown?: boolean | null;
+}
+
 // Initial event type from SSR (database format - may use Date objects or strings after serialization)
 interface InitialEvent {
   id: string;
@@ -125,15 +131,26 @@ interface InitialEvent {
   scoreReason?: string | null;
   scoreAshevilleWeird?: number | null;
   scoreSocial?: number | null;
+  top30Occurrences?: Top30Occurrence[] | null;
 }
 
-type DatedInitialEvent = Omit<InitialEvent, 'startDate'> & { startDate: Date };
+type DatedTop30Occurrence = Omit<Top30Occurrence, 'startDate'> & { startDate: Date };
+type DatedInitialEvent = Omit<InitialEvent, 'startDate' | 'top30Occurrences'> & {
+  startDate: Date;
+  top30Occurrences?: DatedTop30Occurrence[] | null;
+};
 
 // Top 30 events organized by category (each array is pre-sorted, limited to 30)
 interface Top30EventsByCategory {
   overall: InitialEvent[];
   weird: InitialEvent[];
   social: InitialEvent[];
+}
+
+interface Top30DisplayEventsByCategory {
+  overall: DatedInitialEvent[];
+  weird: DatedInitialEvent[];
+  social: DatedInitialEvent[];
 }
 
 interface EventFeedProps {
@@ -183,6 +200,115 @@ function getStorageItem<T>(key: string, defaultValue: T): T {
   } catch {
     return defaultValue;
   }
+}
+
+const TOP30_VISIBLE_LIMIT = 30;
+const TOP30_DUPLICATE_GAP_MS = 48 * 60 * 60 * 1000;
+
+function toDate(value: Date | string): Date {
+  return value instanceof Date ? value : new Date(value);
+}
+
+function normalizeTop30KeyPart(value: string | null | undefined): string {
+  return (value || '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, ' ')
+    .trim();
+}
+
+function normalizeTop30Venue(location: string | null | undefined): string {
+  return normalizeTop30KeyPart(location?.split(',')[0]);
+}
+
+function getEventOccurrences(
+  event: Pick<InitialEvent, 'id' | 'startDate' | 'timeUnknown' | 'top30Occurrences'>
+): DatedTop30Occurrence[] {
+  if (event.top30Occurrences && event.top30Occurrences.length > 0) {
+    return event.top30Occurrences.map((occurrence) => ({
+      ...occurrence,
+      startDate: toDate(occurrence.startDate),
+    }));
+  }
+
+  return [
+    {
+      id: event.id,
+      startDate: toDate(event.startDate),
+      timeUnknown: event.timeUnknown ?? false,
+    },
+  ];
+}
+
+function toDatedInitialEvent(event: InitialEvent): DatedInitialEvent {
+  return {
+    ...event,
+    startDate: toDate(event.startDate),
+    top30Occurrences: event.top30Occurrences?.map((occurrence) => ({
+      ...occurrence,
+      startDate: toDate(occurrence.startDate),
+    })),
+  };
+}
+
+function shouldMergeTop30Events(previous: DatedInitialEvent, next: DatedInitialEvent): boolean {
+  if (normalizeTop30KeyPart(previous.title) !== normalizeTop30KeyPart(next.title)) return false;
+  if (normalizeTop30KeyPart(previous.organizer) !== normalizeTop30KeyPart(next.organizer)) {
+    return false;
+  }
+
+  const previousVenue = normalizeTop30Venue(previous.location);
+  const nextVenue = normalizeTop30Venue(next.location);
+  if (previousVenue && nextVenue && previousVenue !== nextVenue) return false;
+
+  const previousOccurrences = getEventOccurrences(previous);
+  const previousLastOccurrence = previousOccurrences[previousOccurrences.length - 1];
+  const diffMs = next.startDate.getTime() - previousLastOccurrence.startDate.getTime();
+
+  return diffMs > 0 && diffMs <= TOP30_DUPLICATE_GAP_MS;
+}
+
+function mergeTop30CategoryEvents(categoryEvents: InitialEvent[]): DatedInitialEvent[] {
+  const merged: DatedInitialEvent[] = [];
+
+  for (const rawEvent of categoryEvents) {
+    const event = toDatedInitialEvent(rawEvent);
+    const mergeTarget = [...merged]
+      .reverse()
+      .find((existingEvent) => shouldMergeTop30Events(existingEvent, event));
+
+    if (!mergeTarget) {
+      merged.push(event);
+      continue;
+    }
+
+    const mergedOccurrences = [
+      ...getEventOccurrences(mergeTarget),
+      ...getEventOccurrences(event),
+    ].sort((a, b) => a.startDate.getTime() - b.startDate.getTime());
+
+    mergeTarget.top30Occurrences = mergedOccurrences;
+
+    if ((event.location?.length || 0) > (mergeTarget.location?.length || 0)) {
+      mergeTarget.location = event.location;
+    }
+    if (!mergeTarget.organizer && event.organizer) {
+      mergeTarget.organizer = event.organizer;
+    }
+    if (!mergeTarget.imageUrl && event.imageUrl) {
+      mergeTarget.imageUrl = event.imageUrl;
+    }
+    if (!mergeTarget.aiSummary && event.aiSummary) {
+      mergeTarget.aiSummary = event.aiSummary;
+    }
+    if ((!mergeTarget.description || mergeTarget.description.length === 0) && event.description) {
+      mergeTarget.description = event.description;
+    }
+    if (event.tags && event.tags.length > 0) {
+      mergeTarget.tags = Array.from(new Set([...(mergeTarget.tags || []), ...event.tags]));
+    }
+  }
+
+  return merged.slice(0, TOP30_VISIBLE_LIMIT);
 }
 
 // Check if localStorage contains non-default filters that would affect query results
@@ -686,6 +812,76 @@ export default function EventFeed({
   // Use query metadata or initial metadata
   const metadata = queryMetadata || initialMetadata;
 
+  const mergedTop30Events = useMemo<Top30DisplayEventsByCategory>(
+    () => ({
+      overall: mergeTop30CategoryEvents(initialTop30Events?.overall || []),
+      weird: mergeTop30CategoryEvents(initialTop30Events?.weird || []),
+      social: mergeTop30CategoryEvents(initialTop30Events?.social || []),
+    }),
+    [initialTop30Events]
+  );
+
+  const top30CategoryEvents = useMemo(
+    () => mergedTop30Events[top30Category] ?? [],
+    [mergedTop30Events, top30Category]
+  );
+
+  const top30RankingMap = useMemo(() => {
+    const rankingMap = new Map<string, number>();
+    top30CategoryEvents.forEach((event, index) => {
+      rankingMap.set(event.id, index + 1);
+    });
+    return rankingMap;
+  }, [top30CategoryEvents]);
+
+  const filteredTop30CategoryEvents = useMemo(() => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    const dayAfterTomorrow = new Date(tomorrow);
+    dayAfterTomorrow.setDate(dayAfterTomorrow.getDate() + 1);
+
+    return top30CategoryEvents.filter((event) => {
+      if (search.trim()) {
+        const searchLower = search.toLowerCase();
+        const matchesSearch =
+          event.title.toLowerCase().includes(searchLower) ||
+          event.description?.toLowerCase().includes(searchLower) ||
+          event.organizer?.toLowerCase().includes(searchLower) ||
+          event.location?.toLowerCase().includes(searchLower);
+        if (!matchesSearch) return false;
+      }
+
+      if (priceFilter !== 'any') {
+        const priceStr = event.price?.toLowerCase() || '';
+        const isFree =
+          !event.price || priceStr === 'unknown' || priceStr === '' || priceStr.includes('free');
+        const priceNum = parseFloat(event.price?.replace(/[^0-9.]/g, '') || '0');
+        if (priceFilter === 'free' && !isFree) return false;
+        if (priceFilter === 'under20' && priceNum > 20) return false;
+        if (priceFilter === 'under100' && priceNum > 100) return false;
+      }
+
+      if (dateFilter !== 'all') {
+        const occurrences = getEventOccurrences(event);
+        const matchesDateFilter = occurrences.some((occurrence) => {
+          if (dateFilter === 'today') {
+            return occurrence.startDate >= today && occurrence.startDate < tomorrow;
+          }
+          if (dateFilter === 'tomorrow') {
+            return occurrence.startDate >= tomorrow && occurrence.startDate < dayAfterTomorrow;
+          }
+          return true;
+        });
+
+        if (!matchesDateFilter) return false;
+      }
+
+      return true;
+    });
+  }, [top30CategoryEvents, search, priceFilter, dateFilter]);
+
   // Infinite scroll trigger
   const loadMoreRef = useInfiniteScrollTrigger(
     () => {
@@ -735,6 +931,13 @@ export default function EventFeed({
         ...event,
         startDate:
           typeof event.startDate === 'string' ? new Date(event.startDate) : event.startDate,
+        top30Occurrences:
+          'top30Occurrences' in event && event.top30Occurrences
+            ? event.top30Occurrences.map((occurrence) => ({
+                ...occurrence,
+                startDate: toDate(occurrence.startDate),
+              }))
+            : undefined,
       });
     };
 
@@ -2144,10 +2347,7 @@ export default function EventFeed({
           </div>
 
           {/* Empty State */}
-          {(() => {
-            const categoryEvents = initialTop30Events?.[top30Category] || [];
-            return categoryEvents.length === 0;
-          })() && (
+          {filteredTop30CategoryEvents.length === 0 && (
             <div className="text-center py-20 px-4">
               <div className="text-4xl mb-4">🏆</div>
               <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-2">
@@ -2160,177 +2360,60 @@ export default function EventFeed({
           )}
 
           {/* Score-ranked view */}
-          {top30SortMode === 'score' && (initialTop30Events?.[top30Category]?.length || 0) > 0 && (
+          {top30SortMode === 'score' && filteredTop30CategoryEvents.length > 0 && (
             <div className="flex flex-col bg-white dark:bg-gray-900 sm:rounded-lg sm:shadow-sm sm:border sm:border-gray-200 dark:sm:border-gray-700 ">
-              {(initialTop30Events?.[top30Category] || [])
-                .map((event) => ({
-                  ...event,
-                  startDate:
-                    typeof event.startDate === 'string'
-                      ? new Date(event.startDate)
-                      : event.startDate,
-                }))
-                .filter((event) => {
-                  // Apply search filter
-                  if (search.trim()) {
-                    const searchLower = search.toLowerCase();
-                    const matchesSearch =
-                      event.title.toLowerCase().includes(searchLower) ||
-                      event.description?.toLowerCase().includes(searchLower) ||
-                      event.organizer?.toLowerCase().includes(searchLower) ||
-                      event.location?.toLowerCase().includes(searchLower);
-                    if (!matchesSearch) return false;
+              {filteredTop30CategoryEvents.map((event) => (
+                <EventCard
+                  key={event.id}
+                  event={{
+                    ...event,
+                    sourceId: event.sourceId,
+                    location: event.location ?? null,
+                    organizer: event.organizer ?? null,
+                    price: event.price ?? null,
+                    imageUrl: event.imageUrl ?? null,
+                    timeUnknown: event.timeUnknown ?? false,
+                    recurringType: event.recurringType ?? null,
+                  }}
+                  onHide={handleHideEvent}
+                  onBlockHost={handleBlockHost}
+                  isNewlyHidden={false}
+                  hideBorder
+                  isFavorited={favoritedEventIds.includes(event.id)}
+                  favoriteCount={event.favoriteCount ?? 0}
+                  onToggleFavorite={handleToggleFavorite}
+                  isTagFilterActive={false}
+                  isCurated={curatedEventIds.has(event.id)}
+                  onCurate={handleOpenCurateModal}
+                  onUncurate={handleUncurate}
+                  isLoggedIn={isLoggedIn}
+                  displayMode="full"
+                  eventScore={event.score}
+                  ranking={top30RankingMap.get(event.id)}
+                  isMobileExpanded={mobileExpandedIds.has(event.id)}
+                  onMobileExpand={(id) =>
+                    setMobileExpandedIds((prev) => {
+                      const next = new Set(prev);
+                      if (next.has(id)) {
+                        next.delete(id);
+                      } else {
+                        next.add(id);
+                      }
+                      return next;
+                    })
                   }
-                  // Apply price filter
-                  if (priceFilter !== 'any') {
-                    const priceStr = event.price?.toLowerCase() || '';
-                    const isFree =
-                      !event.price ||
-                      priceStr === 'unknown' ||
-                      priceStr === '' ||
-                      priceStr.includes('free');
-                    const priceNum = parseFloat(event.price?.replace(/[^0-9.]/g, '') || '0');
-                    if (priceFilter === 'free' && !isFree) return false;
-                    if (priceFilter === 'under20' && priceNum > 20) return false;
-                    if (priceFilter === 'under100' && priceNum > 100) return false;
-                  }
-                  // Apply date filter
-                  if (dateFilter !== 'all') {
-                    const eventDate = new Date(event.startDate);
-                    const today = new Date();
-                    today.setHours(0, 0, 0, 0);
-                    const tomorrow = new Date(today);
-                    tomorrow.setDate(tomorrow.getDate() + 1);
-                    const dayAfterTomorrow = new Date(tomorrow);
-                    dayAfterTomorrow.setDate(dayAfterTomorrow.getDate() + 1);
-
-                    if (dateFilter === 'today' && (eventDate < today || eventDate >= tomorrow))
-                      return false;
-                    if (
-                      dateFilter === 'tomorrow' &&
-                      (eventDate < tomorrow || eventDate >= dayAfterTomorrow)
-                    )
-                      return false;
-                  }
-                  return true;
-                })
-                // No sorting needed - arrays are pre-sorted by the server
-                .map((event, index) => (
-                  <EventCard
-                    key={event.id}
-                    event={{
-                      ...event,
-                      sourceId: event.sourceId,
-                      location: event.location ?? null,
-                      organizer: event.organizer ?? null,
-                      price: event.price ?? null,
-                      imageUrl: event.imageUrl ?? null,
-                      timeUnknown: event.timeUnknown ?? false,
-                      recurringType: event.recurringType ?? null,
-                    }}
-                    onHide={handleHideEvent}
-                    onBlockHost={handleBlockHost}
-                    isNewlyHidden={false}
-                    hideBorder
-                    isFavorited={favoritedEventIds.includes(event.id)}
-                    favoriteCount={event.favoriteCount ?? 0}
-                    onToggleFavorite={handleToggleFavorite}
-                    isTagFilterActive={false}
-                    isCurated={curatedEventIds.has(event.id)}
-                    onCurate={handleOpenCurateModal}
-                    onUncurate={handleUncurate}
-                    isLoggedIn={isLoggedIn}
-                    displayMode="full"
-                    eventScore={event.score}
-                    ranking={index + 1}
-                    isMobileExpanded={mobileExpandedIds.has(event.id)}
-                    onMobileExpand={(id) =>
-                      setMobileExpandedIds((prev) => {
-                        const next = new Set(prev);
-                        if (next.has(id)) {
-                          next.delete(id);
-                        } else {
-                          next.add(id);
-                        }
-                        return next;
-                      })
-                    }
-                    onOpenModal={handleOpenEventModal}
-                  />
-                ))}
+                  onOpenModal={handleOpenEventModal}
+                />
+              ))}
             </div>
           )}
 
           {/* Date-grouped view */}
-          {top30SortMode === 'date' && (initialTop30Events?.[top30Category]?.length || 0) > 0 && (
+          {top30SortMode === 'date' && filteredTop30CategoryEvents.length > 0 && (
             <div className="flex flex-col gap-10 mt-3">
               {(() => {
-                // Get the pre-sorted category events and apply filters
-                const categoryEvents = initialTop30Events?.[top30Category] || [];
-                const filteredForDateView = categoryEvents
-                  .map(
-                    (event): DatedInitialEvent => ({
-                      ...event,
-                      startDate:
-                        typeof event.startDate === 'string'
-                          ? new Date(event.startDate)
-                          : event.startDate,
-                    })
-                  )
-                  .filter((event) => {
-                    // Apply search filter
-                    if (search.trim()) {
-                      const searchLower = search.toLowerCase();
-                      const matchesSearch =
-                        event.title.toLowerCase().includes(searchLower) ||
-                        event.description?.toLowerCase().includes(searchLower) ||
-                        event.organizer?.toLowerCase().includes(searchLower) ||
-                        event.location?.toLowerCase().includes(searchLower);
-                      if (!matchesSearch) return false;
-                    }
-                    // Apply price filter
-                    if (priceFilter !== 'any') {
-                      const priceStr = event.price?.toLowerCase() || '';
-                      const isFree =
-                        !event.price ||
-                        priceStr === 'unknown' ||
-                        priceStr === '' ||
-                        priceStr.includes('free');
-                      const priceNum = parseFloat(event.price?.replace(/[^0-9.]/g, '') || '0');
-                      if (priceFilter === 'free' && !isFree) return false;
-                      if (priceFilter === 'under20' && priceNum > 20) return false;
-                      if (priceFilter === 'under100' && priceNum > 100) return false;
-                    }
-                    // Apply date filter
-                    if (dateFilter !== 'all') {
-                      const eventDate = new Date(event.startDate);
-                      const today = new Date();
-                      today.setHours(0, 0, 0, 0);
-                      const tomorrow = new Date(today);
-                      tomorrow.setDate(tomorrow.getDate() + 1);
-                      const dayAfterTomorrow = new Date(tomorrow);
-                      dayAfterTomorrow.setDate(dayAfterTomorrow.getDate() + 1);
-
-                      if (dateFilter === 'today' && (eventDate < today || eventDate >= tomorrow))
-                        return false;
-                      if (
-                        dateFilter === 'tomorrow' &&
-                        (eventDate < tomorrow || eventDate >= dayAfterTomorrow)
-                      )
-                        return false;
-                    }
-                    return true;
-                  });
-                // No sorting needed - arrays are pre-sorted by the server
-
-                // Create ranking map using original array order (pre-sorted by server)
-                const rankingMap = new Map<string, number>();
-                categoryEvents.forEach((event, index) => {
-                  rankingMap.set(event.id, index + 1);
-                });
-
                 return Object.entries(
-                  filteredForDateView.reduce(
+                  filteredTop30CategoryEvents.reduce(
                     (groups, event) => {
                       const date = new Date(event.startDate);
                       const dateKey = date.toLocaleDateString('en-US', {
@@ -2369,7 +2452,8 @@ export default function EventFeed({
 
                     // Sort by ranking (pre-sorted by server) within each day
                     const sortedGroupEvents = [...groupEvents].sort(
-                      (a, b) => (rankingMap.get(a.id) || 999) - (rankingMap.get(b.id) || 999)
+                      (a, b) =>
+                        (top30RankingMap.get(a.id) || 999) - (top30RankingMap.get(b.id) || 999)
                     );
 
                     return (
@@ -2405,7 +2489,7 @@ export default function EventFeed({
                               isLoggedIn={isLoggedIn}
                               displayMode="full"
                               eventScore={event.score}
-                              ranking={rankingMap.get(event.id)}
+                              ranking={top30RankingMap.get(event.id)}
                               isMobileExpanded={mobileExpandedIds.has(event.id)}
                               onMobileExpand={(id) =>
                                 setMobileExpandedIds((prev) => {

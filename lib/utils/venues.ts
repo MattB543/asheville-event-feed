@@ -36,11 +36,14 @@ const KNOWN_VENUES: Map<string, string[]> = new Map([
       "harrah's cherokee center asheville",
       'harrahs',
       'harrahs asheville',
+      'thomas wolfe auditorium',
+      'thomas wolfe',
+      'us cellular center',
+      'civic center asheville',
+      'exploreasheville arena',
+      'explore asheville arena',
     ],
   ],
-  ['thomas wolfe auditorium', ['thomas wolfe', 'the thomas wolfe auditorium']],
-  ['us cellular center', ['us cellular', 'civic center']],
-  ['exploreasheville arena', ['exploreasheville.com arena', 'explore asheville arena']],
 
   // Breweries with events
   ['highland brewing', ['highland brewing company', 'highland brewery', 'highland asheville']],

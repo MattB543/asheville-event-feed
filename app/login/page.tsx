@@ -9,6 +9,16 @@ import Link from 'next/link';
 import { GoogleSignInButton } from '@/components/GoogleSignInButton';
 import Header from '@/components/Header';
 
+function maskEmailForLog(value: string): string {
+  const parts = value.split('@');
+  if (parts.length !== 2) return 'invalid-email';
+  const [local, domain] = parts;
+  if (!local || !domain) return 'invalid-email';
+
+  const visible = local.slice(0, 2);
+  return `${visible}${local.length > 2 ? '***' : '*'}@${domain}`;
+}
+
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -25,11 +35,15 @@ export default function LoginPage() {
   const nextParam = searchParams.get('next');
   const safeNext =
     nextParam && nextParam.startsWith('/') && !nextParam.startsWith('//') ? nextParam : null;
+  const isDev = process.env.NODE_ENV !== 'production';
 
   // Set initial message from URL error on mount only
   useEffect(() => {
     if (errorFromUrl && !message) {
       setMessage({ type: 'error', text: errorFromUrl });
+      if (isDev) {
+        console.error('[Auth][Login] OAuth error from query params', { error: errorFromUrl });
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -52,28 +66,58 @@ export default function LoginPage() {
     const redirectUrl = `${redirectBase}?next=${encodeURIComponent(targetNext)}`;
     const secureAttr = window.location.protocol === 'https:' ? '; Secure' : '';
 
+    if (isDev) {
+      console.info('[Auth][Login] Sending magic link', {
+        email: maskEmailForLog(email),
+        targetNext,
+        redirectUrl,
+      });
+    }
+
     // Store redirect in cookie as fallback. Supabase email templates
     // may not preserve query params from emailRedirectTo.
     document.cookie = `auth_redirect=${encodeURIComponent(targetNext)}; path=/; max-age=86400; SameSite=Lax${secureAttr}`;
 
-    const { error } = await supabase.auth.signInWithOtp({
-      email,
-      options: {
-        shouldCreateUser: true,
-        emailRedirectTo: redirectUrl,
-      },
-    });
+    try {
+      const { error } = await supabase.auth.signInWithOtp({
+        email,
+        options: {
+          shouldCreateUser: true,
+          emailRedirectTo: redirectUrl,
+        },
+      });
 
-    setIsSubmitting(false);
+      if (error) {
+        if (isDev) {
+          console.error('[Auth][Login] Magic link send failed', {
+            message: error.message,
+            name: error.name,
+            status: error.status,
+            code: error.code,
+          });
+        }
+        setMessage({ type: 'error', text: error.message });
+        return;
+      }
 
-    if (error) {
-      setMessage({ type: 'error', text: error.message });
-    } else {
+      if (isDev) {
+        console.info('[Auth][Login] Magic link send succeeded', {
+          email: maskEmailForLog(email),
+          targetNext,
+        });
+      }
+
       setMessage({
         type: 'success',
         text: 'Check your email for the magic link!',
       });
       setEmail('');
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Unexpected authentication error';
+      console.error('[Auth][Login] Unexpected error while sending magic link', error);
+      setMessage({ type: 'error', text: message });
+    } finally {
+      setIsSubmitting(false);
     }
   };
 

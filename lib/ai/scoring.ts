@@ -22,6 +22,16 @@ export interface EventScoreResult {
   social: number; // 1-10: How good is this for meeting new people
 }
 
+export interface ExistingScoreFields {
+  score: number | null;
+  scoreRarity: number | null;
+  scoreUnique: number | null;
+  scoreMagnitude: number | null;
+  scoreReason: string | null;
+  scoreAshevilleWeird: number | null;
+  scoreSocial: number | null;
+}
+
 export interface EventForScoring {
   id: string;
   title: string;
@@ -286,4 +296,63 @@ export function getRecurringEventScore(type: 'daily' | 'weekly'): EventScoreResu
     ashevilleWeird: 3, // Slightly below middle - recurring events tend to be conventional
     social: 5, // Middle - varies by event type
   };
+}
+
+export function getFallbackEventScore(reason = '[AI scoring failed]'): EventScoreResult {
+  return {
+    score: 5,
+    rarity: 1,
+    unique: 2,
+    magnitude: 2,
+    reason,
+    ashevilleWeird: 3,
+    social: 5,
+  };
+}
+
+export function hasMissingScoreFields(existing: ExistingScoreFields): boolean {
+  return (
+    existing.score === null ||
+    existing.scoreRarity === null ||
+    existing.scoreUnique === null ||
+    existing.scoreMagnitude === null ||
+    existing.scoreReason === null ||
+    existing.scoreAshevilleWeird === null ||
+    existing.scoreSocial === null
+  );
+}
+
+export function buildMissingScoreUpdate(
+  existing: ExistingScoreFields,
+  result: EventScoreResult
+): Partial<{
+  score: number;
+  scoreRarity: number;
+  scoreUnique: number;
+  scoreMagnitude: number;
+  scoreReason: string;
+  scoreAshevilleWeird: number;
+  scoreSocial: number;
+}> {
+  const update: Partial<{
+    score: number;
+    scoreRarity: number;
+    scoreUnique: number;
+    scoreMagnitude: number;
+    scoreReason: string;
+    scoreAshevilleWeird: number;
+    scoreSocial: number;
+  }> = {};
+
+  if (existing.score === null) update.score = result.score;
+  if (existing.scoreRarity === null) update.scoreRarity = result.rarity;
+  if (existing.scoreUnique === null) update.scoreUnique = result.unique;
+  if (existing.scoreMagnitude === null) update.scoreMagnitude = result.magnitude;
+  if (existing.scoreReason === null) update.scoreReason = result.reason;
+  if (existing.scoreAshevilleWeird === null) {
+    update.scoreAshevilleWeird = result.ashevilleWeird;
+  }
+  if (existing.scoreSocial === null) update.scoreSocial = result.social;
+
+  return update;
 }

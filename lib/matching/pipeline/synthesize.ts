@@ -23,12 +23,12 @@ const CARD_TEXT_MAX_CHARS = 2400;
 
 function asStringArray(value: unknown): string[] {
   if (!Array.isArray(value)) return [];
-  return value.filter((item): item is string => typeof item === 'string').map((item) => item.trim());
+  return value
+    .filter((item): item is string => typeof item === 'string')
+    .map((item) => item.trim());
 }
 
-function asEvidenceHighlights(
-  value: unknown
-): Array<{
+function asEvidenceHighlights(value: unknown): Array<{
   claim: string;
   evidence: string;
 }> {
@@ -79,9 +79,7 @@ function sanitizeProfileReportJson(raw: unknown): SynthesizedProfileReportJson |
     expertise_and_strengths: asStringArray(
       obj.expertise_and_strengths ?? obj.expertiseAndStrengths
     ),
-    values_and_motivations: asStringArray(
-      obj.values_and_motivations ?? obj.valuesAndMotivations
-    ),
+    values_and_motivations: asStringArray(obj.values_and_motivations ?? obj.valuesAndMotivations),
     communities: asStringArray(obj.communities),
     offer_to_others: asStringArray(obj.offer_to_others ?? obj.offerToOthers),
     seeking_from_others: asStringArray(obj.seeking_from_others ?? obj.seekingFromOthers),
@@ -320,7 +318,11 @@ export async function buildProfileCards(
   const now = new Date();
 
   for (const profile of profiles) {
-    const enrichment = enrichmentByProfile.get(profile.profileId) ?? { clay: [], jina: [], topics: [] };
+    const enrichment = enrichmentByProfile.get(profile.profileId) ?? {
+      clay: [],
+      jina: [],
+      topics: [],
+    };
     const model = getAzureDeploymentName();
     const [existingReport] = await db
       .select({
@@ -351,13 +353,18 @@ export async function buildProfileCards(
       !!existingReport.reportJson &&
       typeof existingReport.reportJson === 'object';
 
-    const reportJson = shouldReuseReport
-      ? (existingReport!.reportJson as SynthesizedProfileReportJson)
-      : shouldBackfillReportSnapshot
-        ? (existingReport!.reportJson as SynthesizedProfileReportJson)
+    const existingReportJson =
+      (shouldReuseReport || shouldBackfillReportSnapshot) && existingReport?.reportJson
+        ? sanitizeProfileReportJson(existingReport.reportJson)
+        : null;
+
+    const reportJson = existingReportJson
+      ? existingReportJson
       : await synthesizeOneProfileReportWithRepair(profile, enrichment).catch((error) => {
           const message = error instanceof Error ? error.message : String(error);
-          throw new Error(`Failed to synthesize profile report for ${profile.profileId}: ${message}`);
+          throw new Error(
+            `Failed to synthesize profile report for ${profile.profileId}: ${message}`
+          );
         });
 
     if (shouldBackfillReportSnapshot) {
@@ -436,10 +443,12 @@ export async function buildProfileCards(
           )
         );
     } else if (!shouldReuseCard) {
-      const cardJson = await synthesizeOneCardFromReportWithRepair(profile, reportJson).catch((error) => {
-        const message = error instanceof Error ? error.message : String(error);
-        throw new Error(`Failed to synthesize profile card for ${profile.profileId}: ${message}`);
-      });
+      const cardJson = await synthesizeOneCardFromReportWithRepair(profile, reportJson).catch(
+        (error) => {
+          const message = error instanceof Error ? error.message : String(error);
+          throw new Error(`Failed to synthesize profile card for ${profile.profileId}: ${message}`);
+        }
+      );
 
       await db
         .insert(matchingProfileCards)
@@ -476,7 +485,9 @@ export async function buildProfileCards(
     .from(matchingProfileCards)
     .where(eq(matchingProfileCards.runId, runId));
 
-  const nameByProfileId = new Map(profiles.map((profile) => [profile.profileId, profile.displayName]));
+  const nameByProfileId = new Map(
+    profiles.map((profile) => [profile.profileId, profile.displayName])
+  );
   return rows.map((row) => ({
     profileId: row.profileId,
     name: nameByProfileId.get(row.profileId) ?? 'TEDx Attendee',

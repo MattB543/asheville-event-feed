@@ -3,7 +3,12 @@ import { events } from '@/lib/db/schema';
 import { eq, or, sql, isNull, and, isNotNull } from 'drizzle-orm';
 import { generateTagsAndSummary } from '@/lib/ai/tagAndSummarize';
 import { generateEmbedding, createEmbeddingText } from '@/lib/ai/embedding';
-import { generateEventScore, type EventScoreResult } from '@/lib/ai/scoring';
+import {
+  buildMissingScoreUpdate,
+  generateEventScore,
+  getFallbackEventScore,
+  getRecurringEventScore,
+} from '@/lib/ai/scoring';
 import { checkWeeklyRecurring } from '@/lib/ai/recurringDetection';
 import { findSimilarEvents } from '@/lib/db/similaritySearch';
 import { isAzureAIEnabled } from '@/lib/ai/provider-clients';
@@ -12,16 +17,6 @@ const BATCH_SIZE_COMBINED = 30;
 const BATCH_SIZE_EMBEDDINGS = 30;
 const BATCH_SIZE_SCORING = 20;
 const LIMIT_PER_PASS = 200;
-
-const fallbackScore: EventScoreResult = {
-  score: 5,
-  rarity: 1,
-  unique: 2,
-  magnitude: 2,
-  reason: '[AI scoring failed]',
-  ashevilleWeird: 3,
-  social: 5,
-};
 
 const chunk = <T>(arr: T[], size: number) =>
   Array.from({ length: Math.ceil(arr.length / size) }, (_, i) =>
@@ -50,7 +45,21 @@ async function getRemainingCounts() {
   const [needsScore] = await db
     .select({ count: sql<number>`count(*)` })
     .from(events)
-    .where(and(isNull(events.score), isNotNull(events.embedding), isNotNull(events.aiSummary)));
+    .where(
+      and(
+        or(
+          isNull(events.score),
+          isNull(events.scoreRarity),
+          isNull(events.scoreUnique),
+          isNull(events.scoreMagnitude),
+          isNull(events.scoreReason),
+          isNull(events.scoreAshevilleWeird),
+          isNull(events.scoreSocial)
+        ),
+        isNotNull(events.embedding),
+        isNotNull(events.aiSummary)
+      )
+    );
 
   return {
     needsSummary: Number(needsSummary.count),
@@ -207,9 +216,30 @@ async function processScoringPass(stats: Stats): Promise<number> {
       startDate: events.startDate,
       price: events.price,
       recurringType: events.recurringType,
+      score: events.score,
+      scoreRarity: events.scoreRarity,
+      scoreUnique: events.scoreUnique,
+      scoreMagnitude: events.scoreMagnitude,
+      scoreReason: events.scoreReason,
+      scoreAshevilleWeird: events.scoreAshevilleWeird,
+      scoreSocial: events.scoreSocial,
     })
     .from(events)
-    .where(and(isNull(events.score), isNotNull(events.embedding), isNotNull(events.aiSummary)))
+    .where(
+      and(
+        or(
+          isNull(events.score),
+          isNull(events.scoreRarity),
+          isNull(events.scoreUnique),
+          isNull(events.scoreMagnitude),
+          isNull(events.scoreReason),
+          isNull(events.scoreAshevilleWeird),
+          isNull(events.scoreSocial)
+        ),
+        isNotNull(events.embedding),
+        isNotNull(events.aiSummary)
+      )
+    )
     .limit(LIMIT_PER_PASS);
 
   if (eventsNeedingScores.length === 0) return 0;
@@ -218,30 +248,14 @@ async function processScoringPass(stats: Stats): Promise<number> {
 
   const dailyRecurring = eventsNeedingScores.filter((e) => e.recurringType === 'daily');
   if (dailyRecurring.length > 0) {
-    const recurringScore = {
-      score: 5,
-      rarity: 1,
-      unique: 2,
-      magnitude: 2,
-      reason: 'Daily recurring event - happens every day.',
-      ashevilleWeird: 3,
-      social: 5,
-    } as EventScoreResult;
+    const recurringScore = getRecurringEventScore('daily');
 
     await Promise.all(
       dailyRecurring.map(async (event) => {
-        await db
-          .update(events)
-          .set({
-            score: recurringScore.score,
-            scoreRarity: recurringScore.rarity,
-            scoreUnique: recurringScore.unique,
-            scoreMagnitude: recurringScore.magnitude,
-            scoreReason: recurringScore.reason,
-            scoreAshevilleWeird: recurringScore.ashevilleWeird,
-            scoreSocial: recurringScore.social,
-          })
-          .where(eq(events.id, event.id));
+        const updateData = buildMissingScoreUpdate(event, recurringScore);
+        if (Object.keys(updateData).length > 0) {
+          await db.update(events).set(updateData).where(eq(events.id, event.id));
+        }
         stats.scoring.skippedRecurring++;
         stats.scoring.total++;
       })
@@ -267,30 +281,14 @@ async function processScoringPass(stats: Stats): Promise<number> {
   const needsAIScoring = recurringChecks.filter((r) => !r.isWeekly).map((r) => r.event);
 
   if (weeklyRecurring.length > 0) {
-    const recurringScore = {
-      score: 5,
-      rarity: 1,
-      unique: 2,
-      magnitude: 2,
-      reason: 'Weekly recurring event - happens every week.',
-      ashevilleWeird: 3,
-      social: 5,
-    } as EventScoreResult;
+    const recurringScore = getRecurringEventScore('weekly');
 
     await Promise.all(
       weeklyRecurring.map(async ({ event }) => {
-        await db
-          .update(events)
-          .set({
-            score: recurringScore.score,
-            scoreRarity: recurringScore.rarity,
-            scoreUnique: recurringScore.unique,
-            scoreMagnitude: recurringScore.magnitude,
-            scoreReason: recurringScore.reason,
-            scoreAshevilleWeird: recurringScore.ashevilleWeird,
-            scoreSocial: recurringScore.social,
-          })
-          .where(eq(events.id, event.id));
+        const updateData = buildMissingScoreUpdate(event, recurringScore);
+        if (Object.keys(updateData).length > 0) {
+          await db.update(events).set(updateData).where(eq(events.id, event.id));
+        }
         stats.scoring.skippedRecurring++;
         stats.scoring.total++;
       })
@@ -335,41 +333,33 @@ async function processScoringPass(stats: Stats): Promise<number> {
               }))
             );
 
-            const finalScore = scoreResult ?? fallbackScore;
+            const finalScore =
+              scoreResult ?? getFallbackEventScore('Fallback score: AI scoring failed');
             if (!scoreResult) {
               stats.scoring.failed++;
             } else {
               stats.scoring.success++;
             }
 
-            await db
-              .update(events)
-              .set({
-                score: finalScore.score,
-                scoreRarity: finalScore.rarity,
-                scoreUnique: finalScore.unique,
-                scoreMagnitude: finalScore.magnitude,
-                scoreReason: finalScore.reason,
-                scoreAshevilleWeird: finalScore.ashevilleWeird,
-                scoreSocial: finalScore.social,
-              })
-              .where(eq(events.id, event.id));
+            const updateData = buildMissingScoreUpdate(event, finalScore);
+            if (Object.keys(updateData).length > 0) {
+              await db.update(events).set(updateData).where(eq(events.id, event.id));
+            }
             stats.scoring.total++;
-          } catch {
+          } catch (err) {
             stats.scoring.failed++;
             stats.scoring.total++;
-            await db
-              .update(events)
-              .set({
-                score: fallbackScore.score,
-                scoreRarity: fallbackScore.rarity,
-                scoreUnique: fallbackScore.unique,
-                scoreMagnitude: fallbackScore.magnitude,
-                scoreReason: fallbackScore.reason,
-                scoreAshevilleWeird: fallbackScore.ashevilleWeird,
-                scoreSocial: fallbackScore.social,
-              })
-              .where(eq(events.id, event.id));
+            const fallbackScore = getFallbackEventScore(
+              err instanceof Error &&
+                (err.message.includes('content_filter') ||
+                  err.message.includes('content management policy'))
+                ? 'Fallback score: AI scoring blocked by content filter'
+                : 'Fallback score: AI scoring failed'
+            );
+            const updateData = buildMissingScoreUpdate(event, fallbackScore);
+            if (Object.keys(updateData).length > 0) {
+              await db.update(events).set(updateData).where(eq(events.id, event.id));
+            }
           }
         })
       );

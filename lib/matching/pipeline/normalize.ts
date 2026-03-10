@@ -177,9 +177,7 @@ async function loadCohortFilter(cohortFile: string | null): Promise<CohortFilter
   }
 
   if (userIds.size === 0 && emails.size === 0) {
-    throw new Error(
-      `Cohort file "${cohortFile}" did not contain usable user IDs or emails.`
-    );
+    throw new Error(`Cohort file "${cohortFile}" did not contain usable user IDs or emails.`);
   }
 
   return {
@@ -307,7 +305,9 @@ export async function loadSubmittedCohort(
   }
 
   const normalizedProfiles = await Promise.all(
-    filteredProfiles.map((profile) => normalizeProfile(profile, answersByProfile.get(profile.id) ?? []))
+    filteredProfiles.map((profile) =>
+      normalizeProfile(profile, answersByProfile.get(profile.id) ?? [])
+    )
   );
 
   return { profiles: normalizedProfiles, audit };

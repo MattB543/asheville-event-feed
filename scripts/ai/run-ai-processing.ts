@@ -8,7 +8,12 @@ import { events } from '../../lib/db/schema';
 import { eq, or, sql, isNull, and, isNotNull } from 'drizzle-orm';
 import { generateTagsAndSummary } from '../../lib/ai/tagAndSummarize';
 import { generateEmbedding, createEmbeddingText } from '../../lib/ai/embedding';
-import { generateEventScore, getRecurringEventScore } from '../../lib/ai/scoring';
+import {
+  buildMissingScoreUpdate,
+  generateEventScore,
+  getFallbackEventScore,
+  getRecurringEventScore,
+} from '../../lib/ai/scoring';
 import { checkWeeklyRecurring } from '../../lib/ai/recurringDetection';
 import { findSimilarEvents } from '../../lib/db/similaritySearch';
 import { isAzureAIEnabled } from '../../lib/ai/provider-clients';
@@ -208,11 +213,26 @@ async function processScoringPass(stats: Stats): Promise<number> {
       startDate: events.startDate,
       price: events.price,
       recurringType: events.recurringType,
+      score: events.score,
+      scoreRarity: events.scoreRarity,
+      scoreUnique: events.scoreUnique,
+      scoreMagnitude: events.scoreMagnitude,
+      scoreReason: events.scoreReason,
+      scoreAshevilleWeird: events.scoreAshevilleWeird,
+      scoreSocial: events.scoreSocial,
     })
     .from(events)
     .where(
       and(
-        isNull(events.score),
+        or(
+          isNull(events.score),
+          isNull(events.scoreRarity),
+          isNull(events.scoreUnique),
+          isNull(events.scoreMagnitude),
+          isNull(events.scoreReason),
+          isNull(events.scoreAshevilleWeird),
+          isNull(events.scoreSocial)
+        ),
         isNotNull(events.embedding),
         isNotNull(events.aiSummary),
         sql`${events.startDate} >= ${now.toISOString()}`
@@ -230,16 +250,10 @@ async function processScoringPass(stats: Stats): Promise<number> {
     const recurringScore = getRecurringEventScore('daily');
     await Promise.all(
       dailyRecurring.map(async (event) => {
-        await db
-          .update(events)
-          .set({
-            score: recurringScore.score,
-            scoreRarity: recurringScore.rarity,
-            scoreUnique: recurringScore.unique,
-            scoreMagnitude: recurringScore.magnitude,
-            scoreReason: recurringScore.reason,
-          })
-          .where(eq(events.id, event.id));
+        const updateData = buildMissingScoreUpdate(event, recurringScore);
+        if (Object.keys(updateData).length > 0) {
+          await db.update(events).set(updateData).where(eq(events.id, event.id));
+        }
         stats.scoring.skippedRecurring++;
         stats.scoring.total++;
       })
@@ -269,16 +283,10 @@ async function processScoringPass(stats: Stats): Promise<number> {
     const recurringScore = getRecurringEventScore('weekly');
     await Promise.all(
       weeklyRecurring.map(async ({ event }) => {
-        await db
-          .update(events)
-          .set({
-            score: recurringScore.score,
-            scoreRarity: recurringScore.rarity,
-            scoreUnique: recurringScore.unique,
-            scoreMagnitude: recurringScore.magnitude,
-            scoreReason: recurringScore.reason,
-          })
-          .where(eq(events.id, event.id));
+        const updateData = buildMissingScoreUpdate(event, recurringScore);
+        if (Object.keys(updateData).length > 0) {
+          await db.update(events).set(updateData).where(eq(events.id, event.id));
+        }
         stats.scoring.skippedRecurring++;
         stats.scoring.total++;
       })
@@ -325,27 +333,37 @@ async function processScoringPass(stats: Stats): Promise<number> {
             );
 
             if (scoreResult) {
-              await db
-                .update(events)
-                .set({
-                  score: scoreResult.score,
-                  scoreRarity: scoreResult.rarity,
-                  scoreUnique: scoreResult.unique,
-                  scoreMagnitude: scoreResult.magnitude,
-                  scoreReason: scoreResult.reason,
-                })
-                .where(eq(events.id, event.id));
+              const updateData = buildMissingScoreUpdate(event, scoreResult);
+              if (Object.keys(updateData).length > 0) {
+                await db.update(events).set(updateData).where(eq(events.id, event.id));
+              }
               stats.scoring.success++;
               if (scoreResult.score >= 18) {
                 console.log(`  ★ ${scoreResult.score}/30: "${event.title.slice(0, 50)}..."`);
               }
             } else {
               stats.scoring.failed++;
+              const fallbackScore = getFallbackEventScore('Fallback score: AI scoring failed');
+              const updateData = buildMissingScoreUpdate(event, fallbackScore);
+              if (Object.keys(updateData).length > 0) {
+                await db.update(events).set(updateData).where(eq(events.id, event.id));
+              }
             }
             stats.scoring.total++;
-          } catch {
+          } catch (err) {
             stats.scoring.failed++;
             stats.scoring.total++;
+            const fallbackScore = getFallbackEventScore(
+              err instanceof Error &&
+                (err.message.includes('content_filter') ||
+                  err.message.includes('content management policy'))
+                ? 'Fallback score: AI scoring blocked by content filter'
+                : 'Fallback score: AI scoring failed'
+            );
+            const updateData = buildMissingScoreUpdate(event, fallbackScore);
+            if (Object.keys(updateData).length > 0) {
+              await db.update(events).set(updateData).where(eq(events.id, event.id));
+            }
           }
         })
       );
@@ -384,7 +402,15 @@ async function getRemainingCounts() {
     .from(events)
     .where(
       and(
-        isNull(events.score),
+        or(
+          isNull(events.score),
+          isNull(events.scoreRarity),
+          isNull(events.scoreUnique),
+          isNull(events.scoreMagnitude),
+          isNull(events.scoreReason),
+          isNull(events.scoreAshevilleWeird),
+          isNull(events.scoreSocial)
+        ),
         isNotNull(events.embedding),
         sql`${events.startDate} >= ${now.toISOString()}`
       )
@@ -420,7 +446,7 @@ async function main() {
   console.log(`\nInitial counts:`);
   console.log(`  • Need tags/summary: ${initial.needsSummary}`);
   console.log(`  • Need embedding: ${initial.needsEmbedding}`);
-  console.log(`  • Need score: ${initial.needsScore}`);
+  console.log(`  • Need score fields: ${initial.needsScore}`);
 
   // STEP 1: Process ALL tags/summaries first
   console.log(`\n════════════════════════════════════════════════════════════`);

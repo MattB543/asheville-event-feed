@@ -1,5 +1,10 @@
-import { getAzureClient, getAzureDeploymentName, isAzureAIEnabled } from '@/lib/ai/provider-clients';
+import {
+  getAzureClient,
+  getAzureDeploymentName,
+  isAzureAIEnabled,
+} from '@/lib/ai/provider-clients';
 import { withRetry } from '@/lib/utils/retry';
+import { isRecord, isString } from '@/lib/utils/validation';
 
 interface AzureJsonCallOptions {
   systemPrompt: string;
@@ -40,15 +45,19 @@ function responseContentToString(content: unknown): string {
   }
 
   if (Array.isArray(content)) {
-    return content
-      .map((part) => {
-        if (typeof part === 'string') return part;
-        if (part && typeof part === 'object' && 'text' in part && typeof part.text === 'string') {
-          return part.text;
-        }
-        return '';
-      })
-      .join('');
+    return content.map((part) => responsePartToString(part)).join('');
+  }
+
+  return '';
+}
+
+function responsePartToString(part: unknown): string {
+  if (typeof part === 'string') {
+    return part;
+  }
+
+  if (isRecord(part) && isString(part.text)) {
+    return part.text;
   }
 
   return '';
@@ -73,7 +82,9 @@ function extractJsonObject(text: string): unknown {
 
 export async function callAzureJson<T>(options: AzureJsonCallOptions): Promise<T> {
   if (!isAzureAIEnabled()) {
-    throw new Error('Azure OpenAI is not configured (AZURE_OPENAI_API_KEY and AZURE_OPENAI_ENDPOINT)');
+    throw new Error(
+      'Azure OpenAI is not configured (AZURE_OPENAI_API_KEY and AZURE_OPENAI_ENDPOINT)'
+    );
   }
 
   const client = getAzureClient();

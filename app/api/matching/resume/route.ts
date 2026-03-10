@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import { getModel, isAIEnabled } from '@/lib/ai/provider-clients';
+import { isNumberArray, isRecord, isString } from '@/lib/utils/validation';
 import { getDocumentProxy } from 'unpdf';
 
 export const runtime = 'nodejs';
@@ -13,12 +14,42 @@ interface ExtractedLink {
   anchorText: string;
 }
 
+interface PdfLinkAnnotation {
+  subtype: 'Link';
+  url: string;
+  rect: number[];
+}
+
+interface PdfTextItem {
+  str: string;
+  transform: number[];
+}
+
 function normalizeResumeMarkdown(text: string): string {
   return text
     .replace(/\r\n/g, '\n')
     .replace(/[\t ]+/g, ' ')
     .replace(/\n{3,}/g, '\n\n')
     .trim();
+}
+
+function isPdfLinkAnnotation(value: unknown): value is PdfLinkAnnotation {
+  return (
+    isRecord(value) &&
+    value.subtype === 'Link' &&
+    isString(value.url) &&
+    isNumberArray(value.rect) &&
+    value.rect.length >= 4
+  );
+}
+
+function isPdfTextItem(value: unknown): value is PdfTextItem {
+  return (
+    isRecord(value) &&
+    isString(value.str) &&
+    isNumberArray(value.transform) &&
+    value.transform.length >= 6
+  );
 }
 
 /**
@@ -33,15 +64,16 @@ async function extractLinksWithAnchors(pdfData: Uint8Array): Promise<ExtractedLi
 
     for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
       const page = await pdf.getPage(pageNum);
-      const [annotations, textContent] = await Promise.all([
-        page.getAnnotations(),
-        page.getTextContent(),
-      ]);
+      const rawAnnotations: unknown = await page.getAnnotations();
+      const rawTextContent: unknown = await page.getTextContent();
+      const annotations = Array.isArray(rawAnnotations) ? rawAnnotations : [];
+      const textItems =
+        isRecord(rawTextContent) && Array.isArray(rawTextContent.items) ? rawTextContent.items : [];
 
       for (const annotation of annotations) {
-        if (annotation.subtype !== 'Link' || !annotation.url) continue;
+        if (!isPdfLinkAnnotation(annotation)) continue;
 
-        const url: string = annotation.url;
+        const url = annotation.url;
         if (seenUrls.has(url)) continue;
 
         // annotation.rect is [x1, y1, x2, y2] in PDF coordinate space (origin bottom-left)
@@ -50,10 +82,10 @@ async function extractLinksWithAnchors(pdfData: Uint8Array): Promise<ExtractedLi
 
         // Find text items whose position falls within the annotation rect
         const overlappingTexts: string[] = [];
-        for (const item of textContent.items) {
+        for (const item of textItems) {
           // Skip non-text items (e.g. marked content items)
-          if (!('transform' in item) || !('str' in item)) continue;
-          const textItem = item as { str: string; transform: number[] };
+          if (!isPdfTextItem(item)) continue;
+          const textItem = item;
           if (!textItem.str.trim()) continue;
 
           const textX = textItem.transform[4];
@@ -69,9 +101,7 @@ async function extractLinksWithAnchors(pdfData: Uint8Array): Promise<ExtractedLi
           }
         }
 
-        const anchorText = overlappingTexts.length > 0
-          ? overlappingTexts.join(' ')
-          : url;
+        const anchorText = overlappingTexts.length > 0 ? overlappingTexts.join(' ') : url;
 
         seenUrls.set(url, { url, anchorText });
       }
@@ -98,13 +128,13 @@ function stripHallucinatedUrls(markdown: string, allowedUrls: Set<string>): stri
   // Replace markdown links [text](url) — only strip if url is not allowed
   let result = markdown.replace(
     /\[([^\]]*)\]\((https?:\/\/[^)]+)\)/g,
-    (_match, text, url) => {
+    (_match: string, text: string, url: string) => {
       return allowedUrls.has(url) ? `[${text}](${url})` : text;
     }
   );
 
   // Remove bare URLs on their own line that are NOT in allowedUrls
-  result = result.replace(/^(https?:\/\/\S+)$/gm, (_match, url) => {
+  result = result.replace(/^(https?:\/\/\S+)$/gm, (_match: string, url: string) => {
     return allowedUrls.has(url) ? url : '';
   });
 
@@ -171,9 +201,7 @@ export async function POST(request: Request) {
       'Convert this PDF document to clean, well-structured markdown. Preserve the document structure including headings, lists, bold/italic text, and sections.';
 
     if (extractedLinks.length > 0) {
-      const linksList = extractedLinks
-        .map((l) => `- "${l.anchorText}" → ${l.url}`)
-        .join('\n');
+      const linksList = extractedLinks.map((l) => `- "${l.anchorText}" → ${l.url}`).join('\n');
       promptText +=
         '\n\nThe following hyperlinks were extracted from this PDF. Place them inline in the markdown using [text](url) format where the anchor text appears in the document. Do NOT invent or guess any URLs — only use the URLs provided below. If you cannot determine where a link belongs, place it at the end.\n\nExtracted links:\n' +
         linksList;
@@ -204,9 +232,7 @@ export async function POST(request: Request) {
         (link) => !markdownLower.includes(link.url.toLowerCase())
       );
       if (missingLinks.length > 0) {
-        const linksSection = missingLinks
-          .map((l) => `- [${l.anchorText}](${l.url})`)
-          .join('\n');
+        const linksSection = missingLinks.map((l) => `- [${l.anchorText}](${l.url})`).join('\n');
         markdown += '\n\n## Links\n\n' + linksSection;
       }
     }

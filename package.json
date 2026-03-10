@@ -39,6 +39,7 @@
     "test:embedding": "tsx scripts/test-embedding.ts",
     "test:similarity": "tsx scripts/test-similarity.ts",
     "backfill:embeddings": "tsx scripts/ai/backfill-embeddings.ts",
+    "ai:backfill-future-scores": "tsx scripts/ai/backfill-future-score-fields.ts",
     "cron:schedule": "tsx scripts/show-cron-schedule.ts",
     "logs": "tsx scripts/vercel-logs.ts",
     "logs:live": "tsx scripts/vercel-logs.ts live",
@@ -74,13 +75,13 @@
     "dotenv": "^17.2.3",
     "drizzle-orm": "^0.44.7",
     "lucide-react": "^0.554.0",
-    "next": "16.0.10",
+    "next": "^16.1.6",
     "next-themes": "^0.4.6",
     "node-ical": "^0.22.1",
     "openai": "^6.10.0",
     "playwright-extra": "^4.3.6",
     "postgres": "^3.4.7",
-    "posthog-js": "^1.298.1",
+    "posthog-js": "^1.360.0",
     "puppeteer-extra-plugin-stealth": "^2.11.2",
     "react": "19.2.0",
     "react-day-picker": "^9.11.2",
@@ -96,9 +97,10 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "baseline-browser-mapping": "^2.10.0",
     "drizzle-kit": "^0.31.7",
     "eslint": "^9",
-    "eslint-config-next": "16.0.3",
+    "eslint-config-next": "^16.1.6",
     "husky": "^9.1.7",
     "lint-staged": "^16.2.7",
     "patchright": "^1.57.0",
@@ -107,5 +109,11 @@
     "tsx": "^4.21.0",
     "typescript": "^5",
     "typescript-eslint": "^8.50.1"
+  },
+  "overrides": {
+    "minimatch": "3.1.4",
+    "@typescript-eslint/typescript-estree": {
+      "minimatch": "9.0.7"
+    }
   }
 }

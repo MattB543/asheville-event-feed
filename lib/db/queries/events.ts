@@ -83,7 +83,7 @@ export interface EventMetadata {
   availableZips: { zip: string; count: number }[];
 }
 
-// Top 30 events organized by category (each array is pre-sorted, limited to 30)
+// Top 30 events organized by category (each array is pre-sorted leaderboard candidates)
 export interface Top30EventsByCategory {
   overall: DbEvent[];
   weird: DbEvent[];
@@ -659,15 +659,19 @@ export async function getEventMetadata(): Promise<EventMetadata> {
 /**
  * Get top events for the "Top 30" tab across all categories.
  * Returns separate pre-sorted arrays for each category (overall, weird, social).
- * Each array contains exactly the top 30 for that category.
+ * Callers may request more than 30 candidates if they need to collapse duplicate
+ * multi-day listings before trimming back to 30 visible cards.
  */
-export async function queryTop30Events(): Promise<Top30EventsByCategory> {
+export async function queryTop30Events(limitPerCategory = 30): Promise<Top30EventsByCategory> {
   const startOfToday = getStartOfTodayEastern();
   const todayStr = getTodayStringEastern();
   const thirtyDaysLaterStr = addDaysToDateString(todayStr, 30);
   const thirtyDaysLater = parseAsEastern(thirtyDaysLaterStr, '23:59:59');
+  const categoryLimit = Math.min(Math.max(limitPerCategory, 1), 100);
 
-  console.log('[queryTop30Events] Fetching top events for all categories...');
+  console.log(
+    `[queryTop30Events] Fetching top events for all categories (limit=${categoryLimit})...`
+  );
 
   const selectFields = {
     id: events.id,
@@ -730,21 +734,21 @@ export async function queryTop30Events(): Promise<Top30EventsByCategory> {
       .from(events)
       .where(baseWhere)
       .orderBy(desc(events.score), asc(events.startDate), asc(events.id))
-      .limit(30),
+      .limit(categoryLimit),
     // Top 30 by Asheville Weird (for "Asheville Weird" category)
     db
       .select(selectFields)
       .from(events)
       .where(and(baseWhere, isNotNull(events.scoreAshevilleWeird)))
       .orderBy(desc(events.scoreAshevilleWeird), desc(events.score), asc(events.startDate))
-      .limit(30),
+      .limit(categoryLimit),
     // Top 30 by Social (for "Meet People" category)
     db
       .select(selectFields)
       .from(events)
       .where(and(baseWhere, isNotNull(events.scoreSocial)))
       .orderBy(desc(events.scoreSocial), desc(events.score), asc(events.startDate))
-      .limit(30),
+      .limit(categoryLimit),
   ]);
 
   console.log(

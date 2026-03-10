@@ -127,6 +127,7 @@ interface EventCardProps {
     tags?: string[] | null;
     timeUnknown?: boolean;
     recurringType?: string | null;
+    top30Occurrences?: { id: string; startDate: Date; timeUnknown?: boolean | null }[] | null;
   };
   onHide: (title: string, organizer: string | null, eventId?: string) => void;
   onBlockHost: (host: string) => void;
@@ -366,6 +367,10 @@ export default function EventCard({
   };
 
   const displayPrice = formatPriceDisplay(event.price);
+  const scheduleEntries =
+    event.top30Occurrences && event.top30Occurrences.length > 0
+      ? event.top30Occurrences
+      : [{ id: event.id, startDate: event.startDate, timeUnknown: event.timeUnknown ?? false }];
 
   // Handler for mobile card click (toggle expand/collapse)
   const handleMobileCardClick = () => {
@@ -539,11 +544,16 @@ export default function EventCard({
           )}
 
           {/* Badges: Date/Time, Price, Tags */}
-          <div className="flex items-center gap-1.5 mt-3">
-            {/* Date/Time Badge */}
-            <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-600 shrink-0">
-              {formatDate(event.startDate, event.timeUnknown)}
-            </span>
+          <div className="flex flex-wrap items-center gap-1.5 mt-3">
+            {/* Date/Time Badge(s) */}
+            {scheduleEntries.map((occurrence) => (
+              <span
+                key={occurrence.id}
+                className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-600 shrink-0"
+              >
+                {formatDate(occurrence.startDate, occurrence.timeUnknown ?? false)}
+              </span>
+            ))}
 
             {/* Price Badge */}
             <span
@@ -933,8 +943,12 @@ export default function EventCard({
                 </h3>
               </div>
 
-              <div className="text-xs text-gray-900 dark:text-gray-100 font-medium mt-2 sm:mt-1">
-                {formatDate(event.startDate, event.timeUnknown)}
+              <div className="flex flex-col gap-1 text-xs text-gray-900 dark:text-gray-100 font-medium mt-2 sm:mt-1">
+                {scheduleEntries.map((occurrence) => (
+                  <div key={occurrence.id}>
+                    {formatDate(occurrence.startDate, occurrence.timeUnknown ?? false)}
+                  </div>
+                ))}
               </div>
               <div className="text-xs text-gray-500 dark:text-gray-400 mt-2 line-clamp-1">
                 {event.organizer && event.location

@@ -21,7 +21,11 @@ function cleanSentence(value: unknown, fallback: string): string {
   return trimmed || fallback;
 }
 
-function validateMatches(raw: unknown, targetProfileId: string, validCandidateIds: Set<string>): MatchEntry[] {
+function validateMatches(
+  raw: unknown,
+  targetProfileId: string,
+  validCandidateIds: Set<string>
+): MatchEntry[] {
   if (!raw || typeof raw !== 'object') {
     return [];
   }
@@ -52,8 +56,14 @@ function validateMatches(raw: unknown, targetProfileId: string, validCandidateId
       rank: rankNumber,
       profile_id: profileId,
       name: cleanSentence(row.name, 'TEDx Attendee'),
-      why_match: cleanSentence(row.why_match, 'Strong topical overlap and likely conversation fit.'),
-      mutual_value: cleanSentence(row.mutual_value, 'Potential mutual value exchange in a short meeting.'),
+      why_match: cleanSentence(
+        row.why_match,
+        'Strong topical overlap and likely conversation fit.'
+      ),
+      mutual_value: cleanSentence(
+        row.mutual_value,
+        'Potential mutual value exchange in a short meeting.'
+      ),
       conversation_starter: cleanSentence(
         row.conversation_starter,
         'What are you both most excited to explore at TEDx Asheville?'
@@ -113,25 +123,25 @@ ${repairSection}
 
 Target profile:
 ${JSON.stringify(
-    {
-      profile_id: target.profileId,
-      name: target.name,
-      card_text: target.cardText,
-    },
-    null,
-    2
-  )}
+  {
+    profile_id: target.profileId,
+    name: target.name,
+    card_text: target.cardText,
+  },
+  null,
+  2
+)}
 
 Candidates:
 ${JSON.stringify(
-    candidates.map((candidate) => ({
-      profile_id: candidate.profileId,
-      name: candidate.name,
-      card_text: candidate.cardText,
-    })),
-    null,
-    2
-  )}`;
+  candidates.map((candidate) => ({
+    profile_id: candidate.profileId,
+    name: candidate.name,
+    card_text: candidate.cardText,
+  })),
+  null,
+  2
+)}`;
 }
 
 async function generateOneMatchSet(

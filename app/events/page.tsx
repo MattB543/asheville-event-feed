@@ -18,6 +18,7 @@ export const metadata: Metadata = {
 };
 
 export const revalidate = 3600; // Fallback revalidation every hour
+const TOP30_CANDIDATE_LIMIT = 50;
 
 // Cached first page query - loads 250 events for SSR to ensure enough content
 // for users who have many events hidden/collapsed
@@ -43,8 +44,8 @@ const getCachedMetadata = unstable_cache(
 // Cached top 30 events query
 const getTop30Events = unstable_cache(
   async () => {
-    console.log('[Events] Fetching top 30 events...');
-    return queryTop30Events();
+    console.log(`[Events] Fetching top 30 candidates (limit=${TOP30_CANDIDATE_LIMIT})...`);
+    return queryTop30Events(TOP30_CANDIDATE_LIMIT);
   },
   ['events-top30'],
   { tags: ['events'], revalidate: 3600 }

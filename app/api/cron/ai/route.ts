@@ -4,7 +4,12 @@ import { events, newsletterSettings } from '@/lib/db/schema';
 import { eq, or, like, sql, isNull, and, isNotNull, inArray } from 'drizzle-orm';
 import { generateTagsAndSummary } from '@/lib/ai/tagAndSummarize';
 import { generateEmbedding, createEmbeddingText } from '@/lib/ai/embedding';
-import { generateEventScore, getRecurringEventScore } from '@/lib/ai/scoring';
+import {
+  buildMissingScoreUpdate,
+  generateEventScore,
+  getFallbackEventScore,
+  getRecurringEventScore,
+} from '@/lib/ai/scoring';
 import { checkWeeklyRecurring } from '@/lib/ai/recurringDetection';
 import { findSimilarEvents } from '@/lib/db/similaritySearch';
 import { env } from '@/lib/config/env';
@@ -21,6 +26,7 @@ import {
   generateTop30LiveEmailText,
   type Top30Event,
 } from '@/lib/notifications/top30-email-templates';
+import { areEquivalentTop30Events } from '@/lib/notifications/top30-notification-equivalence';
 import { encodeUnsubscribeToken } from '@/app/api/top30/unsubscribe/route';
 
 export const maxDuration = 800; // 13+ minutes (requires Fluid Compute)
@@ -259,11 +265,26 @@ export async function GET(request: Request) {
         startDate: events.startDate,
         price: events.price,
         recurringType: events.recurringType,
+        score: events.score,
+        scoreRarity: events.scoreRarity,
+        scoreUnique: events.scoreUnique,
+        scoreMagnitude: events.scoreMagnitude,
+        scoreReason: events.scoreReason,
+        scoreAshevilleWeird: events.scoreAshevilleWeird,
+        scoreSocial: events.scoreSocial,
       })
       .from(events)
       .where(
         and(
-          isNull(events.score),
+          or(
+            isNull(events.score),
+            isNull(events.scoreRarity),
+            isNull(events.scoreUnique),
+            isNull(events.scoreMagnitude),
+            isNull(events.scoreReason),
+            isNull(events.scoreAshevilleWeird),
+            isNull(events.scoreSocial)
+          ),
           isNotNull(events.embedding),
           isNotNull(events.aiSummary),
           sql`${events.startDate} >= ${now.toISOString()}`,
@@ -283,18 +304,10 @@ export async function GET(request: Request) {
           // Check if daily recurring (existing field)
           if (event.recurringType === 'daily') {
             const recurringScore = getRecurringEventScore('daily');
-            await db
-              .update(events)
-              .set({
-                score: recurringScore.score,
-                scoreRarity: recurringScore.rarity,
-                scoreUnique: recurringScore.unique,
-                scoreMagnitude: recurringScore.magnitude,
-                scoreReason: recurringScore.reason,
-                scoreAshevilleWeird: recurringScore.ashevilleWeird,
-                scoreSocial: recurringScore.social,
-              })
-              .where(eq(events.id, event.id));
+            const updateData = buildMissingScoreUpdate(event, recurringScore);
+            if (Object.keys(updateData).length > 0) {
+              await db.update(events).set(updateData).where(eq(events.id, event.id));
+            }
 
             stats.scoring.skippedRecurring++;
             console.log(
@@ -314,18 +327,10 @@ export async function GET(request: Request) {
 
           if (recurringCheck.isWeeklyRecurring) {
             const recurringScore = getRecurringEventScore('weekly');
-            await db
-              .update(events)
-              .set({
-                score: recurringScore.score,
-                scoreRarity: recurringScore.rarity,
-                scoreUnique: recurringScore.unique,
-                scoreMagnitude: recurringScore.magnitude,
-                scoreReason: recurringScore.reason,
-                scoreAshevilleWeird: recurringScore.ashevilleWeird,
-                scoreSocial: recurringScore.social,
-              })
-              .where(eq(events.id, event.id));
+            const updateData = buildMissingScoreUpdate(event, recurringScore);
+            if (Object.keys(updateData).length > 0) {
+              await db.update(events).set(updateData).where(eq(events.id, event.id));
+            }
 
             stats.scoring.skippedRecurring++;
             console.log(
@@ -365,18 +370,10 @@ export async function GET(request: Request) {
           );
 
           if (scoreResult) {
-            await db
-              .update(events)
-              .set({
-                score: scoreResult.score,
-                scoreRarity: scoreResult.rarity,
-                scoreUnique: scoreResult.unique,
-                scoreMagnitude: scoreResult.magnitude,
-                scoreReason: scoreResult.reason,
-                scoreAshevilleWeird: scoreResult.ashevilleWeird,
-                scoreSocial: scoreResult.social,
-              })
-              .where(eq(events.id, event.id));
+            const updateData = buildMissingScoreUpdate(event, scoreResult);
+            if (Object.keys(updateData).length > 0) {
+              await db.update(events).set(updateData).where(eq(events.id, event.id));
+            }
 
             stats.scoring.success++;
             console.log(
@@ -384,12 +381,29 @@ export async function GET(request: Request) {
             );
           } else {
             stats.scoring.failed++;
+            const fallbackScore = getFallbackEventScore('Fallback score: AI scoring failed');
+            const updateData = buildMissingScoreUpdate(event, fallbackScore);
+            if (Object.keys(updateData).length > 0) {
+              await db.update(events).set(updateData).where(eq(events.id, event.id));
+            }
+            console.warn(`[AI] Applied score fallback for "${event.title.slice(0, 40)}..."`);
           }
 
           // Delay between scoring calls (more expensive)
           await new Promise((r) => setTimeout(r, 500));
         } catch (err) {
           stats.scoring.failed++;
+          const fallbackScore = getFallbackEventScore(
+            err instanceof Error &&
+              (err.message.includes('content_filter') ||
+                err.message.includes('content management policy'))
+              ? 'Fallback score: AI scoring blocked by content filter'
+              : 'Fallback score: AI scoring failed'
+          );
+          const updateData = buildMissingScoreUpdate(event, fallbackScore);
+          if (Object.keys(updateData).length > 0) {
+            await db.update(events).set(updateData).where(eq(events.id, event.id));
+          }
           console.error(
             `[AI] Failed to score "${event.title}":`,
             err instanceof Error ? err.message : err
@@ -414,7 +428,6 @@ export async function GET(request: Request) {
         // Get current top 30 events (use overall category for live notifications)
         const top30Result = await queryTop30Events();
         const currentTop30 = top30Result.overall;
-        const currentTop30Ids = currentTop30.map((e) => e.id);
 
         // Get all future event IDs for cleanup (events that have passed can be removed from tracking)
         const now = new Date();
@@ -436,6 +449,30 @@ export async function GET(request: Request) {
 
         if (liveSubscribers.length > 0) {
           console.log(`[AI] Found ${liveSubscribers.length} live top 30 subscribers`);
+
+          const trackedIds = Array.from(
+            new Set(
+              liveSubscribers.flatMap((subscriber) =>
+                (subscriber.top30LastEventIds || []).filter((id) => futureEventIdSet.has(id))
+              )
+            )
+          );
+
+          const trackedEvents =
+            trackedIds.length > 0
+              ? await db
+                  .select({
+                    id: events.id,
+                    title: events.title,
+                    startDate: events.startDate,
+                    location: events.location,
+                    organizer: events.organizer,
+                  })
+                  .from(events)
+                  .where(inArray(events.id, trackedIds))
+              : [];
+
+          const trackedEventById = new Map(trackedEvents.map((event) => [event.id, event]));
 
           // Get user emails from Supabase
           const supabase = createServiceClient();
@@ -473,31 +510,45 @@ export async function GET(request: Request) {
               // We track ALL events ever notified, not just current Top 30 composition,
               // to prevent duplicate notifications when events bounce in/out of Top 30
               const notifiedIds = new Set(subscriber.top30LastEventIds || []);
-              const newEventIds = currentTop30Ids.filter((id) => !notifiedIds.has(id));
+              const existingValidIds = (subscriber.top30LastEventIds || []).filter((id) =>
+                futureEventIdSet.has(id)
+              );
+              const previouslyNotifiedEvents = existingValidIds
+                .map((id) => trackedEventById.get(id))
+                .filter((event): event is NonNullable<typeof event> => Boolean(event));
 
-              if (newEventIds.length === 0) {
+              const newEvents: Top30Event[] = currentTop30
+                .filter((event) => {
+                  if (notifiedIds.has(event.id)) {
+                    return false;
+                  }
+
+                  return !previouslyNotifiedEvents.some((previousEvent) =>
+                    areEquivalentTop30Events(event, previousEvent)
+                  );
+                })
+                .map((event) => ({
+                  id: event.id,
+                  title: event.title,
+                  startDate: event.startDate,
+                  location: event.location,
+                  organizer: event.organizer,
+                  price: event.price,
+                  imageUrl: event.imageUrl,
+                  tags: event.tags,
+                  url: event.url,
+                  aiSummary: event.aiSummary,
+                  score: event.score,
+                }));
+
+              if (newEvents.length === 0) {
                 // No new events for this user - don't update the notified list
                 // (preserves history of all events they've been notified about)
                 stats.top30Notifications.skipped++;
                 continue;
               }
 
-              // Get the new event details
-              const newEvents: Top30Event[] = currentTop30
-                .filter((e) => newEventIds.includes(e.id))
-                .map((e) => ({
-                  id: e.id,
-                  title: e.title,
-                  startDate: e.startDate,
-                  location: e.location,
-                  organizer: e.organizer,
-                  price: e.price,
-                  imageUrl: e.imageUrl,
-                  tags: e.tags,
-                  url: e.url,
-                  aiSummary: e.aiSummary,
-                  score: e.score,
-                }));
+              const newEventIds = newEvents.map((event) => event.id);
 
               if (newEvents.length > stats.top30Notifications.newEvents) {
                 stats.top30Notifications.newEvents = newEvents.length;
@@ -539,9 +590,6 @@ export async function GET(request: Request) {
                   // Append new event IDs to the notified list (don't replace)
                   // This ensures events are only notified once, even if they bounce in/out of Top 30
                   // Also clean up IDs for events that have already passed (to prevent unbounded growth)
-                  const existingValidIds = (subscriber.top30LastEventIds || []).filter((id) =>
-                    futureEventIdSet.has(id)
-                  );
                   const updatedNotifiedIds = [...existingValidIds, ...newEventIds];
                   await db
                     .update(newsletterSettings)

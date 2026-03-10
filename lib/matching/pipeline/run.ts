@@ -7,7 +7,12 @@ import {
   matchingRuns,
 } from '@/lib/db/schema';
 import { writeRunExports } from '@/lib/matching/pipeline/export';
-import { dispatchClayLinkedinJobs, processJinaEnrichment, seedEnrichmentItems, waitForClayResults } from '@/lib/matching/pipeline/enrichment';
+import {
+  dispatchClayLinkedinJobs,
+  processJinaEnrichment,
+  seedEnrichmentItems,
+  waitForClayResults,
+} from '@/lib/matching/pipeline/enrichment';
 import { generateTopMatches } from '@/lib/matching/pipeline/match';
 import { loadSubmittedCohort } from '@/lib/matching/pipeline/normalize';
 import { buildProfileCards } from '@/lib/matching/pipeline/synthesize';
@@ -25,7 +30,10 @@ const stageOrder = {
   export: 4,
 } as const;
 
-function shouldRun(fromStage: keyof typeof stageOrder, currentStage: keyof typeof stageOrder): boolean {
+function shouldRun(
+  fromStage: keyof typeof stageOrder,
+  currentStage: keyof typeof stageOrder
+): boolean {
   return stageOrder[currentStage] >= stageOrder[fromStage];
 }
 
@@ -35,7 +43,8 @@ async function updateRunStatus(runId: string, status: MatchingRunStatus) {
     .update(matchingRuns)
     .set({
       status,
-      completedAt: status === 'completed' || status === 'failed' || status === 'interrupted' ? now : null,
+      completedAt:
+        status === 'completed' || status === 'failed' || status === 'interrupted' ? now : null,
       updatedAt: now,
     })
     .where(eq(matchingRuns.id, runId));
@@ -112,7 +121,9 @@ export async function runTedxMatchingPipeline(
   cohortAudit: CohortAudit;
   matchSummary: { completed: number; failed: number } | null;
 }> {
-  const runId = options.dryRun ? options.runId ?? 'dry-run' : options.runId ?? (await createRun(options));
+  const runId = options.dryRun
+    ? (options.runId ?? 'dry-run')
+    : (options.runId ?? (await createRun(options)));
   onRunId?.(runId);
   let exportDir: string | null = null;
 
@@ -164,7 +175,9 @@ export async function runTedxMatchingPipeline(
     let matchSummary: { completed: number; failed: number } | null = null;
     if (shouldRun(options.fromStage, 'match')) {
       if (cards.length < 2) {
-        throw new Error('Cannot run match stage without profile cards. Run synthesize stage first.');
+        throw new Error(
+          'Cannot run match stage without profile cards. Run synthesize stage first.'
+        );
       }
       await updateRunStatus(runId, 'matching');
       matchSummary = await generateTopMatches(runId, cards);

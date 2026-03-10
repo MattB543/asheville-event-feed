@@ -105,10 +105,7 @@ export function isYouTubeUrl(url: string): boolean {
   try {
     const parsed = new URL(url);
     const host = parsed.hostname.toLowerCase();
-    return (
-      hostEqualsOrSubdomain(host, 'youtube.com') ||
-      hostEqualsOrSubdomain(host, 'youtu.be')
-    );
+    return hostEqualsOrSubdomain(host, 'youtube.com') || hostEqualsOrSubdomain(host, 'youtu.be');
   } catch {
     return false;
   }

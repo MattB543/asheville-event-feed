@@ -60,7 +60,6 @@ export async function POST(request: NextRequest) {
       .values({
         userId: user.id,
         top30Subscription: body.subscription,
-        // Clear last event IDs when subscribing to start fresh
         top30LastEventIds: [],
         updatedAt: new Date(),
       })
@@ -68,8 +67,6 @@ export async function POST(request: NextRequest) {
         target: newsletterSettings.userId,
         set: {
           top30Subscription: body.subscription,
-          // Clear last event IDs when changing subscription
-          top30LastEventIds: [],
           updatedAt: new Date(),
         },
       });

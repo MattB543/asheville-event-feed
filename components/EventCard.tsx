@@ -381,6 +381,8 @@ export default function EventCard({
 
   // Handler for opening event in modal
   const handleOpenModal = (e: React.MouseEvent) => {
+    // Let modifier+Click use native browser behavior (new tab, new window, etc.)
+    if (e.metaKey || e.ctrlKey || e.shiftKey) return;
     if (onOpenModal) {
       e.preventDefault();
       e.stopPropagation();
@@ -468,7 +470,13 @@ export default function EventCard({
         {/* Image - 130px collapsed, 192px expanded */}
         <Link
           href={eventUrl}
-          onClick={onOpenModal ? handleOpenModal : (e) => e.stopPropagation()}
+          onClick={
+            onOpenModal
+              ? handleOpenModal
+              : (e) => {
+                  if (!e.metaKey && !e.ctrlKey && !e.shiftKey) e.stopPropagation();
+                }
+          }
           className="block"
         >
           <div
@@ -505,7 +513,13 @@ export default function EventCard({
               <Link
                 href={eventUrl}
                 className="hover:underline"
-                onClick={onOpenModal ? handleOpenModal : (e) => e.stopPropagation()}
+                onClick={
+                  onOpenModal
+                    ? handleOpenModal
+                    : (e) => {
+                        if (!e.metaKey && !e.ctrlKey && !e.shiftKey) e.stopPropagation();
+                      }
+                }
               >
                 {ranking ? `${ranking}. ${event.title}` : event.title}
               </Link>
@@ -816,7 +830,13 @@ export default function EventCard({
           <Link
             href={eventUrl}
             className="text-sm font-medium text-brand-600 dark:text-brand-400 hover:underline whitespace-nowrap shrink-0"
-            onClick={onOpenModal ? handleOpenModal : (e) => e.stopPropagation()}
+            onClick={
+              onOpenModal
+                ? handleOpenModal
+                : (e) => {
+                    if (!e.metaKey && !e.ctrlKey && !e.shiftKey) e.stopPropagation();
+                  }
+            }
           >
             {event.title}
           </Link>
@@ -893,6 +913,7 @@ export default function EventCard({
           <Link
             href={eventUrl}
             onClick={(e) => {
+              if (e.metaKey || e.ctrlKey || e.shiftKey) return;
               e.stopPropagation();
               if (onOpenModal) handleOpenModal(e);
             }}
@@ -927,6 +948,7 @@ export default function EventCard({
                     href={eventUrl}
                     className="hover:underline"
                     onClick={(e) => {
+                      if (e.metaKey || e.ctrlKey || e.shiftKey) return;
                       e.stopPropagation();
                       if (onOpenModal) handleOpenModal(e);
                     }}

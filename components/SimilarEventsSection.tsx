@@ -160,6 +160,8 @@ export default function SimilarEventsSection({
   };
 
   // Handle event click - either navigate or open modal
+  // Note: Cmd/Ctrl+Click is handled by EventCard's handleOpenModal returning early,
+  // which lets the browser's native <Link> behavior open the href in a new tab.
   const handleEventClick = (eventData: ModalEvent) => {
     if (navigateOnSimilarClick) {
       const slug = generateEventSlug(eventData.title, eventData.startDate, eventData.id);

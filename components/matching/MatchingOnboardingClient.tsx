@@ -111,24 +111,20 @@ function getChoiceGridClass(
   optionCount: number,
   configuredColumns?: number
 ): string {
-  const columns =
-    question.id === 'vibe_topics'
-      ? 3
-      : typeof configuredColumns === 'number'
-        ? configuredColumns
-        : question.inputType !== 'single_select' && optionCount > 25
-          ? 4
-          : 2;
-
-  if (columns >= 4) {
-    return 'grid gap-3 sm:grid-cols-2 md:grid-cols-4';
+  // For questions with many choices, use flex-wrap on all screen sizes
+  // so buttons auto-size based on content and fit more per row
+  if (optionCount > 5) {
+    return 'flex flex-wrap gap-2';
   }
 
-  if (columns === 3) {
-    return 'grid gap-3 sm:grid-cols-3';
+  // For fewer choices, use grid layout on desktop
+  const columns = typeof configuredColumns === 'number' ? configuredColumns : 2;
+
+  if (columns >= 3) {
+    return 'flex flex-wrap gap-2 sm:grid sm:gap-3 sm:grid-cols-3';
   }
 
-  return 'grid gap-3 sm:grid-cols-2';
+  return 'flex flex-wrap gap-2 sm:grid sm:gap-3 sm:grid-cols-2';
 }
 
 export default function MatchingOnboardingClient({
@@ -888,18 +884,18 @@ export default function MatchingOnboardingClient({
                     answerJson: undefined,
                   })
                 }
-                className={`rounded-xl border p-4 text-left transition-colors ${
+                className={`rounded-lg sm:rounded-xl border px-3 py-2 sm:p-4 text-left transition-colors ${
                   isSelected
                     ? 'border-brand-500 bg-brand-50 dark:bg-brand-950/40 text-brand-900 dark:text-brand-100'
                     : 'border-gray-200 dark:border-gray-700 hover:border-brand-300 dark:hover:border-brand-700'
                 } ${canEdit ? 'cursor-pointer' : 'cursor-not-allowed opacity-70'}`}
               >
-                <div className="flex items-center justify-between gap-3">
-                  <span className="text-sm font-medium">{option.label}</span>
+                <div className="flex items-center justify-between gap-2 sm:gap-3">
+                  <span className="text-xs sm:text-sm font-medium">{option.label}</span>
                   {isSelected && <CheckCircle className="w-4 h-4 shrink-0 text-brand-600" />}
                 </div>
                 {option.description && (
-                  <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
+                  <p className="mt-1 sm:mt-2 text-xs text-gray-500 dark:text-gray-400 hidden sm:block">
                     {option.description}
                   </p>
                 )}
@@ -956,22 +952,26 @@ export default function MatchingOnboardingClient({
                   type="button"
                   disabled={!canEdit || isAtLimit}
                   onClick={() => toggleValue(option.value)}
-                  className={`rounded-xl border p-4 text-left transition-colors ${
+                  className={`rounded-lg sm:rounded-xl border px-3 py-2 sm:p-4 text-left transition-colors ${
                     isSelected
                       ? 'border-brand-500 bg-brand-50 dark:bg-brand-950/40 text-brand-900 dark:text-brand-100'
                       : 'border-gray-200 dark:border-gray-700 hover:border-brand-300 dark:hover:border-brand-700'
                   } ${!canEdit || isAtLimit ? 'cursor-not-allowed opacity-70' : 'cursor-pointer'}`}
                 >
-                  <div className="flex items-center justify-between gap-3">
-                    <span className="text-sm font-medium">{option.label}</span>
+                  <div className="flex items-center justify-between gap-2 sm:gap-3">
+                    <span className="text-xs sm:text-sm font-medium">{option.label}</span>
                     {isSelected ? (
-                      <span className="inline-flex h-6 min-w-6 items-center justify-center rounded-full bg-brand-600 px-2 text-xs font-semibold text-white">
-                        {question.inputType === 'ranking' ? selectionIndex + 1 : '✓'}
-                      </span>
+                      question.inputType === 'ranking' ? (
+                        <span className="inline-flex h-4 w-4 sm:h-5 sm:w-5 items-center justify-center rounded-full bg-brand-600 text-[9px] sm:text-[11px] font-semibold text-white shrink-0">
+                          {selectionIndex + 1}
+                        </span>
+                      ) : (
+                        <CheckCircle className="w-4 h-4 shrink-0 text-brand-600" />
+                      )
                     ) : null}
                   </div>
                   {option.description && (
-                    <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
+                    <p className="mt-1 sm:mt-2 text-xs text-gray-500 dark:text-gray-400 hidden sm:block">
                       {option.description}
                     </p>
                   )}
@@ -1135,21 +1135,21 @@ export default function MatchingOnboardingClient({
   );
 
   const renderInlineSurveyQuestions = (questionList: MatchingQuestion[]) => (
-    <div className="space-y-5">
+    <div className="space-y-3 sm:space-y-5">
       {questionList.map((question) => {
         const isAnswered = answerHasValue(question, answers[question.id]);
 
         return (
           <section
             key={question.id}
-            className={`rounded-2xl border p-4 md:p-5 ${
+            className={`rounded-xl sm:rounded-2xl border p-3 sm:p-4 md:p-5 ${
               isAnswered
                 ? 'border-brand-200 bg-brand-50/40 dark:border-brand-900 dark:bg-brand-950/20'
                 : 'border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900'
             }`}
           >
-            <div className="mb-4 flex items-start justify-between gap-3">
-              <h3 className="text-[15px] font-semibold leading-6 text-gray-900 dark:text-white">
+            <div className="mb-3 sm:mb-4 flex items-start justify-between gap-3">
+              <h3 className="text-sm sm:text-[15px] font-semibold leading-5 sm:leading-6 text-gray-900 dark:text-white">
                 {question.prompt}
               </h3>
               {isAnswered && (
@@ -1172,8 +1172,8 @@ export default function MatchingOnboardingClient({
   }
 
   return (
-    <div className="bg-white dark:bg-gray-900 rounded-xl shadow-lg border border-gray-200 dark:border-gray-800 overflow-hidden">
-      <div className="px-6 pt-6 flex items-start justify-between gap-4">
+    <div className="bg-white dark:bg-gray-900 sm:rounded-xl sm:shadow-lg sm:border sm:border-gray-200 sm:dark:border-gray-800 overflow-hidden">
+      <div className="px-4 pt-6 sm:px-6 flex items-start justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
             {programConfig.onboardingTitle}
@@ -1189,7 +1189,7 @@ export default function MatchingOnboardingClient({
       </div>
 
       {isEditLocked && (
-        <div className="mx-6 mt-4 rounded-lg border border-amber-200 dark:border-amber-900 bg-amber-50 dark:bg-amber-900/20 p-4 text-sm text-amber-800 dark:text-amber-200">
+        <div className="mx-4 sm:mx-6 mt-4 rounded-lg border border-amber-200 dark:border-amber-900 bg-amber-50 dark:bg-amber-900/20 p-4 text-sm text-amber-800 dark:text-amber-200">
           <div className="flex items-start gap-2">
             <Lock className="w-4 h-4 mt-0.5" />
             <div>
@@ -1203,7 +1203,7 @@ export default function MatchingOnboardingClient({
       )}
 
       {isSubmitted && canEdit && (
-        <div className="mx-6 mt-4 rounded-lg border border-green-200 dark:border-green-900 bg-green-50 dark:bg-green-900/20 p-4 text-sm text-green-800 dark:text-green-200">
+        <div className="mx-4 sm:mx-6 mt-4 rounded-lg border border-green-200 dark:border-green-900 bg-green-50 dark:bg-green-900/20 p-4 text-sm text-green-800 dark:text-green-200">
           <div className="flex items-start gap-2">
             <CheckCircle className="w-4 h-4 mt-0.5" />
             <div>
@@ -1217,7 +1217,7 @@ export default function MatchingOnboardingClient({
       )}
 
       {currentStep !== 'intro' && currentStep !== 'confirmation' && (
-        <div className="px-6 pt-6">
+        <div className="px-4 pt-5 sm:px-6 sm:pt-6">
           <div className="grid grid-cols-3 gap-2">
             {(
               [
@@ -1242,7 +1242,7 @@ export default function MatchingOnboardingClient({
         </div>
       )}
 
-      <div className="p-6">
+      <div className="px-4 py-5 sm:p-6">
         {currentStep === 'intro' && (
           <section className="space-y-6">
             <div className="space-y-3">

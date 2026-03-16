@@ -35,6 +35,7 @@ export interface MatchingQuestionConfig {
   options?: MatchingQuestionOption[];
   minSelections?: number;
   maxSelections?: number;
+  gridColumns?: number;
   sliderMin?: number;
   sliderMax?: number;
   sliderStep?: number;
@@ -82,6 +83,7 @@ export function parseMatchingQuestionConfig(value: unknown): MatchingQuestionCon
     options: parseOptions(value.options),
     minSelections: readNumber(value, 'minSelections'),
     maxSelections: readNumber(value, 'maxSelections'),
+    gridColumns: readNumber(value, 'gridColumns'),
     sliderMin: readNumber(value, 'sliderMin'),
     sliderMax: readNumber(value, 'sliderMax'),
     sliderStep: readNumber(value, 'sliderStep'),

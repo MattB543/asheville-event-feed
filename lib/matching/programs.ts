@@ -10,6 +10,7 @@ export interface MatchingSurveyPhaseConfig {
   description: string;
   collapsible?: boolean;
   defaultOpen?: boolean;
+  hideHeader?: boolean;
 }
 
 export interface MatchingProgramConfig {
@@ -101,6 +102,7 @@ export const MATCHING_PROGRAM_CONFIGS: Record<MatchingProgram, MatchingProgramCo
         title: 'Questions',
         description: 'Answer whichever prompts feel useful.',
         defaultOpen: true,
+        hideHeader: true,
       },
     ],
     oneAnswerHint:
@@ -129,7 +131,7 @@ export const MATCHING_PROGRAM_CONFIGS: Record<MatchingProgram, MatchingProgramCo
     shortName: 'Vibe Match',
     landingTitle: 'Switchyards Vibe Match',
     landingDescription: 'Find the people you will actually want to meet at Switchyards.',
-    landingEyebrow: 'A fast, low-pressure way to get better introductions before the event.',
+    landingEyebrow: '',
     landingBody: [
       'This matching flow helps Switchyards members and guests find the conversations with the highest odds of clicking.',
       'The survey starts with quick taps, then gives you a few optional prompts if you want to add more signal.',
@@ -137,7 +139,7 @@ export const MATCHING_PROGRAM_CONFIGS: Record<MatchingProgram, MatchingProgramCo
     ],
     onboardingTitle: 'Switchyards Vibe Match',
     onboardingDescription: 'Switchyards Vibe Match attendee matching setup flow.',
-    introHeading: 'How Vibe Match Works',
+    introHeading: '',
     introLead:
       'We are building something playful for Switchyards: a way to connect you with the people you are most likely to hit it off with.',
     ideaHeading: 'The Idea',
@@ -170,13 +172,13 @@ export const MATCHING_PROGRAM_CONFIGS: Record<MatchingProgram, MatchingProgramCo
         description:
           'Fast taps to capture your energy, interests, and the kinds of conversations that feel good to you.',
         defaultOpen: true,
+        hideHeader: true,
       },
       {
         key: 'phase2',
         title: 'Phase 2: Optional Spark',
         description: 'Short prompts for the details that make you memorable. Entirely optional.',
-        collapsible: true,
-        defaultOpen: false,
+        defaultOpen: true,
       },
     ],
     oneAnswerHint:

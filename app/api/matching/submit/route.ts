@@ -65,7 +65,6 @@ export async function POST(request: NextRequest) {
 
     const answerMap = new Map(answers.map((answer) => [answer.questionId, answer]));
     const missingRequired: string[] = [];
-    let answeredSurveyCount = 0;
 
     for (const question of questions) {
       const answer = answerMap.get(question.id);
@@ -86,10 +85,6 @@ export async function POST(request: NextRequest) {
         return text.length > 0;
       })();
 
-      if (question.section === 'survey' && hasAnswer) {
-        answeredSurveyCount += 1;
-      }
-
       if (!question.required) continue;
       if (!hasAnswer) {
         missingRequired.push(question.id);
@@ -99,13 +94,6 @@ export async function POST(request: NextRequest) {
     if (missingRequired.length > 0) {
       return NextResponse.json(
         { error: 'Missing required answers', missing: missingRequired },
-        { status: 400 }
-      );
-    }
-
-    if (answeredSurveyCount < 1) {
-      return NextResponse.json(
-        { error: 'Please answer at least one question before submitting' },
         { status: 400 }
       );
     }

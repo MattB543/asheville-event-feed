@@ -3,8 +3,8 @@ import { DEFAULT_PROGRAM, type MatchingProgram } from '@/lib/matching/programs';
 export const MATCHING_FLOW_STEPS = [
   'intro',
   'consent',
-  'context',
   'questions',
+  'context',
   'confirmation',
 ] as const;
 
@@ -52,5 +52,5 @@ export function inferMatchingFlowStep(args: {
   const answerIds = new Set(answers.map((answer) => answer.questionId));
   const hasSurveyAnswer = surveyQuestionIds.some((questionId) => answerIds.has(questionId));
 
-  return hasSurveyAnswer ? 'questions' : 'context';
+  return hasSurveyAnswer ? 'context' : 'questions';
 }

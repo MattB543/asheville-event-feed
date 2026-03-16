@@ -106,6 +106,31 @@ function getMaxItemsForQuestion(question: MatchingQuestion): number {
   return 20;
 }
 
+function getChoiceGridClass(
+  question: MatchingQuestion,
+  optionCount: number,
+  configuredColumns?: number
+): string {
+  const columns =
+    question.id === 'vibe_topics'
+      ? 3
+      : typeof configuredColumns === 'number'
+        ? configuredColumns
+        : question.inputType !== 'single_select' && optionCount > 25
+          ? 4
+          : 2;
+
+  if (columns >= 4) {
+    return 'grid gap-3 sm:grid-cols-2 md:grid-cols-4';
+  }
+
+  if (columns === 3) {
+    return 'grid gap-3 sm:grid-cols-3';
+  }
+
+  return 'grid gap-3 sm:grid-cols-2';
+}
+
 export default function MatchingOnboardingClient({
   program,
   currentStep,
@@ -132,12 +157,6 @@ export default function MatchingOnboardingClient({
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [isParsingResume, setIsParsingResume] = useState(false);
   const [expandedQuestionId, setExpandedQuestionId] = useState<string | null>(null);
-  const [openSurveyPhases, setOpenSurveyPhases] = useState<Record<MatchingSurveyPhaseKey, boolean>>(
-    {
-      phase1: true,
-      phase2: false,
-    }
-  );
   const [multiValueState, setMultiValueState] = useState<
     Record<string, { id: string; value: string }[]>
   >({});
@@ -294,15 +313,6 @@ export default function MatchingOnboardingClient({
   useEffect(() => {
     aiMatchingRef.current = aiMatching;
   }, [aiMatching]);
-
-  useEffect(() => {
-    setOpenSurveyPhases({
-      phase1:
-        programConfig.surveyPhases.find((phase) => phase.key === 'phase1')?.defaultOpen ?? true,
-      phase2:
-        programConfig.surveyPhases.find((phase) => phase.key === 'phase2')?.defaultOpen ?? false,
-    });
-  }, [program, programConfig.surveyPhases]);
 
   useEffect(() => {
     const handler = (e: BeforeUnloadEvent) => {
@@ -546,13 +556,10 @@ export default function MatchingOnboardingClient({
     if (!aiMatching) {
       nextErrors.consent = 'You must agree before submitting.';
     }
-    if (answeredSurveyCount < 1) {
-      nextErrors.survey = 'Answer at least one question before submitting.';
-    }
 
     setErrors(nextErrors);
     return Object.keys(nextErrors).length === 0;
-  }, [aiMatching, answeredSurveyCount, displayName]);
+  }, [aiMatching, displayName]);
 
   const handleResumeUpload = async (file: File, questionId: string) => {
     if (!canEdit) return;
@@ -619,13 +626,13 @@ export default function MatchingOnboardingClient({
     markProfileDirty();
     const saved = await saveDraft();
     if (!saved) return;
-    await goToStep('context', false);
+    await goToStep('questions', false);
   };
 
   const handleSubmitClick = async () => {
     const isValid = validateForSubmit();
     if (!isValid) {
-      showToast('Please complete consent and at least one question.', 'error');
+      showToast('Please complete your consent details before submitting.', 'error');
       return;
     }
 
@@ -741,9 +748,15 @@ export default function MatchingOnboardingClient({
     );
   };
 
-  const renderQuestionFields = (question: MatchingQuestion) => {
+  const renderQuestionFields = (
+    question: MatchingQuestion,
+    options?: {
+      showChoiceMeta?: boolean;
+    }
+  ) => {
     const questionAnswer = answers[question.id];
     const config = getQuestionConfig(question);
+    const showChoiceMeta = options?.showChoiceMeta ?? true;
 
     if (question.inputType === 'long_text' || question.inputType === 'short_text') {
       const value = questionAnswer?.answerText ?? '';
@@ -849,9 +862,10 @@ export default function MatchingOnboardingClient({
     if (question.inputType === 'single_select') {
       const options = config.options ?? [];
       const selectedValue = questionAnswer?.answerText ?? '';
+      const choiceGridClass = getChoiceGridClass(question, options.length, config.gridColumns);
 
       return (
-        <div className="grid gap-3 sm:grid-cols-2">
+        <div className={choiceGridClass}>
           {options.map((option) => {
             const isSelected = selectedValue === option.value;
 
@@ -895,6 +909,7 @@ export default function MatchingOnboardingClient({
         : [];
       const maxSelections =
         config.maxSelections ?? (question.inputType === 'ranking' ? 3 : options.length);
+      const choiceGridClass = getChoiceGridClass(question, options.length, config.gridColumns);
 
       const toggleValue = (value: string) => {
         if (!canEdit) return;
@@ -911,17 +926,17 @@ export default function MatchingOnboardingClient({
 
       return (
         <div className="space-y-3">
-          {question.inputType === 'ranking' && (
+          {showChoiceMeta && question.inputType === 'ranking' && (
             <p className="text-xs text-gray-500 dark:text-gray-400">
               Tap in the order you prefer. Tap again to remove.
             </p>
           )}
-          {typeof config.maxSelections === 'number' && (
+          {showChoiceMeta && typeof config.maxSelections === 'number' && (
             <p className="text-xs text-gray-500 dark:text-gray-400">
               {selectedValues.length} / {config.maxSelections} selected
             </p>
           )}
-          <div className="grid gap-3 sm:grid-cols-2">
+          <div className={choiceGridClass}>
             {options.map((option) => {
               const selectionIndex = selectedValues.indexOf(option.value);
               const isSelected = selectionIndex >= 0;
@@ -1111,6 +1126,35 @@ export default function MatchingOnboardingClient({
     </div>
   );
 
+  const renderInlineSurveyQuestions = (questionList: MatchingQuestion[]) => (
+    <div className="space-y-5">
+      {questionList.map((question) => {
+        const isAnswered = answerHasValue(question, answers[question.id]);
+
+        return (
+          <section
+            key={question.id}
+            className={`rounded-2xl border p-4 md:p-5 ${
+              isAnswered
+                ? 'border-brand-200 bg-brand-50/40 dark:border-brand-900 dark:bg-brand-950/20'
+                : 'border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900'
+            }`}
+          >
+            <div className="mb-4 flex items-start justify-between gap-3">
+              <h3 className="text-[15px] font-semibold leading-6 text-gray-900 dark:text-white">
+                {question.prompt}
+              </h3>
+              {isAnswered && (
+                <CheckCircle className="mt-0.5 w-4 h-4 shrink-0 text-brand-600 dark:text-brand-400" />
+              )}
+            </div>
+            {renderQuestionFields(question, { showChoiceMeta: false })}
+          </section>
+        );
+      })}
+    </div>
+  );
+
   if (isLoading) {
     return (
       <div className="flex items-center justify-center py-20">
@@ -1126,7 +1170,11 @@ export default function MatchingOnboardingClient({
           <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
             {programConfig.onboardingTitle}
           </h1>
-          <p className="text-sm text-gray-600 dark:text-gray-400">{programConfig.landingEyebrow}</p>
+          {programConfig.landingEyebrow && (
+            <p className="text-sm text-gray-600 dark:text-gray-400">
+              {programConfig.landingEyebrow}
+            </p>
+          )}
         </div>
         {(currentStep === 'consent' || currentStep === 'context' || currentStep === 'questions') &&
           renderAutosaveStatus()}
@@ -1166,8 +1214,8 @@ export default function MatchingOnboardingClient({
             {(
               [
                 ['consent', '1. Consent'],
-                ['context', '2. Context'],
-                ['questions', '3. Questions'],
+                ['questions', '2. Questions'],
+                ['context', '3. Context'],
               ] as [MatchingFlowStep, string][]
             ).map(([stepKey, label]) => (
               <button
@@ -1190,9 +1238,11 @@ export default function MatchingOnboardingClient({
         {currentStep === 'intro' && (
           <section className="space-y-6">
             <div className="space-y-3">
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-                {programConfig.introHeading}
-              </h2>
+              {programConfig.introHeading && (
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+                  {programConfig.introHeading}
+                </h2>
+              )}
               <p className="text-sm text-gray-700 dark:text-gray-300">{programConfig.introLead}</p>
             </div>
 
@@ -1370,113 +1420,7 @@ export default function MatchingOnboardingClient({
 
             <div className="flex items-center justify-between">
               <button
-                onClick={() => void goToStep('consent', true)}
-                className="px-5 py-2.5 rounded-lg border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 cursor-pointer"
-              >
-                Back
-              </button>
-              <button
                 onClick={() => void goToStep('questions', true)}
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-brand-600 hover:bg-brand-700 text-white font-medium transition-colors cursor-pointer"
-              >
-                Continue to Questions
-                <ChevronRight className="w-4 h-4" />
-              </button>
-            </div>
-          </section>
-        )}
-
-        {currentStep === 'questions' && (
-          <section className="space-y-6">
-            <div className="flex items-start gap-3">
-              <div className="icon-circle">
-                <ClipboardList className="w-5 h-5 text-brand-600 dark:text-brand-400" />
-              </div>
-              <div className="space-y-1">
-                <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
-                  {programConfig.questionsTitle}
-                </h2>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
-                  {programConfig.questionsDescription}
-                </p>
-              </div>
-            </div>
-
-            {errors.survey && (
-              <p className="text-sm text-red-600 dark:text-red-400">{errors.survey}</p>
-            )}
-            {answeredSurveyCount === 1 && (
-              <p className="text-sm text-brand-700 dark:text-brand-300">
-                {programConfig.oneAnswerHint}
-              </p>
-            )}
-
-            <div className="space-y-6">
-              {programConfig.surveyPhases.map((phase) => {
-                const questionList = surveyQuestionsByPhase[phase.key];
-                if (questionList.length === 0) return null;
-
-                if (phase.collapsible) {
-                  return (
-                    <section
-                      key={phase.key}
-                      className="rounded-lg border border-gray-200 dark:border-gray-700 p-4"
-                    >
-                      <button
-                        type="button"
-                        onClick={() =>
-                          setOpenSurveyPhases((prev) => ({
-                            ...prev,
-                            [phase.key]: !prev[phase.key],
-                          }))
-                        }
-                        className="w-full flex items-start justify-between gap-4 text-left cursor-pointer"
-                      >
-                        <div>
-                          <h3 className="text-base font-semibold text-gray-900 dark:text-white">
-                            {phase.title}
-                          </h3>
-                          <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
-                            {phase.description}
-                          </p>
-                        </div>
-                        <ChevronRight
-                          className={`w-4 h-4 text-gray-500 shrink-0 transition-transform ${
-                            openSurveyPhases[phase.key] ? 'rotate-90' : ''
-                          }`}
-                        />
-                      </button>
-                      {openSurveyPhases[phase.key] && (
-                        <div className="mt-4">{renderSurveyQuestionCards(questionList)}</div>
-                      )}
-                    </section>
-                  );
-                }
-
-                const shouldShowHeading =
-                  programConfig.surveyPhases.length > 1 || phase.title !== 'Questions';
-
-                return (
-                  <section key={phase.key} className="space-y-3">
-                    {shouldShowHeading && (
-                      <div>
-                        <h3 className="text-base font-semibold text-gray-900 dark:text-white">
-                          {phase.title}
-                        </h3>
-                        <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
-                          {phase.description}
-                        </p>
-                      </div>
-                    )}
-                    {renderSurveyQuestionCards(questionList)}
-                  </section>
-                );
-              })}
-            </div>
-
-            <div className="flex items-center justify-between">
-              <button
-                onClick={() => void goToStep('context', true)}
                 className="px-5 py-2.5 rounded-lg border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 cursor-pointer"
               >
                 Back
@@ -1504,6 +1448,75 @@ export default function MatchingOnboardingClient({
           </section>
         )}
 
+        {currentStep === 'questions' && (
+          <section className="space-y-6">
+            <div className="flex items-start gap-3">
+              <div className="icon-circle">
+                <ClipboardList className="w-5 h-5 text-brand-600 dark:text-brand-400" />
+              </div>
+              <div className="space-y-1">
+                <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+                  {programConfig.questionsTitle}
+                </h2>
+                <p className="text-sm text-gray-600 dark:text-gray-400">
+                  {programConfig.questionsDescription}
+                </p>
+              </div>
+            </div>
+
+            {answeredSurveyCount === 1 && (
+              <p className="text-sm text-brand-700 dark:text-brand-300">
+                {programConfig.oneAnswerHint}
+              </p>
+            )}
+
+            <div className="space-y-6">
+              {programConfig.surveyPhases.map((phase) => {
+                const questionList = surveyQuestionsByPhase[phase.key];
+                if (questionList.length === 0) return null;
+                const useInlineQuickSignalLayout = program === 'vibe' && phase.key === 'phase1';
+                const shouldShowHeading =
+                  !phase.hideHeader &&
+                  (programConfig.surveyPhases.length > 1 || phase.title !== 'Questions');
+
+                return (
+                  <section key={phase.key} className={shouldShowHeading ? 'space-y-3' : ''}>
+                    {shouldShowHeading && (
+                      <div>
+                        <h3 className="text-base font-semibold text-gray-900 dark:text-white">
+                          {phase.title}
+                        </h3>
+                        <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                          {phase.description}
+                        </p>
+                      </div>
+                    )}
+                    {useInlineQuickSignalLayout
+                      ? renderInlineSurveyQuestions(questionList)
+                      : renderSurveyQuestionCards(questionList)}
+                  </section>
+                );
+              })}
+            </div>
+
+            <div className="flex items-center justify-between">
+              <button
+                onClick={() => void goToStep('consent', true)}
+                className="px-5 py-2.5 rounded-lg border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 cursor-pointer"
+              >
+                Back
+              </button>
+              <button
+                onClick={() => void goToStep('context', true)}
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-brand-600 hover:bg-brand-700 text-white font-medium transition-colors cursor-pointer"
+              >
+                Continue to Context
+                <ChevronRight className="w-4 h-4" />
+              </button>
+            </div>
+          </section>
+        )}
+
         {currentStep === 'confirmation' && (
           <section className="space-y-6">
             {!isSubmitted && (
@@ -1512,13 +1525,13 @@ export default function MatchingOnboardingClient({
                   You have not submitted yet
                 </h2>
                 <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
-                  Complete the questions step when you are ready to submit your profile.
+                  Complete the context step when you are ready to submit your profile.
                 </p>
                 <button
-                  onClick={() => void goToStep('questions', true)}
+                  onClick={() => void goToStep('context', true)}
                   className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-brand-600 hover:bg-brand-700 text-white font-medium transition-colors cursor-pointer"
                 >
-                  Go to Questions
+                  Go to Context
                 </button>
               </div>
             )}

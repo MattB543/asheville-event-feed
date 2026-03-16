@@ -134,28 +134,27 @@ export const MATCHING_PROGRAM_CONFIGS: Record<MatchingProgram, MatchingProgramCo
     landingEyebrow: '',
     landingBody: [
       "Meet up with Switchyards members on Sat April 11th at 4:30 PM - we'll analyze all surveys and match you with the people you are most likely to enjoy chatting with.",
-      'The survey is short, all questions are optional, but the more you provide the better. Use desktop over mobile if possible as we ask you to drop links or share your resume.',
+      'The survey should be fun and introspective, all questions are optional, but the more you provide the better. Use desktop over mobile if possible (we ask you to drop links).',
       'Your raw answers stay private. They are used only to build stronger introductions and matches for this event.',
     ],
     onboardingTitle: 'Switchyards Vibe Match',
     onboardingDescription: 'Switchyards Vibe Match attendee matching setup flow.',
     introHeading: '',
     introLead:
-      'We are building something playful for Switchyards: a way to connect you with the people you are most likely to hit it off with.',
+      'We are building something fun for Switchyard members: a way to connect you with the people you are most likely to hit it off with.',
     ideaHeading: 'The Idea',
     ideaBody:
-      'Give us a quick read on your energy, interests, and conversational style. Then add as much extra texture as you want. The system uses that signal to spot the people you should meet.',
-    outcomeHeading: 'What You Get',
+      'Give us a quick read on your energy, interests, and personality. Then add as much extra texture as you want. The system uses that signal to spot the people you should meet.',
+    outcomeHeading: 'What To Expect',
     outcomeBody:
-      'You get stronger intros, better conversation starters, and a more intentional room once Vibe Match starts.',
+      'We will mix and mingle a bit to formally meet other Switchyard members you see every day. Then there will be three 10 minute conversations with your top matches. Then whoever wants to stick around can grab drinks and food at Funkatorium.',
     privacyHeading: 'Your Privacy',
     privacyPoints: [
       'Your raw answers are not shown directly to other attendees.',
-      'We use your data only for the Switchyards Vibe Match flow.',
-      'Most of the survey is optional, and you control how much context you share.',
+      "We use your data only for the Vibe Match flow, we don't share it.",
+      'Every question is optional, you control how much context you share.',
     ],
-    introClosing:
-      'Fast taps are enough to participate. A little extra context simply helps the matching work better.',
+    introClosing: '',
     consentDescription: 'Confirm your name and opt in to AI-powered matching for this event.',
     consentStatement:
       'I understand my profile data will be analyzed by AI and used to match me with other Switchyards Vibe Match attendees. My specific answers are not shared directly.',

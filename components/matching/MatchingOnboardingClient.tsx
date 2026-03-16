@@ -106,11 +106,7 @@ function getMaxItemsForQuestion(question: MatchingQuestion): number {
   return 20;
 }
 
-function getChoiceGridClass(
-  question: MatchingQuestion,
-  optionCount: number,
-  configuredColumns?: number
-): string {
+function getChoiceGridClass(optionCount: number, configuredColumns?: number): string {
   // For questions with many choices, use flex-wrap on all screen sizes
   // so buttons auto-size based on content and fit more per row
   if (optionCount > 5) {
@@ -866,7 +862,7 @@ export default function MatchingOnboardingClient({
     if (question.inputType === 'single_select') {
       const options = config.options ?? [];
       const selectedValue = questionAnswer?.answerText ?? '';
-      const choiceGridClass = getChoiceGridClass(question, options.length, config.gridColumns);
+      const choiceGridClass = getChoiceGridClass(options.length, config.gridColumns);
 
       return (
         <div className={choiceGridClass}>
@@ -913,7 +909,7 @@ export default function MatchingOnboardingClient({
         : [];
       const maxSelections =
         config.maxSelections ?? (question.inputType === 'ranking' ? 3 : options.length);
-      const choiceGridClass = getChoiceGridClass(question, options.length, config.gridColumns);
+      const choiceGridClass = getChoiceGridClass(options.length, config.gridColumns);
 
       const toggleValue = (value: string) => {
         if (!canEdit) return;

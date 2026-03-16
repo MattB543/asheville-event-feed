@@ -268,10 +268,15 @@ export default function MatchingOnboardingClient({
         typeof data.profile?.aiMatching === 'boolean' ? data.profile.aiMatching : false
       );
 
+      const currentQuestionIds = new Set(data.questions.map((question) => question.id));
       const nextAnswers: Record<string, AnswerState> = {};
       const nextMultiState: Record<string, { id: string; value: string }[]> = {};
 
       data.answers.forEach((answer) => {
+        if (!currentQuestionIds.has(answer.questionId)) {
+          return;
+        }
+
         const answerJson = Array.isArray(answer.answerJson)
           ? answer.answerJson.filter((item): item is string => typeof item === 'string')
           : undefined;
@@ -444,11 +449,14 @@ export default function MatchingOnboardingClient({
   const saveAnswers = useCallback(async () => {
     if (!version) return;
 
-    const payload = Object.entries(answersRef.current).map(([questionId, value]) => ({
-      questionId,
-      answerText: typeof value.answerText === 'string' ? value.answerText : undefined,
-      answerJson: Array.isArray(value.answerJson) ? value.answerJson : undefined,
-    }));
+    const currentQuestionIds = new Set(questions.map((question) => question.id));
+    const payload = Object.entries(answersRef.current)
+      .filter(([questionId]) => currentQuestionIds.has(questionId))
+      .map(([questionId, value]) => ({
+        questionId,
+        answerText: typeof value.answerText === 'string' ? value.answerText : undefined,
+        answerJson: Array.isArray(value.answerJson) ? value.answerJson : undefined,
+      }));
 
     if (payload.length === 0) return;
 
@@ -469,7 +477,7 @@ export default function MatchingOnboardingClient({
     }
 
     answersDirtyRef.current = false;
-  }, [program, redirectToLogin, version]);
+  }, [program, questions, redirectToLogin, version]);
 
   const saveDraft = useCallback(async (): Promise<boolean> => {
     if (!canEdit) return true;

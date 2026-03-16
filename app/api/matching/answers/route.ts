@@ -146,14 +146,15 @@ export async function POST(request: NextRequest) {
       );
 
     const questionMap = new Map(questionRows.map((row) => [row.id, row]));
-
     const missingQuestions = questionIds.filter((id) => !questionMap.has(id));
-    if (missingQuestions.length > 0) {
+    if (questionRows.length === 0) {
       return NextResponse.json(
         { error: 'Unknown questions', missing: missingQuestions },
         { status: 400 }
       );
     }
+
+    const validQuestionIds = questionRows.map((row) => row.id);
 
     const profile = await getOrCreateProfile(user, program);
     if (!profile.allowEditing) {
@@ -167,7 +168,7 @@ export async function POST(request: NextRequest) {
       .where(
         and(
           eq(matchingAnswers.profileId, profile.id),
-          inArray(matchingAnswers.questionId, questionIds)
+          inArray(matchingAnswers.questionId, validQuestionIds)
         )
       );
     const existingByQuestionId = new Map(existingAnswers.map((row) => [row.questionId, row]));

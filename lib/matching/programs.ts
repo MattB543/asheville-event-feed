@@ -133,8 +133,8 @@ export const MATCHING_PROGRAM_CONFIGS: Record<MatchingProgram, MatchingProgramCo
     landingDescription: 'Find the people you will actually want to meet at Switchyards.',
     landingEyebrow: '',
     landingBody: [
-      'This matching flow helps Switchyards members and guests find the conversations with the highest odds of clicking.',
-      'The survey starts with quick taps, then gives you a few optional prompts if you want to add more signal.',
+      'Meet up with Switchyards members on Sat April 11th at 4:30 PM - we&apos;ll analyze all surveys and match you with the people you are most likely to enjoy chatting with.',
+      'The survey is short, all questions are optional, but the more you provide the better. Use desktop over mobile if possible as we ask you to drop links or share your resume.',
       'Your raw answers stay private. They are used only to build stronger introductions and matches for this event.',
     ],
     onboardingTitle: 'Switchyards Vibe Match',

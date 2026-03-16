@@ -2,7 +2,7 @@ import { NextResponse, type NextRequest } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import { db } from '@/lib/db';
 import { matchingProfiles, matchingAnswers, userPreferences } from '@/lib/db/schema';
-import { eq } from 'drizzle-orm';
+import { and, eq, inArray } from 'drizzle-orm';
 import { isBoolean, isRecord, isString } from '@/lib/utils/validation';
 import {
   getSafeProgram,
@@ -24,11 +24,22 @@ export async function GET(request: NextRequest) {
 
     const program = getSafeProgram(new URL(request.url).searchParams.get('program'));
     const { version, questions } = await getLatestQuestions(program);
+    const currentQuestionIds = questions.map((question) => question.id);
 
     const profile = await getMatchingProfileForUser(user.id, program);
 
     const answers = profile
-      ? await db.select().from(matchingAnswers).where(eq(matchingAnswers.profileId, profile.id))
+      ? currentQuestionIds.length > 0
+        ? await db
+            .select()
+            .from(matchingAnswers)
+            .where(
+              and(
+                eq(matchingAnswers.profileId, profile.id),
+                inArray(matchingAnswers.questionId, currentQuestionIds)
+              )
+            )
+        : []
       : [];
 
     return NextResponse.json({ profile: profile ?? null, answers, questions, version });

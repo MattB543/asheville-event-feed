@@ -165,7 +165,7 @@ export const newsletterSettings = pgTable('newsletter_settings', {
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
 });
 
-// Matching profiles for attendee/profile matching flows (TEDx pilot)
+// Matching profiles for attendee/profile matching flows
 export const matchingProfiles = pgTable(
   'matching_profiles',
   {
@@ -185,7 +185,10 @@ export const matchingProfiles = pgTable(
     updatedAt: timestamp('updated_at').defaultNow().notNull(),
   },
   (table) => ({
-    userIdUnique: uniqueIndex('matching_profiles_user_id_unique').on(table.userId),
+    userProgramUnique: uniqueIndex('matching_profiles_user_program_unique').on(
+      table.userId,
+      table.program
+    ),
     programIdx: index('matching_profiles_program_idx').on(table.program),
   })
 );
@@ -202,8 +205,9 @@ export const matchingQuestions = pgTable(
     prompt: text('prompt').notNull(),
     helpText: text('help_text'),
     required: boolean('required').default(false).notNull(),
-    inputType: text('input_type').notNull(), // 'long_text' | 'short_text' | 'url' | 'multi_url' | 'multi_text' | 'file_markdown'
+    inputType: text('input_type').notNull(), // 'long_text' | 'short_text' | 'url' | 'multi_url' | 'multi_text' | 'file_markdown' | 'single_select' | 'multi_select' | 'ranking' | 'slider'
     maxLength: integer('max_length'),
+    configJson: jsonb('config_json').default({}).notNull(),
     websearch: boolean('websearch').default(false).notNull(),
     active: boolean('active').default(true).notNull(),
     createdAt: timestamp('created_at').defaultNow().notNull(),

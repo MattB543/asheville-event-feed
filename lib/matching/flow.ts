@@ -1,3 +1,5 @@
+import { DEFAULT_PROGRAM, type MatchingProgram } from '@/lib/matching/programs';
+
 export const MATCHING_FLOW_STEPS = [
   'intro',
   'consent',
@@ -12,8 +14,15 @@ export function isMatchingFlowStep(value: string): value is MatchingFlowStep {
   return MATCHING_FLOW_STEPS.includes(value as MatchingFlowStep);
 }
 
-export function getMatchingFlowPath(step: MatchingFlowStep): string {
-  return `/tedx/${step}`;
+export function getMatchingLandingPath(program: MatchingProgram = DEFAULT_PROGRAM): string {
+  return `/${program}`;
+}
+
+export function getMatchingFlowPath(
+  step: MatchingFlowStep,
+  program: MatchingProgram = DEFAULT_PROGRAM
+): string {
+  return `${getMatchingLandingPath(program)}/${step}`;
 }
 
 interface FlowProfileLike {

@@ -1,6 +1,6 @@
 import { db } from '@/lib/db';
 import { events } from '@/lib/db/schema';
-import { eq, or, sql, isNull, and, isNotNull } from 'drizzle-orm';
+import { eq, or, sql, isNull, and, isNotNull, gte } from 'drizzle-orm';
 import { generateTagsAndSummary } from '@/lib/ai/tagAndSummarize';
 import { generateEmbedding, createEmbeddingText } from '@/lib/ai/embedding';
 import {
@@ -30,17 +30,22 @@ interface Stats {
 }
 
 async function getRemainingCounts() {
+  const now = new Date();
+
   const [needsSummary] = await db
     .select({ count: sql<number>`count(*)` })
     .from(events)
     .where(
-      or(sql`${events.tags} = '{}'::text[] OR ${events.tags} IS NULL`, isNull(events.aiSummary))
+      and(
+        or(sql`${events.tags} = '{}'::text[] OR ${events.tags} IS NULL`, isNull(events.aiSummary)),
+        gte(events.startDate, now)
+      )
     );
 
   const [needsEmbedding] = await db
     .select({ count: sql<number>`count(*)` })
     .from(events)
-    .where(and(isNotNull(events.aiSummary), isNull(events.embedding)));
+    .where(and(isNotNull(events.aiSummary), isNull(events.embedding), gte(events.startDate, now)));
 
   const [needsScore] = await db
     .select({ count: sql<number>`count(*)` })
@@ -57,7 +62,8 @@ async function getRemainingCounts() {
           isNull(events.scoreSocial)
         ),
         isNotNull(events.embedding),
-        isNotNull(events.aiSummary)
+        isNotNull(events.aiSummary),
+        gte(events.startDate, now)
       )
     );
 
@@ -69,6 +75,7 @@ async function getRemainingCounts() {
 }
 
 async function processCombinedPass(stats: Stats): Promise<number> {
+  const now = new Date();
   const eventsNeedingProcessing = await db
     .select({
       id: events.id,
@@ -82,7 +89,10 @@ async function processCombinedPass(stats: Stats): Promise<number> {
     })
     .from(events)
     .where(
-      or(sql`${events.tags} = '{}'::text[] OR ${events.tags} IS NULL`, isNull(events.aiSummary))
+      and(
+        or(sql`${events.tags} = '{}'::text[] OR ${events.tags} IS NULL`, isNull(events.aiSummary)),
+        gte(events.startDate, now)
+      )
     )
     .limit(LIMIT_PER_PASS);
 
@@ -157,6 +167,7 @@ async function processCombinedPass(stats: Stats): Promise<number> {
 }
 
 async function processEmbeddingsPass(stats: Stats): Promise<number> {
+  const now = new Date();
   const eventsNeedingEmbeddings = await db
     .select({
       id: events.id,
@@ -166,7 +177,7 @@ async function processEmbeddingsPass(stats: Stats): Promise<number> {
       organizer: events.organizer,
     })
     .from(events)
-    .where(and(isNotNull(events.aiSummary), isNull(events.embedding)))
+    .where(and(isNotNull(events.aiSummary), isNull(events.embedding), gte(events.startDate, now)))
     .limit(LIMIT_PER_PASS);
 
   if (eventsNeedingEmbeddings.length === 0) return 0;
@@ -204,6 +215,7 @@ async function processEmbeddingsPass(stats: Stats): Promise<number> {
 }
 
 async function processScoringPass(stats: Stats): Promise<number> {
+  const now = new Date();
   const eventsNeedingScores = await db
     .select({
       id: events.id,
@@ -237,7 +249,8 @@ async function processScoringPass(stats: Stats): Promise<number> {
           isNull(events.scoreSocial)
         ),
         isNotNull(events.embedding),
-        isNotNull(events.aiSummary)
+        isNotNull(events.aiSummary),
+        gte(events.startDate, now)
       )
     )
     .limit(LIMIT_PER_PASS);

@@ -2,12 +2,12 @@ import type { Metadata } from 'next';
 import MatchingStepPage from '@/components/matching/MatchingStepPage';
 import { getMatchingProgramConfig } from '@/lib/matching/programs';
 
-interface TedxStepPageProps {
+interface VibeStepPageProps {
   params: Promise<{ step: string }>;
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 
-const config = getMatchingProgramConfig('tedx');
+const config = getMatchingProgramConfig('vibe');
 
 const titleByStep: Record<string, string> = {
   intro: `${config.flowPageTitlePrefix} Intro | AVL GO`,
@@ -17,7 +17,7 @@ const titleByStep: Record<string, string> = {
   confirmation: `${config.flowPageTitlePrefix} Confirmation | AVL GO`,
 };
 
-export async function generateMetadata({ params }: TedxStepPageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: VibeStepPageProps): Promise<Metadata> {
   const { step } = await params;
 
   return {
@@ -30,7 +30,7 @@ export async function generateMetadata({ params }: TedxStepPageProps): Promise<M
   };
 }
 
-export default async function TedxStepRoute({ params, searchParams }: TedxStepPageProps) {
+export default async function VibeStepRoute({ params, searchParams }: VibeStepPageProps) {
   const [{ step }, query] = await Promise.all([params, searchParams]);
-  return <MatchingStepPage program="tedx" step={step} searchParams={query} />;
+  return <MatchingStepPage program="vibe" step={step} searchParams={query} />;
 }

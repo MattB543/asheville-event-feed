@@ -4,7 +4,12 @@ import { db } from '@/lib/db';
 import { matchingProfiles, matchingAnswers, userPreferences } from '@/lib/db/schema';
 import { eq } from 'drizzle-orm';
 import { isBoolean, isRecord, isString } from '@/lib/utils/validation';
-import { getSafeProgram, getDefaultDisplayName, getLatestQuestions } from '@/lib/matching/utils';
+import {
+  getSafeProgram,
+  getDefaultDisplayName,
+  getLatestQuestions,
+  getMatchingProfileForUser,
+} from '@/lib/matching/utils';
 
 export async function GET(request: NextRequest) {
   try {
@@ -20,11 +25,7 @@ export async function GET(request: NextRequest) {
     const program = getSafeProgram(new URL(request.url).searchParams.get('program'));
     const { version, questions } = await getLatestQuestions(program);
 
-    const [profile] = await db
-      .select()
-      .from(matchingProfiles)
-      .where(eq(matchingProfiles.userId, user.id))
-      .limit(1);
+    const profile = await getMatchingProfileForUser(user.id, program);
 
     const answers = profile
       ? await db.select().from(matchingAnswers).where(eq(matchingAnswers.profileId, profile.id))
@@ -67,11 +68,7 @@ export async function POST(request: NextRequest) {
     const consentVersion = isString(parsed.consentVersion) ? parsed.consentVersion : undefined;
     const source = isString(parsed.source) ? parsed.source.trim().slice(0, 80) : undefined;
 
-    const [existing] = await db
-      .select()
-      .from(matchingProfiles)
-      .where(eq(matchingProfiles.userId, user.id))
-      .limit(1);
+    const existing = await getMatchingProfileForUser(user.id, program);
 
     if (existing && !existing.allowEditing) {
       return NextResponse.json({ error: 'Profile editing is locked' }, { status: 403 });
@@ -110,7 +107,6 @@ export async function POST(request: NextRequest) {
       const [updated] = await db
         .update(matchingProfiles)
         .set({
-          program,
           displayName: nextDisplayName,
           email: user.email || profile.email,
           source: nextSource,

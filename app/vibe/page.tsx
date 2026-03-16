@@ -2,10 +2,10 @@ import type { Metadata } from 'next';
 import MatchingLandingPage from '@/components/matching/MatchingLandingPage';
 import { getMatchingProgramConfig } from '@/lib/matching/programs';
 
-const config = getMatchingProgramConfig('tedx');
+const config = getMatchingProgramConfig('vibe');
 
 export const metadata: Metadata = {
-  title: 'TEDx Matching | AVL GO',
+  title: 'Switchyards Vibe Match | AVL GO',
   description: config.landingDescription,
   robots: {
     index: false,
@@ -13,6 +13,6 @@ export const metadata: Metadata = {
   },
 };
 
-export default function TedxLandingRoute() {
-  return <MatchingLandingPage program="tedx" />;
+export default function VibeLandingRoute() {
+  return <MatchingLandingPage program="vibe" />;
 }

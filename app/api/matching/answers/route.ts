@@ -4,7 +4,13 @@ import { db } from '@/lib/db';
 import { matchingProfiles, matchingQuestions, matchingAnswers } from '@/lib/db/schema';
 import { and, eq, inArray } from 'drizzle-orm';
 import { isRecord, isString, isStringArray } from '@/lib/utils/validation';
-import { getSafeProgram, getDefaultDisplayName } from '@/lib/matching/utils';
+import { parseMatchingQuestionConfig } from '@/lib/matching/questions';
+import {
+  getSafeProgram,
+  getDefaultDisplayName,
+  getMatchingProfileForUser,
+} from '@/lib/matching/utils';
+import type { MatchingProgram } from '@/lib/matching/programs';
 import type { User } from '@supabase/supabase-js';
 
 type IncomingAnswer = {
@@ -47,12 +53,28 @@ function normalizeTextList(values: string[], maxLength: number): { items: string
   return { items };
 }
 
-async function getOrCreateProfile(user: User, program: string) {
-  const [existing] = await db
-    .select()
-    .from(matchingProfiles)
-    .where(eq(matchingProfiles.userId, user.id))
-    .limit(1);
+function normalizeChoiceList(
+  values: string[],
+  allowedValues: Set<string>,
+  maxItems: number
+): { items: string[] } {
+  const deduped: string[] = [];
+
+  for (const value of values) {
+    const normalized = value.trim();
+    if (!normalized || !allowedValues.has(normalized) || deduped.includes(normalized)) {
+      continue;
+    }
+
+    deduped.push(normalized);
+    if (deduped.length >= maxItems) break;
+  }
+
+  return { items: deduped };
+}
+
+async function getOrCreateProfile(user: User, program: MatchingProgram) {
+  const existing = await getMatchingProfileForUser(user.id, program);
 
   if (existing) {
     return existing;
@@ -151,9 +173,9 @@ export async function POST(request: NextRequest) {
     const existingByQuestionId = new Map(existingAnswers.map((row) => [row.questionId, row]));
 
     // Default max item counts by input type
-    const MAX_ITEMS_BY_TYPE: Record<string, number> = {
-      multi_url: 5,
-      multi_text: 10,
+    const MAX_ITEMS_BY_TYPE: Record<string, (questionId: string) => number> = {
+      multi_url: (questionId) => (questionId.includes('links_about_you') ? 5 : 10),
+      multi_text: (questionId) => (questionId.includes('links_about_topics') ? 10 : 20),
     };
 
     await db.transaction(async (tx) => {
@@ -163,6 +185,7 @@ export async function POST(request: NextRequest) {
         const question = questionMap.get(answer.questionId);
         if (!question) continue;
         const existing = existingByQuestionId.get(question.id);
+        const config = parseMatchingQuestionConfig(question.configJson);
 
         let answerText: string | null = null;
         let answerJson: unknown = null;
@@ -207,7 +230,7 @@ export async function POST(request: NextRequest) {
           // Filter out incomplete/invalid URLs silently rather than rejecting the
           // whole request -- this prevents autosave failures while users are typing
           const { urls } = normalizeUrlList(rawList);
-          const maxItems = MAX_ITEMS_BY_TYPE[question.inputType] ?? 10;
+          const maxItems = MAX_ITEMS_BY_TYPE[question.inputType]?.(question.id) ?? 10;
           const limitedUrls = urls.slice(0, maxItems);
 
           if (limitedUrls.length === 0) {
@@ -223,13 +246,68 @@ export async function POST(request: NextRequest) {
               : [];
           const itemMaxLength = question.maxLength || 300;
           const { items } = normalizeTextList(rawList, itemMaxLength);
-          const maxItems = MAX_ITEMS_BY_TYPE[question.inputType] ?? 20;
+          const maxItems = MAX_ITEMS_BY_TYPE[question.inputType]?.(question.id) ?? 20;
           const limitedItems = items.slice(0, maxItems);
 
           if (limitedItems.length === 0) {
             shouldDelete = true;
           } else {
             answerJson = limitedItems;
+          }
+        } else if (question.inputType === 'single_select') {
+          const text = typeof answer.answerText === 'string' ? answer.answerText.trim() : '';
+          const allowedValues = new Set(config.options?.map((option) => option.value) ?? []);
+
+          if (!text) {
+            shouldDelete = true;
+          } else if (allowedValues.size > 0 && !allowedValues.has(text)) {
+            throw new ValidationError(`Answer for ${question.id} is not a valid option`);
+          } else {
+            answerText = text;
+          }
+        } else if (question.inputType === 'multi_select' || question.inputType === 'ranking') {
+          const rawList = isStringArray(answer.answerJson)
+            ? answer.answerJson
+            : typeof answer.answerText === 'string'
+              ? answer.answerText.split(/\n+/)
+              : [];
+          const allowedValues = new Set(config.options?.map((option) => option.value) ?? []);
+          if (allowedValues.size === 0) {
+            throw new ValidationError(`Question ${question.id} is missing selectable options`);
+          }
+
+          const maxItems =
+            config.maxSelections ?? (question.inputType === 'ranking' ? 3 : allowedValues.size);
+          const { items } = normalizeChoiceList(rawList, allowedValues, maxItems);
+
+          if (items.length === 0) {
+            shouldDelete = true;
+          } else {
+            answerJson = items;
+          }
+        } else if (question.inputType === 'slider') {
+          const text = typeof answer.answerText === 'string' ? answer.answerText.trim() : '';
+          const sliderMin = config.sliderMin ?? 0;
+          const sliderMax = config.sliderMax ?? 10;
+          const sliderStep = config.sliderStep ?? 1;
+
+          if (!text) {
+            shouldDelete = true;
+          } else {
+            const numericValue = Number(text);
+            const stepsFromMin = (numericValue - sliderMin) / sliderStep;
+
+            if (!Number.isFinite(numericValue)) {
+              throw new ValidationError(`Answer for ${question.id} must be numeric`);
+            }
+            if (numericValue < sliderMin || numericValue > sliderMax) {
+              throw new ValidationError(`Answer for ${question.id} is out of range`);
+            }
+            if (!Number.isInteger(stepsFromMin)) {
+              throw new ValidationError(`Answer for ${question.id} does not match slider step`);
+            }
+
+            answerText = String(numericValue);
           }
         } else {
           throw new ValidationError(`Unsupported input type for ${question.id}`);

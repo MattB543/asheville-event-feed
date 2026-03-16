@@ -25,6 +25,7 @@ import { downloadEventAsICS } from '@/lib/utils/icsGenerator';
 import { useToast } from '@/components/ui/Toast';
 import { generateEventSlug } from '@/lib/utils/slugify';
 import { OFFICIAL_TAGS_SET } from '@/lib/config/tagCategories';
+import { getMatchingProgramsForEvent } from '@/lib/matching/programs';
 
 /**
  * Component that renders only the tags that fit on one line.
@@ -278,8 +279,10 @@ export default function EventCard({
     });
   };
 
-  const isTedxEvent =
-    event.title?.toLowerCase().includes('tedx') || event.organizer?.toLowerCase().includes('tedx');
+  const matchingPrograms = getMatchingProgramsForEvent({
+    title: event.title,
+    organizer: event.organizer,
+  });
 
   // Use AI summary if available, otherwise use original description
   const hasAiSummary = !!event.aiSummary;
@@ -1116,18 +1119,18 @@ export default function EventCard({
                     >
                       View original
                     </button>
-                    {isTedxEvent && (
-                      <>
+                    {matchingPrograms.map((program) => (
+                      <span key={program.program} className="flex items-center gap-2">
                         <span className="text-xs text-gray-500 dark:text-gray-400">·</span>
                         <Link
-                          href="/tedx"
+                          href={program.path}
                           className="text-xs text-brand-600 dark:text-brand-400 hover:text-brand-700 dark:hover:text-brand-300 font-medium"
                           onClick={(e) => e.stopPropagation()}
                         >
-                          Open TEDx Matching
+                          {program.eventCtaLabel}
                         </Link>
-                      </>
-                    )}
+                      </span>
+                    ))}
                   </span>
                 </>
               )}
@@ -1142,18 +1145,18 @@ export default function EventCard({
                     >
                       View less
                     </button>
-                    {isTedxEvent && (
-                      <>
+                    {matchingPrograms.map((program) => (
+                      <span key={program.program} className="flex items-center gap-2">
                         <span className="text-xs text-gray-500 dark:text-gray-400">·</span>
                         <Link
-                          href="/tedx"
+                          href={program.path}
                           className="text-xs text-brand-600 dark:text-brand-400 hover:text-brand-700 dark:hover:text-brand-300 font-medium"
                           onClick={(e) => e.stopPropagation()}
                         >
-                          Open TEDx Matching
+                          {program.eventCtaLabel}
                         </Link>
-                      </>
-                    )}
+                      </span>
+                    ))}
                   </span>
                 </>
               )}
@@ -1175,18 +1178,18 @@ export default function EventCard({
                   {expandButtonText}
                 </button>
               )}
-              {isTedxEvent && (
-                <>
+              {matchingPrograms.map((program) => (
+                <span key={program.program} className="inline-flex items-center">
                   <span className="text-xs text-gray-500 dark:text-gray-400 ml-1">·</span>
                   <Link
-                    href="/tedx"
+                    href={program.path}
                     className="text-xs text-brand-600 dark:text-brand-400 hover:text-brand-700 dark:hover:text-brand-300 font-medium ml-1"
                     onClick={(e) => e.stopPropagation()}
                   >
-                    Open TEDx Matching
+                    {program.eventCtaLabel}
                   </Link>
-                </>
-              )}
+                </span>
+              ))}
             </p>
           </div>
 

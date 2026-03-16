@@ -20,6 +20,7 @@ import { cleanAshevilleFromSummary, cleanMarkdown } from '@/lib/utils/parsers';
 import { formatTagForDisplay } from '@/lib/utils/formatTag';
 import { generateCalendarUrlForEvent } from '@/lib/utils/googleCalendar';
 import { downloadEventAsICS } from '@/lib/utils/icsGenerator';
+import { getMatchingProgramsForEvent } from '@/lib/matching/programs';
 
 interface EventContentProps {
   event: {
@@ -232,6 +233,10 @@ export default function EventContent({
   const displayDescription = showOriginalDescription
     ? cleanedDescription
     : cleanedAiSummary || cleanedDescription;
+  const matchingPrograms = getMatchingProgramsForEvent({
+    title: event.title,
+    organizer: event.organizer,
+  });
 
   return (
     <div className={className}>
@@ -421,17 +426,16 @@ export default function EventContent({
               View on {getSourceName()}
             </a>
 
-            {/* TEDx Matching Link */}
-            {(event.title?.toLowerCase().includes('tedx') ||
-              event.organizer?.toLowerCase().includes('tedx')) && (
+            {matchingPrograms.map((program) => (
               <Link
-                href="/tedx"
+                key={program.program}
+                href={program.path}
                 className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm bg-brand-600 text-white rounded-lg hover:bg-brand-700 transition-colors"
               >
                 <Users size={15} />
-                Open TEDx Matching
+                {program.eventCtaLabel}
               </Link>
-            )}
+            ))}
           </div>
         </div>
       </div>

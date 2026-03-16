@@ -4,7 +4,12 @@ import { db } from '@/lib/db';
 import { matchingProfiles, matchingAnswers } from '@/lib/db/schema';
 import { eq } from 'drizzle-orm';
 import { isRecord, isString } from '@/lib/utils/validation';
-import { getSafeProgram, getLatestQuestions, DEFAULT_PROGRAM } from '@/lib/matching/utils';
+import { DEFAULT_PROGRAM } from '@/lib/matching/programs';
+import {
+  getSafeProgram,
+  getLatestQuestions,
+  getMatchingProfileForUser,
+} from '@/lib/matching/utils';
 
 export async function POST(request: NextRequest) {
   try {
@@ -23,11 +28,7 @@ export async function POST(request: NextRequest) {
         ? getSafeProgram(parsed.program)
         : DEFAULT_PROGRAM;
 
-    const [profile] = await db
-      .select()
-      .from(matchingProfiles)
-      .where(eq(matchingProfiles.userId, user.id))
-      .limit(1);
+    const profile = await getMatchingProfileForUser(user.id, program);
 
     if (!profile) {
       return NextResponse.json({ error: 'No matching profile found' }, { status: 404 });
@@ -71,7 +72,12 @@ export async function POST(request: NextRequest) {
       const hasAnswer = (() => {
         if (!answer) return false;
 
-        if (question.inputType === 'multi_url' || question.inputType === 'multi_text') {
+        if (
+          question.inputType === 'multi_url' ||
+          question.inputType === 'multi_text' ||
+          question.inputType === 'multi_select' ||
+          question.inputType === 'ranking'
+        ) {
           const list = Array.isArray(answer.answerJson) ? answer.answerJson : [];
           return list.length > 0;
         }

@@ -186,26 +186,15 @@ export async function POST(request: Request) {
   const mappedStatus = mapClayStatus(statusRaw);
 
   try {
-    const [profile] = await db
-      .select({
-        id: matchingProfiles.id,
-      })
-      .from(matchingProfiles)
-      .where(eq(matchingProfiles.userId, userUid))
-      .limit(1);
-
-    if (!profile) {
-      return NextResponse.json({ success: false, error: 'Unknown user_uid' }, { status: 404 });
-    }
-
     const [runScopedItem] = runId
       ? await db
           .select({ id: matchingEnrichmentItems.id })
           .from(matchingEnrichmentItems)
+          .innerJoin(matchingProfiles, eq(matchingEnrichmentItems.profileId, matchingProfiles.id))
           .where(
             and(
+              eq(matchingProfiles.userId, userUid),
               eq(matchingEnrichmentItems.runId, runId),
-              eq(matchingEnrichmentItems.profileId, profile.id),
               eq(matchingEnrichmentItems.provider, 'clay'),
               eq(matchingEnrichmentItems.sourceHash, linkedinSourceHash)
             )
@@ -219,9 +208,10 @@ export async function POST(request: Request) {
             id: matchingEnrichmentItems.id,
           })
           .from(matchingEnrichmentItems)
+          .innerJoin(matchingProfiles, eq(matchingEnrichmentItems.profileId, matchingProfiles.id))
           .where(
             and(
-              eq(matchingEnrichmentItems.profileId, profile.id),
+              eq(matchingProfiles.userId, userUid),
               eq(matchingEnrichmentItems.provider, 'clay'),
               eq(matchingEnrichmentItems.sourceHash, linkedinSourceHash)
             )

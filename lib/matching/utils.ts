@@ -1,12 +1,12 @@
 import { db } from '@/lib/db';
-import { matchingQuestions } from '@/lib/db/schema';
+import { matchingProfiles, matchingQuestions } from '@/lib/db/schema';
 import { and, desc, eq } from 'drizzle-orm';
 import type { User } from '@supabase/supabase-js';
+import { DEFAULT_PROGRAM, isMatchingProgram, type MatchingProgram } from '@/lib/matching/programs';
 
-export const DEFAULT_PROGRAM = 'tedx';
-
-export function getSafeProgram(value: string | null): string {
-  return value && value.trim() ? value.trim() : DEFAULT_PROGRAM;
+export function getSafeProgram(value: string | null): MatchingProgram {
+  const normalized = value?.trim().toLowerCase() ?? '';
+  return isMatchingProgram(normalized) ? normalized : DEFAULT_PROGRAM;
 }
 
 export function getDefaultDisplayName(user: User): string {
@@ -19,7 +19,7 @@ export function getDefaultDisplayName(user: User): string {
   return 'AVL GO User';
 }
 
-export async function getLatestQuestions(program: string) {
+export async function getLatestQuestions(program: MatchingProgram) {
   const rows = await db
     .select()
     .from(matchingQuestions)
@@ -36,4 +36,22 @@ export async function getLatestQuestions(program: string) {
     .sort((a, b) => a.order - b.order);
 
   return { version: latestVersion, questions };
+}
+
+export async function getMatchingProfileForUser(userId: string, program: MatchingProgram) {
+  const [profile] = await db
+    .select()
+    .from(matchingProfiles)
+    .where(and(eq(matchingProfiles.userId, userId), eq(matchingProfiles.program, program)))
+    .limit(1);
+
+  return profile ?? null;
+}
+
+export async function listMatchingProfilesForUser(userId: string) {
+  return db
+    .select()
+    .from(matchingProfiles)
+    .where(eq(matchingProfiles.userId, userId))
+    .orderBy(desc(matchingProfiles.updatedAt));
 }

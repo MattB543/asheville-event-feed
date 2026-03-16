@@ -21,8 +21,14 @@ import { useToast } from '@/components/ui/Toast';
 import ConfirmSubmitModal from '@/components/matching/ConfirmSubmitModal';
 import type { MatchingFlowStep } from '@/lib/matching/flow';
 import { getMatchingFlowPath } from '@/lib/matching/flow';
+import {
+  getQuestionOptionLabel,
+  parseMatchingQuestionConfig,
+  type MatchingInputType,
+  type MatchingSurveyPhaseKey,
+} from '@/lib/matching/questions';
+import { getMatchingProgramConfig, type MatchingProgram } from '@/lib/matching/programs';
 
-const PROGRAM = 'tedx';
 const SUPPORT_EMAIL = 'support@avlgo.com';
 
 type AnswerState = {
@@ -56,8 +62,9 @@ interface MatchingQuestion {
   prompt: string;
   helpText: string | null;
   required: boolean;
-  inputType: 'long_text' | 'short_text' | 'url' | 'multi_url' | 'multi_text' | 'file_markdown';
+  inputType: MatchingInputType;
   maxLength: number | null;
+  configJson: unknown;
   websearch: boolean;
   active: boolean;
 }
@@ -78,22 +85,29 @@ interface ProfileResponse {
 }
 
 interface MatchingOnboardingClientProps {
+  program: MatchingProgram;
   currentStep: MatchingFlowStep;
   defaultDisplayName: string;
   defaultEmail: string | null;
   entrySource?: string | null;
 }
 
-function getMaxItemsForQuestion(
-  questionId: string,
-  inputType: MatchingQuestion['inputType']
-): number {
-  if (inputType === 'multi_url') return questionId === 'links_about_you' ? 5 : 10;
-  if (inputType === 'multi_text') return questionId === 'links_about_topics' ? 10 : 20;
+function getMaxItemsForQuestion(question: MatchingQuestion): number {
+  const config = parseMatchingQuestionConfig(question.configJson);
+  if (
+    typeof config.maxSelections === 'number' &&
+    (question.inputType === 'multi_select' || question.inputType === 'ranking')
+  ) {
+    return config.maxSelections;
+  }
+  if (question.inputType === 'multi_url') return question.id.includes('links_about_you') ? 5 : 10;
+  if (question.inputType === 'multi_text')
+    return question.id.includes('links_about_topics') ? 10 : 20;
   return 20;
 }
 
 export default function MatchingOnboardingClient({
+  program,
   currentStep,
   defaultDisplayName,
   defaultEmail,
@@ -101,7 +115,8 @@ export default function MatchingOnboardingClient({
 }: MatchingOnboardingClientProps) {
   const router = useRouter();
   const { showToast } = useToast();
-  const currentPath = getMatchingFlowPath(currentStep);
+  const programConfig = getMatchingProgramConfig(program);
+  const currentPath = getMatchingFlowPath(currentStep, program);
 
   const [isLoading, setIsLoading] = useState(true);
   const [profile, setProfile] = useState<MatchingProfile | null>(null);
@@ -117,6 +132,12 @@ export default function MatchingOnboardingClient({
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [isParsingResume, setIsParsingResume] = useState(false);
   const [expandedQuestionId, setExpandedQuestionId] = useState<string | null>(null);
+  const [openSurveyPhases, setOpenSurveyPhases] = useState<Record<MatchingSurveyPhaseKey, boolean>>(
+    {
+      phase1: true,
+      phase2: false,
+    }
+  );
   const [multiValueState, setMultiValueState] = useState<
     Record<string, { id: string; value: string }[]>
   >({});
@@ -132,6 +153,10 @@ export default function MatchingOnboardingClient({
   const isSubmitted = profile?.status === 'submitted';
   const isEditLocked = profile ? !profile.allowEditing : false;
   const canEdit = !isEditLocked;
+  const getQuestionConfig = useCallback(
+    (question: MatchingQuestion) => parseMatchingQuestionConfig(question.configJson),
+    []
+  );
 
   const passiveQuestions = useMemo(
     () =>
@@ -147,6 +172,19 @@ export default function MatchingOnboardingClient({
         .sort((a, b) => a.order - b.order),
     [questions]
   );
+  const surveyQuestionsByPhase = useMemo(() => {
+    const groups: Record<MatchingSurveyPhaseKey, MatchingQuestion[]> = {
+      phase1: [],
+      phase2: [],
+    };
+
+    surveyQuestions.forEach((question) => {
+      const phase = getQuestionConfig(question).phase ?? 'phase1';
+      groups[phase].push(question);
+    });
+
+    return groups;
+  }, [getQuestionConfig, surveyQuestions]);
 
   const makeRowId = useCallback(
     () =>
@@ -168,7 +206,12 @@ export default function MatchingOnboardingClient({
   const answerHasValue = useCallback(
     (question: MatchingQuestion, answer: AnswerState | undefined): boolean => {
       if (!answer) return false;
-      if (question.inputType === 'multi_url' || question.inputType === 'multi_text') {
+      if (
+        question.inputType === 'multi_url' ||
+        question.inputType === 'multi_text' ||
+        question.inputType === 'multi_select' ||
+        question.inputType === 'ranking'
+      ) {
         return Array.isArray(answer.answerJson)
           ? answer.answerJson.some((item) => item.trim().length > 0)
           : false;
@@ -188,7 +231,7 @@ export default function MatchingOnboardingClient({
   const loadProfile = useCallback(async () => {
     setIsLoading(true);
     try {
-      const response = await fetch(`/api/matching/profile?program=${PROGRAM}`);
+      const response = await fetch(`/api/matching/profile?program=${program}`);
       if (response.status === 401) {
         redirectToLogin();
         return;
@@ -234,7 +277,7 @@ export default function MatchingOnboardingClient({
     } finally {
       setIsLoading(false);
     }
-  }, [defaultDisplayName, makeRowId, redirectToLogin, showToast]);
+  }, [defaultDisplayName, makeRowId, program, redirectToLogin, showToast]);
 
   useEffect(() => {
     void loadProfile();
@@ -251,6 +294,15 @@ export default function MatchingOnboardingClient({
   useEffect(() => {
     aiMatchingRef.current = aiMatching;
   }, [aiMatching]);
+
+  useEffect(() => {
+    setOpenSurveyPhases({
+      phase1:
+        programConfig.surveyPhases.find((phase) => phase.key === 'phase1')?.defaultOpen ?? true,
+      phase2:
+        programConfig.surveyPhases.find((phase) => phase.key === 'phase2')?.defaultOpen ?? false,
+    });
+  }, [program, programConfig.surveyPhases]);
 
   useEffect(() => {
     const handler = (e: BeforeUnloadEvent) => {
@@ -329,7 +381,7 @@ export default function MatchingOnboardingClient({
 
   const addMultiValueRow = (question: MatchingQuestion) => {
     if (!canEdit) return;
-    const maxItems = getMaxItemsForQuestion(question.id, question.inputType);
+    const maxItems = getMaxItemsForQuestion(question);
 
     setMultiValueState((prev) => {
       const current = prev[question.id] ?? [];
@@ -356,7 +408,7 @@ export default function MatchingOnboardingClient({
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        program: PROGRAM,
+        program,
         displayName: displayNameRef.current,
         aiMatching: aiMatchingRef.current,
         consentVersion: version ?? undefined,
@@ -377,7 +429,7 @@ export default function MatchingOnboardingClient({
     const data = (await response.json()) as { profile: MatchingProfile };
     setProfile(data.profile);
     profileDirtyRef.current = false;
-  }, [entrySource, redirectToLogin, version]);
+  }, [entrySource, program, redirectToLogin, version]);
 
   const saveAnswers = useCallback(async () => {
     if (!version) return;
@@ -393,7 +445,7 @@ export default function MatchingOnboardingClient({
     const response = await fetch('/api/matching/answers', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ program: PROGRAM, version, answers: payload }),
+      body: JSON.stringify({ program, version, answers: payload }),
     });
 
     if (response.status === 401) {
@@ -407,7 +459,7 @@ export default function MatchingOnboardingClient({
     }
 
     answersDirtyRef.current = false;
-  }, [redirectToLogin, version]);
+  }, [program, redirectToLogin, version]);
 
   const saveDraft = useCallback(async (): Promise<boolean> => {
     if (!canEdit) return true;
@@ -466,9 +518,9 @@ export default function MatchingOnboardingClient({
         const saved = await saveDraft();
         if (!saved) return;
       }
-      router.push(getMatchingFlowPath(step));
+      router.push(getMatchingFlowPath(step, program));
     },
-    [router, saveDraft]
+    [program, router, saveDraft]
   );
 
   const validateConsent = useCallback(() => {
@@ -578,7 +630,7 @@ export default function MatchingOnboardingClient({
     }
 
     if (answeredSurveyCount === 1) {
-      showToast('You can submit now, but 2-3 answers usually creates better matches.', 'info');
+      showToast(programConfig.betterAnswerHint, 'info');
     }
 
     const saved = await saveDraft();
@@ -592,7 +644,7 @@ export default function MatchingOnboardingClient({
       const response = await fetch('/api/matching/submit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ program: PROGRAM }),
+        body: JSON.stringify({ program }),
       });
       const data = (await response.json()) as { profile?: MatchingProfile; error?: string };
 
@@ -608,7 +660,7 @@ export default function MatchingOnboardingClient({
       setProfile(data.profile);
       setConfirmOpen(false);
       showToast('Profile submitted successfully!', 'success');
-      router.push(getMatchingFlowPath('confirmation'));
+      router.push(getMatchingFlowPath('confirmation', program));
     } catch (error) {
       console.error('Submit failed:', error);
       showToast('Submission failed. Please try again.', 'error');
@@ -640,18 +692,45 @@ export default function MatchingOnboardingClient({
 
   const renderSummaryAnswer = (question: MatchingQuestion) => {
     const answer = answers[question.id];
+    const config = getQuestionConfig(question);
     if (!answerHasValue(question, answer)) return null;
 
-    if (question.inputType === 'multi_url' || question.inputType === 'multi_text') {
+    if (
+      question.inputType === 'multi_url' ||
+      question.inputType === 'multi_text' ||
+      question.inputType === 'multi_select' ||
+      question.inputType === 'ranking'
+    ) {
       const list = Array.isArray(answer?.answerJson) ? answer.answerJson.filter(Boolean) : [];
       return (
         <ul className="mt-2 space-y-1 text-sm text-gray-700 dark:text-gray-300">
-          {list.map((item) => (
+          {list.map((item, index) => (
             <li key={`${question.id}-${item}`} className="break-words">
-              {item}
+              {question.inputType === 'ranking' ? `${index + 1}. ` : ''}
+              {getQuestionOptionLabel(config, item)}
             </li>
           ))}
         </ul>
+      );
+    }
+
+    if (question.inputType === 'single_select') {
+      return (
+        <p className="mt-2 text-sm text-gray-700 dark:text-gray-300 whitespace-pre-wrap">
+          {getQuestionOptionLabel(config, answer?.answerText?.trim() ?? '')}
+        </p>
+      );
+    }
+
+    if (question.inputType === 'slider') {
+      const value = answer?.answerText?.trim() ?? '';
+      const max = config.sliderMax ?? 10;
+
+      return (
+        <p className="mt-2 text-sm text-gray-700 dark:text-gray-300 whitespace-pre-wrap">
+          {value} / {max}
+          {config.minLabel && config.maxLabel ? ` (${config.minLabel} -> ${config.maxLabel})` : ''}
+        </p>
       );
     }
 
@@ -664,6 +743,7 @@ export default function MatchingOnboardingClient({
 
   const renderQuestionFields = (question: MatchingQuestion) => {
     const questionAnswer = answers[question.id];
+    const config = getQuestionConfig(question);
 
     if (question.inputType === 'long_text' || question.inputType === 'short_text') {
       const value = questionAnswer?.answerText ?? '';
@@ -673,8 +753,9 @@ export default function MatchingOnboardingClient({
           value={value}
           disabled={!canEdit}
           onChange={(event) => updateAnswer(question.id, { answerText: event.target.value })}
-          rows={4}
+          rows={question.inputType === 'short_text' ? 3 : 4}
           maxLength={question.maxLength ?? undefined}
+          placeholder={config.placeholder}
           className={`w-full px-3 py-2 text-[15px] border rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-500 ${
             canEdit
               ? 'border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white'
@@ -691,7 +772,7 @@ export default function MatchingOnboardingClient({
           value={questionAnswer?.answerText ?? ''}
           disabled={!canEdit}
           onChange={(event) => updateAnswer(question.id, { answerText: event.target.value })}
-          placeholder="https://..."
+          placeholder={config.placeholder || 'https://...'}
           className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-500 ${
             canEdit
               ? 'border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white'
@@ -753,7 +834,7 @@ export default function MatchingOnboardingClient({
               onChange={(event) => updateAnswer(question.id, { answerText: event.target.value })}
               rows={8}
               maxLength={question.maxLength ?? 20000}
-              placeholder="Paste resume text here"
+              placeholder={config.placeholder || 'Paste resume text here'}
               className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-500 ${
                 canEdit
                   ? 'border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white'
@@ -765,13 +846,168 @@ export default function MatchingOnboardingClient({
       );
     }
 
+    if (question.inputType === 'single_select') {
+      const options = config.options ?? [];
+      const selectedValue = questionAnswer?.answerText ?? '';
+
+      return (
+        <div className="grid gap-3 sm:grid-cols-2">
+          {options.map((option) => {
+            const isSelected = selectedValue === option.value;
+
+            return (
+              <button
+                key={option.value}
+                type="button"
+                disabled={!canEdit}
+                onClick={() =>
+                  updateAnswer(question.id, {
+                    answerText: isSelected ? '' : option.value,
+                    answerJson: undefined,
+                  })
+                }
+                className={`rounded-xl border p-4 text-left transition-colors ${
+                  isSelected
+                    ? 'border-brand-500 bg-brand-50 dark:bg-brand-950/40 text-brand-900 dark:text-brand-100'
+                    : 'border-gray-200 dark:border-gray-700 hover:border-brand-300 dark:hover:border-brand-700'
+                } ${canEdit ? 'cursor-pointer' : 'cursor-not-allowed opacity-70'}`}
+              >
+                <div className="flex items-center justify-between gap-3">
+                  <span className="text-sm font-medium">{option.label}</span>
+                  {isSelected && <CheckCircle className="w-4 h-4 shrink-0 text-brand-600" />}
+                </div>
+                {option.description && (
+                  <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
+                    {option.description}
+                  </p>
+                )}
+              </button>
+            );
+          })}
+        </div>
+      );
+    }
+
+    if (question.inputType === 'multi_select' || question.inputType === 'ranking') {
+      const options = config.options ?? [];
+      const selectedValues = Array.isArray(questionAnswer?.answerJson)
+        ? questionAnswer.answerJson
+        : [];
+      const maxSelections =
+        config.maxSelections ?? (question.inputType === 'ranking' ? 3 : options.length);
+
+      const toggleValue = (value: string) => {
+        if (!canEdit) return;
+
+        const isSelected = selectedValues.includes(value);
+        let nextValues = selectedValues.filter((item) => item !== value);
+
+        if (!isSelected && nextValues.length < maxSelections) {
+          nextValues = [...nextValues, value];
+        }
+
+        updateAnswer(question.id, { answerJson: nextValues, answerText: undefined });
+      };
+
+      return (
+        <div className="space-y-3">
+          {question.inputType === 'ranking' && (
+            <p className="text-xs text-gray-500 dark:text-gray-400">
+              Tap in the order you prefer. Tap again to remove.
+            </p>
+          )}
+          {typeof config.maxSelections === 'number' && (
+            <p className="text-xs text-gray-500 dark:text-gray-400">
+              {selectedValues.length} / {config.maxSelections} selected
+            </p>
+          )}
+          <div className="grid gap-3 sm:grid-cols-2">
+            {options.map((option) => {
+              const selectionIndex = selectedValues.indexOf(option.value);
+              const isSelected = selectionIndex >= 0;
+              const isAtLimit = !isSelected && selectedValues.length >= maxSelections;
+
+              return (
+                <button
+                  key={option.value}
+                  type="button"
+                  disabled={!canEdit || isAtLimit}
+                  onClick={() => toggleValue(option.value)}
+                  className={`rounded-xl border p-4 text-left transition-colors ${
+                    isSelected
+                      ? 'border-brand-500 bg-brand-50 dark:bg-brand-950/40 text-brand-900 dark:text-brand-100'
+                      : 'border-gray-200 dark:border-gray-700 hover:border-brand-300 dark:hover:border-brand-700'
+                  } ${!canEdit || isAtLimit ? 'cursor-not-allowed opacity-70' : 'cursor-pointer'}`}
+                >
+                  <div className="flex items-center justify-between gap-3">
+                    <span className="text-sm font-medium">{option.label}</span>
+                    {isSelected ? (
+                      <span className="inline-flex h-6 min-w-6 items-center justify-center rounded-full bg-brand-600 px-2 text-xs font-semibold text-white">
+                        {question.inputType === 'ranking' ? selectionIndex + 1 : '✓'}
+                      </span>
+                    ) : null}
+                  </div>
+                  {option.description && (
+                    <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
+                      {option.description}
+                    </p>
+                  )}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      );
+    }
+
+    if (question.inputType === 'slider') {
+      const min = config.sliderMin ?? 0;
+      const max = config.sliderMax ?? 10;
+      const step = config.sliderStep ?? 1;
+      const currentValue = questionAnswer?.answerText ? Number(questionAnswer.answerText) : null;
+      const midpoint = min + (max - min) / 2;
+      const displayValue = currentValue ?? Math.round((midpoint - min) / step) * step + min;
+
+      return (
+        <div className="space-y-3">
+          <div className="flex items-center justify-between text-sm text-gray-700 dark:text-gray-300">
+            <span>{config.minLabel || min}</span>
+            <span className="font-medium">
+              {currentValue === null ? 'Not set yet' : currentValue}
+            </span>
+            <span>{config.maxLabel || max}</span>
+          </div>
+          <input
+            type="range"
+            min={min}
+            max={max}
+            step={step}
+            disabled={!canEdit}
+            value={displayValue}
+            onChange={(event) => updateAnswer(question.id, { answerText: event.target.value })}
+            className="w-full accent-brand-600"
+          />
+          {canEdit && currentValue !== null && (
+            <button
+              type="button"
+              onClick={() => updateAnswer(question.id, { answerText: '' })}
+              className="text-xs text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 cursor-pointer"
+            >
+              Clear answer
+            </button>
+          )}
+        </div>
+      );
+    }
+
     if (question.inputType === 'multi_url' || question.inputType === 'multi_text') {
       const rows = multiValueState[question.id] ?? [];
-      const maxItems = getMaxItemsForQuestion(question.id, question.inputType);
+      const maxItems = getMaxItemsForQuestion(question);
       const placeholder =
         question.inputType === 'multi_url'
-          ? 'https://...'
-          : 'e.g. marginalrevolution.com, Arrival movie, Guggenheim Museum, anything';
+          ? config.placeholder || 'https://...'
+          : config.placeholder ||
+            'e.g. marginalrevolution.com, Arrival movie, Guggenheim Museum, anything';
 
       return (
         <div className="space-y-3">
@@ -823,6 +1059,58 @@ export default function MatchingOnboardingClient({
     return null;
   };
 
+  const renderSurveyQuestionCards = (questionList: MatchingQuestion[]) => (
+    <div className="space-y-3">
+      {questionList.map((question) => {
+        const isOpen = expandedQuestionId === question.id;
+        const isAnswered = answerHasValue(question, answers[question.id]);
+
+        return (
+          <div
+            key={question.id}
+            className={`rounded-lg border overflow-hidden ${
+              isAnswered
+                ? 'border-green-200 dark:border-green-800 bg-green-50/50 dark:bg-green-900/10'
+                : 'border-gray-200 dark:border-gray-700'
+            }`}
+          >
+            <button
+              onClick={() =>
+                setExpandedQuestionId((prev) => (prev === question.id ? null : question.id))
+              }
+              className={`w-full px-4 py-3 flex items-center justify-between gap-3 text-left cursor-pointer ${
+                isAnswered ? 'bg-green-50 dark:bg-green-900/20' : 'bg-gray-50 dark:bg-gray-800/50'
+              }`}
+            >
+              <div className="flex items-center gap-2">
+                {isOpen ? (
+                  <ChevronDown className="w-4 h-4 text-gray-500" />
+                ) : (
+                  <ChevronRight className="w-4 h-4 text-gray-500" />
+                )}
+                <span className="text-[15px] font-medium text-gray-900 dark:text-white">
+                  {question.prompt}
+                </span>
+              </div>
+              {isAnswered && (
+                <CheckCircle className="w-4 h-4 text-green-600 dark:text-green-400 shrink-0" />
+              )}
+            </button>
+
+            {isOpen && (
+              <div className="p-4 space-y-3">
+                {question.helpText && (
+                  <p className="text-sm text-gray-500 dark:text-gray-400">{question.helpText}</p>
+                )}
+                {renderQuestionFields(question)}
+              </div>
+            )}
+          </div>
+        );
+      })}
+    </div>
+  );
+
   if (isLoading) {
     return (
       <div className="flex items-center justify-center py-20">
@@ -836,11 +1124,9 @@ export default function MatchingOnboardingClient({
       <div className="px-6 pt-6 flex items-start justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
-            TEDx Matching Profile
+            {programConfig.onboardingTitle}
           </h1>
-          <p className="text-sm text-gray-600 dark:text-gray-400">
-            Find the attendees you will actually want to meet.
-          </p>
+          <p className="text-sm text-gray-600 dark:text-gray-400">{programConfig.landingEyebrow}</p>
         </div>
         {(currentStep === 'consent' || currentStep === 'context' || currentStep === 'questions') &&
           renderAutosaveStatus()}
@@ -904,45 +1190,41 @@ export default function MatchingOnboardingClient({
         {currentStep === 'intro' && (
           <section className="space-y-6">
             <div className="space-y-3">
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white">How This Works</h2>
-              <p className="text-sm text-gray-700 dark:text-gray-300">
-                We are building something special for TEDxAsheville: a way to connect you with the
-                attendees you will actually click with.
-              </p>
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+                {programConfig.introHeading}
+              </h2>
+              <p className="text-sm text-gray-700 dark:text-gray-300">{programConfig.introLead}</p>
             </div>
 
             <div className="space-y-4 text-sm text-gray-700 dark:text-gray-300">
               <div>
-                <h3 className="font-semibold text-gray-900 dark:text-white">The Idea</h3>
-                <p>
-                  Share a bit about yourself, your interests, and what makes you tick. AI reads your
-                  input and finds people you are likely to have great conversations with.
-                </p>
+                <h3 className="font-semibold text-gray-900 dark:text-white">
+                  {programConfig.ideaHeading}
+                </h3>
+                <p>{programConfig.ideaBody}</p>
               </div>
               <div>
-                <h3 className="font-semibold text-gray-900 dark:text-white">What You Get</h3>
-                <p>
-                  Before the event, you will receive a personalized list of people to meet with
-                  conversation starters to make introductions easier.
-                </p>
+                <h3 className="font-semibold text-gray-900 dark:text-white">
+                  {programConfig.outcomeHeading}
+                </h3>
+                <p>{programConfig.outcomeBody}</p>
               </div>
               <div>
-                <h3 className="font-semibold text-gray-900 dark:text-white">Your Privacy</h3>
+                <h3 className="font-semibold text-gray-900 dark:text-white">
+                  {programConfig.privacyHeading}
+                </h3>
                 <ul className="list-disc pl-5 space-y-1">
-                  <li>Your specific answers are not shown directly to other attendees.</li>
-                  <li>Your data is used only for this matching pilot.</li>
-                  <li>You control what you share. Most fields are optional.</li>
+                  {programConfig.privacyPoints.map((point) => (
+                    <li key={point}>{point}</li>
+                  ))}
                 </ul>
               </div>
-              <p>
-                The more you share, the better your matches. Even 5 minutes of thoughtful input can
-                help.
-              </p>
+              <p>{programConfig.introClosing}</p>
             </div>
 
             <div className="flex items-center justify-between">
               <Link
-                href="/tedx"
+                href={programConfig.path}
                 className="px-5 py-2.5 rounded-lg border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 cursor-pointer"
               >
                 Back
@@ -967,7 +1249,7 @@ export default function MatchingOnboardingClient({
               <div>
                 <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Consent</h2>
                 <p className="text-sm text-gray-600 dark:text-gray-400">
-                  Confirm your name and opt in to AI-powered matching.
+                  {programConfig.consentDescription}
                 </p>
               </div>
             </div>
@@ -1025,8 +1307,7 @@ export default function MatchingOnboardingClient({
                   className="mt-1 w-4 h-4 text-brand-600 cursor-pointer disabled:cursor-not-allowed"
                 />
                 <span className="text-sm text-gray-700 dark:text-gray-300">
-                  I understand my profile data will be analyzed by AI and used to match me with
-                  other TEDxAsheville attendees. My specific answers are not shared directly.
+                  {programConfig.consentStatement}
                 </span>
               </label>
               {errors.consent && (
@@ -1061,10 +1342,10 @@ export default function MatchingOnboardingClient({
               </div>
               <div>
                 <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
-                  Share Some Context
+                  {programConfig.contextTitle}
                 </h2>
                 <p className="text-sm text-gray-600 dark:text-gray-400">
-                  Everything is optional. More context leads to better matches.
+                  {programConfig.contextDescription}
                 </p>
               </div>
             </div>
@@ -1113,10 +1394,10 @@ export default function MatchingOnboardingClient({
               </div>
               <div className="space-y-1">
                 <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
-                  A Few Questions
+                  {programConfig.questionsTitle}
                 </h2>
                 <p className="text-sm text-gray-600 dark:text-gray-400">
-                  Every question is optional. Answer the ones that resonate with you.
+                  {programConfig.questionsDescription}
                 </p>
               </div>
             </div>
@@ -1126,60 +1407,69 @@ export default function MatchingOnboardingClient({
             )}
             {answeredSurveyCount === 1 && (
               <p className="text-sm text-brand-700 dark:text-brand-300">
-                You can submit with one answer, but 2-3 thoughtful answers improves match quality.
+                {programConfig.oneAnswerHint}
               </p>
             )}
 
-            <div className="space-y-3">
-              {surveyQuestions.map((question) => {
-                const isOpen = expandedQuestionId === question.id;
-                const isAnswered = answerHasValue(question, answers[question.id]);
+            <div className="space-y-6">
+              {programConfig.surveyPhases.map((phase) => {
+                const questionList = surveyQuestionsByPhase[phase.key];
+                if (questionList.length === 0) return null;
+
+                if (phase.collapsible) {
+                  return (
+                    <section
+                      key={phase.key}
+                      className="rounded-lg border border-gray-200 dark:border-gray-700 p-4"
+                    >
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setOpenSurveyPhases((prev) => ({
+                            ...prev,
+                            [phase.key]: !prev[phase.key],
+                          }))
+                        }
+                        className="w-full flex items-start justify-between gap-4 text-left cursor-pointer"
+                      >
+                        <div>
+                          <h3 className="text-base font-semibold text-gray-900 dark:text-white">
+                            {phase.title}
+                          </h3>
+                          <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                            {phase.description}
+                          </p>
+                        </div>
+                        <ChevronRight
+                          className={`w-4 h-4 text-gray-500 shrink-0 transition-transform ${
+                            openSurveyPhases[phase.key] ? 'rotate-90' : ''
+                          }`}
+                        />
+                      </button>
+                      {openSurveyPhases[phase.key] && (
+                        <div className="mt-4">{renderSurveyQuestionCards(questionList)}</div>
+                      )}
+                    </section>
+                  );
+                }
+
+                const shouldShowHeading =
+                  programConfig.surveyPhases.length > 1 || phase.title !== 'Questions';
 
                 return (
-                  <div
-                    key={question.id}
-                    className={`rounded-lg border overflow-hidden ${
-                      isAnswered
-                        ? 'border-green-200 dark:border-green-800 bg-green-50/50 dark:bg-green-900/10'
-                        : 'border-gray-200 dark:border-gray-700'
-                    }`}
-                  >
-                    <button
-                      onClick={() =>
-                        setExpandedQuestionId((prev) => (prev === question.id ? null : question.id))
-                      }
-                      className={`w-full px-4 py-3 flex items-center justify-between gap-3 text-left cursor-pointer ${
-                        isAnswered
-                          ? 'bg-green-50 dark:bg-green-900/20'
-                          : 'bg-gray-50 dark:bg-gray-800/50'
-                      }`}
-                    >
-                      <div className="flex items-center gap-2">
-                        {isOpen ? (
-                          <ChevronDown className="w-4 h-4 text-gray-500" />
-                        ) : (
-                          <ChevronRight className="w-4 h-4 text-gray-500" />
-                        )}
-                        <span className="text-[15px] font-medium text-gray-900 dark:text-white">
-                          {question.prompt}
-                        </span>
-                      </div>
-                      {isAnswered && (
-                        <CheckCircle className="w-4 h-4 text-green-600 dark:text-green-400 shrink-0" />
-                      )}
-                    </button>
-
-                    {isOpen && (
-                      <div className="p-4 space-y-3">
-                        {question.helpText && (
-                          <p className="text-sm text-gray-500 dark:text-gray-400">
-                            {question.helpText}
-                          </p>
-                        )}
-                        {renderQuestionFields(question)}
+                  <section key={phase.key} className="space-y-3">
+                    {shouldShowHeading && (
+                      <div>
+                        <h3 className="text-base font-semibold text-gray-900 dark:text-white">
+                          {phase.title}
+                        </h3>
+                        <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                          {phase.description}
+                        </p>
                       </div>
                     )}
-                  </div>
+                    {renderSurveyQuestionCards(questionList)}
+                  </section>
                 );
               })}
             </div>
@@ -1240,17 +1530,16 @@ export default function MatchingOnboardingClient({
                     You are all set!
                   </h2>
                   <p className="mt-2 text-sm text-green-800 dark:text-green-200">
-                    Your profile has been submitted. We will analyze it and use it to generate your
-                    TEDx matches.
+                    {programConfig.confirmationBody}
                   </p>
                   <ol className="mt-3 text-sm text-green-800 dark:text-green-200 list-decimal pl-5 space-y-1">
-                    <li>We analyze your profile details and answers.</li>
-                    <li>We identify your strongest conversation matches.</li>
-                    <li>You receive your personalized list before TEDxAsheville.</li>
+                    {programConfig.confirmationSteps.map((step) => (
+                      <li key={step}>{step}</li>
+                    ))}
                   </ol>
                   {canEdit && (
                     <p className="mt-3 text-sm text-green-800 dark:text-green-200">
-                      You can still edit your profile until submissions are locked.
+                      {programConfig.confirmationEditNote}
                     </p>
                   )}
                 </div>
@@ -1299,10 +1588,10 @@ export default function MatchingOnboardingClient({
 
             <div className="flex items-center justify-between">
               <Link
-                href="/tedx"
+                href={programConfig.path}
                 className="px-5 py-2.5 rounded-lg border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 cursor-pointer"
               >
-                Back to TEDx
+                {programConfig.backLabel}
               </Link>
               {canEdit && (
                 <button

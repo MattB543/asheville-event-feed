@@ -62,6 +62,10 @@ export const env = {
   get CLAY_TABLE_ID() {
     return process.env.CLAY_TABLE_ID;
   },
+  // GitHub API (for profile enrichment in matching pipeline)
+  get GITHUB_TOKEN() {
+    return process.env.GITHUB_TOKEN;
+  },
   // Super Admin (for verified curator management and score overrides)
   get SUPER_ADMIN() {
     return process.env.SUPER_ADMIN;
@@ -96,6 +100,11 @@ export function isJinaEnabled(): boolean {
 // Helper to check if outbound Clay webhook is configured
 export function isClayWebhookEnabled(): boolean {
   return !!env.CLAY_WEBHOOK;
+}
+
+// Helper to check if GitHub API is configured
+export function isGitHubEnabled(): boolean {
+  return !!env.GITHUB_TOKEN;
 }
 
 // Helper to check if Supabase Auth is configured

@@ -1,4 +1,5 @@
 import { AzureOpenAI } from 'openai';
+import type { ChatCompletionContentPart } from 'openai/resources/chat/completions';
 import { GoogleGenerativeAI, type GenerativeModel } from '@google/generative-ai';
 import { env, isAIEnabled as checkAIEnabled } from '../config/env';
 
@@ -248,4 +249,67 @@ export async function azureChatCompletionMessages(
   });
 
   return response.choices[0]?.message?.content || null;
+}
+
+/**
+ * Vision chat completion with Azure OpenAI.
+ * Sends images as base64 data URLs alongside a text prompt.
+ * Returns the response content and token usage.
+ */
+export async function azureVisionChatCompletion(
+  systemPrompt: string,
+  textPrompt: string,
+  imageDataUrls: string[],
+  options?: {
+    maxTokens?: number;
+    detail?: 'low' | 'high' | 'auto';
+  }
+): Promise<{
+  content: string;
+  usage: {
+    inputTokens: number;
+    outputTokens: number;
+    totalTokens: number;
+  };
+} | null> {
+  const client = getAzureClient();
+  if (!client) {
+    console.warn('[Azure AI] Client not configured');
+    return null;
+  }
+
+  const contentParts: ChatCompletionContentPart[] = [
+    { type: 'text', text: textPrompt },
+    ...imageDataUrls.map(
+      (url) =>
+        ({
+          type: 'image_url',
+          image_url: {
+            url,
+            detail: options?.detail ?? 'high',
+          },
+        }) as ChatCompletionContentPart
+    ),
+  ];
+
+  const response = await client.chat.completions.create({
+    model: getAzureDeployment(),
+    messages: [
+      { role: 'system', content: systemPrompt },
+      { role: 'user', content: contentParts },
+    ],
+    max_completion_tokens: options?.maxTokens ?? 4000,
+  });
+
+  const usage = response.usage;
+  const content = response.choices[0]?.message?.content || '';
+
+  return {
+    content,
+    usage: {
+      inputTokens: usage?.prompt_tokens || 0,
+      outputTokens: usage?.completion_tokens || 0,
+      totalTokens: usage?.total_tokens || 0,
+    },
+  };
 }

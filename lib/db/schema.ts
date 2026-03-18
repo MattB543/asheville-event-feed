@@ -205,7 +205,7 @@ export const matchingQuestions = pgTable(
     prompt: text('prompt').notNull(),
     helpText: text('help_text'),
     required: boolean('required').default(false).notNull(),
-    inputType: text('input_type').notNull(), // 'long_text' | 'short_text' | 'url' | 'multi_url' | 'multi_text' | 'file_markdown' | 'single_select' | 'multi_select' | 'ranking' | 'slider'
+    inputType: text('input_type').notNull(), // 'long_text' | 'short_text' | 'url' | 'multi_url' | 'multi_text' | 'file_markdown' | 'multi_image' | 'single_select' | 'multi_select' | 'ranking' | 'slider'
     maxLength: integer('max_length'),
     configJson: jsonb('config_json').default({}).notNull(),
     websearch: boolean('websearch').default(false).notNull(),

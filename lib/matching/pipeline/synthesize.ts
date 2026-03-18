@@ -140,7 +140,7 @@ function validateCardWordCount(cardText: string): void {
 
 async function synthesizeOneProfileReport(
   profile: NormalizedTedxProfile,
-  enrichment: { clay: string[]; jina: string[]; topics: string[] },
+  enrichment: { clay: string[]; jina: string[]; github: string[]; topics: string[] },
   repairContext?: string
 ): Promise<SynthesizedProfileReportJson> {
   const systemPrompt =
@@ -194,6 +194,9 @@ ${clipText(JSON.stringify(profile.surveyAnswers, null, 2))}
 Clay LinkedIn enrichment:
 ${enrichment.clay.length > 0 ? clipText(enrichment.clay.join('\n\n')) : 'None'}
 
+GitHub profile enrichment:
+${enrichment.github.length > 0 ? clipText(enrichment.github.join('\n\n')) : 'None'}
+
 Jina URL enrichment:
 ${enrichment.jina.length > 0 ? clipText(enrichment.jina.join('\n\n')) : 'None'}
 
@@ -221,7 +224,7 @@ ${enrichment.topics.length > 0 ? clipText(enrichment.topics.join('\n')) : 'None'
 
 async function synthesizeOneProfileReportWithRepair(
   profile: NormalizedTedxProfile,
-  enrichment: { clay: string[]; jina: string[]; topics: string[] }
+  enrichment: { clay: string[]; jina: string[]; github: string[]; topics: string[] }
 ): Promise<SynthesizedProfileReportJson> {
   try {
     return await synthesizeOneProfileReport(profile, enrichment);
@@ -321,6 +324,7 @@ export async function buildProfileCards(
     const enrichment = enrichmentByProfile.get(profile.profileId) ?? {
       clay: [],
       jina: [],
+      github: [],
       topics: [],
     };
     const model = getAzureDeploymentName();

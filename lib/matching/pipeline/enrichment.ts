@@ -5,7 +5,8 @@ import { db } from '@/lib/db';
 import { matchingEnrichmentItems, matchingProfiles } from '@/lib/db/schema';
 import { env } from '@/lib/config/env';
 import { withRetry } from '@/lib/utils/retry';
-import { sourceHash } from '@/lib/matching/pipeline/source';
+import { extractGitHubUsername, sourceHash } from '@/lib/matching/pipeline/source';
+import { fetchGitHubProfile } from '@/lib/matching/pipeline/github';
 import type { NormalizedTedxProfile } from '@/lib/matching/pipeline/types';
 
 const CLAY_POLL_INTERVAL_MS = 15_000;
@@ -74,9 +75,9 @@ function normalizeJinaMarkdown(markdown: string): string {
 async function upsertEnrichmentItem(args: {
   runId: string;
   profileId: string;
-  sourceKind: 'linkedin' | 'url' | 'topic_text';
+  sourceKind: 'linkedin' | 'url' | 'github' | 'topic_text';
   sourceValue: string;
-  provider: 'clay' | 'jina' | 'manual';
+  provider: 'clay' | 'jina' | 'github' | 'manual';
   status: 'pending' | 'completed' | 'failed' | 'timeout' | 'skipped';
   sourceSurveyUpdatedAt: Date | null;
   normalizedText?: string | null;
@@ -173,6 +174,18 @@ export async function seedEnrichmentItems(runId: string, profiles: NormalizedTed
         sourceKind: 'linkedin',
         sourceValue: linkedinUrl,
         provider: 'clay',
+        status: 'pending',
+        sourceSurveyUpdatedAt: profile.surveyUpdatedAt,
+      });
+    }
+
+    for (const githubUrl of profile.githubUrls) {
+      await upsertEnrichmentItem({
+        runId,
+        profileId: profile.profileId,
+        sourceKind: 'github',
+        sourceValue: githubUrl,
+        provider: 'github',
         status: 'pending',
         sourceSurveyUpdatedAt: profile.surveyUpdatedAt,
       });
@@ -559,9 +572,115 @@ export async function processJinaEnrichment(runId: string): Promise<void> {
   }
 }
 
+export async function processGitHubEnrichment(runId: string): Promise<void> {
+  if (!env.GITHUB_TOKEN) {
+    await db
+      .update(matchingEnrichmentItems)
+      .set({
+        status: 'skipped',
+        errorText: 'GITHUB_TOKEN is not configured',
+        updatedAt: new Date(),
+      })
+      .where(
+        and(
+          eq(matchingEnrichmentItems.runId, runId),
+          eq(matchingEnrichmentItems.provider, 'github'),
+          eq(matchingEnrichmentItems.status, 'pending')
+        )
+      );
+    return;
+  }
+
+  const pendingItems = await db
+    .select({
+      id: matchingEnrichmentItems.id,
+      sourceValue: matchingEnrichmentItems.sourceValue,
+      sourceHash: matchingEnrichmentItems.sourceHash,
+    })
+    .from(matchingEnrichmentItems)
+    .where(
+      and(
+        eq(matchingEnrichmentItems.runId, runId),
+        eq(matchingEnrichmentItems.provider, 'github'),
+        eq(matchingEnrichmentItems.status, 'pending')
+      )
+    );
+
+  // Deduplicate by username so we don't query the same profile twice
+  const contentCache = new Map<string, string>();
+
+  for (const item of pendingItems) {
+    const username = extractGitHubUsername(item.sourceValue);
+    if (!username) {
+      await db
+        .update(matchingEnrichmentItems)
+        .set({
+          status: 'skipped',
+          errorText: 'Could not extract GitHub username from URL',
+          updatedAt: new Date(),
+        })
+        .where(eq(matchingEnrichmentItems.id, item.id));
+      continue;
+    }
+
+    const cachedText = contentCache.get(username.toLowerCase());
+    if (cachedText) {
+      await db
+        .update(matchingEnrichmentItems)
+        .set({
+          status: 'completed',
+          normalizedText: cachedText,
+          rawPayload: { reused: true, username },
+          updatedAt: new Date(),
+        })
+        .where(eq(matchingEnrichmentItems.id, item.id));
+      continue;
+    }
+
+    try {
+      const result = await fetchGitHubProfile(username);
+      if (!result.ok || !result.text) {
+        await db
+          .update(matchingEnrichmentItems)
+          .set({
+            status: 'failed',
+            errorText: result.error ?? 'Unknown GitHub API error',
+            updatedAt: new Date(),
+          })
+          .where(eq(matchingEnrichmentItems.id, item.id));
+        continue;
+      }
+
+      contentCache.set(username.toLowerCase(), result.text);
+
+      await db
+        .update(matchingEnrichmentItems)
+        .set({
+          status: 'completed',
+          normalizedText: result.text,
+          rawPayload: { username },
+          updatedAt: new Date(),
+        })
+        .where(eq(matchingEnrichmentItems.id, item.id));
+    } catch (error) {
+      await db
+        .update(matchingEnrichmentItems)
+        .set({
+          status: 'failed',
+          errorText: error instanceof Error ? error.message : String(error),
+          updatedAt: new Date(),
+        })
+        .where(eq(matchingEnrichmentItems.id, item.id));
+    }
+  }
+}
+
 export async function getEnrichmentSummaryByProfile(runId: string, profileIds: string[]) {
   if (profileIds.length === 0)
-    return new Map<string, { clay: string[]; jina: string[]; topics: string[] }>();
+    return new Map<
+      string,
+      { clay: string[]; jina: string[]; github: string[]; topics: string[] }
+    >();
 
   const rows = await db
     .select({
@@ -581,9 +700,12 @@ export async function getEnrichmentSummaryByProfile(runId: string, profileIds: s
       )
     );
 
-  const map = new Map<string, { clay: string[]; jina: string[]; topics: string[] }>();
+  const map = new Map<
+    string,
+    { clay: string[]; jina: string[]; github: string[]; topics: string[] }
+  >();
   for (const profileId of profileIds) {
-    map.set(profileId, { clay: [], jina: [], topics: [] });
+    map.set(profileId, { clay: [], jina: [], github: [], topics: [] });
   }
 
   for (const row of rows) {
@@ -592,6 +714,11 @@ export async function getEnrichmentSummaryByProfile(runId: string, profileIds: s
 
     if (row.provider === 'clay' && row.normalizedText) {
       existing.clay.push(row.normalizedText);
+      continue;
+    }
+
+    if (row.provider === 'github' && row.normalizedText) {
+      existing.github.push(row.normalizedText);
       continue;
     }
 

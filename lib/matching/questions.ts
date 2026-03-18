@@ -13,6 +13,7 @@ export const MATCHING_INPUT_TYPES = [
   'multi_url',
   'multi_text',
   'file_markdown',
+  'multi_image',
   'single_select',
   'multi_select',
   'ranking',
@@ -41,6 +42,8 @@ export interface MatchingQuestionConfig {
   sliderStep?: number;
   minLabel?: string;
   maxLabel?: string;
+  maxImages?: number;
+  aiPrompt?: string;
 }
 
 function parseOptions(value: unknown): MatchingQuestionOption[] | undefined {
@@ -89,6 +92,8 @@ export function parseMatchingQuestionConfig(value: unknown): MatchingQuestionCon
     sliderStep: readNumber(value, 'sliderStep'),
     minLabel: readString(value, 'minLabel'),
     maxLabel: readString(value, 'maxLabel'),
+    maxImages: readNumber(value, 'maxImages'),
+    aiPrompt: readString(value, 'aiPrompt'),
   };
 }
 

@@ -1,14 +1,17 @@
 'use client';
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import {
+  BookOpen,
   CheckCircle,
   ChevronDown,
   ChevronRight,
   ClipboardList,
   FileText,
+  ImagePlus,
   Link2,
   Loader2,
   Lock,
@@ -16,6 +19,7 @@ import {
   Trash2,
   Upload,
   User,
+  X,
 } from 'lucide-react';
 import { useToast } from '@/components/ui/Toast';
 import ConfirmSubmitModal from '@/components/matching/ConfirmSubmitModal';
@@ -153,6 +157,8 @@ export default function MatchingOnboardingClient({
     Record<string, { id: string; value: string }[]>
   >({});
   const [showResumeTextarea, setShowResumeTextarea] = useState(false);
+  const [imageTranscribing, setImageTranscribing] = useState<Record<string, boolean>>({});
+  const [imagePreviewUrls, setImagePreviewUrls] = useState<Record<string, string[]>>({});
 
   const answersRef = useRef(answers);
   const displayNameRef = useRef(displayName);
@@ -221,7 +227,8 @@ export default function MatchingOnboardingClient({
         question.inputType === 'multi_url' ||
         question.inputType === 'multi_text' ||
         question.inputType === 'multi_select' ||
-        question.inputType === 'ranking'
+        question.inputType === 'ranking' ||
+        question.inputType === 'multi_image'
       ) {
         return Array.isArray(answer.answerJson)
           ? answer.answerJson.some((item) => item.trim().length > 0)
@@ -607,6 +614,143 @@ export default function MatchingOnboardingClient({
     }
   };
 
+  const compressImage = useCallback(async (file: File): Promise<Blob> => {
+    return new Promise((resolve, reject) => {
+      const img = new window.Image();
+      const objectUrl = URL.createObjectURL(file);
+
+      img.onload = () => {
+        URL.revokeObjectURL(objectUrl);
+        const MAX_DIM = 2048;
+        let { naturalWidth: w, naturalHeight: h } = img;
+
+        if (w > MAX_DIM || h > MAX_DIM) {
+          const scale = MAX_DIM / Math.max(w, h);
+          w = Math.round(w * scale);
+          h = Math.round(h * scale);
+        }
+
+        const canvas = document.createElement('canvas');
+        canvas.width = w;
+        canvas.height = h;
+        const ctx = canvas.getContext('2d');
+        if (!ctx) {
+          reject(new Error('Canvas not supported'));
+          return;
+        }
+        ctx.drawImage(img, 0, 0, w, h);
+        canvas.toBlob(
+          (blob) => {
+            if (blob) resolve(blob);
+            else reject(new Error('Compression failed'));
+          },
+          'image/jpeg',
+          0.85
+        );
+      };
+
+      img.onerror = () => {
+        URL.revokeObjectURL(objectUrl);
+        reject(new Error('Failed to load image'));
+      };
+
+      img.src = objectUrl;
+    });
+  }, []);
+
+  const handleImageUpload = async (files: FileList, questionId: string) => {
+    if (!canEdit) return;
+    const config = parseMatchingQuestionConfig(
+      questions.find((q) => q.id === questionId)?.configJson
+    );
+    const maxImages = config.maxImages ?? 5;
+
+    const fileArray = Array.from(files).slice(0, maxImages);
+    const validFiles = fileArray.filter((f) => f.type.startsWith('image/'));
+
+    if (validFiles.length === 0) {
+      showToast('Please select image files (JPEG, PNG, etc.)', 'error');
+      return;
+    }
+
+    // Create preview URLs
+    const previewUrls = validFiles.map((f) => URL.createObjectURL(f));
+    setImagePreviewUrls((prev) => ({ ...prev, [questionId]: previewUrls }));
+    setImageTranscribing((prev) => ({ ...prev, [questionId]: true }));
+
+    try {
+      // Compress images client-side
+      const compressed = await Promise.all(validFiles.map(compressImage));
+
+      // Send to transcription API
+      const formData = new FormData();
+      compressed.forEach((blob, i) => {
+        formData.append('images', blob, `bookshelf-${i + 1}.jpg`);
+      });
+      if (config.aiPrompt) {
+        formData.append('aiPrompt', config.aiPrompt);
+      }
+
+      const response = await fetch('/api/matching/transcribe-images', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (response.status === 401) {
+        redirectToLogin();
+        return;
+      }
+
+      const data = (await response.json()) as {
+        books?: { title: string; author: string | null }[];
+        notes?: string | null;
+        parseError?: boolean;
+        error?: string;
+      };
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to process images');
+      }
+
+      if (data.parseError) {
+        showToast('Something went wrong analyzing your photos. Please try again.', 'error');
+      } else if (data.books && data.books.length > 0) {
+        const bookStrings = data.books.map((b) =>
+          b.author ? `${b.title} - ${b.author}` : b.title
+        );
+        updateAnswer(questionId, { answerJson: bookStrings });
+        showToast(
+          `Found ${data.books.length} book${data.books.length === 1 ? '' : 's'}!`,
+          'success'
+        );
+      } else {
+        showToast('No books detected. Try clearer or closer photos.', 'info');
+      }
+    } catch (error) {
+      console.error('Image transcription failed:', error);
+      showToast('Failed to process images. Please try again.', 'error');
+    } finally {
+      setImageTranscribing((prev) => ({ ...prev, [questionId]: false }));
+      // Clean up preview URLs after a delay (let user see them briefly)
+      setTimeout(() => {
+        setImagePreviewUrls((prev) => {
+          const urls = prev[questionId];
+          if (urls) urls.forEach((url) => URL.revokeObjectURL(url));
+          const next = { ...prev };
+          delete next[questionId];
+          return next;
+        });
+      }, 2000);
+    }
+  };
+
+  const removeBookFromAnswer = (questionId: string, index: number) => {
+    if (!canEdit) return;
+    const current = answers[questionId]?.answerJson ?? [];
+    const next = current.filter((_, i) => i !== index);
+    updateAnswer(questionId, { answerJson: next.length > 0 ? next : undefined });
+  };
+
   const handleIntroContinue = async () => {
     if (!profile || (entrySource && !profile.source)) {
       markProfileDirty();
@@ -706,7 +850,8 @@ export default function MatchingOnboardingClient({
       question.inputType === 'multi_url' ||
       question.inputType === 'multi_text' ||
       question.inputType === 'multi_select' ||
-      question.inputType === 'ranking'
+      question.inputType === 'ranking' ||
+      question.inputType === 'multi_image'
     ) {
       const list = Array.isArray(answer?.answerJson) ? answer.answerJson.filter(Boolean) : [];
       return (
@@ -1014,6 +1159,113 @@ export default function MatchingOnboardingClient({
             >
               Clear answer
             </button>
+          )}
+        </div>
+      );
+    }
+
+    if (question.inputType === 'multi_image') {
+      const isTranscribing = imageTranscribing[question.id] ?? false;
+      const previews = imagePreviewUrls[question.id] ?? [];
+      const bookList = Array.isArray(questionAnswer?.answerJson) ? questionAnswer.answerJson : [];
+      const maxImages = config.maxImages ?? 5;
+
+      return (
+        <div className="space-y-4">
+          {/* Privacy notice */}
+          <p className="text-xs text-gray-500 dark:text-gray-400 italic">
+            Your images are sent to AI for transcription only and are never saved or stored.
+          </p>
+
+          {/* Upload area */}
+          <label
+            className={`flex flex-col items-center justify-center gap-2 p-6 rounded-xl border-2 border-dashed transition-colors ${
+              canEdit && !isTranscribing
+                ? 'border-gray-300 dark:border-gray-600 hover:border-brand-400 dark:hover:border-brand-600 cursor-pointer'
+                : 'border-gray-200 dark:border-gray-700 cursor-not-allowed opacity-60'
+            }`}
+          >
+            {isTranscribing ? (
+              <>
+                <Loader2 className="w-8 h-8 animate-spin text-brand-600" />
+                <span className="text-sm text-gray-600 dark:text-gray-400">
+                  Identifying books...
+                </span>
+              </>
+            ) : (
+              <>
+                <ImagePlus className="w-8 h-8 text-gray-400 dark:text-gray-500" />
+                <span className="text-sm text-gray-600 dark:text-gray-400">
+                  {bookList.length > 0
+                    ? 'Upload new photos to re-scan'
+                    : `Tap to upload photos (up to ${maxImages})`}
+                </span>
+              </>
+            )}
+            <input
+              type="file"
+              accept="image/*"
+              multiple
+              disabled={!canEdit || isTranscribing}
+              className="hidden"
+              onChange={(event) => {
+                const fileList = event.target.files;
+                if (fileList && fileList.length > 0) {
+                  void handleImageUpload(fileList, question.id);
+                  event.target.value = '';
+                }
+              }}
+            />
+          </label>
+
+          {/* Image previews while processing */}
+          {previews.length > 0 && (
+            <div className="flex gap-2 overflow-x-auto pb-1">
+              {previews.map((url, i) => (
+                <Image
+                  key={`preview-${question.id}-${i}`}
+                  src={url}
+                  alt={`Upload ${i + 1}`}
+                  width={80}
+                  height={80}
+                  unoptimized
+                  className={`h-20 w-20 object-cover rounded-lg border border-gray-200 dark:border-gray-700 ${
+                    isTranscribing ? 'opacity-60' : ''
+                  }`}
+                />
+              ))}
+            </div>
+          )}
+
+          {/* Transcribed book list */}
+          {bookList.length > 0 && (
+            <div className="space-y-2">
+              <div className="flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-300">
+                <BookOpen className="w-4 h-4" />
+                <span>
+                  {bookList.length} book{bookList.length === 1 ? '' : 's'} found
+                </span>
+              </div>
+              <ul className="space-y-1">
+                {bookList.map((book, index) => (
+                  <li
+                    key={`${question.id}-book-${index}`}
+                    className="flex items-center justify-between gap-2 px-3 py-2 rounded-lg bg-gray-50 dark:bg-gray-800 text-sm text-gray-700 dark:text-gray-300"
+                  >
+                    <span className="break-words min-w-0">{book}</span>
+                    {canEdit && (
+                      <button
+                        onClick={() => removeBookFromAnswer(question.id, index)}
+                        className="p-1 text-gray-400 hover:text-red-500 shrink-0 cursor-pointer"
+                        aria-label="Remove book"
+                      >
+                        <X className="w-3.5 h-3.5" />
+                      </button>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </div>
           )}
         </div>
       );

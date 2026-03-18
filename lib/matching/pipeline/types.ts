@@ -61,6 +61,7 @@ export interface NormalizedTedxProfile {
   linksAboutYou: string[];
   linksAboutTopicsRaw: string[];
   linkedinUrls: string[];
+  githubUrls: string[];
   webUrls: string[];
   topicTexts: string[];
 }

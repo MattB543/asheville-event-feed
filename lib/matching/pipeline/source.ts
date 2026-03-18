@@ -111,6 +111,48 @@ export function isYouTubeUrl(url: string): boolean {
   }
 }
 
+export function isGitHubProfileUrl(url: string): boolean {
+  try {
+    const parsed = new URL(url);
+    const host = parsed.hostname.toLowerCase();
+    if (!(host === 'github.com' || host === 'www.github.com')) return false;
+    // Must have exactly one path segment (the username), no deeper paths like /user/repo
+    const segments = parsed.pathname.split('/').filter(Boolean);
+    if (segments.length !== 1) return false;
+    // Exclude known non-profile paths
+    const reserved = [
+      'about',
+      'explore',
+      'marketplace',
+      'notifications',
+      'settings',
+      'sponsors',
+      'topics',
+      'trending',
+      'features',
+      'pricing',
+      'enterprise',
+      'login',
+      'signup',
+      'orgs',
+    ];
+    if (reserved.includes(segments[0].toLowerCase())) return false;
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+export function extractGitHubUsername(url: string): string | null {
+  try {
+    const parsed = new URL(url);
+    const segments = parsed.pathname.split('/').filter(Boolean);
+    return segments.length >= 1 ? segments[0] : null;
+  } catch {
+    return null;
+  }
+}
+
 export function shouldSkipWebEnrichmentUrl(url: string): boolean {
   try {
     const parsed = new URL(url);

@@ -4,6 +4,7 @@ import { db } from '@/lib/db';
 import { matchingAnswers, matchingProfiles } from '@/lib/db/schema';
 import {
   canonicalizeUrl,
+  isGitHubProfileUrl,
   isLinkedInProfileUrl,
   isLinkedInShortUrl,
   looksLikeDomain,
@@ -38,6 +39,34 @@ function asStringArray(value: unknown): string[] {
 
 function dedupe(values: string[]): string[] {
   return Array.from(new Set(values));
+}
+
+/** Look up an answer by bare suffix (e.g. 'resume'), falling back to any key ending with `_${suffix}` (e.g. 'vibe_resume'). */
+function findAnswerBySuffix(
+  answerMap: Map<string, AnswerRowShape>,
+  suffix: string
+): AnswerRowShape | undefined {
+  const direct = answerMap.get(suffix);
+  if (direct) return direct;
+  for (const [key, value] of answerMap) {
+    if (key.endsWith(`_${suffix}`)) return value;
+  }
+  return undefined;
+}
+
+/** Passive question suffixes — these are handled via dedicated lookups, not as survey answers. */
+const PASSIVE_SUFFIXES = [
+  'resume',
+  'linkedin_url',
+  'github_url',
+  'links_about_you',
+  'links_about_topics',
+];
+
+/** Returns true if the questionId matches a passive suffix (bare or prefixed). */
+function isPassiveQuestionId(id: string): boolean {
+  if (PASSIVE_SUFFIXES.includes(id)) return true;
+  return PASSIVE_SUFFIXES.some((suffix) => id.endsWith(`_${suffix}`));
 }
 
 function cleanCandidateToken(token: string): string {
@@ -212,25 +241,30 @@ function shouldIncludeProfile(
 
 async function classifyPotentialUrl(url: string): Promise<{
   linkedinUrl: string | null;
+  githubUrl: string | null;
   webUrl: string | null;
 }> {
   const canonical = canonicalizeUrl(url);
   if (isLinkedInProfileUrl(canonical)) {
-    return { linkedinUrl: canonical, webUrl: null };
+    return { linkedinUrl: canonical, githubUrl: null, webUrl: null };
   }
 
   if (isLinkedInShortUrl(canonical)) {
     const resolved = await resolveLinkedInProfileUrl(canonical);
     if (resolved) {
-      return { linkedinUrl: resolved, webUrl: null };
+      return { linkedinUrl: resolved, githubUrl: null, webUrl: null };
     }
   }
 
-  if (shouldSkipWebEnrichmentUrl(canonical)) {
-    return { linkedinUrl: null, webUrl: null };
+  if (isGitHubProfileUrl(canonical)) {
+    return { linkedinUrl: null, githubUrl: canonical, webUrl: null };
   }
 
-  return { linkedinUrl: null, webUrl: canonical };
+  if (shouldSkipWebEnrichmentUrl(canonical)) {
+    return { linkedinUrl: null, githubUrl: null, webUrl: null };
+  }
+
+  return { linkedinUrl: null, githubUrl: null, webUrl: canonical };
 }
 
 export async function loadSubmittedCohort(
@@ -319,21 +353,29 @@ async function normalizeProfile(
 ): Promise<NormalizedTedxProfile> {
   const answerMap = new Map(answers.map((answer) => [answer.questionId, answer]));
 
-  const resumeMarkdown = answerMap.get('resume')?.answerText?.trim() || null;
-  const linksAboutYou = asStringArray(answerMap.get('links_about_you')?.answerJson);
-  const linksAboutTopicsRaw = asStringArray(answerMap.get('links_about_topics')?.answerJson);
+  const resumeMarkdown = findAnswerBySuffix(answerMap, 'resume')?.answerText?.trim() || null;
+  const linksAboutYou = asStringArray(findAnswerBySuffix(answerMap, 'links_about_you')?.answerJson);
+  const linksAboutTopicsRaw = asStringArray(
+    findAnswerBySuffix(answerMap, 'links_about_topics')?.answerJson
+  );
   const urlCandidates = new Set<string>();
 
   const surveyAnswers: Record<string, string> = {};
   for (const answer of answers) {
-    if (!answer.questionId.startsWith('q')) continue;
+    if (isPassiveQuestionId(answer.questionId)) continue;
     const text = answer.answerText?.trim();
     if (text) {
       surveyAnswers[answer.questionId] = text;
+    } else if (Array.isArray(answer.answerJson)) {
+      const items = answer.answerJson.filter((item): item is string => typeof item === 'string');
+      if (items.length > 0) {
+        surveyAnswers[answer.questionId] = items.join(', ');
+      }
     }
   }
 
   const linkedinUrls: string[] = [];
+  const githubUrls: string[] = [];
   const webUrls: string[] = [];
   const topicTexts: string[] = [];
   let surveyUpdatedAt: Date | null = profile.submittedAt ?? null;
@@ -385,12 +427,26 @@ async function normalizeProfile(
     }
   }
 
+  // Bookshelf books are stored as answerJson string arrays (e.g. "Title - Author").
+  // Include them as topic signals so they flow through synthesis.
+  const bookshelfAnswer = findAnswerBySuffix(answerMap, 'bookshelf');
+  if (bookshelfAnswer && Array.isArray(bookshelfAnswer.answerJson)) {
+    for (const item of bookshelfAnswer.answerJson) {
+      if (typeof item === 'string' && item.trim()) {
+        topicTexts.push(`[Book] ${item.trim()}`);
+      }
+    }
+  }
+
   for (const candidate of urlCandidates) {
     const absolute = toAbsoluteUrl(candidate);
     if (!absolute) continue;
     const classified = await classifyPotentialUrl(absolute);
     if (classified.linkedinUrl) {
       linkedinUrls.push(classified.linkedinUrl);
+    }
+    if (classified.githubUrl) {
+      githubUrls.push(classified.githubUrl);
     }
     if (classified.webUrl) {
       webUrls.push(classified.webUrl);
@@ -408,6 +464,7 @@ async function normalizeProfile(
     linksAboutYou: dedupe(linksAboutYou),
     linksAboutTopicsRaw: dedupe(linksAboutTopicsRaw),
     linkedinUrls: dedupe(linkedinUrls),
+    githubUrls: dedupe(githubUrls),
     webUrls: dedupe(webUrls),
     topicTexts: dedupe(topicTexts),
   };

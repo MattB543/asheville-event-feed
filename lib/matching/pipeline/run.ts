@@ -9,6 +9,7 @@ import {
 import { writeRunExports } from '@/lib/matching/pipeline/export';
 import {
   dispatchClayLinkedinJobs,
+  processGitHubEnrichment,
   processJinaEnrichment,
   seedEnrichmentItems,
   waitForClayResults,
@@ -162,6 +163,8 @@ export async function runTedxMatchingPipeline(
       } else {
         await processJinaEnrichment(runId);
       }
+
+      await processGitHubEnrichment(runId);
     }
 
     let cards: CandidateCard[] = [];

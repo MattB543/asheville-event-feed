@@ -286,6 +286,17 @@ export async function POST(request: NextRequest) {
           } else {
             answerJson = items;
           }
+        } else if (question.inputType === 'multi_image') {
+          // multi_image stores the AI-transcribed book list as answerJson
+          // (array of strings like "Title - Author")
+          const rawList = isStringArray(answer.answerJson) ? answer.answerJson : [];
+          const items = rawList.map((value) => value.trim()).filter((value) => value.length > 0);
+
+          if (items.length === 0) {
+            shouldDelete = true;
+          } else {
+            answerJson = items;
+          }
         } else if (question.inputType === 'slider') {
           const text = typeof answer.answerText === 'string' ? answer.answerText.trim() : '';
           const sliderMin = config.sliderMin ?? 0;

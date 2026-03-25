@@ -29,6 +29,7 @@ import {
   getQuestionOptionLabel,
   parseMatchingQuestionConfig,
   type MatchingInputType,
+  type MatchingQuestionOption,
   type MatchingSurveyPhaseKey,
 } from '@/lib/matching/questions';
 import { getMatchingProgramConfig, type MatchingProgram } from '@/lib/matching/programs';
@@ -91,6 +92,7 @@ interface ProfileResponse {
 interface MatchingOnboardingClientProps {
   program: MatchingProgram;
   currentStep: MatchingFlowStep;
+  viewerUserId: string;
   defaultDisplayName: string;
   defaultEmail: string | null;
   entrySource?: string | null;
@@ -127,9 +129,37 @@ function getChoiceGridClass(optionCount: number, configuredColumns?: number): st
   return 'flex flex-wrap gap-2 sm:grid sm:gap-3 sm:grid-cols-2';
 }
 
+function hashString(value: string): number {
+  let hash = 2166136261;
+
+  for (let i = 0; i < value.length; i += 1) {
+    hash ^= value.charCodeAt(i);
+    hash = Math.imul(hash, 16777619);
+  }
+
+  return hash >>> 0;
+}
+
+function getSeededOptionOrder(
+  options: MatchingQuestionOption[],
+  seed: string
+): MatchingQuestionOption[] {
+  if (options.length < 2) return options;
+
+  return options
+    .map((option, index) => ({
+      option,
+      index,
+      score: hashString(`${seed}:${option.value}`),
+    }))
+    .sort((a, b) => a.score - b.score || a.index - b.index)
+    .map(({ option }) => option);
+}
+
 export default function MatchingOnboardingClient({
   program,
   currentStep,
+  viewerUserId,
   defaultDisplayName,
   defaultEmail,
   entrySource,
@@ -173,6 +203,16 @@ export default function MatchingOnboardingClient({
   const getQuestionConfig = useCallback(
     (question: MatchingQuestion) => parseMatchingQuestionConfig(question.configJson),
     []
+  );
+  const getOrderedChoiceOptions = useCallback(
+    (question: MatchingQuestion, options: MatchingQuestionOption[]) => {
+      if (question.inputType !== 'single_select' && question.inputType !== 'multi_select') {
+        return options;
+      }
+
+      return getSeededOptionOrder(options, `${viewerUserId}:${program}:${question.id}`);
+    },
+    [program, viewerUserId]
   );
 
   const passiveQuestions = useMemo(
@@ -1005,7 +1045,7 @@ export default function MatchingOnboardingClient({
     }
 
     if (question.inputType === 'single_select') {
-      const options = config.options ?? [];
+      const options = getOrderedChoiceOptions(question, config.options ?? []);
       const selectedValue = questionAnswer?.answerText ?? '';
       const choiceGridClass = getChoiceGridClass(options.length, config.gridColumns);
 
@@ -1048,7 +1088,10 @@ export default function MatchingOnboardingClient({
     }
 
     if (question.inputType === 'multi_select' || question.inputType === 'ranking') {
-      const options = config.options ?? [];
+      const options =
+        question.inputType === 'ranking'
+          ? (config.options ?? [])
+          : getOrderedChoiceOptions(question, config.options ?? []);
       const selectedValues = Array.isArray(questionAnswer?.answerJson)
         ? questionAnswer.answerJson
         : [];

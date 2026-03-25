@@ -42,6 +42,7 @@ export default async function MatchingStepPage({
           <MatchingOnboardingClient
             program={program}
             currentStep={step}
+            viewerUserId={user.id}
             defaultDisplayName={getDefaultDisplayName(user)}
             defaultEmail={user.email ?? null}
             entrySource={entrySource}

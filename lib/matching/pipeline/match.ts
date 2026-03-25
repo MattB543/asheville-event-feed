@@ -4,7 +4,8 @@ import { callAzureJson } from '@/lib/matching/pipeline/llm';
 import { getAzureDeploymentName } from '@/lib/ai/provider-clients';
 import type { CandidateCard, MatchEntry } from '@/lib/matching/pipeline/types';
 
-const MATCH_PROMPT_VERSION = 'tedx-match-v2';
+const MATCH_PROMPT_VERSION = 'tedx-match-v3';
+const MATCHES_PER_PROFILE = 5;
 
 function asNumber(value: unknown): number | null {
   if (typeof value === 'number' && Number.isFinite(value)) return value;
@@ -73,7 +74,7 @@ function validateMatches(
     deduped.push(entry);
     seen.add(profileId);
 
-    if (deduped.length >= 3) break;
+    if (deduped.length >= MATCHES_PER_PROFILE) break;
   }
 
   return deduped.map((entry, index) => ({ ...entry, rank: index + 1 }));
@@ -108,7 +109,7 @@ function buildMatchPrompt(
 }
 
 Rules:
-- Select exactly 3 unique matches.
+- Select exactly ${MATCHES_PER_PROFILE} unique matches.
 - Never include the target profile.
 - Use concrete details from both cards.
 - Avoid prestige bias and generic networking language.
@@ -163,8 +164,10 @@ async function generateOneMatchSet(
   });
 
   const parsed = validateMatches(raw, target.profileId, new Set(candidateMap.keys()));
-  if (parsed.length !== 3) {
-    throw new Error(`Model returned ${parsed.length} valid matches instead of 3`);
+  if (parsed.length !== MATCHES_PER_PROFILE) {
+    throw new Error(
+      `Model returned ${parsed.length} valid matches instead of ${MATCHES_PER_PROFILE}`
+    );
   }
 
   return parsed.map((match) => ({
@@ -195,7 +198,7 @@ export async function generateTopMatches(
 
   for (const target of cards) {
     const candidates = cards.filter((candidate) => candidate.profileId !== target.profileId);
-    if (candidates.length < 3) {
+    if (candidates.length < MATCHES_PER_PROFILE) {
       failed += 1;
       continue;
     }

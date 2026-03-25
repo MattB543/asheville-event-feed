@@ -51,6 +51,7 @@
     "matching:tedx": "tsx scripts/tedx-matching.ts",
     "matching:email": "tsx scripts/send-tedx-match-emails.ts",
     "matching:draft-email": "tsx scripts/send-tedx-draft-profile-emails.ts",
+    "matching:tomorrow-email": "tsx scripts/send-tedx-tomorrow-emails.ts",
     "matching:cleanup": "tsx scripts/cleanup-matching-enrichment.ts",
     "format": "prettier --write \"app/**\" \"components/**\" \"lib/**\" \"scripts/**/*.ts\" \".github/**/*.yml\" \"*.json\" \"*.md\" \"*.ts\" \"*.mjs\"",
     "format:check": "prettier --check \"app/**\" \"components/**\" \"lib/**\" \"scripts/**/*.ts\" \".github/**/*.yml\" \"*.json\" \"*.md\" \"*.ts\" \"*.mjs\"",

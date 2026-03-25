@@ -1,4 +1,4 @@
-import { and, eq, inArray, isNull, sql } from 'drizzle-orm';
+import { and, desc, eq, inArray, isNull, ne, sql } from 'drizzle-orm';
 import { lookup } from 'dns/promises';
 import { isIP } from 'net';
 import { db } from '@/lib/db';
@@ -72,6 +72,49 @@ function normalizeJinaMarkdown(markdown: string): string {
   return squashed.slice(0, JINA_NORMALIZED_MAX_CHARS);
 }
 
+function sameSurveySnapshotCondition(
+  value: Date | null,
+  column: typeof matchingEnrichmentItems.sourceSurveyUpdatedAt
+) {
+  return value ? eq(column, value) : isNull(column);
+}
+
+async function findReusableCompletedEnrichmentItem(args: {
+  runId: string;
+  profileId: string;
+  sourceKind: 'linkedin' | 'url' | 'github' | 'topic_text';
+  provider: 'clay' | 'jina' | 'github' | 'manual';
+  sourceHash: string;
+  sourceSurveyUpdatedAt: Date | null;
+}) {
+  const [row] = await db
+    .select({
+      normalizedText: matchingEnrichmentItems.normalizedText,
+      rawPayload: matchingEnrichmentItems.rawPayload,
+      httpStatus: matchingEnrichmentItems.httpStatus,
+      errorText: matchingEnrichmentItems.errorText,
+    })
+    .from(matchingEnrichmentItems)
+    .where(
+      and(
+        ne(matchingEnrichmentItems.runId, args.runId),
+        eq(matchingEnrichmentItems.profileId, args.profileId),
+        eq(matchingEnrichmentItems.sourceKind, args.sourceKind),
+        eq(matchingEnrichmentItems.provider, args.provider),
+        eq(matchingEnrichmentItems.sourceHash, args.sourceHash),
+        eq(matchingEnrichmentItems.status, 'completed'),
+        sameSurveySnapshotCondition(
+          args.sourceSurveyUpdatedAt,
+          matchingEnrichmentItems.sourceSurveyUpdatedAt
+        )
+      )
+    )
+    .orderBy(desc(matchingEnrichmentItems.updatedAt), desc(matchingEnrichmentItems.createdAt))
+    .limit(1);
+
+  return row ?? null;
+}
+
 async function upsertEnrichmentItem(args: {
   runId: string;
   profileId: string;
@@ -83,6 +126,8 @@ async function upsertEnrichmentItem(args: {
   normalizedText?: string | null;
   rawPayload?: unknown;
   errorText?: string | null;
+  httpStatus?: number | null;
+  externalId?: string | null;
 }) {
   const now = new Date();
   const hash = sourceHash(args.sourceValue);
@@ -114,6 +159,15 @@ async function upsertEnrichmentItem(args: {
     existing.status === 'completed';
 
   if (!existing) {
+    const reusable = await findReusableCompletedEnrichmentItem({
+      runId: args.runId,
+      profileId: args.profileId,
+      sourceKind: args.sourceKind,
+      provider: args.provider,
+      sourceHash: hash,
+      sourceSurveyUpdatedAt: args.sourceSurveyUpdatedAt,
+    });
+
     await db.insert(matchingEnrichmentItems).values({
       runId: args.runId,
       profileId: args.profileId,
@@ -121,11 +175,14 @@ async function upsertEnrichmentItem(args: {
       sourceValue: args.sourceValue,
       sourceHash: hash,
       provider: args.provider,
-      status: args.status,
+      status: reusable ? 'completed' : args.status,
       sourceSurveyUpdatedAt: args.sourceSurveyUpdatedAt,
-      normalizedText: args.normalizedText ?? null,
-      rawPayload: args.rawPayload ?? null,
-      errorText: args.errorText ?? null,
+      normalizedText: reusable?.normalizedText ?? args.normalizedText ?? null,
+      rawPayload: reusable?.rawPayload ?? args.rawPayload ?? null,
+      errorText: reusable?.errorText ?? args.errorText ?? null,
+      httpStatus: reusable?.httpStatus ?? args.httpStatus ?? null,
+      // Reused rows were not dispatched in this run, so keep externalId empty.
+      externalId: reusable ? null : (args.externalId ?? null),
       createdAt: now,
       updatedAt: now,
     });
@@ -158,8 +215,8 @@ async function upsertEnrichmentItem(args: {
       normalizedText: args.normalizedText ?? null,
       rawPayload: args.rawPayload ?? null,
       errorText: args.errorText ?? null,
-      externalId: null,
-      httpStatus: null,
+      externalId: args.externalId ?? null,
+      httpStatus: args.httpStatus ?? null,
       updatedAt: now,
     })
     .where(eq(matchingEnrichmentItems.id, existing.id));

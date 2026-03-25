@@ -1,4 +1,4 @@
-import { and, eq } from 'drizzle-orm';
+import { and, desc, eq, isNull, ne } from 'drizzle-orm';
 import { db } from '@/lib/db';
 import { matchingProfileCards, matchingProfileReports } from '@/lib/db/schema';
 import { callAzureJson } from '@/lib/matching/pipeline/llm';
@@ -55,6 +55,15 @@ function isSameInstant(a: Date | null, b: Date | null): boolean {
   if (!a && !b) return true;
   if (!a || !b) return false;
   return a.getTime() === b.getTime();
+}
+
+function sameSurveySnapshotCondition(
+  value: Date | null,
+  column:
+    | typeof matchingProfileReports.sourceSurveyUpdatedAt
+    | typeof matchingProfileCards.sourceSurveyUpdatedAt
+) {
+  return value ? eq(column, value) : isNull(column);
 }
 
 function sanitizeProfileReportJson(raw: unknown): SynthesizedProfileReportJson | null {
@@ -312,6 +321,148 @@ async function synthesizeOneCardFromReportWithRepair(
   }
 }
 
+async function findReusableProfileReport(
+  runId: string,
+  profileId: string,
+  sourceSurveyUpdatedAt: Date | null
+) {
+  const [row] = await db
+    .select({
+      reportJson: matchingProfileReports.reportJson,
+      reportText: matchingProfileReports.reportText,
+      model: matchingProfileReports.model,
+    })
+    .from(matchingProfileReports)
+    .where(
+      and(
+        ne(matchingProfileReports.runId, runId),
+        eq(matchingProfileReports.profileId, profileId),
+        eq(matchingProfileReports.promptVersion, PROFILE_REPORT_PROMPT_VERSION),
+        sameSurveySnapshotCondition(
+          sourceSurveyUpdatedAt,
+          matchingProfileReports.sourceSurveyUpdatedAt
+        )
+      )
+    )
+    .orderBy(desc(matchingProfileReports.updatedAt), desc(matchingProfileReports.createdAt))
+    .limit(1);
+
+  const reportJson = row?.reportJson ? sanitizeProfileReportJson(row.reportJson) : null;
+  if (!row || !reportJson) return null;
+
+  return {
+    reportJson,
+    reportText: row.reportText,
+    model: row.model,
+  };
+}
+
+async function upsertProfileReportRow(args: {
+  runId: string;
+  profileId: string;
+  sourceSurveyUpdatedAt: Date | null;
+  reportJson: SynthesizedProfileReportJson;
+  reportText: string;
+  model: string;
+  now: Date;
+}) {
+  await db
+    .insert(matchingProfileReports)
+    .values({
+      runId: args.runId,
+      profileId: args.profileId,
+      sourceSurveyUpdatedAt: args.sourceSurveyUpdatedAt,
+      reportJson: args.reportJson,
+      reportText: args.reportText,
+      model: args.model,
+      promptVersion: PROFILE_REPORT_PROMPT_VERSION,
+      createdAt: args.now,
+      updatedAt: args.now,
+    })
+    .onConflictDoUpdate({
+      target: [matchingProfileReports.runId, matchingProfileReports.profileId],
+      set: {
+        sourceSurveyUpdatedAt: args.sourceSurveyUpdatedAt,
+        reportJson: args.reportJson,
+        reportText: args.reportText,
+        model: args.model,
+        promptVersion: PROFILE_REPORT_PROMPT_VERSION,
+        updatedAt: args.now,
+      },
+    });
+}
+
+async function findReusableProfileCard(
+  runId: string,
+  profileId: string,
+  sourceSurveyUpdatedAt: Date | null
+) {
+  const [row] = await db
+    .select({
+      cardJson: matchingProfileCards.cardJson,
+      cardText: matchingProfileCards.cardText,
+      model: matchingProfileCards.model,
+    })
+    .from(matchingProfileCards)
+    .where(
+      and(
+        ne(matchingProfileCards.runId, runId),
+        eq(matchingProfileCards.profileId, profileId),
+        eq(matchingProfileCards.promptVersion, CARD_PROMPT_VERSION),
+        sameSurveySnapshotCondition(
+          sourceSurveyUpdatedAt,
+          matchingProfileCards.sourceSurveyUpdatedAt
+        )
+      )
+    )
+    .orderBy(desc(matchingProfileCards.updatedAt), desc(matchingProfileCards.createdAt))
+    .limit(1);
+
+  const cardJson = row?.cardJson ? sanitizeCardJson(row.cardJson) : null;
+  if (!row || !cardJson) return null;
+
+  return {
+    cardJson,
+    cardText: row.cardText,
+    model: row.model,
+  };
+}
+
+async function upsertProfileCardRow(args: {
+  runId: string;
+  profileId: string;
+  sourceSurveyUpdatedAt: Date | null;
+  cardJson: SynthesizedCardJson;
+  cardText: string;
+  model: string;
+  now: Date;
+}) {
+  await db
+    .insert(matchingProfileCards)
+    .values({
+      runId: args.runId,
+      profileId: args.profileId,
+      sourceSurveyUpdatedAt: args.sourceSurveyUpdatedAt,
+      cardJson: args.cardJson,
+      cardText: args.cardText,
+      model: args.model,
+      promptVersion: CARD_PROMPT_VERSION,
+      createdAt: args.now,
+      updatedAt: args.now,
+    })
+    .onConflictDoUpdate({
+      target: [matchingProfileCards.runId, matchingProfileCards.profileId],
+      set: {
+        sourceSurveyUpdatedAt: args.sourceSurveyUpdatedAt,
+        cardJson: args.cardJson,
+        cardText: args.cardText,
+        model: args.model,
+        promptVersion: CARD_PROMPT_VERSION,
+        updatedAt: args.now,
+      },
+    });
+}
+
 export async function buildProfileCards(
   runId: string,
   profiles: NormalizedTedxProfile[]
@@ -327,7 +478,7 @@ export async function buildProfileCards(
       github: [],
       topics: [],
     };
-    const model = getAzureDeploymentName();
+    const defaultModel = getAzureDeploymentName();
     const [existingReport] = await db
       .select({
         promptVersion: matchingProfileReports.promptVersion,
@@ -361,15 +512,7 @@ export async function buildProfileCards(
       (shouldReuseReport || shouldBackfillReportSnapshot) && existingReport?.reportJson
         ? sanitizeProfileReportJson(existingReport.reportJson)
         : null;
-
-    const reportJson = existingReportJson
-      ? existingReportJson
-      : await synthesizeOneProfileReportWithRepair(profile, enrichment).catch((error) => {
-          const message = error instanceof Error ? error.message : String(error);
-          throw new Error(
-            `Failed to synthesize profile report for ${profile.profileId}: ${message}`
-          );
-        });
+    let reportJson = existingReportJson;
 
     if (shouldBackfillReportSnapshot) {
       await db
@@ -384,30 +527,47 @@ export async function buildProfileCards(
           )
         );
     } else if (!shouldReuseReport) {
-      await db
-        .insert(matchingProfileReports)
-        .values({
+      const reusableReport = await findReusableProfileReport(
+        runId,
+        profile.profileId,
+        profile.surveyUpdatedAt
+      );
+
+      if (reusableReport) {
+        reportJson = reusableReport.reportJson;
+        await upsertProfileReportRow({
+          runId,
+          profileId: profile.profileId,
+          sourceSurveyUpdatedAt: profile.surveyUpdatedAt,
+          reportJson,
+          reportText: reusableReport.reportText,
+          model: reusableReport.model,
+          now,
+        });
+      } else {
+        reportJson = await synthesizeOneProfileReportWithRepair(profile, enrichment).catch(
+          (error) => {
+            const message = error instanceof Error ? error.message : String(error);
+            throw new Error(
+              `Failed to synthesize profile report for ${profile.profileId}: ${message}`
+            );
+          }
+        );
+
+        await upsertProfileReportRow({
           runId,
           profileId: profile.profileId,
           sourceSurveyUpdatedAt: profile.surveyUpdatedAt,
           reportJson,
           reportText: reportJson.report_text,
-          model,
-          promptVersion: PROFILE_REPORT_PROMPT_VERSION,
-          createdAt: now,
-          updatedAt: now,
-        })
-        .onConflictDoUpdate({
-          target: [matchingProfileReports.runId, matchingProfileReports.profileId],
-          set: {
-            sourceSurveyUpdatedAt: profile.surveyUpdatedAt,
-            reportJson,
-            reportText: reportJson.report_text,
-            model,
-            promptVersion: PROFILE_REPORT_PROMPT_VERSION,
-            updatedAt: now,
-          },
+          model: defaultModel,
+          now,
         });
+      }
+    }
+
+    if (!reportJson) {
+      throw new Error(`Missing profile report for ${profile.profileId}`);
     }
 
     const [existingCard] = await db
@@ -447,37 +607,42 @@ export async function buildProfileCards(
           )
         );
     } else if (!shouldReuseCard) {
-      const cardJson = await synthesizeOneCardFromReportWithRepair(profile, reportJson).catch(
-        (error) => {
-          const message = error instanceof Error ? error.message : String(error);
-          throw new Error(`Failed to synthesize profile card for ${profile.profileId}: ${message}`);
-        }
+      const reusableCard = await findReusableProfileCard(
+        runId,
+        profile.profileId,
+        profile.surveyUpdatedAt
       );
 
-      await db
-        .insert(matchingProfileCards)
-        .values({
+      if (reusableCard) {
+        await upsertProfileCardRow({
+          runId,
+          profileId: profile.profileId,
+          sourceSurveyUpdatedAt: profile.surveyUpdatedAt,
+          cardJson: reusableCard.cardJson,
+          cardText: reusableCard.cardText,
+          model: reusableCard.model,
+          now,
+        });
+      } else {
+        const cardJson = await synthesizeOneCardFromReportWithRepair(profile, reportJson).catch(
+          (error) => {
+            const message = error instanceof Error ? error.message : String(error);
+            throw new Error(
+              `Failed to synthesize profile card for ${profile.profileId}: ${message}`
+            );
+          }
+        );
+
+        await upsertProfileCardRow({
           runId,
           profileId: profile.profileId,
           sourceSurveyUpdatedAt: profile.surveyUpdatedAt,
           cardJson,
           cardText: cardJson.card_text,
-          model,
-          promptVersion: CARD_PROMPT_VERSION,
-          createdAt: now,
-          updatedAt: now,
-        })
-        .onConflictDoUpdate({
-          target: [matchingProfileCards.runId, matchingProfileCards.profileId],
-          set: {
-            sourceSurveyUpdatedAt: profile.surveyUpdatedAt,
-            cardJson,
-            cardText: cardJson.card_text,
-            model,
-            promptVersion: CARD_PROMPT_VERSION,
-            updatedAt: now,
-          },
+          model: defaultModel,
+          now,
         });
+      }
     }
   }
 

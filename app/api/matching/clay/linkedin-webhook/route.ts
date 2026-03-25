@@ -202,25 +202,47 @@ export async function POST(request: Request) {
           .limit(1)
       : [];
 
-    const [fallbackItem] = !runScopedItem
-      ? await db
-          .select({
-            id: matchingEnrichmentItems.id,
-          })
-          .from(matchingEnrichmentItems)
-          .innerJoin(matchingProfiles, eq(matchingEnrichmentItems.profileId, matchingProfiles.id))
-          .where(
-            and(
-              eq(matchingProfiles.userId, userUid),
-              eq(matchingEnrichmentItems.provider, 'clay'),
-              eq(matchingEnrichmentItems.sourceHash, linkedinSourceHash)
+    const [externalIdItem] =
+      !runScopedItem && externalId
+        ? await db
+            .select({
+              id: matchingEnrichmentItems.id,
+            })
+            .from(matchingEnrichmentItems)
+            .innerJoin(matchingProfiles, eq(matchingEnrichmentItems.profileId, matchingProfiles.id))
+            .where(
+              and(
+                eq(matchingProfiles.userId, userUid),
+                eq(matchingEnrichmentItems.provider, 'clay'),
+                eq(matchingEnrichmentItems.sourceHash, linkedinSourceHash),
+                eq(matchingEnrichmentItems.externalId, externalId)
+              )
             )
-          )
-          .orderBy(desc(matchingEnrichmentItems.updatedAt))
-          .limit(1)
-      : [];
+            .orderBy(desc(matchingEnrichmentItems.updatedAt))
+            .limit(1)
+        : [];
 
-    const targetItem = runScopedItem ?? fallbackItem;
+    const [fallbackItem] =
+      !runScopedItem && !externalIdItem
+        ? await db
+            .select({
+              id: matchingEnrichmentItems.id,
+            })
+            .from(matchingEnrichmentItems)
+            .innerJoin(matchingProfiles, eq(matchingEnrichmentItems.profileId, matchingProfiles.id))
+            .where(
+              and(
+                eq(matchingProfiles.userId, userUid),
+                eq(matchingEnrichmentItems.provider, 'clay'),
+                eq(matchingEnrichmentItems.sourceHash, linkedinSourceHash),
+                eq(matchingEnrichmentItems.status, 'pending')
+              )
+            )
+            .orderBy(desc(matchingEnrichmentItems.updatedAt))
+            .limit(1)
+        : [];
+
+    const targetItem = runScopedItem ?? externalIdItem ?? fallbackItem;
     if (!targetItem) {
       return NextResponse.json(
         { success: false, error: 'No matching enrichment row found for callback' },

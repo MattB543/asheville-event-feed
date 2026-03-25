@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { ArrowRight, Users } from 'lucide-react';
@@ -88,7 +89,19 @@ export default async function MatchingLandingPage({ program }: MatchingLandingPa
               ))}
             </div>
 
-            <div className="mt-8">
+            {config.exampleMatchImage && (
+              <div className="mt-2">
+                <Image
+                  src={config.exampleMatchImage}
+                  alt="Example match result showing a personalized match with conversation starter"
+                  width={561}
+                  height={280}
+                  className="rounded-lg max-w-[561.5px] mx-auto w-full"
+                />
+              </div>
+            )}
+
+            <div className="mt-8 flex justify-end">
               <Link
                 href={ctaHref}
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-brand-600 hover:bg-brand-700 text-white font-medium transition-colors"

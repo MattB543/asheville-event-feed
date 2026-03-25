@@ -8,6 +8,8 @@ import {
   generateTedxMatchesEmailText,
 } from '../lib/notifications/matching-email-templates';
 
+const MATCHES_TO_SHOW = 5;
+
 type CliOptions = {
   program: string;
   runId: string | null;
@@ -69,7 +71,7 @@ function readMatches(matchesJson: unknown): MatchEmailEntry[] {
     parsed.push({ name, whyMatch, conversationStarter, rank });
   }
 
-  return parsed.sort((a, b) => a.rank - b.rank).slice(0, 3);
+  return parsed.sort((a, b) => a.rank - b.rank).slice(0, MATCHES_TO_SHOW);
 }
 
 async function resolveRunId(options: CliOptions): Promise<string> {
@@ -135,7 +137,7 @@ async function main() {
       continue;
     }
 
-    const subject = 'Your TEDx Asheville Top 3 Matches';
+    const subject = 'Your TEDx Asheville Top 5 Matches';
     const htmlBody = generateTedxMatchesEmailHtml({
       recipientName: row.displayName,
       matches,

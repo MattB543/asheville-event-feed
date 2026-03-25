@@ -1525,8 +1525,20 @@ export default function MatchingOnboardingClient({
                   ))}
                 </ul>
               </div>
-              <p>{programConfig.introClosing}</p>
+              {programConfig.introClosing && <p>{programConfig.introClosing}</p>}
             </div>
+
+            {programConfig.exampleMatchImage && (
+              <div>
+                <Image
+                  src={programConfig.exampleMatchImage}
+                  alt="Example match result showing a personalized match with conversation starter"
+                  width={561}
+                  height={280}
+                  className="rounded-lg max-w-[561.5px] mx-auto w-full"
+                />
+              </div>
+            )}
 
             <div className="flex items-center justify-between">
               <Link

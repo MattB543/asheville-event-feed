@@ -1,5 +1,3 @@
-import { env } from '@/lib/config/env';
-
 interface MatchEmailEntry {
   name: string;
   whyMatch: string;
@@ -57,7 +55,6 @@ function renderMatchCard(match: MatchEmailEntry, rank: number): string {
 }
 
 export function generateTedxMatchesEmailHtml(options: MatchingEmailOptions): string {
-  const appUrl = env.NEXT_PUBLIC_APP_URL;
   const greetingName = firstName(options.recipientName);
   const cards = options.matches.map((match, idx) => renderMatchCard(match, idx + 1)).join('');
 
@@ -67,7 +64,7 @@ export function generateTedxMatchesEmailHtml(options: MatchingEmailOptions): str
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Your TEDx Asheville Matches</title>
+  <title>Your TEDxAsheville Top 5 Matches</title>
 </head>
 <body style="margin: 0; padding: 0; background-color: #f3f4f6; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">
   <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background-color: #f3f4f6;">
@@ -76,11 +73,8 @@ export function generateTedxMatchesEmailHtml(options: MatchingEmailOptions): str
         <table role="presentation" width="600" cellspacing="0" cellpadding="0" style="max-width: 600px; width: 100%; background-color: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);">
           <tr>
             <td style="background: linear-gradient(135deg, #0f766e 0%, #0e7490 100%); padding: 32px 24px; text-align: center;">
-              <a href="${appUrl}" style="text-decoration: none;">
-                <img src="${appUrl}/avlgo_banner_logo_v2.svg" alt="AVL GO" width="120" style="max-width: 120px; height: auto;" />
-              </a>
               <h1 style="color: #ffffff; font-size: 24px; font-weight: 700; margin: 16px 0 0 0;">
-                Your TEDx Asheville Top 3 Matches
+                Your TEDxAsheville Top 5 Matches
               </h1>
             </td>
           </tr>
@@ -91,7 +85,7 @@ export function generateTedxMatchesEmailHtml(options: MatchingEmailOptions): str
                 Hey ${escapeHtml(greetingName)},
               </p>
               <p style="color: #374151; font-size: 16px; line-height: 1.6; margin: 12px 0 0 0;">
-                Based on your TEDx Asheville matching profile, here are three people you are likely to have a strong conversation with:
+                Based on your TEDx Asheville matching profile, here are five people you are likely to have a strong conversation with.
               </p>
             </td>
           </tr>
@@ -135,7 +129,7 @@ export function generateTedxMatchesEmailText(options: MatchingEmailOptions): str
   return [
     `Hey ${greetingName},`,
     '',
-    'Here are your TEDx Asheville Top 3 matches:',
+    'Here are your TEDx Asheville Top 5 matches:',
     '',
     ...lines.join('\n\n').split('\n'),
   ].join('\n');

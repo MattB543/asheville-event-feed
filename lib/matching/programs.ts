@@ -50,6 +50,7 @@ export interface MatchingProgramConfig {
   flowPageTitlePrefix: string;
   flowPageDescription: string;
   landingSource: string;
+  exampleMatchImage?: string;
   matchesEvent: (event: { title?: string | null; organizer?: string | null }) => boolean;
 }
 
@@ -133,9 +134,10 @@ export const MATCHING_PROGRAM_CONFIGS: Record<MatchingProgram, MatchingProgramCo
     landingDescription: 'Find the people you will actually want to meet at Switchyards.',
     landingEyebrow: '',
     landingBody: [
-      "Meet up with Switchyards members on Sat April 11th at 4:30 PM - we'll analyze all surveys and match you with the people you are most likely to enjoy chatting with.",
-      'The survey should be fun and introspective, all questions are optional, but the more you provide the better. Use desktop over mobile if possible (we ask you to drop links).',
-      'Your raw answers stay private. They are used only to build stronger introductions and matches for this event.',
+      'Switchyards Vibe Match is a meetup for Switchyards members and guests on Sat April 11th at 4:30 PM.',
+      "Take a short survey about your interests, energy, and personality. We will use AI to match you with 3 attendees you'd vibe with, then at the event you will have three 10-minute conversations with your matches plus plenty of time to mingle.",
+      'The survey is fun and introspective. All questions are optional, but the more you share the better your matches will be. Use desktop over mobile if possible.',
+      'Your raw answers stay private. They are used only to build stronger introductions and matches for this event (example below). Questions? Email hi@avlgo.com',
     ],
     onboardingTitle: 'Switchyards Vibe Match',
     onboardingDescription: 'Switchyards Vibe Match attendee matching setup flow.',
@@ -147,10 +149,10 @@ export const MATCHING_PROGRAM_CONFIGS: Record<MatchingProgram, MatchingProgramCo
       'Give us a quick read on your energy, interests, and personality. Then add as much extra texture as you want. The system uses that signal to spot the people you should meet.',
     outcomeHeading: 'What To Expect',
     outcomeBody:
-      'We will mix and mingle a bit to formally meet other Switchyard members you see every day. Then there will be three 10 minute conversations with your top matches. Then whoever wants to stick around can grab drinks and food at Funkatorium.',
+      'We will mix and mingle a bit to formally meet other Switchyard members you see every day. Then there will be three 10 minute conversations with your top matches. Then whoever wants to stick around can grab drinks and food at Funkatorium. Questions? Email hi@avlgo.com',
     privacyHeading: 'Your Privacy',
     privacyPoints: [
-      'Your raw answers are not shown directly to other attendees.',
+      'Your raw answers are not shown directly to other attendees. Example match shown below.',
       "We use your data only for the Vibe Match flow, we don't share it.",
       'Every question is optional, you control how much context you share.',
     ],
@@ -197,6 +199,7 @@ export const MATCHING_PROGRAM_CONFIGS: Record<MatchingProgram, MatchingProgramCo
     eventCtaLabel: 'Open Vibe Match',
     flowPageTitlePrefix: 'Switchyards Vibe Match',
     flowPageDescription: 'Switchyards Vibe Match attendee matching setup flow.',
+    exampleMatchImage: '/example-match.png',
     landingSource: 'vibe_landing',
     matchesEvent: ({ title, organizer }) => {
       const normalizedTitle = title?.toLowerCase() ?? '';

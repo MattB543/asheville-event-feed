@@ -12,6 +12,7 @@ import {
 } from '@/lib/matching/utils';
 import type { MatchingProgram } from '@/lib/matching/programs';
 import type { User } from '@supabase/supabase-js';
+import { toAbsoluteUrl } from '@/lib/matching/pipeline/source';
 
 type IncomingAnswer = {
   questionId: string;
@@ -26,18 +27,18 @@ class ValidationError extends Error {
   }
 }
 
-function isValidUrl(value: string): boolean {
-  try {
-    const url = new URL(value);
-    return url.protocol === 'http:' || url.protocol === 'https:';
-  } catch {
-    return false;
-  }
+function normalizeUrlValue(value: string): string | null {
+  return toAbsoluteUrl(value.trim());
 }
 
 function normalizeUrlList(values: string[]): { urls: string[] } {
-  const trimmed = values.map((value) => value.trim()).filter((value) => value.length > 0);
-  const urls = Array.from(new Set(trimmed.filter((value) => isValidUrl(value))));
+  const urls = Array.from(
+    new Set(
+      values
+        .map((value) => normalizeUrlValue(value))
+        .filter((value): value is string => typeof value === 'string' && value.length > 0)
+    )
+  );
   return { urls };
 }
 
@@ -213,14 +214,15 @@ export async function POST(request: NextRequest) {
           }
         } else if (question.inputType === 'url') {
           const text = typeof answer.answerText === 'string' ? answer.answerText.trim() : '';
+          const normalizedUrl = normalizeUrlValue(text);
           if (!text) {
             shouldDelete = true;
-          } else if (!isValidUrl(text)) {
-            // Silently treat incomplete/invalid URLs as empty during draft autosave
-            // so users don't see "Autosave failed" while still typing a URL
+          } else if (!normalizedUrl) {
+            // Silently treat incomplete/invalid URLs as empty during draft autosave.
+            // Bare domains like github.com/user are normalized to https://... instead.
             shouldDelete = true;
           } else {
-            answerText = text;
+            answerText = normalizedUrl;
           }
         } else if (question.inputType === 'multi_url') {
           const rawList = isStringArray(answer.answerJson)

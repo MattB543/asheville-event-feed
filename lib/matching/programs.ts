@@ -135,7 +135,7 @@ export const MATCHING_PROGRAM_CONFIGS: Record<MatchingProgram, MatchingProgramCo
     landingEyebrow: '',
     landingBody: [
       'Switchyards Vibe Match is a meetup for Switchyards members and guests on Sat April 11th at 4:30 PM.',
-      "Take a short survey about your interests, energy, and personality. We will use AI to match you with 3 attendees you'd vibe with, then at the event you will have three 10-minute conversations with your matches plus plenty of time to mingle.",
+      "Answer a short survey about yourself. We'll use AI to match you with 3 attendees you'd vibe with. Then at the event you will have three 10 min conversations with your matches plus plenty of time to mingle.",
       'The survey is fun and introspective. All questions are optional, but the more you share the better your matches will be. Use desktop over mobile if possible.',
       'Your raw answers stay private. They are used only to build stronger introductions and matches for this event (example below). Questions? Email hi@avlgo.com',
     ],
@@ -146,7 +146,7 @@ export const MATCHING_PROGRAM_CONFIGS: Record<MatchingProgram, MatchingProgramCo
       'We are building something fun for Switchyard members: a way to connect you with the people you are most likely to hit it off with.',
     ideaHeading: 'The Idea',
     ideaBody:
-      'Give us a quick read on your energy, interests, and personality. Then add as much extra texture as you want. The system uses that signal to spot the people you should meet.',
+      'Give us a quick read on your vibe. Then add as much extra texture as you want. The system uses that information to match you with the people you should meet.',
     outcomeHeading: 'What To Expect',
     outcomeBody:
       'We will mix and mingle a bit to formally meet other Switchyard members you see every day. Then there will be three 10 minute conversations with your top matches. Then whoever wants to stick around can grab drinks and food at Funkatorium. Questions? Email hi@avlgo.com',

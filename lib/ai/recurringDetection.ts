@@ -47,6 +47,15 @@ export async function checkWeeklyRecurring(
     const normalizedLocation = location?.toLowerCase().trim() || null;
     const normalizedOrganizer = organizer?.toLowerCase().trim() || null;
 
+    const matchMode =
+      normalizedLocation && normalizedOrganizer
+        ? 'location+organizer'
+        : normalizedLocation
+          ? 'location-only'
+          : normalizedOrganizer
+            ? 'organizer-only'
+            : 'title-only';
+
     let venueCondition;
     if (normalizedLocation && normalizedOrganizer) {
       // Match either location or organizer
@@ -79,14 +88,28 @@ export async function checkWeeklyRecurring(
 
     // If no venue/organizer info, require more matches to be confident
     const threshold = !normalizedLocation && !normalizedOrganizer ? 3 : 2;
+    const isWeeklyRecurring = matches.length >= threshold;
+
+    if (isWeeklyRecurring) {
+      console.log(
+        `[AI:Recurring] Detected weekly recurring: "${title.slice(0, 40)}..." - ${matches.length} matches (threshold=${threshold}, mode=${matchMode})`
+      );
+    } else if (matches.length > 0) {
+      console.log(
+        `[AI:Recurring] Below threshold: "${title.slice(0, 40)}..." - ${matches.length}/${threshold} matches (mode=${matchMode})`
+      );
+    }
 
     return {
-      isWeeklyRecurring: matches.length >= threshold,
+      isWeeklyRecurring,
       matchCount: matches.length,
       matchingEventIds: matches.map((m) => m.id),
     };
   } catch (error) {
-    console.error('[RecurringDetection] Error checking weekly recurring:', error);
+    console.error(
+      `[AI:Recurring] Error checking "${title.slice(0, 40)}...":`,
+      error instanceof Error ? error.message : error
+    );
     return {
       isWeeklyRecurring: false,
       matchCount: 0,

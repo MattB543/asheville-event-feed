@@ -33,8 +33,11 @@ import {
   type MatchingSurveyPhaseKey,
 } from '@/lib/matching/questions';
 import { getMatchingProgramConfig, type MatchingProgram } from '@/lib/matching/programs';
+import { getHttpsUrlValidationError } from '@/lib/matching/urlValidation';
 
 const SUPPORT_EMAIL = 'support@avlgo.com';
+const DISPLAY_NAME_FIELD_ID = 'matching-display-name';
+const CONSENT_FIELD_ID = 'matching-consent';
 
 type AnswerState = {
   answerText?: string;
@@ -250,6 +253,21 @@ export default function MatchingOnboardingClient({
         : `row-${Math.random().toString(36).slice(2, 10)}`,
     []
   );
+  const scrollToField = useCallback((fieldKey: string) => {
+    const elementId =
+      fieldKey === 'displayName'
+        ? DISPLAY_NAME_FIELD_ID
+        : fieldKey === 'consent'
+          ? CONSENT_FIELD_ID
+          : fieldKey;
+
+    window.requestAnimationFrame(() => {
+      const element = document.getElementById(elementId);
+      if (!(element instanceof HTMLElement)) return;
+      element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      element.focus({ preventScroll: true });
+    });
+  }, []);
 
   const redirectToLogin = useCallback(() => {
     router.push(`/login?next=${encodeURIComponent(currentPath)}`);
@@ -405,6 +423,12 @@ export default function MatchingOnboardingClient({
           ...update,
         },
       }));
+      setErrors((prev) => {
+        if (!prev[questionId]) return prev;
+        const next = { ...prev };
+        delete next[questionId];
+        return next;
+      });
       answersDirtyRef.current = true;
     },
     [canEdit]
@@ -594,7 +618,7 @@ export default function MatchingOnboardingClient({
     return Object.keys(nextErrors).length === 0;
   }, [aiMatching, displayName]);
 
-  const validateForSubmit = useCallback(() => {
+  const getSubmitValidationErrors = useCallback(() => {
     const nextErrors: Record<string, string> = {};
 
     if (!displayName.trim()) {
@@ -603,10 +627,24 @@ export default function MatchingOnboardingClient({
     if (!aiMatching) {
       nextErrors.consent = 'You must agree before submitting.';
     }
+    questions
+      .filter((question) => question.inputType === 'url')
+      .forEach((question) => {
+        const value = answers[question.id]?.answerText ?? '';
+        const urlError = getHttpsUrlValidationError(value);
+        if (urlError) {
+          nextErrors[question.id] = urlError;
+        }
+      });
 
+    return nextErrors;
+  }, [aiMatching, answers, displayName, questions]);
+
+  const validateForSubmit = useCallback(() => {
+    const nextErrors = getSubmitValidationErrors();
     setErrors(nextErrors);
-    return Object.keys(nextErrors).length === 0;
-  }, [aiMatching, displayName]);
+    return nextErrors;
+  }, [getSubmitValidationErrors]);
 
   const handleResumeUpload = async (file: File, questionId: string) => {
     if (!canEdit) return;
@@ -814,9 +852,23 @@ export default function MatchingOnboardingClient({
   };
 
   const handleSubmitClick = async () => {
-    const isValid = validateForSubmit();
-    if (!isValid) {
-      showToast('Please complete your consent details before submitting.', 'error');
+    const submitErrors = validateForSubmit();
+    if (Object.keys(submitErrors).length > 0) {
+      const firstInvalidField = Object.keys(submitErrors)[0];
+      if (firstInvalidField) {
+        scrollToField(firstInvalidField);
+      }
+      const hasUrlErrors = questions.some(
+        (question) =>
+          question.inputType === 'url' &&
+          !!getHttpsUrlValidationError(answers[question.id]?.answerText ?? '')
+      );
+      showToast(
+        hasUrlErrors
+          ? 'Fix or clear the invalid URL fields before submitting.'
+          : 'Please complete your consent details before submitting.',
+        'error'
+      );
       return;
     }
 
@@ -827,6 +879,32 @@ export default function MatchingOnboardingClient({
     const saved = await saveDraft();
     if (!saved) return;
     setConfirmOpen(true);
+  };
+
+  const handleDoneEditing = async () => {
+    const submitErrors = validateForSubmit();
+    if (Object.keys(submitErrors).length > 0) {
+      const firstInvalidField = Object.keys(submitErrors)[0];
+      if (firstInvalidField) {
+        scrollToField(firstInvalidField);
+      }
+      const hasUrlErrors = questions.some(
+        (question) =>
+          question.inputType === 'url' &&
+          !!getHttpsUrlValidationError(answers[question.id]?.answerText ?? '')
+      );
+      showToast(
+        hasUrlErrors
+          ? 'Fix or clear the invalid URL fields before finishing edits.'
+          : 'Please complete your consent details before finishing edits.',
+        'error'
+      );
+      return;
+    }
+
+    const saved = await saveDraft();
+    if (!saved) return;
+    await goToStep('confirmation', false);
   };
 
   const confirmSubmit = async () => {
@@ -844,7 +922,33 @@ export default function MatchingOnboardingClient({
         return;
       }
 
-      if (!response.ok || !data.profile) {
+      if (!response.ok) {
+        if (
+          response.status === 400 &&
+          Array.isArray((data as { invalidUrls?: unknown }).invalidUrls)
+        ) {
+          const invalidUrlIds = (data as { invalidUrls: unknown[] }).invalidUrls.filter(
+            (value): value is string => typeof value === 'string'
+          );
+          if (invalidUrlIds.length > 0) {
+            setErrors((prev) => {
+              const next = { ...prev };
+              invalidUrlIds.forEach((questionId) => {
+                next[questionId] =
+                  'Enter a complete URL starting with https://, or clear this field.';
+              });
+              return next;
+            });
+            setConfirmOpen(false);
+            scrollToField(invalidUrlIds[0]);
+            showToast('Fix or clear the invalid URL fields before submitting.', 'error');
+            return;
+          }
+        }
+        throw new Error(data.error || 'Failed to submit profile');
+      }
+
+      if (!data.profile) {
         throw new Error(data.error || 'Failed to submit profile');
       }
 
@@ -964,19 +1068,26 @@ export default function MatchingOnboardingClient({
     }
 
     if (question.inputType === 'url') {
+      const fieldError = errors[question.id];
       return (
-        <input
-          type="url"
-          value={questionAnswer?.answerText ?? ''}
-          disabled={!canEdit}
-          onChange={(event) => updateAnswer(question.id, { answerText: event.target.value })}
-          placeholder={config.placeholder || 'https://...'}
-          className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-500 ${
-            canEdit
-              ? 'border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white'
-              : 'border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-500 dark:text-gray-400'
-          }`}
-        />
+        <div className="space-y-1.5">
+          <input
+            id={question.id}
+            type="url"
+            value={questionAnswer?.answerText ?? ''}
+            disabled={!canEdit}
+            onChange={(event) => updateAnswer(question.id, { answerText: event.target.value })}
+            placeholder={config.placeholder || 'https://...'}
+            className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 ${
+              fieldError
+                ? 'border-red-400 focus:ring-red-400 bg-white dark:bg-gray-800 text-gray-900 dark:text-white'
+                : canEdit
+                  ? 'border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-brand-500'
+                  : 'border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-500 dark:text-gray-400 focus:ring-brand-500'
+            }`}
+          />
+          {fieldError && <p className="text-xs text-red-600 dark:text-red-400">{fieldError}</p>}
+        </div>
       );
     }
 
@@ -1620,6 +1731,7 @@ export default function MatchingOnboardingClient({
                 Display name <span className="text-red-500">*</span>
               </label>
               <input
+                id={DISPLAY_NAME_FIELD_ID}
                 type="text"
                 value={displayName}
                 disabled={!canEdit}
@@ -1658,6 +1770,7 @@ export default function MatchingOnboardingClient({
             <div className="rounded-lg border border-gray-200 dark:border-gray-700 p-4">
               <label className="flex items-start gap-3 cursor-pointer">
                 <input
+                  id={CONSENT_FIELD_ID}
                   type="checkbox"
                   checked={aiMatching}
                   disabled={!canEdit}
@@ -1749,7 +1862,7 @@ export default function MatchingOnboardingClient({
 
               {isSubmitted && (
                 <button
-                  onClick={() => void goToStep('confirmation', true)}
+                  onClick={() => void handleDoneEditing()}
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-brand-600 hover:bg-brand-700 text-white font-medium transition-colors cursor-pointer"
                 >
                   Done Editing

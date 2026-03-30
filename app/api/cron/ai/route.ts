@@ -128,7 +128,13 @@ export async function GET(request: Request) {
 
     if (eventsNeedingProcessing.length > 0) {
       const combinedStartTime = Date.now();
-      for (const batch of chunk(eventsNeedingProcessing, 5)) {
+      const batches = chunk(eventsNeedingProcessing, 5);
+      let batchIndex = 0;
+      for (const batch of batches) {
+        batchIndex++;
+        console.log(
+          `[AI] Combined batch ${batchIndex}/${batches.length} (${batch.length} events)...`
+        );
         await Promise.all(
           batch.map(async (event) => {
             try {
@@ -158,17 +164,20 @@ export async function GET(request: Request) {
                 await db.update(events).set(updateData).where(eq(events.id, event.id));
 
                 stats.combined.success++;
-                console.log(
-                  `[AI] Processed "${event.title.slice(0, 40)}..." - ${result.tags.length} tags, summary: ${result.summary ? 'yes' : 'no'}`
-                );
               } else {
                 stats.combined.failed++;
-                console.warn(`[AI] No results for "${event.title.slice(0, 40)}..."`);
+                const reasons: string[] = [];
+                if (needsTags && result.tags.length === 0) reasons.push('tags empty');
+                if (needsSummary && !result.summary) reasons.push('summary null');
+                if (!needsTags && !needsSummary) reasons.push('neither needed');
+                console.warn(
+                  `[AI] Skipped update for "${event.title.slice(0, 40)}..." - ${reasons.join(', ')}`
+                );
               }
             } catch (err) {
               stats.combined.failed++;
               console.error(
-                `[AI] Failed to process "${event.title}":`,
+                `[AI] Failed to process "${event.title.slice(0, 40)}...":`,
                 err instanceof Error ? err.message : err
               );
             }
@@ -179,7 +188,7 @@ export async function GET(request: Request) {
       }
       stats.combined.duration = Date.now() - combinedStartTime;
       console.log(
-        `[AI] Combined pass complete in ${formatDuration(stats.combined.duration)}: ${stats.combined.success}/${stats.combined.total} succeeded`
+        `[AI] Combined pass complete in ${formatDuration(stats.combined.duration)}: ${stats.combined.success}/${stats.combined.total} succeeded, ${stats.combined.failed} failed`
       );
     }
 
@@ -225,16 +234,16 @@ export async function GET(request: Request) {
 
               if (embedding) {
                 await db.update(events).set({ embedding }).where(eq(events.id, event.id));
-
                 stats.embeddings.success++;
-                console.log(`[AI] Generated embedding for "${event.title.slice(0, 40)}..."`);
               } else {
                 stats.embeddings.failed++;
+                // generateEmbedding logs the specific reason (AI disabled, model unavailable, API error)
+                console.warn(`[AI] Embedding returned null for "${event.title.slice(0, 40)}..."`);
               }
             } catch (err) {
               stats.embeddings.failed++;
               console.error(
-                `[AI] Failed to generate embedding for "${event.title}":`,
+                `[AI] Failed to generate embedding for "${event.title.slice(0, 40)}...":`,
                 err instanceof Error ? err.message : err
               );
             }
@@ -245,7 +254,7 @@ export async function GET(request: Request) {
       }
       stats.embeddings.duration = Date.now() - embeddingStartTime;
       console.log(
-        `[AI] Embedding generation complete in ${formatDuration(stats.embeddings.duration)}: ${stats.embeddings.success}/${stats.embeddings.total} succeeded`
+        `[AI] Embedding pass complete in ${formatDuration(stats.embeddings.duration)}: ${stats.embeddings.success}/${stats.embeddings.total} succeeded, ${stats.embeddings.failed} failed`
       );
     }
 
@@ -377,7 +386,7 @@ export async function GET(request: Request) {
 
             stats.scoring.success++;
             console.log(
-              `[AI] Scored "${event.title.slice(0, 30)}...": ${scoreResult.score}/30 (R:${scoreResult.rarity} U:${scoreResult.unique} M:${scoreResult.magnitude} AW:${scoreResult.ashevilleWeird} S:${scoreResult.social})`
+              `[AI] Scored "${event.title.slice(0, 30)}...": ${scoreResult.score}/30 (R:${scoreResult.rarity} U:${scoreResult.unique} M:${scoreResult.magnitude} AW:${scoreResult.ashevilleWeird} S:${scoreResult.social}) [${similarEvents.length} similar]`
             );
           } else {
             stats.scoring.failed++;
@@ -386,17 +395,21 @@ export async function GET(request: Request) {
             if (Object.keys(updateData).length > 0) {
               await db.update(events).set(updateData).where(eq(events.id, event.id));
             }
-            console.warn(`[AI] Applied score fallback for "${event.title.slice(0, 40)}..."`);
+            console.warn(
+              `[AI] Fallback score applied for "${event.title.slice(0, 40)}..." - AI returned null [${similarEvents.length} similar]`
+            );
           }
 
           // Delay between scoring calls (more expensive)
           await new Promise((r) => setTimeout(r, 500));
         } catch (err) {
           stats.scoring.failed++;
-          const fallbackScore = getFallbackEventScore(
+          const isContentFilter =
             err instanceof Error &&
-              (err.message.includes('content_filter') ||
-                err.message.includes('content management policy'))
+            (err.message.includes('content_filter') ||
+              err.message.includes('content management policy'));
+          const fallbackScore = getFallbackEventScore(
+            isContentFilter
               ? 'Fallback score: AI scoring blocked by content filter'
               : 'Fallback score: AI scoring failed'
           );
@@ -404,10 +417,16 @@ export async function GET(request: Request) {
           if (Object.keys(updateData).length > 0) {
             await db.update(events).set(updateData).where(eq(events.id, event.id));
           }
-          console.error(
-            `[AI] Failed to score "${event.title}":`,
-            err instanceof Error ? err.message : err
-          );
+          if (isContentFilter) {
+            console.warn(
+              `[AI] Content filter blocked scoring for "${event.title.slice(0, 40)}..." - fallback applied`
+            );
+          } else {
+            console.error(
+              `[AI] Failed to score "${event.title.slice(0, 40)}...":`,
+              err instanceof Error ? err.message : err
+            );
+          }
         }
       }
 
@@ -428,6 +447,7 @@ export async function GET(request: Request) {
         // Get current top 30 events (use overall category for live notifications)
         const top30Result = await queryTop30Events();
         const currentTop30 = top30Result.overall;
+        console.log(`[AI] Top 30 query returned ${currentTop30.length} events`);
 
         // Get all future event IDs for cleanup (events that have passed can be removed from tracking)
         const now = new Date();
@@ -483,6 +503,10 @@ export async function GET(request: Request) {
           if (authError) {
             console.error('[AI] Failed to fetch auth users:', authError);
           } else {
+            const usersWithEmail = authUsers.users.filter((u) => u.email).length;
+            console.log(
+              `[AI] Fetched ${authUsers.users.length} auth users (${usersWithEmail} with emails)`
+            );
             const userEmailMap = new Map<string, { email: string; name?: string }>();
             authUsers.users.forEach((user) => {
               if (user.email) {
@@ -503,6 +527,9 @@ export async function GET(request: Request) {
               const userInfo = userEmailMap.get(subscriber.userId);
               if (!userInfo) {
                 stats.top30Notifications.skipped++;
+                console.log(
+                  `[AI] Skipped subscriber ${subscriber.userId.slice(0, 8)}... - no email found`
+                );
                 continue;
               }
 
@@ -545,6 +572,9 @@ export async function GET(request: Request) {
                 // No new events for this user - don't update the notified list
                 // (preserves history of all events they've been notified about)
                 stats.top30Notifications.skipped++;
+                console.log(
+                  `[AI] Skipped ${userInfo.email} - no new events (${notifiedIds.size} already notified)`
+                );
                 continue;
               }
 
@@ -656,15 +686,24 @@ export async function GET(request: Request) {
       const imageStartTime = Date.now();
       const DEFAULT_IMAGE = '/asheville-default.jpg';
 
-      // Batch update all events without images
-      const ids = eventsNeedingImages.map((e) => e.id);
-      await db.update(events).set({ imageUrl: DEFAULT_IMAGE }).where(inArray(events.id, ids));
+      try {
+        // Batch update all events without images
+        const ids = eventsNeedingImages.map((e) => e.id);
+        await db.update(events).set({ imageUrl: DEFAULT_IMAGE }).where(inArray(events.id, ids));
 
-      stats.images.success = eventsNeedingImages.length;
-      stats.images.duration = Date.now() - imageStartTime;
-      console.log(
-        `[AI] Set default image for ${stats.images.success} events in ${formatDuration(stats.images.duration)}`
-      );
+        stats.images.success = eventsNeedingImages.length;
+        stats.images.duration = Date.now() - imageStartTime;
+        console.log(
+          `[AI] Set default image for ${stats.images.success} events in ${formatDuration(stats.images.duration)}`
+        );
+      } catch (imageErr) {
+        stats.images.failed = eventsNeedingImages.length;
+        stats.images.duration = Date.now() - imageStartTime;
+        console.error(
+          `[AI] Failed to set default images for ${eventsNeedingImages.length} events:`,
+          imageErr instanceof Error ? imageErr.message : imageErr
+        );
+      }
     }
 
     // ═══════════════════════════════════════════════════════════════
@@ -692,7 +731,15 @@ export async function GET(request: Request) {
     console.log('[AI] ════════════════════════════════════════════════');
 
     // Invalidate cache so home page shows updated events
-    invalidateEventsCache();
+    try {
+      invalidateEventsCache();
+      console.log('[AI] Cache invalidation completed');
+    } catch (cacheErr) {
+      console.error(
+        '[AI] Cache invalidation failed:',
+        cacheErr instanceof Error ? cacheErr.message : cacheErr
+      );
+    }
 
     const result = {
       combined: {
@@ -723,7 +770,15 @@ export async function GET(request: Request) {
       },
     };
 
-    await completeCronJob(runId, result);
+    try {
+      await completeCronJob(runId, result);
+      console.log(`[AI] Cron job tracker updated (runId=${runId})`);
+    } catch (trackerErr) {
+      console.error(
+        `[AI] Failed to update cron job tracker (runId=${runId}):`,
+        trackerErr instanceof Error ? trackerErr.message : trackerErr
+      );
+    }
 
     return NextResponse.json({
       success: true,

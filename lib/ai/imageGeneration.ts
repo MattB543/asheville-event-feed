@@ -70,14 +70,14 @@ export async function generateEventImage(event: EventImagePromptData): Promise<s
   const model = getImageModel();
 
   if (!model) {
-    console.log('[ImageGen] Gemini API key not configured, skipping image generation');
+    console.log('[AI:Image] Gemini API key not configured, skipping image generation');
     return null;
   }
 
   const prompt = buildImagePrompt(event);
 
   try {
-    console.log(`[ImageGen] Generating image for: ${event.title}`);
+    console.log(`[AI:Image] Generating image for: ${event.title}`);
     const result = await model.generateContent(prompt);
     const response = result.response;
     const parts = response.candidates?.[0]?.content?.parts || [];
@@ -90,7 +90,7 @@ export async function generateEventImage(event: EventImagePromptData): Promise<s
         // Check if base64 data is too large (10MB base64 ≈ 7.5MB raw)
         if (data.length > 10_000_000) {
           console.warn(
-            `[ImageGen] Image too large for "${event.title}" (${(data.length / 1_000_000).toFixed(1)}MB base64), skipping`
+            `[AI:Image] Image too large for "${event.title}" (${(data.length / 1_000_000).toFixed(1)}MB base64), skipping`
           );
           return null;
         }
@@ -111,17 +111,17 @@ export async function generateEventImage(event: EventImagePromptData): Promise<s
         const dataUrl = `data:image/jpeg;base64,${compressedBase64}`;
 
         console.log(
-          `[ImageGen] Generated image for: ${event.title} ` +
+          `[AI:Image] Generated image for: ${event.title} ` +
             `(${(originalSize / 1024).toFixed(0)}KB → ${(compressedSize / 1024).toFixed(0)}KB, -${compressionRatio}%)`
         );
         return dataUrl;
       }
     }
 
-    console.log(`[ImageGen] No image returned for: ${event.title}`);
+    console.log(`[AI:Image] No image returned for: ${event.title}`);
     return null;
   } catch (error) {
-    console.error(`[ImageGen] Error generating image for "${event.title}":`, error);
+    console.error(`[AI:Image] Error generating image for "${event.title}":`, error);
     return null;
   }
 }
@@ -141,14 +141,14 @@ export async function generateAndUploadEventImage(
   const model = getImageModel();
 
   if (!model) {
-    console.log('[ImageGen] Gemini API key not configured, skipping image generation');
+    console.log('[AI:Image] Gemini API key not configured, skipping image generation');
     return null;
   }
 
   const prompt = buildImagePrompt(event);
 
   try {
-    console.log(`[ImageGen] Generating image for: ${event.title}`);
+    console.log(`[AI:Image] Generating image for: ${event.title}`);
     const result = await model.generateContent(prompt);
     const response = result.response;
     const parts = response.candidates?.[0]?.content?.parts || [];
@@ -161,7 +161,7 @@ export async function generateAndUploadEventImage(
         // Check if base64 data is too large (10MB base64 ≈ 7.5MB raw)
         if (data.length > 10_000_000) {
           console.warn(
-            `[ImageGen] Image too large for "${event.title}" (${(data.length / 1_000_000).toFixed(1)}MB base64), skipping`
+            `[AI:Image] Image too large for "${event.title}" (${(data.length / 1_000_000).toFixed(1)}MB base64), skipping`
           );
           return null;
         }
@@ -176,23 +176,38 @@ export async function generateAndUploadEventImage(
           .toBuffer();
 
         const compressedSize = compressedBuffer.length;
+        const compressionRatio = ((1 - compressedSize / originalSize) * 100).toFixed(1);
+
+        if (originalSize > 500_000) {
+          console.log(
+            `[AI:Image] Large image compressed for "${event.title.slice(0, 30)}...": ${(originalSize / 1024).toFixed(0)}KB -> ${(compressedSize / 1024).toFixed(0)}KB (-${compressionRatio}%)`
+          );
+        }
 
         // Upload to Supabase Storage
-        const publicUrl = await uploadEventImage(compressedBuffer, eventId);
-
-        console.log(
-          `[ImageGen] Generated and uploaded image for: ${event.title} ` +
-            `(${(originalSize / 1024).toFixed(0)}KB → ${(compressedSize / 1024).toFixed(0)}KB)`
-        );
-
-        return publicUrl;
+        try {
+          const publicUrl = await uploadEventImage(compressedBuffer, eventId);
+          console.log(
+            `[AI:Image] Uploaded to Supabase for "${event.title.slice(0, 30)}...": ${publicUrl.slice(0, 80)}`
+          );
+          return publicUrl;
+        } catch (uploadError) {
+          console.error(
+            `[AI:Image] Supabase upload failed for "${event.title.slice(0, 30)}..." (eventId=${eventId}):`,
+            uploadError instanceof Error ? uploadError.message : uploadError
+          );
+          return null;
+        }
       }
     }
 
-    console.log(`[ImageGen] No image returned for: ${event.title}`);
+    console.log(`[AI:Image] No image in API response for: "${event.title.slice(0, 40)}..."`);
     return null;
   } catch (error) {
-    console.error(`[ImageGen] Error generating image for "${event.title}":`, error);
+    console.error(
+      `[AI:Image] Error generating image for "${event.title.slice(0, 40)}..." (eventId=${eventId}):`,
+      error instanceof Error ? error.message : error
+    );
     return null;
   }
 }

@@ -157,7 +157,7 @@ Return ONLY valid JSON in this format:
  */
 export async function generateTagsAndSummary(event: EventData): Promise<TagAndSummaryResult> {
   if (!isAzureAIEnabled()) {
-    console.warn('[TagAndSummarize] Azure AI not configured, skipping');
+    console.warn('[AI:Tags] Azure AI not configured, skipping');
     return { tags: [], summary: null };
   }
 
@@ -179,7 +179,7 @@ export async function generateTagsAndSummary(event: EventData): Promise<TagAndSu
     );
 
     if (!result) {
-      console.warn('[TagAndSummarize] No response from Azure AI');
+      console.warn(`[AI:Tags] No response from Azure AI for "${event.title.slice(0, 40)}..."`);
       return { tags: [], summary: null };
     }
 
@@ -189,7 +189,15 @@ export async function generateTagsAndSummary(event: EventData): Promise<TagAndSu
       .replace(/```/g, '')
       .trim();
 
-    const parsed = JSON.parse(cleanedText) as TagAndSummaryAIResponse;
+    let parsed: TagAndSummaryAIResponse;
+    try {
+      parsed = JSON.parse(cleanedText) as TagAndSummaryAIResponse;
+    } catch {
+      console.error(
+        `[AI:Tags] JSON parse failed for "${event.title.slice(0, 40)}..." - received: ${cleanedText.slice(0, 200)}`
+      );
+      return { tags: [], summary: null };
+    }
 
     // Validate and extract tags
     const officialTags = Array.isArray(parsed.official) ? parsed.official : [];
@@ -218,7 +226,7 @@ export async function generateTagsAndSummary(event: EventData): Promise<TagAndSu
     // Log truly invalid official tags (ones we couldn't recover)
     if (unrecoverableOfficialTags.length > 0) {
       console.warn(
-        `[TagAndSummarize] Invalid official tags for "${event.title}": ${unrecoverableOfficialTags.join(', ')}`
+        `[AI:Tags] Invalid official tags for "${event.title}": ${unrecoverableOfficialTags.join(', ')}`
       );
     }
 
@@ -259,13 +267,18 @@ export async function generateTagsAndSummary(event: EventData): Promise<TagAndSu
 
     const tags = [...validOfficialTags, ...validCustomTags];
 
-    console.log(
-      `[TagAndSummarize] Generated ${tags.length} tags, summary: ${summary?.slice(0, 50)}... (${result.usage.totalTokens} tokens)`
-    );
+    if (tags.length === 0) {
+      console.warn(
+        `[AI:Tags] All tags filtered out for "${event.title.slice(0, 40)}..." - official: ${officialTags.length} raw -> ${validOfficialTags.length} valid, custom: ${customTags.length} raw -> ${validCustomTags.length} valid`
+      );
+    }
 
     return { tags, summary };
   } catch (error) {
-    console.error('[TagAndSummarize] Error:', error);
+    console.error(
+      `[AI:Tags] Error processing "${event.title.slice(0, 40)}...":`,
+      error instanceof Error ? error.message : error
+    );
     return { tags: [], summary: null };
   }
 }

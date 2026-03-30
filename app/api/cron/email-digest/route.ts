@@ -359,6 +359,9 @@ export async function GET(request: Request) {
   }
 
   if (!isPostmarkEnabled()) {
+    console.log(
+      '[Newsletter] Skipping: Postmark not configured (POSTMARK_API_KEY or POSTMARK_FROM_EMAIL not set)'
+    );
     return NextResponse.json(
       {
         success: false,
@@ -377,13 +380,17 @@ export async function GET(request: Request) {
     emailsSent: 0,
     emailsFailed: 0,
     usersSkipped: 0,
+    skipReasons: { noEmail: 0, wrongDay: 0, zeroEvents: 0 },
+    totalEventsAcrossDigests: 0,
   };
+  let currentUserEmail: string | undefined;
 
   try {
     console.log('[Newsletter] Starting email digest job...');
 
     const supabase = createServiceClient();
 
+    const userQueryStart = Date.now();
     const usersToProcess = await db
       .select({
         userId: newsletterSettings.userId,
@@ -402,6 +409,11 @@ export async function GET(request: Request) {
       .from(newsletterSettings)
       .leftJoin(userPreferences, eq(newsletterSettings.userId, userPreferences.userId));
 
+    console.log(
+      `[Newsletter] Newsletter settings query: ${usersToProcess.length} records (${formatDuration(Date.now() - userQueryStart)})`
+    );
+
+    const legacyQueryStart = Date.now();
     const legacyUsers = await db
       .select({
         userId: userPreferences.userId,
@@ -421,6 +433,10 @@ export async function GET(request: Request) {
           sql`${userPreferences.emailDigestFrequency} != 'none'`
         )
       );
+
+    console.log(
+      `[Newsletter] Legacy user query: ${legacyUsers.length} records (${formatDuration(Date.now() - legacyQueryStart)})`
+    );
 
     for (const legacy of legacyUsers) {
       const legacyFrequency = parseNewsletterFrequency(legacy.frequency);
@@ -460,13 +476,25 @@ export async function GET(request: Request) {
       });
     }
 
+    if (legacyUsers.length > 0) {
+      console.log(
+        `[Newsletter] Legacy migration: ${legacyUsers.length} users migrated (conflicts skipped via onConflictDoNothing)`
+      );
+    }
+
     const activeUsers = usersToProcess.filter(
       (user) => user.frequency && user.frequency !== 'none'
     );
+    const pausedCount = usersToProcess.length - activeUsers.length;
 
     stats.usersQueried = activeUsers.length;
 
+    console.log(
+      `[Newsletter] Users: ${usersToProcess.length} total, ${activeUsers.length} active (${pausedCount} paused)`
+    );
+
     if (activeUsers.length === 0) {
+      console.log('[Newsletter] No active users, exiting early');
       const totalDuration = Date.now() - jobStartTime;
       return NextResponse.json({
         success: true,
@@ -505,12 +533,18 @@ export async function GET(request: Request) {
       }
     });
 
+    console.log(
+      `[Newsletter] Auth users fetched: ${authUsers.users.length} total, ${userEmailMap.size} matched to active subscribers`
+    );
+
     for (const userPref of activeUsers) {
       const userAuth = userEmailMap.get(userPref.userId);
       if (!userAuth?.email) {
         stats.usersSkipped++;
+        stats.skipReasons.noEmail++;
         continue;
       }
+      currentUserEmail = userAuth.email;
 
       const frequency = parseNewsletterFrequency(userPref.frequency);
       const daySelection = parseNewsletterDaySelection(userPref.daySelection);
@@ -540,6 +574,7 @@ export async function GET(request: Request) {
 
       if (!schedule) {
         stats.usersSkipped++;
+        stats.skipReasons.wrongDay++;
         continue;
       }
 
@@ -586,7 +621,9 @@ export async function GET(request: Request) {
         useDefaultFilters: digestUser.useDefaultFilters,
       };
 
+      const eventFetchStart = Date.now();
       let filteredEvents = await fetchAllEvents(params);
+      const eventFetchDuration = Date.now() - eventFetchStart;
       filteredEvents = applyScoreTier(filteredEvents, digestUser.scoreTier);
 
       let curatedEventList: DigestEvent[] = [];
@@ -652,8 +689,15 @@ export async function GET(request: Request) {
       const curatedIds = new Set(curatedEventList.map((event) => event.id));
       filteredEvents = filteredEvents.filter((event) => !curatedIds.has(event.id));
 
+      const preCappedCount = filteredEvents.length;
       const capped = applyDailyCaps(filteredEvents, capPerDay);
       const cappedEvents = capped.events;
+
+      if (capped.trimmed) {
+        console.log(
+          `[Newsletter] Cap applied for ${digestUser.email}: ${preCappedCount} -> ${cappedEvents.length} events (cap ${capPerDay}/day)`
+        );
+      }
 
       const capNotice = capped.trimmed
         ? `Showing top ${capPerDay} events per day. Update your filters to see more.`
@@ -675,6 +719,7 @@ export async function GET(request: Request) {
       const totalCount = eventsToSend.length + curatedEventList.length;
       if (totalCount === 0) {
         stats.usersSkipped++;
+        stats.skipReasons.zeroEvents++;
         continue;
       }
 
@@ -717,12 +762,21 @@ export async function GET(request: Request) {
 
         if (sent) {
           stats.emailsSent++;
+          stats.totalEventsAcrossDigests += totalCount;
+          const curatedPart =
+            curatedEventList.length > 0 ? ` + ${curatedEventList.length} curated` : '';
+          console.log(
+            `[Newsletter] Sent to ${digestUser.email}: ${totalCount} events (${eventsToSend.length} general${curatedPart}), fetched in ${formatDuration(eventFetchDuration)}`
+          );
           await db
             .update(newsletterSettings)
             .set({ lastSentAt: new Date() })
             .where(eq(newsletterSettings.userId, digestUser.userId));
         } else {
           stats.emailsFailed++;
+          console.error(
+            `[Newsletter] Send failed for ${digestUser.email}: sendEmail returned false`
+          );
         }
       } catch (error) {
         stats.emailsFailed++;
@@ -733,7 +787,13 @@ export async function GET(request: Request) {
     }
 
     const totalDuration = Date.now() - jobStartTime;
-    console.log(`[Newsletter] Job complete in ${formatDuration(totalDuration)}`);
+    const { noEmail, wrongDay, zeroEvents } = stats.skipReasons;
+    console.log(
+      `[Newsletter] Job complete in ${formatDuration(totalDuration)} | ` +
+        `Sent: ${stats.emailsSent}, Failed: ${stats.emailsFailed}, ` +
+        `Skipped: ${stats.usersSkipped} (${wrongDay} wrong day, ${noEmail} no email, ${zeroEvents} zero events) | ` +
+        `Total events across digests: ${stats.totalEventsAcrossDigests}`
+    );
 
     await completeCronJob(runId, stats);
 
@@ -744,7 +804,10 @@ export async function GET(request: Request) {
     });
   } catch (error) {
     const totalDuration = Date.now() - jobStartTime;
-    console.error(`[Newsletter] Job failed after ${formatDuration(totalDuration)}`);
+    const processingContext = currentUserEmail ? ` while processing ${currentUserEmail}` : '';
+    console.error(
+      `[Newsletter] Job failed after ${formatDuration(totalDuration)}${processingContext}`
+    );
     console.error('[Newsletter] Error:', error);
 
     await failCronJob(runId, error);

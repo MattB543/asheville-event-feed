@@ -28,16 +28,34 @@ export async function GET(request: Request) {
   }
 
   const startTime = Date.now();
-  const runId = await startCronJob('dedup');
+  let runId: string;
+  try {
+    runId = await startCronJob('dedup');
+    console.log(`[Dedup] Cron job tracker started (runId: ${runId})`);
+  } catch (trackerErr) {
+    console.error(
+      '[Dedup] Failed to start cron job tracker:',
+      trackerErr instanceof Error ? trackerErr.message : String(trackerErr)
+    );
+    runId = 'unknown';
+  }
 
   try {
-    console.log('[AI Dedup Cron] ════════════════════════════════════════════════');
-    console.log('[AI Dedup Cron] Starting AI deduplication job...');
+    console.log('[Dedup] ════════════════════════════════════════════════');
+    console.log('[Dedup] Starting AI deduplication job...');
 
     // Check if Azure AI is configured
     if (!isAIDeduplicationAvailable()) {
-      console.log('[AI Dedup Cron] Azure AI not configured, skipping.');
-      await completeCronJob(runId, { skipped: true, reason: 'Azure AI not configured' });
+      console.log('[Dedup] Azure AI not configured, skipping.');
+      try {
+        await completeCronJob(runId, { skipped: true, reason: 'Azure AI not configured' });
+        console.log('[Dedup] Cron job tracker completed (skipped)');
+      } catch (trackerErr) {
+        console.error(
+          '[Dedup] Failed to complete cron job tracker:',
+          trackerErr instanceof Error ? trackerErr.message : String(trackerErr)
+        );
+      }
       return NextResponse.json({
         success: true,
         skipped: true,
@@ -46,20 +64,29 @@ export async function GET(request: Request) {
     }
 
     // Fetch all events for AI analysis
-    const allEvents = await db
-      .select({
-        id: events.id,
-        title: events.title,
-        description: events.description,
-        organizer: events.organizer,
-        location: events.location,
-        startDate: events.startDate,
-        price: events.price,
-        source: events.source,
-      })
-      .from(events);
-
-    console.log(`[AI Dedup Cron] Analyzing ${allEvents.length} events...`);
+    let allEvents;
+    try {
+      console.log('[Dedup] Fetching events from database...');
+      const fetchStart = Date.now();
+      allEvents = await db
+        .select({
+          id: events.id,
+          title: events.title,
+          description: events.description,
+          organizer: events.organizer,
+          location: events.location,
+          startDate: events.startDate,
+          price: events.price,
+          source: events.source,
+        })
+        .from(events);
+      const fetchDuration = ((Date.now() - fetchStart) / 1000).toFixed(1);
+      console.log(`[Dedup] Fetched ${allEvents.length} events in ${fetchDuration}s`);
+    } catch (dbErr) {
+      const errMsg = dbErr instanceof Error ? dbErr.message : String(dbErr);
+      console.error(`[Dedup] Database fetch failed: ${errMsg}`);
+      throw dbErr;
+    }
 
     const eventsForAI: EventForAIDedup[] = allEvents.map((e) => ({
       id: e.id,
@@ -73,29 +100,63 @@ export async function GET(request: Request) {
     }));
 
     // Run AI deduplication for today + next 10 days
-    const result = await runAIDeduplication(eventsForAI, {
-      maxDays: 11,
-      delayBetweenDays: 300,
-      verbose: true,
-    });
+    let result;
+    try {
+      console.log('[Dedup] Starting AI deduplication analysis (maxDays=11)...');
+      result = await runAIDeduplication(eventsForAI, {
+        maxDays: 11,
+        delayBetweenDays: 300,
+        verbose: true,
+      });
+    } catch (aiErr) {
+      const errMsg = aiErr instanceof Error ? aiErr.message : String(aiErr);
+      console.error(`[Dedup] AI deduplication call failed: ${errMsg}`);
+      throw aiErr;
+    }
+
+    // Log errors from AI dedup results
+    if (result.errors.length > 0) {
+      console.warn(`[Dedup] AI dedup reported ${result.errors.length} error(s):`);
+      for (const err of result.errors) {
+        console.warn(`[Dedup]   - ${err}`);
+      }
+    }
 
     // Delete duplicates
     if (result.idsToRemove.length > 0) {
-      await db.delete(events).where(inArray(events.id, result.idsToRemove));
-      console.log(`[AI Dedup Cron] Removed ${result.idsToRemove.length} duplicate events.`);
+      try {
+        console.log(
+          `[Dedup] Deleting ${result.idsToRemove.length} duplicate events from database...`
+        );
+        const deleteStart = Date.now();
+        await db.delete(events).where(inArray(events.id, result.idsToRemove));
+        const deleteDuration = ((Date.now() - deleteStart) / 1000).toFixed(1);
+        console.log(
+          `[Dedup] Deleted ${result.idsToRemove.length} duplicate events in ${deleteDuration}s`
+        );
+      } catch (deleteErr) {
+        const errMsg = deleteErr instanceof Error ? deleteErr.message : String(deleteErr);
+        console.error(
+          `[Dedup] Database delete failed (${result.idsToRemove.length} events): ${errMsg}`
+        );
+        throw deleteErr;
+      }
     } else {
-      console.log('[AI Dedup Cron] No duplicates found.');
+      console.log('[Dedup] No duplicates found.');
     }
 
     const duration = Date.now() - startTime;
-    console.log('[AI Dedup Cron] ────────────────────────────────────────────────');
+    const durationSec = (duration / 1000).toFixed(1);
+    console.log('[Dedup] ────────────────────────────────────────────────');
     console.log(
-      `[AI Dedup Cron] Complete in ${Math.round(duration / 1000)}s: ${result.idsToRemove.length} removed, ${result.totalTokensUsed} tokens used`
+      `[Dedup] Complete in ${durationSec}s: ${result.daysProcessed} days processed, ${result.idsToRemove.length} removed, ${result.totalTokensUsed} tokens used`
     );
-    console.log('[AI Dedup Cron] ════════════════════════════════════════════════');
+    console.log('[Dedup] ════════════════════════════════════════════════');
 
     // Invalidate cache so home page reflects deduplicated events
+    console.log('[Dedup] Invalidating events cache...');
     invalidateEventsCache();
+    console.log('[Dedup] Cache invalidated');
 
     const jobResult = {
       daysProcessed: result.daysProcessed,
@@ -104,7 +165,15 @@ export async function GET(request: Request) {
       errors: result.errors,
     };
 
-    await completeCronJob(runId, jobResult);
+    try {
+      await completeCronJob(runId, jobResult);
+      console.log('[Dedup] Cron job tracker completed');
+    } catch (trackerErr) {
+      console.error(
+        '[Dedup] Failed to complete cron job tracker:',
+        trackerErr instanceof Error ? trackerErr.message : String(trackerErr)
+      );
+    }
 
     return NextResponse.json({
       success: true,
@@ -113,11 +182,20 @@ export async function GET(request: Request) {
     });
   } catch (error) {
     const duration = Date.now() - startTime;
-    console.error('[AI Dedup Cron] ════════════════════════════════════════════════');
-    console.error('[AI Dedup Cron] Job failed:', error);
-    console.error('[AI Dedup Cron] ════════════════════════════════════════════════');
+    const durationSec = (duration / 1000).toFixed(1);
+    console.error('[Dedup] ════════════════════════════════════════════════');
+    console.error(`[Dedup] Job failed after ${durationSec}s:`, error);
+    console.error('[Dedup] ════════════════════════════════════════════════');
 
-    await failCronJob(runId, error);
+    try {
+      await failCronJob(runId, error);
+      console.log('[Dedup] Cron job tracker marked as failed');
+    } catch (trackerErr) {
+      console.error(
+        '[Dedup] Failed to update cron job tracker:',
+        trackerErr instanceof Error ? trackerErr.message : String(trackerErr)
+      );
+    }
 
     return NextResponse.json({ success: false, error: String(error), duration }, { status: 500 });
   }

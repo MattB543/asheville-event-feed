@@ -45,6 +45,8 @@ export async function GET(request: Request) {
 
   const startTime = Date.now();
   const runId = await startCronJob('verify');
+  let currentStep = 'initialization';
+  let eventsProcessedBeforeError = 0;
 
   try {
     console.log('[Verify] Starting event verification job...');
@@ -63,6 +65,12 @@ export async function GET(request: Request) {
     // 1. Have NEVER been verified (no re-verification)
     // 2. Are MISSING data: short/no description OR no price (either triggers verification)
     // 3. Are future events from verifiable sources
+    currentStep = 'querying events needing verification';
+    console.log(
+      `[Verify] Querying events needing verification (sources: ${VERIFIABLE_SOURCES.join(', ')}, limit: ${MAX_EVENTS_PER_RUN})...`
+    );
+    const queryStart = Date.now();
+
     const eventsToVerify = await db
       .select({
         id: events.id,
@@ -101,11 +109,13 @@ export async function GET(request: Request) {
       .orderBy(events.startDate) // Closest events first
       .limit(MAX_EVENTS_PER_RUN);
 
+    const queryDuration = ((Date.now() - queryStart) / 1000).toFixed(1);
     console.log(
-      `[Verify] Found ${eventsToVerify.length} events needing verification (missing data)`
+      `[Verify] Found ${eventsToVerify.length} events needing verification in ${queryDuration}s`
     );
 
     // Filter out spam events based on default filters
+    currentStep = 'spam filtering';
     const filteredEvents = eventsToVerify.filter((event) => {
       if (matchesDefaultFilter(event.title)) return false;
       if (event.description && matchesDefaultFilter(event.description)) return false;
@@ -115,10 +125,21 @@ export async function GET(request: Request) {
 
     const spamFiltered = eventsToVerify.length - filteredEvents.length;
     if (spamFiltered > 0) {
-      console.log(`[Verify] Filtered out ${spamFiltered} spam events`);
+      const spamExamples = eventsToVerify
+        .filter(
+          (e) =>
+            matchesDefaultFilter(e.title) ||
+            (e.description && matchesDefaultFilter(e.description)) ||
+            (e.organizer && matchesDefaultFilter(e.organizer))
+        )
+        .slice(0, 3)
+        .map((e) => `"${e.title.slice(0, 50)}"`)
+        .join(', ');
+      console.log(`[Verify] Filtered out ${spamFiltered} spam events (e.g. ${spamExamples})`);
     }
 
     // Process verification (already limited by query, but enforce here too)
+    currentStep = 'processing event verification';
     const verificationResult = await processEventVerification(
       filteredEvents as EventForVerification[],
       {
@@ -128,30 +149,42 @@ export async function GET(request: Request) {
     );
 
     // Apply results to database
+    currentStep = 'applying DB updates';
     const hiddenEvents: Array<{ title: string; reason: string; url?: string }> = [];
     const updatedEvents: Array<{ title: string; reason: string; url?: string }> = [];
+    let keptCount = 0;
+    let skippedErrorCount = 0;
 
     for (const result of verificationResult.results) {
       const event = filteredEvents.find((e) => e.id === result.eventId);
+      eventsProcessedBeforeError++;
 
       if (result.action === 'hide' && result.confidence >= 0.8) {
         // Hide the event (set hidden = true)
-        await db
-          .update(events)
-          .set({
-            hidden: true,
-            lastVerifiedAt: now,
-            updatedAt: now,
-          })
-          .where(eq(events.id, result.eventId));
+        try {
+          await db
+            .update(events)
+            .set({
+              hidden: true,
+              lastVerifiedAt: now,
+              updatedAt: now,
+            })
+            .where(eq(events.id, result.eventId));
 
-        hiddenEvents.push({
-          title: result.eventTitle,
-          reason: result.reason,
-          url: event?.url,
-        });
+          hiddenEvents.push({
+            title: result.eventTitle,
+            reason: result.reason,
+            url: event?.url,
+          });
 
-        console.log(`[Verify] Hidden: ${result.eventTitle} - ${result.reason}`);
+          console.log(
+            `[Verify] DB hide: "${result.eventTitle.slice(0, 50)}" - ${result.reason} (confidence: ${result.confidence})`
+          );
+        } catch (dbError) {
+          console.error(
+            `[Verify] DB error hiding "${result.eventTitle.slice(0, 50)}": ${dbError instanceof Error ? dbError.message : String(dbError)}`
+          );
+        }
       } else if (result.action === 'update' && result.updates) {
         // Update the event with new details
         const updateData: Record<string, unknown> = {
@@ -159,40 +192,80 @@ export async function GET(request: Request) {
           updatedAt: now,
         };
 
+        const fieldChanges: string[] = [];
         if (result.updates.price) {
           updateData.price = result.updates.price;
+          fieldChanges.push(`price: "${event?.price || 'null'}" -> "${result.updates.price}"`);
         }
         if (result.updates.description) {
           updateData.description = result.updates.description;
+          const oldDesc = event?.description ? `${event.description.length} chars` : 'null';
+          fieldChanges.push(
+            `description: ${oldDesc} -> ${result.updates.description.length} chars`
+          );
         }
         if (result.updates.location) {
           updateData.location = result.updates.location;
+          fieldChanges.push(
+            `location: "${event?.location || 'null'}" -> "${result.updates.location}"`
+          );
         }
 
-        await db.update(events).set(updateData).where(eq(events.id, result.eventId));
+        try {
+          await db.update(events).set(updateData).where(eq(events.id, result.eventId));
 
-        updatedEvents.push({
-          title: result.eventTitle,
-          reason: result.reason,
-          url: event?.url,
-        });
+          updatedEvents.push({
+            title: result.eventTitle,
+            reason: result.reason,
+            url: event?.url,
+          });
 
-        console.log(`[Verify] Updated: ${result.eventTitle} - ${result.reason}`);
+          console.log(
+            `[Verify] DB update: "${result.eventTitle.slice(0, 50)}" - ${fieldChanges.join(', ')}`
+          );
+        } catch (dbError) {
+          console.error(
+            `[Verify] DB error updating "${result.eventTitle.slice(0, 50)}": ${dbError instanceof Error ? dbError.message : String(dbError)}`
+          );
+        }
       } else if (!result.error) {
         // Only update lastVerifiedAt for successful "keep" events
         // Don't update if fetch failed - we need to retry when site is back up
-        await db.update(events).set({ lastVerifiedAt: now }).where(eq(events.id, result.eventId));
+        try {
+          await db.update(events).set({ lastVerifiedAt: now }).where(eq(events.id, result.eventId));
+          keptCount++;
+        } catch (dbError) {
+          console.error(
+            `[Verify] DB error marking kept "${result.eventTitle.slice(0, 50)}": ${dbError instanceof Error ? dbError.message : String(dbError)}`
+          );
+        }
+      } else {
+        skippedErrorCount++;
       }
       // Skip updating lastVerifiedAt if there was an error (site down, fetch failed, etc.)
     }
 
+    if (keptCount > 0) {
+      console.log(`[Verify] Marked ${keptCount} events as verified (keep, no changes needed)`);
+    }
+    if (skippedErrorCount > 0) {
+      console.log(
+        `[Verify] Skipped lastVerifiedAt update for ${skippedErrorCount} events with errors (will retry)`
+      );
+    }
+
     // Invalidate cache if any events were modified
+    currentStep = 'cache invalidation';
     if (hiddenEvents.length > 0 || updatedEvents.length > 0) {
+      console.log(
+        `[Verify] Invalidating cache (${hiddenEvents.length} hidden, ${updatedEvents.length} updated)...`
+      );
       invalidateEventsCache();
     }
 
     // Send Slack notification
-    await sendVerificationNotification({
+    currentStep = 'sending Slack notification';
+    const slackResult = await sendVerificationNotification({
       eventsChecked: verificationResult.eventsChecked,
       eventsHidden: hiddenEvents.length,
       eventsUpdated: updatedEvents.length,
@@ -201,6 +274,9 @@ export async function GET(request: Request) {
       updatedEvents,
       durationSeconds: verificationResult.durationMs / 1000,
     });
+    if (hiddenEvents.length > 0 || updatedEvents.length > 0) {
+      console.log(`[Verify] Slack notification: ${slackResult ? 'sent' : 'skipped or failed'}`);
+    }
 
     const totalDuration = ((Date.now() - startTime) / 1000).toFixed(1);
 
@@ -214,6 +290,7 @@ export async function GET(request: Request) {
       eventsKept: verificationResult.eventsKept,
       eventsSkipped: verificationResult.eventsSkipped,
       errors: verificationResult.errors,
+      totalTokensUsed: verificationResult.totalTokensUsed,
       durationSeconds: parseFloat(totalDuration),
     };
 
@@ -229,7 +306,11 @@ export async function GET(request: Request) {
       updatedEvents: updatedEvents.slice(0, 20),
     });
   } catch (error) {
-    console.error('[Verify] Error:', error);
+    const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
+    console.error(
+      `[Verify] Fatal error during step "${currentStep}" after processing ${eventsProcessedBeforeError} events (${elapsed}s):`,
+      error
+    );
 
     await failCronJob(runId, error);
 

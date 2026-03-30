@@ -117,8 +117,8 @@ function formatEventForPrompt(event: EventForAIDedup, index: number): string {
 /**
  * Filter out spam events based on default filters.
  */
-function filterSpamEvents(events: EventForAIDedup[]): EventForAIDedup[] {
-  return events.filter((event) => {
+function filterSpamEvents(date: string, events: EventForAIDedup[]): EventForAIDedup[] {
+  const filtered = events.filter((event) => {
     // Check title
     if (matchesDefaultFilter(event.title)) {
       return false;
@@ -133,6 +133,13 @@ function filterSpamEvents(events: EventForAIDedup[]): EventForAIDedup[] {
     }
     return true;
   });
+
+  const removedCount = events.length - filtered.length;
+  if (removedCount > 0) {
+    console.log(`[AI Dedup] ${date}: Filtered ${removedCount} spam event(s) from ${events.length}`);
+  }
+
+  return filtered;
 }
 
 /**
@@ -258,7 +265,7 @@ function mapIndicesToUUIDs(
  */
 async function processDayEvents(date: string, events: EventForAIDedup[]): Promise<DayResult> {
   // Filter out spam events first
-  const filteredEvents = filterSpamEvents(events);
+  const filteredEvents = filterSpamEvents(date, events);
 
   const result: DayResult = {
     date,
@@ -289,29 +296,51 @@ async function processDayEvents(date: string, events: EventForAIDedup[]): Promis
     // Save input to file for debugging (if debugDir is set)
     const debugDir = process.env.AI_DEDUP_DEBUG_DIR;
     if (debugDir) {
-      const fs = await import('fs/promises');
-      const inputPath = `${debugDir}/input-${date}.txt`;
-      await fs.writeFile(
-        inputPath,
-        `SYSTEM PROMPT:\n${SYSTEM_PROMPT}\n\nUSER PROMPT:\n${userPrompt}`,
-        'utf-8'
-      );
+      try {
+        const fs = await import('fs/promises');
+        const inputPath = `${debugDir}/input-${date}.txt`;
+        await fs.writeFile(
+          inputPath,
+          `SYSTEM PROMPT:\n${SYSTEM_PROMPT}\n\nUSER PROMPT:\n${userPrompt}`,
+          'utf-8'
+        );
+      } catch (fileErr) {
+        console.warn(
+          `[AI Dedup] Failed to write debug input for ${date}:`,
+          fileErr instanceof Error ? fileErr.message : String(fileErr)
+        );
+      }
     }
 
+    const aiCallStart = Date.now();
     const response = await azureChatCompletion(SYSTEM_PROMPT, userPrompt, {
       maxTokens: 4000, // Enough for detailed JSON response
     });
 
     if (!response) {
+      const errMsg = `${date}: Azure API returned null (client not available)`;
+      console.error(`[AI Dedup] ${errMsg}`);
       result.error = 'AI client not available';
       return result;
     }
 
+    const aiCallDuration = ((Date.now() - aiCallStart) / 1000).toFixed(1);
+    console.log(
+      `[AI Dedup] ${date}: Azure API responded in ${aiCallDuration}s (${response.usage.totalTokens} tokens)`
+    );
+
     // Save output to file for debugging (if debugDir is set)
     if (debugDir) {
-      const fs = await import('fs/promises');
-      const outputPath = `${debugDir}/output-${date}.txt`;
-      await fs.writeFile(outputPath, response.content, 'utf-8');
+      try {
+        const fs = await import('fs/promises');
+        const outputPath = `${debugDir}/output-${date}.txt`;
+        await fs.writeFile(outputPath, response.content, 'utf-8');
+      } catch (fileErr) {
+        console.warn(
+          `[AI Dedup] Failed to write debug output for ${date}:`,
+          fileErr instanceof Error ? fileErr.message : String(fileErr)
+        );
+      }
     }
 
     result.tokensUsed = response.usage.totalTokens;
@@ -326,7 +355,7 @@ async function processDayEvents(date: string, events: EventForAIDedup[]): Promis
     return result;
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : String(error);
-    console.error(`[AI Dedup] Error processing ${date}:`, errorMessage);
+    console.error(`[AI Dedup] Error processing ${date}: ${errorMessage}`);
     result.error = errorMessage;
     return result;
   }
@@ -364,26 +393,28 @@ export async function runAIDeduplication(
   // Check if AI is available
   if (!isAzureAIEnabled()) {
     result.success = false;
-    result.errors.push('Azure OpenAI not configured');
+    const errMsg = 'Azure OpenAI not configured';
+    console.error(`[AI Dedup] ${errMsg}`);
+    result.errors.push(errMsg);
     return result;
   }
 
   // Group events by date
   const eventsByDate = groupEventsByDate(events);
   const dates = Array.from(eventsByDate.keys()).sort();
+  const skippedDates = dates.filter((d) => (eventsByDate.get(d)?.length ?? 0) < 2).length;
 
-  if (verbose) {
-    console.log(`[AI Dedup] Processing ${dates.length} dates with ${events.length} total events`);
-  }
+  // Always log: overall scope
+  console.log(
+    `[AI Dedup] Processing ${dates.length} dates (${skippedDates} skipped, <2 events) with ${events.length} total events`
+  );
 
   // Process each date
   let processedCount = 0;
   for (const date of dates) {
     // Check max days limit
     if (maxDays && processedCount >= maxDays) {
-      if (verbose) {
-        console.log(`[AI Dedup] Reached max days limit (${maxDays})`);
-      }
+      console.log(`[AI Dedup] Reached max days limit (${maxDays})`);
       break;
     }
 
@@ -404,7 +435,9 @@ export async function runAIDeduplication(
     result.totalTokensUsed += dayResult.tokensUsed;
 
     if (dayResult.error) {
-      result.errors.push(`${date}: ${dayResult.error}`);
+      const errMsg = `${date}: ${dayResult.error}`;
+      console.error(`[AI Dedup] Error: ${errMsg}`);
+      result.errors.push(errMsg);
     }
 
     if (dayResult.duplicatesFound > 0) {
@@ -414,7 +447,6 @@ export async function runAIDeduplication(
       }
 
       if (verbose) {
-        console.log(`[AI Dedup] Found ${dayResult.duplicatesFound} to remove on ${date}`);
         for (const group of dayResult.groups) {
           for (const removeId of group.remove) {
             const ev = events.find((e) => e.id === removeId);
@@ -425,6 +457,13 @@ export async function runAIDeduplication(
       }
     }
 
+    // Always log: per-date one-liner summary
+    if (!dayResult.error) {
+      console.log(
+        `[AI Dedup] ${date}: ${dayResult.eventCount} events -> ${dayResult.duplicatesFound} duplicates (${dayResult.tokensUsed} tokens)`
+      );
+    }
+
     processedCount++;
 
     // Delay between API calls to avoid rate limiting
@@ -433,11 +472,12 @@ export async function runAIDeduplication(
     }
   }
 
-  if (verbose) {
-    console.log(
-      `[AI Dedup] Complete: ${result.totalDuplicatesFound} duplicates found across ${result.daysProcessed} days`
-    );
-    console.log(`[AI Dedup] Total tokens used: ${result.totalTokensUsed}`);
+  // Always log: final summary
+  console.log(
+    `[AI Dedup] Complete: ${result.daysProcessed} days processed, ${result.totalDuplicatesFound} duplicates found, ${result.totalTokensUsed} tokens used`
+  );
+  if (result.errors.length > 0) {
+    console.warn(`[AI Dedup] Finished with ${result.errors.length} error(s)`);
   }
 
   return result;

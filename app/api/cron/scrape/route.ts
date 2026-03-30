@@ -22,7 +22,7 @@ import { scrapeTheaterAlliance } from '@/lib/scrapers/theateralliance';
 import { scrapePechaKucha } from '@/lib/scrapers/pechakucha';
 import { db } from '@/lib/db';
 import { events } from '@/lib/db/schema';
-import { inArray, eq } from 'drizzle-orm';
+import { inArray, eq, sql } from 'drizzle-orm';
 import type { ScrapedEvent } from '@/lib/scrapers/types';
 import { env, isFacebookEnabled } from '@/lib/config/env';
 import { findDuplicates, getIdsToRemove, getDescriptionUpdates } from '@/lib/utils/deduplication';
@@ -35,12 +35,54 @@ export const maxDuration = 800; // 13+ minutes (requires Fluid Compute)
 // Helper to format duration in human-readable form
 function formatDuration(ms: number): string {
   if (ms < 1000) return `${ms}ms`;
-  const seconds = Math.floor(ms / 1000);
-  if (seconds < 60) return `${seconds}s`;
+  const seconds = ms / 1000;
+  if (seconds < 60) return `${seconds.toFixed(1)}s`;
   const minutes = Math.floor(seconds / 60);
-  const remainingSeconds = seconds % 60;
+  const remainingSeconds = (seconds % 60).toFixed(0);
   return `${minutes}m ${remainingSeconds}s`;
 }
+
+// Extract error details for better diagnostics
+function formatErrorDetails(error: unknown): string {
+  if (!(error instanceof Error)) return String(error);
+  const parts = [error.message];
+  // Check for common HTTP/network error properties
+  const err = error as Error & { status?: number; code?: string };
+  if (err.status) parts.push(`status=${err.status}`);
+  if (err.code) parts.push(`code=${err.code}`);
+  if (err.cause instanceof Error) parts.push(`cause=${err.cause.message}`);
+  return parts.join(', ');
+}
+
+// Scraper definition for data-driven processing
+interface ScraperDef {
+  name: string;
+  fn: () => Promise<ScrapedEvent[]>;
+  stripTags?: boolean; // If true, remove tags from results (AI job adds them later)
+}
+
+const SCRAPERS: ScraperDef[] = [
+  { name: 'AVL Today', fn: scrapeAvlToday, stripTags: true },
+  { name: 'Eventbrite', fn: () => scrapeEventbrite(25), stripTags: true },
+  { name: 'Meetup', fn: () => scrapeMeetup(30), stripTags: true },
+  { name: "Harrah's", fn: scrapeHarrahs },
+  { name: 'Orange Peel', fn: scrapeOrangePeel },
+  { name: 'Grey Eagle', fn: scrapeGreyEagle },
+  { name: 'Live Music AVL', fn: scrapeLiveMusicAvl },
+  { name: 'Mountain Xpress', fn: scrapeMountainX },
+  { name: 'UNCA', fn: scrapeUncaEvents },
+  { name: 'Static Age', fn: scrapeStaticAge },
+  { name: 'Revolve', fn: scrapeRevolve },
+  { name: 'BMC Museum', fn: scrapeBMCMuseum },
+  { name: 'Asheville on Bikes', fn: scrapeAshevilleOnBikes },
+  { name: 'Explore Asheville', fn: scrapeExploreAsheville },
+  { name: 'Misfit Improv', fn: scrapeMisfitImprov },
+  { name: 'UDharma', fn: scrapeUDharma },
+  { name: 'NC Stage', fn: scrapeNCStage },
+  { name: 'Story Parlor', fn: scrapeStoryParlor },
+  { name: 'Theater Alliance', fn: scrapeTheaterAlliance },
+  { name: 'PechaKucha', fn: scrapePechaKucha },
+];
 
 // Scrape-only cron job
 //
@@ -51,6 +93,7 @@ function formatDuration(ms: number): string {
 export async function GET(request: Request) {
   const authHeader = request.headers.get('authorization');
   if (!verifyAuthToken(authHeader, env.CRON_SECRET)) {
+    console.warn('[Scrape] Auth failed: invalid or missing CRON_SECRET');
     return new NextResponse('Unauthorized', { status: 401 });
   }
 
@@ -60,202 +103,122 @@ export async function GET(request: Request) {
   // Stats tracking
   const stats = {
     scraping: { duration: 0, total: 0 },
-    upsert: { duration: 0, success: 0, failed: 0 },
-    dedup: { removed: 0 },
+    upsert: {
+      duration: 0,
+      success: 0,
+      failed: 0,
+      bySource: {} as Record<string, { success: number; failed: number }>,
+    },
+    dedup: { removed: 0, byMethod: {} as Record<string, number> },
+    dbEventsBefore: 0,
+    dbEventsAfter: 0,
   };
 
   try {
     console.log('[Scrape] ════════════════════════════════════════════════');
     console.log('[Scrape] Starting scrape-only job...');
 
-    // Scrape all sources in parallel
+    // Get pre-run event count
+    const [preCount] = await db.select({ count: sql<number>`count(*)::int` }).from(events);
+    stats.dbEventsBefore = preCount.count;
+    console.log(`[Scrape] DB event count before run: ${stats.dbEventsBefore}`);
+
+    // Scrape all sources in parallel (each with its own timer)
+    console.log(`[Scrape] Scraping ${SCRAPERS.length} sources in parallel...`);
     const scrapeStartTime = Date.now();
-    const [
-      avlResult,
-      ebResult,
-      meetupResult,
-      harrahsResult,
-      orangePeelResult,
-      greyEagleResult,
-      liveMusicAvlResult,
-      mountainXResult,
-      uncaResult,
-      staticAgeResult,
-      revolveResult,
-      bmcMuseumResult,
-      ashevilleOnBikesResult,
-      exploreAshevilleResult,
-      misfitImprovResult,
-      uDharmaResult,
-      ncStageResult,
-      storyParlorResult,
-      theaterAllianceResult,
-      pechaKuchaResult,
-    ] = await Promise.allSettled([
-      scrapeAvlToday(),
-      scrapeEventbrite(25), // Scrape 25 pages (~500 events)
-      scrapeMeetup(30), // Scrape 30 days of physical events (~236 events)
-      scrapeHarrahs(), // Harrah's Cherokee Center (Ticketmaster API + HTML)
-      scrapeOrangePeel(), // Orange Peel (Ticketmaster API + Website JSON-LD)
-      scrapeGreyEagle(), // Grey Eagle (Website JSON-LD)
-      scrapeLiveMusicAvl(), // Live Music Asheville (select venues only)
-      scrapeMountainX(), // Mountain Xpress (Tribe Events REST API)
-      scrapeUncaEvents(), // UNC Asheville (Tribe Events REST API)
-      scrapeStaticAge(), // Static Age NC (Next.js + Sanity CMS)
-      scrapeRevolve(), // Revolve (Asheville arts collective)
-      scrapeBMCMuseum(), // Black Mountain College Museum + Arts Center
-      scrapeAshevilleOnBikes(), // Asheville on Bikes (Google Calendar)
-      scrapeExploreAsheville(), // Explore Asheville (Tourism board events)
-      scrapeMisfitImprov(), // Misfit Improv (Crowdwork API)
-      scrapeUDharma(), // Urban Dharma (Squarespace + Google Calendar)
-      scrapeNCStage(), // NC Stage Company (ThunderTix)
-      scrapeStoryParlor(), // Story Parlor (Squarespace JSON-LD)
-      scrapeTheaterAlliance(), // Asheville Theater Alliance (WP REST API + JetEngine)
-      scrapePechaKucha(), // PechaKucha Night Asheville (Universe.com API)
-    ]);
-
-    // Extract values from settled results
-    const avlEvents = avlResult.status === 'fulfilled' ? avlResult.value : [];
-    const ebEvents = ebResult.status === 'fulfilled' ? ebResult.value : [];
-    const meetupEvents = meetupResult.status === 'fulfilled' ? meetupResult.value : [];
-    const harrahsEvents = harrahsResult.status === 'fulfilled' ? harrahsResult.value : [];
-    const orangePeelEvents = orangePeelResult.status === 'fulfilled' ? orangePeelResult.value : [];
-    const greyEagleEvents = greyEagleResult.status === 'fulfilled' ? greyEagleResult.value : [];
-    const liveMusicAvlEvents =
-      liveMusicAvlResult.status === 'fulfilled' ? liveMusicAvlResult.value : [];
-    const mountainXEvents = mountainXResult.status === 'fulfilled' ? mountainXResult.value : [];
-    const uncaEvents = uncaResult.status === 'fulfilled' ? uncaResult.value : [];
-    const staticAgeEvents = staticAgeResult.status === 'fulfilled' ? staticAgeResult.value : [];
-    const revolveEvents = revolveResult.status === 'fulfilled' ? revolveResult.value : [];
-    const bmcMuseumEvents = bmcMuseumResult.status === 'fulfilled' ? bmcMuseumResult.value : [];
-    const ashevilleOnBikesEvents =
-      ashevilleOnBikesResult.status === 'fulfilled' ? ashevilleOnBikesResult.value : [];
-    const exploreAshevilleEvents =
-      exploreAshevilleResult.status === 'fulfilled' ? exploreAshevilleResult.value : [];
-    const misfitImprovEvents =
-      misfitImprovResult.status === 'fulfilled' ? misfitImprovResult.value : [];
-    const uDharmaEvents = uDharmaResult.status === 'fulfilled' ? uDharmaResult.value : [];
-    const ncStageEvents = ncStageResult.status === 'fulfilled' ? ncStageResult.value : [];
-    const storyParlorEvents =
-      storyParlorResult.status === 'fulfilled' ? storyParlorResult.value : [];
-    const theaterAllianceEvents =
-      theaterAllianceResult.status === 'fulfilled' ? theaterAllianceResult.value : [];
-    const pechaKuchaEvents = pechaKuchaResult.status === 'fulfilled' ? pechaKuchaResult.value : [];
-
-    // Log any scraper failures
-    if (avlResult.status === 'rejected')
-      console.error('[Scrape] AVL Today scrape failed:', avlResult.reason);
-    if (ebResult.status === 'rejected')
-      console.error('[Scrape] Eventbrite scrape failed:', ebResult.reason);
-    if (meetupResult.status === 'rejected')
-      console.error('[Scrape] Meetup scrape failed:', meetupResult.reason);
-    if (harrahsResult.status === 'rejected')
-      console.error("[Scrape] Harrah's scrape failed:", harrahsResult.reason);
-    if (orangePeelResult.status === 'rejected')
-      console.error('[Scrape] Orange Peel scrape failed:', orangePeelResult.reason);
-    if (greyEagleResult.status === 'rejected')
-      console.error('[Scrape] Grey Eagle scrape failed:', greyEagleResult.reason);
-    if (liveMusicAvlResult.status === 'rejected')
-      console.error('[Scrape] Live Music AVL scrape failed:', liveMusicAvlResult.reason);
-    if (mountainXResult.status === 'rejected')
-      console.error('[Scrape] Mountain Xpress scrape failed:', mountainXResult.reason);
-    if (uncaResult.status === 'rejected')
-      console.error('[Scrape] UNCA scrape failed:', uncaResult.reason);
-    if (staticAgeResult.status === 'rejected')
-      console.error('[Scrape] Static Age scrape failed:', staticAgeResult.reason);
-    if (revolveResult.status === 'rejected')
-      console.error('[Scrape] Revolve scrape failed:', revolveResult.reason);
-    if (bmcMuseumResult.status === 'rejected')
-      console.error('[Scrape] BMC Museum scrape failed:', bmcMuseumResult.reason);
-    if (ashevilleOnBikesResult.status === 'rejected')
-      console.error('[Scrape] Asheville on Bikes scrape failed:', ashevilleOnBikesResult.reason);
-    if (exploreAshevilleResult.status === 'rejected')
-      console.error('[Scrape] Explore Asheville scrape failed:', exploreAshevilleResult.reason);
-    if (misfitImprovResult.status === 'rejected')
-      console.error('[Scrape] Misfit Improv scrape failed:', misfitImprovResult.reason);
-    if (uDharmaResult.status === 'rejected')
-      console.error('[Scrape] UDharma scrape failed:', uDharmaResult.reason);
-    if (ncStageResult.status === 'rejected')
-      console.error('[Scrape] NC Stage scrape failed:', ncStageResult.reason);
-    if (storyParlorResult.status === 'rejected')
-      console.error('[Scrape] Story Parlor scrape failed:', storyParlorResult.reason);
-    if (theaterAllianceResult.status === 'rejected')
-      console.error('[Scrape] Theater Alliance scrape failed:', theaterAllianceResult.reason);
-    if (pechaKuchaResult.status === 'rejected')
-      console.error('[Scrape] PechaKucha scrape failed:', pechaKuchaResult.reason);
+    const timedScrapers = SCRAPERS.map(async (scraper) => {
+      const start = Date.now();
+      try {
+        const result = await scraper.fn();
+        return {
+          name: scraper.name,
+          status: 'fulfilled' as const,
+          value: result,
+          duration: Date.now() - start,
+          stripTags: scraper.stripTags,
+        };
+      } catch (error) {
+        return {
+          name: scraper.name,
+          status: 'rejected' as const,
+          reason: error,
+          duration: Date.now() - start,
+          stripTags: scraper.stripTags,
+        };
+      }
+    });
+    const scraperResults = await Promise.all(timedScrapers);
 
     stats.scraping.duration = Date.now() - scrapeStartTime;
-    stats.scraping.total =
-      avlEvents.length +
-      ebEvents.length +
-      meetupEvents.length +
-      harrahsEvents.length +
-      orangePeelEvents.length +
-      greyEagleEvents.length +
-      liveMusicAvlEvents.length +
-      mountainXEvents.length +
-      uncaEvents.length +
-      staticAgeEvents.length +
-      revolveEvents.length +
-      bmcMuseumEvents.length +
-      ashevilleOnBikesEvents.length +
-      exploreAshevilleEvents.length +
-      misfitImprovEvents.length +
-      uDharmaEvents.length +
-      ncStageEvents.length +
-      storyParlorEvents.length +
-      theaterAllianceEvents.length +
-      pechaKuchaEvents.length;
 
+    // Process results: build summary, collect events, log outcomes
+    const allEvents: ScrapedEvent[] = [];
+    let successCount = 0;
+    let failCount = 0;
+    const scraperSummaryLines: string[] = [];
+
+    for (const result of scraperResults) {
+      const dur = formatDuration(result.duration);
+      if (result.status === 'fulfilled') {
+        const count = result.value.length;
+        stats.scraping.total += count;
+        successCount++;
+
+        // Collect events (strip tags if needed for sources where AI adds them later)
+        if (result.stripTags) {
+          allEvents.push(...result.value.map((e) => ({ ...e, tags: undefined })));
+        } else {
+          allEvents.push(...result.value);
+        }
+
+        if (count === 0) {
+          console.warn(`[Scrape] WARN: ${result.name} returned 0 events (${dur})`);
+          scraperSummaryLines.push(`  ${result.name}: 0 events (${dur}) [WARN: empty]`);
+        } else {
+          scraperSummaryLines.push(`  ${result.name}: ${count} events (${dur})`);
+        }
+      } else {
+        failCount++;
+        const errDetail = formatErrorDetails(result.reason);
+        console.error(`[Scrape] ERROR: ${result.name} failed (${dur}): ${errDetail}`);
+        scraperSummaryLines.push(`  ${result.name}: FAILED (${dur}) - ${errDetail}`);
+      }
+    }
+
+    // Log scraper results table
+    console.log(`[Scrape] ── Scraper Results (${formatDuration(stats.scraping.duration)}) ──`);
     console.log(
-      `[Scrape] Scrape complete in ${formatDuration(stats.scraping.duration)}. AVL: ${avlEvents.length}, EB: ${ebEvents.length}, Meetup: ${meetupEvents.length}, Harrahs: ${harrahsEvents.length}, OrangePeel: ${orangePeelEvents.length}, GreyEagle: ${greyEagleEvents.length}, LiveMusicAVL: ${liveMusicAvlEvents.length}, MountainX: ${mountainXEvents.length}, StaticAge: ${staticAgeEvents.length}, Revolve: ${revolveEvents.length}, BMCMuseum: ${bmcMuseumEvents.length}, AshevilleOnBikes: ${ashevilleOnBikesEvents.length}, ExploreAsheville: ${exploreAshevilleEvents.length}, MisfitImprov: ${misfitImprovEvents.length}, UDharma: ${uDharmaEvents.length}, NCStage: ${ncStageEvents.length}, StoryParlor: ${storyParlorEvents.length}, TheaterAlliance: ${theaterAllianceEvents.length}, PechaKucha: ${pechaKuchaEvents.length} (Total: ${stats.scraping.total})`
+      `[Scrape] ${successCount} succeeded, ${failCount} failed, ${stats.scraping.total} total events`
     );
+    for (const line of scraperSummaryLines) {
+      console.log(`[Scrape] ${line}`);
+    }
 
     // Facebook scraping (separate due to browser requirements)
-    let fbEvents: ScrapedEvent[] = [];
     if (isFacebookEnabled()) {
+      const fbStart = Date.now();
       try {
         console.log('[Scrape] Attempting Facebook scrape...');
         const fbRawEvents = await scrapeFacebookEvents();
         // Filter out low-interest events (must have >=4 going OR >=9 interested)
-        fbEvents = fbRawEvents.filter(
+        const fbEvents = fbRawEvents.filter(
           (e) =>
             (e.goingCount !== undefined && e.goingCount >= 4) ||
             (e.interestedCount !== undefined && e.interestedCount >= 9)
         );
+        const fbDur = formatDuration(Date.now() - fbStart);
         console.log(
-          `[Scrape] Facebook scrape complete: ${fbEvents.length} events (filtered ${fbRawEvents.length - fbEvents.length} low-interest)`
+          `[Scrape] Facebook: ${fbEvents.length} events (${fbDur}), filtered ${fbRawEvents.length - fbEvents.length} low-interest`
         );
+        allEvents.push(...fbEvents);
+        stats.scraping.total += fbEvents.length;
       } catch (fbError) {
-        console.error('[Scrape] Facebook scrape failed (continuing):', fbError);
+        const fbDur = formatDuration(Date.now() - fbStart);
+        console.error(`[Scrape] ERROR: Facebook failed (${fbDur}): ${formatErrorDetails(fbError)}`);
       }
     }
 
-    // Combine all events (no tags - AI job will add them later)
-    const allEvents: ScrapedEvent[] = [
-      ...avlEvents.map((e) => ({ ...e, tags: undefined })),
-      ...ebEvents.map((e) => ({ ...e, tags: undefined })),
-      ...meetupEvents.map((e) => ({ ...e, tags: undefined })),
-      ...fbEvents,
-      ...harrahsEvents,
-      ...orangePeelEvents,
-      ...greyEagleEvents,
-      ...liveMusicAvlEvents,
-      ...mountainXEvents,
-      ...uncaEvents,
-      ...staticAgeEvents,
-      ...revolveEvents,
-      ...bmcMuseumEvents,
-      ...ashevilleOnBikesEvents,
-      ...exploreAshevilleEvents,
-      ...misfitImprovEvents,
-      ...uDharmaEvents,
-      ...ncStageEvents,
-      ...storyParlorEvents,
-      ...theaterAllianceEvents,
-      ...pechaKuchaEvents,
-    ];
-
+    // Upsert phase
     console.log(`[Scrape] Upserting ${allEvents.length} events to database...`);
 
     // Helper to chunk arrays
@@ -310,11 +273,16 @@ export async function GET(request: Request) {
                 },
               });
             stats.upsert.success++;
+            const src = event.source;
+            if (!stats.upsert.bySource[src]) stats.upsert.bySource[src] = { success: 0, failed: 0 };
+            stats.upsert.bySource[src].success++;
           } catch (err) {
             stats.upsert.failed++;
+            const src = event.source;
+            if (!stats.upsert.bySource[src]) stats.upsert.bySource[src] = { success: 0, failed: 0 };
+            stats.upsert.bySource[src].failed++;
             console.error(
-              `[Scrape] Failed to upsert "${event.title}" (${event.source}):`,
-              err instanceof Error ? err.message : err
+              `[Scrape] Upsert failed: "${event.title}" (${event.source}, url=${event.url}): ${formatErrorDetails(err)}`
             );
           }
         })
@@ -325,8 +293,19 @@ export async function GET(request: Request) {
       `[Scrape] Upsert complete in ${formatDuration(stats.upsert.duration)}: ${stats.upsert.success} succeeded, ${stats.upsert.failed} failed`
     );
 
+    // Log per-source upsert breakdown if any failures occurred
+    if (stats.upsert.failed > 0) {
+      console.log('[Scrape] ── Upsert by Source ──');
+      for (const [src, counts] of Object.entries(stats.upsert.bySource)) {
+        if (counts.failed > 0) {
+          console.log(`[Scrape]   ${src}: ${counts.success} ok, ${counts.failed} failed`);
+        }
+      }
+    }
+
     // Deduplication
-    console.log(`[Scrape] Running deduplication...`);
+    const dedupStartTime = Date.now();
+    console.log('[Scrape] Running deduplication...');
     const allDbEvents = await db
       .select({
         id: events.id,
@@ -344,6 +323,14 @@ export async function GET(request: Request) {
     const duplicateIdsToRemove = getIdsToRemove(duplicateGroups);
     const descriptionUpdates = getDescriptionUpdates(duplicateGroups);
     stats.dedup.removed = duplicateIdsToRemove.length;
+
+    // Count duplicates by method
+    for (const group of duplicateGroups) {
+      const methods = group.method.split(',');
+      for (const method of methods) {
+        stats.dedup.byMethod[method] = (stats.dedup.byMethod[method] || 0) + group.remove.length;
+      }
+    }
 
     // Log duplicate groups for visibility
     for (const group of duplicateGroups) {
@@ -371,25 +358,49 @@ export async function GET(request: Request) {
 
     if (duplicateIdsToRemove.length > 0) {
       await db.delete(events).where(inArray(events.id, duplicateIdsToRemove));
+      const methodSummary = Object.entries(stats.dedup.byMethod)
+        .map(([m, c]) => `${m}=${c}`)
+        .join(', ');
       console.log(
-        `[Scrape] Deduplication: removed ${duplicateIdsToRemove.length} duplicate events.`
+        `[Scrape] Deduplication: removed ${duplicateIdsToRemove.length} duplicates in ${formatDuration(Date.now() - dedupStartTime)} (by method: ${methodSummary})`
       );
     } else {
-      console.log(`[Scrape] Deduplication: no duplicates found.`);
+      console.log(
+        `[Scrape] Deduplication: no duplicates found (${formatDuration(Date.now() - dedupStartTime)}).`
+      );
     }
+
+    // Get post-run event count
+    const [postCount] = await db.select({ count: sql<number>`count(*)::int` }).from(events);
+    stats.dbEventsAfter = postCount.count;
+
+    // Invalidate cache so home page shows updated events
+    invalidateEventsCache();
 
     // Final summary
     const totalDuration = Date.now() - jobStartTime;
     console.log('[Scrape] ────────────────────────────────────────────────');
     console.log(`[Scrape] JOB COMPLETE in ${formatDuration(totalDuration)}`);
     console.log('[Scrape] ────────────────────────────────────────────────');
-    console.log(`[Scrape] Scraped: ${stats.scraping.total} events`);
-    console.log(`[Scrape] Upserted: ${stats.upsert.success} (${stats.upsert.failed} failed)`);
-    console.log(`[Scrape] Duplicates removed: ${stats.dedup.removed}`);
+    console.log(
+      `[Scrape] Scraped: ${stats.scraping.total} events from ${successCount}/${SCRAPERS.length} sources (${formatDuration(stats.scraping.duration)})`
+    );
+    console.log(
+      `[Scrape] Upserted: ${stats.upsert.success} ok, ${stats.upsert.failed} failed (${formatDuration(stats.upsert.duration)})`
+    );
+    console.log(
+      `[Scrape] Dedup: ${stats.dedup.removed} removed${
+        Object.keys(stats.dedup.byMethod).length > 0
+          ? ` (${Object.entries(stats.dedup.byMethod)
+              .map(([m, c]) => `${m}=${c}`)
+              .join(', ')})`
+          : ''
+      }`
+    );
+    console.log(
+      `[Scrape] DB events: ${stats.dbEventsBefore} before -> ${stats.dbEventsAfter} after (net ${stats.dbEventsAfter >= stats.dbEventsBefore ? '+' : ''}${stats.dbEventsAfter - stats.dbEventsBefore})`
+    );
     console.log('[Scrape] ════════════════════════════════════════════════');
-
-    // Invalidate cache so home page shows updated events
-    invalidateEventsCache();
 
     const result = {
       scraped: stats.scraping.total,
@@ -397,7 +408,10 @@ export async function GET(request: Request) {
       duplicatesRemoved: stats.dedup.removed,
       failures: {
         upsert: stats.upsert.failed,
+        scrapers: failCount,
       },
+      dbEventsBefore: stats.dbEventsBefore,
+      dbEventsAfter: stats.dbEventsAfter,
     };
 
     await completeCronJob(runId, result);
@@ -411,7 +425,10 @@ export async function GET(request: Request) {
     const totalDuration = Date.now() - jobStartTime;
     console.error('[Scrape] ════════════════════════════════════════════════');
     console.error(`[Scrape] JOB FAILED after ${formatDuration(totalDuration)}`);
-    console.error('[Scrape] Error:', error);
+    console.error(`[Scrape] Error: ${formatErrorDetails(error)}`);
+    if (error instanceof Error && error.stack) {
+      console.error(`[Scrape] Stack: ${error.stack}`);
+    }
     console.error('[Scrape] ════════════════════════════════════════════════');
 
     await failCronJob(runId, error);

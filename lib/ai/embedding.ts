@@ -25,13 +25,15 @@ export async function generateEmbedding(
   options?: EmbeddingOptions
 ): Promise<number[] | null> {
   if (!isAIEnabled()) {
-    console.warn('[Embedding] AI not enabled, skipping embedding generation');
+    console.warn('[AI:Embed] Gemini AI not enabled (GEMINI_API_KEY missing), returning null');
     return null;
   }
 
   const model = getEmbeddingModel();
   if (!model) {
-    console.warn('[Embedding] Embedding model not available');
+    console.warn(
+      '[AI:Embed] Embedding model not available (getEmbeddingModel returned null), returning null'
+    );
     return null;
   }
 
@@ -45,12 +47,12 @@ export async function generateEmbedding(
     } as Parameters<typeof model.embedContent>[0]);
 
     const embedding = result.embedding.values;
-    console.log(
-      `[Embedding] Generated ${embedding.length}-dim embedding for: ${text.slice(0, 50)}...`
-    );
     return embedding;
   } catch (error) {
-    console.error('[Embedding] Error generating embedding:', error);
+    console.error(
+      `[AI:Embed] API error for text "${text.slice(0, 50)}...":`,
+      error instanceof Error ? error.message : error
+    );
     return null;
   }
 }

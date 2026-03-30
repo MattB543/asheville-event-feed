@@ -10,6 +10,7 @@ import {
   getLatestQuestions,
   getMatchingProfileForUser,
 } from '@/lib/matching/utils';
+import { isValidHttpsUrl } from '@/lib/matching/urlValidation';
 
 export async function POST(request: NextRequest) {
   try {
@@ -65,6 +66,7 @@ export async function POST(request: NextRequest) {
 
     const answerMap = new Map(answers.map((answer) => [answer.questionId, answer]));
     const missingRequired: string[] = [];
+    const invalidUrls: string[] = [];
 
     for (const question of questions) {
       const answer = answerMap.get(question.id);
@@ -85,6 +87,13 @@ export async function POST(request: NextRequest) {
         return text.length > 0;
       })();
 
+      if (question.inputType === 'url' && hasAnswer) {
+        const text = typeof answer?.answerText === 'string' ? answer.answerText.trim() : '';
+        if (!isValidHttpsUrl(text)) {
+          invalidUrls.push(question.id);
+        }
+      }
+
       if (!question.required) continue;
       if (!hasAnswer) {
         missingRequired.push(question.id);
@@ -94,6 +103,16 @@ export async function POST(request: NextRequest) {
     if (missingRequired.length > 0) {
       return NextResponse.json(
         { error: 'Missing required answers', missing: missingRequired },
+        { status: 400 }
+      );
+    }
+
+    if (invalidUrls.length > 0) {
+      return NextResponse.json(
+        {
+          error: 'Invalid URL answers',
+          invalidUrls,
+        },
         { status: 400 }
       );
     }

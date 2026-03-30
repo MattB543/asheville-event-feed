@@ -160,6 +160,7 @@ export async function fetchPageContent(url: string): Promise<string | null> {
     return null;
   }
 
+  const fetchStart = Date.now();
   try {
     const jinaUrl = `https://r.jina.ai/${encodeURIComponent(url)}`;
 
@@ -172,7 +173,8 @@ export async function fetchPageContent(url: string): Promise<string | null> {
     });
 
     if (!response.ok) {
-      console.warn(`[Verify] Jina fetch failed for ${url}: ${response.status}`);
+      const elapsed = ((Date.now() - fetchStart) / 1000).toFixed(1);
+      console.warn(`[Verify] Jina fetch failed for ${url}: HTTP ${response.status} (${elapsed}s)`);
       return null;
     }
 
@@ -180,13 +182,29 @@ export async function fetchPageContent(url: string): Promise<string | null> {
 
     // Check for empty or error responses
     if (!content || content.length < 100) {
-      console.warn(`[Verify] Jina returned minimal content for ${url}`);
+      const elapsed = ((Date.now() - fetchStart) / 1000).toFixed(1);
+      console.warn(
+        `[Verify] Jina returned minimal content for ${url}: ${content.length} chars (${elapsed}s)`
+      );
       return null;
     }
 
     return content;
   } catch (error) {
-    console.error(`[Verify] Error fetching ${url}:`, error);
+    const elapsed = ((Date.now() - fetchStart) / 1000).toFixed(1);
+    const errorType =
+      error instanceof Error
+        ? error.message.includes('timeout') || error.message.includes('Timeout')
+          ? 'timeout'
+          : error.message.includes('ECONNREFUSED')
+            ? 'connection refused'
+            : error.message.includes('ENOTFOUND')
+              ? 'DNS resolution failed'
+              : error.message.includes('abort')
+                ? 'aborted'
+                : error.message
+        : String(error);
+    console.error(`[Verify] Jina fetch error for ${url}: ${errorType} (${elapsed}s)`);
     return null;
   }
 }
@@ -251,13 +269,19 @@ ${truncatedContent}
 
 Analyze the page content and determine if this event is still active and accurate.`;
 
+  const aiStart = Date.now();
   try {
     const aiResponse = await azureChatCompletion(SYSTEM_PROMPT, userPrompt, {
       maxTokens: 10000, // Reasoning models need plenty of tokens for thinking + output
     });
 
+    const aiElapsed = ((Date.now() - aiStart) / 1000).toFixed(1);
+
     if (!aiResponse || !aiResponse.content) {
       result.error = 'No AI response';
+      console.warn(
+        `[Verify] AI returned empty response for "${event.title.slice(0, 50)}" (${aiElapsed}s)`
+      );
       return result;
     }
 
@@ -265,6 +289,9 @@ Analyze the page content and determine if this event is still active and accurat
     const jsonMatch = aiResponse.content.match(/\{[\s\S]*\}/);
     if (!jsonMatch) {
       result.error = 'Invalid AI response format';
+      console.warn(
+        `[Verify] AI returned non-JSON for "${event.title.slice(0, 50)}" (${aiElapsed}s)`
+      );
       return result;
     }
 
@@ -282,9 +309,24 @@ Analyze the page content and determine if this event is still active and accurat
       };
     }
 
+    // Store token usage on the result for upstream aggregation
+    (result as VerificationResult & { tokensUsed?: number }).tokensUsed =
+      aiResponse.usage.totalTokens;
+
     return result;
   } catch (error) {
-    result.error = `AI error: ${error instanceof Error ? error.message : String(error)}`;
+    const aiElapsed = ((Date.now() - aiStart) / 1000).toFixed(1);
+    const errMsg = error instanceof Error ? error.message : String(error);
+    const isTransient =
+      errMsg.includes('timeout') ||
+      errMsg.includes('Timeout') ||
+      errMsg.includes('429') ||
+      errMsg.includes('503') ||
+      errMsg.includes('ECONNRESET');
+    result.error = `AI error (${isTransient ? 'transient' : 'permanent'}): ${errMsg}`;
+    console.error(
+      `[Verify] AI ${isTransient ? 'transient' : 'permanent'} error for "${event.title.slice(0, 50)}": ${errMsg} (${aiElapsed}s)`
+    );
     return result;
   }
 }
@@ -350,23 +392,27 @@ export async function processEventVerification(
   // Filter events for verification
   const eventsToCheck = filterEventsForVerification(events, opts).slice(0, opts.maxEvents);
 
-  if (opts.verbose) {
-    console.log(
-      `[Verify] Processing ${eventsToCheck.length} events (filtered from ${events.length})`
-    );
-  }
+  console.log(
+    `[Verify] Processing ${eventsToCheck.length} events (filtered from ${events.length})`
+  );
 
-  for (const event of eventsToCheck) {
+  let fetchFailures = 0;
+  let transientErrors = 0;
+  let permanentErrors = 0;
+
+  for (let i = 0; i < eventsToCheck.length; i++) {
+    const event = eventsToCheck[i];
     try {
-      if (opts.verbose) {
-        console.log(`[Verify] Checking: ${event.title.slice(0, 50)}...`);
-      }
+      console.log(
+        `[Verify] [${i + 1}/${eventsToCheck.length}] Checking: "${event.title.slice(0, 60)}" (${event.source})`
+      );
 
       // Fetch page content via Jina
       const pageContent = await fetchPageContent(event.url);
 
       if (!pageContent) {
         result.eventsSkipped++;
+        fetchFailures++;
         result.results.push({
           eventId: event.id,
           eventTitle: event.title,
@@ -375,6 +421,9 @@ export async function processEventVerification(
           confidence: 0,
           error: 'Jina fetch failed',
         });
+        console.log(
+          `[Verify] [${i + 1}/${eventsToCheck.length}] SKIP (fetch failed): "${event.title.slice(0, 60)}"`
+        );
         continue;
       }
 
@@ -386,52 +435,75 @@ export async function processEventVerification(
       result.results.push(verificationResult);
       result.eventsChecked++;
 
-      // Count results
+      // Track token usage
+      const tokensUsed =
+        (verificationResult as VerificationResult & { tokensUsed?: number }).tokensUsed || 0;
+      result.totalTokensUsed += tokensUsed;
+
+      // Count results and log per-event outcomes
       switch (verificationResult.action) {
         case 'hide':
           result.eventsHidden++;
-          if (opts.verbose) {
-            console.log(`[Verify] HIDE: ${event.title} - ${verificationResult.reason}`);
-          }
+          console.log(
+            `[Verify] [${i + 1}/${eventsToCheck.length}] HIDE: "${event.title.slice(0, 60)}" - ${verificationResult.reason} (confidence: ${verificationResult.confidence})`
+          );
           break;
         case 'update':
           result.eventsUpdated++;
-          if (opts.verbose) {
-            console.log(`[Verify] UPDATE: ${event.title} - ${verificationResult.reason}`);
-          }
+          const changedFields = verificationResult.updates
+            ? Object.entries(verificationResult.updates)
+                .filter(([, v]) => v != null)
+                .map(([k]) => k)
+            : [];
+          console.log(
+            `[Verify] [${i + 1}/${eventsToCheck.length}] UPDATE: "${event.title.slice(0, 60)}" - fields: [${changedFields.join(', ')}] - ${verificationResult.reason}`
+          );
           break;
         case 'keep':
           result.eventsKept++;
+          if (opts.verbose) {
+            console.log(
+              `[Verify] [${i + 1}/${eventsToCheck.length}] KEEP: "${event.title.slice(0, 60)}" - ${verificationResult.reason}`
+            );
+          }
           break;
       }
 
       if (verificationResult.error) {
         result.errors++;
+        if (verificationResult.error.includes('transient')) {
+          transientErrors++;
+        } else {
+          permanentErrors++;
+        }
       }
 
       // Rate limit delay for AI
       await new Promise((r) => setTimeout(r, opts.aiDelayMs));
     } catch (error) {
       result.errors++;
+      const errMsg = error instanceof Error ? error.message : String(error);
+      permanentErrors++;
       result.results.push({
         eventId: event.id,
         eventTitle: event.title,
         action: 'keep',
         reason: 'Processing error',
         confidence: 0,
-        error: error instanceof Error ? error.message : String(error),
+        error: errMsg,
       });
+      console.error(
+        `[Verify] [${i + 1}/${eventsToCheck.length}] ERROR processing "${event.title.slice(0, 60)}": ${errMsg}`
+      );
     }
   }
 
   result.durationMs = Date.now() - startTime;
 
-  if (opts.verbose) {
-    console.log(`[Verify] Complete in ${(result.durationMs / 1000).toFixed(1)}s`);
-    console.log(
-      `[Verify] Checked: ${result.eventsChecked}, Hidden: ${result.eventsHidden}, Updated: ${result.eventsUpdated}, Kept: ${result.eventsKept}, Skipped: ${result.eventsSkipped}, Errors: ${result.errors}`
-    );
-  }
+  const durationStr = (result.durationMs / 1000).toFixed(1);
+  console.log(
+    `[Verify] Batch complete in ${durationStr}s - Checked: ${result.eventsChecked}, Hidden: ${result.eventsHidden}, Updated: ${result.eventsUpdated}, Kept: ${result.eventsKept}, Skipped: ${result.eventsSkipped} (fetch failures: ${fetchFailures}), Errors: ${result.errors} (transient: ${transientErrors}, permanent: ${permanentErrors}), Tokens: ${result.totalTokensUsed}`
+  );
 
   return result;
 }

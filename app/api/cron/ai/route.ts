@@ -27,6 +27,11 @@ import {
   type Top30Event,
 } from '@/lib/notifications/top30-email-templates';
 import { areEquivalentTop30Events } from '@/lib/notifications/top30-notification-equivalence';
+import {
+  buildTop30NotificationTrackingKey,
+  extractStoredTop30NotificationTrackingKeys,
+  extractStoredTop30TrackedEventIds,
+} from '@/lib/notifications/top30-notification-tracking';
 import { encodeUnsubscribeToken } from '@/app/api/top30/unsubscribe/route';
 
 export const maxDuration = 800; // 13+ minutes (requires Fluid Compute)
@@ -473,7 +478,9 @@ export async function GET(request: Request) {
           const trackedIds = Array.from(
             new Set(
               liveSubscribers.flatMap((subscriber) =>
-                (subscriber.top30LastEventIds || []).filter((id) => futureEventIdSet.has(id))
+                extractStoredTop30TrackedEventIds(subscriber.top30LastEventIds || []).filter((id) =>
+                  futureEventIdSet.has(id)
+                )
               )
             )
           );
@@ -533,20 +540,37 @@ export async function GET(request: Request) {
                 continue;
               }
 
-              // Find new events (in current top 30 but not in user's notified list)
-              // We track ALL events ever notified, not just current Top 30 composition,
-              // to prevent duplicate notifications when events bounce in/out of Top 30
-              const notifiedIds = new Set(subscriber.top30LastEventIds || []);
-              const existingValidIds = (subscriber.top30LastEventIds || []).filter((id) =>
+              // Find new events (in current top 30 but not in the user's tracking history).
+              // Event UUIDs are not durable enough on their own because dedup/cleanup can
+              // replace a row with a different UUID for the same real-world event.
+              const existingTrackingEntries = subscriber.top30LastEventIds || [];
+              const storedTrackedEventIds =
+                extractStoredTop30TrackedEventIds(existingTrackingEntries);
+              const storedTrackingKeys = new Set(
+                extractStoredTop30NotificationTrackingKeys(existingTrackingEntries)
+              );
+              const notifiedIds = new Set(storedTrackedEventIds);
+              const existingValidIds = storedTrackedEventIds.filter((id) =>
                 futureEventIdSet.has(id)
               );
               const previouslyNotifiedEvents = existingValidIds
                 .map((id) => trackedEventById.get(id))
                 .filter((event): event is NonNullable<typeof event> => Boolean(event));
+              const derivedTrackingKeys = new Set(
+                previouslyNotifiedEvents.map((event) => buildTop30NotificationTrackingKey(event))
+              );
+              const allTrackingKeys = new Set([...storedTrackingKeys, ...derivedTrackingKeys]);
+              const missingDerivedKeys = Array.from(derivedTrackingKeys).filter(
+                (key) => !storedTrackingKeys.has(key)
+              );
 
               const newEvents: Top30Event[] = currentTop30
                 .filter((event) => {
                   if (notifiedIds.has(event.id)) {
+                    return false;
+                  }
+
+                  if (allTrackingKeys.has(buildTop30NotificationTrackingKey(event))) {
                     return false;
                   }
 
@@ -569,16 +593,36 @@ export async function GET(request: Request) {
                 }));
 
               if (newEvents.length === 0) {
-                // No new events for this user - don't update the notified list
-                // (preserves history of all events they've been notified about)
+                // Backfill durable tracking keys even when nothing is newly emailed so the next
+                // row replacement does not re-trigger a notification for the same event.
+                if (missingDerivedKeys.length > 0) {
+                  const updatedTrackingEntries = Array.from(
+                    new Set([...existingValidIds, ...storedTrackingKeys, ...missingDerivedKeys])
+                  );
+                  await db
+                    .update(newsletterSettings)
+                    .set({
+                      top30LastEventIds: updatedTrackingEntries,
+                      updatedAt: new Date(),
+                    })
+                    .where(eq(newsletterSettings.userId, subscriber.userId));
+
+                  console.log(
+                    `[AI] Backfilled ${missingDerivedKeys.length} top 30 tracking key(s) for ${userInfo.email}`
+                  );
+                }
+
                 stats.top30Notifications.skipped++;
                 console.log(
-                  `[AI] Skipped ${userInfo.email} - no new events (${notifiedIds.size} already notified)`
+                  `[AI] Skipped ${userInfo.email} - no new events (${storedTrackedEventIds.length} tracked IDs, ${allTrackingKeys.size} durable keys)`
                 );
                 continue;
               }
 
               const newEventIds = newEvents.map((event) => event.id);
+              const newTrackingKeys = newEvents.map((event) =>
+                buildTop30NotificationTrackingKey(event)
+              );
 
               if (newEvents.length > stats.top30Notifications.newEvents) {
                 stats.top30Notifications.newEvents = newEvents.length;
@@ -617,18 +661,42 @@ export async function GET(request: Request) {
                     `[AI] Sent top 30 notification to ${userInfo.email}: ${newEvents.length} new events`
                   );
 
-                  // Append new event IDs to the notified list (don't replace)
-                  // This ensures events are only notified once, even if they bounce in/out of Top 30
-                  // Also clean up IDs for events that have already passed (to prevent unbounded growth)
-                  const updatedNotifiedIds = [...existingValidIds, ...newEventIds];
-                  await db
-                    .update(newsletterSettings)
-                    .set({
-                      top30LastEventIds: updatedNotifiedIds,
-                      top30LastNotifiedAt: new Date(),
-                      updatedAt: new Date(),
-                    })
-                    .where(eq(newsletterSettings.userId, subscriber.userId));
+                  // Append current event IDs plus durable tracking keys.
+                  // UUIDs are still useful for cross-checking current rows, while the keys prevent
+                  // duplicate emails when a later scrape/dedup cycle recreates the row.
+                  const updatedTrackingEntries = Array.from(
+                    new Set([
+                      ...existingValidIds,
+                      ...storedTrackingKeys,
+                      ...missingDerivedKeys,
+                      ...newEventIds,
+                      ...newTrackingKeys,
+                    ])
+                  );
+                  try {
+                    await db
+                      .update(newsletterSettings)
+                      .set({
+                        top30LastEventIds: updatedTrackingEntries,
+                        top30LastNotifiedAt: new Date(),
+                        updatedAt: new Date(),
+                      })
+                      .where(eq(newsletterSettings.userId, subscriber.userId));
+                  } catch (trackingError) {
+                    console.error(
+                      `[AI] Sent top 30 notification to ${userInfo.email}, but failed to persist tracking. Retrying once...`,
+                      trackingError
+                    );
+                    await new Promise((r) => setTimeout(r, 250));
+                    await db
+                      .update(newsletterSettings)
+                      .set({
+                        top30LastEventIds: updatedTrackingEntries,
+                        top30LastNotifiedAt: new Date(),
+                        updatedAt: new Date(),
+                      })
+                      .where(eq(newsletterSettings.userId, subscriber.userId));
+                  }
                 } else {
                   stats.top30Notifications.skipped++;
                 }

@@ -160,7 +160,7 @@ export const newsletterSettings = pgTable('newsletter_settings', {
   // Top 30 notification preferences
   top30Subscription: text('top30_subscription').default('none').notNull(), // 'none' | 'live' | 'weekly'
   top30LastNotifiedAt: timestamp('top30_last_notified_at', { withTimezone: true }),
-  top30LastEventIds: text('top30_last_event_ids').array().default([]), // Previous top 30 IDs for change detection
+  top30LastEventIds: text('top30_last_event_ids').array().default([]), // Tracked top 30 event UUIDs plus durable notification keys
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
 });

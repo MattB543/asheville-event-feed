@@ -13,6 +13,11 @@ import {
   generateTop30WeeklyEmailText,
   type Top30Event,
 } from '@/lib/notifications/top30-email-templates';
+import {
+  buildTop30NotificationTrackingKey,
+  extractStoredTop30NotificationTrackingKeys,
+  extractStoredTop30TrackedEventIds,
+} from '@/lib/notifications/top30-notification-tracking';
 import { encodeUnsubscribeToken } from '@/app/api/top30/unsubscribe/route';
 import { startCronJob, completeCronJob, failCronJob } from '@/lib/cron/jobTracker';
 
@@ -192,32 +197,56 @@ export async function GET(request: Request) {
           stats.sent++;
           console.log(`[Top30Weekly] Sent weekly digest to ${userInfo.email}`);
 
-          // Fetch current notified IDs for this user to append (not replace)
+          // Fetch current tracking entries for this user to append (not replace).
           const currentSettings = await db
             .select({ top30LastEventIds: newsletterSettings.top30LastEventIds })
             .from(newsletterSettings)
             .where(eq(newsletterSettings.userId, subscriber.userId))
             .limit(1);
 
-          const existingIds = currentSettings[0]?.top30LastEventIds || [];
+          const existingEntries = currentSettings[0]?.top30LastEventIds || [];
+          const existingTrackedEventIds = extractStoredTop30TrackedEventIds(existingEntries);
+          const existingTrackingKeys = extractStoredTop30NotificationTrackingKeys(existingEntries);
           const currentIds = currentTop30.map((e) => e.id);
-          // Filter existing IDs to only keep future events (cleanup past events)
-          // Then append new IDs (deduplicated) to prevent duplicates if user switches to live
-          const existingValidIds = existingIds.filter((id) => futureEventIdSet.has(id));
-          const existingIdSet = new Set(existingValidIds);
-          const updatedNotifiedIds = [
-            ...existingValidIds,
-            ...currentIds.filter((id) => !existingIdSet.has(id)),
-          ];
+          const currentTrackingKeys = currentTop30.map((event) =>
+            buildTop30NotificationTrackingKey(event)
+          );
+          // Filter current-row IDs to future events, but keep durable tracking keys so users do not
+          // get re-notified if the same event is later recreated under a different UUID.
+          const existingValidIds = existingTrackedEventIds.filter((id) => futureEventIdSet.has(id));
+          const updatedTrackingEntries = Array.from(
+            new Set([
+              ...existingValidIds,
+              ...existingTrackingKeys,
+              ...currentIds,
+              ...currentTrackingKeys,
+            ])
+          );
 
-          await db
-            .update(newsletterSettings)
-            .set({
-              top30LastNotifiedAt: new Date(),
-              top30LastEventIds: updatedNotifiedIds,
-              updatedAt: new Date(),
-            })
-            .where(eq(newsletterSettings.userId, subscriber.userId));
+          try {
+            await db
+              .update(newsletterSettings)
+              .set({
+                top30LastNotifiedAt: new Date(),
+                top30LastEventIds: updatedTrackingEntries,
+                updatedAt: new Date(),
+              })
+              .where(eq(newsletterSettings.userId, subscriber.userId));
+          } catch (trackingError) {
+            console.error(
+              `[Top30Weekly] Sent weekly digest to ${userInfo.email}, but failed to persist tracking. Retrying once...`,
+              trackingError
+            );
+            await new Promise((r) => setTimeout(r, 250));
+            await db
+              .update(newsletterSettings)
+              .set({
+                top30LastNotifiedAt: new Date(),
+                top30LastEventIds: updatedTrackingEntries,
+                updatedAt: new Date(),
+              })
+              .where(eq(newsletterSettings.userId, subscriber.userId));
+          }
         } else {
           stats.failed++;
         }

@@ -309,6 +309,14 @@ export async function GET(request: Request) {
       interestedCount: event.interestedCount || null,
       goingCount: event.goingCount || null,
       favoriteCount: event.favoriteCount || 0,
+      // Scoring (used by Top 30 ranking)
+      score: event.score ?? null,
+      scoreRarity: event.scoreRarity ?? null,
+      scoreUnique: event.scoreUnique ?? null,
+      scoreMagnitude: event.scoreMagnitude ?? null,
+      scoreReason: event.scoreReason ?? null,
+      scoreAshevilleWeird: event.scoreAshevilleWeird ?? null,
+      scoreSocial: event.scoreSocial ?? null,
       // Recurring event info
       recurringType: event.recurringType || null,
       recurringEndDate: event.recurringEndDate?.toISOString() || null,

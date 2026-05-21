@@ -842,6 +842,22 @@ export default function EventFeed({
     const dayAfterTomorrow = new Date(tomorrow);
     dayAfterTomorrow.setDate(dayAfterTomorrow.getDate() + 1);
 
+    // Weekend boundaries (Fri 00:00 -> Mon 00:00, exclusive end). Matches
+    // server-side getWeekendBoundaries() in lib/db/queries/events.ts, but in
+    // local time to stay consistent with today/tomorrow above.
+    const weekendStart = new Date(today);
+    const dow = today.getDay(); // 0=Sun, 1=Mon, ..., 5=Fri, 6=Sat
+    const daysUntilFriday = dow === 0 ? -2 : 5 - dow;
+    weekendStart.setDate(weekendStart.getDate() + daysUntilFriday);
+    const weekendEnd = new Date(weekendStart);
+    weekendEnd.setDate(weekendEnd.getDate() + 3); // Mon 00:00 (exclusive)
+
+    // Custom date range parsed once (start of day -> end of day, inclusive).
+    const customStart = safeParseDateString(customDateRange.start);
+    const customEnd = safeParseDateString(customDateRange.end ?? customDateRange.start);
+    if (customStart) customStart.setHours(0, 0, 0, 0);
+    if (customEnd) customEnd.setHours(23, 59, 59, 999);
+
     return top30CategoryEvents.filter((event) => {
       if (search.trim()) {
         const searchLower = search.toLowerCase();
@@ -872,6 +888,21 @@ export default function EventFeed({
           if (dateFilter === 'tomorrow') {
             return occurrence.startDate >= tomorrow && occurrence.startDate < dayAfterTomorrow;
           }
+          if (dateFilter === 'weekend') {
+            return occurrence.startDate >= weekendStart && occurrence.startDate < weekendEnd;
+          }
+          if (dateFilter === 'dayOfWeek') {
+            if (selectedDays.length === 0) return true;
+            // Must also be in the future (matches main list semantics)
+            if (occurrence.startDate < today) return false;
+            return selectedDays.includes(occurrence.startDate.getDay());
+          }
+          if (dateFilter === 'custom') {
+            if (!customStart) return true;
+            if (occurrence.startDate < customStart) return false;
+            if (customEnd && occurrence.startDate > customEnd) return false;
+            return true;
+          }
           return true;
         });
 
@@ -880,7 +911,15 @@ export default function EventFeed({
 
       return true;
     });
-  }, [top30CategoryEvents, search, priceFilter, dateFilter]);
+  }, [
+    top30CategoryEvents,
+    search,
+    priceFilter,
+    dateFilter,
+    selectedDays,
+    customDateRange.start,
+    customDateRange.end,
+  ]);
 
   // Infinite scroll trigger
   const loadMoreRef = useInfiniteScrollTrigger(

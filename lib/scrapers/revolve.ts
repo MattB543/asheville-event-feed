@@ -1,12 +1,13 @@
 /**
- * Revolve Scraper - Embedded JSON Data
+ * Revolve Scraper - HTML Event Cards
  *
- * Scrapes events from withfriends.events platform.
+ * Scrapes events from pools.events (formerly withfriends.events).
  * Currently configured for REVOLVE, an Asheville-based arts/community organization.
  *
  * Data Source:
- *   - Events embedded as JSON array in HTML page
- *   - No API endpoint available
+ *   - Events rendered as HTML "ticketCard" elements on the org's upcoming page
+ *   - No API endpoint or machine-readable event JSON available (the only LD+JSON
+ *     block describes the organization, not its events)
  *
  * Debug Mode:
  *   Set DEBUG_DIR env var to save raw data and validation reports
@@ -17,11 +18,10 @@ import { BROWSER_HEADERS, debugSave, fetchEventData } from './base';
 import { decodeHtmlEntities } from '../utils/parsers';
 import { getZipFromCity } from '../utils/geo';
 import { parseAsEastern } from '../utils/timezone';
-import { isRecord, isString } from '../utils/validation';
 
 // Config
-const EVENTS_URL = 'https://withfriends.events/o/revolve/upcoming/';
-const BASE_URL = 'https://withfriends.events';
+const EVENTS_URL = 'https://pools.events/o/revolve/upcoming/';
+const BASE_URL = 'https://pools.events';
 
 // Filter to only include events from these organizers (case-insensitive match)
 const ALLOWED_ORGANIZERS = ['REVOLVE'];
@@ -118,62 +118,96 @@ function generateValidationReport(events: ScrapedEvent[]): string {
 // TYPE DEFINITIONS
 // ============================================================================
 
-interface WithFriendsEvent {
-  unique_code_public: string;
-  event_name: string;
-  event_datetime: string; // "2026-01-04 18:30:00+00:00"
-  event_datetime_text?: string; // "Sun, Jan 4 at 6:30 PM"
-  organization_name: string;
-  format_one_line_address?: string;
-  city?: string;
-  state?: string;
-  venue_address_state_raw?: string;
-  get_public_price?: string;
-  resize_poster_image_url?: string;
-  profile_url: string; // "/event/v81shAMe/"
-  is_cancelled?: boolean;
-  venue_address_google_maps_url?: string;
-}
-
-function isWithFriendsEvent(value: unknown): value is WithFriendsEvent {
-  if (!isRecord(value)) return false;
-  return (
-    isString(value.unique_code_public) &&
-    isString(value.event_name) &&
-    isString(value.event_datetime) &&
-    isString(value.organization_name) &&
-    isString(value.profile_url)
-  );
+/**
+ * A raw event parsed out of a single HTML "ticketCard" element.
+ */
+interface RevolveCard {
+  publicId: string;
+  title: string;
+  href: string; // e.g. "/event/Mx8X29ZZ/the-language-of-landscapes.../"
+  dateText: string; // human format, e.g. "Sat, Jun 6 at 7:00pm"
+  organizer?: string;
+  location?: string;
+  price?: string;
+  imageUrl?: string;
 }
 
 // ============================================================================
 // HELPER FUNCTIONS
 // ============================================================================
 
+const MONTHS: Record<string, number> = {
+  jan: 0,
+  feb: 1,
+  mar: 2,
+  apr: 3,
+  may: 4,
+  jun: 5,
+  jul: 6,
+  aug: 7,
+  sep: 8,
+  oct: 9,
+  nov: 10,
+  dec: 11,
+};
+
 /**
- * Parse the event datetime from withfriends format
- * Input: "2026-01-04 18:30:00+00:00"
+ * Parse the human-readable event date text into a Date (treated as Eastern time).
  *
- * NOTE: Despite having +00:00 suffix, the API appears to return local Eastern time
- * with an incorrect UTC offset. The event_datetime_text confirms local time.
- * We parse the date/time portion and treat it as Eastern time.
+ * The site no longer provides a machine ISO datetime, only display strings like:
+ *   "Sat, Jun 6 at 7:00pm"
+ *   "Thu, Jun 11 at 7:00pm"
+ *   "Sat, Jun 6 at 7:00pm thru Jun 27"  (multi-day pass; we use the start)
+ *   "Sun, Jun 7 at 12:00pm"
+ *   "Fri, Jul 4 at 7pm"                 (minutes optional)
+ *
+ * There is no year, so we infer it: assume the next occurrence. If the parsed
+ * month/day has already passed this year (more than a day ago), roll to next year.
+ *
+ * Returns null if the text can't be parsed.
  */
-function parseEventDate(dateStr: string): Date {
-  // Extract date and time parts, ignoring the timezone offset
-  // Input format: "2026-01-04 18:30:00+00:00"
-  const match = dateStr.match(/^(\d{4}-\d{2}-\d{2})\s+(\d{2}:\d{2}:\d{2})/);
-  if (!match) {
-    // Fallback: try parsing as-is
-    return new Date(dateStr.replace(' ', 'T'));
+function parseEventDate(dateText: string): Date | null {
+  if (!dateText) return null;
+
+  // Take only the start portion, dropping any "thru ..." range suffix.
+  const startText = dateText.split(/\bthru\b/i)[0];
+
+  // Match "<Mon> <Day> at <H>[:MM]<am|pm>"  (weekday prefix is optional/ignored)
+  const match = startText.match(
+    /([A-Za-z]{3,})\.?\s+(\d{1,2})\s+at\s+(\d{1,2})(?::(\d{2}))?\s*([ap])\.?m\.?/i
+  );
+  if (!match) return null;
+
+  const [, monthName, dayStr, hourStr, minStr, meridiem] = match;
+  const month = MONTHS[monthName.slice(0, 3).toLowerCase()];
+  if (month === undefined) return null;
+
+  const day = parseInt(dayStr, 10);
+  let hour = parseInt(hourStr, 10) % 12;
+  if (meridiem.toLowerCase() === 'p') hour += 12;
+  const minute = minStr ? parseInt(minStr, 10) : 0;
+
+  // Infer the year: assume the next occurrence relative to "now" (Eastern-ish).
+  const now = new Date();
+  let year = now.getFullYear();
+
+  // Build a candidate using local fields to compare day-level; if it's well in
+  // the past, roll forward a year.
+  const candidate = new Date(year, month, day, hour, minute);
+  const oneDayMs = 24 * 60 * 60 * 1000;
+  if (candidate.getTime() < now.getTime() - oneDayMs) {
+    year += 1;
   }
 
-  const [, datePart, timePart] = match;
-  // Parse as Eastern time (the time shown is actually local to Asheville)
-  return parseAsEastern(datePart, timePart);
+  const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+  const timeStr = `${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')}:00`;
+
+  const parsed = parseAsEastern(dateStr, timeStr);
+  return isNaN(parsed.getTime()) ? null : parsed;
 }
 
 /**
- * Format price from API
+ * Format price from the card
  * Input: "$17.18" or "Free" or undefined
  */
 function formatPrice(price?: string): string {
@@ -213,23 +247,32 @@ function isAllowedOrganizer(organizer: string): boolean {
 }
 
 /**
- * Format event as ScrapedEvent
+ * Strip HTML tags and collapse whitespace from a snippet.
  */
-function formatEvent(event: WithFriendsEvent): ScrapedEvent | null {
-  // Skip cancelled events
-  if (event.is_cancelled) {
-    return null;
-  }
+function stripTags(html: string): string {
+  return decodeHtmlEntities(
+    html
+      .replace(/<[^>]*>/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim()
+  );
+}
 
-  // Filter to only allowed organizers
-  if (!isAllowedOrganizer(event.organization_name)) {
+/**
+ * Format a parsed card as a ScrapedEvent (or null to skip).
+ */
+function formatEvent(card: RevolveCard): ScrapedEvent | null {
+  // Filter to only allowed organizers (org name is rendered as "by REVOLVE")
+  if (card.organizer && !isAllowedOrganizer(card.organizer)) {
     return null;
   }
 
   // Parse date
-  const startDate = parseEventDate(event.event_datetime);
-  if (isNaN(startDate.getTime())) {
-    console.warn(`[Revolve] Invalid date for: ${event.event_name}`);
+  const startDate = parseEventDate(card.dateText);
+  if (!startDate) {
+    console.warn(
+      `[Revolve] Could not parse date "${card.dateText}" for: ${card.title || card.publicId}`
+    );
     return null;
   }
 
@@ -238,111 +281,116 @@ function formatEvent(event: WithFriendsEvent): ScrapedEvent | null {
     return null;
   }
 
-  // Build event URL
-  const url = `${BASE_URL}${event.profile_url}`;
+  // Build absolute event URL
+  const url = `${BASE_URL}${card.href}`;
 
-  // Get location
-  const location =
-    event.format_one_line_address ||
-    (event.city && event.state ? `${event.city}, ${event.state}` : undefined);
-
-  // Get zip from city
-  const zip = getZipFromCity(event.city);
+  // Location is org-level only (e.g. "Asheville, North Carolina")
+  const location = card.location || undefined;
+  const city = location ? location.split(',')[0].trim() : undefined;
+  const zip = getZipFromCity(city);
 
   return {
-    sourceId: `revolve-${event.unique_code_public}`,
+    sourceId: `revolve-${card.publicId}`,
     source: 'REVOLVE',
-    title: decodeHtmlEntities(event.event_name),
+    title: decodeHtmlEntities(card.title),
     startDate,
     location,
     zip,
-    organizer: event.organization_name,
-    price: formatPrice(event.get_public_price),
+    organizer: card.organizer,
+    price: formatPrice(card.price),
     url,
-    imageUrl: event.resize_poster_image_url,
+    imageUrl: card.imageUrl,
   };
 }
 
+// ============================================================================
+// HTML PARSING
+// ============================================================================
+
 /**
- * Extract events JSON from HTML page
- * The data is embedded as a JavaScript array in the page
+ * Split the page into individual ticketCard chunks.
+ * Each chunk starts at a `<div class="...ticketCard...">` and runs until the
+ * next ticketCard (or end of document).
  */
-function extractEventsFromHtml(html: string): WithFriendsEvent[] {
-  // The events are embedded in a script tag or JavaScript variable
-  // Look for the array pattern starting with unique_code_public
-
-  // Try to find an array of event objects
-  // Pattern: [...{"unique_code_public":...]
-  const patterns = [
-    // JSON array embedded in script
-    /\[(?:\s*\{[^[]*?"unique_code_public"[^[]*?\}(?:\s*,\s*\{[^[]*?"unique_code_public"[^[]*?\})*\s*)\]/g,
-    // Alternative: capture JSON array with events
-    /events['"]*\s*[:=]\s*(\[[\s\S]*?\])\s*[,;}\n]/i,
-  ];
-
-  // First, try to find a clean JSON array
-  // Look for content that starts with [{ and contains unique_code_public
-  const jsonArrayMatch = html.match(/\[\s*\{\s*"unique_code_public"[\s\S]*?\}\s*\]/);
-
-  if (jsonArrayMatch) {
-    try {
-      const parsed = JSON.parse(jsonArrayMatch[0]) as unknown;
-      if (Array.isArray(parsed)) {
-        const events = parsed.filter(isWithFriendsEvent);
-        if (events.length > 0) {
-          console.log(`[Revolve] Found ${events.length} events via direct JSON match`);
-          return events;
-        }
-      }
-    } catch {
-      // Continue to other patterns
-    }
+function splitCards(html: string): string[] {
+  const markerRe = /<div[^>]*\bclass="[^"]*\bticketCard\b[^"]*"[^>]*>/g;
+  const starts: number[] = [];
+  let m: RegExpExecArray | null;
+  while ((m = markerRe.exec(html)) !== null) {
+    starts.push(m.index);
   }
 
-  // Try each pattern
-  for (const pattern of patterns) {
-    const matches = html.matchAll(pattern);
-    for (const match of matches) {
-      const jsonStr = match[1] || match[0];
-      try {
-        const parsed = JSON.parse(jsonStr) as unknown;
-        if (Array.isArray(parsed)) {
-          const events = parsed.filter(isWithFriendsEvent);
-          if (events.length > 0) {
-            console.log(`[Revolve] Found ${events.length} events via pattern match`);
-            return events;
-          }
-        }
-      } catch {
-        // Continue to next match
-      }
-    }
+  const chunks: string[] = [];
+  for (let i = 0; i < starts.length; i++) {
+    const start = starts[i];
+    const end = i + 1 < starts.length ? starts[i + 1] : html.length;
+    chunks.push(html.slice(start, end));
+  }
+  return chunks;
+}
+
+/**
+ * Parse a single ticketCard chunk into a RevolveCard.
+ */
+function parseCard(chunk: string): RevolveCard | null {
+  // Public ID: prefer the data attribute, fall back to the /event/<id>/ href.
+  let publicId: string | undefined;
+  const idAttr = chunk.match(/data-event-public-id="([^"]+)"/);
+  if (idAttr) publicId = idAttr[1];
+
+  // Anchor to the event (also the source of the slug/href).
+  const hrefMatch = chunk.match(/href="(\/event\/([A-Za-z0-9]+)\/[^"]*)"/);
+  const href = hrefMatch ? hrefMatch[1] : undefined;
+  if (!publicId && hrefMatch) publicId = hrefMatch[2];
+
+  if (!publicId || !href) return null;
+
+  // Title
+  const titleMatch = chunk.match(/<div class="eventTitleMobile">([\s\S]*?)<\/div>/);
+  const title = titleMatch ? stripTags(titleMatch[1]) : '';
+  if (!title) return null;
+
+  // Date (human text inside imageTextUpperLeft)
+  const dateMatch = chunk.match(/imageTextUpperLeft"[\s\S]*?<div>([\s\S]*?)<\/div>/);
+  const dateText = dateMatch ? stripTags(dateMatch[1]) : '';
+
+  // Organizer ("by REVOLVE")
+  const orgMatch = chunk.match(/<div>\s*by\s+([\s\S]*?)<\/div>/i);
+  const organizer = orgMatch ? stripTags(orgMatch[1]) : undefined;
+
+  // Location (google maps link text, e.g. "Asheville, North Carolina")
+  const locMatch = chunk.match(/event-googlemaps"[\s\S]*?<a[^>]*>([\s\S]*?)<\/a>/);
+  const location = locMatch ? stripTags(locMatch[1]) : undefined;
+
+  // Price (a bare "$..." or "Free" div in the card)
+  const priceMatch = chunk.match(/<div>\s*(\$[\d.,]+|Free)\s*<\/div>/i);
+  const price = priceMatch ? priceMatch[1].trim() : undefined;
+
+  // Image
+  const imgMatch = chunk.match(/<img[^>]*class="upperCardImage"[^>]*src="([^"]+)"/);
+  const imageUrl = imgMatch ? decodeHtmlEntities(imgMatch[1]) : undefined;
+
+  return { publicId, title, href, dateText, organizer, location, price, imageUrl };
+}
+
+/**
+ * Extract events from the rendered HTML cards.
+ */
+function extractEventsFromHtml(html: string): RevolveCard[] {
+  const chunks = splitCards(html);
+  if (chunks.length === 0) {
+    console.warn('[Revolve] No ticketCard elements found in HTML');
+    return [];
   }
 
-  // Fallback: look for individual event objects and collect them
-  const eventObjects: WithFriendsEvent[] = [];
-  const objectPattern =
-    /\{\s*"unique_code_public"\s*:\s*"[^"]+"\s*,[\s\S]*?"profile_url"\s*:\s*"[^"]+"\s*\}/g;
-  const objectMatches = html.matchAll(objectPattern);
-
-  for (const match of objectMatches) {
-    try {
-      const obj = JSON.parse(match[0]) as unknown;
-      if (isWithFriendsEvent(obj)) {
-        eventObjects.push(obj);
-      }
-    } catch {
-      // Skip invalid JSON
-    }
+  const cards: RevolveCard[] = [];
+  for (const chunk of chunks) {
+    const card = parseCard(chunk);
+    if (card) cards.push(card);
   }
 
-  if (eventObjects.length > 0) {
-    console.log(`[Revolve] Found ${eventObjects.length} events via individual object extraction`);
-    return eventObjects;
-  }
-
-  console.warn('[Revolve] Could not extract events from HTML');
-  return [];
+  console.log(`[Revolve] Parsed ${cards.length} cards from ${chunks.length} ticketCard elements`);
+  return cards;
 }
 
 // ============================================================================

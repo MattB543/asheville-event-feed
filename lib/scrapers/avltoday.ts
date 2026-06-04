@@ -70,7 +70,7 @@ const API_HEADERS = {
 };
 
 export async function scrapeAvlToday(): Promise<ScrapedEvent[]> {
-  const API_URL = 'https://portal.cityspark.com/v1/events/AVLT';
+  const API_URL = 'https://portal.cityspark.com/v1/events/AVLToday';
   // Get date in Asheville time (America/New_York) to avoid UTC date shift issues
   const startStr =
     new Date().toLocaleDateString('en-CA', {

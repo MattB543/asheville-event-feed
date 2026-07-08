@@ -174,6 +174,7 @@ export default function EventContent({
   };
 
   const getSourceName = () => {
+    if (event.url?.includes('luma.com')) return 'Luma';
     switch (event.source) {
       case 'AVL_TODAY':
         return 'AVL Today';

@@ -1,7 +1,12 @@
 import 'dotenv/config';
 import { and, desc, eq } from 'drizzle-orm';
 import { db } from '../lib/db';
-import { matchingProfiles, matchingRuns, matchingTopMatches } from '../lib/db/schema';
+import {
+  matchingProfileCards,
+  matchingProfiles,
+  matchingRuns,
+  matchingTopMatches,
+} from '../lib/db/schema';
 import { sendEmail } from '../lib/notifications/postmark';
 import {
   generateTedxMatchesEmailHtml,
@@ -48,7 +53,13 @@ function parseArgs(argv: string[]): CliOptions {
   return options;
 }
 
-function readMatches(matchesJson: unknown): MatchEmailEntry[] {
+function readMatchProfileId(row: Record<string, unknown>): string {
+  if (typeof row.profile_id === 'string') return row.profile_id.trim();
+  if (typeof row.profileId === 'string') return row.profileId.trim();
+  return '';
+}
+
+function readMatches(matchesJson: unknown, validProfileIds: Set<string>): MatchEmailEntry[] {
   if (!matchesJson || typeof matchesJson !== 'object') return [];
   const obj = matchesJson as Record<string, unknown>;
   if (!Array.isArray(obj.matches)) return [];
@@ -57,6 +68,8 @@ function readMatches(matchesJson: unknown): MatchEmailEntry[] {
   for (const item of obj.matches) {
     if (!item || typeof item !== 'object') continue;
     const row = item as Record<string, unknown>;
+    const profileId = readMatchProfileId(row);
+    if (!profileId || !validProfileIds.has(profileId)) continue;
     const name = typeof row.name === 'string' ? row.name.trim() : 'TEDx Attendee';
     const whyMatch =
       typeof row.why_match === 'string' && row.why_match.trim()
@@ -98,6 +111,11 @@ async function resolveRunId(options: CliOptions): Promise<string> {
 async function main() {
   const options = parseArgs(process.argv.slice(2));
   const runId = await resolveRunId(options);
+  const validProfileRows = await db
+    .select({ profileId: matchingProfileCards.profileId })
+    .from(matchingProfileCards)
+    .where(eq(matchingProfileCards.runId, runId));
+  const validProfileIds = new Set(validProfileRows.map((row) => row.profileId));
 
   const rows = await db
     .select({
@@ -124,7 +142,7 @@ async function main() {
   let skippedNoEmail = 0;
 
   for (const row of rows) {
-    const matches = readMatches(row.matchesJson);
+    const matches = readMatches(row.matchesJson, validProfileIds);
     if (matches.length === 0) {
       console.warn(`[Match Email] Skipping ${row.profileId}: no parsed matches`);
       continue;

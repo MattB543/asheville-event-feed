@@ -1,4 +1,4 @@
-import { and, desc, eq, isNull, ne } from 'drizzle-orm';
+import { and, desc, eq, inArray, isNull, ne } from 'drizzle-orm';
 import { db } from '@/lib/db';
 import { matchingProfileCards, matchingProfileReports } from '@/lib/db/schema';
 import { callAzureJson } from '@/lib/matching/pipeline/llm';
@@ -468,6 +468,7 @@ export async function buildProfileCards(
   profiles: NormalizedTedxProfile[]
 ): Promise<CandidateCard[]> {
   const profileIds = profiles.map((profile) => profile.profileId);
+  if (profileIds.length === 0) return [];
   const enrichmentByProfile = await getEnrichmentSummaryByProfile(runId, profileIds);
   const now = new Date();
 
@@ -652,14 +653,18 @@ export async function buildProfileCards(
       cardText: matchingProfileCards.cardText,
     })
     .from(matchingProfileCards)
-    .where(eq(matchingProfileCards.runId, runId));
+    .where(
+      and(
+        eq(matchingProfileCards.runId, runId),
+        inArray(matchingProfileCards.profileId, profileIds)
+      )
+    );
 
-  const nameByProfileId = new Map(
-    profiles.map((profile) => [profile.profileId, profile.displayName])
-  );
+  const profileDataById = new Map(profiles.map((profile) => [profile.profileId, profile]));
   return rows.map((row) => ({
     profileId: row.profileId,
-    name: nameByProfileId.get(row.profileId) ?? 'TEDx Attendee',
+    name: profileDataById.get(row.profileId)?.displayName ?? 'TEDx Attendee',
     cardText: row.cardText,
+    excludedProfileIds: profileDataById.get(row.profileId)?.excludedProfileIds ?? [],
   }));
 }

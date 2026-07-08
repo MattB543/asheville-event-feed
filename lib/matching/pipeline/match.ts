@@ -4,7 +4,7 @@ import { callAzureJson } from '@/lib/matching/pipeline/llm';
 import { getAzureDeploymentName } from '@/lib/ai/provider-clients';
 import type { CandidateCard, MatchEntry } from '@/lib/matching/pipeline/types';
 
-const MATCH_PROMPT_VERSION = 'tedx-match-v3';
+const MATCH_PROMPT_VERSION = 'tedx-match-v4';
 const MATCHES_PER_PROFILE = 5;
 
 function asNumber(value: unknown): number | null {
@@ -52,7 +52,7 @@ function validateMatches(
     if (seen.has(profileId)) continue;
 
     const rankNumber = asNumber(row.rank) ?? deduped.length + 1;
-    const confidence = asNumber(row.confidence) ?? 0.7;
+    const score = asNumber(row.score) ?? asNumber(row.confidence) ?? 50;
     const entry: MatchEntry = {
       rank: rankNumber,
       profile_id: profileId,
@@ -69,7 +69,7 @@ function validateMatches(
         row.conversation_starter,
         'What are you both most excited to explore at TEDx Asheville?'
       ),
-      confidence: Math.max(0, Math.min(1, confidence)),
+      confidence: Math.max(0, Math.min(100, score)),
     };
     deduped.push(entry);
     seen.add(profileId);
@@ -103,7 +103,7 @@ function buildMatchPrompt(
       "why_match": "2-4 specific sentences",
       "mutual_value": "1-2 specific sentences",
       "conversation_starter": "1 sentence",
-      "confidence": 0.0
+      "score": 85
     }
   ]
 }
@@ -115,6 +115,7 @@ Rules:
 - Avoid prestige bias and generic networking language.
 - Keep "why_match" high-level and vibes-based: personality, energy, values, passions, working style.
 - Keep "conversation_starter" high-level and safe for first conversation.
+- "score" is a 0-100 compatibility rating (100 = perfect match, 50 = decent, below 30 = weak).
 - Privacy-safe style for "why_match" and "conversation_starter":
   - Do NOT reference private or sensitive specifics from survey/resume/enrichment.
   - Do NOT mention traumatic events, health/family details, exact metrics, or highly specific project names.
@@ -188,6 +189,8 @@ async function generateOneMatchSetWithRepair(
   }
 }
 
+const MATCH_CONCURRENCY = 10;
+
 export async function generateTopMatches(
   runId: string,
   cards: CandidateCard[]
@@ -196,48 +199,69 @@ export async function generateTopMatches(
   let completed = 0;
   let failed = 0;
 
+  // Build tasks with pre-filtered candidates
+  const tasks: Array<{ target: CandidateCard; candidates: CandidateCard[] }> = [];
   for (const target of cards) {
-    const candidates = cards.filter((candidate) => candidate.profileId !== target.profileId);
+    const targetExclusions = new Set(target.excludedProfileIds ?? []);
+    const candidates = cards.filter((c) => {
+      if (c.profileId === target.profileId) return false;
+      if (targetExclusions.has(c.profileId)) return false;
+      if (c.excludedProfileIds?.includes(target.profileId)) return false;
+      return true;
+    });
     if (candidates.length < MATCHES_PER_PROFILE) {
       failed += 1;
       continue;
     }
+    tasks.push({ target, candidates });
+  }
 
-    const matches = await generateOneMatchSetWithRepair(target, candidates).catch((error) => {
-      failed += 1;
-      const message = error instanceof Error ? error.message : String(error);
-      throw new Error(`Failed to generate matches for ${target.profileId}: ${message}`);
-    });
-    const model = getAzureDeploymentName();
+  // Process in parallel batches
+  for (let i = 0; i < tasks.length; i += MATCH_CONCURRENCY) {
+    const batch = tasks.slice(i, i + MATCH_CONCURRENCY);
+    const results = await Promise.allSettled(
+      batch.map(async ({ target, candidates }) => {
+        const matches = await generateOneMatchSetWithRepair(target, candidates);
+        const model = getAzureDeploymentName();
 
-    await db
-      .insert(matchingTopMatches)
-      .values({
-        runId,
-        profileId: target.profileId,
-        matchesJson: {
-          target_profile_id: target.profileId,
-          matches,
-        },
-        model,
-        promptVersion: MATCH_PROMPT_VERSION,
-        createdAt: now,
-        updatedAt: now,
+        await db
+          .insert(matchingTopMatches)
+          .values({
+            runId,
+            profileId: target.profileId,
+            matchesJson: {
+              target_profile_id: target.profileId,
+              matches,
+            },
+            model,
+            promptVersion: MATCH_PROMPT_VERSION,
+            createdAt: now,
+            updatedAt: now,
+          })
+          .onConflictDoUpdate({
+            target: [matchingTopMatches.runId, matchingTopMatches.profileId],
+            set: {
+              matchesJson: {
+                target_profile_id: target.profileId,
+                matches,
+              },
+              model,
+              promptVersion: MATCH_PROMPT_VERSION,
+              updatedAt: now,
+            },
+          });
+
+        return target.profileId;
       })
-      .onConflictDoUpdate({
-        target: [matchingTopMatches.runId, matchingTopMatches.profileId],
-        set: {
-          matchesJson: {
-            target_profile_id: target.profileId,
-            matches,
-          },
-          model,
-          promptVersion: MATCH_PROMPT_VERSION,
-          updatedAt: now,
-        },
-      });
+    );
 
-    completed += 1;
+    for (const result of results) {
+      if (result.status === 'fulfilled') {
+        completed += 1;
+      } else {
+        failed += 1;
+      }
+    }
   }
 
   return { completed, failed };

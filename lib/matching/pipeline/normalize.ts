@@ -1,5 +1,5 @@
 import { readFile } from 'fs/promises';
-import { and, eq, inArray } from 'drizzle-orm';
+import { and, eq, inArray, isNotNull } from 'drizzle-orm';
 import { db } from '@/lib/db';
 import { matchingAnswers, matchingProfiles } from '@/lib/db/schema';
 import {
@@ -27,6 +27,7 @@ type CohortProfileRow = {
   email: string | null;
   updatedAt: Date | null;
   submittedAt: Date | null;
+  excludedProfileIds: string[] | null;
 };
 
 function asStringArray(value: unknown): string[] {
@@ -281,13 +282,15 @@ export async function loadSubmittedCohort(
       email: matchingProfiles.email,
       updatedAt: matchingProfiles.updatedAt,
       submittedAt: matchingProfiles.submittedAt,
+      excludedProfileIds: matchingProfiles.excludedProfileIds,
     })
     .from(matchingProfiles)
     .where(
       and(
         eq(matchingProfiles.program, program),
         eq(matchingProfiles.status, 'submitted'),
-        eq(matchingProfiles.aiMatching, true)
+        eq(matchingProfiles.aiMatching, true),
+        isNotNull(matchingProfiles.checkedInAt)
       )
     );
 
@@ -467,5 +470,6 @@ async function normalizeProfile(
     githubUrls: dedupe(githubUrls),
     webUrls: dedupe(webUrls),
     topicTexts: dedupe(topicTexts),
+    excludedProfileIds: profile.excludedProfileIds ?? [],
   };
 }

@@ -49,7 +49,7 @@ interface ICalEvent {
 }
 
 const BASE_URL = 'https://www.udharmanc.com';
-const SPECIAL_EVENTS_URL = `${BASE_URL}/special-events?format=json`;
+const SPECIAL_EVENTS_URL = `${BASE_URL}/events?format=json`;
 const GOOGLE_CALENDAR_URL =
   'https://calendar.google.com/calendar/ical/info%40udharmanc.com/public/basic.ics';
 

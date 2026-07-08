@@ -1,6 +1,6 @@
 import { mkdir, writeFile } from 'fs/promises';
 import path from 'path';
-import { eq, sql } from 'drizzle-orm';
+import { and, eq, inArray, sql } from 'drizzle-orm';
 import { db } from '@/lib/db';
 import {
   matchingEnrichmentItems,
@@ -28,6 +28,12 @@ function readMatches(matchesJson: unknown): Array<Record<string, unknown>> {
   );
 }
 
+function readMatchProfileId(match: Record<string, unknown>): string {
+  if (typeof match.profile_id === 'string') return match.profile_id;
+  if (typeof match.profileId === 'string') return match.profileId;
+  return '';
+}
+
 export async function writeRunExports(args: {
   runId: string;
   outputDir: string;
@@ -35,6 +41,7 @@ export async function writeRunExports(args: {
   audit: CohortAudit;
 }): Promise<string> {
   const runDir = path.join(args.outputDir, args.runId);
+  const cohortProfileIds = args.cohort.map((profile) => profile.profileId);
   await mkdir(runDir, { recursive: true });
 
   await writeFile(path.join(runDir, 'cohort.json'), JSON.stringify(args.cohort, null, 2), 'utf-8');
@@ -51,7 +58,12 @@ export async function writeRunExports(args: {
       count: sql<number>`count(*)::int`,
     })
     .from(matchingEnrichmentItems)
-    .where(eq(matchingEnrichmentItems.runId, args.runId))
+    .where(
+      and(
+        eq(matchingEnrichmentItems.runId, args.runId),
+        inArray(matchingEnrichmentItems.profileId, cohortProfileIds)
+      )
+    )
     .groupBy(matchingEnrichmentItems.provider, matchingEnrichmentItems.status);
 
   await writeFile(
@@ -70,7 +82,12 @@ export async function writeRunExports(args: {
       promptVersion: matchingProfileCards.promptVersion,
     })
     .from(matchingProfileCards)
-    .where(eq(matchingProfileCards.runId, args.runId));
+    .where(
+      and(
+        eq(matchingProfileCards.runId, args.runId),
+        inArray(matchingProfileCards.profileId, cohortProfileIds)
+      )
+    );
 
   await writeFile(path.join(runDir, 'profile-cards.json'), JSON.stringify(cards, null, 2), 'utf-8');
 
@@ -84,7 +101,12 @@ export async function writeRunExports(args: {
       promptVersion: matchingProfileReports.promptVersion,
     })
     .from(matchingProfileReports)
-    .where(eq(matchingProfileReports.runId, args.runId));
+    .where(
+      and(
+        eq(matchingProfileReports.runId, args.runId),
+        inArray(matchingProfileReports.profileId, cohortProfileIds)
+      )
+    );
 
   await writeFile(
     path.join(runDir, 'profile-reports.json'),
@@ -111,7 +133,12 @@ export async function writeRunExports(args: {
       promptVersion: matchingTopMatches.promptVersion,
     })
     .from(matchingTopMatches)
-    .where(eq(matchingTopMatches.runId, args.runId));
+    .where(
+      and(
+        eq(matchingTopMatches.runId, args.runId),
+        inArray(matchingTopMatches.profileId, cohortProfileIds)
+      )
+    );
 
   await writeFile(path.join(runDir, 'matches.json'), JSON.stringify(topMatches, null, 2), 'utf-8');
 
@@ -128,7 +155,7 @@ export async function writeRunExports(args: {
       'why_match',
       'mutual_value',
       'conversation_starter',
-      'confidence',
+      'score',
     ].join(',')
   );
 
@@ -145,15 +172,12 @@ export async function writeRunExports(args: {
     markdownLines.push(`## ${targetName}`);
     markdownLines.push('');
 
-    const matches = readMatches(row.matchesJson);
+    const matches = readMatches(row.matchesJson).filter((match) =>
+      profileById.has(readMatchProfileId(match))
+    );
     for (const match of matches) {
       const rank = typeof match.rank === 'number' ? match.rank : 0;
-      const matchProfileId =
-        typeof match.profile_id === 'string'
-          ? match.profile_id
-          : typeof match.profileId === 'string'
-            ? match.profileId
-            : '';
+      const matchProfileId = readMatchProfileId(match);
       const matchProfile = profileById.get(matchProfileId);
       const matchName =
         (typeof match.name === 'string' && match.name) ||

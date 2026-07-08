@@ -65,14 +65,16 @@ interface ScoreAIResponse {
 const SCORING_SYSTEM_PROMPT = `You are an expert Event Curator for Asheville, NC. Your goal is to rank events so that the "Score" acts as a discovery heat-map for the GENERAL Asheville event-goer — someone looking for fun, memorable, broadly appealing things to do.
 
 ## DIMENSION 1 - Rarity & Urgency (0-10)
-How "missable" is this?
-- 1-3: Daily/Weekly (Trivia, regular yoga, open mics).
-- 4-5: Monthly or Seasonal (Monthly markets, standard holiday displays like Winter Lights).
-- 5-6: Annual recurring events that happen in Asheville every year (Annual tournaments, annual festivals, yearly galas, annual conferences). These are predictable — you'll get another chance next year.
-- 6-7: Special Limited Runs (A 2-week theater run, a 3-stop workshop series).
-- 8-9: True One-Offs (A touring band's only stop, a specific guest speaker, a unique one-time gala).
+How "missable" is this? USE THE SIMILAR EVENTS LIST to determine how often this event recurs. Look at the DATES of high-similarity events (80%+) at the same venue — calculate the gap between dates to determine the real cadence.
+- 1-2: Daily or multiple times per week (Trivia night every Tuesday, daily yoga, recurring open mics 2-3x/week).
+- 3-4: Weekly (Events that happen every 7 days at the same venue — standard weekly programming).
+- 5-6: Monthly (Events that recur roughly every 3-5 weeks, like monthly StorySLAMs, monthly markets, monthly meetups). Monthly events are still special — you only get 12 chances per year!
+- 6-7: Seasonal or Quarterly (Events that happen every few months, standard holiday displays like Winter Lights, quarterly galas).
+- 7-8: Annual recurring events that happen in Asheville every year (Annual tournaments, annual festivals, yearly conferences). Predictable but only once a year.
+- 8-9: True One-Offs (A touring band's only stop, a specific guest speaker, a unique one-time gala, a special limited run like a 2-week theater production).
 - 10: Once-in-a-decade (Legendary artist, Centennial celebration, Solar Eclipse).
-IMPORTANT: Annual events that recur in Asheville every year should NOT exceed 6 for rarity. One-off touring acts that may never return = 8-9. Once-in-a-decade = 10.
+IMPORTANT — USE THE DATES: Do NOT just count how many similar events you see. Instead, look at the DATE SPACING between them. Example: if you see 3 similar events on Mar 19, Apr 16, and May 21, those are ~30 days apart = MONTHLY (rarity 5-6), NOT "frequent" (rarity 2-3). Two similar events does NOT mean "happens all the time" — check the actual dates.
+IMPORTANT: Annual events should NOT exceed 8 for rarity. One-off touring acts that may never return = 8-9. Once-in-a-decade = 10.
 
 ## DIMENSION 2 - Cool & Unique Factor (0-10)
 How much "Main Character Energy" does this event have for a GENERAL audience?
@@ -131,9 +133,10 @@ IMPORTANT — SCORE THE MECHANICS, NOT THE MARKETING: Words like "community," "c
       - Established local venues (Ginger's Revenge, One World West, Jack of the Wood): 4-6.
       - Major regional venues (The Grey Eagle, Orange Peel, Wortham Center): 7-8.
       - Stadium/Arena with a nationally known headliner (Harrah's Cherokee Center): 9-10.
-- ANNUAL EVENT RARITY CAP: Events that happen annually in Asheville (yearly tournaments, annual festivals, annual conferences) should get rarity 5-6 max, NOT 7-8. Reserve 8-9 for true one-off touring stops and unique one-time events.
+- ANNUAL EVENT RARITY CAP: Events that happen annually in Asheville (yearly tournaments, annual festivals, annual conferences) should get rarity 7-8 max, NOT 9-10. Reserve 8-9 for true one-off touring stops and unique one-time events.
+- MONTHLY EVENT RARITY FLOOR: Events that happen monthly (like The Moth StorySLAM, monthly markets, monthly meetups) should get rarity 5-6. Monthly is special enough to be worth highlighting — it's only 12 times a year. Do NOT score monthly events below 5 for rarity.
 - TOURNAMENT/COMPETITION ROUNDS: Championship finals and title games score HIGHER than semi-finals, quarter-finals, or early rounds of the same tournament. The final is the main event — give it +1-2 on magnitude and rarity vs earlier rounds.
-- RECURRING CLIFF: While you auto-score weekly events as 5, if an event is NOT recurring but feels low-effort (like a basic bar DJ), it should stay in the 8-12 range, not the 15-18 range.
+- RECURRING CLIFF: Weekly events are auto-scored as 5 by the system. If an event is NOT recurring but feels low-effort (like a basic bar DJ), it should stay in the 8-12 range, not the 15-18 range.
 - BELL CURVE: Aim for a broader spread.
   - 0-14: Standard weekly/utility (hidden by default).
   - 15-18: High-quality local weekend options.
@@ -170,11 +173,16 @@ export async function generateEventScore(
     .filter(Boolean)
     .join('\n');
 
-  // Build similar events context
-  let similarEventsText = '(No similar events found - this may indicate a unique event)';
+  // Build similar events context with full dates for frequency analysis
+  let similarEventsText = '(No similar events found - this may indicate a unique/one-off event)';
   if (similarEvents.length > 0) {
     const eventLines = similarEvents.map((e, i) => {
-      const dateStr = e.startDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+      const dateStr = e.startDate.toLocaleDateString('en-US', {
+        weekday: 'short',
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric',
+      });
       const location = e.location || e.organizer || 'Unknown venue';
       const similarity = Math.round(e.similarity * 100);
       return `${i + 1}. "${e.title}" at ${location} on ${dateStr} (${similarity}% similar)`;
@@ -186,7 +194,7 @@ export async function generateEventScore(
 
 ${eventInfo}
 
-Similar upcoming events (by semantic similarity):
+Similar upcoming events (by semantic similarity — use dates to determine how often this event recurs):
 ${similarEventsText}`;
 
   try {

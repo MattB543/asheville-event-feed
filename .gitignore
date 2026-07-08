@@ -50,3 +50,45 @@ next-env.d.ts
 
 
 claude/
+
+# Scraper debug output (DEBUG_DIR env var used by scripts/scrapers/test-*.ts)
+/debug-scraper-*/
+/grey-eagle-tests/
+
+# Codex CLI run logs / local scratch output
+/.codex-run-logs/
+
+# Ad-hoc / one-off local scripts - not part of the tracked script library
+# (see CLAUDE.md "Scripts Reference" for the tracked npm run scripts)
+scripts/_tmp-*
+scripts/**/_tmp-*
+scripts/ai/run-ai-processing-mountainx.ts
+scripts/assign-rounds.ts
+scripts/bulk-checkin-exclusions.ts
+scripts/check-ai-coverage.ts
+scripts/check-cards.ts
+scripts/check-cohort-health.ts
+scripts/check-gino-enrichment.ts
+scripts/check-kylie.ts
+scripts/check-may25.ts
+scripts/check-new-submissions.ts
+scripts/check-remaining-unscored.ts
+scripts/check-run-status.ts
+scripts/check-theateralliance.ts
+scripts/check-top30-may25.ts
+scripts/check-vibe-profiles.ts
+scripts/checkin-one.ts
+scripts/checkout-one.ts
+scripts/count-matches.ts
+scripts/drain-ai-backlog-local.sh
+scripts/drain-ai-backlog.ts
+scripts/insert-ai-safety-event.ts
+scripts/manage-exclusions.ts
+scripts/run-facebook-local.ts
+scripts/scrapers/run-mountainx-local.ts
+scripts/send-cohort-emails.ts
+scripts/send-vibe-tomorrow-emails.ts
+scripts/temp-checkin-all-vibe.ts
+scripts/update-ai-safety-image.ts
+scripts/update-ai-safety-title.ts
+scripts/verify-rounds.ts

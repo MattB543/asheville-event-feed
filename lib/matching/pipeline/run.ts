@@ -1,10 +1,12 @@
-import { and, eq } from 'drizzle-orm';
+import { and, eq, inArray, notInArray } from 'drizzle-orm';
 import { db } from '@/lib/db';
 import {
   matchingEnrichmentItems,
   matchingProfileCards,
+  matchingProfileReports,
   matchingProfiles,
   matchingRuns,
+  matchingTopMatches,
 } from '@/lib/db/schema';
 import { writeRunExports } from '@/lib/matching/pipeline/export';
 import {
@@ -93,23 +95,77 @@ async function markProviderSkipped(runId: string, provider: 'clay' | 'jina', rea
     );
 }
 
-async function loadCardsForRun(runId: string): Promise<CandidateCard[]> {
+async function loadCardsForRun(
+  runId: string,
+  eligibleProfileIds: string[]
+): Promise<CandidateCard[]> {
+  if (eligibleProfileIds.length === 0) return [];
+
   const rows = await db
     .select({
       profileId: matchingProfileCards.profileId,
       cardText: matchingProfileCards.cardText,
       displayName: matchingProfiles.displayName,
       email: matchingProfiles.email,
+      excludedProfileIds: matchingProfiles.excludedProfileIds,
     })
     .from(matchingProfileCards)
     .innerJoin(matchingProfiles, eq(matchingProfileCards.profileId, matchingProfiles.id))
-    .where(eq(matchingProfileCards.runId, runId));
+    .where(
+      and(
+        eq(matchingProfileCards.runId, runId),
+        inArray(matchingProfileCards.profileId, eligibleProfileIds)
+      )
+    );
 
   return rows.map((row) => ({
     profileId: row.profileId,
     cardText: row.cardText,
     name: row.displayName || row.email?.split('@')[0] || 'TEDx Attendee',
+    excludedProfileIds: row.excludedProfileIds ?? [],
   }));
+}
+
+async function pruneStaleRunRows(runId: string, eligibleProfileIds: string[]): Promise<void> {
+  const staleEnrichmentWhere =
+    eligibleProfileIds.length > 0
+      ? and(
+          eq(matchingEnrichmentItems.runId, runId),
+          notInArray(matchingEnrichmentItems.profileId, eligibleProfileIds)
+        )
+      : eq(matchingEnrichmentItems.runId, runId);
+  const staleCardsWhere =
+    eligibleProfileIds.length > 0
+      ? and(
+          eq(matchingProfileCards.runId, runId),
+          notInArray(matchingProfileCards.profileId, eligibleProfileIds)
+        )
+      : eq(matchingProfileCards.runId, runId);
+  const staleReportsWhere =
+    eligibleProfileIds.length > 0
+      ? and(
+          eq(matchingProfileReports.runId, runId),
+          notInArray(matchingProfileReports.profileId, eligibleProfileIds)
+        )
+      : eq(matchingProfileReports.runId, runId);
+  const staleTopMatchesWhere =
+    eligibleProfileIds.length > 0
+      ? and(
+          eq(matchingTopMatches.runId, runId),
+          notInArray(matchingTopMatches.profileId, eligibleProfileIds)
+        )
+      : eq(matchingTopMatches.runId, runId);
+
+  await db.transaction(async (tx) => {
+    await tx.delete(matchingEnrichmentItems).where(staleEnrichmentWhere);
+    await tx.delete(matchingProfileCards).where(staleCardsWhere);
+    await tx.delete(matchingProfileReports).where(staleReportsWhere);
+    await tx.delete(matchingTopMatches).where(staleTopMatchesWhere);
+  });
+}
+
+async function clearRunMatches(runId: string): Promise<void> {
+  await db.delete(matchingTopMatches).where(eq(matchingTopMatches.runId, runId));
 }
 
 export async function runTedxMatchingPipeline(
@@ -133,6 +189,12 @@ export async function runTedxMatchingPipeline(
       options.program,
       options.cohortFile
     );
+    const eligibleProfileIds = cohort.map((profile) => profile.profileId);
+
+    if (!options.dryRun) {
+      await pruneStaleRunRows(runId, eligibleProfileIds);
+    }
+
     if (cohort.length < 2) {
       throw new Error(`Need at least 2 submitted profiles for matching. Found: ${cohort.length}`);
     }
@@ -172,7 +234,7 @@ export async function runTedxMatchingPipeline(
       await updateRunStatus(runId, 'synthesizing');
       cards = await buildProfileCards(runId, cohort);
     } else {
-      cards = await loadCardsForRun(runId);
+      cards = await loadCardsForRun(runId, eligibleProfileIds);
     }
 
     let matchSummary: { completed: number; failed: number } | null = null;
@@ -183,6 +245,7 @@ export async function runTedxMatchingPipeline(
         );
       }
       await updateRunStatus(runId, 'matching');
+      await clearRunMatches(runId);
       matchSummary = await generateTopMatches(runId, cards);
     }
 

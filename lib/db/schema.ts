@@ -181,6 +181,8 @@ export const matchingProfiles = pgTable(
     status: text('status').default('draft').notNull(), // 'draft' | 'submitted'
     allowEditing: boolean('allow_editing').default(true).notNull(),
     submittedAt: timestamp('submitted_at', { withTimezone: true }),
+    checkedInAt: timestamp('checked_in_at', { withTimezone: true }),
+    excludedProfileIds: text('excluded_profile_ids').array(),
     createdAt: timestamp('created_at').defaultNow().notNull(),
     updatedAt: timestamp('updated_at').defaultNow().notNull(),
   },

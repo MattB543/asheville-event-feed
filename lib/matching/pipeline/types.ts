@@ -64,12 +64,14 @@ export interface NormalizedTedxProfile {
   githubUrls: string[];
   webUrls: string[];
   topicTexts: string[];
+  excludedProfileIds: string[];
 }
 
 export interface CandidateCard {
   profileId: string;
   name: string;
   cardText: string;
+  excludedProfileIds: string[];
 }
 
 export interface SynthesizedCardJson {

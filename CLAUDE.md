@@ -268,15 +268,15 @@ RLS is enabled on all tables. Supabase's "RLS auto-enable trigger" is active, so
 
 ### Cron Jobs (require `Authorization: Bearer {CRON_SECRET}`)
 
-| Route                    | Schedule        | Purpose                                             |
-| ------------------------ | --------------- | --------------------------------------------------- |
-| `/api/cron/scrape`       | Every 6h at :00 | Scrape all sources, upsert to DB, rule-based dedup  |
-| `/api/cron/verify`       | Every 3h at :05 | Verify events missing data via Jina + AI (30/run)   |
-| `/api/cron/ai`           | Every 3h at :20 | AI tagging, summaries, embeddings, image generation |
-| `/api/cron/cleanup`      | 8x daily        | Dead events, non-NC, cancelled, duplicates          |
-| `/api/cron/dedup`        | Daily 5 AM ET   | AI semantic deduplication                           |
-| `/api/cron/email-digest` | Daily 7 AM ET   | Send daily/weekly email digests to subscribers      |
-| `/api/cron/top30-weekly` | Fri 11 AM ET    | Weekly Top 30 email                                 |
+| Route                    | Schedule        | Purpose                                                       |
+| ------------------------ | --------------- | ------------------------------------------------------------- |
+| `/api/cron/scrape`       | Every 6h at :00 | Scrape all sources, upsert to DB, rule-based dedup            |
+| `/api/cron/verify`       | Every 3h at :05 | Verify events missing data via Jina + AI (30/run)             |
+| `/api/cron/ai`           | Every 3h at :20 | AI tagging, summaries, embeddings, image generation           |
+| `/api/cron/cleanup`      | 8x daily        | Dead events, non-NC, cancelled, duplicates                    |
+| `/api/cron/dedup`        | Daily 4 AM ET   | AI semantic dedup of Top Events (score ≥15) over next 30 days |
+| `/api/cron/email-digest` | Daily 7 AM ET   | Send daily/weekly email digests to subscribers                |
+| `/api/cron/top30-weekly` | Fri 11 AM ET    | Weekly Top 30 email                                           |
 
 Every cron run (prod and local) is recorded in the `cron_job_runs` table (`job_name`, `status`, `duration_ms`, `result` stats) — query it to verify prod crons are actually running and succeeding.
 
@@ -540,7 +540,7 @@ FB_XS=
     { "path": "/api/cron/verify", "schedule": "5 */3 * * *" },
     { "path": "/api/cron/ai", "schedule": "20 */3 * * *" },
     { "path": "/api/cron/cleanup", "schedule": "30 1,4,7,10,13,16,19,22 * * *" },
-    { "path": "/api/cron/dedup", "schedule": "0 10 * * *" },
+    { "path": "/api/cron/dedup", "schedule": "0 8 * * *" },
     { "path": "/api/cron/email-digest", "schedule": "0 12 * * *" },
     { "path": "/api/cron/top30-weekly", "schedule": "0 15 * * 5" }
   ]
@@ -548,7 +548,7 @@ FB_XS=
 ```
 
 - **Fluid Compute**: Enabled for longer function execution (up to 800s for scrape/ai/verify jobs)
-- **Cron Schedule**: Scrape at :00, verify at :05 (every 3h), AI processing at :20 (every 3h), cleanup 8x daily, dedup daily at 5 AM ET, email digests daily at 7 AM ET, Top 30 email Fridays 11 AM ET
+- **Cron Schedule**: Scrape at :00, verify at :05 (every 3h), AI processing at :20 (every 3h), cleanup 8x daily, dedup daily at 4 AM ET, email digests daily at 7 AM ET, Top 30 email Fridays 11 AM ET
 - **Known prod gaps**: the MountainX scraper is Cloudflare-blocked from Vercel IPs (its ~1,200+ events only refresh during local scrape runs), and Facebook scraping is disabled on Vercel — so a periodic local full scrape (see `scripts/run-full-cron-local.ts`, `scripts/run-facebook-local.ts`, `scripts/drain-ai-backlog-local.sh`) is required to keep those sources current.
 
 ### Max Duration
@@ -596,7 +596,7 @@ curl -X GET https://your-domain.vercel.app/api/cron/scrape \
 
 - Run cleanup: `curl /api/cron/cleanup -H "Authorization: Bearer ..."`
 - Rule-based dedup runs in scrape job
-- AI dedup runs daily at 5 AM ET
+- AI dedup runs daily at 4 AM ET
 
 ### Images not loading
 

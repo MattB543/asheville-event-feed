@@ -8,7 +8,7 @@
 import { NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { events } from '@/lib/db/schema';
-import { inArray } from 'drizzle-orm';
+import { and, gte, inArray, lte } from 'drizzle-orm';
 import { env } from '@/lib/config/env';
 import { verifyAuthToken } from '@/lib/utils/auth';
 import { invalidateEventsCache } from '@/lib/cache/invalidation';
@@ -63,10 +63,29 @@ export async function GET(request: Request) {
       });
     }
 
-    // Fetch all events for AI analysis
+    // Fetch upcoming "Top Events" for AI analysis.
+    //
+    // Scoping here is essential on two axes:
+    //  1. Date: runAIDeduplication sorts dates ascending and processes only the
+    //     first `maxDays` of them. Without a lower bound, stale past events
+    //     (going back years) fill the window and upcoming dates are never checked.
+    //  2. Score: only events with score >= TOP_EVENT_SCORE ("Top Events") are
+    //     shown by default to all visitors, so those are the ones that matter to
+    //     dedup. Restricting to them shrinks each day's list ~4x, which both cuts
+    //     tokens and improves accuracy (dupes are easier to spot in a short list),
+    //     letting us cover the full 30-day Top-30 window instead of ~11 days.
+    //     Duplicates among lower-scored events are hidden by default anyway.
+    const TOP_EVENT_SCORE = 15; // matches getEventScoreTier() in EventFeed.tsx
+    const DEDUP_WINDOW_DAYS = 31; // today + next 30 days (Top-30 window)
+    const now = new Date();
+    // Include events from the start of today (ET) onward. Use a generous
+    // buffer (subtract 1 day) so timezone edge cases near midnight don't drop
+    // events happening later today.
+    const cutoff = new Date(now.getTime() - 24 * 60 * 60 * 1000);
+    const windowEnd = new Date(now.getTime() + DEDUP_WINDOW_DAYS * 24 * 60 * 60 * 1000);
     let allEvents;
     try {
-      console.log('[Dedup] Fetching events from database...');
+      console.log('[Dedup] Fetching upcoming Top Events from database...');
       const fetchStart = Date.now();
       allEvents = await db
         .select({
@@ -79,9 +98,16 @@ export async function GET(request: Request) {
           price: events.price,
           source: events.source,
         })
-        .from(events);
+        .from(events)
+        .where(
+          and(
+            gte(events.startDate, cutoff),
+            lte(events.startDate, windowEnd),
+            gte(events.score, TOP_EVENT_SCORE)
+          )
+        );
       const fetchDuration = ((Date.now() - fetchStart) / 1000).toFixed(1);
-      console.log(`[Dedup] Fetched ${allEvents.length} events in ${fetchDuration}s`);
+      console.log(`[Dedup] Fetched ${allEvents.length} upcoming Top Events in ${fetchDuration}s`);
     } catch (dbErr) {
       const errMsg = dbErr instanceof Error ? dbErr.message : String(dbErr);
       console.error(`[Dedup] Database fetch failed: ${errMsg}`);
@@ -99,12 +125,12 @@ export async function GET(request: Request) {
       source: e.source,
     }));
 
-    // Run AI deduplication for today + next 10 days
+    // Run AI deduplication across the full Top-30 window (today + next 30 days)
     let result;
     try {
-      console.log('[Dedup] Starting AI deduplication analysis (maxDays=11)...');
+      console.log(`[Dedup] Starting AI deduplication analysis (maxDays=${DEDUP_WINDOW_DAYS})...`);
       result = await runAIDeduplication(eventsForAI, {
-        maxDays: 11,
+        maxDays: DEDUP_WINDOW_DAYS,
         delayBetweenDays: 300,
         verbose: true,
       });

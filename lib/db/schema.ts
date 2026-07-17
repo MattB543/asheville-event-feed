@@ -54,6 +54,9 @@ export const events = pgTable(
     scoreSocial: integer('score_social'), // 1-10: How good is this for meeting new people
     // Event verification (via Jina Reader API)
     lastVerifiedAt: timestamp('last_verified_at', { withTimezone: true }), // When event source URL was last checked
+    // Deduplication soft-delete (AI + rule-based dedup no longer hard-delete)
+    dedupedAt: timestamp('deduped_at', { withTimezone: true }), // Set when removed as a duplicate; NULL = live. Excluded from feed + dedup input.
+    dedupSkip: boolean('dedup_skip').default(false), // Manual "never auto-dedup this row" flag so a restore sticks
   },
   (table) => ({
     startDateIdx: index('events_start_date_idx').on(table.startDate),

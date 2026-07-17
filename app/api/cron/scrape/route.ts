@@ -23,7 +23,7 @@ import { scrapePechaKucha } from '@/lib/scrapers/pechakucha';
 import { scrapeLittleAnimals } from '@/lib/scrapers/littleanimals';
 import { db } from '@/lib/db';
 import { events } from '@/lib/db/schema';
-import { inArray, eq, sql } from 'drizzle-orm';
+import { inArray, eq, sql, and, isNull, or } from 'drizzle-orm';
 import type { ScrapedEvent } from '@/lib/scrapers/types';
 import { env, isFacebookEnabled } from '@/lib/config/env';
 import { findDuplicates, getIdsToRemove, getDescriptionUpdates } from '@/lib/utils/deduplication';
@@ -323,7 +323,15 @@ export async function GET(request: Request) {
         description: events.description,
         createdAt: events.createdAt,
       })
-      .from(events);
+      .from(events)
+      .where(
+        and(
+          // Ignore rows already soft-deleted as duplicates...
+          isNull(events.dedupedAt),
+          // ...and rows an admin flagged to never auto-dedup (so a restore sticks)
+          or(isNull(events.dedupSkip), eq(events.dedupSkip, false))
+        )
+      );
 
     const duplicateGroups = findDuplicates(allDbEvents);
     const duplicateIdsToRemove = getIdsToRemove(duplicateGroups);
@@ -363,12 +371,17 @@ export async function GET(request: Request) {
     }
 
     if (duplicateIdsToRemove.length > 0) {
-      await db.delete(events).where(inArray(events.id, duplicateIdsToRemove));
+      // Soft-delete (set deduped_at) rather than hard-delete so a bad merge can
+      // be recovered by clearing deduped_at + setting dedup_skip=true.
+      await db
+        .update(events)
+        .set({ dedupedAt: new Date() })
+        .where(inArray(events.id, duplicateIdsToRemove));
       const methodSummary = Object.entries(stats.dedup.byMethod)
         .map(([m, c]) => `${m}=${c}`)
         .join(', ');
       console.log(
-        `[Scrape] Deduplication: removed ${duplicateIdsToRemove.length} duplicates in ${formatDuration(Date.now() - dedupStartTime)} (by method: ${methodSummary})`
+        `[Scrape] Deduplication: soft-deleted ${duplicateIdsToRemove.length} duplicates in ${formatDuration(Date.now() - dedupStartTime)} (by method: ${methodSummary})`
       );
     } else {
       console.log(

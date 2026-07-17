@@ -8,7 +8,7 @@
 import { NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { events } from '@/lib/db/schema';
-import { and, gte, inArray, lte } from 'drizzle-orm';
+import { and, eq, gte, inArray, isNull, lte, or } from 'drizzle-orm';
 import { env } from '@/lib/config/env';
 import { verifyAuthToken } from '@/lib/utils/auth';
 import { invalidateEventsCache } from '@/lib/cache/invalidation';
@@ -103,7 +103,11 @@ export async function GET(request: Request) {
           and(
             gte(events.startDate, cutoff),
             lte(events.startDate, windowEnd),
-            gte(events.score, TOP_EVENT_SCORE)
+            gte(events.score, TOP_EVENT_SCORE),
+            // Skip rows already soft-deleted by a prior dedup run...
+            isNull(events.dedupedAt),
+            // ...and rows an admin flagged to never auto-dedup (so a restore sticks)
+            or(isNull(events.dedupSkip), eq(events.dedupSkip, false))
           )
         );
       const fetchDuration = ((Date.now() - fetchStart) / 1000).toFixed(1);
@@ -148,22 +152,24 @@ export async function GET(request: Request) {
       }
     }
 
-    // Delete duplicates
+    // Soft-delete duplicates (set deduped_at instead of hard-deleting, so a bad
+    // merge can be recovered by clearing deduped_at + setting dedup_skip=true).
     if (result.idsToRemove.length > 0) {
       try {
-        console.log(
-          `[Dedup] Deleting ${result.idsToRemove.length} duplicate events from database...`
-        );
+        console.log(`[Dedup] Soft-deleting ${result.idsToRemove.length} duplicate events...`);
         const deleteStart = Date.now();
-        await db.delete(events).where(inArray(events.id, result.idsToRemove));
+        await db
+          .update(events)
+          .set({ dedupedAt: new Date() })
+          .where(inArray(events.id, result.idsToRemove));
         const deleteDuration = ((Date.now() - deleteStart) / 1000).toFixed(1);
         console.log(
-          `[Dedup] Deleted ${result.idsToRemove.length} duplicate events in ${deleteDuration}s`
+          `[Dedup] Soft-deleted ${result.idsToRemove.length} duplicate events in ${deleteDuration}s`
         );
       } catch (deleteErr) {
         const errMsg = deleteErr instanceof Error ? deleteErr.message : String(deleteErr);
         console.error(
-          `[Dedup] Database delete failed (${result.idsToRemove.length} events): ${errMsg}`
+          `[Dedup] Database soft-delete failed (${result.idsToRemove.length} events): ${errMsg}`
         );
         throw deleteErr;
       }

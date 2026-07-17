@@ -198,6 +198,9 @@ export async function queryFilteredEvents(params: EventFilterParams): Promise<Ev
   // Exclude hidden (admin moderated) events
   conditions.push(or(isNull(events.hidden), sql`${events.hidden} = false`)!);
 
+  // Exclude duplicates soft-deleted by the dedup flow
+  conditions.push(isNull(events.dedupedAt));
+
   // NOTE: Cursor-based pagination is handled in the iterative fetch loop below,
   // not here, to allow multiple batches with updated cursors.
 
@@ -373,6 +376,8 @@ export async function queryFilteredEvents(params: EventFilterParams): Promise<Ev
     scoreAshevilleWeird: events.scoreAshevilleWeird,
     scoreSocial: events.scoreSocial,
     lastVerifiedAt: events.lastVerifiedAt,
+    dedupedAt: events.dedupedAt,
+    dedupSkip: events.dedupSkip,
   };
 
   // Client-side filter function - returns true if event passes all filters
@@ -596,6 +601,7 @@ export async function getEventMetadata(): Promise<EventMetadata> {
       and(
         gte(events.startDate, startOfToday),
         or(isNull(events.hidden), sql`${events.hidden} = false`),
+        isNull(events.dedupedAt),
         or(
           isNull(events.location),
           and(notIlike(events.location, '%online%'), notIlike(events.location, '%virtual%'))
@@ -712,6 +718,8 @@ export async function queryTop30Events(limitPerCategory = 30): Promise<Top30Even
     scoreOverride: events.scoreOverride,
     scoreAshevilleWeird: events.scoreAshevilleWeird,
     scoreSocial: events.scoreSocial,
+    dedupedAt: events.dedupedAt,
+    dedupSkip: events.dedupSkip,
   };
 
   const baseWhere = and(
@@ -722,6 +730,8 @@ export async function queryTop30Events(limitPerCategory = 30): Promise<Top30Even
     isNotNull(events.score),
     // Exclude hidden events
     or(isNull(events.hidden), sql`${events.hidden} = false`),
+    // Exclude duplicates soft-deleted by the dedup flow
+    isNull(events.dedupedAt),
     // Exclude online/virtual events
     or(
       isNull(events.location),

@@ -202,7 +202,10 @@ PostgreSQL database hosted on Supabase with pgvector extension.
   favoriteCount: integer (default 0),
   // AI-generated fields
   aiSummary: text (1-2 sentence structured summary),
-  embedding: vector(1536) (Gemini embedding for semantic search)
+  embedding: vector(1536) (Gemini embedding for semantic search),
+  // Dedup soft-delete (dedup no longer hard-deletes)
+  dedupedAt: timestamp (set when removed as a duplicate; NULL = live; excluded from feed + dedup input),
+  dedupSkip: boolean (manual "never auto-dedup this row" flag; to restore a bad merge set dedupedAt=NULL and dedupSkip=true)
 }
 ```
 

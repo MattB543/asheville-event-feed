@@ -5,7 +5,13 @@
 import 'dotenv/config';
 import { db } from '../lib/db';
 import { events } from '../lib/db/schema';
-import { eq, inArray } from 'drizzle-orm';
+import { and, eq, inArray, isNull, or } from 'drizzle-orm';
+
+// Exclude rows already soft-deleted as duplicates, and rows flagged to never auto-dedup
+const dedupEligible = and(
+  isNull(events.dedupedAt),
+  or(isNull(events.dedupSkip), eq(events.dedupSkip, false))
+);
 import { findDuplicates, getIdsToRemove, getDescriptionUpdates } from '../lib/utils/deduplication';
 import {
   runAIDeduplication,
@@ -31,9 +37,10 @@ async function main() {
       source: events.source,
       createdAt: events.createdAt,
     })
-    .from(events);
+    .from(events)
+    .where(dedupEligible);
 
-  console.log(`Total events in DB: ${allEvents.length}\n`);
+  console.log(`Total dedup-eligible events in DB: ${allEvents.length}\n`);
 
   // ── Step 1: Rule-based dedup ──────────────────────────────────────────
   console.log('── Step 1: Rule-Based Deduplication ──────────────────────────\n');
@@ -73,9 +80,9 @@ async function main() {
       }
     }
 
-    // Remove duplicates
-    console.log(`Removing ${idsToRemove.length} duplicate events...`);
-    await db.delete(events).where(inArray(events.id, idsToRemove));
+    // Soft-delete duplicates
+    console.log(`Soft-deleting ${idsToRemove.length} duplicate events...`);
+    await db.update(events).set({ dedupedAt: new Date() }).where(inArray(events.id, idsToRemove));
     console.log('Done.\n');
   }
 
@@ -97,7 +104,8 @@ async function main() {
         price: events.price,
         source: events.source,
       })
-      .from(events);
+      .from(events)
+      .where(dedupEligible);
 
     console.log(`Analyzing ${remainingEvents.length} remaining events...\n`);
 
@@ -119,8 +127,11 @@ async function main() {
     });
 
     if (result.idsToRemove.length > 0) {
-      console.log(`\nRemoving ${result.idsToRemove.length} AI-detected duplicates...`);
-      await db.delete(events).where(inArray(events.id, result.idsToRemove));
+      console.log(`\nSoft-deleting ${result.idsToRemove.length} AI-detected duplicates...`);
+      await db
+        .update(events)
+        .set({ dedupedAt: new Date() })
+        .where(inArray(events.id, result.idsToRemove));
       console.log('Done.');
     } else {
       console.log('\nNo AI duplicates found.');

@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { events, newsletterSettings } from '@/lib/db/schema';
-import { eq, sql } from 'drizzle-orm';
+import { eq, gte } from 'drizzle-orm';
 import { env } from '@/lib/config/env';
 import { verifyAuthToken } from '@/lib/utils/auth';
 import { sendEmail } from '@/lib/notifications/postmark';
@@ -71,6 +71,7 @@ export async function GET(request: Request) {
     const weeklySubscribers = await db
       .select({
         userId: newsletterSettings.userId,
+        top30LastNotifiedAt: newsletterSettings.top30LastNotifiedAt,
       })
       .from(newsletterSettings)
       .where(eq(newsletterSettings.top30Subscription, 'weekly'));
@@ -112,7 +113,7 @@ export async function GET(request: Request) {
     const futureEventIds = await db
       .select({ id: events.id })
       .from(events)
-      .where(sql`${events.startDate} >= ${now}`);
+      .where(gte(events.startDate, now));
     const futureEventIdSet = new Set(futureEventIds.map((e) => e.id));
 
     // Get user emails from Supabase
@@ -162,9 +163,21 @@ export async function GET(request: Request) {
     }));
 
     // Send email to each subscriber
+    const SIX_DAYS_MS = 6 * 24 * 60 * 60 * 1000;
     for (const subscriber of weeklySubscribers) {
       const userInfo = userEmailMap.get(subscriber.userId);
       if (!userInfo) {
+        stats.skipped++;
+        continue;
+      }
+
+      // Idempotency guard: the digest goes out weekly, so anyone notified in
+      // the last 6 days was covered by this week's run — a retry or second
+      // invocation the same Friday must not double-send
+      if (
+        subscriber.top30LastNotifiedAt &&
+        Date.now() - subscriber.top30LastNotifiedAt.getTime() < SIX_DAYS_MS
+      ) {
         stats.skipped++;
         continue;
       }

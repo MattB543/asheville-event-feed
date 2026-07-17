@@ -4,6 +4,85 @@ import { GoogleGenerativeAI, type GenerativeModel } from '@google/generative-ai'
 import { env, isAIEnabled as checkAIEnabled } from '../config/env';
 
 // ============================================================================
+// JSON PARSING UTILITIES
+// ============================================================================
+
+/**
+ * Parse JSON out of a raw LLM response, tolerating the common ways models wrap
+ * or pad their output. Strategy:
+ *   1. Strip surrounding markdown code fences (```json ... ``` or ``` ... ```).
+ *   2. Try JSON.parse on the cleaned string.
+ *   3. On failure, scan for balanced `{...}` and `[...]` values, respecting
+ *      quoted strings, and parse the first valid candidate.
+ *   4. Return null if nothing parses.
+ *
+ * This is intentionally more tolerant than any single call site's inline
+ * parsing, so callers only gain robustness. Callers keep their own failure
+ * handling (logging, defaults, throwing) around a null return.
+ */
+export function parseJsonFromModel<T>(
+  raw: string,
+  mode: 'object' | 'array' | 'auto' = 'auto'
+): T | null {
+  if (!raw) return null;
+
+  // Strip surrounding markdown code fences if present.
+  let cleaned = raw.trim();
+  if (cleaned.startsWith('```')) {
+    cleaned = cleaned
+      .replace(/^```(?:json)?\s*/i, '')
+      .replace(/```\s*$/, '')
+      .trim();
+  }
+
+  // First attempt: parse the cleaned string as-is.
+  try {
+    return JSON.parse(cleaned) as T;
+  } catch {
+    // Fall through to bracket extraction.
+  }
+
+  // Second attempt: scan for balanced JSON values. Using the last closing
+  // bracket is unsafe when a model adds prose containing braces afterward.
+  const allowedOpeners = mode === 'object' ? '{' : mode === 'array' ? '[' : '{[';
+  for (let start = 0; start < cleaned.length; start++) {
+    const opener = cleaned[start];
+    if (!allowedOpeners.includes(opener)) continue;
+
+    const closer = opener === '{' ? '}' : ']';
+    let depth = 0;
+    let inString = false;
+    let escaped = false;
+    let end = -1;
+
+    for (let index = start; index < cleaned.length; index++) {
+      const char = cleaned[index];
+      if (inString) {
+        if (escaped) escaped = false;
+        else if (char === '\\') escaped = true;
+        else if (char === '"') inString = false;
+        continue;
+      }
+      if (char === '"') inString = true;
+      else if (char === opener) depth++;
+      else if (char === closer && --depth === 0) {
+        end = index;
+        break;
+      }
+    }
+
+    if (end === -1) continue;
+    try {
+      return JSON.parse(cleaned.slice(start, end + 1)) as T;
+    } catch {
+      // Continue scanning in case the prose contains brackets before the JSON.
+    }
+  }
+
+  return null;
+}
+
+// ============================================================================
 // GEMINI CLIENTS
 // ============================================================================
 

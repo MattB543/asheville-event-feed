@@ -16,7 +16,8 @@
  */
 
 import { type ScrapedEvent } from './types';
-import { BROWSER_HEADERS, debugSave, fetchEventData } from './base';
+import { BROWSER_HEADERS, debugSave, extractMetaDescription, fetchEventData } from './base';
+import { findJsonLdEvent } from './jsonld';
 import { decodeHtmlEntities } from '../utils/parsers';
 
 // Config
@@ -175,38 +176,6 @@ interface SquarespaceListingResponse {
 // ============================================================================
 
 /**
- * Extract description from meta tag
- */
-function extractMetaDescription(html: string): string | undefined {
-  // Try name="description" first (both attribute orders)
-  const metaDesc =
-    html.match(/<meta[^>]*name=["']description["'][^>]*content=["']([^"']*)["']/i) ||
-    html.match(/<meta[^>]*content=["']([^"']*)["'][^>]*name=["']description["']/i);
-
-  if (metaDesc && metaDesc[1]) {
-    const decoded = decodeHtmlEntities(metaDesc[1]);
-    // Only return if it's a meaningful description (not just venue info)
-    if (decoded.length > 50) {
-      return decoded;
-    }
-  }
-
-  // Fallback to og:description
-  const ogDesc =
-    html.match(/<meta[^>]*property=["']og:description["'][^>]*content=["']([^"']*)["']/i) ||
-    html.match(/<meta[^>]*content=["']([^"']*)["'][^>]*property=["']og:description["']/i);
-
-  if (ogDesc && ogDesc[1]) {
-    const decoded = decodeHtmlEntities(ogDesc[1]);
-    if (decoded.length > 50) {
-      return decoded;
-    }
-  }
-
-  return undefined;
-}
-
-/**
  * Clean title by removing date/time suffix and venue name
  * Example: "T'was the Season | A Storytelling Event | Saturday Dec 13 | 7:30pm — Story Parlor"
  * becomes: "T'was the Season | A Storytelling Event"
@@ -333,22 +302,7 @@ async function scrapeEventPage(url: string): Promise<ScrapedEvent | null> {
     const html = await response.text();
 
     // Extract JSON-LD structured data - find the Event type specifically
-    const jsonLdMatches = html.matchAll(
-      /<script type="application\/ld\+json">([\s\S]*?)<\/script>/g
-    );
-    let eventJsonLd: JSONLDEvent | null = null;
-
-    for (const match of jsonLdMatches) {
-      try {
-        const parsed = JSON.parse(match[1]) as JSONLDEvent;
-        if (parsed['@type'] === 'Event') {
-          eventJsonLd = parsed;
-          break;
-        }
-      } catch {
-        // Skip invalid JSON
-      }
-    }
+    const eventJsonLd = findJsonLdEvent<JSONLDEvent>(html);
 
     if (!eventJsonLd) {
       console.warn(`[StoryParlor] No Event JSON-LD found: ${url}`);

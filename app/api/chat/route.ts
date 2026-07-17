@@ -3,6 +3,7 @@ import {
   isAzureAIEnabled,
   azureChatCompletionMessages,
   azureChatCompletionStream,
+  parseJsonFromModel,
 } from '@/lib/ai/provider-clients';
 import { generateEventUrl } from '@/lib/utils/slugify';
 import { isRateLimited } from '@/lib/utils/rate-limit';
@@ -171,15 +172,8 @@ User query: "${userMessage}"`;
 
 function parseDateExtractionResponse(content: string): DateRange {
   // Parse JSON from response (handle potential markdown code blocks)
-  let jsonStr = content.trim();
-  if (jsonStr.startsWith('```')) {
-    jsonStr = jsonStr.replace(/```json?\n?/g, '').replace(/```/g, '');
-  }
-
-  let parsed: unknown;
-  try {
-    parsed = JSON.parse(jsonStr);
-  } catch {
+  const parsed = parseJsonFromModel<unknown>(content);
+  if (parsed === null) {
     throw new Error('Invalid JSON response');
   }
   if (!isRecord(parsed) || !isString(parsed.startDate) || !isString(parsed.endDate)) {

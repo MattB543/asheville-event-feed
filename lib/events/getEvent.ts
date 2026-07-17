@@ -58,10 +58,20 @@ export async function getEventByShortId(shortId: string): Promise<DbEvent | null
     return null;
   }
 
+  const hex = shortId.toLowerCase();
+  if (!/^[0-9a-f]{6}$/.test(hex)) {
+    return null;
+  }
+
+  // Range-scan the uuid primary key; `id::text LIKE` would force a full
+  // table scan on every event page load
+  const lower = `${hex}00-0000-0000-0000-000000000000`;
+  const upper = `${hex}ff-ffff-ffff-ffff-ffffffffffff`;
+
   const result = await db
     .select()
     .from(events)
-    .where(sql`${events.id}::text LIKE ${shortId + '%'}`)
+    .where(sql`${events.id} >= ${lower}::uuid AND ${events.id} <= ${upper}::uuid`)
     .limit(1);
 
   return result[0] || null;

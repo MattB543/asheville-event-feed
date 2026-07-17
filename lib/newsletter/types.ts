@@ -6,9 +6,9 @@ export type Top30SubscriptionType = 'none' | 'live' | 'weekly';
 
 export type NewsletterDaySelection = 'everyday' | 'weekend' | 'specific';
 
-export type PriceFilterType = 'any' | 'free' | 'under20' | 'under100' | 'custom';
-
-export type TimeOfDay = 'morning' | 'afternoon' | 'evening';
+// Canonical definitions in lib/types/filters
+import type { PriceFilterType, TimeOfDay } from '@/lib/types/filters';
+export type { PriceFilterType, TimeOfDay };
 
 export interface NewsletterFilters {
   search?: string;

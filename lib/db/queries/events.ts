@@ -271,18 +271,23 @@ export async function queryFilteredEvents(params: EventFilterParams): Promise<Ev
     for (const time of params.times) {
       // PostgreSQL: EXTRACT(HOUR FROM timestamp)
       // Morning: 5-11, Afternoon: 12-16, Evening: 17-23 or 0-2
+      // Convert to Eastern time first so the hour matches the local event time, not UTC
       switch (time) {
         case 'morning':
-          timeConditions.push(sql`EXTRACT(HOUR FROM ${events.startDate}) BETWEEN 5 AND 11`);
+          timeConditions.push(
+            sql`EXTRACT(HOUR FROM ${events.startDate} AT TIME ZONE 'America/New_York') BETWEEN 5 AND 11`
+          );
           break;
         case 'afternoon':
-          timeConditions.push(sql`EXTRACT(HOUR FROM ${events.startDate}) BETWEEN 12 AND 16`);
+          timeConditions.push(
+            sql`EXTRACT(HOUR FROM ${events.startDate} AT TIME ZONE 'America/New_York') BETWEEN 12 AND 16`
+          );
           break;
         case 'evening':
           timeConditions.push(
             or(
-              sql`EXTRACT(HOUR FROM ${events.startDate}) >= 17`,
-              sql`EXTRACT(HOUR FROM ${events.startDate}) <= 2`
+              sql`EXTRACT(HOUR FROM ${events.startDate} AT TIME ZONE 'America/New_York') >= 17`,
+              sql`EXTRACT(HOUR FROM ${events.startDate} AT TIME ZONE 'America/New_York') <= 2`
             )!
           );
           break;

@@ -80,6 +80,11 @@ export async function failCronJob(runId: string, error: unknown): Promise<void> 
       result: {
         error: error instanceof Error ? error.message : String(error),
         stack: error instanceof Error ? error.stack : undefined,
+        // Drizzle wraps driver errors in a generic "Failed query" — the real error is in cause
+        cause:
+          error instanceof Error && error.cause instanceof Error
+            ? `${error.cause.message}\n${error.cause.stack ?? ''}`
+            : undefined,
       },
     })
     .where(eq(cronJobRuns.id, runId));

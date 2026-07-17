@@ -6,7 +6,7 @@
  */
 
 import { env, isJinaEnabled } from '@/lib/config/env';
-import { azureChatCompletion, isAzureAIEnabled } from './provider-clients';
+import { azureChatCompletion, isAzureAIEnabled, parseJsonFromModel } from './provider-clients';
 
 /**
  * Sources that have useful external event URLs worth verifying.
@@ -286,16 +286,14 @@ Analyze the page content and determine if this event is still active and accurat
     }
 
     // Parse JSON response
-    const jsonMatch = aiResponse.content.match(/\{[\s\S]*\}/);
-    if (!jsonMatch) {
+    const parsed = parseJsonFromModel<VerificationAIResponse>(aiResponse.content);
+    if (!parsed) {
       result.error = 'Invalid AI response format';
       console.warn(
         `[Verify] AI returned non-JSON for "${event.title.slice(0, 50)}" (${aiElapsed}s)`
       );
       return result;
     }
-
-    const parsed = JSON.parse(jsonMatch[0]) as VerificationAIResponse;
 
     result.action = parsed.action || 'keep';
     result.reason = parsed.reason || 'No reason provided';

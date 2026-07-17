@@ -9,7 +9,7 @@
  * Uses similar events context to assess uniqueness and rarity.
  */
 
-import { azureChatCompletion, isAzureAIEnabled } from './provider-clients';
+import { azureChatCompletion, isAzureAIEnabled, parseJsonFromModel } from './provider-clients';
 
 export interface EventScoreResult {
   score: number; // Total 0-30
@@ -207,13 +207,14 @@ ${similarEventsText}`;
       return null;
     }
 
-    // Clean up and parse response
-    const cleanedText = result.content
-      .replace(/```json/g, '')
-      .replace(/```/g, '')
-      .trim();
-
-    const parsed = JSON.parse(cleanedText) as ScoreAIResponse;
+    // Parse response
+    const parsed = parseJsonFromModel<ScoreAIResponse>(result.content);
+    if (!parsed) {
+      console.error(
+        `[AI:Score] Error scoring "${event.title.slice(0, 40)}...": failed to parse response`
+      );
+      return null;
+    }
 
     // Validate and clamp scores to 0-10 (primary) or 1-10 (secondary)
     const clamped: string[] = [];

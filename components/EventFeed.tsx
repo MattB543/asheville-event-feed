@@ -2,12 +2,14 @@
 
 import { useState, useMemo, useEffect, useCallback, useRef } from 'react';
 import EventCard from './EventCard';
-import FilterBar, {
-  type DateFilterType,
-  type PriceFilterType,
-  type DateRange,
-  type TimeOfDay,
-} from './FilterBar';
+import FilterBar from './FilterBar';
+import type {
+  DateFilterType,
+  PriceFilterType,
+  DateRange,
+  TimeOfDay,
+  TagFilterState,
+} from '@/lib/types/filters';
 import ActiveFilters, { type ActiveFilter } from './ActiveFilters';
 import { parse, isValid } from 'date-fns';
 import dynamic from 'next/dynamic';
@@ -162,10 +164,8 @@ interface EventFeedProps {
 }
 
 // Tag filter state for include/exclude tri-state filtering
-export interface TagFilterState {
-  include: string[];
-  exclude: string[];
-}
+// (canonical definition in lib/types/filters)
+export type { TagFilterState };
 
 // Fingerprint for hiding recurring events (title + organizer combo)
 interface HiddenEventFingerprint {

@@ -9,7 +9,8 @@
  */
 
 import { type ScrapedEvent } from './types';
-import { fetchEventData } from './base';
+import { extractMetaDescription, fetchEventData } from './base';
+import { findJsonLdEvent } from './jsonld';
 import { decodeHtmlEntities } from '../utils/parsers';
 
 // Config
@@ -17,38 +18,6 @@ const CALENDAR_URL = 'https://www.thegreyeagle.com/calendar/';
 const VENUE_NAME = 'The Grey Eagle';
 const VENUE_ADDRESS = 'The Grey Eagle, 185 Clingman Ave, Asheville, NC';
 const VENUE_ZIP = '28801';
-
-/**
- * Extract description from meta tag
- */
-function extractMetaDescription(html: string): string | undefined {
-  // Try name="description" first (both attribute orders)
-  const metaDesc =
-    html.match(/<meta[^>]*name=["']description["'][^>]*content=["']([^"']*)["']/i) ||
-    html.match(/<meta[^>]*content=["']([^"']*)["'][^>]*name=["']description["']/i);
-
-  if (metaDesc && metaDesc[1]) {
-    const decoded = decodeHtmlEntities(metaDesc[1]);
-    // Only return if it's a meaningful description (not just venue info)
-    if (decoded.length > 50) {
-      return decoded;
-    }
-  }
-
-  // Fallback to og:description
-  const ogDesc =
-    html.match(/<meta[^>]*property=["']og:description["'][^>]*content=["']([^"']*)["']/i) ||
-    html.match(/<meta[^>]*content=["']([^"']*)["'][^>]*property=["']og:description["']/i);
-
-  if (ogDesc && ogDesc[1]) {
-    const decoded = decodeHtmlEntities(ogDesc[1]);
-    if (decoded.length > 50) {
-      return decoded;
-    }
-  }
-
-  return undefined;
-}
 
 interface JSONLDEvent {
   '@type': string;
@@ -124,18 +93,9 @@ async function scrapeEventPage(url: string): Promise<ScrapedEvent | null> {
     );
     const html = await response.text();
 
-    // Extract JSON-LD structured data
-    const jsonLdMatch = html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/);
-    if (!jsonLdMatch) return null;
-
-    let jsonLd: JSONLDEvent;
-    try {
-      jsonLd = JSON.parse(jsonLdMatch[1]) as JSONLDEvent;
-    } catch {
-      return null;
-    }
-
-    if (jsonLd['@type'] !== 'Event') return null;
+    // Extract JSON-LD structured data - find the Event block among all blocks
+    const jsonLd = findJsonLdEvent<JSONLDEvent>(html);
+    if (!jsonLd) return null;
 
     // Parse date
     const startDate = new Date(jsonLd.startDate);

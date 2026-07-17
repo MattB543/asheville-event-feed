@@ -380,7 +380,7 @@ export async function GET(request: Request) {
     emailsSent: 0,
     emailsFailed: 0,
     usersSkipped: 0,
-    skipReasons: { noEmail: 0, wrongDay: 0, zeroEvents: 0 },
+    skipReasons: { noEmail: 0, wrongDay: 0, zeroEvents: 0, alreadySent: 0 },
     totalEventsAcrossDigests: 0,
   };
   let currentUserEmail: string | undefined;
@@ -401,6 +401,7 @@ export async function GET(request: Request) {
         scoreTier: newsletterSettings.scoreTier,
         filters: newsletterSettings.filters,
         curatorUserIds: newsletterSettings.curatorUserIds,
+        lastSentAt: newsletterSettings.lastSentAt,
         blockedHosts: userPreferences.blockedHosts,
         blockedKeywords: userPreferences.blockedKeywords,
         hiddenEvents: userPreferences.hiddenEvents,
@@ -469,6 +470,7 @@ export async function GET(request: Request) {
         scoreTier: 'all',
         filters: legacyFilters,
         curatorUserIds: [],
+        lastSentAt: null,
         blockedHosts: legacy.blockedHosts,
         blockedKeywords: legacy.blockedKeywords,
         hiddenEvents: legacy.hiddenEvents,
@@ -545,6 +547,15 @@ export async function GET(request: Request) {
         continue;
       }
       currentUserEmail = userAuth.email;
+
+      // Idempotency guard: the job runs once per day, so anyone already
+      // emailed today (Eastern) was covered by an earlier invocation —
+      // a retry or mid-run timeout must not double-send
+      if (userPref.lastSentAt && getEasternDateKey(userPref.lastSentAt) === todayStr) {
+        stats.usersSkipped++;
+        stats.skipReasons.alreadySent++;
+        continue;
+      }
 
       const frequency = parseNewsletterFrequency(userPref.frequency);
       const daySelection = parseNewsletterDaySelection(userPref.daySelection);
@@ -787,11 +798,11 @@ export async function GET(request: Request) {
     }
 
     const totalDuration = Date.now() - jobStartTime;
-    const { noEmail, wrongDay, zeroEvents } = stats.skipReasons;
+    const { noEmail, wrongDay, zeroEvents, alreadySent } = stats.skipReasons;
     console.log(
       `[Newsletter] Job complete in ${formatDuration(totalDuration)} | ` +
         `Sent: ${stats.emailsSent}, Failed: ${stats.emailsFailed}, ` +
-        `Skipped: ${stats.usersSkipped} (${wrongDay} wrong day, ${noEmail} no email, ${zeroEvents} zero events) | ` +
+        `Skipped: ${stats.usersSkipped} (${wrongDay} wrong day, ${noEmail} no email, ${zeroEvents} zero events, ${alreadySent} already sent) | ` +
         `Total events across digests: ${stats.totalEventsAcrossDigests}`
     );
 

@@ -12,11 +12,13 @@
 
 import { type ScrapedEvent } from './types';
 import { fetchEventData } from './base';
-import { parseAsEastern } from '../utils/timezone';
+import { findJsonLdEvent } from './jsonld';
+import {
+  fetchTicketmasterEvents as fetchTicketmasterVenueEvents,
+  getLocalDateKey,
+  type TicketmasterVenueConfig,
+} from './ticketmaster';
 
-// Ticketmaster API config
-const TM_API_KEY = process.env.TICKETMASTER_API_KEY;
-const TM_BASE_URL = 'https://app.ticketmaster.com/discovery/v2';
 const ORANGE_PEEL_VENUE_ID = 'KovZpa3hYe';
 
 // Website scraping config
@@ -28,52 +30,29 @@ const VENUE_ADDRESS = 'The Orange Peel, 101 Biltmore Ave, Asheville, NC';
 const PULP_ADDRESS = 'Pulp, 103 Hilliard Ave, Asheville, NC';
 const VENUE_ZIP = '28801';
 
-// Common headers for Ticketmaster API
-const TM_API_HEADERS = {
-  Accept: 'application/json',
+/**
+ * Clean title - remove age restrictions (will be in description if needed)
+ */
+function cleanTitle(name: string): string {
+  return name
+    .replace(/\s*\(18 and Over\)/gi, '')
+    .replace(/\s*\(All Ages[^)]*\)/gi, '')
+    .replace(/\s*- Ages?:?\s*18\+?/gi, '')
+    .replace(/\s*- 18\+$/gi, '')
+    .trim();
+}
+
+const TM_CONFIG: TicketmasterVenueConfig = {
+  venueId: ORANGE_PEEL_VENUE_ID,
+  source: 'ORANGE_PEEL',
+  sourceIdPrefix: 'tm-op-',
+  location: VENUE_ADDRESS,
+  zip: VENUE_ZIP,
+  organizer: VENUE_NAME,
+  defaultTime: '20:00:00',
+  logLabel: 'OrangePeel-TM',
+  cleanTitle,
 };
-
-interface TMEvent {
-  id: string;
-  name: string;
-  url: string;
-  dates?: {
-    start?: {
-      localDate?: string;
-      localTime?: string;
-      dateTime?: string;
-    };
-  };
-  priceRanges?: Array<{
-    min: number;
-    max: number;
-    currency: string;
-  }>;
-  images?: Array<{
-    url: string;
-    width: number;
-    height: number;
-    ratio: string;
-  }>;
-  info?: string;
-  pleaseNote?: string;
-  description?: string;
-  _embedded?: {
-    venues?: Array<{ name: string }>;
-    attractions?: Array<{ name: string; description?: string }>;
-  };
-}
-
-interface TMResponse {
-  _embedded?: {
-    events?: TMEvent[];
-  };
-  page?: {
-    totalElements: number;
-    totalPages: number;
-    number: number;
-  };
-}
 
 interface JSONLDEvent {
   '@type': string;
@@ -98,62 +77,7 @@ interface JSONLDEvent {
  * Fetch events from Ticketmaster Discovery API
  */
 async function fetchTicketmasterEvents(): Promise<ScrapedEvent[]> {
-  if (!TM_API_KEY) {
-    console.log('[OrangePeel-TM] No TICKETMASTER_API_KEY set, skipping API fetch');
-    return [];
-  }
-
-  console.log('[OrangePeel-TM] Fetching from Ticketmaster API...');
-
-  const events: ScrapedEvent[] = [];
-  let page = 0;
-  let hasMore = true;
-
-  while (hasMore) {
-    const url = new URL(`${TM_BASE_URL}/events.json`);
-    url.searchParams.set('apikey', TM_API_KEY);
-    url.searchParams.set('venueId', ORANGE_PEEL_VENUE_ID);
-    url.searchParams.set('size', '50');
-    url.searchParams.set('page', page.toString());
-    url.searchParams.set('sort', 'date,asc');
-
-    try {
-      const response = await fetchEventData(
-        url.toString(),
-        {
-          headers: TM_API_HEADERS,
-          cache: 'no-store',
-        },
-        { maxRetries: 3, baseDelay: 1000 },
-        'OrangePeel-TM'
-      );
-      const data = (await response.json()) as TMResponse;
-
-      if (data._embedded?.events) {
-        for (const event of data._embedded.events) {
-          const scraped = formatTMEvent(event);
-          if (scraped) {
-            events.push(scraped);
-          }
-        }
-      }
-
-      // Check pagination
-      if (data.page) {
-        const { number, totalPages } = data.page;
-        hasMore = number < totalPages - 1;
-        page++;
-      } else {
-        hasMore = false;
-      }
-
-      // Rate limit: 200ms between requests
-      await new Promise((r) => setTimeout(r, 200));
-    } catch (error) {
-      console.error('[OrangePeel-TM] API error:', error);
-      hasMore = false;
-    }
-  }
+  const events = await fetchTicketmasterVenueEvents(TM_CONFIG);
 
   // Deduplicate by date + normalized title (TM returns duplicates with different ticket URLs)
   const seen = new Set<string>();
@@ -168,77 +92,6 @@ async function fetchTicketmasterEvents(): Promise<ScrapedEvent[]> {
     `[OrangePeel-TM] Found ${deduped.length} unique events (${events.length} total with dupes)`
   );
   return deduped;
-}
-
-/**
- * Format Ticketmaster event to ScrapedEvent
- */
-function formatTMEvent(event: TMEvent): ScrapedEvent | null {
-  if (!event.dates?.start?.localDate) {
-    return null;
-  }
-
-  // Parse date - prefer dateTime (includes timezone) to avoid UTC interpretation issues on servers
-  let startDate: Date;
-  if (event.dates.start.dateTime) {
-    // dateTime is ISO format with timezone (e.g., "2025-12-04T20:00:00Z")
-    startDate = new Date(event.dates.start.dateTime);
-  } else {
-    // Fallback: construct from local date/time with correct Eastern offset (handles DST)
-    const dateStr = event.dates.start.localDate;
-    const timeStr = event.dates.start.localTime || '20:00:00';
-    startDate = parseAsEastern(dateStr, timeStr);
-  }
-
-  // Get best image (prefer 16:9 ratio, largest size)
-  let imageUrl: string | undefined;
-  if (event.images?.length) {
-    const preferred = event.images
-      .filter((img) => img.ratio === '16_9')
-      .sort((a, b) => b.width - a.width)[0];
-    imageUrl = preferred?.url || event.images[0].url;
-  }
-
-  // Format price if available
-  let price = 'Unknown';
-  if (event.priceRanges?.length) {
-    const range = event.priceRanges[0];
-    if (range.min === range.max) {
-      price = `$${range.min}`;
-    } else {
-      price = `$${range.min} - $${range.max}`;
-    }
-  }
-
-  // Build description from available fields
-  const description =
-    event.description ||
-    event.info ||
-    event.pleaseNote ||
-    event._embedded?.attractions?.[0]?.description ||
-    undefined;
-
-  // Clean title - remove age restrictions (will be in description if needed)
-  const title = event.name
-    .replace(/\s*\(18 and Over\)/gi, '')
-    .replace(/\s*\(All Ages[^)]*\)/gi, '')
-    .replace(/\s*- Ages?:?\s*18\+?/gi, '')
-    .replace(/\s*- 18\+$/gi, '')
-    .trim();
-
-  return {
-    sourceId: `tm-op-${event.id}`,
-    source: 'ORANGE_PEEL',
-    title,
-    description,
-    startDate,
-    location: VENUE_ADDRESS,
-    zip: VENUE_ZIP,
-    organizer: VENUE_NAME,
-    price,
-    url: event.url,
-    imageUrl,
-  };
 }
 
 /**
@@ -260,16 +113,6 @@ function normalizeTitle(title: string): string {
       .replace(/\s+/g, ' ')
       .trim()
   );
-}
-
-/**
- * Get local date string (YYYY-MM-DD) without timezone conversion
- */
-function getLocalDateKey(date: Date): string {
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const day = String(date.getDate()).padStart(2, '0');
-  return `${year}-${month}-${day}`;
 }
 
 /**
@@ -378,18 +221,9 @@ async function scrapeEventPage(url: string): Promise<ScrapedEvent | null> {
     );
     const html = await response.text();
 
-    // Extract JSON-LD structured data
-    const jsonLdMatch = html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/);
-    if (!jsonLdMatch) return null;
-
-    let jsonLd: JSONLDEvent;
-    try {
-      jsonLd = JSON.parse(jsonLdMatch[1]) as JSONLDEvent;
-    } catch {
-      return null;
-    }
-
-    if (jsonLd['@type'] !== 'Event') return null;
+    // Extract JSON-LD structured data - find the Event block among all blocks
+    const jsonLd = findJsonLdEvent<JSONLDEvent>(html);
+    if (!jsonLd) return null;
 
     // Parse date
     const startDate = new Date(jsonLd.startDate);

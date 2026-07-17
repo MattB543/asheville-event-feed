@@ -4,20 +4,15 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import { useEffect, useRef } from 'react';
 import { useDebounce } from './useDebounce';
 
-// Filter parameter types
-export type DateFilterType = 'all' | 'today' | 'tomorrow' | 'weekend' | 'dayOfWeek' | 'custom';
-export type PriceFilterType = 'any' | 'free' | 'under20' | 'under100' | 'custom';
-export type TimeOfDay = 'morning' | 'afternoon' | 'evening';
-
-export interface DateRange {
-  start: string | null;
-  end: string | null;
-}
-
-export interface TagFilterState {
-  include: string[];
-  exclude: string[];
-}
+// Filter parameter types (canonical definitions in lib/types/filters)
+import type {
+  DateFilterType,
+  PriceFilterType,
+  TimeOfDay,
+  DateRange,
+  TagFilterState,
+} from '@/lib/types/filters';
+export type { DateFilterType, PriceFilterType, TimeOfDay, DateRange, TagFilterState };
 
 export interface HiddenEventFingerprint {
   title: string;

@@ -20,6 +20,7 @@ import { scrapeNCStage } from '@/lib/scrapers/ncstage';
 import { scrapeStoryParlor } from '@/lib/scrapers/storyparlor';
 import { scrapeTheaterAlliance } from '@/lib/scrapers/theateralliance';
 import { scrapePechaKucha } from '@/lib/scrapers/pechakucha';
+import { scrapeLittleAnimals } from '@/lib/scrapers/littleanimals';
 import { db } from '@/lib/db';
 import { events } from '@/lib/db/schema';
 import { inArray, eq, sql } from 'drizzle-orm';
@@ -82,6 +83,7 @@ const SCRAPERS: ScraperDef[] = [
   { name: 'Story Parlor', fn: scrapeStoryParlor },
   { name: 'Theater Alliance', fn: scrapeTheaterAlliance },
   { name: 'PechaKucha', fn: scrapePechaKucha },
+  { name: 'Little Animals', fn: scrapeLittleAnimals },
 ];
 
 // Scrape-only cron job
@@ -259,13 +261,17 @@ export async function GET(request: Request) {
                 target: events.url,
                 set: {
                   title: event.title,
-                  description: event.description,
+                  // Keep the longer description — the verify cron enriches thin
+                  // descriptions, and events are never re-verified, so a raw
+                  // re-scrape must not overwrite enrichment with shorter text
+                  description: sql`CASE WHEN length(coalesce(${event.description ?? null}::text, '')) > length(coalesce(${events.description}, '')) THEN ${event.description ?? null}::text ELSE ${events.description} END`,
                   startDate: event.startDate,
-                  location: event.location,
-                  zip: event.zip,
-                  organizer: event.organizer,
-                  price: event.price,
-                  imageUrl: event.imageUrl,
+                  location: sql`COALESCE(NULLIF(trim(${event.location ?? null}::text), ''), ${events.location})`,
+                  zip: sql`COALESCE(NULLIF(trim(${event.zip ?? null}::text), ''), ${events.zip})`,
+                  organizer: sql`COALESCE(NULLIF(trim(${event.organizer ?? null}::text), ''), ${events.organizer})`,
+                  // Don't let a null/Unknown scrape clobber a verified price
+                  price: sql`CASE WHEN NULLIF(trim(${event.price ?? null}::text), '') IS NULL OR lower(trim(${event.price ?? null}::text)) = 'unknown' THEN COALESCE(${events.price}, ${event.price ?? null}::text) ELSE ${event.price ?? null}::text END`,
+                  imageUrl: sql`COALESCE(NULLIF(trim(${event.imageUrl ?? null}::text), ''), ${events.imageUrl})`,
                   interestedCount: event.interestedCount,
                   goingCount: event.goingCount,
                   lastSeenAt: new Date(),

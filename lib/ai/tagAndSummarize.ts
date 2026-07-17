@@ -5,7 +5,7 @@
  * in a single API call for efficiency.
  */
 
-import { azureChatCompletion, isAzureAIEnabled } from './provider-clients';
+import { azureChatCompletion, isAzureAIEnabled, parseJsonFromModel } from './provider-clients';
 import { normalizeTagFromAI, tryExtractOfficialTag } from '@/lib/utils/formatTag';
 
 export interface EventData {
@@ -183,18 +183,10 @@ export async function generateTagsAndSummary(event: EventData): Promise<TagAndSu
       return { tags: [], summary: null };
     }
 
-    // Clean up markdown code blocks if present
-    const cleanedText = result.content
-      .replace(/```json/g, '')
-      .replace(/```/g, '')
-      .trim();
-
-    let parsed: TagAndSummaryAIResponse;
-    try {
-      parsed = JSON.parse(cleanedText) as TagAndSummaryAIResponse;
-    } catch {
+    const parsed = parseJsonFromModel<TagAndSummaryAIResponse>(result.content);
+    if (!parsed) {
       console.error(
-        `[AI:Tags] JSON parse failed for "${event.title.slice(0, 40)}..." - received: ${cleanedText.slice(0, 200)}`
+        `[AI:Tags] JSON parse failed for "${event.title.slice(0, 40)}..." - received: ${result.content.slice(0, 200)}`
       );
       return { tags: [], summary: null };
     }

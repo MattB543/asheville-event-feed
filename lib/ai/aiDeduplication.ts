@@ -8,7 +8,7 @@
  * - Subtle duplicates requiring semantic understanding
  */
 
-import { azureChatCompletion, isAzureAIEnabled } from './provider-clients';
+import { azureChatCompletion, isAzureAIEnabled, parseJsonFromModel } from './provider-clients';
 import { matchesDefaultFilter } from '../config/defaultFilters';
 
 /**
@@ -174,53 +174,40 @@ interface ParsedDuplicateGroup {
  * Parse the AI response into duplicate groups with numeric indices.
  */
 function parseAIResponse(response: string): ParsedDuplicateGroup[] {
-  try {
-    // Clean up response - remove any markdown formatting
-    let cleaned = response.trim();
-    if (cleaned.startsWith('```json')) {
-      cleaned = cleaned.slice(7);
-    }
-    if (cleaned.startsWith('```')) {
-      cleaned = cleaned.slice(3);
-    }
-    if (cleaned.endsWith('```')) {
-      cleaned = cleaned.slice(0, -3);
-    }
-    cleaned = cleaned.trim();
+  const parsed = parseJsonFromModel<{
+    duplicates?: Array<{ remove?: number[]; reason?: string }>;
+  }>(response);
 
-    const parsed = JSON.parse(cleaned) as {
-      duplicates?: Array<{ remove?: number[]; reason?: string }>;
-    };
-
-    if (!parsed.duplicates || !Array.isArray(parsed.duplicates)) {
-      console.warn('[AI Dedup] Invalid response format: missing duplicates array');
-      return [];
-    }
-
-    // Validate each group (now expecting numeric IDs)
-    const validGroups: ParsedDuplicateGroup[] = [];
-    for (const group of parsed.duplicates) {
-      if (
-        Array.isArray(group.remove) &&
-        group.remove.length > 0 &&
-        group.remove.every((id: unknown) => typeof id === 'number') &&
-        typeof group.reason === 'string'
-      ) {
-        validGroups.push({
-          remove: group.remove,
-          reason: group.reason,
-        });
-      } else {
-        console.warn('[AI Dedup] Skipping invalid group:', group);
-      }
-    }
-
-    return validGroups;
-  } catch (error) {
-    console.error('[AI Dedup] Failed to parse AI response:', error);
+  if (!parsed) {
+    console.error('[AI Dedup] Failed to parse AI response');
     console.error('[AI Dedup] Raw response:', response);
     return [];
   }
+
+  if (!parsed.duplicates || !Array.isArray(parsed.duplicates)) {
+    console.warn('[AI Dedup] Invalid response format: missing duplicates array');
+    return [];
+  }
+
+  // Validate each group (now expecting numeric IDs)
+  const validGroups: ParsedDuplicateGroup[] = [];
+  for (const group of parsed.duplicates) {
+    if (
+      Array.isArray(group.remove) &&
+      group.remove.length > 0 &&
+      group.remove.every((id: unknown) => typeof id === 'number') &&
+      typeof group.reason === 'string'
+    ) {
+      validGroups.push({
+        remove: group.remove,
+        reason: group.reason,
+      });
+    } else {
+      console.warn('[AI Dedup] Skipping invalid group:', group);
+    }
+  }
+
+  return validGroups;
 }
 
 /**

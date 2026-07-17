@@ -1,4 +1,7 @@
 import { type ScrapedEvent } from './types';
+import { db } from '@/lib/db';
+import { events as eventsTable } from '@/lib/db/schema';
+import { and, eq, inArray } from 'drizzle-orm';
 import { withRetry } from '@/lib/utils/retry';
 import { isNonNCEvent } from '@/lib/utils/geo';
 import { getEasternOffset } from '@/lib/utils/timezone';
@@ -547,15 +550,61 @@ export async function scrapeMeetup(daysToFetch: number = 30): Promise<ScrapedEve
   }
 
   // Fetch venue data, prices, and missing images from event pages
-  // We need to fetch all events to get venue/zip/price data since GraphQL doesn't return it
-  console.log(`[Meetup] Fetching page data for ${ncEvents.length} events...`);
+  // (GraphQL doesn't return venue/zip/price). Page data is stable, so reuse
+  // enrichment from previous runs instead of re-fetching every event page —
+  // an event with zip set in the DB already had its page fetched.
+  const enrichedByUrl = new Map<
+    string,
+    { location: string | null; zip: string | null; imageUrl: string | null; price: string | null }
+  >();
+  try {
+    const currentUrls = ncEvents.map((event) => event.url);
+    if (currentUrls.length > 0) {
+      const existingRows = await db
+        .select({
+          url: eventsTable.url,
+          location: eventsTable.location,
+          zip: eventsTable.zip,
+          imageUrl: eventsTable.imageUrl,
+          price: eventsTable.price,
+        })
+        .from(eventsTable)
+        .where(and(eq(eventsTable.source, 'MEETUP'), inArray(eventsTable.url, currentUrls)));
+      for (const row of existingRows) {
+        if (row.zip) enrichedByUrl.set(row.url, row);
+      }
+    }
+  } catch (error) {
+    console.warn('[Meetup] Could not load existing enrichment, fetching all pages:', error);
+  }
+
+  const eventsToFetch: ScrapedEvent[] = [];
+  let reusedCount = 0;
+  for (const event of ncEvents) {
+    const cached = enrichedByUrl.get(event.url);
+    if (cached) {
+      if (cached.location) event.location = cached.location;
+      event.zip = cached.zip ?? event.zip;
+      if (!event.imageUrl && cached.imageUrl) event.imageUrl = cached.imageUrl;
+      if (event.price === 'Unknown' && cached.price && cached.price !== 'Unknown') {
+        event.price = cached.price;
+      }
+      reusedCount++;
+    } else {
+      eventsToFetch.push(event);
+    }
+  }
+
+  console.log(
+    `[Meetup] Fetching page data for ${eventsToFetch.length} events (${reusedCount} reused from previous runs)...`
+  );
 
   let venuesFetched = 0;
   let imagesFetched = 0;
   let pricesFetched = 0;
 
-  for (let i = 0; i < ncEvents.length; i += IMAGE_BATCH_SIZE) {
-    const batch = ncEvents.slice(i, i + IMAGE_BATCH_SIZE);
+  for (let i = 0; i < eventsToFetch.length; i += IMAGE_BATCH_SIZE) {
+    const batch = eventsToFetch.slice(i, i + IMAGE_BATCH_SIZE);
 
     await Promise.all(
       batch.map(async (event) => {
@@ -594,7 +643,7 @@ export async function scrapeMeetup(daysToFetch: number = 30): Promise<ScrapedEve
       })
     );
 
-    if (i + IMAGE_BATCH_SIZE < ncEvents.length) {
+    if (i + IMAGE_BATCH_SIZE < eventsToFetch.length) {
       await new Promise((r) => setTimeout(r, IMAGE_BATCH_DELAY_MS));
     }
   }

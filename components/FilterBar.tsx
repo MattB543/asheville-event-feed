@@ -14,15 +14,9 @@ import {
 } from 'lucide-react';
 import { useToast } from './ui/Toast';
 
-// Re-export types for backwards compatibility
-export type DateFilterType = 'all' | 'today' | 'tomorrow' | 'weekend' | 'dayOfWeek' | 'custom';
-export type PriceFilterType = 'any' | 'free' | 'under20' | 'under100' | 'custom';
-export type TimeOfDay = 'morning' | 'afternoon' | 'evening';
-
-export interface DateRange {
-  start: string | null;
-  end: string | null;
-}
+// Re-export types for backwards compatibility (canonical definitions in lib/types/filters)
+import type { DateFilterType, PriceFilterType, TimeOfDay, DateRange } from '@/lib/types/filters';
+export type { DateFilterType, PriceFilterType, TimeOfDay, DateRange };
 
 export interface FilterBarProps {
   search: string;

@@ -5,7 +5,7 @@
  * when regex-based extraction fails.
  */
 
-import { azureChatCompletion, isAzureAIEnabled } from './provider-clients';
+import { azureChatCompletion, isAzureAIEnabled, parseJsonFromModel } from './provider-clients';
 import { fetchAndConvertToMarkdown } from '@/lib/utils/htmlToMarkdown';
 import { applyTimeToDate } from '@/lib/utils/parsers';
 
@@ -117,19 +117,12 @@ Extract the requested information. If the event appears to be a free community e
     }
 
     // Parse the JSON response
-    let parsed: { price?: string | null; time?: string | null; confidence?: string };
-    try {
-      // Clean up the response (remove any markdown formatting)
-      const cleanContent = result.content
-        .replace(/```json\s*/g, '')
-        .replace(/```\s*/g, '')
-        .trim();
-      parsed = JSON.parse(cleanContent) as {
-        price?: string | null;
-        time?: string | null;
-        confidence?: string;
-      };
-    } catch {
+    const parsed = parseJsonFromModel<{
+      price?: string | null;
+      time?: string | null;
+      confidence?: string;
+    }>(result.content);
+    if (!parsed) {
       console.warn(`[Enrichment] Failed to parse response for "${input.title}": ${result.content}`);
       return null;
     }

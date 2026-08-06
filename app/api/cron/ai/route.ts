@@ -52,6 +52,25 @@ const chunk = <T>(arr: T[], size: number) =>
     arr.slice(i * size, i * size + size)
   );
 
+// Top 30 live notifications: batch changes by waiting out a per-subscriber cooldown
+// before sending again. Unsent events stay untracked, so they roll up into the next
+// eligible send instead of triggering back-to-back emails.
+const TOP30_LIVE_COOLDOWN_MS = 12 * 60 * 60 * 1000;
+// No sends outside 9 AM - 9 PM ET; pending events are deferred to the next window.
+const TOP30_SEND_HOUR_START_ET = 9;
+const TOP30_SEND_HOUR_END_ET = 21;
+
+function isWithinTop30QuietHours(date: Date): boolean {
+  const easternHour = Number(
+    new Intl.DateTimeFormat('en-US', {
+      timeZone: 'America/New_York',
+      hour: 'numeric',
+      hourCycle: 'h23',
+    }).format(date)
+  );
+  return easternHour < TOP30_SEND_HOUR_START_ET || easternHour >= TOP30_SEND_HOUR_END_ET;
+}
+
 // AI processing cron job
 //
 // This route handles AI tagging, summary generation, embeddings, scoring, and images.
@@ -89,7 +108,7 @@ export async function GET(request: Request) {
     embeddings: { duration: 0, success: 0, failed: 0, total: 0 },
     scoring: { duration: 0, success: 0, failed: 0, total: 0, skippedRecurring: 0 },
     images: { duration: 0, success: 0, failed: 0, total: 0 },
-    top30Notifications: { duration: 0, sent: 0, skipped: 0, newEvents: 0 },
+    top30Notifications: { duration: 0, sent: 0, skipped: 0, deferred: 0, newEvents: 0 },
   };
 
   try {
@@ -444,7 +463,10 @@ export async function GET(request: Request) {
     // ═══════════════════════════════════════════════════════════════
     // 4. TOP 30 LIVE NOTIFICATIONS: Email users when new events enter top 30
     // ═══════════════════════════════════════════════════════════════
-    if (isPostmarkEnabled() && stats.scoring.success > 0) {
+    // Run whenever Postmark is enabled (not only when this run scored something):
+    // a prior run may have deferred pending events due to cooldown/quiet hours, and
+    // they must still go out even if no new scoring happened this run.
+    if (isPostmarkEnabled()) {
       console.log('[AI] Checking for top 30 live notification subscribers...');
       const top30NotifStartTime = Date.now();
 
@@ -468,6 +490,7 @@ export async function GET(request: Request) {
           .select({
             userId: newsletterSettings.userId,
             top30LastEventIds: newsletterSettings.top30LastEventIds,
+            top30LastNotifiedAt: newsletterSettings.top30LastNotifiedAt,
           })
           .from(newsletterSettings)
           .where(eq(newsletterSettings.top30Subscription, 'live'));
@@ -529,6 +552,7 @@ export async function GET(request: Request) {
             });
 
             const appUrl = env.NEXT_PUBLIC_APP_URL;
+            const inQuietHours = isWithinTop30QuietHours(new Date());
 
             for (const subscriber of liveSubscribers) {
               const userInfo = userEmailMap.get(subscriber.userId);
@@ -592,7 +616,20 @@ export async function GET(request: Request) {
                   score: event.score,
                 }));
 
-              if (newEvents.length === 0) {
+              if (newEvents.length > stats.top30Notifications.newEvents) {
+                stats.top30Notifications.newEvents = newEvents.length;
+              }
+
+              // Defer (rather than send) when the subscriber was emailed recently or we're in
+              // quiet hours. Pending events stay untracked, so they batch into the next send.
+              // Intentional trade-off: a deferred event that drops back out of the Top 30
+              // before the next eligible run is never emailed (it's no longer in the Top 30).
+              const inCooldown =
+                subscriber.top30LastNotifiedAt != null &&
+                Date.now() - subscriber.top30LastNotifiedAt.getTime() < TOP30_LIVE_COOLDOWN_MS;
+              const deferSend = newEvents.length > 0 && (inCooldown || inQuietHours);
+
+              if (newEvents.length === 0 || deferSend) {
                 // Backfill durable tracking keys even when nothing is newly emailed so the next
                 // row replacement does not re-trigger a notification for the same event.
                 if (missingDerivedKeys.length > 0) {
@@ -612,10 +649,17 @@ export async function GET(request: Request) {
                   );
                 }
 
-                stats.top30Notifications.skipped++;
-                console.log(
-                  `[AI] Skipped ${userInfo.email} - no new events (${storedTrackedEventIds.length} tracked IDs, ${allTrackingKeys.size} durable keys)`
-                );
+                if (deferSend) {
+                  stats.top30Notifications.deferred++;
+                  console.log(
+                    `[AI] Deferred ${userInfo.email} - ${newEvents.length} pending event(s) (${inCooldown ? 'cooldown' : 'quiet hours'})`
+                  );
+                } else {
+                  stats.top30Notifications.skipped++;
+                  console.log(
+                    `[AI] Skipped ${userInfo.email} - no new events (${storedTrackedEventIds.length} tracked IDs, ${allTrackingKeys.size} durable keys)`
+                  );
+                }
                 continue;
               }
 
@@ -623,10 +667,6 @@ export async function GET(request: Request) {
               const newTrackingKeys = newEvents.map((event) =>
                 buildTop30NotificationTrackingKey(event)
               );
-
-              if (newEvents.length > stats.top30Notifications.newEvents) {
-                stats.top30Notifications.newEvents = newEvents.length;
-              }
 
               const unsubscribeUrl = `${appUrl}/api/top30/unsubscribe?token=${encodeUnsubscribeToken(subscriber.userId)}`;
 
@@ -721,7 +761,7 @@ export async function GET(request: Request) {
 
       stats.top30Notifications.duration = Date.now() - top30NotifStartTime;
       console.log(
-        `[AI] Top 30 notifications complete in ${formatDuration(stats.top30Notifications.duration)}: ${stats.top30Notifications.sent} sent, ${stats.top30Notifications.skipped} skipped`
+        `[AI] Top 30 notifications complete in ${formatDuration(stats.top30Notifications.duration)}: ${stats.top30Notifications.sent} sent, ${stats.top30Notifications.deferred} deferred, ${stats.top30Notifications.skipped} skipped`
       );
     }
 
@@ -791,7 +831,7 @@ export async function GET(request: Request) {
       `[AI] Scoring: ${stats.scoring.success}/${stats.scoring.total} (${stats.scoring.skippedRecurring} recurring) in ${formatDuration(stats.scoring.duration)}`
     );
     console.log(
-      `[AI] Top 30 Notifications: ${stats.top30Notifications.sent} sent, ${stats.top30Notifications.skipped} skipped in ${formatDuration(stats.top30Notifications.duration)}`
+      `[AI] Top 30 Notifications: ${stats.top30Notifications.sent} sent, ${stats.top30Notifications.deferred} deferred, ${stats.top30Notifications.skipped} skipped in ${formatDuration(stats.top30Notifications.duration)}`
     );
     console.log(
       `[AI] Images: ${stats.images.success}/${stats.images.total} in ${formatDuration(stats.images.duration)}`
@@ -829,6 +869,7 @@ export async function GET(request: Request) {
       top30Notifications: {
         sent: stats.top30Notifications.sent,
         skipped: stats.top30Notifications.skipped,
+        deferred: stats.top30Notifications.deferred,
         newEvents: stats.top30Notifications.newEvents,
       },
       images: {

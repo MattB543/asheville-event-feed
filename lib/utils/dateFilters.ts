@@ -1,8 +1,10 @@
 /**
  * Date filtering utilities for Eastern timezone (America/New_York).
  *
- * These functions are used by the export APIs to filter events by date
- * while correctly handling timezone boundaries for Asheville, NC.
+ * These functions are used by the export APIs and by client-side filtering
+ * (EventFeed's Top 30 tab) to filter events by date while correctly handling
+ * timezone boundaries for Asheville, NC. They rely only on Intl + Date, so they
+ * behave identically in the browser and on a UTC server.
  */
 
 import {

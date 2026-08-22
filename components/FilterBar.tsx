@@ -44,11 +44,8 @@ export default function FilterBar({
   search,
   onSearchChange,
   dateFilter,
-  customDateRange,
-  selectedDays,
   selectedTimes,
   priceFilter,
-  customMaxPrice,
   selectedLocations,
   selectedZips,
   tagFilters,
@@ -124,11 +121,8 @@ export default function FilterBar({
   // Calculate active filter count for badge
   const activeFilterCount = calculateActiveFilters({
     dateFilter,
-    customDateRange,
-    selectedDays,
     selectedTimes,
     priceFilter,
-    customMaxPrice,
     selectedLocations,
     selectedZips,
     tagFilters,
@@ -280,22 +274,16 @@ export default function FilterBar({
 // Helper to count active filters
 function calculateActiveFilters({
   dateFilter,
-  customDateRange,
-  selectedDays,
   selectedTimes,
   priceFilter,
-  customMaxPrice,
   selectedLocations,
   selectedZips,
   tagFilters,
   showDailyEvents,
 }: {
   dateFilter: DateFilterType;
-  customDateRange: DateRange;
-  selectedDays: number[];
   selectedTimes: TimeOfDay[];
   priceFilter: PriceFilterType;
-  customMaxPrice: number | null;
   selectedLocations: string[];
   selectedZips: string[];
   tagFilters: { include: string[]; exclude: string[] };
@@ -305,15 +293,12 @@ function calculateActiveFilters({
 
   // Date filter
   if (dateFilter !== 'all') count++;
-  if (dateFilter === 'dayOfWeek' && selectedDays.length > 0) count++;
-  if (dateFilter === 'custom' && (customDateRange.start || customDateRange.end)) count++;
 
   // Time filter
   if (selectedTimes.length > 0) count++;
 
   // Price filter
   if (priceFilter !== 'any') count++;
-  if (priceFilter === 'custom' && customMaxPrice !== null) count++;
 
   // Location filter
   if (selectedLocations.length > 0 || selectedZips.length > 0) count++;
@@ -321,8 +306,8 @@ function calculateActiveFilters({
   // Tag filter
   if (tagFilters.include.length > 0 || tagFilters.exclude.length > 0) count++;
 
-  // Daily events (hidden = counts as filter)
-  if (!showDailyEvents) count++;
+  // Daily events (shown = non-default choice)
+  if (showDailyEvents) count++;
 
   return count;
 }

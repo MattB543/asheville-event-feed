@@ -88,14 +88,22 @@ export interface TicketmasterVenueConfig {
   cleanTitle?: (name: string) => string;
 }
 
+const easternDateKeyFormatter = new Intl.DateTimeFormat('en-CA', {
+  timeZone: 'America/New_York',
+  year: 'numeric',
+  month: '2-digit',
+  day: '2-digit',
+});
+
 /**
- * Get local date string (YYYY-MM-DD) without timezone conversion
+ * Get the event's calendar date (YYYY-MM-DD) in Eastern time.
+ *
+ * Dedup keys must be Eastern, not server-local: an 8 PM ET show is
+ * 2026-09-01T00:00Z from the TM API and 2026-08-31T23:00Z from venue HTML, so
+ * server-local keys diverge on UTC hosts and cross-source merges never fire.
  */
 export function getLocalDateKey(date: Date): string {
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const day = String(date.getDate()).padStart(2, '0');
-  return `${year}-${month}-${day}`;
+  return easternDateKeyFormatter.format(date); // en-CA yields YYYY-MM-DD
 }
 
 /**

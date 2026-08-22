@@ -1,9 +1,15 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import { azureVisionChatCompletion, isAzureAIEnabled } from '@/lib/ai/provider-clients';
+import { isRateLimited } from '@/lib/utils/rate-limit';
 
 const MAX_IMAGES = 5;
 const MAX_IMAGE_SIZE = 10 * 1024 * 1024; // 10 MB per image
+
+// High-detail vision tokens are expensive and every call is billable, so cap
+// how often one account can run the transcriber.
+const RATE_LIMIT_REQUESTS = 10;
+const RATE_LIMIT_WINDOW_MS = 60 * 60 * 1000;
 
 const BOOKSHELF_SYSTEM_PROMPT = `You are a book identification assistant. The user will send you photos of bookshelves or book stacks.
 
@@ -38,6 +44,13 @@ export async function POST(request: NextRequest) {
 
     if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    if (isRateLimited(`transcribe-images:${user.id}`, RATE_LIMIT_REQUESTS, RATE_LIMIT_WINDOW_MS)) {
+      return NextResponse.json(
+        { error: 'Too many transcription requests. Please try again later.' },
+        { status: 429 }
+      );
     }
 
     if (!isAzureAIEnabled()) {
@@ -81,9 +94,10 @@ export async function POST(request: NextRequest) {
       imageDataUrls.push(`data:${mimeType};base64,${base64}`);
     }
 
-    // Use custom AI prompt from config if provided, otherwise default bookshelf prompt
-    const customPrompt = formData.get('aiPrompt') as string | null;
-    const systemPrompt = customPrompt || BOOKSHELF_SYSTEM_PROMPT;
+    // The system prompt is server-owned. It used to be overridable via an
+    // `aiPrompt` form field, which turned this into a general-purpose vision
+    // LLM proxy for any signed-up user.
+    const systemPrompt = BOOKSHELF_SYSTEM_PROMPT;
 
     const userPrompt = `I'm uploading ${files.length} photo${files.length > 1 ? 's' : ''} of my books. Please identify all the books you can see across all images.`;
 

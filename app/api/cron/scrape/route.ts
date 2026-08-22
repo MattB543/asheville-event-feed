@@ -30,18 +30,9 @@ import { findDuplicates, getIdsToRemove, getDescriptionUpdates } from '@/lib/uti
 import { verifyAuthToken } from '@/lib/utils/auth';
 import { invalidateEventsCache } from '@/lib/cache/invalidation';
 import { startCronJob, completeCronJob, failCronJob } from '@/lib/cron/jobTracker';
+import { formatDuration, chunk } from '@/lib/utils/cron';
 
 export const maxDuration = 800; // 13+ minutes (requires Fluid Compute)
-
-// Helper to format duration in human-readable form
-function formatDuration(ms: number): string {
-  if (ms < 1000) return `${ms}ms`;
-  const seconds = ms / 1000;
-  if (seconds < 60) return `${seconds.toFixed(1)}s`;
-  const minutes = Math.floor(seconds / 60);
-  const remainingSeconds = (seconds % 60).toFixed(0);
-  return `${minutes}m ${remainingSeconds}s`;
-}
 
 // Extract error details for better diagnostics
 function formatErrorDetails(error: unknown): string {
@@ -100,7 +91,15 @@ export async function GET(request: Request) {
   }
 
   const jobStartTime = Date.now();
-  const runId = await startCronJob('scrape');
+  let runId: string | null = null;
+  try {
+    runId = await startCronJob('scrape');
+  } catch (trackerErr) {
+    console.error(
+      '[Scrape] Failed to start cron job tracker:',
+      trackerErr instanceof Error ? trackerErr.message : String(trackerErr)
+    );
+  }
 
   // Stats tracking
   const stats = {
@@ -222,12 +221,6 @@ export async function GET(request: Request) {
 
     // Upsert phase
     console.log(`[Scrape] Upserting ${allEvents.length} events to database...`);
-
-    // Helper to chunk arrays
-    const chunk = <T>(arr: T[], size: number) =>
-      Array.from({ length: Math.ceil(arr.length / size) }, (_, i) =>
-        arr.slice(i * size, i * size + size)
-      );
 
     // Batch upserts (chunks of 10)
     const upsertStartTime = Date.now();

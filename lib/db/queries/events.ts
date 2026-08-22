@@ -27,8 +27,16 @@ import { matchesDefaultFilter } from '@/lib/config/defaultFilters';
 import { extractCity, isAshevilleArea } from '@/lib/utils/geo';
 import { isAshevilleZip } from '@/lib/config/zipNames';
 
-// Type for events without embedding (server-side only field)
-export type DbEvent = Omit<InferSelectModel<typeof events>, 'embedding'>;
+// Verbose per-request query logging, dev only
+const DEBUG_QUERY_LOGS = process.env.NODE_ENV !== 'production';
+
+// Type for events without server-side-only fields: the embedding vector and the AI
+// retry bookkeeping columns, which only the AI cron reads and which nothing in the
+// feed or UI consumes (selecting them would bloat every feed row for no benefit).
+export type DbEvent = Omit<
+  InferSelectModel<typeof events>,
+  'embedding' | 'aiAttempts' | 'aiLastAttemptAt' | 'aiNextAttemptAt'
+>;
 
 // Filter parameters accepted by the API
 export interface EventFilterParams {
@@ -167,18 +175,19 @@ export async function queryFilteredEvents(params: EventFilterParams): Promise<Ev
   const limit = Math.min(params.limit || 50, 500);
   const startOfToday = getStartOfTodayEastern();
 
-  // Debug logging for filter params
-  const filterDebug = {
-    dateFilter: params.dateFilter,
-    dateStart: params.dateStart,
-    dateEnd: params.dateEnd,
-    priceFilter: params.priceFilter,
-    tagsInclude: params.tagsInclude?.length,
-    cursor: params.cursor ? 'yes' : 'no',
-  };
-  const hasFilters = params.dateFilter || params.priceFilter || params.tagsInclude?.length;
-  if (hasFilters) {
-    console.log('[queryFilteredEvents] Filtering with:', filterDebug);
+  // Debug logging for filter params (dev only - build the payload lazily so the
+  // debug object isn't constructed on every filtered request in production)
+  const debugLog =
+    DEBUG_QUERY_LOGS && !!(params.dateFilter || params.priceFilter || params.tagsInclude?.length);
+  if (debugLog) {
+    console.log('[queryFilteredEvents] Filtering with:', {
+      dateFilter: params.dateFilter,
+      dateStart: params.dateStart,
+      dateEnd: params.dateEnd,
+      priceFilter: params.priceFilter,
+      tagsInclude: params.tagsInclude?.length,
+      cursor: params.cursor ? 'yes' : 'no',
+    });
   }
 
   // Build WHERE conditions
@@ -234,21 +243,25 @@ export async function queryFilteredEvents(params: EventFilterParams): Promise<Ev
           // e.g., "2025-12-29" should be Dec 29 midnight ET, not UTC
           const startDate = parseAsEastern(params.dateStart, '00:00:00');
           conditions.push(gte(events.startDate, startDate));
-          console.log(
-            '[queryFilteredEvents] Custom date start:',
-            startDate.toISOString(),
-            '(ET midnight)'
-          );
+          if (DEBUG_QUERY_LOGS) {
+            console.log(
+              '[queryFilteredEvents] Custom date start:',
+              startDate.toISOString(),
+              '(ET midnight)'
+            );
+          }
         }
         if (params.dateEnd) {
           // Parse as Eastern timezone, end of day
           const endDate = parseAsEastern(params.dateEnd, '23:59:59');
           conditions.push(lte(events.startDate, endDate));
-          console.log(
-            '[queryFilteredEvents] Custom date end:',
-            endDate.toISOString(),
-            '(ET end of day)'
-          );
+          if (DEBUG_QUERY_LOGS) {
+            console.log(
+              '[queryFilteredEvents] Custom date end:',
+              endDate.toISOString(),
+              '(ET end of day)'
+            );
+          }
         }
         break;
       }
@@ -483,7 +496,9 @@ export async function queryFilteredEvents(params: EventFilterParams): Promise<Ev
   const allFiltered: DbEvent[] = [];
   let currentCursor = params.cursor;
   let lastBatchEvent: DbEvent | null = null;
-  let exhaustedResults = false;
+  // Why the loop stopped. 'scanCap' means we ran out of iterations with rows still
+  // unscanned - the caller must keep paginating or matches beyond the scan vanish.
+  let termination: 'exhausted' | 'overflow' | 'scanCap' = 'scanCap';
 
   for (let iteration = 0; iteration < MAX_ITERATIONS; iteration++) {
     // Build cursor condition for this batch
@@ -510,7 +525,7 @@ export async function queryFilteredEvents(params: EventFilterParams): Promise<Ev
       .limit(BATCH_SIZE);
 
     if (batch.length === 0) {
-      exhaustedResults = true;
+      termination = 'exhausted';
       break;
     }
 
@@ -521,7 +536,7 @@ export async function queryFilteredEvents(params: EventFilterParams): Promise<Ev
     const filtered = batch.filter(passesClientFilters);
     allFiltered.push(...filtered);
 
-    if (hasFilters) {
+    if (debugLog) {
       console.log(
         `[queryFilteredEvents] Iteration ${iteration + 1}: batch=${batch.length}, filtered=${filtered.length}, total=${allFiltered.length}, target=${limit}`
       );
@@ -529,6 +544,7 @@ export async function queryFilteredEvents(params: EventFilterParams): Promise<Ev
 
     // Check if we have enough results (need limit + 1 to know if there are more)
     if (allFiltered.length > limit) {
+      termination = 'overflow';
       break;
     }
 
@@ -537,41 +553,41 @@ export async function queryFilteredEvents(params: EventFilterParams): Promise<Ev
 
     // If batch was smaller than BATCH_SIZE, we've exhausted all results
     if (batch.length < BATCH_SIZE) {
-      exhaustedResults = true;
+      termination = 'exhausted';
       break;
     }
   }
 
-  // Determine if there are more results
-  const hasMore = allFiltered.length > limit && !exhaustedResults;
-
   // Slice to limit
   const resultEvents = allFiltered.slice(0, limit);
 
-  // Create next cursor from the last returned event
-  const nextCursor =
-    hasMore && resultEvents.length > 0 ? createCursor(resultEvents[resultEvents.length - 1]) : null;
+  // There are more results if we overflowed this page, or if we stopped at the scan
+  // cap with rows still unexamined (in which case matches may lie beyond the scan).
+  const hasMore = termination === 'overflow' || termination === 'scanCap';
 
-  if (hasFilters) {
+  // Cursor: after an overflow, resume from the last event we actually returned.
+  // At the scan cap, resume from the last row scanned - even when nothing matched -
+  // so the caller never gets hasMore:true with a null cursor.
+  let nextCursor: string | null = null;
+  if (termination === 'overflow' && resultEvents.length > 0) {
+    nextCursor = createCursor(resultEvents[resultEvents.length - 1]);
+  } else if (termination === 'scanCap' && lastBatchEvent) {
+    nextCursor = createCursor(lastBatchEvent);
+  }
+
+  if (debugLog) {
     console.log(
-      `[queryFilteredEvents] Final: returning ${resultEvents.length} events, hasMore=${hasMore}`
+      `[queryFilteredEvents] Final: returning ${resultEvents.length} events, hasMore=${hasMore}, termination=${termination}`
     );
   }
 
-  // For total count, we need a separate count query (simplified - just base conditions)
-  // This is an approximation since we can't easily count with all client-side filters
+  // Total count with the same SQL conditions as the batch query. Client-side-only
+  // filters (search, price, locations, blocked hosts/keywords) can't be counted in
+  // SQL, so this remains an approximation of the filtered result set.
   const countResult = await db
     .select({ count: sql<number>`count(*)::int` })
     .from(events)
-    .where(
-      and(
-        gte(events.startDate, startOfToday),
-        or(
-          isNull(events.location),
-          and(notIlike(events.location, '%online%'), notIlike(events.location, '%virtual%'))
-        )
-      )
-    );
+    .where(and(...conditions));
 
   const totalCount = countResult[0]?.count || 0;
 

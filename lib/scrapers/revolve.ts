@@ -17,7 +17,7 @@ import { type ScrapedEvent } from './types';
 import { BROWSER_HEADERS, debugSave, fetchEventData } from './base';
 import { decodeHtmlEntities } from '../utils/parsers';
 import { getZipFromCity } from '../utils/geo';
-import { parseAsEastern } from '../utils/timezone';
+import { parseAsEastern, getTodayStringEastern } from '../utils/timezone';
 
 // Config
 const EVENTS_URL = 'https://pools.events/o/revolve/upcoming/';
@@ -187,22 +187,23 @@ function parseEventDate(dateText: string): Date | null {
   if (meridiem.toLowerCase() === 'p') hour += 12;
   const minute = minStr ? parseInt(minStr, 10) : 0;
 
-  // Infer the year: assume the next occurrence relative to "now" (Eastern-ish).
-  const now = new Date();
-  let year = now.getFullYear();
+  // Infer the year: assume the next occurrence relative to "now". Both the
+  // current year and the candidate are Eastern, so the roll-forward decision
+  // doesn't shift near day boundaries on UTC hosts.
+  const timeStr = `${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')}:00`;
+  const buildDateStr = (y: number) =>
+    `${y}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
 
-  // Build a candidate using local fields to compare day-level; if it's well in
-  // the past, roll forward a year.
-  const candidate = new Date(year, month, day, hour, minute);
+  let year = parseInt(getTodayStringEastern().slice(0, 4), 10);
   const oneDayMs = 24 * 60 * 60 * 1000;
-  if (candidate.getTime() < now.getTime() - oneDayMs) {
+  let parsed = parseAsEastern(buildDateStr(year), timeStr);
+
+  // If it's well in the past, roll forward a year.
+  if (parsed.getTime() < Date.now() - oneDayMs) {
     year += 1;
+    parsed = parseAsEastern(buildDateStr(year), timeStr);
   }
 
-  const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-  const timeStr = `${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')}:00`;
-
-  const parsed = parseAsEastern(dateStr, timeStr);
   return isNaN(parsed.getTime()) ? null : parsed;
 }
 

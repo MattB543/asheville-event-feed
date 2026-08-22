@@ -1,8 +1,9 @@
 'use client';
 
-import { useState, useRef, useEffect, useCallback } from 'react';
+import { useState, useRef, useEffect, useCallback, useMemo } from 'react';
 import { ArrowLeft } from 'lucide-react';
 import { generateEventSlug } from '@/lib/utils/slugify';
+import { useFavorites } from '@/lib/hooks/useFavorites';
 import EventContent from './EventContent';
 import SimilarEventsSection from './SimilarEventsSection';
 
@@ -64,15 +65,8 @@ export default function EventDetailModal({
   // Similar events state
   const [similarEvents, setSimilarEvents] = useState<SimilarEvent[]>([]);
   const [similarEventsLoading, setSimilarEventsLoading] = useState(false);
-  const [similarFavorites, setSimilarFavorites] = useState<Set<string>>(() => {
-    if (typeof window === 'undefined') return new Set();
-    try {
-      const saved = localStorage.getItem('favoritedEventIds');
-      return new Set(saved ? (JSON.parse(saved) as string[]) : []);
-    } catch {
-      return new Set();
-    }
-  });
+  const { favoriteIds, toggleFavorite } = useFavorites();
+  const similarFavorites = useMemo(() => new Set(favoriteIds), [favoriteIds]);
   const [similarFavoriteCounts, setSimilarFavoriteCounts] = useState<Record<string, number>>({});
 
   const startDate = new Date(event.startDate);
@@ -89,8 +83,14 @@ export default function EventDetailModal({
     setSimilarEvents([]);
     /* eslint-enable react-hooks/set-state-in-effect */
 
-    fetch(`/api/events/${event.id}/similar`)
-      .then((res) => res.json())
+    // Abort on close/event change so a slow response can't populate a different event
+    const controller = new AbortController();
+
+    fetch(`/api/events/${event.id}/similar`, { signal: controller.signal })
+      .then((res) => {
+        if (!res.ok) throw new Error(`Failed to load similar events: ${res.status}`);
+        return res.json();
+      })
       .then((data: { similarEvents?: SimilarEvent[] }) => {
         const events = data.similarEvents || [];
         setSimilarEvents(events);
@@ -101,8 +101,17 @@ export default function EventDetailModal({
         });
         setSimilarFavoriteCounts(counts);
       })
-      .catch(console.error)
-      .finally(() => setSimilarEventsLoading(false));
+      .catch((error: unknown) => {
+        if ((error as DOMException)?.name === 'AbortError') return;
+        console.error(error);
+      })
+      .finally(() => {
+        if (!controller.signal.aborted) setSimilarEventsLoading(false);
+      });
+
+    return () => {
+      controller.abort();
+    };
   }, [isOpen, event.id]);
 
   // Handle URL state management - push state when modal opens
@@ -158,60 +167,18 @@ export default function EventDetailModal({
     }
   }, [isOpen]);
 
-  // Handler for toggling favorites on similar events
+  // Handler for toggling favorites on similar events.
+  // The shared store owns the id list, localStorage and rollback; only the
+  // displayed count is local to this component.
   const handleToggleSimilarFavorite = async (eventId: string) => {
-    const newIsFavorited = !similarFavorites.has(eventId);
-
-    // Optimistic update
-    setSimilarFavorites((prev) => {
-      const next = new Set(prev);
-      if (newIsFavorited) {
-        next.add(eventId);
-      } else {
-        next.delete(eventId);
-      }
-      return next;
-    });
-    setSimilarFavoriteCounts((prev) => ({
-      ...prev,
-      [eventId]: newIsFavorited ? (prev[eventId] || 0) + 1 : Math.max(0, (prev[eventId] || 0) - 1),
-    }));
-
-    // Update localStorage
-    const savedFavorites = localStorage.getItem('favoritedEventIds');
-    const favorites: string[] = savedFavorites ? (JSON.parse(savedFavorites) as string[]) : [];
-    if (newIsFavorited) {
-      favorites.push(eventId);
-    } else {
-      const index = favorites.indexOf(eventId);
-      if (index > -1) favorites.splice(index, 1);
-    }
-    localStorage.setItem('favoritedEventIds', JSON.stringify(favorites));
-
-    // Update server
     try {
-      await fetch(`/api/events/${eventId}/favorite`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ action: newIsFavorited ? 'add' : 'remove' }),
-      });
+      const { favoriteCount } = await toggleFavorite(eventId);
+      if (favoriteCount !== null) {
+        setSimilarFavoriteCounts((prev) => ({ ...prev, [eventId]: favoriteCount }));
+      }
     } catch {
-      // Revert on error
-      setSimilarFavorites((prev) => {
-        const next = new Set(prev);
-        if (!newIsFavorited) {
-          next.add(eventId);
-        } else {
-          next.delete(eventId);
-        }
-        return next;
-      });
-      setSimilarFavoriteCounts((prev) => ({
-        ...prev,
-        [eventId]: !newIsFavorited
-          ? (prev[eventId] || 0) + 1
-          : Math.max(0, (prev[eventId] || 0) - 1),
-      }));
+      // Heart/localStorage rollback is owned by the shared store; counts only
+      // change from successful server responses.
     }
   };
 

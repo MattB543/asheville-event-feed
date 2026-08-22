@@ -11,6 +11,7 @@ import {
   VERIFIABLE_SOURCES,
   isVerificationEnabled,
   processEventVerification,
+  shouldApplyVerification,
   type EventForVerification,
 } from '@/lib/ai/eventVerification';
 import { matchesDefaultFilter } from '@/lib/config/defaultFilters';
@@ -44,7 +45,15 @@ export async function GET(request: Request) {
   }
 
   const startTime = Date.now();
-  const runId = await startCronJob('verify');
+  let runId: string | null = null;
+  try {
+    runId = await startCronJob('verify');
+  } catch (trackerErr) {
+    console.error(
+      '[Verify] Failed to start cron job tracker:',
+      trackerErr instanceof Error ? trackerErr.message : String(trackerErr)
+    );
+  }
   let currentStep = 'initialization';
   let eventsProcessedBeforeError = 0;
 
@@ -154,12 +163,28 @@ export async function GET(request: Request) {
     const updatedEvents: Array<{ title: string; reason: string; url?: string }> = [];
     let keptCount = 0;
     let skippedErrorCount = 0;
+    let lowConfidenceCount = 0;
 
     for (const result of verificationResult.results) {
       const event = filteredEvents.find((e) => e.id === result.eventId);
       eventsProcessedBeforeError++;
 
-      if (result.action === 'hide' && result.confidence >= 0.8) {
+      // Low-confidence hides/updates are left untouched AND unstamped, so a
+      // later run can re-verify them (shouldApplyVerification is the shared gate
+      // with the report-triggered verifyEventById path).
+      if (
+        (result.action === 'hide' || result.action === 'update') &&
+        !shouldApplyVerification(result)
+      ) {
+        if (!result.error) {
+          lowConfidenceCount++;
+          console.log(
+            `[Verify] Skipped ${result.action} for "${result.eventTitle.slice(0, 50)}" - low confidence (${result.confidence})`
+          );
+        } else {
+          skippedErrorCount++;
+        }
+      } else if (result.action === 'hide') {
         // Hide the event (set hidden = true)
         try {
           await db
@@ -228,7 +253,7 @@ export async function GET(request: Request) {
             `[Verify] DB error updating "${result.eventTitle.slice(0, 50)}": ${dbError instanceof Error ? dbError.message : String(dbError)}`
           );
         }
-      } else if (!result.error) {
+      } else if (result.action === 'keep' && !result.error) {
         // Only update lastVerifiedAt for successful "keep" events
         // Don't update if fetch failed - we need to retry when site is back up
         try {
@@ -251,6 +276,11 @@ export async function GET(request: Request) {
     if (skippedErrorCount > 0) {
       console.log(
         `[Verify] Skipped lastVerifiedAt update for ${skippedErrorCount} events with errors (will retry)`
+      );
+    }
+    if (lowConfidenceCount > 0) {
+      console.log(
+        `[Verify] Skipped ${lowConfidenceCount} low-confidence hide/update results (will retry)`
       );
     }
 
@@ -289,6 +319,7 @@ export async function GET(request: Request) {
       eventsUpdated: updatedEvents.length,
       eventsKept: verificationResult.eventsKept,
       eventsSkipped: verificationResult.eventsSkipped,
+      lowConfidenceSkipped: lowConfidenceCount,
       errors: verificationResult.errors,
       totalTokensUsed: verificationResult.totalTokensUsed,
       durationSeconds: parseFloat(totalDuration),

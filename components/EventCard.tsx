@@ -27,6 +27,27 @@ import { generateEventSlug } from '@/lib/utils/slugify';
 import { OFFICIAL_TAGS_SET } from '@/lib/config/tagCategories';
 import { getMatchingProgramsForEvent } from '@/lib/matching/programs';
 
+// Stateless formatters, hoisted so they aren't rebuilt per card per render.
+// Pinned to Eastern time so displayed dates agree with the feed's ET date filtering.
+const EVENT_TIMEZONE = 'America/New_York';
+const EVENT_DATE_FORMATTER = new Intl.DateTimeFormat('en-US', {
+  timeZone: EVENT_TIMEZONE,
+  weekday: 'short',
+  month: 'short',
+  day: 'numeric',
+});
+const EVENT_TIME_FORMATTER = new Intl.DateTimeFormat('en-US', {
+  timeZone: EVENT_TIMEZONE,
+  hour: 'numeric',
+  minute: '2-digit',
+});
+const EVENT_DAY_KEY_FORMATTER = new Intl.DateTimeFormat('en-CA', {
+  timeZone: EVENT_TIMEZONE,
+  year: 'numeric',
+  month: '2-digit',
+  day: '2-digit',
+});
+
 /**
  * Component that renders only the tags that fit on one line.
  * Uses a hidden measurement layer to determine how many tags can be displayed.
@@ -262,16 +283,12 @@ export default function EventCard({
 
   const handleReport = (reportType: 'incorrect_info' | 'duplicate' | 'spam') => {
     setMoreMenuOpen(false);
-    showToast(
-      'Thanks for the feedback! This event will be automatically reviewed for correctness.'
-    );
+    showToast('Thanks for the feedback! This event has been sent for review.');
     fetch('/api/events/report', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         eventId: event.id,
-        eventTitle: event.title,
-        eventUrl: getSourceUrl(),
         reportType,
       }),
     }).catch((error) => {
@@ -313,32 +330,18 @@ export default function EventCard({
 
   const formatDate = (date: Date, timeUnknown?: boolean) => {
     const eventDate = new Date(date);
-    const today = new Date();
 
-    // Check if the event is today
+    // "Today" compared in Eastern time, matching how the feed groups and filters dates
     const isToday =
-      eventDate.getFullYear() === today.getFullYear() &&
-      eventDate.getMonth() === today.getMonth() &&
-      eventDate.getDate() === today.getDate();
+      EVENT_DAY_KEY_FORMATTER.format(eventDate) === EVENT_DAY_KEY_FORMATTER.format(new Date());
 
-    const dateOnly = isToday
-      ? 'Today'
-      : new Intl.DateTimeFormat('en-US', {
-          weekday: 'short',
-          month: 'short',
-          day: 'numeric',
-        }).format(eventDate);
+    const dateOnly = isToday ? 'Today' : EVENT_DATE_FORMATTER.format(eventDate);
 
     if (timeUnknown) {
       return dateOnly;
     }
 
-    const time = new Intl.DateTimeFormat('en-US', {
-      hour: 'numeric',
-      minute: '2-digit',
-    }).format(eventDate);
-
-    return `${dateOnly} · ${time}`;
+    return `${dateOnly} · ${EVENT_TIME_FORMATTER.format(eventDate)}`;
   };
 
   const getSourceUrl = () => {

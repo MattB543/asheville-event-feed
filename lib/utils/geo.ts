@@ -398,16 +398,6 @@ export function isKnownAshevilleVenue(location: string | null | undefined): bool
 }
 
 /**
- * Check if a location is likely from a non-NC area.
- * Used to exclude events that slipped through server-side filters.
- */
-export function isNonNCLocation(location: string | null | undefined): boolean {
-  if (!location) return false;
-  const lowerLocation = location.toLowerCase().trim();
-  return NON_NC_CITIES.some((city) => lowerLocation.includes(city));
-}
-
-/**
  * Check if a location should be included in the "Asheville area" filter.
  * Includes: Asheville city + known Asheville venues
  * Excludes: Other NC cities, non-NC cities, and truly unknown locations

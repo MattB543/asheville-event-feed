@@ -8,6 +8,7 @@ import { isRecord, isString } from '@/lib/utils/validation';
 // Simple in-memory rate limiting (shared logic with submit endpoint)
 const RATE_LIMIT_MAX = 10; // 10 submissions per hour
 const RATE_LIMIT_WINDOW = 60 * 60 * 1000; // 1 hour in ms
+const MAX_URL_LENGTH = 2048;
 
 // POST: Submit an event URL for manual review
 export async function POST(request: Request) {
@@ -69,14 +70,38 @@ export async function POST(request: Request) {
     );
   }
 
-  // Validate URL format
+  if (url.length > MAX_URL_LENGTH) {
+    return NextResponse.json(
+      {
+        success: false,
+        error: `URL must be ${MAX_URL_LENGTH} characters or fewer`,
+        field: 'url',
+      },
+      { status: 400 }
+    );
+  }
+
+  // Validate URL format and restrict to web schemes (the stored URL ends up in
+  // a Slack link button, so javascript:/file:/data: have no business here)
+  let parsedUrl: URL;
   try {
-    new URL(url);
+    parsedUrl = new URL(url);
   } catch {
     return NextResponse.json(
       {
         success: false,
         error: 'Invalid URL format',
+        field: 'url',
+      },
+      { status: 400 }
+    );
+  }
+
+  if (!['http:', 'https:'].includes(parsedUrl.protocol)) {
+    return NextResponse.json(
+      {
+        success: false,
+        error: 'URL must start with http:// or https://',
         field: 'url',
       },
       { status: 400 }

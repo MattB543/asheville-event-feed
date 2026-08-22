@@ -77,40 +77,45 @@ export function usePreferenceSync(callbacks: PreferenceSyncCallbacks) {
   const lastSyncedUserRef = useRef<string | null>(null);
   const isSyncingRef = useRef(false);
 
+  // Callers pass fresh inline callbacks every render; keep them in a ref so the
+  // sync effect doesn't re-run (and re-fire GET+POST) on every parent render.
+  const callbacksRef = useRef(callbacks);
+  callbacksRef.current = callbacks;
+
   // Get current preferences from localStorage via callbacks
   const getCurrentPreferences = useCallback((): UserPreferencesData => {
+    const current = callbacksRef.current;
     return {
-      blockedHosts: callbacks.getBlockedHosts(),
-      blockedKeywords: callbacks.getBlockedKeywords(),
-      hiddenEvents: callbacks.getHiddenEvents(),
-      favoritedEventIds: callbacks.getFavoritedEventIds(),
+      blockedHosts: current.getBlockedHosts(),
+      blockedKeywords: current.getBlockedKeywords(),
+      hiddenEvents: current.getHiddenEvents(),
+      favoritedEventIds: current.getFavoritedEventIds(),
     };
-  }, [callbacks]);
+  }, []);
 
   // Apply merged preferences to state
-  const applyPreferences = useCallback(
-    (prefs: UserPreferencesData) => {
-      callbacks.setBlockedHosts(prefs.blockedHosts);
-      callbacks.setBlockedKeywords(prefs.blockedKeywords);
-      callbacks.setHiddenEvents(prefs.hiddenEvents);
-      callbacks.setFavoritedEventIds(prefs.favoritedEventIds);
-    },
-    [callbacks]
-  );
+  const applyPreferences = useCallback((prefs: UserPreferencesData) => {
+    const current = callbacksRef.current;
+    current.setBlockedHosts(prefs.blockedHosts);
+    current.setBlockedKeywords(prefs.blockedKeywords);
+    current.setHiddenEvents(prefs.hiddenEvents);
+    current.setFavoritedEventIds(prefs.favoritedEventIds);
+  }, []);
 
   // Sync preferences on login
+  const userId = user?.id ?? null;
   useEffect(() => {
     if (authLoading) return;
 
     const syncOnLogin = async () => {
-      if (!user) {
+      if (!userId) {
         // User logged out - keep localStorage as is
         lastSyncedUserRef.current = null;
         return;
       }
 
-      // Prevent duplicate syncs for same user
-      if (lastSyncedUserRef.current === user.id) {
+      // Prevent duplicate syncs for same user, or a parallel sync already in flight
+      if (lastSyncedUserRef.current === userId || isSyncingRef.current) {
         return;
       }
 
@@ -146,7 +151,7 @@ export function usePreferenceSync(callbacks: PreferenceSyncCallbacks) {
           });
         }
 
-        lastSyncedUserRef.current = user.id;
+        lastSyncedUserRef.current = userId;
       } catch (error) {
         console.error('Error syncing preferences on login:', error);
       } finally {
@@ -155,7 +160,7 @@ export function usePreferenceSync(callbacks: PreferenceSyncCallbacks) {
     };
 
     void syncOnLogin();
-  }, [user, authLoading, getCurrentPreferences, applyPreferences]);
+  }, [userId, authLoading, getCurrentPreferences, applyPreferences]);
 
   // Debounced save to DB when preferences change
   const saveToDatabase = useCallback(() => {

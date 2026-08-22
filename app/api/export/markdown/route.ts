@@ -1,7 +1,8 @@
 import { NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { events } from '@/lib/db/schema';
-import { asc, gte } from 'drizzle-orm';
+import { and, asc, eq, gte, isNull, or } from 'drizzle-orm';
+import { publicEventColumns } from '@/lib/db/queries/publicEventColumns';
 import { getStartOfTodayEastern } from '@/lib/utils/timezone';
 import {
   computeDateFilterBounds,
@@ -163,18 +164,19 @@ export async function GET(request: Request) {
     const dateFilterBounds = computeDateFilterBounds();
 
     let allEvents = await db
-      .select()
+      .select(publicEventColumns)
       .from(events)
-      .where(gte(events.startDate, startOfToday))
+      .where(
+        and(
+          gte(events.startDate, startOfToday),
+          or(isNull(events.hidden), eq(events.hidden, false)),
+          isNull(events.dedupedAt)
+        )
+      )
       .orderBy(asc(events.startDate));
 
     // Apply filters
     allEvents = allEvents.filter((event) => {
-      // 0. Admin-hidden events (moderation)
-      if (event.hidden) {
-        return false;
-      }
-
       // 0.5 Daily events toggle
       if (!showDailyEvents && event.recurringType === 'daily') {
         return false;

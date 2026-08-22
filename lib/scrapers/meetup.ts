@@ -2,7 +2,7 @@ import { type ScrapedEvent } from './types';
 import { db } from '@/lib/db';
 import { events as eventsTable } from '@/lib/db/schema';
 import { and, eq, inArray } from 'drizzle-orm';
-import { withRetry } from '@/lib/utils/retry';
+import { withRetry, DEFAULT_FETCH_TIMEOUT_MS } from '@/lib/utils/retry';
 import { isNonNCEvent } from '@/lib/utils/geo';
 import { getEasternOffset } from '@/lib/utils/timezone';
 import { getZipFromCoords, getZipFromCity } from '@/lib/utils/geo';
@@ -170,6 +170,7 @@ async function fetchEventPageData(eventUrl: string): Promise<MeetupPageData> {
       headers: {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
       },
+      signal: AbortSignal.timeout(DEFAULT_FETCH_TIMEOUT_MS),
     });
 
     if (!response.ok) return result;
@@ -293,6 +294,7 @@ async function fetchEventsForDateRange(
     method: 'POST',
     headers: API_HEADERS,
     body: JSON.stringify(body),
+    signal: AbortSignal.timeout(DEFAULT_FETCH_TIMEOUT_MS),
   });
 
   if (!response.ok) {
@@ -383,9 +385,11 @@ function formatMeetupEvent(event: MeetupGql2Event): ScrapedEvent {
     // No feeSettings at all - try to extract from title + description
     // Combine title and description for better extraction coverage
     const searchText = `${event.title || ''}\n${event.description || ''}`;
-    // Use 'low' confidence threshold to catch more prices
-    // Default to "Free" since most Meetup events are free community gatherings
-    price = tryExtractPrice(searchText, 'Free', event.group?.name, 'low');
+    // Use 'low' confidence threshold to catch more prices. Pass 'Unknown' as the
+    // current price so extraction actually runs (tryExtractPrice short-circuits
+    // on any non-'Unknown' value), and leave it 'Unknown' when nothing supports
+    // a price claim rather than asserting "Free".
+    price = tryExtractPrice(searchText, 'Unknown', event.group?.name, 'low');
   }
 
   // Get location from group

@@ -43,7 +43,6 @@ export interface MatchingQuestionConfig {
   minLabel?: string;
   maxLabel?: string;
   maxImages?: number;
-  aiPrompt?: string;
 }
 
 function parseOptions(value: unknown): MatchingQuestionOption[] | undefined {
@@ -93,7 +92,9 @@ export function parseMatchingQuestionConfig(value: unknown): MatchingQuestionCon
     minLabel: readString(value, 'minLabel'),
     maxLabel: readString(value, 'maxLabel'),
     maxImages: readNumber(value, 'maxImages'),
-    aiPrompt: readString(value, 'aiPrompt'),
+    // Note: config_json may still carry an `aiPrompt` key. It is deliberately
+    // ignored - the vision transcription prompt is server-owned (see
+    // app/api/matching/transcribe-images/route.ts).
   };
 }
 

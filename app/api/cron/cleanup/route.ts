@@ -1,20 +1,17 @@
 import { NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { events } from '@/lib/db/schema';
-import { inArray, sql, eq } from 'drizzle-orm';
+import { inArray, sql, eq, and, isNull, or } from 'drizzle-orm';
 import { isNonNCEvent, getNonNCReason } from '@/lib/utils/geo';
-import { findDuplicates, getIdsToRemove, getDescriptionUpdates } from '@/lib/utils/deduplication';
+import { findDuplicates, getIdsToRemove } from '@/lib/utils/deduplication';
 import { env } from '@/lib/config/env';
 import { verifyAuthToken } from '@/lib/utils/auth';
 import { invalidateEventsCache } from '@/lib/cache/invalidation';
 import { startCronJob, completeCronJob, failCronJob } from '@/lib/cron/jobTracker';
+import { formatDuration } from '@/lib/utils/cron';
+import { DEFAULT_FETCH_TIMEOUT_MS } from '@/lib/utils/retry';
 
 export const maxDuration = 300; // 5 minutes max
-
-/** Format milliseconds as human-readable duration (e.g., "12.3s") */
-function formatDuration(ms: number): string {
-  return `${(ms / 1000).toFixed(1)}s`;
-}
 
 /**
  * Determine which date window to check based on time of day.
@@ -50,6 +47,7 @@ async function checkUrl(url: string): Promise<number> {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
       },
       redirect: 'follow',
+      signal: AbortSignal.timeout(DEFAULT_FETCH_TIMEOUT_MS),
     });
     return response.status;
   } catch (error) {
@@ -72,7 +70,15 @@ export async function GET(request: Request) {
   }
 
   const startTime = Date.now();
-  const runId = await startCronJob('cleanup');
+  let runId: string | null = null;
+  try {
+    runId = await startCronJob('cleanup');
+  } catch (trackerErr) {
+    console.error(
+      '[Cleanup] Failed to start cron job tracker:',
+      trackerErr instanceof Error ? trackerErr.message : String(trackerErr)
+    );
+  }
 
   try {
     const { startDays, endDays, label } = getDateWindowForRun();
@@ -314,14 +320,21 @@ export async function GET(request: Request) {
         description: events.description,
         createdAt: events.createdAt,
       })
-      .from(events);
+      .from(events)
+      .where(
+        and(
+          // Ignore rows already soft-deleted as duplicates...
+          isNull(events.dedupedAt),
+          // ...and rows an admin flagged to never auto-dedup (so a restore sticks)
+          or(isNull(events.dedupSkip), eq(events.dedupSkip, false))
+        )
+      );
     console.log(
       `[Cleanup] Queried ${allEventsForDedup.length} events for dedup in ${formatDuration(Date.now() - dedupQueryStart)} (fresh dataset after non-NC/cancelled deletions)`
     );
 
     const duplicateGroups = findDuplicates(allEventsForDedup);
     const duplicateIdsToRemove = getIdsToRemove(duplicateGroups);
-    const descriptionUpdates = getDescriptionUpdates(duplicateGroups);
 
     // Log duplicate groups for visibility
     for (const group of duplicateGroups) {
@@ -352,54 +365,62 @@ export async function GET(request: Request) {
 
     console.log(`[Cleanup] Found ${duplicateIdsToRemove.length} duplicate events to remove.`);
 
-    // Apply description merges before deleting duplicates
-    // (keep the longer description from removed events)
-    if (descriptionUpdates.length > 0) {
-      let mergeSuccesses = 0;
-      let mergeFailures = 0;
-      for (const update of descriptionUpdates) {
-        // Gap #8: Wrap description merge in try/catch
-        try {
-          await db
-            .update(events)
-            .set({ description: update.description })
-            .where(eq(events.id, update.id));
-          mergeSuccesses++;
-        } catch (error) {
-          mergeFailures++;
-          const errMsg = error instanceof Error ? error.message : String(error);
-          console.error(
-            `[Cleanup] Description merge failed for event ${update.id.substring(0, 8)}: ${errMsg}`
-          );
-        }
+    // Merge the longer description into the winner and soft-delete the losers,
+    // one transaction per group: a mid-run failure must not leave a merged
+    // winner whose losers are still live. Soft-delete (deduped_at) rather than
+    // DELETE so a bad merge stays recoverable, matching the scrape cron.
+    const dedupedAt = new Date();
+    let mergeSuccesses = 0;
+    let mergeFailures = 0;
+    let softDeletedCount = 0;
+    let groupFailures = 0;
+
+    for (const group of duplicateGroups) {
+      const removeIds = group.remove.map((e) => e.id);
+      if (removeIds.length === 0) continue;
+
+      // Gap #8: a failed group is logged and skipped, not fatal to the run
+      try {
+        await db.transaction(async (tx) => {
+          if (group.descriptionUpdate) {
+            await tx
+              .update(events)
+              .set({ description: group.descriptionUpdate })
+              .where(eq(events.id, group.keep.id));
+          }
+          await tx.update(events).set({ dedupedAt }).where(inArray(events.id, removeIds));
+        });
+        if (group.descriptionUpdate) mergeSuccesses++;
+        softDeletedCount += removeIds.length;
+      } catch (error) {
+        groupFailures++;
+        if (group.descriptionUpdate) mergeFailures++;
+        const errMsg = error instanceof Error ? error.message : String(error);
+        console.error(
+          `[Cleanup] Dedup group failed for keep ${group.keep.id.substring(0, 8)}: ${errMsg}`
+        );
       }
+    }
+
+    if (mergeSuccesses > 0 || mergeFailures > 0) {
       console.log(
         `[Cleanup] Merged ${mergeSuccesses} longer descriptions${mergeFailures > 0 ? ` (${mergeFailures} failed)` : ''}.`
       );
     }
-
-    if (duplicateIdsToRemove.length > 0) {
-      const deleteBatchSize = 50;
-      for (let i = 0; i < duplicateIdsToRemove.length; i += deleteBatchSize) {
-        const batch = duplicateIdsToRemove.slice(i, i + deleteBatchSize);
-        await db.delete(events).where(inArray(events.id, batch));
-      }
-      console.log(`[Cleanup] Deleted ${duplicateIdsToRemove.length} duplicate events.`);
+    if (softDeletedCount > 0) {
+      console.log(`[Cleanup] Soft-deleted ${softDeletedCount} duplicate events.`);
     }
 
     // Gap #3: Log phase 4 duration
     console.log(
-      `[Cleanup] Phase 4 (dedup) complete in ${formatDuration(Date.now() - phase4Start)}. Removed ${duplicateIdsToRemove.length} duplicates from ${duplicateGroups.length} groups.`
+      `[Cleanup] Phase 4 (dedup) complete in ${formatDuration(Date.now() - phase4Start)}. Removed ${softDeletedCount} duplicates from ${duplicateGroups.length} groups${groupFailures > 0 ? ` (${groupFailures} groups failed)` : ''}.`
     );
 
     const totalDuration = ((Date.now() - startTime) / 1000).toFixed(1);
     const totalDeleted =
-      deadEvents.length +
-      nonNCEventIds.length +
-      cancelledEventIds.length +
-      duplicateIdsToRemove.length;
+      deadEvents.length + nonNCEventIds.length + cancelledEventIds.length + softDeletedCount;
     console.log(
-      `[Cleanup] Complete in ${totalDuration}s. Deleted ${totalDeleted} events (${deadEvents.length} dead, ${nonNCEventIds.length} non-NC, ${cancelledEventIds.length} cancelled, ${duplicateIdsToRemove.length} duplicates)`
+      `[Cleanup] Complete in ${totalDuration}s. Removed ${totalDeleted} events (${deadEvents.length} dead, ${nonNCEventIds.length} non-NC, ${cancelledEventIds.length} cancelled, ${softDeletedCount} duplicates soft-deleted)`
     );
 
     // Gap #9: Log cache invalidation outcome
@@ -417,8 +438,9 @@ export async function GET(request: Request) {
       deletedDead: deadEvents.length,
       deletedNonNC: nonNCEventIds.length,
       deletedCancelled: cancelledEventIds.length,
-      deletedDuplicates: duplicateIdsToRemove.length,
+      deletedDuplicates: softDeletedCount,
       duplicateGroups: duplicateGroups.length,
+      failedDedupGroups: groupFailures,
     };
 
     await completeCronJob(runId, result);

@@ -52,6 +52,10 @@ export const events = pgTable(
     // Secondary score dimensions (1-10, for future "Top 30" lists, not used for display/filtering)
     scoreAshevilleWeird: integer('score_asheville_weird'), // 1-10: How "Asheville weird" is this event
     scoreSocial: integer('score_social'), // 1-10: How good is this for meeting new people
+    // AI tag/summary generation attempt tracking (backoff for repeat failures)
+    aiAttempts: integer('ai_attempts').default(0).notNull(), // Failed tag/summary attempts so far
+    aiLastAttemptAt: timestamp('ai_last_attempt_at', { withTimezone: true }), // When the last attempt ran
+    aiNextAttemptAt: timestamp('ai_next_attempt_at', { withTimezone: true }), // Don't retry before this; NULL = eligible now
     // Event verification (via Jina Reader API)
     lastVerifiedAt: timestamp('last_verified_at', { withTimezone: true }), // When event source URL was last checked
     // Deduplication soft-delete (AI + rule-based dedup no longer hard-delete)

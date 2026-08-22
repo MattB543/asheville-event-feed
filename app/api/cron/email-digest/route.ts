@@ -37,6 +37,8 @@ import type {
   NewsletterScoreTier,
 } from '@/lib/newsletter/types';
 import { startCronJob, completeCronJob, failCronJob } from '@/lib/cron/jobTracker';
+import { listAuthUserContacts } from '@/lib/supabase/adminUsers';
+import { formatDuration } from '@/lib/utils/cron';
 
 export const maxDuration = 300; // 5 minutes
 
@@ -151,16 +153,6 @@ function parseHiddenEvents(value: unknown): { title: string; organizer: string }
     }
     return [{ title: entry.title, organizer: entry.organizer }];
   });
-}
-
-// Helper to format duration in human-readable form
-function formatDuration(ms: number): string {
-  if (ms < 1000) return `${ms}ms`;
-  const seconds = Math.floor(ms / 1000);
-  if (seconds < 60) return `${seconds}s`;
-  const minutes = Math.floor(seconds / 60);
-  const remainingSeconds = seconds % 60;
-  return `${minutes}m ${remainingSeconds}s`;
 }
 
 function addDaysToDateString(dateStr: string, days: number): string {
@@ -372,7 +364,15 @@ export async function GET(request: Request) {
   }
 
   const jobStartTime = Date.now();
-  const runId = await startCronJob('email-digest');
+  let runId: string | null = null;
+  try {
+    runId = await startCronJob('email-digest');
+  } catch (trackerErr) {
+    console.error(
+      '[Newsletter] Failed to start cron job tracker:',
+      trackerErr instanceof Error ? trackerErr.message : String(trackerErr)
+    );
+  }
   const todayStr = getTodayStringEastern();
 
   const stats = {
@@ -505,10 +505,14 @@ export async function GET(request: Request) {
       });
     }
 
+    // Paged - a single 1000-row listUsers page silently drops every
+    // subscriber past the first page.
     const userIds = activeUsers.map((user) => user.userId);
-    const { data: authUsers, error: authError } = await supabase.auth.admin.listUsers({
-      perPage: 1000,
-    });
+    const {
+      contacts: userEmailMap,
+      totalUsers,
+      error: authError,
+    } = await listAuthUserContacts(supabase, userIds);
 
     if (authError) {
       console.error('[Newsletter] Failed to fetch auth users:', authError);
@@ -518,25 +522,8 @@ export async function GET(request: Request) {
       );
     }
 
-    const userEmailMap = new Map<string, { email: string; name?: string }>();
-    authUsers.users.forEach((user) => {
-      const metadataName = isRecord(user.user_metadata)
-        ? isString(user.user_metadata.full_name)
-          ? user.user_metadata.full_name
-          : isString(user.user_metadata.name)
-            ? user.user_metadata.name
-            : undefined
-        : undefined;
-      if (user.email && userIds.includes(user.id)) {
-        userEmailMap.set(user.id, {
-          email: user.email,
-          name: metadataName,
-        });
-      }
-    });
-
     console.log(
-      `[Newsletter] Auth users fetched: ${authUsers.users.length} total, ${userEmailMap.size} matched to active subscribers`
+      `[Newsletter] Auth users fetched: ${totalUsers} total, ${userEmailMap.size} matched to active subscribers`
     );
 
     for (const userPref of activeUsers) {

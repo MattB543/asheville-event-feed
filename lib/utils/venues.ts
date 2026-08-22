@@ -220,25 +220,3 @@ export function getVenueForEvent(
 
   return null;
 }
-
-/**
- * Check if two venues are the same (handles aliases).
- */
-export function venuesMatch(
-  venue1: string | null | undefined,
-  venue2: string | null | undefined
-): boolean {
-  if (!venue1 || !venue2) return false;
-
-  const canonical1 = getCanonicalVenue(venue1) || normalizeVenueName(venue1);
-  const canonical2 = getCanonicalVenue(venue2) || normalizeVenueName(venue2);
-
-  return canonical1 === canonical2;
-}
-
-/**
- * Get all known venue canonical names (for testing/debugging).
- */
-export function getAllKnownVenues(): string[] {
-  return Array.from(KNOWN_VENUES.keys());
-}

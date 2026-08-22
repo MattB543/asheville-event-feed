@@ -28,7 +28,7 @@ export async function GET(request: Request) {
   }
 
   const startTime = Date.now();
-  let runId: string;
+  let runId: string | null = null;
   try {
     runId = await startCronJob('dedup');
     console.log(`[Dedup] Cron job tracker started (runId: ${runId})`);
@@ -37,7 +37,6 @@ export async function GET(request: Request) {
       '[Dedup] Failed to start cron job tracker:',
       trackerErr instanceof Error ? trackerErr.message : String(trackerErr)
     );
-    runId = 'unknown';
   }
 
   try {

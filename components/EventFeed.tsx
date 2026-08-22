@@ -46,6 +46,15 @@ import {
 import Link from 'next/link';
 import { getZipName } from '@/lib/config/zipNames';
 import { usePreferenceSync } from '@/lib/hooks/usePreferenceSync';
+import { useFavorites, replaceFavorites } from '@/lib/hooks/useFavorites';
+import {
+  computeDateFilterBounds,
+  isTodayEastern,
+  isTomorrowEastern,
+  isThisWeekendEastern,
+  isDayOfWeekEastern,
+  isInDateRangeEastern,
+} from '@/lib/utils/dateFilters';
 import { useAuth } from './AuthProvider';
 import { extractMonthFromSearch, getMonthDateRange } from '@/lib/utils/monthSearch';
 
@@ -166,6 +175,16 @@ interface EventFeedProps {
 // Tag filter state for include/exclude tri-state filtering
 // (canonical definition in lib/types/filters)
 export type { TagFilterState };
+
+// Minimal shape the curate modal needs from an event, whichever tab rendered it
+interface CuratableEvent {
+  id: string;
+  title: string;
+  score?: number | null;
+  scoreRarity?: number | null;
+  scoreUnique?: number | null;
+  scoreMagnitude?: number | null;
+}
 
 // Fingerprint for hiding recurring events (title + organizer combo)
 interface HiddenEventFingerprint {
@@ -400,11 +419,6 @@ function getInitialFiltersFromUrl(): {
     return { filters: {}, hasFilters: false };
   }
 
-  console.log(
-    '[EventFeed] URL filters detected, parsing params:',
-    Object.fromEntries(params.entries())
-  );
-
   const filters: UrlFilters = {};
 
   // Search
@@ -483,8 +497,6 @@ function getInitialFiltersFromUrl(): {
     filters.selectedLocations = params.get('locations')?.split(',').filter(Boolean) || [];
   }
 
-  console.log('[EventFeed] Parsed URL filters:', filters);
-
   return { filters, hasFilters: true };
 }
 
@@ -518,6 +530,19 @@ const priceLabels: Record<PriceFilterType, string> = {
   under100: 'Under $100',
   custom: 'Custom Max',
 };
+
+// Wait (bounded) for auth to finish loading, polling a ref so callers read the
+// current value rather than one captured in a closure
+async function waitForAuth(
+  authLoadingRef: { current: boolean },
+  timeoutMs = 2000,
+  intervalMs = 50
+): Promise<void> {
+  const deadline = Date.now() + timeoutMs;
+  while (authLoadingRef.current && Date.now() < deadline) {
+    await new Promise((resolve) => setTimeout(resolve, intervalMs));
+  }
+}
 
 export default function EventFeed({
   initialEvents,
@@ -565,10 +590,10 @@ export default function EventFeed({
   // This runs synchronously before useEventQuery decides to use SSR data
   const [hasLocalStorageFilters] = useState(() => hasNonDefaultLocalStorageFilters());
 
-  // Track which events the user has favorited (persisted to localStorage)
-  const [favoritedEventIds, setFavoritedEventIds] = useState<string[]>(() =>
-    getStorageItem('favoritedEventIds', [])
-  );
+  // Track which events the user has favorited - shared store so hearts stay in sync
+  // with the detail modal and event pages (the store owns localStorage)
+  const { favoriteIds: favoritedEventIds, toggleFavorite: toggleFavoriteShared } = useFavorites();
+  const [favoriteCountOverrides, setFavoriteCountOverrides] = useState<Record<string, number>>({});
   const [favoriteEventsData, setFavoriteEventsData] = useState<ApiEvent[]>([]);
   const [favoriteEventsLoading, setFavoriteEventsLoading] = useState(false);
 
@@ -767,19 +792,6 @@ export default function EventFeed({
     enabled: isLoaded, // Only fetch after client hydration
   });
 
-  // Log when URL or localStorage filters cause fresh fetch
-  useEffect(() => {
-    if (isLoaded) {
-      if (hasUrlFilters) {
-        console.log('[EventFeed] Fetching fresh data (URL filters present, skipped SSR data)');
-      } else if (hasLocalStorageFilters) {
-        console.log(
-          '[EventFeed] Fetching fresh data (localStorage filters present, skipped SSR data)'
-        );
-      }
-    }
-  }, [hasUrlFilters, hasLocalStorageFilters, isLoaded]);
-
   // Fetch top 30 subscription status when user is logged in
   useEffect(() => {
     if (!isLoggedIn || authLoading) return;
@@ -835,28 +847,9 @@ export default function EventFeed({
   }, [top30CategoryEvents]);
 
   const filteredTop30CategoryEvents = useMemo(() => {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    const tomorrow = new Date(today);
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    const dayAfterTomorrow = new Date(tomorrow);
-    dayAfterTomorrow.setDate(dayAfterTomorrow.getDate() + 1);
-
-    // Weekend boundaries (Fri 00:00 -> Mon 00:00, exclusive end). Matches
-    // server-side getWeekendBoundaries() in lib/db/queries/events.ts, but in
-    // local time to stay consistent with today/tomorrow above.
-    const weekendStart = new Date(today);
-    const dow = today.getDay(); // 0=Sun, 1=Mon, ..., 5=Fri, 6=Sat
-    const daysUntilFriday = dow === 0 ? -2 : 5 - dow;
-    weekendStart.setDate(weekendStart.getDate() + daysUntilFriday);
-    const weekendEnd = new Date(weekendStart);
-    weekendEnd.setDate(weekendEnd.getDate() + 3); // Mon 00:00 (exclusive)
-
-    // Custom date range parsed once (start of day -> end of day, inclusive).
-    const customStart = safeParseDateString(customDateRange.start);
-    const customEnd = safeParseDateString(customDateRange.end ?? customDateRange.start);
-    if (customStart) customStart.setHours(0, 0, 0, 0);
-    if (customEnd) customEnd.setHours(23, 59, 59, 999);
+    // Date boundaries in America/New_York, using the same helpers the server uses,
+    // so this tab agrees with the main feed for users outside Eastern time.
+    const bounds = computeDateFilterBounds();
 
     return top30CategoryEvents.filter((event) => {
       if (search.trim()) {
@@ -883,25 +876,27 @@ export default function EventFeed({
         const occurrences = getEventOccurrences(event);
         const matchesDateFilter = occurrences.some((occurrence) => {
           if (dateFilter === 'today') {
-            return occurrence.startDate >= today && occurrence.startDate < tomorrow;
+            return isTodayEastern(occurrence.startDate, bounds);
           }
           if (dateFilter === 'tomorrow') {
-            return occurrence.startDate >= tomorrow && occurrence.startDate < dayAfterTomorrow;
+            return isTomorrowEastern(occurrence.startDate, bounds);
           }
           if (dateFilter === 'weekend') {
-            return occurrence.startDate >= weekendStart && occurrence.startDate < weekendEnd;
+            return isThisWeekendEastern(occurrence.startDate, bounds);
           }
           if (dateFilter === 'dayOfWeek') {
             if (selectedDays.length === 0) return true;
             // Must also be in the future (matches main list semantics)
-            if (occurrence.startDate < today) return false;
-            return selectedDays.includes(occurrence.startDate.getDay());
+            if (occurrence.startDate < bounds.today.start) return false;
+            return isDayOfWeekEastern(occurrence.startDate, selectedDays);
           }
           if (dateFilter === 'custom') {
-            if (!customStart) return true;
-            if (occurrence.startDate < customStart) return false;
-            if (customEnd && occurrence.startDate > customEnd) return false;
-            return true;
+            if (!customDateRange.start) return true;
+            return isInDateRangeEastern(
+              occurrence.startDate,
+              customDateRange.start,
+              customDateRange.end ?? undefined
+            );
           }
           return true;
         });
@@ -934,20 +929,10 @@ export default function EventFeed({
   // Show loading indicator when fetching
   const isFilterPending = isFetching && !isFetchingNextPage;
 
-  // filteredEvents is now just events from the query (server already filtered)
-  // Score tier filtering is now done per-day in the rendering logic
-  const filteredEvents = useMemo(() => {
-    return events.filter((event) => {
-      // Only filter out events hidden in THIS session if they're newly hidden
-      // Events hidden in previous sessions are already filtered server-side
-      const eventKey = createFingerprintKey(event.title, event.organizer);
-      if (sessionHiddenKeys.has(eventKey)) {
-        // Don't filter, just mark as hidden (will show greyed out)
-        return true;
-      }
-      return true;
-    });
-  }, [events, sessionHiddenKeys]);
+  // The server already applied every filter, and session-hidden events are greyed
+  // out in render (via sessionHiddenKeys) rather than removed here.
+  // Score tier filtering is done per-day in the rendering logic.
+  const filteredEvents = events;
 
   // Whether we should show the per-day toggle (hide during search/tags/locations)
   const showDayToggle = useMemo(() => {
@@ -986,19 +971,40 @@ export default function EventFeed({
     return results.sort((a, b) => a.startDate.getTime() - b.startDate.getTime());
   }, [favoritedEventIds, favoriteEventsData, initialEvents]);
 
+  // Every event rendered on any tab, so Curate can resolve a card that isn't in the
+  // paginated feed (Top 30, For You, favorites)
+  const curatableEventsById = useMemo(() => {
+    const map = new Map<string, CuratableEvent>();
+    const add = (event: CuratableEvent) => {
+      if (!map.has(event.id)) map.set(event.id, event);
+    };
+
+    events.forEach(add);
+    top30CategoryEvents.forEach(add);
+    forYouEvents.forEach((scored) => add(scored.event));
+    favoriteEventsData.forEach(add);
+
+    return map;
+  }, [events, top30CategoryEvents, forYouEvents, favoriteEventsData]);
+
   // Preference sync with database (for logged-in users)
   // Uses refs to avoid stale closures in callbacks
   const blockedHostsRef = useRef(blockedHosts);
   const blockedKeywordsRef = useRef(blockedKeywords);
   const hiddenEventsRef = useRef(hiddenEvents);
   const favoritedEventIdsRef = useRef(favoritedEventIds);
+  // Auth state read through refs so awaits inside handlers see current values
+  const isLoggedInRef = useRef(isLoggedIn);
+  const authLoadingRef = useRef(authLoading);
 
   useEffect(() => {
     blockedHostsRef.current = blockedHosts;
     blockedKeywordsRef.current = blockedKeywords;
     hiddenEventsRef.current = hiddenEvents;
     favoritedEventIdsRef.current = favoritedEventIds;
-  }, [blockedHosts, blockedKeywords, hiddenEvents, favoritedEventIds]);
+    isLoggedInRef.current = isLoggedIn;
+    authLoadingRef.current = authLoading;
+  }, [blockedHosts, blockedKeywords, hiddenEvents, favoritedEventIds, isLoggedIn, authLoading]);
 
   const { saveToDatabase, isLoggedIn: isPrefSyncLoggedIn } = usePreferenceSync({
     getBlockedHosts: () => blockedHostsRef.current,
@@ -1008,7 +1014,7 @@ export default function EventFeed({
     setBlockedHosts,
     setBlockedKeywords,
     setHiddenEvents,
-    setFavoritedEventIds,
+    setFavoritedEventIds: replaceFavorites,
   });
 
   // Set isLoaded after mount to prevent hydration mismatch
@@ -1060,51 +1066,41 @@ export default function EventFeed({
 
   // Fetch For You feed when tab switches to yourList
   useEffect(() => {
-    console.log('[YourList] useEffect triggered:', {
-      isLoaded,
-      activeTab,
-      isLoggedIn,
-      authLoading,
-    });
-
     if (!isLoaded || activeTab !== 'yourList' || !isLoggedIn) {
-      console.log('[YourList] Early return - conditions not met:', {
-        isLoaded,
-        activeTab,
-        isLoggedIn,
-      });
       return;
     }
 
+    // Abort in-flight requests on tab toggle so a slow earlier response can't
+    // overwrite a newer one (mirrors the favorites effect above)
+    const controller = new AbortController();
+    setForYouLoading(true);
+
     const fetchForYou = async () => {
-      console.log('[ForYou] Starting fetch...');
-      setForYouLoading(true);
       try {
-        const response = await fetch('/api/for-you');
-        console.log('[ForYou] Response status:', response.status);
+        const response = await fetch('/api/for-you', { signal: controller.signal });
         if (!response.ok) {
           throw new Error('Failed to fetch personalized feed');
         }
         const data = (await response.json()) as ForYouResponse;
         const events = Array.isArray(data.events) ? data.events : [];
         const meta = data.meta ?? { signalCount: 0, minimumMet: false };
-        console.log('[ForYou] Data received:', {
-          eventCount: events.length,
-          meta,
-        });
         setForYouEvents(events);
         setForYouMeta(meta);
       } catch (error) {
+        if ((error as DOMException).name === 'AbortError') return;
         console.error('[ForYou] Error fetching:', error);
         showToast('Failed to load personalized feed', 'error');
       } finally {
-        console.log('[ForYou] Fetch complete, setting loading to false');
-        setForYouLoading(false);
+        if (!controller.signal.aborted) setForYouLoading(false);
       }
     };
 
     void fetchForYou();
-  }, [activeTab, isLoaded, isLoggedIn, authLoading, showToast]);
+
+    return () => {
+      controller.abort();
+    };
+  }, [activeTab, isLoaded, isLoggedIn, showToast]);
 
   // Fetch curations on mount for logged-in users
   useEffect(() => {
@@ -1162,7 +1158,6 @@ export default function EventFeed({
       localStorage.setItem('blockedKeywords', JSON.stringify(blockedKeywords));
       localStorage.setItem('hiddenEvents', JSON.stringify(hiddenEvents));
       localStorage.setItem('showDailyEvents', JSON.stringify(showDailyEvents));
-      localStorage.setItem('favoritedEventIds', JSON.stringify(favoritedEventIds));
     }
   }, [
     dateFilter,
@@ -1178,7 +1173,6 @@ export default function EventFeed({
     blockedKeywords,
     hiddenEvents,
     showDailyEvents,
-    favoritedEventIds,
     isLoaded,
     search,
   ]);
@@ -1406,27 +1400,14 @@ export default function EventFeed({
   // Helper to capture signal (only 'favorite' and 'hide' signals now)
   const captureSignal = useCallback(
     async (eventId: string, signalType: 'favorite' | 'hide'): Promise<boolean> => {
-      console.log('[Signal] captureSignal called:', {
-        eventId,
-        signalType,
-        isLoggedIn,
-        authLoading,
-        userId: user?.id,
-      });
+      // Wait for auth to settle (bounded), then read the current value - not the
+      // one captured when this callback was created
+      await waitForAuth(authLoadingRef);
 
-      // If auth is still loading, wait a moment
-      if (authLoading) {
-        console.log('[Signal] Auth still loading, waiting 500ms...');
-        await new Promise((resolve) => setTimeout(resolve, 500));
-        console.log('[Signal] Done waiting, isLoggedIn now:', isLoggedIn);
-      }
-
-      if (!isLoggedIn) {
-        console.log('[Signal] Skipped - user not logged in (authLoading:', authLoading, ')');
+      if (!isLoggedInRef.current) {
         return false;
       }
 
-      console.log('[Signal] Making API call to /api/signals...');
       try {
         const response = await fetch('/api/signals', {
           method: 'POST',
@@ -1434,23 +1415,19 @@ export default function EventFeed({
           body: JSON.stringify({ eventId, signalType }),
         });
 
-        console.log('[Signal] API response status:', response.status);
-
         if (!response.ok) {
           const errorData: unknown = await response.json().catch(() => ({}));
           console.error('[Signal] API error:', response.status, errorData);
           return false;
         }
 
-        const data: unknown = await response.json();
-        console.log('[Signal] Captured successfully:', signalType, eventId, data);
         return true;
       } catch (error) {
         console.error('[Signal] Network error:', error);
         return false;
       }
     },
-    [isLoggedIn, authLoading, user?.id]
+    []
   );
 
   // Hide event (by title + organizer fingerprint)
@@ -1512,46 +1489,26 @@ export default function EventFeed({
     [blockedHosts, showToast]
   );
 
-  // Toggle favorite for an event
+  // Toggle favorite for an event (shared store handles optimistic update + rollback)
   const toggleFavorite = useCallback(
     async (eventId: string) => {
-      const isFavorited = favoritedEventIds.includes(eventId);
-      const action = isFavorited ? 'remove' : 'add';
-
-      console.log('[Favorite] Toggle:', eventId, 'action:', action, 'isLoggedIn:', isLoggedIn);
-
-      // Optimistically update local state
-      setFavoritedEventIds((prev) =>
-        isFavorited ? prev.filter((id) => id !== eventId) : [...prev, eventId]
-      );
-
       try {
-        const response = await fetch(`/api/events/${eventId}/favorite`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ action }),
-        });
-
-        if (!response.ok) {
-          throw new Error('Failed to update favorite');
+        const { isFavorited, favoriteCount } = await toggleFavoriteShared(eventId);
+        if (favoriteCount !== null) {
+          setFavoriteCountOverrides((prev) => ({ ...prev, [eventId]: favoriteCount }));
         }
 
         // Capture signal for favorites (only when adding, not removing)
-        if (!isFavorited) {
+        if (isFavorited) {
           // Await to ensure signal is captured before function returns
           await captureSignal(eventId, 'favorite');
-        } else {
-          console.log('[Favorite] Unfavorite - no signal captured (expected)');
         }
       } catch (error) {
-        // Revert optimistic update on error
-        setFavoritedEventIds((prev) =>
-          isFavorited ? [...prev, eventId] : prev.filter((id) => id !== eventId)
-        );
         console.error('[Favorite] Failed to toggle:', error);
+        showToast('Could not update favorite. Please try again.', 'error');
       }
     },
-    [favoritedEventIds, captureSignal, isLoggedIn]
+    [toggleFavoriteShared, captureSignal, showToast]
   );
 
   const handleToggleFavorite = useCallback(
@@ -1561,9 +1518,14 @@ export default function EventFeed({
     [toggleFavorite]
   );
 
-  const handleOpenCurateModal = (eventId: string) => {
-    const event = filteredEvents.find((e) => e.id === eventId);
-    if (event) {
+  const handleOpenCurateModal = useCallback(
+    (eventId: string) => {
+      const event = curatableEventsById.get(eventId);
+      if (!event) {
+        showToast('Could not open curate for this event', 'error');
+        return;
+      }
+
       setCurateModalEventId(eventId);
       setCurateModalEventTitle(event.title);
       setCurateModalScores(
@@ -1580,8 +1542,9 @@ export default function EventFeed({
       const existingCuration = curationsMap.get(eventId);
       setCurateModalExistingBoost(existingCuration?.scoreBoost ?? null);
       setCurateModalOpen(true);
-    }
-  };
+    },
+    [curatableEventsById, curationsMap, showToast]
+  );
 
   // Event detail modal handlers
   const handleOpenEventModal = useCallback((event: Event) => {
@@ -1897,7 +1860,9 @@ export default function EventFeed({
                           isNewlyHidden={false}
                           hideBorder
                           isFavorited={true}
-                          favoriteCount={event.favoriteCount ?? 0}
+                          favoriteCount={
+                            favoriteCountOverrides[event.id] ?? event.favoriteCount ?? 0
+                          }
                           onToggleFavorite={handleToggleFavorite}
                           isTagFilterActive={false}
                           isCurated={curatedEventIds.has(event.id)}
@@ -2054,7 +2019,9 @@ export default function EventFeed({
                           isNewlyHidden={false}
                           hideBorder
                           isFavorited={favoritedEventIds.includes(event.id)}
-                          favoriteCount={event.favoriteCount ?? 0}
+                          favoriteCount={
+                            favoriteCountOverrides[event.id] ?? event.favoriteCount ?? 0
+                          }
                           onToggleFavorite={handleToggleFavorite}
                           isTagFilterActive={false}
                           isCurated={curatedEventIds.has(event.id)}
@@ -2160,7 +2127,9 @@ export default function EventFeed({
                                   isNewlyHidden={false}
                                   hideBorder
                                   isFavorited={favoritedEventIds.includes(event.id)}
-                                  favoriteCount={event.favoriteCount ?? 0}
+                                  favoriteCount={
+                                    favoriteCountOverrides[event.id] ?? event.favoriteCount ?? 0
+                                  }
                                   onToggleFavorite={handleToggleFavorite}
                                   isTagFilterActive={false}
                                   isCurated={curatedEventIds.has(event.id)}
@@ -2262,7 +2231,7 @@ export default function EventFeed({
                       isNewlyHidden={false}
                       hideBorder
                       isFavorited={true}
-                      favoriteCount={event.favoriteCount ?? 0}
+                      favoriteCount={favoriteCountOverrides[event.id] ?? event.favoriteCount ?? 0}
                       onToggleFavorite={handleToggleFavorite}
                       isTagFilterActive={false}
                       isCurated={curatedEventIds.has(event.id)}
@@ -2419,7 +2388,7 @@ export default function EventFeed({
                   isNewlyHidden={false}
                   hideBorder
                   isFavorited={favoritedEventIds.includes(event.id)}
-                  favoriteCount={event.favoriteCount ?? 0}
+                  favoriteCount={favoriteCountOverrides[event.id] ?? event.favoriteCount ?? 0}
                   onToggleFavorite={handleToggleFavorite}
                   isTagFilterActive={false}
                   isCurated={curatedEventIds.has(event.id)}
@@ -2519,7 +2488,9 @@ export default function EventFeed({
                               isNewlyHidden={false}
                               hideBorder
                               isFavorited={favoritedEventIds.includes(event.id)}
-                              favoriteCount={event.favoriteCount ?? 0}
+                              favoriteCount={
+                                favoriteCountOverrides[event.id] ?? event.favoriteCount ?? 0
+                              }
                               onToggleFavorite={handleToggleFavorite}
                               isTagFilterActive={false}
                               isCurated={curatedEventIds.has(event.id)}
@@ -2711,7 +2682,9 @@ export default function EventFeed({
                             isNewlyHidden={isNewlyHidden}
                             hideBorder
                             isFavorited={favoritedEventIds.includes(event.id)}
-                            favoriteCount={event.favoriteCount ?? 0}
+                            favoriteCount={
+                              favoriteCountOverrides[event.id] ?? event.favoriteCount ?? 0
+                            }
                             onToggleFavorite={handleToggleFavorite}
                             isTagFilterActive={tagFilters.include.length > 0}
                             isCurated={curatedEventIds.has(event.id)}
@@ -2853,7 +2826,11 @@ export default function EventFeed({
           onClose={handleCloseEventModal}
           event={selectedEventForModal}
           isFavorited={favoritedEventIds.includes(selectedEventForModal.id)}
-          favoriteCount={selectedEventForModal.favoriteCount ?? 0}
+          favoriteCount={
+            favoriteCountOverrides[selectedEventForModal.id] ??
+            selectedEventForModal.favoriteCount ??
+            0
+          }
           onToggleFavorite={handleToggleFavorite}
         />
       )}

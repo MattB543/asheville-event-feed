@@ -9,6 +9,7 @@
 
 import { FB_CONFIG } from '../config/env';
 import { log } from './facebook-stealth';
+import { DEFAULT_FETCH_TIMEOUT_MS } from '../utils/retry';
 
 const GRAPHQL_ENDPOINT = 'https://www.facebook.com/api/graphql/';
 
@@ -148,6 +149,7 @@ async function fetchEventHeader(eventId: string): Promise<{
       method: 'POST',
       headers: buildHeaders(queryName),
       body: buildGraphQLBody(DOC_IDS.header, variables, queryName),
+      signal: AbortSignal.timeout(DEFAULT_FETCH_TIMEOUT_MS),
     });
 
     if (!response.ok) {
@@ -249,6 +251,7 @@ async function fetchEventAbout(eventId: string): Promise<{
       method: 'POST',
       headers: buildHeaders(queryName),
       body: buildGraphQLBody(DOC_IDS.about, variables, queryName),
+      signal: AbortSignal.timeout(DEFAULT_FETCH_TIMEOUT_MS),
     });
 
     if (!response.ok) {

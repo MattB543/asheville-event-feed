@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { events, newsletterSettings } from '@/lib/db/schema';
-import { eq, or, like, sql, isNull, and, isNotNull, inArray } from 'drizzle-orm';
+import { asc, eq, or, like, lte, sql, isNull, and, isNotNull, inArray } from 'drizzle-orm';
 import { generateTagsAndSummary } from '@/lib/ai/tagAndSummarize';
 import { generateEmbedding, createEmbeddingText } from '@/lib/ai/embedding';
 import {
@@ -32,25 +32,23 @@ import {
   extractStoredTop30NotificationTrackingKeys,
   extractStoredTop30TrackedEventIds,
 } from '@/lib/notifications/top30-notification-tracking';
-import { encodeUnsubscribeToken } from '@/app/api/top30/unsubscribe/route';
+import { encodeUnsubscribeToken } from '@/lib/notifications/unsubscribe-token';
+import { listAuthUserContacts } from '@/lib/supabase/adminUsers';
+import { chunk, formatDuration } from '@/lib/utils/cron';
 
 export const maxDuration = 800; // 13+ minutes (requires Fluid Compute)
 
-// Helper to format duration in human-readable form
-function formatDuration(ms: number): string {
-  if (ms < 1000) return `${ms}ms`;
-  const seconds = Math.floor(ms / 1000);
-  if (seconds < 60) return `${seconds}s`;
-  const minutes = Math.floor(seconds / 60);
-  const remainingSeconds = seconds % 60;
-  return `${minutes}m ${remainingSeconds}s`;
-}
+// Backoff schedule for events whose tag/summary generation failed. Transient
+// failures (rate limits, timeouts) come back quickly; content/validation
+// failures are capped at a long wait rather than excluded forever, so an
+// outage or misconfiguration can't permanently strand valid events.
+const AI_TRANSIENT_BACKOFF_MS = [5 * 60 * 1000, 30 * 60 * 1000, 2 * 60 * 60 * 1000];
+const AI_PERMANENT_BACKOFF_MS = [6 * 60 * 60 * 1000, 24 * 60 * 60 * 1000, 7 * 24 * 60 * 60 * 1000];
 
-// Helper to chunk arrays
-const chunk = <T>(arr: T[], size: number) =>
-  Array.from({ length: Math.ceil(arr.length / size) }, (_, i) =>
-    arr.slice(i * size, i * size + size)
-  );
+function nextAttemptDelayMs(reason: 'transient' | 'permanent', attempts: number): number {
+  const schedule = reason === 'transient' ? AI_TRANSIENT_BACKOFF_MS : AI_PERMANENT_BACKOFF_MS;
+  return schedule[Math.min(attempts - 1, schedule.length - 1)];
+}
 
 // Top 30 live notifications: batch changes by waiting out a per-subscriber cooldown
 // before sending again. Unsent events stay untracked, so they roll up into the next
@@ -100,7 +98,15 @@ export async function GET(request: Request) {
   }
 
   const jobStartTime = Date.now();
-  const runId = await startCronJob('ai');
+  let runId: string | null = null;
+  try {
+    runId = await startCronJob('ai');
+  } catch (trackerErr) {
+    console.error(
+      '[AI] Failed to start cron job tracker:',
+      trackerErr instanceof Error ? trackerErr.message : String(trackerErr)
+    );
+  }
 
   // Stats tracking
   const stats = {
@@ -133,6 +139,7 @@ export async function GET(request: Request) {
         startDate: events.startDate,
         tags: events.tags,
         aiSummary: events.aiSummary,
+        aiAttempts: events.aiAttempts,
       })
       .from(events)
       .where(
@@ -142,9 +149,14 @@ export async function GET(request: Request) {
             isNull(events.aiSummary)
           ),
           sql`${events.startDate} >= ${now.toISOString()}`,
-          sql`${events.startDate} <= ${threeMonthsFromNow.toISOString()}`
+          sql`${events.startDate} <= ${threeMonthsFromNow.toISOString()}`,
+          // Respect the failure backoff: NULL means "never failed / due now"
+          or(isNull(events.aiNextAttemptAt), lte(events.aiNextAttemptAt, now))
         )
       )
+      // Deterministic order: fresh events before known repeat offenders, and
+      // soonest-starting first within each group.
+      .orderBy(asc(events.aiAttempts), asc(events.startDate))
       .limit(100); // Process max 100 per run
 
     stats.combined.total = eventsNeedingProcessing.length;
@@ -161,6 +173,37 @@ export async function GET(request: Request) {
         );
         await Promise.all(
           batch.map(async (event) => {
+            const attemptedAt = new Date();
+            let failureCounted = false;
+
+            // Record a failure: bump the counter and push the next attempt out.
+            const recordFailure = async (
+              reason: 'transient' | 'permanent',
+              detail: string,
+              extra?: { tags?: string[]; aiSummary?: string }
+            ) => {
+              const attempts = (event.aiAttempts ?? 0) + 1;
+              const nextAttemptAt = new Date(
+                attemptedAt.getTime() + nextAttemptDelayMs(reason, attempts)
+              );
+              if (!failureCounted) {
+                stats.combined.failed++;
+                failureCounted = true;
+              }
+              console.warn(
+                `[AI] ${reason} failure for "${event.title.slice(0, 40)}..." (attempt ${attempts}): ${detail} - retrying after ${nextAttemptAt.toISOString()}`
+              );
+              await db
+                .update(events)
+                .set({
+                  ...extra,
+                  aiAttempts: attempts,
+                  aiLastAttemptAt: attemptedAt,
+                  aiNextAttemptAt: nextAttemptAt,
+                })
+                .where(eq(events.id, event.id));
+            };
+
             try {
               // Check if we already have tags or summary
               const needsTags = !event.tags || event.tags.length === 0;
@@ -184,26 +227,53 @@ export async function GET(request: Request) {
                 updateData.aiSummary = result.summary;
               }
 
-              if (Object.keys(updateData).length > 0) {
-                await db.update(events).set(updateData).where(eq(events.id, event.id));
-
-                stats.combined.success++;
-              } else {
-                stats.combined.failed++;
-                const reasons: string[] = [];
-                if (needsTags && result.tags.length === 0) reasons.push('tags empty');
-                if (needsSummary && !result.summary) reasons.push('summary null');
-                if (!needsTags && !needsSummary) reasons.push('neither needed');
-                console.warn(
-                  `[AI] Skipped update for "${event.title.slice(0, 40)}..." - ${reasons.join(', ')}`
-                );
+              if (!result.ok) {
+                // Persist whatever partial output we did get, but still count
+                // the attempt so it backs off instead of retrying immediately.
+                await recordFailure(result.reason, result.error, updateData);
+                return;
               }
+
+              // A partially-satisfied event (e.g. tags but no summary) would be
+              // reselected instantly, so treat the shortfall as a failure while
+              // keeping the part that worked.
+              const stillMissing: string[] = [];
+              if (needsTags && !updateData.tags) stillMissing.push('tags');
+              if (needsSummary && !updateData.aiSummary) stillMissing.push('summary');
+
+              if (stillMissing.length > 0) {
+                await recordFailure(
+                  'permanent',
+                  `model returned no ${stillMissing.join(' or ')}`,
+                  updateData
+                );
+                return;
+              }
+
+              await db
+                .update(events)
+                .set({
+                  ...updateData,
+                  aiAttempts: 0,
+                  aiLastAttemptAt: attemptedAt,
+                  aiNextAttemptAt: null,
+                })
+                .where(eq(events.id, event.id));
+
+              stats.combined.success++;
             } catch (err) {
-              stats.combined.failed++;
               console.error(
                 `[AI] Failed to process "${event.title.slice(0, 40)}...":`,
                 err instanceof Error ? err.message : err
               );
+              try {
+                await recordFailure('transient', err instanceof Error ? err.message : String(err));
+              } catch (bookkeepingErr) {
+                console.error(
+                  `[AI] Could not record failure for "${event.title.slice(0, 40)}...":`,
+                  bookkeepingErr instanceof Error ? bookkeepingErr.message : bookkeepingErr
+                );
+              }
             }
           })
         );
@@ -524,32 +594,19 @@ export async function GET(request: Request) {
 
           const trackedEventById = new Map(trackedEvents.map((event) => [event.id, event]));
 
-          // Get user emails from Supabase
+          // Get user emails from Supabase (paged - a single 1000-row page
+          // silently drops every subscriber past the first page)
           const supabase = createServiceClient();
-          const { data: authUsers, error: authError } = await supabase.auth.admin.listUsers({
-            perPage: 1000,
-          });
+          const {
+            contacts: userEmailMap,
+            totalUsers,
+            error: authError,
+          } = await listAuthUserContacts(supabase);
 
           if (authError) {
             console.error('[AI] Failed to fetch auth users:', authError);
           } else {
-            const usersWithEmail = authUsers.users.filter((u) => u.email).length;
-            console.log(
-              `[AI] Fetched ${authUsers.users.length} auth users (${usersWithEmail} with emails)`
-            );
-            const userEmailMap = new Map<string, { email: string; name?: string }>();
-            authUsers.users.forEach((user) => {
-              if (user.email) {
-                const metadata = user.user_metadata as Record<string, unknown> | undefined;
-                const name =
-                  typeof metadata?.full_name === 'string'
-                    ? metadata.full_name
-                    : typeof metadata?.name === 'string'
-                      ? metadata.name
-                      : undefined;
-                userEmailMap.set(user.id, { email: user.email, name });
-              }
-            });
+            console.log(`[AI] Fetched ${totalUsers} auth users (${userEmailMap.size} with emails)`);
 
             const appUrl = env.NEXT_PUBLIC_APP_URL;
             const inQuietHours = isWithinTop30QuietHours(new Date());

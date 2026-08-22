@@ -1,7 +1,8 @@
 import { db } from '@/lib/db';
 import { curatorProfiles, curatedEvents, events } from '@/lib/db/schema';
-import { eq, desc, and, sql } from 'drizzle-orm';
+import { eq, desc, and, isNull, or } from 'drizzle-orm';
 import { generateProfileSlug } from '@/lib/utils/generateProfileSlug';
+import { publicEventColumns } from '@/lib/db/queries/publicEventColumns';
 
 // Get or create a curator profile (used on first curation)
 export async function getOrCreateCuratorProfile(userId: string, email: string) {
@@ -15,6 +16,8 @@ export async function getOrCreateCuratorProfile(userId: string, email: string) {
   const slug = generateProfileSlug(email, userId);
   const displayName = email.split('@')[0];
 
+  // Insert-or-ignore on userId so two concurrent first-curation requests don't
+  // both insert. A genuine *slug* collision still surfaces as an error.
   const [profile] = await db
     .insert(curatorProfiles)
     .values({
@@ -23,9 +26,19 @@ export async function getOrCreateCuratorProfile(userId: string, email: string) {
       displayName,
       isPublic: false,
     })
+    .onConflictDoNothing({ target: curatorProfiles.userId })
     .returning();
 
-  return profile;
+  // .returning() is empty when the insert conflicted - the row exists, re-read it.
+  if (profile) return profile;
+
+  const [existingProfile] = await db
+    .select()
+    .from(curatorProfiles)
+    .where(eq(curatorProfiles.userId, userId))
+    .limit(1);
+
+  return existingProfile;
 }
 
 // Get profile by slug (for public pages)
@@ -60,22 +73,38 @@ export async function updateCuratorProfile(
     avatarUrl?: string | null;
   }
 ) {
-  await db
-    .update(curatorProfiles)
-    .set({ ...data, updatedAt: new Date() })
-    .where(eq(curatorProfiles.userId, userId));
+  // Pick fields explicitly rather than spreading caller data into .set()
+  const updates: Partial<typeof curatorProfiles.$inferInsert> = { updatedAt: new Date() };
+  if (data.displayName !== undefined) updates.displayName = data.displayName;
+  if (data.title !== undefined) updates.title = data.title;
+  if (data.bio !== undefined) updates.bio = data.bio;
+  if (data.isPublic !== undefined) updates.isPublic = data.isPublic;
+  if (data.showProfilePicture !== undefined) updates.showProfilePicture = data.showProfilePicture;
+  if (data.avatarUrl !== undefined) updates.avatarUrl = data.avatarUrl;
+
+  await db.update(curatorProfiles).set(updates).where(eq(curatorProfiles.userId, userId));
 }
 
-// Get user's curated events with full event data
+// Get user's curated events with public event data (used by the public profile API)
 export async function getCuratedEventsWithDetails(userId: string) {
   return db
     .select({
-      curation: curatedEvents,
-      event: events,
+      curation: {
+        id: curatedEvents.id,
+        note: curatedEvents.note,
+        curatedAt: curatedEvents.curatedAt,
+      },
+      event: publicEventColumns,
     })
     .from(curatedEvents)
     .innerJoin(events, eq(curatedEvents.eventId, events.id))
-    .where(eq(curatedEvents.userId, userId))
+    .where(
+      and(
+        eq(curatedEvents.userId, userId),
+        or(isNull(events.hidden), eq(events.hidden, false)),
+        isNull(events.dedupedAt)
+      )
+    )
     .orderBy(desc(curatedEvents.curatedAt));
 }
 
@@ -101,30 +130,6 @@ export async function removeCuration(userId: string, eventId: string) {
   await db
     .delete(curatedEvents)
     .where(and(eq(curatedEvents.userId, userId), eq(curatedEvents.eventId, eventId)));
-}
-
-// Get all public curator profiles with curation counts (for home page)
-export async function getPublicCuratorProfiles(limit = 6) {
-  const results = await db
-    .select({
-      userId: curatorProfiles.userId,
-      slug: curatorProfiles.slug,
-      displayName: curatorProfiles.displayName,
-      title: curatorProfiles.title,
-      bio: curatorProfiles.bio,
-      avatarUrl: curatorProfiles.avatarUrl,
-      showProfilePicture: curatorProfiles.showProfilePicture,
-      isVerified: curatorProfiles.isVerified,
-      curationCount: sql<number>`count(${curatedEvents.id})::int`,
-    })
-    .from(curatorProfiles)
-    .leftJoin(curatedEvents, eq(curatorProfiles.userId, curatedEvents.userId))
-    .where(eq(curatorProfiles.isPublic, true))
-    .groupBy(curatorProfiles.userId)
-    .orderBy(desc(sql`count(${curatedEvents.id})`))
-    .limit(limit);
-
-  return results;
 }
 
 // Set curator verification status (super admin only)

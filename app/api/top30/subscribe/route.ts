@@ -4,6 +4,7 @@ import { db } from '@/lib/db';
 import { newsletterSettings } from '@/lib/db/schema';
 import { eq } from 'drizzle-orm';
 import { type Top30SubscriptionType } from '@/lib/newsletter/types';
+import { isRecord } from '@/lib/utils/validation';
 
 const ALLOWED_SUBSCRIPTIONS: Top30SubscriptionType[] = ['none', 'live', 'weekly'];
 
@@ -48,9 +49,20 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const body = (await request.json()) as { subscription?: Top30SubscriptionType };
+    let body: unknown;
+    try {
+      body = await request.json();
+    } catch {
+      return NextResponse.json({ error: 'Invalid JSON body' }, { status: 400 });
+    }
 
-    if (!body.subscription || !ALLOWED_SUBSCRIPTIONS.includes(body.subscription)) {
+    if (!isRecord(body)) {
+      return NextResponse.json({ error: 'Invalid request body' }, { status: 400 });
+    }
+
+    const subscription = body.subscription as Top30SubscriptionType | undefined;
+
+    if (!subscription || !ALLOWED_SUBSCRIPTIONS.includes(subscription)) {
       return NextResponse.json({ error: 'Invalid subscription value' }, { status: 400 });
     }
 
@@ -59,21 +71,21 @@ export async function POST(request: NextRequest) {
       .insert(newsletterSettings)
       .values({
         userId: user.id,
-        top30Subscription: body.subscription,
+        top30Subscription: subscription,
         top30LastEventIds: [],
         updatedAt: new Date(),
       })
       .onConflictDoUpdate({
         target: newsletterSettings.userId,
         set: {
-          top30Subscription: body.subscription,
+          top30Subscription: subscription,
           updatedAt: new Date(),
         },
       });
 
-    console.log(`[Top30] Updated subscription for ${user.email}: ${body.subscription}`);
+    console.log(`[Top30] Updated subscription for ${user.email}: ${subscription}`);
 
-    return NextResponse.json({ success: true, subscription: body.subscription });
+    return NextResponse.json({ success: true, subscription });
   } catch (error) {
     console.error('Error saving top 30 subscription:', error);
     return NextResponse.json({ error: 'Failed to save subscription' }, { status: 500 });

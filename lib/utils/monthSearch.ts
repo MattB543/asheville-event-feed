@@ -3,6 +3,8 @@
  * Extracts month names from search queries and converts them to date filters.
  */
 
+import { getTodayStringEastern } from './timezone';
+
 interface MonthSearchResult {
   month: number; // 0-11 (JavaScript month index)
   year: number;
@@ -87,13 +89,9 @@ export function extractMonthFromSearch(searchTerm: string): MonthSearchResult | 
  * Uses Eastern timezone since the app is for Asheville, NC.
  */
 function getTargetYear(month: number): number {
-  // Get current date in Eastern timezone
-  const now = new Date();
-  const eastern = new Date(now.toLocaleString('en-US', { timeZone: 'America/New_York' }));
-
-  const currentYear = eastern.getFullYear();
-  const currentMonth = eastern.getMonth();
-  const currentDay = eastern.getDate();
+  // Get current date in Eastern timezone (YYYY-MM-DD)
+  const [currentYear, easternMonth, currentDay] = getTodayStringEastern().split('-').map(Number);
+  const currentMonth = easternMonth - 1; // JS month index
 
   // If the target month is in the past, use next year
   if (month < currentMonth) {
@@ -102,7 +100,7 @@ function getTargetYear(month: number): number {
 
   // If we're in the target month, check if there are still days left
   if (month === currentMonth) {
-    const lastDayOfMonth = new Date(currentYear, month + 1, 0).getDate();
+    const lastDayOfMonth = new Date(Date.UTC(currentYear, month + 1, 0)).getUTCDate();
     // If today is the last day of the month, use next year
     if (currentDay >= lastDayOfMonth) {
       return currentYear + 1;

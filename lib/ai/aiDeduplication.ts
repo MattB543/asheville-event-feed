@@ -302,6 +302,7 @@ async function processDayEvents(date: string, events: EventForAIDedup[]): Promis
     const aiCallStart = Date.now();
     const response = await azureChatCompletion(SYSTEM_PROMPT, userPrompt, {
       maxTokens: 4000, // Enough for detailed JSON response
+      jsonMode: true,
     });
 
     if (!response) {
@@ -389,7 +390,11 @@ export async function runAIDeduplication(
   // Group events by date
   const eventsByDate = groupEventsByDate(events);
   const dates = Array.from(eventsByDate.keys()).sort();
-  const skippedDates = dates.filter((d) => (eventsByDate.get(d)?.length ?? 0) < 2).length;
+  // Only days with something to compare are worth an API call. Filtering up
+  // front (rather than skipping inside the loop) makes maxDays mean "days
+  // actually processed" and keeps the inter-day delay off the final day.
+  const workDates = dates.filter((d) => (eventsByDate.get(d)?.length ?? 0) >= 2);
+  const skippedDates = dates.length - workDates.length;
 
   // Always log: overall scope
   console.log(
@@ -397,20 +402,15 @@ export async function runAIDeduplication(
   );
 
   // Process each date
-  let processedCount = 0;
-  for (const date of dates) {
+  for (let i = 0; i < workDates.length; i++) {
     // Check max days limit
-    if (maxDays && processedCount >= maxDays) {
+    if (maxDays && i >= maxDays) {
       console.log(`[AI Dedup] Reached max days limit (${maxDays})`);
       break;
     }
 
+    const date = workDates[i];
     const dayEvents = eventsByDate.get(date)!;
-
-    // Skip days with only 1 event
-    if (dayEvents.length < 2) {
-      continue;
-    }
 
     if (verbose) {
       console.log(`[AI Dedup] Processing ${date}: ${dayEvents.length} events`);
@@ -451,10 +451,9 @@ export async function runAIDeduplication(
       );
     }
 
-    processedCount++;
-
-    // Delay between API calls to avoid rate limiting
-    if (delayMs > 0 && processedCount < dates.length) {
+    // Delay between API calls to avoid rate limiting (never after the last day)
+    const isLastDay = i === workDates.length - 1 || (maxDays !== undefined && i + 1 >= maxDays);
+    if (delayMs > 0 && !isLastDay) {
       await new Promise((r) => setTimeout(r, delayMs));
     }
   }

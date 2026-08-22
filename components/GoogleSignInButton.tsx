@@ -104,7 +104,6 @@ export function GoogleSignInButton({ className, redirectTo = '/events' }: Google
 
             if (error) throw error;
 
-            console.log('Successfully signed in with Google');
             router.push(safeRedirect);
             router.refresh();
           } catch (err) {

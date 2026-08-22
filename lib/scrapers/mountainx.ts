@@ -11,7 +11,7 @@
 import { type ScrapedEvent } from './types';
 import { isNonNCEvent, getZipFromCity } from '@/lib/utils/geo';
 import { decodeHtmlEntities } from '@/lib/utils/parsers';
-import { fetchWithRetry } from '@/lib/utils/retry';
+import { fetchWithRetry, DEFAULT_FETCH_TIMEOUT_MS } from '@/lib/utils/retry';
 import { getTodayStringEastern } from '@/lib/utils/timezone';
 import type { Browser } from 'patchright';
 
@@ -207,6 +207,7 @@ async function fetchEventsPageWithHttp(url: string): Promise<TribeEventsResponse
   const initialResponse = await fetch(url, {
     headers: API_HEADERS,
     cache: 'no-store',
+    signal: AbortSignal.timeout(DEFAULT_FETCH_TIMEOUT_MS),
   });
 
   if (initialResponse.status === 403) {
@@ -341,6 +342,7 @@ async function fetchMonthEventsWithBrowser(
           const response = await fetch(targetUrl, {
             credentials: 'include',
             headers: { Accept: acceptHeader },
+            signal: AbortSignal.timeout(15000),
           });
           status = response.status;
           html = await response.text();

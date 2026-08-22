@@ -141,31 +141,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* TODO: Add back after curation filtering is built
-      {curators.length > 0 && (
-        <section className="relative z-10 max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-12">
-          <div className="border-t border-gray-200 dark:border-gray-800 mb-12 mx-4 sm:mx-8" />
-          <h2 className="font-display text-2xl sm:text-3xl font-semibold text-gray-900 dark:text-white mb-8 text-center">
-            Curated feeds by local experts
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {curators.map((curator) => (
-              <PublicCuratorCard
-                key={curator.userId}
-                slug={curator.slug}
-                displayName={curator.displayName}
-                title={curator.title}
-                bio={curator.bio}
-                avatarUrl={curator.avatarUrl}
-                showProfilePicture={curator.showProfilePicture}
-                curationCount={curator.curationCount}
-              />
-            ))}
-          </div>
-        </section>
-      )}
-      */}
-
       {/* Why Section */}
       <section className="relative z-10 max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-12">
         <div className="border-t border-gray-200 dark:border-gray-800 mb-12 mx-4 sm:mx-8" />

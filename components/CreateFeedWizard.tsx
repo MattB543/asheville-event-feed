@@ -318,14 +318,14 @@ function TagsStep({
                 <h3 className="font-semibold text-gray-900 dark:text-white">{category.name}</h3>
                 <div className="flex items-center gap-2 text-xs text-gray-400 dark:text-gray-500">
                   <button
-                    onClick={() => handleSelectAll(category.tags)}
+                    onClick={() => handleSelectAll([...category.tags])}
                     className="hover:text-gray-800 dark:hover:text-gray-200 cursor-pointer"
                   >
                     {allIncluded ? 'Clear' : 'All'}
                   </button>
                   <span className="text-gray-300 dark:text-gray-600">|</span>
                   <button
-                    onClick={() => handleExcludeAll(category.tags)}
+                    onClick={() => handleExcludeAll([...category.tags])}
                     className="hover:text-gray-800 dark:hover:text-gray-200 cursor-pointer"
                   >
                     {allExcluded ? 'Clear' : 'None'}

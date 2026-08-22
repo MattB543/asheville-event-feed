@@ -167,7 +167,7 @@ export async function generateEventScore(
     event.organizer ? `Organizer: ${event.organizer}` : null,
     event.tags?.length ? `Tags: ${event.tags.join(', ')}` : null,
     event.aiSummary ? `Summary: ${event.aiSummary}` : null,
-    `Date: ${event.startDate.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}`,
+    `Date: ${event.startDate.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric', timeZone: 'America/New_York' })}`,
     event.price ? `Price: ${event.price}` : null,
   ]
     .filter(Boolean)
@@ -182,6 +182,7 @@ export async function generateEventScore(
         month: 'short',
         day: 'numeric',
         year: 'numeric',
+        timeZone: 'America/New_York',
       });
       const location = e.location || e.organizer || 'Unknown venue';
       const similarity = Math.round(e.similarity * 100);
@@ -200,6 +201,7 @@ ${similarEventsText}`;
   try {
     const result = await azureChatCompletion(SCORING_SYSTEM_PROMPT, userPrompt, {
       maxTokens: 20000,
+      jsonMode: true,
     });
 
     if (!result) {
@@ -222,7 +224,7 @@ ${similarEventsText}`;
       const num = typeof n === 'number' ? n : parseInt(String(n), 10);
       if (isNaN(num)) {
         clamped.push(`${label}: NaN->default`);
-        return min === 1 ? 5 : 5; // Default to middle if invalid
+        return 5; // Default to middle if invalid (valid for both 0-10 and 1-10)
       }
       const result = Math.max(min, Math.min(10, Math.round(num)));
       if (result !== num) {

@@ -2,6 +2,7 @@ import { type NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import { isSuperAdmin } from '@/lib/utils/superAdmin';
 import { setCuratorVerification, getCuratorProfileByUserId } from '@/lib/supabase/curatorProfile';
+import { isRecord, isString } from '@/lib/utils/validation';
 
 export async function POST(request: NextRequest) {
   try {
@@ -21,11 +22,19 @@ export async function POST(request: NextRequest) {
     }
 
     // Parse request body
-    const body = (await request.json()) as {
-      curatorUserId: string;
-      verified: boolean;
-    };
-    const { curatorUserId, verified } = body;
+    let body: unknown;
+    try {
+      body = await request.json();
+    } catch {
+      return NextResponse.json({ error: 'Invalid JSON body' }, { status: 400 });
+    }
+
+    if (!isRecord(body)) {
+      return NextResponse.json({ error: 'Invalid request body' }, { status: 400 });
+    }
+
+    const curatorUserId = isString(body.curatorUserId) ? body.curatorUserId : undefined;
+    const verified = body.verified;
 
     if (!curatorUserId || typeof verified !== 'boolean') {
       return NextResponse.json(

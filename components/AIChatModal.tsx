@@ -103,10 +103,16 @@ export default function AIChatModal({
   const [error, setError] = useState<string | null>(null);
   const [loadingMessageIndex, setLoadingMessageIndex] = useState(0);
   const [currentDateRange, setCurrentDateRange] = useState<DateRange | null>(null);
-  const [, setDateRangeDisplay] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const abortControllerRef = useRef<AbortController | null>(null);
+
+  // Read-only snapshots for the greeting so the reset effect can depend on `isOpen` alone
+  const totalCountRef = useRef(totalCount);
+  totalCountRef.current = totalCount;
+  const activeFiltersRef = useRef(activeFilters);
+  activeFiltersRef.current = activeFilters;
+  const wasOpenRef = useRef(false);
 
   // Cycle through loading messages every 3 seconds
   useEffect(() => {
@@ -122,23 +128,26 @@ export default function AIChatModal({
     return () => clearInterval(interval);
   }, [isLoading, isStreaming]);
 
-  // Initialize with greeting when modal opens
+  // Initialize with greeting on the closed -> open transition only, so filter changes
+  // made while chatting don't wipe the conversation
   useEffect(() => {
     if (isOpen) {
-      const initialMessage = getInitialMessage(totalCount, activeFilters);
+      if (wasOpenRef.current) return;
+      wasOpenRef.current = true;
+      const initialMessage = getInitialMessage(totalCountRef.current, activeFiltersRef.current);
       setMessages([{ role: 'assistant', content: initialMessage }]);
       setInput('');
       setError(null);
       setIsStreaming(false);
       setCurrentDateRange(null); // Reset date range for new conversation
-      setDateRangeDisplay(null);
       // Focus input after a short delay to ensure modal is rendered
       setTimeout(() => inputRef.current?.focus(), 100);
     } else {
+      wasOpenRef.current = false;
       // Cancel any ongoing stream when modal closes
       abortControllerRef.current?.abort();
     }
-  }, [isOpen, totalCount, activeFilters]);
+  }, [isOpen]);
 
   // Only auto-scroll when user sends a new message (not during streaming)
   const shouldScrollRef = useRef(false);
@@ -164,13 +173,20 @@ export default function AIChatModal({
     let assistantContent = '';
     let hasStartedStreaming = false;
     let extractedDateRange: DateRange | null = null;
+    // Frames can be split across reads - keep the trailing partial line for the next chunk
+    let buffer = '';
 
     while (true) {
       const { done, value } = await reader.read();
-      if (done) break;
-
-      const chunk = decoder.decode(value, { stream: true });
-      const lines = chunk.split('\n');
+      if (done) {
+        // Flush any final UTF-8 bytes and parse a valid final line even if the
+        // server closed without a trailing newline.
+        buffer += decoder.decode();
+      } else {
+        buffer += decoder.decode(value, { stream: true });
+      }
+      const lines = buffer.split('\n');
+      buffer = done ? '' : (lines.pop() ?? '');
 
       for (const line of lines) {
         // Skip empty lines and SSE comments
@@ -184,79 +200,84 @@ export default function AIChatModal({
             continue;
           }
 
-          try {
-            const parsed = JSON.parse(data) as {
-              type?: string;
-              data?: {
-                startDate?: string;
-                endDate?: string;
-                displayMessage?: string;
-                eventCount?: number;
-              };
-              choices?: Array<{
-                delta?: {
-                  content?: string;
-                };
-              }>;
+          type StreamFrame = {
+            type?: string;
+            data?: {
+              startDate?: string;
+              endDate?: string;
+              displayMessage?: string;
+              eventCount?: number;
             };
-
-            // Handle our custom message types
-            if (parsed.type === 'dateRange' && parsed.data) {
-              extractedDateRange = {
-                startDate: parsed.data.startDate ?? '',
-                endDate: parsed.data.endDate ?? '',
+            choices?: Array<{
+              delta?: {
+                content?: string;
               };
+            }>;
+          };
 
-              // Show the date range indicator if we have a display message
-              if (parsed.data.displayMessage) {
-                const displayMessage = parsed.data.displayMessage;
-                const eventCount = parsed.data.eventCount ?? 0;
-                setDateRangeDisplay(displayMessage);
-                // Add a system message showing the date range
-                setMessages((prev) => [
-                  ...prev,
-                  {
-                    role: 'system',
-                    content: `${displayMessage} (${eventCount} events)`,
-                  },
-                ]);
-              }
-              continue;
-            }
-
-            if (parsed.type === 'error') {
-              throw new Error(typeof parsed.data === 'string' ? parsed.data : 'Unknown error');
-            }
-
-            // Handle regular OpenRouter streaming response
-            const token = parsed.choices?.[0]?.delta?.content ?? '';
-            if (token) {
-              // Only switch to streaming mode when we get the first real token
-              if (!hasStartedStreaming) {
-                hasStartedStreaming = true;
-                setIsStreaming(true);
-                setIsLoading(false);
-                // Add assistant message with the first token
-                setMessages((prev) => [...prev, { role: 'assistant', content: token }]);
-                assistantContent = token;
-              } else {
-                assistantContent += token;
-                // Update the last message (assistant) with new content
-                setMessages((prev) => {
-                  const updated = [...prev];
-                  updated[updated.length - 1] = {
-                    role: 'assistant',
-                    content: assistantContent,
-                  };
-                  return updated;
-                });
-              }
-            }
+          let parsed: StreamFrame;
+          try {
+            parsed = JSON.parse(data) as StreamFrame;
           } catch {
             // Skip malformed JSON lines (SSE comments, etc.)
+            continue;
+          }
+
+          // Handle our custom message types
+          if (parsed.type === 'dateRange' && parsed.data) {
+            extractedDateRange = {
+              startDate: parsed.data.startDate ?? '',
+              endDate: parsed.data.endDate ?? '',
+            };
+
+            // Show the date range indicator if we have a display message
+            if (parsed.data.displayMessage) {
+              const displayMessage = parsed.data.displayMessage;
+              const eventCount = parsed.data.eventCount ?? 0;
+              // Add a system message showing the date range
+              setMessages((prev) => [
+                ...prev,
+                {
+                  role: 'system',
+                  content: `${displayMessage} (${eventCount} events)`,
+                },
+              ]);
+            }
+            continue;
+          }
+
+          if (parsed.type === 'error') {
+            throw new Error(typeof parsed.data === 'string' ? parsed.data : 'Unknown error');
+          }
+
+          // Handle regular OpenRouter streaming response
+          const token = parsed.choices?.[0]?.delta?.content ?? '';
+          if (token) {
+            // Only switch to streaming mode when we get the first real token
+            if (!hasStartedStreaming) {
+              hasStartedStreaming = true;
+              setIsStreaming(true);
+              setIsLoading(false);
+              // Add assistant message with the first token
+              setMessages((prev) => [...prev, { role: 'assistant', content: token }]);
+              assistantContent = token;
+            } else {
+              assistantContent += token;
+              // Update the last message (assistant) with new content
+              setMessages((prev) => {
+                const updated = [...prev];
+                updated[updated.length - 1] = {
+                  role: 'assistant',
+                  content: assistantContent,
+                };
+                return updated;
+              });
+            }
           }
         }
       }
+
+      if (done) break;
     }
 
     return extractedDateRange;
@@ -274,7 +295,6 @@ export default function AIChatModal({
       setIsLoading(true);
       setIsStreaming(false);
       setError(null);
-      setDateRangeDisplay(null);
       shouldScrollRef.current = true; // Scroll to show user's message
 
       // Create new AbortController for this request
@@ -320,7 +340,6 @@ export default function AIChatModal({
       } catch (err) {
         if (err instanceof Error && err.name === 'AbortError') {
           // Stream was cancelled by user - don't show error
-          console.log('Stream cancelled');
           return;
         }
 

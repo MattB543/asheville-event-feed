@@ -8,6 +8,8 @@
  * - Time extraction and application
  */
 
+import { parseLocalDateInTimezone } from './timezone';
+
 // ============================================================================
 // HTML + MARKDOWN CLEANUP
 // ============================================================================
@@ -39,7 +41,7 @@ export function decodeHtmlEntities(text: string): string {
       .replace(/&#8221;/g, '"') // right double quote
       .replace(/&#8230;/g, '.') // ellipsis
       .replace(/&#038;/g, '&')
-      .replace(/&#039;/g, "'")
+      .replace(/&#0?39;/g, "'")
       .replace(/&#124;/g, '|') // pipe/vertical bar
       // Named entities for special punctuation
       .replace(/&rsquo;/g, "'")
@@ -735,22 +737,11 @@ export function applyTimeToDate(
   const month = parseInt(getPart('month'), 10) - 1; // 0-indexed
   const day = parseInt(getPart('day'), 10);
 
-  // Calculate timezone offset for the target date at the target time
-  const refUtc = new Date(Date.UTC(year, month, day, 12, 0, 0));
-  const offsetFormatter = new Intl.DateTimeFormat('en-US', {
-    timeZone: timezone,
-    hour: '2-digit',
-    minute: '2-digit',
-    hour12: false,
-  });
-  const offsetParts = offsetFormatter.formatToParts(refUtc);
-  const localHour = parseInt(offsetParts.find((p) => p.type === 'hour')?.value || '12', 10);
-  const offsetHours = localHour - 12;
+  // Interpret the target wall-clock time in the target timezone
+  const pad = (value: number) => String(value).padStart(2, '0');
+  const localDateStr = `${year}-${pad(month + 1)}-${pad(day)}T${pad(hour)}:${pad(minute)}:00`;
 
-  // Create the correct UTC time
-  const utcTime = new Date(Date.UTC(year, month, day, hour - offsetHours, minute, 0));
-
-  return utcTime;
+  return parseLocalDateInTimezone(localDateStr, timezone);
 }
 
 /**

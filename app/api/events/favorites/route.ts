@@ -3,6 +3,7 @@ import { db } from '@/lib/db';
 import { events } from '@/lib/db/schema';
 import { and, asc, eq, inArray, isNull, or } from 'drizzle-orm';
 import { isRecord, isStringArray } from '@/lib/utils/validation';
+import { publicEventColumns } from '@/lib/db/queries/publicEventColumns';
 
 const MAX_IDS = 200;
 
@@ -23,10 +24,14 @@ export async function POST(request: Request) {
     const limitedIds = uniqueIds.slice(0, MAX_IDS);
 
     const results = await db
-      .select()
+      .select(publicEventColumns)
       .from(events)
       .where(
-        and(inArray(events.id, limitedIds), or(isNull(events.hidden), eq(events.hidden, false)))
+        and(
+          inArray(events.id, limitedIds),
+          or(isNull(events.hidden), eq(events.hidden, false)),
+          isNull(events.dedupedAt)
+        )
       )
       .orderBy(asc(events.startDate));
 

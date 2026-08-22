@@ -156,16 +156,16 @@ async function scrapeGoogleCalendarEvents(): Promise<ScrapedEvent[]> {
   console.log('[UDharma] Fetching events from Google Calendar...');
 
   try {
-    // Fetch iCal feed
-    const response = await fetch(GOOGLE_CALENDAR_URL, {
-      headers: {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+    // Fetch iCal feed (retried, with a per-attempt deadline)
+    const response = await fetchWithRetry(
+      GOOGLE_CALENDAR_URL,
+      {
+        headers: {
+          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+        },
       },
-    });
-
-    if (!response.ok) {
-      throw new Error(`Failed to fetch calendar: ${response.status}`);
-    }
+      { maxRetries: 2, baseDelay: 1000 }
+    );
 
     const icsData = await response.text();
     await debugSave('02-google-calendar.ics', icsData);

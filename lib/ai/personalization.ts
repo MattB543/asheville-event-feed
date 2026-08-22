@@ -438,38 +438,44 @@ export async function getMultiAnchorPersonalizedFeed(
     `[PersonalizationV2] Finding matches for ${signalEventsWithEmbeddings.length} signal events...`
   );
 
-  for (const signalEvent of signalEventsWithEmbeddings) {
-    const embedding = signalEvent.embedding as number[];
+  // Run the per-signal vector searches in parallel, chunked to stay within the
+  // connection pool (max 5) - this is on the user-facing feed path
+  const SIGNAL_SEARCH_CONCURRENCY = 5;
+  for (let i = 0; i < signalEventsWithEmbeddings.length; i += SIGNAL_SEARCH_CONCURRENCY) {
+    const chunk = signalEventsWithEmbeddings.slice(i, i + SIGNAL_SEARCH_CONCURRENCY);
 
-    const matches = await findSimilarByEmbedding(embedding, {
-      limit: MATCHES_PER_SIGNAL,
-      minSimilarity: MIN_SIMILARITY,
-      excludeIds: signalEventIds, // Don't recommend events user already interacted with
-      startDate: options.startDate,
-      endDate: options.endDate,
-    });
-
-    console.log(
-      `[PersonalizationV2] Signal "${signalEvent.title.substring(0, 30)}..." -> ${matches.length} matches`
+    const chunkResults = await Promise.all(
+      chunk.map(async (signalEvent) => ({
+        signalEvent,
+        matches: await findSimilarByEmbedding(signalEvent.embedding as number[], {
+          limit: MATCHES_PER_SIGNAL,
+          minSimilarity: MIN_SIMILARITY,
+          excludeIds: signalEventIds, // Don't recommend events user already interacted with
+          startDate: options.startDate,
+          endDate: options.endDate,
+        }),
+      }))
     );
 
-    for (const match of matches) {
-      if (!candidateMap.has(match.id)) {
-        candidateMap.set(match.id, {
-          event: match,
-          sources: [],
-          maxSimilarity: 0,
-          centroidSimilarity: null,
-        });
-      }
+    for (const { signalEvent, matches } of chunkResults) {
+      for (const match of matches) {
+        if (!candidateMap.has(match.id)) {
+          candidateMap.set(match.id, {
+            event: match,
+            sources: [],
+            maxSimilarity: 0,
+            centroidSimilarity: null,
+          });
+        }
 
-      const candidate = candidateMap.get(match.id)!;
-      candidate.sources.push({
-        signalEventId: signalEvent.id,
-        signalEventTitle: signalEvent.title,
-        similarity: match.similarity,
-      });
-      candidate.maxSimilarity = Math.max(candidate.maxSimilarity, match.similarity);
+        const candidate = candidateMap.get(match.id)!;
+        candidate.sources.push({
+          signalEventId: signalEvent.id,
+          signalEventTitle: signalEvent.title,
+          similarity: match.similarity,
+        });
+        candidate.maxSimilarity = Math.max(candidate.maxSimilarity, match.similarity);
+      }
     }
   }
 
@@ -511,28 +517,7 @@ export async function getMultiAnchorPersonalizedFeed(
 
   console.log(`[PersonalizationV2] Total unique candidates: ${candidateMap.size}`);
 
-  // 6. Get negative centroid for penalty (if user has hidden events)
-  let negativeCentroid: number[] | null = null;
-  if (negativeSignals.length > 0) {
-    const negativeEventIds = negativeSignals.map((s) => s.eventId);
-    const negativeEvents = await db
-      .select({ embedding: events.embedding })
-      .from(events)
-      .where(inArray(events.id, negativeEventIds));
-
-    const negativeEmbeddings = negativeEvents
-      .filter((e) => e.embedding !== null)
-      .map((e) => e.embedding as number[]);
-
-    if (negativeEmbeddings.length > 0) {
-      negativeCentroid = computeCentroidFromEmbeddings(negativeEmbeddings);
-      console.log(
-        `[PersonalizationV2] Computed negative centroid from ${negativeEmbeddings.length} hidden events`
-      );
-    }
-  }
-
-  // 7. Calculate final scores with boosts and penalties
+  // 6. Calculate final scores with boosts
   const results: PersonalizedEvent[] = [];
 
   for (const [, candidate] of candidateMap) {
@@ -556,15 +541,7 @@ export async function getMultiAnchorPersonalizedFeed(
     // Centroid bonus: small reward if matched both individual AND centroid
     const centroidBonus = hasIndividualMatch && hasCentroidMatch ? CENTROID_BONUS : 0;
 
-    // Negative penalty: penalize if similar to hidden events
-    const negativePenalty = 0;
-    if (negativeCentroid && candidate.event.similarity) {
-      // We need the event's embedding to compute similarity to negative centroid
-      // For now, we'll skip this and just use the candidates as-is
-      // A future enhancement could fetch embeddings for final scoring
-    }
-
-    const finalScore = baseScore + multiMatchBoost + centroidBonus - negativePenalty;
+    const finalScore = baseScore + multiMatchBoost + centroidBonus;
 
     // Determine tier
     let tier: 'great' | 'good' | null = null;

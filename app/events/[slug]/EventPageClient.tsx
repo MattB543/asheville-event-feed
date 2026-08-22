@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useMemo, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import { ArrowLeft } from 'lucide-react';
@@ -9,6 +9,7 @@ import EventContent from '@/components/EventContent';
 import SimilarEventsSection from '@/components/SimilarEventsSection';
 import AdminScorePanel from '@/components/AdminScorePanel';
 import { useAuth } from '@/components/AuthProvider';
+import { useFavorites } from '@/lib/hooks/useFavorites';
 import type { ScoreOverride } from '@/lib/utils/scoreCalculation';
 
 // Lazy load modal to reduce initial JS bundle
@@ -65,19 +66,17 @@ interface EventPageClientProps {
   canEditScores?: boolean;
 }
 
-// Helper to get initial favorite state from localStorage
-function getInitialFavorited(eventId: string): boolean {
-  if (typeof window === 'undefined') return false;
-  try {
-    const savedFavorites = localStorage.getItem('favoritedEventIds');
-    if (savedFavorites) {
-      const favorites = JSON.parse(savedFavorites) as unknown[];
-      return Array.isArray(favorites) && favorites.includes(eventId);
-    }
-  } catch {
-    // Ignore localStorage errors
+// Wait (bounded) for auth to finish loading, polling a ref so callers read the
+// current value rather than one captured in a closure
+async function waitForAuth(
+  authLoadingRef: { current: boolean },
+  timeoutMs = 2000,
+  intervalMs = 50
+): Promise<void> {
+  const deadline = Date.now() + timeoutMs;
+  while (authLoadingRef.current && Date.now() < deadline) {
+    await new Promise((resolve) => setTimeout(resolve, intervalMs));
   }
-  return false;
 }
 
 export default function EventPageClient({
@@ -90,7 +89,16 @@ export default function EventPageClient({
   const { user, isLoading: authLoading } = useAuth();
   const isLoggedIn = !!user;
 
-  const [isFavorited, setIsFavorited] = useState(() => getInitialFavorited(event.id));
+  // Auth state read through refs so an await inside captureSignal sees current values
+  const isLoggedInRef = useRef(isLoggedIn);
+  const authLoadingRef = useRef(authLoading);
+  useEffect(() => {
+    isLoggedInRef.current = isLoggedIn;
+    authLoadingRef.current = authLoading;
+  }, [isLoggedIn, authLoading]);
+
+  const { favoriteIds, toggleFavorite } = useFavorites();
+  const isFavorited = favoriteIds.includes(event.id);
   const [favoriteCount, setFavoriteCount] = useState(event.favoriteCount);
   const [scoreOverride, setScoreOverride] = useState<ScoreOverride | null>(event.scoreOverride);
 
@@ -114,16 +122,8 @@ export default function EventPageClient({
   const [similarEventModalOpen, setSimilarEventModalOpen] = useState(false);
   const [selectedSimilarEvent, setSelectedSimilarEvent] = useState<ModalEvent | null>(null);
 
-  // Similar events favorites state
-  const [similarFavorites, setSimilarFavorites] = useState<Set<string>>(() => {
-    if (typeof window === 'undefined') return new Set();
-    try {
-      const saved = localStorage.getItem('favoritedEventIds');
-      return new Set(saved ? (JSON.parse(saved) as string[]) : []);
-    } catch {
-      return new Set();
-    }
-  });
+  // Similar events favorites come from the same shared store as the main heart
+  const similarFavorites = useMemo(() => new Set(favoriteIds), [favoriteIds]);
   const [similarFavoriteCounts, setSimilarFavoriteCounts] = useState<Record<string, number>>(() => {
     const counts: Record<string, number> = {};
     similarEvents.forEach((e) => {
@@ -133,122 +133,60 @@ export default function EventPageClient({
   });
 
   // Helper to capture signals for personalization (only 'favorite' signals now)
-  const captureSignal = useCallback(
-    async (eventId: string, signalType: 'favorite') => {
-      if (authLoading) {
-        await new Promise((resolve) => setTimeout(resolve, 500));
-      }
+  const captureSignal = useCallback(async (eventId: string, signalType: 'favorite') => {
+    // Wait for auth to settle (bounded), then read the current value - not the one
+    // captured when this handler was created
+    await waitForAuth(authLoadingRef);
 
-      if (!isLoggedIn) return;
+    if (!isLoggedInRef.current) return;
 
-      try {
-        await fetch('/api/signals', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ eventId, signalType }),
-        });
-      } catch (error) {
-        console.error('[Signal:EventPage] Error:', error);
-      }
-    },
-    [isLoggedIn, authLoading]
-  );
-
-  const handleToggleFavorite = async (eventId: string) => {
-    // Optimistic update
-    const newIsFavorited = !isFavorited;
-    setIsFavorited(newIsFavorited);
-    setFavoriteCount((prev) => (newIsFavorited ? prev + 1 : Math.max(0, prev - 1)));
-
-    // Update localStorage
-    const savedFavorites = localStorage.getItem('favoritedEventIds');
-    const favorites: string[] = savedFavorites ? (JSON.parse(savedFavorites) as string[]) : [];
-    if (newIsFavorited) {
-      favorites.push(eventId);
-    } else {
-      const index = favorites.indexOf(eventId);
-      if (index > -1) favorites.splice(index, 1);
-    }
-    localStorage.setItem('favoritedEventIds', JSON.stringify(favorites));
-
-    // Update server
     try {
-      await fetch(`/api/events/${eventId}/favorite`, {
+      await fetch('/api/signals', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ action: newIsFavorited ? 'add' : 'remove' }),
+        body: JSON.stringify({ eventId, signalType }),
       });
+    } catch (error) {
+      console.error('[Signal:EventPage] Error:', error);
+    }
+  }, []);
+
+  // The shared store owns the favorite id list, localStorage and rollback;
+  // only the displayed counts are local to this page.
+  const handleToggleFavorite = async (eventId: string) => {
+    try {
+      const { isFavorited: nowFavorited, favoriteCount: serverCount } =
+        await toggleFavorite(eventId);
+      if (serverCount !== null) {
+        setFavoriteCount(serverCount);
+      }
 
       // Capture signal for personalization (only when adding)
-      if (newIsFavorited) {
+      if (nowFavorited) {
         await captureSignal(eventId, 'favorite');
       }
     } catch {
-      // Revert on error
-      setIsFavorited(!newIsFavorited);
-      setFavoriteCount((prev) => (!newIsFavorited ? prev + 1 : Math.max(0, prev - 1)));
+      // The shared store rolls the heart/localStorage back. The count is only
+      // changed from an authoritative successful response, so it needs no undo.
     }
   };
 
   // Handler for toggling favorites on similar events
   const handleToggleSimilarFavorite = async (eventId: string) => {
-    const newIsFavorited = !similarFavorites.has(eventId);
-
-    // Optimistic update
-    setSimilarFavorites((prev) => {
-      const next = new Set(prev);
-      if (newIsFavorited) {
-        next.add(eventId);
-      } else {
-        next.delete(eventId);
-      }
-      return next;
-    });
-    setSimilarFavoriteCounts((prev) => ({
-      ...prev,
-      [eventId]: newIsFavorited ? (prev[eventId] || 0) + 1 : Math.max(0, (prev[eventId] || 0) - 1),
-    }));
-
-    // Update localStorage
-    const savedFavorites = localStorage.getItem('favoritedEventIds');
-    const favorites: string[] = savedFavorites ? (JSON.parse(savedFavorites) as string[]) : [];
-    if (newIsFavorited) {
-      favorites.push(eventId);
-    } else {
-      const index = favorites.indexOf(eventId);
-      if (index > -1) favorites.splice(index, 1);
-    }
-    localStorage.setItem('favoritedEventIds', JSON.stringify(favorites));
-
-    // Update server
     try {
-      await fetch(`/api/events/${eventId}/favorite`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ action: newIsFavorited ? 'add' : 'remove' }),
-      });
+      const { isFavorited: nowFavorited, favoriteCount: serverCount } =
+        await toggleFavorite(eventId);
+      if (serverCount !== null) {
+        setSimilarFavoriteCounts((prev) => ({ ...prev, [eventId]: serverCount }));
+      }
 
       // Capture signal for personalization (only when adding)
-      if (newIsFavorited) {
+      if (nowFavorited) {
         await captureSignal(eventId, 'favorite');
       }
     } catch {
-      // Revert on error
-      setSimilarFavorites((prev) => {
-        const next = new Set(prev);
-        if (!newIsFavorited) {
-          next.add(eventId);
-        } else {
-          next.delete(eventId);
-        }
-        return next;
-      });
-      setSimilarFavoriteCounts((prev) => ({
-        ...prev,
-        [eventId]: !newIsFavorited
-          ? (prev[eventId] || 0) + 1
-          : Math.max(0, (prev[eventId] || 0) - 1),
-      }));
+      // Heart/localStorage rollback is owned by the shared store; counts only
+      // change from successful server responses.
     }
   };
 

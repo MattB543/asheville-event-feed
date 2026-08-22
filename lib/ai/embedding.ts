@@ -5,14 +5,34 @@
  * for semantic search and similarity matching.
  */
 
-import { TaskType } from '@google/generative-ai';
+import { GoogleGenerativeAIAbortError, TaskType } from '@google/generative-ai';
 import { getEmbeddingModel, isAIEnabled } from './provider-clients';
+import { withRetry } from '../utils/retry';
 
 // Embedding configuration
 export const EMBEDDING_DIMENSIONS = 1536;
 
+/**
+ * Deadline for a single embed call. The AI cron fires these ten at a time via
+ * Promise.all, so one hung request used to block its whole batch until the
+ * function was killed.
+ */
+export const EMBEDDING_TIMEOUT_MS = 30_000;
+
 export interface EmbeddingOptions {
   taskType?: TaskType;
+}
+
+/**
+ * A timed-out request is aborted client-side only - the call may still be
+ * running (and billable) at Google, so retrying it would stack concurrent
+ * paid calls. Retry settled failures only.
+ */
+function isAbortFailure(error: unknown): boolean {
+  return (
+    error instanceof GoogleGenerativeAIAbortError ||
+    (error instanceof Error && (error.name === 'AbortError' || error.name === 'TimeoutError'))
+  );
 }
 
 /**
@@ -38,13 +58,25 @@ export async function generateEmbedding(
   }
 
   try {
-    // Using type assertion because SDK types don't include outputDimensionality yet
-    // but the API supports it (tested and working)
-    const result = await model.embedContent({
-      content: { role: 'user', parts: [{ text }] },
-      taskType: options?.taskType ?? TaskType.RETRIEVAL_DOCUMENT,
-      outputDimensionality: EMBEDDING_DIMENSIONS,
-    } as Parameters<typeof model.embedContent>[0]);
+    const result = await withRetry(
+      () =>
+        // Using type assertion because SDK types don't include outputDimensionality yet
+        // but the API supports it (tested and working)
+        model.embedContent(
+          {
+            content: { role: 'user', parts: [{ text }] },
+            taskType: options?.taskType ?? TaskType.RETRIEVAL_DOCUMENT,
+            outputDimensionality: EMBEDDING_DIMENSIONS,
+          } as Parameters<typeof model.embedContent>[0],
+          { timeout: EMBEDDING_TIMEOUT_MS }
+        ),
+      {
+        maxRetries: 3,
+        baseDelay: 1000,
+        maxDelay: 8000,
+        shouldRetry: (error) => !isAbortFailure(error),
+      }
+    );
 
     const embedding = result.embedding.values;
     return embedding;
@@ -55,45 +87,6 @@ export async function generateEmbedding(
     );
     return null;
   }
-}
-
-/**
- * Generate an embedding for a search query.
- * Uses RETRIEVAL_QUERY task type for optimal search performance.
- * Returns 1536-dimensional embeddings (same as document embeddings).
- */
-export async function generateQueryEmbedding(query: string): Promise<number[] | null> {
-  return generateEmbedding(query, { taskType: TaskType.RETRIEVAL_QUERY });
-}
-
-/**
- * Generate embeddings for multiple texts in batch.
- * Processes sequentially to avoid rate limits.
- */
-export async function generateEmbeddings(
-  texts: string[],
-  options?: {
-    taskType?: TaskType;
-    delayMs?: number;
-    onProgress?: (current: number, total: number) => void;
-  }
-): Promise<(number[] | null)[]> {
-  const { taskType = TaskType.RETRIEVAL_DOCUMENT, delayMs = 100, onProgress } = options || {};
-  const results: (number[] | null)[] = [];
-
-  for (let i = 0; i < texts.length; i++) {
-    const embedding = await generateEmbedding(texts[i], { taskType });
-    results.push(embedding);
-
-    onProgress?.(i + 1, texts.length);
-
-    // Add delay between requests to avoid rate limits
-    if (i < texts.length - 1 && delayMs > 0) {
-      await new Promise((resolve) => setTimeout(resolve, delayMs));
-    }
-  }
-
-  return results;
 }
 
 /**

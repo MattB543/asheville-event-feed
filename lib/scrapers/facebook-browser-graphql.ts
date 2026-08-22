@@ -155,12 +155,14 @@ export async function fetchEventDetailsInBrowser(
           headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'X-FB-LSD': lsd },
           body: headerParams.toString(),
           credentials: 'include',
+          signal: AbortSignal.timeout(15000),
         }),
         fetch('https://www.facebook.com/api/graphql/', {
           method: 'POST',
           headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'X-FB-LSD': lsd },
           body: aboutParams.toString(),
           credentials: 'include',
+          signal: AbortSignal.timeout(15000),
         }),
       ]);
 

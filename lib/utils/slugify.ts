@@ -23,15 +23,19 @@ export function cleanTitle(title: string): string {
     .slice(0, 60); // Limit length
 }
 
+const slugDateFormatter = new Intl.DateTimeFormat('en-CA', {
+  timeZone: 'America/New_York',
+  year: 'numeric',
+  month: '2-digit',
+  day: '2-digit',
+});
+
 /**
- * Formats a date as YYYY-MM-DD for URL slugs
+ * Formats a date as YYYY-MM-DD for URL slugs, in Eastern time so slugs are
+ * stable regardless of the host timezone (Vercel runs UTC).
  */
 export function formatDateForSlug(date: Date): string {
-  const d = new Date(date);
-  const year = d.getFullYear();
-  const month = String(d.getMonth() + 1).padStart(2, '0');
-  const day = String(d.getDate()).padStart(2, '0');
-  return `${year}-${month}-${day}`;
+  return slugDateFormatter.format(new Date(date)); // en-CA yields YYYY-MM-DD
 }
 
 /**

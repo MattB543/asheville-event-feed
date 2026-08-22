@@ -4,6 +4,7 @@ import { isNonNCEvent } from '@/lib/utils/geo';
 import { formatPrice } from '@/lib/utils/parsers';
 import { getZipFromCoords, getZipFromCity } from '@/lib/utils/geo';
 import { tryExtractPrice } from '@/lib/utils/parsers';
+import { parseAsEastern } from '@/lib/utils/timezone';
 
 // URL domain to organizer mapping
 const DOMAIN_TO_ORGANIZER: Record<string, string> = {
@@ -180,20 +181,28 @@ function formatAvlEvent(ev: AvlTodayResponse['Value'][0]): ScrapedEvent {
     ? ev.PId.toString()
     : ev.Id || `avl-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
 
-  // Parse the date and check if time is unknown (midnight in local time = date-only from source)
-  const rawDate = new Date(ev.StartUTC || ev.DateStart);
+  // StartUTC is a real UTC instant. DateStart is a naive Eastern string and must
+  // be parsed as Eastern explicitly — `new Date()` would read it in the server's
+  // timezone (4-5h off on UTC hosts). Only a genuinely date-only value counts as
+  // "time unknown"; a midnight start is preserved as a real time.
+  const rawStart = (ev.StartUTC || ev.DateStart || '').trim();
+  const dateOnlyMatch = ev.StartUTC ? null : rawStart.match(/^(\d{4}-\d{2}-\d{2})$/);
+  const isTimeUnknown = dateOnlyMatch !== null;
 
-  // Check if the time is midnight in Eastern time (indicates date-only)
-  // Midnight EST = 05:00 UTC, Midnight EDT = 04:00 UTC
-  const hours = rawDate.getUTCHours();
-  const minutes = rawDate.getUTCMinutes();
-  const isTimeUnknown = (hours === 4 || hours === 5) && minutes === 0;
-
-  // If time is unknown, default to 9 AM Eastern (14:00 or 13:00 UTC)
-  let startDate = rawDate;
-  if (isTimeUnknown) {
-    // Set to 9 AM Eastern - add 9 hours from midnight
-    startDate = new Date(rawDate.getTime() + 9 * 60 * 60 * 1000);
+  let startDate: Date;
+  if (ev.StartUTC) {
+    startDate = new Date(ev.StartUTC);
+  } else if (dateOnlyMatch) {
+    // No clock time from the source - default to 9 AM Eastern
+    startDate = parseAsEastern(dateOnlyMatch[1], '09:00:00');
+  } else {
+    const dateTimeMatch = rawStart.match(/^(\d{4}-\d{2}-\d{2})[T ](\d{2}:\d{2}(?::\d{2})?)/);
+    startDate = dateTimeMatch
+      ? parseAsEastern(
+          dateTimeMatch[1],
+          dateTimeMatch[2].length === 5 ? `${dateTimeMatch[2]}:00` : dateTimeMatch[2]
+        )
+      : new Date(rawStart);
   }
 
   // Build location string with address if available

@@ -133,7 +133,9 @@ export async function scrapeEventbrite(maxPages: number = 30): Promise<ScrapedEv
 
       if (events.length > 0) {
         console.log(`[Eventbrite Scraper] Batch ${batchNum} received ${events.length} events`);
-        const formatted = events.map((ev) => formatEventbriteEvent(ev));
+        const formatted = events
+          .map((ev) => formatEventbriteEvent(ev))
+          .filter((ev): ev is ScrapedEvent => ev !== null);
         allEvents.push(...formatted);
       } else {
         console.log(`[Eventbrite Scraper] Batch ${batchNum} received no events or invalid format.`);
@@ -169,7 +171,7 @@ export async function scrapeEventbrite(maxPages: number = 30): Promise<ScrapedEv
   return ncEvents;
 }
 
-function formatEventbriteEvent(ev: EventbriteApiEvent): ScrapedEvent {
+function formatEventbriteEvent(ev: EventbriteApiEvent): ScrapedEvent | null {
   // Extract price (rounded to nearest dollar)
   let price = 'Unknown';
   if (ev.ticket_availability?.is_free) {
@@ -239,17 +241,14 @@ function formatEventbriteEvent(ev: EventbriteApiEvent): ScrapedEvent {
     const timezone = ev.timezone || 'America/New_York';
     startDate = parseLocalDateInTimezone(localDateStr, timezone);
   } else {
-    console.warn(
-      `[Eventbrite] No date for event "${title}" (ID: ${ev.id}), using current date as fallback`
-    );
-    startDate = new Date();
+    // Skip rather than fabricate "today" - a made-up date creates a phantom live event
+    console.warn(`[Eventbrite] No date for event "${title}" (ID: ${ev.id}), skipping`);
+    return null;
   }
 
   if (isNaN(startDate.getTime())) {
-    console.warn(
-      `[Eventbrite] Invalid date for event "${title}" (ID: ${ev.id}), using current date as fallback`
-    );
-    startDate = new Date();
+    console.warn(`[Eventbrite] Invalid date for event "${title}" (ID: ${ev.id}), skipping`);
+    return null;
   }
 
   // Build location string with full address when available

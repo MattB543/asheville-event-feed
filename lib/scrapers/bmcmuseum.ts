@@ -68,14 +68,53 @@ interface WPMedia {
 // HELPER FUNCTIONS
 // ============================================================================
 
+const MONTH_NAME_TO_INDEX: Record<string, number> = {
+  january: 0,
+  jan: 0,
+  february: 1,
+  feb: 1,
+  march: 2,
+  mar: 2,
+  april: 3,
+  apr: 3,
+  may: 4,
+  june: 5,
+  jun: 5,
+  july: 6,
+  jul: 6,
+  august: 7,
+  aug: 7,
+  september: 8,
+  sept: 8,
+  sep: 8,
+  october: 9,
+  oct: 9,
+  november: 10,
+  nov: 10,
+  december: 11,
+  dec: 11,
+};
+
+/** Build a YYYY-MM-DD string from a matched month name / day / year. */
+function toDateString(monthStr: string, dayStr: string, yearStr: string): string | null {
+  const month = MONTH_NAME_TO_INDEX[monthStr.toLowerCase()];
+  if (month === undefined) return null;
+  const day = parseInt(dayStr, 10);
+  return `${yearStr}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+}
+
 /**
  * Parse event date and time from excerpt or content
  * Handles formats like:
  *   - "January 10, 2025 at 7PM"
  *   - "Saturday, January 10, 2025 at 7PM"
  *   - "Friday, Sept. 12, 2025, 10am-12pm"
+ *   - "January 10, 2025" (date only -> default evening time, timeUnknown)
  */
-function parseEventDate(excerpt: string, content: string): Date | null {
+function parseEventDate(
+  excerpt: string,
+  content: string
+): { startDate: Date; timeUnknown: boolean } | null {
   // Clean HTML and decode entities
   const cleanExcerpt = decodeHtmlEntities(excerpt);
   const cleanContent = decodeHtmlEntities(content);
@@ -92,39 +131,9 @@ function parseEventDate(excerpt: string, content: string): Date | null {
     if (dateTimeMatch) {
       const [, monthStr, dayStr, yearStr, hourStr, minuteStr, ampm] = dateTimeMatch;
 
-      // Convert month name to number
-      const monthMap: Record<string, number> = {
-        january: 0,
-        jan: 0,
-        february: 1,
-        feb: 1,
-        march: 2,
-        mar: 2,
-        april: 3,
-        apr: 3,
-        may: 4,
-        june: 5,
-        jun: 5,
-        july: 6,
-        jul: 6,
-        august: 7,
-        aug: 7,
-        september: 8,
-        sept: 8,
-        sep: 8,
-        october: 9,
-        oct: 9,
-        november: 10,
-        nov: 10,
-        december: 11,
-        dec: 11,
-      };
+      const dateStr = toDateString(monthStr, dayStr, yearStr);
+      if (!dateStr) continue;
 
-      const month = monthMap[monthStr.toLowerCase()];
-      if (month === undefined) continue;
-
-      const day = parseInt(dayStr, 10);
-      const year = parseInt(yearStr, 10);
       let hour = parseInt(hourStr, 10);
       const minute = minuteStr ? parseInt(minuteStr, 10) : 0;
 
@@ -136,11 +145,25 @@ function parseEventDate(excerpt: string, content: string): Date | null {
         hour = 0;
       }
 
-      // Build date string and parse as Eastern
-      const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
       const timeStr = `${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')}:00`;
 
-      return parseAsEastern(dateStr, timeStr);
+      return { startDate: parseAsEastern(dateStr, timeStr), timeUnknown: false };
+    }
+  }
+
+  // No clock time anywhere - fall back to a date-only match and the codebase's
+  // default evening time, rather than dropping the event entirely.
+  for (const text of textSources) {
+    const dateOnlyMatch = text.match(
+      /(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)?[,\s]*(\w+)\.?\s+(\d{1,2}),?\s+(\d{4})/i
+    );
+
+    if (dateOnlyMatch) {
+      const [, monthStr, dayStr, yearStr] = dateOnlyMatch;
+      const dateStr = toDateString(monthStr, dayStr, yearStr);
+      if (!dateStr) continue;
+
+      return { startDate: parseAsEastern(dateStr, '19:00:00'), timeUnknown: true };
     }
   }
 
@@ -392,13 +415,15 @@ export async function scrapeBMCMuseum(): Promise<ScrapedEvent[]> {
       }
 
       // Regular event handling
-      const startDate = parseEventDate(post.excerpt.rendered, post.content.rendered);
+      const parsedDate = parseEventDate(post.excerpt.rendered, post.content.rendered);
 
-      if (!startDate) {
+      if (!parsedDate) {
         console.log(`[BMCMuseum] No date found for: ${title.slice(0, 40)}`);
         skippedNoDate++;
         continue;
       }
+
+      const { startDate, timeUnknown } = parsedDate;
 
       // Skip past events
       if (startDate < now) {
@@ -429,6 +454,7 @@ export async function scrapeBMCMuseum(): Promise<ScrapedEvent[]> {
         price,
         url: post.link,
         imageUrl,
+        timeUnknown,
       });
     }
 

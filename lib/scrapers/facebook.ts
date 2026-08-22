@@ -27,15 +27,17 @@ import { log } from './facebook-stealth';
 /**
  * Transform Facebook GraphQL event data to common ScrapedEvent format
  */
-function transformToScrapedEvent(fbEvent: FacebookGraphQLEvent): ScrapedEvent {
-  // Convert Unix timestamp to Date
-  let startDate: Date;
-  if (fbEvent.startTimestamp) {
-    startDate = new Date(fbEvent.startTimestamp * 1000);
-  } else {
-    // Fallback to current date + 7 days if no timestamp
-    startDate = new Date();
-    startDate.setDate(startDate.getDate() + 7);
+function transformToScrapedEvent(fbEvent: FacebookGraphQLEvent): ScrapedEvent | null {
+  // Convert Unix timestamp to Date. Skip undated events rather than inventing a
+  // date a week out — that fabricates a phantom live event.
+  if (!fbEvent.startTimestamp) {
+    console.warn(`[Facebook] No start timestamp for event ${fbEvent.eventId}, skipping`);
+    return null;
+  }
+  const startDate = new Date(fbEvent.startTimestamp * 1000);
+  if (isNaN(startDate.getTime())) {
+    console.warn(`[Facebook] Invalid start timestamp for event ${fbEvent.eventId}, skipping`);
+    return null;
   }
 
   // Format price
@@ -61,14 +63,16 @@ function transformToScrapedEvent(fbEvent: FacebookGraphQLEvent): ScrapedEvent {
 /**
  * Transform browser-fetched event data to common ScrapedEvent format
  */
-function transformBrowserEventToScrapedEvent(fbEvent: FacebookEventDetails): ScrapedEvent {
-  // Convert Unix timestamp to Date
-  let startDate: Date;
-  if (fbEvent.startTimestamp) {
-    startDate = new Date(fbEvent.startTimestamp * 1000);
-  } else {
-    startDate = new Date();
-    startDate.setDate(startDate.getDate() + 7);
+function transformBrowserEventToScrapedEvent(fbEvent: FacebookEventDetails): ScrapedEvent | null {
+  // Convert Unix timestamp to Date; skip undated events instead of fabricating one
+  if (!fbEvent.startTimestamp) {
+    console.warn(`[Facebook] No start timestamp for event ${fbEvent.eventId}, skipping`);
+    return null;
+  }
+  const startDate = new Date(fbEvent.startTimestamp * 1000);
+  if (isNaN(startDate.getTime())) {
+    console.warn(`[Facebook] Invalid start timestamp for event ${fbEvent.eventId}, skipping`);
+    return null;
   }
 
   // Get zip from About query extraction (lat/lon lookup done synchronously at call site if needed)
@@ -131,7 +135,9 @@ export async function scrapeFacebookEvents(): Promise<ScrapedEvent[]> {
     console.log(`  📦 Fetched ${fbEvents.length} events`);
 
     // Transform to common format
-    const events = fbEvents.map(transformBrowserEventToScrapedEvent);
+    const events = fbEvents
+      .map(transformBrowserEventToScrapedEvent)
+      .filter((e): e is ScrapedEvent => e !== null);
 
     // Log some stats
     const withDesc = events.filter((e) => e.description).length;
@@ -176,7 +182,9 @@ export async function scrapeFacebookEventsByIds(eventIds: string[]): Promise<Scr
       concurrency: 3,
       delayMs: 1500,
     });
-    const events = fbEvents.map(transformToScrapedEvent);
+    const events = fbEvents
+      .map(transformToScrapedEvent)
+      .filter((e): e is ScrapedEvent => e !== null);
 
     console.log(`  ✅ Scraped ${events.length} Facebook events\n`);
     return events;

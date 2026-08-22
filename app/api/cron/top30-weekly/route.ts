@@ -18,20 +18,12 @@ import {
   extractStoredTop30NotificationTrackingKeys,
   extractStoredTop30TrackedEventIds,
 } from '@/lib/notifications/top30-notification-tracking';
-import { encodeUnsubscribeToken } from '@/app/api/top30/unsubscribe/route';
+import { encodeUnsubscribeToken } from '@/lib/notifications/unsubscribe-token';
+import { listAuthUserContacts } from '@/lib/supabase/adminUsers';
 import { startCronJob, completeCronJob, failCronJob } from '@/lib/cron/jobTracker';
+import { formatDuration } from '@/lib/utils/cron';
 
 export const maxDuration = 300; // 5 minutes
-
-// Helper to format duration in human-readable form
-function formatDuration(ms: number): string {
-  if (ms < 1000) return `${ms}ms`;
-  const seconds = Math.floor(ms / 1000);
-  if (seconds < 60) return `${seconds}s`;
-  const minutes = Math.floor(seconds / 60);
-  const remainingSeconds = seconds % 60;
-  return `${minutes}m ${remainingSeconds}s`;
-}
 
 // Weekly Top 30 digest cron job
 //
@@ -55,7 +47,15 @@ export async function GET(request: Request) {
   }
 
   const jobStartTime = Date.now();
-  const runId = await startCronJob('top30-weekly');
+  let runId: string | null = null;
+  try {
+    runId = await startCronJob('top30-weekly');
+  } catch (trackerErr) {
+    console.error(
+      '[Top30Weekly] Failed to start cron job tracker:',
+      trackerErr instanceof Error ? trackerErr.message : String(trackerErr)
+    );
+  }
 
   const stats = {
     subscribers: 0,
@@ -116,11 +116,10 @@ export async function GET(request: Request) {
       .where(gte(events.startDate, now));
     const futureEventIdSet = new Set(futureEventIds.map((e) => e.id));
 
-    // Get user emails from Supabase
+    // Get user emails from Supabase (paged - a single 1000-row page silently
+    // drops every subscriber past the first page)
     const supabase = createServiceClient();
-    const { data: authUsers, error: authError } = await supabase.auth.admin.listUsers({
-      perPage: 1000,
-    });
+    const { contacts: userEmailMap, error: authError } = await listAuthUserContacts(supabase);
 
     if (authError) {
       console.error('[Top30Weekly] Failed to fetch auth users:', authError);
@@ -130,20 +129,6 @@ export async function GET(request: Request) {
         { status: 500 }
       );
     }
-
-    const userEmailMap = new Map<string, { email: string; name?: string }>();
-    authUsers.users.forEach((user) => {
-      if (user.email) {
-        const metadata = user.user_metadata as Record<string, unknown> | undefined;
-        const name =
-          typeof metadata?.full_name === 'string'
-            ? metadata.full_name
-            : typeof metadata?.name === 'string'
-              ? metadata.name
-              : undefined;
-        userEmailMap.set(user.id, { email: user.email, name });
-      }
-    });
 
     const appUrl = env.NEXT_PUBLIC_APP_URL;
 

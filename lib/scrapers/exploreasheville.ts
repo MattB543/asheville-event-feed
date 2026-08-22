@@ -10,91 +10,22 @@ import { isNonNCEvent } from '@/lib/utils/geo';
 import { getZipFromCoords, getZipFromCity } from '@/lib/utils/geo';
 import { exec } from 'child_process';
 import { promisify } from 'util';
+import { parseAsEastern } from '@/lib/utils/timezone';
+import { decodeHtmlEntities } from '@/lib/utils/parsers';
+import { DEFAULT_FETCH_TIMEOUT_MS, HttpResponseError } from '@/lib/utils/retry';
 
 const execAsync = promisify(exec);
 
 /**
  * Parse a date string from the API as Eastern Time.
  * The API returns dates like "2025-12-12T10:00:00.000Z" but the times are actually ET,
- * not UTC. We need to strip the Z and interpret as America/New_York timezone.
+ * not UTC. We strip the Z and interpret the wall clock as America/New_York.
  */
 function parseAsEasternTime(dateStr: string): Date {
-  // Remove the Z suffix if present - the times are NOT actually UTC
-  const cleanedStr = dateStr.replace(/Z$/, '');
-
-  // Parse the date components
-  const [datePart, timePart] = cleanedStr.split('T');
-  const [year, month, day] = datePart.split('-').map(Number);
-  const [hours, minutes, seconds] = (timePart || '00:00:00').split(':').map((s) => parseFloat(s));
-
-  // Create a date string with explicit ET timezone
-  // Format: "2025-12-12T10:00:00" in America/New_York
-  const dateInET = new Date(
-    Date.UTC(year, month - 1, day, hours, Math.floor(minutes), Math.floor(seconds || 0))
-  );
-
-  // Calculate Eastern Time offset (handles DST automatically)
-  // ET is UTC-5 (EST) or UTC-4 (EDT)
-  const etOffset = getEasternTimeOffset(dateInET);
-
-  // Adjust from "fake UTC" (which is actually ET) to real UTC
-  // If API says 10:00Z but means 10:00 ET, we need to ADD the offset to get UTC
-  return new Date(dateInET.getTime() + etOffset * 60 * 60 * 1000);
-}
-
-/**
- * Get the Eastern Time offset for a given date (handles DST).
- * Returns hours to add to convert from ET to UTC (5 for EST, 4 for EDT).
- */
-function getEasternTimeOffset(date: Date): number {
-  // Use Intl to determine if DST is in effect for the given date
-  const jan = new Date(date.getFullYear(), 0, 1);
-  const jul = new Date(date.getFullYear(), 6, 1);
-
-  const janOffset = getTimezoneOffsetForDate(jan);
-  const julOffset = getTimezoneOffsetForDate(jul);
-  const dateOffset = getTimezoneOffsetForDate(date);
-
-  // In ET: EST (standard) = UTC-5, EDT (daylight) = UTC-4
-  // The offset with MORE negative minutes is standard time
-  const standardOffset = Math.max(janOffset, julOffset);
-
-  // If current date has the standard offset, it's EST (return 5)
-  // Otherwise it's EDT (return 4)
-  return dateOffset === standardOffset ? 5 : 4;
-}
-
-/**
- * Get timezone offset in minutes for a specific date using America/New_York
- */
-function getTimezoneOffsetForDate(date: Date): number {
-  // Create formatter for America/New_York
-  const formatter = new Intl.DateTimeFormat('en-US', {
-    timeZone: 'America/New_York',
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-    hour: '2-digit',
-    minute: '2-digit',
-    second: '2-digit',
-    hour12: false,
-  });
-
-  const parts = formatter.formatToParts(date);
-  const getPart = (type: string) => parts.find((p) => p.type === type)?.value || '0';
-
-  const etYear = parseInt(getPart('year'));
-  const etMonth = parseInt(getPart('month')) - 1;
-  const etDay = parseInt(getPart('day'));
-  const etHour = parseInt(getPart('hour'));
-  const etMinute = parseInt(getPart('minute'));
-  const etSecond = parseInt(getPart('second'));
-
-  // Create a Date from ET components (as if they were UTC)
-  const etAsUtc = Date.UTC(etYear, etMonth, etDay, etHour, etMinute, etSecond);
-
-  // The difference between UTC time and "ET as UTC" gives us the offset
-  return Math.round((date.getTime() - etAsUtc) / (60 * 1000));
+  const [datePart, timePart = '00:00:00'] = dateStr.replace(/Z$/, '').split('T');
+  const [hours = '00', minutes = '00', seconds = '00'] = timePart.split(':');
+  const pad = (value: string) => String(parseInt(value, 10) || 0).padStart(2, '0');
+  return parseAsEastern(datePart, `${pad(hours)}:${pad(minutes)}:${pad(seconds)}`);
 }
 
 // API Configuration
@@ -171,57 +102,66 @@ const FETCH_HEADERS: Record<string, string> = {
 };
 
 /**
- * Fetch a page using native fetch (works on Vercel, may be blocked locally)
+ * Curl-fallback state, scoped to a single scrape run rather than the module —
+ * a warm lambda must not stay stuck on curl because one request 403'd.
  */
-async function fetchWithNativeFetch(url: string): Promise<ExploreAshevilleResponse> {
+export interface CurlFallbackState {
+  useCurl: boolean;
+}
+
+export function createCurlFallbackState(): CurlFallbackState {
+  return { useCurl: false };
+}
+
+/**
+ * Fetch a URL with curl (bypasses TLS fingerprinting, for local dev).
+ * Only used for this site's own API/detail URLs, which we build ourselves.
+ */
+async function runCurl(url: string): Promise<string> {
+  const maxTimeSeconds = Math.ceil(DEFAULT_FETCH_TIMEOUT_MS / 1000);
+  const command = `curl -s --max-time ${maxTimeSeconds} "${url}" ${CURL_HEADERS}`;
+  const { stdout } = await execAsync(command, {
+    maxBuffer: 10 * 1024 * 1024,
+    timeout: DEFAULT_FETCH_TIMEOUT_MS + 1000,
+  });
+  return stdout;
+}
+
+/**
+ * Fetch a URL with native fetch, throwing an HttpResponseError (carrying the
+ * status) so callers can branch on 403 instead of substring-matching messages.
+ */
+async function runNativeFetch(url: string): Promise<Response> {
   const response = await fetch(url, {
     headers: FETCH_HEADERS,
     cache: 'no-store',
+    signal: AbortSignal.timeout(DEFAULT_FETCH_TIMEOUT_MS),
   });
   if (!response.ok) {
-    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+    throw new HttpResponseError(response.status, response.statusText, url);
   }
-  return (await response.json()) as ExploreAshevilleResponse;
+  return response;
+}
+
+function isForbidden(error: unknown): boolean {
+  return error instanceof HttpResponseError && error.status === 403;
 }
 
 /**
- * Fetch a page using curl (bypasses TLS fingerprinting, for local dev)
+ * Fetch text with fallback: try native fetch first, then curl on a 403
  */
-async function fetchWithCurl(url: string): Promise<ExploreAshevilleResponse> {
-  const command = `curl -s "${url}" ${CURL_HEADERS}`;
-  const { stdout } = await execAsync(command, { maxBuffer: 10 * 1024 * 1024 });
-  return JSON.parse(stdout) as ExploreAshevilleResponse;
-}
-
-// Track if we need to use curl fallback (persists across requests in same scrape session)
-let useCurlFallback = false;
-
-/**
- * Fetch HTML page with fallback: try native fetch first, then curl
- */
-async function fetchHTML(url: string): Promise<string> {
-  if (useCurlFallback) {
-    const command = `curl -s "${url}" ${CURL_HEADERS}`;
-    const { stdout } = await execAsync(command, { maxBuffer: 10 * 1024 * 1024 });
-    return stdout;
+async function fetchText(url: string, state: CurlFallbackState): Promise<string> {
+  if (state.useCurl) {
+    return runCurl(url);
   }
 
   try {
-    const response = await fetch(url, {
-      headers: FETCH_HEADERS,
-      cache: 'no-store',
-    });
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-    }
+    const response = await runNativeFetch(url);
     return await response.text();
   } catch (error) {
-    const message = error instanceof Error ? error.message : String(error);
-    if (message.includes('403') || message.includes('Forbidden')) {
-      useCurlFallback = true;
-      const command = `curl -s "${url}" ${CURL_HEADERS}`;
-      const { stdout } = await execAsync(command, { maxBuffer: 10 * 1024 * 1024 });
-      return stdout;
+    if (isForbidden(error)) {
+      state.useCurl = true;
+      return runCurl(url);
     }
     throw error;
   }
@@ -232,11 +172,14 @@ async function fetchHTML(url: string): Promise<string> {
  * Extracts from og:description meta tag
  * Exported for use in cron route to fetch descriptions for new events
  */
-export async function fetchEventDescription(pathOrUrl: string): Promise<string | undefined> {
+export async function fetchEventDescription(
+  pathOrUrl: string,
+  state: CurlFallbackState = createCurlFallbackState()
+): Promise<string | undefined> {
   try {
     // Handle both full URLs and paths
     const fullUrl = pathOrUrl.startsWith('http') ? pathOrUrl : `${BASE_URL}${pathOrUrl}`;
-    const html = await fetchHTML(fullUrl);
+    const html = await fetchText(fullUrl, state);
 
     // Try og:description first (usually cleaner)
     let match =
@@ -251,14 +194,7 @@ export async function fetchEventDescription(pathOrUrl: string): Promise<string |
     }
 
     if (match?.[1]) {
-      // Decode HTML entities
-      return match[1]
-        .replace(/&amp;/g, '&')
-        .replace(/&lt;/g, '<')
-        .replace(/&gt;/g, '>')
-        .replace(/&quot;/g, '"')
-        .replace(/&#39;/g, "'")
-        .trim();
+      return decodeHtmlEntities(match[1]);
     }
     return undefined;
   } catch {
@@ -271,21 +207,21 @@ export async function fetchEventDescription(pathOrUrl: string): Promise<string |
  * Fetch API with fallback: try native fetch first, then curl
  * Native fetch may work on Vercel but get blocked locally (TLS fingerprinting)
  */
-async function fetchAPI(url: string): Promise<ExploreAshevilleResponse> {
+async function fetchAPI(url: string, state: CurlFallbackState): Promise<ExploreAshevilleResponse> {
   // If we already know fetch is blocked, go straight to curl
-  if (useCurlFallback) {
-    return await fetchWithCurl(url);
+  if (state.useCurl) {
+    return JSON.parse(await runCurl(url)) as ExploreAshevilleResponse;
   }
 
   try {
-    return await fetchWithNativeFetch(url);
+    const response = await runNativeFetch(url);
+    return (await response.json()) as ExploreAshevilleResponse;
   } catch (error) {
-    // If fetch fails (likely 403 from TLS fingerprinting), try curl
-    const message = error instanceof Error ? error.message : String(error);
-    if (message.includes('403') || message.includes('Forbidden')) {
+    // A 403 is the TLS-fingerprinting block; fall back to curl for this run
+    if (isForbidden(error)) {
       console.log('[ExploreAsheville] Native fetch blocked, using curl fallback...');
-      useCurlFallback = true;
-      return await fetchWithCurl(url);
+      state.useCurl = true;
+      return JSON.parse(await runCurl(url)) as ExploreAshevilleResponse;
     }
     throw error;
   }
@@ -299,6 +235,7 @@ export async function scrapeExploreAsheville(): Promise<ScrapedEvent[]> {
 
   const allEvents: ScrapedEvent[] = [];
   let totalFetched = 0;
+  const fallbackState = createCurlFallbackState();
 
   for (let page = 0; page < MAX_PAGES; page++) {
     try {
@@ -313,7 +250,7 @@ export async function scrapeExploreAsheville(): Promise<ScrapedEvent[]> {
       console.log(`[ExploreAsheville] Fetching page ${page}...`);
 
       const url = `${API_URL}?${params}`;
-      const data = await fetchAPI(url);
+      const data = await fetchAPI(url, fallbackState);
       const events = data.results || [];
 
       console.log(

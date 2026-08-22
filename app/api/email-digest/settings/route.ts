@@ -150,7 +150,12 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const body = (await request.json()) as NewsletterSettingsPayload;
+    let body: NewsletterSettingsPayload;
+    try {
+      body = (await request.json()) as NewsletterSettingsPayload;
+    } catch {
+      return NextResponse.json({ error: 'Invalid JSON body' }, { status: 400 });
+    }
 
     if (body.frequency && !ALLOWED_FREQUENCIES.includes(body.frequency)) {
       return NextResponse.json({ error: 'Invalid frequency value' }, { status: 400 });

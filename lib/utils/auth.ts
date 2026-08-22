@@ -1,8 +1,11 @@
-import { timingSafeEqual } from 'crypto';
+import { createHash, timingSafeEqual } from 'crypto';
 
 /**
  * Timing-safe comparison of authorization header against expected token.
- * Prevents timing attacks that could reveal the secret character-by-character.
+ * Both sides are SHA-256 hashed first so the buffers are always the same
+ * length - this removes the length-comparison branch (which leaked whether
+ * the supplied token was the right length) while keeping the comparison
+ * constant time.
  */
 export function verifyAuthToken(authHeader: string | null, secret: string | undefined): boolean {
   if (!authHeader || !secret) {
@@ -11,19 +14,8 @@ export function verifyAuthToken(authHeader: string | null, secret: string | unde
 
   const expectedToken = `Bearer ${secret}`;
 
-  // Ensure both strings are the same length for comparison
-  // If lengths differ, comparison will fail but we still do the work
-  // to prevent timing leakage about length
-  if (authHeader.length !== expectedToken.length) {
-    // Do a dummy comparison to maintain constant time
-    const dummy = Buffer.from(authHeader);
-    const dummyExpected = Buffer.from(authHeader);
-    timingSafeEqual(dummy, dummyExpected);
-    return false;
-  }
+  const providedDigest = createHash('sha256').update(authHeader).digest();
+  const expectedDigest = createHash('sha256').update(expectedToken).digest();
 
-  const providedBuffer = Buffer.from(authHeader);
-  const expectedBuffer = Buffer.from(expectedToken);
-
-  return timingSafeEqual(providedBuffer, expectedBuffer);
+  return timingSafeEqual(providedDigest, expectedDigest);
 }

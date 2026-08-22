@@ -2,6 +2,8 @@ import {
   getAzureClient,
   getAzureDeploymentName,
   isAzureAIEnabled,
+  parseJsonFromModel,
+  shouldRetryAzureError,
 } from '@/lib/ai/provider-clients';
 import { withRetry } from '@/lib/utils/retry';
 import { isRecord, isString } from '@/lib/utils/validation';
@@ -11,32 +13,6 @@ interface AzureJsonCallOptions {
   userPrompt: string;
   maxCompletionTokens?: number;
   maxRetries?: number;
-}
-
-function getErrorStatusCode(error: unknown): number | null {
-  if (!error || typeof error !== 'object') return null;
-  if ('status' in error && typeof error.status === 'number') {
-    return error.status;
-  }
-  if ('statusCode' in error && typeof error.statusCode === 'number') {
-    return error.statusCode;
-  }
-  return null;
-}
-
-function shouldRetryAzureError(error: unknown): boolean {
-  const status = getErrorStatusCode(error);
-  if (status === null) {
-    return true;
-  }
-
-  // Retry throttling and transient server-side failures.
-  if (status === 408 || status === 409 || status === 429 || status >= 500) {
-    return true;
-  }
-
-  // 4xx auth/validation errors are not retryable.
-  return false;
 }
 
 function responseContentToString(content: unknown): string {
@@ -61,23 +37,6 @@ function responsePartToString(part: unknown): string {
   }
 
   return '';
-}
-
-function extractJsonObject(text: string): unknown {
-  const trimmed = text.trim();
-  if (!trimmed) {
-    throw new Error('Empty JSON response');
-  }
-
-  try {
-    return JSON.parse(trimmed);
-  } catch {
-    const match = trimmed.match(/\{[\s\S]*\}/);
-    if (!match) {
-      throw new Error('No JSON object found in model response');
-    }
-    return JSON.parse(match[0]);
-  }
 }
 
 export async function callAzureJson<T>(options: AzureJsonCallOptions): Promise<T> {
@@ -119,5 +78,9 @@ export async function callAzureJson<T>(options: AzureJsonCallOptions): Promise<T
     }
   );
 
-  return extractJsonObject(responseText) as T;
+  const parsed = parseJsonFromModel<T>(responseText, 'object');
+  if (parsed === null) {
+    throw new Error('No JSON object found in model response');
+  }
+  return parsed;
 }

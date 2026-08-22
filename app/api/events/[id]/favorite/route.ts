@@ -6,8 +6,13 @@ import { isRateLimited } from '@/lib/utils/rate-limit';
 import { isRecord, isString } from '@/lib/utils/validation';
 
 // Simple in-memory rate limiting
-const RATE_LIMIT_MAX = 60; // 60 favorites per hour per IP
+const RATE_LIMIT_MAX = 60; // 60 favorites per hour per IP (across all events)
 const RATE_LIMIT_WINDOW = 60 * 60 * 1000; // 1 hour in ms
+
+// Tighter per-event cap so a single IP can't inflate one event's count,
+// layered on top of (not replacing) the IP-wide cap above.
+const EVENT_RATE_LIMIT_MAX = 10; // 10 toggles per hour per event per IP
+const EVENT_RATE_LIMIT_WINDOW = 60 * 60 * 1000; // 1 hour in ms
 
 interface RouteParams {
   params: Promise<{ id: string }>;
@@ -81,6 +86,18 @@ export async function POST(request: Request, { params }: RouteParams) {
         error: 'Invalid event ID format.',
       },
       { status: 400 }
+    );
+  }
+
+  // Per-event cap (checked after UUID validation so arbitrary IDs can't grow the map)
+  const eventRateLimitKey = `favorite:${ip}:${id}`;
+  if (isRateLimited(eventRateLimitKey, EVENT_RATE_LIMIT_MAX, EVENT_RATE_LIMIT_WINDOW)) {
+    return NextResponse.json(
+      {
+        success: false,
+        error: 'Rate limit exceeded for this event. Please try again later.',
+      },
+      { status: 429 }
     );
   }
 

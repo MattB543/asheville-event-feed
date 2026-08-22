@@ -1,6 +1,7 @@
 import { type ScrapedEvent } from './types';
 import { BROWSER_HEADERS, debugSave, fetchEventData } from './base';
 import { decodeHtmlEntities } from '@/lib/utils/parsers';
+import { parseAsEastern } from '@/lib/utils/timezone';
 
 const THUNDERTIX_BASE = 'https://northcarolinastagecompany.thundertix.com';
 const NC_STAGE_BASE = 'https://www.ncstage.org';
@@ -67,18 +68,7 @@ function parseThunderTixDate(dateStr: string): Date | null {
   const dateOnly = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
   const timeOnly = `${String(hours).padStart(2, '0')}:${minute}:00`;
 
-  // Determine Eastern offset for this date (handles DST)
-  const testDate = new Date(`${dateOnly}T12:00:00`);
-  const offsetPart = new Intl.DateTimeFormat('en-US', {
-    timeZone: 'America/New_York',
-    timeZoneName: 'shortOffset',
-  })
-    .formatToParts(testDate)
-    .find((p) => p.type === 'timeZoneName')?.value;
-
-  const offset = offsetPart?.includes('-4') ? '-04:00' : '-05:00';
-
-  return new Date(`${dateOnly}T${timeOnly}${offset}`);
+  return parseAsEastern(dateOnly, timeOnly);
 }
 
 /**

@@ -13,6 +13,10 @@ import { queryFilteredEvents, type DbEvent } from '@/lib/db/queries/events';
 // Simple in-memory rate limiter (1 request per 2 seconds per IP)
 const RATE_LIMIT_MS = 2000; // 2 seconds between requests
 
+// Deadlines for outbound OpenRouter calls so a hung socket can't stall the function
+const OPENROUTER_REQUEST_TIMEOUT_MS = 15000;
+const OPENROUTER_STREAM_TIMEOUT_MS = 60000;
+
 interface ChatMessage {
   role: 'user' | 'assistant';
   content: string;
@@ -236,6 +240,7 @@ async function extractDateRangeWithOpenRouter(
         messages: [{ role: 'user', content: prompt }],
         temperature: 0,
       }),
+      signal: AbortSignal.timeout(OPENROUTER_REQUEST_TIMEOUT_MS),
     });
 
     if (!response.ok) {
@@ -537,6 +542,9 @@ async function streamWithOpenRouter(
         messages: apiMessages,
         stream: true,
       }),
+      // Overall deadline for the request including the streamed body, so a
+      // hung socket can't hold the function open indefinitely.
+      signal: AbortSignal.timeout(OPENROUTER_STREAM_TIMEOUT_MS),
     });
 
     if (!response.ok) {
@@ -594,7 +602,16 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    const parsed: unknown = await request.json();
+    let parsed: unknown;
+    try {
+      parsed = await request.json();
+    } catch {
+      return new Response(JSON.stringify({ error: 'Invalid JSON body' }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
+
     const body = parseChatRequest(parsed);
     if (!body) {
       return new Response(JSON.stringify({ error: 'Invalid request body' }), {

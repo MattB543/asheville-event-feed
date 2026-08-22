@@ -2,6 +2,7 @@ import { AzureOpenAI } from 'openai';
 import type { ChatCompletionContentPart } from 'openai/resources/chat/completions';
 import { GoogleGenerativeAI, type GenerativeModel } from '@google/generative-ai';
 import { env, isAIEnabled as checkAIEnabled } from '../config/env';
+import { withRetry } from '../utils/retry';
 
 // ============================================================================
 // JSON PARSING UTILITIES
@@ -210,57 +211,124 @@ export function getAzureDeploymentName(): string {
   return getAzureDeployment();
 }
 
-/**
- * Chat completion with Azure OpenAI.
- * Returns the response content and token usage.
- */
-export async function azureChatCompletion(
-  systemPrompt: string,
-  userPrompt: string,
-  options?: {
-    maxTokens?: number;
+/** Default token budget - reasoning models burn a lot before emitting output. */
+const DEFAULT_MAX_COMPLETION_TOKENS = 8000;
+
+/** Default per-request deadline. The SDK's own default is 10 minutes, which
+ *  can swallow an entire cron budget on a single hung call. */
+export const DEFAULT_AZURE_TIMEOUT_MS = 90_000;
+
+function getErrorStatusCode(error: unknown): number | null {
+  if (!error || typeof error !== 'object') return null;
+  if ('status' in error && typeof error.status === 'number') {
+    return error.status;
   }
-): Promise<{
+  if ('statusCode' in error && typeof error.statusCode === 'number') {
+    return error.statusCode;
+  }
+  return null;
+}
+
+/**
+ * Retry throttling and transient server-side failures only.
+ * 4xx auth/validation errors will not change on a retry.
+ */
+export function shouldRetryAzureError(error: unknown): boolean {
+  const status = getErrorStatusCode(error);
+  if (status === null) {
+    return true;
+  }
+  return status === 408 || status === 409 || status === 429 || status >= 500;
+}
+
+export interface AzureChatCompletionOptions {
+  /** max_completion_tokens (default: 8000) */
+  maxTokens?: number;
+  /** Request `response_format: json_object` from the model */
+  jsonMode?: boolean;
+  /** Total attempts, including the first (default: 3) */
+  maxRetries?: number;
+  /** Per-attempt deadline in ms (default: 90s) */
+  timeoutMs?: number;
+}
+
+export interface AzureChatCompletionResult {
   content: string;
+  /** e.g. 'stop' | 'length' | 'content_filter' - lets callers tell a truncated
+   *  response apart from a genuine parse failure. */
+  finishReason: string | null;
   usage: {
     inputTokens: number;
     outputTokens: number;
     totalTokens: number;
   };
-} | null> {
+}
+
+/**
+ * Chat completion with Azure OpenAI.
+ *
+ * Retries throttling/5xx with backoff and enforces its own request deadline;
+ * SDK-level retries are disabled so the two don't multiply.
+ */
+export async function azureChatCompletion(
+  systemPrompt: string,
+  userPrompt: string,
+  options?: AzureChatCompletionOptions
+): Promise<AzureChatCompletionResult | null> {
   const client = getAzureClient();
   if (!client) {
     console.warn('[Azure AI] Client not configured');
     return null;
   }
 
-  const response = await client.chat.completions.create({
-    model: getAzureDeployment(),
-    messages: [
-      { role: 'system', content: systemPrompt },
-      { role: 'user', content: userPrompt },
-    ],
-    max_completion_tokens: options?.maxTokens ?? 2000,
-    // Note: GPT-5-mini doesn't support temperature parameter
-  });
+  const response = await withRetry(
+    () =>
+      client.chat.completions.create(
+        {
+          model: getAzureDeployment(),
+          messages: [
+            { role: 'system', content: systemPrompt },
+            { role: 'user', content: userPrompt },
+          ],
+          max_completion_tokens: options?.maxTokens ?? DEFAULT_MAX_COMPLETION_TOKENS,
+          ...(options?.jsonMode
+            ? { response_format: { type: 'json_object' } as { type: 'json_object' } }
+            : {}),
+          // Note: GPT-5-mini doesn't support temperature parameter
+        },
+        {
+          timeout: options?.timeoutMs ?? DEFAULT_AZURE_TIMEOUT_MS,
+          maxRetries: 0, // withRetry owns retries
+        }
+      ),
+    {
+      maxRetries: options?.maxRetries ?? 3,
+      baseDelay: 2000,
+      maxDelay: 20000,
+      shouldRetry: shouldRetryAzureError,
+    }
+  );
 
   const usage = response.usage;
-  const content = response.choices[0]?.message?.content || '';
+  const choice = response.choices[0];
+  const content = choice?.message?.content || '';
+  const finishReason = choice?.finish_reason ?? null;
 
   // Debug log to help troubleshoot empty responses
   if (!content) {
     console.warn('[Azure AI] Response details:', {
-      finishReason: response.choices[0]?.finish_reason,
+      finishReason,
       promptTokens: usage?.prompt_tokens,
       completionTokens: usage?.completion_tokens,
-      hasMessage: !!response.choices[0]?.message,
+      hasMessage: !!choice?.message,
       // Check for reasoning model response
-      message: JSON.stringify(response.choices[0]?.message),
+      message: JSON.stringify(choice?.message),
     });
   }
 
   return {
     content,
+    finishReason,
     usage: {
       inputTokens: usage?.prompt_tokens || 0,
       outputTokens: usage?.completion_tokens || 0,

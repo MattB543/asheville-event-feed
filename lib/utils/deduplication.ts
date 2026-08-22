@@ -615,38 +615,3 @@ export function getDescriptionUpdates(
   }
   return updates;
 }
-
-/**
- * Analyze duplicates without removing (for testing/debugging)
- */
-export function analyzeDuplicates(events: EventForDedup[]): {
-  groups: DuplicateGroup[];
-  summary: {
-    totalEvents: number;
-    duplicateGroups: number;
-    eventsToRemove: number;
-    byMethod: Record<string, number>;
-  };
-} {
-  const groups = findDuplicates(events);
-  const idsToRemove = getIdsToRemove(groups);
-
-  // Count by method
-  const byMethod: Record<string, number> = {};
-  for (const group of groups) {
-    const methods = group.method.split(',');
-    for (const method of methods) {
-      byMethod[method] = (byMethod[method] || 0) + 1;
-    }
-  }
-
-  return {
-    groups,
-    summary: {
-      totalEvents: events.length,
-      duplicateGroups: groups.length,
-      eventsToRemove: idsToRemove.length,
-      byMethod,
-    },
-  };
-}

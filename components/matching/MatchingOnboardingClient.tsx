@@ -765,10 +765,6 @@ export default function MatchingOnboardingClient({
       compressed.forEach((blob, i) => {
         formData.append('images', blob, `bookshelf-${i + 1}.jpg`);
       });
-      if (config.aiPrompt) {
-        formData.append('aiPrompt', config.aiPrompt);
-      }
-
       const response = await fetch('/api/matching/transcribe-images', {
         method: 'POST',
         body: formData,

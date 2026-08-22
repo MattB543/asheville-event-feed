@@ -7,6 +7,7 @@
 
 import { azureChatCompletion, isAzureAIEnabled, parseJsonFromModel } from './provider-clients';
 import { normalizeTagFromAI, tryExtractOfficialTag } from '@/lib/utils/formatTag';
+import { ALL_KNOWN_TAGS, TAG_CATEGORIES, TAG_GUIDANCE } from '@/lib/config/tagCategories';
 
 export interface EventData {
   title: string;
@@ -21,55 +22,69 @@ export interface TagAndSummaryResult {
   summary: string | null;
 }
 
+/**
+ * Why a tag/summary generation attempt produced nothing usable.
+ * - `transient`: worth retrying soon (rate limit, timeout, upstream 5xx, no response)
+ * - `permanent`: retrying immediately won't help (not configured, unparsable or
+ *   empty model output, content filtered)
+ */
+export type TagAndSummaryFailureReason = 'transient' | 'permanent';
+
+/**
+ * Result of an attempt. `tags`/`summary` are always present (empty on failure)
+ * so existing callers that only read the content keep working; the cron uses
+ * `ok`/`reason` to decide between recording success and scheduling a retry.
+ */
+export type TagAndSummaryOutcome =
+  | ({ ok: true } & TagAndSummaryResult)
+  | ({
+      ok: false;
+      reason: TagAndSummaryFailureReason;
+      error: string;
+    } & TagAndSummaryResult);
+
+const EMPTY_RESULT: TagAndSummaryResult = { tags: [], summary: null };
+
+function failure(
+  reason: TagAndSummaryFailureReason,
+  error: string
+): TagAndSummaryOutcome & { ok: false } {
+  return { ok: false, reason, error, ...EMPTY_RESULT };
+}
+
+/** Classify an Azure/network error as worth retrying soon or not. */
+function classifyError(error: unknown): TagAndSummaryFailureReason {
+  const message = error instanceof Error ? error.message : String(error);
+  return /429|408|409|5\d\d|timeout|timed out|ECONNRESET|ETIMEDOUT|ENOTFOUND|fetch failed|rate limit/i.test(
+    message
+  )
+    ? 'transient'
+    : 'permanent';
+}
+
 interface TagAndSummaryAIResponse {
   official?: unknown;
   custom?: unknown;
   summary?: string;
 }
 
-// All allowed official tags - AI must ONLY use tags from this list
-const ALLOWED_TAGS = [
-  // Entertainment
-  'Live Music',
-  'Comedy',
-  'Theater & Film',
-  'Dance',
-  'Trivia',
-  'Open Mic',
-  'Karaoke',
-  // Food & Drink
-  'Dining',
-  'Beer',
-  'Wine & Spirits',
-  // Activities
-  'Art',
-  'Crafts',
-  'Fitness',
-  'Wellness',
-  'Spiritual',
-  'Meditation',
-  'Outdoors',
-  'Tours',
-  'Gaming',
-  'Sports',
-  'Education',
-  'Tech',
-  'Book Club',
-  'Museum Exhibition',
-  // Audience/Social
-  'Family',
-  'Dating',
-  'Networking',
-  'Nightlife',
-  'LGBTQ+',
-  'Pets',
-  'Community',
-  'Volunteering',
-  'Support Groups',
-  // Seasonal
-  'Holiday',
-  'Markets',
-] as const;
+// All allowed official tags - AI must ONLY use tags from this list.
+// Single-sourced from the UI's tag categories so the two can't drift apart.
+const ALLOWED_TAGS: readonly string[] = ALL_KNOWN_TAGS;
+
+/**
+ * Render the allowed-tag section of the system prompt from TAG_CATEGORIES,
+ * keeping the per-tag guidance that teaches the model what each label means.
+ */
+function buildAllowedTagsSection(): string {
+  return TAG_CATEGORIES.map((category) => {
+    const lines = category.tags.map((tag) => {
+      const guidance = TAG_GUIDANCE[tag];
+      return guidance ? `• ${tag} (${guidance})` : `• ${tag}`;
+    });
+    return `${category.name}:\n${lines.join('\n')}`;
+  }).join('\n\n');
+}
 
 const SYSTEM_PROMPT = `You are an expert event analyzer for Asheville, NC. You will analyze events and provide two things:
 
@@ -83,50 +98,7 @@ const SYSTEM_PROMPT = `You are an expert event analyzer for Asheville, NC. You w
 
 IMPORTANT: Return ONLY the tag name (e.g., "Live Music"), NOT the description after the dash.
 
-Entertainment:
-• Live Music (concerts, bands, live performances)
-• Comedy (stand-up, improv, showcases)
-• Theater & Film (plays, performances, movie nights)
-• Dance (lessons, parties, social dance nights)
-• Trivia (pub trivia, game nights)
-• Open Mic (open mic nights, poetry slams, showcases)
-• Karaoke (karaoke nights, sing-along events)
-
-Food & Drink:
-• Dining (special dinners, brunches, prix fixe meals)
-• Beer (brewery events, tastings)
-• Wine & Spirits (wine tastings, cocktail events)
-
-Activities:
-• Art (galleries, visual art events, art classes)
-• Crafts (pottery, jewelry, DIY workshops)
-• Fitness (yoga, exercise, climbing, general fitness)
-• Sports (team sports, athletic events, competitions)
-• Wellness (sound healing, holistic health, self-care)
-• Spiritual (ceremonies, religious gatherings, dharma talks)
-• Meditation (meditation sits, mindfulness, guided meditation)
-• Outdoors (hiking, nature, parks)
-• Tours (walking tours, ghost tours, historical)
-• Gaming (board games, D&D, video games)
-• Education (classes, workshops, lectures, learning events)
-• Tech (technology meetups, coding, maker events)
-• Book Club (book discussions, reading groups, literary meetups)
-• Museum Exhibition (museum exhibits, gallery shows, curated displays)
-
-Audience/Social:
-• Family (kid-friendly, all-ages)
-• Dating (singles events, speed dating)
-• Networking (business, professional meetups)
-• Nightlife (21+, bar events, late-night)
-• LGBTQ+ (pride, queer-specific events)
-• Pets (dog-friendly, goat yoga, cat lounges)
-• Community (neighborhood events, local meetups)
-• Volunteering (volunteer opportunities, community service, charity work)
-• Support Groups (recovery, grief, mental health support meetings)
-
-Seasonal:
-• Holiday (seasonal celebrations, Christmas, Halloween, etc.)
-• Markets (pop-ups, vendors, shopping, craft fairs)
+${buildAllowedTagsSection()}
 
 ## TAG RULES:
 1. For official tags: ONLY use the tag name from the list above (e.g., "Live Music", NOT "Live Music – concerts, bands").
@@ -155,10 +127,10 @@ Return ONLY valid JSON in this format:
  * Generate both tags and summary for an event in a single Azure OpenAI call.
  * Returns empty tags array and null summary if Azure AI is not configured.
  */
-export async function generateTagsAndSummary(event: EventData): Promise<TagAndSummaryResult> {
+export async function generateTagsAndSummary(event: EventData): Promise<TagAndSummaryOutcome> {
   if (!isAzureAIEnabled()) {
     console.warn('[AI:Tags] Azure AI not configured, skipping');
-    return { tags: [], summary: null };
+    return failure('permanent', 'Azure AI not configured');
   }
 
   const eventInfo = [
@@ -175,12 +147,12 @@ export async function generateTagsAndSummary(event: EventData): Promise<TagAndSu
     const result = await azureChatCompletion(
       SYSTEM_PROMPT,
       `Analyze this event:\n\n${eventInfo}`,
-      { maxTokens: 20000 } // High limit for reasoning models
+      { maxTokens: 20000, jsonMode: true } // High limit for reasoning models
     );
 
     if (!result) {
       console.warn(`[AI:Tags] No response from Azure AI for "${event.title.slice(0, 40)}..."`);
-      return { tags: [], summary: null };
+      return failure('transient', 'No response from Azure AI');
     }
 
     const parsed = parseJsonFromModel<TagAndSummaryAIResponse>(result.content);
@@ -188,7 +160,13 @@ export async function generateTagsAndSummary(event: EventData): Promise<TagAndSu
       console.error(
         `[AI:Tags] JSON parse failed for "${event.title.slice(0, 40)}..." - received: ${result.content.slice(0, 200)}`
       );
-      return { tags: [], summary: null };
+      // A truncated response is a token-budget problem, not bad content:
+      // worth one more attempt rather than being treated as poison.
+      const truncated = result.finishReason === 'length';
+      return failure(
+        truncated ? 'transient' : 'permanent',
+        truncated ? 'Response truncated (finish_reason=length)' : 'JSON parse failed'
+      );
     }
 
     // Validate and extract tags
@@ -265,13 +243,20 @@ export async function generateTagsAndSummary(event: EventData): Promise<TagAndSu
       );
     }
 
-    return { tags, summary };
+    // The model answered but produced nothing usable - a content problem, so
+    // don't hammer it again on the next run.
+    if (tags.length === 0 && !summary) {
+      return { ...failure('permanent', 'Model returned no usable tags or summary') };
+    }
+
+    return { ok: true, tags, summary };
   } catch (error) {
+    const reason = classifyError(error);
     console.error(
-      `[AI:Tags] Error processing "${event.title.slice(0, 40)}...":`,
+      `[AI:Tags] ${reason} error processing "${event.title.slice(0, 40)}...":`,
       error instanceof Error ? error.message : error
     );
-    return { tags: [], summary: null };
+    return failure(reason, error instanceof Error ? error.message : String(error));
   }
 }
 
@@ -289,33 +274,4 @@ export async function generateEventTags(event: EventData): Promise<string[]> {
 export async function generateEventSummary(event: EventData): Promise<string | null> {
   const result = await generateTagsAndSummary(event);
   return result.summary;
-}
-
-/**
- * Generate tags and summaries for multiple events in batch.
- * Processes sequentially to avoid rate limits.
- */
-export async function generateTagsAndSummariesBatch(
-  events: EventData[],
-  options?: {
-    delayMs?: number;
-    onProgress?: (current: number, total: number, event: EventData) => void;
-  }
-): Promise<TagAndSummaryResult[]> {
-  const { delayMs = 500, onProgress } = options || {};
-  const results: TagAndSummaryResult[] = [];
-
-  for (let i = 0; i < events.length; i++) {
-    const result = await generateTagsAndSummary(events[i]);
-    results.push(result);
-
-    onProgress?.(i + 1, events.length, events[i]);
-
-    // Add delay between requests to avoid rate limits
-    if (i < events.length - 1 && delayMs > 0) {
-      await new Promise((resolve) => setTimeout(resolve, delayMs));
-    }
-  }
-
-  return results;
 }

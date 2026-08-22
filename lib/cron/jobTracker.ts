@@ -33,9 +33,13 @@ export async function startCronJob(jobName: CronJobName): Promise<string> {
  * Mark a cron job as successfully completed
  */
 export async function completeCronJob(
-  runId: string,
+  runId: string | null,
   result?: Record<string, unknown>
 ): Promise<void> {
+  // Tracking is best-effort. A route may still run when the initial tracker
+  // insert failed, in which case there is no row to complete.
+  if (!runId) return;
+
   const completedAt = new Date();
 
   // Get the start time to calculate duration
@@ -60,7 +64,9 @@ export async function completeCronJob(
 /**
  * Mark a cron job as failed
  */
-export async function failCronJob(runId: string, error: unknown): Promise<void> {
+export async function failCronJob(runId: string | null, error: unknown): Promise<void> {
+  if (!runId) return;
+
   const completedAt = new Date();
 
   // Get the start time to calculate duration

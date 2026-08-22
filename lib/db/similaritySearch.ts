@@ -5,10 +5,21 @@
  * using cosine similarity on event embeddings.
  */
 
-import { cosineDistance, desc, asc, gt, sql, ne, and, isNotNull, gte, lte } from 'drizzle-orm';
+import {
+  cosineDistance,
+  desc,
+  asc,
+  gt,
+  sql,
+  ne,
+  and,
+  isNotNull,
+  gte,
+  lte,
+  notInArray,
+} from 'drizzle-orm';
 import { db } from './index';
 import { events } from './schema';
-import { generateQueryEmbedding } from '../ai/embedding';
 
 export interface SimilarEvent {
   id: string;
@@ -80,9 +91,7 @@ export async function findSimilarEvents(
 
   // Exclude specific IDs
   if (excludeIds.length > 0) {
-    for (const id of excludeIds) {
-      conditions.push(ne(events.id, id));
-    }
+    conditions.push(notInArray(events.id, excludeIds));
   }
 
   // Only future events
@@ -119,69 +128,6 @@ export async function findSimilarEvents(
 }
 
 /**
- * Search events by semantic meaning using a text query.
- * Converts the query to an embedding and finds similar events.
- */
-export async function semanticSearchEvents(
-  query: string,
-  options: SimilaritySearchOptions = {}
-): Promise<SimilarEvent[]> {
-  const { limit = 10, minSimilarity = 0.4, excludeIds = [], futureOnly = true } = options;
-
-  // Generate embedding for the search query
-  const queryEmbedding = await generateQueryEmbedding(query);
-  if (!queryEmbedding) {
-    console.warn('[SimilaritySearch] Failed to generate query embedding');
-    return [];
-  }
-
-  // Calculate similarity score
-  const similarity = sql<number>`1 - (${cosineDistance(events.embedding, queryEmbedding)})`;
-
-  // Build conditions
-  const conditions = [isNotNull(events.embedding), gt(similarity, minSimilarity)];
-
-  // Exclude specific IDs
-  if (excludeIds.length > 0) {
-    for (const id of excludeIds) {
-      conditions.push(ne(events.id, id));
-    }
-  }
-
-  // Only future events
-  if (futureOnly) {
-    conditions.push(gte(events.startDate, new Date()));
-  }
-
-  const results = await db
-    .select({
-      id: events.id,
-      sourceId: events.sourceId,
-      source: events.source,
-      title: events.title,
-      description: events.description,
-      startDate: events.startDate,
-      location: events.location,
-      organizer: events.organizer,
-      price: events.price,
-      url: events.url,
-      imageUrl: events.imageUrl,
-      tags: events.tags,
-      timeUnknown: events.timeUnknown,
-      recurringType: events.recurringType,
-      favoriteCount: events.favoriteCount,
-      aiSummary: events.aiSummary,
-      similarity,
-    })
-    .from(events)
-    .where(and(...conditions))
-    .orderBy(desc(similarity))
-    .limit(limit);
-
-  return results as SimilarEvent[];
-}
-
-/**
  * Find events similar to a given embedding vector.
  * Used for personalization when we already have the embedding.
  */
@@ -201,8 +147,8 @@ export async function findSimilarByEmbedding(
   const conditions = [isNotNull(events.embedding), gt(similarity, minSimilarity)];
 
   // Exclude specific IDs
-  for (const id of excludeIds) {
-    conditions.push(ne(events.id, id));
+  if (excludeIds.length > 0) {
+    conditions.push(notInArray(events.id, excludeIds));
   }
 
   // Date range filtering
@@ -239,31 +185,4 @@ export async function findSimilarByEmbedding(
     .limit(limit);
 
   return results as SimilarEvent[];
-}
-
-/**
- * Get events with embeddings count for stats.
- */
-export async function getEmbeddingStats(): Promise<{
-  total: number;
-  withEmbedding: number;
-  withSummary: number;
-}> {
-  const [totalResult] = await db.select({ count: sql<number>`count(*)` }).from(events);
-
-  const [withEmbeddingResult] = await db
-    .select({ count: sql<number>`count(*)` })
-    .from(events)
-    .where(isNotNull(events.embedding));
-
-  const [withSummaryResult] = await db
-    .select({ count: sql<number>`count(*)` })
-    .from(events)
-    .where(isNotNull(events.aiSummary));
-
-  return {
-    total: Number(totalResult.count),
-    withEmbedding: Number(withEmbeddingResult.count),
-    withSummary: Number(withSummaryResult.count),
-  };
 }

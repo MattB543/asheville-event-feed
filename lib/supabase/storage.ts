@@ -43,18 +43,3 @@ export async function uploadEventImage(
 
   return publicUrl;
 }
-
-/**
- * Check if a URL is a Supabase Storage URL (vs base64 or external).
- */
-export function isStorageUrl(url: string): boolean {
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  return supabaseUrl ? url.startsWith(supabaseUrl) : false;
-}
-
-/**
- * Check if a URL is a base64 data URL.
- */
-export function isBase64Url(url: string): boolean {
-  return url.startsWith('data:image');
-}

@@ -33,7 +33,6 @@ Reminders for Claude:
 | Database         | PostgreSQL (Supabase) with pgvector                     |
 | ORM              | Drizzle ORM                                             |
 | AI - Tagging     | Google Gemini (`gemini-2.5-flash`)                      |
-| AI - Images      | Google Gemini (`gemini-2.5-flash-image`)                |
 | AI - Embeddings  | Google Gemini (`gemini-embedding-001`, 1536 dimensions) |
 | AI - Summaries   | Azure OpenAI (`gpt-5-mini` or configurable)             |
 | AI - Chat        | Azure OpenAI + OpenRouter fallback                      |
@@ -107,11 +106,9 @@ asheville-event-feed/
 │   │   ├── client.ts             # Gemini client (tagging + embeddings)
 │   │   ├── azure-client.ts       # Azure OpenAI client
 │   │   ├── tagging.ts            # AI tag generation
-│   │   ├── imageGeneration.ts    # AI image generation + Supabase upload
 │   │   ├── summary.ts            # AI summary generation
 │   │   ├── embedding.ts          # Vector embedding generation
-│   │   ├── aiDeduplication.ts    # AI-powered duplicate detection
-│   │   └── dataEnrichment.ts     # Price/time extraction
+│   │   └── aiDeduplication.ts    # AI-powered duplicate detection
 │   ├── cache/
 │   │   └── invalidation.ts       # Cache invalidation utilities
 │   ├── config/
@@ -285,23 +282,30 @@ Every cron run (prod and local) is recorded in the `cron_job_runs` table (`job_n
 
 ### Public APIs
 
-| Route                    | Method | Purpose                                          |
-| ------------------------ | ------ | ------------------------------------------------ |
-| `/api/health`            | GET    | Health check (DB status, event count)            |
-| `/api/chat`              | POST   | AI conversational event discovery (rate limited) |
-| `/api/export/xml`        | GET    | RSS XML feed export                              |
-| `/api/export/markdown`   | GET    | Markdown export                                  |
-| `/api/events/submit`     | POST   | Submit event via form                            |
-| `/api/events/submit-url` | POST   | Submit event via URL                             |
-| `/api/events/report`     | POST   | Report an event                                  |
-| `/api/curator/[slug]`    | GET    | Public curator profile data                      |
+| Route                       | Method | Purpose                                          |
+| --------------------------- | ------ | ------------------------------------------------ |
+| `/api/health`               | GET    | Health check (DB status, event count)            |
+| `/api/chat`                 | POST   | AI conversational event discovery (rate limited) |
+| `/api/export/xml`           | GET    | RSS XML feed export                              |
+| `/api/export/markdown`      | GET    | Markdown export                                  |
+| `/api/events/submit`        | POST   | Submit event via form                            |
+| `/api/events/submit-url`    | POST   | Submit event via URL                             |
+| `/api/events/report`        | POST   | Report an event                                  |
+| `/api/curator/[slug]`       | GET    | Public curator profile data                      |
+| `/api/events/favorites`     | POST   | Fetch public event data for a list of event IDs  |
+| `/api/events/[id]/favorite` | POST   | Increment/decrement an event's favorite count    |
+
+`/api/events/[id]/favorite` is intentionally anonymous — favoriting is
+localStorage-driven with no sign-in required, so the endpoint only takes
+`{ action: 'add' | 'remove' }` and adjusts `favoriteCount`. There is no DELETE
+handler. It is rate limited per IP and, more tightly, per event per IP; the
+count is still forgeable (see the deferred `favorites(eventId, anonId)` ledger).
 
 ### Authenticated APIs (require Supabase Auth)
 
 | Route                        | Method      | Purpose                   |
 | ---------------------------- | ----------- | ------------------------- |
 | `/api/preferences`           | GET/POST    | Sync user preferences     |
-| `/api/events/[id]/favorite`  | POST/DELETE | Favorite/unfavorite event |
 | `/api/curate`                | POST/DELETE | Add/remove curated events |
 | `/api/curator/settings`      | GET/POST    | Curator profile settings  |
 | `/api/email-digest/settings` | GET/POST    | Email digest preferences  |
@@ -345,12 +349,10 @@ Every cron run (prod and local) is recorded in the `cron_job_runs` table (`job_n
 - **Output**: JSON array of tag strings
 - **Categories**: Entertainment, Food & Drink, Activities, Audience/Social, Other
 
-### Image Generation (`lib/ai/imageGeneration.ts`)
+### Images
 
-- **Model**: `gemini-2.5-flash-image` (configurable via `GEMINI_IMAGE_MODEL`)
-- **Output**: Uploaded to Supabase Storage, returns public URL
-- **Compression**: Sharp resizes to 512px width, 80% JPEG quality
-- **Prompt**: Generates promotional event graphics with Asheville mountain vibe
+AI image generation is not wired up. The AI cron's "Images Pass" batch-applies the
+static `/asheville-default.jpg` placeholder to events with no image.
 
 ### Summaries (`lib/ai/summary.ts`)
 
@@ -515,11 +517,6 @@ FB_XS=
 | `npm run test:storyparlor`    | Test Story Parlor scraper               |
 | `npm run test:misfit`         | Test Misfit Improv scraper              |
 | `npm run test:udharma`        | Test UDharma scraper                    |
-| `npm run test:tagging`        | Test AI tag generation                  |
-| `npm run test:image-gen`      | Test AI image generation                |
-| `npm run test:summary`        | Test AI summary generation              |
-| `npm run test:embedding`      | Test embedding generation               |
-| `npm run test:similarity`     | Test similarity search                  |
 | `npm run db:check`            | Check database connection               |
 | `npm run db:count`            | Count events by source                  |
 | `npm run db:tags`             | Check tag statistics                    |
@@ -527,7 +524,6 @@ FB_XS=
 | `npm run backfill`            | Backfill Eventbrite events              |
 | `npm run backfill:embeddings` | Backfill embeddings for existing events |
 | `npm run tag:events`          | Tag all untagged events                 |
-| `npm run generate:seo-images` | Generate SEO images                     |
 
 ---
 

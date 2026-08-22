@@ -59,6 +59,38 @@ interface VerificationAIResponse {
 }
 
 /**
+ * Minimum AI confidence required before a verification result is allowed to
+ * mutate an event (hide it or overwrite its details).
+ *
+ * The cron path has always enforced this; `verifyEventById` (reachable from the
+ * public report route) did not, so a low-confidence "hide" could take an event
+ * off the site. Both paths now go through `shouldApplyVerification`.
+ */
+export const HIDE_CONFIDENCE_THRESHOLD = 0.8;
+
+const VALID_ACTIONS: ReadonlySet<string> = new Set(['keep', 'hide', 'update']);
+
+/**
+ * Whether a verification result is confident enough to write to the database.
+ * Errored results never apply, regardless of confidence.
+ */
+export function shouldApplyVerification(result: VerificationResult): boolean {
+  if (result.error) return false;
+  return result.confidence >= HIDE_CONFIDENCE_THRESHOLD;
+}
+
+/**
+ * Coerce a model-supplied confidence into a finite 0-1 number.
+ * Numeric strings are accepted; anything non-finite is rejected (null).
+ */
+function normalizeConfidence(raw: unknown): number | null {
+  if (raw === undefined || raw === null) return 0;
+  const num = typeof raw === 'number' ? raw : typeof raw === 'string' ? Number(raw) : NaN;
+  if (!Number.isFinite(num)) return null;
+  return Math.min(1, Math.max(0, num));
+}
+
+/**
  * Overall result from batch verification.
  */
 export interface BatchVerificationResult {
@@ -273,6 +305,7 @@ Analyze the page content and determine if this event is still active and accurat
   try {
     const aiResponse = await azureChatCompletion(SYSTEM_PROMPT, userPrompt, {
       maxTokens: 10000, // Reasoning models need plenty of tokens for thinking + output
+      jsonMode: true,
     });
 
     const aiElapsed = ((Date.now() - aiStart) / 1000).toFixed(1);
@@ -295,9 +328,30 @@ Analyze the page content and determine if this event is still active and accurat
       return result;
     }
 
-    result.action = parsed.action || 'keep';
+    // Validate at the boundary. An unrecognised action is a validation ERROR,
+    // not a silent "keep": callers stamp lastVerifiedAt on a clean keep, which
+    // would permanently retire the event from re-verification.
+    const rawAction = parsed.action;
+    if (typeof rawAction !== 'string' || !VALID_ACTIONS.has(rawAction)) {
+      result.error = `Invalid AI action: ${JSON.stringify(rawAction)}`;
+      console.warn(
+        `[Verify] AI returned unknown action ${JSON.stringify(rawAction)} for "${event.title.slice(0, 50)}" (${aiElapsed}s)`
+      );
+      return result;
+    }
+
+    const confidence = normalizeConfidence(parsed.confidence);
+    if (confidence === null) {
+      result.error = `Invalid AI confidence: ${JSON.stringify(parsed.confidence)}`;
+      console.warn(
+        `[Verify] AI returned non-numeric confidence ${JSON.stringify(parsed.confidence)} for "${event.title.slice(0, 50)}" (${aiElapsed}s)`
+      );
+      return result;
+    }
+
+    result.action = rawAction;
     result.reason = parsed.reason || 'No reason provided';
-    result.confidence = parsed.confidence || 0;
+    result.confidence = confidence;
 
     if (parsed.updates && result.action === 'update') {
       result.updates = {
@@ -615,37 +669,60 @@ export async function verifyEventById(
 
   const verificationResult = await verifySingleEvent(eventForVerification);
 
-  // Apply updates if requested and action is 'update' or 'hide'
+  // Apply updates if requested and action is 'update' or 'hide'.
+  // Mutations require the same confidence bar the cron path enforces.
   let applied = false;
   if (applyUpdates) {
+    const now = new Date();
+    const confident = shouldApplyVerification(verificationResult);
+
     if (verificationResult.action === 'hide') {
-      await db.update(events).set({ hidden: true }).where(eq(events.id, eventId));
-      applied = true;
-      console.log(`[Verify] Event hidden: ${event.title}`);
-    } else if (verificationResult.action === 'update' && verificationResult.updates) {
-      const updateData: Record<string, unknown> = {};
-
-      if (verificationResult.updates.price) {
-        updateData.price = verificationResult.updates.price;
-      }
-      if (verificationResult.updates.location) {
-        updateData.location = verificationResult.updates.location;
-      }
-      if (verificationResult.updates.description) {
-        updateData.description = verificationResult.updates.description;
-      }
-
-      if (Object.keys(updateData).length > 0) {
-        updateData.lastVerifiedAt = new Date();
-        await db.update(events).set(updateData).where(eq(events.id, eventId));
+      if (confident) {
+        await db
+          .update(events)
+          .set({ hidden: true, lastVerifiedAt: now, updatedAt: now })
+          .where(eq(events.id, eventId));
         applied = true;
-        console.log(`[Verify] Event updated: ${event.title}`, Object.keys(updateData));
+        console.log(
+          `[Verify] Event hidden: ${event.title} (confidence: ${verificationResult.confidence})`
+        );
+      } else {
+        console.log(
+          `[Verify] Skipped hide for "${event.title}" - confidence ${verificationResult.confidence} < ${HIDE_CONFIDENCE_THRESHOLD}`
+        );
+      }
+    } else if (verificationResult.action === 'update' && verificationResult.updates) {
+      if (confident) {
+        const updateData: Record<string, unknown> = {};
+
+        if (verificationResult.updates.price) {
+          updateData.price = verificationResult.updates.price;
+        }
+        if (verificationResult.updates.location) {
+          updateData.location = verificationResult.updates.location;
+        }
+        if (verificationResult.updates.description) {
+          updateData.description = verificationResult.updates.description;
+        }
+
+        if (Object.keys(updateData).length > 0) {
+          updateData.lastVerifiedAt = now;
+          updateData.updatedAt = now;
+          await db.update(events).set(updateData).where(eq(events.id, eventId));
+          applied = true;
+          console.log(`[Verify] Event updated: ${event.title}`, Object.keys(updateData));
+        }
+      } else {
+        console.log(
+          `[Verify] Skipped update for "${event.title}" - confidence ${verificationResult.confidence} < ${HIDE_CONFIDENCE_THRESHOLD}`
+        );
       }
     }
 
-    // Update lastVerifiedAt even if no changes
-    if (!applied && verificationResult.action === 'keep') {
-      await db.update(events).set({ lastVerifiedAt: new Date() }).where(eq(events.id, eventId));
+    // Update lastVerifiedAt even if no changes - but only for a clean keep.
+    // An errored result must stay unstamped so it gets re-verified later.
+    if (!applied && verificationResult.action === 'keep' && !verificationResult.error) {
+      await db.update(events).set({ lastVerifiedAt: now }).where(eq(events.id, eventId));
     }
   }
 

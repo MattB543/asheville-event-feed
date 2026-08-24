@@ -90,6 +90,10 @@ export function parseJsonFromModel<T>(
 let geminiClient: GoogleGenerativeAI | null = null;
 let geminiModel: GenerativeModel | null = null;
 let geminiEmbeddingModel: GenerativeModel | null = null;
+let geminiVisionModel: GenerativeModel | null = null;
+
+/** Default model for image understanding (poster extraction). */
+export const DEFAULT_GEMINI_VISION_MODEL = 'gemini-3.7-flash';
 
 // Lazily get or create the model - reads env var at call time, not module load time
 export function getModel(): GenerativeModel | null {
@@ -108,6 +112,34 @@ export function getModel(): GenerativeModel | null {
   }
 
   return geminiModel;
+}
+
+/**
+ * Lazily get or create the vision model used for image understanding.
+ *
+ * Kept separate from `getModel()` so the tagging/summarization path stays on
+ * gemini-2.5-flash while vision work runs on a newer model. Overridable via
+ * `GEMINI_VISION_MODEL` so a bad model id is an env fix, not a deploy.
+ * Returns null when no API key is configured - callers must handle it.
+ */
+export function getVisionModel(): GenerativeModel | null {
+  const apiKey = env.GEMINI_API_KEY;
+
+  if (!apiKey) {
+    return null;
+  }
+
+  if (!geminiClient) {
+    geminiClient = new GoogleGenerativeAI(apiKey);
+  }
+
+  if (!geminiVisionModel) {
+    geminiVisionModel = geminiClient.getGenerativeModel({
+      model: env.GEMINI_VISION_MODEL ?? DEFAULT_GEMINI_VISION_MODEL,
+    });
+  }
+
+  return geminiVisionModel;
 }
 
 // Lazily get or create the embedding model (gemini-embedding-001)

@@ -12,6 +12,7 @@ Asheville Event Feed (AVL GO) is a Next.js web application that aggregates local
 - **AI Chat**: Conversational event discovery powered by Azure OpenAI / OpenRouter
 - **User Authentication**: Supabase Auth with Google OAuth
 - **Curator Profiles**: Public curated event lists at `/u/[slug]`
+- **Poster Uploads**: Users photograph flyers at `/posters`; Gemini vision reads the events off them and inserts them with `source: 'POSTER'`
 - **User Preferences**: Server-synced filtering preferences
 - **Data Management**: PostgreSQL with automatic deduplication (rule-based + AI-powered)
 
@@ -69,7 +70,12 @@ asheville-event-feed/
 │   │   ├── curator/
 │   │   │   ├── settings/         # Curator profile settings
 │   │   │   └── [slug]/           # Public curator data
+│   │   ├── posters/
+│   │   │   ├── upload/           # Poster upload + inline pipeline
+│   │   │   └── [id]/moderate/    # Approve/deny (super admin)
 │   │   └── health/route.ts       # Health check
+│   ├── admin/posters/page.tsx    # Poster moderation queue (unlisted)
+│   ├── posters/page.tsx          # Community poster feed
 │   ├── auth/
 │   │   ├── callback/route.ts     # OAuth callback
 │   │   ├── confirm/route.ts      # Email confirmation
@@ -100,6 +106,7 @@ asheville-event-feed/
 │   ├── ThemeProvider.tsx         # Dark mode provider
 │   ├── ThemeToggle.tsx           # Dark/light toggle
 │   ├── UserMenu.tsx              # User account menu
+│   ├── posters/                  # Poster feed, upload modal, admin queue
 │   └── Providers.tsx             # Combined providers
 ├── lib/
 │   ├── ai/
@@ -125,6 +132,9 @@ asheville-event-feed/
 │   │   └── usePreferenceSync.ts  # Preference sync hook
 │   ├── notifications/
 │   │   └── slack.ts              # Slack webhook notifications
+│   ├── posters/
+│   │   ├── processUpload.ts      # Upload pipeline (normalize → extract → publish)
+│   │   └── promoteExtractions.ts # Extraction → event matching + insert
 │   ├── scrapers/
 │   │   ├── avltoday.ts           # AVL Today/CitySpark
 │   │   ├── eventbrite.ts         # Eventbrite
@@ -173,7 +183,7 @@ PostgreSQL database hosted on Supabase with pgvector extension.
 {
   id: uuid (primary key, auto-generated),
   sourceId: text (ID from source platform),
-  source: text ('AVL_TODAY' | 'EVENTBRITE' | 'MEETUP' | 'FACEBOOK' | ...),
+  source: text ('AVL_TODAY' | 'EVENTBRITE' | 'MEETUP' | 'FACEBOOK' | 'POSTER' | ...),
   title: text,
   description: text (nullable),
   startDate: timestamp with timezone,
@@ -241,6 +251,28 @@ Curator profile data (slug, display name, bio, public visibility).
 
 Events curated by users with optional notes.
 
+### `posterUploads` Table
+
+One row per uploaded poster photo. Single status state machine:
+`processing` → `failed` | `pending_review` | `published` | `denied`.
+
+- `imagePath` — object path in the **private** `poster-uploads` ingress bucket
+- `publicImageUrl` — set only once published (copied to `event-images/posters/{uploadId}.jpg`); cleared on a takedown
+- `imageHash` — sha256 of the normalized JPEG; exact re-uploads short-circuit before any AI spend
+- `imageWidth` / `imageHeight` — dimensions of the normalized JPEG, recorded at upload time. The `/posters` masonry needs each poster's aspect ratio server-side to reserve its tile before the image decodes; without them the wall reflows as it loads. Nullable only for rows predating the column (`scripts/backfill-poster-dimensions.ts` fills those in)
+- `safetyReason` — why the AI flagged it (`GEMINI_BLOCKED:<reason>` for a Gemini hard block, which produces no extractions)
+- `errorMessage` / `rawModelOutput` — failure detail, shown in the moderation queue
+- `reviewedAt` — set on approve/deny, so "AI said safe" and "admin approved" stay distinguishable
+
+### `posterExtractions` Table
+
+One row per poster detected in an upload, and one row per printed date on a
+multi-date flyer (rows sharing an `ordinal` came off the same poster). `outcome`
+is `created` | `matched_existing` | `skipped_no_date` | `skipped_past` |
+`skipped_non_nc` | `failed`, with `eventId` pointing at the resulting event.
+Promotion is idempotent: settled outcomes are left alone and `failed` rows are
+retried, so approving an already-published upload is the retry path.
+
 ### Row Level Security (RLS)
 
 RLS is enabled on all tables. Supabase's "RLS auto-enable trigger" is active, so new tables will have RLS enabled automatically. All database writes from the app go through server-side Drizzle ORM using `DATABASE_URL` (the `postgres` role), which bypasses RLS. RLS policies only govern access via Supabase's PostgREST API (the `anon` and `authenticated` roles exposed by the client-side anon key).
@@ -259,6 +291,8 @@ RLS is enabled on all tables. Supabase's "RLS auto-enable trigger" is active, so
 | `matching_profiles`   | —                    | SELECT, INSERT, UPDATE (own)                      |
 | `matching_answers`    | —                    | SELECT, INSERT, UPDATE (own)                      |
 | `cron_job_runs`       | —                    | —                                                 |
+| `poster_uploads`      | —                    | —                                                 |
+| `poster_extractions`  | —                    | —                                                 |
 
 "Own" means the policy restricts access to rows where `user_id = auth.uid()` (or `profile_id` belongs to the user for `matching_answers`).
 
@@ -303,12 +337,29 @@ count is still forgeable (see the deferred `favorites(eventId, anonId)` ledger).
 
 ### Authenticated APIs (require Supabase Auth)
 
-| Route                        | Method      | Purpose                   |
-| ---------------------------- | ----------- | ------------------------- |
-| `/api/preferences`           | GET/POST    | Sync user preferences     |
-| `/api/curate`                | POST/DELETE | Add/remove curated events |
-| `/api/curator/settings`      | GET/POST    | Curator profile settings  |
-| `/api/email-digest/settings` | GET/POST    | Email digest preferences  |
+| Route                        | Method      | Purpose                                        |
+| ---------------------------- | ----------- | ---------------------------------------------- |
+| `/api/preferences`           | GET/POST    | Sync user preferences                          |
+| `/api/curate`                | POST/DELETE | Add/remove curated events                      |
+| `/api/curator/settings`      | GET/POST    | Curator profile settings                       |
+| `/api/email-digest/settings` | GET/POST    | Email digest preferences                       |
+| `/api/posters/upload`        | POST        | Upload a poster photo (multipart, 20/day/user) |
+
+### Admin APIs (require `SUPER_ADMIN`)
+
+| Route                        | Method | Purpose                         |
+| ---------------------------- | ------ | ------------------------------- |
+| `/api/admin/event/score`     | POST   | Set/clear event score overrides |
+| `/api/admin/curator/verify`  | POST   | Verify a curator profile        |
+| `/api/posters/[id]/moderate` | POST   | Approve or deny a poster upload |
+
+Poster moderation guard is the canonical one: `getUser()` → 401, then
+`isSuperAdmin(user.id)` → 403. Both actions accept `pending_review` **or**
+`published` uploads — approve re-runs promotion (the retry path), deny is a
+takedown that deletes the public image, clears `publicImageUrl`, and hides
+linked events. Deny only hides events from `outcome='created'` extractions whose
+`source` is still `POSTER`; `matched_existing` rows point at real scraped
+listings and are never touched.
 
 ### Auth Routes
 
@@ -406,6 +457,7 @@ CRON_SECRET=your-random-secret-here
 # Google Gemini API key - enables tagging, images, embeddings
 GEMINI_API_KEY=
 GEMINI_IMAGE_MODEL=gemini-2.5-flash-image
+GEMINI_VISION_MODEL=gemini-3.7-flash   # poster extraction
 
 # ===========================================
 # OPTIONAL - AI Features (Azure OpenAI)
@@ -433,6 +485,10 @@ SUPABASE_SERVICE_ROLE_KEY=
 
 # Google OAuth Client ID
 NEXT_PUBLIC_GOOGLE_CLIENT_ID=
+
+# Supabase auth UUID of the single super admin (score overrides, curator
+# verification, /admin/posters). Server-only - never exposed to the client.
+SUPER_ADMIN=
 
 # ===========================================
 # OPTIONAL - Notifications
@@ -493,6 +549,15 @@ FB_XS=
 - Public form at `/api/events/submit`
 - URL-based submission at `/api/events/submit-url`
 - Events go to `submittedEvents` table for review
+
+### Poster Uploads
+
+- Signed-in users upload a flyer photo from `/posters`; `POST /api/posters/upload` runs the whole pipeline inline (sharp normalize → sha256 duplicate check → Gemini vision extraction → publish or flag → event promotion)
+- Images land in the **private** `poster-uploads` bucket first. Only a safe (or admin-approved) upload is copied to the public `event-images` bucket at `posters/{uploadId}.jpg`; flagged images are rendered in the admin queue via 1h signed URLs
+- Public feed at `/posters` (newest 30 published uploads), rendered as a full-width masonry "poster wall": CSS multi-column tiles showing nothing but the image, each with a seeded tilt and tape (see `lib/posters/posterDisplay.ts` — all jitter is derived from the upload id via FNV-1a, never `Math.random`, or SSR and the client draw different walls). Tapping a tile opens a fullscreen lightbox with the poster and its extracted events underneath. Poster events link back with `https://avlgo.com/posters?p={extractionId}`, which opens that poster directly
+- The wall's CSS deliberately avoids blend modes, backdrop filters and CSS filters — each one promotes every tile to its own composited layer and repaints it on scroll. Tiles carry no transform (the tilt is on the inner `.poster-paper`) so they open no stacking context, which is what lets a tape strip paint over the neighbouring column
+- Moderation queue at `/admin/posters` (super admin only, unlisted — no nav link): flagged uploads oldest-first plus recent failures
+- A denied upload's public image is deleted and its created events are hidden; hidden events 404 on `/events/[slug]` and are excluded from similar-event recommendations
 
 ### Dark Mode
 

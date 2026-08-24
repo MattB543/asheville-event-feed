@@ -9,6 +9,8 @@ import {
 } from '@/lib/db/queries/events';
 
 interface EventPageLayoutProps {
+  // Narrower than Header's union on purpose: this layout always renders
+  // EventFeed, and there is no poster mode for the feed.
   activeTab: 'all' | 'top30' | 'yourList';
   initialEvents: DbEvent[];
   initialTotalCount: number;

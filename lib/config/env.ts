@@ -19,6 +19,9 @@ export const env = {
   get GEMINI_IMAGE_MODEL() {
     return process.env.GEMINI_IMAGE_MODEL;
   },
+  get GEMINI_VISION_MODEL() {
+    return process.env.GEMINI_VISION_MODEL;
+  },
   get CRON_SECRET() {
     return process.env.CRON_SECRET;
   },

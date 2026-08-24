@@ -20,7 +20,9 @@ export type EventSource =
   | 'UNCA'
   | 'LITTLE_ANIMALS'
   | 'THEATER_ALLIANCE'
-  | 'PECHAKUCHA';
+  | 'PECHAKUCHA'
+  // Not scraped - created from a user-uploaded poster (lib/posters/promoteExtractions.ts)
+  | 'POSTER';
 
 export interface ScrapedEvent {
   sourceId: string;

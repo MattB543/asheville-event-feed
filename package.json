@@ -26,6 +26,7 @@
     "test:theateralliance": "tsx scripts/scrapers/test-theateralliance.ts",
     "test:pechakucha": "tsx scripts/scrapers/test-pechakucha.ts",
     "test:exploreasheville": "tsx lib/scrapers/exploreasheville.ts",
+    "test:posters": "tsx scripts/test-poster-extraction.ts",
     "db:check": "tsx scripts/maintenance/count-events.ts",
     "db:clear": "tsx scripts/maintenance/clear-db.ts",
     "db:count": "tsx scripts/maintenance/count-events.ts",

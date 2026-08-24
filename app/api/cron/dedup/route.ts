@@ -106,7 +106,11 @@ export async function GET(request: Request) {
             // Skip rows already soft-deleted by a prior dedup run...
             isNull(events.dedupedAt),
             // ...and rows an admin flagged to never auto-dedup (so a restore sticks)
-            or(isNull(events.dedupSkip), eq(events.dedupSkip, false))
+            or(isNull(events.dedupSkip), eq(events.dedupSkip, false)),
+            // Hidden events are moderated-away content. Feeding them to dedup
+            // lets a taken-down row merge into - or win against - a live one,
+            // which would resurrect what an admin removed.
+            or(isNull(events.hidden), eq(events.hidden, false))
           )
         );
       const fetchDuration = ((Date.now() - fetchStart) / 1000).toFixed(1);
@@ -160,7 +164,14 @@ export async function GET(request: Request) {
         await db
           .update(events)
           .set({ dedupedAt: new Date() })
-          .where(inArray(events.id, result.idsToRemove));
+          .where(
+            and(
+              inArray(events.id, result.idsToRemove),
+              // Re-check at write time: a row hidden while the job was running
+              // must not be touched by a decision made before that.
+              or(isNull(events.hidden), eq(events.hidden, false))
+            )
+          );
         const deleteDuration = ((Date.now() - deleteStart) / 1000).toFixed(1);
         console.log(
           `[Dedup] Soft-deleted ${result.idsToRemove.length} duplicate events in ${deleteDuration}s`

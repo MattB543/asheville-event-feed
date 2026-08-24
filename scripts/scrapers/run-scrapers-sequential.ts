@@ -203,6 +203,7 @@ async function main() {
       price: events.price,
       description: events.description,
       createdAt: events.createdAt,
+      source: events.source,
     })
     .from(events);
 

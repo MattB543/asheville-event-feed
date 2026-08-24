@@ -10,6 +10,8 @@
 
 import { azureChatCompletion, isAzureAIEnabled, parseJsonFromModel } from './provider-clients';
 import { matchesDefaultFilter } from '../config/defaultFilters';
+import { countSharedTitleWords } from '../utils/deduplication';
+import { getVenueForEvent } from '../utils/venues';
 
 /**
  * Event data structure for AI deduplication.
@@ -248,6 +250,80 @@ function mapIndicesToUUIDs(
 }
 
 /**
+ * Would the rule-based dedup consider these two events the same listing?
+ * Used to decide which posters belong to an AI-identified duplicate group -
+ * the model names only the events to remove, never the one it kept.
+ */
+function looksLikeSameListing(a: EventForAIDedup, b: EventForAIDedup): boolean {
+  const sharedTitleWords = countSharedTitleWords(a.title, b.title);
+  if (sharedTitleWords >= 2) return true;
+
+  // Venue alone is far too loose here: every act playing one room on one night
+  // shares a venue, so it would tie a poster to unrelated shows and block their
+  // legitimate merges. It only corroborates alongside some title overlap.
+  if (sharedTitleWords < 1) return false;
+
+  const venueA = getVenueForEvent(a.organizer, a.location, a.title);
+  const venueB = getVenueForEvent(b.organizer, b.location, b.title);
+  return Boolean(venueA) && venueA === venueB;
+}
+
+/**
+ * Enforce the non-POSTER keeper invariant on the model's removal groups.
+ *
+ * `chooseEventToKeep` protects official listings during rule-based dedup, but
+ * the AI path picks its own removals and has no such guard: it can drop a
+ * venue's real listing (with its ticket URL and engagement counts) in favour of
+ * a community poster. Where a group removes a non-POSTER event while keeping a
+ * poster that looks like the same listing, the roles are swapped - the poster
+ * is removed instead.
+ *
+ * Trade-off: if such a group also held a second official listing that was the
+ * model's real keeper, that legitimate merge is skipped this run. Keeping a
+ * duplicate is the recoverable direction; losing an official listing is not.
+ */
+export function enforceNonPosterKeeper(
+  groups: AIDuplicateGroup[],
+  dayEvents: EventForAIDedup[],
+  date: string
+): AIDuplicateGroup[] {
+  const posters = dayEvents.filter((event) => event.source === 'POSTER');
+  if (posters.length === 0) return groups;
+
+  const eventById = new Map(dayEvents.map((event) => [event.id, event]));
+
+  return groups.map((group) => {
+    const removeSet = new Set(group.remove);
+    const removedEvents = group.remove
+      .map((id) => eventById.get(id))
+      .filter((event): event is EventForAIDedup => event !== undefined);
+
+    const officialRemovals = removedEvents.filter((event) => event.source !== 'POSTER');
+    if (officialRemovals.length === 0) return group;
+
+    const keptRelatedPosters = posters.filter(
+      (poster) =>
+        !removeSet.has(poster.id) &&
+        officialRemovals.some((official) => looksLikeSameListing(poster, official))
+    );
+    if (keptRelatedPosters.length === 0) return group;
+
+    const swapped = [
+      ...removedEvents.filter((event) => event.source === 'POSTER').map((event) => event.id),
+      ...keptRelatedPosters.map((poster) => poster.id),
+    ];
+
+    console.warn(
+      `[AI Dedup] ${date}: keeper invariant applied - protecting ${officialRemovals
+        .map((event) => `"${event.title}" (${event.source})`)
+        .join(', ')}; removing ${keptRelatedPosters.length} poster row(s) instead`
+    );
+
+    return { remove: swapped, reason: `${group.reason} [poster keeper swapped]` };
+  });
+}
+
+/**
  * Process a single day's events for duplicates.
  */
 async function processDayEvents(date: string, events: EventForAIDedup[]): Promise<DayResult> {
@@ -335,7 +411,11 @@ async function processDayEvents(date: string, events: EventForAIDedup[]): Promis
 
     // Parse response and map indices back to UUIDs
     const groups = parseAIResponse(response.content);
-    const validGroups = mapIndicesToUUIDs(groups, indexToId);
+    const validGroups = enforceNonPosterKeeper(
+      mapIndicesToUUIDs(groups, indexToId),
+      filteredEvents,
+      date
+    );
 
     result.groups = validGroups;
     result.duplicatesFound = validGroups.reduce((sum, g) => sum + g.remove.length, 0);

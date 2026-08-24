@@ -71,7 +71,11 @@ export async function getEventByShortId(shortId: string): Promise<DbEvent | null
   const result = await db
     .select()
     .from(events)
-    .where(sql`${events.id} >= ${lower}::uuid AND ${events.id} <= ${upper}::uuid`)
+    .where(
+      // Hidden events 404 here as they do everywhere else. This is the takedown
+      // path for a denied poster, so the page must not keep serving its text.
+      sql`${events.id} >= ${lower}::uuid AND ${events.id} <= ${upper}::uuid AND ${events.hidden} IS NOT TRUE`
+    )
     .limit(1);
 
   return result[0] || null;

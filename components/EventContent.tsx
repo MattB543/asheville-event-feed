@@ -118,7 +118,11 @@ export default function EventContent({
   };
 
   const formatDate = (date: Date, timeUnknown?: boolean | null) => {
+    // Events happen in Asheville, so they are stated in Eastern time. Without an
+    // explicit zone the server formats in UTC and the browser in its own zone,
+    // which both misreports the time and breaks hydration.
     const dateStr = new Intl.DateTimeFormat('en-US', {
+      timeZone: 'America/New_York',
       weekday: 'long',
       month: 'long',
       day: 'numeric',
@@ -130,6 +134,7 @@ export default function EventContent({
     }
 
     const timeStr = new Intl.DateTimeFormat('en-US', {
+      timeZone: 'America/New_York',
       hour: 'numeric',
       minute: '2-digit',
       timeZoneName: 'short',
@@ -216,6 +221,8 @@ export default function EventContent({
         return 'UNC Asheville';
       case 'LITTLE_ANIMALS':
         return 'Little Animals';
+      case 'POSTER':
+        return 'Community poster';
       default:
         return 'Source';
     }

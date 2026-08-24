@@ -452,6 +452,82 @@ export const curatedEvents = pgTable(
   })
 );
 
+// User-uploaded event posters (one row per uploaded image)
+export const posterUploads = pgTable(
+  'poster_uploads',
+  {
+    id: uuid('id').defaultRandom().primaryKey(),
+    userId: uuid('user_id').notNull(), // Supabase auth.users UUID (no FK, repo convention)
+
+    imagePath: text('image_path').notNull(), // Object path in the PRIVATE ingress bucket
+    publicImageUrl: text('public_image_url'), // Set when published (copied to the public bucket)
+    imageHash: text('image_hash').notNull(), // sha256 hex of the normalized JPEG - exact-duplicate guard
+    fileSizeBytes: integer('file_size_bytes'),
+    // Dimensions of the normalized JPEG. The masonry wall needs each poster's
+    // aspect ratio server-side, before the image itself has loaded.
+    imageWidth: integer('image_width'),
+    imageHeight: integer('image_height'),
+
+    // Single state machine:
+    // 'processing'     - row created, pipeline running
+    // 'failed'         - extraction/parse failed (kept for debugging; admin can see)
+    // 'pending_review' - AI flagged inappropriate-for-13yo, flagged adult-audience,
+    //                    OR Gemini hard-blocked
+    // 'published'      - visible on /posters (AI said safe, or admin approved)
+    // 'denied'         - admin denied; hidden forever
+    status: text('status').default('processing').notNull(),
+
+    safetyReason: text('safety_reason'), // Why flagged unsafe; 'GEMINI_BLOCKED:<reason>' for hard blocks
+    adultReason: text('adult_reason'), // Why flagged adult-audience (21+, nightlife, suggestive)
+    // Survives approval: the image stays out of the signed-out /posters feed even
+    // once a moderator publishes it. Does NOT affect the events it creates.
+    adult: boolean('adult').default(false).notNull(),
+    errorMessage: text('error_message'), // Failure detail
+    rawModelOutput: text('raw_model_output'), // Full model dump (the only record when parsing fails)
+    reviewedAt: timestamp('reviewed_at', { withTimezone: true }), // Set on approve/deny (audit)
+
+    createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
+    updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow().notNull(),
+  },
+  (table) => ({
+    posterUploadsCreatedAtIdx: index('poster_uploads_created_at_idx').on(table.createdAt),
+    posterUploadsUserIdIdx: index('poster_uploads_user_id_idx').on(table.userId),
+    posterUploadsStatusIdx: index('poster_uploads_status_idx').on(table.status),
+    posterUploadsImageHashIdx: index('poster_uploads_image_hash_idx').on(table.imageHash),
+  })
+);
+
+// One row per poster detected in an upload (multi-date flyers get one row per printed date)
+export const posterExtractions = pgTable(
+  'poster_extractions',
+  {
+    id: uuid('id').defaultRandom().primaryKey(),
+    uploadId: uuid('upload_id')
+      .notNull()
+      .references(() => posterUploads.id, { onDelete: 'cascade' }),
+    ordinal: integer('ordinal').default(0).notNull(), // Stable display order within the upload
+
+    title: text('title').notNull(),
+    rawText: text('raw_text'), // Verbatim OCR of this poster (moderation queue only)
+    startDate: timestamp('start_date', { withTimezone: true }), // NULL if unparseable
+    timeUnknown: boolean('time_unknown').default(false).notNull(),
+    location: text('location'),
+    organizer: text('organizer'),
+    description: text('description'),
+    price: text('price'),
+
+    // 'created' | 'matched_existing' | 'skipped_no_date' | 'skipped_past' | 'skipped_non_nc' | 'failed'
+    outcome: text('outcome'),
+    eventId: uuid('event_id').references(() => events.id, { onDelete: 'set null' }),
+
+    createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
+  },
+  (table) => ({
+    posterExtractionsUploadIdIdx: index('poster_extractions_upload_id_idx').on(table.uploadId),
+    posterExtractionsEventIdIdx: index('poster_extractions_event_id_idx').on(table.eventId),
+  })
+);
+
 // Cron job execution history for monitoring
 export const cronJobRuns = pgTable(
   'cron_job_runs',

@@ -31,6 +31,7 @@ interface EventForDedup {
   price: string | null;
   description: string | null;
   createdAt: Date | null;
+  source: string | null;
 }
 
 interface PreparedEventForDedup extends EventForDedup {
@@ -188,6 +189,14 @@ function countSharedTitleWordsFromSets(words1: Set<string>, words2: Set<string>)
 }
 
 /**
+ * Count the significant words two raw titles share, using the same
+ * normalization and stop-word list the dedup methods use.
+ */
+export function countSharedTitleWords(title1: string, title2: string): number {
+  return countSharedTitleWordsFromSets(extractWords(title1), extractWords(title2));
+}
+
+/**
  * Extract significant words from a title as an ordered array (preserving order).
  * Splits hyphenated words (e.g., "midget-wrestling" -> ["midget", "wrestling"])
  * to improve matching across different title formats.
@@ -310,6 +319,13 @@ function hasKnownPrice(price: string | null): boolean {
  * Returns the event to KEEP.
  */
 function chooseEventToKeep(event1: EventForDedup, event2: EventForDedup): EventForDedup {
+  // 0. A community poster never beats a scraped/official listing. Poster rows
+  //    are newer by construction, so without this they'd win rule 3 and take
+  //    the official row's ticket URL and engagement counts down with them.
+  const e1IsPoster = event1.source === 'POSTER';
+  const e2IsPoster = event2.source === 'POSTER';
+  if (e1IsPoster !== e2IsPoster) return e1IsPoster ? event2 : event1;
+
   const e1HasPrice = hasKnownPrice(event1.price);
   const e2HasPrice = hasKnownPrice(event2.price);
 

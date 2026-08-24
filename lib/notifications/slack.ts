@@ -434,6 +434,116 @@ export async function sendUrlSubmissionNotification(submission: UrlSubmission): 
   }
 }
 
+interface FlaggedPoster {
+  uploadId: string;
+  /** Why it needs review: the model's own reason, or 'GEMINI_BLOCKED:<reason>' */
+  safetyReason: string;
+  /** Titles the model did manage to read, if any (Gemini hard blocks yield none) */
+  posterTitles?: string[];
+  /** Absolute URL of the admin queue, when the caller knows the site origin */
+  adminUrl?: string | null;
+}
+
+/**
+ * Send a Slack notification when a poster upload is held for moderation.
+ * Flagged images never become public, so there is no image to preview here -
+ * the admin queue renders them via a signed URL.
+ */
+export async function sendPosterFlaggedNotification(poster: FlaggedPoster): Promise<boolean> {
+  if (!isSlackEnabled()) {
+    console.log('[Slack] Webhook not configured, skipping poster flag notification');
+    return false;
+  }
+
+  const webhookUrl = env.SLACK_WEBHOOK!;
+
+  const blocks: SlackBlock[] = [
+    {
+      type: 'header',
+      text: {
+        type: 'plain_text',
+        text: ':lock: Poster Upload Held for Review',
+        emoji: true,
+      },
+    },
+    {
+      type: 'section',
+      text: {
+        type: 'mrkdwn',
+        text: `*Reason:*\n${poster.safetyReason}`,
+      },
+    },
+  ];
+
+  if (poster.posterTitles && poster.posterTitles.length > 0) {
+    const titleList = poster.posterTitles
+      .slice(0, 10)
+      .map((title) => `• ${title.slice(0, 60)}${title.length > 60 ? '...' : ''}`)
+      .join('\n');
+
+    blocks.push({
+      type: 'section',
+      text: {
+        type: 'mrkdwn',
+        text: `*Extracted posters (${poster.posterTitles.length}):*\n${titleList}`,
+      },
+    });
+  }
+
+  blocks.push({
+    type: 'context',
+    elements: [
+      {
+        type: 'mrkdwn',
+        text: `*Upload ID:* ${poster.uploadId}`,
+      },
+    ],
+  });
+
+  if (poster.adminUrl) {
+    blocks.push({
+      type: 'actions',
+      elements: [
+        {
+          type: 'button',
+          text: {
+            type: 'plain_text',
+            text: 'Review Poster',
+            emoji: true,
+          },
+          url: poster.adminUrl,
+          action_id: 'review_flagged_poster',
+        },
+      ],
+    });
+  }
+
+  try {
+    const response = await fetch(webhookUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ blocks }),
+    });
+
+    if (!response.ok) {
+      console.error(
+        '[Slack] Failed to send poster flag notification:',
+        response.status,
+        await response.text()
+      );
+      return false;
+    }
+
+    console.log('[Slack] Poster flag notification sent for upload:', poster.uploadId);
+    return true;
+  } catch (error) {
+    console.error('[Slack] Error sending poster flag notification:', error);
+    return false;
+  }
+}
+
 /**
  * Verification result for Slack notification
  */

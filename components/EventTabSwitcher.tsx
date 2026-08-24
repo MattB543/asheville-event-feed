@@ -4,18 +4,20 @@ import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 
 interface EventTabSwitcherProps {
-  activeTab?: 'all' | 'top30' | 'yourList';
+  activeTab?: 'all' | 'top30' | 'yourList' | 'posters';
 }
 
 export default function EventTabSwitcher({ activeTab }: EventTabSwitcherProps) {
   const searchParams = useSearchParams();
 
   // Build URL preserving other query params
-  const buildTabUrl = (tab: 'all' | 'top30' | 'yourList') => {
+  const buildTabUrl = (tab: 'all' | 'top30' | 'yourList' | 'posters') => {
     const params = new URLSearchParams(searchParams.toString());
     params.delete('tab'); // No longer using tab query param
+    // `p` deep-links one poster; it means nothing on the other tabs
+    params.delete('p');
 
-    // Top30 and Your List have their own routes
+    // Top30, Your List and Posters have their own routes
     if (tab === 'top30') {
       const queryString = params.toString();
       return `/events/top30${queryString ? `?${queryString}` : ''}`;
@@ -24,6 +26,11 @@ export default function EventTabSwitcher({ activeTab }: EventTabSwitcherProps) {
     if (tab === 'yourList') {
       const queryString = params.toString();
       return `/events/your-list${queryString ? `?${queryString}` : ''}`;
+    }
+
+    if (tab === 'posters') {
+      const queryString = params.toString();
+      return `/posters${queryString ? `?${queryString}` : ''}`;
     }
 
     const queryString = params.toString();
@@ -62,6 +69,16 @@ export default function EventTabSwitcher({ activeTab }: EventTabSwitcherProps) {
         }`}
       >
         Your List
+      </Link>
+      <Link
+        href={buildTabUrl('posters')}
+        className={`px-2 sm:px-3 py-1 sm:py-1.5 text-xs sm:text-sm font-medium rounded-md cursor-pointer transition-colors ${
+          activeTab === 'posters'
+            ? 'text-brand-600 dark:text-brand-400 bg-brand-50 dark:bg-brand-950/30'
+            : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50'
+        }`}
+      >
+        Posters
       </Link>
     </nav>
   );

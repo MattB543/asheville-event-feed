@@ -315,6 +315,7 @@ export async function GET(request: Request) {
         price: events.price,
         description: events.description,
         createdAt: events.createdAt,
+        source: events.source,
       })
       .from(events)
       .where(
@@ -322,7 +323,9 @@ export async function GET(request: Request) {
           // Ignore rows already soft-deleted as duplicates...
           isNull(events.dedupedAt),
           // ...and rows an admin flagged to never auto-dedup (so a restore sticks)
-          or(isNull(events.dedupSkip), eq(events.dedupSkip, false))
+          or(isNull(events.dedupSkip), eq(events.dedupSkip, false)),
+          // ...and moderated-away rows, which must never merge into a live one
+          or(isNull(events.hidden), eq(events.hidden, false))
         )
       );
 

@@ -87,6 +87,8 @@ export async function findSimilarEvents(
     ne(events.id, eventId), // Exclude source event
     isNotNull(events.embedding), // Only events with embeddings
     gt(similarity, minSimilarity), // Minimum similarity threshold
+    // Hidden events 404 on their own page, so recommending one is a dead link
+    sql`${events.hidden} IS NOT TRUE`,
   ];
 
   // Exclude specific IDs

@@ -283,3 +283,129 @@ body {
   -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 40' preserveAspectRatio='none'%3E%3Cpath d='M0,40 L0,20 Q150,0 300,20 T600,20 T900,20 T1200,20 L1200,40 Z' fill='%23000'/%3E%3C/svg%3E");
   -webkit-mask-size: 100% 100%;
 }
+
+/* ==========================================================================
+   Poster wall (/posters)
+
+   The page background is the site's own - what makes this read as a wall is the
+   posters themselves: hard paper edges, a shadow lifting them off the page, a
+   strip of tape, and a slight hand-pinned tilt.
+
+   PERFORMANCE: this section is deliberately free of blend modes, backdrop
+   filters and CSS filters. Every one of those promotes each tile to its own
+   composited layer and repaints it during scroll, and at ~30 tiles that is the
+   difference between a wall that scrolls at 60fps and one that stutters.
+   ========================================================================== */
+
+/*
+ * The tile itself is deliberately transform-free and z-index-free, so it does
+ * NOT open a stacking context. That is what lets the tape escape its own tile
+ * and lie over the neighbouring column (see .poster-tape).
+ */
+.poster-tile {
+  position: relative;
+}
+
+@media (hover: hover) {
+  .poster-tile:hover,
+  .poster-tile:focus-visible {
+    /* Above the tape, so the poster you are reading lifts over its neighbours
+       rather than out from under their tape. */
+    z-index: 30;
+  }
+
+  .poster-tile:hover .poster-paper,
+  .poster-tile:focus-visible .poster-paper {
+    /* Straightening on hover is the whole trick: the wall looks hand-pinned at
+       rest and the poster you are reading squares itself up. */
+    transform: rotate(0deg) scale(1.035) !important;
+  }
+}
+
+.poster-tile:focus-visible {
+  outline: none;
+}
+
+.poster-tile:focus-visible .poster-paper {
+  outline: 2px solid var(--color-warm-500);
+  outline-offset: 3px;
+}
+
+/* Paper: a hard edge, a shadow that puts it a few millimetres off the page, and
+   the hand-pinned tilt (set inline, per poster).
+   Shadow is static: transitioning it meant dragging the cursor down the wall
+   while scrolling kicked off a shadow repaint on every tile it crossed, which
+   reads as the page stuttering rather than as hover. */
+.poster-paper {
+  position: relative;
+  overflow: hidden;
+  transform-origin: 50% 12%; /* Pivots from the tape, the way a real flyer does. */
+  transition: transform 200ms cubic-bezier(0.2, 0.7, 0.3, 1);
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.28),
+    0 6px 14px -6px rgba(0, 0, 0, 0.4);
+}
+
+.dark .poster-paper {
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.6),
+    0 8px 18px -8px rgba(0, 0, 0, 0.85);
+}
+
+/* Printed-paper finish over the photo: a raking sheen and a cut edge. */
+.poster-grain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: linear-gradient(
+    105deg,
+    rgba(255, 255, 255, 0.1) 0%,
+    transparent 34%,
+    rgba(0, 0, 0, 0.08) 100%
+  );
+  /* An inset ring reads as the paper's cut edge catching the light. */
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.16);
+}
+
+/* A strip of packing tape. Cloudy, not glassy - and flat-shaded rather than
+   backdrop-blurred, which cost a composited layer per poster. Tinted rather
+   than white: against a near-white page a translucent white strip disappears. */
+.poster-tape {
+  position: absolute;
+  width: 3.4rem;
+  height: 1.1rem;
+  pointer-events: none;
+  /* Above every poster, because the tile opens no stacking context to trap it.
+     Deliberately NOT 999: the lightbox is z-50 and tape must stay under it. */
+  z-index: 5;
+  background: linear-gradient(
+    100deg,
+    rgba(206, 197, 178, 0.45) 0%,
+    rgba(226, 219, 203, 0.32) 45%,
+    rgba(198, 189, 170, 0.43) 100%
+  );
+  border-left: 1px solid rgba(255, 255, 255, 0.32);
+  border-right: 1px solid rgba(255, 255, 255, 0.32);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.11);
+}
+
+.dark .poster-tape {
+  background: linear-gradient(
+    100deg,
+    rgba(255, 248, 230, 0.184) 0%,
+    rgba(255, 248, 230, 0.096) 45%,
+    rgba(230, 220, 200, 0.176) 100%
+  );
+}
+
+/* Anything that moves on this page is decoration; none of it is information. */
+@media (prefers-reduced-motion: reduce) {
+  .poster-paper {
+    transition: none;
+  }
+
+  .poster-tile:hover .poster-paper,
+  .poster-tile:focus-visible .poster-paper {
+    transform: rotate(0deg) !important;
+  }
+}

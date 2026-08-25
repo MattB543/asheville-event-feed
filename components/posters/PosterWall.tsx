@@ -7,10 +7,26 @@ import PosterTile from '@/components/posters/PosterTile';
 import { prefetchPosterImage } from '@/lib/posters/prefetchPoster';
 
 interface PosterWallProps {
+  /** Posters in display order: on the split wall, earliest event first. */
   uploads: PosterFeedUpload[];
   /** From `?p=`, the deep link poster event pages point at. */
   initialExtractionId: string | null;
+  /**
+   * Index in `uploads` where today begins. The wall is cut in two there with a
+   * marker between, and the reader lands on the marker rather than at the top.
+   * Null renders one unbroken wall.
+   */
+  todayIndex?: number | null;
 }
+
+/** The masonry itself. Column counts live here so both halves stay identical. */
+const WALL_COLUMNS = 'columns-2 min-[420px]:columns-3 lg:columns-4 gap-[3px]';
+
+/**
+ * How much of the past wall stays on screen once the reader lands on today.
+ * Enough to read as "there is more above" without having to guess.
+ */
+const PAST_PEEK_FRACTION = 0.2;
 
 /** Marks the history entry the dialog pushed for itself. */
 const POSTER_HISTORY_STATE = { posterOpen: true };
@@ -42,10 +58,22 @@ function urlWithPoster(extractionId: string | null): string {
  * and stops Forward reopening the poster. Instead: the handlers own the history
  * writes, and after any traversal the URL is the source of truth.
  */
-export default function PosterWall({ uploads, initialExtractionId }: PosterWallProps) {
+export default function PosterWall({
+  uploads,
+  initialExtractionId,
+  todayIndex = null,
+}: PosterWallProps) {
   // Only uploads with a published image can be pinned up; the column is
   // nullable, so this is a real filter rather than a cast.
   const wall = uploads.filter((upload) => upload.publicImageUrl);
+
+  // Counted against the filtered wall, not carried over from the caller: every
+  // upload dropped above the cut would otherwise drag the marker one poster out
+  // of place.
+  const splitAt =
+    todayIndex === null
+      ? null
+      : uploads.slice(0, todayIndex).filter((upload) => upload.publicImageUrl).length;
 
   const indexForExtraction = useCallback(
     (extractionId: string | null) => {
@@ -73,6 +101,26 @@ export default function PosterWall({ uploads, initialExtractionId }: PosterWallP
   const ownsHistoryEntry = useRef(false);
   /** Guards a held-down Escape from firing several back() calls before the first popstate. */
   const closing = useRef(false);
+
+  const marker = useRef<HTMLDivElement>(null);
+  /** Captured on mount: a deep link owns the landing position, the marker does not. */
+  const deepLinked = useRef(openIndex !== null);
+
+  // Land on today rather than at the top, so the past is something the reader
+  // scrolls up into instead of something they scroll past to reach tonight.
+  // Tiles carry their real dimensions, so the wall is already its final height
+  // here and the target does not move once the images decode.
+  useEffect(() => {
+    if (splitAt === null || deepLinked.current) return;
+
+    const element = marker.current;
+    // A reload or a Back press restores where the reader was; only a fresh
+    // arrival at the top of the page is ours to move.
+    if (!element || window.scrollY > 0) return;
+
+    const top = element.getBoundingClientRect().top + window.scrollY;
+    window.scrollTo({ top: Math.max(0, top - window.innerHeight * PAST_PEEK_FRACTION) });
+  }, [splitAt]);
 
   const current = openIndex === null ? null : (wall[openIndex] ?? null);
 
@@ -192,23 +240,56 @@ export default function PosterWall({ uploads, initialExtractionId }: PosterWallP
 
   if (wall.length === 0) return null;
 
-  return (
-    <>
-      {/* Multi-column masonry: the browser balances the columns itself, so the
-          wall packs tightly at every width with no measuring pass and no
-          reflow once the images decode. Native `grid-lanes` masonry is still
-          Safari-only, and a JS layout would shift the wall on first paint. */}
-      <div className="columns-2 min-[420px]:columns-3 lg:columns-4 gap-[3px]">
-        {wall.map((upload, index) => (
+  /**
+   * One block of masonry. `offset` is the tile's position on the whole wall,
+   * which is what the lightbox indexes by - the split is a layout detail and
+   * must not renumber the posters underneath it.
+   */
+  function block(posters: PosterFeedUpload[], offset: number) {
+    return (
+      // Multi-column masonry: the browser balances the columns itself, so the
+      // wall packs tightly at every width with no measuring pass and no reflow
+      // once the images decode. Native `grid-lanes` masonry is still
+      // Safari-only, and a JS layout would shift the wall on first paint.
+      <div className={WALL_COLUMNS}>
+        {posters.map((upload, index) => (
           <PosterTile
             key={upload.id}
             upload={upload}
-            index={index}
+            // The one poster worth preloading is the one the reader lands on,
+            // which on a split wall is the first that has not happened yet.
+            preload={offset + index === (splitAt ?? 0)}
             onOpen={open}
             onPrefetch={prefetch}
           />
         ))}
       </div>
+    );
+  }
+
+  return (
+    <>
+      {splitAt === null ? (
+        block(wall, 0)
+      ) : (
+        <>
+          {splitAt > 0 && block(wall.slice(0, splitAt), 0)}
+
+          <div
+            ref={marker}
+            id="today"
+            className="flex items-center gap-3 sm:gap-4 px-2 sm:px-3 my-8 sm:my-12"
+          >
+            <span className="h-px flex-1 bg-gray-300 dark:bg-gray-700" />
+            <span className="text-[11px] sm:text-xs font-medium uppercase tracking-[0.18em] text-gray-500 dark:text-gray-400 whitespace-nowrap">
+              Today
+            </span>
+            <span className="h-px flex-1 bg-gray-300 dark:bg-gray-700" />
+          </div>
+
+          {splitAt < wall.length && block(wall.slice(splitAt), splitAt)}
+        </>
+      )}
 
       {current && openIndex !== null && (
         <PosterLightbox

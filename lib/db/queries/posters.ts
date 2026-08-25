@@ -216,11 +216,12 @@ export async function queryPublishedPosters(
 
 /**
  * How many published uploads the feed is hiding as adult, for the banner.
- * Scoped to the same timeframe, so the count matches the wall being looked at.
+ * Scoped to the same timeframe, so the count matches the wall being looked at;
+ * 'all' counts across both halves of the split wall.
  */
 export async function countHiddenAdultPosters(
   limit: number = POSTER_FEED_LIMIT,
-  { timeframe = 'upcoming' }: { timeframe?: PosterTimeframe } = {}
+  { timeframe = 'upcoming' }: { timeframe?: PosterTimeframe | 'all' } = {}
 ): Promise<number> {
   const dates = posterEventDates(getStartOfTodayEastern());
 
@@ -232,7 +233,7 @@ export async function countHiddenAdultPosters(
       and(
         eq(posterUploads.status, 'published'),
         eq(posterUploads.adult, true),
-        timeframeFilter(dates, timeframe)
+        timeframe === 'all' ? undefined : timeframeFilter(dates, timeframe)
       )
     )
     .limit(limit);

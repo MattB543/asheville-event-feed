@@ -4,10 +4,10 @@ import PosterUploadButton from '@/components/posters/PosterUploadButton';
 import PosterWall from '@/components/posters/PosterWall';
 import {
   countHiddenAdultPosters,
+  POSTER_FEED_LIMIT,
   queryPublishedPosters,
   queryPublishedPosterByExtractionId,
   type PosterFeedUpload,
-  type PosterTimeframe,
 } from '@/lib/db/queries/posters';
 import { createClient } from '@/lib/supabase/server';
 
@@ -31,12 +31,12 @@ interface PostersPageProps {
  */
 function feedHref(
   targetExtractionId: string | null,
-  { showAdult, showPast }: { showAdult: boolean; showPast: boolean }
+  { showAdult, showAll }: { showAdult: boolean; showAll: boolean }
 ): string {
   const params = new URLSearchParams();
   if (targetExtractionId) params.set('p', targetExtractionId);
   if (showAdult) params.set('adult', 'show');
-  if (showPast) params.set('past', 'show');
+  if (showAll) params.set('view', 'all');
 
   const query = params.toString();
   return query ? `/posters?${query}` : '/posters';
@@ -66,18 +66,36 @@ export default async function PostersPage({ searchParams }: PostersPageProps) {
   // nothing - the gate is the session, not the URL.
   const showAdult = signedIn && params.adult === 'show';
 
-  const showPast = params.past === 'show';
-  const timeframe: PosterTimeframe = showPast ? 'past' : 'upcoming';
+  const showAll = params.view === 'all';
 
   let uploads: PosterFeedUpload[] = [];
+  // Where today starts within `uploads`, for the marker the reader lands on.
+  let todayIndex: number | null = null;
   let hiddenAdultCount = 0;
   let failed = false;
 
   try {
-    [uploads, hiddenAdultCount] = await Promise.all([
-      queryPublishedPosters(undefined, { includeAdult: showAdult, timeframe }),
-      showAdult ? Promise.resolve(0) : countHiddenAdultPosters(undefined, { timeframe }),
-    ]);
+    if (showAll) {
+      const [past, upcoming, adultCount] = await Promise.all([
+        queryPublishedPosters(undefined, { includeAdult: showAdult, timeframe: 'past' }),
+        queryPublishedPosters(undefined, { includeAdult: showAdult, timeframe: 'upcoming' }),
+        // Both halves are on screen at once, so the banner counts across both.
+        showAdult
+          ? Promise.resolve(0)
+          : countHiddenAdultPosters(POSTER_FEED_LIMIT * 2, { timeframe: 'all' }),
+      ]);
+
+      // The past query returns most-recent-first so its limit keeps the freshest
+      // posters; the wall reads forward in time, so they hang oldest at the top.
+      uploads = [...past].reverse().concat(upcoming);
+      todayIndex = past.length;
+      hiddenAdultCount = adultCount;
+    } else {
+      [uploads, hiddenAdultCount] = await Promise.all([
+        queryPublishedPosters(undefined, { includeAdult: showAdult, timeframe: 'upcoming' }),
+        showAdult ? Promise.resolve(0) : countHiddenAdultPosters(),
+      ]);
+    }
 
     // The deep link can point at a poster older than the feed window, in which
     // case it gets pulled in on top of the newest 30.
@@ -90,7 +108,14 @@ export default async function PostersPage({ searchParams }: PostersPageProps) {
         const target = await queryPublishedPosterByExtractionId(targetExtractionId, {
           includeAdult: showAdult,
         });
-        if (target) uploads = [target, ...uploads];
+
+        if (target) {
+          uploads = [target, ...uploads];
+          // It lands above the cut, wherever its own date falls - the lightbox
+          // opens it on arrival, so what matters is that the marker still sits
+          // between the same two posters.
+          if (todayIndex !== null) todayIndex += 1;
+        }
       }
     }
   } catch (error) {
@@ -110,35 +135,40 @@ export default async function PostersPage({ searchParams }: PostersPageProps) {
             <h1 className="text-lg sm:text-2xl font-bold text-gray-900 dark:text-gray-100">
               Community posters
             </h1>
-            <PosterUploadButton />
+
+            <div className="flex items-center justify-between gap-3 lg:justify-end">
+              {/* Plain anchors for the same reason as the banner link below: both
+                  states are the same route segment and differ only by search
+                  param, so a soft navigation would reuse the cached payload. */}
+              <nav
+                aria-label="Poster timeframe"
+                className="-ml-2 lg:ml-0 flex items-center gap-0.5"
+              >
+                <a
+                  href={feedHref(null, { showAdult, showAll: false })}
+                  aria-current={showAll ? undefined : 'page'}
+                  className={timeframeTabClasses(!showAll)}
+                >
+                  Upcoming
+                </a>
+                <a
+                  href={feedHref(null, { showAdult, showAll: true })}
+                  aria-current={showAll ? 'page' : undefined}
+                  className={timeframeTabClasses(showAll)}
+                >
+                  All
+                </a>
+              </nav>
+
+              <PosterUploadButton />
+            </div>
           </div>
 
           <p className="mt-2 px-3 sm:px-0 text-sm text-gray-600 dark:text-gray-400">
-            {showPast
-              ? 'Flyers whose events have already come and gone.'
+            {showAll
+              ? 'Every poster on the wall — scroll up for what has already happened.'
               : 'Flyers spotted around Asheville — tap any poster to read what it says.'}
           </p>
-
-          {/* Plain anchors for the same reason as the banner link below: both
-              states are the same route segment and differ only by search param. */}
-          <div className="mt-3 px-3 sm:px-0">
-            <nav aria-label="Poster timeframe" className="-ml-2 flex items-center gap-0.5">
-              <a
-                href={feedHref(null, { showAdult, showPast: false })}
-                aria-current={showPast ? undefined : 'page'}
-                className={timeframeTabClasses(!showPast)}
-              >
-                Upcoming
-              </a>
-              <a
-                href={feedHref(null, { showAdult, showPast: true })}
-                aria-current={showPast ? 'page' : undefined}
-                className={timeframeTabClasses(showPast)}
-              >
-                Past
-              </a>
-            </nav>
-          </div>
 
           {(showAdult || hiddenAdultCount > 0) && (
             <div className="mt-4 mx-3 sm:mx-0 flex flex-wrap items-center justify-between gap-x-3 gap-y-1 px-3 py-2 rounded-lg bg-blue-50 dark:bg-blue-950/30 border border-blue-800/40 dark:border-blue-400/30">
@@ -156,7 +186,7 @@ export default async function PostersPage({ searchParams }: PostersPageProps) {
               <a
                 href={
                   signedIn
-                    ? feedHref(targetExtractionId, { showAdult: !showAdult, showPast })
+                    ? feedHref(targetExtractionId, { showAdult: !showAdult, showAll })
                     : '/login'
                 }
                 className="text-sm font-medium text-blue-800 dark:text-blue-300 underline underline-offset-2 hover:text-blue-900 dark:hover:text-blue-200 whitespace-nowrap"
@@ -176,9 +206,9 @@ export default async function PostersPage({ searchParams }: PostersPageProps) {
                   : hiddenAdultCount > 0
                     ? // Not "no posters yet" - there are posters, they are just all filtered.
                       'Every poster here is currently filtered out. Nothing else to show.'
-                    : showPast
-                      ? 'No posters have aged out yet.'
-                      : // "Coming up", not "at all" - anything dated is on the past wall.
+                    : showAll
+                      ? 'Nothing on the wall yet. Be the first to pin something up.'
+                      : // "Coming up", not "at all" - anything past is still under All.
                         'Nothing coming up on the wall right now. Be the first to pin something up.'}
               </p>
             </div>
@@ -190,7 +220,11 @@ export default async function PostersPage({ searchParams }: PostersPageProps) {
           // wall reads as part of the page furniture rather than as its own
           // thing, and the tape needs room to hang above the top row.
           <div className="px-1 sm:px-2 pt-14 sm:pt-24 pb-10">
-            <PosterWall uploads={uploads} initialExtractionId={targetExtractionId} />
+            <PosterWall
+              uploads={uploads}
+              initialExtractionId={targetExtractionId}
+              todayIndex={todayIndex}
+            />
           </div>
         )}
       </div>

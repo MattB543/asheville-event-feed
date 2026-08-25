@@ -7,8 +7,13 @@ import { posterHeadline, posterJitter, type TapeAnchor } from '@/lib/posters/pos
 
 interface PosterTileProps {
   upload: PosterFeedUpload;
-  /** Position on the wall; only the very first tile is worth preloading. */
-  index: number;
+  /**
+   * Fetch this one at high priority. Columns fill top-to-bottom, so the tiles
+   * either side of the landing tile are the rest of its column rather than the
+   * rest of its row - preloading them buys nothing and starves the genuinely
+   * visible tiles in the other columns of bandwidth.
+   */
+  preload: boolean;
   onOpen: (uploadId: string) => void;
   /** Warm the full-size image before it is asked for. Safe to call repeatedly. */
   onPrefetch: (uploadId: string) => void;
@@ -36,7 +41,7 @@ const TAPE_POSITION: Record<TapeAnchor, CSSProperties> = {
  * poster says is already printed on it, and a caption under each one would turn
  * a wall back into a list.
  */
-export default function PosterTile({ upload, index, onOpen, onPrefetch }: PosterTileProps) {
+export default function PosterTile({ upload, preload, onOpen, onPrefetch }: PosterTileProps) {
   if (!upload.publicImageUrl) return null;
 
   const { rotation, tape } = posterJitter(upload.id);
@@ -69,10 +74,7 @@ export default function PosterTile({ upload, index, onOpen, onPrefetch }: Poster
           width={width}
           height={height}
           sizes="(min-width: 1024px) 25vw, (min-width: 420px) 33vw, 50vw"
-          // Columns fill top-to-bottom, so tiles 1-5 are the rest of the FIRST
-          // column, not the first row - preloading them buys nothing and starves
-          // the genuinely visible tiles in the other columns of bandwidth.
-          preload={index === 0}
+          preload={preload}
           className="block w-full h-auto"
         />
         <span className="poster-grain" aria-hidden="true" />

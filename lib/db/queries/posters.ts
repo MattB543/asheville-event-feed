@@ -1,7 +1,8 @@
 import { db } from '@/lib/db';
 import { events, posterExtractions, posterUploads } from '@/lib/db/schema';
-import { and, asc, desc, eq, inArray } from 'drizzle-orm';
+import { and, asc, desc, eq, inArray, isNotNull, isNull, or, sql } from 'drizzle-orm';
 import { generateEventSlug } from '@/lib/utils/slugify';
+import { getStartOfTodayEastern } from '@/lib/utils/timezone';
 
 /** How many published uploads the /posters feed renders (no pagination for MVP). */
 export const POSTER_FEED_LIMIT = 30;
@@ -121,7 +122,69 @@ async function attachExtractions(
 }
 
 /**
- * Newest published uploads for the /posters feed.
+ * Which half of the wall a feed query returns: posters with an event still to
+ * come, or posters whose printed dates have all gone by.
+ */
+export type PosterTimeframe = 'upcoming' | 'past';
+
+export interface PosterFeedOptions {
+  includeAdult?: boolean;
+  timeframe?: PosterTimeframe;
+}
+
+/** Published, and adult-filtered unless the viewer has asked to see those too. */
+function publishedFilter(includeAdult: boolean) {
+  return includeAdult
+    ? eq(posterUploads.status, 'published')
+    : and(eq(posterUploads.status, 'published'), eq(posterUploads.adult, false));
+}
+
+/**
+ * Each upload's event dates folded down to two per-upload values.
+ *
+ * `nextStart` is the soonest date on the poster that has not happened yet, so
+ * it is NULL once every printed date is behind us; `lastStart` is the latest
+ * date printed on the poster at all, and is NULL only when nothing on it
+ * carried a parseable date. Between them the three cases separate cleanly:
+ * upcoming posters have a `nextStart`, past posters have only a `lastStart`,
+ * and dateless posters have neither.
+ *
+ * The cutoff is midnight Eastern rather than "now", matching the event feed, so
+ * a poster for tonight stays on the wall for the whole of the day it happens.
+ */
+function posterEventDates(cutoff: Date) {
+  const cutoffSql = sql`${cutoff.toISOString()}::timestamptz`;
+
+  return db
+    .select({
+      uploadId: posterExtractions.uploadId,
+      nextStart:
+        sql<Date | null>`min(${posterExtractions.startDate}) filter (where ${posterExtractions.startDate} >= ${cutoffSql})`.as(
+          'next_start'
+        ),
+      lastStart: sql<Date | null>`max(${posterExtractions.startDate})`.as('last_start'),
+    })
+    .from(posterExtractions)
+    .groupBy(posterExtractions.uploadId)
+    .as('poster_event_dates');
+}
+
+type PosterEventDates = ReturnType<typeof posterEventDates>;
+
+/**
+ * A poster counts as past only once it has a date and that date has gone by.
+ * One the model read no date off is not past - it rides along at the end of the
+ * upcoming wall rather than being filed under a date it never had.
+ */
+function timeframeFilter(dates: PosterEventDates, timeframe: PosterTimeframe) {
+  return timeframe === 'past'
+    ? and(isNull(dates.nextStart), isNotNull(dates.lastStart))
+    : or(isNotNull(dates.nextStart), isNull(dates.lastStart));
+}
+
+/**
+ * Published uploads for the /posters feed: soonest event first on the upcoming
+ * wall, most recently past first on the past one.
  *
  * `includeAdult` defaults to false, so every caller that forgets to think about
  * it gets the safe feed. Only a signed-in viewer who has asked to see them
@@ -130,29 +193,48 @@ async function attachExtractions(
  */
 export async function queryPublishedPosters(
   limit: number = POSTER_FEED_LIMIT,
-  { includeAdult = false }: { includeAdult?: boolean } = {}
+  { includeAdult = false, timeframe = 'upcoming' }: PosterFeedOptions = {}
 ): Promise<PosterFeedUpload[]> {
+  const dates = posterEventDates(getStartOfTodayEastern());
+
   const uploads = await db
     .select(uploadColumns)
     .from(posterUploads)
-    .where(
-      includeAdult
-        ? eq(posterUploads.status, 'published')
-        : and(eq(posterUploads.status, 'published'), eq(posterUploads.adult, false))
+    .leftJoin(dates, eq(dates.uploadId, posterUploads.id))
+    .where(and(publishedFilter(includeAdult), timeframeFilter(dates, timeframe)))
+    .orderBy(
+      ...(timeframe === 'past'
+        ? [desc(dates.lastStart), desc(posterUploads.createdAt)]
+        : // NULLS LAST because a missing date means "unknown", not "far future",
+          // so dateless posters belong behind everything that has a date.
+          [sql`${dates.nextStart} asc nulls last`, desc(posterUploads.createdAt)])
     )
-    .orderBy(desc(posterUploads.createdAt))
     .limit(limit);
 
   return attachExtractions(uploads);
 }
 
-/** How many published uploads the feed is hiding as adult, for the banner. */
-export async function countHiddenAdultPosters(limit: number = POSTER_FEED_LIMIT): Promise<number> {
+/**
+ * How many published uploads the feed is hiding as adult, for the banner.
+ * Scoped to the same timeframe, so the count matches the wall being looked at.
+ */
+export async function countHiddenAdultPosters(
+  limit: number = POSTER_FEED_LIMIT,
+  { timeframe = 'upcoming' }: { timeframe?: PosterTimeframe } = {}
+): Promise<number> {
+  const dates = posterEventDates(getStartOfTodayEastern());
+
   const rows = await db
     .select({ id: posterUploads.id })
     .from(posterUploads)
-    .where(and(eq(posterUploads.status, 'published'), eq(posterUploads.adult, true)))
-    .orderBy(desc(posterUploads.createdAt))
+    .leftJoin(dates, eq(dates.uploadId, posterUploads.id))
+    .where(
+      and(
+        eq(posterUploads.status, 'published'),
+        eq(posterUploads.adult, true),
+        timeframeFilter(dates, timeframe)
+      )
+    )
     .limit(limit);
 
   return rows.length;

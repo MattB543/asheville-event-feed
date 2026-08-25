@@ -19,7 +19,7 @@ const warmed = new Set<string>();
 /**
  * Pull the full-size version of a poster into the browser cache.
  *
- * The wall renders each poster at ~20vw while the lightbox renders it at up to
+ * The wall renders each poster at ~25vw while the lightbox renders it at up to
  * 42rem, so opening one always fetched a derivative that had never been
  * requested - which is the flash. Warming it on hover means the dialog's <img>
  * usually resolves straight out of cache.

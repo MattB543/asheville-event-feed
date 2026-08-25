@@ -68,7 +68,7 @@ export default function PosterTile({ upload, index, onOpen, onPrefetch }: Poster
           alt={headline ? `Poster for ${headline}` : 'Event poster photographed in Asheville'}
           width={width}
           height={height}
-          sizes="(min-width: 1280px) 20vw, (min-width: 1024px) 25vw, (min-width: 420px) 33vw, 50vw"
+          sizes="(min-width: 1024px) 25vw, (min-width: 420px) 33vw, 50vw"
           // Columns fill top-to-bottom, so tiles 1-5 are the rest of the FIRST
           // column, not the first row - preloading them buys nothing and starves
           // the genuinely visible tiles in the other columns of bandwidth.

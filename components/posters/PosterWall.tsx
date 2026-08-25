@@ -198,7 +198,7 @@ export default function PosterWall({ uploads, initialExtractionId }: PosterWallP
           wall packs tightly at every width with no measuring pass and no
           reflow once the images decode. Native `grid-lanes` masonry is still
           Safari-only, and a JS layout would shift the wall on first paint. */}
-      <div className="columns-2 min-[420px]:columns-3 lg:columns-4 xl:columns-5 gap-[3px]">
+      <div className="columns-2 min-[420px]:columns-3 lg:columns-4 gap-[3px]">
         {wall.map((upload, index) => (
           <PosterTile
             key={upload.id}

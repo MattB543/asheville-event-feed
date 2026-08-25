@@ -7,6 +7,7 @@ import {
   queryPublishedPosters,
   queryPublishedPosterByExtractionId,
   type PosterFeedUpload,
+  type PosterTimeframe,
 } from '@/lib/db/queries/posters';
 import { createClient } from '@/lib/supabase/server';
 
@@ -25,16 +26,29 @@ interface PostersPageProps {
 }
 
 /**
- * The toggle and the deep link have to survive each other, so hrefs are built
+ * The toggles and the deep link have to survive each other, so hrefs are built
  * from the current params rather than hardcoded.
  */
-function feedHref(targetExtractionId: string | null, showAdult: boolean): string {
+function feedHref(
+  targetExtractionId: string | null,
+  { showAdult, showPast }: { showAdult: boolean; showPast: boolean }
+): string {
   const params = new URLSearchParams();
   if (targetExtractionId) params.set('p', targetExtractionId);
   if (showAdult) params.set('adult', 'show');
+  if (showPast) params.set('past', 'show');
 
   const query = params.toString();
   return query ? `/posters?${query}` : '/posters';
+}
+
+/** Same pill as the header's tabs, so the two rows of tabs read as one system. */
+function timeframeTabClasses(active: boolean): string {
+  return `px-2 py-1 sm:py-1.5 text-sm font-medium rounded-md transition-colors ${
+    active
+      ? 'text-gray-900 dark:text-white bg-gray-100 dark:bg-gray-800'
+      : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50'
+  }`;
 }
 
 export default async function PostersPage({ searchParams }: PostersPageProps) {
@@ -52,14 +66,17 @@ export default async function PostersPage({ searchParams }: PostersPageProps) {
   // nothing - the gate is the session, not the URL.
   const showAdult = signedIn && params.adult === 'show';
 
+  const showPast = params.past === 'show';
+  const timeframe: PosterTimeframe = showPast ? 'past' : 'upcoming';
+
   let uploads: PosterFeedUpload[] = [];
   let hiddenAdultCount = 0;
   let failed = false;
 
   try {
     [uploads, hiddenAdultCount] = await Promise.all([
-      queryPublishedPosters(undefined, { includeAdult: showAdult }),
-      showAdult ? Promise.resolve(0) : countHiddenAdultPosters(),
+      queryPublishedPosters(undefined, { includeAdult: showAdult, timeframe }),
+      showAdult ? Promise.resolve(0) : countHiddenAdultPosters(undefined, { timeframe }),
     ]);
 
     // The deep link can point at a poster older than the feed window, in which
@@ -97,8 +114,31 @@ export default async function PostersPage({ searchParams }: PostersPageProps) {
           </div>
 
           <p className="mt-2 px-3 sm:px-0 text-sm text-gray-600 dark:text-gray-400">
-            Flyers spotted around Asheville — tap any poster to read what it says.
+            {showPast
+              ? 'Flyers whose events have already come and gone.'
+              : 'Flyers spotted around Asheville — tap any poster to read what it says.'}
           </p>
+
+          {/* Plain anchors for the same reason as the banner link below: both
+              states are the same route segment and differ only by search param. */}
+          <div className="mt-3 px-3 sm:px-0">
+            <nav aria-label="Poster timeframe" className="-ml-2 flex items-center gap-0.5">
+              <a
+                href={feedHref(null, { showAdult, showPast: false })}
+                aria-current={showPast ? undefined : 'page'}
+                className={timeframeTabClasses(!showPast)}
+              >
+                Upcoming
+              </a>
+              <a
+                href={feedHref(null, { showAdult, showPast: true })}
+                aria-current={showPast ? 'page' : undefined}
+                className={timeframeTabClasses(showPast)}
+              >
+                Past
+              </a>
+            </nav>
+          </div>
 
           {(showAdult || hiddenAdultCount > 0) && (
             <div className="mt-4 mx-3 sm:mx-0 flex flex-wrap items-center justify-between gap-x-3 gap-y-1 px-3 py-2 rounded-lg bg-blue-50 dark:bg-blue-950/30 border border-blue-800/40 dark:border-blue-400/30">
@@ -114,7 +154,11 @@ export default async function PostersPage({ searchParams }: PostersPageProps) {
                   and differ only by search param, so a soft navigation would reuse
                   the cached payload and the list would never change. */}
               <a
-                href={signedIn ? feedHref(targetExtractionId, !showAdult) : '/login'}
+                href={
+                  signedIn
+                    ? feedHref(targetExtractionId, { showAdult: !showAdult, showPast })
+                    : '/login'
+                }
                 className="text-sm font-medium text-blue-800 dark:text-blue-300 underline underline-offset-2 hover:text-blue-900 dark:hover:text-blue-200 whitespace-nowrap"
               >
                 {!signedIn ? 'Sign in' : showAdult ? 'Hide them' : 'Show hidden'}
@@ -132,7 +176,10 @@ export default async function PostersPage({ searchParams }: PostersPageProps) {
                   : hiddenAdultCount > 0
                     ? // Not "no posters yet" - there are posters, they are just all filtered.
                       'Every poster here is currently filtered out. Nothing else to show.'
-                    : 'Nothing on the wall yet. Be the first to pin something up.'}
+                    : showPast
+                      ? 'No posters have aged out yet.'
+                      : // "Coming up", not "at all" - anything dated is on the past wall.
+                        'Nothing coming up on the wall right now. Be the first to pin something up.'}
               </p>
             </div>
           </div>

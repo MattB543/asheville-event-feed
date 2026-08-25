@@ -14,7 +14,7 @@ import {
   queryPosterReviewQueue,
   type AdminPosterUpload,
 } from '@/lib/db/queries/posters';
-import { getPosterSignedUrl } from '@/lib/supabase/storage';
+import { getPosterSignedUrls, type PosterImageUrls } from '@/lib/supabase/storage';
 
 export const metadata: Metadata = {
   title: 'Poster moderation',
@@ -25,21 +25,18 @@ export const metadata: Metadata = {
 export const dynamic = 'force-dynamic';
 
 /**
- * Flagged and failed images live in the private ingress bucket, so the only way
- * to render them is a short-lived signed URL minted per request. A published
- * upload (an approve in this same session) already has a public URL.
+ * Flagged and failed images live in the private ingress bucket, so rendering
+ * them needs a short-lived signed URL. Those are minted in one bulk call by the
+ * page and handed in here, rather than per row.
+ *
+ * When a crop exists the ORIGINAL is shown beside it: the published copy IS the
+ * crop, so on its own it would never reveal what was cut away.
  */
-async function toQueueUpload(upload: AdminPosterUpload): Promise<AdminQueueUpload> {
-  let imageUrl = upload.publicImageUrl;
-
-  if (!imageUrl) {
-    try {
-      imageUrl = await getPosterSignedUrl(upload.id);
-    } catch (error) {
-      console.error(`[Posters] Signed URL failed for upload ${upload.id}:`, error);
-      imageUrl = null;
-    }
-  }
+function toQueueUpload(upload: AdminPosterUpload, urls: PosterImageUrls): AdminQueueUpload {
+  const croppedImageUrl = urls.cropped;
+  // With no crop the public copy and the original are the same bytes, so the
+  // stable public URL is preferred over one that expires.
+  const imageUrl = croppedImageUrl ? urls.original : (upload.publicImageUrl ?? urls.original);
 
   return {
     id: upload.id,
@@ -50,6 +47,7 @@ async function toQueueUpload(upload: AdminPosterUpload): Promise<AdminQueueUploa
     errorMessage: upload.errorMessage,
     rawModelOutputExcerpt: upload.rawModelOutputExcerpt,
     imageUrl,
+    croppedImageUrl,
     fileSizeBytes: upload.fileSizeBytes,
     createdAt: upload.createdAt.toISOString(),
     reviewedAt: upload.reviewedAt ? upload.reviewedAt.toISOString() : null,
@@ -98,10 +96,12 @@ export default async function AdminPostersPage({
       showAll ? Promise.resolve([] as AdminPosterUpload[]) : queryFailedPosters(),
     ]);
 
-    [pending, failed] = await Promise.all([
-      Promise.all(pendingRows.map(toQueueUpload)),
-      Promise.all(failedRows.map(toQueueUpload)),
-    ]);
+    // One storage round trip for the whole page, not two per card.
+    const signed = await getPosterSignedUrls([...pendingRows, ...failedRows].map((row) => row.id));
+    const empty: PosterImageUrls = { original: null, cropped: null };
+
+    pending = pendingRows.map((row) => toQueueUpload(row, signed.get(row.id) ?? empty));
+    failed = failedRows.map((row) => toQueueUpload(row, signed.get(row.id) ?? empty));
   } catch (error) {
     console.error('[Posters] Failed to load moderation queue:', error);
     loadFailed = true;

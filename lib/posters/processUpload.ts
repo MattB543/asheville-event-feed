@@ -18,10 +18,12 @@ import {
   MAX_POSTERS_PER_IMAGE,
 } from '@/lib/ai/posterExtraction';
 import { promoteExtractions, type PromotionOutcome } from '@/lib/posters/promoteExtractions';
+import { cropToQuad } from '@/lib/posters/cropToQuad';
 import {
   publishPosterImage,
   posterIngressPath,
   unpublishPosterImage,
+  uploadPosterCropped,
   uploadPosterIngress,
 } from '@/lib/supabase/storage';
 import { sendPosterFlaggedNotification } from '@/lib/notifications/slack';
@@ -201,6 +203,10 @@ interface ValidatedResult {
   /** Adult-audience verdict; independent of `flagged` - either one holds the upload */
   adult: boolean;
   adultReason: string | null;
+  /** Whether the model saw a photographed sheet worth cropping to. */
+  needsCrop: boolean;
+  /** Raw corner payload - shape and sanity are cropToQuad's job, not ours. */
+  cropCorners: unknown;
   posters: ValidatedPoster[];
   capped: boolean;
 }
@@ -232,6 +238,10 @@ export function validateExtractionResult(raw: unknown): ValidatedResult | null {
     // mislabel safety-flagged uploads as adult ones.
     adult: isBoolean(raw.adultOriented) ? raw.adultOriented : false,
     adultReason: optionalString(raw.adultReason),
+    // Absent verdict means leave the image alone: cropping is the enhancement,
+    // publishing as-uploaded is the safe default.
+    needsCrop: isBoolean(raw.needsCrop) ? raw.needsCrop : false,
+    cropCorners: raw.cropCorners,
     posters,
     capped,
   };
@@ -476,7 +486,7 @@ export async function processPosterUpload(input: PosterUploadInput): Promise<Pos
   // From here on the row exists, so every exit has to leave it in a terminal
   // state: one stuck in 'processing' is invisible to the admin queue forever.
   try {
-    return await runPipeline(uploadId, normalized);
+    return await runPipeline(uploadId, normalized, dimensions);
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
     console.error(`[Posters] Pipeline threw for ${uploadId}:`, error);
@@ -490,10 +500,61 @@ export async function processPosterUpload(input: PosterUploadInput): Promise<Pos
 }
 
 /**
+ * Perspective-crop the upload down to the sheet the model found, and stash the
+ * result beside the original so publishing picks it up.
+ *
+ * Runs on flagged uploads too, not just publishable ones: an admin approval
+ * publishes straight out of storage, so deferring the crop to approval time
+ * would mean re-asking the model for corners we already have.
+ *
+ * Best-effort throughout. A rejected quad, a storage failure, or a warp that
+ * throws all leave the upload exactly as it was, and it publishes uncropped.
+ *
+ * Storing the object is the whole job: publishPosterImage measures whichever
+ * image it actually serves, so the row's dimensions can never drift from it.
+ */
+async function storeCrop(
+  uploadId: string,
+  normalized: Buffer,
+  dimensions: { width: number | null; height: number | null },
+  validated: ValidatedResult
+): Promise<void> {
+  if (!validated.needsCrop) return;
+  // An answer that reports several distinct posters AND a single sheet to crop
+  // to is self-contradictory - a bulletin board, most likely. Cropping would
+  // publish one poster while the extractions describe them all, so don't.
+  if (validated.posters.length !== 1) {
+    console.warn(`[Posters] Skipping crop for ${uploadId}: ${validated.posters.length} posters.`);
+    return;
+  }
+  // Dimensions are nullable on the row, and every corner is relative to them,
+  // so without both there is nothing to resolve the coordinates against.
+  if (!dimensions.width || !dimensions.height) return;
+
+  const cropped = await cropToQuad(
+    normalized,
+    validated.cropCorners,
+    dimensions.width,
+    dimensions.height
+  );
+  if (!cropped) return;
+
+  try {
+    await uploadPosterCropped(cropped.buffer, uploadId);
+  } catch (error) {
+    console.error(`[Posters] Could not store crop for ${uploadId}:`, error);
+  }
+}
+
+/**
  * Everything after the upload row is claimed. Split out so a single wrapper can
  * guarantee the row reaches a terminal state no matter which step throws.
  */
-async function runPipeline(uploadId: string, normalized: Buffer): Promise<PosterUploadResult> {
+async function runPipeline(
+  uploadId: string,
+  normalized: Buffer,
+  dimensions: { width: number | null; height: number | null }
+): Promise<PosterUploadResult> {
   try {
     await uploadPosterIngress(normalized, uploadId);
   } catch (error) {
@@ -557,6 +618,8 @@ async function runPipeline(uploadId: string, normalized: Buffer): Promise<Poster
     await db.insert(posterExtractions).values(rows);
   }
 
+  await storeCrop(uploadId, normalized, dimensions, validated);
+
   // Either axis holds the upload. They are recorded in separate columns so the
   // queue can show which one fired - an adult-audience flyer is not a safety
   // problem, and labelling it as one would make the distinction unrecoverable.
@@ -613,12 +676,20 @@ async function runPipeline(uploadId: string, normalized: Buffer): Promise<Poster
     };
   }
 
-  const publicImageUrl = await publishPosterImage(uploadId);
+  const published = await publishPosterImage(uploadId);
 
   try {
     await db
       .update(posterUploads)
-      .set({ status: 'published', publicImageUrl, updatedAt: new Date() })
+      .set({
+        status: 'published',
+        publicImageUrl: published.publicUrl,
+        // Measured off the published blob, so the masonry always reserves the
+        // tile that actually loads - cropped or not.
+        imageWidth: published.width,
+        imageHeight: published.height,
+        updatedAt: new Date(),
+      })
       .where(eq(posterUploads.id, uploadId));
   } catch (error) {
     // The object is already in the public bucket but nothing records it, so it

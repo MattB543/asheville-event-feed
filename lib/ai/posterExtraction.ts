@@ -59,6 +59,22 @@ export interface PosterExtractionResult {
    */
   adultOriented: boolean;
   adultReason: string | null;
+  /**
+   * True when the image is a photo of a physical sheet with surroundings around
+   * it, so cropping to the paper is worth doing. False for a digital poster
+   * file, a screenshot, or a photo already filled by the artwork.
+   */
+  needsCrop: boolean;
+  /**
+   * Corners of the sheet as [x, y] pairs normalized to 0-1000 on each axis, in
+   * the order top-left, top-right, bottom-right, bottom-left - by the POSTER's
+   * own orientation, not the photo's, so a sideways flyer comes back cyclically
+   * shifted and warping with these labels rights it.
+   *
+   * Null whenever `needsCrop` is false. Never trust this without validating it:
+   * `cropToQuad` in lib/posters/cropToQuad.ts owns the gates.
+   */
+  cropCorners: [number, number][] | null;
   posters: ExtractedPoster[];
 }
 
@@ -117,12 +133,18 @@ Safety assessment for the image as a whole: set "inappropriateForMinors" to true
 
 Adult-audience assessment for the image as a whole - a separate question from safety, judged independently: set "adultOriented" to true if this is an event for adults rather than a general audience. Flag it when the poster prints an age restriction (18+, 21+, 30+), when it markets nightlife or a party as the product (club night, bottle service, "grown & sexy", bar crawl, day drinking), when the event is adult entertainment (burlesque, drag after dark, adult comedy, anything strip-club adjacent), when it promotes cannabis or drinking as the draw, or when the artwork's selling point is sexualized imagery - lingerie, swimwear, or suggestive poses - even if it stops short of the safety bar above. A concert, show, or dinner at a venue that happens to serve alcohol is NOT adult-oriented on that basis alone. When true, put a one-sentence explanation in "adultReason"; otherwise "adultReason" is null.
 
+Framing assessment for the image as a whole - answer this before reading any text. Set "needsCrop" to true ONLY when the image is a photograph of a physical sheet of paper or printed poster with visible surroundings around it (a table, a desk, a wall, a floor, a hand, a noticeboard, background scenery). Set it to false when the image is already a clean poster that fills the frame, a screenshot, a digital flyer, or a wall or board holding several posters at once.
+
+When "needsCrop" is true, set "cropCorners" to the four corners of that single sheet, in the order top-left, top-right, bottom-right, bottom-left, using the poster's OWN orientation as it lies in the photo. Each corner is [x, y] where x is horizontal and y is vertical, both normalized to 0-1000 across the image's full width and height, origin at the image's top-left. Put the corners on the outer edge of the paper, including any white margin. When "needsCrop" is false, "cropCorners" must be null.
+
 Respond with strict JSON only - no markdown fences, no commentary - matching exactly this shape:
 {
   "inappropriateForMinors": false,
   "safetyReason": null,
   "adultOriented": false,
   "adultReason": null,
+  "needsCrop": false,
+  "cropCorners": null,
   "posters": [
     {
       "title": "...",

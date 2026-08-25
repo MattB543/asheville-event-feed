@@ -463,8 +463,11 @@ export const posterUploads = pgTable(
     publicImageUrl: text('public_image_url'), // Set when published (copied to the public bucket)
     imageHash: text('image_hash').notNull(), // sha256 hex of the normalized JPEG - exact-duplicate guard
     fileSizeBytes: integer('file_size_bytes'),
-    // Dimensions of the normalized JPEG. The masonry wall needs each poster's
-    // aspect ratio server-side, before the image itself has loaded.
+    // Dimensions of the image actually PUBLISHED - the auto-crop when there is
+    // one, otherwise the normalized JPEG. Written by publishPosterImage from
+    // the blob it serves, so these never describe a different image than the
+    // bucket holds. The masonry wall needs each poster's aspect ratio
+    // server-side, before the image itself has loaded.
     imageWidth: integer('image_width'),
     imageHeight: integer('image_height'),
 

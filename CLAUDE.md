@@ -259,7 +259,7 @@ One row per uploaded poster photo. Single status state machine:
 - `imagePath` — object path in the **private** `poster-uploads` ingress bucket
 - `publicImageUrl` — set only once published (copied to `event-images/posters/{uploadId}.jpg`); cleared on a takedown
 - `imageHash` — sha256 of the normalized JPEG; exact re-uploads short-circuit before any AI spend
-- `imageWidth` / `imageHeight` — dimensions of the normalized JPEG, recorded at upload time. The `/posters` masonry needs each poster's aspect ratio server-side to reserve its tile before the image decodes; without them the wall reflows as it loads. Nullable only for rows predating the column (`scripts/backfill-poster-dimensions.ts` fills those in)
+- `imageWidth` / `imageHeight` — dimensions of the image actually PUBLISHED (the auto-crop when there is one, otherwise the normalized JPEG), written by `publishPosterImage`. The `/posters` masonry needs each poster's aspect ratio server-side to reserve its tile before the image decodes; without them the wall reflows as it loads. Nullable only for rows predating the column (`scripts/backfill-poster-dimensions.ts` fills those in)
 - `safetyReason` — why the AI flagged it (`GEMINI_BLOCKED:<reason>` for a Gemini hard block, which produces no extractions)
 - `errorMessage` / `rawModelOutput` — failure detail, shown in the moderation queue
 - `reviewedAt` — set on approve/deny, so "AI said safe" and "admin approved" stay distinguishable

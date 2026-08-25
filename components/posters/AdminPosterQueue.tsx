@@ -34,6 +34,8 @@ export interface AdminQueueUpload {
   rawModelOutputExcerpt: string | null;
   /** Signed ingress URL while private, public URL once published */
   imageUrl: string | null;
+  /** The auto-crop, when one was produced. Null means the upload publishes as-is. */
+  croppedImageUrl: string | null;
   fileSizeBytes: number | null;
   createdAt: string;
   reviewedAt: string | null;
@@ -119,6 +121,48 @@ interface PosterQueueCardProps {
   onModerate: (uploadId: string, action: ModerateAction) => void;
 }
 
+/**
+ * One thumbnail in a card's image column.
+ *
+ * `comparing` switches to object-contain: when the original and the crop are
+ * stacked, the whole point is to see what was cut away, and the cover crop the
+ * single-image layout uses would hide exactly that.
+ */
+function QueueThumbnail({
+  url,
+  alt,
+  label,
+  comparing,
+}: {
+  url: string;
+  alt: string;
+  label?: string | null;
+  comparing?: boolean;
+}) {
+  return (
+    <figure>
+      <a href={url} target="_blank" rel="noopener noreferrer" title="Open full size">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={url}
+          alt={alt}
+          loading="lazy"
+          className={
+            comparing
+              ? 'w-full max-h-44 object-contain rounded-lg bg-gray-100 dark:bg-gray-800'
+              : 'w-full max-h-72 sm:max-h-none object-contain sm:object-cover sm:aspect-[3/4] rounded-lg bg-gray-100 dark:bg-gray-800'
+          }
+        />
+      </a>
+      {label && (
+        <figcaption className="mt-1 text-[11px] font-medium text-gray-500 dark:text-gray-400">
+          {label}
+        </figcaption>
+      )}
+    </figure>
+  );
+}
+
 function PosterQueueCard({ upload, canModerate, busyAction, onModerate }: PosterQueueCardProps) {
   const isPending = upload.status === 'pending_review';
   const isPublished = upload.status === 'published';
@@ -133,21 +177,26 @@ function PosterQueueCard({ upload, canModerate, busyAction, onModerate }: Poster
   return (
     <article className="flex flex-col sm:flex-row gap-4 p-4 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl">
       <div className="sm:w-44 sm:flex-shrink-0">
-        {upload.imageUrl ? (
-          <a
-            href={upload.imageUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            title="Open full size"
-          >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={upload.imageUrl}
-              alt={`Poster upload ${upload.id.slice(0, 8)}`}
-              loading="lazy"
-              className="w-full max-h-72 sm:max-h-none object-contain sm:object-cover sm:aspect-[3/4] rounded-lg bg-gray-100 dark:bg-gray-800"
-            />
-          </a>
+        {upload.imageUrl || upload.croppedImageUrl ? (
+          <div className="space-y-2">
+            {upload.imageUrl && (
+              <QueueThumbnail
+                url={upload.imageUrl}
+                alt={`Poster upload ${upload.id.slice(0, 8)}`}
+                // Only labelled when there is something to tell it apart from.
+                label={upload.croppedImageUrl ? 'Original' : null}
+                comparing={Boolean(upload.croppedImageUrl)}
+              />
+            )}
+            {upload.croppedImageUrl && (
+              <QueueThumbnail
+                url={upload.croppedImageUrl}
+                alt={`Cropped poster upload ${upload.id.slice(0, 8)}`}
+                label="Auto-cropped (published)"
+                comparing
+              />
+            )}
+          </div>
         ) : (
           <div className="w-full sm:aspect-[3/4] rounded-lg bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-xs text-gray-500 dark:text-gray-400 p-2 text-center">
             Image unavailable

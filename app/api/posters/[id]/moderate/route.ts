@@ -216,7 +216,7 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
     // Idempotent by design: re-publishing overwrites the public object, and
     // promoteExtractions leaves settled rows alone while retrying failed ones.
     const wasDenied = upload.status === 'denied';
-    const publicImageUrl = await publishPosterImage(id);
+    const published = await publishPosterImage(id);
     const now = new Date();
 
     // The status the SELECT above saw can be stale by now (a double-click, a
@@ -224,7 +224,17 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
     // approve against deny, so exactly one of two racing decisions lands.
     const [claimed] = await db
       .update(posterUploads)
-      .set({ status: 'published', publicImageUrl, reviewedAt: now, updatedAt: now })
+      .set({
+        status: 'published',
+        publicImageUrl: published.publicUrl,
+        // Approving a flagged upload publishes its stored crop, which is a
+        // different size from the original - so re-record the dimensions the
+        // /posters masonry reserves tiles from.
+        imageWidth: published.width,
+        imageHeight: published.height,
+        reviewedAt: now,
+        updatedAt: now,
+      })
       .where(and(eq(posterUploads.id, id), inArray(posterUploads.status, [...APPROVABLE_STATUSES])))
       .returning({ id: posterUploads.id });
 
@@ -313,7 +323,7 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
     return NextResponse.json({
       uploadId: id,
       status: 'published',
-      publicImageUrl,
+      publicImageUrl: published.publicUrl,
       createdCount,
       failedCount,
       restoredCount,

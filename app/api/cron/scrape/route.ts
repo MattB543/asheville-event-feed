@@ -21,11 +21,14 @@ import { scrapeStoryParlor } from '@/lib/scrapers/storyparlor';
 import { scrapeTheaterAlliance } from '@/lib/scrapers/theateralliance';
 import { scrapePechaKucha } from '@/lib/scrapers/pechakucha';
 import { scrapeLittleAnimals } from '@/lib/scrapers/littleanimals';
+import { scrapeAshevilleMusicHall } from '@/lib/scrapers/ashevillemusichall';
+import { scrapePisgahBrewing } from '@/lib/scrapers/pisgahbrewing';
+import { scrapeKingStreet } from '@/lib/scrapers/kingstreet';
 import { db } from '@/lib/db';
 import { events } from '@/lib/db/schema';
 import { inArray, eq, sql, and, isNull, or } from 'drizzle-orm';
 import type { ScrapedEvent } from '@/lib/scrapers/types';
-import { env, isFacebookEnabled } from '@/lib/config/env';
+import { env, isFacebookEnabled, isLocalScrapeRuntime } from '@/lib/config/env';
 import { findDuplicates, getIdsToRemove, getDescriptionUpdates } from '@/lib/utils/deduplication';
 import { verifyAuthToken } from '@/lib/utils/auth';
 import { invalidateEventsCache } from '@/lib/cache/invalidation';
@@ -51,6 +54,10 @@ interface ScraperDef {
   name: string;
   fn: () => Promise<ScrapedEvent[]>;
   stripTags?: boolean; // If true, remove tags from results (AI job adds them later)
+  // If true, only run outside Vercel (see isLocalScrapeRuntime). For sources that
+  // need a real browser or an IP the origin doesn't block, so the Vercel cron
+  // skips them and a local pipeline run keeps them fresh.
+  localOnly?: boolean;
 }
 
 const SCRAPERS: ScraperDef[] = [
@@ -61,6 +68,11 @@ const SCRAPERS: ScraperDef[] = [
   { name: 'Orange Peel', fn: scrapeOrangePeel },
   { name: 'Grey Eagle', fn: scrapeGreyEagle },
   { name: 'Live Music AVL', fn: scrapeLiveMusicAvl },
+  // Cloudflare challenges Node's TLS fingerprint (not the IP), so the scraper goes
+  // through a Chrome-like undici dispatcher. Since the block was never IP-based this
+  // should work from Vercel; the patchright tier won't, but tiers 1-2 shouldn't need
+  // it. Watch result.scrapers for "Mountain Xpress" — if it fails there, restore
+  // localOnly: true and it goes back to refreshing on local runs only.
   { name: 'Mountain Xpress', fn: scrapeMountainX },
   { name: 'UNCA', fn: scrapeUncaEvents },
   { name: 'Static Age', fn: scrapeStaticAge },
@@ -75,6 +87,9 @@ const SCRAPERS: ScraperDef[] = [
   { name: 'Theater Alliance', fn: scrapeTheaterAlliance },
   { name: 'PechaKucha', fn: scrapePechaKucha },
   { name: 'Little Animals', fn: scrapeLittleAnimals },
+  { name: 'Asheville Music Hall', fn: scrapeAshevilleMusicHall },
+  { name: 'Pisgah Brewing', fn: scrapePisgahBrewing },
+  { name: '185 King Street', fn: scrapeKingStreet },
 ];
 
 // Scrape-only cron job
@@ -108,7 +123,12 @@ export async function GET(request: Request) {
       duration: 0,
       success: 0,
       failed: 0,
-      bySource: {} as Record<string, { success: number; failed: number }>,
+      // Split out so a run records how many events were genuinely NEW vs re-confirmed.
+      // The upsert touches every scraped row each time, so `success` alone says nothing
+      // about growth.
+      inserted: 0,
+      updated: 0,
+      bySource: {} as Record<string, { inserted: number; updated: number; failed: number }>,
     },
     dedup: { removed: 0, byMethod: {} as Record<string, number> },
     dbEventsBefore: 0,
@@ -124,10 +144,20 @@ export async function GET(request: Request) {
     stats.dbEventsBefore = preCount.count;
     console.log(`[Scrape] DB event count before run: ${stats.dbEventsBefore}`);
 
+    // Skip local-only sources when running on Vercel (see isLocalScrapeRuntime)
+    const runLocalOnly = isLocalScrapeRuntime();
+    const activeScrapers = SCRAPERS.filter((s) => !s.localOnly || runLocalOnly);
+    const skippedSources = SCRAPERS.filter((s) => s.localOnly && !runLocalOnly).map((s) => s.name);
+    if (skippedSources.length > 0) {
+      console.log(
+        `[Scrape] Skipping ${skippedSources.length} local-only source(s) on Vercel: ${skippedSources.join(', ')}`
+      );
+    }
+
     // Scrape all sources in parallel (each with its own timer)
-    console.log(`[Scrape] Scraping ${SCRAPERS.length} sources in parallel...`);
+    console.log(`[Scrape] Scraping ${activeScrapers.length} sources in parallel...`);
     const scrapeStartTime = Date.now();
-    const timedScrapers = SCRAPERS.map(async (scraper) => {
+    const timedScrapers = activeScrapers.map(async (scraper) => {
       const start = Date.now();
       try {
         const result = await scraper.fn();
@@ -157,6 +187,15 @@ export async function GET(request: Request) {
     let successCount = 0;
     let failCount = 0;
     const scraperSummaryLines: string[] = [];
+    // Per-scraper outcome, persisted to cron_job_runs so a run stays auditable after
+    // Vercel's ~1h runtime log retention expires.
+    const scraperStats: Array<{
+      name: string;
+      ok: boolean;
+      events: number;
+      ms: number;
+      error?: string;
+    }> = [];
 
     for (const result of scraperResults) {
       const dur = formatDuration(result.duration);
@@ -172,6 +211,13 @@ export async function GET(request: Request) {
           allEvents.push(...result.value);
         }
 
+        scraperStats.push({
+          name: result.name,
+          ok: true,
+          events: count,
+          ms: result.duration,
+        });
+
         if (count === 0) {
           console.warn(`[Scrape] WARN: ${result.name} returned 0 events (${dur})`);
           scraperSummaryLines.push(`  ${result.name}: 0 events (${dur}) [WARN: empty]`);
@@ -181,6 +227,13 @@ export async function GET(request: Request) {
       } else {
         failCount++;
         const errDetail = formatErrorDetails(result.reason);
+        scraperStats.push({
+          name: result.name,
+          ok: false,
+          events: 0,
+          ms: result.duration,
+          error: errDetail.slice(0, 200),
+        });
         console.error(`[Scrape] ERROR: ${result.name} failed (${dur}): ${errDetail}`);
         scraperSummaryLines.push(`  ${result.name}: FAILED (${dur}) - ${errDetail}`);
       }
@@ -213,10 +266,28 @@ export async function GET(request: Request) {
         );
         allEvents.push(...fbEvents);
         stats.scraping.total += fbEvents.length;
+        successCount++;
+        scraperStats.push({
+          name: 'Facebook',
+          ok: true,
+          events: fbEvents.length,
+          ms: Date.now() - fbStart,
+        });
       } catch (fbError) {
         const fbDur = formatDuration(Date.now() - fbStart);
-        console.error(`[Scrape] ERROR: Facebook failed (${fbDur}): ${formatErrorDetails(fbError)}`);
+        const fbErrDetail = formatErrorDetails(fbError);
+        failCount++;
+        scraperStats.push({
+          name: 'Facebook',
+          ok: false,
+          events: 0,
+          ms: Date.now() - fbStart,
+          error: fbErrDetail.slice(0, 200),
+        });
+        console.error(`[Scrape] ERROR: Facebook failed (${fbDur}): ${fbErrDetail}`);
       }
+    } else {
+      skippedSources.push('Facebook');
     }
 
     // Upsert phase
@@ -230,7 +301,7 @@ export async function GET(request: Request) {
       await Promise.all(
         batch.map(async (event) => {
           try {
-            await db
+            const upsertResult = await db
               .insert(events)
               .values({
                 sourceId: event.sourceId,
@@ -270,15 +341,26 @@ export async function GET(request: Request) {
                   lastSeenAt: new Date(),
                   // Note: tags are NOT updated on conflict - preserves AI-generated tags
                 },
-              });
+              })
+              // xmax = 0 only for a freshly inserted row; on the update path it holds
+              // the locking transaction id. Costs no extra round trip.
+              .returning({ inserted: sql<boolean>`(xmax = 0)` });
             stats.upsert.success++;
             const src = event.source;
-            if (!stats.upsert.bySource[src]) stats.upsert.bySource[src] = { success: 0, failed: 0 };
-            stats.upsert.bySource[src].success++;
+            if (!stats.upsert.bySource[src])
+              stats.upsert.bySource[src] = { inserted: 0, updated: 0, failed: 0 };
+            if (upsertResult[0]?.inserted) {
+              stats.upsert.inserted++;
+              stats.upsert.bySource[src].inserted++;
+            } else {
+              stats.upsert.updated++;
+              stats.upsert.bySource[src].updated++;
+            }
           } catch (err) {
             stats.upsert.failed++;
             const src = event.source;
-            if (!stats.upsert.bySource[src]) stats.upsert.bySource[src] = { success: 0, failed: 0 };
+            if (!stats.upsert.bySource[src])
+              stats.upsert.bySource[src] = { inserted: 0, updated: 0, failed: 0 };
             stats.upsert.bySource[src].failed++;
             console.error(
               `[Scrape] Upsert failed: "${event.title}" (${event.source}, url=${event.url}): ${formatErrorDetails(err)}`
@@ -289,16 +371,19 @@ export async function GET(request: Request) {
     }
     stats.upsert.duration = Date.now() - upsertStartTime;
     console.log(
-      `[Scrape] Upsert complete in ${formatDuration(stats.upsert.duration)}: ${stats.upsert.success} succeeded, ${stats.upsert.failed} failed`
+      `[Scrape] Upsert complete in ${formatDuration(stats.upsert.duration)}: ${stats.upsert.inserted} inserted, ${stats.upsert.updated} updated, ${stats.upsert.failed} failed`
     );
 
-    // Log per-source upsert breakdown if any failures occurred
-    if (stats.upsert.failed > 0) {
+    // Log per-source upsert breakdown for any source that added rows or hit failures
+    const notableSources = Object.entries(stats.upsert.bySource).filter(
+      ([, c]) => c.inserted > 0 || c.failed > 0
+    );
+    if (notableSources.length > 0) {
       console.log('[Scrape] ── Upsert by Source ──');
-      for (const [src, counts] of Object.entries(stats.upsert.bySource)) {
-        if (counts.failed > 0) {
-          console.log(`[Scrape]   ${src}: ${counts.success} ok, ${counts.failed} failed`);
-        }
+      for (const [src, counts] of notableSources) {
+        console.log(
+          `[Scrape]   ${src}: ${counts.inserted} new, ${counts.updated} updated, ${counts.failed} failed`
+        );
       }
     }
 
@@ -420,7 +505,16 @@ export async function GET(request: Request) {
     const result = {
       scraped: stats.scraping.total,
       upserted: stats.upsert.success,
+      inserted: stats.upsert.inserted,
+      updated: stats.upsert.updated,
       duplicatesRemoved: stats.dedup.removed,
+      skippedSources,
+      scrapers: scraperStats,
+      insertedBySource: Object.fromEntries(
+        Object.entries(stats.upsert.bySource)
+          .filter(([, c]) => c.inserted > 0)
+          .map(([src, c]) => [src, c.inserted])
+      ),
       failures: {
         upsert: stats.upsert.failed,
         scrapers: failCount,

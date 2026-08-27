@@ -1,19 +1,34 @@
 /**
  * Mountain Xpress (mountainx.com) Scraper
  *
- * Primary path: Tribe Events Calendar REST API when it is available.
- * Fallback path: month-view HTML in a real browser session. Cloudflare is
- * currently blocking both direct HTTP requests and browser fetches to the
- * REST API, but same-origin HTML fetches for month pages still work after
- * bootstrapping a browser session on the current month view.
+ * Every mountainx.com URL sits behind Cloudflare, which fingerprints the TLS
+ * handshake and the ALPN offer together. Node's built-in fetch is served the
+ * "Just a moment..." interstitial no matter what headers we send, which is what
+ * took this source offline. An undici dispatcher that offers HTTP/2 with
+ * Chrome's cipher order is let straight through - both halves matter, since h2
+ * on Node's default ciphers and Chrome's ciphers over HTTP/1.1 are each still
+ * challenged.
+ *
+ * Paths, in order:
+ *   1. Tribe Events Calendar REST API - richest data, 50 events per request.
+ *   2. Month-view HTML over the same dispatcher, read as JSON-LD.
+ *   3. Month-view HTML through a real patchright browser, in case Cloudflare
+ *      starts rejecting the handshake above as well.
+ *
+ * Nothing is evaluated inside the browser page. tsx transpiles this file with
+ * esbuild, which wraps named inner functions in its `__name` helper, and a
+ * closure carrying that helper throws `ReferenceError: __name is not defined`
+ * as soon as Playwright serializes it into the browser context.
  */
 
 import { type ScrapedEvent } from './types';
+import { findJsonLdEvents } from './jsonld';
 import { isNonNCEvent, getZipFromCity } from '@/lib/utils/geo';
 import { decodeHtmlEntities } from '@/lib/utils/parsers';
-import { fetchWithRetry, DEFAULT_FETCH_TIMEOUT_MS } from '@/lib/utils/retry';
+import { DEFAULT_FETCH_TIMEOUT_MS } from '@/lib/utils/retry';
 import { getTodayStringEastern } from '@/lib/utils/timezone';
-import type { Browser } from 'patchright';
+import type { Browser, Page } from 'patchright';
+import type { Dispatcher } from 'undici';
 
 const API_BASE = 'https://mountainx.com/wp-json/tribe/events/v1/events';
 const MONTH_VIEW_ROOT = 'https://mountainx.com/events/month/';
@@ -22,22 +37,42 @@ const MAX_PAGES = 40;
 const MAX_EVENTS = PER_PAGE * MAX_PAGES;
 const SCRAPE_WINDOW_DAYS = 56;
 const API_DELAY_MS = 200;
+const HTTP_ATTEMPTS = 4;
+const HTTP_RETRY_BASE_MS = 2000;
 const MONTH_DELAY_MS = 400;
+const MONTH_NAV_TIMEOUT_MS = 60000;
+const CHALLENGE_ATTEMPTS = 3;
+const CHALLENGE_WAIT_MS = 6000;
+const CHALLENGE_TITLE = /just a moment/i;
 
-const API_HEADERS = {
-  'User-Agent':
-    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-  Accept: 'application/json',
-  'Accept-Language': 'en-US,en;q=0.9',
-};
+/** Chrome 122's TLS cipher order, in OpenSSL naming. */
+const CHROME_TLS_CIPHERS = [
+  'TLS_AES_128_GCM_SHA256',
+  'TLS_AES_256_GCM_SHA384',
+  'TLS_CHACHA20_POLY1305_SHA256',
+  'ECDHE-ECDSA-AES128-GCM-SHA256',
+  'ECDHE-RSA-AES128-GCM-SHA256',
+  'ECDHE-ECDSA-AES256-GCM-SHA384',
+  'ECDHE-RSA-AES256-GCM-SHA384',
+  'ECDHE-ECDSA-CHACHA20-POLY1305',
+  'ECDHE-RSA-CHACHA20-POLY1305',
+  'ECDHE-RSA-AES128-SHA',
+  'ECDHE-RSA-AES256-SHA',
+  'AES128-GCM-SHA256',
+  'AES256-GCM-SHA384',
+  'AES128-SHA',
+  'AES256-SHA',
+].join(':');
 
-const HTML_HEADERS = {
-  Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-};
+const USER_AGENT =
+  'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36';
+const ACCEPT_LANGUAGE = 'en-US,en;q=0.9';
+
+const JSON_ACCEPT = 'application/json';
+const HTML_ACCEPT = 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8';
 
 const BROWSER_CONTEXT_OPTIONS = {
-  userAgent:
-    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36',
+  userAgent: USER_AGENT,
   locale: 'en-US',
   timezoneId: 'America/New_York',
 } as const;
@@ -99,7 +134,11 @@ interface TribeEventsResponse {
 interface MonthTarget {
   monthKey: string;
   targetUrl: string;
-  useCurrentDocument: boolean;
+}
+
+interface MonthPage {
+  monthKey: string;
+  html: string;
 }
 
 interface ScrapeWindow {
@@ -125,26 +164,37 @@ interface SerializedMonthEvent {
   priceCurrency?: string;
 }
 
-interface MonthFetchResult {
-  status: number;
-  title: string;
-  events: SerializedMonthEvent[];
+/** Shape of the schema.org Event nodes Mountain Xpress embeds in month views. */
+interface JsonLdEvent {
+  name?: unknown;
+  description?: unknown;
+  image?: unknown;
+  url?: unknown;
+  startDate?: unknown;
+  endDate?: unknown;
+  location?: unknown;
+  organizer?: unknown;
+  offers?: unknown;
 }
 
 export async function scrapeMountainX(): Promise<ScrapedEvent[]> {
   console.log('[MountainX] Starting scrape...');
 
-  let allEvents: ScrapedEvent[] = [];
   const window = getScrapeWindow();
+  const dispatcher = await createCloudflareDispatcher();
+  let allEvents: ScrapedEvent[] = [];
 
   try {
-    allEvents = await scrapeMountainXViaApi(window);
-    console.log(`[MountainX] API path returned ${allEvents.length} events`);
-  } catch (error) {
-    const message = error instanceof Error ? error.message : String(error);
-    console.warn(`[MountainX] API path failed: ${message}`);
-    console.warn('[MountainX] Falling back to browser month-view HTML scrape...');
-    allEvents = await scrapeMountainXFromMonthViews(window);
+    try {
+      allEvents = await scrapeMountainXViaApi(window, dispatcher);
+      console.log(`[MountainX] API path returned ${allEvents.length} events`);
+    } catch (error) {
+      console.warn(`[MountainX] API path failed: ${describeError(error)}`);
+      console.warn('[MountainX] Falling back to month-view HTML scrape...');
+      allEvents = await scrapeMountainXFromMonthViews(window, dispatcher);
+    }
+  } finally {
+    await dispatcher.close();
   }
 
   const deduped = dedupeByUrl(allEvents);
@@ -164,7 +214,51 @@ export async function scrapeMountainX(): Promise<ScrapedEvent[]> {
   return ncEvents;
 }
 
-async function scrapeMountainXViaApi(window: ScrapeWindow): Promise<ScrapedEvent[]> {
+async function createCloudflareDispatcher(): Promise<Dispatcher> {
+  const { Agent } = await import('undici');
+  return new Agent({ allowH2: true, connect: { ciphers: CHROME_TLS_CIPHERS } });
+}
+
+/**
+ * Cloudflare's 403 here is a transient reputation check rather than a standing
+ * block - the same URL and handshake that is challenged one second is served
+ * the next - so every request gets a few spaced-out attempts before we give up
+ * on this path.
+ */
+async function fetchAsChrome(url: string, accept: string, dispatcher: Dispatcher): Promise<string> {
+  const { fetch: undiciFetch } = await import('undici');
+  let lastStatus = 0;
+
+  for (let attempt = 1; attempt <= HTTP_ATTEMPTS; attempt++) {
+    const response = await undiciFetch(url, {
+      headers: { 'User-Agent': USER_AGENT, Accept: accept, 'Accept-Language': ACCEPT_LANGUAGE },
+      dispatcher,
+      signal: AbortSignal.timeout(DEFAULT_FETCH_TIMEOUT_MS),
+    });
+
+    const body = await response.text();
+
+    if (response.status === 200 && !CHALLENGE_TITLE.test(readTitle(body))) {
+      return body;
+    }
+
+    lastStatus = response.status;
+
+    if (attempt < HTTP_ATTEMPTS) {
+      console.warn(
+        `[MountainX] Challenged (status=${lastStatus}, attempt ${attempt}/${HTTP_ATTEMPTS}): ${url}`
+      );
+      await sleep(HTTP_RETRY_BASE_MS * attempt);
+    }
+  }
+
+  throw new Error(`HTTP ${lastStatus} for ${url}`);
+}
+
+async function scrapeMountainXViaApi(
+  window: ScrapeWindow,
+  dispatcher: Dispatcher
+): Promise<ScrapedEvent[]> {
   console.log('[MountainX] Trying Tribe REST API...');
 
   const allEvents: ScrapedEvent[] = [];
@@ -178,18 +272,23 @@ async function scrapeMountainXViaApi(window: ScrapeWindow): Promise<ScrapedEvent
     url.searchParams.set('per_page', PER_PAGE.toString());
     url.searchParams.set('page', page.toString());
 
-    console.log(`[MountainX] API page ${page}...`);
-
-    const data = await fetchEventsPageWithHttp(url.toString());
+    const data = await fetchEventsPageWithHttp(url.toString(), dispatcher);
     const events = data.events || [];
 
-    console.log(`[MountainX] API page ${page}: ${events.length} events (total: ${data.total})`);
+    console.log(`[MountainX] API page ${page}/${data.total_pages}: ${events.length} events`);
 
     for (const event of events) {
       const formatted = formatApiEvent(event, window);
       if (formatted) {
         allEvents.push(formatted);
       }
+    }
+
+    // The API returns events in start-date order, so once a whole page lands
+    // past the window there is nothing left worth paging through.
+    if (events.length > 0 && events.every((event) => isApiEventPastWindow(event, window))) {
+      console.log(`[MountainX] API page ${page} is past the ${SCRAPE_WINDOW_DAYS}-day window.`);
+      break;
     }
 
     hasMore = !!data.next_rest_url && page < data.total_pages;
@@ -203,64 +302,97 @@ async function scrapeMountainXViaApi(window: ScrapeWindow): Promise<ScrapedEvent
   return allEvents;
 }
 
-async function fetchEventsPageWithHttp(url: string): Promise<TribeEventsResponse> {
-  const initialResponse = await fetch(url, {
-    headers: API_HEADERS,
-    cache: 'no-store',
-    signal: AbortSignal.timeout(DEFAULT_FETCH_TIMEOUT_MS),
-  });
-
-  if (initialResponse.status === 403) {
-    throw new Error('HTTP 403: Forbidden');
-  }
-
-  if (!initialResponse.ok) {
-    const retriedResponse = await fetchWithRetry(
-      url,
-      { headers: API_HEADERS, cache: 'no-store' },
-      { maxRetries: 2, baseDelay: 1000 }
-    );
-    return (await retriedResponse.json()) as TribeEventsResponse;
-  }
-
-  return (await initialResponse.json()) as TribeEventsResponse;
+async function fetchEventsPageWithHttp(
+  url: string,
+  dispatcher: Dispatcher
+): Promise<TribeEventsResponse> {
+  return JSON.parse(await fetchAsChrome(url, JSON_ACCEPT, dispatcher)) as TribeEventsResponse;
 }
 
-async function scrapeMountainXFromMonthViews(window: ScrapeWindow): Promise<ScrapedEvent[]> {
-  const browser = await launchBrowser();
+async function scrapeMountainXFromMonthViews(
+  window: ScrapeWindow,
+  dispatcher: Dispatcher
+): Promise<ScrapedEvent[]> {
   const monthTargets = buildMonthTargets(window);
-  const allEvents: ScrapedEvent[] = [];
-  const seenUrls = new Set<string>();
 
   try {
-    for (const target of monthTargets) {
-      const rawEvents = await fetchMonthEventsWithBrowser(browser, target);
-      let addedThisMonth = 0;
+    return collectMonthEvents(await fetchMonthPagesWithHttp(monthTargets, dispatcher), window);
+  } catch (error) {
+    console.warn(`[MountainX] Month-view HTTP fetch failed: ${describeError(error)}`);
+    console.warn('[MountainX] Falling back to a real browser session...');
+    return collectMonthEvents(await fetchMonthPagesWithBrowser(monthTargets), window);
+  }
+}
 
-      for (const rawEvent of rawEvents) {
-        const formatted = formatMonthEvent(rawEvent, window);
-        if (!formatted || seenUrls.has(formatted.url)) {
-          continue;
-        }
+async function fetchMonthPagesWithHttp(
+  targets: MonthTarget[],
+  dispatcher: Dispatcher
+): Promise<MonthPage[]> {
+  const pages: MonthPage[] = [];
 
-        seenUrls.add(formatted.url);
-        allEvents.push(formatted);
-        addedThisMonth++;
-      }
+  for (const target of targets) {
+    pages.push({
+      monthKey: target.monthKey,
+      html: await fetchAsChrome(target.targetUrl, HTML_ACCEPT, dispatcher),
+    });
+    await sleep(MONTH_DELAY_MS);
+  }
 
-      console.log(
-        `[MountainX] Month ${target.monthKey}: ${addedThisMonth} events after formatting/dedup`
-      );
+  return pages;
+}
 
-      if (allEvents.length >= MAX_EVENTS) {
-        console.log(`[MountainX] Reached event cap (${MAX_EVENTS}). Stopping month scan.`);
-        break;
+async function fetchMonthPagesWithBrowser(targets: MonthTarget[]): Promise<MonthPage[]> {
+  const browser = await launchBrowser();
+  const pages: MonthPage[] = [];
+
+  try {
+    for (const target of targets) {
+      // A fresh context per month, deliberately. Reusing one context carries
+      // the first page's Cloudflare cookie into the next navigation, and every
+      // request after that is challenged; a clean cookie jar is waved through.
+      const context = await browser.newContext(BROWSER_CONTEXT_OPTIONS);
+
+      try {
+        const page = await context.newPage();
+        pages.push({
+          monthKey: target.monthKey,
+          html: await fetchMonthHtmlWithBrowser(page, target),
+        });
+      } finally {
+        await context.close();
       }
 
       await sleep(MONTH_DELAY_MS);
     }
   } finally {
     await browser.close();
+  }
+
+  return pages;
+}
+
+function collectMonthEvents(pages: MonthPage[], window: ScrapeWindow): ScrapedEvent[] {
+  const allEvents: ScrapedEvent[] = [];
+  const seenUrls = new Set<string>();
+
+  for (const { monthKey, html } of pages) {
+    const rawEvents = extractMonthEvents(html, monthKey);
+    let addedThisMonth = 0;
+
+    for (const rawEvent of rawEvents) {
+      const formatted = formatMonthEvent(rawEvent, window);
+      if (!formatted || seenUrls.has(formatted.url)) {
+        continue;
+      }
+
+      seenUrls.add(formatted.url);
+      allEvents.push(formatted);
+      addedThisMonth++;
+    }
+
+    console.log(
+      `[MountainX] Month ${monthKey}: ${rawEvents.length} raw, ${addedThisMonth} after formatting/dedup`
+    );
   }
 
   allEvents.sort((a, b) => a.startDate.getTime() - b.startDate.getTime());
@@ -306,7 +438,6 @@ function buildMonthTargets(window: ScrapeWindow): MonthTarget[] {
     targets.push({
       monthKey,
       targetUrl: index === 0 ? MONTH_VIEW_ROOT : `${MONTH_VIEW_ROOT}${monthKey}/`,
-      useCurrentDocument: index === 0,
     });
 
     current = new Date(Date.UTC(current.getUTCFullYear(), current.getUTCMonth() + 1, 1));
@@ -316,163 +447,109 @@ function buildMonthTargets(window: ScrapeWindow): MonthTarget[] {
   return targets;
 }
 
-async function fetchMonthEventsWithBrowser(
-  browser: Browser,
-  target: MonthTarget
-): Promise<SerializedMonthEvent[]> {
-  const context = await browser.newContext(BROWSER_CONTEXT_OPTIONS);
-  const page = await context.newPage();
-
-  try {
-    const bootstrap = await page.goto(MONTH_VIEW_ROOT, {
+async function fetchMonthHtmlWithBrowser(page: Page, target: MonthTarget): Promise<string> {
+  for (let attempt = 1; attempt <= CHALLENGE_ATTEMPTS; attempt++) {
+    const response = await page.goto(target.targetUrl, {
       waitUntil: 'domcontentloaded',
-      timeout: 60000,
+      timeout: MONTH_NAV_TIMEOUT_MS,
     });
 
-    if (!bootstrap || !bootstrap.ok()) {
-      throw new Error(`Failed to open Mountain X month view (status ${bootstrap?.status() ?? 0})`);
+    const status = response?.status() ?? 0;
+    if (status === 200 && !CHALLENGE_TITLE.test(await page.title())) {
+      return page.content();
     }
 
-    const result = await page.evaluate(
-      async ({ targetUrl, monthKey, useCurrentDocument, acceptHeader }) => {
-        let html = document.documentElement.outerHTML;
-        let status = 200;
-
-        if (!useCurrentDocument) {
-          const response = await fetch(targetUrl, {
-            credentials: 'include',
-            headers: { Accept: acceptHeader },
-            signal: AbortSignal.timeout(15000),
-          });
-          status = response.status;
-          html = await response.text();
-        }
-
-        const parsedDoc = new DOMParser().parseFromString(html, 'text/html');
-        const jsonLdBlocks = Array.from(
-          parsedDoc.querySelectorAll('script[type="application/ld+json"]')
-        )
-          .map((script) => script.textContent || '')
-          .filter(Boolean);
-
-        const isPlainObject = (value: unknown): value is Record<string, unknown> =>
-          typeof value === 'object' && value !== null;
-
-        const toStringValue = (value: unknown): string =>
-          typeof value === 'string' || typeof value === 'number' ? String(value) : '';
-
-        const parsed: Record<string, unknown>[] = [];
-        for (const block of jsonLdBlocks) {
-          try {
-            const json: unknown = JSON.parse(block);
-            if (Array.isArray(json)) {
-              for (const entry of json) {
-                if (isPlainObject(entry)) {
-                  parsed.push(entry);
-                }
-              }
-            } else if (isPlainObject(json)) {
-              parsed.push(json);
-            }
-          } catch {
-            // ignore malformed JSON-LD blocks
-          }
-        }
-
-        const events: SerializedMonthEvent[] = [];
-        for (const item of parsed) {
-          if (item['@type'] !== 'Event') {
-            continue;
-          }
-
-          const event = item;
-          const location =
-            event.location && typeof event.location === 'object'
-              ? (event.location as Record<string, unknown>)
-              : {};
-          const address =
-            location.address && typeof location.address === 'object'
-              ? (location.address as Record<string, unknown>)
-              : {};
-          const organizer = Array.isArray(event.organizer)
-            ? (event.organizer as unknown[]).find(isPlainObject)
-            : isPlainObject(event.organizer)
-              ? event.organizer
-              : null;
-          const offersList = Array.isArray(event.offers) ? (event.offers as unknown[]) : null;
-          const offers: unknown =
-            offersList && offersList.length > 0 ? offersList[0] : event.offers;
-          const imageUrl =
-            Array.isArray(event.image) && event.image.length > 0
-              ? event.image.find((image) => typeof image === 'string')
-              : typeof event.image === 'string'
-                ? event.image
-                : undefined;
-
-          const serialized = {
-            title: typeof event.name === 'string' ? event.name : undefined,
-            description: typeof event.description === 'string' ? event.description : undefined,
-            imageUrl: typeof imageUrl === 'string' ? imageUrl : undefined,
-            url: typeof event.url === 'string' ? event.url : undefined,
-            startDate: typeof event.startDate === 'string' ? event.startDate : undefined,
-            endDate: typeof event.endDate === 'string' ? event.endDate : undefined,
-            locationName: typeof location.name === 'string' ? location.name : undefined,
-            streetAddress:
-              typeof address.streetAddress === 'string' ? address.streetAddress : undefined,
-            city: typeof address.addressLocality === 'string' ? address.addressLocality : undefined,
-            state: typeof address.addressRegion === 'string' ? address.addressRegion : undefined,
-            postalCode: typeof address.postalCode === 'string' ? address.postalCode : undefined,
-            country:
-              typeof address.addressCountry === 'string' ? address.addressCountry : undefined,
-            organizer:
-              organizer && isPlainObject(organizer) && 'name' in organizer
-                ? toStringValue(organizer.name) || undefined
-                : undefined,
-            price:
-              offers && isPlainObject(offers) && 'price' in offers
-                ? toStringValue(offers.price) || undefined
-                : undefined,
-            priceCurrency:
-              offers && isPlainObject(offers) && 'priceCurrency' in offers
-                ? toStringValue(offers.priceCurrency) || undefined
-                : undefined,
-          } satisfies SerializedMonthEvent;
-
-          if (
-            serialized.url &&
-            serialized.startDate &&
-            serialized.startDate.slice(0, 7) === monthKey
-          ) {
-            events.push(serialized);
-          }
-        }
-
-        return {
-          status,
-          title: parsedDoc.title,
-          events,
-        } satisfies MonthFetchResult;
-      },
-      {
-        targetUrl: target.targetUrl,
-        monthKey: target.monthKey,
-        useCurrentDocument: target.useCurrentDocument,
-        acceptHeader: HTML_HEADERS.Accept,
-      }
+    console.warn(
+      `[MountainX] Month ${target.monthKey} challenged (status=${status}, attempt ${attempt}/${CHALLENGE_ATTEMPTS}). Waiting for it to clear...`
     );
 
-    if (result.status !== 200 || /just a moment/i.test(result.title)) {
-      throw new Error(
-        `Month view challenge for ${target.monthKey} (status=${result.status}, title="${result.title}")`
-      );
+    // Cloudflare's interstitial solves itself in a real browser; give it time
+    // before burning another navigation on the same URL.
+    await page.waitForTimeout(CHALLENGE_WAIT_MS);
+
+    if (!CHALLENGE_TITLE.test(await page.title())) {
+      return page.content();
     }
-
-    console.log(`[MountainX] Month ${target.monthKey}: fetched ${result.events.length} raw events`);
-
-    return result.events;
-  } finally {
-    await context.close();
   }
+
+  throw new Error(
+    `Month view challenge for ${target.monthKey} persisted after ${CHALLENGE_ATTEMPTS} attempts`
+  );
+}
+
+function extractMonthEvents(html: string, monthKey: string): SerializedMonthEvent[] {
+  const events: SerializedMonthEvent[] = [];
+
+  for (const node of findJsonLdEvents<JsonLdEvent>(html)) {
+    const serialized = serializeJsonLdEvent(node);
+
+    // Month grids spill into the neighbouring months; each of those is fetched
+    // on its own pass, so keep only the events this page is responsible for.
+    if (serialized.url && serialized.startDate && serialized.startDate.slice(0, 7) === monthKey) {
+      events.push(serialized);
+    }
+  }
+
+  return events;
+}
+
+function serializeJsonLdEvent(event: JsonLdEvent): SerializedMonthEvent {
+  const location = isPlainObject(event.location) ? event.location : {};
+  const address = isPlainObject(location.address) ? location.address : {};
+  const organizerList = toArray(event.organizer);
+  const organizer = organizerList
+    ? organizerList.find(isPlainObject)
+    : isPlainObject(event.organizer)
+      ? event.organizer
+      : null;
+  const offersList = toArray(event.offers);
+  const offers = offersList && offersList.length > 0 ? offersList[0] : event.offers;
+  const imageList = toArray(event.image);
+  const imageUrl = imageList ? imageList.find((image) => typeof image === 'string') : event.image;
+
+  return {
+    title: toOptionalString(event.name),
+    description: toOptionalString(event.description),
+    imageUrl: toOptionalString(imageUrl),
+    url: toOptionalString(event.url),
+    startDate: toOptionalString(event.startDate),
+    endDate: toOptionalString(event.endDate),
+    locationName: toOptionalString(location.name),
+    streetAddress: toOptionalString(address.streetAddress),
+    city: toOptionalString(address.addressLocality),
+    state: toOptionalString(address.addressRegion),
+    postalCode: toOptionalString(address.postalCode),
+    country: toOptionalString(address.addressCountry),
+    organizer: organizer ? toOptionalString(organizer.name) : undefined,
+    price: isPlainObject(offers) ? toOptionalString(offers.price) : undefined,
+    priceCurrency: isPlainObject(offers) ? toOptionalString(offers.priceCurrency) : undefined,
+  };
+}
+
+function toArray(value: unknown): unknown[] | null {
+  return Array.isArray(value) ? (value as unknown[]) : null;
+}
+
+function isPlainObject(value: unknown): value is Record<string, unknown> {
+  return typeof value === 'object' && value !== null && !Array.isArray(value);
+}
+
+function toOptionalString(value: unknown): string | undefined {
+  if (typeof value === 'string') {
+    return value.length > 0 ? value : undefined;
+  }
+  if (typeof value === 'number') {
+    return String(value);
+  }
+  return undefined;
+}
+
+function readTitle(html: string): string {
+  return html.match(/<title[^>]*>([\s\S]*?)<\/title>/i)?.[1] ?? '';
+}
+
+function describeError(error: unknown): string {
+  return error instanceof Error ? error.message : String(error);
 }
 
 function dedupeByUrl(events: ScrapedEvent[]): ScrapedEvent[] {
@@ -531,8 +608,7 @@ function formatApiEvent(event: TribeEvent, window: ScrapeWindow): ScrapedEvent |
     location,
     zip: venue?.zip || (venue?.city ? getZipFromCity(venue.city) : undefined),
     organizer:
-      event.organizer?.[0]?.organizer ||
-      (venue?.venue ? decodeHtmlEntities(venue.venue) : undefined),
+      decodeHtmlEntities(event.organizer?.[0]?.organizer || venue?.venue || '') || undefined,
     price,
     url: event.url,
     imageUrl:
@@ -658,6 +734,11 @@ function getScrapeWindow(): ScrapeWindow {
 
 function isDateInWindow(date: Date, window: ScrapeWindow): boolean {
   return date >= window.start && date <= window.end;
+}
+
+function isApiEventPastWindow(event: TribeEvent, window: ScrapeWindow): boolean {
+  const startDate = new Date(`${event.utc_start_date.replace(' ', 'T')}Z`);
+  return !Number.isNaN(startDate.getTime()) && startDate > window.end;
 }
 
 if (require.main === module) {

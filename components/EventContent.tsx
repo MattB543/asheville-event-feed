@@ -207,6 +207,12 @@ export default function EventContent({
         return 'NC Stage';
       case 'STORY_PARLOR':
         return 'Story Parlor';
+      case 'ASHEVILLE_MUSIC_HALL':
+        return 'Asheville Music Hall';
+      case 'PISGAH_BREWING':
+        return 'Pisgah Brewing';
+      case 'KING_STREET':
+        return '185 King Street';
       case 'MOUNTAIN_X':
         return 'Mountain X';
       case 'STATIC_AGE':

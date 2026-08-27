@@ -51,7 +51,9 @@
     "format": "prettier --write \"app/**\" \"components/**\" \"lib/**\" \"scripts/**/*.ts\" \".github/**/*.yml\" \"*.json\" \"*.md\" \"*.ts\" \"*.mjs\"",
     "format:check": "prettier --check \"app/**\" \"components/**\" \"lib/**\" \"scripts/**/*.ts\" \".github/**/*.yml\" \"*.json\" \"*.md\" \"*.ts\" \"*.mjs\"",
     "typecheck": "tsc --noEmit",
-    "prepare": "husky"
+    "prepare": "husky",
+    "test:rhp": "tsx scripts/scrapers/test-rhp.ts",
+    "cron:health": "tsx scripts/check-cron-health.ts"
   },
   "lint-staged": {
     "*.{ts,tsx,mts}": [
@@ -67,6 +69,7 @@
     "@supabase/ssr": "^0.8.0",
     "@supabase/supabase-js": "^2.87.1",
     "@tanstack/react-query": "^5.90.12",
+    "cheerio": "^1.2.0",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
     "dotenv": "^17.2.3",
@@ -88,6 +91,7 @@
     "remark-breaks": "^4.0.0",
     "sharp": "^0.34.5",
     "tailwind-merge": "^3.4.0",
+    "undici": "^7.29.0",
     "unpdf": "^1.4.0"
   },
   "devDependencies": {

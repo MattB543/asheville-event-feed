@@ -151,3 +151,12 @@ export function isFacebookEnabled(): boolean {
     !!FB_CONFIG.tokens.lsd
   );
 }
+
+// Helper to check if local-only scrapers should run.
+// Some sources can't be scraped from Vercel: they need a real browser (patchright,
+// which isn't a production dependency) or a residential IP that Cloudflare doesn't
+// block. Attempting them on Vercel just burns time and reports a phantom failure,
+// so they're skipped there and picked up by scripts/run-full-cron-local.ts instead.
+export function isLocalScrapeRuntime(): boolean {
+  return !process.env.VERCEL;
+}

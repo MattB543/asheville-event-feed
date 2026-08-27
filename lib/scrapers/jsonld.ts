@@ -63,3 +63,42 @@ export function findJsonLdEvent<T = Record<string, unknown>>(html: string): T | 
 
   return null;
 }
+
+function collectEventNodes(value: unknown, into: JsonLdNode[]): void {
+  if (isEventNode(value)) {
+    into.push(value);
+    return;
+  }
+  if (Array.isArray(value)) {
+    for (const item of value) collectEventNodes(item, into);
+    return;
+  }
+  if (value && typeof value === 'object') {
+    collectEventNodes((value as JsonLdNode)['@graph'], into);
+  }
+}
+
+/**
+ * Find every Event-typed JSON-LD object in an HTML document.
+ * Calendar pages (e.g. Mountain Xpress month views) emit a single block holding
+ * hundreds of events, so unlike findJsonLdEvent this keeps all of them.
+ */
+export function findJsonLdEvents<T = Record<string, unknown>>(html: string): T[] {
+  const matches = html.matchAll(
+    /<script[^>]*type\s*=\s*["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi
+  );
+
+  const events: JsonLdNode[] = [];
+  for (const match of matches) {
+    let parsed: unknown;
+    try {
+      parsed = JSON.parse(match[1]);
+    } catch {
+      continue; // Skip invalid JSON blocks
+    }
+
+    collectEventNodes(parsed, events);
+  }
+
+  return events as T[];
+}

@@ -312,7 +312,11 @@ RLS is enabled on all tables. Supabase's "RLS auto-enable trigger" is active, so
 | `/api/cron/email-digest` | Daily 7 AM ET   | Send daily/weekly email digests to subscribers                |
 | `/api/cron/top30-weekly` | Fri 11 AM ET    | Weekly Top 30 email                                           |
 
-Every cron run (prod and local) is recorded in the `cron_job_runs` table (`job_name`, `status`, `duration_ms`, `result` stats) — query it to verify prod crons are actually running and succeeding.
+Every cron run (prod and local) is recorded in the `cron_job_runs` table (`job_name`, `status`, `duration_ms`, `result` stats). This is the only durable record — Vercel keeps runtime logs for only ~1 hour, so console output is useless for after-the-fact auditing.
+
+**Routine health check** (run every few days): `npm run cron:health` (or `npm run cron:health -- 7` for a 7-day window). It reports per-job run counts and cadence gaps (flagging missed runs), per-scrape inserted/updated counts, scraper failures with error text, "silent" scrapers returning 0 events on every run, stale sources, and AI enrichment coverage — ending in a `VERDICT` line. Exits non-zero when something needs attention.
+
+The scrape job's `result` carries what that check reads: `inserted` / `updated` (genuinely new vs re-confirmed — `upserted` counts every row touched and is not a growth signal), `scrapers[]` (per-scraper `{name, ok, events, ms, error}`), `insertedBySource`, and `skippedSources`.
 
 ### Public APIs
 
@@ -613,7 +617,11 @@ FB_XS=
 
 - **Fluid Compute**: Enabled for longer function execution (up to 800s for scrape/ai/verify jobs)
 - **Cron Schedule**: Scrape at :00, verify at :05 (every 3h), AI processing at :20 (every 3h), cleanup 8x daily, dedup daily at 4 AM ET, email digests daily at 7 AM ET, Top 30 email Fridays 11 AM ET
-- **Known prod gaps**: the MountainX scraper is Cloudflare-blocked from Vercel IPs (its ~1,200+ events only refresh during local scrape runs), and Facebook scraping is disabled on Vercel — so a periodic local full scrape (see `scripts/run-full-cron-local.ts`, `scripts/run-facebook-local.ts`, `scripts/drain-ai-backlog-local.sh`) is required to keep those sources current.
+- **Known prod gaps**: two sources are local-only and are deliberately skipped on Vercel, so a periodic local full scrape (see `scripts/run-full-cron-local.ts`, `scripts/run-facebook-local.ts`, `scripts/drain-ai-backlog-local.sh`) is required to keep them current:
+  - **MountainX** (~9,700 events) — Cloudflare challenges Node's default TLS/ALPN fingerprint, **not** the IP: `curl` gets 200 where Node's `fetch` gets "Just a moment...", and no amount of header spoofing helps. The scraper now issues requests through an undici `Agent` with `allowH2: true` **and** Chrome's cipher order — both halves are required, either alone still 403s. Three tiers: Tribe REST API → month-view HTML (JSON-LD), both over that dispatcher → patchright with a **fresh browser context per month** (a shared context carries a Cloudflare cookie that poisons later navigations). 403s are transient reputation checks, so `fetchAsChrome` retries with backoff rather than falling through a tier. Still gated by `localOnly: true` in the scrape route's `SCRAPERS` registry — but since this was never IP-based, the dispatcher may well work from Vercel; testing that would let MountainX come off the gate entirely.
+  - **Facebook** — needs browser automation plus session cookies. Gated by `isFacebookEnabled()`, which returns false on Vercel.
+
+  Both gates key off `process.env.VERCEL` via `isLocalScrapeRuntime()` in `lib/config/env.ts`, so a local run picks them up automatically with no flag to set. The scrape job's `result.skippedSources` records what was skipped on each run — on Vercel expect `["Mountain Xpress", "Facebook"]` and `failures.scrapers: 0`.
 
 ### Max Duration
 

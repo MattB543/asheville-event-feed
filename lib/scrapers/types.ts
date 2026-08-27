@@ -21,6 +21,10 @@ export type EventSource =
   | 'LITTLE_ANIMALS'
   | 'THEATER_ALLIANCE'
   | 'PECHAKUCHA'
+  // rhp-events (Rock House Partners) venue sites - see lib/scrapers/rhp.ts
+  | 'ASHEVILLE_MUSIC_HALL'
+  | 'PISGAH_BREWING'
+  | 'KING_STREET'
   // Not scraped - created from a user-uploaded poster (lib/posters/promoteExtractions.ts)
   | 'POSTER';
 

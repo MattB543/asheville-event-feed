@@ -1,5 +1,14 @@
+/**
+ * North Carolina Stage Company scraper.
+ *
+ * Their ThunderTix box office sits behind Cloudflare, which 403s the shared
+ * `fetchEventData` helper regardless of headers, so every request here goes
+ * through the Chrome-fingerprinted dispatcher in `./fetchAsChrome`.
+ */
+
 import { type ScrapedEvent } from './types';
-import { BROWSER_HEADERS, debugSave, fetchEventData } from './base';
+import { debugSave } from './base';
+import { HTML_ACCEPT, createChromeDispatcher, fetchAsChrome } from './fetchAsChrome';
 import { decodeHtmlEntities } from '@/lib/utils/parsers';
 import { parseAsEastern } from '@/lib/utils/timezone';
 
@@ -155,75 +164,162 @@ function parsePerformancesPage(html: string, eventId: string): Performance[] {
 }
 
 /**
- * Map ThunderTix event title to NC Stage production URL slug
+ * Resolve ThunderTix event titles to real ncstage.org production URLs.
+ *
+ * The venue's slugs can't be derived from the box-office title - the site
+ * rewrites titles ("Mike Wiley at the YMI - Changing Same" lives at
+ * /productions/mike-wiley-presents-changing-same/) and appends -2 suffixes to
+ * remounts. So read the real slugs off the productions index and match by
+ * title instead of guessing.
  */
-function getProductionUrl(title: string): string {
-  // Clean up title for URL matching
-  const cleanTitle = title
-    .toLowerCase()
-    .replace(/^from random act productions:\s*/i, '')
-    .replace(/,?\s*a play with music$/i, '')
-    .replace(/[^a-z0-9\s-]/g, '')
-    .replace(/\s+/g, '-')
-    .trim();
+interface Production {
+  title: string;
+  url: string;
+}
 
-  // Known mappings (from exploration)
-  const mappings: Record<string, string> = {
-    'a-christmas-carol':
-      'art-anvil-entertainment-presents-charles-dickens-a-christmas-carol-a-play-with-music',
-    'jeeves-in-bloom': 'jeeves-in-bloom-2',
-    'tiny-beautiful-things': 'tiny-beautiful-things',
-    'no-child': 'no-child',
-  };
+function parseProductionsPage(html: string): Production[] {
+  const productions: Production[] = [];
+  const boxRegex = /<div class="production-box[^"]*">([\s\S]*?)<\/div>/g;
+  let match;
 
-  const slug = mappings[cleanTitle] || cleanTitle;
-  return `${NC_STAGE_BASE}/productions/${slug}/`;
+  while ((match = boxRegex.exec(html)) !== null) {
+    const box = match[1];
+    const title = box.match(/<h2 class="entry-title">([^<]+)<\/h2>/)?.[1];
+    const url = box.match(/href=['"]([^'"]*\/productions\/[a-z0-9-]+\/?)['"]/)?.[1];
+    if (title && url) {
+      productions.push({ title: decodeHtmlEntities(title.trim()), url });
+    }
+  }
+
+  return productions;
+}
+
+const TITLE_STOPWORDS = new Set([
+  'a',
+  'an',
+  'the',
+  'and',
+  'at',
+  'of',
+  'in',
+  'on',
+  'for',
+  'with',
+  'to',
+  'presents',
+  'present',
+  'from',
+  'by',
+  'play',
+  'music',
+]);
+
+function titleTokens(title: string): Set<string> {
+  return new Set(
+    title
+      .toLowerCase()
+      .replace(/&[a-z]+;/g, ' ')
+      .replace(/[^a-z0-9\s]/g, ' ')
+      .split(/\s+/)
+      .filter((word) => word && !TITLE_STOPWORDS.has(word))
+  );
+}
+
+/** Jaccard overlap of the two token sets. */
+function matchScore(a: Set<string>, b: Set<string>): number {
+  let shared = 0;
+  for (const token of a) {
+    if (b.has(token)) shared++;
+  }
+  const union = new Set([...a, ...b]).size;
+  return union === 0 ? 0 : shared / union;
+}
+
+const MATCH_THRESHOLD = 0.34;
+
+/**
+ * Best-matching production URL for a ThunderTix title, or null when nothing
+ * scores high enough - the caller falls back to the ThunderTix event page,
+ * which is always live because we just scraped it.
+ */
+function matchProductionUrl(title: string, productions: Production[]): string | null {
+  const tokens = titleTokens(title);
+  let best: { url: string; score: number } | null = null;
+
+  for (const production of productions) {
+    const score = matchScore(tokens, titleTokens(production.title));
+    if (!best || score > best.score) {
+      best = { url: production.url, score };
+    }
+  }
+
+  return best && best.score >= MATCH_THRESHOLD ? best.url : null;
 }
 
 export async function scrapeNCStage(): Promise<ScrapedEvent[]> {
   console.log('[NC Stage] Starting scrape...');
 
   const allEvents: ScrapedEvent[] = [];
+  const dispatcher = await createChromeDispatcher();
 
   try {
     // Step 1: Fetch ThunderTix events page
     console.log('[NC Stage] Fetching ThunderTix events...');
-    const eventsResponse = await fetchEventData(
+    const eventsHtml = await fetchAsChrome(
       `${THUNDERTIX_BASE}/events`,
-      { headers: BROWSER_HEADERS },
-      { maxRetries: 2, baseDelay: 1000 },
-      'NCStage'
+      HTML_ACCEPT,
+      dispatcher,
+      'NC Stage'
     );
-
-    const eventsHtml = await eventsResponse.text();
     await debugSave('01-thundertix-events.html', eventsHtml);
 
     const events = parseEventsPage(eventsHtml);
     console.log(`[NC Stage] Found ${events.length} events on ThunderTix`);
     await debugSave('02-parsed-events.json', events);
 
-    // Step 2: For each event, fetch performances
+    // Step 2: Fetch the real production URLs off ncstage.org
+    let productions: Production[] = [];
+    try {
+      const productionsHtml = await fetchAsChrome(
+        `${NC_STAGE_BASE}/productions/`,
+        HTML_ACCEPT,
+        dispatcher,
+        'NC Stage'
+      );
+      await debugSave('02b-productions.html', productionsHtml);
+      productions = parseProductionsPage(productionsHtml);
+      console.log(`[NC Stage] Found ${productions.length} productions on ncstage.org`);
+      if (productions.length === 0) {
+        console.warn(
+          '[NC Stage] Productions index parsed to 0 entries - markup may have changed. ' +
+            'Falling back to ThunderTix URLs.'
+        );
+      }
+    } catch (err) {
+      console.warn('[NC Stage] Could not load productions index, using ThunderTix URLs:', err);
+    }
+
+    // Step 3: For each event, fetch performances
     for (const event of events) {
       console.log(`[NC Stage] Fetching performances for: ${event.title}`);
 
       await new Promise((r) => setTimeout(r, 500)); // Rate limiting
 
       try {
-        const perfResponse = await fetchEventData(
+        const perfHtml = await fetchAsChrome(
           `${THUNDERTIX_BASE}/events/${event.id}/performances`,
-          { headers: BROWSER_HEADERS },
-          { maxRetries: 2, baseDelay: 1000 },
-          'NCStage'
+          HTML_ACCEPT,
+          dispatcher,
+          'NC Stage'
         );
-
-        const perfHtml = await perfResponse.text();
         await debugSave(`03-performances-${event.id}.html`, perfHtml);
 
         const performances = parsePerformancesPage(perfHtml, event.id);
         console.log(`[NC Stage] Found ${performances.length} performances for ${event.title}`);
 
         // Create one ScrapedEvent per performance
-        const productionUrl = getProductionUrl(event.title);
+        const productionUrl =
+          matchProductionUrl(event.title, productions) ?? `${THUNDERTIX_BASE}/events/${event.id}`;
 
         for (const perf of performances) {
           // Filter out past events
@@ -263,8 +359,13 @@ export async function scrapeNCStage(): Promise<ScrapedEvent[]> {
 
     return allEvents;
   } catch (err) {
-    console.error('[NC Stage] Scrape failed:', err);
+    console.error(
+      '[NC Stage] Scrape failed - ThunderTix unreachable after every retry, returning 0 events:',
+      err
+    );
     return [];
+  } finally {
+    await dispatcher.close();
   }
 }
 

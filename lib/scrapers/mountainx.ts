@@ -1,13 +1,9 @@
 /**
  * Mountain Xpress (mountainx.com) Scraper
  *
- * Every mountainx.com URL sits behind Cloudflare, which fingerprints the TLS
- * handshake and the ALPN offer together. Node's built-in fetch is served the
- * "Just a moment..." interstitial no matter what headers we send, which is what
- * took this source offline. An undici dispatcher that offers HTTP/2 with
- * Chrome's cipher order is let straight through - both halves matter, since h2
- * on Node's default ciphers and Chrome's ciphers over HTTP/1.1 are each still
- * challenged.
+ * Every mountainx.com URL sits behind Cloudflare, so all HTTP goes through the
+ * Chrome-fingerprinted dispatcher in `./fetchAsChrome` - see that file for why
+ * Node's built-in fetch cannot reach this host.
  *
  * Paths, in order:
  *   1. Tribe Events Calendar REST API - richest data, 50 events per request.
@@ -23,9 +19,16 @@
 
 import { type ScrapedEvent } from './types';
 import { findJsonLdEvents } from './jsonld';
+import {
+  CHALLENGE_TITLE,
+  CHROME_USER_AGENT,
+  HTML_ACCEPT,
+  JSON_ACCEPT,
+  createChromeDispatcher,
+  fetchAsChrome,
+} from './fetchAsChrome';
 import { isNonNCEvent, getZipFromCity } from '@/lib/utils/geo';
 import { decodeHtmlEntities } from '@/lib/utils/parsers';
-import { DEFAULT_FETCH_TIMEOUT_MS } from '@/lib/utils/retry';
 import { getTodayStringEastern } from '@/lib/utils/timezone';
 import type { Browser, Page } from 'patchright';
 import type { Dispatcher } from 'undici';
@@ -37,42 +40,13 @@ const MAX_PAGES = 40;
 const MAX_EVENTS = PER_PAGE * MAX_PAGES;
 const SCRAPE_WINDOW_DAYS = 56;
 const API_DELAY_MS = 200;
-const HTTP_ATTEMPTS = 4;
-const HTTP_RETRY_BASE_MS = 2000;
 const MONTH_DELAY_MS = 400;
 const MONTH_NAV_TIMEOUT_MS = 60000;
 const CHALLENGE_ATTEMPTS = 3;
 const CHALLENGE_WAIT_MS = 6000;
-const CHALLENGE_TITLE = /just a moment/i;
-
-/** Chrome 122's TLS cipher order, in OpenSSL naming. */
-const CHROME_TLS_CIPHERS = [
-  'TLS_AES_128_GCM_SHA256',
-  'TLS_AES_256_GCM_SHA384',
-  'TLS_CHACHA20_POLY1305_SHA256',
-  'ECDHE-ECDSA-AES128-GCM-SHA256',
-  'ECDHE-RSA-AES128-GCM-SHA256',
-  'ECDHE-ECDSA-AES256-GCM-SHA384',
-  'ECDHE-RSA-AES256-GCM-SHA384',
-  'ECDHE-ECDSA-CHACHA20-POLY1305',
-  'ECDHE-RSA-CHACHA20-POLY1305',
-  'ECDHE-RSA-AES128-SHA',
-  'ECDHE-RSA-AES256-SHA',
-  'AES128-GCM-SHA256',
-  'AES256-GCM-SHA384',
-  'AES128-SHA',
-  'AES256-SHA',
-].join(':');
-
-const USER_AGENT =
-  'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36';
-const ACCEPT_LANGUAGE = 'en-US,en;q=0.9';
-
-const JSON_ACCEPT = 'application/json';
-const HTML_ACCEPT = 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8';
 
 const BROWSER_CONTEXT_OPTIONS = {
-  userAgent: USER_AGENT,
+  userAgent: CHROME_USER_AGENT,
   locale: 'en-US',
   timezoneId: 'America/New_York',
 } as const;
@@ -181,7 +155,7 @@ export async function scrapeMountainX(): Promise<ScrapedEvent[]> {
   console.log('[MountainX] Starting scrape...');
 
   const window = getScrapeWindow();
-  const dispatcher = await createCloudflareDispatcher();
+  const dispatcher = await createChromeDispatcher();
   let allEvents: ScrapedEvent[] = [];
 
   try {
@@ -212,47 +186,6 @@ export async function scrapeMountainX(): Promise<ScrapedEvent[]> {
   console.log(`[MountainX] Finished. Found ${ncEvents.length} NC events (${deduped.length} total)`);
 
   return ncEvents;
-}
-
-async function createCloudflareDispatcher(): Promise<Dispatcher> {
-  const { Agent } = await import('undici');
-  return new Agent({ allowH2: true, connect: { ciphers: CHROME_TLS_CIPHERS } });
-}
-
-/**
- * Cloudflare's 403 here is a transient reputation check rather than a standing
- * block - the same URL and handshake that is challenged one second is served
- * the next - so every request gets a few spaced-out attempts before we give up
- * on this path.
- */
-async function fetchAsChrome(url: string, accept: string, dispatcher: Dispatcher): Promise<string> {
-  const { fetch: undiciFetch } = await import('undici');
-  let lastStatus = 0;
-
-  for (let attempt = 1; attempt <= HTTP_ATTEMPTS; attempt++) {
-    const response = await undiciFetch(url, {
-      headers: { 'User-Agent': USER_AGENT, Accept: accept, 'Accept-Language': ACCEPT_LANGUAGE },
-      dispatcher,
-      signal: AbortSignal.timeout(DEFAULT_FETCH_TIMEOUT_MS),
-    });
-
-    const body = await response.text();
-
-    if (response.status === 200 && !CHALLENGE_TITLE.test(readTitle(body))) {
-      return body;
-    }
-
-    lastStatus = response.status;
-
-    if (attempt < HTTP_ATTEMPTS) {
-      console.warn(
-        `[MountainX] Challenged (status=${lastStatus}, attempt ${attempt}/${HTTP_ATTEMPTS}): ${url}`
-      );
-      await sleep(HTTP_RETRY_BASE_MS * attempt);
-    }
-  }
-
-  throw new Error(`HTTP ${lastStatus} for ${url}`);
 }
 
 async function scrapeMountainXViaApi(
@@ -306,7 +239,9 @@ async function fetchEventsPageWithHttp(
   url: string,
   dispatcher: Dispatcher
 ): Promise<TribeEventsResponse> {
-  return JSON.parse(await fetchAsChrome(url, JSON_ACCEPT, dispatcher)) as TribeEventsResponse;
+  return JSON.parse(
+    await fetchAsChrome(url, JSON_ACCEPT, dispatcher, 'MountainX')
+  ) as TribeEventsResponse;
 }
 
 async function scrapeMountainXFromMonthViews(
@@ -333,7 +268,7 @@ async function fetchMonthPagesWithHttp(
   for (const target of targets) {
     pages.push({
       monthKey: target.monthKey,
-      html: await fetchAsChrome(target.targetUrl, HTML_ACCEPT, dispatcher),
+      html: await fetchAsChrome(target.targetUrl, HTML_ACCEPT, dispatcher, 'MountainX'),
     });
     await sleep(MONTH_DELAY_MS);
   }
@@ -542,10 +477,6 @@ function toOptionalString(value: unknown): string | undefined {
     return String(value);
   }
   return undefined;
-}
-
-function readTitle(html: string): string {
-  return html.match(/<title[^>]*>([\s\S]*?)<\/title>/i)?.[1] ?? '';
 }
 
 function describeError(error: unknown): string {

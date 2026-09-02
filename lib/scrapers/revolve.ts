@@ -1,13 +1,16 @@
 /**
- * Revolve Scraper - HTML Event Cards
+ * Revolve Scraper - HTML Event Cards + per-event JSON-LD
  *
  * Scrapes events from pools.events (formerly withfriends.events).
  * Currently configured for REVOLVE, an Asheville-based arts/community organization.
  *
  * Data Source:
- *   - Events rendered as HTML "ticketCard" elements on the org's upcoming page
- *   - No API endpoint or machine-readable event JSON available (the only LD+JSON
- *     block describes the organization, not its events)
+ *   - The org's upcoming page lists events as HTML "ticketCard" elements. Its
+ *     only LD+JSON block describes the organization, so the cards are the index.
+ *   - Each /event/<id>/<slug>/ page does carry an LD+JSON "Event" block with an
+ *     offset-qualified startDate, so we read it per card and prefer it over the
+ *     card's display date text. That text is only a display string and the site
+ *     renders it differently per tab, so it is the brittlest part of the card.
  *
  * Debug Mode:
  *   Set DEBUG_DIR env var to save raw data and validation reports
@@ -15,6 +18,7 @@
 
 import { type ScrapedEvent } from './types';
 import { BROWSER_HEADERS, debugSave, fetchEventData } from './base';
+import { findJsonLdEvent } from './jsonld';
 import { decodeHtmlEntities } from '../utils/parsers';
 import { getZipFromCity } from '../utils/geo';
 import { parseAsEastern, getTodayStringEastern } from '../utils/timezone';
@@ -132,6 +136,16 @@ interface RevolveCard {
   imageUrl?: string;
 }
 
+/**
+ * The subset of an event page's LD+JSON "Event" block that we use.
+ */
+interface RevolveEventJsonLd {
+  name?: string;
+  startDate?: string;
+  description?: string;
+  image?: string | string[];
+}
+
 // ============================================================================
 // HELPER FUNCTIONS
 // ============================================================================
@@ -154,14 +168,13 @@ const MONTHS: Record<string, number> = {
 /**
  * Parse the human-readable event date text into a Date (treated as Eastern time).
  *
- * The site no longer provides a machine ISO datetime, only display strings like:
- *   "Sat, Jun 6 at 7:00pm"
- *   "Thu, Jun 11 at 7:00pm"
+ * The card only carries a display string, and the site renders two shapes:
+ *   "Sat, Jun 6 at 7:00pm"              (upcoming tab: weekday, no year)
+ *   "Jun 27, 2026 at 7:00 PM"           (past tab: year, no weekday)
  *   "Sat, Jun 6 at 7:00pm thru Jun 27"  (multi-day pass; we use the start)
- *   "Sun, Jun 7 at 12:00pm"
  *   "Fri, Jul 4 at 7pm"                 (minutes optional)
  *
- * There is no year, so we infer it: assume the next occurrence. If the parsed
+ * When no year is printed we infer it: assume the next occurrence. If the parsed
  * month/day has already passed this year (more than a day ago), roll to next year.
  *
  * Returns null if the text can't be parsed.
@@ -172,13 +185,13 @@ function parseEventDate(dateText: string): Date | null {
   // Take only the start portion, dropping any "thru ..." range suffix.
   const startText = dateText.split(/\bthru\b/i)[0];
 
-  // Match "<Mon> <Day> at <H>[:MM]<am|pm>"  (weekday prefix is optional/ignored)
+  // Match "<Mon> <Day>[, <Year>] at <H>[:MM] <am|pm>" (weekday prefix is optional/ignored)
   const match = startText.match(
-    /([A-Za-z]{3,})\.?\s+(\d{1,2})\s+at\s+(\d{1,2})(?::(\d{2}))?\s*([ap])\.?m\.?/i
+    /([A-Za-z]{3,})\.?\s+(\d{1,2})(?:\s*,\s*(\d{4}))?\s+at\s+(\d{1,2})(?::(\d{2}))?\s*([ap])\.?\s*m\.?/i
   );
   if (!match) return null;
 
-  const [, monthName, dayStr, hourStr, minStr, meridiem] = match;
+  const [, monthName, dayStr, yearStr, hourStr, minStr, meridiem] = match;
   const month = MONTHS[monthName.slice(0, 3).toLowerCase()];
   if (month === undefined) return null;
 
@@ -187,13 +200,18 @@ function parseEventDate(dateText: string): Date | null {
   if (meridiem.toLowerCase() === 'p') hour += 12;
   const minute = minStr ? parseInt(minStr, 10) : 0;
 
-  // Infer the year: assume the next occurrence relative to "now". Both the
-  // current year and the candidate are Eastern, so the roll-forward decision
-  // doesn't shift near day boundaries on UTC hosts.
   const timeStr = `${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')}:00`;
   const buildDateStr = (y: number) =>
     `${y}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
 
+  if (yearStr) {
+    const parsed = parseAsEastern(buildDateStr(parseInt(yearStr, 10)), timeStr);
+    return isNaN(parsed.getTime()) ? null : parsed;
+  }
+
+  // No printed year: assume the next occurrence relative to "now". Both the
+  // current year and the candidate are Eastern, so the roll-forward decision
+  // doesn't shift near day boundaries on UTC hosts.
   let year = parseInt(getTodayStringEastern().slice(0, 4), 10);
   const oneDayMs = 24 * 60 * 60 * 1000;
   let parsed = parseAsEastern(buildDateStr(year), timeStr);
@@ -260,16 +278,54 @@ function stripTags(html: string): string {
 }
 
 /**
+ * Fetch a single event page and pull its LD+JSON "Event" block.
+ * Returns null when the page is unreachable or carries no Event block.
+ */
+async function fetchEventDetail(href: string): Promise<RevolveEventJsonLd | null> {
+  try {
+    const response = await fetchEventData(
+      `${BASE_URL}${href}`,
+      {
+        headers: { Accept: 'text/html' },
+        cache: 'no-store',
+      },
+      { maxRetries: 2, baseDelay: 500 },
+      'Revolve'
+    );
+    const html = await response.text();
+    return findJsonLdEvent<RevolveEventJsonLd>(html);
+  } catch (error) {
+    console.warn(
+      `[Revolve] Failed to fetch detail page ${href}:`,
+      error instanceof Error ? error.message : error
+    );
+    return null;
+  }
+}
+
+/**
+ * Resolve a card's start time, preferring the detail page's offset-qualified
+ * ISO date over the card's display text.
+ */
+function resolveStartDate(card: RevolveCard, detail?: RevolveEventJsonLd | null): Date | null {
+  if (detail?.startDate) {
+    const parsed = new Date(detail.startDate);
+    if (!isNaN(parsed.getTime())) return parsed;
+  }
+  return parseEventDate(card.dateText);
+}
+
+/**
  * Format a parsed card as a ScrapedEvent (or null to skip).
  */
-function formatEvent(card: RevolveCard): ScrapedEvent | null {
+function formatEvent(card: RevolveCard, detail?: RevolveEventJsonLd | null): ScrapedEvent | null {
   // Filter to only allowed organizers (org name is rendered as "by REVOLVE")
   if (card.organizer && !isAllowedOrganizer(card.organizer)) {
     return null;
   }
 
   // Parse date
-  const startDate = parseEventDate(card.dateText);
+  const startDate = resolveStartDate(card, detail);
   if (!startDate) {
     console.warn(
       `[Revolve] Could not parse date "${card.dateText}" for: ${card.title || card.publicId}`
@@ -290,17 +346,21 @@ function formatEvent(card: RevolveCard): ScrapedEvent | null {
   const city = location ? location.split(',')[0].trim() : undefined;
   const zip = getZipFromCity(city);
 
+  // Card images are pre-resized; the LD+JSON one is the full-size original.
+  const detailImage = Array.isArray(detail?.image) ? detail.image[0] : detail?.image;
+
   return {
     sourceId: `revolve-${card.publicId}`,
     source: 'REVOLVE',
-    title: decodeHtmlEntities(card.title),
+    title: decodeHtmlEntities(card.title || detail?.name || ''),
+    description: detail?.description ? decodeHtmlEntities(detail.description) : undefined,
     startDate,
     location,
     zip,
     organizer: card.organizer,
     price: formatPrice(card.price),
     url,
-    imageUrl: card.imageUrl,
+    imageUrl: card.imageUrl || detailImage,
   };
 }
 
@@ -380,7 +440,15 @@ function parseCard(chunk: string): RevolveCard | null {
 function extractEventsFromHtml(html: string): RevolveCard[] {
   const chunks = splitCards(html);
   if (chunks.length === 0) {
-    console.warn('[Revolve] No ticketCard elements found in HTML');
+    // The site server-renders an explicit marker when an org has nothing listed.
+    // That is a normal state; a missing marker means the selector broke.
+    if (html.includes('wf-empty-pool-state')) {
+      console.log('[Revolve] Pool is empty - no events listed on this page');
+    } else {
+      console.error(
+        '[Revolve] STRUCTURAL FAILURE: no ticketCard elements and no empty-pool marker - the page markup likely changed'
+      );
+    }
     return [];
   }
 
@@ -388,6 +456,13 @@ function extractEventsFromHtml(html: string): RevolveCard[] {
   for (const chunk of chunks) {
     const card = parseCard(chunk);
     if (card) cards.push(card);
+  }
+
+  if (cards.length === 0) {
+    console.error(
+      `[Revolve] STRUCTURAL FAILURE: found ${chunks.length} ticketCard elements but parsed none of them - the card markup likely changed`
+    );
+    return [];
   }
 
   console.log(`[Revolve] Parsed ${cards.length} cards from ${chunks.length} ticketCard elements`);
@@ -428,12 +503,31 @@ export async function scrapeRevolve(): Promise<ScrapedEvent[]> {
 
     await debugSave('02-raw-events.json', rawEvents);
 
+    // Pull each event's LD+JSON for an exact start time and a description.
+    const details: (RevolveEventJsonLd | null)[] = [];
+    for (const rawEvent of rawEvents) {
+      details.push(await fetchEventDetail(rawEvent.href));
+      await new Promise((r) => setTimeout(r, 150));
+    }
+
+    if (rawEvents.length > 0) {
+      const dated = rawEvents.filter((card, i) => resolveStartDate(card, details[i])).length;
+      console.log(
+        `[Revolve] Read JSON-LD from ${details.filter(Boolean).length}/${rawEvents.length} detail pages`
+      );
+      if (dated === 0) {
+        console.error(
+          `[Revolve] STRUCTURAL FAILURE: parsed ${rawEvents.length} cards but could not read a start date from any of them - the date format likely changed (sample: "${rawEvents[0].dateText}")`
+        );
+      }
+    }
+
     // Format events
     const events: ScrapedEvent[] = [];
     let skipped = 0;
 
-    for (const rawEvent of rawEvents) {
-      const formatted = formatEvent(rawEvent);
+    for (let i = 0; i < rawEvents.length; i++) {
+      const formatted = formatEvent(rawEvents[i], details[i]);
       if (formatted) {
         events.push(formatted);
       } else {

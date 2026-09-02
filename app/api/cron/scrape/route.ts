@@ -407,6 +407,7 @@ export async function GET(request: Request) {
         and(
           // Ignore rows already soft-deleted as duplicates...
           isNull(events.dedupedAt),
+          isNull(events.deadAt),
           // ...and rows an admin flagged to never auto-dedup (so a restore sticks)
           or(isNull(events.dedupSkip), eq(events.dedupSkip, false)),
           // ...and moderated-away rows, which must never merge into a live one

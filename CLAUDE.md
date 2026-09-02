@@ -212,7 +212,9 @@ PostgreSQL database hosted on Supabase with pgvector extension.
   embedding: vector(1536) (Gemini embedding for semantic search),
   // Dedup soft-delete (dedup no longer hard-deletes)
   dedupedAt: timestamp (set when removed as a duplicate; NULL = live; excluded from feed + dedup input),
-  dedupSkip: boolean (manual "never auto-dedup this row" flag; to restore a bad merge set dedupedAt=NULL and dedupSkip=true)
+  dedupSkip: boolean (manual "never auto-dedup this row" flag; to restore a bad merge set dedupedAt=NULL and dedupSkip=true),
+  // Dead-URL soft-delete (cleanup no longer hard-deletes dead events)
+  deadAt: timestamp (set when the source URL 404s; NULL = live; excluded from feed; restore with deadAt=NULL)
 }
 ```
 
@@ -307,7 +309,7 @@ RLS is enabled on all tables. Supabase's "RLS auto-enable trigger" is active, so
 | `/api/cron/scrape`       | Every 6h at :00 | Scrape all sources, upsert to DB, rule-based dedup            |
 | `/api/cron/verify`       | Every 3h at :05 | Verify events missing data via Jina + AI (30/run)             |
 | `/api/cron/ai`           | Every 3h at :20 | AI tagging, summaries, embeddings, image generation           |
-| `/api/cron/cleanup`      | 8x daily        | Dead events, non-NC, cancelled, duplicates                    |
+| `/api/cron/cleanup`      | 8x daily        | Dead URLs (soft-delete), non-NC, cancelled, duplicates        |
 | `/api/cron/dedup`        | Daily 4 AM ET   | AI semantic dedup of Top Events (score ≥15) over next 30 days |
 | `/api/cron/email-digest` | Daily 7 AM ET   | Send daily/weekly email digests to subscribers                |
 | `/api/cron/top30-weekly` | Fri 11 AM ET    | Weekly Top 30 email                                           |
@@ -317,6 +319,26 @@ Every cron run (prod and local) is recorded in the `cron_job_runs` table (`job_n
 **Routine health check** (run every few days): `npm run cron:health` (or `npm run cron:health -- 7` for a 7-day window). It reports per-job run counts and cadence gaps (flagging missed runs), per-scrape inserted/updated counts, scraper failures with error text, "silent" scrapers returning 0 events on every run, stale sources, and AI enrichment coverage — ending in a `VERDICT` line. Exits non-zero when something needs attention.
 
 The scrape job's `result` carries what that check reads: `inserted` / `updated` (genuinely new vs re-confirmed — `upserted` counts every row touched and is not a growth signal), `scrapers[]` (per-scraper `{name, ok, events, ms, error}`), `insertedBySource`, and `skippedSources`.
+
+The cleanup job's dead-URL pass checks **every** source, not just Eventbrite,
+but only events the scrapers have stopped confirming (`lastSeenAt` older than
+24h) - anything seen more recently was just fetched successfully, so its URL is
+alive by definition. That filter is what makes checking all sources affordable:
+~56 candidates per run instead of ~844.
+
+Only `404`/`410` counts as dead, and every one is re-checked with
+`probeAsChrome` before being acted on. This is not belt-and-braces: Cloudflare's
+challenge responses are not status-stable, and a blocked `HEAD` has been
+observed returning `404` for a live page. A `403`/`429`/`5xx`/network error
+means "unknown" and never removes anything. If more than 20% of a source's
+checked events look dead at once (min 5 checked), that is a site change or an
+outage rather than real removals, so the whole source is skipped for that run.
+
+Dead events are **soft-deleted** (`deadAt`), never hard-deleted, and each one is
+logged with its status, source, title and URL plus a ready-to-paste restore
+statement. Every live-event query filters `dedupedAt IS NULL AND deadAt IS NULL`
+
+- if you add a new one, it needs both.
 
 ### Public APIs
 

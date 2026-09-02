@@ -102,7 +102,8 @@ export async function getCuratedEventsWithDetails(userId: string) {
       and(
         eq(curatedEvents.userId, userId),
         or(isNull(events.hidden), eq(events.hidden, false)),
-        isNull(events.dedupedAt)
+        isNull(events.dedupedAt),
+        isNull(events.deadAt)
       )
     )
     .orderBy(desc(curatedEvents.curatedAt));

@@ -95,6 +95,34 @@ export async function fetchAsChrome(
   throw new Error(`HTTP ${lastStatus} for ${url}`);
 }
 
+/**
+ * Status-only probe over the same Chrome handshake, single attempt.
+ *
+ * Deliberately does NOT retry like `fetchAsChrome`: this exists to tell a
+ * genuinely dead URL from a bot block, and there a 404 is the answer rather
+ * than a challenge to retry past. Returns 0 on a network error, which callers
+ * must treat as "unknown", never as dead.
+ */
+export async function probeAsChrome(url: string, dispatcher: Dispatcher): Promise<number> {
+  const { fetch: undiciFetch } = await import('undici');
+  try {
+    const response = await undiciFetch(url, {
+      headers: {
+        'User-Agent': CHROME_USER_AGENT,
+        Accept: HTML_ACCEPT,
+        'Accept-Language': ACCEPT_LANGUAGE,
+      },
+      dispatcher,
+      redirect: 'follow',
+      signal: AbortSignal.timeout(DEFAULT_FETCH_TIMEOUT_MS),
+    });
+    await response.body?.cancel();
+    return response.status;
+  } catch {
+    return 0;
+  }
+}
+
 function readTitle(html: string): string {
   return html.match(/<title[^>]*>([\s\S]*?)<\/title>/i)?.[1] ?? '';
 }

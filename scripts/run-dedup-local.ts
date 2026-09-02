@@ -10,6 +10,7 @@ import { and, eq, inArray, isNull, or } from 'drizzle-orm';
 // Exclude rows already soft-deleted as duplicates, and rows flagged to never auto-dedup
 const dedupEligible = and(
   isNull(events.dedupedAt),
+  isNull(events.deadAt),
   or(isNull(events.dedupSkip), eq(events.dedupSkip, false))
 );
 import { findDuplicates, getIdsToRemove, getDescriptionUpdates } from '../lib/utils/deduplication';

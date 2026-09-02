@@ -30,7 +30,8 @@ export async function POST(request: Request) {
         and(
           inArray(events.id, limitedIds),
           or(isNull(events.hidden), eq(events.hidden, false)),
-          isNull(events.dedupedAt)
+          isNull(events.dedupedAt),
+          isNull(events.deadAt)
         )
       )
       .orderBy(asc(events.startDate));

@@ -60,6 +60,7 @@ export const events = pgTable(
     lastVerifiedAt: timestamp('last_verified_at', { withTimezone: true }), // When event source URL was last checked
     // Deduplication soft-delete (AI + rule-based dedup no longer hard-delete)
     dedupedAt: timestamp('deduped_at', { withTimezone: true }), // Set when removed as a duplicate; NULL = live. Excluded from feed + dedup input.
+    deadAt: timestamp('dead_at', { withTimezone: true }), // Set when the source URL 404s; NULL = live. Excluded from feed. Clear to restore.
     dedupSkip: boolean('dedup_skip').default(false), // Manual "never auto-dedup this row" flag so a restore sticks
   },
   (table) => ({

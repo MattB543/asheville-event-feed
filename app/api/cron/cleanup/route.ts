@@ -10,6 +10,7 @@ import { invalidateEventsCache } from '@/lib/cache/invalidation';
 import { startCronJob, completeCronJob, failCronJob } from '@/lib/cron/jobTracker';
 import { formatDuration } from '@/lib/utils/cron';
 import { DEFAULT_FETCH_TIMEOUT_MS } from '@/lib/utils/retry';
+import { createChromeDispatcher, probeAsChrome } from '@/lib/scrapers/fetchAsChrome';
 
 export const maxDuration = 300; // 5 minutes max
 
@@ -36,8 +37,26 @@ interface DeadEvent {
   id: string;
   title: string;
   url: string;
+  source: string;
   status: number;
 }
+
+/** Only these mean "gone". A block is a 403/429/5xx and must never delete. */
+const DEAD_STATUSES = new Set([404, 410]);
+
+/**
+ * Events the scrapers confirmed this recently are alive by definition - the
+ * scraper just fetched them - so checking them is wasted requests. Scrapes run
+ * every 6h, so this is "missed by the last four runs".
+ */
+const DEAD_CHECK_STALE_HOURS = 24;
+
+/**
+ * If this share of a source's checked events look dead at once, that is a site
+ * redesign or an outage, not individual removals. Skip the source entirely.
+ */
+const DEAD_SOURCE_MAX_SHARE = 0.2;
+const DEAD_SOURCE_MIN_CHECKED = 5;
 
 async function checkUrl(url: string): Promise<number> {
   try {
@@ -99,74 +118,102 @@ export async function GET(request: Request) {
     windowEnd.setDate(windowEnd.getDate() + endDays);
     windowEnd.setHours(23, 59, 59, 999);
 
-    // Gap #12: Log DB query timing
+    // Only events the scrapers have STOPPED confirming are at risk. Anything
+    // seen in the last day was just fetched successfully by a scraper, so its
+    // URL is alive and checking it again only burns requests. This is what
+    // makes checking every source affordable: ~56 candidates instead of ~844.
     const queryStart = Date.now();
-    const eventbriteEvents = await db
+    const staleCutoff = new Date(Date.now() - DEAD_CHECK_STALE_HOURS * 60 * 60 * 1000);
+    const candidates = await db
       .select({
         id: events.id,
         title: events.title,
         url: events.url,
+        source: events.source,
       })
       .from(events).where(sql`
-        ${events.source} = 'EVENTBRITE'
-        AND ${events.startDate} >= ${windowStart.toISOString()}
+        ${events.startDate} >= ${windowStart.toISOString()}
         AND ${events.startDate} <= ${windowEnd.toISOString()}
+        AND ${events.lastSeenAt} < ${staleCutoff.toISOString()}
+        AND ${events.deadAt} IS NULL
+        AND ${events.dedupedAt} IS NULL
       `);
     console.log(
-      `[Cleanup] Queried ${eventbriteEvents.length} Eventbrite events in ${formatDuration(Date.now() - queryStart)} (${label})`
+      `[Cleanup] Queried ${candidates.length} unconfirmed events (not seen in ${DEAD_CHECK_STALE_HOURS}h) in ${formatDuration(Date.now() - queryStart)} (${label})`
     );
 
     const deadEvents: DeadEvent[] = [];
     const batchSize = 10;
-    // Gap #2: Track non-404/410 status codes for aggregate logging
     const statusCodeCounts = new Map<number, number>();
+    const checkedBySource = new Map<string, number>();
+    const deadBySource = new Map<string, DeadEvent[]>();
     let networkErrorCount = 0;
+    let falsePositiveCount = 0;
 
-    // Check URLs in batches with progress logging
-    const totalBatches = Math.ceil(eventbriteEvents.length / batchSize);
-    for (let i = 0; i < eventbriteEvents.length; i += batchSize) {
-      const batch = eventbriteEvents.slice(i, i + batchSize);
-      const batchNum = Math.floor(i / batchSize) + 1;
+    // A 404 from Node's default TLS handshake can be a bot block rather than a
+    // removal, so every candidate is re-checked over a Chrome fingerprint
+    // before we act on it. Cheap because only actual 404s reach it.
+    const dispatcher = await createChromeDispatcher();
 
-      const results = await Promise.all(
-        batch.map(async (event) => {
-          const status = await checkUrl(event.url);
-          return { event, status };
-        })
-      );
+    try {
+      const totalBatches = Math.ceil(candidates.length / batchSize);
+      for (let i = 0; i < candidates.length; i += batchSize) {
+        const batch = candidates.slice(i, i + batchSize);
+        const batchNum = Math.floor(i / batchSize) + 1;
 
-      for (const { event, status } of results) {
-        if (status === 404 || status === 410) {
-          console.log(`[Cleanup] Dead: ${event.title.substring(0, 50)}...`);
-          deadEvents.push({
+        const results = await Promise.all(
+          batch.map(async (event) => ({ event, status: await checkUrl(event.url) }))
+        );
+
+        for (const { event, status } of results) {
+          checkedBySource.set(event.source, (checkedBySource.get(event.source) || 0) + 1);
+
+          if (!DEAD_STATUSES.has(status)) {
+            if (status === 0) {
+              networkErrorCount++;
+            } else if (status !== 200) {
+              statusCodeCounts.set(status, (statusCodeCounts.get(status) || 0) + 1);
+            }
+            continue;
+          }
+
+          const confirmed = await probeAsChrome(event.url, dispatcher);
+          if (!DEAD_STATUSES.has(confirmed)) {
+            falsePositiveCount++;
+            console.log(
+              `[Cleanup] Not dead after all (HEAD ${status}, Chrome ${confirmed}): ${event.url}`
+            );
+            continue;
+          }
+
+          const dead: DeadEvent = {
             id: event.id,
             title: event.title,
             url: event.url,
-            status,
-          });
-        } else if (status === 0) {
-          networkErrorCount++;
-        } else if (status !== 200) {
-          // Gap #2: Accumulate non-200/404/410 status codes
-          statusCodeCounts.set(status, (statusCodeCounts.get(status) || 0) + 1);
+            source: event.source,
+            status: confirmed,
+          };
+          deadEvents.push(dead);
+          const forSource = deadBySource.get(event.source) || [];
+          forSource.push(dead);
+          deadBySource.set(event.source, forSource);
+        }
+
+        if (batchNum % 5 === 0 || batchNum === totalBatches) {
+          const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
+          console.log(
+            `[Cleanup] URL check progress: ${Math.min(i + batchSize, candidates.length)}/${candidates.length} (${elapsed}s elapsed)`
+          );
+        }
+
+        if (i + batchSize < candidates.length) {
+          await new Promise((r) => setTimeout(r, 300));
         }
       }
-
-      // Log progress every 5 batches
-      if (batchNum % 5 === 0 || batchNum === totalBatches) {
-        const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
-        console.log(
-          `[Cleanup] URL check progress: ${Math.min(i + batchSize, eventbriteEvents.length)}/${eventbriteEvents.length} (${elapsed}s elapsed)`
-        );
-      }
-
-      // Small delay between batches to be polite to Eventbrite
-      if (i + batchSize < eventbriteEvents.length) {
-        await new Promise((r) => setTimeout(r, 300));
-      }
+    } finally {
+      await dispatcher.close();
     }
 
-    // Gap #2: Log aggregated non-standard status codes
     if (statusCodeCounts.size > 0 || networkErrorCount > 0) {
       const parts: string[] = [];
       for (const [code, count] of [...statusCodeCounts.entries()].sort((a, b) => a[0] - b[0])) {
@@ -175,23 +222,64 @@ export async function GET(request: Request) {
       if (networkErrorCount > 0) {
         parts.push(`${networkErrorCount} network errors`);
       }
-      console.log(`[Cleanup] Non-standard URL responses: ${parts.join(', ')}`);
+      console.log(
+        `[Cleanup] Non-standard URL responses (none removed - only 404/410 counts as dead): ${parts.join(', ')}`
+      );
+    }
+    if (falsePositiveCount > 0) {
+      console.log(
+        `[Cleanup] ${falsePositiveCount} URL(s) 404'd on the plain check but not over a Chrome fingerprint - kept.`
+      );
     }
 
-    console.log(`[Cleanup] Found ${deadEvents.length} dead events.`);
-
-    // Delete dead events in batch (instead of one at a time)
-    if (deadEvents.length > 0) {
-      const deadIds = deadEvents.map((e) => e.id);
-      await db.delete(events).where(inArray(events.id, deadIds));
-      for (const deadEvent of deadEvents) {
-        console.log(`[Cleanup] Deleted: ${deadEvent.title.substring(0, 40)}...`);
+    // A source losing a big share of its events at once is a redesign or an
+    // outage, not real removals. Drop the whole source rather than cascade.
+    const skippedSources: string[] = [];
+    for (const [source, dead] of deadBySource) {
+      const checked = checkedBySource.get(source) || 0;
+      const share = checked > 0 ? dead.length / checked : 0;
+      if (checked >= DEAD_SOURCE_MIN_CHECKED && share > DEAD_SOURCE_MAX_SHARE) {
+        console.warn(
+          `[Cleanup] SKIPPING ${source}: ${dead.length}/${checked} (${Math.round(share * 100)}%) look dead, over the ${Math.round(DEAD_SOURCE_MAX_SHARE * 100)}% cap. Likely a site change, not removals - nothing removed for this source.`
+        );
+        skippedSources.push(source);
+        for (const event of dead) {
+          const idx = deadEvents.indexOf(event);
+          if (idx !== -1) deadEvents.splice(idx, 1);
+        }
       }
     }
 
-    // Gap #3: Log phase 1 duration
+    // Soft-delete: set dead_at rather than DELETE, so a bad call is one UPDATE
+    // to undo and the row survives for auditing.
+    if (deadEvents.length > 0) {
+      const deadAt = new Date();
+      await db
+        .update(events)
+        .set({ deadAt })
+        .where(
+          inArray(
+            events.id,
+            deadEvents.map((e) => e.id)
+          )
+        );
+      console.log(`[Cleanup] Soft-deleted ${deadEvents.length} dead event(s) (set dead_at):`);
+      for (const dead of deadEvents) {
+        console.log(
+          `[Cleanup]   ${dead.status} ${dead.source} | ${dead.title.substring(0, 50)} | ${dead.url}`
+        );
+      }
+      console.log(
+        `[Cleanup] To restore: UPDATE events SET dead_at = NULL WHERE id IN (${deadEvents
+          .map((e) => `'${e.id}'`)
+          .join(', ')});`
+      );
+    } else {
+      console.log('[Cleanup] No dead events found.');
+    }
+
     console.log(
-      `[Cleanup] Phase 1 (dead URLs) complete in ${formatDuration(Date.now() - phase1Start)}. Deleted ${deadEvents.length} dead events.`
+      `[Cleanup] Phase 1 (dead URLs) complete in ${formatDuration(Date.now() - phase1Start)}. Checked ${candidates.length}, soft-deleted ${deadEvents.length}${skippedSources.length > 0 ? `, skipped sources: ${skippedSources.join(', ')}` : ''}.`
     );
 
     // === Phase 2: Non-NC events ===
@@ -326,6 +414,7 @@ export async function GET(request: Request) {
         and(
           // Ignore rows already soft-deleted as duplicates...
           isNull(events.dedupedAt),
+          isNull(events.deadAt),
           // ...and rows an admin flagged to never auto-dedup (so a restore sticks)
           or(isNull(events.dedupSkip), eq(events.dedupSkip, false)),
           // ...and moderated-away rows, which must never merge into a live one
@@ -437,8 +526,8 @@ export async function GET(request: Request) {
 
     const result = {
       window: label,
-      checked: eventbriteEvents.length,
-      deletedDead: deadEvents.length,
+      checked: candidates.length,
+      deadSoftDeleted: deadEvents.length,
       deletedNonNC: nonNCEventIds.length,
       deletedCancelled: cancelledEventIds.length,
       deletedDuplicates: softDeletedCount,

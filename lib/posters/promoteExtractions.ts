@@ -118,6 +118,7 @@ async function findExistingEvent(
           candidates.map((candidate) => candidate.id)
         ),
         isNull(events.dedupedAt),
+        isNull(events.deadAt),
         or(isNull(events.hidden), eq(events.hidden, false))
       )
     );

@@ -105,6 +105,7 @@ export async function GET(request: Request) {
             gte(events.score, TOP_EVENT_SCORE),
             // Skip rows already soft-deleted by a prior dedup run...
             isNull(events.dedupedAt),
+            isNull(events.deadAt),
             // ...and rows an admin flagged to never auto-dedup (so a restore sticks)
             or(isNull(events.dedupSkip), eq(events.dedupSkip, false)),
             // Hidden events are moderated-away content. Feeding them to dedup

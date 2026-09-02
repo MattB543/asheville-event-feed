@@ -155,7 +155,8 @@ export async function GET(request: Request) {
         and(
           gte(events.startDate, startOfToday),
           or(isNull(events.hidden), eq(events.hidden, false)),
-          isNull(events.dedupedAt)
+          isNull(events.dedupedAt),
+          isNull(events.deadAt)
         )
       )
       .orderBy(asc(events.startDate));

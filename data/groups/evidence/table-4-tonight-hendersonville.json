@@ -1,0 +1,36 @@
+{
+  "group_name": "Table 4 Tonight Hendersonville",
+  "canonical_name": "Table 4 Tonight / Dinner with Strangers (Ermantourage)",
+  "unit_indices": [645],
+  "verdict": "not_group",
+  "confidence": 0.85,
+  "website": "https://ermantourage.com/dinners",
+  "summary": "A ticketed ($29), monthly dinner meetup at a rotating 'Restaurant of the Week' in Hendersonville, run by Ermantourage Sports as part of its 'Dinner with Strangers' brand, explicitly targeted at 'cities under 100,000 population.' It is the same commercial event-production company (Ermantourage) confirmed elsewhere to run the near-identical 'Foodies + New Friends' series across 9+ cities nationwide as a booking product, not a persistent local community.",
+  "evidence": [
+    {
+      "source": "events",
+      "url": "https://www.eventbrite.com/e/table-4-tonight-hendersonville-dinner-with-new-friends-tickets-1910863777999",
+      "note": "Description reads 'Dinner with Strangers series for cities under 100,000 population. Meet others in your town over fun food and a relaxed atmosphere!' - templated marketing copy, no membership or roster language, ticketed at $29."
+    },
+    {
+      "source": "events",
+      "url": "https://www.eventbrite.com/e/table-4-tonight-hendersonville-dinner-with-new-friends-tickets-1910863567369",
+      "note": "Prior month's listing is worded almost identically, and both are held at 'Restaurant of the Week,' i.e. a rotating venue chosen by the organizer each session rather than a home base for a returning group."
+    },
+    {
+      "source": "events",
+      "url": null,
+      "note": "Organizer is 'Ermantourage Sports,' the same production company (Ermantourage/ADDVentures) that runs the sibling 'Foodies + New Friends' series confirmed by another evidence pass to operate identical franchise-style dinners across 9+ cities (Roseville, Fayetteville, Charlottesville, Los Angeles, etc.) under multiple parallel brand names including 'Dinner with Strangers.'"
+    },
+    {
+      "source": "web",
+      "url": "https://ermantourage.com/dinners",
+      "note": "Company site describes 'rotating dinners across 9+ cities' capped at 12-24 strangers per table, an explicit booking model with no fixed membership; it does not surface 'Table 4 Tonight' specifically but matches the exact business model and 'Dinner with Strangers' language used in the Hendersonville listings."
+    },
+    {
+      "source": "web",
+      "url": "https://www.eventbrite.com/e/table-4-tonight-hendersonville-dinner-with-new-friends-tickets-1910863777999",
+      "note": "Direct WebFetch of the Eventbrite listing found only generic event metadata (organizer, venue, date) and no membership, recurring-attendee, or community language of any kind."
+    }
+  ]
+}

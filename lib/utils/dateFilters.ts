@@ -13,6 +13,7 @@ import {
   parseAsEastern,
   formatDateEastern,
 } from '@/lib/utils/timezone';
+import type { TimeOfDay } from '@/lib/types/filters';
 
 // Helper to add days to a date string (YYYY-MM-DD format)
 function addDaysToDateString(dateStr: string, days: number): string {
@@ -124,4 +125,27 @@ export function isInDateRangeEastern(date: Date, start: string, end?: string): b
   // Single day: check if within that day's boundaries
   const { start: dayStart, end: dayEnd } = getDayBoundariesEastern(start);
   return date >= dayStart && date <= dayEnd;
+}
+
+/**
+ * Check if an event's start time falls in any of the given parts of the day, in
+ * Eastern time. Same buckets as the server's time filter: morning 5-11,
+ * afternoon 12-16, evening 17-23 or 0-2.
+ */
+export function isInTimeOfDayEastern(date: Date, times: TimeOfDay[]): boolean {
+  if (times.length === 0) return true;
+  // hourCycle h23 so midnight is "00", not the "24" some engines emit for hour12: false
+  const hour = parseInt(formatDateEastern(date, { hour: '2-digit', hourCycle: 'h23' }), 10);
+  return times.some((time) => {
+    switch (time) {
+      case 'morning':
+        return hour >= 5 && hour <= 11;
+      case 'afternoon':
+        return hour >= 12 && hour <= 16;
+      case 'evening':
+        return hour >= 17 || hour <= 2;
+      default:
+        return false;
+    }
+  });
 }

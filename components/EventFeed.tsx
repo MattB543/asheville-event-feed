@@ -47,14 +47,8 @@ import Link from 'next/link';
 import { getZipName } from '@/lib/config/zipNames';
 import { usePreferenceSync } from '@/lib/hooks/usePreferenceSync';
 import { useFavorites, replaceFavorites } from '@/lib/hooks/useFavorites';
-import {
-  computeDateFilterBounds,
-  isTodayEastern,
-  isTomorrowEastern,
-  isThisWeekendEastern,
-  isDayOfWeekEastern,
-  isInDateRangeEastern,
-} from '@/lib/utils/dateFilters';
+import { computeDateFilterBounds } from '@/lib/utils/dateFilters';
+import { matchesEventFilters } from '@/lib/utils/eventFilterMatch';
 import { useAuth } from './AuthProvider';
 import { extractMonthFromSearch, getMonthDateRange } from '@/lib/utils/monthSearch';
 
@@ -151,18 +145,14 @@ type DatedInitialEvent = Omit<InitialEvent, 'startDate' | 'top30Occurrences'> & 
   top30Occurrences?: DatedTop30Occurrence[] | null;
 };
 
-// Top 30 events organized by category (each array is pre-sorted, limited to 30)
+// Top 30 candidates organized by category (each array is pre-sorted best-first)
 interface Top30EventsByCategory {
   overall: InitialEvent[];
   weird: InitialEvent[];
   social: InitialEvent[];
 }
 
-interface Top30DisplayEventsByCategory {
-  overall: DatedInitialEvent[];
-  weird: DatedInitialEvent[];
-  social: DatedInitialEvent[];
-}
+type Top30Category = keyof Top30EventsByCategory;
 
 interface EventFeedProps {
   initialEvents?: InitialEvent[];
@@ -286,6 +276,10 @@ function shouldMergeTop30Events(previous: DatedInitialEvent, next: DatedInitialE
   return diffMs > 0 && diffMs <= TOP30_DUPLICATE_GAP_MS;
 }
 
+// Collapse duplicate multi-day listings into one entry with several occurrences.
+// Returns the whole ranked list (not just 30): the Top 30 tab filters it and then
+// takes the first 30 survivors. A forward pass, so growing the candidate pool
+// never changes the ranks of entries that were already in it.
 function mergeTop30CategoryEvents(categoryEvents: InitialEvent[]): DatedInitialEvent[] {
   const merged: DatedInitialEvent[] = [];
 
@@ -327,7 +321,7 @@ function mergeTop30CategoryEvents(categoryEvents: InitialEvent[]): DatedInitialE
     }
   }
 
-  return merged.slice(0, TOP30_VISIBLE_LIMIT);
+  return merged;
 }
 
 // Check if localStorage contains non-default filters that would affect query results
@@ -576,6 +570,15 @@ export default function EventFeed({
   const [top30Subscription, setTop30Subscription] = useState<Top30SubscriptionType>('none');
   const [top30SubscribeModalOpen, setTop30SubscribeModalOpen] = useState(false);
   const [top30CalendarModalOpen, setTop30CalendarModalOpen] = useState(false);
+  // Deeper candidate pools, per category, fetched only when the user's filters
+  // leave fewer than 30 of the SSR candidates standing
+  const [top30BackfillPools, setTop30BackfillPools] = useState<
+    Partial<Record<Top30Category, InitialEvent[]>>
+  >({});
+  const [top30BackfillLoadingCategories, setTop30BackfillLoadingCategories] = useState<
+    Set<Top30Category>
+  >(new Set());
+  const top30BackfillRequested = useRef<Set<Top30Category>>(new Set());
 
   // Your List sub-tab state (recommended vs favorites)
   const [yourListSubTab, setYourListSubTab] = useState<'recommended' | 'favorites'>('recommended');
@@ -824,20 +827,24 @@ export default function EventFeed({
   // Use query metadata or initial metadata
   const metadata = queryMetadata || initialMetadata;
 
-  const mergedTop30Events = useMemo<Top30DisplayEventsByCategory>(
-    () => ({
-      overall: mergeTop30CategoryEvents(initialTop30Events?.overall || []),
-      weird: mergeTop30CategoryEvents(initialTop30Events?.weird || []),
-      social: mergeTop30CategoryEvents(initialTop30Events?.social || []),
-    }),
-    [initialTop30Events]
-  );
+  // Ranked pool for the active category: the SSR candidates, extended by the
+  // deep backfill pool once it has loaded. Extending rather than replacing keeps
+  // every rank the visitor has already seen, even if the two cached snapshots
+  // were taken at different moments; when they agree, which is the normal case,
+  // the result is exactly the deep pool.
+  const ssrTop30Pool = initialTop30Events?.[top30Category];
+  const backfillTop30Pool = top30BackfillPools[top30Category];
+  const top30CategoryEvents = useMemo(() => {
+    const pool = ssrTop30Pool ?? [];
+    if (!backfillTop30Pool) return mergeTop30CategoryEvents(pool);
+    const seen = new Set(pool.map((event) => event.id));
+    return mergeTop30CategoryEvents([
+      ...pool,
+      ...backfillTop30Pool.filter((event) => !seen.has(event.id)),
+    ]);
+  }, [ssrTop30Pool, backfillTop30Pool]);
 
-  const top30CategoryEvents = useMemo(
-    () => mergedTop30Events[top30Category] ?? [],
-    [mergedTop30Events, top30Category]
-  );
-
+  // Rank = position in the unfiltered merged list, so filtering never renumbers
   const top30RankingMap = useMemo(() => {
     const rankingMap = new Map<string, number>();
     top30CategoryEvents.forEach((event, index) => {
@@ -846,75 +853,65 @@ export default function EventFeed({
     return rankingMap;
   }, [top30CategoryEvents]);
 
+  const hiddenFingerprintKeys = useMemo(
+    () => new Set(hiddenEvents.map((fp) => createFingerprintKey(fp.title, fp.organizer))),
+    [hiddenEvents]
+  );
+
+  // The user's filters applied to the ranked list, keeping the first 30 that
+  // survive. Ranks come from top30RankingMap, so a filtered list can read
+  // 1, 2, 5, ... 36. Events hidden this session stay visible (greyed out) so
+  // the hide can be undone, like the main feed.
   const filteredTop30CategoryEvents = useMemo(() => {
     // Date boundaries in America/New_York, using the same helpers the server uses,
     // so this tab agrees with the main feed for users outside Eastern time.
     const bounds = computeDateFilterBounds();
 
-    return top30CategoryEvents.filter((event) => {
-      if (search.trim()) {
-        const searchLower = search.toLowerCase();
-        const matchesSearch =
-          event.title.toLowerCase().includes(searchLower) ||
-          event.description?.toLowerCase().includes(searchLower) ||
-          event.organizer?.toLowerCase().includes(searchLower) ||
-          event.location?.toLowerCase().includes(searchLower);
-        if (!matchesSearch) return false;
-      }
+    return top30CategoryEvents
+      .filter((event) => {
+        const key = createFingerprintKey(event.title, event.organizer);
+        if (hiddenFingerprintKeys.has(key) && !sessionHiddenKeys.has(key)) return false;
+        return matchesEventFilters(event, getEventOccurrences(event), filters, bounds);
+      })
+      .slice(0, TOP30_VISIBLE_LIMIT);
+  }, [top30CategoryEvents, filters, hiddenFingerprintKeys, sessionHiddenKeys]);
 
-      if (priceFilter !== 'any') {
-        const priceStr = event.price?.toLowerCase() || '';
-        const isFree =
-          !event.price || priceStr === 'unknown' || priceStr === '' || priceStr.includes('free');
-        const priceNum = parseFloat(event.price?.replace(/[^0-9.]/g, '') || '0');
-        if (priceFilter === 'free' && !isFree) return false;
-        if (priceFilter === 'under20' && priceNum > 20) return false;
-        if (priceFilter === 'under100' && priceNum > 100) return false;
-      }
+  // Backfill: when fewer than 30 survive, fetch the deeper pool for this category
+  // (once per category per page load) so more can be added to the bottom.
+  const needsTop30Backfill =
+    activeTab === 'top30' &&
+    filteredTop30CategoryEvents.length < TOP30_VISIBLE_LIMIT &&
+    !top30BackfillPools[top30Category];
+  const top30BackfillLoading = top30BackfillLoadingCategories.has(top30Category);
 
-      if (dateFilter !== 'all') {
-        const occurrences = getEventOccurrences(event);
-        const matchesDateFilter = occurrences.some((occurrence) => {
-          if (dateFilter === 'today') {
-            return isTodayEastern(occurrence.startDate, bounds);
-          }
-          if (dateFilter === 'tomorrow') {
-            return isTomorrowEastern(occurrence.startDate, bounds);
-          }
-          if (dateFilter === 'weekend') {
-            return isThisWeekendEastern(occurrence.startDate, bounds);
-          }
-          if (dateFilter === 'dayOfWeek') {
-            if (selectedDays.length === 0) return true;
-            // Must also be in the future (matches main list semantics)
-            if (occurrence.startDate < bounds.today.start) return false;
-            return isDayOfWeekEastern(occurrence.startDate, selectedDays);
-          }
-          if (dateFilter === 'custom') {
-            if (!customDateRange.start) return true;
-            return isInDateRangeEastern(
-              occurrence.startDate,
-              customDateRange.start,
-              customDateRange.end ?? undefined
-            );
-          }
-          return true;
+  useEffect(() => {
+    if (!needsTop30Backfill || top30BackfillRequested.current.has(top30Category)) return;
+    const category = top30Category;
+    top30BackfillRequested.current.add(category);
+    setTop30BackfillLoadingCategories((prev) => new Set(prev).add(category));
+
+    fetch(`/api/events/top30?category=${category}`)
+      .then((response) => {
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        return response.json() as Promise<{ events: InitialEvent[] }>;
+      })
+      .then((data) => {
+        setTop30BackfillPools((prev) => ({ ...prev, [category]: data.events }));
+      })
+      .catch((error) => {
+        console.error('[EventFeed] Failed to load Top 30 backfill:', error);
+        // Let a later category switch (or a filter change that crosses the 30
+        // threshold) try again, without retrying in a loop
+        top30BackfillRequested.current.delete(category);
+      })
+      .finally(() => {
+        setTop30BackfillLoadingCategories((prev) => {
+          const next = new Set(prev);
+          next.delete(category);
+          return next;
         });
-
-        if (!matchesDateFilter) return false;
-      }
-
-      return true;
-    });
-  }, [
-    top30CategoryEvents,
-    search,
-    priceFilter,
-    dateFilter,
-    selectedDays,
-    customDateRange.start,
-    customDateRange.end,
-  ]);
+      });
+  }, [needsTop30Backfill, top30Category]);
 
   // Infinite scroll trigger
   const loadMoreRef = useInfiniteScrollTrigger(
@@ -1348,6 +1345,14 @@ export default function EventFeed({
     selectedZips,
     allLocationsSelected,
   ]);
+
+  // Filters that can thin the Top 30: the chips above plus the personal blocks,
+  // which have no chip of their own
+  const top30FiltersActive =
+    activeFilters.length > 0 ||
+    blockedHosts.length > 0 ||
+    blockedKeywords.length > 0 ||
+    hiddenEvents.length > 0;
 
   // Handle removing filters
   const handleRemoveFilter = useCallback((id: string) => {
@@ -2355,14 +2360,18 @@ export default function EventFeed({
           </div>
 
           {/* Empty State */}
-          {filteredTop30CategoryEvents.length === 0 && (
+          {filteredTop30CategoryEvents.length === 0 && !top30BackfillLoading && (
             <div className="text-center py-20 px-4">
               <div className="text-4xl mb-4">🏆</div>
               <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                No top-rated events found
+                {top30FiltersActive
+                  ? 'No top-rated events match your filters'
+                  : 'No top-rated events found'}
               </h3>
               <p className="text-sm text-gray-500 dark:text-gray-400 max-w-md mx-auto">
-                Check back later for the highest-scored events in the next 30 days.
+                {top30FiltersActive
+                  ? 'Try removing a filter to see more of the Top 30.'
+                  : 'Check back later for the highest-scored events in the next 30 days.'}
               </p>
             </div>
           )}
@@ -2385,7 +2394,9 @@ export default function EventFeed({
                   }}
                   onHide={handleHideEvent}
                   onBlockHost={handleBlockHost}
-                  isNewlyHidden={false}
+                  isNewlyHidden={sessionHiddenKeys.has(
+                    createFingerprintKey(event.title, event.organizer)
+                  )}
                   hideBorder
                   isFavorited={favoritedEventIds.includes(event.id)}
                   favoriteCount={favoriteCountOverrides[event.id] ?? event.favoriteCount ?? 0}
@@ -2485,7 +2496,9 @@ export default function EventFeed({
                               }}
                               onHide={handleHideEvent}
                               onBlockHost={handleBlockHost}
-                              isNewlyHidden={false}
+                              isNewlyHidden={sessionHiddenKeys.has(
+                                createFingerprintKey(event.title, event.organizer)
+                              )}
                               hideBorder
                               isFavorited={favoritedEventIds.includes(event.id)}
                               favoriteCount={
@@ -2520,6 +2533,14 @@ export default function EventFeed({
                     );
                   });
               })()}
+            </div>
+          )}
+
+          {/* Backfill in progress: more events are on their way to fill out the 30 */}
+          {top30BackfillLoading && filteredTop30CategoryEvents.length < TOP30_VISIBLE_LIMIT && (
+            <div className="flex items-center justify-center gap-2 py-6 text-sm text-gray-500 dark:text-gray-400">
+              <Loader2Icon className="w-4 h-4 animate-spin" />
+              Finding more events that match your filters…
             </div>
           )}
 

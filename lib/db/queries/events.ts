@@ -26,6 +26,7 @@ import {
 import { matchesDefaultFilter } from '@/lib/config/defaultFilters';
 import { extractCity, isAshevilleArea } from '@/lib/utils/geo';
 import { isAshevilleZip } from '@/lib/config/zipNames';
+import { parsePrice, isFreeEvent } from '@/lib/utils/eventFilterMatch';
 
 // Verbose per-request query logging, dev only
 const DEBUG_QUERY_LOGS = process.env.NODE_ENV !== 'production';
@@ -124,29 +125,6 @@ function addDaysToDateString(dateStr: string, days: number): string {
   const [year, month, day] = dateStr.split('-').map(Number);
   const date = new Date(year, month - 1, day + days);
   return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
-}
-
-// Parse price string to number
-function parsePrice(priceStr: string | null | undefined): number {
-  if (!priceStr) return 0;
-  const lower = priceStr.toLowerCase();
-  if (lower.includes('free') || lower.includes('donation')) return 0;
-  const matches = priceStr.match(/(\d+(\.\d+)?)/);
-  if (matches) return parseFloat(matches[0]);
-  return 0;
-}
-
-// Check if event is free
-function isFreeEvent(price: string | null | undefined): boolean {
-  if (!price) return true; // Unknown = assume free
-  const lower = price.toLowerCase();
-  return (
-    lower === 'unknown' ||
-    lower === '' ||
-    lower.includes('free') ||
-    lower.includes('donation') ||
-    parsePrice(price) === 0
-  );
 }
 
 // Get this weekend's boundaries (Fri-Sun) in Eastern timezone
@@ -686,63 +664,58 @@ export async function getEventMetadata(): Promise<EventMetadata> {
   return { availableTags, availableLocations, availableZips };
 }
 
-/**
- * Get top events for the "Top 30" tab across all categories.
- * Returns separate pre-sorted arrays for each category (overall, weird, social).
- * Callers may request more than 30 candidates if they need to collapse duplicate
- * multi-day listings before trimming back to 30 visible cards.
- */
-export async function queryTop30Events(limitPerCategory = 30): Promise<Top30EventsByCategory> {
+export type Top30Category = keyof Top30EventsByCategory;
+
+/** Deepest pool a single Top 30 category query will return. */
+export const TOP30_MAX_CANDIDATES = 200;
+
+const TOP30_SELECT_FIELDS = {
+  id: events.id,
+  sourceId: events.sourceId,
+  source: events.source,
+  title: events.title,
+  description: events.description,
+  startDate: events.startDate,
+  location: events.location,
+  zip: events.zip,
+  organizer: events.organizer,
+  price: events.price,
+  url: events.url,
+  imageUrl: events.imageUrl,
+  tags: events.tags,
+  createdAt: events.createdAt,
+  hidden: events.hidden,
+  interestedCount: events.interestedCount,
+  goingCount: events.goingCount,
+  timeUnknown: events.timeUnknown,
+  recurringType: events.recurringType,
+  recurringEndDate: events.recurringEndDate,
+  favoriteCount: events.favoriteCount,
+  aiSummary: events.aiSummary,
+  updatedAt: events.updatedAt,
+  lastSeenAt: events.lastSeenAt,
+  lastVerifiedAt: events.lastVerifiedAt,
+  score: events.score,
+  scoreRarity: events.scoreRarity,
+  scoreUnique: events.scoreUnique,
+  scoreMagnitude: events.scoreMagnitude,
+  scoreReason: events.scoreReason,
+  scoreOverride: events.scoreOverride,
+  scoreAshevilleWeird: events.scoreAshevilleWeird,
+  scoreSocial: events.scoreSocial,
+  dedupedAt: events.dedupedAt,
+  deadAt: events.deadAt,
+  dedupSkip: events.dedupSkip,
+};
+
+// Scored, live, in-person events in the next 30 days
+function buildTop30BaseWhere() {
   const startOfToday = getStartOfTodayEastern();
   const todayStr = getTodayStringEastern();
   const thirtyDaysLaterStr = addDaysToDateString(todayStr, 30);
   const thirtyDaysLater = parseAsEastern(thirtyDaysLaterStr, '23:59:59');
-  const categoryLimit = Math.min(Math.max(limitPerCategory, 1), 100);
 
-  console.log(
-    `[queryTop30Events] Fetching top events for all categories (limit=${categoryLimit})...`
-  );
-
-  const selectFields = {
-    id: events.id,
-    sourceId: events.sourceId,
-    source: events.source,
-    title: events.title,
-    description: events.description,
-    startDate: events.startDate,
-    location: events.location,
-    zip: events.zip,
-    organizer: events.organizer,
-    price: events.price,
-    url: events.url,
-    imageUrl: events.imageUrl,
-    tags: events.tags,
-    createdAt: events.createdAt,
-    hidden: events.hidden,
-    interestedCount: events.interestedCount,
-    goingCount: events.goingCount,
-    timeUnknown: events.timeUnknown,
-    recurringType: events.recurringType,
-    recurringEndDate: events.recurringEndDate,
-    favoriteCount: events.favoriteCount,
-    aiSummary: events.aiSummary,
-    updatedAt: events.updatedAt,
-    lastSeenAt: events.lastSeenAt,
-    lastVerifiedAt: events.lastVerifiedAt,
-    score: events.score,
-    scoreRarity: events.scoreRarity,
-    scoreUnique: events.scoreUnique,
-    scoreMagnitude: events.scoreMagnitude,
-    scoreReason: events.scoreReason,
-    scoreOverride: events.scoreOverride,
-    scoreAshevilleWeird: events.scoreAshevilleWeird,
-    scoreSocial: events.scoreSocial,
-    dedupedAt: events.dedupedAt,
-    deadAt: events.deadAt,
-    dedupSkip: events.dedupSkip,
-  };
-
-  const baseWhere = and(
+  return and(
     // Next 30 days
     gte(events.startDate, startOfToday),
     lte(events.startDate, thirtyDaysLater),
@@ -761,40 +734,81 @@ export async function queryTop30Events(limitPerCategory = 30): Promise<Top30Even
     // Exclude LaZoom events (repetitive tourist-oriented tours)
     notIlike(events.title, '%LaZoom%')
   );
+}
 
-  // Fetch top 30 by each category in parallel
-  const [topByScore, topByWeird, topBySocial] = await Promise.all([
-    // Top 30 by base score (for "Top Overall")
-    db
-      .select(selectFields)
-      .from(events)
-      .where(baseWhere)
-      .orderBy(desc(events.score), asc(events.startDate), asc(events.id))
-      .limit(categoryLimit),
-    // Top 30 by Asheville Weird (for "Asheville Weird" category)
-    db
-      .select(selectFields)
-      .from(events)
-      .where(and(baseWhere, isNotNull(events.scoreAshevilleWeird)))
-      .orderBy(desc(events.scoreAshevilleWeird), desc(events.score), asc(events.startDate))
-      .limit(categoryLimit),
-    // Top 30 by Social (for "Meet People" category)
-    db
-      .select(selectFields)
-      .from(events)
-      .where(and(baseWhere, isNotNull(events.scoreSocial)))
-      .orderBy(desc(events.scoreSocial), desc(events.score), asc(events.startDate))
-      .limit(categoryLimit),
+/**
+ * Top-scored events for one Top 30 category, best first. The ordering ends in
+ * the id so it is deterministic: a 50-row and a 200-row query must agree on
+ * their common prefix.
+ * Callers may ask for far more than 30: the client collapses duplicate
+ * multi-day listings and then applies the user's filters, backfilling from
+ * deeper in this list to keep 30 cards on screen without renumbering them.
+ */
+export async function queryTop30CategoryEvents(
+  category: Top30Category,
+  limit = 30
+): Promise<DbEvent[]> {
+  const categoryLimit = Math.min(Math.max(limit, 1), TOP30_MAX_CANDIDATES);
+  const baseWhere = buildTop30BaseWhere();
+
+  switch (category) {
+    case 'weird':
+      // "Asheville Weird" category
+      return db
+        .select(TOP30_SELECT_FIELDS)
+        .from(events)
+        .where(and(baseWhere, isNotNull(events.scoreAshevilleWeird)))
+        .orderBy(
+          desc(events.scoreAshevilleWeird),
+          desc(events.score),
+          asc(events.startDate),
+          asc(events.id)
+        )
+        .limit(categoryLimit);
+    case 'social':
+      // "Meet People" category
+      return db
+        .select(TOP30_SELECT_FIELDS)
+        .from(events)
+        .where(and(baseWhere, isNotNull(events.scoreSocial)))
+        .orderBy(
+          desc(events.scoreSocial),
+          desc(events.score),
+          asc(events.startDate),
+          asc(events.id)
+        )
+        .limit(categoryLimit);
+    default:
+      // "Top Overall" - base score
+      return db
+        .select(TOP30_SELECT_FIELDS)
+        .from(events)
+        .where(baseWhere)
+        .orderBy(desc(events.score), asc(events.startDate), asc(events.id))
+        .limit(categoryLimit);
+  }
+}
+
+/**
+ * Get top events for the "Top 30" tab across all categories.
+ * Returns separate pre-sorted arrays for each category (overall, weird, social).
+ * Callers may request more than 30 candidates if they need to collapse duplicate
+ * multi-day listings before trimming back to 30 visible cards.
+ */
+export async function queryTop30Events(limitPerCategory = 30): Promise<Top30EventsByCategory> {
+  console.log(
+    `[queryTop30Events] Fetching top events for all categories (limit=${limitPerCategory})...`
+  );
+
+  const [overall, weird, social] = await Promise.all([
+    queryTop30CategoryEvents('overall', limitPerCategory),
+    queryTop30CategoryEvents('weird', limitPerCategory),
+    queryTop30CategoryEvents('social', limitPerCategory),
   ]);
 
   console.log(
-    `[queryTop30Events] Fetched ${topByScore.length} overall, ${topByWeird.length} weird, ${topBySocial.length} social`
+    `[queryTop30Events] Fetched ${overall.length} overall, ${weird.length} weird, ${social.length} social`
   );
 
-  // Return separate arrays - each is already sorted and limited to 30
-  return {
-    overall: topByScore,
-    weird: topByWeird,
-    social: topBySocial,
-  };
+  return { overall, weird, social };
 }

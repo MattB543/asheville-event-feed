@@ -33,15 +33,19 @@ karaoke, concerts, classes taught by a business, tours, exhibitions, library sto
    (`group` | `grey` | `rejected`), the classifier verdicts, the evidence verdict and confidence, website,
    aliases, sources, unit indices, event ids, first/last seen, and the Meetup link. Status rules are in the
    script header; the evidence fields stay on every entry so a human can second-guess them.
+7. **Human review** goes in `reviewed.json` (`slug -> { status, note }`), which `build-candidates.ts` applies
+   on top of the derived status and records as `review_note`. Re-run step 6 after editing it. Editing
+   `candidates.json` by hand does not survive a rebuild; `reviewed.json` does.
 
 ### Results of the 2026-09-18 run
 
-| Stage                                                  | Result                                                           |
-| ------------------------------------------------------ | ---------------------------------------------------------------- |
-| Meetup groups (SQL only)                               | 226                                                              |
-| Non-Meetup repeated units classified (11 Opus buckets) | 2,128: 307 group, 148 grey, 1,673 not group                      |
-| Grey groups given a Sonnet evidence pass               | 122: 33 group, 80 not group, 9 still unsure                      |
-| Candidate clusters after normalization                 | 316: 235 group, 9 grey, 72 rejected; 12 linked to a Meetup group |
+| Stage                                                  | Result                                                                     |
+| ------------------------------------------------------ | -------------------------------------------------------------------------- |
+| Meetup groups (SQL only)                               | 226                                                                        |
+| Non-Meetup repeated units classified (11 Opus buckets) | 2,128: 307 group, 148 grey, 1,673 not group                                |
+| Grey groups given a Sonnet evidence pass               | 122: 33 group, 80 not group, 9 still unsure                                |
+| Candidate clusters after normalization                 | 316: 235 group, 9 grey, 72 rejected; 12 linked to a Meetup group           |
+| After human review                                     | 236 group, 8 grey, 72 rejected (Oklawaha Wednesday Bluegrass Jam greenlit) |
 
 Known caveats: 7 clusters mix a classifier `group` verdict with an evidence `not_group` verdict on a sibling
 unit (they keep status `group`; see `classifier_verdicts` and `evidence_verdict`). Six evidence files note

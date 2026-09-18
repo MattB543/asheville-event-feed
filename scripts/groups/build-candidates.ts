@@ -4,6 +4,7 @@
  * Reads:  data/groups/classified.json   every unit with its verdict (+ evidence for grey units)
  *         data/groups/aliases.json      clusters from the normalization agent: which units are the same group
  *         data/groups/meetup-groups.json
+ *         data/groups/reviewed.json     human review decisions, keyed by slug, applied on top of the rules below
  * Writes: data/groups/candidates.json   one entry per candidate group, with status, evidence, aliases,
  *                                       unit indices, event ids, and a Meetup cross-link when one exists
  *
@@ -12,6 +13,9 @@
  *   - all units grey, evidence says group                        -> status "group" (evidence_verdict records why)
  *   - all units grey, evidence says not_group                    -> status "rejected"
  *   - all units grey, evidence unsure or missing                 -> status "grey"
+ * A slug listed in reviewed.json overrides whatever the rules produced, and the entry records the call in
+ * `review_note`. That file is the only place a human decision survives a rebuild - editing candidates.json
+ * directly does not.
  * `evidence_verdict` / `evidence_confidence` are kept on every entry so the human review can second-guess these.
  *
  * Run: npx tsx scripts/groups/build-candidates.ts
@@ -64,7 +68,12 @@ export interface Candidate {
   last_seen: string;
   cadence: string[];
   notes: string | null;
+  /** Why a human overrode the derived status, from reviewed.json. Null when no one has ruled on this one. */
+  review_note: string | null;
 }
+
+/** data/groups/reviewed.json: slug -> decision. Keys starting with "_" are comments. */
+type Reviewed = Record<string, { status: Candidate['status']; note: string }>;
 
 function slugify(name: string): string {
   return name
@@ -177,8 +186,22 @@ function main() {
         .at(-1)!,
       cadence: [...new Set(members.map((m) => m.cadence))],
       notes: c.notes ?? null,
+      review_note: null,
     };
   });
+
+  const reviewed = JSON.parse(readFileSync(join(DIR, 'reviewed.json'), 'utf8')) as Reviewed;
+  const reviewedSlugs = new Set(Object.keys(reviewed).filter((k) => !k.startsWith('_')));
+  for (const c of candidates) {
+    const decision = reviewed[c.slug];
+    if (!decision || c.slug.startsWith('_')) continue;
+    c.status = decision.status;
+    c.review_note = decision.note;
+    reviewedSlugs.delete(c.slug);
+  }
+  // A slug that no longer exists means a cluster was renamed or dropped - the decision is silently lost, so say so.
+  for (const slug of reviewedSlugs)
+    console.warn(`reviewed.json: no candidate matches slug "${slug}"`);
 
   candidates.sort((a, b) => a.status.localeCompare(b.status) || b.event_count - a.event_count);
 
@@ -200,7 +223,9 @@ function main() {
   );
   console.log(`By status:          ${JSON.stringify(byStatus)}`);
   console.log(`Status/evidence:    ${JSON.stringify(byStatusEvidence)}`);
+  const overridden = candidates.filter((c) => c.review_note).length;
   console.log(`Linked to Meetup:   ${withMeetup}`);
+  console.log(`Human overrides:    ${overridden}`);
   console.log(`Wrote:              candidates.json`);
 }
 

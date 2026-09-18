@@ -7,8 +7,8 @@ import { scrapeGreyEagle } from '../../lib/scrapers/greyeagle';
 import { scrapeLiveMusicAvl } from '../../lib/scrapers/livemusicavl';
 import { db } from '../../lib/db';
 import { events } from '../../lib/db/schema';
-import { inArray } from 'drizzle-orm';
-import { findDuplicates, getIdsToRemove } from '../../lib/utils/deduplication';
+import { eq, inArray } from 'drizzle-orm';
+import { findDuplicates, getIdsToRemove, getFieldUpdates } from '../../lib/utils/deduplication';
 import type { ScrapedEventWithTags } from '../../lib/scrapers/types';
 
 // Helper to chunk arrays
@@ -204,11 +204,25 @@ async function main() {
       description: events.description,
       createdAt: events.createdAt,
       source: events.source,
+      location: events.location,
+      zip: events.zip,
+      imageUrl: events.imageUrl,
+      interestedCount: events.interestedCount,
+      goingCount: events.goingCount,
     })
     .from(events);
 
   const duplicateGroups = findDuplicates(allDbEvents);
   const duplicateIdsToRemove = getIdsToRemove(duplicateGroups);
+  const fieldUpdates = getFieldUpdates(duplicateGroups);
+
+  // Salvage the losers' data onto the winners before removing them.
+  for (const update of fieldUpdates) {
+    await db.update(events).set(update.fields).where(eq(events.id, update.id));
+  }
+  if (fieldUpdates.length > 0) {
+    console.log(`   ✅ Merged data into ${fieldUpdates.length} kept events`);
+  }
 
   if (duplicateIdsToRemove.length > 0) {
     await db.delete(events).where(inArray(events.id, duplicateIdsToRemove));

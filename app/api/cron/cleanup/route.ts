@@ -408,6 +408,12 @@ export async function GET(request: Request) {
         description: events.description,
         createdAt: events.createdAt,
         source: events.source,
+        // Read by mergeFields to salvage what the losing rows have and the
+        // winner doesn't - most often an image the winner's source never had.
+        zip: events.zip,
+        imageUrl: events.imageUrl,
+        interestedCount: events.interestedCount,
+        goingCount: events.goingCount,
       })
       .from(events)
       .where(
@@ -457,7 +463,7 @@ export async function GET(request: Request) {
 
     console.log(`[Cleanup] Found ${duplicateIdsToRemove.length} duplicate events to remove.`);
 
-    // Merge the longer description into the winner and soft-delete the losers,
+    // Merge the losers' salvageable data into the winner and soft-delete them,
     // one transaction per group: a mid-run failure must not leave a merged
     // winner whose losers are still live. Soft-delete (deduped_at) rather than
     // DELETE so a bad merge stays recoverable, matching the scrape cron.
@@ -466,6 +472,7 @@ export async function GET(request: Request) {
     let mergeFailures = 0;
     let softDeletedCount = 0;
     let groupFailures = 0;
+    const mergedFieldCounts: Record<string, number> = {};
 
     for (const group of duplicateGroups) {
       const removeIds = group.remove.map((e) => e.id);
@@ -474,19 +481,21 @@ export async function GET(request: Request) {
       // Gap #8: a failed group is logged and skipped, not fatal to the run
       try {
         await db.transaction(async (tx) => {
-          if (group.descriptionUpdate) {
-            await tx
-              .update(events)
-              .set({ description: group.descriptionUpdate })
-              .where(eq(events.id, group.keep.id));
+          if (group.fieldUpdates) {
+            await tx.update(events).set(group.fieldUpdates).where(eq(events.id, group.keep.id));
           }
           await tx.update(events).set({ dedupedAt }).where(inArray(events.id, removeIds));
         });
-        if (group.descriptionUpdate) mergeSuccesses++;
+        if (group.fieldUpdates) {
+          mergeSuccesses++;
+          for (const field of Object.keys(group.fieldUpdates)) {
+            mergedFieldCounts[field] = (mergedFieldCounts[field] || 0) + 1;
+          }
+        }
         softDeletedCount += removeIds.length;
       } catch (error) {
         groupFailures++;
-        if (group.descriptionUpdate) mergeFailures++;
+        if (group.fieldUpdates) mergeFailures++;
         const errMsg = error instanceof Error ? error.message : String(error);
         console.error(
           `[Cleanup] Dedup group failed for keep ${group.keep.id.substring(0, 8)}: ${errMsg}`
@@ -495,8 +504,12 @@ export async function GET(request: Request) {
     }
 
     if (mergeSuccesses > 0 || mergeFailures > 0) {
+      const fieldSummary = Object.entries(mergedFieldCounts)
+        .sort(([a], [b]) => a.localeCompare(b))
+        .map(([field, count]) => `${field}=${count}`)
+        .join(', ');
       console.log(
-        `[Cleanup] Merged ${mergeSuccesses} longer descriptions${mergeFailures > 0 ? ` (${mergeFailures} failed)` : ''}.`
+        `[Cleanup] Merged data into ${mergeSuccesses} kept events (${fieldSummary})${mergeFailures > 0 ? ` (${mergeFailures} failed)` : ''}.`
       );
     }
     if (softDeletedCount > 0) {

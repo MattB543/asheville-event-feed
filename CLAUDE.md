@@ -340,6 +340,27 @@ statement. Every live-event query filters `dedupedAt IS NULL AND deadAt IS NULL`
 
 - if you add a new one, it needs both.
 
+Rule-based dedup **merges before it removes** (`mergeFields` in
+`lib/utils/deduplication.ts`). Which row wins rules 1-3 is unrelated to which
+row has the best data: Mountain Xpress lists a Grey Eagle show with no poster
+while the venue's own listing has one, and MX often wins on price. So the
+winner takes the longest description in the group, the highest engagement
+counts, and a gap fill for `imageUrl` / `price` / `location` / `organizer` /
+`zip` - gap fill only, never overwriting what the winner already has, since the
+winner is the row we judged most trustworthy. `hasRealEventImage`
+(`lib/utils/eventImages.ts`) is the canonical "does this row actually have a
+poster" test: the static `/asheville-default.jpg` and a source's generic
+group-cover artwork both count as no image, or a placeholder would block a real
+poster forever.
+
+`scripts/backfill-dedup-merges.ts` recovers what earlier dedup runs discarded
+(dry run by default, `--apply` to write). It rematches on exact title + start
+because dedup records no link from a removed row to its winner, so it recovers
+only unambiguous cases. **Known gap:** the AI dedup path
+(`/api/cron/dedup`) still merges nothing - its prompt returns removals with no
+keeper, so there is no winner to merge into. It accounted for 1 of 68 losses
+measured on 2026-09-18, versus 62 from scrape and 27 from cleanup.
+
 ### Public APIs
 
 | Route                       | Method | Purpose                                          |
@@ -351,6 +372,7 @@ statement. Every live-event query filters `dedupedAt IS NULL AND deadAt IS NULL`
 | `/api/events/submit`        | POST   | Submit event via form                            |
 | `/api/events/submit-url`    | POST   | Submit event via URL                             |
 | `/api/events/report`        | POST   | Report an event                                  |
+| `/api/events/top30`         | GET    | Deep Top 30 pool for one category (cached)       |
 | `/api/curator/[slug]`       | GET    | Public curator profile data                      |
 | `/api/events/favorites`     | POST   | Fetch public event data for a list of event IDs  |
 | `/api/events/[id]/favorite` | POST   | Increment/decrement an event's favorite count    |
@@ -360,6 +382,17 @@ localStorage-driven with no sign-in required, so the endpoint only takes
 `{ action: 'add' | 'remove' }` and adjusts `favoriteCount`. There is no DELETE
 handler. It is rate limited per IP and, more tightly, per event per IP; the
 count is still forgeable (see the deferred `favorites(eventId, anonId)` ledger).
+
+`/api/events/top30?category=overall|weird|social` returns the unfiltered top 200
+candidates for one Top 30 list, cached under the same `events` tag as the pages.
+The Top 30 tab applies the user's filters client-side
+(`lib/utils/eventFilterMatch.ts`, kept in step with `queryFilteredEvents`) and,
+when fewer than 30 of the 50 SSR candidates survive, fetches this pool to fill
+the list back up to 30. Ranks are positions in the unfiltered merged list, so a
+filtered page reads 2, 12, 19 ... 98 rather than renumbering. The pool is
+appended to the SSR candidates rather than swapped in, so a rank the visitor
+has already seen never moves even if the two cache entries were filled at
+different moments.
 
 ### Authenticated APIs (require Supabase Auth)
 
@@ -639,11 +672,12 @@ FB_XS=
 
 - **Fluid Compute**: Enabled for longer function execution (up to 800s for scrape/ai/verify jobs)
 - **Cron Schedule**: Scrape at :00, verify at :05 (every 3h), AI processing at :20 (every 3h), cleanup 8x daily, dedup daily at 4 AM ET, email digests daily at 7 AM ET, Top 30 email Fridays 11 AM ET
-- **Known prod gaps**: two sources are local-only and are deliberately skipped on Vercel, so a periodic local full scrape (see `scripts/run-full-cron-local.ts`, `scripts/run-facebook-local.ts`, `scripts/drain-ai-backlog-local.sh`) is required to keep them current:
-  - **MountainX** (~9,700 events) — Cloudflare challenges Node's default TLS/ALPN fingerprint, **not** the IP: `curl` gets 200 where Node's `fetch` gets "Just a moment...", and no amount of header spoofing helps. The scraper now issues requests through an undici `Agent` with `allowH2: true` **and** Chrome's cipher order — both halves are required, either alone still 403s. Three tiers: Tribe REST API → month-view HTML (JSON-LD), both over that dispatcher → patchright with a **fresh browser context per month** (a shared context carries a Cloudflare cookie that poisons later navigations). 403s are transient reputation checks, so `fetchAsChrome` retries with backoff rather than falling through a tier. Still gated by `localOnly: true` in the scrape route's `SCRAPERS` registry — but since this was never IP-based, the dispatcher may well work from Vercel; testing that would let MountainX come off the gate entirely.
+- **Known prod gaps**: three sources are local-only and are deliberately skipped on Vercel, so a periodic local full scrape (see `scripts/run-full-cron-local.ts`, `scripts/run-facebook-local.ts`, `scripts/drain-ai-backlog-local.sh`) is required to keep them current:
+  - **MountainX** (~9,700 events) — Cloudflare challenges Node's default TLS/ALPN fingerprint, **not** the IP: `curl` gets 200 where Node's `fetch` gets "Just a moment...", and no amount of header spoofing helps. The scraper now issues requests through an undici `Agent` with `allowH2: true` **and** Chrome's cipher order — both halves are required, either alone still 403s. Three tiers: Tribe REST API → month-view HTML (JSON-LD), both over that dispatcher → patchright with a **fresh browser context per month** (a shared context carries a Cloudflare cookie that poisons later navigations). 403s are transient reputation checks, so `fetchAsChrome` retries with backoff rather than falling through a tier. Gated by `localOnly: true` in the scrape route's `SCRAPERS` registry. The gate was lifted on 2026-09-02 to test the dispatcher from Vercel: it succeeded on roughly half of runs until 2026-09-15, then Cloudflare began challenging every request from Vercel's egress while the same code kept working locally, so the gate went back on 2026-09-17.
+  - **NC Stage** (ThunderTix box office, ~100 events) — same `fetchAsChrome` dispatcher and the same Vercel-only Cloudflare block since 2026-09-15; `localOnly: true` since 2026-09-17.
   - **Facebook** — needs browser automation plus session cookies. Gated by `isFacebookEnabled()`, which returns false on Vercel.
 
-  Both gates key off `process.env.VERCEL` via `isLocalScrapeRuntime()` in `lib/config/env.ts`, so a local run picks them up automatically with no flag to set. The scrape job's `result.skippedSources` records what was skipped on each run — on Vercel expect `["Mountain Xpress", "Facebook"]` and `failures.scrapers: 0`.
+  All of these gates key off `process.env.VERCEL` via `isLocalScrapeRuntime()` in `lib/config/env.ts`, so a local run picks them up automatically with no flag to set. The scrape job's `result.skippedSources` records what was skipped on each run — on Vercel expect `["Mountain Xpress", "NC Stage", "Facebook"]` and `failures.scrapers: 0`.
 
 ### Max Duration
 

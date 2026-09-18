@@ -16,11 +16,18 @@
  * 1. Keep the event with a known price (not "Unknown")
  * 2. If tie, keep the one with longer description
  * 3. If still tie, keep the newer one (by createdAt)
- * 4. Merge the longer description from any removed event into the kept event
- *    (so we always preserve the best description regardless of which event wins)
+ * 4. Merge the removed events' data into the kept one (see `mergeFields`)
+ *
+ * Step 4 matters as much as the choice of winner. Sources describe the same
+ * event with different gaps: Mountain Xpress lists a Grey Eagle show with no
+ * poster while the venue's own listing has one, and whichever row wins rules
+ * 1-3 is unrelated to which row has the image. Before this merge existed only
+ * the description survived, so a winner with no image kept none even though a
+ * sibling row we were about to discard had one.
  */
 
 import { getVenueForEvent, isKnownVenue } from './venues';
+import { hasRealEventImage } from './eventImages';
 
 interface EventForDedup {
   id: string;
@@ -32,6 +39,10 @@ interface EventForDedup {
   description: string | null;
   createdAt: Date | null;
   source: string | null;
+  zip?: string | null;
+  imageUrl?: string | null;
+  interestedCount?: number | null;
+  goingCount?: number | null;
 }
 
 interface PreparedEventForDedup extends EventForDedup {
@@ -346,11 +357,106 @@ function chooseEventToKeep(event1: EventForDedup, event2: EventForDedup): EventF
   return date1 >= date2 ? event1 : event2;
 }
 
+/**
+ * Columns the merge can write back onto the kept event. Only the fields that
+ * actually differ are present, so an empty result means there is nothing to do.
+ */
+export interface MergedFields {
+  description?: string;
+  price?: string;
+  imageUrl?: string;
+  location?: string;
+  organizer?: string;
+  zip?: string;
+  interestedCount?: number;
+  goingCount?: number;
+}
+
 export interface DuplicateGroup {
   keep: EventForDedup;
   remove: EventForDedup[];
   method: string; // Which method detected this duplicate (for debugging)
-  descriptionUpdate?: string; // Longer description from a removed event to merge into keep
+  fieldUpdates?: MergedFields; // Data salvaged from removed events, see mergeFields
+}
+
+/** A price string that carries no actual price. */
+function isMissingPrice(price: string | null | undefined): boolean {
+  return !price || price === 'Unknown';
+}
+
+function isBlank(value: string | null | undefined): boolean {
+  return !value || value.trim().length === 0;
+}
+
+/**
+ * Salvage data from the events about to be removed onto the one being kept.
+ *
+ * Two rules, by field type:
+ * - Descriptions take the longest of the group, matching the long-standing
+ *   behaviour - a fuller description is strictly better.
+ * - Everything else only fills a gap. A kept event that already has a price,
+ *   image or venue keeps its own; we never overwrite one source's data with
+ *   another's, because the winner is the row we judged most trustworthy.
+ *
+ * Engagement counts take the maximum: they are display-only social proof for
+ * one real-world event, and the row that happens to win dedup is usually not
+ * the Facebook listing that has them.
+ *
+ * Losers are visited in a fixed order (by id) so the same duplicate group
+ * always merges to the same result regardless of query row order.
+ */
+function mergeFields(keep: EventForDedup, remove: EventForDedup[]): MergedFields | undefined {
+  const updates: MergedFields = {};
+  const losers = [...remove].sort((a, b) => a.id.localeCompare(b.id));
+
+  // Longest description in the group wins.
+  let bestDescription = keep.description;
+  for (const loser of losers) {
+    if ((loser.description?.length || 0) > (bestDescription?.length || 0)) {
+      bestDescription = loser.description;
+    }
+  }
+  if (bestDescription && bestDescription !== keep.description) {
+    updates.description = bestDescription;
+  }
+
+  // Gap fills: first loser (in id order) that has the field wins.
+  for (const loser of losers) {
+    if (updates.price === undefined && isMissingPrice(keep.price) && !isMissingPrice(loser.price)) {
+      updates.price = loser.price!;
+    }
+    if (
+      updates.imageUrl === undefined &&
+      !hasRealEventImage(keep.imageUrl) &&
+      hasRealEventImage(loser.imageUrl)
+    ) {
+      updates.imageUrl = loser.imageUrl!;
+    }
+    if (updates.location === undefined && isBlank(keep.location) && !isBlank(loser.location)) {
+      updates.location = loser.location!;
+    }
+    if (updates.organizer === undefined && isBlank(keep.organizer) && !isBlank(loser.organizer)) {
+      updates.organizer = loser.organizer!;
+    }
+    if (updates.zip === undefined && isBlank(keep.zip) && !isBlank(loser.zip)) {
+      updates.zip = loser.zip!;
+    }
+  }
+
+  // Engagement counts: highest in the group.
+  const maxInterested = Math.max(
+    keep.interestedCount ?? 0,
+    ...losers.map((l) => l.interestedCount ?? 0)
+  );
+  if (maxInterested > (keep.interestedCount ?? 0)) {
+    updates.interestedCount = maxInterested;
+  }
+  const maxGoing = Math.max(keep.goingCount ?? 0, ...losers.map((l) => l.goingCount ?? 0));
+  if (maxGoing > (keep.goingCount ?? 0)) {
+    updates.goingCount = maxGoing;
+  }
+
+  return Object.keys(updates).length > 0 ? updates : undefined;
 }
 
 /**
@@ -573,25 +679,11 @@ export function findDuplicates(events: EventForDedup[]): DuplicateGroup[] {
           }
         }
 
-        // Check if any removed event has a longer description than the keep event
-        // If so, we should merge that description into the keep event
-        const keepDescLen = keep.description?.length || 0;
-        let longestDesc: string | undefined;
-        let longestDescLen = keepDescLen;
-
-        for (const removed of remove) {
-          const removedDescLen = removed.description?.length || 0;
-          if (removedDescLen > longestDescLen) {
-            longestDescLen = removedDescLen;
-            longestDesc = removed.description!;
-          }
-        }
-
         duplicateGroups.push({
           keep,
           remove,
           method: methods.join(','),
-          descriptionUpdate: longestDesc,
+          fieldUpdates: mergeFields(keep, remove),
         });
         processed.add(event1.id);
       }
@@ -615,18 +707,17 @@ export function getIdsToRemove(duplicateGroups: DuplicateGroup[]): string[] {
 }
 
 /**
- * Get description updates to apply (merging longer descriptions from removed events)
+ * Get the salvaged-data writes to apply to kept events, in the order the
+ * duplicate groups were found. Apply these BEFORE soft-deleting the losers, so
+ * a mid-run failure cannot leave data stranded on a row that is now hidden.
  */
-export function getDescriptionUpdates(
+export function getFieldUpdates(
   duplicateGroups: DuplicateGroup[]
-): { id: string; description: string }[] {
-  const updates: { id: string; description: string }[] = [];
+): { id: string; fields: MergedFields }[] {
+  const updates: { id: string; fields: MergedFields }[] = [];
   for (const group of duplicateGroups) {
-    if (group.descriptionUpdate) {
-      updates.push({
-        id: group.keep.id,
-        description: group.descriptionUpdate,
-      });
+    if (group.fieldUpdates) {
+      updates.push({ id: group.keep.id, fields: group.fieldUpdates });
     }
   }
   return updates;

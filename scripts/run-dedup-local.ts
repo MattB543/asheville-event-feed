@@ -13,7 +13,7 @@ const dedupEligible = and(
   isNull(events.deadAt),
   or(isNull(events.dedupSkip), eq(events.dedupSkip, false))
 );
-import { findDuplicates, getIdsToRemove, getDescriptionUpdates } from '../lib/utils/deduplication';
+import { findDuplicates, getIdsToRemove, getFieldUpdates } from '../lib/utils/deduplication';
 import {
   runAIDeduplication,
   isAIDeduplicationAvailable,
@@ -37,6 +37,10 @@ async function main() {
       price: events.price,
       source: events.source,
       createdAt: events.createdAt,
+      zip: events.zip,
+      imageUrl: events.imageUrl,
+      interestedCount: events.interestedCount,
+      goingCount: events.goingCount,
     })
     .from(events)
     .where(dedupEligible);
@@ -48,7 +52,7 @@ async function main() {
 
   const duplicateGroups = findDuplicates(allEvents);
   const idsToRemove = getIdsToRemove(duplicateGroups);
-  const descriptionUpdates = getDescriptionUpdates(duplicateGroups);
+  const fieldUpdates = getFieldUpdates(duplicateGroups);
 
   if (duplicateGroups.length === 0) {
     console.log('No rule-based duplicates found.\n');
@@ -64,20 +68,19 @@ async function main() {
           `  REMOVE: "${removed.title}" (${removed.id.slice(0, 8)}) [method: ${group.method}]`
         );
       }
-      if (group.descriptionUpdate) {
-        console.log(`  (will merge longer description into kept event)`);
+      if (group.fieldUpdates) {
+        console.log(
+          `  (will merge into kept event: ${Object.keys(group.fieldUpdates).join(', ')})`
+        );
       }
       console.log('');
     }
 
-    // Apply description updates
-    if (descriptionUpdates.length > 0) {
-      console.log(`Applying ${descriptionUpdates.length} description merges...`);
-      for (const update of descriptionUpdates) {
-        await db
-          .update(events)
-          .set({ description: update.description })
-          .where(eq(events.id, update.id));
+    // Salvage the losers' data onto the winners first
+    if (fieldUpdates.length > 0) {
+      console.log(`Applying ${fieldUpdates.length} data merges...`);
+      for (const update of fieldUpdates) {
+        await db.update(events).set(update.fields).where(eq(events.id, update.id));
       }
     }
 

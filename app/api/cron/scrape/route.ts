@@ -29,7 +29,7 @@ import { events } from '@/lib/db/schema';
 import { inArray, eq, sql, and, isNull, or } from 'drizzle-orm';
 import type { ScrapedEvent } from '@/lib/scrapers/types';
 import { env, isFacebookEnabled, isLocalScrapeRuntime } from '@/lib/config/env';
-import { findDuplicates, getIdsToRemove, getDescriptionUpdates } from '@/lib/utils/deduplication';
+import { findDuplicates, getIdsToRemove, getFieldUpdates } from '@/lib/utils/deduplication';
 import { verifyAuthToken } from '@/lib/utils/auth';
 import { invalidateEventsCache } from '@/lib/cache/invalidation';
 import { startCronJob, completeCronJob, failCronJob } from '@/lib/cron/jobTracker';
@@ -68,12 +68,13 @@ const SCRAPERS: ScraperDef[] = [
   { name: 'Orange Peel', fn: scrapeOrangePeel },
   { name: 'Grey Eagle', fn: scrapeGreyEagle },
   { name: 'Live Music AVL', fn: scrapeLiveMusicAvl },
-  // Cloudflare challenges Node's TLS fingerprint (not the IP), so the scraper goes
-  // through a Chrome-like undici dispatcher. Since the block was never IP-based this
-  // should work from Vercel; the patchright tier won't, but tiers 1-2 shouldn't need
-  // it. Watch result.scrapers for "Mountain Xpress" — if it fails there, restore
-  // localOnly: true and it goes back to refreshing on local runs only.
-  { name: 'Mountain Xpress', fn: scrapeMountainX },
+  // Cloudflare challenges Node's TLS fingerprint, so the scraper goes through a
+  // Chrome-like undici dispatcher (lib/scrapers/fetchAsChrome.ts). That was enough
+  // from Vercel until 2026-09-15, when Cloudflare began challenging every request
+  // from Vercel's egress while the same code kept working locally. So both
+  // fetchAsChrome consumers (this and NC Stage) are local-only again and refresh
+  // via scripts/run-full-cron-local.ts. If you retry Vercel, watch result.scrapers.
+  { name: 'Mountain Xpress', fn: scrapeMountainX, localOnly: true },
   { name: 'UNCA', fn: scrapeUncaEvents },
   { name: 'Static Age', fn: scrapeStaticAge },
   { name: 'Revolve', fn: scrapeRevolve },
@@ -82,7 +83,8 @@ const SCRAPERS: ScraperDef[] = [
   { name: 'Explore Asheville', fn: scrapeExploreAsheville },
   { name: 'Misfit Improv', fn: scrapeMisfitImprov },
   { name: 'UDharma', fn: scrapeUDharma },
-  { name: 'NC Stage', fn: scrapeNCStage },
+  // Same Cloudflare-vs-Vercel block as Mountain Xpress (see the comment above).
+  { name: 'NC Stage', fn: scrapeNCStage, localOnly: true },
   { name: 'Story Parlor', fn: scrapeStoryParlor },
   { name: 'Theater Alliance', fn: scrapeTheaterAlliance },
   { name: 'PechaKucha', fn: scrapePechaKucha },
@@ -401,6 +403,12 @@ export async function GET(request: Request) {
         description: events.description,
         createdAt: events.createdAt,
         source: events.source,
+        // Read by mergeFields to salvage what the losing rows have and the
+        // winner doesn't - most often an image the winner's source never had.
+        zip: events.zip,
+        imageUrl: events.imageUrl,
+        interestedCount: events.interestedCount,
+        goingCount: events.goingCount,
       })
       .from(events)
       .where(
@@ -417,7 +425,7 @@ export async function GET(request: Request) {
 
     const duplicateGroups = findDuplicates(allDbEvents);
     const duplicateIdsToRemove = getIdsToRemove(duplicateGroups);
-    const descriptionUpdates = getDescriptionUpdates(duplicateGroups);
+    const fieldUpdates = getFieldUpdates(duplicateGroups);
     stats.dedup.removed = duplicateIdsToRemove.length;
 
     // Count duplicates by method
@@ -438,17 +446,22 @@ export async function GET(request: Request) {
       }
     }
 
-    // Apply description merges before deleting duplicates
-    // (keep the longer description from removed events)
-    if (descriptionUpdates.length > 0) {
-      for (const update of descriptionUpdates) {
-        await db
-          .update(events)
-          .set({ description: update.description })
-          .where(eq(events.id, update.id));
+    // Salvage the losers' data onto the winner before soft-deleting them, so a
+    // failure here cannot strand an image or price on a now-hidden row.
+    if (fieldUpdates.length > 0) {
+      const mergedFieldCounts: Record<string, number> = {};
+      for (const update of fieldUpdates) {
+        await db.update(events).set(update.fields).where(eq(events.id, update.id));
+        for (const field of Object.keys(update.fields)) {
+          mergedFieldCounts[field] = (mergedFieldCounts[field] || 0) + 1;
+        }
       }
+      const fieldSummary = Object.entries(mergedFieldCounts)
+        .sort(([a], [b]) => a.localeCompare(b))
+        .map(([field, count]) => `${field}=${count}`)
+        .join(', ');
       console.log(
-        `[Scrape] Deduplication: merged ${descriptionUpdates.length} longer descriptions.`
+        `[Scrape] Deduplication: merged data into ${fieldUpdates.length} kept events (${fieldSummary}).`
       );
     }
 

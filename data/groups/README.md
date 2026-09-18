@@ -39,16 +39,17 @@ karaoke, concerts, classes taught by a business, tours, exhibitions, library sto
 
 ### Results of the 2026-09-18 run
 
-| Stage                                                  | Result                                                                     |
-| ------------------------------------------------------ | -------------------------------------------------------------------------- |
-| Meetup groups (SQL only)                               | 226                                                                        |
-| Non-Meetup repeated units classified (11 Opus buckets) | 2,128: 307 group, 148 grey, 1,673 not group                                |
-| Grey groups given a Sonnet evidence pass               | 122: 33 group, 80 not group, 9 still unsure                                |
-| Candidate clusters after normalization                 | 316: 235 group, 9 grey, 72 rejected; 12 linked to a Meetup group           |
-| After human review                                     | 236 group, 8 grey, 72 rejected (Oklawaha Wednesday Bluegrass Jam greenlit) |
+| Stage                                                  | Result                                                               |
+| ------------------------------------------------------ | -------------------------------------------------------------------- |
+| Meetup groups (SQL only)                               | 226                                                                  |
+| Non-Meetup repeated units classified (11 Opus buckets) | 2,128: 307 group, 148 grey, 1,673 not group                          |
+| Grey groups given a Sonnet evidence pass               | 122: 33 group, 80 not group, 9 still unsure                          |
+| Candidate clusters after normalization                 | 316: 235 group, 9 grey, 72 rejected; 12 linked to a Meetup group     |
+| After human review                                     | 229 group, 8 grey, 79 rejected (see `reviewed.json` for the 8 calls) |
 
-Known caveats: 7 clusters mix a classifier `group` verdict with an evidence `not_group` verdict on a sibling
-unit (they keep status `group`; see `classifier_verdicts` and `evidence_verdict`). Six evidence files note
+Known caveats: 2 clusters still mix a classifier `group` verdict with an evidence `not_group` verdict on a
+sibling unit (they keep status `group`; see `classifier_verdicts` and `evidence_verdict`) - the King Street
+open jam and the Pack Memorial teen D&D group. The other five were the IBN chapters, rejected on review. Six evidence files note
 that web search ran out mid-pass and lean on the event records plus fetched listing pages. Shop-hosted
 weekly rides (Liberty, Motion Makers, Youngblood, Gravelo) were kept as separate groups because they have a
 regular riding crew, though a shop is a host rather than a club you join. Singletons were not classified.

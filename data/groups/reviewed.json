@@ -1,7 +1,35 @@
 {
-  "_comment": "Human review decisions, keyed by candidate slug. Applied by build-candidates.ts on top of the classifier/evidence status, so a rebuild keeps them. Entries starting with _ are ignored.",
+  "_comment": "Human review decisions, keyed by candidate slug. Applied by build-candidates.ts on top of the classifier/evidence status, so a rebuild keeps them. Keys starting with _ are ignored.",
   "oklawaha-wednesday-bluegrass-jam": {
     "status": "group",
     "note": "Greenlit on review 2026-09-18: 7 weekly dates and a Blue Ridge Music Trails listing are enough, despite no page of its own."
+  },
+  "ibn-biz-lunch-woodfin": {
+    "status": "rejected",
+    "note": "Rejected 2026-09-18: IBN networking lunch. The evidence pass already rejected the other five IBN chapters; this is business-development programming, not a group."
+  },
+  "ibn-biz-lunch-candler-nc": {
+    "status": "rejected",
+    "note": "Rejected 2026-09-18: IBN networking lunch, same call as the other chapters."
+  },
+  "ibn-biz-lunch-arden": {
+    "status": "rejected",
+    "note": "Rejected 2026-09-18: IBN networking lunch, same call as the other chapters."
+  },
+  "ibn-biz-lunch-asheville": {
+    "status": "rejected",
+    "note": "Rejected 2026-09-18: IBN networking lunch, same call as the other chapters."
+  },
+  "ibn-coffee-club-asheville": {
+    "status": "rejected",
+    "note": "Rejected 2026-09-18: IBN networking meetup, same call as the other chapters."
+  },
+  "kw-wealth-club": {
+    "status": "rejected",
+    "note": "Rejected 2026-09-18: Keller Williams brokerage programming, not a public group."
+  },
+  "silent-book-club-durham": {
+    "status": "rejected",
+    "note": "Rejected 2026-09-18: Durham, not the Asheville area."
   }
 }

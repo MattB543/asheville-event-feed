@@ -14,6 +14,7 @@ import {
   Sparkles,
   Bookmark,
   Star,
+  X,
 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -158,6 +159,8 @@ interface EventCardProps {
   isFavorited: boolean;
   favoriteCount: number;
   onToggleFavorite: (eventId: string) => void;
+  /** On a list of favorites every heart is filled, so show a plain Remove button instead */
+  showRemoveFavorite?: boolean;
   isTagFilterActive?: boolean;
   /** Show a "Recurring" badge for similar events that appear multiple times */
   showRecurringBadge?: boolean;
@@ -213,6 +216,7 @@ export default function EventCard({
   isFavorited,
   favoriteCount,
   onToggleFavorite,
+  showRemoveFavorite = false,
   isTagFilterActive = false,
   showRecurringBadge = false,
   isCurated = false,
@@ -648,27 +652,38 @@ export default function EventCard({
               </div>
 
               {/* Favorite button */}
-              <button
-                onClick={() => {
-                  setIsHeartAnimating(true);
-                  onToggleFavorite(event.id);
-                  setTimeout(() => setIsHeartAnimating(false), 300);
-                }}
-                className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs rounded border cursor-pointer transition-colors ${
-                  isFavorited
-                    ? 'text-red-500 dark:text-red-400 border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-950/50 hover:bg-red-100 dark:hover:bg-red-900/50'
-                    : 'text-gray-600 dark:text-gray-400 border-gray-200 dark:border-gray-700 hover:bg-red-50 dark:hover:bg-red-950/50 hover:text-red-500 dark:hover:text-red-400 hover:border-red-200 dark:hover:border-red-800'
-                }`}
-                title={isFavorited ? 'Remove from favorites' : 'Add to favorites'}
-              >
-                <Heart
-                  size={14}
-                  className={`transition-transform ${
-                    isFavorited ? 'fill-current' : ''
-                  } ${isHeartAnimating ? 'animate-heart-pop' : ''}`}
-                />
-                {favoriteCount > 0 && <span>{favoriteCount}</span>}
-              </button>
+              {showRemoveFavorite ? (
+                <button
+                  onClick={() => onToggleFavorite(event.id)}
+                  className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs rounded border cursor-pointer transition-colors text-gray-600 dark:text-gray-400 border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800"
+                  title="Remove from favorites"
+                >
+                  <X size={14} />
+                  Remove
+                </button>
+              ) : (
+                <button
+                  onClick={() => {
+                    setIsHeartAnimating(true);
+                    onToggleFavorite(event.id);
+                    setTimeout(() => setIsHeartAnimating(false), 300);
+                  }}
+                  className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs rounded border cursor-pointer transition-colors ${
+                    isFavorited
+                      ? 'text-red-500 dark:text-red-400 border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-950/50 hover:bg-red-100 dark:hover:bg-red-900/50'
+                      : 'text-gray-600 dark:text-gray-400 border-gray-200 dark:border-gray-700 hover:bg-red-50 dark:hover:bg-red-950/50 hover:text-red-500 dark:hover:text-red-400 hover:border-red-200 dark:hover:border-red-800'
+                  }`}
+                  title={isFavorited ? 'Remove from favorites' : 'Add to favorites'}
+                >
+                  <Heart
+                    size={14}
+                    className={`transition-transform ${
+                      isFavorited ? 'fill-current' : ''
+                    } ${isHeartAnimating ? 'animate-heart-pop' : ''}`}
+                  />
+                  {favoriteCount > 0 && <span>{favoriteCount}</span>}
+                </button>
+              )}
 
               {/* Share button */}
               <div className="relative">
@@ -1250,27 +1265,38 @@ export default function EventCard({
               )}
             </div>
             {/* Favorite button */}
-            <button
-              onClick={() => {
-                setIsHeartAnimating(true);
-                onToggleFavorite(event.id);
-                setTimeout(() => setIsHeartAnimating(false), 300);
-              }}
-              className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs rounded border cursor-pointer transition-colors ${
-                isFavorited
-                  ? 'text-red-500 dark:text-red-400 border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-950/50 hover:bg-red-100 dark:hover:bg-red-900/50'
-                  : 'text-gray-600 dark:text-gray-400 border-gray-200 dark:border-gray-700 hover:bg-red-50 dark:hover:bg-red-950/50 hover:text-red-500 dark:hover:text-red-400 hover:border-red-200 dark:hover:border-red-800'
-              }`}
-              title={isFavorited ? 'Remove from favorites' : 'Add to favorites'}
-            >
-              <Heart
-                size={14}
-                className={`transition-transform ${
-                  isFavorited ? 'fill-current' : ''
-                } ${isHeartAnimating ? 'animate-heart-pop' : ''}`}
-              />
-              {favoriteCount > 0 && <span>{favoriteCount}</span>}
-            </button>
+            {showRemoveFavorite ? (
+              <button
+                onClick={() => onToggleFavorite(event.id)}
+                className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs rounded border cursor-pointer transition-colors text-gray-600 dark:text-gray-400 border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800"
+                title="Remove from favorites"
+              >
+                <X size={14} />
+                Remove
+              </button>
+            ) : (
+              <button
+                onClick={() => {
+                  setIsHeartAnimating(true);
+                  onToggleFavorite(event.id);
+                  setTimeout(() => setIsHeartAnimating(false), 300);
+                }}
+                className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs rounded border cursor-pointer transition-colors ${
+                  isFavorited
+                    ? 'text-red-500 dark:text-red-400 border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-950/50 hover:bg-red-100 dark:hover:bg-red-900/50'
+                    : 'text-gray-600 dark:text-gray-400 border-gray-200 dark:border-gray-700 hover:bg-red-50 dark:hover:bg-red-950/50 hover:text-red-500 dark:hover:text-red-400 hover:border-red-200 dark:hover:border-red-800'
+                }`}
+                title={isFavorited ? 'Remove from favorites' : 'Add to favorites'}
+              >
+                <Heart
+                  size={14}
+                  className={`transition-transform ${
+                    isFavorited ? 'fill-current' : ''
+                  } ${isHeartAnimating ? 'animate-heart-pop' : ''}`}
+                />
+                {favoriteCount > 0 && <span>{favoriteCount}</span>}
+              </button>
+            )}
             {/* Share button */}
             <div className="relative">
               <button

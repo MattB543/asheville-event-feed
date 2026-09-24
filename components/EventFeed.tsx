@@ -42,12 +42,15 @@ import {
   Bell,
   CalendarPlus2,
   ChevronDown,
+  Share2,
+  Trash2,
 } from 'lucide-react';
 import Link from 'next/link';
 import { getZipName } from '@/lib/config/zipNames';
 import { usePreferenceSync } from '@/lib/hooks/usePreferenceSync';
 import { useFavorites, replaceFavorites } from '@/lib/hooks/useFavorites';
 import { computeDateFilterBounds } from '@/lib/utils/dateFilters';
+import { getStartOfTodayEastern } from '@/lib/utils/timezone';
 import { matchesEventFilters } from '@/lib/utils/eventFilterMatch';
 import { useAuth } from './AuthProvider';
 import { extractMonthFromSearch, getMonthDateRange } from '@/lib/utils/monthSearch';
@@ -600,6 +603,16 @@ export default function EventFeed({
   const [favoriteCountOverrides, setFavoriteCountOverrides] = useState<Record<string, number>>({});
   const [favoriteEventsData, setFavoriteEventsData] = useState<ApiEvent[]>([]);
   const [favoriteEventsLoading, setFavoriteEventsLoading] = useState(false);
+  const [confirmClearFavorites, setConfirmClearFavorites] = useState(false);
+
+  // Someone else's favorites, opened from a Your List share link (?shared=id,id,...)
+  const [sharedEventIds] = useState<string[]>(() => {
+    if (typeof window === 'undefined') return [];
+    const shared = new URLSearchParams(window.location.search).get('shared');
+    return shared ? shared.split(',').filter((id) => id.trim().length > 0) : [];
+  });
+  const [sharedEventsData, setSharedEventsData] = useState<ApiEvent[]>([]);
+  const [sharedEventsLoading, setSharedEventsLoading] = useState(sharedEventIds.length > 0);
 
   const [curatedEventIds, setCuratedEventIds] = useState<Set<string>>(new Set());
   const [curationsMap, setCurationsMap] = useState<Map<string, CurationData>>(new Map());
@@ -968,6 +981,22 @@ export default function EventFeed({
     return results.sort((a, b) => a.startDate.getTime() - b.startDate.getTime());
   }, [favoritedEventIds, favoriteEventsData, initialEvents]);
 
+  // Past favorites fold away so the list stays about what's coming up
+  const { upcomingFavorites, pastFavorites } = useMemo(() => {
+    const startOfToday = getStartOfTodayEastern().getTime();
+    return {
+      upcomingFavorites: favoritedEvents.filter((e) => e.startDate.getTime() >= startOfToday),
+      pastFavorites: favoritedEvents.filter((e) => e.startDate.getTime() < startOfToday).reverse(),
+    };
+  }, [favoritedEvents]);
+
+  const sharedEvents = useMemo(() => {
+    const startOfToday = getStartOfTodayEastern().getTime();
+    return sharedEventsData
+      .map((event) => ({ ...event, startDate: toDate(event.startDate) }))
+      .filter((event) => event.startDate.getTime() >= startOfToday);
+  }, [sharedEventsData]);
+
   // Every event rendered on any tab, so Curate can resolve a card that isn't in the
   // paginated feed (Top 30, For You, favorites)
   const curatableEventsById = useMemo(() => {
@@ -1013,6 +1042,32 @@ export default function EventFeed({
     setHiddenEvents,
     setFavoritedEventIds: replaceFavorites,
   });
+
+  useEffect(() => {
+    if (sharedEventIds.length === 0) return;
+    const controller = new AbortController();
+
+    void (async () => {
+      try {
+        const response = await fetch('/api/events/favorites', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ ids: sharedEventIds }),
+          signal: controller.signal,
+        });
+        if (!response.ok) throw new Error(`Failed to load shared list: ${response.status}`);
+        const data = (await response.json()) as { events?: ApiEvent[] };
+        setSharedEventsData(Array.isArray(data.events) ? data.events : []);
+      } catch (error) {
+        if ((error as DOMException).name === 'AbortError') return;
+        console.error('[Shared list] Failed to load:', error);
+      } finally {
+        setSharedEventsLoading(false);
+      }
+    })();
+
+    return () => controller.abort();
+  }, [sharedEventIds]);
 
   // Set isLoaded after mount to prevent hydration mismatch
   useEffect(() => {
@@ -1524,6 +1579,37 @@ export default function EventFeed({
     [toggleFavorite]
   );
 
+  const handleShareFavorites = useCallback(async () => {
+    const ids = upcomingFavorites.map((event) => event.id);
+    const url = `${window.location.origin}/events/your-list?shared=${ids.join(',')}`;
+    if (navigator.share) {
+      try {
+        await navigator.share({ title: 'My AVL GO list', url });
+        return;
+      } catch (error) {
+        if ((error as DOMException).name === 'AbortError') return;
+      }
+    }
+    try {
+      await navigator.clipboard.writeText(url);
+      showToast('Link copied');
+    } catch {
+      showToast('Could not copy the link', 'error');
+    }
+  }, [upcomingFavorites, showToast]);
+
+  // Two taps so a stray click can't wipe the list; the sync effect saves the empty
+  // list for signed-in users
+  const handleClearFavorites = useCallback(() => {
+    if (!confirmClearFavorites) {
+      setConfirmClearFavorites(true);
+      setTimeout(() => setConfirmClearFavorites(false), 4000);
+      return;
+    }
+    setConfirmClearFavorites(false);
+    replaceFavorites([]);
+  }, [confirmClearFavorites]);
+
   const handleOpenCurateModal = useCallback(
     (eventId: string) => {
       const event = curatableEventsById.get(eventId);
@@ -1759,17 +1845,113 @@ export default function EventFeed({
   useEffect(() => {
     if (!isLoaded) return;
 
-    const newUrl = `${window.location.pathname}${shareParams}`;
+    let newUrl = `${window.location.pathname}${shareParams}`;
+    if (sharedEventIds.length > 0) {
+      newUrl += `${shareParams ? '&' : '?'}shared=${sharedEventIds.join(',')}`;
+    }
 
     // Only update if URL actually changed
     if (window.location.pathname + window.location.search !== newUrl) {
       window.history.replaceState(null, '', newUrl);
     }
-  }, [shareParams, isLoaded]);
+  }, [shareParams, sharedEventIds, isLoaded]);
 
   // SSR renders skeleton, client renders events after hydration (no artificial delay)
   // This keeps the page size small for Vercel's ISR limits
   if (!isLoaded) return <EventFeedSkeleton />;
+
+  const renderListCard = (event: Event | DatedInitialEvent, removable: boolean) => (
+    <EventCard
+      key={event.id}
+      event={{
+        ...event,
+        sourceId: event.sourceId,
+        location: event.location ?? null,
+        organizer: event.organizer ?? null,
+        price: event.price ?? null,
+        imageUrl: event.imageUrl ?? null,
+        timeUnknown: event.timeUnknown ?? false,
+        recurringType: event.recurringType ?? null,
+      }}
+      onHide={handleHideEvent}
+      onBlockHost={handleBlockHost}
+      isNewlyHidden={false}
+      hideBorder
+      isFavorited={favoritedEventIds.includes(event.id)}
+      favoriteCount={favoriteCountOverrides[event.id] ?? event.favoriteCount ?? 0}
+      onToggleFavorite={handleToggleFavorite}
+      showRemoveFavorite={removable}
+      isTagFilterActive={false}
+      isCurated={curatedEventIds.has(event.id)}
+      onCurate={handleOpenCurateModal}
+      onUncurate={handleUncurate}
+      isLoggedIn={isLoggedIn}
+      displayMode="full"
+      isHiding={hidingEventIds.has(event.id)}
+      isMobileExpanded={mobileExpandedIds.has(event.id)}
+      onMobileExpand={(id) =>
+        setMobileExpandedIds((prev) => {
+          const next = new Set(prev);
+          if (next.has(id)) {
+            next.delete(id);
+          } else {
+            next.add(id);
+          }
+          return next;
+        })
+      }
+      onOpenModal={handleOpenEventModal}
+    />
+  );
+
+  const favoritesList = (
+    <>
+      <div className="flex items-center justify-end gap-2 mb-3 px-3 sm:px-0">
+        {upcomingFavorites.length > 0 && (
+          <button
+            onClick={() => void handleShareFavorites()}
+            className="flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-lg border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors cursor-pointer"
+          >
+            <Share2 className="w-4 h-4" />
+            Share list
+          </button>
+        )}
+        <button
+          onClick={handleClearFavorites}
+          className={`flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-lg border transition-colors cursor-pointer ${
+            confirmClearFavorites
+              ? 'border-red-300 dark:border-red-800 text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-950/50'
+              : 'border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
+          }`}
+        >
+          <Trash2 className="w-4 h-4" />
+          {confirmClearFavorites ? 'Tap again to clear' : 'Clear all'}
+        </button>
+      </div>
+
+      {upcomingFavorites.length > 0 ? (
+        <div className="flex flex-col bg-white dark:bg-gray-900 sm:rounded-lg sm:shadow-sm sm:border sm:border-gray-200 dark:sm:border-gray-700">
+          {upcomingFavorites.map((event) => renderListCard(event, true))}
+        </div>
+      ) : (
+        <p className="text-sm text-gray-500 dark:text-gray-400 py-6 text-center">
+          Nothing coming up on your list.
+        </p>
+      )}
+
+      {pastFavorites.length > 0 && (
+        <details className="mt-6 group">
+          <summary className="flex items-center gap-1 px-3 sm:px-0 text-sm font-medium text-gray-500 dark:text-gray-400 cursor-pointer list-none">
+            <ChevronDown className="w-4 h-4 -rotate-90 group-open:rotate-0 transition-transform" />
+            Past ({pastFavorites.length})
+          </summary>
+          <div className="mt-3 flex flex-col bg-white dark:bg-gray-900 sm:rounded-lg sm:shadow-sm sm:border sm:border-gray-200 dark:sm:border-gray-700 opacity-75">
+            {pastFavorites.map((event) => renderListCard(event, true))}
+          </div>
+        </details>
+      )}
+    </>
+  );
 
   return (
     <div className="max-w-7xl mx-auto px-0 sm:px-6 lg:px-8 py-6">
@@ -1814,6 +1996,30 @@ export default function EventFeed({
       {/* Your List Feed */}
       {activeTab === 'yourList' && (
         <>
+          {sharedEventIds.length > 0 && (
+            <div className="mb-8">
+              <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-1 px-3 sm:px-0">
+                A list shared with you
+              </h2>
+              <p className="text-sm text-gray-500 dark:text-gray-400 mb-4 px-3 sm:px-0">
+                Tap the heart on anything you like to save it to your own list.
+              </p>
+              {sharedEventsLoading ? (
+                <div className="flex items-center justify-center py-10 text-sm text-gray-500 dark:text-gray-400">
+                  Loading the list...
+                </div>
+              ) : sharedEvents.length > 0 ? (
+                <div className="flex flex-col bg-white dark:bg-gray-900 sm:rounded-lg sm:shadow-sm sm:border sm:border-gray-200 dark:sm:border-gray-700">
+                  {sharedEvents.map((event) => renderListCard(event, false))}
+                </div>
+              ) : (
+                <p className="text-sm text-gray-500 dark:text-gray-400 px-3 sm:px-0">
+                  Everything on this list has already happened.
+                </p>
+              )}
+            </div>
+          )}
+
           {/* Sign-in Prompt + Favorites for Anonymous Users */}
           {!isLoggedIn && (
             <>
@@ -1847,52 +2053,7 @@ export default function EventFeed({
                       Loading your favorites...
                     </div>
                   ) : (
-                    <div className="flex flex-col bg-white dark:bg-gray-900 sm:rounded-lg sm:shadow-sm sm:border sm:border-gray-200 dark:sm:border-gray-700">
-                      {favoritedEvents.map((event) => (
-                        <EventCard
-                          key={event.id}
-                          event={{
-                            ...event,
-                            sourceId: event.sourceId,
-                            location: event.location ?? null,
-                            organizer: event.organizer ?? null,
-                            price: event.price ?? null,
-                            imageUrl: event.imageUrl ?? null,
-                            timeUnknown: event.timeUnknown ?? false,
-                            recurringType: event.recurringType ?? null,
-                          }}
-                          onHide={handleHideEvent}
-                          onBlockHost={handleBlockHost}
-                          isNewlyHidden={false}
-                          hideBorder
-                          isFavorited={true}
-                          favoriteCount={
-                            favoriteCountOverrides[event.id] ?? event.favoriteCount ?? 0
-                          }
-                          onToggleFavorite={handleToggleFavorite}
-                          isTagFilterActive={false}
-                          isCurated={curatedEventIds.has(event.id)}
-                          onCurate={handleOpenCurateModal}
-                          onUncurate={handleUncurate}
-                          isLoggedIn={isLoggedIn}
-                          displayMode="full"
-                          isHiding={hidingEventIds.has(event.id)}
-                          isMobileExpanded={mobileExpandedIds.has(event.id)}
-                          onMobileExpand={(id) =>
-                            setMobileExpandedIds((prev) => {
-                              const next = new Set(prev);
-                              if (next.has(id)) {
-                                next.delete(id);
-                              } else {
-                                next.add(id);
-                              }
-                              return next;
-                            })
-                          }
-                          onOpenModal={handleOpenEventModal}
-                        />
-                      ))}
-                    </div>
+                    favoritesList
                   )}
                 </div>
               )}
@@ -2217,52 +2378,7 @@ export default function EventFeed({
               )}
 
               {/* Favorites list */}
-              {!favoriteEventsLoading && favoritedEvents.length > 0 && (
-                <div className="flex flex-col bg-white dark:bg-gray-900 sm:rounded-lg sm:shadow-sm sm:border sm:border-gray-200 dark:sm:border-gray-700">
-                  {favoritedEvents.map((event) => (
-                    <EventCard
-                      key={event.id}
-                      event={{
-                        ...event,
-                        sourceId: event.sourceId,
-                        location: event.location ?? null,
-                        organizer: event.organizer ?? null,
-                        price: event.price ?? null,
-                        imageUrl: event.imageUrl ?? null,
-                        timeUnknown: event.timeUnknown ?? false,
-                        recurringType: event.recurringType ?? null,
-                      }}
-                      onHide={handleHideEvent}
-                      onBlockHost={handleBlockHost}
-                      isNewlyHidden={false}
-                      hideBorder
-                      isFavorited={true}
-                      favoriteCount={favoriteCountOverrides[event.id] ?? event.favoriteCount ?? 0}
-                      onToggleFavorite={handleToggleFavorite}
-                      isTagFilterActive={false}
-                      isCurated={curatedEventIds.has(event.id)}
-                      onCurate={handleOpenCurateModal}
-                      onUncurate={handleUncurate}
-                      isLoggedIn={isLoggedIn}
-                      displayMode="full"
-                      isHiding={hidingEventIds.has(event.id)}
-                      isMobileExpanded={mobileExpandedIds.has(event.id)}
-                      onMobileExpand={(id) =>
-                        setMobileExpandedIds((prev) => {
-                          const next = new Set(prev);
-                          if (next.has(id)) {
-                            next.delete(id);
-                          } else {
-                            next.add(id);
-                          }
-                          return next;
-                        })
-                      }
-                      onOpenModal={handleOpenEventModal}
-                    />
-                  ))}
-                </div>
-              )}
+              {!favoriteEventsLoading && favoritedEvents.length > 0 && favoritesList}
             </>
           )}
         </>

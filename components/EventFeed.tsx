@@ -557,7 +557,8 @@ export default function EventFeed({
   const [hidingEventIds, setHidingEventIds] = useState<Set<string>>(new Set());
 
   // Top 30 feed state
-  const [top30SortMode, setTop30SortMode] = useState<'score' | 'date'>('score');
+  // null until the visitor picks one, so a date filter can default the list to date order
+  const [top30SortChoice, setTop30SortMode] = useState<'score' | 'date' | null>(null);
   const [top30Category, setTop30Category] = useState<'overall' | 'weird' | 'social'>(() => {
     if (typeof window === 'undefined') return 'overall';
     const params = new URLSearchParams(window.location.search);
@@ -844,24 +845,14 @@ export default function EventFeed({
     ]);
   }, [ssrTop30Pool, backfillTop30Pool]);
 
-  // Rank = position in the unfiltered merged list, so filtering never renumbers
-  const top30RankingMap = useMemo(() => {
-    const rankingMap = new Map<string, number>();
-    top30CategoryEvents.forEach((event, index) => {
-      rankingMap.set(event.id, index + 1);
-    });
-    return rankingMap;
-  }, [top30CategoryEvents]);
-
   const hiddenFingerprintKeys = useMemo(
     () => new Set(hiddenEvents.map((fp) => createFingerprintKey(fp.title, fp.organizer))),
     [hiddenEvents]
   );
 
   // The user's filters applied to the ranked list, keeping the first 30 that
-  // survive. Ranks come from top30RankingMap, so a filtered list can read
-  // 1, 2, 5, ... 36. Events hidden this session stay visible (greyed out) so
-  // the hide can be undone, like the main feed.
+  // survive. Events hidden this session stay visible (greyed out) so the hide
+  // can be undone, like the main feed.
   const filteredTop30CategoryEvents = useMemo(() => {
     // Date boundaries in America/New_York, using the same helpers the server uses,
     // so this tab agrees with the main feed for users outside Eastern time.
@@ -875,6 +866,15 @@ export default function EventFeed({
       })
       .slice(0, TOP30_VISIBLE_LIMIT);
   }, [top30CategoryEvents, filters, hiddenFingerprintKeys, sessionHiddenKeys]);
+
+  // Numbered within what's shown; backfill only appends, so a number never moves
+  const top30RankingMap = useMemo(() => {
+    const rankingMap = new Map<string, number>();
+    filteredTop30CategoryEvents.forEach((event, index) => {
+      rankingMap.set(event.id, index + 1);
+    });
+    return rankingMap;
+  }, [filteredTop30CategoryEvents]);
 
   // Backfill: when fewer than 30 survive, fetch the deeper pool for this category
   // (once per category per page load) so more can be added to the bottom.
@@ -1353,6 +1353,7 @@ export default function EventFeed({
     blockedHosts.length > 0 ||
     blockedKeywords.length > 0 ||
     hiddenEvents.length > 0;
+  const top30SortMode = top30SortChoice ?? (dateFilter === 'all' ? 'score' : 'date');
 
   // Handle removing filters
   const handleRemoveFilter = useCallback((id: string) => {
@@ -2376,6 +2377,14 @@ export default function EventFeed({
             </div>
           )}
 
+          {filteredTop30CategoryEvents.length > 0 && (
+            <p className="text-xs text-gray-500 dark:text-gray-400 mb-2 px-3 sm:px-0">
+              {top30SortMode === 'score'
+                ? 'Ranked by score, best first'
+                : 'In date order, earliest first'}
+            </p>
+          )}
+
           {/* Score-ranked view */}
           {top30SortMode === 'score' && filteredTop30CategoryEvents.length > 0 && (
             <div className="flex flex-col bg-white dark:bg-gray-900 sm:rounded-lg sm:shadow-sm sm:border sm:border-gray-200 dark:sm:border-gray-700 ">
@@ -2469,10 +2478,8 @@ export default function EventFeed({
                       })}`;
                     }
 
-                    // Sort by ranking (pre-sorted by server) within each day
                     const sortedGroupEvents = [...groupEvents].sort(
-                      (a, b) =>
-                        (top30RankingMap.get(a.id) || 999) - (top30RankingMap.get(b.id) || 999)
+                      (a, b) => a.startDate.getTime() - b.startDate.getTime()
                     );
 
                     return (

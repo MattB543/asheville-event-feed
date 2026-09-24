@@ -388,8 +388,8 @@ candidates for one Top 30 list, cached under the same `events` tag as the pages.
 The Top 30 tab applies the user's filters client-side
 (`lib/utils/eventFilterMatch.ts`, kept in step with `queryFilteredEvents`) and,
 when fewer than 30 of the 50 SSR candidates survive, fetches this pool to fill
-the list back up to 30. Ranks are positions in the unfiltered merged list, so a
-filtered page reads 2, 12, 19 ... 98 rather than renumbering. The pool is
+the list back up to 30. Ranks are numbered 1-30 within the filtered list, so a
+one-day filter reads 1, 2, 3 rather than 78, 85. The pool is
 appended to the SSR candidates rather than swapped in, so a rank the visitor
 has already seen never moves even if the two cache entries were filled at
 different moments.

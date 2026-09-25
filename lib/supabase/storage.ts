@@ -120,18 +120,34 @@ export async function uploadPosterCropped(buffer: Buffer, uploadId: string): Pro
 /**
  * True only for Supabase's "this object does not exist" error.
  *
- * Verified shape: `{ name: 'StorageApiError', status: 400, statusCode: '404',
- * message: 'Object not found' }`. Everything else - a timeout, a 5xx, an auth
- * failure - must NOT be read as absence: treating a transient blip as "no crop"
- * would publish the original while the row records the crop's dimensions.
+ * download() never parses an error body: it wraps the raw Response in a
+ * StorageUnknownError with no status on it, and a message that is just that
+ * Response JSON-stringified (`{}`, or `{"url":...}` under Next's fetch). So the
+ * verdict has to come off the body. Verified shape (storage-js 2.87.1): HTTP
+ * 400 with `{ statusCode: '404', error: 'not_found', message: 'Object not
+ * found' }` - the 400 alone proves nothing. Everything else - a timeout, a 5xx,
+ * an auth failure - must NOT be read as absence: treating a transient blip as
+ * "no crop" would publish the original while the row records the crop's
+ * dimensions.
  */
-function isObjectNotFound(error: unknown): boolean {
+async function isObjectNotFound(error: unknown): Promise<boolean> {
   if (!error || typeof error !== 'object') return false;
 
-  const candidate = error as { statusCode?: unknown; message?: unknown };
+  const candidate = error as { statusCode?: unknown; message?: unknown; originalError?: unknown };
   if (String(candidate.statusCode) === '404') return true;
+  if (typeof candidate.message === 'string' && /not found/i.test(candidate.message)) return true;
 
-  return typeof candidate.message === 'string' && /not found/i.test(candidate.message);
+  // Duck-typed rather than `instanceof Response`: under Next the Response comes
+  // from its patched fetch, so don't bet the check on which realm built it.
+  const original = candidate.originalError as Partial<Response> | undefined;
+  if (typeof original?.json !== 'function') return false;
+
+  try {
+    const body = (await original.json()) as { statusCode?: unknown } | null;
+    return String(body?.statusCode) === '404';
+  } catch {
+    return false;
+  }
 }
 
 export interface PublishedPoster {
@@ -163,7 +179,7 @@ export async function publishPosterImage(uploadId: string): Promise<PublishedPos
     .download(posterCroppedIngressPath(uploadId));
 
   // Most uploads have no crop, so a genuine 404 here is the ordinary case.
-  if (croppedError && !isObjectNotFound(croppedError)) {
+  if (croppedError && !(await isObjectNotFound(croppedError))) {
     throw new Error(`Poster publish failed (crop lookup): ${croppedError.message}`);
   }
 

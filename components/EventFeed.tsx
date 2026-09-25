@@ -561,7 +561,7 @@ export default function EventFeed({
 
   // Top 30 feed state
   // null until the visitor picks one, so a date filter can default the list to date order
-  const [top30SortChoice, setTop30SortMode] = useState<'score' | 'date' | null>(null);
+  const [top30SortChoice, setTop30SortChoice] = useState<'score' | 'date' | null>(null);
   const [top30Category, setTop30Category] = useState<'overall' | 'weird' | 'social'>(() => {
     if (typeof window === 'undefined') return 'overall';
     const params = new URLSearchParams(window.location.search);
@@ -1607,7 +1607,9 @@ export default function EventFeed({
       return;
     }
     setConfirmClearFavorites(false);
-    clearFavorites();
+    void clearFavorites().then((counts) =>
+      setFavoriteCountOverrides((prev) => ({ ...prev, ...counts }))
+    );
   }, [confirmClearFavorites]);
 
   const handleOpenCurateModal = useCallback(
@@ -2459,7 +2461,7 @@ export default function EventFeed({
               <span className="text-xs text-gray-500 dark:text-gray-400 sm:hidden">Sort by</span>
               <div className="flex items-center gap-1.5 sm:gap-2 bg-gray-100 dark:bg-gray-800 rounded-lg p-0.5 sm:p-1 w-fit">
                 <button
-                  onClick={() => setTop30SortMode('score')}
+                  onClick={() => setTop30SortChoice('score')}
                   className={`flex items-center gap-1 px-2 sm:px-3 py-1 sm:py-1.5 text-xs sm:text-sm font-medium rounded-md transition-colors cursor-pointer ${
                     top30SortMode === 'score'
                       ? 'bg-white dark:bg-gray-700 text-[#2a7d9c] dark:text-[#7ec8e3] shadow-sm'
@@ -2470,7 +2472,7 @@ export default function EventFeed({
                   {top30SortMode === 'score' && <ChevronDown className="w-3 h-3" />}
                 </button>
                 <button
-                  onClick={() => setTop30SortMode('date')}
+                  onClick={() => setTop30SortChoice('date')}
                   className={`flex items-center gap-1 px-2 sm:px-3 py-1 sm:py-1.5 text-xs sm:text-sm font-medium rounded-md transition-colors cursor-pointer ${
                     top30SortMode === 'date'
                       ? 'bg-white dark:bg-gray-700 text-[#2a7d9c] dark:text-[#7ec8e3] shadow-sm'

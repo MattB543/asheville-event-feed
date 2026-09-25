@@ -147,6 +147,21 @@ export function toggleFavorite(eventId: string): Promise<ToggleFavoriteResult> {
   return operation;
 }
 
+/**
+ * Empty the list and take each event's public count back down. Failures are left
+ * alone rather than rolled back, so a rate-limited request can't re-add a favorite.
+ */
+export function clearFavorites(): void {
+  const ids = favoriteIds;
+  // Bumping the version stops an in-flight toggle from re-adding its event
+  pendingToggles.forEach((state) => state.version++);
+  pendingToggles.clear();
+  setFavorites([]);
+  ids.forEach((id) => {
+    sendToggle(id, false).catch(() => undefined);
+  });
+}
+
 /** Replace the whole list (used by preference sync when merging server state). */
 export function replaceFavorites(ids: string[]): void {
   setFavorites(Array.from(new Set(ids)));

@@ -48,7 +48,7 @@ import {
 import Link from 'next/link';
 import { getZipName } from '@/lib/config/zipNames';
 import { usePreferenceSync } from '@/lib/hooks/usePreferenceSync';
-import { useFavorites, replaceFavorites } from '@/lib/hooks/useFavorites';
+import { useFavorites, replaceFavorites, clearFavorites } from '@/lib/hooks/useFavorites';
 import { computeDateFilterBounds } from '@/lib/utils/dateFilters';
 import { getStartOfTodayEastern } from '@/lib/utils/timezone';
 import { matchesEventFilters } from '@/lib/utils/eventFilterMatch';
@@ -606,7 +606,7 @@ export default function EventFeed({
   const [confirmClearFavorites, setConfirmClearFavorites] = useState(false);
 
   // Someone else's favorites, opened from a Your List share link (?shared=id,id,...)
-  const [sharedEventIds] = useState<string[]>(() => {
+  const [sharedEventIds, setSharedEventIds] = useState<string[]>(() => {
     if (typeof window === 'undefined') return [];
     const shared = new URLSearchParams(window.location.search).get('shared');
     return shared ? shared.split(',').filter((id) => id.trim().length > 0) : [];
@@ -1607,7 +1607,7 @@ export default function EventFeed({
       return;
     }
     setConfirmClearFavorites(false);
-    replaceFavorites([]);
+    clearFavorites();
   }, [confirmClearFavorites]);
 
   const handleOpenCurateModal = useCallback(
@@ -1998,9 +1998,17 @@ export default function EventFeed({
         <>
           {sharedEventIds.length > 0 && (
             <div className="mb-8">
-              <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-1 px-3 sm:px-0">
-                A list shared with you
-              </h2>
+              <div className="flex items-center justify-between mb-1 px-3 sm:px-0">
+                <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-100">
+                  A list shared with you
+                </h2>
+                <button
+                  onClick={() => setSharedEventIds([])}
+                  className="text-sm text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 cursor-pointer"
+                >
+                  Dismiss
+                </button>
+              </div>
               <p className="text-sm text-gray-500 dark:text-gray-400 mb-4 px-3 sm:px-0">
                 Tap the heart on anything you like to save it to your own list.
               </p>

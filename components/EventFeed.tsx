@@ -2457,8 +2457,8 @@ export default function EventFeed({
             </div>
 
             {/* Sort Mode Toggle */}
-            <div className="flex flex-col items-start gap-1 sm:items-auto">
-              <span className="text-xs text-gray-500 dark:text-gray-400 sm:hidden">Sort by</span>
+            <div className="flex flex-col items-start gap-1 sm:flex-row sm:items-center sm:gap-2">
+              <span className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">Sort:</span>
               <div className="flex items-center gap-1.5 sm:gap-2 bg-gray-100 dark:bg-gray-800 rounded-lg p-0.5 sm:p-1 w-fit">
                 <button
                   onClick={() => setTop30SortChoice('score')}
@@ -2468,7 +2468,7 @@ export default function EventFeed({
                       : 'text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200'
                   }`}
                 >
-                  Score
+                  Best first
                   {top30SortMode === 'score' && <ChevronDown className="w-3 h-3" />}
                 </button>
                 <button
@@ -2479,7 +2479,7 @@ export default function EventFeed({
                       : 'text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200'
                   }`}
                 >
-                  Date
+                  By time
                   {top30SortMode === 'date' && <ChevronDown className="w-3 h-3" />}
                 </button>
               </div>
@@ -2501,14 +2501,6 @@ export default function EventFeed({
                   : 'Check back later for the highest-scored events in the next 30 days.'}
               </p>
             </div>
-          )}
-
-          {filteredTop30CategoryEvents.length > 0 && (
-            <p className="text-xs text-gray-500 dark:text-gray-400 mb-2 px-3 sm:px-0">
-              {top30SortMode === 'score'
-                ? 'Ranked by score, best first'
-                : 'In date order, earliest first'}
-            </p>
           )}
 
           {/* Score-ranked view */}
@@ -2645,7 +2637,6 @@ export default function EventFeed({
                               isLoggedIn={isLoggedIn}
                               displayMode="full"
                               eventScore={event.score}
-                              ranking={top30RankingMap.get(event.id)}
                               isMobileExpanded={mobileExpandedIds.has(event.id)}
                               onMobileExpand={(id) =>
                                 setMobileExpandedIds((prev) => {

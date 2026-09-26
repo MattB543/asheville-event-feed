@@ -64,7 +64,9 @@ function CalendarInner({ className, classNames, showOutsideDays = true, ...props
         range_start: 'rounded-l-md',
         selected:
           'bg-brand-500 text-white hover:bg-brand-600 hover:text-white focus:bg-brand-500 focus:text-white rounded-md',
-        today: 'bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md',
+        // Guarded so a selected today still shows the selected colour
+        today:
+          'not-data-[selected=true]:bg-gray-100 dark:not-data-[selected=true]:bg-gray-700 not-data-[selected=true]:text-gray-900 dark:not-data-[selected=true]:text-gray-100 rounded-md',
         outside: 'text-gray-400 dark:text-gray-600 opacity-50',
         disabled: 'text-gray-400 dark:text-gray-600 opacity-50 cursor-not-allowed',
         range_middle: 'rounded-none bg-brand-50 dark:bg-brand-900/30',

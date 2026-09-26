@@ -2484,7 +2484,6 @@ export default function EventFeed({
                   }`}
                 >
                   Best first
-                  {top30SortMode === 'score' && <ChevronDown className="w-3 h-3" />}
                 </button>
                 <button
                   onClick={() => setTop30SortChoice('date')}
@@ -2495,7 +2494,6 @@ export default function EventFeed({
                   }`}
                 >
                   By time
-                  {top30SortMode === 'date' && <ChevronDown className="w-3 h-3" />}
                 </button>
               </div>
             </div>

@@ -150,9 +150,11 @@ export function toggleFavorite(eventId: string): Promise<ToggleFavoriteResult> {
 /**
  * Empty the list and take each event's public count back down, one request at a
  * time. Failures are left alone rather than rolled back, so a rate-limited request
- * can't re-add a favorite. Resolves with the new count for each event that succeeded.
+ * can't re-add a favorite. Reports each event's new count as it lands.
  */
-export async function clearFavorites(): Promise<Record<string, number>> {
+export async function clearFavorites(
+  onCount: (eventId: string, favoriteCount: number) => void
+): Promise<void> {
   const ids = favoriteIds;
   // Bumping the version stops an in-flight toggle from re-adding its event; its
   // request still finishes first so the remove below can't overtake it
@@ -164,17 +166,15 @@ export async function clearFavorites(): Promise<Record<string, number>> {
   pendingToggles.clear();
   setFavorites([]);
 
-  const counts: Record<string, number> = {};
   for (const id of ids) {
     try {
       await inFlight.get(id)?.catch(() => undefined);
       const { favoriteCount } = await sendToggle(id, false);
-      if (favoriteCount !== null) counts[id] = favoriteCount;
+      if (favoriteCount !== null) onCount(id, favoriteCount);
     } catch {
       // Leave this count as it was
     }
   }
-  return counts;
 }
 
 /** Replace the whole list (used by preference sync when merging server state). */

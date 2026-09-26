@@ -1610,8 +1610,8 @@ export default function EventFeed({
     }
     clearTimeout(confirmClearTimer.current ?? undefined);
     setConfirmClearFavorites(false);
-    void clearFavorites().then((counts) =>
-      setFavoriteCountOverrides((prev) => ({ ...prev, ...counts }))
+    void clearFavorites((eventId, favoriteCount) =>
+      setFavoriteCountOverrides((prev) => ({ ...prev, [eventId]: favoriteCount }))
     );
   }, [confirmClearFavorites]);
 
@@ -1909,31 +1909,33 @@ export default function EventFeed({
     />
   );
 
+  const favoritesActions = (
+    <div className="flex items-center gap-2">
+      {upcomingFavorites.length > 0 && (
+        <button
+          onClick={() => void handleShareFavorites()}
+          className="flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-lg border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors cursor-pointer"
+        >
+          <Share2 className="w-4 h-4" />
+          Share list
+        </button>
+      )}
+      <button
+        onClick={handleClearFavorites}
+        className={`flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-lg border transition-colors cursor-pointer ${
+          confirmClearFavorites
+            ? 'border-red-300 dark:border-red-800 text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-950/50'
+            : 'border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
+        }`}
+      >
+        <Trash2 className="w-4 h-4" />
+        {confirmClearFavorites ? 'Tap again to clear' : 'Clear all'}
+      </button>
+    </div>
+  );
+
   const favoritesList = (
     <>
-      <div className="flex items-center justify-end gap-2 mb-3 px-3 sm:px-0">
-        {upcomingFavorites.length > 0 && (
-          <button
-            onClick={() => void handleShareFavorites()}
-            className="flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-lg border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors cursor-pointer"
-          >
-            <Share2 className="w-4 h-4" />
-            Share list
-          </button>
-        )}
-        <button
-          onClick={handleClearFavorites}
-          className={`flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-lg border transition-colors cursor-pointer ${
-            confirmClearFavorites
-              ? 'border-red-300 dark:border-red-800 text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-950/50'
-              : 'border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
-          }`}
-        >
-          <Trash2 className="w-4 h-4" />
-          {confirmClearFavorites ? 'Tap again to clear' : 'Clear all'}
-        </button>
-      </div>
-
       {upcomingFavorites.length > 0 ? (
         <div className="flex flex-col bg-white dark:bg-gray-900 sm:rounded-lg sm:shadow-sm sm:border sm:border-gray-200 dark:sm:border-gray-700">
           {upcomingFavorites.map((event) => renderListCard(event, true))}
@@ -2056,11 +2058,16 @@ export default function EventFeed({
               {/* Your Favorites Section (below CTA) */}
               {favoritedEventIds.length > 0 && (
                 <div className="mt-4">
-                  <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-4 px-3 sm:px-0">
-                    Your Favorites (
-                    {favoritedEvents.length > 0 ? favoritedEvents.length : favoritedEventIds.length}
-                    )
-                  </h2>
+                  <div className="flex flex-wrap items-center justify-between gap-2 mb-4 px-3 sm:px-0">
+                    <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-100">
+                      Your Favorites (
+                      {favoritedEvents.length > 0
+                        ? favoritedEvents.length
+                        : favoritedEventIds.length}
+                      )
+                    </h2>
+                    {favoritedEvents.length > 0 && favoritesActions}
+                  </div>
                   {favoriteEventsLoading && favoritedEvents.length === 0 ? (
                     <div className="flex items-center justify-center py-10 text-sm text-gray-500 dark:text-gray-400">
                       Loading your favorites...
@@ -2391,7 +2398,12 @@ export default function EventFeed({
               )}
 
               {/* Favorites list */}
-              {!favoriteEventsLoading && favoritedEvents.length > 0 && favoritesList}
+              {!favoriteEventsLoading && favoritedEvents.length > 0 && (
+                <>
+                  <div className="flex justify-end mb-3 px-3 sm:px-0">{favoritesActions}</div>
+                  {favoritesList}
+                </>
+              )}
             </>
           )}
         </>

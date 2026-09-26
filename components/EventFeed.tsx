@@ -604,6 +604,8 @@ export default function EventFeed({
   const [favoriteEventsData, setFavoriteEventsData] = useState<ApiEvent[]>([]);
   const [favoriteEventsLoading, setFavoriteEventsLoading] = useState(false);
   const [confirmClearFavorites, setConfirmClearFavorites] = useState(false);
+  const confirmClearTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  useEffect(() => () => clearTimeout(confirmClearTimer.current ?? undefined), []);
 
   // Someone else's favorites, opened from a Your List share link (?shared=id,id,...)
   const [sharedEventIds, setSharedEventIds] = useState<string[]>(() => {
@@ -1603,9 +1605,10 @@ export default function EventFeed({
   const handleClearFavorites = useCallback(() => {
     if (!confirmClearFavorites) {
       setConfirmClearFavorites(true);
-      setTimeout(() => setConfirmClearFavorites(false), 4000);
+      confirmClearTimer.current = setTimeout(() => setConfirmClearFavorites(false), 4000);
       return;
     }
+    clearTimeout(confirmClearTimer.current ?? undefined);
     setConfirmClearFavorites(false);
     void clearFavorites().then((counts) =>
       setFavoriteCountOverrides((prev) => ({ ...prev, ...counts }))

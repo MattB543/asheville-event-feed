@@ -154,14 +154,20 @@ export function toggleFavorite(eventId: string): Promise<ToggleFavoriteResult> {
  */
 export async function clearFavorites(): Promise<Record<string, number>> {
   const ids = favoriteIds;
-  // Bumping the version stops an in-flight toggle from re-adding its event
-  pendingToggles.forEach((state) => state.version++);
+  // Bumping the version stops an in-flight toggle from re-adding its event; its
+  // request still finishes first so the remove below can't overtake it
+  const inFlight = new Map<string, Promise<unknown>>();
+  pendingToggles.forEach((state, id) => {
+    state.version++;
+    inFlight.set(id, state.tail);
+  });
   pendingToggles.clear();
   setFavorites([]);
 
   const counts: Record<string, number> = {};
   for (const id of ids) {
     try {
+      await inFlight.get(id)?.catch(() => undefined);
       const { favoriteCount } = await sendToggle(id, false);
       if (favoriteCount !== null) counts[id] = favoriteCount;
     } catch {

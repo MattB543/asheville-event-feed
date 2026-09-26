@@ -1612,8 +1612,15 @@ export default function EventFeed({
     setConfirmClearFavorites(false);
     void clearFavorites((eventId, favoriteCount) =>
       setFavoriteCountOverrides((prev) => ({ ...prev, [eventId]: favoriteCount }))
-    );
-  }, [confirmClearFavorites]);
+    ).then((failed) => {
+      if (failed > 0) {
+        showToast(
+          `Your list is cleared, but ${failed} event${failed === 1 ? "'s heart count" : "s' heart counts"} didn't update`,
+          'error'
+        );
+      }
+    });
+  }, [confirmClearFavorites, showToast]);
 
   const handleOpenCurateModal = useCallback(
     (eventId: string) => {

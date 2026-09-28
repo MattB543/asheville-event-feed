@@ -34,33 +34,105 @@ interface PreferenceSyncCallbacks {
   setFavoritedEventIds: (ids: string[]) => void;
 }
 
+const SYNC_BASE_KEY_PREFIX = 'preferenceSyncBase:';
+
+const identity = (value: string) => value;
+const hiddenEventKey = (event: HiddenEventFingerprint) =>
+  `${event.title.toLowerCase()}|||${event.organizer.toLowerCase()}`;
+
 /**
- * Merge local and remote preferences
- * Strategy: Union arrays to preserve all user choices
+ * Three-way merge of one list. `base` is the list as this device last saved or
+ * loaded it, so an item in `local` but not `base` was added here since, and one
+ * that left `local` was removed here; `remote` carries every other device's
+ * changes. A plain union would let a stale device put back what another one
+ * cleared. With no base (this device has never synced the account) it falls
+ * back to a union, which is how signed-out favorites join the account.
  */
+function mergeList<T>(base: T[] | null, local: T[], remote: T[], keyOf: (item: T) => string): T[] {
+  const merged = new Map<string, T>();
+  if (!base) {
+    for (const item of [...remote, ...local]) merged.set(keyOf(item), item);
+    return Array.from(merged.values());
+  }
+
+  const baseKeys = new Set(base.map(keyOf));
+  const localKeys = new Set(local.map(keyOf));
+  for (const item of remote) {
+    const key = keyOf(item);
+    const removedHere = baseKeys.has(key) && !localKeys.has(key);
+    if (!removedHere) merged.set(key, item);
+  }
+  for (const item of local) {
+    if (!baseKeys.has(keyOf(item))) merged.set(keyOf(item), item);
+  }
+  return Array.from(merged.values());
+}
+
 function mergePreferences(
+  base: UserPreferencesData | null,
   local: UserPreferencesData,
   remote: UserPreferencesData
 ): UserPreferencesData {
-  // Union arrays (deduplicate)
-  const mergedBlockedHosts = [...new Set([...local.blockedHosts, ...remote.blockedHosts])];
-  const mergedBlockedKeywords = [...new Set([...local.blockedKeywords, ...remote.blockedKeywords])];
-  const mergedFavorites = [...new Set([...local.favoritedEventIds, ...remote.favoritedEventIds])];
-
-  // Merge hidden events by fingerprint key
-  const hiddenMap = new Map<string, HiddenEventFingerprint>();
-  for (const event of [...remote.hiddenEvents, ...local.hiddenEvents]) {
-    const key = `${event.title.toLowerCase()}|||${event.organizer.toLowerCase()}`;
-    hiddenMap.set(key, event);
-  }
-  const mergedHiddenEvents = Array.from(hiddenMap.values());
-
   return {
-    blockedHosts: mergedBlockedHosts,
-    blockedKeywords: mergedBlockedKeywords,
-    hiddenEvents: mergedHiddenEvents,
-    favoritedEventIds: mergedFavorites,
+    blockedHosts: mergeList(
+      base?.blockedHosts ?? null,
+      local.blockedHosts,
+      remote.blockedHosts,
+      identity
+    ),
+    blockedKeywords: mergeList(
+      base?.blockedKeywords ?? null,
+      local.blockedKeywords,
+      remote.blockedKeywords,
+      identity
+    ),
+    hiddenEvents: mergeList(
+      base?.hiddenEvents ?? null,
+      local.hiddenEvents,
+      remote.hiddenEvents,
+      hiddenEventKey
+    ),
+    favoritedEventIds: mergeList(
+      base?.favoritedEventIds ?? null,
+      local.favoritedEventIds,
+      remote.favoritedEventIds,
+      identity
+    ),
   };
+}
+
+function sameList<T>(a: T[], b: T[], keyOf: (item: T) => string): boolean {
+  const aKeys = new Set(a.map(keyOf));
+  const bKeys = new Set(b.map(keyOf));
+  return aKeys.size === bKeys.size && [...bKeys].every((key) => aKeys.has(key));
+}
+
+function samePreferences(a: UserPreferencesData, b: UserPreferencesData): boolean {
+  return (
+    sameList(a.blockedHosts, b.blockedHosts, identity) &&
+    sameList(a.blockedKeywords, b.blockedKeywords, identity) &&
+    sameList(a.hiddenEvents, b.hiddenEvents, hiddenEventKey) &&
+    sameList(a.favoritedEventIds, b.favoritedEventIds, identity)
+  );
+}
+
+// The merge base is per account, so a second account signing in on this device
+// starts from a union rather than from someone else's last sync
+function readSyncBase(userId: string): UserPreferencesData | null {
+  try {
+    const saved = localStorage.getItem(SYNC_BASE_KEY_PREFIX + userId);
+    return saved ? (JSON.parse(saved) as UserPreferencesData) : null;
+  } catch {
+    return null;
+  }
+}
+
+function writeSyncBase(userId: string, prefs: UserPreferencesData): void {
+  try {
+    localStorage.setItem(SYNC_BASE_KEY_PREFIX + userId, JSON.stringify(prefs));
+  } catch {
+    // Ignore quota / private-mode errors; the next sync falls back to a union
+  }
 }
 
 /**
@@ -68,7 +140,7 @@ function mergePreferences(
  * Works alongside existing localStorage logic in EventFeed.
  *
  * - On login: Fetches from DB via API, merges with localStorage, updates state
- * - On preference change (when logged in): Debounced save to DB via API
+ * - On preference change (when logged in): Debounced merge-and-save via API
  * - On logout: Keeps localStorage (anonymous usage continues)
  */
 export function usePreferenceSync(callbacks: PreferenceSyncCallbacks) {
@@ -102,27 +174,13 @@ export function usePreferenceSync(callbacks: PreferenceSyncCallbacks) {
     current.setFavoritedEventIds(prefs.favoritedEventIds);
   }, []);
 
-  // Sync preferences on login
-  const userId = user?.id ?? null;
-  useEffect(() => {
-    if (authLoading) return;
-
-    const syncOnLogin = async () => {
-      if (!userId) {
-        // User logged out - keep localStorage as is
-        lastSyncedUserRef.current = null;
-        return;
-      }
-
-      // Prevent duplicate syncs for same user, or a parallel sync already in flight
-      if (lastSyncedUserRef.current === userId || isSyncingRef.current) {
-        return;
-      }
-
+  // Fetch the server copy, fold in what changed on this device since it last
+  // synced, and save the result when it differs. Saves go through here too, so a
+  // device holding an old copy can't overwrite changes made elsewhere.
+  const syncWithServer = useCallback(
+    async (userId: string) => {
       isSyncingRef.current = true;
-
       try {
-        // Fetch from API
         const response = await fetch('/api/preferences');
         if (!response.ok) {
           throw new Error('Failed to fetch preferences');
@@ -130,37 +188,58 @@ export function usePreferenceSync(callbacks: PreferenceSyncCallbacks) {
 
         const { preferences: remotePrefs } = (await response.json()) as PreferencesResponse;
         const localPrefs = getCurrentPreferences();
+        const merged = remotePrefs
+          ? mergePreferences(readSyncBase(userId), localPrefs, remotePrefs)
+          : localPrefs;
 
-        if (remotePrefs) {
-          // Merge local and remote
-          const merged = mergePreferences(localPrefs, remotePrefs);
+        if (!samePreferences(merged, localPrefs)) {
           applyPreferences(merged);
+        }
 
-          // Save merged back to DB
-          await fetch('/api/preferences', {
+        if (!remotePrefs || !samePreferences(merged, remotePrefs)) {
+          const saved = await fetch('/api/preferences', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ preferences: merged }),
           });
-        } else {
-          // No remote prefs yet - save current local to DB
-          await fetch('/api/preferences', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ preferences: localPrefs }),
-          });
+          if (!saved.ok) {
+            throw new Error('Failed to save preferences');
+          }
         }
 
-        lastSyncedUserRef.current = userId;
-      } catch (error) {
-        console.error('Error syncing preferences on login:', error);
+        writeSyncBase(userId, merged);
       } finally {
         isSyncingRef.current = false;
       }
-    };
+    },
+    [getCurrentPreferences, applyPreferences]
+  );
 
-    void syncOnLogin();
-  }, [userId, authLoading, getCurrentPreferences, applyPreferences]);
+  // Sync preferences on login
+  const userId = user?.id ?? null;
+  useEffect(() => {
+    if (authLoading) return;
+
+    if (!userId) {
+      // User logged out - keep localStorage as is
+      lastSyncedUserRef.current = null;
+      return;
+    }
+
+    // Prevent duplicate syncs for same user, or a parallel sync already in flight
+    if (lastSyncedUserRef.current === userId || isSyncingRef.current) {
+      return;
+    }
+
+    syncWithServer(userId).then(
+      () => {
+        lastSyncedUserRef.current = userId;
+      },
+      (error) => {
+        console.error('Error syncing preferences on login:', error);
+      }
+    );
+  }, [userId, authLoading, syncWithServer]);
 
   // Debounced save to DB when preferences change
   const saveToDatabase = useCallback(() => {
@@ -172,21 +251,19 @@ export function usePreferenceSync(callbacks: PreferenceSyncCallbacks) {
     }
 
     // Debounce save to avoid too many API calls
-    saveTimeoutRef.current = setTimeout(() => {
-      void (async () => {
-        try {
-          const currentPrefs = getCurrentPreferences();
-          await fetch('/api/preferences', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ preferences: currentPrefs }),
-          });
-        } catch (error) {
-          console.error('Error saving preferences to database:', error);
-        }
-      })();
-    }, 1000); // 1 second debounce
-  }, [user, getCurrentPreferences]);
+    const saveUserId = user.id;
+    const save = () => {
+      // Don't overlap a sync still in flight; try again once it has had time
+      if (isSyncingRef.current) {
+        saveTimeoutRef.current = setTimeout(save, 1000);
+        return;
+      }
+      syncWithServer(saveUserId).catch((error) => {
+        console.error('Error saving preferences to database:', error);
+      });
+    };
+    saveTimeoutRef.current = setTimeout(save, 1000); // 1 second debounce
+  }, [user, syncWithServer]);
 
   // Cleanup timeout on unmount
   useEffect(() => {

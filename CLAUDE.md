@@ -594,6 +594,12 @@ FB_XS=
 - Preferences stored in localStorage (offline-first)
 - Synced to `userPreferences` table when authenticated
 - Includes: blocked hosts, blocked keywords, hidden events, favorites
+- Every sync is a three-way merge (`usePreferenceSync`): each device keeps the
+  lists as it last synced them (`preferenceSyncBase:<userId>` in localStorage),
+  applies only what it added or removed since onto the server copy, and saves
+  the result. A plain union let a stale device put back favorites another device
+  had cleared. A device with no base yet (first sign-in there) still unions, which
+  is how signed-out favorites join the account.
 
 ### Curator Profiles
 

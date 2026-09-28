@@ -860,14 +860,24 @@ export default function EventFeed({
     ]);
   }, [ssrTop30Pool, backfillTop30Pool]);
 
+  // Rank = position in the unfiltered merged list, so filtering never renumbers
+  const top30RankingMap = useMemo(() => {
+    const rankingMap = new Map<string, number>();
+    top30CategoryEvents.forEach((event, index) => {
+      rankingMap.set(event.id, index + 1);
+    });
+    return rankingMap;
+  }, [top30CategoryEvents]);
+
   const hiddenFingerprintKeys = useMemo(
     () => new Set(hiddenEvents.map((fp) => createFingerprintKey(fp.title, fp.organizer))),
     [hiddenEvents]
   );
 
   // The user's filters applied to the ranked list, keeping the first 30 that
-  // survive. Events hidden this session stay visible (greyed out) so the hide
-  // can be undone, like the main feed.
+  // survive. Ranks come from top30RankingMap, so a filtered list can read
+  // 1, 2, 5, ... 36. Events hidden this session stay visible (greyed out) so
+  // the hide can be undone, like the main feed.
   const filteredTop30CategoryEvents = useMemo(() => {
     // Date boundaries in America/New_York, using the same helpers the server uses,
     // so this tab agrees with the main feed for users outside Eastern time.
@@ -881,15 +891,6 @@ export default function EventFeed({
       })
       .slice(0, TOP30_VISIBLE_LIMIT);
   }, [top30CategoryEvents, filters, hiddenFingerprintKeys, sessionHiddenKeys]);
-
-  // Numbered within what's shown; backfill only appends, so a number never moves
-  const top30RankingMap = useMemo(() => {
-    const rankingMap = new Map<string, number>();
-    filteredTop30CategoryEvents.forEach((event, index) => {
-      rankingMap.set(event.id, index + 1);
-    });
-    return rankingMap;
-  }, [filteredTop30CategoryEvents]);
 
   // Backfill: when fewer than 30 survive, fetch the deeper pool for this category
   // (once per category per page load) so more can be added to the bottom.

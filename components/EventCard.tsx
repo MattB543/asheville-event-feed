@@ -182,6 +182,8 @@ interface EventCardProps {
   isGreatMatch?: boolean;
   /** Optional ranking number to display before title (e.g., "1." for top 30) */
   ranking?: number;
+  /** Show the ranking as a "Rank #40" label, for lists where it isn't the card's position */
+  rankAsLabel?: boolean;
   /** Whether this card is expanded on mobile */
   isMobileExpanded?: boolean;
   /** Callback when user taps to expand on mobile */
@@ -228,6 +230,7 @@ export default function EventCard({
   isHiding = false,
   isGreatMatch = false,
   ranking,
+  rankAsLabel = false,
   isMobileExpanded = false,
   onMobileExpand,
   onOpenModal,
@@ -409,6 +412,12 @@ export default function EventCard({
 
   // Generate event URL for links
   const eventUrl = `/events/${generateEventSlug(event.title, event.startDate, event.id)}`;
+  const rankLabel = ranking && rankAsLabel && (
+    <span className="mr-1.5 inline-block rounded bg-brand-50 px-1.5 py-0.5 align-[2px] text-xs font-semibold whitespace-nowrap text-brand-700 dark:bg-brand-900/40 dark:text-brand-300">
+      Rank #{ranking}
+    </span>
+  );
+  const titleText = ranking && !rankAsLabel ? `${ranking}. ${event.title}` : event.title;
 
   // Elevate card z-index when any dropdown is open so it appears above subsequent cards
   const hasOpenDropdown = calendarMenuOpen || moreMenuOpen;
@@ -520,6 +529,7 @@ export default function EventCard({
           {/* Title row */}
           <div className="flex items-start gap-2">
             <h3 className="text-base font-bold leading-tight text-brand-600 dark:text-brand-400 flex-1">
+              {rankLabel}
               <Link
                 href={eventUrl}
                 className="hover:underline"
@@ -531,7 +541,7 @@ export default function EventCard({
                       }
                 }
               >
-                {ranking ? `${ranking}. ${event.title}` : event.title}
+                {titleText}
               </Link>
               {isGreatMatch && (
                 <Star
@@ -965,6 +975,7 @@ export default function EventCard({
             <div>
               <div className="flex items-start gap-2 flex-wrap">
                 <h3 className="text-base font-bold leading-tight text-brand-600 dark:text-brand-400">
+                  {rankLabel}
                   <Link
                     href={eventUrl}
                     className="hover:underline"
@@ -974,7 +985,7 @@ export default function EventCard({
                       if (onOpenModal) handleOpenModal(e);
                     }}
                   >
-                    {ranking ? `${ranking}. ${event.title}` : event.title}
+                    {titleText}
                   </Link>
                   {isGreatMatch && (
                     <Star

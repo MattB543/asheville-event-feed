@@ -42,6 +42,7 @@ import {
   Bell,
   CalendarPlus2,
   ChevronDown,
+  Info,
   Share2,
   Trash2,
 } from 'lucide-react';
@@ -50,8 +51,14 @@ import { getZipName } from '@/lib/config/zipNames';
 import { usePreferenceSync } from '@/lib/hooks/usePreferenceSync';
 import { useFavorites, replaceFavorites, clearFavorites } from '@/lib/hooks/useFavorites';
 import { computeDateFilterBounds } from '@/lib/utils/dateFilters';
-import { getStartOfTodayEastern } from '@/lib/utils/timezone';
-import { matchesEventFilters } from '@/lib/utils/eventFilterMatch';
+import {
+  formatDateEastern,
+  getDateStringEastern,
+  getStartOfTodayEastern,
+  getStartOfTomorrowEastern,
+  getTodayStringEastern,
+} from '@/lib/utils/timezone';
+import { firstMatchingOccurrence, matchesEventFilters } from '@/lib/utils/eventFilterMatch';
 import { useAuth } from './AuthProvider';
 import { extractMonthFromSearch, getMonthDateRange } from '@/lib/utils/monthSearch';
 
@@ -892,6 +899,32 @@ export default function EventFeed({
       .slice(0, TOP30_VISIBLE_LIMIT);
   }, [top30CategoryEvents, filters, hiddenFingerprintKeys, sessionHiddenKeys]);
 
+  // The By time view. Each event goes under the Eastern day of its first showing
+  // that passes the date filter, so a Mon + Tue listing filtered to Tuesday sits
+  // under Tuesday, not under its Monday start date.
+  const top30DayGroups = useMemo(() => {
+    const bounds = computeDateFilterBounds();
+    const dated = filteredTop30CategoryEvents
+      .map((event) => {
+        const occurrences = getEventOccurrences(event);
+        const shown = firstMatchingOccurrence(occurrences, filters, bounds) ?? occurrences[0];
+        return { event, startDate: shown.startDate };
+      })
+      .sort((a, b) => a.startDate.getTime() - b.startDate.getTime());
+
+    const groups: { dayKey: string; date: Date; events: DatedInitialEvent[] }[] = [];
+    for (const { event, startDate } of dated) {
+      const dayKey = getDateStringEastern(startDate);
+      const group = groups[groups.length - 1];
+      if (group?.dayKey === dayKey) {
+        group.events.push(event);
+      } else {
+        groups.push({ dayKey, date: startDate, events: [event] });
+      }
+    }
+    return groups;
+  }, [filteredTop30CategoryEvents, filters]);
+
   // Backfill: when fewer than 30 survive, fetch the deeper pool for this category
   // (once per category per page load) so more can be added to the bottom.
   const needsTop30Backfill =
@@ -1412,6 +1445,11 @@ export default function EventFeed({
     blockedKeywords.length > 0 ||
     hiddenEvents.length > 0;
   const top30SortMode = top30SortChoice ?? (dateFilter === 'all' ? 'score' : 'date');
+  // A plain "12." only reads right when it is also the card's place in the list.
+  // Once a filter skips ranks, cards say "Rank #40" (the By time view always does).
+  const top30RanksArePositions = filteredTop30CategoryEvents.every(
+    (event, index) => top30RankingMap.get(event.id) === index + 1
+  );
 
   // Handle removing filters
   const handleRemoveFilter = useCallback((id: string) => {
@@ -2507,6 +2545,14 @@ export default function EventFeed({
             </div>
           </div>
 
+          {activeFilters.length > 0 && filteredTop30CategoryEvents.length > 0 && (
+            <p className="flex items-start gap-2 mb-4 mx-3 sm:mx-0 px-3 py-2 rounded-lg bg-brand-50 dark:bg-brand-900/30 text-sm text-gray-700 dark:text-gray-300">
+              <Info className="w-4 h-4 mt-0.5 shrink-0 text-brand-600 dark:text-brand-400" />
+              Your filters apply to this page. Ranks still count every event in the next 30 days,
+              not just the ones shown.
+            </p>
+          )}
+
           {/* Empty State */}
           {filteredTop30CategoryEvents.length === 0 && !top30BackfillLoading && (
             <div className="text-center py-20 px-4">
@@ -2557,6 +2603,7 @@ export default function EventFeed({
                   displayMode="full"
                   eventScore={event.score}
                   ranking={top30RankingMap.get(event.id)}
+                  rankAsLabel={!top30RanksArePositions}
                   isMobileExpanded={mobileExpandedIds.has(event.id)}
                   onMobileExpand={(id) =>
                     setMobileExpandedIds((prev) => {
@@ -2578,106 +2625,77 @@ export default function EventFeed({
           {/* Date-grouped view */}
           {top30SortMode === 'date' && filteredTop30CategoryEvents.length > 0 && (
             <div className="flex flex-col gap-10 mt-3">
-              {(() => {
-                return Object.entries(
-                  filteredTop30CategoryEvents.reduce(
-                    (groups, event) => {
-                      const date = new Date(event.startDate);
-                      const dateKey = date.toLocaleDateString('en-US', {
-                        weekday: 'short',
-                        month: 'short',
-                        day: 'numeric',
-                        year: 'numeric',
-                      });
-                      if (!groups[dateKey]) {
-                        groups[dateKey] = { date: date, events: [] };
-                      }
-                      groups[dateKey].events.push(event);
-                      return groups;
-                    },
-                    {} as Record<string, { date: Date; events: DatedInitialEvent[] }>
-                  )
-                )
-                  .sort(([, a], [, b]) => a.date.getTime() - b.date.getTime())
-                  .map(([dateKey, { date, events: groupEvents }]) => {
-                    const today = new Date();
-                    const tomorrow = new Date(today);
-                    tomorrow.setDate(tomorrow.getDate() + 1);
+              {top30DayGroups.map(({ dayKey, date, events: groupEvents }) => {
+                let headerText = formatDateEastern(date, {
+                  weekday: 'short',
+                  month: 'short',
+                  day: 'numeric',
+                  year: 'numeric',
+                });
+                if (dayKey === getTodayStringEastern()) {
+                  headerText = `Today, ${formatDateEastern(date, { month: 'short', day: 'numeric' })}`;
+                } else if (dayKey === getDateStringEastern(getStartOfTomorrowEastern())) {
+                  headerText = `Tomorrow, ${formatDateEastern(date, { month: 'short', day: 'numeric' })}`;
+                }
 
-                    let headerText = dateKey;
-                    if (date.toDateString() === today.toDateString()) {
-                      headerText = `Today, ${date.toLocaleDateString('en-US', {
-                        month: 'short',
-                        day: 'numeric',
-                      })}`;
-                    } else if (date.toDateString() === tomorrow.toDateString()) {
-                      headerText = `Tomorrow, ${date.toLocaleDateString('en-US', {
-                        month: 'short',
-                        day: 'numeric',
-                      })}`;
-                    }
-
-                    const sortedGroupEvents = [...groupEvents].sort(
-                      (a, b) => a.startDate.getTime() - b.startDate.getTime()
-                    );
-
-                    return (
-                      <div key={dateKey} className="flex flex-col">
-                        <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100 sticky top-0 bg-white dark:bg-gray-900 sm:border sm:border-b-0 sm:border-gray-200 dark:sm:border-gray-700 sm:rounded-t-lg pt-3 pb-2 px-3 sm:px-4 z-10">
-                          {headerText}
-                        </h2>
-                        <div className="flex flex-col bg-white dark:bg-gray-900 sm:rounded-b-lg sm:shadow-sm sm:border sm:border-gray-200 dark:sm:border-gray-700 ">
-                          {sortedGroupEvents.map((event) => (
-                            <EventCard
-                              key={event.id}
-                              event={{
-                                ...event,
-                                sourceId: event.sourceId,
-                                location: event.location ?? null,
-                                organizer: event.organizer ?? null,
-                                price: event.price ?? null,
-                                imageUrl: event.imageUrl ?? null,
-                                timeUnknown: event.timeUnknown ?? false,
-                                recurringType: event.recurringType ?? null,
-                              }}
-                              onHide={handleHideEvent}
-                              onBlockHost={handleBlockHost}
-                              isNewlyHidden={sessionHiddenKeys.has(
-                                createFingerprintKey(event.title, event.organizer)
-                              )}
-                              hideBorder
-                              isFavorited={favoritedEventIds.includes(event.id)}
-                              favoriteCount={
-                                favoriteCountOverrides[event.id] ?? event.favoriteCount ?? 0
+                return (
+                  <div key={dayKey} className="flex flex-col">
+                    <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100 sticky top-0 bg-white dark:bg-gray-900 sm:border sm:border-b-0 sm:border-gray-200 dark:sm:border-gray-700 sm:rounded-t-lg pt-3 pb-2 px-3 sm:px-4 z-10">
+                      {headerText}
+                    </h2>
+                    <div className="flex flex-col bg-white dark:bg-gray-900 sm:rounded-b-lg sm:shadow-sm sm:border sm:border-gray-200 dark:sm:border-gray-700 ">
+                      {groupEvents.map((event) => (
+                        <EventCard
+                          key={event.id}
+                          event={{
+                            ...event,
+                            sourceId: event.sourceId,
+                            location: event.location ?? null,
+                            organizer: event.organizer ?? null,
+                            price: event.price ?? null,
+                            imageUrl: event.imageUrl ?? null,
+                            timeUnknown: event.timeUnknown ?? false,
+                            recurringType: event.recurringType ?? null,
+                          }}
+                          onHide={handleHideEvent}
+                          onBlockHost={handleBlockHost}
+                          isNewlyHidden={sessionHiddenKeys.has(
+                            createFingerprintKey(event.title, event.organizer)
+                          )}
+                          hideBorder
+                          isFavorited={favoritedEventIds.includes(event.id)}
+                          favoriteCount={
+                            favoriteCountOverrides[event.id] ?? event.favoriteCount ?? 0
+                          }
+                          onToggleFavorite={handleToggleFavorite}
+                          isTagFilterActive={false}
+                          isCurated={curatedEventIds.has(event.id)}
+                          onCurate={handleOpenCurateModal}
+                          onUncurate={handleUncurate}
+                          isLoggedIn={isLoggedIn}
+                          displayMode="full"
+                          eventScore={event.score}
+                          ranking={top30RankingMap.get(event.id)}
+                          rankAsLabel
+                          isMobileExpanded={mobileExpandedIds.has(event.id)}
+                          onMobileExpand={(id) =>
+                            setMobileExpandedIds((prev) => {
+                              const next = new Set(prev);
+                              if (next.has(id)) {
+                                next.delete(id);
+                              } else {
+                                next.add(id);
                               }
-                              onToggleFavorite={handleToggleFavorite}
-                              isTagFilterActive={false}
-                              isCurated={curatedEventIds.has(event.id)}
-                              onCurate={handleOpenCurateModal}
-                              onUncurate={handleUncurate}
-                              isLoggedIn={isLoggedIn}
-                              displayMode="full"
-                              eventScore={event.score}
-                              isMobileExpanded={mobileExpandedIds.has(event.id)}
-                              onMobileExpand={(id) =>
-                                setMobileExpandedIds((prev) => {
-                                  const next = new Set(prev);
-                                  if (next.has(id)) {
-                                    next.delete(id);
-                                  } else {
-                                    next.add(id);
-                                  }
-                                  return next;
-                                })
-                              }
-                              onOpenModal={handleOpenEventModal}
-                            />
-                          ))}
-                        </div>
-                      </div>
-                    );
-                  });
-              })()}
+                              return next;
+                            })
+                          }
+                          onOpenModal={handleOpenEventModal}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           )}
 

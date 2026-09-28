@@ -40,14 +40,18 @@ jobs:
             REPO: ${{ github.repository }}
             PR NUMBER: ${{ github.event.pull_request.number }}
 
-            Please review this pull request and provide feedback on:
-            - Code quality and best practices
-            - Potential bugs or issues
-            - Performance considerations
-            - Security concerns
-            - Test coverage
+            Review this pull request for bugs, security problems, performance issues,
+            and code quality. Use the repository's CLAUDE.md for style and conventions.
 
-            Use the repository's CLAUDE.md for guidance on style and conventions. Be constructive and helpful in your feedback.
+            Before reviewing, read the earlier reviews and replies on this PR with
+            `gh pr view --comments`. Do not raise a point again if a later commit fixed
+            it or the author already declined it, and do not contradict an earlier
+            review's advice without saying so and why.
+
+            Start the comment with one verdict line: "Ready to merge" or "Needs changes".
+            Then list each point once, labelled **Must fix**, **Suggestion** or **FYI**.
+            Only a Must fix makes the verdict "Needs changes". If there is nothing new
+            to say, say that in one line instead of repeating earlier reviews.
 
             Use `gh pr comment` with your Bash tool to leave your review as a comment on the PR.
 

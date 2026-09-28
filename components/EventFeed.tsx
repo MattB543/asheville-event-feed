@@ -42,13 +42,23 @@ import {
   Bell,
   CalendarPlus2,
   ChevronDown,
+  Info,
+  Share2,
+  Trash2,
 } from 'lucide-react';
 import Link from 'next/link';
 import { getZipName } from '@/lib/config/zipNames';
 import { usePreferenceSync } from '@/lib/hooks/usePreferenceSync';
-import { useFavorites, replaceFavorites } from '@/lib/hooks/useFavorites';
+import { useFavorites, replaceFavorites, clearFavorites } from '@/lib/hooks/useFavorites';
 import { computeDateFilterBounds } from '@/lib/utils/dateFilters';
-import { matchesEventFilters } from '@/lib/utils/eventFilterMatch';
+import {
+  formatDateEastern,
+  getDateStringEastern,
+  getStartOfTodayEastern,
+  getStartOfTomorrowEastern,
+  getTodayStringEastern,
+} from '@/lib/utils/timezone';
+import { firstMatchingOccurrence, matchesEventFilters } from '@/lib/utils/eventFilterMatch';
 import { useAuth } from './AuthProvider';
 import { extractMonthFromSearch, getMonthDateRange } from '@/lib/utils/monthSearch';
 
@@ -557,7 +567,8 @@ export default function EventFeed({
   const [hidingEventIds, setHidingEventIds] = useState<Set<string>>(new Set());
 
   // Top 30 feed state
-  const [top30SortMode, setTop30SortMode] = useState<'score' | 'date'>('score');
+  // null until the visitor picks one, so a date filter can default the list to date order
+  const [top30SortChoice, setTop30SortChoice] = useState<'score' | 'date' | null>(null);
   const [top30Category, setTop30Category] = useState<'overall' | 'weird' | 'social'>(() => {
     if (typeof window === 'undefined') return 'overall';
     const params = new URLSearchParams(window.location.search);
@@ -599,6 +610,19 @@ export default function EventFeed({
   const [favoriteCountOverrides, setFavoriteCountOverrides] = useState<Record<string, number>>({});
   const [favoriteEventsData, setFavoriteEventsData] = useState<ApiEvent[]>([]);
   const [favoriteEventsLoading, setFavoriteEventsLoading] = useState(false);
+  const [confirmClearFavorites, setConfirmClearFavorites] = useState(false);
+  const confirmClearTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  useEffect(() => () => clearTimeout(confirmClearTimer.current ?? undefined), []);
+
+  // Someone else's favorites, opened from a Your List share link (?shared=id,id,...)
+  const [sharedEventIds, setSharedEventIds] = useState<string[]>(() => {
+    if (typeof window === 'undefined') return [];
+    const shared = new URLSearchParams(window.location.search).get('shared');
+    return shared ? shared.split(',').filter((id) => id.trim().length > 0) : [];
+  });
+  const [sharedEventsData, setSharedEventsData] = useState<ApiEvent[]>([]);
+  const [sharedEventsLoading, setSharedEventsLoading] = useState(sharedEventIds.length > 0);
+  const [sharedEventsFailed, setSharedEventsFailed] = useState(false);
 
   const [curatedEventIds, setCuratedEventIds] = useState<Set<string>>(new Set());
   const [curationsMap, setCurationsMap] = useState<Map<string, CurationData>>(new Map());
@@ -876,6 +900,32 @@ export default function EventFeed({
       .slice(0, TOP30_VISIBLE_LIMIT);
   }, [top30CategoryEvents, filters, hiddenFingerprintKeys, sessionHiddenKeys]);
 
+  // The By time view. Each event goes under the Eastern day of its first showing
+  // that passes the date filter, so a Mon + Tue listing filtered to Tuesday sits
+  // under Tuesday, not under its Monday start date.
+  const top30DayGroups = useMemo(() => {
+    const bounds = computeDateFilterBounds();
+    const dated = filteredTop30CategoryEvents
+      .map((event) => {
+        const occurrences = getEventOccurrences(event);
+        const shown = firstMatchingOccurrence(occurrences, filters, bounds) ?? occurrences[0];
+        return { event, startDate: shown.startDate };
+      })
+      .sort((a, b) => a.startDate.getTime() - b.startDate.getTime());
+
+    const groups: { dayKey: string; date: Date; events: DatedInitialEvent[] }[] = [];
+    for (const { event, startDate } of dated) {
+      const dayKey = getDateStringEastern(startDate);
+      const group = groups[groups.length - 1];
+      if (group?.dayKey === dayKey) {
+        group.events.push(event);
+      } else {
+        groups.push({ dayKey, date: startDate, events: [event] });
+      }
+    }
+    return groups;
+  }, [filteredTop30CategoryEvents, filters]);
+
   // Backfill: when fewer than 30 survive, fetch the deeper pool for this category
   // (once per category per page load) so more can be added to the bottom.
   const needsTop30Backfill =
@@ -968,8 +1018,24 @@ export default function EventFeed({
     return results.sort((a, b) => a.startDate.getTime() - b.startDate.getTime());
   }, [favoritedEventIds, favoriteEventsData, initialEvents]);
 
+  // Past favorites fold away so the list stays about what's coming up
+  const { upcomingFavorites, pastFavorites } = useMemo(() => {
+    const startOfToday = getStartOfTodayEastern().getTime();
+    return {
+      upcomingFavorites: favoritedEvents.filter((e) => e.startDate.getTime() >= startOfToday),
+      pastFavorites: favoritedEvents.filter((e) => e.startDate.getTime() < startOfToday).reverse(),
+    };
+  }, [favoritedEvents]);
+
+  const sharedEvents = useMemo(() => {
+    const startOfToday = getStartOfTodayEastern().getTime();
+    return sharedEventsData
+      .map((event) => ({ ...event, startDate: toDate(event.startDate) }))
+      .filter((event) => event.startDate.getTime() >= startOfToday);
+  }, [sharedEventsData]);
+
   // Every event rendered on any tab, so Curate can resolve a card that isn't in the
-  // paginated feed (Top 30, For You, favorites)
+  // paginated feed (Top 30, For You, favorites, a shared list)
   const curatableEventsById = useMemo(() => {
     const map = new Map<string, CuratableEvent>();
     const add = (event: CuratableEvent) => {
@@ -980,9 +1046,10 @@ export default function EventFeed({
     top30CategoryEvents.forEach(add);
     forYouEvents.forEach((scored) => add(scored.event));
     favoriteEventsData.forEach(add);
+    sharedEventsData.forEach(add);
 
     return map;
-  }, [events, top30CategoryEvents, forYouEvents, favoriteEventsData]);
+  }, [events, top30CategoryEvents, forYouEvents, favoriteEventsData, sharedEventsData]);
 
   // Preference sync with database (for logged-in users)
   // Uses refs to avoid stale closures in callbacks
@@ -1013,6 +1080,33 @@ export default function EventFeed({
     setHiddenEvents,
     setFavoritedEventIds: replaceFavorites,
   });
+
+  useEffect(() => {
+    if (sharedEventIds.length === 0) return;
+    const controller = new AbortController();
+
+    void (async () => {
+      try {
+        const response = await fetch('/api/events/favorites', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ ids: sharedEventIds }),
+          signal: controller.signal,
+        });
+        if (!response.ok) throw new Error(`Failed to load shared list: ${response.status}`);
+        const data = (await response.json()) as { events?: ApiEvent[] };
+        setSharedEventsData(Array.isArray(data.events) ? data.events : []);
+      } catch (error) {
+        if ((error as DOMException).name === 'AbortError') return;
+        console.error('[Shared list] Failed to load:', error);
+        setSharedEventsFailed(true);
+      } finally {
+        if (!controller.signal.aborted) setSharedEventsLoading(false);
+      }
+    })();
+
+    return () => controller.abort();
+  }, [sharedEventIds]);
 
   // Set isLoaded after mount to prevent hydration mismatch
   useEffect(() => {
@@ -1353,6 +1447,12 @@ export default function EventFeed({
     blockedHosts.length > 0 ||
     blockedKeywords.length > 0 ||
     hiddenEvents.length > 0;
+  const top30SortMode = top30SortChoice ?? (dateFilter === 'all' ? 'score' : 'date');
+  // A plain "12." only reads right when it is also the card's place in the list.
+  // Once a filter skips ranks, cards say "Rank #40" (the By time view always does).
+  const top30RanksArePositions = filteredTop30CategoryEvents.every(
+    (event, index) => top30RankingMap.get(event.id) === index + 1
+  );
 
   // Handle removing filters
   const handleRemoveFilter = useCallback((id: string) => {
@@ -1522,6 +1622,47 @@ export default function EventFeed({
     },
     [toggleFavorite]
   );
+
+  const handleShareFavorites = useCallback(async () => {
+    const ids = upcomingFavorites.map((event) => event.id);
+    const url = `${window.location.origin}/events/your-list?shared=${ids.join(',')}`;
+    if (navigator.share) {
+      try {
+        await navigator.share({ title: 'My AVL GO list', url });
+        return;
+      } catch (error) {
+        if ((error as DOMException).name === 'AbortError') return;
+      }
+    }
+    try {
+      await navigator.clipboard.writeText(url);
+      showToast('Link copied');
+    } catch {
+      showToast('Could not copy the link', 'error');
+    }
+  }, [upcomingFavorites, showToast]);
+
+  // Two taps so a stray click can't wipe the list; the sync effect saves the empty
+  // list for signed-in users
+  const handleClearFavorites = useCallback(() => {
+    if (!confirmClearFavorites) {
+      setConfirmClearFavorites(true);
+      confirmClearTimer.current = setTimeout(() => setConfirmClearFavorites(false), 4000);
+      return;
+    }
+    clearTimeout(confirmClearTimer.current ?? undefined);
+    setConfirmClearFavorites(false);
+    void clearFavorites((eventId, favoriteCount) =>
+      setFavoriteCountOverrides((prev) => ({ ...prev, [eventId]: favoriteCount }))
+    ).then((failed) => {
+      if (failed > 0) {
+        showToast(
+          `Your list is cleared, but ${failed} event${failed === 1 ? "'s heart count" : "s' heart counts"} didn't update`,
+          'error'
+        );
+      }
+    });
+  }, [confirmClearFavorites, showToast]);
 
   const handleOpenCurateModal = useCallback(
     (eventId: string) => {
@@ -1758,17 +1899,115 @@ export default function EventFeed({
   useEffect(() => {
     if (!isLoaded) return;
 
-    const newUrl = `${window.location.pathname}${shareParams}`;
+    let newUrl = `${window.location.pathname}${shareParams}`;
+    if (sharedEventIds.length > 0) {
+      newUrl += `${shareParams ? '&' : '?'}shared=${sharedEventIds.join(',')}`;
+    }
 
     // Only update if URL actually changed
     if (window.location.pathname + window.location.search !== newUrl) {
       window.history.replaceState(null, '', newUrl);
     }
-  }, [shareParams, isLoaded]);
+  }, [shareParams, sharedEventIds, isLoaded]);
 
   // SSR renders skeleton, client renders events after hydration (no artificial delay)
   // This keeps the page size small for Vercel's ISR limits
   if (!isLoaded) return <EventFeedSkeleton />;
+
+  const renderListCard = (event: Event | DatedInitialEvent, removable: boolean) => (
+    <EventCard
+      key={event.id}
+      event={{
+        ...event,
+        sourceId: event.sourceId,
+        location: event.location ?? null,
+        organizer: event.organizer ?? null,
+        price: event.price ?? null,
+        imageUrl: event.imageUrl ?? null,
+        timeUnknown: event.timeUnknown ?? false,
+        recurringType: event.recurringType ?? null,
+      }}
+      onHide={handleHideEvent}
+      onBlockHost={handleBlockHost}
+      isNewlyHidden={false}
+      hideBorder
+      isFavorited={favoritedEventIds.includes(event.id)}
+      favoriteCount={favoriteCountOverrides[event.id] ?? event.favoriteCount ?? 0}
+      onToggleFavorite={handleToggleFavorite}
+      showRemoveFavorite={removable}
+      isTagFilterActive={false}
+      isCurated={curatedEventIds.has(event.id)}
+      onCurate={handleOpenCurateModal}
+      onUncurate={handleUncurate}
+      isLoggedIn={isLoggedIn}
+      displayMode="full"
+      isHiding={hidingEventIds.has(event.id)}
+      isMobileExpanded={mobileExpandedIds.has(event.id)}
+      onMobileExpand={(id) =>
+        setMobileExpandedIds((prev) => {
+          const next = new Set(prev);
+          if (next.has(id)) {
+            next.delete(id);
+          } else {
+            next.add(id);
+          }
+          return next;
+        })
+      }
+      onOpenModal={handleOpenEventModal}
+    />
+  );
+
+  const favoritesActions = (
+    <div className="flex items-center gap-2">
+      {upcomingFavorites.length > 0 && (
+        <button
+          onClick={() => void handleShareFavorites()}
+          className="flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-lg border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors cursor-pointer"
+        >
+          <Share2 className="w-4 h-4" />
+          Share list
+        </button>
+      )}
+      <button
+        onClick={handleClearFavorites}
+        className={`flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-lg border transition-colors cursor-pointer ${
+          confirmClearFavorites
+            ? 'border-red-300 dark:border-red-800 text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-950/50'
+            : 'border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
+        }`}
+      >
+        <Trash2 className="w-4 h-4" />
+        {confirmClearFavorites ? 'Tap again to clear' : 'Clear all'}
+      </button>
+    </div>
+  );
+
+  const favoritesList = (
+    <>
+      {upcomingFavorites.length > 0 ? (
+        <div className="flex flex-col bg-white dark:bg-gray-900 sm:rounded-lg sm:shadow-sm sm:border sm:border-gray-200 dark:sm:border-gray-700">
+          {upcomingFavorites.map((event) => renderListCard(event, true))}
+        </div>
+      ) : (
+        <p className="text-sm text-gray-500 dark:text-gray-400 py-6 text-center">
+          Nothing coming up on your list.
+        </p>
+      )}
+
+      {pastFavorites.length > 0 && (
+        <details className="mt-6 group">
+          <summary className="flex items-center gap-1 px-3 sm:px-0 text-sm font-medium text-gray-500 dark:text-gray-400 cursor-pointer list-none">
+            <ChevronDown className="w-4 h-4 -rotate-90 group-open:rotate-0 transition-transform" />
+            Past ({pastFavorites.length})
+          </summary>
+          <div className="mt-3 flex flex-col bg-white dark:bg-gray-900 sm:rounded-lg sm:shadow-sm sm:border sm:border-gray-200 dark:sm:border-gray-700 opacity-75">
+            {pastFavorites.map((event) => renderListCard(event, true))}
+          </div>
+        </details>
+      )}
+    </>
+  );
 
   return (
     <div className="max-w-7xl mx-auto px-0 sm:px-6 lg:px-8 py-6">
@@ -1813,6 +2052,45 @@ export default function EventFeed({
       {/* Your List Feed */}
       {activeTab === 'yourList' && (
         <>
+          {sharedEventIds.length > 0 && (
+            <div className="mb-8">
+              <div className="flex items-center justify-between mb-1 px-3 sm:px-0">
+                <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-100">
+                  A list shared with you
+                </h2>
+                <button
+                  onClick={() => setSharedEventIds([])}
+                  className="text-sm text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 cursor-pointer"
+                >
+                  Dismiss
+                </button>
+              </div>
+              {!sharedEventsFailed && (
+                <p className="text-sm text-gray-500 dark:text-gray-400 mb-4 px-3 sm:px-0">
+                  Tap the heart on anything you like to save it to your own list.
+                </p>
+              )}
+              {sharedEventsLoading ? (
+                <div className="flex items-center justify-center py-10 text-sm text-gray-500 dark:text-gray-400">
+                  Loading the list...
+                </div>
+              ) : sharedEventsFailed ? (
+                <p className="text-sm text-gray-500 dark:text-gray-400 px-3 sm:px-0">
+                  We couldn&apos;t open this list. The link may have been cut off, so ask for it
+                  again.
+                </p>
+              ) : sharedEvents.length > 0 ? (
+                <div className="flex flex-col bg-white dark:bg-gray-900 sm:rounded-lg sm:shadow-sm sm:border sm:border-gray-200 dark:sm:border-gray-700">
+                  {sharedEvents.map((event) => renderListCard(event, false))}
+                </div>
+              ) : (
+                <p className="text-sm text-gray-500 dark:text-gray-400 px-3 sm:px-0">
+                  Everything on this list has already happened.
+                </p>
+              )}
+            </div>
+          )}
+
           {/* Sign-in Prompt + Favorites for Anonymous Users */}
           {!isLoggedIn && (
             <>
@@ -1836,62 +2114,22 @@ export default function EventFeed({
               {/* Your Favorites Section (below CTA) */}
               {favoritedEventIds.length > 0 && (
                 <div className="mt-4">
-                  <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-4 px-3 sm:px-0">
-                    Your Favorites (
-                    {favoritedEvents.length > 0 ? favoritedEvents.length : favoritedEventIds.length}
-                    )
-                  </h2>
+                  <div className="flex flex-wrap items-center justify-between gap-2 mb-4 px-3 sm:px-0">
+                    <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-100">
+                      Your Favorites (
+                      {favoritedEvents.length > 0
+                        ? favoritedEvents.length
+                        : favoritedEventIds.length}
+                      )
+                    </h2>
+                    {favoritedEvents.length > 0 && favoritesActions}
+                  </div>
                   {favoriteEventsLoading && favoritedEvents.length === 0 ? (
                     <div className="flex items-center justify-center py-10 text-sm text-gray-500 dark:text-gray-400">
                       Loading your favorites...
                     </div>
                   ) : (
-                    <div className="flex flex-col bg-white dark:bg-gray-900 sm:rounded-lg sm:shadow-sm sm:border sm:border-gray-200 dark:sm:border-gray-700">
-                      {favoritedEvents.map((event) => (
-                        <EventCard
-                          key={event.id}
-                          event={{
-                            ...event,
-                            sourceId: event.sourceId,
-                            location: event.location ?? null,
-                            organizer: event.organizer ?? null,
-                            price: event.price ?? null,
-                            imageUrl: event.imageUrl ?? null,
-                            timeUnknown: event.timeUnknown ?? false,
-                            recurringType: event.recurringType ?? null,
-                          }}
-                          onHide={handleHideEvent}
-                          onBlockHost={handleBlockHost}
-                          isNewlyHidden={false}
-                          hideBorder
-                          isFavorited={true}
-                          favoriteCount={
-                            favoriteCountOverrides[event.id] ?? event.favoriteCount ?? 0
-                          }
-                          onToggleFavorite={handleToggleFavorite}
-                          isTagFilterActive={false}
-                          isCurated={curatedEventIds.has(event.id)}
-                          onCurate={handleOpenCurateModal}
-                          onUncurate={handleUncurate}
-                          isLoggedIn={isLoggedIn}
-                          displayMode="full"
-                          isHiding={hidingEventIds.has(event.id)}
-                          isMobileExpanded={mobileExpandedIds.has(event.id)}
-                          onMobileExpand={(id) =>
-                            setMobileExpandedIds((prev) => {
-                              const next = new Set(prev);
-                              if (next.has(id)) {
-                                next.delete(id);
-                              } else {
-                                next.add(id);
-                              }
-                              return next;
-                            })
-                          }
-                          onOpenModal={handleOpenEventModal}
-                        />
-                      ))}
-                    </div>
+                    favoritesList
                   )}
                 </div>
               )}
@@ -2217,50 +2455,10 @@ export default function EventFeed({
 
               {/* Favorites list */}
               {!favoriteEventsLoading && favoritedEvents.length > 0 && (
-                <div className="flex flex-col bg-white dark:bg-gray-900 sm:rounded-lg sm:shadow-sm sm:border sm:border-gray-200 dark:sm:border-gray-700">
-                  {favoritedEvents.map((event) => (
-                    <EventCard
-                      key={event.id}
-                      event={{
-                        ...event,
-                        sourceId: event.sourceId,
-                        location: event.location ?? null,
-                        organizer: event.organizer ?? null,
-                        price: event.price ?? null,
-                        imageUrl: event.imageUrl ?? null,
-                        timeUnknown: event.timeUnknown ?? false,
-                        recurringType: event.recurringType ?? null,
-                      }}
-                      onHide={handleHideEvent}
-                      onBlockHost={handleBlockHost}
-                      isNewlyHidden={false}
-                      hideBorder
-                      isFavorited={true}
-                      favoriteCount={favoriteCountOverrides[event.id] ?? event.favoriteCount ?? 0}
-                      onToggleFavorite={handleToggleFavorite}
-                      isTagFilterActive={false}
-                      isCurated={curatedEventIds.has(event.id)}
-                      onCurate={handleOpenCurateModal}
-                      onUncurate={handleUncurate}
-                      isLoggedIn={isLoggedIn}
-                      displayMode="full"
-                      isHiding={hidingEventIds.has(event.id)}
-                      isMobileExpanded={mobileExpandedIds.has(event.id)}
-                      onMobileExpand={(id) =>
-                        setMobileExpandedIds((prev) => {
-                          const next = new Set(prev);
-                          if (next.has(id)) {
-                            next.delete(id);
-                          } else {
-                            next.add(id);
-                          }
-                          return next;
-                        })
-                      }
-                      onOpenModal={handleOpenEventModal}
-                    />
-                  ))}
-                </div>
+                <>
+                  <div className="flex justify-end mb-3 px-3 sm:px-0">{favoritesActions}</div>
+                  {favoritesList}
+                </>
               )}
             </>
           )}
@@ -2330,34 +2528,40 @@ export default function EventFeed({
             </div>
 
             {/* Sort Mode Toggle */}
-            <div className="flex flex-col items-start gap-1 sm:items-auto">
-              <span className="text-xs text-gray-500 dark:text-gray-400 sm:hidden">Sort by</span>
+            <div className="flex flex-col items-start gap-1 sm:flex-row sm:items-center sm:gap-2">
+              <span className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">Sort:</span>
               <div className="flex items-center gap-1.5 sm:gap-2 bg-gray-100 dark:bg-gray-800 rounded-lg p-0.5 sm:p-1 w-fit">
                 <button
-                  onClick={() => setTop30SortMode('score')}
+                  onClick={() => setTop30SortChoice('score')}
                   className={`flex items-center gap-1 px-2 sm:px-3 py-1 sm:py-1.5 text-xs sm:text-sm font-medium rounded-md transition-colors cursor-pointer ${
                     top30SortMode === 'score'
                       ? 'bg-white dark:bg-gray-700 text-[#2a7d9c] dark:text-[#7ec8e3] shadow-sm'
                       : 'text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200'
                   }`}
                 >
-                  Score
-                  {top30SortMode === 'score' && <ChevronDown className="w-3 h-3" />}
+                  Best first
                 </button>
                 <button
-                  onClick={() => setTop30SortMode('date')}
+                  onClick={() => setTop30SortChoice('date')}
                   className={`flex items-center gap-1 px-2 sm:px-3 py-1 sm:py-1.5 text-xs sm:text-sm font-medium rounded-md transition-colors cursor-pointer ${
                     top30SortMode === 'date'
                       ? 'bg-white dark:bg-gray-700 text-[#2a7d9c] dark:text-[#7ec8e3] shadow-sm'
                       : 'text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200'
                   }`}
                 >
-                  Date
-                  {top30SortMode === 'date' && <ChevronDown className="w-3 h-3" />}
+                  By time
                 </button>
               </div>
             </div>
           </div>
+
+          {activeFilters.length > 0 && filteredTop30CategoryEvents.length > 0 && (
+            <p className="flex items-start gap-2 mb-4 mx-3 sm:mx-0 px-3 py-2 rounded-lg bg-brand-50 dark:bg-brand-900/30 text-sm text-gray-700 dark:text-gray-300">
+              <Info className="w-4 h-4 mt-0.5 shrink-0 text-brand-600 dark:text-brand-400" />
+              Your filters apply to this page. Ranks still count every event in the next 30 days,
+              not just the ones shown.
+            </p>
+          )}
 
           {/* Empty State */}
           {filteredTop30CategoryEvents.length === 0 && !top30BackfillLoading && (
@@ -2409,6 +2613,7 @@ export default function EventFeed({
                   displayMode="full"
                   eventScore={event.score}
                   ranking={top30RankingMap.get(event.id)}
+                  rankAsLabel={!top30RanksArePositions}
                   isMobileExpanded={mobileExpandedIds.has(event.id)}
                   onMobileExpand={(id) =>
                     setMobileExpandedIds((prev) => {
@@ -2430,109 +2635,77 @@ export default function EventFeed({
           {/* Date-grouped view */}
           {top30SortMode === 'date' && filteredTop30CategoryEvents.length > 0 && (
             <div className="flex flex-col gap-10 mt-3">
-              {(() => {
-                return Object.entries(
-                  filteredTop30CategoryEvents.reduce(
-                    (groups, event) => {
-                      const date = new Date(event.startDate);
-                      const dateKey = date.toLocaleDateString('en-US', {
-                        weekday: 'short',
-                        month: 'short',
-                        day: 'numeric',
-                        year: 'numeric',
-                      });
-                      if (!groups[dateKey]) {
-                        groups[dateKey] = { date: date, events: [] };
-                      }
-                      groups[dateKey].events.push(event);
-                      return groups;
-                    },
-                    {} as Record<string, { date: Date; events: DatedInitialEvent[] }>
-                  )
-                )
-                  .sort(([, a], [, b]) => a.date.getTime() - b.date.getTime())
-                  .map(([dateKey, { date, events: groupEvents }]) => {
-                    const today = new Date();
-                    const tomorrow = new Date(today);
-                    tomorrow.setDate(tomorrow.getDate() + 1);
+              {top30DayGroups.map(({ dayKey, date, events: groupEvents }) => {
+                let headerText = formatDateEastern(date, {
+                  weekday: 'short',
+                  month: 'short',
+                  day: 'numeric',
+                  year: 'numeric',
+                });
+                if (dayKey === getTodayStringEastern()) {
+                  headerText = `Today, ${formatDateEastern(date, { month: 'short', day: 'numeric' })}`;
+                } else if (dayKey === getDateStringEastern(getStartOfTomorrowEastern())) {
+                  headerText = `Tomorrow, ${formatDateEastern(date, { month: 'short', day: 'numeric' })}`;
+                }
 
-                    let headerText = dateKey;
-                    if (date.toDateString() === today.toDateString()) {
-                      headerText = `Today, ${date.toLocaleDateString('en-US', {
-                        month: 'short',
-                        day: 'numeric',
-                      })}`;
-                    } else if (date.toDateString() === tomorrow.toDateString()) {
-                      headerText = `Tomorrow, ${date.toLocaleDateString('en-US', {
-                        month: 'short',
-                        day: 'numeric',
-                      })}`;
-                    }
-
-                    // Sort by ranking (pre-sorted by server) within each day
-                    const sortedGroupEvents = [...groupEvents].sort(
-                      (a, b) =>
-                        (top30RankingMap.get(a.id) || 999) - (top30RankingMap.get(b.id) || 999)
-                    );
-
-                    return (
-                      <div key={dateKey} className="flex flex-col">
-                        <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100 sticky top-0 bg-white dark:bg-gray-900 sm:border sm:border-b-0 sm:border-gray-200 dark:sm:border-gray-700 sm:rounded-t-lg pt-3 pb-2 px-3 sm:px-4 z-10">
-                          {headerText}
-                        </h2>
-                        <div className="flex flex-col bg-white dark:bg-gray-900 sm:rounded-b-lg sm:shadow-sm sm:border sm:border-gray-200 dark:sm:border-gray-700 ">
-                          {sortedGroupEvents.map((event) => (
-                            <EventCard
-                              key={event.id}
-                              event={{
-                                ...event,
-                                sourceId: event.sourceId,
-                                location: event.location ?? null,
-                                organizer: event.organizer ?? null,
-                                price: event.price ?? null,
-                                imageUrl: event.imageUrl ?? null,
-                                timeUnknown: event.timeUnknown ?? false,
-                                recurringType: event.recurringType ?? null,
-                              }}
-                              onHide={handleHideEvent}
-                              onBlockHost={handleBlockHost}
-                              isNewlyHidden={sessionHiddenKeys.has(
-                                createFingerprintKey(event.title, event.organizer)
-                              )}
-                              hideBorder
-                              isFavorited={favoritedEventIds.includes(event.id)}
-                              favoriteCount={
-                                favoriteCountOverrides[event.id] ?? event.favoriteCount ?? 0
+                return (
+                  <div key={dayKey} className="flex flex-col">
+                    <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100 sticky top-0 bg-white dark:bg-gray-900 sm:border sm:border-b-0 sm:border-gray-200 dark:sm:border-gray-700 sm:rounded-t-lg pt-3 pb-2 px-3 sm:px-4 z-10">
+                      {headerText}
+                    </h2>
+                    <div className="flex flex-col bg-white dark:bg-gray-900 sm:rounded-b-lg sm:shadow-sm sm:border sm:border-gray-200 dark:sm:border-gray-700 ">
+                      {groupEvents.map((event) => (
+                        <EventCard
+                          key={event.id}
+                          event={{
+                            ...event,
+                            sourceId: event.sourceId,
+                            location: event.location ?? null,
+                            organizer: event.organizer ?? null,
+                            price: event.price ?? null,
+                            imageUrl: event.imageUrl ?? null,
+                            timeUnknown: event.timeUnknown ?? false,
+                            recurringType: event.recurringType ?? null,
+                          }}
+                          onHide={handleHideEvent}
+                          onBlockHost={handleBlockHost}
+                          isNewlyHidden={sessionHiddenKeys.has(
+                            createFingerprintKey(event.title, event.organizer)
+                          )}
+                          hideBorder
+                          isFavorited={favoritedEventIds.includes(event.id)}
+                          favoriteCount={
+                            favoriteCountOverrides[event.id] ?? event.favoriteCount ?? 0
+                          }
+                          onToggleFavorite={handleToggleFavorite}
+                          isTagFilterActive={false}
+                          isCurated={curatedEventIds.has(event.id)}
+                          onCurate={handleOpenCurateModal}
+                          onUncurate={handleUncurate}
+                          isLoggedIn={isLoggedIn}
+                          displayMode="full"
+                          eventScore={event.score}
+                          ranking={top30RankingMap.get(event.id)}
+                          rankAsLabel
+                          isMobileExpanded={mobileExpandedIds.has(event.id)}
+                          onMobileExpand={(id) =>
+                            setMobileExpandedIds((prev) => {
+                              const next = new Set(prev);
+                              if (next.has(id)) {
+                                next.delete(id);
+                              } else {
+                                next.add(id);
                               }
-                              onToggleFavorite={handleToggleFavorite}
-                              isTagFilterActive={false}
-                              isCurated={curatedEventIds.has(event.id)}
-                              onCurate={handleOpenCurateModal}
-                              onUncurate={handleUncurate}
-                              isLoggedIn={isLoggedIn}
-                              displayMode="full"
-                              eventScore={event.score}
-                              ranking={top30RankingMap.get(event.id)}
-                              isMobileExpanded={mobileExpandedIds.has(event.id)}
-                              onMobileExpand={(id) =>
-                                setMobileExpandedIds((prev) => {
-                                  const next = new Set(prev);
-                                  if (next.has(id)) {
-                                    next.delete(id);
-                                  } else {
-                                    next.add(id);
-                                  }
-                                  return next;
-                                })
-                              }
-                              onOpenModal={handleOpenEventModal}
-                            />
-                          ))}
-                        </div>
-                      </div>
-                    );
-                  });
-              })()}
+                              return next;
+                            })
+                          }
+                          onOpenModal={handleOpenEventModal}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           )}
 

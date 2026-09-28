@@ -392,7 +392,11 @@ the list back up to 30. Ranks are positions in the unfiltered merged list, so a
 filtered page reads 2, 12, 19 ... 98 rather than renumbering. The pool is
 appended to the SSR candidates rather than swapped in, so a rank the visitor
 has already seen never moves even if the two cache entries were filled at
-different moments.
+different moments. A card reads "12." only while every rank on the page equals
+its position; once a filter skips ranks, and always in the By time view, it
+reads "Rank #40" instead, and a note under the controls says the filters apply
+and the ranks count every event. By time groups each event under the Eastern
+day of its first showing that passes the date filter, not its first start date.
 
 ### Authenticated APIs (require Supabase Auth)
 
@@ -590,6 +594,12 @@ FB_XS=
 - Preferences stored in localStorage (offline-first)
 - Synced to `userPreferences` table when authenticated
 - Includes: blocked hosts, blocked keywords, hidden events, favorites
+- Every sync is a three-way merge (`usePreferenceSync`): each device keeps the
+  lists as it last synced them (`preferenceSyncBase:<userId>` in localStorage),
+  applies only what it added or removed since onto the server copy, and saves
+  the result. A plain union let a stale device put back favorites another device
+  had cleared. A device with no base yet (first sign-in there) still unions, which
+  is how signed-out favorites join the account.
 
 ### Curator Profiles
 

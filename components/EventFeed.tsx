@@ -622,6 +622,7 @@ export default function EventFeed({
   });
   const [sharedEventsData, setSharedEventsData] = useState<ApiEvent[]>([]);
   const [sharedEventsLoading, setSharedEventsLoading] = useState(sharedEventIds.length > 0);
+  const [sharedEventsFailed, setSharedEventsFailed] = useState(false);
 
   const [curatedEventIds, setCuratedEventIds] = useState<Set<string>>(new Set());
   const [curationsMap, setCurationsMap] = useState<Map<string, CurationData>>(new Map());
@@ -1034,7 +1035,7 @@ export default function EventFeed({
   }, [sharedEventsData]);
 
   // Every event rendered on any tab, so Curate can resolve a card that isn't in the
-  // paginated feed (Top 30, For You, favorites)
+  // paginated feed (Top 30, For You, favorites, a shared list)
   const curatableEventsById = useMemo(() => {
     const map = new Map<string, CuratableEvent>();
     const add = (event: CuratableEvent) => {
@@ -1045,9 +1046,10 @@ export default function EventFeed({
     top30CategoryEvents.forEach(add);
     forYouEvents.forEach((scored) => add(scored.event));
     favoriteEventsData.forEach(add);
+    sharedEventsData.forEach(add);
 
     return map;
-  }, [events, top30CategoryEvents, forYouEvents, favoriteEventsData]);
+  }, [events, top30CategoryEvents, forYouEvents, favoriteEventsData, sharedEventsData]);
 
   // Preference sync with database (for logged-in users)
   // Uses refs to avoid stale closures in callbacks
@@ -1097,8 +1099,9 @@ export default function EventFeed({
       } catch (error) {
         if ((error as DOMException).name === 'AbortError') return;
         console.error('[Shared list] Failed to load:', error);
+        setSharedEventsFailed(true);
       } finally {
-        setSharedEventsLoading(false);
+        if (!controller.signal.aborted) setSharedEventsLoading(false);
       }
     })();
 
@@ -2062,13 +2065,20 @@ export default function EventFeed({
                   Dismiss
                 </button>
               </div>
-              <p className="text-sm text-gray-500 dark:text-gray-400 mb-4 px-3 sm:px-0">
-                Tap the heart on anything you like to save it to your own list.
-              </p>
+              {!sharedEventsFailed && (
+                <p className="text-sm text-gray-500 dark:text-gray-400 mb-4 px-3 sm:px-0">
+                  Tap the heart on anything you like to save it to your own list.
+                </p>
+              )}
               {sharedEventsLoading ? (
                 <div className="flex items-center justify-center py-10 text-sm text-gray-500 dark:text-gray-400">
                   Loading the list...
                 </div>
+              ) : sharedEventsFailed ? (
+                <p className="text-sm text-gray-500 dark:text-gray-400 px-3 sm:px-0">
+                  We couldn&apos;t open this list. The link may have been cut off, so ask for it
+                  again.
+                </p>
               ) : sharedEvents.length > 0 ? (
                 <div className="flex flex-col bg-white dark:bg-gray-900 sm:rounded-lg sm:shadow-sm sm:border sm:border-gray-200 dark:sm:border-gray-700">
                   {sharedEvents.map((event) => renderListCard(event, false))}

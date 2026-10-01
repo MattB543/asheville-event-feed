@@ -38,6 +38,8 @@ export interface NewsStoryView {
   score: number;
   topRank: number | null;
   filingDay: string; // 'YYYY-MM-DD', ET
+  /** The newest member article's time, which is what the filing day follows. */
+  lastArticleAt: Date;
   /** Where "Read at X" and a minimal row's headline go. Null only if every member went away. */
   lead: NewsLink | null;
   /** One link per other outlet that covered the story, earliest article first. */
@@ -85,6 +87,7 @@ const STORY_FIELDS = {
   filingDay: newsStories.filingDay,
   leadArticleId: newsStories.leadArticleId,
   firstPublishedAt: newsStories.firstPublishedAt,
+  lastArticleAt: newsStories.lastArticleAt,
 };
 
 type StoryRow = Pick<NewsStoryRow, keyof typeof STORY_FIELDS>;
@@ -167,6 +170,7 @@ async function withLinks(rows: StoryRow[]): Promise<NewsStoryView[]> {
       score: row.score,
       topRank: row.topRank,
       filingDay: row.filingDay,
+      lastArticleAt: row.lastArticleAt,
       lead: leadMember ? toLink(leadMember) : null,
       otherOutlets,
       // A community-tier story's lead already is the thread

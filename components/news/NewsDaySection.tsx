@@ -20,7 +20,8 @@ export function NewsListLabel({ children }: { children: React.ReactNode }) {
 
 /**
  * The short version: one AI sentence per Top story, run together as a
- * paragraph, each sentence a link down to its card.
+ * paragraph, each sentence a link down to its card. The links stay quiet until
+ * hovered or focused, so it reads as a paragraph rather than a list of links.
  */
 function ShortVersion({
   sentences,
@@ -30,19 +31,19 @@ function ShortVersion({
   linkable: Set<string>;
 }) {
   return (
-    <div className="px-3 sm:px-5 py-4 bg-brand-50/70 dark:bg-brand-950/30 border-b border-brand-100 dark:border-brand-900/60">
+    <div className="px-3 sm:px-5 py-3.5 sm:py-4 bg-brand-50/70 dark:bg-brand-950/30 border-b border-brand-100 dark:border-brand-900/60">
       <p className="flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-[0.12em] text-brand-700 dark:text-brand-300">
         <Sparkles size={13} aria-hidden="true" />
         The short version
       </p>
-      <p className="mt-2 text-[15px] leading-relaxed text-gray-800 dark:text-gray-100">
+      <p className="mt-2 text-sm sm:text-[15px] leading-relaxed text-gray-800 dark:text-gray-100">
         {sentences.map((sentence, index) => (
           <span key={`${sentence.storyId}-${index}`}>
             {index > 0 && ' '}
             {linkable.has(sentence.storyId) ? (
               <a
                 href={`#${storyAnchorId(sentence.storyId)}`}
-                className="underline decoration-brand-300 dark:decoration-brand-700 decoration-1 underline-offset-[3px] hover:text-brand-700 dark:hover:text-brand-300 hover:decoration-current"
+                className="decoration-1 underline-offset-[3px] hover:underline focus-visible:underline hover:text-brand-700 dark:hover:text-brand-300 focus-visible:text-brand-700 dark:focus-visible:text-brand-300"
               >
                 {sentence.text}
               </a>

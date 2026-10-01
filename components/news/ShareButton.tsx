@@ -2,6 +2,10 @@
 
 import { Share } from 'lucide-react';
 import { useToast } from '@/components/ui/Toast';
+import { TAP_AREA } from './display';
+
+// Share links always point at the live site, even from a preview or local build
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://avlgo.com';
 
 interface ShareButtonProps {
   shortId: string;
@@ -26,7 +30,7 @@ export default function ShareButton({ shortId, headline }: ShareButtonProps) {
   };
 
   const handleShare = async () => {
-    const url = `${window.location.origin}/news?s=${shortId}`;
+    const url = `${SITE_URL}/news?s=${shortId}`;
     const touch = window.matchMedia('(pointer: coarse)').matches;
 
     if (touch && typeof navigator.share === 'function') {
@@ -47,7 +51,7 @@ export default function ShareButton({ shortId, headline }: ShareButtonProps) {
     <button
       type="button"
       onClick={() => void handleShare()}
-      className="inline-flex items-center gap-1 rounded-md px-1.5 py-1 text-xs font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-200 cursor-pointer transition-colors"
+      className={`${TAP_AREA} inline-flex items-center gap-1 rounded-md px-1.5 py-1 text-xs font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-200 cursor-pointer transition-colors`}
       aria-label={`Share: ${headline}`}
     >
       <Share size={14} aria-hidden="true" />

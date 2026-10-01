@@ -8,10 +8,7 @@ import { outboundUrl, storyAnchorId } from './display';
  */
 export default function NewsStoryRow({ story }: { story: NewsStoryView }) {
   return (
-    <li
-      id={storyAnchorId(story.shortId)}
-      className="scroll-mt-16 transition-colors target:bg-(--accent-warm-soft)"
-    >
+    <li id={storyAnchorId(story.shortId)} className="scroll-mt-16">
       {story.lead ? (
         <a
           href={outboundUrl(story.lead.url)}

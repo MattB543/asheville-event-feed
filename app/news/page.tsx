@@ -6,8 +6,8 @@ import NewsResultsList from '@/components/news/NewsResultsList';
 import NewsSearchForm from '@/components/news/NewsSearchForm';
 import NewsSourcesModal from '@/components/news/NewsSourcesModal';
 import NewsStoryCard from '@/components/news/NewsStoryCard';
-import SharedStoryFocus from '@/components/news/SharedStoryFocus';
-import { firstSentence, isUsableStoryImage } from '@/components/news/display';
+import StoryFocus from '@/components/news/StoryFocus';
+import { clipText, isUsableStoryImage } from '@/components/news/display';
 import {
   getSharedStory,
   NEWS_RESULTS_LIMIT,
@@ -26,7 +26,10 @@ import { isNewsTopicSlug, newsTopic } from '@/lib/news/topics';
 // next request, so there is nothing to invalidate (docs/news/05-v1-plan.md §7.1).
 export const dynamic = 'force-dynamic';
 
-const PAGE_TITLE = 'Asheville News · AVL GO';
+// The root layout's template makes this "Asheville News | AVL GO"; link
+// previews don't go through the template, so they get the full form.
+const PAGE_TITLE = 'Asheville News';
+const PREVIEW_TITLE = `${PAGE_TITLE} | AVL GO`;
 const PAGE_DESCRIPTION =
   'Asheville and Buncombe County news, summarized by AVL GO from local newsrooms, public agencies and community forums, with links to the original reporting.';
 
@@ -56,27 +59,27 @@ export async function generateMetadata({ searchParams }: NewsPageProps): Promise
 
   if (!story) {
     return {
-      title: { absolute: PAGE_TITLE },
+      title: PAGE_TITLE,
       description: PAGE_DESCRIPTION,
       alternates: { canonical: '/news' },
       openGraph: {
         type: 'website',
         siteName: 'AVL GO',
         url: '/news',
-        title: PAGE_TITLE,
+        title: PREVIEW_TITLE,
         description: PAGE_DESCRIPTION,
         images: ['/avlgo-og.png'],
       },
       twitter: {
         card: 'summary_large_image',
-        title: PAGE_TITLE,
+        title: PREVIEW_TITLE,
         description: PAGE_DESCRIPTION,
         images: ['/avlgo-og.png'],
       },
     };
   }
 
-  const description = firstSentence(story.summary);
+  const description = clipText(story.summary);
   const image = isUsableStoryImage(story.imageUrl) ? story.imageUrl : '/avlgo-og.png';
 
   return {
@@ -187,10 +190,11 @@ export default async function NewsPage({ searchParams }: NewsPageProps) {
       <Header activeTab="news" />
 
       <div className="flex-grow">
-        {/* The same max-w-7xl column as the event pages, so the title lines up
-            across tabs; the news itself reads in a narrower column inside it. */}
+        {/* The event pages' gutters, around a centered reading column. The end
+            cap is centered under it but wider: event cards lay out in three
+            columns from xl up and need about 1000px to do it. */}
         <div className="max-w-7xl mx-auto px-0 sm:px-6 lg:px-8 pt-6 pb-4">
-          <div className="max-w-3xl">
+          <div className="max-w-3xl mx-auto">
             <div className="px-3 sm:px-0">
               <h1 className="text-lg sm:text-2xl font-bold text-gray-900 dark:text-gray-100">
                 Asheville news
@@ -221,7 +225,7 @@ export default async function NewsPage({ searchParams }: NewsPageProps) {
                 </div>
               </section>
             )}
-            {shared && <SharedStoryFocus shortId={shared.shortId} />}
+            <StoryFocus sharedId={shared?.shortId ?? null} />
 
             {failed ? (
               <EmptyState>News is unavailable right now. Please try again shortly.</EmptyState>
@@ -251,7 +255,9 @@ export default async function NewsPage({ searchParams }: NewsPageProps) {
             )}
           </div>
 
-          <NewsEndCap events={endCapEvents} />
+          <div className="max-w-5xl mx-auto">
+            <NewsEndCap events={endCapEvents} />
+          </div>
         </div>
       </div>
 

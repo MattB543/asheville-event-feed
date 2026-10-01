@@ -65,7 +65,7 @@ export function outboundUrl(url: string): string {
   }
 }
 
-const IMAGE_DENYLIST = /logo|placeholder|default|favicon|avatar|icon|blank|spacer/i;
+const IMAGE_DENYLIST = /logo|placeholder|default|favicon|avatar|icon|blank|spacer|screenshot/i;
 
 /**
  * §7.4's "real photo" check. The pipeline applies it when it picks a story's
@@ -81,11 +81,16 @@ export function isUsableStoryImage(url: string | null): url is string {
   }
 }
 
-/** The "Civic · Downtown" tag, or null when the story has neither. */
-export function topicPlaceTag(topics: string[], place: string | null): string | null {
-  const kicker = topics.map((slug) => newsTopic(slug)?.kicker).find(Boolean);
-  const parts = [kicker, place].filter(Boolean);
-  return parts.length > 0 ? parts.join(' · ') : null;
+/**
+ * A story's first topic, named as the topic filter names it, so the tag on a
+ * card links to exactly the filter it reads as.
+ */
+export function primaryTopic(topics: string[]): { slug: string; label: string } | null {
+  for (const slug of topics) {
+    const topic = newsTopic(slug);
+    if (topic) return { slug: topic.slug, label: topic.label };
+  }
+  return null;
 }
 
 /** "r/asheville discussion" from a Reddit thread URL. */
@@ -94,11 +99,20 @@ export function discussionLabel(url: string): string {
   return subreddit ? `r/${subreddit} discussion` : 'Reddit discussion';
 }
 
-/** The first sentence of a summary, for link previews. */
-export function firstSentence(text: string): string {
-  const match = text.match(/^.+?[.!?](?=\s+[A-Z"“']|$)/);
-  return (match?.[0] ?? text).trim();
+/** A summary for link previews: whole, or clipped at a word boundary with "…". */
+export function clipText(text: string, max = 200): string {
+  const trimmed = text.trim();
+  if (trimmed.length <= max) return trimmed;
+  const cut = trimmed.slice(0, max);
+  const space = cut.lastIndexOf(' ');
+  return `${(space > max / 2 ? cut.slice(0, space) : cut).replace(/[\s,;:.–—-]+$/, '')}…`;
 }
+
+/**
+ * Stretches a small inline control's hit area to 36px+ tall without changing
+ * how it looks: an invisible ::after 6px past the top and bottom edges.
+ */
+export const TAP_AREA = 'relative after:absolute after:inset-x-0 after:-inset-y-1.5';
 
 /** The anchor every story card and row carries, for the short version and `?s=`. */
 export function storyAnchorId(shortId: string): string {

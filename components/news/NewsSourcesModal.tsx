@@ -11,6 +11,24 @@ const GROUPS: { key: keyof NewsSourceGroups; title: string }[] = [
   { key: 'community', title: 'Community' },
 ];
 
+/** The name with its ↗ glued to the last word, so a wrapped name never strands the arrow. */
+function SourceName({ name }: { name: string }) {
+  const cut = name.lastIndexOf(' ') + 1;
+  return (
+    <>
+      {name.slice(0, cut)}
+      <span className="whitespace-nowrap">
+        {name.slice(cut)}
+        <ArrowUpRight
+          size={12}
+          className="ml-1 inline-block -translate-y-px text-gray-400 dark:text-gray-500"
+          aria-hidden="true"
+        />
+      </span>
+    </>
+  );
+}
+
 function SourceList({ title, sources }: { title: string; sources: NewsSourceLink[] }) {
   if (sources.length === 0) return null;
 
@@ -26,14 +44,9 @@ function SourceList({ title, sources }: { title: string; sources: NewsSourceLink
               href={source.url}
               target="_blank"
               rel="noopener"
-              className="inline-flex items-center gap-1 text-sm text-gray-800 dark:text-gray-200 hover:text-brand-700 dark:hover:text-brand-300 hover:underline"
+              className="text-sm text-gray-800 dark:text-gray-200 hover:text-brand-700 dark:hover:text-brand-300 hover:underline"
             >
-              {source.name}
-              <ArrowUpRight
-                size={12}
-                className="shrink-0 text-gray-400 dark:text-gray-500"
-                aria-hidden="true"
-              />
+              <SourceName name={source.name} />
             </a>
           </li>
         ))}
@@ -48,6 +61,7 @@ function SourceList({ title, sources }: { title: string; sources: NewsSourceLink
  */
 export default function NewsSourcesModal({ groups }: { groups: NewsSourceGroups }) {
   const [open, setOpen] = useState(false);
+  const dialogRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
 
@@ -57,18 +71,41 @@ export default function NewsSourcesModal({ groups }: { groups: NewsSourceGroups 
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') setOpen(false);
     };
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
+    // Locking the scroll takes the scrollbar away; padding in its place keeps
+    // the page behind from shifting sideways.
+    const { body } = document;
+    const previous = { overflow: body.style.overflow, paddingRight: body.style.paddingRight };
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+    body.style.overflow = 'hidden';
+    if (scrollbarWidth > 0) body.style.paddingRight = `${scrollbarWidth}px`;
     document.addEventListener('keydown', onKeyDown);
     closeRef.current?.focus();
     const trigger = triggerRef.current;
 
     return () => {
-      document.body.style.overflow = previousOverflow;
+      body.style.overflow = previous.overflow;
+      body.style.paddingRight = previous.paddingRight;
       document.removeEventListener('keydown', onKeyDown);
       trigger?.focus();
     };
   }, [open]);
+
+  // Tab and Shift+Tab cycle inside the dialog, as in the other modals
+  const trapFocus = (event: React.KeyboardEvent) => {
+    if (event.key !== 'Tab' || !dialogRef.current) return;
+    const focusable = dialogRef.current.querySelectorAll<HTMLElement>('a[href], button');
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    const active = document.activeElement;
+    // Focus sits on the dialog itself after a click on its text
+    if (event.shiftKey && (active === first || active === dialogRef.current)) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  };
 
   return (
     <>
@@ -90,10 +127,13 @@ export default function NewsSourcesModal({ groups }: { groups: NewsSourceGroups 
               aria-hidden="true"
             />
             <div
+              ref={dialogRef}
               role="dialog"
               aria-modal="true"
               aria-labelledby="news-sources-title"
-              className="relative w-full sm:max-w-xl max-h-[85vh] overflow-y-auto overscroll-contain rounded-t-2xl sm:rounded-xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 shadow-2xl p-5 sm:p-6 animate-fade-in"
+              onKeyDown={trapFocus}
+              tabIndex={-1}
+              className="relative focus:outline-none w-full sm:max-w-xl max-h-[85vh] overflow-y-auto overscroll-contain rounded-t-2xl sm:rounded-xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 shadow-2xl p-5 sm:p-6 animate-fade-in"
             >
               <button
                 ref={closeRef}

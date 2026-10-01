@@ -277,7 +277,7 @@ Then:
 **Filing day.**
 
 - Set once, at creation, to the ET date of the first article's `published_at`.
-- Moves **forward only**, and only when synthesis returns `newDevelopment=true`, to the ET date of the newest newsroom member. A re-report or a community post never moves it.
+- Moves **forward only**, and only when synthesis returns `newDevelopment=true`, to the ET date of the newest newsroom member. A re-report or a community post never moves it. _(As built: a community story that gains its first newsroom article also moves forward to that article's day, since that's when it became news.)_
 - A move clears `top_rank` and marks both the old and the new day for Top recompute.
 
 **Top.**
@@ -287,9 +287,12 @@ Then:
 - **Which days are recomputed each run:**
   - today and yesterday (ET);
   - any day with no `news_days` row yet, which covers the initial backfill;
-  - any day that lost a Top story to a refile, a hide or a takedown.
+  - any day that lost a Top story to a refile, a hide or a takedown;
+  - _(as built)_ any day that gained a live newsroom story. Without this, the 200-per-run enrichment cap froze backfill days before their articles arrived. A reopened day keeps showing its old summary (`input_hash` prefixed `stale:`) until the recompute; if the Top set hashes the same, no model call is made.
 
   All other days stay frozen.
+
+_Also as built:_ a throttled, timed-out or 5xx model call never uses up an article's 3 attempts (an Azure outage would otherwise skip the oldest backlog for good); an auth or deployment error aborts the run; a permanent synthesis failure falls back to the lead article's own headline and summary; and the `news-ai` lease is a unique index on `cron_job_runs` (one `running` row), with stale holders expired after 15 minutes.
 
 **Daily summary.**
 

@@ -11,6 +11,7 @@
  */
 import '../lib/config/env';
 import postgres from 'postgres';
+import { NEWS_SOURCES } from '../lib/news/registry';
 
 const DAYS = Number(process.argv[2]) || 3;
 const sql = postgres(process.env.DATABASE_URL!, { ssl: 'require', max: 1 });
@@ -272,36 +273,72 @@ NEWS — last ${DAYS} days`);
     problems.push(`News source "${name}" failed ${n}x: ${error.slice(0, 60)}`);
   }
 
+  // Only modules still in the registry, and only outlets not taken down.
+  // Local-only sources go stale whenever nobody runs news:local, which is an
+  // errand rather than a broken scraper, so they're reported apart.
+  const registered = NEWS_SOURCES.map((m) => m.key);
+  const localOnly = new Set(NEWS_SOURCES.filter((m) => m.localOnly).map((m) => m.key));
   const stale = await sql<{ source: string; age_hours: number }[]>`
-    select source, (extract(epoch from (now() - max(last_seen_at))) / 3600)::float8 as age_hours
-    from news_articles where source <> 'GOOGLE_NEWS'
-    group by source
-    having extract(epoch from (now() - max(last_seen_at))) / 3600 > 24
+    select a.source, (extract(epoch from (now() - max(a.last_seen_at))) / 3600)::float8 as age_hours
+    from news_articles a join news_sources s on s.domain = a.outlet_domain
+    where s.enabled and a.source = any(${registered}) and a.source <> 'GOOGLE_NEWS'
+    group by a.source
+    having extract(epoch from (now() - max(a.last_seen_at))) / 3600 > 24
     order by 2 desc`;
-  for (const r of stale) {
+  const staleLocal = stale.filter((r) => localOnly.has(r.source));
+  for (const r of stale.filter((r) => !localOnly.has(r.source))) {
     console.log(`  ${r.source.padEnd(28)} not seen in ${fmtAge(r.age_hours)}`);
     problems.push(`News source ${r.source} not seen in ${fmtAge(r.age_hours)}.`);
   }
+  if (staleLocal.length) {
+    const list = staleLocal.map((r) => `${r.source} (${fmtAge(r.age_hours)})`).join(', ');
+    console.log(`  Local-only, not run lately: ${list}`);
+    problems.push(`Local-only news sources are stale (${list}): run npm run news:local.`);
+  }
 
+  // Each stage's oldest waiting item: a stage that stops moving shows up here
+  // even while the stages before it look fine.
   const [backlog] = await sql<
-    { needs_enrich: number; oldest_hours: number | null; dirty: number }[]
+    {
+      enrich: number;
+      enrich_hours: number | null;
+      unclustered_hours: number | null;
+      dirty: number;
+      dirty_hours: number | null;
+      days_missing_summary: number;
+    }[]
   >`
     select
       (select count(*)::int from news_articles
         where state <> 'hidden' and enriched_hash is distinct from input_hash
-          and published_at > now() - interval '14 days') as needs_enrich,
+          and published_at > now() - interval '14 days') as enrich,
       (select (extract(epoch from (now() - min(created_at))) / 3600)::float8 from news_articles
         where state <> 'hidden' and enriched_hash is distinct from input_hash
-          and published_at > now() - interval '14 days') as oldest_hours,
-      (select count(*)::int from news_stories where dirty) as dirty`;
+          and published_at > now() - interval '14 days') as enrich_hours,
+      (select (extract(epoch from (now() - min(enriched_at))) / 3600)::float8 from news_articles
+        where state = 'live' and story_id is null) as unclustered_hours,
+      (select count(*)::int from news_stories where dirty) as dirty,
+      (select (extract(epoch from (now() - min(updated_at))) / 3600)::float8 from news_stories
+        where dirty) as dirty_hours,
+      (select count(distinct filing_day)::int from news_stories st
+        where st.state = 'live' and st.top_rank is not null
+          and not exists (select 1 from news_days d
+                          where d.day = st.filing_day and d.input_hash not like 'stale:%')) as days_missing_summary`;
   console.log(
-    `AI backlog: ${backlog.needs_enrich} articles to enrich` +
-      (backlog.oldest_hours !== null ? ` (oldest ${fmtAge(backlog.oldest_hours)})` : '') +
-      `, ${backlog.dirty} stories to recompute`
+    `AI backlog: ${backlog.enrich} articles to enrich, ${backlog.dirty} stories to recompute, ` +
+      `${backlog.days_missing_summary} days missing a summary`
   );
-  if ((backlog.oldest_hours ?? 0) > 6) {
+  const stuck: [string, number | null][] = [
+    ['oldest unenriched article', backlog.enrich_hours],
+    ['oldest live article without a story', backlog.unclustered_hours],
+    ['oldest story waiting for recompute', backlog.dirty_hours],
+  ];
+  for (const [what, hours] of stuck) {
+    if ((hours ?? 0) > 6) problems.push(`News AI: ${what} is ${fmtAge(hours!)} old.`);
+  }
+  if (backlog.days_missing_summary > 0) {
     problems.push(
-      `News AI backlog: oldest unenriched article is ${fmtAge(backlog.oldest_hours!)} old.`
+      `News AI: ${backlog.days_missing_summary} day(s) with Top stories have no current summary.`
     );
   }
 }

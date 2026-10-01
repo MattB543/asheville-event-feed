@@ -37,6 +37,26 @@ karaoke, concerts, classes taught by a business, tours, exhibitions, library sto
    on top of the derived status and records as `review_note`. Re-run step 6 after editing it. Editing
    `candidates.json` by hand does not survive a rebuild; `reviewed.json` does.
 
+8. **Research pass (2026-09-30)**: `npx tsx scripts/groups/build-research-batches.ts` writes
+   `research/input/batch-NN.json`: every approved/grey candidate plus every Meetup group in the live DB,
+   with fresh event context. One Sonnet agent per batch follows `research/RESEARCH_AGENT.md` and writes
+   `research/results/batch-NN.json`: keep/reject, `duplicate_of`, and the public listing (name,
+   description, category, schedule, home base, website).
+9. **Links pass (2026-10-01)**: `npx tsx scripts/groups/build-link-batches.ts` writes
+   `research/links/input/` (every listed group plus the business-networking rejects, for a re-judge).
+   Agents follow `research/links/LINKS_AGENT.md`: find/verify the website, flag `remote_only` groups
+   (removed) and judge business-networking groups (`keep` legit + valuable / `cut` low-value). The
+   session's WebSearch cap (200) ran out, so a fill-in pass (`research/links/FILL_AGENT.md`, results in
+   `research/links/fill/`) redid the unsearched records; fill results beat first-pass results.
+10. **Build + seed**: final human calls go in `directory-overrides.json` (`reject`, `keep`, `merge`,
+    `not_duplicates`, `edits`). `npx tsx scripts/groups/build-directory.ts` joins research + links +
+    overrides into `directory.json` (validates slugs, keys, categories; prints what was removed and why).
+    `npx tsx scripts/groups/seed-groups.ts` dry-runs the sync into the `groups` table and prints a
+    coverage report plus a parity check (the pages' SQL prefilter vs a full JS scan of live events);
+    `--apply` writes. The seed upserts on `directory_key` and never touches `hidden`.
+
+How events attach to a group, and the known limits, are in CLAUDE.md (`groups` table).
+
 ### Results of the 2026-09-18 run
 
 | Stage                                                  | Result                                                               |

@@ -14,6 +14,7 @@ import {
   Sparkles,
   Bookmark,
   Star,
+  X,
 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -160,6 +161,8 @@ interface EventCardProps {
   isFavorited: boolean;
   favoriteCount: number;
   onToggleFavorite: (eventId: string) => void;
+  /** On a list of favorites every heart is filled, so show a plain Remove button instead */
+  showRemoveFavorite?: boolean;
   isTagFilterActive?: boolean;
   /** Show a "Recurring" badge for similar events that appear multiple times */
   showRecurringBadge?: boolean;
@@ -183,6 +186,8 @@ interface EventCardProps {
   isGreatMatch?: boolean;
   /** Optional ranking number to display before title (e.g., "1." for top 30) */
   ranking?: number;
+  /** Show the ranking as a "Rank #40" label, for lists where it isn't the card's position */
+  rankAsLabel?: boolean;
   /** Whether this card is expanded on mobile */
   isMobileExpanded?: boolean;
   /** Callback when user taps to expand on mobile */
@@ -217,6 +222,7 @@ export default function EventCard({
   isFavorited,
   favoriteCount,
   onToggleFavorite,
+  showRemoveFavorite = false,
   isTagFilterActive = false,
   showRecurringBadge = false,
   isCurated = false,
@@ -229,6 +235,7 @@ export default function EventCard({
   isHiding = false,
   isGreatMatch = false,
   ranking,
+  rankAsLabel = false,
   isMobileExpanded = false,
   onMobileExpand,
   onOpenModal,
@@ -410,6 +417,12 @@ export default function EventCard({
 
   // Generate event URL for links
   const eventUrl = `/events/${generateEventSlug(event.title, event.startDate, event.id)}`;
+  const rankLabel = ranking && rankAsLabel && (
+    <span className="mr-1.5 inline-block rounded bg-brand-50 px-1.5 py-0.5 align-[2px] text-xs font-semibold whitespace-nowrap text-brand-700 dark:bg-brand-900/40 dark:text-brand-300">
+      Rank #{ranking}
+    </span>
+  );
+  const titleText = ranking && !rankAsLabel ? `${ranking}. ${event.title}` : event.title;
 
   // Elevate card z-index when any dropdown is open so it appears above subsequent cards
   const hasOpenDropdown = calendarMenuOpen || moreMenuOpen;
@@ -521,6 +534,7 @@ export default function EventCard({
           {/* Title row */}
           <div className="flex items-start gap-2">
             <h3 className="text-base font-bold leading-tight text-brand-600 dark:text-brand-400 flex-1">
+              {rankLabel}
               <Link
                 href={eventUrl}
                 className="hover:underline"
@@ -532,7 +546,7 @@ export default function EventCard({
                       }
                 }
               >
-                {ranking ? `${ranking}. ${event.title}` : event.title}
+                {titleText}
               </Link>
               {isGreatMatch && (
                 <Star
@@ -653,27 +667,38 @@ export default function EventCard({
               </div>
 
               {/* Favorite button */}
-              <button
-                onClick={() => {
-                  setIsHeartAnimating(true);
-                  onToggleFavorite(event.id);
-                  setTimeout(() => setIsHeartAnimating(false), 300);
-                }}
-                className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs rounded border cursor-pointer transition-colors ${
-                  isFavorited
-                    ? 'text-red-500 dark:text-red-400 border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-950/50 hover:bg-red-100 dark:hover:bg-red-900/50'
-                    : 'text-gray-600 dark:text-gray-400 border-gray-200 dark:border-gray-700 hover:bg-red-50 dark:hover:bg-red-950/50 hover:text-red-500 dark:hover:text-red-400 hover:border-red-200 dark:hover:border-red-800'
-                }`}
-                title={isFavorited ? 'Remove from favorites' : 'Add to favorites'}
-              >
-                <Heart
-                  size={14}
-                  className={`transition-transform ${
-                    isFavorited ? 'fill-current' : ''
-                  } ${isHeartAnimating ? 'animate-heart-pop' : ''}`}
-                />
-                {favoriteCount > 0 && <span>{favoriteCount}</span>}
-              </button>
+              {showRemoveFavorite ? (
+                <button
+                  onClick={() => onToggleFavorite(event.id)}
+                  className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs rounded border cursor-pointer transition-colors text-gray-600 dark:text-gray-400 border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800"
+                  title="Remove from favorites"
+                >
+                  <X size={14} />
+                  Remove
+                </button>
+              ) : (
+                <button
+                  onClick={() => {
+                    setIsHeartAnimating(true);
+                    onToggleFavorite(event.id);
+                    setTimeout(() => setIsHeartAnimating(false), 300);
+                  }}
+                  className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs rounded border cursor-pointer transition-colors ${
+                    isFavorited
+                      ? 'text-red-500 dark:text-red-400 border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-950/50 hover:bg-red-100 dark:hover:bg-red-900/50'
+                      : 'text-gray-600 dark:text-gray-400 border-gray-200 dark:border-gray-700 hover:bg-red-50 dark:hover:bg-red-950/50 hover:text-red-500 dark:hover:text-red-400 hover:border-red-200 dark:hover:border-red-800'
+                  }`}
+                  title={isFavorited ? 'Remove from favorites' : 'Add to favorites'}
+                >
+                  <Heart
+                    size={14}
+                    className={`transition-transform ${
+                      isFavorited ? 'fill-current' : ''
+                    } ${isHeartAnimating ? 'animate-heart-pop' : ''}`}
+                  />
+                  {favoriteCount > 0 && <span>{favoriteCount}</span>}
+                </button>
+              )}
 
               {/* Share button */}
               <div className="relative">
@@ -961,6 +986,7 @@ export default function EventCard({
             <div>
               <div className="flex items-start gap-2 flex-wrap">
                 <h3 className="text-base font-bold leading-tight text-brand-600 dark:text-brand-400">
+                  {rankLabel}
                   <Link
                     href={eventUrl}
                     className="hover:underline"
@@ -970,7 +996,7 @@ export default function EventCard({
                       if (onOpenModal) handleOpenModal(e);
                     }}
                   >
-                    {ranking ? `${ranking}. ${event.title}` : event.title}
+                    {titleText}
                   </Link>
                   {isGreatMatch && (
                     <Star
@@ -1261,27 +1287,38 @@ export default function EventCard({
               )}
             </div>
             {/* Favorite button */}
-            <button
-              onClick={() => {
-                setIsHeartAnimating(true);
-                onToggleFavorite(event.id);
-                setTimeout(() => setIsHeartAnimating(false), 300);
-              }}
-              className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs rounded border cursor-pointer transition-colors ${
-                isFavorited
-                  ? 'text-red-500 dark:text-red-400 border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-950/50 hover:bg-red-100 dark:hover:bg-red-900/50'
-                  : 'text-gray-600 dark:text-gray-400 border-gray-200 dark:border-gray-700 hover:bg-red-50 dark:hover:bg-red-950/50 hover:text-red-500 dark:hover:text-red-400 hover:border-red-200 dark:hover:border-red-800'
-              }`}
-              title={isFavorited ? 'Remove from favorites' : 'Add to favorites'}
-            >
-              <Heart
-                size={14}
-                className={`transition-transform ${
-                  isFavorited ? 'fill-current' : ''
-                } ${isHeartAnimating ? 'animate-heart-pop' : ''}`}
-              />
-              {favoriteCount > 0 && <span>{favoriteCount}</span>}
-            </button>
+            {showRemoveFavorite ? (
+              <button
+                onClick={() => onToggleFavorite(event.id)}
+                className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs rounded border cursor-pointer transition-colors text-gray-600 dark:text-gray-400 border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800"
+                title="Remove from favorites"
+              >
+                <X size={14} />
+                Remove
+              </button>
+            ) : (
+              <button
+                onClick={() => {
+                  setIsHeartAnimating(true);
+                  onToggleFavorite(event.id);
+                  setTimeout(() => setIsHeartAnimating(false), 300);
+                }}
+                className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs rounded border cursor-pointer transition-colors ${
+                  isFavorited
+                    ? 'text-red-500 dark:text-red-400 border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-950/50 hover:bg-red-100 dark:hover:bg-red-900/50'
+                    : 'text-gray-600 dark:text-gray-400 border-gray-200 dark:border-gray-700 hover:bg-red-50 dark:hover:bg-red-950/50 hover:text-red-500 dark:hover:text-red-400 hover:border-red-200 dark:hover:border-red-800'
+                }`}
+                title={isFavorited ? 'Remove from favorites' : 'Add to favorites'}
+              >
+                <Heart
+                  size={14}
+                  className={`transition-transform ${
+                    isFavorited ? 'fill-current' : ''
+                  } ${isHeartAnimating ? 'animate-heart-pop' : ''}`}
+                />
+                {favoriteCount > 0 && <span>{favoriteCount}</span>}
+              </button>
+            )}
             {/* Share button */}
             <div className="relative">
               <button

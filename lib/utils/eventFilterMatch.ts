@@ -126,6 +126,22 @@ function occurrenceMatchesTime(
 }
 
 /**
+ * The first occurrence that passes both the date and time-of-day filters. With
+ * neither set, that is simply the first occurrence.
+ */
+export function firstMatchingOccurrence<T extends FilterableOccurrence>(
+  occurrences: T[],
+  filters: EventMatchFilters,
+  bounds: DateFilterBounds
+): T | undefined {
+  return occurrences.find(
+    (occurrence) =>
+      occurrenceMatchesDate(occurrence, filters, bounds) &&
+      occurrenceMatchesTime(occurrence, filters)
+  );
+}
+
+/**
  * Whether an event passes every filter in `filters`. Date and time-of-day are
  * checked per occurrence, and a single occurrence must satisfy both - the same
  * row-level AND the server applies.
@@ -152,11 +168,7 @@ export function matchesEventFilters(
 
   if (
     (filters.dateFilter !== 'all' || filters.selectedTimes.length > 0) &&
-    !occurrences.some(
-      (occurrence) =>
-        occurrenceMatchesDate(occurrence, filters, bounds) &&
-        occurrenceMatchesTime(occurrence, filters)
-    )
+    !firstMatchingOccurrence(occurrences, filters, bounds)
   ) {
     return false;
   }

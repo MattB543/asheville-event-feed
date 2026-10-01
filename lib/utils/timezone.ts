@@ -39,13 +39,20 @@ export function getStartOfTodayEastern(): Date {
  * Get current date string in Eastern timezone (YYYY-MM-DD format)
  */
 export function getTodayStringEastern(): string {
+  return getDateStringEastern(new Date());
+}
+
+/**
+ * Get a date's calendar day in Eastern timezone (YYYY-MM-DD format)
+ */
+export function getDateStringEastern(date: Date): string {
   const formatter = new Intl.DateTimeFormat('en-CA', {
     timeZone: 'America/New_York',
     year: 'numeric',
     month: '2-digit',
     day: '2-digit',
   });
-  return formatter.format(new Date());
+  return formatter.format(date);
 }
 
 /**

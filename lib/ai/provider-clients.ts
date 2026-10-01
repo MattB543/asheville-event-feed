@@ -226,11 +226,13 @@ export function getAzureClient(): AzureOpenAI | null {
     return null;
   }
 
+  // No pinned `deployment`: the SDK would route every request to it and ignore
+  // the request's `model`. Every call passes `model` instead, so the news
+  // pipeline can use its own deployment on the same client.
   azureClient = new AzureOpenAI({
     apiKey,
     endpoint,
     apiVersion: getAzureApiVersion(),
-    deployment: getAzureDeployment(),
   });
 
   return azureClient;
@@ -282,6 +284,10 @@ export interface AzureChatCompletionOptions {
   maxRetries?: number;
   /** Per-attempt deadline in ms (default: 90s) */
   timeoutMs?: number;
+  /** Deployment to call (default: AZURE_OPENAI_DEPLOYMENT) */
+  deployment?: string;
+  /** Sent only when set. gpt-6.1-sol accepts low | medium | high | xhigh */
+  reasoningEffort?: 'low' | 'medium' | 'high' | 'xhigh';
 }
 
 export interface AzureChatCompletionResult {
@@ -317,7 +323,7 @@ export async function azureChatCompletion(
     () =>
       client.chat.completions.create(
         {
-          model: getAzureDeployment(),
+          model: options?.deployment ?? getAzureDeployment(),
           messages: [
             { role: 'system', content: systemPrompt },
             { role: 'user', content: userPrompt },
@@ -326,6 +332,7 @@ export async function azureChatCompletion(
           ...(options?.jsonMode
             ? { response_format: { type: 'json_object' } as { type: 'json_object' } }
             : {}),
+          ...(options?.reasoningEffort ? { reasoning_effort: options.reasoningEffort } : {}),
           // Note: GPT-5-mini doesn't support temperature parameter
         },
         {

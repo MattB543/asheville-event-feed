@@ -1,7 +1,7 @@
 /**
- * Local news ingestion - DRAFT contract shared by every module in
- * lib/news/sources/. There is no DB table yet: a source only fetches and
- * normalizes articles. Storage, dedup, clustering and AI enrichment come later.
+ * Local news ingestion - the contract shared by every module in
+ * lib/news/sources/. A source only fetches and normalizes articles; storage,
+ * clustering and AI enrichment live in lib/news/ (see docs/news/05-v1-plan.md).
  */
 
 export type NewsSourceKind = 'outlet' | 'government' | 'institution' | 'community';
@@ -30,7 +30,25 @@ export interface ScrapedArticle {
   paywalled?: boolean;
   /** Community sources only (Reddit etc.): a buzz signal, never a trust signal. */
   engagement?: { score?: number; comments?: number };
+  /**
+   * Aggregator items only (Google News): the outlet that actually published
+   * the article. Its domain is what takedown and outlet counts key on.
+   */
+  publisher?: { name: string; domain: string };
+  /** Community link posts: the URL the post points at. */
+  linkedUrl?: string;
 }
+
+export interface ScrapeContext {
+  /**
+   * Epoch ms. Modules that make several requests stop starting new ones once
+   * Date.now() passes this and return what they have so far.
+   */
+  deadline: number;
+}
+
+/** A body, or a body plus the page's og:image when the feed had no image. */
+export type FullText = string | { text: string; imageUrl?: string };
 
 export interface NewsSourceModule {
   /** UPPER_SNAKE key, e.g. 'BPR'. */
@@ -38,17 +56,25 @@ export interface NewsSourceModule {
   /** Display name, e.g. 'Blue Ridge Public Radio'. */
   name: string;
   homepage: string;
+  /**
+   * The outlet domain this module's items are attributed to (takedown and
+   * outlet counts key on it). Defaults to the homepage's host without `www.`;
+   * set it when that's wrong (a government portal on a vendor's domain).
+   */
+  domain?: string;
   kind: NewsSourceKind;
   method: NewsFetchMethod;
   /** True if the source blocks Vercel's egress or needs a browser (see MountainX in CLAUDE.md). */
   localOnly?: boolean;
   /** Cheap listing pass (feed / API). Runs every cron. */
-  scrape(): Promise<ScrapedArticle[]>;
+  scrape(ctx: ScrapeContext): Promise<ScrapedArticle[]>;
   /**
    * Full body for one article whose scrape() result had no contentText. The
    * pipeline calls this only for newly inserted articles, so scrape() stays one
    * request per source. Stored internally for AI; the UI shows summaries only.
    * Omit when the feed already carries the body or the article is paywalled.
+   * Resolve undefined when the page has no body (terminal); throw on a
+   * transient failure so the pipeline retries it.
    */
-  fetchFullText?(url: string): Promise<string | undefined>;
+  fetchFullText?(url: string): Promise<FullText | undefined>;
 }

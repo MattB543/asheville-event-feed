@@ -28,6 +28,14 @@
     {
       "path": "/api/cron/top30-weekly",
       "schedule": "0 15 * * 5"
+    },
+    {
+      "path": "/api/cron/news-scrape",
+      "schedule": "40 */3 * * *"
+    },
+    {
+      "path": "/api/cron/news-ai",
+      "schedule": "55 */3 * * *"
     }
   ]
 }

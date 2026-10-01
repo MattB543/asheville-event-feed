@@ -1,13 +1,14 @@
 /**
  * Google News - Asheville headlines from outlets we don't scrape ourselves.
  *
- * Kind 'community' because Google publishes nothing of its own here: this is a
- * meta-feed. It surfaces outlets without a module of their own (the
- * Citizen-Times, the Charlotte Observer, the UNCA student paper...),
+ * An aggregator: Google publishes nothing of its own here. It surfaces outlets
+ * without a module of their own (the Citizen-Times, the Charlotte Observer...),
  * including paywalled and bot-walled ones, whose headlines are all we want
  * from them anyway. We never touch those sites: Google hands over the headline
- * and the link. Items from outlets that do have a module (DIRECT_DOMAINS) are
- * dropped, since those arrive directly with a body and a real URL.
+ * and the link. Every item carries `publisher`, so it is attributed to (and
+ * counted as reporting by) the outlet that wrote it, not to Google. Items from
+ * outlets that do have a module (DIRECT_DOMAINS) are dropped, since those
+ * arrive directly with a body; the article URL is the dedup backstop.
  *
  * Four feeds: Google's own "Asheville - Latest" local section (the cleanest,
  * ~45 items a day), a 24-hour "Asheville" search that reaches further afield,
@@ -24,9 +25,10 @@
  * Links are news.google.com redirects whose id no longer embeds the target
  * URL (the "AU_yqL..." format). Getting the real URL takes two requests: the
  * article page, for a signature and timestamp, then the batchexecute RPC the
- * page itself calls. We do that for at most MAX_RESOLVE items a run, and keep
- * the Google URL for the rest. So a row's URL can change from Google's to the
- * publisher's between runs, while its sourceId stays the same.
+ * page itself calls. We do that for at most MAX_RESOLVE items a run, newest
+ * first, and emit only the items that resolved: the publisher's URL is the
+ * article's identity, so an item still behind a Google link is left for a
+ * later run (it stays in the feeds for a day or so).
  *
  * No fetchFullText. What's left in this feed once the outlets with a module
  * are gone is mostly paywalled or bot-walled (Citizen-Times, Charlotte
@@ -44,8 +46,8 @@ import * as cheerio from 'cheerio';
 import { fetchEventData } from '../../scrapers/base';
 import { stripHtml } from '../../utils/parsers';
 import { NEWS_USER_AGENT, canonicalizeUrl, fetchNewsText } from '../feeds';
-import type { NewsSourceModule, ScrapedArticle } from '../types';
-import { mentionsBuncombe } from './shared/buncombe';
+import type { NewsSourceModule, ScrapeContext, ScrapedArticle } from '../types';
+import { BUNCOMBE_OUTLETS, mentionsBuncombe } from './shared/buncombe';
 
 const KEY = 'GOOGLE_NEWS';
 const LOCALE = 'hl=en-US&gl=US&ceid=US:en';
@@ -53,7 +55,7 @@ const LOCALE = 'hl=en-US&gl=US&ceid=US:en';
 const searchFeed = (query: string) =>
   `https://news.google.com/rss/search?q=${encodeURIComponent(query)}&${LOCALE}`;
 
-/** In priority order: URL resolution budget goes to the earlier feeds first. */
+/** When two feeds list the same story, the earlier feed's copy is kept. */
 const FEEDS = [
   `https://news.google.com/rss/headlines/section/geo/Asheville%2C%20North%20Carolina?${LOCALE}`,
   searchFeed('Asheville when:1d'),
@@ -64,17 +66,15 @@ const FEEDS = [
 ];
 
 /**
- * Outlets with a module of their own, so their items are dropped here. List
- * only modules that exist in lib/news/sources/. A story from an outlet listed
- * too early vanishes from both paths, while a duplicate is cheap to merge on
- * its URL.
+ * Outlets with a module in NEWS_SOURCES, so their items are dropped here.
+ * List only registered modules: a story from an outlet listed too early
+ * vanishes from both paths, while a duplicate is cheap to merge on its URL.
  */
 const DIRECT_DOMAINS = [
   '828newsnow.com',
   'avlwatchdog.org',
   'biltmorebeacon.com',
   'biltmoreforest.org',
-  'blackmountainnews.com',
   'bpr.org',
   'buncombecounty.org',
   'buncombenc.gov',
@@ -95,19 +95,7 @@ const DIRECT_DOMAINS = [
   'wncbusiness.com',
 ];
 
-/**
- * Outlets based in Buncombe and without a module, whose items are kept even
- * when the headline names no place ("Showing riverside resilience, High Five
- * Coffee makes another comeback" is a Woodfin story).
- */
-const BUNCOMBE_OUTLETS = [
-  'citizen-times.com',
-  'ashevegashotsheet.substack.com',
-  'avltoday.6amcity.com',
-  'ashvegas.com',
-];
-
-/** Obituaries, athletics departments and box scores, press-release wires and video. */
+/** Obituaries, athletics departments and box scores, press-release wires, video and listings. */
 const JUNK_DOMAINS = [
   'legacy.com',
   'tributearchive.com',
@@ -118,6 +106,7 @@ const JUNK_DOMAINS = [
   'upstatespartans.com',
   'bigsouthsports.com',
   'gobluehose.com',
+  'bvmsports.com',
   'espn.com',
   'prlog.org',
   'einpresswire.com',
@@ -125,10 +114,12 @@ const JUNK_DOMAINS = [
   'youtu.be',
   'disneyplus.com',
   'vidio.com',
+  'realtor.com',
 ];
 
 const PAYWALLED_DOMAINS = [
   'citizen-times.com',
+  'blackmountainnews.com',
   'blueridgenow.com',
   'charlotteobserver.com',
   'newsobserver.com',
@@ -139,8 +130,8 @@ const PAYWALLED_DOMAINS = [
 
 /**
  * The searches are already `when:1d`; this trims the geo section to match, so
- * each story is seen by ~4 runs rather than a dozen. The pipeline has no
- * memory yet, and every sighting costs a URL resolution.
+ * each story is seen by ~10 three-hourly runs rather than a few dozen. This
+ * module has no memory between runs, and every sighting costs a URL resolution.
  */
 const MAX_AGE_HOURS = 30;
 /** Two requests each (~2.3s with the delays). A run keeps ~20-40 items. */
@@ -252,7 +243,7 @@ export async function resolveGoogleNewsUrl(googleUrl: string): Promise<string | 
     : undefined;
 }
 
-async function scrape(): Promise<ScrapedArticle[]> {
+async function scrape({ deadline }: ScrapeContext): Promise<ScrapedArticle[]> {
   const cutoff = Date.now() - MAX_AGE_HOURS * 60 * 60 * 1000;
   const seen = new Set<string>();
   const items: GoogleItem[] = [];
@@ -262,6 +253,7 @@ async function scrape(): Promise<ScrapedArticle[]> {
   let outOfArea = 0;
 
   for (const feedUrl of FEEDS) {
+    if (Date.now() > deadline) break;
     let xml: string;
     try {
       xml = await fetchNewsText(feedUrl, KEY, { Accept: 'application/rss+xml' });
@@ -284,51 +276,73 @@ async function scrape(): Promise<ScrapedArticle[]> {
 
   if (feedsRead === 0) throw new Error('Every Google News feed failed');
 
-  const articles: ScrapedArticle[] = [];
-  let resolveBudget = MAX_RESOLVE;
-  let resolved = 0;
+  // Newest first, so a story gets the resolution budget on its first sightings.
+  items.sort((a, b) => b.publishedAt.getTime() - a.publishedAt.getTime());
+
+  const byUrl = new Map<string, ScrapedArticle>();
+  let attempted = 0;
+  let unresolved = 0;
+  let resolvedDirect = 0;
   for (const item of items) {
-    const googleUrl = `https://news.google.com/rss/articles/${item.id}`;
+    if (attempted >= MAX_RESOLVE || Date.now() > deadline) break;
+    attempted++;
     let url: string | undefined;
-    if (resolveBudget > 0) {
-      resolveBudget--;
-      try {
-        url = await resolveGoogleNewsUrl(googleUrl);
-        if (url) resolved++;
-      } catch (error) {
-        // Most likely a 429: stop asking for this run rather than dig deeper.
-        console.warn(
-          `[${KEY}] URL resolution stopped:`,
-          error instanceof Error ? error.message : error
-        );
-        resolveBudget = 0;
-      }
-      await sleep(REQUEST_DELAY_MS);
+    try {
+      url = await resolveGoogleNewsUrl(`https://news.google.com/rss/articles/${item.id}`);
+    } catch (error) {
+      // Most likely a 429: stop asking for this run rather than dig deeper.
+      console.warn(
+        `[${KEY}] URL resolution stopped:`,
+        error instanceof Error ? error.message : error
+      );
+      break;
+    }
+    await sleep(REQUEST_DELAY_MS);
+
+    let host = '';
+    try {
+      host = url ? new URL(url).hostname.replace(/^www\./, '') : '';
+    } catch {
+      // A malformed URL counts as unresolved.
+    }
+    if (!url || !host || host === 'news.google.com') {
+      unresolved++;
+      continue;
+    }
+    // Syndicated copies: the feed named another outlet, but the link lands on one with a module.
+    if (matchesDomain(host, DIRECT_DOMAINS)) {
+      resolvedDirect++;
+      continue;
     }
 
-    articles.push({
+    const article: ScrapedArticle = {
       source: KEY,
       sourceId: item.storyKey,
-      url: url ? canonicalizeUrl(url) : googleUrl,
+      url: canonicalizeUrl(url),
       title: item.title,
       publishedAt: item.publishedAt,
-      // No byline in the feed; for an aggregator the publisher is the useful credit.
-      author: item.publisher,
       paywalled: matchesDomain(item.domain, PAYWALLED_DOMAINS) || undefined,
-    });
+      publisher: { name: item.publisher, domain: item.domain },
+    };
+    // One article can sit in the feeds under two headlines. Keep one by a fixed
+    // rule, so its title doesn't flip with whichever copy resolved first.
+    const kept = byUrl.get(article.url);
+    if (!kept || article.title < kept.title) byUrl.set(article.url, article);
   }
 
+  const articles = [...byUrl.values()];
+
   console.log(
-    `[${KEY}] ${articles.length} items kept; dropped ${direct} from outlets with a module, ${junk} junk, ${outOfArea} outside Buncombe; ${resolved} URLs resolved`
+    `[${KEY}] ${articles.length} of ${items.length} items emitted (${attempted} resolutions tried, ${unresolved} unresolved, ${resolvedDirect} landed on an outlet with a module, ${items.length - attempted} left for a later run); dropped ${direct} from outlets with a module, ${junk} junk, ${outOfArea} outside Buncombe`
   );
-  return articles.sort((a, b) => b.publishedAt.getTime() - a.publishedAt.getTime());
+  return articles;
 }
 
 const googleNews: NewsSourceModule = {
   key: KEY,
   name: 'Google News (Asheville)',
   homepage: 'https://news.google.com/',
-  kind: 'community',
+  kind: 'outlet',
   method: 'rss',
   scrape,
 };

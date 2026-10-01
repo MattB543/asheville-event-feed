@@ -24,6 +24,7 @@
 import type { NewsSourceModule, ScrapedArticle } from '../types';
 import { canonicalizeUrl, fetchNewsText } from '../feeds';
 import { decodeHtmlEntities } from '../../utils/parsers';
+import { HttpResponseError, isTransientStatus } from '../../utils/retry';
 import { parseAsEastern } from '../../utils/timezone';
 
 const SITE = 'https://www.ashevillenc.gov';
@@ -317,7 +318,7 @@ const avlCouncilAgenda: NewsSourceModule = {
   homepage: AGENDA_PAGE,
   kind: 'government',
   method: 'wp-json',
-  async scrape() {
+  async scrape({ deadline }) {
     const now = new Date();
     const from = now.getTime() - LOOKBACK_DAYS * DAY_MS;
     const to = now.getTime() + LOOKAHEAD_DAYS * DAY_MS;
@@ -337,12 +338,18 @@ const avlCouncilAgenda: NewsSourceModule = {
 
     // Meetings whose own agenda doc is attached: action agenda once held, formal agenda before.
     for (const meeting of meetings) {
+      if (Date.now() > deadline) return articles;
       if (!meeting.agendaDocId) continue;
       let text: string;
       try {
         text = cleanDocText(await fetchText(docExportUrl(meeting.agendaDocId), 'text/plain'));
-      } catch {
-        continue; // Private or deleted doc; the draft calendar may still cover the meeting.
+      } catch (error) {
+        // A private or deleted doc (4xx) leaves the meeting to the draft calendar. A
+        // transient failure skips it this run instead: the draft shares the formal
+        // agenda's URL, so falling back to it would flip the stored article back and forth.
+        if (!(error instanceof HttpResponseError) || isTransientStatus(error.status))
+          covered.add(meeting.day);
+        continue;
       }
       if (!text) continue;
       const held = meeting.start.getTime() <= now.getTime();
@@ -365,6 +372,7 @@ const avlCouncilAgenda: NewsSourceModule = {
       await sleep(REQUEST_GAP_MS);
     }
 
+    if (Date.now() > deadline) return articles;
     const draftDocId = draftCalendarDocId(agendaPage);
     if (!draftDocId) {
       console.warn(`[${LABEL}] Draft 8-week calendar link not found on ${AGENDA_PAGE}`);

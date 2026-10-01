@@ -14,7 +14,7 @@
 
 import * as cheerio from 'cheerio';
 import { canonicalizeUrl, fetchFeed, fetchNewsText, htmlToText, type FeedItem } from '../feeds';
-import type { NewsSourceModule, ScrapedArticle } from '../types';
+import type { NewsSourceModule, ScrapeContext, ScrapedArticle } from '../types';
 
 const KEY = 'BPR';
 const BASE_URL = 'https://www.bpr.org';
@@ -50,12 +50,13 @@ function cleanBody(html: string | undefined): string | undefined {
   return htmlToText($('body').html() ?? '');
 }
 
-async function scrape(): Promise<ScrapedArticle[]> {
+async function scrape({ deadline }: ScrapeContext): Promise<ScrapedArticle[]> {
   const cutoff = Date.now() - MAX_AGE_DAYS * 24 * 60 * 60 * 1000;
   const byUrl = new Map<string, { item: FeedItem; publishedAt: Date; categories: string[] }>();
   let feedsRead = 0;
 
   for (const [slug, label] of Object.entries(SECTIONS)) {
+    if (feedsRead > 0 && Date.now() > deadline) break;
     let items: FeedItem[] = [];
     try {
       items = await fetchFeed(`${BASE_URL}/${slug}.rss`, KEY);

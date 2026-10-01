@@ -53,11 +53,13 @@ const flyAvl: NewsSourceModule = {
   async scrape() {
     return parseNewsList(await fetchNewsText(NEWS_PAGE, LABEL));
   },
+  /** The page has no og:image, so the body's first picture (a route map, a terminal render) stands in. */
   async fetchFullText(url) {
     const $ = cheerio.load(await fetchNewsText(url, LABEL));
-    return htmlToText(
-      $('.node--type-article .field--name-field-article-body').first().html() ?? undefined
-    );
+    const body = $('.node--type-article .field--name-field-article-body').first();
+    const text = htmlToText(body.html() ?? undefined);
+    const src = body.find('img[src]').first().attr('src');
+    return text ? { text, imageUrl: src ? new URL(src, SITE).toString() : undefined } : undefined;
   },
 };
 

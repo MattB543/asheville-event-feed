@@ -18,3 +18,18 @@ const BUNCOMBE_PLACES =
 export function mentionsBuncombe(...texts: Array<string | undefined>): boolean {
   return BUNCOMBE_PLACES.test(texts.filter(Boolean).join(' '));
 }
+
+/**
+ * Outlets based in Buncombe that have no module of their own. Their
+ * headline-only items often name no place ("Showing riverside resilience, High
+ * Five Coffee makes another comeback" is a Woodfin story), so Google News keeps
+ * them anyway and enrichment presumes they're local.
+ */
+export const BUNCOMBE_OUTLETS = [
+  'citizen-times.com',
+  'blackmountainnews.com',
+  'ashevegashotsheet.substack.com',
+  'avltoday.6amcity.com',
+  'ashvegas.com',
+  'thevalleyecho.com',
+];

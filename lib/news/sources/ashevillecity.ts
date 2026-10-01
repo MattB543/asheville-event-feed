@@ -15,6 +15,7 @@ import {
   htmlToText,
   wpCategories,
   wpDate,
+  wpExcerpt,
   wpImage,
   type WpPost,
 } from '../feeds';
@@ -35,7 +36,7 @@ function toArticle(post: WpPost): ScrapedArticle {
     title: stripHtml(post.title.rendered).trim(),
     publishedAt: wpDate(post.date_gmt),
     updatedAt: wpDate(post.modified_gmt),
-    summary: htmlToText(post.excerpt.rendered),
+    summary: wpExcerpt(post),
     contentText: htmlToText(post.content.rendered),
     imageUrl: wpImage(post),
     categories: [...new Set(wpCategories(post))].filter((c) => !GENERIC_TERMS.has(c)),

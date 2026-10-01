@@ -10,6 +10,9 @@
  * The site sits on Automattic's CDN, which 403s the stale Chrome/120 UA;
  * fetchWpPosts sends NEWS_USER_AGENT, which passes. Bylines are staff first
  * names, so author is left empty.
+ *
+ * Every Montreat Minute ends with the same sign-up plugs (the newsletter list,
+ * Code Red alerts) and a contact line, which we drop from contentText.
  */
 
 import type { NewsSourceModule, ScrapedArticle } from '../types';
@@ -19,6 +22,7 @@ import {
   htmlToText,
   wpCategories,
   wpDate,
+  wpExcerpt,
   wpImage,
   type WpPost,
 } from '../feeds';
@@ -29,6 +33,21 @@ const LABEL = 'MontreatTown';
 const SOURCE = 'TOWN_OF_MONTREAT';
 const PER_PAGE = '20';
 
+const BOILERPLATE = [
+  /^Do you receive your own copy of the Montreat Minute/i,
+  /^Do you receive Montreat Code ?Red/i,
+  /^Questions or Comments\?$/i,
+  /^Do you have Town-related questions or comments/i,
+];
+
+function stripBoilerplate(text: string | undefined): string | undefined {
+  const kept = text
+    ?.split('\n\n')
+    .filter((para) => !BOILERPLATE.some((re) => re.test(para)))
+    .join('\n\n');
+  return kept || undefined;
+}
+
 function toArticle(post: WpPost): ScrapedArticle {
   return {
     source: SOURCE,
@@ -37,8 +56,8 @@ function toArticle(post: WpPost): ScrapedArticle {
     title: stripHtml(post.title.rendered).replace(/\s+/g, ' ').trim(),
     publishedAt: wpDate(post.date_gmt),
     updatedAt: wpDate(post.modified_gmt),
-    summary: htmlToText(post.excerpt.rendered),
-    contentText: htmlToText(post.content.rendered),
+    summary: wpExcerpt(post),
+    contentText: stripBoilerplate(htmlToText(post.content.rendered)),
     imageUrl: wpImage(post),
     categories: wpCategories(post).filter((c) => c !== 'Uncategorized'),
   };

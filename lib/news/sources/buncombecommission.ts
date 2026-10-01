@@ -172,9 +172,11 @@ const buncombeCommission: NewsSourceModule = {
   key: SOURCE,
   name: 'Buncombe County Commission Agendas',
   homepage: PORTAL,
+  /** The county's own domain, not CivicClerk's. */
+  domain: 'buncombenc.gov',
   kind: 'government',
   method: 'api',
-  async scrape() {
+  async scrape({ deadline }) {
     const now = new Date();
     const from = new Date(now.getTime() - LOOKBACK_DAYS * DAY_MS)
       .toISOString()
@@ -193,6 +195,7 @@ const buncombeCommission: NewsSourceModule = {
 
     const articles: ScrapedArticle[] = [];
     for (const event of events) {
+      if (Date.now() > deadline) break;
       const agendaPublished = event.publishedFiles?.some((f) => f.type === 'Agenda');
       if (!event.agendaId || !agendaPublished) continue;
       await sleep(REQUEST_GAP_MS);

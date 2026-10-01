@@ -8,9 +8,10 @@
  * Access is the awkward part. buncombenc.gov sits behind a Cloudflare WAF rule
  * that answers Node's fetch - and the Chrome-cipher `fetchAsChrome` dispatcher
  * - with "Attention Required!" (403) on every path, while curl on Windows
- * (Schannel TLS) sending only a browser User-Agent is served normally. So
- * requests go through curl. Whether Linux curl (OpenSSL) gets through from
- * Vercel is untested, hence localOnly.
+ * (Schannel TLS) sending only a browser User-Agent (NEWS_USER_AGENT; the old
+ * Chrome/120 one worked too) is served normally. So requests go through curl.
+ * Whether Linux curl (OpenSSL) gets through from Vercel is untested, hence
+ * localOnly.
  *
  * The RSS feed carries only a one-sentence summary; fetchFullText reads the
  * body from the lightweight mobile article page (/m/newsflash/home/detail/N),
@@ -28,7 +29,8 @@ import {
   civicPlusRssDate,
   decodeNumericEntities,
 } from './shared/civicplus';
-import { BROWSER_HEADERS, DEFAULT_USER_AGENT } from '../../scrapers/base';
+import { BROWSER_HEADERS } from '../../scrapers/base';
+import { NEWS_USER_AGENT } from '../feeds';
 import { DEFAULT_FETCH_TIMEOUT_MS, fetchWithRetry } from '../../utils/retry';
 import { stripHtml } from '../../utils/parsers';
 
@@ -62,7 +64,7 @@ async function curlText(url: string): Promise<string> {
       '--max-time',
       String(Math.ceil(DEFAULT_FETCH_TIMEOUT_MS / 1000)),
       '-A',
-      DEFAULT_USER_AGENT,
+      NEWS_USER_AGENT,
       url,
     ],
     { maxBuffer: 10 * 1024 * 1024, timeout: DEFAULT_FETCH_TIMEOUT_MS + 2000, windowsHide: true }
@@ -90,7 +92,11 @@ async function fetchText(url: string): Promise<string> {
     });
   } catch (error) {
     if (!isMissingBinary(error)) throw error;
-    const res = await fetchWithRetry(url, { headers: BROWSER_HEADERS }, { maxRetries: 2 });
+    const res = await fetchWithRetry(
+      url,
+      { headers: { ...BROWSER_HEADERS, 'User-Agent': NEWS_USER_AGENT } },
+      { maxRetries: 2 }
+    );
     body = await res.text();
   }
   if (BLOCK_PAGE.test(body)) throw new Error(`[${LABEL}] Blocked by Cloudflare: ${url}`);

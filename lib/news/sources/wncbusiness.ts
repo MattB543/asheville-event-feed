@@ -25,6 +25,14 @@ const HOUSE_BYLINE = 'WNC Business';
 
 const FEED_FOOTER = /\s*Original article published at WNC Business\s*$/;
 
+/**
+ * The feed's media:content is a 300x225 crop; Locable's resizer serves any
+ * size from the same path, so ask for one a big card can use.
+ */
+function largerImage(url: string | undefined): string | undefined {
+  return url?.replace('/fill/300x225/', '/fit/1200x900/');
+}
+
 /** Links are /2026/09/24/584882/slug; the number is the post id. */
 function postId(url: string): string {
   return url.match(/\/\d{4}\/\d{2}\/\d{2}\/(\d+)\//)?.[1] ?? url;
@@ -44,7 +52,7 @@ function toArticle(item: FeedItem): ScrapedArticle | undefined {
     author: item.author === HOUSE_BYLINE ? undefined : item.author,
     summary: body?.split('\n\n')[0],
     contentText: body || undefined,
-    imageUrl: item.imageUrl,
+    imageUrl: largerImage(item.imageUrl),
     categories: item.categories.map((c) => c.trim()).filter((c) => c && !GENERIC_CATEGORIES.has(c)),
   };
 }

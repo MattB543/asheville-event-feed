@@ -20,9 +20,14 @@
  *    reddit.com endpoint (`x-ratelimit-remaining: 0` after a single call, and
  *    `x-ratelimit-reset` counts down to the next minute). So all three
  *    subreddits come from ONE multireddit request. Its 100 entries cover ~2.5
- *    days, which a 6-hour cron never outruns. A comments feed per post would
- *    cost a minute each, so there is no fetchFullText. The feed already
- *    carries each text post's full body.
+ *    days, so the local runner only has to run every other day or so. A
+ *    comments feed per post would cost a minute each, so there is no
+ *    fetchFullText. The feed already carries each text post's full body.
+ *
+ * Scry (a Reddit data reseller) was evaluated as the datacenter-friendly path
+ * on 2026-10-01 and rejected: r/asheville ran ~10h behind with 30-45h gaps,
+ * vote and comment counts were never refreshed, and personal keys are licensed
+ * for non-commercial research only.
  *
  * Terms: robots.txt is `Disallow: /`. Reddit's Responsible Builder Policy
  * (updated 2026-06-05) requires "explicit approval before accessing any Reddit
@@ -38,7 +43,7 @@
 import * as cheerio from 'cheerio';
 import { fetchEventData } from '../../scrapers/base';
 import { canonicalizeUrl, htmlToText, parseFeed, type FeedItem } from '../feeds';
-import type { NewsSourceModule, ScrapedArticle } from '../types';
+import type { NewsSourceModule, ScrapeContext, ScrapedArticle } from '../types';
 import { mentionsBuncombe } from './shared/buncombe';
 
 const KEY = 'REDDIT';
@@ -56,7 +61,7 @@ const FEED_URL = `https://www.reddit.com/r/${SUBREDDITS.join('+')}/new/.rss?limi
 const USER_AGENT = 'web:avlgo-news:v0.1 (+https://avlgo.com)';
 
 /** Rate-limit windows are clock minutes, so one retry after 61s always lands in a fresh one. */
-const RATE_LIMIT_RETRY = { maxRetries: 2, baseDelay: 61_000, maxDelay: 61_000 };
+const RATE_LIMIT_DELAY_MS = 61_000;
 
 /** Self posts shorter than this are one-line questions. */
 const MIN_SELF_TEXT = 150;
@@ -133,11 +138,17 @@ function keep(item: FeedItem, subreddit: string, post: ParsedPost): boolean {
   return textLength >= MIN_SELF_TEXT;
 }
 
-async function scrape(): Promise<ScrapedArticle[]> {
+async function scrape({ deadline }: ScrapeContext): Promise<ScrapedArticle[]> {
   const res = await fetchEventData(
     FEED_URL,
     { headers: { 'User-Agent': USER_AGENT, Accept: 'application/atom+xml' } },
-    RATE_LIMIT_RETRY,
+    {
+      maxRetries: 2,
+      baseDelay: RATE_LIMIT_DELAY_MS,
+      maxDelay: RATE_LIMIT_DELAY_MS,
+      // Waiting out the window is only worth it if the retry lands before the deadline.
+      shouldRetry: () => Date.now() + RATE_LIMIT_DELAY_MS * 1.1 < deadline,
+    },
     KEY
   );
   const items = parseFeed(await res.text());
@@ -150,12 +161,6 @@ async function scrape(): Promise<ScrapedArticle[]> {
     const post = parseContent(item.contentHtml);
     if (!keep(item, subreddit.toLowerCase(), post)) continue;
 
-    // ScrapedArticle has no field for a link post's target, so it rides at the
-    // end of the body where the AI enrichment step will read it.
-    const contentText = post.linkUrl
-      ? [post.body, `Link: ${post.linkUrl}`].filter(Boolean).join('\n\n')
-      : post.body;
-
     articles.push({
       source: KEY,
       sourceId: item.guid || item.link,
@@ -167,9 +172,10 @@ async function scrape(): Promise<ScrapedArticle[]> {
       summary: post.linkUrl
         ? `Shared link: ${new URL(post.linkUrl).hostname.replace(/^www\./, '')}`
         : undefined,
-      contentText,
+      contentText: post.body,
       imageUrl: item.imageUrl,
       categories: subreddit ? [`r/${subreddit}`] : undefined,
+      linkedUrl: post.linkUrl,
     });
   }
 

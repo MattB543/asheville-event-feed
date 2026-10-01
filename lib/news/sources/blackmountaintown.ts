@@ -18,13 +18,12 @@
 
 import * as cheerio from 'cheerio';
 import type { NewsSourceModule, ScrapedArticle } from '../types';
-import { canonicalizeUrl, fetchNewsText } from '../feeds';
+import { canonicalizeUrl, fetchNewsText, htmlToText } from '../feeds';
 import {
   civicPlusArticleBody,
   civicPlusArticleId,
   civicPlusDetailUrl,
   civicPlusPostedDate,
-  decodeNumericEntities,
 } from './shared/civicplus';
 import { stripHtml } from '../../utils/parsers';
 
@@ -56,16 +55,20 @@ function parseNewsList(html: string): ScrapedArticle[] {
     seen.add(id);
 
     const isDetailPage = civicPlusArticleId(href) === id;
-    const preview = stripHtml(
-      decodeNumericEntities($el.find('.article-preview').first().html() ?? '')
-    ).trim();
+    const title = stripHtml(link.text()).trim();
+    const previewHtml = $el.find('.article-preview').first().html() ?? undefined;
+    const fullPreview = htmlToText(previewHtml)?.replace(/\n+/g, ' ') ?? '';
+    // Most previews open by repeating the headline.
+    const preview = fullPreview.startsWith(title)
+      ? fullPreview.slice(title.length).trim()
+      : fullPreview;
     articles.push({
       source: SOURCE,
       sourceId: id,
       url: isDetailPage
         ? `${SITE}/CivicAlerts.aspx?AID=${id}`
         : canonicalizeUrl(new URL(href, SITE).toString()),
-      title: stripHtml(link.text()).trim(),
+      title,
       publishedAt,
       summary: preview ? truncate(preview, SUMMARY_CHARS) : undefined,
       // A PDF-linked entry has no page for fetchFullText; the list preview is all the text there is.

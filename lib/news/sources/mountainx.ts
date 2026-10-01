@@ -9,8 +9,12 @@
  *    public: the REST API hides users and has no byline field.
  *  - The WP REST API for full bodies, images and clean categories. Cloudflare
  *    challenges Node here, so it goes through the Chrome-TLS dispatcher. If
- *    that path is blocked (as it is from Vercel for the events API - see
- *    CLAUDE.md), we fall back to the feed alone: excerpt, byline, categories.
+ *    that path is blocked, we fall back to the feed alone: excerpt, byline,
+ *    categories.
+ *
+ * Since 2026-09-15 Cloudflare challenges every request to mountainx.com from
+ * Vercel's egress, while the same code works locally (CLAUDE.md), so this is
+ * localOnly like the MountainX events scraper.
  *
  * We keep News (and its subsections), Opinion, Letters and the arts / food /
  * living features, and drop:
@@ -29,12 +33,12 @@ import {
   htmlToText,
   wpCategories,
   wpDate,
+  wpExcerpt,
   wpImage,
   type FeedItem,
   type WpPost,
 } from '../feeds';
 import type { NewsSourceModule, ScrapedArticle } from '../types';
-import { stripHtml } from '../../utils/parsers';
 
 const KEY = 'MOUNTAIN_XPRESS';
 const LABEL = 'MountainXNews';
@@ -69,32 +73,52 @@ function postIdFromGuid(guid: string | undefined): string | undefined {
   return guid?.match(/[?&]p=(\d+)/)?.[1];
 }
 
+/**
+ * Which path runs is Cloudflare's call, and the two render the same title and
+ * dek differently: the feed's excerpt skips WordPress's typography (straight
+ * quotes, "--") while the REST one has it (curly quotes, en/em dashes, primes,
+ * "…"), and the REST excerpt ends "… Read more". Any difference reads as an
+ * edit to the pipeline and re-runs enrichment, so both paths reduce
+ * typography to plain ASCII here.
+ */
+function samePerPath(text: string): string {
+  return text
+    .replace(/[‘’′]/g, "'")
+    .replace(/[“”″]/g, '"')
+    .replace(/[–—]|-{2,}/g, '-')
+    .replace(/…/g, '...')
+    .replace(/\s*\.\.\.\s*Read more$/, '...');
+}
+
 function feedToArticle(item: FeedItem): ScrapedArticle | undefined {
   if (!item.publishedAt) return undefined;
   const url = canonicalizeUrl(item.link);
+  const dek = htmlToText(item.descriptionHtml);
   return {
     source: KEY,
     sourceId: postIdFromGuid(item.guid) ?? url,
     url,
-    title: item.title,
+    title: samePerPath(item.title),
     publishedAt: item.publishedAt,
     author: item.author,
-    summary: htmlToText(item.descriptionHtml),
+    summary: dek && samePerPath(dek),
     categories: item.categories,
   };
 }
 
 function postToArticle(post: WpPost, bylines: Map<string, string>): ScrapedArticle {
   const id = String(post.id);
+  const dek = wpExcerpt(post);
   return {
     source: KEY,
     sourceId: id,
     url: canonicalizeUrl(post.link),
-    title: stripHtml(post.title.rendered),
+    // htmlToText, not stripHtml, which turns a `&#8230;` into ".".
+    title: samePerPath(htmlToText(post.title.rendered) ?? ''),
     publishedAt: wpDate(post.date_gmt),
     updatedAt: wpDate(post.modified_gmt),
     author: bylines.get(id),
-    summary: htmlToText(post.excerpt.rendered),
+    summary: dek && samePerPath(dek),
     contentText: htmlToText(post.content.rendered),
     imageUrl: wpImage(post),
     categories: [...new Set(wpCategories(post))],
@@ -116,7 +140,8 @@ const mountainXpress: NewsSourceModule = {
   homepage: SITE,
   kind: 'outlet',
   method: 'wp-json',
-  async scrape() {
+  localOnly: true,
+  async scrape({ deadline }) {
     let feedArticles: ScrapedArticle[] = [];
     try {
       feedArticles = (await fetchFeed(FEED_URL, LABEL)).flatMap(
@@ -129,32 +154,34 @@ const mountainXpress: NewsSourceModule = {
       feedArticles.flatMap((a) => (a.author ? [[a.sourceId, a.author] as const] : []))
     );
 
-    let articles: ScrapedArticle[];
-    try {
-      articles = (await fetchApiPosts()).map((post) => postToArticle(post, bylines));
-    } catch (error) {
-      if (!feedArticles.length) throw error;
-      console.warn(`[${LABEL}] REST API failed, using the feed alone: ${describeError(error)}`);
-      articles = feedArticles;
+    let articles: ScrapedArticle[] = feedArticles;
+    if (Date.now() <= deadline) {
+      try {
+        articles = (await fetchApiPosts()).map((post) => postToArticle(post, bylines));
+      } catch (error) {
+        if (!feedArticles.length) throw error;
+        console.warn(`[${LABEL}] REST API failed, using the feed alone: ${describeError(error)}`);
+      }
     }
 
     return articles.filter((a) => !isExcluded(a.title, a.categories ?? []));
   },
 
-  /** Only needed for articles that came from the feed fallback. */
+  /** Only needed for articles that came from the feed fallback, which has no images either. */
   async fetchFullText(url) {
     const slug = new URL(url).pathname.split('/').filter(Boolean).pop();
     if (!slug) return undefined;
     const dispatcher = await createChromeDispatcher();
     try {
       const body = await fetchAsChrome(
-        `${SITE}/wp-json/wp/v2/posts?slug=${encodeURIComponent(slug)}&_fields=content`,
+        `${SITE}/wp-json/wp/v2/posts?slug=${encodeURIComponent(slug)}&_embed=wp:featuredmedia&_fields=content,_links,_embedded`,
         JSON_ACCEPT,
         dispatcher,
         LABEL
       );
-      const [post] = JSON.parse(body) as Array<Pick<WpPost, 'content'>>;
-      return htmlToText(post?.content.rendered);
+      const [post] = JSON.parse(body) as WpPost[];
+      const text = htmlToText(post?.content.rendered);
+      return text ? { text, imageUrl: wpImage(post) } : undefined;
     } finally {
       await dispatcher.close();
     }

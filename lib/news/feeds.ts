@@ -6,6 +6,7 @@
 import * as cheerio from 'cheerio';
 import { fetchEventData } from '../scrapers/base';
 import { stripHtml } from '../utils/parsers';
+import type { RetryOptions } from '../utils/retry';
 
 export interface FeedItem {
   guid?: string;
@@ -25,21 +26,37 @@ export interface FeedItem {
 const FEED_ACCEPT = 'application/rss+xml, application/atom+xml, application/xml;q=0.9, */*;q=0.8';
 
 /**
- * Automattic's CDN (WordPress VIP / Newspack - Asheville Watchdog, Carolina
- * Public Press, ...) 403s the stale Chrome/120 UA in DEFAULT_USER_AGENT
- * regardless of TLS fingerprint; Chrome/128+ passes. News fetches send this
- * instead. Kept separate from lib/scrapers/base.ts so event scrapers are untouched.
+ * Matt's own desktop Chrome (153; Chrome's reduced UA reports 153.0.0.0), so
+ * news fetches look like an ordinary reader (decision S22). It also has to stay
+ * current: Automattic's CDN (WordPress VIP / Newspack - Asheville Watchdog,
+ * Carolina Public Press, ...) 403s the stale Chrome/120 UA in
+ * DEFAULT_USER_AGENT regardless of TLS fingerprint. Kept separate from
+ * lib/scrapers/base.ts so event scrapers are untouched.
  */
 export const NEWS_USER_AGENT =
-  'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36';
+  'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36';
 
 /** GET a page as text with the news UA; `headers` override the defaults. */
-export async function fetchNewsText(url: string, context: string, headers: Record<string, string> = {}): Promise<string> {
-  const res = await fetchEventData(url, { headers: { 'User-Agent': NEWS_USER_AGENT, ...headers } }, undefined, context);
+export async function fetchNewsText(
+  url: string,
+  context: string,
+  headers: Record<string, string> = {},
+  retry?: RetryOptions
+): Promise<string> {
+  const res = await fetchEventData(
+    url,
+    { headers: { 'User-Agent': NEWS_USER_AGENT, ...headers } },
+    retry,
+    context
+  );
   return res.text();
 }
 
-export async function fetchFeed(url: string, context: string, headers: Record<string, string> = {}): Promise<FeedItem[]> {
+export async function fetchFeed(
+  url: string,
+  context: string,
+  headers: Record<string, string> = {}
+): Promise<FeedItem[]> {
   return parseFeed(await fetchNewsText(url, context, { Accept: FEED_ACCEPT, ...headers }));
 }
 
@@ -61,7 +78,9 @@ export function parseFeed(xml: string): FeedItem[] {
   if (rssItems.length > 0) {
     return rssItems.toArray().map((el) => {
       const $el = $(el);
-      const enclosure = $el.find('enclosure').filter((_, e) => /^image\//.test($(e).attr('type') ?? ''));
+      const enclosure = $el
+        .find('enclosure')
+        .filter((_, e) => /^image\//.test($(e).attr('type') ?? ''));
       return {
         guid: text($el.children('guid').text()),
         link: $el.children('link').text().trim(),
@@ -76,7 +95,10 @@ export function parseFeed(xml: string): FeedItem[] {
           .map((c) => $(c).text().trim())
           .filter(Boolean),
         imageUrl:
-          $el.find('media\\:content[medium="image"], media\\:content[type^="image"]').first().attr('url') ||
+          $el
+            .find('media\\:content[medium="image"], media\\:content[type^="image"]')
+            .first()
+            .attr('url') ||
           $el.find('media\\:thumbnail').first().attr('url') ||
           enclosure.first().attr('url') ||
           undefined,
@@ -89,7 +111,9 @@ export function parseFeed(xml: string): FeedItem[] {
     .map((el) => {
       const $el = $(el);
       const link =
-        $el.children('link[rel="alternate"]').attr('href') || $el.children('link').first().attr('href') || '';
+        $el.children('link[rel="alternate"]').attr('href') ||
+        $el.children('link').first().attr('href') ||
+        '';
       return {
         guid: text($el.children('id').text()),
         link,
@@ -136,7 +160,9 @@ export async function fetchWpPosts(
 ): Promise<WpPost[]> {
   const query = new URLSearchParams({ per_page: '50', _embed: '1', ...params });
   const url = `${siteUrl.replace(/\/$/, '')}/wp-json/wp/v2/posts?${query}`;
-  return JSON.parse(await fetchNewsText(url, context, { Accept: 'application/json', ...headers })) as WpPost[];
+  return JSON.parse(
+    await fetchNewsText(url, context, { Accept: 'application/json', ...headers })
+  ) as WpPost[];
 }
 
 /** WP `date_gmt` has no zone suffix; it is UTC. */
@@ -159,16 +185,61 @@ export function wpCategories(post: WpPost): string[] {
     .filter(Boolean);
 }
 
+/**
+ * WordPress ends an auto-generated excerpt with `[&hellip;]`, which
+ * decodeHtmlEntities turns into "[.]".
+ */
+export function wpExcerpt(post: WpPost): string | undefined {
+  return htmlToText(post.excerpt.rendered)?.replace(/\s*\[\.\]$/, '…');
+}
+
+/**
+ * Inline markup. stripHtml turns every tag into a space, which leaves
+ * "<a>snapshots</a>." as "snapshots ." and "Oct. 1<sup>st</sup>" as "1 st",
+ * so these are dropped outright first.
+ */
+const INLINE_TAGS =
+  /<\/?(?:a|abbr|b|cite|code|em|font|i|mark|q|s|small|span|strong|sub|sup|u)\b[^>]*>/gi;
+
+/**
+ * Numeric entities (`&#8230;`, `&#x2019;`, `&#8243;`) as their characters:
+ * decodeHtmlEntities knows only a few and turns an ellipsis into ".". The
+ * markup characters & < > are left for stripHtml.
+ */
+function decodeNumericEntities(html: string): string {
+  return html.replace(/&#(x[0-9a-f]+|\d+);/gi, (entity, code: string) => {
+    const point = /^x/i.test(code) ? parseInt(code.slice(1), 16) : Number(code);
+    const markup = point === 38 || point === 60 || point === 62;
+    return point >= 32 && point <= 0x10ffff && !markup ? String.fromCodePoint(point) : entity;
+  });
+}
+
 /** HTML fragment -> plain text with paragraph breaks kept. */
 export function htmlToText(html: string | undefined): string | undefined {
   if (!html) return undefined;
-  const withBreaks = html.replace(/<\/(p|div|h[1-6]|li|blockquote)>|<br\s*\/?>/gi, '\n\n');
+  const withBreaks = decodeNumericEntities(html.replace(INLINE_TAGS, '')).replace(
+    /<\/(p|div|h[1-6]|li|blockquote)>|<br\s*\/?>/gi,
+    '\n\n'
+  );
   const out = withBreaks
     .split(/\n{2,}/)
     .map((para) => stripHtml(para))
     .filter(Boolean)
     .join('\n\n');
   return out || undefined;
+}
+
+/** An article page's og:image (or twitter:image), resolved against the page URL. */
+export function ogImage($: cheerio.CheerioAPI, pageUrl: string): string | undefined {
+  const src =
+    $('meta[property="og:image"]').attr('content') ||
+    $('meta[name="twitter:image"]').attr('content');
+  if (!src?.trim()) return undefined;
+  try {
+    return new URL(src.trim(), pageUrl).toString();
+  } catch {
+    return undefined;
+  }
 }
 
 const TRACKING_PARAMS = /^(utm_|fbclid$|gclid$|mc_cid$|mc_eid$|ref$|cmpid$)/i;

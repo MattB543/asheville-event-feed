@@ -30,6 +30,7 @@ import {
   htmlToText,
   wpAuthor,
   wpDate,
+  wpExcerpt,
   wpImage,
   type WpPost,
 } from '../feeds';
@@ -97,7 +98,7 @@ function toArticle(post: SagaNewsPost, sections: string[]): ScrapedArticle {
     publishedAt: wpDate(post.date_gmt),
     updatedAt: wpDate(post.modified_gmt),
     author: author === HOUSE_BYLINE ? undefined : author,
-    summary: htmlToText(post.excerpt.rendered),
+    summary: wpExcerpt(post),
     contentText: htmlToText(post.content.rendered),
     imageUrl: wpImage(post),
     categories: sections.filter((s) => !GENERIC_SECTIONS.has(s)),
@@ -110,9 +111,10 @@ const news828Now: NewsSourceModule = {
   homepage: SITE,
   kind: 'outlet',
   method: 'wp-json',
-  async scrape() {
+  async scrape({ deadline }) {
     const sectionNames = await fetchSectionNames();
     await new Promise((resolve) => setTimeout(resolve, CRAWL_DELAY_MS));
+    if (Date.now() > deadline) return [];
     const posts = await fetchRecentNews();
 
     return posts.flatMap((post) => {

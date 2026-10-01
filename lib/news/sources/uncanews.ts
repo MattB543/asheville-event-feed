@@ -13,7 +13,15 @@
 
 import * as cheerio from 'cheerio';
 import type { NewsSourceModule, ScrapedArticle } from '../types';
-import { canonicalizeUrl, fetchNewsText, htmlToText, wpDate, wpImage, type WpPost } from '../feeds';
+import {
+  canonicalizeUrl,
+  fetchNewsText,
+  htmlToText,
+  wpDate,
+  wpExcerpt,
+  wpImage,
+  type WpPost,
+} from '../feeds';
 import { stripHtml } from '../../utils/parsers';
 
 const SITE = 'https://www.unca.edu';
@@ -36,7 +44,7 @@ function toArticle(post: WpPost): ScrapedArticle {
     title: stripHtml(post.title.rendered).trim(),
     publishedAt: wpDate(post.date_gmt),
     updatedAt: wpDate(post.modified_gmt),
-    summary: htmlToText(post.excerpt.rendered),
+    summary: wpExcerpt(post),
     contentText: bodyText(post.content.rendered),
     imageUrl: wpImage(post),
   };

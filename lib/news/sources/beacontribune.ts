@@ -20,7 +20,14 @@
  */
 
 import * as cheerio from 'cheerio';
-import { canonicalizeUrl, fetchFeed, fetchNewsText, htmlToText, type FeedItem } from '../feeds';
+import {
+  canonicalizeUrl,
+  fetchFeed,
+  fetchNewsText,
+  htmlToText,
+  ogImage,
+  type FeedItem,
+} from '../feeds';
 import type { NewsSourceModule, ScrapedArticle } from '../types';
 
 const KEY = 'BEACON_TRIBUNE';
@@ -49,6 +56,37 @@ function fullSizeImage(url: string | undefined): string | undefined {
   return url?.split('?')[0] || undefined;
 }
 
+/**
+ * The feed cuts each dek to its first 40 words plus "…"; the section front
+ * shows it whole. Cutting the front's the same way keeps the dek identical
+ * whichever path ran, so a feed 429 doesn't look like an edit to the pipeline.
+ */
+const FEED_DEK_WORDS = 40;
+
+function feedStyleDek(text: string): string | undefined {
+  const words = text.split(/\s+/).filter(Boolean);
+  if (!words.length) return undefined;
+  return words.length > FEED_DEK_WORDS
+    ? `${words.slice(0, FEED_DEK_WORDS).join(' ')}…`
+    : words.join(' ');
+}
+
+/**
+ * TownNews answers bursts with 429, article pages included, and ingest asks
+ * for bodies soon after the feed. So this module's requests go out at least
+ * REQUEST_GAP_MS apart, and an article page's 429 gets one spaced retry
+ * (both well inside ingest's 15s per body).
+ */
+const REQUEST_GAP_MS = 3000;
+const ARTICLE_RETRY = { maxRetries: 2, baseDelay: 5000 };
+let lastRequestAt = 0;
+
+async function paceRequests(): Promise<void> {
+  const wait = lastRequestAt + REQUEST_GAP_MS - Date.now();
+  if (wait > 0) await new Promise((resolve) => setTimeout(resolve, wait));
+  lastRequestAt = Date.now();
+}
+
 function feedToArticle(item: FeedItem): ScrapedArticle | undefined {
   if (!item.publishedAt) return undefined;
   const url = canonicalizeUrl(item.link);
@@ -56,15 +94,16 @@ function feedToArticle(item: FeedItem): ScrapedArticle | undefined {
     source: KEY,
     sourceId: assetId(url),
     url,
-    title: item.title,
+    title: item.title.replace(/\s+/g, ' ').trim(),
     publishedAt: item.publishedAt,
     author: byline(item.author),
-    summary: htmlToText(item.descriptionHtml),
+    summary: feedStyleDek(htmlToText(item.descriptionHtml) ?? ''),
     imageUrl: fullSizeImage(item.imageUrl),
   };
 }
 
 async function scrapeSectionFront(): Promise<ScrapedArticle[]> {
+  await paceRequests();
   const $ = cheerio.load(await fetchNewsText(`${SITE}/news/`, LABEL));
   return $('article.tnt-asset-type-article')
     .toArray()
@@ -80,9 +119,9 @@ async function scrapeSectionFront(): Promise<ScrapedArticle[]> {
           source: KEY,
           sourceId: assetId(url),
           url,
-          title: link.text().trim(),
+          title: link.text().replace(/\s+/g, ' ').trim(),
           publishedAt,
-          summary: card.find('.tnt-summary').first().text().trim() || undefined,
+          summary: feedStyleDek(card.find('.tnt-summary').first().text()),
           imageUrl: fullSizeImage(card.find('img').first().attr('data-srcset')?.split(/\s/)[0]),
         },
       ];
@@ -105,10 +144,12 @@ const beaconTribune: NewsSourceModule = {
   homepage: SITE,
   kind: 'outlet',
   method: 'rss',
-  async scrape() {
+  async scrape({ deadline }) {
     try {
+      await paceRequests();
       return (await fetchFeed(FEED_URL, LABEL)).flatMap((item) => feedToArticle(item) ?? []);
     } catch (error) {
+      if (Date.now() > deadline) throw error;
       console.warn(
         `[${LABEL}] Feed failed, reading the section front: ${error instanceof Error ? error.message : String(error)}`
       );
@@ -117,12 +158,14 @@ const beaconTribune: NewsSourceModule = {
   },
 
   async fetchFullText(url) {
-    const $ = cheerio.load(await fetchNewsText(url, LABEL));
+    await paceRequests();
+    const $ = cheerio.load(await fetchNewsText(url, LABEL, {}, ARTICLE_RETRY));
     const body = $('#article-body');
     if (body.find('meta[itemprop="isAccessibleForFree"]').attr('content') === 'false')
       return undefined;
     body.find(NON_BODY).remove();
-    return cutAtEndMark(htmlToText(body.html() ?? undefined));
+    const text = cutAtEndMark(htmlToText(body.html() ?? undefined));
+    return text ? { text, imageUrl: fullSizeImage(ogImage($, url)) } : undefined;
   },
 };
 

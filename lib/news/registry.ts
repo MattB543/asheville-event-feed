@@ -1,6 +1,9 @@
 /**
  * Every news source the pipeline runs, as an explicit list. Nothing scans the
  * sources directory: add a module here to turn it on.
+ *
+ * Not listed: sources/blackmountainnews.ts, behind Gannett's 402 wall since
+ * 2026-09-30 (its header says more). Its headlines arrive via Google News.
  */
 
 import newsnow828 from './sources/828newsnow';
@@ -9,7 +12,6 @@ import avlcouncilagenda from './sources/avlcouncilagenda';
 import avlwatchdog from './sources/avlwatchdog';
 import beacontribune from './sources/beacontribune';
 import biltmoreforesttown from './sources/biltmoreforesttown';
-import blackmountainnews from './sources/blackmountainnews';
 import blackmountaintown from './sources/blackmountaintown';
 import bluebanner from './sources/bluebanner';
 import bpr from './sources/bpr';
@@ -39,7 +41,6 @@ export const NEWS_SOURCES: NewsSourceModule[] = [
   avlwatchdog,
   beacontribune,
   biltmoreforesttown,
-  blackmountainnews,
   blackmountaintown,
   bluebanner,
   bpr,

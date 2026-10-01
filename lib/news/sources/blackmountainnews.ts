@@ -14,11 +14,19 @@
  * and the page carries the whole body, so it is read from that same fetch -
  * there is no separate fetchFullText. A story marked not free is kept as
  * headline + dek only.
+ *
+ * NOT IN THE REGISTRY since 2026-09-30: the story pages now mostly answer
+ * with Gannett's 402 "Access Restricted" wall too (every story on two full
+ * runs, from Node and curl, with the current Chrome UA and the old one; a few
+ * one-off requests got through; the sitemap still answers). The builder's
+ * line is not to work around that wall, so the paper's headlines come through
+ * Google News instead, like the Citizen-Times'. Re-test with
+ * `npx tsx scripts/news/test-source.ts blackmountainnews` before re-adding.
  */
 
 import * as cheerio from 'cheerio';
 import { canonicalizeUrl, fetchNewsText, htmlToText } from '../feeds';
-import type { NewsSourceModule, ScrapedArticle } from '../types';
+import type { NewsSourceModule, ScrapeContext, ScrapedArticle } from '../types';
 
 const KEY = 'BLACK_MOUNTAIN_NEWS';
 const SITEMAP_URL = (month: string) =>
@@ -44,10 +52,15 @@ const NON_BODY = 'aside, figure, script, style, iframe, ul.gnt_sh';
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
-/** "YYYY-MM" for every month the look-back window touches. */
+/**
+ * "YYYY-MM" for every month the look-back window touches, in Eastern time: at
+ * 23:55 ET on Sep 30 (already October in UTC) October's sitemap was a 404.
+ */
 function sitemapMonths(now: Date): string[] {
   const start = new Date(now.getTime() - MAX_AGE_DAYS * 24 * 60 * 60 * 1000);
-  return [...new Set([start, now].map((d) => d.toISOString().slice(0, 7)))];
+  const easternMonth = (d: Date) =>
+    d.toLocaleDateString('en-CA', { timeZone: 'America/New_York' }).slice(0, 7);
+  return [...new Set([start, now].map(easternMonth))];
 }
 
 /** Story URLs last modified inside the window, with the sitemap's image. */
@@ -137,12 +150,13 @@ async function readStory(
   };
 }
 
-async function scrape(): Promise<ScrapedArticle[]> {
+async function scrape({ deadline }: ScrapeContext): Promise<ScrapedArticle[]> {
   const cutoff = Date.now() - MAX_AGE_DAYS * 24 * 60 * 60 * 1000;
   const articles: ScrapedArticle[] = [];
 
   for (const [url, image] of await listRecent(cutoff)) {
     await sleep(REQUEST_DELAY_MS);
+    if (Date.now() > deadline) break;
     try {
       const article = await readStory(url, image, cutoff);
       if (article) articles.push(article);

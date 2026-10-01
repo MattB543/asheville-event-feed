@@ -16,6 +16,7 @@ import {
   wpAuthor,
   wpCategories,
   wpDate,
+  wpExcerpt,
   wpImage,
   type WpPost,
 } from '../feeds';
@@ -39,7 +40,7 @@ function toArticle(post: WpPost): ScrapedArticle {
     publishedAt: wpDate(post.date_gmt),
     updatedAt: wpDate(post.modified_gmt),
     author: author === HOUSE_BYLINE ? undefined : author,
-    summary: htmlToText(post.excerpt.rendered)?.replace(/\s*\[\.\]$/, '…'),
+    summary: wpExcerpt(post),
     contentText: htmlToText(post.content.rendered),
     imageUrl: wpImage(post),
     categories: [...new Set(wpCategories(post))],

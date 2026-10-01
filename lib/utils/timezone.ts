@@ -86,8 +86,10 @@ export function getEasternOffset(dateStr: string | Date): string {
  * @returns Date object with correct UTC time
  */
 export function parseAsEastern(dateStr: string, timeStr: string = '19:00:00'): Date {
-  const offset = getEasternOffset(dateStr);
-  return new Date(`${dateStr}T${timeStr}${offset}`);
+  // The offset in force at noon is wrong before the 2 AM switch on DST days
+  // (November's midnight came out as 1 AM), so re-take it at the first guess.
+  const guess = new Date(`${dateStr}T${timeStr}${getEasternOffset(dateStr)}`);
+  return new Date(`${dateStr}T${timeStr}${getEasternOffset(guess)}`);
 }
 
 /**

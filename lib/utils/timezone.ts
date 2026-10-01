@@ -9,30 +9,20 @@
  * This works correctly regardless of server timezone (e.g., UTC on Vercel)
  */
 export function getStartOfTodayEastern(): Date {
-  const now = new Date();
+  const todayEastern = getTodayStringEastern(); // "2024-11-29" format
+  return new Date(`${todayEastern}T00:00:00${getEasternOffsetAtMidnight(todayEastern)}`);
+}
 
-  // Get today's date in Eastern timezone (YYYY-MM-DD format)
-  const formatter = new Intl.DateTimeFormat('en-CA', {
-    timeZone: 'America/New_York',
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-  });
-  const todayEastern = formatter.format(now); // "2024-11-29" format
-
-  // Determine current Eastern offset by checking the formatted timezone
-  const nowOffset = new Intl.DateTimeFormat('en-US', {
-    timeZone: 'America/New_York',
-    timeZoneName: 'shortOffset',
-  })
-    .formatToParts(now)
-    .find((p) => p.type === 'timeZoneName')?.value;
-
-  // EST = GMT-5, EDT = GMT-4
-  const offset = nowOffset?.includes('-4') ? '-04:00' : '-05:00';
-
-  // Return midnight Eastern as a proper Date (stored as UTC internally)
-  return new Date(`${todayEastern}T00:00:00${offset}`);
+/**
+ * The Eastern offset in effect at 00:00 on a YYYY-MM-DD date.
+ *
+ * Not the offset "now", and not the offset at noon: on the two DST days those differ from
+ * midnight's (on the November switch, midnight is still EDT but the rest of the day is EST), which
+ * shifted the day boundary by an hour. DST changes at 2 AM local, so 05:00Z - midnight EST, 1 AM
+ * EDT - is always on midnight's side of the switch.
+ */
+function getEasternOffsetAtMidnight(dateStr: string): string {
+  return getEasternOffset(new Date(`${dateStr}T05:00:00Z`));
 }
 
 /**
@@ -161,8 +151,7 @@ export function getStartOfTomorrowEastern(): Date {
     '0'
   )}-${String(tomorrowDate.getDate()).padStart(2, '0')}`;
 
-  const offset = getEasternOffset(tomorrowStr);
-  return new Date(`${tomorrowStr}T00:00:00${offset}`);
+  return new Date(`${tomorrowStr}T00:00:00${getEasternOffsetAtMidnight(tomorrowStr)}`);
 }
 
 /**
@@ -171,8 +160,8 @@ export function getStartOfTomorrowEastern(): Date {
  * @returns { start: Date, end: Date } representing 00:00:00 to 23:59:59.999 Eastern
  */
 export function getDayBoundariesEastern(dateStr: string): { start: Date; end: Date } {
-  const offset = getEasternOffset(dateStr);
-  const start = new Date(`${dateStr}T00:00:00${offset}`);
-  const end = new Date(`${dateStr}T23:59:59.999${offset}`);
+  // The two ends can have different offsets on a DST day; 23:59 is always after the 2 AM switch.
+  const start = new Date(`${dateStr}T00:00:00${getEasternOffsetAtMidnight(dateStr)}`);
+  const end = new Date(`${dateStr}T23:59:59.999${getEasternOffset(dateStr)}`);
   return { start, end };
 }

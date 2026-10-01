@@ -392,19 +392,20 @@ measured on 2026-09-18, versus 62 from scrape and 27 from cleanup.
 
 ### Public APIs
 
-| Route                       | Method | Purpose                                          |
-| --------------------------- | ------ | ------------------------------------------------ |
-| `/api/health`               | GET    | Health check (DB status, event count)            |
-| `/api/chat`                 | POST   | AI conversational event discovery (rate limited) |
-| `/api/export/xml`           | GET    | RSS XML feed export                              |
-| `/api/export/markdown`      | GET    | Markdown export                                  |
-| `/api/events/submit`        | POST   | Submit event via form                            |
-| `/api/events/submit-url`    | POST   | Submit event via URL                             |
-| `/api/events/report`        | POST   | Report an event                                  |
-| `/api/events/top30`         | GET    | Deep Top 30 pool for one category (cached)       |
-| `/api/curator/[slug]`       | GET    | Public curator profile data                      |
-| `/api/events/favorites`     | POST   | Fetch public event data for a list of event IDs  |
-| `/api/events/[id]/favorite` | POST   | Increment/decrement an event's favorite count    |
+| Route                       | Method | Purpose                                                   |
+| --------------------------- | ------ | --------------------------------------------------------- |
+| `/api/health`               | GET    | Health check (DB status, event count)                     |
+| `/api/chat`                 | POST   | AI conversational event discovery (rate limited)          |
+| `/api/export/xml`           | GET    | RSS XML feed export                                       |
+| `/api/export/markdown`      | GET    | Markdown export                                           |
+| `/api/events/submit`        | POST   | Submit event via form                                     |
+| `/api/events/submit-url`    | POST   | Submit event via URL                                      |
+| `/api/events/report`        | POST   | Report an event                                           |
+| `/api/events/top30`         | GET    | Deep Top 30 pool for one category (cached)                |
+| `/api/curator/[slug]`       | GET    | Public curator profile data                               |
+| `/api/events/favorites`     | POST   | Fetch public event data for a list of event IDs           |
+| `/api/events/[id]/favorite` | POST   | Increment/decrement an event's favorite count             |
+| `/api/city-status`          | GET    | Live garage spaces + active water notices (header badges) |
 
 `/api/events/[id]/favorite` is intentionally anonymous — favoriting is
 localStorage-driven with no sign-in required, so the endpoint only takes
@@ -465,21 +466,29 @@ listings and are never touched.
 
 ## Scrapers
 
-| Source            | File                  | Method                     | Notes                                    |
-| ----------------- | --------------------- | -------------------------- | ---------------------------------------- |
-| AVL_TODAY         | `avltoday.ts`         | CitySpark API              | POST to portal.cityspark.com             |
-| EVENTBRITE        | `eventbrite.ts`       | HTML + API                 | Browse page scrape + API details         |
-| MEETUP            | `meetup.ts`           | GraphQL                    | Public API, location-based               |
-| FACEBOOK          | `facebook.ts`         | Browser automation         | Disabled on Vercel (requires Playwright) |
-| HARRAHS           | `harrahs.ts`          | Ticketmaster API + HTML    | Harrah's Cherokee Center                 |
-| ORANGE_PEEL       | `orangepeel.ts`       | Ticketmaster API + JSON-LD | The Orange Peel venue                    |
-| GREY_EAGLE        | `greyeagle.ts`        | JSON-LD                    | Grey Eagle Taqueria                      |
-| LIVE_MUSIC_AVL    | `livemusicavl.ts`     | ICS feeds                  | Select venues only                       |
-| EXPLORE_ASHEVILLE | `exploreasheville.ts` | Public API                 | Tourism board events                     |
-| MISFIT_IMPROV     | `misfitimprov.ts`     | Crowdwork API              | Improv comedy shows                      |
-| UDHARMA           | `udharma.ts`          | Squarespace API            | Meditation/yoga events                   |
-| NC_STAGE          | `ncstage.ts`          | ThunderTix                 | NC Stage Company theater                 |
-| STORY_PARLOR      | `storyparlor.ts`      | Squarespace JSON-LD        | Storytelling events                      |
+| Source              | File                   | Method                                     | Notes                                                                                                  |
+| ------------------- | ---------------------- | ------------------------------------------ | ------------------------------------------------------------------------------------------------------ |
+| AVL_TODAY           | `avltoday.ts`          | CitySpark API                              | POST to portal.cityspark.com                                                                           |
+| EVENTBRITE          | `eventbrite.ts`        | HTML + API                                 | Browse page scrape + API details                                                                       |
+| MEETUP              | `meetup.ts`            | GraphQL                                    | Public API, location-based                                                                             |
+| FACEBOOK            | `facebook.ts`          | Browser automation                         | Disabled on Vercel (requires Playwright)                                                               |
+| HARRAHS             | `harrahs.ts`           | Ticketmaster API + HTML                    | Harrah's Cherokee Center                                                                               |
+| ORANGE_PEEL         | `orangepeel.ts`        | Ticketmaster API + JSON-LD                 | The Orange Peel venue                                                                                  |
+| GREY_EAGLE          | `greyeagle.ts`         | JSON-LD                                    | Grey Eagle Taqueria                                                                                    |
+| LIVE_MUSIC_AVL      | `livemusicavl.ts`      | ICS feeds                                  | Select venues only                                                                                     |
+| EXPLORE_ASHEVILLE   | `exploreasheville.ts`  | Public API                                 | Tourism board events                                                                                   |
+| MISFIT_IMPROV       | `misfitimprov.ts`      | Crowdwork API                              | Improv comedy shows                                                                                    |
+| UDHARMA             | `udharma.ts`           | Squarespace API                            | Meditation/yoga events                                                                                 |
+| NC_STAGE            | `ncstage.ts`           | ThunderTix                                 | NC Stage Company theater                                                                               |
+| STORY_PARLOR        | `storyparlor.ts`       | Squarespace JSON-LD                        | Storytelling events                                                                                    |
+| LIBRARY             | `library.ts`           | LibraryMarket / LibCal / WhoFi JSON + iCal | 7 library systems within ~45 min; branch→address map per system; organizer = branch                    |
+| CITY_OF_ASHEVILLE   | `cityofasheville.ts`   | Tribe REST + event pages                   | Council + ~35 boards; virtual → "Remote meeting"                                                       |
+| BUNCOMBE_COUNTY     | `buncombecounty.ts`    | CivicPlus ICS (catID allowlist)            | Boards, elections, county parks, markets; early voting = 1 rolling event                               |
+| ASHEVILLE_PARKS_REC | `ashevilleparksrec.ts` | WebTrac HTML via `fetchAsChrome`           | City Parks & Rec classes/camps/center programs; one event per activity at its next session; local-only |
+
+- **LIBRARY** rows are never auto-deduped against a row at a different (or unknown) location (`isLibraryLocationConflict` in `lib/utils/deduplication.ts`): every branch runs "Baby Story Time" at the same hour, and venue matching would otherwise merge them.
+- **Remote meetings**: feed queries in `lib/db/queries/events.ts` hide locations matching `%online%` / `%virtual%`, which is why virtual city meetings use the location "Remote meeting".
+- **Rolling events**: the scrape upsert updates `startDate` on conflict but does **not** write `recurringType` / `recurringEndDate`, and only replaces a description with a longer one. Early voting and Parks & Rec activities therefore re-upsert the same `url` with the next upcoming date each run.
 
 ---
 
@@ -680,6 +689,17 @@ Built to `docs/news/05-v1-plan.md`; Matt's decisions are in `docs/news/decisions
 - The list comes from a multi-agent pipeline documented in `data/groups/README.md`: discovery → research (`data/groups/research/`) → links pass → `directory-overrides.json` (final human calls) → `npx tsx scripts/groups/build-directory.ts` → `npx tsx scripts/groups/seed-groups.ts [--apply]`. Edit the overrides, not `directory.json`. The seed prints a coverage report and a parity check (the pages' SQL prefilter vs a full JS scan) that must come back clean
 - Definition of a group (Matt): a specific set of people with a shared identity who return repeatedly. Not groups: trivia, open mics, karaoke, a business's paid classes/shows, low-value business networking, remote-only groups, anything outside Western NC
 
+### City Status Badges (header)
+
+- `components/cityStatus/CityStatusBadges` sits right after the tab switcher (below lg: a row under the tabs). Parking is one pill, "N open garage spots" (the downtown total), that opens a native popover (304px, so "Open spaces in city garages · as of 12:45 PM" stays on one line) listing each garage by name with its count and Google Maps directions. On phones beside a water badge the pill shortens to "N garage spots" ("N spots" under 400px) so both fit one row. One shared `useQuery` (`useCityStatus.ts`) refetches `/api/city-status` every 60s while the tab is visible
+- The water badge is orange for a boil-water advisory ("Boil water · Haw Creek") and a neutral pill with an amber droplet for outages ("Water outage · Rumbough Pl", "3 water outages"); at lg (1024-1279) it shows a short label ("Boil water" / "Outage"). It opens `WaterAlertModal` (native `<dialog>`): one plain section per notice, area as the heading, a "What to do" callout, then the city's cleaned-up text with tap-to-call numbers
+- Header tabs are content-width ("All Events" on phones too): 36px tall below lg, 32px at lg+
+- **Parking**: the city's public S3 feed `s3.amazonaws.com/avl-parking-decks/all-spaces.json` (4 city + 2 county decks, rewritten ~every minute; `available` is a string for city decks, a number for county). Hidden when the fetch fails or S3 `Last-Modified` is over 10 min old - never show stale counts as live
+- **Water**: the city's undocumented Everbridge feed (the one behind ashevillenc.gov's water-quality-advisories page). The badge means a _major_ issue (Matt's call, 2026-10-01: boil-water, scheduled shutdowns, major outages; ~12% of hours over a 2-week replay, vs ~48% for "any outage"). The rule is documented at the top of `lib/cityStatus/water.ts` and is pure with an explicit `now`, so it can be replayed over a saved feed. A false all-clear on a boil advisory is the worst error, so ambiguity there resolves to "show it"
+- `water` is `{status:'ok', active}` or `{status:'unavailable'}` (feed down, malformed water item, or data older than 20 min); the client keeps the last known advisories on `unavailable`. Feeds are timed `no-store` fetches inside `unstable_cache`; responses carry `s-maxage=60` (10 when degraded). The route is excluded from the `proxy.ts` matcher so polls don't trigger a Supabase session refresh / Set-Cookie
+- Dev preview: `?cityPreview=boil`, `?cityPreview=outage` or `?cityPreview=outage1` (honored only when `NODE_ENV === 'development'`)
+- "Open-sourced by Matt" is always in the header: below lg in row 1 (between the logo and the icon buttons, even with a water badge); at lg+ beside the icon buttons, hidden only while a water badge is showing (CSS `group-has-[[data-water-badge]]`, no client state). The footer credit ("Open-sourced and built by Matt") is one component, `components/FooterCredit.tsx`
+
 ### Dark Mode
 
 - `next-themes` for theme management
@@ -690,26 +710,30 @@ Built to `docs/news/05-v1-plan.md`; Matt's decisions are in `docs/news/decisions
 
 ## Scripts Reference
 
-| Script                        | Purpose                                 |
-| ----------------------------- | --------------------------------------- |
-| `npm run dev`                 | Start development server                |
-| `npm run build`               | Build for production                    |
-| `npm run test:avl`            | Test AVL Today scraper                  |
-| `npm run test:eventbrite`     | Test Eventbrite scraper                 |
-| `npm run test:meetup`         | Test Meetup scraper                     |
-| `npm run test:harrahs`        | Test Harrah's scraper                   |
-| `npm run test:orangepeel`     | Test Orange Peel scraper                |
-| `npm run test:greyeagle`      | Test Grey Eagle scraper                 |
-| `npm run test:storyparlor`    | Test Story Parlor scraper               |
-| `npm run test:misfit`         | Test Misfit Improv scraper              |
-| `npm run test:udharma`        | Test UDharma scraper                    |
-| `npm run db:check`            | Check database connection               |
-| `npm run db:count`            | Count events by source                  |
-| `npm run db:tags`             | Check tag statistics                    |
-| `npm run db:clear`            | Clear all events (destructive!)         |
-| `npm run backfill`            | Backfill Eventbrite events              |
-| `npm run backfill:embeddings` | Backfill embeddings for existing events |
-| `npm run tag:events`          | Tag all untagged events                 |
+| Script                         | Purpose                                 |
+| ------------------------------ | --------------------------------------- |
+| `npm run dev`                  | Start development server                |
+| `npm run build`                | Build for production                    |
+| `npm run test:avl`             | Test AVL Today scraper                  |
+| `npm run test:eventbrite`      | Test Eventbrite scraper                 |
+| `npm run test:meetup`          | Test Meetup scraper                     |
+| `npm run test:harrahs`         | Test Harrah's scraper                   |
+| `npm run test:orangepeel`      | Test Orange Peel scraper                |
+| `npm run test:greyeagle`       | Test Grey Eagle scraper                 |
+| `npm run test:storyparlor`     | Test Story Parlor scraper               |
+| `npm run test:misfit`          | Test Misfit Improv scraper              |
+| `npm run test:udharma`         | Test UDharma scraper                    |
+| `npm run test:library`         | Test library scraper (7 systems)        |
+| `npm run test:cityofasheville` | Test City of Asheville meetings scraper |
+| `npm run test:buncombecounty`  | Test Buncombe County calendar scraper   |
+| `npm run test:parksrec`        | Test Asheville Parks & Rec scraper      |
+| `npm run db:check`             | Check database connection               |
+| `npm run db:count`             | Count events by source                  |
+| `npm run db:tags`              | Check tag statistics                    |
+| `npm run db:clear`             | Clear all events (destructive!)         |
+| `npm run backfill`             | Backfill Eventbrite events              |
+| `npm run backfill:embeddings`  | Backfill embeddings for existing events |
+| `npm run tag:events`           | Tag all untagged events                 |
 
 ---
 
@@ -734,12 +758,13 @@ Built to `docs/news/05-v1-plan.md`; Matt's decisions are in `docs/news/decisions
 
 - **Fluid Compute**: Enabled for longer function execution (up to 800s for scrape/ai/verify jobs)
 - **Cron Schedule**: Scrape at :00, verify at :05 (every 3h), AI processing at :20 (every 3h), cleanup 8x daily, dedup daily at 4 AM ET, email digests daily at 7 AM ET, Top 30 email Fridays 11 AM ET
-- **Known prod gaps**: three sources are local-only and are deliberately skipped on Vercel, so a periodic local full scrape (see `scripts/run-full-cron-local.ts`, `scripts/run-facebook-local.ts`, `scripts/drain-ai-backlog-local.sh`) is required to keep them current:
+- **Known prod gaps**: four sources are local-only and are deliberately skipped on Vercel, so a periodic local full scrape (see `scripts/run-full-cron-local.ts`, `scripts/run-facebook-local.ts`, `scripts/drain-ai-backlog-local.sh`) is required to keep them current:
   - **MountainX** (~9,700 events) — Cloudflare challenges Node's default TLS/ALPN fingerprint, **not** the IP: `curl` gets 200 where Node's `fetch` gets "Just a moment...", and no amount of header spoofing helps. The scraper now issues requests through an undici `Agent` with `allowH2: true` **and** Chrome's cipher order — both halves are required, either alone still 403s. Three tiers: Tribe REST API → month-view HTML (JSON-LD), both over that dispatcher → patchright with a **fresh browser context per month** (a shared context carries a Cloudflare cookie that poisons later navigations). 403s are transient reputation checks, so `fetchAsChrome` retries with backoff rather than falling through a tier. Gated by `localOnly: true` in the scrape route's `SCRAPERS` registry. The gate was lifted on 2026-09-02 to test the dispatcher from Vercel: it succeeded on roughly half of runs until 2026-09-15, then Cloudflare began challenging every request from Vercel's egress while the same code kept working locally, so the gate went back on 2026-09-17.
   - **NC Stage** (ThunderTix box office, ~100 events) — same `fetchAsChrome` dispatcher and the same Vercel-only Cloudflare block since 2026-09-15; `localOnly: true` since 2026-09-17.
   - **Facebook** — needs browser automation plus session cookies. Gated by `isFacebookEnabled()`, which returns false on Vercel.
+  - **Asheville Parks & Rec** (WebTrac, ~130 events) — Cloudflare 403s Node's fetch; `fetchAsChrome` gets through locally. Never tried from Vercel, so `localOnly: true` by assumption (added 2026-10-01). The patchright fallback must keep a desktop Chrome UA: the HeadlessChrome UA is hard-blocked. Its dates only advance on local runs, so an ongoing activity's listed session can pass between runs.
 
-  All of these gates key off `process.env.VERCEL` via `isLocalScrapeRuntime()` in `lib/config/env.ts`, so a local run picks them up automatically with no flag to set. The scrape job's `result.skippedSources` records what was skipped on each run — on Vercel expect `["Mountain Xpress", "NC Stage", "Facebook"]` and `failures.scrapers: 0`.
+  All of these gates key off `process.env.VERCEL` via `isLocalScrapeRuntime()` in `lib/config/env.ts`, so a local run picks them up automatically with no flag to set. The scrape job's `result.skippedSources` records what was skipped on each run — on Vercel expect `["Mountain Xpress", "NC Stage", "Asheville Parks & Rec", "Facebook"]` and `failures.scrapers: 0`.
 
 ### Max Duration
 

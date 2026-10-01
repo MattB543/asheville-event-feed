@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Header from '@/components/Header';
+import FooterCredit from '@/components/FooterCredit';
 import NewsDaySection, { NewsListLabel } from '@/components/news/NewsDaySection';
 import NewsEndCap from '@/components/news/NewsEndCap';
 import NewsResultsList from '@/components/news/NewsResultsList';
@@ -262,18 +263,7 @@ export default async function NewsPage({ searchParams }: NewsPageProps) {
       </div>
 
       <footer className="bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 mt-8 py-8 text-center text-sm text-gray-500 dark:text-gray-400">
-        <p className="mb-2">
-          Built by{' '}
-          <a
-            href="https://mattbrooks.xyz"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="underline hover:text-gray-700 dark:hover:text-gray-300"
-          >
-            Matt
-          </a>{' '}
-          at Brooks Solutions, LLC.
-        </p>
+        <FooterCredit />
         <p>
           © {new Date().getFullYear()} AVL GO. Headlines and summaries are ours; the reporting
           belongs to the outlets we link to.

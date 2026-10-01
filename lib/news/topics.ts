@@ -10,8 +10,6 @@ export interface NewsTopic {
   /** Stable id, stored in news_articles.topics / news_stories.topics. */
   slug: string;
   label: string;
-  /** One-word tag for tight spaces. */
-  kicker: string;
   /** What belongs in the topic. Fed to the enrichment prompt. */
   guidance: string;
 }
@@ -20,82 +18,75 @@ export const NEWS_TOPICS = [
   {
     slug: 'government',
     label: 'Government & Politics',
-    kicker: 'Civic',
     guidance:
-      'City council, county commission, town boards, elections, budgets, taxes, ordinances, utilities and public services',
+      'City council, county commission, town boards, elections, budgets, taxes, ordinances, the city water system and other public services',
   },
   {
     slug: 'housing',
     label: 'Housing & Growth',
-    kicker: 'Growth',
     guidance: 'Housing, homelessness, zoning, development, real estate',
   },
   {
     slug: 'helene',
     label: 'Helene Recovery',
-    kicker: 'Helene',
     guidance:
       'Anything materially about recovery from Hurricane Helene (funding, rebuilding, debris, FEMA). Usually paired with another topic',
   },
   {
     slug: 'environment',
     label: 'Environment & Outdoors',
-    kicker: 'Outdoors',
     guidance:
       'Rivers, parks, trails, the Blue Ridge Parkway, wildlife and bears, drought, conservation',
   },
   {
     slug: 'schools',
     label: 'Schools & Kids',
-    kicker: 'Schools',
     guidance:
       'Buncombe County Schools, Asheville City Schools, charter schools, childcare, UNC Asheville, A-B Tech, youth programs',
   },
   {
     slug: 'business',
     label: 'Business & Food',
-    kicker: 'Business',
     guidance: 'Openings and closings, restaurants, breweries, jobs, the economy, tourism',
   },
   {
     slug: 'arts',
     label: 'Arts & Culture',
-    kicker: 'Culture',
     guidance: 'Music, visual and performing arts, festivals, history, local media',
   },
   {
     slug: 'public-safety',
     label: 'Public Safety',
-    kicker: 'Safety',
     guidance: 'Crime, courts, police, sheriff, fire, EMS, emergency management',
   },
   {
     slug: 'health',
     label: 'Health',
-    kicker: 'Health',
     guidance: 'Mission Hospital/HCA, Novant, AdventHealth, clinics, public health',
   },
   {
     slug: 'getting-around',
     label: 'Getting Around',
-    kicker: 'Roads',
-    guidance: 'Roads and road work, I-40 and I-26, transit, the airport, greenways, parking',
+    guidance:
+      'Roads and road work, I-40 and I-26, transit, the airport, greenways, parking, and power, internet or phone outages',
   },
   {
     slug: 'weather',
     label: 'Weather',
-    kicker: 'Weather',
     guidance: 'Severe weather, storms, floods, weather alerts',
   },
   {
     slug: 'sports',
     label: 'Sports',
-    kicker: 'Sports',
     guidance: 'UNC Asheville athletics, high school sports, minor league teams, tournaments',
   },
 ] as const satisfies readonly NewsTopic[];
 
 export type NewsTopicSlug = (typeof NEWS_TOPICS)[number]['slug'];
+
+/** A rule across topics, fed to the enrichment prompt after the list. */
+export const NEWS_TOPIC_NOTE =
+  "A nonprofit, ministry or community group takes the topic of its work (a shelter: housing; a free clinic: health; a youth program: schools), never one guessed from the group's name.";
 
 const TOPIC_BY_SLUG = new Map<string, NewsTopic>(NEWS_TOPICS.map((t) => [t.slug, t]));
 const TOPIC_BY_LABEL = new Map<string, NewsTopic>(
@@ -151,8 +142,7 @@ export type NewsPlace = (typeof NEWS_PLACES)[number];
 /** Neighborhoods and landmarks that file under each area. Fed to the enrichment prompt. */
 export const NEWS_PLACE_GUIDANCE: Partial<Record<NewsPlace, string>> = {
   Downtown: 'South Slope, Lexington Ave, Pack Square, Southside, the East End',
-  'West Asheville':
-    'Haywood Road, River Arts District, Burton Street, Emma, Deaverview, Pisgah View, Malvern Hills',
+  'West Asheville': 'Haywood Road, Burton Street, Emma, Deaverview, Pisgah View, Malvern Hills',
   'North Asheville': 'Montford, Five Points, Grove Park, Norwood Park, Beaver Lake, Kimberly, UNCA',
   'East Asheville':
     'Kenilworth, Haw Creek, Oakley, Beverly Hills, Tunnel Road, Chunns Cove, Riceville',
@@ -160,7 +150,8 @@ export const NEWS_PLACE_GUIDANCE: Partial<Record<NewsPlace, string>> = {
     'Biltmore Village, Shiloh, Biltmore Park, Royal Pines, Gerber Village, Long Shoals, Skyland',
   'Black Mountain': 'including Ridgecrest',
   Swannanoa: 'including Bee Tree and North Fork',
-  Asheville: 'city-wide, or an Asheville location not in one of the areas above',
+  Asheville:
+    'city-wide, or an Asheville location not in one of the areas above (the River Arts District)',
   'Buncombe County': 'county-wide, or the county government with no single place',
 };
 

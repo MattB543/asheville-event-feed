@@ -1053,6 +1053,13 @@ async function topStep(ctx: RunContext): Promise<void> {
         topRank: s.topRank,
         state: s.state,
         tier: s.tier,
+        // news_stories.id spelled out: Drizzle renders ${s.id} unqualified in a
+        // single-table select, and inside the subquery that would be m.id.
+        hasText: sql<boolean>`EXISTS (
+          SELECT 1 FROM news_articles m
+          WHERE m.story_id = news_stories.id AND m.state = 'live' AND m.kind <> 'community'
+            AND (btrim(coalesce(m.dek, '')) <> '' OR btrim(coalesce(m.content_text, '')) <> '')
+        )`,
       })
       .from(s)
       .where(

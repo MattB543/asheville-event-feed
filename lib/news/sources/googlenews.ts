@@ -22,6 +22,9 @@
  * Buncombe place, which drops the statewide "western NC two years after
  * Helene" pieces and the national travel lists.
  *
+ * Video and clip pages (a /video/, /videos/ or /watch/ path) are dropped once
+ * resolved: a headline over a player leaves a summary nothing to say.
+ *
  * Links are news.google.com redirects whose id no longer embeds the target
  * URL (the "AU_yqL..." format). Getting the real URL takes two requests: the
  * article page, for a signature and timestamp, then the batchexecute RPC the
@@ -116,6 +119,9 @@ const JUNK_DOMAINS = [
   'vidio.com',
   'realtor.com',
 ];
+
+/** Video and clip pages, on any publisher. */
+const VIDEO_PATH = /\/(videos?|watch)\//i;
 
 const PAYWALLED_DOMAINS = [
   'citizen-times.com',
@@ -283,6 +289,7 @@ async function scrape({ deadline }: ScrapeContext): Promise<ScrapedArticle[]> {
   let attempted = 0;
   let unresolved = 0;
   let resolvedDirect = 0;
+  let video = 0;
   for (const item of items) {
     if (attempted >= MAX_RESOLVE || Date.now() > deadline) break;
     attempted++;
@@ -314,6 +321,10 @@ async function scrape({ deadline }: ScrapeContext): Promise<ScrapedArticle[]> {
       resolvedDirect++;
       continue;
     }
+    if (VIDEO_PATH.test(new URL(url).pathname)) {
+      video++;
+      continue;
+    }
 
     const article: ScrapedArticle = {
       source: KEY,
@@ -333,7 +344,7 @@ async function scrape({ deadline }: ScrapeContext): Promise<ScrapedArticle[]> {
   const articles = [...byUrl.values()];
 
   console.log(
-    `[${KEY}] ${articles.length} of ${items.length} items emitted (${attempted} resolutions tried, ${unresolved} unresolved, ${resolvedDirect} landed on an outlet with a module, ${items.length - attempted} left for a later run); dropped ${direct} from outlets with a module, ${junk} junk, ${outOfArea} outside Buncombe`
+    `[${KEY}] ${articles.length} of ${items.length} items emitted (${attempted} resolutions tried, ${unresolved} unresolved, ${resolvedDirect} landed on an outlet with a module, ${video} video pages, ${items.length - attempted} left for a later run); dropped ${direct} from outlets with a module, ${junk} junk, ${outOfArea} outside Buncombe`
   );
   return articles;
 }

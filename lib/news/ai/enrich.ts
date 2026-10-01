@@ -17,6 +17,7 @@ import type { NewsSourceKind } from '../types';
 import {
   NEWS_PLACES,
   NEWS_PLACE_GUIDANCE,
+  NEWS_TOPIC_NOTE,
   NEWS_TOPICS,
   normalizeNewsPlace,
   normalizeNewsTopic,
@@ -148,7 +149,8 @@ const BUNCOMBE_FIELD = `- buncombe: how central Asheville/Buncombe is to the ite
   When torn between core and affects, choose affects.`;
 
 const TOPICS_FIELD = `- topics: 1-2 topic slugs, most relevant first, from:
-${TOPIC_LINES}`;
+${TOPIC_LINES}
+  ${NEWS_TOPIC_NOTE}`;
 
 const PLACE_FIELD = `- place: the ONE place the item is about, from this list, or null:
 ${PLACE_LINES}`;
@@ -195,6 +197,10 @@ ${TOPICS_FIELD}
 ${PLACE_FIELD}
 - headline: your OWN neutral headline, max 90 characters: a plain statement of what happened.
   No clickbait, no questions, no quotation marks, no "BREAKING", and never the outlet's wording.
+  An item looking back at a past event (an anniversary piece or retrospective) must say so in
+  the headline ("Two years after Helene, ...", "A look back: ..."). A meeting agenda's or action
+  agenda's headline names the meeting body and the meeting date ("Asheville City Council's
+  Oct. 13 agenda includes ...").
 - summary: 1-3 sentences, max 50 words: who, what, where, when, and what happens next if the
   item says. No quotes, no lists, no background, no opinion. Attribute allegations and
   single-source claims ("police say", "according to the city"). If you only have a headline,

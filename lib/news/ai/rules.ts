@@ -53,19 +53,25 @@ export interface TopCandidate {
   id: string;
   score: number;
   firstPublishedAt: Date;
+  /** A live newsroom member has a dek or body: more than just a title. */
+  hasText: boolean;
 }
 
 /**
  * A day's Top stories in rank order: up to TOP_MAX at TOP_MIN_SCORE or more,
  * topped up to TOP_FLOOR from TOP_FLOOR_MIN_SCORE. Ties go to the earlier story.
+ * Only stories with text are eligible: a headline-only story (a paywalled
+ * Google News link) has a one-sentence summary that restates its title.
  */
 export function pickTop<T extends TopCandidate>(stories: T[]): T[] {
-  const ranked = [...stories].sort(
-    (a, b) =>
-      b.score - a.score ||
-      a.firstPublishedAt.getTime() - b.firstPublishedAt.getTime() ||
-      a.id.localeCompare(b.id)
-  );
+  const ranked = stories
+    .filter((s) => s.hasText)
+    .sort(
+      (a, b) =>
+        b.score - a.score ||
+        a.firstPublishedAt.getTime() - b.firstPublishedAt.getTime() ||
+        a.id.localeCompare(b.id)
+    );
   const top = ranked.filter((s) => s.score >= TOP_MIN_SCORE).slice(0, TOP_MAX);
   if (top.length < TOP_FLOOR) {
     for (const s of ranked) {
@@ -79,22 +85,36 @@ export function pickTop<T extends TopCandidate>(stories: T[]): T[] {
 export interface LeadCandidate {
   id: string;
   kind: string;
+  outletDomain: string;
   publishedAt: Date;
   contentText: string | null;
 }
 
-function kindRank(kind: string): number {
-  if (kind === 'outlet') return 0;
-  if (kind === 'government' || kind === 'institution') return 1;
-  return 2;
+/** Greenville, SC stations and national sites: lead only when no local outlet has the story. */
+const OUT_OF_MARKET_DOMAINS = new Set([
+  'foxcarolina.com',
+  'wspa.com',
+  'wyff4.com',
+  'fox.com',
+  'foxweather.com',
+  'yahoo.com',
+]);
+
+function kindRank(m: LeadCandidate): number {
+  if (m.kind === 'outlet') return OUT_OF_MARKET_DOMAINS.has(m.outletDomain) ? 1 : 0;
+  if (m.kind === 'government' || m.kind === 'institution') return 2;
+  return 3;
 }
 
-/** The lead: an outlet article, then government/institution, then full text, then the earliest. */
+/**
+ * The lead: a local outlet's article, then an out-of-market outlet's, then
+ * government/institution, then full text, then the earliest.
+ */
 export function pickLead<T extends LeadCandidate>(members: T[]): T | undefined {
   const hasText = (m: T) => ((m.contentText?.length ?? 0) >= FULL_TEXT_CHARS ? 0 : 1);
   return [...members].sort(
     (a, b) =>
-      kindRank(a.kind) - kindRank(b.kind) ||
+      kindRank(a) - kindRank(b) ||
       hasText(a) - hasText(b) ||
       a.publishedAt.getTime() - b.publishedAt.getTime() ||
       a.id.localeCompare(b.id)

@@ -102,19 +102,30 @@ function clean(value: string | null | undefined): string | null {
 }
 
 /**
- * Upsert one row per module domain. A shared domain keeps the first module's
- * name. `enabled` is never written: re-enabling is scripts/news/takedown.ts's job.
+ * Upsert one row per module domain. When modules share a domain (a council
+ * agenda module filed under its government's), the row takes its name, kind
+ * and homepage from the module whose homepage is on that domain, i.e. one
+ * without a `domain` override, else from the first listed. `enabled` is never
+ * written: re-enabling is scripts/news/takedown.ts's job.
  */
 async function seedSources(): Promise<void> {
-  const rows = new Map<string, typeof newsSources.$inferInsert>();
+  const owners = new Map<string, NewsSourceModule>();
   for (const m of NEWS_SOURCES) {
     const domain = moduleDomain(m);
-    if (!rows.has(domain))
-      rows.set(domain, { domain, name: m.name, kind: m.kind, homepage: m.homepage });
+    const owner = owners.get(domain);
+    if (!owner || (hostDomain(owner.homepage) !== domain && hostDomain(m.homepage) === domain))
+      owners.set(domain, m);
   }
   await db
     .insert(newsSources)
-    .values([...rows.values()])
+    .values(
+      [...owners].map(([domain, m]) => ({
+        domain,
+        name: m.name,
+        kind: m.kind,
+        homepage: m.homepage,
+      }))
+    )
     .onConflictDoUpdate({
       target: newsSources.domain,
       set: {
@@ -435,7 +446,11 @@ export async function runNewsIngest(opts: {
       const seen = byUrl.get(row.url);
       if (!seen || (seen.viaAggregator && !viaAggregator))
         byUrl.set(row.url, { row, viaAggregator });
-      if (viaAggregator && !publishers.has(row.outletDomain)) {
+      // Google sometimes names a publisher by its bare domain; a real name wins.
+      if (
+        viaAggregator &&
+        (publishers.get(row.outletDomain)?.name ?? row.outletDomain) === row.outletDomain
+      ) {
         publishers.set(row.outletDomain, {
           domain: row.outletDomain,
           name: row.outletName,
@@ -447,13 +462,18 @@ export async function runNewsIngest(opts: {
   }
 
   // 3. Upsert. Aggregator publishers get a news_sources row on first sight;
-  // an existing row (a module's own, or a disabled one) is left alone.
+  // an existing row (a module's own, or a disabled one) is left alone, apart
+  // from a row still named by its bare domain taking a real name.
   const upsertStart = Date.now();
   if (publishers.size > 0) {
     await db
       .insert(newsSources)
       .values([...publishers.values()])
-      .onConflictDoNothing();
+      .onConflictDoUpdate({
+        target: newsSources.domain,
+        set: { name: sql`excluded.name`, updatedAt: sql`now()` },
+        setWhere: sql`${newsSources.name} = ${newsSources.domain} AND excluded.name <> excluded.domain`,
+      });
   }
 
   const rows = [...byUrl.values()].map((v) => v.row);

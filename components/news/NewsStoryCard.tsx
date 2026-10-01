@@ -29,6 +29,7 @@ export default function NewsStoryCard({ story, now }: NewsStoryCardProps) {
   const { lead } = story;
   const topic = primaryTopic(story.topics);
   const imageUrl = isUsableStoryImage(story.imageUrl) ? story.imageUrl : null;
+  const hasMenu = story.otherOutlets.length > 0 || story.discussion !== null;
 
   return (
     <article
@@ -64,36 +65,31 @@ export default function NewsStoryCard({ story, now }: NewsStoryCardProps) {
       <div className="mt-3.5 flex flex-wrap items-center gap-x-2 gap-y-3">
         {lead && (
           // One outlined button: "Read at X", plus a caret that drops down the
-          // other outlets when there are any.
+          // other outlets and the Reddit thread when there are any.
           <span className="inline-flex h-6 max-w-full items-stretch rounded border border-brand-600/60 dark:border-brand-400/50 text-xs font-medium text-brand-700 dark:text-brand-300">
             <a
               href={outboundUrl(lead.url)}
               {...outboundProps}
               className={`${TAP_AREA} inline-flex min-w-0 items-center gap-1 px-2 hover:bg-brand-50 dark:hover:bg-brand-950/40 transition-colors ${
-                story.otherOutlets.length > 0 ? 'rounded-l' : 'rounded'
+                hasMenu ? 'rounded-l' : 'rounded'
               }`}
             >
               <span className="truncate">Read at {lead.outletName}</span>
               <ArrowUpRight size={12} className="shrink-0" aria-hidden="true" />
             </a>
-            {story.otherOutlets.length > 0 && (
+            {hasMenu && (
               <OtherSourcesMenu
                 sources={story.otherOutlets.map(({ url, outletName }) => ({ url, outletName }))}
+                discussion={
+                  story.discussion && {
+                    url: story.discussion.url,
+                    label: discussionLabel(story.discussion.url),
+                  }
+                }
                 triggerClassName="rounded-r border-l border-brand-600/40 dark:border-brand-400/40 px-1 hover:bg-brand-50 dark:hover:bg-brand-950/40"
               />
             )}
           </span>
-        )}
-
-        {story.discussion && (
-          <a
-            href={outboundUrl(story.discussion.url)}
-            {...outboundProps}
-            className={`${TAP_AREA} inline-flex items-center gap-0.5 text-xs font-medium text-gray-500 dark:text-gray-400 hover:text-brand-700 dark:hover:text-brand-300 hover:underline`}
-          >
-            {discussionLabel(story.discussion.url)}
-            <ArrowUpRight size={12} aria-hidden="true" />
-          </a>
         )}
 
         {(topic || story.place) && (

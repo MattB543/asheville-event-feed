@@ -1,0 +1,2754 @@
+{
+  "generatedAt": "2026-09-25T04:29:02.076Z",
+  "geography": "Asheville + Buncombe County only",
+  "method": "Google News RSS (hl=en-US, gl=US), 2026-09-18..25: \"Asheville\" sliced per day with after:/before: (each query caps at 100), Google's Asheville geo section, and 14 when:7d searches for Buncombe towns, neighborhoods and institutions (county/city government, schools, police/sheriff, Mission, UNCA, Warren Wilson, A-B Tech, Helene). Stories deduped on publisher + headline (Google repeats one story under several ids). count = unique stories found; buncombeCount = those whose headline names a Buncombe place (same test as lib/news/sources/shared/buncombe.ts, plus \"AVL\"). mostlyOutsideBuncombe is judged from the outlet's home base and beat. Unknown national/other-region outlets default to true. module = the lib/news/sources file that reads this outlet directly, if any.",
+  "queries": {
+    "geo:Asheville": {
+      "status": 200,
+      "items": 70
+    },
+    "Asheville after:2026-09-18 before:2026-09-19": {
+      "status": 200,
+      "items": 100
+    },
+    "Asheville after:2026-09-19 before:2026-09-20": {
+      "status": 200,
+      "items": 100
+    },
+    "Asheville after:2026-09-20 before:2026-09-21": {
+      "status": 200,
+      "items": 91
+    },
+    "Asheville after:2026-09-21 before:2026-09-22": {
+      "status": 200,
+      "items": 63
+    },
+    "Asheville after:2026-09-22 before:2026-09-23": {
+      "status": 200,
+      "items": 57
+    },
+    "Asheville after:2026-09-23 before:2026-09-24": {
+      "status": 200,
+      "items": 53
+    },
+    "Asheville after:2026-09-24 before:2026-09-25": {
+      "status": 200,
+      "items": 45
+    },
+    "Asheville after:2026-09-25 before:2026-09-26": {
+      "status": 200,
+      "items": 0
+    },
+    "\"Buncombe County\" when:7d": {
+      "status": 200,
+      "items": 35
+    },
+    "\"Black Mountain, NC\" OR \"Black Mountain, N.C.\" when:7d": {
+      "status": 200,
+      "items": 8
+    },
+    "Weaverville when:7d": {
+      "status": 200,
+      "items": 32
+    },
+    "Woodfin when:7d": {
+      "status": 200,
+      "items": 21
+    },
+    "Swannanoa when:7d": {
+      "status": 200,
+      "items": 22
+    },
+    "Montreat when:7d": {
+      "status": 200,
+      "items": 1
+    },
+    "\"Biltmore Forest\" when:7d": {
+      "status": 200,
+      "items": 6
+    },
+    "\"Candler, NC\" OR \"Leicester, NC\" OR \"Fairview, NC\" OR \"Arden, NC\" OR Barnardsville when:7d": {
+      "status": 200,
+      "items": 9
+    },
+    "\"West Asheville\" OR \"River Arts District\" OR \"South Slope\" OR Montford OR \"Haw Creek\" OR \"Biltmore Village\" when:7d": {
+      "status": 200,
+      "items": 36
+    },
+    "\"Asheville City Council\" OR \"Buncombe County Commissioners\" when:7d": {
+      "status": 200,
+      "items": 11
+    },
+    "\"Buncombe County Schools\" OR \"Asheville City Schools\" when:7d": {
+      "status": 200,
+      "items": 6
+    },
+    "\"Asheville police\" OR \"Buncombe County Sheriff\" when:7d": {
+      "status": 200,
+      "items": 7
+    },
+    "\"Mission Hospital\" OR \"UNC Asheville\" OR \"Warren Wilson College\" OR \"A-B Tech\" when:7d": {
+      "status": 200,
+      "items": 51
+    },
+    "Helene Buncombe when:7d": {
+      "status": 200,
+      "items": 25
+    }
+  },
+  "uniqueStories": 628,
+  "storiesNamingBuncombe": 433,
+  "publishers": [
+    {
+      "publisher": "Legacy obituary",
+      "domain": "legacy.com",
+      "count": 42,
+      "buncombeCount": 35,
+      "sampleHeadlines": [
+        "Stuart R. Denison Obituary (1938 - 2026) - Asheville, NC - 828 News Now",
+        "Lisa Dawn Bishop Obituary (1970 - 2026) - Barnardsville, NC - 828 News Now",
+        "Spencer Maurice Shade Obituary (1971 - 2026) - Asheville, NC - 828 News Now"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": "national obituary platform",
+      "mostlyOutsideBuncombe": true,
+      "note": "Obituaries, many of them Buncombe residents. Not news; skipped in googlenews.ts."
+    },
+    {
+      "publisher": "WLOS",
+      "domain": "wlos.com",
+      "count": 63,
+      "buncombeCount": 33,
+      "sampleHeadlines": [
+        "Interim no more: Jackie Stepp named Asheville's chief of police",
+        "Fire crews clamp minor gas leak after one-inch line hit in west Asheville",
+        "Asheville City Council discusses recovery plans along the French Broad, Swannanoa rivers"
+      ],
+      "coveredByScout": "mainstream",
+      "module": "wlos.ts",
+      "homeBase": "Asheville (WNC + Upstate SC)",
+      "mostlyOutsideBuncombe": false
+    },
+    {
+      "publisher": "The Asheville Citizen Times",
+      "domain": "citizen-times.com",
+      "count": 39,
+      "buncombeCount": 26,
+      "sampleHeadlines": [
+        "Inside Novant Health’s new South Asheville Medical Park",
+        "How Asheville's 'No Rent for Slumlords' ordinance could help renters",
+        "Archetype Brewing is for sale but remains open in West Asheville"
+      ],
+      "coveredByScout": "mainstream",
+      "module": null,
+      "homeBase": "Asheville",
+      "mostlyOutsideBuncombe": false,
+      "note": "scout-mainstream SKIPPED it (Gannett 402 bot wall, robots.txt names AI agents). googlenews.ts carries its headlines (paywalled, headline-only); we never touch the site."
+    },
+    {
+      "publisher": "828newsnow.com",
+      "domain": "828newsnow.com",
+      "count": 41,
+      "buncombeCount": 24,
+      "sampleHeadlines": [
+        "Asheville finance director retiring after 28 years",
+        "I-26 Connector update: Hill Street closure changes Asheville traffic",
+        "Biltmore Championship Asheville golf tournament has been major draw for WNC, officials say"
+      ],
+      "coveredByScout": "independent",
+      "module": "828newsnow.ts",
+      "homeBase": "Asheville",
+      "mostlyOutsideBuncombe": false
+    },
+    {
+      "publisher": "Yahoo Sports",
+      "domain": "sports.yahoo.com",
+      "count": 20,
+      "buncombeCount": 16,
+      "sampleHeadlines": [
+        "2026 Biltmore Championship Asheville Saturday tee times: Round 3 groupings",
+        "PGA Tour Highlights: 2026 Biltmore Championship Asheville, Round 2 | Golf Channel",
+        "Neal Shipley shoots career-low 62 in Asheville"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": "national sports syndication",
+      "mostlyOutsideBuncombe": true,
+      "note": "Sports syndication; the Biltmore Championship (PGA Tour, Sept 17-20) inflated golf outlets this week."
+    },
+    {
+      "publisher": "PGA Tour",
+      "domain": "pgatour.com",
+      "count": 14,
+      "buncombeCount": 14,
+      "sampleHeadlines": [
+        "Neal Shipley surges into lead with PGA Tour career-low 62 at Biltmore Championship Asheville",
+        "Michael Kim sinks 13-foot eagle putt on No. 17 at Biltmore Championship",
+        "Jacob Bridgeman rallies with career-best 61 to win inaugural Biltmore Championship Asheville"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true,
+      "note": "One-off: Biltmore Championship week."
+    },
+    {
+      "publisher": "Yahoo",
+      "domain": "yahoo.com",
+      "count": 13,
+      "buncombeCount": 13,
+      "sampleHeadlines": [
+        "PGA Tour returns to Asheville for Biltmore Championship, our best photos",
+        "Asheville man arrested after stabbing leaves victim hospitalized, police say",
+        "Biltmore Championship Asheville Tee Times: Fog Delays Start Of Final Round"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": "national syndication (often Citizen-Times copies)",
+      "mostlyOutsideBuncombe": true,
+      "note": "Syndicated copies, mostly of Citizen-Times / USA Today Network stories (licensed, free on Yahoo). Resolved Google News URLs point here, not to citizen-times.com."
+    },
+    {
+      "publisher": "Golf Channel",
+      "domain": "golfchannel.com",
+      "count": 12,
+      "buncombeCount": 12,
+      "sampleHeadlines": [
+        "Biltmore Championship 2026: Adjusted TV times, tee times for Round 3",
+        "Alejandro Tosti’s caddie quits midway through first round in Asheville",
+        "2026 Biltmore Championship: Neal Shipley shoots career-low 62 in Asheville"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true,
+      "note": "One-off: Biltmore Championship week."
+    },
+    {
+      "publisher": "Mountain Xpress",
+      "domain": "mountainx.com",
+      "count": 15,
+      "buncombeCount": 9,
+      "sampleHeadlines": [
+        "Boys & Girls Clubs of the Asheville Region announces expansion of after-school opportunities",
+        "What’s new in food: Asheville Mardi Gras Cajun Cookoff returns",
+        "Bishop William Barber NC Voter Mobilization Tour visits Asheville"
+      ],
+      "coveredByScout": "independent",
+      "module": "mountainx.ts",
+      "homeBase": "Asheville",
+      "mostlyOutsideBuncombe": false
+    },
+    {
+      "publisher": "Golfweek",
+      "domain": "golfweek.usatoday.com",
+      "count": 9,
+      "buncombeCount": 8,
+      "sampleHeadlines": [
+        "2026 Biltmore Championship leaderboard, cut line updates from Friday's second round",
+        "2026 Biltmore Championship leaderboard, Saturday highlights: Neal Shipley leads by 1",
+        "2026 Biltmore Championship Asheville tee times, TV, streaming: Early start set for Sunday"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "MaxPreps",
+      "domain": "maxpreps.com",
+      "count": 19,
+      "buncombeCount": 7,
+      "sampleHeadlines": [
+        "Asheville Christian Academy (Swannanoa, NC) Girls Basketball",
+        "Asheville Girls Varsity Volleyball @ West Henderson",
+        "Asheville School (Independent) High School (NC) Football"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true,
+      "note": "High-school sports. Junk in googlenews.ts."
+    },
+    {
+      "publisher": "WSPA 7News",
+      "domain": "wspa.com",
+      "count": 9,
+      "buncombeCount": 7,
+      "sampleHeadlines": [
+        "Asheville man sentenced for raping 15-year-old girl",
+        "Teen suspect in Asheville shooting turns himself in: Police",
+        "Man charged after early morning stabbing in Asheville"
+      ],
+      "coveredByScout": "mainstream",
+      "module": null,
+      "homeBase": "Spartanburg, SC",
+      "mostlyOutsideBuncombe": true,
+      "note": "scout-mainstream marked it 'later' (Nexstar ToS bans scraping). Its Asheville headlines come through Google News."
+    },
+    {
+      "publisher": "AOL.com",
+      "domain": "aol.com",
+      "count": 7,
+      "buncombeCount": 7,
+      "sampleHeadlines": [
+        "Teen suspect in Asheville shooting turns himself in: Police",
+        "Man charged after early morning stabbing in Asheville",
+        "Teenager wanted in Asheville shootings surrenders"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": "national syndication",
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "The City of Asheville (.gov)",
+      "domain": "ashevillenc.gov",
+      "count": 7,
+      "buncombeCount": 6,
+      "sampleHeadlines": [
+        "City of Asheville announces City Council Meeting: September 22, 2026",
+        "City of Asheville Announces Upcoming Update to the Asheville App",
+        "Asheville Parks & Recreation Programs for Older Adults Make Each Season Richer Than the Last"
+      ],
+      "coveredByScout": "civic",
+      "module": "ashevillecity.ts",
+      "homeBase": "Asheville",
+      "mostlyOutsideBuncombe": false
+    },
+    {
+      "publisher": "GOLF.com",
+      "domain": "golf.com",
+      "count": 6,
+      "buncombeCount": 6,
+      "sampleHeadlines": [
+        "2026 Biltmore Championship Asheville Friday TV coverage: How to watch Round 2",
+        "2026 Biltmore Championship Asheville Saturday TV coverage: How to watch Round 3",
+        "2026 Biltmore Championship Asheville Sunday tee times: Round 4 groupings | News"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "nfhsnetwork.com",
+      "domain": "nfhsnetwork.com",
+      "count": 8,
+      "buncombeCount": 5,
+      "sampleHeadlines": [
+        "Asheville vs Away - Girls Varsity Volleyball 09/25/2026 | Live & On Demand",
+        "Asheville vs Ardrey Kell - Girls Varsity Field Hockey 09/26/2026 | Watch Live & On Demand",
+        "Team Highlights: Varsity Football Crest High School vs. Asheville High School - Asheville"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true,
+      "note": "High-school sports streams. Junk in googlenews.ts."
+    },
+    {
+      "publisher": "FOX Carolina News",
+      "domain": "foxcarolina.com",
+      "count": 7,
+      "buncombeCount": 5,
+      "sampleHeadlines": [
+        "New superintendent appointed for Buncombe County Schools",
+        "Police: Suspect arrested near Asheville apartment where stabbing took place",
+        "Police: Man arrested near Asheville apartments where stabbing took place"
+      ],
+      "coveredByScout": "mainstream",
+      "module": "foxcarolina.ts",
+      "homeBase": "Greenville, SC",
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "Central Oregon Daily",
+      "domain": "centraloregondaily.com",
+      "count": 5,
+      "buncombeCount": 5,
+      "sampleHeadlines": [
+        "Jacob Bridgeman wins Biltmore Championship Asheville in style",
+        "2026 Biltmore Championship Asheville tee times, TV, streaming: Early start set for Sunday",
+        "Winner's Bag: Jacob Bridgeman, 2026 Biltmore Championship Asheville"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "The Beacon Tribune",
+      "domain": "biltmorebeacon.com",
+      "count": 8,
+      "buncombeCount": 4,
+      "sampleHeadlines": [
+        "Asheville apartment stabbing leads to arrest",
+        "Costco resubmits plans for Asheville store",
+        "Weaverville fire chief resigns"
+      ],
+      "coveredByScout": "independent",
+      "module": null,
+      "homeBase": "Buncombe (Weaverville / Black Mountain / Biltmore Forest)",
+      "mostlyOutsideBuncombe": false,
+      "note": "Assigned to scout-independent, catalogued as 'later'. Headlines come through Google News."
+    },
+    {
+      "publisher": "charlotteobserver.com",
+      "domain": "charlotteobserver.com",
+      "count": 5,
+      "buncombeCount": 4,
+      "sampleHeadlines": [
+        "Can 'microtransit' help Asheville's buses run better?",
+        "The 2026 Harvest Moon is rising soon. How to view in Asheville, NC",
+        "Inside the campaign to save 'Dolly' the Asheville bear from euthanasia"
+      ],
+      "coveredByScout": "mainstream",
+      "module": null,
+      "homeBase": "Charlotte",
+      "mostlyOutsideBuncombe": true,
+      "note": "Assigned to scout-mainstream, catalogued as 'later'. Metered paywall. Headlines come through Google News."
+    },
+    {
+      "publisher": "UNC Asheville Athletics",
+      "domain": "uncabulldogs.com",
+      "count": 21,
+      "buncombeCount": 3,
+      "sampleHeadlines": [
+        "UNC Asheville Men’s Basketball Announces 2026-27 Big South Conference Schedule",
+        "UNC Asheville Athletics Celebrates 40 Years of NCAA Division I Competition",
+        "Asheville Women's Swimming and Diving Completes Annual Intrasquad Alumni Meet"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": "Asheville (UNCA athletics)",
+      "mostlyOutsideBuncombe": false,
+      "note": "UNCA athletics. Junk in googlenews.ts."
+    },
+    {
+      "publisher": "BlueRidgeNow.com",
+      "domain": "blueridgenow.com",
+      "count": 5,
+      "buncombeCount": 3,
+      "sampleHeadlines": [
+        "Sept. 25 is 'Dolly Parton Day'. Here's where to celebrate in Asheville",
+        "Inside the campaign to save 'Dolly' the Asheville bear from euthanasia",
+        "Broken Compass Bluegrass: Pisgah Brewing - Black Mountain, NC with the Infamous Stringdusters"
+      ],
+      "coveredByScout": "mainstream",
+      "module": null,
+      "homeBase": "Hendersonville (Henderson County)",
+      "mostlyOutsideBuncombe": true,
+      "note": "Times-News; scout-mainstream skipped it (Gannett wall)."
+    },
+    {
+      "publisher": "Black Mountain News",
+      "domain": "blackmountainnews.com",
+      "count": 3,
+      "buncombeCount": 3,
+      "sampleHeadlines": [
+        "Swannanoa Valley Museum names new executive director",
+        "Valley Rewind: Swannanoa Gap",
+        "Buncombe County gets more funding for Swannanoa sidewalks"
+      ],
+      "coveredByScout": "mainstream",
+      "module": "blackmountainnews.ts",
+      "homeBase": "Black Mountain (Buncombe)",
+      "mostlyOutsideBuncombe": false
+    },
+    {
+      "publisher": "DVIDS",
+      "domain": "dvidshub.net",
+      "count": 3,
+      "buncombeCount": 3,
+      "sampleHeadlines": [
+        "News - Montford Point Retired Marine Adrian Doucette Celebrates his 100th Birthday",
+        "Montford Point Marine Retired Adrian Doucette Celebrates his 100th Birthday [Image 9 of 12]",
+        "Montford Point Marine Retired Adrian Doucette Celebrates his 100th Birthday [Image 3 of 3]"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "ESPN",
+      "domain": "espn.com",
+      "count": 3,
+      "buncombeCount": 3,
+      "sampleHeadlines": [
+        "Shipley holds onto 1-shot lead over Kohles the Biltmore Championship Asheville",
+        "Spencer Oxendine 2026 Biltmore Championship Asheville Results",
+        "Jacob Bridgeman wins inaugural Biltmore Championship Asheville"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "FOX Sports",
+      "domain": "foxsports.com",
+      "count": 3,
+      "buncombeCount": 3,
+      "sampleHeadlines": [
+        "Longwood vs. UNC Asheville - Live Score - February 10, 2027",
+        "UNC Asheville vs. USC Upstate - Live Score - December 30, 2026",
+        "UNC Asheville vs. Longwood - Live Score - February 13, 2027"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "Golf Digest",
+      "domain": "golfdigest.com",
+      "count": 3,
+      "buncombeCount": 3,
+      "sampleHeadlines": [
+        "Neal Shipley had an awful start to the year. He could overcome it all with a strong finish in Asheville",
+        "Here’s the prize money payout for each golfer at the 2026 Biltmore Championship Asheville",
+        "The clubs Jacob Bridgeman used to win the 2026 Biltmore Championship Asheville"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "heavy.com",
+      "domain": "heavy.com",
+      "count": 3,
+      "buncombeCount": 3,
+      "sampleHeadlines": [
+        "Why Did Biltmore Championship Asheville Change Saturday Tee Times?",
+        "Weather Delay at Biltmore Championship: When Will Play Resume?",
+        "2026 Biltmore Championship Asheville Prize Money: What Every Golfer Can Earn Sunday"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "The Valley Echo",
+      "domain": "thevalleyecho.com",
+      "count": 3,
+      "buncombeCount": 3,
+      "sampleHeadlines": [
+        "Black Mountain candidates field questions in public forum",
+        "Museum partners with Black Mountain distillery for a taste of local history",
+        "Swannanoa Valley Museum & History Center announces new director"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": "Fletcher / Mills River (Henderson County)",
+      "mostlyOutsideBuncombe": true,
+      "note": "Henderson County weekly. It only appears when a story crosses into Black Mountain/Swannanoa."
+    },
+    {
+      "publisher": "YouTube",
+      "domain": "youtu.be",
+      "count": 3,
+      "buncombeCount": 3,
+      "sampleHeadlines": [
+        "Rookery by Ben Howard - Live @ The Orange Peel, Asheville, North Carolina",
+        "The War on Drugs play their new single \"Who's That\" at Asheville Yards on 9/21/26",
+        "1 video video 1 11 yarrow meadow rd weaverville nc 28787"
+      ],
+      "coveredByScout": "community",
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "The Blue Banner",
+      "domain": "thebluebanner.net",
+      "count": 8,
+      "buncombeCount": 2,
+      "sampleHeadlines": [
+        "UNC Asheville’s new baking club brings students together through food",
+        "The ‘random’ magnets making their way around Asheville",
+        "Culturas Unidas festival brings North Carolina communities together by celebrating Latino heritage"
+      ],
+      "coveredByScout": "independent",
+      "module": null,
+      "homeBase": "Asheville (UNCA student paper)",
+      "mostlyOutsideBuncombe": false,
+      "note": "Assigned to scout-independent; no module yet. Headlines come through Google News."
+    },
+    {
+      "publisher": "bpr.org",
+      "domain": "bpr.org",
+      "count": 2,
+      "buncombeCount": 2,
+      "sampleHeadlines": [
+        "Asheville residents tell City Council to do more about bear issues",
+        "Woodfin plastics company commits to help with debris cleanup, floodplain mapping"
+      ],
+      "coveredByScout": "mainstream",
+      "module": "bpr.ts",
+      "homeBase": "Asheville",
+      "mostlyOutsideBuncombe": false
+    },
+    {
+      "publisher": "Cardinal & Pine",
+      "domain": "cardinalpine.com",
+      "count": 2,
+      "buncombeCount": 2,
+      "sampleHeadlines": [
+        "How Asheville’s ‘No Rent for Slumlords’ ordinance could help renters",
+        "Asheville chef releases ‘No. 1 Best Indian Cookbook in the World’"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": "statewide",
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "dailygazette.com",
+      "domain": "dailygazette.com",
+      "count": 2,
+      "buncombeCount": 2,
+      "sampleHeadlines": [
+        "Bridgeman rallies with career-best 61 to win inaugural Biltmore Championship Asheville",
+        "Spaun wins BMW PGA in England. Bridgeman takes Biltmore Championship Asheville"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "disneyplus.com",
+      "domain": "disneyplus.com",
+      "count": 2,
+      "buncombeCount": 2,
+      "sampleHeadlines": [
+        "Watch Biltmore Championship Asheville: Featured Groups (First Round)",
+        "Watch UNC Asheville vs. Georgia State"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "Field Level Media",
+      "domain": "fieldlevelmedia.com",
+      "count": 2,
+      "buncombeCount": 2,
+      "sampleHeadlines": [
+        "Jacob Bridgeman fires 61 at Biltmore for second win of ’26",
+        "Neal Shipley fires 6-under-par 65; maintains 1-stroke lead in Asheville"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "georgiastatesports.com",
+      "domain": "georgiastatesports.com",
+      "count": 2,
+      "buncombeCount": 2,
+      "sampleHeadlines": [
+        "Panthers Begin Home Stance with a Match Against UNC-Asheville",
+        "GSU Falls to UNC-Asheville on Wednesday Night"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "Presbyterian College - Official Athletics Website",
+      "domain": "gobluehose.com",
+      "count": 2,
+      "buncombeCount": 2,
+      "sampleHeadlines": [
+        "Women’s Soccer Starts Big South Schedule at UNC Asheville",
+        "Late Surge Pushes Asheville Past PC, 3-1"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "Golf Monthly",
+      "domain": "golfmonthly.com",
+      "count": 2,
+      "buncombeCount": 2,
+      "sampleHeadlines": [
+        "Biltmore Championship Asheville Tee Times: Fog Delays Start Of Final Round",
+        "Biltmore Championship Asheville 2026 Prize Money Payout: What Will The Winner Earn?"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "hoodline.com",
+      "domain": "hoodline.com",
+      "count": 2,
+      "buncombeCount": 2,
+      "sampleHeadlines": [
+        "Asheville Man Sentenced for Raping Teen Met on Snapchat",
+        "Biltmore Championship Brings PGA Tour Back to Asheville"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "islands.com",
+      "domain": "islands.com",
+      "count": 2,
+      "buncombeCount": 2,
+      "sampleHeadlines": [
+        "North Carolina's Less-Crowded Park Near Asheville Has Woodland Nature Walks And Scenic Picnic Spots",
+        "North Carolina's Blue Ridge Mountains Outside Asheville Hides A Family-Friendly Gem Mine For Affordable Fun"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "The Lufkin Daily News",
+      "domain": "lufkindailynews.com",
+      "count": 2,
+      "buncombeCount": 2,
+      "sampleHeadlines": [
+        "Anna Catherine speaks with the Asheville Citizen Times during the Biltmore Championship Asheville at The Cliffs at Walnut Cove on Sept. 18, 2026.",
+        "Spectators walk past an Explore Asheville display during the second round of the Biltmore Championship Asheville at The Cliffs at Walnut Cove on Sept. 18, 2026."
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "NBC Sports",
+      "domain": "nbcsports.com",
+      "count": 2,
+      "buncombeCount": 2,
+      "sampleHeadlines": [
+        "HLs: Shipley extends lead in Asheville in Round 3",
+        "HLs: Biltmore Championship Asheville, All Rounds"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "The New York Times",
+      "domain": "nytimes.com",
+      "count": 2,
+      "buncombeCount": 2,
+      "sampleHeadlines": [
+        "Video: Biltmore Championship Asheville - Round 4",
+        "UNC Asheville Bulldogs vs USC Upstate Spartans Box Score - January 01, 2027 - The Athletic"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "Dallas News",
+      "domain": "obits.dallasnews.com",
+      "count": 2,
+      "buncombeCount": 2,
+      "sampleHeadlines": [
+        "Claude William Bassett Jr. Obituary (1968 - 2026) - Asheville, NC - 828 News Now",
+        "Charles \"Ray\" Allen Obituary (1941 - 2026) - Swannanoa, NC - 828 News Now"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "stamfordadvocate.com",
+      "domain": "stamfordadvocate.com",
+      "count": 2,
+      "buncombeCount": 2,
+      "sampleHeadlines": [
+        "Bridgeman rallies with career-best 61 to win inaugural Biltmore Championship Asheville",
+        "Spaun wins BMW PGA, Bridgeman tops new Asheville event and Johnson takes another Champ title"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "Golf News Net",
+      "domain": "thegolfnewsnet.com",
+      "count": 2,
+      "buncombeCount": 2,
+      "sampleHeadlines": [
+        "2026 Biltmore Championship Asheville final results: Prize money payout, PGA Tour leaderboard and how much each golfer won",
+        "2026 Biltmore Championship Asheville money: Purse, winner's share, updated PGA Tour prize money payout"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "TicketNews",
+      "domain": "ticketnews.com",
+      "count": 2,
+      "buncombeCount": 2,
+      "sampleHeadlines": [
+        "Knocked Loose tickets on sale in Asheville at Hellbender",
+        "Lucas Zelnick tickets on sale in Asheville at The Orange Peel"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "Traders Union",
+      "domain": "tradersunion.com",
+      "count": 2,
+      "buncombeCount": 2,
+      "sampleHeadlines": [
+        "Buncombe County sewer bonds secure AAA rating as utility revenues remain stable",
+        "Buncombe County sewer district secures AAA rating for $115 million bond sale"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "tributearchive.com",
+      "domain": "tributearchive.com",
+      "count": 2,
+      "buncombeCount": 2,
+      "sampleHeadlines": [
+        "Arthur John Hoen Obituary | Harwood Home for Funerals and Cremation | Black Mountain, NC",
+        "Charles \"Ray\" Allen Obituary | Asheville Mortuary Services | Swannanoa, NC"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "Vidio",
+      "domain": "vidio.com",
+      "count": 2,
+      "buncombeCount": 2,
+      "sampleHeadlines": [
+        "Round 4 - Highlight | Biltmore Championship in Asheville 2026",
+        "Round 4 - Full Match | Biltmore Championship in Asheville 2026"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "WYFF",
+      "domain": "wyff4.com",
+      "count": 8,
+      "buncombeCount": 1,
+      "sampleHeadlines": [
+        "Jacob Bridgeman wins inaugural PGA Biltmore Asheville Championship",
+        "Deputies release surveillance pictures of burglary happening inside local business",
+        "Two injured after plane crashes in field, troopers say"
+      ],
+      "coveredByScout": "mainstream",
+      "module": null,
+      "homeBase": "Greenville, SC",
+      "mostlyOutsideBuncombe": true,
+      "note": "scout-mainstream skipped it (near-zero Buncombe share)."
+    },
+    {
+      "publisher": "Asheville Watchdog",
+      "domain": "avlwatchdog.org",
+      "count": 5,
+      "buncombeCount": 1,
+      "sampleHeadlines": [
+        "Answer Man: What’s the latest on Swannanoa Ingles replacement? Robotic response to water outage complaint?",
+        "City partners with PEAK as charter school’s grade slides to ‘D’",
+        "Opinion: Trump, Vance repeat false crime claims about Cooper"
+      ],
+      "coveredByScout": "independent",
+      "module": "avlwatchdog.ts",
+      "homeBase": "Asheville",
+      "mostlyOutsideBuncombe": false
+    },
+    {
+      "publisher": "PRLog",
+      "domain": "prlog.org",
+      "count": 4,
+      "buncombeCount": 1,
+      "sampleHeadlines": [
+        "Drake Says He'll Tour in 2027. KayeDinero Has One Question: Asheville? -- I Love Food Media + Kulture Metrics",
+        "Google Says KayeDinero Isn't Globally Famous. So Why Does It Keep Finding Her? -- I Love Food Media",
+        "Drake Brings Jimmy Brooks Back as KayeDinero Turns Banks Ave Into a Nighttime Visual"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "WSOC TV",
+      "domain": "wsoctv.com",
+      "count": 3,
+      "buncombeCount": 1,
+      "sampleHeadlines": [
+        "How gas prices have changed in Asheville in the last week",
+        "More then 140 recovery projects underway in western NC two years after Hurricane Helene",
+        "Verizon upgrades Western NC networks for disaster reliability"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": "Charlotte",
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "townandcountrymag.com",
+      "domain": "townandcountrymag.com",
+      "count": 2,
+      "buncombeCount": 1,
+      "sampleHeadlines": [
+        "The Hidden Symbolism of the Biltmore Championship Asheville Trophy",
+        "The History of the Oldest Surviving Black Golf Tournament in America"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "WTVG",
+      "domain": "13abc.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": [
+        "Police: Man arrested near Asheville apartments where stabbing took place"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "6AM City",
+      "domain": "6amcity.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": ["35+ outdoor dining spots in Asheville"],
+      "coveredByScout": "independent",
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "Action News Now",
+      "domain": "actionnewsnow.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": [
+        "Unsolved Mystery: Have you seen this missing 15-year-old from Weaverville?"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "Adelaide Now",
+      "domain": "adelaidenow.com.au",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": [
+        "Bridgeman shoots career-best 61, wins inaugural Biltmore Championship Asheville"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "The Atlanta Journal-Constitution",
+      "domain": "ajc.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": ["Discovering Asheville, North Carolina, in the fall"],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "The Athens Messenger",
+      "domain": "athensmessenger.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": [
+        "Ohio volleyball defeats Morgan State & UNC Asheville on Day 1 of the Bobcat Invite"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "AXS TV",
+      "domain": "axs.tv",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": ["Warren Haynes’ Christmas Jam Returns to Asheville on December 12, 2026"],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "AZ Family",
+      "domain": "azfamily.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": [
+        "Police: Man arrested near Asheville apartments where stabbing took place"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "birminghamal.gov",
+      "domain": "birminghamal.gov",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": [
+        "Mayor Woodfin’s Children and Youth Commission launches Cradle-to-Career Roadmap to success, a coordinated system of opportunity"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "bleacherreport.com",
+      "domain": "bleacherreport.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": ["UNC Asheville Football Schedule for the Season"],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "citybuzz -",
+      "domain": "citybuzz.co",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": [
+        "Buncombe County Sees Sharpest Migration Reversal in U.S. After Helene, Study Finds"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "Columbia Missourian",
+      "domain": "columbiamissourian.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": [
+        "Spaun wins BMW PGA in England. Bridgeman takes Biltmore Championship Asheville"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "CoStar",
+      "domain": "costar.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": [
+        "News | Asheville, North Carolina, balances redevelopment and flood risk two years after Helene"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "EIN Presswire",
+      "domain": "einpresswire.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": [
+        "Boys & Girls Clubs of the Asheville Region Announces Expansion of Afterschool Opportunities"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "ESPN",
+      "domain": "espn.co.uk",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": ["Camilo Villegas 2026 Biltmore Championship Asheville Results"],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "ESPN",
+      "domain": "espn.com.au",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": ["2026 Biltmore Championship Asheville Leaderboard"],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "Fayette County News",
+      "domain": "fayette-news.net",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": ["Montford Receives 2026 CACJ Law Enforcement Officer of Year STAR Award"],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "FinancialContent",
+      "domain": "financialcontent.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": [
+        "Best Realtor in Asheville & Western North Carolina: Jason Brodsky Helps Sellers Create Demand, Competition & the Opportunity for Multiple Offers"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "CBS7 | Permian Basin, West Texas News | Midland, TX",
+      "domain": "firstalert7.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": [
+        "Police: Man arrested near Asheville apartments where stabbing took place"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "Forbes",
+      "domain": "forbes.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": ["PGA Tour’s Asheville Return Gave Tourism A Timely Vote Of Confidence"],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "fox19.com",
+      "domain": "fox19.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": [
+        "Police: Man arrested near Asheville apartments where stabbing took place"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "Gold Coast Bulletin",
+      "domain": "goldcoastbulletin.com.au",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": [
+        "Bridgeman shoots career-best 61, wins inaugural Biltmore Championship Asheville"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "Golf Digest Middle East",
+      "domain": "golfdigestme.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": [
+        "Here’s the prize money payout for each golfer at the 2026 Biltmore Championship Asheville"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "golfpost.com",
+      "domain": "golfpost.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": ["PGA Tour: Bridgeman wins Biltmore Championship Asheville"],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "GolfWRX",
+      "domain": "golfwrx.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": ["Jacob Bridgeman’s winning WITB: 2026 Biltmore Championship Asheville"],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "Herald Bulletin",
+      "domain": "heraldbulletin.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": [
+        "Spaun wins BMW PGA, Bridgeman tops new Asheville event and Johnson takes another Champ title"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "The Bristol Herald Courier",
+      "domain": "heraldcourier.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": [
+        "Elizabethton grad Mike Morrell has authored success story at UNC Asheville"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "Hickory Daily Record",
+      "domain": "hickoryrecord.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": [
+        "Hickory native J.T. Poston shoots 60 at PGA Biltmore Championship in Asheville to finish -21"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "Independent Tribune",
+      "domain": "independenttribune.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": ["Campaign saves Asheville bear 'Dolly' from death. Here's what to know"],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "INDY Week",
+      "domain": "indyweek.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": ["The Day the Priestess and the Poet Met in Asheville"],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "Insideradio.com",
+      "domain": "insideradio.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": [
+        "News Bites: WXTU’s Dolly Day, Small Stage Series, Asheville Media Group, WGAE."
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "The Journal Gazette",
+      "domain": "journalgazette.net",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": [
+        "Spaun wins BMW PGA in England. Bridgeman takes Biltmore Championship Asheville"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "KBTX News 3",
+      "domain": "kbtx.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": [
+        "Police: Man arrested near Asheville apartments where stabbing took place"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "KCRG",
+      "domain": "kcrg.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": [
+        "Police: Man arrested near Asheville apartments where stabbing took place"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "kgns.tv",
+      "domain": "kgns.tv",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": [
+        "Police: Man arrested near Asheville apartments where stabbing took place"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "kktv.com",
+      "domain": "kktv.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": [
+        "Police: Man arrested near Asheville apartments where stabbing took place"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "kmvt.com",
+      "domain": "kmvt.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": [
+        "Police: Man arrested near Asheville apartments where stabbing took place"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "Knoxville News Sentinel",
+      "domain": "knoxnews.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": [
+        "Jacob Bridgeman on Biltmore Championship Asheville win, President's Cup"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "KOLD",
+      "domain": "kold.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": [
+        "Police: Man arrested near Asheville apartments where stabbing took place"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "KOLO | 8 News Now",
+      "domain": "kolotv.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": [
+        "Police: Man arrested near Asheville apartments where stabbing took place"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "KPTV",
+      "domain": "kptv.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": [
+        "Police: Man arrested near Asheville apartments where stabbing took place"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "KSLA",
+      "domain": "ksla.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": [
+        "Police: Man arrested near Asheville apartments where stabbing took place"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "ksnblocal4.com",
+      "domain": "ksnblocal4.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": [
+        "Police: Man arrested near Asheville apartments where stabbing took place"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "KSWO 7News",
+      "domain": "kswo.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": [
+        "Police: Man arrested near Asheville apartments where stabbing took place"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "KWQC",
+      "domain": "kwqc.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": [
+        "Police: Man arrested near Asheville apartments where stabbing took place"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "kxii.com",
+      "domain": "kxii.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": [
+        "Police: Man arrested near Asheville apartments where stabbing took place"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "KY3",
+      "domain": "ky3.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": [
+        "Police: Man arrested near Asheville apartments where stabbing took place"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "Live For Live Music",
+      "domain": "liveforlivemusic.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": ["Warren Haynes Confirms Christmas Jam 2026 In Asheville"],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "Laredo Morning Times",
+      "domain": "lmtonline.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": [
+        "Bridgeman rallies with career-best 61 to win inaugural Biltmore Championship Asheville"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "Mankato Free Press",
+      "domain": "mankatofreepress.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": [
+        "Spaun wins BMW PGA, Bridgeman tops new Asheville event and Johnson takes another Champ title"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "mcdowellnews.com",
+      "domain": "mcdowellnews.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": ["Campaign saves Asheville bear 'Dolly' from death. Here's what to know"],
+      "coveredByScout": "independent",
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "Mid Florida Newspapers",
+      "domain": "midfloridanewspapers.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": [
+        "Spaun wins BMW PGA in England. Bridgeman takes Biltmore Championship Asheville"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "militarytimes.com",
+      "domain": "militarytimes.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": ["Montford Point Marine and oldest-living MLB player just turned 102"],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "Mooresville Tribune",
+      "domain": "mooresvilletribune.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": ["Campaign saves Asheville bear 'Dolly' from death. Here's what to know"],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": "Mooresville",
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "morganton.com",
+      "domain": "morganton.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": ["Campaign saves Asheville bear 'Dolly' from death. Here's what to know"],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "ncnewsonline.com",
+      "domain": "ncnewsonline.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": [
+        "Spaun wins BMW PGA, Bridgeman tops new Asheville event and Johnson takes another Champ title"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "The News-Item",
+      "domain": "newsitem.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": [
+        "Spaun wins BMW PGA, Bridgeman tops new Asheville event and Johnson takes another Champ title"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "Raleigh News & Observer",
+      "domain": "newsobserver.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": ["Fairview woman killed in hit-and-run crash; driver sought"],
+      "coveredByScout": "mainstream",
+      "module": null,
+      "homeBase": "Raleigh",
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "Nosh.com",
+      "domain": "nosh.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": [
+        "30 Years of Cold Mountain: Highland Brewing Celebrates Three Decades of an Asheville Holiday Tradition Nov. 12–16"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "Novant Health",
+      "domain": "novanthealth.org",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": [
+        "Novant Health celebrates completion of South Asheville Medical Park, creating a connected outpatient care destination in Western North Carolina"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "Oakridger",
+      "domain": "oakridger.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": ["Stein announces flood resiliency funding in Woodfin | Video"],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "NJ.com",
+      "domain": "obits.nj.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": [
+        "Dorothy Robbins Obituary (2021) - Ocean Isle Beach, NC - Asheville Citizen-Times"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "On Tap Sports Net",
+      "domain": "ontapsportsnet.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": ["Lanto Griffin WD From Biltmore Championship Asheville With Back Injury"],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "Oskaloosa Herald",
+      "domain": "oskaloosa.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": [
+        "Bridgeman rallies with career-best 61 to win inaugural Biltmore Championship Asheville"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "Plugged In Golf",
+      "domain": "pluggedingolf.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": ["2026 Biltmore Championship Asheville Recap + WITB"],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "progolfweekly.com",
+      "domain": "progolfweekly.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": [
+        "Jacob Bridgeman Storms Back With 61 to Win Inaugural Biltmore Championship"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "Realtor.com",
+      "domain": "realtor.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": ["4 Baird Ln, Asheville, NC 28804"],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "roanoke.com",
+      "domain": "roanoke.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": [
+        "Phoenix Dillard spent more than two months in Mission Hospital's neonatal intensive care unit after being born nearly three months premature as Tropical Storm Helene struck Western North Carolina on Sept. 27, 2024."
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "RotoWire",
+      "domain": "rotowire.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": ["Weekly Fantasy Golf Recap: Bridgeman Strikes Again in Asheville"],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "Sky Sports",
+      "domain": "skysports.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": ["Biltmore Championship Asheville | Day three highlights"],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "Solar Power World",
+      "domain": "solarpowerworldonline.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": [
+        "Pisgah installs additional solar projects for Asheville community housing developer"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "sports.betmgm.com",
+      "domain": "sports.betmgm.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": [
+        "Biltmore Championship Asheville 2026: Winner’s Payout & Prize Money Earnings"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "Sports Business Journal",
+      "domain": "sportsbusinessjournal.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": ["PGA Tour returns to Asheville after 84 years"],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "Statesville Record",
+      "domain": "statesville.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": ["Campaign saves Asheville bear 'Dolly' from death. Here's what to know"],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "The Augusta Press",
+      "domain": "theaugustapress.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": [
+        "Bridgeman rallies with career-best 61 to win inaugural Biltmore Championship Asheville"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "The Australian",
+      "domain": "theaustralian.com.au",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": [
+        "Bridgeman shoots career-best 61, wins inaugural Biltmore Championship Asheville"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "Toowoomba Chronicle",
+      "domain": "thechronicle.com.au",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": [
+        "Bridgeman shoots career-best 61, wins inaugural Biltmore Championship Asheville"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "Norwalk Hour",
+      "domain": "thehour.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": [
+        "Spaun wins BMW PGA, Bridgeman tops new Asheville event and Johnson takes another Champ title"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "Toronto Star",
+      "domain": "thestar.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": [
+        "Shipley holds onto 1-shot lead over Kohles in the Biltmore Championship Asheville"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "The Times and Democrat",
+      "domain": "thetandd.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": [
+        "Phoenix Dillard spent more than two months in Mission Hospital's neonatal intensive care unit after being born nearly three months premature as Tropical Storm Helene struck Western North Carolina on Sept. 27, 2024."
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "Transfermarkt",
+      "domain": "transfermarkt.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": ["Asheville City SC"],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "Travel + Leisure",
+      "domain": "travelandleisure.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": [
+        "This Hidden-gem Mountain Town in North Carolina Is the Perfect Fall Escape—Less Than 2 Hours From Asheville"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "uk.sports.yahoo.com",
+      "domain": "uk.sports.yahoo.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": [
+        "The good and the bad of the PGA Tour's return to Asheville after 84 years"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "The University of North Carolina at Chapel Hill",
+      "domain": "unc.edu",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": ["Medical school uses innovative approach in Asheville | UNC-Asheville"],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": "Chapel Hill",
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "upstatespartans.com",
+      "domain": "upstatespartans.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": [
+        "Volleyball Opens Conference Play with the I-26 Rivalry, Facing UNC Asheville"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "USA Network",
+      "domain": "usanetwork.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": ["PGA Tour highlights 2026: Biltmore Championship Asheville, Rd. 1"],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "VA.gov Home | Veterans Affairs",
+      "domain": "va.gov",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": [
+        "Asheville VA Honored at 2026 VA Customer Experience Symposium Award Ceremony"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "WALB",
+      "domain": "walb.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": [
+        "Police: Man arrested near Asheville apartments where stabbing took place"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "wbbjtv.com",
+      "domain": "wbbjtv.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": [
+        "Police: Man arrested near Asheville apartments where stabbing took place"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "WBKB11.com",
+      "domain": "wbkb11.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": [
+        "Phoenix Dillard spent more than two months in Mission Hospital's neonatal intensive care unit after being born nearly three months premature as Tropical Storm Helene struck Western North Carolina on Sept. 27, 2024."
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "WBNG",
+      "domain": "wbng.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": [
+        "Police: Man arrested near Asheville apartments where stabbing took place"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "WBTV",
+      "domain": "wbtv.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": [
+        "Police: Man arrested near Asheville apartments where stabbing took place"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": "Charlotte",
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "WCAX",
+      "domain": "wcax.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": [
+        "Police: Man arrested near Asheville apartments where stabbing took place"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "WCTV",
+      "domain": "wctv.tv",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": [
+        "Police: Man arrested near Asheville apartments where stabbing took place"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "WDBJ7",
+      "domain": "wdbj7.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": [
+        "Police: Man arrested near Asheville apartments where stabbing took place"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "WFLX",
+      "domain": "wflx.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": [
+        "Police: Man arrested near Asheville apartments where stabbing took place"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "WGEM",
+      "domain": "wgem.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": [
+        "Police: Man arrested near Asheville apartments where stabbing took place"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "WhatNow",
+      "domain": "whatnow.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": ["All Day Darling Begins Construction on Second Asheville Location"],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "WITN",
+      "domain": "witn.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": [
+        "Police: Man arrested near Asheville apartments where stabbing took place"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "WMBF",
+      "domain": "wmbfnews.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": [
+        "Police: Man arrested near Asheville apartments where stabbing took place"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "WMTV 15 NEWS",
+      "domain": "wmtv15news.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": [
+        "Police: Man arrested near Asheville apartments where stabbing took place"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "WNDU",
+      "domain": "wndu.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": [
+        "Police: Man arrested near Asheville apartments where stabbing took place"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "WNEM",
+      "domain": "wnem.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": [
+        "Police: Man arrested near Asheville apartments where stabbing took place"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "Women's Golf Journal",
+      "domain": "womensgolfjournal.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": [
+        "2026 Biltmore Championship Asheville Purse Breakdown: Complete Prize Money Payout for PGA Tour Event Explored"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "WOWT",
+      "domain": "wowt.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": [
+        "Police: Man arrested near Asheville apartments where stabbing took place"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "wrdw.com",
+      "domain": "wrdw.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": [
+        "Police: Man arrested near Asheville apartments where stabbing took place"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "WSMV",
+      "domain": "wsmv.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": [
+        "Police: Man arrested near Asheville apartments where stabbing took place"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "WTVA",
+      "domain": "wtva.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": [
+        "Police: Man arrested near Asheville apartments where stabbing took place"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "WVLT",
+      "domain": "wvlt.tv",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": [
+        "Police: Man arrested near Asheville apartments where stabbing took place"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "WYMT",
+      "domain": "wymt.com",
+      "count": 1,
+      "buncombeCount": 1,
+      "sampleHeadlines": [
+        "Police: Man arrested near Asheville apartments where stabbing took place"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "BVM Sports",
+      "domain": "bvmsports.com",
+      "count": 5,
+      "buncombeCount": 0,
+      "sampleHeadlines": [
+        "This Week in Bulldog Athletics (Sept. 21-27)",
+        "Women’s Tennis Opens Fall Season at the Sixth Annual Emily McNall Classic",
+        "Bulldogs Fall to Queens in Final Nonconference Match"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "Big South Conference",
+      "domain": "bigsouthsports.com",
+      "count": 3,
+      "buncombeCount": 0,
+      "sampleHeadlines": [
+        "Big South Men's Soccer Conference Summary - Sept. 19",
+        "Big South Announces Men's Soccer Players of the Week - Sept. 21",
+        "Big South Announces 2026-27 Men's Basketball League Schedule"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "Woodfin Funeral Chapels",
+      "domain": "woodfinchapel.com",
+      "count": 3,
+      "buncombeCount": 0,
+      "sampleHeadlines": [
+        "Mike Levi Obituary September 19, 2026",
+        "Wanda Gail Willingham Obituary September 18, 2026",
+        "David Gary Merz Obituary September 19, 2026"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "ashevilleareaalternative.com",
+      "domain": "ashevilleareaalternative.com",
+      "count": 2,
+      "buncombeCount": 0,
+      "sampleHeadlines": ["Obituary for Larry Robinson", "Obituary for Claude William Bassett Jr."],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "The Des Moines Register",
+      "domain": "desmoinesregister.com",
+      "count": 2,
+      "buncombeCount": 0,
+      "sampleHeadlines": [
+        "Comfort Pros Heating & Cooling Announces New Ownership Under Local Entrepreneur Ben Sealey",
+        "Mountain Radiance Earns Multiple Honors in Regional Awards Program"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "ESPN",
+      "domain": "m.espn.com",
+      "count": 2,
+      "buncombeCount": 0,
+      "sampleHeadlines": ["Rasheed Baldwin", "Jason Ridenhour"],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "The Trinity Journal",
+      "domain": "trinityjournal.com",
+      "count": 2,
+      "buncombeCount": 0,
+      "sampleHeadlines": ["Herbert L. Stygar", "True crime book signing, cemetery tour on Oct. 31"],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "Raleigh News & Observer",
+      "domain": "amp.newsobserver.com",
+      "count": 1,
+      "buncombeCount": 0,
+      "sampleHeadlines": ["2 Triangle hotels named among the finest in the world by Michelin"],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "andersriceandroper.com",
+      "domain": "andersriceandroper.com",
+      "count": 1,
+      "buncombeCount": 0,
+      "sampleHeadlines": ["Carole Kay Boyer Hawkinson Obituary Sep 18, 2026"],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "A News Cafe",
+      "domain": "anewscafe.com",
+      "count": 1,
+      "buncombeCount": 0,
+      "sampleHeadlines": ["Shasta College and Trinity County Partner to Support Local Libraries"],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "azcentral.com and The Arizona Republic",
+      "domain": "azcentral.com",
+      "count": 1,
+      "buncombeCount": 0,
+      "sampleHeadlines": ["Mountain Radiance Earns Multiple Honors in Regional Awards Program"],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "Baltimore Sun",
+      "domain": "baltimoresun.com",
+      "count": 1,
+      "buncombeCount": 0,
+      "sampleHeadlines": ["Baltimore Police ID man killed north of Patterson Park"],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "CBS News",
+      "domain": "cbsnews.com",
+      "count": 1,
+      "buncombeCount": 0,
+      "sampleHeadlines": ["Weekend shootings in Baltimore leave 1 dead, 11 wounded"],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "Center for Disaster Philanthropy",
+      "domain": "disasterphilanthropy.org",
+      "count": 1,
+      "buncombeCount": 0,
+      "sampleHeadlines": [
+        "Nearly $4 million in final grants from the Truist Foundation Western North Carolina Recovery and Resiliency Fund"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "IndyStar",
+      "domain": "indystar.com",
+      "count": 1,
+      "buncombeCount": 0,
+      "sampleHeadlines": ["Mountain Radiance Earns Multiple Honors in Regional Awards Program"],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "IOL",
+      "domain": "iol.co.za",
+      "count": 1,
+      "buncombeCount": 0,
+      "sampleHeadlines": [
+        "‘Caught on video’: men denied bail for the kidnapping and rape of Chatsworth man"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "Jambands",
+      "domain": "jambands.com",
+      "count": 1,
+      "buncombeCount": 0,
+      "sampleHeadlines": ["Warren Haynes Confirms Initial Christmas Jam Details"],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "KIMT",
+      "domain": "kimt.com",
+      "count": 1,
+      "buncombeCount": 0,
+      "sampleHeadlines": ["PGA Tour gig helps laundry business pay bills and rebuild momentum"],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "LiveWire Calgary",
+      "domain": "livewirecalgary.com",
+      "count": 1,
+      "buncombeCount": 0,
+      "sampleHeadlines": ["Calgary’s oldest veteran celebrates his 107th birthday"],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "FOX8 WGHP",
+      "domain": "myfox8.com",
+      "count": 1,
+      "buncombeCount": 0,
+      "sampleHeadlines": [
+        "2 years after Helene, major gaps in housing, infrastructure slow western North Carolina recovery"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "New York Post",
+      "domain": "nypost.com",
+      "count": 1,
+      "buncombeCount": 0,
+      "sampleHeadlines": [
+        "Alejandro Tosti’s caddie quit mid-round — while fiery golfer thought he was in the bathroom"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "MLive.com",
+      "domain": "obits.mlive.com",
+      "count": 1,
+      "buncombeCount": 0,
+      "sampleHeadlines": [
+        "Almer \"Lamar\" Swann Obituary (1932 - 2026) - Simpsonville, SC - 828 News Now"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "WKYK",
+      "domain": "ourlocalcommunityonline.com",
+      "count": 1,
+      "buncombeCount": 0,
+      "sampleHeadlines": ["Mars Hill Receives Nearly $500,000 for Park Project"],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "portcitydaily.com",
+      "domain": "portcitydaily.com",
+      "count": 1,
+      "buncombeCount": 0,
+      "sampleHeadlines": ["Francis Marion Hooper Jr., 98"],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "The Press Democrat",
+      "domain": "pressdemocrat.com",
+      "count": 1,
+      "buncombeCount": 0,
+      "sampleHeadlines": ["Matthew Hudson Obituary"],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "Robesonian",
+      "domain": "robesonian.com",
+      "count": 1,
+      "buncombeCount": 0,
+      "sampleHeadlines": ["Oxendine becomes first Lumbee to play on PGA Tour"],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "Smoky Mountain News",
+      "domain": "smokymountainnews.com",
+      "count": 1,
+      "buncombeCount": 0,
+      "sampleHeadlines": ["Partner content: Introducing NEW Local Products at Ingles Markets -"],
+      "coveredByScout": "independent",
+      "module": "smokymountainnews.ts",
+      "homeBase": "Waynesville (Haywood County)",
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "Spectrum News",
+      "domain": "spectrumlocalnews.com",
+      "count": 1,
+      "buncombeCount": 0,
+      "sampleHeadlines": [
+        "Bee Tree Christian Church hopes to rebuild for next generation after Helene"
+      ],
+      "coveredByScout": "mainstream",
+      "module": null,
+      "homeBase": "statewide",
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "University of North Carolina Asheville",
+      "domain": "stories.unca.edu",
+      "count": 1,
+      "buncombeCount": 0,
+      "sampleHeadlines": ["Putting Biology to Work"],
+      "coveredByScout": "civic",
+      "module": "uncanews.ts",
+      "homeBase": "Asheville",
+      "mostlyOutsideBuncombe": false
+    },
+    {
+      "publisher": "The 42",
+      "domain": "the42.ie",
+      "count": 1,
+      "buncombeCount": 0,
+      "sampleHeadlines": [
+        "Power earns top-10 finish and FedEx Cup boost to strengthen bid for PGA Tour status"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "The Center Square",
+      "domain": "thecentersquare.com",
+      "count": 1,
+      "buncombeCount": 0,
+      "sampleHeadlines": [
+        "Innovative digital teaching, learning supported in grants exceeding $1.2M"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "The Times of India",
+      "domain": "timesofindia.indiatimes.com",
+      "count": 1,
+      "buncombeCount": 0,
+      "sampleHeadlines": [
+        "In 1888, George Vanderbilt began building a vast North Carolina estate; 26 years later, his widow sold 86"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "The Tryon Daily Bulletin",
+      "domain": "tryondailybulletin.com",
+      "count": 1,
+      "buncombeCount": 0,
+      "sampleHeadlines": [
+        "Polk Commissioners approve proclamations, receive update from Vaya Health"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "Volcano Discovery",
+      "domain": "volcanodiscovery.com",
+      "count": 1,
+      "buncombeCount": 0,
+      "sampleHeadlines": [
+        "Weak mag. 2.3 earthquake - Transylvania County, 16 mi southwest of Hendersonville, Henderson County, North Carolina, United States, on Wednesday, Sep 23, 2026, at 09:35 am (GMT -4)"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "WBAL-TV",
+      "domain": "wbaltv.com",
+      "count": 1,
+      "buncombeCount": 0,
+      "sampleHeadlines": ["1 dead, 9 injured in Baltimore shootings over the weekend"],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "WCYB",
+      "domain": "wcyb.com",
+      "count": 1,
+      "buncombeCount": 0,
+      "sampleHeadlines": [
+        "'Dolly' the bear gets second chance as petition gains over 21,000 signatures"
+      ],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    },
+    {
+      "publisher": "WXII",
+      "domain": "wxii12.com",
+      "count": 1,
+      "buncombeCount": 0,
+      "sampleHeadlines": ["Stein to visit western N.C. towns for Helene recovery"],
+      "coveredByScout": null,
+      "module": null,
+      "homeBase": null,
+      "mostlyOutsideBuncombe": true
+    }
+  ]
+}

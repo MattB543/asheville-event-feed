@@ -9,7 +9,11 @@ import {
   jsonb,
   vector,
   uniqueIndex,
+  date,
+  check,
+  customType,
 } from 'drizzle-orm/pg-core';
+import { sql } from 'drizzle-orm';
 
 export const events = pgTable(
   'events',
@@ -547,5 +551,178 @@ export const cronJobRuns = pgTable(
   (table) => ({
     jobNameIdx: index('cron_job_runs_job_name_idx').on(table.jobName),
     startedAtIdx: index('cron_job_runs_started_at_idx').on(table.startedAt),
+    // The news-ai lease: one running news-ai row at a time (drizzle/0020_news_ai_lease.sql).
+    oneRunningNewsAi: uniqueIndex('cron_job_runs_one_running_news_ai')
+      .on(table.jobName)
+      .where(sql`${table.status} = 'running' AND ${table.jobName} = 'news-ai'`),
   })
 );
+
+// ===== News =====
+// Local news for /news (docs/news/05-v1-plan.md §5; SQL in drizzle/0019_news.sql).
+// Every feed read goes through the live-only helpers in lib/news/db.ts.
+
+const tsvector = customType<{ data: string }>({
+  dataType() {
+    return 'tsvector';
+  },
+});
+
+// One row per outlet domain. `enabled` is the takedown switch (scripts/news/takedown.ts):
+// a disabled domain's module doesn't run and its items are dropped from every module.
+export const newsSources = pgTable(
+  'news_sources',
+  {
+    domain: text('domain').primaryKey(), // e.g. 'wlos.com' - lowercased, no www.
+    name: text('name').notNull(),
+    kind: text('kind').notNull(), // 'outlet' | 'government' | 'institution' | 'community'
+    homepage: text('homepage'),
+    enabled: boolean('enabled').default(true).notNull(), // Ingest never flips this back on
+    createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
+    updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow().notNull(),
+  },
+  (table) => ({
+    kindCheck: check(
+      'news_sources_kind_check',
+      sql`${table.kind} IN ('outlet', 'government', 'institution', 'community')`
+    ),
+  })
+);
+
+// One row per publisher URL. The outlet's own text is kept forever but only ever
+// shown as link labels; the ai_* fields are ours.
+export const newsArticles = pgTable(
+  'news_articles',
+  {
+    id: uuid('id').defaultRandom().primaryKey(),
+    url: text('url').unique().notNull(), // Canonical publisher URL - the only ingest identity
+    source: text('source').notNull(), // Module key, e.g. 'BPR'
+    sourceId: text('source_id').notNull(), // The source's own id (RSS guid, WP post id)
+    // From articleIdentity(): an aggregator item belongs to its publisher
+    outletDomain: text('outlet_domain').notNull(),
+    outletName: text('outlet_name').notNull(),
+    kind: text('kind').notNull(), // 'outlet' | 'government' | 'institution' | 'community'
+    title: text('title').notNull(),
+    dek: text('dek'),
+    contentText: text('content_text'),
+    author: text('author'),
+    imageUrl: text('image_url'),
+    linkedUrl: text('linked_url'), // Community link posts: what the post points at
+    categories: text('categories')
+      .array()
+      .default(sql`'{}'`)
+      .notNull(),
+    engagement: jsonb('engagement').$type<{ score?: number; comments?: number }>(), // Refreshed each scrape
+    paywalled: boolean('paywalled').default(false).notNull(),
+    publishedAt: timestamp('published_at', { withTimezone: true }).notNull(),
+    firstSeenAt: timestamp('first_seen_at', { withTimezone: true }).defaultNow().notNull(),
+    lastSeenAt: timestamp('last_seen_at', { withTimezone: true }).defaultNow().notNull(),
+    // 'none_needed' | 'pending' | 'fetched' | 'unavailable' | 'failed'
+    fulltextStatus: text('fulltext_status').notNull(),
+    fulltextAttempts: integer('fulltext_attempts').default(0).notNull(), // Gives up after 3
+    // sha256 of title + dek + content_text (lib/news/db.ts). Differs from
+    // enriched_hash -> the article needs enrichment.
+    inputHash: text('input_hash').notNull(),
+    enrichedHash: text('enriched_hash'),
+    state: text('state').default('pending').notNull(), // 'pending' | 'live' | 'skipped' | 'hidden'
+    skipReason: text('skip_reason'), // 'not_local', 'opinion', ..., 'ai_failed', 'takedown'
+    aiHeadline: text('ai_headline'),
+    aiSummary: text('ai_summary'),
+    whatHappened: text('what_happened'),
+    entities: text('entities')
+      .array()
+      .default(sql`'{}'`)
+      .notNull(),
+    topics: text('topics')
+      .array()
+      .default(sql`'{}'`)
+      .notNull(),
+    place: text('place'),
+    buncombe: text('buncombe'), // 'core' | 'affects' | 'mentions' | 'none'
+    importance: integer('importance'), // 0-10
+    communityImportant: boolean('community_important'),
+    aiAttempts: integer('ai_attempts').default(0).notNull(), // At 3 -> skipped/ai_failed
+    aiError: text('ai_error'),
+    enrichedAt: timestamp('enriched_at', { withTimezone: true }),
+    embedding: vector('embedding', { dimensions: 1536 }), // NULL whenever enrichment reruns
+    storyId: uuid('story_id').references(() => newsStories.id, { onDelete: 'set null' }),
+    clusterReason: text('cluster_reason'),
+    createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
+    updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow().notNull(),
+  },
+  (table) => ({
+    publishedAtIdx: index('news_articles_published_at_idx').on(table.publishedAt),
+    storyIdIdx: index('news_articles_story_id_idx').on(table.storyId),
+    stateIdx: index('news_articles_state_idx').on(table.state),
+    outletDomainIdx: index('news_articles_outlet_domain_idx').on(table.outletDomain),
+    sourceSourceIdIdx: index('news_articles_source_source_id_idx').on(table.source, table.sourceId),
+    kindCheck: check(
+      'news_articles_kind_check',
+      sql`${table.kind} IN ('outlet', 'government', 'institution', 'community')`
+    ),
+    stateCheck: check(
+      'news_articles_state_check',
+      sql`${table.state} IN ('pending', 'live', 'skipped', 'hidden')`
+    ),
+    fulltextStatusCheck: check(
+      'news_articles_fulltext_status_check',
+      sql`${table.fulltextStatus} IN ('none_needed', 'pending', 'fetched', 'unavailable', 'failed')`
+    ),
+  })
+);
+
+// A cluster of articles about one thing. Only state = 'live' is ever shown.
+export const newsStories = pgTable(
+  'news_stories',
+  {
+    id: uuid('id').defaultRandom().primaryKey(),
+    shortId: text('short_id').unique().notNull(), // 8 chars [a-z0-9], random, never reused (share links)
+    tier: text('tier').notNull(), // 'newsroom' | 'community'
+    state: text('state').default('pending').notNull(), // 'pending' (not shown) | 'live' | 'hidden'
+    headline: text('headline').notNull(), // Ours
+    summary: text('summary').notNull(), // Ours
+    imageUrl: text('image_url'),
+    topics: text('topics')
+      .array()
+      .default(sql`'{}'`)
+      .notNull(),
+    place: text('place'),
+    importance: integer('importance').default(0).notNull(),
+    score: integer('score').default(0).notNull(),
+    topRank: integer('top_rank'), // Non-null = a Top story on its filing day
+    filingDay: date('filing_day').notNull(), // ET, 'YYYY-MM-DD'
+    leadArticleId: uuid('lead_article_id'),
+    articleCount: integer('article_count').default(0).notNull(), // Newsroom-tier members only
+    outletCount: integer('outlet_count').default(0).notNull(), // Distinct outlet_domain
+    firstPublishedAt: timestamp('first_published_at', { withTimezone: true }).notNull(),
+    lastArticleAt: timestamp('last_article_at', { withTimezone: true }).notNull(),
+    dirty: boolean('dirty').default(true).notNull(), // Needs recompute
+    searchTsv: tsvector('search_tsv').generatedAlwaysAs(
+      sql`to_tsvector('english', coalesce(headline, '') || ' ' || coalesce(summary, ''))`
+    ),
+    createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
+    updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow().notNull(),
+  },
+  (table) => ({
+    filingDayIdx: index('news_stories_filing_day_idx').on(table.filingDay),
+    stateIdx: index('news_stories_state_idx').on(table.state),
+    dirtyIdx: index('news_stories_dirty_idx')
+      .on(table.dirty)
+      .where(sql`${table.dirty}`),
+    searchTsvIdx: index('news_stories_search_tsv_idx').using('gin', table.searchTsv),
+    tierCheck: check('news_stories_tier_check', sql`${table.tier} IN ('newsroom', 'community')`),
+    stateCheck: check(
+      'news_stories_state_check',
+      sql`${table.state} IN ('pending', 'live', 'hidden')`
+    ),
+  })
+);
+
+// The per-day "short version": one sentence per Top story, in rank order.
+export const newsDays = pgTable('news_days', {
+  day: date('day').primaryKey(), // ET, 'YYYY-MM-DD'
+  summary: jsonb('summary').$type<Array<{ storyId: string; text: string }>>().notNull(), // storyId = short_id
+  // Hash of the ordered Top stories' short ids, headlines and summaries; a mismatch means regenerate
+  inputHash: text('input_hash').notNull(),
+  generatedAt: timestamp('generated_at', { withTimezone: true }).defaultNow().notNull(),
+});

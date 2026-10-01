@@ -152,8 +152,10 @@ interface EventCardProps {
     recurringType?: string | null;
     top30Occurrences?: { id: string; startDate: Date; timeUnknown?: boolean | null }[] | null;
   };
-  onHide: (title: string, organizer: string | null, eventId?: string) => void;
-  onBlockHost: (host: string) => void;
+  /** Omit where there is no feed to hide from; the "Hide event" item goes with it. */
+  onHide?: (title: string, organizer: string | null, eventId?: string) => void;
+  /** Omit where there is no feed to hide from; the "Hide host" item goes with it. */
+  onBlockHost?: (host: string) => void;
   isNewlyHidden?: boolean;
   hideBorder?: boolean;
   isFavorited: boolean;
@@ -165,6 +167,8 @@ interface EventCardProps {
   /** Show a "Recurring" badge for similar events that appear multiple times */
   showRecurringBadge?: boolean;
   isCurated?: boolean;
+  /** Off where there is no curate modal to open (the /news end cap). */
+  showCurate?: boolean;
   onCurate?: (eventId: string) => void;
   onUncurate?: (eventId: string) => void;
   isLoggedIn?: boolean;
@@ -222,6 +226,7 @@ export default function EventCard({
   isTagFilterActive = false,
   showRecurringBadge = false,
   isCurated = false,
+  showCurate = true,
   onCurate,
   onUncurate,
   isLoggedIn = false,
@@ -277,13 +282,13 @@ export default function EventCard({
   };
 
   const handleHideEvent = () => {
-    onHide(event.title, event.organizer, event.id);
+    onHide?.(event.title, event.organizer, event.id);
     setMoreMenuOpen(false);
   };
 
   const handleBlockHost = () => {
     if (event.organizer) {
-      onBlockHost(event.organizer);
+      onBlockHost?.(event.organizer);
       setMoreMenuOpen(false);
     }
   };
@@ -733,35 +738,37 @@ export default function EventCard({
 
                 {moreMenuOpen && (
                   <div className="absolute right-0 top-full mt-1 z-50 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded shadow-lg min-w-[200px]">
-                    <button
-                      onClick={() => {
-                        if (!isLoggedIn) {
-                          window.location.href = '/login';
-                          return;
-                        }
-                        if (isCurated) {
-                          onUncurate?.(event.id);
-                        } else {
-                          onCurate?.(event.id);
-                        }
-                        setMoreMenuOpen(false);
-                      }}
-                      className={`w-full flex items-center gap-2 px-3 py-2 text-xs transition-colors cursor-pointer ${
-                        isLoggedIn
-                          ? 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
-                          : 'text-gray-400 dark:text-gray-500'
-                      }`}
-                    >
-                      <Bookmark
-                        size={14}
-                        className={isCurated ? 'fill-current text-brand-600' : ''}
-                      />
-                      {isLoggedIn
-                        ? isCurated
-                          ? 'Remove from profile'
-                          : 'Curate'
-                        : 'Curate - log in to use'}
-                    </button>
+                    {showCurate && (
+                      <button
+                        onClick={() => {
+                          if (!isLoggedIn) {
+                            window.location.href = '/login';
+                            return;
+                          }
+                          if (isCurated) {
+                            onUncurate?.(event.id);
+                          } else {
+                            onCurate?.(event.id);
+                          }
+                          setMoreMenuOpen(false);
+                        }}
+                        className={`w-full flex items-center gap-2 px-3 py-2 text-xs transition-colors cursor-pointer ${
+                          isLoggedIn
+                            ? 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
+                            : 'text-gray-400 dark:text-gray-500'
+                        }`}
+                      >
+                        <Bookmark
+                          size={14}
+                          className={isCurated ? 'fill-current text-brand-600' : ''}
+                        />
+                        {isLoggedIn
+                          ? isCurated
+                            ? 'Remove from profile'
+                            : 'Curate'
+                          : 'Curate - log in to use'}
+                      </button>
+                    )}
                     <a
                       href={eventUrl}
                       target="_blank"
@@ -782,34 +789,38 @@ export default function EventCard({
                       <ExternalLink size={14} />
                       Open source
                     </a>
-                    <div className="border-t border-gray-200 dark:border-gray-700" />
-                    <button
-                      onClick={() => {
-                        handleHideEvent();
-                        setMoreMenuOpen(false);
-                      }}
-                      disabled={isNewlyHidden}
-                      className={`w-full flex items-start gap-2 px-3 py-2 text-left cursor-pointer ${
-                        isNewlyHidden
-                          ? 'text-gray-400 dark:text-gray-600'
-                          : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
-                      }`}
-                    >
-                      <EyeOff size={14} className="mt-0.5 shrink-0" />
-                      <div>
-                        <div className="text-xs font-medium">Hide event</div>
-                        <div
-                          className={`text-[10px] ${
-                            isNewlyHidden
-                              ? 'text-gray-400 dark:text-gray-600'
-                              : 'text-gray-500 dark:text-gray-400'
-                          }`}
-                        >
-                          Hide now & future occurrences
+                    {(onHide || onBlockHost) && (
+                      <div className="border-t border-gray-200 dark:border-gray-700" />
+                    )}
+                    {onHide && (
+                      <button
+                        onClick={() => {
+                          handleHideEvent();
+                          setMoreMenuOpen(false);
+                        }}
+                        disabled={isNewlyHidden}
+                        className={`w-full flex items-start gap-2 px-3 py-2 text-left cursor-pointer ${
+                          isNewlyHidden
+                            ? 'text-gray-400 dark:text-gray-600'
+                            : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
+                        }`}
+                      >
+                        <EyeOff size={14} className="mt-0.5 shrink-0" />
+                        <div>
+                          <div className="text-xs font-medium">Hide event</div>
+                          <div
+                            className={`text-[10px] ${
+                              isNewlyHidden
+                                ? 'text-gray-400 dark:text-gray-600'
+                                : 'text-gray-500 dark:text-gray-400'
+                            }`}
+                          >
+                            Hide now & future occurrences
+                          </div>
                         </div>
-                      </div>
-                    </button>
-                    {event.organizer && (
+                      </button>
+                    )}
+                    {onBlockHost && event.organizer && (
                       <button
                         onClick={() => {
                           handleBlockHost();
@@ -1347,35 +1358,37 @@ export default function EventCard({
               {moreMenuOpen && (
                 <div className="absolute right-0 top-full mt-1 z-50 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded shadow-lg min-w-[200px]">
                   {/* Curate section */}
-                  <button
-                    onClick={() => {
-                      if (!isLoggedIn) {
-                        window.location.href = '/login';
-                        return;
-                      }
-                      if (isCurated) {
-                        onUncurate?.(event.id);
-                      } else {
-                        onCurate?.(event.id);
-                      }
-                      setMoreMenuOpen(false);
-                    }}
-                    className={`w-full flex items-center gap-2 px-3 py-2 text-xs transition-colors cursor-pointer ${
-                      isLoggedIn
-                        ? 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
-                        : 'text-gray-400 dark:text-gray-500'
-                    }`}
-                  >
-                    <Bookmark
-                      size={14}
-                      className={isCurated ? 'fill-current text-brand-600' : ''}
-                    />
-                    {isLoggedIn
-                      ? isCurated
-                        ? 'Remove from profile'
-                        : 'Curate'
-                      : 'Curate - log in to use'}
-                  </button>
+                  {showCurate && (
+                    <button
+                      onClick={() => {
+                        if (!isLoggedIn) {
+                          window.location.href = '/login';
+                          return;
+                        }
+                        if (isCurated) {
+                          onUncurate?.(event.id);
+                        } else {
+                          onCurate?.(event.id);
+                        }
+                        setMoreMenuOpen(false);
+                      }}
+                      className={`w-full flex items-center gap-2 px-3 py-2 text-xs transition-colors cursor-pointer ${
+                        isLoggedIn
+                          ? 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
+                          : 'text-gray-400 dark:text-gray-500'
+                      }`}
+                    >
+                      <Bookmark
+                        size={14}
+                        className={isCurated ? 'fill-current text-brand-600' : ''}
+                      />
+                      {isLoggedIn
+                        ? isCurated
+                          ? 'Remove from profile'
+                          : 'Curate'
+                        : 'Curate - log in to use'}
+                    </button>
+                  )}
                   <a
                     href={`/events/${generateEventSlug(event.title, event.startDate, event.id)}`}
                     target="_blank"
@@ -1397,34 +1410,38 @@ export default function EventCard({
                     Open source
                   </a>
                   {/* Hide section */}
-                  <div className="border-t border-gray-200 dark:border-gray-700" />
-                  <button
-                    onClick={() => {
-                      handleHideEvent();
-                      setMoreMenuOpen(false);
-                    }}
-                    disabled={isNewlyHidden}
-                    className={`w-full flex items-start gap-2 px-3 py-2 text-left cursor-pointer ${
-                      isNewlyHidden
-                        ? 'text-gray-400 dark:text-gray-600'
-                        : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
-                    }`}
-                  >
-                    <EyeOff size={14} className="mt-0.5 shrink-0" />
-                    <div>
-                      <div className="text-xs font-medium">Hide event</div>
-                      <div
-                        className={`text-[10px] ${
-                          isNewlyHidden
-                            ? 'text-gray-400 dark:text-gray-600'
-                            : 'text-gray-500 dark:text-gray-400'
-                        }`}
-                      >
-                        Hide now & future occurrences
+                  {(onHide || onBlockHost) && (
+                    <div className="border-t border-gray-200 dark:border-gray-700" />
+                  )}
+                  {onHide && (
+                    <button
+                      onClick={() => {
+                        handleHideEvent();
+                        setMoreMenuOpen(false);
+                      }}
+                      disabled={isNewlyHidden}
+                      className={`w-full flex items-start gap-2 px-3 py-2 text-left cursor-pointer ${
+                        isNewlyHidden
+                          ? 'text-gray-400 dark:text-gray-600'
+                          : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
+                      }`}
+                    >
+                      <EyeOff size={14} className="mt-0.5 shrink-0" />
+                      <div>
+                        <div className="text-xs font-medium">Hide event</div>
+                        <div
+                          className={`text-[10px] ${
+                            isNewlyHidden
+                              ? 'text-gray-400 dark:text-gray-600'
+                              : 'text-gray-500 dark:text-gray-400'
+                          }`}
+                        >
+                          Hide now & future occurrences
+                        </div>
                       </div>
-                    </div>
-                  </button>
-                  {event.organizer && (
+                    </button>
+                  )}
+                  {onBlockHost && event.organizer && (
                     <button
                       onClick={() => {
                         handleBlockHost();

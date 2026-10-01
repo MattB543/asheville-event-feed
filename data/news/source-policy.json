@@ -1,0 +1,1013 @@
+[
+  {
+    "sourceModule": "lib/news/sources/828newsnow.ts",
+    "key": "NEWS_828_NOW",
+    "outlet": "828newsNOW (Saga Communications' Asheville radio newsroom)",
+    "fetches": [
+      "GET https://828newsnow.com/wp-json/wp/v2/sections?per_page=100&_fields=id,name",
+      "GET https://828newsnow.com/wp-json/wp/v2/news?per_page=50&after=<now-7d>&_embed=author,wp:featuredmedia&_fields=id,date_gmt,modified_gmt,link,title,excerpt,content,sections,saga_news_source_category,_links,_embedded (20 s after the first request)"
+    ],
+    "fetchesArticlePages": false,
+    "userAgent": "NEWS_USER_AGENT (desktop Chrome/140 string)",
+    "robots": {
+      "applies": "allowed",
+      "quote": "User-agent: *\nCrawl-Delay: 20\nDisallow: /newsletter/\nDisallow: /nc/\nDisallow: /specspots/\n...\nUser-agent: CCBot\nDisallow: /\n...\nUser-agent: Amazonbot\nDisallow: /\n...\nUser-agent: KimiBot\nDisallow: /",
+      "namesAIAgents": true,
+      "note": "No rule covers /wp-json/, so the `*` group allows it; the module waits the 20 s crawl delay. Names CCBot, Amazonbot and KimiBot, but no Anthropic, OpenAI or Google-Extended tokens."
+    },
+    "terms": {
+      "url": "https://828newsnow.com/terms-of-use/",
+      "quotes": [
+        "Saga and its licensors grant to you a personal, non-exclusive, non-transferable license to: (a) access, view, download, print, use and display Materials; and (b) use the tools and software on the Site (collectively, “Software”); solely for your own personal, informational, non-commercial use.",
+        "You shall not: ... (b) modify, enhance, adapt, translate, or create derivative works of the Site; (c) republish, post, transmit, transfer, distribute, assign, sublicense, rent, lease or sell the Site, or any portion thereof; ... (e) reproduce or make copies of the Site, or any portion thereof",
+        "(g) deep-link (place a hyperlink on a website that links to another website but not at its homepage) to the Site for any purpose, unless otherwise expressly authorized by us to do so; and/or (g) duplicate, access, view, download, print, use, modify, display the Site for any commercial or other money-making purpose, unless otherwise expressly authorized by Saga to do so."
+      ],
+      "verdict": "ambiguous",
+      "note": "Effective Date: March 20, 2012. Nothing on scraping, caching or AI. It is a personal/non-commercial license plus bans on copies, derivative works and deep links. Deep-link bans are widely regarded as unenforceable, but this one is in the text and our UI deep-links."
+    },
+    "license": "© Saga Communications, all rights reserved; no reuse license found. The terms also carry the standard AP clause: \"No Associated Press materials nor any portion thereof may be stored in a computer except for personal and non-commercial use\".",
+    "currentBuild": "Stores the full body (REST content.rendered) as contentText for AI.",
+    "tier": "B",
+    "tierMatchesBuild": false,
+    "contactFirst": true,
+    "accessConcern": null,
+    "reasoning": "Broad generic terms (no copies, no derivatives, non-commercial only) and no technical signals against us: keep headline + excerpt + link and drop `content` from _fields. A local radio newsroom that Wake Up Asheville already links daily is a natural partner that could grant full-text use.",
+    "contact": {
+      "email": "copyrightclaim@sagacom.com",
+      "page": "https://828newsnow.com/contact-us/",
+      "note": "Email is Saga Communications' copyright/DMCA contact (Eric Christian, VP Digital Strategies); newsroom 828-259-9695."
+    }
+  },
+  {
+    "sourceModule": "lib/news/sources/ashevillecity.ts",
+    "key": "CITY_OF_ASHEVILLE",
+    "outlet": "City of Asheville",
+    "fetches": [
+      "GET https://www.ashevillenc.gov/wp-json/wp/v2/posts?per_page=30&_embed=1"
+    ],
+    "fetchesArticlePages": false,
+    "userAgent": "NEWS_USER_AGENT (desktop Chrome/140 string)",
+    "robots": {
+      "applies": "allowed",
+      "quote": "User-agent: *\nDisallow:",
+      "namesAIAgents": false,
+      "note": "Yoast default: allow everything."
+    },
+    "terms": {
+      "url": "https://www.ashevillenc.gov/privacy-policy/",
+      "quotes": [],
+      "verdict": "none_found",
+      "note": "The footer links only a privacy policy. No terms of use or reuse restrictions found."
+    },
+    "license": "Public record under the NC Public Records Act (N.C.G.S. ch. 132: records are \"the property of the people\", § 132-1(b)); press releases are published for dissemination.",
+    "currentBuild": "Stores the full body for AI.",
+    "tier": "A",
+    "tierMatchesBuild": true,
+    "contactFirst": false,
+    "accessConcern": null,
+    "reasoning": "Government press releases from an open REST API, allow-all robots and no terms: the lowest-risk category in the set.",
+    "contact": {
+      "email": "webmaster@ashevillenc.gov",
+      "page": null,
+      "note": "City main line 828-251-1122."
+    }
+  },
+  {
+    "sourceModule": "lib/news/sources/avlcouncilagenda.ts",
+    "key": "AVL_COUNCIL_AGENDA",
+    "outlet": "Asheville City Council agendas (City Clerk)",
+    "fetches": [
+      "GET https://www.ashevillenc.gov/wp-json/wp/v2/meetings?meeting_categories=1417&per_page=100&_fields=id,link,title,acf",
+      "GET https://www.ashevillenc.gov/government/city-council-agenda/",
+      "GET https://docs.google.com/document/d/<docId>/export?format=txt (one per meeting with an attached agenda doc, plus the 8-week draft calendar; 1 s apart)"
+    ],
+    "fetchesArticlePages": false,
+    "userAgent": "NEWS_USER_AGENT (desktop Chrome/140 string)",
+    "robots": {
+      "applies": "allowed",
+      "quote": "ashevillenc.gov:\nUser-agent: *\nDisallow:\n\ndocs.google.com:\nUser-agent: *\nCrawl-delay: 1\n...\nAllow: /document\n...\nDisallow: /",
+      "namesAIAgents": false,
+      "note": "The export URL sits under /document, which docs.google.com allows. The module's 1 s gap matches the crawl delay."
+    },
+    "terms": {
+      "url": "https://policies.google.com/terms",
+      "quotes": [
+        "using automated means to access content from any of our services in violation of the machine-readable instructions on our web pages (for example, robots.txt files that disallow crawling, training, or other activities)"
+      ],
+      "verdict": "silent",
+      "note": "The City has no terms. Google's ToS (effective July 30, 2026) ties automated access to robots.txt, and robots.txt allows /document, so this use complies."
+    },
+    "license": "Public record (City Clerk agendas and action agendas).",
+    "currentBuild": "Stores agenda text for AI.",
+    "tier": "A",
+    "tierMatchesBuild": true,
+    "contactFirst": false,
+    "accessConcern": null,
+    "reasoning": "Public records that the city links from its own agenda page, fetched through a path that robots.txt allows. Nothing restricts this use.",
+    "contact": {
+      "email": "webmaster@ashevillenc.gov",
+      "page": "https://www.ashevillenc.gov/government/city-council-agenda/",
+      "note": "Agendas are the City Clerk's."
+    }
+  },
+  {
+    "sourceModule": "lib/news/sources/avlwatchdog.ts",
+    "key": "ASHEVILLE_WATCHDOG",
+    "outlet": "Asheville Watchdog (nonprofit)",
+    "fetches": [
+      "GET https://avlwatchdog.org/wp-json/wp/v2/posts?per_page=20&_embed=wp:term&_fields=id,date_gmt,modified_gmt,link,title,excerpt,content,jetpack_featured_media_url,yoast_head_json.author,parsely.meta.author,_links,_embedded"
+    ],
+    "fetchesArticlePages": false,
+    "userAgent": "NEWS_USER_AGENT (desktop Chrome/140 string). Earlier on 2026-09-25 shared/newspack.ts sent the honest 'AVLGO-NewsBot/1.0 (+https://avlgo.com)', which Automattic's CDN also accepted.",
+    "robots": {
+      "applies": "allowed",
+      "quote": "User-agent: *\nDisallow:\n...\nUser-agent: ClaudeBot\nDisallow: /\n\nUser-agent: Claude-User\nDisallow: /\n\nUser-agent: Claude-SearchBot\nDisallow: /\n...\nUser-agent: CCBot / Google-Extended / GoogleOther / Meta-ExternalAgent / GPTBot / ChatGPT-User / OAI-SearchBot / PerplexityBot / Bytespider / Baiduspider / YandexBot\nDisallow: /",
+      "namesAIAgents": true,
+      "note": "Our requests match no named group, so the allow-all `*` group applies. The named list covers user-initiated AI fetchers (Claude-User, ChatGPT-User) as well as training crawlers. That is a clear signal against feeding the Watchdog's work into LLMs, even though no rule binds our fetcher."
+    },
+    "terms": {
+      "url": "https://avlwatchdog.org/want-to-republish-our-content-heres-what-to-know/",
+      "quotes": [
+        "You can republish Asheville Watchdog’s content in print or on your website without charge, subject to these guidelines:",
+        "You must credit Asheville Watchdog.",
+        "We run taglines at the end of each story, which must be retained on all republished content.",
+        "Editing restrictions: Our stories may not be significantly edited or reorganized without prior permission, with a few exceptions."
+      ],
+      "verdict": "silent",
+      "note": "No terms of use found. The About Our Policies page (https://avlwatchdog.org/about-our-policies-2/) says nothing about automated access or AI."
+    },
+    "license": "Free republication with credit and the tagline, and no significant edits, under the Watchdog's own guidelines. No Creative Commons license found.",
+    "currentBuild": "Stores the full body (the tagline stripped internally) for AI.",
+    "tier": "A",
+    "tierMatchesBuild": true,
+    "contactFirst": true,
+    "accessConcern": null,
+    "reasoning": "The republishing grant covers holding the full text, and a short linked summary uses far less than the grant allows. But robots.txt blocks AI agents by name, including user-initiated ones, so tell the Watchdog and ask. Their guidelines already ask republishers to report traffic, which makes a partnership the natural ask.",
+    "contact": {
+      "email": "editor@avlwatchdog.org",
+      "page": "https://avlwatchdog.org/contact/",
+      "note": "Republishing questions: Managing Editor Keith Campbell, kcampbell@avlwatchdog.org; Executive Editor Peter Lewis, plewis@avlwatchdog.org."
+    }
+  },
+  {
+    "sourceModule": "lib/news/sources/beacontribune.ts",
+    "key": "BEACON_TRIBUNE",
+    "outlet": "The Beacon Tribune / Biltmore Beacon (The Mountaineer Publishing Company)",
+    "fetches": [
+      "GET https://www.biltmorebeacon.com/search/?f=rss&t=article&l=50&s=start_time&sd=desc&c=news*",
+      "GET https://www.biltmorebeacon.com/news/ (HTML section front, only when the feed fails - TownNews answers repeated ?f=rss requests with 429)",
+      "GET each new article page https://www.biltmorebeacon.com/news/... (fetchFullText, #article-body)"
+    ],
+    "fetchesArticlePages": true,
+    "userAgent": "NEWS_USER_AGENT (desktop Chrome/140 string)",
+    "robots": {
+      "applies": "allowed",
+      "quote": "User-agent: ClaudeBot\nDisallow: /\n... (about 40 AI agents, among them anthropic-ai, Claude-Web, GPTBot, ChatGPT-User, OAI-SearchBot, Google-Extended, CCBot, PerplexityBot, Meta-ExternalAgent, Scrapy)\n\nUser-agent: *\nDisallow: /tncms/tracking/\nDisallow: /_services/\nDisallow: /tncms/search/\n...\nDisallow: /calendar/search/",
+      "namesAIAgents": true,
+      "note": "No `*` rule covers /search/?f=rss or /news/... article pages; only /tncms/search/ and /calendar/search/ are disallowed."
+    },
+    "terms": {
+      "url": "https://www.biltmorebeacon.com/site/terms.html",
+      "quotes": [
+        "BiltmoreBeacon.com (\"Site\") is provided for your personal use only.",
+        "Users of BiltmoreBeacon.com may not reproduce, republish or redistribute material from this website in any form without permission of The Mountaineer Publishing Company, Inc."
+      ],
+      "verdict": "ambiguous",
+      "note": "Generic personal-use / no-reproduction boilerplate. Silent on automation and AI."
+    },
+    "license": "© The Mountaineer Publishing Company, all rights reserved. About half the items are reprints of Asheville Watchdog, Carolina Public Press, BPR and NC Newsline stories under those outlets' republishing terms.",
+    "currentBuild": "RSS headline + dek (the HTML section front as fallback); fetchFullText stores each article body for AI.",
+    "tier": "B",
+    "tierMatchesBuild": false,
+    "contactFirst": true,
+    "accessConcern": "When TownNews rate-limits the RSS feed (429 for hours), the module switches to scraping the HTML section front instead of backing off, which routes around the publisher's throttle. robots.txt allows /news/.",
+    "reasoning": "The terms bar reproduction without permission and robots.txt blocks about 40 AI agents. Keep the RSS headline + dek + link, drop fetchFullText, and let dedup prefer the originals for partner reprints (Watchdog, CPP and BPR are all tier A). A small weekly is likely to grant full-text use if asked.",
+    "contact": {
+      "email": "editor@thebeacontribune.com",
+      "page": "https://www.biltmorebeacon.com/contact-us",
+      "note": "Publisher: The Mountaineer Publishing Company (webeditor@themountaineer.com)."
+    }
+  },
+  {
+    "sourceModule": "lib/news/sources/biltmoreforesttown.ts",
+    "key": "TOWN_OF_BILTMORE_FOREST",
+    "outlet": "Town of Biltmore Forest",
+    "fetches": [
+      "GET https://www.biltmoreforest.org/latest-news",
+      "GET https://www.biltmoreforest.org/news/<slug> (fetchFullText)"
+    ],
+    "fetchesArticlePages": true,
+    "userAgent": "NEWS_USER_AGENT (desktop Chrome/140 string)",
+    "robots": {
+      "applies": "allowed",
+      "quote": "User-agent: *\n...\nDisallow: /core/\nDisallow: /profiles/\n...\nDisallow: /admin/\n...\nDisallow: /search/\n...",
+      "namesAIAgents": false,
+      "note": "Drupal default. /latest-news and /news/ are not disallowed."
+    },
+    "terms": {
+      "url": null,
+      "quotes": [],
+      "verdict": "none_found",
+      "note": "The homepage links no terms, privacy or copyright page."
+    },
+    "license": "Public record (municipal notices).",
+    "currentBuild": "Listing + article body for AI.",
+    "tier": "A",
+    "tierMatchesBuild": true,
+    "contactFirst": false,
+    "accessConcern": null,
+    "reasoning": "Town notices, permissive robots and no terms.",
+    "contact": {
+      "email": null,
+      "page": "https://www.biltmoreforest.org/administration/staff-contact-information",
+      "note": null
+    }
+  },
+  {
+    "sourceModule": "lib/news/sources/blackmountainnews.ts",
+    "key": "BLACK_MOUNTAIN_NEWS",
+    "outlet": "Black Mountain News (Gannett / USA TODAY Co.)",
+    "fetches": [
+      "GET https://www.gannett-cdn.com/sitemaps/PBMN/web/web-sitemap-<YYYY-MM>.xml (one or two per run)",
+      "GET every story page in the 7-day window, https://www.blackmountainnews.com/story/... (JSON-LD metadata + body, 1 s apart)"
+    ],
+    "fetchesArticlePages": true,
+    "userAgent": "NEWS_USER_AGENT (desktop Chrome/140 string)",
+    "robots": {
+      "applies": "allowed",
+      "quote": "gannett-cdn.com:\nUser-agent: *\nCrawl-Delay: 1\n\nblackmountainnews.com:\nUser-agent: anthropic-ai\nDisallow: /\n... (Claude, Claude-Web, claudeweb, ClaudeBot, Claude-User, Claude-SearchBot, GPTBot, CCBot, Google-Extended and dozens more: Disallow: /)\nUser-agent: *\nDisallow: /errors\nDisallow: /interactive/\n...\nDisallow: /feeds/\nDisallow: /services/\n...\nDisallow: /search\n...",
+      "namesAIAgents": true,
+      "note": "/story/ and the CDN sitemaps are allowed for `*`, but Gannett's terms say this robots.txt \"is intended for designated contractual partners, and it does not constitute our authorization\"."
+    },
+    "terms": {
+      "url": "https://cm.blackmountainnews.com/terms/",
+      "quotes": [
+        "The Site and all its Content is provided solely for your personal non-commercial use.",
+        "cache or archive any portion of the Content (except for public search engines who create search indices solely for the inclusion of links and brief excerpts of the Content attributed to us in search results, but not for AI-generated summaries that operate as a substitute for the Content itself); use robots, spiders, scripts, code or any other automatic or manual device, tool or process to “crawl”, “scrape”, search or monitor this Site and/or access, retrieve or copy Content or related information",
+        "Please be advised that our robots.txt notice on our Site is intended for designated contractual partners, and it does not constitute our authorization or consent under these Terms of Service.",
+        "use our Site or any Content to develop or improve any software program, model, algorithm, machine learning or artificial intelligence (AI) system or tool (including generative AI), including without limitation for training, re-training, fine tuning, grounding, retrieval augmented generation or otherwise in connection with operating any such system or tool"
+      ],
+      "verdict": "prohibits",
+      "note": "Terms of Service updated July 18, 2025. The live page renders from a OneTrust notice JSON."
+    },
+    "license": "© USA TODAY Co. (Gannett), all rights reserved; metered paywall.",
+    "currentBuild": "Scrapes every story page. It now also stores the full body whenever the JSON-LD does not mark the story isAccessibleForFree=false.",
+    "tier": "C",
+    "tierMatchesBuild": false,
+    "contactFirst": false,
+    "accessConcern": "Page-by-page scraping of a publisher whose terms name crawling, caching and AI grounding and disclaim robots.txt as permission.",
+    "reasoning": "The most explicit terms in the set. They name crawling, caching, AI grounding/RAG and \"AI-generated summaries that operate as a substitute\", and they disclaim robots.txt as permission. Drop the module. Swannanoa Valley coverage can come from the Town of Black Mountain module and from Wake Up Asheville's links.",
+    "contact": {
+      "email": "legalnotices@gannett.com",
+      "page": null,
+      "note": "Gannett legal notices address, from its Terms of Service."
+    }
+  },
+  {
+    "sourceModule": "lib/news/sources/blackmountaintown.ts",
+    "key": "TOWN_OF_BLACK_MOUNTAIN",
+    "outlet": "Town of Black Mountain (CivicPlus site)",
+    "fetches": [
+      "GET https://www.townofblackmountain.org/m/newsflash?cat=1",
+      "GET https://www.townofblackmountain.org/m/newsflash/home/detail/<id> (fetchFullText; PDF-linked entries are not fetched)"
+    ],
+    "fetchesArticlePages": true,
+    "userAgent": "NEWS_USER_AGENT (desktop Chrome/140 string)",
+    "robots": {
+      "applies": "allowed",
+      "quote": "user-agent: Baiduspider\nDisallow: /\nUser-agent: Yandex\nDisallow: /\nUser-agent: *\nDisallow: /activedit\nDisallow: /admin\n...\nDisallow: /Search\n...\nDisallow: /RSS.aspx",
+      "namesAIAgents": false,
+      "note": "No rule covers /m/newsflash."
+    },
+    "terms": {
+      "url": "https://www.townofblackmountain.org/site/copyright",
+      "quotes": [
+        "All content © 2006-2026 Black Mountain, NC and its representatives. All rights reserved.",
+        "[CivicPlus Terms of Use, https://www.civicplus.help/legal-center/docs/civicplus-terms-of-use, Last Revised March 20, 2026] (ii) use any CivicPlus Materials or Authority Data, whether obtained from the Site, any Solution, any API, any export, any report, any user interface, or any other source connected to CivicPlus, for AI Training Purposes without CivicPlus’s express prior written consent;",
+        "[CivicPlus] “AI Training Purposes” means training, pre-training, fine-tuning, grounding, retrieval augmentation, testing, benchmarking, evaluating, developing, improving, or otherwise using any artificial intelligence, machine learning, deep learning, large language model, foundation model, neural network, algorithmic, or automated decision-making system or similar technology.",
+        "[CivicPlus] If any Authority Data is subject to public records, open records, freedom of information, sunshine, or similar transparency laws, any rights to request, obtain, inspect, copy, or use such records arise, if at all, under applicable law and from the relevant Authority, not from CivicPlus or under these TOU."
+      ],
+      "verdict": "ambiguous",
+      "note": "The Town reserves copyright but imposes no terms of its own. The platform vendor's TOU purports to bar any LLM use of government content hosted on CivicPlus. We found no link to that TOU on the Town's pages, and it defers public-records rights to law and the Authority."
+    },
+    "license": "Public record (N.C.G.S. ch. 132), despite the site-wide copyright notice.",
+    "currentBuild": "List + article body for AI.",
+    "tier": "A",
+    "tierMatchesBuild": true,
+    "contactFirst": false,
+    "accessConcern": null,
+    "reasoning": "The Town's own releases, reached through a plain fetch that robots.txt allows. The vendor TOU's AI clause is a browsewrap that visitors are never shown, and it concerns records the Town itself publishes for the public. Practical risk is low, but an email to the Town clerk would settle it.",
+    "contact": {
+      "email": null,
+      "page": null,
+      "note": "Town Hall 828-419-9300, 160 Midland Avenue, Black Mountain, NC 28711."
+    }
+  },
+  {
+    "sourceModule": "lib/news/sources/bluebanner.ts",
+    "key": "BLUE_BANNER",
+    "outlet": "The Blue Banner (UNC Asheville student newspaper)",
+    "fetches": [
+      "GET https://thebluebanner.net/feed/"
+    ],
+    "fetchesArticlePages": false,
+    "userAgent": "NEWS_USER_AGENT (desktop Chrome/140 string)",
+    "robots": {
+      "applies": "allowed",
+      "quote": "User-agent: *\nDisallow: /cgi-bin/\nDisallow: /?s=\nDisallow: /*?*\nUser-agent: dotbot\nDisallow: /\nUser-agent: *\nCrawl-delay: 6",
+      "namesAIAgents": false,
+      "note": "/feed/ has no query string, so it is allowed; one request per run."
+    },
+    "terms": {
+      "url": null,
+      "quotes": [],
+      "verdict": "none_found",
+      "note": "The homepage links no terms or copyright page."
+    },
+    "license": "No license found; student work, all rights reserved by default.",
+    "currentBuild": "Full body from the RSS feed, for AI.",
+    "tier": "A",
+    "tierMatchesBuild": true,
+    "contactFirst": false,
+    "accessConcern": null,
+    "reasoning": "A full-text RSS feed, permissive robots and no terms. The use rests on ordinary fair use for internal copies and short linked summaries. A courtesy note to the editors is cheap goodwill.",
+    "contact": {
+      "email": null,
+      "page": "https://thebluebanner.net/contact/",
+      "note": null
+    }
+  },
+  {
+    "sourceModule": "lib/news/sources/bpr.ts",
+    "key": "BPR",
+    "outlet": "Blue Ridge Public Radio",
+    "fetches": [
+      "GET https://www.bpr.org/{bpr-news,politics-government,climate-environment,growth-development,helene-recovery,health,education,arts-performance}.rss (8 section feeds, 1 s apart)",
+      "GET article pages https://www.bpr.org/<section>/<date>/<slug> (fetchFullText, .ArtP-articleBody) for items whose feed carries no body"
+    ],
+    "fetchesArticlePages": true,
+    "userAgent": "NEWS_USER_AGENT (desktop Chrome/140 string)",
+    "robots": {
+      "applies": "allowed",
+      "quote": "User-agent: * \nDisallow: /post/\nDisallow: /term/\nDisallow: /topic/\nDisallow: /programs/\nDisallow: /npr-news/",
+      "namesAIAgents": false,
+      "note": "The section feeds and dated article paths are not disallowed."
+    },
+    "terms": {
+      "url": "https://www.bpr.org/blue-ridge-public-radio-copyright-policy",
+      "quotes": [],
+      "verdict": "none_found",
+      "note": "Only a DMCA copyright policy and a privacy policy are linked; no terms of use found, on the site or by search."
+    },
+    "license": "No license found; all rights reserved by default. If NPR network stories ever appear in these section feeds, NPR's own terms apply to them.",
+    "currentBuild": "RSS + article-page body for AI.",
+    "tier": "A",
+    "tierMatchesBuild": true,
+    "contactFirst": false,
+    "accessConcern": null,
+    "reasoning": "A public station that publishes section RSS feeds, with no terms, no AI blocks and permissive robots. The use rests on fair use for internal copies and short linked summaries.",
+    "contact": {
+      "email": "tech@bpr.org",
+      "page": "https://www.bpr.org/contact-us-blue-ridge-public-radio",
+      "note": "tech@bpr.org is BPR's DMCA copyright agent (BPR Technology Department, 73 Broadway Street, Asheville; 828-210-4800)."
+    }
+  },
+  {
+    "sourceModule": "lib/news/sources/buncombecommission.ts",
+    "key": "BUNCOMBE_COMMISSION_AGENDA",
+    "outlet": "Buncombe County Board of Commissioners agendas (CivicClerk, a CivicPlus product)",
+    "fetches": [
+      "GET https://buncombeconc.api.civicclerk.com/v1/Events?$filter=startDateTime ge <from> and startDateTime le <to>&$orderby=startDateTime&$top=50",
+      "GET https://buncombeconc.api.civicclerk.com/v1/Meetings/<agendaId> (one per meeting with a published agenda, 1 s apart)"
+    ],
+    "fetchesArticlePages": false,
+    "userAgent": "NEWS_USER_AGENT (desktop Chrome/140 string), via fetchWithRetry",
+    "robots": {
+      "applies": "no_rules",
+      "quote": "buncombeconc.api.civicclerk.com/robots.txt: 404 (none)\nbuncombeconc.portal.civicclerk.com/robots.txt:\n# https://www.robotstxt.org/robotstxt.html\nUser-agent: *",
+      "namesAIAgents": false,
+      "note": "The API host has no robots.txt, and the portal's has an empty `*` group."
+    },
+    "terms": {
+      "url": "https://www.civicplus.help/legal-center/docs/civicplus-terms-of-use",
+      "quotes": [
+        "(ii) use any CivicPlus Materials or Authority Data, whether obtained from the Site, any Solution, any API, any export, any report, any user interface, or any other source connected to CivicPlus, for AI Training Purposes without CivicPlus’s express prior written consent;",
+        "(d) Permitted Uses and Exceptions. This Section does not prohibit: ... (iii) use of an API, feed, integration, export, or other functionality expressly authorized by CivicPlus or the applicable Authority solely for its intended purpose ... No exception in this Section permits any use of CivicPlus Materials or Authority Data for AI Training Purposes unless CivicPlus has expressly authorized that use in a signed writing."
+      ],
+      "verdict": "ambiguous",
+      "note": "CivicPlus TOU Last Revised March 20, 2026 (page updated Aug 28, 2026). \"AI Training Purposes\" includes \"grounding, retrieval augmentation\" and any LLM use. The county portal does not present these terms."
+    },
+    "license": "Public record (county agendas).",
+    "currentBuild": "Agenda item lists for AI.",
+    "tier": "A",
+    "tierMatchesBuild": true,
+    "contactFirst": false,
+    "accessConcern": null,
+    "reasoning": "County agendas are public records served by a public API with no robots rules. The only restriction is the vendor TOU's AI clause on \"Authority Data\": a browsewrap that visitors are never shown, whose own §8(c) defers public-records rights to law. Ambiguous, with low practical risk.",
+    "contact": {
+      "email": null,
+      "page": "https://www.buncombenc.gov/142/Contact",
+      "note": "County contact page; CivicClerk is the vendor portal."
+    }
+  },
+  {
+    "sourceModule": "lib/news/sources/buncombecounty.ts",
+    "key": "BUNCOMBE_COUNTY",
+    "outlet": "Buncombe County government (CivicPlus site)",
+    "fetches": [
+      "GET https://www.buncombenc.gov/RSSFeed.aspx?ModID=1&CID=All-newsflash.xml (through the curl binary)",
+      "GET https://www.buncombenc.gov/m/newsflash/home/detail/<id> (fetchFullText, through curl)"
+    ],
+    "fetchesArticlePages": true,
+    "userAgent": "curl sending only DEFAULT_USER_AGENT (desktop Chrome/120). Chosen on purpose: a Cloudflare WAF rule blocks Node fetch, fetchAsChrome and curl's own UA.",
+    "robots": {
+      "applies": "allowed",
+      "quote": "User-agent: *\nDisallow: /activedit\n...\nDisallow: /Search\n...\nDisallow: /RSS.aspx",
+      "namesAIAgents": false,
+      "note": "`Disallow: /RSS.aspx` is a prefix rule and does not match /RSSFeed.aspx; /m/newsflash is not disallowed. Separately, the site's Cloudflare WAF challenges non-browser clients. During this review it challenged a plain request for the county's own disclaimer page."
+    },
+    "terms": {
+      "url": "https://www.buncombenc.gov/635/Website-Services",
+      "quotes": [
+        "The County of Buncombe makes no representation about the suitability of the information contained in the documents and related graphics published on this server for any purpose.",
+        "[CivicPlus TOU] (ii) use any CivicPlus Materials or Authority Data, whether obtained from the Site, any Solution, any API, any export, any report, any user interface, or any other source connected to CivicPlus, for AI Training Purposes without CivicPlus’s express prior written consent;",
+        "[CivicPlus TOU] You may not attempt to override or circumvent any of the usage rules embedded into the Solution."
+      ],
+      "verdict": "ambiguous",
+      "note": "Read from the Wayback Machine snapshot of 2026-08-14 because the live page is Cloudflare-challenged. The county imposes no reuse terms, only a warranty disclaimer. The ambiguity comes from the CivicPlus vendor TOU (see TOWN_OF_BLACK_MOUNTAIN)."
+    },
+    "license": "Public record (N.C.G.S. ch. 132).",
+    "currentBuild": "RSS + full body via curl, for AI (localOnly).",
+    "tier": "A",
+    "tierMatchesBuild": true,
+    "contactFirst": true,
+    "accessConcern": "The module exists to get past a WAF that blocks automated clients, by presenting as a browser through curl. That is circumvention of an access control, even though the data is public.",
+    "reasoning": "The content is county public record and the county's own pages impose no terms, so the tier is A. The access path is the problem. Ask the county web team to allowlist an identified bot UA, or to confirm the RSS feed is meant for automated readers, rather than keep routing around the WAF.",
+    "contact": {
+      "email": null,
+      "page": "https://www.buncombenc.gov/142/Contact",
+      "note": null
+    }
+  },
+  {
+    "sourceModule": "lib/news/sources/buncombeschools.ts",
+    "key": "BUNCOMBE_SCHOOLS",
+    "outlet": "Buncombe County Schools (Apptegy/Thrillshare site)",
+    "fetches": [
+      "GET https://thrillshare-cmsv2.services.thrillshare.com/api/v2/s/191491/articles?page_no=1"
+    ],
+    "fetchesArticlePages": false,
+    "userAgent": "NEWS_USER_AGENT (desktop Chrome/140 string)",
+    "robots": {
+      "applies": "no_rules",
+      "quote": "thrillshare-cmsv2.services.thrillshare.com/robots.txt: 404 (none)\nwww.buncombeschools.org/robots.txt:\nUser-agent: *\nAllow: /\nDisallow: /api/",
+      "namesAIAgents": false,
+      "note": "We call the vendor's API host directly. The district's own domain disallows /api/, which suggests the platform does not want its API crawled, though that rule does not cover this host."
+    },
+    "terms": {
+      "url": "https://www.apptegy.com/terms-of-use/",
+      "quotes": [
+        "These Terms apply to all individuals who access or use the Services, including Clients (organizations with a services agreement), End Users (individuals added by a Client), and Visitors (individuals who browse public portions of the Services without logging in).",
+        "You may not: ... use automated means (bots, scrapers, spiders) to access the Services without Apptegy's prior written consent;"
+      ],
+      "verdict": "ambiguous",
+      "note": "Apptegy terms last updated September 1, 2026. The district's site links no terms of use, so it is doubtful that a visitor who is never shown these terms is bound by them."
+    },
+    "license": "Public record (NC public school unit).",
+    "currentBuild": "Full body from the vendor API, for AI.",
+    "tier": "A",
+    "tierMatchesBuild": true,
+    "contactFirst": true,
+    "accessConcern": "Undocumented vendor API; the vendor's terms bar bots without written consent.",
+    "reasoning": "District news is public record, so the content is tier A. The access method runs against the platform vendor's terms. One email to the district's communications office (Apptegy's client) either blesses the API or points to an official feed.",
+    "contact": {
+      "email": null,
+      "page": null,
+      "note": "No district contact captured. Platform vendor: legal@apptegy.com."
+    }
+  },
+  {
+    "sourceModule": "lib/news/sources/carolinapublicpress.ts",
+    "key": "CAROLINA_PUBLIC_PRESS",
+    "outlet": "Carolina Public Press (nonprofit)",
+    "fetches": [
+      "GET https://carolinapublicpress.org/wp-json/wp/v2/posts?per_page=20&_embed=wp:term&_fields=id,date_gmt,modified_gmt,link,title,excerpt,content,jetpack_featured_media_url,yoast_head_json.author,parsely.meta.author,_links,_embedded"
+    ],
+    "fetchesArticlePages": false,
+    "userAgent": "NEWS_USER_AGENT (desktop Chrome/140 string); honest bot UA earlier on 2026-09-25",
+    "robots": {
+      "applies": "allowed",
+      "quote": "User-agent: *\nDisallow:",
+      "namesAIAgents": false,
+      "note": "Yoast default: allow everything; no AI-agent rules."
+    },
+    "terms": {
+      "url": "https://carolinapublicpress.org/share-our-content-2/",
+      "quotes": [
+        "Any/all news organizations, websites, journalists, content creators and bloggers may link to and/or reference any or all content published by CPP without prior approval and without providing prior notice.",
+        "Story content, facts, quotations and other data may not be significantly edited or reorganized without receiving prior and express permission.",
+        "Pick and choose. Please do not republish everything on our site without contacting our staff first.",
+        "[https://carolinapublicpress.org/editorial-policy-terms-of-use/] We do provide our content for sharing, with some restrictions; content shared elsewhere but produced by Carolina Public Press remain the property of Carolina Public Press."
+      ],
+      "verdict": "silent",
+      "note": "No clause on automated access, caching or AI."
+    },
+    "license": "CC BY-ND 4.0 per the per-article 'Republish This Story' box (a search result corroborates it; not fetched here), plus the republishing guidelines. BY-ND 4.0 grants the right to reproduce the whole work and to 'produce and reproduce, but not Share, Adapted Material', so internal full-text copies and AI processing are licensed. A published summary is either not an adaptation (a short factual summary in our own words) or rests on fair use.",
+    "currentBuild": "Stores the full body for AI.",
+    "tier": "A",
+    "tierMatchesBuild": true,
+    "contactFirst": false,
+    "accessConcern": null,
+    "reasoning": "The clearest license in the set: CC BY-ND covers everything we do internally, and linking and referencing are expressly welcomed. We republish nothing in full, so the 'pick and choose' request does not bite.",
+    "contact": {
+      "email": null,
+      "page": "https://carolinapublicpress.org/share-our-content-2/",
+      "note": "Email is obfuscated on the site; (919) 590-5891; P.O. Box 17595, Asheville, NC 28816."
+    }
+  },
+  {
+    "sourceModule": "lib/news/sources/flyavl.ts",
+    "key": "ASHEVILLE_AIRPORT",
+    "outlet": "Asheville Regional Airport (Greater Asheville Regional Airport Authority)",
+    "fetches": [
+      "GET https://flyavl.com/news-statistics-0/news",
+      "GET article pages on flyavl.com (fetchFullText, .field--name-field-article-body)"
+    ],
+    "fetchesArticlePages": true,
+    "userAgent": "NEWS_USER_AGENT (desktop Chrome/140 string)",
+    "robots": {
+      "applies": "allowed",
+      "quote": "User-agent: *\n...\nDisallow: /core/\nDisallow: /profiles/\n...\nDisallow: /admin/\n...\nDisallow: /search/\n...",
+      "namesAIAgents": false,
+      "note": "Drupal default; the news page and article paths are not disallowed."
+    },
+    "terms": {
+      "url": null,
+      "quotes": [],
+      "verdict": "none_found",
+      "note": "No terms or copyright page is linked from the homepage."
+    },
+    "license": "Public authority; its press releases are public records.",
+    "currentBuild": "Listing + article body for AI.",
+    "tier": "A",
+    "tierMatchesBuild": true,
+    "contactFirst": false,
+    "accessConcern": null,
+    "reasoning": "Press releases from a public authority, with permissive robots and no terms.",
+    "contact": {
+      "email": "pr@flyavl.com",
+      "page": "https://flyavl.com/contact-us",
+      "note": null
+    }
+  },
+  {
+    "sourceModule": "lib/news/sources/foxcarolina.ts",
+    "key": "FOX_CAROLINA",
+    "outlet": "FOX Carolina / WHNS (Gray Local Media)",
+    "fetches": [
+      "GET https://www.foxcarolina.com/arc/outboundfeeds/rss/category/news/north-carolina/?outputType=xml&size=30"
+    ],
+    "fetchesArticlePages": false,
+    "userAgent": "NEWS_USER_AGENT (desktop Chrome/140 string)",
+    "robots": {
+      "applies": "allowed",
+      "quote": "User-agent: GPTBot\nUser-agent: ChatGPT-User\nUser-agent: Google-Extended\nUser-agent: CCBot\nUser-agent: Amazonbot\nUser-agent: anthropic-ai\nUser-agent: Bytespider\nUser-agent: ClaudeBot\nUser-agent: Claude-Web\nUser-agent: FacebookBot\nUser-agent: omgili\nUser-agent: omgilibot\nUser-agent: PerplexityBot\nDisallow: /\n\nUser-agent: *\nAllow: /news/\n...\nDisallow: /*?outputType=apps\n...",
+      "namesAIAgents": true,
+      "note": "/arc/outboundfeeds/...?outputType=xml matches no `*` rule (only ?outputType=apps is disallowed)."
+    },
+    "terms": {
+      "url": "https://www.foxcarolina.com/terms-of-service/",
+      "quotes": [
+        "(j) Use any automated system, artificial intelligence, machine learning tool, large language model, web crawler, scraper, or data mining technology to access, collect, copy, index, store, reproduce, or train any model or algorithm on any GLM Content, Station content, or any data available through the Services, without the prior express written consent of GLM.",
+        "This prohibition includes, without limitation, the use of GLM Content as training data, fine-tuning data, retrieval-augmented generation sources, or any other input for artificial intelligence or machine learning systems.",
+        "Except where permitted by law or expressly authorized by GLM, GLM Content may not be reproduced, distributed, transmitted, linked, cached or otherwise used for any commercial purposes unless you have the prior written permission of GLM."
+      ],
+      "verdict": "prohibits",
+      "note": "Gray Television, Inc. Terms of Use Agreement, §8 (Prohibited Uses Generally), effective July 1, 2026."
+    },
+    "license": "© Gray Local Media, all rights reserved.",
+    "currentBuild": "Stores the full body from the RSS content for AI.",
+    "tier": "C",
+    "tierMatchesBuild": false,
+    "contactFirst": false,
+    "accessConcern": null,
+    "reasoning": "§8(j) describes exactly what the pipeline does: an automated system that collects, copies, indexes and stores station content, then feeds it to an LLM, 'retrieval-augmented generation sources' included. Its text also covers 'any data available through the Services', so even headline-only ingestion falls within it. Nothing ambiguous is left to lean on.",
+    "contact": {
+      "email": "legal-notices@graymedia.com",
+      "page": "https://www.foxcarolina.com/about-us/contact-us/",
+      "note": "Gray legal notices; DMCA: dmca-legal@graymedia.com."
+    }
+  },
+  {
+    "sourceModule": "lib/news/sources/googlenews.ts",
+    "key": "GOOGLE_NEWS",
+    "outlet": "Google News (Asheville geo section + two searches)",
+    "fetches": [
+      "GET https://news.google.com/rss/headlines/section/geo/Asheville%2C%20North%20Carolina?hl=en-US&gl=US&ceid=US:en",
+      "GET https://news.google.com/rss/search?q=Asheville%20when%3A1d&hl=en-US&gl=US&ceid=US:en",
+      "GET https://news.google.com/rss/search?q=<\"Buncombe County\" OR Swannanoa OR Weaverville OR ... when:1d>&hl=en-US&gl=US&ceid=US:en",
+      "GET https://news.google.com/rss/articles/<id>?hl=en-US&gl=US&ceid=US:en (up to 40 a run, to read the signature and timestamp)",
+      "POST https://news.google.com/_/DotsSplashUi/data/batchexecute (RPC Fbv4je 'garturlreq', up to 40 a run; an undocumented internal endpoint)"
+    ],
+    "fetchesArticlePages": false,
+    "userAgent": "NEWS_USER_AGENT (desktop Chrome/140 string)",
+    "robots": {
+      "applies": "disallowed",
+      "quote": "User-agent: *\nDisallow: /\nAllow: /$\nAllow: /?\nAllow: /home$\nAllow: /home?\nAllow: /home/\nAllow: /nwshp$\nAllow: /topics/\nAllow: /publications/\nAllow: /stories/\nAllow: /swg/\nAllow: /about$\nAllow: /about?\nAllow: /about/\n...\nUser-agent: CCBot\nUser-agent: GPTBot\nUser-agent: ChatGPT-User\nUser-agent: PerplexityBot\nUser-agent: anthropic-ai\nUser-agent: ClaudeBot\nUser-agent: Claude-Web\nDisallow: /",
+      "namesAIAgents": true,
+      "note": "/rss/..., /rss/articles/... and /_/DotsSplashUi/data/batchexecute all fall under `Disallow: /`, and none is re-allowed."
+    },
+    "terms": {
+      "url": "https://policies.google.com/terms",
+      "quotes": [
+        "using automated means to access content from any of our services in violation of the machine-readable instructions on our web pages (for example, robots.txt files that disallow crawling, training, or other activities)",
+        "hiding or misrepresenting who you are in order to violate these terms",
+        "[feed <copyright>, quoted from data/news/scout-community.json; not re-fetched because robots.txt disallows /rss/] made available solely for the purpose of rendering Google News results within a personal feed reader for personal, non-commercial use. Any other use of the feed is expressly prohibited."
+      ],
+      "verdict": "prohibits",
+      "note": "Google Terms of Service effective July 30, 2026. Because they incorporate robots.txt, the /rss/ disallow is a ToS term, not just a courtesy."
+    },
+    "license": "Feed license: personal, non-commercial feed-reader use only. The headlines belong to the underlying publishers.",
+    "currentBuild": "Headline + publisher + resolved publisher URL; no body.",
+    "tier": "C",
+    "tierMatchesBuild": false,
+    "contactFirst": false,
+    "accessConcern": "Calls an undocumented internal RPC under a disallowed path, from a browser UA.",
+    "reasoning": "The owner has already ruled (per the module comment) that the feed license and robots.txt are not blockers for a free community site that links out. Three facts may be new to that decision: Google's general ToS makes robots.txt binding for automated access; the URL-resolution RPC is an internal endpoint under a disallowed path; and the browser UA brushes against the 'misrepresenting who you are' clause. The realistic consequence is throttling or blocking rather than a claim, since headlines are not copyrightable.",
+    "contact": {
+      "email": null,
+      "page": null,
+      "note": "Aggregator; takedown requests would come from the underlying publishers."
+    }
+  },
+  {
+    "sourceModule": "lib/news/sources/missionhealth.ts",
+    "key": "MISSION_HEALTH",
+    "outlet": "Mission Health (HCA Healthcare) newsroom",
+    "fetches": [
+      "GET https://www.missionhealth.org/about-us/newsroom (listing inside __NEXT_DATA__)",
+      "GET article pages on www.missionhealth.org (fetchFullText, Sitecore pageBody)"
+    ],
+    "fetchesArticlePages": true,
+    "userAgent": "NEWS_USER_AGENT (desktop Chrome/140 string)",
+    "robots": {
+      "applies": "allowed",
+      "quote": "User-agent: *\nDisallow: /sitecore/\nDisallow: /es-US/sitecore/\n\nUser-agent: 008\nDisallow: /\n\nUser-agent: RMA\nDisallow: /\n... (about 125 legacy scraper names such as VCI, Wget, Zeus: Disallow: /)",
+      "namesAIAgents": false,
+      "note": "The newsroom and article paths are allowed for `*`. The named list is old scrapers and download tools, not AI crawlers."
+    },
+    "terms": {
+      "url": "https://www.missionhealth.org/legal/terms-of-use",
+      "quotes": [
+        "The contents of our Services may be viewed and accessed only for your personal, non-commercial use, provided that all copyright and other proprietary notices are retained on any copies made of the materials.",
+        "The materials and information available via our Services may not be modified in any way, and may not be reproduced, distributed or used for any public or commercial purpose unless expressly permitted by us in writing.",
+        "(d) use any robot, spider, or other automatic or manual device or process for the purpose of harvesting or compiling information on the Services for purposes other than for a generally available search engine;",
+        "The storage or reproduction of our Services (or any part of our Services) in any external internet site or the creation of links, hypertext, or deeplinks between our Services and any other internet website, is prohibited."
+      ],
+      "verdict": "prohibits",
+      "note": "Explicit anti-harvesting clause with a search-engine carve-out; also a (practically unenforceable) ban on deep links."
+    },
+    "license": "© HCA / Mission Health. The content is corporate press releases.",
+    "currentBuild": "Listing + article body for AI.",
+    "tier": "B",
+    "tierMatchesBuild": false,
+    "contactFirst": true,
+    "accessConcern": null,
+    "reasoning": "The terms explicitly bar robots that harvest or compile information (search engines excepted) and any public or commercial reuse. Against that, the content is press releases written for media pickup, and no technical signal pushes back. Take the listing's title + short description + link and skip fetchFullText. Asking media relations to add AVL GO to the release list makes this a permitted use.",
+    "contact": {
+      "email": "copyright@hcahealthcare.com",
+      "page": "https://www.missionhealth.org/contact-us",
+      "note": "HCA copyright contact."
+    }
+  },
+  {
+    "sourceModule": "lib/news/sources/montreattown.ts",
+    "key": "TOWN_OF_MONTREAT",
+    "outlet": "Town of Montreat",
+    "fetches": [
+      "GET https://www.townofmontreat.org/wp-json/wp/v2/posts?per_page=20&_embed=1"
+    ],
+    "fetchesArticlePages": false,
+    "userAgent": "NEWS_USER_AGENT (desktop Chrome/140 string)",
+    "robots": {
+      "applies": "allowed",
+      "quote": "User-agent: *\nDisallow:",
+      "namesAIAgents": false,
+      "note": "Yoast default: allow everything."
+    },
+    "terms": {
+      "url": null,
+      "quotes": [
+        "©Copyright 2026. Town of Montreat. All Rights Reserved. (site footer)"
+      ],
+      "verdict": "none_found",
+      "note": "Only a footer copyright line; no terms."
+    },
+    "license": "Public record (municipal newsletters and notices).",
+    "currentBuild": "Stores the full body for AI.",
+    "tier": "A",
+    "tierMatchesBuild": true,
+    "contactFirst": false,
+    "accessConcern": null,
+    "reasoning": "Town communications from an open REST API, with allow-all robots and no terms.",
+    "contact": {
+      "email": null,
+      "page": "https://townofmontreat.org/contact/",
+      "note": null
+    }
+  },
+  {
+    "sourceModule": "lib/news/sources/mountainx.ts",
+    "key": "MOUNTAIN_XPRESS",
+    "outlet": "Mountain Xpress",
+    "fetches": [
+      "GET https://mountainx.com/feed/ (plain fetch)",
+      "GET https://mountainx.com/wp-json/wp/v2/posts?per_page=25&_embed=wp:term,wp:featuredmedia&_fields=id,date_gmt,modified_gmt,link,title,excerpt,content,_links,_embedded, via fetchAsChrome (Chrome TLS fingerprint + Chrome UA, to pass a Cloudflare challenge)",
+      "GET https://mountainx.com/wp-json/wp/v2/posts?slug=<slug>&_fields=content via fetchAsChrome (fetchFullText, only for the feed fallback)"
+    ],
+    "fetchesArticlePages": false,
+    "userAgent": "Feed: NEWS_USER_AGENT (Chrome/140). REST: CHROME_USER_AGENT over an undici dispatcher that mimics Chrome's TLS/ALPN fingerprint.",
+    "robots": {
+      "applies": "allowed",
+      "quote": "User-agent: *\nDisallow: /wp-admin/\nAllow: /wp-admin/admin-ajax.php\n...\nUser-agent: *\nDisallow: /wp-content/uploads/wpforms/\n...\nUser-agent: AI2Bot\n... User-agent: anthropic-ai\n... User-agent: ChatGPT-User\nUser-agent: Claude-Web\nUser-agent: ClaudeBot\n... User-agent: GPTBot\n... User-agent: Meta-ExternalAgent\n... User-agent: OAI-SearchBot\n... User-agent: PerplexityBot\n... User-agent: Scrapy\n...\nDisallow: /",
+      "namesAIAgents": true,
+      "note": "From the Wayback Machine snapshot of 2026-05-01: the live robots.txt sits behind a Cloudflare challenge for non-browser clients, and we did not try to get past it. /feed/ and /wp-json/ are allowed for `*`. About 45 AI and scraper agents are disallowed. The scout's September read also noted Events Calendar view disallows."
+    },
+    "terms": {
+      "url": "https://mountainx.com/terms/",
+      "quotes": [
+        "You also agree not to, and will not assist, encourage, or enable others to: ... Modify, adapt, appropriate, reproduce, distribute, translate, create derivative works or adaptations of, publicly display, sell, trade, or in any way exploit the Site or Site Content (other than Your Content), except as expressly authorized by Mountain Xpress.",
+        "Use any robot, spider, site search/retrieval application, or other automated device, process or means to access, retrieve, scrape, or index any portion of the Site or any Site Content."
+      ],
+      "verdict": "prohibits",
+      "note": "Read from the Wayback Machine snapshot of 2026-09-18 (live page Cloudflare-challenged). No revision date on the page."
+    },
+    "license": "© Mountain Xpress, all rights reserved.",
+    "currentBuild": "Stores the full body from REST (the feed excerpt as fallback) for AI.",
+    "tier": "C",
+    "tierMatchesBuild": false,
+    "contactFirst": true,
+    "accessConcern": "The REST path defeats a Cloudflare challenge by impersonating Chrome's TLS fingerprint. That is the fact pattern that looks worst in any dispute. The events scraper (lib/scrapers/mountainx.ts) does the same.",
+    "reasoning": "The terms explicitly ban any automated means to 'access, retrieve, scrape, or index any portion' of the site; robots.txt blocks about 45 AI agents; and the module is built to get past a bot challenge. Even an RSS-only fallback falls within the terms' text. MX is Asheville's main independent weekly and AVL GO already sends it traffic, so ask for permission rather than tier it down to B.",
+    "contact": {
+      "email": null,
+      "page": null,
+      "note": "Not captured (site Cloudflare-challenged)."
+    }
+  },
+  {
+    "sourceModule": "lib/news/sources/reddit.ts",
+    "key": "REDDIT",
+    "outlet": "Reddit (r/asheville, r/BlackMountain, r/wnc)",
+    "fetches": [
+      "GET https://www.reddit.com/r/asheville+BlackMountain+wnc/new/.rss?limit=100 (one request a run; localOnly)"
+    ],
+    "fetchesArticlePages": false,
+    "userAgent": "'web:avlgo-news:v0.1 (+https://avlgo.com)' (the only module that identifies itself honestly)",
+    "robots": {
+      "applies": "disallowed",
+      "quote": "# Reddit believes in an open internet, but not the misuse of public content.\n# See https://support.reddithelp.com/hc/en-us/articles/26410290525844-Public-Content-Policy Reddit's Public Content Policy for access and use restrictions to Reddit content.\n...\nUser-agent: *\nDisallow: /",
+      "namesAIAgents": false,
+      "note": "Everything is disallowed for every agent."
+    },
+    "terms": {
+      "url": "https://redditinc.com/policies/user-agreement",
+      "quotes": [
+        "Access, search, or collect data from the Services by any means (automated or otherwise) except as permitted in these Terms or in a separate agreement with Reddit (we conditionally grant permission to crawl the Services in accordance with the parameters set forth in our robots.txt file, but scraping the Services without Reddit’s prior written consent is prohibited)",
+        "you may not, without our written agreement: license, sell, transfer, assign, distribute, host, or otherwise commercially exploit the Services or Content; modify, prepare derivative works of, disassemble, decompile, or reverse engineer any part of the Services or Content"
+      ],
+      "verdict": "prohibits",
+      "note": "The crawl permission is conditioned on robots.txt, which is Disallow: /. The Public Content Policy page was Cloudflare-challenged. The module header quotes the Responsible Builder Policy (updated 2026-06-05): approval is required before accessing Reddit data, and the ban 'extends to commercial and non-commercial mining, scraping'."
+    },
+    "license": "Users license their content to Reddit; third-party use runs through Reddit's Data API terms or a data agreement.",
+    "currentBuild": "Stores self-post bodies and link targets for AI.",
+    "tier": "C",
+    "tierMatchesBuild": false,
+    "contactFirst": false,
+    "accessConcern": "Datacenter IPs are blocked, and the module comment documents testing through a third-party proxy (Jina Reader).",
+    "reasoning": "Unambiguous: robots.txt disallows everything and the User Agreement bars scraping without written consent. The only compliant route is Reddit's approved API or a data agreement, which is pay-to-play at commercial scale rather than a partnership a local site can ask for.",
+    "contact": {
+      "email": "copyright@reddit.com",
+      "page": null,
+      "note": null
+    }
+  },
+  {
+    "sourceModule": "lib/news/sources/uncanews.ts",
+    "key": "UNCA_NEWS",
+    "outlet": "UNC Asheville news releases",
+    "fetches": [
+      "GET https://www.unca.edu/wp-json/wp/v2/article?per_page=20&_embed=1"
+    ],
+    "fetchesArticlePages": false,
+    "userAgent": "NEWS_USER_AGENT (desktop Chrome/140 string)",
+    "robots": {
+      "applies": "allowed",
+      "quote": "User-agent: *\nDisallow: /wp-admin/\nAllow: /wp-admin/admin-ajax.php",
+      "namesAIAgents": false,
+      "note": "/wp-json/ is not disallowed."
+    },
+    "terms": {
+      "url": null,
+      "quotes": [],
+      "verdict": "none_found",
+      "note": "No website terms of use found. UNCA's copyright and IP policies govern its own community, not site visitors."
+    },
+    "license": "Public record (UNC System constituent institution); press releases published for media use.",
+    "currentBuild": "Stores the full body for AI.",
+    "tier": "A",
+    "tierMatchesBuild": true,
+    "contactFirst": false,
+    "accessConcern": null,
+    "reasoning": "Press releases from a public university, with permissive robots and no terms.",
+    "contact": {
+      "email": null,
+      "page": "https://www.unca.edu/contact-unca/",
+      "note": null
+    }
+  },
+  {
+    "sourceModule": "lib/news/sources/urbannews.ts",
+    "key": "URBAN_NEWS",
+    "outlet": "The Urban News",
+    "fetches": [
+      "GET https://theurbannews.com/wp-json/wp/v2/posts?per_page=50&_embed=1"
+    ],
+    "fetchesArticlePages": false,
+    "userAgent": "NEWS_USER_AGENT (desktop Chrome/140 string)",
+    "robots": {
+      "applies": "allowed",
+      "quote": "User-agent: *\nDisallow: /wp-admin/\nDisallow: /cgi-bin/\n...\nDisallow: /login*\n...\nCrawl-Delay: 30",
+      "namesAIAgents": false,
+      "note": "/wp-json/ is allowed; one request a run, so the 30 s crawl delay is moot."
+    },
+    "terms": {
+      "url": "https://theurbannews.com/site-disclaimer/",
+      "quotes": [
+        "You are hereby granted a nonexclusive, nontransferable, limited license to view, download, and print portions of the Site and the Contents of the Site, for your personal use in learning about the topic discussed at the Site, in evaluating or acquiring The Urban News services or products, or in learning about and evaluating other services and products described at the Site.",
+        "Except as specifically provided herein, The Urban News, theurbannews.com does not grant permission to you to print, copy, reproduce, distribute, transmit, upload, download, store, display in public, alter, or modify the Site or the Contents.",
+        "No reprinting, republishing reposting or redistribution of information, images, etc., presented on this site, to any other site."
+      ],
+      "verdict": "prohibits",
+      "note": "Boilerplate, but it names storing and redistribution explicitly. Nothing on automation or AI."
+    },
+    "license": "© The Urban News, all rights reserved.",
+    "currentBuild": "Stores the full body for AI.",
+    "tier": "B",
+    "tierMatchesBuild": false,
+    "contactFirst": true,
+    "accessConcern": null,
+    "reasoning": "The disclaimer explicitly withholds permission to copy or store and bars republication to any other site, but there is no technical pushback. Keep headline + excerpt + link and drop `content` from the request. A Black-owned community paper is exactly the kind of outlet that benefits from a direct ask and a traffic partnership.",
+    "contact": {
+      "email": null,
+      "page": "https://theurbannews.com/contact-us/",
+      "note": "828-253-5585; PO Box 2038, Asheville, NC 28802."
+    }
+  },
+  {
+    "sourceModule": "lib/news/sources/wakeupasheville.ts",
+    "key": "WAKE_UP_ASHEVILLE",
+    "outlet": "Wake Up, Asheville! (Matt Peiken's podcast, hosted on Transistor)",
+    "fetches": [
+      "GET https://feeds.transistor.fm/wake-up-asheville"
+    ],
+    "fetchesArticlePages": false,
+    "userAgent": "NEWS_USER_AGENT (desktop Chrome/140 string)",
+    "robots": {
+      "applies": "no_rules",
+      "quote": "feeds.transistor.fm/robots.txt -> HTTP 400 \"Bad Request\"",
+      "namesAIAgents": false,
+      "note": "No robots rules are served for the feed host."
+    },
+    "terms": {
+      "url": "https://transistor.fm/terms/",
+      "quotes": [
+        "[feed] <copyright>Wake Up the News</copyright>"
+      ],
+      "verdict": "silent",
+      "note": "Transistor's terms govern its account holders; nothing addresses feed consumers."
+    },
+    "license": "© Wake Up the News. A public podcast feed published for syndication to podcast apps.",
+    "currentBuild": "Stores show notes (a list of other outlets' headlines and URLs) for AI.",
+    "tier": "A",
+    "tierMatchesBuild": true,
+    "contactFirst": false,
+    "accessConcern": null,
+    "reasoning": "Podcast RSS exists to be read by apps. We keep show-note link lists (headlines are not copyrightable) and no audio.",
+    "contact": {
+      "email": "matt@podavl.com",
+      "page": "https://wakeupavl.transistor.fm",
+      "note": "Podcast owner email from the feed (Matt Peiken)."
+    }
+  },
+  {
+    "sourceModule": "lib/news/sources/weavervilletown.ts",
+    "key": "TOWN_OF_WEAVERVILLE",
+    "outlet": "Town of Weaverville",
+    "fetches": [
+      "GET https://weavervillenc.org/wp-json/wp/v2/posts?per_page=20&_embed=1"
+    ],
+    "fetchesArticlePages": false,
+    "userAgent": "NEWS_USER_AGENT (desktop Chrome/140 string)",
+    "robots": {
+      "applies": "allowed",
+      "quote": "User-agent: *\nDisallow: /wp-admin/\n...\nDisallow: /*?s=\nDisallow: /*&s=\n...\nDisallow: */events/month/\n...",
+      "namesAIAgents": false,
+      "note": "/wp-json/wp/v2/posts?per_page=...&_embed=1 matches none of the search, WooCommerce or events rules."
+    },
+    "terms": {
+      "url": null,
+      "quotes": [],
+      "verdict": "none_found",
+      "note": "No terms linked; only an ADA/civil-rights page."
+    },
+    "license": "Public record.",
+    "currentBuild": "Stores the full body for AI.",
+    "tier": "A",
+    "tierMatchesBuild": true,
+    "contactFirst": false,
+    "accessConcern": null,
+    "reasoning": "Town notices from an open REST API, with permissive robots and no terms.",
+    "contact": {
+      "email": null,
+      "page": "https://weavervillenc.org/contact/",
+      "note": null
+    }
+  },
+  {
+    "sourceModule": "lib/news/sources/wlos.ts",
+    "key": "WLOS",
+    "outlet": "WLOS News 13 (Sinclair)",
+    "fetches": [
+      "GET https://wlos.com/news/local.rss",
+      "GET article pages https://wlos.com/news/local/<slug> (fetchFullText, StoryText block)"
+    ],
+    "fetchesArticlePages": true,
+    "userAgent": "NEWS_USER_AGENT (desktop Chrome/140 string)",
+    "robots": {
+      "applies": "allowed",
+      "quote": "user-agent: *\nallow: /\nDisallow: /resources/ftptransfer/\n\nUser-agent: GPTBot\nDisallow: /\n\nUser-agent: Google-Extended\nDisallow: /\n\nUser-agent: CCBot\nDisallow: /\n\nUser-agent: ChatGPT-User\nDisallow: /\n\nUser-agent: anthropic-ai\nDisallow: /\n\nUser-agent: Claude-Web\nDisallow: /\n\nUser-agent: Applebot-Extended\nDisallow: /\n\nUser-agent: ClaudeBot\nDisallow: /\n\nUser-agent: cohere-ai\nDisallow: /",
+      "namesAIAgents": true,
+      "note": "The feed and article pages are allowed for `*`."
+    },
+    "terms": {
+      "url": "https://sbgi.net/terms-conditions/",
+      "quotes": [
+        "You may only use the material and the services available through this Service for your personal and non-commercial use.",
+        "You may not otherwise reproduce any of the materials on this Service, or distribute copies of materials found on this Service in any form (including by email or other electronic means), without prior written permission from the owner.",
+        "Access the Service with any mining, scraping, data extraction or other tools;",
+        "The following provision applies to all visitors to this Service (including, without limitation, persons, representatives of legal entities, and digital engines of any kind, including, without limitation, ones that crawl, index, scrape, copy, store, or transmit digital content): ... (ii) no AP Material nor any portion thereof may be stored in a computer except for personal and non-commercial use;"
+      ],
+      "verdict": "prohibits",
+      "note": "Sinclair Terms & Conditions, LAST UPDATED May 2023, linked from the wlos.com footer. The scraping item sits in a list introduced by \"we may immediately terminate your use of any Communications Services if you engage in any of the following prohibited activities\", so its reach beyond the chat and forum features is arguable."
+    },
+    "license": "© Sinclair, all rights reserved; restrictions on AP material.",
+    "currentBuild": "RSS headline + dek; fetchFullText stores the article body for AI.",
+    "tier": "B",
+    "tierMatchesBuild": false,
+    "contactFirst": false,
+    "accessConcern": null,
+    "reasoning": "Personal/non-commercial-only terms, no reproduction without permission, a scraping ban of arguable scope, and AI crawlers blocked in robots.txt. The station publishes local.rss for feed readers, and headline + dek + link from that feed is the standard, defensible aggregator use. Drop fetchFullText and keep the body out of storage and AI.",
+    "contact": {
+      "email": null,
+      "page": "https://wlos.com/station/contact",
+      "note": null
+    }
+  },
+  {
+    "sourceModule": "lib/news/sources/wncbusiness.ts",
+    "key": "WNC_BUSINESS",
+    "outlet": "WNC Business (Locable publisher network)",
+    "fetches": [
+      "GET https://www.wncbusiness.com/?format=rss"
+    ],
+    "fetchesArticlePages": false,
+    "userAgent": "NEWS_USER_AGENT (desktop Chrome/140 string)",
+    "robots": {
+      "applies": "allowed",
+      "quote": "User-agent: bingbot\nCrawl-delay: 10\n...\nUser-agent: *\nDisallow: /search*?*\nDisallow: /calendar*?*\nDisallow: /businesses*?*",
+      "namesAIAgents": false,
+      "note": "/?format=rss matches none of the rules."
+    },
+    "terms": {
+      "url": "https://www.locablepublishernetwork.com/terms-of-use/",
+      "quotes": [
+        "(i) Use any robot, spider, scraper, deep link or other similar automated data gathering or extraction tools, programs, algorithm or methodology to access, acquire, copy or monitor the Site or a portion of the Site, including business listings, addresses, and phone numbers; calendar and community events; news listings; or any other data pertaining to the Service, without Hylo’s prior written consent, which consent may be withheld for any reason;"
+      ],
+      "verdict": "ambiguous",
+      "note": "Explicit text, but 'Date Last Revised: August 6th, 2012'. We could read only the Wayback Machine snapshot of 2023-02-19; the live page is Cloudflare-challenged, so currency is unverified. The feed appends 'Original article published at WNC Business' to every item, which reads as intended syndication."
+    },
+    "license": "Platform terms from Locable (Hyper Local Media, Inc.). Most items are lightly edited press releases ending in a 'Source:' line.",
+    "currentBuild": "Stores the full body from the RSS feed for AI.",
+    "tier": "B",
+    "tierMatchesBuild": false,
+    "contactFirst": true,
+    "accessConcern": null,
+    "reasoning": "The platform terms name 'news listings' in a scraper ban. But the text is from 2012 and could not be verified as current, the feed looks built for syndication, and the content is mostly press releases. Take headline + first paragraph + link until the publisher agrees to more.",
+    "contact": {
+      "email": null,
+      "page": "https://www.wncbusiness.com/pages/contact",
+      "note": null
+    }
+  }
+]

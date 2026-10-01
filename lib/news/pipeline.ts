@@ -50,6 +50,7 @@ import { synthesizeStory, type SynthesisMember } from './ai/synthesize';
 import { dailyInputHash, summarizeDay } from './ai/daily';
 import {
   COMMUNITY_LIVE_PER_DAY,
+  MIN_LIVE_IMPORTANCE,
   etDay,
   mostCommon,
   pickLead,
@@ -890,11 +891,12 @@ async function recomputeStory(ctx: RunContext, story: StoryRow): Promise<boolean
   const topics = mostCommon(basis.map((m) => m.topics)).slice(0, 2);
   const place = mostCommon(basis.filter((m) => m.place).map((m) => [m.place!]))[0] ?? null;
 
-  // Community stories clear the bar only with an important post; the per-day
-  // cap (applyCommunityCap) decides which of those are live.
+  // Newsroom stories show only above the importance floor. Community stories
+  // clear the bar only with an important post; the per-day cap
+  // (applyCommunityCap) decides which of those are live.
   let state: 'live' | 'pending';
   if (tier === 'newsroom') {
-    state = 'live';
+    state = importance >= MIN_LIVE_IMPORTANCE ? 'live' : 'pending';
   } else {
     const clearsBar = basis.some((m) => m.communityImportant === true);
     state = clearsBar && story.state === 'live' ? 'live' : 'pending';
@@ -905,9 +907,11 @@ async function recomputeStory(ctx: RunContext, story: StoryRow): Promise<boolean
   // newly live: a late article, or a backfill day summarized before all its
   // articles were enriched). Other days stay frozen.
   const refiled = filingDay !== story.filingDay;
-  const losesTop = story.topRank !== null && (refiled || tier === 'community');
+  const losesTop = story.topRank !== null && (refiled || tier === 'community' || state !== 'live');
   const arrives =
-    tier === 'newsroom' && (refiled || story.state !== 'live' || story.tier !== 'newsroom');
+    tier === 'newsroom' &&
+    state === 'live' &&
+    (refiled || story.state !== 'live' || story.tier !== 'newsroom');
   const stale = [
     ...new Set([...(losesTop ? [story.filingDay] : []), ...(arrives ? [filingDay] : [])]),
   ];
@@ -927,7 +931,7 @@ async function recomputeStory(ctx: RunContext, story: StoryRow): Promise<boolean
         topics,
         place,
         filingDay,
-        topRank: losesTop || refiled ? null : story.topRank,
+        topRank: losesTop ? null : story.topRank,
         leadArticleId: lead.id,
         articleCount: newsroom.length,
         outletCount,

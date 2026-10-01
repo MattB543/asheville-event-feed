@@ -36,10 +36,9 @@ function ShortVersion({
         <Sparkles size={13} aria-hidden="true" />
         The short version
       </p>
-      <p className="mt-2 text-sm sm:text-[15px] leading-relaxed text-gray-800 dark:text-gray-100">
+      <ul className="mt-2 list-disc space-y-1.5 pl-5 text-sm sm:text-[15px] leading-relaxed text-gray-800 dark:text-gray-100 marker:text-brand-400 dark:marker:text-brand-500">
         {sentences.map((sentence, index) => (
-          <span key={`${sentence.storyId}-${index}`}>
-            {index > 0 && ' '}
+          <li key={`${sentence.storyId}-${index}`}>
             {linkable.has(sentence.storyId) ? (
               <a
                 href={`#${storyAnchorId(sentence.storyId)}`}
@@ -51,9 +50,9 @@ function ShortVersion({
               // Its story was hidden after the summary was written
               sentence.text
             )}
-          </span>
+          </li>
         ))}
-      </p>
+      </ul>
     </div>
   );
 }

@@ -269,7 +269,7 @@ Then:
 - **`topics` and `place`** are the most common among members.
 - **`image_url`** follows §7.4.
 - **`state`.**
-  - Newsroom tier → `live`.
+  - Newsroom tier → `live` when `importance ≥ 4` (`MIN_LIVE_IMPORTANCE`, S31), otherwise `pending`.
   - Community tier → `live` only if a member has `community_important=true`, or `engagement.score ≥ 25` or `engagement.comments ≥ 15` when counts exist (D25b). At most 3 community stories are live per filing day, ranked across the whole day by engagement and then recency. The rest stay `pending`.
 - **`score`** = `2·importance + min(2, outlet_count − 1) + (2 if any member is an outlet article)`.
 - Clear `dirty` in the same transaction that writes the recomputed fields. An interrupted run leaves it set, so the next run picks the story up again.
@@ -393,7 +393,7 @@ Owns `app/news/**`, `components/news/**`, `lib/news/queries.ts`, `components/Eve
      - the topic · place tag;
      - a relative time;
      - **Share**: the native share sheet on mobile, copy plus a toast on desktop, sharing `https://avlgo.com/news?s=<short_id>`.
-- **Minimal row:** our headline, linked to the lead article (new tab, `utm_source=avlgo`), with a subtle ↗. Nothing else. That's S19, taken literally.
+- **Minimal row:** our headline, linked to the lead article (new tab, `utm_source=avlgo`), with a subtle ↗, then the story's topic tag linking to its filter (S32). Nothing else.
 - **Shared story (`?s=`).**
   - The id resolves on its own, regardless of the date window, search or topic.
   - If the story is on the page, scroll to it and give it a fading highlight, copying the `/posters?p=` pattern.

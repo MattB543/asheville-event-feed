@@ -1,7 +1,7 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import { Share } from 'lucide-react';
-import { useToast } from '@/components/ui/Toast';
 import { TAP_AREA } from './display';
 
 // Share links always point at the live site, even from a preview or local build
@@ -13,19 +13,26 @@ interface ShareButtonProps {
 }
 
 /**
- * The native share sheet on touch devices, copy-and-toast everywhere else.
+ * The native share sheet on touch devices, copy-the-link everywhere else, with
+ * a tooltip on the button saying it worked.
  * Desktop Chrome has navigator.share too, but there the OS sheet is a detour
  * from what people expect a desktop "Share" to do.
  */
 export default function ShareButton({ shortId, headline }: ShareButtonProps) {
-  const { showToast } = useToast();
+  const [tooltip, setTooltip] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!tooltip) return;
+    const timer = setTimeout(() => setTooltip(null), 1800);
+    return () => clearTimeout(timer);
+  }, [tooltip]);
 
   const copyLink = async (url: string) => {
     try {
       await navigator.clipboard.writeText(url);
-      showToast('Link copied');
+      setTooltip('Link copied');
     } catch {
-      showToast('Could not copy the link', 'error');
+      setTooltip("Couldn't copy the link");
     }
   };
 
@@ -56,6 +63,14 @@ export default function ShareButton({ shortId, headline }: ShareButtonProps) {
     >
       <Share size={14} aria-hidden="true" />
       Share
+      <span
+        role="status"
+        className={`pointer-events-none absolute bottom-full left-1/2 mb-2 -translate-x-1/2 whitespace-nowrap rounded-md bg-gray-900 px-2 py-1 text-xs font-medium text-white shadow-md transition-opacity dark:bg-gray-100 dark:text-gray-900 ${
+          tooltip ? 'opacity-100' : 'opacity-0'
+        }`}
+      >
+        {tooltip}
+      </span>
     </button>
   );
 }

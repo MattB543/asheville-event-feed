@@ -11,6 +11,13 @@ export const TOP_MAX = 5;
 export const TOP_FLOOR = 2;
 export const TOP_FLOOR_MIN_SCORE = 8;
 
+/**
+ * A newsroom story shows at all only at this importance (0-10) or above. 3 is
+ * routine PSAs, promotions, campus and school items, minor community events;
+ * Matt asked (10-01) to roughly halve the "More news" list by dropping them.
+ */
+export const MIN_LIVE_IMPORTANCE = 4;
+
 /** Community stories that clear the bar: at most this many live per filing day. */
 export const COMMUNITY_LIVE_PER_DAY = 3;
 

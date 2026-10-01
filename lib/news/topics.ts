@@ -34,7 +34,7 @@ export const NEWS_TOPICS = [
   },
   {
     slug: 'environment',
-    label: 'Environment & Outdoors',
+    label: 'Env. & Outdoors',
     guidance:
       'Rivers, parks, trails, the Blue Ridge Parkway, wildlife and bears, drought, conservation',
   },

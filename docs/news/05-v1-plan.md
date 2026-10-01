@@ -393,7 +393,7 @@ Owns `app/news/**`, `components/news/**`, `lib/news/queries.ts`, `components/Eve
      - the topic · place tag;
      - a relative time;
      - **Share**: the native share sheet on mobile, copy plus a toast on desktop, sharing `https://avlgo.com/news?s=<short_id>`.
-- **Minimal row:** our headline, linked to the lead article (new tab, `utm_source=avlgo`), with a subtle ↗, the same bar-and-caret dropdown when other outlets covered it (S34), and the story's topic tag at the right, linking to its filter, left out when it would wrap the headline (S32, S35). The whole row is the link. Nothing else.
+- **Minimal row:** our headline, then the story's topic tag at the right (linking to its filter), with the whole row linking to the lead article (new tab, `utm_source=avlgo`). No link icon and no other-outlets menu. From sm up a long headline is cut off with "…" to keep the row on one line; hovering it fades the tag out in place to show the rest (S32, S35). Nothing else.
 - **Shared story (`?s=`).**
   - The id resolves on its own, regardless of the date window, search or topic.
   - If the story is on the page, scroll to it and give it a fading highlight, copying the `/posters?p=` pattern.

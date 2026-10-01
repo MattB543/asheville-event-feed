@@ -1,14 +1,21 @@
-import { ArrowUpRight } from 'lucide-react';
 import type { NewsStoryView } from '@/lib/news/queries';
-import OtherSourcesMenu from './OtherSourcesMenu';
-import RowTopicTag from './RowTopicTag';
-import { outboundUrl, primaryTopic, storyAnchorId } from './display';
+import TruncationFlag from './TruncationFlag';
+import { outboundUrl, primaryTopic, storyAnchorId, TAP_AREA } from './display';
+
+/**
+ * Hovering a cut-off row's headline (desktop): the tag leaves the flow but
+ * stays where it was while it fades, so the headline gets its space at once
+ * and nothing slides. Hovering the tag itself leaves it clickable.
+ */
+const FOLD_TAG_ON_HOVER =
+  'sm:[li[data-truncated=true]:has([data-row-headline]:hover)_&]:absolute sm:[li[data-truncated=true]:has([data-row-headline]:hover)_&]:right-5 sm:[li[data-truncated=true]:has([data-row-headline]:hover)_&]:top-2.5 sm:[li[data-truncated=true]:has([data-row-headline]:hover)_&]:opacity-0 sm:[li[data-truncated=true]:has([data-row-headline]:hover)_&]:pointer-events-none';
 
 /**
  * A story that isn't Top: our headline, with the whole row linking straight
- * to the outlet's article, a caret listing its other outlets when it has
- * any, and its topic tag at the right if that doesn't wrap the headline.
- * Nothing else (S19).
+ * to the outlet's article, and its topic tag at the right. From sm up the
+ * row stays one line and a long headline is cut off with an ellipsis;
+ * hovering a cut-off headline hides the tag to show the rest. Nothing else
+ * (S19).
  */
 export default function NewsStoryRow({ story }: { story: NewsStoryView }) {
   const topic = primaryTopic(story.topics);
@@ -16,39 +23,36 @@ export default function NewsStoryRow({ story }: { story: NewsStoryView }) {
   return (
     <li
       id={storyAnchorId(story.shortId)}
-      className="group relative flex items-start gap-3 scroll-mt-16 px-3 py-2.5 sm:px-5 text-[15px] leading-snug hover:bg-gray-50 dark:hover:bg-gray-800/60 transition-colors"
+      className="group relative flex items-start scroll-mt-16 px-3 py-2.5 sm:px-5 text-[15px] leading-snug hover:bg-gray-50 dark:hover:bg-gray-800/60 transition-colors"
     >
+      <TruncationFlag />
       <div className="min-w-0 flex-1">
         {story.lead ? (
           // The link's ::after covers the row, so the whole row clicks through;
-          // the caret and the tag sit above it.
+          // the tag comes later in the markup and sits above it.
           <a
             href={outboundUrl(story.lead.url)}
             target="_blank"
             rel="noopener"
             data-row-headline
-            className="text-gray-800 dark:text-gray-200 group-hover:text-brand-700 dark:group-hover:text-brand-300 transition-colors after:absolute after:inset-0 after:content-['']"
+            className="block sm:truncate text-gray-800 dark:text-gray-200 group-hover:text-brand-700 dark:group-hover:text-brand-300 transition-colors after:absolute after:inset-0 after:content-['']"
           >
             {story.headline}
-            <ArrowUpRight
-              size={13}
-              className="ml-1 inline-block -translate-y-px text-gray-400 dark:text-gray-500 group-hover:text-brand-600 dark:group-hover:text-brand-400"
-              aria-hidden="true"
-            />
           </a>
         ) : (
-          <span data-row-headline className="text-gray-800 dark:text-gray-200">
+          <span data-row-headline className="block text-gray-800 dark:text-gray-200 sm:truncate">
             {story.headline}
           </span>
         )}
-        {story.lead && story.otherOutlets.length > 0 && (
-          <OtherSourcesMenu
-            sources={story.otherOutlets.map(({ url, outletName }) => ({ url, outletName }))}
-            triggerClassName="ml-1.5 -translate-y-px border-l border-gray-300 dark:border-gray-600 pl-1.5 text-gray-400 dark:text-gray-500 hover:text-brand-600 dark:hover:text-brand-400"
-          />
-        )}
       </div>
-      {topic && <RowTopicTag slug={topic.slug} label={topic.label} />}
+      {topic && (
+        <a
+          href={`/news?topic=${topic.slug}`}
+          className={`${TAP_AREA} ml-3 shrink-0 whitespace-nowrap rounded border border-gray-200 dark:border-gray-700 px-1.5 text-[11px] leading-[18px] text-gray-500 dark:text-gray-400 hover:border-brand-500 hover:text-brand-700 dark:hover:text-brand-300 transition-opacity duration-75 ${FOLD_TAG_ON_HOVER}`}
+        >
+          {topic.label}
+        </a>
+      )}
     </li>
   );
 }

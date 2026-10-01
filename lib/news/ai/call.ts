@@ -32,9 +32,12 @@ export type NewsModelResult =
       /**
        * content_filter: Azure refused the input or output; permanent for this text.
        * transient: throttling, a timeout, a 5xx or a network error; worth a later run.
-       * error: anything else (bad request, truncated or empty output).
+       * fatal: Azure isn't configured, or rejected the credentials, the deployment
+       *   or one of our request parameters. Every call fails the same way until
+       *   someone fixes the configuration, so it says nothing about the article.
+       * error: anything else (another bad request, truncated or empty output).
        */
-      reason: 'content_filter' | 'transient' | 'error';
+      reason: 'content_filter' | 'transient' | 'fatal' | 'error';
       error: string;
       usage: NewsModelUsage;
     };
@@ -70,6 +73,26 @@ function isTransientError(error: unknown): boolean {
   return status === 408 || status === 409 || status === 429 || status >= 500;
 }
 
+/**
+ * 400 codes that blame the request rather than the article: a parameter or
+ * value the deployment doesn't accept ('reasoning_effort' does not support
+ * 'minimal'), or a deployment whose model can't chat.
+ */
+const FATAL_400_CODES = new Set([
+  'unsupported_parameter',
+  'unsupported_value',
+  'unknown_parameter',
+  'OperationNotSupported',
+]);
+
+/** 401/403 (key or network rules), 404 (no such deployment), or a 400 in FATAL_400_CODES. */
+function isFatalError(error: unknown): boolean {
+  const status = errorStatus(error);
+  if (status === 401 || status === 403 || status === 404) return true;
+  const code = error && typeof error === 'object' && 'code' in error ? error.code : undefined;
+  return status === 400 && typeof code === 'string' && FATAL_400_CODES.has(code);
+}
+
 /** One news model call. Never throws. */
 export async function callNewsModel(system: string, user: string): Promise<NewsModelResult> {
   try {
@@ -80,7 +103,7 @@ export async function callNewsModel(system: string, user: string): Promise<NewsM
     if (!response) {
       return {
         ok: false,
-        reason: 'error',
+        reason: 'fatal',
         error: 'Azure OpenAI is not configured',
         usage: NO_USAGE,
       };
@@ -108,7 +131,7 @@ export async function callNewsModel(system: string, user: string): Promise<NewsM
     }
     return {
       ok: false,
-      reason: isTransientError(error) ? 'transient' : 'error',
+      reason: isFatalError(error) ? 'fatal' : isTransientError(error) ? 'transient' : 'error',
       error: message,
       usage: NO_USAGE,
     };

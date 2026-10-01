@@ -1,9 +1,9 @@
 import { NextResponse } from 'next/server';
 import { env } from '@/lib/config/env';
 import { verifyAuthToken } from '@/lib/utils/auth';
-import { startCronJob, completeCronJob, failCronJob } from '@/lib/cron/jobTracker';
+import { completeCronJob, failCronJob } from '@/lib/cron/jobTracker';
 import { formatDuration } from '@/lib/utils/cron';
-import { runNewsAi } from '@/lib/news/pipeline';
+import { acquireNewsAiLease, runNewsAi } from '@/lib/news/pipeline';
 
 export const maxDuration = 800;
 
@@ -15,7 +15,8 @@ const RUN_BUDGET_MS = 660_000;
 // Enriches new articles, embeds and clusters them into stories, recomputes
 // changed stories, then Top and the daily summaries. Ingest is
 // /api/cron/news-scrape. scripts/news/run-local.ts runs the same pipeline
-// locally; the cron_job_runs record keeps the two from overlapping.
+// locally; the lease (this run's cron_job_runs row) keeps the two from
+// overlapping.
 //
 // Schedule: every 3 hours at :55 (cron: "55 */3 * * *")
 export async function GET(request: Request) {
@@ -26,18 +27,24 @@ export async function GET(request: Request) {
   }
 
   const jobStartTime = Date.now();
-  let runId: string | null = null;
+  let runId: string | null;
   try {
-    runId = await startCronJob('news-ai');
-  } catch (trackerErr) {
+    runId = await acquireNewsAiLease();
+  } catch (error) {
+    // No row means no lease: running anyway could overlap another run.
     console.error(
-      '[NewsAI] Failed to start cron job tracker:',
-      trackerErr instanceof Error ? trackerErr.message : String(trackerErr)
+      '[NewsAI] Could not take the lease; not running:',
+      error instanceof Error ? error.message : String(error)
     );
+    return NextResponse.json({ success: false, error: String(error) }, { status: 500 });
+  }
+  if (!runId) {
+    console.warn('[NewsAI] Another news-ai run holds the lease; skipping');
+    return NextResponse.json({ success: true, skipped: 'another news-ai run holds the lease' });
   }
 
   try {
-    const result = await runNewsAi({ deadline: jobStartTime + RUN_BUDGET_MS, runId });
+    const result = await runNewsAi({ deadline: jobStartTime + RUN_BUDGET_MS });
     const totalDuration = Date.now() - jobStartTime;
     console.log(`[NewsAI] JOB COMPLETE in ${formatDuration(totalDuration)}`);
 

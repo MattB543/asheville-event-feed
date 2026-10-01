@@ -62,6 +62,8 @@ export interface NewsIngestResult {
   disabledSources: string[];
   failures: { upsert: number; scrapers: number };
   msByStep: { scrape: number; upsert: number; fulltext: number };
+  /** The deadline stopped the upsert before every row was written; the next run picks them up. */
+  hitDeadline: boolean;
 }
 
 type NewArticle = typeof newsArticles.$inferInsert;
@@ -459,6 +461,7 @@ export async function runNewsIngest(opts: {
   let updated = 0;
   let textChanged = 0;
   let upsertFailed = 0;
+  let hitDeadline = false;
   const insertedBySource: Record<string, number> = {};
   const sourceByUrl = new Map(rows.map((r) => [r.url, r.source]));
 
@@ -477,6 +480,10 @@ export async function runNewsIngest(opts: {
   };
 
   for (const batch of chunk(rows, UPSERT_BATCH)) {
+    if (Date.now() >= deadline) {
+      hitDeadline = true;
+      break;
+    }
     // input_hash before the upsert: tells inserts from updates, and which
     // updates changed the text.
     const before = new Map(
@@ -500,6 +507,10 @@ export async function runNewsIngest(opts: {
         `[NewsScrape] Batch upsert failed, retrying rows singly: ${formatError(error)}`
       );
       for (const row of batch) {
+        if (Date.now() >= deadline) {
+          hitDeadline = true;
+          break;
+        }
         try {
           tally(before, await upsertArticles([row]));
         } catch (rowError) {
@@ -513,7 +524,7 @@ export async function runNewsIngest(opts: {
   }
   const upsertMs = Date.now() - upsertStart;
   console.log(
-    `[NewsScrape] Upserted ${rows.length} articles in ${formatDuration(upsertMs)}: ${inserted} new, ${updated} updated (${textChanged} text changed), ${upsertFailed} failed; dropped ${droppedDisabled} disabled, ${droppedInvalid} invalid`
+    `[NewsScrape] Upserted ${rows.length} articles in ${formatDuration(upsertMs)}: ${inserted} new, ${updated} updated (${textChanged} text changed), ${upsertFailed} failed; dropped ${droppedDisabled} disabled, ${droppedInvalid} invalid${hitDeadline ? '; stopped at the deadline' : ''}`
   );
 
   // 4. Full text, until the deadline.
@@ -539,5 +550,6 @@ export async function runNewsIngest(opts: {
     disabledSources,
     failures: { upsert: upsertFailed, scrapers: scrapers.filter((s) => !s.ok).length },
     msByStep: { scrape: scrapeMs, upsert: upsertMs, fulltext: fulltextMs },
+    hitDeadline,
   };
 }

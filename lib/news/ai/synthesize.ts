@@ -43,8 +43,11 @@ export type SynthesisOutcome =
   | { status: 'ok'; result: SynthesisResult; usage: NewsModelUsage }
   | {
       status: 'failed';
-      /** content_filter and unusable output are permanent for this input; transient isn't. */
-      reason: 'content_filter' | 'transient' | 'error';
+      /**
+       * content_filter and unusable output are permanent for this input; transient
+       * isn't. fatal never reaches a pipeline run: its caller throws on it.
+       */
+      reason: 'content_filter' | 'transient' | 'fatal' | 'error';
       error: string;
       usage: NewsModelUsage;
     };

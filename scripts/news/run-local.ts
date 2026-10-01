@@ -10,16 +10,16 @@
  *   npx tsx scripts/news/run-local.ts --ai-only  # skip ingest
  *   npx tsx scripts/news/run-local.ts --loop     # repeat the AI run until the backlog is empty
  *
- * Each AI run has the cron's 660s budget. --loop starts another run while
- * articles still need enrichment, embedding or clustering, or stories are still
- * dirty, and stops early if a run makes no progress (an outage, or the lease is
- * held by another run).
+ * Each AI run takes the lease and has the cron's 660s budget. --loop starts
+ * another run while articles still need enrichment, embedding or clustering,
+ * or stories are still dirty, and stops early if a run makes no progress (an
+ * outage) or another run holds the lease.
  */
 
 import '../../lib/config/env';
 import { completeCronJob, failCronJob, startCronJob } from '../../lib/cron/jobTracker';
 import { runNewsIngest } from '../../lib/news/ingest';
-import { runNewsAi, type NewsAiResult } from '../../lib/news/pipeline';
+import { acquireNewsAiLease, runNewsAi, type NewsAiResult } from '../../lib/news/pipeline';
 
 const AI_RUN_MS = 660_000;
 const MAX_LOOPS = 50;
@@ -39,10 +39,12 @@ async function ingest(): Promise<void> {
   }
 }
 
-async function aiRun(): Promise<NewsAiResult> {
-  const runId = await startCronJob('news-ai');
+/** One AI run, or null when another run holds the lease. */
+async function aiRun(): Promise<NewsAiResult | null> {
+  const runId = await acquireNewsAiLease();
+  if (!runId) return null;
   try {
-    const result = await runNewsAi({ deadline: Date.now() + AI_RUN_MS, runId });
+    const result = await runNewsAi({ deadline: Date.now() + AI_RUN_MS });
     await completeCronJob(runId, { ...result });
     return result;
   } catch (error) {
@@ -81,10 +83,14 @@ async function main() {
   for (let i = 1; i <= (loop ? MAX_LOOPS : 1); i++) {
     const started = Date.now();
     const result = await aiRun();
+    if (!result) {
+      console.log('[run-local] Another news-ai run holds the lease; not running.');
+      break;
+    }
     console.log(`[run-local] AI run ${i} took ${Math.round((Date.now() - started) / 1000)}s`);
     console.log(JSON.stringify(result, null, 2));
     if (!loop || !backlogLeft(result)) break;
-    if (result.skippedForLease || progress(result) === 0) {
+    if (progress(result) === 0) {
       console.log('[run-local] No progress this run; stopping the loop.');
       break;
     }

@@ -1,15 +1,17 @@
 /**
- * Apply drizzle/0019_news.sql (the news_* tables) and verify the result.
+ * Apply a news migration (default drizzle/0019_news.sql, the news_* tables)
+ * and verify the result.
  *
  * Usage:
- *   npx tsx scripts/news/migrate.ts            # apply, then verify
- *   npx tsx scripts/news/migrate.ts --verify   # read-only checks only
+ *   npx tsx scripts/news/migrate.ts                                 # apply 0019, then verify
+ *   npx tsx scripts/news/migrate.ts drizzle/0020_news_ai_lease.sql  # apply that file, then verify
+ *   npx tsx scripts/news/migrate.ts --verify                        # read-only checks only
  *
- * The SQL is idempotent and wraps itself in one transaction, so re-running it
- * is harmless. Verification checks that each table exists with RLS enabled,
- * that anon/authenticated hold no privileges on it, and that its columns match
- * the Drizzle definitions in lib/db/schema.ts exactly (db.select() names every
- * declared column, so any drift breaks reads).
+ * The SQL is idempotent, so re-running it is harmless. Verification checks
+ * that each table exists with RLS enabled, that anon/authenticated hold no
+ * privileges on it, that its columns match the Drizzle definitions in
+ * lib/db/schema.ts exactly (db.select() names every declared column, so any
+ * drift breaks reads), and that the news-ai lease index exists.
  */
 
 import '../../lib/config/env';
@@ -20,11 +22,14 @@ import { getTableColumns, getTableName, type Table } from 'drizzle-orm';
 import { db } from '../../lib/db';
 import { newsArticles, newsDays, newsSources, newsStories } from '../../lib/db/schema';
 
-const MIGRATION = path.join(__dirname, '../../drizzle/0019_news.sql');
+const DEFAULT_MIGRATION = path.join(__dirname, '../../drizzle/0019_news.sql');
 const TABLES: Table[] = [newsSources, newsArticles, newsStories, newsDays];
+const LEASE_INDEX = 'cron_job_runs_one_running_news_ai';
 
 async function main() {
   const verifyOnly = process.argv.includes('--verify');
+  const file = process.argv.slice(2).find((a) => !a.startsWith('--'));
+  const migration = file ? path.resolve(file) : DEFAULT_MIGRATION;
   const sql = postgres(process.env.DATABASE_URL!, { prepare: false, max: 1 });
   let problems = 0;
   const fail = (msg: string) => {
@@ -34,10 +39,10 @@ async function main() {
 
   try {
     if (!verifyOnly) {
-      console.log(`Applying ${path.basename(MIGRATION)}...`);
+      console.log(`Applying ${path.basename(migration)}...`);
       // No parameters, so postgres.js sends it as one simple-protocol query:
       // every statement, including the file's own BEGIN/COMMIT.
-      await sql.unsafe(fs.readFileSync(MIGRATION, 'utf8'));
+      await sql.unsafe(fs.readFileSync(migration, 'utf8'));
       console.log('Applied.');
     }
 
@@ -104,6 +109,12 @@ async function main() {
       await db.select().from(table).limit(1);
       console.log('  ok   db.select() works');
     }
+
+    console.log('\ncron_job_runs');
+    const [lease] = await sql`
+      SELECT 1 FROM pg_indexes WHERE schemaname = 'public' AND indexname = ${LEASE_INDEX}`;
+    if (lease) console.log(`  ok   ${LEASE_INDEX} exists`);
+    else fail(`${LEASE_INDEX} is missing: apply drizzle/0020_news_ai_lease.sql`);
   } finally {
     await sql.end();
   }

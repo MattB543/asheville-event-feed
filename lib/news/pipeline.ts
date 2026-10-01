@@ -11,20 +11,29 @@
  * Everything runs against one absolute deadline: no model call starts after
  * it, and each step stops cleanly where it is. Whatever is left (unenriched
  * articles, unclustered articles, dirty stories) is picked up by the next run.
+ * A fatal model error (Azure rejecting the credentials, the deployment or a
+ * request parameter) ends the run as a failure before anything is written for
+ * the article that hit it.
  *
  * Called by app/api/cron/news-ai/route.ts and scripts/news/run-local.ts, which
- * both record the run in cron_job_runs as 'news-ai'. That record doubles as the
- * lease: a run skips itself while another one started in the last 15 minutes
- * is still running.
+ * both take the lease first (acquireNewsAiLease): the run's own 'news-ai' row
+ * in cron_job_runs, of which at most one can be `running`.
  */
 
 import { and, asc, eq, inArray, isNotNull, isNull, ne, or, sql } from 'drizzle-orm';
 import { db } from '@/lib/db';
-import { newsArticles, newsDays, newsStories } from '@/lib/db/schema';
+import { cronJobRuns, newsArticles, newsDays, newsStories } from '@/lib/db/schema';
 import { isAIEnabled, isAzureAIEnabled } from '@/lib/ai/provider-clients';
+import { startCronJob } from '@/lib/cron/jobTracker';
 import { formatDuration } from '@/lib/utils/cron';
 import { newShortId } from './db';
-import { callNewsModel, meteredCaller, type NewsModelCaller, type TokenMeter } from './ai/call';
+import {
+  callNewsModel,
+  meteredCaller,
+  type NewsModelCaller,
+  type NewsModelResult,
+  type TokenMeter,
+} from './ai/call';
 import { enrichArticle, type EnrichmentOutcome } from './ai/enrich';
 import { embedNewsText, newsEmbeddingText } from './ai/embed';
 import {
@@ -53,7 +62,7 @@ import type { NewsSourceKind } from './types';
 
 /** Default run budget; the route passes start + 660s explicitly. */
 const DEFAULT_RUN_MS = 660_000;
-/** Another 'news-ai' run started this recently and still running holds the lease. */
+/** A 'news-ai' row still `running` this long after it started is a dead run (maxDuration is 800s). */
 const LEASE_MINUTES = 15;
 
 /** Articles published longer ago than this are never enriched for the first time. */
@@ -69,6 +78,9 @@ const OUTAGE_STREAK = 4;
 const EMBED_CONCURRENCY = 8;
 const SYNTH_CONCURRENCY = 4;
 
+/** The per-day community cap is re-applied to filing days this recent. */
+const COMMUNITY_CAP_DAYS = 14;
+
 /**
  * A day whose Top must be recomputed keeps its summary but gets this prefix on
  * its input_hash. The next Top step re-ranks the day and regenerates the
@@ -77,8 +89,6 @@ const SYNTH_CONCURRENCY = 4;
 const STALE_PREFIX = 'stale:';
 
 export interface NewsAiResult {
-  /** True when another run held the lease and this one did nothing. */
-  skippedForLease: boolean;
   enriched: number;
   /** Articles enriched as live this run. */
   live: number;
@@ -116,13 +126,10 @@ interface RunContext {
   result: NewsAiResult;
   /** Days whose Top must be recomputed this run, beyond today/yesterday and stale or missing days. */
   topDays: Set<string>;
-  /** Filing days whose community stories need the per-day cap re-applied. */
-  communityDays: Set<string>;
 }
 
 function emptyResult(): NewsAiResult {
   return {
-    skippedForLease: false,
     enriched: 0,
     live: 0,
     skipped: { byReason: {} },
@@ -159,8 +166,23 @@ function errorText(error: unknown): string {
 }
 
 /**
+ * Thrown by the run's model caller on a fatal result. Steps let it through,
+ * so the run ends as a failure with nothing written for the article.
+ */
+class FatalModelError extends Error {}
+
+/** The run's model caller answers this once the deadline has passed: transient, so steps stop. */
+const DEADLINE_PASSED: NewsModelResult = {
+  ok: false,
+  reason: 'transient',
+  error: 'Run deadline passed',
+  usage: { inputTokens: 0, outputTokens: 0 },
+};
+
+/**
  * Run `fn` over `items`, `concurrency` at a time, starting nothing once
- * `stop()` says so. Items already started finish.
+ * `stop()` says so or an item has thrown. Items already started finish, then
+ * the first error is rethrown.
  */
 async function pool<T>(
   items: T[],
@@ -169,13 +191,19 @@ async function pool<T>(
   fn: (item: T) => Promise<void>
 ): Promise<void> {
   let next = 0;
+  const errors: unknown[] = [];
   const worker = async () => {
-    while (next < items.length && !stop()) {
+    while (next < items.length && errors.length === 0 && !stop()) {
       const item = items[next++];
-      await fn(item);
+      try {
+        await fn(item);
+      } catch (error) {
+        errors.push(error);
+      }
     }
   };
   await Promise.all(Array.from({ length: Math.min(concurrency, items.length) }, worker));
+  if (errors.length > 0) throw errors[0];
 }
 
 const a = newsArticles;
@@ -185,25 +213,38 @@ const s = newsStories;
 // Lease
 // ---------------------------------------------------------------------------
 
+/** Postgres unique_violation, possibly wrapped by Drizzle (the driver error is the cause). */
+function isUniqueViolation(error: unknown): boolean {
+  const pgError = error instanceof Error && error.cause ? error.cause : error;
+  return !!pgError && typeof pgError === 'object' && 'code' in pgError && pgError.code === '23505';
+}
+
 /**
- * True if another 'news-ai' run holds the lease: still `running` and started
- * in the last LEASE_MINUTES, and (when we know our own run) no later than ours,
- * so of two runs starting together exactly one proceeds.
+ * Take the news-ai lease: returns this run's cron_job_runs id, or null when
+ * another run holds it. The lease is the run's own `running` row; the partial
+ * unique index cron_job_runs_one_running_news_ai (drizzle/0020_news_ai_lease.sql)
+ * lets only one exist, so two runs starting together can't both get one. A row
+ * still running after LEASE_MINUTES is a run that died without recording its
+ * end, and is failed first. Any other error throws: with no row there is no
+ * lease, and the caller must not run.
  */
-async function leaseHeldByAnother(runId: string | null | undefined): Promise<boolean> {
-  const rows = await db.execute(sql`
-    SELECT 1 FROM cron_job_runs r
-    WHERE r.job_name = 'news-ai'
-      AND r.status = 'running'
-      AND r.started_at > now() - make_interval(mins => ${LEASE_MINUTES}::int)
-      ${
-        runId
-          ? sql`AND r.id <> ${runId}
-                AND r.started_at <= (SELECT started_at FROM cron_job_runs WHERE id = ${runId})`
-          : sql``
-      }
-    LIMIT 1`);
-  return rows.length > 0;
+export async function acquireNewsAiLease(): Promise<string | null> {
+  await db
+    .update(cronJobRuns)
+    .set({ status: 'failed', completedAt: sql`now()`, result: { error: 'lease expired' } })
+    .where(
+      and(
+        eq(cronJobRuns.jobName, 'news-ai'),
+        eq(cronJobRuns.status, 'running'),
+        sql`${cronJobRuns.startedAt} < now() - make_interval(mins => ${LEASE_MINUTES}::int)`
+      )
+    );
+  try {
+    return await startCronJob('news-ai');
+  } catch (error) {
+    if (isUniqueViolation(error)) return null;
+    throw error;
+  }
 }
 
 // ---------------------------------------------------------------------------
@@ -289,6 +330,7 @@ async function enrichStep(ctx: RunContext): Promise<void> {
         ctx.call
       );
     } catch (error) {
+      if (error instanceof FatalModelError) throw error;
       outcome = {
         status: 'failed',
         transient: false,
@@ -668,6 +710,7 @@ async function clusterStep(ctx: RunContext): Promise<void> {
         ctx.result.clustered.newStories++;
       }
     } catch (error) {
+      if (error instanceof FatalModelError) throw error;
       console.error(`[NewsAI] Clustering ${row.id} failed: ${errorText(error)}`);
     }
   }
@@ -774,6 +817,7 @@ async function recomputeStory(ctx: RunContext, story: StoryRow): Promise<boolean
   }
 
   const basis = tier === 'newsroom' ? newsroom : eligible;
+  const lead = pickLead(basis)!;
   let headline = story.headline;
   let summary = story.summary;
   let importance = story.importance;
@@ -822,8 +866,11 @@ async function recomputeStory(ctx: RunContext, story: StoryRow): Promise<boolean
         ctx.result.synthesisFailed++;
         console.warn(`[NewsAI] Synthesis failed for ${story.shortId}: ${outcome.error}`);
         if (outcome.reason === 'transient') return false;
-        // Permanent for this input: keep the current text, rank on the best member.
-        importance = Math.max(...newsroom.map((m) => m.importance ?? 0));
+        // Permanent for this input: fall back to the lead's own text. The
+        // story's current text may carry facts only a taken-down outlet reported.
+        headline = lead.aiHeadline ?? lead.title;
+        summary = lead.aiSummary ?? '';
+        importance = lead.importance ?? 0;
       }
     }
   }
@@ -834,7 +881,6 @@ async function recomputeStory(ctx: RunContext, story: StoryRow): Promise<boolean
     if (first > filingDay) filingDay = first;
   }
 
-  const lead = pickLead(basis)!;
   const outletCount = new Set(newsroom.map((m) => m.outletDomain)).size;
   const score = storyScore(
     importance,
@@ -852,7 +898,6 @@ async function recomputeStory(ctx: RunContext, story: StoryRow): Promise<boolean
   } else {
     const clearsBar = basis.some((m) => m.communityImportant === true);
     state = clearsBar && story.state === 'live' ? 'live' : 'pending';
-    if (clearsBar || story.state === 'live') ctx.communityDays.add(filingDay);
   }
 
   // Days whose Top this changes: the day a Top story leaves (refiled, or no
@@ -913,6 +958,7 @@ async function recomputeStep(ctx: RunContext): Promise<void> {
       try {
         if (await recomputeStory(ctx, story)) ctx.result.recomputed++;
       } catch (error) {
+        if (error instanceof FatalModelError) throw error;
         console.error(`[NewsAI] Recompute of ${story.shortId} failed: ${errorText(error)}`);
       }
     }
@@ -925,9 +971,21 @@ async function recomputeStep(ctx: RunContext): Promise<void> {
  * At most COMMUNITY_LIVE_PER_DAY community stories are live per filing day:
  * those with an important post, by engagement (when a feed carries it) and
  * then recency. The rest stay pending.
+ *
+ * Applied to every recent filing day with a pending community story that
+ * qualifies, found in the database, so a story recompute left pending is
+ * published by a later run even if this one stopped first. Re-applying it to
+ * a day changes nothing.
  */
 async function applyCommunityCap(ctx: RunContext): Promise<void> {
-  for (const day of ctx.communityDays) {
+  const days = await db.execute<{ day: string }>(sql`
+    SELECT DISTINCT st.filing_day::text AS day
+    FROM news_stories st
+    JOIN news_articles m ON m.story_id = st.id AND m.state = 'live'
+    WHERE st.tier = 'community' AND st.state = 'pending' AND st.dirty = false
+      AND m.community_important IS TRUE
+      AND st.filing_day >= ${shiftDay(etDay(new Date()), -COMMUNITY_CAP_DAYS)}::date`);
+  for (const { day } of days) {
     const rows = await db.execute<{
       id: string;
       state: string;
@@ -1101,30 +1159,32 @@ async function timed(
 export interface RunNewsAiOptions {
   /** Epoch ms. No model call starts after it. Default: now + 660s. */
   deadline?: number;
-  /** This run's cron_job_runs id, so the lease check can tell it apart from others. */
-  runId?: string | null;
   /** Model caller override (tests). Default: the news deployment. */
   call?: NewsModelCaller;
 }
 
+/** One run. The caller must hold the lease (acquireNewsAiLease). */
 export async function runNewsAi(options: RunNewsAiOptions = {}): Promise<NewsAiResult> {
   if (!isAzureAIEnabled()) throw new Error('Azure OpenAI is not configured (AZURE_OPENAI_*)');
   if (!isAIEnabled()) throw new Error('Gemini is not configured (GEMINI_API_KEY)');
 
   const result = emptyResult();
-  if (await leaseHeldByAnother(options.runId)) {
-    console.warn('[NewsAI] Another news-ai run holds the lease; skipping');
-    result.skippedForLease = true;
-    return result;
-  }
-
   const meter: TokenMeter = { in: 0, out: 0, calls: 0 };
+  const metered = meteredCaller(options.call ?? callNewsModel, meter);
   const ctx: RunContext = {
     deadline: options.deadline ?? Date.now() + DEFAULT_RUN_MS,
-    call: meteredCaller(options.call ?? callNewsModel, meter),
+    // Every model attempt of the run passes here, so none starts after the
+    // deadline, and a fatal answer ends the run.
+    call: async (system, user) => {
+      if (pastDeadline(ctx)) return DEADLINE_PASSED;
+      const answer = await metered(system, user);
+      if (!answer.ok && answer.reason === 'fatal') {
+        throw new FatalModelError(`Fatal model error, stopping the run: ${answer.error}`);
+      }
+      return answer;
+    },
     result,
     topDays: new Set(),
-    communityDays: new Set(),
   };
 
   try {

@@ -551,6 +551,10 @@ export const cronJobRuns = pgTable(
   (table) => ({
     jobNameIdx: index('cron_job_runs_job_name_idx').on(table.jobName),
     startedAtIdx: index('cron_job_runs_started_at_idx').on(table.startedAt),
+    // The news-ai lease: one running news-ai row at a time (drizzle/0020_news_ai_lease.sql).
+    oneRunningNewsAi: uniqueIndex('cron_job_runs_one_running_news_ai')
+      .on(table.jobName)
+      .where(sql`${table.status} = 'running' AND ${table.jobName} = 'news-ai'`),
   })
 );
 

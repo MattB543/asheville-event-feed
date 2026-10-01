@@ -7,42 +7,27 @@
  * sometimes runs ahead of the newsrooms (a fire, a road closure, a clinic that
  * suddenly shut, a new Flock camera).
  *
- * What works (tested 2026-09-25):
- *  - The unauthenticated `.json` listings answer 403 "blocked by network
- *    security" to every client, residential IP included. Only the Atom feeds
- *    are open, and they carry no score or comment count.
- *  - From a datacenter the feeds are blocked too. Fetched through Jina
- *    Reader's cloud, the feed got a 403 and the subreddit page said "You've
- *    been blocked by network security. To continue, log in to your Reddit
- *    account or use your developer token". Vercel's egress will almost
- *    certainly get the same, hence `localOnly`, like MountainX and Facebook.
- *  - The limit is one request per clock minute per IP, shared by every
- *    reddit.com endpoint (`x-ratelimit-remaining: 0` after a single call, and
- *    `x-ratelimit-reset` counts down to the next minute). So all three
- *    subreddits come from ONE multireddit request. Its 100 entries cover ~2.5
- *    days, so the local runner only has to run every other day or so. A
- *    comments feed per post would cost a minute each, so there is no
- *    fetchFullText. The feed already carries each text post's full body.
+ * Read through Reddit's OAuth API with Matt's "personal use script" app
+ * (since 2026-10-01): a password-grant token, then ONE multireddit listing of
+ * the newest 100 posts, which covers ~3 days, so a 3-hour cron never outruns
+ * it. Unlike the public Atom feed this module used before, the API works from
+ * a datacenter, so it runs on Vercel, and it carries live score and comment
+ * counts, which every scrape refreshes. Credentials: REDDIT_CLIENT_ID,
+ * REDDIT_CLIENT_SECRET, REDDIT_USERNAME and REDDIT_PASSWORD (quote the password
+ * in .env if it contains `#`).
  *
- * Scry (a Reddit data reseller) was evaluated as the datacenter-friendly path
- * on 2026-10-01 and rejected: r/asheville ran ~10h behind with 30-45h gaps,
- * vote and comment counts were never refreshed, and personal keys are licensed
- * for non-commercial research only.
+ * Scry (a Reddit data reseller) was evaluated on 2026-10-01 and rejected:
+ * r/asheville ran ~10h behind with 30-45h gaps, its counts were never
+ * refreshed, and personal keys are licensed for non-commercial research only.
  *
- * Terms: robots.txt is `Disallow: /`. Reddit's Responsible Builder Policy
- * (updated 2026-06-05) requires "explicit approval before accessing any Reddit
- * data through our API" and forbids unapproved commercialization, which
- * "extends to commercial and non-commercial mining, scraping". Its Public
- * Content Policy allows "non-commercial uses, such as learning and community"
- * and says to "talk to us" about commercial ones. Self-serve API keys ended
- * in late 2025, and new OAuth clients go through a manual approval ticket. So
- * this module is the working prototype. Shipping it is the owner's call, and
- * the compliant route runs through Reddit.
+ * Terms: Reddit's Responsible Builder Policy expects approval for apps built
+ * on its data, and a "personal use script" app is meant for personal use.
+ * One request every 3 hours is far inside the API's limits; moving to an
+ * approved app is the owner's call.
  */
 
-import * as cheerio from 'cheerio';
 import { fetchEventData } from '../../scrapers/base';
-import { canonicalizeUrl, htmlToText, parseFeed, type FeedItem } from '../feeds';
+import { canonicalizeUrl } from '../feeds';
 import type { NewsSourceModule, ScrapeContext, ScrapedArticle } from '../types';
 import { mentionsBuncombe } from './shared/buncombe';
 
@@ -55,13 +40,8 @@ const KEY = 'REDDIT';
  */
 const SUBREDDITS = ['asheville', 'BlackMountain', 'wnc'];
 const REGIONAL_SUBREDDITS = new Set(['wnc']);
-const FEED_URL = `https://www.reddit.com/r/${SUBREDDITS.join('+')}/new/.rss?limit=100`;
-
-/** Reddit asks automated clients to identify themselves instead of posing as a browser. */
-const USER_AGENT = 'web:avlgo-news:v0.1 (+https://avlgo.com)';
-
-/** Rate-limit windows are clock minutes, so one retry after 61s always lands in a fresh one. */
-const RATE_LIMIT_DELAY_MS = 61_000;
+const LISTING_URL = `https://oauth.reddit.com/r/${SUBREDDITS.join('+')}/new?limit=100&raw_json=1`;
+const TOKEN_URL = 'https://www.reddit.com/api/v1/access_token';
 
 /** Self posts shorter than this are one-line questions. */
 const MIN_SELF_TEXT = 150;
@@ -88,99 +68,150 @@ const NOISE_TITLE = [
   /^(any|is there|are there|need|best|cheap(er|est)?|affordable)\b/i,
 ];
 
+/** The fields of a listing's `data` this module reads. */
+interface RedditPost {
+  name: string; // "t3_<id>", the same id the Atom feed's <id> carried
+  subreddit: string;
+  title: string;
+  selftext: string;
+  is_self: boolean;
+  url: string;
+  permalink: string;
+  created_utc: number;
+  author: string;
+  score: number;
+  num_comments: number;
+  over_18: boolean;
+  stickied: boolean;
+  removed_by_category: string | null;
+  link_flair_text: string | null;
+  preview?: { images?: Array<{ source?: { url?: string } }> };
+}
+
 type PostKind = 'self' | 'link' | 'media';
 
-interface ParsedPost {
-  kind: PostKind;
-  body?: string;
-  /** Link target for link posts. */
-  linkUrl?: string;
+/** Reddit asks API clients to identify the app and its owner. */
+function userAgent(username: string): string {
+  return `web:avlgo-news:v1.0 (by /u/${username})`;
 }
 
-function parseContent(html: string | undefined): ParsedPost {
-  if (!html) return { kind: 'self' };
-  const $ = cheerio.load(html);
-  const text = htmlToText($('.md').first().html() ?? undefined);
-  const body = text && !/^\[(removed|deleted)\]$/.test(text) ? text : undefined;
-  const href = $('a')
-    .filter((_, a) => $(a).text().trim() === '[link]')
-    .first()
-    .attr('href');
+function credentials() {
+  const { REDDIT_CLIENT_ID, REDDIT_CLIENT_SECRET, REDDIT_USERNAME, REDDIT_PASSWORD } = process.env;
+  if (!REDDIT_CLIENT_ID || !REDDIT_CLIENT_SECRET || !REDDIT_USERNAME || !REDDIT_PASSWORD) {
+    throw new Error(
+      'Reddit API credentials missing (REDDIT_CLIENT_ID, REDDIT_CLIENT_SECRET, REDDIT_USERNAME, REDDIT_PASSWORD)'
+    );
+  }
+  return {
+    clientId: REDDIT_CLIENT_ID,
+    clientSecret: REDDIT_CLIENT_SECRET,
+    username: REDDIT_USERNAME,
+    password: REDDIT_PASSWORD,
+  };
+}
 
-  // Crossposts link to the original post with a relative /r/... path.
-  if (!href || href.startsWith('/')) return { kind: 'self', body };
+/** A fresh password-grant token. It lasts a day; one run needs it once. */
+async function accessToken(creds: ReturnType<typeof credentials>): Promise<string> {
+  const res = await fetchEventData(
+    TOKEN_URL,
+    {
+      method: 'POST',
+      headers: {
+        Authorization: `Basic ${Buffer.from(`${creds.clientId}:${creds.clientSecret}`).toString('base64')}`,
+        'User-Agent': userAgent(creds.username),
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: new URLSearchParams({
+        grant_type: 'password',
+        username: creds.username,
+        password: creds.password,
+      }),
+    },
+    { maxRetries: 1 },
+    KEY
+  );
+  // A bad password comes back 200 with {"error": "invalid_grant"}
+  const json = (await res.json()) as { access_token?: string; error?: string };
+  if (!json.access_token)
+    throw new Error(`Reddit token request failed: ${json.error ?? 'no token'}`);
+  return json.access_token;
+}
 
-  let url: URL;
+function postKind(post: RedditPost): PostKind {
+  if (post.is_self) return 'self';
+  let host: string;
   try {
-    url = new URL(href);
+    host = new URL(post.url, 'https://www.reddit.com').hostname;
   } catch {
-    return { kind: 'self', body };
+    return 'self';
   }
-  if (/(^|\.)reddit\.com$/i.test(url.hostname)) {
-    return { kind: url.pathname.startsWith('/gallery/') ? 'media' : 'self', body };
+  // Galleries live on reddit.com; crossposts point back at another reddit post.
+  if (/(^|\.)reddit\.com$/i.test(host)) {
+    return post.url.includes('/gallery/') ? 'media' : 'self';
   }
-  if (MEDIA_HOSTS.test(url.hostname)) return { kind: 'media', body };
-  return { kind: 'link', body, linkUrl: canonicalizeUrl(href) };
+  return MEDIA_HOSTS.test(host) ? 'media' : 'link';
 }
 
-function keep(item: FeedItem, subreddit: string, post: ParsedPost): boolean {
-  if (NOISE_TITLE.some((re) => re.test(item.title))) return false;
+function keep(post: RedditPost, kind: PostKind, body: string | undefined): boolean {
+  if (post.stickied || post.over_18 || post.removed_by_category) return false;
+  if (NOISE_TITLE.some((re) => re.test(post.title))) return false;
+  const linkUrl = kind === 'link' ? post.url : undefined;
   if (
-    REGIONAL_SUBREDDITS.has(subreddit) &&
-    !mentionsBuncombe(item.title, post.body, post.linkUrl) &&
-    !/\bAVL\b/.test(`${item.title} ${post.body ?? ''}`)
+    REGIONAL_SUBREDDITS.has(post.subreddit.toLowerCase()) &&
+    !mentionsBuncombe(post.title, body, linkUrl) &&
+    !/\bAVL\b/.test(`${post.title} ${body ?? ''}`)
   ) {
     return false;
   }
-  const textLength = post.body?.length ?? 0;
-  if (post.kind === 'link') return true;
-  if (post.kind === 'media') return textLength >= MIN_MEDIA_TEXT;
+  const textLength = body?.length ?? 0;
+  if (kind === 'link') return true;
+  if (kind === 'media') return textLength >= MIN_MEDIA_TEXT;
   return textLength >= MIN_SELF_TEXT;
 }
 
 async function scrape({ deadline }: ScrapeContext): Promise<ScrapedArticle[]> {
+  const creds = credentials();
+  const token = await accessToken(creds);
+  if (Date.now() > deadline) return [];
+
   const res = await fetchEventData(
-    FEED_URL,
-    { headers: { 'User-Agent': USER_AGENT, Accept: 'application/atom+xml' } },
-    {
-      maxRetries: 2,
-      baseDelay: RATE_LIMIT_DELAY_MS,
-      maxDelay: RATE_LIMIT_DELAY_MS,
-      // Waiting out the window is only worth it if the retry lands before the deadline.
-      shouldRetry: () => Date.now() + RATE_LIMIT_DELAY_MS * 1.1 < deadline,
-    },
+    LISTING_URL,
+    { headers: { Authorization: `bearer ${token}`, 'User-Agent': userAgent(creds.username) } },
+    { maxRetries: 1 },
     KEY
   );
-  const items = parseFeed(await res.text());
+  const json = (await res.json()) as { data?: { children?: Array<{ data: RedditPost }> } };
+  const posts = (json.data?.children ?? []).map((child) => child.data);
 
   const articles: ScrapedArticle[] = [];
-  for (const item of items) {
-    if (!item.link || !item.title || !item.publishedAt) continue;
-    // The entry's <category term> is the subreddit it was posted to.
-    const subreddit = item.categories[0] ?? '';
-    const post = parseContent(item.contentHtml);
-    if (!keep(item, subreddit.toLowerCase(), post)) continue;
+  for (const post of posts) {
+    const kind = postKind(post);
+    const selftext = post.selftext.trim();
+    const body = selftext && !/^\[(removed|deleted)\]$/.test(selftext) ? selftext : undefined;
+    if (!keep(post, kind, body)) continue;
 
+    const linkedUrl = kind === 'link' ? canonicalizeUrl(post.url) : undefined;
+    const preview = post.preview?.images?.[0]?.source?.url;
     articles.push({
       source: KEY,
-      sourceId: item.guid || item.link,
-      url: canonicalizeUrl(item.link),
-      title: item.title.trim(),
-      publishedAt: item.publishedAt,
-      updatedAt: item.updatedAt,
-      author: item.author?.replace(/^\//, ''),
-      summary: post.linkUrl
-        ? `Shared link: ${new URL(post.linkUrl).hostname.replace(/^www\./, '')}`
+      sourceId: post.name,
+      url: canonicalizeUrl(`https://www.reddit.com${post.permalink}`),
+      title: post.title.trim(),
+      publishedAt: new Date(post.created_utc * 1000),
+      author: post.author,
+      summary: linkedUrl
+        ? `Shared link: ${new URL(linkedUrl).hostname.replace(/^www\./, '')}`
         : undefined,
-      contentText: post.body,
-      imageUrl: item.imageUrl,
-      categories: subreddit ? [`r/${subreddit}`] : undefined,
-      linkedUrl: post.linkUrl,
+      contentText: body,
+      imageUrl: preview?.startsWith('https://') ? preview : undefined,
+      categories: [`r/${post.subreddit}`, ...(post.link_flair_text ? [post.link_flair_text] : [])],
+      engagement: { score: post.score, comments: post.num_comments },
+      linkedUrl,
     });
   }
 
   console.log(
-    `[${KEY}] Kept ${articles.length} of ${items.length} posts (the rest: asks, classifieds, photos, non-Buncombe r/wnc)`
+    `[${KEY}] Kept ${articles.length} of ${posts.length} posts (the rest: asks, classifieds, photos, removed, non-Buncombe r/wnc)`
   );
   return articles;
 }
@@ -190,8 +221,7 @@ const reddit: NewsSourceModule = {
   name: 'Reddit (r/asheville, r/BlackMountain, r/wnc)',
   homepage: 'https://www.reddit.com/r/asheville/',
   kind: 'community',
-  method: 'rss',
-  localOnly: true,
+  method: 'api',
   scrape,
 };
 

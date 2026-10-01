@@ -21,6 +21,27 @@ export const MIN_LIVE_IMPORTANCE = 4;
 /** Community stories that clear the bar: at most this many live per filing day. */
 export const COMMUNITY_LIVE_PER_DAY = 3;
 
+/**
+ * The Reddit bar's engagement half (D25b): a post this popular gets in even
+ * when the AI didn't rate it important. Asks, classifieds and personal posts
+ * are skipped before this, however popular. Calibrated on 10-01: r/asheville's
+ * median post had 8 points and 8 comments, the top quarter 26 and 19.
+ */
+export const COMMUNITY_MIN_SCORE = 25;
+export const COMMUNITY_MIN_COMMENTS = 15;
+
+/** Whether a community post clears the Reddit bar: rated important, or popular enough. */
+export function clearsCommunityBar(post: {
+  communityImportant: boolean | null;
+  engagement: { score?: number; comments?: number } | null;
+}): boolean {
+  return (
+    post.communityImportant === true ||
+    (post.engagement?.score ?? 0) >= COMMUNITY_MIN_SCORE ||
+    (post.engagement?.comments ?? 0) >= COMMUNITY_MIN_COMMENTS
+  );
+}
+
 /** A body this long counts as full text when choosing the lead article. */
 const FULL_TEXT_CHARS = 400;
 

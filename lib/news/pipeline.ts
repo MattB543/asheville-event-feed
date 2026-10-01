@@ -49,7 +49,10 @@ import {
 import { synthesizeStory, type SynthesisMember } from './ai/synthesize';
 import { dailyInputHash, summarizeDay } from './ai/daily';
 import {
+  clearsCommunityBar,
   COMMUNITY_LIVE_PER_DAY,
+  COMMUNITY_MIN_COMMENTS,
+  COMMUNITY_MIN_SCORE,
   MIN_LIVE_IMPORTANCE,
   etDay,
   mostCommon,
@@ -740,6 +743,7 @@ interface MemberRow {
   topics: string[];
   place: string | null;
   communityImportant: boolean | null;
+  engagement: { score?: number; comments?: number } | null;
   /** Attached or re-enriched since the story was last recomputed. */
   isNew: boolean;
 }
@@ -763,6 +767,7 @@ async function loadMembers(story: StoryRow): Promise<MemberRow[]> {
       topics: a.topics,
       place: a.place,
       communityImportant: a.communityImportant,
+      engagement: a.engagement,
       // Compared in SQL: JS Dates drop the microseconds.
       isNew: sql<boolean>`${a.updatedAt} > ${s.updatedAt}`,
     })
@@ -898,7 +903,7 @@ async function recomputeStory(ctx: RunContext, story: StoryRow): Promise<boolean
   if (tier === 'newsroom') {
     state = importance >= MIN_LIVE_IMPORTANCE ? 'live' : 'pending';
   } else {
-    const clearsBar = basis.some((m) => m.communityImportant === true);
+    const clearsBar = basis.some(clearsCommunityBar);
     state = clearsBar && story.state === 'live' ? 'live' : 'pending';
   }
 
@@ -972,9 +977,10 @@ async function recomputeStep(ctx: RunContext): Promise<void> {
 }
 
 /**
- * At most COMMUNITY_LIVE_PER_DAY community stories are live per filing day:
- * those with an important post, by engagement (when a feed carries it) and
- * then recency. The rest stay pending.
+ * At most COMMUNITY_LIVE_PER_DAY community stories are live per filing day,
+ * from those that clear the bar (an important post, or a popular one):
+ * AI-important first, so a popular complaint never displaces a fire report,
+ * then by score, comments and recency. The rest stay pending.
  *
  * Applied to every recent filing day with a pending community story that
  * qualifies, found in the database, so a story recompute left pending is
@@ -987,7 +993,9 @@ async function applyCommunityCap(ctx: RunContext): Promise<void> {
     FROM news_stories st
     JOIN news_articles m ON m.story_id = st.id AND m.state = 'live'
     WHERE st.tier = 'community' AND st.state = 'pending' AND st.dirty = false
-      AND m.community_important IS TRUE
+      AND (m.community_important IS TRUE
+           OR coalesce((m.engagement->>'score')::int, 0) >= ${COMMUNITY_MIN_SCORE}
+           OR coalesce((m.engagement->>'comments')::int, 0) >= ${COMMUNITY_MIN_COMMENTS})
       AND st.filing_day >= ${shiftDay(etDay(new Date()), -COMMUNITY_CAP_DAYS)}::date`);
   for (const { day } of days) {
     const rows = await db.execute<{
@@ -1008,9 +1016,12 @@ async function applyCommunityCap(ctx: RunContext): Promise<void> {
         AND st.filing_day = ${day}
       GROUP BY st.id`);
     const ranked = [...rows]
-      .filter((r) => r.important)
+      .filter(
+        (r) => r.important || r.score >= COMMUNITY_MIN_SCORE || r.comments >= COMMUNITY_MIN_COMMENTS
+      )
       .sort(
         (x, y) =>
+          Number(y.important) - Number(x.important) ||
           y.score - x.score ||
           y.comments - x.comments ||
           y.first_published_at.localeCompare(x.first_published_at)

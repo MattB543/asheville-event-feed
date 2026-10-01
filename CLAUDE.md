@@ -533,6 +533,10 @@ AZURE_OPENAI_API_KEY=        # or AZURE_KEY_1
 AZURE_OPENAI_ENDPOINT=       # or AZURE_ENDPOINT
 AZURE_OPENAI_DEPLOYMENT=     # default: gpt-5-mini
 AZURE_OPENAI_NEWS_DEPLOYMENT=  # news pipeline only; default: gpt-6.1-sol
+REDDIT_CLIENT_ID=            # news: Reddit personal-use script app
+REDDIT_CLIENT_SECRET=
+REDDIT_USERNAME=
+REDDIT_PASSWORD=             # quote it if it contains #
 AZURE_OPENAI_API_VERSION=    # default: 2024-12-01-preview
 
 # ===========================================
@@ -629,7 +633,7 @@ FB_XS=
 
 Built to `docs/news/05-v1-plan.md`; Matt's decisions are in `docs/news/decisions.md`.
 
-- **Sources**: `lib/news/sources/*.ts`, listed in `lib/news/registry.ts` (nothing scans the directory). Test one with `npm run news:test -- <key>`. Mountain Xpress, Reddit (RSS) and Buncombe County are `localOnly`, so they only update when someone runs `npm run news:local` (ingest incl. local-only sources, then the AI step; `--ai-only`, `--loop` to drain).
+- **Sources**: `lib/news/sources/*.ts`, listed in `lib/news/registry.ts` (nothing scans the directory). Test one with `npm run news:test -- <key>`. Mountain Xpress and Buncombe County are `localOnly`, so they only update when someone runs `npm run news:local`. Reddit reads the official API with a personal-use script app (`REDDIT_CLIENT_ID`, `REDDIT_CLIENT_SECRET`, `REDDIT_USERNAME`, `REDDIT_PASSWORD`; quote the password in `.env` if it has a `#`), so it runs on Vercel (ingest incl. local-only sources, then the AI step; `--ai-only`, `--loop` to drain).
 - **Tables**: `news_sources` (keyed by outlet domain; `enabled` is the takedown switch), `news_articles` (url is the only ingest identity; full text kept forever), `news_stories`, `news_days` (each day's AI "short version"). All deny-all under RLS. Every feed read uses `liveStories()` from `lib/news/db.ts`.
 - **AI**: Azure `AZURE_OPENAI_NEWS_DEPLOYMENT` (default `gpt-6.1-sol`, `low` effort), separate from the events deployment. An article goes live only when Buncombe is its subject. Stories marked `dirty` are recomputed from the DB; single-article stories use the article's headline/summary, multi-outlet ones get a synthesized one. A newsroom story shows only at importance ≥4 of 10 (`MIN_LIVE_IMPORTANCE`); Top = up to 5 stories a day scoring ≥14. `npm run news:eval` replays the labeled corpus in `data/news/eval/` (ship bar F1 ≥ 0.90).
 - **Page**: `/news` is uncached. Each day opens with a bulleted AI short version; Top stories are big cards; everything else is a headline linking out plus its topic tag. Share links are `/news?s=<short_id>`.

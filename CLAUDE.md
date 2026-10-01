@@ -76,6 +76,8 @@ asheville-event-feed/
 │   │   └── health/route.ts       # Health check
 │   ├── admin/posters/page.tsx    # Poster moderation queue (unlisted)
 │   ├── posters/page.tsx          # Community poster feed
+│   ├── groups/page.tsx           # Group Directory
+│   ├── groups/[slug]/page.tsx    # One group: upcoming + (collapsed) past events
 │   ├── auth/
 │   │   ├── callback/route.ts     # OAuth callback
 │   │   ├── confirm/route.ts      # Email confirmation
@@ -107,6 +109,7 @@ asheville-event-feed/
 │   ├── ThemeToggle.tsx           # Dark/light toggle
 │   ├── UserMenu.tsx              # User account menu
 │   ├── posters/                  # Poster feed, upload modal, admin queue
+│   ├── groups/                   # Directory search/chips (client), event row
 │   └── Providers.tsx             # Combined providers
 ├── lib/
 │   ├── ai/
@@ -132,6 +135,9 @@ asheville-event-feed/
 │   │   └── usePreferenceSync.ts  # Preference sync hook
 │   ├── notifications/
 │   │   └── slack.ts              # Slack webhook notifications
+│   ├── groups/
+│   │   ├── matchKeys.ts          # How an event matches a group (meetup / series keys)
+│   │   └── categories.ts         # Directory categories + labels
 │   ├── posters/
 │   │   ├── processUpload.ts      # Upload pipeline (normalize → extract → publish)
 │   │   └── promoteExtractions.ts # Extraction → event matching + insert
@@ -275,6 +281,22 @@ is `created` | `matched_existing` | `skipped_no_date` | `skipped_past` |
 Promotion is idempotent: settled outcomes are left alone and `failed` rows are
 retried, so approving an already-published upload is the retry path.
 
+### `groups` Table
+
+One row per recurring community group in the Group Directory (`/groups`), seeded
+from the committed `data/groups/directory.json` by `scripts/groups/seed-groups.ts`
+(migration `drizzle/0018_groups.sql`). `directory_key` is the stable identity
+(`c:<candidate slug>` | `m:<meetup urlname>`) the seed upserts on; `slug` can change.
+`hidden` is the moderation kill switch and the seed never writes it.
+
+There is **no link table and no `events.group_id`**: `match_keys` (`text[]`) holds
+`meetup:<urlname>` and `series:<normalizeTitle(title)>|<lower(trim(organizer))>`
+keys, and `lib/db/queries/groups.ts` matches events at read time (one SQL prefilter
+by urlname / organizer, then `eventMatchKey` in JS). Known limits: a group that
+renames its series or changes its organizer string stops matching until a key is
+added, and when dedup keeps a different-source copy of a group's event, that event
+drops off the group page.
+
 ### Row Level Security (RLS)
 
 RLS is enabled on all tables. Supabase's "RLS auto-enable trigger" is active, so new tables will have RLS enabled automatically. All database writes from the app go through server-side Drizzle ORM using `DATABASE_URL` (the `postgres` role), which bypasses RLS. RLS policies only govern access via Supabase's PostgREST API (the `anon` and `authenticated` roles exposed by the client-side anon key).
@@ -295,6 +317,7 @@ RLS is enabled on all tables. Supabase's "RLS auto-enable trigger" is active, so
 | `cron_job_runs`       | —                    | —                                                 |
 | `poster_uploads`      | —                    | —                                                 |
 | `poster_extractions`  | —                    | —                                                 |
+| `groups`              | —                    | —                                                 |
 | `news_sources`        | —                    | —                                                 |
 | `news_articles`       | —                    | —                                                 |
 | `news_stories`        | —                    | —                                                 |
@@ -649,6 +672,13 @@ Built to `docs/news/05-v1-plan.md`; Matt's decisions are in `docs/news/decisions
 - **Page**: `/news` is uncached. Each day opens with a bulleted AI short version; Top stories are big cards; everything else is a headline linking out plus its topic tag. Share links are `/news?s=<short_id>`.
 - **Takedown**: `npx tsx scripts/news/takedown.ts <domain>` disables the outlet and hides its articles and every story they fed, in one transaction (`--dry-run`, `--enable`).
 - `npm run cron:health` covers the news jobs, failing sources, stale local-only sources and the AI backlog.
+
+### Group Directory
+
+- `/groups` lists every non-hidden group (search + category chips, client-side, kept in `?q=` / `?cat=` via `history.replaceState` so Back restores them), grouped by category with the next upcoming event or "Last event <Mon YYYY>"; `/groups/[slug]` shows the first 10 upcoming events (the rest in a `<details>`) and up to 50 past events in a `<details>` that is collapsed unless nothing is upcoming. The cached query results carry a `GROUP_CACHE_SHAPE` version in their key: bump it when the cached shape or labels change, or dev/prod keep serving old entries. The header tabs are All Events · Top 30 · Groups · News: Groups replaced Your List, which lives in the account dropdown (signed in or out) and on `/profile`, and Posters has no tab (`/posters` is reached by URL and by poster events' links back to their poster)
+- Both pages render per request (`connection()`) over `unstable_cache` data keyed by the Eastern date and tagged `events` + `groups`, so the scrape job's cache invalidation refreshes them and yesterday's events never read as upcoming after midnight
+- The list comes from a multi-agent pipeline documented in `data/groups/README.md`: discovery → research (`data/groups/research/`) → links pass → `directory-overrides.json` (final human calls) → `npx tsx scripts/groups/build-directory.ts` → `npx tsx scripts/groups/seed-groups.ts [--apply]`. Edit the overrides, not `directory.json`. The seed prints a coverage report and a parity check (the pages' SQL prefilter vs a full JS scan) that must come back clean
+- Definition of a group (Matt): a specific set of people with a shared identity who return repeatedly. Not groups: trivia, open mics, karaoke, a business's paid classes/shows, low-value business networking, remote-only groups, anything outside Western NC
 
 ### Dark Mode
 

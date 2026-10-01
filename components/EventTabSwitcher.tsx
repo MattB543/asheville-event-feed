@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 
-type Tab = 'all' | 'top30' | 'yourList' | 'posters' | 'news';
+type Tab = 'all' | 'top30' | 'groups' | 'news';
 
 interface EventTabSwitcherProps {
   activeTab?: Tab;
@@ -13,7 +13,8 @@ export default function EventTabSwitcher({ activeTab }: EventTabSwitcherProps) {
   const searchParams = useSearchParams();
 
   // Build URL preserving other query params
-  const buildTabUrl = (tab: Exclude<Tab, 'news'>) => {
+  // Groups and News link to their own plain routes (see below); only the event tabs carry params
+  const buildTabUrl = (tab: 'all' | 'top30') => {
     const params = new URLSearchParams(searchParams.toString());
     params.delete('tab'); // No longer using tab query param
     // `p` deep-links one poster; it means nothing on the other tabs
@@ -23,20 +24,10 @@ export default function EventTabSwitcher({ activeTab }: EventTabSwitcherProps) {
     params.delete('q');
     params.delete('topic');
 
-    // Top30, Your List and Posters have their own routes
+    // Top30 has its own route
     if (tab === 'top30') {
       const queryString = params.toString();
       return `/events/top30${queryString ? `?${queryString}` : ''}`;
-    }
-
-    if (tab === 'yourList') {
-      const queryString = params.toString();
-      return `/events/your-list${queryString ? `?${queryString}` : ''}`;
-    }
-
-    if (tab === 'posters') {
-      const queryString = params.toString();
-      return `/posters${queryString ? `?${queryString}` : ''}`;
     }
 
     const queryString = params.toString();
@@ -69,25 +60,16 @@ export default function EventTabSwitcher({ activeTab }: EventTabSwitcherProps) {
       >
         Top 30
       </Link>
+      {/* Plain /groups: the feed's filter params mean nothing in the directory */}
       <Link
-        href={buildTabUrl('yourList')}
+        href="/groups"
         className={`px-2 sm:px-3 py-1 sm:py-1.5 text-xs sm:text-sm font-medium rounded-md cursor-pointer transition-colors ${
-          activeTab === 'yourList'
+          activeTab === 'groups'
             ? 'text-brand-600 dark:text-brand-400 bg-brand-50 dark:bg-brand-950/30'
             : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50'
         }`}
       >
-        Your List
-      </Link>
-      <Link
-        href={buildTabUrl('posters')}
-        className={`px-2 sm:px-3 py-1 sm:py-1.5 text-xs sm:text-sm font-medium rounded-md cursor-pointer transition-colors ${
-          activeTab === 'posters'
-            ? 'text-brand-600 dark:text-brand-400 bg-brand-50 dark:bg-brand-950/30'
-            : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50'
-        }`}
-      >
-        Posters
+        Groups
       </Link>
       {/* News filters are its own, so the link drops the event tabs' params */}
       <Link

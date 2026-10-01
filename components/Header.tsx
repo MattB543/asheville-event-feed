@@ -9,7 +9,7 @@ interface HeaderProps {
    * Highlights the active tab in the event tab switcher.
    * undefined = no tab highlighted (e.g., home page)
    */
-  activeTab?: 'all' | 'top30' | 'yourList' | 'posters' | 'news';
+  activeTab?: 'all' | 'top30' | 'groups' | 'news';
 }
 
 export default function Header({ activeTab }: HeaderProps) {

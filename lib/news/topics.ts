@@ -17,7 +17,7 @@ export interface NewsTopic {
 export const NEWS_TOPICS = [
   {
     slug: 'government',
-    label: 'Government & Politics',
+    label: 'Gov & Politics',
     guidance:
       'City council, county commission, town boards, elections, budgets, taxes, ordinances, the city water system and other public services',
   },

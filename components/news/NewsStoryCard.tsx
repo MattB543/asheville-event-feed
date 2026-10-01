@@ -1,5 +1,6 @@
 import { ArrowUpRight } from 'lucide-react';
 import type { NewsStoryView } from '@/lib/news/queries';
+import OtherSourcesMenu from './OtherSourcesMenu';
 import ShareButton from './ShareButton';
 import StoryImage from './StoryImage';
 import {
@@ -62,26 +63,27 @@ export default function NewsStoryCard({ story, now }: NewsStoryCardProps) {
           bigger; the row gap keeps those areas from overlapping when it wraps. */}
       <div className="mt-3.5 flex flex-wrap items-center gap-x-2 gap-y-3">
         {lead && (
-          <a
-            href={outboundUrl(lead.url)}
-            {...outboundProps}
-            className={`${TAP_AREA} inline-flex max-w-full items-center gap-1 rounded-md border border-brand-600/60 dark:border-brand-400/50 px-2.5 py-1 text-sm font-medium text-brand-700 dark:text-brand-300 hover:bg-brand-50 dark:hover:bg-brand-950/40 transition-colors`}
-          >
-            <span className="truncate">Read at {lead.outletName}</span>
-            <ArrowUpRight size={14} className="shrink-0" aria-hidden="true" />
-          </a>
+          // One outlined button: "Read at X", plus a caret that drops down the
+          // other outlets when there are any.
+          <span className="inline-flex h-6 max-w-full items-stretch rounded border border-brand-600/60 dark:border-brand-400/50 text-xs font-medium text-brand-700 dark:text-brand-300">
+            <a
+              href={outboundUrl(lead.url)}
+              {...outboundProps}
+              className={`${TAP_AREA} inline-flex min-w-0 items-center gap-1 px-2 hover:bg-brand-50 dark:hover:bg-brand-950/40 transition-colors ${
+                story.otherOutlets.length > 0 ? 'rounded-l' : 'rounded'
+              }`}
+            >
+              <span className="truncate">Read at {lead.outletName}</span>
+              <ArrowUpRight size={12} className="shrink-0" aria-hidden="true" />
+            </a>
+            {story.otherOutlets.length > 0 && (
+              <OtherSourcesMenu
+                sources={story.otherOutlets.map(({ url, outletName }) => ({ url, outletName }))}
+                triggerClassName="rounded-r border-l border-brand-600/40 dark:border-brand-400/40 px-1 hover:bg-brand-50 dark:hover:bg-brand-950/40"
+              />
+            )}
+          </span>
         )}
-
-        {story.otherOutlets.map((outlet) => (
-          <a
-            key={outlet.url}
-            href={outboundUrl(outlet.url)}
-            {...outboundProps}
-            className={`${TAP_AREA} inline-flex h-6 max-w-full items-center rounded border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 px-1.5 text-[11px] font-semibold text-gray-600 dark:text-gray-300 hover:border-brand-500 hover:text-brand-700 dark:hover:text-brand-300 transition-colors`}
-          >
-            <span className="truncate">{outlet.outletName}</span>
-          </a>
-        ))}
 
         {story.discussion && (
           <a

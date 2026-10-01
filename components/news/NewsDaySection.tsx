@@ -72,7 +72,7 @@ export default function NewsDaySection({ day, now }: NewsDaySectionProps) {
         {label}
       </h2>
 
-      <div className="bg-white dark:bg-gray-900 sm:border sm:border-t-0 border-gray-200 dark:border-gray-800 sm:rounded-b-lg sm:shadow-sm overflow-hidden">
+      <div className="bg-white dark:bg-gray-900 sm:border sm:border-t-0 border-gray-200 dark:border-gray-800 sm:rounded-b-lg sm:shadow-sm">
         {day.shortVersion && <ShortVersion sentences={day.shortVersion} linkable={onCards} />}
 
         {day.top.map((story) => (

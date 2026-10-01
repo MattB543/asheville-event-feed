@@ -388,12 +388,12 @@ Owns `app/news/**`, `components/news/**`, `lib/news/queries.ts`, `components/Eve
   3. Our summary.
   4. One bottom row:
      - an outlined **"Read at {outlet} ↗"** to the lead article, in a new tab with `utm_source=avlgo`;
-     - small chips for the other outlets, each linking to its article;
+     - when other outlets covered it, a vertical bar and a caret inside the same button that drop down "Also covered by" with a link to each (S34; no outlet badges);
      - "r/asheville discussion ↗" when a Reddit post is attached;
      - the topic · place tag;
      - a relative time;
      - **Share**: the native share sheet on mobile, copy plus a toast on desktop, sharing `https://avlgo.com/news?s=<short_id>`.
-- **Minimal row:** our headline, linked to the lead article (new tab, `utm_source=avlgo`), with a subtle ↗, then the story's topic tag linking to its filter (S32). Nothing else.
+- **Minimal row:** our headline, linked to the lead article (new tab, `utm_source=avlgo`), with a subtle ↗, the same bar-and-caret dropdown when other outlets covered it (S34), and the story's topic tag at the right, linking to its filter, left out when it would wrap the headline (S32, S35). The whole row is the link. Nothing else.
 - **Shared story (`?s=`).**
   - The id resolves on its own, regardless of the date window, search or topic.
   - If the story is on the page, scroll to it and give it a fading highlight, copying the `/posters?p=` pattern.

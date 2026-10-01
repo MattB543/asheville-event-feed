@@ -219,7 +219,7 @@ export default async function NewsPage({ searchParams }: NewsPageProps) {
 
             {sharedSlot && (
               <section aria-label="Shared with you" className="mt-6">
-                <div className="bg-white dark:bg-gray-900 sm:border border-y border-gray-200 dark:border-gray-800 sm:rounded-lg sm:shadow-sm overflow-hidden">
+                <div className="bg-white dark:bg-gray-900 sm:border border-y border-gray-200 dark:border-gray-800 sm:rounded-lg sm:shadow-sm">
                   <NewsListLabel>Shared with you</NewsListLabel>
                   <NewsStoryCard story={sharedSlot} now={now} />
                 </div>

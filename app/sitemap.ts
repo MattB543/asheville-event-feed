@@ -2,6 +2,7 @@ import type { MetadataRoute } from 'next';
 import { db } from '@/lib/db';
 import { events } from '@/lib/db/schema';
 import { gte, asc, and, eq } from 'drizzle-orm';
+import { queryGroupSitemapEntries } from '@/lib/db/queries/groups';
 import { generateEventSlug } from '@/lib/utils/slugify';
 import { getStartOfTodayEastern } from '@/lib/utils/timezone';
 
@@ -22,11 +23,32 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'daily',
       priority: 0.7,
     },
+    {
+      url: `${siteUrl}/groups`,
+      lastModified: new Date(),
+      changeFrequency: 'daily',
+      priority: 0.7,
+    },
   ];
 
   // If no database, return only static pages
   if (!process.env.DATABASE_URL) {
     return staticPages;
+  }
+
+  // Group pages get their own try, so a groups failure never drops the event pages
+  try {
+    const groupEntries = await queryGroupSitemapEntries();
+    staticPages.push(
+      ...groupEntries.map((group) => ({
+        url: `${siteUrl}/groups/${group.slug}`,
+        lastModified: group.updatedAt,
+        changeFrequency: 'weekly' as const,
+        priority: 0.6,
+      }))
+    );
+  } catch (error) {
+    console.error('[Sitemap] Failed to fetch groups:', error);
   }
 
   try {

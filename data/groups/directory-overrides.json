@@ -1,0 +1,130 @@
+{
+  "_comment": "Final human-level decisions applied on top of data/groups/research/results by scripts/groups/build-directory.ts. Keys are research record keys (c:<candidate slug> | m:<meetup urlname>). Keys starting with _ are ignored. Decided 2026-09-30.",
+  "reject": {
+    "c:fomo-collective": "Grey on the 2026-09-18 review; Matt greenlit only Oklawaha out of the nine grey entries, so the rest stay out.",
+    "c:django-jazz-jam-at-sovereign-kava": "Grey on the 2026-09-18 review; not greenlit (only Oklawaha was).",
+    "c:jacktown-ramblers-bluegrass-jam": "Grey on the 2026-09-18 review; not greenlit (only Oklawaha was).",
+    "c:appalachian-barn-alliance": "Grey on the 2026-09-18 review; not greenlit, and our only events are a benefit someone else hosted for them.",
+    "c:next-gen": "Grey on the 2026-09-18 review; not greenlit, and research found nothing beyond YMI listings."
+  },
+  "keep": {},
+  "merge": {
+    "_comment": "source key -> main key. The source's match keys move onto the main group; its listing text is dropped. These take precedence over research duplicate_of for any key they mention.",
+    "c:let-s-film-avl": "m:asheville-filmmakers-and-actors-group",
+    "c:creatives-over-easy": "m:whole-creative-living-collective",
+    "m:hendo-fun-friends": "m:https-www-meetup-com-hendo-fun-friends"
+  },
+  "not_duplicates": {
+    "_comment": "duplicate_of suggestions from research that are wrong; these stay separate groups.",
+    "c:asheville-swing-night": "Monthly dance at Haw Creek Commons, a different group from Swing Asheville's Monday classes; the 2026-09-18 normalization kept them apart on purpose.",
+    "c:seekhealing-blipoc-support-group": "Its own support community under the SeekHealing umbrella, listed separately like The Men's Nest."
+  },
+  "edits": {
+    "_comment": "Per-key field overrides, applied last. meetup_url: null = the Meetup group was deleted (its page says \"Group not found\", checked 2026-10-01); the listing stays, per the keep-dormant-groups rule.",
+    "m:hicksenthusiasts": {
+      "meetup_url": null
+    },
+    "m:active-senior-singles": {
+      "meetup_url": null
+    },
+    "m:anti-running-walking-club": {
+      "meetup_url": null
+    },
+    "m:asheville-book-club-meetup": {
+      "meetup_url": null
+    },
+    "m:asheville-creativity-journaling-meetup-group": {
+      "meetup_url": null
+    },
+    "c:asheville-gay-men-s-chorus": {
+      "meetup_url": null
+    },
+    "c:asheville-guitar-league": {
+      "meetup_url": null
+    },
+    "m:asheville-human-design-meetup-group": {
+      "meetup_url": null
+    },
+    "m:asheville-in-town-walking-group": {
+      "meetup_url": null
+    },
+    "m:asheville-pizzanpint-movie-group": {
+      "meetup_url": null
+    },
+    "m:asheville-retro-video-gaming-meetup-group": {
+      "meetup_url": null
+    },
+    "m:asheville-weekly-pot-luck-dinners-meetup-group": {
+      "meetup_url": null
+    },
+    "m:asheville-tao-journal-writing-meetup-group": {
+      "meetup_url": null
+    },
+    "m:avl-lgbt-meetupppers": {
+      "meetup_url": null
+    },
+    "m:candler-dungeons-dragons-group": {
+      "meetup_url": null
+    },
+    "m:connect-avl": {
+      "meetup_url": null
+    },
+    "m:cryptomondays-asheville": {
+      "meetup_url": null
+    },
+    "m:depth-disclosure-philosophy-psyche-and-systems": {
+      "meetup_url": null
+    },
+    "m:enjoy-your-life-asheville": {
+      "meetup_url": null
+    },
+    "m:hikingwnc30-40-50": {
+      "meetup_url": null
+    },
+    "m:kaly%C4%81%E1%B9%87a-mitta-meditation-center": {
+      "meetup_url": null
+    },
+    "m:leveling-up-with-lattes": {
+      "meetup_url": null
+    },
+    "m:inner-light-women-s-gathering-for-mothers": {
+      "meetup_url": null
+    },
+    "m:marymagdalene": {
+      "meetup_url": null
+    },
+    "m:men-s-integration-group-asheville-introductory-events": {
+      "meetup_url": null
+    },
+    "m:asheville-men-smasterycircle-reclaimingyourself": {
+      "meetup_url": null
+    },
+    "m:middle-aged-and-awesome-2": {
+      "meetup_url": null
+    },
+    "m:next-season-collective-between-seasons": {
+      "meetup_url": null
+    },
+    "m:not-dead-yet-ashevilles-women-in-their-50s": {
+      "meetup_url": null
+    },
+    "m:open-hearted-christians-deep-conversations": {
+      "meetup_url": null
+    },
+    "m:restoringwnc": {
+      "meetup_url": null
+    },
+    "m:goddess-deer-medicine-circle": {
+      "meetup_url": null
+    },
+    "m:terrax-social-combat": {
+      "meetup_url": null
+    },
+    "c:tuesday-night-magic-at-the-local-collective": {
+      "meetup_url": null
+    },
+    "m:whole-creative-living-collective": {
+      "meetup_url": null
+    }
+  }
+}

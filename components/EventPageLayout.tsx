@@ -9,8 +9,8 @@ import {
 } from '@/lib/db/queries/events';
 
 interface EventPageLayoutProps {
-  // Narrower than Header's union on purpose: this layout always renders
-  // EventFeed, and there is no poster mode for the feed.
+  // Not Header's union: this layout always renders EventFeed, which has a
+  // Your List mode but no groups or poster mode.
   activeTab: 'all' | 'top30' | 'yourList';
   initialEvents: DbEvent[];
   initialTotalCount: number;
@@ -27,7 +27,8 @@ export default function EventPageLayout({
 }: EventPageLayoutProps) {
   return (
     <main className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-950">
-      <Header activeTab={activeTab} />
+      {/* Your List has no tab any more (it lives in the account menu) */}
+      <Header activeTab={activeTab === 'yourList' ? undefined : activeTab} />
 
       <InfoBanner />
 

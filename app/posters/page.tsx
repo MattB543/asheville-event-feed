@@ -125,7 +125,7 @@ export default async function PostersPage({ searchParams }: PostersPageProps) {
 
   return (
     <main className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-950">
-      <Header activeTab="posters" />
+      <Header />
 
       <div className="flex-grow">
         {/* Page furniture stays in the same max-w-7xl column as the event pages,

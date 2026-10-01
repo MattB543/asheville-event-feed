@@ -726,3 +726,33 @@ export const newsDays = pgTable('news_days', {
   inputHash: text('input_hash').notNull(),
   generatedAt: timestamp('generated_at', { withTimezone: true }).defaultNow().notNull(),
 });
+
+// Group Directory (/groups). One row per recurring community group, seeded from the committed
+// data/groups/directory.json by scripts/groups/seed-groups.ts. Events are NOT linked by a column or
+// join table: a group page matches events at read time by `matchKeys` (see lib/groups/matchKeys.ts),
+// so a renamed or newly scraped event never needs relinking.
+export const groups = pgTable(
+  'groups',
+  {
+    id: uuid('id').defaultRandom().primaryKey(),
+    // Stable identity across re-seeds: the research record key of the surviving listing
+    // ('c:<candidate slug>' | 'm:<meetup urlname>'). The slug can change; this cannot.
+    directoryKey: text('directory_key').unique().notNull(),
+    slug: text('slug').unique().notNull(),
+    name: text('name').notNull(),
+    description: text('description'),
+    category: text('category').notNull(), // One of GROUP_CATEGORIES in lib/groups/categories.ts
+    website: text('website'), // The group's own site or social page (never an event aggregator)
+    meetupUrl: text('meetup_url'),
+    schedule: text('schedule'), // e.g. "Weekly on Wednesdays"
+    homeBase: text('home_base'), // e.g. "Liberty Bicycles, West Asheville"
+    // 'meetup:<urlname>' | 'series:<normalized title>|<normalized organizer>'
+    matchKeys: text('match_keys').array().default([]).notNull(),
+    hidden: boolean('hidden').default(false).notNull(), // Moderation kill switch; the seed never overwrites it
+    createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
+    updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow().notNull(),
+  },
+  (table) => ({
+    groupsCategoryIdx: index('groups_category_idx').on(table.category),
+  })
+);

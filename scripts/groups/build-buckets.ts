@@ -19,31 +19,13 @@ import '../../lib/config/env';
 import postgres from 'postgres';
 import { mkdirSync, writeFileSync, rmSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
+import { normalizeTitle } from '../../lib/groups/matchKeys';
 
 const BUCKET_SIZE = 200;
 const MIN_COUNT = 2;
 const DESCRIPTION_CHARS = 600;
 const OUT = join(process.cwd(), 'data', 'groups');
 const LIVE = `deduped_at IS NULL AND dead_at IS NULL AND hidden = false`;
-
-const MONTHS =
-  'jan|feb|mar|apr|may|jun|jul|aug|sep|sept|oct|nov|dec|january|february|march|april|june|july|august|september|october|november|december';
-const DATE_AFTER_MONTH = new RegExp(
-  `\\b(${MONTHS})\\.?\\s+\\d{1,2}(st|nd|rd|th)?(,?\\s*\\d{4})?\\b`,
-  'g'
-);
-
-/** Lowercase, drop dates, keep only [a-z0-9] tokens, so "Trivia Night 9/17" and "Trivia Night - Sept 24th" collapse. */
-export function normalizeTitle(title: string): string {
-  return title
-    .toLowerCase()
-    .replace(/\b\d{1,2}\/\d{1,2}(\/\d{2,4})?\b/g, ' ')
-    .replace(DATE_AFTER_MONTH, ' ')
-    .replace(/\b20\d\d\b/g, ' ')
-    .replace(/[^a-z0-9]+/g, ' ')
-    .trim()
-    .replace(/\s+/g, ' ');
-}
 
 function cleanDescription(raw: string | null): string | null {
   if (!raw) return null;

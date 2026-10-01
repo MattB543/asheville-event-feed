@@ -306,6 +306,82 @@ function countSharedDescriptionWordsPrepared(
   return count;
 }
 
+// Words that don't tell one library location from another.
+const LOCATION_FILLER_WORDS = new Set([
+  'the',
+  'of',
+  'at',
+  'and',
+  'library',
+  'libraries',
+  'public',
+  'branch',
+  'county',
+]);
+const LOCATION_DIRECTIONS: Record<string, string> = {
+  north: 'n',
+  south: 's',
+  east: 'e',
+  west: 'w',
+};
+
+/** Lowercase words, punctuation/state/zip dropped: "NC 28801" == "NC, 28801", "South" == "S". */
+function normalizeLocationWords(text: string): string[] {
+  return text
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, ' ')
+    .split(' ')
+    .filter((w) => w && w !== 'nc' && w !== 'usa' && !/^\d{5}$/.test(w))
+    .map((w) => LOCATION_DIRECTIONS[w] ?? w);
+}
+
+function isSubsetOf(small: Set<string>, large: Set<string>): boolean {
+  for (const w of small) if (!large.has(w)) return false;
+  return true;
+}
+
+/**
+ * Whether two location strings name the same place. Same normalized text, or
+ * the same venue name (text before the first comma, filler words dropped, one
+ * name's words contained in the other's: "Leicester Public Library" ~
+ * "Leicester Library") plus, when both give one, the same street number and
+ * name. The street check keeps the Oakley library apart from Murphy-Oakley
+ * Community Center, which shares its 749 Fairview Rd building.
+ */
+function isSameLocation(loc1: string, loc2: string): boolean {
+  const full1 = normalizeLocationWords(loc1).join(' ');
+  const full2 = normalizeLocationWords(loc2).join(' ');
+  if (full1 && full1 === full2) return true;
+
+  const venueWords = (loc: string) =>
+    new Set(normalizeLocationWords(loc.split(',')[0]).filter((w) => !LOCATION_FILLER_WORDS.has(w)));
+  const venue1 = venueWords(loc1);
+  const venue2 = venueWords(loc2);
+  if (venue1.size === 0 || venue2.size === 0) return false;
+  const venuesNest = isSubsetOf(venue1, venue2) || isSubsetOf(venue2, venue1);
+
+  const street = (full: string) => full.match(/\b(\d+ (?:[nsew] )?[a-z]+)/)?.[1];
+  const street1 = street(full1);
+  const street2 = street(full2);
+  if (street1 && street2) return street1 === street2 && venuesNest;
+  // Without both street addresses, only an identical venue name counts.
+  return venue1.size === venue2.size && isSubsetOf(venue1, venue2);
+}
+
+/**
+ * LIBRARY rows only merge with a row that is clearly at the same place. Every
+ * branch runs "Toddler Story Time" at 10:30 under one system organizer, and
+ * methods A, C and E would otherwise collapse branches into each other (or into
+ * other sources' toddler programs). An unknown location never counts as a match.
+ */
+function isLibraryLocationConflict(event1: EventForDedup, event2: EventForDedup): boolean {
+  if (event1.source !== 'LIBRARY' && event2.source !== 'LIBRARY') return false;
+  const loc1 = event1.location?.trim();
+  const loc2 = event2.location?.trim();
+  if (!loc1 || !loc2) return true;
+  return !isSameLocation(loc1, loc2);
+}
+
 /**
  * Normalize organizer name for comparison
  */
@@ -585,6 +661,14 @@ export function findDuplicates(events: EventForDedup[]): DuplicateGroup[] {
 
       for (const event2 of candidates) {
         if (processed.has(event2.id)) continue;
+        // Checked against every row already in the group, so a third-party copy
+        // can't pull two branches into one group.
+        if (
+          isLibraryLocationConflict(event1, event2) ||
+          duplicates.some(({ event }) => isLibraryLocationConflict(event, event2))
+        ) {
+          continue;
+        }
 
         // Pre-compute common values
         const sameOrganizer = event1.normOrganizer === event2.normOrganizer;

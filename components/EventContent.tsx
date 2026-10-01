@@ -20,6 +20,7 @@ import { cleanAshevilleFromSummary, cleanMarkdown } from '@/lib/utils/parsers';
 import { formatTagForDisplay } from '@/lib/utils/formatTag';
 import { generateCalendarUrlForEvent } from '@/lib/utils/googleCalendar';
 import { downloadEventAsICS } from '@/lib/utils/icsGenerator';
+import { getLibrarySystemName } from '@/lib/config/librarySystems';
 import { getMatchingProgramsForEvent } from '@/lib/matching/programs';
 
 interface EventContentProps {
@@ -227,6 +228,14 @@ export default function EventContent({
         return 'UNC Asheville';
       case 'LITTLE_ANIMALS':
         return 'Little Animals';
+      case 'LIBRARY':
+        return getLibrarySystemName(event.url) ?? 'Library Calendar';
+      case 'CITY_OF_ASHEVILLE':
+        return 'City of Asheville';
+      case 'BUNCOMBE_COUNTY':
+        return 'Buncombe County';
+      case 'ASHEVILLE_PARKS_REC':
+        return 'Asheville Parks & Rec';
       case 'POSTER':
         return 'Community poster';
       default:

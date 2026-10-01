@@ -25,6 +25,13 @@ export type EventSource =
   | 'ASHEVILLE_MUSIC_HALL'
   | 'PISGAH_BREWING'
   | 'KING_STREET'
+  // Public library systems near Asheville - see lib/scrapers/library.ts
+  | 'LIBRARY'
+  // City of Asheville Parks & Recreation (WebTrac) - see lib/scrapers/ashevilleparksrec.ts
+  | 'ASHEVILLE_PARKS_REC'
+  // Government calendars - see lib/scrapers/cityofasheville.ts and lib/scrapers/buncombecounty.ts
+  | 'CITY_OF_ASHEVILLE'
+  | 'BUNCOMBE_COUNTY'
   // Not scraped - created from a user-uploaded poster (lib/posters/promoteExtractions.ts)
   | 'POSTER';
 

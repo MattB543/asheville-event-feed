@@ -14,7 +14,7 @@ const RUN_BUDGET_MS = 270_000;
 //
 // Scrapes every news source into news_articles and fetches full text for new
 // articles. AI enrichment, clustering and summaries are /api/cron/news-ai.
-// localOnly sources (Reddit, Buncombe County, ...) are skipped on Vercel and
+// localOnly sources (Mountain Xpress, Buncombe County) are skipped on Vercel and
 // refreshed by scripts/news/run-local.ts.
 //
 // Schedule: every 3 hours at :40 (cron: "40 */3 * * *")

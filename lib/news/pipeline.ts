@@ -67,7 +67,7 @@ import type { NewsSourceKind } from './types';
 /** Default run budget; the route passes start + 660s explicitly. */
 const DEFAULT_RUN_MS = 660_000;
 /** A 'news-ai' row still `running` this long after it started is a dead run (maxDuration is 800s). */
-const LEASE_MINUTES = 15;
+const LEASE_MINUTES = 20;
 
 /** Articles published longer ago than this are never enriched for the first time. */
 const ENRICH_WINDOW_DAYS = 14;

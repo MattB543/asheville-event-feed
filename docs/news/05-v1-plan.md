@@ -292,7 +292,7 @@ Then:
 
   All other days stay frozen.
 
-_Also as built:_ a throttled, timed-out or 5xx model call never uses up an article's 3 attempts (an Azure outage would otherwise skip the oldest backlog for good); an auth or deployment error aborts the run; a permanent synthesis failure falls back to the lead article's own headline and summary; and the `news-ai` lease is a unique index on `cron_job_runs` (one `running` row), with stale holders expired after 15 minutes.
+_Also as built:_ a throttled, timed-out or 5xx model call never uses up an article's 3 attempts (an Azure outage would otherwise skip the oldest backlog for good); an auth or deployment error aborts the run; a permanent synthesis failure falls back to the lead article's own headline and summary; and the `news-ai` lease is a unique index on `cron_job_runs` (one `running` row), with stale holders expired after 20 minutes.
 
 **Daily summary.**
 

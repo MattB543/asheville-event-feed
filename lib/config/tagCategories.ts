@@ -46,6 +46,7 @@ export const TAG_CATEGORIES = [
       'LGBTQ+',
       'Pets',
       'Community',
+      'Civic',
       'Volunteering',
       'Support Groups',
     ],
@@ -101,6 +102,7 @@ export const TAG_GUIDANCE = {
   'LGBTQ+': 'pride, queer-specific events',
   Pets: 'dog-friendly, goat yoga, cat lounges',
   Community: 'neighborhood events, local meetups',
+  Civic: 'government meetings, public hearings, town halls, candidate forums, voting',
   Volunteering: 'volunteer opportunities, community service, charity work',
   'Support Groups': 'recovery, grief, mental health support meetings',
   // Seasonal

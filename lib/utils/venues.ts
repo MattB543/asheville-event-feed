@@ -37,7 +37,7 @@ const KNOWN_VENUES: Map<string, string[]> = new Map([
       'harrahs',
       'harrahs asheville',
       'thomas wolfe auditorium',
-      'thomas wolfe',
+      // Not bare "thomas wolfe": that is also the Thomas Wolfe Memorial, a different site.
       'us cellular center',
       'civic center asheville',
       'exploreasheville arena',
@@ -138,6 +138,9 @@ export function isKnownVenue(venue: string | null | undefined): boolean {
   return getCanonicalVenue(venue) !== null;
 }
 
+/** Shortest venue name (normalized) Pattern 4 will find inside a longer location. */
+const MIN_CONTAINED_NAME_LENGTH = 4;
+
 /**
  * Extract venue name from a location string.
  *
@@ -164,21 +167,23 @@ export function extractVenueFromLocation(location: string | null | undefined): s
     return dashMatch[1].trim();
   }
 
-  // Pattern 3: Check if the whole location is a known venue
-  const canonical = getCanonicalVenue(location);
-  if (canonical) {
+  // Pattern 3: The whole location, or its first comma-separated part ("The Odd,
+  // 1045 Haywood Rd"), is a known venue
+  if (getCanonicalVenue(location)) {
     return location;
   }
+  const firstPart = location.split(',')[0].trim();
+  if (getCanonicalVenue(firstPart)) {
+    return firstPart;
+  }
 
-  // Pattern 4: Location contains a known venue name
-  const normalized = normalizeVenueName(location);
+  // Pattern 4: Location contains a known venue name, as whole words. A raw
+  // substring match read "Toddler" as The Odd and "Activity" as ACT; names this
+  // short are only trusted whole (Pattern 3).
+  const normalized = ` ${normalizeVenueName(location)} `;
   for (const [canonical, aliases] of KNOWN_VENUES) {
-    if (normalized.includes(canonical)) {
-      return canonical;
-    }
-    for (const alias of aliases) {
-      const normalizedAlias = normalizeVenueName(alias);
-      if (normalized.includes(normalizedAlias)) {
+    for (const name of [canonical, ...aliases.map(normalizeVenueName)]) {
+      if (name.length >= MIN_CONTAINED_NAME_LENGTH && normalized.includes(` ${name} `)) {
         return canonical;
       }
     }
@@ -210,13 +215,34 @@ export function getVenueForEvent(
     return getCanonicalVenue(locVenue) || normalizeVenueName(locVenue);
   }
 
-  // Finally try extracting from title (handles "@ Venue" patterns)
+  // Finally the title, but only where it names the venue: "Show @ Venue", or
+  // "Show at <known venue>" ("Oktoberfest at the Funkatorium"). Searching the
+  // whole title found venues in ordinary words ("Toddler" -> The Odd,
+  // "Character" -> ACT) and in sponsors ("Sierra Nevada ... Party on The Roof").
   if (title) {
-    const titleVenue = extractVenueFromLocation(title);
-    if (titleVenue) {
-      return getCanonicalVenue(titleVenue) || normalizeVenueName(titleVenue);
+    const atVenue = title.match(/@\s*(.+)$/)?.[1]?.trim();
+    if (atVenue) {
+      return getCanonicalVenue(atVenue) || normalizeVenueName(atVenue);
+    }
+    // Lookahead so every "at" is tried, not just the first ("Look at Me at The Odd")
+    for (const match of title.matchAll(/\bat\s+(?=(.+))/gi)) {
+      const venue = knownVenueAtStart(match[1]);
+      if (venue) return venue;
     }
   }
 
+  return null;
+}
+
+/** The known venue a phrase starts with ("the Funkatorium on Coxe" -> "wicked weed"). */
+function knownVenueAtStart(text: string): string | null {
+  const normalized = `${normalizeVenueName(text)} `;
+  for (const [canonical, aliases] of KNOWN_VENUES) {
+    for (const name of [canonical, ...aliases.map(normalizeVenueName)]) {
+      if (name.length >= MIN_CONTAINED_NAME_LENGTH && normalized.startsWith(`${name} `)) {
+        return canonical;
+      }
+    }
+  }
   return null;
 }

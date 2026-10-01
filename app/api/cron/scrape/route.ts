@@ -24,6 +24,10 @@ import { scrapeLittleAnimals } from '@/lib/scrapers/littleanimals';
 import { scrapeAshevilleMusicHall } from '@/lib/scrapers/ashevillemusichall';
 import { scrapePisgahBrewing } from '@/lib/scrapers/pisgahbrewing';
 import { scrapeKingStreet } from '@/lib/scrapers/kingstreet';
+import { scrapeLibraries } from '@/lib/scrapers/library';
+import { scrapeCityOfAsheville } from '@/lib/scrapers/cityofasheville';
+import { scrapeBuncombeCounty } from '@/lib/scrapers/buncombecounty';
+import { scrapeAshevilleParksRec } from '@/lib/scrapers/ashevilleparksrec';
 import { db } from '@/lib/db';
 import { events } from '@/lib/db/schema';
 import { inArray, eq, sql, and, isNull, or } from 'drizzle-orm';
@@ -92,6 +96,15 @@ const SCRAPERS: ScraperDef[] = [
   { name: 'Asheville Music Hall', fn: scrapeAshevilleMusicHall },
   { name: 'Pisgah Brewing', fn: scrapePisgahBrewing },
   { name: '185 King Street', fn: scrapeKingStreet },
+  { name: 'Libraries', fn: scrapeLibraries },
+  // AVL Today syndicates the city calendar under the same event URLs, so both upsert one row.
+  // Keep this after AVL Today: upserts run in registry order, and the later write wins.
+  { name: 'City of Asheville', fn: scrapeCityOfAsheville },
+  { name: 'Buncombe County', fn: scrapeBuncombeCounty },
+  // City Parks & Rec's WebTrac site is behind Cloudflare: Node's fetch is 403'd
+  // and only the fetchAsChrome dispatcher gets in, so assume the same Vercel
+  // egress block as Mountain Xpress and NC Stage. Untested from Vercel.
+  { name: 'Asheville Parks & Rec', fn: scrapeAshevilleParksRec, localOnly: true },
 ];
 
 // Scrape-only cron job
@@ -332,6 +345,9 @@ export async function GET(request: Request) {
                   // re-scrape must not overwrite enrichment with shorter text
                   description: sql`CASE WHEN length(coalesce(${event.description ?? null}::text, '')) > length(coalesce(${events.description}, '')) THEN ${event.description ?? null}::text ELSE ${events.description} END`,
                   startDate: event.startDate,
+                  // Moves with startDate, so a placeholder time never reads as a real one (or
+                  // the reverse). Many scrapers never set it; their undefined keeps the row's value.
+                  timeUnknown: sql`COALESCE(${event.timeUnknown ?? null}::boolean, ${events.timeUnknown})`,
                   location: sql`COALESCE(NULLIF(trim(${event.location ?? null}::text), ''), ${events.location})`,
                   zip: sql`COALESCE(NULLIF(trim(${event.zip ?? null}::text), ''), ${events.zip})`,
                   organizer: sql`COALESCE(NULLIF(trim(${event.organizer ?? null}::text), ''), ${events.organizer})`,

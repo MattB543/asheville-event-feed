@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Header from '@/components/Header';
+import FooterCredit from '@/components/FooterCredit';
 import PosterUploadButton from '@/components/posters/PosterUploadButton';
 import PosterWall from '@/components/posters/PosterWall';
 import {
@@ -218,8 +219,9 @@ export default async function PostersPage({ searchParams }: PostersPageProps) {
           // edge to edge, so the patchwork has no margin breaking it up. The
           // gap above it is large on purpose - butted right under the header the
           // wall reads as part of the page furniture rather than as its own
-          // thing, and the tape needs room to hang above the top row.
-          <div className="px-1 sm:px-2 pt-14 sm:pt-24 pb-10">
+          // thing, and the tape needs room to hang above the top row. Tape on the
+          // edge columns is clipped sideways so it can't widen the page.
+          <div className="overflow-x-clip px-1 sm:px-2 pt-14 sm:pt-24 pb-10">
             <PosterWall
               uploads={uploads}
               initialExtractionId={targetExtractionId}
@@ -230,18 +232,7 @@ export default async function PostersPage({ searchParams }: PostersPageProps) {
       </div>
 
       <footer className="bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 mt-8 py-8 text-center text-sm text-gray-500 dark:text-gray-400">
-        <p className="mb-2">
-          Built by{' '}
-          <a
-            href="https://mattbrooks.xyz"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="underline hover:text-gray-700 dark:hover:text-gray-300"
-          >
-            Matt
-          </a>{' '}
-          at Brooks Solutions, LLC.
-        </p>
+        <FooterCredit />
         <p>© {new Date().getFullYear()} AVL GO.</p>
       </footer>
     </main>

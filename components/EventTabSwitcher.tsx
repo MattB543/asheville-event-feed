@@ -35,24 +35,24 @@ export default function EventTabSwitcher({ activeTab }: EventTabSwitcherProps) {
   };
 
   return (
+    // Content-width tabs: 36px tall below lg (touch), the original 32px at lg+
     <nav
       className="flex items-center gap-0.5 sm:gap-1 whitespace-nowrap"
       aria-label="Event feed tabs"
     >
       <Link
         href={buildTabUrl('all')}
-        className={`px-2 sm:px-3 py-1 sm:py-1.5 text-xs sm:text-sm font-medium rounded-md cursor-pointer transition-colors ${
+        className={`flex items-center min-h-9 px-2.5 sm:px-3 lg:min-h-0 lg:py-1.5 text-sm font-medium rounded-md cursor-pointer transition-colors ${
           activeTab === 'all'
             ? 'text-gray-900 dark:text-white bg-gray-100 dark:bg-gray-800'
             : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50'
         }`}
       >
-        <span className="sm:hidden">All</span>
-        <span className="hidden sm:inline">All Events</span>
+        All Events
       </Link>
       <Link
         href={buildTabUrl('top30')}
-        className={`px-2 sm:px-3 py-1 sm:py-1.5 text-xs sm:text-sm font-medium rounded-md cursor-pointer transition-colors ${
+        className={`flex items-center min-h-9 px-2.5 sm:px-3 lg:min-h-0 lg:py-1.5 text-sm font-medium rounded-md cursor-pointer transition-colors ${
           activeTab === 'top30'
             ? 'text-brand-600 dark:text-brand-400 bg-brand-50 dark:bg-brand-950/30'
             : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50'
@@ -63,7 +63,7 @@ export default function EventTabSwitcher({ activeTab }: EventTabSwitcherProps) {
       {/* Plain /groups: the feed's filter params mean nothing in the directory */}
       <Link
         href="/groups"
-        className={`px-2 sm:px-3 py-1 sm:py-1.5 text-xs sm:text-sm font-medium rounded-md cursor-pointer transition-colors ${
+        className={`flex items-center min-h-9 px-2.5 sm:px-3 lg:min-h-0 lg:py-1.5 text-sm font-medium rounded-md cursor-pointer transition-colors ${
           activeTab === 'groups'
             ? 'text-brand-600 dark:text-brand-400 bg-brand-50 dark:bg-brand-950/30'
             : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50'
@@ -74,7 +74,7 @@ export default function EventTabSwitcher({ activeTab }: EventTabSwitcherProps) {
       {/* News filters are its own, so the link drops the event tabs' params */}
       <Link
         href="/news"
-        className={`px-2 sm:px-3 py-1 sm:py-1.5 text-xs sm:text-sm font-medium rounded-md cursor-pointer transition-colors ${
+        className={`flex items-center min-h-9 px-2.5 sm:px-3 lg:min-h-0 lg:py-1.5 text-sm font-medium rounded-md cursor-pointer transition-colors ${
           activeTab === 'news'
             ? 'text-brand-600 dark:text-brand-400 bg-brand-50 dark:bg-brand-950/30'
             : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50'

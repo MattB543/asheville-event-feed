@@ -868,10 +868,11 @@ export default function EventCard({
             border-b border-gray-300 dark:border-gray-600
             bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800 transition-opacity`}
         >
-          {/* Title */}
+          {/* Title: ellipsizes rather than push the row past the card. The venue
+              shrinks faster; the tags (capped below) and date chip keep their room. */}
           <Link
             href={eventUrl}
-            className="text-sm font-medium text-brand-600 dark:text-brand-400 hover:underline whitespace-nowrap shrink-0"
+            className="text-sm font-medium text-brand-600 dark:text-brand-400 hover:underline truncate min-w-0"
             onClick={
               onOpenModal
                 ? handleOpenModal
@@ -888,14 +889,15 @@ export default function EventCard({
 
           {/* Venue/Host */}
           {venueName && (
-            <span className="text-sm text-gray-500 dark:text-gray-400 truncate min-w-0">
+            <span className="text-sm text-gray-500 dark:text-gray-400 truncate min-w-0 shrink-[3]">
               {venueName}
             </span>
           )}
 
-          {/* Tags - pushed to the right */}
+          {/* Tags - pushed to the right; capped so the title/venue give way first,
+              and clipped rather than overflowing if the row is very tight */}
           {minimizedTags.length > 0 && (
-            <div className="flex items-center gap-1 shrink-0 ml-auto">
+            <div className="flex items-center gap-1 shrink-0 max-w-[45%] overflow-hidden ml-auto">
               {minimizedTags.map((tag) => (
                 <span
                   key={tag}

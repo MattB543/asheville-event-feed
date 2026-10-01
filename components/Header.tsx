@@ -9,7 +9,7 @@ interface HeaderProps {
    * Highlights the active tab in the event tab switcher.
    * undefined = no tab highlighted (e.g., home page)
    */
-  activeTab?: 'all' | 'top30' | 'yourList' | 'posters';
+  activeTab?: 'all' | 'top30' | 'yourList' | 'posters' | 'news';
 }
 
 export default function Header({ activeTab }: HeaderProps) {
@@ -34,10 +34,11 @@ export default function Header({ activeTab }: HeaderProps) {
               <UserMenu />
             </div>
           </div>
-          {/* Row 2: Tabs + attribution */}
+          {/* Row 2: Tabs + attribution. With five tabs there is no room for the
+              credit on the narrowest phones; the footer still carries it. */}
           <div className="flex items-center justify-between">
             <EventTabSwitcher activeTab={activeTab} />
-            <div className="text-xs text-gray-500/50 dark:text-gray-400/50">
+            <div className="hidden min-[425px]:block text-xs text-gray-500/50 dark:text-gray-400/50">
               <a
                 href="https://github.com/MattB543/asheville-event-feed"
                 target="_blank"

@@ -232,6 +232,80 @@ async function enrichment() {
   }
 }
 
+// Local news (lib/news). Mountain Xpress, Reddit and Buncombe County only run
+// from `npm run news:local`, so a stale source here usually means nobody has
+// run it lately, not that the scraper broke.
+const NEWS_JOBS = ['news-scrape', 'news-ai'];
+
+async function news() {
+  console.log(`
+NEWS — last ${DAYS} days`);
+  hr();
+
+  const lastRuns = await sql<{ job_name: string; age_hours: number }[]>`
+    select job_name, (extract(epoch from (now() - max(started_at))) / 3600)::float8 as age_hours
+    from cron_job_runs
+    where job_name = any(${NEWS_JOBS}) and started_at > now() - make_interval(days => ${DAYS})
+    group by job_name`;
+  for (const job of NEWS_JOBS) {
+    const run = lastRuns.find((r) => r.job_name === job);
+    if (!run) problems.push(`${job}: no runs in the last ${DAYS} days.`);
+    else if (run.age_hours > 7)
+      problems.push(`${job}: last run ${fmtAge(run.age_hours)} ago (runs every 3h).`);
+  }
+
+  const runs = await sql<{ result: Record<string, unknown> }[]>`
+    select result from cron_job_runs
+    where job_name = 'news-scrape' and started_at > now() - make_interval(days => ${DAYS})
+    order by started_at desc`;
+  const failures = new Map<string, { n: number; error: string }>();
+  for (const run of runs) {
+    for (const s of (run.result?.scrapers as ScraperStat[] | undefined) ?? []) {
+      if (s.ok) continue;
+      const prev = failures.get(s.name);
+      failures.set(s.name, { n: (prev?.n ?? 0) + 1, error: s.error ?? 'unknown' });
+    }
+  }
+  console.log(`news-scrape runs: ${runs.length}`);
+  for (const [name, { n, error }] of failures) {
+    console.log(`  ${name.padEnd(28)} failed x${n}: ${error.slice(0, 40)}`);
+    problems.push(`News source "${name}" failed ${n}x: ${error.slice(0, 60)}`);
+  }
+
+  const stale = await sql<{ source: string; age_hours: number }[]>`
+    select source, (extract(epoch from (now() - max(last_seen_at))) / 3600)::float8 as age_hours
+    from news_articles where source <> 'GOOGLE_NEWS'
+    group by source
+    having extract(epoch from (now() - max(last_seen_at))) / 3600 > 24
+    order by 2 desc`;
+  for (const r of stale) {
+    console.log(`  ${r.source.padEnd(28)} not seen in ${fmtAge(r.age_hours)}`);
+    problems.push(`News source ${r.source} not seen in ${fmtAge(r.age_hours)}.`);
+  }
+
+  const [backlog] = await sql<
+    { needs_enrich: number; oldest_hours: number | null; dirty: number }[]
+  >`
+    select
+      (select count(*)::int from news_articles
+        where state <> 'hidden' and enriched_hash is distinct from input_hash
+          and published_at > now() - interval '14 days') as needs_enrich,
+      (select (extract(epoch from (now() - min(created_at))) / 3600)::float8 from news_articles
+        where state <> 'hidden' and enriched_hash is distinct from input_hash
+          and published_at > now() - interval '14 days') as oldest_hours,
+      (select count(*)::int from news_stories where dirty) as dirty`;
+  console.log(
+    `AI backlog: ${backlog.needs_enrich} articles to enrich` +
+      (backlog.oldest_hours !== null ? ` (oldest ${fmtAge(backlog.oldest_hours)})` : '') +
+      `, ${backlog.dirty} stories to recompute`
+  );
+  if ((backlog.oldest_hours ?? 0) > 6) {
+    problems.push(
+      `News AI backlog: oldest unenriched article is ${fmtAge(backlog.oldest_hours!)} old.`
+    );
+  }
+}
+
 async function main() {
   console.log('='.repeat(74));
   console.log(`CRON HEALTH  —  generated ${new Date().toISOString()}`);
@@ -241,6 +315,7 @@ async function main() {
   await scrapeDetail();
   await staleSources();
   await enrichment();
+  await news();
 
   console.log('\n' + '='.repeat(74));
   if (problems.length === 0) {

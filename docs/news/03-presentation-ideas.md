@@ -1,8 +1,11 @@
 # 03 · Presenting local news in AVL GO
 
+> **Background design.** V1 as built follows `05-v1-plan.md` and `decisions.md` S19–S29, which cut much of what follows. Where they disagree, 05 wins.
+
 Presentation / UX proposal · **v4, 2026-09-27**: revised for Matt's feedback on the v3 mockup (one page, no following, Reddit in the same row design, a simpler row and header) · v3 (2026-09-25) added **Top vs All** and **sharing** · aligned with `docs/news/decisions.md` (S12–S18, D21–D30)
 
 **Companion mockup: `docs/news/news-mockup.html`.** Open it in a browser. It's one self-contained file.
+
 - **Views:** the feed (`#/`), a multi-source story page (`#/s/bears`), a single-source story page (`#/s/housing`), and the Sources page with its removal request (`#/sources`). "these sources" in the feed header opens the sources modal.
 - **Search:** try `bears`, `wildlife`, `dolly`, `montford traffic` or `what's happening with the police chief?`.
 - **Top vs All and sharing:** the feed opens on **Top stories**, with a "+N more" line per day and a **Top | All** switch. Every row has a **Share** button (a share panel with a preview of the link card). The ribbon links show what arriving on a shared link looks like:
@@ -17,28 +20,28 @@ Presentation / UX proposal · **v4, 2026-09-27**: revised for Matt's feedback on
 
 ## Matt's feedback on the v3 mockup (settled 2026-09-27) and what it changed
 
-| Decision | What changed in this design |
-|---|---|
-| **No following or bookmarks in V1** (S12) | Gone from the whole plan: the ☆ on rows, "Follow story" on the story page, the Following tab, strip and rail card, follow alerts, and followed stories forcing their way into Top. |
-| **One page** (S13) | `/news` is a single view with everything. No News sub-tabs, no Around town strand or tab, no `/news/around`. The Events · News switch and the Top / All toggle stay (§1, §2). |
+| Decision                                           | What changed in this design                                                                                                                                                                                                                                                                                           |
+| -------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **No following or bookmarks in V1** (S12)          | Gone from the whole plan: the ☆ on rows, "Follow story" on the story page, the Following tab, strip and rail card, follow alerts, and followed stories forcing their way into Top.                                                                                                                                    |
+| **One page** (S13)                                 | `/news` is a single view with everything. No News sub-tabs, no Around town strand or tab, no `/news/around`. The Events · News switch and the Top / All toggle stay (§1, §2).                                                                                                                                         |
 | **Reddit posts look like every other story** (S14) | No violet anywhere. A post about an existing story still attaches to it. Any other post gets in only if it clears a bar (enough upvotes or comments, or the AI rates it important), and then it's an ordinary story row with a "Read on r/asheville ↗" button, framed as unverified. Everything else is dropped (§5). |
-| **No "Developing" tag** (S15) | Not on rows, not on story pages, and no "Developing only" filter. |
-| **A quieter feed header** (S16) | No source-kind legend and no topic chip row. The disclaimer reads "Headlines and summaries by us, reporting from **these sources**", and "these sources" opens a modal listing every source with links. Topics live in the filter sheet. The rail loses "How to read sources" and "Sources we read" (§2). |
-| **A simpler row** (S17) | Headline first, then our summary, then one bottom row: an outlined "Read at X ↗" button, the other source chips, the topic · place tag, and the time and Share at the right. No kicker line above the headline, and no list of the other outlets' headlines on the row (§2). |
-| **The end cap uses Top 30 cards** (S18) | "That's the news. Now go do something." shows the Top 30 events happening in the next 7 days, in the Top 30 card design, keeping their Top 30 ranks (§1). |
+| **No "Developing" tag** (S15)                      | Not on rows, not on story pages, and no "Developing only" filter.                                                                                                                                                                                                                                                     |
+| **A quieter feed header** (S16)                    | No source-kind legend and no topic chip row. The disclaimer reads "Headlines and summaries by us, reporting from **these sources**", and "these sources" opens a modal listing every source with links. Topics live in the filter sheet. The rail loses "How to read sources" and "Sources we read" (§2).             |
+| **A simpler row** (S17)                            | Headline first, then our summary, then one bottom row: an outlined "Read at X ↗" button, the other source chips, the topic · place tag, and the time and Share at the right. No kicker line above the headline, and no list of the other outlets' headlines on the row (§2).                                          |
+| **The end cap uses Top 30 cards** (S18)            | "That's the news. Now go do something." shows the Top 30 events happening in the next 7 days, in the Top 30 card design, keeping their Top 30 ranks (§1).                                                                                                                                                             |
 
 ## Owner decisions (settled 2026-09-25) and what they changed
 
-| Decision | What changed in this design |
-|---|---|
-| **1. `/news` is its own section**, with cross-links welcome | This was already the recommendation. **New:** how people move between the two sections. The header gets an **Events · News section switch** (§1). Events keeps its row of tabs; News is one page with none (09-27). |
-| **2. Asheville + Buncombe County only** | Places are Asheville neighborhoods plus Buncombe towns and communities (§4). The Henderson County entries in `zipNames.ts` (Fletcher, Hendersonville, Mills River, Flat Rock) are excluded, and there's no Statewide or WNC filter. I rebuilt the mockup on Buncombe-only items; the statewide trout story is gone. **A WNC or statewide story appears only when its subject is Buncombe itself** (FEMA money *for Buncombe*, not for WNC generally). |
-| **3. We store full text but show only our AI summaries, and link out** | The trust rule becomes **"Our words, their link"** (§6). Every headline and summary we display is ours. An outlet's own headline appears only as the label of a link to that outlet. **Every row gets a "Read at [outlet] ↗" button.** Every article on a story page gets an **"In the full story:" line**, which says what the article covers that our summary doesn't (§2, §3). |
-| **4. Reddit and community posts are in scope** | There are **three kinds of source**: Reporting, Official, Community (§6). The approach is **"Attach first, then a row only above the bar"** (§5). A community post about an existing story attaches to it as "What locals are saying". Any other post becomes its own story row only if it clears the bar, in the same design as every other row (09-27). Community posts never become facts in a reported story, never move a story, and never enter its summary. |
-| **5. robots.txt and site terms aren't blockers.** AVL GO is a free, open-source community platform, and any outlet that asks is taken down | No legal hedging anywhere in the design: text-first is a design choice (§2). Attribution and link-out prominence stay, because they're about respecting local journalism. **New: a small public Sources page** (`/news/sources`, `#/sources` in the mockup) lists every outlet and community source we aggregate and has a **removal-request link**. That's the takedown path. No outreach to outlets before launch; they’ll reach out if needed (D29). |
-| **6. Top vs All** (S9): greatest hits by default, everything one tap away, plus topic filters and search | A **Top stories / All news** switch, remembered per visitor. Top means importance ≥ 15 of 30, at most 5 a day, at least 2. A "+N more" line per day expands in place. **Search and topic filters always cover All** (§2, "Top stories and All news"). |
-| **7. Sharing is first-class** (S10) | A **Share** button on every row and story page (the native share sheet on phones, copy-link on desktop). Feed rows share `/news?s=<id>`, which opens the feed scrolled to the story and highlighted. Story pages share the permalink. The link always forces its target visible, redirects merged ids, and unfurls as a branded card (§3b). |
-| *(From the pipeline brief)* **Semantic search isn't user-facing anywhere today** | /news is the site's first semantic-search surface, so the search section is rewritten (§4). Results come in two labelled groups, **"Mentions ‘x’"** and **"Related by meaning"**, and each result says why it matched. |
+| Decision                                                                                                                                   | What changed in this design                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| ------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **1. `/news` is its own section**, with cross-links welcome                                                                                | This was already the recommendation. **New:** how people move between the two sections. The header gets an **Events · News section switch** (§1). Events keeps its row of tabs; News is one page with none (09-27).                                                                                                                                                                                                                                                |
+| **2. Asheville + Buncombe County only**                                                                                                    | Places are Asheville neighborhoods plus Buncombe towns and communities (§4). The Henderson County entries in `zipNames.ts` (Fletcher, Hendersonville, Mills River, Flat Rock) are excluded, and there's no Statewide or WNC filter. I rebuilt the mockup on Buncombe-only items; the statewide trout story is gone. **A WNC or statewide story appears only when its subject is Buncombe itself** (FEMA money _for Buncombe_, not for WNC generally).              |
+| **3. We store full text but show only our AI summaries, and link out**                                                                     | The trust rule becomes **"Our words, their link"** (§6). Every headline and summary we display is ours. An outlet's own headline appears only as the label of a link to that outlet. **Every row gets a "Read at [outlet] ↗" button.** Every article on a story page gets an **"In the full story:" line**, which says what the article covers that our summary doesn't (§2, §3).                                                                                  |
+| **4. Reddit and community posts are in scope**                                                                                             | There are **three kinds of source**: Reporting, Official, Community (§6). The approach is **"Attach first, then a row only above the bar"** (§5). A community post about an existing story attaches to it as "What locals are saying". Any other post becomes its own story row only if it clears the bar, in the same design as every other row (09-27). Community posts never become facts in a reported story, never move a story, and never enter its summary. |
+| **5. robots.txt and site terms aren't blockers.** AVL GO is a free, open-source community platform, and any outlet that asks is taken down | No legal hedging anywhere in the design: text-first is a design choice (§2). Attribution and link-out prominence stay, because they're about respecting local journalism. **New: a small public Sources page** (`/news/sources`, `#/sources` in the mockup) lists every outlet and community source we aggregate and has a **removal-request link**. That's the takedown path. No outreach to outlets before launch; they’ll reach out if needed (D29).            |
+| **6. Top vs All** (S9): greatest hits by default, everything one tap away, plus topic filters and search                                   | A **Top stories / All news** switch, remembered per visitor. Top means importance ≥ 15 of 30, at most 5 a day, at least 2. A "+N more" line per day expands in place. **Search and topic filters always cover All** (§2, "Top stories and All news").                                                                                                                                                                                                              |
+| **7. Sharing is first-class** (S10)                                                                                                        | A **Share** button on every row and story page (the native share sheet on phones, copy-link on desktop). Feed rows share `/news?s=<id>`, which opens the feed scrolled to the story and highlighted. Story pages share the permalink. The link always forces its target visible, redirects merged ids, and unfurls as a branded card (§3b).                                                                                                                        |
+| _(From the pipeline brief)_ **Semantic search isn't user-facing anywhere today**                                                           | /news is the site's first semantic-search surface, so the search section is rewritten (§4). Results come in two labelled groups, **"Mentions ‘x’"** and **"Related by meaning"**, and each result says why it matched.                                                                                                                                                                                                                                             |
 
 ---
 
@@ -51,7 +54,7 @@ Presentation / UX proposal · **v4, 2026-09-27**: revised for Matt's feedback on
   - Cross-links: related events on stories, "In the news" on event pages, and the feed's ending hands off to events.
 - **Feed: "The Rundown, by day"** (unchanged).
   - Compact, text-first story rows under the events feed's own sticky day headers. Each day opens with a 3-sentence "short version" and the feed stops at a "caught up" line.
-  - A story is filed under the day of its latest *development*. A second outlet re-reporting the same news, or a community thread, doesn't move it.
+  - A story is filed under the day of its latest _development_. A second outlet re-reporting the same news, or a community thread, doesn't move it.
 - **A quiet header:** title, subtitle, and one line, "✦ Headlines and summaries by us, reporting from **these sources**". "these sources" opens a modal listing every source we read, with links. Then the search bar. No legend and no topic chips; topics live in the filter sheet.
 - **Top stories by default, All news one tap away.**
   - Top means importance ≥ 15 of 30, at most 5 a day, at least 2 on quiet days. Only in AVL always makes it.
@@ -88,20 +91,20 @@ Presentation / UX proposal · **v4, 2026-09-27**: revised for Matt's feedback on
 
 I read the events-side code closely. The Chrome extension wasn't connected, so I couldn't view the live site. This is the site's grammar, and the news design reuses it on purpose:
 
-| Pattern | Where | Reuse in news |
-|---|---|---|
-| Header pill tabs: All · Top 30 · Your List · Posters | `components/Header.tsx`, `EventTabSwitcher.tsx` | Unchanged under Events. News is one page and has none (§1) |
-| Page chrome: `bg-gray-50 / dark:bg-gray-950`, `max-w-7xl`, white list container `sm:rounded-lg sm:border sm:shadow-sm`, full-bleed mobile rows with `px-3` and `border-b` | `EventPageLayout.tsx`, `EventFeed.tsx` | Same container and divider rhythm |
-| **Sticky day headers** `text-xl font-bold sticky top-0 bg-white` | `EventFeed.tsx:2108` | The spine of the news feed |
-| Brand-600 titles, small `px-2 py-0.5 rounded text-xs` badges | `EventCard.tsx` | Outlet chips and the topic · place tag. The end cap reuses the whole Top 30 card |
-| FilterBar (search, filter count, share, Ask AI), ActiveFilters include/exclude chips | `FilterBar.tsx`, `ActiveFilters.tsx`, `ui/FilterChip.tsx` | Same bar and chips |
-| "Hide host" synced as `blockedHosts` | `EventCard.tsx`, `user_preferences` | "Hide this outlet" (`newsBlockedOutlets`) |
-| Posters' Today marker (hairlines + 11px uppercase `tracking-[0.18em]`) | `PosterWall.tsx:279` | "Caught up · last visit Tue 8:12 PM" |
-| Sparkles icon means AI | Ask AI, "See similar events" | Marks every piece of AI text |
-| Warm `#e8825f` (poster focus rings only) | `globals.css` | "New since your visit" dots |
-| Fraunces `.font-display`, used sparingly | home hero, poster lightbox | **News headlines and the story H1.** A "paper" voice that tells news apart from events at a glance |
-| "Summary first, then *View original*" | EventCard, EventContent | **Can't carry over.** News has no "original" to reveal (decision 3). The equivalent is the link out, which is why it has to be so prominent |
-| Voice: "Built for Asheville, not for profit." · "No ads, ever." · "Asheville Weird" | home, Top 30 | Feed header and end-of-feed copy |
+| Pattern                                                                                                                                                                   | Where                                                     | Reuse in news                                                                                                                               |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| Header pill tabs: All · Top 30 · Your List · Posters                                                                                                                      | `components/Header.tsx`, `EventTabSwitcher.tsx`           | Unchanged under Events. News is one page and has none (§1)                                                                                  |
+| Page chrome: `bg-gray-50 / dark:bg-gray-950`, `max-w-7xl`, white list container `sm:rounded-lg sm:border sm:shadow-sm`, full-bleed mobile rows with `px-3` and `border-b` | `EventPageLayout.tsx`, `EventFeed.tsx`                    | Same container and divider rhythm                                                                                                           |
+| **Sticky day headers** `text-xl font-bold sticky top-0 bg-white`                                                                                                          | `EventFeed.tsx:2108`                                      | The spine of the news feed                                                                                                                  |
+| Brand-600 titles, small `px-2 py-0.5 rounded text-xs` badges                                                                                                              | `EventCard.tsx`                                           | Outlet chips and the topic · place tag. The end cap reuses the whole Top 30 card                                                            |
+| FilterBar (search, filter count, share, Ask AI), ActiveFilters include/exclude chips                                                                                      | `FilterBar.tsx`, `ActiveFilters.tsx`, `ui/FilterChip.tsx` | Same bar and chips                                                                                                                          |
+| "Hide host" synced as `blockedHosts`                                                                                                                                      | `EventCard.tsx`, `user_preferences`                       | "Hide this outlet" (`newsBlockedOutlets`)                                                                                                   |
+| Posters' Today marker (hairlines + 11px uppercase `tracking-[0.18em]`)                                                                                                    | `PosterWall.tsx:279`                                      | "Caught up · last visit Tue 8:12 PM"                                                                                                        |
+| Sparkles icon means AI                                                                                                                                                    | Ask AI, "See similar events"                              | Marks every piece of AI text                                                                                                                |
+| Warm `#e8825f` (poster focus rings only)                                                                                                                                  | `globals.css`                                             | "New since your visit" dots                                                                                                                 |
+| Fraunces `.font-display`, used sparingly                                                                                                                                  | home hero, poster lightbox                                | **News headlines and the story H1.** A "paper" voice that tells news apart from events at a glance                                          |
+| "Summary first, then _View original_"                                                                                                                                     | EventCard, EventContent                                   | **Can't carry over.** News has no "original" to reveal (decision 3). The equivalent is the link out, which is why it has to be so prominent |
+| Voice: "Built for Asheville, not for profit." · "No ads, ever." · "Asheville Weird"                                                                                       | home, Top 30                                              | Feed header and end-of-feed copy                                                                                                            |
 
 Aside: `app/layout.tsx` puts `inter.className` on `<body>`, which overrides the DM Sans that `globals.css` imports. The site effectively renders in Inter.
 
@@ -118,23 +121,23 @@ Aside: `app/layout.tsx` puts `inter.className` on `<body>`, which overrides the 
 
 ### Section structure (settled: news is its own section)
 
-| Route | What |
-|---|---|
-| `/news` | **The one news page.** The feed, last 3 days by default, with "Load earlier days". Everything is here: reporting, official sources, and community posts that cleared the bar |
-| `/news?s=<storyId>` | **Shared-link deep link** (§3b): opens the feed at the story's day, scrolled and highlighted |
-| `/news?view=all` | All news instead of the default Top stories (overrides the saved choice, like `/posters?view=all`) |
-| `/news?topic=…&place=montford&q=…&outlet=-WLOS` | Shareable filtered views, same pattern as `/events?tagsInclude=…` |
-| `/news/[slug]` | Story page. `slug = {headline-kebab}-{shortId}`, looked up by shortId. **Stories get retitled as they develop**, so a stale slug 308-redirects to the canonical one. Events currently ignore a mismatched slug (`app/events/[slug]/page.tsx:112`) |
-| `/news/sources` | Every source we read: its kind (Reporting / Official / Community), what we use, and subscribe or donate links. It also carries a **publisher removal contact** ("Want your outlet or post removed? hi@avlgo.com"). A takedown is a per-source kill switch: it purges stored text and removes that source's links and summaries from every story |
-| `/api/export/news.json`, `/news/rss.xml` | Open data, like events |
+| Route                                           | What                                                                                                                                                                                                                                                                                                                                            |
+| ----------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `/news`                                         | **The one news page.** The feed, last 3 days by default, with "Load earlier days". Everything is here: reporting, official sources, and community posts that cleared the bar                                                                                                                                                                    |
+| `/news?s=<storyId>`                             | **Shared-link deep link** (§3b): opens the feed at the story's day, scrolled and highlighted                                                                                                                                                                                                                                                    |
+| `/news?view=all`                                | All news instead of the default Top stories (overrides the saved choice, like `/posters?view=all`)                                                                                                                                                                                                                                              |
+| `/news?topic=…&place=montford&q=…&outlet=-WLOS` | Shareable filtered views, same pattern as `/events?tagsInclude=…`                                                                                                                                                                                                                                                                               |
+| `/news/[slug]`                                  | Story page. `slug = {headline-kebab}-{shortId}`, looked up by shortId. **Stories get retitled as they develop**, so a stale slug 308-redirects to the canonical one. Events currently ignore a mismatched slug (`app/events/[slug]/page.tsx:112`)                                                                                               |
+| `/news/sources`                                 | Every source we read: its kind (Reporting / Official / Community), what we use, and subscribe or donate links. It also carries a **publisher removal contact** ("Want your outlet or post removed? hi@avlgo.com"). A takedown is a per-source kill switch: it purges stored text and removes that source's links and summaries from every story |
+| `/api/export/news.json`, `/news/rss.xml`        | Open data, like events                                                                                                                                                                                                                                                                                                                          |
 
 ### Moving between Events and News
 
-| Option | Verdict |
-|---|---|
-| (a) News as a fifth pill in today's tab row | Cheapest, but it mixes levels: the other four pills are all *views of events*, and News is a different kind of content. At 375px the row is also already shared with the "Open-sourced by Matt" credit |
-| **(b) A section switch, Events · News** | **Recommended.** Two clear levels. Events keeps its tab row; News is one page, so its second row stays empty (09-27). It scales if another section is added later (a Groups directory is in the works per memory). It fits the header's existing two-row mobile layout without adding height |
-| (c) A mobile bottom tab bar | App-like, but it's a new pattern for the site, it covers content, and it competes with the poster lightbox and the filter sheets |
+| Option                                      | Verdict                                                                                                                                                                                                                                                                                      |
+| ------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| (a) News as a fifth pill in today's tab row | Cheapest, but it mixes levels: the other four pills are all _views of events_, and News is a different kind of content. At 375px the row is also already shared with the "Open-sourced by Matt" credit                                                                                       |
+| **(b) A section switch, Events · News**     | **Recommended.** Two clear levels. Events keeps its tab row; News is one page, so its second row stays empty (09-27). It scales if another section is added later (a Groups directory is in the works per memory). It fits the header's existing two-row mobile layout without adding height |
+| (c) A mobile bottom tab bar                 | App-like, but it's a new pattern for the site, it covers content, and it competes with the poster lightbox and the filter sheets                                                                                                                                                             |
 
 ```
 Mobile header (375px)                          Desktop header (≥ lg)
@@ -182,6 +185,7 @@ A single ranked list. Each row is a cluster: our headline, then the other outlet
 │ housing money                              │
 │ [Read at Watchdog ↗] · 1 source            │
 ```
+
 - **Good at:** scanning fast and sending traffic out.
 - **Weak at:** it has no "when" and no "done". The ranking is opaque. Long-running stories either squat at the top or vanish.
 
@@ -199,8 +203,9 @@ A kicker, headline, "why it matters", bullets, "what's next" and a source row, w
 │ │ [Read at BPR ↗]  ACT[$]  ⌂City         │ │
 │ └────────────────────────────────────────┘ │
 ```
+
 - **Good at:** understanding a story without clicking.
-- **Weak at:** under decision 3 almost everything on screen is our prose. It's the format most likely to *replace* the article, which is exactly what decision 3 wants to avoid. Cards are also tall on phones. **I use its structure on the story page, not in the feed.**
+- **Weak at:** under decision 3 almost everything on screen is our prose. It's the format most likely to _replace_ the article, which is exactly what decision 3 wants to avoid. Cards are also tall on phones. **I use its structure on the story page, not in the feed.**
 
 ### Concept C: The Morning Edition (a finite daily issue)
 
@@ -215,6 +220,7 @@ A dated issue: a masthead, "The short version", fixed sections, and "That's the 
 │  GO DO SOMETHING  ‹3 events›               │
 │  ──────── That's the edition ────────      │
 ```
+
 - **Good at:** it's calm and finite, it doubles as the email, and it has a strong identity.
 - **Weak at:** stale by 4 PM. Stories that develop across days get split. Fixed sections look empty on slow days.
 
@@ -229,19 +235,20 @@ Cards for ongoing stories, each with a mini timeline.
 │ Helene recovery money                      │
 │ ●─●──●───●──●─────● · Buncombe challenges… │
 ```
+
 - **Good at:** civic memory, and tracking a story over weeks.
 - **Weak at:** it can't answer "what happened today?". It also depends on clustering being right for weeks at a time.
 
 ### Comparison
 
-| | A | B | C | D | **Rundown by day** |
-|---|---|---|---|---|---|
-| "What happened today?" in 20s | good | slow | great | poor | **great** |
-| Risk of replacing the article (decision 3) | low | **high** | medium | medium | **low** |
-| Traffic sent to outlets | high | low | medium | medium | **high** |
-| Finite / anti-doomscroll | no | no | yes | n/a | **yes, per day** |
-| Fits existing site grammar | ok | new | new | new | **native** |
-| Build cost | low | medium | medium | high | **low–medium** |
+|                                            | A    | B        | C      | D      | **Rundown by day** |
+| ------------------------------------------ | ---- | -------- | ------ | ------ | ------------------ |
+| "What happened today?" in 20s              | good | slow     | great  | poor   | **great**          |
+| Risk of replacing the article (decision 3) | low  | **high** | medium | medium | **low**            |
+| Traffic sent to outlets                    | high | low      | medium | medium | **high**           |
+| Finite / anti-doomscroll                   | no   | no       | yes    | n/a    | **yes, per day**   |
+| Fits existing site grammar                 | ok   | new      | new    | new    | **native**         |
+| Build cost                                 | low  | medium   | medium | high   | **low–medium**     |
 
 ### Recommendation: "The Rundown, by day" (A's rows, C's frame)
 
@@ -326,24 +333,25 @@ It's the only option that answers "what's happened since I looked?", stops when 
 A community post that clears the bar and matches no story (§5) is an ordinary row in this list, in the same design: our attributive headline and dek, `[Read on r/asheville ↗]`, and its topic · place tag. It shows in All news and behind "+N more", not in Top.
 
 **Desktop (≥ lg):** a reading column on the left and a 320px right rail.
+
 - **Rail contents:** Go in person (civic) only. (The Following card, the "How to read sources" legend and "Sources we read" are gone; the sources modal replaces the last two.)
 - **Rows are the same at every width:** source chips plus "+N", never the other outlets' headlines. Those are on the story page.
 
 #### Story row anatomy
 
-| Part | Rule |
-|---|---|
-| Headline | **Ours**, always, and **the first thing on the row**. Neutral, Fraunces 600, 18–19.5px. Brand-600 on hover. It goes to the story page |
-| Dek | **Ours**, at most 30 words, 2-line clamp. Describes the *latest development* |
-| Next | Only when the story has a future date, between the dek and the bottom row: `◷ Next: Council meets · Tue, Oct 13, 5 PM [Add]` |
-| **Bottom row** | One line that wraps on phones, in this order: the Read button, the other source chips, the topic · place tag, any status tag, then the time and Share at the right |
-| **Read button** | **An outlined `Read at WLOS ↗` button** (brand border and text, no fill), first in the bottom row. It links straight to the lead article. The lead is the most complete *original* reporting (ties go to the free outlet). A paywalled lead shows a lock. A community-only story reads `Read on r/asheville ↗` |
-| Other sources | Chips: neutral for reporting and community (`r/asheville`), green `⌂` for official. At most 2, then `+N`. **No expandable list of the other outlets' headlines** and no "N sources ▾"; the story page has the full list. An attached community post is one more neutral chip |
-| Topic · place | A neutral tag, `Civic · Citywide`. It used to be the kicker above the headline. **Short topic labels** (Civic, Outdoors, Schools, Growth, Helene) keep it compact at 375px |
-| Status tags | `Updated` if the row was re-filed by a development you haven't seen, and `Only in AVL`. Both neutral, in the same row. **No "Developing" tag** (09-27) |
-| Time | "5h", "1d", at the right. A warm 6px dot sits beside it if the story is new or has a development since `newsLastVisitAt` |
-| Share | Icon button at the far right (§3b) |
-| ⋮ menu | Hide this story · Hide [outlet] · Flag an error (not drawn in the mockup) |
+| Part            | Rule                                                                                                                                                                                                                                                                                                           |
+| --------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Headline        | **Ours**, always, and **the first thing on the row**. Neutral, Fraunces 600, 18–19.5px. Brand-600 on hover. It goes to the story page                                                                                                                                                                          |
+| Dek             | **Ours**, at most 30 words, 2-line clamp. Describes the _latest development_                                                                                                                                                                                                                                   |
+| Next            | Only when the story has a future date, between the dek and the bottom row: `◷ Next: Council meets · Tue, Oct 13, 5 PM [Add]`                                                                                                                                                                                   |
+| **Bottom row**  | One line that wraps on phones, in this order: the Read button, the other source chips, the topic · place tag, any status tag, then the time and Share at the right                                                                                                                                             |
+| **Read button** | **An outlined `Read at WLOS ↗` button** (brand border and text, no fill), first in the bottom row. It links straight to the lead article. The lead is the most complete _original_ reporting (ties go to the free outlet). A paywalled lead shows a lock. A community-only story reads `Read on r/asheville ↗` |
+| Other sources   | Chips: neutral for reporting and community (`r/asheville`), green `⌂` for official. At most 2, then `+N`. **No expandable list of the other outlets' headlines** and no "N sources ▾"; the story page has the full list. An attached community post is one more neutral chip                                   |
+| Topic · place   | A neutral tag, `Civic · Citywide`. It used to be the kicker above the headline. **Short topic labels** (Civic, Outdoors, Schools, Growth, Helene) keep it compact at 375px                                                                                                                                     |
+| Status tags     | `Updated` if the row was re-filed by a development you haven't seen, and `Only in AVL`. Both neutral, in the same row. **No "Developing" tag** (09-27)                                                                                                                                                         |
+| Time            | "5h", "1d", at the right. A warm 6px dot sits beside it if the story is new or has a development since `newsLastVisitAt`                                                                                                                                                                                       |
+| Share           | Icon button at the far right (§3b)                                                                                                                                                                                                                                                                             |
+| ⋮ menu          | Hide this story · Hide [outlet] · Flag an error (not drawn in the mockup)                                                                                                                                                                                                                                      |
 
 #### Special rows
 
@@ -380,6 +388,7 @@ Most people want the greatest hits, so **Top stories is the default view**. **Al
 ```
 
 **What qualifies as Top, in UI terms:**
+
 - **Score.** Each story's `news_score` uses the same 0–30 scale as event scores; the ranking itself is design-ai's (02 §8.3–8.5). Top is a score of **≥ 15**, the events "quality" tier.
 - **Stored, not computed at render time.** About 1 in 5 stories sits right at 15, so a live threshold would make rows flicker in and out of Top between scrapes. The pipeline stores Top membership per filing day (`top_day`, `top_rank`, `top_since`, `top_reason`) and damps it:
   - a story leaves Top only when it falls below 13;
@@ -401,32 +410,35 @@ Most people want the greatest hits, so **Top stories is the default view**. **Al
 - **The short version** summarizes Top stories, and the email digest uses the same set.
 
 **Showing what Top hides:**
+
 - Every day with hidden items ends in a "+N more" line: `⌄ +6 more stories · public safety (2) · briefs (3)`.
 - Tapping it expands **that day in place**. Your scroll position stays put, and a "Show only top stories" link folds it back. The "All news ›" link on the same line switches the whole feed.
 - The day header always shows "6 of 12 stories" in Top.
 - New hidden stories are counted in the line ("+6 more stories · 4 new"), so nothing new is silently buried.
 
-**Topic filters and search always cover All.** Top is only the default *browse* view.
+**Topic filters and search always cover All.** Top is only the default _browse_ view.
+
 - A topic, place, outlet or source-type filter, or any search, runs against all news.
 - While one is active, the switch shows **All** selected and Top greyed out, with the note "Topic and place filters always cover all news, not just Top stories."
 - Clearing them returns you to your saved view.
 - Search results can carry a small "Top" marker on stories that made Top that day.
 
 **How it fits the rest:**
+
 - **Rundown by day:** Top/All applies within each day. The day headers, caught-up marker, "since last visit" dots and "Load earlier days" all work the same in both views.
 - **Story pages and related stories** aren't affected.
 
 **Remembered per visitor, like the event filters:**
+
 - localStorage `newsView` (`top` by default), synced to `user_preferences.filterSettings.newsView` when signed in.
 - `?view=all` in the URL overrides it for saved or shared links, the same way `/posters?view=all` works.
 - Expanded days last only for the session.
-
 
 ---
 
 ## 3. The story page (`/news/[slug]`)
 
-**The order is the design.** Our short summary comes first, then *immediately* the reporting, led by one featured card with the biggest button on the page. Everything else we add comes after the outlets.
+**The order is the design.** Our short summary comes first, then _immediately_ the reporting, led by one featured card with the biggest button on the page. Everything else we add comes after the outlets.
 
 ```
 ┌────────────────────────────────────────────┐
@@ -482,11 +494,11 @@ Most people want the greatest hits, so **Top stories is the default view**. **Al
 - **Summary.**
   - At most 80 words, and at most 45 for a single-article story (D13). Facts only, no quotes. Every sentence carries citation chips.
   - At most about 3 facts from any single article, and we never mirror an article's structure.
-  - It answers *what happened*. The **why and how** stay in the articles.
+  - It answers _what happened_. The **why and how** stay in the articles.
   - Label: "✦ Summary by AVL GO". Footer: "Written by AI from N sources. It's a summary, not the story."
 - **Lead card ("Read the full story").**
   - One featured article with **its headline as the link label**, byline and date.
-  - An **"In the full story:" line**: at most 25 words describing *what the article contains* that the summary doesn't (reactions, background, a document, a second item) without stating those facts.
+  - An **"In the full story:" line**: at most 25 words describing _what the article contains_ that the summary doesn't (reactions, background, a document, a second item) without stating those facts.
   - A full-width filled button: "Read the full story at BPR ↗".
   - This line is only possible because we read the full text internally. For **paywalled** articles we only have the public dek, so the line becomes "Subscriber story: we've only seen its public summary."
 - **More reporting.** A compact list: outlet, date, their headline as the link label, a lock if paywalled, and a smaller "In the full story" line when we have one.
@@ -495,7 +507,7 @@ Most people want the greatest hits, so **Top stories is the default view**. **Al
 - **Go in person.** 2–4 events in EventCard's minimized-row format. Civic meetings come first. **Match by embedding with a threshold, never by keyword**:
   - "Bear" in today's export matches five Bear's Smokehouse BBQ events.
   - "Flock" matches Flocktoberfest, a Pisgah Brewing concert.
-- **What locals are saying** (§5). Only when community posts are attached. A neutral box, labelled "Community posts · not verified", *below* the reporting, official sources, timeline and events.
+- **What locals are saying** (§5). Only when community posts are attached. A neutral box, labelled "Community posts · not verified", _below_ the reporting, official sources, timeline and events.
 - **Related stories, then entity chips.** Each chip runs a search.
 - **Single-source story** (e.g. the Asheville Watchdog housing story, `#/s/housing` in the mockup):
   - Same layout. The summary box says "✦ Summary by AVL GO of Asheville Watchdog's reporting", and the lead card is the only card.
@@ -515,12 +527,12 @@ People share local news with friends constantly. A shared link should open **the
 
 ### Buttons, and which link each one produces
 
-| Where | Button | Link it produces |
-|---|---|---|
-| Feed row | **Share** (icon + label on sm+, icon only on phones), at the end of the source line | **Feed deep link:** `https://avlgo.com/news?s=<storyId>`. It opens the feed at that story's day, scrolled and highlighted. This is Matt's "same page + scroll + highlight" |
-| Story page | Share icon in the action row (next to Flag an error) | **Canonical permalink:** `https://avlgo.com/news/<slug>-<shortId>` |
+| Where      | Button                                                                              | Link it produces                                                                                                                                                           |
+| ---------- | ----------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Feed row   | **Share** (icon + label on sm+, icon only on phones), at the end of the source line | **Feed deep link:** `https://avlgo.com/news?s=<storyId>`. It opens the feed at that story's day, scrolled and highlighted. This is Matt's "same page + scroll + highlight" |
+| Story page | Share icon in the action row (next to Flag an error)                                | **Canonical permalink:** `https://avlgo.com/news/<slug>-<shortId>`                                                                                                         |
 
-- **Community posts have no share link of their own.** A post attached to a story is shared through its story; a post that cleared the bar on its own *is* a story, so it gets the row's Share button like any other. There's no `?c=` parameter.
+- **Community posts have no share link of their own.** A post attached to a story is shared through its story; a post that cleared the bar on its own _is_ a story, so it gets the row's Share button like any other. There's no `?c=` parameter.
 
 - **Behavior:**
   - On touch devices with `navigator.share` (`(pointer: coarse)`), the button opens the **native share sheet** with `{title: our headline, text: our dek, url}`.
@@ -531,6 +543,7 @@ People share local news with friends constantly. A shared link should open **the
 ### Arriving on `?s=`: reusing the poster deep-link pattern
 
 `/posters?p={extractionId}` already works this way (`app/posters/page.tsx`, `components/posters/PosterWall.tsx`), and `?s=` copies it:
+
 - **One query parameter** identifies the target. The server reads it, and if the target is outside the loaded window it **pulls it into the page** (posters: "pulled in on top of the newest 30").
 - **The deep link owns the landing position.** The "caught up" marker and any scroll restoration are skipped for that load (posters: the `deepLinked` ref suppresses the today-marker scroll). News rows are text-only with no images to decode, so the target doesn't move after landing. The poster wall reserves image dimensions for the same reason.
 - **History:**
@@ -540,6 +553,7 @@ People share local news with friends constantly. A shared link should open **the
 - **Story pages link back into the feed** with `/news?s=<id>` ("See it in the feed"), the same way poster events link back with `?p=`.
 
 **The highlight:**
+
 - The row scrolls to the vertical center.
 - An overlay adds a 2px warm (`#e8825f`) outline and a 12% warm tint, holds for about 1.2s, then fades by about 4s.
 - A **"Shared with you"** pill stays on the row for the session.
@@ -566,17 +580,17 @@ People share local news with friends constantly. A shared link should open **the
 
 ### Edge cases (the deep link always shows its target, and never changes saved settings)
 
-| Case | What the recipient sees |
-|---|---|
-| Their view is **Top** and the story isn't Top | The story appears in its day at its importance position, with the note "It isn't in Top stories, so it's shown here because it was shared with you." The day's "+N more" count leaves it out. Their Top preference is untouched |
-| It's **hidden by their saved filters** (topic, place, outlet, source type, a hidden story or a blocked outlet) | It's shown anyway, with "Your filters hide it, so it's shown here because it was shared with you" and a **Clear filters** button. Their filters stay saved |
-| It's a **community-only story** and they've turned Community off | Same as any filtered-out story: shown, with the note and **Clear filters** |
-| It's **older than the loaded days** | The server pulls it in on top in a "Shared with you" section (the posters pattern). "Load earlier days" still works below it |
-| The story was **merged** into another | Old ids are kept in a `story_redirects (old_id → new_id)` table, and `/news?s=<old>` 308-redirects to `?s=<new>`. The row notes that it was combined. **The pipeline must record this**: the pipeline brief found events dedup keeps no link from a removed row to its winner |
-| The story was **removed** (takedown, hidden) | The feed opens normally, with the toast "That story isn't available anymore". Its story page returns **410** with a short "no longer available" page (`state='hidden'` + reason) |
-| The **headline changed** since it was shared | The link uses the id, so it still lands, and the row shows the current headline. The unfurl the recipient saw may show the old one, because platforms cache it; the image URL includes the summary version, so new shares refresh it |
-| **Story-page link with a stale slug** | 308 to the canonical slug (§1) |
-| **No JavaScript, or a crawler** | The server renders the target's day with the row marked. The scroll and highlight are progressive enhancement |
+| Case                                                                                                           | What the recipient sees                                                                                                                                                                                                                                                       |
+| -------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Their view is **Top** and the story isn't Top                                                                  | The story appears in its day at its importance position, with the note "It isn't in Top stories, so it's shown here because it was shared with you." The day's "+N more" count leaves it out. Their Top preference is untouched                                               |
+| It's **hidden by their saved filters** (topic, place, outlet, source type, a hidden story or a blocked outlet) | It's shown anyway, with "Your filters hide it, so it's shown here because it was shared with you" and a **Clear filters** button. Their filters stay saved                                                                                                                    |
+| It's a **community-only story** and they've turned Community off                                               | Same as any filtered-out story: shown, with the note and **Clear filters**                                                                                                                                                                                                    |
+| It's **older than the loaded days**                                                                            | The server pulls it in on top in a "Shared with you" section (the posters pattern). "Load earlier days" still works below it                                                                                                                                                  |
+| The story was **merged** into another                                                                          | Old ids are kept in a `story_redirects (old_id → new_id)` table, and `/news?s=<old>` 308-redirects to `?s=<new>`. The row notes that it was combined. **The pipeline must record this**: the pipeline brief found events dedup keeps no link from a removed row to its winner |
+| The story was **removed** (takedown, hidden)                                                                   | The feed opens normally, with the toast "That story isn't available anymore". Its story page returns **410** with a short "no longer available" page (`state='hidden'` + reason)                                                                                              |
+| The **headline changed** since it was shared                                                                   | The link uses the id, so it still lands, and the row shows the current headline. The unfurl the recipient saw may show the old one, because platforms cache it; the image URL includes the summary version, so new shares refresh it                                          |
+| **Story-page link with a stale slug**                                                                          | 308 to the canonical slug (§1)                                                                                                                                                                                                                                                |
+| **No JavaScript, or a crawler**                                                                                | The server renders the target's day with the row marked. The scroll and highlight are progressive enhancement                                                                                                                                                                 |
 
 ### Link previews (iMessage, WhatsApp, Slack)
 
@@ -596,6 +610,7 @@ avlgo.com
 ```
 
 **The card:**
+
 - `og:title` is our headline, 70 characters at most.
 - `og:description` is our one-line dek, then " · outlets · date", 160 characters at most.
 - `og:image` is `/news/og/<shortId>.png?v=<summaryVersion>`, generated with `next/og` `ImageResponse` (Fraunces + Inter). Its `og:image:alt` is the headline.
@@ -605,10 +620,10 @@ avlgo.com
 - `twitter:card=summary_large_image` and `twitter:creator=@mattbrooksxyz`, as `app/layout.tsx` already sets.
 
 **Where the tags come from:**
+
 - For `/news?s=` URLs, `generateMetadata` reads `s` and emits **the story's** tags, not the generic feed tags. `<link rel="canonical">` points at the story permalink, so search engines index one URL.
 - A community-only story uses the same card. Its description ends "· r/asheville · not verified" in place of the outlets.
 - The **mockup's share panel** renders this card so it can be reviewed.
-
 
 ---
 
@@ -616,21 +631,21 @@ avlgo.com
 
 ### Filters (FilterBar + a FilterModal-style sheet + ActiveFilters chips)
 
-| Filter | Values | Notes |
-|---|---|---|
-| **Topics** (include/exclude) | Civic · Housing & Growth · Helene Recovery · Environment & Outdoors · Schools & Kids · Business & Food · Arts & Culture · Public Safety · Health · Getting Around · Weather · Only in AVL | **Only in the filter sheet.** No chip row on the feed (09-27). An active topic shows as an ActiveFilters chip |
-| **Places** (decision 2) | **Asheville:** Downtown · West Asheville · North Asheville · East Asheville · South Asheville · Montford · River Arts District · Biltmore Village · Haw Creek · Kenilworth · Oakley · Shiloh · Beaverdam. **Buncombe:** Black Mountain · Montreat · Weaverville · Woodfin · Biltmore Forest · Swannanoa · Candler · Enka · Leicester · Fairview · Arden · Barnardsville. Plus **Countywide** | Built from `zipNames.ts`, **minus its Henderson County entries** (Fletcher, Hendersonville, Mills River, Flat Rock), plus named neighborhoods the AI extracts. Events keep their own list |
-| **Source types** | Reporting ✓ · Official ✓ · Community ✓ | One switch per kind. Turning Community off hides community-only stories, the `r/asheville` chips and the story pages' "What locals are saying" |
-| **Outlets** (include/exclude) | Every source | "Hide [outlet]" from the ⋮ menu, synced like `blockedHosts` |
-| **Date** | Today · Last 3 days (default) · Week · Month · Custom | |
-| **More** | Hide paywalled · Public safety: collapsed / hidden | |
-| **Sort** | Top · Latest | Both stay grouped by day |
+| Filter                        | Values                                                                                                                                                                                                                                                                                                                                                                                       | Notes                                                                                                                                                                                     |
+| ----------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Topics** (include/exclude)  | Civic · Housing & Growth · Helene Recovery · Environment & Outdoors · Schools & Kids · Business & Food · Arts & Culture · Public Safety · Health · Getting Around · Weather · Only in AVL                                                                                                                                                                                                    | **Only in the filter sheet.** No chip row on the feed (09-27). An active topic shows as an ActiveFilters chip                                                                             |
+| **Places** (decision 2)       | **Asheville:** Downtown · West Asheville · North Asheville · East Asheville · South Asheville · Montford · River Arts District · Biltmore Village · Haw Creek · Kenilworth · Oakley · Shiloh · Beaverdam. **Buncombe:** Black Mountain · Montreat · Weaverville · Woodfin · Biltmore Forest · Swannanoa · Candler · Enka · Leicester · Fairview · Arden · Barnardsville. Plus **Countywide** | Built from `zipNames.ts`, **minus its Henderson County entries** (Fletcher, Hendersonville, Mills River, Flat Rock), plus named neighborhoods the AI extracts. Events keep their own list |
+| **Source types**              | Reporting ✓ · Official ✓ · Community ✓                                                                                                                                                                                                                                                                                                                                                       | One switch per kind. Turning Community off hides community-only stories, the `r/asheville` chips and the story pages' "What locals are saying"                                            |
+| **Outlets** (include/exclude) | Every source                                                                                                                                                                                                                                                                                                                                                                                 | "Hide [outlet]" from the ⋮ menu, synced like `blockedHosts`                                                                                                                               |
+| **Date**                      | Today · Last 3 days (default) · Week · Month · Custom                                                                                                                                                                                                                                                                                                                                        |                                                                                                                                                                                           |
+| **More**                      | Hide paywalled · Public safety: collapsed / hidden                                                                                                                                                                                                                                                                                                                                           |                                                                                                                                                                                           |
+| **Sort**                      | Top · Latest                                                                                                                                                                                                                                                                                                                                                                                 | Both stay grouped by day                                                                                                                                                                  |
 
 ### Search: the site's first semantic surface
 
 **Search, like the topic and place filters, always runs against All news, never just Top stories.** Top is only the default browse view.
 
-Today every search on the site is a substring match (`ILIKE`), and people have learned that the words they type are the words they get. So meaning-based results have to *explain themselves*, or they'll read as bugs.
+Today every search on the site is a substring match (`ILIKE`), and people have learned that the words they type are the words they get. So meaning-based results have to _explain themselves_, or they'll read as bugs.
 
 ```
 [⌕ wildlife                                ×]
@@ -656,7 +671,7 @@ Today every search on the site is a substring match (`ILIKE`), and people have l
    - `⌕ "costco" in headline` or `⌕ "wildlife" in NCWRC's release title`.
    - `≈ related: animals, bears`, built from the overlap between the query's nearest concepts and the story's topics and entities, **not** from raw vector scores.
 3. **Query → filters.** A place or topic in the query becomes a one-tap chip that applies the real filter and removes the words from the text query. "montford traffic" offers [Place: Montford] [Topic: Getting Around]. This mirrors the events filter vocabulary, so the skill transfers.
-4. **Disambiguation.** When the query's nearest entities belong to different stories, show "Did you mean" chips. **"dolly"** returns *Dolly (the bear)* on the bear story and *Dolly Parton Day* on Friday's story. A plain text match would mix them without comment.
+4. **Disambiguation.** When the query's nearest entities belong to different stories, show "Did you mean" chips. **"dolly"** returns _Dolly (the bear)_ on the bear story and _Dolly Parton Day_ on Friday's story. A plain text match would mix them without comment.
 5. **Keyword traps, ranked away.** Entity-typed ranking puts the Flock-camera thread above "Flocktoberfest", and Dolly the bear apart from Dolly Parton.
 6. **Questions go to Ask AI.** If the query looks like a question (it starts with who, what, why, how or when, or ends with "?"), show a card: "Ask AI: answer from story summaries, with citations →". Search returns stories; Ask AI answers. The two stay separate.
 7. **Scope toggle:** Stories (default) · Articles. Community-only stories come back as ordinary story results, and an attached post is found through its story. There's no separate community group.
@@ -681,16 +696,16 @@ Today every search on the site is a substring match (`ILIKE`), and people have l
 
 ### Options
 
-| Option | Verdict |
-|---|---|
-| A separate "Community" tab | Dropped: News is one page (Matt, 09-27) |
-| An "Around town" strand at the end of each day, in its own violet design (v3) | Dropped: a second design and a second color in the same feed, and most of what it held was low-signal (Matt, 09-27) |
-| Discussion attached to stories only | Good for context, but drops the moments when locals notice something before the newsrooms do |
-| **Attach first; otherwise an ordinary row, only above the bar** | **V1 (Matt, 09-27).** One design for every row. The bar keeps the volume low, and the words (attributive framing, "not verified") carry the trust difference that color used to |
+| Option                                                                        | Verdict                                                                                                                                                                         |
+| ----------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| A separate "Community" tab                                                    | Dropped: News is one page (Matt, 09-27)                                                                                                                                         |
+| An "Around town" strand at the end of each day, in its own violet design (v3) | Dropped: a second design and a second color in the same feed, and most of what it held was low-signal (Matt, 09-27)                                                             |
+| Discussion attached to stories only                                           | Good for context, but drops the moments when locals notice something before the newsrooms do                                                                                    |
+| **Attach first; otherwise an ordinary row, only above the bar**               | **V1 (Matt, 09-27).** One design for every row. The bar keeps the volume low, and the words (attributive framing, "not verified") carry the trust difference that color used to |
 
 ### The rule
 
-1. **If a post is about an existing story, attach it.** It shows as one more neutral `r/asheville` chip on the row and in the **"What locals are saying"** section on the story page, placed *below* the reporting, official sources, timeline and events.
+1. **If a post is about an existing story, attach it.** It shows as one more neutral `r/asheville` chip on the row and in the **"What locals are saying"** section on the story page, placed _below_ the reporting, official sources, timeline and events.
 2. **Otherwise, it gets in only if it clears the bar.** Either:
    - **engagement:** a score of at least 25, or at least 15 comments (D25b, a starting point to retune); or
    - **the AI rates it important:** civic matters, public safety, public health, or a big local change (a road or business closing, a new development). Ordinary complaints, asks and chatter don't qualify however popular they are.
@@ -740,14 +755,15 @@ STORY PAGE (below reporting, official sources, timeline and events; never above)
 
 **How the three kinds stay apart without their own look:**
 
-| Signal | Reporting | Official | Community |
-|---|---|---|---|
-| Chip | neutral gray, outlet short name | green ⌂ | neutral gray, `r/asheville` |
-| Row design | the standard row | the standard row | the standard row |
-| Words | our neutral summary | attributed ("the City says") | attributive ("Locals ask…", "A resident reports…"), and "not verified" in the summary label and the story page's section header |
-| Where | the story list | the story list and inside stories (Official sources) | attached to a story, or a community-only row above the bar |
+| Signal     | Reporting                       | Official                                             | Community                                                                                                                       |
+| ---------- | ------------------------------- | ---------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| Chip       | neutral gray, outlet short name | green ⌂                                              | neutral gray, `r/asheville`                                                                                                     |
+| Row design | the standard row                | the standard row                                     | the standard row                                                                                                                |
+| Words      | our neutral summary             | attributed ("the City says")                         | attributive ("Locals ask…", "A resident reports…"), and "not verified" in the summary label and the story page's section header |
+| Where      | the story list                  | the story list and inside stories (Official sources) | attached to a story, or a community-only row above the bar                                                                      |
 
 **Misinformation and privacy mitigations** (built into the design):
+
 - **Link only.** We show our own words and a link to the thread. Never usernames, the post's own title or body, quotes, or images from the post.
 - **Never cited.** Community posts never appear in a reported story's summary, the short version, key facts or a timeline. They can't re-file a story.
 - **Neutral, attributive framing:** "Locals ask…", "A resident reports…". It never repeats claims about named people or unverified figures.
@@ -761,9 +777,9 @@ STORY PAGE (below reporting, official sources, timeline and events; never above)
 The design shows only our words and a link, the same principle as decision 3. It also protects private people.
 
 - **Our own attributive words** ("Locals ask…", "A resident reports…", "A thread on…"). Never the post's title or body, no usernames, no images from the post, and no quotes.
-  - The post "Injured Bear Cub Lower Town Mountain" becomes: *"A resident reports an injured bear cub near lower Town Mountain."*
+  - The post "Injured Bear Cub Lower Town Mountain" becomes: _"A resident reports an injured bear cub near lower Town Mountain."_
 - **No claims about named people.**
-  - The real Flock thread guesses at named candidates' positions. We write *"Locals ask where City Council candidates stand on Flock surveillance cameras,"* and the story page's "Go in person" links to the real candidate forum (Sat, Oct 3).
+  - The real Flock thread guesses at named candidates' positions. We write _"Locals ask where City Council candidates stand on Flock surveillance cameras,"_ and the story page's "Go in person" links to the real candidate forum (Sat, Oct 3).
 - **Unverified numbers aren't repeated.** If the mortgage-rate thread cleared the bar, we'd write "a thread on 7% mortgage rates and homes sitting longer", not the poster's figures.
 - **Bottom row** of a community-only story: `[Read on r/asheville ↗] Civic · Citywide · 11h · Share`. An attached post on a story page: `r/asheville · 11:04 AM · Read thread ↗`.
 - **First-hand reports of hazards** (outages, fires, wildlife) get an **Unverified** chip and a link to the official channel. Rats downtown link to the City's Asheville App for service requests.
@@ -777,15 +793,15 @@ The design shows only our words and a link, the same principle as decision 3. It
 
 ### Three kinds of source, one row design
 
-| | **Reporting** | **Official** | **Community** |
-|---|---|---|---|
-| Who | Newsrooms (BPR, Asheville Watchdog, WLOS, Citizen Times, Black Mountain News, 828 News Now…) | City, County, state agencies, agendas, courts | r/asheville (later maybe Facebook groups) |
-| Chip | Neutral gray, outlet short name | Green, landmark icon ⌂ | Neutral gray, `r/asheville` |
-| In our summary | As fact, cited | As attributed fact ("the City says"), cited | **Never** in a reported story. A separate "What locals are saying" paraphrase |
-| Can start a story | Yes | Yes | Only above the bar, as a community-only story labelled not verified |
-| Moves a story to a new day | Yes (new development) | Yes (new development) | Never |
-| In Top, the short version, the email | Yes | Yes | No |
-| Link label | The outlet's headline | The document title | "Read on r/asheville ↗" or "Read thread ↗" |
+|                                      | **Reporting**                                                                                | **Official**                                  | **Community**                                                                 |
+| ------------------------------------ | -------------------------------------------------------------------------------------------- | --------------------------------------------- | ----------------------------------------------------------------------------- |
+| Who                                  | Newsrooms (BPR, Asheville Watchdog, WLOS, Citizen Times, Black Mountain News, 828 News Now…) | City, County, state agencies, agendas, courts | r/asheville (later maybe Facebook groups)                                     |
+| Chip                                 | Neutral gray, outlet short name                                                              | Green, landmark icon ⌂                        | Neutral gray, `r/asheville`                                                   |
+| In our summary                       | As fact, cited                                                                               | As attributed fact ("the City says"), cited   | **Never** in a reported story. A separate "What locals are saying" paraphrase |
+| Can start a story                    | Yes                                                                                          | Yes                                           | Only above the bar, as a community-only story labelled not verified           |
+| Moves a story to a new day           | Yes (new development)                                                                        | Yes (new development)                         | Never                                                                         |
+| In Top, the short version, the email | Yes                                                                                          | Yes                                           | No                                                                            |
+| Link label                           | The outlet's headline                                                                        | The document title                            | "Read on r/asheville ↗" or "Read thread ↗"                                    |
 
 **There's no legend.** The feed header's "Headlines and summaries by us, reporting from **these sources**" opens the sources modal (§2), which lists every source by kind with links, and the `/news/sources` page says the same with the removal contact.
 
@@ -807,7 +823,7 @@ The design shows only our words and a link, the same principle as decision 3. It
    - "Flag an error" feeds the same review flow as event reports.
    - A retracted source is struck through, not silently removed.
 8. **Ranking is explained in one line:** "Ranked by how many local newsrooms cover it and how much it affects Asheville and Buncombe. Never by clicks."
-9. **Local-relevance gate:** Asheville and Buncombe only (decision 2). A WNC or statewide story appears only when its subject is Buncombe itself: FEMA money *for Buncombe*, not for WNC generally. Syndicated national and Upstate SC items go.
+9. **Local-relevance gate:** Asheville and Buncombe only (decision 2). A WNC or statewide story appears only when its subject is Buncombe itself: FEMA money _for Buncombe_, not for WNC generally. Syndicated national and Upstate SC items go.
 10. **Crime is collapsed, not deleted.** Single incidents go in the daily Public safety row, without names, mugshots or images. We strip "FIRST ALERT" and "BREAKING" from anything we display. Paired with the daily Only in AVL slot.
 11. **No fake immediacy.** The page says when we last checked. For emergencies, point to official channels.
 12. **Opinion is labelled** (Asheville Watchdog runs opinion pieces) and never becomes fact in a summary.
@@ -817,14 +833,15 @@ The design shows only our words and a link, the same principle as decision 3. It
 
 ## 7. Personalization and retention
 
-| Feature | Storage | Notes |
-|---|---|---|
-| Since last visit | localStorage `newsLastVisitAt` + `newsSeen{storyId: summaryVersion}`, synced when signed in | Drives the new dots, the "Updated" tag, the caught-up marker, and the News dot in the section switch |
-| Hide an outlet or story | `newsBlockedOutlets`, `newsHiddenStoryIds` | Mirrors `blockedHosts` / `hiddenEvents` |
+| Feature                 | Storage                                                                                     | Notes                                                                                                |
+| ----------------------- | ------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| Since last visit        | localStorage `newsLastVisitAt` + `newsSeen{storyId: summaryVersion}`, synced when signed in | Drives the new dots, the "Updated" tag, the caught-up marker, and the News dot in the section switch |
+| Hide an outlet or story | `newsBlockedOutlets`, `newsHiddenStoryIds`                                                  | Mirrors `blockedHosts` / `hiddenEvents`                                                              |
 
 No following or bookmarks in V1 (S12).
 
 **Email (a later phase, D30): one digest, with sections the reader chooses** (Events / News / Both) in `newsletter_settings`, using the existing 7 AM cron.
+
 - **News section:** the short version plus up to 5 stories. Each shows our headline and a "Read at X" link.
 - **No community content in the email.** Community-only stories never make Top, and the email uses the Top set.
 - **Existing subscribers** stay on events-only and are invited once.
@@ -859,7 +876,7 @@ This goes beyond the earlier note I sent design-ai.
 - `developments: {at, text, sourceIds[]}[]` and `lastDevelopmentAt`. **Only reporting and official sources can create a development**
 - `leadArticleId`: the most complete original reporting; ties go to the free outlet
 - Per article:
-  - `fullStoryHas`: at most 25 words describing what the article covers *beyond* the summary, from the full text. **Null when paywalled**
+  - `fullStoryHas`: at most 25 words describing what the article covers _beyond_ the summary, from the full text. **Null when paywalled**
   - `kind`: reporting / official / community, plus `isPrimarySource`, `paywalled`, `isOpinion`, `author`, `publishedAt`, `updatedAt`, and a correction note
 - Per community post:
   - `paraphrase`: at most 20 words, neutral and attributive, with no names of private people and no unverified figures
@@ -882,17 +899,18 @@ This goes beyond the earlier note I sent design-ai.
 
 ## 10. Build order
 
-| Phase | Scope |
-|---|---|
-| **1. MVP** | The Events · News section switch (News is one page, no sub-tabs). `/news` Rundown-by-day with Read buttons, the short version, Public safety, Briefs, community-only stories above the bar, the caught-up marker, and the Top 30 end cap. The feed header's sources modal. Story page with summary, lead card and "In the full story", more reporting, official sources, related events, and What locals are saying. Search with Mentions and Related by meaning. Topic and place filters in the filter sheet. **Top/All switch with "+N more"**. **Share buttons, `?s=` deep links with highlight, and OG cards.** `/news/sources`. JSON export |
-| **2. Retention** | Outlet and source-type filters. "What's next" and the calendar, with civic meetings from agendas as events. News section in the digest. Timeline with corrections. Ask AI over news. "Now reported": merging a community-only story into the reported story that follows it |
-| **3. Distinctive** | Home "Today in Asheville" module. Curator notes. Storylines and the Helene tracker. "In the news" on event pages. Weekly "5 stories that mattered". Entity pages. Hybrid search on events |
+| Phase              | Scope                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **1. MVP**         | The Events · News section switch (News is one page, no sub-tabs). `/news` Rundown-by-day with Read buttons, the short version, Public safety, Briefs, community-only stories above the bar, the caught-up marker, and the Top 30 end cap. The feed header's sources modal. Story page with summary, lead card and "In the full story", more reporting, official sources, related events, and What locals are saying. Search with Mentions and Related by meaning. Topic and place filters in the filter sheet. **Top/All switch with "+N more"**. **Share buttons, `?s=` deep links with highlight, and OG cards.** `/news/sources`. JSON export |
+| **2. Retention**   | Outlet and source-type filters. "What's next" and the calendar, with civic meetings from agendas as events. News section in the digest. Timeline with corrections. Ask AI over news. "Now reported": merging a community-only story into the reported story that follows it                                                                                                                                                                                                                                                                                                                                                                      |
+| **3. Distinctive** | Home "Today in Asheville" module. Curator notes. Storylines and the Helene tracker. "In the news" on event pages. Weekly "5 stories that mattered". Entity pages. Hybrid search on events                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 
 ---
 
 ## Decisions for Matt
 
 **Settled by Matt (recorded, not open):**
+
 - News is its own section.
 - Asheville + Buncombe only: a WNC or statewide story appears only when its subject is Buncombe itself.
 - We show only our AI summaries and link out.
@@ -905,6 +923,7 @@ This goes beyond the earlier note I sent design-ai.
 **Still open:**
 
 **1. How do people move between Events and News?**
+
 - Options:
   - (a) News as a fifth pill.
   - (b) An **Events · News section switch**.
@@ -913,26 +932,31 @@ This goes beyond the earlier note I sent design-ai.
 - Why: the other four pills are all views of events, and News is a different kind of content. News is one page, so it needs no tabs of its own. The switch fits the existing two-row mobile header without adding height, and gives a quiet "new" dot.
 
 **2. Which feed format?**
+
 - Options: Rundown · Brief cards · Edition · Storylines · the hybrid **Rundown by day**.
 - **Recommend the hybrid.**
 - Why: it answers "since I last looked", it ends, it keeps our prose to one line per story, and it reuses the sticky day headers. Brief cards are the riskiest option under decision 3, because they read like a replacement for the article.
 
 **3. What does a row tap do?**
+
 - **Recommend:** the headline opens our story page, and an outlined **"Read at X ↗" button on every row** (Matt, 09-27) goes straight to the outlet.
 - Why: the story page carries the sources, related events and the community section. The button keeps the link out one tap away. **Measure outbound clicks from day one.**
 
 **4. Outlet headlines as link labels?**
+
 - Options:
   - (a) Show the outlet's own headline, attributed, as the link text in source lists.
   - (b) Paraphrase them too.
 - **Recommend (a).**
-- Why: it's standard citation practice, it tells readers exactly what they'll open, and outlets want their headline to be the thing people click. Everything *else* we display is ours. Confirm this reading of decision 3.
+- Why: it's standard citation practice, it tells readers exactly what they'll open, and outlets want their headline to be the thing people click. Everything _else_ we display is ours. Confirm this reading of decision 3.
 
 **5. Search results layout?**
+
 - **Recommend: two labelled groups, "Mentions ‘x’" and "Related by meaning"**, each result with a "why" line, plus query-to-filter chips and "did you mean" disambiguation.
 - Why: this is the site's first semantic search, and unexplained meaning matches look like bugs.
 
 **6. Images in the feed?**
+
 - **Recommend: none at launch, on design merit.**
   - Text-only rows fit 5–6 stories on a phone screen; with thumbnails it's about 2.
   - Text-first tells news apart from the image-led events feed at a glance.
@@ -940,18 +964,23 @@ This goes beyond the earlier note I sent design-ai.
 - Revisit a single lead image on story pages later.
 
 **7. Crime and incidents?**
+
 - **Recommend: a collapsed daily "Public safety" row,** with a filter to hide it. Honest without becoming a doomscroll.
 
 **8. Email?**
+
 - **Recommend: one digest with sections the reader chooses (Events / News / Both).** Existing subscribers are invited, not switched.
 
 **9. Paywalled outlets?**
+
 - **Recommend: include them with a lock and a filter.** Their summaries use only the public dek. We never circumvent paywalls.
 
 **10. Freshness?**
+
 - **Recommend: say "checked every 3 hours" honestly** (D28). Optionally poll the City and County alert feeds hourly.
 
 **11. Top thresholds?**
+
 - **Recommend:** importance **≥ 15** of 30, **at most 5** a day, **at least 2**, with Only in AVL always included and community-only stories kept out.
 - Why: 15 is the events "quality" tier. With the real Sep 24 items this gives 6 of 12 on a busy Thursday (5 plus Only in AVL) and every story on a thin Tuesday.
 - Retune after two weeks of scores. **Target: Top holds about 40–60% of a typical day's stories.**

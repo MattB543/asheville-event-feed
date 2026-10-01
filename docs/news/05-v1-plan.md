@@ -271,7 +271,7 @@ Then:
 - **`state`.**
   - Newsroom tier → `live`.
   - Community tier → `live` only if a member has `community_important=true`, or `engagement.score ≥ 25` or `engagement.comments ≥ 15` when counts exist (D25b). At most 3 community stories are live per filing day, ranked across the whole day by engagement and then recency. The rest stay `pending`.
-- **`score`** = `2·importance + min(4, 2·(outlet_count − 1)) + (2 if any member is an outlet article)`.
+- **`score`** = `2·importance + min(2, outlet_count − 1) + (2 if any member is an outlet article)`.
 - Clear `dirty` in the same transaction that writes the recomputed fields. An interrupted run leaves it set, so the next run picks the story up again.
 
 **Filing day.**

@@ -96,8 +96,9 @@ function GarageList({ parking }: { parking: ParkingStatus }) {
  * light-dismiss and Escape for free) listing every garage with directions.
  *
  * `compact`: the desktop size. `condensed`: beside a water badge on phones it
- * reads "1345 garage spots", or "1345 spots" under 400px, so even the longest
- * water label ("Water outage · Rumbough Pl") and the pill share one row at 375px.
+ * reads "1345 garage spots", or "1345 spots" under 400px and from 596-767px (where
+ * it shares the tabs row), so even the longest water label ("Water outage ·
+ * Rumbough Pl") and the pill share one row at 375px.
  */
 function ParkingBadge({
   parking,
@@ -159,7 +160,11 @@ function ParkingBadge({
       >
         <span className="whitespace-nowrap">
           <span className="tabular-nums">{total}</span>{' '}
-          {condensed ? <span className="hidden min-[400px]:inline">garage </span> : 'open garage '}
+          {condensed ? (
+            <span className="hidden min-[400px]:inline min-[596px]:hidden md:inline">garage </span>
+          ) : (
+            'open garage '
+          )}
           spot{plural}
         </span>
         <ChevronDown size={13} aria-hidden="true" className="text-gray-400" />
@@ -264,7 +269,8 @@ export default function CityStatusBadges({ layout }: CityStatusBadgesProps) {
   if (layout === 'mobile') {
     return (
       // Always rendered at badge height so the page doesn't jump when data arrives
-      <div className="-mx-3 flex min-h-10 items-center gap-2 overflow-x-auto px-3 [scrollbar-width:none] sm:-mx-6 sm:px-6 [&::-webkit-scrollbar]:hidden">
+      // Edge to edge when it has its own row; beside the tabs (>= 596px) it fills the rest of theirs
+      <div className="-mx-3 flex min-h-10 items-center gap-2 overflow-x-auto px-3 [scrollbar-width:none] min-[596px]:mx-0 min-[596px]:min-w-0 min-[596px]:flex-1 min-[596px]:px-0 [&::-webkit-scrollbar]:hidden">
         {water && <WaterBadge water={water} compact={false} />}
         {parking && <ParkingBadge parking={parking} compact={false} condensed={water !== null} />}
       </div>

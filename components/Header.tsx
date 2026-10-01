@@ -5,15 +5,16 @@ import UserMenu from '@/components/UserMenu';
 import EventTabSwitcher from '@/components/EventTabSwitcher';
 import CityStatusBadges from '@/components/cityStatus/CityStatusBadges';
 
-/** "Open-sourced by Matt" (the footers carry a longer FooterCredit) */
+/** "Open-sourced by Matt", or "Built by Matt" under 390px (the footers carry a longer FooterCredit) */
 function Attribution({ className }: { className: string }) {
   return (
     <div className={`whitespace-nowrap text-gray-500/50 dark:text-gray-400/50 ${className}`}>
+      <span className="min-[390px]:hidden">Built</span>
       <a
         href="https://github.com/MattB543/asheville-event-feed"
         target="_blank"
         rel="noopener noreferrer"
-        className="underline hover:text-gray-600 dark:hover:text-gray-300"
+        className="hidden underline hover:text-gray-600 dark:hover:text-gray-300 min-[390px]:inline"
       >
         Open-sourced
       </a>{' '}
@@ -62,10 +63,14 @@ export default function Header({ activeTab }: HeaderProps) {
               <UserMenu />
             </div>
           </div>
-          {/* Row 2: Tabs */}
-          <EventTabSwitcher activeTab={activeTab} />
-          {/* Row 3: water notice + live garage spaces */}
-          <CityStatusBadges layout="mobile" />
+          {/* Row 2: Tabs, with the water notice + live garage spaces to their right
+              from ~596px; narrower phones give the badges a row of their own */}
+          <div className="flex flex-col gap-2 min-[596px]:flex-row min-[596px]:items-center min-[596px]:gap-3">
+            <div className="shrink-0">
+              <EventTabSwitcher activeTab={activeTab} />
+            </div>
+            <CityStatusBadges layout="mobile" />
+          </div>
         </div>
 
         {/* Desktop layout */}

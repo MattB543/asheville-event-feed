@@ -29,7 +29,7 @@
 import { getVenueForEvent, isKnownVenue } from './venues';
 import { hasRealEventImage } from './eventImages';
 
-interface EventForDedup {
+export interface EventForDedup {
   id: string;
   title: string;
   organizer: string | null;
@@ -481,7 +481,10 @@ function isBlank(value: string | null | undefined): boolean {
  * Losers are visited in a fixed order (by id) so the same duplicate group
  * always merges to the same result regardless of query row order.
  */
-function mergeFields(keep: EventForDedup, remove: EventForDedup[]): MergedFields | undefined {
+export function mergeFields(
+  keep: EventForDedup,
+  remove: EventForDedup[]
+): MergedFields | undefined {
   const updates: MergedFields = {};
   const losers = [...remove].sort((a, b) => a.id.localeCompare(b.id));
 

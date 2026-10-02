@@ -64,7 +64,7 @@ export default function Header({ activeTab }: HeaderProps) {
           </div>
           {/* Row 2: Tabs */}
           <EventTabSwitcher activeTab={activeTab} />
-          {/* Row 3: water notice + live garage spaces */}
+          {/* Row 3: water notice + Open Parking */}
           <CityStatusBadges layout="mobile" />
         </div>
 
@@ -80,9 +80,11 @@ export default function Header({ activeTab }: HeaderProps) {
                 className="h-[28px] xl:h-[32px] w-auto dark:brightness-0 dark:invert"
               />
             </Link>
-            <EventTabSwitcher activeTab={activeTab} />
-            {/* Water notice + live garage spaces, right of the last tab */}
-            <CityStatusBadges layout="desktop" />
+            {/* Open Parking sits at tab spacing after the last tab, then any water notice */}
+            <div className="flex items-center gap-1">
+              <EventTabSwitcher activeTab={activeTab} />
+              <CityStatusBadges layout="desktop" />
+            </div>
           </div>
           <div className="flex shrink-0 items-center gap-2">
             {/* Steps aside only while a water badge needs the room (CSS :has, no

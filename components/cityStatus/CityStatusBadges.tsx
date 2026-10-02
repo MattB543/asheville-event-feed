@@ -16,7 +16,7 @@ const LOW_SPACES = 25;
 
 const FOCUS_RING = 'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500';
 
-/** The header's pill shape, shared by the water and parking badges */
+/** The water badge's pill shape */
 function pillSize(compact: boolean): string {
   // Inset ring in the mobile row: its overflow-x scroller clips anything outside
   return compact ? 'h-7 px-2.5' : 'h-9 px-3 focus-visible:ring-inset';
@@ -91,28 +91,18 @@ function GarageList({ parking }: { parking: ParkingStatus }) {
 }
 
 /**
- * "1345 open garage spots": one pill with the downtown total. It opens a
- * native popover (top layer, so the mobile row's scroller can't clip it;
- * light-dismiss and Escape for free) listing every garage with directions.
+ * "Open Parking", styled like the header's nav tabs, opens a native popover
+ * (top layer, so the mobile row's scroller can't clip it; light-dismiss and
+ * Escape for free) listing every garage with its count and directions.
  *
- * `compact`: the desktop size. `condensed`: beside a water badge on phones it
- * reads "1345 garage spots", or "1345 spots" under 400px, so even the longest
- * water label ("Water outage · Rumbough Pl") and the pill share one row at 375px.
+ * `compact`: the desktop layout (the mobile row's scroller needs an inset ring).
  */
-function ParkingBadge({
-  parking,
-  compact,
-  condensed,
-}: {
-  parking: ParkingStatus;
-  compact: boolean;
-  condensed: boolean;
-}) {
+function ParkingBadge({ parking, compact }: { parking: ParkingStatus; compact: boolean }) {
   const panelId = useId();
   const panelRef = useRef<HTMLDivElement>(null);
+  const [isOpen, setIsOpen] = useState(false);
   const asOf = clock.format(new Date(parking.asOf));
   const total = parking.decks.reduce((sum, deck) => sum + deck.available, 0);
-  const plural = total === 1 ? '' : 's';
 
   // Pin the panel under the pill (it opens just after this click). 304px keeps
   // its "Open spaces in city garages · as of 12:45 PM" header on one line.
@@ -135,6 +125,7 @@ function ParkingBadge({
     };
     const onToggle = (event: Event) => {
       const open = (event as ToggleEvent).newState === 'open';
+      setIsOpen(open);
       const method = open ? 'addEventListener' : 'removeEventListener';
       window[method]('scroll', close, true);
       window[method]('resize', close);
@@ -153,16 +144,21 @@ function ParkingBadge({
         type="button"
         popoverTarget={panelId}
         onClick={position}
-        aria-label={`${total} open garage spot${plural} downtown as of ${asOf}. Show each garage with directions.`}
+        aria-label={`Open Parking: ${total} space${total === 1 ? '' : 's'} in downtown garages as of ${asOf}. Show each garage with directions.`}
         title={`Open spaces in city garages · as of ${asOf}`}
-        className={`inline-flex shrink-0 items-center gap-1 rounded-full border border-gray-200 bg-white text-xs font-semibold text-gray-800 transition-colors cursor-pointer hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 dark:hover:bg-gray-700 ${pillSize(compact)} ${FOCUS_RING}`}
+        // Same size and colors as the EventTabSwitcher tabs; reads as active while open
+        className={`flex shrink-0 items-center gap-1 whitespace-nowrap min-h-9 px-2.5 sm:px-3 lg:min-h-0 lg:py-1.5 text-sm font-medium rounded-md cursor-pointer transition-colors ${
+          isOpen
+            ? 'text-gray-900 dark:text-white bg-gray-100 dark:bg-gray-800'
+            : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50'
+        } ${FOCUS_RING} ${compact ? '' : 'focus-visible:ring-inset'}`}
       >
-        <span className="whitespace-nowrap">
-          <span className="tabular-nums">{total}</span>{' '}
-          {condensed ? <span className="hidden min-[400px]:inline">garage </span> : 'open garage '}
-          spot{plural}
-        </span>
-        <ChevronDown size={13} aria-hidden="true" className="text-gray-400" />
+        Open Parking
+        <ChevronDown
+          size={14}
+          aria-hidden="true"
+          className={`text-gray-400 transition-transform ${isOpen ? 'rotate-180' : ''}`}
+        />
       </button>
       <div
         ref={panelRef}
@@ -266,16 +262,17 @@ export default function CityStatusBadges({ layout }: CityStatusBadgesProps) {
       // Always rendered at badge height so the page doesn't jump when data arrives
       <div className="-mx-3 flex min-h-10 items-center gap-2 overflow-x-auto px-3 [scrollbar-width:none] sm:-mx-6 sm:px-6 [&::-webkit-scrollbar]:hidden">
         {water && <WaterBadge water={water} compact={false} />}
-        {parking && <ParkingBadge parking={parking} compact={false} condensed={water !== null} />}
+        {parking && <ParkingBadge parking={parking} compact={false} />}
       </div>
     );
   }
 
   if (!parking && !water) return null;
   return (
+    // Parking first so it sits beside the tabs it's styled like
     <div className="flex shrink-0 items-center gap-2">
+      {parking && <ParkingBadge parking={parking} compact />}
       {water && <WaterBadge water={water} compact />}
-      {parking && <ParkingBadge parking={parking} compact condensed={false} />}
     </div>
   );
 }

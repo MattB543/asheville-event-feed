@@ -2883,6 +2883,16 @@ export default function EventFeed({
           tagsInclude: tagFilters.include,
           tagsExclude: tagFilters.exclude,
           selectedLocations,
+          dateFilter,
+          customDateRange,
+          selectedDays,
+          selectedTimes,
+          customMaxPrice,
+          selectedZips,
+          blockedHosts,
+          blockedKeywords,
+          hiddenFingerprints: hiddenEvents,
+          showDailyEvents,
         }}
       />
 

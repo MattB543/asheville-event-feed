@@ -5,15 +5,12 @@ import { X, Send, Sparkles, Loader2, StopCircle, Calendar } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import remarkBreaks from 'remark-breaks';
 import type { PriceFilterType } from './FilterBar';
+import type { DateFilterType, DateRange as FeedDateRange, TimeOfDay } from '@/lib/types/filters';
+import { parseChatSearchState, type ChatSearchState } from '@/lib/ai/chat/types';
 
 interface ChatMessage {
   role: 'user' | 'assistant' | 'system';
   content: string;
-}
-
-interface DateRange {
-  startDate: string;
-  endDate: string;
 }
 
 interface ActiveFilters {
@@ -22,6 +19,16 @@ interface ActiveFilters {
   tagsInclude: string[];
   tagsExclude: string[];
   selectedLocations: string[];
+  dateFilter: DateFilterType;
+  customDateRange: FeedDateRange;
+  selectedDays: number[];
+  selectedTimes: TimeOfDay[];
+  customMaxPrice: number | null;
+  selectedZips: string[];
+  blockedHosts: string[];
+  blockedKeywords: string[];
+  hiddenFingerprints: { title: string; organizer: string }[];
+  showDailyEvents: boolean;
 }
 
 interface AIChatModalProps {
@@ -45,8 +52,20 @@ function formatActiveFilters(filters: ActiveFilters): string {
       under100: 'Under $100',
       custom: 'Custom',
     };
-    lines.push(`Price: ${priceLabels[filters.priceFilter]}`);
+    lines.push(
+      `Price: ${filters.priceFilter === 'custom' && filters.customMaxPrice !== null ? `Up to $${filters.customMaxPrice}` : priceLabels[filters.priceFilter]}`
+    );
   }
+  if (filters.dateFilter !== 'all') {
+    lines.push(
+      `Dates: ${filters.dateFilter === 'custom' ? `${filters.customDateRange.start || 'today'} through ${filters.customDateRange.end || 'all upcoming dates'}` : filters.dateFilter === 'dayOfWeek' ? 'selected weekdays' : filters.dateFilter}`
+    );
+  }
+  if (filters.selectedDays.length > 0)
+    lines.push(
+      `Days: ${filters.selectedDays.map((day) => ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][day]).join(', ')}`
+    );
+  if (filters.selectedTimes.length > 0) lines.push(`Time: ${filters.selectedTimes.join(', ')}`);
   if (filters.tagsInclude.length > 0) {
     lines.push(`Tags (include): ${filters.tagsInclude.join(', ')}`);
   }
@@ -56,6 +75,7 @@ function formatActiveFilters(filters: ActiveFilters): string {
   if (filters.selectedLocations.length > 0) {
     lines.push(`Locations: ${filters.selectedLocations.join(', ')}`);
   }
+  if (filters.selectedZips.length > 0) lines.push(`ZIP codes: ${filters.selectedZips.join(', ')}`);
 
   return lines.length > 0 ? lines.map((l) => `- ${l}`).join('\n') : '';
 }
@@ -64,6 +84,7 @@ const SUGGESTIONS = [
   'Find me free live music tonight',
   "What's good for a date night on Saturday?",
   'Family-friendly outdoor events this weekend',
+  'Jazz shows next month under $30',
 ];
 
 const LOADING_MESSAGES = ['Reading request...', 'Reviewing events...', 'Thinking...'];
@@ -71,12 +92,10 @@ const LOADING_MESSAGES = ['Reading request...', 'Reviewing events...', 'Thinking
 function getInitialMessage(eventCount: number, filters: ActiveFilters): string {
   const filterText = formatActiveFilters(filters);
 
-  if (eventCount === 0) {
-    return `No events match your current filters. Try adjusting your filters, or tell me what you're looking for and I can suggest which filters to change.`;
-  }
-
   const lines: string[] = [
-    `I can help you find events from the **${eventCount} events** in the database.`,
+    eventCount > 0
+      ? `I can help you find upcoming events by keyword, venue, date, price, and more.`
+      : 'Tell me what you are looking for and I can search upcoming events or adjust your filters.',
   ];
 
   if (filterText) {
@@ -84,7 +103,7 @@ function getInitialMessage(eventCount: number, filters: ActiveFilters): string {
   }
 
   lines.push(
-    `**What kind of event are you looking for?**\n\n*Be specific about the type of event and the date range you're interested in.*`
+    `Ask about any upcoming date, including next month or later. I can also refine a search or show more matches.`
   );
 
   return lines.join('\n\n');
@@ -102,7 +121,8 @@ export default function AIChatModal({
   const [isStreaming, setIsStreaming] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [loadingMessageIndex, setLoadingMessageIndex] = useState(0);
-  const [currentDateRange, setCurrentDateRange] = useState<DateRange | null>(null);
+  const [currentSearch, setCurrentSearch] = useState<ChatSearchState | null>(null);
+  const [searchCount, setSearchCount] = useState<number | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const abortControllerRef = useRef<AbortController | null>(null);
@@ -139,7 +159,8 @@ export default function AIChatModal({
       setInput('');
       setError(null);
       setIsStreaming(false);
-      setCurrentDateRange(null); // Reset date range for new conversation
+      setCurrentSearch(null);
+      setSearchCount(null);
       // Focus input after a short delay to ensure modal is rendered
       setTimeout(() => inputRef.current?.focus(), 100);
     } else {
@@ -164,7 +185,7 @@ export default function AIChatModal({
     setIsLoading(false);
   }, []);
 
-  const processStream = useCallback(async (response: Response): Promise<DateRange | null> => {
+  const processStream = useCallback(async (response: Response): Promise<void> => {
     const reader = response.body?.getReader();
     const decoder = new TextDecoder();
 
@@ -172,7 +193,6 @@ export default function AIChatModal({
 
     let assistantContent = '';
     let hasStartedStreaming = false;
-    let extractedDateRange: DateRange | null = null;
     // Frames can be split across reads - keep the trailing partial line for the next chunk
     let buffer = '';
 
@@ -202,12 +222,7 @@ export default function AIChatModal({
 
           type StreamFrame = {
             type?: string;
-            data?: {
-              startDate?: string;
-              endDate?: string;
-              displayMessage?: string;
-              eventCount?: number;
-            };
+            data?: unknown;
             choices?: Array<{
               delta?: {
                 content?: string;
@@ -224,22 +239,25 @@ export default function AIChatModal({
           }
 
           // Handle our custom message types
-          if (parsed.type === 'dateRange' && parsed.data) {
-            extractedDateRange = {
-              startDate: parsed.data.startDate ?? '',
-              endDate: parsed.data.endDate ?? '',
-            };
-
-            // Show the date range indicator if we have a display message
-            if (parsed.data.displayMessage) {
-              const displayMessage = parsed.data.displayMessage;
-              const eventCount = parsed.data.eventCount ?? 0;
-              // Add a system message showing the date range
+          if (parsed.type === 'searchState' && parsed.data) {
+            const state = parseChatSearchState(parsed.data);
+            if (state) setCurrentSearch(state);
+            if (
+              typeof parsed.data === 'object' &&
+              'eventCount' in parsed.data &&
+              typeof parsed.data.eventCount === 'number'
+            ) {
+              const count = parsed.data.eventCount;
+              setSearchCount(count);
+              const display =
+                'displayMessage' in parsed.data && typeof parsed.data.displayMessage === 'string'
+                  ? parsed.data.displayMessage
+                  : 'Searching events';
               setMessages((prev) => [
                 ...prev,
                 {
                   role: 'system',
-                  content: `${displayMessage} (${eventCount} events)`,
+                  content: `${display} (${count} found${state?.hasMore ? ', more available' : ''})`,
                 },
               ]);
             }
@@ -279,8 +297,6 @@ export default function AIChatModal({
 
       if (done) break;
     }
-
-    return extractedDateRange;
   }, []);
 
   const sendMessage = useCallback(
@@ -315,8 +331,28 @@ export default function AIChatModal({
               tagsInclude: activeFilters.tagsInclude,
               tagsExclude: activeFilters.tagsExclude,
               locations: activeFilters.selectedLocations,
+              dateFilter: activeFilters.dateFilter,
+              dateStart:
+                activeFilters.dateFilter === 'custom'
+                  ? activeFilters.customDateRange.start || undefined
+                  : undefined,
+              dateEnd:
+                activeFilters.dateFilter === 'custom'
+                  ? activeFilters.customDateRange.end || undefined
+                  : undefined,
+              days: activeFilters.selectedDays,
+              times: activeFilters.selectedTimes,
+              maxPrice:
+                activeFilters.priceFilter === 'custom'
+                  ? (activeFilters.customMaxPrice ?? undefined)
+                  : undefined,
+              zips: activeFilters.selectedZips,
+              blockedHosts: activeFilters.blockedHosts,
+              blockedKeywords: activeFilters.blockedKeywords,
+              hiddenFingerprints: activeFilters.hiddenFingerprints,
+              showDailyEvents: activeFilters.showDailyEvents,
             },
-            currentDateRange: currentDateRange,
+            currentSearch,
           }),
           signal: abortControllerRef.current.signal,
         });
@@ -332,11 +368,8 @@ export default function AIChatModal({
           throw new Error(`API error: ${response.status}`);
         }
 
-        // Process the stream and get any extracted date range
-        const extractedDateRange = await processStream(response);
-        if (extractedDateRange) {
-          setCurrentDateRange(extractedDateRange);
-        }
+        // Process answer tokens and save validated search state for follow-ups.
+        await processStream(response);
       } catch (err) {
         if (err instanceof Error && err.name === 'AbortError') {
           // Stream was cancelled by user - don't show error
@@ -358,7 +391,7 @@ export default function AIChatModal({
         setIsStreaming(false);
       }
     },
-    [input, isLoading, messages, activeFilters, currentDateRange, processStream]
+    [input, isLoading, messages, activeFilters, currentSearch, processStream]
   );
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -536,7 +569,9 @@ export default function AIChatModal({
             )}
           </div>
           <p className="text-xs text-gray-400 dark:text-gray-500 mt-2 text-center">
-            AI searches {totalCount} events based on your query
+            {searchCount === null
+              ? 'Search all upcoming events by keyword, date, venue, and more'
+              : `${searchCount} matches in the latest search${currentSearch?.hasMore ? ' · More available' : ''}`}
           </p>
         </div>
       </div>

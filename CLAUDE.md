@@ -548,9 +548,11 @@ static `/asheville-default.jpg` placeholder to events with no image.
 
 ### AI Chat (`app/api/chat/route.ts`)
 
-- **Primary**: Azure OpenAI (streaming chat + date-range extraction)
-- **Fallback**: OpenRouter (`google/gemini-2.0-flash-001` for chat, `-lite-001` for date extraction)
-- **Features**: Date extraction, event filtering, curated recommendations
+- **Primary**: Azure OpenAI (validated function tools + streamed answers; GPT-6 tool planning uses `reasoning_effort: 'none'` for Chat Completions compatibility)
+- **Fallback**: OpenRouter (`google/gemini-2.5-flash`, overridable with `OPENROUTER_CHAT_MODEL`)
+- **Tools** (`lib/ai/chat/`): `search_events`, `get_search_filters`, `get_event_details`. Search combines literal keywords (all/any/exclusions), dates, weekdays, time, budget, tags, cities/ZIPs, venues and organizers. All upcoming dates are searchable; no two-week default horizon.
+- **State**: The modal sends feed filters and the last validated search/cursor. Null tool fields retain filters; empty strings/arrays clear them; `nextPage` continues the saved search. Search pages contain at most 50 results and expose `hasMore`, not an approximate total.
+- **Validation**: `npm run test:chat` runs offline regressions; `npx tsx scripts/test-chat.ts --live` adds read-only database and Azure smoke tests; add `--openrouter` to test the fallback.
 
 ---
 

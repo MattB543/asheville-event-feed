@@ -52,6 +52,11 @@ export interface EventFilterParams {
 
   // Search
   search?: string;
+  keywords?: string[]; // Literal substrings across searchable fields
+  keywordMatch?: 'all' | 'any';
+  excludeKeywords?: string[];
+  organizer?: string; // Literal organizer substring
+  venue?: string; // Literal location/venue substring
 
   // Date filters
   dateFilter?: 'all' | 'today' | 'tomorrow' | 'weekend' | 'custom' | 'dayOfWeek';
@@ -61,10 +66,14 @@ export interface EventFilterParams {
 
   // Time of day
   times?: ('morning' | 'afternoon' | 'evening')[];
+  minStartTime?: string; // HH:MM, inclusive, Eastern time
+  maxStartTime?: string; // HH:MM, inclusive, Eastern time
+  includeUnknownTimes?: boolean; // Default true for feed; false for strict chat searches
 
   // Price
   priceFilter?: 'any' | 'free' | 'under20' | 'under100' | 'custom';
   maxPrice?: number;
+  strictPrice?: boolean; // Require a known price for chat budget/free requests
 
   // Tags
   tagsInclude?: string[];
@@ -250,18 +259,21 @@ export async function queryFilteredEvents(params: EventFilterParams): Promise<Ev
         break;
       }
       case 'dayOfWeek': {
-        if (params.days && params.days.length > 0) {
-          // PostgreSQL: EXTRACT(DOW FROM date) returns 0=Sun, 1=Mon, etc.
-          // Convert to Eastern time first so day matches user's local day, not UTC
-          const dayConditions = params.days.map(
-            (day) =>
-              sql`EXTRACT(DOW FROM ${events.startDate} AT TIME ZONE 'America/New_York') = ${day}`
-          );
-          conditions.push(or(...dayConditions)!);
-        }
         break;
       }
     }
+  }
+
+  // Weekdays can be combined with a custom date range.
+  if (params.days && params.days.length > 0) {
+    conditions.push(
+      or(
+        ...params.days.map(
+          (day) =>
+            sql`EXTRACT(DOW FROM ${events.startDate} AT TIME ZONE 'America/New_York') = ${day}`
+        )
+      )!
+    );
   }
 
   // Time of day filter
@@ -295,8 +307,23 @@ export async function queryFilteredEvents(params: EventFilterParams): Promise<Ev
     }
 
     if (timeConditions.length > 0) {
-      // Also include events with unknown time
-      conditions.push(or(sql`${events.timeUnknown} = true`, ...timeConditions)!);
+      conditions.push(
+        params.includeUnknownTimes === false
+          ? and(sql`${events.timeUnknown} IS NOT TRUE`, or(...timeConditions))!
+          : or(sql`${events.timeUnknown} = true`, ...timeConditions)!
+      );
+    }
+  }
+
+  for (const [time, comparison] of [
+    [params.minStartTime, '>='],
+    [params.maxStartTime, '<='],
+  ] as const) {
+    if (time && /^([01]\d|2[0-3]):[0-5]\d$/.test(time)) {
+      conditions.push(sql`${events.timeUnknown} IS NOT TRUE`);
+      conditions.push(
+        sql`(${events.startDate} AT TIME ZONE 'America/New_York')::time ${sql.raw(comparison)} ${time}::time`
+      );
     }
   }
 
@@ -324,7 +351,7 @@ export async function queryFilteredEvents(params: EventFilterParams): Promise<Ev
 
   // Search (title, description, aiSummary, tags, organizer/venue, location)
   if (params.search && params.search.trim()) {
-    const searchTerm = `%${params.search.trim()}%`;
+    const searchTerm = `%${params.search.trim().replace(/[\\%_]/g, '\\$&')}%`;
     conditions.push(
       or(
         ilike(events.title, searchTerm),
@@ -336,6 +363,33 @@ export async function queryFilteredEvents(params: EventFilterParams): Promise<Ev
         sql`array_to_string(${events.tags}, ' ') ILIKE ${searchTerm}`
       )!
     );
+  }
+
+  // Escape LIKE metacharacters: tool keywords are literal text, never SQL wildcards.
+  const literalPattern = (text: string): string => `%${text.trim().replace(/[\\%_]/g, '\\$&')}%`;
+  const keywordCondition = (keyword: string): SQL => {
+    const pattern = literalPattern(keyword);
+    return or(
+      ilike(events.title, pattern),
+      ilike(sql`coalesce(${events.description}, '')`, pattern),
+      ilike(sql`coalesce(${events.aiSummary}, '')`, pattern),
+      ilike(sql`coalesce(${events.organizer}, '')`, pattern),
+      ilike(sql`coalesce(${events.location}, '')`, pattern),
+      ilike(sql`coalesce(array_to_string(${events.tags}, ' '), '')`, pattern)
+    )!;
+  };
+  const keywords = params.keywords?.filter((keyword) => keyword.trim());
+  if (keywords?.length) {
+    conditions.push((params.keywordMatch === 'any' ? or : and)(...keywords.map(keywordCondition))!);
+  }
+  for (const keyword of params.excludeKeywords ?? []) {
+    if (keyword.trim()) conditions.push(not(keywordCondition(keyword)));
+  }
+  if (params.organizer?.trim()) {
+    conditions.push(ilike(events.organizer, literalPattern(params.organizer)));
+  }
+  if (params.venue?.trim()) {
+    conditions.push(ilike(events.location, literalPattern(params.venue)));
   }
 
   // Define the select fields
@@ -413,8 +467,23 @@ export async function queryFilteredEvents(params: EventFilterParams): Promise<Ev
 
     // Price filter (complex logic, easier client-side)
     if (params.priceFilter && params.priceFilter !== 'any') {
-      const price = parsePrice(event.price);
+      const price = parsePrice(
+        params.strictPrice ? event.price?.replace(/\bdonation\b/gi, '') : event.price
+      );
       const isFree = isFreeEvent(event.price);
+
+      if (params.strictPrice) {
+        const listedPrice = (event.price ?? '').trim().toLowerCase();
+        if (!listedPrice || !/\d|\bfree\b/.test(listedPrice)) return false;
+        // A donation request is not a confirmed zero-cost admission.
+        if (
+          params.priceFilter === 'free' &&
+          listedPrice.includes('donation') &&
+          !listedPrice.includes('free')
+        ) {
+          return false;
+        }
+      }
 
       switch (params.priceFilter) {
         case 'free':
@@ -454,7 +523,7 @@ export async function queryFilteredEvents(params: EventFilterParams): Promise<Ev
           }
         } else {
           // Specific city match
-          if (eventCity === loc) {
+          if (eventCity?.toLowerCase() === loc.toLowerCase()) {
             matchesLocation = true;
             break;
           }

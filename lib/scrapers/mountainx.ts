@@ -159,13 +159,27 @@ export async function scrapeMountainX(): Promise<ScrapedEvent[]> {
   let allEvents: ScrapedEvent[] = [];
 
   try {
-    try {
-      allEvents = await scrapeMountainXViaApi(window, dispatcher);
+    const api = await scrapeMountainXViaApi(window, dispatcher);
+    allEvents = api.events;
+
+    if (api.error === undefined) {
       console.log(`[MountainX] API path returned ${allEvents.length} events`);
-    } catch (error) {
-      console.warn(`[MountainX] API path failed: ${describeError(error)}`);
+    } else {
+      // Cloudflare can challenge page 7 after pages 1-6 went through. Those pages
+      // are the soonest events, so keep them and let the month views fill in the
+      // rest; dedupeByUrl keeps the API copy where the two overlap.
+      console.warn(
+        `[MountainX] API path failed after ${api.events.length} events: ${describeError(api.error)}`
+      );
       console.warn('[MountainX] Falling back to month-view HTML scrape...');
-      allEvents = await scrapeMountainXFromMonthViews(window, dispatcher);
+      try {
+        allEvents = [...api.events, ...(await scrapeMountainXFromMonthViews(window, dispatcher))];
+      } catch (error) {
+        if (api.events.length === 0) throw error;
+        console.warn(
+          `[MountainX] Month-view fallback failed too (${describeError(error)}) - keeping the ${api.events.length} API events`
+        );
+      }
     }
   } finally {
     await dispatcher.close();
@@ -188,10 +202,15 @@ export async function scrapeMountainX(): Promise<ScrapedEvent[]> {
   return ncEvents;
 }
 
+/**
+ * Page through the Tribe REST API. A failed page ends the walk but does not
+ * throw: whatever earlier pages returned comes back with the `error`, so the
+ * caller can keep it rather than start over from nothing.
+ */
 async function scrapeMountainXViaApi(
   window: ScrapeWindow,
   dispatcher: Dispatcher
-): Promise<ScrapedEvent[]> {
+): Promise<{ events: ScrapedEvent[]; error?: unknown }> {
   console.log('[MountainX] Trying Tribe REST API...');
 
   const allEvents: ScrapedEvent[] = [];
@@ -205,7 +224,12 @@ async function scrapeMountainXViaApi(
     url.searchParams.set('per_page', PER_PAGE.toString());
     url.searchParams.set('page', page.toString());
 
-    const data = await fetchEventsPageWithHttp(url.toString(), dispatcher);
+    let data: TribeEventsResponse;
+    try {
+      data = await fetchEventsPageWithHttp(url.toString(), dispatcher);
+    } catch (error) {
+      return { events: allEvents, error };
+    }
     const events = data.events || [];
 
     console.log(`[MountainX] API page ${page}/${data.total_pages}: ${events.length} events`);
@@ -232,7 +256,7 @@ async function scrapeMountainXViaApi(
     }
   }
 
-  return allEvents;
+  return { events: allEvents };
 }
 
 async function fetchEventsPageWithHttp(

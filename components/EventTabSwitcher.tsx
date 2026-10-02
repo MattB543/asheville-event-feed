@@ -1,5 +1,6 @@
 'use client';
 
+import { Suspense } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 
@@ -9,13 +10,30 @@ interface EventTabSwitcherProps {
   activeTab?: Tab;
 }
 
-export default function EventTabSwitcher({ activeTab }: EventTabSwitcherProps) {
-  const searchParams = useSearchParams();
+/**
+ * useSearchParams() needs its own Suspense boundary: without one, a statically
+ * rendered page bails out to client-side rendering at the root loading boundary
+ * and ships no HTML content at all. The fallback (what the static HTML holds)
+ * is the same tabs, just without carrying the current query over.
+ */
+export default function EventTabSwitcher(props: EventTabSwitcherProps) {
+  return (
+    <Suspense fallback={<Tabs {...props} query="" />}>
+      <TabsWithQuery {...props} />
+    </Suspense>
+  );
+}
 
+function TabsWithQuery(props: EventTabSwitcherProps) {
+  const searchParams = useSearchParams();
+  return <Tabs {...props} query={searchParams.toString()} />;
+}
+
+function Tabs({ activeTab, query }: EventTabSwitcherProps & { query: string }) {
   // Build URL preserving other query params
   // Groups and News link to their own plain routes (see below); only the event tabs carry params
   const buildTabUrl = (tab: 'all' | 'top30') => {
-    const params = new URLSearchParams(searchParams.toString());
+    const params = new URLSearchParams(query);
     params.delete('tab'); // No longer using tab query param
     // `p` deep-links one poster; it means nothing on the other tabs
     params.delete('p');

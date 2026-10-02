@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import EventFeed from '@/components/EventFeed';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import InfoBanner from '@/components/InfoBanner';
@@ -47,6 +48,14 @@ export default function EventPageLayout({
 
       <footer className="bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 mt-8 py-8 text-center text-sm text-gray-500 dark:text-gray-400">
         <FooterCredit />
+        <p className="mb-2">
+          <Link
+            href="/developers"
+            className="underline hover:text-gray-700 dark:hover:text-gray-300"
+          >
+            Free events API
+          </Link>
+        </p>
         <p>
           © {new Date().getFullYear()} AVL GO. Not affiliated with AVL Today, Eventbrite, Facebook
           Events, or Meetup.

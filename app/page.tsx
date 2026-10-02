@@ -22,11 +22,15 @@ import {
   Upload,
   SlidersHorizontal,
 } from 'lucide-react';
+import { SITE_DESCRIPTION, SITE_OPEN_GRAPH, SITE_URL } from '@/lib/seo/site';
 
 export const metadata: Metadata = {
   title: 'AVL GO - Asheville Events',
-  description:
-    'Discover Asheville events aggregated from 10+ sources. Find family events, live music, sports, trivia, and more.',
+  description: SITE_DESCRIPTION,
+  // Only the homepage claims the root URL (the layout sets no canonical or og:url).
+  // openGraph replaces the layout's object rather than merging, so spread it.
+  alternates: { canonical: SITE_URL },
+  openGraph: { ...SITE_OPEN_GRAPH, url: SITE_URL },
 };
 
 export const revalidate = 3600; // Revalidate every hour
@@ -176,15 +180,13 @@ export default function HomePage() {
                 Open source, open data
               </h3>
               <p className="text-sm text-gray-600 dark:text-gray-400">
-                All data available via{' '}
-                <a
-                  href="https://avlgo.com/api/export/json"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                All data available via the{' '}
+                <Link
+                  href="/developers"
                   className="underline hover:text-gray-700 dark:hover:text-gray-300"
                 >
-                  JSON API
-                </a>
+                  Free events API
+                </Link>
                 .
               </p>
             </div>
@@ -245,6 +247,12 @@ export default function HomePage() {
             >
               Open source on GitHub
             </a>
+            <Link
+              href="/developers"
+              className="px-4 py-2 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+            >
+              Free events API
+            </Link>
             <a
               href="/api/export/json"
               target="_blank"

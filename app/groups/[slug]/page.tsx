@@ -10,7 +10,7 @@ import GroupEventRow from '@/components/groups/GroupEventRow';
 import { getGroupPage } from '@/lib/db/queries/groups';
 import { groupCategoryLabel, isGroupCategory } from '@/lib/groups/categories';
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://avlgo.com';
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.avlgo.com';
 
 /** Upcoming rows shown before the rest fold into "Show all N upcoming events". */
 const UPCOMING_VISIBLE = 10;

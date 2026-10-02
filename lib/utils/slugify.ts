@@ -88,7 +88,7 @@ export function parseEventSlug(slug: string): { shortId: string } | null {
  * @param startDate - Event start date
  * @param id - Event UUID
  * @param baseUrl - Base URL of the site (optional)
- * @returns Full URL like "https://avlgo.com/events/summer-music-festival-2025-12-14-a1b2c3"
+ * @returns Full URL like "https://www.avlgo.com/events/summer-music-festival-2025-12-14-a1b2c3"
  */
 export function generateEventUrl(
   title: string,
@@ -97,6 +97,6 @@ export function generateEventUrl(
   baseUrl?: string
 ): string {
   const slug = generateEventSlug(title, startDate, id);
-  const base = baseUrl || process.env.NEXT_PUBLIC_SITE_URL || 'https://avlgo.com';
+  const base = baseUrl || process.env.NEXT_PUBLIC_SITE_URL || 'https://www.avlgo.com';
   return `${base}/events/${slug}`;
 }

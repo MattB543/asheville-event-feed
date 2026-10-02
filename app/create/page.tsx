@@ -3,7 +3,7 @@ import Header from '@/components/Header';
 import CreateFeedWizard from '@/components/CreateFeedWizard';
 
 export const metadata: Metadata = {
-  title: 'Create Your Custom Feed | AVL GO',
+  title: 'Create Your Custom Feed',
   description:
     'Build a personalized event feed tailored to your interests, budget, and location preferences.',
 };

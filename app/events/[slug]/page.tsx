@@ -1,14 +1,14 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { parseEventSlug, generateEventSlug } from '@/lib/utils/slugify';
-import { cleanMarkdown } from '@/lib/utils/parsers';
 import EventPageClient from './EventPageClient';
 import { getEventByShortId, getSimilarEvents, serializeEvent } from '@/lib/events/getEvent';
 import { createClient } from '@/lib/supabase/server';
 import { isSuperAdmin } from '@/lib/utils/superAdmin';
 import { isUserVerifiedCurator } from '@/lib/supabase/curatorProfile';
+import { buildEventJsonLd, buildEventMetaDescription, isLiveEvent } from '@/lib/seo/eventJsonLd';
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://avlgo.com';
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.avlgo.com';
 
 // ISR: Revalidate every hour
 export const revalidate = 3600;
@@ -16,6 +16,13 @@ export const revalidate = 3600;
 interface PageProps {
   params: Promise<{ slug: string }>;
 }
+
+// Titles are bare: the root layout's template appends " | AVL GO"
+const notFoundMetadata: Metadata = {
+  title: 'Event Not Found',
+  description: "The event you're looking for could not be found.",
+  robots: { index: false },
+};
 
 /**
  * Generate dynamic metadata for SEO
@@ -25,25 +32,17 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const parsed = parseEventSlug(slug);
 
   if (!parsed) {
-    return {
-      title: 'Event Not Found | AVL GO',
-      description: "The event you're looking for could not be found.",
-    };
+    return notFoundMetadata;
   }
 
   const event = await getEventByShortId(parsed.shortId);
 
   if (!event) {
-    return {
-      title: 'Event Not Found | AVL GO',
-      description: "The event you're looking for could not be found.",
-    };
+    return notFoundMetadata;
   }
 
   const eventUrl = `${siteUrl}/events/${generateEventSlug(event.title, event.startDate, event.id)}`;
-  const description =
-    cleanMarkdown(event.description)?.slice(0, 160) ||
-    `Join us for ${event.title} in Asheville, NC on ${new Date(event.startDate).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}`;
+  const description = buildEventMetaDescription(event);
 
   // Use event image or fall back to site OG image
   const ogImage = event.imageUrl?.startsWith('data:')
@@ -51,7 +50,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     : event.imageUrl || `${siteUrl}/avlgo-og.png`;
 
   return {
-    title: `${event.title} | AVL GO`,
+    title: event.title,
     description,
     keywords: event.tags || [],
 
@@ -84,10 +83,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       creator: '@mattbrooksxyz',
     },
 
-    robots: {
-      index: !event.hidden,
-      follow: !event.hidden,
-    },
+    // Deduped/dead rows still render so shared links work, but stay out of search.
+    // Live rows inherit the root robots settings.
+    ...(isLiveEvent(event) ? {} : { robots: { index: false, follow: true } }),
   };
 }
 
@@ -133,55 +131,20 @@ export default async function EventPage({ params }: PageProps) {
   // Fetch similar events
   const similarEvents = await getSimilarEvents(event.id);
 
-  // JSON-LD structured data for SEO
-  const jsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'Event',
-    name: event.title,
-    description: cleanMarkdown(event.description) || undefined,
-    startDate: event.startDate.toISOString(),
-    eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
-    eventStatus: 'https://schema.org/EventScheduled',
-    location: {
-      '@type': 'Place',
-      name: event.location || 'Asheville, NC',
-      address: {
-        '@type': 'PostalAddress',
-        addressLocality: 'Asheville',
-        addressRegion: 'NC',
-        postalCode: event.zip || undefined,
-        addressCountry: 'US',
-      },
-    },
-    image: event.imageUrl && !event.imageUrl.startsWith('data:') ? [event.imageUrl] : [],
-    url: eventUrl,
-    offers:
-      event.price && event.price !== 'Unknown'
-        ? {
-            '@type': 'Offer',
-            url: event.url,
-            price: event.price === 'Free' ? '0' : event.price.replace(/[^0-9.]/g, ''),
-            priceCurrency: 'USD',
-            availability: 'https://schema.org/InStock',
-          }
-        : undefined,
-    organizer: event.organizer
-      ? {
-          '@type': 'Organization',
-          name: event.organizer,
-        }
-      : undefined,
-  };
+  // JSON-LD structured data for SEO (null for deduped/dead rows)
+  const jsonLd = buildEventJsonLd(event, eventUrl, siteUrl);
 
   return (
     <>
       {/* JSON-LD Structured Data */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c'),
-        }}
-      />
+      {jsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c'),
+          }}
+        />
+      )}
 
       {/* Client Component with interactive features */}
       <EventPageClient

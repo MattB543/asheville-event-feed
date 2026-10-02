@@ -99,7 +99,7 @@ async function main() {
       }
     } catch {
       console.log('Local dev server not available, trying production...\n');
-      response = await fetch('https://avlgo.com/api/cron-status');
+      response = await fetch('https://www.avlgo.com/api/cron-status');
       if (!response.ok) {
         const errorText = await response.text().catch(() => 'Unknown error');
         console.error(`Error: Production API returned ${response.status}: ${errorText}`);

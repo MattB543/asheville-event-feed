@@ -397,8 +397,9 @@ measured on 2026-09-18, versus 62 from scrape and 27 from cleanup.
 | --------------------------- | ------ | --------------------------------------------------------- |
 | `/api/health`               | GET    | Health check (DB status, event count)                     |
 | `/api/chat`                 | POST   | AI conversational event discovery (rate limited)          |
-| `/api/export/xml`           | GET    | RSS XML feed export                                       |
-| `/api/export/markdown`      | GET    | Markdown export                                           |
+| `/api/export/json`          | GET    | Public events API (`format=compact` for AI agents)        |
+| `/api/export/markdown`      | GET    | Markdown export (same filters as the JSON export)         |
+| `/openapi.json`             | GET    | OpenAPI 3.1 spec for the two exports                      |
 | `/api/events/submit`        | POST   | Submit event via form                                     |
 | `/api/events/submit-url`    | POST   | Submit event via URL                                      |
 | `/api/events/report`        | POST   | Report an event                                           |
@@ -719,6 +720,18 @@ Built to `docs/news/05-v1-plan.md`; Matt's decisions are in `docs/news/decisions
 - `water` is `{status:'ok', active}` or `{status:'unavailable'}` (feed down, malformed water item, or data older than 20 min); the client keeps the last known advisories on `unavailable`. Feeds are timed `no-store` fetches inside `unstable_cache`; responses carry `s-maxage=60` (10 when degraded). The route is excluded from the `proxy.ts` matcher so polls don't trigger a Supabase session refresh / Set-Cookie
 - Dev preview: `?cityPreview=boil`, `?cityPreview=outage` or `?cityPreview=outage1` (honored only when `NODE_ENV === 'development'`)
 - "Open-sourced by Matt" is always in the header: below lg in row 1 (between the logo and the icon buttons, even with a water badge); at lg+ beside the icon buttons, hidden only while a water badge is showing (CSS `group-has-[[data-water-badge]]`, no client state). The footer credit ("Open-sourced and built by Matt") is one component, `components/FooterCredit.tsx`
+
+### Public Events API & AI Discoverability
+
+- **The public API is `/api/export/json`**, documented for people and AI agents at `/developers` (static page, question-shaped sections), `/openapi.json` (hand-written in `lib/api/openapi.ts`) and `/llms.txt` (`public/llms.txt`). Keep all three in step with the code when params or fields change
+- **`format=compact`** (+ `limit` 1-100, default 20, and an opaque `cursor`) returns `{count, generated, timezone, events, nextCursor, hasMore}` with events `{id, title, startDate, location, price, aiSummary, url}`: `url` is the AVL GO page, `startDate` is RFC 3339 with the Eastern offset or a bare `YYYY-MM-DD` when `timeUnknown`, and `price` is null for "Unknown". Pages scan at most 1,500 rows, so a sparse filter can return an empty page with `hasMore: true`. Without `format` the full export is unchanged (all fields, source `url`, unpaginated)
+- Code: parsing, the shared filter predicate (full, compact and Markdown select the same events) and SQL pushdown in `lib/api/publicEvents.ts`; headers, limits and the cursor in the DB-free `lib/api/publicEventsContract.ts`. Compact pages are cached with `unstable_cache` (tag `events`, 300s) under a shape version in the key: bump it when the response shape or filter semantics change, because Vercel's data cache survives deploys
+- **Price filters**: `free` = free or no price listed (missing, "Unknown", "TBD"; "Ticketed" is not free), shared with the site via `isFreeEvent` in `lib/utils/eventFilterMatch.ts`. `confirmedFree` (API only) = the source lists it as "Free" or $0 (`parsePublicOfferPrice`)
+- Exports send open CORS and `public, max-age=60, s-maxage=300, stale-while-revalidate=60`; they, `/developers`, `/openapi.json`, `/llms.txt`, `/sitemap.xml` and `/robots.txt` are excluded from the `proxy.ts` matcher so they never set session cookies. `robots.ts` disallows `/api/` but allows the two exports
+- **Canonical host is `https://www.avlgo.com`** (the apex 308s to www). Every `NEXT_PUBLIC_SITE_URL || ...` fallback and `lib/seo/site.ts` say www; neither env var is set in Vercel. Don't switch to apex-primary: localStorage and auth cookies are per host. The root layout sets no canonical or `og:url` (only the homepage claims `/`)
+- **Event JSON-LD** is built by `lib/seo/eventJsonLd.ts` and only states stored facts: no default venue, ZIP, street address, end time or ticket availability; town from the address segment before ", NC"; offers only for one unambiguous price; deduped/dead rows render but get no Event schema and `noindex`
+- The sitemap lists live upcoming events with `lastmod = updatedAt ?? createdAt` (the crons don't advance `updatedAt` yet) and revalidates every 300s
+- **`useSearchParams()` needs its own `<Suspense>`** (see `UserMenu`, `EventTabSwitcher`): without one, every statically rendered page bails out to client rendering at the root `app/loading.tsx` boundary and ships no HTML content to crawlers
 
 ### Dark Mode
 

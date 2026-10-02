@@ -46,7 +46,7 @@ export const env = {
     return process.env.POSTMARK_FROM_EMAIL;
   },
   get NEXT_PUBLIC_APP_URL() {
-    return process.env.NEXT_PUBLIC_APP_URL || 'https://avlgo.com';
+    return process.env.NEXT_PUBLIC_APP_URL || 'https://www.avlgo.com';
   },
   // Jina Reader API (for event verification)
   get JINA_API_KEY() {

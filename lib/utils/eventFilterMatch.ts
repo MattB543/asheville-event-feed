@@ -32,22 +32,22 @@ export function parsePrice(priceStr: string | null | undefined): number {
   if (!priceStr) return 0;
   const lower = priceStr.toLowerCase();
   if (lower.includes('free') || lower.includes('donation')) return 0;
-  const matches = priceStr.match(/(\d+(\.\d+)?)/);
-  if (matches) return parseFloat(matches[0]);
+  // Thousands separators: "$1,200" is 1200, not 1
+  const matches = priceStr.match(/\d{1,3}(?:,\d{3})+(?:\.\d+)?|\d+(?:\.\d+)?/);
+  if (matches) return parseFloat(matches[0].replace(/,/g, ''));
   return 0;
 }
 
-/** Whether an event counts as free. An unknown price is assumed free. */
+/**
+ * Whether an event counts as free: free or donation-based, a $0 price, or no price
+ * listed at all (missing, "Unknown", "TBD" - many unlisted events are free). Other
+ * text without a number, like "Ticketed", is not free.
+ */
 export function isFreeEvent(price: string | null | undefined): boolean {
-  if (!price) return true;
-  const lower = price.toLowerCase();
-  return (
-    lower === 'unknown' ||
-    lower === '' ||
-    lower.includes('free') ||
-    lower.includes('donation') ||
-    parsePrice(price) === 0
-  );
+  const lower = (price ?? '').trim().toLowerCase();
+  if (lower === '' || lower === 'unknown' || lower === 'tbd') return true;
+  if (lower.includes('free') || lower.includes('donation')) return true;
+  return /\d/.test(lower) && parsePrice(price) === 0;
 }
 
 export interface FilterableEvent {

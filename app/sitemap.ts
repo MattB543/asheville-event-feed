@@ -1,33 +1,49 @@
 import type { MetadataRoute } from 'next';
 import { db } from '@/lib/db';
 import { events } from '@/lib/db/schema';
-import { gte, asc, and, eq } from 'drizzle-orm';
+import { gte, asc, and, eq, isNull } from 'drizzle-orm';
 import { queryGroupSitemapEntries } from '@/lib/db/queries/groups';
 import { generateEventSlug } from '@/lib/utils/slugify';
 import { getStartOfTodayEastern } from '@/lib/utils/timezone';
 
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://avlgo.com';
+// An async sitemap is otherwise rendered once at build time and never refreshed
+export const revalidate = 300;
 
-  // Base pages
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.avlgo.com';
+
+  // Base pages. No lastModified: we have no real revision time for these, and a
+  // request-time "now" teaches crawlers to ignore lastmod on the event pages too
   const staticPages: MetadataRoute.Sitemap = [
     {
       url: siteUrl,
-      lastModified: new Date(),
       changeFrequency: 'hourly',
       priority: 1,
     },
     {
+      url: `${siteUrl}/events`,
+      changeFrequency: 'hourly',
+      priority: 0.9,
+    },
+    {
+      url: `${siteUrl}/events/top30`,
+      changeFrequency: 'daily',
+      priority: 0.8,
+    },
+    {
       url: `${siteUrl}/posters`,
-      lastModified: new Date(),
       changeFrequency: 'daily',
       priority: 0.7,
     },
     {
       url: `${siteUrl}/groups`,
-      lastModified: new Date(),
       changeFrequency: 'daily',
       priority: 0.7,
+    },
+    {
+      url: `${siteUrl}/developers`,
+      changeFrequency: 'monthly',
+      priority: 0.5,
     },
   ];
 
@@ -52,7 +68,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }
 
   try {
-    // Get all upcoming, non-hidden events for the sitemap
+    // Get all upcoming, live (non-hidden, non-deduped, non-dead) events for the sitemap
     const startOfToday = getStartOfTodayEastern();
 
     const allEvents = await db
@@ -60,15 +76,25 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         id: events.id,
         title: events.title,
         startDate: events.startDate,
+        updatedAt: events.updatedAt,
+        createdAt: events.createdAt,
       })
       .from(events)
-      .where(and(gte(events.startDate, startOfToday), eq(events.hidden, false)))
+      .where(
+        and(
+          gte(events.startDate, startOfToday),
+          eq(events.hidden, false),
+          isNull(events.dedupedAt),
+          isNull(events.deadAt)
+        )
+      )
       .orderBy(asc(events.startDate));
 
     // Generate event page URLs
     const eventPages: MetadataRoute.Sitemap = allEvents.map((event) => ({
       url: `${siteUrl}/events/${generateEventSlug(event.title, event.startDate, event.id)}`,
-      lastModified: event.startDate,
+      // When the listing last changed, not when the event happens
+      lastModified: event.updatedAt ?? event.createdAt ?? undefined,
       changeFrequency: 'weekly' as const,
       priority: 0.8,
     }));

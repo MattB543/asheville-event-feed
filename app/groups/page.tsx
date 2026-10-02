@@ -5,7 +5,7 @@ import FooterCredit from '@/components/FooterCredit';
 import GroupDirectory from '@/components/groups/GroupDirectory';
 import { getGroupDirectory, type GroupDirectoryEntry } from '@/lib/db/queries/groups';
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://avlgo.com';
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.avlgo.com';
 const pageUrl = `${siteUrl}/groups`;
 const description =
   'Clubs, circles, jams and crews around Asheville that meet again and again, with their upcoming events.';

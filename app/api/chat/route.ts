@@ -455,13 +455,13 @@ ${events}
 
 **Friday, December 5**
 
-1. [**OK Go**](https://avlgo.com/events/ok-go-2025-12-05-a1b2c3)
+1. [**OK Go**](https://www.avlgo.com/events/ok-go-2025-12-05-a1b2c3)
    Fri, Dec 5 at 8:00 PM
    The Orange Peel
    Price: $35
    *The iconic alt-rock band known for their creative music videos - rare Asheville stop*
 
-2. [**Southern Culture on the Skids**](https://avlgo.com/events/southern-culture-on-the-skids-2025-12-05-d4e5f6)
+2. [**Southern Culture on the Skids**](https://www.avlgo.com/events/southern-culture-on-the-skids-2025-12-05-d4e5f6)
    Fri, Dec 5 at 8:00 PM
    The Grey Eagle
    Price: $27
@@ -471,7 +471,7 @@ ${events}
 
 **Saturday, December 6**
 
-3. [**The Big Crafty**](https://avlgo.com/events/the-big-crafty-2025-12-06-g7h8i9)
+3. [**The Big Crafty**](https://www.avlgo.com/events/the-big-crafty-2025-12-06-g7h8i9)
    Sat, Dec 6 at 10:00 AM
    Harrah's Cherokee Center
    Price: Free

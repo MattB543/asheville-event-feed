@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useEffect, useMemo, useId, type FocusEvent } from 'react';
+import { Suspense, useState, useRef, useEffect, useMemo, useId, type FocusEvent } from 'react';
 import { useAuth } from './AuthProvider';
 import { User, LogOut, ChevronDown, UserCircle, Heart, LogIn } from 'lucide-react';
 import Link from 'next/link';
@@ -12,10 +12,28 @@ const MENU_ITEM_CLASS =
 const TRIGGER_FOCUS_CLASS =
   'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500';
 
+/**
+ * useSearchParams() needs its own Suspense boundary: without one, a statically
+ * rendered page bails out to client-side rendering at the root loading boundary
+ * and ships no HTML content at all. The fallback is the same menu, whose login
+ * link just doesn't carry the current query until hydration.
+ */
 export default function UserMenu() {
+  return (
+    <Suspense fallback={<UserMenuContent query="" />}>
+      <UserMenuWithQuery />
+    </Suspense>
+  );
+}
+
+function UserMenuWithQuery() {
+  const searchParams = useSearchParams();
+  return <UserMenuContent query={searchParams.toString()} />;
+}
+
+function UserMenuContent({ query }: { query: string }) {
   const { user, isLoading, signOut } = useAuth();
   const pathname = usePathname();
-  const searchParams = useSearchParams();
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -31,10 +49,9 @@ export default function UserMenu() {
       return '/login';
     }
 
-    const query = searchParams.toString();
     const currentPath = query ? `${pathname}?${query}` : pathname;
     return `/login?next=${encodeURIComponent(currentPath)}`;
-  }, [pathname, searchParams]);
+  }, [pathname, query]);
 
   // Close menu when clicking outside
   useEffect(() => {

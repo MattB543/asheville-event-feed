@@ -10,11 +10,18 @@ import {
   isTomorrowEastern,
   isThisWeekendEastern,
   isDayOfWeekEastern,
-  isInDateRangeEastern,
 } from '@/lib/utils/dateFilters';
 import { matchesDefaultFilter } from '@/lib/config/defaultFilters';
 import { extractCity, isAshevilleArea } from '@/lib/utils/geo';
 import { isRecord, isString } from '@/lib/utils/validation';
+import { isFreeEvent, parsePrice } from '@/lib/utils/eventFilterMatch';
+import { parsePublicOfferPrice } from '@/lib/utils/publicEventPrice';
+import { isInDateRange, resolveCustomDateRange } from '@/lib/api/publicEvents';
+import {
+  PUBLIC_EXPORT_ERROR_HEADERS,
+  PUBLIC_EXPORT_SUCCESS_HEADERS,
+  publicApiPreflight,
+} from '@/lib/api/publicEventsContract';
 
 export const dynamic = 'force-dynamic';
 
@@ -115,15 +122,6 @@ function escapeMarkdown(str: string | null | undefined): string {
   return str.replace(/([[\]()])/g, '\\$1');
 }
 
-function parsePrice(priceStr: string | null | undefined): number {
-  if (!priceStr) return 0;
-  const lower = priceStr.toLowerCase();
-  if (lower.includes('free') || lower.includes('donation')) return 0;
-  const matches = priceStr.match(/(\d+(\.\d+)?)/);
-  if (matches) return parseFloat(matches[0]);
-  return 0;
-}
-
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
@@ -162,6 +160,9 @@ export async function GET(request: Request) {
     // Pre-compute date filter boundaries once for the entire request
     // (avoids redundant timezone calculations for each event in the filter loop)
     const dateFilterBounds = computeDateFilterBounds();
+    // Same custom range as the JSON export (Eastern day boundaries; unparseable dates match nothing)
+    const customRange =
+      dateFilter === 'custom' && dateStart ? resolveCustomDateRange(dateStart, dateEnd) : undefined;
 
     let allEvents = await db
       .select(publicEventColumns)
@@ -225,25 +226,21 @@ export async function GET(request: Request) {
       if (dateFilter === 'weekend' && !isThisWeekendEastern(eventDate, dateFilterBounds))
         return false;
       if (dateFilter === 'dayOfWeek' && !isDayOfWeekEastern(eventDate, selectedDays)) return false;
-      if (
-        dateFilter === 'custom' &&
-        dateStart &&
-        !isInDateRangeEastern(eventDate, dateStart, dateEnd || undefined)
-      )
-        return false;
+      if (customRange !== undefined && !isInDateRange(eventDate, customRange)) return false;
 
       // 7. Time filter (allow unknown times)
       if (selectedTimes.length > 0 && !event.timeUnknown) {
         if (!matchesTimeOfDay(eventDate, selectedTimes)) return false;
       }
 
-      // 8. Price filter
+      // 8. Price filter (same free rules as the JSON export and the site)
       if (priceFilter && priceFilter !== 'any') {
         const price = parsePrice(event.price);
-        const priceStr = event.price?.toLowerCase() || '';
-        const isFree = priceStr.includes('free') || priceStr.includes('donation') || price === 0;
 
-        if (priceFilter === 'free' && !isFree) return false;
+        if (priceFilter === 'free' && !isFreeEvent(event.price)) return false;
+        if (priceFilter === 'confirmedFree' && parsePublicOfferPrice(event.price) !== '0') {
+          return false;
+        }
         if (priceFilter === 'under20' && price > 20) return false;
         if (priceFilter === 'under100' && price > 100) return false;
         if (priceFilter === 'custom' && maxPrice && price > parseFloat(maxPrice)) return false;
@@ -369,6 +366,7 @@ export async function GET(request: Request) {
 
     return new NextResponse(markdown, {
       headers: {
+        ...PUBLIC_EXPORT_SUCCESS_HEADERS,
         'Content-Type': 'text/markdown; charset=utf-8',
       },
     });
@@ -376,7 +374,11 @@ export async function GET(request: Request) {
     console.error('[Markdown Export] Error:', error);
     return new NextResponse('# Error\n\nFailed to generate Markdown feed.', {
       status: 500,
-      headers: { 'Content-Type': 'text/markdown; charset=utf-8' },
+      headers: { ...PUBLIC_EXPORT_ERROR_HEADERS, 'Content-Type': 'text/markdown; charset=utf-8' },
     });
   }
+}
+
+export function OPTIONS() {
+  return publicApiPreflight();
 }

@@ -1,11 +1,11 @@
 import type { MetadataRoute } from 'next';
+import { SITE_DESCRIPTION, SITE_NAME } from '@/lib/seo/site';
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
     name: 'AVL GO - Asheville Events Calendar',
-    short_name: 'AVL GO',
-    description:
-      'Discover events in Asheville, NC. Concerts, festivals, food & drink events, outdoor activities, and more.',
+    short_name: SITE_NAME,
+    description: SITE_DESCRIPTION,
     start_url: '/',
     display: 'standalone',
     background_color: '#ffffff',

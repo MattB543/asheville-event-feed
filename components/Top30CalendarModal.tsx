@@ -40,7 +40,7 @@ export default function Top30CalendarModal({ isOpen, onClose }: Top30CalendarMod
 
         <div className="space-y-3">
           <a
-            href="webcal://avlgo.com/api/top30/calendar"
+            href="webcal://www.avlgo.com/api/top30/calendar"
             className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-lg bg-[#2a7d9c] hover:bg-[#1f6a87] text-white font-medium transition-colors"
           >
             <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
@@ -50,7 +50,7 @@ export default function Top30CalendarModal({ isOpen, onClose }: Top30CalendarMod
           </a>
 
           <a
-            href="https://calendar.google.com/calendar/r?cid=webcal://avlgo.com/api/top30/calendar"
+            href="https://calendar.google.com/calendar/r?cid=webcal://www.avlgo.com/api/top30/calendar"
             target="_blank"
             rel="noopener noreferrer"
             className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-lg border border-[#a8d8e8] dark:border-[#3a6a7a] text-[#2a7d9c] dark:text-[#7ec8e3] font-medium hover:bg-[#e8f4f8] dark:hover:bg-[#1a3a4a] transition-colors"
@@ -72,12 +72,12 @@ export default function Top30CalendarModal({ isOpen, onClose }: Top30CalendarMod
             <input
               type="text"
               readOnly
-              value="https://avlgo.com/api/top30/calendar"
+              value="https://www.avlgo.com/api/top30/calendar"
               className="flex-1 px-3 py-2 text-xs bg-[#e8f4f8] dark:bg-[#1a3a4a] rounded-lg border border-[#c5e4ed] dark:border-[#2a5a6a] text-gray-600 dark:text-gray-400"
             />
             <button
               onClick={() => {
-                void navigator.clipboard.writeText('https://avlgo.com/api/top30/calendar');
+                void navigator.clipboard.writeText('https://www.avlgo.com/api/top30/calendar');
                 showToast('URL copied!');
               }}
               className="px-3 py-2 text-xs font-medium text-[#2a7d9c] dark:text-[#7ec8e3] hover:bg-[#e8f4f8] dark:hover:bg-[#1a3a4a] rounded-lg transition-colors cursor-pointer"

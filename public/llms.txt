@@ -1,0 +1,21 @@
+# AVL GO
+
+> AVL GO collects upcoming events in Asheville, NC and nearby Western North Carolina towns from dozens of local sources and serves them through a free, read-only JSON API. No API key is needed. All times are Eastern (America/New_York).
+
+Use `format=compact` for small, paginated results: each event has an id, title, startDate, location, price, aiSummary and url (its AVL GO page). Add `priceFilter=confirmedFree` for events listed as free. A date-only startDate means no start time was listed. While `hasMore` is true, repeat the request with `cursor` set to `nextCursor`. Listings come from third-party sources, so confirm details with the organizer before attending.
+
+## Docs
+
+- [Developer docs](https://www.avlgo.com/developers): Example requests by question, every parameter, paging, freshness and price-filter notes
+- [OpenAPI spec](https://www.avlgo.com/openapi.json): OpenAPI 3.1 description of the JSON and Markdown exports
+
+## API
+
+- [Upcoming events, compact JSON](https://www.avlgo.com/api/export/json?format=compact&limit=20): The next 20 upcoming events
+- [Today's events, compact JSON](https://www.avlgo.com/api/export/json?format=compact&dateFilter=today&limit=20): Events on today's date in Asheville
+- [Full JSON export](https://www.avlgo.com/api/export/json): Every upcoming event with all fields in one large, unpaginated response
+- [Markdown export](https://www.avlgo.com/api/export/markdown): Every upcoming event as a readable Markdown list, also large and unpaginated
+
+## Optional
+
+- [Browse events](https://www.avlgo.com/events): The AVL GO event feed for people

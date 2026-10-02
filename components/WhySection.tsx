@@ -67,7 +67,7 @@ export default function WhySection() {
                   <p className="text-sm text-gray-600 dark:text-gray-400">
                     All data available via{' '}
                     <a
-                      href="https://avlgo.com/api/export/json"
+                      href="https://www.avlgo.com/api/export/json"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="underline hover:text-gray-700 dark:hover:text-gray-300"

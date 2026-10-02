@@ -238,7 +238,7 @@ async function extractDateRangeWithOpenRouter(
       body: JSON.stringify({
         model: 'google/gemini-2.0-flash-lite-001',
         messages: [{ role: 'user', content: prompt }],
-        temperature: 0,
+        temperature: 1,
       }),
       signal: AbortSignal.timeout(OPENROUTER_REQUEST_TIMEOUT_MS),
     });

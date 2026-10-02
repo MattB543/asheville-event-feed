@@ -27,21 +27,21 @@ Reminders for Claude:
 
 ## Tech Stack
 
-| Layer            | Technology                                              |
-| ---------------- | ------------------------------------------------------- |
-| Framework        | Next.js 16 (App Router)                                 |
-| Language         | TypeScript                                              |
-| Database         | PostgreSQL (Supabase) with pgvector                     |
-| ORM              | Drizzle ORM                                             |
-| AI - Tagging     | Google Gemini (`gemini-2.5-flash`)                      |
-| AI - Embeddings  | Google Gemini (`gemini-embedding-001`, 1536 dimensions) |
-| AI - Summaries   | Azure OpenAI (`gpt-5-mini` or configurable)             |
-| AI - Chat        | Azure OpenAI + OpenRouter fallback                      |
-| Authentication   | Supabase Auth + Google OAuth                            |
-| Image Storage    | Supabase Storage                                        |
-| Styling          | Tailwind CSS v4                                         |
-| Deployment       | Vercel (with Fluid Compute + cron jobs)                 |
-| Image Processing | Sharp (compression)                                     |
+| Layer            | Technology                                                                           |
+| ---------------- | ------------------------------------------------------------------------------------ |
+| Framework        | Next.js 16 (App Router)                                                              |
+| Language         | TypeScript                                                                           |
+| Database         | PostgreSQL (Supabase) with pgvector                                                  |
+| ORM              | Drizzle ORM                                                                          |
+| AI - Text        | Azure OpenAI (`gpt-6-luna` deployment): tags, summaries, scores, dedup, verify, chat |
+| AI - Vision      | Google Gemini (`gemini-3.7-flash`, poster extraction)                                |
+| AI - Embeddings  | Google Gemini (`gemini-embedding-001`, 1536 dimensions)                              |
+| AI - Chat        | Azure OpenAI + OpenRouter fallback                                                   |
+| Authentication   | Supabase Auth + Google OAuth                                                         |
+| Image Storage    | Supabase Storage                                                                     |
+| Styling          | Tailwind CSS v4                                                                      |
+| Deployment       | Vercel (with Fluid Compute + cron jobs)                                              |
+| Image Processing | Sharp (compression)                                                                  |
 
 ---
 
@@ -113,10 +113,11 @@ asheville-event-feed/
 │   └── Providers.tsx             # Combined providers
 ├── lib/
 │   ├── ai/
-│   │   ├── client.ts             # Gemini client (tagging + embeddings)
-│   │   ├── azure-client.ts       # Azure OpenAI client
-│   │   ├── tagging.ts            # AI tag generation
-│   │   ├── summary.ts            # AI summary generation
+│   │   ├── provider-clients.ts   # Azure OpenAI + Gemini clients
+│   │   ├── tagAndSummarize.ts    # AI tags + summary (one call)
+│   │   ├── scoring.ts            # AI event scores
+│   │   ├── posterExtraction.ts   # Gemini vision poster reading
+│   │   ├── eventVerification.ts  # AI verify against the source page
 │   │   ├── embedding.ts          # Vector embedding generation
 │   │   └── aiDeduplication.ts    # AI-powered duplicate detection
 │   ├── cache/
@@ -494,23 +495,42 @@ listings and are never touched.
 
 ## AI Integration
 
-### Tagging (`lib/ai/tagging.ts`)
+### Models
 
-- **Model**: `gemini-2.5-flash`
+Every Azure call goes through `lib/ai/provider-clients.ts` and uses one
+deployment, `AZURE_OPENAI_DEPLOYMENT`. Since 2026-09-25 that is **`gpt-6-luna`**
+in `.env` and in all three Vercel environments (it was `gpt-5.2`; the code's
+`gpt-5-mini` default applies only when the variable is unset). Luna is a
+reasoning model:
+
+- `temperature`: only the default of 1 is accepted, and nothing passes it.
+- `reasoning_effort`: `none` / `low` / `medium` / `high` / `xhigh`, with **no
+  `minimal`**. Unset, it reasons about as much as `medium`. The app sets none.
+- Content filter: both deployments use the `LowGuardrail` policy (blocks High
+  severity only), the loosest setting Azure allows without Microsoft's
+  approval. It still rejects some crime prompts with a 400: tagging records a
+  permanent failure and scoring falls back to 5/30.
+
+Gemini handles poster vision (`gemini-3.7-flash`, `GEMINI_VISION_MODEL`),
+embeddings, and the matching résumé parser (`gemini-2.5-flash`, the only
+remaining `getModel()` caller).
+
+### Tags + Summary (`lib/ai/tagAndSummarize.ts`)
+
+- **Model**: Azure OpenAI, one JSON-mode call per event
 - **Input**: Event title, description, location, organizer, date
-- **Output**: JSON array of tag strings
+- **Output**: 1-4 official tags from `lib/config/tagCategories.ts`, up to 5 custom tags, and a 1-2 sentence summary for semantic search
 - **Categories**: Entertainment, Food & Drink, Activities, Audience/Social, Other
+
+### Scoring (`lib/ai/scoring.ts`)
+
+- **Model**: Azure OpenAI
+- **Output**: rarity / unique / magnitude (0-10 each, total 0-30) plus Asheville-weird and social (1-10), using 20 similar events as context
 
 ### Images
 
 AI image generation is not wired up. The AI cron's "Images Pass" batch-applies the
 static `/asheville-default.jpg` placeholder to events with no image.
-
-### Summaries (`lib/ai/summary.ts`)
-
-- **Model**: Azure OpenAI (`gpt-5-mini` or configurable)
-- **Output**: 1-2 sentence structured summary optimized for semantic search
-- **Format**: "[Event type] at [venue] featuring [key details]."
 
 ### Embeddings (`lib/ai/embedding.ts`)
 
@@ -527,8 +547,8 @@ static `/asheville-default.jpg` placeholder to events with no image.
 
 ### AI Chat (`app/api/chat/route.ts`)
 
-- **Primary**: Azure OpenAI (streaming)
-- **Fallback**: OpenRouter (google/gemini-2.0-flash)
+- **Primary**: Azure OpenAI (streaming chat + date-range extraction)
+- **Fallback**: OpenRouter (`google/gemini-2.0-flash-001` for chat, `-lite-001` for date extraction)
 - **Features**: Date extraction, event filtering, curated recommendations
 
 ---
@@ -567,7 +587,7 @@ GEMINI_VISION_MODEL=gemini-3.7-flash   # poster extraction
 # Azure OpenAI - enables summaries, AI dedup, chat
 AZURE_OPENAI_API_KEY=        # or AZURE_KEY_1
 AZURE_OPENAI_ENDPOINT=       # or AZURE_ENDPOINT
-AZURE_OPENAI_DEPLOYMENT=     # default: gpt-5-mini
+AZURE_OPENAI_DEPLOYMENT=     # gpt-6-luna (code default if unset: gpt-5-mini)
 AZURE_OPENAI_NEWS_DEPLOYMENT=  # news pipeline only; default: gpt-6.1-sol
 REDDIT_CLIENT_ID=            # news: Reddit personal-use script app
 REDDIT_CLIENT_SECRET=
@@ -790,13 +810,13 @@ curl -X GET https://your-domain.vercel.app/api/cron/scrape \
 - Ensure `.env` file exists in project root
 - Check that `lib/config/env.ts` is imported before database access
 
-### AI not generating tags/images
+### AI not generating embeddings or reading posters
 
 - Verify `GEMINI_API_KEY` is set
 - Check `isAIEnabled()` returns true
 - Model may be unavailable; check Gemini API status
 
-### AI summaries not generating
+### AI tags, summaries or scores not generating
 
 - Verify Azure OpenAI credentials are set
 - Check `isAzureAIEnabled()` returns true

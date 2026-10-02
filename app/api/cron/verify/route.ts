@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { events } from '@/lib/db/schema';
-import { and, eq, gte, inArray, isNull, or, sql } from 'drizzle-orm';
+import { and, asc, eq, gte, inArray, isNull, lte, or, sql } from 'drizzle-orm';
 import { env } from '@/lib/config/env';
 import { verifyAuthToken } from '@/lib/utils/auth';
 import { startCronJob, completeCronJob, failCronJob } from '@/lib/cron/jobTracker';
@@ -21,6 +21,11 @@ export const maxDuration = 800; // ~13 minutes max (Fluid Compute)
 /** Max events to verify per run - conservative to fit within timeout */
 const MAX_EVENTS_PER_RUN = 30;
 
+// Backoff for events whose verification didn't land (fetch failed, AI error,
+// low confidence). Without it the same rows are re-selected every run and hold
+// the head of the queue until they start.
+const VERIFY_BACKOFF_MS = [6 * 60 * 60 * 1000, 24 * 60 * 60 * 1000, 7 * 24 * 60 * 60 * 1000];
+
 /**
  * Event verification cron job.
  *
@@ -33,6 +38,7 @@ const MAX_EVENTS_PER_RUN = 30;
  * - Have never been verified before
  * - Are missing description (null or < 50 chars) OR missing price data
  * - Are future events (startDate >= now)
+ * - Are live (not hidden, deduped, or dead) and not backing off from a failed attempt
  * - Are from verifiable sources (AVL_TODAY, EXPLORE_ASHEVILLE, MOUNTAIN_X)
  *
  * Runs every 3 hours, processes up to 30 events per run.
@@ -92,18 +98,23 @@ export async function GET(request: Request) {
         url: events.url,
         source: events.source,
         lastVerifiedAt: events.lastVerifiedAt,
+        verifyAttempts: events.verifyAttempts,
       })
       .from(events)
       .where(
         and(
           // Only verifiable sources
           inArray(events.source, [...VERIFIABLE_SOURCES]),
-          // Not hidden
+          // Live rows only (not hidden, deduped, or dead)
           eq(events.hidden, false),
+          isNull(events.dedupedAt),
+          isNull(events.deadAt),
           // Future events only
           gte(events.startDate, now),
           // NEVER verified before (no re-verification)
           isNull(events.lastVerifiedAt),
+          // Respect the failure backoff: NULL means "never failed / due now"
+          or(isNull(events.verifyNextAttemptAt), lte(events.verifyNextAttemptAt, now)),
           // Missing description OR missing price (either triggers verification)
           or(
             // Missing/short description
@@ -115,8 +126,10 @@ export async function GET(request: Request) {
           )
         )
       )
-      .orderBy(events.startDate) // Closest events first
-      .limit(MAX_EVENTS_PER_RUN);
+      // Fresh events before ones that already failed, closest first within each
+      .orderBy(asc(events.verifyAttempts), asc(events.startDate))
+      // Headroom for the spam filter below, which can't run in SQL
+      .limit(MAX_EVENTS_PER_RUN * 2);
 
     const queryDuration = ((Date.now() - queryStart) / 1000).toFixed(1);
     console.log(
@@ -125,14 +138,15 @@ export async function GET(request: Request) {
 
     // Filter out spam events based on default filters
     currentStep = 'spam filtering';
-    const filteredEvents = eventsToVerify.filter((event) => {
+    const nonSpamEvents = eventsToVerify.filter((event) => {
       if (matchesDefaultFilter(event.title)) return false;
       if (event.description && matchesDefaultFilter(event.description)) return false;
       if (event.organizer && matchesDefaultFilter(event.organizer)) return false;
       return true;
     });
+    const filteredEvents = nonSpamEvents.slice(0, MAX_EVENTS_PER_RUN);
 
-    const spamFiltered = eventsToVerify.length - filteredEvents.length;
+    const spamFiltered = eventsToVerify.length - nonSpamEvents.length;
     if (spamFiltered > 0) {
       const spamExamples = eventsToVerify
         .filter(
@@ -165,13 +179,30 @@ export async function GET(request: Request) {
     let skippedErrorCount = 0;
     let lowConfidenceCount = 0;
 
+    // Unstamped rows stay eligible for a retry, but back off so a row that keeps
+    // failing can't hold the head of the queue
+    const deferRetry = async (eventId: string, previousAttempts: number) => {
+      const attempts = previousAttempts + 1;
+      const delay = VERIFY_BACKOFF_MS[Math.min(attempts - 1, VERIFY_BACKOFF_MS.length - 1)];
+      try {
+        await db
+          .update(events)
+          .set({ verifyAttempts: attempts, verifyNextAttemptAt: new Date(now.getTime() + delay) })
+          .where(eq(events.id, eventId));
+      } catch (dbError) {
+        console.error(
+          `[Verify] DB error recording retry for ${eventId}: ${dbError instanceof Error ? dbError.message : String(dbError)}`
+        );
+      }
+    };
+
     for (const result of verificationResult.results) {
       const event = filteredEvents.find((e) => e.id === result.eventId);
       eventsProcessedBeforeError++;
 
       // Low-confidence hides/updates are left untouched AND unstamped, so a
-      // later run can re-verify them (shouldApplyVerification is the shared gate
-      // with the report-triggered verifyEventById path).
+      // later run can re-verify them after a backoff (shouldApplyVerification is
+      // the shared gate with the report-triggered verifyEventById path).
       if (
         (result.action === 'hide' || result.action === 'update') &&
         !shouldApplyVerification(result)
@@ -184,6 +215,7 @@ export async function GET(request: Request) {
         } else {
           skippedErrorCount++;
         }
+        await deferRetry(result.eventId, event?.verifyAttempts ?? 0);
       } else if (result.action === 'hide') {
         // Hide the event (set hidden = true)
         try {
@@ -265,9 +297,10 @@ export async function GET(request: Request) {
           );
         }
       } else {
+        // Skip updating lastVerifiedAt if there was an error (site down, fetch failed, etc.)
         skippedErrorCount++;
+        await deferRetry(result.eventId, event?.verifyAttempts ?? 0);
       }
-      // Skip updating lastVerifiedAt if there was an error (site down, fetch failed, etc.)
     }
 
     if (keptCount > 0) {

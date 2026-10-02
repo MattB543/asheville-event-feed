@@ -32,11 +32,16 @@ import { parsePrice, isFreeEvent } from '@/lib/utils/eventFilterMatch';
 const DEBUG_QUERY_LOGS = process.env.NODE_ENV !== 'production';
 
 // Type for events without server-side-only fields: the embedding vector and the AI
-// retry bookkeeping columns, which only the AI cron reads and which nothing in the
-// feed or UI consumes (selecting them would bloat every feed row for no benefit).
+// and verify retry bookkeeping columns, which only their crons read and which nothing
+// in the feed or UI consumes (selecting them would bloat every feed row for no benefit).
 export type DbEvent = Omit<
   InferSelectModel<typeof events>,
-  'embedding' | 'aiAttempts' | 'aiLastAttemptAt' | 'aiNextAttemptAt'
+  | 'embedding'
+  | 'aiAttempts'
+  | 'aiLastAttemptAt'
+  | 'aiNextAttemptAt'
+  | 'verifyAttempts'
+  | 'verifyNextAttemptAt'
 >;
 
 // Filter parameters accepted by the API

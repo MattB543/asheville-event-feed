@@ -208,16 +208,59 @@ async function staleSources() {
   }
 }
 
-async function enrichment() {
-  console.log('\nAI ENRICHMENT — events inside the 3-month enrichment window');
+// A verify run can "succeed" while checking nothing: from 2026-01-10 every Jina
+// fetch returned 402 and 2,000+ runs reported success. So judge it by the work done.
+const VERIFY_IDLE_RUNS = 4;
+
+async function verifyWork() {
+  console.log(`\nVERIFY — events actually checked, last ${DAYS} days`);
   hr();
+  const runs = await sql<{ status: string; result: Record<string, unknown> | null }[]>`
+    select status, result from cron_job_runs
+    where job_name = 'verify' and started_at > now() - make_interval(days => ${DAYS})
+    order by started_at desc`;
+
+  if (runs.length === 0) {
+    console.log('(no verify runs recorded)');
+    return;
+  }
+
+  const checked = runs.reduce((n, run) => n + Number(run.result?.eventsChecked ?? 0), 0);
+
+  // Newest-first streak of runs that had events waiting but checked none. Failed
+  // and skipped (not configured) runs count too; an empty queue ends the streak.
+  let idle = 0;
+  for (const run of runs) {
+    if (run.status === 'running') continue;
+    const r = run.result ?? {};
+    const nothingToDo = run.status === 'success' && !r.skipped && Number(r.eventsFiltered) === 0;
+    if (Number(r.eventsChecked ?? 0) > 0 || nothingToDo) break;
+    idle++;
+  }
+
+  console.log(`Runs:           ${runs.length}`);
+  console.log(`Events checked: ${checked}`);
+  console.log(`Idle streak:    ${idle} run(s) in a row with events waiting and none checked`);
+  if (idle >= VERIFY_IDLE_RUNS) {
+    problems.push(
+      `verify: checked 0 events on the last ${idle} runs despite a non-empty queue (Jina key/balance? every fetch failing?).`
+    );
+  }
+}
+
+async function enrichment() {
+  console.log('\nAI ENRICHMENT — live events inside the 3-month enrichment window');
+  hr();
+  // Live rows only: the AI cron skips hidden, deduped and dead rows, so counting
+  // them would report a backlog that never drains.
   const [row] = await sql<{ total: number; missing: number; retry_capped: number }[]>`
     select count(*)::int as total,
            count(*) filter (where score is null or embedding is null or ai_summary is null)::int as missing,
            count(*) filter (where (score is null or embedding is null or ai_summary is null)
                               and ai_attempts >= 3)::int as retry_capped
     from events
-    where start_date >= now() and start_date <= now() + interval '3 months'`;
+    where start_date >= now() and start_date <= now() + interval '3 months'
+      and hidden is not true and deduped_at is null and dead_at is null`;
 
   const pct = row.total ? ((1 - row.missing / row.total) * 100).toFixed(1) : '100.0';
   console.log(`In window:      ${row.total}`);
@@ -351,6 +394,7 @@ async function main() {
   await jobSummary();
   await scrapeDetail();
   await staleSources();
+  await verifyWork();
   await enrichment();
   await news();
 

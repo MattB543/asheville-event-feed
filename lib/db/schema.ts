@@ -62,6 +62,8 @@ export const events = pgTable(
     aiNextAttemptAt: timestamp('ai_next_attempt_at', { withTimezone: true }), // Don't retry before this; NULL = eligible now
     // Event verification (via Jina Reader API)
     lastVerifiedAt: timestamp('last_verified_at', { withTimezone: true }), // When event source URL was last checked
+    verifyAttempts: integer('verify_attempts').default(0).notNull(), // Verification attempts that didn't land (fetch failed, AI error, low confidence)
+    verifyNextAttemptAt: timestamp('verify_next_attempt_at', { withTimezone: true }), // Don't retry before this; NULL = eligible now
     // Deduplication soft-delete (AI + rule-based dedup no longer hard-delete)
     dedupedAt: timestamp('deduped_at', { withTimezone: true }), // Set when removed as a duplicate; NULL = live. Excluded from feed + dedup input.
     deadAt: timestamp('dead_at', { withTimezone: true }), // Set when the source URL 404s; NULL = live. Excluded from feed. Clear to restore.

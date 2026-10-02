@@ -174,6 +174,14 @@ Do NOT hide events just because:
 - The format is different`;
 
 /**
+ * Jina rejected the request itself (bad key, no balance), so every fetch in the
+ * run will fail the same way. Thrown rather than returned as a per-event skip:
+ * from 2026-01-10 a 402 "InsufficientBalanceError" made the cron skip every
+ * event for months while reporting success.
+ */
+export class JinaAccountError extends Error {}
+
+/**
  * Check if event verification is available (both Jina and Azure AI configured).
  */
 export function isVerificationEnabled(): boolean {
@@ -204,6 +212,11 @@ export async function fetchPageContent(url: string): Promise<string | null> {
       },
     });
 
+    if (response.status === 401 || response.status === 402) {
+      const body = (await response.text()).slice(0, 200);
+      throw new JinaAccountError(`Jina rejected the API key: HTTP ${response.status} ${body}`);
+    }
+
     if (!response.ok) {
       const elapsed = ((Date.now() - fetchStart) / 1000).toFixed(1);
       console.warn(`[Verify] Jina fetch failed for ${url}: HTTP ${response.status} (${elapsed}s)`);
@@ -221,8 +234,16 @@ export async function fetchPageContent(url: string): Promise<string | null> {
       return null;
     }
 
+    // A Cloudflare challenge page is long enough to pass the check above, and
+    // the AI may read "page doesn't contain this event" as grounds to hide it
+    if (content.includes('Title: Just a moment...') || content.includes('requiring CAPTCHA')) {
+      console.warn(`[Verify] Jina got a bot challenge page for ${url}`);
+      return null;
+    }
+
     return content;
   } catch (error) {
+    if (error instanceof JinaAccountError) throw error;
     const elapsed = ((Date.now() - fetchStart) / 1000).toFixed(1);
     const errorType =
       error instanceof Error
@@ -533,6 +554,7 @@ export async function processEventVerification(
       // Rate limit delay for AI
       await new Promise((r) => setTimeout(r, opts.aiDelayMs));
     } catch (error) {
+      if (error instanceof JinaAccountError) throw error;
       result.errors++;
       const errMsg = error instanceof Error ? error.message : String(error);
       permanentErrors++;

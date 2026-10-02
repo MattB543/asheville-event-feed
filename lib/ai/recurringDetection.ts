@@ -7,7 +7,7 @@
 
 import { db } from '../db';
 import { events } from '../db/schema';
-import { and, ne, gte, lte, sql, or } from 'drizzle-orm';
+import { and, ne, gte, lte, sql, or, isNull } from 'drizzle-orm';
 
 export interface WeeklyRecurringCheck {
   isWeeklyRecurring: boolean;
@@ -82,7 +82,10 @@ export async function checkWeeklyRecurring(
           sql`LOWER(TRIM(${events.title})) = ${normalizedTitle}`,
           venueCondition,
           gte(events.startDate, lookbackDate),
-          lte(events.startDate, endDate)
+          lte(events.startDate, endDate),
+          // A deduped copy of this same occurrence is not a second week
+          isNull(events.dedupedAt),
+          isNull(events.deadAt)
         )
       );
 

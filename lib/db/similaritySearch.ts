@@ -14,6 +14,7 @@ import {
   ne,
   and,
   isNotNull,
+  isNull,
   gte,
   lte,
   notInArray,
@@ -89,6 +90,9 @@ export async function findSimilarEvents(
     gt(similarity, minSimilarity), // Minimum similarity threshold
     // Hidden events 404 on their own page, so recommending one is a dead link
     sql`${events.hidden} IS NOT TRUE`,
+    // Soft-deleted rows: a deduped copy is usually the closest match of all
+    isNull(events.dedupedAt),
+    isNull(events.deadAt),
   ];
 
   // Exclude specific IDs
@@ -145,8 +149,14 @@ export async function findSimilarByEmbedding(
   // Calculate similarity score (1 - cosine distance)
   const similarity = sql<number>`1 - (${cosineDistance(events.embedding, embedding)})`;
 
-  // Build conditions
-  const conditions = [isNotNull(events.embedding), gt(similarity, minSimilarity)];
+  // Build conditions (live rows only, same as findSimilarEvents)
+  const conditions = [
+    isNotNull(events.embedding),
+    gt(similarity, minSimilarity),
+    sql`${events.hidden} IS NOT TRUE`,
+    isNull(events.dedupedAt),
+    isNull(events.deadAt),
+  ];
 
   // Exclude specific IDs
   if (excludeIds.length > 0) {

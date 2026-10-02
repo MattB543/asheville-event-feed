@@ -10,7 +10,7 @@
  * an existing row is silently lost.
  */
 
-import { and, asc, eq, inArray, isNull, or } from 'drizzle-orm';
+import { asc, eq, inArray } from 'drizzle-orm';
 import { db } from '@/lib/db';
 import { events, posterExtractions, posterUploads } from '@/lib/db/schema';
 import { generateEmbedding } from '@/lib/ai/embedding';
@@ -107,27 +107,9 @@ async function findExistingEvent(
 
   if (candidates.length === 0) return null;
 
-  // ...and it does not filter soft-deleted or hidden rows either.
-  const liveRows = await db
-    .select({ id: events.id })
-    .from(events)
-    .where(
-      and(
-        inArray(
-          events.id,
-          candidates.map((candidate) => candidate.id)
-        ),
-        isNull(events.dedupedAt),
-        isNull(events.deadAt),
-        or(isNull(events.hidden), eq(events.hidden, false))
-      )
-    );
-  const liveIds = new Set(liveRows.map((row) => row.id));
-
   const posterVenue = getVenueForEvent(extraction.organizer, extraction.location, extraction.title);
 
   for (const candidate of candidates) {
-    if (!liveIds.has(candidate.id)) continue;
     if (easternDateKey(candidate.startDate) !== dateKey) continue;
 
     const sharedTitleWords = countSharedTitleWords(extraction.title, candidate.title);

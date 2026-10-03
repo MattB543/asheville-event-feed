@@ -34,8 +34,6 @@ export interface WaterNotice {
   place: string | null;
   /** ISO */
   postedAt: string;
-  /** Scheduled interruptions: the stated shutdown window, or the whole day (ISO) */
-  scheduled: { start: string; end: string; allDay: boolean } | null;
   message: string;
 }
 

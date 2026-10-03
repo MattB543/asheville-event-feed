@@ -23,34 +23,9 @@ const postedFormat = new Intl.DateTimeFormat('en-US', {
   minute: '2-digit',
 });
 
-const dayFormat = new Intl.DateTimeFormat('en-US', {
-  timeZone: 'America/New_York',
-  weekday: 'short',
-  month: 'short',
-  day: 'numeric',
-});
-
-const timeFormat = new Intl.DateTimeFormat('en-US', {
-  timeZone: 'America/New_York',
-  hour: 'numeric',
-  minute: '2-digit',
-});
-
 function formatPosted(iso: string): string {
   // "Thu, Oct 1, 8:07 AM" -> "Thu, Oct 1 at 8:07 AM"
   return postedFormat.format(new Date(iso)).replace(/, (\d{1,2}:\d{2})/, ' at $1');
-}
-
-/** "Thu, Oct 1, 7:00 PM – Fri, Oct 2, 6:00 AM", "Thu, Oct 1, 8:00 AM – 8:00 PM", "Thu, Oct 1" */
-function formatScheduled({ start, end, allDay }: NonNullable<WaterNotice['scheduled']>): string {
-  const startDay = dayFormat.format(new Date(start));
-  if (allDay) return startDay;
-  const endDay = dayFormat.format(new Date(end));
-  const startTime = timeFormat.format(new Date(start));
-  const endTime = timeFormat.format(new Date(end));
-  return endDay === startDay
-    ? `${startDay}, ${startTime} – ${endTime}`
-    : `${startDay}, ${startTime} – ${endDay}, ${endTime}`;
 }
 
 /** Boil-water is orange throughout; outages stay neutral (amber only on the droplet). */
@@ -187,7 +162,6 @@ export default function WaterAlertModal({ status, onClose }: WaterAlertModalProp
                 {notice.area ?? notice.place ?? 'Asheville'}
               </h3>
               <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
-                {notice.scheduled && <>Scheduled {formatScheduled(notice.scheduled)} · </>}
                 Posted {formatPosted(notice.postedAt)}
               </p>
               <div className={`mt-3 rounded-md px-3 py-2 text-sm ${kind.callout}`}>

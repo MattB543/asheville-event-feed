@@ -3,7 +3,8 @@
  *
  * Every claim has to come from a stored field. Missing data stays missing: no
  * default venue, street address, end time, ticket availability or organizer URL.
- * A row may then miss some rich results, which beats publishing a wrong fact.
+ * A row may then miss some rich results, which beats publishing a wrong fact. A row
+ * with no physical address gets no Event schema at all, since Google requires one.
  */
 
 import type { DbEvent } from '@/lib/events/getEvent';
@@ -37,7 +38,7 @@ const META_DESCRIPTION_MAX = 160;
 // civic scrapers store for virtual meetings (the feed query hides "online"/"virtual").
 const REMOTE_ONLY =
   /^(?:online|virtual|remote|remote meeting|online event|virtual event|online only|zoom|livestream)$/i;
-// Any other mention may be a hybrid event or a venue name, so neither mode is claimed
+// Any other mention may be a hybrid event or a venue name, so it is not read as an address
 const REMOTE_MARKER = /\b(?:online|virtual|remote meeting|zoom|livestream|webinar)\b/i;
 const NO_LOCATION = /^(?:tba|tbd|to be announced|location tba|location tbd)$/i;
 
@@ -136,14 +137,18 @@ function eventImageUrl(imageUrl: string | null, siteUrl: string): string | undef
 }
 
 /**
- * Event JSON-LD for a live row, or null for a deduped/dead/hidden one. Recurring
- * rows describe the stored occurrence only; they are not expanded into a schedule.
+ * Event JSON-LD for a live row with a physical address, else null. Google requires
+ * location.address and does not support online-only events, so an Event without one
+ * is a critical error in Search Console rather than a partial result. Recurring rows
+ * describe the stored occurrence only; they are not expanded into a schedule.
  */
 export function buildEventJsonLd(event: EventSeoInput, eventUrl: string, siteUrl: string) {
   if (!isLiveEvent(event)) return null;
 
   const location = event.location?.trim() ?? '';
-  const kind = locationKind(location);
+  const address = locationKind(location) === 'physical' ? postalAddress(location) : undefined;
+  if (!address) return null;
+
   const price = parsePublicOfferPrice(event.price);
   const image = eventImageUrl(event.imageUrl, siteUrl);
   const organizer = event.organizer?.trim();
@@ -159,17 +164,8 @@ export function buildEventJsonLd(event: EventSeoInput, eventUrl: string, siteUrl
     startDate: formatEventStartDate(event.startDate, !!event.timeUnknown),
     // Only live rows get here, and no source reports cancellations or postponements
     eventStatus: 'https://schema.org/EventScheduled',
-    eventAttendanceMode:
-      kind === 'physical'
-        ? 'https://schema.org/OfflineEventAttendanceMode'
-        : kind === 'remote'
-          ? 'https://schema.org/OnlineEventAttendanceMode'
-          : undefined,
-    // No VirtualLocation for remote rows: the source listing is not a joining link
-    location:
-      kind === 'physical'
-        ? { '@type': 'Place', name: location, address: postalAddress(location) }
-        : undefined,
+    eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+    location: { '@type': 'Place', name: location, address },
     image: image ? [image] : undefined,
     url: eventUrl,
     // Price only when it is one unambiguous number; ticket inventory is unknown

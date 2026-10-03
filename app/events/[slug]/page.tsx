@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { parseEventSlug, generateEventSlug } from '@/lib/utils/slugify';
+import { generateEventSlug } from '@/lib/utils/slugify';
 import EventPageClient from './EventPageClient';
-import { getEventByShortId, getSimilarEvents, serializeEvent } from '@/lib/events/getEvent';
+import { getEventBySlug, getSimilarEvents, serializeEvent } from '@/lib/events/getEvent';
 import { createClient } from '@/lib/supabase/server';
 import { isSuperAdmin } from '@/lib/utils/superAdmin';
 import { isUserVerifiedCurator } from '@/lib/supabase/curatorProfile';
@@ -29,13 +29,7 @@ const notFoundMetadata: Metadata = {
  */
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  const parsed = parseEventSlug(slug);
-
-  if (!parsed) {
-    return notFoundMetadata;
-  }
-
-  const event = await getEventByShortId(parsed.shortId);
+  const event = await getEventBySlug(slug);
 
   if (!event) {
     return notFoundMetadata;
@@ -94,13 +88,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
  */
 export default async function EventPage({ params }: PageProps) {
   const { slug } = await params;
-  const parsed = parseEventSlug(slug);
-
-  if (!parsed) {
-    notFound();
-  }
-
-  const event = await getEventByShortId(parsed.shortId);
+  const event = await getEventBySlug(slug);
 
   if (!event) {
     notFound();

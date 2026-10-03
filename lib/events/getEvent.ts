@@ -2,6 +2,7 @@ import { db } from '@/lib/db';
 import { events } from '@/lib/db/schema';
 import { sql, type InferSelectModel } from 'drizzle-orm';
 import { findSimilarEvents } from '@/lib/db/similaritySearch';
+import { cleanTitle, generateEventSlug, parseEventSlug } from '@/lib/utils/slugify';
 
 export type DbEvent = InferSelectModel<typeof events>;
 
@@ -51,24 +52,33 @@ export interface SerializedEvent {
 }
 
 /**
- * Fetch event by short ID (first 6 chars of UUID)
+ * Fetch the event an /events/[slug] URL names.
+ *
+ * The slug ends in the first 6 hex chars of the UUID, which is not unique: with ~40k
+ * rows dozens of prefixes are shared, and taking any one row served the wrong event
+ * (in Oct 2026 the Luna show's page rendered a bike class). So every row with the
+ * prefix is read and the full slug picks between them: an exact match, then the same
+ * title (a rolling event's date moves, and its slug with it), then the oldest row,
+ * which is the one any link made before the collision pointed at.
  */
-export async function getEventByShortId(shortId: string): Promise<DbEvent | null> {
+export async function getEventBySlug(slug: string): Promise<DbEvent | null> {
   if (!process.env.DATABASE_URL) {
     return null;
   }
 
-  const hex = shortId.toLowerCase();
-  if (!/^[0-9a-f]{6}$/.test(hex)) {
+  const parsed = parseEventSlug(slug);
+  if (!parsed) {
     return null;
   }
+
+  const hex = parsed.shortId.toLowerCase();
 
   // Range-scan the uuid primary key; `id::text LIKE` would force a full
   // table scan on every event page load
   const lower = `${hex}00-0000-0000-0000-000000000000`;
   const upper = `${hex}ff-ffff-ffff-ffff-ffffffffffff`;
 
-  const result = await db
+  const candidates = await db
     .select()
     .from(events)
     .where(
@@ -76,9 +86,20 @@ export async function getEventByShortId(shortId: string): Promise<DbEvent | null
       // path for a denied poster, so the page must not keep serving its text.
       sql`${events.id} >= ${lower}::uuid AND ${events.id} <= ${upper}::uuid AND ${events.hidden} IS NOT TRUE`
     )
-    .limit(1);
+    .orderBy(events.createdAt);
 
-  return result[0] || null;
+  if (candidates.length <= 1) {
+    return candidates[0] || null;
+  }
+
+  const requested = slug.toLowerCase();
+  // Everything before "-YYYY-MM-DD-xxxxxx"
+  const requestedTitle = requested.slice(0, -18);
+  return (
+    candidates.find((e) => generateEventSlug(e.title, e.startDate, e.id) === requested) ??
+    candidates.find((e) => cleanTitle(e.title) === requestedTitle) ??
+    candidates[0]
+  );
 }
 
 /**

@@ -101,7 +101,7 @@ async function scrapeDetail() {
   );
   hr();
 
-  const runs = await sql<{ t: string; result: Record<string, unknown>; secs: number }[]>`
+  const runs = await sql<{ t: string; result: Record<string, unknown>; secs: number | null }[]>`
     select to_char(started_at at time zone 'UTC','MM-DD HH24:MI') as t,
            result, (duration_ms / 1000.0)::float8 as secs
     from cron_job_runs
@@ -110,6 +110,8 @@ async function scrapeDetail() {
 
   const failureTally = new Map<string, { n: number; error: string }>();
   const zeroEvent = new Map<string, number>();
+  // Runs each scraper took part in: the nightly ?only=local run has just the local-only ones.
+  const appearances = new Map<string, number>();
   let sawNewFields = false;
 
   for (const run of runs) {
@@ -120,7 +122,9 @@ async function scrapeDetail() {
     if (inserted !== undefined) sawNewFields = true;
 
     const okCount = scrapers.filter((s) => s.ok).length;
-    const scraperCell = scrapers.length ? `${okCount}/${scrapers.length} ok` : '(not recorded)';
+    const scraperCell = scrapers.length
+      ? `${okCount}/${scrapers.length} ok${r.onlyLocal ? ' (local)' : ''}`
+      : '(not recorded)';
 
     console.log(
       run.t.padEnd(14) +
@@ -128,10 +132,12 @@ async function scrapeDetail() {
         String(inserted ?? '?').padEnd(7) +
         String(updated ?? '?').padEnd(9) +
         String((r.duplicatesRemoved as number) ?? '?').padEnd(7) +
-        `${run.secs.toFixed(0)}s`
+        // A run whose process died never records a duration.
+        (run.secs == null ? '?' : `${run.secs.toFixed(0)}s`)
     );
 
     for (const s of scrapers) {
+      appearances.set(s.name, (appearances.get(s.name) ?? 0) + 1);
       if (!s.ok) {
         const prev = failureTally.get(s.name);
         failureTally.set(s.name, { n: (prev?.n ?? 0) + 1, error: s.error ?? 'unknown' });
@@ -145,7 +151,10 @@ async function scrapeDetail() {
     console.log('\n  Note: these runs predate per-scraper tracking. Deploy and wait one run.');
   }
 
-  const latest = runs[0]?.result as Record<string, unknown> | undefined;
+  // Skipped sources and new-by-source describe a full run, not the nightly local-only one.
+  const latest = runs.find((run) => !run.result?.onlyLocal)?.result as
+    | Record<string, unknown>
+    | undefined;
   const skipped = (latest?.skippedSources as string[] | undefined) ?? [];
   if (skipped.length) {
     console.log(`\n  Skipped by design (local-only): ${skipped.join(', ')}`);
@@ -169,12 +178,12 @@ async function scrapeDetail() {
   }
 
   // A scraper that never throws but always returns nothing is the quiet failure mode.
-  const alwaysEmpty = [...zeroEvent].filter(([, n]) => n === runs.length && runs.length > 1);
+  const alwaysEmpty = [...zeroEvent].filter(([name, n]) => n === appearances.get(name) && n > 1);
   if (alwaysEmpty.length) {
-    console.log(`\nSILENT SCRAPERS — returned 0 events on all ${runs.length} runs`);
+    console.log(`\nSILENT SCRAPERS — returned 0 events on every run they were in`);
     hr();
-    for (const [name] of alwaysEmpty) {
-      console.log(`${name.padEnd(24)} 0 events every run (no error raised)`);
+    for (const [name, n] of alwaysEmpty) {
+      console.log(`${name.padEnd(24)} 0 events on all ${n} runs (no error raised)`);
       problems.push(`Scraper "${name}" returned 0 events on every run.`);
     }
   }

@@ -35,7 +35,7 @@ interface HeaderProps {
    * Highlights the active tab in the event tab switcher.
    * undefined = no tab highlighted (e.g., home page)
    */
-  activeTab?: 'all' | 'top30' | 'groups' | 'news';
+  activeTab?: 'all' | 'top30' | 'groups' | 'news' | 'parking';
 }
 
 export default function Header({ activeTab }: HeaderProps) {
@@ -64,7 +64,7 @@ export default function Header({ activeTab }: HeaderProps) {
           </div>
           {/* Row 2: Tabs */}
           <EventTabSwitcher activeTab={activeTab} />
-          {/* Row 3: water notice + Parking */}
+          {/* Row 3: water notice, only while one is active */}
           <CityStatusBadges layout="mobile" />
         </div>
 
@@ -80,7 +80,7 @@ export default function Header({ activeTab }: HeaderProps) {
                 className="h-[22px] xl:h-[26px] w-auto dark:brightness-0 dark:invert"
               />
             </Link>
-            {/* Parking sits at tab spacing after the last tab, then any water notice */}
+            {/* Any water notice sits right after the last tab */}
             <div className="flex items-center gap-1">
               <EventTabSwitcher activeTab={activeTab} />
               <CityStatusBadges layout="desktop" />

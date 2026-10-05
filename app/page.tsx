@@ -80,7 +80,7 @@ export default function HomePage() {
             <br />
             <span className="text-brand-600 dark:text-brand-400">All in one place</span>
           </h1>
-          <p className="mt-5 lg:mt-[50px] text-lg sm:text-xl font-medium text-gray-800 dark:text-gray-200 mb-10 max-w-2xl mx-auto leading-relaxed">
+          <p className="mt-10 sm:mt-5 lg:mt-[50px] text-lg sm:text-xl font-medium text-gray-800 dark:text-gray-200 mb-10 max-w-2xl mx-auto leading-relaxed">
             Dozens of sources. No ads or sponsorships. No broken incentives.
             <br />
             Just awesome events.

@@ -52,7 +52,12 @@ async function fetchCityStatus({
  * a long-hidden tab disappear rather than read as live). Water survives failed
  * polls.
  */
-export function useCityStatus(): { parking: ParkingStatus | null; water: WaterStatus | null } {
+export function useCityStatus(): {
+  parking: ParkingStatus | null;
+  water: WaterStatus | null;
+  /** No answer yet (first poll in flight) */
+  loading: boolean;
+} {
   const { data, isError } = useQuery({
     queryKey: ['city-status', previewParam()] as const,
     queryFn: fetchCityStatus,
@@ -71,5 +76,9 @@ export function useCityStatus(): { parking: ParkingStatus | null; water: WaterSt
     }),
   });
 
-  return { parking: isError ? null : (data?.parking ?? null), water: data?.water ?? null };
+  return {
+    parking: isError ? null : (data?.parking ?? null),
+    water: data?.water ?? null,
+    loading: data === undefined && !isError,
+  };
 }

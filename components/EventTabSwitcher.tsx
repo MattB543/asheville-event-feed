@@ -1,10 +1,11 @@
 'use client';
 
-import { Suspense } from 'react';
+import { Suspense, useEffect, useId, useRef, useState } from 'react';
+import { ChevronDown } from 'lucide-react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 
-type Tab = 'all' | 'top30' | 'groups' | 'news';
+type Tab = 'all' | 'top30' | 'groups' | 'news' | 'parking';
 
 interface EventTabSwitcherProps {
   activeTab?: Tab;
@@ -58,48 +59,128 @@ function Tabs({ activeTab, query }: EventTabSwitcherProps & { query: string }) {
       className="flex items-center gap-0.5 sm:gap-1 whitespace-nowrap"
       aria-label="Event feed tabs"
     >
-      <Link
-        href={buildTabUrl('all')}
-        className={`flex items-center min-h-9 px-2.5 sm:px-3 lg:min-h-0 lg:py-1.5 text-sm font-medium rounded-md cursor-pointer transition-colors ${
-          activeTab === 'all'
-            ? 'text-gray-900 dark:text-white bg-gray-100 dark:bg-gray-800'
-            : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50'
-        }`}
-      >
-        All Events
-      </Link>
-      <Link
-        href={buildTabUrl('top30')}
-        className={`flex items-center min-h-9 px-2.5 sm:px-3 lg:min-h-0 lg:py-1.5 text-sm font-medium rounded-md cursor-pointer transition-colors ${
-          activeTab === 'top30'
-            ? 'text-brand-600 dark:text-brand-400 bg-brand-50 dark:bg-brand-950/30'
-            : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50'
-        }`}
-      >
-        Top 30
-      </Link>
+      <EventsMenu
+        activeTab={activeTab}
+        allHref={buildTabUrl('all')}
+        top30Href={buildTabUrl('top30')}
+      />
       {/* Plain /groups: the feed's filter params mean nothing in the directory */}
-      <Link
-        href="/groups"
-        className={`flex items-center min-h-9 px-2.5 sm:px-3 lg:min-h-0 lg:py-1.5 text-sm font-medium rounded-md cursor-pointer transition-colors ${
-          activeTab === 'groups'
-            ? 'text-brand-600 dark:text-brand-400 bg-brand-50 dark:bg-brand-950/30'
-            : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50'
-        }`}
-      >
+      <Link href="/groups" className={tabClass(activeTab === 'groups')}>
         Groups
       </Link>
       {/* News filters are its own, so the link drops the event tabs' params */}
-      <Link
-        href="/news"
-        className={`flex items-center min-h-9 px-2.5 sm:px-3 lg:min-h-0 lg:py-1.5 text-sm font-medium rounded-md cursor-pointer transition-colors ${
-          activeTab === 'news'
-            ? 'text-brand-600 dark:text-brand-400 bg-brand-50 dark:bg-brand-950/30'
-            : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50'
-        }`}
-      >
+      <Link href="/news" className={tabClass(activeTab === 'news')}>
         News
       </Link>
+      <Link href="/parking" className={tabClass(activeTab === 'parking')}>
+        Parking
+      </Link>
     </nav>
+  );
+}
+
+const TAB_BASE =
+  'flex items-center min-h-9 px-2.5 sm:px-3 lg:min-h-0 lg:py-1.5 text-sm font-medium rounded-md cursor-pointer transition-colors';
+const TAB_IDLE =
+  'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50';
+
+function tabClass(active: boolean, activeTone = 'brand'): string {
+  if (!active) return `${TAB_BASE} ${TAB_IDLE}`;
+  return activeTone === 'gray'
+    ? `${TAB_BASE} text-gray-900 dark:text-white bg-gray-100 dark:bg-gray-800`
+    : `${TAB_BASE} text-brand-600 dark:text-brand-400 bg-brand-50 dark:bg-brand-950/30`;
+}
+
+/** Desktop hover (or keyboard focus) opens the menu; the trigger itself still links to /events. */
+const HOVER_QUERY = '(pointer: fine) and (min-width: 1024px)';
+
+/**
+ * "Events" with All events / Top 30 underneath. At lg+ with a mouse the menu
+ * opens on hover and the label is a plain link to the feed; on touch the label
+ * toggles the menu, since there is no hover to reveal Top 30.
+ */
+function EventsMenu({
+  activeTab,
+  allHref,
+  top30Href,
+}: {
+  activeTab?: Tab;
+  allHref: string;
+  top30Href: string;
+}) {
+  const menuId = useId();
+  const rootRef = useRef<HTMLDivElement>(null);
+  const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    if (!isOpen) return undefined;
+    const onPointer = (event: PointerEvent) => {
+      if (!rootRef.current?.contains(event.target as Node)) setIsOpen(false);
+    };
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setIsOpen(false);
+    };
+    document.addEventListener('pointerdown', onPointer);
+    document.addEventListener('keydown', onKey);
+    return () => {
+      document.removeEventListener('pointerdown', onPointer);
+      document.removeEventListener('keydown', onKey);
+    };
+  }, [isOpen]);
+
+  const isEvents = activeTab === 'all' || activeTab === 'top30';
+  const items = [
+    { href: allHref, label: 'All events', active: activeTab === 'all' },
+    { href: top30Href, label: 'Top 30', active: activeTab === 'top30' },
+  ];
+
+  return (
+    <div ref={rootRef} className="group/events relative">
+      <Link
+        href={allHref}
+        aria-haspopup="true"
+        aria-expanded={isOpen}
+        aria-controls={menuId}
+        onClick={(event) => {
+          if (window.matchMedia(HOVER_QUERY).matches) return;
+          event.preventDefault();
+          setIsOpen((open) => !open);
+        }}
+        className={`${tabClass(isEvents, activeTab === 'all' ? 'gray' : 'brand')} gap-1`}
+      >
+        Events
+        <ChevronDown
+          size={14}
+          aria-hidden="true"
+          className={`text-gray-400 transition-transform ${isOpen ? 'rotate-180' : ''}`}
+        />
+      </Link>
+      {/* pt-1 bridges the gap so the pointer can travel from the tab into the menu */}
+      <div
+        id={menuId}
+        className={`absolute left-0 top-full z-50 pt-1 ${
+          isOpen ? 'block' : 'hidden'
+        } lg:group-hover/events:block pointer-fine:lg:group-focus-within/events:block`}
+      >
+        <ul className="min-w-36 rounded-lg border border-gray-200 bg-white py-1 shadow-lg dark:border-gray-700 dark:bg-gray-900">
+          {items.map((item) => (
+            <li key={item.label}>
+              <Link
+                href={item.href}
+                onClick={() => setIsOpen(false)}
+                aria-current={item.active ? 'page' : undefined}
+                className={`flex min-h-10 items-center px-3 text-sm lg:min-h-9 hover:bg-gray-100 dark:hover:bg-gray-800 ${
+                  item.active
+                    ? 'font-semibold text-gray-900 dark:text-white'
+                    : 'text-gray-700 dark:text-gray-300'
+                }`}
+              >
+                {item.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
   );
 }

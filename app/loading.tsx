@@ -11,9 +11,9 @@ export default function Loading() {
             <div className="flex items-center gap-2">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/avlgo_banner_logo_v2.svg"
+                src="/avlgo_logo.png"
                 alt="AVL GO"
-                className="h-[24px] sm:h-[30px] w-auto shrink-0 dark:brightness-0 dark:invert"
+                className="h-[19px] sm:h-[24px] w-auto shrink-0 dark:brightness-0 dark:invert"
               />
               <div className="ml-auto min-w-0 truncate whitespace-nowrap text-xs text-gray-500/50 dark:text-gray-400/50">
                 Open-sourced by Matt
@@ -45,9 +45,9 @@ export default function Loading() {
             <div className="flex items-center gap-6">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/avlgo_banner_logo_v2.svg"
+                src="/avlgo_logo.png"
                 alt="AVL GO"
-                className="h-[32px] w-auto dark:brightness-0 dark:invert"
+                className="h-[26px] w-auto dark:brightness-0 dark:invert"
               />
               {/* Tab placeholders */}
               <div className="flex items-center gap-1">

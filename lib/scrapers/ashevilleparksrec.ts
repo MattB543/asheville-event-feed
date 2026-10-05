@@ -274,7 +274,7 @@ async function createPageFetcher(): Promise<PageFetcher> {
         const challenged =
           isCloudflarePage(await page.title()) || !!response?.headers()['cf-mitigated'];
         if (!challenged) {
-          if (status === 200) return page.content();
+          if (status === 200) return await page.content();
           throw new Error(`HTTP ${status} for ${url}`);
         }
         console.warn(
@@ -283,7 +283,7 @@ async function createPageFetcher(): Promise<PageFetcher> {
         // A "Just a moment" interstitial can clear itself in place; a block page can't.
         await page.waitForTimeout(BROWSER_CHALLENGE_WAIT_MS);
         if (!isCloudflarePage(await page.title())) {
-          return page.content();
+          return await page.content();
         }
       }
       throw new CloudflareChallengeError(`Browser challenge persisted for ${url}`);

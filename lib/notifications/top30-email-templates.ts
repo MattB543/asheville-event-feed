@@ -204,7 +204,7 @@ export function generateTop30LiveEmailHtml(options: Top30LiveEmailOptions): stri
           <tr>
             <td style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); padding: 32px 24px; text-align: center;">
               <a href="${appUrl}" style="text-decoration: none;">
-                <img src="${appUrl}/avlgo_banner_logo_v2.svg" alt="AVL GO" width="120" style="max-width: 120px; height: auto;" />
+                <img src="${appUrl}/avlgo_logo.png" alt="AVL GO" width="120" style="max-width: 120px; height: auto;" />
               </a>
               <h1 style="color: #ffffff; font-size: 24px; font-weight: 700; margin: 16px 0 0 0;">
                 ${headerText}
@@ -387,7 +387,7 @@ export function generateTop30WeeklyEmailHtml(options: Top30WeeklyEmailOptions): 
           <tr>
             <td style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); padding: 32px 24px; text-align: center;">
               <a href="${appUrl}" style="text-decoration: none;">
-                <img src="${appUrl}/avlgo_banner_logo_v2.svg" alt="AVL GO" width="120" style="max-width: 120px; height: auto;" />
+                <img src="${appUrl}/avlgo_logo.png" alt="AVL GO" width="120" style="max-width: 120px; height: auto;" />
               </a>
               <h1 style="color: #ffffff; font-size: 24px; font-weight: 700; margin: 16px 0 0 0;">
                 This Week's Top 30

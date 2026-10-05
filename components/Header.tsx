@@ -50,9 +50,9 @@ export default function Header({ activeTab }: HeaderProps) {
             <Link href="/" className="shrink-0">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/avlgo_banner_logo_v2.svg"
+                src="/avlgo_logo.png"
                 alt="AVL GO"
-                className="h-[24px] sm:h-[30px] w-auto dark:brightness-0 dark:invert"
+                className="h-[19px] sm:h-[24px] w-auto dark:brightness-0 dark:invert"
               />
             </Link>
             <Attribution className="ml-auto min-w-0 truncate text-xs" />
@@ -64,7 +64,7 @@ export default function Header({ activeTab }: HeaderProps) {
           </div>
           {/* Row 2: Tabs */}
           <EventTabSwitcher activeTab={activeTab} />
-          {/* Row 3: water notice + Open Parking */}
+          {/* Row 3: water notice + Parking */}
           <CityStatusBadges layout="mobile" />
         </div>
 
@@ -75,12 +75,12 @@ export default function Header({ activeTab }: HeaderProps) {
             <Link href="/" className="shrink-0">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/avlgo_banner_logo_v2.svg"
+                src="/avlgo_logo.png"
                 alt="AVL GO"
-                className="h-[28px] xl:h-[32px] w-auto dark:brightness-0 dark:invert"
+                className="h-[22px] xl:h-[26px] w-auto dark:brightness-0 dark:invert"
               />
             </Link>
-            {/* Open Parking sits at tab spacing after the last tab, then any water notice */}
+            {/* Parking sits at tab spacing after the last tab, then any water notice */}
             <div className="flex items-center gap-1">
               <EventTabSwitcher activeTab={activeTab} />
               <CityStatusBadges layout="desktop" />

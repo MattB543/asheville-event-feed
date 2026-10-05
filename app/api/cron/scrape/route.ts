@@ -159,9 +159,12 @@ export async function GET(request: Request) {
     stats.dbEventsBefore = preCount.count;
     console.log(`[Scrape] DB event count before run: ${stats.dbEventsBefore}`);
 
-    // Skip local-only sources when running on Vercel (see isLocalScrapeRuntime)
+    // Skip local-only sources when running on Vercel (see isLocalScrapeRuntime).
+    // ?only=local runs just the local-only sources (+ Facebook) and leaves the rest
+    // to the Vercel cron: the nightly local run (scripts/run-local-events.ts).
+    const onlyLocal = new URL(request.url).searchParams.get('only') === 'local';
     const runLocalOnly = isLocalScrapeRuntime();
-    const activeScrapers = SCRAPERS.filter((s) => !s.localOnly || runLocalOnly);
+    const activeScrapers = SCRAPERS.filter((s) => (s.localOnly ? runLocalOnly : !onlyLocal));
     const skippedSources = SCRAPERS.filter((s) => s.localOnly && !runLocalOnly).map((s) => s.name);
     if (skippedSources.length > 0) {
       console.log(
@@ -538,6 +541,7 @@ export async function GET(request: Request) {
       inserted: stats.upsert.inserted,
       updated: stats.upsert.updated,
       duplicatesRemoved: stats.dedup.removed,
+      ...(onlyLocal && { onlyLocal: true }),
       skippedSources,
       scrapers: scraperStats,
       insertedBySource: Object.fromEntries(

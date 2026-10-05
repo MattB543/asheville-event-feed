@@ -91,7 +91,7 @@ function GarageList({ parking }: { parking: ParkingStatus }) {
 }
 
 /**
- * "Open Parking", styled like the header's nav tabs, opens a native popover
+ * "Parking", styled like the header's nav tabs, opens a native popover
  * (top layer, so the mobile row's scroller can't clip it; light-dismiss and
  * Escape for free) listing every garage with its count and directions.
  *
@@ -144,7 +144,7 @@ function ParkingBadge({ parking, compact }: { parking: ParkingStatus; compact: b
         type="button"
         popoverTarget={panelId}
         onClick={position}
-        aria-label={`Open Parking: ${total} space${total === 1 ? '' : 's'} in downtown garages as of ${asOf}. Show each garage with directions.`}
+        aria-label={`Parking: ${total} space${total === 1 ? '' : 's'} in downtown garages as of ${asOf}. Show each garage with directions.`}
         title={`Open spaces in city garages · as of ${asOf}`}
         // Same size and colors as the EventTabSwitcher tabs; reads as active while open
         className={`flex shrink-0 items-center gap-1 whitespace-nowrap min-h-9 px-2.5 sm:px-3 lg:min-h-0 lg:py-1.5 text-sm font-medium rounded-md cursor-pointer transition-colors ${
@@ -153,7 +153,7 @@ function ParkingBadge({ parking, compact }: { parking: ParkingStatus; compact: b
             : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50'
         } ${FOCUS_RING} ${compact ? '' : 'focus-visible:ring-inset'}`}
       >
-        Open Parking
+        Parking
         <ChevronDown
           size={14}
           aria-hidden="true"

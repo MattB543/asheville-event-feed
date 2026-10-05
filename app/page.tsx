@@ -80,7 +80,7 @@ export default function HomePage() {
             <br />
             <span className="text-brand-600 dark:text-brand-400">All in one place</span>
           </h1>
-          <p className="text-lg sm:text-xl font-medium text-gray-800 dark:text-gray-200 mb-10 max-w-2xl mx-auto leading-relaxed">
+          <p className="mt-5 lg:mt-[50px] text-lg sm:text-xl font-medium text-gray-800 dark:text-gray-200 mb-10 max-w-2xl mx-auto leading-relaxed">
             Dozens of sources. No ads or sponsorships. No broken incentives.
             <br />
             Just awesome events.
@@ -92,12 +92,12 @@ export default function HomePage() {
             <Calendar className="w-5 h-5" />
             View Top Events
           </Link>
-          <div className="mt-2">
+          <div className="mt-3">
             <Link
               href="/events?dateFilter=today"
-              className="inline-flex items-center gap-1 text-base font-medium text-brand-600 hover:text-brand-700 transition-colors"
+              className="inline-flex items-center gap-2 rounded-full border border-brand-300 dark:border-brand-700 bg-white/80 dark:bg-gray-900/80 hover:bg-brand-50 dark:hover:bg-brand-950/50 px-8 py-3 text-base font-semibold text-brand-700 dark:text-brand-300 transition-colors cursor-pointer"
             >
-              or view today&apos;s events
+              View today&apos;s events
               <ArrowRight className="w-4 h-4" />
             </Link>
           </div>

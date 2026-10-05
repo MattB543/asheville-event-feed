@@ -139,7 +139,7 @@ export function generateDigestEmailHtml(options: DigestEmailOptions): string {
           <tr>
             <td style="background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); padding: 32px 24px; text-align: center;">
               <a href="${appUrl}" style="text-decoration: none;">
-                <img src="${appUrl}/avlgo_banner_logo_v2.svg" alt="AVL GO" width="120" style="max-width: 120px; height: auto;" />
+                <img src="${appUrl}/avlgo_logo.png" alt="AVL GO" width="120" style="max-width: 120px; height: auto;" />
               </a>
               <h1 style="color: #ffffff; font-size: 24px; font-weight: 700; margin: 16px 0 0 0;">
                 ${headerText} from AVLGo.com

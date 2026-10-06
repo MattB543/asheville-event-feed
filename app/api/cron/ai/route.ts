@@ -116,6 +116,9 @@ export async function GET(request: Request) {
     images: { duration: 0, success: 0, failed: 0, total: 0 },
     top30Notifications: { duration: 0, sent: 0, skipped: 0, deferred: 0, newEvents: 0 },
   };
+  // Set after each committed write that changes an event (not retry bookkeeping). The cache is
+  // invalidated once, in `finally`, so a later failure can't skip it after earlier writes
+  let eventsChanged = false;
 
   try {
     console.log('[AI] ════════════════════════════════════════════════');
@@ -206,6 +209,7 @@ export async function GET(request: Request) {
                   aiNextAttemptAt: nextAttemptAt,
                 })
                 .where(eq(events.id, event.id));
+              if (extra && Object.keys(extra).length > 0) eventsChanged = true;
             };
 
             try {
@@ -263,6 +267,7 @@ export async function GET(request: Request) {
                   aiNextAttemptAt: null,
                 })
                 .where(eq(events.id, event.id));
+              eventsChanged = true;
 
               stats.combined.success++;
             } catch (err) {
@@ -335,6 +340,7 @@ export async function GET(request: Request) {
 
               if (embedding) {
                 await db.update(events).set({ embedding }).where(eq(events.id, event.id));
+                eventsChanged = true;
                 stats.embeddings.success++;
               } else {
                 stats.embeddings.failed++;
@@ -420,6 +426,7 @@ export async function GET(request: Request) {
             const updateData = buildMissingScoreUpdate(event, recurringScore);
             if (Object.keys(updateData).length > 0) {
               await db.update(events).set(updateData).where(eq(events.id, event.id));
+              eventsChanged = true;
             }
 
             stats.scoring.skippedRecurring++;
@@ -443,6 +450,7 @@ export async function GET(request: Request) {
             const updateData = buildMissingScoreUpdate(event, recurringScore);
             if (Object.keys(updateData).length > 0) {
               await db.update(events).set(updateData).where(eq(events.id, event.id));
+              eventsChanged = true;
             }
 
             stats.scoring.skippedRecurring++;
@@ -486,6 +494,7 @@ export async function GET(request: Request) {
             const updateData = buildMissingScoreUpdate(event, scoreResult);
             if (Object.keys(updateData).length > 0) {
               await db.update(events).set(updateData).where(eq(events.id, event.id));
+              eventsChanged = true;
             }
 
             stats.scoring.success++;
@@ -498,6 +507,7 @@ export async function GET(request: Request) {
             const updateData = buildMissingScoreUpdate(event, fallbackScore);
             if (Object.keys(updateData).length > 0) {
               await db.update(events).set(updateData).where(eq(events.id, event.id));
+              eventsChanged = true;
             }
             console.warn(
               `[AI] Fallback score applied for "${event.title.slice(0, 40)}..." - AI returned null [${similarEvents.length} similar]`
@@ -520,6 +530,7 @@ export async function GET(request: Request) {
           const updateData = buildMissingScoreUpdate(event, fallbackScore);
           if (Object.keys(updateData).length > 0) {
             await db.update(events).set(updateData).where(eq(events.id, event.id));
+            eventsChanged = true;
           }
           if (isContentFilter) {
             console.warn(
@@ -865,6 +876,7 @@ export async function GET(request: Request) {
         // Batch update all events without images
         const ids = eventsNeedingImages.map((e) => e.id);
         await db.update(events).set({ imageUrl: DEFAULT_IMAGE }).where(inArray(events.id, ids));
+        eventsChanged = true;
 
         stats.images.success = eventsNeedingImages.length;
         stats.images.duration = Date.now() - imageStartTime;
@@ -904,17 +916,6 @@ export async function GET(request: Request) {
       `[AI] Images: ${stats.images.success}/${stats.images.total} in ${formatDuration(stats.images.duration)}`
     );
     console.log('[AI] ════════════════════════════════════════════════');
-
-    // Invalidate cache so home page shows updated events
-    try {
-      invalidateEventsCache();
-      console.log('[AI] Cache invalidation completed');
-    } catch (cacheErr) {
-      console.error(
-        '[AI] Cache invalidation failed:',
-        cacheErr instanceof Error ? cacheErr.message : cacheErr
-      );
-    }
 
     const result = {
       combined: {
@@ -974,5 +975,10 @@ export async function GET(request: Request) {
       { success: false, error: String(error), duration: totalDuration },
       { status: 500 }
     );
+  } finally {
+    // Invalidate cache so home page shows updated events. Most runs change nothing, and each
+    // invalidation regenerates the cached event pages
+    if (eventsChanged) invalidateEventsCache();
+    else console.log('[AI] No events changed, skipping cache invalidation');
   }
 }

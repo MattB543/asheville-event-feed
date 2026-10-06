@@ -99,6 +99,10 @@ export async function GET(request: Request) {
     );
   }
 
+  // Set after each committed write that changes an event (not retry bookkeeping). The cache is
+  // invalidated once, in `finally`, so a later failure can't skip it after earlier writes
+  let eventsChanged = false;
+
   try {
     const { startDays, endDays, label } = getDateWindowForRun();
 
@@ -263,6 +267,7 @@ export async function GET(request: Request) {
             deadEvents.map((e) => e.id)
           )
         );
+      eventsChanged = true;
       console.log(`[Cleanup] Soft-deleted ${deadEvents.length} dead event(s) (set dead_at):`);
       for (const dead of deadEvents) {
         console.log(
@@ -335,6 +340,7 @@ export async function GET(request: Request) {
       for (let i = 0; i < nonNCEventIds.length; i += deleteBatchSize) {
         const batch = nonNCEventIds.slice(i, i + deleteBatchSize);
         await db.delete(events).where(inArray(events.id, batch));
+        eventsChanged = true;
         // Gap #11: Log batch progress for large sets
         if (totalDeleteBatches > 1) {
           const batchNum = Math.floor(i / deleteBatchSize) + 1;
@@ -377,6 +383,7 @@ export async function GET(request: Request) {
       for (let i = 0; i < cancelledEventIds.length; i += deleteBatchSize) {
         const batch = cancelledEventIds.slice(i, i + deleteBatchSize);
         await db.delete(events).where(inArray(events.id, batch));
+        eventsChanged = true;
         // Gap #11: Log batch progress for large sets
         if (totalDeleteBatches > 1) {
           const batchNum = Math.floor(i / deleteBatchSize) + 1;
@@ -486,6 +493,7 @@ export async function GET(request: Request) {
           }
           await tx.update(events).set({ dedupedAt }).where(inArray(events.id, removeIds));
         });
+        eventsChanged = true;
         if (group.fieldUpdates) {
           mergeSuccesses++;
           for (const field of Object.keys(group.fieldUpdates)) {
@@ -528,15 +536,6 @@ export async function GET(request: Request) {
       `[Cleanup] Complete in ${totalDuration}s. Removed ${totalDeleted} events (${deadEvents.length} dead, ${nonNCEventIds.length} non-NC, ${cancelledEventIds.length} cancelled, ${softDeletedCount} duplicates soft-deleted)`
     );
 
-    // Gap #9: Log cache invalidation outcome
-    try {
-      invalidateEventsCache();
-      console.log('[Cleanup] Cache invalidation succeeded.');
-    } catch (error) {
-      const errMsg = error instanceof Error ? error.message : String(error);
-      console.error(`[Cleanup] Cache invalidation failed: ${errMsg}`);
-    }
-
     const result = {
       window: label,
       checked: candidates.length,
@@ -568,5 +567,10 @@ export async function GET(request: Request) {
     await failCronJob(runId, error);
 
     return NextResponse.json({ success: false, error: String(error) }, { status: 500 });
+  } finally {
+    // Gap #9: invalidate only when rows were removed. Most runs remove nothing, and each
+    // invalidation regenerates the cached event pages
+    if (eventsChanged) invalidateEventsCache();
+    else console.log('[Cleanup] No events removed, skipping cache invalidation.');
   }
 }

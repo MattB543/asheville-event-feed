@@ -131,6 +131,10 @@ export async function GET(request: Request) {
     );
   }
 
+  // Set after each committed write that changes an event (not retry bookkeeping). The cache is
+  // invalidated once, in `finally`, so a later failure can't skip it after earlier writes
+  let eventsChanged = false;
+
   // Stats tracking
   const stats = {
     scraping: { duration: 0, total: 0 },
@@ -366,6 +370,7 @@ export async function GET(request: Request) {
               // xmax = 0 only for a freshly inserted row; on the update path it holds
               // the locking transaction id. Costs no extra round trip.
               .returning({ inserted: sql<boolean>`(xmax = 0)` });
+            eventsChanged = true;
             stats.upsert.success++;
             const src = event.source;
             if (!stats.upsert.bySource[src])
@@ -471,6 +476,7 @@ export async function GET(request: Request) {
       const mergedFieldCounts: Record<string, number> = {};
       for (const update of fieldUpdates) {
         await db.update(events).set(update.fields).where(eq(events.id, update.id));
+        eventsChanged = true;
         for (const field of Object.keys(update.fields)) {
           mergedFieldCounts[field] = (mergedFieldCounts[field] || 0) + 1;
         }
@@ -491,6 +497,7 @@ export async function GET(request: Request) {
         .update(events)
         .set({ dedupedAt: new Date() })
         .where(inArray(events.id, duplicateIdsToRemove));
+      eventsChanged = true;
       const methodSummary = Object.entries(stats.dedup.byMethod)
         .map(([m, c]) => `${m}=${c}`)
         .join(', ');
@@ -506,9 +513,6 @@ export async function GET(request: Request) {
     // Get post-run event count
     const [postCount] = await db.select({ count: sql<number>`count(*)::int` }).from(events);
     stats.dbEventsAfter = postCount.count;
-
-    // Invalidate cache so home page shows updated events
-    invalidateEventsCache();
 
     // Final summary
     const totalDuration = Date.now() - jobStartTime;
@@ -580,5 +584,10 @@ export async function GET(request: Request) {
       { success: false, error: String(error), duration: totalDuration },
       { status: 500 }
     );
+  } finally {
+    // Invalidate cache so home page shows updated events, once and even if a later step failed.
+    // Every upsert counts (it bumps lastSeenAt), so this skips only runs that wrote nothing
+    if (eventsChanged) invalidateEventsCache();
+    else console.log('[Scrape] No events changed, skipping cache invalidation');
   }
 }

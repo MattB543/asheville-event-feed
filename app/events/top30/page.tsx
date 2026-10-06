@@ -2,10 +2,9 @@ import { unstable_cache } from 'next/cache';
 import EventPageLayout from '@/components/EventPageLayout';
 import type { Metadata } from 'next';
 import {
-  queryFilteredEvents,
+  getListedEventCount,
   getEventMetadata,
   queryTop30Events,
-  type DbEvent,
   type EventMetadata,
   type Top30EventsByCategory,
 } from '@/lib/db/queries/events';
@@ -18,16 +17,6 @@ export const metadata: Metadata = {
 
 export const revalidate = 3600; // Fallback revalidation every hour
 const TOP30_CANDIDATE_LIMIT = 50;
-
-// Cached first page query - loads 250 events for SSR
-const getFirstPageEvents = unstable_cache(
-  async () => {
-    console.log('[Top30] Fetching first page (250 events) for SSR...');
-    return queryFilteredEvents({ limit: 250 });
-  },
-  ['events-first-page'],
-  { tags: ['events'], revalidate: 3600 }
-);
 
 // Cached metadata - computed from ALL events for filter dropdowns
 const getCachedMetadata = unstable_cache(
@@ -50,7 +39,6 @@ const getTop30Events = unstable_cache(
 );
 
 export default async function Top30Page() {
-  let initialEvents: DbEvent[] = [];
   let initialTotalCount = 0;
   let top30Events: Top30EventsByCategory = { overall: [], weird: [], social: [] };
   let metadata: EventMetadata = {
@@ -60,18 +48,20 @@ export default async function Top30Page() {
   };
 
   try {
-    // Fetch first page, metadata, and top 30 in parallel
-    const [firstPageResult, metadataResult, top30Result] = await Promise.all([
-      getFirstPageEvents(),
+    // Fetch the event count, metadata, and top 30 in parallel
+    const [eventCount, metadataResult, top30Result] = await Promise.all([
+      // Only the count (for the AI chat's greeting), not the feed's first page: the tab renders
+      // its own candidates, and the 250 events made this a 1.2 MB page rebuilt on every
+      // events invalidation
+      getListedEventCount(),
       getCachedMetadata(),
       getTop30Events(),
     ]);
-    initialEvents = firstPageResult.events;
-    initialTotalCount = firstPageResult.totalCount;
+    initialTotalCount = eventCount;
     metadata = metadataResult;
     top30Events = top30Result;
     console.log(
-      `[Top30] SSR loaded ${initialEvents.length} events (of ${initialTotalCount} total), top30: ${top30Events.overall.length} overall, ${top30Events.weird.length} weird, ${top30Events.social.length} social`
+      `[Top30] SSR loaded top30: ${top30Events.overall.length} overall, ${top30Events.weird.length} weird, ${top30Events.social.length} social (${initialTotalCount} events total)`
     );
   } catch (error) {
     console.error('[Top30] Failed to fetch events:', error);
@@ -81,7 +71,7 @@ export default async function Top30Page() {
   return (
     <EventPageLayout
       activeTab="top30"
-      initialEvents={initialEvents}
+      initialEvents={[]}
       initialTotalCount={initialTotalCount}
       metadata={metadata}
       top30Events={top30Events}

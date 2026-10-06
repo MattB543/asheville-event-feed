@@ -1,3 +1,4 @@
+import { unstable_cache } from 'next/cache';
 import { db } from '@/lib/db';
 import { events } from '@/lib/db/schema';
 import {
@@ -159,6 +160,39 @@ function getWeekendBoundaries(): { start: Date; end: Date } {
   return { start, end };
 }
 
+/** WHERE conditions every listed event meets, before any user filter. */
+function listedEventConditions(startOfToday: Date): SQL[] {
+  return [
+    // Future events only
+    gte(events.startDate, startOfToday),
+    // Exclude online/virtual events
+    or(
+      isNull(events.location),
+      and(notIlike(events.location, '%online%'), notIlike(events.location, '%virtual%'))
+    )!,
+    // Exclude hidden (admin moderated) events
+    or(isNull(events.hidden), sql`${events.hidden} = false`)!,
+    // Exclude duplicates soft-deleted by the dedup flow, and dead events
+    isNull(events.dedupedAt),
+    isNull(events.deadAt),
+  ];
+}
+
+/** The unfiltered feed's totalCount, without fetching any rows. */
+export async function queryListedEventCount(): Promise<number> {
+  const [row] = await db
+    .select({ count: sql<number>`count(*)::int` })
+    .from(events)
+    .where(and(...listedEventConditions(getStartOfTodayEastern())));
+  return row?.count || 0;
+}
+
+/** Cached queryListedEventCount, for pages that show only the count (the AI chat's greeting). */
+export const getListedEventCount = unstable_cache(queryListedEventCount, ['events-count'], {
+  tags: ['events'],
+  revalidate: 3600,
+});
+
 /**
  * Build filtered events query.
  * Returns paginated results with cursor for infinite scroll.
@@ -183,25 +217,7 @@ export async function queryFilteredEvents(params: EventFilterParams): Promise<Ev
   }
 
   // Build WHERE conditions
-  const conditions: SQL[] = [];
-
-  // Base condition: future events only
-  conditions.push(gte(events.startDate, startOfToday));
-
-  // Exclude online/virtual events
-  conditions.push(
-    or(
-      isNull(events.location),
-      and(notIlike(events.location, '%online%'), notIlike(events.location, '%virtual%'))
-    )!
-  );
-
-  // Exclude hidden (admin moderated) events
-  conditions.push(or(isNull(events.hidden), sql`${events.hidden} = false`)!);
-
-  // Exclude duplicates soft-deleted by the dedup flow
-  conditions.push(isNull(events.dedupedAt));
-  conditions.push(isNull(events.deadAt));
+  const conditions: SQL[] = listedEventConditions(startOfToday);
 
   // NOTE: Cursor-based pagination is handled in the iterative fetch loop below,
   // not here, to allow multiple batches with updated cursors.

@@ -1,8 +1,8 @@
 import { unstable_cache } from 'next/cache';
 import EventPageLayout from '@/components/EventPageLayout';
 import type { Metadata } from 'next';
-import { queryFilteredEvents, getEventMetadata, queryTop30Events } from '@/lib/db/queries/events';
-import type { DbEvent, EventMetadata, Top30EventsByCategory } from '@/lib/db/queries/events';
+import { getListedEventCount, getEventMetadata } from '@/lib/db/queries/events';
+import type { EventMetadata } from '@/lib/db/queries/events';
 
 export const metadata: Metadata = {
   title: 'Your List',
@@ -11,17 +11,6 @@ export const metadata: Metadata = {
 };
 
 export const revalidate = 3600; // Fallback revalidation every hour
-const TOP30_CANDIDATE_LIMIT = 50;
-
-// Cached first page query - loads 250 events for SSR
-const getFirstPageEvents = unstable_cache(
-  async () => {
-    console.log('[YourList] Fetching first page (250 events) for SSR...');
-    return queryFilteredEvents({ limit: 250 });
-  },
-  ['events-first-page'],
-  { tags: ['events'], revalidate: 3600 }
-);
 
 // Cached metadata - computed from ALL events for filter dropdowns
 const getCachedMetadata = unstable_cache(
@@ -33,20 +22,8 @@ const getCachedMetadata = unstable_cache(
   { tags: ['events'], revalidate: 3600 }
 );
 
-// Cached top 30 events query (needed for EventPageLayout props)
-const getTop30Events = unstable_cache(
-  async () => {
-    console.log(`[YourList] Fetching top 30 candidates (limit=${TOP30_CANDIDATE_LIMIT})...`);
-    return queryTop30Events(TOP30_CANDIDATE_LIMIT);
-  },
-  ['events-top30'],
-  { tags: ['events'], revalidate: 3600 }
-);
-
 export default async function YourListPage() {
-  let initialEvents: DbEvent[] = [];
   let initialTotalCount = 0;
-  let top30Events: Top30EventsByCategory = { overall: [], weird: [], social: [] };
   let metadata: EventMetadata = {
     availableTags: [],
     availableLocations: [],
@@ -54,19 +31,17 @@ export default async function YourListPage() {
   };
 
   try {
-    // Fetch first page and metadata in parallel
-    const [firstPageResult, metadataResult, top30Result] = await Promise.all([
-      getFirstPageEvents(),
+    // Fetch the event count and metadata in parallel
+    // Only the count (for the AI chat's greeting): everything Your List shows is per-user and
+    // fetched in the browser, and sending the feed's first 250 events made this a 1.2 MB page
+    // rebuilt on every events invalidation
+    const [eventCount, metadataResult] = await Promise.all([
+      getListedEventCount(),
       getCachedMetadata(),
-      getTop30Events(),
     ]);
-    initialEvents = firstPageResult.events;
-    initialTotalCount = firstPageResult.totalCount;
+    initialTotalCount = eventCount;
     metadata = metadataResult;
-    top30Events = top30Result;
-    console.log(
-      `[YourList] SSR loaded ${initialEvents.length} events (of ${initialTotalCount} total)`
-    );
+    console.log(`[YourList] SSR loaded metadata (${initialTotalCount} events total)`);
   } catch (error) {
     console.error('[YourList] Failed to fetch events:', error);
     // Fallback to empty arrays
@@ -75,10 +50,10 @@ export default async function YourListPage() {
   return (
     <EventPageLayout
       activeTab="yourList"
-      initialEvents={initialEvents}
+      initialEvents={[]}
       initialTotalCount={initialTotalCount}
       metadata={metadata}
-      top30Events={top30Events}
+      top30Events={{ overall: [], weird: [], social: [] }}
     />
   );
 }

@@ -494,7 +494,9 @@ export default function EventFeed({
   const { favoriteIds: favoritedEventIds, toggleFavorite: toggleFavoriteShared } = useFavorites();
   const [favoriteCountOverrides, setFavoriteCountOverrides] = useState<Record<string, number>>({});
   const [favoriteEventsData, setFavoriteEventsData] = useState<ApiEvent[]>([]);
-  const [favoriteEventsLoading, setFavoriteEventsLoading] = useState(false);
+  // True until the first favorites fetch settles, so Your List shows "Loading" rather than
+  // flashing its empty state (it no longer gets any events from the server render)
+  const [favoriteEventsLoading, setFavoriteEventsLoading] = useState(true);
   const [confirmClearFavorites, setConfirmClearFavorites] = useState(false);
   const confirmClearTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   useEffect(() => () => clearTimeout(confirmClearTimer.current ?? undefined), []);
@@ -701,7 +703,9 @@ export default function EventFeed({
   } = useEventQuery({
     filters,
     initialData: shouldUseInitialData ? preparedInitialData : undefined,
-    enabled: isLoaded, // Only fetch after client hydration
+    // Only fetch after client hydration, and only for the feed: Top 30 and Your List render
+    // their own lists, and their pages no longer send the first page as initialData
+    enabled: isLoaded && activeTab === 'all',
   });
 
   // Fetch top 30 subscription status when user is logged in
@@ -1011,22 +1015,30 @@ export default function EventFeed({
     const controller = new AbortController();
     setFavoriteEventsLoading(true);
 
+    // The endpoint takes up to 200 ids per request, so longer lists are fetched in batches
+    const batches: string[][] = [];
+    for (let i = 0; i < uniqueIds.length; i += 200) batches.push(uniqueIds.slice(i, i + 200));
+
     void (async () => {
       try {
-        const response = await fetch('/api/events/favorites', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ ids: uniqueIds.slice(0, 200) }),
-          signal: controller.signal,
-        });
+        const results = await Promise.all(
+          batches.map(async (ids) => {
+            const response = await fetch('/api/events/favorites', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ ids }),
+              signal: controller.signal,
+            });
 
-        if (!response.ok) {
-          throw new Error(`Failed to load favorites: ${response.status}`);
-        }
+            if (!response.ok) {
+              throw new Error(`Failed to load favorites: ${response.status}`);
+            }
 
-        const data = (await response.json()) as { events?: ApiEvent[] };
-        const events = Array.isArray(data.events) ? data.events : [];
-        setFavoriteEventsData(events);
+            const data = (await response.json()) as { events?: ApiEvent[] };
+            return Array.isArray(data.events) ? data.events : [];
+          })
+        );
+        setFavoriteEventsData(results.flat());
       } catch (error) {
         if ((error as DOMException).name === 'AbortError') return;
         console.error('[Favorites] Failed to load favorites:', error);
@@ -2876,7 +2888,8 @@ export default function EventFeed({
       <AIChatModal
         isOpen={isChatOpen}
         onClose={() => setIsChatOpen(false)}
-        totalCount={totalCount}
+        // The feed query only runs on the All tab; elsewhere use the server's count
+        totalCount={activeTab === 'all' ? totalCount : (initialTotalCount ?? 0)}
         activeFilters={{
           search,
           priceFilter,

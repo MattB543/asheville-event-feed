@@ -6,8 +6,9 @@ import { queryGroupSitemapEntries } from '@/lib/db/queries/groups';
 import { generateEventSlug } from '@/lib/utils/slugify';
 import { getStartOfTodayEastern } from '@/lib/utils/timezone';
 
-// An async sitemap is otherwise rendered once at build time and never refreshed
-export const revalidate = 300;
+// An async sitemap is otherwise rendered once at build time and never refreshed. Hourly:
+// each regeneration writes ~1.1 MB, and crawlers read it far less often than every 5 minutes
+export const revalidate = 3600;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.avlgo.com';

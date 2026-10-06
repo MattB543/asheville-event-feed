@@ -49,6 +49,11 @@ const EVENT_DAY_KEY_FORMATTER = new Intl.DateTimeFormat('en-CA', {
   day: '2-digit',
 });
 
+// The desktop layout's image sits in a 192x128 cell. Without `sizes` it defaulted to 100vw and
+// fetched 1920-3840px; object-cover scales a wide image to the cell's height, so 384px keeps
+// sources up to 3:1 sharp. The mobile layout's images span the card and keep the default.
+const DESKTOP_CARD_IMAGE_SIZES = '384px';
+
 /**
  * Component that renders only the tags that fit on one line.
  * Uses a hidden measurement layer to determine how many tags can be displayed.
@@ -968,6 +973,7 @@ export default function EventCard({
                 src={event.imageUrl}
                 alt={event.title}
                 fill
+                sizes={DESKTOP_CARD_IMAGE_SIZES}
                 className="object-cover object-[center_20%]"
                 onError={() => setImgError(true)}
                 unoptimized={event.imageUrl.startsWith('data:')}
@@ -978,6 +984,7 @@ export default function EventCard({
                 src="/asheville-default.jpg"
                 alt="Asheville, NC"
                 fill
+                sizes={DESKTOP_CARD_IMAGE_SIZES}
                 className="object-cover"
               />
             )}

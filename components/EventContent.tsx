@@ -23,6 +23,12 @@ import { downloadEventAsICS } from '@/lib/utils/icsGenerator';
 import { getLibrarySystemName } from '@/lib/config/librarySystems';
 import { getMatchingProgramsForEvent } from '@/lib/matching/programs';
 
+// The hero box is 288x192 at `sm` up to 420x288 at `xl`. object-cover scales a wide image to the
+// box's height, so each size is 3x the height, keeping sources up to 3:1 sharp. Full width below
+// `sm`, as before
+const HERO_IMAGE_SIZES =
+  '(min-width: 1280px) 864px, (min-width: 1024px) 768px, (min-width: 768px) 672px, (min-width: 640px) 576px, 100vw';
+
 interface EventContentProps {
   event: {
     id: string;
@@ -272,13 +278,20 @@ export default function EventContent({
               src={event.imageUrl}
               alt={event.title}
               fill
+              sizes={HERO_IMAGE_SIZES}
               className="object-cover"
               onError={() => setImgError(true)}
               unoptimized={event.imageUrl.startsWith('data:')}
               priority
             />
           ) : (
-            <Image src="/asheville-default.jpg" alt="Asheville, NC" fill className="object-cover" />
+            <Image
+              src="/asheville-default.jpg"
+              alt="Asheville, NC"
+              fill
+              sizes={HERO_IMAGE_SIZES}
+              className="object-cover"
+            />
           )}
         </div>
 

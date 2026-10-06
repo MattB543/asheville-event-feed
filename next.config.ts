@@ -15,6 +15,11 @@ const nextConfig: NextConfig = {
   },
   skipTrailingSlashRedirect: true,
   images: {
+    // The 4h default re-transformed popular images every 4h on each crawler pass (88% of
+    // transformations in an Oct 2026 sample). A week removes nearly all of that while bounding
+    // how long a changed source image, or a poster taken down, can still be served from the
+    // optimizer cache. Sooner: `vercel cache dangerously-delete --srcimg <url>`
+    minimumCacheTTL: 60 * 60 * 24 * 7,
     remotePatterns: [
       {
         // Allow any HTTPS image

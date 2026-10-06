@@ -87,12 +87,13 @@ export default function CuratedEventList({ curations }: CuratedEventListProps) {
               </div>
             )}
 
-            {/* Title */}
+            {/* Title. Event links open a new tab, which can't use a prefetch, so they skip it */}
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
               <Link
                 href={`/events/${generateEventSlug(curation.event.title, curation.event.startDate, curation.event.id)}`}
                 target="_blank"
                 rel="noopener noreferrer"
+                prefetch={false}
                 className="hover:text-brand-600 dark:hover:text-brand-400 cursor-pointer"
               >
                 {curation.event.title}
@@ -152,6 +153,7 @@ export default function CuratedEventList({ curations }: CuratedEventListProps) {
                 href={`/events/${generateEventSlug(curation.event.title, curation.event.startDate, curation.event.id)}`}
                 target="_blank"
                 rel="noopener noreferrer"
+                prefetch={false}
                 className="inline-flex items-center gap-1 text-sm font-medium text-brand-600 hover:text-brand-700 dark:text-brand-400 dark:hover:text-brand-300 cursor-pointer"
               >
                 View Event

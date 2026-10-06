@@ -1,9 +1,9 @@
 'use client';
 
 import { useState, useMemo } from 'react';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { ArrowLeft } from 'lucide-react';
+import IntentLink from '@/components/IntentLink';
 import EventCard from '@/components/EventCard';
 import { ToastProvider } from '@/components/ui/Toast';
 import { generateEventSlug } from '@/lib/utils/slugify';
@@ -181,13 +181,13 @@ export default function SimilarEventsSection({
         <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Similar Events</h2>
         <div className="flex items-center gap-3">
           {showBackLink && (
-            <Link
+            <IntentLink
               href="/events"
               className="text-sm text-gray-500 dark:text-gray-400 hover:text-brand-600 dark:hover:text-brand-400 transition-colors hidden sm:flex items-center gap-1"
             >
               <ArrowLeft size={14} />
               Back to main list
-            </Link>
+            </IntentLink>
           )}
           {/* Sort toggle buttons */}
           <div className="flex rounded-lg border border-gray-300 dark:border-gray-600 overflow-hidden text-sm">

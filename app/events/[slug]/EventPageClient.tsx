@@ -1,9 +1,9 @@
 'use client';
 
 import { useState, useCallback, useMemo, useRef, useEffect } from 'react';
-import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import { ArrowLeft } from 'lucide-react';
+import IntentLink from '@/components/IntentLink';
 import Header from '@/components/Header';
 import FooterCredit from '@/components/FooterCredit';
 import EventContent from '@/components/EventContent';
@@ -256,13 +256,13 @@ export default function EventPageClient({
 
         {/* Back Link */}
         <div className="pt-8 border-t border-gray-200 dark:border-gray-700 px-4 sm:px-0">
-          <Link
+          <IntentLink
             href="/events"
             className="inline-flex items-center gap-2 text-brand-600 dark:text-brand-400 hover:text-brand-700 dark:hover:text-brand-300 font-medium"
           >
             <ArrowLeft size={18} />
             Browse all Asheville events
-          </Link>
+          </IntentLink>
         </div>
       </article>
 

@@ -4,6 +4,7 @@ import { Suspense, useEffect, useId, useRef, useState } from 'react';
 import { ChevronDown } from 'lucide-react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
+import IntentLink from '@/components/IntentLink';
 
 type Tab = 'all' | 'top30' | 'groups' | 'news' | 'parking';
 
@@ -64,14 +65,15 @@ function Tabs({ activeTab, query }: EventTabSwitcherProps & { query: string }) {
         allHref={buildTabUrl('all')}
         top30Href={buildTabUrl('top30')}
       />
-      {/* Plain /groups: the feed's filter params mean nothing in the directory */}
-      <Link href="/groups" className={tabClass(activeTab === 'groups')}>
+      {/* Plain /groups: the feed's filter params mean nothing in the directory.
+          /events, /groups and /news are dynamic, so they prefetch on hover, not on sight */}
+      <IntentLink href="/groups" className={tabClass(activeTab === 'groups')}>
         Groups
-      </Link>
+      </IntentLink>
       {/* News filters are its own, so the link drops the event tabs' params */}
-      <Link href="/news" className={tabClass(activeTab === 'news')}>
+      <IntentLink href="/news" className={tabClass(activeTab === 'news')}>
         News
-      </Link>
+      </IntentLink>
       <Link href="/parking" className={tabClass(activeTab === 'parking')}>
         Parking
       </Link>
@@ -136,7 +138,7 @@ function EventsMenu({
 
   return (
     <div ref={rootRef} className="group/events relative">
-      <Link
+      <IntentLink
         href={allHref}
         aria-haspopup="true"
         aria-expanded={isOpen}
@@ -154,8 +156,9 @@ function EventsMenu({
           aria-hidden="true"
           className={`text-gray-400 transition-transform ${isOpen ? 'rotate-180' : ''}`}
         />
-      </Link>
-      {/* pt-1 bridges the gap so the pointer can travel from the tab into the menu */}
+      </IntentLink>
+      {/* pt-1 bridges the gap so the pointer can travel from the tab into the menu. Its links
+          keep viewport prefetch: they're display:none until the menu is opened */}
       <div
         id={menuId}
         className={`absolute left-0 top-full z-50 pt-1 ${

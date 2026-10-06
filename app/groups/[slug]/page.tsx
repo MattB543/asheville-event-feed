@@ -1,9 +1,9 @@
 import { cache } from 'react';
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { connection } from 'next/server';
 import { ArrowLeft, CalendarDays, ChevronRight, ExternalLink, MapPin } from 'lucide-react';
+import IntentLink from '@/components/IntentLink';
 import Header from '@/components/Header';
 import FooterCredit from '@/components/FooterCredit';
 import GroupEventRow from '@/components/groups/GroupEventRow';
@@ -109,22 +109,22 @@ export default async function GroupPage({ params }: PageProps) {
 
       <div className="flex-grow">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 pt-6 pb-10">
-          <Link
+          <IntentLink
             href="/groups"
             className="inline-flex items-center gap-1.5 text-sm text-gray-600 dark:text-gray-400 hover:text-brand-600 dark:hover:text-brand-400 transition-colors rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
           >
             <ArrowLeft size={16} aria-hidden="true" />
             All groups
-          </Link>
+          </IntentLink>
 
           <p className="mt-6 text-xs font-semibold uppercase tracking-wide">
             {/* Opens the directory on this category; unknown categories collect under "other". */}
-            <Link
+            <IntentLink
               href={`/groups?cat=${isGroupCategory(group.category) ? group.category : 'other'}`}
               className="text-brand-600 dark:text-brand-400 hover:text-brand-700 dark:hover:text-brand-300 hover:underline underline-offset-2 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
             >
               {groupCategoryLabel(group.category)}
-            </Link>
+            </IntentLink>
           </p>
           <h1 className="mt-1 text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100">
             {group.name}

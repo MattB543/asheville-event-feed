@@ -1,5 +1,5 @@
-import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
+import IntentLink from '@/components/IntentLink';
 import type { GroupEventRowData } from '@/lib/db/queries/groups';
 
 interface GroupEventRowProps {
@@ -14,7 +14,7 @@ export default function GroupEventRow({ event, past = false }: GroupEventRowProp
 
   return (
     <li>
-      <Link
+      <IntentLink
         href={event.href}
         className="group flex items-center gap-3 sm:gap-4 px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-800/60 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brand-500"
       >
@@ -67,7 +67,7 @@ export default function GroupEventRow({ event, past = false }: GroupEventRowProp
           aria-hidden="true"
           className="shrink-0 text-gray-300 dark:text-gray-600 group-hover:text-brand-500 dark:group-hover:text-brand-400 transition-colors"
         />
-      </Link>
+      </IntentLink>
     </li>
   );
 }

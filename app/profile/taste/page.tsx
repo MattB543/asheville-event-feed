@@ -15,6 +15,7 @@ import {
   RotateCcw,
   Loader2,
 } from 'lucide-react';
+import IntentLink from '@/components/IntentLink';
 import Header from '@/components/Header';
 import { useToast } from '@/components/ui/Toast';
 import { generateEventSlug } from '@/lib/utils/slugify';
@@ -274,12 +275,12 @@ export default function MyTastePage() {
                         >
                           <div className="mt-1">{getSignalIcon(item.signalType || 'favorite')}</div>
                           <div className="flex-1 min-w-0">
-                            <Link
+                            <IntentLink
                               href={`/events/${slug}`}
                               className="font-medium text-gray-900 dark:text-white hover:text-brand-600 dark:hover:text-brand-400 line-clamp-1"
                             >
                               {item.event.title}
-                            </Link>
+                            </IntentLink>
                             <p className="text-sm text-gray-600 dark:text-gray-400">
                               {getSignalLabel(item.signalType || 'favorite')} on{' '}
                               {formatTimestamp(item.timestamp)}
@@ -334,12 +335,12 @@ export default function MyTastePage() {
                             <EyeOff className="w-4 h-4 text-gray-500" />
                           </div>
                           <div className="flex-1 min-w-0">
-                            <Link
+                            <IntentLink
                               href={`/events/${slug}`}
                               className="font-medium text-gray-900 dark:text-white hover:text-brand-600 dark:hover:text-brand-400 line-clamp-1"
                             >
                               {item.event.title}
-                            </Link>
+                            </IntentLink>
                             <p className="text-sm text-gray-600 dark:text-gray-400">
                               Hidden on {formatTimestamp(item.timestamp)}
                             </p>
@@ -403,12 +404,12 @@ export default function MyTastePage() {
                               {getSignalIcon(item.signalType || 'favorite')}
                             </div>
                             <div className="flex-1 min-w-0">
-                              <Link
+                              <IntentLink
                                 href={`/events/${slug}`}
                                 className="font-medium text-gray-700 dark:text-gray-300 hover:text-brand-600 dark:hover:text-brand-400 line-clamp-1"
                               >
                                 {item.event.title}
-                              </Link>
+                              </IntentLink>
                               <p className="text-sm text-gray-500 dark:text-gray-400">
                                 {item.signalType ? getSignalLabel(item.signalType) : 'Signal'} on{' '}
                                 {formatTimestamp(item.timestamp)}

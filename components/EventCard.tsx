@@ -27,6 +27,7 @@ import { useToast } from '@/components/ui/Toast';
 import { generateEventSlug } from '@/lib/utils/slugify';
 import { OFFICIAL_TAGS_SET } from '@/lib/config/tagCategories';
 import { getMatchingProgramsForEvent } from '@/lib/matching/programs';
+import IntentLink from '@/components/IntentLink';
 
 // Stateless formatters, hoisted so they aren't rebuilt per card per render.
 // Pinned to Eastern time so displayed dates agree with the feed's ET date filtering.
@@ -420,7 +421,8 @@ export default function EventCard({
     }
   };
 
-  // Generate event URL for links
+  // Generate event URL for links. They prefetch on hover/focus (IntentLink), and not at all
+  // when a plain click opens the modal instead of the page
   const eventUrl = `/events/${generateEventSlug(event.title, event.startDate, event.id)}`;
   const rankLabel = ranking && rankAsLabel && (
     <span className="mr-1.5 inline-block rounded bg-brand-50 px-1.5 py-0.5 align-[2px] text-xs font-semibold whitespace-nowrap text-brand-700 dark:bg-brand-900/40 dark:text-brand-300">
@@ -497,8 +499,9 @@ export default function EventCard({
         )}
 
         {/* Image - 130px collapsed, 192px expanded */}
-        <Link
+        <IntentLink
           href={eventUrl}
+          prefetchOnIntent={!onOpenModal}
           onClick={
             onOpenModal
               ? handleOpenModal
@@ -532,7 +535,7 @@ export default function EventCard({
               />
             )}
           </div>
-        </Link>
+        </IntentLink>
 
         {/* Content area */}
         <div className="pt-3">
@@ -540,8 +543,9 @@ export default function EventCard({
           <div className="flex items-start gap-2">
             <h3 className="text-base font-bold leading-tight text-brand-600 dark:text-brand-400 flex-1">
               {rankLabel}
-              <Link
+              <IntentLink
                 href={eventUrl}
+                prefetchOnIntent={!onOpenModal}
                 className="hover:underline"
                 onClick={
                   onOpenModal
@@ -552,7 +556,7 @@ export default function EventCard({
                 }
               >
                 {titleText}
-              </Link>
+              </IntentLink>
               {isGreatMatch && (
                 <Star
                   size={12}
@@ -875,8 +879,9 @@ export default function EventCard({
         >
           {/* Title: ellipsizes rather than push the row past the card. The venue
               shrinks faster; the tags (capped below) and date chip keep their room. */}
-          <Link
+          <IntentLink
             href={eventUrl}
+            prefetchOnIntent={!onOpenModal}
             className="text-sm font-medium text-brand-600 dark:text-brand-400 hover:underline truncate min-w-0"
             onClick={
               onOpenModal
@@ -887,7 +892,7 @@ export default function EventCard({
             }
           >
             {event.title}
-          </Link>
+          </IntentLink>
 
           {/* Separator */}
           {venueName && <span className="text-gray-400 dark:text-gray-500 shrink-0">-</span>}
@@ -959,8 +964,9 @@ export default function EventCard({
           )}
 
           {/* Image */}
-          <Link
+          <IntentLink
             href={eventUrl}
+            prefetchOnIntent={!onOpenModal}
             onClick={(e) => {
               if (e.metaKey || e.ctrlKey || e.shiftKey) return;
               e.stopPropagation();
@@ -988,7 +994,7 @@ export default function EventCard({
                 className="object-cover"
               />
             )}
-          </Link>
+          </IntentLink>
 
           {/* Metadata: Title, Date, Location, Tags */}
           <div className="flex flex-col justify-between xl:row-span-2">
@@ -996,8 +1002,9 @@ export default function EventCard({
               <div className="flex items-start gap-2 flex-wrap">
                 <h3 className="text-base font-bold leading-tight text-brand-600 dark:text-brand-400">
                   {rankLabel}
-                  <Link
+                  <IntentLink
                     href={eventUrl}
+                    prefetchOnIntent={!onOpenModal}
                     className="hover:underline"
                     onClick={(e) => {
                       if (e.metaKey || e.ctrlKey || e.shiftKey) return;
@@ -1006,7 +1013,7 @@ export default function EventCard({
                     }}
                   >
                     {titleText}
-                  </Link>
+                  </IntentLink>
                   {isGreatMatch && (
                     <Star
                       size={12}

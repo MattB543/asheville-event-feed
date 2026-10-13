@@ -95,11 +95,6 @@ export function isPostmarkEnabled(): boolean {
   return !!(env.POSTMARK_API_KEY && env.POSTMARK_FROM_EMAIL);
 }
 
-// Helper to check if Jina Reader API is configured
-export function isJinaEnabled(): boolean {
-  return !!env.JINA_API_KEY;
-}
-
 // Helper to check if outbound Clay webhook is configured
 export function isClayWebhookEnabled(): boolean {
   return !!env.CLAY_WEBHOOK;

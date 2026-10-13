@@ -12,7 +12,7 @@ import 'dotenv/config';
 import { db } from '../lib/db';
 import { events } from '../lib/db/schema';
 import { sql, eq } from 'drizzle-orm';
-import { env, isJinaEnabled } from '../lib/config/env';
+import { fetchPageContent } from '../lib/ai/eventVerification';
 import { azureChatCompletion, isAzureAIEnabled } from '../lib/ai/provider-clients';
 
 interface VerificationResult {
@@ -27,35 +27,6 @@ interface VerificationResult {
     price?: string;
     description?: string;
   };
-}
-
-async function fetchPageContent(url: string): Promise<string | null> {
-  if (!isJinaEnabled()) {
-    console.error('ERROR: JINA_API_KEY not configured');
-    return null;
-  }
-
-  try {
-    const jinaUrl = `https://r.jina.ai/${encodeURIComponent(url)}`;
-
-    const response = await fetch(jinaUrl, {
-      headers: {
-        Authorization: `Bearer ${env.JINA_API_KEY}`,
-        'x-respond-with': 'markdown',
-        'x-timeout': '30',
-      },
-    });
-
-    if (!response.ok) {
-      console.error(`Failed to fetch page: ${response.status}`);
-      return null;
-    }
-
-    return await response.text();
-  } catch (error) {
-    console.error('Error fetching page:', error);
-    return null;
-  }
 }
 
 async function verifyWithAI(

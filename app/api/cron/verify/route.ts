@@ -68,7 +68,7 @@ export async function GET(request: Request) {
 
     // Check if verification is enabled
     if (!isVerificationEnabled()) {
-      const message = 'Verification not enabled - check JINA_API_KEY and Azure AI config';
+      const message = 'Verification not enabled - check Azure AI config';
       console.warn(`[Verify] ${message}`);
       await completeCronJob(runId, { skipped: true, reason: message });
       return NextResponse.json({ success: true, skipped: true, reason: message });

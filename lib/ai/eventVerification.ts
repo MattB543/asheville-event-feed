@@ -5,7 +5,7 @@
  * detect cancellations, and update event details.
  */
 
-import { env, isJinaEnabled } from '@/lib/config/env';
+import { env } from '@/lib/config/env';
 import { azureChatCompletion, isAzureAIEnabled, parseJsonFromModel } from './provider-clients';
 
 /**
@@ -128,7 +128,7 @@ export interface VerificationOptions {
 
 const DEFAULT_OPTIONS: Required<VerificationOptions> = {
   maxEvents: 30, // Conservative - ~20s/event means 30 events fits in 800s timeout
-  jinaDelayMs: 120, // ~500 RPM = 120ms between requests
+  jinaDelayMs: 120, // Extra pause after each fetch; the AI call between fetches already paces Jina
   aiDelayMs: 100,
   verificationIntervalDays: 10, // Not used anymore - we don't re-verify
   maxFutureEvents: 1000,
@@ -174,7 +174,7 @@ Do NOT hide events just because:
 - The format is different`;
 
 /**
- * Jina rejected the request itself (bad key, no balance), so every fetch in the
+ * Jina rejected the request itself, even without a key, so every fetch in the
  * run will fail the same way. Thrown rather than returned as a per-event skip:
  * from 2026-01-10 a 402 "InsufficientBalanceError" made the cron skip every
  * event for months while reporting success.
@@ -182,39 +182,56 @@ Do NOT hide events just because:
 export class JinaAccountError extends Error {}
 
 /**
- * Check if event verification is available (both Jina and Azure AI configured).
+ * Check if event verification is available. Jina needs no key (see
+ * fetchPageContent), so only Azure AI has to be configured.
  */
 export function isVerificationEnabled(): boolean {
-  return isJinaEnabled() && isAzureAIEnabled();
+  return isAzureAIEnabled();
+}
+
+/** Set once Jina refuses JINA_API_KEY, so later fetches go keyless without a wasted request. */
+let jinaKeyRefused = false;
+
+function requestJina(url: string, apiKey?: string): Promise<Response> {
+  return fetch(`https://r.jina.ai/${encodeURIComponent(url)}`, {
+    headers: {
+      ...(apiKey ? { Authorization: `Bearer ${apiKey}` } : {}),
+      'x-respond-with': 'markdown',
+      'x-timeout': '30',
+    },
+  });
 }
 
 /**
  * Fetch page content via Jina Reader API.
  *
+ * Uses JINA_API_KEY when it works. Jina also serves keyless requests (20 a
+ * minute per IP, far above this job's ~3 a minute), so a refused key (401, or
+ * 402 when the balance runs out, as it did from 2026-10-02) falls back to that,
+ * and the key is skipped for the rest of the process.
+ *
  * @param url - The event page URL to fetch
  * @returns Markdown content of the page, or null if failed
  */
 export async function fetchPageContent(url: string): Promise<string | null> {
-  if (!isJinaEnabled()) {
-    console.warn('[Verify] Jina API key not configured');
-    return null;
-  }
-
   const fetchStart = Date.now();
   try {
-    const jinaUrl = `https://r.jina.ai/${encodeURIComponent(url)}`;
+    const isRefused = (res: Response) => res.status === 401 || res.status === 402;
+    const apiKey = jinaKeyRefused ? undefined : env.JINA_API_KEY;
+    let response = await requestJina(url, apiKey);
 
-    const response = await fetch(jinaUrl, {
-      headers: {
-        Authorization: `Bearer ${env.JINA_API_KEY}`,
-        'x-respond-with': 'markdown',
-        'x-timeout': '30',
-      },
-    });
-
-    if (response.status === 401 || response.status === 402) {
+    if (apiKey && isRefused(response)) {
       const body = (await response.text()).slice(0, 200);
-      throw new JinaAccountError(`Jina rejected the API key: HTTP ${response.status} ${body}`);
+      console.warn(
+        `[Verify] Jina refused the API key (HTTP ${response.status} ${body}); continuing without it`
+      );
+      jinaKeyRefused = true;
+      response = await requestJina(url);
+    }
+
+    if (isRefused(response)) {
+      const body = (await response.text()).slice(0, 200);
+      throw new JinaAccountError(`Jina refused the request: HTTP ${response.status} ${body}`);
     }
 
     if (!response.ok) {
@@ -458,7 +475,7 @@ export async function processEventVerification(
 
   if (!isVerificationEnabled()) {
     result.success = false;
-    console.error('[Verify] Verification not enabled - check JINA_API_KEY and Azure AI config');
+    console.error('[Verify] Verification not enabled - check Azure AI config');
     return result;
   }
 
@@ -596,7 +613,7 @@ export async function verifySingleEvent(event: EventForVerification): Promise<Ve
       action: 'keep',
       reason: 'Verification not enabled',
       confidence: 0,
-      error: 'Check JINA_API_KEY and Azure AI config',
+      error: 'Check Azure AI config',
     };
   }
 
@@ -671,7 +688,7 @@ export async function verifyEventById(
       action: 'keep',
       reason: 'Verification not enabled',
       confidence: 0,
-      error: 'Check JINA_API_KEY and Azure AI config',
+      error: 'Check Azure AI config',
     };
   }
 

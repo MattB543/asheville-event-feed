@@ -285,7 +285,7 @@ async function enrichment() {
   }
 }
 
-// Local news (lib/news). Mountain Xpress, Reddit and Buncombe County only run
+// Local news (lib/news). Mountain Xpress only runs
 // from `npm run news:local`, so a stale source here usually means nobody has
 // run it lately, not that the scraper broke.
 const NEWS_JOBS = ['news-scrape', 'news-ai'];

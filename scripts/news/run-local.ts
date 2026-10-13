@@ -1,6 +1,6 @@
 /**
  * The local news runner (docs/news/05-v1-plan.md §6.7): ingest with the
- * localOnly sources (Reddit, Buncombe County, Mountain Xpress ...), then the AI
+ * localOnly sources (Mountain Xpress), then the AI
  * pipeline, through the same functions the crons call. Both runs are recorded
  * in cron_job_runs ('news-scrape', 'news-ai'), which also keeps a local AI run
  * and the cron from overlapping.

@@ -22,12 +22,16 @@
  *
  * Early voting is published as one VEVENT per day; those collapse into ONE rolling event (see
  * buildEarlyVotingEvent) instead of ~16 near-identical rows.
+ *
+ * Since ~2026-10-05 Cloudflare refuses every request to www.buncombenc.gov that isn't a real,
+ * headed Chrome (header mimicry, the Chrome-TLS dispatcher and headless browsers all get 403). The
+ * same CivicPlus site answers unblocked on its default host, so every request goes to FETCH_HOST,
+ * while stored URLs stay on www (the unique url, and the address people know).
  */
 
 import * as ical from 'node-ical';
 import { type ScrapedEvent } from './types';
 import { BROWSER_HEADERS, debugSave } from './base';
-import { createChromeDispatcher, probeAsChrome } from './fetchAsChrome';
 import { fetchWithRetry } from '@/lib/utils/retry';
 import { decodeHtmlEntities, isFreeEvent, tryExtractPrice } from '@/lib/utils/parsers';
 import {
@@ -38,8 +42,10 @@ import {
   parseAsEastern,
 } from '@/lib/utils/timezone';
 
-const FEED_URL = 'https://www.buncombenc.gov/common/modules/iCalendar/iCalendar.aspx';
-const EVENT_PAGE_URL = 'https://www.buncombenc.gov/calendar.aspx?EID=';
+const SITE = 'https://www.buncombenc.gov';
+const FETCH_HOST = 'https://nc-buncombecounty.civicplus.com';
+const FEED_URL = `${FETCH_HOST}/common/modules/iCalendar/iCalendar.aspx`;
+const EVENT_PAGE_URL = `${SITE}/calendar.aspx?EID=`;
 const EARLY_VOTING_URL = 'https://www.buncombenc.gov/216/Early-Voting';
 const ELECTION_DAY_URL = 'https://www.buncombenc.gov/555/Election-Day';
 const VOTER_SEARCH_URL = 'https://vt.ncsbe.gov/RegLkup/';
@@ -139,7 +145,10 @@ function htmlToText(html: string): string {
 /** CivicPlus appends the event page URL to every DESCRIPTION; drop it (the event links there). */
 function cleanDescription(raw: string): string {
   return raw
-    .replace(/\s*https?:\/\/www\.buncombenc\.gov\/calendar\.aspx\?EID=\d+\s*$/i, '')
+    .replace(
+      /\s*https?:\/\/(?:www\.buncombenc\.gov|nc-buncombecounty\.civicplus\.com)\/calendar\.aspx\?EID=\d+\s*$/i,
+      ''
+    )
     .split(/\n+/)
     .map((line) => htmlToText(line).replace(/\s+/g, ' ').trim())
     .filter(Boolean)
@@ -638,18 +647,18 @@ export async function scrapeBuncombeCounty(): Promise<ScrapedEvent[]> {
 /**
  * One request per county event page, for two things the ICS feed does not carry.
  *
- * 1. Unpublished pages. The feeds still carry some events whose calendar page is gone (404), e.g.
- *    the Nov 12 2026 Library Advisory Board meeting. The link would be dead, and the cleanup cron
- *    never re-checks a URL the scraper keeps confirming, so drop them here. A 404/410 is only a
- *    suspicion, because a blocked request can 404 a live page (see the cleanup cron), so it is
- *    re-checked with a Chrome-handshake GET (probeAsChrome) and dropped only if that agrees.
- *    Timeouts, 5xx and network errors keep the event.
+ * 1. Unpublished pages. The feeds still carry some events whose calendar page is gone, e.g. the
+ *    Nov 12 2026 Library Advisory Board meeting. The link would be dead, and the cleanup cron
+ *    never re-checks a URL the scraper keeps confirming, so drop them here. On FETCH_HOST a gone
+ *    page redirects to the login page (PublicLogin.aspx) rather than returning 404. A 404/410 or a
+ *    login redirect is only a suspicion, because a blocked request can 404 a live page (see the
+ *    cleanup cron), so suspects get a second GET and are dropped only if that agrees. Timeouts,
+ *    5xx and network errors keep the event.
  * 2. Price. The page has a structured "Cost:" field ("Free", "$10") that the feed drops, so events
  *    still "Unknown" get a GET and take that value when it is exactly "Free" or a dollar amount.
  *    Every other page only needs a HEAD (~80ms, no body).
  */
 async function checkEventPages(events: ScrapedEvent[]): Promise<ScrapedEvent[]> {
-  const isGone = (status: number) => status === 404 || status === 410;
   const suspects: ScrapedEvent[] = [];
   const toCheck = events.filter((e) => e.url.startsWith(EVENT_PAGE_URL));
   for (let i = 0; i < toCheck.length; i += PAGE_CHECK_CONCURRENCY) {
@@ -657,21 +666,17 @@ async function checkEventPages(events: ScrapedEvent[]): Promise<ScrapedEvent[]> 
       toCheck.slice(i, i + PAGE_CHECK_CONCURRENCY).map(async (event) => {
         const needsPrice = event.price === 'Unknown';
         try {
-          const response = await fetch(event.url, {
-            method: needsPrice ? 'GET' : 'HEAD',
-            headers: BROWSER_HEADERS,
-            cache: 'no-store',
-            signal: AbortSignal.timeout(15000),
-          });
-          if (isGone(response.status)) {
-            suspects.push(event);
-          } else if (needsPrice && response.ok) {
+          const response = await fetchCountyPage(event.url, needsPrice ? 'GET' : 'HEAD');
+          if (needsPrice && response.ok) {
             const cost = (await response.text()).match(
               /itemprop="price"[^>]*>([\s\S]*?)<\/div>/i
             )?.[1];
             const value = cost ? decodeHtmlEntities(cost) : '';
             if (/^free$/i.test(value)) event.price = 'Free';
             else if (/^\$\d+(?:\.\d{2})?$/.test(value)) event.price = value;
+          } else {
+            await response.body?.cancel();
+            if (isGonePage(response)) suspects.push(event);
           }
         } catch {
           // Unknown - keep the event as it is
@@ -682,17 +687,54 @@ async function checkEventPages(events: ScrapedEvent[]): Promise<ScrapedEvent[]> 
   if (suspects.length === 0) return events;
 
   const gone = new Set<string>();
-  const dispatcher = await createChromeDispatcher();
-  try {
-    for (const event of suspects) {
-      const status = await probeAsChrome(event.url, dispatcher);
-      if (isGone(status)) {
-        gone.add(event.url);
-        console.warn(`[BuncombeCounty] Dropping "${event.title}": ${event.url} is ${status}`);
-      }
+  for (const event of suspects) {
+    const status = await buncombeCountyPageStatus(event.url);
+    if (status === 404 || status === 410) {
+      gone.add(event.url);
+      console.warn(`[BuncombeCounty] Dropping "${event.title}": ${event.url} is gone`);
     }
-  } finally {
-    await dispatcher.close();
   }
   return events.filter((e) => !gone.has(e.url));
+}
+
+/** A county page, fetched from FETCH_HOST whichever host `url` is on. Redirects are not followed. */
+function fetchCountyPage(url: string, method: 'GET' | 'HEAD'): Promise<Response> {
+  return fetch(url.replace(SITE, FETCH_HOST), {
+    method,
+    headers: BROWSER_HEADERS,
+    cache: 'no-store',
+    redirect: 'manual',
+    signal: AbortSignal.timeout(15000),
+  });
+}
+
+/** 404/410, or the redirect to the login page that FETCH_HOST answers an unpublished page with. */
+function isGonePage(response: Response): boolean {
+  if (response.status === 404 || response.status === 410) return true;
+  const location = response.headers.get('location');
+  if (response.status < 300 || response.status >= 400 || !location) return false;
+  try {
+    return new URL(location, FETCH_HOST).pathname.toLowerCase() === '/publiclogin.aspx';
+  } catch {
+    return false;
+  }
+}
+
+export function isBuncombeCountyUrl(url: string): boolean {
+  return url.startsWith(`${SITE}/`);
+}
+
+/**
+ * Status of a county page read through FETCH_HOST, for checks that would otherwise hit the blocked
+ * www host (the cleanup cron's dead-URL pass). A login redirect reads as 404, and a network error
+ * as 0 ("unknown").
+ */
+export async function buncombeCountyPageStatus(url: string): Promise<number> {
+  try {
+    const response = await fetchCountyPage(url, 'GET');
+    await response.body?.cancel();
+    return isGonePage(response) && response.status < 400 ? 404 : response.status;
+  } catch {
+    return 0;
+  }
 }

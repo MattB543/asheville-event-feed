@@ -11,6 +11,7 @@ import { startCronJob, completeCronJob, failCronJob } from '@/lib/cron/jobTracke
 import { formatDuration } from '@/lib/utils/cron';
 import { DEFAULT_FETCH_TIMEOUT_MS } from '@/lib/utils/retry';
 import { createChromeDispatcher, probeAsChrome } from '@/lib/scrapers/fetchAsChrome';
+import { buncombeCountyPageStatus, isBuncombeCountyUrl } from '@/lib/scrapers/buncombecounty';
 
 export const maxDuration = 300; // 5 minutes max
 
@@ -59,6 +60,8 @@ const DEAD_SOURCE_MAX_SHARE = 0.2;
 const DEAD_SOURCE_MIN_CHECKED = 5;
 
 async function checkUrl(url: string): Promise<number> {
+  // www.buncombenc.gov answers 403 to everything but a real browser; read it via the CivicPlus host
+  if (isBuncombeCountyUrl(url)) return buncombeCountyPageStatus(url);
   try {
     const response = await fetch(url, {
       method: 'HEAD',
@@ -181,11 +184,13 @@ export async function GET(request: Request) {
             continue;
           }
 
-          const confirmed = await probeAsChrome(event.url, dispatcher);
+          const confirmed = isBuncombeCountyUrl(event.url)
+            ? await buncombeCountyPageStatus(event.url)
+            : await probeAsChrome(event.url, dispatcher);
           if (!DEAD_STATUSES.has(confirmed)) {
             falsePositiveCount++;
             console.log(
-              `[Cleanup] Not dead after all (HEAD ${status}, Chrome ${confirmed}): ${event.url}`
+              `[Cleanup] Not dead after all (first check ${status}, confirmation ${confirmed}): ${event.url}`
             );
             continue;
           }

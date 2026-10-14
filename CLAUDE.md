@@ -391,6 +391,45 @@ only unambiguous cases. **Known gap:** the AI dedup path
 keeper, so there is no winner to merge into. It accounted for 1 of 68 losses
 measured on 2026-09-18, versus 62 from scrape and 27 from cleanup.
 
+The verify job checks each eligible event once against its source page
+(`lib/ai/eventVerification.ts`; `scripts/verify-event.ts <idPrefix> [--update]`
+runs the same code on one event). Thin descriptions are queued first, soonest
+first; events with a retry pending stay queued even once a scrape fills their
+missing data. Policy, as of 2026-10-14:
+
+- It only fills a description that is missing or under 50 chars, copying the
+  page's wording. Before, the AI never saw the stored description and replaced
+  full scraped ones with shorter paraphrases.
+- **Hide** (`hidden`, permanent; restore with `hidden = false`) needs evidence on
+  a page about this event: cancelled, postponed, or the date skipped/not listed.
+- A missing, error, login-wall or unrelated page is **unverifiable**: stamped,
+  nothing changed. Most of verify's old hides were this.
+- A page that answers **404/410** (Jina's "Target URL returned error") is marked
+  dead (`deadAt`) only when the scrapers have stopped listing the event for 24h
+  (re-checked at write time), with the cleanup cron's 20% per-source cap (all
+  404s / all pages judged for that source in the run). While the source still
+  lists it, the event is retried with backoff instead. Verify reads pages through Jina,
+  which gets past the Cloudflare blocks the cleanup cron's own probe can't, so it
+  is the only dead-link check that works for Mountain Xpress.
+- `UNVERIFIABLE_URL_PATTERN` (one regex used by both the SQL queue and JS) skips
+  AVL Today's fallback URL (`avltoday.6amcity.com/events#<id>`), Facebook,
+  Instagram and the retired county library calendar.
+- Each result is written as soon as it is judged (dead marks wait for the
+  breaker at the end), and every write is conditioned on the title/date that was
+  checked and on each field it changes, so a scrape that changed the row mid-run
+  wins (`stale`). Each event has a hard 150s limit (`MAX_EVENT_MS`; the OpenAI
+  SDK's timeout doesn't cover the response body), and the run stops starting
+  events early enough for the last one to finish inside `maxDuration`.
+- **A title change in the scrape upsert means a different event on that URL**
+  (MX reuses event URLs; shared AVL Today links rotate): the row takes the new
+  listing's description, price and image, and drops the old event's AI
+  enrichment (tags, summary, embedding, scores), verification state and
+  `deadAt`, so everything is redone. `hidden` and `scoreOverride` stay (they may
+  be manual moderation). Date-only changes don't count.
+- Each run's `cron_job_runs.result.outcomes` lists every event it judged: id,
+  `outcome` (kept / updated / hidden / dead / unverifiable / deferred / stale /
+  write_failed), reason, confidence and, for updates, each field's `from`/`to`.
+
 ### Public APIs
 
 | Route                       | Method | Purpose                                                   |
@@ -491,6 +530,8 @@ listings and are never touched.
 - **LIBRARY** rows are never auto-deduped against a row at a different (or unknown) location (`isLibraryLocationConflict` in `lib/utils/deduplication.ts`): every branch runs "Baby Story Time" at the same hour, and venue matching would otherwise merge them.
 - **BUNCOMBE_COUNTY** (and the Buncombe County news source) fetch everything from the CivicPlus default host `nc-buncombecounty.civicplus.com`: since ~2026-10-05 Cloudflare 403s every request to `www.buncombenc.gov` except a real, headed Chrome, from Vercel and locally alike. Stored URLs stay on www. On that host an unpublished event page returns 404 or redirects to `PublicLogin.aspx`; the scraper and the cleanup cron's dead-URL pass (`buncombeCountyPageStatus`) treat both as gone.
 - **Remote meetings**: feed queries in `lib/db/queries/events.ts` hide locations matching `%online%` / `%virtual%`, which is why virtual city meetings use the location "Remote meeting".
+- **AVL_TODAY** listings often link to a venue or organizer page, not the event, and `url` is a row's identity, so listings sharing a link share a row. The scraper keeps each URL's soonest listing (`soonestPerUrl`; before 2026-10-14 the last one in feed order won, so a daily event showed only on its furthest date). **Known gap:** different events sharing a link still collapse into one row; fixing that needs a new identity scheme plus a migration of the existing shared rows (a first attempt that gave them per-event URLs left the old polluted rows winning dedup). Listings from the retired county library calendar (`buncombecounty.org/.../library/...trumbaEmbed`) are dropped: LIBRARY reads the current one.
+- **EXPLORE_ASHEVILLE**'s listing API has no descriptions, so the scraper reads each event page's `og:description` once (up to 150 pages / 90s a run, reusing descriptions already in the DB for the same page and title; when more pages are missing than that, the window rotates each run so failing pages can't hog it). Detail pages are untested from Vercel; if they fail there, descriptions just stay empty (see the `Descriptions:` log line).
 - **Rolling events**: the scrape upsert updates `startDate` on conflict but does **not** write `recurringType` / `recurringEndDate`, and only replaces a description with a longer one. Early voting and Parks & Rec activities therefore re-upsert the same `url` with the next upcoming date each run.
 
 ---

@@ -1,11 +1,17 @@
 /**
  * Event Verification via Jina Reader API
  *
- * Fetches event source pages and uses AI to verify event status,
- * detect cancellations, and update event details.
+ * Fetches each event's source page and uses AI to fill a missing description or
+ * price, detect cancellations, and spot links that have died. Used by the verify
+ * cron (app/api/cron/verify/route.ts) and scripts/verify-event.ts, which share
+ * `verifyEvent` and `applyVerification` so both follow the same policy.
  */
 
+import { and, eq, sql, type SQL } from 'drizzle-orm';
 import { env } from '@/lib/config/env';
+import { THIN_DESCRIPTION_LENGTH } from '@/lib/config/verification';
+import { db } from '@/lib/db';
+import { events } from '@/lib/db/schema';
 import { azureChatCompletion, isAzureAIEnabled, parseJsonFromModel } from './provider-clients';
 
 /**
@@ -13,6 +19,75 @@ import { azureChatCompletion, isAzureAIEnabled, parseJsonFromModel } from './pro
  * These link to actual event pages (not aggregator platforms like Eventbrite/Meetup).
  */
 export const VERIFIABLE_SOURCES = ['AVL_TODAY', 'EXPLORE_ASHEVILLE', 'MOUNTAIN_X'] as const;
+
+/**
+ * URLs that are never a readable page about one event, so verifying them can
+ * only conclude "page doesn't show this event" (every one used to be hidden):
+ * - AVL Today's fallback for events with no link of their own, its
+ *   client-rendered events page (lib/scrapers/avltoday.ts)
+ * - Facebook and Instagram, which serve a fetcher a login wall
+ * - the retired Buncombe County library calendar (its links all 404; the
+ *   LIBRARY scraper reads the current one)
+ *
+ * Written to work as both a JS RegExp and a Postgres `~*` pattern, so the cron's
+ * query and `hasVerifiablePage` exclude exactly the same rows.
+ */
+export const UNVERIFIABLE_URL_PATTERN = String.raw`^https?://((www\.)?avltoday\.6amcity\.com/events#|([a-z0-9-]+\.)*(facebook|instagram)\.com/|(www\.)?buncombecounty\.org/governing/depts/library/)`;
+
+const UNVERIFIABLE_URL_REGEX = new RegExp(UNVERIFIABLE_URL_PATTERN, 'i');
+
+/** Whether the URL is a page about this one event, so there is something to verify against. */
+export function hasVerifiablePage(url: string | null | undefined): url is string {
+  return !!url && !UNVERIFIABLE_URL_REGEX.test(url);
+}
+
+/** Same test as the cron's `LENGTH(description) < THIN_DESCRIPTION_LENGTH` (NULL counts as thin). */
+function isThinDescription(description: string | null): boolean {
+  return !description || description.length < THIN_DESCRIPTION_LENGTH;
+}
+
+/**
+ * Minimum AI confidence required before a verification result is allowed to
+ * mutate an event (hide it or overwrite its details).
+ */
+export const HIDE_CONFIDENCE_THRESHOLD = 0.8;
+
+/**
+ * A page that answers 404/410 is only treated as the event being gone once the
+ * scrapers have also stopped listing it for this long - the same rule the
+ * cleanup cron's dead-URL pass uses. Until then the event is retried with
+ * backoff, so it is marked dead once its source drops it.
+ */
+const DEAD_STALE_HOURS = 24;
+
+/**
+ * Same circuit breaker as the cleanup cron's dead-URL pass: if more than this
+ * share of a source's judged pages 404 in one run, that is a site change or an
+ * outage, not removals, so none of that source's events are marked dead.
+ */
+const DEAD_SOURCE_MAX_SHARE = 0.2;
+const DEAD_SOURCE_MIN_CHECKED = 5;
+
+/** Retry delays for results that didn't land (fetch failed, AI error, low confidence). */
+const VERIFY_BACKOFF_MS = [6 * 60 * 60 * 1000, 24 * 60 * 60 * 1000, 7 * 24 * 60 * 60 * 1000];
+
+/** Minimum gap between Jina fetches. Keyless Jina allows 20 a minute per IP. */
+const FETCH_INTERVAL_MS = 3500;
+
+/** Client-side cap on one Jina request; `x-timeout` only bounds Jina's own page load. */
+export const JINA_REQUEST_TIMEOUT_MS = 45_000;
+
+/** AI call limits for one verdict (a normal one takes 10-20s) */
+const AI_ATTEMPTS = 2;
+const AI_ATTEMPT_TIMEOUT_MS = 60_000;
+
+/**
+ * Hard limit on one event, fetch and AI together. The SDK's own timeout stops
+ * once response headers arrive, so a stalled body could otherwise run on; this
+ * bound is what lets the cron pick a start deadline that fits in maxDuration.
+ * An event that hits it is deferred and retried later.
+ */
+export const MAX_EVENT_MS = 150_000;
 
 /**
  * Event data structure for verification.
@@ -27,28 +102,40 @@ export interface EventForVerification {
   price: string | null;
   url: string;
   source: string;
-  lastVerifiedAt: Date | null;
+  lastSeenAt: Date | null;
+  verifyAttempts: number;
 }
 
 /**
- * AI verification result for a single event.
+ * What verification concluded about one event.
+ * - keep: the page confirms the event as stored
+ * - update: the page confirms it and adds a detail we lack or have wrong
+ * - hide: the page is about this event and says it is cancelled, postponed, or
+ *   not happening on the stored date
+ * - unverifiable: the page can neither confirm nor contradict the event (an
+ *   error or "not found" page, a login wall, a generic listing, another event)
+ * - missing: the page answered 404/410 (decided from the HTTP status, no AI call)
+ * A result with `error` didn't land (fetch failed, AI error) and is retried.
  */
 export interface VerificationResult {
   eventId: string;
   eventTitle: string;
-  action: 'keep' | 'hide' | 'update';
+  action: 'keep' | 'hide' | 'update' | 'unverifiable' | 'missing';
   reason: string;
   confidence: number;
   updates?: {
-    price?: string | null;
-    description?: string | null;
-    location?: string | null;
+    price?: string;
+    description?: string;
+    location?: string;
   };
   error?: string;
+  /** The page couldn't be fetched, so nothing was judged */
+  fetchFailed?: boolean;
+  tokensUsed?: number;
 }
 
 interface VerificationAIResponse {
-  action?: VerificationResult['action'];
+  action?: string;
   reason?: string;
   confidence?: number;
   updates?: {
@@ -58,17 +145,7 @@ interface VerificationAIResponse {
   };
 }
 
-/**
- * Minimum AI confidence required before a verification result is allowed to
- * mutate an event (hide it or overwrite its details).
- *
- * The cron path has always enforced this; `verifyEventById` (reachable from the
- * public report route) did not, so a low-confidence "hide" could take an event
- * off the site. Both paths now go through `shouldApplyVerification`.
- */
-export const HIDE_CONFIDENCE_THRESHOLD = 0.8;
-
-const VALID_ACTIONS: ReadonlySet<string> = new Set(['keep', 'hide', 'update']);
+const AI_ACTIONS: ReadonlySet<string> = new Set(['keep', 'hide', 'update', 'unverifiable']);
 
 /**
  * Whether a verification result is confident enough to write to the database.
@@ -91,82 +168,43 @@ function normalizeConfidence(raw: unknown): number | null {
 }
 
 /**
- * Overall result from batch verification.
- */
-export interface BatchVerificationResult {
-  success: boolean;
-  eventsChecked: number;
-  eventsHidden: number;
-  eventsUpdated: number;
-  eventsKept: number;
-  eventsSkipped: number;
-  errors: number;
-  results: VerificationResult[];
-  totalTokensUsed: number;
-  durationMs: number;
-}
-
-/**
- * Configuration options for verification.
- */
-export interface VerificationOptions {
-  /** Maximum events to check per run (default: 100) */
-  maxEvents?: number;
-  /** Delay between Jina API calls in ms (default: 120) */
-  jinaDelayMs?: number;
-  /** Delay between AI calls in ms (default: 100) */
-  aiDelayMs?: number;
-  /** Minimum days since last verification (default: 10) */
-  verificationIntervalDays?: number;
-  /** Maximum days into future to check events (default: 1000 events limit) */
-  maxFutureEvents?: number;
-  /** Enable verbose logging (default: false) */
-  verbose?: boolean;
-  /** Dry run - don't actually update/hide events (default: false) */
-  dryRun?: boolean;
-}
-
-const DEFAULT_OPTIONS: Required<VerificationOptions> = {
-  maxEvents: 30, // Conservative - ~20s/event means 30 events fits in 800s timeout
-  jinaDelayMs: 120, // Extra pause after each fetch; the AI call between fetches already paces Jina
-  aiDelayMs: 100,
-  verificationIntervalDays: 10, // Not used anymore - we don't re-verify
-  maxFutureEvents: 1000,
-  verbose: false,
-  dryRun: false,
-};
-
-/**
  * System prompt for event verification AI.
  */
 const SYSTEM_PROMPT = `You analyze event page content to verify event status. Compare the web page content with the stored event data.
 
 Your task:
-1. Determine if this event is CANCELLED, POSTPONED, or no longer happening on the stored date
-2. Check if the page is NOT about this specific event (wrong page, 404, generic content)
+1. Decide whether the page is about this specific event at all
+2. If it is, determine whether the event is CANCELLED, POSTPONED, or not happening on the stored date
 3. Identify any UPDATES to: price, description, or location
 
 Response format (JSON only, no markdown):
 {
-  "action": "keep" | "hide" | "update",
+  "action": "keep" | "hide" | "update" | "unverifiable",
   "reason": "brief explanation (max 50 words)",
   "confidence": 0.0-1.0,
   "updates": {
-    "price": "new price string or null",
-    "description": "brief updated description or null",
+    "price": "new price string, or null if the page lists none or it matches",
+    "description": "the page's own description of this event, only when the stored description is missing or under 50 characters; otherwise null",
     "location": "updated location or null"
   }
 }
 
-Guidelines:
-- "hide" = Event is cancelled, postponed indefinitely, or page doesn't contain this event
-- "update" = Event is active but details differ from stored data
-- "keep" = Event is active and details match stored data
+Actions:
+- "keep" = The page is about this event and confirms it as stored
+- "update" = The page is about this event, confirms it, and shows details that differ from or add to the stored data
+- "hide" = The page is about this event and explicitly shows it will not happen on the stored date: it says cancelled or postponed, marks that date as skipped, or gives a schedule that clearly rules the date out (e.g. the series starts after it or ended before it)
+- "unverifiable" = The page can neither confirm nor contradict this event: an error or "page not found" page, a login or cookie wall, a homepage or general listing that doesn't mention it, or a page about a different event
+
+"hide" needs evidence about this event on the page. A missing, broken, or unrelated page is "unverifiable", never "hide". A list of upcoming dates that merely leaves the stored date out is not enough on its own: lists are often partial, and the page content may be truncated. Use "unverifiable" unless the schedule clearly covers the stored date's period.
+
+Descriptions:
+- Never rewrite or summarize a stored description that is 50 characters or longer; it is the source's own text
+- When filling a missing or short one, copy the page's wording (up to about 1000 characters) rather than paraphrasing it
 
 Be CONSERVATIVE:
-- Only hide if you're >80% confident the event is cancelled or wrong page
+- Only hide if you're >80% confident the event is not happening on the stored date
 - Only update if you see clear differences in the actual event details
-- When in doubt, use "keep"
+- When in doubt between keep and hide, use "keep"
 
 Do NOT hide events just because:
 - The page has limited information
@@ -180,6 +218,9 @@ Do NOT hide events just because:
  * event for months while reporting success.
  */
 export class JinaAccountError extends Error {}
+
+/** Jina rate-limited us (HTTP 429): stop fetching for the rest of the run. */
+class JinaRateLimitError extends Error {}
 
 /**
  * Check if event verification is available. Jina needs no key (see
@@ -199,22 +240,42 @@ function requestJina(url: string, apiKey?: string): Promise<Response> {
       'x-respond-with': 'markdown',
       'x-timeout': '30',
     },
+    signal: AbortSignal.timeout(JINA_REQUEST_TIMEOUT_MS),
   });
 }
+
+/**
+ * What fetching an event page produced:
+ * - page: content worth showing the AI
+ * - missing: the site answered 404/410, which Jina reports on a 200 as
+ *   "Warning: Target URL returned error 404"
+ * - failed: nothing usable (blocked, server error, timeout, bot challenge);
+ *   `reason` says which, for the run record
+ */
+export type PageFetch =
+  | { kind: 'page'; content: string }
+  | { kind: 'missing'; status: number }
+  | { kind: 'failed'; reason: string };
 
 /**
  * Fetch page content via Jina Reader API.
  *
  * Uses JINA_API_KEY when it works. Jina also serves keyless requests (20 a
- * minute per IP, far above this job's ~3 a minute), so a refused key (401, or
- * 402 when the balance runs out, as it did from 2026-10-02) falls back to that,
- * and the key is skipped for the rest of the process.
+ * minute per IP, far above this job's pace), so a refused key (401, or 402 when
+ * the balance runs out, as it did from 2026-10-02) falls back to that, and the
+ * key is skipped for the rest of the process.
  *
- * @param url - The event page URL to fetch
- * @returns Markdown content of the page, or null if failed
+ * Throws JinaAccountError when Jina refuses even a keyless request, and
+ * JinaRateLimitError on a 429.
  */
-export async function fetchPageContent(url: string): Promise<string | null> {
+export async function fetchPageContent(url: string): Promise<PageFetch> {
   const fetchStart = Date.now();
+  const failed = (reason: string): PageFetch => {
+    const elapsed = ((Date.now() - fetchStart) / 1000).toFixed(1);
+    console.warn(`[Verify] Fetch failed for ${url}: ${reason} (${elapsed}s)`);
+    return { kind: 'failed', reason };
+  };
+
   try {
     const isRefused = (res: Response) => res.status === 401 || res.status === 402;
     const apiKey = jinaKeyRefused ? undefined : env.JINA_API_KEY;
@@ -233,50 +294,72 @@ export async function fetchPageContent(url: string): Promise<string | null> {
       const body = (await response.text()).slice(0, 200);
       throw new JinaAccountError(`Jina refused the request: HTTP ${response.status} ${body}`);
     }
-
-    if (!response.ok) {
-      const elapsed = ((Date.now() - fetchStart) / 1000).toFixed(1);
-      console.warn(`[Verify] Jina fetch failed for ${url}: HTTP ${response.status} (${elapsed}s)`);
-      return null;
+    if (response.status === 429) {
+      throw new JinaRateLimitError('Jina rate limit (HTTP 429)');
     }
+    if (!response.ok) return failed(`jina HTTP ${response.status}`);
 
     const content = await response.text();
 
-    // Check for empty or error responses
-    if (!content || content.length < 100) {
-      const elapsed = ((Date.now() - fetchStart) / 1000).toFixed(1);
-      console.warn(
-        `[Verify] Jina returned minimal content for ${url}: ${content.length} chars (${elapsed}s)`
-      );
-      return null;
-    }
-
-    // A Cloudflare challenge page is long enough to pass the check above, and
-    // the AI may read "page doesn't contain this event" as grounds to hide it
+    // Checked before the status: a bot challenge can come back as a 404 (the
+    // cleanup cron has seen Cloudflare do it), and must never read as "gone"
     if (content.includes('Title: Just a moment...') || content.includes('requiring CAPTCHA')) {
-      console.warn(`[Verify] Jina got a bot challenge page for ${url}`);
-      return null;
+      return failed('bot challenge');
     }
 
-    return content;
+    // The status the event's own site answered with, when it wasn't a 2xx
+    const targetStatus = Number(
+      content.match(/^Warning: Target URL returned error (\d{3})/m)?.[1] ?? 0
+    );
+    if (targetStatus === 404 || targetStatus === 410) {
+      return { kind: 'missing', status: targetStatus };
+    }
+    // A block or an outage says nothing about the event, and the AI may read
+    // the error page as "page doesn't contain this event"
+    if (targetStatus >= 400) return failed(`site HTTP ${targetStatus}`);
+
+    if (!content || content.length < 100) {
+      return failed(`minimal content (${content.length} chars)`);
+    }
+
+    return { kind: 'page', content };
   } catch (error) {
-    if (error instanceof JinaAccountError) throw error;
-    const elapsed = ((Date.now() - fetchStart) / 1000).toFixed(1);
-    const errorType =
-      error instanceof Error
-        ? error.message.includes('timeout') || error.message.includes('Timeout')
-          ? 'timeout'
-          : error.message.includes('ECONNREFUSED')
-            ? 'connection refused'
-            : error.message.includes('ENOTFOUND')
-              ? 'DNS resolution failed'
-              : error.message.includes('abort')
-                ? 'aborted'
-                : error.message
-        : String(error);
-    console.error(`[Verify] Jina fetch error for ${url}: ${errorType} (${elapsed}s)`);
-    return null;
+    if (error instanceof JinaAccountError || error instanceof JinaRateLimitError) throw error;
+    const message = error instanceof Error ? error.message : String(error);
+    const isTimeout =
+      (error instanceof Error && error.name === 'TimeoutError') || /timeout/i.test(message);
+    return failed(isTimeout ? 'timeout' : `network: ${message}`);
   }
+}
+
+/**
+ * The model's proposed updates, cut down to fields that actually change. A
+ * description is only taken when the stored one is thin (see THIN_DESCRIPTION_LENGTH)
+ * and the new one is longer. Returns undefined when nothing is left.
+ */
+function realUpdates(
+  event: EventForVerification,
+  proposed: VerificationAIResponse['updates']
+): VerificationResult['updates'] {
+  const { price, location, description } = proposed ?? {};
+  const changed = (next: unknown, current: string | null): next is string =>
+    typeof next === 'string' && next.trim() !== '' && next.trim() !== (current ?? '').trim();
+
+  const updates: NonNullable<VerificationResult['updates']> = {};
+  // "Unknown" is our own placeholder for no price, not something to write
+  if (changed(price, event.price) && price.trim().toLowerCase() !== 'unknown') {
+    updates.price = price.trim();
+  }
+  if (changed(location, event.location)) updates.location = location.trim();
+  if (
+    isThinDescription(event.description) &&
+    changed(description, event.description) &&
+    description.trim().length > (event.description?.trim().length ?? 0)
+  ) {
+    // Same cap as the scrapers apply to a source description
+    updates.description = description.trim().slice(0, 2000);
+  }
+  return Object.keys(updates).length > 0 ? updates : undefined;
 }
 
 /**
@@ -325,6 +408,12 @@ export async function verifyEventWithAI(
       ? pageContent.slice(0, 8000) + '\n\n[Content truncated...]'
       : pageContent;
 
+  const storedDescription = event.description?.trim()
+    ? event.description.length > 1500
+      ? `${event.description.slice(0, 1500)}...`
+      : event.description
+    : 'None';
+
   const userPrompt = `## Stored Event Data
 Title: ${event.title}
 Date: ${eventDate}
@@ -333,6 +422,7 @@ Location: ${event.location || 'Not specified'}
 Organizer: ${event.organizer || 'Not specified'}
 Price: ${event.price || 'Unknown'}
 Source URL: ${event.url}
+Description (${event.description?.length ?? 0} characters): ${storedDescription}
 
 ## Web Page Content
 ${truncatedContent}
@@ -344,6 +434,8 @@ Analyze the page content and determine if this event is still active and accurat
     const aiResponse = await azureChatCompletion(SYSTEM_PROMPT, userPrompt, {
       maxTokens: 10000, // Reasoning models need plenty of tokens for thinking + output
       jsonMode: true,
+      maxRetries: AI_ATTEMPTS,
+      timeoutMs: AI_ATTEMPT_TIMEOUT_MS,
     });
 
     const aiElapsed = ((Date.now() - aiStart) / 1000).toFixed(1);
@@ -367,10 +459,10 @@ Analyze the page content and determine if this event is still active and accurat
     }
 
     // Validate at the boundary. An unrecognised action is a validation ERROR,
-    // not a silent "keep": callers stamp lastVerifiedAt on a clean keep, which
-    // would permanently retire the event from re-verification.
+    // not a silent "keep": a clean keep stamps lastVerifiedAt, which would
+    // permanently retire the event from re-verification.
     const rawAction = parsed.action;
-    if (typeof rawAction !== 'string' || !VALID_ACTIONS.has(rawAction)) {
+    if (typeof rawAction !== 'string' || !AI_ACTIONS.has(rawAction)) {
       result.error = `Invalid AI action: ${JSON.stringify(rawAction)}`;
       console.warn(
         `[Verify] AI returned unknown action ${JSON.stringify(rawAction)} for "${event.title.slice(0, 50)}" (${aiElapsed}s)`
@@ -387,21 +479,18 @@ Analyze the page content and determine if this event is still active and accurat
       return result;
     }
 
-    result.action = rawAction;
+    result.action = rawAction as VerificationResult['action'];
     result.reason = parsed.reason || 'No reason provided';
     result.confidence = confidence;
+    result.tokensUsed = aiResponse.usage.totalTokens;
 
-    if (parsed.updates && result.action === 'update') {
-      result.updates = {
-        price: parsed.updates.price || undefined,
-        description: parsed.updates.description || undefined,
-        location: parsed.updates.location || undefined,
-      };
+    if (result.action === 'update') {
+      result.updates = realUpdates(event, parsed.updates);
+      // Nothing left to write (e.g. the model "filled" a description we already
+      // have), so a confident result is a keep: stamped as verified, not reported
+      // as updated. A low-confidence one stays an update so it is retried.
+      if (!result.updates && shouldApplyVerification(result)) result.action = 'keep';
     }
-
-    // Store token usage on the result for upstream aggregation
-    (result as VerificationResult & { tokensUsed?: number }).tokensUsed =
-      aiResponse.usage.totalTokens;
 
     return result;
   } catch (error) {
@@ -422,348 +511,351 @@ Analyze the page content and determine if this event is still active and accurat
 }
 
 /**
- * Filter events for verification - minimal safety checks.
- *
- * Note: Most filtering is now done in the database query for efficiency.
- * This function just ensures events have a URL (required for verification).
- *
- * @param events - Events to verify (pre-filtered by query)
- * @param options - Verification options
- * @returns Filtered list of events to verify
+ * Fetch an event's page and judge it. Never throws for a per-event problem
+ * (those come back as a result with `error`), only for JinaAccountError and
+ * JinaRateLimitError, which end the run.
  */
-export function filterEventsForVerification(
-  events: EventForVerification[],
-  options: Required<VerificationOptions>
-): EventForVerification[] {
-  return events
-    .filter((event) => {
-      // Must have a URL to verify
-      if (!event.url) {
-        return false;
-      }
-      return true;
-    })
-    .slice(0, options.maxEvents);
+export async function verifyEvent(event: EventForVerification): Promise<VerificationResult> {
+  const base = { eventId: event.id, eventTitle: event.title };
+
+  if (!hasVerifiablePage(event.url)) {
+    return {
+      ...base,
+      action: 'unverifiable',
+      reason: 'The URL is not a page about this event',
+      confidence: 1,
+    };
+  }
+
+  const page = await fetchPageContent(event.url);
+  if (page.kind === 'failed') {
+    return {
+      ...base,
+      action: 'keep',
+      reason: page.reason,
+      confidence: 0,
+      error: page.reason,
+      fetchFailed: true,
+    };
+  }
+  if (page.kind === 'missing') {
+    return {
+      ...base,
+      action: 'missing',
+      reason: `The page returns HTTP ${page.status}`,
+      confidence: 1,
+    };
+  }
+  return verifyEventWithAI(event, page.content);
 }
 
 /**
- * Process a batch of events for verification.
- *
- * @param events - Events to verify (already filtered)
- * @param options - Verification options
- * @returns Batch verification results
+ * What applying one result did, kept in the cron run's record (cron_job_runs is
+ * the only durable trail: Vercel logs last ~1h).
+ * - kept / unverifiable: stamped as verified, nothing else changed
+ * - updated / hidden / dead: the row was changed (dead = deadAt set)
+ * - deferred: nothing landed; retried after a backoff
+ * - stale: the row changed (a scrape re-titled it, moved it, or changed a field
+ *   being updated) while it was being checked, so the verdict was dropped; it
+ *   is picked up again by a later run
+ * - write_failed: the database write threw
  */
-export async function processEventVerification(
-  events: EventForVerification[],
-  options: Partial<VerificationOptions> = {}
-): Promise<BatchVerificationResult> {
-  const opts = { ...DEFAULT_OPTIONS, ...options };
-  const startTime = Date.now();
+export interface VerificationOutcome {
+  id: string;
+  title: string;
+  url: string;
+  source: string;
+  outcome:
+    | 'kept'
+    | 'updated'
+    | 'hidden'
+    | 'dead'
+    | 'unverifiable'
+    | 'deferred'
+    | 'stale'
+    | 'write_failed';
+  reason: string;
+  confidence?: number;
+  changes?: Record<string, { from: string | null; to: string }>;
+}
 
-  const result: BatchVerificationResult = {
-    success: true,
+function unlistedCutoff(now: Date): Date {
+  return new Date(now.getTime() - DEAD_STALE_HOURS * 60 * 60 * 1000);
+}
+
+/** Whether the scrapers have stopped listing the event (as of when it was read). */
+function isUnlisted(event: EventForVerification, now: Date): boolean {
+  return !event.lastSeenAt || event.lastSeenAt < unlistedCutoff(now);
+}
+
+/**
+ * Write one verification result to the database.
+ *
+ * - hide / update need HIDE_CONFIDENCE_THRESHOLD; below it they are deferred.
+ * - missing (404/410) sets deadAt, like the cleanup cron, only when the scrapers
+ *   have stopped listing the event for DEAD_STALE_HOURS and `allowDead` (the
+ *   per-source circuit breaker) permits. A listed event with a dead link is
+ *   deferred, so it is marked dead once its source drops it.
+ * - Every write, retry bookkeeping included, is conditioned on the title and
+ *   date that were checked, an update also on each field it changes, and a dead
+ *   mark on the row still being unlisted. A scrape that changed the row mid-run
+ *   wins, and the outcome is `stale`.
+ */
+export async function applyVerification(
+  event: EventForVerification,
+  result: VerificationResult,
+  now: Date,
+  { allowDead = true }: { allowDead?: boolean } = {}
+): Promise<VerificationOutcome> {
+  const base = {
+    id: event.id,
+    title: event.title,
+    url: event.url,
+    source: event.source,
+    reason: result.error ?? result.reason,
+    ...(result.error ? {} : { confidence: result.confidence }),
+  };
+
+  // The row must still be the one that was checked
+  const unchanged = and(
+    eq(events.id, event.id),
+    eq(events.title, event.title),
+    eq(events.startDate, event.startDate)
+  );
+
+  const write = async (
+    set: Partial<typeof events.$inferInsert>,
+    outcome: VerificationOutcome['outcome'],
+    extra: Partial<VerificationOutcome> = {},
+    condition = unchanged
+  ): Promise<VerificationOutcome> => {
+    const rows = await db.update(events).set(set).where(condition).returning({ id: events.id });
+    if (rows.length === 0) {
+      return { ...base, outcome: 'stale', reason: 'Row changed while it was being verified' };
+    }
+    return { ...base, ...extra, outcome };
+  };
+
+  const stamp = (
+    set: Partial<typeof events.$inferInsert>,
+    outcome: VerificationOutcome['outcome'],
+    extra: Partial<VerificationOutcome> = {},
+    condition = unchanged
+  ) => write({ ...set, lastVerifiedAt: now }, outcome, extra, condition);
+
+  const defer = (reason: string) => {
+    const attempts = event.verifyAttempts + 1;
+    const delay = VERIFY_BACKOFF_MS[Math.min(attempts - 1, VERIFY_BACKOFF_MS.length - 1)];
+    return write(
+      { verifyAttempts: attempts, verifyNextAttemptAt: new Date(now.getTime() + delay) },
+      'deferred',
+      { reason }
+    );
+  };
+
+  try {
+    if (result.error) return await defer(result.error);
+
+    switch (result.action) {
+      case 'keep':
+        return await stamp({}, 'kept');
+
+      case 'unverifiable':
+        return await stamp({}, 'unverifiable');
+
+      case 'missing': {
+        if (!isUnlisted(event, now)) {
+          return await defer(`${result.reason}, but the source still lists the event`);
+        }
+        if (!allowDead) return await defer(`${result.reason} (source over the dead-link cap)`);
+        const stillUnlisted = sql`(${events.lastSeenAt} IS NULL OR ${events.lastSeenAt} < ${unlistedCutoff(now).toISOString()})`;
+        return await stamp({ deadAt: now }, 'dead', {}, and(unchanged, stillUnlisted));
+      }
+
+      case 'hide':
+        if (!shouldApplyVerification(result)) {
+          return await defer(`low confidence hide (${result.confidence}): ${result.reason}`);
+        }
+        return await stamp({ hidden: true, updatedAt: now }, 'hidden');
+
+      case 'update': {
+        if (!shouldApplyVerification(result) || !result.updates) {
+          return await defer(`low confidence update (${result.confidence}): ${result.reason}`);
+        }
+        const changes: NonNullable<VerificationOutcome['changes']> = {};
+        const set: Partial<typeof events.$inferInsert> = { updatedAt: now };
+        // Each changed field must still hold the value that was checked
+        const fieldsUnchanged: SQL[] = [];
+        for (const field of ['price', 'description', 'location'] as const) {
+          const to = result.updates[field];
+          if (!to) continue;
+          changes[field] = { from: event[field], to };
+          set[field] = to;
+          fieldsUnchanged.push(sql`${events[field]} IS NOT DISTINCT FROM ${event[field]}`);
+        }
+        return await stamp(set, 'updated', { changes }, and(unchanged, ...fieldsUnchanged));
+      }
+    }
+  } catch (dbError) {
+    const message = dbError instanceof Error ? dbError.message : String(dbError);
+    console.error(`[Verify] DB error for "${event.title.slice(0, 50)}": ${message}`);
+    return { ...base, outcome: 'write_failed', reason: message };
+  }
+}
+
+/** The promise's value, or undefined if it hasn't settled within `ms`. */
+async function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T | undefined> {
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  try {
+    return await Promise.race([
+      promise,
+      new Promise<undefined>((resolve) => {
+        timer = setTimeout(() => resolve(undefined), ms);
+      }),
+    ]);
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+/**
+ * Totals from one verification run, alongside the outcomes passed to `onOutcome`.
+ */
+export interface VerificationRunStats {
+  /** Events whose page was judged (by the AI, or as missing from its status) */
+  eventsChecked: number;
+  /** Events whose page couldn't be fetched */
+  eventsSkipped: number;
+  /** Events left for a later run because the deadline or a rate limit hit first */
+  eventsNotAttempted: number;
+  /** Why the run stopped early, if it did */
+  stoppedEarly?: string;
+  totalTokensUsed: number;
+  durationMs: number;
+}
+
+/**
+ * Verify events one at a time, pacing Jina fetches, and write each result as
+ * soon as it is judged, so a run cut short keeps the work it finished. Stops
+ * starting new events at `deadline` (epoch ms) or on a Jina rate limit; the
+ * rest are left untouched for the next run.
+ *
+ * Dead marks wait for the end: the per-source circuit breaker needs the whole
+ * run's numbers (all 404s / all judged pages, per source).
+ */
+export async function runVerification(
+  eventsToCheck: EventForVerification[],
+  {
+    now,
+    deadline,
+    onOutcome,
+  }: { now: Date; deadline: number; onOutcome: (outcome: VerificationOutcome) => void }
+): Promise<VerificationRunStats> {
+  const startTime = Date.now();
+  const stats: VerificationRunStats = {
     eventsChecked: 0,
-    eventsHidden: 0,
-    eventsUpdated: 0,
-    eventsKept: 0,
     eventsSkipped: 0,
-    errors: 0,
-    results: [],
+    eventsNotAttempted: 0,
     totalTokensUsed: 0,
     durationMs: 0,
   };
+  const judgedBySource = new Map<string, number>();
+  const missingBySource = new Map<string, number>();
+  const deadCandidates: Array<{ event: EventForVerification; result: VerificationResult }> = [];
 
-  if (!isVerificationEnabled()) {
-    result.success = false;
-    console.error('[Verify] Verification not enabled - check Azure AI config');
-    return result;
-  }
+  const record = (outcome: VerificationOutcome) => {
+    onOutcome(outcome);
+    if (outcome.outcome !== 'kept') {
+      const changed = outcome.changes
+        ? ` [${Object.entries(outcome.changes)
+            .map(([field, { from, to }]) =>
+              field === 'description'
+                ? `description: ${from?.length ?? 0} -> ${to.length} chars`
+                : `${field}: "${from ?? 'null'}" -> "${to}"`
+            )
+            .join(', ')}]`
+        : '';
+      console.log(
+        `[Verify] ${outcome.outcome.toUpperCase()} ${outcome.id} "${outcome.title.slice(0, 50)}"${changed} - ${outcome.reason}`
+      );
+    }
+  };
 
-  // Filter events for verification
-  const eventsToCheck = filterEventsForVerification(events, opts).slice(0, opts.maxEvents);
+  console.log(`[Verify] Processing ${eventsToCheck.length} events`);
 
-  console.log(
-    `[Verify] Processing ${eventsToCheck.length} events (filtered from ${events.length})`
-  );
-
-  let fetchFailures = 0;
-  let transientErrors = 0;
-  let permanentErrors = 0;
-
+  let lastFetchAt = 0;
   for (let i = 0; i < eventsToCheck.length; i++) {
     const event = eventsToCheck[i];
+    const label = `[Verify] [${i + 1}/${eventsToCheck.length}]`;
+
+    // Pace every fetch, failed ones included, so a run of quick failures
+    // can't burst past Jina's per-minute limit
+    const wait = lastFetchAt + FETCH_INTERVAL_MS - Date.now();
+    if (wait > 0) await new Promise((r) => setTimeout(r, wait));
+
+    if (Date.now() >= deadline) {
+      stats.stoppedEarly = 'deadline';
+      stats.eventsNotAttempted = eventsToCheck.length - i;
+      break;
+    }
+    lastFetchAt = Date.now();
+
+    console.log(`${label} Checking: "${event.title.slice(0, 60)}" (${event.source})`);
+    let result: VerificationResult;
     try {
-      console.log(
-        `[Verify] [${i + 1}/${eventsToCheck.length}] Checking: "${event.title.slice(0, 60)}" (${event.source})`
-      );
-
-      // Fetch page content via Jina
-      const pageContent = await fetchPageContent(event.url);
-
-      if (!pageContent) {
-        result.eventsSkipped++;
-        fetchFailures++;
-        result.results.push({
-          eventId: event.id,
-          eventTitle: event.title,
-          action: 'keep',
-          reason: 'Could not fetch page content',
-          confidence: 0,
-          error: 'Jina fetch failed',
-        });
-        console.log(
-          `[Verify] [${i + 1}/${eventsToCheck.length}] SKIP (fetch failed): "${event.title.slice(0, 60)}"`
-        );
-        continue;
-      }
-
-      // Rate limit delay for Jina
-      await new Promise((r) => setTimeout(r, opts.jinaDelayMs));
-
-      // Verify with AI
-      const verificationResult = await verifyEventWithAI(event, pageContent);
-      result.results.push(verificationResult);
-      result.eventsChecked++;
-
-      // Track token usage
-      const tokensUsed =
-        (verificationResult as VerificationResult & { tokensUsed?: number }).tokensUsed || 0;
-      result.totalTokensUsed += tokensUsed;
-
-      // Count results and log per-event outcomes
-      switch (verificationResult.action) {
-        case 'hide':
-          result.eventsHidden++;
-          console.log(
-            `[Verify] [${i + 1}/${eventsToCheck.length}] HIDE: "${event.title.slice(0, 60)}" - ${verificationResult.reason} (confidence: ${verificationResult.confidence})`
-          );
-          break;
-        case 'update':
-          result.eventsUpdated++;
-          const changedFields = verificationResult.updates
-            ? Object.entries(verificationResult.updates)
-                .filter(([, v]) => v != null)
-                .map(([k]) => k)
-            : [];
-          console.log(
-            `[Verify] [${i + 1}/${eventsToCheck.length}] UPDATE: "${event.title.slice(0, 60)}" - fields: [${changedFields.join(', ')}] - ${verificationResult.reason}`
-          );
-          break;
-        case 'keep':
-          result.eventsKept++;
-          if (opts.verbose) {
-            console.log(
-              `[Verify] [${i + 1}/${eventsToCheck.length}] KEEP: "${event.title.slice(0, 60)}" - ${verificationResult.reason}`
-            );
-          }
-          break;
-      }
-
-      if (verificationResult.error) {
-        result.errors++;
-        if (verificationResult.error.includes('transient')) {
-          transientErrors++;
-        } else {
-          permanentErrors++;
-        }
-      }
-
-      // Rate limit delay for AI
-      await new Promise((r) => setTimeout(r, opts.aiDelayMs));
-    } catch (error) {
-      if (error instanceof JinaAccountError) throw error;
-      result.errors++;
-      const errMsg = error instanceof Error ? error.message : String(error);
-      permanentErrors++;
-      result.results.push({
+      result = (await withTimeout(verifyEvent(event), MAX_EVENT_MS)) ?? {
         eventId: event.id,
         eventTitle: event.title,
         action: 'keep',
-        reason: 'Processing error',
+        reason: `Timed out after ${MAX_EVENT_MS / 1000}s`,
         confidence: 0,
-        error: errMsg,
-      });
-      console.error(
-        `[Verify] [${i + 1}/${eventsToCheck.length}] ERROR processing "${event.title.slice(0, 60)}": ${errMsg}`
-      );
+        error: `Timed out after ${MAX_EVENT_MS / 1000}s`,
+      };
+    } catch (error) {
+      if (error instanceof JinaRateLimitError) {
+        console.warn(`${label} Jina rate limit hit; leaving the rest for the next run`);
+        stats.stoppedEarly = 'rate limited';
+        stats.eventsNotAttempted = eventsToCheck.length - i;
+        break;
+      }
+      throw error;
+    }
+
+    stats.totalTokensUsed += result.tokensUsed ?? 0;
+    if (result.fetchFailed) {
+      stats.eventsSkipped++;
+    } else {
+      stats.eventsChecked++;
+    }
+    if (!result.error) {
+      judgedBySource.set(event.source, (judgedBySource.get(event.source) ?? 0) + 1);
+      if (result.action === 'missing') {
+        missingBySource.set(event.source, (missingBySource.get(event.source) ?? 0) + 1);
+      }
+    }
+    console.log(
+      `${label} ${result.error ? `ERROR ${result.error}` : `${result.action.toUpperCase()} (${result.confidence}) - ${result.reason}`}`
+    );
+
+    if (!result.error && result.action === 'missing' && isUnlisted(event, now)) {
+      deadCandidates.push({ event, result });
+    } else {
+      record(await applyVerification(event, result, now));
     }
   }
 
-  result.durationMs = Date.now() - startTime;
+  // A source losing a big share of its pages at once is a redesign or an
+  // outage, not removals: none of its events are marked dead this run
+  for (const { event, result } of deadCandidates) {
+    const judged = judgedBySource.get(event.source) ?? 0;
+    const missing = missingBySource.get(event.source) ?? 0;
+    const overCap = judged >= DEAD_SOURCE_MIN_CHECKED && missing / judged > DEAD_SOURCE_MAX_SHARE;
+    record(await applyVerification(event, result, now, { allowDead: !overCap }));
+  }
 
-  const durationStr = (result.durationMs / 1000).toFixed(1);
+  stats.durationMs = Date.now() - startTime;
   console.log(
-    `[Verify] Batch complete in ${durationStr}s - Checked: ${result.eventsChecked}, Hidden: ${result.eventsHidden}, Updated: ${result.eventsUpdated}, Kept: ${result.eventsKept}, Skipped: ${result.eventsSkipped} (fetch failures: ${fetchFailures}), Errors: ${result.errors} (transient: ${transientErrors}, permanent: ${permanentErrors}), Tokens: ${result.totalTokensUsed}`
+    `[Verify] Run complete in ${(stats.durationMs / 1000).toFixed(1)}s - Checked: ${stats.eventsChecked}, Skipped (fetch failed): ${stats.eventsSkipped}, Not attempted: ${stats.eventsNotAttempted}${stats.stoppedEarly ? ` (stopped: ${stats.stoppedEarly})` : ''}, Tokens: ${stats.totalTokensUsed}`
   );
-
-  return result;
-}
-
-/**
- * Verify a single event by ID (for testing).
- *
- * @param event - The event to verify
- * @returns Verification result
- */
-export async function verifySingleEvent(event: EventForVerification): Promise<VerificationResult> {
-  if (!isVerificationEnabled()) {
-    return {
-      eventId: event.id,
-      eventTitle: event.title,
-      action: 'keep',
-      reason: 'Verification not enabled',
-      confidence: 0,
-      error: 'Check Azure AI config',
-    };
-  }
-
-  console.log(`[Verify] Fetching page content for: ${event.url}`);
-  const pageContent = await fetchPageContent(event.url);
-
-  if (!pageContent) {
-    return {
-      eventId: event.id,
-      eventTitle: event.title,
-      action: 'keep',
-      reason: 'Could not fetch page content',
-      confidence: 0,
-      error: 'Jina fetch failed',
-    };
-  }
-
-  console.log(`[Verify] Page content fetched (${pageContent.length} chars), analyzing with AI...`);
-  return verifyEventWithAI(event, pageContent);
-}
-
-/**
- * Verify an event by ID and optionally apply updates.
- * Used for on-demand verification (e.g., when a user reports incorrect info).
- *
- * @param eventId - The event UUID
- * @param applyUpdates - Whether to apply updates to the database (default: true)
- * @returns Verification result with any updates applied
- */
-export async function verifyEventById(
-  eventId: string,
-  applyUpdates: boolean = true
-): Promise<VerificationResult & { applied?: boolean }> {
-  // Import here to avoid circular dependencies
-  const { db } = await import('@/lib/db');
-  const { events } = await import('@/lib/db/schema');
-  const { eq } = await import('drizzle-orm');
-
-  // Fetch event from database
-  const result = await db.select().from(events).where(eq(events.id, eventId)).limit(1);
-
-  if (result.length === 0) {
-    return {
-      eventId,
-      eventTitle: 'Unknown',
-      action: 'keep',
-      reason: 'Event not found in database',
-      confidence: 0,
-      error: 'Event not found',
-    };
-  }
-
-  const event = result[0];
-
-  // Check if event source is verifiable (only verify sources with direct event URLs)
-  if (!VERIFIABLE_SOURCES.includes(event.source as (typeof VERIFIABLE_SOURCES)[number])) {
-    return {
-      eventId: event.id,
-      eventTitle: event.title,
-      action: 'keep',
-      reason: `Source '${event.source}' not eligible for verification`,
-      confidence: 0,
-      error: `Verification only available for: ${VERIFIABLE_SOURCES.join(', ')}`,
-    };
-  }
-
-  // Check if verification is enabled
-  if (!isVerificationEnabled()) {
-    return {
-      eventId: event.id,
-      eventTitle: event.title,
-      action: 'keep',
-      reason: 'Verification not enabled',
-      confidence: 0,
-      error: 'Check Azure AI config',
-    };
-  }
-
-  // Fetch and verify
-  const eventForVerification: EventForVerification = {
-    id: event.id,
-    title: event.title,
-    description: event.description,
-    startDate: event.startDate,
-    location: event.location,
-    organizer: event.organizer,
-    price: event.price,
-    url: event.url,
-    source: event.source,
-    lastVerifiedAt: event.lastVerifiedAt,
-  };
-
-  const verificationResult = await verifySingleEvent(eventForVerification);
-
-  // Apply updates if requested and action is 'update' or 'hide'.
-  // Mutations require the same confidence bar the cron path enforces.
-  let applied = false;
-  if (applyUpdates) {
-    const now = new Date();
-    const confident = shouldApplyVerification(verificationResult);
-
-    if (verificationResult.action === 'hide') {
-      if (confident) {
-        await db
-          .update(events)
-          .set({ hidden: true, lastVerifiedAt: now, updatedAt: now })
-          .where(eq(events.id, eventId));
-        applied = true;
-        console.log(
-          `[Verify] Event hidden: ${event.title} (confidence: ${verificationResult.confidence})`
-        );
-      } else {
-        console.log(
-          `[Verify] Skipped hide for "${event.title}" - confidence ${verificationResult.confidence} < ${HIDE_CONFIDENCE_THRESHOLD}`
-        );
-      }
-    } else if (verificationResult.action === 'update' && verificationResult.updates) {
-      if (confident) {
-        const updateData: Record<string, unknown> = {};
-
-        if (verificationResult.updates.price) {
-          updateData.price = verificationResult.updates.price;
-        }
-        if (verificationResult.updates.location) {
-          updateData.location = verificationResult.updates.location;
-        }
-        if (verificationResult.updates.description) {
-          updateData.description = verificationResult.updates.description;
-        }
-
-        if (Object.keys(updateData).length > 0) {
-          updateData.lastVerifiedAt = now;
-          updateData.updatedAt = now;
-          await db.update(events).set(updateData).where(eq(events.id, eventId));
-          applied = true;
-          console.log(`[Verify] Event updated: ${event.title}`, Object.keys(updateData));
-        }
-      } else {
-        console.log(
-          `[Verify] Skipped update for "${event.title}" - confidence ${verificationResult.confidence} < ${HIDE_CONFIDENCE_THRESHOLD}`
-        );
-      }
-    }
-
-    // Update lastVerifiedAt even if no changes - but only for a clean keep.
-    // An errored result must stay unstamped so it gets re-verified later.
-    if (!applied && verificationResult.action === 'keep' && !verificationResult.error) {
-      await db.update(events).set({ lastVerifiedAt: now }).where(eq(events.id, eventId));
-    }
-  }
-
-  return { ...verificationResult, applied };
+  return stats;
 }

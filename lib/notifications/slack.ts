@@ -545,21 +545,29 @@ export async function sendPosterFlaggedNotification(poster: FlaggedPoster): Prom
 }
 
 /**
+ * One event the verify job changed, for the Slack report
+ */
+interface VerifiedEventNote {
+  title: string;
+  reason: string;
+  url?: string;
+}
+
+/**
  * Verification result for Slack notification
  */
 interface VerificationNotification {
   eventsChecked: number;
-  eventsHidden: number;
-  eventsUpdated: number;
   eventsKept: number;
-  hiddenEvents: Array<{ title: string; reason: string; url?: string }>;
-  updatedEvents: Array<{ title: string; reason: string; url?: string }>;
+  hiddenEvents: VerifiedEventNote[];
+  deadEvents: VerifiedEventNote[];
+  updatedEvents: VerifiedEventNote[];
   durationSeconds: number;
 }
 
 /**
  * Send a Slack notification for event verification results.
- * Only sends if there are hidden or updated events.
+ * Only sends if events were hidden, marked dead, or updated.
  */
 export async function sendVerificationNotification(
   results: VerificationNotification
@@ -569,9 +577,11 @@ export async function sendVerificationNotification(
     return false;
   }
 
+  const { hiddenEvents, deadEvents, updatedEvents } = results;
+
   // Only notify if there are actions taken
-  if (results.eventsHidden === 0 && results.eventsUpdated === 0) {
-    console.log('[Slack] No events hidden or updated, skipping notification');
+  if (hiddenEvents.length + deadEvents.length + updatedEvents.length === 0) {
+    console.log('[Slack] No events hidden, dead or updated, skipping notification');
     return false;
   }
 
@@ -601,37 +611,27 @@ export async function sendVerificationNotification(
     },
   ];
 
-  // Add hidden events section
-  if (results.eventsHidden > 0) {
-    const hiddenList = results.hiddenEvents
+  const addSection = (heading: string, list: VerifiedEventNote[]) => {
+    if (list.length === 0) return;
+    const lines = list
       .slice(0, 10) // Limit to 10 for readability
-      .map((e) => `• ${e.title.slice(0, 40)}${e.title.length > 40 ? '...' : ''} - ${e.reason}`)
+      // Reasons are capped so ten of them stay under Slack's 3,000-char section limit
+      .map(
+        (e) =>
+          `• ${e.title.slice(0, 40)}${e.title.length > 40 ? '...' : ''} - ${e.reason.slice(0, 200)}${e.reason.length > 200 ? '...' : ''}`
+      )
       .join('\n');
-
     blocks.push({
       type: 'section',
       text: {
         type: 'mrkdwn',
-        text: `*:no_entry: Hidden Events (${results.eventsHidden}):*\n${hiddenList}${results.eventsHidden > 10 ? `\n_...and ${results.eventsHidden - 10} more_` : ''}`,
+        text: `*${heading} (${list.length}):*\n${lines}${list.length > 10 ? `\n_...and ${list.length - 10} more_` : ''}`,
       },
     });
-  }
-
-  // Add updated events section
-  if (results.eventsUpdated > 0) {
-    const updatedList = results.updatedEvents
-      .slice(0, 10) // Limit to 10 for readability
-      .map((e) => `• ${e.title.slice(0, 40)}${e.title.length > 40 ? '...' : ''} - ${e.reason}`)
-      .join('\n');
-
-    blocks.push({
-      type: 'section',
-      text: {
-        type: 'mrkdwn',
-        text: `*:arrows_counterclockwise: Updated Events (${results.eventsUpdated}):*\n${updatedList}${results.eventsUpdated > 10 ? `\n_...and ${results.eventsUpdated - 10} more_` : ''}`,
-      },
-    });
-  }
+  };
+  addSection(':no_entry: Hidden Events (cancelled or not on this date)', hiddenEvents);
+  addSection(':link: Dead Links (page gone, no longer listed)', deadEvents);
+  addSection(':arrows_counterclockwise: Updated Events', updatedEvents);
 
   // Add summary context
   blocks.push({
@@ -639,7 +639,7 @@ export async function sendVerificationNotification(
     elements: [
       {
         type: 'mrkdwn',
-        text: `Kept: ${results.eventsKept} | Hidden: ${results.eventsHidden} | Updated: ${results.eventsUpdated}`,
+        text: `Kept: ${results.eventsKept} | Hidden: ${hiddenEvents.length} | Dead: ${deadEvents.length} | Updated: ${updatedEvents.length}`,
       },
     ],
   });

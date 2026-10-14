@@ -66,7 +66,12 @@ export async function completeCronJob(
 /**
  * Mark a cron job as failed
  */
-export async function failCronJob(runId: string | null, error: unknown): Promise<void> {
+export async function failCronJob(
+  runId: string | null,
+  error: unknown,
+  /** What the run had done before it failed, kept alongside the error */
+  partial?: Record<string, unknown>
+): Promise<void> {
   if (!runId) return;
 
   const completedAt = new Date();
@@ -86,6 +91,7 @@ export async function failCronJob(runId: string | null, error: unknown): Promise
       completedAt,
       durationMs,
       result: {
+        ...partial,
         error: error instanceof Error ? error.message : String(error),
         stack: error instanceof Error ? error.stack : undefined,
         // Drizzle wraps driver errors in a generic "Failed query" — the real error is in cause

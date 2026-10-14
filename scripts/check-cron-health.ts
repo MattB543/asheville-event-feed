@@ -220,6 +220,9 @@ async function staleSources() {
 // A verify run can "succeed" while checking nothing: from 2026-01-10 every Jina
 // fetch returned 402 and 2,000+ runs reported success. So judge it by the work done.
 const VERIFY_IDLE_RUNS = 4;
+// About a third of picks failing to fetch was normal in Oct 2026
+const VERIFY_SKIP_MAX_RATE = 0.5;
+const VERIFY_SKIP_MIN_ATTEMPTED = 50;
 
 async function verifyWork() {
   console.log(`\nVERIFY — events actually checked, last ${DAYS} days`);
@@ -235,6 +238,12 @@ async function verifyWork() {
   }
 
   const checked = runs.reduce((n, run) => n + Number(run.result?.eventsChecked ?? 0), 0);
+  // Pages that couldn't be fetched (bot challenges, blocks, timeouts). Work
+  // still happens at a high rate, so the idle check misses it.
+  // Out of events attempted: an early stop leaves picked events unattempted
+  const skipped = runs.reduce((n, run) => n + Number(run.result?.eventsSkipped ?? 0), 0);
+  const attempted = checked + skipped;
+  const skipRate = attempted > 0 ? skipped / attempted : 0;
 
   // Newest-first streak of runs that had events waiting but checked none. Failed
   // and skipped (not configured) runs count too; an empty queue ends the streak.
@@ -249,7 +258,13 @@ async function verifyWork() {
 
   console.log(`Runs:           ${runs.length}`);
   console.log(`Events checked: ${checked}`);
+  console.log(`Fetch failures: ${skipped}/${attempted} attempted (${Math.round(skipRate * 100)}%)`);
   console.log(`Idle streak:    ${idle} run(s) in a row with events waiting and none checked`);
+  if (attempted >= VERIFY_SKIP_MIN_ATTEMPTED && skipRate > VERIFY_SKIP_MAX_RATE) {
+    problems.push(
+      `verify: ${Math.round(skipRate * 100)}% of attempted events couldn't be fetched (bot challenges or blocks?); see eventsSkipped and the outcomes' reasons in cron_job_runs.`
+    );
+  }
   if (idle >= VERIFY_IDLE_RUNS) {
     problems.push(
       `verify: checked 0 events on the last ${idle} runs despite a non-empty queue (Jina key/balance? every fetch failing?).`

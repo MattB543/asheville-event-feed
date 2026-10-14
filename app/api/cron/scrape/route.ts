@@ -30,7 +30,8 @@ import { scrapeBuncombeCounty } from '@/lib/scrapers/buncombecounty';
 import { scrapeAshevilleParksRec } from '@/lib/scrapers/ashevilleparksrec';
 import { db } from '@/lib/db';
 import { events } from '@/lib/db/schema';
-import { inArray, eq, sql, and, isNull, or } from 'drizzle-orm';
+import { inArray, eq, sql, and, isNull, or, type SQL } from 'drizzle-orm';
+import type { AnyPgColumn } from 'drizzle-orm/pg-core';
 import type { ScrapedEvent } from '@/lib/scrapers/types';
 import { env, isFacebookEnabled, isLocalScrapeRuntime } from '@/lib/config/env';
 import { findDuplicates, getIdsToRemove, getFieldUpdates } from '@/lib/utils/deduplication';
@@ -323,6 +324,17 @@ export async function GET(request: Request) {
       await Promise.all(
         batch.map(async (event) => {
           try {
+            // A different title on an existing URL is a different event there
+            // (Mountain Xpress reuses event URLs; AVL Today links shared by
+            // several listings rotate). Everything learned about the old one -
+            // its description, price, image, AI enrichment, verification and
+            // dead-link verdicts - is dropped so the new one is shown and
+            // processed afresh. Manual moderation (hidden, score overrides)
+            // stays. Date changes alone don't count: rolling events move their
+            // date every run.
+            const newEvent = sql`${events.title} IS DISTINCT FROM ${event.title}::text`;
+            const unlessNewEvent = (column: AnyPgColumn, fresh: SQL = sql`NULL`) =>
+              sql`CASE WHEN ${newEvent} THEN ${fresh} ELSE ${column} END`;
             const upsertResult = await db
               .insert(events)
               .values({
@@ -347,10 +359,10 @@ export async function GET(request: Request) {
                 target: events.url,
                 set: {
                   title: event.title,
-                  // Keep the longer description — the verify cron enriches thin
-                  // descriptions, and events are never re-verified, so a raw
-                  // re-scrape must not overwrite enrichment with shorter text
-                  description: sql`CASE WHEN length(coalesce(${event.description ?? null}::text, '')) > length(coalesce(${events.description}, '')) THEN ${event.description ?? null}::text ELSE ${events.description} END`,
+                  // Keep the longer description — the verify cron fills thin
+                  // descriptions, so a raw re-scrape must not overwrite that with
+                  // shorter text
+                  description: sql`CASE WHEN ${newEvent} OR length(coalesce(${event.description ?? null}::text, '')) > length(coalesce(${events.description}, '')) THEN ${event.description ?? null}::text ELSE ${events.description} END`,
                   startDate: event.startDate,
                   // Moves with startDate, so a placeholder time never reads as a real one (or
                   // the reverse). Many scrapers never set it; their undefined keeps the row's value.
@@ -359,12 +371,29 @@ export async function GET(request: Request) {
                   zip: sql`COALESCE(NULLIF(trim(${event.zip ?? null}::text), ''), ${events.zip})`,
                   organizer: sql`COALESCE(NULLIF(trim(${event.organizer ?? null}::text), ''), ${events.organizer})`,
                   // Don't let a null/Unknown scrape clobber a verified price
-                  price: sql`CASE WHEN NULLIF(trim(${event.price ?? null}::text), '') IS NULL OR lower(trim(${event.price ?? null}::text)) = 'unknown' THEN COALESCE(${events.price}, ${event.price ?? null}::text) ELSE ${event.price ?? null}::text END`,
-                  imageUrl: sql`COALESCE(NULLIF(trim(${event.imageUrl ?? null}::text), ''), ${events.imageUrl})`,
+                  price: sql`CASE WHEN ${newEvent} THEN ${event.price ?? null}::text WHEN NULLIF(trim(${event.price ?? null}::text), '') IS NULL OR lower(trim(${event.price ?? null}::text)) = 'unknown' THEN COALESCE(${events.price}, ${event.price ?? null}::text) ELSE ${event.price ?? null}::text END`,
+                  imageUrl: sql`CASE WHEN ${newEvent} THEN NULLIF(trim(${event.imageUrl ?? null}::text), '') ELSE COALESCE(NULLIF(trim(${event.imageUrl ?? null}::text), ''), ${events.imageUrl}) END`,
                   interestedCount: event.interestedCount,
                   goingCount: event.goingCount,
                   lastSeenAt: new Date(),
-                  // Note: tags are NOT updated on conflict - preserves AI-generated tags
+                  // Tags are otherwise NOT updated on conflict - preserves AI-generated tags
+                  tags: unlessNewEvent(events.tags, sql`'{}'::text[]`),
+                  aiSummary: unlessNewEvent(events.aiSummary),
+                  embedding: unlessNewEvent(events.embedding),
+                  score: unlessNewEvent(events.score),
+                  scoreRarity: unlessNewEvent(events.scoreRarity),
+                  scoreUnique: unlessNewEvent(events.scoreUnique),
+                  scoreMagnitude: unlessNewEvent(events.scoreMagnitude),
+                  scoreReason: unlessNewEvent(events.scoreReason),
+                  scoreAshevilleWeird: unlessNewEvent(events.scoreAshevilleWeird),
+                  scoreSocial: unlessNewEvent(events.scoreSocial),
+                  aiAttempts: unlessNewEvent(events.aiAttempts, sql`0`),
+                  aiNextAttemptAt: unlessNewEvent(events.aiNextAttemptAt),
+                  lastVerifiedAt: unlessNewEvent(events.lastVerifiedAt),
+                  verifyAttempts: unlessNewEvent(events.verifyAttempts, sql`0`),
+                  verifyNextAttemptAt: unlessNewEvent(events.verifyNextAttemptAt),
+                  // The scraper just saw this URL live with a new event on it
+                  deadAt: unlessNewEvent(events.deadAt),
                 },
               })
               // xmax = 0 only for a freshly inserted row; on the update path it holds

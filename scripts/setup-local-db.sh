@@ -70,12 +70,12 @@ npx drizzle-kit push
 echo
 echo "6. Events. How should the database be filled?"
 echo "   1) Copy upcoming events from avlgo.com (about 5,000, with scores and tags) [default]"
-echo "   2) Scrape Eventbrite (a few minutes, no scores or tags)"
+echo "   2) Run the full scrape, every source, like production (slow; scores and tags only with AI keys in .env)"
 echo "   3) Leave it empty"
 read -r -p "   Choose 1-3 [1]: " choice
 case "${choice:-1}" in
   1) npx tsx scripts/maintenance/seed-from-live.ts ;;
-  2) npm run backfill ;;
+  2) npx tsx scripts/run-full-cron-local.ts ;;
   *) echo "   skipped" ;;
 esac
 

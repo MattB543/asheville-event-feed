@@ -108,7 +108,8 @@ export async function replacePlaylist(
   description: string
 ): Promise<void> {
   // Spotify caps a replace at 100 tracks; the playlist is 25
-  await spotifyFetch(`/playlists/${playlistId}/tracks`, {
+  // /items, not the older /tracks path, which Spotify now answers with 403
+  await spotifyFetch(`/playlists/${playlistId}/items`, {
     method: 'PUT',
     body: JSON.stringify({ uris: trackIds.slice(0, 100).map((id) => `spotify:track:${id}`) }),
   });

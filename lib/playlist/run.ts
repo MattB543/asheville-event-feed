@@ -92,7 +92,14 @@ async function loadCandidates(now: Date): Promise<{ music: number; candidates: P
  * the picks. Matches are saved as they're found, so a run stopped by a Spotify
  * rate limit picks up where it left off.
  */
-export async function runPlaylist({ dryRun }: { dryRun: boolean }): Promise<PlaylistRunResult> {
+export async function runPlaylist({
+  dryRun,
+  lineupUrl = `${env.NEXT_PUBLIC_APP_URL}/playlist`,
+}: {
+  dryRun: boolean;
+  /** Where the playlist description sends listeners for the full lineup */
+  lineupUrl?: string;
+}): Promise<PlaylistRunResult> {
   const weekStart = getTodayStringEastern();
   const { music, candidates } = await loadCandidates(new Date());
 
@@ -212,7 +219,7 @@ export async function runPlaylist({ dryRun }: { dryRun: boolean }): Promise<Play
   if (!dryRun && shows.length > 0) {
     const description = playlistDescription(
       shows.map((s) => s.spotifyArtist ?? '?'),
-      `${env.NEXT_PUBLIC_APP_URL}/playlist`
+      lineupUrl
     );
     await replacePlaylist(
       env.SPOTIFY_PLAYLIST_ID!,

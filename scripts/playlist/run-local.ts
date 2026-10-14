@@ -5,6 +5,7 @@ import { runPlaylist } from '../../lib/playlist/run';
 
 // Preview this week's playlist against DATABASE_URL. Matches are saved either
 // way; only --apply replaces the Spotify playlist and records the picks.
+// --link <url> sets the description's lineup link (default: the /playlist page).
 async function main() {
   const apply = process.argv.includes('--apply');
   if (!isSpotifyEnabled() || !isClassifierEnabled()) {
@@ -13,7 +14,9 @@ async function main() {
     );
   }
 
-  const result = await runPlaylist({ dryRun: !apply });
+  const linkIndex = process.argv.indexOf('--link');
+  const lineupUrl = linkIndex > -1 ? process.argv[linkIndex + 1] : undefined;
+  const result = await runPlaylist({ dryRun: !apply, lineupUrl });
   const date = (d: Date) =>
     d.toLocaleDateString('en-US', {
       timeZone: 'America/New_York',

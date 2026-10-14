@@ -5,6 +5,10 @@
  * Uses curl for HTTP requests as the API blocks Node.js fetch (TLS fingerprinting).
  */
 
+import { and, eq, gte, sql } from 'drizzle-orm';
+import { db } from '@/lib/db';
+import { events as eventsTable } from '@/lib/db/schema';
+import { THIN_DESCRIPTION_LENGTH } from '@/lib/config/verification';
 import { type ScrapedEvent } from './types';
 import { isNonNCEvent } from '@/lib/utils/geo';
 import { getZipFromCoords, getZipFromCity } from '@/lib/utils/geo';
@@ -170,7 +174,6 @@ async function fetchText(url: string, state: CurlFallbackState): Promise<string>
 /**
  * Fetch event description from detail page
  * Extracts from og:description meta tag
- * Exported for use in cron route to fetch descriptions for new events
  */
 export async function fetchEventDescription(
   pathOrUrl: string,
@@ -194,7 +197,7 @@ export async function fetchEventDescription(
     }
 
     if (match?.[1]) {
-      return decodeHtmlEntities(match[1]);
+      return decodeHtmlEntities(match[1]) || undefined;
     }
     return undefined;
   } catch {
@@ -287,10 +290,118 @@ export async function scrapeExploreAsheville(): Promise<ScrapedEvent[]> {
     console.log(`[ExploreAsheville] Filtered out ${filteredCount} non-NC events`);
   }
 
+  await addDescriptions(ncEvents, fallbackState);
+
   console.log(
     `[ExploreAsheville] Finished. Found ${ncEvents.length} NC events (${allEvents.length} total)`
   );
   return ncEvents;
+}
+
+/** Event pages fetched per run for descriptions (~0.3s each); the rest wait for the next run. */
+const MAX_DESCRIPTION_FETCHES = 150;
+const DESCRIPTION_CONCURRENCY = 4;
+/**
+ * Stop starting description fetches after this long, and give up on any one page
+ * after DESCRIPTION_PAGE_TIMEOUT_MS. A local test run once stalled for an hour
+ * on a few pages, which would hold up the whole scrape.
+ */
+const DESCRIPTION_BUDGET_MS = 90_000;
+const DESCRIPTION_PAGE_TIMEOUT_MS = DEFAULT_FETCH_TIMEOUT_MS + 5000;
+/** How often the fetch window moves on: the scrape cron's interval */
+const DESCRIPTION_ROTATE_MS = 6 * 60 * 60 * 1000;
+
+/**
+ * The listing API has no descriptions, so each event's page is fetched once for
+ * its og:description, and the text is shared by all its occurrences (weekly and
+ * monthly ones are the same page with a #date suffix). An event that already
+ * has a description in the DB, matched by page and title so a page reused for a
+ * different event doesn't inherit the old text, isn't fetched again; that
+ * description is reused, which also covers occurrences inserted for the first time.
+ */
+async function addDescriptions(events: ScrapedEvent[], state: CurlFallbackState): Promise<void> {
+  const pageOf = (url: string) => url.split('#')[0];
+  const keyOf = (e: { url: string; title: string }) =>
+    `${pageOf(e.url)}|${e.title.trim().toLowerCase()}`;
+
+  const known = new Map<string, string>();
+  try {
+    const rows = await db
+      .select({
+        url: eventsTable.url,
+        title: eventsTable.title,
+        description: eventsTable.description,
+      })
+      .from(eventsTable)
+      .where(
+        and(
+          eq(eventsTable.source, 'EXPLORE_ASHEVILLE'),
+          gte(eventsTable.startDate, new Date(Date.now() - 24 * 60 * 60 * 1000)),
+          sql`length(${eventsTable.description}) >= ${THIN_DESCRIPTION_LENGTH}`
+        )
+      );
+    for (const row of rows) {
+      const key = keyOf(row);
+      if (row.description && row.description.length > (known.get(key)?.length ?? 0)) {
+        known.set(key, row.description);
+      }
+    }
+  } catch (error) {
+    console.warn('[ExploreAsheville] Could not load existing descriptions:', error);
+  }
+
+  // Events arrive soonest first, so the nearest pages come first. When more
+  // pages lack a description than one run fetches, the window rotates each run,
+  // so pages that keep failing can't hold the first slots forever.
+  const missing = [
+    ...new Set(events.filter((e) => !known.has(keyOf(e))).map((e) => pageOf(e.url))),
+  ];
+  const offset =
+    missing.length > MAX_DESCRIPTION_FETCHES
+      ? (Math.floor(Date.now() / DESCRIPTION_ROTATE_MS) * MAX_DESCRIPTION_FETCHES) % missing.length
+      : 0;
+  const toFetch = [...missing.slice(offset), ...missing.slice(0, offset)].slice(
+    0,
+    MAX_DESCRIPTION_FETCHES
+  );
+  const fetched = new Map<string, string>();
+  let attempted = 0;
+  const giveUpAt = Date.now() + DESCRIPTION_BUDGET_MS;
+  for (let i = 0; i < toFetch.length && Date.now() < giveUpAt; i += DESCRIPTION_CONCURRENCY) {
+    const pages = toFetch.slice(i, i + DESCRIPTION_CONCURRENCY);
+    attempted += pages.length;
+    await Promise.all(
+      pages.map(async (page) => {
+        const description = await withTimeout(
+          fetchEventDescription(page, state),
+          DESCRIPTION_PAGE_TIMEOUT_MS
+        );
+        if (description) fetched.set(page, description);
+      })
+    );
+  }
+
+  for (const event of events) {
+    event.description ??= known.get(keyOf(event)) ?? fetched.get(pageOf(event.url));
+  }
+  console.log(
+    `[ExploreAsheville] Descriptions: ${fetched.size}/${attempted} pages fetched (${toFetch.length} wanted), ${events.filter((e) => e.description).length}/${events.length} events described`
+  );
+}
+
+/** The promise's value, or undefined if it hasn't settled within `ms`. */
+async function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T | undefined> {
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  try {
+    return await Promise.race([
+      promise,
+      new Promise<undefined>((resolve) => {
+        timer = setTimeout(() => resolve(undefined), ms);
+      }),
+    ]);
+  } finally {
+    clearTimeout(timer);
+  }
 }
 
 // Max occurrences to create for weekly/monthly recurring events
@@ -302,7 +413,7 @@ const MAX_RECURRING_OCCURRENCES = 10;
  * - Weekly/Monthly recurring: Multiple events (up to MAX_RECURRING_OCCURRENCES)
  * - Non-recurring: Single event
  */
-function formatEvents(event: ExploreAshevilleEvent, description?: string): ScrapedEvent[] {
+function formatEvents(event: ExploreAshevilleEvent): ScrapedEvent[] {
   const dateStrings = event.dates || [];
   const now = new Date();
 
@@ -361,7 +472,6 @@ function formatEvents(event: ExploreAshevilleEvent, description?: string): Scrap
         sourceId: `ea-${event.listingId}`,
         source: 'EXPLORE_ASHEVILLE',
         title: event.title,
-        description,
         startDate,
         location,
         zip,
@@ -384,7 +494,6 @@ function formatEvents(event: ExploreAshevilleEvent, description?: string): Scrap
       sourceId: `ea-${event.listingId}-${index}`,
       source: 'EXPLORE_ASHEVILLE' as const,
       title: event.title,
-      description,
       startDate: date,
       location,
       zip,
@@ -403,7 +512,6 @@ function formatEvents(event: ExploreAshevilleEvent, description?: string): Scrap
       sourceId: `ea-${event.listingId}`,
       source: 'EXPLORE_ASHEVILLE',
       title: event.title,
-      description,
       startDate,
       location,
       zip,

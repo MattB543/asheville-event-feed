@@ -12,6 +12,7 @@ import {
   date,
   check,
   customType,
+  primaryKey,
 } from 'drizzle-orm/pg-core';
 import { sql } from 'drizzle-orm';
 
@@ -756,5 +757,41 @@ export const groups = pgTable(
   },
   (table) => ({
     groupsCategoryIdx: index('groups_category_idx').on(table.category),
+  })
+);
+
+// Weekly Spotify playlist (/playlist). See drizzle/0021_playlist.sql.
+
+// One row per music event the weekly job has looked at: the headliner the AI read
+// from the title (or why it skipped the show), then the Spotify track for that
+// headliner. A row is never re-asked; a recurring show reuses an earlier row with
+// the same title.
+export const eventTracks = pgTable('event_tracks', {
+  eventId: uuid('event_id')
+    .primaryKey()
+    .references(() => events.id, { onDelete: 'cascade' }),
+  artist: text('artist'), // Null when skipped
+  skipReason: text('skip_reason'), // e.g. 'non_headliner', 'tribute'; null when an artist was found
+  spotifyTrackId: text('spotify_track_id'), // Null when skipped or Spotify had no match
+  trackName: text('track_name'),
+  spotifyArtist: text('spotify_artist'), // The artist name as Spotify has it
+  note: text('note'), // Why it was skipped, or how the track was matched
+  checkedAt: timestamp('checked_at', { withTimezone: true }).defaultNow().notNull(),
+});
+
+// Each week's playlist in order, so the page lists exactly what's on Spotify.
+export const playlistPicks = pgTable(
+  'playlist_picks',
+  {
+    weekStart: date('week_start').notNull(), // The Sunday the playlist was built for (ET)
+    position: integer('position').notNull(),
+    eventId: uuid('event_id')
+      .notNull()
+      .references(() => events.id, { onDelete: 'cascade' }),
+    spotifyTrackId: text('spotify_track_id').notNull(),
+    createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
+  },
+  (table) => ({
+    pk: primaryKey({ columns: [table.weekStart, table.position] }),
   })
 );

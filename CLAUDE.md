@@ -298,6 +298,17 @@ renames its series or changes its organizer string stops matching until a key is
 added, and when dedup keeps a different-source copy of a group's event, that event
 drops off the group page.
 
+### `event_tracks` and `playlist_picks` Tables
+
+State for the weekly Spotify playlist (migration `drizzle/0021_playlist.sql`),
+which used to live in files on one Mac. `event_tracks` has one row per music
+event the weekly job has looked at: the headliner the AI read from the title, or
+`skip_reason` when it isn't a single-act show, then the Spotify track. A row is
+never re-asked, and a recurring show reuses an earlier row with the same title.
+A null `spotify_track_id` with an `artist` means Spotify had no match.
+`playlist_picks` is each week's playlist in order (`week_start` is the ET Sunday),
+so the page lists exactly what's on Spotify.
+
 ### Row Level Security (RLS)
 
 RLS is enabled on all tables. Supabase's "RLS auto-enable trigger" is active, so new tables will have RLS enabled automatically. All database writes from the app go through server-side Drizzle ORM using `DATABASE_URL` (the `postgres` role), which bypasses RLS. RLS policies only govern access via Supabase's PostgREST API (the `anon` and `authenticated` roles exposed by the client-side anon key).
@@ -323,6 +334,8 @@ RLS is enabled on all tables. Supabase's "RLS auto-enable trigger" is active, so
 | `news_articles`       | —                    | —                                                 |
 | `news_stories`        | —                    | —                                                 |
 | `news_days`           | —                    | —                                                 |
+| `event_tracks`        | —                    | —                                                 |
+| `playlist_picks`      | —                    | —                                                 |
 
 "Own" means the policy restricts access to rows where `user_id = auth.uid()` (or `profile_id` belongs to the user for `matching_answers`).
 

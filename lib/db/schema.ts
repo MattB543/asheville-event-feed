@@ -783,12 +783,13 @@ export const eventTracks = pgTable('event_tracks', {
 export const playlistPicks = pgTable(
   'playlist_picks',
   {
-    weekStart: date('week_start').notNull(), // The Sunday the playlist was built for (ET)
+    weekStart: date('week_start').notNull(), // ET date the playlist was built (the cron runs Sundays)
     position: integer('position').notNull(),
     eventId: uuid('event_id')
       .notNull()
       .references(() => events.id, { onDelete: 'cascade' }),
     spotifyTrackId: text('spotify_track_id').notNull(),
+    soldOut: boolean('sold_out').default(false).notNull(), // Checked when the playlist was built
     createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
   },
   (table) => ({

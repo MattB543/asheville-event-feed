@@ -69,6 +69,28 @@ export const env = {
   get GITHUB_TOKEN() {
     return process.env.GITHUB_TOKEN;
   },
+  // Spotify (weekly playlist). The refresh token comes from a one-time login as
+  // the playlist's owner; see CLAUDE.md "Weekly Spotify Playlist".
+  get SPOTIFY_CLIENT_ID() {
+    return process.env.SPOTIFY_CLIENT_ID;
+  },
+  get SPOTIFY_CLIENT_SECRET() {
+    return process.env.SPOTIFY_CLIENT_SECRET;
+  },
+  get SPOTIFY_REFRESH_TOKEN() {
+    return process.env.SPOTIFY_REFRESH_TOKEN;
+  },
+  get SPOTIFY_PLAYLIST_ID() {
+    return process.env.SPOTIFY_PLAYLIST_ID;
+  },
+  // Optional: the playlist classifies with Claude Haiku when set, else Azure
+  get ANTHROPIC_API_KEY() {
+    return process.env.ANTHROPIC_API_KEY;
+  },
+  // Optional: lets the playlist mark sold-out Eventbrite shows
+  get EVENTBRITE_API_TOKEN() {
+    return process.env.EVENTBRITE_API_TOKEN;
+  },
   // Super Admin (for verified curator management and score overrides)
   get SUPER_ADMIN() {
     return process.env.SUPER_ADMIN;
@@ -93,6 +115,16 @@ export function isSlackEnabled(): boolean {
 // Helper to check if Postmark email is enabled
 export function isPostmarkEnabled(): boolean {
   return !!(env.POSTMARK_API_KEY && env.POSTMARK_FROM_EMAIL);
+}
+
+// Helper to check if the weekly Spotify playlist can run
+export function isSpotifyEnabled(): boolean {
+  return !!(
+    env.SPOTIFY_CLIENT_ID &&
+    env.SPOTIFY_CLIENT_SECRET &&
+    env.SPOTIFY_REFRESH_TOKEN &&
+    env.SPOTIFY_PLAYLIST_ID
+  );
 }
 
 // Helper to check if outbound Clay webhook is configured

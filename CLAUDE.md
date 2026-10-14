@@ -306,8 +306,9 @@ event the weekly job has looked at: the headliner the AI read from the title, or
 `skip_reason` when it isn't a single-act show, then the Spotify track. A row is
 never re-asked, and a recurring show reuses an earlier row with the same title.
 A null `spotify_track_id` with an `artist` means Spotify had no match.
-`playlist_picks` is each week's playlist in order (`week_start` is the ET Sunday),
-so the page lists exactly what's on Spotify.
+`playlist_picks` is each week's playlist in order (`week_start` is the ET date it
+was built), so the page lists exactly what's on Spotify; `sold_out` is checked
+once, when the playlist is built.
 
 ### Row Level Security (RLS)
 
@@ -354,6 +355,7 @@ RLS is enabled on all tables. Supabase's "RLS auto-enable trigger" is active, so
 | `/api/cron/dedup`        | Daily 4 AM ET   | AI semantic dedup of Top Events (score ≥15) over next 30 days |
 | `/api/cron/email-digest` | Daily 7 AM ET   | Send daily/weekly email digests to subscribers                |
 | `/api/cron/top30-weekly` | Fri 11 AM ET    | Weekly Top 30 email                                           |
+| `/api/cron/playlist`     | Sun 7 AM ET     | Rebuild the weekly Spotify playlist (`?dryRun=1` to preview)  |
 | `/api/cron/news-scrape`  | Every 3h at :40 | Local news: fetch sources + full text into `news_articles`    |
 | `/api/cron/news-ai`      | Every 3h at :55 | Local news: enrich, cluster into stories, Top + daily summary |
 
@@ -749,6 +751,12 @@ FB_XS=
 - Moderation queue at `/admin/posters` (super admin only, unlisted — no nav link): flagged uploads oldest-first plus recent failures
 - A denied upload's public image is deleted and its created events are hidden; hidden events 404 on `/events/[slug]` and are excluded from similar-event recommendations
 
+### Weekly Spotify Playlist
+
+Ported from the standalone avlgo-playlist script. `/api/cron/playlist` (`lib/playlist/run.ts`) takes the top 25 music events by score in the next 8 days (`isMusicEvent`: music-only venues, or music tags), asks Claude Haiku (when `ANTHROPIC_API_KEY` is set, else Azure AI) for each title's headliner or a skip reason, finds that artist's most popular Spotify track (an explicit track link in the listing wins), keeps one track per artist, and replaces the playlist sorted by date. Matches are saved to `event_tracks` as they're found, so a Spotify 429 stops the run before the playlist changes and the next run resumes. Sold-out flags come from the Orange Peel / Grey Eagle schedule pages and, with `EVENTBRITE_API_TOKEN`, Eventbrite.
+
+Needs `SPOTIFY_CLIENT_ID`, `SPOTIFY_CLIENT_SECRET`, `SPOTIFY_PLAYLIST_ID` and `SPOTIFY_REFRESH_TOKEN`, the last from logging in once as the playlist's owner with the `playlist-modify-public playlist-modify-private` scopes. If Spotify ever issues a new refresh token the run logs a warning; that value replaces the env var. `npm run playlist:local` previews against `DATABASE_URL`; `-- --apply` updates the real playlist.
+
 ### Local News (`/news`)
 
 Built to `docs/news/05-v1-plan.md`; Matt's decisions are in `docs/news/decisions.md`.
@@ -844,7 +852,8 @@ Built to `docs/news/05-v1-plan.md`; Matt's decisions are in `docs/news/decisions
     { "path": "/api/cron/cleanup", "schedule": "30 1,4,7,10,13,16,19,22 * * *" },
     { "path": "/api/cron/dedup", "schedule": "0 8 * * *" },
     { "path": "/api/cron/email-digest", "schedule": "0 12 * * *" },
-    { "path": "/api/cron/top30-weekly", "schedule": "0 15 * * 5" }
+    { "path": "/api/cron/top30-weekly", "schedule": "0 15 * * 5" },
+    { "path": "/api/cron/playlist", "schedule": "0 11 * * 0" }
   ]
 }
 ```

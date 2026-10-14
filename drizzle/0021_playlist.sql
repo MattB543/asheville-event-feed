@@ -27,6 +27,7 @@ CREATE TABLE IF NOT EXISTS "playlist_picks" (
 	"position" integer NOT NULL,
 	"event_id" uuid NOT NULL REFERENCES "events"("id") ON DELETE cascade,
 	"spotify_track_id" text NOT NULL,
+	"sold_out" boolean DEFAULT false NOT NULL,
 	"created_at" timestamp with time zone DEFAULT now() NOT NULL,
 	CONSTRAINT "playlist_picks_week_start_position_pk" PRIMARY KEY("week_start","position")
 );

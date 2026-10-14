@@ -20,6 +20,13 @@ import { parseLocalDateInTimezone } from './timezone';
  * Handles common named and numeric entities found in scraped content.
  * Also strips HTML tags and normalizes whitespace.
  */
+/** The character for a numeric entity, or the entity unchanged if it names no valid one. */
+function fromCodePoint(codePoint: number, entity: string): string {
+  const valid =
+    codePoint > 0 && codePoint <= 0x10ffff && !(codePoint >= 0xd800 && codePoint <= 0xdfff);
+  return valid ? String.fromCodePoint(codePoint) : entity;
+}
+
 export function decodeHtmlEntities(text: string): string {
   return (
     text
@@ -51,6 +58,14 @@ export function decodeHtmlEntities(text: string): string {
       .replace(/&mdash;/g, '-')
       .replace(/&ndash;/g, '-')
       .replace(/&hellip;/g, '.')
+      // Any other numeric entity (&#233; &#xE9;). Runs after &amp;, so a
+      // double-encoded one (&amp;#x27;) decodes too
+      .replace(/&#x([0-9a-f]{1,6});/gi, (entity: string, hex: string) =>
+        fromCodePoint(parseInt(hex, 16), entity)
+      )
+      .replace(/&#(\d{1,7});/g, (entity: string, dec: string) =>
+        fromCodePoint(parseInt(dec, 10), entity)
+      )
       // Clean up multiple spaces and trim
       .replace(/\s+/g, ' ')
       .trim()

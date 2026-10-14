@@ -78,7 +78,7 @@ export async function scrapeAvlToday(): Promise<ScrapedEvent[]> {
       timeZone: 'America/New_York',
     }) + 'T00:00';
 
-  const allEvents: ScrapedEvent[] = [];
+  const scraped: ScrapedEvent[] = [];
   let skip = 0;
   let hasMore = true;
 
@@ -119,8 +119,7 @@ export async function scrapeAvlToday(): Promise<ScrapedEvent[]> {
       console.log(`[AVL Scraper] Page response received. Items: ${data.Value?.length || 0}`);
 
       if (data.Value && Array.isArray(data.Value) && data.Value.length > 0) {
-        const formatted = data.Value.map((ev) => formatAvlEvent(ev));
-        allEvents.push(...formatted);
+        scraped.push(...data.Value.map((ev) => formatAvlEvent(ev)));
         skip += 25;
 
         if (skip >= 400) {
@@ -143,6 +142,14 @@ export async function scrapeAvlToday(): Promise<ScrapedEvent[]> {
     }
   }
 
+  const current = scraped.filter((event) => !RETIRED_LIBRARY_CALENDAR.test(event.url));
+  if (current.length < scraped.length) {
+    console.log(
+      `[AVL Scraper] Dropped ${scraped.length - current.length} listings from the retired library calendar`
+    );
+  }
+  const allEvents = soonestPerUrl(current);
+
   // Filter out non-NC events
   const ncEvents = allEvents.filter((ev) => !isNonNCEvent(ev.title, ev.location));
   const filteredCount = allEvents.length - ncEvents.length;
@@ -155,6 +162,36 @@ export async function scrapeAvlToday(): Promise<ScrapedEvent[]> {
     `[AVL Scraper] Finished. Found ${ncEvents.length} NC events (${allEvents.length} total, ${filteredCount} filtered).`
   );
   return ncEvents;
+}
+
+/**
+ * AVL Today still syndicates Buncombe County Public Libraries' retired Trumba
+ * calendar. Its links all 404, and it lists sessions the library's current
+ * calendar doesn't (e.g. a Friday "Teen D&D with Raj" when the series meets on
+ * Wednesdays). The LIBRARY scraper reads the current calendar, so these are
+ * dropped rather than shown twice or as ghosts.
+ */
+const RETIRED_LIBRARY_CALENDAR =
+  /^https?:\/\/(www\.)?buncombecounty\.org\/governing\/depts\/library\//i;
+
+/**
+ * Many listings link to a venue or organizer page rather than to the event, and
+ * the URL is a row's identity, so listings sharing one land on the same row.
+ * Upserted in feed order, the last one won: a daily event showed only on its
+ * furthest date. Keep each URL's soonest listing instead, so the row shows the
+ * next occurrence and the next scrape moves it on (the rolling-event behavior).
+ *
+ * Known gap: different events sharing a link still share one row, showing
+ * whichever is next. Giving them their own rows means a new identity scheme and
+ * a migration of the existing shared rows, not a change here.
+ */
+function soonestPerUrl(scraped: ScrapedEvent[]): ScrapedEvent[] {
+  const byUrl = new Map<string, ScrapedEvent>();
+  for (const event of scraped) {
+    const kept = byUrl.get(event.url);
+    if (!kept || event.startDate < kept.startDate) byUrl.set(event.url, event);
+  }
+  return [...byUrl.values()];
 }
 
 function formatAvlEvent(ev: AvlTodayResponse['Value'][0]): ScrapedEvent {

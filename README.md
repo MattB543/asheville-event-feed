@@ -30,6 +30,8 @@ A web app that aggregates events from 10+ sources for the Asheville, NC area, fe
 
 Want to get this running locally? Here's the fastest path:
 
+**On a Mac with Homebrew Postgres:** `npm install && npm run db:setup-local` sets up a local database (installing pgvector if needed), writes `DATABASE_URL` to `.env`, and offers to copy the live site's upcoming events in, scores included. Then `npm run dev`. The steps below are the hosted-Supabase route.
+
 ### 1. Get a free database
 
 Head to [supabase.com](https://supabase.com) and create a new project. Once it's created, go to **Settings > Database** and copy the **Connection Pooler** URI (Transaction mode). It looks something like:

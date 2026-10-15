@@ -81,7 +81,7 @@ export default async function PlaylistPage() {
 
   return (
     <main className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-950">
-      <Header />
+      <Header activeTab="playlist" />
 
       <div className="flex-grow">
         <div className="max-w-5xl mx-auto px-3 sm:px-6 lg:px-8 pt-6 pb-10">

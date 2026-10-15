@@ -447,21 +447,22 @@ missing data. Policy, as of 2026-10-14:
 
 ### Public APIs
 
-| Route                       | Method | Purpose                                                   |
-| --------------------------- | ------ | --------------------------------------------------------- |
-| `/api/health`               | GET    | Health check (DB status, event count)                     |
-| `/api/chat`                 | POST   | AI conversational event discovery (rate limited)          |
-| `/api/export/json`          | GET    | Public events API (`format=compact` for AI agents)        |
-| `/api/export/markdown`      | GET    | Markdown export (same filters as the JSON export)         |
-| `/openapi.json`             | GET    | OpenAPI 3.1 spec for the two exports                      |
-| `/api/events/submit`        | POST   | Submit event via form                                     |
-| `/api/events/submit-url`    | POST   | Submit event via URL                                      |
-| `/api/events/report`        | POST   | Report an event                                           |
-| `/api/events/top30`         | GET    | Deep Top 30 pool for one category (cached)                |
-| `/api/curator/[slug]`       | GET    | Public curator profile data                               |
-| `/api/events/favorites`     | POST   | Fetch public event data for a list of event IDs           |
-| `/api/events/[id]/favorite` | POST   | Increment/decrement an event's favorite count             |
-| `/api/city-status`          | GET    | Live garage spaces + active water notices (header badges) |
+| Route                       | Method | Purpose                                                    |
+| --------------------------- | ------ | ---------------------------------------------------------- |
+| `/api/health`               | GET    | Health check (DB status, event count)                      |
+| `/api/chat`                 | POST   | AI conversational event discovery (rate limited)           |
+| `/api/export/json`          | GET    | Public events API (`format=compact` for AI agents)         |
+| `/api/export/markdown`      | GET    | Markdown export (same filters as the JSON export)          |
+| `/openapi.json`             | GET    | OpenAPI 3.1 spec for the two exports                       |
+| `/api/events/submit`        | POST   | Submit event via form                                      |
+| `/api/events/submit-url`    | POST   | Submit event via URL                                       |
+| `/api/events/report`        | POST   | Report an event                                            |
+| `/api/events/top30`         | GET    | Deep Top 30 pool for one category (cached)                 |
+| `/api/curator/[slug]`       | GET    | Public curator profile data                                |
+| `/api/events/favorites`     | POST   | Fetch public event data for a list of event IDs            |
+| `/api/events/[id]/favorite` | POST   | Increment/decrement an event's favorite count              |
+| `/api/events/[id]/track`    | GET    | Spotify track for a music event (matched once, then saved) |
+| `/api/city-status`          | GET    | Live garage spaces + active water notices (header badges)  |
 
 `/api/events/[id]/favorite` is intentionally anonymous — favoriting is
 localStorage-driven with no sign-in required, so the endpoint only takes
@@ -754,6 +755,8 @@ FB_XS=
 ### Weekly Spotify Playlist
 
 Ported from the standalone avlgo-playlist script. `/api/cron/playlist` (`lib/playlist/run.ts`) takes the top 25 music events by score in the next 8 days (`isMusicEvent`: music-only venues, or music tags), asks Claude Haiku (when `ANTHROPIC_API_KEY` is set, else Azure AI) for each title's headliner or a skip reason, finds that artist's most popular Spotify track (an explicit track link in the listing wins), keeps one track per artist, and replaces the playlist sorted by date. Matches are saved to `event_tracks` as they're found, so a Spotify 429 stops the run before the playlist changes and the next run resumes. Sold-out flags come from the Orange Peel / Grey Eagle schedule pages and, with `EVENTBRITE_API_TOKEN`, Eventbrite.
+
+Event pages show the same match: `EventSpotifyPlayer` asks `/api/events/[id]/track` after the page loads (never during render, so crawlers rarely trigger a match), which returns the saved `event_tracks` row or matches that one event via `matchEvents` and saves it; it also sends a PostHog `spotify_play` when the song starts. Rate limited per IP.
 
 Needs `SPOTIFY_CLIENT_ID`, `SPOTIFY_CLIENT_SECRET`, `SPOTIFY_PLAYLIST_ID` and `SPOTIFY_REFRESH_TOKEN`, the last from logging in once as the playlist's owner with the `playlist-modify-public playlist-modify-private` scopes. If Spotify ever issues a new refresh token the run logs a warning; that value replaces the env var. `npm run playlist:local` previews against `DATABASE_URL`; `-- --apply` updates the real playlist.
 

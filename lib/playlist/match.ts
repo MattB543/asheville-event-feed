@@ -40,22 +40,6 @@ export interface TrackMatch {
   note: string;
 }
 
-// Sources that only host music. HARRAHS is left out: it also hosts wrestling and
-// family shows, so it needs a music tag like any mixed source.
-const MUSIC_SOURCES = new Set(['ORANGE_PEEL', 'GREY_EAGLE', 'LIVE_MUSIC_AVL']);
-const MUSIC_TAG_HINTS = ['music', 'concert', 'band', 'live'];
-const EXCLUDE_TAGS = new Set([
-  'pro wrestling',
-  'wrestling',
-  'stand-up',
-  'stand up',
-  'stand-up comedy',
-]);
-
-// Keeps festivals and ensembles from eating the candidate pool; the AI decides the rest
-const NON_HEADLINER_RE =
-  /\b(festival|fest|symphony|orchestra|philharmonic|chorus|choral|choir|chorale|musical|workshop|open mic|karaoke|drum circle|fundraiser)\b/i;
-
 const SPOTIFY_TRACK_LINK_RE = /open\.spotify\.com\/(?:intl-[a-z]{2}\/)?track\/([A-Za-z0-9]+)/;
 
 export function normalizeName(s: string): string {
@@ -63,14 +47,6 @@ export function normalizeName(s: string): string {
     .toLowerCase()
     .replace(/[^a-z0-9 ]/g, '')
     .trim();
-}
-
-export function isMusicEvent(event: PlaylistEvent): boolean {
-  const tags = (event.tags ?? []).map((t) => t.toLowerCase());
-  if (tags.some((t) => EXCLUDE_TAGS.has(t))) return false;
-  if (NON_HEADLINER_RE.test(event.title)) return false;
-  if (MUSIC_SOURCES.has(event.source)) return true;
-  return tags.some((t) => MUSIC_TAG_HINTS.some((hint) => t.includes(hint)));
 }
 
 const CLASSIFY_SYSTEM = `You classify live-event titles to decide if each is a SINGLE-ACT HEADLINING music concert that belongs on a weekly Spotify playlist of upcoming Asheville shows.
@@ -177,8 +153,15 @@ async function searchTrackForArtist(
   const target = normalizeName(artistName);
   // Only the query-inside-Spotify-name direction: the reverse matched "Save Me
   // the Waltz" to an unrelated band called "save me."
-  const matches = (candidate: string) =>
-    Boolean(target && candidate && (target === candidate || candidate.includes(target)));
+  // Whole words only, so "dan" doesn't match "daniel caesar". A duo credited as two
+  // people ("Dan Reeder, Peggy Reeder") matches when one full name is in the act's
+  const targetWords = new Set(target.split(' '));
+  const matches = (candidate: string) => {
+    if (!target || !candidate) return false;
+    if (` ${candidate} `.includes(` ${target} `)) return true;
+    const words = candidate.split(' ');
+    return words.length >= 2 && words.every((w) => targetWords.has(w));
+  };
 
   let feature: SpotifyTrack | null = null;
   for (const track of items) {
@@ -209,10 +192,10 @@ export async function findTrack(event: PlaylistEvent, artist: string): Promise<T
     }
   }
 
-  // A backing-band suffix Spotify doesn't use ("Caleb Caudle & The Sweet
-  // Critters") gets a second try with the shorter name
+  // A backing-band suffix Spotify doesn't use ("Caleb Caudle & The Sweet Critters")
+  // gets a second try without it; "Dan and Peggy Reeder" is one act, so it doesn't
   const candidates = [artist];
-  const short = artist.split(/\s+(?:&|and)\s+(?:the\s+|his\s+|her\s+)?/i)[0];
+  const short = artist.split(/\s+(?:&|and)\s+(?:the|his|her)\s+/i)[0];
   if (short && short !== artist) candidates.push(short);
 
   let lastNote = '';

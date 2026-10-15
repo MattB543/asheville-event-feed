@@ -1,0 +1,100 @@
+'use client';
+
+import { useEffect, useRef, useState } from 'react';
+import posthog from 'posthog-js';
+import { isMusicEvent } from '@/lib/playlist/music';
+
+interface SpotifyController {
+  addListener: (event: string, callback: () => void) => void;
+  destroy: () => void;
+}
+
+interface SpotifyIFrameAPI {
+  createController: (
+    element: HTMLElement,
+    options: { uri: string; height: number; width: string },
+    callback: (controller: SpotifyController) => void
+  ) => void;
+}
+
+declare global {
+  interface Window {
+    onSpotifyIframeApiReady?: (api: SpotifyIFrameAPI) => void;
+  }
+}
+
+// Spotify's embed script loads once per page and hands back its API through a global callback
+let iframeApi: Promise<SpotifyIFrameAPI> | null = null;
+function loadIframeApi(): Promise<SpotifyIFrameAPI> {
+  iframeApi ??= new Promise((resolve) => {
+    window.onSpotifyIframeApiReady = resolve;
+    const script = document.createElement('script');
+    script.src = 'https://open.spotify.com/embed/iframe-api/v1';
+    script.async = true;
+    document.body.appendChild(script);
+  });
+  return iframeApi;
+}
+
+interface EventSpotifyPlayerProps {
+  event: { id: string; source: string; title: string; tags?: string[] | null };
+}
+
+/**
+ * The headliner's top song for a music event. Asked for after the page loads, so
+ * the page never waits on a first-time match; shows nothing when there's no song.
+ */
+export default function EventSpotifyPlayer({ event }: EventSpotifyPlayerProps) {
+  const [trackId, setTrackId] = useState<string | null>(null);
+  const holder = useRef<HTMLDivElement>(null);
+  const music = isMusicEvent(event);
+
+  useEffect(() => {
+    if (!music) return;
+    const controller = new AbortController();
+    fetch(`/api/events/${event.id}/track`, { signal: controller.signal })
+      .then((response) => (response.ok ? response.json() : null))
+      .then((data: { track?: { id: string } | null } | null) => setTrackId(data?.track?.id ?? null))
+      .catch(() => undefined);
+    return () => controller.abort();
+  }, [event.id, music]);
+
+  useEffect(() => {
+    const container = holder.current;
+    if (!trackId || !container) return;
+    // Spotify replaces the element it's given, so give it one React doesn't own
+    const element = document.createElement('div');
+    container.appendChild(element);
+    let player: SpotifyController | null = null;
+    let cancelled = false;
+    void loadIframeApi().then((api) => {
+      if (cancelled) return;
+      api.createController(
+        element,
+        { uri: `spotify:track:${trackId}`, height: 152, width: '100%' },
+        (controller) => {
+          player = controller;
+          let reported = false;
+          // Which shows people actually listen to, not just open
+          controller.addListener('playback_started', () => {
+            if (reported || !posthog.__loaded) return;
+            reported = true;
+            posthog.capture('spotify_play', { event_id: event.id, track_id: trackId });
+          });
+        }
+      );
+    });
+    return () => {
+      cancelled = true;
+      player?.destroy();
+      container.replaceChildren();
+    };
+  }, [trackId, event.id]);
+
+  if (!trackId) return null;
+  return (
+    <div className="mt-4 overflow-hidden rounded-xl">
+      <div ref={holder} />
+    </div>
+  );
+}

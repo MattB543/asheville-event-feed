@@ -137,11 +137,6 @@ export function isGitHubEnabled(): boolean {
   return !!env.GITHUB_TOKEN;
 }
 
-// Helper to check if Supabase Auth is configured
-export function isAuthEnabled(): boolean {
-  return !!(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
-}
-
 // Facebook configuration
 export const FB_CONFIG = {
   enabled: process.env.FB_ENABLED === 'true',

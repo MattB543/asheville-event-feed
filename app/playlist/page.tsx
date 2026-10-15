@@ -43,11 +43,13 @@ export const metadata: Metadata = {
 };
 
 // "Wednesday, October 14 – Thursday, October 22, 2026": the span of the shows themselves
-function showRange(dates: Date[]): string {
-  const day = (d: Date) => formatDateEastern(d, { weekday: 'long', month: 'long', day: 'numeric' });
+// Short names ("Wed, Oct 14") fit a phone on one line
+function showRange(dates: Date[], length: 'long' | 'short'): string {
+  const day = (d: Date) => formatDateEastern(d, { weekday: length, month: length, day: 'numeric' });
   const first = dates[0];
   const last = dates[dates.length - 1];
-  return `${day(first)} – ${day(last)}, ${formatDateEastern(last, { year: 'numeric' })}`;
+  const range = `${day(first)} – ${day(last)}`;
+  return length === 'long' ? `${range}, ${formatDateEastern(last, { year: 'numeric' })}` : range;
 }
 
 // Dollar amounts and "Free" only: "Ticketed" beside a Tickets button says nothing
@@ -83,35 +85,64 @@ export default async function PlaylistPage() {
 
       <div className="flex-grow">
         <div className="max-w-5xl mx-auto px-3 sm:px-6 lg:px-8 pt-6 pb-10">
+          {/* Share sits beside the title on wider screens, under it on phones */}
           <div className="flex items-start justify-between gap-3">
             <h1 className="text-lg sm:text-2xl font-bold text-gray-900 dark:text-gray-100">
               {title}
             </h1>
-            <ShareButton path="/playlist" title={title} />
+            <span className="hidden sm:block">
+              <ShareButton path="/playlist" title={title} />
+            </span>
           </div>
           {week && week.shows.length > 0 && (
             <p className="mt-1 text-sm font-medium text-gray-700 dark:text-gray-300">
-              {showRange(week.shows.map((show) => show.startDate))}
+              <span className="sm:hidden">
+                {showRange(
+                  week.shows.map((show) => show.startDate),
+                  'short'
+                )}
+              </span>
+              <span className="hidden sm:inline">
+                {showRange(
+                  week.shows.map((show) => show.startDate),
+                  'long'
+                )}
+              </span>
             </p>
           )}
           <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
-            Every Sunday morning, the highest-scored upcoming shows on AVL GO are picked (the score
-            weighs how rare, novel and big each event is), and each headliner&apos;s most popular
-            song goes on the playlist.
+            Each Sunday morning, the week&apos;s top-scored shows on AVL GO (rated on how rare,
+            novel and big they are), one song per headliner.
+          </p>
+          <div className="mt-1 flex items-center justify-between gap-3">
             {week && (
-              <span className="block mt-1 text-xs text-gray-500 dark:text-gray-500">
-                Last updated{' '}
-                {formatDateEastern(week.updatedAt, {
-                  weekday: 'long',
-                  month: 'long',
-                  day: 'numeric',
-                  hour: 'numeric',
-                  minute: '2-digit',
-                })}{' '}
+              <span className="text-xs text-gray-500 dark:text-gray-500">
+                Updated{' '}
+                <span className="sm:hidden">
+                  {formatDateEastern(week.updatedAt, {
+                    weekday: 'short',
+                    month: 'short',
+                    day: 'numeric',
+                    hour: 'numeric',
+                    minute: '2-digit',
+                  })}
+                </span>
+                <span className="hidden sm:inline">
+                  {formatDateEastern(week.updatedAt, {
+                    weekday: 'long',
+                    month: 'long',
+                    day: 'numeric',
+                    hour: 'numeric',
+                    minute: '2-digit',
+                  })}
+                </span>{' '}
                 ET
               </span>
             )}
-          </p>
+            <span className="sm:hidden">
+              <ShareButton path="/playlist" title={title} />
+            </span>
+          </div>
 
           {playlistId && (
             <iframe
@@ -137,35 +168,44 @@ export default async function PlaylistPage() {
               {week.shows.map((show) => (
                 <li
                   key={show.eventId}
-                  className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4 px-4 py-3 even:bg-gray-50 dark:even:bg-gray-800/40"
+                  className="flex items-center gap-3 sm:gap-4 px-3 sm:px-4 py-2.5 even:bg-gray-50 dark:even:bg-gray-800/40"
                 >
-                  <span className="sm:w-24 shrink-0 text-sm text-gray-500 dark:text-gray-400">
-                    {formatDateEastern(show.startDate, {
-                      weekday: 'short',
-                      month: 'numeric',
-                      day: 'numeric',
-                    })}
-                  </span>
+                  {/* Day over date in a narrow column, so a phone row stays two lines tall */}
+                  <div className="w-10 sm:w-14 shrink-0 text-center leading-tight">
+                    <div className="text-[11px] font-medium uppercase text-gray-500 dark:text-gray-400">
+                      {formatDateEastern(show.startDate, { weekday: 'short' })}
+                    </div>
+                    <div className="text-sm font-semibold text-gray-700 dark:text-gray-300">
+                      {formatDateEastern(show.startDate, { month: 'numeric', day: 'numeric' })}
+                    </div>
+                  </div>
                   <div className="flex-1 min-w-0">
                     <Link
                       href={eventHref(show)}
-                      className="font-semibold text-gray-900 dark:text-gray-100 hover:text-brand-600 dark:hover:text-brand-400"
+                      className="block truncate font-semibold text-gray-900 dark:text-gray-100 hover:text-brand-600 dark:hover:text-brand-400"
                     >
                       {show.artist}
                     </Link>
-                    {show.venue && (
-                      <span className="text-sm text-gray-500 dark:text-gray-400">
-                        {' '}
-                        at{' '}
-                        <a
-                          href={mapsSearchUrl(show.location ?? `${show.venue}, Asheville, NC`)}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="hover:text-brand-600 dark:hover:text-brand-400 hover:underline"
-                        >
-                          {show.venue}
-                        </a>
-                      </span>
+                    {(show.venue || shownPrice(show.price)) && (
+                      <div className="text-xs text-gray-500 dark:text-gray-400 truncate">
+                        {show.venue && (
+                          <a
+                            href={mapsSearchUrl(show.location ?? `${show.venue}, Asheville, NC`)}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="hover:text-brand-600 dark:hover:text-brand-400 hover:underline"
+                          >
+                            {show.venue}
+                          </a>
+                        )}
+                        {/* Phones show the price here; wider screens beside Tickets */}
+                        {shownPrice(show.price) && (
+                          <span className="sm:hidden">
+                            {show.venue && ' · '}
+                            {shownPrice(show.price)}
+                          </span>
+                        )}
+                      </div>
                     )}
                     {show.trackName && (
                       <a
@@ -178,9 +218,9 @@ export default async function PlaylistPage() {
                       </a>
                     )}
                   </div>
-                  <div className="flex items-center gap-2 self-start sm:self-center shrink-0">
+                  <div className="flex items-center gap-2 shrink-0">
                     {shownPrice(show.price) && (
-                      <span className="text-sm text-gray-600 dark:text-gray-400">
+                      <span className="hidden sm:inline text-sm text-gray-600 dark:text-gray-400">
                         {shownPrice(show.price)}
                       </span>
                     )}

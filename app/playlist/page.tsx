@@ -18,8 +18,15 @@ const title = 'Bands playing in Asheville this week';
 const description =
   "A weekly Spotify playlist of the week's biggest shows in Asheville, one song per band.";
 
+const cover = {
+  url: '/playlist-cover.jpg',
+  width: 640,
+  height: 640,
+  alt: 'AVL GO: live this week in Asheville, NC',
+};
+
 export const metadata: Metadata = {
-  title: 'Playlist',
+  title: 'Asheville Live Music This Week: Spotify Playlist',
   description,
   alternates: { canonical: pageUrl },
   openGraph: {
@@ -29,9 +36,10 @@ export const metadata: Metadata = {
     description,
     siteName: 'AVL GO',
     locale: 'en_US',
-    images: [{ url: '/avlgo-og.png', width: 1200, height: 630, alt: 'AVL GO' }],
+    images: [cover],
   },
-  twitter: { card: 'summary_large_image', title, description, images: ['/avlgo-og.png'] },
+  // Square art reads better as a small card than stretched into a wide one
+  twitter: { card: 'summary', title, description, images: [cover.url] },
 };
 
 // "Wednesday, October 14 – Thursday, October 22, 2026": the span of the shows themselves

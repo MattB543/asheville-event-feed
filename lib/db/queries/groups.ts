@@ -1,10 +1,11 @@
 import { unstable_cache } from 'next/cache';
-import { and, asc, eq, isNull, sql, type SQL } from 'drizzle-orm';
+import { and, asc, eq, sql, type SQL } from 'drizzle-orm';
 import { db } from '@/lib/db';
 import { events, groups } from '@/lib/db/schema';
 import { eventMatchKey, prefilterValues } from '@/lib/groups/matchKeys';
 import { generateEventSlug } from '@/lib/utils/slugify';
 import { getStartOfTodayEastern, getTodayStringEastern } from '@/lib/utils/timezone';
+import { liveEvent } from '@/lib/db/liveEvent';
 
 /**
  * Group Directory reads (/groups and /groups/[slug]).
@@ -52,13 +53,6 @@ function groupEventPrefilter(keys: Iterable<string>): SQL {
     OR (${events.source} <> 'MEETUP' AND lower(btrim(coalesce(${events.organizer}, ''), E' \\t\\r\\n\\u00a0')) = ANY(${textArrayParam(organizers)}))
   )`;
 }
-
-/** Live = what the feed shows. Every event read here needs all three. */
-const liveEventFilter = and(
-  sql`${events.hidden} IS NOT TRUE`,
-  isNull(events.dedupedAt),
-  isNull(events.deadAt)
-);
 
 // ---------------------------------------------------------------------------
 // Eastern-pinned labels (Vercel runs UTC, so every formatter names the zone).
@@ -193,7 +187,7 @@ export async function fetchCandidateEvents(keys: string[]): Promise<CandidateEve
       location: events.location,
     })
     .from(events)
-    .where(and(liveEventFilter, groupEventPrefilter(keys)));
+    .where(and(liveEvent, groupEventPrefilter(keys)));
 }
 
 /** Ascending by start, ties by id, so the order is stable across renders. */

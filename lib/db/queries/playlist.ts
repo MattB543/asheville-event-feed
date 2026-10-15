@@ -4,6 +4,7 @@ import { events, eventTracks, playlistPicks } from '@/lib/db/schema';
 import { getDayBoundariesEastern } from '@/lib/utils/timezone';
 import { normalizeName, venueFor } from '@/lib/playlist/match';
 import { WINDOW_DAYS } from '@/lib/playlist/run';
+import { liveEvent } from '@/lib/db/liveEvent';
 
 export interface PlaylistShowRow {
   eventId: string;
@@ -104,9 +105,7 @@ export async function getLatestPlaylistWeek(): Promise<PlaylistWeek | null> {
           isNull(eventTracks.skipReason),
           inArray(eventTracks.skipReason, ['tribute', 'ambiguous'])
         ),
-        or(isNull(events.hidden), eq(events.hidden, false)),
-        isNull(events.dedupedAt),
-        isNull(events.deadAt)
+        liveEvent
       )
     )
     .orderBy(asc(events.startDate));

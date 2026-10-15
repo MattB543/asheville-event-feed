@@ -1,9 +1,10 @@
 import { NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { events } from '@/lib/db/schema';
-import { and, asc, eq, inArray, isNull, or } from 'drizzle-orm';
+import { and, asc, inArray } from 'drizzle-orm';
 import { isRecord, isStringArray } from '@/lib/utils/validation';
 import { publicEventColumns } from '@/lib/db/queries/publicEventColumns';
+import { liveEvent } from '@/lib/db/liveEvent';
 
 const MAX_IDS = 200;
 const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
@@ -35,14 +36,7 @@ export async function POST(request: Request) {
     const results = await db
       .select(publicEventColumns)
       .from(events)
-      .where(
-        and(
-          inArray(events.id, limitedIds),
-          or(isNull(events.hidden), eq(events.hidden, false)),
-          isNull(events.dedupedAt),
-          isNull(events.deadAt)
-        )
-      )
+      .where(and(inArray(events.id, limitedIds), liveEvent))
       .orderBy(asc(events.startDate));
 
     return NextResponse.json({ events: results });

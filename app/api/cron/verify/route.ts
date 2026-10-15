@@ -17,6 +17,7 @@ import {
   type VerificationOutcome,
 } from '@/lib/ai/eventVerification';
 import { matchesDefaultFilter } from '@/lib/config/defaultFilters';
+import { liveEvent } from '@/lib/db/liveEvent';
 
 export const maxDuration = 800; // ~13 minutes max (Fluid Compute)
 
@@ -115,10 +116,7 @@ export async function GET(request: Request) {
           // Only verifiable sources, and only rows with a page about the event
           inArray(events.source, [...VERIFIABLE_SOURCES]),
           sql`${events.url} !~* ${UNVERIFIABLE_URL_PATTERN}`,
-          // Live rows only (not hidden, deduped, or dead)
-          eq(events.hidden, false),
-          isNull(events.dedupedAt),
-          isNull(events.deadAt),
+          liveEvent,
           // Future events only
           gte(events.startDate, now),
           // NEVER verified before (no re-verification)

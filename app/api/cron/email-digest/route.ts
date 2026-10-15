@@ -39,6 +39,7 @@ import type {
 import { startCronJob, completeCronJob, failCronJob } from '@/lib/cron/jobTracker';
 import { listAuthUserContacts } from '@/lib/supabase/adminUsers';
 import { formatDuration } from '@/lib/utils/cron';
+import { liveEvent } from '@/lib/db/liveEvent';
 
 export const maxDuration = 300; // 5 minutes
 
@@ -653,7 +654,7 @@ export async function GET(request: Request) {
               eq(curatorProfiles.isPublic, true),
               gte(events.startDate, rangeStart),
               lte(events.startDate, rangeEnd),
-              or(isNull(events.hidden), sql`${events.hidden} = false`),
+              liveEvent,
               or(
                 isNull(events.location),
                 and(notIlike(events.location, '%online%'), notIlike(events.location, '%virtual%'))

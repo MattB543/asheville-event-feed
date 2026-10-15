@@ -1,10 +1,11 @@
 import type { MetadataRoute } from 'next';
 import { db } from '@/lib/db';
 import { events } from '@/lib/db/schema';
-import { gte, asc, and, eq, isNull } from 'drizzle-orm';
+import { gte, asc, and } from 'drizzle-orm';
 import { queryGroupSitemapEntries } from '@/lib/db/queries/groups';
 import { generateEventSlug } from '@/lib/utils/slugify';
 import { getStartOfTodayEastern } from '@/lib/utils/timezone';
+import { liveEvent } from '@/lib/db/liveEvent';
 
 // An async sitemap is otherwise rendered once at build time and never refreshed. Hourly:
 // each regeneration writes ~1.1 MB, and crawlers read it far less often than every 5 minutes
@@ -91,14 +92,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         createdAt: events.createdAt,
       })
       .from(events)
-      .where(
-        and(
-          gte(events.startDate, startOfToday),
-          eq(events.hidden, false),
-          isNull(events.dedupedAt),
-          isNull(events.deadAt)
-        )
-      )
+      .where(and(gte(events.startDate, startOfToday), liveEvent))
       .orderBy(asc(events.startDate));
 
     // Generate event page URLs

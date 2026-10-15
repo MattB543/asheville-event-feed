@@ -54,6 +54,7 @@ import {
   encodeCursor,
   type ExportCursor,
 } from '@/lib/api/publicEventsContract';
+import { liveEvent } from '@/lib/db/liveEvent';
 
 // ---------------------------------------------------------------------------
 // Request parsing
@@ -379,13 +380,7 @@ function escapeLike(value: string): string {
 function buildExportConditions(prepared: PreparedExport): SQL[] {
   const { filters, dateRange } = prepared;
 
-  const conditions: SQL[] = [
-    gte(events.startDate, prepared.startOfToday),
-    // NULL `hidden` counts as visible, as it always has for this export
-    or(isNull(events.hidden), eq(events.hidden, false))!,
-    isNull(events.dedupedAt),
-    isNull(events.deadAt),
-  ];
+  const conditions: SQL[] = [gte(events.startDate, prepared.startOfToday), liveEvent];
 
   if (dateRange === null) {
     conditions.push(sql`false`);

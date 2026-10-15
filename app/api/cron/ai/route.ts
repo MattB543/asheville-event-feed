@@ -35,6 +35,7 @@ import {
 import { encodeUnsubscribeToken } from '@/lib/notifications/unsubscribe-token';
 import { listAuthUserContacts } from '@/lib/supabase/adminUsers';
 import { chunk, formatDuration } from '@/lib/utils/cron';
+import { liveEvent } from '@/lib/db/liveEvent';
 
 export const maxDuration = 800; // 13+ minutes (requires Fluid Compute)
 
@@ -153,10 +154,8 @@ export async function GET(request: Request) {
           ),
           sql`${events.startDate} >= ${now.toISOString()}`,
           sql`${events.startDate} <= ${threeMonthsFromNow.toISOString()}`,
-          // Removed rows (hidden, deduped, dead) are never shown, so don't pay to enrich them
-          sql`${events.hidden} IS NOT TRUE`,
-          isNull(events.dedupedAt),
-          isNull(events.deadAt),
+          // Removed rows are never shown, so don't pay to enrich them
+          liveEvent,
           // Respect the failure backoff: NULL means "never failed / due now"
           or(isNull(events.aiNextAttemptAt), lte(events.aiNextAttemptAt, now))
         )
@@ -314,9 +313,7 @@ export async function GET(request: Request) {
           isNull(events.embedding),
           sql`${events.startDate} >= ${now.toISOString()}`,
           sql`${events.startDate} <= ${threeMonthsFromNow.toISOString()}`,
-          sql`${events.hidden} IS NOT TRUE`,
-          isNull(events.dedupedAt),
-          isNull(events.deadAt)
+          liveEvent
         )
       )
       .limit(100); // Process max 100 per run
@@ -405,9 +402,7 @@ export async function GET(request: Request) {
           isNotNull(events.aiSummary),
           sql`${events.startDate} >= ${now.toISOString()}`,
           sql`${events.startDate} <= ${threeMonthsFromNow.toISOString()}`,
-          sql`${events.hidden} IS NOT TRUE`,
-          isNull(events.dedupedAt),
-          isNull(events.deadAt)
+          liveEvent
         )
       )
       .limit(50); // Smaller batch - scoring uses more context

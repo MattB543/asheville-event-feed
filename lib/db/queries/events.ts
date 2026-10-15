@@ -29,6 +29,7 @@ import { extractCity, isAshevilleArea } from '@/lib/utils/geo';
 import { isAshevilleZip } from '@/lib/config/zipNames';
 import { parsePrice, isFreeEvent } from '@/lib/utils/eventFilterMatch';
 import { addDaysToDateString } from '@/lib/utils/dateFilters';
+import { liveEvent } from '@/lib/db/liveEvent';
 
 // Verbose per-request query logging, dev only
 const DEBUG_QUERY_LOGS = process.env.NODE_ENV !== 'production';
@@ -164,11 +165,7 @@ function listedEventConditions(startOfToday: Date): SQL[] {
       isNull(events.location),
       and(notIlike(events.location, '%online%'), notIlike(events.location, '%virtual%'))
     )!,
-    // Exclude hidden (admin moderated) events
-    or(isNull(events.hidden), sql`${events.hidden} = false`)!,
-    // Exclude duplicates soft-deleted by the dedup flow, and dead events
-    isNull(events.dedupedAt),
-    isNull(events.deadAt),
+    liveEvent,
   ];
 }
 
@@ -680,9 +677,7 @@ export async function getEventMetadata(): Promise<EventMetadata> {
     .where(
       and(
         gte(events.startDate, startOfToday),
-        or(isNull(events.hidden), sql`${events.hidden} = false`),
-        isNull(events.dedupedAt),
-        isNull(events.deadAt),
+        liveEvent,
         or(
           isNull(events.location),
           and(notIlike(events.location, '%online%'), notIlike(events.location, '%virtual%'))
@@ -805,11 +800,7 @@ function buildTop30BaseWhere() {
     lte(events.startDate, thirtyDaysLater),
     // Must have a score
     isNotNull(events.score),
-    // Exclude hidden events
-    or(isNull(events.hidden), sql`${events.hidden} = false`),
-    // Exclude duplicates soft-deleted by the dedup flow
-    isNull(events.dedupedAt),
-    isNull(events.deadAt),
+    liveEvent,
     // Exclude online/virtual events
     or(
       isNull(events.location),

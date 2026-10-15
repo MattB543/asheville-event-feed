@@ -1,4 +1,4 @@
-import { and, asc, desc, eq, gte, inArray, isNull, lte, or, sql } from 'drizzle-orm';
+import { and, asc, desc, eq, gte, inArray, lte, sql } from 'drizzle-orm';
 import { db } from '@/lib/db';
 import { events, eventTracks, playlistPicks } from '@/lib/db/schema';
 import { env } from '@/lib/config/env';
@@ -16,6 +16,7 @@ import {
 } from './match';
 import { findSoldOut } from './soldOut';
 import { replacePlaylist } from './spotify';
+import { liveEvent } from '@/lib/db/liveEvent';
 
 export const WINDOW_DAYS = 8; // Sunday through the next Sunday
 const CANDIDATES = 25; // Wider than the playlist: skipped shows would otherwise eat slots
@@ -68,15 +69,7 @@ async function loadCandidates(now: Date): Promise<{ music: number; candidates: P
       score: events.score,
     })
     .from(events)
-    .where(
-      and(
-        gte(events.startDate, now),
-        lte(events.startDate, end),
-        or(isNull(events.hidden), eq(events.hidden, false)),
-        isNull(events.dedupedAt),
-        isNull(events.deadAt)
-      )
-    )
+    .where(and(gte(events.startDate, now), lte(events.startDate, end), liveEvent))
     // Postgres sorts nulls first on DESC; unscored events belong last
     .orderBy(sql`${events.score} desc nulls last`, asc(events.startDate));
   const music = rows.filter(isMusicEvent);

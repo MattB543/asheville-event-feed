@@ -16,7 +16,7 @@ import {
 import type { TimeOfDay } from '@/lib/types/filters';
 
 // Helper to add days to a date string (YYYY-MM-DD format)
-function addDaysToDateString(dateStr: string, days: number): string {
+export function addDaysToDateString(dateStr: string, days: number): string {
   const [year, month, day] = dateStr.split('-').map(Number);
   const date = new Date(year, month - 1, day + days);
   return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;

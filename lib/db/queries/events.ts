@@ -28,6 +28,7 @@ import { matchesDefaultFilter } from '@/lib/config/defaultFilters';
 import { extractCity, isAshevilleArea } from '@/lib/utils/geo';
 import { isAshevilleZip } from '@/lib/config/zipNames';
 import { parsePrice, isFreeEvent } from '@/lib/utils/eventFilterMatch';
+import { addDaysToDateString } from '@/lib/utils/dateFilters';
 
 // Verbose per-request query logging, dev only
 const DEBUG_QUERY_LOGS = process.env.NODE_ENV !== 'production';
@@ -133,13 +134,6 @@ function parseCursor(cursor: string): { startDate: Date; id: string } | null {
 // Helper to create cursor
 function createCursor(event: DbEvent): string {
   return `${event.startDate.toISOString()}_${event.id}`;
-}
-
-// Helper to add days to a date string (YYYY-MM-DD format)
-function addDaysToDateString(dateStr: string, days: number): string {
-  const [year, month, day] = dateStr.split('-').map(Number);
-  const date = new Date(year, month - 1, day + days);
-  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
 }
 
 // Get this weekend's boundaries (Fri-Sun) in Eastern timezone

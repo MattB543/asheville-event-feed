@@ -23,9 +23,15 @@ export interface PlaylistEvent {
   score: number | null;
 }
 
-export type Classification =
-  | { artist: string }
-  | { skip: 'tribute' | 'non_headliner' | 'non_music' | 'ambiguous'; reason: string };
+const SKIP_REASONS = ['tribute', 'non_headliner', 'non_music', 'ambiguous'] as const;
+export type SkipReason = (typeof SKIP_REASONS)[number];
+
+/** A stored or model-supplied reason, falling back to 'ambiguous' for anything else. */
+export function toSkipReason(value: unknown): SkipReason {
+  return SKIP_REASONS.find((r) => r === value) ?? 'ambiguous';
+}
+
+export type Classification = { artist: string } | { skip: SkipReason; reason: string };
 
 export interface TrackMatch {
   trackId: string | null;
@@ -143,12 +149,10 @@ export async function classifyTitles(events: PlaylistEvent[]): Promise<Classific
     return results.map((r): Classification => {
       const item = r as { artist?: unknown; skip?: unknown; reason?: unknown };
       if (typeof item.artist === 'string' && item.artist.trim()) return { artist: item.artist };
-      const skip = ['tribute', 'non_headliner', 'non_music', 'ambiguous'].includes(
-        String(item.skip)
-      )
-        ? (item.skip as 'tribute' | 'non_headliner' | 'non_music' | 'ambiguous')
-        : 'ambiguous';
-      return { skip, reason: typeof item.reason === 'string' ? item.reason : '' };
+      return {
+        skip: toSkipReason(item.skip),
+        reason: typeof item.reason === 'string' ? item.reason : '',
+      };
     });
   } catch (error) {
     console.error('[Playlist] Classifier call failed:', error);

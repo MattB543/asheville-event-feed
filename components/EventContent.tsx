@@ -22,6 +22,8 @@ import { generateCalendarUrlForEvent } from '@/lib/utils/googleCalendar';
 import { downloadEventAsICS } from '@/lib/utils/icsGenerator';
 import { getLibrarySystemName } from '@/lib/config/librarySystems';
 import { getMatchingProgramsForEvent } from '@/lib/matching/programs';
+import { formatPriceDisplay } from '@/lib/utils/priceDisplay';
+import { mapsSearchUrl } from '@/lib/utils/maps';
 
 // The hero box is 288x192 at `sm` up to 420x288 at `xl`. object-cover scales a wide image to the
 // box's height, so each size is 3x the height, keeping sources up to 3:1 sharp. Full width below
@@ -148,17 +150,6 @@ export default function EventContent({
     }).format(date);
 
     return { date: dateStr, time: timeStr };
-  };
-
-  const formatPriceDisplay = (price: string | null | undefined): string => {
-    if (!price || price === 'Unknown') return '$ Unknown';
-    if (price.toLowerCase() === 'free') return 'Free';
-    const match = price.match(/\$?([\d.]+)/);
-    if (match) {
-      const rounded = Math.round(parseFloat(match[1]));
-      return `$${rounded}`;
-    }
-    return price;
   };
 
   const getSourceUrl = () => {
@@ -319,9 +310,7 @@ export default function EventContent({
               <div className="flex items-center gap-3">
                 <MapPin className="w-4 h-4 text-brand-600 dark:text-brand-400 shrink-0" />
                 <a
-                  href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-                    event.location
-                  )}`}
+                  href={mapsSearchUrl(event.location)}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-gray-900 dark:text-gray-100 hover:text-brand-600 dark:hover:text-brand-400"

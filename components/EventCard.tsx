@@ -28,6 +28,7 @@ import { generateEventSlug } from '@/lib/utils/slugify';
 import { OFFICIAL_TAGS_SET } from '@/lib/config/tagCategories';
 import { getMatchingProgramsForEvent } from '@/lib/matching/programs';
 import IntentLink from '@/components/IntentLink';
+import { formatPriceDisplay } from '@/lib/utils/priceDisplay';
 
 // Stateless formatters, hoisted so they aren't rebuilt per card per render.
 // Pinned to Eastern time so displayed dates agree with the feed's ET date filtering.
@@ -203,22 +204,6 @@ interface EventCardProps {
   /** Callback when user clicks to collapse an expanded desktop card */
   onCollapseDesktop?: (eventId: string) => void;
 }
-
-// Round price string to nearest dollar (e.g., "$19.10" -> "$19", "$25.50" -> "$26")
-const formatPriceDisplay = (price: string | null): string => {
-  if (!price || price === 'Unknown') return '$ Unknown';
-  if (price.toLowerCase() === 'free') return 'Free';
-
-  // Extract number from price string and round
-  const match = price.match(/\$?([\d.]+)/);
-  if (match) {
-    const rounded = Math.round(parseFloat(match[1]));
-    return `$${rounded}`;
-  }
-  // If price is just "$" with no number, treat as unknown
-  if (price.trim() === '$') return '$ Unknown';
-  return price;
-};
 
 export default function EventCard({
   event,

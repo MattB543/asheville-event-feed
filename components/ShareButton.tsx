@@ -2,14 +2,15 @@
 
 import { useEffect, useState } from 'react';
 import { Share } from 'lucide-react';
-import { TAP_AREA } from './display';
+import { TAP_AREA } from './news/display';
 
 // Share links always point at the live site, even from a preview or local build
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://avlgo.com';
 
 interface ShareButtonProps {
-  shortId: string;
-  headline: string;
+  /** Site path to share, e.g. "/news?s=abc" */
+  path: string;
+  title: string;
 }
 
 /**
@@ -18,7 +19,7 @@ interface ShareButtonProps {
  * Desktop Chrome has navigator.share too, but there the OS sheet is a detour
  * from what people expect a desktop "Share" to do.
  */
-export default function ShareButton({ shortId, headline }: ShareButtonProps) {
+export default function ShareButton({ path, title }: ShareButtonProps) {
   const [tooltip, setTooltip] = useState<string | null>(null);
 
   useEffect(() => {
@@ -37,12 +38,12 @@ export default function ShareButton({ shortId, headline }: ShareButtonProps) {
   };
 
   const handleShare = async () => {
-    const url = `${SITE_URL}/news?s=${shortId}`;
+    const url = `${SITE_URL}${path}`;
     const touch = window.matchMedia('(pointer: coarse)').matches;
 
     if (touch && typeof navigator.share === 'function') {
       try {
-        await navigator.share({ title: headline, url });
+        await navigator.share({ title, url });
       } catch (error) {
         // Dismissing the sheet is not a failure
         if (error instanceof DOMException && error.name === 'AbortError') return;
@@ -59,7 +60,7 @@ export default function ShareButton({ shortId, headline }: ShareButtonProps) {
       type="button"
       onClick={() => void handleShare()}
       className={`${TAP_AREA} inline-flex items-center gap-1 rounded-md px-1.5 py-1 text-xs font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-200 cursor-pointer transition-colors`}
-      aria-label={`Share: ${headline}`}
+      aria-label={`Share: ${title}`}
     >
       <Share size={14} aria-hidden="true" />
       Share

@@ -9,6 +9,7 @@ import {
   isMusicEvent,
   normalizeName,
   playlistDescription,
+  toSkipReason,
   type Classification,
   type PlaylistEvent,
   type TrackMatch,
@@ -16,7 +17,7 @@ import {
 import { findSoldOut } from './soldOut';
 import { replacePlaylist } from './spotify';
 
-const WINDOW_DAYS = 8; // Sunday through the next Sunday
+export const WINDOW_DAYS = 8; // Sunday through the next Sunday
 const CANDIDATES = 25; // Wider than the playlist: skipped shows would otherwise eat slots
 const PLAYLIST_SHOWS = 25;
 
@@ -45,11 +46,7 @@ export interface PlaylistRunResult {
 function toClassification(row: Pick<TrackRow, 'artist' | 'skipReason' | 'note'>): Classification {
   if (row.artist) return { artist: row.artist };
   return {
-    skip: (row.skipReason ?? 'ambiguous') as
-      | 'tribute'
-      | 'non_headliner'
-      | 'non_music'
-      | 'ambiguous',
+    skip: toSkipReason(row.skipReason),
     reason: row.note ?? '',
   };
 }

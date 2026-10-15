@@ -38,13 +38,19 @@ function loadIframeApi(): Promise<SpotifyIFrameAPI> {
 
 interface EventSpotifyPlayerProps {
   event: { id: string; source: string; title: string; tags?: string[] | null };
+  className?: string;
+  height?: number;
 }
 
 /**
  * The headliner's top song for a music event. Asked for after the page loads, so
  * the page never waits on a first-time match; shows nothing when there's no song.
  */
-export default function EventSpotifyPlayer({ event }: EventSpotifyPlayerProps) {
+export default function EventSpotifyPlayer({
+  event,
+  className = '',
+  height = 352,
+}: EventSpotifyPlayerProps) {
   const [trackId, setTrackId] = useState<string | null>(null);
   const holder = useRef<HTMLDivElement>(null);
   const music = isMusicEvent(event);
@@ -71,7 +77,7 @@ export default function EventSpotifyPlayer({ event }: EventSpotifyPlayerProps) {
       if (cancelled) return;
       api.createController(
         element,
-        { uri: `spotify:track:${trackId}`, height: 152, width: '100%' },
+        { uri: `spotify:track:${trackId}`, height, width: '100%' },
         (controller) => {
           player = controller;
           let reported = false;
@@ -89,11 +95,11 @@ export default function EventSpotifyPlayer({ event }: EventSpotifyPlayerProps) {
       player?.destroy();
       container.replaceChildren();
     };
-  }, [trackId, event.id]);
+  }, [trackId, event.id, height]);
 
   if (!trackId) return null;
   return (
-    <div className="mt-4 overflow-hidden rounded-xl">
+    <div className={`overflow-hidden rounded-xl ${className}`}>
       <div ref={holder} />
     </div>
   );

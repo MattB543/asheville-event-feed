@@ -361,8 +361,6 @@ export default function EventContent({
             )}
           </div>
 
-          <EventSpotifyPlayer event={event} />
-
           {/* Action Buttons */}
           <div className="flex flex-wrap gap-2 mt-4">
             {/* Add to Calendar */}
@@ -483,6 +481,7 @@ export default function EventContent({
             )}
           </p>
         </div>
+        <EventSpotifyPlayer event={event} className="mt-4 w-full sm:w-1/2" height={232} />
       </section>
     </div>
   );

@@ -1,4 +1,5 @@
 import { env } from '@/lib/config/env';
+import { isRateLimited } from '@/lib/utils/rate-limit';
 
 const API = 'https://api.spotify.com/v1';
 
@@ -21,6 +22,11 @@ export class SpotifyRateLimitError extends Error {
 }
 
 let cachedToken: { value: string; expiresAt: number } | null = null;
+
+// After a 429, every call waits out Spotify's Retry-After instead of piling on
+let blockedUntil = 0;
+// Event pages can each trigger a search, so cap them overall, not just per visitor
+const SEARCHES_PER_HOUR = 300;
 
 async function accessToken(): Promise<string> {
   if (cachedToken && cachedToken.expiresAt > Date.now() + 60_000) return cachedToken.value;
@@ -57,6 +63,9 @@ async function accessToken(): Promise<string> {
 }
 
 async function spotifyFetch(path: string, init: RequestInit = {}): Promise<Response> {
+  if (Date.now() < blockedUntil) {
+    throw new SpotifyRateLimitError(Math.ceil((blockedUntil - Date.now()) / 1000));
+  }
   let lastError: unknown;
   for (let attempt = 0; attempt < 3; attempt++) {
     try {
@@ -70,7 +79,9 @@ async function spotifyFetch(path: string, init: RequestInit = {}): Promise<Respo
       });
       if (response.status === 429) {
         const retryAfter = Number(response.headers.get('retry-after'));
-        throw new SpotifyRateLimitError(Number.isFinite(retryAfter) ? retryAfter : null);
+        const seconds = Number.isFinite(retryAfter) && retryAfter > 0 ? retryAfter : 60;
+        blockedUntil = Date.now() + seconds * 1000;
+        throw new SpotifyRateLimitError(seconds);
       }
       if (!response.ok) {
         throw new Error(`Spotify ${init.method ?? 'GET'} ${path}: ${response.status}`);
@@ -86,6 +97,9 @@ async function spotifyFetch(path: string, init: RequestInit = {}): Promise<Respo
 }
 
 export async function searchTracks(query: string): Promise<SpotifyTrack[]> {
+  if (isRateLimited('spotify-search', SEARCHES_PER_HOUR, 60 * 60 * 1000)) {
+    throw new SpotifyRateLimitError(null);
+  }
   const params = new URLSearchParams({ q: query, type: 'track', limit: '10' });
   const response = await spotifyFetch(`/search?${params}`);
   const data = (await response.json()) as { tracks?: { items?: SpotifyTrack[] } };

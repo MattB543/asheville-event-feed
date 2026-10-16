@@ -30,7 +30,7 @@ A web app that aggregates events from 10+ sources for the Asheville, NC area, fe
 
 Want to get this running locally? Here's the fastest path:
 
-**On a Mac with Homebrew Postgres:** `npm install && npm run db:setup-local` sets up a local database (installing pgvector if needed), writes `DATABASE_URL` to `.env`, and offers to copy the live site's upcoming events in, scores included. Then `npm run dev`. The steps below are the hosted-Supabase route.
+**On a Mac with Homebrew Postgres:** `npm install && npm run db:setup-local` sets up a local database (installing pgvector if needed), writes `DATABASE_URL` to `.env`, fills in the public sign-in keys from avlgo.com so Google sign-in works locally, and offers to copy the live site's upcoming events in, scores included. Then `npm run dev`. The steps below are the hosted-Supabase route.
 
 ### 1. Get a free database
 

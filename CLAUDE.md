@@ -712,6 +712,7 @@ FB_XS=
 - `AuthProvider` component wraps app
 - `UserMenu` component for account actions
 - Server-side session validation
+- Without `NEXT_PUBLIC_SUPABASE_URL` / `NEXT_PUBLIC_SUPABASE_ANON_KEY` the site runs signed out (`isAuthConfigured()`; the server client is a signed-out stand-in) instead of crashing. `npm run db:setup-local` fills both, and the Google client ID, from avlgo.com's public scripts
 
 ### User Preferences Sync
 
@@ -817,6 +818,7 @@ Built to `docs/news/05-v1-plan.md`; Matt's decisions are in `docs/news/decisions
 | Script                         | Purpose                                 |
 | ------------------------------ | --------------------------------------- |
 | `npm run dev`                  | Start development server                |
+| `npm run db:setup-local`       | Local Postgres + `.env` + optional seed |
 | `npm run build`                | Build for production                    |
 | `npm run test:avl`             | Test AVL Today scraper                  |
 | `npm run test:eventbrite`      | Test Eventbrite scraper                 |

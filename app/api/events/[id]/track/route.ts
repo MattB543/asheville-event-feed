@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
-import { and, eq } from 'drizzle-orm';
+import { and, eq, gt, sql } from 'drizzle-orm';
 import { db } from '@/lib/db';
-import { events } from '@/lib/db/schema';
+import { events, eventTracks } from '@/lib/db/schema';
 import { liveEvent } from '@/lib/db/liveEvent';
 import { isSpotifyEnabled } from '@/lib/config/env';
 import { clientIp, isRateLimited } from '@/lib/utils/rate-limit';
@@ -13,6 +13,9 @@ import { SpotifyRateLimitError } from '@/lib/playlist/spotify';
 // Matching can cost an AI call and a Spotify search; saved matches cost neither
 const RATE_LIMIT_MAX = 60;
 const RATE_LIMIT_WINDOW = 60 * 60 * 1000;
+// The per-visitor limit lives in each server's memory, so also cap new matches
+// site-wide per day, counted in the database; past it, only saved matches are served
+const NEW_MATCHES_PER_DAY = 200;
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
 interface RouteParams {
@@ -26,7 +29,7 @@ export async function GET(request: Request, { params }: RouteParams) {
   const none = NextResponse.json({ track: null });
   if (!UUID_RE.test(id) || !isSpotifyEnabled() || !isClassifierEnabled()) return none;
   if (isRateLimited(`track:${clientIp(request)}`, RATE_LIMIT_MAX, RATE_LIMIT_WINDOW)) {
-    return NextResponse.json({ track: null }, { status: 429 });
+    return NextResponse.json({ track: null }, { status: 429, headers: { 'Retry-After': '3600' } });
   }
 
   const [event] = await db
@@ -49,7 +52,13 @@ export async function GET(request: Request, { params }: RouteParams) {
   if (!event || !isMusicEvent(event)) return none;
 
   try {
-    const { matches, classifierFailed } = await matchEvents([event]);
+    const [{ count }] = await db
+      .select({ count: sql<number>`count(*)::int` })
+      .from(eventTracks)
+      .where(gt(eventTracks.checkedAt, new Date(Date.now() - 24 * 60 * 60 * 1000)));
+    const { matches, classifierFailed } = await matchEvents([event], {
+      savedOnly: count >= NEW_MATCHES_PER_DAY,
+    });
     const match = matches.get(event.id);
     if (!match?.trackId) return none;
     return NextResponse.json(

@@ -30,7 +30,11 @@ export interface MatchResult {
  * Spotify, saving each result as it's found. Used by the weekly playlist and by
  * event pages.
  */
-export async function matchEvents(list: PlaylistEvent[]): Promise<MatchResult> {
+export async function matchEvents(
+  list: PlaylistEvent[],
+  /** Only return saved matches: no AI call or Spotify search */
+  { savedOnly = false }: { savedOnly?: boolean } = {}
+): Promise<MatchResult> {
   // Rows for these exact events, then rows for other events with the same title
   // (a recurring show), so the AI is asked about each title once
   const ids = list.map((e) => e.id);
@@ -50,7 +54,9 @@ export async function matchEvents(list: PlaylistEvent[]): Promise<MatchResult> {
     for (const { title, row } of titled) if (!rowByTitle.has(title)) rowByTitle.set(title, row);
   }
 
-  const toClassify = list.filter((e) => !rowByEvent.has(e.id) && !rowByTitle.has(e.title));
+  const toClassify = savedOnly
+    ? []
+    : list.filter((e) => !rowByEvent.has(e.id) && !rowByTitle.has(e.title));
   const uniqueToClassify = [...new Map(toClassify.map((e) => [e.title, e])).values()];
   const fresh = await classifyTitles(uniqueToClassify);
   const classifierFailed = fresh === null;
@@ -77,6 +83,10 @@ export async function matchEvents(list: PlaylistEvent[]): Promise<MatchResult> {
     }
 
     const sameTitle = rowByTitle.get(event.title);
+    if (!sameTitle && savedOnly) {
+      matches.set(event.id, { trackId: null, trackName: null, spotifyArtist: null, note: '' });
+      continue;
+    }
     const classification = sameTitle ? toClassification(sameTitle) : freshByTitle.get(event.title)!;
     let match: TrackMatch;
     if ('skip' in classification) {

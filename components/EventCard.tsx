@@ -416,6 +416,233 @@ export default function EventCard({
       return parts.length > 2 ? parts[0].trim() : event.location;
     })();
 
+  // The same row of buttons in the phone and desktop layouts
+  const actionButtons = (playerContainer?: HTMLElement | null) => (
+    <>
+      {/* Calendar dropdown */}
+      <div className="relative" ref={calendarMenuRef}>
+        <button
+          onClick={() => setCalendarMenuOpen(!calendarMenuOpen)}
+          className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs text-gray-600 dark:text-gray-400 hover:bg-brand-50 dark:hover:bg-brand-950/50 hover:text-brand-600 dark:hover:text-brand-400 rounded border border-gray-200 dark:border-gray-700 cursor-pointer"
+          title="Calendar"
+        >
+          <CalendarPlus2 size={14} />
+          <span>Calendar</span>
+          <ChevronDown
+            size={12}
+            className={`transition-transform ${calendarMenuOpen ? 'rotate-180' : ''}`}
+          />
+        </button>
+
+        {calendarMenuOpen && (
+          <div className="absolute left-0 top-full mt-1 z-50 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded shadow-lg min-w-[160px]">
+            <button
+              onClick={handleAddToGoogleCalendar}
+              className="w-full flex items-center gap-2 px-3 py-2 text-xs text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
+            >
+              <Image
+                src="/google_cal.svg"
+                alt="Google Calendar"
+                width={14}
+                height={14}
+                className="w-3.5 h-3.5"
+              />
+              Google Calendar
+            </button>
+            <button
+              onClick={handleAddToAppleCalendar}
+              className="w-full flex items-center gap-2 px-3 py-2 text-xs text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
+            >
+              <svg
+                className="w-4 h-4"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
+              </svg>
+              Apple Calendar
+            </button>
+          </div>
+        )}
+      </div>
+      <CardSongButton event={event} playerContainer={playerContainer} />
+      {/* Favorite button */}
+      {showRemoveFavorite ? (
+        <button
+          onClick={() => onToggleFavorite(event.id)}
+          className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs rounded border cursor-pointer transition-colors text-gray-600 dark:text-gray-400 border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800"
+          title="Remove from favorites"
+        >
+          <X size={14} />
+          Remove
+        </button>
+      ) : (
+        <button
+          onClick={() => {
+            setIsHeartAnimating(true);
+            onToggleFavorite(event.id);
+            setTimeout(() => setIsHeartAnimating(false), 300);
+          }}
+          className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs rounded border cursor-pointer transition-colors ${
+            isFavorited
+              ? 'text-red-500 dark:text-red-400 border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-950/50 hover:bg-red-100 dark:hover:bg-red-900/50'
+              : 'text-gray-600 dark:text-gray-400 border-gray-200 dark:border-gray-700 hover:bg-red-50 dark:hover:bg-red-950/50 hover:text-red-500 dark:hover:text-red-400 hover:border-red-200 dark:hover:border-red-800'
+          }`}
+          title={isFavorited ? 'Remove from favorites' : 'Add to favorites'}
+        >
+          <Heart
+            size={14}
+            className={`transition-transform ${
+              isFavorited ? 'fill-current' : ''
+            } ${isHeartAnimating ? 'animate-heart-pop' : ''}`}
+          />
+          {favoriteCount > 0 && <span>{favoriteCount}</span>}
+        </button>
+      )}
+      {/* Share button */}
+      <div className="relative">
+        <button
+          onClick={() => void handleShare()}
+          className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs text-gray-600 dark:text-gray-400 rounded border border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer transition-colors h-[30px]"
+          title="Share"
+        >
+          <Share size={14} />
+        </button>
+        <ShareNote note={shareNote} />
+      </div>
+      {/* More options dropdown */}
+      <div className="relative" ref={moreMenuRef}>
+        <button
+          onClick={() => setMoreMenuOpen(!moreMenuOpen)}
+          className="inline-flex items-center gap-1.5 px-2 py-1.5 text-xs text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded border border-gray-200 dark:border-gray-700 cursor-pointer h-[30px]"
+          title="More options"
+        >
+          <MoreVertical size={14} />
+        </button>
+
+        {moreMenuOpen && (
+          <div className="absolute right-0 top-full mt-1 z-50 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded shadow-lg min-w-[200px]">
+            {/* Curate section */}
+            {showCurate && (
+              <button
+                onClick={() => {
+                  if (!isLoggedIn) {
+                    window.location.href = '/login';
+                    return;
+                  }
+                  if (isCurated) {
+                    onUncurate?.(event.id);
+                  } else {
+                    onCurate?.(event.id);
+                  }
+                  setMoreMenuOpen(false);
+                }}
+                className={`w-full flex items-center gap-2 px-3 py-2 text-xs transition-colors cursor-pointer ${
+                  isLoggedIn
+                    ? 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
+                    : 'text-gray-400 dark:text-gray-500'
+                }`}
+              >
+                <Bookmark size={14} className={isCurated ? 'fill-current text-brand-600' : ''} />
+                {isLoggedIn
+                  ? isCurated
+                    ? 'Remove from profile'
+                    : 'Curate'
+                  : 'Curate - log in to use'}
+              </button>
+            )}
+            <a
+              href={eventUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full flex items-center gap-2 px-3 py-2 text-xs text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
+              onClick={() => setMoreMenuOpen(false)}
+            >
+              <Sparkles size={14} />
+              See similar events
+            </a>
+            <a
+              href={eventSourceUrl(event)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full flex items-center gap-2 px-3 py-2 text-xs text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
+              onClick={() => setMoreMenuOpen(false)}
+            >
+              <ExternalLink size={14} />
+              Open source
+            </a>
+            {/* Hide section */}
+            {(onHide || onBlockHost) && (
+              <div className="border-t border-gray-200 dark:border-gray-700" />
+            )}
+            {onHide && (
+              <button
+                onClick={() => {
+                  handleHideEvent();
+                  setMoreMenuOpen(false);
+                }}
+                disabled={isNewlyHidden}
+                className={`w-full flex items-start gap-2 px-3 py-2 text-left cursor-pointer ${
+                  isNewlyHidden
+                    ? 'text-gray-400 dark:text-gray-600'
+                    : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
+                }`}
+              >
+                <EyeOff size={14} className="mt-0.5 shrink-0" />
+                <div>
+                  <div className="text-xs font-medium">Hide event</div>
+                  <div
+                    className={`text-[10px] ${
+                      isNewlyHidden
+                        ? 'text-gray-400 dark:text-gray-600'
+                        : 'text-gray-500 dark:text-gray-400'
+                    }`}
+                  >
+                    Hide now & future occurrences
+                  </div>
+                </div>
+              </button>
+            )}
+            {onBlockHost && event.organizer && (
+              <button
+                onClick={() => {
+                  handleBlockHost();
+                  setMoreMenuOpen(false);
+                }}
+                className="w-full flex items-start gap-2 px-3 py-2 text-left text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
+              >
+                <Ban size={14} className="mt-0.5 shrink-0" />
+                <div>
+                  <div className="text-xs font-medium">Hide host</div>
+                  <div className="text-[10px] text-gray-500 dark:text-gray-400">
+                    Hide all events from this host
+                  </div>
+                </div>
+              </button>
+            )}
+            {/* Flag section */}
+            <div className="border-t border-gray-200 dark:border-gray-700" />
+            <button
+              onClick={() => handleReport('incorrect_info')}
+              className="w-full flex items-center gap-2 px-3 py-2 text-xs text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
+            >
+              <AlertTriangle size={14} />
+              Flag incorrect info
+            </button>
+            <button
+              onClick={() => handleReport('spam')}
+              className="w-full flex items-center gap-2 px-3 py-2 text-xs text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
+            >
+              <ShieldAlert size={14} />
+              Report as spam
+            </button>
+          </div>
+        )}
+      </div>
+    </>
+  );
+
   return (
     <div>
       {/* Mobile Layout - Collapsed/Expanded */}
@@ -575,230 +802,7 @@ export default function EventCard({
           {/* Action buttons - only when expanded */}
           {isMobileExpanded && (
             <div className="flex flex-wrap gap-2 mt-4" onClick={(e) => e.stopPropagation()}>
-              {/* Calendar dropdown */}
-              <div className="relative" ref={calendarMenuRef}>
-                <button
-                  onClick={() => setCalendarMenuOpen(!calendarMenuOpen)}
-                  className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs text-gray-600 dark:text-gray-400 hover:bg-brand-50 dark:hover:bg-brand-950/50 hover:text-brand-600 dark:hover:text-brand-400 rounded border border-gray-200 dark:border-gray-700 cursor-pointer"
-                  title="Calendar"
-                >
-                  <CalendarPlus2 size={14} />
-                  <span>Calendar</span>
-                  <ChevronDown
-                    size={12}
-                    className={`transition-transform ${calendarMenuOpen ? 'rotate-180' : ''}`}
-                  />
-                </button>
-
-                {calendarMenuOpen && (
-                  <div className="absolute left-0 top-full mt-1 z-50 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded shadow-lg min-w-[160px]">
-                    <button
-                      onClick={handleAddToGoogleCalendar}
-                      className="w-full flex items-center gap-2 px-3 py-2 text-xs text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
-                    >
-                      <Image
-                        src="/google_cal.svg"
-                        alt="Google Calendar"
-                        width={14}
-                        height={14}
-                        className="w-3.5 h-3.5"
-                      />
-                      Google Calendar
-                    </button>
-                    <button
-                      onClick={handleAddToAppleCalendar}
-                      className="w-full flex items-center gap-2 px-3 py-2 text-xs text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
-                    >
-                      <svg
-                        className="w-4 h-4"
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
-                      </svg>
-                      Apple Calendar
-                    </button>
-                  </div>
-                )}
-              </div>
-
-              <CardSongButton event={event} />
-              {/* Favorite button */}
-              {showRemoveFavorite ? (
-                <button
-                  onClick={() => onToggleFavorite(event.id)}
-                  className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs rounded border cursor-pointer transition-colors text-gray-600 dark:text-gray-400 border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800"
-                  title="Remove from favorites"
-                >
-                  <X size={14} />
-                  Remove
-                </button>
-              ) : (
-                <button
-                  onClick={() => {
-                    setIsHeartAnimating(true);
-                    onToggleFavorite(event.id);
-                    setTimeout(() => setIsHeartAnimating(false), 300);
-                  }}
-                  className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs rounded border cursor-pointer transition-colors ${
-                    isFavorited
-                      ? 'text-red-500 dark:text-red-400 border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-950/50 hover:bg-red-100 dark:hover:bg-red-900/50'
-                      : 'text-gray-600 dark:text-gray-400 border-gray-200 dark:border-gray-700 hover:bg-red-50 dark:hover:bg-red-950/50 hover:text-red-500 dark:hover:text-red-400 hover:border-red-200 dark:hover:border-red-800'
-                  }`}
-                  title={isFavorited ? 'Remove from favorites' : 'Add to favorites'}
-                >
-                  <Heart
-                    size={14}
-                    className={`transition-transform ${
-                      isFavorited ? 'fill-current' : ''
-                    } ${isHeartAnimating ? 'animate-heart-pop' : ''}`}
-                  />
-                  {favoriteCount > 0 && <span>{favoriteCount}</span>}
-                </button>
-              )}
-
-              {/* Share button */}
-              <div className="relative">
-                <button
-                  onClick={() => void handleShare()}
-                  className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs text-gray-600 dark:text-gray-400 rounded border border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer transition-colors h-[30px]"
-                  title="Share"
-                >
-                  <Share size={14} />
-                </button>
-                <ShareNote note={shareNote} />
-              </div>
-
-              {/* More options dropdown */}
-              <div className="relative" ref={moreMenuRef}>
-                <button
-                  onClick={() => setMoreMenuOpen(!moreMenuOpen)}
-                  className="inline-flex items-center gap-1.5 px-2 py-1.5 text-xs text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded border border-gray-200 dark:border-gray-700 cursor-pointer h-[30px]"
-                  title="More options"
-                >
-                  <MoreVertical size={14} />
-                </button>
-
-                {moreMenuOpen && (
-                  <div className="absolute right-0 top-full mt-1 z-50 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded shadow-lg min-w-[200px]">
-                    {showCurate && (
-                      <button
-                        onClick={() => {
-                          if (!isLoggedIn) {
-                            window.location.href = '/login';
-                            return;
-                          }
-                          if (isCurated) {
-                            onUncurate?.(event.id);
-                          } else {
-                            onCurate?.(event.id);
-                          }
-                          setMoreMenuOpen(false);
-                        }}
-                        className={`w-full flex items-center gap-2 px-3 py-2 text-xs transition-colors cursor-pointer ${
-                          isLoggedIn
-                            ? 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
-                            : 'text-gray-400 dark:text-gray-500'
-                        }`}
-                      >
-                        <Bookmark
-                          size={14}
-                          className={isCurated ? 'fill-current text-brand-600' : ''}
-                        />
-                        {isLoggedIn
-                          ? isCurated
-                            ? 'Remove from profile'
-                            : 'Curate'
-                          : 'Curate - log in to use'}
-                      </button>
-                    )}
-                    <a
-                      href={eventUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-full flex items-center gap-2 px-3 py-2 text-xs text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
-                      onClick={() => setMoreMenuOpen(false)}
-                    >
-                      <Sparkles size={14} />
-                      See similar events
-                    </a>
-                    <a
-                      href={eventSourceUrl(event)}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-full flex items-center gap-2 px-3 py-2 text-xs text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
-                      onClick={() => setMoreMenuOpen(false)}
-                    >
-                      <ExternalLink size={14} />
-                      Open source
-                    </a>
-                    {(onHide || onBlockHost) && (
-                      <div className="border-t border-gray-200 dark:border-gray-700" />
-                    )}
-                    {onHide && (
-                      <button
-                        onClick={() => {
-                          handleHideEvent();
-                          setMoreMenuOpen(false);
-                        }}
-                        disabled={isNewlyHidden}
-                        className={`w-full flex items-start gap-2 px-3 py-2 text-left cursor-pointer ${
-                          isNewlyHidden
-                            ? 'text-gray-400 dark:text-gray-600'
-                            : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
-                        }`}
-                      >
-                        <EyeOff size={14} className="mt-0.5 shrink-0" />
-                        <div>
-                          <div className="text-xs font-medium">Hide event</div>
-                          <div
-                            className={`text-[10px] ${
-                              isNewlyHidden
-                                ? 'text-gray-400 dark:text-gray-600'
-                                : 'text-gray-500 dark:text-gray-400'
-                            }`}
-                          >
-                            Hide now & future occurrences
-                          </div>
-                        </div>
-                      </button>
-                    )}
-                    {onBlockHost && event.organizer && (
-                      <button
-                        onClick={() => {
-                          handleBlockHost();
-                          setMoreMenuOpen(false);
-                        }}
-                        className="w-full flex items-start gap-2 px-3 py-2 text-left text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
-                      >
-                        <Ban size={14} className="mt-0.5 shrink-0" />
-                        <div>
-                          <div className="text-xs font-medium">Hide host</div>
-                          <div className="text-[10px] text-gray-500 dark:text-gray-400">
-                            Hide all events from this host
-                          </div>
-                        </div>
-                      </button>
-                    )}
-                    <div className="border-t border-gray-200 dark:border-gray-700" />
-                    <button
-                      onClick={() => handleReport('incorrect_info')}
-                      className="w-full flex items-center gap-2 px-3 py-2 text-xs text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
-                    >
-                      <AlertTriangle size={14} />
-                      Flag incorrect info
-                    </button>
-                    <button
-                      onClick={() => handleReport('spam')}
-                      className="w-full flex items-center gap-2 px-3 py-2 text-xs text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
-                    >
-                      <ShieldAlert size={14} />
-                      Report as spam
-                    </button>
-                  </div>
-                )}
-              </div>
+              {actionButtons()}
             </div>
           )}
         </div>
@@ -1185,231 +1189,7 @@ export default function EventCard({
             className="sm:col-span-2 xl:col-span-1 xl:col-start-3 flex flex-wrap gap-2 mt-2 xl:mt-0"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Calendar dropdown */}
-            <div className="relative" ref={calendarMenuRef}>
-              <button
-                onClick={() => setCalendarMenuOpen(!calendarMenuOpen)}
-                className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs text-gray-600 dark:text-gray-400 hover:bg-brand-50 dark:hover:bg-brand-950/50 hover:text-brand-600 dark:hover:text-brand-400 rounded border border-gray-200 dark:border-gray-700 cursor-pointer"
-                title="Calendar"
-              >
-                <CalendarPlus2 size={14} />
-                <span className="sm:hidden">Calendar</span>
-                <span className="hidden sm:inline">Calendar</span>
-                <ChevronDown
-                  size={12}
-                  className={`transition-transform ${calendarMenuOpen ? 'rotate-180' : ''}`}
-                />
-              </button>
-
-              {calendarMenuOpen && (
-                <div className="absolute left-0 top-full mt-1 z-50 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded shadow-lg min-w-[160px]">
-                  <button
-                    onClick={handleAddToGoogleCalendar}
-                    className="w-full flex items-center gap-2 px-3 py-2 text-xs text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
-                  >
-                    <Image
-                      src="/google_cal.svg"
-                      alt="Google Calendar"
-                      width={14}
-                      height={14}
-                      className="w-3.5 h-3.5"
-                    />
-                    Google Calendar
-                  </button>
-                  <button
-                    onClick={handleAddToAppleCalendar}
-                    className="w-full flex items-center gap-2 px-3 py-2 text-xs text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
-                  >
-                    <svg
-                      className="w-4 h-4"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
-                    </svg>
-                    Apple Calendar
-                  </button>
-                </div>
-              )}
-            </div>
-            <CardSongButton event={event} playerContainer={playerSlot} />
-            {/* Favorite button */}
-            {showRemoveFavorite ? (
-              <button
-                onClick={() => onToggleFavorite(event.id)}
-                className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs rounded border cursor-pointer transition-colors text-gray-600 dark:text-gray-400 border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800"
-                title="Remove from favorites"
-              >
-                <X size={14} />
-                Remove
-              </button>
-            ) : (
-              <button
-                onClick={() => {
-                  setIsHeartAnimating(true);
-                  onToggleFavorite(event.id);
-                  setTimeout(() => setIsHeartAnimating(false), 300);
-                }}
-                className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs rounded border cursor-pointer transition-colors ${
-                  isFavorited
-                    ? 'text-red-500 dark:text-red-400 border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-950/50 hover:bg-red-100 dark:hover:bg-red-900/50'
-                    : 'text-gray-600 dark:text-gray-400 border-gray-200 dark:border-gray-700 hover:bg-red-50 dark:hover:bg-red-950/50 hover:text-red-500 dark:hover:text-red-400 hover:border-red-200 dark:hover:border-red-800'
-                }`}
-                title={isFavorited ? 'Remove from favorites' : 'Add to favorites'}
-              >
-                <Heart
-                  size={14}
-                  className={`transition-transform ${
-                    isFavorited ? 'fill-current' : ''
-                  } ${isHeartAnimating ? 'animate-heart-pop' : ''}`}
-                />
-                {favoriteCount > 0 && <span>{favoriteCount}</span>}
-              </button>
-            )}
-            {/* Share button */}
-            <div className="relative">
-              <button
-                onClick={() => void handleShare()}
-                className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs text-gray-600 dark:text-gray-400 rounded border border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer transition-colors h-[30px]"
-                title="Share"
-              >
-                <Share size={14} />
-              </button>
-              <ShareNote note={shareNote} />
-            </div>
-            {/* More options dropdown */}
-            <div className="relative" ref={moreMenuRef}>
-              <button
-                onClick={() => setMoreMenuOpen(!moreMenuOpen)}
-                className="inline-flex items-center gap-1.5 px-2 py-1.5 text-xs text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded border border-gray-200 dark:border-gray-700 cursor-pointer h-[30px]"
-                title="More options"
-              >
-                <MoreVertical size={14} />
-              </button>
-
-              {moreMenuOpen && (
-                <div className="absolute right-0 top-full mt-1 z-50 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded shadow-lg min-w-[200px]">
-                  {/* Curate section */}
-                  {showCurate && (
-                    <button
-                      onClick={() => {
-                        if (!isLoggedIn) {
-                          window.location.href = '/login';
-                          return;
-                        }
-                        if (isCurated) {
-                          onUncurate?.(event.id);
-                        } else {
-                          onCurate?.(event.id);
-                        }
-                        setMoreMenuOpen(false);
-                      }}
-                      className={`w-full flex items-center gap-2 px-3 py-2 text-xs transition-colors cursor-pointer ${
-                        isLoggedIn
-                          ? 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
-                          : 'text-gray-400 dark:text-gray-500'
-                      }`}
-                    >
-                      <Bookmark
-                        size={14}
-                        className={isCurated ? 'fill-current text-brand-600' : ''}
-                      />
-                      {isLoggedIn
-                        ? isCurated
-                          ? 'Remove from profile'
-                          : 'Curate'
-                        : 'Curate - log in to use'}
-                    </button>
-                  )}
-                  <a
-                    href={`/events/${generateEventSlug(event.title, event.startDate, event.id)}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-full flex items-center gap-2 px-3 py-2 text-xs text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
-                    onClick={() => setMoreMenuOpen(false)}
-                  >
-                    <Sparkles size={14} />
-                    See similar events
-                  </a>
-                  <a
-                    href={eventSourceUrl(event)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-full flex items-center gap-2 px-3 py-2 text-xs text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
-                    onClick={() => setMoreMenuOpen(false)}
-                  >
-                    <ExternalLink size={14} />
-                    Open source
-                  </a>
-                  {/* Hide section */}
-                  {(onHide || onBlockHost) && (
-                    <div className="border-t border-gray-200 dark:border-gray-700" />
-                  )}
-                  {onHide && (
-                    <button
-                      onClick={() => {
-                        handleHideEvent();
-                        setMoreMenuOpen(false);
-                      }}
-                      disabled={isNewlyHidden}
-                      className={`w-full flex items-start gap-2 px-3 py-2 text-left cursor-pointer ${
-                        isNewlyHidden
-                          ? 'text-gray-400 dark:text-gray-600'
-                          : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
-                      }`}
-                    >
-                      <EyeOff size={14} className="mt-0.5 shrink-0" />
-                      <div>
-                        <div className="text-xs font-medium">Hide event</div>
-                        <div
-                          className={`text-[10px] ${
-                            isNewlyHidden
-                              ? 'text-gray-400 dark:text-gray-600'
-                              : 'text-gray-500 dark:text-gray-400'
-                          }`}
-                        >
-                          Hide now & future occurrences
-                        </div>
-                      </div>
-                    </button>
-                  )}
-                  {onBlockHost && event.organizer && (
-                    <button
-                      onClick={() => {
-                        handleBlockHost();
-                        setMoreMenuOpen(false);
-                      }}
-                      className="w-full flex items-start gap-2 px-3 py-2 text-left text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
-                    >
-                      <Ban size={14} className="mt-0.5 shrink-0" />
-                      <div>
-                        <div className="text-xs font-medium">Hide host</div>
-                        <div className="text-[10px] text-gray-500 dark:text-gray-400">
-                          Hide all events from this host
-                        </div>
-                      </div>
-                    </button>
-                  )}
-                  {/* Flag section */}
-                  <div className="border-t border-gray-200 dark:border-gray-700" />
-                  <button
-                    onClick={() => handleReport('incorrect_info')}
-                    className="w-full flex items-center gap-2 px-3 py-2 text-xs text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
-                  >
-                    <AlertTriangle size={14} />
-                    Flag incorrect info
-                  </button>
-                  <button
-                    onClick={() => handleReport('spam')}
-                    className="w-full flex items-center gap-2 px-3 py-2 text-xs text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
-                  >
-                    <ShieldAlert size={14} />
-                    Report as spam
-                  </button>
-                </div>
-              )}
-            </div>
+            {actionButtons(playerSlot)}
           </div>
 
           {/* The Listen player's own row, so opening it can't move the buttons or tags */}

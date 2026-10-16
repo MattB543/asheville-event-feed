@@ -410,7 +410,10 @@ export default function AIChatModal({
   );
 
   const dialogRef = useRef<HTMLDivElement>(null);
-  useModal(isOpen, onClose, dialogRef, inputRef);
+  // On a phone, focusing the box on open throws up the keyboard, and iOS then scrolls
+  // the chat and the page behind it around; there, wait for a tap instead
+  const touch = typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches;
+  useModal(isOpen, onClose, dialogRef, touch ? undefined : inputRef);
 
   // Check if we should show suggestions (only when just the initial message exists)
   const showSuggestions =
@@ -527,14 +530,9 @@ export default function AIChatModal({
             </div>
           )}
 
-          <div ref={messagesEndRef} />
-        </div>
-
-        {/* Input */}
-        <div className="p-4 border-t border-gray-200 dark:border-gray-700">
-          {/* Suggestion buttons */}
+          {/* Right under the greeting, where the eye already is */}
           {showSuggestions && (
-            <div className="flex flex-wrap gap-2 mb-3">
+            <div className="flex flex-wrap gap-2">
               {SUGGESTIONS.map((suggestion) => (
                 <button
                   key={suggestion}
@@ -546,6 +544,12 @@ export default function AIChatModal({
               ))}
             </div>
           )}
+          <div ref={messagesEndRef} />
+        </div>
+
+        {/* Input */}
+        <div className="p-4 border-t border-gray-200 dark:border-gray-700">
+          {/* Suggestion buttons */}
           <div className="flex gap-2">
             <input
               ref={inputRef}

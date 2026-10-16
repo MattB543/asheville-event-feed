@@ -43,7 +43,12 @@ export default function CardSongButton({ event }: CardSongButtonProps) {
               {found === null && (
                 <p className="text-xs text-gray-500 dark:text-gray-400">Finding a song…</p>
               )}
-              <EventSpotifyPlayer event={event} height={80} onResult={setFound} />
+              <EventSpotifyPlayer
+                event={event}
+                height={80}
+                onResult={setFound}
+                className="max-w-md"
+              />
             </>
           )}
         </div>

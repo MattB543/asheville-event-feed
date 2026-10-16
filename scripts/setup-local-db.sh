@@ -60,8 +60,12 @@ elif [[ -z "$current_url" ]] || [[ "$current_url" == *"your-password"* ]] ||
   { echo "DATABASE_URL=${LOCAL_URL}"; cat .env.tmp; } > .env
   rm .env.tmp
   echo "   DATABASE_URL set to ${LOCAL_URL}"
+elif [[ "$current_url" =~ @?(localhost|127\.0\.0\.1)[:/] ]]; then
+  echo "   left as is; tables and events below go to that local database instead"
 else
-  echo "   left as is; tables and events below go to that database instead"
+  # The steps below change tables and can scrape into it, so never run them on a shared database
+  echo "   left as is, so stopping here: point DATABASE_URL at a local database and re-run."
+  exit 1
 fi
 
 echo "5. Sign-in keys"

@@ -235,6 +235,7 @@ export default function EventCard({
   onCollapseDesktop,
 }: EventCardProps) {
   const [imgError, setImgError] = useState(false);
+  const [playerSlot, setPlayerSlot] = useState<HTMLDivElement | null>(null);
   const [isExpanded, setIsExpanded] = useState(false);
   // Mobile expansion state: 0 = truncated AI summary, 1 = full AI summary, 2 = original description
   const [mobileExpansionState, setMobileExpansionState] = useState<0 | 1 | 2>(0);
@@ -982,7 +983,7 @@ export default function EventCard({
           </IntentLink>
 
           {/* Metadata: Title, Date, Location, Tags */}
-          <div className="flex flex-col xl:row-span-2">
+          <div className="flex flex-col justify-between xl:row-span-2">
             <div>
               <div className="flex items-start gap-2 flex-wrap">
                 <h3 className="text-base font-bold leading-tight text-brand-600 dark:text-brand-400">
@@ -1319,7 +1320,7 @@ export default function EventCard({
                 {favoriteCount > 0 && <span>{favoriteCount}</span>}
               </button>
             )}
-            <CardSongButton event={event} />
+            <CardSongButton event={event} playerContainer={playerSlot} />
             {/* Share button */}
             <div className="relative">
               <button
@@ -1479,6 +1480,13 @@ export default function EventCard({
               )}
             </div>
           </div>
+
+          {/* The Listen player's own row, so opening it can't move the buttons or tags */}
+          <div
+            ref={setPlayerSlot}
+            className="sm:col-span-2 xl:col-span-1 xl:col-start-3 empty:hidden"
+            onClick={(e) => e.stopPropagation()}
+          />
         </div>
       )}
     </div>

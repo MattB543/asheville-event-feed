@@ -89,6 +89,10 @@ export default function EventSpotifyPlayer({
         { uri: `spotify:track:${trackId}`, height, width: '100%' },
         (controller) => {
           player = controller;
+          // Spotify's card sits on a white page; rounding alone leaves a faint white
+          // rim, so trim a pixel off each edge as well
+          const frame = container.querySelector('iframe');
+          if (frame) frame.style.clipPath = 'inset(1px round 12px)';
           let reported = false;
           // Which shows people actually listen to, not just open
           controller.addListener('playback_started', () => {
@@ -108,7 +112,7 @@ export default function EventSpotifyPlayer({
 
   if (!trackId) return null;
   return (
-    <div className={`overflow-hidden rounded-xl ${className}`}>
+    <div className={className}>
       <div ref={holder} />
     </div>
   );

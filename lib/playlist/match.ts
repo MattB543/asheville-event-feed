@@ -214,20 +214,10 @@ export async function findTrack(event: PlaylistEvent, artist: string): Promise<T
 }
 
 /**
- * One line, at most 300 characters: Spotify's limit, and it rejects newlines.
- * Artist names are dropped from the end to fit.
+ * Spotify's playlist description. Spotify already shows each song's artist, so it
+ * just says what this is and where the lineup lives, written short for people to type.
  */
-export function playlistDescription(artists: string[], pageUrl: string): string {
-  const MAX = 300;
-  const head = `Full lineup: ${pageUrl.replace(/^https?:\/\//, '')} • This week: `;
-  const tail = ' • updated weekly from avlgo.com';
-  const build = (n: number) => {
-    const more = artists.length - n;
-    return `${head}${artists.slice(0, n).join(', ')}${more > 0 ? `, +${more} more` : ''}${tail}`;
-  };
-  for (let n = artists.length; n > 1; n--) {
-    const candidate = build(n);
-    if (candidate.length <= MAX) return candidate;
-  }
-  return build(1).slice(0, MAX);
+export function playlistDescription(pageUrl: string): string {
+  const shortUrl = pageUrl.replace(/^https?:\/\//, '').replace(/^www\./, '');
+  return `One song from each headliner playing Asheville this week. Dates and tickets: ${shortUrl}`;
 }

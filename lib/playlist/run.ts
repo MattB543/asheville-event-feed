@@ -108,10 +108,7 @@ export async function runPlaylist({
   const shows = chosen.map((s) => ({ ...s, soldOut: soldOut.has(s.event.id) }));
 
   if (!dryRun && shows.length > 0) {
-    const description = playlistDescription(
-      shows.map((s) => s.spotifyArtist ?? '?'),
-      lineupUrl
-    );
+    const description = playlistDescription(lineupUrl);
     await replacePlaylist(
       env.SPOTIFY_PLAYLIST_ID!,
       shows.map((s) => s.trackId),

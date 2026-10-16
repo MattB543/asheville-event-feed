@@ -6,6 +6,7 @@ import {
 import { env } from '@/lib/config/env';
 import { normalizeName } from '@/lib/utils/venueName';
 import { getTrack, searchTracks, type SpotifyArtist, type SpotifyTrack } from './spotify';
+import { fetchWithRetry } from '@/lib/utils/retry';
 
 // Ported from the avlgo-playlist script, which ran these rules for months; keep
 // them in step with it until that script is retired.
@@ -70,21 +71,25 @@ export function isClassifierEnabled(): boolean {
 }
 
 async function haikuCompletion(system: string, user: string): Promise<string> {
-  const response = await fetch('https://api.anthropic.com/v1/messages', {
-    method: 'POST',
-    headers: {
-      'x-api-key': env.ANTHROPIC_API_KEY ?? '',
-      'anthropic-version': '2023-06-01',
-      'content-type': 'application/json',
+  const response = await fetchWithRetry(
+    'https://api.anthropic.com/v1/messages',
+    {
+      method: 'POST',
+      headers: {
+        'x-api-key': env.ANTHROPIC_API_KEY ?? '',
+        'anthropic-version': '2023-06-01',
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify({
+        model: HAIKU_MODEL,
+        max_tokens: 4000,
+        system,
+        messages: [{ role: 'user', content: user }],
+      }),
     },
-    body: JSON.stringify({
-      model: HAIKU_MODEL,
-      max_tokens: 4000,
-      system,
-      messages: [{ role: 'user', content: user }],
-    }),
-  });
-  if (!response.ok) throw new Error(`Anthropic ${response.status}: ${await response.text()}`);
+    // One batched call for every title, so it gets longer than the default per try
+    { timeoutMs: 60_000, maxRetries: 2 }
+  );
   const data = (await response.json()) as { content?: { type: string; text?: string }[] };
   return (data.content ?? [])
     .filter((b) => b.type === 'text')

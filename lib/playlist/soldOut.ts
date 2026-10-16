@@ -1,5 +1,6 @@
 import { env } from '@/lib/config/env';
 import type { PlaylistEvent } from './match';
+import { fetchWithRetry } from '@/lib/utils/retry';
 
 // Both venues run the same WordPress plugin (RHP), so one parser reads both
 const VENUE_SCHEDULE_URLS: Record<string, string> = {
@@ -52,11 +53,11 @@ async function eventbriteSoldOut(events: PlaylistEvent[]): Promise<Set<string>> 
     const id = event.url.match(EVENTBRITE_ID_RE)?.[1];
     if (!id) continue;
     try {
-      const response = await fetch(
+      const response = await fetchWithRetry(
         `https://www.eventbriteapi.com/v3/events/${id}/?expand=ticket_availability`,
-        { headers: { Authorization: `Bearer ${env.EVENTBRITE_API_TOKEN}` } }
+        { headers: { Authorization: `Bearer ${env.EVENTBRITE_API_TOKEN}` } },
+        { maxRetries: 1 }
       );
-      if (!response.ok) continue;
       const data = (await response.json()) as { ticket_availability?: { is_sold_out?: boolean } };
       if (data.ticket_availability?.is_sold_out) sold.add(event.id);
     } catch (error) {
@@ -73,12 +74,15 @@ export async function findSoldOut(events: PlaylistEvent[]): Promise<Set<string>>
   for (const source of sources) {
     let listings: ReturnType<typeof parseVenueSchedule>;
     try {
-      const response = await fetch(VENUE_SCHEDULE_URLS[source], {
-        headers: {
-          'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36',
+      const response = await fetchWithRetry(
+        VENUE_SCHEDULE_URLS[source],
+        {
+          headers: {
+            'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36',
+          },
         },
-      });
-      if (!response.ok) continue;
+        { maxRetries: 2 }
+      );
       listings = parseVenueSchedule(await response.text());
     } catch (error) {
       console.warn(`[Playlist] Sold-out check skipped for ${source}:`, error);

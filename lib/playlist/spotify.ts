@@ -1,4 +1,5 @@
 import { env } from '@/lib/config/env';
+import { fetchWithRetry, HttpResponseError } from '@/lib/utils/retry';
 import { isRateLimited } from '@/lib/utils/rate-limit';
 
 const API = 'https://api.spotify.com/v1';
@@ -34,7 +35,7 @@ async function accessToken(): Promise<string> {
   const basic = Buffer.from(`${env.SPOTIFY_CLIENT_ID}:${env.SPOTIFY_CLIENT_SECRET}`).toString(
     'base64'
   );
-  const response = await fetch('https://accounts.spotify.com/api/token', {
+  const response = await fetchWithRetry('https://accounts.spotify.com/api/token', {
     method: 'POST',
     headers: {
       Authorization: `Basic ${basic}`,
@@ -45,9 +46,6 @@ async function accessToken(): Promise<string> {
       refresh_token: env.SPOTIFY_REFRESH_TOKEN ?? '',
     }),
   });
-  if (!response.ok) {
-    throw new Error(`Spotify token refresh failed: ${response.status} ${await response.text()}`);
-  }
   const data = (await response.json()) as {
     access_token: string;
     expires_in: number;
@@ -66,34 +64,27 @@ async function spotifyFetch(path: string, init: RequestInit = {}): Promise<Respo
   if (Date.now() < blockedUntil) {
     throw new SpotifyRateLimitError(Math.ceil((blockedUntil - Date.now()) / 1000));
   }
-  let lastError: unknown;
-  for (let attempt = 0; attempt < 3; attempt++) {
-    try {
-      const response = await fetch(`${API}${path}`, {
-        ...init,
-        headers: {
-          Authorization: `Bearer ${await accessToken()}`,
-          'Content-Type': 'application/json',
-          ...init.headers,
-        },
-      });
-      if (response.status === 429) {
-        const retryAfter = Number(response.headers.get('retry-after'));
-        const seconds = Number.isFinite(retryAfter) && retryAfter > 0 ? retryAfter : 60;
-        blockedUntil = Date.now() + seconds * 1000;
-        throw new SpotifyRateLimitError(seconds);
-      }
-      if (!response.ok) {
-        throw new Error(`Spotify ${init.method ?? 'GET'} ${path}: ${response.status}`);
-      }
-      return response;
-    } catch (error) {
-      if (error instanceof SpotifyRateLimitError) throw error;
-      lastError = error;
-      await new Promise((resolve) => setTimeout(resolve, 1500 * (attempt + 1)));
+  const headers = {
+    Authorization: `Bearer ${await accessToken()}`,
+    'Content-Type': 'application/json',
+    ...init.headers,
+  };
+  try {
+    return await fetchWithRetry(
+      `${API}${path}`,
+      { ...init, headers },
+      // A 429 waits out Retry-After below rather than retrying straight away
+      { shouldRetry: (error) => !(error instanceof HttpResponseError && error.status === 429) }
+    );
+  } catch (error) {
+    if (error instanceof HttpResponseError && error.status === 429) {
+      const retryAfter = Number(error.headers?.get('retry-after'));
+      const seconds = Number.isFinite(retryAfter) && retryAfter > 0 ? retryAfter : 60;
+      blockedUntil = Date.now() + seconds * 1000;
+      throw new SpotifyRateLimitError(seconds);
     }
+    throw error;
   }
-  throw lastError;
 }
 
 export async function searchTracks(query: string): Promise<SpotifyTrack[]> {

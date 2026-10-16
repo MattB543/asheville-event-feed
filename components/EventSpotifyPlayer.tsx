@@ -55,6 +55,7 @@ export default function EventSpotifyPlayer({
   onResult,
 }: EventSpotifyPlayerProps) {
   const [trackId, setTrackId] = useState<string | null>(null);
+  const [ready, setReady] = useState(false);
   const holder = useRef<HTMLDivElement>(null);
   const music = isMusicEvent(event);
 
@@ -89,6 +90,8 @@ export default function EventSpotifyPlayer({
         { uri: `spotify:track:${trackId}`, height, width: '100%' },
         (controller) => {
           player = controller;
+          // Spotify's frame is white until its player draws; show it only then
+          controller.addListener('ready', () => setReady(true));
           // Spotify's card sits on a white page; rounding alone leaves a faint white
           // rim, so trim a pixel off each edge as well
           const frame = container.querySelector('iframe');
@@ -105,6 +108,7 @@ export default function EventSpotifyPlayer({
     });
     return () => {
       cancelled = true;
+      setReady(false);
       player?.destroy();
       container.replaceChildren();
     };
@@ -112,7 +116,9 @@ export default function EventSpotifyPlayer({
 
   if (!trackId) return null;
   return (
-    <div className={className}>
+    <div
+      className={`transition-opacity duration-300 ${ready ? 'opacity-100' : 'opacity-0'} ${className}`}
+    >
       <div ref={holder} />
     </div>
   );

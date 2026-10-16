@@ -218,11 +218,11 @@ function getStorageItem<T>(key: string, defaultValue: T): T {
   }
 }
 
-// A day's cards under its date heading. The last card's own bottom line would sit on
-// the box's rounded border as a thick square edge, so it's dropped (no overflow clip:
-// it would cut off the cards' dropdown menus)
+// A day's cards under its date heading. The last card's square bottom (its line and
+// background) would sit on the box's rounded border, so it's dropped and rounded to
+// match (no overflow clip: it would cut off the cards' dropdown menus)
 const DAY_GROUP_LIST =
-  'flex flex-col bg-white dark:bg-gray-900 sm:rounded-b-lg sm:shadow-sm sm:border sm:border-gray-200 dark:sm:border-gray-700 [&>div:last-child>div]:border-b-0';
+  'flex flex-col bg-white dark:bg-gray-900 sm:rounded-b-lg sm:shadow-sm sm:border sm:border-gray-200 dark:sm:border-gray-700 [&>div:last-child>div]:border-b-0 [&>div:last-child>div]:rounded-b-lg';
 
 const TOP30_VISIBLE_LIMIT = 30;
 // Check if localStorage contains non-default filters that would affect query results

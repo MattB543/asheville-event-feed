@@ -294,7 +294,7 @@ export default function EventContent({
                 type="button"
                 onClick={() => setImageOpen(true)}
                 aria-label="View full image"
-                className="absolute inset-0 cursor-zoom-in"
+                className="absolute inset-0 cursor-zoom-in rounded-lg outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brand-400"
               />
             </>
           ) : (

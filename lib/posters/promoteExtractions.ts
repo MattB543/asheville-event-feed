@@ -19,7 +19,11 @@ import { invalidateEventsCache } from '@/lib/cache/invalidation';
 import { countSharedTitleWords } from '@/lib/utils/deduplication';
 import { isNonNCEvent } from '@/lib/utils/geo';
 import { generateEventSlug } from '@/lib/utils/slugify';
-import { getDayBoundariesEastern, getStartOfTodayEastern } from '@/lib/utils/timezone';
+import {
+  getDayBoundariesEastern,
+  getStartOfTodayEastern,
+  getDateStringEastern,
+} from '@/lib/utils/timezone';
 import { getVenueForEvent } from '@/lib/utils/venues';
 
 export type PromotionOutcome =
@@ -66,11 +70,6 @@ const PROMOTION_CONCURRENCY = 4;
 
 type ExtractionRow = typeof posterExtractions.$inferSelect;
 
-/** Eastern-time YYYY-MM-DD key, matching the dedup helpers' day grouping. */
-function easternDateKey(date: Date): string {
-  return date.toLocaleDateString('en-CA', { timeZone: 'America/New_York' });
-}
-
 /**
  * Find an existing live event that this extraction is a duplicate of.
  *
@@ -93,7 +92,7 @@ async function findExistingEvent(
     return null;
   }
 
-  const dateKey = easternDateKey(startDate);
+  const dateKey = getDateStringEastern(startDate);
   const { start, end } = getDayBoundariesEastern(dateKey);
 
   const candidates = await findSimilarByEmbedding(embedding, {
@@ -110,7 +109,7 @@ async function findExistingEvent(
   const posterVenue = getVenueForEvent(extraction.organizer, extraction.location, extraction.title);
 
   for (const candidate of candidates) {
-    if (easternDateKey(candidate.startDate) !== dateKey) continue;
+    if (getDateStringEastern(candidate.startDate) !== dateKey) continue;
 
     const sharedTitleWords = countSharedTitleWords(extraction.title, candidate.title);
     const candidateVenue = getVenueForEvent(

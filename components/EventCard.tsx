@@ -33,6 +33,7 @@ import CardSongButton from './CardSongButton';
 import WholeImage from './WholeImage';
 import { venueLine } from '@/lib/utils/venueName';
 import { useDismiss } from '@/lib/hooks/useDismiss';
+import { getDateStringEastern, getTodayStringEastern } from '@/lib/utils/timezone';
 
 // Stateless formatters, hoisted so they aren't rebuilt per card per render.
 // Pinned to Eastern time so displayed dates agree with the feed's ET date filtering.
@@ -47,12 +48,6 @@ const EVENT_TIME_FORMATTER = new Intl.DateTimeFormat('en-US', {
   timeZone: EVENT_TIMEZONE,
   hour: 'numeric',
   minute: '2-digit',
-});
-const EVENT_DAY_KEY_FORMATTER = new Intl.DateTimeFormat('en-CA', {
-  timeZone: EVENT_TIMEZONE,
-  year: 'numeric',
-  month: '2-digit',
-  day: '2-digit',
 });
 
 // The desktop layout's image sits in a 192x128 cell. Without `sizes` it defaulted to 100vw and
@@ -334,8 +329,7 @@ export default function EventCard({
     const eventDate = new Date(date);
 
     // "Today" compared in Eastern time, matching how the feed groups and filters dates
-    const isToday =
-      EVENT_DAY_KEY_FORMATTER.format(eventDate) === EVENT_DAY_KEY_FORMATTER.format(new Date());
+    const isToday = getDateStringEastern(eventDate) === getTodayStringEastern();
 
     const dateOnly = isToday ? 'Today' : EVENT_DATE_FORMATTER.format(eventDate);
 

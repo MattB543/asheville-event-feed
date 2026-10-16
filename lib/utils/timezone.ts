@@ -35,14 +35,15 @@ export function getTodayStringEastern(): string {
 /**
  * Get a date's calendar day in Eastern timezone (YYYY-MM-DD format)
  */
+const EASTERN_DAY = new Intl.DateTimeFormat('en-CA', {
+  timeZone: 'America/New_York',
+  year: 'numeric',
+  month: '2-digit',
+  day: '2-digit',
+});
+
 export function getDateStringEastern(date: Date): string {
-  const formatter = new Intl.DateTimeFormat('en-CA', {
-    timeZone: 'America/New_York',
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-  });
-  return formatter.format(date);
+  return EASTERN_DAY.format(date);
 }
 
 /**

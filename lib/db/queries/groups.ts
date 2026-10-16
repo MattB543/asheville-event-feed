@@ -4,7 +4,11 @@ import { db } from '@/lib/db';
 import { events, groups } from '@/lib/db/schema';
 import { eventMatchKey, prefilterValues } from '@/lib/groups/matchKeys';
 import { generateEventSlug } from '@/lib/utils/slugify';
-import { getStartOfTodayEastern, getTodayStringEastern } from '@/lib/utils/timezone';
+import {
+  getStartOfTodayEastern,
+  getTodayStringEastern,
+  getDateStringEastern,
+} from '@/lib/utils/timezone';
 import { liveEvent } from '@/lib/db/liveEvent';
 
 /**
@@ -82,13 +86,6 @@ const monthYearFormat = new Intl.DateTimeFormat('en-US', {
   month: 'short',
   year: 'numeric',
 });
-/** YYYY-MM-DD, the same shape as getTodayStringEastern(). */
-const isoDateFormat = new Intl.DateTimeFormat('en-CA', {
-  timeZone: EASTERN,
-  year: 'numeric',
-  month: '2-digit',
-  day: '2-digit',
-});
 const monthFormat = new Intl.DateTimeFormat('en-US', { timeZone: EASTERN, month: 'short' });
 const dayFormat = new Intl.DateTimeFormat('en-US', { timeZone: EASTERN, day: 'numeric' });
 const weekdayFormat = new Intl.DateTimeFormat('en-US', { timeZone: EASTERN, weekday: 'short' });
@@ -114,7 +111,7 @@ function easternDays(): EasternDays {
 
 /** "Today" / "Tomorrow" when the event falls on one of them (Eastern), else null. */
 function relativeDayLabel(date: Date, days: EasternDays): string | null {
-  const iso = isoDateFormat.format(date);
+  const iso = getDateStringEastern(date);
   if (iso === days.today) return 'Today';
   if (iso === days.tomorrow) return 'Tomorrow';
   return null;

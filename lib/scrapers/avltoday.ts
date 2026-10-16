@@ -4,7 +4,7 @@ import { isNonNCEvent } from '@/lib/utils/geo';
 import { formatPrice } from '@/lib/utils/parsers';
 import { getZipFromCoords, getZipFromCity } from '@/lib/utils/geo';
 import { tryExtractPrice } from '@/lib/utils/parsers';
-import { parseAsEastern } from '@/lib/utils/timezone';
+import { parseAsEastern, getTodayStringEastern } from '@/lib/utils/timezone';
 
 // URL domain to organizer mapping
 const DOMAIN_TO_ORGANIZER: Record<string, string> = {
@@ -73,10 +73,7 @@ const API_HEADERS = {
 export async function scrapeAvlToday(): Promise<ScrapedEvent[]> {
   const API_URL = 'https://portal.cityspark.com/v1/events/AVLToday';
   // Get date in Asheville time (America/New_York) to avoid UTC date shift issues
-  const startStr =
-    new Date().toLocaleDateString('en-CA', {
-      timeZone: 'America/New_York',
-    }) + 'T00:00';
+  const startStr = getTodayStringEastern() + 'T00:00';
 
   const scraped: ScrapedEvent[] = [];
   let skip = 0;

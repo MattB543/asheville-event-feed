@@ -77,6 +77,8 @@ export default function EventSpotifyPlayer({
 
   useEffect(() => {
     if (!music) return;
+    // Fetch Spotify's player script alongside the song lookup instead of after it
+    loadIframeApi().catch(() => {});
     const controller = new AbortController();
     fetch(`/api/events/${event.id}/track`, { signal: controller.signal })
       .then((response) => (response.ok ? response.json() : null))

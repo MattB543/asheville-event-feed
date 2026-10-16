@@ -25,6 +25,7 @@ import { getMatchingProgramsForEvent } from '@/lib/matching/programs';
 import { formatPriceDisplay } from '@/lib/utils/priceDisplay';
 import { mapsSearchUrl } from '@/lib/utils/maps';
 import EventSpotifyPlayer from './EventSpotifyPlayer';
+import Lightbox from './Lightbox';
 
 // The hero box is 288x192 at `sm` up to 420x288 at `xl`. object-cover scales a wide image to the
 // box's height, so each size is 3x the height, keeping sources up to 3:1 sharp. Full width below
@@ -66,6 +67,7 @@ export default function EventContent({
   showTitle = true,
   className = '',
 }: EventContentProps) {
+  const [imageOpen, setImageOpen] = useState(false);
   const [imgError, setImgError] = useState(false);
   const [calendarMenuOpen, setCalendarMenuOpen] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -288,6 +290,12 @@ export default function EventContent({
                 unoptimized={event.imageUrl.startsWith('data:')}
                 priority
               />
+              <button
+                type="button"
+                onClick={() => setImageOpen(true)}
+                aria-label="View full image"
+                className="absolute inset-0 cursor-zoom-in"
+              />
             </>
           ) : (
             <Image
@@ -496,6 +504,18 @@ export default function EventContent({
         </div>
         <EventSpotifyPlayer event={event} className="mt-4 w-full sm:w-1/2" height={232} />
       </section>
+
+      {imageOpen && event.imageUrl && (
+        <Lightbox label={`Image for ${event.title}`} onClose={() => setImageOpen(false)}>
+          {/* Natural size, unknown up front, so a plain img rather than next/image */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={event.imageUrl}
+            alt={event.title}
+            className="mx-auto max-h-[85vh] w-auto object-contain rounded-sm shadow-2xl"
+          />
+        </Lightbox>
+      )}
     </div>
   );
 }

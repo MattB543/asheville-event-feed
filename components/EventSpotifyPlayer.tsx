@@ -26,9 +26,21 @@ declare global {
 // Spotify's embed script loads once per page and hands back its API through a global callback
 let iframeApi: Promise<SpotifyIFrameAPI> | null = null;
 function loadIframeApi(): Promise<SpotifyIFrameAPI> {
-  iframeApi ??= new Promise((resolve) => {
-    window.onSpotifyIframeApiReady = resolve;
+  iframeApi ??= new Promise((resolve, reject) => {
     const script = document.createElement('script');
+    // Blocked or stalled (e.g. by an ad blocker): give up, and let the next player try again
+    const fail = () => {
+      clearTimeout(timer);
+      script.remove();
+      iframeApi = null;
+      reject(new Error('Spotify player script did not load'));
+    };
+    const timer = setTimeout(fail, 10_000);
+    window.onSpotifyIframeApiReady = (api) => {
+      clearTimeout(timer);
+      resolve(api);
+    };
+    script.onerror = fail;
     script.src = 'https://open.spotify.com/embed/iframe-api/v1';
     script.async = true;
     document.body.appendChild(script);
@@ -90,36 +102,43 @@ export default function EventSpotifyPlayer({
     container.appendChild(element);
     let player: SpotifyController | null = null;
     let cancelled = false;
-    void loadIframeApi().then((api) => {
-      if (cancelled) return;
-      api.createController(
-        element,
-        { uri: `spotify:track:${trackId}`, height, width: '100%' },
-        (controller) => {
-          player = controller;
-          // Spotify's frame is white until its player draws; show it only then
-          controller.addListener('ready', () => setReady(true));
-          // Spotify's card sits on a white page; rounding alone leaves a faint white
-          // rim, so trim a pixel off each edge as well
-          const frame = container.querySelector('iframe');
-          if (frame) frame.style.clipPath = 'inset(1px round 12px)';
-          let reported = false;
-          // Which shows people actually listen to, not just open
-          controller.addListener('playback_started', () => {
-            if (reported || !posthog.__loaded) return;
-            reported = true;
-            posthog.capture('spotify_play', { event_id: event.id, track_id: trackId });
-          });
-        }
-      );
-    });
+    loadIframeApi().then(
+      (api) => {
+        if (cancelled) return;
+        api.createController(
+          element,
+          { uri: `spotify:track:${trackId}`, height, width: '100%' },
+          (controller) => {
+            player = controller;
+            // Spotify's frame is white until its player draws; show it only then
+            controller.addListener('ready', () => setReady(true));
+            // Spotify's card sits on a white page; rounding alone leaves a faint white
+            // rim, so trim a pixel off each edge as well
+            const frame = container.querySelector('iframe');
+            if (frame) frame.style.clipPath = 'inset(1px round 12px)';
+            let reported = false;
+            // Which shows people actually listen to, not just open
+            controller.addListener('playback_started', () => {
+              if (reported || !posthog.__loaded) return;
+              reported = true;
+              posthog.capture('spotify_play', { event_id: event.id, track_id: trackId });
+            });
+          }
+        );
+      },
+      () => {
+        if (cancelled) return;
+        setTrackId(null);
+        onResult?.(false);
+      }
+    );
     return () => {
       cancelled = true;
       setReady(false);
       player?.destroy();
       container.replaceChildren();
     };
-  }, [trackId, event.id, height]);
+  }, [trackId, event.id, height, onResult]);
 
   const loading = trackId ? !ready : placeholderWhileSearching && music && searching;
   if (!trackId && !loading) return null;

@@ -1,8 +1,9 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import Image from 'next/image';
 import WholeImage from './WholeImage';
+import { useDismiss } from '@/lib/hooks/useDismiss';
 import Link from 'next/link';
 import {
   CalendarPlus2,
@@ -79,20 +80,7 @@ export default function EventContent({
   const startDate =
     typeof event.startDate === 'string' ? new Date(event.startDate) : event.startDate;
 
-  // Close calendar menu when clicking outside
-  useEffect(() => {
-    function handleClickOutside(e: MouseEvent) {
-      if (calendarMenuRef.current && !calendarMenuRef.current.contains(e.target as Node)) {
-        setCalendarMenuOpen(false);
-      }
-    }
-
-    if (calendarMenuOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
-      return () => document.removeEventListener('mousedown', handleClickOutside);
-    }
-    return undefined;
-  }, [calendarMenuOpen]);
+  useDismiss(calendarMenuOpen, () => setCalendarMenuOpen(false), [calendarMenuRef]);
 
   const handleAddToGoogleCalendar = () => {
     window.open(

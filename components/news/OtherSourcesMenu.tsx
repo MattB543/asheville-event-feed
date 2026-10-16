@@ -1,8 +1,9 @@
 'use client';
 
-import { useEffect, useId, useLayoutEffect, useRef, useState } from 'react';
+import { useId, useLayoutEffect, useRef, useState } from 'react';
 import { ArrowUpRight, ChevronDown } from 'lucide-react';
 import { outboundUrl, TAP_AREA } from './display';
+import { useDismiss } from '@/lib/hooks/useDismiss';
 
 interface OtherSourcesMenuProps {
   /** The outlets besides the lead, earliest first. */
@@ -40,23 +41,7 @@ export default function OtherSourcesMenu({
     menu.style.left = '0';
   }, [open]);
 
-  useEffect(() => {
-    if (!open) return;
-    const onPointerDown = (event: PointerEvent) => {
-      if (!rootRef.current?.contains(event.target as Node)) setOpen(false);
-    };
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key !== 'Escape') return;
-      setOpen(false);
-      triggerRef.current?.focus();
-    };
-    document.addEventListener('pointerdown', onPointerDown);
-    document.addEventListener('keydown', onKeyDown);
-    return () => {
-      document.removeEventListener('pointerdown', onPointerDown);
-      document.removeEventListener('keydown', onKeyDown);
-    };
-  }, [open]);
+  useDismiss(open, () => setOpen(false), [rootRef], triggerRef);
 
   return (
     <span ref={rootRef} className="relative inline-flex self-stretch">

@@ -1,10 +1,11 @@
 'use client';
 
-import { Suspense, useEffect, useId, useRef, useState } from 'react';
+import { Suspense, useId, useRef, useState } from 'react';
 import { ChevronDown } from 'lucide-react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import IntentLink from '@/components/IntentLink';
+import { useDismiss } from '@/lib/hooks/useDismiss';
 
 export type HeaderTab = 'all' | 'top30' | 'groups' | 'news' | 'playlist' | 'parking';
 
@@ -115,21 +116,7 @@ function EventsMenu({
   const rootRef = useRef<HTMLDivElement>(null);
   const [isOpen, setIsOpen] = useState(false);
 
-  useEffect(() => {
-    if (!isOpen) return undefined;
-    const onPointer = (event: PointerEvent) => {
-      if (!rootRef.current?.contains(event.target as Node)) setIsOpen(false);
-    };
-    const onKey = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') setIsOpen(false);
-    };
-    document.addEventListener('pointerdown', onPointer);
-    document.addEventListener('keydown', onKey);
-    return () => {
-      document.removeEventListener('pointerdown', onPointer);
-      document.removeEventListener('keydown', onKey);
-    };
-  }, [isOpen]);
+  useDismiss(isOpen, () => setIsOpen(false), [rootRef]);
 
   const isEvents = activeTab === 'all' || activeTab === 'top30';
   const items = [

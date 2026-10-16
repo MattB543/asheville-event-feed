@@ -13,6 +13,7 @@ import {
   FileCode,
 } from 'lucide-react';
 import { useToast } from './ui/Toast';
+import { useDismiss } from '@/lib/hooks/useDismiss';
 
 // Re-export types for backwards compatibility (canonical definitions in lib/types/filters)
 import type { DateFilterType, PriceFilterType, TimeOfDay, DateRange } from '@/lib/types/filters';
@@ -65,20 +66,7 @@ export default function FilterBar({
     setLocalSearchInput(search);
   }, [search]);
 
-  // Close share menu when clicking outside
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (shareMenuRef.current && !shareMenuRef.current.contains(event.target as Node)) {
-        setShareMenuOpen(false);
-      }
-    }
-
-    if (shareMenuOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
-      return () => document.removeEventListener('mousedown', handleClickOutside);
-    }
-    return undefined;
-  }, [shareMenuOpen]);
+  useDismiss(shareMenuOpen, () => setShareMenuOpen(false), [shareMenuRef]);
 
   // Search submit handler
   const handleSearchSubmit = () => {

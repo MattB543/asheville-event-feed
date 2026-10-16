@@ -3,6 +3,7 @@
 import { useTheme } from 'next-themes';
 import { Moon, Sun, Monitor } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
+import { useDismiss } from '@/lib/hooks/useDismiss';
 
 export default function ThemeToggle() {
   const { theme, setTheme, resolvedTheme } = useTheme();
@@ -14,16 +15,7 @@ export default function ThemeToggle() {
   // eslint-disable-next-line react-hooks/set-state-in-effect -- SSR hydration: must delay client render
   useEffect(() => setMounted(true), []);
 
-  // Close dropdown on outside click
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setIsOpen(false);
-      }
-    }
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
+  useDismiss(isOpen, () => setIsOpen(false), [dropdownRef]);
 
   if (!mounted) {
     return (

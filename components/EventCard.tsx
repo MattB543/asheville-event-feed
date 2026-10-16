@@ -32,6 +32,7 @@ import { formatPriceDisplay } from '@/lib/utils/priceDisplay';
 import CardSongButton from './CardSongButton';
 import WholeImage from './WholeImage';
 import { venueLine } from '@/lib/utils/venueName';
+import { useDismiss } from '@/lib/hooks/useDismiss';
 
 // Stateless formatters, hoisted so they aren't rebuilt per card per render.
 // Pinned to Eastern time so displayed dates agree with the feed's ET date filtering.
@@ -257,23 +258,8 @@ export default function EventCard({
   const moreMenuRef = useRef<HTMLDivElement>(null);
   const { showToast } = useToast();
 
-  // Close dropdown menus when clicking outside
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (calendarMenuRef.current && !calendarMenuRef.current.contains(event.target as Node)) {
-        setCalendarMenuOpen(false);
-      }
-      if (moreMenuRef.current && !moreMenuRef.current.contains(event.target as Node)) {
-        setMoreMenuOpen(false);
-      }
-    }
-
-    if (calendarMenuOpen || moreMenuOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
-      return () => document.removeEventListener('mousedown', handleClickOutside);
-    }
-    return undefined;
-  }, [calendarMenuOpen, moreMenuOpen]);
+  useDismiss(calendarMenuOpen, () => setCalendarMenuOpen(false), [calendarMenuRef]);
+  useDismiss(moreMenuOpen, () => setMoreMenuOpen(false), [moreMenuRef]);
 
   const handleAddToAppleCalendar = () => {
     downloadEventAsICS(event);

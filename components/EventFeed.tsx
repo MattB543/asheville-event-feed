@@ -2825,7 +2825,7 @@ export default function EventFeed({
 
       {/* Scroll to top button */}
       <div
-        className={`fixed bottom-6 left-1/2 -translate-x-1/2 transition-all duration-300 z-50 ${
+        className={`fixed bottom-6 left-1/2 -translate-x-1/2 transition-all duration-300 z-40 ${
           showScrollTop
             ? 'opacity-100 translate-y-0'
             : 'opacity-0 translate-y-4 pointer-events-none'

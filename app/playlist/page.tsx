@@ -11,9 +11,8 @@ import { addDaysToDateString } from '@/lib/utils/dateFilters';
 import { formatDateEastern } from '@/lib/utils/timezone';
 import { formatPriceDisplay } from '@/lib/utils/priceDisplay';
 import { mapsSearchUrl } from '@/lib/utils/maps';
-
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.avlgo.com';
-const pageUrl = `${siteUrl}/playlist`;
+import { SITE_URL } from '@/lib/seo/site';
+const pageUrl = `${SITE_URL}/playlist`;
 const title = 'Bands playing in Asheville this week';
 const description =
   "A weekly Spotify playlist of the week's biggest shows in Asheville, one song per band.";

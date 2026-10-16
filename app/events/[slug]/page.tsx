@@ -7,8 +7,7 @@ import { createClient } from '@/lib/supabase/server';
 import { isSuperAdmin } from '@/lib/utils/superAdmin';
 import { isUserVerifiedCurator } from '@/lib/supabase/curatorProfile';
 import { buildEventJsonLd, buildEventMetaDescription, isLiveEvent } from '@/lib/seo/eventJsonLd';
-
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.avlgo.com';
+import { SITE_URL } from '@/lib/seo/site';
 
 // ISR: Revalidate every hour
 export const revalidate = 3600;
@@ -35,13 +34,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     return notFoundMetadata;
   }
 
-  const eventUrl = `${siteUrl}/events/${generateEventSlug(event.title, event.startDate, event.id)}`;
+  const eventUrl = `${SITE_URL}/events/${generateEventSlug(event.title, event.startDate, event.id)}`;
   const description = buildEventMetaDescription(event);
 
   // Use event image or fall back to site OG image
   const ogImage = event.imageUrl?.startsWith('data:')
-    ? `${siteUrl}/avlgo-og.png` // Don't use base64 for OG images
-    : event.imageUrl || `${siteUrl}/avlgo-og.png`;
+    ? `${SITE_URL}/avlgo-og.png` // Don't use base64 for OG images
+    : event.imageUrl || `${SITE_URL}/avlgo-og.png`;
 
   return {
     title: event.title,
@@ -101,7 +100,7 @@ export default async function EventPage({ params }: PageProps) {
     // In production, you might want: redirect(`/events/${expectedSlug}`)
   }
 
-  const eventUrl = `${siteUrl}/events/${expectedSlug}`;
+  const eventUrl = `${SITE_URL}/events/${expectedSlug}`;
 
   // Check user permissions for score viewing/editing
   const supabase = await createClient();
@@ -120,7 +119,7 @@ export default async function EventPage({ params }: PageProps) {
   const similarEvents = await getSimilarEvents(event.id);
 
   // JSON-LD structured data for SEO (null for deduped/dead rows)
-  const jsonLd = buildEventJsonLd(event, eventUrl, siteUrl);
+  const jsonLd = buildEventJsonLd(event, eventUrl, SITE_URL);
 
   return (
     <>

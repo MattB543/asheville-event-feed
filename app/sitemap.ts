@@ -6,54 +6,53 @@ import { queryGroupSitemapEntries } from '@/lib/db/queries/groups';
 import { generateEventSlug } from '@/lib/utils/slugify';
 import { getStartOfTodayEastern } from '@/lib/utils/timezone';
 import { liveEvent } from '@/lib/db/liveEvent';
+import { SITE_URL } from '@/lib/seo/site';
 
 // An async sitemap is otherwise rendered once at build time and never refreshed. Hourly:
 // each regeneration writes ~1.1 MB, and crawlers read it far less often than every 5 minutes
 export const revalidate = 3600;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.avlgo.com';
-
   // Base pages. No lastModified: we have no real revision time for these, and a
   // request-time "now" teaches crawlers to ignore lastmod on the event pages too
   const staticPages: MetadataRoute.Sitemap = [
     {
-      url: siteUrl,
+      url: SITE_URL,
       changeFrequency: 'hourly',
       priority: 1,
     },
     {
-      url: `${siteUrl}/events`,
+      url: `${SITE_URL}/events`,
       changeFrequency: 'hourly',
       priority: 0.9,
     },
     {
-      url: `${siteUrl}/events/top30`,
+      url: `${SITE_URL}/events/top30`,
       changeFrequency: 'daily',
       priority: 0.8,
     },
     {
-      url: `${siteUrl}/posters`,
+      url: `${SITE_URL}/posters`,
       changeFrequency: 'daily',
       priority: 0.7,
     },
     {
-      url: `${siteUrl}/groups`,
+      url: `${SITE_URL}/groups`,
       changeFrequency: 'daily',
       priority: 0.7,
     },
     {
-      url: `${siteUrl}/playlist`,
+      url: `${SITE_URL}/playlist`,
       changeFrequency: 'weekly',
       priority: 0.7,
     },
     {
-      url: `${siteUrl}/parking`,
+      url: `${SITE_URL}/parking`,
       changeFrequency: 'monthly',
       priority: 0.6,
     },
     {
-      url: `${siteUrl}/developers`,
+      url: `${SITE_URL}/developers`,
       changeFrequency: 'monthly',
       priority: 0.5,
     },
@@ -69,7 +68,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const groupEntries = await queryGroupSitemapEntries();
     staticPages.push(
       ...groupEntries.map((group) => ({
-        url: `${siteUrl}/groups/${group.slug}`,
+        url: `${SITE_URL}/groups/${group.slug}`,
         lastModified: group.updatedAt,
         changeFrequency: 'weekly' as const,
         priority: 0.6,
@@ -97,7 +96,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
     // Generate event page URLs
     const eventPages: MetadataRoute.Sitemap = allEvents.map((event) => ({
-      url: `${siteUrl}/events/${generateEventSlug(event.title, event.startDate, event.id)}`,
+      url: `${SITE_URL}/events/${generateEventSlug(event.title, event.startDate, event.id)}`,
       // When the listing last changed, not when the event happens
       lastModified: event.updatedAt ?? event.createdAt ?? undefined,
       changeFrequency: 'weekly' as const,

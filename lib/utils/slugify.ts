@@ -1,4 +1,5 @@
 import { getDateStringEastern } from '@/lib/utils/timezone';
+import { SITE_URL } from '@/lib/seo/site';
 
 /**
  * Slug utilities for generating SEO-friendly event URLs
@@ -92,6 +93,6 @@ export function generateEventUrl(
   baseUrl?: string
 ): string {
   const slug = generateEventSlug(title, startDate, id);
-  const base = baseUrl || process.env.NEXT_PUBLIC_SITE_URL || 'https://www.avlgo.com';
+  const base = baseUrl || SITE_URL;
   return `${base}/events/${slug}`;
 }

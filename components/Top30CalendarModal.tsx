@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { X, CalendarPlus2 } from 'lucide-react';
 import { useToast } from '@/components/ui/Toast';
 import { useModal } from '@/lib/hooks/useModal';
+import { SITE_URL } from '@/lib/seo/site';
 
 interface Top30CalendarModalProps {
   isOpen: boolean;
@@ -84,12 +85,12 @@ export default function Top30CalendarModal({ isOpen, onClose }: Top30CalendarMod
             <input
               type="text"
               readOnly
-              value="https://www.avlgo.com/api/top30/calendar"
+              value={`${SITE_URL}/api/top30/calendar`}
               className="flex-1 px-3 py-2 text-xs bg-[#e8f4f8] dark:bg-[#1a3a4a] rounded-lg border border-[#c5e4ed] dark:border-[#2a5a6a] text-gray-600 dark:text-gray-400"
             />
             <button
               onClick={() => {
-                void navigator.clipboard.writeText('https://www.avlgo.com/api/top30/calendar');
+                void navigator.clipboard.writeText(`${SITE_URL}/api/top30/calendar`);
                 showToast('URL copied!');
               }}
               className="px-3 py-2 text-xs font-medium text-[#2a7d9c] dark:text-[#7ec8e3] hover:bg-[#e8f4f8] dark:hover:bg-[#1a3a4a] rounded-lg transition-colors cursor-pointer"

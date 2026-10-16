@@ -1,12 +1,11 @@
 import type { MetadataRoute } from 'next';
+import { SITE_URL } from '@/lib/seo/site';
 
 // The documented public exports; the longer path wins over the /api/ disallow
 const allow = ['/', '/api/export/json', '/api/export/markdown'];
 const disallow = ['/api/', '/api/cron/', '/api/cron/cleanup/'];
 
 export default function robots(): MetadataRoute.Robots {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.avlgo.com';
-
   return {
     rules: [
       { userAgent: '*', allow, disallow },
@@ -16,6 +15,6 @@ export default function robots(): MetadataRoute.Robots {
       // Meta doesn't document Crawl-delay support; if it ignores the line, nothing changes
       { userAgent: 'meta-externalagent', allow, disallow, crawlDelay: 15 },
     ],
-    sitemap: `${siteUrl}/sitemap.xml`,
+    sitemap: `${SITE_URL}/sitemap.xml`,
   };
 }

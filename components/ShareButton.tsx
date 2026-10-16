@@ -4,9 +4,7 @@ import { useEffect, useState } from 'react';
 import { Share } from 'lucide-react';
 import { TAP_AREA } from './news/display';
 import { copyLink, shareLink, type ShareOutcome } from '@/lib/utils/shareLink';
-
-// Share links always point at the live site, even from a preview or local build
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://avlgo.com';
+import { SITE_URL } from '@/lib/seo/site';
 
 interface ShareButtonProps {
   /** Site path to share, e.g. "/news?s=abc" */

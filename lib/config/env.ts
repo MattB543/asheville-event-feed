@@ -1,5 +1,6 @@
 import * as dotenv from 'dotenv';
 import * as path from 'path';
+import { SITE_URL } from '@/lib/seo/site';
 
 // Load .env file with override:true to always prefer local .env over OS env vars
 // This ensures consistent behavior between development and scripts
@@ -46,7 +47,7 @@ export const env = {
     return process.env.POSTMARK_FROM_EMAIL;
   },
   get NEXT_PUBLIC_APP_URL() {
-    return process.env.NEXT_PUBLIC_APP_URL || 'https://www.avlgo.com';
+    return process.env.NEXT_PUBLIC_APP_URL || SITE_URL;
   },
   // Jina Reader API (for event verification)
   get JINA_API_KEY() {

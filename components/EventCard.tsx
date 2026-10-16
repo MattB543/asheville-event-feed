@@ -399,22 +399,9 @@ export default function EventCard({
   // For mobile expanded: just first 3 official tags
   const mobileTags = officialTags.slice(0, 3);
 
-  // Short venue name (plus the town outside Asheville); the full address is on the event page
+  // Short venue name (plus the town outside Asheville), on full cards and collapsed rows alike;
+  // the full address is on the event page
   const locationText = venueLine(event);
-
-  // Venue name only (for minimized view) - extract venue from location if organizer is missing
-  // Location often has format "Venue Name, Street Address, City, State" - we want just the venue
-  const venueName =
-    event.organizer ||
-    (() => {
-      if (!event.location) return null;
-      // If location contains a comma followed by a number (street address), extract just the venue part
-      const match = event.location.match(/^([^,]+),\s*\d/);
-      if (match) return match[1].trim();
-      // Otherwise just take the first comma-separated part if there are multiple
-      const parts = event.location.split(',');
-      return parts.length > 2 ? parts[0].trim() : event.location;
-    })();
 
   // The same row of buttons in the phone and desktop layouts
   const actionButtons = (playerContainer?: HTMLElement | null) => (
@@ -834,12 +821,12 @@ export default function EventCard({
           </IntentLink>
 
           {/* Separator */}
-          {venueName && <span className="text-gray-400 dark:text-gray-500 shrink-0">-</span>}
+          {locationText && <span className="text-gray-400 dark:text-gray-500 shrink-0">-</span>}
 
-          {/* Venue/Host */}
-          {venueName && (
+          {/* Venue */}
+          {locationText && (
             <span className="text-sm text-gray-500 dark:text-gray-400 truncate min-w-0 shrink-[3]">
-              {venueName}
+              {locationText}
             </span>
           )}
 
@@ -861,7 +848,7 @@ export default function EventCard({
           {/* Date/Time Badge */}
           <span
             className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-600 whitespace-nowrap shrink-0 ${
-              minimizedTags.length === 0 && !venueName ? 'ml-auto' : ''
+              minimizedTags.length === 0 && !locationText ? 'ml-auto' : ''
             }`}
           >
             {formatDate(event.startDate, event.timeUnknown)}

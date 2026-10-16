@@ -49,6 +49,7 @@ import {
 import Link from 'next/link';
 import { getZipName } from '@/lib/config/zipNames';
 import { usePreferenceSync } from '@/lib/hooks/usePreferenceSync';
+import { useCaptureSignal } from '@/lib/hooks/useCaptureSignal';
 import { useFavorites, replaceFavorites, clearFavorites } from '@/lib/hooks/useFavorites';
 import { computeDateFilterBounds } from '@/lib/utils/dateFilters';
 import {
@@ -419,19 +420,6 @@ const priceLabels: Record<PriceFilterType, string> = {
   under100: 'Under $100',
   custom: 'Custom Max',
 };
-
-// Wait (bounded) for auth to finish loading, polling a ref so callers read the
-// current value rather than one captured in a closure
-async function waitForAuth(
-  authLoadingRef: { current: boolean },
-  timeoutMs = 2000,
-  intervalMs = 50
-): Promise<void> {
-  const deadline = Date.now() + timeoutMs;
-  while (authLoadingRef.current && Date.now() < deadline) {
-    await new Promise((resolve) => setTimeout(resolve, intervalMs));
-  }
-}
 
 export default function EventFeed({
   initialEvents,
@@ -946,18 +934,13 @@ export default function EventFeed({
   const blockedKeywordsRef = useRef(blockedKeywords);
   const hiddenEventsRef = useRef(hiddenEvents);
   const favoritedEventIdsRef = useRef(favoritedEventIds);
-  // Auth state read through refs so awaits inside handlers see current values
-  const isLoggedInRef = useRef(isLoggedIn);
-  const authLoadingRef = useRef(authLoading);
 
   useEffect(() => {
     blockedHostsRef.current = blockedHosts;
     blockedKeywordsRef.current = blockedKeywords;
     hiddenEventsRef.current = hiddenEvents;
     favoritedEventIdsRef.current = favoritedEventIds;
-    isLoggedInRef.current = isLoggedIn;
-    authLoadingRef.current = authLoading;
-  }, [blockedHosts, blockedKeywords, hiddenEvents, favoritedEventIds, isLoggedIn, authLoading]);
+  }, [blockedHosts, blockedKeywords, hiddenEvents, favoritedEventIds]);
 
   const { saveToDatabase, isLoggedIn: isPrefSyncLoggedIn } = usePreferenceSync({
     getBlockedHosts: () => blockedHostsRef.current,
@@ -1399,38 +1382,7 @@ export default function EventFeed({
     setSelectedZips([]);
   }, []);
 
-  // Helper to capture signal (only 'favorite' and 'hide' signals now)
-  const captureSignal = useCallback(
-    async (eventId: string, signalType: 'favorite' | 'hide'): Promise<boolean> => {
-      // Wait for auth to settle (bounded), then read the current value - not the
-      // one captured when this callback was created
-      await waitForAuth(authLoadingRef);
-
-      if (!isLoggedInRef.current) {
-        return false;
-      }
-
-      try {
-        const response = await fetch('/api/signals', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ eventId, signalType }),
-        });
-
-        if (!response.ok) {
-          const errorData: unknown = await response.json().catch(() => ({}));
-          console.error('[Signal] API error:', response.status, errorData);
-          return false;
-        }
-
-        return true;
-      } catch (error) {
-        console.error('[Signal] Network error:', error);
-        return false;
-      }
-    },
-    []
-  );
+  const captureSignal = useCaptureSignal();
 
   // Hide event (by title + organizer fingerprint)
   const handleHideEvent = useCallback(
@@ -1495,22 +1447,16 @@ export default function EventFeed({
   const toggleFavorite = useCallback(
     async (eventId: string) => {
       try {
-        const { isFavorited, favoriteCount } = await toggleFavoriteShared(eventId);
+        const { favoriteCount } = await toggleFavoriteShared(eventId);
         if (favoriteCount !== null) {
           setFavoriteCountOverrides((prev) => ({ ...prev, [eventId]: favoriteCount }));
-        }
-
-        // Capture signal for favorites (only when adding, not removing)
-        if (isFavorited) {
-          // Await to ensure signal is captured before function returns
-          await captureSignal(eventId, 'favorite');
         }
       } catch (error) {
         console.error('[Favorite] Failed to toggle:', error);
         showToast('Could not update favorite. Please try again.', 'error');
       }
     },
-    [toggleFavoriteShared, captureSignal, showToast]
+    [toggleFavoriteShared, showToast]
   );
 
   const handleToggleFavorite = useCallback(

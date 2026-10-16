@@ -1,6 +1,7 @@
 'use client';
 
-import { useSyncExternalStore } from 'react';
+import { useCallback, useSyncExternalStore } from 'react';
+import { useCaptureSignal } from './useCaptureSignal';
 
 const STORAGE_KEY = 'favoritedEventIds';
 const EMPTY_FAVORITES: string[] = [];
@@ -193,5 +194,15 @@ export function useFavorites(): {
   toggleFavorite: (eventId: string) => Promise<ToggleFavoriteResult>;
 } {
   const ids = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
-  return { favoriteIds: ids, toggleFavorite };
+  const captureSignal = useCaptureSignal();
+  // Every heart, wherever it's tapped, teaches the For You list
+  const toggleAndRecord = useCallback(
+    async (eventId: string) => {
+      const result = await toggleFavorite(eventId);
+      if (result.isFavorited) void captureSignal(eventId, 'favorite');
+      return result;
+    },
+    [captureSignal]
+  );
+  return { favoriteIds: ids, toggleFavorite: toggleAndRecord };
 }

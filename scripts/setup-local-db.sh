@@ -64,11 +64,37 @@ else
   echo "   left as is; tables and events below go to that database instead"
 fi
 
-echo "5. Tables"
+echo "5. Sign-in keys"
+# The Supabase and Google sign-in keys are public: avlgo.com sends them to every
+# browser, so they're read from its scripts rather than asked for
+env_value() { grep -E "^$1=" .env | head -1 | cut -d= -f2- || true; }
+if [[ -n "$(env_value NEXT_PUBLIC_SUPABASE_URL)" && -n "$(env_value NEXT_PUBLIC_SUPABASE_ANON_KEY)" &&
+  -n "$(env_value NEXT_PUBLIC_GOOGLE_CLIENT_ID)" ]]; then
+  echo "   already set"
+else
+  scripts="$(curl -fsS https://www.avlgo.com/login | grep -o '/_next/static/chunks/[^"]*\.js' | sort -u |
+    while read -r chunk; do curl -fsS "https://www.avlgo.com${chunk}"; done || true)"
+  found() { grep -oE "$1" <<<"$scripts" | head -1 || true; }
+  set_env() {
+    if [[ -n "$(env_value "$1")" || -z "$2" ]]; then return; fi
+    grep -vE "^$1=" .env > .env.tmp || true
+    { cat .env.tmp; echo "$1=$2"; } > .env
+    rm .env.tmp
+    echo "   $1 set"
+  }
+  set_env NEXT_PUBLIC_SUPABASE_URL "$(found 'https://[a-z0-9]+\.supabase\.co')"
+  set_env NEXT_PUBLIC_SUPABASE_ANON_KEY "$(found 'eyJ[A-Za-z0-9_-]+\.eyJ[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+')"
+  set_env NEXT_PUBLIC_GOOGLE_CLIENT_ID "$(found '[0-9]{6,}-[a-z0-9]+\.apps\.googleusercontent\.com')"
+  if [[ -z "$(env_value NEXT_PUBLIC_SUPABASE_URL)" ]]; then
+    echo "   couldn't read them from avlgo.com; sign-in stays off"
+  fi
+fi
+
+echo "6. Tables"
 npx drizzle-kit push
 
 echo
-echo "6. Events. How should the database be filled?"
+echo "7. Events. How should the database be filled?"
 echo "   1) Copy upcoming events from avlgo.com (about 5,000, with scores and tags) [default]"
 echo "   2) Run the full scrape, every source, like production (slow; scores and tags only with AI keys in .env)"
 echo "   3) Leave it empty"

@@ -70,6 +70,7 @@ import {
 } from '@/lib/utils/top30Ranking';
 import { useAuth } from './AuthProvider';
 import { extractMonthFromSearch, getMonthDateRange } from '@/lib/utils/monthSearch';
+import { useToggleSet } from '@/lib/hooks/useToggleSet';
 
 // Use the Event type from API, but with Date for startDate (parsed client-side)
 type Event = Omit<ApiEvent, 'startDate'> & { startDate: Date };
@@ -579,7 +580,7 @@ export default function EventFeed({
   const [expandedMinimizedIds, setExpandedMinimizedIds] = useState<Set<string>>(new Set());
 
   // Track expanded mobile cards (session only - resets on page reload)
-  const [mobileExpandedIds, setMobileExpandedIds] = useState<Set<string>>(new Set());
+  const mobileExpanded = useToggleSet();
 
   // Settings & Modals
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
@@ -1773,18 +1774,8 @@ export default function EventFeed({
       isLoggedIn={isLoggedIn}
       displayMode="full"
       isHiding={hidingEventIds.has(event.id)}
-      isMobileExpanded={mobileExpandedIds.has(event.id)}
-      onMobileExpand={(id) =>
-        setMobileExpandedIds((prev) => {
-          const next = new Set(prev);
-          if (next.has(id)) {
-            next.delete(id);
-          } else {
-            next.add(id);
-          }
-          return next;
-        })
-      }
+      isMobileExpanded={mobileExpanded.has(event.id)}
+      onMobileExpand={mobileExpanded.toggle}
       onOpenModal={handleOpenEventModal}
     />
   );
@@ -2106,18 +2097,8 @@ export default function EventFeed({
                           isHiding={hidingEventIds.has(event.id)}
                           isGreatMatch={scoredEvent.tier === 'great'}
                           ranking={index + 1}
-                          isMobileExpanded={mobileExpandedIds.has(event.id)}
-                          onMobileExpand={(id) =>
-                            setMobileExpandedIds((prev) => {
-                              const next = new Set(prev);
-                              if (next.has(id)) {
-                                next.delete(id);
-                              } else {
-                                next.add(id);
-                              }
-                              return next;
-                            })
-                          }
+                          isMobileExpanded={mobileExpanded.has(event.id)}
+                          onMobileExpand={mobileExpanded.toggle}
                           onOpenModal={handleOpenEventModal}
                         />
                       );
@@ -2212,18 +2193,8 @@ export default function EventFeed({
                                   displayMode="full"
                                   isHiding={hidingEventIds.has(event.id)}
                                   isGreatMatch={scoredEvent.tier === 'great'}
-                                  isMobileExpanded={mobileExpandedIds.has(event.id)}
-                                  onMobileExpand={(id) =>
-                                    setMobileExpandedIds((prev) => {
-                                      const next = new Set(prev);
-                                      if (next.has(id)) {
-                                        next.delete(id);
-                                      } else {
-                                        next.add(id);
-                                      }
-                                      return next;
-                                    })
-                                  }
+                                  isMobileExpanded={mobileExpanded.has(event.id)}
+                                  onMobileExpand={mobileExpanded.toggle}
                                   onOpenModal={handleOpenEventModal}
                                 />
                               );
@@ -2443,18 +2414,8 @@ export default function EventFeed({
                   eventScore={event.score}
                   ranking={top30RankingMap.get(event.id)}
                   rankAsLabel={!top30RanksArePositions}
-                  isMobileExpanded={mobileExpandedIds.has(event.id)}
-                  onMobileExpand={(id) =>
-                    setMobileExpandedIds((prev) => {
-                      const next = new Set(prev);
-                      if (next.has(id)) {
-                        next.delete(id);
-                      } else {
-                        next.add(id);
-                      }
-                      return next;
-                    })
-                  }
+                  isMobileExpanded={mobileExpanded.has(event.id)}
+                  onMobileExpand={mobileExpanded.toggle}
                   onOpenModal={handleOpenEventModal}
                 />
               ))}
@@ -2515,18 +2476,8 @@ export default function EventFeed({
                           eventScore={event.score}
                           ranking={top30RankingMap.get(event.id)}
                           rankAsLabel
-                          isMobileExpanded={mobileExpandedIds.has(event.id)}
-                          onMobileExpand={(id) =>
-                            setMobileExpandedIds((prev) => {
-                              const next = new Set(prev);
-                              if (next.has(id)) {
-                                next.delete(id);
-                              } else {
-                                next.add(id);
-                              }
-                              return next;
-                            })
-                          }
+                          isMobileExpanded={mobileExpanded.has(event.id)}
+                          onMobileExpand={mobileExpanded.toggle}
                           onOpenModal={handleOpenEventModal}
                         />
                       ))}
@@ -2725,18 +2676,8 @@ export default function EventFeed({
                             }
                             scoreTier={tier}
                             eventScore={event.score}
-                            isMobileExpanded={mobileExpandedIds.has(event.id)}
-                            onMobileExpand={(id) =>
-                              setMobileExpandedIds((prev) => {
-                                const next = new Set(prev);
-                                if (next.has(id)) {
-                                  next.delete(id);
-                                } else {
-                                  next.add(id);
-                                }
-                                return next;
-                              })
-                            }
+                            isMobileExpanded={mobileExpanded.has(event.id)}
+                            onMobileExpand={mobileExpanded.toggle}
                             onOpenModal={handleOpenEventModal}
                           />
                         );

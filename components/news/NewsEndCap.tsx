@@ -6,6 +6,7 @@ import { ArrowRight } from 'lucide-react';
 import EventCard, { CARD_BOX } from '@/components/EventCard';
 import { useFavorites } from '@/lib/hooks/useFavorites';
 import type { EndCapEvent } from '@/lib/news/queries';
+import { useToggleSet } from '@/lib/hooks/useToggleSet';
 
 /**
  * "That's the news. Now go do something." The Top 30 events in the next week,
@@ -16,7 +17,7 @@ import type { EndCapEvent } from '@/lib/news/queries';
 export default function NewsEndCap({ events }: { events: EndCapEvent[] }) {
   const { favoriteIds, toggleFavorite } = useFavorites();
   const [favoriteCounts, setFavoriteCounts] = useState<Record<string, number>>({});
-  const [mobileExpandedIds, setMobileExpandedIds] = useState<Set<string>>(new Set());
+  const mobileExpanded = useToggleSet();
 
   if (events.length === 0) return null;
 
@@ -30,14 +31,6 @@ export default function NewsEndCap({ events }: { events: EndCapEvent[] }) {
       // The shared store rolls the heart back; counts only change on success.
     }
   };
-
-  const toggleMobileExpanded = (eventId: string) =>
-    setMobileExpandedIds((prev) => {
-      const next = new Set(prev);
-      if (next.has(eventId)) next.delete(eventId);
-      else next.add(eventId);
-      return next;
-    });
 
   return (
     <section aria-labelledby="news-end-cap-title" className="mt-12">
@@ -71,8 +64,8 @@ export default function NewsEndCap({ events }: { events: EndCapEvent[] }) {
             showCurate={false}
             displayMode="full"
             ranking={event.rank}
-            isMobileExpanded={mobileExpandedIds.has(event.id)}
-            onMobileExpand={toggleMobileExpanded}
+            isMobileExpanded={mobileExpanded.has(event.id)}
+            onMobileExpand={mobileExpanded.toggle}
           />
         ))}
       </div>

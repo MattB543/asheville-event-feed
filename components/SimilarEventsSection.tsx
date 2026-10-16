@@ -7,6 +7,7 @@ import IntentLink from '@/components/IntentLink';
 import EventCard, { CARD_BOX, LAST_CARD_ROUNDED } from '@/components/EventCard';
 import { ToastProvider } from '@/components/ui/Toast';
 import { generateEventSlug } from '@/lib/utils/slugify';
+import { useToggleSet } from '@/lib/hooks/useToggleSet';
 
 interface SimilarEvent {
   id: string;
@@ -74,7 +75,7 @@ export default function SimilarEventsSection({
 }: SimilarEventsSectionProps) {
   const router = useRouter();
   const [similarSortBy, setSimilarSortBy] = useState<'similarity' | 'date'>('similarity');
-  const [mobileExpandedIds, setMobileExpandedIds] = useState<Set<string>>(new Set());
+  const mobileExpanded = useToggleSet();
 
   // Deduplicate recurring events (same title + description = recurring)
   const dedupedSimilarEvents = useMemo(() => {
@@ -273,18 +274,8 @@ export default function SimilarEventsSection({
                       favoriteCount={favoriteCounts[similarEvent.id] || 0}
                       onToggleFavorite={onToggleFavorite}
                       showRecurringBadge={similarEvent.isRecurring}
-                      isMobileExpanded={mobileExpandedIds.has(similarEvent.id)}
-                      onMobileExpand={(id) =>
-                        setMobileExpandedIds((prev) => {
-                          const next = new Set(prev);
-                          if (next.has(id)) {
-                            next.delete(id);
-                          } else {
-                            next.add(id);
-                          }
-                          return next;
-                        })
-                      }
+                      isMobileExpanded={mobileExpanded.has(similarEvent.id)}
+                      onMobileExpand={mobileExpanded.toggle}
                       onOpenModal={(eventData) =>
                         handleEventClick({
                           ...eventData,
@@ -324,18 +315,8 @@ export default function SimilarEventsSection({
                 favoriteCount={favoriteCounts[similarEvent.id] || 0}
                 onToggleFavorite={onToggleFavorite}
                 showRecurringBadge={similarEvent.isRecurring}
-                isMobileExpanded={mobileExpandedIds.has(similarEvent.id)}
-                onMobileExpand={(id) =>
-                  setMobileExpandedIds((prev) => {
-                    const next = new Set(prev);
-                    if (next.has(id)) {
-                      next.delete(id);
-                    } else {
-                      next.add(id);
-                    }
-                    return next;
-                  })
-                }
+                isMobileExpanded={mobileExpanded.has(similarEvent.id)}
+                onMobileExpand={mobileExpanded.toggle}
                 onOpenModal={(eventData) =>
                   handleEventClick({
                     ...eventData,

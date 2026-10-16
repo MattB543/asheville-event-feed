@@ -1,26 +1,7 @@
 import { readFile } from 'fs/promises';
+import { paragraphToHtml } from './emailHtml';
 
 const FIRST_NAME_TOKEN = '[First Name]';
-
-function escapeHtml(text: string): string {
-  return text
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;');
-}
-
-function linkifyHtml(text: string): string {
-  return text.replace(/(https?:\/\/[^\s<>()]+[^\s<>().,;:!?])/g, (url) => {
-    return `<a href="${url}" style="color: #0f766e; text-decoration: underline;">${url}</a>`;
-  });
-}
-
-function paragraphToHtml(paragraph: string): string {
-  const escaped = escapeHtml(paragraph).replace(/\r?\n/g, '<br />');
-  return `<p style="margin: 0 0 16px 0; color: #374151; font-size: 16px; line-height: 1.65;">${linkifyHtml(escaped)}</p>`;
-}
 
 export function getFirstName(name?: string | null): string {
   const value = (name || '').trim();

@@ -46,8 +46,13 @@ export async function GET(request: Request) {
       soldOut: result.shows.filter((s) => s.soldOut).length,
       spotifySearches: result.spotifySearches,
       classifierFailed: result.classifierFailed,
+      playlistUpdated: !dryRun && result.shows.length > 0,
     };
     await completeCronJob(runId, stats);
+    // Nothing matched, so the playlist still has last week's songs
+    if (!dryRun && !stats.playlistUpdated) {
+      await sendPlaylistFailedNotification(new Error('No shows matched this week'));
+    }
     return NextResponse.json({ success: true, ...stats, skipped: result.skipped });
   } catch (error) {
     // A rate limit stops the run before the playlist changes; matches found so

@@ -2,7 +2,7 @@ import { and, asc, desc, eq, gte, inArray, isNull, lt, or } from 'drizzle-orm';
 import { db } from '@/lib/db';
 import { events, eventTracks, playlistPicks } from '@/lib/db/schema';
 import { getDayBoundariesEastern } from '@/lib/utils/timezone';
-import { normalizeName, venueFor } from '@/lib/playlist/match';
+import { normalizeName, venueFor } from '@/lib/utils/venueName';
 import { WINDOW_DAYS } from '@/lib/playlist/run';
 import { liveEvent } from '@/lib/db/liveEvent';
 

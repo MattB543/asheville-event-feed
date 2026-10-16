@@ -30,6 +30,7 @@ import { getMatchingProgramsForEvent } from '@/lib/matching/programs';
 import IntentLink from '@/components/IntentLink';
 import { formatPriceDisplay } from '@/lib/utils/priceDisplay';
 import CardSongButton from './CardSongButton';
+import { venueLine } from '@/lib/utils/venueName';
 
 // Stateless formatters, hoisted so they aren't rebuilt per card per render.
 // Pinned to Eastern time so displayed dates agree with the feed's ET date filtering.
@@ -431,13 +432,8 @@ export default function EventCard({
   // For mobile expanded: just first 3 official tags
   const mobileTags = officialTags.slice(0, 3);
 
-  // Location/venue/host display text (full, for expanded view)
-  const locationText =
-    event.organizer && event.location
-      ? event.location.toLowerCase().startsWith(event.organizer.toLowerCase())
-        ? event.location
-        : `${event.organizer} - ${event.location}`
-      : event.organizer || event.location || 'Online';
+  // Short venue name (plus the town outside Asheville); the full address is on the event page
+  const locationText = venueLine(event);
 
   // Venue name only (for minimized view) - extract venue from location if organizer is missing
   // Location often has format "Venue Name, Street Address, City, State" - we want just the venue
@@ -551,12 +547,14 @@ export default function EventCard({
                 />
               )}
             </h3>
-            <ChevronDown
-              size={16}
-              className={`text-gray-600 dark:text-gray-400 mt-0.5 shrink-0 opacity-80 transition-transform duration-200 ${
-                isMobileExpanded ? 'rotate-180' : ''
-              }`}
-            />
+            {/* Labelled, since a bare arrow went unnoticed */}
+            <span className="inline-flex items-center gap-0.5 mt-0.5 shrink-0 text-xs font-medium text-gray-500 dark:text-gray-400">
+              {isMobileExpanded ? 'Less' : 'More'}
+              <ChevronDown
+                size={14}
+                className={`transition-transform duration-200 ${isMobileExpanded ? 'rotate-180' : ''}`}
+              />
+            </span>
           </div>
 
           {/* Host/venue - collapsed shows organizer only; expanded shows full location */}
@@ -984,7 +982,7 @@ export default function EventCard({
           </IntentLink>
 
           {/* Metadata: Title, Date, Location, Tags */}
-          <div className="flex flex-col justify-between xl:row-span-2">
+          <div className="flex flex-col xl:row-span-2">
             <div>
               <div className="flex items-start gap-2 flex-wrap">
                 <h3 className="text-base font-bold leading-tight text-brand-600 dark:text-brand-400">
@@ -1018,12 +1016,11 @@ export default function EventCard({
                   </div>
                 ))}
               </div>
-              <div className="text-xs text-gray-500 dark:text-gray-400 mt-2 line-clamp-1">
-                {event.organizer && event.location
-                  ? event.location.toLowerCase().startsWith(event.organizer.toLowerCase())
-                    ? event.location
-                    : `${event.organizer} - ${event.location}`
-                  : event.organizer || event.location || 'Online'}
+              <div
+                className="text-xs text-gray-500 dark:text-gray-400 mt-2 line-clamp-1"
+                title={event.location ?? undefined}
+              >
+                {locationText}
               </div>
             </div>
 

@@ -4,6 +4,7 @@ import {
   parseJsonFromModel,
 } from '@/lib/ai/provider-clients';
 import { env } from '@/lib/config/env';
+import { normalizeName } from '@/lib/utils/venueName';
 import { getTrack, searchTracks, type SpotifyArtist, type SpotifyTrack } from './spotify';
 
 // Ported from the avlgo-playlist script, which ran these rules for months; keep
@@ -41,13 +42,6 @@ export interface TrackMatch {
 }
 
 const SPOTIFY_TRACK_LINK_RE = /open\.spotify\.com\/(?:intl-[a-z]{2}\/)?track\/([A-Za-z0-9]+)/;
-
-export function normalizeName(s: string): string {
-  return s
-    .toLowerCase()
-    .replace(/[^a-z0-9 ]/g, '')
-    .trim();
-}
 
 const CLASSIFY_SYSTEM = `You classify live-event titles to decide if each is a SINGLE-ACT HEADLINING music concert that belongs on a weekly Spotify playlist of upcoming Asheville shows.
 
@@ -212,43 +206,6 @@ export async function findTrack(event: PlaylistEvent, artist: string): Promise<T
     lastNote = hit;
   }
   return { trackId: null, trackName: null, spotifyArtist: null, note: lastNote };
-}
-
-const VENUE_SUFFIX_RE =
-  /\s+(company|co\.?|casino resort|casino|resort|inc\.?|brewing co\.?|brewery|black mountain|asheville|nc)$/i;
-
-function shortVenue(name: string, maxLength: number | null): string {
-  let s = name;
-  // ALL-CAPS names to title case; mixed case is left alone
-  if (s && !/[a-z]/.test(s)) s = s.toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase());
-  s = s.replace(/^the\s+/i, '').trim();
-  for (let next = s.replace(VENUE_SUFFIX_RE, '').trim(); next !== s; ) {
-    s = next;
-    next = s.replace(VENUE_SUFFIX_RE, '').trim();
-  }
-  if (maxLength !== null && s.length > maxLength) s = `${s.slice(0, maxLength - 1).trimEnd()}…`;
-  return s;
-}
-
-/** The venue's short name, from the location or, failing that, the organizer. */
-export function venueFor(
-  event: Pick<PlaylistEvent, 'location' | 'organizer'>,
-  artist: string,
-  maxLength: number | null = null
-): string {
-  const location = (event.location ?? '').trim();
-  if (location) {
-    const first = location.split(',')[0].split('|').pop()?.trim() ?? '';
-    const looksLikeAddress = /^\d/.test(first);
-    if (first && !looksLikeAddress && normalizeName(first) !== normalizeName(artist)) {
-      return shortVenue(first, maxLength);
-    }
-  }
-  const organizer = (event.organizer ?? '').trim();
-  if (organizer && normalizeName(organizer) !== normalizeName(artist)) {
-    return shortVenue(organizer, maxLength);
-  }
-  return '';
 }
 
 /**

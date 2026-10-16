@@ -30,6 +30,7 @@ import { getMatchingProgramsForEvent } from '@/lib/matching/programs';
 import IntentLink from '@/components/IntentLink';
 import { formatPriceDisplay } from '@/lib/utils/priceDisplay';
 import CardSongButton from './CardSongButton';
+import WholeImage from './WholeImage';
 import { venueLine } from '@/lib/utils/venueName';
 
 // Stateless formatters, hoisted so they aren't rebuilt per card per render.
@@ -54,8 +55,8 @@ const EVENT_DAY_KEY_FORMATTER = new Intl.DateTimeFormat('en-CA', {
 });
 
 // The desktop layout's image sits in a 192x128 cell. Without `sizes` it defaulted to 100vw and
-// fetched 1920-3840px; object-cover scales a wide image to the cell's height, so 384px keeps
-// sources up to 3:1 sharp. The mobile layout's images span the card and keep the default.
+// fetched 1920-3840px; 384px keeps it sharp. The mobile layout's images span the card and
+// keep the default.
 const DESKTOP_CARD_IMAGE_SIZES = '384px';
 
 // For a rounded, bordered box of cards: the end cards' square corners (and the last
@@ -509,13 +510,10 @@ export default function EventCard({
             } bg-gray-200 dark:bg-gray-700 rounded-lg overflow-hidden transition-all duration-200 shadow-sm`}
           >
             {!imgError && event.imageUrl ? (
-              <Image
+              <WholeImage
                 src={event.imageUrl}
                 alt={event.title}
-                fill
-                className="object-cover object-[center_20%]"
                 onError={() => setImgError(true)}
-                unoptimized={event.imageUrl.startsWith('data:')}
                 referrerPolicy="no-referrer"
               />
             ) : (
@@ -970,14 +968,11 @@ export default function EventCard({
             className="relative w-full h-40 sm:h-32 xl:row-span-2 bg-gray-200 dark:bg-gray-700 rounded overflow-hidden block"
           >
             {!imgError && event.imageUrl ? (
-              <Image
+              <WholeImage
                 src={event.imageUrl}
                 alt={event.title}
-                fill
                 sizes={DESKTOP_CARD_IMAGE_SIZES}
-                className="object-cover object-[center_20%]"
                 onError={() => setImgError(true)}
-                unoptimized={event.imageUrl.startsWith('data:')}
                 referrerPolicy="no-referrer"
               />
             ) : (

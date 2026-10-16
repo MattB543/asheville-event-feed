@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
+import WholeImage from './WholeImage';
 import Link from 'next/link';
 import {
   CalendarPlus2,
@@ -266,29 +267,14 @@ export default function EventContent({
       {/* Hero Section - Image and metadata */}
       <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 mb-6 px-4 sm:px-0">
         {/* Image */}
-        <div className="relative w-full sm:w-72 md:w-80 lg:w-96 xl:w-[420px] h-48 sm:h-48 md:h-56 lg:h-64 xl:h-72 shrink-0 bg-gray-200 dark:bg-gray-800 rounded-lg overflow-hidden [clip-path:inset(0_round_0.5rem)]">
+        <div className="relative w-full sm:w-72 md:w-80 lg:w-96 xl:w-[420px] h-48 sm:h-48 md:h-56 lg:h-64 xl:h-72 shrink-0 bg-gray-200 dark:bg-gray-800 rounded-lg overflow-hidden">
           {!imgError && event.imageUrl ? (
             <>
-              {/* The whole image, never cropped: a tall poster loses its date and venue
-                  to object-cover. A blurred copy fills the box around it; the box's
-                  clip-path is what keeps iOS Safari from letting the blur widen the page. */}
-              <Image
-                src={event.imageUrl}
-                alt=""
-                aria-hidden
-                fill
-                sizes={HERO_IMAGE_SIZES}
-                className="object-cover scale-110 blur-2xl brightness-50"
-                unoptimized={event.imageUrl.startsWith('data:')}
-              />
-              <Image
+              <WholeImage
                 src={event.imageUrl}
                 alt={event.title}
-                fill
                 sizes={HERO_IMAGE_SIZES}
-                className="object-contain"
                 onError={() => setImgError(true)}
-                unoptimized={event.imageUrl.startsWith('data:')}
                 priority
               />
               <button

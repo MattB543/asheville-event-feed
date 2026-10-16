@@ -49,13 +49,16 @@ export async function GET(request: Request, { params }: RouteParams) {
   if (!event || !isMusicEvent(event)) return none;
 
   try {
-    const { matches } = await matchEvents([event]);
+    const { matches, classifierFailed } = await matchEvents([event]);
     const match = matches.get(event.id);
     if (!match?.trackId) return none;
     return NextResponse.json(
       { track: { id: match.trackId, name: match.trackName, artist: match.spotifyArtist } },
-      // A saved match doesn't change, so let the CDN answer repeat visits
-      { headers: { 'Cache-Control': 'public, s-maxage=86400, stale-while-revalidate=604800' } }
+      // A saved match doesn't change, so let the CDN answer repeat visits; a guess made
+      // while the AI was failing isn't saved, so the next visit asks again
+      classifierFailed
+        ? undefined
+        : { headers: { 'Cache-Control': 'public, s-maxage=86400, stale-while-revalidate=604800' } }
     );
   } catch (error) {
     if (!(error instanceof SpotifyRateLimitError)) console.error('[Track] Match failed:', error);

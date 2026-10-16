@@ -3,6 +3,7 @@
 import { useState, useRef } from 'react';
 import Image from 'next/image';
 import WholeImage from './WholeImage';
+import { eventSourceUrl } from '@/lib/utils/sourceUrl';
 import { ShareNote, useShareNote } from './ShareButton';
 import { useDismiss } from '@/lib/hooks/useDismiss';
 import Link from 'next/link';
@@ -139,30 +140,6 @@ export default function EventContent({
     }).format(date);
 
     return { date: dateStr, time: timeStr };
-  };
-
-  const getSourceUrl = () => {
-    if (event.source === 'AVL_TODAY') {
-      const slug = event.title
-        .toLowerCase()
-        .replace(/[^a-z0-9]+/g, '-')
-        .replace(/(^-|-$)+/g, '');
-
-      const formatter = new Intl.DateTimeFormat('en-US', {
-        timeZone: 'America/New_York',
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
-        hour: '2-digit',
-        hour12: false,
-      });
-      const parts = formatter.formatToParts(startDate);
-      const getPart = (type: string) => parts.find((p) => p.type === type)?.value;
-      const dateStr = `${getPart('year')}-${getPart('month')}-${getPart('day')}T${getPart('hour')}`;
-
-      return `https://avltoday.6amcity.com/events#/details/${slug}/${event.sourceId}/${dateStr}`;
-    }
-    return event.url;
   };
 
   const getSourceName = () => {
@@ -431,7 +408,7 @@ export default function EventContent({
 
             {/* View Source */}
             <a
-              href={getSourceUrl()}
+              href={eventSourceUrl(event)}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-400 rounded-lg border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"

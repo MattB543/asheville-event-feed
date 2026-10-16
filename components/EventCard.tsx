@@ -31,6 +31,7 @@ import IntentLink from '@/components/IntentLink';
 import { formatPriceDisplay } from '@/lib/utils/priceDisplay';
 import CardSongButton from './CardSongButton';
 import WholeImage from './WholeImage';
+import { eventSourceUrl } from '@/lib/utils/sourceUrl';
 import { ShareNote, useShareNote } from './ShareButton';
 import { venueLine } from '@/lib/utils/venueName';
 import { useDismiss } from '@/lib/hooks/useDismiss';
@@ -338,34 +339,6 @@ export default function EventCard({
     }
 
     return `${dateOnly} · ${EVENT_TIME_FORMATTER.format(eventDate)}`;
-  };
-
-  const getSourceUrl = () => {
-    if (event.source === 'AVL_TODAY') {
-      const slug = event.title
-        .toLowerCase()
-        .replace(/[^a-z0-9]+/g, '-')
-        .replace(/(^-|-$)+/g, '');
-
-      // Format date as YYYY-MM-DDTHH in local time (assuming ET for AVL)
-      // We use the date string directly if we can, but we only have the Date object here.
-      // We'll use Intl to extract the parts in the correct timezone.
-      const formatter = new Intl.DateTimeFormat('en-US', {
-        timeZone: 'America/New_York',
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
-        hour: '2-digit',
-        hour12: false,
-      });
-      const parts = formatter.formatToParts(new Date(event.startDate));
-      const getPart = (type: string) => parts.find((p) => p.type === type)?.value;
-      const dateStr = `${getPart('year')}-${getPart('month')}-${getPart('day')}T${getPart('hour')}`;
-
-      return `https://avltoday.6amcity.com/events#/details/${slug}/${event.sourceId}/${dateStr}`;
-    }
-    if (event.source === 'EVENTBRITE') return event.url;
-    return event.url; // Fallback
   };
 
   const displayPrice = formatPriceDisplay(event.price);
@@ -751,7 +724,7 @@ export default function EventCard({
                       See similar events
                     </a>
                     <a
-                      href={getSourceUrl()}
+                      href={eventSourceUrl(event)}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="w-full flex items-center gap-2 px-3 py-2 text-xs text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
@@ -1360,7 +1333,7 @@ export default function EventCard({
                     See similar events
                   </a>
                   <a
-                    href={getSourceUrl()}
+                    href={eventSourceUrl(event)}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-full flex items-center gap-2 px-3 py-2 text-xs text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"

@@ -40,6 +40,7 @@ import type {
   DateRange,
   TagFilterState,
 } from '@/lib/types/filters';
+import { useModal } from '@/lib/hooks/useModal';
 export type { DateFilterType, PriceFilterType, TimeOfDay, DateRange, TagFilterState };
 
 interface HiddenEventFingerprint {
@@ -206,16 +207,8 @@ export default function FilterModal({
     setLocalShowDailyEvents(showDailyEvents);
   }, [showDailyEvents]);
 
-  // Handle escape key
-  useEffect(() => {
-    const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && isOpen) {
-        onClose();
-      }
-    };
-    document.addEventListener('keydown', handleEscape);
-    return () => document.removeEventListener('keydown', handleEscape);
-  }, [isOpen, onClose]);
+  const dialogRef = useRef<HTMLDivElement>(null);
+  useModal(isOpen, onClose, dialogRef);
 
   if (!isOpen) return null;
 
@@ -376,7 +369,12 @@ export default function FilterModal({
       onClick={onClose}
     >
       <div
-        className="bg-white dark:bg-gray-900 w-full h-full md:h-auto md:max-h-[90vh] md:max-w-2xl md:mx-4 md:rounded-xl shadow-xl flex flex-col overflow-hidden"
+        ref={dialogRef}
+        role="dialog"
+        aria-modal="true"
+        tabIndex={-1}
+        aria-label="Filters"
+        className="outline-none bg-white dark:bg-gray-900 w-full h-full md:h-auto md:max-h-[90vh] md:max-w-2xl md:mx-4 md:rounded-xl shadow-xl flex flex-col overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}

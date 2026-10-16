@@ -1,8 +1,11 @@
 'use client';
 
+import { useRef } from 'react';
+
 import Image from 'next/image';
 import { X, CalendarPlus2 } from 'lucide-react';
 import { useToast } from '@/components/ui/Toast';
+import { useModal } from '@/lib/hooks/useModal';
 
 interface Top30CalendarModalProps {
   isOpen: boolean;
@@ -12,12 +15,21 @@ interface Top30CalendarModalProps {
 export default function Top30CalendarModal({ isOpen, onClose }: Top30CalendarModalProps) {
   const { showToast } = useToast();
 
+  const dialogRef = useRef<HTMLDivElement>(null);
+  useModal(isOpen, onClose, dialogRef);
+
   if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={onClose} />
-      <div className="relative bg-white dark:bg-gray-900 rounded-xl shadow-2xl border border-gray-200 dark:border-gray-800 max-w-md w-full p-6 animate-fade-in">
+      <div
+        ref={dialogRef}
+        role="dialog"
+        aria-modal="true"
+        tabIndex={-1}
+        className="outline-none relative bg-white dark:bg-gray-900 rounded-xl shadow-2xl border border-gray-200 dark:border-gray-800 max-w-md w-full p-6 animate-fade-in"
+      >
         <button
           onClick={onClose}
           className="absolute top-4 right-4 p-1 rounded-lg text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors cursor-pointer"

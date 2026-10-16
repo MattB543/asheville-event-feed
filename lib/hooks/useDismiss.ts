@@ -31,10 +31,11 @@ export function useDismiss(
       latest.current.triggerRef?.current?.focus();
     };
     document.addEventListener('pointerdown', onPointerDown);
-    document.addEventListener('keydown', onKeyDown, true);
+    // On window, so it runs before a surrounding modal's own Escape handler on document
+    window.addEventListener('keydown', onKeyDown, true);
     return () => {
       document.removeEventListener('pointerdown', onPointerDown);
-      document.removeEventListener('keydown', onKeyDown, true);
+      window.removeEventListener('keydown', onKeyDown, true);
     };
   }, [open]);
 }

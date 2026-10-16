@@ -6,6 +6,7 @@ import { generateEventSlug } from '@/lib/utils/slugify';
 import { useFavorites } from '@/lib/hooks/useFavorites';
 import EventContent from './EventContent';
 import SimilarEventsSection from './SimilarEventsSection';
+import { useModal } from '@/lib/hooks/useModal';
 
 interface SimilarEvent {
   id: string;
@@ -144,17 +145,7 @@ export default function EventDetailModal({
     onClose(); // Always close the modal
   }, [onClose]);
 
-  // Handle ESC key
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && isOpen) {
-        handleClose();
-      }
-    };
-
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isOpen, handleClose]);
+  useModal(isOpen, handleClose, modalRef);
 
   // Reset state when modal closes
   useEffect(() => {
@@ -189,7 +180,11 @@ export default function EventDetailModal({
       {/* Full-screen page overlay */}
       <div
         ref={modalRef}
-        className="absolute inset-0 bg-gray-50 dark:bg-gray-950 flex flex-col overflow-hidden"
+        role="dialog"
+        aria-modal="true"
+        aria-label={event.title}
+        tabIndex={-1}
+        className="absolute inset-0 outline-none bg-gray-50 dark:bg-gray-950 flex flex-col overflow-hidden"
       >
         {/* Scrollable content */}
         <div className="flex-1 overflow-y-auto">

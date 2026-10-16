@@ -7,6 +7,7 @@ import remarkBreaks from 'remark-breaks';
 import type { PriceFilterType } from './FilterBar';
 import type { DateFilterType, DateRange as FeedDateRange, TimeOfDay } from '@/lib/types/filters';
 import { parseChatSearchState, type ChatSearchState } from '@/lib/ai/chat/types';
+import { useModal } from '@/lib/hooks/useModal';
 
 interface ChatMessage {
   role: 'user' | 'assistant' | 'system';
@@ -161,8 +162,6 @@ export default function AIChatModal({
       setIsStreaming(false);
       setCurrentSearch(null);
       setSearchCount(null);
-      // Focus input after a short delay to ensure modal is rendered
-      setTimeout(() => inputRef.current?.focus(), 100);
     } else {
       wasOpenRef.current = false;
       // Cancel any ongoing stream when modal closes
@@ -410,6 +409,9 @@ export default function AIChatModal({
     [isLoading, sendMessage]
   );
 
+  const dialogRef = useRef<HTMLDivElement>(null);
+  useModal(isOpen, onClose, dialogRef, inputRef);
+
   // Check if we should show suggestions (only when just the initial message exists)
   const showSuggestions =
     messages.length === 1 && messages[0].role === 'assistant' && !isLoading && !isStreaming;
@@ -422,7 +424,12 @@ export default function AIChatModal({
       onClick={onClose}
     >
       <div
-        className="bg-white dark:bg-gray-900 sm:rounded-xl shadow-xl w-full sm:max-w-2xl h-full sm:h-[80vh] sm:max-h-[600px] flex flex-col"
+        ref={dialogRef}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Ask AI about events"
+        tabIndex={-1}
+        className="outline-none bg-white dark:bg-gray-900 sm:rounded-xl shadow-xl w-full sm:max-w-2xl h-full sm:h-[80vh] sm:max-h-[600px] flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}

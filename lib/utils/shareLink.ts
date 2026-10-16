@@ -5,7 +5,27 @@ export async function copyLink(url: string): Promise<ShareOutcome> {
     await navigator.clipboard.writeText(url);
     return 'copied';
   } catch {
-    return 'failed';
+    // The clipboard API only exists on https (and localhost), so a phone testing a
+    // local http address lands here; the old copy command still works there
+    return copyWithSelection(url) ? 'copied' : 'failed';
+  }
+}
+
+function copyWithSelection(text: string): boolean {
+  const field = document.createElement('textarea');
+  field.value = text;
+  field.setAttribute('readonly', '');
+  field.style.position = 'fixed';
+  field.style.opacity = '0';
+  document.body.appendChild(field);
+  field.select();
+  field.setSelectionRange(0, text.length);
+  try {
+    return document.execCommand('copy');
+  } catch {
+    return false;
+  } finally {
+    field.remove();
   }
 }
 

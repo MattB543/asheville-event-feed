@@ -1,4 +1,5 @@
 import { env, isSlackEnabled } from '@/lib/config/env';
+import { fetchWithRetry } from '@/lib/utils/retry';
 
 interface EventSubmission {
   id: string;
@@ -668,4 +669,41 @@ export async function sendVerificationNotification(
     console.error('[Slack] Error sending verification notification:', error);
     return false;
   }
+}
+
+async function postToSlack(blocks: SlackBlock[], label: string): Promise<boolean> {
+  try {
+    const response = await fetchWithRetry(
+      env.SLACK_WEBHOOK!,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ blocks }),
+      },
+      { maxRetries: 2 }
+    );
+    console.log(`[Slack] ${label} sent`, response.status);
+    return true;
+  } catch (error) {
+    console.error(`[Slack] Error sending ${label}:`, error);
+    return false;
+  }
+}
+
+/** A failed weekly playlist run; the playlist itself is left as it was */
+export async function sendPlaylistFailedNotification(error: unknown): Promise<boolean> {
+  if (!isSlackEnabled()) return false;
+  const message = error instanceof Error ? error.message : String(error);
+  return postToSlack(
+    [
+      {
+        type: 'section',
+        text: {
+          type: 'mrkdwn',
+          text: `:warning: *Weekly Spotify playlist didn't update*\n${message.slice(0, 500)}\nThe playlist keeps last week's songs. Re-run \`/api/cron/playlist\` once it's fixed.`,
+        },
+      },
+    ],
+    'playlist failure notification'
+  );
 }

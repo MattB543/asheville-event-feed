@@ -5,6 +5,7 @@ import { startCronJob, completeCronJob, failCronJob } from '@/lib/cron/jobTracke
 import { runPlaylist } from '@/lib/playlist/run';
 import { isClassifierEnabled } from '@/lib/playlist/match';
 import { SpotifyRateLimitError } from '@/lib/playlist/spotify';
+import { sendPlaylistFailedNotification } from '@/lib/notifications/slack';
 
 export const maxDuration = 300;
 
@@ -54,6 +55,7 @@ export async function GET(request: Request) {
     const message = error instanceof SpotifyRateLimitError ? error.message : 'Playlist run failed';
     console.error('[Playlist]', error);
     await failCronJob(runId, error);
+    if (!dryRun) await sendPlaylistFailedNotification(error);
     return NextResponse.json({ success: false, error: message }, { status: 500 });
   }
 }

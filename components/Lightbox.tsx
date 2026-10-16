@@ -60,14 +60,18 @@ export default function Lightbox({
   }, [scrollKey]);
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/90" onClick={onClose} role="presentation">
+    <div className="fixed inset-0 z-50 bg-black/90" role="presentation">
       <div
         ref={dialogRef}
         role="dialog"
         aria-modal="true"
         aria-label={label}
         tabIndex={-1}
-        onClick={(event) => event.stopPropagation()}
+        // The dialog fills the screen, so "outside" is its own empty space: the dark
+        // area around the content, not the image or text
+        onClick={(event) => {
+          if (event.target === event.currentTarget || event.target === scrollRef.current) onClose();
+        }}
         className="absolute inset-0 flex flex-col outline-none"
       >
         <div className="flex-shrink-0 flex items-center justify-between gap-2 px-3 sm:px-5 py-3 text-white/60">

@@ -1,6 +1,7 @@
 import { env } from '@/lib/config/env';
 import type { PlaylistEvent } from './match';
 import { fetchWithRetry } from '@/lib/utils/retry';
+import { decodeHtmlEntities } from '@/lib/utils/parsers';
 
 // Both venues run the same WordPress plugin (RHP), so one parser reads both
 const VENUE_SCHEDULE_URLS: Record<string, string> = {
@@ -39,7 +40,7 @@ function parseVenueSchedule(html: string): { date: string; title: string; soldOu
       return [
         {
           date: date.trim(),
-          title: title.trim().replace(/&#8211;/g, '-'),
+          title: decodeHtmlEntities(title).trim(),
           soldOut: /sold[-_ ]?out/i.test(chunk),
         },
       ];

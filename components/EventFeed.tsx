@@ -466,7 +466,7 @@ export default function EventFeed({
   const top30BackfillRequested = useRef<Set<Top30Category>>(new Set());
 
   // Your List sub-tab state (recommended vs favorites)
-  const [yourListSubTab, setYourListSubTab] = useState<'recommended' | 'favorites'>('recommended');
+  const [yourListSubTab, setYourListSubTab] = useState<'recommended' | 'favorites'>('favorites');
 
   // Parse URL filters once at initialization (not in useEffect)
   // This ensures filters are correct from the first render

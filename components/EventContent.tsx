@@ -266,16 +266,29 @@ export default function EventContent({
         {/* Image */}
         <div className="relative w-full sm:w-72 md:w-80 lg:w-96 xl:w-[420px] h-48 sm:h-48 md:h-56 lg:h-64 xl:h-72 shrink-0 bg-gray-200 dark:bg-gray-800 rounded-lg overflow-hidden">
           {!imgError && event.imageUrl ? (
-            <Image
-              src={event.imageUrl}
-              alt={event.title}
-              fill
-              sizes={HERO_IMAGE_SIZES}
-              className="object-cover"
-              onError={() => setImgError(true)}
-              unoptimized={event.imageUrl.startsWith('data:')}
-              priority
-            />
+            <>
+              {/* The whole image, never cropped: a tall poster loses its date and venue
+                  to object-cover. A blurred copy fills the box around it. */}
+              <Image
+                src={event.imageUrl}
+                alt=""
+                aria-hidden
+                fill
+                sizes={HERO_IMAGE_SIZES}
+                className="object-cover scale-110 blur-2xl brightness-50"
+                unoptimized={event.imageUrl.startsWith('data:')}
+              />
+              <Image
+                src={event.imageUrl}
+                alt={event.title}
+                fill
+                sizes={HERO_IMAGE_SIZES}
+                className="object-contain"
+                onError={() => setImgError(true)}
+                unoptimized={event.imageUrl.startsWith('data:')}
+                priority
+              />
+            </>
           ) : (
             <Image
               src="/asheville-default.jpg"

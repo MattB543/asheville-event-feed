@@ -26,7 +26,8 @@ let cachedToken: { value: string; expiresAt: number } | null = null;
 
 // After a 429, every call waits out Spotify's Retry-After instead of piling on
 let blockedUntil = 0;
-// Event pages can each trigger a search, so cap them overall, not just per visitor
+// Event pages can each trigger a search, so cap them beyond each visitor's own limit;
+// the count is per server instance, so the real ceiling scales with instances
 const SEARCHES_PER_HOUR = 300;
 
 async function accessToken(): Promise<string> {

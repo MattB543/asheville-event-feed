@@ -42,6 +42,8 @@ interface EventSpotifyPlayerProps {
   height?: number;
   /** Called once the lookup settles: whether a song was found */
   onResult?: (found: boolean) => void;
+  /** Show the loading placeholder during the lookup too, when someone asked for the song */
+  placeholderWhileSearching?: boolean;
 }
 
 /**
@@ -53,8 +55,10 @@ export default function EventSpotifyPlayer({
   className = '',
   height = 352,
   onResult,
+  placeholderWhileSearching = false,
 }: EventSpotifyPlayerProps) {
   const [trackId, setTrackId] = useState<string | null>(null);
+  const [searching, setSearching] = useState(true);
   const [ready, setReady] = useState(false);
   const holder = useRef<HTMLDivElement>(null);
   const music = isMusicEvent(event);
@@ -67,10 +71,13 @@ export default function EventSpotifyPlayer({
       .then((data: { track?: { id: string } | null } | null) => {
         const id = data?.track?.id ?? null;
         setTrackId(id);
+        setSearching(false);
         onResult?.(id !== null);
       })
       .catch((error: unknown) => {
-        if ((error as DOMException).name !== 'AbortError') onResult?.(false);
+        if ((error as DOMException).name === 'AbortError') return;
+        setSearching(false);
+        onResult?.(false);
       });
     return () => controller.abort();
   }, [event.id, music, onResult]);
@@ -114,12 +121,17 @@ export default function EventSpotifyPlayer({
     };
   }, [trackId, event.id, height]);
 
-  if (!trackId) return null;
+  const loading = trackId ? !ready : placeholderWhileSearching && music && searching;
+  if (!trackId && !loading) return null;
   return (
-    <div
-      className={`transition-opacity duration-300 ${ready ? 'opacity-100' : 'opacity-0'} ${className}`}
-    >
-      <div ref={holder} />
+    <div className={`relative ${className}`} style={{ height }}>
+      {loading && (
+        <div className="absolute inset-0 rounded-xl bg-gray-200 dark:bg-gray-700 animate-pulse" />
+      )}
+      <div
+        ref={holder}
+        className={`relative transition-opacity duration-300 ${ready ? 'opacity-100' : 'opacity-0'}`}
+      />
     </div>
   );
 }

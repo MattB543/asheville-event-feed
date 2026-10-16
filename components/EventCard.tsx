@@ -660,6 +660,7 @@ export default function EventCard({
                 )}
               </div>
 
+              <CardSongButton event={event} />
               {/* Favorite button */}
               {showRemoveFavorite ? (
                 <button
@@ -694,7 +695,6 @@ export default function EventCard({
                 </button>
               )}
 
-              <CardSongButton event={event} />
               {/* Share button */}
               <div className="relative">
                 <button
@@ -1287,6 +1287,7 @@ export default function EventCard({
                 </div>
               )}
             </div>
+            <CardSongButton event={event} playerContainer={playerSlot} />
             {/* Favorite button */}
             {showRemoveFavorite ? (
               <button
@@ -1320,7 +1321,6 @@ export default function EventCard({
                 {favoriteCount > 0 && <span>{favoriteCount}</span>}
               </button>
             )}
-            <CardSongButton event={event} playerContainer={playerSlot} />
             {/* Share button */}
             <div className="relative">
               <button

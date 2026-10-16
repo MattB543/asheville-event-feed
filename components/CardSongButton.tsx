@@ -28,12 +28,12 @@ export default function CardSongButton({ event, playerContainer }: CardSongButto
       {found === false ? (
         <p className="text-xs text-gray-500 dark:text-gray-400">No song found for this show.</p>
       ) : (
-        <>
-          {found === null && (
-            <p className="text-xs text-gray-500 dark:text-gray-400">Finding a song…</p>
-          )}
-          <EventSpotifyPlayer event={event} height={80} onResult={setFound} className="max-w-md" />
-        </>
+        <EventSpotifyPlayer
+          event={event}
+          height={80}
+          onResult={setFound}
+          placeholderWhileSearching
+        />
       )}
     </div>
   );

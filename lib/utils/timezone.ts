@@ -32,9 +32,6 @@ export function getTodayStringEastern(): string {
   return getDateStringEastern(new Date());
 }
 
-/**
- * Get a date's calendar day in Eastern timezone (YYYY-MM-DD format)
- */
 const EASTERN_DAY = new Intl.DateTimeFormat('en-CA', {
   timeZone: 'America/New_York',
   year: 'numeric',
@@ -42,6 +39,9 @@ const EASTERN_DAY = new Intl.DateTimeFormat('en-CA', {
   day: '2-digit',
 });
 
+/**
+ * Get a date's calendar day in Eastern timezone (YYYY-MM-DD format)
+ */
 export function getDateStringEastern(date: Date): string {
   return EASTERN_DAY.format(date);
 }

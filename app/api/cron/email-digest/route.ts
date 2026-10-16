@@ -41,6 +41,7 @@ import { startCronJob, completeCronJob, failCronJob } from '@/lib/cron/jobTracke
 import { listAuthUserContacts } from '@/lib/supabase/adminUsers';
 import { formatDuration } from '@/lib/utils/cron';
 import { liveEvent } from '@/lib/db/liveEvent';
+import { addDaysToDateString } from '@/lib/utils/dateFilters';
 
 export const maxDuration = 300; // 5 minutes
 
@@ -155,15 +156,6 @@ function parseHiddenEvents(value: unknown): { title: string; organizer: string }
     }
     return [{ title: entry.title, organizer: entry.organizer }];
   });
-}
-
-function addDaysToDateString(dateStr: string, days: number): string {
-  const [year, month, day] = dateStr.split('-').map(Number);
-  const date = new Date(year, month - 1, day + days);
-  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(
-    2,
-    '0'
-  )}-${String(date.getDate()).padStart(2, '0')}`;
 }
 
 function normalizeSelectedDays(selectedDays?: number[] | null): number[] {

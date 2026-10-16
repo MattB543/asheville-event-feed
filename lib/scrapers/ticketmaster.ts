@@ -11,8 +11,7 @@
 
 import { type EventSource, type ScrapedEvent } from './types';
 import { fetchEventData } from './base';
-import { parseAsEastern } from '../utils/timezone';
-import { getDateStringEastern } from '@/lib/utils/timezone';
+import { getDateStringEastern, parseAsEastern } from '@/lib/utils/timezone';
 
 // Ticketmaster API config
 const TM_API_KEY = process.env.TICKETMASTER_API_KEY;

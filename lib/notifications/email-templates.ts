@@ -1,6 +1,7 @@
 import { env } from '@/lib/config/env';
 import { generateEventSlug } from '@/lib/utils/slugify';
-import { escapeHtml, formatEasternDate, formatEasternTime, truncate } from './emailHtml';
+import { escapeHtml, formatEasternDate, formatEasternTime } from './emailHtml';
+import { venueLine } from '@/lib/utils/venueName';
 
 interface DigestEvent {
   id: string;
@@ -236,7 +237,8 @@ function generateEventCard(event: DigestEvent, appUrl: string): string {
   // Build the details line: "8:00 AM | $40 | The Omni Grove Park Inn"
   const detailParts = [time];
   if (event.price) detailParts.push(escapeHtml(event.price));
-  if (event.location) detailParts.push(escapeHtml(truncate(event.location, 30)));
+  const place = venueLine(event);
+  if (place) detailParts.push(escapeHtml(place));
   const detailsLine = detailParts.join(' | ');
 
   return `
@@ -362,7 +364,8 @@ Manage preferences: ${appUrl}/profile
             // Build details line: time | price | location
             const detailParts = [time];
             if (event.price) detailParts.push(event.price);
-            if (event.location) detailParts.push(event.location);
+            const place = venueLine(event);
+            if (place) detailParts.push(place);
             const summaryLine = event.aiSummary ? `\n    ${event.aiSummary}` : '';
             return `  - ${event.title}${summaryLine}\n    ${detailParts.join(' | ')}\n    ${eventUrl}${curatorText}${notesText}`;
           })
@@ -382,7 +385,8 @@ Manage preferences: ${appUrl}/profile
           // Build details line: time | price | location
           const detailParts = [time];
           if (event.price) detailParts.push(event.price);
-          if (event.location) detailParts.push(event.location);
+          const place = venueLine(event);
+          if (place) detailParts.push(place);
           const summaryLine = event.aiSummary ? `\n    ${event.aiSummary}` : '';
           return `  - ${event.title}${summaryLine}\n    ${detailParts.join(' | ')}\n    ${eventUrl}`;
         })

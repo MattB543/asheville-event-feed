@@ -1,6 +1,7 @@
 import { env } from '@/lib/config/env';
 import { generateEventSlug } from '@/lib/utils/slugify';
-import { escapeHtml, formatEasternDate, formatEasternTime, truncate } from './emailHtml';
+import { escapeHtml, formatEasternDate, formatEasternTime } from './emailHtml';
+import { venueLine } from '@/lib/utils/venueName';
 
 export interface Top30Event {
   id: string;
@@ -51,7 +52,8 @@ function generateTop30EventCard(event: Top30Event, appUrl: string): string {
   // Build the details line: "Saturday, Jan 4 at 8:00 PM | $40 | The Omni Grove Park Inn"
   const detailParts = [`${date} at ${time}`];
   if (event.price) detailParts.push(escapeHtml(event.price));
-  if (event.location) detailParts.push(escapeHtml(truncate(event.location, 30)));
+  const place = venueLine(event);
+  if (place) detailParts.push(escapeHtml(place));
   const detailsLine = detailParts.join(' | ');
 
   return `
@@ -253,7 +255,8 @@ export function generateTop30LiveEmailText(options: Top30LiveEmailOptions): stri
       )}`;
       const detailParts = [`${date} at ${time}`];
       if (event.price) detailParts.push(event.price);
-      if (event.location) detailParts.push(event.location);
+      const place = venueLine(event);
+      if (place) detailParts.push(place);
       const summaryLine = event.aiSummary ? `\n    ${event.aiSummary}` : '';
       return `  - ${event.title}${summaryLine}\n    ${detailParts.join(' | ')}\n    ${eventUrl}`;
     })
@@ -441,7 +444,8 @@ export function generateTop30WeeklyEmailText(options: Top30WeeklyEmailOptions): 
           )}`;
           const detailParts = [time];
           if (event.price) detailParts.push(event.price);
-          if (event.location) detailParts.push(event.location);
+          const place = venueLine(event);
+          if (place) detailParts.push(place);
           const summaryLine = event.aiSummary ? `\n    ${event.aiSummary}` : '';
           return `  - ${event.title}${summaryLine}\n    ${detailParts.join(' | ')}\n    ${eventUrl}`;
         })

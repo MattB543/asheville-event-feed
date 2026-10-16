@@ -230,7 +230,7 @@ export function isFreeEvent(text: string): boolean {
     // "free" alone or leading an admission phrase; "free improvisation" in a genre
     // list or "free sweatshirt" in a perks list isn't a price
     if (
-      /^free(?:\s*$|\s*[-–:|!]|\s+(?:admission|entry|event|show|to|for|and\s+open)\b)/.test(
+      /^free(?:\s*$|\s*[-–:|!(;/&]|\s+(?:admission|entry|event|show|to|for|and\s+open|with|community|live|of\s+charge|all|kids|class(?:es)?|lessons?|seminars?|clinics?|workshops?)\b)/.test(
         trimmed
       ) ||
       /\bprice:\s*free\b/.test(trimmed)

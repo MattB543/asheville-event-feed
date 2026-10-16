@@ -40,6 +40,8 @@ interface EventSpotifyPlayerProps {
   event: { id: string; source: string; title: string; tags?: string[] | null };
   className?: string;
   height?: number;
+  /** Called once the lookup settles: whether a song was found */
+  onResult?: (found: boolean) => void;
 }
 
 /**
@@ -50,6 +52,7 @@ export default function EventSpotifyPlayer({
   event,
   className = '',
   height = 352,
+  onResult,
 }: EventSpotifyPlayerProps) {
   const [trackId, setTrackId] = useState<string | null>(null);
   const holder = useRef<HTMLDivElement>(null);
@@ -60,10 +63,16 @@ export default function EventSpotifyPlayer({
     const controller = new AbortController();
     fetch(`/api/events/${event.id}/track`, { signal: controller.signal })
       .then((response) => (response.ok ? response.json() : null))
-      .then((data: { track?: { id: string } | null } | null) => setTrackId(data?.track?.id ?? null))
-      .catch(() => undefined);
+      .then((data: { track?: { id: string } | null } | null) => {
+        const id = data?.track?.id ?? null;
+        setTrackId(id);
+        onResult?.(id !== null);
+      })
+      .catch((error: unknown) => {
+        if ((error as DOMException).name !== 'AbortError') onResult?.(false);
+      });
     return () => controller.abort();
-  }, [event.id, music]);
+  }, [event.id, music, onResult]);
 
   useEffect(() => {
     const container = holder.current;

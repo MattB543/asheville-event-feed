@@ -29,6 +29,7 @@ import { OFFICIAL_TAGS_SET } from '@/lib/config/tagCategories';
 import { getMatchingProgramsForEvent } from '@/lib/matching/programs';
 import IntentLink from '@/components/IntentLink';
 import { formatPriceDisplay } from '@/lib/utils/priceDisplay';
+import CardSongButton from './CardSongButton';
 
 // Stateless formatters, hoisted so they aren't rebuilt per card per render.
 // Pinned to Eastern time so displayed dates agree with the feed's ET date filtering.
@@ -694,6 +695,7 @@ export default function EventCard({
                 </button>
               )}
 
+              <CardSongButton event={event} />
               {/* Share button */}
               <div className="relative">
                 <button
@@ -1320,6 +1322,7 @@ export default function EventCard({
                 {favoriteCount > 0 && <span>{favoriteCount}</span>}
               </button>
             )}
+            <CardSongButton event={event} />
             {/* Share button */}
             <div className="relative">
               <button

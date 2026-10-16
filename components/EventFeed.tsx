@@ -50,6 +50,7 @@ import Link from 'next/link';
 import { getZipName } from '@/lib/config/zipNames';
 import { usePreferenceSync } from '@/lib/hooks/usePreferenceSync';
 import { useCaptureSignal } from '@/lib/hooks/useCaptureSignal';
+import { ShareNote, useShareNote } from './ShareButton';
 import { useFavorites, replaceFavorites, clearFavorites } from '@/lib/hooks/useFavorites';
 import { computeDateFilterBounds } from '@/lib/utils/dateFilters';
 import {
@@ -1466,24 +1467,12 @@ export default function EventFeed({
     [toggleFavorite]
   );
 
+  const { note: shareListNote, share: shareList } = useShareNote();
   const handleShareFavorites = useCallback(async () => {
     const ids = upcomingFavorites.map((event) => event.id);
     const url = `${window.location.origin}/events/your-list?shared=${ids.join(',')}`;
-    if (navigator.share) {
-      try {
-        await navigator.share({ title: 'My AVL GO list', url });
-        return;
-      } catch (error) {
-        if ((error as DOMException).name === 'AbortError') return;
-      }
-    }
-    try {
-      await navigator.clipboard.writeText(url);
-      showToast('Link copied');
-    } catch {
-      showToast('Could not copy the link', 'error');
-    }
-  }, [upcomingFavorites, showToast]);
+    await shareList(url, 'My AVL GO list');
+  }, [upcomingFavorites, shareList]);
 
   // Two taps so a stray click can't wipe the list; the sync effect saves the empty
   // list for signed-in users
@@ -1805,10 +1794,11 @@ export default function EventFeed({
       {upcomingFavorites.length > 0 && (
         <button
           onClick={() => void handleShareFavorites()}
-          className="flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-lg border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors cursor-pointer"
+          className="relative flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-lg border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors cursor-pointer"
         >
           <Share2 className="w-4 h-4" />
           Share list
+          <ShareNote note={shareListNote} />
         </button>
       )}
       <button

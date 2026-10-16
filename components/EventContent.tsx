@@ -3,6 +3,7 @@
 import { useState, useRef } from 'react';
 import Image from 'next/image';
 import WholeImage from './WholeImage';
+import { ShareNote, useShareNote } from './ShareButton';
 import { useDismiss } from '@/lib/hooks/useDismiss';
 import Link from 'next/link';
 import {
@@ -72,7 +73,6 @@ export default function EventContent({
   const [imageOpen, setImageOpen] = useState(false);
   const [imgError, setImgError] = useState(false);
   const [calendarMenuOpen, setCalendarMenuOpen] = useState(false);
-  const [copied, setCopied] = useState(false);
   const [isHeartAnimating, setIsHeartAnimating] = useState(false);
   const [showOriginalDescription, setShowOriginalDescription] = useState(false);
   const calendarMenuRef = useRef<HTMLDivElement>(null);
@@ -112,11 +112,8 @@ export default function EventContent({
     setTimeout(() => setIsHeartAnimating(false), 300);
   };
 
-  const handleCopyLink = async () => {
-    await navigator.clipboard.writeText(eventPageUrl);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
+  const { note: shareNote, share } = useShareNote();
+  const handleShare = () => share(eventPageUrl, event.title);
 
   const formatDate = (date: Date, timeUnknown?: boolean | null) => {
     // Events happen in Asheville, so they are stated in Eastern time. Without an
@@ -423,18 +420,13 @@ export default function EventContent({
             {/* Share */}
             <div className="relative">
               <button
-                onClick={() => void handleCopyLink()}
+                onClick={() => void handleShare()}
                 className="inline-flex items-center justify-center px-3 py-1.5 text-sm bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-400 rounded-lg border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors cursor-pointer h-[34px]"
-                title="Copy link"
+                title="Share"
               >
                 <Share size={15} />
               </button>
-              {copied && (
-                <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-1.5 px-2 py-1 text-xs font-medium text-white bg-gray-800 dark:bg-gray-700 rounded shadow-lg whitespace-nowrap animate-fade-in">
-                  Copied!
-                  <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-gray-800 dark:border-t-gray-700" />
-                </div>
-              )}
+              <ShareNote note={shareNote} />
             </div>
 
             {/* View Source */}

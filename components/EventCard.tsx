@@ -31,6 +31,7 @@ import IntentLink from '@/components/IntentLink';
 import { formatPriceDisplay } from '@/lib/utils/priceDisplay';
 import CardSongButton from './CardSongButton';
 import WholeImage from './WholeImage';
+import { ShareNote, useShareNote } from './ShareButton';
 import { venueLine } from '@/lib/utils/venueName';
 import { useDismiss } from '@/lib/hooks/useDismiss';
 import { getDateStringEastern, getTodayStringEastern } from '@/lib/utils/timezone';
@@ -248,7 +249,6 @@ export default function EventCard({
   const [calendarMenuOpen, setCalendarMenuOpen] = useState(false);
   const [moreMenuOpen, setMoreMenuOpen] = useState(false);
   const [isHeartAnimating, setIsHeartAnimating] = useState(false);
-  const [copied, setCopied] = useState(false);
   const calendarMenuRef = useRef<HTMLDivElement>(null);
   const moreMenuRef = useRef<HTMLDivElement>(null);
   const { showToast } = useToast();
@@ -402,6 +402,9 @@ export default function EventCard({
   // Generate event URL for links. They prefetch on hover/focus (IntentLink), and not at all
   // when a plain click opens the modal instead of the page
   const eventUrl = `/events/${generateEventSlug(event.title, event.startDate, event.id)}`;
+
+  const { note: shareNote, share } = useShareNote();
+  const handleShare = () => share(`${window.location.origin}${eventUrl}`, event.title);
   const rankLabel = ranking && rankAsLabel && (
     <span className="mr-1.5 inline-block rounded bg-brand-50 px-1.5 py-0.5 align-[2px] text-xs font-semibold whitespace-nowrap text-brand-700 dark:bg-brand-900/40 dark:text-brand-300">
       Rank #{ranking}
@@ -685,27 +688,13 @@ export default function EventCard({
               {/* Share button */}
               <div className="relative">
                 <button
-                  onClick={() => {
-                    const shareUrl = `${window.location.origin}/events/${generateEventSlug(
-                      event.title,
-                      event.startDate,
-                      event.id
-                    )}`;
-                    void navigator.clipboard.writeText(shareUrl);
-                    setCopied(true);
-                    setTimeout(() => setCopied(false), 2000);
-                  }}
+                  onClick={() => void handleShare()}
                   className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs text-gray-600 dark:text-gray-400 rounded border border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer transition-colors h-[30px]"
-                  title="Copy link"
+                  title="Share"
                 >
                   <Share size={14} />
                 </button>
-                {copied && (
-                  <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-1.5 px-2 py-1 text-xs font-medium text-white bg-gray-800 dark:bg-gray-700 rounded shadow-lg whitespace-nowrap animate-fade-in">
-                    Copied!
-                    <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-gray-800 dark:border-t-gray-700" />
-                  </div>
-                )}
+                <ShareNote note={shareNote} />
               </div>
 
               {/* More options dropdown */}
@@ -1308,28 +1297,13 @@ export default function EventCard({
             {/* Share button */}
             <div className="relative">
               <button
-                onClick={() => {
-                  const eventUrl = `${window.location.origin}/events/${generateEventSlug(
-                    event.title,
-                    event.startDate,
-                    event.id
-                  )}`;
-                  void navigator.clipboard.writeText(eventUrl);
-                  setCopied(true);
-                  setTimeout(() => setCopied(false), 2000);
-                }}
+                onClick={() => void handleShare()}
                 className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs text-gray-600 dark:text-gray-400 rounded border border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer transition-colors h-[30px]"
-                title="Copy link"
+                title="Share"
               >
                 <Share size={14} />
               </button>
-              {/* Copied tooltip */}
-              {copied && (
-                <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-1.5 px-2 py-1 text-xs font-medium text-white bg-gray-800 dark:bg-gray-700 rounded shadow-lg whitespace-nowrap animate-fade-in">
-                  Copied!
-                  <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-gray-800 dark:border-t-gray-700" />
-                </div>
-              )}
+              <ShareNote note={shareNote} />
             </div>
             {/* More options dropdown */}
             <div className="relative" ref={moreMenuRef}>

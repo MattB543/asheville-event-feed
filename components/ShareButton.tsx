@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { Share } from 'lucide-react';
 import { TAP_AREA } from './news/display';
+import { copyLink, shareLink, type ShareOutcome } from '@/lib/utils/shareLink';
 
 // Share links always point at the live site, even from a preview or local build
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://avlgo.com';
@@ -14,64 +15,57 @@ interface ShareButtonProps {
 }
 
 /**
- * The native share sheet on touch devices, copy-the-link everywhere else, with
- * a tooltip on the button saying it worked.
- * Desktop Chrome has navigator.share too, but there the OS sheet is a detour
- * from what people expect a desktop "Share" to do.
+ * Shares or copies a link and says so in a bubble (`ShareNote`) over the button
+ * that did it. The button's wrapper needs `relative`.
  */
-export default function ShareButton({ path, title }: ShareButtonProps) {
-  const [tooltip, setTooltip] = useState<string | null>(null);
+export function useShareNote() {
+  const [note, setNote] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!tooltip) return;
-    const timer = setTimeout(() => setTooltip(null), 1800);
+    if (!note) return;
+    const timer = setTimeout(() => setNote(null), 1800);
     return () => clearTimeout(timer);
-  }, [tooltip]);
+  }, [note]);
 
-  const copyLink = async (url: string) => {
-    try {
-      await navigator.clipboard.writeText(url);
-      setTooltip('Link copied');
-    } catch {
-      setTooltip("Couldn't copy the link");
-    }
+  const report = (outcome: ShareOutcome) => {
+    if (outcome === 'copied') setNote('Link copied');
+    if (outcome === 'failed') setNote("Couldn't copy the link");
   };
 
-  const handleShare = async () => {
-    const url = `${SITE_URL}${path}`;
-    const touch = window.matchMedia('(pointer: coarse)').matches;
-
-    if (touch && typeof navigator.share === 'function') {
-      try {
-        await navigator.share({ title, url });
-      } catch (error) {
-        // Dismissing the sheet is not a failure
-        if (error instanceof DOMException && error.name === 'AbortError') return;
-        await copyLink(url);
-      }
-      return;
-    }
-
-    await copyLink(url);
+  return {
+    note,
+    share: async (url: string, title: string) => report(await shareLink(url, title)),
+    copy: async (url: string) => report(await copyLink(url)),
   };
+}
+
+export function ShareNote({ note }: { note: string | null }) {
+  return (
+    <span
+      role="status"
+      className={`pointer-events-none absolute bottom-full left-1/2 z-50 mb-2 -translate-x-1/2 whitespace-nowrap rounded-md bg-gray-900 px-2 py-1 text-xs font-medium text-white shadow-md transition-opacity dark:bg-gray-100 dark:text-gray-900 ${
+        note ? 'opacity-100' : 'opacity-0'
+      }`}
+    >
+      {note}
+    </span>
+  );
+}
+
+/** A Share button for a page on the site */
+export default function ShareButton({ path, title }: ShareButtonProps) {
+  const { note, share } = useShareNote();
 
   return (
     <button
       type="button"
-      onClick={() => void handleShare()}
+      onClick={() => void share(`${SITE_URL}${path}`, title)}
       className={`${TAP_AREA} inline-flex items-center gap-1 rounded-md px-1.5 py-1 text-xs font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-200 cursor-pointer transition-colors`}
       aria-label={`Share: ${title}`}
     >
       <Share size={14} aria-hidden="true" />
       Share
-      <span
-        role="status"
-        className={`pointer-events-none absolute bottom-full left-1/2 mb-2 -translate-x-1/2 whitespace-nowrap rounded-md bg-gray-900 px-2 py-1 text-xs font-medium text-white shadow-md transition-opacity dark:bg-gray-100 dark:text-gray-900 ${
-          tooltip ? 'opacity-100' : 'opacity-0'
-        }`}
-      >
-        {tooltip}
-      </span>
+      <ShareNote note={note} />
     </button>
   );
 }

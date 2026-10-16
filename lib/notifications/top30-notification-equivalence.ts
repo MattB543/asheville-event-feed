@@ -1,4 +1,5 @@
 import { getVenueForEvent } from '@/lib/utils/venues';
+import { getDateStringEastern } from '@/lib/utils/timezone';
 
 export interface Top30ComparableEvent {
   id?: string;
@@ -32,11 +33,7 @@ const TITLE_STOP_WORDS = new Set([
   'asheville',
 ]);
 
-function getEasternDateKey(date: Date): string {
-  return date.toLocaleDateString('en-CA', { timeZone: 'America/New_York' });
-}
-
-function normalizeLooseText(value: string | null | undefined): string {
+export function normalizeLooseText(value: string | null | undefined): string {
   if (!value) return '';
 
   return value
@@ -76,7 +73,7 @@ export function areEquivalentTop30Events(
   event: Top30ComparableEvent,
   previousEvent: Top30ComparableEvent
 ): boolean {
-  if (getEasternDateKey(event.startDate) !== getEasternDateKey(previousEvent.startDate)) {
+  if (getDateStringEastern(event.startDate) !== getDateStringEastern(previousEvent.startDate)) {
     return false;
   }
 

@@ -58,6 +58,16 @@ const EVENT_DAY_KEY_FORMATTER = new Intl.DateTimeFormat('en-CA', {
 // sources up to 3:1 sharp. The mobile layout's images span the card and keep the default.
 const DESKTOP_CARD_IMAGE_SIZES = '384px';
 
+// For a rounded, bordered box of cards: the end cards' square corners (and the last
+// card's bottom line) would sit on the box's rounded border, so they're rounded to
+// match (no overflow clip: it would cut off the cards' dropdown menus)
+export const LAST_CARD_ROUNDED =
+  '[&>div:last-child>div]:border-b-0 [&>div:last-child>div]:rounded-b-lg';
+const BOX = `flex flex-col bg-white dark:bg-gray-900 sm:shadow-sm sm:border sm:border-gray-200 dark:sm:border-gray-700 ${LAST_CARD_ROUNDED}`;
+// Cards under a heading that caps the box's top
+export const CARD_BOX_UNDER_HEADING = `${BOX} sm:rounded-b-lg`;
+export const CARD_BOX = `${BOX} sm:rounded-lg [&>div:first-child>div]:rounded-t-lg`;
+
 /**
  * Component that renders only the tags that fit on one line.
  * Uses a hidden measurement layer to determine how many tags can be displayed.
@@ -166,7 +176,6 @@ interface EventCardProps {
   /** Omit where there is no feed to hide from; the "Hide host" item goes with it. */
   onBlockHost?: (host: string) => void;
   isNewlyHidden?: boolean;
-  hideBorder?: boolean;
   isFavorited: boolean;
   favoriteCount: number;
   onToggleFavorite: (eventId: string) => void;

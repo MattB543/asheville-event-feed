@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
-import EventCard from '@/components/EventCard';
+import EventCard, { CARD_BOX } from '@/components/EventCard';
 import { useFavorites } from '@/lib/hooks/useFavorites';
 import type { EndCapEvent } from '@/lib/news/queries';
 
@@ -53,7 +53,7 @@ export default function NewsEndCap({ events }: { events: EndCapEvent[] }) {
         </p>
       </div>
 
-      <div className="mt-4 flex flex-col bg-white dark:bg-gray-900 sm:rounded-lg sm:shadow-sm sm:border sm:border-gray-200 dark:sm:border-gray-700">
+      <div className={`mt-4 ${CARD_BOX}`}>
         {events.map((event) => (
           <EventCard
             key={event.id}

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useMemo, useEffect, useCallback, useRef } from 'react';
-import EventCard from './EventCard';
+import EventCard, { CARD_BOX, CARD_BOX_UNDER_HEADING } from './EventCard';
 import FilterBar from './FilterBar';
 import type {
   DateFilterType,
@@ -217,12 +217,6 @@ function getStorageItem<T>(key: string, defaultValue: T): T {
     return defaultValue;
   }
 }
-
-// A day's cards under its date heading. The last card's square bottom (its line and
-// background) would sit on the box's rounded border, so it's dropped and rounded to
-// match (no overflow clip: it would cut off the cards' dropdown menus)
-const DAY_GROUP_LIST =
-  'flex flex-col bg-white dark:bg-gray-900 sm:rounded-b-lg sm:shadow-sm sm:border sm:border-gray-200 dark:sm:border-gray-700 [&>div:last-child>div]:border-b-0 [&>div:last-child>div]:rounded-b-lg';
 
 const TOP30_VISIBLE_LIMIT = 30;
 // Check if localStorage contains non-default filters that would affect query results
@@ -1833,7 +1827,6 @@ export default function EventFeed({
       onHide={handleHideEvent}
       onBlockHost={handleBlockHost}
       isNewlyHidden={false}
-      hideBorder
       isFavorited={favoritedEventIds.includes(event.id)}
       favoriteCount={favoriteCountOverrides[event.id] ?? event.favoriteCount ?? 0}
       onToggleFavorite={handleToggleFavorite}
@@ -1889,7 +1882,7 @@ export default function EventFeed({
   const favoritesList = (
     <>
       {upcomingFavorites.length > 0 ? (
-        <div className="flex flex-col bg-white dark:bg-gray-900 sm:rounded-lg sm:shadow-sm sm:border sm:border-gray-200 dark:sm:border-gray-700">
+        <div className={CARD_BOX}>
           {upcomingFavorites.map((event) => renderListCard(event, true))}
         </div>
       ) : (
@@ -1904,7 +1897,7 @@ export default function EventFeed({
             <ChevronDown className="w-4 h-4 -rotate-90 group-open:rotate-0 transition-transform" />
             Past ({pastFavorites.length})
           </summary>
-          <div className="mt-3 flex flex-col bg-white dark:bg-gray-900 sm:rounded-lg sm:shadow-sm sm:border sm:border-gray-200 dark:sm:border-gray-700 opacity-75">
+          <div className={`mt-3 ${CARD_BOX} opacity-75`}>
             {pastFavorites.map((event) => renderListCard(event, true))}
           </div>
         </details>
@@ -1983,7 +1976,7 @@ export default function EventFeed({
                   again.
                 </p>
               ) : sharedEvents.length > 0 ? (
-                <div className="flex flex-col bg-white dark:bg-gray-900 sm:rounded-lg sm:shadow-sm sm:border sm:border-gray-200 dark:sm:border-gray-700">
+                <div className={CARD_BOX}>
                   {sharedEvents.map((event) => renderListCard(event, false))}
                 </div>
               ) : (
@@ -2139,7 +2132,7 @@ export default function EventFeed({
 
               {/* Score-ranked view */}
               {!forYouLoading && forYouEvents.length > 0 && forYouSortMode === 'score' && (
-                <div className="flex flex-col bg-white dark:bg-gray-900 sm:rounded-lg sm:shadow-sm sm:border sm:border-gray-200 dark:sm:border-gray-700 ">
+                <div className={CARD_BOX}>
                   {[...forYouEvents]
                     .sort((a, b) => b.score - a.score)
                     .map((scoredEvent, index) => {
@@ -2163,7 +2156,6 @@ export default function EventFeed({
                           onHide={handleHideEvent}
                           onBlockHost={handleBlockHost}
                           isNewlyHidden={false}
-                          hideBorder
                           isFavorited={favoritedEventIds.includes(event.id)}
                           favoriteCount={
                             favoriteCountOverrides[event.id] ?? event.favoriteCount ?? 0
@@ -2249,7 +2241,7 @@ export default function EventFeed({
                           <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100 sticky top-0 bg-white dark:bg-gray-900 sm:border sm:border-b-0 sm:border-gray-200 dark:sm:border-gray-700 sm:rounded-t-lg pt-3 pb-2 px-3 sm:px-4 z-10">
                             {headerText}
                           </h2>
-                          <div className={DAY_GROUP_LIST}>
+                          <div className={CARD_BOX_UNDER_HEADING}>
                             {sortedGroupEvents.map((scoredEvent) => {
                               const event: Event = {
                                 ...scoredEvent.event,
@@ -2271,7 +2263,6 @@ export default function EventFeed({
                                   onHide={handleHideEvent}
                                   onBlockHost={handleBlockHost}
                                   isNewlyHidden={false}
-                                  hideBorder
                                   isFavorited={favoritedEventIds.includes(event.id)}
                                   favoriteCount={
                                     favoriteCountOverrides[event.id] ?? event.favoriteCount ?? 0
@@ -2485,7 +2476,7 @@ export default function EventFeed({
 
           {/* Score-ranked view */}
           {top30SortMode === 'score' && filteredTop30CategoryEvents.length > 0 && (
-            <div className="flex flex-col bg-white dark:bg-gray-900 sm:rounded-lg sm:shadow-sm sm:border sm:border-gray-200 dark:sm:border-gray-700 ">
+            <div className={CARD_BOX}>
               {filteredTop30CategoryEvents.map((event) => (
                 <EventCard
                   key={event.id}
@@ -2504,7 +2495,6 @@ export default function EventFeed({
                   isNewlyHidden={sessionHiddenKeys.has(
                     createFingerprintKey(event.title, event.organizer)
                   )}
-                  hideBorder
                   isFavorited={favoritedEventIds.includes(event.id)}
                   favoriteCount={favoriteCountOverrides[event.id] ?? event.favoriteCount ?? 0}
                   onToggleFavorite={handleToggleFavorite}
@@ -2556,7 +2546,7 @@ export default function EventFeed({
                     <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100 sticky top-0 bg-white dark:bg-gray-900 sm:border sm:border-b-0 sm:border-gray-200 dark:sm:border-gray-700 sm:rounded-t-lg pt-3 pb-2 px-3 sm:px-4 z-10">
                       {headerText}
                     </h2>
-                    <div className={DAY_GROUP_LIST}>
+                    <div className={CARD_BOX_UNDER_HEADING}>
                       {groupEvents.map((event) => (
                         <EventCard
                           key={event.id}
@@ -2575,7 +2565,6 @@ export default function EventFeed({
                           isNewlyHidden={sessionHiddenKeys.has(
                             createFingerprintKey(event.title, event.organizer)
                           )}
-                          hideBorder
                           isFavorited={favoritedEventIds.includes(event.id)}
                           favoriteCount={
                             favoriteCountOverrides[event.id] ?? event.favoriteCount ?? 0
@@ -2749,7 +2738,7 @@ export default function EventFeed({
                         </div>
                       )}
                     </h2>
-                    <div className={DAY_GROUP_LIST}>
+                    <div className={CARD_BOX_UNDER_HEADING}>
                       {displayEvents.map((event) => {
                         const eventKey = createFingerprintKey(event.title, event.organizer);
                         const isNewlyHidden = sessionHiddenKeys.has(eventKey);
@@ -2777,7 +2766,6 @@ export default function EventFeed({
                             onHide={handleHideEvent}
                             onBlockHost={handleBlockHost}
                             isNewlyHidden={isNewlyHidden}
-                            hideBorder
                             isFavorited={favoritedEventIds.includes(event.id)}
                             favoriteCount={
                               favoriteCountOverrides[event.id] ?? event.favoriteCount ?? 0

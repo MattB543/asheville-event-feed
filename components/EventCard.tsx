@@ -1484,7 +1484,7 @@ export default function EventCard({
           {/* The Listen player's own row, so opening it can't move the buttons or tags */}
           <div
             ref={setPlayerSlot}
-            className="sm:col-span-2 xl:col-span-1 xl:col-start-3 empty:hidden"
+            className="sm:col-span-2 xl:col-span-1 xl:col-start-3 max-w-xl xl:max-w-none empty:hidden"
             onClick={(e) => e.stopPropagation()}
           />
         </div>

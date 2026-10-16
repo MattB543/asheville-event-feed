@@ -237,7 +237,7 @@ function generateEventCard(event: DigestEvent, appUrl: string): string {
   // Build the details line: "8:00 AM | $40 | The Omni Grove Park Inn"
   const detailParts = [time];
   if (event.price) detailParts.push(escapeHtml(event.price));
-  const place = venueLine(event);
+  const place = event.location || event.organizer ? venueLine(event) : '';
   if (place) detailParts.push(escapeHtml(place));
   const detailsLine = detailParts.join(' | ');
 
@@ -364,7 +364,7 @@ Manage preferences: ${appUrl}/profile
             // Build details line: time | price | location
             const detailParts = [time];
             if (event.price) detailParts.push(event.price);
-            const place = venueLine(event);
+            const place = event.location || event.organizer ? venueLine(event) : '';
             if (place) detailParts.push(place);
             const summaryLine = event.aiSummary ? `\n    ${event.aiSummary}` : '';
             return `  - ${event.title}${summaryLine}\n    ${detailParts.join(' | ')}\n    ${eventUrl}${curatorText}${notesText}`;
@@ -385,7 +385,7 @@ Manage preferences: ${appUrl}/profile
           // Build details line: time | price | location
           const detailParts = [time];
           if (event.price) detailParts.push(event.price);
-          const place = venueLine(event);
+          const place = event.location || event.organizer ? venueLine(event) : '';
           if (place) detailParts.push(place);
           const summaryLine = event.aiSummary ? `\n    ${event.aiSummary}` : '';
           return `  - ${event.title}${summaryLine}\n    ${detailParts.join(' | ')}\n    ${eventUrl}`;

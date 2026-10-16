@@ -1,4 +1,4 @@
-import { and, asc, desc, eq, gte, inArray, isNull, lt, or } from 'drizzle-orm';
+import { and, asc, desc, eq, gte, inArray, isNull, lt, or, sql } from 'drizzle-orm';
 import { db } from '@/lib/db';
 import { events, eventTracks, playlistPicks } from '@/lib/db/schema';
 import { getDayBoundariesEastern } from '@/lib/utils/timezone';
@@ -64,7 +64,9 @@ export async function getLatestPlaylistWeek(): Promise<PlaylistWeek | null> {
     .from(playlistPicks)
     .innerJoin(events, eq(events.id, playlistPicks.eventId))
     .leftJoin(eventTracks, eq(eventTracks.eventId, playlistPicks.eventId))
-    .where(eq(playlistPicks.weekStart, latest.weekStart))
+    // Hidden events 404, so they leave the page; duplicate and dead ones still open a page
+    // and stay, so the list keeps matching what's on Spotify
+    .where(and(eq(playlistPicks.weekStart, latest.weekStart), sql`${events.hidden} IS NOT TRUE`))
     .orderBy(asc(playlistPicks.position));
 
   const shows = picks.map((p) => {

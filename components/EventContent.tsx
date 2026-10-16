@@ -19,6 +19,7 @@ import {
   ChevronDown,
   Share,
   Users,
+  Loader2,
 } from 'lucide-react';
 import { cleanAshevilleFromSummary, cleanMarkdown } from '@/lib/utils/parsers';
 import { formatTagForDisplay } from '@/lib/utils/formatTag';
@@ -72,6 +73,7 @@ export default function EventContent({
   className = '',
 }: EventContentProps) {
   const [imageOpen, setImageOpen] = useState(false);
+  const [fullImageLoaded, setFullImageLoaded] = useState(false);
   const [imgError, setImgError] = useState(false);
   const [calendarMenuOpen, setCalendarMenuOpen] = useState(false);
   const [isHeartAnimating, setIsHeartAnimating] = useState(false);
@@ -452,11 +454,24 @@ export default function EventContent({
       {imageOpen && event.imageUrl && (
         <Lightbox label={`Image for ${event.title}`} onClose={() => setImageOpen(false)}>
           {/* Natural size, unknown up front, so a plain img rather than next/image */}
+          {/* The page shows a resized copy, so the original still has to download */}
+          {!fullImageLoaded && (
+            <Loader2
+              className="mx-auto mt-24 h-8 w-8 animate-spin text-white/60"
+              aria-label="Loading image"
+            />
+          )}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
+            ref={(img) => {
+              if (img?.complete) setFullImageLoaded(true);
+            }}
             src={event.imageUrl}
             alt={event.title}
-            className="mx-auto max-h-[85vh] w-auto object-contain rounded-sm shadow-2xl"
+            onLoad={() => setFullImageLoaded(true)}
+            className={`mx-auto max-h-[85vh] w-auto object-contain rounded-sm shadow-2xl ${
+              fullImageLoaded ? '' : 'hidden'
+            }`}
           />
         </Lightbox>
       )}

@@ -14,6 +14,9 @@ export function normalizeName(s: string): string {
 // the town back on its own when it isn't Asheville
 const VENUE_SUFFIX_RE = /\s+(co\.|black mountain|asheville|nc)$/i;
 
+// What people actually call a venue, where its listed name runs long
+const SPOKEN_NAMES: [RegExp, string][] = [[/^grey eagle\b/i, 'Grey Eagle']];
+
 function shortVenue(name: string, maxLength: number | null): string {
   let s = name;
   // ALL-CAPS names to title case; mixed case is left alone
@@ -23,6 +26,7 @@ function shortVenue(name: string, maxLength: number | null): string {
     s = next;
     next = s.replace(VENUE_SUFFIX_RE, '').trim();
   }
+  s = SPOKEN_NAMES.find(([pattern]) => pattern.test(s))?.[1] ?? s;
   if (maxLength !== null && s.length > maxLength) s = `${s.slice(0, maxLength - 1).trimEnd()}…`;
   return s;
 }

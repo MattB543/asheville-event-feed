@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { cache } from 'react';
 import Link from 'next/link';
 import { LayoutGrid, List } from 'lucide-react';
 import { connection } from 'next/server';
@@ -31,22 +32,37 @@ const cover = {
   alt: 'AVL GO: live this week in Asheville, NC',
 };
 
-export const metadata: Metadata = {
-  title: 'Asheville Live Music This Week: Spotify Playlist',
-  description,
-  alternates: { canonical: pageUrl },
-  openGraph: {
-    type: 'website',
-    url: pageUrl,
-    title,
-    description,
-    siteName: 'AVL GO',
-    locale: 'en_US',
-    images: [cover],
-  },
-  // Square art reads better as a small card than stretched into a wide one
-  twitter: { card: 'summary', title, description, images: [cover.url] },
-};
+// The page and its metadata share one read per request
+const loadWeek = cache(getLatestPlaylistWeek);
+
+// "Larkin Poe, Voivod, The Infamous Stringdusters and 14 more", so a shared link says who's playing
+function headliners(week: PlaylistWeek | null): string {
+  const names = week?.shows.map((show) => show.artist) ?? [];
+  if (names.length === 0) return '';
+  const more = names.length > 3 ? ` and ${names.length - 3} more` : '';
+  return ` This week: ${names.slice(0, 3).join(', ')}${more}.`;
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  const week = await loadWeek().catch(() => null);
+  const fullDescription = `${description}${headliners(week)}`;
+  return {
+    title: 'Asheville Live Music This Week: Spotify Playlist',
+    description: fullDescription,
+    alternates: { canonical: pageUrl },
+    openGraph: {
+      type: 'website',
+      url: pageUrl,
+      title,
+      description: fullDescription,
+      siteName: 'AVL GO',
+      locale: 'en_US',
+      images: [cover],
+    },
+    // Square art reads better as a small card than stretched into a wide one
+    twitter: { card: 'summary', title, description: fullDescription, images: [cover.url] },
+  };
+}
 
 // "Wednesday, October 14 – Thursday, October 22, 2026": the span of the shows themselves
 // Short names ("Wed, Oct 14") fit a phone on one line
@@ -291,7 +307,7 @@ export default async function PlaylistPage({
   let week: PlaylistWeek | null = null;
   let failed = false;
   try {
-    week = await getLatestPlaylistWeek();
+    week = await loadWeek();
   } catch (error) {
     console.error('[Playlist] Failed to load the playlist:', error);
     failed = true;

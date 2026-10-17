@@ -1,4 +1,9 @@
+'use client';
+
+import { useState } from 'react';
 import Image from 'next/image';
+
+const FALLBACK_SRC = '/asheville-default.jpg';
 
 interface WholeImageProps {
   src: string;
@@ -15,13 +20,16 @@ interface WholeImageProps {
  * nearest positioned box.
  */
 export default function WholeImage({
-  src,
+  src: requestedSrc,
   alt,
   sizes,
   priority,
   referrerPolicy,
   onError,
 }: WholeImageProps) {
+  // A dead or blocked image (some sources 403 hotlinks) falls back to the site's photo
+  const [failed, setFailed] = useState(false);
+  const src = failed ? FALLBACK_SRC : requestedSrc;
   const unoptimized = src.startsWith('data:');
   return (
     // The clip keeps iOS Safari from letting the blur spill out and widen the page
@@ -42,7 +50,10 @@ export default function WholeImage({
         fill
         sizes={sizes}
         className="object-contain"
-        onError={onError}
+        onError={() => {
+          setFailed(true);
+          onError?.();
+        }}
         unoptimized={unoptimized}
         referrerPolicy={referrerPolicy}
         priority={priority}

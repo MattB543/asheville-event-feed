@@ -13,6 +13,19 @@ const DEFAULT_METADATA: Metadata = {
     'Your personalized event list with recommendations and favorites for Asheville events.',
 };
 
+// Every unfurl of a shared link would otherwise hit the database; the cache stores
+// JSON, so the date travels as a string
+const getSharedPreview = unstable_cache(
+  async (ids: string[]) =>
+    (await getEventsByIds(ids)).map((e) => ({
+      title: e.title,
+      startDate: e.startDate.toISOString(),
+      imageUrl: e.imageUrl,
+    })),
+  ['shared-list-preview'],
+  { tags: ['events'], revalidate: 3600 }
+);
+
 // A shared list's link preview describes its events instead of the site
 export async function generateMetadata({
   searchParams,
@@ -21,9 +34,10 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const ids = cleanEventIds(((await searchParams).shared ?? '').split(','));
   if (ids.length === 0) return DEFAULT_METADATA;
-  let shared: Awaited<ReturnType<typeof getEventsByIds>> = [];
+  let shared: Awaited<ReturnType<typeof getSharedPreview>> = [];
   try {
-    shared = await getEventsByIds(ids);
+    // Sorted so the same list in a different order shares one cache entry
+    shared = await getSharedPreview([...ids].sort());
   } catch (error) {
     console.error('[YourList] Failed to load shared events for the preview:', error);
   }
@@ -37,7 +51,7 @@ export async function generateMetadata({
     .slice(0, 3)
     .map(
       (e) =>
-        `${e.title}, ${formatDateEastern(e.startDate, { weekday: 'short', month: 'short', day: 'numeric' })}`
+        `${e.title}, ${formatDateEastern(new Date(e.startDate), { weekday: 'short', month: 'short', day: 'numeric' })}`
     );
   const more = shared.length > 3 ? ` · +${shared.length - 3} more` : '';
   const description = `${listed.join(' · ')}${more}`;

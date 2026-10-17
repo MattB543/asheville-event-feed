@@ -1,13 +1,6 @@
 import { NextResponse } from 'next/server';
-import { db } from '@/lib/db';
-import { events } from '@/lib/db/schema';
-import { and, asc, inArray } from 'drizzle-orm';
 import { isRecord, isStringArray } from '@/lib/utils/validation';
-import { publicEventColumns } from '@/lib/db/queries/publicEventColumns';
-import { liveEvent } from '@/lib/db/liveEvent';
-
-const MAX_IDS = 200;
-const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+import { cleanEventIds, getEventsByIds } from '@/lib/db/queries/sharedList';
 
 export async function POST(request: Request) {
   try {
@@ -24,20 +17,12 @@ export async function POST(request: Request) {
       return NextResponse.json({ events: [] });
     }
 
-    // Drop malformed ids (a share link cut off mid-id) instead of letting one
-    // fail the whole uuid query
-    const uniqueIds = Array.from(new Set(ids.filter((id) => UUID_REGEX.test(id))));
-    if (uniqueIds.length === 0) {
+    const limitedIds = cleanEventIds(ids);
+    if (limitedIds.length === 0) {
       return NextResponse.json({ error: 'No valid event ids' }, { status: 400 });
     }
 
-    const limitedIds = uniqueIds.slice(0, MAX_IDS);
-
-    const results = await db
-      .select(publicEventColumns)
-      .from(events)
-      .where(and(inArray(events.id, limitedIds), liveEvent))
-      .orderBy(asc(events.startDate));
+    const results = await getEventsByIds(limitedIds);
 
     return NextResponse.json({ events: results });
   } catch (error) {

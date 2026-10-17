@@ -80,12 +80,16 @@ export async function getLatestPlaylistWeek(): Promise<PlaylistWeek | null> {
     .orderBy(asc(playlistPicks.position));
 
   const genres = [...new Set(picks.map((p) => mainGenre(p.tags)).filter((g) => g !== null))];
-  const notes = new Map(
-    (genres.length
-      ? await db.select().from(genreNotes).where(inArray(genreNotes.genre, genres))
-      : []
-    ).map((row) => [row.genre, row.note])
-  );
+  const notes = new Map<string, string | null>();
+  try {
+    if (genres.length) {
+      const rows = await db.select().from(genreNotes).where(inArray(genreNotes.genre, genres));
+      for (const row of rows) notes.set(row.genre, row.note);
+    }
+  } catch (error) {
+    // Tooltips are extra: the page still works if the table is missing or unreadable
+    console.warn('[Playlist] Genre notes unavailable:', error);
+  }
   const shows = picks.map((p) => {
     const artist = p.spotifyArtist ?? p.artist ?? p.title;
     return {

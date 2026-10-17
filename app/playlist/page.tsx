@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { cache } from 'react';
 import Link from 'next/link';
-import { LayoutGrid, List } from 'lucide-react';
+import { ChevronDown, LayoutGrid, List } from 'lucide-react';
 import { connection } from 'next/server';
 import Header from '@/components/Header';
 import FooterCredit from '@/components/FooterCredit';
@@ -16,7 +16,7 @@ import {
 } from '@/lib/db/queries/playlist';
 import { generateEventSlug } from '@/lib/utils/slugify';
 import { addDaysToDateString } from '@/lib/utils/dateFilters';
-import { formatDateEastern } from '@/lib/utils/timezone';
+import { formatDateEastern, getStartOfTodayEastern } from '@/lib/utils/timezone';
 import { formatPriceDisplay } from '@/lib/utils/priceDisplay';
 import { mapsSearchUrl } from '@/lib/utils/maps';
 import { SITE_URL } from '@/lib/seo/site';
@@ -313,6 +313,18 @@ export default async function PlaylistPage({
     failed = true;
   }
 
+  // Shows before today fold away; their songs stay on Spotify until Sunday's rebuild, so
+  // someone who heard one can still find who it was
+  const startOfToday = getStartOfTodayEastern();
+  const upcoming = <T extends { startDate: Date }>(rows: T[]) =>
+    rows.filter((row) => row.startDate >= startOfToday);
+  const shows = week ? upcoming(week.shows) : [];
+  const pastShows = week ? week.shows.filter((show) => show.startDate < startOfToday) : [];
+  const renderShows = (rows: PlaylistShowRow[]) =>
+    view === 'cards' ? <ShowCards shows={rows} /> : <ShowList shows={rows} />;
+  const notOnSpotify = week ? upcoming(week.notOnSpotify) : [];
+  const tributes = week ? upcoming(week.tributes) : [];
+
   const playlistId = env.SPOTIFY_PLAYLIST_ID;
   const allShowsHref = week
     ? `/events?dateFilter=custom&dateStart=${week.weekStart}&dateEnd=${addDaysToDateString(week.weekStart, 7)}&tagsInclude=Live+Music`
@@ -404,11 +416,26 @@ export default async function PlaylistPage({
             </div>
           ) : (
             <>
+              {/* The toggle also switches how past shows look, so it stays when only they're left */}
               <ViewToggle view={view} />
-              {view === 'cards' ? (
-                <ShowCards shows={week.shows} />
+              {pastShows.length > 0 && (
+                <details className="mb-3 group">
+                  <summary className="flex items-center gap-1 text-sm font-medium text-gray-500 dark:text-gray-400 cursor-pointer list-none">
+                    <ChevronDown className="w-4 h-4 -rotate-90 group-open:rotate-0 transition-transform" />
+                    Earlier this week ({pastShows.length})
+                  </summary>
+                  <div className="mt-3 opacity-75">{renderShows(pastShows)}</div>
+                </details>
+              )}
+              {shows.length === 0 && pastShows.length > 0 ? (
+                <div className="p-8 text-center bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl">
+                  <p className="text-gray-600 dark:text-gray-400">
+                    This week&apos;s shows are over. Next week&apos;s playlist arrives Sunday
+                    morning.
+                  </p>
+                </div>
               ) : (
-                <ShowList shows={week.shows} />
+                renderShows(shows)
               )}
             </>
           )}
@@ -422,11 +449,11 @@ export default async function PlaylistPage({
             </Link>
           </p>
 
-          {week && (week.notOnSpotify.length > 0 || week.tributes.length > 0) && (
+          {(notOnSpotify.length > 0 || tributes.length > 0) && (
             <div className="mt-8 grid gap-6 sm:grid-cols-2 text-sm">
               {[
-                { label: 'Headliners not on Spotify', rows: week.notOnSpotify },
-                { label: 'Tribute and cover shows', rows: week.tributes },
+                { label: 'Headliners not on Spotify', rows: notOnSpotify },
+                { label: 'Tribute and cover shows', rows: tributes },
               ]
                 .filter((group) => group.rows.length > 0)
                 .map((group) => (

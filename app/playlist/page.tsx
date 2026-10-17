@@ -102,7 +102,7 @@ function TicketsButton({ show, className = '' }: { show: PlaylistShowRow; classN
 function ViewToggle({ view }: { view: View }) {
   const option = (value: View, label: string, Icon: typeof List) => (
     <Link
-      href={value === 'list' ? '/playlist' : '/playlist?view=cards'}
+      href={value === 'cards' ? '/playlist' : '/playlist?view=list'}
       scroll={false}
       aria-current={view === value ? 'true' : undefined}
       className={`inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm font-medium transition-colors ${
@@ -118,8 +118,8 @@ function ViewToggle({ view }: { view: View }) {
   return (
     <div className="mt-6 mb-3 flex justify-end">
       <div className="inline-flex gap-1 rounded-lg bg-gray-100 dark:bg-gray-800/70 p-1">
-        {option('list', 'List', List)}
         {option('cards', 'Cards', LayoutGrid)}
+        {option('list', 'List', List)}
       </div>
     </div>
   );
@@ -284,7 +284,7 @@ export default async function PlaylistPage({
 }: {
   searchParams: Promise<{ view?: string }>;
 }) {
-  const view: View = (await searchParams).view === 'cards' ? 'cards' : 'list';
+  const view: View = (await searchParams).view === 'list' ? 'list' : 'cards';
   // Per request: the picks change weekly and the query is two small reads
   await connection();
 

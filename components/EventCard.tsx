@@ -31,6 +31,7 @@ import IntentLink from '@/components/IntentLink';
 import { formatPriceDisplay } from '@/lib/utils/priceDisplay';
 import CardSongButton from './CardSongButton';
 import WholeImage from './WholeImage';
+import Tooltip from './ui/Tooltip';
 import { eventSourceUrl } from '@/lib/utils/sourceUrl';
 import { ShareNote, useShareNote } from './ShareButton';
 import { venueLine } from '@/lib/utils/venueName';
@@ -1030,26 +1031,27 @@ export default function EventCard({
                       ))}
                       {/* Mobile: show +N badge if more than 3 tags */}
                       {mobileHiddenCount > 0 && (
-                        <span className="relative inline-flex sm:hidden group/tags">
+                        <Tooltip
+                          content={officialTags.slice(mobileMaxTags).join(', ')}
+                          underline={false}
+                          className="inline-flex sm:hidden"
+                        >
                           <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-brand-50 dark:bg-brand-950/50 text-brand-700 dark:text-brand-300 border border-brand-100 dark:border-brand-800 cursor-default leading-4">
                             +{mobileHiddenCount}
                           </span>
-                        </span>
+                        </Tooltip>
                       )}
                       {/* Desktop: show +N badge if more than maxTags */}
                       {hiddenCount > 0 && (
-                        <span className="relative hidden sm:inline-flex group/tags">
+                        <Tooltip
+                          content={officialTags.slice(maxTags).join(', ')}
+                          underline={false}
+                          className="hidden sm:inline-flex"
+                        >
                           <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-brand-50 dark:bg-brand-950/50 text-brand-700 dark:text-brand-300 border border-brand-100 dark:border-brand-800 cursor-default leading-4">
                             +{hiddenCount}
                           </span>
-                          <span className="absolute bottom-full left-0 mb-1 hidden group-hover/tags:flex flex-col bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded shadow-lg px-2 py-1.5 z-20 whitespace-nowrap">
-                            {officialTags.slice(maxTags).map((tag) => (
-                              <span key={tag} className="text-xs text-gray-700 dark:text-gray-300">
-                                {tag}
-                              </span>
-                            ))}
-                          </span>
-                        </span>
+                        </Tooltip>
                       )}
                     </>
                   );

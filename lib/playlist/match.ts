@@ -97,6 +97,13 @@ async function haikuCompletion(system: string, user: string): Promise<string> {
     .join('');
 }
 
+/** One AI call answered in JSON: Claude Haiku when ANTHROPIC_API_KEY is set, otherwise Azure */
+export async function playlistAiText(system: string, user: string): Promise<string> {
+  if (env.ANTHROPIC_API_KEY) return haikuCompletion(system, user);
+  const reply = await azureChatCompletion(system, user, { maxTokens: 4000, jsonMode: true });
+  return reply?.content ?? '';
+}
+
 /**
  * One batched AI call: Claude Haiku when ANTHROPIC_API_KEY is set, otherwise
  * Azure. Returns null when the call fails or the answer doesn't line up with the
@@ -110,14 +117,7 @@ export async function classifyTitles(events: PlaylistEvent[]): Promise<Classific
     summary: (e.aiSummary ?? '').slice(0, 200),
   }));
   try {
-    const raw = env.ANTHROPIC_API_KEY
-      ? await haikuCompletion(CLASSIFY_SYSTEM, JSON.stringify(payload))
-      : ((
-          await azureChatCompletion(CLASSIFY_SYSTEM, JSON.stringify(payload), {
-            maxTokens: 4000,
-            jsonMode: true,
-          })
-        )?.content ?? '');
+    const raw = await playlistAiText(CLASSIFY_SYSTEM, JSON.stringify(payload));
     const parsed = parseJsonFromModel<{ results?: unknown }>(raw, 'object');
     const results = parsed?.results;
     if (!Array.isArray(results) || results.length !== events.length) return null;

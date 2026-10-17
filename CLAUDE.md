@@ -310,6 +310,11 @@ A null `spotify_track_id` with an `artist` means Spotify had no match.
 was built), so the page lists exactly what's on Spotify; `sold_out` is checked
 once, when the playlist is built.
 
+`genre_notes` (migration `drizzle/0022_genre_notes.sql`) holds one AI-written line
+per unusual genre tag ("Zydeco": accordion-led dance music from Louisiana), shown as
+a tooltip on /playlist. A null `note` means the genre is common enough to need none;
+either way the weekly job never asks about it again.
+
 ### Row Level Security (RLS)
 
 RLS is enabled on all tables. Supabase's "RLS auto-enable trigger" is active, so new tables will have RLS enabled automatically. All database writes from the app go through server-side Drizzle ORM using `DATABASE_URL` (the `postgres` role), which bypasses RLS. RLS policies only govern access via Supabase's PostgREST API (the `anon` and `authenticated` roles exposed by the client-side anon key).
@@ -337,6 +342,7 @@ RLS is enabled on all tables. Supabase's "RLS auto-enable trigger" is active, so
 | `news_days`           | —                    | —                                                 |
 | `event_tracks`        | —                    | —                                                 |
 | `playlist_picks`      | —                    | —                                                 |
+| `genre_notes`         | —                    | —                                                 |
 
 "Own" means the policy restricts access to rows where `user_id = auth.uid()` (or `profile_id` belongs to the user for `matching_answers`).
 

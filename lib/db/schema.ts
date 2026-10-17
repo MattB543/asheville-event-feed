@@ -796,3 +796,11 @@ export const playlistPicks = pgTable(
     pk: primaryKey({ columns: [table.weekStart, table.position] }),
   })
 );
+
+// A one-line explanation of an unusual genre tag, for the /playlist tooltip.
+// A null note means the genre is common enough to need none.
+export const genreNotes = pgTable('genre_notes', {
+  genre: text('genre').primaryKey(),
+  note: text('note'),
+  createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
+});

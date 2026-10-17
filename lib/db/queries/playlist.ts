@@ -1,10 +1,11 @@
 import { and, asc, desc, eq, gte, inArray, isNull, lt, or, sql } from 'drizzle-orm';
 import { db } from '@/lib/db';
-import { events, eventTracks, playlistPicks } from '@/lib/db/schema';
+import { events, eventTracks, genreNotes, playlistPicks } from '@/lib/db/schema';
 import { getDayBoundariesEastern } from '@/lib/utils/timezone';
 import { normalizeName, venueFor } from '@/lib/utils/venueName';
 import { WINDOW_DAYS } from '@/lib/playlist/run';
 import { liveEvent } from '@/lib/db/liveEvent';
+import { mainGenre } from '@/lib/playlist/genreNotes';
 
 export interface PlaylistShowRow {
   eventId: string;
@@ -16,6 +17,12 @@ export interface PlaylistShowRow {
   venue: string;
   /** The full location, for the map link */
   location: string | null;
+  imageUrl: string | null;
+  timeUnknown: boolean;
+  /** e.g. "Zydeco" */
+  genre: string | null;
+  /** What an unusual genre means; null for well-known ones */
+  genreNote: string | null;
   trackId: string;
   trackName: string | null;
   soldOut: boolean;
@@ -54,6 +61,9 @@ export async function getLatestPlaylistWeek(): Promise<PlaylistWeek | null> {
       price: events.price,
       location: events.location,
       organizer: events.organizer,
+      imageUrl: events.imageUrl,
+      timeUnknown: events.timeUnknown,
+      tags: events.tags,
       artist: eventTracks.artist,
       spotifyArtist: eventTracks.spotifyArtist,
       trackName: eventTracks.trackName,
@@ -69,6 +79,13 @@ export async function getLatestPlaylistWeek(): Promise<PlaylistWeek | null> {
     .where(and(eq(playlistPicks.weekStart, latest.weekStart), sql`${events.hidden} IS NOT TRUE`))
     .orderBy(asc(playlistPicks.position));
 
+  const genres = [...new Set(picks.map((p) => mainGenre(p.tags)).filter((g) => g !== null))];
+  const notes = new Map(
+    (genres.length
+      ? await db.select().from(genreNotes).where(inArray(genreNotes.genre, genres))
+      : []
+    ).map((row) => [row.genre, row.note])
+  );
   const shows = picks.map((p) => {
     const artist = p.spotifyArtist ?? p.artist ?? p.title;
     return {
@@ -80,6 +97,10 @@ export async function getLatestPlaylistWeek(): Promise<PlaylistWeek | null> {
       artist,
       venue: venueFor(p, artist),
       location: p.location,
+      imageUrl: p.imageUrl,
+      timeUnknown: p.timeUnknown ?? false,
+      genre: mainGenre(p.tags),
+      genreNote: mainGenre(p.tags) ? (notes.get(mainGenre(p.tags)!) ?? null) : null,
       trackId: p.trackId,
       trackName: p.trackName,
       soldOut: p.soldOut,

@@ -107,8 +107,6 @@ export async function runPlaylist({
 
   const soldOut = await findSoldOut(chosen.map((s) => s.event));
   const shows = chosen.map((s) => ({ ...s, soldOut: soldOut.has(s.event.id) }));
-  // Tooltips for the page's unusual genres; cheap, and only new genres are asked about
-  await explainGenres(shows.map((s) => mainGenre(s.event.tags ?? null)).filter((g) => g !== null));
 
   if (!dryRun && shows.length > 0) {
     const description = playlistDescription(lineupUrl);
@@ -130,6 +128,9 @@ export async function runPlaylist({
       );
     });
   }
+
+  // Tooltips for the page's unusual genres. Last, so a slow AI can't hold up the playlist
+  await explainGenres(shows.map((s) => mainGenre(s.event.tags ?? null)).filter((g) => g !== null));
 
   return {
     dryRun,

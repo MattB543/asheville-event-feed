@@ -18,6 +18,7 @@ import {
   type EventForAIDedup,
 } from '@/lib/ai/aiDeduplication';
 import { startCronJob, completeCronJob, failCronJob } from '@/lib/cron/jobTracker';
+import { liveEvent } from '@/lib/db/liveEvent';
 
 export const maxDuration = 300; // 5 minutes
 
@@ -103,15 +104,11 @@ export async function GET(request: Request) {
             gte(events.startDate, cutoff),
             lte(events.startDate, windowEnd),
             gte(events.score, TOP_EVENT_SCORE),
-            // Skip rows already soft-deleted by a prior dedup run...
-            isNull(events.dedupedAt),
-            isNull(events.deadAt),
-            // ...and rows an admin flagged to never auto-dedup (so a restore sticks)
-            or(isNull(events.dedupSkip), eq(events.dedupSkip, false)),
-            // Hidden events are moderated-away content. Feeding them to dedup
-            // lets a taken-down row merge into - or win against - a live one,
-            // which would resurrect what an admin removed.
-            or(isNull(events.hidden), eq(events.hidden, false))
+            // Live rows only. A hidden row fed to dedup could merge into - or win
+            // against - a live one, resurrecting what an admin removed.
+            liveEvent,
+            // ...and not rows an admin flagged to never auto-dedup (so a restore sticks)
+            or(isNull(events.dedupSkip), eq(events.dedupSkip, false))
           )
         );
       const fetchDuration = ((Date.now() - fetchStart) / 1000).toFixed(1);

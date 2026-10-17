@@ -1,7 +1,10 @@
 'use client';
 
+import { useRef } from 'react';
+
 import { useRouter } from 'next/navigation';
 import { X, UserPlus, Bell } from 'lucide-react';
+import { useModal } from '@/lib/hooks/useModal';
 
 interface SaveFeedModalProps {
   isOpen: boolean;
@@ -10,6 +13,9 @@ interface SaveFeedModalProps {
 
 export default function SaveFeedModal({ isOpen, onClose }: SaveFeedModalProps) {
   const router = useRouter();
+
+  const dialogRef = useRef<HTMLDivElement>(null);
+  useModal(isOpen, onClose, dialogRef);
 
   if (!isOpen) return null;
 
@@ -23,7 +29,13 @@ export default function SaveFeedModal({ isOpen, onClose }: SaveFeedModalProps) {
       <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={onClose} />
 
       {/* Modal */}
-      <div className="relative bg-white dark:bg-gray-900 rounded-xl shadow-2xl border border-gray-200 dark:border-gray-800 max-w-md w-full p-6 animate-fade-in">
+      <div
+        ref={dialogRef}
+        role="dialog"
+        aria-modal="true"
+        tabIndex={-1}
+        className="outline-none relative bg-white dark:bg-gray-900 rounded-xl shadow-2xl border border-gray-200 dark:border-gray-800 max-w-md w-full p-6 animate-fade-in"
+      >
         {/* Close button */}
         <button
           onClick={onClose}

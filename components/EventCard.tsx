@@ -28,6 +28,15 @@ import { generateEventSlug } from '@/lib/utils/slugify';
 import { OFFICIAL_TAGS_SET } from '@/lib/config/tagCategories';
 import { getMatchingProgramsForEvent } from '@/lib/matching/programs';
 import IntentLink from '@/components/IntentLink';
+import { formatPriceDisplay } from '@/lib/utils/priceDisplay';
+import CardSongButton from './CardSongButton';
+import WholeImage from './WholeImage';
+import Tooltip from './ui/Tooltip';
+import { eventSourceUrl } from '@/lib/utils/sourceUrl';
+import { ShareNote, useShareNote } from './ShareButton';
+import { venueLine } from '@/lib/utils/venueName';
+import { useDismiss } from '@/lib/hooks/useDismiss';
+import { getDateStringEastern, getTodayStringEastern } from '@/lib/utils/timezone';
 
 // Stateless formatters, hoisted so they aren't rebuilt per card per render.
 // Pinned to Eastern time so displayed dates agree with the feed's ET date filtering.
@@ -43,17 +52,21 @@ const EVENT_TIME_FORMATTER = new Intl.DateTimeFormat('en-US', {
   hour: 'numeric',
   minute: '2-digit',
 });
-const EVENT_DAY_KEY_FORMATTER = new Intl.DateTimeFormat('en-CA', {
-  timeZone: EVENT_TIMEZONE,
-  year: 'numeric',
-  month: '2-digit',
-  day: '2-digit',
-});
 
 // The desktop layout's image sits in a 192x128 cell. Without `sizes` it defaulted to 100vw and
-// fetched 1920-3840px; object-cover scales a wide image to the cell's height, so 384px keeps
-// sources up to 3:1 sharp. The mobile layout's images span the card and keep the default.
+// fetched 1920-3840px; 384px keeps it sharp. The mobile layout's images span the card and
+// keep the default.
 const DESKTOP_CARD_IMAGE_SIZES = '384px';
+
+// For a rounded, bordered box of cards: the end cards' square corners (and the last
+// card's bottom line) would sit on the box's rounded border, so they're rounded to
+// match (no overflow clip: it would cut off the cards' dropdown menus)
+export const LAST_CARD_ROUNDED =
+  '[&>div:last-child>div]:border-b-0 [&>div:last-child>div]:rounded-b-lg';
+const BOX = `flex flex-col bg-white dark:bg-gray-900 sm:shadow-sm sm:border sm:border-gray-200 dark:sm:border-gray-700 ${LAST_CARD_ROUNDED}`;
+// Cards under a heading that caps the box's top
+export const CARD_BOX_UNDER_HEADING = `${BOX} sm:rounded-b-lg`;
+export const CARD_BOX = `${BOX} sm:rounded-lg [&>div:first-child>div]:rounded-t-lg`;
 
 /**
  * Component that renders only the tags that fit on one line.
@@ -163,7 +176,6 @@ interface EventCardProps {
   /** Omit where there is no feed to hide from; the "Hide host" item goes with it. */
   onBlockHost?: (host: string) => void;
   isNewlyHidden?: boolean;
-  hideBorder?: boolean;
   isFavorited: boolean;
   favoriteCount: number;
   onToggleFavorite: (eventId: string) => void;
@@ -204,22 +216,6 @@ interface EventCardProps {
   onCollapseDesktop?: (eventId: string) => void;
 }
 
-// Round price string to nearest dollar (e.g., "$19.10" -> "$19", "$25.50" -> "$26")
-const formatPriceDisplay = (price: string | null): string => {
-  if (!price || price === 'Unknown') return '$ Unknown';
-  if (price.toLowerCase() === 'free') return 'Free';
-
-  // Extract number from price string and round
-  const match = price.match(/\$?([\d.]+)/);
-  if (match) {
-    const rounded = Math.round(parseFloat(match[1]));
-    return `$${rounded}`;
-  }
-  // If price is just "$" with no number, treat as unknown
-  if (price.trim() === '$') return '$ Unknown';
-  return price;
-};
-
 export default function EventCard({
   event,
   onHide,
@@ -248,34 +244,19 @@ export default function EventCard({
   onCollapseDesktop,
 }: EventCardProps) {
   const [imgError, setImgError] = useState(false);
+  const [playerSlot, setPlayerSlot] = useState<HTMLDivElement | null>(null);
   const [isExpanded, setIsExpanded] = useState(false);
   // Mobile expansion state: 0 = truncated AI summary, 1 = full AI summary, 2 = original description
   const [mobileExpansionState, setMobileExpansionState] = useState<0 | 1 | 2>(0);
   const [calendarMenuOpen, setCalendarMenuOpen] = useState(false);
   const [moreMenuOpen, setMoreMenuOpen] = useState(false);
   const [isHeartAnimating, setIsHeartAnimating] = useState(false);
-  const [copied, setCopied] = useState(false);
   const calendarMenuRef = useRef<HTMLDivElement>(null);
   const moreMenuRef = useRef<HTMLDivElement>(null);
   const { showToast } = useToast();
 
-  // Close dropdown menus when clicking outside
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (calendarMenuRef.current && !calendarMenuRef.current.contains(event.target as Node)) {
-        setCalendarMenuOpen(false);
-      }
-      if (moreMenuRef.current && !moreMenuRef.current.contains(event.target as Node)) {
-        setMoreMenuOpen(false);
-      }
-    }
-
-    if (calendarMenuOpen || moreMenuOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
-      return () => document.removeEventListener('mousedown', handleClickOutside);
-    }
-    return undefined;
-  }, [calendarMenuOpen, moreMenuOpen]);
+  useDismiss(calendarMenuOpen, () => setCalendarMenuOpen(false), [calendarMenuRef]);
+  useDismiss(moreMenuOpen, () => setMoreMenuOpen(false), [moreMenuRef]);
 
   const handleAddToAppleCalendar = () => {
     downloadEventAsICS(event);
@@ -350,8 +331,7 @@ export default function EventCard({
     const eventDate = new Date(date);
 
     // "Today" compared in Eastern time, matching how the feed groups and filters dates
-    const isToday =
-      EVENT_DAY_KEY_FORMATTER.format(eventDate) === EVENT_DAY_KEY_FORMATTER.format(new Date());
+    const isToday = getDateStringEastern(eventDate) === getTodayStringEastern();
 
     const dateOnly = isToday ? 'Today' : EVENT_DATE_FORMATTER.format(eventDate);
 
@@ -360,34 +340,6 @@ export default function EventCard({
     }
 
     return `${dateOnly} · ${EVENT_TIME_FORMATTER.format(eventDate)}`;
-  };
-
-  const getSourceUrl = () => {
-    if (event.source === 'AVL_TODAY') {
-      const slug = event.title
-        .toLowerCase()
-        .replace(/[^a-z0-9]+/g, '-')
-        .replace(/(^-|-$)+/g, '');
-
-      // Format date as YYYY-MM-DDTHH in local time (assuming ET for AVL)
-      // We use the date string directly if we can, but we only have the Date object here.
-      // We'll use Intl to extract the parts in the correct timezone.
-      const formatter = new Intl.DateTimeFormat('en-US', {
-        timeZone: 'America/New_York',
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
-        hour: '2-digit',
-        hour12: false,
-      });
-      const parts = formatter.formatToParts(new Date(event.startDate));
-      const getPart = (type: string) => parts.find((p) => p.type === type)?.value;
-      const dateStr = `${getPart('year')}-${getPart('month')}-${getPart('day')}T${getPart('hour')}`;
-
-      return `https://avltoday.6amcity.com/events#/details/${slug}/${event.sourceId}/${dateStr}`;
-    }
-    if (event.source === 'EVENTBRITE') return event.url;
-    return event.url; // Fallback
   };
 
   const displayPrice = formatPriceDisplay(event.price);
@@ -424,6 +376,9 @@ export default function EventCard({
   // Generate event URL for links. They prefetch on hover/focus (IntentLink), and not at all
   // when a plain click opens the modal instead of the page
   const eventUrl = `/events/${generateEventSlug(event.title, event.startDate, event.id)}`;
+
+  const { note: shareNote, share } = useShareNote();
+  const handleShare = () => share(`${window.location.origin}${eventUrl}`, event.title);
   const rankLabel = ranking && rankAsLabel && (
     <span className="mr-1.5 inline-block rounded bg-brand-50 px-1.5 py-0.5 align-[2px] text-xs font-semibold whitespace-nowrap text-brand-700 dark:bg-brand-900/40 dark:text-brand-300">
       Rank #{ranking}
@@ -445,27 +400,236 @@ export default function EventCard({
   // For mobile expanded: just first 3 official tags
   const mobileTags = officialTags.slice(0, 3);
 
-  // Location/venue/host display text (full, for expanded view)
-  const locationText =
-    event.organizer && event.location
-      ? event.location.toLowerCase().startsWith(event.organizer.toLowerCase())
-        ? event.location
-        : `${event.organizer} - ${event.location}`
-      : event.organizer || event.location || 'Online';
+  // Short venue name (plus the town outside Asheville), on full cards and collapsed rows alike;
+  // the full address is on the event page
+  const locationText = venueLine(event);
 
-  // Venue name only (for minimized view) - extract venue from location if organizer is missing
-  // Location often has format "Venue Name, Street Address, City, State" - we want just the venue
-  const venueName =
-    event.organizer ||
-    (() => {
-      if (!event.location) return null;
-      // If location contains a comma followed by a number (street address), extract just the venue part
-      const match = event.location.match(/^([^,]+),\s*\d/);
-      if (match) return match[1].trim();
-      // Otherwise just take the first comma-separated part if there are multiple
-      const parts = event.location.split(',');
-      return parts.length > 2 ? parts[0].trim() : event.location;
-    })();
+  // The same row of buttons in the phone and desktop layouts
+  const actionButtons = (playerContainer?: HTMLElement | null) => (
+    <>
+      {/* Calendar dropdown */}
+      <div className="relative" ref={calendarMenuRef}>
+        <button
+          onClick={() => setCalendarMenuOpen(!calendarMenuOpen)}
+          className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs text-gray-600 dark:text-gray-400 hover:bg-brand-50 dark:hover:bg-brand-950/50 hover:text-brand-600 dark:hover:text-brand-400 rounded border border-gray-200 dark:border-gray-700 cursor-pointer"
+          title="Calendar"
+        >
+          <CalendarPlus2 size={14} />
+          <span>Calendar</span>
+          <ChevronDown
+            size={12}
+            className={`transition-transform ${calendarMenuOpen ? 'rotate-180' : ''}`}
+          />
+        </button>
+
+        {calendarMenuOpen && (
+          <div className="absolute left-0 top-full mt-1 z-50 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded shadow-lg min-w-[160px]">
+            <button
+              onClick={handleAddToGoogleCalendar}
+              className="w-full flex items-center gap-2 px-3 py-2 text-xs text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
+            >
+              <Image
+                src="/google_cal.svg"
+                alt="Google Calendar"
+                width={14}
+                height={14}
+                className="w-3.5 h-3.5"
+              />
+              Google Calendar
+            </button>
+            <button
+              onClick={handleAddToAppleCalendar}
+              className="w-full flex items-center gap-2 px-3 py-2 text-xs text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
+            >
+              <svg
+                className="w-4 h-4"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
+              </svg>
+              Apple Calendar
+            </button>
+          </div>
+        )}
+      </div>
+      <CardSongButton event={event} playerContainer={playerContainer} />
+      {/* Favorite button */}
+      {showRemoveFavorite ? (
+        <button
+          onClick={() => onToggleFavorite(event.id)}
+          className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs rounded border cursor-pointer transition-colors text-gray-600 dark:text-gray-400 border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800"
+          title="Remove from favorites"
+        >
+          <X size={14} />
+          Remove
+        </button>
+      ) : (
+        <button
+          onClick={() => {
+            setIsHeartAnimating(true);
+            onToggleFavorite(event.id);
+            setTimeout(() => setIsHeartAnimating(false), 300);
+          }}
+          className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs rounded border cursor-pointer transition-colors ${
+            isFavorited
+              ? 'text-red-500 dark:text-red-400 border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-950/50 hover:bg-red-100 dark:hover:bg-red-900/50'
+              : 'text-gray-600 dark:text-gray-400 border-gray-200 dark:border-gray-700 hover:bg-red-50 dark:hover:bg-red-950/50 hover:text-red-500 dark:hover:text-red-400 hover:border-red-200 dark:hover:border-red-800'
+          }`}
+          title={isFavorited ? 'Remove from favorites' : 'Add to favorites'}
+        >
+          <Heart
+            size={14}
+            className={`transition-transform ${
+              isFavorited ? 'fill-current' : ''
+            } ${isHeartAnimating ? 'animate-heart-pop' : ''}`}
+          />
+          {favoriteCount > 0 && <span>{favoriteCount}</span>}
+        </button>
+      )}
+      {/* Share button */}
+      <div className="relative">
+        <button
+          onClick={() => void handleShare()}
+          className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs text-gray-600 dark:text-gray-400 rounded border border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer transition-colors h-[30px]"
+          title="Share"
+        >
+          <Share size={14} />
+        </button>
+        <ShareNote note={shareNote} />
+      </div>
+      {/* More options dropdown */}
+      <div className="relative" ref={moreMenuRef}>
+        <button
+          onClick={() => setMoreMenuOpen(!moreMenuOpen)}
+          className="inline-flex items-center gap-1.5 px-2 py-1.5 text-xs text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded border border-gray-200 dark:border-gray-700 cursor-pointer h-[30px]"
+          title="More options"
+        >
+          <MoreVertical size={14} />
+        </button>
+
+        {moreMenuOpen && (
+          <div className="absolute right-0 top-full mt-1 z-50 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded shadow-lg min-w-[200px]">
+            {/* Curate section */}
+            {showCurate && (
+              <button
+                onClick={() => {
+                  if (!isLoggedIn) {
+                    window.location.href = '/login';
+                    return;
+                  }
+                  if (isCurated) {
+                    onUncurate?.(event.id);
+                  } else {
+                    onCurate?.(event.id);
+                  }
+                  setMoreMenuOpen(false);
+                }}
+                className={`w-full flex items-center gap-2 px-3 py-2 text-xs transition-colors cursor-pointer ${
+                  isLoggedIn
+                    ? 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
+                    : 'text-gray-400 dark:text-gray-500'
+                }`}
+              >
+                <Bookmark size={14} className={isCurated ? 'fill-current text-brand-600' : ''} />
+                {isLoggedIn
+                  ? isCurated
+                    ? 'Remove from profile'
+                    : 'Curate'
+                  : 'Curate - log in to use'}
+              </button>
+            )}
+            <a
+              href={eventUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full flex items-center gap-2 px-3 py-2 text-xs text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
+              onClick={() => setMoreMenuOpen(false)}
+            >
+              <Sparkles size={14} />
+              See similar events
+            </a>
+            <a
+              href={eventSourceUrl(event)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full flex items-center gap-2 px-3 py-2 text-xs text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
+              onClick={() => setMoreMenuOpen(false)}
+            >
+              <ExternalLink size={14} />
+              Open source
+            </a>
+            {/* Hide section */}
+            {(onHide || onBlockHost) && (
+              <div className="border-t border-gray-200 dark:border-gray-700" />
+            )}
+            {onHide && (
+              <button
+                onClick={() => {
+                  handleHideEvent();
+                  setMoreMenuOpen(false);
+                }}
+                disabled={isNewlyHidden}
+                className={`w-full flex items-start gap-2 px-3 py-2 text-left cursor-pointer ${
+                  isNewlyHidden
+                    ? 'text-gray-400 dark:text-gray-600'
+                    : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
+                }`}
+              >
+                <EyeOff size={14} className="mt-0.5 shrink-0" />
+                <div>
+                  <div className="text-xs font-medium">Hide event</div>
+                  <div
+                    className={`text-[10px] ${
+                      isNewlyHidden
+                        ? 'text-gray-400 dark:text-gray-600'
+                        : 'text-gray-500 dark:text-gray-400'
+                    }`}
+                  >
+                    Hide now & future occurrences
+                  </div>
+                </div>
+              </button>
+            )}
+            {onBlockHost && event.organizer && (
+              <button
+                onClick={() => {
+                  handleBlockHost();
+                  setMoreMenuOpen(false);
+                }}
+                className="w-full flex items-start gap-2 px-3 py-2 text-left text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
+              >
+                <Ban size={14} className="mt-0.5 shrink-0" />
+                <div>
+                  <div className="text-xs font-medium">Hide host</div>
+                  <div className="text-[10px] text-gray-500 dark:text-gray-400">
+                    Hide all events from this host
+                  </div>
+                </div>
+              </button>
+            )}
+            {/* Flag section */}
+            <div className="border-t border-gray-200 dark:border-gray-700" />
+            <button
+              onClick={() => handleReport('incorrect_info')}
+              className="w-full flex items-center gap-2 px-3 py-2 text-xs text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
+            >
+              <AlertTriangle size={14} />
+              Flag incorrect info
+            </button>
+            <button
+              onClick={() => handleReport('spam')}
+              className="w-full flex items-center gap-2 px-3 py-2 text-xs text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
+            >
+              <ShieldAlert size={14} />
+              Report as spam
+            </button>
+          </div>
+        )}
+      </div>
+    </>
+  );
 
   return (
     <div>
@@ -517,13 +681,10 @@ export default function EventCard({
             } bg-gray-200 dark:bg-gray-700 rounded-lg overflow-hidden transition-all duration-200 shadow-sm`}
           >
             {!imgError && event.imageUrl ? (
-              <Image
+              <WholeImage
                 src={event.imageUrl}
                 alt={event.title}
-                fill
-                className="object-cover object-[center_20%]"
                 onError={() => setImgError(true)}
-                unoptimized={event.imageUrl.startsWith('data:')}
                 referrerPolicy="no-referrer"
               />
             ) : (
@@ -565,12 +726,14 @@ export default function EventCard({
                 />
               )}
             </h3>
-            <ChevronDown
-              size={16}
-              className={`text-gray-600 dark:text-gray-400 mt-0.5 shrink-0 opacity-80 transition-transform duration-200 ${
-                isMobileExpanded ? 'rotate-180' : ''
-              }`}
-            />
+            {/* Labelled, since a bare arrow went unnoticed */}
+            <span className="inline-flex items-center gap-0.5 mt-0.5 shrink-0 text-xs font-medium text-gray-500 dark:text-gray-400">
+              {isMobileExpanded ? 'Less' : 'More'}
+              <ChevronDown
+                size={14}
+                className={`transition-transform duration-200 ${isMobileExpanded ? 'rotate-180' : ''}`}
+              />
+            </span>
           </div>
 
           {/* Host/venue - collapsed shows organizer only; expanded shows full location */}
@@ -627,243 +790,7 @@ export default function EventCard({
           {/* Action buttons - only when expanded */}
           {isMobileExpanded && (
             <div className="flex flex-wrap gap-2 mt-4" onClick={(e) => e.stopPropagation()}>
-              {/* Calendar dropdown */}
-              <div className="relative" ref={calendarMenuRef}>
-                <button
-                  onClick={() => setCalendarMenuOpen(!calendarMenuOpen)}
-                  className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs text-gray-600 dark:text-gray-400 hover:bg-brand-50 dark:hover:bg-brand-950/50 hover:text-brand-600 dark:hover:text-brand-400 rounded border border-gray-200 dark:border-gray-700 cursor-pointer"
-                  title="Calendar"
-                >
-                  <CalendarPlus2 size={14} />
-                  <span>Calendar</span>
-                  <ChevronDown
-                    size={12}
-                    className={`transition-transform ${calendarMenuOpen ? 'rotate-180' : ''}`}
-                  />
-                </button>
-
-                {calendarMenuOpen && (
-                  <div className="absolute left-0 top-full mt-1 z-50 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded shadow-lg min-w-[160px]">
-                    <button
-                      onClick={handleAddToGoogleCalendar}
-                      className="w-full flex items-center gap-2 px-3 py-2 text-xs text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
-                    >
-                      <Image
-                        src="/google_cal.svg"
-                        alt="Google Calendar"
-                        width={14}
-                        height={14}
-                        className="w-3.5 h-3.5"
-                      />
-                      Google Calendar
-                    </button>
-                    <button
-                      onClick={handleAddToAppleCalendar}
-                      className="w-full flex items-center gap-2 px-3 py-2 text-xs text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
-                    >
-                      <svg
-                        className="w-4 h-4"
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
-                      </svg>
-                      Apple Calendar
-                    </button>
-                  </div>
-                )}
-              </div>
-
-              {/* Favorite button */}
-              {showRemoveFavorite ? (
-                <button
-                  onClick={() => onToggleFavorite(event.id)}
-                  className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs rounded border cursor-pointer transition-colors text-gray-600 dark:text-gray-400 border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800"
-                  title="Remove from favorites"
-                >
-                  <X size={14} />
-                  Remove
-                </button>
-              ) : (
-                <button
-                  onClick={() => {
-                    setIsHeartAnimating(true);
-                    onToggleFavorite(event.id);
-                    setTimeout(() => setIsHeartAnimating(false), 300);
-                  }}
-                  className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs rounded border cursor-pointer transition-colors ${
-                    isFavorited
-                      ? 'text-red-500 dark:text-red-400 border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-950/50 hover:bg-red-100 dark:hover:bg-red-900/50'
-                      : 'text-gray-600 dark:text-gray-400 border-gray-200 dark:border-gray-700 hover:bg-red-50 dark:hover:bg-red-950/50 hover:text-red-500 dark:hover:text-red-400 hover:border-red-200 dark:hover:border-red-800'
-                  }`}
-                  title={isFavorited ? 'Remove from favorites' : 'Add to favorites'}
-                >
-                  <Heart
-                    size={14}
-                    className={`transition-transform ${
-                      isFavorited ? 'fill-current' : ''
-                    } ${isHeartAnimating ? 'animate-heart-pop' : ''}`}
-                  />
-                  {favoriteCount > 0 && <span>{favoriteCount}</span>}
-                </button>
-              )}
-
-              {/* Share button */}
-              <div className="relative">
-                <button
-                  onClick={() => {
-                    const shareUrl = `${window.location.origin}/events/${generateEventSlug(
-                      event.title,
-                      event.startDate,
-                      event.id
-                    )}`;
-                    void navigator.clipboard.writeText(shareUrl);
-                    setCopied(true);
-                    setTimeout(() => setCopied(false), 2000);
-                  }}
-                  className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs text-gray-600 dark:text-gray-400 rounded border border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer transition-colors h-[30px]"
-                  title="Copy link"
-                >
-                  <Share size={14} />
-                </button>
-                {copied && (
-                  <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-1.5 px-2 py-1 text-xs font-medium text-white bg-gray-800 dark:bg-gray-700 rounded shadow-lg whitespace-nowrap animate-fade-in">
-                    Copied!
-                    <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-gray-800 dark:border-t-gray-700" />
-                  </div>
-                )}
-              </div>
-
-              {/* More options dropdown */}
-              <div className="relative" ref={moreMenuRef}>
-                <button
-                  onClick={() => setMoreMenuOpen(!moreMenuOpen)}
-                  className="inline-flex items-center gap-1.5 px-2 py-1.5 text-xs text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded border border-gray-200 dark:border-gray-700 cursor-pointer h-[30px]"
-                  title="More options"
-                >
-                  <MoreVertical size={14} />
-                </button>
-
-                {moreMenuOpen && (
-                  <div className="absolute right-0 top-full mt-1 z-50 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded shadow-lg min-w-[200px]">
-                    {showCurate && (
-                      <button
-                        onClick={() => {
-                          if (!isLoggedIn) {
-                            window.location.href = '/login';
-                            return;
-                          }
-                          if (isCurated) {
-                            onUncurate?.(event.id);
-                          } else {
-                            onCurate?.(event.id);
-                          }
-                          setMoreMenuOpen(false);
-                        }}
-                        className={`w-full flex items-center gap-2 px-3 py-2 text-xs transition-colors cursor-pointer ${
-                          isLoggedIn
-                            ? 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
-                            : 'text-gray-400 dark:text-gray-500'
-                        }`}
-                      >
-                        <Bookmark
-                          size={14}
-                          className={isCurated ? 'fill-current text-brand-600' : ''}
-                        />
-                        {isLoggedIn
-                          ? isCurated
-                            ? 'Remove from profile'
-                            : 'Curate'
-                          : 'Curate - log in to use'}
-                      </button>
-                    )}
-                    <a
-                      href={eventUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-full flex items-center gap-2 px-3 py-2 text-xs text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
-                      onClick={() => setMoreMenuOpen(false)}
-                    >
-                      <Sparkles size={14} />
-                      See similar events
-                    </a>
-                    <a
-                      href={getSourceUrl()}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-full flex items-center gap-2 px-3 py-2 text-xs text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
-                      onClick={() => setMoreMenuOpen(false)}
-                    >
-                      <ExternalLink size={14} />
-                      Open source
-                    </a>
-                    {(onHide || onBlockHost) && (
-                      <div className="border-t border-gray-200 dark:border-gray-700" />
-                    )}
-                    {onHide && (
-                      <button
-                        onClick={() => {
-                          handleHideEvent();
-                          setMoreMenuOpen(false);
-                        }}
-                        disabled={isNewlyHidden}
-                        className={`w-full flex items-start gap-2 px-3 py-2 text-left cursor-pointer ${
-                          isNewlyHidden
-                            ? 'text-gray-400 dark:text-gray-600'
-                            : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
-                        }`}
-                      >
-                        <EyeOff size={14} className="mt-0.5 shrink-0" />
-                        <div>
-                          <div className="text-xs font-medium">Hide event</div>
-                          <div
-                            className={`text-[10px] ${
-                              isNewlyHidden
-                                ? 'text-gray-400 dark:text-gray-600'
-                                : 'text-gray-500 dark:text-gray-400'
-                            }`}
-                          >
-                            Hide now & future occurrences
-                          </div>
-                        </div>
-                      </button>
-                    )}
-                    {onBlockHost && event.organizer && (
-                      <button
-                        onClick={() => {
-                          handleBlockHost();
-                          setMoreMenuOpen(false);
-                        }}
-                        className="w-full flex items-start gap-2 px-3 py-2 text-left text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
-                      >
-                        <Ban size={14} className="mt-0.5 shrink-0" />
-                        <div>
-                          <div className="text-xs font-medium">Hide host</div>
-                          <div className="text-[10px] text-gray-500 dark:text-gray-400">
-                            Hide all events from this host
-                          </div>
-                        </div>
-                      </button>
-                    )}
-                    <div className="border-t border-gray-200 dark:border-gray-700" />
-                    <button
-                      onClick={() => handleReport('incorrect_info')}
-                      className="w-full flex items-center gap-2 px-3 py-2 text-xs text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
-                    >
-                      <AlertTriangle size={14} />
-                      Flag incorrect info
-                    </button>
-                    <button
-                      onClick={() => handleReport('spam')}
-                      className="w-full flex items-center gap-2 px-3 py-2 text-xs text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
-                    >
-                      <ShieldAlert size={14} />
-                      Report as spam
-                    </button>
-                  </div>
-                )}
-              </div>
+              {actionButtons()}
             </div>
           )}
         </div>
@@ -895,12 +822,12 @@ export default function EventCard({
           </IntentLink>
 
           {/* Separator */}
-          {venueName && <span className="text-gray-400 dark:text-gray-500 shrink-0">-</span>}
+          {locationText && <span className="text-gray-400 dark:text-gray-500 shrink-0">-</span>}
 
-          {/* Venue/Host */}
-          {venueName && (
+          {/* Venue */}
+          {locationText && (
             <span className="text-sm text-gray-500 dark:text-gray-400 truncate min-w-0 shrink-[3]">
-              {venueName}
+              {locationText}
             </span>
           )}
 
@@ -922,7 +849,7 @@ export default function EventCard({
           {/* Date/Time Badge */}
           <span
             className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-600 whitespace-nowrap shrink-0 ${
-              minimizedTags.length === 0 && !venueName ? 'ml-auto' : ''
+              minimizedTags.length === 0 && !locationText ? 'ml-auto' : ''
             }`}
           >
             {formatDate(event.startDate, event.timeUnknown)}
@@ -975,14 +902,11 @@ export default function EventCard({
             className="relative w-full h-40 sm:h-32 xl:row-span-2 bg-gray-200 dark:bg-gray-700 rounded overflow-hidden block"
           >
             {!imgError && event.imageUrl ? (
-              <Image
+              <WholeImage
                 src={event.imageUrl}
                 alt={event.title}
-                fill
                 sizes={DESKTOP_CARD_IMAGE_SIZES}
-                className="object-cover object-[center_20%]"
                 onError={() => setImgError(true)}
-                unoptimized={event.imageUrl.startsWith('data:')}
                 referrerPolicy="no-referrer"
               />
             ) : (
@@ -1031,12 +955,11 @@ export default function EventCard({
                   </div>
                 ))}
               </div>
-              <div className="text-xs text-gray-500 dark:text-gray-400 mt-2 line-clamp-1">
-                {event.organizer && event.location
-                  ? event.location.toLowerCase().startsWith(event.organizer.toLowerCase())
-                    ? event.location
-                    : `${event.organizer} - ${event.location}`
-                  : event.organizer || event.location || 'Online'}
+              <div
+                className="text-xs text-gray-500 dark:text-gray-400 mt-2 line-clamp-1"
+                title={event.location ?? undefined}
+              >
+                {locationText}
               </div>
             </div>
 
@@ -1108,26 +1031,27 @@ export default function EventCard({
                       ))}
                       {/* Mobile: show +N badge if more than 3 tags */}
                       {mobileHiddenCount > 0 && (
-                        <span className="relative inline-flex sm:hidden group/tags">
+                        <Tooltip
+                          content={officialTags.slice(mobileMaxTags).join(', ')}
+                          underline={false}
+                          className="inline-flex sm:hidden"
+                        >
                           <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-brand-50 dark:bg-brand-950/50 text-brand-700 dark:text-brand-300 border border-brand-100 dark:border-brand-800 cursor-default leading-4">
                             +{mobileHiddenCount}
                           </span>
-                        </span>
+                        </Tooltip>
                       )}
                       {/* Desktop: show +N badge if more than maxTags */}
                       {hiddenCount > 0 && (
-                        <span className="relative hidden sm:inline-flex group/tags">
+                        <Tooltip
+                          content={officialTags.slice(maxTags).join(', ')}
+                          underline={false}
+                          className="hidden sm:inline-flex"
+                        >
                           <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-brand-50 dark:bg-brand-950/50 text-brand-700 dark:text-brand-300 border border-brand-100 dark:border-brand-800 cursor-default leading-4">
                             +{hiddenCount}
                           </span>
-                          <span className="absolute bottom-full left-0 mb-1 hidden group-hover/tags:flex flex-col bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded shadow-lg px-2 py-1.5 z-20 whitespace-nowrap">
-                            {officialTags.slice(maxTags).map((tag) => (
-                              <span key={tag} className="text-xs text-gray-700 dark:text-gray-300">
-                                {tag}
-                              </span>
-                            ))}
-                          </span>
-                        </span>
+                        </Tooltip>
                       )}
                     </>
                   );
@@ -1254,246 +1178,15 @@ export default function EventCard({
             className="sm:col-span-2 xl:col-span-1 xl:col-start-3 flex flex-wrap gap-2 mt-2 xl:mt-0"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Calendar dropdown */}
-            <div className="relative" ref={calendarMenuRef}>
-              <button
-                onClick={() => setCalendarMenuOpen(!calendarMenuOpen)}
-                className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs text-gray-600 dark:text-gray-400 hover:bg-brand-50 dark:hover:bg-brand-950/50 hover:text-brand-600 dark:hover:text-brand-400 rounded border border-gray-200 dark:border-gray-700 cursor-pointer"
-                title="Calendar"
-              >
-                <CalendarPlus2 size={14} />
-                <span className="sm:hidden">Calendar</span>
-                <span className="hidden sm:inline">Calendar</span>
-                <ChevronDown
-                  size={12}
-                  className={`transition-transform ${calendarMenuOpen ? 'rotate-180' : ''}`}
-                />
-              </button>
-
-              {calendarMenuOpen && (
-                <div className="absolute left-0 top-full mt-1 z-50 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded shadow-lg min-w-[160px]">
-                  <button
-                    onClick={handleAddToGoogleCalendar}
-                    className="w-full flex items-center gap-2 px-3 py-2 text-xs text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
-                  >
-                    <Image
-                      src="/google_cal.svg"
-                      alt="Google Calendar"
-                      width={14}
-                      height={14}
-                      className="w-3.5 h-3.5"
-                    />
-                    Google Calendar
-                  </button>
-                  <button
-                    onClick={handleAddToAppleCalendar}
-                    className="w-full flex items-center gap-2 px-3 py-2 text-xs text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
-                  >
-                    <svg
-                      className="w-4 h-4"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
-                    </svg>
-                    Apple Calendar
-                  </button>
-                </div>
-              )}
-            </div>
-            {/* Favorite button */}
-            {showRemoveFavorite ? (
-              <button
-                onClick={() => onToggleFavorite(event.id)}
-                className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs rounded border cursor-pointer transition-colors text-gray-600 dark:text-gray-400 border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800"
-                title="Remove from favorites"
-              >
-                <X size={14} />
-                Remove
-              </button>
-            ) : (
-              <button
-                onClick={() => {
-                  setIsHeartAnimating(true);
-                  onToggleFavorite(event.id);
-                  setTimeout(() => setIsHeartAnimating(false), 300);
-                }}
-                className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs rounded border cursor-pointer transition-colors ${
-                  isFavorited
-                    ? 'text-red-500 dark:text-red-400 border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-950/50 hover:bg-red-100 dark:hover:bg-red-900/50'
-                    : 'text-gray-600 dark:text-gray-400 border-gray-200 dark:border-gray-700 hover:bg-red-50 dark:hover:bg-red-950/50 hover:text-red-500 dark:hover:text-red-400 hover:border-red-200 dark:hover:border-red-800'
-                }`}
-                title={isFavorited ? 'Remove from favorites' : 'Add to favorites'}
-              >
-                <Heart
-                  size={14}
-                  className={`transition-transform ${
-                    isFavorited ? 'fill-current' : ''
-                  } ${isHeartAnimating ? 'animate-heart-pop' : ''}`}
-                />
-                {favoriteCount > 0 && <span>{favoriteCount}</span>}
-              </button>
-            )}
-            {/* Share button */}
-            <div className="relative">
-              <button
-                onClick={() => {
-                  const eventUrl = `${window.location.origin}/events/${generateEventSlug(
-                    event.title,
-                    event.startDate,
-                    event.id
-                  )}`;
-                  void navigator.clipboard.writeText(eventUrl);
-                  setCopied(true);
-                  setTimeout(() => setCopied(false), 2000);
-                }}
-                className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs text-gray-600 dark:text-gray-400 rounded border border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer transition-colors h-[30px]"
-                title="Copy link"
-              >
-                <Share size={14} />
-              </button>
-              {/* Copied tooltip */}
-              {copied && (
-                <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-1.5 px-2 py-1 text-xs font-medium text-white bg-gray-800 dark:bg-gray-700 rounded shadow-lg whitespace-nowrap animate-fade-in">
-                  Copied!
-                  <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-gray-800 dark:border-t-gray-700" />
-                </div>
-              )}
-            </div>
-            {/* More options dropdown */}
-            <div className="relative" ref={moreMenuRef}>
-              <button
-                onClick={() => setMoreMenuOpen(!moreMenuOpen)}
-                className="inline-flex items-center gap-1.5 px-2 py-1.5 text-xs text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded border border-gray-200 dark:border-gray-700 cursor-pointer h-[30px]"
-                title="More options"
-              >
-                <MoreVertical size={14} />
-              </button>
-
-              {moreMenuOpen && (
-                <div className="absolute right-0 top-full mt-1 z-50 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded shadow-lg min-w-[200px]">
-                  {/* Curate section */}
-                  {showCurate && (
-                    <button
-                      onClick={() => {
-                        if (!isLoggedIn) {
-                          window.location.href = '/login';
-                          return;
-                        }
-                        if (isCurated) {
-                          onUncurate?.(event.id);
-                        } else {
-                          onCurate?.(event.id);
-                        }
-                        setMoreMenuOpen(false);
-                      }}
-                      className={`w-full flex items-center gap-2 px-3 py-2 text-xs transition-colors cursor-pointer ${
-                        isLoggedIn
-                          ? 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
-                          : 'text-gray-400 dark:text-gray-500'
-                      }`}
-                    >
-                      <Bookmark
-                        size={14}
-                        className={isCurated ? 'fill-current text-brand-600' : ''}
-                      />
-                      {isLoggedIn
-                        ? isCurated
-                          ? 'Remove from profile'
-                          : 'Curate'
-                        : 'Curate - log in to use'}
-                    </button>
-                  )}
-                  <a
-                    href={`/events/${generateEventSlug(event.title, event.startDate, event.id)}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-full flex items-center gap-2 px-3 py-2 text-xs text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
-                    onClick={() => setMoreMenuOpen(false)}
-                  >
-                    <Sparkles size={14} />
-                    See similar events
-                  </a>
-                  <a
-                    href={getSourceUrl()}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-full flex items-center gap-2 px-3 py-2 text-xs text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
-                    onClick={() => setMoreMenuOpen(false)}
-                  >
-                    <ExternalLink size={14} />
-                    Open source
-                  </a>
-                  {/* Hide section */}
-                  {(onHide || onBlockHost) && (
-                    <div className="border-t border-gray-200 dark:border-gray-700" />
-                  )}
-                  {onHide && (
-                    <button
-                      onClick={() => {
-                        handleHideEvent();
-                        setMoreMenuOpen(false);
-                      }}
-                      disabled={isNewlyHidden}
-                      className={`w-full flex items-start gap-2 px-3 py-2 text-left cursor-pointer ${
-                        isNewlyHidden
-                          ? 'text-gray-400 dark:text-gray-600'
-                          : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
-                      }`}
-                    >
-                      <EyeOff size={14} className="mt-0.5 shrink-0" />
-                      <div>
-                        <div className="text-xs font-medium">Hide event</div>
-                        <div
-                          className={`text-[10px] ${
-                            isNewlyHidden
-                              ? 'text-gray-400 dark:text-gray-600'
-                              : 'text-gray-500 dark:text-gray-400'
-                          }`}
-                        >
-                          Hide now & future occurrences
-                        </div>
-                      </div>
-                    </button>
-                  )}
-                  {onBlockHost && event.organizer && (
-                    <button
-                      onClick={() => {
-                        handleBlockHost();
-                        setMoreMenuOpen(false);
-                      }}
-                      className="w-full flex items-start gap-2 px-3 py-2 text-left text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
-                    >
-                      <Ban size={14} className="mt-0.5 shrink-0" />
-                      <div>
-                        <div className="text-xs font-medium">Hide host</div>
-                        <div className="text-[10px] text-gray-500 dark:text-gray-400">
-                          Hide all events from this host
-                        </div>
-                      </div>
-                    </button>
-                  )}
-                  {/* Flag section */}
-                  <div className="border-t border-gray-200 dark:border-gray-700" />
-                  <button
-                    onClick={() => handleReport('incorrect_info')}
-                    className="w-full flex items-center gap-2 px-3 py-2 text-xs text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
-                  >
-                    <AlertTriangle size={14} />
-                    Flag incorrect info
-                  </button>
-                  <button
-                    onClick={() => handleReport('spam')}
-                    className="w-full flex items-center gap-2 px-3 py-2 text-xs text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
-                  >
-                    <ShieldAlert size={14} />
-                    Report as spam
-                  </button>
-                </div>
-              )}
-            </div>
+            {actionButtons(playerSlot)}
           </div>
+
+          {/* The Listen player's own row, so opening it can't move the buttons or tags */}
+          <div
+            ref={setPlayerSlot}
+            className="sm:col-span-2 xl:col-span-1 xl:col-start-3 max-w-xl xl:max-w-none empty:hidden"
+            onClick={(e) => e.stopPropagation()}
+          />
         </div>
       )}
     </div>

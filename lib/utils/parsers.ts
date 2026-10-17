@@ -227,8 +227,14 @@ export function isFreeEvent(text: string): boolean {
   const standaloneFreeParts = lowerText.split(/[.,!?\n]/);
   for (const part of standaloneFreeParts) {
     const trimmed = part.trim();
-    // Match "free" at start of sentence or as a label
-    if (/^free\b/.test(trimmed) || /\bprice:\s*free\b/.test(trimmed)) {
+    // "free" alone or leading an admission phrase; "free improvisation" in a genre
+    // list or "free sweatshirt" in a perks list isn't a price
+    if (
+      /^free(?:\s*$|\s*[-–:|!(;/&]|\s+(?:admission|entry|event|show|to|for|and\s+open|with|community|live|of\s+charge|all|kids|class(?:es)?|lessons?|seminars?|clinics?|workshops?)\b)/.test(
+        trimmed
+      ) ||
+      /\bprice:\s*free\b/.test(trimmed)
+    ) {
       // Exclude false positives
       if (!/free\s+(parking|wifi|drinks?|food|snacks?|giveaway|raffle)/.test(trimmed)) {
         return true;

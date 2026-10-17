@@ -10,6 +10,7 @@
 import { type ScrapedEvent } from './types';
 import { fetchWithRetry } from '@/lib/utils/retry';
 import { decodeHtmlEntities } from '@/lib/utils/parsers';
+import { getTodayStringEastern } from '@/lib/utils/timezone';
 
 // Target venues to include (partial match, case-insensitive)
 const TARGET_VENUES = [
@@ -259,9 +260,7 @@ export async function scrapeLiveMusicAvl(): Promise<ScrapedEvent[]> {
   const allEvents: ScrapedEvent[] = [];
 
   // Get today's date in YYYY-MM-DD format (Asheville time)
-  const today = new Date().toLocaleDateString('en-CA', {
-    timeZone: 'America/New_York',
-  });
+  const today = getTodayStringEastern();
 
   console.log(`[LiveMusicAVL] Starting scrape from ${today}...`);
   console.log(`[LiveMusicAVL] Filtering for ${TARGET_VENUES.length} target venues`);

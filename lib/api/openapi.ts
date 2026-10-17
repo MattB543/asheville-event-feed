@@ -18,8 +18,7 @@ import {
   PUBLIC_EXPORT_SUCCESS_HEADERS,
   encodeCursor,
 } from '@/lib/api/publicEventsContract';
-
-const SITE_URL = 'https://www.avlgo.com';
+import { SITE_URL } from '@/lib/seo/site';
 
 // Illustrative example events (not real listings); url and nextCursor come from the
 // real helpers so their format can't drift.

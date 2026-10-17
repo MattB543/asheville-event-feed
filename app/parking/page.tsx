@@ -3,9 +3,8 @@ import type { ReactNode } from 'react';
 import Header from '@/components/Header';
 import FooterCredit from '@/components/FooterCredit';
 import LiveGarages from '@/components/parking/LiveGarages';
-
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.avlgo.com';
-const pageUrl = `${siteUrl}/parking`;
+import { SITE_URL } from '@/lib/seo/site';
+const pageUrl = `${SITE_URL}/parking`;
 const description =
   'Live open spaces in downtown Asheville garages, plus how garages, meters, private lots and free parking work.';
 

@@ -39,6 +39,7 @@ import { verifyAuthToken } from '@/lib/utils/auth';
 import { invalidateEventsCache } from '@/lib/cache/invalidation';
 import { startCronJob, completeCronJob, failCronJob } from '@/lib/cron/jobTracker';
 import { formatDuration, chunk } from '@/lib/utils/cron';
+import { liveEvent } from '@/lib/db/liveEvent';
 
 export const maxDuration = 800; // 13+ minutes (requires Fluid Compute)
 
@@ -466,13 +467,10 @@ export async function GET(request: Request) {
       .from(events)
       .where(
         and(
-          // Ignore rows already soft-deleted as duplicates...
-          isNull(events.dedupedAt),
-          isNull(events.deadAt),
-          // ...and rows an admin flagged to never auto-dedup (so a restore sticks)
-          or(isNull(events.dedupSkip), eq(events.dedupSkip, false)),
-          // ...and moderated-away rows, which must never merge into a live one
-          or(isNull(events.hidden), eq(events.hidden, false))
+          // Live rows only: a moderated-away row must never merge into a live one
+          liveEvent,
+          // ...and not rows an admin flagged to never auto-dedup (so a restore sticks)
+          or(isNull(events.dedupSkip), eq(events.dedupSkip, false))
         )
       );
 

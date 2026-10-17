@@ -14,6 +14,7 @@ import { DEFAULT_EVENT_IMAGE, hasRealEventImage } from '@/lib/utils/eventImages'
 import { formatEventStartDate } from '@/lib/utils/eventStartDate';
 import { parsePublicOfferPrice } from '@/lib/utils/publicEventPrice';
 import { formatDateEastern } from '@/lib/utils/timezone';
+import { isLiveEvent } from '@/lib/db/liveEvent';
 
 type EventSeoInput = Pick<
   DbEvent,
@@ -51,13 +52,9 @@ function locationKind(location: string): LocationKind {
   return 'physical';
 }
 
-/**
- * Live = still listed in the feed. Deduped and dead rows keep their page so shared
- * links work, but get no Event schema and are not indexed.
- */
-export function isLiveEvent(event: Pick<DbEvent, 'hidden' | 'dedupedAt' | 'deadAt'>): boolean {
-  return !event.hidden && !event.dedupedAt && !event.deadAt;
-}
+// Deduped and dead rows keep their page so shared links work, but get no Event
+// schema and are not indexed
+export { isLiveEvent };
 
 /** The text the event page shows first: cleaned AI summary, else the cleaned description. */
 function eventSummary(event: EventSeoInput): string {

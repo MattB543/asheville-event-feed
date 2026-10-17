@@ -3,7 +3,7 @@ import { db } from '@/lib/db';
 import { events } from '@/lib/db/schema';
 import { eq } from 'drizzle-orm';
 import { sendEventReport, type ReportType } from '@/lib/notifications/slack';
-import { isRateLimited } from '@/lib/utils/rate-limit';
+import { clientIp, isRateLimited } from '@/lib/utils/rate-limit';
 import { isRecord, isString } from '@/lib/utils/validation';
 
 const VALID_REPORT_TYPES: ReportType[] = ['incorrect_info', 'duplicate', 'spam'];
@@ -16,8 +16,7 @@ const RATE_LIMIT_WINDOW = 60 * 60 * 1000; // 1 hour in ms
 
 export async function POST(request: Request) {
   // Get client IP for rate limiting
-  const forwardedFor = request.headers.get('x-forwarded-for');
-  const ip = forwardedFor?.split(',')[0]?.trim() || 'unknown';
+  const ip = clientIp(request);
 
   const rateLimitKey = `report:${ip}`;
   if (isRateLimited(rateLimitKey, RATE_LIMIT_MAX, RATE_LIMIT_WINDOW)) {

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useMemo, useEffect, useCallback, useRef } from 'react';
-import EventCard from './EventCard';
+import EventCard, { CARD_BOX, CARD_BOX_UNDER_HEADING } from './EventCard';
 import FilterBar from './FilterBar';
 import type {
   DateFilterType,
@@ -49,6 +49,8 @@ import {
 import Link from 'next/link';
 import { getZipName } from '@/lib/config/zipNames';
 import { usePreferenceSync } from '@/lib/hooks/usePreferenceSync';
+import { useCaptureSignal } from '@/lib/hooks/useCaptureSignal';
+import { ShareNote, useShareNote } from './ShareButton';
 import { useFavorites, replaceFavorites, clearFavorites } from '@/lib/hooks/useFavorites';
 import { computeDateFilterBounds } from '@/lib/utils/dateFilters';
 import {
@@ -68,6 +70,7 @@ import {
 } from '@/lib/utils/top30Ranking';
 import { useAuth } from './AuthProvider';
 import { extractMonthFromSearch, getMonthDateRange } from '@/lib/utils/monthSearch';
+import { useToggleSet } from '@/lib/hooks/useToggleSet';
 
 // Use the Event type from API, but with Date for startDate (parsed client-side)
 type Event = Omit<ApiEvent, 'startDate'> & { startDate: Date };
@@ -420,19 +423,6 @@ const priceLabels: Record<PriceFilterType, string> = {
   custom: 'Custom Max',
 };
 
-// Wait (bounded) for auth to finish loading, polling a ref so callers read the
-// current value rather than one captured in a closure
-async function waitForAuth(
-  authLoadingRef: { current: boolean },
-  timeoutMs = 2000,
-  intervalMs = 50
-): Promise<void> {
-  const deadline = Date.now() + timeoutMs;
-  while (authLoadingRef.current && Date.now() < deadline) {
-    await new Promise((resolve) => setTimeout(resolve, intervalMs));
-  }
-}
-
 export default function EventFeed({
   initialEvents,
   initialTotalCount,
@@ -477,7 +467,7 @@ export default function EventFeed({
   const top30BackfillRequested = useRef<Set<Top30Category>>(new Set());
 
   // Your List sub-tab state (recommended vs favorites)
-  const [yourListSubTab, setYourListSubTab] = useState<'recommended' | 'favorites'>('recommended');
+  const [yourListSubTab, setYourListSubTab] = useState<'recommended' | 'favorites'>('favorites');
 
   // Parse URL filters once at initialization (not in useEffect)
   // This ensures filters are correct from the first render
@@ -590,7 +580,7 @@ export default function EventFeed({
   const [expandedMinimizedIds, setExpandedMinimizedIds] = useState<Set<string>>(new Set());
 
   // Track expanded mobile cards (session only - resets on page reload)
-  const [mobileExpandedIds, setMobileExpandedIds] = useState<Set<string>>(new Set());
+  const mobileExpanded = useToggleSet();
 
   // Settings & Modals
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
@@ -946,18 +936,13 @@ export default function EventFeed({
   const blockedKeywordsRef = useRef(blockedKeywords);
   const hiddenEventsRef = useRef(hiddenEvents);
   const favoritedEventIdsRef = useRef(favoritedEventIds);
-  // Auth state read through refs so awaits inside handlers see current values
-  const isLoggedInRef = useRef(isLoggedIn);
-  const authLoadingRef = useRef(authLoading);
 
   useEffect(() => {
     blockedHostsRef.current = blockedHosts;
     blockedKeywordsRef.current = blockedKeywords;
     hiddenEventsRef.current = hiddenEvents;
     favoritedEventIdsRef.current = favoritedEventIds;
-    isLoggedInRef.current = isLoggedIn;
-    authLoadingRef.current = authLoading;
-  }, [blockedHosts, blockedKeywords, hiddenEvents, favoritedEventIds, isLoggedIn, authLoading]);
+  }, [blockedHosts, blockedKeywords, hiddenEvents, favoritedEventIds]);
 
   const { saveToDatabase, isLoggedIn: isPrefSyncLoggedIn } = usePreferenceSync({
     getBlockedHosts: () => blockedHostsRef.current,
@@ -1399,38 +1384,7 @@ export default function EventFeed({
     setSelectedZips([]);
   }, []);
 
-  // Helper to capture signal (only 'favorite' and 'hide' signals now)
-  const captureSignal = useCallback(
-    async (eventId: string, signalType: 'favorite' | 'hide'): Promise<boolean> => {
-      // Wait for auth to settle (bounded), then read the current value - not the
-      // one captured when this callback was created
-      await waitForAuth(authLoadingRef);
-
-      if (!isLoggedInRef.current) {
-        return false;
-      }
-
-      try {
-        const response = await fetch('/api/signals', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ eventId, signalType }),
-        });
-
-        if (!response.ok) {
-          const errorData: unknown = await response.json().catch(() => ({}));
-          console.error('[Signal] API error:', response.status, errorData);
-          return false;
-        }
-
-        return true;
-      } catch (error) {
-        console.error('[Signal] Network error:', error);
-        return false;
-      }
-    },
-    []
-  );
+  const captureSignal = useCaptureSignal();
 
   // Hide event (by title + organizer fingerprint)
   const handleHideEvent = useCallback(
@@ -1495,22 +1449,16 @@ export default function EventFeed({
   const toggleFavorite = useCallback(
     async (eventId: string) => {
       try {
-        const { isFavorited, favoriteCount } = await toggleFavoriteShared(eventId);
+        const { favoriteCount } = await toggleFavoriteShared(eventId);
         if (favoriteCount !== null) {
           setFavoriteCountOverrides((prev) => ({ ...prev, [eventId]: favoriteCount }));
-        }
-
-        // Capture signal for favorites (only when adding, not removing)
-        if (isFavorited) {
-          // Await to ensure signal is captured before function returns
-          await captureSignal(eventId, 'favorite');
         }
       } catch (error) {
         console.error('[Favorite] Failed to toggle:', error);
         showToast('Could not update favorite. Please try again.', 'error');
       }
     },
-    [toggleFavoriteShared, captureSignal, showToast]
+    [toggleFavoriteShared, showToast]
   );
 
   const handleToggleFavorite = useCallback(
@@ -1520,24 +1468,12 @@ export default function EventFeed({
     [toggleFavorite]
   );
 
+  const { note: shareListNote, share: shareList } = useShareNote();
   const handleShareFavorites = useCallback(async () => {
     const ids = upcomingFavorites.map((event) => event.id);
     const url = `${window.location.origin}/events/your-list?shared=${ids.join(',')}`;
-    if (navigator.share) {
-      try {
-        await navigator.share({ title: 'My AVL GO list', url });
-        return;
-      } catch (error) {
-        if ((error as DOMException).name === 'AbortError') return;
-      }
-    }
-    try {
-      await navigator.clipboard.writeText(url);
-      showToast('Link copied');
-    } catch {
-      showToast('Could not copy the link', 'error');
-    }
-  }, [upcomingFavorites, showToast]);
+    await shareList(url, 'My AVL GO list');
+  }, [upcomingFavorites, shareList]);
 
   // Two taps so a stray click can't wipe the list; the sync effect saves the empty
   // list for signed-in users
@@ -1827,7 +1763,6 @@ export default function EventFeed({
       onHide={handleHideEvent}
       onBlockHost={handleBlockHost}
       isNewlyHidden={false}
-      hideBorder
       isFavorited={favoritedEventIds.includes(event.id)}
       favoriteCount={favoriteCountOverrides[event.id] ?? event.favoriteCount ?? 0}
       onToggleFavorite={handleToggleFavorite}
@@ -1839,18 +1774,8 @@ export default function EventFeed({
       isLoggedIn={isLoggedIn}
       displayMode="full"
       isHiding={hidingEventIds.has(event.id)}
-      isMobileExpanded={mobileExpandedIds.has(event.id)}
-      onMobileExpand={(id) =>
-        setMobileExpandedIds((prev) => {
-          const next = new Set(prev);
-          if (next.has(id)) {
-            next.delete(id);
-          } else {
-            next.add(id);
-          }
-          return next;
-        })
-      }
+      isMobileExpanded={mobileExpanded.has(event.id)}
+      onMobileExpand={mobileExpanded.toggle}
       onOpenModal={handleOpenEventModal}
     />
   );
@@ -1860,10 +1785,11 @@ export default function EventFeed({
       {upcomingFavorites.length > 0 && (
         <button
           onClick={() => void handleShareFavorites()}
-          className="flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-lg border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors cursor-pointer"
+          className="relative flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-lg border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors cursor-pointer"
         >
           <Share2 className="w-4 h-4" />
           Share list
+          <ShareNote note={shareListNote} />
         </button>
       )}
       <button
@@ -1883,7 +1809,7 @@ export default function EventFeed({
   const favoritesList = (
     <>
       {upcomingFavorites.length > 0 ? (
-        <div className="flex flex-col bg-white dark:bg-gray-900 sm:rounded-lg sm:shadow-sm sm:border sm:border-gray-200 dark:sm:border-gray-700">
+        <div className={CARD_BOX}>
           {upcomingFavorites.map((event) => renderListCard(event, true))}
         </div>
       ) : (
@@ -1898,7 +1824,7 @@ export default function EventFeed({
             <ChevronDown className="w-4 h-4 -rotate-90 group-open:rotate-0 transition-transform" />
             Past ({pastFavorites.length})
           </summary>
-          <div className="mt-3 flex flex-col bg-white dark:bg-gray-900 sm:rounded-lg sm:shadow-sm sm:border sm:border-gray-200 dark:sm:border-gray-700 opacity-75">
+          <div className={`mt-3 ${CARD_BOX} opacity-75`}>
             {pastFavorites.map((event) => renderListCard(event, true))}
           </div>
         </details>
@@ -1977,7 +1903,7 @@ export default function EventFeed({
                   again.
                 </p>
               ) : sharedEvents.length > 0 ? (
-                <div className="flex flex-col bg-white dark:bg-gray-900 sm:rounded-lg sm:shadow-sm sm:border sm:border-gray-200 dark:sm:border-gray-700">
+                <div className={CARD_BOX}>
                   {sharedEvents.map((event) => renderListCard(event, false))}
                 </div>
               ) : (
@@ -2133,7 +2059,7 @@ export default function EventFeed({
 
               {/* Score-ranked view */}
               {!forYouLoading && forYouEvents.length > 0 && forYouSortMode === 'score' && (
-                <div className="flex flex-col bg-white dark:bg-gray-900 sm:rounded-lg sm:shadow-sm sm:border sm:border-gray-200 dark:sm:border-gray-700 ">
+                <div className={CARD_BOX}>
                   {[...forYouEvents]
                     .sort((a, b) => b.score - a.score)
                     .map((scoredEvent, index) => {
@@ -2157,7 +2083,6 @@ export default function EventFeed({
                           onHide={handleHideEvent}
                           onBlockHost={handleBlockHost}
                           isNewlyHidden={false}
-                          hideBorder
                           isFavorited={favoritedEventIds.includes(event.id)}
                           favoriteCount={
                             favoriteCountOverrides[event.id] ?? event.favoriteCount ?? 0
@@ -2172,18 +2097,8 @@ export default function EventFeed({
                           isHiding={hidingEventIds.has(event.id)}
                           isGreatMatch={scoredEvent.tier === 'great'}
                           ranking={index + 1}
-                          isMobileExpanded={mobileExpandedIds.has(event.id)}
-                          onMobileExpand={(id) =>
-                            setMobileExpandedIds((prev) => {
-                              const next = new Set(prev);
-                              if (next.has(id)) {
-                                next.delete(id);
-                              } else {
-                                next.add(id);
-                              }
-                              return next;
-                            })
-                          }
+                          isMobileExpanded={mobileExpanded.has(event.id)}
+                          onMobileExpand={mobileExpanded.toggle}
                           onOpenModal={handleOpenEventModal}
                         />
                       );
@@ -2243,7 +2158,7 @@ export default function EventFeed({
                           <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100 sticky top-0 bg-white dark:bg-gray-900 sm:border sm:border-b-0 sm:border-gray-200 dark:sm:border-gray-700 sm:rounded-t-lg pt-3 pb-2 px-3 sm:px-4 z-10">
                             {headerText}
                           </h2>
-                          <div className="flex flex-col bg-white dark:bg-gray-900 sm:rounded-b-lg sm:shadow-sm sm:border sm:border-gray-200 dark:sm:border-gray-700 ">
+                          <div className={CARD_BOX_UNDER_HEADING}>
                             {sortedGroupEvents.map((scoredEvent) => {
                               const event: Event = {
                                 ...scoredEvent.event,
@@ -2265,7 +2180,6 @@ export default function EventFeed({
                                   onHide={handleHideEvent}
                                   onBlockHost={handleBlockHost}
                                   isNewlyHidden={false}
-                                  hideBorder
                                   isFavorited={favoritedEventIds.includes(event.id)}
                                   favoriteCount={
                                     favoriteCountOverrides[event.id] ?? event.favoriteCount ?? 0
@@ -2279,18 +2193,8 @@ export default function EventFeed({
                                   displayMode="full"
                                   isHiding={hidingEventIds.has(event.id)}
                                   isGreatMatch={scoredEvent.tier === 'great'}
-                                  isMobileExpanded={mobileExpandedIds.has(event.id)}
-                                  onMobileExpand={(id) =>
-                                    setMobileExpandedIds((prev) => {
-                                      const next = new Set(prev);
-                                      if (next.has(id)) {
-                                        next.delete(id);
-                                      } else {
-                                        next.add(id);
-                                      }
-                                      return next;
-                                    })
-                                  }
+                                  isMobileExpanded={mobileExpanded.has(event.id)}
+                                  onMobileExpand={mobileExpanded.toggle}
                                   onOpenModal={handleOpenEventModal}
                                 />
                               );
@@ -2479,7 +2383,7 @@ export default function EventFeed({
 
           {/* Score-ranked view */}
           {top30SortMode === 'score' && filteredTop30CategoryEvents.length > 0 && (
-            <div className="flex flex-col bg-white dark:bg-gray-900 sm:rounded-lg sm:shadow-sm sm:border sm:border-gray-200 dark:sm:border-gray-700 ">
+            <div className={CARD_BOX}>
               {filteredTop30CategoryEvents.map((event) => (
                 <EventCard
                   key={event.id}
@@ -2498,7 +2402,6 @@ export default function EventFeed({
                   isNewlyHidden={sessionHiddenKeys.has(
                     createFingerprintKey(event.title, event.organizer)
                   )}
-                  hideBorder
                   isFavorited={favoritedEventIds.includes(event.id)}
                   favoriteCount={favoriteCountOverrides[event.id] ?? event.favoriteCount ?? 0}
                   onToggleFavorite={handleToggleFavorite}
@@ -2511,18 +2414,8 @@ export default function EventFeed({
                   eventScore={event.score}
                   ranking={top30RankingMap.get(event.id)}
                   rankAsLabel={!top30RanksArePositions}
-                  isMobileExpanded={mobileExpandedIds.has(event.id)}
-                  onMobileExpand={(id) =>
-                    setMobileExpandedIds((prev) => {
-                      const next = new Set(prev);
-                      if (next.has(id)) {
-                        next.delete(id);
-                      } else {
-                        next.add(id);
-                      }
-                      return next;
-                    })
-                  }
+                  isMobileExpanded={mobileExpanded.has(event.id)}
+                  onMobileExpand={mobileExpanded.toggle}
                   onOpenModal={handleOpenEventModal}
                 />
               ))}
@@ -2550,7 +2443,7 @@ export default function EventFeed({
                     <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100 sticky top-0 bg-white dark:bg-gray-900 sm:border sm:border-b-0 sm:border-gray-200 dark:sm:border-gray-700 sm:rounded-t-lg pt-3 pb-2 px-3 sm:px-4 z-10">
                       {headerText}
                     </h2>
-                    <div className="flex flex-col bg-white dark:bg-gray-900 sm:rounded-b-lg sm:shadow-sm sm:border sm:border-gray-200 dark:sm:border-gray-700 ">
+                    <div className={CARD_BOX_UNDER_HEADING}>
                       {groupEvents.map((event) => (
                         <EventCard
                           key={event.id}
@@ -2569,7 +2462,6 @@ export default function EventFeed({
                           isNewlyHidden={sessionHiddenKeys.has(
                             createFingerprintKey(event.title, event.organizer)
                           )}
-                          hideBorder
                           isFavorited={favoritedEventIds.includes(event.id)}
                           favoriteCount={
                             favoriteCountOverrides[event.id] ?? event.favoriteCount ?? 0
@@ -2584,18 +2476,8 @@ export default function EventFeed({
                           eventScore={event.score}
                           ranking={top30RankingMap.get(event.id)}
                           rankAsLabel
-                          isMobileExpanded={mobileExpandedIds.has(event.id)}
-                          onMobileExpand={(id) =>
-                            setMobileExpandedIds((prev) => {
-                              const next = new Set(prev);
-                              if (next.has(id)) {
-                                next.delete(id);
-                              } else {
-                                next.add(id);
-                              }
-                              return next;
-                            })
-                          }
+                          isMobileExpanded={mobileExpanded.has(event.id)}
+                          onMobileExpand={mobileExpanded.toggle}
                           onOpenModal={handleOpenEventModal}
                         />
                       ))}
@@ -2743,7 +2625,7 @@ export default function EventFeed({
                         </div>
                       )}
                     </h2>
-                    <div className="flex flex-col bg-white dark:bg-gray-900 sm:rounded-b-lg sm:shadow-sm sm:border sm:border-gray-200 dark:sm:border-gray-700 ">
+                    <div className={CARD_BOX_UNDER_HEADING}>
                       {displayEvents.map((event) => {
                         const eventKey = createFingerprintKey(event.title, event.organizer);
                         const isNewlyHidden = sessionHiddenKeys.has(eventKey);
@@ -2771,7 +2653,6 @@ export default function EventFeed({
                             onHide={handleHideEvent}
                             onBlockHost={handleBlockHost}
                             isNewlyHidden={isNewlyHidden}
-                            hideBorder
                             isFavorited={favoritedEventIds.includes(event.id)}
                             favoriteCount={
                               favoriteCountOverrides[event.id] ?? event.favoriteCount ?? 0
@@ -2795,18 +2676,8 @@ export default function EventFeed({
                             }
                             scoreTier={tier}
                             eventScore={event.score}
-                            isMobileExpanded={mobileExpandedIds.has(event.id)}
-                            onMobileExpand={(id) =>
-                              setMobileExpandedIds((prev) => {
-                                const next = new Set(prev);
-                                if (next.has(id)) {
-                                  next.delete(id);
-                                } else {
-                                  next.add(id);
-                                }
-                                return next;
-                              })
-                            }
+                            isMobileExpanded={mobileExpanded.has(event.id)}
+                            onMobileExpand={mobileExpanded.toggle}
                             onOpenModal={handleOpenEventModal}
                           />
                         );
@@ -2954,7 +2825,7 @@ export default function EventFeed({
 
       {/* Scroll to top button */}
       <div
-        className={`fixed bottom-6 left-1/2 -translate-x-1/2 transition-all duration-300 z-50 ${
+        className={`fixed bottom-6 left-1/2 -translate-x-1/2 transition-all duration-300 z-40 ${
           showScrollTop
             ? 'opacity-100 translate-y-0'
             : 'opacity-0 translate-y-4 pointer-events-none'

@@ -28,6 +28,7 @@
 
 import { getVenueForEvent, isKnownVenue } from './venues';
 import { hasRealEventImage } from './eventImages';
+import { getDateStringEastern } from '@/lib/utils/timezone';
 
 export interface EventForDedup {
   id: string;
@@ -539,16 +540,6 @@ export function mergeFields(
 }
 
 /**
- * Get date key in Eastern Time (America/New_York).
- * This ensures events on the same local day are grouped together,
- * even if they cross the UTC midnight boundary.
- */
-function getDateKey(date: Date): string {
-  // toLocaleDateString with 'en-CA' locale returns YYYY-MM-DD format
-  return date.toLocaleDateString('en-CA', { timeZone: 'America/New_York' });
-}
-
-/**
  * Get time key in Eastern Time (America/New_York).
  * Format: YYYY-MM-DDTHH:MM
  */
@@ -578,7 +569,7 @@ function prepareEvents(events: EventForDedup[]): PreparedEventForDedup[] {
     return {
       ...event,
       index,
-      dateKey: getDateKey(event.startDate),
+      dateKey: getDateStringEastern(event.startDate),
       timeKey: getTimeKey(event.startDate),
       normOrganizer: normalizeOrganizer(event.organizer),
       normTitle: normalizeTitle(event.title),

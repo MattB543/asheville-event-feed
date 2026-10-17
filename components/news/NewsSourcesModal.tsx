@@ -1,9 +1,10 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { ArrowUpRight, X } from 'lucide-react';
 import type { NewsSourceGroups, NewsSourceLink } from '@/lib/news/queries';
+import { useModal } from '@/lib/hooks/useModal';
 
 const GROUPS: { key: keyof NewsSourceGroups; title: string }[] = [
   { key: 'newsrooms', title: 'Newsrooms' },
@@ -63,54 +64,12 @@ export default function NewsSourcesModal({ groups }: { groups: NewsSourceGroups 
   const [open, setOpen] = useState(false);
   const dialogRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
-  const triggerRef = useRef<HTMLButtonElement>(null);
 
-  useEffect(() => {
-    if (!open) return;
-
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') setOpen(false);
-    };
-    // Locking the scroll takes the scrollbar away; padding in its place keeps
-    // the page behind from shifting sideways.
-    const { body } = document;
-    const previous = { overflow: body.style.overflow, paddingRight: body.style.paddingRight };
-    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
-    body.style.overflow = 'hidden';
-    if (scrollbarWidth > 0) body.style.paddingRight = `${scrollbarWidth}px`;
-    document.addEventListener('keydown', onKeyDown);
-    closeRef.current?.focus();
-    const trigger = triggerRef.current;
-
-    return () => {
-      body.style.overflow = previous.overflow;
-      body.style.paddingRight = previous.paddingRight;
-      document.removeEventListener('keydown', onKeyDown);
-      trigger?.focus();
-    };
-  }, [open]);
-
-  // Tab and Shift+Tab cycle inside the dialog, as in the other modals
-  const trapFocus = (event: React.KeyboardEvent) => {
-    if (event.key !== 'Tab' || !dialogRef.current) return;
-    const focusable = dialogRef.current.querySelectorAll<HTMLElement>('a[href], button');
-    const first = focusable[0];
-    const last = focusable[focusable.length - 1];
-    const active = document.activeElement;
-    // Focus sits on the dialog itself after a click on its text
-    if (event.shiftKey && (active === first || active === dialogRef.current)) {
-      event.preventDefault();
-      last.focus();
-    } else if (!event.shiftKey && document.activeElement === last) {
-      event.preventDefault();
-      first.focus();
-    }
-  };
+  useModal(open, () => setOpen(false), dialogRef, closeRef);
 
   return (
     <>
       <button
-        ref={triggerRef}
         type="button"
         onClick={() => setOpen(true)}
         className="font-semibold text-brand-700 dark:text-brand-300 underline decoration-brand-200 dark:decoration-brand-700 underline-offset-2 hover:decoration-current cursor-pointer"
@@ -131,7 +90,6 @@ export default function NewsSourcesModal({ groups }: { groups: NewsSourceGroups 
               role="dialog"
               aria-modal="true"
               aria-labelledby="news-sources-title"
-              onKeyDown={trapFocus}
               tabIndex={-1}
               className="relative focus:outline-none w-full sm:max-w-xl max-h-[85vh] overflow-y-auto overscroll-contain rounded-t-2xl sm:rounded-xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 shadow-2xl p-5 sm:p-6 animate-fade-in"
             >

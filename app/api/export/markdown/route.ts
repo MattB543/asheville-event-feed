@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { events } from '@/lib/db/schema';
-import { and, asc, eq, gte, isNull, or } from 'drizzle-orm';
+import { and, asc, gte } from 'drizzle-orm';
 import { publicEventColumns } from '@/lib/db/queries/publicEventColumns';
 import { getStartOfTodayEastern } from '@/lib/utils/timezone';
 import {
@@ -22,6 +22,7 @@ import {
   PUBLIC_EXPORT_SUCCESS_HEADERS,
   publicApiPreflight,
 } from '@/lib/api/publicEventsContract';
+import { liveEvent } from '@/lib/db/liveEvent';
 
 export const dynamic = 'force-dynamic';
 
@@ -167,14 +168,7 @@ export async function GET(request: Request) {
     let allEvents = await db
       .select(publicEventColumns)
       .from(events)
-      .where(
-        and(
-          gte(events.startDate, startOfToday),
-          or(isNull(events.hidden), eq(events.hidden, false)),
-          isNull(events.dedupedAt),
-          isNull(events.deadAt)
-        )
-      )
+      .where(and(gte(events.startDate, startOfToday), liveEvent))
       .orderBy(asc(events.startDate));
 
     // Apply filters

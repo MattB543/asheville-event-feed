@@ -14,13 +14,13 @@ import {
   ne,
   and,
   isNotNull,
-  isNull,
   gte,
   lte,
   notInArray,
 } from 'drizzle-orm';
 import { db } from './index';
 import { events } from './schema';
+import { liveEvent } from '@/lib/db/liveEvent';
 
 export interface SimilarEvent {
   id: string;
@@ -88,11 +88,8 @@ export async function findSimilarEvents(
     ne(events.id, eventId), // Exclude source event
     isNotNull(events.embedding), // Only events with embeddings
     gt(similarity, minSimilarity), // Minimum similarity threshold
-    // Hidden events 404 on their own page, so recommending one is a dead link
-    sql`${events.hidden} IS NOT TRUE`,
-    // Soft-deleted rows: a deduped copy is usually the closest match of all
-    isNull(events.dedupedAt),
-    isNull(events.deadAt),
+    // A hidden event 404s and a deduped copy is usually the closest match of all
+    liveEvent,
   ];
 
   // Exclude specific IDs
@@ -150,13 +147,7 @@ export async function findSimilarByEmbedding(
   const similarity = sql<number>`1 - (${cosineDistance(events.embedding, embedding)})`;
 
   // Build conditions (live rows only, same as findSimilarEvents)
-  const conditions = [
-    isNotNull(events.embedding),
-    gt(similarity, minSimilarity),
-    sql`${events.hidden} IS NOT TRUE`,
-    isNull(events.dedupedAt),
-    isNull(events.deadAt),
-  ];
+  const conditions = [isNotNull(events.embedding), gt(similarity, minSimilarity), liveEvent];
 
   // Exclude specific IDs
   if (excludeIds.length > 0) {

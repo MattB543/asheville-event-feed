@@ -1,10 +1,11 @@
 'use client';
 
-import { Suspense, useState, useRef, useEffect, useMemo, useId, type FocusEvent } from 'react';
+import { Suspense, useState, useRef, useMemo, useId, type FocusEvent } from 'react';
 import { useAuth } from './AuthProvider';
 import { User, LogOut, ChevronDown, UserCircle, Heart, LogIn } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
+import { useDismiss } from '@/lib/hooks/useDismiss';
 
 const MENU_ITEM_CLASS =
   'w-full flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors focus-visible:outline-none focus-visible:bg-gray-100 dark:focus-visible:bg-gray-800 focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brand-500';
@@ -53,32 +54,7 @@ function UserMenuContent({ query }: { query: string }) {
     return `/login?next=${encodeURIComponent(currentPath)}`;
   }, [pathname, query]);
 
-  // Close menu when clicking outside
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-        setIsOpen(false);
-      }
-    }
-
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
-
-  // Close menu on Escape and hand focus back to the trigger
-  useEffect(() => {
-    if (!isOpen) return;
-
-    function handleKeyDown(event: KeyboardEvent) {
-      if (event.key === 'Escape') {
-        setIsOpen(false);
-        buttonRef.current?.focus();
-      }
-    }
-
-    document.addEventListener('keydown', handleKeyDown);
-    return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [isOpen]);
+  useDismiss(isOpen, () => setIsOpen(false), [menuRef], buttonRef);
 
   // A disclosure, not an ARIA menu: Tab moves through the links, so close once focus leaves it.
   const handleBlur = (event: FocusEvent<HTMLDivElement>) => {

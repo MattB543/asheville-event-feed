@@ -1,3 +1,5 @@
+import { getDateStringEastern } from '@/lib/utils/timezone';
+
 /**
  * The deterministic story rules from docs/news/05-v1-plan.md §6.4 and §7.4:
  * score, Top, lead article, image and filing day. No I/O.
@@ -45,16 +47,9 @@ export function clearsCommunityBar(post: {
 /** A body this long counts as full text when choosing the lead article. */
 const FULL_TEXT_CHARS = 400;
 
-const ET_DAY = new Intl.DateTimeFormat('en-CA', {
-  timeZone: 'America/New_York',
-  year: 'numeric',
-  month: '2-digit',
-  day: '2-digit',
-});
-
 /** The ET calendar day of `date`, 'YYYY-MM-DD'. */
 export function etDay(date: Date): string {
-  return ET_DAY.format(date);
+  return getDateStringEastern(date);
 }
 
 /** `day` ('YYYY-MM-DD') shifted by `delta` days. */

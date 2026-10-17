@@ -1,8 +1,9 @@
 'use client';
 
 import { X, Loader2, Send, ChevronDown, Link } from 'lucide-react';
-import { useState, type FormEvent } from 'react';
+import { useState, type FormEvent, useRef } from 'react';
 import { useToast } from './ui/Toast';
+import { useModal } from '@/lib/hooks/useModal';
 
 interface SubmitEventModalProps {
   isOpen: boolean;
@@ -55,6 +56,19 @@ export default function SubmitEventModal({ isOpen, onClose }: SubmitEventModalPr
 
   // URL-only submission state
   const [urlOnly, setUrlOnly] = useState('');
+
+  const handleClose = () => {
+    if (!isSubmitting) {
+      setShowManualForm(false);
+      setUrlOnly('');
+      setFormData(initialFormData);
+      setFieldError(null);
+      onClose();
+    }
+  };
+
+  const dialogRef = useRef<HTMLDivElement>(null);
+  useModal(isOpen, handleClose, dialogRef);
 
   if (!isOpen) return null;
 
@@ -187,19 +201,16 @@ export default function SubmitEventModal({ isOpen, onClose }: SubmitEventModalPr
     }
   };
 
-  const handleClose = () => {
-    if (!isSubmitting) {
-      setShowManualForm(false);
-      setUrlOnly('');
-      setFormData(initialFormData);
-      setFieldError(null);
-      onClose();
-    }
-  };
-
   return (
     <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-      <div className="bg-white dark:bg-gray-900 rounded-xl shadow-xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
+      <div
+        ref={dialogRef}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Submit an Event"
+        tabIndex={-1}
+        className="outline-none bg-white dark:bg-gray-900 rounded-xl shadow-xl w-full max-w-lg max-h-[90vh] overflow-y-auto"
+      >
         <div className="flex justify-between items-center p-6 border-b border-gray-200 dark:border-gray-700">
           <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">Submit an Event</h2>
           <button

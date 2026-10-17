@@ -16,6 +16,16 @@
   --accent-warm-soft: #fdf0eb;
 }
 
+/* iOS Safari zooms in on any field under 16px when tapped and often stays zoomed,
+   leaving the page wider than the screen. Unlayered so it beats text-sm. */
+@media (max-width: 639px) {
+  input,
+  textarea,
+  select {
+    font-size: 16px;
+  }
+}
+
 .dark {
   color-scheme: dark;
 

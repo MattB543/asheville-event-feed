@@ -1,3 +1,5 @@
+import { escapeHtml } from './emailHtml';
+
 interface MatchEmailEntry {
   name: string;
   whyMatch: string;
@@ -7,15 +9,6 @@ interface MatchEmailEntry {
 interface MatchingEmailOptions {
   recipientName?: string | null;
   matches: MatchEmailEntry[];
-}
-
-function escapeHtml(text: string): string {
-  return text
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;');
 }
 
 function firstName(fullName?: string | null): string {

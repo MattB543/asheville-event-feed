@@ -8,7 +8,7 @@ import {
   parseChatSearchState,
   type ChatMessage,
 } from '@/lib/ai/chat/types';
-import { isRateLimited } from '@/lib/utils/rate-limit';
+import { isRateLimited, clientIp } from '@/lib/utils/rate-limit';
 import { isRecord } from '@/lib/utils/validation';
 
 export const maxDuration = 300;
@@ -50,7 +50,7 @@ function parseRequest(value: unknown) {
 }
 
 export async function POST(request: NextRequest) {
-  const ip = request.headers.get('x-forwarded-for')?.split(',')[0] ?? 'unknown';
+  const ip = clientIp(request);
   if (isRateLimited(`chat:${ip}`, 1, 2000)) {
     return Response.json(
       { error: 'Please wait a moment before sending another message.' },

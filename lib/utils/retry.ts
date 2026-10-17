@@ -57,13 +57,16 @@ export class HttpResponseError extends Error {
   readonly status: number;
   readonly statusText: string;
   readonly url: string;
+  /** The response's headers, e.g. for a 429's Retry-After */
+  readonly headers?: Headers;
 
-  constructor(status: number, statusText: string, url: string) {
+  constructor(status: number, statusText: string, url: string, headers?: Headers) {
     super(`HTTP ${status}: ${statusText}`);
     this.name = 'HttpResponseError';
     this.status = status;
     this.statusText = statusText;
     this.url = url;
+    this.headers = headers;
   }
 }
 
@@ -108,7 +111,7 @@ export async function fetchWithRetry(
 
       const response = await fetch(url, { ...options, signal });
       if (!response.ok) {
-        throw new HttpResponseError(response.status, response.statusText, url);
+        throw new HttpResponseError(response.status, response.statusText, url, response.headers);
       }
       return response;
     },

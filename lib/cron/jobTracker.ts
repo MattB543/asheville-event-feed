@@ -11,7 +11,8 @@ export type CronJobName =
   | 'verify'
   | 'top30-weekly'
   | 'news-scrape'
-  | 'news-ai';
+  | 'news-ai'
+  | 'playlist';
 export type CronJobStatus = 'running' | 'success' | 'failed';
 
 /**

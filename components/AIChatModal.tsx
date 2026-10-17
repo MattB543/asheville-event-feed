@@ -7,6 +7,7 @@ import remarkBreaks from 'remark-breaks';
 import type { PriceFilterType } from './FilterBar';
 import type { DateFilterType, DateRange as FeedDateRange, TimeOfDay } from '@/lib/types/filters';
 import { parseChatSearchState, type ChatSearchState } from '@/lib/ai/chat/types';
+import { useModal } from '@/lib/hooks/useModal';
 
 interface ChatMessage {
   role: 'user' | 'assistant' | 'system';
@@ -161,8 +162,6 @@ export default function AIChatModal({
       setIsStreaming(false);
       setCurrentSearch(null);
       setSearchCount(null);
-      // Focus input after a short delay to ensure modal is rendered
-      setTimeout(() => inputRef.current?.focus(), 100);
     } else {
       wasOpenRef.current = false;
       // Cancel any ongoing stream when modal closes
@@ -410,6 +409,12 @@ export default function AIChatModal({
     [isLoading, sendMessage]
   );
 
+  const dialogRef = useRef<HTMLDivElement>(null);
+  // On a phone, focusing the box on open throws up the keyboard, and iOS then scrolls
+  // the chat and the page behind it around; there, wait for a tap instead
+  const touch = typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches;
+  useModal(isOpen, onClose, dialogRef, touch ? undefined : inputRef);
+
   // Check if we should show suggestions (only when just the initial message exists)
   const showSuggestions =
     messages.length === 1 && messages[0].role === 'assistant' && !isLoading && !isStreaming;
@@ -422,7 +427,12 @@ export default function AIChatModal({
       onClick={onClose}
     >
       <div
-        className="bg-white dark:bg-gray-900 sm:rounded-xl shadow-xl w-full sm:max-w-2xl h-full sm:h-[80vh] sm:max-h-[600px] flex flex-col"
+        ref={dialogRef}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Ask AI about events"
+        tabIndex={-1}
+        className="outline-none bg-white dark:bg-gray-900 sm:rounded-xl shadow-xl w-full sm:max-w-2xl h-full sm:h-[80vh] sm:max-h-[600px] flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
@@ -520,14 +530,9 @@ export default function AIChatModal({
             </div>
           )}
 
-          <div ref={messagesEndRef} />
-        </div>
-
-        {/* Input */}
-        <div className="p-4 border-t border-gray-200 dark:border-gray-700">
-          {/* Suggestion buttons */}
+          {/* Right under the greeting, where the eye already is */}
           {showSuggestions && (
-            <div className="flex flex-wrap gap-2 mb-3">
+            <div className="flex flex-wrap gap-2">
               {SUGGESTIONS.map((suggestion) => (
                 <button
                   key={suggestion}
@@ -539,6 +544,12 @@ export default function AIChatModal({
               ))}
             </div>
           )}
+          <div ref={messagesEndRef} />
+        </div>
+
+        {/* Input */}
+        <div className="p-4 border-t border-gray-200 dark:border-gray-700">
+          {/* Suggestion buttons */}
           <div className="flex gap-2">
             <input
               ref={inputRef}

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback, useMemo, useRef, useEffect } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 import dynamic from 'next/dynamic';
 import { ArrowLeft } from 'lucide-react';
 import IntentLink from '@/components/IntentLink';
@@ -9,7 +9,6 @@ import FooterCredit from '@/components/FooterCredit';
 import EventContent from '@/components/EventContent';
 import SimilarEventsSection from '@/components/SimilarEventsSection';
 import AdminScorePanel from '@/components/AdminScorePanel';
-import { useAuth } from '@/components/AuthProvider';
 import { useFavorites } from '@/lib/hooks/useFavorites';
 import type { ScoreOverride } from '@/lib/utils/scoreCalculation';
 
@@ -67,19 +66,6 @@ interface EventPageClientProps {
   canEditScores?: boolean;
 }
 
-// Wait (bounded) for auth to finish loading, polling a ref so callers read the
-// current value rather than one captured in a closure
-async function waitForAuth(
-  authLoadingRef: { current: boolean },
-  timeoutMs = 2000,
-  intervalMs = 50
-): Promise<void> {
-  const deadline = Date.now() + timeoutMs;
-  while (authLoadingRef.current && Date.now() < deadline) {
-    await new Promise((resolve) => setTimeout(resolve, intervalMs));
-  }
-}
-
 export default function EventPageClient({
   event,
   eventPageUrl,
@@ -87,17 +73,6 @@ export default function EventPageClient({
   canViewScores = false,
   canEditScores = false,
 }: EventPageClientProps) {
-  const { user, isLoading: authLoading } = useAuth();
-  const isLoggedIn = !!user;
-
-  // Auth state read through refs so an await inside captureSignal sees current values
-  const isLoggedInRef = useRef(isLoggedIn);
-  const authLoadingRef = useRef(authLoading);
-  useEffect(() => {
-    isLoggedInRef.current = isLoggedIn;
-    authLoadingRef.current = authLoading;
-  }, [isLoggedIn, authLoading]);
-
   const { favoriteIds, toggleFavorite } = useFavorites();
   const isFavorited = favoriteIds.includes(event.id);
   const [favoriteCount, setFavoriteCount] = useState(event.favoriteCount);
@@ -133,38 +108,13 @@ export default function EventPageClient({
     return counts;
   });
 
-  // Helper to capture signals for personalization (only 'favorite' signals now)
-  const captureSignal = useCallback(async (eventId: string, signalType: 'favorite') => {
-    // Wait for auth to settle (bounded), then read the current value - not the one
-    // captured when this handler was created
-    await waitForAuth(authLoadingRef);
-
-    if (!isLoggedInRef.current) return;
-
-    try {
-      await fetch('/api/signals', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ eventId, signalType }),
-      });
-    } catch (error) {
-      console.error('[Signal:EventPage] Error:', error);
-    }
-  }, []);
-
   // The shared store owns the favorite id list, localStorage and rollback;
   // only the displayed counts are local to this page.
   const handleToggleFavorite = async (eventId: string) => {
     try {
-      const { isFavorited: nowFavorited, favoriteCount: serverCount } =
-        await toggleFavorite(eventId);
+      const { favoriteCount: serverCount } = await toggleFavorite(eventId);
       if (serverCount !== null) {
         setFavoriteCount(serverCount);
-      }
-
-      // Capture signal for personalization (only when adding)
-      if (nowFavorited) {
-        await captureSignal(eventId, 'favorite');
       }
     } catch {
       // The shared store rolls the heart/localStorage back. The count is only
@@ -175,15 +125,9 @@ export default function EventPageClient({
   // Handler for toggling favorites on similar events
   const handleToggleSimilarFavorite = async (eventId: string) => {
     try {
-      const { isFavorited: nowFavorited, favoriteCount: serverCount } =
-        await toggleFavorite(eventId);
+      const { favoriteCount: serverCount } = await toggleFavorite(eventId);
       if (serverCount !== null) {
         setSimilarFavoriteCounts((prev) => ({ ...prev, [eventId]: serverCount }));
-      }
-
-      // Capture signal for personalization (only when adding)
-      if (nowFavorited) {
-        await captureSignal(eventId, 'favorite');
       }
     } catch {
       // Heart/localStorage rollback is owned by the shared store; counts only

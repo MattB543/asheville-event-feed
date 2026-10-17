@@ -1,7 +1,11 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import Image from 'next/image';
+import WholeImage from './WholeImage';
+import { eventSourceUrl } from '@/lib/utils/sourceUrl';
+import { ShareNote, useShareNote } from './ShareButton';
+import { useDismiss } from '@/lib/hooks/useDismiss';
 import Link from 'next/link';
 import {
   CalendarPlus2,
@@ -15,6 +19,7 @@ import {
   ChevronDown,
   Share,
   Users,
+  Loader2,
 } from 'lucide-react';
 import { cleanAshevilleFromSummary, cleanMarkdown } from '@/lib/utils/parsers';
 import { formatTagForDisplay } from '@/lib/utils/formatTag';
@@ -22,6 +27,10 @@ import { generateCalendarUrlForEvent } from '@/lib/utils/googleCalendar';
 import { downloadEventAsICS } from '@/lib/utils/icsGenerator';
 import { getLibrarySystemName } from '@/lib/config/librarySystems';
 import { getMatchingProgramsForEvent } from '@/lib/matching/programs';
+import { formatPriceDisplay } from '@/lib/utils/priceDisplay';
+import { mapsSearchUrl } from '@/lib/utils/maps';
+import EventSpotifyPlayer from './EventSpotifyPlayer';
+import Lightbox from './Lightbox';
 
 // The hero box is 288x192 at `sm` up to 420x288 at `xl`. object-cover scales a wide image to the
 // box's height, so each size is 3x the height, keeping sources up to 3:1 sharp. Full width below
@@ -63,9 +72,10 @@ export default function EventContent({
   showTitle = true,
   className = '',
 }: EventContentProps) {
+  const [imageOpen, setImageOpen] = useState(false);
+  const [fullImageLoaded, setFullImageLoaded] = useState(false);
   const [imgError, setImgError] = useState(false);
   const [calendarMenuOpen, setCalendarMenuOpen] = useState(false);
-  const [copied, setCopied] = useState(false);
   const [isHeartAnimating, setIsHeartAnimating] = useState(false);
   const [showOriginalDescription, setShowOriginalDescription] = useState(false);
   const calendarMenuRef = useRef<HTMLDivElement>(null);
@@ -73,20 +83,7 @@ export default function EventContent({
   const startDate =
     typeof event.startDate === 'string' ? new Date(event.startDate) : event.startDate;
 
-  // Close calendar menu when clicking outside
-  useEffect(() => {
-    function handleClickOutside(e: MouseEvent) {
-      if (calendarMenuRef.current && !calendarMenuRef.current.contains(e.target as Node)) {
-        setCalendarMenuOpen(false);
-      }
-    }
-
-    if (calendarMenuOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
-      return () => document.removeEventListener('mousedown', handleClickOutside);
-    }
-    return undefined;
-  }, [calendarMenuOpen]);
+  useDismiss(calendarMenuOpen, () => setCalendarMenuOpen(false), [calendarMenuRef]);
 
   const handleAddToGoogleCalendar = () => {
     window.open(
@@ -118,11 +115,8 @@ export default function EventContent({
     setTimeout(() => setIsHeartAnimating(false), 300);
   };
 
-  const handleCopyLink = async () => {
-    await navigator.clipboard.writeText(eventPageUrl);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
+  const { note: shareNote, share } = useShareNote();
+  const handleShare = () => share(eventPageUrl, event.title);
 
   const formatDate = (date: Date, timeUnknown?: boolean | null) => {
     // Events happen in Asheville, so they are stated in Eastern time. Without an
@@ -148,41 +142,6 @@ export default function EventContent({
     }).format(date);
 
     return { date: dateStr, time: timeStr };
-  };
-
-  const formatPriceDisplay = (price: string | null | undefined): string => {
-    if (!price || price === 'Unknown') return '$ Unknown';
-    if (price.toLowerCase() === 'free') return 'Free';
-    const match = price.match(/\$?([\d.]+)/);
-    if (match) {
-      const rounded = Math.round(parseFloat(match[1]));
-      return `$${rounded}`;
-    }
-    return price;
-  };
-
-  const getSourceUrl = () => {
-    if (event.source === 'AVL_TODAY') {
-      const slug = event.title
-        .toLowerCase()
-        .replace(/[^a-z0-9]+/g, '-')
-        .replace(/(^-|-$)+/g, '');
-
-      const formatter = new Intl.DateTimeFormat('en-US', {
-        timeZone: 'America/New_York',
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
-        hour: '2-digit',
-        hour12: false,
-      });
-      const parts = formatter.formatToParts(startDate);
-      const getPart = (type: string) => parts.find((p) => p.type === type)?.value;
-      const dateStr = `${getPart('year')}-${getPart('month')}-${getPart('day')}T${getPart('hour')}`;
-
-      return `https://avltoday.6amcity.com/events#/details/${slug}/${event.sourceId}/${dateStr}`;
-    }
-    return event.url;
   };
 
   const getSourceName = () => {
@@ -274,16 +233,21 @@ export default function EventContent({
         {/* Image */}
         <div className="relative w-full sm:w-72 md:w-80 lg:w-96 xl:w-[420px] h-48 sm:h-48 md:h-56 lg:h-64 xl:h-72 shrink-0 bg-gray-200 dark:bg-gray-800 rounded-lg overflow-hidden">
           {!imgError && event.imageUrl ? (
-            <Image
-              src={event.imageUrl}
-              alt={event.title}
-              fill
-              sizes={HERO_IMAGE_SIZES}
-              className="object-cover"
-              onError={() => setImgError(true)}
-              unoptimized={event.imageUrl.startsWith('data:')}
-              priority
-            />
+            <>
+              <WholeImage
+                src={event.imageUrl}
+                alt={event.title}
+                sizes={HERO_IMAGE_SIZES}
+                onError={() => setImgError(true)}
+                priority
+              />
+              <button
+                type="button"
+                onClick={() => setImageOpen(true)}
+                aria-label="View full image"
+                className="absolute inset-0 cursor-zoom-in rounded-lg outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brand-400"
+              />
+            </>
           ) : (
             <Image
               src="/asheville-default.jpg"
@@ -319,9 +283,7 @@ export default function EventContent({
               <div className="flex items-center gap-3">
                 <MapPin className="w-4 h-4 text-brand-600 dark:text-brand-400 shrink-0" />
                 <a
-                  href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-                    event.location
-                  )}`}
+                  href={mapsSearchUrl(event.location)}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-gray-900 dark:text-gray-100 hover:text-brand-600 dark:hover:text-brand-400"
@@ -437,23 +399,18 @@ export default function EventContent({
             {/* Share */}
             <div className="relative">
               <button
-                onClick={() => void handleCopyLink()}
+                onClick={() => void handleShare()}
                 className="inline-flex items-center justify-center px-3 py-1.5 text-sm bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-400 rounded-lg border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors cursor-pointer h-[34px]"
-                title="Copy link"
+                title="Share"
               >
                 <Share size={15} />
               </button>
-              {copied && (
-                <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-1.5 px-2 py-1 text-xs font-medium text-white bg-gray-800 dark:bg-gray-700 rounded shadow-lg whitespace-nowrap animate-fade-in">
-                  Copied!
-                  <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-gray-800 dark:border-t-gray-700" />
-                </div>
-              )}
+              <ShareNote note={shareNote} />
             </div>
 
             {/* View Source */}
             <a
-              href={getSourceUrl()}
+              href={eventSourceUrl(event)}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-400 rounded-lg border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
@@ -491,7 +448,33 @@ export default function EventContent({
             )}
           </p>
         </div>
+        <EventSpotifyPlayer event={event} className="mt-4 w-full sm:w-1/2" height={232} />
       </section>
+
+      {imageOpen && event.imageUrl && (
+        <Lightbox label={`Image for ${event.title}`} onClose={() => setImageOpen(false)}>
+          {/* Natural size, unknown up front, so a plain img rather than next/image */}
+          {/* The page shows a resized copy, so the original still has to download */}
+          {!fullImageLoaded && (
+            <Loader2
+              className="mx-auto mt-24 h-8 w-8 animate-spin text-white/60"
+              aria-label="Loading image"
+            />
+          )}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            ref={(img) => {
+              if (img?.complete) setFullImageLoaded(true);
+            }}
+            src={event.imageUrl}
+            alt={event.title}
+            onLoad={() => setFullImageLoaded(true)}
+            className={`mx-auto max-h-[85vh] w-auto object-contain rounded-sm shadow-2xl ${
+              fullImageLoaded ? '' : 'hidden'
+            }`}
+          />
+        </Lightbox>
+      )}
     </div>
   );
 }

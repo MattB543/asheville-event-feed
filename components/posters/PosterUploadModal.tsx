@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { AlertCircle, CheckCircle, Info, Loader2, X } from 'lucide-react';
 import { useAuth } from '@/components/AuthProvider';
+import { useModal } from '@/lib/hooks/useModal';
 import { GoogleSignInButton } from '@/components/GoogleSignInButton';
 
 interface PosterUploadModalProps {
@@ -210,63 +211,10 @@ export default function PosterUploadModal({ isOpen, onClose }: PosterUploadModal
     setExpiredToken(null);
   }, [isOpen]);
 
-  // Scroll lock plus focus handoff: focus moves into the dialog on open and
-  // back to whatever opened it on close.
-  useEffect(() => {
-    if (!isOpen) return undefined;
-
-    const previouslyFocused = document.activeElement as HTMLElement | null;
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
-
-    const focusTarget = dialogRef.current?.querySelector<HTMLElement>(
-      'button, input, a[href], [tabindex]:not([tabindex="-1"])'
-    );
-    (focusTarget ?? dialogRef.current)?.focus();
-
-    return () => {
-      document.body.style.overflow = previousOverflow;
-      previouslyFocused?.focus();
-    };
-  }, [isOpen]);
+  useModal(isOpen, handleCloseOrCancel, dialogRef);
 
   // A modal torn down mid-upload should not leave the request running.
   useEffect(() => () => abortRef.current?.abort(), []);
-
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
-    if (event.key === 'Escape') {
-      event.stopPropagation();
-      handleCloseOrCancel();
-      return;
-    }
-
-    if (event.key !== 'Tab' || !dialogRef.current) return;
-
-    const focusable = Array.from(
-      dialogRef.current.querySelectorAll<HTMLElement>(
-        'button:not([disabled]), input:not([disabled]), a[href], [tabindex]:not([tabindex="-1"])'
-      )
-    ).filter((element) => element.offsetParent !== null);
-
-    if (focusable.length === 0) {
-      // Nothing tabbable left: hold focus on the dialog rather than letting it
-      // escape to the page behind.
-      event.preventDefault();
-      dialogRef.current.focus();
-      return;
-    }
-
-    const first = focusable[0];
-    const last = focusable[focusable.length - 1];
-
-    if (event.shiftKey && document.activeElement === first) {
-      event.preventDefault();
-      last.focus();
-    } else if (!event.shiftKey && document.activeElement === last) {
-      event.preventDefault();
-      first.focus();
-    }
-  };
 
   const uploadOne = async (file: File): Promise<UploadResult> => {
     setCurrentFile(file.name);
@@ -474,7 +422,6 @@ export default function PosterUploadModal({ isOpen, onClose }: PosterUploadModal
         aria-modal="true"
         aria-labelledby="poster-upload-title"
         tabIndex={-1}
-        onKeyDown={handleKeyDown}
         className="bg-white dark:bg-gray-900 rounded-xl shadow-xl w-full max-w-lg max-h-[90vh] overflow-y-auto"
       >
         <div className="flex justify-between items-center p-6 border-b border-gray-200 dark:border-gray-700">

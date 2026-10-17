@@ -1,8 +1,9 @@
 import { db } from '@/lib/db';
 import { curatorProfiles, curatedEvents, events } from '@/lib/db/schema';
-import { eq, desc, and, isNull, or } from 'drizzle-orm';
+import { eq, desc, and } from 'drizzle-orm';
 import { generateProfileSlug } from '@/lib/utils/generateProfileSlug';
 import { publicEventColumns } from '@/lib/db/queries/publicEventColumns';
+import { liveEvent } from '@/lib/db/liveEvent';
 
 // Get or create a curator profile (used on first curation)
 export async function getOrCreateCuratorProfile(userId: string, email: string) {
@@ -98,14 +99,7 @@ export async function getCuratedEventsWithDetails(userId: string) {
     })
     .from(curatedEvents)
     .innerJoin(events, eq(curatedEvents.eventId, events.id))
-    .where(
-      and(
-        eq(curatedEvents.userId, userId),
-        or(isNull(events.hidden), eq(events.hidden, false)),
-        isNull(events.dedupedAt),
-        isNull(events.deadAt)
-      )
-    )
+    .where(and(eq(curatedEvents.userId, userId), liveEvent))
     .orderBy(desc(curatedEvents.curatedAt));
 }
 

@@ -39,3 +39,8 @@ export function isRateLimited(
 
   return false;
 }
+
+/** The caller's IP as Vercel reports it (first x-forwarded-for hop), the key for rate limits. */
+export function clientIp(request: Request): string {
+  return request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown';
+}

@@ -1,7 +1,17 @@
 import { createServerClient } from '@supabase/ssr';
+import type { SupabaseClient } from '@supabase/supabase-js';
 import { cookies } from 'next/headers';
+import { isAuthConfigured } from './client';
 
-export async function createClient() {
+type ServerClient = SupabaseClient;
+
+// A local setup without Supabase keys runs signed-out: getUser finds nobody
+const signedOutClient = {
+  auth: { getUser: () => Promise.resolve({ data: { user: null }, error: null }) },
+} as unknown as ServerClient;
+
+export async function createClient(): Promise<ServerClient> {
+  if (!isAuthConfigured()) return signedOutClient;
   const cookieStore = await cookies();
 
   return createServerClient(

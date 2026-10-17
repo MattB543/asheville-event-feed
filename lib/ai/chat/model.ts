@@ -2,6 +2,7 @@ import OpenAI from 'openai';
 import { getAzureClient, getAzureDeploymentName } from '@/lib/ai/provider-clients';
 import { CHAT_TOOLS } from './tools';
 import type { ChatModel } from './runner';
+import { SITE_URL } from '@/lib/seo/site';
 
 export function createChatModel(provider: 'azure' | 'openrouter', signal: AbortSignal): ChatModel {
   const client =
@@ -11,7 +12,7 @@ export function createChatModel(provider: 'azure' | 'openrouter', signal: AbortS
           apiKey: process.env.OPENROUTER_API_KEY,
           baseURL: 'https://openrouter.ai/api/v1',
           defaultHeaders: {
-            'HTTP-Referer': 'https://www.avlgo.com',
+            'HTTP-Referer': SITE_URL,
             'X-Title': 'AVL GO Event Finder',
           },
           maxRetries: 0,

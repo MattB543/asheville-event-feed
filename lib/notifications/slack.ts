@@ -1,4 +1,5 @@
 import { env, isSlackEnabled } from '@/lib/config/env';
+import { fetchWithRetry } from '@/lib/utils/retry';
 
 interface EventSubmission {
   id: string;
@@ -21,8 +22,6 @@ export async function sendSubmissionNotification(submission: EventSubmission): P
     console.log('[Slack] Webhook not configured, skipping notification');
     return false;
   }
-
-  const webhookUrl = env.SLACK_WEBHOOK!;
 
   // Format the date nicely
   const dateStr = submission.startDate.toLocaleDateString('en-US', {
@@ -123,26 +122,7 @@ export async function sendSubmissionNotification(submission: EventSubmission): P
     });
   }
 
-  try {
-    const response = await fetch(webhookUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ blocks }),
-    });
-
-    if (!response.ok) {
-      console.error('[Slack] Failed to send notification:', response.status, await response.text());
-      return false;
-    }
-
-    console.log('[Slack] Notification sent successfully for submission:', submission.id);
-    return true;
-  } catch (error) {
-    console.error('[Slack] Error sending notification:', error);
-    return false;
-  }
+  return postToSlack(blocks, 'submission notification');
 }
 
 export type ReportType = 'incorrect_info' | 'duplicate' | 'spam';
@@ -187,7 +167,6 @@ export async function sendEventReport(report: EventReport): Promise<boolean> {
     return false;
   }
 
-  const webhookUrl = env.SLACK_WEBHOOK!;
   const emoji = REPORT_TYPE_EMOJI[report.reportType];
   const label = REPORT_TYPE_LABELS[report.reportType];
 
@@ -283,30 +262,7 @@ export async function sendEventReport(report: EventReport): Promise<boolean> {
     }
   );
 
-  try {
-    const response = await fetch(webhookUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ blocks }),
-    });
-
-    if (!response.ok) {
-      console.error(
-        '[Slack] Failed to send report notification:',
-        response.status,
-        await response.text()
-      );
-      return false;
-    }
-
-    console.log('[Slack] Report notification sent for event:', report.eventId);
-    return true;
-  } catch (error) {
-    console.error('[Slack] Error sending report notification:', error);
-    return false;
-  }
+  return postToSlack(blocks, 'report notification');
 }
 
 // Slack block types (simplified)
@@ -351,8 +307,6 @@ export async function sendUrlSubmissionNotification(submission: UrlSubmission): 
     console.log('[Slack] Webhook not configured, skipping URL submission notification');
     return false;
   }
-
-  const webhookUrl = env.SLACK_WEBHOOK!;
 
   const blocks: SlackBlock[] = [
     {
@@ -408,30 +362,7 @@ export async function sendUrlSubmissionNotification(submission: UrlSubmission): 
     ],
   });
 
-  try {
-    const response = await fetch(webhookUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ blocks }),
-    });
-
-    if (!response.ok) {
-      console.error(
-        '[Slack] Failed to send URL submission notification:',
-        response.status,
-        await response.text()
-      );
-      return false;
-    }
-
-    console.log('[Slack] URL submission notification sent for:', submission.id);
-    return true;
-  } catch (error) {
-    console.error('[Slack] Error sending URL submission notification:', error);
-    return false;
-  }
+  return postToSlack(blocks, 'URL submission notification');
 }
 
 interface FlaggedPoster {
@@ -454,8 +385,6 @@ export async function sendPosterFlaggedNotification(poster: FlaggedPoster): Prom
     console.log('[Slack] Webhook not configured, skipping poster flag notification');
     return false;
   }
-
-  const webhookUrl = env.SLACK_WEBHOOK!;
 
   const blocks: SlackBlock[] = [
     {
@@ -518,30 +447,7 @@ export async function sendPosterFlaggedNotification(poster: FlaggedPoster): Prom
     });
   }
 
-  try {
-    const response = await fetch(webhookUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ blocks }),
-    });
-
-    if (!response.ok) {
-      console.error(
-        '[Slack] Failed to send poster flag notification:',
-        response.status,
-        await response.text()
-      );
-      return false;
-    }
-
-    console.log('[Slack] Poster flag notification sent for upload:', poster.uploadId);
-    return true;
-  } catch (error) {
-    console.error('[Slack] Error sending poster flag notification:', error);
-    return false;
-  }
+  return postToSlack(blocks, 'poster flagged notification');
 }
 
 /**
@@ -584,8 +490,6 @@ export async function sendVerificationNotification(
     console.log('[Slack] No events hidden, dead or updated, skipping notification');
     return false;
   }
-
-  const webhookUrl = env.SLACK_WEBHOOK!;
 
   const blocks: SlackBlock[] = [
     {
@@ -644,28 +548,42 @@ export async function sendVerificationNotification(
     ],
   });
 
+  return postToSlack(blocks, 'verification notification');
+}
+
+async function postToSlack(blocks: SlackBlock[], label: string): Promise<boolean> {
   try {
-    const response = await fetch(webhookUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
+    const response = await fetchWithRetry(
+      env.SLACK_WEBHOOK!,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ blocks }),
       },
-      body: JSON.stringify({ blocks }),
-    });
-
-    if (!response.ok) {
-      console.error(
-        '[Slack] Failed to send verification notification:',
-        response.status,
-        await response.text()
-      );
-      return false;
-    }
-
-    console.log('[Slack] Verification notification sent');
+      { maxRetries: 2 }
+    );
+    console.log(`[Slack] ${label} sent`, response.status);
     return true;
   } catch (error) {
-    console.error('[Slack] Error sending verification notification:', error);
+    console.error(`[Slack] Error sending ${label}:`, error);
     return false;
   }
+}
+
+/** A failed weekly playlist run; the playlist itself is left as it was */
+export async function sendPlaylistFailedNotification(error: unknown): Promise<boolean> {
+  if (!isSlackEnabled()) return false;
+  const message = error instanceof Error ? error.message : String(error);
+  return postToSlack(
+    [
+      {
+        type: 'section',
+        text: {
+          type: 'mrkdwn',
+          text: `:warning: *Weekly Spotify playlist didn't update*\n${message.slice(0, 500)}\nThe playlist keeps last week's songs. Re-run \`/api/cron/playlist\` once it's fixed.`,
+        },
+      },
+    ],
+    'playlist failure notification'
+  );
 }

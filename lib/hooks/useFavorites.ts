@@ -181,6 +181,11 @@ export async function clearFavorites(
   return failed;
 }
 
+/** The current list, for preference sync to read outside a render. */
+export function getFavoriteIds(): string[] {
+  return favoriteIds;
+}
+
 /** Replace the whole list (used by preference sync when merging server state). */
 export function replaceFavorites(ids: string[]): void {
   setFavorites(Array.from(new Set(ids)));

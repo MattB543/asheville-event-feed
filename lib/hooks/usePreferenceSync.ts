@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useCallback } from 'react';
 import { useAuth } from '@/components/AuthProvider';
+import { getFavoriteIds, replaceFavorites, useFavorites } from './useFavorites';
 
 // Types matching the API
 export interface HiddenEventFingerprint {
@@ -278,4 +279,44 @@ export function usePreferenceSync(callbacks: PreferenceSyncCallbacks) {
     saveToDatabase,
     isLoggedIn: !!user,
   };
+}
+
+function readStoredList<T>(key: string): T[] {
+  try {
+    const parsed: unknown = JSON.parse(localStorage.getItem(key) ?? '[]');
+    return Array.isArray(parsed) ? (parsed as T[]) : [];
+  } catch {
+    return [];
+  }
+}
+
+function writeStoredList(key: string, value: unknown[]): void {
+  try {
+    localStorage.setItem(key, JSON.stringify(value));
+  } catch {
+    // Ignore quota / private-mode errors
+  }
+}
+
+/**
+ * Account sync for pages with hearts but no event feed (event pages, the news end
+ * cap); the feed runs its own. The other lists are read from where the feed keeps
+ * them, because the merge would treat a missing list as cleared on this device.
+ */
+export function useFavoritesSync(): void {
+  const { favoriteIds } = useFavorites();
+  const { saveToDatabase, isLoggedIn } = usePreferenceSync({
+    getBlockedHosts: () => readStoredList('blockedHosts'),
+    getBlockedKeywords: () => readStoredList('blockedKeywords'),
+    getHiddenEvents: () => readStoredList('hiddenEvents'),
+    getFavoritedEventIds: getFavoriteIds,
+    setBlockedHosts: (hosts) => writeStoredList('blockedHosts', hosts),
+    setBlockedKeywords: (keywords) => writeStoredList('blockedKeywords', keywords),
+    setHiddenEvents: (events) => writeStoredList('hiddenEvents', events),
+    setFavoritedEventIds: replaceFavorites,
+  });
+
+  useEffect(() => {
+    if (isLoggedIn) saveToDatabase();
+  }, [favoriteIds, isLoggedIn, saveToDatabase]);
 }

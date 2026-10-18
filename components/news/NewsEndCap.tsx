@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import EventCard, { CARD_BOX } from '@/components/EventCard';
 import { useFavorites } from '@/lib/hooks/useFavorites';
+import { useFavoritesSync } from '@/lib/hooks/usePreferenceSync';
 import type { EndCapEvent } from '@/lib/news/queries';
 import { useToggleSet } from '@/lib/hooks/useToggleSet';
 
@@ -15,6 +16,7 @@ import { useToggleSet } from '@/lib/hooks/useToggleSet';
  * share and reporting work as they do anywhere.
  */
 export default function NewsEndCap({ events }: { events: EndCapEvent[] }) {
+  useFavoritesSync();
   const { favoriteIds, toggleFavorite } = useFavorites();
   const [favoriteCounts, setFavoriteCounts] = useState<Record<string, number>>({});
   const mobileExpanded = useToggleSet();

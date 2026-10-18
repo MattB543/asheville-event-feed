@@ -10,6 +10,7 @@ import EventContent from '@/components/EventContent';
 import SimilarEventsSection from '@/components/SimilarEventsSection';
 import AdminScorePanel from '@/components/AdminScorePanel';
 import { useFavorites } from '@/lib/hooks/useFavorites';
+import { useFavoritesSync } from '@/lib/hooks/usePreferenceSync';
 import type { ScoreOverride } from '@/lib/utils/scoreCalculation';
 
 // Lazy load modal to reduce initial JS bundle
@@ -73,6 +74,7 @@ export default function EventPageClient({
   canViewScores = false,
   canEditScores = false,
 }: EventPageClientProps) {
+  useFavoritesSync();
   const { favoriteIds, toggleFavorite } = useFavorites();
   const isFavorited = favoriteIds.includes(event.id);
   const [favoriteCount, setFavoriteCount] = useState(event.favoriteCount);

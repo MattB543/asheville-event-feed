@@ -4,7 +4,7 @@ import type { Metadata } from 'next';
 import { getListedEventCount, getEventMetadata } from '@/lib/db/queries/events';
 import type { EventMetadata } from '@/lib/db/queries/events';
 import { cleanEventIds, getEventsByIds } from '@/lib/db/queries/sharedList';
-import { formatDateEastern } from '@/lib/utils/timezone';
+import { formatDateEastern, getStartOfTodayEastern } from '@/lib/utils/timezone';
 import { hasRealEventImage } from '@/lib/utils/eventImages';
 
 const DEFAULT_METADATA: Metadata = {
@@ -37,7 +37,11 @@ export async function generateMetadata({
   let shared: Awaited<ReturnType<typeof getSharedPreview>> = [];
   try {
     // Sorted so the same list in a different order shares one cache entry
-    shared = await getSharedPreview([...ids].sort());
+    // Past events drop off here as they do on the page, or an old link overcounts
+    const startOfToday = getStartOfTodayEastern().getTime();
+    shared = (await getSharedPreview([...ids].sort())).filter(
+      (e) => new Date(e.startDate).getTime() >= startOfToday
+    );
   } catch (error) {
     console.error('[YourList] Failed to load shared events for the preview:', error);
   }

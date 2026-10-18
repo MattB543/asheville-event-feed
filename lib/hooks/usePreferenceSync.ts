@@ -37,6 +37,14 @@ interface PreferenceSyncCallbacks {
 
 const SYNC_BASE_KEY_PREFIX = 'preferenceSyncBase:';
 
+// Where the event feed keeps these lists. Pages without the feed sync them too, and a
+// name that drifted would read as an empty list and clear it from the account.
+export const PREFERENCE_STORAGE_KEYS = {
+  blockedHosts: 'blockedHosts',
+  blockedKeywords: 'blockedKeywords',
+  hiddenEvents: 'hiddenEvents',
+} as const;
+
 const identity = (value: string) => value;
 const hiddenEventKey = (event: HiddenEventFingerprint) =>
   `${event.title.toLowerCase()}|||${event.organizer.toLowerCase()}`;
@@ -306,13 +314,14 @@ function writeStoredList(key: string, value: unknown[]): void {
 export function useFavoritesSync(): void {
   const { favoriteIds } = useFavorites();
   const { saveToDatabase, isLoggedIn } = usePreferenceSync({
-    getBlockedHosts: () => readStoredList('blockedHosts'),
-    getBlockedKeywords: () => readStoredList('blockedKeywords'),
-    getHiddenEvents: () => readStoredList('hiddenEvents'),
+    getBlockedHosts: () => readStoredList(PREFERENCE_STORAGE_KEYS.blockedHosts),
+    getBlockedKeywords: () => readStoredList(PREFERENCE_STORAGE_KEYS.blockedKeywords),
+    getHiddenEvents: () => readStoredList(PREFERENCE_STORAGE_KEYS.hiddenEvents),
     getFavoritedEventIds: getFavoriteIds,
-    setBlockedHosts: (hosts) => writeStoredList('blockedHosts', hosts),
-    setBlockedKeywords: (keywords) => writeStoredList('blockedKeywords', keywords),
-    setHiddenEvents: (events) => writeStoredList('hiddenEvents', events),
+    setBlockedHosts: (hosts) => writeStoredList(PREFERENCE_STORAGE_KEYS.blockedHosts, hosts),
+    setBlockedKeywords: (keywords) =>
+      writeStoredList(PREFERENCE_STORAGE_KEYS.blockedKeywords, keywords),
+    setHiddenEvents: (events) => writeStoredList(PREFERENCE_STORAGE_KEYS.hiddenEvents, events),
     setFavoritedEventIds: replaceFavorites,
   });
 

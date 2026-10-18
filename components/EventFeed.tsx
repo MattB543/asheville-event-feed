@@ -48,7 +48,7 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import { getZipName } from '@/lib/config/zipNames';
-import { usePreferenceSync } from '@/lib/hooks/usePreferenceSync';
+import { PREFERENCE_STORAGE_KEYS, usePreferenceSync } from '@/lib/hooks/usePreferenceSync';
 import { useCaptureSignal } from '@/lib/hooks/useCaptureSignal';
 import { ShareNote, useShareNote } from './ShareButton';
 import { useFavorites, replaceFavorites, clearFavorites } from '@/lib/hooks/useFavorites';
@@ -239,9 +239,12 @@ function hasNonDefaultLocalStorageFilters(): boolean {
     const selectedZips = getStorageItem<string[]>('selectedZips', []);
     const selectedTimes = getStorageItem<TimeOfDay[]>('selectedTimes', []);
     const selectedDays = getStorageItem<number[]>('selectedDays', []);
-    const blockedHosts = getStorageItem<string[]>('blockedHosts', []);
-    const blockedKeywords = getStorageItem<string[]>('blockedKeywords', []);
-    const hiddenEvents = getStorageItem<HiddenEventFingerprint[]>('hiddenEvents', []);
+    const blockedHosts = getStorageItem<string[]>(PREFERENCE_STORAGE_KEYS.blockedHosts, []);
+    const blockedKeywords = getStorageItem<string[]>(PREFERENCE_STORAGE_KEYS.blockedKeywords, []);
+    const hiddenEvents = getStorageItem<HiddenEventFingerprint[]>(
+      PREFERENCE_STORAGE_KEYS.hiddenEvents,
+      []
+    );
     const showDailyEvents = getStorageItem<boolean>('showDailyEvents', false);
     const customDateRange = getStorageItem<{
       start: string | null;
@@ -587,13 +590,13 @@ export default function EventFeed({
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [showSaveModal, setShowSaveModal] = useState(false);
   const [blockedHosts, setBlockedHosts] = useState<string[]>(() =>
-    getStorageItem('blockedHosts', [])
+    getStorageItem(PREFERENCE_STORAGE_KEYS.blockedHosts, [])
   );
   const [blockedKeywords, setBlockedKeywords] = useState<string[]>(() =>
-    getStorageItem('blockedKeywords', [])
+    getStorageItem(PREFERENCE_STORAGE_KEYS.blockedKeywords, [])
   );
   const [hiddenEvents, setHiddenEvents] = useState<HiddenEventFingerprint[]>(() =>
-    getStorageItem('hiddenEvents', [])
+    getStorageItem(PREFERENCE_STORAGE_KEYS.hiddenEvents, [])
   );
   // Track events hidden THIS session (not persisted) - these show greyed out instead of being filtered
   const [sessionHiddenKeys, setSessionHiddenKeys] = useState<Set<string>>(new Set());
@@ -1127,9 +1130,12 @@ export default function EventFeed({
       localStorage.setItem('tagFilters', JSON.stringify(tagFilters));
       localStorage.setItem('selectedLocations', JSON.stringify(selectedLocations));
       localStorage.setItem('selectedZips', JSON.stringify(selectedZips));
-      localStorage.setItem('blockedHosts', JSON.stringify(blockedHosts));
-      localStorage.setItem('blockedKeywords', JSON.stringify(blockedKeywords));
-      localStorage.setItem('hiddenEvents', JSON.stringify(hiddenEvents));
+      localStorage.setItem(PREFERENCE_STORAGE_KEYS.blockedHosts, JSON.stringify(blockedHosts));
+      localStorage.setItem(
+        PREFERENCE_STORAGE_KEYS.blockedKeywords,
+        JSON.stringify(blockedKeywords)
+      );
+      localStorage.setItem(PREFERENCE_STORAGE_KEYS.hiddenEvents, JSON.stringify(hiddenEvents));
       localStorage.setItem('showDailyEvents', JSON.stringify(showDailyEvents));
     }
   }, [

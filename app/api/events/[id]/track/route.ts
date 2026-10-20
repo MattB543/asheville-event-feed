@@ -56,18 +56,19 @@ export async function GET(request: Request, { params }: RouteParams) {
       .select({ count: sql<number>`count(*)::int` })
       .from(eventTracks)
       .where(gt(eventTracks.checkedAt, new Date(Date.now() - 24 * 60 * 60 * 1000)));
-    const { matches, classifierFailed } = await matchEvents([event], {
+    const { matches } = await matchEvents([event], {
       savedOnly: count >= NEW_MATCHES_PER_DAY,
+      // A failed lookup saves nothing, so it isn't counted against the cap; don't
+      // spend Spotify searches on a guess the next visit would repeat
+      guessOnFailure: false,
     });
     const match = matches.get(event.id);
     if (!match?.trackId) return none;
     return NextResponse.json(
       { track: { id: match.trackId, name: match.trackName, artist: match.spotifyArtist } },
-      // A saved match doesn't change, so let the CDN answer repeat visits; a guess made
-      // while the AI was failing isn't saved, so the next visit asks again
-      classifierFailed
-        ? undefined
-        : { headers: { 'Cache-Control': 'public, s-maxage=86400, stale-while-revalidate=604800' } }
+      // Every song returned here is a saved match, which doesn't change, so let the CDN
+      // answer repeat visits
+      { headers: { 'Cache-Control': 'public, s-maxage=86400, stale-while-revalidate=604800' } }
     );
   } catch (error) {
     if (!(error instanceof SpotifyRateLimitError)) console.error('[Track] Match failed:', error);

@@ -32,8 +32,15 @@ export interface MatchResult {
  */
 export async function matchEvents(
   list: PlaylistEvent[],
-  /** Only return saved matches: no AI call or Spotify search */
-  { savedOnly = false }: { savedOnly?: boolean } = {}
+  {
+    savedOnly = false,
+    guessOnFailure = true,
+  }: {
+    /** Only return saved matches: no AI call or Spotify search */
+    savedOnly?: boolean;
+    /** When the AI call fails, search Spotify for the title itself (never saved) */
+    guessOnFailure?: boolean;
+  } = {}
 ): Promise<MatchResult> {
   // Rows for these exact events, then rows for other events with the same title
   // (a recurring show), so the AI is asked about each title once
@@ -64,7 +71,10 @@ export async function matchEvents(
     uniqueToClassify.map((e, i): [string, Classification] => [
       e.title,
       // Treat the title as the artist so the week still fills, but don't save it
-      fresh?.[i] ?? { artist: e.title },
+      fresh?.[i] ??
+        (guessOnFailure
+          ? { artist: e.title }
+          : { skip: 'ambiguous', reason: 'headliner lookup failed' }),
     ])
   );
 

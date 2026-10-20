@@ -2,7 +2,7 @@
 
 import { Suspense, useState, useRef, useMemo, useId, type FocusEvent } from 'react';
 import { useAuth } from './AuthProvider';
-import { User, LogOut, ChevronDown, UserCircle, Heart, LogIn } from 'lucide-react';
+import { User, LogOut, ChevronDown, UserCircle } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { useDismiss } from '@/lib/hooks/useDismiss';
@@ -72,43 +72,16 @@ function UserMenuContent({ query }: { query: string }) {
     return <div className="w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-700 animate-pulse" />;
   }
 
-  // Your List is reachable from both menus: favorites work without an account
-  const yourListItem = (
-    <Link href="/events/your-list" onClick={() => setIsOpen(false)} className={MENU_ITEM_CLASS}>
-      <Heart className="w-4 h-4" />
-      Your List
-    </Link>
-  );
-
-  // Not logged in - same footprint as the old sign-in icon link, now a small menu
+  // Not logged in - just a sign-in link (Your List lives in the Events menu)
   if (!user) {
     return (
-      <div className="relative" ref={menuRef} onBlur={handleBlur}>
-        <button
-          ref={buttonRef}
-          type="button"
-          onClick={() => setIsOpen(!isOpen)}
-          className={`flex p-1.5 rounded-md border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors cursor-pointer ${TRIGGER_FOCUS_CLASS}`}
-          aria-label="Account menu"
-          aria-expanded={isOpen}
-          aria-controls={isOpen ? menuId : undefined}
-        >
-          <User size={16} className="text-gray-600 dark:text-gray-300" />
-        </button>
-
-        {isOpen && (
-          <div
-            id={menuId}
-            className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-900 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 py-1 z-50"
-          >
-            <Link href={loginHref} onClick={() => setIsOpen(false)} className={MENU_ITEM_CLASS}>
-              <LogIn className="w-4 h-4" />
-              Sign in
-            </Link>
-            {yourListItem}
-          </div>
-        )}
-      </div>
+      <Link
+        href={loginHref}
+        className={`flex p-1.5 rounded-md border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors ${TRIGGER_FOCUS_CLASS}`}
+        aria-label="Sign in"
+      >
+        <User size={16} className="text-gray-600 dark:text-gray-300" />
+      </Link>
     );
   }
 
@@ -162,7 +135,6 @@ function UserMenuContent({ query }: { query: string }) {
           </div>
 
           {/* Menu items */}
-          {yourListItem}
           <Link href="/profile" onClick={() => setIsOpen(false)} className={MENU_ITEM_CLASS}>
             <UserCircle className="w-4 h-4" />
             Profile

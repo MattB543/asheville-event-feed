@@ -1,13 +1,13 @@
 'use client';
 
 import { Suspense, useId, useRef, useState } from 'react';
-import { ChevronDown } from 'lucide-react';
+import { CalendarDays, ChevronDown, Heart, Trophy, type LucideIcon } from 'lucide-react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import IntentLink from '@/components/IntentLink';
 import { useDismiss } from '@/lib/hooks/useDismiss';
 
-export type HeaderTab = 'all' | 'top30' | 'groups' | 'news' | 'playlist' | 'parking';
+export type HeaderTab = 'all' | 'top30' | 'yourList' | 'groups' | 'news' | 'playlist' | 'parking';
 
 interface EventTabSwitcherProps {
   activeTab?: HeaderTab;
@@ -99,9 +99,9 @@ function tabClass(active: boolean, activeTone = 'brand'): string {
 const HOVER_QUERY = '(pointer: fine) and (min-width: 1024px)';
 
 /**
- * "Events" with All events / Top 30 underneath. At lg+ with a mouse the menu
- * opens on hover and the label is a plain link to the feed; on touch the label
- * toggles the menu, since there is no hover to reveal Top 30.
+ * "Events" with All events / Top events / Your feed underneath. At lg+ with a mouse
+ * the menu opens on hover and the label is a plain link to the feed; on touch the
+ * label toggles the menu, since there is no hover to reveal the other two.
  */
 function EventsMenu({
   activeTab,
@@ -118,10 +118,17 @@ function EventsMenu({
 
   useDismiss(isOpen, () => setIsOpen(false), [rootRef]);
 
-  const isEvents = activeTab === 'all' || activeTab === 'top30';
-  const items = [
-    { href: allHref, label: 'All events', active: activeTab === 'all' },
-    { href: top30Href, label: 'Top 30', active: activeTab === 'top30' },
+  const isEvents = activeTab === 'all' || activeTab === 'top30' || activeTab === 'yourList';
+  const items: { href: string; label: string; icon: LucideIcon; active: boolean }[] = [
+    { href: allHref, label: 'All events', icon: CalendarDays, active: activeTab === 'all' },
+    { href: top30Href, label: 'Top events', icon: Trophy, active: activeTab === 'top30' },
+    // Plain: the feed's filter params don't apply to a list of favorites
+    {
+      href: '/events/your-list',
+      label: 'Your feed',
+      icon: Heart,
+      active: activeTab === 'yourList',
+    },
   ];
 
   return (
@@ -160,12 +167,13 @@ function EventsMenu({
                 href={item.href}
                 onClick={() => setIsOpen(false)}
                 aria-current={item.active ? 'page' : undefined}
-                className={`flex min-h-10 items-center px-3 text-sm lg:min-h-9 hover:bg-gray-100 dark:hover:bg-gray-800 ${
+                className={`flex min-h-10 items-center gap-2 px-3 text-sm lg:min-h-9 hover:bg-gray-100 dark:hover:bg-gray-800 ${
                   item.active
                     ? 'font-semibold text-gray-900 dark:text-white'
                     : 'text-gray-700 dark:text-gray-300'
                 }`}
               >
+                <item.icon size={15} aria-hidden="true" className="shrink-0 text-gray-400" />
                 {item.label}
               </Link>
             </li>

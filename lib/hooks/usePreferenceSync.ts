@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useCallback } from 'react';
 import { useAuth } from '@/components/AuthProvider';
+import { getFavoriteIds, replaceFavorites, useFavorites } from './useFavorites';
 
 // Types matching the API
 export interface HiddenEventFingerprint {
@@ -35,6 +36,14 @@ interface PreferenceSyncCallbacks {
 }
 
 const SYNC_BASE_KEY_PREFIX = 'preferenceSyncBase:';
+
+// Where the event feed keeps these lists. Pages without the feed sync them too, and a
+// name that drifted would read as an empty list and clear it from the account.
+export const PREFERENCE_STORAGE_KEYS = {
+  blockedHosts: 'blockedHosts',
+  blockedKeywords: 'blockedKeywords',
+  hiddenEvents: 'hiddenEvents',
+} as const;
 
 const identity = (value: string) => value;
 const hiddenEventKey = (event: HiddenEventFingerprint) =>
@@ -278,4 +287,45 @@ export function usePreferenceSync(callbacks: PreferenceSyncCallbacks) {
     saveToDatabase,
     isLoggedIn: !!user,
   };
+}
+
+function readStoredList<T>(key: string): T[] {
+  try {
+    const parsed: unknown = JSON.parse(localStorage.getItem(key) ?? '[]');
+    return Array.isArray(parsed) ? (parsed as T[]) : [];
+  } catch {
+    return [];
+  }
+}
+
+function writeStoredList(key: string, value: unknown[]): void {
+  try {
+    localStorage.setItem(key, JSON.stringify(value));
+  } catch {
+    // Ignore quota / private-mode errors
+  }
+}
+
+/**
+ * Account sync for pages with hearts but no event feed (event pages, the news end
+ * cap); the feed runs its own. The other lists are read from where the feed keeps
+ * them, because the merge would treat a missing list as cleared on this device.
+ */
+export function useFavoritesSync(): void {
+  const { favoriteIds } = useFavorites();
+  const { saveToDatabase, isLoggedIn } = usePreferenceSync({
+    getBlockedHosts: () => readStoredList(PREFERENCE_STORAGE_KEYS.blockedHosts),
+    getBlockedKeywords: () => readStoredList(PREFERENCE_STORAGE_KEYS.blockedKeywords),
+    getHiddenEvents: () => readStoredList(PREFERENCE_STORAGE_KEYS.hiddenEvents),
+    getFavoritedEventIds: getFavoriteIds,
+    setBlockedHosts: (hosts) => writeStoredList(PREFERENCE_STORAGE_KEYS.blockedHosts, hosts),
+    setBlockedKeywords: (keywords) =>
+      writeStoredList(PREFERENCE_STORAGE_KEYS.blockedKeywords, keywords),
+    setHiddenEvents: (events) => writeStoredList(PREFERENCE_STORAGE_KEYS.hiddenEvents, events),
+    setFavoritedEventIds: replaceFavorites,
+  });
+
+  useEffect(() => {
+    if (isLoggedIn) saveToDatabase();
+  }, [favoriteIds, isLoggedIn, saveToDatabase]);
 }

@@ -1,29 +1,7 @@
 import { env } from '@/lib/config/env';
 import { generateEventSlug } from '@/lib/utils/slugify';
-
-/**
- * Format a date in Eastern timezone for display (e.g., "Monday, Dec 30")
- */
-function formatEasternDate(date: Date): string {
-  return new Intl.DateTimeFormat('en-US', {
-    timeZone: 'America/New_York',
-    weekday: 'long',
-    month: 'short',
-    day: 'numeric',
-  }).format(date);
-}
-
-/**
- * Format a time in Eastern timezone for display (e.g., "7:00 PM")
- */
-function formatEasternTime(date: Date): string {
-  return new Intl.DateTimeFormat('en-US', {
-    timeZone: 'America/New_York',
-    hour: 'numeric',
-    minute: '2-digit',
-    hour12: true,
-  }).format(date);
-}
+import { escapeHtml, formatEasternDate, formatEasternTime } from './emailHtml';
+import { venueLine } from '@/lib/utils/venueName';
 
 interface DigestEvent {
   id: string;
@@ -259,7 +237,8 @@ function generateEventCard(event: DigestEvent, appUrl: string): string {
   // Build the details line: "8:00 AM | $40 | The Omni Grove Park Inn"
   const detailParts = [time];
   if (event.price) detailParts.push(escapeHtml(event.price));
-  if (event.location) detailParts.push(escapeHtml(truncate(event.location, 30)));
+  const place = event.location || event.organizer ? venueLine(event) : '';
+  if (place) detailParts.push(escapeHtml(place));
   const detailsLine = detailParts.join(' | ');
 
   return `
@@ -385,7 +364,8 @@ Manage preferences: ${appUrl}/profile
             // Build details line: time | price | location
             const detailParts = [time];
             if (event.price) detailParts.push(event.price);
-            if (event.location) detailParts.push(event.location);
+            const place = event.location || event.organizer ? venueLine(event) : '';
+            if (place) detailParts.push(place);
             const summaryLine = event.aiSummary ? `\n    ${event.aiSummary}` : '';
             return `  - ${event.title}${summaryLine}\n    ${detailParts.join(' | ')}\n    ${eventUrl}${curatorText}${notesText}`;
           })
@@ -405,7 +385,8 @@ Manage preferences: ${appUrl}/profile
           // Build details line: time | price | location
           const detailParts = [time];
           if (event.price) detailParts.push(event.price);
-          if (event.location) detailParts.push(event.location);
+          const place = event.location || event.organizer ? venueLine(event) : '';
+          if (place) detailParts.push(place);
           const summaryLine = event.aiSummary ? `\n    ${event.aiSummary}` : '';
           return `  - ${event.title}${summaryLine}\n    ${detailParts.join(' | ')}\n    ${eventUrl}`;
         })
@@ -432,24 +413,4 @@ Manage preferences: ${appUrl}/profile
 
 (c) ${new Date().getFullYear()} AVL GO - Asheville, NC
   `.trim();
-}
-
-/**
- * Escape HTML special characters.
- */
-function escapeHtml(text: string): string {
-  return text
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;');
-}
-
-/**
- * Truncate text to a maximum length.
- */
-function truncate(text: string, maxLength: number): string {
-  if (text.length <= maxLength) return text;
-  return text.slice(0, maxLength - 1) + '.';
 }

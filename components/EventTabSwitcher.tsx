@@ -1,15 +1,16 @@
 'use client';
 
-import { Suspense, useEffect, useId, useRef, useState } from 'react';
-import { ChevronDown } from 'lucide-react';
+import { Suspense, useId, useRef, useState } from 'react';
+import { CalendarDays, ChevronDown, Heart, Trophy, type LucideIcon } from 'lucide-react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import IntentLink from '@/components/IntentLink';
+import { useDismiss } from '@/lib/hooks/useDismiss';
 
-type Tab = 'all' | 'top30' | 'groups' | 'news' | 'parking';
+export type HeaderTab = 'all' | 'top30' | 'yourList' | 'groups' | 'news' | 'playlist' | 'parking';
 
 interface EventTabSwitcherProps {
-  activeTab?: Tab;
+  activeTab?: HeaderTab;
 }
 
 /**
@@ -55,24 +56,25 @@ function Tabs({ activeTab, query }: EventTabSwitcherProps & { query: string }) {
   };
 
   return (
-    // Content-width tabs: 36px tall below lg (touch), the original 32px at lg+
-    <nav
-      className="flex items-center gap-0.5 sm:gap-1 whitespace-nowrap"
-      aria-label="Event feed tabs"
-    >
+    // Content-width tabs: 36px tall below lg (touch), the original 32px at lg+.
+    // Spacing is tight below sm so five tabs fit a 360px phone without wrapping
+    <nav className="flex items-center sm:gap-1 whitespace-nowrap" aria-label="Event feed tabs">
       <EventsMenu
         activeTab={activeTab}
         allHref={buildTabUrl('all')}
         top30Href={buildTabUrl('top30')}
       />
       {/* Plain /groups: the feed's filter params mean nothing in the directory.
-          /events, /groups and /news are dynamic, so they prefetch on hover, not on sight */}
+          /events, /groups, /news and /playlist are dynamic, so they prefetch on hover, not on sight */}
       <IntentLink href="/groups" className={tabClass(activeTab === 'groups')}>
         Groups
       </IntentLink>
       {/* News filters are its own, so the link drops the event tabs' params */}
       <IntentLink href="/news" className={tabClass(activeTab === 'news')}>
         News
+      </IntentLink>
+      <IntentLink href="/playlist" className={tabClass(activeTab === 'playlist')}>
+        Playlist
       </IntentLink>
       <Link href="/parking" className={tabClass(activeTab === 'parking')}>
         Parking
@@ -82,7 +84,7 @@ function Tabs({ activeTab, query }: EventTabSwitcherProps & { query: string }) {
 }
 
 const TAB_BASE =
-  'flex items-center min-h-9 px-2.5 sm:px-3 lg:min-h-0 lg:py-1.5 text-sm font-medium rounded-md cursor-pointer transition-colors';
+  'flex items-center min-h-9 px-2 sm:px-3 lg:min-h-0 lg:py-1.5 text-sm font-medium rounded-md cursor-pointer transition-colors';
 const TAB_IDLE =
   'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50';
 
@@ -97,16 +99,16 @@ function tabClass(active: boolean, activeTone = 'brand'): string {
 const HOVER_QUERY = '(pointer: fine) and (min-width: 1024px)';
 
 /**
- * "Events" with All events / Top 30 underneath. At lg+ with a mouse the menu
- * opens on hover and the label is a plain link to the feed; on touch the label
- * toggles the menu, since there is no hover to reveal Top 30.
+ * "Events" with All events / Top events / Your feed underneath. At lg+ with a mouse
+ * the menu opens on hover and the label is a plain link to the feed; on touch the
+ * label toggles the menu, since there is no hover to reveal the other two.
  */
 function EventsMenu({
   activeTab,
   allHref,
   top30Href,
 }: {
-  activeTab?: Tab;
+  activeTab?: HeaderTab;
   allHref: string;
   top30Href: string;
 }) {
@@ -114,26 +116,19 @@ function EventsMenu({
   const rootRef = useRef<HTMLDivElement>(null);
   const [isOpen, setIsOpen] = useState(false);
 
-  useEffect(() => {
-    if (!isOpen) return undefined;
-    const onPointer = (event: PointerEvent) => {
-      if (!rootRef.current?.contains(event.target as Node)) setIsOpen(false);
-    };
-    const onKey = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') setIsOpen(false);
-    };
-    document.addEventListener('pointerdown', onPointer);
-    document.addEventListener('keydown', onKey);
-    return () => {
-      document.removeEventListener('pointerdown', onPointer);
-      document.removeEventListener('keydown', onKey);
-    };
-  }, [isOpen]);
+  useDismiss(isOpen, () => setIsOpen(false), [rootRef]);
 
-  const isEvents = activeTab === 'all' || activeTab === 'top30';
-  const items = [
-    { href: allHref, label: 'All events', active: activeTab === 'all' },
-    { href: top30Href, label: 'Top 30', active: activeTab === 'top30' },
+  const isEvents = activeTab === 'all' || activeTab === 'top30' || activeTab === 'yourList';
+  const items: { href: string; label: string; icon: LucideIcon; active: boolean }[] = [
+    { href: allHref, label: 'All events', icon: CalendarDays, active: activeTab === 'all' },
+    { href: top30Href, label: 'Top events', icon: Trophy, active: activeTab === 'top30' },
+    // Plain: the feed's filter params don't apply to a list of favorites
+    {
+      href: '/events/your-list',
+      label: 'Your feed',
+      icon: Heart,
+      active: activeTab === 'yourList',
+    },
   ];
 
   return (
@@ -172,12 +167,13 @@ function EventsMenu({
                 href={item.href}
                 onClick={() => setIsOpen(false)}
                 aria-current={item.active ? 'page' : undefined}
-                className={`flex min-h-10 items-center px-3 text-sm lg:min-h-9 hover:bg-gray-100 dark:hover:bg-gray-800 ${
+                className={`flex min-h-10 items-center gap-2 px-3 text-sm lg:min-h-9 hover:bg-gray-100 dark:hover:bg-gray-800 ${
                   item.active
                     ? 'font-semibold text-gray-900 dark:text-white'
                     : 'text-gray-700 dark:text-gray-300'
                 }`}
               >
+                <item.icon size={15} aria-hidden="true" className="shrink-0 text-gray-400" />
                 {item.label}
               </Link>
             </li>

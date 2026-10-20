@@ -12,7 +12,8 @@ import {
   FileText,
   FileCode,
 } from 'lucide-react';
-import { useToast } from './ui/Toast';
+import { ShareNote, useShareNote } from './ShareButton';
+import { useDismiss } from '@/lib/hooks/useDismiss';
 
 // Re-export types for backwards compatibility (canonical definitions in lib/types/filters)
 import type { DateFilterType, PriceFilterType, TimeOfDay, DateRange } from '@/lib/types/filters';
@@ -55,7 +56,6 @@ export default function FilterBar({
   shareParams,
   onOpenChat,
 }: FilterBarProps) {
-  const { showToast } = useToast();
   const [localSearchInput, setLocalSearchInput] = useState(search);
   const [shareMenuOpen, setShareMenuOpen] = useState(false);
   const shareMenuRef = useRef<HTMLDivElement>(null);
@@ -65,20 +65,7 @@ export default function FilterBar({
     setLocalSearchInput(search);
   }, [search]);
 
-  // Close share menu when clicking outside
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (shareMenuRef.current && !shareMenuRef.current.contains(event.target as Node)) {
-        setShareMenuOpen(false);
-      }
-    }
-
-    if (shareMenuOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
-      return () => document.removeEventListener('mousedown', handleClickOutside);
-    }
-    return undefined;
-  }, [shareMenuOpen]);
+  useDismiss(shareMenuOpen, () => setShareMenuOpen(false), [shareMenuRef]);
 
   // Search submit handler
   const handleSearchSubmit = () => {
@@ -102,15 +89,11 @@ export default function FilterBar({
   };
 
   // Copy share link
+  const { note: copyNote, copy: copyView } = useShareNote();
   const handleCopyView = async () => {
     const url = `${window.location.origin}${window.location.pathname}${shareParams || ''}`;
-    try {
-      await navigator.clipboard.writeText(url);
-      showToast('Link copied to clipboard!');
-      setShareMenuOpen(false);
-    } catch {
-      showToast('Failed to copy link', 'error');
-    }
+    setShareMenuOpen(false);
+    await copyView(url);
   };
 
   // Whether there are uncommitted search changes
@@ -193,6 +176,7 @@ export default function FilterBar({
           >
             <Share size={16} />
           </button>
+          <ShareNote note={copyNote} />
 
           {shareMenuOpen && (
             <div className="absolute right-0 top-full mt-1 z-30 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg min-w-[220px]">

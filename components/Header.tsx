@@ -2,7 +2,7 @@ import Link from 'next/link';
 import ThemeToggle from '@/components/ThemeToggle';
 import SubmitEventButton from '@/components/SubmitEventButton';
 import UserMenu from '@/components/UserMenu';
-import EventTabSwitcher from '@/components/EventTabSwitcher';
+import EventTabSwitcher, { type HeaderTab } from '@/components/EventTabSwitcher';
 import CityStatusBadges from '@/components/cityStatus/CityStatusBadges';
 
 /** "Open-sourced by Matt" (the footers carry a longer FooterCredit) */
@@ -35,7 +35,7 @@ interface HeaderProps {
    * Highlights the active tab in the event tab switcher.
    * undefined = no tab highlighted (e.g., home page)
    */
-  activeTab?: 'all' | 'top30' | 'groups' | 'news' | 'parking';
+  activeTab?: HeaderTab;
 }
 
 export default function Header({ activeTab }: HeaderProps) {

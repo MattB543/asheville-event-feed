@@ -12,6 +12,7 @@ import { azureChatCompletion, isAzureAIEnabled, parseJsonFromModel } from './pro
 import { matchesDefaultFilter } from '../config/defaultFilters';
 import { countSharedTitleWords } from '../utils/deduplication';
 import { getVenueForEvent } from '../utils/venues';
+import { getDateStringEastern } from '@/lib/utils/timezone';
 
 /**
  * Event data structure for AI deduplication.
@@ -152,9 +153,7 @@ function groupEventsByDate(events: EventForAIDedup[]): Map<string, EventForAIDed
 
   for (const event of events) {
     // Use Eastern time date to match local event dates
-    const dateKey = event.startDate.toLocaleDateString('en-CA', {
-      timeZone: 'America/New_York',
-    }); // YYYY-MM-DD format
+    const dateKey = getDateStringEastern(event.startDate);
 
     const existing = grouped.get(dateKey) || [];
     existing.push(event);

@@ -21,6 +21,7 @@ import {
   getDayBoundariesEastern,
   getTodayStringEastern,
   parseAsEastern,
+  getDateStringEastern,
 } from '@/lib/utils/timezone';
 import {
   isBoolean,
@@ -39,6 +40,8 @@ import type {
 import { startCronJob, completeCronJob, failCronJob } from '@/lib/cron/jobTracker';
 import { listAuthUserContacts } from '@/lib/supabase/adminUsers';
 import { formatDuration } from '@/lib/utils/cron';
+import { liveEvent } from '@/lib/db/liveEvent';
+import { addDaysToDateString } from '@/lib/utils/dateFilters';
 
 export const maxDuration = 300; // 5 minutes
 
@@ -155,24 +158,6 @@ function parseHiddenEvents(value: unknown): { title: string; organizer: string }
   });
 }
 
-function addDaysToDateString(dateStr: string, days: number): string {
-  const [year, month, day] = dateStr.split('-').map(Number);
-  const date = new Date(year, month - 1, day + days);
-  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(
-    2,
-    '0'
-  )}-${String(date.getDate()).padStart(2, '0')}`;
-}
-
-function getEasternDateKey(date: Date): string {
-  return new Intl.DateTimeFormat('en-CA', {
-    timeZone: 'America/New_York',
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-  }).format(date);
-}
-
 function normalizeSelectedDays(selectedDays?: number[] | null): number[] {
   if (!Array.isArray(selectedDays)) return [];
   return Array.from(
@@ -220,7 +205,7 @@ function applyDailyCaps(
   const grouped = new Map<string, DbEvent[]>();
 
   for (const event of eventsToCap) {
-    const key = getEasternDateKey(new Date(event.startDate));
+    const key = getDateStringEastern(new Date(event.startDate));
     const existing = grouped.get(key) || [];
     existing.push(event);
     grouped.set(key, existing);
@@ -538,7 +523,7 @@ export async function GET(request: Request) {
       // Idempotency guard: the job runs once per day, so anyone already
       // emailed today (Eastern) was covered by an earlier invocation —
       // a retry or mid-run timeout must not double-send
-      if (userPref.lastSentAt && getEasternDateKey(userPref.lastSentAt) === todayStr) {
+      if (userPref.lastSentAt && getDateStringEastern(userPref.lastSentAt) === todayStr) {
         stats.usersSkipped++;
         stats.skipReasons.alreadySent++;
         continue;
@@ -653,7 +638,7 @@ export async function GET(request: Request) {
               eq(curatorProfiles.isPublic, true),
               gte(events.startDate, rangeStart),
               lte(events.startDate, rangeEnd),
-              or(isNull(events.hidden), sql`${events.hidden} = false`),
+              liveEvent,
               or(
                 isNull(events.location),
                 and(notIlike(events.location, '%online%'), notIlike(events.location, '%virtual%'))

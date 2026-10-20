@@ -11,7 +11,7 @@
 
 import { type EventSource, type ScrapedEvent } from './types';
 import { fetchEventData } from './base';
-import { parseAsEastern } from '../utils/timezone';
+import { getDateStringEastern, parseAsEastern } from '@/lib/utils/timezone';
 
 // Ticketmaster API config
 const TM_API_KEY = process.env.TICKETMASTER_API_KEY;
@@ -88,13 +88,6 @@ export interface TicketmasterVenueConfig {
   cleanTitle?: (name: string) => string;
 }
 
-const easternDateKeyFormatter = new Intl.DateTimeFormat('en-CA', {
-  timeZone: 'America/New_York',
-  year: 'numeric',
-  month: '2-digit',
-  day: '2-digit',
-});
-
 /**
  * Get the event's calendar date (YYYY-MM-DD) in Eastern time.
  *
@@ -103,7 +96,7 @@ const easternDateKeyFormatter = new Intl.DateTimeFormat('en-CA', {
  * server-local keys diverge on UTC hosts and cross-source merges never fire.
  */
 export function getLocalDateKey(date: Date): string {
-  return easternDateKeyFormatter.format(date); // en-CA yields YYYY-MM-DD
+  return getDateStringEastern(date);
 }
 
 /**

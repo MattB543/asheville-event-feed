@@ -1,7 +1,8 @@
 'use client';
 
-import { useState, useId } from 'react';
+import { useState, useId, useRef } from 'react';
 import { X } from 'lucide-react';
+import { useModal } from '@/lib/hooks/useModal';
 
 interface ScoreBoost {
   rarity?: number;
@@ -249,6 +250,8 @@ export default function CurateModal({
 }: CurateModalProps) {
   // Generate a unique key that changes when modal opens to reset form state
   const formKey = useId() + (isOpen ? '-open' : '-closed');
+  const dialogRef = useRef<HTMLDivElement>(null);
+  useModal(isOpen, onClose, dialogRef);
 
   if (!isOpen) return null;
 
@@ -258,15 +261,23 @@ export default function CurateModal({
       <div className="absolute inset-0 bg-black/50" onClick={onClose} />
 
       {/* Form - keyed to reset state when modal opens */}
-      <CurateModalForm
-        key={formKey}
-        onClose={onClose}
-        onConfirm={onConfirm}
-        eventTitle={eventTitle}
-        canBoostScore={canBoostScore}
-        currentScores={currentScores}
-        existingBoost={existingBoost}
-      />
+      <div
+        ref={dialogRef}
+        role="dialog"
+        aria-modal="true"
+        tabIndex={-1}
+        className="relative w-full flex justify-center outline-none"
+      >
+        <CurateModalForm
+          key={formKey}
+          onClose={onClose}
+          onConfirm={onConfirm}
+          eventTitle={eventTitle}
+          canBoostScore={canBoostScore}
+          currentScores={currentScores}
+          existingBoost={existingBoost}
+        />
+      </div>
     </div>
   );
 }

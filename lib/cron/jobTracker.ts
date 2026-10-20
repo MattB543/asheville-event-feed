@@ -11,7 +11,8 @@ export type CronJobName =
   | 'verify'
   | 'top30-weekly'
   | 'news-scrape'
-  | 'news-ai';
+  | 'news-ai'
+  | 'playlist';
 export type CronJobStatus = 'running' | 'success' | 'failed';
 
 /**
@@ -127,6 +128,7 @@ export async function getLatestJobRuns(): Promise<
     'top30-weekly',
     'news-scrape',
     'news-ai',
+    'playlist',
   ];
 
   const results = await Promise.all(
@@ -168,6 +170,7 @@ export async function cleanupOldRuns(): Promise<number> {
     'top30-weekly',
     'news-scrape',
     'news-ai',
+    'playlist',
   ];
   let totalDeleted = 0;
 

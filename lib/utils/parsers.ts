@@ -198,41 +198,67 @@ export interface PriceExtractionResult {
 export function isFreeEvent(text: string): boolean {
   if (!text) return false;
 
-  const lowerText = text.toLowerCase();
-
-  // Explicit free patterns
+  // Explicit free patterns, matched anywhere in a sentence
   const freePatterns = [
-    /\bfree\s+admission\b/,
-    /\bfree\s+entry\b/,
-    /\bfree\s+event\b/,
-    /\bfree\s+show\b/,
-    /\badmission\s+is\s+free\b/,
+    /\bfree\s+(?:admission|entry|event|show)\b/,
+    /\b(?:admission|entry)\s+is\s+free\b/,
     /\bno\s+cover\b/,
-    /\bno\s+cover\s+charge\b/,
     /\bfree\s+and\s+open\b/,
-    /\bfree\s+to\s+attend\b/,
-    /\bfree\s+to\s+the\s+public\b/,
-    /\bcomplimentary\s+admission\b/,
-    /\bcomplimentary\s+event\b/,
+    /\bfree\s+of\s+charge\b/,
+    /\bfree\s+to\s+(?:attend|play|join|enter|the\s+(?:public|community)|all|everyone|anyone)\b/,
+    /\bcomplimentary\s+(?:admission|event)\b/,
+    // "this program is free", "classes are always free" - but not "free to be
+    // yourself", "free of allergens" or "free after 6pm"
+    /\b(?:is|are|it's|always)\s+(?:always\s+|still\s+|completely\s+|totally\s+)?free\b(?!\s+(?:to|of|after)\b)/,
+    // "join this free webinar", "our FREE monthly meetup", "this is a free
+    // community gathering", "join us for a free evening ritual"
+    /\b(?:this|these|our)\s+free\b|\b(?:is|for)\s+a\s+free\b/,
+    // "guests may attend for free", "humans enter free"
+    /\b(?:attend|enter)\s+(?:for\s+)?free\b/,
+    // "Cost: Free", "**Registration:** Free"
+    /\b(?:price|cost|fee|admission|registration|tickets?|entry|cover)\s*:\s*free\b/,
   ];
 
-  for (const pattern of freePatterns) {
-    if (pattern.test(lowerText)) {
-      return true;
-    }
-  }
+  // "free" that isn't the event's price, removed before matching: idioms,
+  // compound words ("gluten-free", "substance free event", "free-form"), genres
+  // and band names, members' and kids' prices, and perks ("free parking", "free &
+  // plentiful parking", "free lesson 7:30, dance 8-11")
+  const notPricePatterns = [
+    /\b(?:feel|break|set)\s+free\b/g,
+    /\w-free\b|\bfree-\w/g,
+    /\b(?:alcohol|drug|gluten|scent|smoke|substance|sugar)\s+free\b/g,
+    /\bfree\s+(?:jazz|improvisation|fall(?:ing)?|writ(?:e|ing)|spirit(?:ed)?|will|planet)\b/g,
+    /\bfree\s+for\s+(?:[\w-]+\s+){0,2}(?:members|holders)\b/g,
+    /\b(?:kids|children)\s+(?:are\s+)?(?:always\s+)?free\b/g,
+    /\bparking\b.*?\bfree\b|\bpark\s+(?:for\s+)?free\b/g,
+    /\bfree\s+(?:(?:&|and)\s+)?(?:[a-z-]+\s+)?(?:parking|spots|lessons?|wi-?fi|food|drinks?|snacks?|refreshments|pizza|beer|popcorn|samples?|swag|gifts?|giveaways?|raffles?|t-?shirts?|sweatshirts?|merch|childcare|transportation)\b/g,
+  ];
 
-  // Check for standalone "free" but avoid false positives
-  // (e.g., "gluten-free", "free parking", "free drinks")
-  const standaloneFreeParts = lowerText.split(/[.,!?\n]/);
-  for (const part of standaloneFreeParts) {
-    const trimmed = part.trim();
-    // Match "free" at start of sentence or as a label
-    if (/^free\b/.test(trimmed) || /\bprice:\s*free\b/.test(trimmed)) {
-      // Exclude false positives
-      if (!/free\s+(parking|wifi|drinks?|food|snacks?|giveaway|raffle)/.test(trimmed)) {
-        return true;
-      }
+  // Markdown and escapes off, so "**Free**" and "Zoom \| Free" read as plain words
+  const plainText = text
+    .toLowerCase()
+    .replace(/[*_\\]/g, '')
+    .replace(/’/g, "'");
+
+  for (const sentence of plainText.split(/[.!?\n|]/)) {
+    // A dollar amount or an age cutoff makes "free" a discount ("$15 adults, free
+    // for 6 and under", "$10 Saturday; Sunday is free"), unless it's a donation
+    if (
+      /\$\s?\d|\bunder\s+(?:age\s+)?\d|\d\s*(?:and|&)\s*under\b/.test(sentence) &&
+      !/\bdonat/.test(sentence)
+    ) {
+      continue;
+    }
+
+    const cleaned = notPricePatterns.reduce((s, pattern) => s.replace(pattern, ' '), sentence);
+    if (freePatterns.some((pattern) => pattern.test(cleaned))) return true;
+
+    // "free" heading a sentence, title segment or parenthetical ("Free yoga in the
+    // park", "Health Fair - Free Screenings", "(Free!)"), or alone in a list
+    // ("curated, close, free, and open"). Further into a list, "free X" is a perk
+    // or a genre ("drinks, free charcuterie", "soul, free improvisation")
+    for (const part of cleaned.split(/\s[-–—·]\s|[(;]/)) {
+      if (/^[^a-z0-9]*free\b/.test(part) || /,\s*free\s*(?:,|$)/.test(part)) return true;
     }
   }
 

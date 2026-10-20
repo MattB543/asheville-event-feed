@@ -1,6 +1,7 @@
 'use client';
 
-import { useSyncExternalStore } from 'react';
+import { useCallback, useSyncExternalStore } from 'react';
+import { useCaptureSignal } from './useCaptureSignal';
 
 const STORAGE_KEY = 'favoritedEventIds';
 const EMPTY_FAVORITES: string[] = [];
@@ -180,6 +181,11 @@ export async function clearFavorites(
   return failed;
 }
 
+/** The current list, for preference sync to read outside a render. */
+export function getFavoriteIds(): string[] {
+  return favoriteIds;
+}
+
 /** Replace the whole list (used by preference sync when merging server state). */
 export function replaceFavorites(ids: string[]): void {
   setFavorites(Array.from(new Set(ids)));
@@ -193,5 +199,16 @@ export function useFavorites(): {
   toggleFavorite: (eventId: string) => Promise<ToggleFavoriteResult>;
 } {
   const ids = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
-  return { favoriteIds: ids, toggleFavorite };
+  const captureSignal = useCaptureSignal();
+  // Every heart, wherever it's tapped, teaches the For You list, and un-hearting
+  // takes it back
+  const toggleAndRecord = useCallback(
+    async (eventId: string) => {
+      const result = await toggleFavorite(eventId);
+      void captureSignal(eventId, 'favorite', !result.isFavorited);
+      return result;
+    },
+    [captureSignal]
+  );
+  return { favoriteIds: ids, toggleFavorite: toggleAndRecord };
 }

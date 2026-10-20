@@ -30,7 +30,7 @@ export default function EventPageLayout({
   return (
     <main className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-950">
       {/* Your List has no tab any more (it lives in the account menu) */}
-      <Header activeTab={activeTab === 'yourList' ? undefined : activeTab} />
+      <Header activeTab={activeTab} />
 
       <InfoBanner />
 

@@ -1,7 +1,8 @@
 'use client';
 
-import { useEffect, useRef, useCallback } from 'react';
+import { useRef } from 'react';
 import { X, CheckCircle, Loader2 } from 'lucide-react';
+import { useModal } from '@/lib/hooks/useModal';
 
 interface ConfirmSubmitModalProps {
   isOpen: boolean;
@@ -22,54 +23,28 @@ export default function ConfirmSubmitModal({
 }: ConfirmSubmitModalProps) {
   const modalRef = useRef<HTMLDivElement>(null);
 
-  // Escape key handler
-  useEffect(() => {
-    if (!isOpen) return;
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && !isSubmitting) {
-        onClose();
-      }
-    };
-    document.addEventListener('keydown', handleKeyDown);
-    return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [isOpen, isSubmitting, onClose]);
-
-  // Focus trap
-  const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
-    if (e.key !== 'Tab' || !modalRef.current) return;
-    const focusable = modalRef.current.querySelectorAll<HTMLElement>(
-      'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
-    );
-    if (focusable.length === 0) return;
-    const first = focusable[0];
-    const last = focusable[focusable.length - 1];
-    if (e.shiftKey) {
-      if (document.activeElement === first) {
-        e.preventDefault();
-        last.focus();
-      }
-    } else {
-      if (document.activeElement === last) {
-        e.preventDefault();
-        first.focus();
-      }
-    }
-  }, []);
+  useModal(
+    isOpen,
+    () => {
+      if (!isSubmitting) onClose();
+    },
+    modalRef
+  );
 
   if (!isOpen) return null;
 
   return (
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4"
-      onKeyDown={handleKeyDown}
-    >
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       <div
         className="absolute inset-0 bg-black/50 backdrop-blur-sm"
         onClick={isSubmitting ? undefined : onClose}
       />
       <div
         ref={modalRef}
-        className="relative bg-white dark:bg-gray-900 rounded-xl shadow-2xl border border-gray-200 dark:border-gray-800 max-w-md w-full p-6 animate-fade-in"
+        role="dialog"
+        aria-modal="true"
+        tabIndex={-1}
+        className="relative outline-none bg-white dark:bg-gray-900 rounded-xl shadow-2xl border border-gray-200 dark:border-gray-800 max-w-md w-full p-6 animate-fade-in"
       >
         <button
           onClick={isSubmitting ? undefined : onClose}

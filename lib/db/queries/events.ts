@@ -28,6 +28,8 @@ import { matchesDefaultFilter } from '@/lib/config/defaultFilters';
 import { extractCity, isAshevilleArea } from '@/lib/utils/geo';
 import { isAshevilleZip } from '@/lib/config/zipNames';
 import { parsePrice, isFreeEvent } from '@/lib/utils/eventFilterMatch';
+import { addDaysToDateString } from '@/lib/utils/dateFilters';
+import { liveEvent } from '@/lib/db/liveEvent';
 
 // Verbose per-request query logging, dev only
 const DEBUG_QUERY_LOGS = process.env.NODE_ENV !== 'production';
@@ -135,13 +137,6 @@ function createCursor(event: DbEvent): string {
   return `${event.startDate.toISOString()}_${event.id}`;
 }
 
-// Helper to add days to a date string (YYYY-MM-DD format)
-function addDaysToDateString(dateStr: string, days: number): string {
-  const [year, month, day] = dateStr.split('-').map(Number);
-  const date = new Date(year, month - 1, day + days);
-  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
-}
-
 // Get this weekend's boundaries (Fri-Sun) in Eastern timezone
 function getWeekendBoundaries(): { start: Date; end: Date } {
   const todayStr = getTodayStringEastern();
@@ -170,11 +165,7 @@ function listedEventConditions(startOfToday: Date): SQL[] {
       isNull(events.location),
       and(notIlike(events.location, '%online%'), notIlike(events.location, '%virtual%'))
     )!,
-    // Exclude hidden (admin moderated) events
-    or(isNull(events.hidden), sql`${events.hidden} = false`)!,
-    // Exclude duplicates soft-deleted by the dedup flow, and dead events
-    isNull(events.dedupedAt),
-    isNull(events.deadAt),
+    liveEvent,
   ];
 }
 
@@ -686,9 +677,7 @@ export async function getEventMetadata(): Promise<EventMetadata> {
     .where(
       and(
         gte(events.startDate, startOfToday),
-        or(isNull(events.hidden), sql`${events.hidden} = false`),
-        isNull(events.dedupedAt),
-        isNull(events.deadAt),
+        liveEvent,
         or(
           isNull(events.location),
           and(notIlike(events.location, '%online%'), notIlike(events.location, '%virtual%'))
@@ -811,11 +800,7 @@ function buildTop30BaseWhere() {
     lte(events.startDate, thirtyDaysLater),
     // Must have a score
     isNotNull(events.score),
-    // Exclude hidden events
-    or(isNull(events.hidden), sql`${events.hidden} = false`),
-    // Exclude duplicates soft-deleted by the dedup flow
-    isNull(events.dedupedAt),
-    isNull(events.deadAt),
+    liveEvent,
     // Exclude online/virtual events
     or(
       isNull(events.location),

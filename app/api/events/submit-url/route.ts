@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { submittedEvents } from '@/lib/db/schema';
 import { sendUrlSubmissionNotification } from '@/lib/notifications/slack';
-import { isRateLimited } from '@/lib/utils/rate-limit';
+import { clientIp, isRateLimited } from '@/lib/utils/rate-limit';
 import { isRecord, isString } from '@/lib/utils/validation';
 
 // Simple in-memory rate limiting (shared logic with submit endpoint)
@@ -13,8 +13,7 @@ const MAX_URL_LENGTH = 2048;
 // POST: Submit an event URL for manual review
 export async function POST(request: Request) {
   // Get client IP for rate limiting
-  const forwardedFor = request.headers.get('x-forwarded-for');
-  const ip = forwardedFor?.split(',')[0]?.trim() || 'unknown';
+  const ip = clientIp(request);
 
   // Check rate limit
   const rateLimitKey = `submit-url:${ip}`;

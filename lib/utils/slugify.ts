@@ -1,3 +1,6 @@
+import { getDateStringEastern } from '@/lib/utils/timezone';
+import { SITE_URL } from '@/lib/seo/site';
+
 /**
  * Slug utilities for generating SEO-friendly event URLs
  *
@@ -23,19 +26,12 @@ export function cleanTitle(title: string): string {
     .slice(0, 60); // Limit length
 }
 
-const slugDateFormatter = new Intl.DateTimeFormat('en-CA', {
-  timeZone: 'America/New_York',
-  year: 'numeric',
-  month: '2-digit',
-  day: '2-digit',
-});
-
 /**
  * Formats a date as YYYY-MM-DD for URL slugs, in Eastern time so slugs are
  * stable regardless of the host timezone (Vercel runs UTC).
  */
 export function formatDateForSlug(date: Date): string {
-  return slugDateFormatter.format(new Date(date)); // en-CA yields YYYY-MM-DD
+  return getDateStringEastern(new Date(date));
 }
 
 /**
@@ -97,6 +93,6 @@ export function generateEventUrl(
   baseUrl?: string
 ): string {
   const slug = generateEventSlug(title, startDate, id);
-  const base = baseUrl || process.env.NEXT_PUBLIC_SITE_URL || 'https://www.avlgo.com';
+  const base = baseUrl || SITE_URL;
   return `${base}/events/${slug}`;
 }

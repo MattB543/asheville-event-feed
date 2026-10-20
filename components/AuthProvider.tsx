@@ -1,7 +1,7 @@
 'use client';
 
 import { createContext, useContext, useEffect, useState, type ReactNode } from 'react';
-import { createClient } from '@/lib/supabase/client';
+import { createClient, isAuthConfigured } from '@/lib/supabase/client';
 import type { User, Session } from '@supabase/supabase-js';
 
 interface AuthContextType {
@@ -28,9 +28,10 @@ interface AuthProviderProps {
 export function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<User | null>(null);
   const [session, setSession] = useState<Session | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(isAuthConfigured);
 
   useEffect(() => {
+    if (!isAuthConfigured()) return;
     const supabase = createClient();
 
     // Get initial session

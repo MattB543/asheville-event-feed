@@ -298,6 +298,23 @@ renames its series or changes its organizer string stops matching until a key is
 added, and when dedup keeps a different-source copy of a group's event, that event
 drops off the group page.
 
+### `event_tracks` and `playlist_picks` Tables
+
+State for the weekly Spotify playlist (migration `drizzle/0021_playlist.sql`),
+which used to live in files on one Mac. `event_tracks` has one row per music
+event the weekly job has looked at: the headliner the AI read from the title, or
+`skip_reason` when it isn't a single-act show, then the Spotify track. A row is
+never re-asked, and a recurring show reuses an earlier row with the same title.
+A null `spotify_track_id` with an `artist` means Spotify had no match.
+`playlist_picks` is each week's playlist in order (`week_start` is the ET date it
+was built), so the page lists exactly what's on Spotify; `sold_out` is checked
+once, when the playlist is built.
+
+`genre_notes` (migration `drizzle/0022_genre_notes.sql`) holds one AI-written line
+per unusual genre tag ("Zydeco": accordion-led dance music from Louisiana), shown as
+a tooltip on /playlist. A null `note` means the genre is common enough to need none;
+either way the weekly job never asks about it again.
+
 ### Row Level Security (RLS)
 
 RLS is enabled on all tables. Supabase's "RLS auto-enable trigger" is active, so new tables will have RLS enabled automatically. All database writes from the app go through server-side Drizzle ORM using `DATABASE_URL` (the `postgres` role), which bypasses RLS. RLS policies only govern access via Supabase's PostgREST API (the `anon` and `authenticated` roles exposed by the client-side anon key).
@@ -323,6 +340,9 @@ RLS is enabled on all tables. Supabase's "RLS auto-enable trigger" is active, so
 | `news_articles`       | —                    | —                                                 |
 | `news_stories`        | —                    | —                                                 |
 | `news_days`           | —                    | —                                                 |
+| `event_tracks`        | —                    | —                                                 |
+| `playlist_picks`      | —                    | —                                                 |
+| `genre_notes`         | —                    | —                                                 |
 
 "Own" means the policy restricts access to rows where `user_id = auth.uid()` (or `profile_id` belongs to the user for `matching_answers`).
 
@@ -341,6 +361,7 @@ RLS is enabled on all tables. Supabase's "RLS auto-enable trigger" is active, so
 | `/api/cron/dedup`        | Daily 4 AM ET   | AI semantic dedup of Top Events (score ≥15) over next 30 days |
 | `/api/cron/email-digest` | Daily 7 AM ET   | Send daily/weekly email digests to subscribers                |
 | `/api/cron/top30-weekly` | Fri 11 AM ET    | Weekly Top 30 email                                           |
+| `/api/cron/playlist`     | Sun 7 AM ET     | Rebuild the weekly Spotify playlist (`?dryRun=1` to preview)  |
 | `/api/cron/news-scrape`  | Every 3h at :40 | Local news: fetch sources + full text into `news_articles`    |
 | `/api/cron/news-ai`      | Every 3h at :55 | Local news: enrich, cluster into stories, Top + daily summary |
 
@@ -366,9 +387,9 @@ outage rather than real removals, so the whole source is skipped for that run.
 
 Dead events are **soft-deleted** (`deadAt`), never hard-deleted, and each one is
 logged with its status, source, title and URL plus a ready-to-paste restore
-statement. Every live-event query filters `dedupedAt IS NULL AND deadAt IS NULL`
-
-- if you add a new one, it needs both.
+statement. Every live-event query uses `liveEvent` from `lib/db/liveEvent.ts`
+(not hidden, deduped or dead; `isLiveEvent` is the same rule for a loaded row),
+so a new query gets all three and a new removal flag is added in one place.
 
 Rule-based dedup **merges before it removes** (`mergeFields` in
 `lib/utils/deduplication.ts`). Which row wins rules 1-3 is unrelated to which
@@ -432,21 +453,22 @@ missing data. Policy, as of 2026-10-14:
 
 ### Public APIs
 
-| Route                       | Method | Purpose                                                   |
-| --------------------------- | ------ | --------------------------------------------------------- |
-| `/api/health`               | GET    | Health check (DB status, event count)                     |
-| `/api/chat`                 | POST   | AI conversational event discovery (rate limited)          |
-| `/api/export/json`          | GET    | Public events API (`format=compact` for AI agents)        |
-| `/api/export/markdown`      | GET    | Markdown export (same filters as the JSON export)         |
-| `/openapi.json`             | GET    | OpenAPI 3.1 spec for the two exports                      |
-| `/api/events/submit`        | POST   | Submit event via form                                     |
-| `/api/events/submit-url`    | POST   | Submit event via URL                                      |
-| `/api/events/report`        | POST   | Report an event                                           |
-| `/api/events/top30`         | GET    | Deep Top 30 pool for one category (cached)                |
-| `/api/curator/[slug]`       | GET    | Public curator profile data                               |
-| `/api/events/favorites`     | POST   | Fetch public event data for a list of event IDs           |
-| `/api/events/[id]/favorite` | POST   | Increment/decrement an event's favorite count             |
-| `/api/city-status`          | GET    | Live garage spaces + active water notices (header badges) |
+| Route                       | Method | Purpose                                                    |
+| --------------------------- | ------ | ---------------------------------------------------------- |
+| `/api/health`               | GET    | Health check (DB status, event count)                      |
+| `/api/chat`                 | POST   | AI conversational event discovery (rate limited)           |
+| `/api/export/json`          | GET    | Public events API (`format=compact` for AI agents)         |
+| `/api/export/markdown`      | GET    | Markdown export (same filters as the JSON export)          |
+| `/openapi.json`             | GET    | OpenAPI 3.1 spec for the two exports                       |
+| `/api/events/submit`        | POST   | Submit event via form                                      |
+| `/api/events/submit-url`    | POST   | Submit event via URL                                       |
+| `/api/events/report`        | POST   | Report an event                                            |
+| `/api/events/top30`         | GET    | Deep Top 30 pool for one category (cached)                 |
+| `/api/curator/[slug]`       | GET    | Public curator profile data                                |
+| `/api/events/favorites`     | POST   | Fetch public event data for a list of event IDs            |
+| `/api/events/[id]/favorite` | POST   | Increment/decrement an event's favorite count              |
+| `/api/events/[id]/track`    | GET    | Spotify track for a music event (matched once, then saved) |
+| `/api/city-status`          | GET    | Live garage spaces + active water notices (header badges)  |
 
 `/api/events/[id]/favorite` is intentionally anonymous — favoriting is
 localStorage-driven with no sign-in required, so the endpoint only takes
@@ -696,6 +718,7 @@ FB_XS=
 - `AuthProvider` component wraps app
 - `UserMenu` component for account actions
 - Server-side session validation
+- Without `NEXT_PUBLIC_SUPABASE_URL` / `NEXT_PUBLIC_SUPABASE_ANON_KEY` the site runs signed out (`isAuthConfigured()`; the server client is a signed-out stand-in) instead of crashing. `npm run db:setup-local` fills both, and the Google client ID, from avlgo.com's public scripts
 
 ### User Preferences Sync
 
@@ -736,6 +759,14 @@ FB_XS=
 - Moderation queue at `/admin/posters` (super admin only, unlisted — no nav link): flagged uploads oldest-first plus recent failures
 - A denied upload's public image is deleted and its created events are hidden; hidden events 404 on `/events/[slug]` and are excluded from similar-event recommendations
 
+### Weekly Spotify Playlist
+
+Ported from the standalone avlgo-playlist script. `/api/cron/playlist` (`lib/playlist/run.ts`) takes the top 25 music events by score in the next 8 days (`isMusicEvent`: music-only venues, or music tags), asks Claude Haiku (when `ANTHROPIC_API_KEY` is set, else Azure AI) for each title's headliner or a skip reason, finds that artist's most popular Spotify track (an explicit track link in the listing wins), keeps one track per artist, and replaces the playlist sorted by date. Matches are saved to `event_tracks` as they're found, so a Spotify 429 stops the run before the playlist changes and the next run resumes. A run that fails or matches nothing posts to Slack (`SLACK_WEBHOOK`), since the playlist then keeps last week's songs. Sold-out flags come from the Orange Peel / Grey Eagle schedule pages and, with `EVENTBRITE_API_TOKEN`, Eventbrite.
+
+Event pages show the same match: `EventSpotifyPlayer` asks `/api/events/[id]/track` after the page loads (never during render, so crawlers rarely trigger a match), which returns the saved `event_tracks` row or matches that one event via `matchEvents` and saves it; it also sends a PostHog `spotify_play` when the song starts. Rate limited per IP, and site-wide to 200 new matches a day (counted from `event_tracks.checked_at`, since the per-IP limit lives in each server's memory); past that it serves saved matches only. When the AI lookup fails there it saves and searches nothing (the weekly job instead searches the raw title, unsaved), so the next visit retries. Music event cards get a Listen button (`CardSongButton`) that makes the same request only when tapped and opens an 80px player under the card's actions.
+
+Needs `SPOTIFY_CLIENT_ID`, `SPOTIFY_CLIENT_SECRET`, `SPOTIFY_PLAYLIST_ID` and `SPOTIFY_REFRESH_TOKEN`, the last from logging in once as the playlist's owner with the `playlist-modify-public playlist-modify-private` scopes. If Spotify ever issues a new refresh token the run logs a warning; that value replaces the env var. `npm run playlist:local` previews against `DATABASE_URL`; `-- --apply` updates the real playlist.
+
 ### Local News (`/news`)
 
 Built to `docs/news/05-v1-plan.md`; Matt's decisions are in `docs/news/decisions.md`.
@@ -749,7 +780,7 @@ Built to `docs/news/05-v1-plan.md`; Matt's decisions are in `docs/news/decisions
 
 ### Group Directory
 
-- `/groups` lists every non-hidden group (search + category chips, client-side, kept in `?q=` / `?cat=` via `history.replaceState` so Back restores them), grouped by category with the next upcoming event or "Last event <Mon YYYY>"; `/groups/[slug]` shows the first 10 upcoming events (the rest in a `<details>`) and up to 50 past events in a `<details>` that is collapsed unless nothing is upcoming. The cached query results carry a `GROUP_CACHE_SHAPE` version in their key: bump it when the cached shape or labels change, or dev/prod keep serving old entries. The header tabs are Events · Groups · News · Parking ("Events" opens an All events / Top 30 menu: on hover at lg+ with a fine pointer, where the label itself links to `/events`, and on tap otherwise). Groups replaced Your List, which lives in the account dropdown (signed in or out) and on `/profile`, and Posters has no tab (`/posters` is reached by URL and by poster events' links back to their poster)
+- `/groups` lists every non-hidden group (search + category chips, client-side, kept in `?q=` / `?cat=` via `history.replaceState` so Back restores them), grouped by category with the next upcoming event or "Last event <Mon YYYY>"; `/groups/[slug]` shows the first 10 upcoming events (the rest in a `<details>`) and up to 50 past events in a `<details>` that is collapsed unless nothing is upcoming. The cached query results carry a `GROUP_CACHE_SHAPE` version in their key: bump it when the cached shape or labels change, or dev/prod keep serving old entries. The header tabs are Events · Groups · News · Playlist · Parking ("Events" opens an All events / Top events / Your feed menu, each with an icon: on hover at lg+ with a fine pointer, where the label itself links to `/events`, and on tap otherwise). Groups replaced Your List's tab; it's "Your feed" in the Events menu (which highlights on `/events/your-list`) and linked from `/profile`, and the signed-out account icon is a plain sign-in link, and Posters has no tab (`/posters` is reached by URL and by poster events' links back to their poster)
 - Both pages render per request (`connection()`) over `unstable_cache` data keyed by the Eastern date and tagged `events` + `groups`, so the scrape job's cache invalidation refreshes them and yesterday's events never read as upcoming after midnight
 - The list comes from a multi-agent pipeline documented in `data/groups/README.md`: discovery → research (`data/groups/research/`) → links pass → `directory-overrides.json` (final human calls) → `npx tsx scripts/groups/build-directory.ts` → `npx tsx scripts/groups/seed-groups.ts [--apply]`. Edit the overrides, not `directory.json`. The seed prints a coverage report and a parity check (the pages' SQL prefilter vs a full JS scan) that must come back clean
 - Definition of a group (Matt): a specific set of people with a shared identity who return repeatedly. Not groups: trivia, open mics, karaoke, a business's paid classes/shows, low-value business networking, remote-only groups, anything outside Western NC
@@ -793,6 +824,7 @@ Built to `docs/news/05-v1-plan.md`; Matt's decisions are in `docs/news/decisions
 | Script                         | Purpose                                 |
 | ------------------------------ | --------------------------------------- |
 | `npm run dev`                  | Start development server                |
+| `npm run db:setup-local`       | Local Postgres + `.env` + optional seed |
 | `npm run build`                | Build for production                    |
 | `npm run test:avl`             | Test AVL Today scraper                  |
 | `npm run test:eventbrite`      | Test Eventbrite scraper                 |
@@ -831,7 +863,8 @@ Built to `docs/news/05-v1-plan.md`; Matt's decisions are in `docs/news/decisions
     { "path": "/api/cron/cleanup", "schedule": "30 1,4,7,10,13,16,19,22 * * *" },
     { "path": "/api/cron/dedup", "schedule": "0 8 * * *" },
     { "path": "/api/cron/email-digest", "schedule": "0 12 * * *" },
-    { "path": "/api/cron/top30-weekly", "schedule": "0 15 * * 5" }
+    { "path": "/api/cron/top30-weekly", "schedule": "0 15 * * 5" },
+    { "path": "/api/cron/playlist", "schedule": "0 11 * * 0" }
   ]
 }
 ```
@@ -855,6 +888,7 @@ Built to `docs/news/05-v1-plan.md`; Matt's decisions are in `docs/news/decisions
 - `/api/cron/ai`: 800s (13+ minutes, requires Fluid Compute)
 - `/api/cron/cleanup`: 300s (5 minutes)
 - `/api/cron/dedup`: 300s (5 minutes)
+- `/api/cron/playlist`: 800s (worst-case AI, Spotify and sold-out timeouts exceed 300s)
 
 ### Manual Cron Trigger
 

@@ -4,9 +4,10 @@ import { useState, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { ArrowLeft } from 'lucide-react';
 import IntentLink from '@/components/IntentLink';
-import EventCard from '@/components/EventCard';
+import EventCard, { CARD_BOX, LAST_CARD_ROUNDED } from '@/components/EventCard';
 import { ToastProvider } from '@/components/ui/Toast';
 import { generateEventSlug } from '@/lib/utils/slugify';
+import { useToggleSet } from '@/lib/hooks/useToggleSet';
 
 interface SimilarEvent {
   id: string;
@@ -74,7 +75,7 @@ export default function SimilarEventsSection({
 }: SimilarEventsSectionProps) {
   const router = useRouter();
   const [similarSortBy, setSimilarSortBy] = useState<'similarity' | 'date'>('similarity');
-  const [mobileExpandedIds, setMobileExpandedIds] = useState<Set<string>>(new Set());
+  const mobileExpanded = useToggleSet();
 
   // Deduplicate recurring events (same title + description = recurring)
   const dedupedSimilarEvents = useMemo(() => {
@@ -216,7 +217,7 @@ export default function SimilarEventsSection({
       </div>
 
       <ToastProvider>
-        <div className="bg-white dark:bg-gray-900 sm:rounded-lg sm:shadow-sm sm:border sm:border-gray-200 dark:sm:border-gray-700">
+        <div className={CARD_BOX}>
           {isLoading ? (
             // Loading skeleton
             <div className="divide-y divide-gray-200 dark:divide-gray-700">
@@ -237,11 +238,17 @@ export default function SimilarEventsSection({
             // Grouped by date with headers
             groupedSimilarEvents.map(([dateKey, { date, events: groupEvents }], groupIndex) => (
               <div key={dateKey} className="flex flex-col">
-                <h3 className="text-lg font-bold text-gray-800 dark:text-gray-100 sticky top-[52px] bg-white dark:bg-gray-900 py-2 px-3 sm:px-4 z-10 border-b border-gray-200 dark:border-gray-700">
+                <h3
+                  className={`text-lg font-bold text-gray-800 dark:text-gray-100 sticky top-[52px] bg-white dark:bg-gray-900 py-2 px-3 sm:px-4 z-10 border-b border-gray-200 dark:border-gray-700 ${groupIndex === 0 ? 'rounded-t-lg' : ''}`}
+                >
                   {formatDateHeader(date)}
                 </h3>
-                <div>
-                  {groupEvents.map((similarEvent, index) => (
+                <div
+                  className={
+                    groupIndex === groupedSimilarEvents.length - 1 ? LAST_CARD_ROUNDED : undefined
+                  }
+                >
+                  {groupEvents.map((similarEvent) => (
                     <EventCard
                       key={similarEvent.id}
                       event={{
@@ -266,23 +273,9 @@ export default function SimilarEventsSection({
                       isFavorited={favoriteIds.has(similarEvent.id)}
                       favoriteCount={favoriteCounts[similarEvent.id] || 0}
                       onToggleFavorite={onToggleFavorite}
-                      hideBorder={
-                        groupIndex === groupedSimilarEvents.length - 1 &&
-                        index === groupEvents.length - 1
-                      }
                       showRecurringBadge={similarEvent.isRecurring}
-                      isMobileExpanded={mobileExpandedIds.has(similarEvent.id)}
-                      onMobileExpand={(id) =>
-                        setMobileExpandedIds((prev) => {
-                          const next = new Set(prev);
-                          if (next.has(id)) {
-                            next.delete(id);
-                          } else {
-                            next.add(id);
-                          }
-                          return next;
-                        })
-                      }
+                      isMobileExpanded={mobileExpanded.has(similarEvent.id)}
+                      onMobileExpand={mobileExpanded.toggle}
                       onOpenModal={(eventData) =>
                         handleEventClick({
                           ...eventData,
@@ -296,7 +289,7 @@ export default function SimilarEventsSection({
             ))
           ) : (
             // Flat list sorted by similarity (default)
-            sortedSimilarEvents.map((similarEvent, index) => (
+            sortedSimilarEvents.map((similarEvent) => (
               <EventCard
                 key={similarEvent.id}
                 event={{
@@ -321,20 +314,9 @@ export default function SimilarEventsSection({
                 isFavorited={favoriteIds.has(similarEvent.id)}
                 favoriteCount={favoriteCounts[similarEvent.id] || 0}
                 onToggleFavorite={onToggleFavorite}
-                hideBorder={index === sortedSimilarEvents.length - 1}
                 showRecurringBadge={similarEvent.isRecurring}
-                isMobileExpanded={mobileExpandedIds.has(similarEvent.id)}
-                onMobileExpand={(id) =>
-                  setMobileExpandedIds((prev) => {
-                    const next = new Set(prev);
-                    if (next.has(id)) {
-                      next.delete(id);
-                    } else {
-                      next.add(id);
-                    }
-                    return next;
-                  })
-                }
+                isMobileExpanded={mobileExpanded.has(similarEvent.id)}
+                onMobileExpand={mobileExpanded.toggle}
                 onOpenModal={(eventData) =>
                   handleEventClick({
                     ...eventData,

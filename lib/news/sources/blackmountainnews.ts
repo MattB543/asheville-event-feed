@@ -27,6 +27,7 @@
 import * as cheerio from 'cheerio';
 import { canonicalizeUrl, fetchNewsText, htmlToText } from '../feeds';
 import type { NewsSourceModule, ScrapeContext, ScrapedArticle } from '../types';
+import { getDateStringEastern } from '@/lib/utils/timezone';
 
 const KEY = 'BLACK_MOUNTAIN_NEWS';
 const SITEMAP_URL = (month: string) =>
@@ -58,8 +59,7 @@ const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
  */
 function sitemapMonths(now: Date): string[] {
   const start = new Date(now.getTime() - MAX_AGE_DAYS * 24 * 60 * 60 * 1000);
-  const easternMonth = (d: Date) =>
-    d.toLocaleDateString('en-CA', { timeZone: 'America/New_York' }).slice(0, 7);
+  const easternMonth = (d: Date) => getDateStringEastern(d).slice(0, 7);
   return [...new Set([start, now].map(easternMonth))];
 }
 

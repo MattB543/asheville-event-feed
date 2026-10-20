@@ -1,5 +1,9 @@
 import { getVenueForEvent } from '@/lib/utils/venues';
-import type { Top30ComparableEvent } from '@/lib/notifications/top30-notification-equivalence';
+import {
+  normalizeLooseText,
+  type Top30ComparableEvent,
+} from '@/lib/notifications/top30-notification-equivalence';
+import { getDateStringEastern } from '@/lib/utils/timezone';
 
 const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 const TRACKING_KEY_PREFIX = 'top30:key:';
@@ -32,22 +36,6 @@ const TITLE_STOP_WORDS = new Set([
   'with',
   'asheville',
 ]);
-
-function getEasternDateKey(date: Date): string {
-  return date.toLocaleDateString('en-CA', { timeZone: 'America/New_York' });
-}
-
-function normalizeLooseText(value: string | null | undefined): string {
-  if (!value) return '';
-
-  return value
-    .normalize('NFKD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .toLowerCase()
-    .replace(/[^\p{L}\p{N}\s-]/gu, ' ')
-    .replace(/\s+/g, ' ')
-    .trim();
-}
 
 function toSignificantWords(value: string): string[] {
   return normalizeLooseText(value)
@@ -88,7 +76,7 @@ function getNormalizedTitleKey(event: Top30ComparableEvent): string {
 }
 
 export function buildTop30NotificationTrackingKey(event: Top30ComparableEvent): string {
-  const dateKey = getEasternDateKey(event.startDate);
+  const dateKey = getDateStringEastern(event.startDate);
   const venueKey = getNotificationVenueKey(event);
   const titleKey = getNormalizedTitleKey(event);
   return `${TRACKING_KEY_PREFIX}${dateKey}:${venueKey}:${titleKey}`;

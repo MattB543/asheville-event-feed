@@ -4,15 +4,10 @@
  */
 
 import { newsTopic } from '@/lib/news/topics';
+import { getDateStringEastern } from '@/lib/utils/timezone';
 
 const TIME_ZONE = 'America/New_York';
 
-const DAY_KEY = new Intl.DateTimeFormat('en-CA', {
-  timeZone: TIME_ZONE,
-  year: 'numeric',
-  month: '2-digit',
-  day: '2-digit',
-});
 const SHORT_DATE = new Intl.DateTimeFormat('en-US', {
   timeZone: TIME_ZONE,
   month: 'short',
@@ -28,7 +23,7 @@ const DAY_HEADER = new Intl.DateTimeFormat('en-US', {
 
 /** 'YYYY-MM-DD' in ET. */
 export function etDay(date: Date): string {
-  return DAY_KEY.format(date);
+  return getDateStringEastern(date);
 }
 
 function shiftDay(day: string, days: number): string {

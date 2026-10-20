@@ -1,32 +1,13 @@
 import { readFile } from 'fs/promises';
 import path from 'path';
 import { env } from '@/lib/config/env';
+import { paragraphToHtml } from './emailHtml';
 
 const EMAIL_SUBJECT = 'TEDxAsheville Attendee Match: one quick step left';
 const FIRST_NAME_TOKEN = '{first_name - matching_profiles split on space, first item}';
 const TEMPLATE_PATH = path.join(process.cwd(), 'claude', 'email-copy.md');
 
 let templatePromise: Promise<string> | null = null;
-
-function escapeHtml(text: string): string {
-  return text
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;');
-}
-
-function linkifyHtml(text: string): string {
-  return text.replace(/(https?:\/\/[^\s<]+)/g, (url) => {
-    return `<a href="${url}" style="color: #0f766e; text-decoration: underline;">${url}</a>`;
-  });
-}
-
-function paragraphToHtml(paragraph: string): string {
-  const escaped = escapeHtml(paragraph).replace(/\r?\n/g, '<br />');
-  return `<p style="margin: 0 0 16px 0; color: #374151; font-size: 16px; line-height: 1.65;">${linkifyHtml(escaped)}</p>`;
-}
 
 async function loadTemplate(): Promise<string> {
   if (!templatePromise) {

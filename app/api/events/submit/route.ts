@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { submittedEvents } from '@/lib/db/schema';
 import { sendSubmissionNotification } from '@/lib/notifications/slack';
-import { isRateLimited } from '@/lib/utils/rate-limit';
+import { clientIp, isRateLimited } from '@/lib/utils/rate-limit';
 import { isRecord, isString } from '@/lib/utils/validation';
 
 // Simple in-memory rate limiting
@@ -50,8 +50,7 @@ export function GET() {
 // POST: Submit a new event
 export async function POST(request: Request) {
   // Get client IP for rate limiting
-  const forwardedFor = request.headers.get('x-forwarded-for');
-  const ip = forwardedFor?.split(',')[0]?.trim() || 'unknown';
+  const ip = clientIp(request);
 
   // Check rate limit
   const rateLimitKey = `submit:${ip}`;

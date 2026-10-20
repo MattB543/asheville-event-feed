@@ -4,7 +4,7 @@ import { db } from '@/lib/db';
 import { matchingEnrichmentItems, matchingProfiles } from '@/lib/db/schema';
 import { env } from '@/lib/config/env';
 import { verifyAuthToken } from '@/lib/utils/auth';
-import { isRateLimited } from '@/lib/utils/rate-limit';
+import { clientIp, isRateLimited } from '@/lib/utils/rate-limit';
 import { isRecord, isString } from '@/lib/utils/validation';
 import { canonicalizeUrl, sourceHash, toAbsoluteUrl } from '@/lib/matching/pipeline/source';
 
@@ -121,8 +121,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
   }
 
-  const forwardedFor = request.headers.get('x-forwarded-for');
-  const ip = forwardedFor?.split(',')[0]?.trim() || 'unknown';
+  const ip = clientIp(request);
   const rateKey = `matching-clay-webhook:${ip}`;
   if (isRateLimited(rateKey, RATE_LIMIT_MAX, RATE_LIMIT_WINDOW_MS)) {
     return NextResponse.json(

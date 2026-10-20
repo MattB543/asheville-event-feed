@@ -4,6 +4,7 @@ import { events } from '../lib/db/schema';
 import { and, or, gte, lte, asc, desc, isNull, isNotNull, sql } from 'drizzle-orm';
 import { writeFileSync, mkdirSync, existsSync } from 'fs';
 import { join } from 'path';
+import { addDaysToDateString } from '../lib/utils/dateFilters';
 
 // Inline the timezone helpers to avoid module resolution issues with tsx
 function getStartOfTodayEastern(): Date {
@@ -49,12 +50,6 @@ function getEasternOffset(dateStr: string | Date): string {
 function parseAsEastern(dateStr: string, timeStr: string = '19:00:00'): Date {
   const offset = getEasternOffset(dateStr);
   return new Date(`${dateStr}T${timeStr}${offset}`);
-}
-
-function addDaysToDateString(dateStr: string, days: number): string {
-  const [year, month, day] = dateStr.split('-').map(Number);
-  const date = new Date(year, month - 1, day + days);
-  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
 }
 
 // notIlike isn't available as a standalone import in all drizzle versions,

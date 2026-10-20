@@ -1,7 +1,7 @@
 import { ArrowUpRight } from 'lucide-react';
 import type { NewsStoryView } from '@/lib/news/queries';
 import OtherSourcesMenu from './OtherSourcesMenu';
-import ShareButton from './ShareButton';
+import ShareButton from '../ShareButton';
 import StoryImage from './StoryImage';
 import {
   discussionLabel,
@@ -122,7 +122,7 @@ export default function NewsStoryCard({ story, now }: NewsStoryCardProps) {
           >
             {relativeTime(story.lastArticleAt, now)}
           </time>
-          <ShareButton shortId={story.shortId} headline={story.headline} />
+          <ShareButton path={`/news?s=${story.shortId}`} title={story.headline} />
         </span>
       </div>
     </article>

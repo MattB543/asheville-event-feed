@@ -1,5 +1,6 @@
 import * as dotenv from 'dotenv';
 import * as path from 'path';
+import { SITE_URL } from '@/lib/seo/site';
 
 // Load .env file with override:true to always prefer local .env over OS env vars
 // This ensures consistent behavior between development and scripts
@@ -46,7 +47,7 @@ export const env = {
     return process.env.POSTMARK_FROM_EMAIL;
   },
   get NEXT_PUBLIC_APP_URL() {
-    return process.env.NEXT_PUBLIC_APP_URL || 'https://www.avlgo.com';
+    return process.env.NEXT_PUBLIC_APP_URL || SITE_URL;
   },
   // Jina Reader API (for event verification)
   get JINA_API_KEY() {
@@ -68,6 +69,28 @@ export const env = {
   // GitHub API (for profile enrichment in matching pipeline)
   get GITHUB_TOKEN() {
     return process.env.GITHUB_TOKEN;
+  },
+  // Spotify (weekly playlist). The refresh token comes from a one-time login as
+  // the playlist's owner; see CLAUDE.md "Weekly Spotify Playlist".
+  get SPOTIFY_CLIENT_ID() {
+    return process.env.SPOTIFY_CLIENT_ID;
+  },
+  get SPOTIFY_CLIENT_SECRET() {
+    return process.env.SPOTIFY_CLIENT_SECRET;
+  },
+  get SPOTIFY_REFRESH_TOKEN() {
+    return process.env.SPOTIFY_REFRESH_TOKEN;
+  },
+  get SPOTIFY_PLAYLIST_ID() {
+    return process.env.SPOTIFY_PLAYLIST_ID;
+  },
+  // Optional: the playlist classifies with Claude Haiku when set, else Azure
+  get ANTHROPIC_API_KEY() {
+    return process.env.ANTHROPIC_API_KEY;
+  },
+  // Optional: lets the playlist mark sold-out Eventbrite shows
+  get EVENTBRITE_API_TOKEN() {
+    return process.env.EVENTBRITE_API_TOKEN;
   },
   // Super Admin (for verified curator management and score overrides)
   get SUPER_ADMIN() {
@@ -95,6 +118,16 @@ export function isPostmarkEnabled(): boolean {
   return !!(env.POSTMARK_API_KEY && env.POSTMARK_FROM_EMAIL);
 }
 
+// Helper to check if the weekly Spotify playlist can run
+export function isSpotifyEnabled(): boolean {
+  return !!(
+    env.SPOTIFY_CLIENT_ID &&
+    env.SPOTIFY_CLIENT_SECRET &&
+    env.SPOTIFY_REFRESH_TOKEN &&
+    env.SPOTIFY_PLAYLIST_ID
+  );
+}
+
 // Helper to check if outbound Clay webhook is configured
 export function isClayWebhookEnabled(): boolean {
   return !!env.CLAY_WEBHOOK;
@@ -103,11 +136,6 @@ export function isClayWebhookEnabled(): boolean {
 // Helper to check if GitHub API is configured
 export function isGitHubEnabled(): boolean {
   return !!env.GITHUB_TOKEN;
-}
-
-// Helper to check if Supabase Auth is configured
-export function isAuthEnabled(): boolean {
-  return !!(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
 }
 
 // Facebook configuration

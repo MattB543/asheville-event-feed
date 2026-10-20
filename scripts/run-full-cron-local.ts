@@ -3,6 +3,7 @@ import { GET as scrapeCron } from '../app/api/cron/scrape/route';
 import { GET as cleanupCron } from '../app/api/cron/cleanup/route';
 import { GET as dedupCron } from '../app/api/cron/dedup/route';
 import { GET as aiCron } from '../app/api/cron/ai/route';
+import { isAzureAIEnabled } from '../lib/ai/provider-clients';
 import { scrapeLittleAnimals } from '../lib/scrapers/littleanimals';
 import { db } from '../lib/db';
 import { events } from '../lib/db/schema';
@@ -171,10 +172,16 @@ async function main() {
     throw new Error('Dedup step failed. Aborting.');
   }
 
-  const aiResult = await runRouteStep('ai', '/api/cron/ai', aiCron);
-  results.push(aiResult);
-  if (!aiResult.ok) {
-    throw new Error('AI step failed. Aborting.');
+  // A fresh local setup has no Azure keys; the AI route answers 400 then, so skip
+  // it the way dedup skips itself rather than failing a scrape that worked
+  if (!isAzureAIEnabled()) {
+    console.log('[Runner] ai skipped: Azure AI not configured (no tags, summaries or scores)');
+  } else {
+    const aiResult = await runRouteStep('ai', '/api/cron/ai', aiCron);
+    results.push(aiResult);
+    if (!aiResult.ok) {
+      throw new Error('AI step failed. Aborting.');
+    }
   }
 
   console.log('[Runner] Pipeline complete.');

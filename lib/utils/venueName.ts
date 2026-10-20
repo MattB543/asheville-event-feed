@@ -2,9 +2,12 @@ import { extractCity } from './geo';
 
 // Short venue names for listings, shared by the playlist page and event cards
 
-/** Lowercase letters, digits and spaces only, for comparing names. */
+/** Lowercase letters, digits and spaces only, for comparing names. Accents are dropped
+ *  first ("Beyoncé" -> "beyonce"), or the accented letter would vanish instead. */
 export function normalizeName(s: string): string {
   return s
+    .normalize('NFKD')
+    .replace(/[̀-ͯ]/g, '')
     .toLowerCase()
     .replace(/[^a-z0-9 ]/g, '')
     .trim();

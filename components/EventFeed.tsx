@@ -1482,7 +1482,10 @@ export default function EventFeed({
   }, [upcomingFavorites, shareList]);
 
   // Two taps so a stray click can't wipe the list; the sync effect saves the empty
-  // list for signed-in users
+  // list for signed-in users. Unlike un-hearting one event, this leaves For You's
+  // signals alone on purpose: clearing is tidying the list (past events pile up),
+  // not "forget my taste", and wiping them would empty Recommended without warning.
+  // /profile/taste is where someone resets what For You learned.
   const handleClearFavorites = useCallback(() => {
     if (!confirmClearFavorites) {
       setConfirmClearFavorites(true);

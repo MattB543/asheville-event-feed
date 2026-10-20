@@ -7,7 +7,7 @@ import { isClassifierEnabled } from '@/lib/playlist/match';
 import { SpotifyRateLimitError } from '@/lib/playlist/spotify';
 import { sendPlaylistFailedNotification } from '@/lib/notifications/slack';
 
-export const maxDuration = 300;
+export const maxDuration = 800; // Worst-case AI, Spotify and sold-out timeouts add up past 300s
 
 // Weekly Spotify playlist of the top music shows. ?dryRun=1 matches tracks
 // (and saves the matches) without touching the playlist or the picks.

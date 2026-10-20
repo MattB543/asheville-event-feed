@@ -119,8 +119,14 @@ export async function replacePlaylist(
     method: 'PUT',
     body: JSON.stringify({ uris: trackIds.slice(0, 100).map((id) => `spotify:track:${id}`) }),
   });
-  await spotifyFetch(`/playlists/${playlistId}`, {
-    method: 'PUT',
-    body: JSON.stringify({ description }),
-  });
+  // The songs are already replaced, so a failed description update mustn't fail the
+  // run: the picks would then go unsaved and /playlist would show last week's
+  try {
+    await spotifyFetch(`/playlists/${playlistId}`, {
+      method: 'PUT',
+      body: JSON.stringify({ description }),
+    });
+  } catch (error) {
+    console.warn('[Spotify] Playlist description not updated:', error);
+  }
 }

@@ -100,7 +100,12 @@ async function haikuCompletion(system: string, user: string): Promise<string> {
 /** One AI call answered in JSON: Claude Haiku when ANTHROPIC_API_KEY is set, otherwise Azure */
 export async function playlistAiText(system: string, user: string): Promise<string> {
   if (env.ANTHROPIC_API_KEY) return haikuCompletion(system, user);
-  const reply = await azureChatCompletion(system, user, { maxTokens: 4000, jsonMode: true });
+  // The token cap counts the model's reasoning too, so it needs room beyond the answer
+  const reply = await azureChatCompletion(system, user, {
+    maxTokens: 16000,
+    jsonMode: true,
+    reasoningEffort: 'low',
+  });
   return reply?.content ?? '';
 }
 

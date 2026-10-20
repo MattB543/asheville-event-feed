@@ -24,15 +24,18 @@ Answer {"notes": {"<genre exactly as given>": "<sentence>" | null, ...}}.`;
 export async function explainGenres(genres: string[]): Promise<void> {
   const unique = [...new Set(genres.filter(Boolean))];
   if (unique.length === 0) return;
-  const known = await db
-    .select({ genre: genreNotes.genre })
-    .from(genreNotes)
-    .where(inArray(genreNotes.genre, unique));
-  const knownSet = new Set(known.map((row) => row.genre));
-  const missing = unique.filter((genre) => !knownSet.has(genre));
-  if (missing.length === 0) return;
 
+  // All of it inside the catch: this runs after the playlist is published, so a
+  // missing table or a failed AI call must not mark the run as failed
   try {
+    const known = await db
+      .select({ genre: genreNotes.genre })
+      .from(genreNotes)
+      .where(inArray(genreNotes.genre, unique));
+    const knownSet = new Set(known.map((row) => row.genre));
+    const missing = unique.filter((genre) => !knownSet.has(genre));
+    if (missing.length === 0) return;
+
     const raw = await playlistAiText(GENRE_SYSTEM, JSON.stringify(missing));
     const notes = parseJsonFromModel<{ notes?: Record<string, unknown> }>(raw, 'object')?.notes;
     if (!notes) return;

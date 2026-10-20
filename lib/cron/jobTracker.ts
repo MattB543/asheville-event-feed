@@ -128,6 +128,7 @@ export async function getLatestJobRuns(): Promise<
     'top30-weekly',
     'news-scrape',
     'news-ai',
+    'playlist',
   ];
 
   const results = await Promise.all(
@@ -169,6 +170,7 @@ export async function cleanupOldRuns(): Promise<number> {
     'top30-weekly',
     'news-scrape',
     'news-ai',
+    'playlist',
   ];
   let totalDeleted = 0;
 

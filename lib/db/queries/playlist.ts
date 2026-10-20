@@ -45,10 +45,12 @@ export interface PlaylistWeek {
 
 /** The most recent playlist, in playlist order, plus the shows it left out. */
 export async function getLatestPlaylistWeek(): Promise<PlaylistWeek | null> {
+  // A week's picks are written in one transaction, so any row's createdAt is when
+  // it was built, even if every pick has since been hidden
   const [latest] = await db
-    .select({ weekStart: playlistPicks.weekStart })
+    .select({ weekStart: playlistPicks.weekStart, updatedAt: playlistPicks.createdAt })
     .from(playlistPicks)
-    .orderBy(desc(playlistPicks.weekStart))
+    .orderBy(desc(playlistPicks.weekStart), desc(playlistPicks.createdAt))
     .limit(1);
   if (!latest) return null;
 
@@ -69,7 +71,6 @@ export async function getLatestPlaylistWeek(): Promise<PlaylistWeek | null> {
       trackName: eventTracks.trackName,
       trackId: playlistPicks.spotifyTrackId,
       soldOut: playlistPicks.soldOut,
-      createdAt: playlistPicks.createdAt,
     })
     .from(playlistPicks)
     .innerJoin(events, eq(events.id, playlistPicks.eventId))
@@ -150,6 +151,11 @@ export async function getLatestPlaylistWeek(): Promise<PlaylistWeek | null> {
     else if (!keptArtists.some((a) => normalizeName(m.title).includes(a))) notOnSpotify.push(row);
   }
 
-  const updatedAt = new Date(Math.max(...picks.map((p) => p.createdAt.getTime())));
-  return { weekStart: latest.weekStart, updatedAt, shows, notOnSpotify, tributes };
+  return {
+    weekStart: latest.weekStart,
+    updatedAt: latest.updatedAt,
+    shows,
+    notOnSpotify,
+    tributes,
+  };
 }

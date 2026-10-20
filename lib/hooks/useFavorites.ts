@@ -200,11 +200,12 @@ export function useFavorites(): {
 } {
   const ids = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
   const captureSignal = useCaptureSignal();
-  // Every heart, wherever it's tapped, teaches the For You list
+  // Every heart, wherever it's tapped, teaches the For You list, and un-hearting
+  // takes it back
   const toggleAndRecord = useCallback(
     async (eventId: string) => {
       const result = await toggleFavorite(eventId);
-      if (result.isFavorited) void captureSignal(eventId, 'favorite');
+      void captureSignal(eventId, 'favorite', !result.isFavorited);
       return result;
     },
     [captureSignal]

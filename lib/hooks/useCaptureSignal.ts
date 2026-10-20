@@ -6,10 +6,14 @@ import { useAuth } from '@/components/AuthProvider';
 export type SignalType = 'favorite' | 'hide';
 
 /**
- * Records a heart or hide for the signed-in person's For You list. Resolves to
- * whether it was saved; signed-out people are skipped.
+ * Records a heart or hide for the signed-in person's For You list, or with `remove`
+ * takes it back. Resolves to whether it was saved; signed-out people are skipped.
  */
-export function useCaptureSignal(): (eventId: string, signalType: SignalType) => Promise<boolean> {
+export function useCaptureSignal(): (
+  eventId: string,
+  signalType: SignalType,
+  remove?: boolean
+) => Promise<boolean> {
   const { user, isLoading } = useAuth();
   // Read through refs so a call made while auth is still loading sees the settled value
   const isLoggedInRef = useRef(!!user);
@@ -19,7 +23,7 @@ export function useCaptureSignal(): (eventId: string, signalType: SignalType) =>
     authLoadingRef.current = isLoading;
   }, [user, isLoading]);
 
-  return useCallback(async (eventId: string, signalType: SignalType) => {
+  return useCallback(async (eventId: string, signalType: SignalType, remove = false) => {
     // Wait (bounded) for auth to settle
     const deadline = Date.now() + 2000;
     while (authLoadingRef.current && Date.now() < deadline) {
@@ -29,7 +33,7 @@ export function useCaptureSignal(): (eventId: string, signalType: SignalType) =>
 
     try {
       const response = await fetch('/api/signals', {
-        method: 'POST',
+        method: remove ? 'DELETE' : 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ eventId, signalType }),
       });

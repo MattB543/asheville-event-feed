@@ -45,8 +45,9 @@ export default function Header({ activeTab }: HeaderProps) {
         {/* Mobile/Tablet layout */}
         <div className="flex flex-col gap-2 lg:hidden">
           {/* Row 1: Logo + credit + buttons. The credit always shows here, water
-              notice or not; it truncates rather than overlap on very narrow phones. */}
-          <div className="flex items-center gap-2">
+              notice or not; it truncates rather than overlap on very narrow phones.
+              min-h-8 holds the row at the account menu's height while auth loads */}
+          <div className="flex min-h-8 items-center gap-2">
             <Link href="/" className="shrink-0">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img

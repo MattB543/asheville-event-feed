@@ -97,11 +97,14 @@ function UserMenuContent({ query }: { query: string }) {
 
   return (
     <div className="relative" ref={menuRef} onBlur={handleBlur}>
+      {/* 32px tall (py-0.5 around the 28px avatar), the same as the loading
+          placeholder and the lg tabs, so the header doesn't grow once auth resolves.
+          flex, not inline-flex: an inline box adds descender space under it */}
       <button
         ref={buttonRef}
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className={`inline-flex items-center gap-1 p-1.5 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors cursor-pointer ${TRIGGER_FOCUS_CLASS}`}
+        className={`flex items-center gap-1 px-1.5 py-0.5 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors cursor-pointer ${TRIGGER_FOCUS_CLASS}`}
         aria-label="Account menu"
         aria-expanded={isOpen}
         aria-controls={isOpen ? menuId : undefined}

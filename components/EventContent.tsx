@@ -73,7 +73,7 @@ export default function EventContent({
   className = '',
 }: EventContentProps) {
   const [imageOpen, setImageOpen] = useState(false);
-  const [fullImageLoaded, setFullImageLoaded] = useState(false);
+  const [fullImage, setFullImage] = useState<'loading' | 'loaded' | 'failed'>('loading');
   const [imgError, setImgError] = useState(false);
   const [calendarMenuOpen, setCalendarMenuOpen] = useState(false);
   const [isHeartAnimating, setIsHeartAnimating] = useState(false);
@@ -455,22 +455,31 @@ export default function EventContent({
         <Lightbox label={`Image for ${event.title}`} onClose={() => setImageOpen(false)}>
           {/* Natural size, unknown up front, so a plain img rather than next/image */}
           {/* The page shows a resized copy, so the original still has to download */}
-          {!fullImageLoaded && (
+          {fullImage === 'loading' && (
             <Loader2
               className="mx-auto mt-24 h-8 w-8 animate-spin text-white/60"
               aria-label="Loading image"
             />
           )}
+          {fullImage === 'failed' && (
+            <p className="mt-24 text-center text-sm text-white/60">
+              The full-size image couldn&apos;t be loaded.
+            </p>
+          )}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             ref={(img) => {
-              if (img?.complete) setFullImageLoaded(true);
+              // Already cached; a broken image is "complete" too, with no width
+              if (img?.complete) setFullImage(img.naturalWidth > 0 ? 'loaded' : 'failed');
             }}
             src={event.imageUrl}
             alt={event.title}
-            onLoad={() => setFullImageLoaded(true)}
+            // Like the cards: some sources refuse image requests that name another site
+            referrerPolicy="no-referrer"
+            onLoad={() => setFullImage('loaded')}
+            onError={() => setFullImage('failed')}
             className={`mx-auto max-h-[85vh] w-auto object-contain rounded-sm shadow-2xl ${
-              fullImageLoaded ? '' : 'hidden'
+              fullImage === 'loaded' ? '' : 'hidden'
             }`}
           />
         </Lightbox>

@@ -26,7 +26,7 @@ import {
 } from '@/components/halloween/Decor';
 import { creepster, fraunces } from '@/components/halloween/fonts';
 import {
-  getHalloweenEvents,
+  getCachedHalloweenEvents,
   type HalloweenAudience,
   type HalloweenEvent,
 } from '@/lib/db/queries/halloween';
@@ -38,7 +38,6 @@ import {
   formatDateEastern,
   getDateStringEastern,
   getDayBoundariesEastern,
-  getStartOfTodayEastern,
   getTodayStringEastern,
 } from '@/lib/utils/timezone';
 import { venueLine } from '@/lib/utils/venueName';
@@ -249,11 +248,7 @@ export default async function HalloweenPage({
   let failed = false;
   if (!over) {
     try {
-      events = await getHalloweenEvents(
-        getStartOfTodayEastern(),
-        getDayBoundariesEastern(halloween).end,
-        audience
-      );
+      events = await getCachedHalloweenEvents(today, audience);
     } catch (error) {
       console.error('[Halloween] Failed to load events:', error);
       failed = true;

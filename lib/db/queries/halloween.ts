@@ -1,12 +1,14 @@
+import { unstable_cache } from 'next/cache';
 import { and, gte, lte, sql } from 'drizzle-orm';
 import { db } from '@/lib/db';
 import { events } from '@/lib/db/schema';
 import { liveEvent } from '@/lib/db/liveEvent';
+import { getDayBoundariesEastern } from '@/lib/utils/timezone';
 
-// Words that mark a Halloween-season event in a title; a summary that says
-// "Halloween" counts too, since titles like "AFTER DARK" don't
+// Words that mark a Halloween-season event in a title, matched at the start of a word so
+// "Witches" counts and "Switchyard" doesn't; a summary that says "Halloween" counts too
 const HALLOWEEN_TITLE =
-  'hallowe|spook|haunt|zombie|costume|ghost|witch|monster|vampire|horror|nosferatu|\\mgoth|dracula|creep|seance|séance|masquerade|day of the dead|muertos|trick.or.treat|\\mboo\\M';
+  '\\m(hallowe|spook|haunt|zombie|costume|ghost|witch|monster|vampire|horror|nosferatu|goth|dracula|creep|seance|séance|masquerade|day of the dead|muertos|trick.or.treat|boo\\M)';
 
 export type HalloweenEvent = Awaited<ReturnType<typeof getHalloweenEvents>>[number];
 
@@ -48,4 +50,29 @@ export async function getHalloweenEvents(from: Date, to: Date, audience: Hallowe
       events.startDate
     )
     .limit(300);
+}
+
+// Bump when the cached rows' shape changes: Vercel's data cache survives deploys
+const HALLOWEEN_CACHE_SHAPE = 'v1';
+
+/**
+ * From the start of `today` (Eastern) through Oct 31, cached per day and view. The
+ * scrape job's `events` invalidation refreshes it, so new events show after each scrape.
+ */
+export async function getCachedHalloweenEvents(
+  today: string,
+  audience: HalloweenAudience
+): Promise<HalloweenEvent[]> {
+  const rows = await unstable_cache(
+    () =>
+      getHalloweenEvents(
+        getDayBoundariesEastern(today).start,
+        getDayBoundariesEastern(`${today.slice(0, 4)}-10-31`).end,
+        audience
+      ),
+    ['halloween-events', HALLOWEEN_CACHE_SHAPE, today, audience],
+    { tags: ['events'], revalidate: 3600 }
+  )();
+  // A cache hit comes back through JSON, dates as strings
+  return rows.map((row) => ({ ...row, startDate: new Date(row.startDate) }));
 }

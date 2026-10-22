@@ -1,5 +1,5 @@
 import type { CSSProperties, ReactNode } from 'react';
-import { Bat, Cobweb, Spider } from './Decor';
+import { Bat, Cobweb, Raven, Spider, Witch } from './Decor';
 
 // [left, top, width, opacity, fill, sway, seconds, delay]: clouds drift back and
 // forth around the moon rather than across the sky
@@ -67,7 +67,7 @@ function Layer({ style, children }: { style: CSSProperties; children?: ReactNode
 export default function Sky({ children }: { children: ReactNode }) {
   return (
     <div
-      className="relative h-[470px] overflow-hidden sm:h-[500px]"
+      className="relative min-h-[470px] overflow-hidden pb-14 sm:min-h-[500px]"
       style={{
         background:
           'radial-gradient(circle at 50% 30%, #2c2a3a 0, #141320 30%, #07060c 62%, #030712 82%)',
@@ -174,11 +174,14 @@ export default function Sky({ children }: { children: ReactNode }) {
         </Layer>
       ))}
 
+      <Raven style={{ left: 0, top: 70, animation: 'hw-raven 26s linear infinite -4s' }} />
+      <Witch style={{ left: 0, top: 110, animation: 'hw-witch 40s linear infinite -10s' }} />
+
       <Layer style={{ left: '7%', top: 0, animation: 'hw-dangle 5s ease-in-out infinite' }}>
-        <Spider thread={150} eyes="#ff8a1f" />
+        <Spider thread={150} eyes="#ff2b2b" />
       </Layer>
       <Layer style={{ right: '10%', top: 0, animation: 'hw-dangle 6.5s ease-in-out infinite -2s' }}>
-        <Spider thread={90} eyes="#b6f36b" />
+        <Spider thread={90} eyes="#ff2b2b" />
       </Layer>
       <Cobweb
         size={160}

@@ -84,28 +84,6 @@ export function Specter({ width, eyes = true }: { width: number; eyes?: boolean 
   );
 }
 
-/** The see-through wraith with hollow eyes and an open mouth */
-export function Wraith({ width }: { width: number }) {
-  return (
-    <svg aria-hidden="true" width={width} height={width * (150 / 90)} viewBox="0 0 90 150">
-      <defs>
-        <linearGradient id="hw-wraith" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stopColor="#d7e4dc" stopOpacity=".85" />
-          <stop offset=".6" stopColor="#b9c9c0" stopOpacity=".45" />
-          <stop offset="1" stopColor="#b9c9c0" stopOpacity="0" />
-        </linearGradient>
-      </defs>
-      <path
-        d="M45 6C30 6 22 20 22 38c0 14-6 22-14 30 8-2 12 0 14 4-4 10-10 18-8 30 4-8 10-12 14-12-2 16 2 30 10 44 0-14 4-24 8-30 2 10 8 18 16 26-2-14 0-24 4-32 4 2 8 8 10 14 2-14-2-26-8-34 4-2 8 0 12 2-6-8-10-18-10-30C70 20 60 6 45 6z"
-        fill="url(#hw-wraith)"
-      />
-      <ellipse cx="37" cy="36" rx="5" ry="8" fill="#030712" />
-      <ellipse cx="53" cy="36" rx="5" ry="8" fill="#030712" />
-      <ellipse cx="45" cy="58" rx="5" ry="11" fill="#030712" opacity=".85" />
-    </svg>
-  );
-}
-
 /** The plain sheet ghost that bobs over the footer */
 export function SheetGhost({ size }: { size: number }) {
   return (
@@ -132,18 +110,54 @@ export function Cobweb({ size, style }: { size: number; style?: CSSProperties })
 }
 
 export function Spider({ thread, eyes }: { thread: number; eyes: string }) {
+  // Legs bend up at the knee and down to the tip, so it reads as a spider, not a bug
+  const legs = [
+    'M22 10 L10 -4 L-2 6',
+    'M21 14 L6 4 L-6 16',
+    'M21 18 L6 18 L-4 32',
+    'M22 22 L10 30 L2 44',
+  ];
   return (
-    <svg aria-hidden="true" width="40" height={thread + 40} viewBox={`0 0 40 ${thread + 40}`}>
-      <path d={`M20 0V${thread}`} stroke="#cbd5e1" strokeWidth="1" opacity=".6" />
-      <g transform={`translate(0 ${thread - 150})`}>
-        <ellipse cx="20" cy="162" rx="9" ry="11" fill="#1a1024" />
-        <circle cx="20" cy="150" r="6" fill="#1a1024" />
-        <circle cx="17.5" cy="149" r="1.6" fill={eyes} />
-        <circle cx="22.5" cy="149" r="1.6" fill={eyes} />
+    <svg aria-hidden="true" width="56" height={thread + 56} viewBox={`0 0 56 ${thread + 56}`}>
+      <path d={`M28 0V${thread}`} stroke="#cbd5e1" strokeWidth="0.8" opacity=".5" />
+      <g transform={`translate(0 ${thread - 2})`}>
+        {legs.map((d) => (
+          <g
+            key={d}
+            stroke="#3a2c48"
+            strokeWidth="2.2"
+            fill="none"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d={d} />
+            <path d={d} transform="translate(56 0) scale(-1 1)" />
+          </g>
+        ))}
+        {legs.map((d) => (
+          <g key={`rim-${d}`} stroke="#8a77a6" strokeWidth="0.6" fill="none" opacity=".7">
+            <path d={d} />
+            <path d={d} transform="translate(56 0) scale(-1 1)" />
+          </g>
+        ))}
+        <ellipse cx="28" cy="34" rx="11" ry="14" fill="#120a18" stroke="#7d6a96" strokeWidth="1" />
+        <ellipse cx="24" cy="28" rx="3" ry="5" fill="#ffffff" opacity=".12" />
+        <path d="M25 30h6l-2.2 4 2.2 4h-6l2.2-4z" fill="#c0101c" />
+        <ellipse cx="28" cy="15" rx="7" ry="7.5" fill="#1a1022" stroke="#7d6a96" strokeWidth="1" />
+        {[
+          [25, 13, 1.4],
+          [31, 13, 1.4],
+          [26.5, 10.5, 0.9],
+          [29.5, 10.5, 0.9],
+          [23.5, 15.5, 0.8],
+          [32.5, 15.5, 0.8],
+        ].map(([cx, cy, r]) => (
+          <circle key={`${cx}-${cy}`} cx={cx} cy={cy} r={r} fill={eyes} />
+        ))}
         <path
-          d="M11 156l-9-6M11 162l-10 0M11 168l-9 6M29 156l9-6M29 162l10 0M29 168l9 6"
-          stroke="#1a1024"
-          strokeWidth="2"
+          d="M25.5 21.5l1 4M30.5 21.5l-1 4"
+          stroke="#d9d0e6"
+          strokeWidth="1.2"
           strokeLinecap="round"
         />
       </g>
@@ -211,7 +225,8 @@ function Candle({ flame }: { flame: number }) {
 /** Tombstones, a broken fence and a pumpkin patch above the footer */
 export function Graveyard() {
   return (
-    <div aria-hidden="true" className="relative h-[150px]">
+    <div aria-hidden="true" className="relative h-[150px] overflow-hidden">
+      <GraveHand style={{ left: '62%', bottom: 26 }} />
       <svg
         width="100%"
         height="150"
@@ -289,21 +304,249 @@ export function BloodDrips() {
   );
 }
 
-/** One drip hanging off the end of a word */
+/** Blood running off the bottom of a letter, a drop now and then falling from it */
 export function DripLetter({ children }: { children: string }) {
   return (
     <span className="relative inline-block">
       {children}
-      <svg
+      <span
         aria-hidden="true"
-        width="12"
-        height="34"
-        viewBox="0 0 12 34"
-        className="absolute left-1/2 top-[82%] -ml-1.5 origin-top"
-        style={{ animation: 'hw-ooze 5s ease-in-out infinite' }}
+        className="absolute left-1/2 top-[86%] -ml-[7px] block h-[46px] w-[14px]"
       >
-        <path d="M3 0h6v20q0 5-3 9-3-4-3-9z" fill="#8a0f1c" />
-      </svg>
+        <svg
+          width="14"
+          height="34"
+          viewBox="0 0 14 34"
+          className="block origin-top"
+          style={{ animation: 'hw-ooze 5s ease-in-out infinite' }}
+        >
+          <path
+            d="M1 0h12c-2 3-3 6-3.5 11-.4 4-.3 8 .9 11.5A3.9 3.9 0 0 1 7 28a3.9 3.9 0 0 1-3.4-5.5C4.8 19 4.9 15 4.5 11 4 6 3 3 1 0z"
+            fill="#9b111e"
+          />
+          <ellipse cx="5.6" cy="22" rx="0.9" ry="2" fill="#e05a66" opacity=".7" />
+        </svg>
+        <span
+          className="absolute left-1/2 top-[26px] -ml-[3px] block h-[8px] w-[6px]"
+          style={{
+            borderRadius: '50% 50% 50% 50% / 60% 60% 40% 40%',
+            background: '#9b111e',
+            animation: 'hw-drip 5s ease-in infinite -1s',
+          }}
+        />
+      </span>
     </span>
+  );
+}
+
+/** A raven that crosses now and then */
+export function Raven({ style }: { style: CSSProperties }) {
+  return (
+    <div aria-hidden="true" className="absolute" style={style}>
+      <svg
+        width="70"
+        height="34"
+        viewBox="0 0 70 34"
+        className="hw-flap"
+        style={{ animationDuration: '0.45s' }}
+      >
+        <path
+          d="M35 14c-6-8-18-12-35-8 12 2 20 8 24 14-6 0-10 2-12 5 8-2 14-1 18 2l5 5 3-3c2 0 6 1 9 3-1-3-3-5-6-6 4-2 8-6 10-12-7 4-12 5-16 4 4-4 10-8 30-10-14-3-25 0-30 6z"
+          fill="#07040a"
+        />
+        <circle cx="38" cy="20" r="1.2" fill="#ffcf3b" />
+      </svg>
+    </div>
+  );
+}
+
+/** A witch on a broom, a silhouette like the bats */
+export function Witch({ style }: { style: CSSProperties }) {
+  return (
+    <div aria-hidden="true" className="absolute" style={style}>
+      <svg width="76" height="44" viewBox="0 0 70 40">
+        <path d="M0 30 L48 22" stroke="#07040a" strokeWidth="2.4" />
+        <path d="M48 22 l18 -6 -2 8 4 6 -18 -2z" fill="#07040a" />
+        <path d="M22 26l4-14 6 0 2 12z" fill="#07040a" />
+        <path d="M24 12l5-12 4 12z" fill="#07040a" />
+        <path d="M18 12h20" stroke="#07040a" strokeWidth="3" />
+      </svg>
+    </div>
+  );
+}
+
+/** Sparks drifting up off a pumpkin or a flame */
+export function Embers({ style }: { style: CSSProperties }) {
+  return (
+    <div aria-hidden="true" className="hw-float" style={style}>
+      {[
+        [0, 2.4, 0, 4],
+        [8, 3, -1, 3],
+        [-6, 2.1, -1.6, 3],
+      ].map(([x, seconds, delay, size]) => (
+        <span
+          key={x}
+          className="absolute rounded-full"
+          style={{
+            left: x,
+            width: size,
+            height: size,
+            background: '#ffb347',
+            boxShadow: '0 0 6px 2px #ff7a00',
+            animation: `hw-ember ${seconds}s ease-out infinite ${delay}s`,
+          }}
+        />
+      ))}
+    </div>
+  );
+}
+
+/** A dead leaf tumbling down the page */
+export function Leaf({ style, color }: { style: CSSProperties; color: string }) {
+  return (
+    <div aria-hidden="true" className="hw-float" style={style}>
+      <svg width="18" height="18" viewBox="0 0 20 20">
+        <path d="M10 0C4 4 2 10 10 20 18 10 16 4 10 0z" fill={color} />
+        <path d="M10 2v17" stroke="#3a1a08" strokeWidth=".8" />
+      </svg>
+    </div>
+  );
+}
+
+/** A flock that bursts out and scatters every so often */
+export function BatSwarm({ style }: { style: CSSProperties }) {
+  return (
+    <div aria-hidden="true" className="hw-float" style={style}>
+      {Array.from({ length: 9 }, (_, i) => {
+        const angle = (i / 9) * Math.PI * 2;
+        return (
+          <div
+            key={i}
+            className="absolute"
+            style={
+              {
+                '--dx': `${Math.round(Math.cos(angle) * 180)}px`,
+                '--dy': `${Math.round(Math.sin(angle) * 110)}px`,
+                animation: `hw-burst 12s ease-out infinite -${(i % 3) * 0.15}s`,
+              } as CSSProperties
+            }
+          >
+            <svg
+              width="22"
+              height="11"
+              viewBox="0 0 46 22"
+              className="hw-flap"
+              style={{ animationDuration: '0.25s' }}
+            >
+              <path d={BAT_PATH} fill="#4a3a5e" stroke="#8a77a6" strokeWidth="1" />
+            </svg>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+/** Lit candles hanging in the air */
+export function FloatingCandles({ style }: { style: CSSProperties }) {
+  return (
+    <div aria-hidden="true" className="hw-float flex gap-6" style={style}>
+      {[0, 22, 6].map((drop, i) => (
+        <div
+          key={i}
+          style={{ marginTop: drop, animation: `hw-candle ${4 + i * 0.6}s ease-in-out infinite` }}
+        >
+          <svg width="14" height="46" viewBox="0 0 16 50">
+            <path
+              d="M8 2q5 7 0 13q-5-6 0-13z"
+              fill="#ffb347"
+              style={{
+                animation: 'hw-flame 1.4s ease-in-out infinite',
+                transformOrigin: '8px 14px',
+              }}
+            />
+            <rect x="3" y="16" width="10" height="34" rx="2" fill="#e8e1d0" />
+          </svg>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+/** A skeletal hand that rises out of the ground, then sinks back */
+export function GraveHand({ style }: { style: CSSProperties }) {
+  return (
+    <div
+      aria-hidden="true"
+      className="absolute overflow-hidden"
+      style={{ width: 54, height: 90, ...style }}
+    >
+      <svg
+        width="54"
+        height="90"
+        viewBox="0 0 54 90"
+        style={{ animation: 'hw-hand 14s ease-in-out infinite' }}
+      >
+        <path
+          d="M18 90V48l-8-22a3 3 0 0 1 5-2l7 16V12a3 3 0 0 1 6 0v26l2-30a3 3 0 0 1 6 0l-1 30 4-24a3 3 0 0 1 6 1l-4 28 5-14a3 3 0 0 1 5 2l-7 26v35z"
+          fill="#cfd6c8"
+          stroke="#6b7466"
+          strokeWidth="1.2"
+        />
+        <path d="M24 60h12M23 70h14" stroke="#6b7466" strokeWidth="1" />
+      </svg>
+    </div>
+  );
+}
+
+/** A spider walking along the top edge of whatever it sits on */
+export function CrawlingSpider() {
+  return (
+    <div
+      aria-hidden="true"
+      className="pointer-events-none absolute inset-x-0 -top-[18px] z-[5] overflow-hidden h-6"
+    >
+      <div style={{ animation: 'hw-crawl 22s linear infinite' }}>
+        <svg width="40" height="24" viewBox="0 0 40 24">
+          <g
+            stroke="#3a2c48"
+            strokeWidth="2"
+            fill="none"
+            style={{ animation: 'hw-legs 0.3s ease-in-out infinite', transformOrigin: '20px 14px' }}
+          >
+            <path d="M14 12L6 4 0 10M14 14L4 12 0 20M26 12L34 4 40 10M26 14L36 12 40 20" />
+          </g>
+          <ellipse cx="20" cy="14" rx="8" ry="6" fill="#120a18" stroke="#7d6a96" />
+          <circle cx="27" cy="13" r="1.2" fill="#ff2b2b" />
+        </svg>
+      </div>
+    </div>
+  );
+}
+
+/** Mist rolling slowly along the bottom of a section */
+export function LowFog() {
+  return (
+    <div
+      aria-hidden="true"
+      className="pointer-events-none absolute inset-x-0 bottom-0 h-40 overflow-hidden"
+    >
+      {[
+        { left: '-10%', width: '70%', seconds: 16, delay: 0 },
+        { left: '35%', width: '75%', seconds: 21, delay: -7 },
+      ].map((f) => (
+        <div
+          key={f.left}
+          className="absolute bottom-0 h-28 rounded-[50%]"
+          style={{
+            left: f.left,
+            width: f.width,
+            background:
+              'radial-gradient(ellipse, rgba(190,210,200,.22) 0, rgba(190,210,200,0) 70%)',
+            animation: `hw-fog ${f.seconds}s ease-in-out infinite ${f.delay}s`,
+          }}
+        />
+      ))}
+    </div>
   );
 }

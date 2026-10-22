@@ -11,6 +11,7 @@ export const SEASONS = [
     end: '10-31',
     href: '/halloween',
     label: 'Halloween',
+    short: 'Halloween in Asheville',
     banner:
       'Halloween in Asheville: the strangest, spookiest things to do through Saturday, Oct 31',
   },

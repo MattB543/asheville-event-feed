@@ -235,6 +235,24 @@
   }
 }
 
+@keyframes hw-drift {
+  0% {
+    transform: translate(-15vw, 0);
+    opacity: 0;
+  }
+  15%,
+  85% {
+    opacity: 0.7;
+  }
+  50% {
+    transform: translate(45vw, -40px);
+  }
+  100% {
+    transform: translate(105vw, 10px);
+    opacity: 0;
+  }
+}
+
 .hw-flap {
   animation: hw-flap 0.3s ease-in-out infinite;
   transform-origin: center;
@@ -255,5 +273,118 @@
   .hw-page *::before,
   .hw-page *::after {
     animation: none !important;
+  }
+}
+
+/* Extras that show up now and then: each moves for part of its loop and waits off-screen the rest */
+@keyframes hw-raven {
+  0% {
+    transform: translate(-120px, 30px);
+  }
+  30%,
+  100% {
+    transform: translate(calc(100vw + 120px), -10px);
+  }
+}
+@keyframes hw-witch {
+  0%,
+  55% {
+    transform: translate(-140px, 120px) rotate(-8deg);
+  }
+  85%,
+  100% {
+    transform: translate(calc(100vw + 140px), -40px) rotate(-8deg);
+  }
+}
+@keyframes hw-ember {
+  0% {
+    transform: translate(0, 0);
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(14px, -120px);
+    opacity: 0;
+  }
+}
+@keyframes hw-leaf {
+  0% {
+    transform: translate(0, -40px) rotate(0);
+    opacity: 0;
+  }
+  8% {
+    opacity: 0.9;
+  }
+  90% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: translate(90px, 900px) rotate(720deg);
+    opacity: 0;
+  }
+}
+@keyframes hw-burst {
+  0%,
+  70% {
+    transform: translate(0, 0) scale(0.3);
+    opacity: 0;
+  }
+  74% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--dx), var(--dy)) scale(1);
+    opacity: 0;
+  }
+}
+@keyframes hw-candle {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+@keyframes hw-flame {
+  0%,
+  100% {
+    transform: scaleY(1);
+    opacity: 0.95;
+  }
+  50% {
+    transform: scaleY(1.2);
+    opacity: 0.75;
+  }
+}
+@keyframes hw-hand {
+  0%,
+  20%,
+  100% {
+    transform: translateY(100%);
+  }
+  45%,
+  70% {
+    transform: translateY(0);
+  }
+}
+@keyframes hw-crawl {
+  0%,
+  40% {
+    transform: translateX(-60px);
+  }
+  100% {
+    transform: translateX(calc(100% + 60px));
+  }
+}
+@keyframes hw-legs {
+  0%,
+  100% {
+    transform: skewX(-8deg);
+  }
+  50% {
+    transform: skewX(8deg);
   }
 }

@@ -1,4 +1,4 @@
-import { and, desc, gte, lte, sql } from 'drizzle-orm';
+import { and, gte, lte, sql } from 'drizzle-orm';
 import { db } from '@/lib/db';
 import { events } from '@/lib/db/schema';
 import { liveEvent } from '@/lib/db/liveEvent';
@@ -10,11 +10,15 @@ const HALLOWEEN_TITLE =
 
 export type HalloweenEvent = Awaited<ReturnType<typeof getHalloweenEvents>>[number];
 
+export type HalloweenAudience = 'wild' | 'family';
+
 /**
- * Halloween events between two instants, weirdest first. Family events are left
- * out: the page is for the strange and the after-dark, not trick-or-treating.
+ * Halloween events between two instants. The default is the strange and the
+ * after-dark, wildest first, with family events left out; `family` is the reverse,
+ * only family events, best-scored first.
  */
-export async function getHalloweenEvents(from: Date, to: Date) {
+export async function getHalloweenEvents(from: Date, to: Date, audience: HalloweenAudience) {
+  const family = sql`'Family' = ANY(COALESCE(${events.tags}, '{}'))`;
   return db
     .select({
       id: events.id,
@@ -27,7 +31,6 @@ export async function getHalloweenEvents(from: Date, to: Date) {
       imageUrl: events.imageUrl,
       tags: events.tags,
       aiSummary: events.aiSummary,
-      weird: events.scoreAshevilleWeird,
     })
     .from(events)
     .where(
@@ -36,12 +39,12 @@ export async function getHalloweenEvents(from: Date, to: Date) {
         gte(events.startDate, from),
         lte(events.startDate, to),
         sql`(${events.title} ~* ${HALLOWEEN_TITLE} OR ${events.aiSummary} ~* 'halloween')`,
-        sql`NOT ('Family' = ANY(COALESCE(${events.tags}, '{}')))`
+        audience === 'family' ? family : sql`NOT ${family}`
       )
     )
     .orderBy(
-      sql`${events.scoreAshevilleWeird} DESC NULLS LAST`,
-      desc(events.score),
+      ...(audience === 'family' ? [] : [sql`${events.scoreAshevilleWeird} DESC NULLS LAST`]),
+      sql`${events.score} DESC NULLS LAST`,
       events.startDate
     )
     .limit(300);

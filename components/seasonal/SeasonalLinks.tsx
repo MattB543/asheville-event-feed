@@ -11,11 +11,12 @@ import { useSeason } from './useSeason';
 // Each season's look: the badge beside the logo, the banner's mark and the menu icon
 const LOOK: Record<
   SeasonKey,
-  { badge: ReactNode; mark: ReactNode; icon: LucideIcon; bar: string }
+  { badge: ReactNode; mark: ReactNode; endMark: ReactNode; icon: LucideIcon; bar: string }
 > = {
   halloween: {
     badge: <Pumpkin size={24} glow />,
     mark: <Bat width={22} color="#1a0a00" />,
+    endMark: <Pumpkin size={20} />,
     icon: Ghost,
     bar: 'bg-gradient-to-r from-[#c2410c] via-[#f97316] to-[#c2410c] text-[#1a0a00]',
   },
@@ -49,8 +50,12 @@ export function SeasonalBanner({ season }: { season: SeasonKey | null }) {
       className={`flex h-9 items-center justify-center gap-2 px-3 text-sm font-semibold hover:brightness-110 ${look.bar}`}
     >
       {look.mark}
-      <span className="truncate">{current.banner}</span>
-      <span aria-hidden="true">→</span>
+      <span className="truncate sm:hidden">{current.short}</span>
+      <span className="hidden truncate sm:inline">{current.banner}</span>
+      <span className="sm:hidden">{look.endMark}</span>
+      <span aria-hidden="true" className="hidden sm:inline">
+        →
+      </span>
     </Link>
   );
 }

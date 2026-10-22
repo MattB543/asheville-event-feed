@@ -7,7 +7,13 @@ import Sky from '@/components/halloween/Sky';
 import Poster from '@/components/halloween/Poster';
 import HeartButton, { FavoritesSync } from '@/components/halloween/HeartButton';
 import {
+  BatSwarm,
   BloodDrips,
+  CrawlingSpider,
+  Embers,
+  FloatingCandles,
+  Leaf,
+  LowFog,
   Cobweb,
   DripLetter,
   Eyes,
@@ -17,10 +23,13 @@ import {
   SkullDivider,
   Specter,
   Bat,
-  Wraith,
 } from '@/components/halloween/Decor';
 import { creepster, fraunces } from '@/components/halloween/fonts';
-import { getHalloweenEvents, type HalloweenEvent } from '@/lib/db/queries/halloween';
+import {
+  getHalloweenEvents,
+  type HalloweenAudience,
+  type HalloweenEvent,
+} from '@/lib/db/queries/halloween';
 import { addDaysToDateString } from '@/lib/utils/dateFilters';
 import { hasLoadableEventImage } from '@/lib/utils/eventImages';
 import { formatPriceDisplay } from '@/lib/utils/priceDisplay';
@@ -41,7 +50,7 @@ const description =
   'The strangest, spookiest things to do in Asheville before Halloween: goth proms, drag, burlesque, horror screenings and haunted storytelling.';
 
 export const metadata: Metadata = {
-  title: `${title}: the weirdest events`,
+  title: `${title}: the wildest events`,
   description,
   alternates: { canonical: `${SITE_URL}/halloween` },
   openGraph: {
@@ -74,6 +83,11 @@ const SAVED_POSTERS = new Set([
   '2847b5b6-e992-4d5a-8a33-b9980113c579',
   'c5a5a9f8-146e-400f-a00c-22300421b9ab',
   '518a629a-d693-474e-a8fc-50f558c7abb8',
+  '3d3f5832-5753-4bcd-b570-32466b7d510d',
+  'b634f90b-7101-4f44-aaec-996da7d65a91',
+  '4fe23d8e-01fb-47b5-b8df-cf2e122e39cb',
+  '29a6965e-8f41-4fc8-ba57-965b8a08cfb1',
+  '0c3f213b-f593-4082-a47f-d983b14bf1e0',
 ]);
 const image = (e: HalloweenEvent) =>
   SAVED_POSTERS.has(e.id)
@@ -85,10 +99,6 @@ const price = (e: HalloweenEvent) =>
   e.price && e.price !== 'Unknown' ? formatPriceDisplay(e.price) : null;
 const time = (e: HalloweenEvent) =>
   e.timeUnknown ? null : formatDateEastern(e.startDate, { hour: 'numeric', minute: '2-digit' });
-
-function Weird({ score, className }: { score: number | null; className: string }) {
-  return score ? <span className={className}>Weird {score}/10</span> : null;
-}
 
 function WallPoster({ event, index }: { event: HalloweenEvent; index: number }) {
   const day = formatDateEastern(event.startDate, { weekday: 'short' });
@@ -114,10 +124,7 @@ function WallPoster({ event, index }: { event: HalloweenEvent; index: number }) 
           flyerTextClass="text-[28px]"
         />
         <div className="pt-[9px] text-[#1a1416]">
-          <div className="flex justify-between gap-2 text-xs font-bold uppercase tracking-wide">
-            <span className="text-[#b4470c]">{when}</span>
-            <Weird score={event.weird} className="text-purple-800" />
-          </div>
+          <div className="text-xs font-bold uppercase tracking-wide text-[#b4470c]">{when}</div>
           <div className="mt-0.5 text-[15px] font-semibold leading-tight">{event.title}</div>
           <div className="mt-0.5 text-[13px] text-[#5a5257]">
             {venueLine(event)}
@@ -146,10 +153,6 @@ function EventCard({ event, index }: { event: HalloweenEvent; index: number }) {
       <div className="flex min-w-0 flex-[1_1_280px] flex-col gap-1.5">
         <div className="flex flex-wrap items-center gap-2">
           {time(event) && <span className="text-sm font-bold text-[#ffb35c]">{time(event)}</span>}
-          <Weird
-            score={event.weird}
-            className="rounded-full bg-[#2e1a4a] px-2 py-0.5 text-xs font-bold text-[#d9c8ff]"
-          />
         </div>
         <Link
           href={eventHref(event)}
@@ -203,7 +206,34 @@ function Tombstone({ date }: { date: Date }) {
   );
 }
 
-export default async function HalloweenPage() {
+function AudienceToggle({ audience }: { audience: HalloweenAudience }) {
+  const option = (value: HalloweenAudience, label: string, href: string) => (
+    <Link
+      href={href}
+      scroll={false}
+      aria-current={audience === value ? 'true' : undefined}
+      className={`rounded-full px-3 py-1 text-xs font-semibold transition-colors ${
+        audience === value ? 'bg-[#ff8a1f] text-[#1a0a00]' : 'text-[#ffd7a8] hover:bg-white/10'
+      }`}
+    >
+      {label}
+    </Link>
+  );
+  return (
+    <div className="flex gap-0.5 rounded-full border border-white/15 bg-black/50 p-0.5">
+      {option('wild', 'After dark', '/halloween')}
+      {option('family', 'Family-friendly', '/halloween?for=family')}
+    </div>
+  );
+}
+
+export default async function HalloweenPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ for?: string }>;
+}) {
+  const audience: HalloweenAudience = (await searchParams).for === 'family' ? 'family' : 'wild';
+  const family = audience === 'family';
   // Per request: the countdown and "before the big night" move with the date
   await connection();
 
@@ -221,7 +251,8 @@ export default async function HalloweenPage() {
     try {
       events = await getHalloweenEvents(
         getStartOfTodayEastern(),
-        getDayBoundariesEastern(halloween).end
+        getDayBoundariesEastern(halloween).end,
+        audience
       );
     } catch (error) {
       console.error('[Halloween] Failed to load events:', error);
@@ -253,17 +284,25 @@ export default async function HalloweenPage() {
     <main className="hw-page min-h-screen flex flex-col bg-[#030712] text-gray-200">
       <FavoritesSync />
       <Header />
-      <BloodDrips />
+      {!family && <BloodDrips />}
 
       <Sky>
         <h1
           className={`${fraunces.className} m-0 text-[clamp(40px,6vw,72px)] leading-none text-[#fff4e6] [text-shadow:0_2px_18px_rgba(0,0,0,.7)]`}
         >
-          Halloween in Ashevill<DripLetter>e</DripLetter>
+          Halloween in Ashevill{family ? 'e' : <DripLetter>e</DripLetter>}
         </h1>
         <p className="mt-3 text-[17px] text-[#d6d0e6]">
-          The strangest, spookiest things to do from now through {longDay(halloweenDate)}
+          {family
+            ? 'Trick-or-treating, costume parades and spooky fun for kids'
+            : 'The strangest, spookiest things to do'}{' '}
+          from now through {longDay(halloweenDate)}
         </p>
+        {!over && (
+          <div className="absolute right-3 top-3 sm:right-6">
+            <AudienceToggle audience={audience} />
+          </div>
+        )}
         {!over && (
           <div className="mt-4 inline-flex items-center gap-2.5 rounded-full border border-[#ff8a1f]/45 bg-[#ff8a1f]/10 py-2 pl-2.5 pr-4">
             <Pumpkin size={30} />
@@ -283,6 +322,18 @@ export default async function HalloweenPage() {
 
       <div className="relative mx-auto flex w-full max-w-[1180px] flex-grow flex-col gap-16 px-4 pb-10 pt-10 sm:px-6">
         {/* Things that drift over the content and fade away */}
+        <Leaf
+          color="#b4470c"
+          style={{ left: '22%', top: '8%', animation: 'hw-leaf 26s linear infinite' }}
+        />
+        <Leaf
+          color="#7a2e0e"
+          style={{ left: '64%', top: '36%', animation: 'hw-leaf 32s linear infinite -12s' }}
+        />
+        <Leaf
+          color="#8a5a12"
+          style={{ left: '8%', top: '62%', animation: 'hw-leaf 29s linear infinite -20s' }}
+        />
         <div
           className="hw-float left-[34%] top-[6%] opacity-80"
           style={{ animation: 'hw-rise 12s ease-in-out infinite' }}
@@ -298,10 +349,12 @@ export default async function HalloweenPage() {
           <Specter width={56} eyes={false} />
         </div>
         <div
-          className="hw-float right-[6%] top-[30%] opacity-85"
-          style={{ animation: 'hw-bob 4s ease-in-out infinite' }}
+          className="hw-float left-0 top-[30%]"
+          style={{ animation: 'hw-drift 28s linear infinite -6s' }}
         >
-          <Wraith width={80} />
+          <div style={{ animation: 'hw-wobble 7s ease-in-out infinite' }}>
+            <Specter width={64} />
+          </div>
         </div>
         <div
           className="hw-float left-[70%] top-[78%]"
@@ -327,18 +380,24 @@ export default async function HalloweenPage() {
             />
           ))}
         </div>
-        <Eyes
-          color="#ff3b3b"
-          style={{ left: '1%', top: '24%', animation: 'hw-eyes 7s ease-in-out infinite' }}
-        />
-        <Eyes
-          color="#b8ffd0"
-          style={{ right: '1%', top: '48%', animation: 'hw-eyes 9s ease-in-out infinite' }}
-        />
-        <Eyes
-          color="#ff3b3b"
-          style={{ left: '48%', top: '88%', animation: 'hw-eyes 11s ease-in-out infinite' }}
-        />
+        {!family && (
+          <Eyes
+            color="#ff3b3b"
+            style={{ left: '1%', top: '24%', animation: 'hw-eyes 7s ease-in-out infinite' }}
+          />
+        )}
+        {!family && (
+          <Eyes
+            color="#b8ffd0"
+            style={{ right: '1%', top: '48%', animation: 'hw-eyes 9s ease-in-out infinite' }}
+          />
+        )}
+        {!family && (
+          <Eyes
+            color="#ff3b3b"
+            style={{ left: '48%', top: '88%', animation: 'hw-eyes 11s ease-in-out infinite' }}
+          />
+        )}
         <div
           className="hw-float left-0 top-[42%]"
           style={{ animation: 'hw-pass 18s linear infinite -4s' }}
@@ -366,9 +425,13 @@ export default async function HalloweenPage() {
         ) : (
           <>
             {picks.length > 0 && (
-              <section className="relative">
+              <section className="relative pb-6">
+                <LowFog />
                 <div className="flex items-center gap-3.5">
-                  <Pumpkin size={58} glow />
+                  <span className="relative">
+                    <Pumpkin size={58} glow />
+                    <Embers style={{ left: 26, top: 10 }} />
+                  </span>
                   <div>
                     <h2
                       className={`${creepster.className} m-0 text-[34px] tracking-wide text-[#ff9a3c] sm:text-[42px]`}
@@ -376,7 +439,8 @@ export default async function HalloweenPage() {
                       {weekendHeading}
                     </h2>
                     <p className="mt-0.5 text-gray-400">
-                      {longDay(bigStart)} and {longDay(halloweenDate)} · weirdest first
+                      {longDay(bigStart)} and {longDay(halloweenDate)} ·{' '}
+                      {family ? 'best first' : 'wildest first'}
                     </p>
                   </div>
                 </div>
@@ -392,19 +456,28 @@ export default async function HalloweenPage() {
               </section>
             )}
 
-            {picks.length > 0 && beforeDays.length > 0 && <SkullDivider />}
+            {picks.length > 0 && beforeDays.length > 0 && (
+              <div className="relative">
+                <SkullDivider />
+                <BatSwarm style={{ left: '50%', top: 20 }} />
+              </div>
+            )}
 
             {beforeDays.length > 0 && (
               <section className="relative">
+                <FloatingCandles style={{ right: '4%', top: -10 }} />
                 <h2
                   className={`${creepster.className} m-0 text-[32px] tracking-wide text-violet-300 sm:text-[38px]`}
                 >
                   Before the big night
                 </h2>
                 <p className="mb-7 mt-0.5 text-gray-400">
-                  The weirdest Halloween events until then
+                  {family
+                    ? 'The best family Halloween events until then'
+                    : 'The wildest Halloween events until then'}
                 </p>
-                <div className="flex flex-col gap-9">
+                <div className="relative flex flex-col gap-9">
+                  <CrawlingSpider />
                   {beforeDays.map(([day, list]) => (
                     <div key={day} className="flex flex-wrap gap-4 sm:gap-[18px]">
                       <Tombstone date={list[0].startDate} />

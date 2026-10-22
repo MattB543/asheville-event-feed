@@ -226,11 +226,13 @@ function Candle({ flame }: { flame: number }) {
 /** Tombstones, a broken fence and a pumpkin patch above the footer */
 export function Graveyard() {
   return (
-    <div aria-hidden="true" className="relative h-[150px] overflow-hidden">
-      <GraveHand style={{ left: '62%', bottom: 26 }} />
+    <div aria-hidden="true" className="relative h-[60px] overflow-hidden sm:h-[150px]">
+      <span className="hidden sm:block">
+        <GraveHand style={{ left: '62%', bottom: 26 }} />
+      </span>
       <svg
         width="100%"
-        height="150"
+        height="100%"
         viewBox="0 0 1280 150"
         preserveAspectRatio="xMidYMax meet"
         className="absolute bottom-0 left-0"

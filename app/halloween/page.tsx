@@ -121,7 +121,7 @@ function WallPoster({ event, index }: { event: HalloweenEvent; index: number }) 
           when={when}
           venue={venueLine(event)}
           sizes="(min-width: 1024px) 280px, (min-width: 640px) 45vw, 90vw"
-          flyerTextClass="text-[28px]"
+          flyerTextClass="text-[20px] sm:text-[28px]"
         />
         <div className="pt-[9px] text-[#1a1416]">
           <div className="text-xs font-bold uppercase tracking-wide text-[#b4470c]">{when}</div>
@@ -145,12 +145,12 @@ function EventCard({ event, index }: { event: HalloweenEvent; index: number }) {
         href={eventHref(event)}
         tabIndex={-1}
         aria-hidden="true"
-        className="w-[130px] shrink-0 self-start bg-[#f3eee2] p-[7px] shadow-[0_10px_20px_rgba(0,0,0,.55)] sm:w-[170px]"
+        className="w-[96px] shrink-0 self-start bg-[#f3eee2] p-[7px] shadow-[0_10px_20px_rgba(0,0,0,.55)] sm:w-[170px]"
         style={{ transform: `rotate(${index % 2 ? '1.5deg' : '-1.5deg'})` }}
       >
         <Poster src={image(event)} title={event.title} sizes="170px" flyerTextClass="text-[20px]" />
       </Link>
-      <div className="flex min-w-0 flex-[1_1_280px] flex-col gap-1.5">
+      <div className="flex min-w-0 flex-[1_1_180px] flex-col gap-1.5">
         <div className="flex flex-wrap items-center gap-2">
           {time(event) && <span className="text-sm font-bold text-[#ffb35c]">{time(event)}</span>}
         </div>
@@ -188,13 +188,13 @@ function EventCard({ event, index }: { event: HalloweenEvent; index: number }) {
 
 function Tombstone({ date }: { date: Date }) {
   return (
-    <div className="w-[72px] shrink-0 sm:w-[84px]">
-      <div className="flex h-[88px] flex-col items-center justify-center rounded-t-[42px] rounded-b-md border border-[#5d6270] bg-gradient-to-b from-[#4b4f5c] to-[#2c2f38] shadow-[0_6px_0_#14161c] sm:h-[98px]">
+    <div className="w-[56px] shrink-0 sm:w-[84px]">
+      <div className="flex h-[68px] flex-col items-center justify-center rounded-t-[42px] rounded-b-md border border-[#5d6270] bg-gradient-to-b from-[#4b4f5c] to-[#2c2f38] shadow-[0_6px_0_#14161c] sm:h-[98px]">
         <span className="text-xs font-bold tracking-[.12em] text-[#cfd3dc]">
           {formatDateEastern(date, { weekday: 'short' }).toUpperCase()}
         </span>
         <span
-          className={`${creepster.className} text-[34px] leading-none text-gray-100 sm:text-[38px]`}
+          className={`${creepster.className} text-[26px] leading-none text-gray-100 sm:text-[38px]`}
         >
           {formatDateEastern(date, { day: 'numeric' })}
         </span>
@@ -277,11 +277,13 @@ export default async function HalloweenPage({
   )
     ? 'Halloween weekend'
     : 'Halloween eve and night';
+  // The full feed, searched for Halloween over the same dates, for anyone who wants more
+  const allHalloweenHref = `/events?search=halloween&dateFilter=custom&dateStart=${today}&dateEnd=${halloween}`;
   const longDay = (d: Date) =>
     formatDateEastern(d, { weekday: 'long', month: 'short', day: 'numeric' });
 
   return (
-    <main className="hw-page min-h-screen flex flex-col bg-[#030712] text-gray-200">
+    <main className="hw-page min-h-screen flex flex-col overflow-x-clip bg-[#030712] text-gray-200">
       <FavoritesSync />
       <Header />
       {!family && <BloodDrips />}
@@ -320,7 +322,7 @@ export default async function HalloweenPage({
         )}
       </Sky>
 
-      <div className="relative mx-auto flex w-full max-w-[1180px] flex-grow flex-col gap-16 px-4 pb-10 pt-10 sm:px-6">
+      <div className="relative mx-auto flex w-full max-w-[1180px] flex-grow flex-col gap-16 px-4 pb-4 pt-4 sm:px-6 sm:pb-10 sm:pt-10">
         {/* Things that drift over the content and fade away */}
         <LeafGust top="4%" delay={0} />
         <LeafGust top="52%" delay={-13} />
@@ -436,7 +438,7 @@ export default async function HalloweenPage({
                 </div>
                 <div className="mt-9 flex flex-wrap gap-[26px]">
                   {columns.map((column, c) => (
-                    <div key={c} className="flex min-w-0 flex-[1_1_220px] flex-col gap-[34px]">
+                    <div key={c} className="flex min-w-0 flex-[1_1_150px] flex-col gap-[34px]">
                       {column.map((event, i) => (
                         <WallPoster key={event.id} event={event} index={i * 4 + c} />
                       ))}
@@ -455,7 +457,9 @@ export default async function HalloweenPage({
 
             {beforeDays.length > 0 && (
               <section className="relative">
-                <FloatingCandles style={{ right: '4%', top: -10 }} />
+                <span className="hidden sm:block">
+                  <FloatingCandles style={{ right: '4%', top: -10 }} />
+                </span>
                 <h2
                   className={`${creepster.className} m-0 text-[32px] tracking-wide text-violet-300 sm:text-[38px]`}
                 >
@@ -466,12 +470,20 @@ export default async function HalloweenPage({
                     ? 'The best family Halloween events until then'
                     : 'The wildest Halloween events until then'}
                 </p>
+                <p className="-mt-4 mb-7">
+                  <Link
+                    href={allHalloweenHref}
+                    className="font-semibold text-[#ffb35c] hover:underline"
+                  >
+                    See every Halloween event →
+                  </Link>
+                </p>
                 <div className="relative flex flex-col gap-9">
                   <CrawlingSpider />
                   {beforeDays.map(([day, list]) => (
-                    <div key={day} className="flex flex-wrap gap-4 sm:gap-[18px]">
+                    <div key={day} className="flex gap-3 sm:gap-[18px]">
                       <Tombstone date={list[0].startDate} />
-                      <div className="flex min-w-0 flex-[1_1_600px] flex-col gap-3.5">
+                      <div className="flex min-w-0 flex-1 flex-col gap-3.5">
                         {list.map((event, i) => (
                           <EventCard key={event.id} event={event} index={i} />
                         ))}
@@ -479,6 +491,14 @@ export default async function HalloweenPage({
                     </div>
                   ))}
                 </div>
+                <p className="mt-8 text-center">
+                  <Link
+                    href={allHalloweenHref}
+                    className="font-semibold text-[#ffb35c] hover:underline"
+                  >
+                    See every Halloween event →
+                  </Link>
+                </p>
               </section>
             )}
 

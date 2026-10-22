@@ -47,9 +47,17 @@ function Cloud({ width, fill }: { width: number; fill: string }) {
   );
 }
 
-function Layer({ style, children }: { style: CSSProperties; children?: ReactNode }) {
+function Layer({
+  style,
+  className = '',
+  children,
+}: {
+  style: CSSProperties;
+  className?: string;
+  children?: ReactNode;
+}) {
   return (
-    <div aria-hidden="true" className="absolute" style={style}>
+    <div aria-hidden="true" className={`absolute ${className}`} style={style}>
       {children}
     </div>
   );
@@ -59,7 +67,7 @@ function Layer({ style, children }: { style: CSSProperties; children?: ReactNode
 export default function Sky({ children }: { children: ReactNode }) {
   return (
     <div
-      className="relative min-h-[470px] overflow-hidden pb-14 sm:min-h-[500px]"
+      className="relative overflow-hidden pb-8 sm:min-h-[500px] sm:pb-14"
       style={{
         background:
           'radial-gradient(circle at 50% 30%, #2c2a3a 0, #141320 30%, #07060c 62%, #030712 82%)',
@@ -169,7 +177,11 @@ export default function Sky({ children }: { children: ReactNode }) {
       <Raven style={{ left: 0, top: 70, animation: 'hw-raven 45s linear infinite -4s' }} />
       <Witch style={{ left: 0, top: 110, animation: 'hw-witch 60s linear infinite -10s' }} />
 
-      <Layer style={{ left: '7%', top: 0, animation: 'hw-dangle 5s ease-in-out infinite' }}>
+      {/* One thing too many on a phone's narrow sky */}
+      <Layer
+        className="hidden sm:block"
+        style={{ left: '7%', top: 0, animation: 'hw-dangle 5s ease-in-out infinite' }}
+      >
         <Spider thread={150} eyes="#ff2b2b" />
       </Layer>
       <Cobweb

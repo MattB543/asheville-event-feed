@@ -1,0 +1,259 @@
+/* Halloween page decorations. Every animation moves with transform/opacity only, so
+   none of it repaints the page while scrolling. */
+
+@keyframes hw-hover-a {
+  0%,
+  100% {
+    transform: translateX(-50px);
+  }
+  50% {
+    transform: translateX(50px);
+  }
+}
+@keyframes hw-hover-b {
+  0%,
+  100% {
+    transform: translateX(40px);
+  }
+  50% {
+    transform: translateX(-60px);
+  }
+}
+@keyframes hw-orbit {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes hw-orbit-back {
+  to {
+    transform: rotate(-360deg);
+  }
+}
+@keyframes hw-flap {
+  0%,
+  100% {
+    transform: scaleY(1);
+  }
+  50% {
+    transform: scaleY(0.4);
+  }
+}
+@keyframes hw-twinkle {
+  0%,
+  100% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+@keyframes hw-glow {
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 0.85;
+  }
+}
+@keyframes hw-flicker {
+  0%,
+  100% {
+    opacity: 0.9;
+  }
+  40% {
+    opacity: 0.6;
+  }
+  45% {
+    opacity: 1;
+  }
+  70% {
+    opacity: 0.75;
+  }
+}
+@keyframes hw-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-14px);
+  }
+}
+@keyframes hw-rise {
+  0% {
+    transform: translateY(40px);
+    opacity: 0;
+  }
+  20%,
+  80% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(-260px);
+    opacity: 0;
+  }
+}
+@keyframes hw-wobble {
+  0%,
+  100% {
+    transform: translateX(0) rotate(-4deg);
+  }
+  50% {
+    transform: translateX(14px) rotate(4deg);
+  }
+}
+@keyframes hw-dangle {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(26px);
+  }
+}
+@keyframes hw-cross {
+  0% {
+    transform: translate(-340px, 40px);
+  }
+  50% {
+    transform: translate(0, -8px);
+  }
+  100% {
+    transform: translate(340px, 30px);
+  }
+}
+@keyframes hw-cross-back {
+  0% {
+    transform: translate(340px, -20px) scaleX(-1);
+  }
+  50% {
+    transform: translate(0, 22px) scaleX(-1);
+  }
+  100% {
+    transform: translate(-340px, -10px) scaleX(-1);
+  }
+}
+@keyframes hw-fog {
+  0%,
+  100% {
+    transform: translateX(-80px);
+    opacity: 0.35;
+  }
+  50% {
+    transform: translateX(80px);
+    opacity: 0.6;
+  }
+}
+@keyframes hw-veil {
+  0%,
+  100% {
+    transform: translateX(-140px);
+    opacity: 0;
+  }
+  30%,
+  70% {
+    opacity: 0.75;
+  }
+  50% {
+    transform: translateX(140px);
+    opacity: 0.8;
+  }
+}
+@keyframes hw-drip {
+  0%,
+  55% {
+    transform: translateY(0) scale(1);
+    opacity: 0;
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(120px) scale(0.8);
+    opacity: 0;
+  }
+}
+@keyframes hw-ooze {
+  0%,
+  100% {
+    transform: scaleY(1);
+  }
+  50% {
+    transform: scaleY(1.25);
+  }
+}
+@keyframes hw-apparition {
+  0%,
+  100% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  35%,
+  55% {
+    opacity: 0.6;
+    transform: translateY(-6px);
+  }
+  75% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+}
+@keyframes hw-eyes {
+  0%,
+  30%,
+  100% {
+    opacity: 0;
+    transform: scaleY(0.1);
+  }
+  36%,
+  58% {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+  61% {
+    transform: scaleY(0.1);
+  }
+  64%,
+  80% {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+  86% {
+    opacity: 0;
+  }
+}
+@keyframes hw-pass {
+  0% {
+    transform: translateX(-120px);
+  }
+  50% {
+    transform: translateX(50vw) translateY(-30px);
+  }
+  100% {
+    transform: translateX(calc(100vw + 120px));
+  }
+}
+
+.hw-flap {
+  animation: hw-flap 0.3s ease-in-out infinite;
+  transform-origin: center;
+}
+.hw-flicker {
+  animation: hw-flicker 2.2s infinite;
+}
+
+/* Decorations sit over the content without catching taps */
+.hw-float {
+  position: absolute;
+  z-index: 5;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hw-page *,
+  .hw-page *::before,
+  .hw-page *::after {
+    animation: none !important;
+  }
+}

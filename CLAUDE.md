@@ -767,6 +767,10 @@ Event pages show the same match: `EventSpotifyPlayer` asks `/api/events/[id]/tra
 
 Needs `SPOTIFY_CLIENT_ID`, `SPOTIFY_CLIENT_SECRET`, `SPOTIFY_PLAYLIST_ID` and `SPOTIFY_REFRESH_TOKEN`, the last from logging in once as the playlist's owner with the `playlist-modify-public playlist-modify-private` scopes. If Spotify ever issues a new refresh token the run logs a warning; that value replaces the env var. `npm run playlist:local` previews against `DATABASE_URL`; `-- --apply` updates the real playlist.
 
+### Halloween page (`/halloween`)
+
+Seasonal and unlinked. Halloween-season events (`lib/db/queries/halloween.ts`: a title word list, or "halloween" in the AI summary; Family-tagged events left out) from today through Oct 31 ET, weirdest first by `scoreAshevilleWeird`. The two nights ending Oct 31 get a taped poster wall (top 10); earlier days show up to 3 cards each. Posters that won't load turn into a drawn flyer (`components/halloween/Poster.tsx`). Decorations live in `components/halloween/` and animate only transform/opacity; reduced-motion turns them off. After Oct 31 the page says Halloween is over. Through October (the `SEASONS` list in `lib/seasons.ts`, built so other holidays can join) every page's header shows an orange banner, a pumpkin beside the logo and a Halloween item in the Events menu, all linking here; the browser re-checks the date, so cached pages drop them on Nov 1.
+
 ### Local News (`/news`)
 
 Built to `docs/news/05-v1-plan.md`; Matt's decisions are in `docs/news/decisions.md`.

@@ -5,7 +5,7 @@ import { getListedEventCount, getEventMetadata } from '@/lib/db/queries/events';
 import type { EventMetadata } from '@/lib/db/queries/events';
 import { cleanEventIds, getEventsByIds } from '@/lib/db/queries/sharedList';
 import { formatDateEastern, getStartOfTodayEastern } from '@/lib/utils/timezone';
-import { hasRealEventImage } from '@/lib/utils/eventImages';
+import { hasLoadableEventImage } from '@/lib/utils/eventImages';
 
 const DEFAULT_METADATA: Metadata = {
   title: 'Your List',
@@ -59,10 +59,7 @@ export async function generateMetadata({
     );
   const more = shared.length > 3 ? ` · +${shared.length - 3} more` : '';
   const description = `${listed.join(' · ')}${more}`;
-  // Mountain Xpress refuses image requests from other sites, so its posters would preview blank
-  const image = shared.find(
-    (e) => hasRealEventImage(e.imageUrl) && !e.imageUrl!.includes('mountainx.com')
-  )?.imageUrl;
+  const image = shared.find((e) => hasLoadableEventImage(e.imageUrl))?.imageUrl;
   return {
     title,
     description,

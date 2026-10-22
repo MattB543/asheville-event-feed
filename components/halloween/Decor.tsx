@@ -56,7 +56,8 @@ export function Bat({
       className="hw-flap"
       style={{ animationDuration: flap }}
     >
-      <path d={BAT_PATH} fill={color} />
+      {/* A faint moonlit edge keeps a dark bat visible against the dark sky */}
+      <path d={BAT_PATH} fill={color} stroke="#a898c4" strokeOpacity=".55" strokeWidth="1.1" />
     </svg>
   );
 }
@@ -353,6 +354,9 @@ export function Raven({ style }: { style: CSSProperties }) {
         <path
           d="M35 14c-6-8-18-12-35-8 12 2 20 8 24 14-6 0-10 2-12 5 8-2 14-1 18 2l5 5 3-3c2 0 6 1 9 3-1-3-3-5-6-6 4-2 8-6 10-12-7 4-12 5-16 4 4-4 10-8 30-10-14-3-25 0-30 6z"
           fill="#07040a"
+          stroke="#a898c4"
+          strokeOpacity=".55"
+          strokeWidth="0.9"
         />
         <circle cx="38" cy="20" r="1.2" fill="#ffcf3b" />
       </svg>
@@ -365,11 +369,13 @@ export function Witch({ style }: { style: CSSProperties }) {
   return (
     <div aria-hidden="true" className="absolute" style={style}>
       <svg width="76" height="44" viewBox="0 0 70 40">
-        <path d="M0 30 L48 22" stroke="#07040a" strokeWidth="2.4" />
-        <path d="M48 22 l18 -6 -2 8 4 6 -18 -2z" fill="#07040a" />
-        <path d="M22 26l4-14 6 0 2 12z" fill="#07040a" />
-        <path d="M24 12l5-12 4 12z" fill="#07040a" />
-        <path d="M18 12h20" stroke="#07040a" strokeWidth="3" />
+        <g stroke="#a898c4" strokeOpacity=".5" strokeWidth="0.8">
+          <path d="M0 30 L48 22" stroke="#07040a" strokeWidth="2.4" />
+          <path d="M48 22 l18 -6 -2 8 4 6 -18 -2z" fill="#07040a" />
+          <path d="M22 26l4-14 6 0 2 12z" fill="#07040a" />
+          <path d="M24 12l5-12 4 12z" fill="#07040a" />
+          <path d="M18 12h20" stroke="#07040a" strokeWidth="3" />
+        </g>
       </svg>
     </div>
   );
@@ -401,14 +407,35 @@ export function Embers({ style }: { style: CSSProperties }) {
   );
 }
 
-/** A dead leaf tumbling down the page */
-export function Leaf({ style, color }: { style: CSSProperties; color: string }) {
+const LEAF_COLORS = ['#b4470c', '#7a2e0e', '#8a5a12', '#a3360b', '#6b3a10'];
+
+/** A gust of dead leaves blowing across the page every so often */
+export function LeafGust({ top, delay }: { top: string; delay: number }) {
   return (
-    <div aria-hidden="true" className="hw-float" style={style}>
-      <svg width="18" height="18" viewBox="0 0 20 20">
-        <path d="M10 0C4 4 2 10 10 20 18 10 16 4 10 0z" fill={color} />
-        <path d="M10 2v17" stroke="#3a1a08" strokeWidth=".8" />
-      </svg>
+    <div aria-hidden="true" className="hw-float inset-x-0 h-24" style={{ top }}>
+      {Array.from({ length: 9 }, (_, i) => (
+        <div
+          key={i}
+          className="absolute left-0"
+          style={{
+            top: (i * 37) % 80,
+            animation: `hw-gust 26s cubic-bezier(.4,.1,.6,.9) infinite ${delay - i * 0.35}s`,
+          }}
+        >
+          <svg
+            width={14 + (i % 3) * 4}
+            height={14 + (i % 3) * 4}
+            viewBox="0 0 20 20"
+            style={{ animation: `hw-tumble ${1.2 + (i % 4) * 0.3}s linear infinite` }}
+          >
+            <path
+              d="M10 0C4 4 2 10 10 20 18 10 16 4 10 0z"
+              fill={LEAF_COLORS[i % LEAF_COLORS.length]}
+            />
+            <path d="M10 2v17" stroke="#3a1a08" strokeWidth=".8" />
+          </svg>
+        </div>
+      ))}
     </div>
   );
 }

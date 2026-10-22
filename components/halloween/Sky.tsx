@@ -6,15 +6,10 @@ import { Bat, Cobweb, Raven, Spider, Witch } from './Decor';
 const CLOUDS: [string, number, number, number, string, 'a' | 'b', number, number][] = [
   ['calc(50% - 300px)', 120, 300, 0.85, '#24222f', 'a', 14, 0],
   ['calc(50% - 40px)', 170, 260, 0.9, '#1b1a25', 'b', 18, -4],
-  ['calc(50% - 220px)', 60, 220, 0.55, '#34313f', 'b', 12, -2],
   ['calc(50% + 40px)', 96, 200, 0.7, '#2a2834', 'a', 16, -8],
   ['calc(50% - 140px)', 205, 360, 0.8, '#13121b', 'a', 20, -10],
-  ['calc(50% + 120px)', 40, 170, 0.45, '#34313f', 'b', 11, -5],
   ['calc(50% - 460px)', 150, 320, 0.7, '#1b1a25', 'b', 22, -3],
   ['calc(50% + 200px)', 150, 340, 0.75, '#1f1d29', 'a', 19, -12],
-  ['calc(50% - 520px)', 40, 260, 0.45, '#2a2834', 'a', 24, -7],
-  ['calc(50% + 300px)', 30, 280, 0.5, '#24222f', 'b', 21, -15],
-  ['calc(50% - 90px)', 130, 180, 0.55, '#1b1a25', 'b', 9, -1],
   ['calc(50% - 360px)', 240, 420, 0.85, '#0f0e16', 'b', 26, -9],
   ['calc(50% + 160px)', 235, 400, 0.85, '#0f0e16', 'a', 23, -6],
 ];
@@ -23,19 +18,16 @@ const CLOUDS: [string, number, number, number, string, 'a' | 'b', number, number
 const ORBITING_BATS: [number, number, number, boolean, number][] = [
   [120, 40, 16, false, 0],
   [150, 28, 22, true, -6],
-  [185, 22, 27, false, -14],
   [100, 32, 19, true, -3],
-  [210, 18, 31, false, -20],
 ];
 
 // [top, width, seconds, reverse, delay]: bats flying straight across its face
 const CROSSING_BATS: [number, number, number, boolean, number][] = [
   [140, 44, 9, false, 0],
   [170, 30, 12, true, -5],
-  [125, 22, 15, false, -11],
 ];
 
-const STARS = Array.from({ length: 26 }, (_, i) => ({
+const STARS = Array.from({ length: 16 }, (_, i) => ({
   left: `${(i * 37) % 100}%`,
   top: ((i * 53) % 230) + 10,
   size: i % 4 === 0 ? 3 : 2,
@@ -174,14 +166,11 @@ export default function Sky({ children }: { children: ReactNode }) {
         </Layer>
       ))}
 
-      <Raven style={{ left: 0, top: 70, animation: 'hw-raven 26s linear infinite -4s' }} />
-      <Witch style={{ left: 0, top: 110, animation: 'hw-witch 40s linear infinite -10s' }} />
+      <Raven style={{ left: 0, top: 70, animation: 'hw-raven 45s linear infinite -4s' }} />
+      <Witch style={{ left: 0, top: 110, animation: 'hw-witch 60s linear infinite -10s' }} />
 
       <Layer style={{ left: '7%', top: 0, animation: 'hw-dangle 5s ease-in-out infinite' }}>
         <Spider thread={150} eyes="#ff2b2b" />
-      </Layer>
-      <Layer style={{ right: '10%', top: 0, animation: 'hw-dangle 6.5s ease-in-out infinite -2s' }}>
-        <Spider thread={90} eyes="#ff2b2b" />
       </Layer>
       <Cobweb
         size={160}

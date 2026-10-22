@@ -309,20 +309,39 @@
     opacity: 0;
   }
 }
-@keyframes hw-leaf {
+@keyframes hw-gust {
   0% {
-    transform: translate(0, -40px) rotate(0);
+    transform: translate(-40px, 0);
     opacity: 0;
   }
-  8% {
-    opacity: 0.9;
+  3% {
+    opacity: 0.95;
   }
-  90% {
-    opacity: 0.9;
+  12% {
+    transform: translate(30vw, 40px);
   }
+  24% {
+    transform: translate(65vw, -10px);
+  }
+  34% {
+    transform: translate(calc(100vw + 40px), 30px);
+    opacity: 0.95;
+  }
+  35%,
   100% {
-    transform: translate(90px, 900px) rotate(720deg);
+    transform: translate(calc(100vw + 40px), 30px);
     opacity: 0;
+  }
+}
+@keyframes hw-tumble {
+  from {
+    transform: rotate(0deg) scaleX(1);
+  }
+  50% {
+    transform: rotate(180deg) scaleX(0.5);
+  }
+  to {
+    transform: rotate(360deg) scaleX(1);
   }
 }
 @keyframes hw-burst {

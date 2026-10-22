@@ -12,7 +12,7 @@ import {
   CrawlingSpider,
   Embers,
   FloatingCandles,
-  Leaf,
+  LeafGust,
   LowFog,
   Cobweb,
   DripLetter,
@@ -299,7 +299,7 @@ export default async function HalloweenPage({
           from now through {longDay(halloweenDate)}
         </p>
         {!over && (
-          <div className="absolute right-3 top-3 sm:right-6">
+          <div className="absolute right-3 top-11 sm:right-6">
             <AudienceToggle audience={audience} />
           </div>
         )}
@@ -322,18 +322,8 @@ export default async function HalloweenPage({
 
       <div className="relative mx-auto flex w-full max-w-[1180px] flex-grow flex-col gap-16 px-4 pb-10 pt-10 sm:px-6">
         {/* Things that drift over the content and fade away */}
-        <Leaf
-          color="#b4470c"
-          style={{ left: '22%', top: '8%', animation: 'hw-leaf 26s linear infinite' }}
-        />
-        <Leaf
-          color="#7a2e0e"
-          style={{ left: '64%', top: '36%', animation: 'hw-leaf 32s linear infinite -12s' }}
-        />
-        <Leaf
-          color="#8a5a12"
-          style={{ left: '8%', top: '62%', animation: 'hw-leaf 29s linear infinite -20s' }}
-        />
+        <LeafGust top="4%" delay={0} />
+        <LeafGust top="52%" delay={-13} />
         <div
           className="hw-float left-[34%] top-[6%] opacity-80"
           style={{ animation: 'hw-rise 12s ease-in-out infinite' }}

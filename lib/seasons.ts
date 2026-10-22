@@ -1,4 +1,8 @@
-import { getTodayStringEastern } from '@/lib/utils/timezone';
+import {
+  formatDateEastern,
+  getDayBoundariesEastern,
+  getTodayStringEastern,
+} from '@/lib/utils/timezone';
 
 /**
  * Holidays that get a page of their own. While one is on (Eastern dates, inclusive),
@@ -12,8 +16,8 @@ export const SEASONS = [
     href: '/halloween',
     label: 'Halloween',
     short: 'Halloween in Asheville',
-    banner:
-      'Halloween in Asheville: the strangest, spookiest things to do through Saturday, Oct 31',
+    // {end} becomes the season's last day, weekday included ("Saturday, Oct 31")
+    banner: 'Halloween in Asheville: the strangest, spookiest things to do through {end}',
   },
 ] as const;
 
@@ -24,4 +28,13 @@ export type SeasonKey = Season['key'];
 export function currentSeason(today = getTodayStringEastern()): Season | null {
   const monthDay = today.slice(5);
   return SEASONS.find((s) => monthDay >= s.start && monthDay <= s.end) ?? null;
+}
+
+/** The season's banner with this year's end date filled in */
+export function seasonBanner(season: Season, today = getTodayStringEastern()): string {
+  const end = getDayBoundariesEastern(`${today.slice(0, 4)}-${season.end}`).start;
+  return season.banner.replace(
+    '{end}',
+    formatDateEastern(end, { weekday: 'long', month: 'short', day: 'numeric' })
+  );
 }

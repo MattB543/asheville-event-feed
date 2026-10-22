@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Ghost, type LucideIcon } from 'lucide-react';
 import { Bat, Pumpkin } from '@/components/halloween/Decor';
-import type { SeasonKey } from '@/lib/seasons';
+import { seasonBanner, type SeasonKey } from '@/lib/seasons';
 import { useSeason } from './useSeason';
 
 // Each season's look: the badge beside the logo, the banner's mark and the menu icon
@@ -29,7 +29,7 @@ export function SeasonalBadge({ season }: { season: SeasonKey | null }) {
   return (
     <Link
       href={current.href}
-      aria-label={current.banner}
+      aria-label={seasonBanner(current)}
       title={current.label}
       className="-ml-0.5 shrink-0 transition-transform hover:scale-110 lg:-ml-2"
     >
@@ -51,7 +51,7 @@ export function SeasonalBanner({ season }: { season: SeasonKey | null }) {
     >
       {look.mark}
       <span className="truncate sm:hidden">{current.short}</span>
-      <span className="hidden truncate sm:inline">{current.banner}</span>
+      <span className="hidden truncate sm:inline">{seasonBanner(current)}</span>
       <span className="sm:hidden">{look.endMark}</span>
       <span aria-hidden="true" className="hidden sm:inline">
         →

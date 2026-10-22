@@ -48,18 +48,23 @@ const title = 'Halloween in Asheville';
 const description =
   'The strangest, spookiest things to do in Asheville before Halloween: goth proms, drag, burlesque, horror screenings and haunted storytelling.';
 
-export const metadata: Metadata = {
-  title: `${title}: the wildest events`,
-  description,
-  alternates: { canonical: `${SITE_URL}/halloween` },
-  openGraph: {
-    title,
+// The year is in the search title, since that's how people search for this
+export function generateMetadata(): Metadata {
+  const year = getTodayStringEastern().slice(0, 4);
+  return {
+    title: `${title} ${year}: Events & Things to Do`,
     description,
-    url: `${SITE_URL}/halloween`,
-    siteName: 'AVL GO',
-    type: 'website',
-  },
-};
+    alternates: { canonical: `${SITE_URL}/halloween` },
+    openGraph: {
+      title: `${title} ${year}`,
+      description,
+      url: `${SITE_URL}/halloween`,
+      siteName: 'AVL GO',
+      type: 'website',
+    },
+    twitter: { card: 'summary_large_image', title: `${title} ${year}`, description },
+  };
+}
 
 const WEEKEND_PICKS = 10;
 const PER_DAY = 3;

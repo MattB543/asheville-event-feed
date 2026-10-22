@@ -11,7 +11,8 @@ export const SEASONS = [
     end: '10-31',
     href: '/halloween',
     label: 'Halloween',
-    banner: 'The strangest, spookiest things to do from now through Saturday, Oct 31',
+    banner:
+      'Halloween in Asheville: the strangest, spookiest things to do through Saturday, Oct 31',
   },
 ] as const;
 

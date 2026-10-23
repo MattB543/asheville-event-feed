@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { Fragment, type ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { CalendarDays, Candy, Moon, Skull, Star, type LucideIcon } from 'lucide-react';
 import { connection } from 'next/server';
 import Header from '@/components/Header';
@@ -173,14 +173,12 @@ function EventCard({
         <div className="flex flex-wrap items-center gap-2">
           {time(event) && <span className="text-sm font-bold text-[#ffb35c]">{time(event)}</span>}
         </div>
-        <div className="flex items-start justify-between gap-2">
-          <Link
-            href={eventHref(event)}
-            className="text-xl font-bold leading-tight text-[#f1e7d0] no-underline hover:text-[#ffb35c]"
-          >
-            {event.title}
-          </Link>
-        </div>
+        <Link
+          href={eventHref(event)}
+          className="text-xl font-bold leading-tight text-[#f1e7d0] no-underline hover:text-[#ffb35c]"
+        >
+          {event.title}
+        </Link>
         <span className="text-sm text-gray-400">{venueLine(event)}</span>
         {event.aiSummary && (
           <p className="mt-1 line-clamp-3 text-[15px] leading-relaxed text-gray-300 sm:line-clamp-none">
@@ -239,31 +237,30 @@ function ChoicePanel({ rows }: { rows: { label: string; options: PillOption[] }[
       <Cobweb size={44} style={{ position: 'absolute', right: -2, top: -2, opacity: 0.35 }} />
       <div className="flex flex-col gap-2">
         {rows.map((row) => (
-          <Fragment key={row.label}>
-            {/* The row's question is for screen readers; the icons and words say it on screen */}
-            <div
-              role="group"
-              aria-label={row.label}
-              className="flex gap-1 rounded-full bg-black/40 p-1 ring-1 ring-[#7a5426]/50"
-            >
-              {row.options.map(({ label, href, active, icon: Icon }) => (
-                <Link
-                  key={label}
-                  href={href}
-                  scroll={false}
-                  aria-current={active ? 'true' : undefined}
-                  className={`inline-flex flex-1 items-center justify-center gap-1.5 whitespace-nowrap rounded-full px-3 py-1.5 text-sm font-semibold transition-all ${
-                    active
-                      ? 'bg-[#ff8a1f] text-[#1a0a00] shadow-[0_0_14px_rgba(255,138,31,.65)]'
-                      : 'text-[#e8cfa8] hover:bg-white/10 hover:text-[#ffd7a8]'
-                  }`}
-                >
-                  {Icon && <Icon size={15} aria-hidden="true" />}
-                  {label}
-                </Link>
-              ))}
-            </div>
-          </Fragment>
+          // The row's question is for screen readers; the icons and words say it on screen
+          <div
+            key={row.label}
+            role="group"
+            aria-label={row.label}
+            className="flex gap-1 rounded-full bg-black/40 p-1 ring-1 ring-[#7a5426]/50"
+          >
+            {row.options.map(({ label, href, active, icon: Icon }) => (
+              <Link
+                key={label}
+                href={href}
+                scroll={false}
+                aria-current={active ? 'true' : undefined}
+                className={`inline-flex flex-1 items-center justify-center gap-1.5 whitespace-nowrap rounded-full px-3 py-1.5 text-sm font-semibold transition-all ${
+                  active
+                    ? 'bg-[#ff8a1f] text-[#1a0a00] shadow-[0_0_14px_rgba(255,138,31,.65)]'
+                    : 'text-[#e8cfa8] hover:bg-white/10 hover:text-[#ffd7a8]'
+                }`}
+              >
+                {Icon && <Icon size={15} aria-hidden="true" />}
+                {label}
+              </Link>
+            ))}
+          </div>
         ))}
       </div>
     </div>
@@ -328,10 +325,15 @@ export default async function HalloweenPage({
   const addedIds = family
     ? []
     : [...seasonPicks.values()].filter((p) => p.added && !p.hidden).map((p) => p.eventId);
-  const handAdded = await getEventsForWall(addedIds).catch((error: unknown) => {
-    console.error('[Halloween] Failed to load hand-added events:', error);
-    return [] as HalloweenEvent[];
-  });
+  const pageStart = getDayBoundariesEastern(today).start;
+  const pageEnd = getDayBoundariesEastern(halloween).end;
+  // Kept to the page's dates, so one that has passed or been moved drops off like the rest
+  const handAdded = (
+    await getEventsForWall(addedIds).catch((error: unknown) => {
+      console.error('[Halloween] Failed to load hand-added events:', error);
+      return [] as HalloweenEvent[];
+    })
+  ).filter((e) => e.startDate >= pageStart && e.startDate <= pageEnd);
   const withEdits = [...handAdded, ...events.filter((e) => !addedIds.includes(e.id))].map((e) => {
     const posterUrl = seasonPicks.get(e.id)?.posterUrl;
     return posterUrl ? { ...e, imageUrl: posterUrl } : e;

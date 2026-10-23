@@ -14,6 +14,28 @@ interface AdminControlsProps {
   variant?: 'inline' | 'overlay';
 }
 
+// The host refuses request bodies over about 4.5 MB, which many phone photos are; the
+// server re-encodes anyway, so a 2000px JPEG loses nothing it would keep
+const UPLOAD_MAX_SIDE = 2000;
+
+async function shrinkForUpload(file: File): Promise<Blob> {
+  try {
+    const bitmap = await createImageBitmap(file);
+    const scale = Math.min(1, UPLOAD_MAX_SIDE / Math.max(bitmap.width, bitmap.height));
+    const canvas = document.createElement('canvas');
+    canvas.width = Math.round(bitmap.width * scale);
+    canvas.height = Math.round(bitmap.height * scale);
+    canvas.getContext('2d')?.drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+    const blob = await new Promise<Blob | null>((resolve) =>
+      canvas.toBlob(resolve, 'image/jpeg', 0.88)
+    );
+    return blob ?? file;
+  } catch {
+    // A format the browser can't draw goes up as is, and the server says if it's too big
+    return file;
+  }
+}
+
 /** Super-admin only: hide an event from a holiday page, take a hand-added one off, or give it a poster */
 export default function AdminControls({
   season,
@@ -103,11 +125,13 @@ export default function AdminControls({
             const file = event.target.files?.[0];
             event.target.value = '';
             if (!file) return;
-            const form = new FormData();
-            form.set('season', season);
-            form.set('eventId', eventId);
-            form.set('poster', file);
-            send({ body: form });
+            void shrinkForUpload(file).then((image) => {
+              const form = new FormData();
+              form.set('season', season);
+              form.set('eventId', eventId);
+              form.set('poster', image, 'poster.jpg');
+              send({ body: form });
+            });
           }}
         />
       </label>

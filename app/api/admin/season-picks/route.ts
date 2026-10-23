@@ -14,7 +14,8 @@ import { uploadEventImage } from '@/lib/supabase/storage';
 import { isRecord } from '@/lib/utils/validation';
 
 const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
-const MAX_POSTER_BYTES = 15 * 1024 * 1024;
+// The host's own request limit is about 4.5 MB; the page shrinks photos before sending
+const MAX_POSTER_BYTES = 4 * 1024 * 1024;
 
 const isSeason = (value: unknown): value is string =>
   SEASONS.some((season) => season.key === value);
@@ -37,7 +38,7 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({ error: 'Unknown season or event' }, { status: 400 });
       }
       if (!(poster instanceof File) || poster.size === 0 || poster.size > MAX_POSTER_BYTES) {
-        return NextResponse.json({ error: 'Choose an image under 15 MB' }, { status: 400 });
+        return NextResponse.json({ error: 'That image is too large to upload' }, { status: 400 });
       }
       const image = await normalizeImage(Buffer.from(await poster.arrayBuffer()));
       if (!image.ok) return NextResponse.json({ error: image.message }, { status: 400 });

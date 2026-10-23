@@ -145,7 +145,8 @@ function WallPoster({ event, index }: { event: HalloweenEvent; index: number }) 
 function EventCard({ event, index }: { event: HalloweenEvent; index: number }) {
   const cost = price(event);
   return (
-    // On phones the poster sits above the text, which then gets the card's full width
+    // On phones the poster sits above the text, which then gets the card's full width; a
+    // 3-line summary there keeps the long day lists scrollable
     <article className="relative flex flex-col gap-4 rounded-[14px] border border-[#3b2a5c] bg-gradient-to-br from-[#160d22] to-[#0c0912] to-60% p-4 shadow-[0_0_24px_rgba(124,58,237,.12)] sm:flex-row sm:gap-5 sm:px-5">
       <Cobweb size={64} style={{ position: 'absolute', right: 0, top: 0, opacity: 0.4 }} />
       <Link
@@ -169,7 +170,9 @@ function EventCard({ event, index }: { event: HalloweenEvent; index: number }) {
         </Link>
         <span className="text-sm text-gray-400">{venueLine(event)}</span>
         {event.aiSummary && (
-          <p className="mt-1 text-[15px] leading-relaxed text-gray-300">{event.aiSummary}</p>
+          <p className="mt-1 line-clamp-3 text-[15px] leading-relaxed text-gray-300 sm:line-clamp-none">
+            {event.aiSummary}
+          </p>
         )}
         <div className="mt-2 flex flex-wrap items-center gap-2">
           {cost && (

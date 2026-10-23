@@ -21,6 +21,7 @@ import {
   Pumpkin,
   SheetGhost,
   SkullDivider,
+  Spider,
   Specter,
   Bat,
 } from '@/components/halloween/Decor';
@@ -425,7 +426,7 @@ export default async function HalloweenPage({
         ) : (
           <>
             {picks.length > 0 && (
-              <section className="relative pb-6">
+              <section id="weekend" className="relative scroll-mt-4 pb-6">
                 <LowFog />
                 <div className="flex items-center gap-3.5">
                   <span className="relative">
@@ -519,11 +520,27 @@ export default async function HalloweenPage({
               <p className="py-16 text-center text-gray-400">No Halloween events are listed yet.</p>
             ) : (
               // Outside "Before the big night", which is empty on Oct 30 and 31
-              <p className="-mt-8 text-center">
+              <div className="-mt-8 flex flex-col items-center gap-3 text-center">
                 <Link href={moreHref} className="font-semibold text-[#ffb35c] hover:underline">
                   See more Halloween events →
                 </Link>
-              </p>
+                {/* Only worth offering when there's a long list between here and the wall */}
+                {picks.length > 0 && beforeDays.length > 0 && (
+                  <a
+                    href="#weekend"
+                    className="hw-climb group mt-2 flex flex-col items-center text-[#ffb35c]"
+                  >
+                    <span aria-hidden="true" className="hw-climb-spider block">
+                      <Spider thread={46} eyes="#ff2b2b" />
+                    </span>
+                    <span
+                      className={`${creepster.className} text-xl tracking-wide group-hover:text-[#ffd7a8]`}
+                    >
+                      Climb back up to {weekendHeading}
+                    </span>
+                  </a>
+                )}
+              </div>
             )}
           </>
         )}

@@ -142,23 +142,19 @@ function WallPoster({ event, index }: { event: HalloweenEvent; index: number }) 
 function EventCard({ event, index }: { event: HalloweenEvent; index: number }) {
   const cost = price(event);
   return (
-    <article className="relative flex flex-wrap gap-5 rounded-[14px] border border-[#3b2a5c] bg-gradient-to-br from-[#160d22] to-[#0c0912] to-60% p-4 shadow-[0_0_24px_rgba(124,58,237,.12)] sm:px-5">
+    // On phones the poster sits above the text, which then gets the card's full width
+    <article className="relative flex flex-col gap-4 rounded-[14px] border border-[#3b2a5c] bg-gradient-to-br from-[#160d22] to-[#0c0912] to-60% p-4 shadow-[0_0_24px_rgba(124,58,237,.12)] sm:flex-row sm:gap-5 sm:px-5">
       <Cobweb size={64} style={{ position: 'absolute', right: 0, top: 0, opacity: 0.4 }} />
       <Link
         href={eventHref(event)}
         tabIndex={-1}
         aria-hidden="true"
-        className="w-[96px] shrink-0 self-start bg-[#f3eee2] p-[7px] shadow-[0_10px_20px_rgba(0,0,0,.55)] sm:w-[170px]"
+        className="w-[170px] shrink-0 self-start bg-[#f3eee2] p-[7px] shadow-[0_10px_20px_rgba(0,0,0,.55)]"
         style={{ transform: `rotate(${index % 2 ? '1.5deg' : '-1.5deg'})` }}
       >
-        <Poster
-          src={image(event)}
-          title={event.title}
-          sizes="(min-width: 640px) 170px, 96px"
-          flyerTextClass="text-[20px]"
-        />
+        <Poster src={image(event)} title={event.title} sizes="170px" flyerTextClass="text-[20px]" />
       </Link>
-      <div className="flex min-w-0 flex-[1_1_180px] flex-col gap-1.5">
+      <div className="flex min-w-0 flex-col gap-1.5 sm:flex-1">
         <div className="flex flex-wrap items-center gap-2">
           {time(event) && <span className="text-sm font-bold text-[#ffb35c]">{time(event)}</span>}
         </div>

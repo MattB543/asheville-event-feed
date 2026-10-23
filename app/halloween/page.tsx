@@ -589,7 +589,10 @@ export default async function HalloweenPage({
                     ]}
                   />
                 </div>
-                {admin && <AdminWallSearch season="halloween" onWall={picks.map((e) => e.id)} />}
+                {/* Hand-added events only show After dark, so that's the only place to add them */}
+                {admin && !family && (
+                  <AdminWallSearch season="halloween" onWall={picks.map((e) => e.id)} />
+                )}
                 {/* Dealt round-robin into columns so the order reads across: two on phones,
                     four from md. Each layout is its own copy because columns can't re-deal */}
                 {[2, 4].map((n) => (

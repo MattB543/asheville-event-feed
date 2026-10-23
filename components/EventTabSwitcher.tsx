@@ -7,14 +7,11 @@ import { useSearchParams } from 'next/navigation';
 import IntentLink from '@/components/IntentLink';
 import { useDismiss } from '@/lib/hooks/useDismiss';
 import { useSeasonalMenuItem } from '@/components/seasonal/SeasonalLinks';
-import type { SeasonKey } from '@/lib/seasons';
 
 export type HeaderTab = 'all' | 'top30' | 'yourList' | 'groups' | 'news' | 'playlist' | 'parking';
 
 interface EventTabSwitcherProps {
   activeTab?: HeaderTab;
-  /** The holiday season the server sees running, if any */
-  season?: SeasonKey | null;
 }
 
 /**
@@ -36,7 +33,7 @@ function TabsWithQuery(props: EventTabSwitcherProps) {
   return <Tabs {...props} query={searchParams.toString()} />;
 }
 
-function Tabs({ activeTab, season = null, query }: EventTabSwitcherProps & { query: string }) {
+function Tabs({ activeTab, query }: EventTabSwitcherProps & { query: string }) {
   // Build URL preserving other query params
   // Groups and News link to their own plain routes (see below); only the event tabs carry params
   const buildTabUrl = (tab: 'all' | 'top30') => {
@@ -67,7 +64,6 @@ function Tabs({ activeTab, season = null, query }: EventTabSwitcherProps & { que
         activeTab={activeTab}
         allHref={buildTabUrl('all')}
         top30Href={buildTabUrl('top30')}
-        season={season}
       />
       {/* Plain /groups: the feed's filter params mean nothing in the directory.
           /events, /groups, /news and /playlist are dynamic, so they prefetch on hover, not on sight */}
@@ -112,12 +108,10 @@ function EventsMenu({
   activeTab,
   allHref,
   top30Href,
-  season,
 }: {
   activeTab?: HeaderTab;
   allHref: string;
   top30Href: string;
-  season: SeasonKey | null;
 }) {
   const menuId = useId();
   const rootRef = useRef<HTMLDivElement>(null);
@@ -137,7 +131,7 @@ function EventsMenu({
       active: activeTab === 'yourList',
     },
   ];
-  const seasonal = useSeasonalMenuItem(season);
+  const seasonal = useSeasonalMenuItem();
   if (seasonal) items.push({ ...seasonal, active: false });
 
   return (

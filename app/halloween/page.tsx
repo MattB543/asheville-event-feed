@@ -42,6 +42,7 @@ import {
 } from '@/lib/utils/timezone';
 import { venueLine } from '@/lib/utils/venueName';
 import { SITE_URL } from '@/lib/seo/site';
+import { currentSeason } from '@/lib/seasons';
 import './halloween.css';
 
 const title = 'Halloween in Asheville';
@@ -89,8 +90,6 @@ const SAVED_POSTERS = new Set([
   '518a629a-d693-474e-a8fc-50f558c7abb8',
   '3d3f5832-5753-4bcd-b570-32466b7d510d',
   'b634f90b-7101-4f44-aaec-996da7d65a91',
-  '4fe23d8e-01fb-47b5-b8df-cf2e122e39cb',
-  '29a6965e-8f41-4fc8-ba57-965b8a08cfb1',
   '0c3f213b-f593-4082-a47f-d983b14bf1e0',
 ]);
 const image = (e: HalloweenEvent) =>
@@ -124,7 +123,7 @@ function WallPoster({ event, index }: { event: HalloweenEvent; index: number }) 
           title={event.title}
           when={when}
           venue={venueLine(event)}
-          sizes="(min-width: 1024px) 280px, (min-width: 640px) 45vw, 90vw"
+          sizes="(min-width: 1024px) 280px, (min-width: 768px) 22vw, 45vw"
           flyerTextClass="text-[20px] sm:text-[28px]"
         />
         <div className="pt-[9px] text-[#1a1416]">
@@ -152,7 +151,12 @@ function EventCard({ event, index }: { event: HalloweenEvent; index: number }) {
         className="w-[96px] shrink-0 self-start bg-[#f3eee2] p-[7px] shadow-[0_10px_20px_rgba(0,0,0,.55)] sm:w-[170px]"
         style={{ transform: `rotate(${index % 2 ? '1.5deg' : '-1.5deg'})` }}
       >
-        <Poster src={image(event)} title={event.title} sizes="170px" flyerTextClass="text-[20px]" />
+        <Poster
+          src={image(event)}
+          title={event.title}
+          sizes="(min-width: 640px) 170px, 96px"
+          flyerTextClass="text-[20px]"
+        />
       </Link>
       <div className="flex min-w-0 flex-[1_1_180px] flex-col gap-1.5">
         <div className="flex flex-wrap items-center gap-2">
@@ -244,6 +248,8 @@ export default async function HalloweenPage({
   const today = getTodayStringEastern();
   const halloween = `${today.slice(0, 4)}-10-31`;
   const eve = addDaysToDateString(halloween, -1);
+  // Open through October; the rest of the year it only says when it's back
+  const open = currentSeason(today)?.key === 'halloween';
   const over = today > halloween;
   const daysLeft = Math.round(
     (Date.parse(`${halloween}T12:00:00Z`) - Date.parse(`${today}T12:00:00Z`)) / 86_400_000
@@ -251,7 +257,7 @@ export default async function HalloweenPage({
 
   let events: HalloweenEvent[] = [];
   let failed = false;
-  if (!over) {
+  if (open) {
     try {
       events = await getCachedHalloweenEvents(today, audience);
     } catch (error) {
@@ -262,7 +268,6 @@ export default async function HalloweenPage({
 
   const bigStart = getDayBoundariesEastern(eve).start;
   const picks = events.filter((e) => e.startDate >= bigStart).slice(0, WEEKEND_PICKS);
-  const columns = [0, 1, 2, 3].map((c) => picks.filter((_, i) => i % 4 === c));
   const days = new Map<string, HalloweenEvent[]>();
   for (const e of events.filter((e) => e.startDate < bigStart)) {
     const key = getDateStringEastern(e.startDate);
@@ -277,8 +282,11 @@ export default async function HalloweenPage({
   )
     ? 'Halloween weekend'
     : 'Halloween eve and night';
-  // The full feed, searched for Halloween over the same dates, for anyone who wants more
-  const allHalloweenHref = `/events?search=halloween&dateFilter=custom&dateStart=${today}&dateEnd=${halloween}`;
+  // The full feed, searched for "halloween" over the same dates (it can't run this page's
+  // word list, so it's "more", not "every"); the family view keeps to family events
+  const moreHref = `/events?search=halloween&dateFilter=custom&dateStart=${today}&dateEnd=${halloween}${
+    family ? '&tagsInclude=Family' : ''
+  }`;
   const longDay = (d: Date) =>
     formatDateEastern(d, { weekday: 'long', month: 'short', day: 'numeric' });
 
@@ -294,18 +302,20 @@ export default async function HalloweenPage({
         >
           Halloween in Ashevill{family ? 'e' : <DripLetter>e</DripLetter>}
         </h1>
-        <p className="mt-3 text-[17px] text-[#d6d0e6]">
-          {family
-            ? 'Trick-or-treating, costume parades and spooky fun for kids'
-            : 'The strangest, spookiest things to do'}{' '}
-          from now through {longDay(halloweenDate)}
-        </p>
-        {!over && (
+        {open && (
+          <p className="mt-3 text-[17px] text-[#d6d0e6]">
+            {family
+              ? 'Trick-or-treating, costume parades and spooky fun for kids'
+              : 'The strangest, spookiest things to do'}{' '}
+            from now through {longDay(halloweenDate)}
+          </p>
+        )}
+        {open && (
           <div className="absolute right-3 top-11 sm:right-6">
             <AudienceToggle audience={audience} />
           </div>
         )}
-        {!over && (
+        {open && (
           <div className="mt-4 inline-flex items-center gap-2.5 rounded-full border border-[#ff8a1f]/45 bg-[#ff8a1f]/10 py-2 pl-2.5 pr-4">
             <Pumpkin size={30} />
             {daysLeft > 0 ? (
@@ -403,11 +413,13 @@ export default async function HalloweenPage({
           <Bat width={22} color="#0a0612" flap="0.26s" />
         </div>
 
-        {over ? (
+        {!open ? (
           <p className="py-16 text-center text-lg text-gray-300">
-            Halloween is over for this year.{' '}
+            {over
+              ? 'Halloween is over for this year.'
+              : 'Halloween events show up here on October 1.'}{' '}
             <Link href="/events" className="text-[#ffb35c] hover:underline">
-              See what&apos;s on next
+              See what&apos;s on {over ? 'next' : 'now'}
             </Link>
           </p>
         ) : failed ? (
@@ -436,15 +448,24 @@ export default async function HalloweenPage({
                     </p>
                   </div>
                 </div>
-                <div className="mt-9 flex flex-wrap gap-[26px]">
-                  {columns.map((column, c) => (
-                    <div key={c} className="flex min-w-0 flex-[1_1_150px] flex-col gap-[34px]">
-                      {column.map((event, i) => (
-                        <WallPoster key={event.id} event={event} index={i * 4 + c} />
-                      ))}
-                    </div>
-                  ))}
-                </div>
+                {/* Dealt round-robin into columns so the ranking reads across: two on phones,
+                    four from md. Each layout is its own copy because columns can't re-deal */}
+                {[2, 4].map((n) => (
+                  <div
+                    key={n}
+                    className={`mt-9 gap-[26px] ${n === 2 ? 'flex md:hidden' : 'hidden md:flex'}`}
+                  >
+                    {Array.from({ length: n }, (_, c) => (
+                      <div key={c} className="flex min-w-0 flex-1 flex-col gap-[34px]">
+                        {picks
+                          .filter((_, i) => i % n === c)
+                          .map((event, i) => (
+                            <WallPoster key={event.id} event={event} index={i * n + c} />
+                          ))}
+                      </div>
+                    ))}
+                  </div>
+                ))}
               </section>
             )}
 
@@ -471,17 +492,15 @@ export default async function HalloweenPage({
                     : 'The wildest Halloween events until then'}
                 </p>
                 <p className="-mt-4 mb-7">
-                  <Link
-                    href={allHalloweenHref}
-                    className="font-semibold text-[#ffb35c] hover:underline"
-                  >
-                    See every Halloween event →
+                  <Link href={moreHref} className="font-semibold text-[#ffb35c] hover:underline">
+                    See more Halloween events →
                   </Link>
                 </p>
                 <div className="relative flex flex-col gap-9">
                   <CrawlingSpider />
                   {beforeDays.map(([day, list]) => (
-                    <div key={day} className="flex gap-3 sm:gap-[18px]">
+                    // On phones the date stands on its own line so the cards get the full width
+                    <div key={day} className="flex flex-col gap-3 sm:flex-row sm:gap-[18px]">
                       <Tombstone date={list[0].startDate} />
                       <div className="flex min-w-0 flex-1 flex-col gap-3.5">
                         {list.map((event, i) => (
@@ -491,19 +510,18 @@ export default async function HalloweenPage({
                     </div>
                   ))}
                 </div>
-                <p className="mt-8 text-center">
-                  <Link
-                    href={allHalloweenHref}
-                    className="font-semibold text-[#ffb35c] hover:underline"
-                  >
-                    See every Halloween event →
-                  </Link>
-                </p>
               </section>
             )}
 
-            {picks.length === 0 && beforeDays.length === 0 && (
+            {picks.length === 0 && beforeDays.length === 0 ? (
               <p className="py-16 text-center text-gray-400">No Halloween events are listed yet.</p>
+            ) : (
+              // Outside "Before the big night", which is empty on Oct 30 and 31
+              <p className="-mt-8 text-center">
+                <Link href={moreHref} className="font-semibold text-[#ffb35c] hover:underline">
+                  See more Halloween events →
+                </Link>
+              </p>
             )}
           </>
         )}

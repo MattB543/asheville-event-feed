@@ -5,7 +5,6 @@ import UserMenu from '@/components/UserMenu';
 import EventTabSwitcher, { type HeaderTab } from '@/components/EventTabSwitcher';
 import CityStatusBadges from '@/components/cityStatus/CityStatusBadges';
 import { SeasonalBadge, SeasonalBanner } from '@/components/seasonal/SeasonalLinks';
-import { currentSeason } from '@/lib/seasons';
 
 /** "Open-sourced by Matt" (the footers carry a longer FooterCredit) */
 function Attribution({ className }: { className: string }) {
@@ -41,11 +40,9 @@ interface HeaderProps {
 }
 
 export default function Header({ activeTab }: HeaderProps) {
-  // The browser re-checks the date, so a cached page loses these once October ends
-  const season = currentSeason()?.key ?? null;
   return (
     <>
-      <SeasonalBanner season={season} />
+      <SeasonalBanner />
       <header className="group/header bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
         <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-3 sm:py-4">
           {/* Mobile/Tablet layout */}
@@ -62,7 +59,7 @@ export default function Header({ activeTab }: HeaderProps) {
                   className="h-[19px] sm:h-[24px] w-auto dark:brightness-0 dark:invert"
                 />
               </Link>
-              <SeasonalBadge season={season} />
+              <SeasonalBadge />
               <Attribution className="ml-auto min-w-0 truncate text-xs" />
               <div className="flex shrink-0 items-center gap-1 sm:gap-2">
                 <SubmitEventButton />
@@ -71,7 +68,7 @@ export default function Header({ activeTab }: HeaderProps) {
               </div>
             </div>
             {/* Row 2: Tabs */}
-            <EventTabSwitcher activeTab={activeTab} season={season} />
+            <EventTabSwitcher activeTab={activeTab} />
             {/* Row 3: water notice, only while one is active */}
             <CityStatusBadges layout="mobile" />
           </div>
@@ -88,10 +85,10 @@ export default function Header({ activeTab }: HeaderProps) {
                   className="h-[22px] xl:h-[26px] w-auto dark:brightness-0 dark:invert"
                 />
               </Link>
-              <SeasonalBadge season={season} />
+              <SeasonalBadge />
               {/* Any water notice sits right after the last tab */}
               <div className="flex items-center gap-1">
-                <EventTabSwitcher activeTab={activeTab} season={season} />
+                <EventTabSwitcher activeTab={activeTab} />
                 <CityStatusBadges layout="desktop" />
               </div>
             </div>

@@ -118,6 +118,7 @@ export default function Sky({ children }: { children: ReactNode }) {
       ].map((v, i) => (
         <Layer
           key={i}
+          className="hw-moving"
           style={{
             left: `calc(50% - ${v.width / 2}px)`,
             top: v.top,
@@ -133,6 +134,7 @@ export default function Sky({ children }: { children: ReactNode }) {
       {CROSSING_BATS.map(([top, width, seconds, reverse, delay], i) => (
         <Layer
           key={i}
+          className="hw-moving"
           style={{
             left: 'calc(50% - 20px)',
             top,
@@ -146,6 +148,7 @@ export default function Sky({ children }: { children: ReactNode }) {
       {ORBITING_BATS.map(([radius, width, seconds, reverse, delay], i) => (
         <Layer
           key={i}
+          className="hw-moving"
           style={{
             left: '50%',
             top: 160,

@@ -6,7 +6,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useDismiss } from '@/lib/hooks/useDismiss';
 
 export default function ThemeToggle() {
-  const { theme, setTheme, resolvedTheme } = useTheme();
+  const { theme, setTheme, resolvedTheme, forcedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -16,6 +16,9 @@ export default function ThemeToggle() {
   useEffect(() => setMounted(true), []);
 
   useDismiss(isOpen, () => setIsOpen(false), [dropdownRef]);
+
+  // Nothing to switch on a page drawn for one theme (DARK_ONLY in ThemeProvider)
+  if (forcedTheme) return null;
 
   if (!mounted) {
     return (

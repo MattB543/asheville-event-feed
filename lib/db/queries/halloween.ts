@@ -1,5 +1,5 @@
 import { unstable_cache } from 'next/cache';
-import { and, gte, lte, sql } from 'drizzle-orm';
+import { and, gte, isNull, lte, notIlike, or, sql } from 'drizzle-orm';
 import { db } from '@/lib/db';
 import { events } from '@/lib/db/schema';
 import { liveEvent } from '@/lib/db/liveEvent';
@@ -40,6 +40,11 @@ export async function getHalloweenEvents(from: Date, to: Date, audience: Hallowe
         liveEvent,
         gte(events.startDate, from),
         lte(events.startDate, to),
+        // In person only, as in the feed and Top 30
+        or(
+          isNull(events.location),
+          and(notIlike(events.location, '%online%'), notIlike(events.location, '%virtual%'))
+        ),
         sql`(${events.title} ~* ${HALLOWEEN_TITLE} OR ${events.aiSummary} ~* 'halloween')`,
         audience === 'family' ? family : sql`NOT ${family}`
       )
@@ -47,13 +52,15 @@ export async function getHalloweenEvents(from: Date, to: Date, audience: Hallowe
     .orderBy(
       ...(audience === 'family' ? [] : [sql`${events.scoreAshevilleWeird} DESC NULLS LAST`]),
       sql`${events.score} DESC NULLS LAST`,
-      events.startDate
+      events.startDate,
+      // Ties can't trade places across the per-day and poster cutoffs
+      events.id
     )
     .limit(300);
 }
 
-// Bump when the cached rows' shape changes: Vercel's data cache survives deploys
-const HALLOWEEN_CACHE_SHAPE = 'v1';
+// Bump when the cached rows' shape or the filter changes: Vercel's data cache survives deploys
+const HALLOWEEN_CACHE_SHAPE = 'v2';
 
 /**
  * From the start of `today` (Eastern) through Oct 31, cached per day and view. The

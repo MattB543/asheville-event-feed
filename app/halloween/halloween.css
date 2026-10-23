@@ -274,6 +274,12 @@
   .hw-page *::after {
     animation: none !important;
   }
+  /* Stopped mid-flight these would sit in odd heaps (bats piled by the moon, the witch
+     on the cobweb), so they're left out */
+  .hw-page .hw-float,
+  .hw-page .hw-moving {
+    display: none;
+  }
 }
 
 /* Extras that show up now and then: each moves for part of its loop and waits off-screen the rest */

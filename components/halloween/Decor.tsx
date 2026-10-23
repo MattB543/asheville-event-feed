@@ -1,6 +1,7 @@
-import type { CSSProperties } from 'react';
+import { useId, type CSSProperties } from 'react';
 
-// Hand-drawn Halloween pieces, all decoration: hidden from screen readers
+// Hand-drawn Halloween pieces, all decoration: hidden from screen readers. `hw-moving`
+// marks pieces that only make sense in motion; reduced motion hides them (halloween.css)
 
 const BAT_PATH =
   'M23 9c-2-4-6-6-10-6 2 2 2 5 0 7-3-2-8-2-13 1 4 0 7 3 8 7 3-3 8-4 12-2l3 4 3-4c4-2 9-1 12 2 1-4 4-7 8-7-5-3-10-3-13-1-2-2-2-5 0-7-4 0-8 2-10 6z';
@@ -9,7 +10,16 @@ const SPECTER_PATH =
 const COBWEB_LINES = 'M90 0L20 70M90 0L0 40M90 0L50 90M90 0L2 4';
 const COBWEB_RINGS = 'M74 0Q76 15 90 16M56 0Q60 30 90 34M36 0Q44 50 90 56M16 1Q30 68 90 78';
 
-export function Pumpkin({ size, glow = false }: { size: number; glow?: boolean }) {
+/** `still` drops the flickering face, for use outside the Halloween page */
+export function Pumpkin({
+  size,
+  glow = false,
+  still = false,
+}: {
+  size: number;
+  glow?: boolean;
+  still?: boolean;
+}) {
   return (
     <svg
       aria-hidden="true"
@@ -30,7 +40,7 @@ export function Pumpkin({ size, glow = false }: { size: number; glow?: boolean }
       <ellipse cx="46" cy="38" rx="14" ry="20" fill="#d9620f" />
       <ellipse cx="32" cy="38" rx="14" ry="22" fill="#ff8a1f" />
       <path
-        className="hw-flicker"
+        className={still ? undefined : 'hw-flicker'}
         d="M18 29l7 7H13zM46 29l-7 7h12zM32 38l3 5h-6zM16 46q16 11 32 0l-5 3-3-3-4 4-4-4-4 4-4-4-3 3z"
         fill="#ffd34d"
       />
@@ -38,14 +48,17 @@ export function Pumpkin({ size, glow = false }: { size: number; glow?: boolean }
   );
 }
 
+/** `still` keeps the wings open, for use outside the Halloween page */
 export function Bat({
   width,
   color = '#07040d',
   flap = '0.3s',
+  still = false,
 }: {
   width: number;
   color?: string;
   flap?: string;
+  still?: boolean;
 }) {
   return (
     <svg
@@ -53,8 +66,8 @@ export function Bat({
       width={width}
       height={width / 2}
       viewBox="0 0 46 22"
-      className="hw-flap"
-      style={{ animationDuration: flap }}
+      className={still ? undefined : 'hw-flap'}
+      style={still ? undefined : { animationDuration: flap }}
     >
       {/* A faint moonlit edge keeps a dark bat visible against the dark sky */}
       <path d={BAT_PATH} fill={color} stroke="#a898c4" strokeOpacity=".55" strokeWidth="1.1" />
@@ -64,16 +77,18 @@ export function Bat({
 
 /** A hooded, fading figure with a dark face */
 export function Specter({ width, eyes = true }: { width: number; eyes?: boolean }) {
+  // One gradient per ghost: an id shared by several on the page isn't valid
+  const gradient = useId();
   return (
     <svg aria-hidden="true" width={width} height={width * 2} viewBox="0 0 80 160">
       <defs>
-        <linearGradient id="hw-specter" x1="0" y1="0" x2="0" y2="1">
+        <linearGradient id={gradient} x1="0" y1="0" x2="0" y2="1">
           <stop offset="0" stopColor="#cfd8e3" stopOpacity=".7" />
           <stop offset=".7" stopColor="#9aa8b8" stopOpacity=".3" />
           <stop offset="1" stopColor="#9aa8b8" stopOpacity="0" />
         </linearGradient>
       </defs>
-      <path d={SPECTER_PATH} fill="url(#hw-specter)" />
+      <path d={SPECTER_PATH} fill={`url(#${gradient})`} />
       <path d="M24 30q16-14 32 0v18q-16 8-32 0z" fill="#030712" opacity=".92" />
       {eyes && (
         <>
@@ -237,7 +252,8 @@ export function Graveyard() {
         preserveAspectRatio="xMidYMax meet"
         className="absolute bottom-0 left-0"
       >
-        <path d="M0 150V118Q320 96 640 112T1280 108V150Z" fill="#0b0814" />
+        {/* The ground runs past the drawing's edges so it reaches the sides of wide screens */}
+        <path d="M-2000 150V118H0Q320 96 640 112T1280 108H3280V150Z" fill="#0b0814" />
         <g fill="#2a2d36" stroke="#3d414d" strokeWidth="2">
           <path d="M180 122V78Q180 56 205 56Q230 56 230 78V122Z" />
           <path d="M300 120V92H286V80H300V66H314V80H328V92H314V120Z" />
@@ -275,7 +291,7 @@ export function Graveyard() {
 export function BloodDrips() {
   const drop = (left: string, top: number, delay: string, size: number) => (
     <span
-      className="absolute"
+      className="hw-moving absolute"
       style={{
         left,
         top,
@@ -330,7 +346,7 @@ export function DripLetter({ children }: { children: string }) {
           <ellipse cx="5.6" cy="22" rx="0.9" ry="2" fill="#e05a66" opacity=".7" />
         </svg>
         <span
-          className="absolute left-1/2 top-[26px] -ml-[3px] block h-[8px] w-[6px]"
+          className="hw-moving absolute left-1/2 top-[26px] -ml-[3px] block h-[8px] w-[6px]"
           style={{
             borderRadius: '50% 50% 50% 50% / 60% 60% 40% 40%',
             background: '#9b111e',
@@ -345,7 +361,7 @@ export function DripLetter({ children }: { children: string }) {
 /** A raven that crosses now and then */
 export function Raven({ style }: { style: CSSProperties }) {
   return (
-    <div aria-hidden="true" className="absolute" style={style}>
+    <div aria-hidden="true" className="hw-moving absolute" style={style}>
       <svg
         width="70"
         height="34"
@@ -369,7 +385,7 @@ export function Raven({ style }: { style: CSSProperties }) {
 /** A witch on a broom, a silhouette like the bats */
 export function Witch({ style }: { style: CSSProperties }) {
   return (
-    <div aria-hidden="true" className="absolute" style={style}>
+    <div aria-hidden="true" className="hw-moving absolute" style={style}>
       <svg width="76" height="44" viewBox="0 0 70 40">
         <g stroke="#a898c4" strokeOpacity=".5" strokeWidth="0.8">
           <path d="M0 30 L48 22" stroke="#07040a" strokeWidth="2.4" />

@@ -21,3 +21,11 @@ export function hasRealEventImage(imageUrl: string | null | undefined): boolean 
   if (imageUrl === DEFAULT_EVENT_IMAGE) return false;
   return !PLACEHOLDER_URL_PARTS.some((part) => imageUrl.includes(part));
 }
+
+/**
+ * A real image another site can show. Mountain Xpress refuses image requests from
+ * other sites, so its posters load nowhere but its own pages.
+ */
+export function hasLoadableEventImage(imageUrl: string | null | undefined): imageUrl is string {
+  return hasRealEventImage(imageUrl) && !imageUrl!.includes('mountainx.com');
+}

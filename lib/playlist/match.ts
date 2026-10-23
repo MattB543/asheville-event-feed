@@ -148,12 +148,6 @@ function credits(artists: SpotifyArtist[]): string {
 async function searchTrackForArtist(
   artistName: string
 ): Promise<{ track: SpotifyTrack; kind: 'primary' | 'feature' } | string> {
-  // Unquoted field filter: quoting it turns off Spotify's popularity ranking
-  let items = await searchTracks(`artist:${artistName}`);
-  // Freeform fallback for names the field filter chokes on, e.g. "Curren$y"
-  if (items.length === 0) items = await searchTracks(artistName);
-  if (items.length === 0) return `no Spotify tracks for '${artistName}'`;
-
   const target = normalizeName(artistName);
   // Only the query-inside-Spotify-name direction: the reverse matched "Save Me
   // the Waltz" to an unrelated band called "save me."
@@ -167,15 +161,23 @@ async function searchTrackForArtist(
     return words.length >= 2 && words.every((w) => targetWords.has(w));
   };
 
+  // Unquoted field filter first: quoting it turns off Spotify's popularity ranking.
+  // Then freeform, for names the filter chokes on ("Curren$y") or splits ("Boogie T"
+  // came back as Big Boogie), so a feature only wins when neither finds the act itself
   let feature: SpotifyTrack | null = null;
-  for (const track of items) {
-    const names = track.artists.map((a) => normalizeName(a.name));
-    if (names.length === 0) continue;
-    if (matches(names[0])) return { track, kind: 'primary' };
-    if (!feature && names.some(matches)) feature = track;
+  let top: SpotifyTrack | null = null;
+  for (const query of [`artist:${artistName}`, artistName]) {
+    const items = await searchTracks(query);
+    top ??= items[0] ?? null;
+    for (const track of items) {
+      const names = track.artists.map((a) => normalizeName(a.name));
+      if (names.length === 0) continue;
+      if (matches(names[0])) return { track, kind: 'primary' };
+      if (!feature && names.some(matches)) feature = track;
+    }
   }
   if (feature) return { track: feature, kind: 'feature' };
-  const top = items[0];
+  if (!top) return `no Spotify tracks for '${artistName}'`;
   return `no track credits matched '${artistName}' (top hit: '${top.name}' by ${credits(top.artists)})`;
 }
 

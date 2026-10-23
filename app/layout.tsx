@@ -4,6 +4,8 @@ import './globals.css';
 import Providers from '@/components/Providers';
 import { JsonLd } from '@/components/JsonLd';
 import { SITE_DESCRIPTION, SITE_NAME, SITE_OPEN_GRAPH, SITE_TITLE, SITE_URL } from '@/lib/seo/site';
+import { RenderDateProvider } from '@/components/seasonal/useSeason';
+import { getTodayStringEastern } from '@/lib/utils/timezone';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -126,7 +128,10 @@ export default function RootLayout({
         <JsonLd />
       </head>
       <body className={inter.className}>
-        <Providers>{children}</Providers>
+        {/* The one date the page renders with; useSeason hydrates from it */}
+        <RenderDateProvider today={getTodayStringEastern()}>
+          <Providers>{children}</Providers>
+        </RenderDateProvider>
       </body>
     </html>
   );

@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import IntentLink from '@/components/IntentLink';
 import { useDismiss } from '@/lib/hooks/useDismiss';
+import { useSeasonalMenuItem } from '@/components/seasonal/SeasonalLinks';
 
 export type HeaderTab = 'all' | 'top30' | 'yourList' | 'groups' | 'news' | 'playlist' | 'parking';
 
@@ -130,6 +131,8 @@ function EventsMenu({
       active: activeTab === 'yourList',
     },
   ];
+  const seasonal = useSeasonalMenuItem();
+  if (seasonal) items.push({ ...seasonal, active: false });
 
   return (
     <div ref={rootRef} className="group/events relative">

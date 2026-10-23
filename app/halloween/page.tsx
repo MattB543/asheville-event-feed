@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { Fragment } from 'react';
+import { CalendarDays, Candy, Moon, Skull, Star, type LucideIcon } from 'lucide-react';
 import { connection } from 'next/server';
 import Header from '@/components/Header';
 import FooterCredit from '@/components/FooterCredit';
@@ -211,23 +213,42 @@ function Tombstone({ date }: { date: Date }) {
   );
 }
 
-function AudienceToggle({ audience }: { audience: HalloweenAudience }) {
-  const option = (value: HalloweenAudience, label: string, href: string) => (
-    <Link
-      href={href}
-      scroll={false}
-      aria-current={audience === value ? 'true' : undefined}
-      className={`rounded-full px-3 py-1 text-xs font-semibold transition-colors ${
-        audience === value ? 'bg-[#ff8a1f] text-[#1a0a00]' : 'text-[#ffd7a8] hover:bg-white/10'
-      }`}
-    >
-      {label}
-    </Link>
-  );
+type PillOption = { label: string; href: string; active: boolean; icon?: LucideIcon };
+
+/** The page's choices on one candlelit plaque: who it's for, then the order */
+function ChoicePanel({ rows }: { rows: { label: string; options: PillOption[] }[] }) {
   return (
-    <div className="flex gap-0.5 rounded-full border border-white/15 bg-black/50 p-0.5">
-      {option('wild', 'After dark', '/halloween')}
-      {option('family', 'Family-friendly', '/halloween?for=family')}
+    <div className="relative w-full shrink-0 rounded-2xl border border-[#7a5426]/60 bg-gradient-to-b from-[#24160c] to-[#120a05] p-3 shadow-[inset_0_0_24px_rgba(0,0,0,.7),0_0_28px_rgba(255,138,31,.14)] sm:w-auto">
+      <Cobweb size={44} style={{ position: 'absolute', right: -2, top: -2, opacity: 0.35 }} />
+      <div className="flex flex-col gap-2">
+        {rows.map((row) => (
+          <Fragment key={row.label}>
+            {/* The row's question is for screen readers; the icons and words say it on screen */}
+            <div
+              role="group"
+              aria-label={row.label}
+              className="flex gap-1 rounded-full bg-black/40 p-1 ring-1 ring-[#7a5426]/50"
+            >
+              {row.options.map(({ label, href, active, icon: Icon }) => (
+                <Link
+                  key={label}
+                  href={href}
+                  scroll={false}
+                  aria-current={active ? 'true' : undefined}
+                  className={`inline-flex flex-1 items-center justify-center gap-1.5 whitespace-nowrap rounded-full px-3 py-1.5 text-sm font-semibold transition-all ${
+                    active
+                      ? 'bg-[#ff8a1f] text-[#1a0a00] shadow-[0_0_14px_rgba(255,138,31,.65)]'
+                      : 'text-[#e8cfa8] hover:bg-white/10 hover:text-[#ffd7a8]'
+                  }`}
+                >
+                  {Icon && <Icon size={15} aria-hidden="true" />}
+                  {label}
+                </Link>
+              ))}
+            </div>
+          </Fragment>
+        ))}
+      </div>
     </div>
   );
 }
@@ -235,10 +256,22 @@ function AudienceToggle({ audience }: { audience: HalloweenAudience }) {
 export default async function HalloweenPage({
   searchParams,
 }: {
-  searchParams: Promise<{ for?: string }>;
+  searchParams: Promise<{ for?: string; sort?: string }>;
 }) {
-  const audience: HalloweenAudience = (await searchParams).for === 'family' ? 'family' : 'wild';
+  const params = await searchParams;
+  const audience: HalloweenAudience = params.for === 'family' ? 'family' : 'wild';
   const family = audience === 'family';
+  // The picks are always the top-ranked ones; the sort only changes the order they're shown in
+  const byDate = params.sort !== 'ranked';
+  const pageHref = (forFamily: boolean, ranked: boolean) => {
+    const query = new URLSearchParams();
+    if (forFamily) query.set('for', 'family');
+    if (ranked) query.set('sort', 'ranked');
+    const q = query.toString();
+    return `/halloween${q ? `?${q}` : ''}`;
+  };
+  const chronological = (a: HalloweenEvent, b: HalloweenEvent) =>
+    a.startDate.getTime() - b.startDate.getTime() || a.id.localeCompare(b.id);
   // Per request: the countdown and "before the big night" move with the date
   await connection();
 
@@ -264,14 +297,20 @@ export default async function HalloweenPage({
   }
 
   const bigStart = getDayBoundariesEastern(eve).start;
-  const picks = events.filter((e) => e.startDate >= bigStart).slice(0, WEEKEND_PICKS);
+  const ranked = events.filter((e) => e.startDate >= bigStart).slice(0, WEEKEND_PICKS);
+  const picks = byDate ? [...ranked].sort(chronological) : ranked;
   const days = new Map<string, HalloweenEvent[]>();
   for (const e of events.filter((e) => e.startDate < bigStart)) {
     const key = getDateStringEastern(e.startDate);
     const list = days.get(key) ?? [];
     if (list.length < PER_DAY) days.set(key, [...list, e]);
   }
-  const beforeDays = [...days.entries()].sort(([a], [b]) => a.localeCompare(b));
+  const beforeDays = [...days.entries()]
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([day, list]): [string, HalloweenEvent[]] => [
+      day,
+      byDate ? [...list].sort(chronological) : list,
+    ]);
 
   const halloweenDate = getDayBoundariesEastern(halloween).start;
   const weekendHeading = ['Sat', 'Sun'].includes(
@@ -306,11 +345,6 @@ export default async function HalloweenPage({
               : 'The strangest, spookiest things to do'}{' '}
             from now through {longDay(halloweenDate)}
           </p>
-        )}
-        {open && (
-          <div className="absolute right-3 top-11 sm:right-6">
-            <AudienceToggle audience={audience} />
-          </div>
         )}
         {open && (
           <div className="mt-4 inline-flex items-center gap-2.5 rounded-full border border-[#ff8a1f]/45 bg-[#ff8a1f]/10 py-2 pl-2.5 pr-4">
@@ -428,30 +462,75 @@ export default async function HalloweenPage({
             {picks.length > 0 && (
               <section id="weekend" className="relative scroll-mt-4 pb-6">
                 <LowFog />
-                <div className="flex items-center gap-3.5">
-                  <span className="relative">
-                    <Pumpkin size={58} glow />
-                    <Embers style={{ left: 26, top: 10 }} />
-                  </span>
-                  <div>
-                    <h2
-                      className={`${creepster.className} m-0 text-[34px] tracking-wide text-[#ff9a3c] sm:text-[42px]`}
-                    >
-                      {weekendHeading}
-                    </h2>
-                    <p className="mt-0.5 text-gray-400">
-                      {longDay(bigStart)} and {longDay(halloweenDate)}
-                    </p>
-                    {/* Says it's a ranked cut, so a missing favorite reads as ranked out, not lost */}
-                    <p className="mt-1 text-sm text-gray-500">
-                      {family
-                        ? `The ${picks.length} top-rated family events of these two days.`
-                        : `The ${picks.length} most unusual events of these two days, ranked by how out-there each one is.`}{' '}
-                      Everything else is in the full list.
-                    </p>
+                <div className="flex flex-wrap items-end justify-between gap-4">
+                  <div className="flex items-center gap-3.5">
+                    <span className="relative">
+                      <Pumpkin size={58} glow />
+                      <Embers style={{ left: 26, top: 10 }} />
+                    </span>
+                    <div>
+                      <h2
+                        className={`${creepster.className} m-0 text-[34px] tracking-wide text-[#ff9a3c] sm:text-[42px]`}
+                      >
+                        {weekendHeading}
+                      </h2>
+                      <p className="mt-0.5 text-gray-400">
+                        {longDay(bigStart)} and {longDay(halloweenDate)}
+                      </p>
+                      {/* Says it's a ranked cut, so a missing favorite reads as ranked out, not lost */}
+                      <p className="mt-1 text-sm text-gray-500">
+                        {family
+                          ? `The ${picks.length} top-rated family events of these two days, `
+                          : `The ${picks.length} most unusual events of these two days, `}
+                        {byDate
+                          ? 'shown by start time.'
+                          : family
+                            ? 'best first.'
+                            : 'ranked by how out-there each one is.'}{' '}
+                        Everything else is in the full list.
+                      </p>
+                    </div>
                   </div>
+                  <ChoicePanel
+                    rows={[
+                      {
+                        label: "Who's it for?",
+                        options: [
+                          {
+                            label: 'After dark',
+                            href: pageHref(false, !byDate),
+                            active: !family,
+                            icon: Moon,
+                          },
+                          {
+                            label: 'Family',
+                            href: pageHref(true, !byDate),
+                            active: family,
+                            icon: Candy,
+                          },
+                        ],
+                      },
+                      {
+                        label: 'In what order?',
+                        options: [
+                          {
+                            label: 'By date',
+                            href: pageHref(family, false),
+                            active: byDate,
+                            icon: CalendarDays,
+                          },
+                          {
+                            label: family ? 'Top-rated' : 'Wildest',
+                            href: pageHref(family, true),
+                            active: !byDate,
+                            icon: family ? Star : Skull,
+                          },
+                        ],
+                      },
+                    ]}
+                  />
                 </div>
-                {/* Dealt round-robin into columns so the ranking reads across: two on phones,
+                {/* Dealt round-robin into columns so the order reads across: two on phones,
                     four from md. Each layout is its own copy because columns can't re-deal */}
                 {[2, 4].map((n) => (
                   <div

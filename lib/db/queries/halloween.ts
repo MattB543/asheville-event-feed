@@ -1,5 +1,5 @@
 import { unstable_cache } from 'next/cache';
-import { and, gte, isNull, lte, notIlike, or, sql } from 'drizzle-orm';
+import { and, gte, ilike, inArray, isNull, lte, notIlike, or, sql } from 'drizzle-orm';
 import { db } from '@/lib/db';
 import { events } from '@/lib/db/schema';
 import { liveEvent } from '@/lib/db/liveEvent';
@@ -9,6 +9,20 @@ import { getDayBoundariesEastern } from '@/lib/utils/timezone';
 // "Witches" counts and "Switchyard" doesn't; a summary that says "Halloween" counts too
 const HALLOWEEN_TITLE =
   '\\m(hallowe|spook|haunt|zombie|costume|ghost|witch|monster|vampire|horror|nosferatu|goth|dracula|creep|seance|séance|masquerade|day of the dead|muertos|trick.or.treat|boo\\M)';
+
+// What the page shows of an event, shared by the automatic picks and the hand-added ones
+const HALLOWEEN_COLUMNS = {
+  id: events.id,
+  title: events.title,
+  startDate: events.startDate,
+  timeUnknown: events.timeUnknown,
+  location: events.location,
+  organizer: events.organizer,
+  price: events.price,
+  imageUrl: events.imageUrl,
+  tags: events.tags,
+  aiSummary: events.aiSummary,
+};
 
 export type HalloweenEvent = Awaited<ReturnType<typeof getHalloweenEvents>>[number];
 
@@ -22,18 +36,7 @@ export type HalloweenAudience = 'wild' | 'family';
 export async function getHalloweenEvents(from: Date, to: Date, audience: HalloweenAudience) {
   const family = sql`'Family' = ANY(COALESCE(${events.tags}, '{}'))`;
   return db
-    .select({
-      id: events.id,
-      title: events.title,
-      startDate: events.startDate,
-      timeUnknown: events.timeUnknown,
-      location: events.location,
-      organizer: events.organizer,
-      price: events.price,
-      imageUrl: events.imageUrl,
-      tags: events.tags,
-      aiSummary: events.aiSummary,
-    })
+    .select(HALLOWEEN_COLUMNS)
     .from(events)
     .where(
       and(
@@ -82,4 +85,37 @@ export async function getCachedHalloweenEvents(
   )();
   // A cache hit comes back through JSON, dates as strings
   return rows.map((row) => ({ ...row, startDate: new Date(row.startDate) }));
+}
+
+/** Live events by id, for the ones an admin added to the wall by hand */
+export async function getEventsForWall(ids: string[]): Promise<HalloweenEvent[]> {
+  if (ids.length === 0) return [];
+  return db
+    .select(HALLOWEEN_COLUMNS)
+    .from(events)
+    .where(and(liveEvent, inArray(events.id, ids)));
+}
+
+/** Admin search: live events between two instants whose title has the words typed */
+export async function searchEventsBetween(query: string, from: Date, to: Date) {
+  const words = query.trim().split(/\s+/).filter(Boolean).slice(0, 6);
+  if (words.length === 0) return [];
+  return db
+    .select({
+      id: events.id,
+      title: events.title,
+      startDate: events.startDate,
+      location: events.location,
+    })
+    .from(events)
+    .where(
+      and(
+        liveEvent,
+        gte(events.startDate, from),
+        lte(events.startDate, to),
+        ...words.map((word) => ilike(events.title, `%${word.replace(/[%_\\]/g, '\\$&')}%`))
+      )
+    )
+    .orderBy(events.startDate)
+    .limit(12);
 }

@@ -797,6 +797,24 @@ export const playlistPicks = pgTable(
   })
 );
 
+// Hand edits to a holiday page: add, hide, or give an event a poster (drizzle/0023)
+export const seasonPicks = pgTable(
+  'season_picks',
+  {
+    season: text('season').notNull(),
+    eventId: uuid('event_id')
+      .notNull()
+      .references(() => events.id, { onDelete: 'cascade' }),
+    added: boolean('added').default(false).notNull(),
+    hidden: boolean('hidden').default(false).notNull(),
+    posterUrl: text('poster_url'),
+    updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow().notNull(),
+  },
+  (table) => ({
+    pk: primaryKey({ columns: [table.season, table.eventId] }),
+  })
+);
+
 // A one-line explanation of an unusual genre tag, for the /playlist tooltip.
 // A null note means the genre is common enough to need none.
 export const genreNotes = pgTable('genre_notes', {

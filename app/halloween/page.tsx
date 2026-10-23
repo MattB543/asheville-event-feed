@@ -1,11 +1,18 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import type { ReactNode } from 'react';
+import { CalendarDays, Candy, Moon, Skull, Star, type LucideIcon } from 'lucide-react';
 import { connection } from 'next/server';
 import Header from '@/components/Header';
 import FooterCredit from '@/components/FooterCredit';
 import Sky from '@/components/halloween/Sky';
 import Poster from '@/components/halloween/Poster';
 import HeartButton, { FavoritesSync } from '@/components/halloween/HeartButton';
+import AdminControls from '@/components/halloween/AdminControls';
+import AdminWallSearch from '@/components/halloween/AdminWallSearch';
+import { getSeasonPicks, type SeasonPick } from '@/lib/db/queries/seasonPicks';
+import { createClient } from '@/lib/supabase/server';
+import { isSuperAdmin } from '@/lib/utils/superAdmin';
 import {
   BatSwarm,
   BloodDrips,
@@ -21,12 +28,14 @@ import {
   Pumpkin,
   SheetGhost,
   SkullDivider,
+  Spider,
   Specter,
   Bat,
 } from '@/components/halloween/Decor';
 import { creepster, fraunces } from '@/components/halloween/fonts';
 import {
   getCachedHalloweenEvents,
+  getEventsForWall,
   type HalloweenAudience,
   type HalloweenEvent,
 } from '@/lib/db/queries/halloween';
@@ -83,66 +92,72 @@ const TILTS = [
 ];
 
 const eventHref = (e: HalloweenEvent) => `/events/${generateEventSlug(e.title, e.startDate, e.id)}`;
-// Posters saved by hand from sources that block other sites or whose links expired
-const SAVED_POSTERS = new Set([
-  '2847b5b6-e992-4d5a-8a33-b9980113c579',
-  'c5a5a9f8-146e-400f-a00c-22300421b9ab',
-  '518a629a-d693-474e-a8fc-50f558c7abb8',
-  '3d3f5832-5753-4bcd-b570-32466b7d510d',
-  'b634f90b-7101-4f44-aaec-996da7d65a91',
-  '0c3f213b-f593-4082-a47f-d983b14bf1e0',
-]);
-const image = (e: HalloweenEvent) =>
-  SAVED_POSTERS.has(e.id)
-    ? `/halloween/${e.id}.jpg`
-    : hasLoadableEventImage(e.imageUrl)
-      ? e.imageUrl
-      : null;
+const image = (e: HalloweenEvent) => (hasLoadableEventImage(e.imageUrl) ? e.imageUrl : null);
 const price = (e: HalloweenEvent) =>
   e.price && e.price !== 'Unknown' ? formatPriceDisplay(e.price) : null;
 const time = (e: HalloweenEvent) =>
   e.timeUnknown ? null : formatDateEastern(e.startDate, { hour: 'numeric', minute: '2-digit' });
 
-function WallPoster({ event, index }: { event: HalloweenEvent; index: number }) {
+function WallPoster({
+  event,
+  index,
+  controls,
+}: {
+  event: HalloweenEvent;
+  index: number;
+  controls?: ReactNode;
+}) {
   const day = formatDateEastern(event.startDate, { weekday: 'short' });
   const when = time(event) ? `${day} ${time(event)}` : day;
   const cost = price(event);
   return (
-    <Link href={eventHref(event)} className="block no-underline">
-      <div
-        className="relative bg-[#f3eee2] p-[9px] pb-3 shadow-[0_14px_28px_rgba(0,0,0,.6)]"
-        style={{ transform: `rotate(${TILTS[index % TILTS.length]})` }}
-      >
-        <span
-          aria-hidden="true"
-          className="absolute -top-[11px] left-1/2 -ml-[42px] h-[22px] w-[84px] bg-[rgba(230,220,180,.78)]"
-          style={{ transform: `rotate(${TILTS[(index + 3) % TILTS.length]})` }}
-        />
-        <Poster
-          src={image(event)}
-          title={event.title}
-          when={when}
-          venue={venueLine(event)}
-          sizes="(min-width: 1024px) 280px, (min-width: 768px) 22vw, 45vw"
-          flyerTextClass="text-[20px] sm:text-[28px]"
-        />
-        <div className="pt-[9px] text-[#1a1416]">
-          <div className="text-xs font-bold uppercase tracking-wide text-[#b4470c]">{when}</div>
-          <div className="mt-0.5 text-[15px] font-semibold leading-tight">{event.title}</div>
-          <div className="mt-0.5 text-[13px] text-[#5a5257]">
-            {venueLine(event)}
-            {cost && ` · ${cost}`}
+    <div className="group relative">
+      <Link href={eventHref(event)} className="block no-underline">
+        <div
+          className="relative bg-[#f3eee2] p-[9px] pb-3 shadow-[0_14px_28px_rgba(0,0,0,.6)]"
+          style={{ transform: `rotate(${TILTS[index % TILTS.length]})` }}
+        >
+          <span
+            aria-hidden="true"
+            className="absolute -top-[11px] left-1/2 -ml-[42px] h-[22px] w-[84px] bg-[rgba(230,220,180,.78)]"
+            style={{ transform: `rotate(${TILTS[(index + 3) % TILTS.length]})` }}
+          />
+          <Poster
+            src={image(event)}
+            title={event.title}
+            when={when}
+            venue={venueLine(event)}
+            sizes="(min-width: 1024px) 280px, (min-width: 768px) 22vw, 45vw"
+            flyerTextClass="text-[20px] sm:text-[28px]"
+          />
+          <div className="pt-[9px] text-[#1a1416]">
+            <div className="text-xs font-bold uppercase tracking-wide text-[#b4470c]">{when}</div>
+            <div className="mt-0.5 text-[15px] font-semibold leading-tight">{event.title}</div>
+            <div className="mt-0.5 text-[13px] text-[#5a5257]">
+              {venueLine(event)}
+              {cost && ` · ${cost}`}
+            </div>
           </div>
         </div>
-      </div>
-    </Link>
+      </Link>
+      {controls}
+    </div>
   );
 }
 
-function EventCard({ event, index }: { event: HalloweenEvent; index: number }) {
+function EventCard({
+  event,
+  index,
+  controls,
+}: {
+  event: HalloweenEvent;
+  index: number;
+  controls?: ReactNode;
+}) {
   const cost = price(event);
   return (
-    // On phones the poster sits above the text, which then gets the card's full width
+    // On phones the poster sits above the text, which then gets the card's full width; a
+    // 3-line summary there keeps the long day lists scrollable
     <article className="relative flex flex-col gap-4 rounded-[14px] border border-[#3b2a5c] bg-gradient-to-br from-[#160d22] to-[#0c0912] to-60% p-4 shadow-[0_0_24px_rgba(124,58,237,.12)] sm:flex-row sm:gap-5 sm:px-5">
       <Cobweb size={64} style={{ position: 'absolute', right: 0, top: 0, opacity: 0.4 }} />
       <Link
@@ -166,23 +181,26 @@ function EventCard({ event, index }: { event: HalloweenEvent; index: number }) {
         </Link>
         <span className="text-sm text-gray-400">{venueLine(event)}</span>
         {event.aiSummary && (
-          <p className="mt-1 text-[15px] leading-relaxed text-gray-300">{event.aiSummary}</p>
+          <p className="mt-1 line-clamp-3 text-[15px] leading-relaxed text-gray-300 sm:line-clamp-none">
+            {event.aiSummary}
+          </p>
         )}
         <div className="mt-2 flex flex-wrap items-center gap-2">
           {cost && (
-            <span className="rounded-[5px] border border-[#b4470c] bg-[#2b1405] px-2 py-0.5 text-[13px] font-bold text-[#ffb35c]">
+            <span className="inline-flex h-7 items-center rounded-[5px] border border-[#b4470c] bg-[#2b1405] px-2 text-[13px] font-bold text-[#ffb35c]">
               {cost}
             </span>
           )}
           {(event.tags ?? []).slice(0, 2).map((tag) => (
             <span
               key={tag}
-              className="rounded-[5px] border border-[#4c2f73] bg-[#221433] px-2 py-0.5 text-[13px] text-[#cdb8f5]"
+              className="inline-flex h-7 items-center rounded-[5px] border border-[#4c2f73] bg-[#221433] px-2 text-[13px] text-[#cdb8f5]"
             >
               {tag}
             </span>
           ))}
           <span className="flex-1" />
+          {controls}
           <HeartButton eventId={event.id} title={event.title} />
         </div>
       </div>
@@ -210,23 +228,41 @@ function Tombstone({ date }: { date: Date }) {
   );
 }
 
-function AudienceToggle({ audience }: { audience: HalloweenAudience }) {
-  const option = (value: HalloweenAudience, label: string, href: string) => (
-    <Link
-      href={href}
-      scroll={false}
-      aria-current={audience === value ? 'true' : undefined}
-      className={`rounded-full px-3 py-1 text-xs font-semibold transition-colors ${
-        audience === value ? 'bg-[#ff8a1f] text-[#1a0a00]' : 'text-[#ffd7a8] hover:bg-white/10'
-      }`}
-    >
-      {label}
-    </Link>
-  );
+type PillOption = { label: string; href: string; active: boolean; icon?: LucideIcon };
+
+/** The page's choices on one candlelit plaque: who it's for, then the order */
+function ChoicePanel({ rows }: { rows: { label: string; options: PillOption[] }[] }) {
   return (
-    <div className="flex gap-0.5 rounded-full border border-white/15 bg-black/50 p-0.5">
-      {option('wild', 'After dark', '/halloween')}
-      {option('family', 'Family-friendly', '/halloween?for=family')}
+    <div className="relative w-full shrink-0 rounded-2xl border border-[#7a5426]/60 bg-gradient-to-b from-[#24160c] to-[#120a05] p-3 shadow-[inset_0_0_24px_rgba(0,0,0,.7),0_0_28px_rgba(255,138,31,.14)] sm:w-auto">
+      <Cobweb size={44} style={{ position: 'absolute', right: -2, top: -2, opacity: 0.35 }} />
+      <div className="flex flex-col gap-2">
+        {rows.map((row) => (
+          // The row's question is for screen readers; the icons and words say it on screen
+          <div
+            key={row.label}
+            role="group"
+            aria-label={row.label}
+            className="flex gap-1 rounded-full bg-black/40 p-1 ring-1 ring-[#7a5426]/50"
+          >
+            {row.options.map(({ label, href, active, icon: Icon }) => (
+              <Link
+                key={label}
+                href={href}
+                scroll={false}
+                aria-current={active ? 'true' : undefined}
+                className={`inline-flex flex-1 items-center justify-center gap-1.5 whitespace-nowrap rounded-full px-3 py-1.5 text-sm font-semibold transition-all ${
+                  active
+                    ? 'bg-[#ff8a1f] text-[#1a0a00] shadow-[0_0_14px_rgba(255,138,31,.65)]'
+                    : 'text-[#e8cfa8] hover:bg-white/10 hover:text-[#ffd7a8]'
+                }`}
+              >
+                {Icon && <Icon size={15} aria-hidden="true" />}
+                {label}
+              </Link>
+            ))}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
@@ -234,10 +270,22 @@ function AudienceToggle({ audience }: { audience: HalloweenAudience }) {
 export default async function HalloweenPage({
   searchParams,
 }: {
-  searchParams: Promise<{ for?: string }>;
+  searchParams: Promise<{ for?: string; sort?: string }>;
 }) {
-  const audience: HalloweenAudience = (await searchParams).for === 'family' ? 'family' : 'wild';
+  const params = await searchParams;
+  const audience: HalloweenAudience = params.for === 'family' ? 'family' : 'wild';
   const family = audience === 'family';
+  // The picks are always the top-ranked ones; the sort only changes the order they're shown in
+  const byDate = params.sort !== 'ranked';
+  const pageHref = (forFamily: boolean, ranked: boolean) => {
+    const query = new URLSearchParams();
+    if (forFamily) query.set('for', 'family');
+    if (ranked) query.set('sort', 'ranked');
+    const q = query.toString();
+    return `/halloween${q ? `?${q}` : ''}`;
+  };
+  const chronological = (a: HalloweenEvent, b: HalloweenEvent) =>
+    a.startDate.getTime() - b.startDate.getTime() || a.id.localeCompare(b.id);
   // Per request: the countdown and "before the big night" move with the date
   await connection();
 
@@ -262,15 +310,68 @@ export default async function HalloweenPage({
     }
   }
 
+  // Hand edits: a missing table or failed read just means none, never a broken page
+  const seasonPicks = await getSeasonPicks('halloween').catch((error: unknown) => {
+    console.error('[Halloween] Failed to load hand edits:', error);
+    return new Map<string, SeasonPick>();
+  });
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  const admin = isSuperAdmin(user?.id);
+  // Events added to the wall by hand, which may not match the Halloween words at all
+  // After dark only: nothing vets a hand-added event as family-friendly
+  const addedIds = family
+    ? []
+    : [...seasonPicks.values()].filter((p) => p.added && !p.hidden).map((p) => p.eventId);
+  const pageStart = getDayBoundariesEastern(today).start;
+  const pageEnd = getDayBoundariesEastern(halloween).end;
+  // Kept to the page's dates, so one that has passed or been moved drops off like the rest
+  const handAdded = (
+    await getEventsForWall(addedIds).catch((error: unknown) => {
+      console.error('[Halloween] Failed to load hand-added events:', error);
+      return [] as HalloweenEvent[];
+    })
+  ).filter((e) => e.startDate >= pageStart && e.startDate <= pageEnd);
+  const withEdits = [...handAdded, ...events.filter((e) => !addedIds.includes(e.id))].map((e) => {
+    const posterUrl = seasonPicks.get(e.id)?.posterUrl;
+    return posterUrl ? { ...e, imageUrl: posterUrl } : e;
+  });
+  // Hidden ones come off the page and are only listed for an admin
+  const shown = withEdits.filter((e) => !seasonPicks.get(e.id)?.hidden);
+  const hiddenHere = withEdits.filter((e) => seasonPicks.get(e.id)?.hidden);
+  const controlsFor = (e: HalloweenEvent, variant: 'inline' | 'overlay' = 'inline') =>
+    admin ? (
+      <AdminControls
+        season="halloween"
+        eventId={e.id}
+        added={addedIds.includes(e.id)}
+        hidden={seasonPicks.get(e.id)?.hidden === true}
+        variant={variant}
+      />
+    ) : undefined;
+
   const bigStart = getDayBoundariesEastern(eve).start;
-  const picks = events.filter((e) => e.startDate >= bigStart).slice(0, WEEKEND_PICKS);
+  const weekendShown = shown.filter((e) => e.startDate >= bigStart);
+  // Hand-added events come first and don't use up the ranked spots
+  const ranked = [
+    ...weekendShown.filter((e) => addedIds.includes(e.id)),
+    ...weekendShown.filter((e) => !addedIds.includes(e.id)).slice(0, WEEKEND_PICKS),
+  ];
+  const picks = byDate ? [...ranked].sort(chronological) : ranked;
   const days = new Map<string, HalloweenEvent[]>();
-  for (const e of events.filter((e) => e.startDate < bigStart)) {
+  for (const e of shown.filter((e) => e.startDate < bigStart)) {
     const key = getDateStringEastern(e.startDate);
     const list = days.get(key) ?? [];
     if (list.length < PER_DAY) days.set(key, [...list, e]);
   }
-  const beforeDays = [...days.entries()].sort(([a], [b]) => a.localeCompare(b));
+  const beforeDays = [...days.entries()]
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([day, list]): [string, HalloweenEvent[]] => [
+      day,
+      byDate ? [...list].sort(chronological) : list,
+    ]);
 
   const halloweenDate = getDayBoundariesEastern(halloween).start;
   const weekendHeading = ['Sat', 'Sun'].includes(
@@ -305,11 +406,6 @@ export default async function HalloweenPage({
               : 'The strangest, spookiest things to do'}{' '}
             from now through {longDay(halloweenDate)}
           </p>
-        )}
-        {open && (
-          <div className="absolute right-3 top-11 sm:right-6">
-            <AudienceToggle audience={audience} />
-          </div>
         )}
         {open && (
           <div className="mt-4 inline-flex items-center gap-2.5 rounded-full border border-[#ff8a1f]/45 bg-[#ff8a1f]/10 py-2 pl-2.5 pr-4">
@@ -425,26 +521,81 @@ export default async function HalloweenPage({
         ) : (
           <>
             {picks.length > 0 && (
-              <section className="relative pb-6">
+              <section id="weekend" className="relative scroll-mt-4 pb-6">
                 <LowFog />
-                <div className="flex items-center gap-3.5">
-                  <span className="relative">
-                    <Pumpkin size={58} glow />
-                    <Embers style={{ left: 26, top: 10 }} />
-                  </span>
-                  <div>
-                    <h2
-                      className={`${creepster.className} m-0 text-[34px] tracking-wide text-[#ff9a3c] sm:text-[42px]`}
-                    >
-                      {weekendHeading}
-                    </h2>
-                    <p className="mt-0.5 text-gray-400">
-                      {longDay(bigStart)} and {longDay(halloweenDate)} ·{' '}
-                      {family ? 'best first' : 'wildest first'}
-                    </p>
+                <div className="flex flex-wrap items-end justify-between gap-4">
+                  <div className="flex items-center gap-3.5">
+                    <span className="relative">
+                      <Pumpkin size={58} glow />
+                      <Embers style={{ left: 26, top: 10 }} />
+                    </span>
+                    <div>
+                      <h2
+                        className={`${creepster.className} m-0 text-[34px] tracking-wide text-[#ff9a3c] sm:text-[42px]`}
+                      >
+                        {weekendHeading}
+                      </h2>
+                      <p className="mt-0.5 text-gray-400">
+                        {longDay(bigStart)} and {longDay(halloweenDate)}
+                      </p>
+                      {/* Says it's a ranked cut, so a missing favorite reads as ranked out, not lost */}
+                      <p className="mt-1 text-sm text-gray-500">
+                        {family
+                          ? `The ${picks.length} top-rated family events of these two days, `
+                          : `The ${picks.length} most unusual events of these two days, `}
+                        {byDate
+                          ? 'shown by start time.'
+                          : family
+                            ? 'best first.'
+                            : 'ranked by how out-there each one is.'}{' '}
+                        Everything else is in the full list.
+                      </p>
+                    </div>
                   </div>
+                  <ChoicePanel
+                    rows={[
+                      {
+                        label: "Who's it for?",
+                        options: [
+                          {
+                            label: 'After dark',
+                            href: pageHref(false, !byDate),
+                            active: !family,
+                            icon: Moon,
+                          },
+                          {
+                            label: 'Family',
+                            href: pageHref(true, !byDate),
+                            active: family,
+                            icon: Candy,
+                          },
+                        ],
+                      },
+                      {
+                        label: 'In what order?',
+                        options: [
+                          {
+                            label: 'By date',
+                            href: pageHref(family, false),
+                            active: byDate,
+                            icon: CalendarDays,
+                          },
+                          {
+                            label: family ? 'Top-rated' : 'Wildest',
+                            href: pageHref(family, true),
+                            active: !byDate,
+                            icon: family ? Star : Skull,
+                          },
+                        ],
+                      },
+                    ]}
+                  />
                 </div>
-                {/* Dealt round-robin into columns so the ranking reads across: two on phones,
+                {/* Hand-added events only show After dark, so that's the only place to add them */}
+                {admin && !family && (
+                  <AdminWallSearch season="halloween" onWall={picks.map((e) => e.id)} />
+                )}
+                {/* Dealt round-robin into columns so the order reads across: two on phones,
                     four from md. Each layout is its own copy because columns can't re-deal */}
                 {[2, 4].map((n) => (
                   <div
@@ -456,7 +607,12 @@ export default async function HalloweenPage({
                         {picks
                           .filter((_, i) => i % n === c)
                           .map((event, i) => (
-                            <WallPoster key={event.id} event={event} index={i * n + c} />
+                            <WallPoster
+                              key={event.id}
+                              event={event}
+                              index={i * n + c}
+                              controls={controlsFor(event, 'overlay')}
+                            />
                           ))}
                       </div>
                     ))}
@@ -484,8 +640,8 @@ export default async function HalloweenPage({
                 </h2>
                 <p className="mb-7 mt-0.5 text-gray-400">
                   {family
-                    ? 'The best family Halloween events until then'
-                    : 'The wildest Halloween events until then'}
+                    ? `Each day's ${PER_DAY} top-rated family Halloween events until then`
+                    : `Each day's ${PER_DAY} most unusual Halloween events until then`}
                 </p>
                 <p className="-mt-4 mb-7">
                   <Link href={moreHref} className="font-semibold text-[#ffb35c] hover:underline">
@@ -500,7 +656,12 @@ export default async function HalloweenPage({
                       <Tombstone date={list[0].startDate} />
                       <div className="flex min-w-0 flex-1 flex-col gap-3.5">
                         {list.map((event, i) => (
-                          <EventCard key={event.id} event={event} index={i} />
+                          <EventCard
+                            key={event.id}
+                            event={event}
+                            index={i}
+                            controls={controlsFor(event)}
+                          />
                         ))}
                       </div>
                     </div>
@@ -513,16 +674,51 @@ export default async function HalloweenPage({
               <p className="py-16 text-center text-gray-400">No Halloween events are listed yet.</p>
             ) : (
               // Outside "Before the big night", which is empty on Oct 30 and 31
-              <p className="-mt-8 text-center">
+              <div className="-mt-8 flex flex-col items-center gap-3 text-center">
                 <Link href={moreHref} className="font-semibold text-[#ffb35c] hover:underline">
                   See more Halloween events →
                 </Link>
-              </p>
+                {/* Only worth offering when there's a long list between here and the wall */}
+                {picks.length > 0 && beforeDays.length > 0 && (
+                  <a
+                    href="#weekend"
+                    className="hw-climb group mt-2 flex flex-col items-center text-[#ffb35c]"
+                  >
+                    <span aria-hidden="true" className="hw-climb-spider block">
+                      <Spider thread={46} eyes="#ff2b2b" />
+                    </span>
+                    <span
+                      className={`${creepster.className} text-xl tracking-wide group-hover:text-[#ffd7a8]`}
+                    >
+                      Climb back up to {weekendHeading}
+                    </span>
+                  </a>
+                )}
+              </div>
             )}
           </>
         )}
       </div>
 
+      {admin && hiddenHere.length > 0 && (
+        <section className="mx-auto mb-8 w-full max-w-[1180px] px-4 sm:px-6">
+          <h2 className="text-lg font-bold text-gray-300">Hidden from this page (admin only)</h2>
+          <ul className="mt-3 flex flex-col gap-3">
+            {hiddenHere.map((e) => (
+              <li key={e.id} className="rounded-lg border border-gray-800 p-3">
+                <Link
+                  href={eventHref(e)}
+                  className="font-semibold text-[#f1e7d0] hover:text-[#ffb35c]"
+                >
+                  {e.title}
+                </Link>
+                <span className="ml-2 text-sm text-gray-400">{longDay(e.startDate)}</span>
+                {controlsFor(e)}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
       <Graveyard />
       <footer className="border-t border-gray-800 py-8 text-center text-sm text-gray-400">
         <div

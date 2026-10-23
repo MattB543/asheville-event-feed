@@ -439,8 +439,14 @@ export default async function HalloweenPage({
                       {weekendHeading}
                     </h2>
                     <p className="mt-0.5 text-gray-400">
-                      {longDay(bigStart)} and {longDay(halloweenDate)} ·{' '}
-                      {family ? 'best first' : 'wildest first'}
+                      {longDay(bigStart)} and {longDay(halloweenDate)}
+                    </p>
+                    {/* Says it's a ranked cut, so a missing favorite reads as ranked out, not lost */}
+                    <p className="mt-1 text-sm text-gray-500">
+                      {family
+                        ? `The ${picks.length} top-rated family events of these two days.`
+                        : `The ${picks.length} most unusual events of these two days, ranked by how out-there each one is.`}{' '}
+                      Everything else is in the full list.
                     </p>
                   </div>
                 </div>
@@ -484,8 +490,8 @@ export default async function HalloweenPage({
                 </h2>
                 <p className="mb-7 mt-0.5 text-gray-400">
                   {family
-                    ? 'The best family Halloween events until then'
-                    : 'The wildest Halloween events until then'}
+                    ? `Each day's ${PER_DAY} top-rated family Halloween events until then`
+                    : `Each day's ${PER_DAY} most unusual Halloween events until then`}
                 </p>
                 <p className="-mt-4 mb-7">
                   <Link href={moreHref} className="font-semibold text-[#ffb35c] hover:underline">

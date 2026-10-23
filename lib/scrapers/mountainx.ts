@@ -8,8 +8,10 @@
  * Paths, in order:
  *   1. Tribe Events Calendar REST API - richest data, 50 events per request.
  *   2. Month-view HTML over the same dispatcher, read as JSON-LD.
- *   3. Month-view HTML through a real patchright browser, in case Cloudflare
- *      starts rejecting the handshake above as well.
+ *   3. Month-view HTML through a real, visible patchright browser. Since
+ *      ~2026-10-17 Cloudflare challenges the two paths above on every request,
+ *      and a headless browser never clears the challenge either, so this path
+ *      opens a Chrome window (the nightly task runs only while Matt is logged in).
  *
  * Nothing is evaluated inside the browser page. tsx transpiles this file with
  * esbuild, which wraps named inner functions in its `__name` helper, and a
@@ -21,14 +23,13 @@ import { type ScrapedEvent } from './types';
 import { findJsonLdEvents } from './jsonld';
 import {
   CHALLENGE_TITLE,
-  CHROME_USER_AGENT,
   HTML_ACCEPT,
   JSON_ACCEPT,
   createChromeDispatcher,
   fetchAsChrome,
 } from './fetchAsChrome';
 import { isNonNCEvent, getZipFromCity } from '@/lib/utils/geo';
-import { decodeHtmlEntities } from '@/lib/utils/parsers';
+import { decodeHtmlEntities, stripHtml } from '@/lib/utils/parsers';
 import { getTodayStringEastern } from '@/lib/utils/timezone';
 import type { Browser, Page } from 'patchright';
 import type { Dispatcher } from 'undici';
@@ -43,10 +44,13 @@ const API_DELAY_MS = 200;
 const MONTH_DELAY_MS = 400;
 const MONTH_NAV_TIMEOUT_MS = 60000;
 const CHALLENGE_ATTEMPTS = 3;
-const CHALLENGE_WAIT_MS = 6000;
+// A headed browser clears the challenge in ~10s; give it room before renavigating.
+const CHALLENGE_WAIT_MS = 30000;
+const CHALLENGE_POLL_MS = 1000;
 
+// No userAgent override: the browser's own UA matches its version and client
+// hints, while CHROME_USER_AGENT (Chrome 122) on a Chrome 143 never clears.
 const BROWSER_CONTEXT_OPTIONS = {
-  userAgent: CHROME_USER_AGENT,
   locale: 'en-US',
   timezoneId: 'America/New_York',
 } as const;
@@ -336,6 +340,12 @@ function collectMonthEvents(pages: MonthPage[], window: ScrapeWindow): ScrapedEv
 
   for (const { monthKey, html } of pages) {
     const rawEvents = extractMonthEvents(html, monthKey);
+    // Every Mountain Xpress month has hundreds of events, so an empty one means
+    // the page wasn't the calendar. Fail loudly rather than report 0 events as a
+    // success, which hid a Cloudflare block for three nights in October 2026.
+    if (rawEvents.length === 0) {
+      throw new Error(`Month ${monthKey} page has no events - not the calendar page`);
+    }
     let addedThisMonth = 0;
 
     for (const rawEvent of rawEvents) {
@@ -376,7 +386,8 @@ async function launchBrowser(): Promise<Browser> {
     );
   }
 
-  return chromium.launch({ headless: true });
+  // Headed on purpose: headless never gets past the challenge (see the header).
+  return chromium.launch({ headless: false });
 }
 
 function buildMonthTargets(window: ScrapeWindow): MonthTarget[] {
@@ -422,18 +433,37 @@ async function fetchMonthHtmlWithBrowser(page: Page, target: MonthTarget): Promi
       `[MountainX] Month ${target.monthKey} challenged (status=${status}, attempt ${attempt}/${CHALLENGE_ATTEMPTS}). Waiting for it to clear...`
     );
 
-    // Cloudflare's interstitial solves itself in a real browser; give it time
-    // before burning another navigation on the same URL.
-    await page.waitForTimeout(CHALLENGE_WAIT_MS);
-
-    if (!CHALLENGE_TITLE.test(await page.title())) {
-      return page.content();
+    // Cloudflare's interstitial solves itself in a real browser and then loads
+    // the calendar; give it time before burning another navigation on the URL.
+    const html = await waitForCalendar(page);
+    if (html !== null) {
+      return html;
     }
   }
 
   throw new Error(
     `Month view challenge for ${target.monthKey} persisted after ${CHALLENGE_ATTEMPTS} attempts`
   );
+}
+
+/**
+ * Wait for the calendar's JSON-LD events to appear, not merely for the
+ * challenge title to go away: the title changes while the calendar is still
+ * loading, and returning the page then yields a page with no events.
+ */
+async function waitForCalendar(page: Page): Promise<string | null> {
+  const deadline = Date.now() + CHALLENGE_WAIT_MS;
+
+  while (Date.now() < deadline) {
+    await page.waitForTimeout(CHALLENGE_POLL_MS);
+    // content() throws while the challenge navigates to the calendar.
+    const html = await page.content().catch(() => '');
+    if (findJsonLdEvents(html).length > 0) {
+      return html;
+    }
+  }
+
+  return null;
 }
 
 function extractMonthEvents(html: string, monthKey: string): SerializedMonthEvent[] {
@@ -589,7 +619,7 @@ function formatMonthEvent(event: SerializedMonthEvent, window: ScrapeWindow): Sc
   const organizer = event.organizer || event.locationName;
   const price = normalizePrice(event.price, event.priceCurrency);
   const description = event.description
-    ? decodeHtmlEntities(event.description).slice(0, 2000)
+    ? cleanMonthDescription(event.description).slice(0, 2000) || undefined
     : undefined;
 
   return {
@@ -608,6 +638,20 @@ function formatMonthEvent(event: SerializedMonthEvent, window: ScrapeWindow): Sc
   };
 }
 
+/**
+ * Month-view descriptions are entity-encoded HTML with PHP-style escapes
+ * (`&lt;p&gt;Mac\'s ...&lt;/p&gt;\n`). Unescape, decode the entities, then
+ * strip the tags that decoding produced. Long ones are excerpts ending in
+ * "... Read more"; that becomes one "…" so the excerpt stays shorter than the
+ * full API description and the upsert never swaps the full text for it.
+ */
+function cleanMonthDescription(raw: string): string {
+  return stripHtml(
+    decodeHtmlEntities(raw.replace(/\\[nrt]/g, ' ').replace(/\\(.)/g, '$1'))
+  ).replace(/\s*(?:\.{3}|…)\s*Read more$/i, '…');
+}
+
+/** Same shape as the API path's location, so a fallback run doesn't rewrite it. */
 function buildLocationString(event: SerializedMonthEvent): string | undefined {
   const parts: string[] = [];
 
@@ -617,7 +661,7 @@ function buildLocationString(event: SerializedMonthEvent): string | undefined {
   if (event.streetAddress) {
     parts.push(decodeHtmlEntities(event.streetAddress));
   }
-  if (event.city) {
+  if (event.city && !event.streetAddress?.includes(event.city)) {
     parts.push(event.city);
   }
   if (event.state) {

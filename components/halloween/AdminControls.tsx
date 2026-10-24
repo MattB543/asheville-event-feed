@@ -114,13 +114,17 @@ export default function AdminControls({
         hidden
       )}
       {/* A label opens the file picker itself, so the upload needs no ref */}
-      <label aria-label="Upload a poster" className={`group/tip relative ${iconClass}`}>
+      <label
+        aria-label="Upload a poster"
+        className={`group/tip relative ${iconClass} focus-within:ring-2 focus-within:ring-[#ff8a1f]`}
+      >
         <ImageUp size={14} aria-hidden="true" />
         {tip('Upload a poster')}
         <input
           type="file"
           accept="image/*"
-          className="hidden"
+          // sr-only rather than hidden, so Tab reaches it
+          className="sr-only"
           onChange={(event) => {
             const file = event.target.files?.[0];
             event.target.value = '';

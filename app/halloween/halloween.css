@@ -280,6 +280,9 @@
   .hw-page .hw-moving {
     display: none;
   }
+  .hw-page .hw-climb-spider {
+    transition: none;
+  }
 }
 
 /* Extras that show up now and then: each moves for part of its loop and waits off-screen the rest */
@@ -414,9 +417,11 @@
   }
 }
 
-/* The page's in-page links glide instead of jumping */
-html:has(.hw-page) {
-  scroll-behavior: smooth;
+/* The page's in-page links glide instead of jumping, unless motion is reduced */
+@media (prefers-reduced-motion: no-preference) {
+  html:has(.hw-page) {
+    scroll-behavior: smooth;
+  }
 }
 
 /* The "climb back up" spider sways on its thread and scurries up on hover */

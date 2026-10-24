@@ -164,10 +164,15 @@ function EventCard({
         href={eventHref(event)}
         tabIndex={-1}
         aria-hidden="true"
-        className="w-[170px] shrink-0 self-start bg-[#f3eee2] p-[7px] shadow-[0_10px_20px_rgba(0,0,0,.55)]"
+        className="w-[170px] shrink-0 self-start bg-[#f3eee2] p-[7px] shadow-[0_10px_20px_rgba(0,0,0,.55)] lg:w-[220px]"
         style={{ transform: `rotate(${index % 2 ? '1.5deg' : '-1.5deg'})` }}
       >
-        <Poster src={image(event)} title={event.title} sizes="170px" flyerTextClass="text-[20px]" />
+        <Poster
+          src={image(event)}
+          title={event.title}
+          sizes="(min-width: 1024px) 220px, 170px"
+          flyerTextClass="text-[20px] lg:text-[24px]"
+        />
       </Link>
       <div className="flex min-w-0 flex-col gap-1.5 sm:flex-1">
         <div className="flex flex-wrap items-center gap-2">
@@ -321,10 +326,11 @@ export default async function HalloweenPage({
   } = await supabase.auth.getUser();
   const admin = isSuperAdmin(user?.id);
   // Events added to the wall by hand, which may not match the Halloween words at all
-  // After dark only: nothing vets a hand-added event as family-friendly
+  // After dark only: nothing vets a hand-added event as family-friendly. Hidden ones load
+  // too, so they stay in the admin's hidden list instead of vanishing
   const addedIds = family
     ? []
-    : [...seasonPicks.values()].filter((p) => p.added && !p.hidden).map((p) => p.eventId);
+    : [...seasonPicks.values()].filter((p) => p.added).map((p) => p.eventId);
   const pageStart = getDayBoundariesEastern(today).start;
   const pageEnd = getDayBoundariesEastern(halloween).end;
   // Kept to the page's dates, so one that has passed or been moved drops off like the rest
@@ -379,11 +385,9 @@ export default async function HalloweenPage({
   )
     ? 'Halloween weekend'
     : 'Halloween eve and night';
-  // The full feed, searched for "halloween" over the same dates (it can't run this page's
-  // word list, so it's "more", not "every"); the family view keeps to family events
-  const moreHref = `/events?search=halloween&dateFilter=custom&dateStart=${today}&dateEnd=${halloween}${
-    family ? '&tagsInclude=Family' : ''
-  }`;
+  // Every event this page draws from, both views: the feed filtered to the Halloween tag
+  // over the same dates (its tag filter is any-of, so it can't also require Family)
+  const moreHref = `/events?tagsInclude=Halloween&dateFilter=custom&dateStart=${today}&dateEnd=${halloween}`;
   const longDay = (d: Date) =>
     formatDateEastern(d, { weekday: 'long', month: 'short', day: 'numeric' });
 
@@ -645,7 +649,7 @@ export default async function HalloweenPage({
                 </p>
                 <p className="-mt-4 mb-7">
                   <Link href={moreHref} className="font-semibold text-[#ffb35c] hover:underline">
-                    See more Halloween events →
+                    See all Halloween events →
                   </Link>
                 </p>
                 <div className="relative flex flex-col gap-9">
@@ -676,7 +680,7 @@ export default async function HalloweenPage({
               // Outside "Before the big night", which is empty on Oct 30 and 31
               <div className="-mt-8 flex flex-col items-center gap-3 text-center">
                 <Link href={moreHref} className="font-semibold text-[#ffb35c] hover:underline">
-                  See more Halloween events →
+                  See all Halloween events →
                 </Link>
                 {/* Only worth offering when there's a long list between here and the wall */}
                 {picks.length > 0 && beforeDays.length > 0 && (

@@ -64,7 +64,8 @@ export async function POST(request: NextRequest) {
       }
       await setSeasonPick(body.season, body.eventId, change);
     }
-    revalidateTag(SEASON_PICKS_TAG, 'default');
+    // Expired at once, not stale-while-revalidate, so the admin's refresh shows the edit
+    revalidateTag(SEASON_PICKS_TAG, { expire: 0 });
     return NextResponse.json({ ok: true });
   } catch (error) {
     console.error('[SeasonPicks] Update failed:', error);

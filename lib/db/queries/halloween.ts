@@ -5,8 +5,11 @@ import { events } from '@/lib/db/schema';
 import { liveEvent } from '@/lib/db/liveEvent';
 import { getDayBoundariesEastern } from '@/lib/utils/timezone';
 
-// Words that mark a Halloween-season event in a title, matched at the start of a word so
-// "Witches" counts and "Switchyard" doesn't; a summary that says "Halloween" counts too
+// An event is on the page when it has the "Halloween" tag, which the AI gives it when
+// enriching (and `scripts/tag-halloween.ts` backfills), so the page and its "See all"
+// link (`tagsInclude=Halloween`) cover the same events. Until the AI has tagged a new
+// event, these title words stand in, matched at the start of a word so "Witches" counts
+// and "Switchyard" doesn't
 const HALLOWEEN_TITLE =
   '\\m(hallowe|spook|haunt|zombie|costume|ghost|witch|monster|vampire|horror|nosferatu|goth|dracula|creep|seance|séance|masquerade|day of the dead|muertos|trick.or.treat|boo\\M)';
 
@@ -48,7 +51,8 @@ export async function getHalloweenEvents(from: Date, to: Date, audience: Hallowe
           isNull(events.location),
           and(notIlike(events.location, '%online%'), notIlike(events.location, '%virtual%'))
         ),
-        sql`(${events.title} ~* ${HALLOWEEN_TITLE} OR ${events.aiSummary} ~* 'halloween')`,
+        sql`('Halloween' = ANY(COALESCE(${events.tags}, '{}'))
+          OR (COALESCE(cardinality(${events.tags}), 0) = 0 AND ${events.title} ~* ${HALLOWEEN_TITLE}))`,
         audience === 'family' ? family : sql`NOT ${family}`
       )
     )
@@ -63,7 +67,7 @@ export async function getHalloweenEvents(from: Date, to: Date, audience: Hallowe
 }
 
 // Bump when the cached rows' shape or the filter changes: Vercel's data cache survives deploys
-const HALLOWEEN_CACHE_SHAPE = 'v2';
+const HALLOWEEN_CACHE_SHAPE = 'v3';
 
 /**
  * From the start of `today` (Eastern) through Oct 31, cached per day and view. The

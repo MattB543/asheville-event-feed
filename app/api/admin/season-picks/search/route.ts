@@ -18,11 +18,14 @@ export async function GET(request: NextRequest) {
 
   const query = (request.nextUrl.searchParams.get('q') ?? '').slice(0, 100);
   // The wall's two nights: Oct 30 and 31 of this year, Eastern
-  const halloween = `${getTodayStringEastern().slice(0, 4)}-10-31`;
+  // (from today on, since the page drops anything earlier)
+  const today = getTodayStringEastern();
+  const halloween = `${today.slice(0, 4)}-10-31`;
+  const eve = addDaysToDateString(halloween, -1);
   try {
     const rows = await searchEventsBetween(
       query,
-      getDayBoundariesEastern(addDaysToDateString(halloween, -1)).start,
+      getDayBoundariesEastern(today > eve ? today : eve).start,
       getDayBoundariesEastern(halloween).end
     );
     return NextResponse.json({

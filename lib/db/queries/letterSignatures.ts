@@ -45,7 +45,12 @@ function toOwnSignature(row: SignatureRow): OwnSignature {
 export async function getLetterPageData(): Promise<LetterPageData> {
   const [[totalRow], shown] = await Promise.all([
     db
-      .select({ total: count() })
+      .select({
+        total: count(),
+        privateCount: sql<number>`count(*) filter (where not ${letterSignatures.isPublic})`.mapWith(
+          Number
+        ),
+      })
       .from(letterSignatures)
       .where(and(eq(letterSignatures.letter, LETTER), ne(letterSignatures.status, 'rejected'))),
     db
@@ -64,7 +69,7 @@ export async function getLetterPageData(): Promise<LetterPageData> {
       )
       .orderBy(asc(letterSignatures.createdAt), asc(letterSignatures.id)),
   ]);
-  return { total: totalRow?.total ?? 0, shown };
+  return { total: totalRow?.total ?? 0, privateCount: totalRow?.privateCount ?? 0, shown };
 }
 
 /** The signed-in visitor's own signature, if they've signed */

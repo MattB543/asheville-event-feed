@@ -96,8 +96,14 @@ export default async function PlanPage() {
 
   // undefined = the read failed, which is not the same as not having signed
   const unavailable = data === null || ownSignature === undefined;
-  const { total, shown } = data ?? { total: 0, shown: [] };
-  const more = Math.max(0, total - shown.length);
+  const { total, privateCount, shown } = data ?? { total: 0, privateCount: 0, shown: [] };
+  // "1 public signer & 4 private signers"; signatures waiting for review are in neither
+  const signerSummary = [
+    shown.length > 0 && plural(shown.length, 'public signer', 'public signers'),
+    privateCount > 0 && plural(privateCount, 'private signer', 'private signers'),
+  ]
+    .filter(Boolean)
+    .join(' & ');
 
   return (
     <main className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-950">
@@ -108,32 +114,22 @@ export default async function PlanPage() {
           <LetterTitle />
 
           <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm sm:text-base">
-            <p className="text-gray-700 dark:text-gray-300">
-              {data === null ? (
-                'Signatures are unavailable right now.'
-              ) : total === 0 ? (
-                'Be the first neighbor to sign.'
-              ) : (
-                <>
-                  <strong className="font-semibold text-gray-900 dark:text-white">
-                    {total.toLocaleString('en-US')}
-                  </strong>{' '}
-                  {total === 1 ? 'neighbor has signed' : 'neighbors have signed'}
-                </>
-              )}
-            </p>
             <a
               href="#sign"
               className="font-medium text-brand-600 underline underline-offset-2 hover:text-brand-700 dark:text-brand-400 dark:hover:text-brand-300"
             >
-              Sign the letter ↓
+              Agree with this letter? Sign your support below ↓
             </a>
             <div className="relative">
               <ShareButton path="/plan" title={LETTER_TITLE} />
             </div>
           </div>
 
-          <section aria-labelledby="leaders" className="mt-8">
+          <div className="mt-6">
+            <LetterBody />
+          </div>
+
+          <section aria-labelledby="leaders" className="mt-10">
             <h2
               id="leaders"
               className="font-display text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white"
@@ -141,15 +137,11 @@ export default async function PlanPage() {
               Where the leaders stand
             </h2>
             <p className="mt-1 mb-4 text-sm text-gray-600 dark:text-gray-400">
-              We&apos;re asking the officials who lead emergency planning, and every candidate for
-              Mayor and City Council on the November 3 ballot, to answer the six commitments below.
+              We&apos;ve asked the officials who lead emergency planning, and every candidate for
+              Mayor and City Council on the November 3 ballot, to answer the six commitments above.
             </p>
             <CandidateGrid />
           </section>
-
-          <div className="mt-6">
-            <LetterBody />
-          </div>
 
           {/* ph-no-capture: PostHog autocapture and replay never record names, typed or shown */}
           <section
@@ -179,24 +171,19 @@ export default async function PlanPage() {
             ) : shown.length > 0 ? (
               <details open={shown.length <= OPEN_LIST_MAX}>
                 <summary className="cursor-pointer font-medium text-gray-900 dark:text-white">
-                  {plural(shown.length, 'public signer', 'public signers')}
+                  {signerSummary}
                 </summary>
                 <ul className="mt-3 space-y-1.5">
                   {shown.map((signer, i) => (
                     <li key={i}>{signerLine(signer)}</li>
                   ))}
                 </ul>
-                {more > 0 && (
-                  <p className="mt-3 text-gray-600 dark:text-gray-400">
-                    …and {plural(more, 'more neighbor', 'more neighbors')}
-                  </p>
-                )}
               </details>
             ) : (
               <p className="text-gray-600 dark:text-gray-400">
                 {total === 0
                   ? 'No one has signed yet.'
-                  : `${plural(total, 'neighbor has', 'neighbors have')} signed. Public names appear here after a quick review.`}
+                  : `${signerSummary || plural(total, 'neighbor has', 'neighbors have') + ' signed'}. Public names appear here after a quick review.`}
               </p>
             )}
           </div>

@@ -8,8 +8,11 @@ import { LETTER_SOURCES, sourceDomain } from '@/lib/plan/letterSources';
  * typos, numbers or phrasing. Its "Signed" section is the page's live signer list.
  */
 
-export const LETTER_TITLE =
-  'An open letter to Asheville leaders: We need Water and Food Plans for Long Outages';
+const TITLE_KICKER = 'An open letter to Asheville leaders:';
+const TITLE_MAIN = 'We need Water and Food Plans for Long Outages';
+
+/** One line, for the tab, share cards and metadata */
+export const LETTER_TITLE = `${TITLE_KICKER} ${TITLE_MAIN}`;
 
 const LINK_CLASS =
   'font-medium text-brand-600 underline underline-offset-2 hover:text-brand-700 dark:text-brand-400 dark:hover:text-brand-300';
@@ -45,8 +48,13 @@ function Numbered({ children }: { children: ReactNode }) {
 export function LetterTitle() {
   return (
     <header>
-      <h1 className="font-display text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl dark:text-white">
-        {LETTER_TITLE}
+      <h1 className="font-display tracking-tight text-gray-900 dark:text-white">
+        {/* The kicker on its own, smaller and lighter line; the space keeps them apart when
+            copied or read aloud */}
+        <span className="block text-xl font-medium text-gray-600 sm:text-2xl dark:text-gray-400">
+          {TITLE_KICKER}
+        </span>{' '}
+        <span className="mt-1 block text-3xl font-bold sm:text-4xl">{TITLE_MAIN}</span>
       </h1>
     </header>
   );
@@ -60,14 +68,12 @@ export default function LetterBody() {
       <p>
         After Helene, we saw the power of this community and its public servants, but also how much{' '}
         <Lead>depended on help from outside Asheville</Lead>. Helene was a regional disaster with
-        national support. The next one could be a national disaster with mostly local help, whether
-        the cause is a cyberattack, an attack on the grid or water supply.
+        national support. The next one could be a national disaster with little national support,
+        whether the cause is a cyberattack, an attack on the grid or water supply.
       </p>
       <p>We ask our leaders, and everyone running to lead, to commit to forming a plan.</p>
 
-      <LetterHeading>
-        There are new disaster risks raised by experts we&apos;re not ready for
-      </LetterHeading>
+      <LetterHeading>Experts warn of new risks we&apos;re not ready for</LetterHeading>
       <Bullets>
         <li>
           <Lead>Foreign hackers are already positioned.</Lead> U.S. agencies found Chinese

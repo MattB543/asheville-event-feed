@@ -45,9 +45,9 @@ function CandidateCard({ candidate }: { candidate: Candidate }) {
         <p className="text-[13px] font-semibold leading-snug text-gray-900 sm:text-sm dark:text-gray-100">
           {candidate.name}
         </p>
-        {(seat || candidate.incumbent) && (
+        {seat && (
           <p className="text-[11px] leading-snug text-gray-500 sm:text-xs dark:text-gray-400">
-            {[seat, candidate.incumbent ? 'Incumbent' : null].filter(Boolean).join(' · ')}
+            {seat}
           </p>
         )}
         <p className="mt-1 inline-flex items-center gap-1 rounded-full bg-red-50 px-1.5 py-0.5 text-[11px] whitespace-nowrap sm:px-2 sm:text-xs font-medium text-red-700 dark:bg-red-950/40 dark:text-red-400">

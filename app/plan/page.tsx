@@ -29,7 +29,7 @@ import { SITE_URL } from '@/lib/seo/site';
 
 const pageUrl = `${SITE_URL}/plan`;
 const description =
-  'An open letter from Asheville residents asking city and county leaders, and every candidate on the ballot, to commit to a plan for keeping water and food flowing through a weeks-long outage with little outside help.';
+  'An open letter from Asheville residents asking Asheville leaders, and every candidate for Mayor and City Council, to commit to a plan for keeping water and food flowing through a weeks-long outage with little outside help.';
 
 export const metadata: Metadata = {
   title: LETTER_TITLE,

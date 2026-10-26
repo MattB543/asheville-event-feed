@@ -69,7 +69,10 @@ export default function CandidateGrid() {
           <h3 className="text-sm font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
             {OFFICE_HEADINGS[office]}
           </h3>
-          <ul className="mt-2 grid grid-cols-2 gap-2 md:grid-cols-3">
+          {/* The officials' long job titles get half-width cards; candidates fit three across */}
+          <ul
+            className={`mt-2 grid grid-cols-2 gap-2 ${office === 'emergency' ? '' : 'md:grid-cols-3'}`}
+          >
             {CANDIDATES.filter((c) => c.office === office).map((candidate) => (
               <CandidateCard key={candidate.slug} candidate={candidate} />
             ))}

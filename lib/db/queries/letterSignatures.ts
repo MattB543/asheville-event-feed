@@ -21,6 +21,9 @@ export interface SignatureInput {
 
 type SignatureRow = typeof letterSignatures.$inferSelect;
 
+/** The name left on a rejected signature its owner removed (the row stays as a marker) */
+const REMOVED_NAME = '';
+
 function toOwnSignature(row: SignatureRow): OwnSignature {
   return {
     name: row.name,
@@ -71,7 +74,9 @@ export async function getOwnSignature(userId: string): Promise<OwnSignature | nu
     .from(letterSignatures)
     .where(and(eq(letterSignatures.letter, LETTER), eq(letterSignatures.userId, userId)))
     .limit(1);
-  return row ? toOwnSignature(row) : null;
+  // A removed rejection is only a marker; to its owner it reads as not signed
+  if (!row || (row.status === 'rejected' && row.name === REMOVED_NAME)) return null;
+  return toOwnSignature(row);
 }
 
 /** Public signatures for the super admin: pending oldest first, the rest newest first */
@@ -194,11 +199,27 @@ export async function upsertSignature(
 
 /** Remove the user's signature; false when there was none */
 export async function deleteSignature(userId: string): Promise<boolean> {
+  const own = and(eq(letterSignatures.letter, LETTER), eq(letterSignatures.userId, userId));
+  // A rejected signature is emptied rather than deleted: the name goes, but the rejection
+  // stays as a marker, so removing it and signing again can't get the account counted
+  const emptied = await db
+    .update(letterSignatures)
+    .set({
+      name: REMOVED_NAME,
+      neighborhood: null,
+      role: null,
+      isPublic: false,
+      wantsUpdates: false,
+      updatedAt: sql`now()`,
+      revision: sql`${letterSignatures.revision} + 1`,
+    })
+    .where(and(own, eq(letterSignatures.status, 'rejected')))
+    .returning({ id: letterSignatures.id });
   const deleted = await db
     .delete(letterSignatures)
-    .where(and(eq(letterSignatures.letter, LETTER), eq(letterSignatures.userId, userId)))
+    .where(and(own, ne(letterSignatures.status, 'rejected')))
     .returning({ id: letterSignatures.id });
-  return deleted.length > 0;
+  return emptied.length + deleted.length > 0;
 }
 
 /**

@@ -48,8 +48,8 @@ export function LetterTitle() {
         {LETTER_TITLE}
       </h1>
       <p className="mt-3 text-base italic leading-relaxed text-gray-600 sm:text-lg dark:text-gray-400">
-        An open letter to Asheville and Buncombe County leaders, and to every candidate for Mayor,
-        City Council and County Commission on the November 3 ballot
+        An open letter to Asheville leaders, and to every candidate for Mayor and City Council on
+        the November 3 ballot.
       </p>
     </header>
   );
@@ -146,10 +146,10 @@ export default function LetterBody() {
         </li>
       </Numbered>
 
-      <LetterHeading>Go on the record by 5 PM. Friday, October 30</LetterHeading>
+      <LetterHeading>Go on the record by 5 PM Friday, October 30</LetterHeading>
       <p>
-        We are sending this letter to every sitting official and every candidate for Mayor, City
-        Council and County Commission, regardless of party. Please reply to{' '}
+        We are sending this letter to every sitting official and every candidate for Mayor and City
+        Council asking them each to reply to{' '}
         <a href="mailto:plan@avlgo.com" className={LINK_CLASS}>
           plan@avlgo.com
         </a>{' '}
@@ -159,11 +159,11 @@ export default function LetterBody() {
         Yes or no on each of the six commitments below, with an optional comment or statement
       </p>
       <p>
-        We will publish every response, and every non-response, unedited at{' '}
+        Every response, and every non-response, will be published unedited at{' '}
         <Link href="/plan" className={LINK_CLASS}>
           AVLGO.com/plan
-        </Link>{' '}
-        on Saturday, October 31.
+        </Link>
+        .
       </p>
 
       <LetterHeading>The six commitments</LetterHeading>

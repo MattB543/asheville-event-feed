@@ -506,7 +506,8 @@ export default function SignLetterForm({
         )}
       </div>
     );
-  } else if (isLoading) {
+  } else if (isLoading || stale) {
+    // stale: the page is about to refresh for this account, so no form shows meanwhile
     // Roughly the signed-out block's height, so the section doesn't jump when auth resolves
     body = (
       <div className="space-y-4 animate-pulse" role="status">
@@ -537,7 +538,8 @@ export default function SignLetterForm({
     body = (
       <SignatureForm
         // Remount on each open, so the fields start from the saved values
-        key={editing ? 'edit' : 'new'}
+        // and on an account change, so one account's draft never carries over to another
+        key={`${user.id}-${editing ? 'edit' : 'new'}`}
         user={user}
         existing={signature}
         onSaved={(next) => handleSaved(user.id, next)}
@@ -586,7 +588,10 @@ export default function SignLetterForm({
         {signature.status !== 'rejected' && (
           <div className="flex items-center gap-2 border-t border-gray-200 dark:border-gray-800 pt-3 text-sm text-gray-600 dark:text-gray-400">
             Share it with neighbors:
-            <ShareButton path="/plan" title={LETTER_TITLE} />
+            {/* ShareNote positions itself against this wrapper */}
+            <div className="relative">
+              <ShareButton path="/plan" title={LETTER_TITLE} />
+            </div>
           </div>
         )}
       </div>

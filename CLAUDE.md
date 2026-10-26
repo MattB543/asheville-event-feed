@@ -323,7 +323,8 @@ types in `lib/letter/outagePlan.ts`). One row per `letter` and `user_id` (a Supa
 user, so the email is already verified and stays in `auth.users`). `status` is `pending` |
 `approved` | `rejected`: private signatures are approved at once, public ones wait for the
 super admin, and an edit that changes a public signature's name, neighborhood or role puts
-it back to `pending`. A rejection survives the signer's edits. The page counts every row
+it back to `pending`. A rejection survives the signer's edits and their removal: removing a
+rejected signature empties its name but keeps the row as a marker, so signing again stays rejected. The page counts every row
 that isn't rejected and shows only public, approved names, read fresh on every request (no
 cache: a cache fill racing a switch to private could keep serving the name). `revision` goes
 up on every edit and review; a review is applied only at the revision the admin was shown

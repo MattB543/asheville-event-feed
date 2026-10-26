@@ -10,6 +10,9 @@
  *
  * - Boil-water advisories always count: until lifted, at most 14 days. A false
  *   all-clear here is the worst error, so any doubt resolves toward showing it.
+ *   A notice is a boil advisory only when its title or message says so; the
+ *   "Boil Water Advisory" category alone is judged as an outage, since the city
+ *   has put it on routine single-address repairs.
  * - Planned work never counts: scheduled interruptions, "Informational"
  *   construction notices, and routine "Valve Assessment" contractor checks.
  *   That exclusion never applies to a boil-water notice.
@@ -294,17 +297,20 @@ function classify(raw: RawWaterAlert): ClassifiedAlert | null {
     (raw.categories.length > 0 && raw.categories.every((c) => ROAD_RE.test(norm(c)))) ||
     ROAD_RE.test(title);
 
-  // A lift is recognized from its title alone, and its kind from its title and
-  // categories alone: an outage lift whose body says "the boil water advisory
-  // remains in effect" must not clear that advisory.
+  // Boil water needs the wording, not just the category: the city has tagged a
+  // routine one-street repair notice "Boil Water Advisory" (2026-10-23, Wake
+  // Robin Way), so a category alone is judged as an outage.
+  // A lift is recognized from its title alone, and its kind from its title
+  // alone: an outage lift whose body says "the boil water advisory remains in
+  // effect" must not clear that advisory.
   const isLift = LIFT_RE.test(title.trim()) && !NOT_LIFTED_RE.test(title);
   const kind: WaterNoticeKind | null = isLift
-    ? BOIL_RE.test(`${categories} ${title}`)
+    ? BOIL_RE.test(title)
       ? 'boil'
       : roadOnly || !OUTAGE_RE.test(`${categories} ${title}`)
         ? null
         : 'outage'
-    : BOIL_RE.test(`${categories} ${title} ${body}`)
+    : BOIL_RE.test(`${title} ${body}`)
       ? 'boil'
       : roadOnly || !OUTAGE_RE.test(`${categories} ${title}`)
         ? null

@@ -229,7 +229,7 @@ function SignatureForm({ user, existing, onSaved, onCancel }: SignatureFormProps
 
       <div>
         <label htmlFor="plan-role" className={labelClass}>
-          Role
+          Job Title / Role
         </label>
         <input
           id="plan-role"
@@ -298,7 +298,9 @@ function SignatureForm({ user, existing, onSaved, onCancel }: SignatureFormProps
         </div>
         <p id="plan-isPublic-hint" className={hintClass}>
           Public names appear on this page after a quick review and may be sent to officials with
-          the letter. Private signers are counted but never published or sent to officials.
+          the letter.
+          <br />
+          Private signers are counted but never published or sent to officials.
         </p>
         {errors.isPublic && (
           <p id="plan-isPublic-error" role="alert" className={errorClass}>
@@ -307,7 +309,8 @@ function SignatureForm({ user, existing, onSaved, onCancel }: SignatureFormProps
         )}
       </fieldset>
 
-      <div className="space-y-3">
+      {/* A rule sets the two checkboxes apart from the fields above */}
+      <div className="space-y-3 border-t border-gray-200 pt-4 dark:border-gray-800">
         <div>
           <label className="flex items-start gap-2 text-sm text-gray-800 dark:text-gray-200 cursor-pointer">
             <input
@@ -324,7 +327,8 @@ function SignatureForm({ user, existing, onSaved, onCancel }: SignatureFormProps
               className="mt-0.5 h-4 w-4 accent-brand-600 cursor-pointer"
             />
             <span>
-              I live in the Asheville metro area. <span className="text-red-500">*</span>
+              Confirming that I live in the Asheville metro area.{' '}
+              <span className="text-red-500">*</span>
             </span>
           </label>
           {errors.resident && (
@@ -365,7 +369,7 @@ function SignatureForm({ user, existing, onSaved, onCancel }: SignatureFormProps
       <div className="flex flex-wrap gap-3">
         <button type="submit" disabled={submitting} className={primaryButton}>
           {submitting && <Loader2 size={16} className="animate-spin" aria-hidden="true" />}
-          {existing ? 'Save changes' : 'Add my name'}
+          {existing ? 'Save changes' : 'Submit'}
         </button>
         {onCancel && (
           <button

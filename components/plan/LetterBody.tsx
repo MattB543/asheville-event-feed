@@ -68,8 +68,9 @@ export default function LetterBody() {
       <p>
         After Helene, we saw the power of this community and its public servants, but also how much{' '}
         <Lead>depended on help from outside Asheville</Lead>. Helene was a regional disaster with
-        national support. The next one could be a national disaster with little national support,
-        whether the cause is a cyberattack, an attack on the grid or water supply.
+        national support. The next one could be a national disaster with little or no national
+        support; cybersecurity, electric grid, water supply attacks are at a greater risk now more
+        than ever.
       </p>
       <p>We ask our leaders, and everyone running to lead, to commit to forming a plan.</p>
 

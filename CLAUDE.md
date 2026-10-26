@@ -315,6 +315,21 @@ per unusual genre tag ("Zydeco": accordion-led dance music from Louisiana), show
 a tooltip on /playlist. A null `note` means the genre is common enough to need none;
 either way the weekly job never asks about it again.
 
+### `letter_signatures` Table
+
+Signatures on the open letter at `/plan` (migration `drizzle/0024_letter_signatures.sql`,
+run on the live database by hand; queries in `lib/db/queries/letterSignatures.ts`, shared
+types in `lib/letter/outagePlan.ts`). One row per `letter` and `user_id` (a Supabase auth
+user, so the email is already verified and stays in `auth.users`). `status` is `pending` |
+`approved` | `rejected`: private signatures are approved at once, public ones wait for the
+super admin, and an edit that changes a public signature's name, neighborhood or role puts
+it back to `pending`. A rejection survives the signer's edits. The page counts every row
+that isn't rejected and shows only public, approved names, read fresh on every request (no
+cache: a cache fill racing a switch to private could keep serving the name). `revision` goes
+up on every edit and review; a review is applied only at the revision the admin was shown
+(409 otherwise), so an old Approve never publishes a newer, unreviewed name. The sign form
+and review panel carry `ph-no-capture` so PostHog never records names.
+
 ### Row Level Security (RLS)
 
 RLS is enabled on all tables. Supabase's "RLS auto-enable trigger" is active, so new tables will have RLS enabled automatically. All database writes from the app go through server-side Drizzle ORM using `DATABASE_URL` (the `postgres` role), which bypasses RLS. RLS policies only govern access via Supabase's PostgREST API (the `anon` and `authenticated` roles exposed by the client-side anon key).
@@ -344,6 +359,7 @@ RLS is enabled on all tables. Supabase's "RLS auto-enable trigger" is active, so
 | `playlist_picks`      | —                    | —                                                 |
 | `genre_notes`         | —                    | —                                                 |
 | `season_picks`        | —                    | —                                                 |
+| `letter_signatures`   | —                    | —                                                 |
 
 "Own" means the policy restricts access to rows where `user_id = auth.uid()` (or `profile_id` belongs to the user for `matching_answers`).
 
@@ -501,14 +517,16 @@ day of its first showing that passes the date filter, not its first start date.
 | `/api/curator/settings`      | GET/POST    | Curator profile settings                       |
 | `/api/email-digest/settings` | GET/POST    | Email digest preferences                       |
 | `/api/posters/upload`        | POST        | Upload a poster photo (multipart, 20/day/user) |
+| `/api/plan/sign`             | POST/DELETE | Sign/edit or remove your `/plan` signature     |
 
 ### Admin APIs (require `SUPER_ADMIN`)
 
-| Route                        | Method | Purpose                         |
-| ---------------------------- | ------ | ------------------------------- |
-| `/api/admin/event/score`     | POST   | Set/clear event score overrides |
-| `/api/admin/curator/verify`  | POST   | Verify a curator profile        |
-| `/api/posters/[id]/moderate` | POST   | Approve or deny a poster upload |
+| Route                        | Method | Purpose                                   |
+| ---------------------------- | ------ | ----------------------------------------- |
+| `/api/admin/event/score`     | POST   | Set/clear event score overrides           |
+| `/api/admin/curator/verify`  | POST   | Verify a curator profile                  |
+| `/api/posters/[id]/moderate` | POST   | Approve or deny a poster upload           |
+| `/api/admin/plan-signatures` | POST   | Approve/reject a public `/plan` signature |
 
 Poster moderation guard is the canonical one: `getUser()` → 401, then
 `isSuperAdmin(user.id)` → 403. Both actions accept `pending_review` **or**
@@ -785,7 +803,7 @@ Built to `docs/news/05-v1-plan.md`; Matt's decisions are in `docs/news/decisions
 
 ### Group Directory
 
-- `/groups` lists every non-hidden group (search + category chips, client-side, kept in `?q=` / `?cat=` via `history.replaceState` so Back restores them), grouped by category with the next upcoming event or "Last event <Mon YYYY>"; `/groups/[slug]` shows the first 10 upcoming events (the rest in a `<details>`) and up to 50 past events in a `<details>` that is collapsed unless nothing is upcoming. The cached query results carry a `GROUP_CACHE_SHAPE` version in their key: bump it when the cached shape or labels change, or dev/prod keep serving old entries. The header tabs are Events · Groups · News · Playlist · Parking ("Events" opens an All events / Top events / Your feed / Groups menu, each with an icon (Groups is in both places): on hover at lg+ with a fine pointer, where the label itself links to `/events`, and on tap otherwise). Groups replaced Your List's tab; it's "Your feed" in the Events menu (which highlights on `/events/your-list`) and linked from `/profile`, and the signed-out account icon is a plain sign-in link, and Posters has no tab (`/posters` is reached by URL and by poster events' links back to their poster)
+- `/groups` lists every non-hidden group (search + category chips, client-side, kept in `?q=` / `?cat=` via `history.replaceState` so Back restores them), grouped by category with the next upcoming event or "Last event <Mon YYYY>"; `/groups/[slug]` shows the first 10 upcoming events (the rest in a `<details>`) and up to 50 past events in a `<details>` that is collapsed unless nothing is upcoming. The cached query results carry a `GROUP_CACHE_SHAPE` version in their key: bump it when the cached shape or labels change, or dev/prod keep serving old entries. The header tabs are Events · Disaster Plan · News · Playlist · Parking ("Events" opens an All events / Top events / Your feed / Groups menu, each with an icon; Groups lives only there since Disaster Plan (`/plan`) took its tab, and the Events tab highlights on group pages): on hover at lg+ with a fine pointer, where the label itself links to `/events`, and on tap otherwise). Your List is "Your feed" in the Events menu (which highlights on `/events/your-list`) and linked from `/profile`, and the signed-out account icon is a plain sign-in link, and Posters has no tab (`/posters` is reached by URL and by poster events' links back to their poster)
 - Both pages render per request (`connection()`) over `unstable_cache` data keyed by the Eastern date and tagged `events` + `groups`, so the scrape job's cache invalidation refreshes them and yesterday's events never read as upcoming after midnight
 - The list comes from a multi-agent pipeline documented in `data/groups/README.md`: discovery → research (`data/groups/research/`) → links pass → `directory-overrides.json` (final human calls) → `npx tsx scripts/groups/build-directory.ts` → `npx tsx scripts/groups/seed-groups.ts [--apply]`. Edit the overrides, not `directory.json`. The seed prints a coverage report and a parity check (the pages' SQL prefilter vs a full JS scan) that must come back clean
 - Definition of a group (Matt): a specific set of people with a shared identity who return repeatedly. Not groups: trivia, open mics, karaoke, a business's paid classes/shows, low-value business networking, remote-only groups, anything outside Western NC

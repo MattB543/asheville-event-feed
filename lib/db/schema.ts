@@ -815,6 +815,33 @@ export const seasonPicks = pgTable(
   })
 );
 
+// Signatures on an open letter (/plan), one per letter and user (drizzle/0024).
+// Counted unless rejected; shown only when public and approved.
+export const letterSignatures = pgTable(
+  'letter_signatures',
+  {
+    id: uuid('id').defaultRandom().primaryKey(),
+    letter: text('letter').notNull(), // e.g. 'outage-plan'
+    userId: uuid('user_id').notNull(), // Supabase auth.users UUID (no FK, repo convention)
+    name: text('name').notNull(),
+    neighborhood: text('neighborhood'),
+    role: text('role'),
+    isPublic: boolean('is_public').notNull(),
+    wantsUpdates: boolean('wants_updates').default(false).notNull(),
+    // 'pending' | 'approved' | 'rejected' (SignatureStatus in lib/letter/outagePlan.ts)
+    status: text('status').default('pending').notNull(),
+    createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
+    updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow().notNull(),
+    reviewedAt: timestamp('reviewed_at', { withTimezone: true }), // Set when the super admin sets a status
+    // Goes up on every edit and review, so a review applies only to the version the admin saw
+    revision: integer('revision').default(0).notNull(),
+  },
+  (table) => ({
+    letterUserIdx: uniqueIndex('letter_signatures_letter_user_idx').on(table.letter, table.userId),
+    letterStatusIdx: index('letter_signatures_letter_status_idx').on(table.letter, table.status),
+  })
+);
+
 // A one-line explanation of an unusual genre tag, for the /playlist tooltip.
 // A null note means the genre is common enough to need none.
 export const genreNotes = pgTable('genre_notes', {

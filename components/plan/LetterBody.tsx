@@ -59,6 +59,7 @@ export function LetterTitle() {
 export default function LetterBody() {
   return (
     <div className="text-base leading-relaxed text-gray-700 sm:text-[17px] dark:text-gray-300 [&>p]:mt-4">
+      <LetterHeading id="letter">A letter to our leaders</LetterHeading>
       <p>
         We are Asheville residents. After Helene, we saw the power of this community and its public
         servants, but also how much depended on help from outside Asheville. Helene was a regional

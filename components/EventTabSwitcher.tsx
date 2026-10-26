@@ -8,7 +8,15 @@ import IntentLink from '@/components/IntentLink';
 import { useDismiss } from '@/lib/hooks/useDismiss';
 import { useSeasonalMenuItem } from '@/components/seasonal/SeasonalLinks';
 
-export type HeaderTab = 'all' | 'top30' | 'yourList' | 'groups' | 'news' | 'playlist' | 'parking';
+export type HeaderTab =
+  | 'all'
+  | 'top30'
+  | 'yourList'
+  | 'groups'
+  | 'plan'
+  | 'news'
+  | 'playlist'
+  | 'parking';
 
 interface EventTabSwitcherProps {
   activeTab?: HeaderTab;
@@ -35,7 +43,7 @@ function TabsWithQuery(props: EventTabSwitcherProps) {
 
 function Tabs({ activeTab, query }: EventTabSwitcherProps & { query: string }) {
   // Build URL preserving other query params
-  // Groups and News link to their own plain routes (see below); only the event tabs carry params
+  // Disaster Plan and News link to their own plain routes (see below); only the event tabs carry params
   const buildTabUrl = (tab: 'all' | 'top30') => {
     const params = new URLSearchParams(query);
     params.delete('tab'); // No longer using tab query param
@@ -58,17 +66,18 @@ function Tabs({ activeTab, query }: EventTabSwitcherProps & { query: string }) {
 
   return (
     // Content-width tabs: 36px tall below lg (touch), the original 32px at lg+.
-    // Spacing is tight below sm so five tabs fit a 360px phone without wrapping
+    // Below sm the padding is 6px and the text 13px so five tabs, "Disaster Plan" the
+    // widest, fit a 360px phone without wrapping (~320 of its 336px; at 14px/8px it was ~358)
     <nav className="flex items-center sm:gap-1 whitespace-nowrap" aria-label="Event feed tabs">
       <EventsMenu
         activeTab={activeTab}
         allHref={buildTabUrl('all')}
         top30Href={buildTabUrl('top30')}
       />
-      {/* Plain /groups: the feed's filter params mean nothing in the directory.
-          /events, /groups, /news and /playlist are dynamic, so they prefetch on hover, not on sight */}
-      <IntentLink href="/groups" className={tabClass(activeTab === 'groups')}>
-        Groups
+      {/* Plain /plan: the feed's filter params mean nothing on the letter.
+          /events, /plan, /news and /playlist are dynamic, so they prefetch on hover, not on sight */}
+      <IntentLink href="/plan" className={tabClass(activeTab === 'plan')}>
+        Disaster Plan
       </IntentLink>
       {/* News filters are its own, so the link drops the event tabs' params */}
       <IntentLink href="/news" className={tabClass(activeTab === 'news')}>
@@ -85,7 +94,7 @@ function Tabs({ activeTab, query }: EventTabSwitcherProps & { query: string }) {
 }
 
 const TAB_BASE =
-  'flex items-center min-h-9 px-2 sm:px-3 lg:min-h-0 lg:py-1.5 text-sm font-medium rounded-md cursor-pointer transition-colors';
+  'flex items-center min-h-9 px-1.5 sm:px-3 lg:min-h-0 lg:py-1.5 text-[13px] sm:text-sm font-medium rounded-md cursor-pointer transition-colors';
 const TAB_IDLE =
   'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50';
 
@@ -119,7 +128,12 @@ function EventsMenu({
 
   useDismiss(isOpen, () => setIsOpen(false), [rootRef]);
 
-  const isEvents = activeTab === 'all' || activeTab === 'top30' || activeTab === 'yourList';
+  // Groups lives only in this menu, so the directory lights up Events too
+  const isEvents =
+    activeTab === 'all' ||
+    activeTab === 'top30' ||
+    activeTab === 'yourList' ||
+    activeTab === 'groups';
   const items: { href: string; label: string; icon: LucideIcon; active: boolean }[] = [
     { href: allHref, label: 'All events', icon: CalendarDays, active: activeTab === 'all' },
     { href: top30Href, label: 'Top events', icon: Trophy, active: activeTab === 'top30' },
@@ -130,7 +144,7 @@ function EventsMenu({
       icon: Heart,
       active: activeTab === 'yourList',
     },
-    // Also its own tab; plain for the same reason as the tab
+    // Plain: the feed's filter params mean nothing in the directory
     { href: '/groups', label: 'Groups', icon: Users, active: activeTab === 'groups' },
   ];
   const seasonal = useSeasonalMenuItem();

@@ -1,5 +1,6 @@
 import { env, isSlackEnabled } from '@/lib/config/env';
 import { fetchWithRetry } from '@/lib/utils/retry';
+import { SITE_URL } from '@/lib/seo/site';
 
 interface EventSubmission {
   id: string;
@@ -585,5 +586,34 @@ export async function sendPlaylistFailedNotification(error: unknown): Promise<bo
       },
     ],
     'playlist failure notification'
+  );
+}
+
+/** A public signature on the /plan letter is waiting for the super admin's review */
+export async function sendLetterSignatureNotification(signature: {
+  name: string;
+  neighborhood: string | null;
+  role: string | null;
+  pendingCount: number;
+}): Promise<boolean> {
+  if (!isSlackEnabled()) return false;
+  // Signers type these, so escape Slack's control characters (no injected links or mentions)
+  const escape = (value: string) =>
+    value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  const signer = [signature.name, signature.neighborhood, signature.role]
+    .filter((part): part is string => !!part)
+    .map(escape)
+    .join(' · ');
+  return postToSlack(
+    [
+      {
+        type: 'section',
+        text: {
+          type: 'mrkdwn',
+          text: `:writing_hand: *New public signature to review* (${signature.pendingCount} waiting)\n${signer}\n<${SITE_URL}/plan#review|Review signatures>`,
+        },
+      },
+    ],
+    'letter signature notification'
   );
 }

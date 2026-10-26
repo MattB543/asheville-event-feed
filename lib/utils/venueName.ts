@@ -18,14 +18,29 @@ export function normalizeName(s: string): string {
 const VENUE_SUFFIX_RE = /\s+(co\.|black mountain|asheville|nc)$/i;
 
 // What people actually call a venue, where its listed name runs long
-const SPOKEN_NAMES: [RegExp, string][] = [[/^grey eagle\b/i, 'Grey Eagle']];
+const SPOKEN_NAMES: [RegExp, string][] = [
+  [/^grey eagle\b/i, 'Grey Eagle'],
+  [/^hop ice cream\b/i, 'The Hop'],
+];
+
+// Venues some sources list only by street address (Facebook especially), where the
+// host would otherwise stand in for the venue
+const KNOWN_ADDRESSES: [RegExp, string][] = [
+  [/^10 buxton ave?(nue)?\b/i, 'Eulogy'],
+  [/^13 mystery st(reet)?\b/i, 'RAD Brewing'],
+];
 
 function shortVenue(name: string, maxLength: number | null): string {
   let s = name;
   // ALL-CAPS names to title case; mixed case is left alone
   if (s && !/[a-z]/.test(s)) s = s.toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase());
-  s = s.replace(/^the\s+/i, '').trim();
-  for (let next = s.replace(VENUE_SUFFIX_RE, '').trim(); next !== s; ) {
+  // "The Orange Peel" reads fine as "Orange Peel", but "The Roof" needs its "The"
+  if (/^the\s+\S+\s+\S/i.test(s)) s = s.replace(/^the\s+/i, '').trim();
+  // The town stays when it's part of the name: "Adventure Center of Asheville" isn't "Adventure Center of"
+  for (
+    let next = s.replace(VENUE_SUFFIX_RE, '').trim();
+    next !== s && !/\s(of|at|in|on|the|and|&)$/i.test(next);
+  ) {
     s = next;
     next = s.replace(VENUE_SUFFIX_RE, '').trim();
   }
@@ -43,7 +58,10 @@ export function venueFor(
   const location = (event.location ?? '').trim();
   if (location) {
     const first = location.split(',')[0].split('|').pop()?.trim() ?? '';
-    const looksLikeAddress = /^\d/.test(first);
+    // A number and at least two more words ("10 Buxton Avenue"); "27 Club" is a venue's name
+    const looksLikeAddress = /^\d\S*\s+\S+\s+\S/.test(first);
+    const known = looksLikeAddress && KNOWN_ADDRESSES.find(([pattern]) => pattern.test(first))?.[1];
+    if (known) return known;
     if (first && !looksLikeAddress && normalizeName(first) !== normalizeName(artist)) {
       return shortVenue(first, maxLength);
     }

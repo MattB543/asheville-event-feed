@@ -22,13 +22,13 @@ export default function HeartButton({ eventId, title }: { eventId: string; title
         // The shared store rolls back a failed toggle on its own
         toggleFavorite(eventId).catch(() => undefined);
       }}
-      className={`inline-flex h-9 w-10 items-center justify-center rounded-md border cursor-pointer ${
+      className={`inline-flex h-7 w-7 items-center justify-center rounded-md border cursor-pointer ${
         on
           ? 'border-red-800 bg-red-950/60 text-red-400'
           : 'border-gray-700 text-gray-200 hover:bg-white/5'
       }`}
     >
-      <Heart size={16} className={on ? 'fill-current' : ''} />
+      <Heart size={14} className={on ? 'fill-current' : ''} />
     </button>
   );
 }

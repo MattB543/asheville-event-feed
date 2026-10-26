@@ -19,8 +19,9 @@ interface PosterProps {
  * none or the image won't load (expired Facebook links, sites that block us).
  */
 export default function Poster({ src, title, when, venue, sizes, flyerTextClass }: PosterProps) {
-  const [failed, setFailed] = useState(false);
-  if (src && !failed) {
+  // Kept per src, so a replacement poster (an admin upload) gets its own try
+  const [failedSrc, setFailedSrc] = useState<string | null>(null);
+  if (src && src !== failedSrc) {
     return (
       <Image
         src={src}
@@ -29,7 +30,7 @@ export default function Poster({ src, title, when, venue, sizes, flyerTextClass 
         height={640}
         sizes={sizes}
         className="block h-auto w-full bg-[#140b1f]"
-        onError={() => setFailed(true)}
+        onError={() => setFailedSrc(src)}
       />
     );
   }

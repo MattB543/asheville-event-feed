@@ -54,11 +54,12 @@ function getStorageClient() {
 export async function uploadEventImage(
   buffer: Buffer,
   eventId: string,
-  mimeType: string = 'image/jpeg'
+  mimeType: string = 'image/jpeg',
+  folder: string = 'generated'
 ): Promise<string> {
   const client = getStorageClient();
   const fileName = `${eventId}.jpg`;
-  const filePath = `generated/${fileName}`;
+  const filePath = `${folder}/${fileName}`;
 
   const { error } = await client.storage.from(BUCKET_NAME).upload(filePath, buffer, {
     contentType: mimeType,

@@ -280,6 +280,9 @@
   .hw-page .hw-moving {
     display: none;
   }
+  .hw-page .hw-climb-spider {
+    transition: none;
+  }
 }
 
 /* Extras that show up now and then: each moves for part of its loop and waits off-screen the rest */
@@ -412,4 +415,31 @@
   50% {
     transform: skewX(8deg);
   }
+}
+
+/* The page's in-page links glide instead of jumping, unless motion is reduced */
+@media (prefers-reduced-motion: no-preference) {
+  html:has(.hw-page) {
+    scroll-behavior: smooth;
+  }
+}
+
+/* The "climb back up" spider sways on its thread and scurries up on hover */
+@keyframes hw-sway {
+  0%,
+  100% {
+    transform: rotate(-5deg);
+  }
+  50% {
+    transform: rotate(5deg);
+  }
+}
+.hw-climb-spider {
+  transform-origin: top center;
+  animation: hw-sway 3s ease-in-out infinite;
+  transition: translate 0.35s ease;
+}
+.hw-climb:hover .hw-climb-spider,
+.hw-climb:focus-visible .hw-climb-spider {
+  translate: 0 -18px;
 }

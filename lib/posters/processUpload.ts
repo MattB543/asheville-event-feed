@@ -319,7 +319,7 @@ export function buildExtractionRows(
  * comes from sharp's own probe of the bytes, and the decode is pixel-capped so
  * a small highly-compressed file cannot force a huge allocation.
  */
-async function normalizeImage(
+export async function normalizeImage(
   buffer: Buffer
 ): Promise<
   | { ok: true; buffer: Buffer; width: number | null; height: number | null }

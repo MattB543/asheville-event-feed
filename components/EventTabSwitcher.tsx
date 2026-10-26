@@ -1,7 +1,7 @@
 'use client';
 
 import { Suspense, useId, useRef, useState } from 'react';
-import { CalendarDays, ChevronDown, Heart, Trophy, type LucideIcon } from 'lucide-react';
+import { CalendarDays, ChevronDown, Heart, Trophy, Users, type LucideIcon } from 'lucide-react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import IntentLink from '@/components/IntentLink';
@@ -100,7 +100,7 @@ function tabClass(active: boolean, activeTone = 'brand'): string {
 const HOVER_QUERY = '(pointer: fine) and (min-width: 1024px)';
 
 /**
- * "Events" with All events / Top events / Your feed underneath. At lg+ with a mouse
+ * "Events" with All events / Top events / Your feed / Groups underneath. At lg+ with a mouse
  * the menu opens on hover and the label is a plain link to the feed; on touch the
  * label toggles the menu, since there is no hover to reveal the other two.
  */
@@ -130,6 +130,8 @@ function EventsMenu({
       icon: Heart,
       active: activeTab === 'yourList',
     },
+    // Also its own tab; plain for the same reason as the tab
+    { href: '/groups', label: 'Groups', icon: Users, active: activeTab === 'groups' },
   ];
   const seasonal = useSeasonalMenuItem();
   if (seasonal) items.push({ ...seasonal, active: false });

@@ -8,7 +8,8 @@ import { LETTER_SOURCES, sourceDomain } from '@/lib/plan/letterSources';
  * typos, numbers or phrasing. Its "Signed" section is the page's live signer list.
  */
 
-export const LETTER_TITLE = 'Asheville Needs a Water and Food Plan for Long Outages';
+export const LETTER_TITLE =
+  'An open letter to Asheville leaders: We need Water and Food Plans for Long Outages';
 
 const LINK_CLASS =
   'font-medium text-brand-600 underline underline-offset-2 hover:text-brand-700 dark:text-brand-400 dark:hover:text-brand-300';
@@ -40,17 +41,13 @@ function Numbered({ children }: { children: ReactNode }) {
   );
 }
 
-/** The page's h1 and the letter's italic subtitle */
+/** The page's h1 */
 export function LetterTitle() {
   return (
     <header>
       <h1 className="font-display text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl dark:text-white">
         {LETTER_TITLE}
       </h1>
-      <p className="mt-3 text-base italic leading-relaxed text-gray-600 sm:text-lg dark:text-gray-400">
-        An open letter to Asheville leaders, and to every candidate for Mayor and City Council on
-        the November 3 ballot.
-      </p>
     </header>
   );
 }
@@ -61,14 +58,16 @@ export default function LetterBody() {
     <div className="text-base leading-relaxed text-gray-700 sm:text-[17px] dark:text-gray-300 [&>p]:mt-4">
       <LetterHeading id="letter">A letter to our leaders</LetterHeading>
       <p>
-        We are Asheville residents. After Helene, we saw the power of this community and its public
-        servants, but also how much depended on help from outside Asheville. Helene was a regional
-        disaster with national support. The next one could be a national disaster with mostly local
-        help, whether the cause is a cyberattack, an attack on the grid or water supply.
+        After Helene, we saw the power of this community and its public servants, but also how much{' '}
+        <Lead>depended on help from outside Asheville</Lead>. Helene was a regional disaster with
+        national support. The next one could be a national disaster with mostly local help, whether
+        the cause is a cyberattack, an attack on the grid or water supply.
       </p>
       <p>We ask our leaders, and everyone running to lead, to commit to forming a plan.</p>
 
-      <LetterHeading>New disaster risks are documented by experts</LetterHeading>
+      <LetterHeading>
+        There are new disaster risks raised by experts we&apos;re not ready for
+      </LetterHeading>
       <Bullets>
         <li>
           <Lead>Foreign hackers are already positioned.</Lead> U.S. agencies found Chinese
@@ -103,7 +102,7 @@ export default function LetterBody() {
         </li>
       </Bullets>
 
-      <LetterHeading>The gap: water and food</LetterHeading>
+      <LetterHeading>The gap: local water and food access</LetterHeading>
       <p>
         After Helene, much of our water and food was shipped in: the county’s main warehouse alone
         received over a million MREs and nearly 600,000 gallons of water.
@@ -147,7 +146,7 @@ export default function LetterBody() {
         </li>
       </Numbered>
 
-      <LetterHeading>Go on the record by 5 PM Friday, October 30</LetterHeading>
+      <LetterHeading>Go on the record by 5 PM Monday, November 2</LetterHeading>
       <p>
         We are sending this letter to every sitting official and every candidate for Mayor and City
         Council asking them each to reply to{' '}

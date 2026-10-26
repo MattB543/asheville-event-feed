@@ -31,6 +31,8 @@ export interface PublicSigner {
 export interface LetterPageData {
   /** Every signature that isn't rejected, public or private */
   total: number;
+  /** Private signatures that aren't rejected (private ones are approved at once) */
+  privateCount: number;
   /** Public and approved, oldest first */
   shown: PublicSigner[];
 }

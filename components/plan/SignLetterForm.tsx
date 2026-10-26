@@ -16,7 +16,8 @@ import {
   type SignRequest,
 } from '@/lib/letter/outagePlan';
 
-const LETTER_TITLE = 'Asheville Needs a Water and Food Plan for Long Outages';
+const LETTER_TITLE =
+  'An open letter to Asheville leaders: We need Water and Food Plans for Long Outages';
 const SIGN_PATH = '/plan#sign';
 
 type Field = 'name' | 'neighborhood' | 'role' | 'isPublic' | 'resident';

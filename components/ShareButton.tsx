@@ -10,6 +10,8 @@ interface ShareButtonProps {
   /** Site path to share, e.g. "/news?s=abc" */
   path: string;
   title: string;
+  /** 'md' matches body text (text-sm, text-base from sm) for use beside a text link */
+  size?: 'xs' | 'md';
 }
 
 /**
@@ -51,17 +53,20 @@ export function ShareNote({ note }: { note: string | null }) {
 }
 
 /** A Share button for a page on the site */
-export default function ShareButton({ path, title }: ShareButtonProps) {
+export default function ShareButton({ path, title, size = 'xs' }: ShareButtonProps) {
   const { note, share } = useShareNote();
 
   return (
     <button
       type="button"
       onClick={() => void share(`${SITE_URL}${path}`, title)}
-      className={`${TAP_AREA} inline-flex items-center gap-1 rounded-md px-1.5 py-1 text-xs font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-200 cursor-pointer transition-colors`}
+      className={`${TAP_AREA} inline-flex items-center gap-1 rounded-md px-1.5 py-1 ${size === 'md' ? 'text-sm sm:text-base' : 'text-xs'} font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-200 cursor-pointer transition-colors`}
       aria-label={`Share: ${title}`}
     >
-      <Share size={14} aria-hidden="true" />
+      <Share
+        aria-hidden="true"
+        className={size === 'md' ? 'h-4 w-4 sm:h-[18px] sm:w-[18px]' : 'h-3.5 w-3.5'}
+      />
       Share
       <ShareNote note={note} />
     </button>

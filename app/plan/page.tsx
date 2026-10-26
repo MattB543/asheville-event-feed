@@ -118,10 +118,10 @@ export default async function PlanPage() {
               href="#sign"
               className="font-medium text-brand-600 underline underline-offset-2 hover:text-brand-700 dark:text-brand-400 dark:hover:text-brand-300"
             >
-              Agree with this letter? Sign your support below ↓
+              Agree with this letter? Sign your support
             </a>
             <div className="relative">
-              <ShareButton path="/plan" title={LETTER_TITLE} />
+              <ShareButton path="/plan" title={LETTER_TITLE} size="md" />
             </div>
           </div>
 

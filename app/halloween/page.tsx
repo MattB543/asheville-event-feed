@@ -12,7 +12,7 @@ import AdminControls from '@/components/halloween/AdminControls';
 import AdminWallSearch from '@/components/halloween/AdminWallSearch';
 import { getSeasonPicks, type SeasonPick } from '@/lib/db/queries/seasonPicks';
 import { createClient } from '@/lib/supabase/server';
-import { isSuperAdmin } from '@/lib/utils/superAdmin';
+import { canEditSeason } from '@/lib/utils/superAdmin';
 import {
   BatSwarm,
   BloodDrips,
@@ -324,7 +324,7 @@ export default async function HalloweenPage({
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  const admin = isSuperAdmin(user?.id);
+  const admin = canEditSeason(user?.id);
   // Events added to the wall by hand, which may not match the Halloween words at all
   // After dark only: nothing vets a hand-added event as family-friendly. Hidden ones load
   // too, so they stay in the admin's hidden list instead of vanishing

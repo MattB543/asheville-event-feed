@@ -36,7 +36,7 @@ async function shrinkForUpload(file: File): Promise<Blob> {
   }
 }
 
-/** Super-admin only: hide an event from a holiday page, take a hand-added one off, or give it a poster */
+/** Season editors only: hide an event from a holiday page, take a hand-added one off, or give it a poster */
 export default function AdminControls({
   season,
   eventId,

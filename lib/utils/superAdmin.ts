@@ -17,3 +17,14 @@ export function isSuperAdmin(userId: string | undefined | null): boolean {
   const superAdminId = env.SUPER_ADMIN;
   return !!superAdminId && userId === superAdminId;
 }
+
+/**
+ * Check if a user may hand-edit a holiday page (hide, add, poster): the super admin,
+ * or anyone listed in SEASON_EDITORS. Grants nothing else. Server-only, like isSuperAdmin.
+ */
+export function canEditSeason(userId: string | undefined | null): boolean {
+  if (!userId) return false;
+  if (isSuperAdmin(userId)) return true;
+  const editors = (env.SEASON_EDITORS ?? '').split(',').map((id) => id.trim());
+  return editors.includes(userId);
+}

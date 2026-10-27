@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import ResponseBadge from '@/components/plan/ResponseBadge';
 import { CANDIDATES, type Candidate, type Office } from '@/lib/plan/candidates';
 
 const OFFICE_HEADINGS: Record<Office, string> = {
@@ -23,37 +24,51 @@ function CandidateCard({ candidate }: { candidate: Candidate }) {
   const heading = OFFICE_HEADINGS[candidate.office];
   const seat =
     candidate.seat === heading ? null : candidate.seat.replace(`${heading}, `, '') || null;
+  // The officials' long job titles are cramped beside the photo in a half-width phone card,
+  // so there the photo sits beside the name alone and the title and badge run full width below
+  const stacked = candidate.office === 'emergency';
   return (
-    <li className="flex items-center gap-2 rounded-lg border border-gray-200 bg-white p-2 sm:gap-3 sm:p-2.5 dark:border-gray-800 dark:bg-gray-900">
+    <li
+      // Stacked, a card stretched to its taller neighbor packs its rows to the top instead of spreading them
+      className={`grid grid-cols-[auto_minmax(0,1fr)] items-center gap-x-2 ${stacked ? 'content-start sm:content-normal' : ''} rounded-lg border border-gray-200 bg-white p-2 sm:gap-x-3 sm:p-2.5 dark:border-gray-800 dark:bg-gray-900`}
+    >
       {candidate.photo ? (
         <Image
           src={candidate.photo}
           alt=""
           width={56}
           height={56}
-          className="h-10 w-10 shrink-0 rounded-full object-cover sm:h-14 sm:w-14"
+          className={`h-10 w-10 rounded-full object-cover sm:h-14 sm:w-14 ${stacked ? 'sm:row-span-2' : 'row-span-2'}`}
         />
       ) : (
         <span
           aria-hidden="true"
-          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gray-100 text-sm sm:h-14 sm:w-14 sm:text-base font-semibold text-gray-500 dark:bg-gray-800 dark:text-gray-400"
+          className={`flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 text-sm sm:h-14 sm:w-14 sm:text-base font-semibold text-gray-500 dark:bg-gray-800 dark:text-gray-400 ${stacked ? 'sm:row-span-2' : 'row-span-2'}`}
         >
           {initials(candidate.name)}
         </span>
       )}
-      <div className="min-w-0">
-        <p className="text-[13px] font-semibold leading-snug text-gray-900 sm:text-sm dark:text-gray-100">
-          {candidate.name}
-        </p>
+      <p
+        className={`text-[13px] font-semibold leading-snug text-gray-900 sm:text-sm dark:text-gray-100 ${stacked ? 'sm:self-end' : 'self-end'}`}
+      >
+        {candidate.name}
+      </p>
+      <div
+        className={`min-w-0 ${stacked ? 'col-span-2 mt-1.5 sm:col-span-1 sm:col-start-2 sm:mt-0 sm:self-start' : 'col-start-2 self-start'}`}
+      >
         {seat && (
           <p className="text-[11px] leading-snug text-gray-500 sm:text-xs dark:text-gray-400">
             {seat}
           </p>
         )}
-        <p className="mt-1 inline-flex items-center gap-1 rounded-full bg-red-50 px-1.5 py-0.5 text-[11px] whitespace-nowrap sm:px-2 sm:text-xs font-medium text-red-700 dark:bg-red-950/40 dark:text-red-400">
-          <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-current" />
-          No comment yet
-        </p>
+        {candidate.response ? (
+          <ResponseBadge name={candidate.name} response={candidate.response} />
+        ) : (
+          <p className="mt-1 inline-flex items-center gap-1 rounded-full bg-red-50 px-1.5 py-0.5 text-[11px] whitespace-nowrap sm:px-2 sm:text-xs font-medium text-red-700 dark:bg-red-950/40 dark:text-red-400">
+            <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-current" />
+            No answer
+          </p>
+        )}
       </div>
     </li>
   );

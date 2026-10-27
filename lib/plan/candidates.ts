@@ -36,6 +36,15 @@ export interface Candidate {
   photo: string | null;
   /** Page the photo came from. */
   photoSource: string | null;
+  /** Their reply to the letter, published unedited; absent until they answer. */
+  response?: CandidateResponse;
+}
+
+export interface CandidateResponse {
+  /** Yes (true) or no (false) on each of the six commitments, in order. */
+  answers: boolean[];
+  /** The full reply, word for word; each line is shown as its own paragraph. */
+  statement: string;
 }
 
 const CITY_COUNCIL_PAGE = 'https://www.ashevillenc.gov/government/meet-city-council/';
@@ -145,6 +154,27 @@ export const CANDIDATES: Candidate[] = [
     incumbent: false,
     photo: '/plan/candidates/keith-young.jpg',
     photoSource: 'https://www.keithforavl.com/',
+    // Emailed to Matt (2026-10-27)
+    response: {
+      answers: [true, true, true, true, true, true],
+      statement: `Hi Matt,
+Thank you for raising these questions and for putting forward concrete steps that would lead to proven results in helping help Asheville prepare for a future emergency.
+My answers to the six commitments are:
+
+1. Yes. Name a person or office responsible for coordinating water and food resilience, beginning with an assessment of our current capacity and gaps.
+2. Yes. Strengthen the security of our water controls, including using available federal resources and addressing exposure to the open internet.
+3. Yes. Develop a plan to secure, store and deliver the fuel needed to keep water facilities and pumps operating during a prolonged outage.
+4. Yes. Bring grocers, distributors, MANNA, growers and other partners together to plan for food access during an extended disruption.
+5. Yes. Develop and test a 30 day water and food plan, including a public tabletop exercise.
+6. Yes. Make emergency plans available to the public, with necessary security sensitive information redacted.
+
+Helene showed us both the strength of our community and the importance of being prepared when systems we rely on are disrupted. We should be able to answer basic questions about how we will keep water flowing, get food to our neighbors and communicate with the public during a prolonged emergency.
+Resilience hubs should be part of that plan. These are places in our neighborhoods where residents can go for reliable information, water, food, charging and other essential resources during an emergency. We need to identify accessible locations, equip them and make sure people know where to go before and after a disaster happens.
+I support what you’ve proposed and would work with city staff, Buncombe County and community partners to identify what is needed to meet them. The goal must be a plan we can actually carry out, not a document that sits on a shelf. Community input, transparency, and accountability will also have to be a part of everything we do moving forward with critical public policy.
+Thank you for giving candidates the opportunity to respond.
+Keith Young
+Candidate for Asheville City Council`,
+    },
   },
 
   // County Commission, District 1 (open seat)

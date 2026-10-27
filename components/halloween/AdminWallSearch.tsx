@@ -11,7 +11,7 @@ interface Result {
   venue: string;
 }
 
-/** Super-admin only: find any event on the wall's two nights and add it to the wall */
+/** Season editors only: find any event on the wall's two nights and add it to the wall */
 export default function AdminWallSearch({ season, onWall }: { season: string; onWall: string[] }) {
   const router = useRouter();
   const [query, setQuery] = useState('');

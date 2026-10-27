@@ -96,6 +96,10 @@ export const env = {
   get SUPER_ADMIN() {
     return process.env.SUPER_ADMIN;
   },
+  // Comma-separated user IDs who may hand-edit holiday pages (besides the super admin)
+  get SEASON_EDITORS() {
+    return process.env.SEASON_EDITORS;
+  },
 } as const;
 
 // Helper to check if AI features are enabled

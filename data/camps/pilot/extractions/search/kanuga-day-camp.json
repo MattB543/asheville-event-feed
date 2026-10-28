@@ -1,0 +1,172 @@
+{
+  "provider": {
+    "key": "kanuga-day-camp",
+    "name": "Kanuga Day Camp",
+    "urls": [],
+    "area": "Hendersonville, NC (Henderson County)",
+    "covers": ["outside_buncombe", "no_seed_url"]
+  },
+  "extractedAt": "2026-10-28T21:05:26.555Z",
+  "run": {
+    "mode": "search",
+    "extraction": {
+      "provider_name": "Kanuga Day Camp",
+      "website_url": "https://www.kanuga.org/daycamp/",
+      "notes": "No 2027 Day Camp information was found; the day-camp page still advertises summer 2026. Camp Kanuga's separate overnight program has 2027 information, which was not applied to Day Camp. Eligibility conflicts: the main page says rising grades 1–6, while the 2026 draft parent handbook says rising K–6; the card follows the main page. Arrival is listed as 9:00–9:30 and pickup as 16:00–16:30. Only two tier amounts were accessible; the page describes three tiers. The handbook's footer address was not treated as the camper attendance address. No dated registration opening was found.",
+      "excluded": [
+        {
+          "name": "MTOS Discovery Week",
+          "reason": "Fall intersession program, September 22–26, 2025, rather than a summer camp."
+        },
+        {
+          "name": "Summer Guest Period",
+          "reason": "Family lodging and vacation program rather than a supervised youth camp."
+        },
+        {
+          "name": "Winterlight",
+          "reason": "Winter youth retreat, December 28, 2026–January 1, 2027, outside summer."
+        },
+        {
+          "name": "Mountain Trail Outdoor School",
+          "reason": "School-year field-trip programming rather than a finite summer camp."
+        }
+      ],
+      "cards": [
+        {
+          "name": "Kanuga Day Camp",
+          "variant": null,
+          "type": "day",
+          "categories": ["nature_outdoor", "arts", "sports"],
+          "camp_page_url": "https://www.kanuga.org/daycamp/",
+          "registration_url": null,
+          "description": "Campers swim, hike, paddle canoes, and create arts and crafts. Activities also include climbing, archery, fort building, and forest exploration.",
+          "season_dates": {
+            "start": "2026-06-08",
+            "end": "2026-07-24",
+            "year": 2026,
+            "url": "https://www.kanuga.org/daycamp/",
+            "quote": "Session A – Monday, June 8th – Friday, June 12th Session B – Monday, June 29th – Friday, July 3rd Session C – Monday, July 6th – Friday July 10th Session D – Monday, July 13th – Friday, July 17th Session E – Monday, July 20th – Friday, July 24th",
+            "source_kind": "official_site"
+          },
+          "ages": null,
+          "grades": {
+            "min": 1,
+            "max": 6,
+            "basis": "rising",
+            "year": 2026,
+            "url": "https://www.kanuga.org/daycamp/",
+            "quote": "Our Day Camp experience is for children in rising grades 1st-6th",
+            "source_kind": "official_site"
+          },
+          "hours": {
+            "start": null,
+            "end": "16:30",
+            "year": 2026,
+            "url": "https://www.kanuga.org/wp-content/uploads/2026/01/Kanuga-Day-Camp-Parent-Handbook-2026-DRAFT.docx.pdf",
+            "quote": "4:00pm-4:30pm Campers are picked up.",
+            "source_kind": "official_site"
+          },
+          "extended_care": null,
+          "prices": [
+            {
+              "amount": 400,
+              "unit": "session",
+              "tier": "Essential",
+              "year": 2026,
+              "url": "https://www.kanuga.org/daycamp/",
+              "quote": "Essential: $400",
+              "source_kind": "official_site"
+            },
+            {
+              "amount": 430,
+              "unit": "session",
+              "tier": "Sustainer",
+              "year": 2026,
+              "url": "https://www.kanuga.org/daycamp/",
+              "quote": "Sustainer: $430",
+              "source_kind": "official_site"
+            }
+          ],
+          "fees": [],
+          "locations": [
+            {
+              "name": "Camp Bob Youth Campus",
+              "address": null,
+              "town": null,
+              "state": null,
+              "year": 2026,
+              "url": "https://www.kanuga.org/daycamp/",
+              "quote": "Day Camp is held at the Camp Bob Youth Campus.",
+              "source_kind": "official_site"
+            }
+          ],
+          "financial_aid": {
+            "available": true,
+            "details": "The page mentions scholarship funding but does not provide application instructions in the accessible text.",
+            "year": 2026,
+            "url": "https://www.kanuga.org/daycamp/",
+            "quote": "This maximizes scholarship funding, allowing more young people to share in the transformational Kanuga Day Camp experience.",
+            "source_kind": "official_site"
+          },
+          "special_needs": null,
+          "lunch": null,
+          "transportation": null,
+          "registration_milestones": [],
+          "availability": null,
+          "last_year_registration_opened": null,
+          "sessions": [
+            {
+              "label": "Session A",
+              "start": "2026-06-08",
+              "end": "2026-06-12",
+              "year": 2026
+            },
+            {
+              "label": "Session B",
+              "start": "2026-06-29",
+              "end": "2026-07-03",
+              "year": 2026
+            },
+            {
+              "label": "Session C",
+              "start": "2026-07-06",
+              "end": "2026-07-10",
+              "year": 2026
+            },
+            {
+              "label": "Session D",
+              "start": "2026-07-13",
+              "end": "2026-07-17",
+              "year": 2026
+            },
+            {
+              "label": "Session E",
+              "start": "2026-07-20",
+              "end": "2026-07-24",
+              "year": 2026
+            }
+          ]
+        }
+      ]
+    },
+    "response": {
+      "citations": [],
+      "searches": [
+        "Kanuga day camp 2026 summer",
+        "open https://www.kanuga.org/daycamp/",
+        "site.kanuga.org/daycamp \"460\"",
+        "open https://www.kanuga.org/wp-content/uploads/2026/01/Kanuga-Day-Camp-Parent-Handbook-2026-DRAFT.docx.pdf"
+      ],
+      "usage": {
+        "inputTokens": 22703,
+        "cachedInputTokens": 8434,
+        "outputTokens": 1678,
+        "reasoningTokens": 285
+      },
+      "status": "completed",
+      "ms": 42681,
+      "model": "gpt-6.1-sol"
+    },
+    "attempts": 1
+  }
+}

@@ -1,0 +1,364 @@
+{
+  "provider": {
+    "key": "evergreen-summer-adventures",
+    "name": "Evergreen Summer Adventures (Evergreen Community Charter School)",
+    "urls": ["https://www.evergreensummercamp.org/"],
+    "covers": ["price_tiers_plus_fee", "grade_only", "extended_care"]
+  },
+  "verifiedAt": "2026-10-28T21:07:18.294Z",
+  "verifyMs": 24,
+  "extraction": {
+    "provider_name": "Evergreen Summer Adventures (Evergreen Community Charter School)",
+    "website_url": "https://www.evergreensummercamp.org/",
+    "notes": "No summer 2027 information found. Official pages returned no readable body when opened; evidence was extracted from indexed official-page text. The 2026 homepage says rising Kinder–8th grade, while older welcome text on that same page says rising Kindergarten–9th grade; the card uses the 2026 announcement's range. Homepage states 2026 registration is closed, although the registration page still says all weeks have space. Homepage also warns of possible timing modifications; hours below are those on the registration page. FAQ contains a stale 2025 age cutoff, so ages are omitted. Archived enrichment and adventure pages were not treated as separate current offerings.",
+    "excluded": [
+      {
+        "name": "EverAfter",
+        "reason": "School-year after-school childcare, not a summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Evergreen Summer Adventures",
+        "variant": null,
+        "type": "day",
+        "categories": ["arts", "nature_outdoor", "sports", "stem", "general"],
+        "camp_page_url": "https://www.evergreensummercamp.org/",
+        "registration_url": "https://www.evergreensummercamp.org/registration",
+        "description": "Campers participate in art, biking, creek play, climbing, gardening, hands-on STEM projects, and cooperative games. Older campers may take off-campus hiking trips.",
+        "season_dates": {
+          "start": "2026-06-22",
+          "end": "2026-07-31",
+          "year": 2026,
+          "url": "https://www.evergreensummercamp.org/",
+          "quote": "June 22-26, July 6-10, July 13-17, July 20-24, and July 27-31.",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T21:07:18.270Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "ages": null,
+        "grades": {
+          "min": 0,
+          "max": 8,
+          "basis": "rising",
+          "year": 2026,
+          "url": "https://www.evergreensummercamp.org/",
+          "quote": "Based at Evergreen but open to all kids rising Kinder-8th grade",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T21:07:18.270Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "hours": {
+          "start": "08:30",
+          "end": "16:30",
+          "year": 2026,
+          "url": "https://www.evergreensummercamp.org/registration",
+          "quote": "Regular camp day, 8:30-4:30 - $325/wk",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T21:07:18.270Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "extended_care": {
+          "early_dropoff_start": "07:30",
+          "late_pickup_end": "17:30",
+          "cost_text": "$375/wk",
+          "year": 2026,
+          "url": "https://www.evergreensummercamp.org/registration",
+          "quote": "Extended camp day, 7:30-5:30 - $375/wk",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T21:07:18.270Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "prices": [
+          {
+            "amount": 325,
+            "unit": "week",
+            "tier": "Regular camp day",
+            "year": 2026,
+            "url": "https://www.evergreensummercamp.org/registration",
+            "quote": "Regular camp day, 8:30-4:30 - $325/wk",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-28T21:07:18.270Z",
+              "fetchMethod": "fetch"
+            }
+          },
+          {
+            "amount": 375,
+            "unit": "week",
+            "tier": "Extended camp day; total weekly tuition",
+            "year": 2026,
+            "url": "https://www.evergreensummercamp.org/registration",
+            "quote": "Extended camp day, 7:30-5:30 - $375/wk",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-28T21:07:18.270Z",
+              "fetchMethod": "fetch"
+            }
+          }
+        ],
+        "fees": [
+          {
+            "amount": 40,
+            "label": "Registration fee",
+            "per": "family",
+            "year": 2026,
+            "url": "https://www.evergreensummercamp.org/registration",
+            "quote": "Registration fee - $40/family",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-28T21:07:18.270Z",
+              "fetchMethod": "fetch"
+            }
+          }
+        ],
+        "locations": [
+          {
+            "name": "Evergreen Community Charter School",
+            "address": "50 Bell Road",
+            "town": "Asheville",
+            "state": "NC",
+            "year": 2026,
+            "url": "https://www.evergreensummercamp.org/contact-us",
+            "quote": "Evergreen Community Charter School 50 Bell Road Asheville, NC, 28805",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-28T21:07:18.270Z",
+              "fetchMethod": "fetch"
+            }
+          }
+        ],
+        "financial_aid": {
+          "available": false,
+          "details": "The FAQ says financial aid is not currently offered; occasional grant-supported partnerships are not generally open to public application.",
+          "year": 2026,
+          "url": "https://www.evergreensummercamp.org/faq",
+          "quote": "Evergreen Summer Adventures does not currently offer financial aid.",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T21:07:18.270Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "special_needs": {
+          "available": true,
+          "details": "Accommodation requests are reviewed case by case; parents should contact camp in advance.",
+          "year": 2026,
+          "url": "https://www.evergreensummercamp.org/faq",
+          "quote": "Please let us know in advance of any particular concerns or of any accommodations that would be necessary for your child to attend, and we will work case-by-case to determine if we can provide a positive experience for your child.",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T21:07:18.270Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "lunch": {
+          "available": false,
+          "details": "Bring a morning snack and a full lunch; an afternoon snack may also be useful.",
+          "year": 2026,
+          "url": "https://www.evergreensummercamp.org/faq",
+          "quote": "Do you provide lunch? No. Campers should bring a morning snack and a full lunch.",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T21:07:18.270Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "transportation": null,
+        "registration_milestones": [],
+        "availability": {
+          "status": "closed",
+          "scope": "Summer 2026 open registration",
+          "year": 2026,
+          "url": "https://www.evergreensummercamp.org/",
+          "quote": "Open registration for Summer 2026 is closed!",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T21:07:18.270Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "last_year_registration_opened": null,
+        "sessions": [
+          {
+            "label": null,
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026
+          },
+          {
+            "label": null,
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026
+          },
+          {
+            "label": null,
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026
+          },
+          {
+            "label": null,
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026
+          },
+          {
+            "label": null,
+            "start": "2026-07-27",
+            "end": "2026-07-31",
+            "year": 2026
+          }
+        ]
+      }
+    ]
+  },
+  "report": {
+    "ownDomains": ["evergreensummercamp.org"],
+    "byField": {
+      "season_dates": {
+        "total": 1,
+        "verified": 1,
+        "review": 0,
+        "dropped": 0
+      },
+      "grades": {
+        "total": 1,
+        "verified": 1,
+        "review": 0,
+        "dropped": 0
+      },
+      "hours": {
+        "total": 1,
+        "verified": 1,
+        "review": 0,
+        "dropped": 0
+      },
+      "extended_care": {
+        "total": 1,
+        "verified": 1,
+        "review": 0,
+        "dropped": 0
+      },
+      "financial_aid": {
+        "total": 1,
+        "verified": 1,
+        "review": 0,
+        "dropped": 0
+      },
+      "special_needs": {
+        "total": 1,
+        "verified": 1,
+        "review": 0,
+        "dropped": 0
+      },
+      "lunch": {
+        "total": 1,
+        "verified": 1,
+        "review": 0,
+        "dropped": 0
+      },
+      "availability": {
+        "total": 1,
+        "verified": 1,
+        "review": 0,
+        "dropped": 0
+      },
+      "prices": {
+        "total": 2,
+        "verified": 2,
+        "review": 0,
+        "dropped": 0
+      },
+      "fees": {
+        "total": 1,
+        "verified": 1,
+        "review": 0,
+        "dropped": 0
+      },
+      "locations": {
+        "total": 1,
+        "verified": 1,
+        "review": 0,
+        "dropped": 0
+      }
+    },
+    "totals": {
+      "total": 12,
+      "verified": 12,
+      "review": 0,
+      "dropped": 0
+    },
+    "pages": [
+      {
+        "url": "https://www.evergreensummercamp.org/",
+        "ok": true,
+        "method": "fetch",
+        "kind": "html"
+      },
+      {
+        "url": "https://www.evergreensummercamp.org/registration",
+        "ok": true,
+        "method": "fetch",
+        "kind": "html"
+      },
+      {
+        "url": "https://www.evergreensummercamp.org/faq",
+        "ok": true,
+        "method": "fetch",
+        "kind": "html"
+      },
+      {
+        "url": "https://www.evergreensummercamp.org/contact-us",
+        "ok": true,
+        "method": "fetch",
+        "kind": "html"
+      }
+    ]
+  }
+}

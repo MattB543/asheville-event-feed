@@ -1,0 +1,575 @@
+{
+  "provider": {
+    "key": "camp-rockmont",
+    "name": "Camp Rockmont",
+    "urls": ["https://rockmont.com/dates-rates-2026/"],
+    "area": "Black Mountain, NC",
+    "covers": ["overnight", "lists_2027", "campminder"]
+  },
+  "verifiedAt": "2026-10-28T21:07:18.329Z",
+  "verifyMs": 113,
+  "extraction": {
+    "provider_name": "Camp Rockmont",
+    "website_url": "https://rockmont.com/",
+    "notes": "2027 offerings are posted. Direct opens returned empty content; evidence was extracted from indexed official pages. Eligibility conflicts: the dates/rates overview includes grades through 11, while individual session headings limit traditional camps to grade 9; the FAQ gives different rising-grade ranges. Cards use session-specific headings with unspecified grade basis. CIT2's page conflicts between the 2026/2027 school-year heading and an older 2024/2025 eligibility sentence. CIT tuition is stated as 50% off the selected session, not an absolute dollar amount. No general-camp registration opening date was verified.",
+    "excluded": [
+      {
+        "name": "Father / Son Weekend",
+        "reason": "Family-only program; posted 2026 sessions are also in October, outside summer."
+      },
+      {
+        "name": "Memorial Day Alumni Weekend",
+        "reason": "Family/alumni gathering rather than a supervised youth camp."
+      },
+      {
+        "name": "Summer Camp Positions",
+        "reason": "Staff employment offerings, not youth camp programs."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Main Camp",
+        "variant": null,
+        "type": "overnight",
+        "categories": ["nature_outdoor", "general", "faith_based"],
+        "camp_page_url": "https://rockmont.com/programs/main-camp/",
+        "registration_url": null,
+        "description": "Campers participate in skills, group activities and the Rockmont Council Program. Adventure trips include mountain biking, paddling, rock climbing and backpacking.",
+        "season_dates": {
+          "start": "2027-06-27",
+          "end": "2027-07-23",
+          "year": 2027,
+          "url": "https://rockmont.com/programs/main-camp/",
+          "quote": "June 27 – July 23, 2027 • 3rd – 9th Grade",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T21:07:18.216Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "ages": null,
+        "grades": {
+          "min": 3,
+          "max": 9,
+          "basis": "unspecified",
+          "year": 2027,
+          "url": "https://rockmont.com/programs/main-camp/",
+          "quote": "3rd – 9th Grade",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T21:07:18.216Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 8825,
+            "unit": "session",
+            "tier": null,
+            "year": 2027,
+            "url": "https://rockmont.com/programs/main-camp/",
+            "quote": "$8,825",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-28T21:07:18.216Z",
+              "fetchMethod": "fetch"
+            }
+          }
+        ],
+        "fees": [],
+        "locations": [],
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "registration_milestones": [],
+        "availability": {
+          "status": "available",
+          "scope": null,
+          "year": 2027,
+          "url": "https://rockmont.com/programs/main-camp/",
+          "quote": "Registration is Open!",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T21:07:18.216Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "last_year_registration_opened": null,
+        "sessions": [
+          {
+            "label": "Main Camp",
+            "start": "2027-06-27",
+            "end": "2027-07-23",
+            "year": 2027
+          }
+        ]
+      },
+      {
+        "name": "June Camp",
+        "variant": null,
+        "type": "overnight",
+        "categories": ["nature_outdoor", "general", "faith_based"],
+        "camp_page_url": "https://rockmont.com/programs/june-camp/",
+        "registration_url": null,
+        "description": "Campers take skill-based trips in mountain biking, paddling, rock climbing and backpacking. In-camp skills include blacksmithing, homesteading and ceramics.",
+        "season_dates": {
+          "start": "2027-06-06",
+          "end": "2027-06-25",
+          "year": 2027,
+          "url": "https://rockmont.com/programs/june-camp/",
+          "quote": "June Camp 20 Days June 6-25 $7,295 Registration is Open!",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T21:07:18.216Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "ages": null,
+        "grades": {
+          "min": 3,
+          "max": 9,
+          "basis": "unspecified",
+          "year": 2027,
+          "url": "https://rockmont.com/dates-rates-2027/",
+          "quote": "3 Week Session • 3rd – 9th Graders",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T21:07:18.216Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 7295,
+            "unit": "session",
+            "tier": null,
+            "year": 2027,
+            "url": "https://rockmont.com/programs/june-camp/",
+            "quote": "$7,295",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-28T21:07:18.216Z",
+              "fetchMethod": "fetch"
+            }
+          }
+        ],
+        "fees": [],
+        "locations": [],
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "registration_milestones": [],
+        "availability": {
+          "status": "available",
+          "scope": null,
+          "year": 2027,
+          "url": "https://rockmont.com/programs/june-camp/",
+          "quote": "Registration is Open!",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T21:07:18.216Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "last_year_registration_opened": null,
+        "sessions": [
+          {
+            "label": "June Camp",
+            "start": "2027-06-06",
+            "end": "2027-06-25",
+            "year": 2027
+          }
+        ]
+      },
+      {
+        "name": "Two Week Camp",
+        "variant": null,
+        "type": "overnight",
+        "categories": ["nature_outdoor", "general", "faith_based"],
+        "camp_page_url": "https://rockmont.com/programs/two-week/",
+        "registration_url": null,
+        "description": "Campers choose five skills, participate in group activities and take a cabin campout. Optional off-camp day trips include whitewater rafting and waterskiing.",
+        "season_dates": null,
+        "ages": null,
+        "grades": {
+          "min": 1,
+          "max": 9,
+          "basis": "unspecified",
+          "year": 2027,
+          "url": "https://rockmont.com/dates-rates-2027/",
+          "quote": "2 Week Session • 1st – 9th Graders",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T21:07:18.216Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 5360,
+            "unit": "session",
+            "tier": null,
+            "year": 2027,
+            "url": "https://rockmont.com/programs/two-week/",
+            "quote": "$5,360",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-28T21:07:18.216Z",
+              "fetchMethod": "fetch"
+            }
+          }
+        ],
+        "fees": [],
+        "locations": [],
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "registration_milestones": [],
+        "availability": {
+          "status": "available",
+          "scope": null,
+          "year": 2027,
+          "url": "https://rockmont.com/programs/two-week/",
+          "quote": "Registration is Open!",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T21:07:18.216Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "last_year_registration_opened": null,
+        "sessions": [
+          {
+            "label": "Two Week 1",
+            "start": "2027-06-13",
+            "end": "2027-06-25",
+            "year": 2027
+          },
+          {
+            "label": "Two Week 2",
+            "start": "2027-06-27",
+            "end": "2027-07-09",
+            "year": 2027
+          },
+          {
+            "label": "Two Week 3",
+            "start": "2027-07-11",
+            "end": "2027-07-23",
+            "year": 2027
+          },
+          {
+            "label": "Two Week 4",
+            "start": "2027-07-25",
+            "end": "2027-08-06",
+            "year": 2027
+          }
+        ]
+      },
+      {
+        "name": "Mini Camp",
+        "variant": "First-time Rockmont campers",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "general", "faith_based"],
+        "camp_page_url": "https://rockmont.com/programs/mini-camp/",
+        "registration_url": null,
+        "description": "Campers rotate through the daily camp routine and participate in pre-selected skills and activities.",
+        "season_dates": {
+          "start": "2027-06-06",
+          "end": "2027-06-11",
+          "year": 2027,
+          "url": "https://rockmont.com/programs/mini-camp/",
+          "quote": "June 6-11, 2027 • K – 4th Grade",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T21:07:18.216Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "ages": null,
+        "grades": {
+          "min": 0,
+          "max": 4,
+          "basis": "unspecified",
+          "year": 2027,
+          "url": "https://rockmont.com/programs/mini-camp/",
+          "quote": "K – 4th Grade",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T21:07:18.216Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 2650,
+            "unit": "session",
+            "tier": null,
+            "year": 2027,
+            "url": "https://rockmont.com/programs/mini-camp/",
+            "quote": "$2,650",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-28T21:07:18.216Z",
+              "fetchMethod": "fetch"
+            }
+          }
+        ],
+        "fees": [],
+        "locations": [],
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "registration_milestones": [],
+        "availability": {
+          "status": "available",
+          "scope": "First-time Rockmont campers only",
+          "year": 2027,
+          "url": "https://rockmont.com/programs/mini-camp/",
+          "quote": "Registration is Open!",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T21:07:18.216Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "last_year_registration_opened": null,
+        "sessions": [
+          {
+            "label": "Mini Camp",
+            "start": "2027-06-06",
+            "end": "2027-06-11",
+            "year": 2027
+          }
+        ]
+      },
+      {
+        "name": "Counselor in Training (CIT)",
+        "variant": null,
+        "type": "overnight",
+        "categories": ["nature_outdoor", "general", "faith_based"],
+        "camp_page_url": "https://rockmont.com/camp-programs/counselor-in-training/",
+        "registration_url": null,
+        "description": "CITs participate in camp skills, off-camp adventure trips and discussions about leadership, personal growth and faith.",
+        "season_dates": null,
+        "ages": null,
+        "grades": null,
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "fees": [],
+        "locations": [],
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "registration_milestones": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2026-08-27",
+            "time": "11:00",
+            "precision": "datetime",
+            "year": 2027,
+            "url": "https://rockmont.com/camp-programs/counselor-in-training/",
+            "quote": "General Registration Opens on Thursday, August 27th @ 11:00 am EDT",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": ["needs_hand_check", "weekday_supports_year"],
+              "checkedAt": "2026-10-28T21:07:18.216Z",
+              "fetchMethod": "fetch"
+            }
+          }
+        ],
+        "availability": null,
+        "last_year_registration_opened": null,
+        "sessions": []
+      },
+      {
+        "name": "CIT2",
+        "variant": "Returning CITs",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "general", "faith_based"],
+        "camp_page_url": "https://rockmont.com/camp-programs/counselor-in-training/",
+        "registration_url": null,
+        "description": "CIT2 campers live in camper cabins and assist counselors with nighttime cabin duties. They choose skills and adventure trips and receive leadership experience.",
+        "season_dates": null,
+        "ages": null,
+        "grades": null,
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 1000,
+            "unit": "week",
+            "tier": null,
+            "year": 2027,
+            "url": "https://rockmont.com/camp-programs/counselor-in-training/",
+            "quote": "$1,000/Week",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-28T21:07:18.216Z",
+              "fetchMethod": "fetch"
+            }
+          }
+        ],
+        "fees": [],
+        "locations": [],
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "registration_milestones": [],
+        "availability": null,
+        "last_year_registration_opened": null,
+        "sessions": []
+      }
+    ]
+  },
+  "report": {
+    "ownDomains": ["rockmont.com"],
+    "byField": {
+      "season_dates": {
+        "total": 3,
+        "verified": 3,
+        "review": 0,
+        "dropped": 0
+      },
+      "grades": {
+        "total": 4,
+        "verified": 4,
+        "review": 0,
+        "dropped": 0
+      },
+      "availability": {
+        "total": 4,
+        "verified": 4,
+        "review": 0,
+        "dropped": 0
+      },
+      "prices": {
+        "total": 5,
+        "verified": 5,
+        "review": 0,
+        "dropped": 0
+      },
+      "registration_milestones": {
+        "total": 1,
+        "verified": 1,
+        "review": 0,
+        "dropped": 0
+      }
+    },
+    "totals": {
+      "total": 17,
+      "verified": 17,
+      "review": 0,
+      "dropped": 0
+    },
+    "pages": [
+      {
+        "url": "https://rockmont.com/dates-rates-2026/",
+        "ok": true,
+        "method": "fetch",
+        "kind": "html"
+      },
+      {
+        "url": "https://rockmont.com/programs/main-camp/",
+        "ok": true,
+        "method": "fetch",
+        "kind": "html"
+      },
+      {
+        "url": "https://rockmont.com/programs/june-camp/",
+        "ok": true,
+        "method": "fetch",
+        "kind": "html"
+      },
+      {
+        "url": "https://rockmont.com/dates-rates-2027/",
+        "ok": true,
+        "method": "fetch",
+        "kind": "html"
+      },
+      {
+        "url": "https://rockmont.com/programs/two-week/",
+        "ok": true,
+        "method": "fetch",
+        "kind": "html"
+      },
+      {
+        "url": "https://rockmont.com/programs/mini-camp/",
+        "ok": true,
+        "method": "fetch",
+        "kind": "html"
+      },
+      {
+        "url": "https://rockmont.com/camp-programs/counselor-in-training/",
+        "ok": true,
+        "method": "fetch",
+        "kind": "html"
+      }
+    ]
+  }
+}

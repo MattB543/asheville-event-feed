@@ -1,0 +1,403 @@
+{
+  "provider": {
+    "key": "asheville-museum-of-science",
+    "name": "Asheville Museum of Science (summer science camps)",
+    "urls": ["https://ashevillescience.org/event/summer-science-camps/"],
+    "covers": ["pdf_only", "grade_bands", "themed_weeks"]
+  },
+  "extractedAt": "2026-10-28T21:01:40.722Z",
+  "run": {
+    "mode": "search",
+    "extraction": {
+      "provider_name": "Asheville Museum of Science",
+      "website_url": "https://ashevillescience.org/",
+      "notes": "No summer 2027 information found. Official camp and registration pages returned no readable body when opened; exact wording was available in indexed page text. Prices and aftercare hours were not found. Doubleknot lists a Summer Mini Camp week 9 (K-2nd) category, but no dated 2026 or 2027 offering details were found; it needs reviewer follow-up. Older Mini STEAM Camp listings describe 2025 and were not used.",
+      "excluded": [
+        {
+          "name": "STEAM Winter Break Camp",
+          "reason": "Winter break program, outside summer."
+        },
+        {
+          "name": "School's Out Camp: Critter Camp",
+          "reason": "November 11, 2026 program, outside summer."
+        },
+        {
+          "name": "School's Out Day Camp: The Science of Fantasy",
+          "reason": "October 6, 2026 program, outside summer."
+        },
+        {
+          "name": "Field Trips and Outreaches",
+          "reason": "Year-round bookable educational programs, not finite summer camp offerings."
+        }
+      ],
+      "cards": [
+        {
+          "name": "Summer Science Camps",
+          "variant": "Rising kindergarten–1st grade",
+          "type": "day",
+          "categories": ["stem", "arts", "nature_outdoor"],
+          "camp_page_url": "https://ashevillescience.org/event/summer-science-camps/",
+          "registration_url": "https://ashevillescience.doubleknot.com/facilitycalendar/",
+          "description": "Campers explore fossils, tools and materials, space, the natural world, art, chemistry, and physics through themed STEAM activities.",
+          "season_dates": {
+            "start": "2026-06-15",
+            "end": "2026-08-07",
+            "year": 2026,
+            "url": "https://ashevillescience.org/event/summer-science-camps/",
+            "quote": "June 15 @ 8:45 am - August 7 @ 3:30 pm",
+            "source_kind": "official_site"
+          },
+          "ages": null,
+          "grades": {
+            "min": 0,
+            "max": 1,
+            "basis": "rising",
+            "year": 2026,
+            "url": "https://ashevillescience.org/event/summer-science-camps/",
+            "quote": "rising kindergarten and first graders",
+            "source_kind": "official_site"
+          },
+          "hours": {
+            "start": "08:45",
+            "end": "15:30",
+            "year": 2026,
+            "url": "https://ashevillescience.org/event/summer-science-camps/",
+            "quote": "June 15 @ 8:45 am - August 7 @ 3:30 pm",
+            "source_kind": "official_site"
+          },
+          "extended_care": {
+            "early_dropoff_start": null,
+            "late_pickup_end": null,
+            "cost_text": null,
+            "year": 2026,
+            "url": "https://ashevillescience.org/event/summer-science-camps/",
+            "quote": "Week 1 Aftercare Registration>>>",
+            "source_kind": "official_site"
+          },
+          "prices": [],
+          "fees": [],
+          "locations": [
+            {
+              "name": "Asheville Museum of Science",
+              "address": "43 Patton Ave",
+              "town": "Asheville",
+              "state": "NC",
+              "year": 2026,
+              "url": "https://events.humanitix.com/https-ashevillescience-org-event-summer-science-camps",
+              "quote": "Asheville Museum of Science, 43 Patton Ave, Asheville, NC 28801, USA.",
+              "source_kind": "registration_platform"
+            }
+          ],
+          "financial_aid": null,
+          "special_needs": null,
+          "lunch": null,
+          "transportation": null,
+          "registration_milestones": [],
+          "availability": null,
+          "last_year_registration_opened": {
+            "date": "2026-01-12",
+            "time": null,
+            "year": 2026,
+            "url": "https://ashevillescience.org/event/summer-science-camps/",
+            "quote": "Registration for week-long packages begins January 12 and will be open through August 2.",
+            "source_kind": "official_site"
+          },
+          "sessions": [
+            {
+              "label": "Paleontology and Archaeology",
+              "start": "2026-06-15",
+              "end": "2026-06-19",
+              "year": 2026
+            },
+            {
+              "label": "Tinkering Workshop",
+              "start": "2026-06-22",
+              "end": "2026-06-26",
+              "year": 2026
+            },
+            {
+              "label": "Space Explorers",
+              "start": "2026-06-29",
+              "end": "2026-07-03",
+              "year": 2026
+            },
+            {
+              "label": "The Natural World",
+              "start": "2026-07-06",
+              "end": "2026-07-10",
+              "year": 2026
+            },
+            {
+              "label": "The Art of Science",
+              "start": "2026-07-13",
+              "end": "2026-07-17",
+              "year": 2026
+            },
+            {
+              "label": "Chemistry",
+              "start": "2026-07-20",
+              "end": "2026-07-24",
+              "year": 2026
+            },
+            {
+              "label": "Forces and Energy",
+              "start": "2026-07-27",
+              "end": "2026-07-31",
+              "year": 2026
+            }
+          ]
+        },
+        {
+          "name": "Summer Science Camps",
+          "variant": "Rising 2nd–3rd grade",
+          "type": "day",
+          "categories": ["stem", "arts", "nature_outdoor"],
+          "camp_page_url": "https://ashevillescience.org/event/summer-science-camps/",
+          "registration_url": "https://ashevillescience.doubleknot.com/facilitycalendar/",
+          "description": "Campers explore fossils, tools and materials, space, the natural world, art, chemistry, and physics through themed STEAM activities.",
+          "season_dates": {
+            "start": "2026-06-15",
+            "end": "2026-08-07",
+            "year": 2026,
+            "url": "https://ashevillescience.org/event/summer-science-camps/",
+            "quote": "June 15 @ 8:45 am - August 7 @ 3:30 pm",
+            "source_kind": "official_site"
+          },
+          "ages": null,
+          "grades": {
+            "min": 2,
+            "max": 3,
+            "basis": "rising",
+            "year": 2026,
+            "url": "https://ashevillescience.org/event/summer-science-camps/",
+            "quote": "rising second and third graders",
+            "source_kind": "official_site"
+          },
+          "hours": {
+            "start": "08:45",
+            "end": "15:30",
+            "year": 2026,
+            "url": "https://ashevillescience.org/event/summer-science-camps/",
+            "quote": "June 15 @ 8:45 am - August 7 @ 3:30 pm",
+            "source_kind": "official_site"
+          },
+          "extended_care": {
+            "early_dropoff_start": null,
+            "late_pickup_end": null,
+            "cost_text": null,
+            "year": 2026,
+            "url": "https://ashevillescience.org/event/summer-science-camps/",
+            "quote": "Week 1 Aftercare Registration>>>",
+            "source_kind": "official_site"
+          },
+          "prices": [],
+          "fees": [],
+          "locations": [
+            {
+              "name": "Asheville Museum of Science",
+              "address": "43 Patton Ave",
+              "town": "Asheville",
+              "state": "NC",
+              "year": 2026,
+              "url": "https://events.humanitix.com/https-ashevillescience-org-event-summer-science-camps",
+              "quote": "Asheville Museum of Science, 43 Patton Ave, Asheville, NC 28801, USA.",
+              "source_kind": "registration_platform"
+            }
+          ],
+          "financial_aid": null,
+          "special_needs": null,
+          "lunch": null,
+          "transportation": null,
+          "registration_milestones": [],
+          "availability": null,
+          "last_year_registration_opened": {
+            "date": "2026-01-12",
+            "time": null,
+            "year": 2026,
+            "url": "https://ashevillescience.org/event/summer-science-camps/",
+            "quote": "Registration for week-long packages begins January 12 and will be open through August 2.",
+            "source_kind": "official_site"
+          },
+          "sessions": [
+            {
+              "label": "Paleontology and Archaeology",
+              "start": "2026-06-15",
+              "end": "2026-06-19",
+              "year": 2026
+            },
+            {
+              "label": "Tinkering Workshop",
+              "start": "2026-06-22",
+              "end": "2026-06-26",
+              "year": 2026
+            },
+            {
+              "label": "Space Explorers",
+              "start": "2026-06-29",
+              "end": "2026-07-03",
+              "year": 2026
+            },
+            {
+              "label": "The Natural World",
+              "start": "2026-07-06",
+              "end": "2026-07-10",
+              "year": 2026
+            },
+            {
+              "label": "The Art of Science",
+              "start": "2026-07-13",
+              "end": "2026-07-17",
+              "year": 2026
+            },
+            {
+              "label": "Chemistry",
+              "start": "2026-07-20",
+              "end": "2026-07-24",
+              "year": 2026
+            },
+            {
+              "label": "Forces and Energy",
+              "start": "2026-07-27",
+              "end": "2026-07-31",
+              "year": 2026
+            }
+          ]
+        },
+        {
+          "name": "Summer Science Camps",
+          "variant": "Rising 4th–5th grade",
+          "type": "day",
+          "categories": ["stem", "arts", "nature_outdoor"],
+          "camp_page_url": "https://ashevillescience.org/event/summer-science-camps/",
+          "registration_url": "https://ashevillescience.doubleknot.com/facilitycalendar/",
+          "description": "Campers explore fossils, tools and materials, space, the natural world, art, chemistry, and physics through themed STEAM activities.",
+          "season_dates": {
+            "start": "2026-06-15",
+            "end": "2026-08-07",
+            "year": 2026,
+            "url": "https://ashevillescience.org/event/summer-science-camps/",
+            "quote": "June 15 @ 8:45 am - August 7 @ 3:30 pm",
+            "source_kind": "official_site"
+          },
+          "ages": null,
+          "grades": {
+            "min": 4,
+            "max": 5,
+            "basis": "rising",
+            "year": 2026,
+            "url": "https://ashevillescience.org/event/summer-science-camps/",
+            "quote": "rising fourth and fifth graders",
+            "source_kind": "official_site"
+          },
+          "hours": {
+            "start": "08:45",
+            "end": "15:30",
+            "year": 2026,
+            "url": "https://ashevillescience.org/event/summer-science-camps/",
+            "quote": "June 15 @ 8:45 am - August 7 @ 3:30 pm",
+            "source_kind": "official_site"
+          },
+          "extended_care": {
+            "early_dropoff_start": null,
+            "late_pickup_end": null,
+            "cost_text": null,
+            "year": 2026,
+            "url": "https://ashevillescience.org/event/summer-science-camps/",
+            "quote": "Week 1 Aftercare Registration>>>",
+            "source_kind": "official_site"
+          },
+          "prices": [],
+          "fees": [],
+          "locations": [
+            {
+              "name": "Asheville Museum of Science",
+              "address": "43 Patton Ave",
+              "town": "Asheville",
+              "state": "NC",
+              "year": 2026,
+              "url": "https://events.humanitix.com/https-ashevillescience-org-event-summer-science-camps",
+              "quote": "Asheville Museum of Science, 43 Patton Ave, Asheville, NC 28801, USA.",
+              "source_kind": "registration_platform"
+            }
+          ],
+          "financial_aid": null,
+          "special_needs": null,
+          "lunch": null,
+          "transportation": null,
+          "registration_milestones": [],
+          "availability": null,
+          "last_year_registration_opened": {
+            "date": "2026-01-12",
+            "time": null,
+            "year": 2026,
+            "url": "https://ashevillescience.org/event/summer-science-camps/",
+            "quote": "Registration for week-long packages begins January 12 and will be open through August 2.",
+            "source_kind": "official_site"
+          },
+          "sessions": [
+            {
+              "label": "Paleontology and Archaeology",
+              "start": "2026-06-15",
+              "end": "2026-06-19",
+              "year": 2026
+            },
+            {
+              "label": "Tinkering Workshop",
+              "start": "2026-06-22",
+              "end": "2026-06-26",
+              "year": 2026
+            },
+            {
+              "label": "Space Explorers",
+              "start": "2026-06-29",
+              "end": "2026-07-03",
+              "year": 2026
+            },
+            {
+              "label": "The Natural World",
+              "start": "2026-07-06",
+              "end": "2026-07-10",
+              "year": 2026
+            },
+            {
+              "label": "The Art of Science",
+              "start": "2026-07-13",
+              "end": "2026-07-17",
+              "year": 2026
+            },
+            {
+              "label": "Chemistry",
+              "start": "2026-07-20",
+              "end": "2026-07-24",
+              "year": 2026
+            },
+            {
+              "label": "Forces and Energy",
+              "start": "2026-07-27",
+              "end": "2026-07-31",
+              "year": 2026
+            }
+          ]
+        }
+      ]
+    },
+    "response": {
+      "citations": [],
+      "searches": [
+        "site.ashevillescience.org summer camps 2026 2027",
+        "site.ashevillescience.org camp 2026 \"$\"",
+        "site.ashevillescience.org \"Mini\" \"camp\""
+      ],
+      "usage": {
+        "inputTokens": 29035,
+        "cachedInputTokens": 8411,
+        "outputTokens": 3364,
+        "reasoningTokens": 231
+      },
+      "status": "completed",
+      "ms": 69183,
+      "model": "gpt-6.1-sol"
+    },
+    "attempts": 1
+  }
+}

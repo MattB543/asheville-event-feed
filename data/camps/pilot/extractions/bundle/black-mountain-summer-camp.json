@@ -1,0 +1,171 @@
+{
+  "provider": {
+    "key": "black-mountain-summer-camp",
+    "name": "Town of Black Mountain Recreation & Parks Summer Camp",
+    "urls": ["https://www.townofblackmountain.org/2540/Summer-Camp"],
+    "area": "Black Mountain, NC",
+    "covers": ["municipal", "recdesk", "rising_grades", "resident_pricing"]
+  },
+  "extractedAt": "2026-10-28T20:59:19.120Z",
+  "run": {
+    "mode": "bundle",
+    "extraction": {
+      "provider_name": "Town of Black Mountain Recreation & Parks",
+      "website_url": "https://www.townofblackmountain.org/",
+      "notes": "No summer 2027 information found. The camp page identifies the 2025-2026 school year; listed weeks are recorded as summer 2026. Daily hours and registration opening dates were not found. The registration program list supplied by the crawler had no results, which does not establish camp availability. An official Summer Camp Brochure PDF was found but could not be read; no additional facts were taken from it.",
+      "excluded": [],
+      "cards": [
+        {
+          "name": "Black Mountain Summer Camp",
+          "variant": null,
+          "type": "day",
+          "categories": ["general", "nature_outdoor", "arts", "stem"],
+          "camp_page_url": "https://www.townofblackmountain.org/2540/Summer-Camp",
+          "registration_url": "https://bmrp.recdesk.com/Community/Program",
+          "description": "Campers explore pools, parks, walking trails, creeks and local attractions, and participate in group games and individual activities at Grey Eagle Arena. Activities also include arts and crafts and STEM projects.",
+          "season_dates": {
+            "start": "2026-06-22",
+            "end": "2026-07-24",
+            "year": 2026,
+            "url": "https://www.townofblackmountain.org/2540/Summer-Camp",
+            "quote": "Week 1 – June 22 - 26\n\nWeek 2 – June 29 – July 2\n(closed July 3 in observance of July 4 holiday)\n\nWeek 3 – July 6 – July 10\n\nWeek 4 – July 13 - 17\n\nWeek 5 - July 20 - 24",
+            "source_kind": "official_site"
+          },
+          "ages": null,
+          "grades": {
+            "min": 1,
+            "max": 6,
+            "basis": "rising",
+            "year": 2026,
+            "url": "https://www.townofblackmountain.org/2540/Summer-Camp",
+            "quote": "Black Mountain Summer Camp (BMSC) is a day camp for rising 1st graders through rising 6th graders.",
+            "source_kind": "official_site"
+          },
+          "hours": null,
+          "extended_care": null,
+          "prices": [
+            {
+              "amount": 190,
+              "unit": "week",
+              "tier": "Black Mountain resident",
+              "year": 2026,
+              "url": "https://www.townofblackmountain.org/2540/Summer-Camp",
+              "quote": "Black Mtn Resident\n\n$190.00\n\n$140.00",
+              "source_kind": "official_site"
+            },
+            {
+              "amount": 210,
+              "unit": "week",
+              "tier": "Non-resident",
+              "year": 2026,
+              "url": "https://www.townofblackmountain.org/2540/Summer-Camp",
+              "quote": "Non – Resident\n\n$210.00\n\n$160.00",
+              "source_kind": "official_site"
+            }
+          ],
+          "fees": [
+            {
+              "amount": 50,
+              "label": "Deposit per camper per week, credited toward weekly tuition; not an additional charge",
+              "per": "session",
+              "year": 2026,
+              "url": "https://www.townofblackmountain.org/2540/Summer-Camp",
+              "quote": "Camp Fees: $50 deposit is due at time of registration, for each camper, each week.",
+              "source_kind": "official_site"
+            }
+          ],
+          "locations": [
+            {
+              "name": "Grey Eagle Arena",
+              "address": "17 White Pine Drive",
+              "town": "Black Mountain",
+              "state": "NC",
+              "year": 2026,
+              "url": "https://www.townofblackmountain.org/2540/Summer-Camp",
+              "quote": "Camp Location: The Grey Eagle Arena, located at 17 White Pine Drive in Black Mountain.",
+              "source_kind": "official_site"
+            }
+          ],
+          "financial_aid": null,
+          "special_needs": null,
+          "lunch": null,
+          "transportation": null,
+          "registration_milestones": [],
+          "availability": null,
+          "last_year_registration_opened": null,
+          "sessions": [
+            {
+              "label": "Week 1",
+              "start": "2026-06-22",
+              "end": "2026-06-26",
+              "year": 2026
+            },
+            {
+              "label": "Week 2; closed July 3",
+              "start": "2026-06-29",
+              "end": "2026-07-02",
+              "year": 2026
+            },
+            {
+              "label": "Week 3",
+              "start": "2026-07-06",
+              "end": "2026-07-10",
+              "year": 2026
+            },
+            {
+              "label": "Week 4",
+              "start": "2026-07-13",
+              "end": "2026-07-17",
+              "year": 2026
+            },
+            {
+              "label": "Week 5",
+              "start": "2026-07-20",
+              "end": "2026-07-24",
+              "year": 2026
+            }
+          ]
+        }
+      ]
+    },
+    "response": {
+      "citations": [],
+      "searches": [
+        "site.townofblackmountain.org summer camp 2027",
+        "open https://www.townofblackmountain.org/DocumentCenter/View/1849/Summer-Camp-Brochure"
+      ],
+      "usage": {
+        "inputTokens": 15868,
+        "cachedInputTokens": 8411,
+        "outputTokens": 1366,
+        "reasoningTokens": 123
+      },
+      "status": "completed",
+      "ms": 31285,
+      "model": "gpt-6.1-sol"
+    },
+    "attempts": 1,
+    "bundle": [
+      {
+        "url": "https://www.townofblackmountain.org/2540/Summer-Camp",
+        "chars": 2788,
+        "method": "fetch"
+      },
+      {
+        "url": "https://www.townofblackmountain.org/AlertCenter.aspx",
+        "chars": 4740,
+        "method": "fetch"
+      },
+      {
+        "url": "https://www.townofblackmountain.org/AlertCenter.aspx?AID=102826-400-PM-Updates-to-Water-Line-Repa-228",
+        "chars": 4943,
+        "method": "fetch"
+      },
+      {
+        "url": "https://bmrp.recdesk.com/Community/Program",
+        "chars": 1432,
+        "method": "fetch"
+      }
+    ]
+  }
+}

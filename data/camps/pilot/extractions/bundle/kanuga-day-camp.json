@@ -1,0 +1,159 @@
+{
+  "provider": {
+    "key": "kanuga-day-camp",
+    "name": "Kanuga Day Camp",
+    "urls": [],
+    "area": "Hendersonville, NC (Henderson County)",
+    "covers": ["outside_buncombe", "no_seed_url"]
+  },
+  "extractedAt": "2026-10-28T20:58:27.822Z",
+  "run": {
+    "mode": "bundle",
+    "extraction": {
+      "provider_name": "Kanuga Day Camp",
+      "website_url": "https://www.kanuga.org/",
+      "notes": "No 2027 Day Camp information found; facts below describe 2026. Official pages and the 2026 draft handbook returned empty content when opened, so evidence uses exact text exposed by search indexing. Eligibility conflicts: the Day Camp page says rising grades 1–6, while the 2026 draft handbook says rising K–6; the card follows the program page. Arrival is listed as 9am–9:30am and pickup as 4pm–4:30pm. The registration link destination could not be recovered. Camp Kanuga's separately branded overnight programs were not treated as offerings of Kanuga Day Camp.",
+      "excluded": [],
+      "cards": [
+        {
+          "name": "Kanuga Day Camp",
+          "variant": null,
+          "type": "day",
+          "categories": ["nature_outdoor", "arts", "sports"],
+          "camp_page_url": "https://www.kanuga.org/daycamp/",
+          "registration_url": null,
+          "description": "Campers swim, hike, paddle canoes, and make arts and crafts. Activities also include climbing, archery, fort building, and forest exploration.",
+          "season_dates": {
+            "start": "2026-06-08",
+            "end": "2026-07-24",
+            "year": 2026,
+            "url": "https://www.kanuga.org/daycamp/",
+            "quote": "Session A – Monday, June 8th – Friday, June 12th Session B – Monday, June 29th – Friday, July 3rd Session C – Monday, July 6th – Friday July 10th Session D – Monday, July 13th – Friday, July 17th Session E – Monday, July 20th – Friday, July 24th",
+            "source_kind": "official_site"
+          },
+          "ages": null,
+          "grades": {
+            "min": 1,
+            "max": 6,
+            "basis": "rising",
+            "year": 2026,
+            "url": "https://www.kanuga.org/daycamp/",
+            "quote": "Our Day Camp experience is for children in rising grades 1st-6th who join us in the mountains of western North Carolina for five days per session (campers may attend multiple sessions).",
+            "source_kind": "official_site"
+          },
+          "hours": {
+            "start": null,
+            "end": "16:30",
+            "year": 2026,
+            "url": "https://www.kanuga.org/daycamp/",
+            "quote": "4pm – 4:30pm – Campers are picked up",
+            "source_kind": "official_site"
+          },
+          "extended_care": null,
+          "prices": [
+            {
+              "amount": 400,
+              "unit": "session",
+              "tier": "Essential",
+              "year": 2026,
+              "url": "https://www.kanuga.org/daycamp/",
+              "quote": "Essential: $400",
+              "source_kind": "official_site"
+            },
+            {
+              "amount": 430,
+              "unit": "session",
+              "tier": "Sustainer",
+              "year": 2026,
+              "url": "https://www.kanuga.org/daycamp/",
+              "quote": "Sustainer: $430",
+              "source_kind": "official_site"
+            },
+            {
+              "amount": 460,
+              "unit": "session",
+              "tier": "Visionary",
+              "year": 2026,
+              "url": "https://www.kanuga.org/daycamp/",
+              "quote": "Visionary: $460",
+              "source_kind": "official_site"
+            }
+          ],
+          "fees": [],
+          "locations": [
+            {
+              "name": "Camp Bob Youth Campus",
+              "address": null,
+              "town": null,
+              "state": null,
+              "year": 2026,
+              "url": "https://www.kanuga.org/daycamp/",
+              "quote": "Day Camp is held at the Camp Bob Youth Campus.",
+              "source_kind": "official_site"
+            }
+          ],
+          "financial_aid": null,
+          "special_needs": null,
+          "lunch": null,
+          "transportation": null,
+          "registration_milestones": [],
+          "availability": null,
+          "last_year_registration_opened": null,
+          "sessions": [
+            {
+              "label": "Session A",
+              "start": "2026-06-08",
+              "end": "2026-06-12",
+              "year": 2026
+            },
+            {
+              "label": "Session B",
+              "start": "2026-06-29",
+              "end": "2026-07-03",
+              "year": 2026
+            },
+            {
+              "label": "Session C",
+              "start": "2026-07-06",
+              "end": "2026-07-10",
+              "year": 2026
+            },
+            {
+              "label": "Session D",
+              "start": "2026-07-13",
+              "end": "2026-07-17",
+              "year": 2026
+            },
+            {
+              "label": "Session E",
+              "start": "2026-07-20",
+              "end": "2026-07-24",
+              "year": 2026
+            }
+          ]
+        }
+      ]
+    },
+    "response": {
+      "citations": [],
+      "searches": [
+        "Kanuga day camp 2026 2027",
+        "open https://www.kanuga.org/daycamp/",
+        "site:kanuga.org/daycamp \"Tier\"",
+        "open https://www.kanuga.org/wp-content/uploads/2026/01/Kanuga-Day-Camp-Parent-Handbook-2026-DRAFT.docx.pdf",
+        "site:kanuga.org/daycamp/ \"Visionary\""
+      ],
+      "usage": {
+        "inputTokens": 22061,
+        "cachedInputTokens": 8411,
+        "outputTokens": 1692,
+        "reasoningTokens": 477
+      },
+      "status": "completed",
+      "ms": 42979,
+      "model": "gpt-6.1-sol"
+    },
+    "attempts": 1,
+    "bundle": []
+  }
+}

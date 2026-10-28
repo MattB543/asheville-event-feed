@@ -1,0 +1,890 @@
+{
+  "provider": {
+    "key": "camp-greenville",
+    "name": "YMCA Camp Greenville",
+    "urls": ["https://www.campgreenville.org/"],
+    "area": "Cedar Mountain / Cleveland, SC (Greenville County, SC)",
+    "covers": ["out_of_state", "overnight", "radius_edge"]
+  },
+  "extractedAt": "2026-10-28T21:04:01.614Z",
+  "run": {
+    "mode": "search",
+    "extraction": {
+      "provider_name": "YMCA Camp Greenville",
+      "website_url": "https://www.campgreenville.org/",
+      "notes": "Summer 2027 dates, prices, registration timeline, and a program availability chart updated October 15, 2026 are posted. Several official pages returned empty or truncated content; exact indexed wording was used where available. Trip-specific descriptions and session assignments could not be fully retrieved, so adventure descriptions reflect the shared official adventure program rather than inferred itineraries. Provider-wide registration information, deposit, financial aid, transportation, and location are recorded on the first card to avoid duplicating evidence; they apply across camper programs unless otherwise stated. The availability chart contains gender-specific waitlists, but its extracted text loses column alignment, so individual session availability is left null. The older overview mentions Mini week, but no current 2026 or 2027 standalone offering could be verified.",
+      "excluded": [
+        {
+          "name": "Parent + Me / Mom & Me / Dad & Me",
+          "reason": "Parent-and-child attendance program, rather than a youth-only supervised camp."
+        },
+        {
+          "name": "Family Camp",
+          "reason": "Family-only program with activities focused on parent and child participation."
+        },
+        {
+          "name": "Spectrum & Stargazers Camp",
+          "reason": "Listed under family programs; no youth-only summer offering verified."
+        },
+        {
+          "name": "Senior LDP",
+          "reason": "Official page directs participants to apply for employment through the YMCA hiring system."
+        },
+        {
+          "name": "LDP Fall and Spring Retreats",
+          "reason": "Programs outside summer."
+        }
+      ],
+      "cards": [
+        {
+          "name": "Base Camp",
+          "variant": "Division 1",
+          "type": "overnight",
+          "categories": ["general", "nature_outdoor"],
+          "camp_page_url": "https://www.campgreenville.org/base-camp",
+          "registration_url": "https://campgreenville.campintouch.com/ui/unrestricted/pricing/DatesAndRates",
+          "description": "Campers choose activities and participate in group activities during a one-week traditional overnight camp.",
+          "season_dates": null,
+          "ages": null,
+          "grades": {
+            "min": 2,
+            "max": 4,
+            "basis": "rising",
+            "year": 2027,
+            "url": "https://www.campgreenville.org/base-camp",
+            "quote": "Division 1 Rising into 2nd, 3rd, & 4th",
+            "source_kind": "official_site"
+          },
+          "hours": null,
+          "extended_care": null,
+          "prices": [
+            {
+              "amount": 1525,
+              "unit": "week",
+              "tier": null,
+              "year": 2027,
+              "url": "https://www.campgreenville.org/dates-rates",
+              "quote": "Base Camp: $1525",
+              "source_kind": "official_site"
+            }
+          ],
+          "fees": [
+            {
+              "amount": 200,
+              "label": "Non-refundable registration deposit per camper, per session",
+              "per": "session",
+              "year": 2027,
+              "url": "https://www.campgreenville.org/dates-rates",
+              "quote": "A non-refundable deposit of $200 is required at registration (per camper, per session).",
+              "source_kind": "official_site"
+            }
+          ],
+          "locations": [
+            {
+              "name": "YMCA Camp Greenville",
+              "address": "4399 YMCA Camp Road",
+              "town": "Cleveland",
+              "state": "SC",
+              "year": 2027,
+              "url": "https://www.campgreenville.org/contact",
+              "quote": "Location: 4399 YMCA Camp Road, Cleveland, SC 29635",
+              "source_kind": "official_site"
+            }
+          ],
+          "financial_aid": {
+            "available": true,
+            "details": "Requires the initial deposit, application, and documentation.",
+            "year": 2027,
+            "url": "https://www.campgreenville.org/dates-rates",
+            "quote": "Financial aid is available to those who pay the initial $200 non-refundable deposit and submit the appropriate application and documentation.",
+            "source_kind": "official_site"
+          },
+          "special_needs": null,
+          "lunch": null,
+          "transportation": {
+            "available": true,
+            "details": "Airport transfers between camp and GSP or AVL cost an additional fee each way.",
+            "year": 2027,
+            "url": "https://www.campgreenville.org/dates-rates",
+            "quote": "Airport Transportation to/from GSP or AVL and camp is available for an additional fee each way (form coming soon).",
+            "source_kind": "official_site"
+          },
+          "registration_milestones": [
+            {
+              "audience": "returning",
+              "kind": "opens",
+              "date": "2026-10-06",
+              "time": null,
+              "precision": "date",
+              "year": 2027,
+              "url": "https://www.campgreenville.org/dates-rates",
+              "quote": "PHASE 1 - October 6, 2026",
+              "source_kind": "official_site"
+            },
+            {
+              "audience": "public",
+              "kind": "opens",
+              "date": "2026-10-13",
+              "time": null,
+              "precision": "date",
+              "year": 2027,
+              "url": "https://www.campgreenville.org/dates-rates",
+              "quote": "PHASE 2 - October 13, 2026",
+              "source_kind": "official_site"
+            }
+          ],
+          "availability": null,
+          "last_year_registration_opened": {
+            "date": "2025-11-05",
+            "time": "19:00",
+            "year": 2026,
+            "url": "https://www.campgreenville.org/mountainviewnews/2026opening",
+            "quote": "November 5, 2025 at 7pm Eastern time: Summer 2026 registration opens online for all new camper families and anyone not eligible for earlier registration dates.",
+            "source_kind": "official_site"
+          },
+          "sessions": []
+        },
+        {
+          "name": "Base Camp",
+          "variant": "Division 2",
+          "type": "overnight",
+          "categories": ["general", "nature_outdoor"],
+          "camp_page_url": "https://www.campgreenville.org/base-camp",
+          "registration_url": "https://campgreenville.campintouch.com/ui/unrestricted/pricing/DatesAndRates",
+          "description": "Campers choose activities and participate in group activities during a one-week traditional overnight camp.",
+          "season_dates": null,
+          "ages": null,
+          "grades": {
+            "min": 5,
+            "max": 6,
+            "basis": "rising",
+            "year": 2027,
+            "url": "https://www.campgreenville.org/base-camp",
+            "quote": "Division 2 Rising into 5th & 6th",
+            "source_kind": "official_site"
+          },
+          "hours": null,
+          "extended_care": null,
+          "prices": [
+            {
+              "amount": 1525,
+              "unit": "week",
+              "tier": null,
+              "year": 2027,
+              "url": "https://www.campgreenville.org/dates-rates",
+              "quote": "Base Camp: $1525",
+              "source_kind": "official_site"
+            }
+          ],
+          "fees": [],
+          "locations": [],
+          "financial_aid": null,
+          "special_needs": null,
+          "lunch": null,
+          "transportation": null,
+          "registration_milestones": [],
+          "availability": null,
+          "last_year_registration_opened": null,
+          "sessions": []
+        },
+        {
+          "name": "Base Camp",
+          "variant": "Division 3",
+          "type": "overnight",
+          "categories": ["general", "nature_outdoor"],
+          "camp_page_url": "https://www.campgreenville.org/base-camp",
+          "registration_url": "https://campgreenville.campintouch.com/ui/unrestricted/pricing/DatesAndRates",
+          "description": "Campers choose activities and participate in group activities during a one-week traditional overnight camp.",
+          "season_dates": null,
+          "ages": null,
+          "grades": {
+            "min": 7,
+            "max": 9,
+            "basis": "rising",
+            "year": 2027,
+            "url": "https://www.campgreenville.org/base-camp",
+            "quote": "Division 3 Rising into 7th, 8th, & 9th",
+            "source_kind": "official_site"
+          },
+          "hours": null,
+          "extended_care": null,
+          "prices": [
+            {
+              "amount": 1525,
+              "unit": "week",
+              "tier": null,
+              "year": 2027,
+              "url": "https://www.campgreenville.org/dates-rates",
+              "quote": "Base Camp: $1525",
+              "source_kind": "official_site"
+            }
+          ],
+          "fees": [],
+          "locations": [],
+          "financial_aid": null,
+          "special_needs": null,
+          "lunch": null,
+          "transportation": null,
+          "registration_milestones": [],
+          "availability": null,
+          "last_year_registration_opened": null,
+          "sessions": []
+        },
+        {
+          "name": "Base Camp",
+          "variant": "Division 4",
+          "type": "overnight",
+          "categories": ["general", "nature_outdoor"],
+          "camp_page_url": "https://www.campgreenville.org/base-camp",
+          "registration_url": "https://campgreenville.campintouch.com/ui/unrestricted/pricing/DatesAndRates",
+          "description": "Campers choose activities and participate in group activities during a one-week traditional overnight camp.",
+          "season_dates": null,
+          "ages": null,
+          "grades": {
+            "min": 10,
+            "max": 12,
+            "basis": "rising",
+            "year": 2027,
+            "url": "https://www.campgreenville.org/base-camp",
+            "quote": "Division 4 Rising into 10th, 11th, & 12th",
+            "source_kind": "official_site"
+          },
+          "hours": null,
+          "extended_care": null,
+          "prices": [
+            {
+              "amount": 1525,
+              "unit": "week",
+              "tier": null,
+              "year": 2027,
+              "url": "https://www.campgreenville.org/dates-rates",
+              "quote": "Base Camp: $1525",
+              "source_kind": "official_site"
+            }
+          ],
+          "fees": [],
+          "locations": [],
+          "financial_aid": null,
+          "special_needs": null,
+          "lunch": null,
+          "transportation": null,
+          "registration_milestones": [],
+          "availability": null,
+          "last_year_registration_opened": null,
+          "sessions": []
+        },
+        {
+          "name": "D2 Adventure",
+          "variant": "Division 2",
+          "type": "overnight",
+          "categories": ["nature_outdoor"],
+          "camp_page_url": "https://www.campgreenville.org/adventure-trips",
+          "registration_url": "https://campgreenville.campintouch.com/ui/unrestricted/pricing/DatesAndRates",
+          "description": "Campers combine on-camp activities with off-camp exploration and return to camp each evening.",
+          "season_dates": {
+            "start": "2027-06-13",
+            "end": "2027-08-07",
+            "year": 2027,
+            "url": "https://www.campgreenville.org/dates-rates",
+            "quote": "Session 1: June 13 - 19 Session 2: June 20 - 26 Session 3: June 27 - July 3 Session 4: July 4 - 10 Session 5: July 11 - 17 Session 6: July 18 - 24 Session 7: July 25 - 31 Session 8: August 1 - 7",
+            "source_kind": "official_site"
+          },
+          "ages": null,
+          "grades": {
+            "min": 5,
+            "max": 6,
+            "basis": "rising",
+            "year": 2027,
+            "url": "https://www.campgreenville.org/base-camp",
+            "quote": "Division 2 Rising into 5th & 6th",
+            "source_kind": "official_site"
+          },
+          "hours": null,
+          "extended_care": null,
+          "prices": [
+            {
+              "amount": 1675,
+              "unit": "session",
+              "tier": "One week",
+              "year": 2027,
+              "url": "https://www.campgreenville.org/dates-rates",
+              "quote": "Adventure Camp - 1 Week: $1675",
+              "source_kind": "official_site"
+            }
+          ],
+          "fees": [],
+          "locations": [],
+          "financial_aid": null,
+          "special_needs": null,
+          "lunch": null,
+          "transportation": null,
+          "registration_milestones": [],
+          "availability": null,
+          "last_year_registration_opened": null,
+          "sessions": [
+            {
+              "label": "Session 1",
+              "start": "2027-06-13",
+              "end": "2027-06-19",
+              "year": 2027
+            },
+            {
+              "label": "Session 2",
+              "start": "2027-06-20",
+              "end": "2027-06-26",
+              "year": 2027
+            },
+            {
+              "label": "Session 3",
+              "start": "2027-06-27",
+              "end": "2027-07-03",
+              "year": 2027
+            },
+            {
+              "label": "Session 4",
+              "start": "2027-07-04",
+              "end": "2027-07-10",
+              "year": 2027
+            },
+            {
+              "label": "Session 5",
+              "start": "2027-07-11",
+              "end": "2027-07-17",
+              "year": 2027
+            },
+            {
+              "label": "Session 6",
+              "start": "2027-07-18",
+              "end": "2027-07-24",
+              "year": 2027
+            },
+            {
+              "label": "Session 7",
+              "start": "2027-07-25",
+              "end": "2027-07-31",
+              "year": 2027
+            },
+            {
+              "label": "Session 8",
+              "start": "2027-08-01",
+              "end": "2027-08-07",
+              "year": 2027
+            }
+          ]
+        },
+        {
+          "name": "Whitewater",
+          "variant": "Division 3",
+          "type": "overnight",
+          "categories": ["nature_outdoor"],
+          "camp_page_url": "https://www.campgreenville.org/adventure-trips",
+          "registration_url": "https://campgreenville.campintouch.com/ui/unrestricted/pricing/DatesAndRates",
+          "description": "This adventure offering combines camp with travel and overnight camping.",
+          "season_dates": null,
+          "ages": null,
+          "grades": {
+            "min": 7,
+            "max": 9,
+            "basis": "rising",
+            "year": 2027,
+            "url": "https://www.campgreenville.org/base-camp",
+            "quote": "Division 3 Rising into 7th, 8th, & 9th",
+            "source_kind": "official_site"
+          },
+          "hours": null,
+          "extended_care": null,
+          "prices": [],
+          "fees": [],
+          "locations": [],
+          "financial_aid": null,
+          "special_needs": null,
+          "lunch": null,
+          "transportation": null,
+          "registration_milestones": [],
+          "availability": null,
+          "last_year_registration_opened": null,
+          "sessions": []
+        },
+        {
+          "name": "Lakes + Rivers",
+          "variant": "Division 3",
+          "type": "overnight",
+          "categories": ["nature_outdoor"],
+          "camp_page_url": "https://www.campgreenville.org/adventure-trips",
+          "registration_url": "https://campgreenville.campintouch.com/ui/unrestricted/pricing/DatesAndRates",
+          "description": "This adventure offering combines camp with travel and overnight camping.",
+          "season_dates": null,
+          "ages": null,
+          "grades": {
+            "min": 7,
+            "max": 9,
+            "basis": "rising",
+            "year": 2027,
+            "url": "https://www.campgreenville.org/base-camp",
+            "quote": "Division 3 Rising into 7th, 8th, & 9th",
+            "source_kind": "official_site"
+          },
+          "hours": null,
+          "extended_care": null,
+          "prices": [],
+          "fees": [],
+          "locations": [],
+          "financial_aid": null,
+          "special_needs": null,
+          "lunch": null,
+          "transportation": null,
+          "registration_milestones": [],
+          "availability": null,
+          "last_year_registration_opened": null,
+          "sessions": []
+        },
+        {
+          "name": "Water + Sky",
+          "variant": "Division 3",
+          "type": "overnight",
+          "categories": ["nature_outdoor"],
+          "camp_page_url": "https://www.campgreenville.org/adventure-trips",
+          "registration_url": "https://campgreenville.campintouch.com/ui/unrestricted/pricing/DatesAndRates",
+          "description": "This adventure offering combines camp with travel and overnight camping.",
+          "season_dates": null,
+          "ages": null,
+          "grades": {
+            "min": 7,
+            "max": 9,
+            "basis": "rising",
+            "year": 2027,
+            "url": "https://www.campgreenville.org/base-camp",
+            "quote": "Division 3 Rising into 7th, 8th, & 9th",
+            "source_kind": "official_site"
+          },
+          "hours": null,
+          "extended_care": null,
+          "prices": [],
+          "fees": [],
+          "locations": [],
+          "financial_aid": null,
+          "special_needs": null,
+          "lunch": null,
+          "transportation": null,
+          "registration_milestones": [],
+          "availability": null,
+          "last_year_registration_opened": null,
+          "sessions": []
+        },
+        {
+          "name": "Caving",
+          "variant": "Division 3",
+          "type": "overnight",
+          "categories": ["nature_outdoor"],
+          "camp_page_url": "https://www.campgreenville.org/adventure-trips",
+          "registration_url": "https://campgreenville.campintouch.com/ui/unrestricted/pricing/DatesAndRates",
+          "description": "This adventure offering combines camp with travel and overnight camping.",
+          "season_dates": null,
+          "ages": null,
+          "grades": {
+            "min": 7,
+            "max": 9,
+            "basis": "rising",
+            "year": 2027,
+            "url": "https://www.campgreenville.org/base-camp",
+            "quote": "Division 3 Rising into 7th, 8th, & 9th",
+            "source_kind": "official_site"
+          },
+          "hours": null,
+          "extended_care": null,
+          "prices": [],
+          "fees": [],
+          "locations": [],
+          "financial_aid": null,
+          "special_needs": null,
+          "lunch": null,
+          "transportation": null,
+          "registration_milestones": [],
+          "availability": null,
+          "last_year_registration_opened": null,
+          "sessions": []
+        },
+        {
+          "name": "Outback",
+          "variant": "Division 3; two weeks",
+          "type": "overnight",
+          "categories": ["nature_outdoor"],
+          "camp_page_url": "https://www.campgreenville.org/adventure-trips",
+          "registration_url": "https://campgreenville.campintouch.com/ui/unrestricted/pricing/DatesAndRates",
+          "description": "This adventure offering combines camp with travel and overnight camping.",
+          "season_dates": null,
+          "ages": null,
+          "grades": {
+            "min": 7,
+            "max": 9,
+            "basis": "rising",
+            "year": 2027,
+            "url": "https://www.campgreenville.org/base-camp",
+            "quote": "Division 3 Rising into 7th, 8th, & 9th",
+            "source_kind": "official_site"
+          },
+          "hours": null,
+          "extended_care": null,
+          "prices": [
+            {
+              "amount": 3350,
+              "unit": "session",
+              "tier": "Two weeks",
+              "year": 2027,
+              "url": "https://www.campgreenville.org/dates-rates",
+              "quote": "Adventure Camp - 2 Weeks: $3350",
+              "source_kind": "official_site"
+            }
+          ],
+          "fees": [],
+          "locations": [],
+          "financial_aid": null,
+          "special_needs": null,
+          "lunch": null,
+          "transportation": null,
+          "registration_milestones": [],
+          "availability": null,
+          "last_year_registration_opened": null,
+          "sessions": []
+        },
+        {
+          "name": "Bike + Climb",
+          "variant": "Division 3",
+          "type": "overnight",
+          "categories": ["nature_outdoor", "sports"],
+          "camp_page_url": "https://www.campgreenville.org/adventure-trips",
+          "registration_url": "https://campgreenville.campintouch.com/ui/unrestricted/pricing/DatesAndRates",
+          "description": "This adventure offering combines camp with travel and overnight camping.",
+          "season_dates": null,
+          "ages": null,
+          "grades": {
+            "min": 7,
+            "max": 9,
+            "basis": "rising",
+            "year": 2027,
+            "url": "https://www.campgreenville.org/base-camp",
+            "quote": "Division 3 Rising into 7th, 8th, & 9th",
+            "source_kind": "official_site"
+          },
+          "hours": null,
+          "extended_care": null,
+          "prices": [],
+          "fees": [],
+          "locations": [],
+          "financial_aid": null,
+          "special_needs": null,
+          "lunch": null,
+          "transportation": null,
+          "registration_milestones": [],
+          "availability": null,
+          "last_year_registration_opened": null,
+          "sessions": []
+        },
+        {
+          "name": "Great Smoky Mountains NP",
+          "variant": "Division 3",
+          "type": "overnight",
+          "categories": ["nature_outdoor"],
+          "camp_page_url": "https://www.campgreenville.org/adventure-trips",
+          "registration_url": "https://campgreenville.campintouch.com/ui/unrestricted/pricing/DatesAndRates",
+          "description": "This adventure offering combines camp with travel and overnight camping.",
+          "season_dates": null,
+          "ages": null,
+          "grades": {
+            "min": 7,
+            "max": 9,
+            "basis": "rising",
+            "year": 2027,
+            "url": "https://www.campgreenville.org/base-camp",
+            "quote": "Division 3 Rising into 7th, 8th, & 9th",
+            "source_kind": "official_site"
+          },
+          "hours": null,
+          "extended_care": null,
+          "prices": [],
+          "fees": [],
+          "locations": [],
+          "financial_aid": null,
+          "special_needs": null,
+          "lunch": null,
+          "transportation": null,
+          "registration_milestones": [],
+          "availability": null,
+          "last_year_registration_opened": null,
+          "sessions": []
+        },
+        {
+          "name": "Whitewater",
+          "variant": "Division 4",
+          "type": "overnight",
+          "categories": ["nature_outdoor"],
+          "camp_page_url": "https://www.campgreenville.org/adventure-trips",
+          "registration_url": "https://campgreenville.campintouch.com/ui/unrestricted/pricing/DatesAndRates",
+          "description": "This adventure offering combines camp with travel and overnight camping.",
+          "season_dates": null,
+          "ages": null,
+          "grades": {
+            "min": 10,
+            "max": 12,
+            "basis": "rising",
+            "year": 2027,
+            "url": "https://www.campgreenville.org/base-camp",
+            "quote": "Division 4 Rising into 10th, 11th, & 12th",
+            "source_kind": "official_site"
+          },
+          "hours": null,
+          "extended_care": null,
+          "prices": [],
+          "fees": [],
+          "locations": [],
+          "financial_aid": null,
+          "special_needs": null,
+          "lunch": null,
+          "transportation": null,
+          "registration_milestones": [],
+          "availability": null,
+          "last_year_registration_opened": null,
+          "sessions": []
+        },
+        {
+          "name": "Monk's Ultimate",
+          "variant": "Division 4; two weeks",
+          "type": "overnight",
+          "categories": ["nature_outdoor"],
+          "camp_page_url": "https://www.campgreenville.org/adventure-trips",
+          "registration_url": "https://campgreenville.campintouch.com/ui/unrestricted/pricing/DatesAndRates",
+          "description": "This adventure offering combines camp with travel and overnight camping.",
+          "season_dates": null,
+          "ages": null,
+          "grades": {
+            "min": 10,
+            "max": 12,
+            "basis": "rising",
+            "year": 2027,
+            "url": "https://www.campgreenville.org/base-camp",
+            "quote": "Division 4 Rising into 10th, 11th, & 12th",
+            "source_kind": "official_site"
+          },
+          "hours": null,
+          "extended_care": null,
+          "prices": [
+            {
+              "amount": 3350,
+              "unit": "session",
+              "tier": "Two weeks",
+              "year": 2027,
+              "url": "https://www.campgreenville.org/dates-rates",
+              "quote": "Adventure Camp - 2 Weeks: $3350",
+              "source_kind": "official_site"
+            }
+          ],
+          "fees": [],
+          "locations": [],
+          "financial_aid": null,
+          "special_needs": null,
+          "lunch": null,
+          "transportation": null,
+          "registration_milestones": [],
+          "availability": null,
+          "last_year_registration_opened": null,
+          "sessions": []
+        },
+        {
+          "name": "New River Gorge",
+          "variant": "Division 4",
+          "type": "overnight",
+          "categories": ["nature_outdoor"],
+          "camp_page_url": "https://www.campgreenville.org/adventure-trips",
+          "registration_url": "https://campgreenville.campintouch.com/ui/unrestricted/pricing/DatesAndRates",
+          "description": "This adventure offering combines camp with travel and overnight camping.",
+          "season_dates": null,
+          "ages": null,
+          "grades": {
+            "min": 10,
+            "max": 12,
+            "basis": "rising",
+            "year": 2027,
+            "url": "https://www.campgreenville.org/base-camp",
+            "quote": "Division 4 Rising into 10th, 11th, & 12th",
+            "source_kind": "official_site"
+          },
+          "hours": null,
+          "extended_care": null,
+          "prices": [],
+          "fees": [],
+          "locations": [],
+          "financial_aid": null,
+          "special_needs": null,
+          "lunch": null,
+          "transportation": null,
+          "registration_milestones": [],
+          "availability": null,
+          "last_year_registration_opened": null,
+          "sessions": []
+        },
+        {
+          "name": "French Broad River",
+          "variant": "Division 4",
+          "type": "overnight",
+          "categories": ["nature_outdoor"],
+          "camp_page_url": "https://www.campgreenville.org/adventure-trips",
+          "registration_url": "https://campgreenville.campintouch.com/ui/unrestricted/pricing/DatesAndRates",
+          "description": "This adventure offering combines camp with travel and overnight camping.",
+          "season_dates": null,
+          "ages": null,
+          "grades": {
+            "min": 10,
+            "max": 12,
+            "basis": "rising",
+            "year": 2027,
+            "url": "https://www.campgreenville.org/base-camp",
+            "quote": "Division 4 Rising into 10th, 11th, & 12th",
+            "source_kind": "official_site"
+          },
+          "hours": null,
+          "extended_care": null,
+          "prices": [],
+          "fees": [],
+          "locations": [],
+          "financial_aid": null,
+          "special_needs": null,
+          "lunch": null,
+          "transportation": null,
+          "registration_milestones": [],
+          "availability": null,
+          "last_year_registration_opened": null,
+          "sessions": []
+        },
+        {
+          "name": "Sophomore Leadership Development Program",
+          "variant": null,
+          "type": "overnight",
+          "categories": ["general"],
+          "camp_page_url": "https://www.campgreenville.org/leadership-development",
+          "registration_url": "https://campgreenville.campintouch.com/ui/unrestricted/pricing/DatesAndRates",
+          "description": "Participants complete a week-long training session to learn skills for supporting and leading at camp.",
+          "season_dates": null,
+          "ages": null,
+          "grades": {
+            "min": 9,
+            "max": 9,
+            "basis": "current",
+            "year": 2027,
+            "url": "https://www.campgreenville.org/leadership-development",
+            "quote": "Sophomore LDPs (current Freshmen/9th grade)",
+            "source_kind": "official_site"
+          },
+          "hours": null,
+          "extended_care": null,
+          "prices": [
+            {
+              "amount": 1525,
+              "unit": "session",
+              "tier": null,
+              "year": 2027,
+              "url": "https://www.campgreenville.org/dates-rates",
+              "quote": "Sophomore LDP: $1525",
+              "source_kind": "official_site"
+            }
+          ],
+          "fees": [],
+          "locations": [],
+          "financial_aid": null,
+          "special_needs": null,
+          "lunch": null,
+          "transportation": null,
+          "registration_milestones": [],
+          "availability": null,
+          "last_year_registration_opened": null,
+          "sessions": []
+        },
+        {
+          "name": "Junior Leadership Development Program",
+          "variant": null,
+          "type": "overnight",
+          "categories": ["general"],
+          "camp_page_url": "https://www.campgreenville.org/leadership-development",
+          "registration_url": "https://campgreenville.campintouch.com/ui/unrestricted/pricing/DatesAndRates",
+          "description": "Participants learn to lead others and facilitate camp activities. Enrollment requires an application.",
+          "season_dates": null,
+          "ages": null,
+          "grades": {
+            "min": 10,
+            "max": 10,
+            "basis": "current",
+            "year": 2027,
+            "url": "https://www.campgreenville.org/leadership-development",
+            "quote": "Junior LDPs (current Sophomores/10th grade)",
+            "source_kind": "official_site"
+          },
+          "hours": null,
+          "extended_care": null,
+          "prices": [],
+          "fees": [],
+          "locations": [],
+          "financial_aid": null,
+          "special_needs": null,
+          "lunch": null,
+          "transportation": null,
+          "registration_milestones": [],
+          "availability": {
+            "status": "available",
+            "scope": "Applications only; acceptance is not guaranteed",
+            "year": 2027,
+            "url": "https://www.campgreenville.org/leadership-development",
+            "quote": "Applications for Summer 2027 are now open!",
+            "source_kind": "official_site"
+          },
+          "last_year_registration_opened": null,
+          "sessions": []
+        },
+        {
+          "name": "Service Corps",
+          "variant": "Enrolled Sophomore and Junior LDP participants",
+          "type": "overnight",
+          "categories": ["general"],
+          "camp_page_url": "https://www.campgreenville.org/leadership-development",
+          "registration_url": null,
+          "description": "This optional component of the leadership development program assigns participating Sophomore and Junior LDPs weeks according to camp needs.",
+          "season_dates": null,
+          "ages": null,
+          "grades": null,
+          "hours": null,
+          "extended_care": null,
+          "prices": [],
+          "fees": [],
+          "locations": [],
+          "financial_aid": null,
+          "special_needs": null,
+          "lunch": null,
+          "transportation": null,
+          "registration_milestones": [],
+          "availability": null,
+          "last_year_registration_opened": null,
+          "sessions": []
+        }
+      ]
+    },
+    "response": {
+      "citations": [],
+      "searches": [
+        "site.campgreenville.org summer camp 2027 2026 dates rates",
+        "open https://www.campgreenville.org/dates-rates",
+        "site.campgreenville.org \"Base Camp\" \"Division\"",
+        "open https://static1.squarespace.com/static/5e7789dafb856c5ea0b9da6f/t/6ad0eed1cf9aa973696cabe5/1792077521800/2027%2Bprogram%2Bavailability%2B10-15-26.pdf",
+        "site.campgreenville.org \"Water + Sky\"",
+        "open https://www.campgreenville.org/adventure-trips"
+      ],
+      "usage": {
+        "inputTokens": 37575,
+        "cachedInputTokens": 8411,
+        "outputTokens": 7998,
+        "reasoningTokens": 449
+      },
+      "status": "completed",
+      "ms": 138645,
+      "model": "gpt-6.1-sol"
+    },
+    "attempts": 1
+  }
+}

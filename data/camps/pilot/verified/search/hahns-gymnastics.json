@@ -1,0 +1,224 @@
+{
+  "provider": {
+    "key": "hahns-gymnastics",
+    "name": "Hahn's Gymnastics (summer camps)",
+    "urls": ["https://www.hahnsgymnastics.com/summer-camp"],
+    "area": "Arden / Asheville, NC",
+    "covers": ["iclasspro", "daily_drop_in"]
+  },
+  "verifiedAt": "2026-10-28T21:07:18.377Z",
+  "verifyMs": 25,
+  "extraction": {
+    "provider_name": "Hahn's Gymnastics",
+    "website_url": "https://www.hahnsgymnastics.com/",
+    "notes": "No summer 2027 details found. The summer-camp page is undated; its general details are recorded as 2026 alongside the dated 2026 calendar. Direct page opens returned empty content, so evidence uses indexed official-page text. The main page says ten weeks, but the 2026 calendar includes Week 11. Calendar event times differ from the main camp page; the main page's actual camp hours are used. Full-day and morning/afternoon half-day options are kept together. Tuition and registration-opening dates were not found. A $50 deposit per camper per week is credited toward tuition, rather than an additional tuition charge. Morning extended care is also stated as 7:30–8:00 AM at $5 per day.",
+    "excluded": [
+      {
+        "name": "Recreational Classes and After School",
+        "reason": "Year-round classes and school-year childcare, not finite summer programs."
+      },
+      {
+        "name": "Spring Break Camps, school-day camps, and Little Elves Workshop",
+        "reason": "Programs outside summer."
+      },
+      {
+        "name": "Competitive teams and meets",
+        "reason": "Team seasons and competitions, not summer camps."
+      },
+      {
+        "name": "Parents Night Out",
+        "reason": "Recurring year-round evening childcare rather than a distinct summer-only offering."
+      },
+      {
+        "name": "Showcase 1st Routine Clinic (Spring)",
+        "reason": "March 14, 2026 clinic is outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Camps",
+        "variant": null,
+        "type": "day",
+        "categories": ["sports", "general"],
+        "camp_page_url": "https://www.hahnsgymnastics.com/summer-camp",
+        "registration_url": null,
+        "description": "Campers participate in themed games, crafts, gym playtime, and parachute activities. Full-day campers usually take pool and theme-related field trips.",
+        "season_dates": null,
+        "ages": {
+          "min": 3,
+          "max": 12,
+          "year": 2026,
+          "url": "https://www.hahnsgymnastics.com/summer-camp",
+          "quote": "ages 3 to 12!",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T21:07:18.352Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "grades": null,
+        "hours": {
+          "start": "08:00",
+          "end": "17:30",
+          "year": 2026,
+          "url": "https://www.hahnsgymnastics.com/summer-camp",
+          "quote": "8:00 AM to 5:30 PM",
+          "source_kind": "official_site",
+          "check": {
+            "status": "review",
+            "match": "exact",
+            "flags": ["year_not_on_page"],
+            "checkedAt": "2026-10-28T21:07:18.352Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "extended_care": {
+          "early_dropoff_start": null,
+          "late_pickup_end": "18:00",
+          "cost_text": "$5.00 per day",
+          "year": 2026,
+          "url": "https://www.hahnsgymnastics.com/summer-camp",
+          "quote": "Evenings: 5:30 PM - 6:00 PM ($5.00 per day)",
+          "source_kind": "official_site",
+          "check": {
+            "status": "review",
+            "match": "exact",
+            "flags": ["year_not_on_page"],
+            "checkedAt": "2026-10-28T21:07:18.352Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "prices": [],
+        "fees": [],
+        "locations": [
+          {
+            "name": "Hahn's Gymnastics",
+            "address": "18 Legend Dr",
+            "town": "Arden",
+            "state": "NC",
+            "year": 2026,
+            "url": "https://www.hahnsgymnastics.com/",
+            "quote": "18 Legend Dr Arden, North Carolina 28704",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-28T21:07:18.352Z",
+              "fetchMethod": "fetch"
+            }
+          }
+        ],
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "registration_milestones": [],
+        "availability": null,
+        "last_year_registration_opened": null,
+        "sessions": [
+          {
+            "label": "Week 1: Survivor (calendar lists an unusually long session)",
+            "start": "2026-06-08",
+            "end": "2026-06-16",
+            "year": 2026
+          },
+          {
+            "label": "Week 3: Splish, Splash, Water Bash",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026
+          },
+          {
+            "label": "Week 5: Lights, Camera, Action",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026
+          },
+          {
+            "label": "Week 7: Ooey Gooey Science",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026
+          },
+          {
+            "label": "Week 8: Wizarding World",
+            "start": "2026-07-27",
+            "end": "2026-07-31",
+            "year": 2026
+          },
+          {
+            "label": "Week 9: Retro Rewind",
+            "start": "2026-08-03",
+            "end": "2026-08-07",
+            "year": 2026
+          },
+          {
+            "label": "Week 10: Disney Dreamers",
+            "start": "2026-08-10",
+            "end": "2026-08-14",
+            "year": 2026
+          },
+          {
+            "label": "Week 11: Hawaiian Hullabaloo",
+            "start": "2026-08-17",
+            "end": "2026-08-21",
+            "year": 2026
+          }
+        ]
+      }
+    ]
+  },
+  "report": {
+    "ownDomains": ["hahnsgymnastics.com"],
+    "byField": {
+      "ages": {
+        "total": 1,
+        "verified": 1,
+        "review": 0,
+        "dropped": 0
+      },
+      "hours": {
+        "total": 1,
+        "verified": 0,
+        "review": 1,
+        "dropped": 0
+      },
+      "extended_care": {
+        "total": 1,
+        "verified": 0,
+        "review": 1,
+        "dropped": 0
+      },
+      "locations": {
+        "total": 1,
+        "verified": 1,
+        "review": 0,
+        "dropped": 0
+      }
+    },
+    "totals": {
+      "total": 4,
+      "verified": 2,
+      "review": 2,
+      "dropped": 0
+    },
+    "pages": [
+      {
+        "url": "https://www.hahnsgymnastics.com/summer-camp",
+        "ok": true,
+        "method": "fetch",
+        "kind": "html"
+      },
+      {
+        "url": "https://www.hahnsgymnastics.com/",
+        "ok": true,
+        "method": "fetch",
+        "kind": "html"
+      }
+    ]
+  }
+}

@@ -1,0 +1,167 @@
+{
+  "provider": {
+    "key": "ninjaville",
+    "name": "Ninjaville (ninja warrior camp for kids)",
+    "urls": ["https://ninjaville.org/ninja-warrior-camp-for-kids/"],
+    "covers": ["in_event_feed_as_daily_listings"]
+  },
+  "extractedAt": "2026-10-28T20:59:06.214Z",
+  "run": {
+    "mode": "bundle",
+    "extraction": {
+      "provider_name": "Ninjaville",
+      "website_url": "https://ninjaville.org/",
+      "notes": "No summer 2027 information or dated summer 2026 announcement was found. The summer camp page is undated, although its navigation names the 2025-2026 season. Its standing hours, prices, lunch policy and location are recorded as 2026 fallback information and should be confirmed with the provider. Season dates are null because 'the week of June 10th' through August 29th has no stated year. Half-day hours are 8:00-12:00; full-day hours are 8:00-4:00. Both options remain on one card. No summer-specific ages, registration opening date or current session availability was found.",
+      "excluded": [
+        {
+          "name": "Spring Ninja Warrior Camp",
+          "reason": "Spring-break program, outside summer."
+        },
+        {
+          "name": "Winter Camp",
+          "reason": "December and January program, outside summer."
+        },
+        {
+          "name": "Ninja Classes",
+          "reason": "Recurring weekly classes with monthly tuition, not a finite summer program."
+        },
+        {
+          "name": "Gymnastics",
+          "reason": "Recurring classes with monthly tuition, not a finite summer program."
+        },
+        {
+          "name": "After School Program",
+          "reason": "School-year after-school childcare, not summer camp."
+        },
+        {
+          "name": "Home School Program",
+          "reason": "Recurring homeschool classes, not a finite summer program."
+        },
+        {
+          "name": "Parent's Night Out",
+          "reason": "No summer-specific dates or finite summer offering stated."
+        }
+      ],
+      "cards": [
+        {
+          "name": "Ninja Warrior Summer Camp",
+          "variant": null,
+          "type": "day",
+          "categories": ["sports"],
+          "camp_page_url": "https://ninjaville.org/ninja-warrior-camp-for-kids/",
+          "registration_url": "https://ninjaville.org/camp-registration/",
+          "description": "Children run, jump, climb, swing and flip on matted obstacle courses. Full-day campers also take afternoon field trips.",
+          "season_dates": null,
+          "ages": null,
+          "grades": null,
+          "hours": {
+            "start": "08:00",
+            "end": "16:00",
+            "year": 2026,
+            "url": "https://ninjaville.org/ninja-warrior-camp-for-kids/",
+            "quote": "Half day is 8:00-12:00 and full day is 8:00-4:00",
+            "source_kind": "official_site"
+          },
+          "extended_care": null,
+          "prices": [
+            {
+              "amount": 380,
+              "unit": "week",
+              "tier": "Full day",
+              "year": 2026,
+              "url": "https://ninjaville.org/ninja-warrior-camp-for-kids/",
+              "quote": "Full week / Full day $380.00",
+              "source_kind": "official_site"
+            },
+            {
+              "amount": 280,
+              "unit": "week",
+              "tier": "Half day",
+              "year": 2026,
+              "url": "https://ninjaville.org/ninja-warrior-camp-for-kids/",
+              "quote": "Full week 1/2 day $280.00",
+              "source_kind": "official_site"
+            },
+            {
+              "amount": 60,
+              "unit": "day",
+              "tier": "Half day",
+              "year": 2026,
+              "url": "https://ninjaville.org/ninja-warrior-camp-for-kids/",
+              "quote": "Per day: Half day $60.00/ full day $80.00",
+              "source_kind": "official_site"
+            },
+            {
+              "amount": 80,
+              "unit": "day",
+              "tier": "Full day",
+              "year": 2026,
+              "url": "https://ninjaville.org/ninja-warrior-camp-for-kids/",
+              "quote": "Per day: Half day $60.00/ full day $80.00",
+              "source_kind": "official_site"
+            }
+          ],
+          "fees": [],
+          "locations": [
+            {
+              "name": "Ninjaville",
+              "address": "1078 tunnel road",
+              "town": "Asheville",
+              "state": "NC",
+              "year": 2026,
+              "url": "https://ninjaville.org/ninja-warrior-camp-for-kids/",
+              "quote": "1078 tunnel road\n\nAsheville NC 28805",
+              "source_kind": "official_site"
+            }
+          ],
+          "financial_aid": null,
+          "special_needs": null,
+          "lunch": {
+            "available": true,
+            "details": "Lunch and snack are provided for full-day campers. Campers need a water bottle and early-day snack; the provider says these can be supplied if requested.",
+            "year": 2026,
+            "url": "https://ninjaville.org/ninja-warrior-camp-for-kids/",
+            "quote": "We provide lunch and snack for full day. Everyone will need a water bottle and early day snack. We can provide this if needed please just let us know.",
+            "source_kind": "official_site"
+          },
+          "transportation": null,
+          "registration_milestones": [],
+          "availability": null,
+          "last_year_registration_opened": null,
+          "sessions": []
+        }
+      ]
+    },
+    "response": {
+      "citations": [],
+      "searches": ["site:ninjaville.org summer camp 2027 2026"],
+      "usage": {
+        "inputTokens": 13892,
+        "cachedInputTokens": 8411,
+        "outputTokens": 1349,
+        "reasoningTokens": 115
+      },
+      "status": "completed",
+      "ms": 30089,
+      "model": "gpt-6.1-sol"
+    },
+    "attempts": 1,
+    "bundle": [
+      {
+        "url": "https://ninjaville.org/ninja-warrior-camp-for-kids/",
+        "chars": 2219,
+        "method": "fetch"
+      },
+      {
+        "url": "https://ninjaville.org/camp-registration/",
+        "chars": 708,
+        "method": "fetch"
+      },
+      {
+        "url": "https://ninjaville.org/winter-camp/",
+        "chars": 1724,
+        "method": "fetch"
+      }
+    ]
+  }
+}

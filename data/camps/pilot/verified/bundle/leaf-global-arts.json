@@ -1,0 +1,353 @@
+{
+  "provider": {
+    "key": "leaf-global-arts",
+    "name": "LEAF Global Arts (summer camps)",
+    "urls": ["https://www.theleaf.org/camps"],
+    "covers": ["rising_grade_plus_min_age", "qgiv"]
+  },
+  "verifiedAt": "2026-10-28T21:07:15.395Z",
+  "verifyMs": 5,
+  "extraction": {
+    "provider_name": "LEAF Global Arts",
+    "website_url": "https://www.theleaf.org/",
+    "notes": "The official homepage announces summer 2027 dates, starting tuition, and scholarships, but says further information is coming soon. Other details below are 2026 fallback facts. The 2026 registration platform lists July 6–August 14, while the camp page lists themed weeks beginning June 15; the sessions below follow the camp page. Regular hours end at noon on Fridays; extended care is Monday–Thursday only. The registration platform contains an outdated 2025 scholarship reference, so scholarship details were taken from the camp page instead. Pages returned no readable text when opened directly; evidence uses the supplied official-page text and exact indexed official wording.",
+    "excluded": [
+      {
+        "name": "Spring break camp",
+        "reason": "The registration platform mentions spring break camp; it is outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "LEAF Summer Camps",
+        "variant": null,
+        "type": "day",
+        "categories": ["arts", "music", "dance", "theater"],
+        "camp_page_url": "https://www.theleaf.org/camps",
+        "registration_url": "https://secure.qgiv.com/for/leafcampregistration/event/leafcamp/",
+        "description": "Campers explore music, dance, theatre, and visual art from diverse cultures with teaching artists. Weeks focus on different arts and cultural themes.",
+        "season_dates": {
+          "start": "2027-06-14",
+          "end": "2027-08-13",
+          "year": 2027,
+          "url": "https://www.theleaf.org/",
+          "quote": "June 14 - August 13",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T21:07:15.390Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "ages": {
+          "min": 5,
+          "max": 12,
+          "year": 2026,
+          "url": "https://secure.qgiv.com/for/leafcampregistration/event/leafcamp/",
+          "quote": "Summer camps are for rising first-graders through age 12; no students under 5; no exceptions.",
+          "source_kind": "registration_platform",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T21:07:15.390Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "grades": {
+          "min": 1,
+          "max": null,
+          "basis": "rising",
+          "year": 2026,
+          "url": "https://www.theleaf.org/camps",
+          "quote": "Ages: Rising 1st grade through age 12",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T21:07:15.390Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "hours": {
+          "start": "09:00",
+          "end": "15:00",
+          "year": 2026,
+          "url": "https://secure.qgiv.com/for/leafcampregistration/event/leafcamp/",
+          "quote": "Camp Hours: Monday-Thursday 9am-3pm Friday 9am-NOON",
+          "source_kind": "registration_platform",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T21:07:15.390Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "extended_care": {
+          "early_dropoff_start": "08:30",
+          "late_pickup_end": "17:00",
+          "cost_text": "$60 per week",
+          "year": 2026,
+          "url": "https://secure.qgiv.com/for/leafcampregistration/event/leafcamp/",
+          "quote": "Drop off is between 8:30am and 9am and pick up is promptly at 3pm for camp and no later than 5pm for extended day.",
+          "source_kind": "registration_platform",
+          "check": {
+            "status": "review",
+            "match": "exact",
+            "flags": ["value_not_in_quote:early_dropoff_start"],
+            "checkedAt": "2026-10-28T21:07:15.390Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "prices": [
+          {
+            "amount": 300,
+            "unit": "week",
+            "tier": "Starting price",
+            "year": 2027,
+            "url": "https://www.theleaf.org/",
+            "quote": "Starting at $300/week",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-28T21:07:15.390Z",
+              "fetchMethod": "fetch"
+            }
+          },
+          {
+            "amount": 60,
+            "unit": "week",
+            "tier": "Extended day (2026 fallback)",
+            "year": 2026,
+            "url": "https://www.theleaf.org/camps",
+            "quote": "Extended Day: $60 per week",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-28T21:07:15.390Z",
+              "fetchMethod": "fetch"
+            }
+          }
+        ],
+        "fees": [],
+        "locations": [
+          {
+            "name": "LEAF Global Arts",
+            "address": "19 Eagle Street #120",
+            "town": "Asheville",
+            "state": "NC",
+            "year": 2026,
+            "url": "https://www.theleaf.org/camps",
+            "quote": "Location: LEAF Global Arts | 19 Eagle Street #120, Downtown Asheville",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-28T21:07:15.390Z",
+              "fetchMethod": "fetch"
+            }
+          }
+        ],
+        "financial_aid": {
+          "available": true,
+          "details": "2027 scholarships are announced; eligibility details have not yet been posted for 2027.",
+          "year": 2027,
+          "url": "https://www.theleaf.org/",
+          "quote": "Scholarships Available!",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T21:07:15.390Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "special_needs": null,
+        "lunch": {
+          "available": false,
+          "details": "Bring a packed lunch and water bottle. A daily snack is provided.",
+          "year": 2026,
+          "url": "https://www.theleaf.org/camps",
+          "quote": "Loose-fitting clothes and shoes you can move in, a packed lunch and water bottle, and a positive attitude and willingness to participate! Leaf provides a daily snack as well as all supplies needed for activity.",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T21:07:15.390Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "transportation": null,
+        "registration_milestones": [],
+        "availability": {
+          "status": "closed",
+          "scope": "2026 registration only; 2027 availability is not stated.",
+          "year": 2026,
+          "url": "https://secure.qgiv.com/for/leafcampregistration/event/leafcamp/",
+          "quote": "Registration has ended",
+          "source_kind": "registration_platform",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T21:07:15.390Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "last_year_registration_opened": null,
+        "sessions": [
+          {
+            "label": "Find Your Voice Through Music, Art, & Dance",
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026
+          },
+          {
+            "label": "World Dance",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026
+          },
+          {
+            "label": "Visual Arts",
+            "start": "2026-06-29",
+            "end": "2026-07-03",
+            "year": 2026
+          },
+          {
+            "label": "African Drumming, Dance, & Culture",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026
+          },
+          {
+            "label": "LEAF International",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026
+          },
+          {
+            "label": "Theatre & Puppetry",
+            "start": "2026-07-27",
+            "end": "2026-07-31",
+            "year": 2026
+          },
+          {
+            "label": "World Dance",
+            "start": "2026-08-03",
+            "end": "2026-08-07",
+            "year": 2026
+          },
+          {
+            "label": "Raise Your Voice: Songwriting & Poetry",
+            "start": "2026-08-10",
+            "end": "2026-08-14",
+            "year": 2026
+          }
+        ]
+      }
+    ]
+  },
+  "report": {
+    "ownDomains": ["theleaf.org"],
+    "byField": {
+      "season_dates": {
+        "total": 1,
+        "verified": 1,
+        "review": 0,
+        "dropped": 0
+      },
+      "ages": {
+        "total": 1,
+        "verified": 1,
+        "review": 0,
+        "dropped": 0
+      },
+      "grades": {
+        "total": 1,
+        "verified": 1,
+        "review": 0,
+        "dropped": 0
+      },
+      "hours": {
+        "total": 1,
+        "verified": 1,
+        "review": 0,
+        "dropped": 0
+      },
+      "extended_care": {
+        "total": 1,
+        "verified": 0,
+        "review": 1,
+        "dropped": 0
+      },
+      "financial_aid": {
+        "total": 1,
+        "verified": 1,
+        "review": 0,
+        "dropped": 0
+      },
+      "lunch": {
+        "total": 1,
+        "verified": 1,
+        "review": 0,
+        "dropped": 0
+      },
+      "availability": {
+        "total": 1,
+        "verified": 1,
+        "review": 0,
+        "dropped": 0
+      },
+      "prices": {
+        "total": 2,
+        "verified": 2,
+        "review": 0,
+        "dropped": 0
+      },
+      "locations": {
+        "total": 1,
+        "verified": 1,
+        "review": 0,
+        "dropped": 0
+      }
+    },
+    "totals": {
+      "total": 11,
+      "verified": 10,
+      "review": 1,
+      "dropped": 0
+    },
+    "pages": [
+      {
+        "url": "https://www.theleaf.org/camps",
+        "ok": true,
+        "method": "fetch",
+        "kind": "html"
+      },
+      {
+        "url": "https://www.theleaf.org/",
+        "ok": true,
+        "method": "fetch",
+        "kind": "html"
+      },
+      {
+        "url": "https://secure.qgiv.com/for/leafcampregistration/event/leafcamp/",
+        "ok": true,
+        "method": "fetch",
+        "kind": "html"
+      }
+    ]
+  }
+}

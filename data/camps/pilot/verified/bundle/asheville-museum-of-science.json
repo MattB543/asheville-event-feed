@@ -1,0 +1,748 @@
+{
+  "provider": {
+    "key": "asheville-museum-of-science",
+    "name": "Asheville Museum of Science (summer science camps)",
+    "urls": ["https://ashevillescience.org/event/summer-science-camps/"],
+    "covers": ["pdf_only", "grade_bands", "themed_weeks"]
+  },
+  "verifiedAt": "2026-10-28T21:07:15.136Z",
+  "verifyMs": 43,
+  "extraction": {
+    "provider_name": "Asheville Museum of Science",
+    "website_url": "https://ashevillescience.org/",
+    "notes": "No summer 2027 information found; all extracted facts describe 2026. The event page lists single-day registration opening April 13, while the 2026 PDF guide lists May 18; this conflict is unresolved. The PDF lists both 43 Patton Ave and 27 Church St without assigning grade groups to sites, so cards are split by eligibility rather than an inferred site assignment. Official pages and the PDF returned empty text when opened; PDF facts use exact search-result wording. The PDF's detailed theme descriptions contain conflicting dates for the first two weeks; sessions use the supplied official event page instead. No direct registration-platform URL was retrievable.",
+    "excluded": [
+      {
+        "name": "School’s Out Camp: The Facts of Fantasy",
+        "reason": "October school-closure program, outside summer."
+      },
+      {
+        "name": "School’s Out Camp: Critter Camp",
+        "reason": "November school-closure program, outside summer."
+      },
+      {
+        "name": "Winter STEAM Camp 2026",
+        "reason": "December winter-break program, outside summer."
+      },
+      {
+        "name": "School’s Out Camps",
+        "reason": "Listed January, February and April school-closure programs are outside summer."
+      },
+      {
+        "name": "Afterschool Clubs",
+        "reason": "Recurring afterschool programming, not a finite summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Science Camps",
+        "variant": "Rising kindergarten–first grade",
+        "type": "day",
+        "categories": ["stem"],
+        "camp_page_url": "https://ashevillescience.org/event/summer-science-camps/",
+        "registration_url": null,
+        "description": "Campers explore fossils, tools and materials, outer space, the natural world, chemistry, physics, and connections between science and art through weekly STEAM activities.",
+        "season_dates": {
+          "start": "2026-06-15",
+          "end": "2026-08-07",
+          "year": 2026,
+          "url": "https://ashevillescience.org/event/summer-science-camps/",
+          "quote": "June 15 @ 8:45 am - August 7 @ 3:30 pm",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T21:07:15.094Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "ages": null,
+        "grades": {
+          "min": 0,
+          "max": 1,
+          "basis": "rising",
+          "year": 2026,
+          "url": "https://ashevillescience.org/event/summer-science-camps/",
+          "quote": "rising kindergarten and first graders",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T21:07:15.094Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "hours": {
+          "start": "08:45",
+          "end": "15:30",
+          "year": 2026,
+          "url": "https://ashevillescience.org/wp-content/uploads/AMOS-Summer-Camp-Guide-26.pdf",
+          "quote": "Science Camp (8:45am-3:30pm)",
+          "source_kind": "official_site",
+          "check": {
+            "status": "review",
+            "match": "exact",
+            "flags": ["value_not_in_quote:start", "value_not_in_quote:end", "year_not_on_page"],
+            "checkedAt": "2026-10-28T21:07:15.094Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "extended_care": {
+          "early_dropoff_start": null,
+          "late_pickup_end": "17:00",
+          "cost_text": "$60 full week; $15 single day",
+          "year": 2026,
+          "url": "https://ashevillescience.org/wp-content/uploads/AMOS-Summer-Camp-Guide-26.pdf",
+          "quote": "Aftercare (3:30pm-5:00pm) ▪ full week: $60 ▪ single day: $15",
+          "source_kind": "official_site",
+          "check": {
+            "status": "review",
+            "match": "loose",
+            "flags": ["year_not_on_page"],
+            "checkedAt": "2026-10-28T21:07:15.094Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "prices": [
+          {
+            "amount": 375,
+            "unit": "week",
+            "tier": null,
+            "year": 2026,
+            "url": "https://ashevillescience.org/wp-content/uploads/AMOS-Summer-Camp-Guide-26.pdf",
+            "quote": "full week: $375",
+            "source_kind": "official_site",
+            "check": {
+              "status": "review",
+              "match": "exact",
+              "flags": ["year_not_on_page"],
+              "checkedAt": "2026-10-28T21:07:15.094Z",
+              "fetchMethod": "fetch"
+            }
+          },
+          {
+            "amount": 85,
+            "unit": "day",
+            "tier": null,
+            "year": 2026,
+            "url": "https://ashevillescience.org/wp-content/uploads/AMOS-Summer-Camp-Guide-26.pdf",
+            "quote": "single day: $85",
+            "source_kind": "official_site",
+            "check": {
+              "status": "review",
+              "match": "exact",
+              "flags": ["year_not_on_page"],
+              "checkedAt": "2026-10-28T21:07:15.094Z",
+              "fetchMethod": "fetch"
+            }
+          }
+        ],
+        "fees": [],
+        "locations": [
+          {
+            "name": "Asheville Museum of Science",
+            "address": "43 Patton Ave",
+            "town": "Asheville",
+            "state": "NC",
+            "year": 2026,
+            "url": "https://ashevillescience.org/event/summer-science-camps/",
+            "quote": "43 Patton Ave. Asheville, NC 28801",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-28T21:07:15.094Z",
+              "fetchMethod": "fetch"
+            }
+          },
+          {
+            "name": "27 Church St",
+            "address": "27 Church St",
+            "town": null,
+            "state": null,
+            "year": 2026,
+            "url": "https://ashevillescience.org/wp-content/uploads/AMOS-Summer-Camp-Guide-26.pdf",
+            "quote": "Locations: 43 Patton Ave & 27 Church St",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-28T21:07:15.094Z",
+              "fetchMethod": "fetch"
+            }
+          }
+        ],
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "registration_milestones": [],
+        "availability": null,
+        "last_year_registration_opened": {
+          "date": "2026-01-12",
+          "time": null,
+          "year": 2026,
+          "url": "https://ashevillescience.org/event/summer-science-camps/",
+          "quote": "Registration for week-long packages begins January 12 and will be open through August 2.",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T21:07:15.094Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "sessions": [
+          {
+            "label": "Paleontology and Archaeology",
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026
+          },
+          {
+            "label": "Tinkering Workshop",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026
+          },
+          {
+            "label": "Space Explorers",
+            "start": "2026-06-29",
+            "end": "2026-07-03",
+            "year": 2026
+          },
+          {
+            "label": "The Natural World",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026
+          },
+          {
+            "label": "The Art of Science",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026
+          },
+          {
+            "label": "Chemistry",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026
+          },
+          {
+            "label": "Forces and Energy",
+            "start": "2026-07-27",
+            "end": "2026-07-31",
+            "year": 2026
+          },
+          {
+            "label": "The Art of Science II",
+            "start": "2026-08-03",
+            "end": "2026-08-07",
+            "year": 2026
+          }
+        ]
+      },
+      {
+        "name": "Summer Science Camps",
+        "variant": "Rising second–third grade",
+        "type": "day",
+        "categories": ["stem"],
+        "camp_page_url": "https://ashevillescience.org/event/summer-science-camps/",
+        "registration_url": null,
+        "description": "Campers explore fossils, tools and materials, outer space, the natural world, chemistry, physics, and connections between science and art through weekly STEAM activities.",
+        "season_dates": {
+          "start": "2026-06-15",
+          "end": "2026-08-07",
+          "year": 2026,
+          "url": "https://ashevillescience.org/event/summer-science-camps/",
+          "quote": "June 15 @ 8:45 am - August 7 @ 3:30 pm",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T21:07:15.094Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "ages": null,
+        "grades": {
+          "min": 2,
+          "max": 3,
+          "basis": "rising",
+          "year": 2026,
+          "url": "https://ashevillescience.org/event/summer-science-camps/",
+          "quote": "rising second and third graders",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T21:07:15.094Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "hours": {
+          "start": "08:45",
+          "end": "15:30",
+          "year": 2026,
+          "url": "https://ashevillescience.org/wp-content/uploads/AMOS-Summer-Camp-Guide-26.pdf",
+          "quote": "Science Camp (8:45am-3:30pm)",
+          "source_kind": "official_site",
+          "check": {
+            "status": "review",
+            "match": "exact",
+            "flags": ["value_not_in_quote:start", "value_not_in_quote:end", "year_not_on_page"],
+            "checkedAt": "2026-10-28T21:07:15.094Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "extended_care": {
+          "early_dropoff_start": null,
+          "late_pickup_end": "17:00",
+          "cost_text": "$60 full week; $15 single day",
+          "year": 2026,
+          "url": "https://ashevillescience.org/wp-content/uploads/AMOS-Summer-Camp-Guide-26.pdf",
+          "quote": "Aftercare (3:30pm-5:00pm) ▪ full week: $60 ▪ single day: $15",
+          "source_kind": "official_site",
+          "check": {
+            "status": "review",
+            "match": "loose",
+            "flags": ["year_not_on_page"],
+            "checkedAt": "2026-10-28T21:07:15.094Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "prices": [
+          {
+            "amount": 375,
+            "unit": "week",
+            "tier": null,
+            "year": 2026,
+            "url": "https://ashevillescience.org/wp-content/uploads/AMOS-Summer-Camp-Guide-26.pdf",
+            "quote": "full week: $375",
+            "source_kind": "official_site",
+            "check": {
+              "status": "review",
+              "match": "exact",
+              "flags": ["year_not_on_page"],
+              "checkedAt": "2026-10-28T21:07:15.094Z",
+              "fetchMethod": "fetch"
+            }
+          },
+          {
+            "amount": 85,
+            "unit": "day",
+            "tier": null,
+            "year": 2026,
+            "url": "https://ashevillescience.org/wp-content/uploads/AMOS-Summer-Camp-Guide-26.pdf",
+            "quote": "single day: $85",
+            "source_kind": "official_site",
+            "check": {
+              "status": "review",
+              "match": "exact",
+              "flags": ["year_not_on_page"],
+              "checkedAt": "2026-10-28T21:07:15.094Z",
+              "fetchMethod": "fetch"
+            }
+          }
+        ],
+        "fees": [],
+        "locations": [
+          {
+            "name": "Asheville Museum of Science",
+            "address": "43 Patton Ave",
+            "town": "Asheville",
+            "state": "NC",
+            "year": 2026,
+            "url": "https://ashevillescience.org/event/summer-science-camps/",
+            "quote": "43 Patton Ave. Asheville, NC 28801",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-28T21:07:15.094Z",
+              "fetchMethod": "fetch"
+            }
+          },
+          {
+            "name": "27 Church St",
+            "address": "27 Church St",
+            "town": null,
+            "state": null,
+            "year": 2026,
+            "url": "https://ashevillescience.org/wp-content/uploads/AMOS-Summer-Camp-Guide-26.pdf",
+            "quote": "Locations: 43 Patton Ave & 27 Church St",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-28T21:07:15.094Z",
+              "fetchMethod": "fetch"
+            }
+          }
+        ],
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "registration_milestones": [],
+        "availability": null,
+        "last_year_registration_opened": {
+          "date": "2026-01-12",
+          "time": null,
+          "year": 2026,
+          "url": "https://ashevillescience.org/event/summer-science-camps/",
+          "quote": "Registration for week-long packages begins January 12 and will be open through August 2.",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T21:07:15.094Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "sessions": [
+          {
+            "label": "Paleontology and Archaeology",
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026
+          },
+          {
+            "label": "Tinkering Workshop",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026
+          },
+          {
+            "label": "Space Explorers",
+            "start": "2026-06-29",
+            "end": "2026-07-03",
+            "year": 2026
+          },
+          {
+            "label": "The Natural World",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026
+          },
+          {
+            "label": "The Art of Science",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026
+          },
+          {
+            "label": "Chemistry",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026
+          },
+          {
+            "label": "Forces and Energy",
+            "start": "2026-07-27",
+            "end": "2026-07-31",
+            "year": 2026
+          },
+          {
+            "label": "The Art of Science II",
+            "start": "2026-08-03",
+            "end": "2026-08-07",
+            "year": 2026
+          }
+        ]
+      },
+      {
+        "name": "Summer Science Camps",
+        "variant": "Rising fourth–fifth grade",
+        "type": "day",
+        "categories": ["stem"],
+        "camp_page_url": "https://ashevillescience.org/event/summer-science-camps/",
+        "registration_url": null,
+        "description": "Campers explore fossils, tools and materials, outer space, the natural world, chemistry, physics, and connections between science and art through weekly STEAM activities.",
+        "season_dates": {
+          "start": "2026-06-15",
+          "end": "2026-08-07",
+          "year": 2026,
+          "url": "https://ashevillescience.org/event/summer-science-camps/",
+          "quote": "June 15 @ 8:45 am - August 7 @ 3:30 pm",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T21:07:15.094Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "ages": null,
+        "grades": {
+          "min": 4,
+          "max": 5,
+          "basis": "rising",
+          "year": 2026,
+          "url": "https://ashevillescience.org/event/summer-science-camps/",
+          "quote": "rising fourth and fifth graders.",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T21:07:15.094Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "hours": {
+          "start": "08:45",
+          "end": "15:30",
+          "year": 2026,
+          "url": "https://ashevillescience.org/wp-content/uploads/AMOS-Summer-Camp-Guide-26.pdf",
+          "quote": "Science Camp (8:45am-3:30pm)",
+          "source_kind": "official_site",
+          "check": {
+            "status": "review",
+            "match": "exact",
+            "flags": ["value_not_in_quote:start", "value_not_in_quote:end", "year_not_on_page"],
+            "checkedAt": "2026-10-28T21:07:15.094Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "extended_care": {
+          "early_dropoff_start": null,
+          "late_pickup_end": "17:00",
+          "cost_text": "$60 full week; $15 single day",
+          "year": 2026,
+          "url": "https://ashevillescience.org/wp-content/uploads/AMOS-Summer-Camp-Guide-26.pdf",
+          "quote": "Aftercare (3:30pm-5:00pm) ▪ full week: $60 ▪ single day: $15",
+          "source_kind": "official_site",
+          "check": {
+            "status": "review",
+            "match": "loose",
+            "flags": ["year_not_on_page"],
+            "checkedAt": "2026-10-28T21:07:15.094Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "prices": [
+          {
+            "amount": 375,
+            "unit": "week",
+            "tier": null,
+            "year": 2026,
+            "url": "https://ashevillescience.org/wp-content/uploads/AMOS-Summer-Camp-Guide-26.pdf",
+            "quote": "full week: $375",
+            "source_kind": "official_site",
+            "check": {
+              "status": "review",
+              "match": "exact",
+              "flags": ["year_not_on_page"],
+              "checkedAt": "2026-10-28T21:07:15.094Z",
+              "fetchMethod": "fetch"
+            }
+          },
+          {
+            "amount": 85,
+            "unit": "day",
+            "tier": null,
+            "year": 2026,
+            "url": "https://ashevillescience.org/wp-content/uploads/AMOS-Summer-Camp-Guide-26.pdf",
+            "quote": "single day: $85",
+            "source_kind": "official_site",
+            "check": {
+              "status": "review",
+              "match": "exact",
+              "flags": ["year_not_on_page"],
+              "checkedAt": "2026-10-28T21:07:15.094Z",
+              "fetchMethod": "fetch"
+            }
+          }
+        ],
+        "fees": [],
+        "locations": [
+          {
+            "name": "Asheville Museum of Science",
+            "address": "43 Patton Ave",
+            "town": "Asheville",
+            "state": "NC",
+            "year": 2026,
+            "url": "https://ashevillescience.org/event/summer-science-camps/",
+            "quote": "43 Patton Ave. Asheville, NC 28801",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-28T21:07:15.094Z",
+              "fetchMethod": "fetch"
+            }
+          },
+          {
+            "name": "27 Church St",
+            "address": "27 Church St",
+            "town": null,
+            "state": null,
+            "year": 2026,
+            "url": "https://ashevillescience.org/wp-content/uploads/AMOS-Summer-Camp-Guide-26.pdf",
+            "quote": "Locations: 43 Patton Ave & 27 Church St",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-28T21:07:15.094Z",
+              "fetchMethod": "fetch"
+            }
+          }
+        ],
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "registration_milestones": [],
+        "availability": null,
+        "last_year_registration_opened": {
+          "date": "2026-01-12",
+          "time": null,
+          "year": 2026,
+          "url": "https://ashevillescience.org/event/summer-science-camps/",
+          "quote": "Registration for week-long packages begins January 12 and will be open through August 2.",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T21:07:15.094Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "sessions": [
+          {
+            "label": "Paleontology and Archaeology",
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026
+          },
+          {
+            "label": "Tinkering Workshop",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026
+          },
+          {
+            "label": "Space Explorers",
+            "start": "2026-06-29",
+            "end": "2026-07-03",
+            "year": 2026
+          },
+          {
+            "label": "The Natural World",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026
+          },
+          {
+            "label": "The Art of Science",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026
+          },
+          {
+            "label": "Chemistry",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026
+          },
+          {
+            "label": "Forces and Energy",
+            "start": "2026-07-27",
+            "end": "2026-07-31",
+            "year": 2026
+          },
+          {
+            "label": "The Art of Science II",
+            "start": "2026-08-03",
+            "end": "2026-08-07",
+            "year": 2026
+          }
+        ]
+      }
+    ]
+  },
+  "report": {
+    "ownDomains": ["ashevillescience.org"],
+    "byField": {
+      "season_dates": {
+        "total": 3,
+        "verified": 3,
+        "review": 0,
+        "dropped": 0
+      },
+      "grades": {
+        "total": 3,
+        "verified": 3,
+        "review": 0,
+        "dropped": 0
+      },
+      "hours": {
+        "total": 3,
+        "verified": 0,
+        "review": 3,
+        "dropped": 0
+      },
+      "extended_care": {
+        "total": 3,
+        "verified": 0,
+        "review": 3,
+        "dropped": 0
+      },
+      "last_year_registration_opened": {
+        "total": 3,
+        "verified": 3,
+        "review": 0,
+        "dropped": 0
+      },
+      "prices": {
+        "total": 6,
+        "verified": 0,
+        "review": 6,
+        "dropped": 0
+      },
+      "locations": {
+        "total": 6,
+        "verified": 6,
+        "review": 0,
+        "dropped": 0
+      }
+    },
+    "totals": {
+      "total": 27,
+      "verified": 15,
+      "review": 12,
+      "dropped": 0
+    },
+    "pages": [
+      {
+        "url": "https://ashevillescience.org/event/summer-science-camps/",
+        "ok": true,
+        "method": "fetch",
+        "kind": "html"
+      },
+      {
+        "url": "https://ashevillescience.org/wp-content/uploads/AMOS-Summer-Camp-Guide-26.pdf",
+        "ok": true,
+        "method": "fetch",
+        "kind": "pdf"
+      }
+    ]
+  }
+}

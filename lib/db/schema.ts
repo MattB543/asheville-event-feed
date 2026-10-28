@@ -849,3 +849,168 @@ export const genreNotes = pgTable('genre_notes', {
   note: text('note'),
   createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
 });
+
+// Summer camps (/camps): the revised model in docs/camps/01-context-and-plan.md §5 (drizzle/0025).
+// A camp is a stable offering; everything that can change from summer to summer lives on its
+// season row, and registration milestones and availability are kept apart because "2027 dates are
+// posted", "public registration opens Jan 10 at 9 a.m." and "some weeks are full" are different facts.
+export const camps = pgTable(
+  'camps',
+  {
+    id: uuid('id').defaultRandom().primaryKey(),
+    // '<provider key>:<program>[:<variant>]'. Stable across years, slug and URL changes.
+    campKey: text('camp_key').unique().notNull(),
+    slug: text('slug').unique().notNull(),
+    providerKey: text('provider_key').notNull(),
+    providerName: text('provider_name').notNull(),
+    name: text('name').notNull(),
+    variant: text('variant'), // What separates sibling cards: site or age band
+    type: text('type').notNull(), // CAMP_TYPES in lib/camps/types.ts
+    categories: text('categories').array().default([]).notNull(),
+    aliases: text('aliases').array().default([]).notNull(),
+    websiteUrl: text('website_url'),
+    campPageUrl: text('camp_page_url'),
+    registrationUrl: text('registration_url'),
+    platform: text('platform'), // 'WebTrac', 'CampMinder' ... (lib/camps/platforms.ts)
+    // e.g. { fmid: ['127024941'] }. Kept for refresh; a platform host is never a merge key on its own.
+    platformIds: jsonb('platform_ids').$type<Record<string, string[]>>(),
+    description: text('description'), // Short factual paraphrase of the official pages (N16)
+    discoveredBy: text('discovered_by').array().default([]).notNull(),
+    hidden: boolean('hidden').default(false).notNull(), // Moderation kill switch; imports never write it
+    createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
+    updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow().notNull(),
+  },
+  (table) => ({
+    campsProviderIdx: index('camps_provider_idx').on(table.providerKey),
+  })
+);
+
+// One summer's facts for one camp. The typed columns are for filtering and sorting; `facts` holds
+// every fact of that summer with its source URL, verbatim quote and verification result.
+export const campSeasons = pgTable(
+  'camp_seasons',
+  {
+    campId: uuid('camp_id')
+      .notNull()
+      .references(() => camps.id, { onDelete: 'cascade' }),
+    seasonYear: integer('season_year').notNull(),
+    seasonStart: date('season_start'),
+    seasonEnd: date('season_end'),
+    ageMin: integer('age_min'),
+    ageMax: integer('age_max'),
+    // Pre-K -1, K 0, 1st 1 ... Stated grades are never converted to ages (N11).
+    gradeMin: integer('grade_min'),
+    gradeMax: integer('grade_max'),
+    gradeBasis: text('grade_basis'), // 'rising' | 'completed' | 'current' | 'unspecified'
+    hoursStart: text('hours_start'), // 'HH:MM' Eastern
+    hoursEnd: text('hours_end'),
+    earlyDropoffStart: text('early_dropoff_start'),
+    latePickupEnd: text('late_pickup_end'),
+    priceMinCents: integer('price_min_cents'),
+    priceMaxCents: integer('price_max_cents'),
+    priceUnit: text('price_unit'), // 'week' | 'session' | 'day' | 'program' | 'month' | 'other'
+    town: text('town'),
+    state: text('state'),
+    driveSeconds: integer('drive_seconds'), // From Pack Square (ORS, no traffic); unrounded for D3
+    // Only what a page states: financial_aid, special_needs, aftercare, lunch, transportation.
+    // A missing tag means unknown, never "no" (plan §5: unknown is unknown).
+    tags: text('tags').array().default([]).notNull(),
+    facts: jsonb('facts').notNull(),
+    updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow().notNull(),
+  },
+  (table) => ({
+    pk: primaryKey({ columns: [table.campId, table.seasonYear] }),
+  })
+);
+
+// One row per registration date per audience. `season_year` is the summer; `date` may fall in the
+// year before it. Every row is hand-checked before it is shown at launch (N15).
+export const campRegistrationMilestones = pgTable(
+  'camp_registration_milestones',
+  {
+    id: uuid('id').defaultRandom().primaryKey(),
+    campId: uuid('camp_id')
+      .notNull()
+      .references(() => camps.id, { onDelete: 'cascade' }),
+    seasonYear: integer('season_year').notNull(),
+    // 'public' | 'member' | 'returning' | 'lottery' | 'resident' | 'early_bird' | 'other'
+    audience: text('audience').notNull(),
+    kind: text('kind').notNull(), // 'opens' | 'deadline' | 'lottery_results' | 'closes'
+    date: date('date').notNull(),
+    time: text('time'), // 'HH:MM' Eastern, only when the source states one; never invented
+    precision: text('precision').notNull(), // 'datetime' | 'date' | 'month'
+    sourceUrl: text('source_url').notNull(),
+    quote: text('quote').notNull(),
+    sourceKind: text('source_kind').notNull(), // 'official_site' | 'registration_platform' | 'official_social'
+    verifyStatus: text('verify_status').notNull(), // 'verified' | 'review'
+    handCheckedAt: timestamp('hand_checked_at', { withTimezone: true }),
+    handCheckedBy: text('hand_checked_by'),
+    createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
+    updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow().notNull(),
+  },
+  (table) => ({
+    milestoneUniqueIdx: uniqueIndex('camp_milestones_unique_idx').on(
+      table.campId,
+      table.seasonYear,
+      table.audience,
+      table.kind
+    ),
+  })
+);
+
+// The latest availability seen for a camp's summer. History is in camp_observations: a sell-out
+// is the interval between the last "available" and the first "full", never an exact time.
+export const campAvailability = pgTable(
+  'camp_availability',
+  {
+    campId: uuid('camp_id')
+      .notNull()
+      .references(() => camps.id, { onDelete: 'cascade' }),
+    seasonYear: integer('season_year').notNull(),
+    status: text('status').notNull(), // 'unknown' | 'available' | 'mixed' | 'waitlist' | 'full' | 'closed'
+    scope: text('scope'), // Which sessions it applies to, when not all
+    sourceUrl: text('source_url').notNull(),
+    quote: text('quote'),
+    observedAt: timestamp('observed_at', { withTimezone: true }).notNull(),
+  },
+  (table) => ({
+    pk: primaryKey({ columns: [table.campId, table.seasonYear] }),
+  })
+);
+
+// Append-only log of every evidence-page fetch and availability reading. A failed fetch is logged
+// here and does not advance a camp's "checked on" date.
+export const campObservations = pgTable(
+  'camp_observations',
+  {
+    id: uuid('id').defaultRandom().primaryKey(),
+    campId: uuid('camp_id').references(() => camps.id, { onDelete: 'set null' }),
+    url: text('url').notNull(),
+    kind: text('kind').notNull(), // 'fetch' | 'availability'
+    ok: boolean('ok').notNull(),
+    fetchMethod: text('fetch_method'), // 'fetch' | 'chrome-tls' | 'browser'
+    textHash: text('text_hash'), // sha256 of the normalized page text
+    error: text('error'),
+    details: jsonb('details'),
+    observedAt: timestamp('observed_at', { withTimezone: true }).defaultNow().notNull(),
+  },
+  (table) => ({
+    campObservationsCampIdx: index('camp_observations_camp_idx').on(table.campId, table.observedAt),
+    campObservationsUrlIdx: index('camp_observations_url_idx').on(table.url, table.observedAt),
+  })
+);
+
+// Popularity (D8): one row per camp per Eastern day; the page shows the last 14 days (N6).
+export const campViews = pgTable(
+  'camp_views',
+  {
+    campId: uuid('camp_id')
+      .notNull()
+      .references(() => camps.id, { onDelete: 'cascade' }),
+    day: date('day').notNull(),
+    count: integer('count').default(0).notNull(),
+  },
+  (table) => ({
+    pk: primaryKey({ columns: [table.campId, table.day] }),
+  })
+);

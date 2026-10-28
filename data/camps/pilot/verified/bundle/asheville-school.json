@@ -1,0 +1,52 @@
+{
+  "provider": {
+    "key": "asheville-school",
+    "name": "Asheville School (summer programs)",
+    "urls": ["https://www.ashevilleschool.org/academics-summer-reading/"],
+    "covers": ["blocked_plain_fetch", "weak_seed_url"]
+  },
+  "verifiedAt": "2026-10-28T21:07:15.315Z",
+  "verifyMs": 20,
+  "extraction": {
+    "provider_name": "Asheville School",
+    "website_url": "https://www.ashevilleschool.org/",
+    "notes": "No Asheville School-operated summer camp offering with 2026 or 2027 information was found. Official news articles describe App Development Camp and Camp Good Trouble in 2019, but these historical reports do not establish offerings for either requested season: https://www.ashevilleschool.org/news/app-development-camp-introduces-teens-to-computer-science-coding-and-app-design/ and https://www.ashevilleschool.org/news/asheville-school-students-work-to-empower-local-elementary-school-students-during-camp-good-trouble/. No historical facts were relabeled as 2026 or 2027. URJ 6 Points Sports Academy uses the Asheville School campus but is a separate provider, not an Asheville School-operated program. The supplied tuition and financial-aid information concerns school-year enrollment, not camps.",
+    "excluded": [
+      {
+        "name": "2026 Summer Reading",
+        "reason": "Independent reading assignments for enrolled students, not a finite supervised summer program."
+      },
+      {
+        "name": "Winterim",
+        "reason": "School academic enrichment program outside summer; the official 2026 catalog dates it February 23–27."
+      },
+      {
+        "name": "School-year boarding and day enrollment",
+        "reason": "Regular school enrollment, not summer camp; the tuition page describes annual tuition for 2026–27."
+      },
+      {
+        "name": "Preseason football",
+        "reason": "School varsity team preseason, not a separate summer camp or clinic."
+      }
+    ],
+    "cards": []
+  },
+  "report": {
+    "ownDomains": ["ashevilleschool.org"],
+    "byField": {},
+    "totals": {
+      "total": 0,
+      "verified": 0,
+      "review": 0,
+      "dropped": 0
+    },
+    "pages": [
+      {
+        "url": "https://www.ashevilleschool.org/academics-summer-reading/",
+        "ok": true,
+        "method": "chrome-tls",
+        "kind": "html"
+      }
+    ]
+  }
+}

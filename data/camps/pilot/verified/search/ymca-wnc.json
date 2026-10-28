@@ -1,0 +1,1645 @@
+{
+  "provider": {
+    "key": "ymca-wnc",
+    "name": "YMCA of Western North Carolina (summer day camps)",
+    "urls": [
+      "https://www.ymcawnc.org/programs/camp/summer-day-camp/adventure",
+      "https://www.ymcawnc.org/programs/camp/summer-day-camp/cilt",
+      "https://www.ymcawnc.org/programs/camp/summer-day-camp/discovery",
+      "https://www.ymcawnc.org/programs/camp/summer-day-camp/explorer"
+    ],
+    "covers": ["multi_card", "member_pricing", "multi_site"]
+  },
+  "verifiedAt": "2026-10-28T21:07:18.306Z",
+  "verifyMs": 26,
+  "extraction": {
+    "provider_name": "YMCA of Western North Carolina (summer day camps)",
+    "website_url": "https://ymcawnc.org/",
+    "notes": "No 2027 facts found for the four summer day camp programs requested. Official program URLs returned empty bodies; evidence below uses exact wording exposed by their indexed official pages. No tuition or registration destination could be verified. Adventure's Enka sites remain undetermined on the page, so district-level variants are retained rather than inventing individual attendance sites. CILT names only Beaverdam and unspecified other current summer day camp sites; those other sites need confirmation before further splitting. Discovery's Hendersonville dates differ from its general season dates. The Discovery page's related-program teaser says CILT ages 12-14, but the CILT program's own FAQ says 12–15 at Beaverdam and 13–15 elsewhere; the FAQ is used. Scope is the four full-day offerings supplied, not the separately linked half-day or overnight camp catalogs. An indexed 2025-2026 handbook states a recurring January 1 registration opening without an explicit season-specific year; it was not used as a registration milestone.",
+    "excluded": [
+      {
+        "name": "School’s Out Camps",
+        "reason": "School-calendar holiday, teacher-workday and snow-day care rather than a summer offering."
+      },
+      {
+        "name": "Afterschool Childcare and center-based/drop-in childcare",
+        "reason": "Year-round or school-year childcare."
+      },
+      {
+        "name": "Piranhas Swim Team",
+        "reason": "Year-round competitive team."
+      },
+      {
+        "name": "YMCA teen employment opportunities",
+        "reason": "Employment programs, not camps; distinct from the supervised CILT camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Adventure Camp",
+        "variant": "Beaverdam — Tweens",
+        "type": "day",
+        "categories": ["nature_outdoor"],
+        "camp_page_url": "https://ymcawnc.org/programs/camp/summer-day-camp/adventure",
+        "registration_url": null,
+        "description": "Campers take guided hiking and swimming trips. Activities also include horseback riding, tubing, rafting and paintball.",
+        "season_dates": {
+          "start": "2026-06-15",
+          "end": "2026-08-14",
+          "year": 2026,
+          "url": "https://ymcawnc.org/programs/camp/summer-day-camp/adventure",
+          "quote": "In 2026, Adventure Camp runs June 15-Aug. 14. (Closed on June 19).",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T21:07:18.280Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "ages": {
+          "min": 9,
+          "max": 11,
+          "year": 2026,
+          "url": "https://ymcawnc.org/programs/camp/summer-day-camp/adventure",
+          "quote": "Tweens: Ages 9-11",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T21:07:18.280Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "grades": null,
+        "hours": {
+          "start": "07:30",
+          "end": "17:30",
+          "year": 2026,
+          "url": "https://ymcawnc.org/programs/camp/summer-day-camp/adventure",
+          "quote": "7:30am-5:30pm",
+          "source_kind": "official_site",
+          "check": {
+            "status": "review",
+            "match": "exact",
+            "flags": ["value_not_in_quote:start", "value_not_in_quote:end"],
+            "checkedAt": "2026-10-28T21:07:18.280Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "extended_care": null,
+        "prices": [],
+        "fees": [],
+        "locations": [
+          {
+            "name": "YMCA Youth Services Center at Beaverdam",
+            "address": null,
+            "town": null,
+            "state": null,
+            "year": 2026,
+            "url": "https://ymcawnc.org/programs/camp/summer-day-camp/adventure",
+            "quote": "YMCA Youth Services Center at Beaverdam and Enka District (including Sandhill, Hominy Valley, Candler, and Pisgah).",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-28T21:07:18.280Z",
+              "fetchMethod": "fetch"
+            }
+          }
+        ],
+        "financial_aid": {
+          "available": true,
+          "details": "Available for qualified applicants; amount depends on income and other factors.",
+          "year": 2026,
+          "url": "https://ymcawnc.org/programs/camp/summer-day-camp/adventure",
+          "quote": "Financial assistance is available for qualified applicants.",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T21:07:18.280Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "special_needs": null,
+        "lunch": {
+          "available": false,
+          "details": "Bring lunch and snacks.",
+          "year": 2026,
+          "url": "https://ymcawnc.org/programs/camp/summer-day-camp/adventure",
+          "quote": "Participant MUST bring lunch and snacks to Adventure Camp.",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T21:07:18.280Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "transportation": null,
+        "registration_milestones": [],
+        "availability": null,
+        "last_year_registration_opened": null,
+        "sessions": []
+      },
+      {
+        "name": "Adventure Camp",
+        "variant": "Beaverdam — Teens",
+        "type": "day",
+        "categories": ["nature_outdoor"],
+        "camp_page_url": "https://ymcawnc.org/programs/camp/summer-day-camp/adventure",
+        "registration_url": null,
+        "description": "Campers take guided hiking and swimming trips, with additional outdoor adventure activities.",
+        "season_dates": {
+          "start": "2026-06-15",
+          "end": "2026-08-14",
+          "year": 2026,
+          "url": "https://ymcawnc.org/programs/camp/summer-day-camp/adventure",
+          "quote": "In 2026, Adventure Camp runs June 15-Aug. 14. (Closed on June 19).",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T21:07:18.280Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "ages": {
+          "min": 12,
+          "max": 15,
+          "year": 2026,
+          "url": "https://ymcawnc.org/programs/camp/summer-day-camp/adventure",
+          "quote": "Teens: Ages 12-15",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T21:07:18.280Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "grades": null,
+        "hours": {
+          "start": "07:30",
+          "end": "17:30",
+          "year": 2026,
+          "url": "https://ymcawnc.org/programs/camp/summer-day-camp/adventure",
+          "quote": "7:30am-5:30pm",
+          "source_kind": "official_site",
+          "check": {
+            "status": "review",
+            "match": "exact",
+            "flags": ["value_not_in_quote:start", "value_not_in_quote:end"],
+            "checkedAt": "2026-10-28T21:07:18.280Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "extended_care": null,
+        "prices": [],
+        "fees": [],
+        "locations": [
+          {
+            "name": "YMCA Youth Services Center at Beaverdam",
+            "address": null,
+            "town": null,
+            "state": null,
+            "year": 2026,
+            "url": "https://ymcawnc.org/programs/camp/summer-day-camp/adventure",
+            "quote": "YMCA Youth Services Center at Beaverdam and Enka District (including Sandhill, Hominy Valley, Candler, and Pisgah).",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-28T21:07:18.280Z",
+              "fetchMethod": "fetch"
+            }
+          }
+        ],
+        "financial_aid": {
+          "available": true,
+          "details": "Qualified applicants.",
+          "year": 2026,
+          "url": "https://ymcawnc.org/programs/camp/summer-day-camp/adventure",
+          "quote": "Financial assistance is available for qualified applicants.",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T21:07:18.280Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "special_needs": null,
+        "lunch": {
+          "available": false,
+          "details": "Bring lunch and snacks.",
+          "year": 2026,
+          "url": "https://ymcawnc.org/programs/camp/summer-day-camp/adventure",
+          "quote": "Participant MUST bring lunch and snacks to Adventure Camp.",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T21:07:18.280Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "transportation": null,
+        "registration_milestones": [],
+        "availability": null,
+        "last_year_registration_opened": null,
+        "sessions": []
+      },
+      {
+        "name": "Adventure Camp",
+        "variant": "Enka District — Tweens; site unconfirmed",
+        "type": "day",
+        "categories": ["nature_outdoor"],
+        "camp_page_url": "https://ymcawnc.org/programs/camp/summer-day-camp/adventure",
+        "registration_url": null,
+        "description": "Campers take guided hiking and swimming trips, with additional outdoor adventure activities.",
+        "season_dates": {
+          "start": "2026-06-15",
+          "end": "2026-08-14",
+          "year": 2026,
+          "url": "https://ymcawnc.org/programs/camp/summer-day-camp/adventure",
+          "quote": "In 2026, Adventure Camp runs June 15-Aug. 14. (Closed on June 19).",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T21:07:18.280Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "ages": {
+          "min": 9,
+          "max": 11,
+          "year": 2026,
+          "url": "https://ymcawnc.org/programs/camp/summer-day-camp/adventure",
+          "quote": "Tweens: Ages 9-11",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T21:07:18.280Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "grades": null,
+        "hours": {
+          "start": "07:30",
+          "end": "17:30",
+          "year": 2026,
+          "url": "https://ymcawnc.org/programs/camp/summer-day-camp/adventure",
+          "quote": "7:30am-5:30pm",
+          "source_kind": "official_site",
+          "check": {
+            "status": "review",
+            "match": "exact",
+            "flags": ["value_not_in_quote:start", "value_not_in_quote:end"],
+            "checkedAt": "2026-10-28T21:07:18.280Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "extended_care": null,
+        "prices": [],
+        "fees": [],
+        "locations": [
+          {
+            "name": "Enka District — location to be determined",
+            "address": null,
+            "town": null,
+            "state": null,
+            "year": 2026,
+            "url": "https://ymcawnc.org/programs/camp/summer-day-camp/adventure",
+            "quote": "Enka District locations will be determined by the Buncombe County School District in Spring 2026.",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-28T21:07:18.280Z",
+              "fetchMethod": "fetch"
+            }
+          }
+        ],
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "available": false,
+          "details": "Bring lunch and snacks.",
+          "year": 2026,
+          "url": "https://ymcawnc.org/programs/camp/summer-day-camp/adventure",
+          "quote": "Participant MUST bring lunch and snacks to Adventure Camp.",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T21:07:18.280Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "transportation": null,
+        "registration_milestones": [],
+        "availability": null,
+        "last_year_registration_opened": null,
+        "sessions": []
+      },
+      {
+        "name": "Adventure Camp",
+        "variant": "Enka District — Teens; site unconfirmed",
+        "type": "day",
+        "categories": ["nature_outdoor"],
+        "camp_page_url": "https://ymcawnc.org/programs/camp/summer-day-camp/adventure",
+        "registration_url": null,
+        "description": "Campers take guided hiking and swimming trips, with additional outdoor adventure activities.",
+        "season_dates": {
+          "start": "2026-06-15",
+          "end": "2026-08-14",
+          "year": 2026,
+          "url": "https://ymcawnc.org/programs/camp/summer-day-camp/adventure",
+          "quote": "In 2026, Adventure Camp runs June 15-Aug. 14. (Closed on June 19).",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T21:07:18.280Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "ages": {
+          "min": 12,
+          "max": 15,
+          "year": 2026,
+          "url": "https://ymcawnc.org/programs/camp/summer-day-camp/adventure",
+          "quote": "Teens: Ages 12-15",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T21:07:18.280Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "grades": null,
+        "hours": {
+          "start": "07:30",
+          "end": "17:30",
+          "year": 2026,
+          "url": "https://ymcawnc.org/programs/camp/summer-day-camp/adventure",
+          "quote": "7:30am-5:30pm",
+          "source_kind": "official_site",
+          "check": {
+            "status": "review",
+            "match": "exact",
+            "flags": ["value_not_in_quote:start", "value_not_in_quote:end"],
+            "checkedAt": "2026-10-28T21:07:18.280Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "extended_care": null,
+        "prices": [],
+        "fees": [],
+        "locations": [
+          {
+            "name": "Enka District — location to be determined",
+            "address": null,
+            "town": null,
+            "state": null,
+            "year": 2026,
+            "url": "https://ymcawnc.org/programs/camp/summer-day-camp/adventure",
+            "quote": "Enka District locations will be determined by the Buncombe County School District in Spring 2026.",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-28T21:07:18.280Z",
+              "fetchMethod": "fetch"
+            }
+          }
+        ],
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "registration_milestones": [],
+        "availability": null,
+        "last_year_registration_opened": null,
+        "sessions": []
+      },
+      {
+        "name": "Adventure Camp",
+        "variant": "Hendersonville — Tweens",
+        "type": "day",
+        "categories": ["nature_outdoor"],
+        "camp_page_url": "https://ymcawnc.org/programs/camp/summer-day-camp/adventure",
+        "registration_url": null,
+        "description": "Campers take guided hiking and swimming trips, with additional outdoor adventure activities.",
+        "season_dates": {
+          "start": "2026-06-15",
+          "end": "2026-08-14",
+          "year": 2026,
+          "url": "https://ymcawnc.org/programs/camp/summer-day-camp/adventure",
+          "quote": "In 2026, Adventure Camp runs June 15-Aug. 14. (Closed on June 19).",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T21:07:18.280Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "ages": {
+          "min": 9,
+          "max": 11,
+          "year": 2026,
+          "url": "https://ymcawnc.org/programs/camp/summer-day-camp/adventure",
+          "quote": "Tweens: Ages 9-11",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T21:07:18.280Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "grades": null,
+        "hours": {
+          "start": "07:30",
+          "end": "17:30",
+          "year": 2026,
+          "url": "https://ymcawnc.org/programs/camp/summer-day-camp/adventure",
+          "quote": "7:30am-5:30pm",
+          "source_kind": "official_site",
+          "check": {
+            "status": "review",
+            "match": "exact",
+            "flags": ["value_not_in_quote:start", "value_not_in_quote:end"],
+            "checkedAt": "2026-10-28T21:07:18.280Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "extended_care": null,
+        "prices": [],
+        "fees": [],
+        "locations": [
+          {
+            "name": "Hendersonville Y",
+            "address": null,
+            "town": "Hendersonville",
+            "state": null,
+            "year": 2026,
+            "url": "https://ymcawnc.org/programs/camp/summer-day-camp/adventure",
+            "quote": "Henderson County Adventure Camp meets at the Hendersonville Y.",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-28T21:07:18.280Z",
+              "fetchMethod": "fetch"
+            }
+          }
+        ],
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "registration_milestones": [],
+        "availability": null,
+        "last_year_registration_opened": null,
+        "sessions": []
+      },
+      {
+        "name": "Adventure Camp",
+        "variant": "Hendersonville — Teens",
+        "type": "day",
+        "categories": ["nature_outdoor"],
+        "camp_page_url": "https://ymcawnc.org/programs/camp/summer-day-camp/adventure",
+        "registration_url": null,
+        "description": "Campers take guided hiking and swimming trips, with additional outdoor adventure activities.",
+        "season_dates": {
+          "start": "2026-06-15",
+          "end": "2026-08-14",
+          "year": 2026,
+          "url": "https://ymcawnc.org/programs/camp/summer-day-camp/adventure",
+          "quote": "In 2026, Adventure Camp runs June 15-Aug. 14. (Closed on June 19).",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T21:07:18.280Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "ages": {
+          "min": 12,
+          "max": 15,
+          "year": 2026,
+          "url": "https://ymcawnc.org/programs/camp/summer-day-camp/adventure",
+          "quote": "Teens: Ages 12-15",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T21:07:18.280Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "grades": null,
+        "hours": {
+          "start": "07:30",
+          "end": "17:30",
+          "year": 2026,
+          "url": "https://ymcawnc.org/programs/camp/summer-day-camp/adventure",
+          "quote": "7:30am-5:30pm",
+          "source_kind": "official_site",
+          "check": {
+            "status": "review",
+            "match": "exact",
+            "flags": ["value_not_in_quote:start", "value_not_in_quote:end"],
+            "checkedAt": "2026-10-28T21:07:18.280Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "extended_care": null,
+        "prices": [],
+        "fees": [],
+        "locations": [
+          {
+            "name": "Hendersonville Y",
+            "address": null,
+            "town": "Hendersonville",
+            "state": null,
+            "year": 2026,
+            "url": "https://ymcawnc.org/programs/camp/summer-day-camp/adventure",
+            "quote": "Henderson County Adventure Camp meets at the Hendersonville Y.",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-28T21:07:18.280Z",
+              "fetchMethod": "fetch"
+            }
+          }
+        ],
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "registration_milestones": [],
+        "availability": null,
+        "last_year_registration_opened": null,
+        "sessions": []
+      },
+      {
+        "name": "Campers in Leadership Training (CILT)",
+        "variant": "Beaverdam",
+        "type": "day",
+        "categories": ["general", "nature_outdoor"],
+        "camp_page_url": "https://ymcawnc.org/programs/camp/summer-day-camp/cilt",
+        "registration_url": null,
+        "description": "Participants shadow counselors, lead activities and projects, and attend weekly leadership training. An interview follows registration.",
+        "season_dates": {
+          "start": "2026-06-15",
+          "end": "2026-08-14",
+          "year": 2026,
+          "url": "https://ymcawnc.org/programs/camp/summer-day-camp/cilt",
+          "quote": "June 15-August 14, 2026 (closed June 19.)",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T21:07:18.280Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "ages": {
+          "min": 12,
+          "max": 15,
+          "year": 2026,
+          "url": "https://ymcawnc.org/programs/camp/summer-day-camp/cilt",
+          "quote": "The Camper in Leadership Training (CILT) program is for youth ages 12–15 at our Youth Services Center at Beaverdam location and ages 13–15 at all other locations.",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T21:07:18.280Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "grades": null,
+        "hours": {
+          "start": "07:30",
+          "end": "17:30",
+          "year": 2026,
+          "url": "https://ymcawnc.org/programs/camp/summer-day-camp/cilt",
+          "quote": "7:30am-5:30pm",
+          "source_kind": "official_site",
+          "check": {
+            "status": "review",
+            "match": "exact",
+            "flags": ["value_not_in_quote:start", "value_not_in_quote:end"],
+            "checkedAt": "2026-10-28T21:07:18.280Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "extended_care": null,
+        "prices": [],
+        "fees": [],
+        "locations": [
+          {
+            "name": "YMCA Youth Services Center at Beaverdam",
+            "address": null,
+            "town": null,
+            "state": null,
+            "year": 2026,
+            "url": "https://ymcawnc.org/programs/camp/summer-day-camp/cilt",
+            "quote": "The Camper in Leadership Training (CILT) program is for youth ages 12–15 at our Youth Services Center at Beaverdam location and ages 13–15 at all other locations.",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-28T21:07:18.280Z",
+              "fetchMethod": "fetch"
+            }
+          }
+        ],
+        "financial_aid": {
+          "available": true,
+          "details": "Qualified applicants.",
+          "year": 2026,
+          "url": "https://ymcawnc.org/programs/camp/summer-day-camp/cilt",
+          "quote": "Financial assistance is available for qualified applicants.",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T21:07:18.280Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "special_needs": null,
+        "lunch": {
+          "available": true,
+          "details": "Ask the camp director for provided lunches; packed lunches are also permitted.",
+          "year": 2026,
+          "url": "https://ymcawnc.org/programs/camp/summer-day-camp/cilt",
+          "quote": "Yes, the Y provides lunch.",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T21:07:18.280Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "transportation": null,
+        "registration_milestones": [],
+        "availability": null,
+        "last_year_registration_opened": null,
+        "sessions": []
+      },
+      {
+        "name": "Campers in Leadership Training (CILT)",
+        "variant": "Other summer day camp sites — locations unconfirmed",
+        "type": "day",
+        "categories": ["general", "nature_outdoor"],
+        "camp_page_url": "https://ymcawnc.org/programs/camp/summer-day-camp/cilt",
+        "registration_url": null,
+        "description": "Participants shadow counselors, lead activities and projects, and attend weekly leadership training. An interview follows registration.",
+        "season_dates": {
+          "start": "2026-06-15",
+          "end": "2026-08-14",
+          "year": 2026,
+          "url": "https://ymcawnc.org/programs/camp/summer-day-camp/cilt",
+          "quote": "June 15-August 14, 2026 (closed June 19.)",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T21:07:18.280Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "ages": {
+          "min": 13,
+          "max": 15,
+          "year": 2026,
+          "url": "https://ymcawnc.org/programs/camp/summer-day-camp/cilt",
+          "quote": "The Camper in Leadership Training (CILT) program is for youth ages 12–15 at our Youth Services Center at Beaverdam location and ages 13–15 at all other locations.",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T21:07:18.280Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "grades": null,
+        "hours": {
+          "start": "07:30",
+          "end": "17:30",
+          "year": 2026,
+          "url": "https://ymcawnc.org/programs/camp/summer-day-camp/cilt",
+          "quote": "7:30am-5:30pm",
+          "source_kind": "official_site",
+          "check": {
+            "status": "review",
+            "match": "exact",
+            "flags": ["value_not_in_quote:start", "value_not_in_quote:end"],
+            "checkedAt": "2026-10-28T21:07:18.280Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "extended_care": null,
+        "prices": [],
+        "fees": [],
+        "locations": [],
+        "financial_aid": {
+          "available": true,
+          "details": "Qualified applicants.",
+          "year": 2026,
+          "url": "https://ymcawnc.org/programs/camp/summer-day-camp/cilt",
+          "quote": "Financial assistance is available for qualified applicants.",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T21:07:18.280Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "special_needs": null,
+        "lunch": {
+          "available": true,
+          "details": "Ask the camp director for provided lunches.",
+          "year": 2026,
+          "url": "https://ymcawnc.org/programs/camp/summer-day-camp/cilt",
+          "quote": "Yes, the Y provides lunch.",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T21:07:18.280Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "transportation": null,
+        "registration_milestones": [],
+        "availability": null,
+        "last_year_registration_opened": null,
+        "sessions": []
+      },
+      {
+        "name": "Discovery Camp",
+        "variant": "Enka District — Sand Hill-Venable Elementary",
+        "type": "day",
+        "categories": ["general", "arts", "nature_outdoor"],
+        "camp_page_url": "https://ymcawnc.org/programs/camp/summer-day-camp/discovery",
+        "registration_url": null,
+        "description": "Weekly themes guide field trips, games, arts and crafts, outdoor activities and lessons.",
+        "season_dates": {
+          "start": "2026-06-15",
+          "end": "2026-08-14",
+          "year": 2026,
+          "url": "https://ymcawnc.org/programs/camp/summer-day-camp/discovery",
+          "quote": "In 2026, Discovery Camp runs from June 15-August 14. Closed June 19.",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T21:07:18.280Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "ages": {
+          "min": null,
+          "max": 12,
+          "year": 2026,
+          "url": "https://ymcawnc.org/programs/camp/summer-day-camp/discovery",
+          "quote": "Discovery Summer Day Camp is for rising first graders-age 12.",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T21:07:18.280Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "grades": {
+          "min": 1,
+          "max": null,
+          "basis": "rising",
+          "year": 2026,
+          "url": "https://ymcawnc.org/programs/camp/summer-day-camp/discovery",
+          "quote": "Discovery Summer Day Camp is for rising first graders-age 12.",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T21:07:18.280Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "fees": [],
+        "locations": [
+          {
+            "name": "Sand Hill-Venable Elementary",
+            "address": null,
+            "town": null,
+            "state": null,
+            "year": 2026,
+            "url": "https://ymcawnc.org/programs/camp/summer-day-camp/discovery",
+            "quote": "Enka District: Sand Hill-Venable Elementary",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-28T21:07:18.280Z",
+              "fetchMethod": "fetch"
+            }
+          }
+        ],
+        "financial_aid": {
+          "available": true,
+          "details": "Applicants must apply for DHHS vouchers before qualifying for YMCA assistance.",
+          "year": 2026,
+          "url": "https://ymcawnc.org/programs/camp/summer-day-camp/discovery",
+          "quote": "You must apply for DHHS vouchers with the Department of Social Services state subsidy program before you can qualify for financial assistance through the YMCA.",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T21:07:18.280Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "registration_milestones": [],
+        "availability": null,
+        "last_year_registration_opened": null,
+        "sessions": []
+      },
+      {
+        "name": "Discovery Camp",
+        "variant": "Erwin District — Johnston Elementary",
+        "type": "day",
+        "categories": ["general", "arts", "nature_outdoor"],
+        "camp_page_url": "https://ymcawnc.org/programs/camp/summer-day-camp/discovery",
+        "registration_url": null,
+        "description": "Weekly themes guide field trips, games, arts and crafts, outdoor activities and lessons.",
+        "season_dates": {
+          "start": "2026-06-15",
+          "end": "2026-08-14",
+          "year": 2026,
+          "url": "https://ymcawnc.org/programs/camp/summer-day-camp/discovery",
+          "quote": "In 2026, Discovery Camp runs from June 15-August 14. Closed June 19.",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T21:07:18.280Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "ages": {
+          "min": null,
+          "max": 12,
+          "year": 2026,
+          "url": "https://ymcawnc.org/programs/camp/summer-day-camp/discovery",
+          "quote": "Discovery Summer Day Camp is for rising first graders-age 12.",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T21:07:18.280Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "grades": {
+          "min": 1,
+          "max": null,
+          "basis": "rising",
+          "year": 2026,
+          "url": "https://ymcawnc.org/programs/camp/summer-day-camp/discovery",
+          "quote": "Discovery Summer Day Camp is for rising first graders-age 12.",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T21:07:18.280Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "fees": [],
+        "locations": [
+          {
+            "name": "Johnston Elementary",
+            "address": null,
+            "town": null,
+            "state": null,
+            "year": 2026,
+            "url": "https://ymcawnc.org/programs/camp/summer-day-camp/discovery",
+            "quote": "Erwin District: Johnston Elementary",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-28T21:07:18.280Z",
+              "fetchMethod": "fetch"
+            }
+          }
+        ],
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "registration_milestones": [],
+        "availability": null,
+        "last_year_registration_opened": null,
+        "sessions": []
+      },
+      {
+        "name": "Discovery Camp",
+        "variant": "Owen District — Black Mountain Primary School",
+        "type": "day",
+        "categories": ["general", "arts", "nature_outdoor"],
+        "camp_page_url": "https://ymcawnc.org/programs/camp/summer-day-camp/discovery",
+        "registration_url": null,
+        "description": "Weekly themes guide field trips, games, arts and crafts, outdoor activities and lessons.",
+        "season_dates": {
+          "start": "2026-06-15",
+          "end": "2026-08-14",
+          "year": 2026,
+          "url": "https://ymcawnc.org/programs/camp/summer-day-camp/discovery",
+          "quote": "In 2026, Discovery Camp runs from June 15-August 14. Closed June 19.",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T21:07:18.280Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "ages": {
+          "min": null,
+          "max": 12,
+          "year": 2026,
+          "url": "https://ymcawnc.org/programs/camp/summer-day-camp/discovery",
+          "quote": "Discovery Summer Day Camp is for rising first graders-age 12.",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T21:07:18.280Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "grades": {
+          "min": 1,
+          "max": null,
+          "basis": "rising",
+          "year": 2026,
+          "url": "https://ymcawnc.org/programs/camp/summer-day-camp/discovery",
+          "quote": "Discovery Summer Day Camp is for rising first graders-age 12.",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T21:07:18.280Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "fees": [],
+        "locations": [
+          {
+            "name": "Black Mountain Primary School",
+            "address": null,
+            "town": null,
+            "state": null,
+            "year": 2026,
+            "url": "https://ymcawnc.org/programs/camp/summer-day-camp/discovery",
+            "quote": "Owen District: Black Mountain Primary School",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-28T21:07:18.280Z",
+              "fetchMethod": "fetch"
+            }
+          }
+        ],
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "registration_milestones": [],
+        "availability": null,
+        "last_year_registration_opened": null,
+        "sessions": []
+      },
+      {
+        "name": "Discovery Camp",
+        "variant": "Reynolds District — Fairview Elementary",
+        "type": "day",
+        "categories": ["general", "arts", "nature_outdoor"],
+        "camp_page_url": "https://ymcawnc.org/programs/camp/summer-day-camp/discovery",
+        "registration_url": null,
+        "description": "Weekly themes guide field trips, games, arts and crafts, outdoor activities and lessons.",
+        "season_dates": {
+          "start": "2026-06-15",
+          "end": "2026-08-14",
+          "year": 2026,
+          "url": "https://ymcawnc.org/programs/camp/summer-day-camp/discovery",
+          "quote": "In 2026, Discovery Camp runs from June 15-August 14. Closed June 19.",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T21:07:18.280Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "ages": {
+          "min": null,
+          "max": 12,
+          "year": 2026,
+          "url": "https://ymcawnc.org/programs/camp/summer-day-camp/discovery",
+          "quote": "Discovery Summer Day Camp is for rising first graders-age 12.",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T21:07:18.280Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "grades": {
+          "min": 1,
+          "max": null,
+          "basis": "rising",
+          "year": 2026,
+          "url": "https://ymcawnc.org/programs/camp/summer-day-camp/discovery",
+          "quote": "Discovery Summer Day Camp is for rising first graders-age 12.",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T21:07:18.280Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "fees": [],
+        "locations": [
+          {
+            "name": "Fairview Elementary",
+            "address": null,
+            "town": null,
+            "state": null,
+            "year": 2026,
+            "url": "https://ymcawnc.org/programs/camp/summer-day-camp/discovery",
+            "quote": "Reynolds District: Fairview Elementary",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-28T21:07:18.280Z",
+              "fetchMethod": "fetch"
+            }
+          }
+        ],
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "registration_milestones": [],
+        "availability": null,
+        "last_year_registration_opened": null,
+        "sessions": []
+      },
+      {
+        "name": "Discovery Camp",
+        "variant": "Roberson District — Avery's Creek Elementary",
+        "type": "day",
+        "categories": ["general", "arts", "nature_outdoor"],
+        "camp_page_url": "https://ymcawnc.org/programs/camp/summer-day-camp/discovery",
+        "registration_url": null,
+        "description": "Weekly themes guide field trips, games, arts and crafts, outdoor activities and lessons.",
+        "season_dates": {
+          "start": "2026-06-15",
+          "end": "2026-08-14",
+          "year": 2026,
+          "url": "https://ymcawnc.org/programs/camp/summer-day-camp/discovery",
+          "quote": "In 2026, Discovery Camp runs from June 15-August 14. Closed June 19.",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T21:07:18.280Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "ages": {
+          "min": null,
+          "max": 12,
+          "year": 2026,
+          "url": "https://ymcawnc.org/programs/camp/summer-day-camp/discovery",
+          "quote": "Discovery Summer Day Camp is for rising first graders-age 12.",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T21:07:18.280Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "grades": {
+          "min": 1,
+          "max": null,
+          "basis": "rising",
+          "year": 2026,
+          "url": "https://ymcawnc.org/programs/camp/summer-day-camp/discovery",
+          "quote": "Discovery Summer Day Camp is for rising first graders-age 12.",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T21:07:18.280Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "fees": [],
+        "locations": [
+          {
+            "name": "Avery's Creek Elementary",
+            "address": null,
+            "town": null,
+            "state": null,
+            "year": 2026,
+            "url": "https://ymcawnc.org/programs/camp/summer-day-camp/discovery",
+            "quote": "Roberson District: Avery's Creek Elementary",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-28T21:07:18.280Z",
+              "fetchMethod": "fetch"
+            }
+          }
+        ],
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "registration_milestones": [],
+        "availability": null,
+        "last_year_registration_opened": null,
+        "sessions": []
+      },
+      {
+        "name": "Discovery Camp",
+        "variant": "McDowell District — Pleasant Gardens Elementary",
+        "type": "day",
+        "categories": ["general", "arts", "nature_outdoor"],
+        "camp_page_url": "https://ymcawnc.org/programs/camp/summer-day-camp/discovery",
+        "registration_url": null,
+        "description": "Weekly themes guide field trips, games, arts and crafts, outdoor activities and lessons.",
+        "season_dates": {
+          "start": "2026-06-15",
+          "end": "2026-08-14",
+          "year": 2026,
+          "url": "https://ymcawnc.org/programs/camp/summer-day-camp/discovery",
+          "quote": "In 2026, Discovery Camp runs from June 15-August 14. Closed June 19.",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T21:07:18.280Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "ages": {
+          "min": null,
+          "max": 12,
+          "year": 2026,
+          "url": "https://ymcawnc.org/programs/camp/summer-day-camp/discovery",
+          "quote": "Discovery Summer Day Camp is for rising first graders-age 12.",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T21:07:18.280Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "grades": {
+          "min": 1,
+          "max": null,
+          "basis": "rising",
+          "year": 2026,
+          "url": "https://ymcawnc.org/programs/camp/summer-day-camp/discovery",
+          "quote": "Discovery Summer Day Camp is for rising first graders-age 12.",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T21:07:18.280Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "fees": [],
+        "locations": [
+          {
+            "name": "Pleasant Gardens Elementary",
+            "address": null,
+            "town": null,
+            "state": null,
+            "year": 2026,
+            "url": "https://ymcawnc.org/programs/camp/summer-day-camp/discovery",
+            "quote": "McDowell District: Pleasant Gardens Elementary",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-28T21:07:18.280Z",
+              "fetchMethod": "fetch"
+            }
+          }
+        ],
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "registration_milestones": [],
+        "availability": null,
+        "last_year_registration_opened": null,
+        "sessions": []
+      },
+      {
+        "name": "Discovery Camp",
+        "variant": "Hendersonville Family YMCA",
+        "type": "day",
+        "categories": ["general", "arts", "nature_outdoor"],
+        "camp_page_url": "https://ymcawnc.org/programs/camp/summer-day-camp/discovery",
+        "registration_url": null,
+        "description": "Weekly themes guide field trips, games, arts and crafts, outdoor activities and lessons.",
+        "season_dates": {
+          "start": "2026-05-26",
+          "end": "2026-06-05",
+          "year": 2026,
+          "url": "https://ymcawnc.org/programs/camp/summer-day-camp/discovery",
+          "quote": "Henderson District: Hendersonville Family YMCA (offered from May 26-29 and June 1-5)",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T21:07:18.280Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "ages": {
+          "min": null,
+          "max": 12,
+          "year": 2026,
+          "url": "https://ymcawnc.org/programs/camp/summer-day-camp/discovery",
+          "quote": "Discovery Summer Day Camp is for rising first graders-age 12.",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T21:07:18.280Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "grades": {
+          "min": 1,
+          "max": null,
+          "basis": "rising",
+          "year": 2026,
+          "url": "https://ymcawnc.org/programs/camp/summer-day-camp/discovery",
+          "quote": "Discovery Summer Day Camp is for rising first graders-age 12.",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T21:07:18.280Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "fees": [],
+        "locations": [
+          {
+            "name": "Hendersonville Family YMCA",
+            "address": null,
+            "town": "Hendersonville",
+            "state": null,
+            "year": 2026,
+            "url": "https://ymcawnc.org/programs/camp/summer-day-camp/discovery",
+            "quote": "Henderson District: Hendersonville Family YMCA (offered from May 26-29 and June 1-5)",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-28T21:07:18.280Z",
+              "fetchMethod": "fetch"
+            }
+          }
+        ],
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "registration_milestones": [],
+        "availability": null,
+        "last_year_registration_opened": null,
+        "sessions": [
+          {
+            "label": null,
+            "start": "2026-05-26",
+            "end": "2026-05-29",
+            "year": 2026
+          },
+          {
+            "label": null,
+            "start": "2026-06-01",
+            "end": "2026-06-05",
+            "year": 2026
+          }
+        ]
+      },
+      {
+        "name": "Explorer Camp",
+        "variant": "Beaverdam",
+        "type": "day",
+        "categories": ["nature_outdoor"],
+        "camp_page_url": "https://ymcawnc.org/programs/camp/summer-day-camp/explorer",
+        "registration_url": null,
+        "description": "Campers participate in archery, ropes activities, gardening, forestry and field trips.",
+        "season_dates": {
+          "start": "2026-06-15",
+          "end": "2026-08-14",
+          "year": 2026,
+          "url": "https://ymcawnc.org/programs/camp/summer-day-camp/explorer",
+          "quote": "In 2026, Explorer Camp runs June 15-Aug. 14. Closed on June 19 (no pro-rate).",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T21:07:18.280Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "ages": {
+          "min": 4,
+          "max": 12,
+          "year": 2026,
+          "url": "https://ymcawnc.org/programs/camp/summer-day-camp/discovery",
+          "quote": "Explore more with Explorer Camp! Ages 4-12.",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T21:07:18.280Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "grades": null,
+        "hours": {
+          "start": "07:30",
+          "end": "17:30",
+          "year": 2026,
+          "url": "https://ymcawnc.org/programs/camp/summer-day-camp/explorer",
+          "quote": "7:30am-5:30pm",
+          "source_kind": "official_site",
+          "check": {
+            "status": "review",
+            "match": "exact",
+            "flags": ["value_not_in_quote:start", "value_not_in_quote:end"],
+            "checkedAt": "2026-10-28T21:07:18.280Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "extended_care": null,
+        "prices": [],
+        "fees": [],
+        "locations": [
+          {
+            "name": "YMCA Youth Services Center at Beaverdam",
+            "address": "201 Beaverdam Rd., Asheville, NC 28804",
+            "town": "Asheville",
+            "state": "NC",
+            "year": 2026,
+            "url": "https://ymcawnc.org/programs/camp/summer-day-camp/explorer",
+            "quote": "201 Beaverdam Rd., Asheville, NC 28804",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-28T21:07:18.280Z",
+              "fetchMethod": "fetch"
+            }
+          }
+        ],
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "registration_milestones": [],
+        "availability": null,
+        "last_year_registration_opened": null,
+        "sessions": []
+      }
+    ]
+  },
+  "report": {
+    "ownDomains": ["ymcawnc.org"],
+    "byField": {
+      "season_dates": {
+        "total": 16,
+        "verified": 16,
+        "review": 0,
+        "dropped": 0
+      },
+      "ages": {
+        "total": 16,
+        "verified": 16,
+        "review": 0,
+        "dropped": 0
+      },
+      "hours": {
+        "total": 9,
+        "verified": 0,
+        "review": 9,
+        "dropped": 0
+      },
+      "financial_aid": {
+        "total": 5,
+        "verified": 5,
+        "review": 0,
+        "dropped": 0
+      },
+      "lunch": {
+        "total": 5,
+        "verified": 5,
+        "review": 0,
+        "dropped": 0
+      },
+      "locations": {
+        "total": 15,
+        "verified": 15,
+        "review": 0,
+        "dropped": 0
+      },
+      "grades": {
+        "total": 7,
+        "verified": 7,
+        "review": 0,
+        "dropped": 0
+      }
+    },
+    "totals": {
+      "total": 73,
+      "verified": 64,
+      "review": 9,
+      "dropped": 0
+    },
+    "pages": [
+      {
+        "url": "https://www.ymcawnc.org/programs/camp/summer-day-camp/adventure",
+        "ok": true,
+        "method": "fetch",
+        "kind": "html"
+      },
+      {
+        "url": "https://www.ymcawnc.org/programs/camp/summer-day-camp/cilt",
+        "ok": true,
+        "method": "fetch",
+        "kind": "html"
+      },
+      {
+        "url": "https://www.ymcawnc.org/programs/camp/summer-day-camp/discovery",
+        "ok": true,
+        "method": "fetch",
+        "kind": "html"
+      },
+      {
+        "url": "https://www.ymcawnc.org/programs/camp/summer-day-camp/explorer",
+        "ok": true,
+        "method": "fetch",
+        "kind": "html"
+      },
+      {
+        "url": "https://ymcawnc.org/programs/camp/summer-day-camp/adventure",
+        "ok": true,
+        "method": "fetch",
+        "kind": "html"
+      },
+      {
+        "url": "https://ymcawnc.org/programs/camp/summer-day-camp/cilt",
+        "ok": true,
+        "method": "fetch",
+        "kind": "html"
+      },
+      {
+        "url": "https://ymcawnc.org/programs/camp/summer-day-camp/discovery",
+        "ok": true,
+        "method": "fetch",
+        "kind": "html"
+      },
+      {
+        "url": "https://ymcawnc.org/programs/camp/summer-day-camp/explorer",
+        "ok": true,
+        "method": "fetch",
+        "kind": "html"
+      }
+    ]
+  }
+}

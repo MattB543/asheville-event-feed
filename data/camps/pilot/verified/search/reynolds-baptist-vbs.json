@@ -1,0 +1,161 @@
+{
+  "provider": {
+    "key": "reynolds-baptist-vbs",
+    "name": "Reynolds Baptist Church (Vacation Bible School)",
+    "urls": ["https://www.facebook.com/events/1420847309803781/"],
+    "area": "Asheville, NC (520 Rose Hill Rd)",
+    "hint": "Its 2026 VBS (\"Illumination Station\") was posted as a Facebook event, the URL above; AVLGO's feed picked it up from Facebook. Look for the church's own website too.",
+    "covers": ["vbs", "facebook_only_date"]
+  },
+  "verifiedAt": "2026-10-28T21:07:18.276Z",
+  "verifyMs": 60,
+  "extraction": {
+    "provider_name": "Reynolds Baptist Church",
+    "website_url": "https://www.reynoldsbaptistchurch.org/",
+    "notes": "No summer 2027 information found. The supplied Facebook event and official VBS page returned no readable content. Dates and hours below use a third-party event listing because no readable official source stated them. Eligibility, activities, prices and registration details could not be verified.",
+    "excluded": [
+      {
+        "name": "CrossTied Youth & Children's Ministry",
+        "reason": "Recurring youth and children's ministry listed in calendars outside summer; not a finite summer program."
+      },
+      {
+        "name": "Sunday School",
+        "reason": "Recurring year-round religious classes, not a finite summer program."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Vacation Bible School — Illumination Station",
+        "variant": null,
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "camp_page_url": "https://www.facebook.com/events/1420847309803781/",
+        "registration_url": null,
+        "description": "The church offers a children's Vacation Bible School. Specific activities could not be verified from its readable official pages.",
+        "season_dates": {
+          "start": "2026-06-24",
+          "end": "2026-06-26",
+          "year": 2026,
+          "url": "https://allevents.in/asheville/vbs-illumination-station/200030259061504",
+          "quote": "VBS- Illumination Station takes place on Wed, 24 Jun, 2026 at 05:30 pm to Fri, 26 Jun, 2026 at 07:30 pm at 520 Rose Hill Rd., Asheville, NC, United States.",
+          "source_kind": "third_party",
+          "check": {
+            "status": "dropped",
+            "match": "not_found",
+            "flags": ["third_party_source", "quote_not_on_page"],
+            "checkedAt": "2026-10-28T21:07:18.216Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "ages": null,
+        "grades": null,
+        "hours": {
+          "start": "17:30",
+          "end": "19:30",
+          "year": 2026,
+          "url": "https://allevents.in/asheville/vbs-illumination-station/200030259061504",
+          "quote": "VBS- Illumination Station takes place on Wed, 24 Jun, 2026 at 05:30 pm to Fri, 26 Jun, 2026 at 07:30 pm at 520 Rose Hill Rd., Asheville, NC, United States.",
+          "source_kind": "third_party",
+          "check": {
+            "status": "dropped",
+            "match": "not_found",
+            "flags": [
+              "third_party_source",
+              "value_not_in_quote:start",
+              "value_not_in_quote:end",
+              "quote_not_on_page"
+            ],
+            "checkedAt": "2026-10-28T21:07:18.216Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "extended_care": null,
+        "prices": [],
+        "fees": [],
+        "locations": [
+          {
+            "name": "Reynolds Baptist Church",
+            "address": "520 Rose Hill Road",
+            "town": "Asheville",
+            "state": "NC",
+            "year": 2026,
+            "url": "https://www.reynoldsbaptistchurch.org/directions.html",
+            "quote": "The address is 520 Rose Hill Road, Asheville, NC.",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-28T21:07:18.216Z",
+              "fetchMethod": "fetch"
+            }
+          }
+        ],
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "registration_milestones": [],
+        "availability": null,
+        "last_year_registration_opened": null,
+        "sessions": [
+          {
+            "label": "Illumination Station",
+            "start": "2026-06-24",
+            "end": "2026-06-26",
+            "year": 2026
+          }
+        ]
+      }
+    ]
+  },
+  "report": {
+    "ownDomains": ["reynoldsbaptistchurch.org"],
+    "byField": {
+      "season_dates": {
+        "total": 1,
+        "verified": 0,
+        "review": 0,
+        "dropped": 1
+      },
+      "hours": {
+        "total": 1,
+        "verified": 0,
+        "review": 0,
+        "dropped": 1
+      },
+      "locations": {
+        "total": 1,
+        "verified": 1,
+        "review": 0,
+        "dropped": 0
+      }
+    },
+    "totals": {
+      "total": 3,
+      "verified": 1,
+      "review": 0,
+      "dropped": 2
+    },
+    "pages": [
+      {
+        "url": "https://www.facebook.com/events/1420847309803781/",
+        "ok": true,
+        "method": "browser",
+        "kind": "html"
+      },
+      {
+        "url": "https://allevents.in/asheville/vbs-illumination-station/200030259061504",
+        "ok": true,
+        "method": "fetch",
+        "kind": "html"
+      },
+      {
+        "url": "https://www.reynoldsbaptistchurch.org/directions.html",
+        "ok": true,
+        "method": "fetch",
+        "kind": "html"
+      }
+    ]
+  }
+}

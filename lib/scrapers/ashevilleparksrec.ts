@@ -95,7 +95,7 @@ const DROPPED_STATUSES = new Set([
  * (AVL Today, Mountain Xpress) already use, so cross-source dedup can match -
  * plus a fallback address for when a detail page fails to load.
  */
-const FACILITIES: Record<string, { name: string; street: string; zip: string }> = {
+export const FACILITIES: Record<string, { name: string; street: string; zip: string }> = {
   'Grant Center': {
     name: 'Dr. Wesley Grant Sr. Southside Community Center',
     street: '285 Livingston Street',
@@ -150,7 +150,7 @@ interface SearchOption {
   label: string;
 }
 
-interface ActivityRow {
+export interface ActivityRow {
   fmid: string;
   title: string;
   status: string;
@@ -167,14 +167,14 @@ interface ActivityRow {
   category?: string;
 }
 
-interface ActivityDetail {
+export interface ActivityDetail {
   description?: string;
   facility?: string;
   street?: string;
   zip?: string;
 }
 
-interface PageFetcher {
+export interface PageFetcher {
   get(url: string): Promise<string>;
   close(): Promise<void>;
 }
@@ -253,7 +253,7 @@ async function scrapeActivity(
  * is challenged again (see mountainx.ts). Any other failure (timeout, 404,
  * 5xx) is thrown to the caller, which skips just that page.
  */
-async function createPageFetcher(): Promise<PageFetcher> {
+export async function createPageFetcher(): Promise<PageFetcher> {
   const dispatcher = await createChromeDispatcher();
   let browserPromise: Promise<Browser> | null = null;
   let useBrowser = false;
@@ -376,7 +376,7 @@ async function launchBrowser(): Promise<Browser> {
  * picked up without a code change. A failed search (or later page) is skipped;
  * the two search kinds overlap heavily, so the rest usually cover for it.
  */
-async function fetchAllActivities(fetcher: PageFetcher): Promise<ActivityRow[]> {
+export async function fetchAllActivities(fetcher: PageFetcher): Promise<ActivityRow[]> {
   const formHtml = await fetcher.get(SEARCH_URL);
   const options = [
     ...parseSelectOptions(formHtml, 'location'),
@@ -555,7 +555,7 @@ function parseFees(text: string): [number | null, number | null] {
   return [resident ?? null, nonResident ?? null];
 }
 
-function parseDetailPage(html: string): ActivityDetail {
+export function parseDetailPage(html: string): ActivityDetail {
   const detail: ActivityDetail = {};
 
   // The description is the main column's only details block outside the Fees
@@ -868,7 +868,7 @@ function formatSessionDate(date: string, options: Intl.DateTimeFormatOptions): s
   return formatDateEastern(parseAsEastern(date, '12:00:00'), options);
 }
 
-function activityUrl(fmid: string): string {
+export function activityUrl(fmid: string): string {
   return `${WEBTRAC_BASE}/iteminfo.html?Module=AR&FMID=${fmid}`;
 }
 

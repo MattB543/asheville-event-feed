@@ -20,7 +20,7 @@ the Nov 5 list (§8).
   fact, not that the fact is right.** The Codex reviews showed the first verifiers passed a wrong
   calendar year, a time read from a day number or a price, a relabeled audience or action, a
   shuffled date, an invented fragment, a grade basis and another tenant's platform page; those
-  checks are now in (§4), with 37 offline regressions in `scripts/camps/test-verify.ts`. What no mechanical check
+  checks are now in (§4), with 45 offline regressions in `scripts/camps/test-verify.ts`. What no mechanical check
   catches: a quote read slightly wrong (Evergreen's "case-by-case" accommodation became "special
   needs: yes"), and a provider-wide statement copied onto every card. Every registration date I
   checked by hand was right.

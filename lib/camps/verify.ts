@@ -365,10 +365,11 @@ function timeInQuote(time: string, quote: string): boolean {
   const hour24 = Number(hourText);
   const hour12 = hour24 % 12 === 0 ? 12 : hour24 % 12;
   if (hour24 === 12 && minute === '00' && /\bnoon\b/.test(quote)) return true;
+  // Digits may not touch the time, letters may: "(8:45am-3:30pm)".
   const pattern =
     minute === '00'
-      ? new RegExp(`\\b(?:${hour12}|${hour24})(?::00)?(?!\\d)`)
-      : new RegExp(`\\b(?:${hour12}|${hour24})[:.]${minute}\\b`);
+      ? new RegExp(`(?<!\\d)(?:${hour12}|${hour24})(?::00)?(?!\\d)`)
+      : new RegExp(`(?<!\\d)(?:${hour12}|${hour24})[:.]${minute}(?!\\d)`);
   return pattern.test(quote);
 }
 

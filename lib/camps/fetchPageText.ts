@@ -280,6 +280,11 @@ async function browserFetch(url: string, browser: Browser): Promise<RawPage> {
       }
     });
 
+    // A PDF without a .pdf URL starts a download instead of a navigation. Read Chromium's own
+    // download (its cookies and challenge clearance), not a second request from Node.
+    const downloadEvent = page
+      .waitForEvent('download', { timeout: BROWSER_NAV_TIMEOUT_MS })
+      .catch(() => null);
     let response;
     try {
       response = await page.goto(url, {
@@ -287,9 +292,11 @@ async function browserFetch(url: string, browser: Browser): Promise<RawPage> {
         timeout: BROWSER_NAV_TIMEOUT_MS,
       });
     } catch (error) {
-      // A PDF without a .pdf URL starts a download instead of a navigation.
-      if (/download/i.test(describe(error))) return await download();
-      throw error;
+      if (!/download/i.test(describe(error))) throw error;
+      const file = await (await downloadEvent)?.path();
+      if (!file) return await download();
+      const bytes = new Uint8Array(await readFile(file));
+      return { status: 200, finalUrl: url, contentType: 'application/pdf', bytes };
     }
     const contentType = response?.headers()['content-type'] ?? '';
     if (/application\/pdf/i.test(contentType) && response) {

@@ -35,6 +35,8 @@ const CONCURRENCY = 4;
 export interface PilotProvider extends ProviderInput {
   webtrac?: boolean;
   covers: string[];
+  /** Domains a person confirmed are the provider's own (a moved site), beyond its seed pages. */
+  domains?: string[];
 }
 
 export interface SavedExtraction {
@@ -102,7 +104,11 @@ async function main() {
         // Verify a copy, so the saved extraction stays exactly what the model returned.
         const extraction = structuredClone(saved.run.extraction);
         const started = Date.now();
-        const report = await verifyExtraction(extraction, { fetcher, seedUrls: provider.urls });
+        const report = await verifyExtraction(extraction, {
+          fetcher,
+          seedUrls: provider.urls,
+          reviewedDomains: provider.domains,
+        });
         const verification: SavedVerification = {
           provider,
           verifiedAt: new Date().toISOString(),

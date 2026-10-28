@@ -9,18 +9,13 @@
  *     confirmed one, and never reaches a card.
  *   - `facts`: the newest fact that wasn't dropped, for the detail page, marked "check" when it
  *     isn't publishable.
- * Registration milestones need a hand check to be publishable at all (N15).
+ * Registration milestones carry `needs_hand_check`, so they are publishable only once checked by
+ * hand (N15).
  */
 
 import { parseAsEastern } from '@/lib/utils/timezone';
 import type { AvailabilityRow, CampRow, MilestoneRow, SeasonFacts, SeasonRow } from './importRows';
-import {
-  isPublishable,
-  isPublishableMilestone,
-  type Check,
-  type Evidence,
-  type SessionFact,
-} from './types';
+import { isPublishable, type Check, type Evidence, type SessionFact } from './types';
 import { isTentativeWording } from './wording';
 
 export const TARGET_SEASON = 2027;
@@ -204,28 +199,18 @@ export function buildListings(data: CampsData, now: Date): CampListing[] {
 // Registration status (plan §4.3): milestones first, then availability, then what's posted
 // ---------------------------------------------------------------------------
 
-export function milestonePublishable(milestone: MilestoneRow): boolean {
-  return isPublishableMilestone({
-    status: milestone.verifyStatus,
-    handCheckedAt: milestone.handCheckedAt ?? undefined,
+/** Rows store the check's fields flat; the one publication rule still decides. */
+function rowPublishable(row: MilestoneRow | AvailabilityRow): boolean {
+  return isPublishable({
+    status: row.verifyStatus,
+    flags: row.flags,
+    handCheckedAt: row.handCheckedAt ?? undefined,
   });
 }
 
 /** Said with "expected", "tentative" or "mid-": never a firm date. */
 export function isTentative(milestone: MilestoneRow): boolean {
   return milestone.flags.includes('tentative_wording') || isTentativeWording(milestone.quote);
-}
-
-/** Flags that don't make a found quote doubtful on their own. */
-const BENIGN_FLAGS = new Set(['needs_hand_check', 'weekday_supports_year', 'tentative_wording']);
-
-/** The quote is on the page and from an official source; only its certainty is in question. */
-function acceptedButTentative(milestone: MilestoneRow): boolean {
-  return (
-    milestone.verifyStatus !== 'dropped' &&
-    isTentative(milestone) &&
-    milestone.flags.every((flag) => BENIGN_FLAGS.has(flag))
-  );
 }
 
 /**
@@ -266,22 +251,13 @@ function registrationLine(
   now: Date
 ): RegistrationLine {
   const current = allMilestones.filter((milestone) => milestone.seasonYear === TARGET_SEASON);
-  const settled = current
-    .filter(milestonePublishable)
-    .filter((milestone) => !isTentative(milestone));
+  const settled = current.filter(rowPublishable).filter((milestone) => !isTentative(milestone));
   const opens = settled.filter((milestone) => milestone.kind === 'opens');
   const upcoming = opens.filter((milestone) => now < upcomingUntil(milestone));
   const passed = opens.filter((milestone) => now >= upcomingUntil(milestone));
   const today = now.toISOString().slice(0, 10);
   const currentAvailability =
-    availability?.seasonYear === TARGET_SEASON &&
-    isPublishable({
-      status: availability.verifyStatus,
-      match: 'exact',
-      flags: availability.flags,
-      checkedAt: availability.checkedAt,
-      handCheckedAt: availability.handCheckedAt ?? undefined,
-    })
+    availability?.seasonYear === TARGET_SEASON && rowPublishable(availability)
       ? availability
       : null;
   // A reading about some sessions ("Session A: full") never speaks for the whole camp.
@@ -361,9 +337,10 @@ function registrationLine(
     };
   }
 
-  // "Expected mid-December": worth saying, never a firm date, and history once the month is gone.
+  // "Expected mid-December", once checked by hand: worth saying, never a firm date, and history
+  // once the month is gone.
   const tentative = current.find(
-    (milestone) => milestone.kind === 'opens' && acceptedButTentative(milestone)
+    (milestone) => milestone.kind === 'opens' && rowPublishable(milestone) && isTentative(milestone)
   );
   if (tentative) {
     const live = now < upcomingUntil(tentative);

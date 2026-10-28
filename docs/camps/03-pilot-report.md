@@ -406,3 +406,108 @@ on the card.
 **Codex on the two open choices:** bundle mode as the default, with search for discovery and
 missing official subpages ("evidence-match rates, not factual precision"); replace Pelias as the
 primary geocoder and keep ORS for routing. Both match §8.
+
+## 12. Review gates (plan §8, Matt's rule of 2026-10-28)
+
+After the pilot was built, Matt asked for a Codex review after every major implementation step,
+checking that the step (a) follows the plan, (b) is fully correct and (c) is as simple and clean as
+it should be, with every finding triaged (adopt, or reject with a reason) and fixed before the
+next step. The pilot's steps already existed, so the gates ran retroactively, one per step, in
+parallel (`gpt-6.1-sol`, xhigh, read-only), followed by a confirmation gate over the fixes. Gate 0
+is the whole-pilot review in §11.
+
+| Gate | Step                                                                                | Verdict                            | Findings (must / should / nice) | Outcome                                                            |
+| ---- | ----------------------------------------------------------------------------------- | ---------------------------------- | ------------------------------- | ------------------------------------------------------------------ |
+| 0    | Whole pilot                                                                         | Hold bulk extraction and DB import | 15 / 10 / 2                     | §11: verifier and display bugs fixed; contract items to Nov 5 (§8) |
+| 1    | Fetch layer: `fetchPageText`, `responses`, `platforms`, `geo`, `webtrac`            | Pass with fixes                    | 2 / 7 / 3                       | All adopted; one adopted in part                                   |
+| 2    | Extraction + verification: `types`, `extract`, `verify`, `run-pilot`, `test-verify` | Fail                               | 12 / 2 / 2                      | All adopted; one adopted in part                                   |
+| 3    | Schema + import: schema, `0025_camps.sql`, `importRows`, `build-pilot`              | Fail                               | 1 / 7 / 3                       | All adopted                                                        |
+| 4    | Pages + display: `display`, `/camps`, `/camps/[slug]`, `CampDirectory`              | Fail                               | 6 / 4 / 2                       | All adopted                                                        |
+| 5    | Confirmation of gates 1–4                                                           | (see below)                        |                                 |                                                                    |
+
+### Gate 1: fetch layer
+
+- _Must:_ platform authority was host-wide (one linked Google Form authorized every form). **Adopted:**
+  `platformTenant()` keys an account by host plus its id (Google Form, Jotform, Ryzer event,
+  Jackrabbit org, Qgiv org, CampDoc org, Eventbrite event); subdomain platforms by host.
+- _Must:_ a cleared Cloudflare interstitial kept its first 403. **Adopted:** the status is the last
+  main-document response.
+- Shared site-builder domains (Squarespace, Wix, Shopify) could establish ownership. **Adopted:**
+  the whole host is the identity on those domains.
+- The WebTrac adapter dropped the catalog's registration tooltips. **Adopted in part:** a tooltip
+  with a date becomes a milestone (parser-verified, still needs a hand check). **Rejected for now:**
+  relative rules ("opens 30 days before start date") aren't dates and have no field until
+  milestones can hold approximate wording (§8.2).
+- Chrome dispatcher raced across concurrent reads; a PDF without `.pdf` broke browser navigation;
+  the Responses body read sat outside the retry; "Check Availability" became `closed`. **All
+  adopted** (shared promise; download fallback; body read inside the retry; unknown statuses map to
+  `unknown`).
+- Simplicity: each page was converted twice, unused exports, a made-up `fetchMethod` on WebTrac
+  checks. **All adopted.**
+- Check after fixing: the 95-URL probe reads every URL exactly as before (89 plain fetch, 1 Chrome
+  TLS, 5 browser, 0 failed).
+
+### Gate 2: extraction + verification
+
+- _Must:_ N15 wasn't enforced (a verified milestone was publishable without a hand check). **Adopted:**
+  milestones need a hand check (`isPublishableMilestone`); Mason Plumlee's deadline now reads
+  "Registration date found, not confirmed yet".
+- _Must (8 reproductions of wrong facts passing as verified):_ dates as loose tokens ("October 6,
+  2026" verifying 2027-10-06; June 20 from "June 10 … July 20"); short ellipsis fragments ignored
+  (an invented "May 9"); $1499 vs $14.99 and $300 vs $300.50; "$7.00" read as 7 p.m. and "9:00–11:00
+  AM" as 9 p.m.; deadline relabeled as opening and "returning families in all programs" as public;
+  "expected" just outside the quote; grades unchecked (rising 3–5 verifying completed K–12); a
+  Friday start verified by "June 12–16 Mon–Fri". **All adopted**, each now a case in
+  `scripts/camps/test-verify.ts` (24 cases).
+  - **Rejected in part:** "ambiguous times should require review". A range with am/pm on either end,
+    or one that runs backwards ("8:30–4:30", a camp day), is resolved; a single unlabeled time or a
+    forward unlabeled range still accepts both readings. Flagging those would send nearly every
+    camp's hours to review, and registration times in the pilot all carry am/pm. Revisit if a wrong
+    time gets through.
+- _Must:_ authority could grow through a listing-site seed's links or a sponsor domain the model
+  named, and was judged on the requested URL, not where it redirected. **Adopted:** only own and
+  platform seeds extend authority; the model may add only the provider website, and only if an own
+  seed links it; redirects are re-judged (a milestone that lands on a listing is dropped).
+- Resumed runs skipped the completed-status guard; the tenant regression was masked (its quote
+  wasn't on the fake page). **Adopted.**
+- Simplicity: the tentative regex existed twice and disagreed; unused `hostLabel` and field types.
+  **Adopted:** `lib/camps/wording.ts`; deleted the rest.
+- Effect, checked by hand: verified 580 → 554, review 69 → 95. The new review flags land on
+  Lutheridge's grade lines that don't say "completed" (20) and on facts from platform accounts the
+  seed pages don't link (10: Mason Plumlee's 2027 Ryzer event, LEAF's Qgiv form). Reading the flags
+  also turned up three false positives from the new parsers, fixed before counting: Lutheridge's
+  word-joiner after dashes ("June 13–⁠18"), names run into grades ("Climb High4th–6th"), and
+  "rising seniors / sophomores" as grades.
+
+### Gate 3: schema + import
+
+- _Must:_ the tables couldn't store the verification the rows carry. **Adopted:** milestones and
+  availability get `verify_status`, `flags`, `checked_at`, `hand_checked_at`, `hand_checked_by`,
+  `hand_check_source`.
+- Hand-check source discarded (Reynolds still cited the listing). **Adopted:** kept and shown
+  ("Confirmed on facebook.com").
+- Imports wrote `hidden: false`; weekly FMIDs collapsed to one; typed filter columns used
+  review-only facts; town-level geocodes still carried drive minutes; PK/FK names differed between
+  Drizzle and the SQL. **All adopted** (no `hidden` in imports; every FMID kept; filter columns from
+  publishable facts only; town-level matches aren't routed; named PKs in Drizzle, Drizzle-style FK
+  names in SQL).
+- Simplicity: availability stored twice; untyped season facts forcing casts; an unused `corrected`
+  hand-check result. **All adopted.**
+
+### Gate 4: pages + display
+
+- _Must (6):_ unverified milestones reached the "expected" headline; tags and combined
+  eligibility/hours lost their own year; a newer unconfirmed fact hid an older confirmed one; a
+  session-scoped "full" or "closed" became the whole camp's status; an unspecified grade basis was
+  filtered as rising; an "expected" deadline closed registration. **All adopted:** separate
+  `published` (cards, filters) and `facts` (details) selections; a year label on every part and
+  tag; scoped readings shown as "Session A: full" with the rest unknown; unspecified basis matches
+  as unknown; tentative milestones never open or close anything and read as history once their
+  month passes.
+- Availability lacked its quote and source on the detail page; the provider "Show all" button
+  lacked `aria-expanded`; `as never` casts; a second ordinal formatter; unused card fields. **All
+  adopted.**
+- Check after fixing, in the dev server: /camps shows Greenville "opened Oct 13, 2026" (hand-checked),
+  UNCA "expected December 2026", Mason Plumlee "date found, not confirmed yet", the Art Museum's
+  financial-aid tag labeled 2026; Reynolds' detail page shows "Confirmed on facebook.com"; no
+  server errors.

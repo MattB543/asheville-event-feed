@@ -13,6 +13,7 @@ const SITE = 'https://www.campgreenville.org/';
 const DATES = 'https://www.campgreenville.org/dates-rates';
 const CAMPINTOUCH = 'https://campgreenville.campintouch.com/ui/forms/application/camper/App';
 const RYZER = 'https://register.ryzer.com/camp.cfm?id=123';
+const ULTRACAMP = 'https://www.ultracamp.com/info/sessions.aspx?idCamp=123';
 
 const GREENVILLE = `Dates + Rates
 Registration Timeline
@@ -33,10 +34,25 @@ Members register first ... then everyone else on March 2, 2027.
 Day camp $14.99 per snack pack. Week $300.50. Snacks $7.00 each.
 Camp runs 9:00-11:00 AM daily. Regular camp day, 8:30-4:30 - $325/wk.
 For campers in rising grades 3-5 in 2027.
-June 12-16 Mon-Fri; June 7-11 Mon - Fri.`;
+June 12-16 Mon-Fri; June 7-11 Mon - Fri.
+2026 registration opens October 6.
+Afternoon camp 12:30-4:30 daily.
+Session dates 2027-06-07 to 2027-06-11.
+For rising grades K-5 only.
+For all campers returning from Summer 2026, registration opens October 6, 2026.
+Register by June 20, 2027.
+Grades 3-5 welcome.`;
 
 const PAGES: Record<string, { text: string; finalUrl?: string; links?: string[] }> = {
-  [SITE]: { text: 'YMCA Camp Greenville', links: [DATES, CAMPINTOUCH, RYZER] },
+  [SITE]: {
+    text: 'YMCA Camp Greenville',
+    links: [DATES, CAMPINTOUCH, RYZER, ULTRACAMP, 'https://sponsor.org/'],
+  },
+  [RYZER]: { text: GREENVILLE, finalUrl: 'https://register.ryzer.com/camp.cfm?id=999' },
+  'https://www.ultracamp.com/info/sessions.aspx?idCamp=999': { text: GREENVILLE },
+  'https://sponsor.org/camp': { text: GREENVILLE },
+  'https://oldcamp.org/': { text: 'Moved', finalUrl: 'https://allevents.in/oldcamp' },
+  'https://oldcamp.org/dates': { text: GREENVILLE },
   [DATES]: { text: GREENVILLE },
   'https://othercamp.campintouch.com/register': { text: GREENVILLE },
   'https://register.ryzer.com/camp.cfm?id=999': { text: GREENVILLE },
@@ -121,6 +137,9 @@ interface Case {
   fact: Evidence & Record<string, unknown>;
   expect: 'verified' | 'flagged' | 'dropped';
   flag?: string;
+  /** Defaults: the Greenville site as the only seed, and as the website the model named. */
+  seeds?: string[];
+  website?: string;
 }
 
 const CASES: Case[] = [
@@ -309,6 +328,119 @@ const CASES: Case[] = [
     expect: 'verified',
     flag: 'weekday_supports_year',
   },
+  // Confirmation gate (second round)
+  {
+    name: '2027-10-06 from "2026 registration opens October 6"',
+    field: 'registration_milestones',
+    fact: milestone('2026 registration opens October 6.', {
+      audience: 'public',
+      date: '2027-10-06',
+    }),
+    expect: 'flagged',
+    flag: 'date_year_not_in_quote:date',
+  },
+  {
+    name: 'October 2027 (month precision) from "... October 6, 2026"',
+    field: 'registration_milestones',
+    fact: milestone(
+      'Summer 2027 registration opens October 6, 2026 for returning families in all programs.',
+      { date: '2027-10-01', precision: 'month' }
+    ),
+    expect: 'flagged',
+    flag: 'value_not_in_quote:date',
+  },
+  {
+    name: 'noon start in "12:30-4:30"',
+    field: 'hours',
+    fact: evidence('Afternoon camp 12:30-4:30 daily.', { start: '12:30', end: '16:30' }),
+    expect: 'verified',
+  },
+  {
+    name: 'midnight start from "12:30-4:30"',
+    field: 'hours',
+    fact: evidence('Afternoon camp 12:30-4:30 daily.', { start: '00:30', end: '16:30' }),
+    expect: 'flagged',
+    flag: 'value_not_in_quote:start',
+  },
+  {
+    name: 'ISO dates "2027-06-07 to 2027-06-11"',
+    field: 'season_dates',
+    fact: evidence('Session dates 2027-06-07 to 2027-06-11.', {
+      start: '2027-06-07',
+      end: '2027-06-11',
+    }),
+    expect: 'verified',
+  },
+  {
+    name: '"rising grades K-5"',
+    field: 'grades',
+    fact: evidence('For rising grades K-5 only.', { min: 0, max: 5, basis: 'rising' }),
+    expect: 'verified',
+  },
+  {
+    name: '"current" basis with no evidence ("Grades 3-5")',
+    field: 'grades',
+    fact: evidence('Grades 3-5 welcome.', { min: 3, max: 5, basis: 'current' }),
+    expect: 'flagged',
+    flag: 'grade_basis_not_in_quote',
+  },
+  {
+    name: '"all campers returning from Summer 2026" relabeled public',
+    field: 'registration_milestones',
+    fact: milestone(
+      'For all campers returning from Summer 2026, registration opens October 6, 2026.',
+      { audience: 'public' }
+    ),
+    expect: 'flagged',
+    flag: 'audience_context_conflict',
+  },
+  {
+    name: 'deadline date quoted alone, called an opening',
+    field: 'registration_milestones',
+    fact: milestone('June 20, 2027', { audience: 'public', date: '2027-06-20' }),
+    expect: 'flagged',
+    flag: 'kind_conflict',
+  },
+  {
+    name: 'linked Ryzer event redirecting to another event',
+    field: 'registration_milestones',
+    fact: milestone('PHASE 1 - October 6, 2026', { url: RYZER }),
+    expect: 'flagged',
+    flag: 'platform_tenant_not_linked',
+  },
+  {
+    name: 'another UltraCamp camp on a linked host',
+    field: 'registration_milestones',
+    fact: milestone('PHASE 1 - October 6, 2026', {
+      url: 'https://www.ultracamp.com/info/sessions.aspx?idCamp=999',
+    }),
+    expect: 'flagged',
+    flag: 'platform_tenant_not_linked',
+  },
+  {
+    name: 'linked website the model named, not yet reviewed',
+    field: 'season_dates',
+    fact: evidence('June 7-11 Mon - Fri', {
+      url: 'https://sponsor.org/camp',
+      start: '2027-06-07',
+      end: '2027-06-11',
+    }),
+    website: 'https://sponsor.org/',
+    expect: 'flagged',
+    flag: 'domain_not_reviewed',
+  },
+  {
+    name: 'seed that redirects to a listing site extends nothing',
+    field: 'season_dates',
+    fact: evidence('June 7-11 Mon - Fri', {
+      url: 'https://oldcamp.org/dates',
+      start: '2027-06-07',
+      end: '2027-06-11',
+    }),
+    seeds: ['https://oldcamp.org/'],
+    expect: 'flagged',
+    flag: 'unrecognized_domain',
+  },
 ];
 
 async function main() {
@@ -328,12 +460,12 @@ async function main() {
       : testCase.fact;
     const extraction: Extraction = {
       provider_name: 'YMCA Camp Greenville',
-      website_url: SITE,
+      website_url: testCase.website ?? SITE,
       notes: null,
       excluded: [],
       cards: [card],
     };
-    await verifyExtraction(extraction, { fetcher, seedUrls: [SITE] });
+    await verifyExtraction(extraction, { fetcher, seedUrls: testCase.seeds ?? [SITE] });
     const check = testCase.fact.check!;
     const flags = check.flags.filter(
       (flag) => !['needs_hand_check', 'weekday_supports_year'].includes(flag)

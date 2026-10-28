@@ -52,7 +52,12 @@ const TENANT_PATTERNS: RegExp[] = [
   /qgiv\.com\/for\/([\w-]+)/,
   /campdoc\.com\/.*[?&]r=([\w-]+)/,
   /eventbrite\.com\/e\/[\w-]*?(\d{6,})/,
+  /ultracamp\.com\/.*[?&]idCamp=(\d+)/i,
 ];
+
+/** Shared front doors: a subdomain like these names the platform's app, not an account. */
+const GENERIC_SUBDOMAIN =
+  /^(?:www|app|apps|register|registration|secure|docs|forms|portal|my|go|m)\./;
 
 /** Provider-owned social pages: accepted for VBS only, labeled and hand-checked (plan N9). */
 const SOCIAL_HOSTS = /(?:^|\.)(?:facebook\.com|fb\.me|fb\.com|instagram\.com)$/;
@@ -89,15 +94,20 @@ export function platformOf(url: string): string | null {
   return null;
 }
 
-/** The platform account a URL belongs to: host, plus the account id where the host is shared. */
+/**
+ * The platform account a URL belongs to: the account id where the host is shared
+ * ("register.ryzer.com#309477"), the host where the account is the subdomain
+ * ("campgreenville.campintouch.com"), or null when we can't tell, which never authorizes anything.
+ */
 export function platformTenant(url: string): string | null {
   const host = hostOf(url);
   if (!host || !platformOf(url)) return null;
   for (const pattern of TENANT_PATTERNS) {
     const match = url.match(pattern);
-    if (match) return match[1] ? `${host}#${match[1]}` : host;
+    if (match?.[1]) return `${host}#${match[1]}`;
   }
-  return host;
+  const isSubdomainAccount = host.split('.').length > 2 && !GENERIC_SUBDOMAIN.test(`${host}.`);
+  return isSubdomainAccount ? host : null;
 }
 
 /** Distinct platform names among a page's links. */

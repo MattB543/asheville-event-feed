@@ -235,21 +235,21 @@ export interface Check {
   handCheckNote?: string;
   /** The official page the hand check was made on, when it isn't the cited one (N9). */
   handCheckSource?: string;
+  /** Where the cited URL redirected, when it did: the page actually checked. */
+  resolvedUrl?: string;
 }
 
 /**
- * A fact can be shown as settled: the checker verified it, or someone checked it by hand. A
- * registration milestone needs the hand check either way (N15): use `isPublishableMilestone`.
+ * A fact can be shown as settled: the checker verified it, or someone checked it by hand. A fact
+ * the checker marks `needs_hand_check` (every registration milestone, N15) needs the hand check
+ * either way.
  */
-export function isPublishable(check: Check | undefined): boolean {
-  if (!check || check.status === 'dropped') return false;
-  return check.status === 'verified' || !!check.handCheckedAt;
-}
-
-export function isPublishableMilestone(
-  check: Pick<Check, 'status' | 'handCheckedAt'> | undefined
+export function isPublishable(
+  check: Pick<Check, 'status' | 'flags' | 'handCheckedAt'> | undefined
 ): boolean {
-  return !!check && check.status !== 'dropped' && !!check.handCheckedAt;
+  if (!check || check.status === 'dropped') return false;
+  if (check.flags.includes('needs_hand_check')) return !!check.handCheckedAt;
+  return check.status === 'verified' || !!check.handCheckedAt;
 }
 
 // ---------------------------------------------------------------------------

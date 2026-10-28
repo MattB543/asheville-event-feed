@@ -1,5 +1,5 @@
 {
-  "about": "Camps pilot (docs/camps/01-context-and-plan.md §8): 20 deliberately varied providers. `urls` are what discovery would hand extraction (mostly the exa seed sheet's own-site URL); `covers` says which pilot requirement each one tests. `site` is the geocoding fallback for cards whose pages state no address: the seed sheet's Location or the venue's own name, never an address we wrote.",
+  "about": "Camps pilot (docs/camps/01-context-and-plan.md §8): 20 deliberately varied providers. `urls` are what discovery would hand extraction (mostly the exa seed sheet's own-site URL); `covers` says which pilot requirement each one tests. `site` is the geocoding fallback for cards whose pages state no address: the seed sheet's Location or the venue's own name, never an address we wrote. `domains` lists a provider's own domains that a person confirmed beyond its seed pages (Lutheridge moved to novusway.org; reviewed by the pilot session on 2026-10-28: lutheridge.org links it and its pages are Lutheridge's camp pages).",
   "providers": [
     {
       "key": "asheville-parks-rec",
@@ -93,7 +93,8 @@
       ],
       "area": "Arden, NC",
       "covers": ["pdf_brochure", "day_and_overnight", "multi_card", "faith_based"],
-      "site": "Lutheridge, Arden, NC"
+      "site": "Lutheridge, Arden, NC",
+      "domains": ["novusway.org"]
     },
     {
       "key": "unca-precollege",

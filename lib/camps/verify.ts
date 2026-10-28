@@ -64,6 +64,8 @@ export interface VerifyContext {
   fetcher: PageTextFetcher;
   /** Seed URLs for the provider, to anchor which domains are its own. */
   seedUrls: string[];
+  /** Domains a person confirmed are the provider's own (a moved site: Lutheridge -> novusway.org). */
+  reviewedDomains?: string[];
   now?: Date;
 }
 
@@ -104,7 +106,12 @@ export async function verifyExtraction(
     return result;
   }
 
-  const authority = await collectAuthority(extraction, context.seedUrls, page);
+  const authority = await collectAuthority(
+    extraction,
+    context.seedUrls,
+    context.reviewedDomains ?? [],
+    page
+  );
   const byField: Record<string, FieldTally> = {};
   const totals: FieldTally = { total: 0, verified: 0, review: 0, dropped: 0 };
 
@@ -150,13 +157,15 @@ export function evidenceItems(card: ExtractedCard): Array<{ field: string; evide
 // ---------------------------------------------------------------------------
 
 interface Authority {
-  /** Registrable domains that are the provider's own. */
+  /** Registrable domains that are the provider's own: seeds, their redirects, reviewed domains. */
   ownDomains: Set<string>;
+  /** The provider website the model named, linked from an own seed but not yet reviewed. */
+  linkedDomains: Set<string>;
   /** Registration-platform accounts (`platformTenant`) the provider's own pages link to. */
   platformTenants: Set<string>;
 }
 
-type SourceClass = 'own' | 'platform' | 'social' | 'aggregator' | 'unrecognized' | 'bad';
+type SourceClass = 'own' | 'linked' | 'platform' | 'social' | 'aggregator' | 'unrecognized' | 'bad';
 
 /** A domain that isn't a listing site, a platform or a social network. */
 function siteDomain(url: string): string | null {
@@ -168,42 +177,51 @@ function siteDomain(url: string): string | null {
 
 /**
  * Anchored in the seed pages (from discovery, not from the model being checked): their domains,
- * where they redirect, and the platform accounts and sites they link to. Only own and platform
- * seeds extend authority; a listing site's links don't. The one domain the model may add is the
- * provider website it names, and only when an own seed page links to it (Lutheridge's seed links
- * its new novusway.org site).
+ * where they redirect, and the platform accounts they link to. A seed that turns out to be, or to
+ * land on, a listing or social page extends nothing. The provider website the model names counts
+ * only when an own seed links to it, and even then its facts wait for review until a person
+ * confirms the domain (providers.json `domains`): a linked sponsor looks the same as a moved site.
  */
 async function collectAuthority(
   extraction: Extraction,
   seedUrls: string[],
+  reviewedDomains: string[],
   page: PageReader
 ): Promise<Authority> {
-  const ownDomains = new Set<string>();
+  const ownDomains = new Set<string>(reviewedDomains);
   const platformTenants = new Set<string>();
-  const linkedDomains = new Set<string>();
+  const seedLinks = new Set<string>();
 
   for (const url of seedUrls) {
     const tenant = platformTenant(url);
     const domain = siteDomain(url);
-    if (tenant) platformTenants.add(tenant);
-    else if (domain) ownDomains.add(domain);
-    else continue;
-
+    if (!tenant && !domain) continue;
     const result = await page(url);
-    if (result instanceof FetchPageError) continue;
-    const finalDomain = siteDomain(result.finalUrl);
-    if (finalDomain && domain) ownDomains.add(finalDomain);
+    if (result instanceof FetchPageError) {
+      if (tenant) platformTenants.add(tenant);
+      if (domain) ownDomains.add(domain);
+      continue;
+    }
+    // Judge the seed by where it landed, too.
+    const landedTenant = platformTenant(result.finalUrl);
+    const landedDomain = siteDomain(result.finalUrl);
+    if (!landedTenant && !landedDomain) continue;
+    if (tenant) platformTenants.add(tenant);
+    if (landedTenant) platformTenants.add(landedTenant);
+    if (domain) ownDomains.add(domain);
+    if (domain && landedDomain) ownDomains.add(landedDomain);
     for (const link of result.links) {
       const linkedTenant = platformTenant(link.href);
       if (linkedTenant) platformTenants.add(linkedTenant);
       const linked = siteDomain(link.href);
-      if (linked) linkedDomains.add(linked);
+      if (linked) seedLinks.add(linked);
     }
   }
 
+  const linkedDomains = new Set<string>();
   const website = extraction.website_url ? siteDomain(extraction.website_url) : null;
-  if (website && linkedDomains.has(website)) ownDomains.add(website);
-  return { ownDomains, platformTenants };
+  if (website && !ownDomains.has(website) && seedLinks.has(website)) linkedDomains.add(website);
+  return { ownDomains, linkedDomains, platformTenants };
 }
 
 function classify(url: string, authority: Authority): SourceClass {
@@ -212,7 +230,8 @@ function classify(url: string, authority: Authority): SourceClass {
   if (AGGREGATOR_DOMAINS.has(domain)) return 'aggregator';
   if (isSocialUrl(url)) return 'social';
   if (platformOf(url)) return 'platform';
-  return authority.ownDomains.has(domain) ? 'own' : 'unrecognized';
+  if (authority.ownDomains.has(domain)) return 'own';
+  return authority.linkedDomains.has(domain) ? 'linked' : 'unrecognized';
 }
 
 /** Flags for a source, and whether a registration date may come from it. */
@@ -225,15 +244,20 @@ function sourceFlags(
   const flags: string[] = [];
   if (kind === 'aggregator') flags.push('third_party_source');
   if (kind === 'unrecognized') flags.push('unrecognized_domain');
+  if (kind === 'linked') flags.push('domain_not_reviewed');
   // Ownership of a social page isn't established by anything we can fetch (plan N9).
   if (kind === 'social') flags.push('social_source_hand_check');
-  const linkedAccount =
-    kind === 'platform' && authority.platformTenants.has(platformTenant(url) ?? '');
+  // An account we can't identify (no tenant pattern for that host) is never linked.
+  const tenant = platformTenant(url);
+  const linkedAccount = kind === 'platform' && !!tenant && authority.platformTenants.has(tenant);
   if (kind === 'platform' && !linkedAccount) flags.push('platform_tenant_not_linked');
   return {
     flags,
     officialForRegistration:
-      kind === 'own' || kind === 'platform' || (kind === 'social' && card.type === 'vbs'),
+      kind === 'own' ||
+      kind === 'linked' ||
+      kind === 'platform' ||
+      (kind === 'social' && card.type === 'vbs'),
   };
 }
 
@@ -271,18 +295,36 @@ async function checkEvidence(
       : done('review', 'fetch_failed', [...flags, 'fetch_failed']);
   }
 
-  // Judge the page we actually read: an own-site link can redirect to a listing site.
-  if (registrableDomain(result.finalUrl) !== registrableDomain(evidence.url)) {
-    const landed = sourceFlags(result.finalUrl, authority, card);
+  // Judge the page we actually read: an own-site link can redirect to a listing site, and a
+  // linked platform account (Ryzer event 123) can redirect to another one (event 999).
+  const resolvedUrl = result.finalUrl !== evidence.url ? result.finalUrl : undefined;
+  if (
+    resolvedUrl &&
+    (registrableDomain(resolvedUrl) !== registrableDomain(evidence.url) ||
+      platformTenant(resolvedUrl) !== platformTenant(evidence.url))
+  ) {
+    const landed = sourceFlags(resolvedUrl, authority, card);
     flags.push(...landed.flags, 'redirected');
     if (isMilestone && !landed.officialForRegistration) {
-      return done('dropped', 'not_checked', [...flags, 'registration_source_not_official']);
+      return done(
+        'dropped',
+        'not_checked',
+        [...flags, 'registration_source_not_official'],
+        result.method,
+        resolvedUrl
+      );
     }
   }
 
   const match = findQuote(result.text, evidence.quote);
   if (match === 'not_found') {
-    return done('dropped', 'not_found', [...flags, 'quote_not_on_page'], result.method);
+    return done(
+      'dropped',
+      'not_found',
+      [...flags, 'quote_not_on_page'],
+      result.method,
+      resolvedUrl
+    );
   }
   if (isMilestone) flags.push(...milestoneContextFlags(evidence, result.text));
 
@@ -304,15 +346,29 @@ async function checkEvidence(
   }
 
   const reviewFlags = flags.filter((flag) => !INFORMATIONAL_FLAGS.has(flag));
-  return done(reviewFlags.length > 0 ? 'review' : 'verified', match, flags, result.method);
+  return done(
+    reviewFlags.length > 0 ? 'review' : 'verified',
+    match,
+    flags,
+    result.method,
+    resolvedUrl
+  );
 
   function done(
     status: CheckStatus,
     how: Check['match'],
     allFlags: string[],
-    fetchMethod?: string
+    fetchMethod?: string,
+    resolvedUrl?: string
   ): Check {
-    return { status, match: how, flags: [...new Set(allFlags)], checkedAt, fetchMethod };
+    return {
+      status,
+      match: how,
+      flags: [...new Set(allFlags)],
+      checkedAt,
+      fetchMethod,
+      ...(resolvedUrl ? { resolvedUrl } : {}),
+    };
   }
 }
 
@@ -502,6 +558,15 @@ export function dateExpressions(quote: string): DateExpression[] {
     found.push({ month: Number(match[1]), day: Number(match[2]), year, index: match.index ?? 0 });
   }
 
+  for (const match of quote.matchAll(/\b(20\d{2})-(\d{2})-(\d{2})\b/g)) {
+    found.push({
+      month: Number(match[2]),
+      day: Number(match[3]),
+      year: Number(match[1]),
+      index: match.index ?? 0,
+    });
+  }
+
   // "June 29 - July 3, 2026": a yearless date just before a dated one, across a dash, shares it.
   found.sort((a, b) => a.index - b.index);
   for (let i = found.length - 2; i >= 0; i--) {
@@ -524,6 +589,10 @@ export function dateExpressions(quote: string): DateExpression[] {
 function dateInQuote(date: string, quote: string, monthOnly: boolean): boolean {
   const [year, month, day] = date.split('-').map(Number);
   if (monthOnly) {
+    // A full date in that month carries its own year ("opens October 6, 2026" is not October
+    // 2027); a bare month mention can carry one right after it ("December 2026").
+    const dated = dateExpressions(quote).filter((expression) => expression.month === month);
+    if (dated.length > 0) return dated.some((e) => e.year === null || e.year === year);
     const pattern = new RegExp(`\\b${MONTH_PATTERN}(?:\\s+(20\\d{2}))?`, 'g');
     return [...quote.matchAll(pattern)].some(
       (match) => monthNumber(match[1]) === month && (!match[2] || Number(match[2]) === year)
@@ -570,7 +639,8 @@ export function timesInQuote(quote: string): Set<string> {
       ((hour % 12) + (mer === 'p' ? 12 : 0)) * 60 + Number(minute ?? 0);
     if (mer2 && !mer1) mer1 = minutes(h1, m1, mer2) > minutes(h2, m2, mer2) ? 'a' : mer2;
     if (mer1 && !mer2) mer2 = minutes(h2, m2, mer1) < minutes(h1, m1, mer1) ? 'p' : mer1;
-    if (!mer1 && !mer2 && h1 > h2) [mer1, mer2] = ['a', 'p'];
+    // A backwards unlabeled range is a camp day; one starting at 12 starts at noon ("12:30-4:30").
+    if (!mer1 && !mer2 && h1 > h2) [mer1, mer2] = [h1 === 12 ? 'p' : 'a', 'p'];
     if (mer1 && mer2) {
       times.add(to24(h1, m1 ?? '00', mer1));
       times.add(to24(h2, m2 ?? '00', mer2));
@@ -642,6 +712,12 @@ function gradesInQuote(quote: string): Set<number> {
     grades.add(Number(match[1]));
     if (match[2]) grades.add(Number(match[2]));
   }
+  // "K-5", "kindergarten through 5th", "pre-k-2"
+  for (const match of quote.matchAll(
+    /\b(?:pre-?k|k|kinder(?:garten)?)\s*(?:-|to|through)\s*(\d{1,2})/g
+  )) {
+    grades.add(Number(match[1]));
+  }
   for (const [word, grade] of Object.entries(GRADE_WORDS)) {
     if (new RegExp(`\\b${word}\\b`).test(quote)) grades.add(grade);
   }
@@ -649,6 +725,8 @@ function gradesInQuote(quote: string): Set<number> {
 }
 
 const RISING = /\b(rising|entering|going into|will be in)\b/;
+const CURRENT =
+  /\b(currently in|current(?:ly)? (?:grade|students?)|this school year|20\d{2}-\d{2} school year)\b/;
 const COMPLETED =
   /\b(completed|completing|finished|have finished|who've completed|who have completed)\b/;
 
@@ -667,6 +745,7 @@ function gradeFlags(
   const saysCompleted = COMPLETED.test(quote);
   if (grades.basis === 'rising' && !saysRising) flags.push('grade_basis_not_in_quote');
   if (grades.basis === 'completed' && !saysCompleted) flags.push('grade_basis_not_in_quote');
+  if (grades.basis === 'current' && !CURRENT.test(quote)) flags.push('grade_basis_not_in_quote');
   if (
     (saysRising && grades.basis !== 'rising') ||
     (saysCompleted && grades.basis !== 'completed')
@@ -746,6 +825,11 @@ function yearFlags(field: string, evidence: Evidence): string[] {
     if (typeof value === 'string' && /^\d{4}-/.test(value)) {
       const year = Number(value.slice(0, 4));
       if (!okYears.has(year)) flags.push(`date_year_${year}_vs_${evidence.year}`);
+      // When the quote names years, the date's own year must be one of them: "2026 registration
+      // opens October 6" can't be 2027-10-06, even though a 2027 season allows dates in 2026.
+      if (quoteYears.length > 0 && !quoteYears.includes(year)) {
+        flags.push(`date_year_not_in_quote:${key}`);
+      }
     }
   }
   return flags;
@@ -760,7 +844,7 @@ const RESTRICTED_AUDIENCE =
   /\b(returning|current (?:camper )?famil|members?\b|priority|alumni|waitlist|wait list|residents?\b|lottery|early.bird|staff)/;
 /** Words that describe everyone being allowed to register ("all programs" doesn't). */
 const OPEN_AUDIENCE =
-  /\b(?:all (?:new )?(?:camper )?(?:families|campers|children|kids|participants|students|others)|everyone|anyone|general public|open to (?:the )?public|public registration|new (?:camper )?famil\w*)\b/;
+  /\b(?:all (?:new )?(?:camper )?(?:families|campers|children|kids|participants|students|others)(?! (?:returning|who|from|that|currently|enrolled|attending))|everyone|anyone|general public|open to (?:the )?public|public registration|new (?:camper )?famil\w*)\b/;
 const AUDIENCE_WORDS: Record<string, RegExp> = {
   member: /\bmembers?\b/,
   returning:
@@ -820,13 +904,15 @@ function milestoneContextFlags(evidence: Evidence, pageText: string): string[] {
 
   if (KIND_WORDS[kind] && !KIND_WORDS[kind].test(context)) flags.push('kind_not_in_context');
   // The quote itself says the other thing: "Register by June 20" is not an opening.
-  if (kind === 'opens' && DEADLINE_WORDS.test(quote) && !OPEN_WORDS.test(quote)) {
+  // The quote's own sentence says the other thing: "Register by June 20" is not an opening, even
+  // when only "June 20" was quoted.
+  if (kind === 'opens' && DEADLINE_WORDS.test(statement) && !OPEN_WORDS.test(statement)) {
     flags.push('kind_conflict');
   }
   if (
     (kind === 'deadline' || kind === 'closes') &&
-    OPEN_WORDS.test(quote) &&
-    !DEADLINE_WORDS.test(quote)
+    OPEN_WORDS.test(statement) &&
+    !DEADLINE_WORDS.test(statement)
   ) {
     flags.push('kind_conflict');
   }

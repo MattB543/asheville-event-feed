@@ -206,8 +206,8 @@ async function collectAuthority(
     const landedTenant = platformTenant(result.finalUrl);
     const landedDomain = siteDomain(result.finalUrl);
     if (!landedTenant && !landedDomain) continue;
+    // Not the account a seed redirects to: Ryzer event 123 forwarding to 999 says nothing about 999.
     if (tenant) platformTenants.add(tenant);
-    if (landedTenant) platformTenants.add(landedTenant);
     if (domain) ownDomains.add(domain);
     if (domain && landedDomain) ownDomains.add(landedDomain);
     for (const link of result.links) {
@@ -469,6 +469,10 @@ function valueFlags(field: string, evidence: Evidence): string[] {
     case 'last_year_registration_opened':
       checkDate(record.date, 'date', record.precision === 'month');
       checkTime(record.time, 'time');
+      // A registration time with no am/pm in the quote is a guess, even when it matches a reading.
+      if (typeof record.time === 'string' && !/\b(?:[ap]\.?\s?m\b|noon|midnight)/.test(quote)) {
+        flags.push('time_ambiguous');
+      }
       break;
     case 'hours':
       checkTime(record.start, 'start');
@@ -589,13 +593,20 @@ export function dateExpressions(quote: string): DateExpression[] {
 function dateInQuote(date: string, quote: string, monthOnly: boolean): boolean {
   const [year, month, day] = date.split('-').map(Number);
   if (monthOnly) {
-    // A full date in that month carries its own year ("opens October 6, 2026" is not October
-    // 2027); a bare month mention can carry one right after it ("December 2026").
-    const dated = dateExpressions(quote).filter((expression) => expression.month === month);
-    if (dated.length > 0) return dated.some((e) => e.year === null || e.year === year);
-    const pattern = new RegExp(`\\b${MONTH_PATTERN}(?:\\s+(20\\d{2}))?`, 'g');
-    return [...quote.matchAll(pattern)].some(
-      (match) => monthNumber(match[1]) === month && (!match[2] || Number(match[2]) === year)
+    // A full date carries its own year ("opens October 6, 2026" is not October 2027); a month
+    // mentioned without a day can carry one right after it ("opens October 2027"). Either may match.
+    const fullDate = dateExpressions(quote).some(
+      (e) => e.month === month && (e.year === null || e.year === year)
+    );
+    const monthOnly = new RegExp(
+      `\\b${MONTH_PATTERN}(?![a-z])(?!\\s+\\d{1,2}(?:st|nd|rd|th)?(?![\\d:]))(?:\\s+(20\\d{2}))?`,
+      'g'
+    );
+    return (
+      fullDate ||
+      [...quote.matchAll(monthOnly)].some(
+        (match) => monthNumber(match[1]) === month && (!match[2] || Number(match[2]) === year)
+      )
     );
   }
   return dateExpressions(quote).some(
@@ -726,7 +737,7 @@ function gradesInQuote(quote: string): Set<number> {
 
 const RISING = /\b(rising|entering|going into|will be in)\b/;
 const CURRENT =
-  /\b(currently in|current(?:ly)? (?:grade|students?)|this school year|20\d{2}-\d{2} school year)\b/;
+  /\b(currently in (?:grades?|k|kindergarten|\d)|current grades?|in grades? [\dk][\w\s-]* (?:this|during the) (?:school year|20\d{2}))\b/;
 const COMPLETED =
   /\b(completed|completing|finished|have finished|who've completed|who have completed)\b/;
 
@@ -880,6 +891,12 @@ function statementAround(page: string, at: number, length: number): string {
   return `${start >= 0 ? before.slice(start + 2) : before}${quoted}${end >= 0 ? after.slice(0, end + 1) : after}`;
 }
 
+/** The clause of the statement that holds the quote: split at semicolons and "and"/"but". */
+function clauseAround(statement: string, quote: string): string {
+  const clauses = statement.split(/;|,\s+(?:and|but|then)\b|\.\s/);
+  return clauses.find((clause) => clause.includes(quote.slice(0, 20))) ?? statement;
+}
+
 function milestoneContextFlags(evidence: Evidence, pageText: string): string[] {
   const { audience, kind } = evidence as unknown as { audience: string; kind: string };
   const page = normalizeForMatch(pageText);
@@ -903,16 +920,17 @@ function milestoneContextFlags(evidence: Evidence, pageText: string): string[] {
   }
 
   if (KIND_WORDS[kind] && !KIND_WORDS[kind].test(context)) flags.push('kind_not_in_context');
-  // The quote itself says the other thing: "Register by June 20" is not an opening.
-  // The quote's own sentence says the other thing: "Register by June 20" is not an opening, even
-  // when only "June 20" was quoted.
-  if (kind === 'opens' && DEADLINE_WORDS.test(statement) && !OPEN_WORDS.test(statement)) {
+  // The quote's own clause says the other thing: "register by June 20" is not an opening, even
+  // when only "June 20" was quoted, or when an opening shares the sentence ("opens January 10;
+  // register by June 20").
+  const clause = clauseAround(statement, quote);
+  if (kind === 'opens' && DEADLINE_WORDS.test(clause) && !OPEN_WORDS.test(clause)) {
     flags.push('kind_conflict');
   }
   if (
     (kind === 'deadline' || kind === 'closes') &&
-    OPEN_WORDS.test(statement) &&
-    !DEADLINE_WORDS.test(statement)
+    OPEN_WORDS.test(clause) &&
+    !DEADLINE_WORDS.test(clause)
   ) {
     flags.push('kind_conflict');
   }

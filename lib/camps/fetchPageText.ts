@@ -293,10 +293,12 @@ async function browserFetch(url: string, browser: Browser): Promise<RawPage> {
       });
     } catch (error) {
       if (!/download/i.test(describe(error))) throw error;
-      const file = await (await downloadEvent)?.path();
-      if (!file) return await download();
+      const started = await downloadEvent;
+      const file = await started?.path();
+      if (!started || !file) return await download();
       const bytes = new Uint8Array(await readFile(file));
-      return { status: 200, finalUrl: url, contentType: 'application/pdf', bytes };
+      // Where the download really came from, so a redirect to another site is judged as such.
+      return { status: 200, finalUrl: started.url(), contentType: 'application/pdf', bytes };
     }
     const contentType = response?.headers()['content-type'] ?? '';
     if (/application\/pdf/i.test(contentType) && response) {

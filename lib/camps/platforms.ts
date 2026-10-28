@@ -40,8 +40,7 @@ const REGISTRATION_PLATFORMS: Record<string, RegExp> = {
 
 /**
  * Where one host serves many accounts, the account is in the path or query: a link to one Google
- * Form or Ryzer event says nothing about another on the same host. Subdomain platforms
- * (camp.campintouch.com) carry the account in the host.
+ * Form or Ryzer event says nothing about another on the same host.
  */
 const TENANT_PATTERNS: RegExp[] = [
   /docs\.google\.com\/forms\/d\/(?:e\/)?([\w-]+)/,
@@ -53,11 +52,16 @@ const TENANT_PATTERNS: RegExp[] = [
   /campdoc\.com\/.*[?&]r=([\w-]+)/,
   /eventbrite\.com\/e\/[\w-]*?(\d{6,})/,
   /ultracamp\.com\/.*[?&]idCamp=(\d+)/i,
+  /activecommunities\.com\/([\w-]+)\//,
+  /portal\.iclasspro\.com\/([\w-]+)/,
+  /hisawyer\.com\/([\w-]+)/,
+  /amilia\.com\/store\/\w+\/([\w-]+)/,
+  /subsplash\.com\/([\w+-]+)/,
 ];
 
-/** Shared front doors: a subdomain like these names the platform's app, not an account. */
-const GENERIC_SUBDOMAIN =
-  /^(?:www|app|apps|register|registration|secure|docs|forms|portal|my|go|m)\./;
+/** Platforms that put the account in the subdomain ("campgreenville.campintouch.com"). */
+const SUBDOMAIN_ACCOUNT_HOSTS =
+  /^[\w-]+\.(?:campintouch\.com|myvscloud\.com|recdesk\.com|campbrainregistration\.com|sportngin\.com|square\.site|churchcenter\.com)$/;
 
 /** Provider-owned social pages: accepted for VBS only, labeled and hand-checked (plan N9). */
 const SOCIAL_HOSTS = /(?:^|\.)(?:facebook\.com|fb\.me|fb\.com|instagram\.com)$/;
@@ -106,8 +110,7 @@ export function platformTenant(url: string): string | null {
     const match = url.match(pattern);
     if (match?.[1]) return `${host}#${match[1]}`;
   }
-  const isSubdomainAccount = host.split('.').length > 2 && !GENERIC_SUBDOMAIN.test(`${host}.`);
-  return isSubdomainAccount ? host : null;
+  return SUBDOMAIN_ACCOUNT_HOSTS.test(host) ? host : null;
 }
 
 /** Distinct platform names among a page's links. */

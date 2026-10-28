@@ -14,6 +14,7 @@ const DATES = 'https://www.campgreenville.org/dates-rates';
 const CAMPINTOUCH = 'https://campgreenville.campintouch.com/ui/forms/application/camper/App';
 const RYZER = 'https://register.ryzer.com/camp.cfm?id=123';
 const ULTRACAMP = 'https://www.ultracamp.com/info/sessions.aspx?idCamp=123';
+const ACTIVENET = 'https://anc.apm.activecommunities.com/ashevillerec/activity/search';
 
 const GREENVILLE = `Dates + Rates
 Registration Timeline
@@ -41,18 +42,28 @@ Session dates 2027-06-07 to 2027-06-11.
 For rising grades K-5 only.
 For all campers returning from Summer 2026, registration opens October 6, 2026.
 Register by June 20, 2027.
-Grades 3-5 welcome.`;
+Grades 3-5 welcome.
+Registration opens January 10, 2027; register by June 21, 2027.
+Grades 4-6 welcome. Current students receive a discount.
+Registration opens March 3, 2027 at 9:00.
+Registration opens October 2027; last year it opened October 6, 2026.`;
 
 const PAGES: Record<string, { text: string; finalUrl?: string; links?: string[] }> = {
   [SITE]: {
     text: 'YMCA Camp Greenville',
-    links: [DATES, CAMPINTOUCH, RYZER, ULTRACAMP, 'https://sponsor.org/'],
+    links: [DATES, CAMPINTOUCH, RYZER, ULTRACAMP, ACTIVENET, 'https://sponsor.org/'],
   },
   [RYZER]: { text: GREENVILLE, finalUrl: 'https://register.ryzer.com/camp.cfm?id=999' },
   'https://www.ultracamp.com/info/sessions.aspx?idCamp=999': { text: GREENVILLE },
   'https://sponsor.org/camp': { text: GREENVILLE },
   'https://oldcamp.org/': { text: 'Moved', finalUrl: 'https://allevents.in/oldcamp' },
   'https://oldcamp.org/dates': { text: GREENVILLE },
+  'https://anc.apm.activecommunities.com/othertown/activity/search': { text: GREENVILLE },
+  'https://register.ryzer.com/camp.cfm?id=555': {
+    text: GREENVILLE,
+    finalUrl: 'https://register.ryzer.com/camp.cfm?id=556',
+  },
+  'https://register.ryzer.com/camp.cfm?id=556': { text: GREENVILLE },
   [DATES]: { text: GREENVILLE },
   'https://othercamp.campintouch.com/register': { text: GREENVILLE },
   'https://register.ryzer.com/camp.cfm?id=999': { text: GREENVILLE },
@@ -440,6 +451,66 @@ const CASES: Case[] = [
     seeds: ['https://oldcamp.org/'],
     expect: 'flagged',
     flag: 'unrecognized_domain',
+  },
+  // Second confirmation gate (third round)
+  {
+    name: 'another ActiveNet account on the same host',
+    field: 'registration_milestones',
+    fact: milestone('PHASE 1 - October 6, 2026', {
+      url: 'https://anc.apm.activecommunities.com/othertown/activity/search',
+    }),
+    expect: 'flagged',
+    flag: 'platform_tenant_not_linked',
+  },
+  {
+    name: 'deadline clause sharing a sentence with an opening',
+    field: 'registration_milestones',
+    fact: milestone('June 21, 2027', { audience: 'public', date: '2027-06-21' }),
+    expect: 'flagged',
+    flag: 'kind_conflict',
+  },
+  {
+    name: '"current" basis from "Current students receive a discount"',
+    field: 'grades',
+    fact: evidence('Grades 4-6 welcome. Current students receive a discount.', {
+      min: 4,
+      max: 6,
+      basis: 'current',
+    }),
+    expect: 'flagged',
+    flag: 'grade_basis_not_in_quote',
+  },
+  {
+    name: 'registration time with no am/pm',
+    field: 'registration_milestones',
+    fact: milestone('Registration opens March 3, 2027 at 9:00.', {
+      audience: 'public',
+      date: '2027-03-03',
+      time: '09:00',
+      precision: 'datetime',
+    }),
+    expect: 'flagged',
+    flag: 'time_ambiguous',
+  },
+  {
+    name: 'a seed redirecting to another Ryzer event authorizes nothing there',
+    field: 'registration_milestones',
+    fact: milestone('PHASE 1 - October 6, 2026', {
+      url: 'https://register.ryzer.com/camp.cfm?id=556',
+    }),
+    seeds: ['https://register.ryzer.com/camp.cfm?id=555'],
+    expect: 'flagged',
+    flag: 'platform_tenant_not_linked',
+  },
+  {
+    name: '"opens October 2027" beside last year\'s "October 6, 2026"',
+    field: 'registration_milestones',
+    fact: milestone('Registration opens October 2027; last year it opened October 6, 2026.', {
+      audience: 'public',
+      date: '2027-10-01',
+      precision: 'month',
+    }),
+    expect: 'verified',
   },
 ];
 

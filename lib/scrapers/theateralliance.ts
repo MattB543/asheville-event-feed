@@ -85,12 +85,13 @@ function parsePerformanceDate(dateStr: string): Date | null {
 /**
  * Extract content from a JetEngine dynamic field by its Elementor data-id.
  * Looks for the pattern: data-id="XXX" ... jet-listing-dynamic-field__content">TEXT</div>
+ * (since ~Oct 2026 the site renders `__content" >`, so allow anything before the `>`)
  */
 function extractFieldByDataId(html: string, dataId: string): string | undefined {
   // Find the section with this data-id
   const escapedId = dataId.replace(/"/g, '\\"');
   const regex = new RegExp(
-    `${escapedId}[\\s\\S]*?jet-listing-dynamic-field__content">([^<]+)</div>`,
+    `${escapedId}[\\s\\S]*?jet-listing-dynamic-field__content"[^>]*>([^<]+)</div>`,
     'i'
   );
   const match = html.match(regex);
@@ -160,7 +161,9 @@ function parseEventPage(html: string): ParsedPageData {
   let producedBy: string | undefined;
   const producedByText = extractFieldByDataId(html, SELECTORS.producedBy);
   if (producedByText) {
-    producedBy = producedByText.replace(/^Produced By:\s*/i, '').trim();
+    producedBy = decodeHtmlEntities(
+      decodeHtmlEntities(producedByText.replace(/^Produced By:\s*/i, '').trim())
+    );
   }
 
   return { dates, price, venue, address, ticketUrl, producedBy };

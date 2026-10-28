@@ -470,7 +470,11 @@ function valueFlags(field: string, evidence: Evidence): string[] {
       checkDate(record.date, 'date', record.precision === 'month');
       checkTime(record.time, 'time');
       // A registration time with no am/pm in the quote is a guess, even when it matches a reading.
-      if (typeof record.time === 'string' && !/\b(?:[ap]\.?\s?m\b|noon|midnight)/.test(quote)) {
+      // "10am" has no word boundary before the "am", so only a letter may not precede it.
+      if (
+        typeof record.time === 'string' &&
+        !/(?<![a-z])[ap]\.?\s?m\b|\bnoon\b|\bmidnight\b/.test(quote)
+      ) {
         flags.push('time_ambiguous');
       }
       break;

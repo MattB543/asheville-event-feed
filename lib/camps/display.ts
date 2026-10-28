@@ -432,16 +432,23 @@ const UNIT_LABEL: Record<string, string> = {
   other: '',
 };
 
+/** "$325–$375/week"; mixed units are shown per unit ("$375/week · $85/day"), never merged. */
 export function formatPriceRange(prices: Array<{ amount: number; unit: string }>): string | null {
   if (prices.length === 0) return null;
-  const units = [...new Set(prices.map((price) => price.unit))];
-  const unit = units.length === 1 ? (UNIT_LABEL[units[0]] ?? '') : '';
-  const amounts = prices.map((price) => price.amount);
-  const min = Math.min(...amounts);
-  const max = Math.max(...amounts);
-  return min === max
-    ? `${formatPrice(min)}${unit}`
-    : `${formatPrice(min)}–${formatPrice(max)}${unit}`;
+  const byUnit = new Map<string, number[]>();
+  for (const price of prices)
+    byUnit.set(price.unit, [...(byUnit.get(price.unit) ?? []), price.amount]);
+  return [...byUnit.entries()]
+    .sort(([, a], [, b]) => Math.max(...b) - Math.max(...a))
+    .slice(0, 2)
+    .map(([unit, amounts]) => {
+      const min = Math.min(...amounts);
+      const max = Math.max(...amounts);
+      if (max === 0) return 'Free';
+      const range = min === max ? formatPrice(min) : `${formatPrice(min)}–${formatPrice(max)}`;
+      return `${range}${UNIT_LABEL[unit] ?? ''}`;
+    })
+    .join(' · ');
 }
 
 export const TYPE_LABELS: Record<string, string> = {
@@ -519,6 +526,8 @@ export interface CampCardData {
   categories: string[];
   town: string | null;
   state: string | null;
+  /** Where we placed it when the camp's pages state no site: "Greenville County, SC". */
+  approximatePlace: string | null;
   driveMinutes: number | null;
   driveLimit: number | null;
   inRadius: boolean | null;
@@ -575,6 +584,7 @@ export function toCardData(listing: CampListing): CampCardData {
     categories: listing.categories,
     town: location?.town ?? null,
     state: location?.state ?? null,
+    approximatePlace: !location && listing.geo ? listing.geo.label.replace(/, USA$/, '') : null,
     // A town-centroid match says nothing about the drive: the Arboretum came out at 2 minutes.
     driveMinutes: listing.geo && isSiteLevel(listing.geo) ? listing.geo.driveMinutes : null,
     driveLimit: listing.geo?.limit ?? null,

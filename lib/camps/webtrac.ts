@@ -219,7 +219,9 @@ function pricesFor(
   weeks: number,
   evidence: (quote: string) => Evidence
 ): ExtractedCard['prices'] {
-  const unit = weeks > 1 ? 'week' : 'session';
+  // A fee is per week only for week-long sessions; "1st Sunday Football Camp" is three 1-hour Sundays.
+  const spansWeek = (Date.parse(row.endDate) - Date.parse(row.beginDate)) / 86400000 >= 3;
+  const unit = weeks > 1 && spansWeek ? 'week' : 'session';
   const quote = `$${(row.residentFee ?? 0).toFixed(2)}/$${(row.nonResidentFee ?? 0).toFixed(2)}`;
   const prices: ExtractedCard['prices'] = [];
   if (row.residentFee !== null) {

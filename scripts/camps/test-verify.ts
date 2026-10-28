@@ -46,7 +46,9 @@ Grades 3-5 welcome.
 Registration opens January 10, 2027; register by June 21, 2027.
 Grades 4-6 welcome. Current students receive a discount.
 Registration opens March 3, 2027 at 9:00.
-Registration opens October 2027; last year it opened October 6, 2026.`;
+Registration opens October 2027; last year it opened October 6, 2026.
+Summer 2027 registration opens Oct. 6, 2026.
+Summer 2027 registration opens 6 October, 2026.`;
 
 const PAGES: Record<string, { text: string; finalUrl?: string; links?: string[] }> = {
   [SITE]: {
@@ -511,6 +513,29 @@ const CASES: Case[] = [
       precision: 'month',
     }),
     expect: 'verified',
+  },
+  // Final confirmation gate
+  {
+    name: 'October 2027 (month) from "Oct. 6, 2026"',
+    field: 'registration_milestones',
+    fact: milestone('Summer 2027 registration opens Oct. 6, 2026.', {
+      audience: 'public',
+      date: '2027-10-01',
+      precision: 'month',
+    }),
+    expect: 'flagged',
+    flag: 'value_not_in_quote:date',
+  },
+  {
+    name: 'October 2027 (month) from "6 October, 2026"',
+    field: 'registration_milestones',
+    fact: milestone('Summer 2027 registration opens 6 October, 2026.', {
+      audience: 'public',
+      date: '2027-10-01',
+      precision: 'month',
+    }),
+    expect: 'flagged',
+    flag: 'value_not_in_quote:date',
   },
 ];
 

@@ -527,6 +527,8 @@ interface DateExpression {
   day: number;
   year: number | null;
   index: number;
+  /** Where the whole written date ends: a month inside it is not a month-only mention. */
+  end: number;
 }
 
 function monthNumber(name: string): number {
@@ -547,8 +549,11 @@ export function dateExpressions(quote: string): DateExpression[] {
   for (const match of quote.matchAll(monthFirst)) {
     const month = monthNumber(match[1]);
     const year = match[4] ? Number(match[4]) : null;
-    found.push({ month, day: Number(match[2]), year, index: match.index ?? 0 });
-    if (match[3]) found.push({ month, day: Number(match[3]), year, index: (match.index ?? 0) + 1 });
+    const end = (match.index ?? 0) + match[0].length;
+    found.push({ month, day: Number(match[2]), year, index: match.index ?? 0, end });
+    if (match[3]) {
+      found.push({ month, day: Number(match[3]), year, index: (match.index ?? 0) + 1, end });
+    }
   }
   const dayFirst = new RegExp(`(?<![\\d/])${DAY}\\s+${MONTH_PATTERN}${YEAR}`, 'g');
   for (const match of quote.matchAll(dayFirst)) {
@@ -557,13 +562,20 @@ export function dateExpressions(quote: string): DateExpression[] {
       day: Number(match[1]),
       year: match[3] ? Number(match[3]) : null,
       index: match.index ?? 0,
+      end: (match.index ?? 0) + match[0].length,
     });
   }
   for (const match of quote.matchAll(
     /(?<![\d/])(\d{1,2})\/(\d{1,2})(?:\/(\d{2}|\d{4}))?(?![\d/])/g
   )) {
     const year = match[3] ? Number(match[3].length === 2 ? `20${match[3]}` : match[3]) : null;
-    found.push({ month: Number(match[1]), day: Number(match[2]), year, index: match.index ?? 0 });
+    found.push({
+      month: Number(match[1]),
+      day: Number(match[2]),
+      year,
+      index: match.index ?? 0,
+      end: (match.index ?? 0) + match[0].length,
+    });
   }
 
   for (const match of quote.matchAll(/\b(20\d{2})-(\d{2})-(\d{2})\b/g)) {
@@ -572,6 +584,7 @@ export function dateExpressions(quote: string): DateExpression[] {
       day: Number(match[3]),
       year: Number(match[1]),
       index: match.index ?? 0,
+      end: (match.index ?? 0) + match[0].length,
     });
   }
 
@@ -602,15 +615,17 @@ function dateInQuote(date: string, quote: string, monthOnly: boolean): boolean {
     const fullDate = dateExpressions(quote).some(
       (e) => e.month === month && (e.year === null || e.year === year)
     );
-    const monthOnly = new RegExp(
-      `\\b${MONTH_PATTERN}(?![a-z])(?!\\s+\\d{1,2}(?:st|nd|rd|th)?(?![\\d:]))(?:\\s+(20\\d{2}))?`,
-      'g'
-    );
+    // A month inside a written full date ("Oct. 6, 2026", "6 October, 2026") is that date's month,
+    // with that date's year, never a month-only mention.
+    const spans = dateExpressions(quote).map((e) => [e.index, e.end]);
+    const monthOnly = new RegExp(`\\b${MONTH_PATTERN}(?![a-z])(?:\\s+(20\\d{2}))?`, 'g');
     return (
       fullDate ||
-      [...quote.matchAll(monthOnly)].some(
-        (match) => monthNumber(match[1]) === month && (!match[2] || Number(match[2]) === year)
-      )
+      [...quote.matchAll(monthOnly)].some((match) => {
+        const at = match.index ?? 0;
+        if (spans.some(([start, end]) => at >= start && at < end)) return false;
+        return monthNumber(match[1]) === month && (!match[2] || Number(match[2]) === year);
+      })
     );
   }
   return dateExpressions(quote).some(

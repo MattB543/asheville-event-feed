@@ -2,16 +2,17 @@
 
 The pilot from plan §8 (`01-context-and-plan.md`): 20 deliberately varied providers taken end to
 end (extract → verify → store → show) before scaling to several hundred camps. Built and run on
-Oct 28, 2026, ahead of the Nov 4 due date. A whole-pilot Codex review (§11) and four step-level
-Codex review gates (§12, per Matt's rule in plan §8) ran the same day; their verifier, fetcher,
-schema and display findings are fixed here, and the data-contract changes are on the Nov 5 list
-(§8).
+Oct 28, 2026, ahead of the Nov 4 due date. A whole-pilot Codex review (§11), four step-level
+Codex review gates and three confirmation gates (§12, per Matt's rule in plan §8) ran the same
+day; their verifier, fetcher, schema and display findings are fixed here (all four steps' gates
+closed, the last verifier fix without a further Codex pass), and the data-contract changes are on
+the Nov 5 list (§8).
 
 ## 1. Summary
 
 - **The extraction approach works, with one change: give Sol our own fetched page text ("bundle
-  mode") as well as web search.** On the same 20 providers, bundle mode produced **649 facts, 554
-  (85%) verified on the cited page, 95 sent to review, none dropped**. Web search alone produced
+  mode") as well as web search.** On the same 20 providers, bundle mode produced **649 facts, 543
+  (84%) verified on the cited page, 106 sent to review, none dropped**. Web search alone produced
   404 facts with **68 dropped**: the search index quotes pages as they used to be (Lutheridge moved
   to novusway.org; all 66 of its quotes were stale). Bundle mode also found 24 registration
   milestones against search-only's 4, at the same token cost.
@@ -19,19 +20,20 @@ schema and display findings are fixed here, and the data-contract changes are on
   fact, not that the fact is right.** The Codex reviews showed the first verifiers passed a wrong
   calendar year, a time read from a day number or a price, a relabeled audience or action, a
   shuffled date, an invented fragment, a grade basis and another tenant's platform page; those
-  checks are now in (§4), with 24 offline regressions in `scripts/camps/test-verify.ts`. What no mechanical check
+  checks are now in (§4), with 37 offline regressions in `scripts/camps/test-verify.ts`. What no mechanical check
   catches: a quote read slightly wrong (Evergreen's "case-by-case" accommodation became "special
   needs: yes"), and a provider-wide statement copied onto every card. Every registration date I
   checked by hand was right.
 - **Publication now has one gate**: a fact drives a card, a filter or the registration line only
   when it is verified or hand-checked (`data/camps/pilot/hand-checks.json`), and a registration
-  milestone only when hand-checked (N15). Of the 24 milestones, the 11 at Camp Greenville pass.
+  milestone only when hand-checked (N15), "expected" dates included. Of the 24 milestones, the 11
+  at Camp Greenville pass.
 - **The data model needs a second pass before bulk import** (§8): stable camp identity, milestones
   with scope, certainty and separate date and time evidence, a season-publication fact, evidenced
   sessions, and option-scoped hours and prices. Codex's verdict: start discovery Nov 5; hold bulk
   extraction and the DB import until those contracts are fixed.
 - **Geocoding is the weak link.** HeiGIT/ORS (Pelias) placed 48 of 131 camps at an address or
-  street, 69 only at the town centroid, and 14 have no publishable site. Town-level drive times are
+  street, 68 only at the town centroid, and 15 have no publishable site. Town-level drive times are
   meaningless (the NC Arboretum came out 2 minutes from downtown) and are no longer shown or used
   for the radius. Per N12 ("Google only if geocodes are poor"), this is the case for a better
   address geocoder plus ORS for routing. **Decision needed.**
@@ -127,12 +129,13 @@ Every fact is re-checked against the page it cites, fetched by our own reader:
   milestone also carries `needs_hand_check` and is shown only after a hand check (N15).
 - A page that can't be fetched → review, never dropped (it may be a block).
 
-Flag counts (bundle mode, final): `year_not_on_page` 31, `grade_basis_not_in_quote` 20
+Flag counts (bundle mode, final): `year_not_on_page` 31, `grade_basis_not_in_quote` 23
 (Lutheridge's grade lines don't say "completed"; its page does, elsewhere), `value_not_in_quote`
 13, `tentative_wording` 12 (UNCA), `platform_tenant_not_linked` 10 (Mason Plumlee's 2027 Ryzer
 event isn't the 2026 one the seed links; LEAF's Qgiv form isn't linked from its pages),
-`unrecognized_domain` 7 (Kanuga, no seed URL), `third_party_source` 2 (Reynolds); informational:
-`weekday_supports_year` 21, `needs_hand_check` 24.
+`domain_not_reviewed` 8 (Mason Plumlee's own site, linked from its Ryzer page but not yet
+reviewed), `unrecognized_domain` 7 (Kanuga, no seed URL), `third_party_source` 2 (Reynolds);
+informational: `weekday_supports_year` 21, `needs_hand_check` 24.
 
 What it **can't** catch (seen in the pilot):
 
@@ -160,31 +163,31 @@ What it **can't** catch (seen in the pilot):
 facts" are facts labeled summer 2027. Time and tokens are the single model call. The last column
 is the search-only run.
 
-| Provider                    |   Cards |   Facts | Verified | Review | Dropped | Reg. dates | 2027 facts |       Time | Tokens in/out  | Search-only: facts / dropped |
-| --------------------------- | ------: | ------: | -------: | -----: | ------: | ---------: | ---------: | ---------: | -------------- | ---------------------------- |
-| asheville-art-museum        |       4 |      27 |       27 |      0 |       0 |          0 |          0 |        70s | 20.4k / 4.2k   | 22 / 0                       |
-| asheville-museum-of-science |       3 |      27 |       15 |     12 |       0 |          0 |          0 |        80s | 24.6k / 4.4k   | 18 / 0                       |
-| asheville-parks-rec (model) |      17 |     170 |      170 |      0 |       0 |          0 |          0 |       259s | 25.8k / 17.4k  | 18 / 0                       |
-| asheville-school            |       0 |       0 |        0 |      0 |       0 |          0 |          0 |        21s | 30.4k / 0.5k   | 0 / 0                        |
-| black-mountain-summer-camp  |       1 |       6 |        6 |      0 |       0 |          0 |          0 |        31s | 15.9k / 1.4k   | 6 / 0                        |
-| camp-greenville             |       6 |      27 |       17 |     10 |       0 |         11 |         27 |        88s | 30.5k / 4.8k   | 35 / 0                       |
-| camp-rockmont               |       6 |      33 |       33 |      0 |       0 |          0 |         33 |        85s | 19.5k / 4.9k   | 17 / 0                       |
-| evergreen-summer-adventures |       1 |      12 |       12 |      0 |       0 |          0 |          0 |        34s | 15.7k / 1.8k   | 12 / 0                       |
-| hahns-gymnastics            |       1 |       4 |        2 |      2 |       0 |          0 |          0 |        44s | 30.0k / 1.7k   | 4 / 0                        |
-| kanuga-day-camp             |       1 |       7 |        0 |      7 |       0 |          0 |          0 |        43s | 22.1k / 1.7k   | 7 / 0                        |
-| leaf-global-arts            |       1 |      11 |        7 |      4 |       0 |          0 |          3 |        38s | 18.0k / 1.8k   | 11 / 0                       |
-| lutheridge                  |      23 |      49 |        9 |     40 |       0 |          0 |         49 |       142s | 33.4k / 8.9k   | 68 / 66                      |
-| mason-plumlee-basketball    |       1 |      14 |        8 |      6 |       0 |          1 |         14 |        36s | 20.7k / 1.9k   | 14 / 0                       |
-| nc-arboretum                |      22 |      23 |       23 |      0 |       0 |          0 |          0 |       151s | 34.2k / 8.9k   | 3 / 0                        |
-| ninjaville                  |       1 |       7 |        7 |      0 |       0 |          0 |          0 |        30s | 13.9k / 1.3k   | 0 / 0                        |
-| paca                        |      11 |      33 |       33 |      0 |       0 |          0 |          0 |       118s | 23.7k / 5.8k   | 11 / 0                       |
-| reynolds-baptist-vbs        |       1 |       2 |        0 |      2 |       0 |          0 |          0 |        25s | 24.6k / 0.8k   | 3 / 2                        |
-| trinity-episcopal-vbs       |       1 |       8 |        8 |      0 |       0 |          0 |          0 |        26s | 15.3k / 1.3k   | 8 / 0                        |
-| unca-precollege             |      12 |      96 |       84 |     12 |       0 |         12 |         12 |       183s | 28.3k / 11.9k  | 74 / 0                       |
-| ymca-wnc                    |      16 |      93 |       93 |      0 |       0 |          0 |          0 |       192s | 31.8k / 12.3k  | 73 / 0                       |
-| **Total**                   | **129** | **649** |  **554** | **95** |   **0** |     **24** |    **138** | **1,696s** | **479k / 98k** | **404 / 68**                 |
+| Provider                    |   Cards |   Facts | Verified |  Review | Dropped | Reg. dates | 2027 facts |       Time | Tokens in/out  | Search-only: facts / dropped |
+| --------------------------- | ------: | ------: | -------: | ------: | ------: | ---------: | ---------: | ---------: | -------------- | ---------------------------- |
+| asheville-art-museum        |       4 |      27 |       27 |       0 |       0 |          0 |          0 |        70s | 20.4k / 4.2k   | 22 / 0                       |
+| asheville-museum-of-science |       3 |      27 |       15 |      12 |       0 |          0 |          0 |        80s | 24.6k / 4.4k   | 18 / 0                       |
+| asheville-parks-rec (model) |      17 |     170 |      170 |       0 |       0 |          0 |          0 |       259s | 25.8k / 17.4k  | 18 / 0                       |
+| asheville-school            |       0 |       0 |        0 |       0 |       0 |          0 |          0 |        21s | 30.4k / 0.5k   | 0 / 0                        |
+| black-mountain-summer-camp  |       1 |       6 |        6 |       0 |       0 |          0 |          0 |        31s | 15.9k / 1.4k   | 6 / 0                        |
+| camp-greenville             |       6 |      27 |       15 |      12 |       0 |         11 |         27 |        88s | 30.5k / 4.8k   | 35 / 0                       |
+| camp-rockmont               |       6 |      33 |       32 |       1 |       0 |          0 |         33 |        85s | 19.5k / 4.9k   | 17 / 0                       |
+| evergreen-summer-adventures |       1 |      12 |       12 |       0 |       0 |          0 |          0 |        34s | 15.7k / 1.8k   | 12 / 0                       |
+| hahns-gymnastics            |       1 |       4 |        2 |       2 |       0 |          0 |          0 |        44s | 30.0k / 1.7k   | 4 / 0                        |
+| kanuga-day-camp             |       1 |       7 |        0 |       7 |       0 |          0 |          0 |        43s | 22.1k / 1.7k   | 7 / 0                        |
+| leaf-global-arts            |       1 |      11 |        7 |       4 |       0 |          0 |          3 |        38s | 18.0k / 1.8k   | 11 / 0                       |
+| lutheridge                  |      23 |      49 |        9 |      40 |       0 |          0 |         49 |       142s | 33.4k / 8.9k   | 68 / 66                      |
+| mason-plumlee-basketball    |       1 |      14 |        0 |      14 |       0 |          1 |         14 |        36s | 20.7k / 1.9k   | 14 / 0                       |
+| nc-arboretum                |      22 |      23 |       23 |       0 |       0 |          0 |          0 |       151s | 34.2k / 8.9k   | 3 / 0                        |
+| ninjaville                  |       1 |       7 |        7 |       0 |       0 |          0 |          0 |        30s | 13.9k / 1.3k   | 0 / 0                        |
+| paca                        |      11 |      33 |       33 |       0 |       0 |          0 |          0 |       118s | 23.7k / 5.8k   | 11 / 0                       |
+| reynolds-baptist-vbs        |       1 |       2 |        0 |       2 |       0 |          0 |          0 |        25s | 24.6k / 0.8k   | 3 / 2                        |
+| trinity-episcopal-vbs       |       1 |       8 |        8 |       0 |       0 |          0 |          0 |        26s | 15.3k / 1.3k   | 8 / 0                        |
+| unca-precollege             |      12 |      96 |       84 |      12 |       0 |         12 |         12 |       183s | 28.3k / 11.9k  | 74 / 0                       |
+| ymca-wnc                    |      16 |      93 |       93 |       0 |       0 |          0 |          0 |       192s | 31.8k / 12.3k  | 73 / 0                       |
+| **Total**                   | **129** | **649** |  **543** | **106** |   **0** |     **24** |    **138** | **1,696s** | **479k / 98k** | **404 / 68**                 |
 
-The search-only totals: 404 facts, 308 verified, 28 review, 68 dropped, 4 milestones.
+The search-only totals: 404 facts, 296 verified, 40 review, 68 dropped, 4 milestones.
 
 The import (`import.json`) has 131 camps: 112 model cards for 18 providers plus 19 WebTrac cards
 for Parks & Rec (the model's 17 Parks & Rec cards are kept only for the cross-check in §7).
@@ -227,14 +230,16 @@ Per camp, what happened and why:
   doesn't link, so they're in review.
 - **Lutheridge**: moved to novusway.org with renamed 2027 programs; 23 cards, one per program
   (separate programs with different grades). Its program pages print dates without a year; the
-  weekday check confirmed 2027 where a weekday was printed next to the date. Most of its facts are
+  weekday check confirmed 2027 where a weekday was printed next to the date. Its new domain is
+  recorded as reviewed in `providers.json` (`domains`). Most of its facts are
   in review: the grade lines ("Climb High 4th–6th grade") don't say "completed", which the page
   says once, elsewhere; and its year sits outside most quotes.
 - **Mason Plumlee (Ryzer)**: everything from the registration platform, including early-bird price
   deadlines, kept as price tiers. Correctly preferred the camp's own June 21–24, 2027 over a school
   news article's June 21–27. Its "Register By Jun 20, 2027 11:59pm CST" lost the CST (Codex B).
   Its 2027 facts sit on a new Ryzer event (id 338224) that its seed (the 2026 event, id 309477)
-  doesn't link, so they're in review until checked: Ryzer posts a new event every year.
+  doesn't link, and its own site (plumleebasketball.com) is linked from Ryzer but not yet
+  reviewed, so all 14 facts are in review: Ryzer posts a new event every year.
 - **NC Arboretum**: **over-split**, 22 cards (one per themed week). The page says "2027 dates
   coming soon" and eligibility wasn't in the fetched text. Should be one Discovery Camp card (or one
   per age track) with themes as sessions.
@@ -245,7 +250,8 @@ Per camp, what happened and why:
 - **Trinity Episcopal VBS**: dates (June 22–25, 2026), eligibility (age 3, potty trained, through
   completed 5th), $45 / $25 (volunteer) tiers. Verified.
 - **UNCA Pre-College**: 12 programs with 2026 dates and prices, all verified; "tentative" 2027 weeks
-  and "registration expected mid-December 2026", now in review and shown as expected.
+  and "registration expected mid-December 2026", in review; the page says "Registration date
+  found, not confirmed yet" until someone checks it.
 - **YMCA of WNC**: 16 cards (Adventure × 3 sites × 2 age bands, Discovery × 7 school sites, CILT ×
   2, Explorer). Correct under D5, but its Daxko "Activity Finder" isn't readable, so **no prices or
   registration dates**.
@@ -337,6 +343,10 @@ Prompt and pipeline:
     check.
 14. Store `text_hash` and the successful fetch time per page in `camp_observations`, separate from
     verification time, so "last checked" can't advance on a failed or cached read.
+15. Verifier follow-ups left open by the last review gate (none occurs in the pilot data): Sawyer
+    `/v2/checkout/` URLs need a real account id; a quote holding a whole sentence with both an
+    opening and a deadline still lets the deadline date pass as an opening; a seed that redirects
+    to another platform account regains authority if that page links to itself.
 
 ## 9. Decisions for Matt
 
@@ -416,14 +426,16 @@ next step. The pilot's steps already existed, so the gates ran retroactively, on
 parallel (`gpt-6.1-sol`, xhigh, read-only), followed by a confirmation gate over the fixes. Gate 0
 is the whole-pilot review in §11.
 
-| Gate | Step                                                                                | Verdict                            | Findings (must / should / nice) | Outcome                                                            |
-| ---- | ----------------------------------------------------------------------------------- | ---------------------------------- | ------------------------------- | ------------------------------------------------------------------ |
-| 0    | Whole pilot                                                                         | Hold bulk extraction and DB import | 15 / 10 / 2                     | §11: verifier and display bugs fixed; contract items to Nov 5 (§8) |
-| 1    | Fetch layer: `fetchPageText`, `responses`, `platforms`, `geo`, `webtrac`            | Pass with fixes                    | 2 / 7 / 3                       | All adopted; one adopted in part                                   |
-| 2    | Extraction + verification: `types`, `extract`, `verify`, `run-pilot`, `test-verify` | Fail                               | 12 / 2 / 2                      | All adopted; one adopted in part                                   |
-| 3    | Schema + import: schema, `0025_camps.sql`, `importRows`, `build-pilot`              | Fail                               | 1 / 7 / 3                       | All adopted                                                        |
-| 4    | Pages + display: `display`, `/camps`, `/camps/[slug]`, `CampDirectory`              | Fail                               | 6 / 4 / 2                       | All adopted                                                        |
-| 5    | Confirmation of gates 1–4                                                           | (see below)                        |                                 |                                                                    |
+| Gate | Step                                                                                | Verdict                                                                    | Findings (must / should / nice)                | Outcome                                                            |
+| ---- | ----------------------------------------------------------------------------------- | -------------------------------------------------------------------------- | ---------------------------------------------- | ------------------------------------------------------------------ |
+| 0    | Whole pilot                                                                         | Hold bulk extraction and DB import                                         | 15 / 10 / 2                                    | §11: verifier and display bugs fixed; contract items to Nov 5 (§8) |
+| 1    | Fetch layer: `fetchPageText`, `responses`, `platforms`, `geo`, `webtrac`            | Pass with fixes                                                            | 2 / 7 / 3                                      | All adopted; one adopted in part                                   |
+| 2    | Extraction + verification: `types`, `extract`, `verify`, `run-pilot`, `test-verify` | Fail                                                                       | 12 / 2 / 2                                     | All adopted; one adopted in part                                   |
+| 3    | Schema + import: schema, `0025_camps.sql`, `importRows`, `build-pilot`              | Fail                                                                       | 1 / 7 / 3                                      | All adopted                                                        |
+| 4    | Pages + display: `display`, `/camps`, `/camps/[slug]`, `CampDirectory`              | Fail                                                                       | 6 / 4 / 2                                      | All adopted                                                        |
+| 5    | Confirmation of gates 1–4                                                           | Gate 3 closed; 1, 2, 4 open                                                | 9 partly fixed + 2 must / 2 should regressions | All adopted                                                        |
+| 6    | Second confirmation                                                                 | Gate 4 closed; 1, 2 open                                                   | 4 partly fixed + 2 must / 1 should regressions | All adopted                                                        |
+| 7    | Final confirmation of gates 1–2                                                     | Gate 1 closed with a follow-up; gate 2 open on one regression, since fixed | 4 partly fixed + 2 must regressions            | One fixed; the rest are Nov 5 follow-ups (§8.15)                   |
 
 ### Gate 1: fetch layer
 
@@ -472,7 +484,8 @@ is the whole-pilot review in §11.
   wasn't on the fake page). **Adopted.**
 - Simplicity: the tentative regex existed twice and disagreed; unused `hostLabel` and field types.
   **Adopted:** `lib/camps/wording.ts`; deleted the rest.
-- Effect, checked by hand: verified 580 → 554, review 69 → 95. The new review flags land on
+- Effect, checked by hand: verified 580 → 554 after this gate (543 after gates 5–6), review
+  69 → 95 (106). The new review flags land on
   Lutheridge's grade lines that don't say "completed" (20) and on facts from platform accounts the
   seed pages don't link (10: Mason Plumlee's 2027 Ryzer event, LEAF's Qgiv form). Reading the flags
   also turned up three false positives from the new parsers, fixed before counting: Lutheridge's
@@ -511,3 +524,59 @@ is the whole-pilot review in §11.
   UNCA "expected December 2026", Mason Plumlee "date found, not confirmed yet", the Art Museum's
   financial-aid tag labeled 2026; Reynolds' detail page shows "Confirmed on facebook.com"; no
   server errors.
+
+### Gate 5: first confirmation
+
+Codex checked every adopted fix against its finding, replayed all 40 saved verifications offline,
+and rebuilt the import in memory (matched the committed rows). **Gate 3 closed.** Still open:
+
+- _Partly fixed, now adopted:_ N15 applied to the one publication rule (`isPublishable` now
+  requires a hand check for anything flagged `needs_hand_check`, including the "expected" headline:
+  UNCA now reads "Registration date found, not confirmed yet"); month-precision dates keep their own
+  year; action conflicts read in the quote's sentence; "all campers returning from Summer 2026" is
+  not "everyone"; platform accounts with no known id format never authorize (UltraCamp `idCamp`
+  added); seeds are judged by where they land, and a model-named website waits for review
+  (`domain_not_reviewed`) unless a person lists it in `providers.json` `domains` (Lutheridge's
+  novusway.org, reviewed); redirects compared by account, and the resolved URL kept on the check;
+  "current" grade basis needs evidence; browser PDF downloads read from Chromium.
+- _Regressions my fixes introduced, now fixed:_ dropping the old calendar-year guard let "2026
+  registration opens October 6" verify as 2027-10-06 (guard restored alongside the date
+  expressions); "12:30–4:30" read as 00:30 (an unlabeled range starting at 12 starts at noon); ISO
+  dates weren't parsed; "K–5" missed grade 5.
+- _Rejection reviewed:_ Codex judged the remaining am/pm tolerance for camp hours reasonable.
+
+### Gate 6: second confirmation
+
+**Gate 4 closed.** Still open, all adopted:
+
+- ActiveNet accounts (in the URL path) shared authority; subdomain accounts are now accepted only
+  on platforms that use them (CampInTouch, WebTrac, RecDesk, CampBrain, SportsEngine, Square,
+  Church Center), and ActiveNet, iClassPro, Sawyer, Amilia and Subsplash accounts are parsed.
+- "Registration opens January 10, 2027; register by June 20, 2027" with only "June 20" quoted
+  verified as an opening: action conflicts are now judged in the date's own clause.
+- "Grades 3–5 welcome. Current students receive a discount" counted as "current grade" evidence:
+  the wording must now name the grades.
+- Registration times with no am/pm in the quote: now `time_ambiguous` (review); the hours
+  tolerance stays.
+- _Regressions, now fixed:_ a seed redirecting to another platform account authorized that
+  account; Chromium downloads hid a redirect (now `download.url()`); "opens October 2027" beside
+  last year's "October 6, 2026" was rejected (month-only and full-date mentions read together).
+- Checking these on the pilot data found one more false positive of my own: "10am" (no space
+  before "am") read as a time without am/pm. Fixed before counting.
+- The regression script now has 43 cases. The pilot numbers are unchanged by gate 6 (none of these
+  cases occur in the 20 providers): 543 verified, 106 review, 0 dropped.
+
+### Gate 7: final confirmation
+
+Codex replayed all 40 saved runs offline (1,053 facts) and ran the 43 regressions. **Gate 1 closed
+with a follow-up** (Sawyer checkout URLs share an account id; Sawyer isn't in the pilot). Gate 2
+stayed open on one new regression: month-only facts could take their year from an abbreviated or
+day-first date ("Oct. 6, 2026", "6 October, 2026"). **Fixed after the gate**: a month inside a
+written full date now counts only with that date's year; two regression cases added (45 in all).
+That fix was not re-reviewed by Codex. Codex itself suggested the other two partly-fixed items
+(a whole-sentence quote with both an opening and a deadline; a redirected seed account that links
+to itself) as Nov 5 follow-ups rather than keeping the gate open: they are §8.15.
+
+**Where the gates stand:** schema/import, pages/display and the fetch layer closed; extraction and
+verification closed except the one fix above, which has regression tests but no further Codex pass.
+The pilot numbers are unchanged by gates 6 and 7: 649 facts, 543 verified, 106 review, 0 dropped.

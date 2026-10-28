@@ -27,9 +27,8 @@ export const SEASONS = [
     end: '2026-11-02',
     href: '/plan',
     label: 'Disaster Plan',
-    short: 'Before you vote: where candidates stand',
-    banner:
-      'Before you vote Tuesday: where the candidates stand on water and food plans for long outages',
+    short: 'Sign the letter asking AVL leaders for food & water resilience',
+    banner: 'Sign the letter asking AVL leaders for food & water resilience',
   },
 ] as const;
 

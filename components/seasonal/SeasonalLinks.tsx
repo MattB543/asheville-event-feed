@@ -58,10 +58,11 @@ export function SeasonalBanner() {
   return (
     <Link
       href={season.href}
-      className={`flex h-9 items-center justify-center gap-2 px-3 text-sm font-semibold hover:brightness-110 ${look.bar}`}
+      className={`flex min-h-9 items-center justify-center gap-2 px-3 py-1.5 text-sm font-semibold hover:brightness-110 ${look.bar}`}
     >
       {look.mark}
-      <span className="truncate sm:hidden">{season.short}</span>
+      {/* On phones a long line wraps rather than cut off */}
+      <span className="text-center sm:hidden">{season.short}</span>
       <span className="hidden truncate sm:inline">{banner}</span>
       <span className="sm:hidden">{look.endMark}</span>
       <span aria-hidden="true" className="hidden sm:inline">

@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { connection } from 'next/server';
 import Header from '@/components/Header';
 import FooterCredit from '@/components/FooterCredit';
 import CampDirectory from '@/components/camps/CampDirectory';
@@ -18,7 +19,9 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-export default function CampsPage() {
+export default async function CampsPage() {
+  // Per request: the registration line depends on the clock ("opens" turns into "opened").
+  await connection();
   const listings = getCampListings();
   const cards = listings.map(toCardData);
   const { generatedAt, attribution } = campsDataInfo();

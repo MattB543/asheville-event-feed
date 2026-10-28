@@ -7,7 +7,7 @@
     "hint": "Its 2026 VBS (\"Illumination Station\") was posted as a Facebook event, the URL above; AVLGO's feed picked it up from Facebook. Look for the church's own website too.",
     "covers": ["vbs", "facebook_only_date"]
   },
-  "verifiedAt": "2026-10-28T21:26:21.496Z",
+  "verifiedAt": "2026-10-28T21:53:09.051Z",
   "verifyMs": 14,
   "extraction": {
     "provider_name": "Reynolds Baptist Church",
@@ -43,7 +43,7 @@
             "status": "dropped",
             "match": "not_found",
             "flags": ["third_party_source", "quote_not_on_page"],
-            "checkedAt": "2026-10-28T21:26:21.482Z",
+            "checkedAt": "2026-10-28T21:53:09.037Z",
             "fetchMethod": "fetch"
           }
         },
@@ -59,13 +59,8 @@
           "check": {
             "status": "dropped",
             "match": "not_found",
-            "flags": [
-              "third_party_source",
-              "value_not_in_quote:start",
-              "value_not_in_quote:end",
-              "quote_not_on_page"
-            ],
-            "checkedAt": "2026-10-28T21:26:21.482Z",
+            "flags": ["third_party_source", "quote_not_on_page"],
+            "checkedAt": "2026-10-28T21:53:09.037Z",
             "fetchMethod": "fetch"
           }
         },
@@ -83,10 +78,10 @@
             "quote": "The address is 520 Rose Hill Road, Asheville, NC.",
             "source_kind": "official_site",
             "check": {
-              "status": "verified",
+              "status": "review",
               "match": "exact",
-              "flags": [],
-              "checkedAt": "2026-10-28T21:26:21.482Z",
+              "flags": ["unrecognized_domain"],
+              "checkedAt": "2026-10-28T21:53:09.037Z",
               "fetchMethod": "fetch"
             }
           }
@@ -110,7 +105,8 @@
     ]
   },
   "report": {
-    "ownDomains": ["reynoldsbaptistchurch.org"],
+    "ownDomains": [],
+    "platformHosts": [],
     "byField": {
       "season_dates": {
         "total": 1,
@@ -126,15 +122,15 @@
       },
       "locations": {
         "total": 1,
-        "verified": 1,
-        "review": 0,
+        "verified": 0,
+        "review": 1,
         "dropped": 0
       }
     },
     "totals": {
       "total": 3,
-      "verified": 1,
-      "review": 0,
+      "verified": 0,
+      "review": 1,
       "dropped": 2
     },
     "pages": [

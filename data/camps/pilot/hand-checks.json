@@ -1,0 +1,35 @@
+{
+  "about": "Facts checked by hand against the live official source, applied by scripts/camps/build-pilot.ts. A fact matches on provider + field + every key given in `match`. These two were checked in a browser by the pilot session (Claude) on 2026-10-28, not by Matt: at launch every registration milestone needs a person's check (plan N15).",
+  "checks": [
+    {
+      "provider": "camp-greenville",
+      "field": "registration_milestones",
+      "match": { "date": "2026-10-06" },
+      "result": "confirmed",
+      "checkedAt": "2026-10-28T21:40:00Z",
+      "checkedBy": "pilot session (Claude), in a browser",
+      "source": "https://www.campgreenville.org/dates-rates",
+      "note": "PHASE 1 - October 6, 2026, returning camper families: 6:00 PM D3, 7:00 PM D2, 8:00 PM D1 (incl. Parent + Me) and D4 (incl. Sophomore LDP)."
+    },
+    {
+      "provider": "camp-greenville",
+      "field": "registration_milestones",
+      "match": { "date": "2026-10-13" },
+      "result": "confirmed",
+      "checkedAt": "2026-10-28T21:40:00Z",
+      "checkedBy": "pilot session (Claude), in a browser",
+      "source": "https://www.campgreenville.org/dates-rates",
+      "note": "PHASE 2 - October 13, 2026: families of 2026 waitlisted campers at 6:00 PM, all others at 7:00 PM."
+    },
+    {
+      "provider": "reynolds-baptist-vbs",
+      "field": "season_dates",
+      "match": { "start": "2026-06-24", "end": "2026-06-26" },
+      "result": "confirmed",
+      "checkedAt": "2026-10-28T21:35:00Z",
+      "checkedBy": "pilot session (Claude), in a browser",
+      "source": "https://www.facebook.com/events/1420847309803781/",
+      "note": "The church's own public Facebook event: Jun 24 at 5:30 PM - Jun 26 at 7:30 PM EDT, Wed-Fri 5:30-7:30pm, meal provided. Event by Reynolds Baptist Church, Asheville, NC."
+    }
+  ]
+}

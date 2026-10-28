@@ -74,6 +74,7 @@ export interface FieldTally {
 
 export interface VerifyReport {
   ownDomains: string[];
+  platformHosts?: string[];
   byField: Record<string, FieldTally>;
   totals: FieldTally;
   pages: Array<{ url: string; ok: boolean; method?: string; kind?: string; error?: string }>;
@@ -99,13 +100,13 @@ export async function verifyExtraction(
     return result;
   }
 
-  const ownDomains = await collectOwnDomains(extraction, context.seedUrls, page);
+  const authority = await collectAuthority(extraction, context.seedUrls, page);
   const byField: Record<string, FieldTally> = {};
   const totals: FieldTally = { total: 0, verified: 0, review: 0, dropped: 0 };
 
   for (const card of extraction.cards) {
     for (const { field, evidence } of evidenceItems(card)) {
-      const check = await checkEvidence(field, evidence, card, ownDomains, page, now);
+      const check = await checkEvidence(field, evidence, card, authority, page, now);
       evidence.check = check;
       const tally = (byField[field] ??= { total: 0, verified: 0, review: 0, dropped: 0 });
       tally.total++;
@@ -116,7 +117,8 @@ export async function verifyExtraction(
   }
 
   return {
-    ownDomains: [...ownDomains].sort(),
+    ownDomains: [...authority.ownDomains].sort(),
+    platformHosts: [...authority.platformHosts].sort(),
     byField,
     totals,
     pages: [...pages.entries()].map(([url, result]) =>
@@ -139,47 +141,72 @@ export function evidenceItems(card: ExtractedCard): Array<{ field: string; evide
   return items;
 }
 
+export interface Authority {
+  /** Registrable domains that are the provider's own. */
+  ownDomains: Set<string>;
+  /** Registration-platform hosts the provider's own pages link to (a tenant, in effect). */
+  platformHosts: Set<string>;
+}
+
 /**
- * The provider's own registrable domains: its seed pages (and where they redirect), the website
- * the extraction named, and each card's program page, minus aggregators, platforms and social
- * sites (one platform host serves many unrelated camps).
+ * Which sources speak for the provider. Anchored in the seed pages (from discovery, not from the
+ * model being checked): their domains, where they redirect, and what they link to. A domain the
+ * model names counts only when a seed page links to it (Lutheridge's seed links its new
+ * novusway.org site). A platform host counts only when an own page links to it, so a quote from
+ * some other tenant of the same platform can't set a registration date.
  */
-async function collectOwnDomains(
+async function collectAuthority(
   extraction: Extraction,
   seedUrls: string[],
   page: (url: string) => Promise<PageText | FetchPageError>
-): Promise<Set<string>> {
-  const candidates = [
-    ...seedUrls,
-    extraction.website_url,
-    ...extraction.cards.map((card) => card.camp_page_url),
-  ].filter((url): url is string => !!url);
+): Promise<Authority> {
+  const ownDomains = new Set<string>();
+  const platformHosts = new Set<string>();
+  const linkedDomains = new Set<string>();
+  const usable = (url: string) => {
+    const domain = registrableDomain(url);
+    return domain && !AGGREGATOR_DOMAINS.has(domain) && !platformOf(url) && !isSocialUrl(url)
+      ? domain
+      : null;
+  };
 
   for (const url of seedUrls) {
+    if (platformOf(url)) platformHosts.add(hostOf(url) ?? '');
+    const domain = usable(url);
+    if (domain) ownDomains.add(domain);
     const result = await page(url);
-    if (!(result instanceof FetchPageError)) candidates.push(result.finalUrl);
+    if (result instanceof FetchPageError) continue;
+    const finalDomain = usable(result.finalUrl);
+    if (finalDomain) ownDomains.add(finalDomain);
+    for (const link of result.links) {
+      if (platformOf(link.href)) platformHosts.add(hostOf(link.href) ?? '');
+      const linked = usable(link.href);
+      if (linked) linkedDomains.add(linked);
+    }
   }
 
-  const domains = new Set<string>();
-  for (const url of candidates) {
-    const domain = registrableDomain(url);
-    if (!domain || AGGREGATOR_DOMAINS.has(domain) || platformOf(url) || isSocialUrl(url)) continue;
-    domains.add(domain);
+  for (const url of [
+    extraction.website_url,
+    ...extraction.cards.map((card) => card.camp_page_url),
+  ]) {
+    const domain = url ? usable(url) : null;
+    if (domain && linkedDomains.has(domain)) ownDomains.add(domain);
   }
-  return domains;
+  platformHosts.delete('');
+  return { ownDomains, platformHosts };
 }
 
 async function checkEvidence(
   field: string,
   evidence: Evidence,
   card: ExtractedCard,
-  ownDomains: Set<string>,
+  authority: Authority,
   page: (url: string) => Promise<PageText | FetchPageError>,
   checkedAt: string
 ): Promise<Check> {
   const flags: string[] = [];
   const domain = registrableDomain(evidence.url);
-  const isOwn = !!domain && ownDomains.has(domain);
+  const isOwn = !!domain && authority.ownDomains.has(domain);
   const platform = platformOf(evidence.url);
   const social = isSocialUrl(evidence.url);
   const isMilestone = field === 'registration_milestones';
@@ -187,6 +214,11 @@ async function checkEvidence(
   if (!domain) return done('dropped', 'not_checked', ['bad_url']);
   if (domain && AGGREGATOR_DOMAINS.has(domain)) flags.push('third_party_source');
   else if (!isOwn && !platform && !social) flags.push('unrecognized_domain');
+  if (platform && !authority.platformHosts.has(hostOf(evidence.url) ?? '')) {
+    flags.push('platform_not_linked_from_own_page');
+  }
+  // Ownership of a social page isn't established by anything we can fetch (plan N9).
+  if (social) flags.push('social_source_hand_check');
 
   // Registration dates: own site or registration platform; a church's own social post for VBS.
   if (isMilestone) {
@@ -211,6 +243,7 @@ async function checkEvidence(
   if (match === 'not_found') {
     return done('dropped', 'not_found', [...flags, 'quote_not_on_page'], result.method);
   }
+  if (isMilestone) flags.push(...milestoneContextFlags(evidence, result.text));
 
   // A quote with no year in it ("June 22-26") takes its year from the page; a page that never
   // mentions that year can't be what made it a 2027 fact. A stated weekday that fits the date
@@ -263,6 +296,8 @@ function loose(text: string): string {
   return normalizeForMatch(text).replace(/[^a-z0-9$]/g, '');
 }
 
+const MAX_ELLIPSIS_GAP = 400;
+
 export function findQuote(
   pageText: string,
   quote: string
@@ -277,14 +312,17 @@ export function findQuote(
     .map((part) => part.trim())
     .filter((part) => part.length >= 8);
   if (parts.length > 1) {
+    // In order and close together: fragments from different sections prove nothing.
+    let start = -1;
     let from = 0;
     const inOrder = parts.every((part) => {
       const at = page.indexOf(part, from);
       if (at < 0) return false;
+      if (start < 0) start = at;
       from = at + part.length;
       return true;
     });
-    if (inOrder) return 'fragments';
+    if (inOrder && from - start <= wanted.length + MAX_ELLIPSIS_GAP) return 'fragments';
   }
 
   const looseWanted = loose(quote);
@@ -360,17 +398,36 @@ function dateInQuote(date: string, quote: string, monthOnly: boolean): boolean {
   return numeric || named;
 }
 
+/**
+ * Every time of day the quote states, as 24h "HH:MM". "6:00 PM" and "9am" are exact; "8:30-4:30"
+ * (no am/pm) could be either half of the day, so both readings count; a bare number ("October 6")
+ * is never a time.
+ */
+export function timesInQuote(quote: string): Set<string> {
+  const times = new Set<string>();
+  const pad = (hour: number, minute: string) => `${String(hour).padStart(2, '0')}:${minute}`;
+  if (/\bnoon\b/i.test(quote)) times.add('12:00');
+  if (/\bmidnight\b/i.test(quote)) times.add('00:00');
+  const pattern = /(?<![\d:])(\d{1,2})(?:[:.](\d{2}))?\s*(a\.?\s?m\.?|p\.?\s?m\.?)?(?!\d)/gi;
+  for (const match of quote.matchAll(pattern)) {
+    const hour = Number(match[1]);
+    const minute = match[2] ?? '00';
+    const meridiem = match[3]?.toLowerCase().replace(/[^ap]/g, '');
+    if (hour > 23 || Number(minute) > 59) continue;
+    if (meridiem) {
+      if (hour < 1 || hour > 12) continue;
+      times.add(pad((hour % 12) + (meridiem === 'p' ? 12 : 0), minute));
+    } else if (match[2]) {
+      times.add(pad(hour, minute));
+      if (hour < 12) times.add(pad(hour + 12, minute));
+    }
+  }
+  return times;
+}
+
 function timeInQuote(time: string, quote: string): boolean {
-  const [hourText, minute] = time.split(':');
-  const hour24 = Number(hourText);
-  const hour12 = hour24 % 12 === 0 ? 12 : hour24 % 12;
-  if (hour24 === 12 && minute === '00' && /\bnoon\b/.test(quote)) return true;
-  // Digits may not touch the time, letters may: "(8:45am-3:30pm)".
-  const pattern =
-    minute === '00'
-      ? new RegExp(`(?<!\\d)(?:${hour12}|${hour24})(?::00)?(?!\\d)`)
-      : new RegExp(`(?<!\\d)(?:${hour12}|${hour24})[:.]${minute}(?!\\d)`);
-  return pattern.test(quote);
+  const [hour, minute] = time.split(':');
+  return timesInQuote(quote).has(`${hour.padStart(2, '0')}:${minute}`);
 }
 
 function numberInQuote(value: number, quote: string): boolean {
@@ -380,6 +437,7 @@ function numberInQuote(value: number, quote: string): boolean {
 }
 
 const WEEKDAYS = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
+const WEEKDAY_WINDOW = 16;
 
 /**
  * When the quote names weekdays, the fact's first date must fall on one of them. A match is
@@ -397,12 +455,17 @@ function weekdayCheck(field: string, evidence: Evidence): string | null {
   if (typeof date !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(date)) return null;
   if (record.precision === 'month') return null;
 
+  // Only weekdays written next to this date's day number count: "June 7-11 Mon - Fri" yes,
+  // "July 13 - 17 (optional overnight - Thursday evening)" no.
+  const quote = normalizeForMatch(evidence.quote);
+  const day = Number(date.slice(8, 10));
+  const dayAt = [...quote.matchAll(new RegExp(`(?<!\\d)0?${day}(?!\\d)`, 'g'))].map(
+    (match) => match.index ?? 0
+  );
   const named = new Set(
-    [
-      ...normalizeForMatch(evidence.quote).matchAll(
-        /\b(sun|mon|tue|wed|thu|fri|sat)(?:day|sday|nesday|rsday|urday|rs|s)?\b/g
-      ),
-    ].map((match) => match[1])
+    [...quote.matchAll(/\b(sun|mon|tue|wed|thu|fri|sat)(?:day|sday|nesday|rsday|urday|rs|s)?\b/g)]
+      .filter((match) => dayAt.some((at) => Math.abs((match.index ?? 0) - at) <= WEEKDAY_WINDOW))
+      .map((match) => match[1])
   );
   if (named.size === 0) return null;
   const weekday = WEEKDAYS[new Date(`${date}T12:00:00Z`).getUTCDay()];
@@ -437,8 +500,69 @@ function yearFlags(field: string, evidence: Evidence): string[] {
     if (typeof value === 'string' && /^\d{4}-/.test(value)) {
       const year = Number(value.slice(0, 4));
       if (!okYears.has(year)) flags.push(`date_year_${year}_vs_${evidence.year}`);
+      // The calendar year itself, not just one the season allows: "October 6, 2026" can't be
+      // 2027-10-06 even though a 2027 season permits either year (Codex pilot review).
+      if (quoteYears.length > 0 && !quoteYears.includes(year)) {
+        flags.push(`date_year_not_in_quote:${key}`);
+      }
     }
   }
+  return flags;
+}
+
+// ---------------------------------------------------------------------------
+// Registration milestones: does the text around the quote support the audience and the action?
+// Heuristic review flags; every milestone is hand-checked before launch anyway (N15).
+// ---------------------------------------------------------------------------
+
+const RESTRICTED_AUDIENCE =
+  /\b(returning|current (?:camper )?famil|members?\b|priority|alumni|waitlist|wait list|residents?\b|lottery|early.bird|staff)/;
+// "all returning families" is not an open audience.
+const OPEN_AUDIENCE =
+  /\b(?:(?:all|everyone|anyone|general|public)\b(?! (?:returning|current|members?|priority|level|d\d))|new (?:camper )?famil|all others)/;
+const AUDIENCE_WORDS: Record<string, RegExp> = {
+  member: /\bmembers?\b/,
+  returning:
+    /\breturning|current (?:camper )?famil|previous|last (?:summer|year)|alumni|re-?enroll|attended/,
+  lottery: /\blottery|application/,
+  resident: /\bresidents?\b/,
+  early_bird: /\bearly/,
+};
+const KIND_WORDS: Record<string, RegExp> = {
+  opens:
+    /\b(open|opens|opening|begin|begins|start|starts|available|launch|register|registration|enroll|sign.up)/,
+  deadline:
+    /\b(deadline|due|no later than|before|closes|closed|last day|(?:register|apply|enroll|sign up) by)\b/,
+  closes: /\b(close|closes|closed|ends|until|last day)\b/,
+  lottery_results: /\b(lottery|results|notif|notified|selected)/,
+};
+
+const TENTATIVE_WORDING =
+  /\b(expect|expected|expects|tentative|tentatively|anticipat\w*|plan to|plans to|estimated|approximately|should open|likely|hope to|mid-)/;
+
+function milestoneContextFlags(evidence: Evidence, pageText: string): string[] {
+  const { audience, kind } = evidence as unknown as { audience: string; kind: string };
+  const page = normalizeForMatch(pageText);
+  const quote = normalizeForMatch(evidence.quote);
+  const at = page.indexOf(quote.slice(0, 40));
+  // The quote, the line before it and what follows (a heading's date, then its sentence).
+  const context = at >= 0 ? page.slice(Math.max(0, at - 100), at + quote.length + 200) : quote;
+  // A restricted audience is often named once above a list of phase times ("...all returning
+  // camper families" then "6:00 PM for D3", "7:00 PM for D2"), so look further up for it.
+  const above = at >= 0 ? page.slice(Math.max(0, at - 400), at + quote.length + 200) : quote;
+  const flags: string[] = [];
+
+  if (audience === 'public') {
+    // A "public" date whose surroundings only talk about a restricted group.
+    if (RESTRICTED_AUDIENCE.test(context) && !OPEN_AUDIENCE.test(context)) {
+      flags.push('audience_context_conflict');
+    }
+  } else if (AUDIENCE_WORDS[audience] && !AUDIENCE_WORDS[audience].test(above)) {
+    flags.push('audience_not_in_context');
+  }
+  if (KIND_WORDS[kind] && !KIND_WORDS[kind].test(context)) flags.push('kind_not_in_context');
+  // "Registration is expected to open in mid-December": not a date anyone can set an alarm for.
+  if (TENTATIVE_WORDING.test(quote)) flags.push('tentative_wording');
   return flags;
 }
 

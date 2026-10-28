@@ -7,7 +7,7 @@
     "covers": ["outside_buncombe", "no_seed_url"],
     "site": "Kanuga, Hendersonville, NC"
   },
-  "verifiedAt": "2026-10-28T21:26:21.566Z",
+  "verifiedAt": "2026-10-28T21:53:09.123Z",
   "verifyMs": 8,
   "extraction": {
     "provider_name": "Kanuga Day Camp",
@@ -48,10 +48,10 @@
           "quote": "Session A – Monday, June 8th – Friday, June 12th Session B – Monday, June 29th – Friday, July 3rd Session C – Monday, July 6th – Friday July 10th Session D – Monday, July 13th – Friday, July 17th Session E – Monday, July 20th – Friday, July 24th",
           "source_kind": "official_site",
           "check": {
-            "status": "verified",
+            "status": "review",
             "match": "exact",
-            "flags": ["weekday_supports_year"],
-            "checkedAt": "2026-10-28T21:26:21.558Z",
+            "flags": ["unrecognized_domain", "weekday_supports_year"],
+            "checkedAt": "2026-10-28T21:53:09.115Z",
             "fetchMethod": "fetch"
           }
         },
@@ -65,10 +65,10 @@
           "quote": "Our Day Camp experience is for children in rising grades 1st-6th",
           "source_kind": "official_site",
           "check": {
-            "status": "verified",
+            "status": "review",
             "match": "exact",
-            "flags": [],
-            "checkedAt": "2026-10-28T21:26:21.558Z",
+            "flags": ["unrecognized_domain"],
+            "checkedAt": "2026-10-28T21:53:09.115Z",
             "fetchMethod": "fetch"
           }
         },
@@ -80,10 +80,10 @@
           "quote": "4:00pm-4:30pm Campers are picked up.",
           "source_kind": "official_site",
           "check": {
-            "status": "verified",
+            "status": "review",
             "match": "exact",
-            "flags": [],
-            "checkedAt": "2026-10-28T21:26:21.558Z",
+            "flags": ["unrecognized_domain"],
+            "checkedAt": "2026-10-28T21:53:09.115Z",
             "fetchMethod": "fetch"
           }
         },
@@ -98,10 +98,10 @@
             "quote": "Essential: $400",
             "source_kind": "official_site",
             "check": {
-              "status": "verified",
+              "status": "review",
               "match": "exact",
-              "flags": [],
-              "checkedAt": "2026-10-28T21:26:21.558Z",
+              "flags": ["unrecognized_domain"],
+              "checkedAt": "2026-10-28T21:53:09.115Z",
               "fetchMethod": "fetch"
             }
           },
@@ -114,10 +114,10 @@
             "quote": "Sustainer: $430",
             "source_kind": "official_site",
             "check": {
-              "status": "verified",
+              "status": "review",
               "match": "exact",
-              "flags": [],
-              "checkedAt": "2026-10-28T21:26:21.558Z",
+              "flags": ["unrecognized_domain"],
+              "checkedAt": "2026-10-28T21:53:09.115Z",
               "fetchMethod": "fetch"
             }
           }
@@ -134,10 +134,10 @@
             "quote": "Day Camp is held at the Camp Bob Youth Campus.",
             "source_kind": "official_site",
             "check": {
-              "status": "verified",
+              "status": "review",
               "match": "exact",
-              "flags": [],
-              "checkedAt": "2026-10-28T21:26:21.558Z",
+              "flags": ["unrecognized_domain"],
+              "checkedAt": "2026-10-28T21:53:09.115Z",
               "fetchMethod": "fetch"
             }
           }
@@ -150,10 +150,10 @@
           "quote": "This maximizes scholarship funding, allowing more young people to share in the transformational Kanuga Day Camp experience.",
           "source_kind": "official_site",
           "check": {
-            "status": "verified",
+            "status": "review",
             "match": "exact",
-            "flags": [],
-            "checkedAt": "2026-10-28T21:26:21.558Z",
+            "flags": ["unrecognized_domain"],
+            "checkedAt": "2026-10-28T21:53:09.115Z",
             "fetchMethod": "fetch"
           }
         },
@@ -199,49 +199,50 @@
     ]
   },
   "report": {
-    "ownDomains": ["kanuga.org"],
+    "ownDomains": [],
+    "platformHosts": [],
     "byField": {
       "season_dates": {
         "total": 1,
-        "verified": 1,
-        "review": 0,
+        "verified": 0,
+        "review": 1,
         "dropped": 0
       },
       "grades": {
         "total": 1,
-        "verified": 1,
-        "review": 0,
+        "verified": 0,
+        "review": 1,
         "dropped": 0
       },
       "hours": {
         "total": 1,
-        "verified": 1,
-        "review": 0,
+        "verified": 0,
+        "review": 1,
         "dropped": 0
       },
       "financial_aid": {
         "total": 1,
-        "verified": 1,
-        "review": 0,
+        "verified": 0,
+        "review": 1,
         "dropped": 0
       },
       "prices": {
         "total": 2,
-        "verified": 2,
-        "review": 0,
+        "verified": 0,
+        "review": 2,
         "dropped": 0
       },
       "locations": {
         "total": 1,
-        "verified": 1,
-        "review": 0,
+        "verified": 0,
+        "review": 1,
         "dropped": 0
       }
     },
     "totals": {
       "total": 7,
-      "verified": 7,
-      "review": 0,
+      "verified": 0,
+      "review": 7,
       "dropped": 0
     },
     "pages": [

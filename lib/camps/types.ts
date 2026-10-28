@@ -229,6 +229,16 @@ export interface Check {
   flags: string[];
   checkedAt: string;
   fetchMethod?: string;
+  /** Set when a person (or, in the pilot, the pilot session in a browser) confirmed the fact. */
+  handCheckedAt?: string;
+  handCheckedBy?: string;
+  handCheckNote?: string;
+}
+
+/** A fact can be shown as settled: the checker verified it, or someone checked it by hand. */
+export function isPublishable(check: Check | undefined): boolean {
+  if (!check || check.status === 'dropped') return false;
+  return check.status === 'verified' || !!check.handCheckedAt;
 }
 
 // ---------------------------------------------------------------------------

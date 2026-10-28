@@ -1,5 +1,4 @@
 import pilotImport from '@/data/camps/pilot/import.json';
-import { getTodayStringEastern } from '@/lib/utils/timezone';
 import { buildListings, type CampListing, type CampsData } from './display';
 
 /**
@@ -9,7 +8,7 @@ import { buildListings, type CampListing, type CampsData } from './display';
 const data = pilotImport as unknown as CampsData & { generatedAt: string };
 
 export function getCampListings(): CampListing[] {
-  return buildListings(data, getTodayStringEastern());
+  return buildListings(data, new Date());
 }
 
 export function getCampListing(slug: string): CampListing | null {

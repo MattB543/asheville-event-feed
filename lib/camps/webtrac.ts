@@ -83,7 +83,8 @@ function programName(row: ActivityRow): string {
 export function groupRows(rows: ActivityRow[]): ActivityRow[][] {
   const groups = new Map<string, ActivityRow[]>();
   for (const row of rows) {
-    const key = `${programName(row)}|${row.locationLabel}|${row.ages}`;
+    // Never across summers: a 2027 week must not join (or date) the 2026 card's season.
+    const key = `${row.beginDate.slice(0, 4)}|${programName(row)}|${row.locationLabel}|${row.ages}`;
     groups.set(key, [...(groups.get(key) ?? []), row]);
   }
   return [...groups.values()].map((group) =>

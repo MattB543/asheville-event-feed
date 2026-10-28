@@ -91,6 +91,9 @@ export interface AvailabilityRow {
   sourceUrl: string;
   quote: string;
   observedAt: string;
+  verifyStatus: CheckStatus;
+  flags: string[];
+  handCheckedAt: string | null;
 }
 
 const kept = <T extends Evidence>(evidence: T | null | undefined): evidence is T =>
@@ -262,7 +265,7 @@ export function buildMilestoneRows(campKey: string, card: ExtractedCard): Milest
     sourceKind: milestone.source_kind,
     verifyStatus: milestone.check?.status ?? 'review',
     flags: milestone.check?.flags ?? [],
-    handCheckedAt: null,
+    handCheckedAt: milestone.check?.handCheckedAt ?? null,
   }));
 }
 
@@ -277,6 +280,9 @@ export function buildAvailabilityRow(campKey: string, card: ExtractedCard): Avai
     sourceUrl: availability.url,
     quote: availability.quote,
     observedAt: availability.check?.checkedAt ?? new Date().toISOString(),
+    verifyStatus: availability.check?.status ?? 'review',
+    flags: availability.check?.flags ?? [],
+    handCheckedAt: availability.check?.handCheckedAt ?? null,
   };
 }
 

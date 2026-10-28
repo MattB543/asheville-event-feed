@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import { connection } from 'next/server';
 import Link from 'next/link';
 import { ArrowLeft, ExternalLink } from 'lucide-react';
 import Header from '@/components/Header';
@@ -20,16 +21,12 @@ import {
   isTentative,
   type CampListing,
 } from '@/lib/camps/display';
-import { campsDataInfo, getCampListing, getCampListings } from '@/lib/camps/pilotData';
+import { campsDataInfo, getCampListing } from '@/lib/camps/pilotData';
 import type { Evidence } from '@/lib/camps/types';
 import { SITE_URL } from '@/lib/seo/site';
 
 interface PageProps {
   params: Promise<{ slug: string }>;
-}
-
-export function generateStaticParams() {
-  return getCampListings().map((listing) => ({ slug: listing.slug }));
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
@@ -48,7 +45,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 interface FactRow {
   label: string;
   value: string;
-  evidence: Evidence & { status: string };
+  evidence: Evidence & { status: string; publishable: boolean };
 }
 
 function factRows(camp: CampListing): FactRow[] {
@@ -57,7 +54,7 @@ function factRows(camp: CampListing): FactRow[] {
   const add = (
     label: string,
     value: string | null | undefined,
-    evidence: (Evidence & { status: string }) | undefined
+    evidence: (Evidence & { status: string; publishable: boolean }) | undefined
   ) => {
     if (value && evidence) rows.push({ label, value, evidence });
   };
@@ -139,6 +136,8 @@ export default async function CampPage({ params }: PageProps) {
   const { slug } = await params;
   const camp = getCampListing(slug);
   if (!camp) notFound();
+  // Per request, like /camps: registration status depends on the clock.
+  await connection();
 
   const rows = factRows(camp);
   const sources = [
@@ -257,8 +256,11 @@ export default async function CampPage({ params }: PageProps) {
                       ·{' '}
                       {milestone.verifyStatus === 'verified'
                         ? 'quote found on the page'
-                        : 'needs a check'}{' '}
-                      · not yet checked by a person
+                        : `needs a check (${milestone.flags.filter((flag) => flag !== 'needs_hand_check').join(', ')})`}{' '}
+                      ·{' '}
+                      {milestone.handCheckedAt
+                        ? `checked by hand ${formatDate(milestone.handCheckedAt.slice(0, 10), true)} (pilot session, not yet by Matt)`
+                        : 'not yet checked by a person'}
                     </p>
                   </li>
                 ))}
@@ -269,6 +271,9 @@ export default async function CampPage({ params }: PageProps) {
                 Availability ({camp.availability.seasonYear}): {camp.availability.status}
                 {camp.availability.scope ? ` (${camp.availability.scope})` : ''}
                 {camp.availability.seasonYear < 2027 && ' · last summer, not 2027'}
+                {camp.availability.verifyStatus !== 'verified' &&
+                  !camp.availability.handCheckedAt &&
+                  ' · needs a check'}
               </p>
             )}
           </section>
@@ -299,7 +304,7 @@ export default async function CampPage({ params }: PageProps) {
                       <YearTag
                         value={{
                           year: row.evidence.year,
-                          unconfirmed: row.evidence.status !== 'verified',
+                          unconfirmed: !row.evidence.publishable,
                         }}
                       />
                       <details className="mt-1 text-xs text-gray-500 dark:text-gray-400">
@@ -323,6 +328,8 @@ export default async function CampPage({ params }: PageProps) {
                             {row.evidence.check.status}
                             {row.evidence.check.flags.length > 0 &&
                               ` (${row.evidence.check.flags.join(', ')})`}
+                            {row.evidence.check.handCheckedAt &&
+                              `; checked by hand: ${row.evidence.check.handCheckNote ?? 'confirmed'}`}
                           </p>
                         )}
                       </details>
@@ -354,6 +361,9 @@ export default async function CampPage({ params }: PageProps) {
                   (summer {camp.sessionsYear})
                 </span>
               </h2>
+              <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                As listed on the camp’s pages; individual sessions aren’t verified yet.
+              </p>
               <ul className="mt-2 grid gap-1 text-sm text-gray-700 dark:text-gray-300 sm:grid-cols-2">
                 {camp.sessions.map((session, index) => (
                   <li key={`${session.start}-${index}`}>

@@ -35,7 +35,8 @@ import {
   type MilestoneRow,
   type SeasonRow,
 } from '../../lib/camps/importRows';
-import type { ExtractedCard, Extraction } from '../../lib/camps/types';
+import type { Evidence, ExtractedCard, Extraction } from '../../lib/camps/types';
+import { evidenceItems } from '../../lib/camps/verify';
 import { WEBTRAC_PROVIDER, webTracCards, type WebTracCatalog } from '../../lib/camps/webtrac';
 import type { SavedVerification } from './run-pilot';
 
@@ -44,8 +45,8 @@ const GEOCODE_CACHE = join(PILOT_DIR, 'geocode.json');
 
 export interface CampGeo {
   query: string;
-  /** Where the site came from: the card's own page, a sibling card, or the provider's known site. */
-  source: 'card' | 'sibling' | 'provider_site';
+  /** Where the site came from: the card's own page or the provider's known site. */
+  source: 'card' | 'provider_site';
   lat: number;
   lng: number;
   label: string;
@@ -115,6 +116,13 @@ async function main() {
     quality: {},
   };
   const slugs = new Set<string>();
+  const handChecks = existsSync(join(PILOT_DIR, 'hand-checks.json'))
+    ? (
+        JSON.parse(readFileSync(join(PILOT_DIR, 'hand-checks.json'), 'utf8')) as {
+          checks: HandCheck[];
+        }
+      ).checks
+    : [];
   const sites = new Map<string, SiteCandidates>();
   const { providers: providerList } = JSON.parse(
     readFileSync(join(PILOT_DIR, 'providers.json'), 'utf8')
@@ -158,9 +166,7 @@ async function main() {
           website_url: 'https://www.ashevillenc.gov/department/parks-recreation/',
         }
       : extraction;
-    const siblingLocations = cards
-      .flatMap((card) => card.locations)
-      .filter((loc) => loc.check?.status !== 'dropped' && (loc.address || loc.town));
+    applyHandChecks(provider.key, cards, handChecks);
     for (const card of cards) {
       const camp = buildCampRow(provider.key, providerExtraction, card, ['pilot'], slugs);
       if (out.camps.some((existing) => existing.campKey === camp.campKey)) {
@@ -181,9 +187,6 @@ async function main() {
         overnight: card.type === 'overnight',
         candidates: [
           ...own.map((location) => ({ query: location as GeocodeQuery, source: 'card' as const })),
-          ...siblingLocations
-            .filter((location) => !own.includes(location))
-            .map((location) => ({ query: location as GeocodeQuery, source: 'sibling' as const })),
           ...(providerSite
             ? [
                 {
@@ -211,6 +214,38 @@ async function main() {
   );
 }
 
+interface HandCheck {
+  provider: string;
+  field: string;
+  match?: Record<string, unknown>;
+  result: 'confirmed' | 'corrected';
+  checkedAt: string;
+  checkedBy: string;
+  source?: string;
+  note?: string;
+}
+
+/** Mark the facts a person confirmed (data/camps/pilot/hand-checks.json) so they can be published. */
+function applyHandChecks(providerKey: string, cards: ExtractedCard[], checks: HandCheck[]): void {
+  for (const handCheck of checks.filter(
+    (c) => c.provider === providerKey && c.result === 'confirmed'
+  )) {
+    for (const card of cards) {
+      for (const { field, evidence } of evidenceItems(card)) {
+        if (field !== handCheck.field || !evidence.check) continue;
+        const record = evidence as Evidence & Record<string, unknown>;
+        const matches = Object.entries(handCheck.match ?? {}).every(
+          ([key, value]) => record[key] === value
+        );
+        if (!matches) continue;
+        evidence.check.handCheckedAt = handCheck.checkedAt;
+        evidence.check.handCheckedBy = handCheck.checkedBy;
+        evidence.check.handCheckNote = handCheck.note;
+      }
+    }
+  }
+}
+
 interface SiteCandidates {
   overnight: boolean;
   candidates: Array<{ query: GeocodeQuery; source: CampGeo['source'] }>;
@@ -218,7 +253,8 @@ interface SiteCandidates {
 
 /**
  * Geocode each camp's site (cached by query), taking the first candidate whose match is
- * plausible: the card's own site, then a sibling card's, then the provider's known site. Then one
+ * plausible: the card's own site, then the provider's known site (never a sibling card's: Wrestling
+ * Camp has no stated site and must not inherit Burton Street's). Then one
  * 1xN driving matrix from Pack Square.
  */
 async function addGeo(out: PilotImport, sites: Map<string, SiteCandidates>): Promise<void> {
@@ -262,7 +298,9 @@ async function addGeo(out: PilotImport, sites: Map<string, SiteCandidates>): Pro
     const hit = cache[text]!;
     const drive = minutesByQuery.get(text) ?? null;
     const overnight = sites.get(campKey)!.overnight;
-    const radius = drive === null ? null : checkRadius(drive, overnight);
+    // A town centroid can't decide D3 inclusion or feed the stored drive time; it stays unknown.
+    const siteLevel = ['address', 'street', 'venue'].includes(hit.layer);
+    const radius = drive === null || !siteLevel ? null : checkRadius(drive, overnight);
     out.geo[campKey] = {
       query: text,
       source,
@@ -278,7 +316,7 @@ async function addGeo(out: PilotImport, sites: Map<string, SiteCandidates>): Pro
       nearCutoff: radius?.nearCutoff ?? false,
     };
     for (const season of out.seasons) {
-      if (season.campKey === campKey && drive !== null)
+      if (season.campKey === campKey && drive !== null && siteLevel)
         season.driveSeconds = Math.round(drive * 60);
     }
   }

@@ -162,6 +162,7 @@ export async function extractProvider(
       maxOutputTokens: 40000,
     });
     try {
+      if (result.status !== 'completed') throw new Error(`response status ${result.status}`);
       const extraction = cleanExtraction(JSON.parse(result.text) as Extraction);
       const { text: _text, ...response } = result;
       void _text;

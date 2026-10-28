@@ -5,8 +5,8 @@
     "urls": ["https://www.theleaf.org/camps"],
     "covers": ["rising_grade_plus_min_age", "qgiv"]
   },
-  "verifiedAt": "2026-10-28T21:26:19.784Z",
-  "verifyMs": 8,
+  "verifiedAt": "2026-10-28T21:53:07.493Z",
+  "verifyMs": 11,
   "extraction": {
     "provider_name": "LEAF Global Arts",
     "website_url": "https://www.theleaf.org/",
@@ -37,7 +37,7 @@
             "status": "verified",
             "match": "exact",
             "flags": [],
-            "checkedAt": "2026-10-28T21:26:19.776Z",
+            "checkedAt": "2026-10-28T21:53:07.482Z",
             "fetchMethod": "fetch"
           }
         },
@@ -49,10 +49,10 @@
           "quote": "Summer camps are for rising first-graders through age 12; no students under 5; no exceptions.",
           "source_kind": "registration_platform",
           "check": {
-            "status": "verified",
+            "status": "review",
             "match": "exact",
-            "flags": [],
-            "checkedAt": "2026-10-28T21:26:19.776Z",
+            "flags": ["platform_not_linked_from_own_page"],
+            "checkedAt": "2026-10-28T21:53:07.482Z",
             "fetchMethod": "fetch"
           }
         },
@@ -68,7 +68,7 @@
             "status": "verified",
             "match": "exact",
             "flags": [],
-            "checkedAt": "2026-10-28T21:26:19.776Z",
+            "checkedAt": "2026-10-28T21:53:07.482Z",
             "fetchMethod": "fetch"
           }
         },
@@ -80,10 +80,10 @@
           "quote": "Camp Hours: Monday-Thursday 9am-3pm Friday 9am-NOON",
           "source_kind": "registration_platform",
           "check": {
-            "status": "verified",
+            "status": "review",
             "match": "exact",
-            "flags": [],
-            "checkedAt": "2026-10-28T21:26:19.776Z",
+            "flags": ["platform_not_linked_from_own_page"],
+            "checkedAt": "2026-10-28T21:53:07.482Z",
             "fetchMethod": "fetch"
           }
         },
@@ -96,10 +96,10 @@
           "quote": "Drop off is between 8:30am and 9am and pick up is promptly at 3pm for camp and no later than 5pm for extended day.",
           "source_kind": "registration_platform",
           "check": {
-            "status": "verified",
+            "status": "review",
             "match": "exact",
-            "flags": [],
-            "checkedAt": "2026-10-28T21:26:19.776Z",
+            "flags": ["platform_not_linked_from_own_page"],
+            "checkedAt": "2026-10-28T21:53:07.482Z",
             "fetchMethod": "fetch"
           }
         },
@@ -116,7 +116,7 @@
               "status": "verified",
               "match": "exact",
               "flags": [],
-              "checkedAt": "2026-10-28T21:26:19.776Z",
+              "checkedAt": "2026-10-28T21:53:07.482Z",
               "fetchMethod": "fetch"
             }
           },
@@ -132,7 +132,7 @@
               "status": "verified",
               "match": "exact",
               "flags": [],
-              "checkedAt": "2026-10-28T21:26:19.776Z",
+              "checkedAt": "2026-10-28T21:53:07.482Z",
               "fetchMethod": "fetch"
             }
           }
@@ -152,7 +152,7 @@
               "status": "verified",
               "match": "exact",
               "flags": [],
-              "checkedAt": "2026-10-28T21:26:19.776Z",
+              "checkedAt": "2026-10-28T21:53:07.482Z",
               "fetchMethod": "fetch"
             }
           }
@@ -168,7 +168,7 @@
             "status": "verified",
             "match": "exact",
             "flags": [],
-            "checkedAt": "2026-10-28T21:26:19.776Z",
+            "checkedAt": "2026-10-28T21:53:07.482Z",
             "fetchMethod": "fetch"
           }
         },
@@ -184,7 +184,7 @@
             "status": "verified",
             "match": "exact",
             "flags": [],
-            "checkedAt": "2026-10-28T21:26:19.776Z",
+            "checkedAt": "2026-10-28T21:53:07.482Z",
             "fetchMethod": "fetch"
           }
         },
@@ -198,10 +198,10 @@
           "quote": "Registration has ended",
           "source_kind": "registration_platform",
           "check": {
-            "status": "verified",
+            "status": "review",
             "match": "exact",
-            "flags": [],
-            "checkedAt": "2026-10-28T21:26:19.776Z",
+            "flags": ["platform_not_linked_from_own_page"],
+            "checkedAt": "2026-10-28T21:53:07.482Z",
             "fetchMethod": "fetch"
           }
         },
@@ -261,6 +261,7 @@
   },
   "report": {
     "ownDomains": ["theleaf.org"],
+    "platformHosts": ["pci.jotform.com"],
     "byField": {
       "season_dates": {
         "total": 1,
@@ -270,8 +271,8 @@
       },
       "ages": {
         "total": 1,
-        "verified": 1,
-        "review": 0,
+        "verified": 0,
+        "review": 1,
         "dropped": 0
       },
       "grades": {
@@ -282,14 +283,14 @@
       },
       "hours": {
         "total": 1,
-        "verified": 1,
-        "review": 0,
+        "verified": 0,
+        "review": 1,
         "dropped": 0
       },
       "extended_care": {
         "total": 1,
-        "verified": 1,
-        "review": 0,
+        "verified": 0,
+        "review": 1,
         "dropped": 0
       },
       "financial_aid": {
@@ -306,8 +307,8 @@
       },
       "availability": {
         "total": 1,
-        "verified": 1,
-        "review": 0,
+        "verified": 0,
+        "review": 1,
         "dropped": 0
       },
       "prices": {
@@ -325,8 +326,8 @@
     },
     "totals": {
       "total": 11,
-      "verified": 11,
-      "review": 0,
+      "verified": 7,
+      "review": 4,
       "dropped": 0
     },
     "pages": [

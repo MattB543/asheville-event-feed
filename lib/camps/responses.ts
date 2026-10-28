@@ -70,10 +70,6 @@ interface RawResponse {
   error?: { message?: string } | null;
 }
 
-export function isResponsesConfigured(): boolean {
-  return !!process.env.AZURE_OPENAI_API_KEY;
-}
-
 export async function createResponse(request: ResponsesRequest): Promise<ResponsesResult> {
   const apiKey = process.env.AZURE_OPENAI_API_KEY;
   if (!apiKey) throw new Error('AZURE_OPENAI_API_KEY is not set');
@@ -103,6 +99,7 @@ export async function createResponse(request: ResponsesRequest): Promise<Respons
   let lastError = '';
   for (let attempt = 1; attempt <= ATTEMPTS; attempt++) {
     let response: Response;
+    let raw: string;
     try {
       response = await fetch(`${baseUrl}/responses`, {
         method: 'POST',
@@ -110,13 +107,14 @@ export async function createResponse(request: ResponsesRequest): Promise<Respons
         body: JSON.stringify(body),
         signal: AbortSignal.timeout(request.timeoutMs ?? DEFAULT_TIMEOUT_MS),
       });
+      // Reading the body can time out or disconnect too; that's a transport error, so retry.
+      raw = await response.text();
     } catch (error) {
       lastError = error instanceof Error ? error.message : String(error);
       if (attempt < ATTEMPTS) await sleep(5000 * attempt);
       continue;
     }
 
-    const raw = await response.text();
     if (!response.ok) {
       lastError = `HTTP ${response.status}: ${raw.slice(0, 500)}`;
       if (RETRY_STATUSES.has(response.status) && attempt < ATTEMPTS) {

@@ -19,7 +19,15 @@ import {
   type ActivityDetail,
   type ActivityRow,
 } from '@/lib/scrapers/ashevilleparksrec';
-import type { AvailabilityStatus, CampCategory, Check, ExtractedCard, Evidence } from './types';
+import type {
+  AvailabilityStatus,
+  CampCategory,
+  Check,
+  ExtractedCard,
+  Evidence,
+  Milestone,
+} from './types';
+import { timesInQuote } from './verify';
 
 export const WEBTRAC_PROVIDER = 'Asheville Parks & Recreation';
 
@@ -65,7 +73,7 @@ export async function readWebTracCatalog(): Promise<WebTracCatalog> {
  * days). Titles alone miss the Grant and Montford youth camps ("Grant Summer Week 1") and
  * "Venture Bound" / "Nature Nuts" (pilot, 2026-10-28).
  */
-export function isSummerCampRow(row: ActivityRow): boolean {
+function isSummerCampRow(row: ActivityRow): boolean {
   if (!SUMMER_MONTHS.has(row.beginDate.slice(5, 7)) || NOT_A_CAMP.test(row.title)) return false;
   if (/adult|senior/i.test(row.category ?? '')) return false;
   if (/\bcamp\b/i.test(row.title)) return true;
@@ -80,7 +88,7 @@ function programName(row: ActivityRow): string {
 }
 
 /** Rows of one program at one site and age band, weeks in date order. */
-export function groupRows(rows: ActivityRow[]): ActivityRow[][] {
+function groupRows(rows: ActivityRow[]): ActivityRow[][] {
   const groups = new Map<string, ActivityRow[]>();
   for (const row of rows) {
     // Never across summers: a 2027 week must not join (or date) the 2026 card's season.
@@ -188,7 +196,7 @@ export function webTracCards(catalog: WebTracCatalog): ExtractedCard[] {
         : null,
       lunch: null,
       transportation: null,
-      registration_milestones: [],
+      registration_milestones: milestonesFor(first, year, evidence),
       availability: {
         ...evidence(rows.map((row) => row.status).join(', ')),
         status: availabilityOf(rows),
@@ -201,8 +209,43 @@ export function webTracCards(catalog: WebTracCatalog): ExtractedCard[] {
         end: row.endDate,
         year,
       })),
+      platform_ids: { fmid: rows.map((row) => row.fmid) },
     };
   });
+}
+
+/**
+ * The catalog's registration tooltip, when it names a date ("Registration Opens 02/01/2027 9:00
+ * AM"). A relative rule ("30 days before start date") is not a date and is left out until
+ * milestones can hold approximate wording (report §8.2).
+ */
+function milestonesFor(
+  row: ActivityRow,
+  year: number,
+  evidence: (quote: string) => Evidence
+): Milestone[] {
+  const note = row.registrationNote;
+  const date = note?.match(/(\d{1,2})\/(\d{1,2})\/(\d{4})/);
+  if (!note || !date) return [];
+  // Only a time written with am/pm; never one read from an ambiguous number.
+  const time = /\b\d{1,2}(?::\d{2})?\s*[ap]\.?m/i.test(note)
+    ? ([...timesInQuote(note)][0] ?? null)
+    : null;
+  return [
+    {
+      ...evidence(note),
+      year,
+      audience: 'public',
+      kind: 'opens',
+      date: `${date[3]}-${date[1].padStart(2, '0')}-${date[2].padStart(2, '0')}`,
+      time,
+      precision: time ? 'datetime' : 'date',
+      check: {
+        ...deterministicCheck(evidence(note).check!.checkedAt),
+        flags: ['webtrac_parser', 'needs_hand_check'],
+      },
+    },
+  ];
 }
 
 function deterministicCheck(checkedAt: string): Check {
@@ -211,7 +254,6 @@ function deterministicCheck(checkedAt: string): Check {
     match: 'exact',
     flags: ['webtrac_parser'],
     checkedAt,
-    fetchMethod: 'chrome-tls',
   };
 }
 
@@ -239,15 +281,28 @@ function pricesFor(
   return prices;
 }
 
-/** Each week's own status, rolled up. Past weeks read "Unavailable" (registration closed). */
+/** What each WebTrac status says about a week; anything else ("Check Availability") says nothing. */
+const WEEK_STATUS: Record<string, 'open' | 'full' | 'waitlist' | 'closed'> = {
+  available: 'open',
+  open: 'open',
+  'almost full': 'open',
+  full: 'full',
+  waitlist: 'waitlist',
+  'wait list': 'waitlist',
+  unavailable: 'closed', // past weeks: registration over
+  closed: 'closed',
+  cancelled: 'closed',
+  canceled: 'closed',
+};
+
+/** Each week's own status, rolled up; one week we can't read makes the whole card unknown. */
 function availabilityOf(rows: ActivityRow[]): AvailabilityStatus {
-  const statuses = rows.map((row) => row.status.toLowerCase());
-  const isOpen = (status: string) =>
-    status !== 'unavailable' && /available|open|almost full/.test(status);
-  const openWeeks = statuses.filter(isOpen).length;
-  if (openWeeks > 0) return openWeeks === statuses.length ? 'available' : 'mixed';
-  if (statuses.some((status) => /wait/.test(status))) return 'waitlist';
-  if (statuses.every((status) => status === 'full')) return 'full';
+  const weeks = rows.map((row) => WEEK_STATUS[row.status.trim().toLowerCase()]);
+  if (weeks.some((week) => !week)) return 'unknown';
+  const open = weeks.filter((week) => week === 'open').length;
+  if (open > 0) return open === weeks.length ? 'available' : 'mixed';
+  if (weeks.includes('waitlist')) return 'waitlist';
+  if (weeks.every((week) => week === 'full')) return 'full';
   return 'closed';
 }
 

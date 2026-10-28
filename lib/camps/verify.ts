@@ -6,13 +6,14 @@
  *             different year), the page couldn't be fetched (it may be a block, not a fabrication),
  *             or it is a church's Facebook post (plan N9: labeled and checked by hand)
  *   dropped   the quote isn't on the page, or a registration date came from anywhere but the
- *             camp's own site or its registration platform
+ *             camp's own site or its own registration-platform account
  *
- * Every registration milestone also carries `needs_hand_check` until a person has looked (N15).
+ * Every registration milestone also carries `needs_hand_check`: it is shown as settled only after a
+ * person has looked (N15), whatever its status here.
  */
 
 import { FetchPageError, type PageText, type PageTextFetcher } from './fetchPageText';
-import { hostOf, isSocialUrl, platformOf, registrableDomain } from './platforms';
+import { isSocialUrl, platformOf, platformTenant, registrableDomain } from './platforms';
 import {
   LIST_EVIDENCE_FIELDS,
   SINGLE_EVIDENCE_FIELDS,
@@ -22,6 +23,7 @@ import {
   type ExtractedCard,
   type Extraction,
 } from './types';
+import { isTentativeWording } from './wording';
 
 /** Listing sites: fine for discovery, never an official source (plan §2.1, §6.1). */
 const AGGREGATOR_DOMAINS = new Set([
@@ -74,11 +76,13 @@ export interface FieldTally {
 
 export interface VerifyReport {
   ownDomains: string[];
-  platformHosts?: string[];
+  platformTenants?: string[];
   byField: Record<string, FieldTally>;
   totals: FieldTally;
   pages: Array<{ url: string; ok: boolean; method?: string; kind?: string; error?: string }>;
 }
+
+type PageReader = (url: string) => Promise<PageText | FetchPageError>;
 
 export async function verifyExtraction(
   extraction: Extraction,
@@ -118,7 +122,7 @@ export async function verifyExtraction(
 
   return {
     ownDomains: [...authority.ownDomains].sort(),
-    platformHosts: [...authority.platformHosts].sort(),
+    platformTenants: [...authority.platformTenants].sort(),
     byField,
     totals,
     pages: [...pages.entries()].map(([url, result]) =>
@@ -141,102 +145,139 @@ export function evidenceItems(card: ExtractedCard): Array<{ field: string; evide
   return items;
 }
 
-export interface Authority {
+// ---------------------------------------------------------------------------
+// Authority: which sources speak for the provider
+// ---------------------------------------------------------------------------
+
+interface Authority {
   /** Registrable domains that are the provider's own. */
   ownDomains: Set<string>;
-  /** Registration-platform hosts the provider's own pages link to (a tenant, in effect). */
-  platformHosts: Set<string>;
+  /** Registration-platform accounts (`platformTenant`) the provider's own pages link to. */
+  platformTenants: Set<string>;
+}
+
+type SourceClass = 'own' | 'platform' | 'social' | 'aggregator' | 'unrecognized' | 'bad';
+
+/** A domain that isn't a listing site, a platform or a social network. */
+function siteDomain(url: string): string | null {
+  const domain = registrableDomain(url);
+  return domain && !AGGREGATOR_DOMAINS.has(domain) && !platformOf(url) && !isSocialUrl(url)
+    ? domain
+    : null;
 }
 
 /**
- * Which sources speak for the provider. Anchored in the seed pages (from discovery, not from the
- * model being checked): their domains, where they redirect, and what they link to. A domain the
- * model names counts only when a seed page links to it (Lutheridge's seed links its new
- * novusway.org site). A platform host counts only when an own page links to it, so a quote from
- * some other tenant of the same platform can't set a registration date.
+ * Anchored in the seed pages (from discovery, not from the model being checked): their domains,
+ * where they redirect, and the platform accounts and sites they link to. Only own and platform
+ * seeds extend authority; a listing site's links don't. The one domain the model may add is the
+ * provider website it names, and only when an own seed page links to it (Lutheridge's seed links
+ * its new novusway.org site).
  */
 async function collectAuthority(
   extraction: Extraction,
   seedUrls: string[],
-  page: (url: string) => Promise<PageText | FetchPageError>
+  page: PageReader
 ): Promise<Authority> {
   const ownDomains = new Set<string>();
-  const platformHosts = new Set<string>();
+  const platformTenants = new Set<string>();
   const linkedDomains = new Set<string>();
-  const usable = (url: string) => {
-    const domain = registrableDomain(url);
-    return domain && !AGGREGATOR_DOMAINS.has(domain) && !platformOf(url) && !isSocialUrl(url)
-      ? domain
-      : null;
-  };
 
   for (const url of seedUrls) {
-    if (platformOf(url)) platformHosts.add(hostOf(url) ?? '');
-    const domain = usable(url);
-    if (domain) ownDomains.add(domain);
+    const tenant = platformTenant(url);
+    const domain = siteDomain(url);
+    if (tenant) platformTenants.add(tenant);
+    else if (domain) ownDomains.add(domain);
+    else continue;
+
     const result = await page(url);
     if (result instanceof FetchPageError) continue;
-    const finalDomain = usable(result.finalUrl);
-    if (finalDomain) ownDomains.add(finalDomain);
+    const finalDomain = siteDomain(result.finalUrl);
+    if (finalDomain && domain) ownDomains.add(finalDomain);
     for (const link of result.links) {
-      if (platformOf(link.href)) platformHosts.add(hostOf(link.href) ?? '');
-      const linked = usable(link.href);
+      const linkedTenant = platformTenant(link.href);
+      if (linkedTenant) platformTenants.add(linkedTenant);
+      const linked = siteDomain(link.href);
       if (linked) linkedDomains.add(linked);
     }
   }
 
-  for (const url of [
-    extraction.website_url,
-    ...extraction.cards.map((card) => card.camp_page_url),
-  ]) {
-    const domain = url ? usable(url) : null;
-    if (domain && linkedDomains.has(domain)) ownDomains.add(domain);
-  }
-  platformHosts.delete('');
-  return { ownDomains, platformHosts };
+  const website = extraction.website_url ? siteDomain(extraction.website_url) : null;
+  if (website && linkedDomains.has(website)) ownDomains.add(website);
+  return { ownDomains, platformTenants };
 }
+
+function classify(url: string, authority: Authority): SourceClass {
+  const domain = registrableDomain(url);
+  if (!domain) return 'bad';
+  if (AGGREGATOR_DOMAINS.has(domain)) return 'aggregator';
+  if (isSocialUrl(url)) return 'social';
+  if (platformOf(url)) return 'platform';
+  return authority.ownDomains.has(domain) ? 'own' : 'unrecognized';
+}
+
+/** Flags for a source, and whether a registration date may come from it. */
+function sourceFlags(
+  url: string,
+  authority: Authority,
+  card: ExtractedCard
+): { flags: string[]; officialForRegistration: boolean } {
+  const kind = classify(url, authority);
+  const flags: string[] = [];
+  if (kind === 'aggregator') flags.push('third_party_source');
+  if (kind === 'unrecognized') flags.push('unrecognized_domain');
+  // Ownership of a social page isn't established by anything we can fetch (plan N9).
+  if (kind === 'social') flags.push('social_source_hand_check');
+  const linkedAccount =
+    kind === 'platform' && authority.platformTenants.has(platformTenant(url) ?? '');
+  if (kind === 'platform' && !linkedAccount) flags.push('platform_tenant_not_linked');
+  return {
+    flags,
+    officialForRegistration:
+      kind === 'own' || kind === 'platform' || (kind === 'social' && card.type === 'vbs'),
+  };
+}
+
+// ---------------------------------------------------------------------------
+// One fact
+// ---------------------------------------------------------------------------
 
 async function checkEvidence(
   field: string,
   evidence: Evidence,
   card: ExtractedCard,
   authority: Authority,
-  page: (url: string) => Promise<PageText | FetchPageError>,
+  page: PageReader,
   checkedAt: string
 ): Promise<Check> {
-  const flags: string[] = [];
-  const domain = registrableDomain(evidence.url);
-  const isOwn = !!domain && authority.ownDomains.has(domain);
-  const platform = platformOf(evidence.url);
-  const social = isSocialUrl(evidence.url);
   const isMilestone = field === 'registration_milestones';
-
-  if (!domain) return done('dropped', 'not_checked', ['bad_url']);
-  if (domain && AGGREGATOR_DOMAINS.has(domain)) flags.push('third_party_source');
-  else if (!isOwn && !platform && !social) flags.push('unrecognized_domain');
-  if (platform && !authority.platformHosts.has(hostOf(evidence.url) ?? '')) {
-    flags.push('platform_not_linked_from_own_page');
+  if (classify(evidence.url, authority) === 'bad') {
+    return done('dropped', 'not_checked', ['bad_url']);
   }
-  // Ownership of a social page isn't established by anything we can fetch (plan N9).
-  if (social) flags.push('social_source_hand_check');
 
-  // Registration dates: own site or registration platform; a church's own social post for VBS.
+  const source = sourceFlags(evidence.url, authority, card);
+  const flags = [...source.flags];
   if (isMilestone) {
     flags.push('needs_hand_check');
-    if (social && card.type !== 'vbs') {
-      return done('dropped', 'not_checked', [...flags, 'registration_source_not_official']);
-    }
-    if (!social && !isOwn && !platform) {
+    if (!source.officialForRegistration) {
       return done('dropped', 'not_checked', [...flags, 'registration_source_not_official']);
     }
   }
-
   flags.push(...valueFlags(field, evidence), ...yearFlags(field, evidence));
 
   const result = await page(evidence.url);
   if (result instanceof FetchPageError) {
-    if (social) return done('review', 'hand_check', [...flags, 'social_source_hand_check']);
-    return done('review', 'fetch_failed', [...flags, 'fetch_failed']);
+    return isSocialUrl(evidence.url)
+      ? done('review', 'hand_check', flags)
+      : done('review', 'fetch_failed', [...flags, 'fetch_failed']);
+  }
+
+  // Judge the page we actually read: an own-site link can redirect to a listing site.
+  if (registrableDomain(result.finalUrl) !== registrableDomain(evidence.url)) {
+    const landed = sourceFlags(result.finalUrl, authority, card);
+    flags.push(...landed.flags, 'redirected');
+    if (isMilestone && !landed.officialForRegistration) {
+      return done('dropped', 'not_checked', [...flags, 'registration_source_not_official']);
+    }
   }
 
   const match = findQuote(result.text, evidence.quote);
@@ -246,7 +287,7 @@ async function checkEvidence(
   if (isMilestone) flags.push(...milestoneContextFlags(evidence, result.text));
 
   // A quote with no year in it ("June 22-26") takes its year from the page; a page that never
-  // mentions that year can't be what made it a 2027 fact. A stated weekday that fits the date
+  // mentions that year can't be what made it a 2027 fact. A weekday written next to the date
   // ("June 7-11 Mon - Fri" is only Mon-Fri in 2027) settles the year on its own.
   const weekday = weekdayCheck(field, evidence);
   if (weekday) flags.push(weekday);
@@ -280,20 +321,30 @@ async function checkEvidence(
 // ---------------------------------------------------------------------------
 
 export function normalizeForMatch(text: string): string {
-  return text
-    .normalize('NFKC')
-    .toLowerCase()
-    .replace(/[​-‍﻿­]/g, '')
-    .replace(/[‘’‚‛′`]/g, "'")
-    .replace(/[“”„‟″]/g, '"')
-    .replace(/[‐‑‒–—―−]/g, '-')
-    .replace(/[*_#]/g, '')
-    .replace(/\s+/g, ' ')
-    .trim();
+  return (
+    text
+      .normalize('NFKC')
+      .toLowerCase()
+      // Zero-width characters, incl. the word joiner Lutheridge puts after dashes ("June 13–⁠18")
+      .replace(/[​-‍⁠﻿­]/g, '')
+      .replace(/[‘’‚‛′`]/g, "'")
+      .replace(/[“”„‟″]/g, '"')
+      .replace(/[‐‑‒–—―−]/g, '-')
+      .replace(/[*_#]/g, '')
+      .replace(/\s+/g, ' ')
+      .trim()
+  );
 }
 
+/**
+ * Letters and digits only, for PDF text that lost its spacing. Thousands commas go, but a decimal
+ * point stays, so "$1499" never matches "$14.99".
+ */
 function loose(text: string): string {
-  return normalizeForMatch(text).replace(/[^a-z0-9$]/g, '');
+  return normalizeForMatch(text)
+    .replace(/(\d),(?=\d{3}(?!\d))/g, '$1')
+    .replace(/(\d)\.(?=\d)/g, '$1§')
+    .replace(/[^a-z0-9$§]/g, '');
 }
 
 const MAX_ELLIPSIS_GAP = 400;
@@ -307,12 +358,12 @@ export function findQuote(
   if (wanted.length < 4) return 'not_found';
   if (page.includes(wanted)) return 'exact';
 
+  // Every fragment around an ellipsis must be there, in order and close together.
   const parts = wanted
     .split(/\.{3}|…/)
     .map((part) => part.trim())
-    .filter((part) => part.length >= 8);
+    .filter(Boolean);
   if (parts.length > 1) {
-    // In order and close together: fragments from different sections prove nothing.
     let start = -1;
     let from = 0;
     const inOrder = parts.every((part) => {
@@ -323,6 +374,7 @@ export function findQuote(
       return true;
     });
     if (inOrder && from - start <= wanted.length + MAX_ELLIPSIS_GAP) return 'fragments';
+    return 'not_found';
   }
 
   const looseWanted = loose(quote);
@@ -331,10 +383,8 @@ export function findQuote(
 }
 
 // ---------------------------------------------------------------------------
-// Value and year checks: is the stated value actually in the quote?
+// Value checks: is the stated value actually in the quote?
 // ---------------------------------------------------------------------------
-
-const MONTHS = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
 
 function valueFlags(field: string, evidence: Evidence): string[] {
   const quote = normalizeForMatch(evidence.quote);
@@ -347,7 +397,7 @@ function valueFlags(field: string, evidence: Evidence): string[] {
   };
   const checkTime = (value: unknown, label: string) => {
     if (typeof value !== 'string' || !/^\d{1,2}:\d{2}$/.test(value)) return;
-    if (!timeInQuote(value, quote)) flags.push(`value_not_in_quote:${label}`);
+    if (!timesInQuote(quote).has(value.padStart(5, '0'))) flags.push(`value_not_in_quote:${label}`);
   };
   const checkNumber = (value: unknown, label: string) => {
     if (typeof value !== 'number') return;
@@ -380,69 +430,264 @@ function valueFlags(field: string, evidence: Evidence): string[] {
       checkNumber(record.min, 'min');
       checkNumber(record.max, 'max');
       break;
+    case 'grades':
+      flags.push(...gradeFlags(record as { min: unknown; max: unknown; basis: unknown }, quote));
+      break;
   }
   return flags;
 }
 
-function dateInQuote(date: string, quote: string, monthOnly: boolean): boolean {
-  const [, monthText, dayText] = date.split('-');
-  const month = Number(monthText);
-  const day = Number(dayText);
-  const monthName = MONTHS[month - 1];
-  const hasMonthName = new RegExp(`\\b${monthName}`).test(quote);
-  if (monthOnly) return hasMonthName || new RegExp(`\\b0?${month}/`).test(quote);
+// --- Dates: month, day and year read together, as one expression -----------------------------
 
-  const numeric = new RegExp(`\\b0?${month}[/.-]0?${day}\\b`).test(quote);
-  // Also covers "June 15-19", where the end day appears without its month.
-  const named = hasMonthName && new RegExp(`\\b0?${day}(?:st|nd|rd|th)?\\b`).test(quote);
-  return numeric || named;
+const MONTH_PATTERN =
+  '(jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|june?|july?|aug(?:ust)?|sept?(?:ember)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)\\.?';
+const MONTH_KEYS = [
+  'jan',
+  'feb',
+  'mar',
+  'apr',
+  'may',
+  'jun',
+  'jul',
+  'aug',
+  'sep',
+  'oct',
+  'nov',
+  'dec',
+];
+const DAY = '(\\d{1,2})(?:st|nd|rd|th)?(?![\\d:])';
+const YEAR = '(?:,?\\s*(20\\d{2}))?';
+
+interface DateExpression {
+  month: number;
+  day: number;
+  year: number | null;
+  index: number;
+}
+
+function monthNumber(name: string): number {
+  return MONTH_KEYS.indexOf(name.slice(0, 3)) + 1;
 }
 
 /**
- * Every time of day the quote states, as 24h "HH:MM". "6:00 PM" and "9am" are exact; "8:30-4:30"
- * (no am/pm) could be either half of the day, so both readings count; a bare number ("October 6")
- * is never a time.
+ * Every date the quote writes, with the year written beside it (if any): "October 6, 2026",
+ * "June 15-19" (both days), "June 29 - July 3, 2026" (the year carries back over the dash),
+ * "Wed, 24 Jun, 2026", "06/15/2026".
+ */
+export function dateExpressions(quote: string): DateExpression[] {
+  const found: DateExpression[] = [];
+  const monthFirst = new RegExp(
+    `\\b${MONTH_PATTERN}\\s+${DAY}(?:\\s*(?:-|to|through|thru)\\s*${DAY})?${YEAR}`,
+    'g'
+  );
+  for (const match of quote.matchAll(monthFirst)) {
+    const month = monthNumber(match[1]);
+    const year = match[4] ? Number(match[4]) : null;
+    found.push({ month, day: Number(match[2]), year, index: match.index ?? 0 });
+    if (match[3]) found.push({ month, day: Number(match[3]), year, index: (match.index ?? 0) + 1 });
+  }
+  const dayFirst = new RegExp(`(?<![\\d/])${DAY}\\s+${MONTH_PATTERN}${YEAR}`, 'g');
+  for (const match of quote.matchAll(dayFirst)) {
+    found.push({
+      month: monthNumber(match[2]),
+      day: Number(match[1]),
+      year: match[3] ? Number(match[3]) : null,
+      index: match.index ?? 0,
+    });
+  }
+  for (const match of quote.matchAll(
+    /(?<![\d/])(\d{1,2})\/(\d{1,2})(?:\/(\d{2}|\d{4}))?(?![\d/])/g
+  )) {
+    const year = match[3] ? Number(match[3].length === 2 ? `20${match[3]}` : match[3]) : null;
+    found.push({ month: Number(match[1]), day: Number(match[2]), year, index: match.index ?? 0 });
+  }
+
+  // "June 29 - July 3, 2026": a yearless date just before a dated one, across a dash, shares it.
+  found.sort((a, b) => a.index - b.index);
+  for (let i = found.length - 2; i >= 0; i--) {
+    const next = found[i + 1];
+    const between = quote.slice(found[i].index, next.index);
+    if (
+      found[i].year === null &&
+      next.year !== null &&
+      /-|\bto\b|through/.test(between) &&
+      between.length <= 20
+    ) {
+      found[i].year = next.year;
+    }
+  }
+  return found.filter(
+    (date) => date.month >= 1 && date.month <= 12 && date.day >= 1 && date.day <= 31
+  );
+}
+
+function dateInQuote(date: string, quote: string, monthOnly: boolean): boolean {
+  const [year, month, day] = date.split('-').map(Number);
+  if (monthOnly) {
+    const pattern = new RegExp(`\\b${MONTH_PATTERN}(?:\\s+(20\\d{2}))?`, 'g');
+    return [...quote.matchAll(pattern)].some(
+      (match) => monthNumber(match[1]) === month && (!match[2] || Number(match[2]) === year)
+    );
+  }
+  return dateExpressions(quote).some(
+    (expression) =>
+      expression.month === month &&
+      expression.day === day &&
+      (expression.year === null || expression.year === year)
+  );
+}
+
+// --- Times ------------------------------------------------------------------------------------
+
+const TIME = '(\\d{1,2})(?:[:.](\\d{2}))?\\s*(a\\.?\\s?m\\.?|p\\.?\\s?m\\.?)?';
+
+function to24(hour: number, minute: string, meridiem: string): string {
+  return `${String((hour % 12) + (meridiem === 'p' ? 12 : 0)).padStart(2, '0')}:${minute}`;
+}
+
+/**
+ * Every time of day the quote states, as 24h "HH:MM". Amounts ("$7.00") and bare numbers
+ * ("October 6") are never times. In a range one am/pm covers both ends ("9:00-11:00 AM", and
+ * "11-1 pm" starts at 11 am); a range with no am/pm that runs backwards ("8:30-4:30") is a camp day,
+ * morning to afternoon. A single time with no am/pm could be either, so both readings count.
  */
 export function timesInQuote(quote: string): Set<string> {
   const times = new Set<string>();
-  const pad = (hour: number, minute: string) => `${String(hour).padStart(2, '0')}:${minute}`;
-  if (/\bnoon\b/i.test(quote)) times.add('12:00');
-  if (/\bmidnight\b/i.test(quote)) times.add('00:00');
-  const pattern = /(?<![\d:])(\d{1,2})(?:[:.](\d{2}))?\s*(a\.?\s?m\.?|p\.?\s?m\.?)?(?!\d)/gi;
-  for (const match of quote.matchAll(pattern)) {
+  const text = quote.toLowerCase().replace(/\$\s*\d[\d,]*(?:\.\d+)?/g, ' ');
+  if (/\bnoon\b/.test(text)) times.add('12:00');
+  if (/\bmidnight\b/.test(text)) times.add('00:00');
+  const meridiemOf = (value: string | undefined) => value?.replace(/[^ap]/g, '') || null;
+  const consumed: Array<[number, number]> = [];
+
+  const range = new RegExp(`(?<![\\d:.])${TIME}\\s*(?:-|to|until)\\s*${TIME}(?![\\d])`, 'g');
+  for (const match of text.matchAll(range)) {
+    const [h1, m1, h2, m2] = [Number(match[1]), match[2], Number(match[4]), match[5]];
+    let [mer1, mer2] = [meridiemOf(match[3]), meridiemOf(match[6])];
+    // "15-19" is a date range, not a time range.
+    if (!mer1 && !mer2 && !m1 && !m2) continue;
+    if (h1 > 12 || h2 > 12 || h1 < 1 || h2 < 1) continue;
+    const minutes = (hour: number, minute: string | undefined, mer: string) =>
+      ((hour % 12) + (mer === 'p' ? 12 : 0)) * 60 + Number(minute ?? 0);
+    if (mer2 && !mer1) mer1 = minutes(h1, m1, mer2) > minutes(h2, m2, mer2) ? 'a' : mer2;
+    if (mer1 && !mer2) mer2 = minutes(h2, m2, mer1) < minutes(h1, m1, mer1) ? 'p' : mer1;
+    if (!mer1 && !mer2 && h1 > h2) [mer1, mer2] = ['a', 'p'];
+    if (mer1 && mer2) {
+      times.add(to24(h1, m1 ?? '00', mer1));
+      times.add(to24(h2, m2 ?? '00', mer2));
+      consumed.push([match.index ?? 0, (match.index ?? 0) + match[0].length]);
+    }
+  }
+
+  const single = new RegExp(`(?<![\\d:.])${TIME}(?![\\d])`, 'g');
+  for (const match of text.matchAll(single)) {
+    const at = match.index ?? 0;
+    if (consumed.some(([start, end]) => at >= start && at < end)) continue;
     const hour = Number(match[1]);
     const minute = match[2] ?? '00';
-    const meridiem = match[3]?.toLowerCase().replace(/[^ap]/g, '');
+    const meridiem = meridiemOf(match[3]);
     if (hour > 23 || Number(minute) > 59) continue;
     if (meridiem) {
-      if (hour < 1 || hour > 12) continue;
-      times.add(pad((hour % 12) + (meridiem === 'p' ? 12 : 0), minute));
+      if (hour >= 1 && hour <= 12) times.add(to24(hour, minute, meridiem));
     } else if (match[2]) {
-      times.add(pad(hour, minute));
-      if (hour < 12) times.add(pad(hour + 12, minute));
+      times.add(`${String(hour).padStart(2, '0')}:${minute}`);
+      if (hour < 12) times.add(`${String(hour + 12).padStart(2, '0')}:${minute}`);
     }
   }
   return times;
 }
 
-function timeInQuote(time: string, quote: string): boolean {
-  const [hour, minute] = time.split(':');
-  return timesInQuote(quote).has(`${hour.padStart(2, '0')}:${minute}`);
-}
+// --- Amounts and grades -----------------------------------------------------------------------
 
+/** The whole amount: $300 is not $300.50, and $14.99 is not $1499. */
 function numberInQuote(value: number, quote: string): boolean {
   const digits = quote.replace(/(\d),(\d{3})/g, '$1$2');
   const whole = Number.isInteger(value) ? String(value) : value.toFixed(2);
-  return new RegExp(`(?<![\\d.])${whole.replace('.', '\\.')}(?:\\.00)?(?!\\d)`).test(digits);
+  return new RegExp(`(?<![\\d.])${whole.replace('.', '\\.')}(?:\\.00)?(?!\\d|\\.\\d)`).test(digits);
 }
 
+const GRADE_WORDS: Record<string, number> = {
+  first: 1,
+  second: 2,
+  third: 3,
+  fourth: 4,
+  fifth: 5,
+  sixth: 6,
+  seventh: 7,
+  eighth: 8,
+  ninth: 9,
+  tenth: 10,
+  eleventh: 11,
+  twelfth: 12,
+  freshmen: 9,
+  freshman: 9,
+  sophomores: 10,
+  sophomore: 10,
+  juniors: 11,
+  junior: 11,
+  seniors: 12,
+  senior: 12,
+};
+
+/** Grade numbers the quote names: Pre-K -1, K 0, "3rd", "third", "grades 3-5". */
+function gradesInQuote(quote: string): Set<number> {
+  const grades = new Set<number>();
+  if (/\bpre-?k\b|pre-?kindergarten|preschool/.test(quote)) grades.add(-1);
+  if (/(?<!pre-?)\bk(?:inder(?:garten)?)?\b/.test(quote)) grades.add(0);
+  // No word boundary before the digit: page text runs a name into its grades ("Climb High4th-6th").
+  for (const match of quote.matchAll(/(?<!\d)(\d{1,2})(?:st|nd|rd|th)\b/g))
+    grades.add(Number(match[1]));
+  for (const match of quote.matchAll(
+    /\bgrades?\s+(\d{1,2})(?:\s*(?:-|to|through)\s*(\d{1,2}))?/g
+  )) {
+    grades.add(Number(match[1]));
+    if (match[2]) grades.add(Number(match[2]));
+  }
+  for (const [word, grade] of Object.entries(GRADE_WORDS)) {
+    if (new RegExp(`\\b${word}\\b`).test(quote)) grades.add(grade);
+  }
+  return grades;
+}
+
+const RISING = /\b(rising|entering|going into|will be in)\b/;
+const COMPLETED =
+  /\b(completed|completing|finished|have finished|who've completed|who have completed)\b/;
+
+/** Both grade bounds must be in the quote, and the quote must say rising or completed as stated. */
+function gradeFlags(
+  grades: { min: unknown; max: unknown; basis: unknown },
+  quote: string
+): string[] {
+  const flags: string[] = [];
+  const named = gradesInQuote(quote);
+  if (typeof grades.min === 'number' && !named.has(grades.min))
+    flags.push('value_not_in_quote:grade_min');
+  if (typeof grades.max === 'number' && !named.has(grades.max))
+    flags.push('value_not_in_quote:grade_max');
+  const saysRising = RISING.test(quote);
+  const saysCompleted = COMPLETED.test(quote);
+  if (grades.basis === 'rising' && !saysRising) flags.push('grade_basis_not_in_quote');
+  if (grades.basis === 'completed' && !saysCompleted) flags.push('grade_basis_not_in_quote');
+  if (
+    (saysRising && grades.basis !== 'rising') ||
+    (saysCompleted && grades.basis !== 'completed')
+  ) {
+    flags.push('grade_basis_conflict');
+  }
+  return flags;
+}
+
+// ---------------------------------------------------------------------------
+// Year checks
+// ---------------------------------------------------------------------------
+
 const WEEKDAYS = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
-const WEEKDAY_WINDOW = 16;
+const WEEKDAY_WINDOW = 20;
 
 /**
- * When the quote names weekdays, the fact's first date must fall on one of them. A match is
- * evidence for the year (weekdays shift every year); a mismatch usually means a date moved to the
- * wrong year.
+ * When a weekday is written right next to the fact's first date, that date must fall on it. The
+ * nearest weekday is the one that belongs to the date: in "June 12-16 Mon-Fri" the 12th is a
+ * Monday, so a Friday start is a mismatch. A match is evidence for the year (weekdays shift every
+ * year); a mismatch usually means a date moved to the wrong year.
  */
 function weekdayCheck(field: string, evidence: Evidence): string | null {
   const record = evidence as unknown as Record<string, unknown>;
@@ -455,21 +700,22 @@ function weekdayCheck(field: string, evidence: Evidence): string | null {
   if (typeof date !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(date)) return null;
   if (record.precision === 'month') return null;
 
-  // Only weekdays written next to this date's day number count: "June 7-11 Mon - Fri" yes,
-  // "July 13 - 17 (optional overnight - Thursday evening)" no.
   const quote = normalizeForMatch(evidence.quote);
-  const day = Number(date.slice(8, 10));
-  const dayAt = [...quote.matchAll(new RegExp(`(?<!\\d)0?${day}(?!\\d)`, 'g'))].map(
-    (match) => match.index ?? 0
-  );
-  const named = new Set(
-    [...quote.matchAll(/\b(sun|mon|tue|wed|thu|fri|sat)(?:day|sday|nesday|rsday|urday|rs|s)?\b/g)]
-      .filter((match) => dayAt.some((at) => Math.abs((match.index ?? 0) - at) <= WEEKDAY_WINDOW))
-      .map((match) => match[1])
-  );
-  if (named.size === 0) return null;
-  const weekday = WEEKDAYS[new Date(`${date}T12:00:00Z`).getUTCDay()];
-  return named.has(weekday) ? 'weekday_supports_year' : `weekday_mismatch:${weekday}`;
+  const [, month, day] = date.split('-').map(Number);
+  const expression = dateExpressions(quote).find((e) => e.month === month && e.day === day);
+  if (!expression) return null;
+
+  const weekdays = [
+    ...quote.matchAll(/\b(sun|mon|tue|wed|thu|fri|sat)(?:day|sday|nesday|rsday|urday|rs|s)?\b/g),
+  ].map((match) => ({
+    weekday: match[1],
+    distance: Math.abs((match.index ?? 0) - expression.index),
+  }));
+  const nearest = weekdays.sort((a, b) => a.distance - b.distance)[0];
+  if (!nearest || nearest.distance > WEEKDAY_WINDOW) return null;
+
+  const actual = WEEKDAYS[new Date(`${date}T12:00:00Z`).getUTCDay()];
+  return nearest.weekday === actual ? 'weekday_supports_year' : `weekday_mismatch:${actual}`;
 }
 
 function yearFlags(field: string, evidence: Evidence): string[] {
@@ -500,26 +746,21 @@ function yearFlags(field: string, evidence: Evidence): string[] {
     if (typeof value === 'string' && /^\d{4}-/.test(value)) {
       const year = Number(value.slice(0, 4));
       if (!okYears.has(year)) flags.push(`date_year_${year}_vs_${evidence.year}`);
-      // The calendar year itself, not just one the season allows: "October 6, 2026" can't be
-      // 2027-10-06 even though a 2027 season permits either year (Codex pilot review).
-      if (quoteYears.length > 0 && !quoteYears.includes(year)) {
-        flags.push(`date_year_not_in_quote:${key}`);
-      }
     }
   }
   return flags;
 }
 
 // ---------------------------------------------------------------------------
-// Registration milestones: does the text around the quote support the audience and the action?
-// Heuristic review flags; every milestone is hand-checked before launch anyway (N15).
+// Registration milestones: does the statement around the quote support the audience, the action
+// and a firm date? Heuristic review flags; every milestone is hand-checked anyway (N15).
 // ---------------------------------------------------------------------------
 
 const RESTRICTED_AUDIENCE =
   /\b(returning|current (?:camper )?famil|members?\b|priority|alumni|waitlist|wait list|residents?\b|lottery|early.bird|staff)/;
-// "all returning families" is not an open audience.
+/** Words that describe everyone being allowed to register ("all programs" doesn't). */
 const OPEN_AUDIENCE =
-  /\b(?:(?:all|everyone|anyone|general|public)\b(?! (?:returning|current|members?|priority|level|d\d))|new (?:camper )?famil|all others)/;
+  /\b(?:all (?:new )?(?:camper )?(?:families|campers|children|kids|participants|students|others)|everyone|anyone|general public|open to (?:the )?public|public registration|new (?:camper )?famil\w*)\b/;
 const AUDIENCE_WORDS: Record<string, RegExp> = {
   member: /\bmembers?\b/,
   returning:
@@ -528,17 +769,32 @@ const AUDIENCE_WORDS: Record<string, RegExp> = {
   resident: /\bresidents?\b/,
   early_bird: /\bearly/,
 };
+const OPEN_WORDS =
+  /\b(open|opens|opening|begin|begins|start|starts|available|launch|launches|goes live)\b/;
+const DEADLINE_WORDS =
+  /\b(deadline|due|no later than|closes|closed|last day|(?:register|apply|enroll|sign up) by)\b/;
 const KIND_WORDS: Record<string, RegExp> = {
   opens:
     /\b(open|opens|opening|begin|begins|start|starts|available|launch|register|registration|enroll|sign.up)/,
-  deadline:
-    /\b(deadline|due|no later than|before|closes|closed|last day|(?:register|apply|enroll|sign up) by)\b/,
+  deadline: DEADLINE_WORDS,
   closes: /\b(close|closes|closed|ends|until|last day)\b/,
   lottery_results: /\b(lottery|results|notif|notified|selected)/,
 };
 
-const TENTATIVE_WORDING =
-  /\b(expect|expected|expects|tentative|tentatively|anticipat\w*|plan to|plans to|estimated|approximately|should open|likely|hope to|mid-)/;
+/**
+ * The sentence the quote sits in: from the previous full stop to the next, within reach. A quote
+ * that ends its own sentence takes nothing after it. (Page text is whitespace-normalized, so a
+ * heading runs into the sentence below it: "phase 1 - october 6, 2026 summer 2027 registration
+ * opens ... for all returning camper families", which is the statement we want.)
+ */
+function statementAround(page: string, at: number, length: number): string {
+  const quoted = page.slice(at, at + length);
+  const before = page.slice(Math.max(0, at - 200), at);
+  const start = before.lastIndexOf('. ');
+  const after = /[.!?]$/.test(quoted) ? '' : page.slice(at + length, at + length + 200);
+  const end = after.search(/[.!?](\s|$)/);
+  return `${start >= 0 ? before.slice(start + 2) : before}${quoted}${end >= 0 ? after.slice(0, end + 1) : after}`;
+}
 
 function milestoneContextFlags(evidence: Evidence, pageText: string): string[] {
   const { audience, kind } = evidence as unknown as { audience: string; kind: string };
@@ -550,22 +806,32 @@ function milestoneContextFlags(evidence: Evidence, pageText: string): string[] {
   // A restricted audience is often named once above a list of phase times ("...all returning
   // camper families" then "6:00 PM for D3", "7:00 PM for D2"), so look further up for it.
   const above = at >= 0 ? page.slice(Math.max(0, at - 400), at + quote.length + 200) : quote;
+  const statement = at >= 0 ? statementAround(page, at, quote.length) : quote;
   const flags: string[] = [];
 
   if (audience === 'public') {
-    // A "public" date whose surroundings only talk about a restricted group.
-    if (RESTRICTED_AUDIENCE.test(context) && !OPEN_AUDIENCE.test(context)) {
+    // A "public" date whose own statement only names a restricted group.
+    if (RESTRICTED_AUDIENCE.test(statement) && !OPEN_AUDIENCE.test(statement)) {
       flags.push('audience_context_conflict');
     }
   } else if (AUDIENCE_WORDS[audience] && !AUDIENCE_WORDS[audience].test(above)) {
     flags.push('audience_not_in_context');
   }
-  if (KIND_WORDS[kind] && !KIND_WORDS[kind].test(context)) flags.push('kind_not_in_context');
-  // "Registration is expected to open in mid-December": not a date anyone can set an alarm for.
-  if (TENTATIVE_WORDING.test(quote)) flags.push('tentative_wording');
-  return flags;
-}
 
-export function hostLabel(url: string): string {
-  return hostOf(url) ?? url;
+  if (KIND_WORDS[kind] && !KIND_WORDS[kind].test(context)) flags.push('kind_not_in_context');
+  // The quote itself says the other thing: "Register by June 20" is not an opening.
+  if (kind === 'opens' && DEADLINE_WORDS.test(quote) && !OPEN_WORDS.test(quote)) {
+    flags.push('kind_conflict');
+  }
+  if (
+    (kind === 'deadline' || kind === 'closes') &&
+    OPEN_WORDS.test(quote) &&
+    !DEADLINE_WORDS.test(quote)
+  ) {
+    flags.push('kind_conflict');
+  }
+
+  // "Registration is expected to open on October 6": the qualifier can sit outside the quote.
+  if (isTentativeWording(statement)) flags.push('tentative_wording');
+  return flags;
 }

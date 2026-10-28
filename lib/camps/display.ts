@@ -3,18 +3,29 @@
  * data/camps/pilot/import.json; later the camps tables). Pure functions, no I/O.
  *
  * Every field shows its newest summer: 2027 when posted, else 2026 with a "2026" label (D12).
- * One rule decides what is settled enough to drive a card, a filter or the registration line:
- * `isPublishable` (verified by the checker, or checked by hand). Facts waiting for review appear
- * only on the detail page, marked as such; facts that failed verification never appear.
+ * Two selections per field:
+ *   - `published`: the newest *publishable* fact (verified, or checked by hand). Cards, filters and
+ *     the registration line use only these, so a newer unconfirmed fact never hides an older
+ *     confirmed one, and never reaches a card.
+ *   - `facts`: the newest fact that wasn't dropped, for the detail page, marked "check" when it
+ *     isn't publishable.
+ * Registration milestones need a hand check to be publishable at all (N15).
  */
 
 import { parseAsEastern } from '@/lib/utils/timezone';
-import type { AvailabilityRow, CampRow, MilestoneRow, SeasonRow } from './importRows';
-import { isPublishable, type CheckStatus, type Evidence, type SessionFact } from './types';
+import type { AvailabilityRow, CampRow, MilestoneRow, SeasonFacts, SeasonRow } from './importRows';
+import {
+  isPublishable,
+  isPublishableMilestone,
+  type Check,
+  type Evidence,
+  type SessionFact,
+} from './types';
+import { isTentativeWording } from './wording';
 
 export const TARGET_SEASON = 2027;
 
-export type Fact<T extends Evidence> = T & { status: CheckStatus; publishable: boolean };
+export type Fact<T extends Evidence> = T & { publishable: boolean };
 
 export interface CampGeoView {
   lat: number;
@@ -37,9 +48,29 @@ export interface RegistrationLine {
   sortDate: string | null;
 }
 
+type SingleField = Exclude<keyof SeasonFacts, 'prices' | 'fees' | 'locations' | 'sessions'>;
+type ListField = 'prices' | 'fees' | 'locations';
+type SingleFact<K extends SingleField> = Fact<NonNullable<SeasonFacts[K]>>;
+type ListFact<K extends ListField> = Fact<NonNullable<SeasonFacts[K]>[number]>;
+
+export interface FactSet {
+  dates?: SingleFact<'season_dates'>;
+  ages?: SingleFact<'ages'>;
+  grades?: SingleFact<'grades'>;
+  hours?: SingleFact<'hours'>;
+  extendedCare?: SingleFact<'extended_care'>;
+  prices: Array<ListFact<'prices'>>;
+  fees: Array<ListFact<'fees'>>;
+  locations: Array<ListFact<'locations'>>;
+  financialAid?: SingleFact<'financial_aid'>;
+  specialNeeds?: SingleFact<'special_needs'>;
+  lunch?: SingleFact<'lunch'>;
+  transportation?: SingleFact<'transportation'>;
+  lastYearOpened?: SingleFact<'last_year_registration_opened'>;
+}
+
 export interface CampListing {
   slug: string;
-  campKey: string;
   providerKey: string;
   providerName: string;
   name: string;
@@ -50,37 +81,10 @@ export interface CampListing {
   websiteUrl: string | null;
   campPageUrl: string | null;
   registrationUrl: string | null;
-  platform: string | null;
-  facts: {
-    dates?: Fact<Evidence & { start: string | null; end: string | null }>;
-    ages?: Fact<Evidence & { min: number | null; max: number | null }>;
-    grades?: Fact<Evidence & { min: number | null; max: number | null; basis: string }>;
-    hours?: Fact<Evidence & { start: string | null; end: string | null }>;
-    extendedCare?: Fact<
-      Evidence & {
-        early_dropoff_start: string | null;
-        late_pickup_end: string | null;
-        cost_text: string | null;
-      }
-    >;
-    prices: Array<Fact<Evidence & { amount: number; unit: string; tier: string | null }>>;
-    fees: Array<Fact<Evidence & { amount: number; label: string; per: string }>>;
-    locations: Array<
-      Fact<
-        Evidence & {
-          name: string;
-          address: string | null;
-          town: string | null;
-          state: string | null;
-        }
-      >
-    >;
-    financialAid?: Fact<Evidence & { available: boolean; details: string | null }>;
-    specialNeeds?: Fact<Evidence & { available: boolean; details: string | null }>;
-    lunch?: Fact<Evidence & { available: boolean; details: string | null }>;
-    transportation?: Fact<Evidence & { available: boolean; details: string | null }>;
-    lastYearOpened?: Fact<Evidence & { date: string; time: string | null }>;
-  };
+  /** Newest fact per field that wasn't dropped (detail page). */
+  facts: FactSet;
+  /** Newest publishable fact per field (cards and filters). */
+  published: FactSet;
   availability: AvailabilityRow | null;
   milestones: MilestoneRow[];
   sessions: SessionFact[];
@@ -90,15 +94,13 @@ export interface CampListing {
   providerNotes: string | null;
   registration: RegistrationLine;
   lastChecked: string | null;
-  /** Newest summer any fact is about. */
-  latestYear: number | null;
 }
 
 export interface CampsData {
   generatedAt: string;
   attribution: string;
   providers: Array<{ key: string; notes: string | null }>;
-  camps: CampRow[];
+  camps: Array<CampRow & { hidden?: boolean }>;
   seasons: SeasonRow[];
   milestones: MilestoneRow[];
   availability: AvailabilityRow[];
@@ -106,32 +108,44 @@ export interface CampsData {
   quality: Record<string, { total: number; verified: number; review: number; dropped: number }>;
 }
 
-type SingleKey =
-  | 'season_dates'
-  | 'ages'
-  | 'grades'
-  | 'hours'
-  | 'extended_care'
-  | 'financial_aid'
-  | 'special_needs'
-  | 'lunch'
-  | 'transportation'
-  | 'last_year_registration_opened';
-type ListKey = 'prices' | 'fees' | 'locations';
+const notDropped = (check: Check | undefined) => check?.status !== 'dropped';
 
-const shown = (evidence: Evidence | undefined): evidence is Evidence =>
-  !!evidence && evidence.check?.status !== 'dropped';
-
-function withStatus<T extends Evidence>(evidence: T): Fact<T> {
-  return {
+function factSet(seasons: SeasonRow[], accept: (check: Check | undefined) => boolean): FactSet {
+  const toFact = <T extends Evidence>(evidence: T): Fact<T> => ({
     ...evidence,
-    status: evidence.check?.status ?? 'review',
     publishable: isPublishable(evidence.check),
+  });
+  const single = <K extends SingleField>(key: K): SingleFact<K> | undefined => {
+    for (const season of seasons) {
+      const evidence = season.facts[key] as NonNullable<SeasonFacts[K]> | undefined;
+      if (evidence && accept(evidence.check)) return toFact(evidence);
+    }
+    return undefined;
   };
-}
-
-export function isPublishableMilestone(milestone: MilestoneRow): boolean {
-  return milestone.verifyStatus === 'verified' || !!milestone.handCheckedAt;
+  const list = <K extends ListField>(key: K): Array<ListFact<K>> => {
+    for (const season of seasons) {
+      const items = (
+        (season.facts[key] ?? []) as Array<NonNullable<SeasonFacts[K]>[number]>
+      ).filter((evidence) => accept(evidence.check));
+      if (items.length > 0) return items.map(toFact);
+    }
+    return [];
+  };
+  return {
+    dates: single('season_dates'),
+    ages: single('ages'),
+    grades: single('grades'),
+    hours: single('hours'),
+    extendedCare: single('extended_care'),
+    prices: list('prices'),
+    fees: list('fees'),
+    locations: list('locations'),
+    financialAid: single('financial_aid'),
+    specialNeeds: single('special_needs'),
+    lunch: single('lunch'),
+    transportation: single('transportation'),
+    lastYearOpened: single('last_year_registration_opened'),
+  };
 }
 
 export function buildListings(data: CampsData, now: Date): CampListing[] {
@@ -143,48 +157,15 @@ export function buildListings(data: CampsData, now: Date): CampListing[] {
       const seasons = data.seasons
         .filter((season) => season.campKey === camp.campKey)
         .sort((a, b) => b.seasonYear - a.seasonYear);
-
-      const single = <K extends SingleKey>(key: K) => {
-        for (const season of seasons) {
-          const evidence = season.facts[key];
-          if (shown(evidence)) return withStatus(evidence) as never;
-        }
-        return undefined;
-      };
-      const list = <K extends ListKey>(key: K) => {
-        for (const season of seasons) {
-          const items = (season.facts[key] ?? []).filter(shown);
-          if (items.length > 0) return items.map(withStatus) as never;
-        }
-        return [] as never;
-      };
       const sessionSeason = seasons.find((season) => (season.facts.sessions ?? []).length > 0);
-
       const milestones = data.milestones
-        .filter(
-          (milestone) => milestone.campKey === camp.campKey && milestone.verifyStatus !== 'dropped'
-        )
+        .filter((row) => row.campKey === camp.campKey && row.verifyStatus !== 'dropped')
         .sort((a, b) => a.date.localeCompare(b.date));
       const availability =
         data.availability
           .filter((row) => row.campKey === camp.campKey)
           .sort((a, b) => b.seasonYear - a.seasonYear)[0] ?? null;
-
-      const facts: CampListing['facts'] = {
-        dates: single('season_dates'),
-        ages: single('ages'),
-        grades: single('grades'),
-        hours: single('hours'),
-        extendedCare: single('extended_care'),
-        prices: list('prices'),
-        fees: list('fees'),
-        locations: list('locations'),
-        financialAid: single('financial_aid'),
-        specialNeeds: single('special_needs'),
-        lunch: single('lunch'),
-        transportation: single('transportation'),
-        lastYearOpened: single('last_year_registration_opened'),
-      };
+      const published = factSet(seasons, isPublishable);
 
       const checkedDates = seasons
         .flatMap((season) => Object.values(season.facts).flat())
@@ -194,7 +175,6 @@ export function buildListings(data: CampsData, now: Date): CampListing[] {
 
       return {
         slug: camp.slug,
-        campKey: camp.campKey,
         providerKey: camp.providerKey,
         providerName: camp.providerName,
         name: camp.name,
@@ -205,8 +185,8 @@ export function buildListings(data: CampsData, now: Date): CampListing[] {
         websiteUrl: camp.websiteUrl,
         campPageUrl: camp.campPageUrl,
         registrationUrl: camp.registrationUrl,
-        platform: camp.platform,
-        facts,
+        facts: factSet(seasons, notDropped),
+        published,
         availability,
         milestones,
         sessions: sessionSeason?.facts.sessions ?? [],
@@ -214,9 +194,8 @@ export function buildListings(data: CampsData, now: Date): CampListing[] {
         geo: data.geo[camp.campKey] ?? null,
         quality: data.quality[camp.campKey] ?? { total: 0, verified: 0, review: 0, dropped: 0 },
         providerNotes: notesByProvider.get(camp.providerKey) ?? null,
-        registration: registrationLine(milestones, availability, facts, seasons, now),
+        registration: registrationLine(milestones, availability, published, seasons, now),
         lastChecked: checkedDates.at(-1) ?? null,
-        latestYear: seasons[0]?.seasonYear ?? null,
       };
     });
 }
@@ -225,14 +204,27 @@ export function buildListings(data: CampsData, now: Date): CampListing[] {
 // Registration status (plan §4.3): milestones first, then availability, then what's posted
 // ---------------------------------------------------------------------------
 
-/**
- * "Expected", "tentative": a date the camp hasn't committed to. The extraction schema has no field
- * for this yet (pilot finding; a `certainty` field is on the Nov 5 list), so it is read from the
- * quote.
- */
+export function milestonePublishable(milestone: MilestoneRow): boolean {
+  return isPublishableMilestone({
+    status: milestone.verifyStatus,
+    handCheckedAt: milestone.handCheckedAt ?? undefined,
+  });
+}
+
+/** Said with "expected", "tentative" or "mid-": never a firm date. */
 export function isTentative(milestone: MilestoneRow): boolean {
-  return /\b(expect|expected|expects|tentative|tentatively|anticipat\w*|plan to|plans to|estimated|approximately|should open|likely|hope to)\b/i.test(
-    milestone.quote
+  return milestone.flags.includes('tentative_wording') || isTentativeWording(milestone.quote);
+}
+
+/** Flags that don't make a found quote doubtful on their own. */
+const BENIGN_FLAGS = new Set(['needs_hand_check', 'weekday_supports_year', 'tentative_wording']);
+
+/** The quote is on the page and from an official source; only its certainty is in question. */
+function acceptedButTentative(milestone: MilestoneRow): boolean {
+  return (
+    milestone.verifyStatus !== 'dropped' &&
+    isTentative(milestone) &&
+    milestone.flags.every((flag) => BENIGN_FLAGS.has(flag))
   );
 }
 
@@ -252,31 +244,51 @@ function upcomingUntil(milestone: MilestoneRow): Date {
   return parseAsEastern(next.toISOString().slice(0, 10), '00:00:00');
 }
 
+function availabilityText(status: string): string {
+  return (
+    (
+      {
+        full: 'full',
+        waitlist: 'waitlist only',
+        closed: 'registration closed',
+        available: 'registration open',
+        mixed: 'some sessions full',
+      } as Record<string, string>
+    )[status] ?? status
+  );
+}
+
 function registrationLine(
   allMilestones: MilestoneRow[],
   availability: AvailabilityRow | null,
-  facts: CampListing['facts'],
+  published: FactSet,
   seasons: SeasonRow[],
   now: Date
 ): RegistrationLine {
   const current = allMilestones.filter((milestone) => milestone.seasonYear === TARGET_SEASON);
-  const milestones = current.filter(isPublishableMilestone);
-  const opens = milestones.filter((milestone) => milestone.kind === 'opens');
-  const firm = opens.filter((milestone) => !isTentative(milestone));
-  const upcoming = firm.filter((milestone) => now < upcomingUntil(milestone));
-  const passed = firm.filter((milestone) => now >= upcomingUntil(milestone));
+  const settled = current
+    .filter(milestonePublishable)
+    .filter((milestone) => !isTentative(milestone));
+  const opens = settled.filter((milestone) => milestone.kind === 'opens');
+  const upcoming = opens.filter((milestone) => now < upcomingUntil(milestone));
+  const passed = opens.filter((milestone) => now >= upcomingUntil(milestone));
   const today = now.toISOString().slice(0, 10);
-  // Availability drives the headline only when settled, and a reading about some sessions never
-  // speaks for the whole camp.
   const currentAvailability =
     availability?.seasonYear === TARGET_SEASON &&
-    (availability.verifyStatus === 'verified' || availability.handCheckedAt)
+    isPublishable({
+      status: availability.verifyStatus,
+      match: 'exact',
+      flags: availability.flags,
+      checkedAt: availability.checkedAt,
+      handCheckedAt: availability.handCheckedAt ?? undefined,
+    })
       ? availability
       : null;
-  const scopedFull =
-    !!currentAvailability?.scope && ['full', 'waitlist'].includes(currentAvailability.status);
+  // A reading about some sessions ("Session A: full") never speaks for the whole camp.
+  const campWide = currentAvailability && !currentAvailability.scope ? currentAvailability : null;
+  const scoped = currentAvailability?.scope ? currentAvailability : null;
 
-  const closing = milestones.find(
+  const closing = settled.find(
     (milestone) =>
       (milestone.kind === 'deadline' || milestone.kind === 'closes') &&
       milestone.audience === 'public' &&
@@ -291,18 +303,13 @@ function registrationLine(
     };
   }
 
-  if (
-    currentAvailability &&
-    !scopedFull &&
-    ['full', 'waitlist', 'closed'].includes(currentAvailability.status)
-  ) {
-    const text =
-      currentAvailability.status === 'full'
-        ? '2027: full'
-        : currentAvailability.status === 'waitlist'
-          ? '2027: waitlist only'
-          : '2027 registration closed';
-    return { tone: 'closed', text, detail: currentAvailability.scope, sortDate: null };
+  if (campWide && ['full', 'waitlist', 'closed'].includes(campWide.status)) {
+    return {
+      tone: 'closed',
+      text: `2027: ${availabilityText(campWide.status)}`,
+      detail: null,
+      sortDate: null,
+    };
   }
 
   if (upcoming.length > 0) {
@@ -325,12 +332,7 @@ function registrationLine(
     };
   }
 
-  if (
-    passed.length > 0 ||
-    currentAvailability?.status === 'available' ||
-    currentAvailability?.status === 'mixed' ||
-    scopedFull
-  ) {
+  if (passed.length > 0 || campWide?.status === 'available' || campWide?.status === 'mixed') {
     const last = passed.find((milestone) => milestone.audience === 'public') ?? passed.at(-1);
     // A past opening is history, not proof that registration is still open.
     const opened = last
@@ -338,15 +340,10 @@ function registrationLine(
       : null;
     return {
       tone: 'open',
-      text:
-        currentAvailability?.status === 'mixed' || scopedFull
-          ? '2027 registration open; some sessions full'
-          : currentAvailability?.status === 'available'
-            ? '2027 registration open'
-            : opened!,
+      text: campWide ? `2027 ${availabilityText(campWide.status)}` : opened!,
       detail:
         [
-          currentAvailability && opened ? opened : null,
+          campWide && opened ? opened : null,
           last && last.audience !== 'public' ? `For ${audienceLabel(last.audience)}` : null,
         ]
           .filter(Boolean)
@@ -355,22 +352,30 @@ function registrationLine(
     };
   }
 
-  // An "expected" date is never settled (the checker flags it), but saying it's expected, and not
-  // confirmed, is still the most useful thing to show.
-  const tentative = current.find(
-    (milestone) =>
-      milestone.kind === 'opens' && milestone.verifyStatus !== 'dropped' && isTentative(milestone)
-  );
-  if (tentative) {
+  if (scoped) {
     return {
-      tone: 'tentative',
-      text: `Registration expected ${formatMilestoneWhen(tentative)}`,
-      detail: 'Not confirmed by the camp yet',
-      sortDate: tentative.date,
+      tone: 'unknown',
+      text: `2027: ${scoped.scope}: ${availabilityText(scoped.status)}`,
+      detail: 'Other sessions not stated',
+      sortDate: null,
     };
   }
 
-  if (current.length > milestones.length) {
+  // "Expected mid-December": worth saying, never a firm date, and history once the month is gone.
+  const tentative = current.find(
+    (milestone) => milestone.kind === 'opens' && acceptedButTentative(milestone)
+  );
+  if (tentative) {
+    const live = now < upcomingUntil(tentative);
+    return {
+      tone: live ? 'tentative' : 'unknown',
+      text: `Registration ${live ? 'expected' : 'was expected'} ${formatMilestoneWhen(tentative)}`,
+      detail: live ? 'Not confirmed by the camp yet' : 'Not confirmed; check the camp’s site',
+      sortDate: live ? tentative.date : null,
+    };
+  }
+
+  if (current.length > 0) {
     return {
       tone: 'unknown',
       text: 'Registration date found, not confirmed yet',
@@ -379,10 +384,9 @@ function registrationLine(
     };
   }
 
-  const lastYear =
-    facts.lastYearOpened?.publishable === true
-      ? `Opened ${formatDate(facts.lastYearOpened.date, true)} last year`
-      : null;
+  const lastYear = published.lastYearOpened
+    ? `Opened ${formatDate(published.lastYearOpened.date, true)} last year`
+    : null;
   const posted2027 = seasons.some(
     (season) =>
       season.seasonYear === TARGET_SEASON &&
@@ -569,25 +573,9 @@ function capitalize(text: string): string {
   return text.charAt(0).toUpperCase() + text.slice(1);
 }
 
-/** Does a camp take a kid of this age (during summer 2027)? Null when it states no ages. */
-export function fitsAge(ages: AgeRange | null, age: number): boolean | null {
-  if (!ages || (ages.min === null && ages.max === null)) return null;
-  return (ages.min === null || age >= ages.min) && (ages.max === null || age <= ages.max);
-}
-
-/**
- * Does a camp take a kid entering this grade in fall 2027 ("rising" grade)? Compared only with
- * stated grades, never ages (N11). "Completed 2nd" and "current 2nd" (this school year) are both
- * rising 3rd. Null when the camp states no grades.
- */
-export function fitsGrade(grades: GradeRange | null, risingGrade: number): boolean | null {
-  if (!grades || (grades.min === null && grades.max === null)) return null;
-  const grade =
-    grades.basis === 'completed' || grades.basis === 'current' ? risingGrade - 1 : risingGrade;
-  return (
-    (grades.min === null || grade >= grades.min) && (grades.max === null || grade <= grades.max)
-  );
-}
+// ---------------------------------------------------------------------------
+// Eligibility filters (N11: ages and grades are separate; grades are never converted)
+// ---------------------------------------------------------------------------
 
 export interface AgeRange {
   min: number | null;
@@ -597,11 +585,36 @@ export interface GradeRange extends AgeRange {
   basis: string;
 }
 
+/** Does a camp take a kid of this age (during summer 2027)? Null when it states no ages. */
+export function fitsAge(ages: AgeRange | null, age: number): boolean | null {
+  if (!ages || (ages.min === null && ages.max === null)) return null;
+  return (ages.min === null || age >= ages.min) && (ages.max === null || age <= ages.max);
+}
+
+/**
+ * Does a camp take a kid entering this grade in fall 2027 ("rising" grade)? "Completed 2nd" and
+ * "current 2nd" (this school year) are both rising 3rd. Null when the camp states no grades, or
+ * doesn't say whether its grades are rising or completed: "3rd-9th" alone could be either.
+ */
+export function fitsGrade(grades: GradeRange | null, risingGrade: number): boolean | null {
+  if (!grades || (grades.min === null && grades.max === null)) return null;
+  if (grades.basis !== 'rising' && grades.basis !== 'completed' && grades.basis !== 'current') {
+    return null;
+  }
+  const grade = grades.basis === 'rising' ? risingGrade : risingGrade - 1;
+  return (
+    (grades.min === null || grade >= grades.min) && (grades.max === null || grade <= grades.max)
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Card data for the browser
+// ---------------------------------------------------------------------------
+
 /** A value with the summer it describes, for "2026" labels. */
 export interface Labeled {
   text: string;
   year: number;
-  unconfirmed: boolean;
 }
 
 /** What the directory needs per card: small enough to send to the browser. */
@@ -617,18 +630,18 @@ export interface CampCardData {
   /** Where we placed it when the camp's pages state no site: "Greenville County, SC". */
   approximatePlace: string | null;
   driveMinutes: number | null;
-  driveLimit: number | null;
-  inRadius: boolean | null;
-  eligibility: Labeled | null;
+  /** Grades and ages, each labeled with its own summer. */
+  eligibility: Labeled[];
   ages: AgeRange | null;
   grades: GradeRange | null;
   price: Labeled | null;
   priceMin: number | null;
   dates: Labeled | null;
-  hours: Labeled | null;
+  /** Hours and extended care, each labeled with its own summer. */
+  hours: Labeled[];
   registration: RegistrationLine;
   websiteUrl: string | null;
-  tags: string[];
+  tags: Labeled[];
 }
 
 /** The geocode is a real site (an address, street or named venue), not just the town. */
@@ -636,48 +649,28 @@ export function isSiteLevel(geo: Pick<CampGeoView, 'layer'>): boolean {
   return ['address', 'street', 'venue'].includes(geo.layer);
 }
 
-function labeled(text: string | null, fact: Fact<Evidence> | undefined): Labeled | null {
-  return text && fact ? { text, year: fact.year, unconfirmed: !fact.publishable } : null;
+function labeled(text: string | null | undefined, fact: Evidence | undefined): Labeled | null {
+  return text && fact ? { text, year: fact.year } : null;
 }
 
 export function toCardData(listing: CampListing): CampCardData {
-  const pub = <T extends { publishable: boolean }>(fact: T | undefined): T | undefined =>
-    fact?.publishable ? fact : undefined;
-  const all = listing.facts;
-  const facts = {
-    ...all,
-    dates: pub(all.dates),
-    ages: pub(all.ages),
-    grades: pub(all.grades),
-    hours: pub(all.hours),
-    extendedCare: pub(all.extendedCare),
-    prices: all.prices.filter((price) => price.publishable),
-    locations: all.locations.filter((location) => location.publishable),
-    financialAid: pub(all.financialAid),
-    specialNeeds: pub(all.specialNeeds),
-    lunch: pub(all.lunch),
-    transportation: pub(all.transportation),
-  };
-  const eligibility = [
-    facts.grades ? formatGrades(facts.grades) : null,
-    facts.ages ? formatAges(facts.ages) : null,
-  ]
-    .filter(Boolean)
-    .join(' · ');
+  const facts = listing.published;
   const location = facts.locations[0];
   const hours = facts.hours
     ? [formatTime(facts.hours.start), formatTime(facts.hours.end)].filter(Boolean).join(' – ')
-    : '';
+    : null;
   const care = facts.extendedCare?.late_pickup_end
     ? `care until ${formatTime(facts.extendedCare.late_pickup_end)}`
-    : '';
+    : facts.extendedCare
+      ? 'extended care'
+      : null;
 
-  const tags: string[] = [];
-  if (facts.financialAid?.available) tags.push('Financial aid');
-  if (facts.specialNeeds?.available) tags.push('Special-needs support');
-  if (facts.extendedCare) tags.push('Extended care');
-  if (facts.lunch?.available) tags.push('Lunch included');
-  if (facts.transportation?.available) tags.push('Transportation');
+  const tags = [
+    labeled(facts.financialAid?.available ? 'Financial aid' : null, facts.financialAid),
+    labeled(facts.specialNeeds?.available ? 'Special-needs support' : null, facts.specialNeeds),
+    labeled(facts.lunch?.available ? 'Lunch included' : null, facts.lunch),
+    labeled(facts.transportation?.available ? 'Transportation' : null, facts.transportation),
+  ].filter((tag): tag is Labeled => !!tag);
 
   return {
     slug: listing.slug,
@@ -691,22 +684,19 @@ export function toCardData(listing: CampListing): CampCardData {
     approximatePlace: !location && listing.geo ? listing.geo.label.replace(/, USA$/, '') : null,
     // A town-centroid match says nothing about the drive: the Arboretum came out at 2 minutes.
     driveMinutes: listing.geo && isSiteLevel(listing.geo) ? listing.geo.driveMinutes : null,
-    driveLimit: listing.geo?.limit ?? null,
-    inRadius: listing.geo?.inRadius ?? null,
-    eligibility: labeled(eligibility || null, facts.grades ?? facts.ages),
+    eligibility: [
+      labeled(facts.grades && formatGrades(facts.grades), facts.grades),
+      labeled(facts.ages && formatAges(facts.ages), facts.ages),
+    ].filter((item): item is Labeled => !!item),
     ages: facts.ages ? { min: facts.ages.min, max: facts.ages.max } : null,
     grades: facts.grades
       ? { min: facts.grades.min, max: facts.grades.max, basis: facts.grades.basis }
       : null,
     price: labeled(formatPriceRange(facts.prices), facts.prices[0]),
     priceMin: facts.prices.length ? Math.min(...facts.prices.map((price) => price.amount)) : null,
-    dates: labeled(
-      facts.dates ? formatDateRange(facts.dates.start, facts.dates.end) : null,
-      facts.dates
-    ),
-    hours: labeled(
-      [hours, care].filter(Boolean).join(', ') || null,
-      facts.hours ?? facts.extendedCare
+    dates: labeled(facts.dates && formatDateRange(facts.dates.start, facts.dates.end), facts.dates),
+    hours: [labeled(hours, facts.hours), labeled(care, facts.extendedCare)].filter(
+      (item): item is Labeled => !!item
     ),
     registration: listing.registration,
     websiteUrl: listing.campPageUrl ?? listing.websiteUrl,

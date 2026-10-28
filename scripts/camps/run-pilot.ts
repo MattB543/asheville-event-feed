@@ -83,6 +83,12 @@ async function main() {
         let saved: SavedExtraction;
         if (existsSync(extractionPath) && !force) {
           saved = JSON.parse(await readFile(extractionPath, 'utf8')) as SavedExtraction;
+          // A run saved before the completed-status guard existed must not slip through on resume.
+          if (saved.run.response.status !== 'completed') {
+            throw new Error(
+              `saved extraction has status ${saved.run.response.status}; re-run with --force`
+            );
+          }
         } else if (verifyOnly) {
           console.log(`- ${provider.key}: no extraction saved, skipped (--verify-only)`);
           continue;

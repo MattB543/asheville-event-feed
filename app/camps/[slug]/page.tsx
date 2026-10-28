@@ -45,7 +45,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 interface FactRow {
   label: string;
   value: string;
-  evidence: Evidence & { status: string; publishable: boolean };
+  evidence: Evidence & { publishable: boolean };
 }
 
 function factRows(camp: CampListing): FactRow[] {
@@ -54,7 +54,7 @@ function factRows(camp: CampListing): FactRow[] {
   const add = (
     label: string,
     value: string | null | undefined,
-    evidence: (Evidence & { status: string; publishable: boolean }) | undefined
+    evidence: (Evidence & { publishable: boolean }) | undefined
   ) => {
     if (value && evidence) rows.push({ label, value, evidence });
   };
@@ -267,14 +267,29 @@ export default async function CampPage({ params }: PageProps) {
               </ul>
             )}
             {camp.availability && (
-              <p className="mt-3 text-sm text-gray-600 dark:text-gray-400">
-                Availability ({camp.availability.seasonYear}): {camp.availability.status}
-                {camp.availability.scope ? ` (${camp.availability.scope})` : ''}
-                {camp.availability.seasonYear < 2027 && ' · last summer, not 2027'}
-                {camp.availability.verifyStatus !== 'verified' &&
-                  !camp.availability.handCheckedAt &&
-                  ' · needs a check'}
-              </p>
+              <div className="mt-3 text-sm text-gray-600 dark:text-gray-400">
+                <p>
+                  Availability ({camp.availability.seasonYear}): {camp.availability.status}
+                  {camp.availability.scope ? ` (${camp.availability.scope})` : ''}
+                  {camp.availability.seasonYear < 2027 && ' · last summer, not 2027'}
+                  {camp.availability.verifyStatus !== 'verified' &&
+                    !camp.availability.handCheckedAt &&
+                    ' · needs a check'}
+                </p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">
+                  “{camp.availability.quote}” ·{' '}
+                  <a
+                    href={camp.availability.sourceUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline underline-offset-2"
+                  >
+                    {host(camp.availability.sourceUrl)}
+                  </a>
+                  {camp.availability.checkedAt &&
+                    ` · seen ${formatDate(camp.availability.checkedAt.slice(0, 10), true)}`}
+                </p>
+              </div>
             )}
           </section>
 
@@ -330,6 +345,19 @@ export default async function CampPage({ params }: PageProps) {
                               ` (${row.evidence.check.flags.join(', ')})`}
                             {row.evidence.check.handCheckedAt &&
                               `; checked by hand: ${row.evidence.check.handCheckNote ?? 'confirmed'}`}
+                          </p>
+                        )}
+                        {row.evidence.check?.handCheckSource && (
+                          <p className="mt-0.5">
+                            Confirmed on{' '}
+                            <a
+                              href={row.evidence.check.handCheckSource}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="underline underline-offset-2"
+                            >
+                              {host(row.evidence.check.handCheckSource)}
+                            </a>
                           </p>
                         )}
                       </details>

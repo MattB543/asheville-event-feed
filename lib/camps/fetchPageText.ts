@@ -97,7 +97,7 @@ export function createPageTextFetcher(options: PageTextFetcherOptions = {}): Pag
   const cacheTtlMs = options.cacheTtlMs ?? DEFAULT_CACHE_TTL_MS;
   const allowBrowser = options.browser ?? true;
   const memory = new Map<string, Promise<PageText>>();
-  let dispatcher: Dispatcher | null = null;
+  let dispatcherPromise: Promise<Dispatcher> | null = null;
   let browserPromise: Promise<Browser> | null = null;
 
   async function read(url: string): Promise<PageText> {
@@ -106,8 +106,17 @@ export function createPageTextFetcher(options: PageTextFetcherOptions = {}): Pag
 
     const started = Date.now();
     const attempts: string[] = [];
-    const finish = async (raw: RawPage, method: FetchMethod): Promise<PageText> => {
-      const page = await toPageText(url, raw, method, started, attempts);
+    const finish = async (raw: RawPage, content: Content, method: FetchMethod) => {
+      const page: PageText = {
+        url,
+        finalUrl: raw.finalUrl,
+        method,
+        status: raw.status,
+        fetchedAt: new Date().toISOString(),
+        ms: Date.now() - started,
+        attempts,
+        ...content,
+      };
       if (cacheTtlMs > 0) await writeCache(url, page);
       return page;
     };
@@ -116,10 +125,10 @@ export function createPageTextFetcher(options: PageTextFetcherOptions = {}): Pag
     let skipChromeTls = false;
     try {
       const raw = await plainFetch(url);
-      const problem = diagnose(raw);
-      if (!problem) return await finish(raw, 'fetch');
-      attempts.push(`fetch: ${problem}`);
-      skipChromeTls = raw.status === 404 || raw.status === 410 || problem.startsWith('thin');
+      const content = await readContent(raw);
+      if (typeof content !== 'string') return await finish(raw, content, 'fetch');
+      attempts.push(`fetch: ${content}`);
+      skipChromeTls = raw.status === 404 || raw.status === 410 || content.startsWith('thin');
     } catch (error) {
       attempts.push(`fetch: ${describe(error)}`);
     }
@@ -127,13 +136,15 @@ export function createPageTextFetcher(options: PageTextFetcherOptions = {}): Pag
     // 2. Chrome TLS fingerprint
     if (!skipChromeTls) {
       try {
-        dispatcher ??= await createChromeDispatcher();
+        // One dispatcher per fetcher, shared by concurrent reads (assigned before the await).
+        dispatcherPromise ??= createChromeDispatcher();
+        const dispatcher = await dispatcherPromise;
         const raw = isPdfUrl(url)
           ? await chromeTlsBytes(url, dispatcher)
           : await chromeTlsHtml(url, dispatcher);
-        const problem = diagnose(raw);
-        if (!problem) return await finish(raw, 'chrome-tls');
-        attempts.push(`chrome-tls: ${problem}`);
+        const content = await readContent(raw);
+        if (typeof content !== 'string') return await finish(raw, content, 'chrome-tls');
+        attempts.push(`chrome-tls: ${content}`);
       } catch (error) {
         attempts.push(`chrome-tls: ${describe(error)}`);
       }
@@ -144,9 +155,9 @@ export function createPageTextFetcher(options: PageTextFetcherOptions = {}): Pag
       try {
         browserPromise ??= launchBrowser();
         const raw = await browserFetch(url, await browserPromise);
-        const problem = diagnose(raw, { acceptThin: true });
-        if (!problem) return await finish(raw, 'browser');
-        attempts.push(`browser: ${problem}`);
+        const content = await readContent(raw, { acceptThin: true });
+        if (typeof content !== 'string') return await finish(raw, content, 'browser');
+        attempts.push(`browser: ${content}`);
       } catch (error) {
         attempts.push(`browser: ${describe(error)}`);
       }
@@ -165,7 +176,8 @@ export function createPageTextFetcher(options: PageTextFetcherOptions = {}): Pag
       return pending;
     },
     async close(): Promise<void> {
-      await dispatcher?.close().catch(() => {});
+      if (dispatcherPromise)
+        await (await dispatcherPromise.catch(() => null))?.close().catch(() => {});
       if (browserPromise) await (await browserPromise.catch(() => null))?.close().catch(() => {});
     },
   };
@@ -245,22 +257,40 @@ async function browserFetch(url: string, browser: Browser): Promise<RawPage> {
     locale: 'en-US',
     timezoneId: 'America/New_York',
   });
+  const download = async (): Promise<RawPage> => {
+    const response = await context.request.get(url, { timeout: BROWSER_NAV_TIMEOUT_MS });
+    return {
+      status: response.status(),
+      finalUrl: response.url(),
+      contentType: response.headers()['content-type'] ?? '',
+      bytes: new Uint8Array(await response.body()),
+    };
+  };
+
   try {
-    if (isPdfUrl(url)) {
-      const response = await context.request.get(url, { timeout: BROWSER_NAV_TIMEOUT_MS });
-      return {
-        status: response.status(),
-        finalUrl: response.url(),
-        contentType: response.headers()['content-type'] ?? '',
-        bytes: new Uint8Array(await response.body()),
-      };
-    }
+    if (isPdfUrl(url)) return await download();
 
     const page = await context.newPage();
-    const response = await page.goto(url, {
-      waitUntil: 'domcontentloaded',
-      timeout: BROWSER_NAV_TIMEOUT_MS,
+    // The status that counts is the last main-document response: a Cloudflare interstitial
+    // answers 403, then the page it clears to answers 200.
+    let lastStatus = 0;
+    page.on('response', (response) => {
+      if (response.request().isNavigationRequest() && response.frame() === page.mainFrame()) {
+        lastStatus = response.status();
+      }
     });
+
+    let response;
+    try {
+      response = await page.goto(url, {
+        waitUntil: 'domcontentloaded',
+        timeout: BROWSER_NAV_TIMEOUT_MS,
+      });
+    } catch (error) {
+      // A PDF without a .pdf URL starts a download instead of a navigation.
+      if (/download/i.test(describe(error))) return await download();
+      throw error;
+    }
     const contentType = response?.headers()['content-type'] ?? '';
     if (/application\/pdf/i.test(contentType) && response) {
       return {
@@ -276,11 +306,11 @@ async function browserFetch(url: string, browser: Browser): Promise<RawPage> {
     if (isChallengeTitle(await page.title())) {
       await page.waitForTimeout(BROWSER_CHALLENGE_WAIT_MS);
     }
-    const status = response?.status() ?? 0;
+    const status = lastStatus || response?.status() || 200;
     return {
-      // Some builders send 404 for pages they then render client-side; diagnose() judges the
+      // Some builders send 404 for pages they then render client-side; readContent() judges the
       // rendered title (soft 404s, challenges) rather than trusting that status.
-      status: isChallengeTitle(await page.title()) ? 403 : status === 404 ? 200 : status || 200,
+      status: isChallengeTitle(await page.title()) ? 403 : status === 404 ? 200 : status,
       finalUrl: page.url(),
       contentType: 'text/html',
       bytes: new TextEncoder().encode(await page.content()),
@@ -294,56 +324,38 @@ async function browserFetch(url: string, browser: Browser): Promise<RawPage> {
 // Judging and converting
 // ---------------------------------------------------------------------------
 
-/** Why a raw response isn't a usable page, or null when it is. */
-function diagnose(raw: RawPage, options: { acceptThin?: boolean } = {}): string | null {
+type Content = Pick<PageText, 'kind' | 'title' | 'text' | 'links'>;
+
+/** The page's text, or why the response isn't a usable page. The one place a page is converted. */
+async function readContent(
+  raw: RawPage,
+  options: { acceptThin?: boolean } = {}
+): Promise<Content | string> {
   if (raw.status !== 200) return `HTTP ${raw.status}`;
-  if (isPdf(raw)) return raw.bytes.length > 0 ? null : 'empty PDF';
+  if (isPdf(raw)) {
+    if (raw.bytes.length === 0) return 'empty PDF';
+    const { extractText, getDocumentProxy } = await import('unpdf');
+    const pdf = await getDocumentProxy(raw.bytes);
+    const { text } = await extractText(pdf, { mergePages: true });
+    return { kind: 'pdf', title: '', text: tidyText(text), links: [] };
+  }
 
   const html = new TextDecoder().decode(raw.bytes);
   const title = html.match(/<title[^>]*>([\s\S]*?)<\/title>/i)?.[1] ?? '';
   if (isChallengeTitle(title)) return `challenge page ("${title.trim()}")`;
   // Builders that render "not found" with a 200 (or a browser that hides the real status).
   if (/\b(?:page not found|404|not found)\b/i.test(title)) return `soft 404 ("${title.trim()}")`;
-  if (!options.acceptThin) {
-    const { text } = htmlToText(html, raw.finalUrl);
-    if (text.length < THIN_TEXT_CHARS) return `thin page (${text.length} chars)`;
+  const content = htmlToText(html, raw.finalUrl);
+  if (!options.acceptThin && content.text.length < THIN_TEXT_CHARS) {
+    return `thin page (${content.text.length} chars)`;
   }
-  return null;
-}
-
-async function toPageText(
-  url: string,
-  raw: RawPage,
-  method: FetchMethod,
-  started: number,
-  attempts: string[]
-): Promise<PageText> {
-  const base = {
-    url,
-    finalUrl: raw.finalUrl,
-    method,
-    status: raw.status,
-    fetchedAt: new Date().toISOString(),
-    ms: Date.now() - started,
-    attempts,
-  };
-
-  if (isPdf(raw)) {
-    const { extractText, getDocumentProxy } = await import('unpdf');
-    const pdf = await getDocumentProxy(raw.bytes);
-    const { text } = await extractText(pdf, { mergePages: true });
-    return { ...base, kind: 'pdf', title: '', text: tidyText(text), links: [] };
-  }
-
-  const html = new TextDecoder().decode(raw.bytes);
-  const { title, text, links } = htmlToText(html, raw.finalUrl);
-  return { ...base, kind: 'html', title, text, links };
+  return { kind: 'html', ...content };
 }
 
 const BLOCK_TAGS =
   'p,div,section,article,header,footer,nav,aside,main,li,ul,ol,table,tr,h1,h2,h3,h4,h5,h6,blockquote,dt,dd,figcaption,form,fieldset';
 
-export function htmlToText(
+function htmlToText(
   html: string,
   baseUrl: string
 ): { title: string; text: string; links: PageLink[] } {

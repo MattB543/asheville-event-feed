@@ -1,23 +1,25 @@
 /**
  * Turn verified cards into rows shaped like the §5 tables (drizzle/0025_camps.sql), keyed by
  * camp_key instead of uuid so the JSON import can be applied (or read by the pilot pages) as is.
+ *
+ * Every fact goes into its season's `facts`, with its check, for audit; the typed filter columns
+ * are built only from publishable facts (verified or hand-checked). Milestones and availability
+ * have their own tables and keep their verification there.
  */
 
 import { cleanTitle } from '@/lib/utils/slugify';
 import { platformOf } from './platforms';
-import { evidenceItems } from './verify';
-import type {
-  Availability,
-  CampLocation,
-  CheckStatus,
-  Evidence,
-  ExtractedCard,
-  Extraction,
-  Milestone,
-  SINGLE_EVIDENCE_FIELDS,
+import {
+  isPublishable,
+  type CheckStatus,
+  type Evidence,
+  type ExtractedCard,
+  type Extraction,
+  type SINGLE_EVIDENCE_FIELDS,
 } from './types';
-import { LIST_EVIDENCE_FIELDS } from './types';
+import { evidenceItems } from './verify';
 
+/** Imports never write `hidden`: that is moderation, and stays in the database. */
 export interface CampRow {
   campKey: string;
   slug: string;
@@ -34,14 +36,17 @@ export interface CampRow {
   platformIds: Record<string, string[]> | null;
   description: string | null;
   discoveredBy: string[];
-  hidden: boolean;
 }
 
+type SeasonField = Exclude<(typeof SINGLE_EVIDENCE_FIELDS)[number], 'availability'>;
+
 /** One summer's facts, every one with its evidence and check (dropped ones kept for audit). */
-export type SeasonFacts = Partial<Record<(typeof SINGLE_EVIDENCE_FIELDS)[number], Evidence>> &
-  Partial<Record<(typeof LIST_EVIDENCE_FIELDS)[number], Evidence[]>> & {
-    sessions?: ExtractedCard['sessions'];
-  };
+export type SeasonFacts = { [K in SeasonField]?: NonNullable<ExtractedCard[K]> } & {
+  prices?: ExtractedCard['prices'];
+  fees?: ExtractedCard['fees'];
+  locations?: ExtractedCard['locations'];
+  sessions?: ExtractedCard['sessions'];
+};
 
 export interface SeasonRow {
   campKey: string;
@@ -67,7 +72,17 @@ export interface SeasonRow {
   facts: SeasonFacts;
 }
 
-export interface MilestoneRow {
+interface VerificationColumns {
+  verifyStatus: CheckStatus;
+  flags: string[];
+  /** When the evidence was last checked against its page: never newer than that check. */
+  checkedAt: string;
+  handCheckedAt: string | null;
+  handCheckedBy: string | null;
+  handCheckSource: string | null;
+}
+
+export interface MilestoneRow extends VerificationColumns {
   campKey: string;
   seasonYear: number;
   audience: string;
@@ -78,26 +93,34 @@ export interface MilestoneRow {
   sourceUrl: string;
   quote: string;
   sourceKind: string;
-  verifyStatus: CheckStatus;
-  flags: string[];
-  handCheckedAt: string | null;
 }
 
-export interface AvailabilityRow {
+export interface AvailabilityRow extends VerificationColumns {
   campKey: string;
   seasonYear: number;
   status: string;
   scope: string | null;
   sourceUrl: string;
   quote: string;
-  observedAt: string;
-  verifyStatus: CheckStatus;
-  flags: string[];
-  handCheckedAt: string | null;
 }
 
 const kept = <T extends Evidence>(evidence: T | null | undefined): evidence is T =>
   !!evidence && evidence.check?.status !== 'dropped';
+
+const publishable = <T extends Evidence>(evidence: T | null | undefined): evidence is T =>
+  !!evidence && isPublishable(evidence.check);
+
+function verificationColumns(evidence: Evidence): VerificationColumns {
+  const check = evidence.check;
+  return {
+    verifyStatus: check?.status ?? 'review',
+    flags: check?.flags ?? [],
+    checkedAt: check?.checkedAt ?? '',
+    handCheckedAt: check?.handCheckedAt ?? null,
+    handCheckedBy: check?.handCheckedBy ?? null,
+    handCheckSource: check?.handCheckSource ?? null,
+  };
+}
 
 export function campKeyFor(providerKey: string, card: ExtractedCard): string {
   return [providerKey, cleanTitle(card.name), card.variant ? cleanTitle(card.variant) : null]
@@ -142,27 +165,31 @@ export function buildCampRow(
     platformIds: platformIdsFor(card),
     description: card.description || null,
     discoveredBy,
-    hidden: false,
   };
 }
 
 /** FMIDs and similar platform identities, kept for refresh (never a merge key on their own). */
 function platformIdsFor(card: ExtractedCard): Record<string, string[]> | null {
-  const urls = [card.camp_page_url, card.registration_url].filter((url): url is string => !!url);
-  const fmid = urls.map((url) => url.match(/FMID=(\d+)/i)?.[1]).filter((id): id is string => !!id);
-  const ryzer = urls
-    .map((url) => url.match(/ryzer\.com\/camp\.cfm\?id=(\d+)/i)?.[1])
-    .filter((id): id is string => !!id);
-  const ids: Record<string, string[]> = {};
-  if (fmid.length) ids.fmid = [...new Set(fmid)];
-  if (ryzer.length) ids.ryzer = [...new Set(ryzer)];
-  return Object.keys(ids).length ? ids : null;
+  const ids: Record<string, Set<string>> = {};
+  const add = (kind: string, id: string | undefined) => {
+    if (id) (ids[kind] ??= new Set()).add(id);
+  };
+  for (const [kind, values] of Object.entries(card.platform_ids ?? {})) {
+    for (const value of values) add(kind, value);
+  }
+  for (const url of [card.camp_page_url, card.registration_url]) {
+    if (!url) continue;
+    add('fmid', url.match(/FMID=(\d+)/i)?.[1]);
+    add('ryzer', url.match(/ryzer\.com\/camp\.cfm\?id=(\d+)/i)?.[1]);
+  }
+  const entries = Object.entries(ids).map(([kind, set]): [string, string[]] => [kind, [...set]]);
+  return entries.length ? Object.fromEntries(entries) : null;
 }
 
-/** One row per summer that has any fact, with typed columns from the kept facts only. */
+/** One row per summer that has any fact, with typed columns from the publishable facts only. */
 export function buildSeasonRows(campKey: string, card: ExtractedCard): SeasonRow[] {
   const byYear = new Map<number, SeasonFacts>();
-  const bucket = (year: number) => {
+  const bucket = (year: number): SeasonFacts => {
     let facts = byYear.get(year);
     if (!facts) {
       facts = {};
@@ -172,9 +199,10 @@ export function buildSeasonRows(campKey: string, card: ExtractedCard): SeasonRow
   };
 
   for (const { field, evidence } of evidenceItems(card)) {
-    if (field === 'registration_milestones') continue; // their own table
+    // Milestones and availability have their own tables.
+    if (field === 'registration_milestones' || field === 'availability') continue;
     const facts = bucket(evidence.year) as Record<string, unknown>;
-    if ((LIST_EVIDENCE_FIELDS as readonly string[]).includes(field)) {
+    if (field === 'prices' || field === 'fees' || field === 'locations') {
       facts[field] = [...((facts[field] as Evidence[] | undefined) ?? []), evidence];
     } else {
       facts[field] = evidence;
@@ -188,36 +216,21 @@ export function buildSeasonRows(campKey: string, card: ExtractedCard): SeasonRow
   return [...byYear.entries()]
     .sort(([a], [b]) => b - a)
     .map(([seasonYear, facts]) => {
-      const dates = kept(facts.season_dates)
-        ? (facts.season_dates as Evidence & { start: string | null; end: string | null })
-        : null;
-      const ages = kept(facts.ages)
-        ? (facts.ages as Evidence & { min: number | null; max: number | null })
-        : null;
-      const grades = kept(facts.grades)
-        ? (facts.grades as Evidence & { min: number | null; max: number | null; basis: string })
-        : null;
-      const hours = kept(facts.hours)
-        ? (facts.hours as Evidence & { start: string | null; end: string | null })
-        : null;
-      const care = kept(facts.extended_care)
-        ? (facts.extended_care as Evidence & {
-            early_dropoff_start: string | null;
-            late_pickup_end: string | null;
-          })
-        : null;
-      const prices = (facts.prices ?? []).filter(kept) as Array<
-        Evidence & { amount: number; unit: string }
-      >;
-      const location = ((facts.locations ?? []).filter(kept) as CampLocation[])[0];
+      const dates = publishable(facts.season_dates) ? facts.season_dates : null;
+      const ages = publishable(facts.ages) ? facts.ages : null;
+      const grades = publishable(facts.grades) ? facts.grades : null;
+      const hours = publishable(facts.hours) ? facts.hours : null;
+      const care = publishable(facts.extended_care) ? facts.extended_care : null;
+      const prices = (facts.prices ?? []).filter(publishable);
+      const location = (facts.locations ?? []).filter(publishable)[0];
       const cheapest = prices.length
         ? prices.reduce((a, b) => (b.amount < a.amount ? b : a))
         : null;
 
       const tags: string[] = [];
       for (const tag of ['financial_aid', 'special_needs', 'lunch', 'transportation'] as const) {
-        const flag = facts[tag] as (Evidence & { available: boolean }) | undefined;
-        if (kept(flag) && flag.available) tags.push(tag);
+        const flag = facts[tag];
+        if (publishable(flag) && flag.available) tags.push(tag);
       }
       if (care?.late_pickup_end || care?.early_dropoff_start) tags.push('aftercare');
 
@@ -252,7 +265,7 @@ export function buildSeasonRows(campKey: string, card: ExtractedCard): SeasonRow
 }
 
 export function buildMilestoneRows(campKey: string, card: ExtractedCard): MilestoneRow[] {
-  return card.registration_milestones.filter(kept).map((milestone: Milestone) => ({
+  return card.registration_milestones.filter(kept).map((milestone) => ({
     campKey,
     seasonYear: milestone.year,
     audience: milestone.audience,
@@ -263,14 +276,12 @@ export function buildMilestoneRows(campKey: string, card: ExtractedCard): Milest
     sourceUrl: milestone.url,
     quote: milestone.quote,
     sourceKind: milestone.source_kind,
-    verifyStatus: milestone.check?.status ?? 'review',
-    flags: milestone.check?.flags ?? [],
-    handCheckedAt: milestone.check?.handCheckedAt ?? null,
+    ...verificationColumns(milestone),
   }));
 }
 
 export function buildAvailabilityRow(campKey: string, card: ExtractedCard): AvailabilityRow | null {
-  const availability: Availability | null = card.availability;
+  const availability = card.availability;
   if (!kept(availability)) return null;
   return {
     campKey,
@@ -279,10 +290,7 @@ export function buildAvailabilityRow(campKey: string, card: ExtractedCard): Avai
     scope: availability.scope,
     sourceUrl: availability.url,
     quote: availability.quote,
-    observedAt: availability.check?.checkedAt ?? new Date().toISOString(),
-    verifyStatus: availability.check?.status ?? 'review',
-    flags: availability.check?.flags ?? [],
-    handCheckedAt: availability.check?.handCheckedAt ?? null,
+    ...verificationColumns(availability),
   };
 }
 

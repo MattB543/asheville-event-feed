@@ -35,7 +35,12 @@ import {
   type MilestoneRow,
   type SeasonRow,
 } from '../../lib/camps/importRows';
-import type { Evidence, ExtractedCard, Extraction } from '../../lib/camps/types';
+import {
+  isPublishable,
+  type Evidence,
+  type ExtractedCard,
+  type Extraction,
+} from '../../lib/camps/types';
 import { evidenceItems } from '../../lib/camps/verify';
 import { WEBTRAC_PROVIDER, webTracCards, type WebTracCatalog } from '../../lib/camps/webtrac';
 import type { SavedVerification } from './run-pilot';
@@ -180,7 +185,7 @@ async function main() {
       out.quality[camp.campKey] = tallyCard(card);
 
       const own = card.locations.filter(
-        (loc) => loc.check?.status !== 'dropped' && (loc.address || loc.town)
+        (loc) => isPublishable(loc.check) && (loc.address || loc.town)
       );
       const providerSite = providerSites.get(provider.key);
       sites.set(camp.campKey, {
@@ -218,7 +223,7 @@ interface HandCheck {
   provider: string;
   field: string;
   match?: Record<string, unknown>;
-  result: 'confirmed' | 'corrected';
+  result: 'confirmed';
   checkedAt: string;
   checkedBy: string;
   source?: string;
@@ -227,9 +232,7 @@ interface HandCheck {
 
 /** Mark the facts a person confirmed (data/camps/pilot/hand-checks.json) so they can be published. */
 function applyHandChecks(providerKey: string, cards: ExtractedCard[], checks: HandCheck[]): void {
-  for (const handCheck of checks.filter(
-    (c) => c.provider === providerKey && c.result === 'confirmed'
-  )) {
+  for (const handCheck of checks.filter((c) => c.provider === providerKey)) {
     for (const card of cards) {
       for (const { field, evidence } of evidenceItems(card)) {
         if (field !== handCheck.field || !evidence.check) continue;
@@ -241,6 +244,10 @@ function applyHandChecks(providerKey: string, cards: ExtractedCard[], checks: Ha
         evidence.check.handCheckedAt = handCheck.checkedAt;
         evidence.check.handCheckedBy = handCheck.checkedBy;
         evidence.check.handCheckNote = handCheck.note;
+        // Reynolds' dates were confirmed on the church's own Facebook event, not the listing cited.
+        if (handCheck.source && handCheck.source !== evidence.url) {
+          evidence.check.handCheckSource = handCheck.source;
+        }
       }
     }
   }
@@ -290,7 +297,9 @@ async function addGeo(out: PilotImport, sites: Map<string, SiteCandidates>): Pro
   writeFileSync(GEOCODE_CACHE, JSON.stringify(cache, null, 2) + '\n');
   for (const line of rejected) console.warn(`Rejected implausible geocode: ${line}`);
 
-  const points = [...new Set([...chosen.values()].map(({ text }) => text))];
+  // Only site-level matches are routed: a town centroid's drive time means nothing.
+  const isSite = (text: string) => ['address', 'street', 'venue'].includes(cache[text]!.layer);
+  const points = [...new Set([...chosen.values()].map(({ text }) => text))].filter(isSite);
   const minutes = await driveMinutesFromDowntown(points.map((text) => cache[text]!));
   const minutesByQuery = new Map(points.map((text, index) => [text, minutes[index]]));
 
@@ -298,9 +307,8 @@ async function addGeo(out: PilotImport, sites: Map<string, SiteCandidates>): Pro
     const hit = cache[text]!;
     const drive = minutesByQuery.get(text) ?? null;
     const overnight = sites.get(campKey)!.overnight;
-    // A town centroid can't decide D3 inclusion or feed the stored drive time; it stays unknown.
-    const siteLevel = ['address', 'street', 'venue'].includes(hit.layer);
-    const radius = drive === null || !siteLevel ? null : checkRadius(drive, overnight);
+    // A town centroid can't decide D3 inclusion or give a drive time; both stay unknown.
+    const radius = drive === null ? null : checkRadius(drive, overnight);
     out.geo[campKey] = {
       query: text,
       source,
@@ -316,7 +324,7 @@ async function addGeo(out: PilotImport, sites: Map<string, SiteCandidates>): Pro
       nearCutoff: radius?.nearCutoff ?? false,
     };
     for (const season of out.seasons) {
-      if (season.campKey === campKey && drive !== null && siteLevel)
+      if (season.campKey === campKey && drive !== null)
         season.driveSeconds = Math.round(drive * 60);
     }
   }

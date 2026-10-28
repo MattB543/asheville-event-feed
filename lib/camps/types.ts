@@ -174,6 +174,8 @@ export interface ExtractedCard {
   availability: Availability | null;
   last_year_registration_opened: LastYearOpening | null;
   sessions: SessionFact[];
+  /** Platform identities the card was read from (WebTrac FMIDs). Not asked of the model. */
+  platform_ids?: Record<string, string[]>;
 }
 
 export interface Extraction {
@@ -198,7 +200,6 @@ export const SINGLE_EVIDENCE_FIELDS = [
   'availability',
   'last_year_registration_opened',
 ] as const;
-export type SingleEvidenceField = (typeof SINGLE_EVIDENCE_FIELDS)[number];
 
 /** The fields of a card that hold a list of evidence items. */
 export const LIST_EVIDENCE_FIELDS = [
@@ -207,7 +208,6 @@ export const LIST_EVIDENCE_FIELDS = [
   'locations',
   'registration_milestones',
 ] as const;
-export type ListEvidenceField = (typeof LIST_EVIDENCE_FIELDS)[number];
 
 // ---------------------------------------------------------------------------
 // Verification
@@ -233,12 +233,23 @@ export interface Check {
   handCheckedAt?: string;
   handCheckedBy?: string;
   handCheckNote?: string;
+  /** The official page the hand check was made on, when it isn't the cited one (N9). */
+  handCheckSource?: string;
 }
 
-/** A fact can be shown as settled: the checker verified it, or someone checked it by hand. */
+/**
+ * A fact can be shown as settled: the checker verified it, or someone checked it by hand. A
+ * registration milestone needs the hand check either way (N15): use `isPublishableMilestone`.
+ */
 export function isPublishable(check: Check | undefined): boolean {
   if (!check || check.status === 'dropped') return false;
   return check.status === 'verified' || !!check.handCheckedAt;
+}
+
+export function isPublishableMilestone(
+  check: Pick<Check, 'status' | 'handCheckedAt'> | undefined
+): boolean {
+  return !!check && check.status !== 'dropped' && !!check.handCheckedAt;
 }
 
 // ---------------------------------------------------------------------------

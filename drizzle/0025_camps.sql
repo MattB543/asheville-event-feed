@@ -42,7 +42,7 @@ CREATE INDEX IF NOT EXISTS "camps_provider_idx" ON "camps" USING btree ("provide
 --> statement-breakpoint
 
 CREATE TABLE IF NOT EXISTS "camp_seasons" (
-	"camp_id" uuid NOT NULL REFERENCES "camps"("id") ON DELETE CASCADE,
+	"camp_id" uuid NOT NULL,
 	"season_year" integer NOT NULL,
 	"season_start" date,
 	"season_end" date,
@@ -64,13 +64,14 @@ CREATE TABLE IF NOT EXISTS "camp_seasons" (
 	"tags" text[] DEFAULT '{}' NOT NULL,
 	"facts" jsonb NOT NULL,
 	"updated_at" timestamp with time zone DEFAULT now() NOT NULL,
-	CONSTRAINT "camp_seasons_pk" PRIMARY KEY ("camp_id", "season_year")
+	CONSTRAINT "camp_seasons_pk" PRIMARY KEY ("camp_id", "season_year"),
+	CONSTRAINT "camp_seasons_camp_id_camps_id_fk" FOREIGN KEY ("camp_id") REFERENCES "camps"("id") ON DELETE CASCADE
 );
 --> statement-breakpoint
 
 CREATE TABLE IF NOT EXISTS "camp_registration_milestones" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
-	"camp_id" uuid NOT NULL REFERENCES "camps"("id") ON DELETE CASCADE,
+	"camp_id" uuid NOT NULL,
 	"season_year" integer NOT NULL,
 	"audience" text NOT NULL,
 	"kind" text NOT NULL,
@@ -82,30 +83,42 @@ CREATE TABLE IF NOT EXISTS "camp_registration_milestones" (
 	"quote" text NOT NULL,
 	"source_kind" text NOT NULL,
 	"verify_status" text NOT NULL,
+	-- The checker's flags; checked_at is the last check of the quote against its page
+	"flags" text[] DEFAULT '{}' NOT NULL,
+	"checked_at" timestamp with time zone NOT NULL,
 	"hand_checked_at" timestamp with time zone,
 	"hand_checked_by" text,
+	"hand_check_source" text,
 	"created_at" timestamp with time zone DEFAULT now() NOT NULL,
-	"updated_at" timestamp with time zone DEFAULT now() NOT NULL
+	"updated_at" timestamp with time zone DEFAULT now() NOT NULL,
+	CONSTRAINT "camp_registration_milestones_camp_id_camps_id_fk" FOREIGN KEY ("camp_id") REFERENCES "camps"("id") ON DELETE CASCADE
 );
 --> statement-breakpoint
 CREATE UNIQUE INDEX IF NOT EXISTS "camp_milestones_unique_idx" ON "camp_registration_milestones" ("camp_id", "season_year", "audience", "kind");
 --> statement-breakpoint
 
 CREATE TABLE IF NOT EXISTS "camp_availability" (
-	"camp_id" uuid NOT NULL REFERENCES "camps"("id") ON DELETE CASCADE,
+	"camp_id" uuid NOT NULL,
 	"season_year" integer NOT NULL,
 	"status" text NOT NULL,
 	"scope" text,
 	"source_url" text NOT NULL,
-	"quote" text,
-	"observed_at" timestamp with time zone NOT NULL,
-	CONSTRAINT "camp_availability_pk" PRIMARY KEY ("camp_id", "season_year")
+	"quote" text NOT NULL,
+	-- Shown as current only when verified or hand-checked, like every other fact
+	"verify_status" text NOT NULL,
+	"flags" text[] DEFAULT '{}' NOT NULL,
+	"checked_at" timestamp with time zone NOT NULL,
+	"hand_checked_at" timestamp with time zone,
+	"hand_checked_by" text,
+	"hand_check_source" text,
+	CONSTRAINT "camp_availability_pk" PRIMARY KEY ("camp_id", "season_year"),
+	CONSTRAINT "camp_availability_camp_id_camps_id_fk" FOREIGN KEY ("camp_id") REFERENCES "camps"("id") ON DELETE CASCADE
 );
 --> statement-breakpoint
 
 CREATE TABLE IF NOT EXISTS "camp_observations" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
-	"camp_id" uuid REFERENCES "camps"("id") ON DELETE SET NULL,
+	"camp_id" uuid,
 	"url" text NOT NULL,
 	"kind" text NOT NULL,
 	"ok" boolean NOT NULL,
@@ -113,7 +126,8 @@ CREATE TABLE IF NOT EXISTS "camp_observations" (
 	"text_hash" text,
 	"error" text,
 	"details" jsonb,
-	"observed_at" timestamp with time zone DEFAULT now() NOT NULL
+	"observed_at" timestamp with time zone DEFAULT now() NOT NULL,
+	CONSTRAINT "camp_observations_camp_id_camps_id_fk" FOREIGN KEY ("camp_id") REFERENCES "camps"("id") ON DELETE SET NULL
 );
 --> statement-breakpoint
 CREATE INDEX IF NOT EXISTS "camp_observations_camp_idx" ON "camp_observations" ("camp_id", "observed_at");
@@ -122,10 +136,11 @@ CREATE INDEX IF NOT EXISTS "camp_observations_url_idx" ON "camp_observations" ("
 --> statement-breakpoint
 
 CREATE TABLE IF NOT EXISTS "camp_views" (
-	"camp_id" uuid NOT NULL REFERENCES "camps"("id") ON DELETE CASCADE,
+	"camp_id" uuid NOT NULL,
 	"day" date NOT NULL,
 	"count" integer DEFAULT 0 NOT NULL,
-	CONSTRAINT "camp_views_pk" PRIMARY KEY ("camp_id", "day")
+	CONSTRAINT "camp_views_pk" PRIMARY KEY ("camp_id", "day"),
+	CONSTRAINT "camp_views_camp_id_camps_id_fk" FOREIGN KEY ("camp_id") REFERENCES "camps"("id") ON DELETE CASCADE
 );
 --> statement-breakpoint
 

@@ -919,7 +919,7 @@ export const campSeasons = pgTable(
     updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow().notNull(),
   },
   (table) => ({
-    pk: primaryKey({ columns: [table.campId, table.seasonYear] }),
+    pk: primaryKey({ name: 'camp_seasons_pk', columns: [table.campId, table.seasonYear] }),
   })
 );
 
@@ -943,8 +943,11 @@ export const campRegistrationMilestones = pgTable(
     quote: text('quote').notNull(),
     sourceKind: text('source_kind').notNull(), // 'official_site' | 'registration_platform' | 'official_social'
     verifyStatus: text('verify_status').notNull(), // 'verified' | 'review'
+    flags: text('flags').array().default([]).notNull(), // The checker's flags (lib/camps/verify.ts)
+    checkedAt: timestamp('checked_at', { withTimezone: true }).notNull(), // Last check of the quote
     handCheckedAt: timestamp('hand_checked_at', { withTimezone: true }),
     handCheckedBy: text('hand_checked_by'),
+    handCheckSource: text('hand_check_source'), // The official page it was confirmed on, if not source_url
     createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
     updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow().notNull(),
   },
@@ -970,11 +973,17 @@ export const campAvailability = pgTable(
     status: text('status').notNull(), // 'unknown' | 'available' | 'mixed' | 'waitlist' | 'full' | 'closed'
     scope: text('scope'), // Which sessions it applies to, when not all
     sourceUrl: text('source_url').notNull(),
-    quote: text('quote'),
-    observedAt: timestamp('observed_at', { withTimezone: true }).notNull(),
+    quote: text('quote').notNull(),
+    // Shown as current only when verified or hand-checked, like every other fact
+    verifyStatus: text('verify_status').notNull(),
+    flags: text('flags').array().default([]).notNull(),
+    checkedAt: timestamp('checked_at', { withTimezone: true }).notNull(), // When it was observed
+    handCheckedAt: timestamp('hand_checked_at', { withTimezone: true }),
+    handCheckedBy: text('hand_checked_by'),
+    handCheckSource: text('hand_check_source'),
   },
   (table) => ({
-    pk: primaryKey({ columns: [table.campId, table.seasonYear] }),
+    pk: primaryKey({ name: 'camp_availability_pk', columns: [table.campId, table.seasonYear] }),
   })
 );
 
@@ -1011,6 +1020,6 @@ export const campViews = pgTable(
     count: integer('count').default(0).notNull(),
   },
   (table) => ({
-    pk: primaryKey({ columns: [table.campId, table.day] }),
+    pk: primaryKey({ name: 'camp_views_pk', columns: [table.campId, table.day] }),
   })
 );

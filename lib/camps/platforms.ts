@@ -1,11 +1,11 @@
 /**
  * Registration platforms camps use, by host. Two jobs:
- *   - a registration date may be verified on the camp's own domain or on one of these hosts
- *     (plan §4.3: never on a third-party listing);
+ *   - a registration date may be verified on the camp's own domain or on its own account on one
+ *     of these platforms (plan §4.3: never on a third-party listing);
  *   - a platform host is never a merge key: one host serves many unrelated camps (plan §6.2).
  */
 
-export const REGISTRATION_PLATFORMS: Record<string, RegExp> = {
+const REGISTRATION_PLATFORMS: Record<string, RegExp> = {
   WebTrac: /(?:^|\.)myvscloud\.com$/,
   Jackrabbit: /(?:^|\.)jackrabbitclass\.com$/,
   iClassPro: /(?:^|\.)iclasspro\.com$/,
@@ -38,8 +38,28 @@ export const REGISTRATION_PLATFORMS: Record<string, RegExp> = {
   ChurchCenter: /(?:^|\.)churchcenter\.com$/,
 };
 
+/**
+ * Where one host serves many accounts, the account is in the path or query: a link to one Google
+ * Form or Ryzer event says nothing about another on the same host. Subdomain platforms
+ * (camp.campintouch.com) carry the account in the host.
+ */
+const TENANT_PATTERNS: RegExp[] = [
+  /docs\.google\.com\/forms\/d\/(?:e\/)?([\w-]+)/,
+  /forms\.gle\/([\w-]+)/,
+  /jotform\.com\/(?:form\/)?(\d+)/,
+  /ryzer\.com\/.*[?&]id=(\d+)/,
+  /jackrabbitclass\.com\/.*[?&](?:id|orgid)=(\d+)/i,
+  /qgiv\.com\/for\/([\w-]+)/,
+  /campdoc\.com\/.*[?&]r=([\w-]+)/,
+  /eventbrite\.com\/e\/[\w-]*?(\d{6,})/,
+];
+
 /** Provider-owned social pages: accepted for VBS only, labeled and hand-checked (plan N9). */
-export const SOCIAL_HOSTS = /(?:^|\.)(?:facebook\.com|fb\.me|fb\.com|instagram\.com)$/;
+const SOCIAL_HOSTS = /(?:^|\.)(?:facebook\.com|fb\.me|fb\.com|instagram\.com)$/;
+
+/** Site builders' shared domains: a page there proves nothing about who owns another one. */
+const SHARED_SITE_HOSTS =
+  /(?:^|\.)(?:squarespace\.com|wixsite\.com|myshopify\.com|weebly\.com|wordpress\.com|godaddysites\.com|square\.site)$/;
 
 export function hostOf(url: string): string | null {
   try {
@@ -49,12 +69,15 @@ export function hostOf(url: string): string | null {
   }
 }
 
-/** "camps.ymcawnc.org" -> "ymcawnc.org". Good enough for the domains camps use (no .co.uk). */
+/**
+ * "camps.ymcawnc.org" -> "ymcawnc.org". Good enough for the domains camps use (no .co.uk). On a
+ * site builder's shared domain the whole host is the identity ("foo.wixsite.com").
+ */
 export function registrableDomain(url: string): string | null {
   const host = hostOf(url);
   if (!host) return null;
-  const parts = host.split('.');
-  return parts.slice(-2).join('.');
+  if (SHARED_SITE_HOSTS.test(host)) return host;
+  return host.split('.').slice(-2).join('.');
 }
 
 export function platformOf(url: string): string | null {
@@ -64,6 +87,17 @@ export function platformOf(url: string): string | null {
     if (pattern.test(host)) return name;
   }
   return null;
+}
+
+/** The platform account a URL belongs to: host, plus the account id where the host is shared. */
+export function platformTenant(url: string): string | null {
+  const host = hostOf(url);
+  if (!host || !platformOf(url)) return null;
+  for (const pattern of TENANT_PATTERNS) {
+    const match = url.match(pattern);
+    if (match) return match[1] ? `${host}#${match[1]}` : host;
+  }
+  return host;
 }
 
 /** Distinct platform names among a page's links. */

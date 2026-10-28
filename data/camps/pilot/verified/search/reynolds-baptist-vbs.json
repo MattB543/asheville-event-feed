@@ -7,8 +7,8 @@
     "hint": "Its 2026 VBS (\"Illumination Station\") was posted as a Facebook event, the URL above; AVLGO's feed picked it up from Facebook. Look for the church's own website too.",
     "covers": ["vbs", "facebook_only_date"]
   },
-  "verifiedAt": "2026-10-28T21:53:09.051Z",
-  "verifyMs": 14,
+  "verifiedAt": "2026-10-28T22:24:40.313Z",
+  "verifyMs": 12,
   "extraction": {
     "provider_name": "Reynolds Baptist Church",
     "website_url": "https://www.reynoldsbaptistchurch.org/",
@@ -43,7 +43,7 @@
             "status": "dropped",
             "match": "not_found",
             "flags": ["third_party_source", "quote_not_on_page"],
-            "checkedAt": "2026-10-28T21:53:09.037Z",
+            "checkedAt": "2026-10-28T22:24:40.301Z",
             "fetchMethod": "fetch"
           }
         },
@@ -60,7 +60,7 @@
             "status": "dropped",
             "match": "not_found",
             "flags": ["third_party_source", "quote_not_on_page"],
-            "checkedAt": "2026-10-28T21:53:09.037Z",
+            "checkedAt": "2026-10-28T22:24:40.301Z",
             "fetchMethod": "fetch"
           }
         },
@@ -81,7 +81,7 @@
               "status": "review",
               "match": "exact",
               "flags": ["unrecognized_domain"],
-              "checkedAt": "2026-10-28T21:53:09.037Z",
+              "checkedAt": "2026-10-28T22:24:40.301Z",
               "fetchMethod": "fetch"
             }
           }
@@ -106,7 +106,7 @@
   },
   "report": {
     "ownDomains": [],
-    "platformHosts": [],
+    "platformTenants": [],
     "byField": {
       "season_dates": {
         "total": 1,
@@ -134,12 +134,6 @@
       "dropped": 2
     },
     "pages": [
-      {
-        "url": "https://www.facebook.com/events/1420847309803781/",
-        "ok": true,
-        "method": "browser",
-        "kind": "html"
-      },
       {
         "url": "https://allevents.in/asheville/vbs-illumination-station/200030259061504",
         "ok": true,

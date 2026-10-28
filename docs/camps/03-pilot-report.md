@@ -2,33 +2,36 @@
 
 The pilot from plan §8 (`01-context-and-plan.md`): 20 deliberately varied providers taken end to
 end (extract → verify → store → show) before scaling to several hundred camps. Built and run on
-Oct 28, 2026, ahead of the Nov 4 due date. A Codex review of the pilot ran the same day (§11); its
-verifier and display bugs are fixed here, and its contract changes are on the Nov 5 list (§8).
+Oct 28, 2026, ahead of the Nov 4 due date. A whole-pilot Codex review (§11) and four step-level
+Codex review gates (§12, per Matt's rule in plan §8) ran the same day; their verifier, fetcher,
+schema and display findings are fixed here, and the data-contract changes are on the Nov 5 list
+(§8).
 
 ## 1. Summary
 
 - **The extraction approach works, with one change: give Sol our own fetched page text ("bundle
-  mode") as well as web search.** On the same 20 providers, bundle mode produced **649 facts, 580
-  (89%) verified on the cited page, 69 sent to review, none dropped**. Web search alone produced
+  mode") as well as web search.** On the same 20 providers, bundle mode produced **649 facts, 554
+  (85%) verified on the cited page, 95 sent to review, none dropped**. Web search alone produced
   404 facts with **68 dropped**: the search index quotes pages as they used to be (Lutheridge moved
   to novusway.org; all 66 of its quotes were stale). Bundle mode also found 24 registration
   milestones against search-only's 4, at the same token cost.
 - **"Verified" means the quote is on the page and its date, time, amount and year agree with the
-  fact, not that the fact is right.** The Codex review showed the first verifier passed a wrong
-  calendar year, a time read from a day number, and a relabeled audience; those checks are now in
-  (§4, with offline regressions in `scripts/camps/test-verify.ts`). What no mechanical check
+  fact, not that the fact is right.** The Codex reviews showed the first verifiers passed a wrong
+  calendar year, a time read from a day number or a price, a relabeled audience or action, a
+  shuffled date, an invented fragment, a grade basis and another tenant's platform page; those
+  checks are now in (§4), with 24 offline regressions in `scripts/camps/test-verify.ts`. What no mechanical check
   catches: a quote read slightly wrong (Evergreen's "case-by-case" accommodation became "special
   needs: yes"), and a provider-wide statement copied onto every card. Every registration date I
   checked by hand was right.
 - **Publication now has one gate**: a fact drives a card, a filter or the registration line only
-  when it is verified or hand-checked (`data/camps/pilot/hand-checks.json`). Of the 24 milestones,
-  12 pass: Camp Greenville's 11 (hand-checked) and Mason Plumlee's deadline.
+  when it is verified or hand-checked (`data/camps/pilot/hand-checks.json`), and a registration
+  milestone only when hand-checked (N15). Of the 24 milestones, the 11 at Camp Greenville pass.
 - **The data model needs a second pass before bulk import** (§8): stable camp identity, milestones
   with scope, certainty and separate date and time evidence, a season-publication fact, evidenced
   sessions, and option-scoped hours and prices. Codex's verdict: start discovery Nov 5; hold bulk
   extraction and the DB import until those contracts are fixed.
 - **Geocoding is the weak link.** HeiGIT/ORS (Pelias) placed 48 of 131 camps at an address or
-  street, 70 only at the town centroid, and 13 have no stated site. Town-level drive times are
+  street, 69 only at the town centroid, and 14 have no publishable site. Town-level drive times are
   meaningless (the NC Arboretum came out 2 minutes from downtown) and are no longer shown or used
   for the radius. Per N12 ("Google only if geocodes are poor"), this is the case for a better
   address geocoder plus ORS for routing. **Decision needed.**
@@ -105,19 +108,31 @@ Every fact is re-checked against the page it cites, fetched by our own reader:
   unless a weekday written next to the date fits it ("June 7–11 Mon – Fri" is Mon–Fri only in
   2027). A weekday that doesn't fit → review.
 - **Authority**: the provider's own domains come from the seed pages (discovery), where they
-  redirect and what they link to, never from the model's answer alone; a registration platform
-  counts only when an own page links to that host. Registration dates must come from those (a
-  church's own Facebook post only for VBS, N9). Anything else → dropped.
-- **Registration context**: the text around a milestone's quote must support its audience (a
-  "public" date surrounded only by "returning families" → review) and its kind ("opens" vs
-  "deadline"); "expected / tentative / mid-" wording → review. Every milestone also carries
-  `needs_hand_check` (N15).
+  redirect and what they link to, never from the model's answer alone; listing-site seeds extend
+  nothing, and site builders' shared domains (wixsite, squarespace) never establish ownership. A
+  registration platform counts only for the account an own page links to (a Google Form id, a
+  Ryzer event id, a Qgiv org), not the whole host. The page actually read is judged too: an own
+  link that redirects to a listing site is a listing site. Registration dates must come from own
+  pages or linked accounts (a church's own Facebook post only for VBS, N9). Anything else →
+  dropped.
+- **Dates as expressions**: month, day and the year written beside them are read together
+  ("October 6, 2026"; "June 15-19"; "June 29 - July 3, 2026"), so a date can't be assembled from
+  a month here and a day there. Times are parsed with am/pm, one am/pm covers a range ("9:00-11:00
+  AM"), and amounts like "$7.00" are never times. Amounts must match whole ("$300" is not
+  "$300.50"; loose matching keeps decimal points). Grades must name both bounds, and "rising" or
+  "completed" must be in the quote when the fact claims it.
+- **Registration context**: the sentence around a milestone's quote must support its audience (a
+  "public" date whose sentence names only "returning families" → review) and its kind ("Register
+  by" is not an opening); "expected / tentative / mid-" anywhere in that sentence → review. Every
+  milestone also carries `needs_hand_check` and is shown only after a hand check (N15).
 - A page that can't be fetched → review, never dropped (it may be a block).
 
-Flag counts (bundle mode, final): `year_not_on_page` 31, `value_not_in_quote` 13,
-`tentative_wording` 12 (UNCA), `unrecognized_domain` 7 (Kanuga, no seed URL),
-`platform_not_linked_from_own_page` 4 (LEAF's Qgiv page), `third_party_source` 2 (Reynolds),
-informational: `weekday_supports_year` 21, `needs_hand_check` 24.
+Flag counts (bundle mode, final): `year_not_on_page` 31, `grade_basis_not_in_quote` 20
+(Lutheridge's grade lines don't say "completed"; its page does, elsewhere), `value_not_in_quote`
+13, `tentative_wording` 12 (UNCA), `platform_tenant_not_linked` 10 (Mason Plumlee's 2027 Ryzer
+event isn't the 2026 one the seed links; LEAF's Qgiv form isn't linked from its pages),
+`unrecognized_domain` 7 (Kanuga, no seed URL), `third_party_source` 2 (Reynolds); informational:
+`weekday_supports_year` 21, `needs_hand_check` 24.
 
 What it **can't** catch (seen in the pilot):
 
@@ -158,8 +173,8 @@ is the search-only run.
 | hahns-gymnastics            |       1 |       4 |        2 |      2 |       0 |          0 |          0 |        44s | 30.0k / 1.7k   | 4 / 0                        |
 | kanuga-day-camp             |       1 |       7 |        0 |      7 |       0 |          0 |          0 |        43s | 22.1k / 1.7k   | 7 / 0                        |
 | leaf-global-arts            |       1 |      11 |        7 |      4 |       0 |          0 |          3 |        38s | 18.0k / 1.8k   | 11 / 0                       |
-| lutheridge                  |      23 |      49 |       29 |     20 |       0 |          0 |         49 |       142s | 33.4k / 8.9k   | 68 / 66                      |
-| mason-plumlee-basketball    |       1 |      14 |       14 |      0 |       0 |          1 |         14 |        36s | 20.7k / 1.9k   | 14 / 0                       |
+| lutheridge                  |      23 |      49 |        9 |     40 |       0 |          0 |         49 |       142s | 33.4k / 8.9k   | 68 / 66                      |
+| mason-plumlee-basketball    |       1 |      14 |        8 |      6 |       0 |          1 |         14 |        36s | 20.7k / 1.9k   | 14 / 0                       |
 | nc-arboretum                |      22 |      23 |       23 |      0 |       0 |          0 |          0 |       151s | 34.2k / 8.9k   | 3 / 0                        |
 | ninjaville                  |       1 |       7 |        7 |      0 |       0 |          0 |          0 |        30s | 13.9k / 1.3k   | 0 / 0                        |
 | paca                        |      11 |      33 |       33 |      0 |       0 |          0 |          0 |       118s | 23.7k / 5.8k   | 11 / 0                       |
@@ -167,9 +182,9 @@ is the search-only run.
 | trinity-episcopal-vbs       |       1 |       8 |        8 |      0 |       0 |          0 |          0 |        26s | 15.3k / 1.3k   | 8 / 0                        |
 | unca-precollege             |      12 |      96 |       84 |     12 |       0 |         12 |         12 |       183s | 28.3k / 11.9k  | 74 / 0                       |
 | ymca-wnc                    |      16 |      93 |       93 |      0 |       0 |          0 |          0 |       192s | 31.8k / 12.3k  | 73 / 0                       |
-| **Total**                   | **129** | **649** |  **580** | **69** |   **0** |     **24** |    **138** | **1,696s** | **479k / 98k** | **404 / 68**                 |
+| **Total**                   | **129** | **649** |  **554** | **95** |   **0** |     **24** |    **138** | **1,696s** | **479k / 98k** | **404 / 68**                 |
 
-The search-only totals: 404 facts, 314 verified, 22 review, 68 dropped, 4 milestones.
+The search-only totals: 404 facts, 308 verified, 28 review, 68 dropped, 4 milestones.
 
 The import (`import.json`) has 131 camps: 112 model cards for 18 providers plus 19 WebTrac cards
 for Parks & Rec (the model's 17 Parks & Rec cards are kept only for the cross-check in §7).
@@ -212,10 +227,14 @@ Per camp, what happened and why:
   doesn't link, so they're in review.
 - **Lutheridge**: moved to novusway.org with renamed 2027 programs; 23 cards, one per program
   (separate programs with different grades). Its program pages print dates without a year; the
-  weekday check confirmed 2027 where a weekday was printed next to the date.
+  weekday check confirmed 2027 where a weekday was printed next to the date. Most of its facts are
+  in review: the grade lines ("Climb High 4th–6th grade") don't say "completed", which the page
+  says once, elsewhere; and its year sits outside most quotes.
 - **Mason Plumlee (Ryzer)**: everything from the registration platform, including early-bird price
   deadlines, kept as price tiers. Correctly preferred the camp's own June 21–24, 2027 over a school
   news article's June 21–27. Its "Register By Jun 20, 2027 11:59pm CST" lost the CST (Codex B).
+  Its 2027 facts sit on a new Ryzer event (id 338224) that its seed (the 2026 event, id 309477)
+  doesn't link, so they're in review until checked: Ryzer posts a new event every year.
 - **NC Arboretum**: **over-split**, 22 cards (one per themed week). The page says "2027 dates
   coming soon" and eligibility wasn't in the fetched text. Should be one Discovery Camp card (or one
   per age track) with themes as sessions.
@@ -323,7 +342,8 @@ Prompt and pipeline:
 
 1. **Apply `drizzle/0025_camps.sql` to the live database?** Not done. Recommendation: not yet. Codex
    and the pilot both say the milestone and identity tables change (§8, 1–3), so apply once after
-   those changes.
+   those changes. (The gate fixes already added verification columns to milestones and
+   availability, and named every constraint the way Drizzle does.)
 2. **Geocoding**: Google geocoding (billing account; its terms limit storing results) or hand pins
    for the ~60% (83 of 131) that come back town-level or without a site?
 3. **Card granularity**: YMCA's 16 cards and Lutheridge's 23 follow D5. Keep them as cards grouped

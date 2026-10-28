@@ -9,6 +9,7 @@ import {
   TYPE_LABELS,
   fitsAge,
   fitsGrade,
+  gradeLabel,
   type CampCardData,
   type Labeled,
 } from '@/lib/camps/display';
@@ -29,21 +30,9 @@ const GRADE_OPTIONS = [
   { value: '0', label: 'Kindergarten' },
   ...Array.from({ length: 12 }, (_, i) => ({
     value: String(i + 1),
-    label: `${ordinal(i + 1)} grade`,
+    label: `${gradeLabel(i + 1)} grade`,
   })),
 ];
-
-function ordinal(n: number): string {
-  const suffix =
-    n % 10 === 1 && n !== 11
-      ? 'st'
-      : n % 10 === 2 && n !== 12
-        ? 'nd'
-        : n % 10 === 3 && n !== 13
-          ? 'rd'
-          : 'th';
-  return `${n}${suffix}`;
-}
 
 export default function CampDirectory({ camps }: CampDirectoryProps) {
   const [query, setQuery] = useState('');
@@ -270,7 +259,10 @@ export default function CampDirectory({ camps }: CampDirectoryProps) {
                     ({list.length} {list.length === 1 ? 'camp' : 'camps'})
                   </span>
                 </h2>
-                <ul className="mt-3 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+                <ul
+                  id={`camps-${provider.replace(/\W+/g, '-')}`}
+                  className="mt-3 grid gap-3 md:grid-cols-2 xl:grid-cols-3"
+                >
                   {shown.map((camp) => (
                     <CampCard key={camp.slug} camp={camp} showProvider={false} />
                   ))}
@@ -278,6 +270,8 @@ export default function CampDirectory({ camps }: CampDirectoryProps) {
                 {list.length > PROVIDER_PREVIEW && (
                   <button
                     type="button"
+                    aria-expanded={open}
+                    aria-controls={`camps-${provider.replace(/\W+/g, '-')}`}
                     onClick={() =>
                       setExpanded((current) => {
                         const next = new Set(current);
@@ -350,7 +344,7 @@ const TONE_CLASSES: Record<string, string> = {
     'bg-gray-50 text-gray-700 dark:bg-gray-800/60 dark:text-gray-300 border-gray-200 dark:border-gray-700',
 };
 
-export function YearTag({ value }: { value: Pick<Labeled, 'year' | 'unconfirmed'> }) {
+export function YearTag({ value }: { value: { year: number; unconfirmed?: boolean } }) {
   return (
     <>
       {value.year < TARGET_SEASON && (
@@ -374,10 +368,12 @@ export function YearTag({ value }: { value: Pick<Labeled, 'year' | 'unconfirmed'
 }
 
 function CampCard({ camp, showProvider }: { camp: CampCardData; showProvider: boolean }) {
-  const rows: Array<{ icon: typeof Users; label: string; value: Labeled }> = [];
-  if (camp.eligibility) rows.push({ icon: Users, label: 'Who', value: camp.eligibility });
-  if (camp.dates) rows.push({ icon: CalendarClock, label: 'Dates', value: camp.dates });
-  if (camp.hours) rows.push({ icon: CalendarClock, label: 'Hours', value: camp.hours });
+  // Each part keeps its own summer: 2026 ages beside 2027 grades get their own "2026".
+  const rows: Array<{ icon: typeof Users; label: string; parts: Labeled[] }> = [
+    { icon: Users, label: 'Who', parts: camp.eligibility },
+    { icon: CalendarClock, label: 'Dates', parts: camp.dates ? [camp.dates] : [] },
+    { icon: CalendarClock, label: 'Hours', parts: camp.hours },
+  ].filter((row) => row.parts.length > 0);
 
   const place =
     [camp.town, camp.state && camp.state !== 'NC' ? camp.state : null].filter(Boolean).join(', ') ||
@@ -421,13 +417,18 @@ function CampCard({ camp, showProvider }: { camp: CampCardData; showProvider: bo
         </p>
 
         <dl className="mt-3 space-y-1 text-sm text-gray-700 dark:text-gray-300">
-          {rows.map(({ icon: Icon, label, value }) => (
+          {rows.map(({ icon: Icon, label, parts }) => (
             <div key={label} className="flex items-start gap-2">
               <dt className="sr-only">{label}</dt>
               <Icon size={15} aria-hidden="true" className="mt-0.5 shrink-0 text-gray-400" />
               <dd>
-                {value.text}
-                <YearTag value={value} />
+                {parts.map((part, index) => (
+                  <span key={part.text}>
+                    {index > 0 && ' · '}
+                    {part.text}
+                    <YearTag value={part} />
+                  </span>
+                ))}
               </dd>
             </div>
           ))}
@@ -458,7 +459,15 @@ function CampCard({ camp, showProvider }: { camp: CampCardData; showProvider: bo
         </dl>
 
         {camp.tags.length > 0 && (
-          <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">{camp.tags.join(' · ')}</p>
+          <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
+            {camp.tags.map((tag, index) => (
+              <span key={tag.text}>
+                {index > 0 && ' · '}
+                {tag.text}
+                <YearTag value={tag} />
+              </span>
+            ))}
+          </p>
         )}
       </div>
 

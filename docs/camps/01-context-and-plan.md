@@ -681,6 +681,19 @@ while there's time to change them.
 | Nov 19 - Nov 25 | Release candidate: header "More" menu, seasonal banner + Events-menu item, feed events (identity, Top 30 exclusion, dedupe, non-NC exemption), sitemap, refresh cron. Subscribable calendar if on schedule (§12).                                                                                                          |
 | Nov 26 - Dec 1  | Verification week (Thanksgiving): hand-check every registration milestone, real-browser UX review (mobile, dark mode), Codex review; launch; Robert shares the link in the parent chats.                                                                                                                                   |
 
+**Review gate after every major implementation step (Matt, 2026-10-28).** Each major step (for
+example the fetcher + Responses helper, extraction + verification, the schema/migration, the
+pages, and each scale-up stage) ends with a Codex review (`codex-as-subagent` skill, `gpt-6.1-sol`
+at xhigh, read-only) that checks three things:
+
+1. the step follows this plan, especially §5's revised model and the §3/§12 decisions;
+2. the code is fully correct;
+3. it is as simple and clean as it should be.
+
+Every finding is triaged (adopt, or reject with a reason), the adopted fixes are applied before the
+next step starts, and the gate's outcome is logged in the pilot report
+(`03-pilot-report.md`) or, after the pilot, in that stage's report.
+
 **Phase 2 (Jan - Mar):** session-level rows as camps publish; **week-by-week summer planner**
 (pick each kid's age, see what's open each of the ~10 weeks; the real job for working
 parents); side-by-side compare; same-week "fits both kids".

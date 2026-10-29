@@ -138,3 +138,8 @@ WebTrac read still accepted an HTTP 200 maintenance page as zero rows. Should-fi
 filter toggles could hide each other; availability scopes like "New campers" were suppressed;
 retired program names weren't offered for name reuse; grade 13 was shown as 12th. All fixed in
 the next round; the "before 5 a.m." rule moved to an extraction-time review flag only.
+
+### Gate 5: confirmation (Oct 29) — passes
+
+Reviewed `802370e..94925f2`: every gate-4 item confirmed, no must-fix. One nonblocking label bug
+(a closed registration named the first passed deadline instead of the last) fixed afterwards.

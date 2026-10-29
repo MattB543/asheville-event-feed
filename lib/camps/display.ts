@@ -540,11 +540,12 @@ export function registrationLine(
   const nextEnd = publicDates.find((milestone) => isEnd(milestone) && !past(milestone));
   // Where the public dates passed so far leave registration, in order: an opening opens it, a close
   // closes it, and a deadline closes it only when no later end is ahead (an early-bird deadline
-  // before a final one doesn't). Only an opening reopens it: a later deadline never does.
+  // before a final one doesn't). Only an opening reopens it: a later deadline never does, but it
+  // becomes the date the closure names ("deadline passed Apr 30", not the first one in Feb).
   let closedBy: CampListMilestone | null = null;
   for (const milestone of publicDates.filter(past)) {
     if (milestone.kind === 'opens') closedBy = null;
-    else if (!closedBy && (milestone.kind === 'closes' || !nextEnd)) closedBy = milestone;
+    else if (closedBy || milestone.kind === 'closes' || !nextEnd) closedBy = milestone;
   }
 
   // A card still on 2026 describes 2026's availability, which says nothing about 2027.

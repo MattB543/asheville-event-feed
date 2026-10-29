@@ -523,9 +523,10 @@ const MAX_DETAILS = 3;
  * Jan 10").
  *
  * `earliestOpening` (the directory's cards, Matt's call): the opening that leads is the earliest
- * still ahead for anyone, members and returning campers included, named without its audience
- * ("Registration opens Jan 5, 2027" for a returning-camper date); the sort and the "opens within
- * 14 days" filter go by it too. The camp page keeps the public one and lists each audience's.
+ * still ahead for anyone, members, returning campers and 'other' families (staff, scholarship ...)
+ * included, named without its audience ("Registration opens Jan 5, 2027" for a returning-camper
+ * date); the sort and the "opens within 14 days" filter go by it too. The camp page keeps the
+ * public one and lists each audience's in its own words.
  */
 export function registrationLine(
   card: CampListCard,
@@ -534,10 +535,11 @@ export function registrationLine(
   { earliestOpening = false }: { earliestOpening?: boolean } = {}
 ): RegistrationLine {
   // A date for 'other' families (scholarships, staff ...) needs the camp's wording, which the
-  // directory's cards don't carry: the camp page lists it
-  const current = card.registration
-    .filter((milestone) => milestone.year === TARGET_SEASON && milestone.audience !== 'other')
+  // directory's cards don't carry: the camp page lists it. Only the earliest opening counts it.
+  const season = card.registration
+    .filter((milestone) => milestone.year === TARGET_SEASON)
     .sort(byMilestoneDate);
+  const current = season.filter((milestone) => milestone.audience !== 'other');
   const past = (milestone: CampListMilestone) => now >= upcomingUntil(milestone);
   const isPublic = (milestone: CampListMilestone) => PUBLIC_AUDIENCES.has(milestone.audience);
   const isEnd = (milestone: CampListMilestone) =>
@@ -550,9 +552,11 @@ export function registrationLine(
   const lastOpened = publicDates
     .filter((milestone) => milestone.kind === 'opens' && past(milestone))
     .at(-1);
-  const nextOpen = (earliestOpening ? announced : publicDates).find(
-    (milestone) => milestone.kind === 'opens' && !past(milestone)
-  );
+  const nextOpen = (
+    earliestOpening
+      ? season.filter((milestone) => milestone.certainty === 'announced')
+      : publicDates
+  ).find((milestone) => milestone.kind === 'opens' && !past(milestone));
   const nextEnd = publicDates.find((milestone) => isEnd(milestone) && !past(milestone));
   // Where the public dates passed so far leave registration, in order: an opening opens it, a close
   // closes it, and a deadline closes it only when no later end is ahead (an early-bird deadline
@@ -768,11 +772,15 @@ export function reminderMilestones<M extends CampListMilestone>(
     .sort(byMilestoneDate);
 }
 
-/** A date in a reminder's calendar menu: its own Google Calendar link names it. */
+/**
+ * A date in a reminder's calendar menu: its own Google Calendar link names it by kind, date and
+ * time (the menu's audience is the fourth part).
+ */
 export interface ReminderDate {
   kind: MilestoneKind;
   date: string;
-  /** "Registration opens Jan 10" */
+  time: string | null;
+  /** "Registration opens Jan 10", with its time when another date in the menu shares the day */
   label: string;
 }
 
@@ -782,11 +790,17 @@ export function reminderDates(
   now: Date,
   audience: Audience = 'public'
 ): ReminderDate[] {
-  return reminderMilestones(card, now, audience).map((milestone) => ({
-    kind: milestone.kind,
-    date: milestone.date,
-    label: `${milestoneLabel(milestone)} ${formatDate(milestone.date)}`,
-  }));
+  const milestones = reminderMilestones(card, now, audience);
+  return milestones.map((milestone) => {
+    const time = milestone.precision === 'datetime' ? formatTime(milestone.time) : null;
+    const shared = milestones.filter((other) => other.date === milestone.date).length > 1;
+    return {
+      kind: milestone.kind,
+      date: milestone.date,
+      time: milestone.time,
+      label: `${milestoneLabel(milestone)} ${formatDate(milestone.date)}${shared && time ? `, ${time}` : ''}`,
+    };
+  });
 }
 
 /** The reminder buttons: "Add reminder" for the public dates, one per other audience. */

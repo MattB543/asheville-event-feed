@@ -2,7 +2,8 @@
  * The camp directory as one file a parent can hand to their own AI (ChatGPT, Claude ...): every
  * live camp, as Markdown or JSON, served by /api/camps/export/markdown and /api/camps/export/json.
  * Pure formatting over queryCamps() output. Facts only, quoting the camp where the camp page does;
- * nothing internal (confidence, review notes, hashes, overrides, ids other than the slug).
+ * nothing internal (confidence, review notes, hashes, overrides, ids other than the slug). The
+ * Markdown is compact; the JSON has every detail, the camp's own wording included.
  */
 
 import type { CampCard, GradeRange, Milestone, PriceTier, Session, SupportFact } from './contract';
@@ -108,14 +109,16 @@ function sortedSessions(sessions: Session[]): Session[] {
 }
 
 /**
- * The camp's wording on hours, unless it only restates the times ("9AM - 3PM"). The same test
- * as the directory's card.
+ * The camp's wording on hours, unless it only restates the times and a Monday-to-Friday week
+ * ("9AM - 3PM", "Monday - Friday, 9am to 3pm daily"). "Friday Pick-up: 12:00 PM" stays.
  */
 function hoursNote(text: string | null | undefined): string | null {
   const note = clean(text);
   if (!note) return null;
   const times = /(^|[^a-z])(?:[ap]\.?m\.?|noon)(?![a-z])/gi;
-  return /[a-z]/i.test(note.replace(times, '$1')) ? note : null;
+  const week =
+    /\b(?:mon(?:day)?|m)\.?\s*(?:-|–|—|to|through|thru)\s*(?:fri(?:day)?|f)\b|\b(?:daily|each day|every day|from|to|until|till|through|and)\b/gi;
+  return /[a-z]/i.test(note.replace(times, '$1').replace(week, ' ')) ? note : null;
 }
 
 /** Drop absent values (null, undefined, '', []) so the JSON carries only what the camp states. */
@@ -445,12 +448,9 @@ function campSection(camp: CampListing, now: Date): CampSection {
   const list =
     !long && !weeks && sessions.length > 0 ? sessionList(sessions, card, multiSite) : null;
 
-  // The times; the camp's wording only when it doesn't give both
-  const note = hoursNote(card.hours?.text);
+  // The times, then the camp's wording when it says more ("Friday Pick-up: 12:00 PM"), cut short
   const hours =
-    card.hours?.start && card.hours.end
-      ? shortHours(card.hours)
-      : (note && firstSentence(note)) || shortHours(card.hours);
+    [shortHours(card.hours), brief(hoursNote(card.hours?.text))].filter(Boolean).join('; ') || null;
   const care = card.extended_care;
   // "7:30am–5:30pm, $40/week": drop-off from the first time, pickup until the second
   const careText =
@@ -592,7 +592,7 @@ export const CAMP_EXPORT_FIELDS = {
   type: 'day | half_day | overnight | evening | vbs (Vacation Bible School) | clinic | pre_college',
   categories:
     'Any of arts, music, theater, dance, stem, nature_outdoor, sports, horses, cooking, academic, faith_based, general, special_needs',
-  summary: "The first sentence of the camp's description.",
+  description: 'What campers do, in one or two sentences.',
   ages: 'In years; a null bound is open-ended.',
   grades:
     'Numbers: -1 pre-K, 0 kindergarten, 1-12; above 12 means high-school graduates. basis: rising (grade entering in the fall after camp), completed (grade just finished), current (grade this school year) or unspecified.',
@@ -604,10 +604,11 @@ export const CAMP_EXPORT_FIELDS = {
   sites:
     'Where campers are dropped off. driveMinutes: from downtown Asheville (Pack Square) without traffic, rounded to 5. driveFromTown: estimated from the town center, not the site.',
   sessions:
-    'Weeks, themes or sessions as the camp lists them. ages, grades, hours and price appear only when they differ from the camp’s; site only when the camp has several.',
+    'Weeks, themes or sessions as the camp lists them (label is the camp’s name for it). ages, grades, hours and price appear only when they differ from the camp’s; site only when the camp has several; a price’s summer only when it differs from season.summer.',
   registration:
-    'audience: public | member | returning | lottery | resident | early_bird | other (text is the camp’s wording). kind: opens | deadline | lottery_results | closes. date: YYYY-MM-DD, or YYYY-MM when only the month is known; time: HH:MM Eastern. summer: the summer it is for, when not season.summer. expected: the camp’s estimate, not an announced date. unconfirmed: AVL GO hasn’t verified it.',
-  lastYearOpened: 'When registration opened for the previous summer.',
+    'audience: public | member | returning | lottery | resident | early_bird | other (text says who). kind: opens | deadline | lottery_results | closes. date: YYYY-MM-DD, or YYYY-MM when only the month is known; time: HH:MM Eastern. summer: the summer it is for, when not season.summer. expected: the camp’s estimate, not an announced date. unconfirmed: AVL GO hasn’t verified it. text: the camp’s wording; source: the page that says it.',
+  lastYearOpened:
+    'When registration opened for the previous summer; text: the camp’s wording; source: the page that says it.',
   availability:
     "For season.summer. status: available | mixed (some sessions full) | waitlist | full | closed; scope: what it covers; text: the camp's wording.",
   support:
@@ -630,7 +631,7 @@ function campRecord(camp: CampListing) {
     provider: providerLabel(camp.providerName),
     type: card.type,
     categories: card.categories,
-    summary: firstSentence(card.description),
+    description: clean(card.description),
     ages: range(card.ages),
     grades: range(card.grades),
     season: present({
@@ -683,6 +684,7 @@ function campRecord(camp: CampListing) {
             amount: session.price.amount,
             per: session.price.unit,
             label: clean(session.price.label),
+            summer: session.price.year !== card.season.year ? session.price.year : null,
           }),
         status: session.status,
       })
@@ -690,16 +692,24 @@ function campRecord(camp: CampListing) {
     registration: [...card.registration].sort(byMilestoneDate).map((milestone) =>
       present({
         audience: milestone.audience,
-        text: milestone.audience === 'other' ? clean(milestone.text) : null,
         kind: milestone.kind,
         date: milestone.precision === 'month' ? milestone.date.slice(0, 7) : milestone.date,
         time: milestone.precision === 'datetime' ? milestone.time : null,
         summer: milestone.year !== card.season.year ? milestone.year : null,
         expected: milestone.certainty === 'expected' ? true : null,
         unconfirmed: isUnconfirmed(milestone, camp.confirmed) ? true : null,
+        text: clean(milestone.text),
+        source: milestone.url,
       })
     ),
-    lastYearOpened: lastYear ? present({ date: lastYear.date, time: lastYear.time }) : null,
+    lastYearOpened: lastYear
+      ? present({
+          date: lastYear.date,
+          time: lastYear.time,
+          text: clean(lastYear.text),
+          source: lastYear.url,
+        })
+      : null,
     availability: card.availability
       ? present({
           status: card.availability.status,

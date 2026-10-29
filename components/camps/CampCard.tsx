@@ -24,7 +24,8 @@ const actionClasses =
  * One program card in the directory. `match` says which of its rows the filters kept, and
  * `schedule` the earlier summer whose weeks it matched on (the week filter, before 2027 is posted).
  * Every card has every line, at the same height, so a row of cards reads straight across: a fact
- * the camp doesn't state says so, and a long one is cut short (the camp's page has it all).
+ * the camp doesn't state says so, a long one is cut short (the camp's page has it all), the match
+ * line is there empty when there's no match note, and the actions are always one row.
  * Memoized: a keystroke in the search box re-renders the directory before its list changes.
  */
 export default memo(function CampCard({
@@ -146,22 +147,29 @@ export default memo(function CampCard({
           ))}
         </dl>
 
-        {match && (
-          <p className="mt-2 text-sm font-medium text-brand-700 dark:text-brand-300">
-            {match}
-            {schedule && (
-              <span
-                title={`Matched on the camp's ${schedule} weeks: it hasn't posted 2027 dates yet`}
-                className="ml-1.5 inline-block rounded px-1 text-[11px] font-medium leading-4 bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300"
-              >
-                {schedule} schedule
+        {/* One line on every card, empty when the filters say nothing about this camp */}
+        <p className="mt-2 flex h-5 items-center text-sm font-medium leading-5 text-brand-700 dark:text-brand-300">
+          {match && (
+            <>
+              <span title={match} className="truncate">
+                {match}
               </span>
-            )}
-          </p>
-        )}
+              {schedule && (
+                <span
+                  title={`Matched on the camp's ${schedule} weeks: it hasn't posted 2027 dates yet`}
+                  className="ml-1.5 shrink-0 rounded px-1 text-[11px] font-medium leading-4 bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300"
+                >
+                  {schedule} schedule
+                </span>
+              )}
+            </>
+          )}
+        </p>
       </div>
 
-      <div className="flex flex-wrap items-center gap-x-0.5 border-t border-gray-100 dark:border-gray-800 px-1 sm:px-1.5 py-1">
+      {/* One row on every card, never wrapping: every action fits a 360px phone, and on a
+          narrower one the view count gives way first */}
+      <div className="flex h-11 items-center gap-x-0.5 border-t border-gray-100 dark:border-gray-800 px-1 sm:px-1.5">
         <Link
           href={`/camps/${camp.slug}`}
           className={`${actionClasses} font-medium text-brand-700 dark:text-brand-300 hover:bg-brand-50 dark:hover:bg-brand-950/50`}
@@ -191,9 +199,9 @@ export default memo(function CampCard({
         {camp.views > 0 && (
           <span
             title="Views of this camp in the last 14 days"
-            className="ml-auto inline-flex items-center gap-0.5 pl-1 pr-1.5 text-xs text-gray-500 dark:text-gray-400"
+            className="ml-auto inline-flex min-w-0 items-center gap-0.5 overflow-hidden pl-1 pr-1.5 text-xs text-gray-500 dark:text-gray-400"
           >
-            <Eye size={13} aria-hidden="true" />
+            <Eye size={13} aria-hidden="true" className="shrink-0" />
             {camp.views}
             <span className="sr-only">
               {camp.views === 1 ? ' view' : ' views'} in the last 14 days

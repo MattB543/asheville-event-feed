@@ -52,7 +52,7 @@ const CAMP_CACHE_OPTIONS = { tags: [CAMPS_TAG], revalidate: 3600 };
  * the wrapper's source text plus these parts, so entries written by the old code would keep being
  * served until they expire (Vercel's data cache survives deploys).
  */
-const CAMP_CACHE_SHAPE = 'v5';
+const CAMP_CACHE_SHAPE = 'v6';
 
 /** Popularity window: views in the last 14 Eastern days, today included. */
 const VIEW_WINDOW_DAYS = 14;

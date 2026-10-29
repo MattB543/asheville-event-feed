@@ -42,8 +42,11 @@ export default function ReminderMenu({
   const base = `/api/camps/${campId}/reminder`;
   const who = audience === 'public' ? '' : `audience=${audience}&`;
   const ics = audience === 'public' ? base : `${base}?audience=${audience}`;
+  // The date exactly: kind, day and time (the audience is `who`)
   const google = (date: ReminderDate) =>
-    `${base}?${who}calendar=google&kind=${date.kind}&date=${date.date}`;
+    `${base}?${who}calendar=google&kind=${date.kind}&date=${date.date}${
+      date.time ? `&time=${date.time}` : ''
+    }`;
 
   return (
     <div ref={rootRef} className="relative">
@@ -77,7 +80,7 @@ export default function ReminderMenu({
         >
           {dates.map((date) => (
             <a
-              key={`${date.kind}-${date.date}`}
+              key={`${date.kind}-${date.date}-${date.time ?? ''}`}
               href={google(date)}
               target="_blank"
               rel="noopener noreferrer nofollow"

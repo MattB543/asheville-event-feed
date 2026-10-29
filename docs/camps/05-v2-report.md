@@ -143,3 +143,15 @@ the next round; the "before 5 a.m." rule moved to an extraction-time review flag
 
 Reviewed `802370e..94925f2`: every gate-4 item confirmed, no must-fix. One nonblocking label bug
 (a closed registration named the first passed deadline instead of the last) fixed afterwards.
+
+### Gate 6: Matt's UI changes, exports and dedupe (Oct 29)
+
+Reviewed `09046ce..c529e8b`. Codex confirmed the exports' live/radius/duplicate filtering, CORS,
+caching and proxy exclusion, the feedback dialog's accessibility, and the 24 duplicate mappings
+(no chains, permanent redirects). Must-fix, all fixed in the next round: JSON session prices lost
+their 2026 label; Markdown dropped hours exceptions (LEAF's Friday noon pickup); JSON wasn't
+full detail (registration wording such as "returning campers and their siblings", full
+description); Google Calendar links could pick the wrong milestone; the card's match note and
+footer could change height; the earliest-opening headline skipped the 'other' audience. Should:
+cache version bump. Rejected: "remove the Hours row from cards" (Matt asked to drop the hours
+detail text, not the row).

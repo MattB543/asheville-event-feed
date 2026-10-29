@@ -19,8 +19,10 @@ const HEADERS = {
  * `audience` names another (member, returning, lottery ...), and only dates announced to the day
  * (isRemindable). 404 when the camp has none.
  *
- * With `calendar=google&kind=opens&date=2027-01-10`, a redirect to Google Calendar's new-event
- * page for that one date instead (the first date when none matches): a link holds one event.
+ * With `calendar=google&kind=opens&date=2027-01-10[&time=09:00]`, a redirect to Google Calendar's
+ * new-event page for that one date instead (a link holds one event): the audience's date of that
+ * kind, day and time exactly, or 404 when the camp's dates have changed since the menu was drawn
+ * (never another date in its place). Without kind, date and time, its first date.
  */
 export async function GET(request: Request, { params }: RouteParams) {
   const { id } = await params;
@@ -41,11 +43,21 @@ export async function GET(request: Request, { params }: RouteParams) {
     }
 
     if (search.get('calendar') === 'google') {
-      const milestone =
-        milestones.find(
-          (candidate) =>
-            candidate.date === search.get('date') && candidate.kind === search.get('kind')
-        ) ?? milestones[0];
+      const selected = ['kind', 'date', 'time'].some((key) => search.has(key));
+      const milestone = selected
+        ? milestones.find(
+            (candidate) =>
+              candidate.kind === search.get('kind') &&
+              candidate.date === search.get('date') &&
+              (candidate.time ?? '') === (search.get('time') ?? '')
+          )
+        : milestones[0];
+      if (!milestone) {
+        return NextResponse.json(
+          { error: 'That registration date has changed: reload the camp page' },
+          { status: 404 }
+        );
+      }
       return NextResponse.redirect(googleCalendarUrl(camp, milestone), {
         status: 302,
         headers: HEADERS,

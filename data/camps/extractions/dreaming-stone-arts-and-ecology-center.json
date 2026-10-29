@@ -7,22 +7,19 @@
     "discovered_by": ["gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:37:04.946Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:31:19.530Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "78153d699eae75d1d6c6b96deff0b4d9c3b120d444cb32a5e3be3134bb344bc4",
   "response": {
-    "searches": [
-      "site:dreamingstone.org camp 2027",
-      "\"Dreaming Stone\" \"2026\" \"registration\" \"February\""
-    ],
+    "searches": ["site:dreamingstone.org camp 2027"],
     "usage": {
-      "inputTokens": 20643,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1254,
-      "reasoningTokens": 148
+      "inputTokens": 17047,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1133,
+      "reasoningTokens": 106
     },
     "status": "completed",
-    "ms": 30469,
+    "ms": 23862,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -51,27 +48,19 @@
   "extraction": {
     "provider_name": "Dreaming Stone Arts and Ecology Center",
     "website_url": "https://dreamingstone.org/",
-    "notes": "No summer 2027 camp information was found. The 2026 camp page lists two weeks of one program. Registration buttons were present in the supplied text, but their destination URLs could not be retrieved. A January 2026 newsletter forecasts registration going live in mid February but does not establish an actual opening date.",
+    "notes": "No 2027 camp information was found on the official website. The January 2026 newsletter forecast registration going live in mid-February, but no exact 2026 opening date was found. Registration button destinations could not be retrieved.",
     "excluded": [
       {
-        "name": "Dreaming Stone Youth Intern",
-        "reason": "Paid summer employment program, not a camper offering."
-      },
-      {
-        "name": "Yoga with Magi King on Mondays!",
-        "reason": "Recurring year-round class, not a summer-only youth program."
+        "name": "Summer Internship",
+        "reason": "An internship providing operational and camp support, not a supervised youth camp."
       },
       {
         "name": "Fall Salsa Dance Series",
-        "reason": "Fall program, outside summer."
+        "reason": "A lesson series outside summer."
       },
       {
-        "name": "CI Fundamentals Intensive",
-        "reason": "September program, outside summer."
-      },
-      {
-        "name": "Space Rental",
-        "reason": "Facility rental, not a supervised youth camp."
+        "name": "Artist Residency in Local Schools",
+        "reason": "School-based programming, not a summer camp."
       }
     ],
     "cards": [
@@ -79,7 +68,7 @@
         "name": "Arts, Ecology and Circus Camp",
         "type": "day",
         "categories": ["arts", "music", "theater", "nature_outdoor"],
-        "description": "Campers participate in aerial and flow arts, outdoor education, earth skills, and music. Optional afternoon activities include giant puppet construction or creative writing, drawing, and zine construction.",
+        "description": "Campers participate in aerial and flow arts, outdoor education, earth skills, and music instruction. Optional afternoon activities include giant puppet construction or creative writing, drawing, and zine construction.",
         "camp_page_url": "https://dreamingstone.org/camp-2026/",
         "registration_url": "https://dreamingstone.org/camp-2026/",
         "season": {
@@ -105,10 +94,10 @@
         "hours": {
           "start": "09:00",
           "end": "14:00",
-          "text": "Instructional programs run from 9 am to 2 pm; campers are asked to arrive at 8:45 am. Optional extended arts activities run through 5 pm. Family performances and community dinners occur on Saturday evenings, June 27 and July 25."
+          "text": "Instructional programs run from 9 am to 2 pm every day (we ask that campers arrive at 8:45 am). Extended arts activities run through 5:00 pm for those who elect to stay the full day."
         },
         "extended_care": {
-          "early_dropoff_start": null,
+          "early_dropoff_start": "08:45",
           "late_pickup_end": "17:00",
           "cost_text": "Extended Activities (9 am – 5 pm) – $340"
         },
@@ -167,9 +156,9 @@
         "transportation": null,
         "sources": [
           "https://dreamingstone.org/camp-2026/",
-          "https://dreamingstone.org/",
-          "https://dreamingstone.org/past-events/",
-          "https://dreamingstone.org/2026/05/january-newsletter-2-2026/"
+          "https://dreamingstone.org/our-campus/",
+          "https://dreamingstone.org/2026/05/january-newsletter-2-2026/",
+          "https://dreamingstone.org/past-events/"
         ],
         "confidence": "high",
         "review_notes": null

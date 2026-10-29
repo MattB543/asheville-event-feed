@@ -8,24 +8,23 @@
     "status": "review",
     "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
   },
-  "extractedAt": "2026-10-29T15:17:05.906Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:14:28.765Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "7ae4d9fef20e03697d191fba3950e55ebb15692d3dc7de8b9972b20a77a23241",
   "response": {
     "searches": [
-      "\"Stockton Farms\" \"camp\" Canton",
-      "\"Stockton Farms\" \"317\"",
-      "open https://www.campdanielboone.org/wp-content/uploads/sites/2/2026/10/2027-CDB-Program-Guide.pdf",
-      "site:campdanielboone.org/wp-content/uploads/sites/2/2026/10/2027-CDB-Program-Guide.pdf \"Animal\""
+      "\"Stockton Farms\" \"merit\"",
+      "site.campdanielboone.org \"Stockton\" \"2027\"",
+      "open https://www.campdanielboone.org/summer-programs/base-camp/"
     ],
     "usage": {
-      "inputTokens": 23326,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1734,
-      "reasoningTokens": 359
+      "inputTokens": 24332,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1499,
+      "reasoningTokens": 173
     },
     "status": "completed",
-    "ms": 42313,
+    "ms": 34687,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -54,15 +53,15 @@
   "extraction": {
     "provider_name": "Stockton Farms",
     "website_url": "https://stocktonfarmsnc.com/",
-    "notes": "The supplied website redirects to an unrelated domain-services site. Camp Daniel Boone's official materials document two Stockton Farms evening merit-badge programs for Scouts attending camp, not general-public camps. A 2027 program guide was found, but its full contents could not be read; its search snippet confirms Horsemanship continues. The detailed information below comes from the explicitly labeled 2026 Stockton Farms information sheet. Exact calendar dates for the farm programs were not verified and were not inferred from Camp Daniel Boone's camp weeks. No farm-specific registration opening date was found.",
+    "notes": "The provider's website redirected to a domain-hosting storefront in the supplied crawl. Camp Daniel Boone's official Base Camp page lists both Stockton Farms programs alongside its 2027 offerings, but no dated Stockton Farms sessions were found. The linked Stockton Farms information sheet explicitly belongs to the 2026 program guide. No official farm street address was found; third-party listings disagree between 317 Stockton Ln and 130 Oates Dr.",
     "excluded": [],
     "cards": [
       {
         "name": "Horsemanship Merit Badge",
         "type": "evening",
         "categories": ["horses"],
-        "description": "Scouts participate in a hands-on horse program to earn the Horsemanship Merit Badge. No experience is required, and participants must attend both evening sessions.",
-        "camp_page_url": "https://www.campdanielboone.org/wp-content/uploads/sites/2/2026/05/stockton-farms-information.pdf",
+        "description": "Scouts complete a hands-on horsemanship merit badge program using specially trained horses. No experience is required, and Scouts must attend both evening meetings to complete the program.",
+        "camp_page_url": "https://www.campdanielboone.org/summer-programs/base-camp/",
         "registration_url": null,
         "season": {
           "year": 2026,
@@ -84,20 +83,20 @@
         "hours": {
           "start": "19:00",
           "end": "21:00",
-          "text": "Monday and Wednesday evenings; Scouts must attend both sessions."
+          "text": "Monday and Wednesday evening between the hours of 7pm and 9pm"
         },
         "extended_care": null,
         "prices": [
           {
             "amount": 100,
             "unit": "program",
-            "label": "Both Monday and Wednesday sessions",
+            "label": "Both Monday and Wednesday",
             "year": 2026
           },
           {
             "amount": 175,
             "unit": "program",
-            "label": "Combined Horsemanship and Animal Science",
+            "label": "Horsemanship and Animal Science",
             "year": 2026
           }
         ],
@@ -113,19 +112,18 @@
           "text": "Please plan to provide transportation (to and from the farm) for your Scouts. Troops can carpool if desired."
         },
         "sources": [
-          "https://www.campdanielboone.org/wp-content/uploads/sites/2/2026/05/stockton-farms-information.pdf",
-          "https://www.campdanielboone.org/wp-content/uploads/sites/2/2026/10/2027-CDB-Program-Guide.pdf",
-          "https://www.promatcher.com/profile/STOCKTONFARMS"
+          "https://www.campdanielboone.org/summer-programs/base-camp/",
+          "https://www.campdanielboone.org/wp-content/uploads/sites/2/2026/05/stockton-farms-information.pdf"
         ],
         "confidence": "medium",
-        "review_notes": "The information sheet identifies eligibility as 'All Ages' for Scouts without numeric limits. Verify 2027 dates, fees and attendance requirements in the 2027 guide, which could only be seen through a search snippet. The address comes from a business profile linked to the farm's website, corroborated by other directories; no readable provider-owned address page was available."
+        "review_notes": "Hours and prices are labeled 2026 from the information sheet marked '26 PROGRAM GUIDE; no calendar dates are stated. The current Base Camp page mentions 2027 and retains this offering, but Stockton Farms-specific 2027 dates were not found. The sheet says all ages without numerical limits. Confirm the drop-off address with the farm: third-party listings give 317 Stockton Ln, while another listing gives 130 Oates Dr; no official published address was accessible."
       },
       {
         "name": "Animal Science Merit Badge",
         "type": "evening",
         "categories": ["nature_outdoor"],
-        "description": "Scouts work with poultry, sheep and cattle on a working farm to earn the Animal Science Merit Badge. Activities include handling poultry and shearing sheep.",
-        "camp_page_url": "https://www.campdanielboone.org/wp-content/uploads/sites/2/2026/05/stockton-farms-information.pdf",
+        "description": "Scouts earn the Animal Science Merit Badge through hands-on work on a working farm, including handling poultry, shearing sheep, and working with cattle.",
+        "camp_page_url": "https://www.campdanielboone.org/summer-programs/base-camp/",
         "registration_url": null,
         "season": {
           "year": 2026,
@@ -147,20 +145,20 @@
         "hours": {
           "start": "19:00",
           "end": "21:00",
-          "text": "Tuesday and Thursday evenings."
+          "text": "Tuesday and Thursday evening between the hours of 7pm and 9pm"
         },
         "extended_care": null,
         "prices": [
           {
             "amount": 100,
             "unit": "program",
-            "label": "Both Tuesday and Thursday sessions",
+            "label": "Both Tuesday and Thursday",
             "year": 2026
           },
           {
             "amount": 175,
             "unit": "program",
-            "label": "Combined Horsemanship and Animal Science",
+            "label": "Horsemanship and Animal Science",
             "year": 2026
           }
         ],
@@ -173,15 +171,14 @@
         "lunch": null,
         "transportation": {
           "value": "no",
-          "text": "Please plan to provide transportation (to and from the farm) for your Scouts."
+          "text": "Please plan to provide transportation (to and from the farm) for your Scouts. Troops can carpool if desired."
         },
         "sources": [
-          "https://www.campdanielboone.org/wp-content/uploads/sites/2/2026/05/stockton-farms-information.pdf",
-          "https://www.campdanielboone.org/wp-content/uploads/sites/2/2026/08/Prelimminary-Program-Overview-for-2027.pdf",
-          "https://www.promatcher.com/profile/STOCKTONFARMS"
+          "https://www.campdanielboone.org/summer-programs/base-camp/",
+          "https://www.campdanielboone.org/wp-content/uploads/sites/2/2026/05/stockton-farms-information.pdf"
         ],
         "confidence": "medium",
-        "review_notes": "The 2026 sheet says all ages are welcome but recommends more mature Scouts; no numeric age limits are given. Animal Science appears in the preliminary 2026/2027 overview, but final 2027 details and exact farm dates were not verified. The address comes from a business profile linked to the farm's website, corroborated by other directories; no readable provider-owned address page was available."
+        "review_notes": "Hours and prices are labeled 2026 from the information sheet marked '26 PROGRAM GUIDE; no calendar dates are stated. The current Base Camp page mentions 2027 and retains this offering, but Stockton Farms-specific 2027 dates were not found. The sheet welcomes all ages and recommends more mature Scouts, without numerical limits. Confirm the drop-off address with the farm: third-party listings give 317 Stockton Ln, while another listing gives 130 Oates Dr; no official published address was accessible."
       }
     ]
   }

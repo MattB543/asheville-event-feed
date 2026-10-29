@@ -11,23 +11,24 @@
     "status": "review",
     "status_reason": "page didn't load: fetch: fetch failed (Connect Timeout Error (attempted addresses: 10.67.1.33:443, 10.67.2.52:443, timeout: 10000ms)); chrome-tls: fetch failed (Connect Timeout Error (attempted addresses: 10.67.1.33:443, 10.67.2.52:443, timeout: 10000ms)); browser: page.goto: net::ERR_CONNECTION_TIMED_OUT at https://"
   },
-  "extractedAt": "2026-10-29T15:27:52.299Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:24:07.595Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": null,
   "response": {
     "searches": [
-      "First Baptist Church Newport TN VBS 2026 2027",
-      "\"kideventpro\" \"73475\"",
+      "First Baptist Newport TN vacation bible school 2026 2027",
+      "\"73475\" \"VBS\"",
+      "\"site:fbcnewport.org\" \"Vacation\"",
       "\"fbcnewport\" \"VBS\" \"2026\""
     ],
     "usage": {
-      "inputTokens": 26055,
-      "cachedInputTokens": 8223,
-      "outputTokens": 505,
-      "reasoningTokens": 316
+      "inputTokens": 27483,
+      "cachedInputTokens": 8845,
+      "outputTokens": 641,
+      "reasoningTokens": 410
     },
     "status": "completed",
-    "ms": 29890,
+    "ms": 31671,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -35,12 +36,12 @@
     {
       "url": "https://kideventpro.lifeway.com/myEvent/?id=73475",
       "chars": 0,
-      "error": "fetch: fetch failed (Connect Timeout Error (attempted addresses: 10.67.2.52:443, 10.67.1.33:443, timeout: 10000ms)); chrome-tls: fetch failed (Connect Timeout Error (attempted addresses: 10.67.2.52:443, 10.67.1.33:443, timeout: 10000ms)); browser: page.goto: net::ERR_CONNECTION_TIMED_OUT at https://kideventpro.lifeway.com/myEvent/?id=73475\nCall log:\n\u001b[2m  - navigating to \"https://kideventpro.lifeway.com/myEvent/?id=73475\", waiting until \"domcontentloaded\"\u001b[22m\n"
+      "error": "fetch: fetch failed (Connect Timeout Error (attempted addresses: 10.67.2.52:443, 10.67.1.33:443, timeout: 10000ms)); chrome-tls: fetch failed (Connect Timeout Error (attempted addresses: 10.67.1.33:443, 10.67.2.52:443, timeout: 10000ms)); browser: page.goto: net::ERR_CONNECTION_TIMED_OUT at https://kideventpro.lifeway.com/myEvent/?id=73475\nCall log:\n\u001b[2m  - navigating to \"https://kideventpro.lifeway.com/myEvent/?id=73475\", waiting until \"domcontentloaded\"\u001b[22m\n"
     },
     {
       "url": "https://kideventpro.lifeway.com/myEvent/?id=71397",
       "chars": 0,
-      "error": "fetch: fetch failed (Connect Timeout Error (attempted addresses: 10.67.1.33:443, 10.67.2.52:443, timeout: 10000ms)); chrome-tls: fetch failed (Connect Timeout Error (attempted addresses: 10.67.1.33:443, 10.67.2.52:443, timeout: 10000ms)); browser: page.goto: net::ERR_CONNECTION_TIMED_OUT at https://kideventpro.lifeway.com/myEvent/?id=71397\nCall log:\n\u001b[2m  - navigating to \"https://kideventpro.lifeway.com/myEvent/?id=71397\", waiting until \"domcontentloaded\"\u001b[22m\n"
+      "error": "fetch: fetch failed (Connect Timeout Error (attempted addresses: 10.67.1.33:443, 10.67.2.52:443, timeout: 10000ms)); chrome-tls: fetch failed (Connect Timeout Error (attempted addresses: 10.67.2.52:443, 10.67.1.33:443, timeout: 10000ms)); browser: page.goto: net::ERR_CONNECTION_TIMED_OUT at https://kideventpro.lifeway.com/myEvent/?id=71397\nCall log:\n\u001b[2m  - navigating to \"https://kideventpro.lifeway.com/myEvent/?id=71397\", waiting until \"domcontentloaded\"\u001b[22m\n"
     },
     {
       "url": "https://kideventpro.lifeway.com/",
@@ -51,8 +52,13 @@
   "extraction": {
     "provider_name": "First Baptist Church of Newport",
     "website_url": "https://fbcnewport.org/",
-    "notes": "Both supplied Lifeway registration pages returned no readable text, including retries with a lowercase path: https://kideventpro.lifeway.com/myEvent/?id=73475 and https://kideventpro.lifeway.com/myEvent/?id=71397. The church's official website identifies its current location as 599 Amanda Circle, Newport, TN 37821, but its searchable events page did not provide summer camp details. No verifiable 2026 or 2027 program details or registration opening dates were found. Cards are left empty rather than guessing the programs, dates, eligibility, or camp venue. A reviewer should inspect the supplied registration pages in a browser.",
-    "excluded": [],
+    "notes": "Both supplied Lifeway registration pages (event IDs 73475 and 71397), including their default.aspx variants, returned no readable content. The official church homepage and events page were available through search results, but no identifiable 2026 or 2027 summer program details were found. No cards are returned because the supplied events' program names, years and details could not be verified. A Camp Out VBS registration page surfaced in search, but its year and association with this Newport, TN church could not be established. This does not establish that the church offers no summer camps; a reviewer should inspect the supplied registration pages directly.",
+    "excluded": [
+      {
+        "name": "Student Ministry",
+        "reason": "The official kids ministry page describes recurring Wednesday-night and Sunday-morning youth meetings, not a finite summer camp. Its general mention of camps does not identify a specific offering."
+      }
+    ],
     "cards": []
   }
 }

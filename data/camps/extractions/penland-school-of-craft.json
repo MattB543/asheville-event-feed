@@ -7,23 +7,25 @@
     "discovered_by": ["grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:04:48.070Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:04:25.579Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "ea328e813f9986ce30d2f4f6ce939a3eac3b3b4cbe5d8c0935eb54dc8a4c470f",
   "response": {
     "searches": [
-      "site:penland.org summer kids camps teen 2026 2027",
       "site:penland.org \"2026\" \"Kids\" \"camp\"",
-      "Penland kids camp 2026 registration"
+      "open https://penland.org/community/summer-camp/",
+      "Penland kids camp 2026 registration teen",
+      "open https://penland-school-of-craft.jumbula.com/",
+      "site:penland-school-of-craft.jumbula.com \"2026\""
     ],
     "usage": {
-      "inputTokens": 39696,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1028,
-      "reasoningTokens": 213
+      "inputTokens": 48844,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1462,
+      "reasoningTokens": 304
     },
     "status": "completed",
-    "ms": 45524,
+    "ms": 45425,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -72,31 +74,27 @@
   "extraction": {
     "provider_name": "Penland School of Craft",
     "website_url": "https://penland.org/",
-    "notes": "The official registration platform says it is planning the 2027 summer camp program, but no youth dates, prices, individual sessions or registration milestones were found. The youth page describes kids camps and teen weekend workshops together for ages 3–17; separate age limits are not posted. General workshop schedules, fees and summer 2027 scholarship deadlines apply to adults aged 18 or older and were not transferred to youth cards. Website pages returned empty bodies when opened with the browser; official indexed text and the supplied fetched pages were readable.",
+    "notes": "The official camp registration platform says the 2027 summer camp program is being planned, but does not list dates, prices, age bands, or registration milestones. Searches did not locate readable official 2026 session listings. The main site's 2027 workshop fees and scholarship deadlines apply to workshops with a minimum age of 18, not the youth camps; they have not been applied to these cards. The camp page and Jumbula platform returned no readable text when opened, although their official search results were readable.",
     "excluded": [
       {
         "name": "Immersive Craft Workshops",
-        "reason": "The minimum age is 18; these are adult workshops, not youth camps."
+        "reason": "Adult-only workshops: the official registration page states that the minimum age is 18."
       },
       {
         "name": "Teaching Artist in the Schools",
-        "reason": "School-year classroom collaborations, not summer camp."
+        "reason": "School-year, curriculum-integrated programming for Mitchell County Public School students, not an open summer camp."
       },
       {
-        "name": "Subs with SuitCASEs",
-        "reason": "Classroom activities during school reading assessments, not summer camp."
-      },
-      {
-        "name": "Community Open House 2027",
-        "reason": "February 27, 2027 event, outside summer."
+        "name": "Community Open House",
+        "reason": "A community event outside summer, not a finite summer youth camp."
       }
     ],
     "cards": [
       {
         "name": "Kids’ Camp",
-        "type": "day",
+        "type": "half_day",
         "categories": ["arts"],
-        "description": "Campers make art and crafts in media including clay, wood, textiles, drawing and painting, with professional teaching artists.",
+        "description": "Children take part in hands-on art and craft activities in media including clay, wood, textiles, drawing, and painting.",
         "camp_page_url": "https://penland.org/community/summer-camp/",
         "registration_url": "https://penland-school-of-craft.jumbula.com/",
         "season": {
@@ -108,7 +106,14 @@
         },
         "ages": null,
         "grades": null,
-        "sites": [],
+        "sites": [
+          {
+            "name": "Penland School of Craft",
+            "address": "2687 Conley Ridge Road",
+            "town": "Bakersville",
+            "state": "NC"
+          }
+        ],
         "hours": null,
         "extended_care": null,
         "prices": [],
@@ -118,7 +123,7 @@
         "availability": null,
         "financial_aid": {
           "value": "yes",
-          "text": "Full and partial need-based scholarships are available in every camp, made possible by donors and participants in Penland summer scholarship auctions."
+          "text": "Full and partial need-based scholarships are available in every camp."
         },
         "special_needs": null,
         "lunch": null,
@@ -129,13 +134,13 @@
           "https://penland-school-of-craft.jumbula.com/"
         ],
         "confidence": "medium",
-        "review_notes": "The current pages do not specify day versus half-day schedules or a drop-off venue. Confirm format and site when the registration platform posts details. The ages 3–17 statement spans kids camps and teen workshops, so it was not assigned to this program."
+        "review_notes": "The half-day format is described in historical camp publicity but was not confirmed in readable official 2026 or 2027 listings. Official youth-program information and Jumbula were read through search results. The general ages 3–17 on the youth page and 4–17 on Jumbula combine kids and teen offerings, so no separate program age range was assigned. Campus address is the provider's published contact address; specific studio drop-off locations are not listed."
       },
       {
         "name": "Teen Workshops",
-        "type": "clinic",
+        "type": "day",
         "categories": ["arts"],
-        "description": "Teens participate in hands-on art activities led by local and out-of-state professional artists in weekend workshops.",
+        "description": "Teens participate in hands-on art activities led by professional artists in weekend workshops.",
         "camp_page_url": "https://penland.org/community/summer-camp/",
         "registration_url": "https://penland-school-of-craft.jumbula.com/",
         "season": {
@@ -147,7 +152,14 @@
         },
         "ages": null,
         "grades": null,
-        "sites": [],
+        "sites": [
+          {
+            "name": "Penland School of Craft",
+            "address": "2687 Conley Ridge Road",
+            "town": "Bakersville",
+            "state": "NC"
+          }
+        ],
         "hours": null,
         "extended_care": null,
         "prices": [],
@@ -155,7 +167,10 @@
         "registration": [],
         "last_year_registration_opened": null,
         "availability": null,
-        "financial_aid": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Full and partial need-based scholarships are available in every camp."
+        },
         "special_needs": null,
         "lunch": null,
         "transportation": null,
@@ -165,7 +180,7 @@
           "https://penland-school-of-craft.jumbula.com/"
         ],
         "confidence": "medium",
-        "review_notes": "The official youth page describes teen weekend workshops but does not publish separate ages, dates, fees or drop-off locations. Confirm these when 2027 offerings are posted. The scholarship wording says every camp, without explicitly identifying teen workshops, so financial aid was left null."
+        "review_notes": "The official youth page describes teen weekend workshops but does not specify daily hours or overnight accommodation; classified as day. Official youth-program information and Jumbula were read through search results. Combined kids-and-teens age ranges were not assigned to this program. Campus address is the provider's published contact address; specific studio drop-off locations are not listed."
       }
     ]
   }

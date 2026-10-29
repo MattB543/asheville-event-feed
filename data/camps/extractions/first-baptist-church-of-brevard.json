@@ -7,24 +7,24 @@
     "discovered_by": ["grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:29:29.416Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:24:59.839Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "b6edf287f51c608ec9ded72e733f19cafed3ca5c9b8b27eb95aac5e417f4177b",
   "response": {
     "searches": [
       "site:fbcbrevard.org VBS 2027 2026",
       "open https://fbcbrevard.org/contact",
-      "\"site:fbcbrevard.org\" \"300\"",
-      "\"fbcbrevard.org\" \"Gaston\""
+      "\"fbcbrevard.org\" \"Gaston\"",
+      "First Baptist Church Brevard address 94 Gaston"
     ],
     "usage": {
-      "inputTokens": 17575,
-      "cachedInputTokens": 8223,
-      "outputTokens": 908,
-      "reasoningTokens": 237
+      "inputTokens": 17444,
+      "cachedInputTokens": 8845,
+      "outputTokens": 740,
+      "reasoningTokens": 218
     },
     "status": "completed",
-    "ms": 26345,
+    "ms": 25343,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -43,11 +43,19 @@
   "extraction": {
     "provider_name": "First Baptist Church of Brevard",
     "website_url": "https://fbcbrevard.org/",
-    "notes": "No official 2027 summer information was found. The church homepage, contact page and children page returned no readable text. A complete venue street address could not be verified; the official event lists only S Gaston St, Brevard, NC 28712.",
+    "notes": "No 2027 summer camp information found. The official homepage was readable through search results; direct opens of the homepage, contact, children and W.E.E. School pages returned no readable text.",
     "excluded": [
       {
         "name": "W.E.E. School",
-        "reason": "School-year preschool following the Transylvania County Schools schedule, not a finite summer program."
+        "reason": "Preschool, not a finite summer camp."
+      },
+      {
+        "name": "Youth Mini Golf",
+        "reason": "Youth-group outing, not a camp."
+      },
+      {
+        "name": "Truth N' Treat",
+        "reason": "Single seasonal event outside summer."
       }
     ],
     "cards": [
@@ -55,7 +63,7 @@
         "name": "VBS-Illumination Station",
         "type": "vbs",
         "categories": ["faith_based"],
-        "description": "Vacation Bible School for ages 3 to 18 at First Baptist Church of Brevard.",
+        "description": "Vacation Bible School for children and teens ages 3 to 18.",
         "camp_page_url": "https://subsplash.com/firstbaptistchurch-ncvyp/lb/ev/%2Btt23xmv",
         "registration_url": "https://subsplash.com/firstbaptistchurch-ncvyp/lb/ev/+tt23xmv/register",
         "season": {
@@ -73,15 +81,15 @@
         "sites": [
           {
             "name": "First Baptist Church of Brevard",
-            "address": "S Gaston St",
+            "address": "94 S. Gaston St.",
             "town": "Brevard",
             "state": "NC"
           }
         ],
         "hours": {
-          "start": null,
-          "end": null,
-          "text": "The event lists June 14 at 5:30pm through June 18, 2026 at 8:00pm; daily hours are not separately stated."
+          "start": "17:30",
+          "end": "20:00",
+          "text": null
         },
         "extended_care": null,
         "prices": [
@@ -102,10 +110,11 @@
         "transportation": null,
         "sources": [
           "https://subsplash.com/firstbaptistchurch-ncvyp/lb/ev/%2Btt23xmv",
-          "https://subsplash.com/firstbaptistchurch-ncvyp/lb/ev/+tt23xmv/register"
+          "https://subsplash.com/firstbaptistchurch-ncvyp/lb/ev/+tt23xmv/register",
+          "https://fbcbrevard.org/"
         ],
         "confidence": "medium",
-        "review_notes": "Verify the numbered street address with the church; the event gives only S Gaston St. Confirm daily meeting hours: the event states the overall start and end timestamps, not a nightly schedule."
+        "review_notes": "The event lists June 14 at 5:30pm through June 18, 2026 at 8:00pm; daily evening hours are inferred from these event endpoints rather than a separate daily schedule. The full street address comes from the official homepage's search result."
       }
     ]
   }

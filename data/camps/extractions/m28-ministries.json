@@ -11,19 +11,19 @@
     "discovered_by": ["grid", "aggregator", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:16:48.242Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:14:07.011Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "f76e8d55a629b2155d66ab3ad80aafe1d8046c16c4fcf9cedadbecdb7bcb5885",
   "response": {
-    "searches": ["site.m28camps.com summer 2027 registration"],
+    "searches": ["site.lakejunaluska.com \"91\" \"Lakeshore\""],
     "usage": {
-      "inputTokens": 28634,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1395,
-      "reasoningTokens": 66
+      "inputTokens": 29206,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1351,
+      "reasoningTokens": 58
     },
     "status": "completed",
-    "ms": 29001,
+    "ms": 32031,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -72,31 +72,35 @@
   "extraction": {
     "provider_name": "M28 Ministries",
     "website_url": "https://www.m28camps.com/",
-    "notes": "2027 dates and group registration are posted. The older summer2027 interest page still invites notification when registration opens; no opening date was found. Camp requires attendance with a church youth group, whose leaders supervise students. Payment instructions conflict: the general introduction states a $150 deposit while session listings and FAQ state $115; session listings require full payment May 3, 2027 while the FAQ says June 1, 2027.",
+    "notes": "Summer 2027 lists five Lake Junaluska sessions. No dated registration opening announcement was found. The /registration page is an older general page and advertises winter registration.",
     "excluded": [
       {
         "name": "M28 Winter",
-        "reason": "President's Day weekend program, outside summer."
+        "reason": "President's Day weekend program outside summer, held in Alabama."
       },
       {
         "name": "Basics of Faith Tweens Retreat",
-        "reason": "March retreat, outside summer."
+        "reason": "March retreat outside summer, held in Mississippi."
       },
       {
         "name": "College Discipleship",
-        "reason": "Year-round leadership development rather than a finite summer youth camp."
-      },
-      {
-        "name": "Join Our Summer Team",
-        "reason": "Summer staff and counselor recruitment, not a camper program."
+        "reason": "Year-round leadership development, not a finite summer youth camp."
       },
       {
         "name": "M28 Honduras",
-        "reason": "January 2027 youth camp in Honduras, outside summer and the local area."
+        "reason": "January program in Honduras and mission trip; outside summer and the directory's geographic area."
+      },
+      {
+        "name": "Women Walking in Trust",
+        "reason": "Adult-only retreat."
+      },
+      {
+        "name": "Join Our Summer Team",
+        "reason": "Summer staffing opportunity, not a youth camp program."
       },
       {
         "name": "Worship Nights, Retreats & D-Now Weekends",
-        "reason": "Church partnership services without a listed finite summer camp offering."
+        "reason": "General church event services; no specific finite summer camp offering is listed."
       }
     ],
     "cards": [
@@ -104,7 +108,7 @@
         "name": "M28 Summer",
         "type": "overnight",
         "categories": ["faith_based"],
-        "description": "Students participate in worship, Bible teaching, discipleship groups, breakout sessions, volleyball, swimming and a silent disco during a three-night camp. Students must attend with a church or youth group and its adult leaders.",
+        "description": "Students participate in worship, Bible teaching, discipleship groups, breakout sessions, volleyball, swimming, and other recreation during a three-night camp. Students must attend with a church or youth group; individual student registration is not available.",
         "camp_page_url": "https://www.m28camps.com/summer",
         "registration_url": "https://www.m28camps.com/summer",
         "season": {
@@ -112,7 +116,7 @@
           "status": "posted",
           "start": "2027-06-23",
           "end": "2027-07-13",
-          "text": "SUMMER 2027 DATES"
+          "text": null
         },
         "ages": null,
         "grades": {
@@ -134,7 +138,13 @@
           {
             "amount": 335,
             "unit": "session",
-            "label": "Per participant; additional one-time $175 church group admin fee and 3.3% fee if paying by credit card",
+            "label": "Per participant",
+            "year": 2027
+          },
+          {
+            "amount": 175,
+            "unit": "other",
+            "label": "One-time Group Admin Fee per church",
             "year": 2027
           }
         ],
@@ -207,7 +217,7 @@
         "special_needs": null,
         "lunch": {
           "value": "yes",
-          "text": "Cost includes 3 nights lodging, all meals, 6 worship sessions, and all programming"
+          "text": "Cost includes 3 nights lodging, all meals"
         },
         "transportation": null,
         "sources": [
@@ -216,11 +226,10 @@
           "https://www.m28camps.com/store/p/mountain-1-2027-registration-mrmr5",
           "https://www.m28camps.com/store/p/mountain-1-2027-registration-mrmr5-63jje",
           "https://www.m28camps.com/store/p/mountain-1-2027-registration-mrmr5-63jje-294gw",
-          "https://lakejunaluska.com/",
-          "https://www.m28camps.com/summer2027"
+          "https://lakejunaluska.com/"
         ],
         "confidence": "medium",
-        "review_notes": "Confirm deposit and final-payment requirements: the summer page introduction says $150 deposit, session listings and FAQ say $115; session listings say full payment May 3, 2027, FAQ says June 1, 2027. Neither payment deadline has been treated as a registration deadline. Eligibility states entering 7th grade through graduating seniors; the rising grade range records 7–12 but also includes students graduating in 2027. The Mountain 1 description mistakenly refers to Mountain 4 when naming its speaker."
+        "review_notes": "The summer page and product pages require full payment by May 3, 2027, while the summer FAQ says June 1, 2027; no payment milestone was entered because these conflict. The general registration instructions say a $150 deposit, but all session listings and the FAQ say $115; the stated total is consistently $335 plus the $175 church admin fee and a 3.3% credit-card fee. Grade range is entering 7th grade through graduating seniors, so the upper endpoint includes students completing grade 12 rather than only rising grade 12."
       }
     ]
   }

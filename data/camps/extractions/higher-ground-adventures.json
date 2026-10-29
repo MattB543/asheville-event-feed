@@ -7,19 +7,19 @@
     "discovered_by": ["grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:07:45.789Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:06:46.770Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "fb0d79586c8cb5dfe84b97496d0ae1fbc2df4e25d27449f93c1f0f405a687bb6",
   "response": {
-    "searches": ["site:hgcamp.com 2027", "open https://www.hgcamp.com/camper-registration"],
+    "searches": ["site:hgcamp.com 2027 camp", "open https://www.hgcamp.com/camper-registration"],
     "usage": {
-      "inputTokens": 12947,
-      "cachedInputTokens": 8223,
-      "outputTokens": 595,
-      "reasoningTokens": 91
+      "inputTokens": 12480,
+      "cachedInputTokens": 8845,
+      "outputTokens": 531,
+      "reasoningTokens": 79
     },
     "status": "completed",
-    "ms": 16868,
+    "ms": 13352,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -68,19 +68,14 @@
   "extraction": {
     "provider_name": "Higher Ground Adventures",
     "website_url": "https://www.hgcamp.com/",
-    "notes": "No summer 2027 information found. The 2026 homepage identifies participants as youth of Black Mountain Home for Children; public enrollment is not established. The camper-registration page returned no readable content when opened. A payment-plan page advertises 2025 tuition, which was not used for 2026 prices.",
-    "excluded": [
-      {
-        "name": "Apply for Staff",
-        "reason": "Staff recruitment rather than a supervised youth camp program."
-      }
-    ],
+    "notes": "No 2027 information found. The 2026 homepage identifies participants as youth of Black Mountain Home for Children; public enrollment is not established. A camper-registration page appeared in official search results, but opening it returned no readable content.",
+    "excluded": [],
     "cards": [
       {
         "name": "Higher Ground Adventures",
         "type": "overnight",
         "categories": ["nature_outdoor", "sports", "faith_based"],
-        "description": "Campers participate in outdoor adventures, sports, group games, worship, mission service, and Christian fellowship. Listed adventures include hiking, river tubing, zip-lining, caving, and high ropes courses.",
+        "description": "A week-long overnight Christian adventure camp for youth of Black Mountain Home for Children. Activities include hiking, swimming, archery, outdoor games, worship, and Christian fellowship.",
         "camp_page_url": "https://www.hgcamp.com/",
         "registration_url": null,
         "season": {

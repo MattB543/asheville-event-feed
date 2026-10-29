@@ -12,23 +12,22 @@
     "discovered_by": ["grid", "aggregator", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:11:39.145Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
-  "sourceHash": "65f3ea9b59a58f96be015b5b447efbc868d30ddb63d84efb584ce8fd1d89687e",
+  "extractedAt": "2026-10-29T17:05:04.737Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "e8b36d66f4e5dde2f7952933e27b37d6776a99c341313619f61b3ad17de3fd1c",
   "response": {
     "searches": [
-      "site:tryonarts.org \"2027\" \"camp\"",
-      "site:tltinfo.org Sunnydale address",
-      "site:tryonarts.org \"theater\" \"2026\" \"ages\""
+      "site:tryonarts.org summer camp 2027",
+      "open https://tryonarts.org/event/summer-theater-camp-2026/"
     ],
     "usage": {
-      "inputTokens": 27234,
-      "cachedInputTokens": 8223,
-      "outputTokens": 2628,
-      "reasoningTokens": 231
+      "inputTokens": 21377,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2714,
+      "reasoningTokens": 186
     },
     "status": "completed",
-    "ms": 56911,
+    "ms": 61900,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -45,42 +44,46 @@
     },
     {
       "url": "https://tryonarts.org/event/summer-theater-camp-2026/",
-      "chars": 0,
-      "error": "fetch: The operation was aborted due to timeout; chrome-tls: The operation was aborted due to timeout; browser: page.goto: Timeout 45000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://tryonarts.org/event/summer-theater-camp-2026/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+      "chars": 3761,
+      "method": "fetch"
     },
     {
       "url": "https://tryonarts.org/event/summer-arts-series-for-youth-2026-sasy/",
-      "chars": 0,
-      "error": "fetch: The operation was aborted due to timeout; chrome-tls: The operation was aborted due to timeout; browser: page.goto: Timeout 45000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://tryonarts.org/event/summer-arts-series-for-youth-2026-sasy/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+      "chars": 3919,
+      "method": "fetch"
     },
     {
       "url": "https://tryonarts.org/event/pacjam-summer-camp-2025/",
-      "chars": 0,
-      "error": "fetch: The operation was aborted due to timeout; chrome-tls: The operation was aborted due to timeout; browser: page.goto: Timeout 45000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://tryonarts.org/event/pacjam-summer-camp-2025/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+      "chars": 6458,
+      "method": "fetch"
     },
     {
       "url": "https://tryonarts.org/event/summer-theater-camp-2025/",
-      "chars": 0,
-      "error": "fetch: The operation was aborted due to timeout; chrome-tls: The operation was aborted due to timeout; browser: page.goto: Timeout 45000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://tryonarts.org/event/summer-theater-camp-2025/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+      "chars": 3759,
+      "method": "fetch"
     },
     {
       "url": "https://tryonarts.org/",
-      "chars": 0,
-      "error": "fetch: The operation was aborted due to timeout; chrome-tls: The operation was aborted due to timeout; browser: page.goto: Timeout 45000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://tryonarts.org/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+      "chars": 5679,
+      "method": "fetch"
     }
   ],
   "extraction": {
     "provider_name": "Tryon Fine Arts Center",
     "website_url": "https://tryonarts.org/",
-    "notes": "No summer 2027 camp dates or registration milestones were found. Cards use the official 2026 information. Registration buttons were visible, but their destination URLs were not exposed in the readable pages. Availability notices remain on past-season pages and should not be interpreted as 2027 availability.",
+    "notes": "No official summer 2027 camp information or registration milestones were found. Cards retain 2026 information from the supplied official pages. Live attempts to open the three camp event pages returned no readable text; registration button destinations could not be established.",
     "excluded": [
       {
         "name": "PacJAM Adult Summer Program",
-        "reason": "Adult-only summer music classes."
+        "reason": "Adult-only instrument classes and workshops."
       },
       {
-        "name": "PacJAM fall and winter/spring classes",
-        "reason": "Semester music classes outside summer, not summer camps."
+        "name": "PacJAM fall and winter/spring sessions",
+        "reason": "School-year music instruction, not summer camp."
+      },
+      {
+        "name": "Children’s Theater Festival – Super Saturday",
+        "reason": "Festival outside summer, not a supervised camp."
       }
     ],
     "cards": [
@@ -88,7 +91,7 @@
         "name": "PacJAM Summer Camp",
         "type": "half_day",
         "categories": ["music", "arts", "dance"],
-        "description": "Campers take group instruction in Appalachian instruments, sing, and practice playing together. Instruction varies by skill level and includes Appalachian dance or arts.",
+        "description": "Campers study Appalachian instruments and bluegrass and old-time music through group instruction and jamming. Activities also include Appalachian dance or art and an end-of-camp concert.",
         "camp_page_url": "https://tryonarts.org/event/pacjam-summer-camp-2026/",
         "registration_url": null,
         "season": {
@@ -114,7 +117,7 @@
         "hours": {
           "start": "08:30",
           "end": "12:00",
-          "text": "June 22-26, 8:30-noon. Student End of Camp Concert – Friday, June 26 11:30-12:30."
+          "text": "8:30-noon; Student End of Camp Concert – Friday, June 26 11:30-12:30"
         },
         "extended_care": null,
         "prices": [
@@ -127,7 +130,7 @@
           {
             "amount": 132,
             "unit": "session",
-            "label": "Each additional sibling",
+            "label": "each additional sibling",
             "year": 2026
           }
         ],
@@ -163,7 +166,7 @@
             "status": "full"
           },
           {
-            "label": "Early Intermediate – Advanced Fiddle, Guitar, Mandolin, Bass, and Banjo (3-finger & clawhammer style)",
+            "label": "Early Intermediate – Advanced Fiddle, Guitar, Mandolin, Bass, and Banjo",
             "start": "2026-06-22",
             "end": "2026-06-26",
             "year": 2026,
@@ -179,7 +182,7 @@
         "last_year_registration_opened": null,
         "availability": {
           "status": "mixed",
-          "scope": "2026 youth classes",
+          "scope": "Youth classes",
           "text": "Most classes are full, including all beginner classes. Waitlist available for returning PacJAM students or families."
         },
         "financial_aid": {
@@ -189,10 +192,7 @@
         "special_needs": null,
         "lunch": null,
         "transportation": null,
-        "sources": [
-          "https://tryonarts.org/event/pacjam-summer-camp-2026/",
-          "https://tryonarts.org/summer-camps/"
-        ],
+        "sources": ["https://tryonarts.org/event/pacjam-summer-camp-2026/"],
         "confidence": "high",
         "review_notes": null
       },
@@ -200,7 +200,7 @@
         "name": "Summer Theater Camp",
         "type": "day",
         "categories": ["theater", "arts"],
-        "description": "Campers audition, rehearse, and make sets and costumes for a fully staged public performance. The program moves from Sunnydale to Tryon Fine Arts Center for technical and dress rehearsals.",
+        "description": "Campers audition, rehearse, and make sets and costumes for a fully staged production. The week concludes with a public performance at Tryon Fine Arts Center.",
         "camp_page_url": "https://tryonarts.org/event/summer-theater-camp-2026/",
         "registration_url": null,
         "season": {
@@ -208,7 +208,7 @@
           "status": "not_posted",
           "start": "2026-07-27",
           "end": "2026-08-01",
-          "text": "Camp: Monday, July 27 – Friday, July 31. Performance: Saturday, August 1 | 10:30 AM."
+          "text": null
         },
         "ages": null,
         "grades": null,
@@ -229,11 +229,36 @@
         "hours": {
           "start": "09:00",
           "end": null,
-          "text": "Event lists a 9:00 am start; Saturday performance is at 10:30 AM."
+          "text": null
         },
         "extended_care": null,
         "prices": [],
-        "sessions": [],
+        "sessions": [
+          {
+            "label": "Rehearsals, sets and costumes",
+            "start": "2026-07-27",
+            "end": "2026-07-30",
+            "year": 2026,
+            "site": "Tryon Little Theater’s Sunnydale",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Technical and dress rehearsals; performance",
+            "start": "2026-07-31",
+            "end": "2026-08-01",
+            "year": 2026,
+            "site": "Tryon Fine Arts Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
         "registration": [],
         "last_year_registration_opened": null,
         "availability": null,
@@ -243,16 +268,17 @@
         "transportation": null,
         "sources": [
           "https://tryonarts.org/event/summer-theater-camp-2026/",
+          "https://tryonarts.org/event/summer-theater-camp-top-nav2026/",
           "https://tltinfo.org/shows-new/audition-dates.html"
         ],
         "confidence": "medium",
-        "review_notes": "The official event lists a $180–$225 price range without explaining the tiers, so prices are omitted. Ages and daily dismissal time are not stated in the readable page. Camp instruction is July 27–31; the season end includes the August 1 performance. Sunnydale is the initial drop-off site; campers move to TFAC on Friday."
+        "review_notes": "The top-nav2026 page has stale July 28–August 1, 2025 metadata despite a 2026 heading and July 27–31 body dates. The main 2026 page states July 27–August 1, 2026, used here including the performance. Performance times disagree: 10:30 AM on the main page and 10:00 AM on the top-nav page. Site rows follow the stated Friday move to TFAC. The published $180–$225 price range does not identify tiers, so no individual prices were entered. Sunnydale address comes from the venue operator’s official audition listing."
       },
       {
         "name": "Summer Arts Series for Youth (SASY)",
         "type": "day",
-        "categories": ["arts", "theater", "music"],
-        "description": "Campers choose visual and performing arts classes, with placement subject to class capacity. The week ends with an artwork exhibition, music, and a theatrical performance.",
+        "categories": ["arts", "music", "theater"],
+        "description": "Campers choose visual and performing arts activities, including art, theater and music. Friday concludes with an artwork exhibition and music and theatrical performances.",
         "camp_page_url": "https://tryonarts.org/event/summer-arts-series-for-youth-2026-sasy/",
         "registration_url": null,
         "season": {
@@ -279,11 +305,7 @@
             "state": "NC"
           }
         ],
-        "hours": {
-          "start": "09:00",
-          "end": null,
-          "text": "Ages 5-7: 9 am–noon. Senior campers: 9 am–2:15 pm in the description, but 9 am–2:00 pm in the price list."
-        },
+        "hours": null,
         "extended_care": null,
         "prices": [
           {
@@ -357,7 +379,7 @@
         "last_year_registration_opened": null,
         "availability": {
           "status": "mixed",
-          "scope": "2026 age groups",
+          "scope": null,
           "text": "Camp for older kids is full! Join the Wait List. Some spots may be open for younger campers."
         },
         "financial_aid": null,
@@ -366,7 +388,7 @@
         "transportation": null,
         "sources": ["https://tryonarts.org/event/summer-arts-series-for-youth-2026-sasy/"],
         "confidence": "medium",
-        "review_notes": "Confirm senior campers' dismissal time: the description says 2:15 pm, while the price list says 2:00 pm. The upper eligibility limit is stated as eighth grade, not a numeric age. Sample class titles are explicitly from last year's camp and were not treated as 2026 sessions."
+        "review_notes": "Senior camper end time conflicts within the official page: the age-group description says 2:15 pm, while the full-day price line says 2:00 pm. End time is left null. The upper eligibility limit is stated as eighth grade, not a numeric age; no grade-to-age conversion was made."
       }
     ]
   }

@@ -7,23 +7,23 @@
     "discovered_by": ["gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:36:06.696Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:30:06.572Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "b714b20e44072923bdd215f070230017c5de57e5e8d570b269e90b070d9c3043",
   "response": {
     "searches": [
       "site:firstteetriad.org WNC 2027 summer camp",
       "open https://firstteetriad.org/2026-wnc-summer-session-information/",
-      "site:firstteetriad.org \"Sign Up\" \"force.com\""
+      "site:firstteetriad.org/wnc \"PLUS\""
     ],
     "usage": {
-      "inputTokens": 24282,
-      "cachedInputTokens": 8223,
-      "outputTokens": 2447,
-      "reasoningTokens": 212
+      "inputTokens": 28777,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2418,
+      "reasoningTokens": 264
     },
     "status": "completed",
-    "ms": 52148,
+    "ms": 49888,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -47,19 +47,15 @@
   "extraction": {
     "provider_name": "First Tee – Western North Carolina",
     "website_url": "https://firstteetriad.org/wnc/",
-    "notes": "No 2027 WNC summer camp information found. The 2027 internship listing is an employment program, not a 2027 youth camp list. Dates and prices below describe 2026. The fetched summer page did not expose the destination of its Sign Up Here link.",
+    "notes": "No 2027 WNC youth camp information was found. The supplied 2026 camp page was readable in the supplied crawl and search results, but live opens returned no text; its Sign Up Here destination could not be recovered. Dates and prices below describe 2026. Mountain Glen and Red Bird sites are retained for the directory's drive-time check.",
     "excluded": [
       {
         "name": "2027 HBCU Summer Golf Internship",
-        "reason": "Paid college-student employment and professional-development internship."
+        "reason": "Paid college internship and employment program, not a youth summer camp."
       },
       {
         "name": "Parent-Child-Intern Tournament",
-        "reason": "Family tournament rather than a supervised youth camp; listed July 23, 2026 at 5:30 pm."
-      },
-      {
-        "name": "2026 WNC Fall Season",
-        "reason": "Outside summer."
+        "reason": "Single evening family tournament, not a supervised youth camp."
       }
     ],
     "cards": [
@@ -67,7 +63,7 @@
         "name": "First Tee Summer Camp",
         "type": "half_day",
         "categories": ["sports"],
-        "description": "Children participate in golf programming at local golf courses. First Tee combines golf with life skills instruction.",
+        "description": "Golf summer camp for children ages 7–14.",
         "camp_page_url": "https://firstteetriad.org/2026-wnc-summer-session-information/",
         "registration_url": null,
         "season": {
@@ -203,20 +199,20 @@
         "transportation": null,
         "sources": [
           "https://firstteetriad.org/2026-wnc-summer-session-information/",
-          "https://firstteetriad.org/",
           "https://www.ashevillegc.com/contactus/",
           "https://www.waynesvilleinnandgolf.com/contact-us",
           "https://boone-asheville-nc-mountain-golf-course.com/contact-mountain-glen/",
-          "https://sapphirevalleyresorts.com/amenities/red-bird-golf/"
+          "https://sapphirevalleyresorts.com/amenities/red-bird-golf/",
+          "https://www.golfpass.com/travel-advisor/courses/25593-red-bird-golf-links"
         ],
         "confidence": "medium",
-        "review_notes": "Dates and April 30 registration opening take their year from the 2026 page heading. Waynesville hours are explicitly TBD. Red Bird's 67 Cherokee Trail address appears in multiple third-party venue listings, but could not be confirmed on its official amenity page; verify with the venue. The resort's general address is 127 Cherokee Trail, which was not substituted for the golf course address."
+        "review_notes": "Dates and the April 30 opening take their year from the 2026 page heading. Waynesville hours are TBD. Red Bird's 67 Cherokee Trail address comes from third-party listings; its official resort page does not publish a course-specific street address. Confirm this address with the venue."
       },
       {
         "name": "PLUS Blue Summer Camp",
         "type": "half_day",
         "categories": ["sports"],
-        "description": "A golf summer camp for current PLUS Blue participants at Asheville Municipal Golf Course.",
+        "description": "Golf summer camp for current PLUS Blue participants.",
         "camp_page_url": "https://firstteetriad.org/2026-wnc-summer-session-information/",
         "registration_url": null,
         "season": {
@@ -267,14 +263,14 @@
           "https://firstteetriad.org/2026-wnc-summer-session-information/",
           "https://www.ashevillegc.com/contactus/"
         ],
-        "confidence": "medium",
-        "review_notes": "Dates and registration opening take their year from the 2026 page heading. Eligibility is stated only as Current PLUS Blue Participants; no ages are provided."
+        "confidence": "high",
+        "review_notes": null
       },
       {
         "name": "Girls Golf Club Clinic",
         "type": "clinic",
         "categories": ["sports"],
-        "description": "Girls ages 7–14 participate in a golf clinic at Mountain Glen Golf Club.",
+        "description": "Golf clinic for girls ages 7–14.",
         "camp_page_url": "https://firstteetriad.org/2026-wnc-summer-session-information/",
         "registration_url": null,
         "season": {
@@ -328,8 +324,8 @@
           "https://firstteetriad.org/2026-wnc-summer-session-information/",
           "https://boone-asheville-nc-mountain-golf-course.com/contact-mountain-glen/"
         ],
-        "confidence": "medium",
-        "review_notes": "Clinic date and April 30 registration opening take their year from the 2026 page heading."
+        "confidence": "high",
+        "review_notes": null
       }
     ]
   }

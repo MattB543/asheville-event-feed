@@ -7,29 +7,29 @@
     "discovered_by": ["news828", "aggregator", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T14:59:01.851Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
-  "sourceHash": "98ef4cca97ef92c7fd65d6568c3db815a27f69285e4d4f8e887304136987d94f",
+  "extractedAt": "2026-10-29T16:59:24.331Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "ff2cbbbe2f56a412a29bb3bfe816f1702985c43a1019125570ddc76b436c6171",
   "response": {
     "searches": [
-      "site:rainbowcommunityschool.org summer camp 2026 policies 2027",
-      "site:rainbowcommunityschool.org \"2026\" \"camp\" \"policies\""
+      "site:rainbowcommunityschool.org summer camp 2026 policies Happiness",
+      "site:rainbowcommunityschool.org \"2026\" \"camp\" \"9\" \"policies\""
     ],
     "usage": {
-      "inputTokens": 28427,
-      "cachedInputTokens": 8223,
-      "outputTokens": 2728,
-      "reasoningTokens": 151
+      "inputTokens": 29860,
+      "cachedInputTokens": 8845,
+      "outputTokens": 3449,
+      "reasoningTokens": 197
     },
     "status": "completed",
-    "ms": 55220,
+    "ms": 61701,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
   "bundle": [
     {
       "url": "https://rainbowcommunityschool.org/educational-programs/summer-programming/",
-      "chars": 29949,
+      "chars": 29947,
       "method": "fetch"
     },
     {
@@ -56,15 +56,15 @@
   "extraction": {
     "provider_name": "Rainbow Community School",
     "website_url": "https://rainbowcommunityschool.org/",
-    "notes": "2027 offerings are coming in February 2027; no registration opening date is announced. Dates and prices below are 2026 facts. The supplied camp page has duplicated descriptions. Specialty weeks are grouped as rows of Specialty Camps rather than separate theme cards. Registration links and the linked camp policies could not be retrieved. Older archived camps were not treated as current offerings.",
+    "notes": "2027 offerings are coming in February 2027; no registration opening date is announced. The live summer page returned no readable body through the browser, so program details use the supplied official-page text. Search did not locate the linked camp policies or current registration destinations. The older 2010 summer-camps page was not used.",
     "excluded": [
       {
-        "name": "Preschool and K–8 school programs",
-        "reason": "School-year education, not finite summer camps."
+        "name": "Preschool",
+        "reason": "School-year preschool, not finite summer camp programming."
       },
       {
         "name": "Before and After School Care",
-        "reason": "School-year childcare, not summer-only programming."
+        "reason": "School-year childcare, not summer camp programming."
       }
     ],
     "cards": [
@@ -72,7 +72,7 @@
         "name": "Happiness Camp",
         "type": "day",
         "categories": ["general", "nature_outdoor", "arts", "cooking"],
-        "description": "Campers participate in playground activities, movement, art, snack preparation and water play. Activities differ by grade band and include local creek outings.",
+        "description": "Campers participate in playground play, making snacks, creative activities, movement, water play, and local creek outings. Activities vary between the rising grades 1–2 and 2–3 groups.",
         "camp_page_url": "https://rainbowcommunityschool.org/educational-programs/summer-programming/",
         "registration_url": null,
         "season": {
@@ -102,7 +102,7 @@
           {
             "amount": 350,
             "unit": "week",
-            "label": "Includes all materials",
+            "label": "includes all materials",
             "year": 2026
           }
         ],
@@ -111,7 +111,7 @@
         "last_year_registration_opened": null,
         "availability": {
           "status": "closed",
-          "scope": "Summer 2026",
+          "scope": "2026 summer camps",
           "text": "Summer Camp 2026 has now concluded at Rainbow."
         },
         "financial_aid": {
@@ -121,15 +121,18 @@
         "special_needs": null,
         "lunch": null,
         "transportation": null,
-        "sources": ["https://rainbowcommunityschool.org/educational-programs/summer-programming/"],
+        "sources": [
+          "https://rainbowcommunityschool.org/educational-programs/summer-programming/",
+          "https://rainbowcommunityschool.org/contact/"
+        ],
         "confidence": "high",
         "review_notes": null
       },
       {
         "name": "Specialty Camps",
         "type": "day",
-        "categories": ["nature_outdoor", "arts", "music", "theater", "dance", "academic", "stem"],
-        "description": "Weekly themes include outdoor water adventures, nature art, musical theater, ceramics, sewing, writing, puppetry, woodworking and rock band performance. Camps have half-day or full-day schedules depending on the theme.",
+        "categories": ["nature_outdoor", "arts", "theater", "music", "academic", "stem"],
+        "description": "Weekly themes include hiking and swimming, nature art, musical theater, ceramics, sewing, creative writing, puppetry, woodworking, and rock band performance. Camps offer either full-day activities or half-day activities with an optional afternoon extension.",
         "camp_page_url": "https://rainbowcommunityschool.org/educational-programs/summer-programming/",
         "registration_url": null,
         "season": {
@@ -155,31 +158,31 @@
         ],
         "hours": {
           "start": "09:00",
-          "end": null,
-          "text": "Half day: 9:00 AM–12:30 PM; full day: 9:00 AM–4:00 PM, Monday–Friday."
+          "end": "16:00",
+          "text": "HALF DAY (9-12:30) or FULL DAY (9:00 AM – 4:00 PM)"
         },
         "extended_care": {
           "early_dropoff_start": null,
-          "late_pickup_end": null,
-          "cost_text": "Half-day camps: add extended care option $150."
+          "late_pickup_end": "16:00",
+          "cost_text": "Add extended care option: $150"
         },
         "prices": [
           {
             "amount": 350,
             "unit": "week",
-            "label": "Full day, includes materials",
+            "label": "full day; includes materials",
             "year": 2026
           },
           {
             "amount": 200,
             "unit": "week",
-            "label": "Half day, includes materials",
+            "label": "half day; includes materials",
             "year": 2026
           }
         ],
         "sessions": [
           {
-            "label": "Surf & Turf",
+            "label": "Week 1: Surf & Turf",
             "start": "2026-06-08",
             "end": "2026-06-12",
             "year": 2026,
@@ -193,13 +196,13 @@
             "price": {
               "amount": 350,
               "unit": "week",
-              "label": "Includes materials",
+              "label": "includes materials",
               "year": 2026
             },
             "status": null
           },
           {
-            "label": "Nature & Art",
+            "label": "Week 1: Nature & Art",
             "start": "2026-06-08",
             "end": "2026-06-12",
             "year": 2026,
@@ -213,13 +216,13 @@
             "price": {
               "amount": 200,
               "unit": "week",
-              "label": "Half day, includes materials",
+              "label": "includes materials",
               "year": 2026
             },
             "status": null
           },
           {
-            "label": "Surf & Turf",
+            "label": "Week 2: Surf & Turf",
             "start": "2026-06-15",
             "end": "2026-06-19",
             "year": 2026,
@@ -233,13 +236,13 @@
             "price": {
               "amount": 350,
               "unit": "week",
-              "label": "Includes materials",
+              "label": "includes materials",
               "year": 2026
             },
             "status": null
           },
           {
-            "label": "Disney Hits Variety Show",
+            "label": "Week 2: Disney Hits Variety Show",
             "start": "2026-06-15",
             "end": "2026-06-19",
             "year": 2026,
@@ -253,13 +256,13 @@
             "price": {
               "amount": 350,
               "unit": "week",
-              "label": "Includes materials",
+              "label": "includes materials",
               "year": 2026
             },
             "status": null
           },
           {
-            "label": "Nature & Art Camp",
+            "label": "Week 2: Nature & Art Camp",
             "start": "2026-06-15",
             "end": "2026-06-19",
             "year": 2026,
@@ -273,13 +276,13 @@
             "price": {
               "amount": 200,
               "unit": "week",
-              "label": "Half day, includes materials",
+              "label": "includes materials",
               "year": 2026
             },
             "status": null
           },
           {
-            "label": "Ceramics Camp",
+            "label": "Week 3: Ceramics Camp",
             "start": "2026-06-22",
             "end": "2026-06-26",
             "year": 2026,
@@ -293,13 +296,13 @@
             "price": {
               "amount": 350,
               "unit": "week",
-              "label": "Includes materials",
+              "label": "includes materials",
               "year": 2026
             },
             "status": null
           },
           {
-            "label": "Broadway Hits Variety Show",
+            "label": "Week 3: Broadway Hits Variety Show",
             "start": "2026-06-22",
             "end": "2026-06-26",
             "year": 2026,
@@ -313,13 +316,13 @@
             "price": {
               "amount": 350,
               "unit": "week",
-              "label": "Includes materials",
+              "label": "includes materials",
               "year": 2026
             },
             "status": null
           },
           {
-            "label": "Surf & Turf",
+            "label": "Week 4: Surf & Turf",
             "start": "2026-07-06",
             "end": "2026-07-10",
             "year": 2026,
@@ -333,13 +336,13 @@
             "price": {
               "amount": 350,
               "unit": "week",
-              "label": "Includes materials",
+              "label": "includes materials",
               "year": 2026
             },
             "status": null
           },
           {
-            "label": "Upcycled Fashion",
+            "label": "Week 4: Upcycled Fashion",
             "start": "2026-07-06",
             "end": "2026-07-10",
             "year": 2026,
@@ -353,13 +356,13 @@
             "price": {
               "amount": 200,
               "unit": "week",
-              "label": "Half day, includes materials",
+              "label": "includes materials",
               "year": 2026
             },
             "status": null
           },
           {
-            "label": "Musical Theatre Camp",
+            "label": "Week 5: Musical Theatre Camp",
             "start": "2026-07-13",
             "end": "2026-07-17",
             "year": 2026,
@@ -373,13 +376,13 @@
             "price": {
               "amount": 350,
               "unit": "week",
-              "label": "Includes materials",
+              "label": "includes materials",
               "year": 2026
             },
             "status": null
           },
           {
-            "label": "Let's Make a Zine! Middle School Creative Writing",
+            "label": "Week 5: Let's Make a Zine! Middle School Creative Writing",
             "start": "2026-07-13",
             "end": "2026-07-17",
             "year": 2026,
@@ -393,13 +396,13 @@
             "price": {
               "amount": 200,
               "unit": "week",
-              "label": "Half day, includes materials",
+              "label": "includes materials",
               "year": 2026
             },
             "status": null
           },
           {
-            "label": "Puppet Masters of the Universe",
+            "label": "Week 6: Puppet Masters of the Universe",
             "start": "2026-07-20",
             "end": "2026-07-24",
             "year": 2026,
@@ -413,13 +416,13 @@
             "price": {
               "amount": 350,
               "unit": "week",
-              "label": "Includes materials",
+              "label": "includes materials",
               "year": 2026
             },
             "status": null
           },
           {
-            "label": "Woodworking",
+            "label": "Week 6: Woodworking",
             "start": "2026-07-20",
             "end": "2026-07-24",
             "year": 2026,
@@ -433,13 +436,13 @@
             "price": {
               "amount": 200,
               "unit": "week",
-              "label": "Half day, includes materials",
+              "label": "includes materials",
               "year": 2026
             },
             "status": null
           },
           {
-            "label": "Surf & Turf",
+            "label": "Week 7: Surf & Turf",
             "start": "2026-07-27",
             "end": "2026-07-31",
             "year": 2026,
@@ -453,13 +456,13 @@
             "price": {
               "amount": 350,
               "unit": "week",
-              "label": "Includes materials",
+              "label": "includes materials",
               "year": 2026
             },
             "status": null
           },
           {
-            "label": "Rock Band Camp",
+            "label": "Week 7: Rock Band Camp",
             "start": "2026-07-27",
             "end": "2026-07-31",
             "year": 2026,
@@ -473,7 +476,7 @@
             "price": {
               "amount": 200,
               "unit": "week",
-              "label": "Half day, includes materials",
+              "label": "includes materials",
               "year": 2026
             },
             "status": null
@@ -483,7 +486,7 @@
         "last_year_registration_opened": null,
         "availability": {
           "status": "closed",
-          "scope": "Summer 2026",
+          "scope": "2026 summer camps",
           "text": "Summer Camp 2026 has now concluded at Rainbow."
         },
         "financial_aid": {
@@ -493,15 +496,18 @@
         "special_needs": null,
         "lunch": null,
         "transportation": null,
-        "sources": ["https://rainbowcommunityschool.org/educational-programs/summer-programming/"],
-        "confidence": "high",
-        "review_notes": null
+        "sources": [
+          "https://rainbowcommunityschool.org/educational-programs/summer-programming/",
+          "https://rainbowcommunityschool.org/contact/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Afternoon extension ending at 16:00 is inferred from the stated whole-day coverage and full-day schedule; no separate extension pickup time is printed. Duplicate theme descriptions have minor wording differences but agree on dates, grades, hours, and prices."
       },
       {
         "name": "PreK and Kindergarten Summer Programming",
         "type": "day",
         "categories": ["general"],
-        "description": "Summer programming is offered for rising PreK and kindergarten students. Families are directed to contact Kate Brantley for details.",
+        "description": "Summer programming for rising PreK and kindergarten children.",
         "camp_page_url": "https://rainbowcommunityschool.org/educational-programs/summer-programming/",
         "registration_url": null,
         "season": {
@@ -531,7 +537,7 @@
         "transportation": null,
         "sources": ["https://rainbowcommunityschool.org/educational-programs/summer-programming/"],
         "confidence": "medium",
-        "review_notes": "The page only refers families to Kate Brantley; verify the program's official name, format, meeting location and dates. No details from school-year preschool tuition or childcare were applied."
+        "review_notes": "The summer page gives only a referral to Kate Brantley for this offering. Confirm format, dates, location, and whether the general February 2027 offerings announcement also applies to this program."
       }
     ]
   }

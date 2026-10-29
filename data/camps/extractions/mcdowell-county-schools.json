@@ -7,22 +7,19 @@
     "discovered_by": ["grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:10:50.981Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:08:46.333Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "a8d9a7562d2f39cd4b67162b51b8d3212418f22fca54bceacefdbe4e9764e4b7",
   "response": {
-    "searches": [
-      "site:mcdowell.k12.nc.us \"Camp Opportunity\" \"2026\"",
-      "\"McDowell\" \"Inferno Camp\" 2026"
-    ],
+    "searches": ["site.mcdowell.k12.nc.us \"Camp Opportunity\" \"2026\""],
     "usage": {
-      "inputTokens": 25013,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1083,
-      "reasoningTokens": 183
+      "inputTokens": 16827,
+      "cachedInputTokens": 8845,
+      "outputTokens": 386,
+      "reasoningTokens": 88
     },
     "status": "completed",
-    "ms": 33242,
+    "ms": 13567,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -51,61 +48,21 @@
   "extraction": {
     "provider_name": "McDowell County Schools",
     "website_url": "https://www.mcdowell.k12.nc.us/",
-    "notes": "No 2027 camp information found. Official school calendar search results additionally list Health Careers Camp (June 22-25, 2026), Inferno Camp (August 3-6, 2026), NCDOT Camp Week 2 (July 27-30, 2026), and Band Camp. These require follow-up: accessible calendar text does not establish activities, youth eligibility, or whether the schools operate them. Official pages were blocked by robots.txt during web research; supplied page text and official search results were used.",
-    "excluded": [],
-    "cards": [
+    "notes": "No 2027 camp information was found. Camp Opportunity is excluded because it is a career-learning program restricted to McDowell County Schools students. Its official school calendar lists June 15–18, 2026, while the supplied registration form is still labeled 2025 and closed. Search also found school Summer Bridge information restricted to enrolled students. Additional official pages could not be opened because of robots.txt restrictions; official search results were readable.",
+    "excluded": [
       {
         "name": "Camp Opportunity",
-        "type": "day",
-        "categories": ["stem", "arts", "academic", "cooking", "nature_outdoor"],
-        "description": "Students explore a different career each day through hands-on activities. Listed subjects include healthcare, construction, culinary arts, science, agriculture and the arts.",
-        "camp_page_url": "https://www.mcdowell.k12.nc.us/departments/cte/camp-opportunity",
-        "registration_url": "https://docs.google.com/forms/d/e/1FAIpQLSdhGP1b0WspKsYP83BSrHmZMMCbI57IuMmqkDzMcZwgVbKrSw/closedform",
-        "season": {
-          "year": 2026,
-          "status": "not_posted",
-          "start": "2026-06-15",
-          "end": "2026-06-18",
-          "text": null
-        },
-        "ages": null,
-        "grades": {
-          "min": 7,
-          "max": 9,
-          "basis": "rising"
-        },
-        "sites": [
-          {
-            "name": "McDowell High School",
-            "address": "600 McDowell High Drive",
-            "town": "Marion",
-            "state": "NC"
-          }
-        ],
-        "hours": null,
-        "extended_care": null,
-        "prices": [],
-        "sessions": [],
-        "registration": [],
-        "last_year_registration_opened": null,
-        "availability": null,
-        "financial_aid": null,
-        "special_needs": null,
-        "lunch": null,
-        "transportation": {
-          "value": "yes",
-          "text": "Camp will begin each day at McDowell High School; transportation offered through an abbreviated bus route. Transportation to the off-site sessions will be provided."
-        },
-        "sources": [
-          "https://www.mcdowell.k12.nc.us/departments/cte/camp-opportunity",
-          "https://www.mcdowell.k12.nc.us/mhs/calendar/8837907/camp-opportunity",
-          "https://www.mcdowell.k12.nc.us/mhs/calendar/monthly/2026/06",
-          "https://www.mcdowell.k12.nc.us/mhs/people/2521613/kevin-burleson",
-          "https://docs.google.com/forms/d/e/1FAIpQLSdhGP1b0WspKsYP83BSrHmZMMCbI57IuMmqkDzMcZwgVbKrSw/closedform"
-        ],
-        "confidence": "medium",
-        "review_notes": "2026 dates are stated in official calendar search results. The undated program page states rising grades 7-9, McDowell County Public Schools eligibility, free admission, breakfast and snacks, and transportation; confirm these apply to 2026 or 2027. Price omitted because the free admission statement has no season year. Linked registration form is explicitly for 2025 and closed; this is not evidence that 2026 or 2027 registration is closed. Calendar venue address is 600 W Mc Dowell Jr High School Rd; school-published footer address, 600 McDowell High Drive, was used instead. McDowell Technical Community College and other locations are field-trip destinations, not additional drop-off sites."
+        "reason": "District-only summer learning program: the official page limits eligibility to rising 7th–9th grade students from McDowell County Public Schools, and the registration form explicitly says only students enrolled in McDowell County Schools can participate. Activities focus on career exploration and hands-on learning."
+      },
+      {
+        "name": "Summer Bridge",
+        "reason": "School summer learning and transition program for enrolled McDowell Early College and McDowell Academy for Innovation students."
+      },
+      {
+        "name": "Camp Opportunity of Maryland",
+        "reason": "Different organization with a similar name; its Maryland camp is outside the Asheville service area."
       }
-    ]
+    ],
+    "cards": []
   }
 }

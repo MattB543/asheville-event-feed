@@ -10,19 +10,19 @@
     "discovered_by": ["grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:07:24.386Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:06:13.545Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "baa1aede5ce18897b2895f40d318eaa7c9e6f3f2459804ece15ba3cc7c883b61",
   "response": {
-    "searches": ["site:fiddleheadff.com summer camp 2026 2027 closed"],
+    "searches": ["site:fiddleheadff.com \"2027\""],
     "usage": {
-      "inputTokens": 11304,
-      "cachedInputTokens": 8223,
-      "outputTokens": 335,
-      "reasoningTokens": 38
+      "inputTokens": 12758,
+      "cachedInputTokens": 8845,
+      "outputTokens": 298,
+      "reasoningTokens": 47
     },
     "status": "completed",
-    "ms": 13524,
+    "ms": 11189,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -46,23 +46,23 @@
   "extraction": {
     "provider_name": "Fiddlehead Farm & Forest",
     "website_url": "https://fiddleheadff.com/",
-    "notes": "The official homepage states “We’re Permanently Closed” and “This location is now permanently closed.” No current camp cards are included. The remaining summer camp pages contain only headings and contact information. The supplied flyer describes summer 2025, explicitly confirmed by its May 1, 2025 balance deadline; its dates and prices must not be treated as 2026 or 2027 information. No 2027 announcement or 2026 camp schedule was found.",
+    "notes": "The official homepage states that this location is permanently closed. No 2027 camp information was found. The supplied camp flyer describes summer 2025, not 2026 or 2027; its dates and prices were not carried forward. Residual camp and employment pages remain online despite the closure notice.",
     "excluded": [
       {
         "name": "Fiddlehead Day Camp",
-        "reason": "Historical summer camp with half-day and full-day options in the 2025 flyer. The provider now explicitly states that it is permanently closed, so this is not a current offering."
+        "reason": "The provider's official homepage states that the location is permanently closed. The historical 2025 flyer is not evidence of an upcoming summer camp."
       },
       {
         "name": "Camp Counselor for Summer Camps",
-        "reason": "Employment opportunity, not a camper program."
+        "reason": "Employment listing, not a camper program."
       },
       {
-        "name": "BIKE DEV TEAM – MONDAY",
-        "reason": "Team offering, not a finite summer camp."
+        "name": "TOP ROPE BELAY CLASS",
+        "reason": "A class rather than a summer camp."
       },
       {
-        "name": "PRIVATE TECHNIQUE COACHING",
-        "reason": "Individual coaching offering with no finite summer youth program stated."
+        "name": "CLIMB COMP TEAM",
+        "reason": "Competitive sports team, not a finite summer camp."
       }
     ],
     "cards": []

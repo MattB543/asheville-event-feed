@@ -11,24 +11,22 @@
     "discovered_by": ["grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:26:28.548Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:22:12.698Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "ea1ba417c2fa97c77e41fe08ecb8be95b88341ea19d4283cbf3d8fc459921297",
   "response": {
     "searches": [
-      "site:madison.ces.ncsu.edu \"2027\" \"summer\"",
-      "open https://madison.ces.ncsu.edu/news/4-h-residential-summer-camp/",
-      "site.bjpenn.org address",
-      "site:bjpenn4h.org \"address\" \"Reidsville\""
+      "site.madison.ces.ncsu.edu \"2027\" \"camp\"",
+      "site.madison.ces.ncsu.edu \"2027\" \"Summer Fun\""
     ],
     "usage": {
-      "inputTokens": 34934,
-      "cachedInputTokens": 8223,
-      "outputTokens": 2870,
-      "reasoningTokens": 233
+      "inputTokens": 31163,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2063,
+      "reasoningTokens": 145
     },
     "status": "completed",
-    "ms": 59341,
+    "ms": 40240,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -77,27 +75,31 @@
   "extraction": {
     "provider_name": "N.C. Cooperative Extension — Madison County 4-H",
     "website_url": "https://madison.ces.ncsu.edu/",
-    "notes": "No official summer 2027 dates or registration announcements found. Cards use 2026 materials. Summer Fun is presented as one program with activity and age-band rows. Older 2025-only activities were not carried forward because a complete 2026 schedule is available. The county residential offering is included; other independently registered statewide camp offerings are not treated as Madison County programs.",
+    "notes": "No Madison County summer 2027 information was found. The card uses the 2026 Summer Fun brochure and schedule. Residential camp is excluded because the statewide centers are outside the directory's area. Older 2025 Summer Fun themes are not carried forward into the 2026 schedule.",
     "excluded": [
       {
+        "name": "4-H Residential Summer Camp",
+        "reason": "The referenced statewide residential centers, Betsy-Jeff Penn, Millstone and Eastern 4-H Center, are in central or eastern North Carolina, outside about 75 minutes' drive of Asheville."
+      },
+      {
         "name": "4-H Presentation Program",
-        "reason": "Presentation preparation by appointment and a sequence of competitive activity days, rather than a finite supervised summer camp or clinic."
+        "reason": "Presentation preparation by appointment and county, district and state competitions, rather than a finite supervised summer camp."
       },
       {
         "name": "Livestock Judging, Skillathon & Quiz Bowl",
-        "reason": "Competitive team training season from May through the state contest, rather than a summer camp."
+        "reason": "A competitive team training season running May through July with a state contest, rather than a finite summer camp."
       },
       {
-        "name": "Fall After School 4-H Groups",
-        "reason": "Outside summer."
+        "name": "NC 4-H Congress",
+        "reason": "Youth conference; excluded under the camp rule."
       }
     ],
     "cards": [
       {
         "name": "4-H Summer Fun",
-        "type": "half_day",
-        "categories": ["cooking", "nature_outdoor", "horses", "arts", "academic"],
-        "description": "Youth participate in cooking, creek ecology, horseback riding, sewing, and animal science activities. Sessions include hands-on projects, kitchen safety, wildlife exploration, and farm learning.",
+        "type": "day",
+        "categories": ["nature_outdoor", "cooking", "horses", "arts"],
+        "description": "Youth participate in hands-on activities in creek ecology, cooking, horseback riding, sewing and animal science. Cooking participants practice food and knife safety and follow recipes; sewing campers make teddy bears.",
         "camp_page_url": "https://madison.ces.ncsu.edu/news/4-h-summer-fun-2026/",
         "registration_url": "https://v2.4honline.com/",
         "season": {
@@ -115,7 +117,7 @@
         "sites": [
           {
             "name": "Madison County Cooperative Extension Center",
-            "address": "258 Carolina Ln",
+            "address": "258 Carolina Lane",
             "town": "Marshall",
             "state": "NC"
           }
@@ -290,8 +292,8 @@
         "last_year_registration_opened": {
           "date": "2026-04-29",
           "time": "17:00",
-          "text": "4-H Summer Camp Registration Opens Wednesday, April 29th at 5:00pm in 4-H Online",
-          "url": "https://eit-wagpress-prod.s3.amazonaws.com/media/documents/2026_4-H_Summer_Fun.pdf"
+          "text": "Registration opens in 4-H Online on April 29th at 5:00 p.m.",
+          "url": "https://madison.ces.ncsu.edu/news/4-h-summer-fun-2026/"
         },
         "availability": null,
         "financial_aid": {
@@ -300,11 +302,11 @@
         },
         "special_needs": {
           "value": "case_by_case",
-          "text": "In compliance with the Americans with Disabilities Act, N.C. Cooperative Extension will honor requests for reasonable accommodations made by individuals with disabilities."
+          "text": "N.C. Cooperative Extension will honor requests for reasonable accommodations made by individuals with disabilities."
         },
         "lunch": {
           "value": "case_by_case",
-          "text": "Participants will learn to read and follow recipes while preparing their own lunch each day."
+          "text": "Kids as Chefs: Participants will learn to read and follow recipes while preparing their own lunch each day."
         },
         "transportation": {
           "value": "yes",
@@ -315,115 +317,6 @@
           "https://eit-wagpress-prod.s3.amazonaws.com/media/documents/2026_4-H_Summer_Fun.pdf",
           "https://madison.ces.ncsu.edu/event/109156/",
           "https://docs.google.com/forms/d/e/1FAIpQLSdrrQ4PMdUFN3AB0h9A_WjpaqXgzxeRJGkWWK1p5tSwFcpaLw/viewform?usp=sf_link"
-        ],
-        "confidence": "high",
-        "review_notes": null
-      },
-      {
-        "name": "4-H Residential Summer Camp",
-        "type": "overnight",
-        "categories": ["nature_outdoor", "general"],
-        "description": "Campers stay in cabins and participate in swimming, horseback riding, archery, canoeing, rock climbing, games, and campfires.",
-        "camp_page_url": "https://madison.ces.ncsu.edu/news/4-h-residential-summer-camp/",
-        "registration_url": null,
-        "season": {
-          "year": 2026,
-          "status": "not_posted",
-          "start": "2026-06-14",
-          "end": "2026-06-19",
-          "text": null
-        },
-        "ages": {
-          "min": 8,
-          "max": 14
-        },
-        "grades": null,
-        "sites": [
-          {
-            "name": "Betsy-Jeff Penn 4-H Camp",
-            "address": "804 Cedar Ln",
-            "town": "Reidsville",
-            "state": "NC"
-          }
-        ],
-        "hours": null,
-        "extended_care": null,
-        "prices": [],
-        "sessions": [
-          {
-            "label": "Traditional",
-            "start": "2026-06-14",
-            "end": "2026-06-19",
-            "year": 2026,
-            "site": null,
-            "ages": {
-              "min": 8,
-              "max": 12
-            },
-            "grades": null,
-            "hours": null,
-            "price": {
-              "amount": 555,
-              "unit": "session",
-              "label": "Traditional",
-              "year": 2026
-            },
-            "status": null
-          },
-          {
-            "label": "Adventure",
-            "start": "2026-06-14",
-            "end": "2026-06-19",
-            "year": 2026,
-            "site": null,
-            "ages": {
-              "min": 13,
-              "max": 14
-            },
-            "grades": null,
-            "hours": null,
-            "price": {
-              "amount": 555,
-              "unit": "session",
-              "label": "Adventure",
-              "year": 2026
-            },
-            "status": null
-          },
-          {
-            "label": "Trekker",
-            "start": "2026-06-14",
-            "end": "2026-06-19",
-            "year": 2026,
-            "site": null,
-            "ages": {
-              "min": 13,
-              "max": 14
-            },
-            "grades": null,
-            "hours": null,
-            "price": {
-              "amount": 605,
-              "unit": "session",
-              "label": "Trekker",
-              "year": 2026
-            },
-            "status": null
-          }
-        ],
-        "registration": [],
-        "last_year_registration_opened": null,
-        "availability": null,
-        "financial_aid": {
-          "value": "case_by_case",
-          "text": "If you’re interested in 4-H Camp but need financial assistance in order to attend, please email misty_varnell@ncsu.edu to request a scholarship application."
-        },
-        "special_needs": null,
-        "lunch": null,
-        "transportation": null,
-        "sources": [
-          "https://madison.ces.ncsu.edu/news/4-h-residential-summer-camp/",
-          "https://bjpenn4h.org/about/contact-us/"
         ],
         "confidence": "high",
         "review_notes": null

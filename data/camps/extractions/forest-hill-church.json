@@ -7,22 +7,23 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:14:22.264Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:12:18.280Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "96e1550878a151ff51810943bee9db2856bda4ad55b9ccc6b125bbb14b0218d0",
   "response": {
     "searches": [
-      "site.foresthill.org \"Camp Rock\" \"2027\"",
-      "open https://foresthill.org/nextgenevents/"
+      "site.blueridgeassembly.org address 84 Blue Ridge",
+      "open https://foresthill.org/middleschoolcamp/",
+      "site:awanita.org address 600"
     ],
     "usage": {
-      "inputTokens": 14458,
-      "cachedInputTokens": 8223,
-      "outputTokens": 745,
-      "reasoningTokens": 109
+      "inputTokens": 24139,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1093,
+      "reasoningTokens": 196
     },
     "status": "completed",
-    "ms": 22369,
+    "ms": 32048,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -46,14 +47,31 @@
   "extraction": {
     "provider_name": "Forest Hill Church",
     "website_url": "https://foresthill.org/",
-    "notes": "No 2027 Camp Rock information was found. The supplied Sawyer registration page lists no schedules. This extraction covers the Black Mountain offering; search results also identify Charlotte-area VBS and Middle School Camp offerings outside the requested area. An older Camp Rock PDF under a 2025 upload path describes a different four-day format and price; those details were not applied to the explicitly dated 2026 overnight camp.",
-    "excluded": [],
+    "notes": "No 2027 camp information found. Forest Hill is based in greater Charlotte, but Camp Rock meets in Black Mountain. Middle School Camp in Marietta, SC is retained for the directory's drive-time check. Its official page could only be read through search results.",
+    "excluded": [
+      {
+        "name": "Watermelon VBS Camp",
+        "reason": "All listed sites (Fort Mill, Waxhaw and South Park in Charlotte) are outside the Asheville drive-time area."
+      },
+      {
+        "name": "High School Serve Camp",
+        "reason": "Service trip to Myrtle Beach, outside the Asheville drive-time area."
+      },
+      {
+        "name": "Fuel",
+        "reason": "October weekend retreat, outside summer."
+      },
+      {
+        "name": "Little Kids, Big Kids and Momentum",
+        "reason": "Regular church children's ministries, not finite summer camps."
+      }
+    ],
     "cards": [
       {
         "name": "Camp Rock",
         "type": "overnight",
         "categories": ["faith_based"],
-        "description": "An overnight elementary summer camp focused on learning about Jesus and spending time with friends.",
+        "description": "Forest Hill's overnight elementary summer camp focuses on children growing in their understanding of Jesus and His love.",
         "camp_page_url": "https://foresthill.org/camprock/",
         "registration_url": "https://www.hisawyer.com/forest-hill-church/schedules?sched_ids%5B%5D=1068849&schedule_id=camps",
         "season": {
@@ -102,12 +120,70 @@
         "transportation": null,
         "sources": [
           "https://foresthill.org/camprock/",
-          "https://foresthill.org/events/camp-rock-registration-2026/",
           "https://www.hisawyer.com/forest-hill-church/schedules?sched_ids%5B%5D=1068849&schedule_id=camps",
-          "https://blueridgeassembly.org/financial-information/"
+          "https://blueridgeassembly.org/meet/"
         ],
         "confidence": "high",
         "review_notes": null
+      },
+      {
+        "name": "Middle School Camp",
+        "type": "overnight",
+        "categories": ["faith_based", "nature_outdoor"],
+        "description": "Students participate in service opportunities on camp property and recreation including zip lines, lake time, climbing walls, horseback riding and hummer rides.",
+        "camp_page_url": "https://foresthill.org/middleschoolcamp/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-19",
+          "end": "2026-07-23",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 6,
+          "max": 8,
+          "basis": "current"
+        },
+        "sites": [
+          {
+            "name": "Awanita Valley Christian Retreat Center",
+            "address": "600 Gap Creek Road",
+            "town": "Marietta",
+            "state": "SC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 599,
+            "unit": "session",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-02-23",
+          "time": "09:00",
+          "text": "Register Here starting February 23rd, 9am",
+          "url": "https://foresthill.org/middleschoolcamp/"
+        },
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://foresthill.org/middleschoolcamp/",
+          "https://foresthill.org/events/middle-school-camp-2026/",
+          "https://www.awanita.org/contact-us"
+        ],
+        "confidence": "medium",
+        "review_notes": "Camp facts were readable only through official search results; direct opening returned no text. Confirm overnight format and the registration destination on the camp page. Retained Marietta site for the directory's drive-time check."
       }
     ]
   }

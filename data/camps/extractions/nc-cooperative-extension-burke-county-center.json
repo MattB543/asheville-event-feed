@@ -10,22 +10,19 @@
     "discovered_by": ["grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:05:52.709Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:05:16.419Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "030c831d1afb62fc496c95a0fc28bdb7874f69b035df2c35deb202bae7e5745c",
   "response": {
-    "searches": [
-      "site:burke.ces.ncsu.edu \"2027\" \"camp\"",
-      "site:burke.ces.ncsu.edu \"2026\" \"Eastern\""
-    ],
+    "searches": ["site:burke.ces.ncsu.edu \"2027\" \"summer\" \"4-H\""],
     "usage": {
-      "inputTokens": 30076,
-      "cachedInputTokens": 8223,
-      "outputTokens": 2729,
-      "reasoningTokens": 253
+      "inputTokens": 22057,
+      "cachedInputTokens": 8631,
+      "outputTokens": 2359,
+      "reasoningTokens": 125
     },
     "status": "completed",
-    "ms": 54055,
+    "ms": 45359,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -74,31 +71,27 @@
   "extraction": {
     "provider_name": "N.C. Cooperative Extension — Burke County Center",
     "website_url": "https://burke.ces.ncsu.edu/",
-    "notes": "No summer 2027 dates or registration milestones were found. The 2026 Summer Fun day offerings are grouped as sessions of the provider's named series; the overnight trip is a separate card. The summer activities page still describes a 2025 Eastern 4-H Center trip; no 2026 or 2027 Burke County trip details were found, so those obsolete dates and prices are not included. Other offerings found only in 2025 materials are not carried forward. The 2026 sign-up PDF could not be rendered by the browser; its supplied extracted text establishes the meeting location, registration fee and accommodation policy.",
+    "notes": "No summer 2027 program dates or registration milestones were found on the official pages or in targeted searches. The 2026 Summer Fun listing is used instead of the older 2025 schedule. Cloverbud workshops are announced for ages 5-9 but have no dates, hours or prices, so they have no session rows. The summer-activities page still describes a 2025 Eastern 4-H Center camp outside the directory's geographic area. A separate Teen Leader Intern Program training is mentioned, but its summer schedule and program details were not found.",
     "excluded": [
       {
         "name": "4-H County Cookout",
-        "reason": "Family food-and-games event, not a supervised youth camp."
+        "reason": "Single evening family social event, not a camp."
       },
       {
         "name": "4-H Fundraiser Yardsale",
-        "reason": "Fundraising sale, not a supervised youth program."
+        "reason": "Fundraising sale, not a supervised youth camp."
       },
       {
-        "name": "2027 Extension Master Gardener℠ Class",
-        "reason": "January–April volunteer training, outside summer and not a youth camp."
-      },
-      {
-        "name": "4-H Teen Leaders",
-        "reason": "Recurring club meeting rather than a finite summer leadership camp."
+        "name": "4-H Summer Camp",
+        "reason": "The published offering travels to Eastern 4-H Center in eastern North Carolina, outside the directory's geographic area."
       }
     ],
     "cards": [
       {
         "name": "4-H Summer Fun",
         "type": "day",
-        "categories": ["arts", "stem", "nature_outdoor", "cooking", "general"],
-        "description": "Youth participate in supervised camps, workshops and trips covering sewing, babysitting safety, wildlife, agriculture, fishing, social skills and STEM.",
+        "categories": ["general", "arts", "nature_outdoor", "stem", "cooking"],
+        "description": "Youth participate in supervised camps and workshops covering sewing, babysitting and CPR, wildlife, fishing, food and nutrition, communication skills, and STEM activities.",
         "camp_page_url": "https://burke.ces.ncsu.edu/news/4-h-summer-fun/",
         "registration_url": "https://eit-wagpress-prod.s3.amazonaws.com/media/documents/2026_Summer_Fun_Sign-Up_1.pdf",
         "season": {
@@ -127,7 +120,7 @@
           {
             "amount": 10,
             "unit": "other",
-            "label": "Registration fee in addition to activity costs",
+            "label": "Registration Fee",
             "year": 2026
           }
         ],
@@ -308,14 +301,14 @@
           "https://burke.ces.ncsu.edu/news/4-h-summer-fun/",
           "https://eit-wagpress-prod.s3.amazonaws.com/media/documents/2026_Summer_Fun_Sign-Up_1.pdf"
         ],
-        "confidence": "medium",
-        "review_notes": "Dates take their year from the article's May 29, 2026 publication and the 2026 sign-up form. WHEP's session heading says ages 8–18, while its general program description says 8–19; the session-specific range is used. Cloverbud workshops are announced for ages 5–9 but have no dates, hours or prices, so they are included in the overall age span but not assigned invented session dates. Level Up Your Social Game also includes a Thursday-evening potluck with no stated end time. The supplied PDF text states a $10 registration fee but does not specify whether it is per participant or per activity."
+        "confidence": "high",
+        "review_notes": null
       },
       {
         "name": "Adventure 4-H20 Camping Trip",
         "type": "overnight",
         "categories": ["nature_outdoor"],
-        "description": "Youth travel to Bryson City for white-water rafting, two nights in teepees, campfire activities, games and crafts.",
+        "description": "Youth take a two-night camping trip to Bryson City with white-water rafting, teepee lodging, campfire stories, games and crafts.",
         "camp_page_url": "https://burke.ces.ncsu.edu/news/4-h-summer-fun/",
         "registration_url": "https://eit-wagpress-prod.s3.amazonaws.com/media/documents/2026_Summer_Fun_Sign-Up_1.pdf",
         "season": {
@@ -354,7 +347,7 @@
           {
             "amount": 10,
             "unit": "other",
-            "label": "Summer Fun registration fee",
+            "label": "Registration Fee",
             "year": 2026
           }
         ],
@@ -369,18 +362,18 @@
         },
         "lunch": {
           "value": "yes",
-          "text": "We’ve handled the logistics transportation, lodging, and all meals are fully provided."
+          "text": "transportation, lodging, and all meals are fully provided."
         },
         "transportation": {
           "value": "yes",
-          "text": "We’ve handled the logistics transportation, lodging, and all meals are fully provided."
+          "text": "transportation, lodging, and all meals are fully provided."
         },
         "sources": [
           "https://burke.ces.ncsu.edu/news/4-h-summer-fun/",
           "https://eit-wagpress-prod.s3.amazonaws.com/media/documents/2026_Summer_Fun_Sign-Up_1.pdf"
         ],
-        "confidence": "medium",
-        "review_notes": "Dates take their year from the article's May 29, 2026 publication and the 2026 sign-up form. The PDF's supplied text establishes departure and return at the Agricultural Building. The $10 Summer Fun registration fee is stated separately on the form; its charging frequency is not specified."
+        "confidence": "high",
+        "review_notes": null
       }
     ]
   }

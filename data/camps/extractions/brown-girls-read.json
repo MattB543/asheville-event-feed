@@ -7,22 +7,22 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:33:21.212Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:27:54.834Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "0929dde00369edaf937f21a47b496ac710f14b1cef0081dcdfb0124d0aecf86a",
   "response": {
     "searches": [
-      "site:browngirlsread.org \"Summer\" \"2026\"",
-      "site.wofford.edu \"429\" \"Church\""
+      "site:browngirlsread.org \"camp\" \"2026\"",
+      "site.wofford.edu \"429 North Church\""
     ],
     "usage": {
-      "inputTokens": 22558,
-      "cachedInputTokens": 8223,
-      "outputTokens": 953,
-      "reasoningTokens": 154
+      "inputTokens": 22476,
+      "cachedInputTokens": 8845,
+      "outputTokens": 812,
+      "reasoningTokens": 136
     },
     "status": "completed",
-    "ms": 27230,
+    "ms": 21681,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -41,27 +41,23 @@
   "extraction": {
     "provider_name": "Brown Girls Read",
     "website_url": "https://browngirlsread.org/",
-    "notes": "No 2027 summer camp details or registration milestones were found. The 2026 registration platform was readable through search results only; opening it returned no text.",
+    "notes": "No 2027 camp information or registration milestones found. The 2026 residential camp details are posted on the provider's Zeffy registration page. Empower Her Innovators has no finite summer schedule posted, so it is not included as a summer camp.",
     "excluded": [
       {
-        "name": "After School Tutoring",
-        "reason": "Academic-year tutoring, not a finite summer camp."
-      },
-      {
         "name": "After-School Partnerships",
-        "reason": "After-school programming, not a stated summer offering."
+        "reason": "School-year after-school programming, not a summer camp."
       },
       {
-        "name": "EHI Fundraising Gala",
-        "reason": "Fundraising event, not a supervised youth summer program."
+        "name": "EmpowerHer Gala",
+        "reason": "Single evening fundraising event, not a camp."
       }
     ],
     "cards": [
       {
         "name": "Crowned & Confident BRG Summer Camp",
         "type": "overnight",
-        "categories": ["academic", "arts", "general"],
-        "description": "Girls explore literature and participate in branding, vision-board, affirmation and creative activities. The residential weekend includes author discussions and activities focused on identity, self-expression and leadership.",
+        "categories": ["academic", "arts"],
+        "description": "Girls explore literature and participate in personal storytelling, vision boards, affirmation activities, professional photo shoots, and author panel discussions.",
         "camp_page_url": "https://browngirlsread.org/summer-camp/",
         "registration_url": "https://www.zeffy.com/en-US/ticketing/brown-girls-read-summer-camp",
         "season": {
@@ -84,7 +80,11 @@
             "state": "SC"
           }
         ],
-        "hours": null,
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "June 26 at 8:00 AM to June 28 at 5:00 PM EDT"
+        },
         "extended_care": null,
         "prices": [
           {
@@ -100,7 +100,7 @@
         "availability": null,
         "financial_aid": {
           "value": "yes",
-          "text": "For Scholarship Opportunities, fill out the SAM form HERE:"
+          "text": "For Scholarship Opportunities, fill out the SAM form HERE: 2026 Scholarship Request"
         },
         "special_needs": null,
         "lunch": null,
@@ -109,11 +109,10 @@
           "https://browngirlsread.org/summer-camp/",
           "https://browngirlsread.org/",
           "https://www.zeffy.com/en-US/ticketing/brown-girls-read-summer-camp",
-          "https://www.wofford.edu/admission/visit/directions-and-map",
-          "https://www.wofford.edu/about/news/news-archives/2026/crowned-and-confident"
+          "https://www.wofford.edu/admission/visit/directions-and-map"
         ],
-        "confidence": "medium",
-        "review_notes": "The Zeffy registration details were available only in search results. Zeffy states ages 10 and up and June 26 at 08:00 through June 28 at 17:00; the third-party Connect Spartanburg listing states ages 10–16 and Friday 17:00 through Sunday 10:00. Hours are omitted pending confirmation. Connect Spartanburg lists 250 Evins Street (Greek Village), while Zeffy and Wofford's own directions page publish 429 North Church Street; the official campus address is used, but the precise drop-off building should be confirmed."
+        "confidence": "high",
+        "review_notes": null
       }
     ]
   }

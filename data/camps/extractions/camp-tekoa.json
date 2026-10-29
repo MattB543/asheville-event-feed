@@ -14,24 +14,24 @@
     "discovered_by": ["news828", "grid", "aggregator", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:03:27.538Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:03:06.365Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "e6970bffa25dcd7f26aa8b2f14d86113181cfd2853dd008a34d531f2e6f18f7b",
   "response": {
     "searches": [
       "open https://camptekoa.org/future-families/2027-dates-rates",
-      "site:camptekoa.org \"2027\" \"file\"",
-      "site:camptekoa.org \"Mini Camp\" \"Description\"",
-      "site:camptekoa.org \"Journey\" \"Description\""
+      "site:camptekoa.org 2027 dates rates",
+      "site:camptekoa.org \"mini-camp\"",
+      "site:camptekoa.org/forms/dates-and-rates/198 \"RATES\" \"TKO\""
     ],
     "usage": {
-      "inputTokens": 37724,
-      "cachedInputTokens": 8223,
-      "outputTokens": 16443,
-      "reasoningTokens": 468
+      "inputTokens": 36611,
+      "cachedInputTokens": 8845,
+      "outputTokens": 16507,
+      "reasoningTokens": 490
     },
     "status": "completed",
-    "ms": 290058,
+    "ms": 250666,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -80,27 +80,35 @@
   "extraction": {
     "provider_name": "Camp Tekoa",
     "website_url": "https://camptekoa.org/",
-    "notes": "2027 dates and prices were found in the official 2027 Dates & Rates PDF through search indexing; direct opens returned no readable content. Registration is announced for November 2026, with the exact date still pending. Program details not updated for 2027 are taken from current program pages or the 2026 brochure. Leap and MS TKO Starter appear in older materials or navigation but are absent from the 2027 schedule and are not included. Middle- and high-school versions of Cascade, Survivor and Water Adventure are grouped as age-band rows. Mini Camp weeks are shown as the PDF lists them, not split into unconfirmed half-week sessions.",
+    "notes": "The official 2027 Dates & Rates PDF is indexed and its schedule and prices were readable through search results, but direct opening returned no readable content. Cards using that PDF are medium confidence. The PDF omits MS TKO Starter and Leap, although navigation still lists them; they are not included because the 2027 schedule has been posted. ACTIVE account access returned a browser compatibility message. Mini Camp dates require checking because the schedule lists full-week blocks rather than individual half-week sessions.",
     "excluded": [
       {
-        "name": "Barnabas Camp",
-        "reason": "Special-needs camp for adults ages 18 and older."
+        "name": "MS TKO Starter",
+        "reason": "Listed in 2026 materials and current navigation, but absent from the posted 2027 schedule."
+      },
+      {
+        "name": "Leap",
+        "reason": "Listed in 2026 materials and current navigation, but absent from the posted 2027 schedule."
+      },
+      {
+        "name": "Barnabas",
+        "reason": "Special-needs camp for adults, not a youth program."
+      },
+      {
+        "name": "Camp Jim",
+        "reason": "Adult special-needs program."
       },
       {
         "name": "Tekoa Afterschool",
-        "reason": "School-year childcare rather than a finite summer program."
+        "reason": "School-year childcare."
       },
       {
         "name": "Break Camp",
         "reason": "School-break programming outside summer."
       },
       {
-        "name": "Work at Camp",
-        "reason": "Employment program."
-      },
-      {
-        "name": "Tekoa Retreats",
-        "reason": "Retreat offerings are not identified as supervised youth summer camps."
+        "name": "Summer staff positions",
+        "reason": "Employment programs."
       }
     ],
     "cards": [
@@ -108,7 +116,7 @@
         "name": "Elementary Day Camp",
         "type": "day",
         "categories": ["general", "nature_outdoor", "faith_based"],
-        "description": "Campers swim, boat, use the zipline and slip-n-slide, and make arts and crafts.",
+        "description": "Campers swim, boat, use ziplines, make arts and crafts, and play on the slip-n-slide.",
         "camp_page_url": "https://camptekoa.org/day-camps",
         "registration_url": "https://camptekoa.org/register/register-now",
         "season": {
@@ -122,11 +130,7 @@
           "min": 6,
           "max": 8
         },
-        "grades": {
-          "min": 0,
-          "max": null,
-          "basis": "completed"
-        },
+        "grades": null,
         "sites": [
           {
             "name": "Camp Tekoa",
@@ -260,19 +264,19 @@
         "transportation": null,
         "sources": [
           "https://camptekoa.org/day-camps",
-          "https://camptekoa.org/forms/forms-and-waivers/194-2026-camp-brochure/file",
+          "https://camptekoa.org/christian-camps-wnc-experience-faith-adventure-growth-at-camp-tekoa",
           "https://camptekoa.org/forms/dates-and-rates/198-2027-dates-rates/file",
-          "https://camptekoa.org/register/register-now",
-          "https://camptekoa.org/contact-camp-tekoa"
+          "https://camptekoa.org/future-families/contact-us",
+          "https://camptekoa.org/register/register-now"
         ],
         "confidence": "medium",
-        "review_notes": "2027 schedule and rates were readable only in official search results. Completed-kindergarten requirement is from the 2026 brochure."
+        "review_notes": "2027 schedule and prices were read through official search results. Use the main Day Camps page's ages 6–8 and hours 8:00–4:30; older official promotional pages conflict, giving ages 5–8 or 6–9 and hours until 5:00."
       },
       {
         "name": "Adventure Day Camp",
         "type": "day",
-        "categories": ["nature_outdoor", "general", "faith_based"],
-        "description": "Campers swim, boat, play water and field games, and use the lake zipline and slip-n-slide. The program includes weekly adventure trips.",
+        "categories": ["general", "nature_outdoor", "faith_based"],
+        "description": "Campers swim, boat, use ziplines, play water and field games, and take weekly adventure trips.",
         "camp_page_url": "https://camptekoa.org/day-camps",
         "registration_url": "https://camptekoa.org/register/register-now",
         "season": {
@@ -420,19 +424,19 @@
         "transportation": null,
         "sources": [
           "https://camptekoa.org/day-camps",
-          "https://camptekoa.org/forms/forms-and-waivers/194-2026-camp-brochure/file",
+          "https://camptekoa.org/christian-camps-wnc-experience-faith-adventure-growth-at-camp-tekoa",
           "https://camptekoa.org/forms/dates-and-rates/198-2027-dates-rates/file",
-          "https://camptekoa.org/register/register-now",
-          "https://camptekoa.org/contact-camp-tekoa"
+          "https://camptekoa.org/future-families/contact-us",
+          "https://camptekoa.org/register/register-now"
         ],
         "confidence": "medium",
-        "review_notes": "2027 schedule and rates were readable only in official search results."
+        "review_notes": "2027 schedule and prices were readable only through official search results. Main Day Camps page gives 8:00–4:30; an older promotional page gives 8:00–5:00."
       },
       {
         "name": "Mini Camp",
         "type": "overnight",
         "categories": ["general", "nature_outdoor", "faith_based"],
-        "description": "Short overnight sessions include arts and crafts, swimming, the lake zipline, and campfires.",
+        "description": "A short introduction to overnight camp with arts and crafts, swimming, ziplines, campfires, and s'mores.",
         "camp_page_url": "https://camptekoa.org/overnight-camps",
         "registration_url": "https://camptekoa.org/register/register-now",
         "season": {
@@ -461,13 +465,7 @@
           {
             "amount": 500,
             "unit": "session",
-            "label": "Mini Camp",
-            "year": 2027
-          },
-          {
-            "amount": 500,
-            "unit": "session",
-            "label": "Older Mini Camp",
+            "label": null,
             "year": 2027
           }
         ],
@@ -582,19 +580,19 @@
         "transportation": null,
         "sources": [
           "https://camptekoa.org/overnight-camps",
-          "https://camptekoa.org/forms/forms-and-waivers/194-2026-camp-brochure/file",
+          "https://camptekoa.org/christian-camps-wnc-experience-faith-adventure-growth-at-camp-tekoa",
           "https://camptekoa.org/forms/dates-and-rates/198-2027-dates-rates/file",
-          "https://camptekoa.org/register/register-now",
-          "https://camptekoa.org/contact-camp-tekoa"
+          "https://camptekoa.org/future-families/contact-us",
+          "https://camptekoa.org/register/register-now"
         ],
         "confidence": "medium",
-        "review_notes": "Overview gives ages 7–11, while the 2026 brochure gives elementary Mini ages 7–9. Confirm Older Mini ages and exact half-week dates; PDF lists only week spans. PDF was readable only through search."
+        "review_notes": "Rows reproduce the PDF's week blocks, not confirmed individual stays. Other official pages describe Sunday–Wednesday or Wednesday–Saturday sessions. Confirm actual 2027 half-week dates and age bands; overview gives ages 7–11, while promotional pages distinguish Mini ages 7–9 and Older Mini ages 9–11."
       },
       {
         "name": "Elementary TKO",
         "type": "overnight",
         "categories": ["general", "nature_outdoor", "faith_based"],
-        "description": "Campers stay in cabins and participate in swimming, boating, arts and crafts, ziplining, talent shows and campfires.",
+        "description": "Campers use ziplines, swim, boat, make arts and crafts, and participate in talent shows and campfires.",
         "camp_page_url": "https://camptekoa.org/overnight-camps",
         "registration_url": "https://camptekoa.org/register/register-now",
         "season": {
@@ -622,7 +620,7 @@
         "prices": [
           {
             "amount": 850,
-            "unit": "session",
+            "unit": "week",
             "label": null,
             "year": 2027
           }
@@ -750,19 +748,19 @@
         "transportation": null,
         "sources": [
           "https://camptekoa.org/overnight-camps",
-          "https://camptekoa.org/forms/forms-and-waivers/194-2026-camp-brochure/file",
+          "https://camptekoa.org/christian-camps-wnc-experience-faith-adventure-growth-at-camp-tekoa",
           "https://camptekoa.org/forms/dates-and-rates/198-2027-dates-rates/file",
-          "https://camptekoa.org/register/register-now",
-          "https://camptekoa.org/contact-camp-tekoa"
+          "https://camptekoa.org/future-families/contact-us",
+          "https://camptekoa.org/register/register-now"
         ],
         "confidence": "medium",
-        "review_notes": "2027 schedule and rates were readable only in official search results."
+        "review_notes": "2027 PDF dates and rates were readable only through official search results."
       },
       {
         "name": "MS TKO Camp",
         "type": "overnight",
         "categories": ["general", "nature_outdoor", "faith_based"],
-        "description": "Campers participate in lake activities and camp games, visit nearby waterfalls, and spend one night camping in on-site shelters.",
+        "description": "Campers participate in traditional camp activities, visit nearby waterfalls, and camp overnight in on-site shelters.",
         "camp_page_url": "https://camptekoa.org/overnight-camps",
         "registration_url": "https://camptekoa.org/register/register-now",
         "season": {
@@ -790,7 +788,7 @@
         "prices": [
           {
             "amount": 875,
-            "unit": "session",
+            "unit": "week",
             "label": null,
             "year": 2027
           }
@@ -918,19 +916,19 @@
         "transportation": null,
         "sources": [
           "https://camptekoa.org/overnight-camps",
-          "https://camptekoa.org/forms/forms-and-waivers/194-2026-camp-brochure/file",
+          "https://camptekoa.org/christian-camps-wnc-experience-faith-adventure-growth-at-camp-tekoa",
           "https://camptekoa.org/forms/dates-and-rates/198-2027-dates-rates/file",
-          "https://camptekoa.org/register/register-now",
-          "https://camptekoa.org/contact-camp-tekoa"
+          "https://camptekoa.org/future-families/contact-us",
+          "https://camptekoa.org/register/register-now"
         ],
         "confidence": "medium",
-        "review_notes": "2027 schedule and rates were readable only in official search results."
+        "review_notes": "2027 PDF dates and rates were readable only through official search results."
       },
       {
         "name": "HS TKO Camp",
         "type": "overnight",
         "categories": ["general", "nature_outdoor", "faith_based"],
-        "description": "Campers participate in swimming, arts and crafts, high ropes and ziplining. They also take a whitewater rafting trip and complete a local service project.",
+        "description": "Campers participate in traditional camp activities, high ropes, whitewater rafting, and local service projects.",
         "camp_page_url": "https://camptekoa.org/overnight-camps",
         "registration_url": "https://camptekoa.org/register/register-now",
         "season": {
@@ -958,7 +956,7 @@
         "prices": [
           {
             "amount": 900,
-            "unit": "session",
+            "unit": "week",
             "label": null,
             "year": 2027
           }
@@ -1086,19 +1084,19 @@
         "transportation": null,
         "sources": [
           "https://camptekoa.org/overnight-camps",
-          "https://camptekoa.org/forms/forms-and-waivers/194-2026-camp-brochure/file",
+          "https://camptekoa.org/christian-camps-wnc-experience-faith-adventure-growth-at-camp-tekoa",
           "https://camptekoa.org/forms/dates-and-rates/198-2027-dates-rates/file",
-          "https://camptekoa.org/register/register-now",
-          "https://camptekoa.org/contact-camp-tekoa"
+          "https://camptekoa.org/future-families/contact-us",
+          "https://camptekoa.org/register/register-now"
         ],
         "confidence": "medium",
-        "review_notes": "2027 schedule and rates were readable only in official search results."
+        "review_notes": "2027 PDF dates and rates were readable only through official search results."
       },
       {
         "name": "Quest",
         "type": "overnight",
         "categories": ["nature_outdoor", "faith_based"],
-        "description": "Campers use the climbing tower and lake zipline and take an off-site rock-climbing trip.",
+        "description": "Campers use the climbing tower and lake zipline and go rock climbing at Gilbert's Rock.",
         "camp_page_url": "https://camptekoa.org/quest",
         "registration_url": "https://camptekoa.org/register/register-now",
         "season": {
@@ -1126,7 +1124,7 @@
         "prices": [
           {
             "amount": 950,
-            "unit": "session",
+            "unit": "week",
             "label": null,
             "year": 2027
           }
@@ -1232,17 +1230,17 @@
           "https://camptekoa.org/quest",
           "https://camptekoa.org/adventure-camps",
           "https://camptekoa.org/forms/dates-and-rates/198-2027-dates-rates/file",
-          "https://camptekoa.org/register/register-now",
-          "https://camptekoa.org/contact-camp-tekoa"
+          "https://camptekoa.org/future-families/contact-us",
+          "https://camptekoa.org/register/register-now"
         ],
         "confidence": "medium",
-        "review_notes": "2027 schedule and rates were readable only in official search results."
+        "review_notes": "2027 PDF was readable only through official search results. Main overview gives ages 9–10; some promotional pages give 8–11."
       },
       {
         "name": "Breakout",
         "type": "overnight",
         "categories": ["nature_outdoor", "faith_based"],
-        "description": "Rising sixth graders participate in climbing, camping, rafting and waterfall exploration.",
+        "description": "Campers rock climb, camp on-site, raft, and visit waterfalls in Pisgah National Forest.",
         "camp_page_url": "https://camptekoa.org/adventure-camps",
         "registration_url": "https://camptekoa.org/register/register-now",
         "season": {
@@ -1274,7 +1272,7 @@
         "prices": [
           {
             "amount": 1050,
-            "unit": "session",
+            "unit": "week",
             "label": null,
             "year": 2027
           }
@@ -1404,17 +1402,17 @@
           "https://camptekoa.org/adventure-camps",
           "https://camptekoa.org/forms/forms-and-waivers/210-adventure-infosheet-6thgradebreakout-1/file",
           "https://camptekoa.org/forms/dates-and-rates/198-2027-dates-rates/file",
-          "https://camptekoa.org/register/register-now",
-          "https://camptekoa.org/contact-camp-tekoa"
+          "https://camptekoa.org/future-families/contact-us",
+          "https://camptekoa.org/register/register-now"
         ],
         "confidence": "medium",
-        "review_notes": "2027 schedule and rates were readable only in official search results."
+        "review_notes": "2027 PDF and activity information sheet were readable only through official search results."
       },
       {
         "name": "Cascade",
         "type": "overnight",
-        "categories": ["nature_outdoor", "horses", "faith_based"],
-        "description": "This all-girls program includes tubing, waterfall exploration, paddleboarding and horseback riding.",
+        "categories": ["nature_outdoor", "faith_based"],
+        "description": "An all-girls overnight adventure camp with separate middle-school and high-school sessions.",
         "camp_page_url": "https://camptekoa.org/adventure-camps",
         "registration_url": "https://camptekoa.org/register/register-now",
         "season": {
@@ -1442,20 +1440,20 @@
         "prices": [
           {
             "amount": 1050,
-            "unit": "session",
-            "label": "Middle school",
+            "unit": "week",
+            "label": "middle school",
             "year": 2027
           },
           {
             "amount": 1100,
-            "unit": "session",
-            "label": "High school",
+            "unit": "week",
+            "label": "high school",
             "year": 2027
           }
         ],
         "sessions": [
           {
-            "label": "Week 1: Cascade (MS-All Girls)",
+            "label": "Week 1: MS-All Girls",
             "start": "2027-06-06",
             "end": "2027-06-12",
             "year": 2027,
@@ -1470,7 +1468,7 @@
             "status": null
           },
           {
-            "label": "Week 3: Cascade (HS-All Girls)",
+            "label": "Week 3: HS-All Girls",
             "start": "2027-06-20",
             "end": "2027-06-26",
             "year": 2027,
@@ -1485,7 +1483,7 @@
             "status": null
           },
           {
-            "label": "Week 4: Cascade (MS-All Girls)",
+            "label": "Week 4: MS-All Girls",
             "start": "2027-06-27",
             "end": "2027-07-03",
             "year": 2027,
@@ -1500,7 +1498,7 @@
             "status": null
           },
           {
-            "label": "Week 5: Cascade (MS-All Girls)",
+            "label": "Week 5: MS-All Girls",
             "start": "2027-07-04",
             "end": "2027-07-10",
             "year": 2027,
@@ -1515,7 +1513,7 @@
             "status": null
           },
           {
-            "label": "Week 6: Cascade (HS-All Girls)",
+            "label": "Week 6: HS-All Girls",
             "start": "2027-07-11",
             "end": "2027-07-17",
             "year": 2027,
@@ -1530,7 +1528,7 @@
             "status": null
           },
           {
-            "label": "Week 8: Cascade (MS-All Girls)",
+            "label": "Week 8: MS-All Girls",
             "start": "2027-07-25",
             "end": "2027-07-31",
             "year": 2027,
@@ -1570,19 +1568,18 @@
         "transportation": null,
         "sources": [
           "https://camptekoa.org/adventure-camps",
-          "https://camptekoa.org/forms/forms-and-waivers/203-adventure-infosheet-cascade2023-1/file",
           "https://camptekoa.org/forms/dates-and-rates/198-2027-dates-rates/file",
-          "https://camptekoa.org/register/register-now",
-          "https://camptekoa.org/contact-camp-tekoa"
+          "https://camptekoa.org/future-families/contact-us",
+          "https://camptekoa.org/register/register-now"
         ],
         "confidence": "medium",
-        "review_notes": "2027 schedule and rates were readable only through search. Activity description comes from the existing Cascade information sheet; confirm high-school itinerary."
+        "review_notes": "2027 PDF dates and rates were readable only through official search results."
       },
       {
         "name": "Journey",
         "type": "overnight",
         "categories": ["nature_outdoor", "horses", "faith_based"],
-        "description": "Campers backpack, explore a cave, use the high ropes course and take a horseback riding trip.",
+        "description": "Girls backpack, explore a cave, use the high ropes course, and go horseback riding.",
         "camp_page_url": "https://camptekoa.org/adventure-camps",
         "registration_url": "https://camptekoa.org/register/register-now",
         "season": {
@@ -1610,7 +1607,7 @@
         "prices": [
           {
             "amount": 1050,
-            "unit": "session",
+            "unit": "week",
             "label": null,
             "year": 2027
           }
@@ -1678,19 +1675,19 @@
         "transportation": null,
         "sources": [
           "https://camptekoa.org/adventure-camps",
-          "https://camptekoa.org/forms/forms-and-waivers/214-adventure-infosheet-journey/file",
+          "https://camptekoa.org/forms/dates-and-rates/48-adventure-camp-descriptions/file",
           "https://camptekoa.org/forms/dates-and-rates/198-2027-dates-rates/file",
-          "https://camptekoa.org/register/register-now",
-          "https://camptekoa.org/contact-camp-tekoa"
+          "https://camptekoa.org/future-families/contact-us",
+          "https://camptekoa.org/register/register-now"
         ],
         "confidence": "medium",
-        "review_notes": "Overview identifies Journey as all girls; the 2027 PDF says only Journey (MS). Confirm whether eligibility changed. PDF was readable only through search."
+        "review_notes": "2027 dates and rates were readable only through official search results. Activity description comes from an undated official adventure description sheet; confirm activities remain current."
       },
       {
         "name": "Overboard",
         "type": "overnight",
         "categories": ["nature_outdoor", "faith_based"],
-        "description": "An all-boys middle-school adventure program centered on outdoor exploration.",
+        "description": "An all-boys overnight adventure camp for ages 12–14.",
         "camp_page_url": "https://camptekoa.org/adventure-camps",
         "registration_url": "https://camptekoa.org/register/register-now",
         "season": {
@@ -1718,7 +1715,7 @@
         "prices": [
           {
             "amount": 1050,
-            "unit": "session",
+            "unit": "week",
             "label": null,
             "year": 2027
           }
@@ -1775,17 +1772,17 @@
         "sources": [
           "https://camptekoa.org/adventure-camps",
           "https://camptekoa.org/forms/dates-and-rates/198-2027-dates-rates/file",
-          "https://camptekoa.org/register/register-now",
-          "https://camptekoa.org/contact-camp-tekoa"
+          "https://camptekoa.org/future-families/contact-us",
+          "https://camptekoa.org/register/register-now"
         ],
         "confidence": "medium",
-        "review_notes": "2027 schedule and rates were readable only in official search results; detailed itinerary was not obtained."
+        "review_notes": "2027 PDF dates and rates were readable only through official search results."
       },
       {
         "name": "Water Adventure",
         "type": "overnight",
         "categories": ["nature_outdoor", "faith_based"],
-        "description": "A coed outdoor adventure program offered separately for middle- and high-school campers.",
+        "description": "Campers participate in water activities, including canoeing, tubing, snorkeling, and waterfall visits.",
         "camp_page_url": "https://camptekoa.org/adventure-camps",
         "registration_url": "https://camptekoa.org/register/register-now",
         "season": {
@@ -1813,20 +1810,20 @@
         "prices": [
           {
             "amount": 1050,
-            "unit": "session",
-            "label": "Middle school",
+            "unit": "week",
+            "label": "middle school",
             "year": 2027
           },
           {
             "amount": 1100,
-            "unit": "session",
-            "label": "High school",
+            "unit": "week",
+            "label": "high school",
             "year": 2027
           }
         ],
         "sessions": [
           {
-            "label": "Week 1: Water Adventure (MS)",
+            "label": "Week 1: MS",
             "start": "2027-06-06",
             "end": "2027-06-12",
             "year": 2027,
@@ -1841,7 +1838,7 @@
             "status": null
           },
           {
-            "label": "Week 2: Water Adventure (HS)",
+            "label": "Week 2: HS",
             "start": "2027-06-13",
             "end": "2027-06-19",
             "year": 2027,
@@ -1856,7 +1853,7 @@
             "status": null
           },
           {
-            "label": "Week 3: Water Adventure (MS)",
+            "label": "Week 3: MS",
             "start": "2027-06-20",
             "end": "2027-06-26",
             "year": 2027,
@@ -1871,7 +1868,7 @@
             "status": null
           },
           {
-            "label": "Week 6: Water Adventure (MS)",
+            "label": "Week 6: MS",
             "start": "2027-07-11",
             "end": "2027-07-17",
             "year": 2027,
@@ -1886,7 +1883,7 @@
             "status": null
           },
           {
-            "label": "Week 7: Water Adventure (HS)",
+            "label": "Week 7: HS",
             "start": "2027-07-18",
             "end": "2027-07-24",
             "year": 2027,
@@ -1901,7 +1898,7 @@
             "status": null
           },
           {
-            "label": "Week 8: Water Adventure (MS)",
+            "label": "Week 8: MS",
             "start": "2027-07-25",
             "end": "2027-07-31",
             "year": 2027,
@@ -1941,18 +1938,19 @@
         "transportation": null,
         "sources": [
           "https://camptekoa.org/adventure-camps",
+          "https://camptekoa.org/forms/dates-and-rates/48-adventure-camp-descriptions/file",
           "https://camptekoa.org/forms/dates-and-rates/198-2027-dates-rates/file",
-          "https://camptekoa.org/register/register-now",
-          "https://camptekoa.org/contact-camp-tekoa"
+          "https://camptekoa.org/future-families/contact-us",
+          "https://camptekoa.org/register/register-now"
         ],
         "confidence": "medium",
-        "review_notes": "2027 schedule and rates were readable only in official search results; detailed itineraries were not obtained."
+        "review_notes": "2027 PDF was readable only through official search results. Activities come from an undated official adventure description sheet; confirm current itinerary."
       },
       {
         "name": "Survivor",
         "type": "overnight",
         "categories": ["nature_outdoor", "faith_based"],
-        "description": "Campers live at a primitive campsite, learn to make fires and prepare food, and complete group challenges to earn supplies.",
+        "description": "Campers compete in group challenges to earn supplies and equipment and learn to make fires and prepare food.",
         "camp_page_url": "https://camptekoa.org/adventure-camps",
         "registration_url": "https://camptekoa.org/register/register-now",
         "season": {
@@ -1980,20 +1978,20 @@
         "prices": [
           {
             "amount": 1050,
-            "unit": "session",
-            "label": "Middle school",
+            "unit": "week",
+            "label": "middle school",
             "year": 2027
           },
           {
             "amount": 1100,
-            "unit": "session",
-            "label": "High school",
+            "unit": "week",
+            "label": "high school",
             "year": 2027
           }
         ],
         "sessions": [
           {
-            "label": "Week 1: Survivor (MS)",
+            "label": "Week 1: MS",
             "start": "2027-06-06",
             "end": "2027-06-12",
             "year": 2027,
@@ -2008,7 +2006,7 @@
             "status": null
           },
           {
-            "label": "Week 2: Survivor (MS)",
+            "label": "Week 2: MS",
             "start": "2027-06-13",
             "end": "2027-06-19",
             "year": 2027,
@@ -2023,7 +2021,7 @@
             "status": null
           },
           {
-            "label": "Week 3: Survivor (HS)",
+            "label": "Week 3: HS",
             "start": "2027-06-20",
             "end": "2027-06-26",
             "year": 2027,
@@ -2038,7 +2036,7 @@
             "status": null
           },
           {
-            "label": "Week 4: Survivor (HS)",
+            "label": "Week 4: HS",
             "start": "2027-06-27",
             "end": "2027-07-03",
             "year": 2027,
@@ -2053,7 +2051,7 @@
             "status": null
           },
           {
-            "label": "Week 6: Survivor (MS)",
+            "label": "Week 6: MS",
             "start": "2027-07-11",
             "end": "2027-07-17",
             "year": 2027,
@@ -2068,7 +2066,7 @@
             "status": null
           },
           {
-            "label": "Week 6: Survivor (HS)",
+            "label": "Week 6: HS",
             "start": "2027-07-11",
             "end": "2027-07-17",
             "year": 2027,
@@ -2083,7 +2081,7 @@
             "status": null
           },
           {
-            "label": "Week 7: Survivor (MS)",
+            "label": "Week 7: MS",
             "start": "2027-07-18",
             "end": "2027-07-24",
             "year": 2027,
@@ -2098,7 +2096,7 @@
             "status": null
           },
           {
-            "label": "Week 8: Survivor (MS)",
+            "label": "Week 8: MS",
             "start": "2027-07-25",
             "end": "2027-07-31",
             "year": 2027,
@@ -2138,19 +2136,20 @@
         "transportation": null,
         "sources": [
           "https://camptekoa.org/adventure-camps",
-          "https://mail.camptekoa.org/forms/dates-and-rates/48-adventure-camp-descriptions/file",
+          "https://camptekoa.org/forms/forms-and-waivers/201-adventure-infosheet-hssurvivor-1/file",
+          "https://camptekoa.org/forms/forms-and-waivers/202-adventure-infosheet-mssurvivor2023-1/file",
           "https://camptekoa.org/forms/dates-and-rates/198-2027-dates-rates/file",
-          "https://camptekoa.org/register/register-now",
-          "https://camptekoa.org/contact-camp-tekoa"
+          "https://camptekoa.org/future-families/contact-us",
+          "https://camptekoa.org/register/register-now"
         ],
         "confidence": "medium",
-        "review_notes": "2027 schedule and rates were readable only through search. Activity description is from an undated official description document."
+        "review_notes": "2027 PDF was readable only through official search results. Week 6 lists both MS and HS Survivor; confirm both run concurrently."
       },
       {
         "name": "Blitz!",
         "type": "overnight",
         "categories": ["nature_outdoor", "faith_based"],
-        "description": "A coed adventure program for campers entering ninth grade.",
+        "description": "An overnight adventure camp for rising ninth graders.",
         "camp_page_url": "https://camptekoa.org/adventure-camps",
         "registration_url": "https://camptekoa.org/register/register-now",
         "season": {
@@ -2182,7 +2181,7 @@
         "prices": [
           {
             "amount": 1100,
-            "unit": "session",
+            "unit": "week",
             "label": null,
             "year": 2027
           }
@@ -2251,17 +2250,17 @@
         "sources": [
           "https://camptekoa.org/adventure-camps",
           "https://camptekoa.org/forms/dates-and-rates/198-2027-dates-rates/file",
-          "https://camptekoa.org/register/register-now",
-          "https://camptekoa.org/contact-camp-tekoa"
+          "https://camptekoa.org/future-families/contact-us",
+          "https://camptekoa.org/register/register-now"
         ],
         "confidence": "medium",
-        "review_notes": "2027 schedule and rates were readable only in official search results; detailed itinerary was not obtained."
+        "review_notes": "2027 PDF dates and rates were readable only through official search results."
       },
       {
         "name": "Expedition",
         "type": "overnight",
         "categories": ["nature_outdoor", "faith_based"],
-        "description": "Campers take a multiday excursion involving backpacking, canoe camping and caving.",
+        "description": "Campers backpack, canoe and camp at Lake Jocassee, and explore Worley's Cave.",
         "camp_page_url": "https://camptekoa.org/adventure-camps",
         "registration_url": "https://camptekoa.org/register/register-now",
         "season": {
@@ -2289,7 +2288,7 @@
         "prices": [
           {
             "amount": 1100,
-            "unit": "session",
+            "unit": "week",
             "label": null,
             "year": 2027
           }
@@ -2347,17 +2346,17 @@
           "https://camptekoa.org/adventure-camps",
           "https://camptekoa.org/forms/forms-and-waivers/215-adventure-infosheet-expedition/file",
           "https://camptekoa.org/forms/dates-and-rates/198-2027-dates-rates/file",
-          "https://camptekoa.org/register/register-now",
-          "https://camptekoa.org/contact-camp-tekoa"
+          "https://camptekoa.org/future-families/contact-us",
+          "https://camptekoa.org/register/register-now"
         ],
         "confidence": "medium",
-        "review_notes": "2027 schedule and rates were readable only through search. Older official descriptions disagree on excursion length; description omits that length."
+        "review_notes": "2027 PDF dates and rates and adventure information sheet were readable only through official search results."
       },
       {
         "name": "Ultimate Challenge",
         "type": "overnight",
         "categories": ["nature_outdoor", "faith_based"],
-        "description": "Campers participate in water, rock, rope and trail activities, including a backpacking trip.",
+        "description": "An overnight adventure camp for ages 14–17.",
         "camp_page_url": "https://camptekoa.org/adventure-camps",
         "registration_url": "https://camptekoa.org/register/register-now",
         "season": {
@@ -2385,7 +2384,7 @@
         "prices": [
           {
             "amount": 1100,
-            "unit": "session",
+            "unit": "week",
             "label": null,
             "year": 2027
           }
@@ -2441,19 +2440,18 @@
         "transportation": null,
         "sources": [
           "https://camptekoa.org/adventure-camps",
-          "https://camptekoa.org/blog/camp-tekoa-adventure-camps-breakdown",
           "https://camptekoa.org/forms/dates-and-rates/198-2027-dates-rates/file",
-          "https://camptekoa.org/register/register-now",
-          "https://camptekoa.org/contact-camp-tekoa"
+          "https://camptekoa.org/future-families/contact-us",
+          "https://camptekoa.org/register/register-now"
         ],
         "confidence": "medium",
-        "review_notes": "2027 schedule and rates were readable only in official search results."
+        "review_notes": "2027 PDF dates and rates were readable only through official search results."
       },
       {
         "name": "Expedition Extreme!",
         "type": "overnight",
         "categories": ["nature_outdoor", "horses", "faith_based"],
-        "description": "This two-week adventure program includes backpacking, caving, scuba diving, mountain biking and horseback riding.",
+        "description": "A two-week adventure camp with scuba diving, mountain biking, caving, backpacking, and horseback riding.",
         "camp_page_url": "https://camptekoa.org/adventure-camps",
         "registration_url": "https://camptekoa.org/register/register-now",
         "season": {
@@ -2461,7 +2459,7 @@
           "status": "posted",
           "start": "2027-06-27",
           "end": null,
-          "text": "Expedition Extreme (HS 2 weeks) is listed under Week 4, June 27–July 3."
+          "text": null
         },
         "ages": {
           "min": 15,
@@ -2482,7 +2480,7 @@
           {
             "amount": 2300,
             "unit": "session",
-            "label": "Two weeks",
+            "label": "two weeks",
             "year": 2027
           }
         ],
@@ -2514,11 +2512,11 @@
           "https://camptekoa.org/adventure-camps",
           "https://camptekoa.org/blog/preparing-your-child-for-their-first-adventure-camp",
           "https://camptekoa.org/forms/dates-and-rates/198-2027-dates-rates/file",
-          "https://camptekoa.org/register/register-now",
-          "https://camptekoa.org/contact-camp-tekoa"
+          "https://camptekoa.org/future-families/contact-us",
+          "https://camptekoa.org/register/register-now"
         ],
         "confidence": "medium",
-        "review_notes": "The 2027 PDF lists the two-week program under June 27–July 3 but does not explicitly print its final date. End remains null rather than projecting a second-week checkout date. Confirm exact dates with registration. PDF was readable only through search."
+        "review_notes": "The 2027 PDF lists Expedition Extreme under Week 4, June 27–July 3, and explicitly calls it two weeks. The actual final date is not separately printed in readable results, so it is left null rather than inferred. Confirm the complete session dates."
       }
     ]
   }

@@ -7,19 +7,22 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:27:28.723Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:23:16.594Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "0721e67e7771edef228d035a56c4948458cf2d7446c53bdd1f5b2e72e4c2fffa",
   "response": {
-    "searches": ["site:intothewoodsnature.com summer camp 2027"],
+    "searches": [
+      "site:intothewoodsnature.com summer camp ages address 2027",
+      "\"intothewoodsnature\" \"address\""
+    ],
     "usage": {
-      "inputTokens": 37873,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1181,
-      "reasoningTokens": 111
+      "inputTokens": 42667,
+      "cachedInputTokens": 8845,
+      "outputTokens": 957,
+      "reasoningTokens": 214
     },
     "status": "completed",
-    "ms": 25217,
+    "ms": 26568,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -48,11 +51,11 @@
   "extraction": {
     "provider_name": "Into The Woods",
     "website_url": "https://www.intothewoodsnature.com/",
-    "notes": "The provider says it will update families for Summer Camp 2027; no 2027 dates or registration milestones were found. The 2026 enrollment DOCX could not be read as text. Searches did not establish a published street address for the camp.",
+    "notes": "The provider promises a Summer Camp 2027 update but has not posted dates. The 2026 enrollment DOCX could not be read; ages, hours and other details it may contain remain unknown. Searches did not locate a published street address for the camp; the pages identify only Rutherfordton, NC, between Rutherfordton and Lake Lure. Preschool lunch and snack policies were not applied to summer camp.",
     "excluded": [
       {
-        "name": "Into The Woods Nature School",
-        "reason": "Ongoing outdoor preschool education, not a finite summer camp."
+        "name": "Into The Woods Nature School preschool",
+        "reason": "Preschool education rather than a finite summer camp program."
       }
     ],
     "cards": [
@@ -60,9 +63,9 @@
         "name": "Kid's Summer Camp",
         "type": "day",
         "categories": ["nature_outdoor"],
-        "description": "Children explore maps and trails, hunt for treasure, work with mud and clay, and observe plants and animals. Activities also include making herbal salves, worm farms, knots and structures, and learning safe fire making.",
+        "description": "Campers explore maps and trails, make clay vessels, observe animals and miniature habitats, and work with herbs and vegetables. Activities also include knots, structure building and safe fire making.",
         "camp_page_url": "https://www.intothewoodsnature.com/general-1-1",
-        "registration_url": "https://f38fcf13-958e-44ec-bd7d-8514ddf68ec2.filesusr.com/ugd/c9336d_8ad028bc93ee43769c217d212c1b50ee.docx?dn=Summer%20Camp%20Enrollment%20Form%20-%202026%20-%20Revised.docx",
+        "registration_url": "https://www.intothewoodsnature.com/general-1-1",
         "season": {
           "year": 2026,
           "status": "coming_soon",
@@ -79,13 +82,19 @@
           {
             "amount": 240,
             "unit": "week",
-            "label": "Per child; sibling discount of $20 per week for second child.",
+            "label": "per child",
+            "year": 2026
+          },
+          {
+            "amount": 220,
+            "unit": "week",
+            "label": "second child; $20 sibling discount",
             "year": 2026
           }
         ],
         "sessions": [
           {
-            "label": "WEEK 1: Maps, trails and treasures!",
+            "label": "WEEK 1",
             "start": "2026-06-01",
             "end": "2026-06-05",
             "year": 2026,
@@ -97,7 +106,7 @@
             "status": null
           },
           {
-            "label": "WEEK 2: Mud and clay",
+            "label": "WEEK 2",
             "start": "2026-06-08",
             "end": "2026-06-12",
             "year": 2026,
@@ -109,7 +118,7 @@
             "status": null
           },
           {
-            "label": "WEEK 3: Square foot explorers",
+            "label": "WEEK 3",
             "start": "2026-06-15",
             "end": "2026-06-19",
             "year": 2026,
@@ -121,7 +130,7 @@
             "status": null
           },
           {
-            "label": "WEEK 4: Nature's bounty!",
+            "label": "WEEK 4",
             "start": "2026-06-22",
             "end": "2026-06-26",
             "year": 2026,
@@ -133,7 +142,7 @@
             "status": null
           },
           {
-            "label": "WEEK 5: Ropes, knots, structure building, safe fire making",
+            "label": "WEEK 5",
             "start": "2026-06-29",
             "end": "2026-07-03",
             "year": 2026,
@@ -154,7 +163,7 @@
         "transportation": null,
         "sources": ["https://www.intothewoodsnature.com/general-1-1"],
         "confidence": "medium",
-        "review_notes": "Weekly dates take their year from the Summer Camp 2026 page heading. The linked enrollment DOCX could not be extracted; check it for camp ages, hours and drop-off address. The page gives only Rutherfordton, NC as the location. Lunch information on the preschool homepage was not applied to summer camp."
+        "review_notes": "Weekly dates take their year from the Summer Camp 2026 heading. The second-child price is calculated from $240 minus the stated $20 weekly sibling discount. Read the linked 2026 enrollment DOCX for possible ages, hours and drop-off address; it returned no readable text."
       }
     ]
   }

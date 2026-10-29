@@ -3,23 +3,23 @@
     "key": "evergreen-summer-adventures",
     "name": "Evergreen Summer Adventures (Evergreen Community Charter School)",
     "urls": ["https://www.evergreensummercamp.org/"],
-    "area": null,
-    "discovered_by": ["pilot"],
+    "area": "Asheville, NC",
+    "discovered_by": ["pilot", "seed_sheet", "our_db", "grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T03:17:55.304Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T16:51:48.992Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "58a9b2ebda7a184d2f10e2694a87573c0a4cf5ed80792729cdba2b99fb7ddf29",
   "response": {
     "searches": ["site:evergreensummercamp.org 2027"],
     "usage": {
-      "inputTokens": 17441,
-      "cachedInputTokens": 0,
-      "outputTokens": 1453,
+      "inputTokens": 18037,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1401,
       "reasoningTokens": 51
     },
     "status": "completed",
-    "ms": 31373,
+    "ms": 28549,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -68,14 +68,14 @@
   "extraction": {
     "provider_name": "Evergreen Summer Adventures (Evergreen Community Charter School)",
     "website_url": "https://www.evergreensummercamp.org/",
-    "notes": "No 2027 information found. Dates and prices are for summer 2026. Older enrichment and afternoon-adventure pages describe components of this camp, not separate programs. The linked parent consent form contains 2019 field-trip dates and was not used for current transportation information.",
+    "notes": "No 2027 information found. Current pages describe summer 2026; older enrichment pages describe components of the same camp, not separate programs. The linked parent consent form contains 2019 field-trip dates, so its transportation details were not used. The FAQ's general February enrollment pattern is not a stated 2027 registration date.",
     "excluded": [],
     "cards": [
       {
         "name": "Evergreen Summer Adventures",
         "type": "day",
-        "categories": ["general", "nature_outdoor", "arts", "stem", "sports"],
-        "description": "Campers participate in art, gardening, hands-on STEM projects, group games, climbing, biking, and water play. Older campers may take off-campus hiking trips.",
+        "categories": ["general", "arts", "stem", "nature_outdoor", "sports"],
+        "description": "Campers participate in art, gardening, hands-on STEM projects, cooperative games, climbing, biking, and water play. Older campers may take off-campus hiking trips.",
         "camp_page_url": "https://www.evergreensummercamp.org/",
         "registration_url": "https://www.evergreensummercamp.org/registration",
         "season": {
@@ -88,7 +88,7 @@
         "ages": null,
         "grades": {
           "min": 0,
-          "max": 9,
+          "max": 8,
           "basis": "rising"
         },
         "sites": [
@@ -107,19 +107,19 @@
         "extended_care": {
           "early_dropoff_start": "07:30",
           "late_pickup_end": "17:30",
-          "cost_text": "$375/wk for the extended camp day"
+          "cost_text": "Extended camp day, 7:30-5:30 - $375/wk"
         },
         "prices": [
           {
             "amount": 325,
             "unit": "week",
-            "label": "Regular camp day, per child",
+            "label": "Regular camp day",
             "year": 2026
           },
           {
             "amount": 375,
             "unit": "week",
-            "label": "Extended camp day, per child",
+            "label": "Extended camp day",
             "year": 2026
           },
           {
@@ -195,7 +195,7 @@
         "last_year_registration_opened": null,
         "availability": {
           "status": "closed",
-          "scope": "Summer 2026 open registration",
+          "scope": "Summer 2026",
           "text": "Open registration for Summer 2026 is closed!"
         },
         "financial_aid": {
@@ -219,7 +219,7 @@
           "https://www.evergreensummercamp.org/contact-us"
         ],
         "confidence": "medium",
-        "review_notes": "Confirm maximum grade: the home page welcomes rising Kindergarten–9th grade but also says Kinder–8th grade; the FAQ says Kinder–8th grade and retains a 2025 age cutoff. Grades here reflect the broader home-page statement; no age cutoff was carried forward. Session dates omit the year locally and are assigned 2026 from the home page's Summer 2026 registration notice. The registration page says all weeks still have space, conflicting with the home page's closed-registration notice; the home-page notice is used."
+        "review_notes": "Grade eligibility conflicts: the current home-page update and FAQ say rising Kindergarten–8th grade, while the home-page introduction says rising Kindergarten–9th grade. Used Kindergarten–8th grade pending confirmation. Dates take their year from the home page's Summer 2026 notice. The home page warns of possible timing modifications; registration and FAQ both state 8:30–4:30 regular and 7:30–5:30 extended. Registration page says all weeks have space, but the home page explicitly states 2026 registration is closed; used closed. The FAQ's age cutoff explicitly refers to 2025 and was not applied to 2026."
       }
     ]
   }

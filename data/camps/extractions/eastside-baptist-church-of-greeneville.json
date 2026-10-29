@@ -10,23 +10,22 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:25:51.828Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:21:54.445Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "1c52347504e60f6daf8f626217768830d9891afc6a5cec586312786cfe0727b8",
   "response": {
     "searches": [
-      "site:eastsidebaptist.info \"Vacation Bible School\" 2026",
-      "site:facebook.com \"Eastside\" \"Greeneville\" \"Junkyard\" \"2026\"",
-      "site:eastsidebaptist.info/event/vacation-bible-school-5/ \"20260713\""
+      "site:eastsidebaptist.info \"Vacation Bible School\"",
+      "site:wilds.org \"1000\" \"Brevard\""
     ],
     "usage": {
-      "inputTokens": 26209,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1437,
-      "reasoningTokens": 332
+      "inputTokens": 22357,
+      "cachedInputTokens": 8845,
+      "outputTokens": 908,
+      "reasoningTokens": 159
     },
     "status": "completed",
-    "ms": 38891,
+    "ms": 27614,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -50,31 +49,23 @@
   "extraction": {
     "provider_name": "Eastside Baptist Church of Greeneville",
     "website_url": "https://eastsidebaptist.info/",
-    "notes": "No 2027 summer program information or registration dates found. Official event pages were readable through search results, but direct opens returned no text. The 2026 VBS listing provides little detail; ages, cost and registration remain unverified.",
+    "notes": "No church-specific summer 2027 camp information or registration dates found. Older VBS pages describe different years and were not used for 2026 ages or activities. The Wilds' general 2027 offerings do not establish this church group's 2027 dates.",
     "excluded": [
       {
         "name": "Junkyard Jamboree VBS Family Reunion",
-        "reason": "Family reunion and VBS celebration, not a separately described supervised youth camp."
+        "reason": "Single-evening family reunion event, not a multi-day youth camp."
       },
       {
         "name": "BIBM Summer Meeting",
-        "reason": "Mission meeting; not described as a supervised youth program."
+        "reason": "Mission organization meeting, not a supervised youth camp."
       },
       {
-        "name": "Kids4Truth",
-        "reason": "Recurring Wednesday Bible classes, not a summer-only program."
+        "name": "Kids4Truth and Ignite Youth Group",
+        "reason": "Year-round church programs, not finite summer camps."
       },
       {
-        "name": "IGNITE",
-        "reason": "Year-round Wednesday youth group."
-      },
-      {
-        "name": "Ignite Winter Retreat",
-        "reason": "Winter program outside summer."
-      },
-      {
-        "name": "Nursery, Sunday School and Children’s Church",
-        "reason": "Recurring church childcare and classes, not finite summer camps."
+        "name": "Teen Extreme Camp at PCC",
+        "reason": "Camp in Pensacola, Florida, outside the local drive area."
       }
     ],
     "cards": [
@@ -82,7 +73,7 @@
         "name": "Vacation Bible School",
         "type": "vbs",
         "categories": ["faith_based"],
-        "description": "The church hosts an evening Vacation Bible School over five days.",
+        "description": "Vacation Bible School at Eastside Baptist Church.",
         "camp_page_url": "https://eastsidebaptist.info/event/vacation-bible-school-5/",
         "registration_url": null,
         "season": {
@@ -105,7 +96,7 @@
         "hours": {
           "start": "18:00",
           "end": "20:30",
-          "text": "July 13 @ 6:00 pm - July 17 @ 8:30 pm"
+          "text": null
         },
         "extended_care": null,
         "prices": [],
@@ -119,16 +110,16 @@
         "transportation": null,
         "sources": [
           "https://eastsidebaptist.info/event/vacation-bible-school-5/",
-          "https://eastsidebaptist.info/"
+          "https://eastsidebaptist.info/discover/contact/"
         ],
         "confidence": "medium",
-        "review_notes": "Official event text was available only through search results and omits the year beside July 13–17; 2026 is inferred from current event context. The official listing starts at 6:00 pm, while WGRV's 2026 report distinguishes registration at 6:00 pm from activities at 6:30 pm. Confirm activity hours, year, ages and registration with the church."
+        "review_notes": "The event page lists July 13–17 without an explicit year beside the dates; 2026 is taken from the current event-page context. Confirm the year and nightly hours; the calendar gives only the overall start and end times."
       },
       {
         "name": "Teen and Junior Camp at The Wilds",
         "type": "overnight",
         "categories": ["faith_based"],
-        "description": "The church lists a six-day teen and junior camp trip to The Wilds.",
+        "description": "Teen and junior camp at The Wilds in Brevard, North Carolina.",
         "camp_page_url": "https://eastsidebaptist.info/event/teen-and-junior-camp-at-the-wilds/",
         "registration_url": null,
         "season": {
@@ -140,7 +131,14 @@
         },
         "ages": null,
         "grades": null,
-        "sites": [],
+        "sites": [
+          {
+            "name": "The Wilds of North Carolina",
+            "address": "1000 Wilds Ridge Rd",
+            "town": "Brevard",
+            "state": "NC"
+          }
+        ],
         "hours": null,
         "extended_care": null,
         "prices": [],
@@ -154,10 +152,11 @@
         "transportation": null,
         "sources": [
           "https://eastsidebaptist.info/event/teen-and-junior-camp-at-the-wilds/",
-          "https://eastsidebaptist.info/event/teen-and-junior-camp-at-the-wilds/?ical=1"
+          "https://eastsidebaptist.info/event/teen-and-junior-camp-at-the-wilds/?ical=1",
+          "https://wilds.org/contact/"
         ],
-        "confidence": "medium",
-        "review_notes": "Dates and year are supported by the official calendar export through search results. Overnight format is inferred from the multi-day camp trip. The church does not identify the family drop-off location, precise ages or grades, price, transportation arrangements or registration process; do not assume drop-off is at the church or The Wilds."
+        "confidence": "high",
+        "review_notes": null
       }
     ]
   }

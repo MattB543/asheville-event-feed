@@ -10,23 +10,22 @@
     "discovered_by": ["grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:25:36.317Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:21:29.753Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "6d9acf2fd4826d7fb980c5cb155e326b7675d045f34a6173b48227a9f54ccd7f",
   "response": {
     "searches": [
       "site.pbbctn.churchcenter.com VBS 2026",
-      "open https://pbbctn.churchcenter.com/pages/vbs-signup",
-      "\"Pleasant Beach Baptist\" \"2026\" \"June\" VBS"
+      "open https://pbbctn.churchcenter.com/pages/vbs-signup"
     ],
     "usage": {
-      "inputTokens": 26437,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1021,
-      "reasoningTokens": 267
+      "inputTokens": 14455,
+      "cachedInputTokens": 8845,
+      "outputTokens": 898,
+      "reasoningTokens": 151
     },
     "status": "completed",
-    "ms": 39681,
+    "ms": 23085,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -60,23 +59,23 @@
   "extraction": {
     "provider_name": "Pleasant Beach Baptist Church of Elizabethton",
     "website_url": "https://www.pleasantbeachbaptist.com/",
-    "notes": "No official 2027 summer program dates or registration milestones were found. The supplied VBS HQ page gives check-in information and a teen option but no season year, dates, price, or younger-child eligibility. Additional Church Center pages opened through the browser returned no readable text.",
+    "notes": "No official 2027 VBS dates or registration announcements were found. The Church Center page did not return readable content when reopened; the supplied fetched text was used. Search surfaced third-party 2026 VBS listings, but their details were not used.",
     "excluded": [
       {
-        "name": "Riverside Learning Center",
-        "reason": "Regular weekday learning center and childcare; no finite summer-only offering was found."
+        "name": "Master Clubs Registration 2026",
+        "reason": "School-year ministry registration, not an identified summer camp."
       },
       {
-        "name": "Master Clubs Registration 2026",
-        "reason": "Regular children's ministry registration, not identified as a finite summer program."
+        "name": "Ladies Gathering - November",
+        "reason": "Outside summer and not a youth camp."
       },
       {
         "name": "Crown College Trip",
-        "reason": "November 5–6, 2026 trip, outside summer."
+        "reason": "A trip outside summer, not a summer camp."
       },
       {
-        "name": "VBS TRAINING - CHILD SAFETY COURSE",
-        "reason": "Volunteer training, not a youth camp."
+        "name": "Ladies Trip to the Southern Christmas Show in Charolette, NC",
+        "reason": "An outing outside summer, not a youth camp."
       }
     ],
     "cards": [
@@ -84,7 +83,7 @@
         "name": "VBS",
         "type": "vbs",
         "categories": ["faith_based"],
-        "description": "Children attend an evening Vacation Bible School with snacks provided. The church also offers a program for older siblings entering grades 7–12.",
+        "description": "Vacation Bible School for children, with a program for teens entering grades 7–12. Snacks are provided.",
         "camp_page_url": "https://pbbctn.churchcenter.com/pages/vbs-signup",
         "registration_url": "https://pbbctn.churchcenter.com/pages/vbs-signup",
         "season": {
@@ -95,11 +94,15 @@
           "text": null
         },
         "ages": null,
-        "grades": null,
+        "grades": {
+          "min": null,
+          "max": 12,
+          "basis": "rising"
+        },
         "sites": [
           {
             "name": "Pleasant Beach Baptist Church",
-            "address": "125 Watauga Rd.",
+            "address": "125 Watauga Rd",
             "town": "Elizabethton",
             "state": "TN"
           }
@@ -124,7 +127,7 @@
           "https://www.pleasantbeachbaptist.com/"
         ],
         "confidence": "medium",
-        "review_notes": "VBS HQ does not identify a year; 2026 is a fallback record with no dates, not a confirmed dated season. Confirm current hours and younger-child eligibility. The FAQ specifies rising grades 7–12 for the teen option, but the overall grade range is unknown; no dated age-band rows can be created. Check-in at 18:10 is not explicitly the program start. The Church Center address misspells Watauga as Watuaga; the church's own website publishes 125 Watauga Rd., which is used here."
+        "review_notes": "The supplied VBS page gives no year or dates; its undated details are retained as the 2026 fallback. Check the official signup page for the children's minimum grade and summer dates. Grades 7–12 are explicitly stated for teens, and the FAQ specifies entering grades. Check-in at 6:10 is not treated as the program start time. The signup page misspells the address as 'Watuaga'; the church's own website publishes '125 Watauga Rd', which is used here."
       }
     ]
   }

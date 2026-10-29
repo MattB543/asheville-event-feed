@@ -7,19 +7,19 @@
     "discovered_by": ["news828", "grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:01:09.927Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
-  "sourceHash": "17f58357c6aba022ede29ee15c6dc279dcca1a9f5548cbd55a83e6693c237437",
+  "extractedAt": "2026-10-29T17:01:10.850Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "6b200a9c9f69287442645ab3bb9d4eb92055e2fc5ecb19cbf544f4e765c9a999",
   "response": {
-    "searches": ["site:projecthng.org summer camp 2027 2026", "\"Project HNG\" \"2026\" camp"],
+    "searches": ["site:projecthng.org summer camp 2027 2026", "\"Project HNG\" \"camp\" \"June\""],
     "usage": {
-      "inputTokens": 16932,
-      "cachedInputTokens": 8223,
-      "outputTokens": 781,
-      "reasoningTokens": 106
+      "inputTokens": 22808,
+      "cachedInputTokens": 8845,
+      "outputTokens": 561,
+      "reasoningTokens": 112
     },
     "status": "completed",
-    "ms": 21707,
+    "ms": 19063,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -31,7 +31,7 @@
     },
     {
       "url": "https://www.projecthng.org/summercamp2026",
-      "chars": 1120,
+      "chars": 1126,
       "method": "browser"
     },
     {
@@ -43,19 +43,23 @@
   "extraction": {
     "provider_name": "Project HNG",
     "website_url": "https://www.projecthng.org/",
-    "notes": "No 2027 camp dates or registration announcements were found. The supplied 2026 camp URL returns a page-not-found message, and no dated 2026 schedule was found. The general programs page still describes the summer camp. The donation page's $650 one-week scholarship suggestion was not treated as a published tuition price.",
+    "notes": "No 2027 camp dates or registration announcements were found. The supplied summer camp 2026 URL returns a page-not-found message, and searches did not locate an official dated 2026 schedule or registration page. The donation page suggests $650 to sponsor a week of camp; this is not included as a tuition price because it is a donation suggestion without a summer year.",
     "excluded": [
       {
         "name": "Horseback Riding Lessons",
-        "reason": "Year-round lessons offered in spring, autumn and winter, not a finite summer camp."
+        "reason": "Lessons booked as lessons, offered during spring, autumn and winter; not a summer camp."
       },
       {
         "name": "Veterans Ride Community Program",
-        "reason": "Recurring monthly veterans community program, not a finite youth summer program."
+        "reason": "Monthly veteran community rides, not a finite supervised youth summer program."
       },
       {
         "name": "Equine Assisted Therapy (EAT)",
-        "reason": "Individual therapeutic sessions for all ages, not a finite supervised youth summer program."
+        "reason": "Individual therapeutic sessions, not a summer camp."
+      },
+      {
+        "name": "Project HNG Winter Benefit",
+        "reason": "Single fundraising evening outside summer, not a youth camp."
       }
     ],
     "cards": [
@@ -63,7 +67,7 @@
         "name": "Project HNG Summer Camp",
         "type": "day",
         "categories": ["arts", "horses", "nature_outdoor"],
-        "description": "Campers explore arts, horseback riding and other hands-on farm activities.",
+        "description": "Campers explore the arts, horseback riding and other activities in a farm setting.",
         "camp_page_url": "https://www.projecthng.org/programs/",
         "registration_url": null,
         "season": {
@@ -95,7 +99,7 @@
         "availability": null,
         "financial_aid": {
           "value": "yes",
-          "text": "In 2021, the camp began operating as a formal nonprofit under the name of Project HNG, which allows us to provide scholarships to those who might not otherwise be able to attend."
+          "text": "provide scholarships to those who might not otherwise be able to attend"
         },
         "special_needs": null,
         "lunch": null,
@@ -105,8 +109,8 @@
           "https://www.projecthng.org/",
           "https://www.projecthng.org/contact"
         ],
-        "confidence": "medium",
-        "review_notes": "Ages and camp activities are stated on an undated general programs page, not a season-specific 2026 or 2027 page. The site address is the provider's published location; confirm that this is the camp drop-off location. The 2026 camp page is missing, so dates, hours, tuition and registration details could not be verified."
+        "confidence": "high",
+        "review_notes": null
       }
     ]
   }

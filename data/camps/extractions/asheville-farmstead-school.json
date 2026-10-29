@@ -7,19 +7,23 @@
     "discovered_by": ["seed_sheet", "news828", "grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T14:52:43.703Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T16:53:31.054Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "e31f00b5795053141c98bea3632c368718923d5760e9d424bd2e8458e36268d8",
   "response": {
-    "searches": ["site:ashevillefarmstead.org \"2027\"", "Asheville Farmstead School address 218"],
+    "searches": [
+      "site:ashevillefarmstead.org address",
+      "\"Asheville Farmstead\" \"address\" \"road\"",
+      "\"Asheville Farmstead School\" \"215\""
+    ],
     "usage": {
-      "inputTokens": 22477,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1704,
-      "reasoningTokens": 114
+      "inputTokens": 27101,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1235,
+      "reasoningTokens": 148
     },
     "status": "completed",
-    "ms": 43593,
+    "ms": 33759,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -48,23 +52,23 @@
   "extraction": {
     "provider_name": "Asheville Farmstead School",
     "website_url": "https://ashevillefarmstead.org/",
-    "notes": "No 2027 camp information found. The camp page lists six 2026 weeks, while the homepage says ten weeks; the specific 2026 camp schedule was used. The registration page contains no registration form in the supplied text. The support page publishes 218 Morgan Cove Rd. with Asheville as the city; the school's location descriptions and its Forest Kindergarten Association profile identify Candler.",
+    "notes": "No 2027 camp information found. The program page lists six 2026 weeks, while the homepage says ten weeks; the dated program schedule was used. The contact page could not be read beyond its search snippet.",
     "excluded": [
       {
         "name": "Sprouts",
-        "reason": "School-year preschool program, not a finite summer camp."
+        "reason": "Preschool program, not a finite summer camp."
       },
       {
         "name": "Littlest Learners",
-        "reason": "School-year education program, not a finite summer camp."
+        "reason": "School-year learning program."
       },
       {
         "name": "Family Discovery Days",
-        "reason": "Monthly family events, not supervised youth-only summer programs."
+        "reason": "Monthly family events, not supervised youth camps."
       },
       {
         "name": "Cedarsong Way Trainings",
-        "reason": "Educator training rather than a youth summer program."
+        "reason": "Adult teacher training."
       }
     ],
     "cards": [
@@ -72,7 +76,7 @@
         "name": "Camp Farmstead",
         "type": "day",
         "categories": ["nature_outdoor", "arts"],
-        "description": "Campers explore the forest and creek, garden, learn sustainability skills, and make theme-based crafts. Six weekly sessions rotate through gardening, water exploration, and local wildlife themes.",
+        "description": "Campers explore forest animals, splash in the creek, garden, and make theme-based crafts. Activities include planting seeds, composting, watercolor painting, and nature games.",
         "camp_page_url": "https://ashevillefarmstead.org/camp-farmstead/",
         "registration_url": "https://ashevillefarmstead.org/camp-registration/",
         "season": {
@@ -105,13 +109,13 @@
           {
             "amount": 350,
             "unit": "week",
-            "label": "Per camper; sibling discount available using code SIBLING, amount not stated",
+            "label": "per camper",
             "year": 2026
           },
           {
             "amount": 325,
             "unit": "week",
-            "label": "All six weeks: $25 deducted per week from final invoice; siblings or the second camper registered do not qualify for this additional discount",
+            "label": "All 6 weeks; siblings or the second camper registered do not qualify for this additional discount",
             "year": 2026
           }
         ],
@@ -198,7 +202,7 @@
         },
         "availability": {
           "status": "available",
-          "scope": "2026 camp; stale notice for a past season",
+          "scope": "2026 Camp Farmstead",
           "text": "REGISTRATION IS NOW OPEN WITH VERY LIMITED SPOTS LEFT."
         },
         "financial_aid": null,
@@ -213,12 +217,10 @@
           "https://ashevillefarmstead.org/camp-registration/",
           "https://ashevillefarmstead.org/faqs/",
           "https://ashevillefarmstead.org/",
-          "https://ashevillefarmstead.org/contact-us/",
-          "https://ashevillefarmstead.org/support-us/",
-          "https://forestkindergartenassociation.org/Sys/PublicProfile/56341824"
+          "https://ashevillefarmstead.org/contact-us/"
         ],
         "confidence": "medium",
-        "review_notes": "The homepage says ten weeks, but the dated 2026 camp page lists six; six dated sessions were used. FAQ states ages 3-12, while the camp page states potty-trained through 12 without a numeric minimum; potty training is required. The $325 all-six-weeks tier is calculated from $350 minus the stated $25 weekly discount. Support page gives Asheville for the street address, while the provider's association profile and official location descriptions identify Candler. Availability is the still-published 2026 notice, not evidence of 2027 availability. General FAQ mentions limited tuition assistance but does not specifically establish camp eligibility, so financial aid is null."
+        "review_notes": "Address comes from third-party business listings (Chamber of Commerce and MapQuest), not readable venue-published location text; confirm 218 Morgan Cove Rd with the provider. FAQs state ages 3-12, while the camp page says potty-trained through 12 years old. The homepage says ten weeks but the 2026 camp page lists six. The $325 tier is calculated from $350 less the stated $25 weekly discount. Availability repeats the official page's 2026 wording despite the season having ended; check whether this stale statement should be displayed. School-wide FAQs mention limited tuition assistance but do not explicitly establish camp eligibility, so financial aid is null."
       }
     ]
   }

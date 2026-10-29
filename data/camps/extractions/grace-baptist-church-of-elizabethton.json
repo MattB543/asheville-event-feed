@@ -7,19 +7,19 @@
     "discovered_by": ["gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:37:57.933Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:32:08.307Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "18db1557e1fb47acc723f08cc2d5ceb97ddb3bd71d8beaf703c5eeba5573ba65",
   "response": {
     "searches": ["site.elizabethtongrace.com VBS 2026 2027", "\"elizabethtongrace\" \"VBS\""],
     "usage": {
-      "inputTokens": 18535,
-      "cachedInputTokens": 8223,
-      "outputTokens": 714,
-      "reasoningTokens": 133
+      "inputTokens": 19224,
+      "cachedInputTokens": 8845,
+      "outputTokens": 678,
+      "reasoningTokens": 122
     },
     "status": "completed",
-    "ms": 20963,
+    "ms": 22743,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -43,23 +43,23 @@
   "extraction": {
     "provider_name": "Grace Baptist Church of Elizabethton",
     "website_url": "https://elizabethtongrace.com/",
-    "notes": "No 2027 VBS information was found. The registration form refers to August 2026, but the supplied official pages do not state VBS dates, hours, eligible ages or grades, prices, or registration opening dates. Searches found older official Facebook VBS posts, but their dates and eligibility were not carried forward.",
+    "notes": "No 2027 VBS information found. The registration form references August 2026 but does not establish eligible grades; its Pre-K through 12th-grade choices were not treated as eligibility. Search results surfaced older church Facebook VBS announcements, which were not used for 2026 facts.",
     "excluded": [
       {
-        "name": "Sunday School",
-        "reason": "Recurring year-round religious instruction, not a finite summer program."
-      },
-      {
         "name": "TeamKid",
-        "reason": "Recurring Wednesday ministry, not identified as a summer-only program."
+        "reason": "Regular Wednesday ministry rather than a finite summer camp."
       },
       {
         "name": "Youth On Mission",
-        "reason": "Recurring Wednesday ministry, not identified as a finite summer program."
+        "reason": "Regular Wednesday youth ministry rather than a finite summer camp."
+      },
+      {
+        "name": "Sunday School",
+        "reason": "Year-round religious classes."
       },
       {
         "name": "Trunk-or-Treat",
-        "reason": "October event outside the summer."
+        "reason": "Single social event outside summer."
       }
     ],
     "cards": [
@@ -67,7 +67,7 @@
         "name": "VBS @ GBC",
         "type": "vbs",
         "categories": ["faith_based"],
-        "description": "Children attend the church's Vacation Bible School. The current official pages do not describe its activities.",
+        "description": "Vacation Bible School for children at Grace Baptist Church.",
         "camp_page_url": "https://elizabethtongrace.com/vbs-at-gbc",
         "registration_url": "https://elizabethtongrace.com/gbc-vbs-registration",
         "season": {

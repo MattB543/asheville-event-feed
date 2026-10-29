@@ -125,7 +125,9 @@ const milestone = object<Milestone>({
   time: nullableStr(`${TIME}; only when the page states a time`),
   precision: enumOf(PRECISIONS),
   certainty: enumOf(['announced', 'expected']),
-  text: str('The sentence as the page states it'),
+  text: str(
+    'The sentence as the page states it; for audience "other", it says who the date is for'
+  ),
   url: str('The page that states it'),
   year: int('The summer it is for (2027); the date itself may fall in 2026'),
   confidence: enumOf(CONFIDENCE_LEVELS),

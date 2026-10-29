@@ -7,19 +7,19 @@
     "discovered_by": ["our_db", "grid", "aggregator", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:02:34.615Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:02:38.541Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "f747885db5b386c375ae8d12569755c5b631b513e3ff0e66ce391d4b81b5ee79",
   "response": {
-    "searches": ["site.avlclay.com kids camp 2026 2027", "open https://www.avlclay.com/classes"],
+    "searches": ["site.avlclay.com camp 2026 2027", "open https://www.avlclay.com/classes"],
     "usage": {
-      "inputTokens": 11559,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1121,
-      "reasoningTokens": 113
+      "inputTokens": 13910,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1185,
+      "reasoningTokens": 103
     },
     "status": "completed",
-    "ms": 26114,
+    "ms": 28935,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -38,14 +38,14 @@
   "extraction": {
     "provider_name": "AVL clay",
     "website_url": "https://www.avlclay.com/",
-    "notes": "No 2027 camp information was found. The camp page does not print a year; its dates are treated as 2026, corroborated by dated event listings. The official classes page and individual registration page returned no readable text.",
+    "notes": "No 2027 camp information found. The main website's classes page and the individual Kilnfire registration page returned no readable text when opened. The supplied camp page lists no upcoming sessions.",
     "excluded": [],
     "cards": [
       {
         "name": "Kids Maker's Camp",
         "type": "half_day",
         "categories": ["arts"],
-        "description": "Campers create themed clay sculptures and pottery with a local elementary art teacher. Weeks for rising fifth through eighth graders also include time on the pottery wheel.",
+        "description": "Campers make themed clay sculptures and functional pottery with a local elementary art teacher. The rising fifth-through-eighth-grade weeks include time on the pottery wheel.",
         "camp_page_url": "https://avlclay.kilnfire.com/classes/kids-makers-camp",
         "registration_url": "https://avlclay.kilnfire.com/classes/kids-makers-camp",
         "season": {
@@ -79,7 +79,7 @@
           {
             "amount": 225,
             "unit": "week",
-            "label": "Per person",
+            "label": "Per Person",
             "year": 2026
           }
         ],
@@ -158,10 +158,11 @@
         "transportation": null,
         "sources": [
           "https://avlclay.kilnfire.com/classes/kids-makers-camp",
-          "https://www.avlclay.com/"
+          "https://www.avlclay.com/contact",
+          "https://avlclay.kilnfire.com/classes/kids-makers-camp/v4l5w3/register"
         ],
         "confidence": "medium",
-        "review_notes": "Confirm the year of the dates: the official camp page omits it; 2026 is corroborated by third-party event listings. The camp page says 'No Upcoming Sessions'; a cached registration search result says '2 Spots Left!', so no current availability is assigned. Having lunch together does not establish whether lunch is provided."
+        "review_notes": "The supplied camp page does not print a year. Dates are assigned to 2026 based on the June 15, 2026 Makers Camp listing and the Monday–Thursday date pattern; confirm the year with the provider. The individual Food registration search snippet says '2 Spots Left!' while the supplied main page says 'No Upcoming Sessions'; availability is left null because the individual listing appears stale. Lunch together is mentioned, but the page does not say whether lunch is provided."
       }
     ]
   }

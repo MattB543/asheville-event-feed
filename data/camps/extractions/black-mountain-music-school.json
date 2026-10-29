@@ -7,19 +7,19 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:15:17.428Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:12:33.235Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "2b9c65a9512e5842b3fe39fd0c211d16a3e817eb7de769764ef405e79ea31a04",
   "response": {
-    "searches": ["site:blackmountainmusicschool.com \"2027\" \"camp\""],
+    "searches": ["\"Black Mountain Music School\" \"Kelowna\""],
     "usage": {
-      "inputTokens": 15768,
-      "cachedInputTokens": 8223,
-      "outputTokens": 502,
-      "reasoningTokens": 109
+      "inputTokens": 15552,
+      "cachedInputTokens": 8845,
+      "outputTokens": 347,
+      "reasoningTokens": 34
     },
     "status": "completed",
-    "ms": 21355,
+    "ms": 13627,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -48,31 +48,31 @@
   "extraction": {
     "provider_name": "Black Mountain Music School",
     "website_url": "https://blackmountainmusicschool.com/",
-    "notes": "Provider mismatch: this website belongs to Black Mountain Music School in Kelowna, British Columbia, Canada, not Black Mountain, North Carolina. Its official home, registration and fees pages publish 2170 Brentwood Rd., Kelowna, BC V1P 1H2. Do not publish this provider in the Asheville-area directory without correcting the provider identity. No summer 2027 information was found; the current camp page lists summer 2026. An older summer-registration page lists 2022 programs.",
+    "notes": "Provider identity mismatch: the supplied official homepage, registration page and fees page publish 2170 Brentwood Rd., Kelowna, BC, Canada, not Black Mountain, NC. This provider is outside AVLGO's geographic coverage. No local camp cards were created.",
     "excluded": [
       {
         "name": "Kitchen Creations",
-        "reason": "Qualifies as a summer day camp, but this provider is in Kelowna, British Columbia, Canada, outside the Asheville-area directory's geographic scope. The official page lists July 13–17, July 27–31 and August 4–7, 2026."
+        "reason": "Offered by Black Mountain Music School in Kelowna, British Columbia, Canada, not Black Mountain, NC; outside the approximately 75-minute drive radius of Asheville."
       },
       {
-        "name": "Private & Combo Lessons",
-        "reason": "Ongoing music lessons, not finite summer camp programs."
+        "name": "Private and Combo Music Lessons",
+        "reason": "Recurring music lessons booked as lessons, not a finite summer camp."
       },
       {
         "name": "Mini Rainbow Keys",
-        "reason": "Recurring weekly music classes, not a summer-only camp."
+        "reason": "Weekly music lesson series, not a summer camp."
       },
       {
         "name": "Rainbow Keys",
-        "reason": "Recurring weekly music classes, not a summer-only camp."
+        "reason": "Weekly music lesson series, not a summer camp."
       },
       {
         "name": "Accelerated Piano Lab",
-        "reason": "Recurring weekly music classes, not a summer-only camp."
+        "reason": "Weekly music lesson series, not a summer camp."
       },
       {
-        "name": "Daycare/Preschool Music Classes",
-        "reason": "Recurring music instruction delivered to daycares and preschools, not a finite summer camp."
+        "name": "Daycare/Preschool Classes",
+        "reason": "Music classes provided in daycare or preschool settings, not a finite summer camp."
       }
     ],
     "cards": []

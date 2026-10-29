@@ -7,22 +7,22 @@
     "discovered_by": ["gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:35:51.245Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:30:11.454Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "7271c0853217b2da83fdb9933898c98161a3e666f467133a2f99ee823d6dd1a6",
   "response": {
     "searches": [
-      "site:opensourcebjj.net \"camp\" \"2027\"",
-      "open https://www.opensourcebjj.net/events"
+      "site.opensourcebjj.net kids camp 2026 2027",
+      "\"Open Source\" \"camp\" \"2026\" \"kids\" Asheville"
     ],
     "usage": {
-      "inputTokens": 23874,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1287,
-      "reasoningTokens": 130
+      "inputTokens": 26306,
+      "cachedInputTokens": 8845,
+      "outputTokens": 898,
+      "reasoningTokens": 136
     },
     "status": "completed",
-    "ms": 33127,
+    "ms": 29545,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -61,19 +61,19 @@
   "extraction": {
     "provider_name": "Open Source Jiu-Jitsu",
     "website_url": "https://www.opensourcebjj.net/",
-    "notes": "No 2027 summer camp information found. The official events page lists the two 2026 camp weeks; that page was readable through search results but returned no text when opened directly. Registration button destinations could not be retrieved.",
+    "notes": "No 2027 camp information or dated 2026 youth camp schedule was found. The youth camp page is undated and lists June/July and August registration buttons, but their destination URLs could not be recovered from the readable page. Search did not supply the missing dates or registration milestones.",
     "excluded": [
       {
+        "name": "Kids BJJ / Youth BJJ",
+        "reason": "Recurring year-round martial arts classes, not a finite summer camp."
+      },
+      {
         "name": "Camp Grappalachia",
-        "reason": "The official events page describes this as an adult BJJ camp; its May 15-18, 2026 dates are also outside summer."
+        "reason": "The posted event runs May 15–18, 2026, outside summer, and is described as a general jiu-jitsu retreat rather than a supervised youth program."
       },
       {
-        "name": "Kids BJJ",
-        "reason": "Year-round weekly classes, not a finite summer program."
-      },
-      {
-        "name": "Youth BJJ",
-        "reason": "Year-round weekly classes, not a finite summer program."
+        "name": "Group/Private Lessons",
+        "reason": "Booked lessons rather than a camp."
       }
     ],
     "cards": [
@@ -81,14 +81,14 @@
         "name": "Kids Brazilian Jiu-Jitsu Summer Day-Camp",
         "type": "half_day",
         "categories": ["sports", "nature_outdoor"],
-        "description": "Campers practice no-gi Brazilian Jiu-Jitsu through instruction and games, with structured outdoor activities. No prior experience or uniform is required.",
+        "description": "Campers learn no-gi Brazilian Jiu-Jitsu through instruction and games and take part in structured outdoor activities. No experience or uniform is needed.",
         "camp_page_url": "https://www.opensourcebjj.net/kidssummercamp",
-        "registration_url": "https://www.opensourcebjj.net/kidssummercamp",
+        "registration_url": null,
         "season": {
           "year": 2026,
           "status": "not_posted",
-          "start": "2026-06-29",
-          "end": "2026-08-14",
+          "start": null,
+          "end": null,
           "text": null
         },
         "ages": {
@@ -114,72 +114,11 @@
           {
             "amount": 245,
             "unit": "session",
-            "label": "Registration fee; 10% discount off the total price for kids from the same family, arranged by email before registering.",
+            "label": "Registration fee",
             "year": 2026
           }
         ],
-        "sessions": [
-          {
-            "label": "June/July Camp: Ages 6-11",
-            "start": "2026-06-29",
-            "end": "2026-07-03",
-            "year": 2026,
-            "site": null,
-            "ages": {
-              "min": 6,
-              "max": 11
-            },
-            "grades": null,
-            "hours": null,
-            "price": null,
-            "status": null
-          },
-          {
-            "label": "June/July Camp: Ages 12-15",
-            "start": "2026-06-29",
-            "end": "2026-07-03",
-            "year": 2026,
-            "site": null,
-            "ages": {
-              "min": 12,
-              "max": 15
-            },
-            "grades": null,
-            "hours": null,
-            "price": null,
-            "status": null
-          },
-          {
-            "label": "August Camp: Ages 6-11",
-            "start": "2026-08-10",
-            "end": "2026-08-14",
-            "year": 2026,
-            "site": null,
-            "ages": {
-              "min": 6,
-              "max": 11
-            },
-            "grades": null,
-            "hours": null,
-            "price": null,
-            "status": null
-          },
-          {
-            "label": "August Camp: Ages 12-15",
-            "start": "2026-08-10",
-            "end": "2026-08-14",
-            "year": 2026,
-            "site": null,
-            "ages": {
-              "min": 12,
-              "max": 15
-            },
-            "grades": null,
-            "hours": null,
-            "price": null,
-            "status": null
-          }
-        ],
+        "sessions": [],
         "registration": [],
         "last_year_registration_opened": null,
         "availability": null,
@@ -192,11 +131,11 @@
         "transportation": null,
         "sources": [
           "https://www.opensourcebjj.net/kidssummercamp",
-          "https://www.opensourcebjj.net/events",
-          "https://www.opensourcebjj.net/faqs"
+          "https://www.opensourcebjj.net/faqs",
+          "https://www.opensourcebjj.net/"
         ],
         "confidence": "medium",
-        "review_notes": "Confirm the 2026 dates on the official events page, which was readable only through search results. The camp detail page does not print a year; its fee and program details are treated as 2026 based on the events listing. The provider says it may alter age grouping depending on sign-ups. Direct registration destinations could not be retrieved."
+        "review_notes": "The camp page does not identify a summer year; the $245 fee is retained under 2026 as an undated fallback, not a confirmed 2026 price. Confirm the applicable year, session dates, and registration destinations with the provider. Two simultaneous age groups (6–11 and 12–15) are listed, but no dated rows can be constructed. The page describes five days of camp."
       }
     ]
   }

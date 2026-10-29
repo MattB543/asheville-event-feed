@@ -7,22 +7,19 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:23:18.924Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:19:31.780Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "63a63e9361af2757ffe5ab8fb091c8f55fd0c7d488759a0d55cc342d289cb73f",
   "response": {
-    "searches": [
-      "site:ucfymca.org summer camp 2026 2027",
-      "site:ucfymca.org \"camp\" \"2026\" -eot"
-    ],
+    "searches": ["site:ucfymca.org summer camp 2026 2027", "site:ucfymca.org \"camp\" \"June\""],
     "usage": {
-      "inputTokens": 51978,
-      "cachedInputTokens": 8223,
-      "outputTokens": 618,
-      "reasoningTokens": 132
+      "inputTokens": 52601,
+      "cachedInputTokens": 8845,
+      "outputTokens": 594,
+      "reasoningTokens": 144
     },
     "status": "completed",
-    "ms": 20120,
+    "ms": 21339,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -66,35 +63,35 @@
   "extraction": {
     "provider_name": "Unicoi County Family YMCA",
     "website_url": "https://ucfymca.org/",
-    "notes": "No 2027 summer camp details or dated 2026 camp schedule were found. The camps page describes summer day camp but lists no sessions; the supplied Daxko program search has no camp category. The YMCA publishes 601 Love Street, Erwin, TN 37650 as its facility address, but the camp page does not explicitly identify a drop-off venue, so sites is empty. The camp archive returned no readable content. The Child Camp test-event page contains placeholder text and was not treated as a real offering.",
+    "notes": "No 2027 summer camp dates or registration milestones found. The camp page provides a general program description but no dated sessions, ages, prices or drop-off location. The YMCA publishes its facility address as 601 Love Street, Erwin, TN, but the camp page does not explicitly identify it as the camp site. The Camp archive returned no readable content.",
     "excluded": [
       {
         "name": "Before and After School Care",
-        "reason": "School-year childcare, not a summer camp."
+        "reason": "School-year childcare, not a finite summer camp."
       },
       {
         "name": "Y-Tots Daycare",
-        "reason": "Year-round daycare, not summer-only childcare."
+        "reason": "Year-round preschool childcare, not a finite summer camp."
       },
       {
         "name": "Child Watch",
-        "reason": "Ongoing childcare while members use the facility, not a finite summer program."
+        "reason": "Ongoing childcare while parents use the facility, not a finite summer camp."
       },
       {
         "name": "Swim Lessons",
-        "reason": "Ongoing lessons; no finite summer-only camp or clinic was identified."
+        "reason": "Lessons booked as lessons, not a camp."
       },
       {
-        "name": "Group Fitness Classes",
-        "reason": "Recurring fitness classes, not finite summer youth programs."
+        "name": "Child Camp",
+        "reason": "The test-event page contains placeholder text describing a community picnic rather than a documented youth camp."
       }
     ],
     "cards": [
       {
         "name": "Summer Day Camp",
         "type": "day",
-        "categories": ["general"],
-        "description": "Campers participate in sports, STEM activities, arts and crafts, swimming, and field trips. The YMCA describes the offering as an unlicensed summer day camp.",
+        "categories": ["general", "sports", "stem", "arts"],
+        "description": "Campers participate in sports, STEM activities, arts and crafts, swimming and field trips.",
         "camp_page_url": "https://ucfymca.org/childcare/camps/",
         "registration_url": "https://operations.daxko.com/Online/5060/ProgramsV2/Home.mvc",
         "season": {

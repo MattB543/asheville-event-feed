@@ -7,19 +7,19 @@
     "discovered_by": ["grid", "aggregator", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:17:12.304Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:14:36.100Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "c97b805b858ed486fabd0659a8f812bb0cc13d2982800c4dc5cb8ad536b93224",
   "response": {
-    "searches": ["site:hvlcoc.org VBS 2027"],
+    "searches": ["site:hvlcoc.org \"2027\" \"VBS\""],
     "usage": {
-      "inputTokens": 13626,
-      "cachedInputTokens": 8223,
-      "outputTokens": 750,
-      "reasoningTokens": 70
+      "inputTokens": 14213,
+      "cachedInputTokens": 8845,
+      "outputTokens": 525,
+      "reasoningTokens": 56
     },
     "status": "completed",
-    "ms": 17084,
+    "ms": 15733,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -38,19 +38,15 @@
   "extraction": {
     "provider_name": "Hendersonville Church of Christ",
     "website_url": "https://hvlcoc.org/",
-    "notes": "No summer 2027 information was found. The card uses the explicitly labeled 2026 VBS information. Camp attendance at Palmetto Bible Camp is mentioned, but no distinct church-operated summer camp offering or session details are provided.",
+    "notes": "No 2027 camp information or registration milestones found. The children's page still lists the 2026 VBS. Palmetto Bible Camp attendance is mentioned without a church-run session or enrollment details; it is not extracted as this provider's program.",
     "excluded": [
       {
         "name": "Shoots and Sprouts Children’s Ministry",
-        "reason": "Year-round children's ministry, including weekly Bible classes and children's worship, rather than a finite summer program."
+        "reason": "Year-round children's ministry, including weekly Bible classes and worship, rather than a finite summer camp."
       },
       {
         "name": "Community Playdate",
-        "reason": "Recurring year-round parent/caregiver playdates on the second and fourth Wednesdays, not a summer camp."
-      },
-      {
-        "name": "2026 Church Retreat",
-        "reason": "Church retreat scheduled October 2–4, outside summer."
+        "reason": "Recurring parent/caregiver social playdate rather than a supervised summer camp."
       }
     ],
     "cards": [
@@ -58,7 +54,7 @@
         "name": "SPLASH! Vacation Bible School",
         "type": "vbs",
         "categories": ["faith_based"],
-        "description": "Children participate in activities and classes themed around Jesus' living water. Nursery care is provided for newborns through age 2, and lunch follows the activities.",
+        "description": "Children participate in activities and classes centered on Jesus' living water. Nursery care is provided for newborns through age 2.",
         "camp_page_url": "https://hvlcoc.org/children/",
         "registration_url": null,
         "season": {
@@ -104,7 +100,7 @@
         "special_needs": null,
         "lunch": {
           "value": "yes",
-          "text": "Parents/Caregivers welcome to come and eat with their child(ren)."
+          "text": "Lunch provided directly after. Parents/Caregivers welcome to come and eat with their child(ren)."
         },
         "transportation": null,
         "sources": ["https://hvlcoc.org/children/", "https://hvlcoc.org/"],

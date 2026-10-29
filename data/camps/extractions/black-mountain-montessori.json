@@ -7,19 +7,19 @@
     "discovered_by": ["seed_sheet", "grid", "aggregator", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T14:53:03.793Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T16:54:06.598Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "b39dc906ab9ead5f5b017b5041e08e4f971ecc50b5963a53fabfcf057d7be295",
   "response": {
     "searches": ["site:bmtmont.org \"summer\" \"2027\""],
     "usage": {
-      "inputTokens": 15210,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1190,
-      "reasoningTokens": 51
+      "inputTokens": 15816,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1182,
+      "reasoningTokens": 78
     },
     "status": "completed",
-    "ms": 27000,
+    "ms": 27518,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -43,7 +43,7 @@
   "extraction": {
     "provider_name": "Black Mountain Montessori",
     "website_url": "https://www.bmtmont.org/",
-    "notes": "No summer 2027 information found. Dates, rates and hours below are for summer 2026. School-year financial aid information was not applied to summer camp. Before & After Camp Care is included as extended care, not a separate program.",
+    "notes": "No summer 2027 information found on official pages. The camp page still lists summer 2026. It says registration begins the first week in February 2026 for currently enrolled families and community registration follows in March, but gives no exact opening date; last_year_registration_opened is therefore null. School tuition financial aid is not explicitly offered for summer camp.",
     "excluded": [
       {
         "name": "Stepping Stones",
@@ -51,15 +51,19 @@
       },
       {
         "name": "Preschool-Kindergarten",
-        "reason": "School-year education, not a summer camp."
+        "reason": "School-year education program."
       },
       {
         "name": "Elementary Grades 1-6",
-        "reason": "School-year education, not a summer camp."
+        "reason": "School-year education program."
       },
       {
         "name": "Before & After School Care",
-        "reason": "School-year childcare, distinct from summer camp extended care."
+        "reason": "School-year childcare; before and after camp care is included as extended care on the summer camp card."
+      },
+      {
+        "name": "Art In the Afternoon After School Program",
+        "reason": "After-school program, not a summer camp."
       }
     ],
     "cards": [
@@ -67,7 +71,7 @@
         "name": "Montessori Summer Camp",
         "type": "day",
         "categories": ["general"],
-        "description": "Children participate in weekly themed activities, art, water play, music and outdoor play. Teachers lead activities and the camp hosts special visitors.",
+        "description": "Children participate in weekly themed activities, art, water play, music, outside play, and visits from special visitors.",
         "camp_page_url": "https://www.bmtmont.org/summer-camps",
         "registration_url": null,
         "season": {
@@ -93,12 +97,12 @@
         "hours": {
           "start": "09:00",
           "end": "15:00",
-          "text": "Full Day Camp: 9:00am-3:00pm. Half Day Camp: 9:00am-12:30pm."
+          "text": "Full Day Camp 9:00am-3:00pm; Half Day Camp 9:00am-12:30pm"
         },
         "extended_care": {
           "early_dropoff_start": "08:00",
           "late_pickup_end": "17:00",
-          "cost_text": "Before Camp Care: $7 per day, 8:00-9:00 am. After Camp Care: $18 per day, 3:00-5:00 pm."
+          "cost_text": "Before Camp Care: $7 daily. After Camp Care: $18 daily."
         },
         "prices": [
           {
@@ -165,20 +169,15 @@
           }
         ],
         "registration": [],
-        "last_year_registration_opened": {
-          "date": "2026-02-01",
-          "time": null,
-          "text": "Summer Camp registration begins February 2026.",
-          "url": "https://www.bmtmont.org/summer-camps"
-        },
+        "last_year_registration_opened": null,
         "availability": null,
         "financial_aid": null,
         "special_needs": null,
         "lunch": null,
         "transportation": null,
         "sources": ["https://www.bmtmont.org/summer-camps", "https://www.bmtmont.org/"],
-        "confidence": "medium",
-        "review_notes": "The last-year registration date represents February 2026 at month precision, not a stated February 1 opening. The camp page says registration begins the first week in February for currently enrolled families, with community registration for remaining spots in March; no exact opening day is given."
+        "confidence": "high",
+        "review_notes": null
       }
     ]
   }

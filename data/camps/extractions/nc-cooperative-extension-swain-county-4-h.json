@@ -7,30 +7,31 @@
     "discovered_by": ["gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:35:21.643Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
-  "sourceHash": "51a2020ccea744550356bb37533529387d2a71167f572d1e6f0fc26ec570f164",
+  "extractedAt": "2026-10-29T17:29:42.032Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "c7647f05bba3bd5c3d3893013b4737eac6e353b488116ab41e7259c029a2f806",
   "response": {
     "searches": [
-      "site:swain.ces.ncsu.edu 2026 4-H summer camp",
-      "site:swain.ces.ncsu.edu \"Fun with 4-H @ Rec Camp\" \"2026\"",
-      "site:swain.ces.ncsu.edu \"2026\" \"camp\" \"Penn\""
+      "site:swain.ces.ncsu.edu 2026 \"4-H\" \"camp\"",
+      "site:swain.ces.ncsu.edu \"Fun with 4-H @ Rec Camp\" 2026",
+      "open https://swain.ces.ncsu.edu/events/2026/7/",
+      "site:swain.ces.ncsu.edu/event/ \"Rec Camp\" \"2026\" \"Jun\""
     ],
     "usage": {
-      "inputTokens": 33010,
-      "cachedInputTokens": 8223,
-      "outputTokens": 2372,
-      "reasoningTokens": 454
+      "inputTokens": 32197,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1928,
+      "reasoningTokens": 378
     },
     "status": "completed",
-    "ms": 55212,
+    "ms": 49220,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
   "bundle": [
     {
       "url": "https://swain.ces.ncsu.edu/event/108549/",
-      "chars": 2784,
+      "chars": 2791,
       "method": "fetch"
     },
     {
@@ -42,27 +43,35 @@
   "extraction": {
     "provider_name": "N.C. Cooperative Extension — Swain County 4-H",
     "website_url": "https://swain.ces.ncsu.edu/",
-    "notes": "No 2027 summer program dates or registration milestones were found. Official event pages frequently returned empty text when opened; additional facts were available in official search results. The newsletter page says a summer program newsletter is mailed annually, but no 2026 or 2027 newsletter PDF was found. The 2026 enrollment page mentions county participation at Betsy-Jeff Penn and Fur, Fish, and Game at Millstone, without county-specific dates or enrollment details; these overnight opportunities need further verification.",
+    "notes": "No 2027 summer program dates or registration milestones were found. The June, July and August 2026 calendar archive pages returned no readable text, so additional Rec Camp dates may be missing. The newsletter page says summer program information is mailed annually but provides no current summer brochure.",
     "excluded": [
       {
-        "name": "Bullets & Bows 4-H Club",
-        "reason": "Ongoing shooting-sports club practices and competition season, not a finite summer camp or standalone clinic."
+        "name": "Bullets & Bows 4-H Club - Rifle & Archery Practice",
+        "reason": "Ongoing club meetings and shooting-sports practices, not a finite summer camp or clinic."
       },
       {
         "name": "Swain County 4-H Livestock Club & Bronc Busters 4-H Club",
-        "reason": "Ongoing clubs. The Rabbits and Chickens calendar entries do not establish separate summer-only programs."
-      },
-      {
-        "name": "Swain County 4-H Explore Series: Garden Seeding",
-        "reason": "March 26, 2026 program, outside summer."
-      },
-      {
-        "name": "4-H Pullet Project - Informational Meeting",
-        "reason": "Informational meeting about fair participation and upcoming clinics, rather than a supervised summer skill program."
+        "reason": "Ongoing youth clubs, not finite summer programs."
       },
       {
         "name": "Swain Co. 4-H Farm Tour: Walnut Creek Farm",
-        "reason": "Calendar-only tour listing does not establish a supervised youth drop-off program rather than a club or family outing."
+        "reason": "Single-evening youth outing."
+      },
+      {
+        "name": "4-H Pullet Project - Informational Meeting",
+        "reason": "Informational meeting about fair participation and upcoming clinics, not a camp or skill clinic."
+      },
+      {
+        "name": "Swain County Agricultural Fair",
+        "reason": "Fair and seasonal event."
+      },
+      {
+        "name": "Betsy-Jeff Penn 4-H Camp",
+        "reason": "Held in Reidsville, outside the directory's Asheville-area drive radius."
+      },
+      {
+        "name": "Fur, Fish, and Game at Millstone",
+        "reason": "Held at Millstone in central North Carolina, outside the directory's Asheville-area drive radius."
       }
     ],
     "cards": [
@@ -70,7 +79,7 @@
         "name": "Fun with 4-H @ Rec Camp",
         "type": "half_day",
         "categories": ["general"],
-        "description": "4-H provides activities at Rec Camp. The calendar does not describe the specific activities.",
+        "description": "4-H programming at Rec Camp.",
         "camp_page_url": "https://swain.ces.ncsu.edu/event/108549/",
         "registration_url": null,
         "season": {
@@ -134,7 +143,7 @@
         "financial_aid": null,
         "special_needs": {
           "value": "case_by_case",
-          "text": "Individuals with disabilities are invited to request reasonable accommodations to participate in Extension sponsored programs and events."
+          "text": "Individuals with disabilities are invited to request reasonable accommodations to participate in Extension sponsored programs and events. Please contact the county Extension office or campus department offering the program at least 14 days prior to the event to make arrangements."
         },
         "lunch": null,
         "transportation": null,
@@ -144,13 +153,13 @@
           "https://swain.ces.ncsu.edu/event/108549/"
         ],
         "confidence": "medium",
-        "review_notes": "June 23 and July 7 dates and hours were read through official search results. Confirm whether these are activities for children already enrolled in a separate recreation camp, and obtain the complete schedule, eligibility, registration process and drop-off venue. The Extension office footer is not identified as the camp location."
+        "review_notes": "Sparse event listings do not identify the drop-off site, eligibility or activities, or establish whether families register separately from the underlying Rec Camp. June 23 was found through an official search snippet. Check with the provider for the complete session list."
       },
       {
         "name": "Swain Co. 4-H: Hunter Safety Course",
         "type": "clinic",
         "categories": ["nature_outdoor"],
-        "description": "Youth participate in a 4-H hunter safety course.",
+        "description": "A 4-H hunter safety course.",
         "camp_page_url": "https://swain.ces.ncsu.edu/event/113724/",
         "registration_url": null,
         "season": {
@@ -184,19 +193,19 @@
         "financial_aid": null,
         "special_needs": {
           "value": "case_by_case",
-          "text": "Individuals with disabilities are invited to request reasonable accommodations to participate in Extension sponsored programs and events."
+          "text": "Individuals with disabilities are invited to request reasonable accommodations to participate in Extension sponsored programs and events. Please contact the county Extension office or campus department offering the program at least 14 days prior to the event to make arrangements."
         },
         "lunch": null,
         "transportation": null,
         "sources": ["https://swain.ces.ncsu.edu/event/113724/", "https://swain.ces.ncsu.edu/"],
-        "confidence": "medium",
-        "review_notes": "The official calendar search result states the 2026 date, hours and venue, but provides no course description, age eligibility or registration details. Verify those details with the county office."
+        "confidence": "high",
+        "review_notes": null
       },
       {
         "name": "4-H Pullet Project Showmanship Clinic",
         "type": "clinic",
         "categories": ["nature_outdoor"],
-        "description": "Youth learn how to prepare poultry for the county fair, including show-day expectations, health checks, fair requirements and what to bring.",
+        "description": "Youth learn how to prepare poultry for showing, including health checks, fair requirements and what to bring on show day. The clinic is for youth planning to exhibit poultry at the fair.",
         "camp_page_url": "https://swain.ces.ncsu.edu/event/114724/",
         "registration_url": null,
         "season": {
@@ -231,15 +240,15 @@
         "last_year_registration_opened": null,
         "availability": null,
         "financial_aid": null,
-        "special_needs": {
-          "value": "case_by_case",
-          "text": "Individuals with disabilities are invited to request reasonable accommodations to participate in Extension sponsored programs and events."
-        },
+        "special_needs": null,
         "lunch": null,
         "transportation": null,
-        "sources": ["https://swain.ces.ncsu.edu/event/114724/"],
-        "confidence": "medium",
-        "review_notes": "Details were read through an official search result. The page specifies youth ages 5–18 who plan to exhibit poultry at the fair and says registration is required, with questions directed to (828) 788-0846; no online registration URL or opening date is provided."
+        "sources": [
+          "https://swain.ces.ncsu.edu/event/114724/",
+          "https://www.swaincountync.gov/smoky-mountain-event-park/"
+        ],
+        "confidence": "high",
+        "review_notes": null
       }
     ]
   }

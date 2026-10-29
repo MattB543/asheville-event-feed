@@ -12,23 +12,23 @@
     "status": "review",
     "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
   },
-  "extractedAt": "2026-10-29T15:13:24.067Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:11:36.655Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "10edcba9660962973f4bd752967e4c6764a933d8e1f9fb5e1d4deca4d76d9be7",
   "response": {
     "searches": [
       "Landmark Swannanoa vacation bible school 2026 2027",
       "\"Landmark\" \"Swannanoa\" \"Emerald\"",
-      "\"Landmark Missionary Baptist Church\" \"Vacation\""
+      "site:landmarkmbcs.com/youth \"Bible\""
     ],
     "usage": {
-      "inputTokens": 28903,
-      "cachedInputTokens": 8223,
-      "outputTokens": 471,
-      "reasoningTokens": 258
+      "inputTokens": 32784,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1017,
+      "reasoningTokens": 305
     },
     "status": "completed",
-    "ms": 27449,
+    "ms": 34671,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -52,17 +52,69 @@
   "extraction": {
     "provider_name": "Landmark Missionary Baptist Church of Swannanoa",
     "website_url": "https://www.landmarkmbcs.com/",
-    "notes": "No summer 2027 announcement or verifiable official 2026 camp announcement was found. AllEvents lists Emerald Crossing VBS at 5 Jordan Rd, Swannanoa, with a July 15, 2026 occurrence at 6 pm, but the listing could not be read fully and no corresponding church announcement was found; this is insufficient for a camp card. The official youth page was available only through a search snippet and describes ongoing FIRESTARTERS ministries rather than a finite summer program. The legacy landmarkswannanoa.com site returned no readable content.",
+    "notes": "No 2027 summer program information was found. Third-party AllEvents listings identify Emerald Crossing VBS at 5 Jordan Road in July 2026, including a July 15 listing at 6 p.m., but readable official sources did not confirm its complete schedule or details. The youth page and legacy landmarkswannanoa.com site returned no readable body text when opened; search indexing provided only the youth ministry introduction. The VBS card is retained as a low-confidence program lead with dates and hours left null.",
     "excluded": [
       {
         "name": "FIRESTARTERS Youth Ministries",
-        "reason": "Ongoing church youth ministries; no finite summer camp dates or summer-only program are stated."
+        "reason": "Ongoing church youth ministry, not a finite summer camp."
       },
       {
-        "name": "Sunday School and Wednesday Night Youth Bible Study",
-        "reason": "Recurring year-round church classes, not finite summer programs."
+        "name": "Wednesday Night Adult & Youth Bible Study",
+        "reason": "Recurring year-round Bible study, not a summer camp."
+      },
+      {
+        "name": "Vacation Bible School — Landmark Missionary Baptist Church, Vian",
+        "reason": "Different provider in Vian, Oklahoma, outside the Asheville area."
+      },
+      {
+        "name": "VBS Emerald Crossing at LMBC",
+        "reason": "The Granite Bay, California offering belongs to a different church, outside the Asheville area."
       }
     ],
-    "cards": []
+    "cards": [
+      {
+        "name": "Emerald Crossing VBS",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Vacation Bible School.",
+        "camp_page_url": null,
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Landmark Missionary Baptist Church",
+            "address": "5 Jordan Road",
+            "town": "Swannanoa",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.landmarkmbcs.com/",
+          "https://www.landmarkmbcs.com/contact",
+          "https://www.landmarkmbcs.com/youth"
+        ],
+        "confidence": "low",
+        "review_notes": "Program name and summer 2026 occurrence come only from third-party listings: https://allevents.in/swannanoa/emerald-crossing-vbs/200030399956932 and https://allevents.in/swannanoa/emerald-crossing-vbs/200030407117822. The latter search snippet states July 15, 2026 at 6 p.m.; the former says Multiple Dates. Confirm the program, full date range, hours, ages and registration details with the church before publication. The church's official address is 5 Jordan Road."
+      }
+    ]
   }
 }

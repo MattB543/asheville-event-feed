@@ -7,22 +7,22 @@
     "discovered_by": ["gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:38:35.672Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:32:46.992Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "55983fbc41cfdf7c465ae9c35fa7ab1cf096c0432a7d483352128e25fd3b1fba",
   "response": {
     "searches": [
       "First Baptist Church Forest City NC vacation bible school 2026",
-      "site:fbcforestcity.com \"2026\" \"Bible\""
+      "site:fbcforestcity.com \"2026\" \"Vacation\""
     ],
     "usage": {
-      "inputTokens": 20113,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1015,
-      "reasoningTokens": 135
+      "inputTokens": 21748,
+      "cachedInputTokens": 8845,
+      "outputTokens": 880,
+      "reasoningTokens": 192
     },
     "status": "completed",
-    "ms": 24889,
+    "ms": 29255,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -71,51 +71,27 @@
   "extraction": {
     "provider_name": "First Baptist Church of Forest City",
     "website_url": "https://fbcforestcity.com/",
-    "notes": "Provider mismatch: the supplied Church Center pages belong to First Baptist Church in Forest City, Iowa (18508 E Highway 9; 641-585-4171), not the requested Forest City, North Carolina church. The North Carolina church's official website publishes 211 West Main Street, Forest City, NC 28043 and 828-245-6626. Its children page lists summer Vacation Bible School, but no 2026 or 2027 dates, ages, prices or registration milestones were found. The official events calendar returned an error. Iowa offerings were not used to populate the North Carolina card.",
+    "notes": "The supplied Church Center pages belong to First Baptist Church in Forest City, Iowa (18508 E Highway 9), not the North Carolina provider. The North Carolina church's official website lists summer Vacation Bible School, but no 2027 or 2026 dates, registration milestones, or program details were found. Its published church address is 211 West Main Street, Forest City, NC 28043; the children's page does not explicitly identify the VBS drop-off location. Direct opens of the official website returned no readable text; official search-indexed page text was used.",
     "excluded": [
       {
-        "name": "The Huddle",
-        "reason": "Recurring school-year ministry starting in September; also belongs to the Iowa church, not the requested North Carolina provider."
+        "name": "Ministry Registration 2026-27: The Huddle, Ignite, and Fusion",
+        "reason": "These belong to the similarly named church in Forest City, Iowa, and are school-year ministry programs rather than summer camps."
       },
       {
-        "name": "Ignite",
-        "reason": "Recurring school-year ministry starting in September; also belongs to the Iowa church."
-      },
-      {
-        "name": "Fusion",
-        "reason": "Recurring school-year ministry starting in September; also belongs to the Iowa church."
+        "name": "Car Care Checkup, New Adult Sunday School Classes Begin, Men's Breakfast, Karen Fredrickson's Open House Retirement Party, and Mugs & Muffins",
+        "reason": "These belong to the similarly named church in Forest City, Iowa and are adult classes, service events, or social gatherings, not youth summer camps."
       },
       {
         "name": "Sunday School and Worship",
         "reason": "Recurring year-round church programming, not a finite summer camp."
       },
       {
-        "name": "TeamKID",
-        "reason": "Missions education ministry; not identified as a finite summer program."
+        "name": "TeamKID missions education",
+        "reason": "Listed as ongoing children's ministry rather than a finite summer camp."
       },
       {
         "name": "Family field trips",
-        "reason": "Family activities, not supervised youth summer camps."
-      },
-      {
-        "name": "Car Care Checkup",
-        "reason": "October vehicle-service event for adults, not a youth summer program; belongs to the Iowa church."
-      },
-      {
-        "name": "New Adult Sunday School Classes Begin",
-        "reason": "Adult programming outside summer; belongs to the Iowa church."
-      },
-      {
-        "name": "Men's Breakfast",
-        "reason": "Recurring adult fellowship event, not a youth summer camp; belongs to the Iowa church."
-      },
-      {
-        "name": "Karen Fredrickson's Open House Retirement Party",
-        "reason": "November community celebration, not a youth summer camp; belongs to the Iowa church."
-      },
-      {
-        "name": "Mugs & Muffins",
-        "reason": "Recurring women's fellowship event, not a youth summer camp; belongs to the Iowa church."
+        "reason": "Family outings, not supervised youth summer camps."
       }
     ],
     "cards": [
@@ -123,7 +99,7 @@
         "name": "Vacation Bible School",
         "type": "vbs",
         "categories": ["faith_based"],
-        "description": "Summer Vacation Bible School is part of the church's children's ministry, which introduces children to stories of the faith.",
+        "description": "Summer Vacation Bible School for children.",
         "camp_page_url": "https://fbcforestcity.com/children",
         "registration_url": null,
         "season": {
@@ -147,13 +123,9 @@
         "special_needs": null,
         "lunch": null,
         "transportation": null,
-        "sources": [
-          "https://fbcforestcity.com/children",
-          "https://fbcforestcity.com/",
-          "https://fbcforestcity.com/fbc-events-calendar"
-        ],
+        "sources": ["https://fbcforestcity.com/children", "https://fbcforestcity.com/"],
         "confidence": "medium",
-        "review_notes": "Summer Vacation Bible School is confirmed only by the official children's-page search text; opening that page returned no readable content. No year-specific schedule or drop-off venue was stated. Confirm 2027 details with the North Carolina church; do not use the supplied Iowa Church Center registration platform."
+        "review_notes": "The official children's page confirms summer Vacation Bible School only in search-indexed text; direct opens returned no readable content. Check for a dedicated 2027 announcement and confirm dates, eligibility, registration, and drop-off location. No year-specific dates have been assigned."
       }
     ]
   }

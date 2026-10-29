@@ -7,19 +7,23 @@
     "discovered_by": ["grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:32:22.695Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:27:09.358Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "544af0ca9d109a6372b7e4e1a04b69fbcca0fcc1e5a0644397c8308b54d214fc",
   "response": {
-    "searches": ["site.mtbskillsfactory.com youth camps 2027", "site.ncagr.gov \"Guion\" \"3045\""],
+    "searches": [
+      "site:mtbskillsfactory.com \"2027\" camp",
+      "Guion Farm access area site:dupontstaterecreationalforest.com address",
+      "site:ncagr.gov \"Guion\" \"3045\""
+    ],
     "usage": {
-      "inputTokens": 25452,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1773,
-      "reasoningTokens": 192
+      "inputTokens": 25963,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1403,
+      "reasoningTokens": 227
     },
     "status": "completed",
-    "ms": 57402,
+    "ms": 35073,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -38,27 +42,35 @@
   "extraction": {
     "provider_name": "MTB Skills Factory",
     "website_url": "https://www.mtbskillsfactory.com/",
-    "notes": "No 2027 camp information or registration milestones found. Dates and prices below are from the official 2026 lineup. Rocky Knob is mentioned in general camp guidance and pricing but has no dates in the 2026 lineup; confirm whether it remains an offering. The registration platform returned no readable page text.",
+    "notes": "No 2027 camp information or registration milestones found. The official youth-camps page lists the 2026 lineup. Beech Mountain and Rocky Knob are plainly outside the approximately 75-minute Asheville service area. Booking content on the skills-lessons-clinics-camps page could not be read.",
     "excluded": [
       {
+        "name": "Gravity Camp at Beech Mountain Bike Park",
+        "reason": "Held at Beech Mountain Resort, outside the approximately 75-minute drive area from Asheville."
+      },
+      {
+        "name": "Rocky Knob youth mountain bike camp",
+        "reason": "Rocky Knob Bike Park near Boone is outside the approximately 75-minute drive area; no session dates appear in the 2026 lineup."
+      },
+      {
         "name": "Mountain Bike Private Lessons",
-        "reason": "Ongoing customizable lessons, not a finite summer youth program."
-      },
-      {
-        "name": "Mountain Bike Group Clinics",
-        "reason": "General ongoing clinic offering; no summer-only youth clinic identified."
-      },
-      {
-        "name": "Mountain Bike Skills Instructor Training, Mentorship, and Business Consulting",
-        "reason": "Professional development rather than a youth summer program."
-      },
-      {
-        "name": "Guided Mountain Bike Rides + Shuttles",
-        "reason": "General guided services, not a finite supervised summer youth program."
+        "reason": "Booked as private lessons, not a finite summer camp."
       },
       {
         "name": "Strength Training + Skills Coaching Packages",
-        "reason": "Ongoing monthly training program."
+        "reason": "Ongoing monthly training rather than a finite summer youth program."
+      },
+      {
+        "name": "Mountain Bike Skills Instructor Training",
+        "reason": "Professional certification and staff development rather than a youth summer camp."
+      },
+      {
+        "name": "Blacksburg VA Skills Clinic Weekend",
+        "reason": "Outside summer and outside the Asheville service area."
+      },
+      {
+        "name": "DuPont Forest Fest",
+        "reason": "Festival outside summer."
       }
     ],
     "cards": [
@@ -66,9 +78,9 @@
         "name": "Summer Day Camps for Youth Mountain Bikers",
         "type": "day",
         "categories": ["sports", "nature_outdoor"],
-        "description": "Campers practice mountain bike skills on trails and skills features, with bike games and off-bike activities. Coaches assess equipment and riding skills and divide riders into groups by ability.",
+        "description": "Campers practice mountain bike skills on trails and skills features, with morning and afternoon rides, bike games, and off-bike activities. Riders must already be able to ride, brake, shift gears, and have some trail experience.",
         "camp_page_url": "https://www.mtbskillsfactory.com/youth-camps",
-        "registration_url": "https://exploreorigin.com/en/listings/877862-summer-camp-dupont-state-forest",
+        "registration_url": null,
         "season": {
           "year": 2026,
           "status": "not_posted",
@@ -84,7 +96,7 @@
         "sites": [
           {
             "name": "Guion Farm Trailhead",
-            "address": "3045 Sky Valley Road",
+            "address": "3015 Sky Valley Road",
             "town": "Hendersonville",
             "state": "NC"
           }
@@ -99,13 +111,13 @@
           {
             "amount": 449,
             "unit": "session",
-            "label": "Early bird through March 31; five-day camp; group snacks included",
+            "label": "Early bird through March 31; 5-day camp",
             "year": 2026
           },
           {
             "amount": 495,
             "unit": "session",
-            "label": "After March 31; five-day camp; group snacks included",
+            "label": "After March 31; 5-day camp",
             "year": 2026
           }
         ],
@@ -144,73 +156,12 @@
         "transportation": null,
         "sources": [
           "https://www.mtbskillsfactory.com/youth-camps",
-          "https://www.mtbskillsfactory.com/group-clinics/fundamentals-dupont",
+          "https://www.mtbskillsfactory.com/group-clinics/dupont-forest-fest-2025",
+          "https://www.mtbskillsfactory.com/group-clinics/womens-fundamentals-dupont",
           "https://www.dupontforest.com/access-parking/guion-farm/"
         ],
         "confidence": "medium",
-        "review_notes": "Dates take their year from the heading 'Our 2026 Camp Lineup'. The provider's official Guion Farm clinic listing publishes 3045 Sky Valley Road; Apple Maps instead lists 3015 Sky Valley Road. The forest's access page gives directions but no street number, so confirm the camp drop-off address. Rocky Knob has general age guidance but no dated session in the lineup."
-      },
-      {
-        "name": "Gravity Camp at Beech Mountain Bike Park",
-        "type": "day",
-        "categories": ["sports", "nature_outdoor"],
-        "description": "Riders practice downhill park and gravity racing skills on chairlift-access trails. The camp focuses on technique and progression on jumps, flow trails, and technical terrain.",
-        "camp_page_url": "https://www.mtbskillsfactory.com/youth-camps",
-        "registration_url": null,
-        "season": {
-          "year": 2026,
-          "status": "not_posted",
-          "start": "2026-07-09",
-          "end": "2026-07-12",
-          "text": null
-        },
-        "ages": {
-          "min": 12,
-          "max": 17
-        },
-        "grades": null,
-        "sites": [
-          {
-            "name": "Beech Mountain Resort",
-            "address": "1007 Beech Mountain Pkwy.",
-            "town": "Beech Mountain",
-            "state": "NC"
-          }
-        ],
-        "hours": {
-          "start": "09:30",
-          "end": "15:30",
-          "text": "Camp runs 9:30am-3:30pm each day. DropOff is from 9-9:30am and PickUp is from 3:30-4pm."
-        },
-        "extended_care": null,
-        "prices": [
-          {
-            "amount": 369,
-            "unit": "session",
-            "label": "Early bird through March 31; four-day camp; lift tickets purchased separately; group snacks included",
-            "year": 2026
-          },
-          {
-            "amount": 395,
-            "unit": "session",
-            "label": "After March 31; four-day camp; lift tickets purchased separately; group snacks included",
-            "year": 2026
-          }
-        ],
-        "sessions": [],
-        "registration": [],
-        "last_year_registration_opened": null,
-        "availability": null,
-        "financial_aid": null,
-        "special_needs": null,
-        "lunch": null,
-        "transportation": null,
-        "sources": [
-          "https://www.mtbskillsfactory.com/youth-camps",
-          "https://www.beechmountainresort.com/venue/beech-mountain-ski-resort/"
-        ],
-        "confidence": "high",
-        "review_notes": null
+        "review_notes": "Guion Farm street addresses conflict: the provider's 2025 DuPont Forest Fest listing gives 3015 Sky Valley Road, while its 2024 Women's Fundamentals clinic gives 3045 Sky Valley Road. Used the more recent provider listing; the forest's access-area page supplies directions but no street number. Confirm the camp drop-off street number. Dates and prices are stated under the official 2026 camp lineup."
       }
     ]
   }

@@ -7,22 +7,22 @@
     "discovered_by": ["grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:28:46.433Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:24:25.916Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "66e3bfd2972e81a100a8d8c26c72a1ca2ed4b62ca634608c808ca7fec26a206a",
   "response": {
     "searches": [
-      "First Baptist Gowensville official VBS 2027 2026",
-      "\"Gowensville\" \"VBS\" \"2027\""
+      "First Baptist Gowensville official church VBS 2027 2026",
+      "site:fbcgowensville.com VBS"
     ],
     "usage": {
-      "inputTokens": 17819,
-      "cachedInputTokens": 8223,
-      "outputTokens": 627,
-      "reasoningTokens": 137
+      "inputTokens": 17898,
+      "cachedInputTokens": 8845,
+      "outputTokens": 620,
+      "reasoningTokens": 121
     },
     "status": "completed",
-    "ms": 16697,
+    "ms": 17486,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -41,14 +41,14 @@
   "extraction": {
     "provider_name": "First Baptist Church Gowensville of Landrum",
     "website_url": "https://fbcgowensville.com/",
-    "notes": "No summer 2027 program information or registration dates found. The supplied VBS registration page provides explicit 2026 dates. The church's Events and New Here pages returned no readable text when opened, although official search results showed the church address.",
+    "notes": "No 2027 camp information was found. The 2026 VBS details are retained. The church's New Here and Events pages returned no readable text when opened; official search results confirmed the church address.",
     "excluded": [],
     "cards": [
       {
         "name": "ROME VBS",
         "type": "vbs",
         "categories": ["faith_based"],
-        "description": "Participants explore the sights, sounds, and culture of Paul's world and learn about his life and the experiences of early Christians.",
+        "description": "Participants explore the culture of Paul's world and learn about his experiences and life for early Christians.",
         "camp_page_url": "https://vbspro.events/p/aeda76",
         "registration_url": "https://vbspro.events/p/aeda76",
         "season": {
@@ -62,8 +62,8 @@
         "grades": null,
         "sites": [
           {
-            "name": "First Baptist Gowensville",
-            "address": "5650 North Hwy 14",
+            "name": "First Baptist Church of Gowensville",
+            "address": "5650 SC Hwy 14",
             "town": "Landrum",
             "state": "SC"
           }
@@ -80,14 +80,14 @@
         "last_year_registration_opened": null,
         "availability": {
           "status": "closed",
-          "scope": "2026 event",
+          "scope": "2026 VBS",
           "text": "Event Registration is closed."
         },
         "financial_aid": null,
         "special_needs": null,
         "lunch": null,
         "transportation": null,
-        "sources": ["https://vbspro.events/p/aeda76"],
+        "sources": ["https://vbspro.events/p/aeda76", "https://www.fbcgowensville.com/new-here"],
         "confidence": "high",
         "review_notes": null
       }

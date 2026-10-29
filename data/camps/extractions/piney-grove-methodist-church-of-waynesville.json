@@ -9,23 +9,22 @@
     "status": "review",
     "status_reason": "first page is a social media page or video, which our fetcher can't read"
   },
-  "extractedAt": "2026-10-29T15:16:15.155Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:13:21.187Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": null,
   "response": {
     "searches": [
-      "Piney Grove Methodist Church Waynesville VBS 2026",
-      "site:facebook.com/pineygrovemethodist \"VBS\" \"2026\"",
-      "site:facebook.com/pineygrovemethodist \"Vacation\""
+      "Piney Grove Methodist Church Waynesville vacation bible school 2026",
+      "site:facebook.com/pineygrovemethodist \"VBS\""
     ],
     "usage": {
-      "inputTokens": 24890,
-      "cachedInputTokens": 8223,
-      "outputTokens": 415,
-      "reasoningTokens": 247
+      "inputTokens": 23772,
+      "cachedInputTokens": 8845,
+      "outputTokens": 392,
+      "reasoningTokens": 159
     },
     "status": "completed",
-    "ms": 25776,
+    "ms": 15796,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -39,8 +38,17 @@
   "extraction": {
     "provider_name": "Piney Grove Methodist Church of Waynesville",
     "website_url": null,
-    "notes": "The supplied Facebook page returned no readable content. Official Facebook search snippets mention VBS planning in older worship recordings, but no verifiable 2026 or 2027 summer program details were found. A third-party listing reports VBS on June 22–26, 2025; those dates were not used because they are outside the requested fallback year and could not be confirmed on an official page. No standalone website could be verified as belonging to this Waynesville church. No cards were created rather than inferring a current offering. Manual review of the church's Facebook posts is needed.",
-    "excluded": [],
+    "notes": "No standalone website for the Waynesville church was found. The supplied Facebook page could be opened but returned no readable content. Indexed posts from that account include an older reference to a VBS planning meeting, but no verifiable 2026 or 2027 summer program announcement, dates, ages or registration details were found. No cards are created from that historical planning reference. Review the church's Facebook page directly for announcements.",
+    "excluded": [
+      {
+        "name": "Vacation Bible School — Piney Grove Baptist Church, Knoxville",
+        "reason": "A different provider in Knoxville, TN, not Piney Grove Methodist Church of Waynesville."
+      },
+      {
+        "name": "Vacation Bible School — Piney Grove Baptist Church, Fuquay-Varina",
+        "reason": "A different provider in Fuquay-Varina, NC, outside the directory's local area."
+      }
+    ],
     "cards": []
   }
 }

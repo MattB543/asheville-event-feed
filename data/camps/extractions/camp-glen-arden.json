@@ -11,22 +11,22 @@
     "discovered_by": ["grid", "aggregator"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:08:25.248Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:07:14.886Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "eef2c0f535a18ec0e08975712adb648800caabeddbdfedffb5cc025c69ae9c55",
   "response": {
     "searches": [
-      "site:campglenarden.com 2027 enrollment",
-      "open https://campglenarden.com/dates-rates/"
+      "site:campglenarden.com scholarship transportation 2027 enrollment",
+      "site:campglenarden.com \"2027\" \"September\""
     ],
     "usage": {
-      "inputTokens": 20109,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1617,
-      "reasoningTokens": 171
+      "inputTokens": 23996,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1564,
+      "reasoningTokens": 166
     },
     "status": "completed",
-    "ms": 35839,
+    "ms": 33500,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -75,11 +75,15 @@
   "extraction": {
     "provider_name": "Camp Glen Arden",
     "website_url": "https://campglenarden.com/",
-    "notes": "2027 dates and rates are posted, and the provider says enrollment for 2027 is now open without stating an opening date. Session lengths are grouped as one overnight program. The dated June and July listings specify grades 3–11, while the descriptive paragraphs on the same page say entering grades 1–11; the dated listings were used. Additional official pages opened during research returned no readable text.",
+    "notes": "2027 dates and rates are posted, and enrollment is open, but no dated registration opening announcement was found. The homepage still references Summer 2026. Activity offerings are components of the overnight camp, not separate programs.",
     "excluded": [
       {
         "name": "Mother Daughter",
-        "reason": "Family-only mother/daughter weekend rather than an independently supervised youth camp."
+        "reason": "Family-only weekend attended by mothers and daughters, rather than a supervised youth-only camp."
+      },
+      {
+        "name": "Summer Camp Jobs",
+        "reason": "Employment opportunities, not youth camp programs."
       }
     ],
     "cards": [
@@ -89,14 +93,14 @@
         "categories": [
           "general",
           "nature_outdoor",
+          "arts",
           "sports",
           "horses",
-          "arts",
           "music",
           "theater",
           "dance"
         ],
-        "description": "Girls choose activities including horseback riding, paddling, hiking, sports, pottery, weaving, music, drama and dance. Campers live in cabins and participate in camp celebrations, outings and competitions.",
+        "description": "Girls choose activities including arts and crafts, music, drama, dance, horseback riding, sports and waterfront activities. Campers also participate in camp traditions and outdoor outings.",
         "camp_page_url": "https://campglenarden.com/dates-rates/",
         "registration_url": "https://glenarden.campintouch.com/ui/login/Login",
         "season": {
@@ -215,7 +219,11 @@
             "year": 2027,
             "site": null,
             "ages": null,
-            "grades": null,
+            "grades": {
+              "min": 1,
+              "max": 11,
+              "basis": "rising"
+            },
             "hours": null,
             "price": {
               "amount": 5500,
@@ -230,7 +238,7 @@
         "last_year_registration_opened": null,
         "availability": {
           "status": "available",
-          "scope": "Mini Session II only",
+          "scope": "Mini Session II",
           "text": "Enroll (Limited Availability)"
         },
         "financial_aid": null,
@@ -238,18 +246,21 @@
           "value": "case_by_case",
           "text": "If there is a prior history of these kinds of needs or concerns in a particular situation, please call Erin in the Camp Office."
         },
-        "lunch": null,
+        "lunch": {
+          "value": "yes",
+          "text": "During breakfast, lunch, and dinner, six campers and two counselors gather around a table to enjoy family-style meals."
+        },
         "transportation": null,
         "sources": [
           "https://campglenarden.com/dates-rates/",
           "https://campglenarden.com/",
           "https://campglenarden.com/activities/arts/",
-          "https://campglenarden.com/activities/",
           "https://campglenarden.com/parents/enroll-policies",
-          "https://campglenarden.com/contact-glen-arden"
+          "https://campglenarden.com/about-us/farm-to-table-food",
+          "https://campglenarden.com/activities/"
         ],
         "confidence": "medium",
-        "review_notes": "Confirm June and July eligibility: the 2027 rate listings say grades 3–11, but their descriptive paragraphs say girls entering grades 1–11. Rising grade basis follows the descriptive wording 'entering.' Mini Session II's limited availability is recorded as available, not full or waitlisted. Special-needs wording concerns eating disorders and psychological conditions and requests discussion with the director; it does not promise accommodations. The enrollment policy contains conflicting payment deadlines, which were not extracted."
+        "review_notes": "The 2027 rate table specifies grades 3–11 for June and July, while their descriptive paragraphs on the same page say girls entering grades 1–11. Used the year-specific table for those rows; rising basis comes from the session descriptions. Special-needs contact wording concerns eating disorders and psychological conditions and does not establish broad accommodation capability. Enrollment policies contain conflicting payment due dates, which were not extracted as registration deadlines."
       }
     ]
   }

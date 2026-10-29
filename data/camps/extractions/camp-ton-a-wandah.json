@@ -11,23 +11,23 @@
     "discovered_by": ["grid", "aggregator"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:07:03.784Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:06:23.003Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "cee356a06df8156747e1be5c051ea534ef1472dcb26dd458320fd4e52cb21025",
   "response": {
     "searches": [
       "site:camptonawandah.com 2027 dates rates",
       "open https://www.camptonawandah.com/dates-rates/dates-rates-3.html",
-      "\"Ton-A-Wandah\" \"2026\" \"June\" dates"
+      "site:camptonawandah.com \"2026\" \"June\""
     ],
     "usage": {
-      "inputTokens": 32257,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1453,
-      "reasoningTokens": 224
+      "inputTokens": 33004,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1556,
+      "reasoningTokens": 225
     },
     "status": "completed",
-    "ms": 39899,
+    "ms": 40703,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -76,23 +76,27 @@
   "extraction": {
     "provider_name": "Camp Ton-A-Wandah",
     "website_url": "https://www.camptonawandah.com/",
-    "notes": "No summer 2027 dates, tuition rates, or registration opening dates were found. The supplied pages describe session lengths and LIT session focuses but do not publish dated session rows. Live attempts to open the dates/rates and LIT pages returned no readable content; supplied page text and official search results were used. Deposits are not included as tuition prices.",
+    "notes": "No official 2027 summer dates, tuition, or camper registration opening dates were found. The supplied official pages describe both programs but omit dated session schedules. Direct browser opens of the dates/rates and LIT pages returned no readable text; supplied crawler text and official search results were used. Undated session lengths were not converted into calendar dates. An indexed application PDF named TonAWandah_Appl17_2_1.pdf appears historical and was not used for current rates or dates.",
     "excluded": [
       {
         "name": "Mother Daughter Weekend",
-        "reason": "Family-only retreat; published offerings are also outside summer."
+        "reason": "Family-only retreat; listed dates are also outside summer."
       },
       {
         "name": "GUGG - Grown Up Girls Getaway",
-        "reason": "Adult-only retreat for women over 21, held in autumn."
+        "reason": "Adult-only retreat for women over 21."
       },
       {
         "name": "Alumnae Ecuador Experience",
-        "reason": "Alumnae service trip in March, outside summer."
+        "reason": "Alumnae service trip outside summer and outside the local service area."
       },
       {
         "name": "Youth Development Counselors",
-        "reason": "Employment program, not a camper offering."
+        "reason": "Employment program, not a youth camp."
+      },
+      {
+        "name": "Out of Camp Trips",
+        "reason": "Optional outings within the residential camp, not standalone camp programs."
       }
     ],
     "cards": [
@@ -100,7 +104,7 @@
         "name": "Camp Ton-A-Wandah",
         "type": "overnight",
         "categories": ["general", "nature_outdoor", "sports", "horses", "arts"],
-        "description": "Girls participate in swimming, canoeing, land sports, arts, horseback riding, and outdoor activities. One-, two-, and three-week options include cabin life and evening programs.",
+        "description": "Girls participate in horseback riding, swimming, canoeing, archery, land sports, arts and crafts, and outdoor activities. One-week starter, two-week, and traditional three-week options are offered.",
         "camp_page_url": "https://www.camptonawandah.com/prospective-families/dates-rates/session-options.html",
         "registration_url": null,
         "season": {
@@ -138,16 +142,17 @@
           "https://www.camptonawandah.com/",
           "https://www.camptonawandah.com/prospective-families/dates-rates/session-options.html",
           "https://www.camptonawandah.com/dates-rates/dates-rates-3.html",
+          "https://www.camptonawandah.com/dates-rates/camp-life/activities.html",
           "https://www.camptonawandah.com/contact.html"
         ],
         "confidence": "medium",
-        "review_notes": "Program descriptions and the homepage age range are undated; 2026 is used as the fallback season with no dates assigned. The one-week starter option is restricted to first-time campers ages 5–10, rising kindergarten–5th grade. Two-week options are for first-time campers or those returning from a starter session. No dated rows could be created, and the starter-only grade range was not applied to the entire camp."
+        "review_notes": "Program information is undated; season year 2026 denotes fallback information, not a published dated schedule. The homepage states ages 5–16 but contains older historical wording. Starter sessions specifically serve first-time campers ages 5–10, rising kindergarten–5th grade; two-week sessions serve first-time campers or campers returning from Starter Session. No dated rows could be created."
       },
       {
         "name": "Leaders In Training",
         "type": "overnight",
         "categories": ["general", "nature_outdoor"],
-        "description": "Girls practice leadership and counselor skills through workshops, activity instruction, supervised work with younger cabins, and service projects. Session focuses include Ecuador cultural immersion, camp operations, and adventure learning.",
+        "description": "Rising junior and senior girls combine traditional camp activities with leadership workshops, CPR/First Aid certification, supervised work with younger campers, and service projects. Session focuses include Ecuador Experience, Camp Deep-Dive, and Adventure Learning.",
         "camp_page_url": "https://www.camptonawandah.com/prospective-families/dates-rates/leaders-in-training.html",
         "registration_url": null,
         "season": {
@@ -188,7 +193,7 @@
           "https://www.camptonawandah.com/contact.html"
         ],
         "confidence": "medium",
-        "review_notes": "The LIT description is undated; 2026 is used as the fallback season without assigning dates. The page names Session 1 - Ecuador Experience, Session 2 - Camp Deep-Dive, and Session 3 - Adventure Learning but gives no calendar dates. Applicants complete an LIT application, then accepted families register through CampMinder; direct application and registration URLs could not be verified."
+        "review_notes": "The LIT description and three session focuses are undated; no calendar dates or tuition were found. Season year 2026 denotes fallback information rather than a published dated schedule. Ecuador Experience begins and ends at camp and includes six days in Ecuador; it is retained as a focus within the local residential leadership program, not listed as a separate trip. The application and curriculum links could not be resolved from the readable supplied text. Accepted applicants' parents are instructed to complete registration through CampMinder."
       }
     ]
   }

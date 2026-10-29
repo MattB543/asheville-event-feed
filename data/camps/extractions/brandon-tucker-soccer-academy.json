@@ -7,22 +7,22 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:33:47.821Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:28:38.663Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "1a13f3e05c82568eb99bca6cf565fd29500ce229d135d7cf27399bf9d4cb4e24",
   "response": {
     "searches": [
-      "site.furmansoccercamp.com goalkeeper facilities 2027",
-      "open https://www.furmansoccercamp.com/goalkeepercamp"
+      "site.furmansoccercamp.com goalkeeper facilities policies 2027",
+      "open https://www.furmansoccercamp.com/facilities"
     ],
     "usage": {
-      "inputTokens": 18527,
-      "cachedInputTokens": 8223,
-      "outputTokens": 4153,
-      "reasoningTokens": 155
+      "inputTokens": 19902,
+      "cachedInputTokens": 8845,
+      "outputTokens": 4326,
+      "reasoningTokens": 177
     },
     "status": "completed",
-    "ms": 73206,
+    "ms": 74663,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -71,14 +71,19 @@
   "extraction": {
     "provider_name": "Brandon Tucker Soccer Academy",
     "website_url": "https://www.furmansoccercamp.com/",
-    "notes": "2027 programs and dates are posted. Goalkeeper training is an option within Residential, Team and Senior ID camps, not a separately registered program. Overnight and commuter formats are represented separately. The facilities and goalkeeper pages returned no readable body when opened; the official goalkeeper search result confirmed the integrated training options. Several program pages contain conflicting or apparently stale logistical details. No registration opening date was found.",
-    "excluded": [],
+    "notes": "The provider has posted its 2027 program list. Goalkeeper training is a position-specific option within Residential, Team and Senior ID camps, not a separately scheduled camp. The facilities, policies and goalkeeper pages returned no readable body text when opened; goalkeeper information was available in the official search snippet and supplied All Camps page. Registration requires a PlayMetrics account; no registration opening date was found. Sites use Furman University's published campus address; specific residence halls are not identified.",
+    "excluded": [
+      {
+        "name": "Furman Soccer Winter ID Camp",
+        "reason": "January 17, 2027 is outside summer."
+      }
+    ],
     "cards": [
       {
         "name": "Half Day Camp",
         "type": "half_day",
         "categories": ["sports"],
-        "description": "Boys and girls practice foundational soccer skills through structured activities and small-sided games, with an emphasis on teamwork and sportsmanship.",
+        "description": "Campers practice foundational soccer skills through structured activities and small-sided games, with an emphasis on teamwork and sportsmanship.",
         "camp_page_url": "https://www.furmansoccercamp.com/half-day-camp",
         "registration_url": "https://app.playmetrics.com/signup?clubToken=TG9naW4tQ2x1Yi52MS0zNDQ4LTE3OTM2NTc0MjZ8TG5sMTVvZlBTdlFUOVRCWDdNRm1uZXpoNU52TUx4TXlkZTJmY0FIWGYybz0=",
         "season": {
@@ -104,7 +109,7 @@
         "hours": {
           "start": "09:00",
           "end": "11:30",
-          "text": "9:00am-11:30am; final day closing ceremonies begin at 11:00am."
+          "text": "Hours: 9:00am-11:30am. Final Day Closing Ceremonies: 11:00am"
         },
         "extended_care": null,
         "prices": [
@@ -128,17 +133,16 @@
         "transportation": null,
         "sources": [
           "https://www.furmansoccercamp.com/half-day-camp",
-          "https://www.furmansoccercamp.com/allcamps",
-          "https://www.furman.edu/about/location/"
+          "https://furmanpaladins.com/sports/2021/10/27/guide-to-game-day-in-timmons-arena.aspx"
         ],
         "confidence": "medium",
-        "review_notes": "The page lists June 14-18 and first-day Monday check-in, but also says camps begin on the day following registration. Confirm the first training day. Address is Furman University's published campus address, not a stadium-specific street address."
+        "review_notes": "The heading gives June 14–18 and 9:00–11:30, with first-day check-in Monday, but Additional Details says camps begin on the day following registration. Confirm whether training starts Monday. The address is the university's published campus address."
       },
       {
         "name": "Full Day Camp",
         "type": "day",
         "categories": ["sports"],
-        "description": "Boys and girls receive soccer instruction in technique, tactical awareness and decision-making, then apply their skills in competitive play.",
+        "description": "Campers develop soccer technique, tactical awareness and decision-making through training sessions and competitive match play.",
         "camp_page_url": "https://www.furmansoccercamp.com/fullday",
         "registration_url": "https://app.playmetrics.com/signup?clubToken=TG9naW4tQ2x1Yi52MS0zNDQ4LTE3OTM2NTc0MjZ8TG5sMTVvZlBTdlFUOVRCWDdNRm1uZXpoNU52TUx4TXlkZTJmY0FIWGYybz0=",
         "season": {
@@ -163,8 +167,8 @@
         ],
         "hours": {
           "start": "09:00",
-          "end": "15:00",
-          "text": "Heading states 9:00am-3:00pm; additional details state 2:45 p.m. dismissal. Final day closing ceremonies begin at 11:00am."
+          "end": null,
+          "text": "Final Day Closing Ceremonies: 11:00am"
         },
         "extended_care": null,
         "prices": [
@@ -188,17 +192,16 @@
         "transportation": null,
         "sources": [
           "https://www.furmansoccercamp.com/fullday",
-          "https://www.furmansoccercamp.com/allcamps",
-          "https://www.furman.edu/about/location/"
+          "https://furmanpaladins.com/sports/2021/10/27/guide-to-game-day-in-timmons-arena.aspx"
         ],
         "confidence": "medium",
-        "review_notes": "Confirm dismissal: the heading says 3:00pm but additional details say 2:45pm. The page also says training begins the day following registration despite listing first-day Monday check-in. Address is the university's published campus address."
+        "review_notes": "The heading says 9:00am–3:00pm, but Additional Details gives a 2:45pm end time. End time is left null. The heading gives June 14–18 and first-day check-in Monday, but Additional Details says camps begin the day following registration. Confirm Monday training and Friday pickup. The address is the university's published campus address."
       },
       {
         "name": "Residential Camp",
         "type": "overnight",
         "categories": ["sports"],
-        "description": "Campers practice technical and tactical soccer skills and compete in evening matches. Goalkeepers can receive specialized training, and older campers can attend a college recruiting session.",
+        "description": "Players develop technical skills and tactical awareness through soccer training and evening competitive games. Older campers can attend a college recruiting session, and goalkeepers can receive specialized training.",
         "camp_page_url": "https://www.furmansoccercamp.com/residentialcamp",
         "registration_url": "https://app.playmetrics.com/signup?clubToken=TG9naW4tQ2x1Yi52MS0zNDQ4LTE3OTM2NTc0MjZ8TG5sMTVvZlBTdlFUOVRCWDdNRm1uZXpoNU52TUx4TXlkZTJmY0FIWGYybz0=",
         "season": {
@@ -215,7 +218,7 @@
         "grades": null,
         "sites": [
           {
-            "name": "Furman University Residence Halls",
+            "name": "Furman Residence Halls",
             "address": "3300 Poinsett Highway",
             "town": "Greenville",
             "state": "SC"
@@ -224,14 +227,14 @@
         "hours": {
           "start": null,
           "end": null,
-          "text": "First-day check-in 5:00-6:30 p.m.; final-day checkout begins at 11am."
+          "text": "Check in on the first day between 5:00-6:30 p.m.. Check out will begin at 11am."
         },
         "extended_care": null,
         "prices": [
           {
             "amount": 575,
             "unit": "session",
-            "label": "Residential tuition",
+            "label": "Camp Tuition",
             "year": 2027
           }
         ],
@@ -241,24 +244,21 @@
         "availability": null,
         "financial_aid": null,
         "special_needs": null,
-        "lunch": {
-          "value": "yes",
-          "text": "Meals will be served at the Furman Dining Hall."
-        },
+        "lunch": null,
         "transportation": null,
         "sources": [
           "https://www.furmansoccercamp.com/residentialcamp",
           "https://www.furmansoccercamp.com/allcamps",
-          "https://www.furman.edu/about/location/"
+          "https://furmanpaladins.com/sports/2021/10/27/guide-to-game-day-in-timmons-arena.aspx"
         ],
         "confidence": "medium",
-        "review_notes": "Meal details say the first meal is Tuesday breakfast and mention Monday-night pizza, inconsistent with the July 17-20, 2027 Saturday-Tuesday session. Confirm meal coverage. No specific residence hall is named; address is the published campus address."
+        "review_notes": "The 2027 dates are July 17–20, Saturday–Tuesday, but meal details say the first meal is breakfast Tuesday and discuss Monday-night pizza. Confirm the meal schedule and included meals. Specific residence halls are not named; the address is the published campus address."
       },
       {
-        "name": "Residential Camp",
+        "name": "Residential Camp (day)",
         "type": "day",
         "categories": ["sports"],
-        "description": "Commuters participate in Residential Camp soccer training and evening matches without staying overnight. Specialized goalkeeper training and a college recruiting session for older campers are offered.",
+        "description": "Commuter players participate in Residential Camp soccer training and evening games without staying overnight. Specialized goalkeeper training and a college recruiting session for older campers are offered.",
         "camp_page_url": "https://www.furmansoccercamp.com/residentialcamp",
         "registration_url": "https://app.playmetrics.com/signup?clubToken=TG9naW4tQ2x1Yi52MS0zNDQ4LTE3OTM2NTc0MjZ8TG5sMTVvZlBTdlFUOVRCWDdNRm1uZXpoNU52TUx4TXlkZTJmY0FIWGYybz0=",
         "season": {
@@ -275,7 +275,7 @@
         "grades": null,
         "sites": [
           {
-            "name": "Furman University Residence Halls",
+            "name": "Furman Residence Halls",
             "address": "3300 Poinsett Highway",
             "town": "Greenville",
             "state": "SC"
@@ -284,14 +284,14 @@
         "hours": {
           "start": "08:15",
           "end": "21:15",
-          "text": "Commuters arrive at the Furman Dorms by 8:15am and are picked up at the Soccer Stadium after the evening session at 9:15pm. First-day check-in is 5:00-6:30 p.m.; final checkout begins at 11am."
+          "text": "Any commuters should arrive each morning at the Furman Dorms by 8:15am. You will stay on campus until the evening session is over at 9:15pm. Pick up is at the Soccer Stadium."
         },
         "extended_care": null,
         "prices": [
           {
             "amount": 525,
             "unit": "session",
-            "label": "Commuter tuition",
+            "label": "Camp Commuter Tuition",
             "year": 2027
           }
         ],
@@ -305,16 +305,16 @@
         "transportation": null,
         "sources": [
           "https://www.furmansoccercamp.com/residentialcamp",
-          "https://www.furman.edu/about/location/"
+          "https://furmanpaladins.com/sports/2021/10/27/guide-to-game-day-in-timmons-arena.aspx"
         ],
         "confidence": "medium",
-        "review_notes": "Confirm commuter first-day and final-day schedule and meal inclusion. Meal weekday details conflict with the posted 2027 dates. No specific dorm is named; address is the published campus address."
+        "review_notes": "Regular commuter hours are stated, but the first-day check-in is 5:00–6:30pm and final checkout begins at 11am; confirm commuter arrangements on those days. Meal details contain weekdays inconsistent with July 17–20, 2027. Specific dorms are not identified. Existing names contained duplicate Residential Camp entries; the commuter card adds '(day)' as required."
       },
       {
         "name": "Team Camp",
         "type": "overnight",
         "categories": ["sports"],
-        "description": "Teams and groups train in team tactics, restarts, offensive and defensive organization, and small-group play. Daily matches and team-building activities accompany specialized goalkeeper training and a recruiting session for older players.",
+        "description": "Teams and groups practice tactics, restarts, offensive and defensive organization, and competitive match play. Activities also address leadership and communication, with specialized goalkeeper training and a recruiting session for older campers.",
         "camp_page_url": "https://www.furmansoccercamp.com/teamcamp",
         "registration_url": "https://app.playmetrics.com/signup?clubToken=TG9naW4tQ2x1Yi52MS0zNDQ4LTE3OTM2NTc0MjZ8TG5sMTVvZlBTdlFUOVRCWDdNRm1uZXpoNU52TUx4TXlkZTJmY0FIWGYybz0=",
         "season": {
@@ -331,7 +331,7 @@
         "grades": null,
         "sites": [
           {
-            "name": "Furman University Residence Halls",
+            "name": "Furman Residence Halls",
             "address": "3300 Poinsett Highway",
             "town": "Greenville",
             "state": "SC"
@@ -340,74 +340,14 @@
         "hours": {
           "start": null,
           "end": null,
-          "text": "First-day check-in 5:00-6:30 p.m.; final-day checkout begins at 11am."
+          "text": "Check in on the first day between 5:00-6:30 p.m.. Check out will begin at 11am."
         },
         "extended_care": null,
         "prices": [
           {
             "amount": 575,
             "unit": "session",
-            "label": "Residential tuition",
-            "year": 2027
-          }
-        ],
-        "sessions": [],
-        "registration": [],
-        "last_year_registration_opened": null,
-        "availability": null,
-        "financial_aid": null,
-        "special_needs": null,
-        "lunch": {
-          "value": "yes",
-          "text": "Meals will be served at the Furman Dining Hall."
-        },
-        "transportation": null,
-        "sources": [
-          "https://www.furmansoccercamp.com/teamcamp",
-          "https://www.furmansoccercamp.com/allcamps",
-          "https://www.furman.edu/about/location/"
-        ],
-        "confidence": "medium",
-        "review_notes": "The first meal is described as Tuesday breakfast despite the Saturday-Tuesday 2027 session. Confirm meal coverage. No specific residence hall is named; address is the published campus address."
-      },
-      {
-        "name": "Team Camp",
-        "type": "day",
-        "categories": ["sports"],
-        "description": "Commuting teams and groups practice team tactics and organization and compete in daily matches without staying overnight. Goalkeepers can select specialized training.",
-        "camp_page_url": "https://www.furmansoccercamp.com/teamcamp",
-        "registration_url": "https://app.playmetrics.com/signup?clubToken=TG9naW4tQ2x1Yi52MS0zNDQ4LTE3OTM2NTc0MjZ8TG5sMTVvZlBTdlFUOVRCWDdNRm1uZXpoNU52TUx4TXlkZTJmY0FIWGYybz0=",
-        "season": {
-          "year": 2027,
-          "status": "posted",
-          "start": "2027-07-17",
-          "end": "2027-07-20",
-          "text": null
-        },
-        "ages": {
-          "min": 9,
-          "max": 17
-        },
-        "grades": null,
-        "sites": [
-          {
-            "name": "Furman University Residence Halls",
-            "address": "3300 Poinsett Highway",
-            "town": "Greenville",
-            "state": "SC"
-          }
-        ],
-        "hours": {
-          "start": "08:15",
-          "end": "21:15",
-          "text": "Commuters arrive at the Furman Dorms by 8:15am and are picked up at the Soccer Stadium after the evening session at 9:15pm. First-day check-in is 5:00-6:30 p.m.; final checkout begins at 11am."
-        },
-        "extended_care": null,
-        "prices": [
-          {
-            "amount": 525,
-            "unit": "session",
-            "label": "Commuter tuition",
+            "label": "Camp Tuition",
             "year": 2027
           }
         ],
@@ -421,16 +361,72 @@
         "transportation": null,
         "sources": [
           "https://www.furmansoccercamp.com/teamcamp",
-          "https://www.furman.edu/about/location/"
+          "https://furmanpaladins.com/sports/2021/10/27/guide-to-game-day-in-timmons-arena.aspx"
         ],
         "confidence": "medium",
-        "review_notes": "Confirm commuter first-day and final-day schedule and meal inclusion. The first meal weekday conflicts with the posted 2027 dates. No specific dorm is named; address is the published campus address."
+        "review_notes": "The page says the first meal is breakfast Tuesday, which is the last day of the July 17–20, 2027 session. Confirm meal coverage. Specific residence halls are not named; the address is the university's published campus address."
+      },
+      {
+        "name": "Team Camp (day)",
+        "type": "day",
+        "categories": ["sports"],
+        "description": "Commuter teams and groups participate in Team Camp training and daily matches without staying overnight. Training covers team tactics, organization, leadership and communication.",
+        "camp_page_url": "https://www.furmansoccercamp.com/teamcamp",
+        "registration_url": "https://app.playmetrics.com/signup?clubToken=TG9naW4tQ2x1Yi52MS0zNDQ4LTE3OTM2NTc0MjZ8TG5sMTVvZlBTdlFUOVRCWDdNRm1uZXpoNU52TUx4TXlkZTJmY0FIWGYybz0=",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-07-17",
+          "end": "2027-07-20",
+          "text": null
+        },
+        "ages": {
+          "min": 9,
+          "max": 17
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Furman Residence Halls",
+            "address": "3300 Poinsett Highway",
+            "town": "Greenville",
+            "state": "SC"
+          }
+        ],
+        "hours": {
+          "start": "08:15",
+          "end": "21:15",
+          "text": "Any commuters should arrive each morning at the Furman Dorms by 8:15am. You will stay on campus until the evening session is over at 9:15pm. Pick up is at the Soccer Stadium."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 525,
+            "unit": "session",
+            "label": "Camp Commuter Tuition",
+            "year": 2027
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.furmansoccercamp.com/teamcamp",
+          "https://furmanpaladins.com/sports/2021/10/27/guide-to-game-day-in-timmons-arena.aspx"
+        ],
+        "confidence": "medium",
+        "review_notes": "Confirm first- and last-day commuter hours: the page separately gives first-day check-in 5:00–6:30pm and final checkout beginning at 11am. Meal coverage is unclear and the first-meal weekday conflicts with the session dates. Specific dorms are not named. Existing names contained duplicate Team Camp entries; the commuter card adds '(day)' as required."
       },
       {
         "name": "Senior ID Camp",
-        "type": "clinic",
+        "type": "day",
         "categories": ["sports"],
-        "description": "High school boys receive advanced technical and tactical soccer training and compete in college-style matches for evaluation by Furman's men's soccer coaching staff. Field players and goalkeepers participate.",
+        "description": "High school players receive advanced technical and tactical soccer training and compete in college-style matches for evaluation by Furman's men's soccer coaching staff. Field players and goalkeepers can participate.",
         "camp_page_url": "https://www.furmansoccercamp.com/senioridcamp",
         "registration_url": "https://app.playmetrics.com/signup?clubToken=TG9naW4tQ2x1Yi52MS0zNDQ4LTE3OTM2NTc0MjZ8TG5sMTVvZlBTdlFUOVRCWDdNRm1uZXpoNU52TUx4TXlkZTJmY0FIWGYybz0=",
         "season": {
@@ -453,17 +449,13 @@
             "state": "SC"
           }
         ],
-        "hours": {
-          "start": null,
-          "end": null,
-          "text": "Check-in section states first-day check-in begins at 8:30 a.m. and last-day checkout begins at 11:00 a.m.; daily training hours are not provided."
-        },
+        "hours": null,
         "extended_care": null,
         "prices": [
           {
             "amount": 345,
             "unit": "session",
-            "label": "Camp tuition",
+            "label": "Camp Tuition",
             "year": 2027
           }
         ],
@@ -484,10 +476,10 @@
         "sources": [
           "https://www.furmansoccercamp.com/senioridcamp",
           "https://www.furmansoccercamp.com/allcamps",
-          "https://www.furman.edu/about/location/"
+          "https://furmanpaladins.com/sports/2021/10/27/guide-to-game-day-in-timmons-arena.aspx"
         ],
         "confidence": "medium",
-        "review_notes": "The heading and All Camps page agree on July 10-11, 2027, but body text says registration begins at 9:00 a.m. on Saturday, July 18. The separate check-in section says 8:30 a.m. Confirm check-in date and time. Address is the university's published campus address."
+        "review_notes": "The program heading and All Camps page agree on July 10–11, 2027, but narrative text says registration begins Saturday, July 18 at 9am. Check-in details separately say 8:30am on the first day and checkout at 11am on the last day. Treat these as camp check-in details, not registration opening milestones; confirm the schedule. Lodging is camper-arranged, so this is classified as day camp."
       }
     ]
   }

@@ -10,22 +10,22 @@
     "discovered_by": ["aggregator", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:35:14.116Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:29:01.610Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "93add94fc3a2be3f7fa74f5f2a403f4c87d749752cbd31841df2de5abfb2a36b",
   "response": {
     "searches": [
-      "site.sites.google.com/brevard.edu/brevard-baseball-camps \"2027\"",
+      "site.sites.google.com/brevard.edu/brevard-baseball-camps 2027",
       "\"Gil Coan Field\" \"address\""
     ],
     "usage": {
-      "inputTokens": 38575,
-      "cachedInputTokens": 8223,
-      "outputTokens": 2106,
+      "inputTokens": 35015,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2060,
       "reasoningTokens": 158
     },
     "status": "completed",
-    "ms": 45274,
+    "ms": 44749,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -69,7 +69,7 @@
   "extraction": {
     "provider_name": "White Squirrel Baseball Academy",
     "website_url": "https://sites.google.com/brevard.edu/brevard-baseball-camps/home",
-    "notes": "No 2027 summer camp information or registration milestones found. Cards use posted 2026 offerings. The Prospect Camps page returned no readable text; showcase details were available on the home page and official registration pages.",
+    "notes": "No summer 2027 information or registration milestones were found. Cards retain the posted 2026 offerings. Registration platforms contain conflicting prospect-camp grades and misleading price ranges; the explicitly stated $100 camp fee is used.",
     "excluded": [
       {
         "name": "Fall Brevard Baseball Showcase",
@@ -83,7 +83,7 @@
         "categories": ["sports"],
         "description": "Campers practice hitting, pitching, fielding and base running with college coaches and players. Activities include team games, competitions and an end-of-week showcase.",
         "camp_page_url": "https://sites.google.com/brevard.edu/brevard-baseball-camps/summer-camps",
-        "registration_url": "https://sites.google.com/brevard.edu/brevard-baseball-camps/summer-camps",
+        "registration_url": "https://www.playnsports.com/event/kids-summer-camp-1/",
         "season": {
           "year": 2026,
           "status": "not_posted",
@@ -153,7 +153,7 @@
         "last_year_registration_opened": null,
         "availability": {
           "status": "closed",
-          "scope": "Both 2026 sessions",
+          "scope": "2026 sessions",
           "text": "Tickets are no longer available"
         },
         "financial_aid": null,
@@ -168,13 +168,13 @@
           "https://brevard.edu/venue/gil-coan-field/"
         ],
         "confidence": "medium",
-        "review_notes": "Official summer page and registration headers give 9 AM–4:30 PM, but both registration descriptions say 9 AM–4 PM daily. Confirm instructional end time. Flexible pickup up to 5 PM is stated, but no care fee is specified. Food and Drinks appears in registration inclusions but does not explicitly confirm lunch."
+        "review_notes": "Official summer page and registration headers give 9 AM–4:30 PM, but both registration descriptions say 9 AM–4 PM daily. Used the official summer page hours. Registration descriptions explicitly allow pickup until 5 PM. Generic 'Food and Drinks' inclusion does not establish lunch provision."
       },
       {
         "name": "Brevard College Baseball Prospect Camp",
         "type": "clinic",
         "categories": ["sports"],
-        "description": "Players receive individual instruction from Brevard's coaching staff, participate in a simulated college-style practice and complete evaluations of baseball performance metrics.",
+        "description": "Players receive position-specific instruction and participate in a simulated college-style practice. Coaches evaluate players through a pro-style workout with performance metrics.",
         "camp_page_url": "https://sites.google.com/brevard.edu/brevard-baseball-camps/prospect-camps",
         "registration_url": "https://sites.google.com/brevard.edu/brevard-baseball-camps/home",
         "season": {
@@ -207,7 +207,7 @@
         "hours": {
           "start": "10:00",
           "end": "16:00",
-          "text": "10:00 am - 4:00 pm. Position players and two-way players check in at 9:30 AM; pitchers only check in at 11:30 AM."
+          "text": "10:00 am - 4:00 pm | Check in 9:30 am; pitchers only check in at 11:30 AM"
         },
         "extended_care": null,
         "prices": [
@@ -220,7 +220,7 @@
         ],
         "sessions": [
           {
-            "label": "Brevard Baseball Showcase 1",
+            "label": "Showcase Camp I",
             "start": "2026-06-25",
             "end": "2026-06-25",
             "year": 2026,
@@ -232,7 +232,7 @@
             "status": "closed"
           },
           {
-            "label": "Brevard Baseball Showcase 2",
+            "label": "Showcase Camp 2",
             "start": "2026-07-08",
             "end": "2026-07-08",
             "year": 2026,
@@ -244,7 +244,7 @@
             "status": "closed"
           },
           {
-            "label": "Brevard Baseball Showcase 3",
+            "label": "Showcase Camp 3",
             "start": "2026-08-08",
             "end": "2026-08-08",
             "year": 2026,
@@ -260,7 +260,7 @@
         "last_year_registration_opened": null,
         "availability": {
           "status": "closed",
-          "scope": "All three 2026 summer showcases",
+          "scope": "2026 sessions",
           "text": "Tickets are no longer available"
         },
         "financial_aid": null,
@@ -269,6 +269,7 @@
         "transportation": null,
         "sources": [
           "https://sites.google.com/brevard.edu/brevard-baseball-camps/home",
+          "https://sites.google.com/brevard.edu/brevard-baseball-camps/prospect-camps",
           "https://www.playnsports.com/event/brevard-baseball-prospect-camp-1/",
           "https://www.playnsports.com/event/brevard-baseball-prospect-camp-2/",
           "https://www.playnsports.com/event/brevard-baseball-prospect-camp-3/",
@@ -276,7 +277,7 @@
           "https://bhs.tcsnc.org/"
         ],
         "confidence": "medium",
-        "review_notes": "Home page explicitly labels dates 2026. Eligibility headers and home page say grades 9–JUCO; descriptions say grades 9–12. The numeric grade range records high-school eligibility only; JUCO participants are also advertised. Showcase 1 description names Gil Coan Field, but its location section explicitly relocates the event to Brevard High School because of delayed field renovations; the relocation is used here. Registration footer price ranges conflict with the consistently stated $100 camp cost. Showcase 1 and 2 registration closing dates are after the events and were not used."
+        "review_notes": "Home page explicitly dates all three showcases to 2026. Home page and registration headers say grades 9–JUCO, while descriptions say grades 9–12; encoded the explicitly numeric high-school range, but JUCO participants are also advertised. Showcase 1 description names Gil Coan Field, but its specific location notice moves the event to Brevard High School because of delayed renovations; used the relocation notice. Registration footers show $1,250–$100 or $1,750–$100, while descriptions and home page consistently state $100. June and July registration pages give July 31 closing dates after their events; omitted those historical closing dates."
       }
     ]
   }

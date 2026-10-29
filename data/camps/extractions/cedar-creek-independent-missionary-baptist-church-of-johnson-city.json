@@ -7,19 +7,23 @@
     "discovered_by": ["gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:37:42.551Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:31:49.738Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "7e8a68e2cfcd6db9a74982bf40a3a8c46667c45d27b8fb515e18e8f600a40635",
   "response": {
-    "searches": ["site:cedarcreekmissionarybaptistchurch.org \"Visit\" \"address\""],
+    "searches": [
+      "site:cedarcreekmissionarybaptistchurch.org \"Visit\"",
+      "\"Cedar Creek Independent Missionary Baptist\" \"Vacation Bible\" 2026",
+      "open https://www.cedarcreekmissionarybaptistchurch.org/vbs"
+    ],
     "usage": {
-      "inputTokens": 13288,
-      "cachedInputTokens": 8223,
-      "outputTokens": 770,
-      "reasoningTokens": 109
+      "inputTokens": 18193,
+      "cachedInputTokens": 8845,
+      "outputTokens": 876,
+      "reasoningTokens": 202
     },
     "status": "completed",
-    "ms": 18048,
+    "ms": 24748,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -38,19 +42,19 @@
   "extraction": {
     "provider_name": "Cedar Creek Independent Missionary Baptist Church of Johnson City",
     "website_url": "https://www.cedarcreekmissionarybaptistchurch.org/",
-    "notes": "No 2027 or 2026 summer information was found. The homepage still advertises Vacation Bible School for July 11–13, 2025; those historical dates and hours have not been carried forward. The VBS registration page contains no visible program details or registration form. The church publishes its location as Gray, TN, rather than Johnson City.",
+    "notes": "No 2027 information found. The official VBS registration page's search-indexed text lists June 26-28, 2026, although the page returned no readable text when opened and the supplied crawler text was blank. The homepage still lists July 11-13, 2025; those older dates and hours have not been carried forward.",
     "excluded": [
       {
         "name": "Kids 4 Christ",
-        "reason": "Recurring Wednesday-night ministry during the school year, not a finite summer program."
+        "reason": "School-year Wednesday-night youth ministry, not a finite summer camp."
       },
       {
         "name": "Crossbearers",
-        "reason": "Recurring teen and young-adult youth group, not a finite summer program."
+        "reason": "Recurring youth-group class, not a finite summer camp."
       },
       {
-        "name": "Nursery and Toddler room",
-        "reason": "Childcare available during regular church services, not summer-only childcare."
+        "name": "Cedar Creek Christian Camp",
+        "reason": "Different organization in Strasburg, Virginia, outside the directory's geographic area."
       }
     ],
     "cards": [
@@ -58,14 +62,14 @@
         "name": "Vacation Bible School",
         "type": "vbs",
         "categories": ["faith_based"],
-        "description": "The church offers Vacation Bible School. Specific activities are not described on the available program pages.",
-        "camp_page_url": "https://www.cedarcreekmissionarybaptistchurch.org/",
+        "description": "Vacation Bible School for children.",
+        "camp_page_url": "https://www.cedarcreekmissionarybaptistchurch.org/vbs",
         "registration_url": "https://www.cedarcreekmissionarybaptistchurch.org/vbs",
         "season": {
           "year": 2026,
           "status": "not_posted",
-          "start": null,
-          "end": null,
+          "start": "2026-06-26",
+          "end": "2026-06-28",
           "text": null
         },
         "ages": null,
@@ -95,7 +99,7 @@
           "https://www.cedarcreekmissionarybaptistchurch.org/visit-us"
         ],
         "confidence": "medium",
-        "review_notes": "Confirm that VBS will return and confirm its drop-off location. The homepage lists only July 11–13, 2025, with no 2026 or 2027 details; the listed site is the church's published address, not an explicitly stated VBS drop-off location. The registration page has no visible form."
+        "review_notes": "The 2026 dates come only from the official VBS page's search-indexed text, which reads 'Cedar Creek Baptist Church Vacation Bible School June 26-28, 2026' and names the theme PromisedLand. Direct opening returned no readable text. Confirm those dates and the camp meeting location; the site address is the church's published location. No 2026 hours or age limits were found."
       }
     ]
   }

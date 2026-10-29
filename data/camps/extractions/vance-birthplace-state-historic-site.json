@@ -7,19 +7,19 @@
     "discovered_by": ["aggregator"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:34:16.182Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:28:52.551Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "fb0f53ef07613eecb9aad7048abdcb0f1dbcab12122d984469e4a501b28cffdf",
   "response": {
     "searches": ["site:historicsites.nc.gov \"Vance\" \"camp\""],
     "usage": {
-      "inputTokens": 15302,
-      "cachedInputTokens": 8223,
-      "outputTokens": 291,
-      "reasoningTokens": 76
+      "inputTokens": 15939,
+      "cachedInputTokens": 8845,
+      "outputTokens": 236,
+      "reasoningTokens": 72
     },
     "status": "completed",
-    "ms": 15307,
+    "ms": 13553,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -43,15 +43,11 @@
   "extraction": {
     "provider_name": "Vance Birthplace State Historic Site",
     "website_url": "https://historicsites.nc.gov/all-sites/vance-birthplace",
-    "notes": "No qualifying summer camp programs or 2027 camp information were found on the official site. The official upcoming-events page lists no upcoming events. The supplied Summer Storytime page describes a June 21, 2025 family event, not a supervised youth camp.",
+    "notes": "No qualifying summer camp programs or 2027 camp announcements were found on the official pages or in targeted web searches. The supplied Summer Storytime listing describes a family drop-in event on June 21, 2025, rather than a supervised youth camp.",
     "excluded": [
       {
         "name": "Summer Storytime at Vance Birthplace",
-        "reason": "Family storytime and drop-in crafts, rather than a supervised youth camp. The page invites families with young children and lists June 21, 2025."
-      },
-      {
-        "name": "Vance Birthplace Field Trips: Virtual & In-Person Experiences",
-        "reason": "School and educator field-trip experiences arranged by request, not a finite summer youth program."
+        "reason": "A single-day family drop-in storytime and crafts event, with readings at separate times; not a supervised youth camp or skill clinic."
       }
     ],
     "cards": []

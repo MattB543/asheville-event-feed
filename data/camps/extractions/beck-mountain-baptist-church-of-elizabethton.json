@@ -10,22 +10,22 @@
     "discovered_by": ["grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:25:10.264Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:21:22.483Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "1f3e0243219d732d1340a495c9b8ad46f38d8b8c74bb85db9b0fefa7b04df62d",
   "response": {
     "searches": [
-      "site:beckmountainbaptist.com VBS 2026 2027",
-      "\"Beck Mountain Baptist Church\" \"VBS 2026\""
+      "site.beckmountainbaptist.com VBS 2026 2027",
+      "\"Beck Mountain Baptist\" \"VBS 2026\" facebook"
     ],
     "usage": {
-      "inputTokens": 17158,
-      "cachedInputTokens": 8223,
-      "outputTokens": 823,
-      "reasoningTokens": 187
+      "inputTokens": 17901,
+      "cachedInputTokens": 8845,
+      "outputTokens": 805,
+      "reasoningTokens": 192
     },
     "status": "completed",
-    "ms": 23150,
+    "ms": 22512,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -44,34 +44,21 @@
   "extraction": {
     "provider_name": "Beck Mountain Baptist Church of Elizabethton",
     "website_url": "https://www.beckmountainbaptist.com/",
-    "notes": "No official 2027 or 2026 VBS details were found. The supplied official VBS page describes July 10–14, 2023, not an upcoming summer. A third-party search result mentions VBS 2026 but provides no verifiable official details. Historical dates, ages, hours and closed registration have not been carried forward.",
-    "excluded": [
-      {
-        "name": "Sunday School",
-        "reason": "Year-round church classes, not a finite summer camp."
-      },
-      {
-        "name": "Children’s church",
-        "reason": "Regular Sunday morning programming, not a finite summer camp."
-      },
-      {
-        "name": "Wednesday Prayer & Youth Meetings",
-        "reason": "Recurring year-round meetings, not a finite summer camp."
-      }
-    ],
+    "notes": "No 2027 announcement was found. The official VBS page describes July 10–14, 2023, not 2026; its ages and conflicting hours were not carried forward. A third-party listing reports VBS 2026 on July 6–10, 2026, from 6–8:30 p.m., but current official confirmation was not found.",
+    "excluded": [],
     "cards": [
       {
         "name": "VBS",
         "type": "vbs",
         "categories": ["faith_based"],
-        "description": "The church has offered nightly Vacation Bible School for children and teens.",
+        "description": "An evening Vacation Bible School.",
         "camp_page_url": "https://www.beckmountainbaptist.com/event-details-registration/vbs-1",
         "registration_url": null,
         "season": {
-          "year": 2027,
+          "year": 2026,
           "status": "not_posted",
-          "start": null,
-          "end": null,
+          "start": "2026-07-06",
+          "end": "2026-07-10",
           "text": null
         },
         "ages": null,
@@ -84,7 +71,11 @@
             "state": "TN"
           }
         ],
-        "hours": null,
+        "hours": {
+          "start": "18:00",
+          "end": "20:30",
+          "text": null
+        },
         "extended_care": null,
         "prices": [],
         "sessions": [],
@@ -98,10 +89,10 @@
         "sources": [
           "https://www.beckmountainbaptist.com/event-details-registration/vbs-1",
           "https://www.beckmountainbaptist.com/",
-          "https://www.beckmountainbaptist.com/general-1"
+          "https://www.beckmountainbaptist.com/contact-9"
         ],
         "confidence": "medium",
-        "review_notes": "Confirm that VBS will return in 2027 and obtain current ages, dates and hours. The official event page is explicitly for 2023 and conflicts internally: its event times are 6:30–9 PM while its description says 6–8:30 PM. The listed site is the historical VBS venue and current church address; a 2027 meeting location has not been announced."
+        "review_notes": "Confirm 2026 dates and hours with the church: they appear only in the HappeningNext listing https://happeningnext.com/event/vbs-2026-eid3a0dnw8evj. The official VBS page is dated 2023 and conflicts internally: the event header says 6:30–9 p.m., while its description says nightly 6–8:30 for ages 0–18. Those 2023 ages were not used for 2026. The official contact page confirms the church address."
       }
     ]
   }

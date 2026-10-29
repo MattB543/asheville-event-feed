@@ -7,22 +7,22 @@
     "discovered_by": ["seed_sheet", "our_db", "grid", "aggregator", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T14:54:53.172Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T16:55:34.093Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "95a92c15573f22a0c53ac9a99c0f4f9ac10d4664f6de9de97302a498233bde61",
   "response": {
     "searches": [
-      "site:localcloth.org summer camp 2027",
+      "site:localcloth.org \"2027\" \"camp\"",
       "open https://localcloth.org/event-6516174"
     ],
     "usage": {
-      "inputTokens": 14957,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1678,
-      "reasoningTokens": 98
+      "inputTokens": 16057,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1632,
+      "reasoningTokens": 88
     },
     "status": "completed",
-    "ms": 35695,
+    "ms": 31123,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -56,23 +56,14 @@
   "extraction": {
     "provider_name": "Local Cloth",
     "website_url": "https://localcloth.org/",
-    "notes": "No summer 2027 camp information or registration milestones found. Cards use 2026 event listings. The summer camp overview incorrectly describes both teen sessions as three days; the June event explicitly runs June 16–19 and costs $240.",
-    "excluded": [
-      {
-        "name": "Meet Local Cloth",
-        "reason": "Year-round informational gatherings, not a supervised youth summer program."
-      },
-      {
-        "name": "Workshops",
-        "reason": "General year-round fiber arts workshops, not identified as youth summer camps."
-      }
-    ],
+    "notes": "No 2027 summer camp information or registration milestones were found. Cards retain 2026 offerings. The June Farm to Fabric event was readable in official search results, but opening its page returned no text.",
+    "excluded": [],
     "cards": [
       {
         "name": "Teen Sewing Summer Camp",
         "type": "day",
         "categories": ["arts"],
-        "description": "Teens learn machine sewing and make bags, pillows, zip pouches, upcycled clothing, and independent projects. The July session is for teens already comfortable with a sewing machine.",
+        "description": "Teens learn sewing-machine skills and make bags, pillows, zip pouches and upcycled clothing. The July session is for teens comfortable with a sewing machine and includes independent projects with instructor guidance.",
         "camp_page_url": "https://localcloth.org/summercamp",
         "registration_url": "https://localcloth.org/summercamp",
         "season": {
@@ -98,7 +89,7 @@
         "hours": {
           "start": "09:00",
           "end": "15:00",
-          "text": "9am - 3pm"
+          "text": "9am-3pm each day"
         },
         "extended_care": {
           "early_dropoff_start": null,
@@ -108,7 +99,7 @@
         "prices": [],
         "sessions": [
           {
-            "label": "June Teen Sewing Camp",
+            "label": "June",
             "start": "2026-06-16",
             "end": "2026-06-19",
             "year": 2026,
@@ -125,7 +116,7 @@
             "status": "closed"
           },
           {
-            "label": null,
+            "label": "July",
             "start": "2026-07-29",
             "end": "2026-07-31",
             "year": 2026,
@@ -146,7 +137,7 @@
         "last_year_registration_opened": null,
         "availability": {
           "status": "closed",
-          "scope": "Both 2026 sessions",
+          "scope": null,
           "text": "Registration is closed"
         },
         "financial_aid": {
@@ -157,18 +148,18 @@
         "lunch": null,
         "transportation": null,
         "sources": [
+          "https://localcloth.org/summercamp",
           "https://localcloth.org/event-6516186",
-          "https://localcloth.org/event-6516190",
-          "https://localcloth.org/summercamp"
+          "https://localcloth.org/event-6516190"
         ],
         "confidence": "medium",
-        "review_notes": "The overview calls both teen sessions three days, but June 16–19 is four days. Dates and session prices follow the explicitly dated 2026 event pages; extended care follows the undated overview matching those sessions."
+        "review_notes": "The summer camp overview calls both teen sessions three-day sessions, but June 16–19 spans four days. The June event explicitly states 2026 dates and $240; those event-specific facts are used. Extended care until 5pm is stated on the undated overview."
       },
       {
         "name": "Farm to Fabric Kids Summer Camp",
         "type": "day",
         "categories": ["arts"],
-        "description": "Campers meet fiber animals and try felting, paper-making, spinning, dyeing, knitting, and weaving.",
+        "description": "Campers meet fiber animals and try felting, paper-making, spinning, dyeing, knitting and weaving.",
         "camp_page_url": "https://localcloth.org/summercamp",
         "registration_url": "https://localcloth.org/summercamp",
         "season": {
@@ -194,7 +185,7 @@
         "hours": {
           "start": "09:00",
           "end": "15:00",
-          "text": "9am - 3pm"
+          "text": "9am-3pm each day"
         },
         "extended_care": {
           "early_dropoff_start": null,
@@ -205,13 +196,13 @@
           {
             "amount": 300,
             "unit": "session",
-            "label": "Week-long session, 9am-3pm",
+            "label": "week-long session",
             "year": 2026
           }
         ],
         "sessions": [
           {
-            "label": null,
+            "label": "June",
             "start": "2026-06-29",
             "end": "2026-07-03",
             "year": 2026,
@@ -223,7 +214,7 @@
             "status": "closed"
           },
           {
-            "label": null,
+            "label": "August",
             "start": "2026-08-10",
             "end": "2026-08-14",
             "year": 2026,
@@ -239,23 +230,24 @@
         "last_year_registration_opened": null,
         "availability": {
           "status": "closed",
-          "scope": "Both 2026 sessions",
+          "scope": null,
           "text": "Registration is closed"
         },
         "financial_aid": {
           "value": "yes",
-          "text": "Day Camp 9am-3pm Scholarship"
+          "text": "A limited number of FULL scholarships will be available for our June camps."
         },
         "special_needs": null,
         "lunch": null,
         "transportation": null,
         "sources": [
+          "https://localcloth.org/summercamp",
           "https://localcloth.org/event-6516174",
           "https://localcloth.org/event-6516182",
-          "https://localcloth.org/summercamp"
+          "https://localcloth.org/event-6516186"
         ],
         "confidence": "medium",
-        "review_notes": "The June event's dates, price, scholarship option and closed registration were available in official search results; opening the page returned no readable text. Extended care comes from the undated overview whose sessions match the 2026 event listings."
+        "review_notes": "June session details were obtained from the official event's search results; opening that page returned no text. Extended care until 5pm is stated on the undated overview. The June scholarship statement appears on the Teen Sewing event and explicitly applies to June camps; the June Farm to Fabric event also lists a scholarship registration option."
       }
     ]
   }

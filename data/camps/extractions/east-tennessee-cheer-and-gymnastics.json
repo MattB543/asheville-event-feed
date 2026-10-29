@@ -7,19 +7,22 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:23:49.527Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:20:19.462Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "0f11eb51064d028c20df1668c8efa1c7f62ff761f01b8d0ce1a4683ea343b861",
   "response": {
-    "searches": ["site.etcheerandgymnastics.com summer camp 2026", "\"ETCG\" \"summer camps\""],
+    "searches": [
+      "site:etcheerandgymnastics.com summer camp 2026",
+      "\"ETCG\" \"summer camps\" Kingsport"
+    ],
     "usage": {
-      "inputTokens": 25688,
-      "cachedInputTokens": 8223,
-      "outputTokens": 641,
-      "reasoningTokens": 187
+      "inputTokens": 21962,
+      "cachedInputTokens": 8845,
+      "outputTokens": 821,
+      "reasoningTokens": 203
     },
     "status": "completed",
-    "ms": 23123,
+    "ms": 26515,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -38,45 +41,57 @@
   "extraction": {
     "provider_name": "East Tennessee Cheer & Gymnastics",
     "website_url": "https://www.etcheerandgymnastics.com/",
-    "notes": "The official homepage links to Summer Camps, but the supplied registration-portal text contains only the Kingsport location selector, not camp listings. The camp portal at https://portal.iclasspro.com/etcg1gym/camps returned no readable content. Searches found no official 2026 or 2027 camp details or PDFs; only older official social posts about 2022 camps. No cards were created because current program names, formats and activities could not be verified. The homepage mentions Johnson City, but the supplied portal lists only Kingsport; confirm current camp locations with the provider. The gym-news.html and gym-info.html pages also returned no readable content.",
+    "notes": "No readable 2027 or 2026 summer camp schedule was found. The homepage links to summer camps, but the iClassPro camps page and Gym News page returned no readable text. The homepage still mentions Johnson City and Kingsport; the current Request Information page says \"We only have 1 location now in Kingsport.\" Older Johnson City materials should not be used as evidence of a current camp site.",
     "excluded": [
       {
-        "name": "Preschool Gymnastics",
-        "reason": "Ongoing gymnastics classes, not a finite summer program."
+        "name": "Preschool Gymnastics, Recreational Gymnastics, Tumbling, Recreational Cheer, and Urban Ninja",
+        "reason": "Ongoing classes rather than finite summer camps."
       },
       {
-        "name": "Recreational Gymnastics",
-        "reason": "Ongoing gymnastics classes, not a finite summer program."
-      },
-      {
-        "name": "Team Gymnastics",
-        "reason": "Team program rather than a finite summer camp."
-      },
-      {
-        "name": "Tumbling",
-        "reason": "Ongoing classes; no summer-only camp or clinic verified."
-      },
-      {
-        "name": "Recreational Cheer",
-        "reason": "Ongoing classes, not a finite summer program."
-      },
-      {
-        "name": "All Star Cheer",
-        "reason": "Team program rather than a finite summer camp."
-      },
-      {
-        "name": "Urban Ninja",
-        "reason": "Ongoing classes; no summer-only camp or clinic verified."
-      },
-      {
-        "name": "Open Gym",
-        "reason": "Recurring open-gym offering, not a verified finite summer program."
+        "name": "Team Gymnastics and All Star Cheer",
+        "reason": "Competitive team programs and seasons; All Star Cheer summer workout groups are part of team placement and the ensuing season."
       },
       {
         "name": "Birthday Parties",
-        "reason": "Private birthday events, not summer camp programs."
+        "reason": "Social events rather than summer camps."
       }
     ],
-    "cards": []
+    "cards": [
+      {
+        "name": "Summer Camps",
+        "type": "day",
+        "categories": ["sports"],
+        "description": "Summer camps offered by East Tennessee Cheer & Gymnastics.",
+        "camp_page_url": "https://www.etcheerandgymnastics.com/",
+        "registration_url": "https://portal.iclasspro.com/etcg1gym/camps",
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.etcheerandgymnastics.com/",
+          "https://www.etcheerandgymnastics.com/request-information.html"
+        ],
+        "confidence": "low",
+        "review_notes": "The homepage confirms summer camps only through its booking-link label. Check the iClassPro portal for the actual program name, day-camp format, summer schedule, eligibility, prices, and drop-off venue. No readable 2026 or 2027 program details were available. The current gym address is 1033 Wilcox Court, Kingsport, TN, but no readable current camp listing explicitly identifies its drop-off location; sites are therefore empty."
+      }
+    ]
   }
 }

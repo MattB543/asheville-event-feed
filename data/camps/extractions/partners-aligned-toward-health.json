@@ -10,25 +10,25 @@
     "discovered_by": ["grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:26:41.074Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:22:57.523Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "6a7d2da0b7a1188f8cd3df884b5e6b8b512f229b5cbffde7931d48e927bbdd5b",
   "response": {
     "searches": [
       "site:pathwnc.org 2027 camp",
-      "open https://mhhs.yanceync.net/",
-      "site:pathwnc.org \"2026\" \"pickleball\" \"June\"",
-      "site:pathwnc.org/wp-content/uploads/2026 \"TENNIS CAMP\"",
-      "\"site:pathwnc.org\" \"pickleball\" \"2026\""
+      "open https://pathwnc.org/wp-content/uploads/2026/06/2026-Summer-Resource-Guide.pdf",
+      "site:pathwnc.org/wp-content/uploads/2026 \"TENNIS\" \"June\"",
+      "\"2026-Summer-Resource-Guide.pdf\" \"pickleball\"",
+      "open https://www.pathwnc.org/wp-content/uploads/2026/06/2026-Summer-Resource-Guide.pdf"
     ],
     "usage": {
-      "inputTokens": 37861,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1799,
-      "reasoningTokens": 415
+      "inputTokens": 43162,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2023,
+      "reasoningTokens": 390
     },
     "status": "completed",
-    "ms": 47706,
+    "ms": 51456,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -102,31 +102,39 @@
   "extraction": {
     "provider_name": "Partners Aligned Toward Health",
     "website_url": "https://pathwnc.org/",
-    "notes": "No summer 2027 information was found. The tennis page's undated 'Registration coming soon' does not explicitly refer to 2027. The supplied Summer Resource Guide text is truncated before PATH's camp listings; both official PDF versions opened without readable text, and PDF screenshots failed. Search indexing confirms a PATH Summer Hangouts listing but did not expose its full details. Other organizations' offerings in PATH's resource guide are not included as PATH programs.",
+    "notes": "No 2027 summer camp dates or registration milestones were found. The tennis page's undated 'Registration coming soon' wording does not explicitly refer to 2027. The 2026 Summer Resource Guide could not be read beyond its opening pages through the web tool; the supplied extract ends before the PATH camp entries on pages 31 and 39. Those pages need manual review for dates, age bands, hours, registration links, and whether Summer Hangouts meets the camp rule. Other organizations' offerings in PATH's community resource guide are not PATH programs.",
     "excluded": [
       {
         "name": "Appalachian Youth to Youth",
-        "reason": "School-year after-school leadership program, not a finite summer camp. The page's July 2025 international conference trip does not establish a separately offered local summer program."
+        "reason": "School-year after-school leadership programming, not a finite summer camp."
+      },
+      {
+        "name": "Youth to Youth International Conference",
+        "reason": "Youth conference in Delaware, Ohio; conferences are excluded and this location is outside the directory area."
       },
       {
         "name": "Sizzlin’ Summer Series",
-        "reason": "All-ages family-friendly community events, not supervised drop-off youth programs."
+        "reason": "Family-friendly community events rather than supervised youth camps."
       },
       {
         "name": "Free Pool Days",
         "reason": "Public pool admission events, not supervised youth camps."
       },
       {
-        "name": "Weekly tennis and pickleball classes",
-        "reason": "Regular ongoing classes rather than finite summer camps."
+        "name": "Weekly tennis or pickleball classes",
+        "reason": "Regular lesson series rather than camps."
+      },
+      {
+        "name": "Cougar Fit Club",
+        "reason": "School-year after-school programming."
       }
     ],
     "cards": [
       {
         "name": "Toe River Racqueteers Summer Camp",
-        "type": "clinic",
+        "type": "day",
         "categories": ["sports"],
-        "description": "Children learn tennis skills with professional coaching. Smaller rackets, courts and slower balls are provided for the youngest players.",
+        "description": "Children receive tennis instruction and practice racquet skills. Specialized equipment is provided for younger players, and campers can receive a racquet to take home.",
         "camp_page_url": "https://pathwnc.org/programs/healthy-lifestyles/tennis-camp/",
         "registration_url": null,
         "season": {
@@ -145,7 +153,7 @@
           {
             "amount": 0,
             "unit": "program",
-            "label": "Free camp",
+            "label": "free",
             "year": 2026
           }
         ],
@@ -159,14 +167,15 @@
         "transportation": null,
         "sources": [
           "https://pathwnc.org/programs/healthy-lifestyles/tennis-camp/",
-          "https://pathwnc.org/programs/healthy-lifestyles/"
+          "https://pathwnc.org/programs/healthy-lifestyles/",
+          "https://pathwnc.org/wp-content/uploads/2026/06/2026-Summer-Resource-Guide.pdf"
         ],
         "confidence": "medium",
-        "review_notes": "Free pricing is stated on the current undated program page, not explicitly labeled 2026. Check the unreadable 2026 guide for dates, age bands, hours and venue. Mountain Heritage High School was the 2025 venue, but no readable 2026 source confirmed it; its official address is 333 Mountain Heritage HS Road, Burnsville, NC."
+        "review_notes": "The free price comes from the ongoing, undated program page rather than a readable 2026-specific camp entry. Review page 39 of the 2026 Summer Resource Guide for season details and location. PATH's June 26, 2025 recap places that year's camp at Mountain Heritage High School courts; do not carry that site into 2026 without confirmation. The school publishes its address as 333 Mountain Heritage HS Road, Burnsville, NC 28714 at https://mhhs.yanceync.net/o/mhh/page/resources."
       },
       {
         "name": "Toe River Racqueteers Pickleball Camp",
-        "type": "clinic",
+        "type": "day",
         "categories": ["sports"],
         "description": "Children receive instruction in pickleball from a retired tennis professional.",
         "camp_page_url": "https://pathwnc.org/programs/healthy-lifestyles/tennis-camp/",
@@ -187,7 +196,7 @@
           {
             "amount": 0,
             "unit": "program",
-            "label": "Free camp",
+            "label": "free",
             "year": 2026
           }
         ],
@@ -201,16 +210,17 @@
         "transportation": null,
         "sources": [
           "https://pathwnc.org/programs/healthy-lifestyles/",
-          "https://pathwnc.org/programs/healthy-lifestyles/tennis-camp/"
+          "https://pathwnc.org/programs/healthy-lifestyles/tennis-camp/",
+          "https://pathwnc.org/wp-content/uploads/2026/06/2026-Summer-Resource-Guide.pdf"
         ],
         "confidence": "medium",
-        "review_notes": "Free pricing is stated on the current undated healthy lifestyles page, not explicitly labeled 2026. Check the unreadable 2026 guide for the exact program title, dates, ages, hours and venue. Do not carry forward the 2025 Mountain Heritage High School venue without confirmation."
+        "review_notes": "The free price comes from the ongoing, undated healthy-lifestyles page rather than a readable 2026-specific camp entry. Review page 39 of the 2026 Summer Resource Guide for dates, ages, hours, registration, and location. Mountain Heritage High School courts are confirmed only for 2025 in the supplied recap; the school's published address is 333 Mountain Heritage HS Road, Burnsville, NC 28714."
       },
       {
         "name": "PATH Summer Hangouts",
         "type": "day",
         "categories": ["general"],
-        "description": "PATH offers free summer events for middle and high school students in Yancey and Mitchell counties.",
+        "description": "Summer programming for middle and high schoolers in Yancey and Mitchell counties.",
         "camp_page_url": "https://pathwnc.org/wp-content/uploads/2026/06/2026-Summer-Resource-Guide.pdf",
         "registration_url": null,
         "season": {
@@ -229,7 +239,7 @@
           {
             "amount": 0,
             "unit": "program",
-            "label": "Free summer events",
+            "label": "free",
             "year": 2026
           }
         ],
@@ -245,7 +255,7 @@
           "https://pathwnc.org/wp-content/uploads/2026/06/2026-Summer-Resource-Guide.pdf"
         ],
         "confidence": "low",
-        "review_notes": "The official 2026 guide lists this under day camps; only its search snippet could be read: 'Fun & FREE Summer Events for middle and high schoolers in Yancey and Mitchell Counties!' Verify supervision/drop-off eligibility, format, activities, dates, sites and registration details on page 31 before publication."
+        "review_notes": "Retained provisionally under the existing program name. The supplied table of contents lists this offering under Day Camps on page 31, and an official PDF search snippet describes free summer events for middle and high schoolers. The entry itself could not be read. Manually review page 31 to establish supervision, format, dates, sites, and whether these are qualifying camps rather than excluded social events or youth-group outings. No numeric grade range was inferred from 'middle and high schoolers'."
       }
     ]
   }

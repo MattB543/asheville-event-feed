@@ -7,23 +7,23 @@
     "discovered_by": ["grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:05:43.672Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:05:20.019Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "7a31a797cb4b03b687f13a9ec9b77fde83a52bd93fd6265e413c98e739a8348e",
   "response": {
     "searches": [
-      "site:acdt.org summer 2026 camp intensive 2027",
-      "\"New Studio of Dance\" \"2026\" \"camp\"",
-      "\"acdt.org\" \"camp\" \"2026\""
+      "site:acdt.org summer 2026 camps 2027",
+      "site:acdt.org/wordpress/wp-content/uploads/ \"2026\" \"camp\"",
+      "\"acdt.org\" \"summer\" \"camps\" \"2026\""
     ],
     "usage": {
-      "inputTokens": 27874,
-      "cachedInputTokens": 8223,
-      "outputTokens": 544,
-      "reasoningTokens": 258
+      "inputTokens": 26945,
+      "cachedInputTokens": 8845,
+      "outputTokens": 534,
+      "reasoningTokens": 254
     },
     "status": "completed",
-    "ms": 24313,
+    "ms": 25109,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -52,15 +52,19 @@
   "extraction": {
     "provider_name": "Asheville Contemporary Dance Theatre / New Studio of Dance",
     "website_url": "https://www.acdt.org/",
-    "notes": "No summer 2027 information was found. The official Summer 2026 Camps page contains registration-link labels and general cancellation policies but no readable program names, descriptions, dates, ages, hours or prices in the supplied text or web results. Attempts to open the page returned no readable content, so individual camp offerings could not be verified and no cards were created. A reviewer should inspect the page visually and follow its Parent Portal/Online Registration link for any image-only or portal-only camp listings. The provider publishes its address as 20 Commerce Street, Asheville, NC 28801. Search located summer PDFs from 2023 and 2020, but these were not used as 2026 or 2027 facts.",
+    "notes": "No summer 2027 information was found. The official Summer 2026 Camps page contains registration-link labels and cancellation/refund policies, but its readable text does not identify individual camps or intensives, dates, ages, hours, or prices. Attempts to open the page and its WordPress variant returned no readable content; searches did not locate an official summer brochure or additional program details. No cards were created rather than inventing program names or details. A reviewer should inspect the original page visually and follow its Parent Portal/Online Registration link.",
     "excluded": [
       {
         "name": "Fall 2026 – Spring 2027 Classes",
-        "reason": "Regular school-year dance, aerial and fencing classes, not finite summer camp offerings."
+        "reason": "School-year dance, aerial, and fencing classes and lesson series, not finite summer camps."
       },
       {
-        "name": "Fall Fast Beg. Teen/Adult Tap",
-        "reason": "The official class page lists this workshop for October 7–November 11, outside summer."
+        "name": "Adult/Teen Tap Workshops",
+        "reason": "Fall lesson series outside summer."
+      },
+      {
+        "name": "Asheville Dance Theater Summer Camps",
+        "reason": "A different Asheville provider at 802 Fairview Road, not Asheville Contemporary Dance Theatre / New Studio of Dance."
       }
     ],
     "cards": []

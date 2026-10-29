@@ -7,24 +7,23 @@
     "discovered_by": ["grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:29:54.232Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
-  "sourceHash": "00eb2ff28f7f92f4952decdf7b0993766430768475e3f31bfc0c9e5b0abcba75",
+  "extractedAt": "2026-10-29T17:25:22.561Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "e29174c3327be4a03ed7e32cd21617db31eec4d62014a7a56383c04d4b07af62",
   "response": {
     "searches": [
       "site:fletcherumc.org VBS 2026 2027",
-      "open https://fletcherumc.org/author/christina/",
-      "open https://fletcherumc.org/blood-drive-5-16-2026/",
-      "site:fletcherumc.org \"VBS: July\" \"2026\" \"9\""
+      "open https://fletcherumc.org/vbs/",
+      "site:fletcherumc.org \"VBS: July\""
     ],
     "usage": {
-      "inputTokens": 22562,
-      "cachedInputTokens": 8223,
-      "outputTokens": 633,
-      "reasoningTokens": 178
+      "inputTokens": 19148,
+      "cachedInputTokens": 8845,
+      "outputTokens": 583,
+      "reasoningTokens": 194
     },
     "status": "completed",
-    "ms": 23615,
+    "ms": 21975,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -48,15 +47,15 @@
   "extraction": {
     "provider_name": "Fletcher United Methodist Church",
     "website_url": "https://fletcherumc.org/",
-    "notes": "No summer 2027 VBS information found. The official author archive lists an April 26, 2026 post titled 'VBS: July 13-17, 2026 – Register Online!', but its program details and registration destination could not be retrieved. No explicit 2026 registration opening date found; the post publication date was not treated as an opening date.",
+    "notes": "No official 2027 VBS announcement was found. The 2026 dates are retained. The VBS page and the guessed 2026 registration-post URL returned no readable text; search results show a registration announcement dated April 26, 2026, but do not establish the registration opening date.",
     "excluded": [
       {
         "name": "SonShine Preschool",
-        "reason": "School-year preschool running August through May, not a summer camp."
+        "reason": "School-year preschool, not a finite summer camp."
       },
       {
-        "name": "Kids Music",
-        "reason": "Recurring fall and school-year music offering, not a finite summer program."
+        "name": "Pumpkin Patch",
+        "reason": "Seasonal attraction outside summer."
       }
     ],
     "cards": [
@@ -64,7 +63,7 @@
         "name": "Vacation Bible School",
         "type": "vbs",
         "categories": ["faith_based"],
-        "description": "The church offers Vacation Bible School as part of its children's ministry. Specific activities for the 2026 program were not available in the readable announcement.",
+        "description": "Vacation Bible School for children.",
         "camp_page_url": "https://fletcherumc.org/2026-vbs-dates-announced-july-13-17/",
         "registration_url": null,
         "season": {
@@ -97,10 +96,9 @@
         "transportation": null,
         "sources": [
           "https://fletcherumc.org/2026-vbs-dates-announced-july-13-17/",
-          "https://fletcherumc.org/education/childrens-ministries/",
           "https://fletcherumc.org/home/our-campus/",
           "https://fletcherumc.org/",
-          "https://fletcherumc.org/author/christina/"
+          "https://fletcherumc.org/staff/contact-us/"
         ],
         "confidence": "high",
         "review_notes": null

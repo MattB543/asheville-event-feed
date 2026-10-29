@@ -13,24 +13,24 @@
     "discovered_by": ["news828", "grid", "aggregator", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:02:38.570Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:02:04.792Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "d3cad58f6264a7545c9b225808e0b3fcc105a7959bf0494ee59a9178cb1cf7ca",
   "response": {
     "searches": [
-      "site.warrenwilsonsportscamps.com 2026 summer",
-      "open https://crosscountry.warrenwilsonsportscamps.com/",
-      "site.crosscountry.warrenwilsonsportscamps.com camp dates",
-      "site.swannanoagathering.org \"Young Old-Time\""
+      "site.warrenwilsonsportscamps.com 2026 camp soccer kids club lacrosse",
+      "open https://www.warrenwilsonsportscamps.com/",
+      "site.swannanoagathering.org \"Young Old-Time\"",
+      "site.swannanoagathering.org/old-time/ \"teen\""
     ],
     "usage": {
-      "inputTokens": 33367,
-      "cachedInputTokens": 8223,
-      "outputTokens": 2726,
-      "reasoningTokens": 440
+      "inputTokens": 29619,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2132,
+      "reasoningTokens": 358
     },
     "status": "completed",
-    "ms": 76526,
+    "ms": 53417,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -79,23 +79,11 @@
   "extraction": {
     "provider_name": "Warren Wilson College",
     "website_url": "https://www.warren-wilson.edu/",
-    "notes": "2027 dates are posted for the Swannanoa Gathering Children's Program; basketball still lists 2026. Several athletics pages returned no readable body through the browser. Search results showed only 2023 cross-country information and a February 2025 men's soccer clinic; no verified 2026 or 2027 summer details were found for tennis, rugby or men's lacrosse. These stale or unverified offerings are not represented as current cards. The Gathering's general music courses require adult chaperones for participants under 18 and are not represented as supervised youth camps.",
+    "notes": "2027 Children’s Program dates are posted; basketball information remains for 2026. Several official pages returned no readable text when opened with the browser, including the athletics hub, soccer site and Old-Time page. No verifiable current details for Young Old-Time were obtained, so it is omitted pending review rather than assumed discontinued. The athletics hub also links Cross Country and Men's LAX, but no current summer youth offering details were found.",
     "excluded": [
       {
         "name": "WWC Kids Club",
-        "reason": "Year-round athletics fan membership and events, not a finite summer camp."
-      },
-      {
-        "name": "College ID Camp",
-        "reason": "The men's soccer page lists February 16, 2025, outside summer."
-      },
-      {
-        "name": "Spring 2027 Weekend Workshop",
-        "reason": "Outside summer."
-      },
-      {
-        "name": "Counselor and junior counselor positions",
-        "reason": "Staff positions rather than camper programs."
+        "reason": "Year-round athletics fan membership and events, not a finite supervised summer camp."
       }
     ],
     "cards": [
@@ -103,7 +91,7 @@
         "name": "Youth Basketball Camp",
         "type": "day",
         "categories": ["sports"],
-        "description": "Campers practice shooting, passing, dribbling, footwork, offensive moves and defensive skills with college basketball coaches and players. They also participate in competitive games.",
+        "description": "Campers practice shooting, offensive moves, footwork, passing, dribbling and defensive skills with Warren Wilson basketball coaches and players. They participate in competitive games each day.",
         "camp_page_url": "https://basketball.warrenwilsonsportscamps.com/content/2026-summer-camps",
         "registration_url": "https://www.oasyssports.com/WarrenWilsonWomensBasketball/global-login.cfm",
         "season": {
@@ -195,7 +183,6 @@
         },
         "transportation": null,
         "sources": [
-          "https://basketball.warrenwilsonsportscamps.com/",
           "https://basketball.warrenwilsonsportscamps.com/content/2026-summer-camps",
           "https://www.oasyssports.com/WarrenWilsonWomensBasketball/global-login.cfm"
         ],
@@ -206,7 +193,7 @@
         "name": "Children’s Program",
         "type": "day",
         "categories": ["arts", "general"],
-        "description": "Children participate in crafts, creative activities and games during Swannanoa Gathering class periods. Local children may attend as space allows; this is not a music-instruction program.",
+        "description": "Children participate in crafts, creative activities and games, with music incorporated into the program. Children from the local community may attend as space allows.",
         "camp_page_url": "https://swannanoagathering.org/childrens-program/",
         "registration_url": "https://swannanoagathering.org/childrens-program/",
         "season": {
@@ -224,7 +211,7 @@
         "sites": [
           {
             "name": "Warren Wilson College",
-            "address": "701 Warren Wilson Rd.",
+            "address": "701 Warren Wilson Road",
             "town": "Swannanoa",
             "state": "NC"
           }
@@ -232,7 +219,7 @@
         "hours": {
           "start": "08:45",
           "end": null,
-          "text": "Monday–Friday. Pick-up for lunch: Noon. End of Day Pick-up: 5:00–5:45, timing varies slightly depending on the week. Parents are responsible outside Gathering class periods."
+          "text": "Monday – Friday. Drop Off: 8:45. Pick-up for lunch: Noon. End of Day Pick-up: 5:00 – 5:45 (timing varies slightly depending on the week your child attends)"
         },
         "extended_care": null,
         "prices": [],
@@ -287,58 +274,10 @@
         "sources": [
           "https://swannanoagathering.org/childrens-program/",
           "https://swannanoagathering.org/register/",
-          "https://swannanoagathering.org/contact/"
-        ],
-        "confidence": "high",
-        "review_notes": null
-      },
-      {
-        "name": "Young Old-Time",
-        "type": "evening",
-        "categories": ["music", "dance"],
-        "description": "Young participants gather after supper for an instructor-facilitated hour of music and socializing. The resulting band can play for the Wednesday square dance and Friday class showcase; singers, dancers and non-musicians are also welcome.",
-        "camp_page_url": "https://swannanoagathering.org/information/",
-        "registration_url": "https://swannanoagathering.org/register/",
-        "season": {
-          "year": 2027,
-          "status": "posted",
-          "start": "2027-07-11",
-          "end": "2027-07-17",
-          "text": null
-        },
-        "ages": null,
-        "grades": null,
-        "sites": [
-          {
-            "name": "Warren Wilson College",
-            "address": "701 Warren Wilson Rd.",
-            "town": "Swannanoa",
-            "state": "NC"
-          }
-        ],
-        "hours": {
-          "start": null,
-          "end": null,
-          "text": "Each evening after supper for a young-folks-only hour."
-        },
-        "extended_care": null,
-        "prices": [],
-        "sessions": [],
-        "registration": [],
-        "last_year_registration_opened": null,
-        "availability": null,
-        "financial_aid": null,
-        "special_needs": null,
-        "lunch": null,
-        "transportation": null,
-        "sources": [
-          "https://swannanoagathering.org/information/",
-          "https://swannanoagathering.org/old-time/",
-          "https://swannanoagathering.org/contact/",
-          "https://swannanoagathering.org/register/"
+          "https://www.warren-wilson.edu/admission/visit/campus-map"
         ],
         "confidence": "medium",
-        "review_notes": "The undated FAQ describes Young Old-Time during Old-Time Music & Dance Week; dates are taken from that week's 2027 page, not an explicit 2027 Young Old-Time announcement. Confirm that the evening youth program will run in 2027 and its eligibility and registration requirements."
+        "review_notes": "The Children’s Program page lists Sunday–Saturday Gathering week ranges but specifies Monday–Friday activities; session dates preserve the published ranges, not actual drop-off days. Ages are as of July 1, and bathroom independence is required. The campus address is verified, but the specific drop-off building is not identified. The direct local-child registration form destination could not be retrieved."
       }
     ]
   }

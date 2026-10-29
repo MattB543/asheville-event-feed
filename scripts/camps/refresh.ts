@@ -98,7 +98,7 @@ async function main() {
       const { created, updated, removed } = result.feedEvents;
       console.log(`Feed events: ${created} created, ${updated} updated, ${removed} hidden`);
     }
-    if (result.imported)
+    if (apply && (result.imported || result.unchanged > 0))
       console.log(
         "Cache tag 'camps': scripts can't revalidate it, so /camps shows this within the hour."
       );

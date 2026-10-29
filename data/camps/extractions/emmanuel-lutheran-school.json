@@ -10,23 +10,22 @@
     "discovered_by": ["aggregator", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:35:02.995Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:29:24.291Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "f5f734d3fbc45136aa27620ec726bfce8b6a6af1a9cfe4e46595878819f08486",
   "response": {
     "searches": [
-      "site.emmanuellutheranschool.org summer 2027",
-      "open https://emmanuellutheranschool.org/uncategorised/summer/",
-      "\"Emmanuel\" \"Summer Rocks\" \"2026\" registration"
+      "site:emmanuellutheranschool.org \"2027\" summer",
+      "open https://emmanuellutheranschool.org/uncategorised/summer/"
     ],
     "usage": {
-      "inputTokens": 32211,
-      "cachedInputTokens": 8223,
-      "outputTokens": 2068,
-      "reasoningTokens": 207
+      "inputTokens": 28609,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2029,
+      "reasoningTokens": 159
     },
     "status": "completed",
-    "ms": 46193,
+    "ms": 42080,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -75,23 +74,19 @@
   "extraction": {
     "provider_name": "Emmanuel Lutheran School",
     "website_url": "https://emmanuellutheranschool.org/",
-    "notes": "No summer 2027 camp dates or registration announcements were found. The supplied camp pages do not explicitly print a season year; their dates are treated as 2026, consistent with the stated Friday, July 3 closure. Older family-activities articles list a different, undated schedule and Vacation Bible School; those were not used as current offerings. The web tool returned no readable body for the camp pages, so the supplied fetched text was used. The registration portal destination could not be verified.",
+    "notes": "No summer 2027 announcement or registration milestone was found. The supplied official camp pages were readable in the fetched text, but direct browser opens returned no readable content. Older family-activities articles list a different summer schedule without a year; those historical themes were not treated as current offerings. Vacation Bible School appears only in those older articles and general blog descriptions, not in the current Summer Rocks schedule.",
     "excluded": [
       {
-        "name": "Elementary School",
-        "reason": "Regular school-year education, not a finite summer camp."
+        "name": "Preschool and infant care",
+        "reason": "Year-round childcare, not a finite summer camp."
       },
       {
-        "name": "Middle School",
-        "reason": "Regular school-year education, not a finite summer camp."
+        "name": "Before and after school care",
+        "reason": "School-year childcare."
       },
       {
-        "name": "Before and After School Care",
-        "reason": "School-year childcare rather than a summer-only program."
-      },
-      {
-        "name": "Athletics",
-        "reason": "School sports teams and seasons, not summer camps or clinics."
+        "name": "ELS Athletics",
+        "reason": "School sports teams and seasons, not summer camps."
       }
     ],
     "cards": [
@@ -99,18 +94,18 @@
         "name": "Summer Rocks",
         "type": "day",
         "categories": [
-          "general",
           "arts",
           "music",
           "theater",
           "stem",
           "sports",
           "cooking",
+          "general",
           "faith_based"
         ],
-        "description": "Campers participate in weekly themed activities including acting, cooking, music, sports, art, chemistry and LEGO building. Full-day campers also have afternoon outdoor play, gym games, crafts and team-building activities.",
+        "description": "Campers participate in weekly themed activities including acting, cooking, music, sports, art, chemistry, LEGO building, and water play. Full-day campers also have afternoon outdoor play, gym time, games, crafts, and team-building activities.",
         "camp_page_url": "https://emmanuellutheranschool.org/summer/",
-        "registration_url": null,
+        "registration_url": "https://emmanuellutheranschool.org/summer/",
         "season": {
           "year": 2026,
           "status": "not_posted",
@@ -135,32 +130,32 @@
         "hours": {
           "start": "08:30",
           "end": "16:30",
-          "text": "Full-Day Camp: 8:30 am to 4:30 pm. Half-Day Camp: 9:00 am to 12:00 pm."
+          "text": "Half-Day Camp: 9:00 am to 12:00 pm; Full-Day Camp: 8:30 am to 4:30 pm"
         },
         "extended_care": null,
         "prices": [
           {
             "amount": 175,
             "unit": "week",
-            "label": "Half-Day Camp; except Water Week",
+            "label": "Half-Day Camp",
             "year": 2026
           },
           {
             "amount": 350,
             "unit": "week",
-            "label": "Full-Day Camp; except Water Week",
+            "label": "Full-Day Camp",
             "year": 2026
           },
           {
             "amount": 140,
             "unit": "session",
-            "label": "Water Week: half-day, four days",
+            "label": "Water Week Camp: Half-Day",
             "year": 2026
           },
           {
             "amount": 280,
             "unit": "session",
-            "label": "Water Week: full-day, four days",
+            "label": "Water Week Camp: Full-Day",
             "year": 2026
           }
         ],
@@ -305,7 +300,7 @@
           "https://emmanuellutheranschool.org/blog/asheville-summer-day-camp/"
         ],
         "confidence": "medium",
-        "review_notes": "Confirm the season year: neither camp page explicitly labels its dates with a year; 2026 is inferred from the Friday, July 3 closure. The uncategorised page's price summary says Jun 30-Jul 2 and four days, while its detailed Water Week listing and the main summer page say June 29-July 2; the detailed listing is used. Music Camp is explicitly June 15-18 at the regular weekly price. The LEGO description states ages 5-13, while overall eligibility is rising grades 1-6; confirm whether that age statement is contractor boilerplate or a separate eligibility rule. The first four dated themes appear only on the uncategorised page."
+        "review_notes": "The camp schedule does not explicitly print a season year; dates are assigned to 2026 from the current-page context and the stated Friday July 3 closure, not from the footer copyright alone. Confirm the season with the provider. The uncategorised summer page supplies June sessions omitted from the main summer page. Its introductory price summary says Jun 30-Jul 2 and calls it four days, while both detailed Water Week entries say June 29-July 2; the detailed entries were used. Music Camp is explicitly listed June 15-18 at the regular weekly price. LEGO's description states ages 5-13, while the program-wide eligibility and FAQ specify rising grades 1-6; confirm whether that age range is actual session eligibility or generic contractor wording. Water Week has two price tiers, recorded in prices because a session row supports only one price. The linked payment portal destination could not be recovered; registration_url points to the official page with registration buttons."
       }
     ]
   }

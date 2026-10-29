@@ -7,23 +7,25 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:29:25.511Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:25:20.488Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "601fe666de01a974d7078541ea45d8eaff3fefcaf799cc8fa6d88cd603598183",
   "response": {
     "searches": [
       "Immaculate Conception Hendersonville vacation bible school 2026 2027",
-      "site:ichvl.com \"2026\" \"camp\"",
-      "\"Camp Joshua\" \"2026\" \"Hendersonville\""
+      "site:ichvl.com \"2026\" \"VBS\"",
+      "site:ichvl.com \"Totus\" \"9\"",
+      "site:ichvl.com \"2026\" \"Totus\" \"June 8\"",
+      "site:ichvl.com/news/bulletin/265 \"WHEN\""
     ],
     "usage": {
-      "inputTokens": 33701,
-      "cachedInputTokens": 8223,
-      "outputTokens": 572,
-      "reasoningTokens": 227
+      "inputTokens": 43131,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1571,
+      "reasoningTokens": 440
     },
     "status": "completed",
-    "ms": 27514,
+    "ms": 51790,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -42,17 +44,108 @@
   "extraction": {
     "provider_name": "Church of the Immaculate Conception of Hendersonville",
     "website_url": "https://ichvl.com/",
-    "notes": "The supplied theimmaculate.org pages belong to a different parish at 200 Ware Avenue, Towson, Maryland, not the Hendersonville provider. Its July 27–31, 2026 VBS must not be attributed to Hendersonville. The Hendersonville parish's official website is ichvl.com; its church is at 208 7th Avenue West, Hendersonville, NC. No Hendersonville VBS or summer 2027 camp information was found. July 2026 parish bulletins advertised North Carolina Right to Life's Camp Joshua at Immaculata Catholic School for July 17–18, 2026; this is an externally operated offering, and the organizer's current website instead advertises November 13–14 in Hendersonville. No cards are returned because no summer program operated by this provider was verified.",
+    "notes": "The supplied theimmaculate.org pages belong to a different church in Towson, Maryland, not Hendersonville. The Hendersonville parish's official website is ichvl.com. No 2027 summer program information was found. Several parish bulletin files returned empty or incomplete readable text; official search results supplied some 2026 facts. Camp Joshua was advertised for July 17–18, 2026 in parish bulletins, but its organizer now advertises November 13–14 in Hendersonville; a reviewer should determine whether the summer offering was rescheduled.",
     "excluded": [
       {
         "name": "Vacation Bible School (VBS)",
-        "reason": "The supplied program page describes a different Immaculate Conception parish in Towson, MD, outside the requested provider and area."
+        "reason": "The supplied July 27–31, 2026 program at theimmaculate.org is in Towson, Maryland, at a different church outside the directory area."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Totus Tuus Summer Faith Formation Week",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "A summer Catholic faith formation program for children and teens with catechesis, witness and worship.",
+        "camp_page_url": "https://ichvl.com/news/bulletin/265-may-31-2026/file",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-07",
+          "end": "2026-06-12",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 1,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 50,
+            "unit": "week",
+            "label": "per child",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://ichvl.com/news/bulletin/265-may-31-2026/file",
+          "https://ichvl.com/news/bulletin/269-june-14-2026/file"
+        ],
+        "confidence": "medium",
+        "review_notes": "Official bulletin search excerpts state rising grades 1–12, $50 per child for the week, and June 7–12, 2026. The May 31 bulletin says there are two separate age-based programs, but their grade divisions, dates, hours and drop-off venues could not be recovered from the readable text. Check the original bulletin before splitting day and evening offerings; the current card conservatively groups them as VBS."
       },
       {
         "name": "Camp Joshua",
-        "reason": "An externally operated North Carolina Right to Life program advertised in parish bulletins, rather than a verified parish-operated camp. The organizer currently advertises November 13–14, outside summer; the parish's older July 17–18, 2026 listing requires review."
+        "type": "day",
+        "categories": ["faith_based"],
+        "description": "High school students participate in talks, interactive activities and debates about pro-life advocacy.",
+        "camp_page_url": "https://ichvl.com/news/bulletin/271-june-28-2026/file",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-17",
+          "end": "2026-07-18",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 9,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Immaculata Catholic School",
+            "address": "711 Buncombe Street",
+            "town": "Hendersonville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://ichvl.com/news/bulletin/271-june-28-2026/file",
+          "https://ichvl.com/news/bulletin/280-july-12-2026/file",
+          "https://www.immac.org/",
+          "https://www.ncrtl.org/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Parish bulletin search excerpts advertise July 17–18, 2026 for rising grades 9–12 at Immaculata Catholic School. NC Right to Life's current website instead advertises Camp Joshua November 13–14 in Hendersonville. Check whether the July camp was rescheduled, in which case it should be excluded as outside summer. Day format is provisional: the readable parish text calls it a two-day camp but does not establish whether overnight lodging was included."
       }
-    ],
-    "cards": []
+    ]
   }
 }

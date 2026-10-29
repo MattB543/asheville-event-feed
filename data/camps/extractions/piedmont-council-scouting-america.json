@@ -12,24 +12,24 @@
     "discovered_by": ["grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:08:50.988Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:07:26.583Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "751df18b0516dde0a79b97ffe428ed8b1de56c024f6b2b6ab05f2beee1daa8e3",
   "response": {
     "searches": [
-      "site.campbudschiele.org 2027 summer",
+      "site.campbudschiele.org 2027",
       "open https://www.campbudschiele.org/wp-content/uploads/sites/2/2026/10/2027-Leaders-Guide-1.pdf",
       "site.campbudschiele.org \"2027\" \"Week\"",
-      "site.campbudschiele.org \"Grand Ole\""
+      "open https://www.campbudschiele.org/scouts-bsa-summer-camp-registration/"
     ],
     "usage": {
-      "inputTokens": 35559,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1824,
-      "reasoningTokens": 389
+      "inputTokens": 27956,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1697,
+      "reasoningTokens": 371
     },
     "status": "completed",
-    "ms": 47988,
+    "ms": 39144,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -78,19 +78,23 @@
   "extraction": {
     "provider_name": "Piedmont Council, Scouting America",
     "website_url": "https://www.campbudschiele.org/",
-    "notes": "Official search results show 2027 Scouts BSA guides and July 7–10, 2027 Cub Scout Resident Camp dates. The main homepage still displays 2026 Cub Scout dates. Several official pages returned no readable text, and the 2027 Leaders Guide PDF exposed only its opening material, not its dates, fees or registration procedures. No unverified registration dates or prices have been supplied. Grand Ole Adventure is an activity within summer camp, not a separate camp card.",
+    "notes": "2027 Scouts BSA materials have been published, but the accessible text of the 2027 Leader's Guide stopped before the dates and fees. Scouts BSA dates below therefore retain the explicitly listed 2026 weeks and may not represent the complete season. An official index.cfm search result announces Cub Scout Resident Camp July 7–10, 2027, while the main homepage still displays its 2026 dates. Registration pages and Cub Scout guide pages returned no readable text.",
     "excluded": [
       {
         "name": "Summer Camp Staff",
-        "reason": "Staff employment and application program."
+        "reason": "Employment program."
       },
       {
         "name": "Off-Season Rentals",
-        "reason": "Facility rentals rather than a supervised summer youth program."
+        "reason": "Facility rentals, not a finite supervised summer youth program."
       },
       {
         "name": "Freaky Fall Festival",
-        "reason": "October program outside summer."
+        "reason": "Outside summer."
+      },
+      {
+        "name": "Cub Scout Odyssey",
+        "reason": "May 1–3, 2026 program outside summer."
       },
       {
         "name": "Broad River District Freezoree",
@@ -102,7 +106,7 @@
         "name": "Scouts BSA Summer Camp",
         "type": "overnight",
         "categories": ["nature_outdoor", "general"],
-        "description": "Scouts participate in merit badge instruction, high-adventure activities, campfire programs and camp-wide events.",
+        "description": "Scouts participate in merit badge instruction, high-adventure activities, campfires and camp-wide events.",
         "camp_page_url": "https://www.campbudschiele.org/campbudschiele/",
         "registration_url": null,
         "season": {
@@ -110,7 +114,7 @@
           "status": "not_posted",
           "start": "2026-07-05",
           "end": "2026-07-18",
-          "text": "Don’t miss out on Camp Bud Schiele 2027! Register today!"
+          "text": null
         },
         "ages": null,
         "grades": null,
@@ -127,7 +131,7 @@
         "prices": [],
         "sessions": [
           {
-            "label": "Week 3 2026",
+            "label": "Week 3",
             "start": "2026-07-05",
             "end": "2026-07-11",
             "year": 2026,
@@ -139,7 +143,7 @@
             "status": null
           },
           {
-            "label": "Week 4 2026",
+            "label": "Week 4",
             "start": "2026-07-12",
             "end": "2026-07-18",
             "year": 2026,
@@ -156,25 +160,21 @@
         "availability": null,
         "financial_aid": null,
         "special_needs": null,
-        "lunch": {
-          "value": "yes",
-          "text": "CAMP BUD SCHIELE SUMMER CAMP MENU-2026 WEEK TWO"
-        },
+        "lunch": null,
         "transportation": null,
         "sources": [
           "https://www.campbudschiele.org/campbudschiele/",
           "https://www.campbudschiele.org/",
-          "https://www.campbudschiele.org/wp-content/uploads/sites/2/2026/10/2027-Leaders-Guide-1.pdf",
-          "https://www.campbudschiele.org/wp-content/uploads/sites/2/2026/07/Week-2-Dining-Hall-Menu.pdf"
+          "https://www.campbudschiele.org/wp-content/uploads/sites/2/2026/10/2027-Leaders-Guide-1.pdf"
         ],
         "confidence": "medium",
-        "review_notes": "2027 program information is announced, but 2027 dates could not be read. Check the 2027 Leaders Guide pages 7–9 for the full session list, fees and registration milestones; season.status reflects the absence of verified 2027 dates, not the absence of 2027 materials. Only Weeks 3 and 4 were visible on the supplied 2026 camp page; this is not necessarily the full 2026 season. Lunch evidence is specifically the 2026 Week Two menu. March 15, 2026 at 18:30 is merit badge registration, not a verified camp enrollment opening."
+        "review_notes": "Read pages 7–9 of the 2027 Leader's Guide for current dates, fees and registration procedures; the web extraction only exposed its introductory text. The season status reflects that 2027 dates were not accessible, not that 2027 materials are absent. Only Weeks 3 and 4 were listed in the supplied 2026 camp page. The March 15, 2026 milestone is merit badge selection, not camp registration opening."
       },
       {
         "name": "Cub Scout Resident Camp",
         "type": "overnight",
         "categories": ["nature_outdoor", "general"],
-        "description": "Cub Scouts attend a residential camping program at Camp Bud Schiele.",
+        "description": "Resident summer camp for Cub Scouts.",
         "camp_page_url": "https://www.campbudschiele.org/cubresidentcamp/",
         "registration_url": null,
         "season": {
@@ -182,7 +182,7 @@
           "status": "posted",
           "start": "2027-07-07",
           "end": "2027-07-10",
-          "text": "Camp Bud Schiele is excited to offer Cub Scout Resident Camp July 7-10, 2027!"
+          "text": null
         },
         "ages": null,
         "grades": null,
@@ -206,13 +206,12 @@
         "lunch": null,
         "transportation": null,
         "sources": [
-          "https://www.campbudschiele.org/cubresidentcamp/",
           "https://www.campbudschiele.org/index.cfm",
-          "https://www.campbudschiele.org/content/100568/Homepage",
-          "https://www.campbudschiele.org/"
+          "https://www.campbudschiele.org/cubresidentcamp/",
+          "https://www.piedmontcouncilbsa.org/content/129834/Cub-Scout-Resident-Camp--June-28th--2026---July-1st--2026-"
         ],
         "confidence": "medium",
-        "review_notes": "July 7–10, 2027 dates appear in official indexed homepage results, but those pages returned no readable text when opened. The main homepage still advertises June 28–July 1, 2026. Confirm the 2027 dates and obtain eligibility, fees and registration details from the Cub Scout leader guide or registration platform."
+        "review_notes": "July 7–10, 2027 is explicitly stated in the official index.cfm search result; opening that page returned no readable text. The main homepage still advertises June 28–July 1, 2026. Confirm the 2027 dates against the registration platform or updated Cub Scout Leader's Guide."
       }
     ]
   }

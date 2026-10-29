@@ -9,23 +9,23 @@
     "status": "review",
     "status_reason": "first page is a social media page or video, which our fetcher can't read"
   },
-  "extractedAt": "2026-10-29T15:19:00.568Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:16:17.397Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": null,
   "response": {
     "searches": [
-      "Silvermine Missionary Baptist Church Bryson City vacation bible school 2026",
-      "site:facebook.com/silverminechurch828 \"2026\" \"VBS\"",
-      "\"Silvermine\" \"Wonder\" \"VBS\""
+      "Silvermine Missionary Baptist Church Bryson City VBS 2026",
+      "open https://www.silverminemissionarybaptist.org/",
+      "site:silverminemissionarybaptist.org VBS"
     ],
     "usage": {
-      "inputTokens": 22250,
-      "cachedInputTokens": 8223,
-      "outputTokens": 478,
-      "reasoningTokens": 260
+      "inputTokens": 24294,
+      "cachedInputTokens": 8845,
+      "outputTokens": 880,
+      "reasoningTokens": 220
     },
     "status": "completed",
-    "ms": 20838,
+    "ms": 27525,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -39,8 +39,59 @@
   "extraction": {
     "provider_name": "Silvermine Missionary Baptist Church of Bryson City",
     "website_url": "https://www.silverminemissionarybaptist.org/",
-    "notes": "Found the church's own website, but its homepage and Calendar & Events page were blocked by robots.txt. The supplied Facebook page also returned no readable content. No official 2027 summer program announcement or registration date could be verified. Third-party event listings advertise Wonder VBS for June 21–26, 2026, with dinner from 5:00–6:00 PM and a program from 6:00–8:00 PM at 2370 Silvermine Rd, Bryson City, NC. Another third-party listing mentions June 18, so these details require confirmation from the church. No card was created because the VBS announcement could not be read or located in official search snippets. Review the church's Facebook announcements and website calendar directly.",
-    "excluded": [],
-    "cards": []
+    "notes": "Found the church's own website, but its home and calendar pages returned no readable content; Facebook also returned no readable content. No 2027 information found. Third-party event search snippets advertise Wonder VBS June 21–26, 2026, with dinner 5–6 PM and VBS 6–8 PM. These details require official confirmation. No registration opening date was found.",
+    "excluded": [
+      {
+        "name": "SMBC Fall Festival",
+        "reason": "Fall festival outside summer; seasonal events do not qualify as camps."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Vacation Bible School for children.",
+        "camp_page_url": "https://www.facebook.com/silverminechurch828/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-21",
+          "end": "2026-06-26",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Silvermine Missionary Baptist Church",
+            "address": "2370 Silvermine Rd",
+            "town": "Bryson City",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "18:00",
+          "end": "20:00",
+          "text": "VBS Program: 6:00 PM – 8:00 PM"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.facebook.com/silverminechurch828/posts/darnell-farms-thank-you-for-your-amazing-generosity-we-at-silvermine-missionary-/1950549228475762/"
+        ],
+        "confidence": "low",
+        "review_notes": "An official Facebook search snippet confirms the church has held Vacation Bible School, but no readable official 2026 announcement was found. Dates and hours come only from third-party event search snippets at https://happeningnext.com/event/vacation-bible-school-eid3a0dplrqxc and require confirmation. The address appears in those event listings and the NC Baptist church directory; the venue's own published address could not be read. A third-party business directory instead uses 2370 Silvermine Branch Rd. Confirm the address, 2026 schedule, ages, and program name with the church."
+      }
+    ]
   }
 }

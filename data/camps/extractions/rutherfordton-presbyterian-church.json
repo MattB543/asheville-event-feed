@@ -8,19 +8,22 @@
     "status": "review",
     "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
   },
-  "extractedAt": "2026-10-29T15:28:19.940Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:24:03.529Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "542e156678d38b1af60034bb6581f9e00920f151f942fe29684bb9da67894483",
   "response": {
-    "searches": ["site:rpcnc.org \"Bible\"", "\"Rutherfordton Presbyterian\" \"vacation\""],
+    "searches": [
+      "site:rpcnc.org \"Vacation\"",
+      "\"Rutherfordton Presbyterian\" \"VBS\" \"2026\" June"
+    ],
     "usage": {
-      "inputTokens": 20302,
-      "cachedInputTokens": 8223,
-      "outputTokens": 558,
-      "reasoningTokens": 109
+      "inputTokens": 17567,
+      "cachedInputTokens": 8845,
+      "outputTokens": 741,
+      "reasoningTokens": 142
     },
     "status": "completed",
-    "ms": 25439,
+    "ms": 23011,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -34,19 +37,19 @@
   "extraction": {
     "provider_name": "Rutherfordton Presbyterian Church",
     "website_url": "https://www.rpcnc.org/",
-    "notes": "No 2027 summer information found. The church's Rpcnc.org YouTube channel confirms Vacation Bible School with the Rainforest Falls theme in June 2026, but exact dates, ages, hours, prices and registration details were not found.",
+    "notes": "No 2027 camp information found. The church's Rpcnc.org YouTube channel confirms Vacation Bible School with the Rainforest Falls theme in June 2026, but exact dates, participant requirements, hours and registration details were not found. The children's ministry page and YouTube video returned no readable content when opened; search results supplied their text.",
     "excluded": [
       {
         "name": "Music Makers",
-        "reason": "Recurring Sunday program for grades K–5, not a finite summer camp."
+        "reason": "Regular Sunday music ministry for grades K–5, not a finite summer camp."
       },
       {
         "name": "Sunday School",
-        "reason": "Recurring church education, not a finite summer camp."
+        "reason": "Regular year-round church programming, not a finite summer camp."
       },
       {
-        "name": "Nursery",
-        "reason": "Ongoing church nursery, not summer-only childcare."
+        "name": "Vacation Bible School at Roswell Presbyterian Church",
+        "reason": "A different provider in Roswell, Georgia, outside the local service area."
       }
     ],
     "cards": [
@@ -54,8 +57,8 @@
         "name": "Vacation Bible School",
         "type": "vbs",
         "categories": ["faith_based"],
-        "description": "Children participate in Vacation Bible School with the Rainforest Falls theme. The 2026 lessons included God as creator and God as a safe place.",
-        "camp_page_url": "https://www.youtube.com/watch?v=BLZ6jfpuh-Y",
+        "description": "Vacation Bible School for children. The 2026 theme was Rainforest Falls.",
+        "camp_page_url": "https://www.rpcnc.org/what-we-do/childrens-ministry",
         "registration_url": null,
         "season": {
           "year": 2026,
@@ -79,14 +82,13 @@
         "lunch": null,
         "transportation": null,
         "sources": [
-          "https://www.youtube.com/watch?v=BLZ6jfpuh-Y",
-          "https://www.youtube.com/watch?v=fwzLtgsJSMM",
-          "https://www.youtube.com/watch?v=hVK9f9BJKfE",
+          "https://www.rpcnc.org/",
           "https://www.rpcnc.org/what-we-do/childrens-ministry",
-          "https://www.rpcnc.org/"
+          "https://www.youtube.com/watch?v=BLZ6jfpuh-Y",
+          "https://www.youtube.com/watch?v=fwzLtgsJSMM"
         ],
         "confidence": "medium",
-        "review_notes": "The church's YouTube search results explicitly identify June 2026, but provide no exact dates or enrollment details. Confirm the drop-off venue; the church publishes 252 North Washington Street, Rutherfordton, NC, but the VBS descriptions do not explicitly identify the meeting site."
+        "review_notes": "The church's official YouTube search snippets identify Rainforest Falls VBS in June 2026, but the video pages could not be read directly. Confirm exact dates, ages, hours and registration details. The church publishes its address as 252 North Washington Street, Rutherfordton, NC, but no readable camp source explicitly identifies the drop-off venue, so sites is empty."
       }
     ]
   }

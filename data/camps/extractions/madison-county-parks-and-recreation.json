@@ -7,23 +7,22 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:26:05.676Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:22:19.064Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "2635928bcb8f7b962de15bf0ca9889aafc526f62bdca85f9fe557c78aa37e5b6",
   "response": {
     "searches": [
-      "site.madisoncountync.gov summer 2027 parks recreation",
-      "open https://www.madisoncountync.gov/uploads/5/9/7/0/59701963/screenshot_2026-06-23_at_10.36.59%E2%80%AFam.png",
-      "site.madisoncountync.gov \"2026\" \"trip\" \"summer\""
+      "site:madisoncountync.gov summer program 2027 parks",
+      "open https://www.madisoncountync.gov/uploads/5/9/7/0/59701963/summer_trips_parks_and_rec.pdf"
     ],
     "usage": {
-      "inputTokens": 46572,
-      "cachedInputTokens": 8223,
-      "outputTokens": 961,
-      "reasoningTokens": 233
+      "inputTokens": 43523,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2436,
+      "reasoningTokens": 187
     },
     "status": "completed",
-    "ms": 30799,
+    "ms": 44491,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -71,40 +70,309 @@
   ],
   "extraction": {
     "provider_name": "Madison County Parks and Recreation",
-    "website_url": "https://www.madisoncountync.gov/parks-and-recreation.html",
-    "notes": "No summer 2027 information was found. The summer events page lists a Summer 2026 Trip Schedule for Parents, but the schedule could not be read; the supplied PNG also could not be rendered. The linked registration and reservation PDFs are labeled 2025, so their dates, fees, lunch policy and pickup location have not been treated as confirmed 2026 facts.",
-    "excluded": [
-      {
-        "name": "Youth Leagues",
-        "reason": "Sports leagues, rather than finite summer camp programs."
-      },
-      {
-        "name": "Senior Games",
-        "reason": "Senior-focused programming, not a youth summer camp."
-      }
-    ],
+    "website_url": "https://www.madisoncountync.gov/",
+    "notes": "No summer 2027 information was found. The official 2026 trip schedule was readable through search indexing, but the PDF returned no text when opened directly. The linked registration form has 2025 in its filename; its registration fee and support policies have not been carried forward as confirmed 2026 facts. The image linked from the fee schedule could not be read.",
+    "excluded": [],
     "cards": [
       {
         "name": "Summer Program",
-        "type": "day",
+        "type": "half_day",
         "categories": ["general"],
-        "description": "Students take supervised recreational field trips. The linked prior-year materials describe horseback riding, swimming, movies, bowling and arcade outings.",
+        "description": "Children take supervised summer trips for horseback riding, bowling, skating, movies, pool visits and other recreational activities.",
         "camp_page_url": "https://www.madisoncountync.gov/park-summer-events.html",
-        "registration_url": "https://www.madisoncountync.gov/uploads/5/9/7/0/59701963/summer_program_registration_form_2025[1].pdf",
+        "registration_url": "https://www.madisoncountync.gov/uploads/5/9/7/0/59701963/summer_program_registration_form_2025%5B1%5D.pdf",
         "season": {
           "year": 2026,
           "status": "not_posted",
-          "start": null,
-          "end": null,
+          "start": "2026-06-16",
+          "end": "2026-08-06",
           "text": null
         },
         "ages": null,
         "grades": null,
-        "sites": [],
+        "sites": [
+          {
+            "name": "Madison County High School",
+            "address": "5740 U.S. Hwy. 25/70",
+            "town": "Marshall",
+            "state": "NC"
+          }
+        ],
         "hours": null,
         "extended_care": null,
         "prices": [],
-        "sessions": [],
+        "sessions": [
+          {
+            "label": "Retrocade",
+            "start": "2026-06-16",
+            "end": "2026-06-16",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "12:45"
+            },
+            "price": {
+              "amount": 10,
+              "unit": "day",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Launch",
+            "start": "2026-06-18",
+            "end": "2026-06-18",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "07:30",
+              "end": "12:00"
+            },
+            "price": {
+              "amount": 25,
+              "unit": "day",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Bowling",
+            "start": "2026-06-23",
+            "end": "2026-06-23",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "13:00"
+            },
+            "price": {
+              "amount": 15,
+              "unit": "day",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Horseback Riding",
+            "start": "2026-06-25",
+            "end": "2026-06-25",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 6,
+              "max": null
+            },
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "12:00"
+            },
+            "price": {
+              "amount": 30,
+              "unit": "day",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "OPEN (Pool)",
+            "start": "2026-07-07",
+            "end": "2026-07-07",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Launch",
+            "start": "2026-07-09",
+            "end": "2026-07-09",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "07:30",
+              "end": "12:00"
+            },
+            "price": {
+              "amount": 25,
+              "unit": "day",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Horseback Riding",
+            "start": "2026-07-14",
+            "end": "2026-07-14",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 6,
+              "max": null
+            },
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "12:00"
+            },
+            "price": {
+              "amount": 30,
+              "unit": "day",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Bowling",
+            "start": "2026-07-16",
+            "end": "2026-07-16",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "13:00"
+            },
+            "price": {
+              "amount": 15,
+              "unit": "day",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Movie",
+            "start": "2026-07-21",
+            "end": "2026-07-21",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "08:00",
+              "end": "12:30"
+            },
+            "price": {
+              "amount": 10,
+              "unit": "day",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Retrocade",
+            "start": "2026-07-23",
+            "end": "2026-07-23",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "12:45"
+            },
+            "price": {
+              "amount": 10,
+              "unit": "day",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Skating",
+            "start": "2026-07-28",
+            "end": "2026-07-28",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "12:45"
+            },
+            "price": {
+              "amount": 10,
+              "unit": "day",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "OPEN (Pool)",
+            "start": "2026-07-30",
+            "end": "2026-07-30",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Movie",
+            "start": "2026-08-04",
+            "end": "2026-08-04",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "08:00",
+              "end": "12:30"
+            },
+            "price": {
+              "amount": 10,
+              "unit": "day",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Skating",
+            "start": "2026-08-06",
+            "end": "2026-08-06",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "12:45"
+            },
+            "price": {
+              "amount": 10,
+              "unit": "day",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          }
+        ],
         "registration": [],
         "last_year_registration_opened": null,
         "availability": null,
@@ -113,14 +381,13 @@
         "lunch": null,
         "transportation": null,
         "sources": [
-          "https://www.madisoncountync.gov/parks-and-recreation.html",
           "https://www.madisoncountync.gov/park-summer-events.html",
-          "https://www.madisoncountync.gov/uploads/5/9/7/0/59701963/summer_program_registration_form_2025[1].pdf",
-          "https://www.madisoncountync.gov/uploads/5/9/7/0/59701963/summer_2025_parks_and_recreation_trip_reservation_page[1].pdf",
+          "https://www.madisoncountync.gov/uploads/5/9/7/0/59701963/summer_trips_parks_and_rec.pdf",
+          "https://www.madisoncountync.gov/uploads/5/9/7/0/59701963/summer_program_registration_form_2025%5B1%5D.pdf",
           "https://mhs.madisonk12.net/about-us/contact-information-directions"
         ],
-        "confidence": "low",
-        "review_notes": "Read the Summer 2026 Trip Schedule for Parents linked on the summer events page to establish dates, trip rows, hours and prices. The 2025 registration form identifies Madison County High School as pickup/drop-off; the school's official address is 5740 US Hwy 25/70, Marshall, NC. Confirm that this remains the 2026 or 2027 pickup site before adding it. The currently linked registration form is a 2025 document; confirm whether it is still intended for registration. Description activities are from the supplied 2025 materials, not a readable 2026 schedule."
+        "confidence": "medium",
+        "review_notes": "The 2026 schedule was obtained from official PDF search-index text rather than a readable PDF opening. Confirm the schedule against the original PDF. Drop-off at Madison County High School is stated in the currently linked form whose filename says 2025; confirm it still applies in 2026. Listed times are trip times, and the form requires arrival at least 15 minutes before departure. Overall age eligibility is not stated; the minimum age of 6 applies only to horseback riding."
       }
     ]
   }

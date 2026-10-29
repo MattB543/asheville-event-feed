@@ -8,23 +8,22 @@
     "status": "review",
     "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
   },
-  "extractedAt": "2026-10-29T15:33:00.831Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:27:27.932Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "cfab0f07eeb80ced83a638202a372c85f257d58545b95a4f7aa3a683ef582920",
   "response": {
     "searches": [
-      "site:trailside.church \"2026\" \"VBS\"",
-      "\"Trailside\" \"Finding Jesus\"",
-      "\"site:facebook.com\" \"Trailside\" \"VBS\""
+      "site:trailside.church VBS 2026 2027",
+      "\"site:facebook.com\" \"Trailside\" \"VBS\" \"2026\""
     ],
     "usage": {
-      "inputTokens": 27490,
-      "cachedInputTokens": 8223,
-      "outputTokens": 935,
-      "reasoningTokens": 269
+      "inputTokens": 24686,
+      "cachedInputTokens": 8845,
+      "outputTokens": 768,
+      "reasoningTokens": 186
     },
     "status": "completed",
-    "ms": 42539,
+    "ms": 27140,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -38,13 +37,8 @@
   "extraction": {
     "provider_name": "Trailside Church of Travelers Rest",
     "website_url": "https://www.trailside.church/",
-    "notes": "No 2027 summer program information was found. A 2026 VBS listing was found on Travelers Rest Here and Kidding Around Greenville, linking to the church's registration platform. The registration page and official calendar returned no readable text, so VBS details require official confirmation.",
-    "excluded": [
-      {
-        "name": "Student Ministry MDWK Gathering",
-        "reason": "Recurring student ministry gathering, not a finite summer camp."
-      }
-    ],
+    "notes": "No 2027 VBS announcement was found. The Church Center registration page returned no readable text. A Travelers Rest Here listing describes the existing VBS program, but its readable search result does not identify the summer year; its June 23–25 dates and free admission have therefore not been entered as 2026 facts.",
+    "excluded": [],
     "cards": [
       {
         "name": "VBS: Finding Jesus Under the Sea",
@@ -56,8 +50,8 @@
         "season": {
           "year": 2026,
           "status": "not_posted",
-          "start": "2026-06-23",
-          "end": "2026-06-25",
+          "start": null,
+          "end": null,
           "text": null
         },
         "ages": null,
@@ -77,17 +71,10 @@
         "hours": {
           "start": "17:30",
           "end": "20:00",
-          "text": null
+          "text": "5:30–8:00 PM"
         },
         "extended_care": null,
-        "prices": [
-          {
-            "amount": 0,
-            "unit": "program",
-            "label": "Free",
-            "year": 2026
-          }
-        ],
+        "prices": [],
         "sessions": [],
         "registration": [],
         "last_year_registration_opened": null,
@@ -97,8 +84,8 @@
         "lunch": null,
         "transportation": null,
         "sources": ["https://www.trailside.church/"],
-        "confidence": "medium",
-        "review_notes": "Dates, hours, free admission, activities and rising K4–5th grade eligibility come from https://travelersresthere.com/event/trailside-vbs/ and the 2026 listing at https://kiddingaroundgreenville.com/vacation-bible-school, not readable official camp materials. The 2026 year is supplied by the latter listing. Confirm these details at https://trailside.churchcenter.com/registrations/events/3557819, which returned no readable text. The church's own homepage confirms the address. Third-party listings mention supper, but meal provision was left null because official wording could not be verified."
+        "confidence": "low",
+        "review_notes": "Program activities, hours and rising K4–rising 5th grade eligibility come only from the third-party listing https://travelersresthere.com/event/trailside-vbs/. Confirm these on the church's official VBS announcement or Church Center registration page, which returned no readable text. The listing also says supper is provided with no exception for dietary needs; this is not entered as lunch. The official homepage confirms the church address. Season year 2026 is a fallback placeholder with no dates asserted; the listing's event year could not be established."
       }
     ]
   }

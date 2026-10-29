@@ -7,19 +7,19 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:25:25.336Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:21:34.274Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "c0625000f069bbb66262f5e4c9ea765e615fa20b6917f02e2854e04516faa5ca",
   "response": {
-    "searches": ["site:trinity-um-church.org VBS 2027 summer"],
+    "searches": ["site:trinity-um-church.org VBS 2027 2026"],
     "usage": {
-      "inputTokens": 13319,
-      "cachedInputTokens": 8223,
-      "outputTokens": 605,
-      "reasoningTokens": 74
+      "inputTokens": 14373,
+      "cachedInputTokens": 8845,
+      "outputTokens": 417,
+      "reasoningTokens": 60
     },
     "status": "completed",
-    "ms": 15447,
+    "ms": 11586,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -43,14 +43,14 @@
   "extraction": {
     "provider_name": "Trinity United Methodist Church of Greeneville",
     "website_url": "https://www.trinity-um-church.org/",
-    "notes": "No official summer 2027 information was found. The 2026 VBS registration page remains posted and says registration is closed. The church homepage prints ZIP code 27745, while its VBS page and Church Center list 37745; the street address, town and state agree.",
+    "notes": "No 2027 camp information or registration milestones found. The church homepage prints ZIP code 27745, while its VBS registration page and Church Center page print 37745; the street address, town and state agree.",
     "excluded": [],
     "cards": [
       {
         "name": "Assemble for God - VBS",
         "type": "vbs",
         "categories": ["faith_based"],
-        "description": "Children attend an evening Vacation Bible School at Trinity United Methodist Church.",
+        "description": "Vacation Bible School for children.",
         "camp_page_url": "https://vbspro.events/p/7059ab",
         "registration_url": "https://vbspro.events/p/7059ab",
         "season": {
@@ -73,7 +73,7 @@
         "hours": {
           "start": "17:30",
           "end": "19:30",
-          "text": "5:30pm (EDT) to 7:30pm (EDT)"
+          "text": null
         },
         "extended_care": null,
         "prices": [],

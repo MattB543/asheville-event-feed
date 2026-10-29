@@ -8,19 +8,22 @@
     "status": "review",
     "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
   },
-  "extractedAt": "2026-10-29T15:38:25.073Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:32:39.995Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "8c5576a564cf43d2565f26a946665d435d220ac5ff571a111d9dd9eaa8cf2ad9",
   "response": {
-    "searches": ["site:libertybaptistofsylva.org \"Bible\"", "\"libertybaptistofsylva\" \"VBS\""],
+    "searches": [
+      "site:libertybaptistofsylva.org \"Vacation\"",
+      "\"libertybaptistofsylva\" \"Bible\""
+    ],
     "usage": {
-      "inputTokens": 20989,
-      "cachedInputTokens": 8223,
-      "outputTokens": 385,
-      "reasoningTokens": 182
+      "inputTokens": 17192,
+      "cachedInputTokens": 8845,
+      "outputTokens": 350,
+      "reasoningTokens": 188
     },
     "status": "completed",
-    "ms": 15331,
+    "ms": 21349,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -34,11 +37,11 @@
   "extraction": {
     "provider_name": "Liberty Baptist Church of Sylva",
     "website_url": "https://www.libertybaptistofsylva.org/",
-    "notes": "No finite summer youth program or Vacation Bible School could be verified for 2026 or 2027. The official Current Events and Weekly Events pages and the church's linked Facebook page returned no readable text. The official Monthly Events page lists recurring children's church, not a summer camp. The official contact page identifies the church at 551 Scotts Creek Road, Sylva, NC. Search results for VBS at Liberty Baptist Church in Bristol, TN, and Lighthouse Sylva belong to other providers and were not used.",
+    "notes": "No qualifying summer camp or Vacation Bible School could be confirmed for 2026 or 2027 from the supplied homepage, official indexed pages, or web searches. The official Current Events and Weekly Events pages and the church's linked Facebook page returned no readable text. No camp cards were created because the available sources do not establish a summer offering.",
     "excluded": [
       {
         "name": "YAYA Children's Church",
-        "reason": "Listed on the official Monthly Events page as recurring third-Sunday children's church, not a finite summer program."
+        "reason": "Listed under recurring monthly church events, not as a finite summer camp."
       }
     ],
     "cards": []

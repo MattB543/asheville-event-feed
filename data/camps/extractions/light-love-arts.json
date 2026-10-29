@@ -7,23 +7,22 @@
     "discovered_by": ["aggregator"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:34:13.384Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:28:49.150Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "957c83bd6897f39d6526511d3a4c5d13aa4e5c5c7744c9ce20230aec6e63ac4a",
   "response": {
     "searches": [
       "site:lightandlovearts.com summer camp 2026 2027",
-      "site:hisawyer.com \"Light\" \"Summer\" \"2026\" \"Camp\"",
-      "\"site:hisawyer.com\" \"Light + Love Arts\" \"Summer Camp:\""
+      "site:hisawyer.com \"Light\" \"Summer\" \"2026\" \"Camp\""
     ],
     "usage": {
-      "inputTokens": 31777,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1113,
-      "reasoningTokens": 271
+      "inputTokens": 25457,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1059,
+      "reasoningTokens": 210
     },
     "status": "completed",
-    "ms": 32693,
+    "ms": 35283,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -47,19 +46,19 @@
   "extraction": {
     "provider_name": "Light + Love Arts",
     "website_url": "https://www.lightandlovearts.com/",
-    "notes": "No 2027 summer dates or registration announcements were found. The supplied pages describe Summer Camp but do not list sessions or prices. Additional official pages and the Sawyer provider page returned no readable body text when opened; search snippets supplied limited additional information.",
+    "notes": "No 2027 summer camp dates or registration announcements were found. The booking page and Sawyer provider page returned no readable text when opened; indexed Sawyer results currently show fall programming rather than a summer schedule. The undated About page mentions summer age bands and Monday–Thursday mornings, but conflicts on the number of weeks offered (nine versus six). No dated 2026 session schedule or prices could be established.",
     "excluded": [
       {
         "name": "Seasonal Studio Art Classes",
-        "reason": "Recurring seasonal classes, not a summer camp offering."
+        "reason": "Recurring art lesson series, including Art Explorers and Art Club, rather than finite summer camps."
       },
       {
         "name": "Art Play",
-        "reason": "Caregiver-attended family programming; excluded as family-only, including the summer option mentioned on the about page."
+        "reason": "Caregiver-attended family art programming rather than a supervised drop-off youth camp."
       },
       {
-        "name": "Open Studio",
-        "reason": "Recurring family drop-in studio access, not a supervised summer youth camp."
+        "name": "Open Studios",
+        "reason": "Family drop-in studio access rather than a finite supervised youth camp."
       },
       {
         "name": "Afterschool Art",
@@ -67,19 +66,19 @@
       },
       {
         "name": "No School Day Camps",
-        "reason": "School-break programming outside summer; no summer sessions found."
+        "reason": "School-break programming outside summer."
       },
       {
         "name": "Adult Craft Nights",
         "reason": "Adult-only programming."
       },
       {
-        "name": "Birthday Parties + Special Events",
-        "reason": "Private parties and events, not listed as finite summer youth programs."
+        "name": "Special Events",
+        "reason": "Birthday parties, playdates, professional development and team-building events rather than summer youth camps."
       },
       {
         "name": "Halloween PARTY!",
-        "reason": "Outside summer."
+        "reason": "Single social event outside summer."
       }
     ],
     "cards": [
@@ -87,7 +86,7 @@
         "name": "Summer Camp",
         "type": "half_day",
         "categories": ["arts", "nature_outdoor"],
-        "description": "Children explore art materials and techniques through instructor-guided projects, games and group activities. Activities include nature-inspired art, scavenger hunts and leaf prints.",
+        "description": "Children explore different art materials and techniques, including nature-inspired activities such as scavenger hunts and leaf prints. Camp also includes group activities and games.",
         "camp_page_url": "https://www.lightandlovearts.com/classes",
         "registration_url": "https://www.lightandlovearts.com/get-started",
         "season": {
@@ -104,7 +103,7 @@
         "grades": null,
         "sites": [
           {
-            "name": "River Arts District Studio",
+            "name": "Light + Love Arts River Arts District Studio",
             "address": "408 Depot Street #140",
             "town": "Asheville",
             "state": "NC"
@@ -129,11 +128,10 @@
           "https://www.lightandlovearts.com/classes",
           "https://www.lightandlovearts.com/faq",
           "https://www.lightandlovearts.com/about",
-          "https://www.lightandlovearts.com/get-started",
-          "https://www.hisawyer.com/providers/light-love-arts"
+          "https://www.lightandlovearts.com/get-started"
         ],
         "confidence": "medium",
-        "review_notes": "The about-page search snippet lists summer age bands Art Explorers ages 3-6 and Art Club ages 7-10, and Monday-through-Thursday mornings, without a season year. These bands are combined into one Summer Camp card. The same snippet inconsistently says nine weeks and 'Choose 1 week or all six'; no week count or dates were extracted. Verify ages, half-day format and hours against the summer registration schedule. No readable 2026 session schedule or 2027 announcement was found."
+        "review_notes": "Summer ages 3–6 (Art Explorers) and 7–10 (Art Club), and Monday–Thursday mornings, appear in an official About-page search result without a season year. Check these against the next dated camp schedule. The same result says both nine weeks and 'all six'; neither duration was used. No session rows were created because dates for the separate age bands could not be established."
       }
     ]
   }

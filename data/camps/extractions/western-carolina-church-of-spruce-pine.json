@@ -10,22 +10,22 @@
     "discovered_by": ["grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:20:51.231Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:17:50.122Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "4fe6eee9699855075bf50f340bc6ca529e30d8fd6036a519bf6bbf9ceb9cf4fc",
   "response": {
     "searches": [
-      "site.westerncarolinachurch.com \"2027\" \"VBS\"",
+      "site:westerncarolinachurch.com \"2027\"",
       "open https://westerncarolinachurch.com/https/wwwmyvbsorg/vacation-bible-school-1439"
     ],
     "usage": {
-      "inputTokens": 13608,
-      "cachedInputTokens": 8223,
-      "outputTokens": 613,
-      "reasoningTokens": 104
+      "inputTokens": 14329,
+      "cachedInputTokens": 8845,
+      "outputTokens": 665,
+      "reasoningTokens": 138
     },
     "status": "completed",
-    "ms": 14282,
+    "ms": 18816,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -49,14 +49,14 @@
   "extraction": {
     "provider_name": "Western Carolina Church of Spruce Pine",
     "website_url": "https://westerncarolinachurch.com/",
-    "notes": "No official 2027 VBS information was found. The supplied official page describes summer 2026; the live page returned no readable text when opened during research. A direct registration-platform link could not be verified.",
+    "notes": "No 2027 camp information or registration dates were found. The supplied official VBS page provides 2026 details; reopening that page returned no readable text. The external sign-up destination could not be identified.",
     "excluded": [],
     "cards": [
       {
         "name": "Kingdom Quest",
         "type": "vbs",
         "categories": ["faith_based"],
-        "description": "Children participate in Bible stories, games and crafts with a fantasy-adventure theme about Jesus.",
+        "description": "Children participate in Bible stories, games and crafts in a Vacation Bible School exploring what Jesus has done and will do for them.",
         "camp_page_url": "https://westerncarolinachurch.com/https/wwwmyvbsorg/vacation-bible-school-1439",
         "registration_url": "https://westerncarolinachurch.com/https/wwwmyvbsorg/vacation-bible-school-1439",
         "season": {
@@ -83,7 +83,7 @@
         "hours": {
           "start": "18:00",
           "end": "20:00",
-          "text": null
+          "text": "6:00 PM - 8:00 PM"
         },
         "extended_care": null,
         "prices": [],

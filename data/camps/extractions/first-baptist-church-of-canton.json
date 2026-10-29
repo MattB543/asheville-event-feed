@@ -7,8 +7,8 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:16:16.960Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:13:32.822Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "c0fc3594d7ee70293e97339691fa48e3724177c93a838105e16e4ac694d45ecf",
   "response": {
     "searches": [
@@ -16,13 +16,13 @@
       "open https://www.canton-fbc.org/childrensactivities"
     ],
     "usage": {
-      "inputTokens": 12488,
-      "cachedInputTokens": 8223,
-      "outputTokens": 741,
-      "reasoningTokens": 124
+      "inputTokens": 14191,
+      "cachedInputTokens": 8845,
+      "outputTokens": 688,
+      "reasoningTokens": 116
     },
     "status": "completed",
-    "ms": 24414,
+    "ms": 18548,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -41,15 +41,15 @@
   "extraction": {
     "provider_name": "First Baptist Church of Canton",
     "website_url": "https://www.canton-fbc.org/",
-    "notes": "No 2027 camp information found. The 2026 VBS form states an age-reference date of June 6, 2026, but does not state program dates; that date was not treated as a camp date. The youth page describes a past trip to SummerSalt Youth Camp at Charleston Southern, but does not identify its year or dates; no separate card was extracted from that retrospective. The Children and Happenings & Highlights pages returned no readable text when opened.",
+    "notes": "No 2027 camp information found. The 2026 VBS form states eligibility but does not give program dates or hours; its age-as-of date was not treated as a camp date. The Children and Happenings & Highlights pages returned no readable text when opened.",
     "excluded": [
       {
-        "name": "Sunday school and children's church",
-        "reason": "Recurring worship and religious education, not a finite summer program."
+        "name": "First Baptist Canton VBS (firstcanton.com)",
+        "reason": "A similarly named church outside this provider's Canton, NC service area; not this provider."
       },
       {
-        "name": "JOLT weekly youth gatherings",
-        "reason": "Year-round youth ministry gatherings, not a finite summer program."
+        "name": "Youth nights",
+        "reason": "Recurring youth-group meals, games and Bible study, not a finite summer camp."
       }
     ],
     "cards": [
@@ -57,7 +57,7 @@
         "name": "Vacation Bible School",
         "type": "vbs",
         "categories": ["faith_based"],
-        "description": "A children's Vacation Bible School program for preschoolers through rising sixth graders.",
+        "description": "Vacation Bible School for children ages 3–11, preschool through rising sixth graders.",
         "camp_page_url": "https://www.canton-fbc.org/vbsmemories",
         "registration_url": "https://www.canton-fbc.org/vbsmemories",
         "season": {
@@ -92,18 +92,14 @@
         "last_year_registration_opened": null,
         "availability": {
           "status": "closed",
-          "scope": "2026 VBS registration form",
+          "scope": "2026 registration",
           "text": "Sorry, but this form is now closed."
         },
         "financial_aid": null,
         "special_needs": null,
         "lunch": null,
         "transportation": null,
-        "sources": [
-          "https://www.canton-fbc.org/vbsmemories",
-          "https://www.canton-fbc.org/",
-          "https://www.canton-fbc.org/worship-services"
-        ],
+        "sources": ["https://www.canton-fbc.org/vbsmemories", "https://www.canton-fbc.org/"],
         "confidence": "high",
         "review_notes": null
       }

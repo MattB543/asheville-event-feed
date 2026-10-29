@@ -7,8 +7,8 @@
     "discovered_by": ["grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:29:50.454Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:25:23.600Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "f05bc96c11f7cd31e8489fa2e0256628a64d1f78e53db3379205055fe2076d7e",
   "response": {
     "searches": [
@@ -16,13 +16,13 @@
       "\"Claying Around\" \"2026\" \"summer camp\""
     ],
     "usage": {
-      "inputTokens": 21462,
-      "cachedInputTokens": 8223,
-      "outputTokens": 898,
-      "reasoningTokens": 171
+      "inputTokens": 20247,
+      "cachedInputTokens": 8845,
+      "outputTokens": 907,
+      "reasoningTokens": 156
     },
     "status": "completed",
-    "ms": 22733,
+    "ms": 24995,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -51,23 +51,31 @@
   "extraction": {
     "provider_name": "Claying Around",
     "website_url": "https://www.clayingaround.com/",
-    "notes": "No 2027 or 2026 summer camp information was found. The official Art Camps page still names 2025 Kids Summer Art Camp, and the camp booking category says nothing is available to book. The historical camp is retained with unknown dates; its continued offering needs confirmation. The Kids Clay Club page lists June and July evenings without a year, so those dates cannot safely be assigned to 2026 or 2027.",
+    "notes": "No 2027 or 2026 summer camp details were found on official pages. The art camps page still advertises 2025 Kids Summer Art Camp, and the camp booking category says there is nothing to book. No historical dates, prices or registration milestones have been projected forward.",
     "excluded": [
       {
         "name": "Kids Clay Club",
-        "reason": "Recurring evening clay classes; the page does not establish a summer-only finite program or identify the year of its June and July dates."
+        "reason": "Recurring individual evening art activities, rather than a finite camp or multi-day evening program."
       },
       {
         "name": "Pottery Wheel Lessons",
-        "reason": "Year-round lessons, not a summer-specific youth program."
+        "reason": "Booked as lessons, not a camp."
       },
       {
         "name": "Kids Parties",
-        "reason": "Year-round private birthday parties, not summer camp programs."
+        "reason": "Private birthday parties and social events, not summer camps."
       },
       {
-        "name": "POTTERY PAINTING AND BINGO!",
-        "reason": "October 30, 2026 event outside summer."
+        "name": "Field Trips",
+        "reason": "Group outings booked by visiting groups, not a provider-run summer camp."
+      },
+      {
+        "name": "Pottery Painting and Bingo!",
+        "reason": "Single evening social event held outside summer."
+      },
+      {
+        "name": "Art Camp 2026 — Just Claying Around",
+        "reason": "Offered by a different provider in Massachusetts, not Claying Around in Asheville."
       }
     ],
     "cards": [
@@ -75,7 +83,7 @@
         "name": "Kids Summer Art Camp",
         "type": "day",
         "categories": ["arts"],
-        "description": "Children participate in a summer art camp at Claying Around.",
+        "description": "Summer art camp for children.",
         "camp_page_url": "https://www.clayingaround.com/copy-of-kids-summer-camp",
         "registration_url": "https://www.clayingaround.com/book-online?category=6b70ebb4-683e-4f48-a16e-08d37c4c555c",
         "season": {
@@ -111,8 +119,8 @@
           "https://www.clayingaround.com/book-online?category=6b70ebb4-683e-4f48-a16e-08d37c4c555c",
           "https://www.clayingaround.com/contact"
         ],
-        "confidence": "low",
-        "review_notes": "The camp page only supplies a 2025 heading and booking link, without readable camp dates, ages, prices, hours or activity details. Confirm whether the program will return in 2027 and whether it is full-day or half-day. The studio address is published on the official contact page, but no separate camp drop-off location is stated."
+        "confidence": "medium",
+        "review_notes": "The camp page explicitly names summer 2025; no 2026 or 2027 details were found. Confirm whether the program will return and its day-camp format. The listed venue is the studio address published on the camp page and contact page; a separate camp drop-off location is not specified. Studio-wide activities and business hours were not treated as camp activities or hours."
       }
     ]
   }

@@ -7,19 +7,19 @@
     "discovered_by": ["grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:27:59.496Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:23:40.101Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "f3bffc1183d2750a13f2d484253cc2c91f65c8509c8bd7a7ca3b8c0c5158fa3d",
   "response": {
-    "searches": ["site:rutherford.ces.ncsu.edu 4-H summer 2027"],
+    "searches": ["site:rutherford.ces.ncsu.edu \"2027\" \"summer\" \"4-H\""],
     "usage": {
-      "inputTokens": 18709,
-      "cachedInputTokens": 8223,
-      "outputTokens": 2621,
-      "reasoningTokens": 110
+      "inputTokens": 19267,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2499,
+      "reasoningTokens": 124
     },
     "status": "completed",
-    "ms": 51394,
+    "ms": 44899,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -43,15 +43,15 @@
   "extraction": {
     "provider_name": "N.C. Cooperative Extension — Rutherford County 4-H",
     "website_url": "https://rutherford.ces.ncsu.edu/",
-    "notes": "No summer 2027 program dates or registration milestones were found on official pages. The 2026 workshops are grouped as sessions of the provider's named 4-H Summer Fun program. Registration for 2026 was in person only; 4-H Online was required separately for membership, waivers and health forms. The past-season statement 'Registration is open' is not treated as current availability.",
+    "notes": "No 2027 summer program information or registration dates were found. The 2026 materials remain the latest summer listing. Registration is in person; 4-H Online is required for membership, waivers and health forms, not camp session registration.",
     "excluded": [
       {
-        "name": "Rutherford County 4-H Clubs",
-        "reason": "Volunteer-led clubs meet monthly and are not finite summer camp programs."
+        "name": "Rutherford County 4-H clubs",
+        "reason": "Ongoing youth clubs, not finite summer camp programs."
       },
       {
         "name": "Rutherford County 4-H School Enrichment Programs",
-        "reason": "Classroom curricula and school enrichment services, not a finite supervised summer offering."
+        "reason": "School enrichment programs rather than summer camps; the published 2026 event dates are outside summer."
       }
     ],
     "cards": [
@@ -59,7 +59,7 @@
         "name": "4-H Summer Fun",
         "type": "day",
         "categories": ["general", "stem", "nature_outdoor", "cooking", "academic"],
-        "description": "Youth participate in educational workshops, tours and hands-on activities, including cooking, fishing, agriculture, history, aviation, rockets and electricity.",
+        "description": "Youth participate in educational workshops, tours and hands-on activities. Activities include babysitting safety, fishing, agriculture, cooking, history, rocket building and electrical circuits.",
         "camp_page_url": "https://rutherford.ces.ncsu.edu/news/4-h-program-hosts-summer-enrichment-camps/",
         "registration_url": null,
         "season": {
@@ -76,7 +76,7 @@
         "grades": null,
         "sites": [
           {
-            "name": "N.C. Cooperative Extension — Rutherford County Center",
+            "name": "Rutherford County Cooperative Extension Center",
             "address": "193 Callahan-Koon Rd, Suite 164",
             "town": "Spindale",
             "state": "NC"
@@ -266,12 +266,7 @@
               "start": "08:00",
               "end": "17:00"
             },
-            "price": {
-              "amount": 50,
-              "unit": "session",
-              "label": "Web page and PDF activity description; registration form lists $30",
-              "year": 2026
-            },
+            "price": null,
             "status": null
           },
           {
@@ -289,12 +284,7 @@
               "start": "09:00",
               "end": "13:00"
             },
-            "price": {
-              "amount": 5,
-              "unit": "session",
-              "label": "Web page and PDF activity description; registration form lists $8",
-              "year": 2026
-            },
+            "price": null,
             "status": null
           },
           {
@@ -335,12 +325,7 @@
               "start": "09:00",
               "end": "15:00"
             },
-            "price": {
-              "amount": 10,
-              "unit": "session",
-              "label": "Web page and registration form; PDF activity description lists $12",
-              "year": 2026
-            },
+            "price": null,
             "status": null
           },
           {
@@ -377,7 +362,7 @@
         },
         "lunch": {
           "value": "case_by_case",
-          "text": "Kids and Chefs: Lunch and snacks will be provided. SafeSitter, Adventures in Aviation, Gone Fishing, Young Naturalists, American Heritage, Biltmore Estate, Farm Animals, Rockets Away, Magic of Electricity and Sweet Confections: What to bring: Bagged lunch and drink."
+          "text": "Kids and Chefs: Lunch and snacks will be provided."
         },
         "transportation": {
           "value": "yes",
@@ -389,7 +374,7 @@
           "https://rutherford.ces.ncsu.edu/"
         ],
         "confidence": "medium",
-        "review_notes": "Dates use the explicitly titled 2026 brochure and the 2026 article. Confirm conflicting prices: Biltmore Estate is $50 in descriptions but $30 on the PDF registration form; Farm Animals is $5 in descriptions but $8 on the form; Magic of Electricity is $10 on the web page and form but $12 in the PDF description. Gone Fishing is June 11 in both sources, but the PDF calls it Friday while the web page calls it Thursday. Both sources print Sweet Confections as '9:00 pm-1:00 pm'; its start time is left null rather than correcting the apparent typo. Transportation refers to supervised field-trip travel from the Extension Center, not home pickup."
+        "review_notes": "2026 is explicit in the brochure. Conflicting prices are omitted: Biltmore is $50 in descriptions but $30 on the PDF registration form; Farm Animals is $5 in descriptions but $8 on the form; Magic of Electricity is $10 on the web page and form but $12 in the PDF description. Both sources print Sweet Confections as 9:00 pm–1:00 pm; its start time is omitted. Gone Fishing is June 11 in both sources, but the PDF incorrectly labels it Friday while the web page labels it Thursday. The general registration statement limits participation to ages 5–18; individual 'and up' rows retain an unspecified maximum. The historical 'Registration is open' wording is not treated as current availability after the sessions have ended. Educational tour sessions are retained as rows of Summer Fun; Charlotte is a field-trip destination, not a drop-off site."
       }
     ]
   }

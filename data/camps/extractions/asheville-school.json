@@ -3,26 +3,27 @@
     "key": "asheville-school",
     "name": "Asheville School (summer programs)",
     "urls": ["https://www.ashevilleschool.org/academics-summer-reading/"],
-    "area": null,
-    "discovered_by": ["pilot"],
+    "area": "Asheville, NC",
+    "discovered_by": ["pilot", "seed_sheet"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T03:18:20.444Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T16:51:42.858Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "0e2de250f28703d9d2485ab0f5c1980db8ffd683ef4a1a9f312f45f14c29f57e",
   "response": {
     "searches": [
-      "site.ashevilleschool.org summer camp 2026 2027",
-      "site:ashevilleschool.org \"camp\" \"2026\""
+      "site:ashevilleschool.org summer camp 2026 2027",
+      "site:ashevilleschool.org \"camp\" \"summer\"",
+      "site:ashevilleschool.org \"camp\" \"2026\" \"summer\" \"registration\""
     ],
     "usage": {
-      "inputTokens": 27080,
-      "cachedInputTokens": 8223,
-      "outputTokens": 458,
-      "reasoningTokens": 135
+      "inputTokens": 27912,
+      "cachedInputTokens": 8845,
+      "outputTokens": 489,
+      "reasoningTokens": 190
     },
     "status": "completed",
-    "ms": 17722,
+    "ms": 20482,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -56,27 +57,19 @@
   "extraction": {
     "provider_name": "Asheville School (summer programs)",
     "website_url": "https://www.ashevilleschool.org/",
-    "notes": "No official 2026 or 2027 summer camp offering or registration information was found. The supplied summer-reading page describes independent reading assignments, not a supervised camp. Search found official news articles about App Development Camp and Camp Good Trouble from July and August 2019, but no current offering pages; these historical programs were not made into cards. Their continued operation should be confirmed directly with the school. Official search results also included school-year calendars and Winterim materials, not summer camp schedules.",
+    "notes": "No summer 2026 or 2027 camp offerings were found on official pages or in official search results. The supplied Summer Reading page describes independent reading assignments for enrolled students, not a supervised camp. Official news archives describe Camp Good Trouble and App Development Camp in summer 2019, but no 2026 or 2027 continuation was found; these historical programs were not made into current cards. Historical pages: https://www.ashevilleschool.org/news/asheville-school-students-work-to-empower-local-elementary-school-students-during-camp-good-trouble/ and https://www.ashevilleschool.org/news/app-development-camp-introduces-teens-to-computer-science-coding-and-app-design/.",
     "excluded": [
       {
         "name": "2026 Summer Reading",
-        "reason": "Independent summer reading assignments for enrolled students, not a finite supervised youth program."
-      },
-      {
-        "name": "Spoleto Study Abroad",
-        "reason": "The school describes this program as four weeks in February and March, outside summer."
+        "reason": "Independent required reading assignments for Asheville School students; not a finite, supervised summer camp."
       },
       {
         "name": "Winterim",
-        "reason": "School-year program held in February, outside summer."
+        "reason": "School-year enrichment program held outside summer."
       },
       {
         "name": "Mountaineering",
-        "reason": "Ongoing school extracurricular instruction and competitive pathways, not a separately advertised summer camp."
-      },
-      {
-        "name": "Preseason Football",
-        "reason": "Return of invited varsity athletes for their school team season, not a separately advertised youth camp or clinic."
+        "reason": "School extracurricular activities and competitive teams, not a separately listed finite summer camp."
       }
     ],
     "cards": []

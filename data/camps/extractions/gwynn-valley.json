@@ -11,23 +11,22 @@
     "discovered_by": ["news828", "grid", "aggregator", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:02:16.605Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:02:23.467Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "b6eed5aba33844791b6bb7f10ca477e983620f14d2792bfca85d47f6c5df8a7a",
   "response": {
     "searches": [
       "open https://gwynnvalley.com/summer-camp/programs/",
-      "site:gwynnvalley.com \"Riverside\" \"Young Leaders\" \"leadership\"",
-      "site:gwynnvalley.com/summer-camp/programs/ \"Riverside\" \"finishing\""
+      "site:gwynnvalley.com \"Young Leaders\" \"Riverside\""
     ],
     "usage": {
-      "inputTokens": 43592,
-      "cachedInputTokens": 8223,
+      "inputTokens": 40033,
+      "cachedInputTokens": 8845,
       "outputTokens": 5359,
-      "reasoningTokens": 277
+      "reasoningTokens": 202
     },
     "status": "completed",
-    "ms": 94579,
+    "ms": 95973,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -76,11 +75,15 @@
   "extraction": {
     "provider_name": "Gwynn Valley",
     "website_url": "https://gwynnvalley.com/",
-    "notes": "2027 dates, rates and registration openings are posted. Starter Camp is included as a Main Camp session, as the provider lists it within that program. Availability indicators were not readable in the supplied text. Additional official pages opened without readable content; search results supplemented program and travel information.",
+    "notes": "2027 dates and rates are posted. Starter Camp is listed as a session of Main Camp and is retained there rather than made a separate card. Additional official pages opened through the browser returned no readable text; official search results supplied limited supplementary information. Availability indicators were not readable in the fetched text.",
     "excluded": [
       {
-        "name": "Staff in Training",
-        "reason": "Listed under staff employment applications, rather than camper enrollment."
+        "name": "Staff in Training (SIT)",
+        "reason": "Employment program for high-school students, listed among staff positions."
+      },
+      {
+        "name": "Intern",
+        "reason": "Employment program, listed among staff positions."
       }
     ],
     "cards": [
@@ -88,7 +91,7 @@
         "name": "Main Camp",
         "type": "overnight",
         "categories": ["general", "nature_outdoor", "arts", "sports", "horses"],
-        "description": "Campers choose activities including farm work, crafts, climbing, horseback riding, swimming and blacksmithing. They live in cabin groups and participate in evening programs.",
+        "description": "Campers choose activities including farming, milling, climbing, arts and crafts, blacksmithing, horseback riding, and waterfront activities. Campers live in cabin groups with counselors.",
         "camp_page_url": "https://gwynnvalley.com/summer-camp/programs/",
         "registration_url": "https://gwynnvalley.com/summer-camp/registration/",
         "season": {
@@ -102,7 +105,7 @@
         "grades": {
           "min": 0,
           "max": 6,
-          "basis": "completed"
+          "basis": "current"
         },
         "sites": [
           {
@@ -160,7 +163,7 @@
             "grades": {
               "min": 1,
               "max": 6,
-              "basis": "completed"
+              "basis": "current"
             },
             "hours": null,
             "price": {
@@ -301,25 +304,22 @@
           "value": "yes",
           "text": "12:45 PM Lunch"
         },
-        "transportation": {
-          "value": "yes",
-          "text": "Your child or children will be picked up in a camp car or van depending on the number of campers and transported directly to camp or to the airport on closing day."
-        },
+        "transportation": null,
         "sources": [
           "https://gwynnvalley.com/summer-camp/programs/",
-          "https://gwynnvalley.com/summer-camp/activities/",
           "https://gwynnvalley.com/summer-camp/dates-and-rates/",
+          "https://gwynnvalley.com/summer-camp/activities/",
           "https://gwynnvalley.com/summer-camp/registration/",
-          "https://gwynnvalley.com/parents/travel-to-gv/"
+          "https://gwynnvalley.com/2027-registration-opens-next-wednesday-for-returning-campers/"
         ],
         "confidence": "medium",
-        "review_notes": "Dates take their year from the dates-and-rates page's 2027 registration context. Transportation information was available through an official search result. Starter Camp requires both completed K–2 and ages 6–8 per registration page, despite the rates table saying 'or'."
+        "review_notes": "Session dates omit the year in their rows; 2027 is established by the dates-and-rates introduction and the August 21, 2026 announcement. General grades use the registration page's explicit 2026-2027 current-school-year instruction, although the programs page describes completed grades. Starter Camp uses the registration page's more specific requirement of completed K-2 and ages 6-8; the rates table says K-2 or ages 6-8. Only Starter Camp states an age range, so no program-wide age range is assigned. Registration times retain the site's 10 AM Eastern wording; it labels the zone EST during daylight-saving months."
       },
       {
         "name": "Mountainside",
         "type": "overnight",
         "categories": ["nature_outdoor", "sports", "general"],
-        "description": "Campers participate in outdoor adventures including backpacking, climbing, biking and paddling, alongside activities at camp.",
+        "description": "Campers participate in outdoor activities including mountain biking, climbing, whitewater paddling, and backpacking, along with farm, crafts, sports, and waterfront activities.",
         "camp_page_url": "https://gwynnvalley.com/summer-camp/programs/",
         "registration_url": "https://gwynnvalley.com/summer-camp/registration/",
         "season": {
@@ -333,7 +333,7 @@
         "grades": {
           "min": 6,
           "max": 8,
-          "basis": "completed"
+          "basis": "current"
         },
         "sites": [
           {
@@ -462,26 +462,22 @@
         },
         "special_needs": null,
         "lunch": null,
-        "transportation": {
-          "value": "yes",
-          "text": "Your child or children will be picked up in a camp car or van depending on the number of campers and transported directly to camp or to the airport on closing day."
-        },
+        "transportation": null,
         "sources": [
           "https://gwynnvalley.com/summer-camp/programs/",
-          "https://gwynnvalley.com/summer-camp/activities/",
           "https://gwynnvalley.com/summer-camp/dates-and-rates/",
+          "https://gwynnvalley.com/summer-camp/activities/",
           "https://gwynnvalley.com/summer-camp/registration/",
-          "https://gwynnvalley.com/2027-registration-opens-next-wednesday-for-returning-campers/",
-          "https://gwynnvalley.com/parents/travel-to-gv/"
+          "https://gwynnvalley.com/2027-registration-opens-next-wednesday-for-returning-campers/"
         ],
         "confidence": "medium",
-        "review_notes": "Dates take their year from the dates-and-rates page's 2027 context. Transportation was read through an official search result. September 2 is the first-round placement deadline, not the final application deadline."
+        "review_notes": "Session rows omit the year; 2027 comes from the dates-and-rates introduction and August 21, 2026 announcement. Grades follow the registration page's current 2026-2027 school-year instruction; the programs page instead describes finishing grades. Registration times retain 10 AM Eastern as stated, although the site labels the zone EST during daylight-saving months."
       },
       {
         "name": "Riverside",
         "type": "overnight",
-        "categories": ["nature_outdoor", "sports"],
-        "description": "Campers train for outdoor adventures including backpacking and whitewater canoeing. Activities also include climbing and the high ropes course.",
+        "categories": ["nature_outdoor", "sports", "general"],
+        "description": "Campers practice whitewater canoeing and backpacking and participate in climbing, high ropes, farm, arts and crafts, sports, and waterfront activities.",
         "camp_page_url": "https://gwynnvalley.com/summer-camp/programs/",
         "registration_url": "https://gwynnvalley.com/summer-camp/registration/",
         "season": {
@@ -599,26 +595,22 @@
         },
         "special_needs": null,
         "lunch": null,
-        "transportation": {
-          "value": "yes",
-          "text": "Your child or children will be picked up in a camp car or van depending on the number of campers and transported directly to camp or to the airport on closing day."
-        },
+        "transportation": null,
         "sources": [
           "https://gwynnvalley.com/summer-camp/programs/",
-          "https://gwynnvalley.com/summer-camp/activities/",
           "https://gwynnvalley.com/summer-camp/dates-and-rates/",
+          "https://gwynnvalley.com/summer-camp/activities/",
           "https://gwynnvalley.com/summer-camp/registration/",
-          "https://gwynnvalley.com/2027-registration-opens-next-wednesday-for-returning-campers/",
-          "https://gwynnvalley.com/parents/travel-to-gv/"
+          "https://gwynnvalley.com/2027-registration-opens-next-wednesday-for-returning-campers/"
         ],
         "confidence": "medium",
-        "review_notes": "Grades use the stated 2026–2027 school-year basis. Dates take their year from the page's 2027 context. Transportation was read through an official search result. September 2 is only the first-round placement deadline."
+        "review_notes": "Session rows omit the year; 2027 comes from the dates-and-rates introduction and August 21, 2026 announcement. Grades follow the registration page's explicit current 2026-2027 school-year instruction. Registration times retain 10 AM Eastern as stated, although the site labels the zone EST during daylight-saving months."
       },
       {
         "name": "Young Leaders",
         "type": "overnight",
         "categories": ["general", "nature_outdoor"],
-        "description": "Participants develop leadership skills, assist with camp activities and take part in outdoor adventures. They also participate in community service trips.",
+        "description": "Young Leaders is an overnight program for campers in grades 9-10. Activities include high ropes, climbing, farming, arts and crafts, sports, camping skills, and waterfront activities.",
         "camp_page_url": "https://gwynnvalley.com/summer-camp/programs/",
         "registration_url": "https://gwynnvalley.com/summer-camp/registration/",
         "season": {
@@ -736,19 +728,16 @@
         },
         "special_needs": null,
         "lunch": null,
-        "transportation": {
-          "value": "yes",
-          "text": "Your child or children will be picked up in a camp car or van depending on the number of campers and transported directly to camp or to the airport on closing day."
-        },
+        "transportation": null,
         "sources": [
           "https://gwynnvalley.com/summer-camp/programs/",
           "https://gwynnvalley.com/summer-camp/dates-and-rates/",
+          "https://gwynnvalley.com/summer-camp/activities/",
           "https://gwynnvalley.com/summer-camp/registration/",
-          "https://gwynnvalley.com/2027-registration-opens-next-wednesday-for-returning-campers/",
-          "https://gwynnvalley.com/parents/travel-to-gv/"
+          "https://gwynnvalley.com/2027-registration-opens-next-wednesday-for-returning-campers/"
         ],
         "confidence": "medium",
-        "review_notes": "The Young Leaders description and transportation were supplemented through official search results because direct opens returned no readable text. Grades use the stated 2026–2027 school-year basis. Dates take their year from the page's 2027 context. September 2 is only the first-round placement deadline."
+        "review_notes": "Session rows omit the year; 2027 comes from the dates-and-rates introduction and August 21, 2026 announcement. Grades follow the registration page's explicit current 2026-2027 school-year instruction. The fetched programs page ends before the full Young Leaders description; activities are taken only from the official activities page. Registration times retain 10 AM Eastern as stated, although the site labels the zone EST during daylight-saving months."
       }
     ]
   }

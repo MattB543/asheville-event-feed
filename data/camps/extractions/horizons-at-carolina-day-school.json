@@ -11,22 +11,22 @@
     "discovered_by": ["beyond_school", "grid", "aggregator"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T14:58:29.578Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T16:58:11.635Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "395a6173662da7ff5dbc84b0752a0582c6b7086f43f1901ddfb4dc7b0559dcf6",
   "response": {
     "searches": [
-      "site.horizonsatcarolinaday.org 2027 summer 2026 dates",
-      "open https://www.horizonsatcarolinaday.org/blog/a-grateful-farewell-to-the-horizons-community/"
+      "site:horizonsatcarolinaday.org 2026 summer June July 2027",
+      "site:carolinaday.org \"1345 Hendersonville\""
     ],
     "usage": {
-      "inputTokens": 14923,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1050,
-      "reasoningTokens": 172
+      "inputTokens": 19507,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1115,
+      "reasoningTokens": 183
     },
     "status": "completed",
-    "ms": 28283,
+    "ms": 32760,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -50,15 +50,15 @@
   "extraction": {
     "provider_name": "Horizons at Carolina Day School",
     "website_url": "https://www.horizonsatcarolinaday.org/",
-    "notes": "No 2027 dates or registration milestones were found. The program is tuition-free and serves nominated students through a long-term enrollment model, rather than ordinary open camp registration. The October 1, 2026 Summer LABS blog describes enrichment for the two oldest grades within the summer program; it is treated as part of Summer Academy, not a separately enrolled camp.",
+    "notes": "No 2027 dates or registration milestones were found. Summer LABS is described in the October 1, 2026 blog as themed programming for the Summer Academy's two oldest grades, rather than a separately enrolled camp; it is included within Summer Academy. The attempted Who We Serve page returned no readable content.",
     "excluded": [
       {
         "name": "School-Year Outreach and Education",
-        "reason": "School-year enrichment programming, not a summer camp."
+        "reason": "School-year academic enrichment and family programming, not a summer camp."
       },
       {
-        "name": "Super STEAM Saturday",
-        "reason": "School-year enrichment programming rather than a finite summer offering."
+        "name": "Super STEAM Saturdays",
+        "reason": "School-year enrichment programming, not a summer camp."
       }
     ],
     "cards": [
@@ -66,21 +66,21 @@
         "name": "Summer Academy",
         "type": "day",
         "categories": ["academic", "stem", "arts", "sports"],
-        "description": "Students participate in six weeks of reading and math instruction, project-based STEM learning, swimming lessons, arts activities, gardening, and field trips. The program also includes social and emotional learning.",
+        "description": "Students participate in six weeks of project-based reading, math and science instruction, swimming, arts activities and field trips. Older students explore themed Summer LABS activities with community partners.",
         "camp_page_url": "https://www.horizonsatcarolinaday.org/our-programs/summer-academy/",
         "registration_url": null,
         "season": {
           "year": 2026,
           "status": "not_posted",
-          "start": null,
-          "end": null,
+          "start": "2026-06-15",
+          "end": "2026-07-24",
           "text": null
         },
         "ages": null,
         "grades": {
-          "min": 1,
-          "max": 9,
-          "basis": "rising"
+          "min": 0,
+          "max": 8,
+          "basis": "completed"
         },
         "sites": [
           {
@@ -96,7 +96,7 @@
           {
             "amount": 0,
             "unit": "program",
-            "label": "Tuition-free",
+            "label": "tuition-free",
             "year": 2026
           }
         ],
@@ -121,11 +121,12 @@
           "https://www.horizonsatcarolinaday.org/our-programs/summer-academy/",
           "https://www.horizonsatcarolinaday.org/",
           "https://www.horizonsatcarolinaday.org/our-model/",
+          "https://www.horizonsatcarolinaday.org/get-involved/volunteer-with-us/",
           "https://www.horizonsatcarolinaday.org/blog/a-grateful-farewell-to-the-horizons-community/",
-          "https://www.carolinaday.org/outreach/horizons"
+          "https://www.carolinaday.org/about/faculty-and-staff/faculty-details/~const-id/23203"
         ],
         "confidence": "medium",
-        "review_notes": "The Summer Academy page says grades K–8, while the October 1, 2026 official Summer LABS blog search result explicitly describes the summer program as serving rising 1st through 9th graders. The latter is used for the 2026 grade range; the blog could not be read beyond its search result. The school’s official Horizons page also says students join after kindergarten and return through Grade 9. Exact summer dates, daily hours, and enrollment deadlines were not found."
+        "review_notes": "The Summer Academy page says grades K–8 without a grade basis; the explicitly dated 2026 volunteer page says students have completed kindergarten through eighth grade, and the October 2026 Summer LABS blog confirms rising first through ninth graders. Grades use the completed basis from the 2026 volunteer page. Dates also come from that page. Its 8:00–3:00 hours are explicitly volunteer hours, so camper hours are left null. Enrollment is a long-term, nominated-student model rather than ordinary public camp registration; eligibility and nomination procedures should be checked with the provider."
       }
     ]
   }

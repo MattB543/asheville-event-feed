@@ -7,23 +7,22 @@
     "discovered_by": ["gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:35:50.436Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:29:42.488Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "9bdb0ccf0a4729d3a8718fd805fc5a53403afa06a0e6d78ac7ce41341151105b",
   "response": {
     "searches": [
-      "site.brevard.edu address 1 Brevard College Drive",
-      "site.runbdrc.com/preparing \"College\"",
-      "\"Brevard Distance\" \"Brevard College\" camp"
+      "site.runbdrc.com preparing Brevard college registration",
+      "site:runbdrc.com/preparing \"meals\""
     ],
     "usage": {
-      "inputTokens": 29479,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1053,
-      "reasoningTokens": 209
+      "inputTokens": 22674,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1124,
+      "reasoningTokens": 155
     },
     "status": "completed",
-    "ms": 34983,
+    "ms": 29276,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -52,14 +51,19 @@
   "extraction": {
     "provider_name": "Brevard Distance Runners Camp",
     "website_url": "https://www.runbdrc.com/",
-    "notes": "2027 dates are posted. The supplied ACTIVE link displays adult coach registrations, not youth camper pricing or ages. No dated registration-opening announcement was found. The Preparing page returned no readable text. The college confirms historical hosting, but the current supplied pages do not explicitly confirm the 2027 drop-off venue.",
-    "excluded": [],
+    "notes": "2027 dates and camper prices are posted. No dated registration-opening announcement was found. The supplied ACTIVE link displays adult coach registrations, not youth camper registrations; the registration page is used as the parent-facing registration URL.",
+    "excluded": [
+      {
+        "name": "Join the Team / Staff Registration",
+        "reason": "Staff recruitment and employment opportunities, not a youth summer camp program."
+      }
+    ],
     "cards": [
       {
         "name": "Brevard Distance Runners Camp",
         "type": "overnight",
         "categories": ["sports"],
-        "description": "Campers participate in trail running, running drills, cross training, team challenges, and speaker sessions on mindset and leadership. Recreational activities include dodgeball, volleyball, tie dye, and a talent show.",
+        "description": "Campers participate in trail running, running drills, cross training, team challenges, and speaker sessions on mindset and leadership. Campers stay in college dormitories.",
         "camp_page_url": "https://www.runbdrc.com/",
         "registration_url": "https://www.runbdrc.com/registration",
         "season": {
@@ -75,20 +79,27 @@
           "max": 12,
           "basis": "unspecified"
         },
-        "sites": [],
+        "sites": [
+          {
+            "name": "Brevard College — Boshamer Gymnasium",
+            "address": "One Brevard College Drive",
+            "town": "Brevard",
+            "state": "NC"
+          }
+        ],
         "hours": null,
         "extended_care": null,
         "prices": [
           {
             "amount": 850,
             "unit": "week",
-            "label": "Individuals or teams without transportation",
+            "label": "Individuals or Teams without Transportation",
             "year": 2027
           },
           {
             "amount": 795,
             "unit": "week",
-            "label": "Teams with transportation",
+            "label": "Teams With Transportation",
             "year": 2027
           }
         ],
@@ -131,10 +142,12 @@
         "sources": [
           "https://www.runbdrc.com/",
           "https://www.runbdrc.com/registration",
-          "https://www.runbdrc.com/experience-camp"
+          "https://www.runbdrc.com/experience-camp",
+          "https://www.runbdrc.com/preparing",
+          "https://brevard.edu/contact-us/"
         ],
         "confidence": "medium",
-        "review_notes": "Registration-page weeks match the explicitly labeled 2027 dates on the homepage; the registration page does not separately print a year with its prices. Confirm the 2027 venue and drop-off address: historical Brevard College articles identify campus hosting, but current camp pages only give a mailing address. Grades 6–7 require a coach in attendance; grades 8–12 may attend individually or with a coach. Individuals cannot stay two weeks. The $150 non-refundable reservation deposit and separate $50 refundable key deposit are not additional tuition tiers. The transportation discount requires qualifying team buses or vans under the registration page's rules."
+        "review_notes": "The Preparing page was accessible only through official search snippets and identifies check-in at Boshamer Gymnasium, 695 Kings Creek Loop, Brevard, NC 28712. The site address uses the college's own published campus location, One Brevard College Drive; check the gym-specific arrival address before mapping. Registration-page dates omit a year and are assigned to 2027 because they match the homepage's explicitly labeled 2027 dates. Grades 6–7 require a coach in attendance; grades 8–12 may attend individually or with a coach. Individuals cannot stay two weeks. A nonrefundable $150 reservation deposit and a separate refundable $50 key-deposit check are required. The transportation-discount definition requires buses or 12–15 passenger vans, with a limited exception when the entire team and coaches fit in one car."
       }
     ]
   }

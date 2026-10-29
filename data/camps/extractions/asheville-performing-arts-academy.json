@@ -7,29 +7,29 @@
     "discovered_by": ["news828", "grid", "aggregator", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T14:58:37.836Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
-  "sourceHash": "a1f444ec8c71bfbed6510c19c0d5d91243d3045518362f7c2c9403d6039768f2",
+  "extractedAt": "2026-10-29T16:58:54.659Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "16772ff0b985d4a8c6cb9d5a3db85601dc7e087c33f3ebf3b0dc1363cddea163",
   "response": {
     "searches": [
       "site:theapaa.com summer 2027",
       "open https://theapaa.com/summer-2026/summer-camps"
     ],
     "usage": {
-      "inputTokens": 22557,
-      "cachedInputTokens": 8223,
-      "outputTokens": 2677,
-      "reasoningTokens": 128
+      "inputTokens": 23178,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2384,
+      "reasoningTokens": 115
     },
     "status": "completed",
-    "ms": 53114,
+    "ms": 45115,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
   "bundle": [
     {
       "url": "https://theapaa.com/summer",
-      "chars": 16642,
+      "chars": 16671,
       "method": "fetch"
     },
     {
@@ -51,27 +51,35 @@
   "extraction": {
     "provider_name": "Asheville Performing Arts Academy",
     "website_url": "https://theapaa.com/",
-    "notes": "No summer 2027 dates or registration milestones were found. The card retains the published summer 2026 information. The summer pages returned no readable content in the browser tool; supplied official-page text was used. Direct registration-form URLs could not be verified.",
+    "notes": "No summer 2027 program dates or registration milestones were found. The supplied official 2026 pages provide the camp details below. Live opens of the summer pages returned no readable text, so direct registration-form destinations could not be extracted.",
     "excluded": [
       {
         "name": "The Company",
-        "reason": "Year-round performing arts program, not a finite summer camp."
+        "reason": "School-year performing arts program, not a finite summer camp."
       },
       {
         "name": "The Prep Program",
-        "reason": "Year-round performing arts classes and productions, not a finite summer camp."
+        "reason": "School-year performing arts program, not a finite summer camp."
       },
       {
         "name": "Youth Community Theatre",
-        "reason": "School-year productions, not a published summer camp."
+        "reason": "School-year theatre productions rather than a summer camp."
       },
       {
-        "name": "Carpenter Academy of Irish Dance (CAID)",
-        "reason": "Ongoing dance classes, not a published summer-only program."
+        "name": "Carpenter Academy of Irish Dance",
+        "reason": "Year-round dance classes."
+      },
+      {
+        "name": "Night Out at APAA - ENCORE!",
+        "reason": "Single-evening social event rather than a multi-day camp."
+      },
+      {
+        "name": "Winter Break Camp",
+        "reason": "Outside summer."
       },
       {
         "name": "JTF Team",
-        "reason": "January theatre competition program, outside summer."
+        "reason": "January theatre festival participation, outside summer and not a summer camp."
       }
     ],
     "cards": [
@@ -79,7 +87,7 @@
         "name": "Musical Theatre Workshop",
         "type": "day",
         "categories": ["theater", "music", "dance", "arts"],
-        "description": "Campers learn songs, choreography and scenes from musicals and work on sets, props and costumes. Each week ends with a shortened production for families.",
+        "description": "Campers learn musical numbers, dance and scenes from stage musicals and perform a shortened production at the end of each week. They also work on sets, props and costumes.",
         "camp_page_url": "https://theapaa.com/summer",
         "registration_url": "https://theapaa.com/summer",
         "season": {
@@ -106,7 +114,7 @@
         "hours": {
           "start": "09:00",
           "end": "15:00",
-          "text": "Monday-Friday, 9am-3pm. Friday performances begin at 2:30pm for grades 1-3 and 3:30pm for grades 4-9; campers are released at the conclusion of their performance."
+          "text": "Monday-Friday, 9am -3pm. Friday performances: 1st-3rd at 2:30pm; 4th-9th at 3:30pm. All campers are released at the conclusion of their Friday performance."
         },
         "extended_care": {
           "early_dropoff_start": "07:45",
@@ -123,7 +131,7 @@
           {
             "amount": 375,
             "unit": "week",
-            "label": "First student, starting March 1, 2026; additional siblings receive $70 off their first week; save $70 each additional week when paid in full",
+            "label": "First student, starting March 1, 2026",
             "year": 2026
           }
         ],
@@ -161,7 +169,7 @@
             "status": null
           },
           {
-            "label": "Beetlejuice Jr. Workshop AND Mini Workshop",
+            "label": "Beetlejuice Jr. Mini Workshop",
             "start": "2026-06-22",
             "end": "2026-06-26",
             "year": 2026,
@@ -177,7 +185,7 @@
             "status": null
           },
           {
-            "label": "Beetlejuice Jr. Workshop AND Mini Workshop",
+            "label": "Beetlejuice Jr. Workshop",
             "start": "2026-06-22",
             "end": "2026-06-26",
             "year": 2026,
@@ -193,7 +201,7 @@
             "status": null
           },
           {
-            "label": "Beetlejuice Jr. Workshop AND Mini Workshop",
+            "label": "Beetlejuice Jr. Mini Workshop",
             "start": "2026-06-29",
             "end": "2026-07-03",
             "year": 2026,
@@ -209,7 +217,7 @@
             "status": null
           },
           {
-            "label": "Beetlejuice Jr. Workshop AND Mini Workshop",
+            "label": "Beetlejuice Jr. Workshop",
             "start": "2026-06-29",
             "end": "2026-07-03",
             "year": 2026,
@@ -257,7 +265,7 @@
             "status": null
           },
           {
-            "label": "Beetlejuice Jr. Workshop AND Mini Workshop",
+            "label": "Beetlejuice Jr. Mini Workshop",
             "start": "2026-07-13",
             "end": "2026-07-17",
             "year": 2026,
@@ -273,7 +281,7 @@
             "status": null
           },
           {
-            "label": "Beetlejuice Jr. Workshop AND Mini Workshop",
+            "label": "Beetlejuice Jr. Workshop",
             "start": "2026-07-13",
             "end": "2026-07-17",
             "year": 2026,
@@ -289,7 +297,7 @@
             "status": null
           },
           {
-            "label": "Descendants Workshop AND Mini Villains Workshop",
+            "label": "Mini Villains Workshop",
             "start": "2026-07-20",
             "end": "2026-07-24",
             "year": 2026,
@@ -305,7 +313,7 @@
             "status": null
           },
           {
-            "label": "Descendants Workshop AND Mini Villains Workshop",
+            "label": "Descendants Workshop",
             "start": "2026-07-20",
             "end": "2026-07-24",
             "year": 2026,
@@ -321,7 +329,7 @@
             "status": null
           },
           {
-            "label": "Descendants Workshop AND Mini Villains Workshop",
+            "label": "Mini Villains Workshop",
             "start": "2026-07-27",
             "end": "2026-07-31",
             "year": 2026,
@@ -337,7 +345,7 @@
             "status": null
           },
           {
-            "label": "Descendants Workshop AND Mini Villains Workshop",
+            "label": "Descendants Workshop",
             "start": "2026-07-27",
             "end": "2026-07-31",
             "year": 2026,
@@ -353,7 +361,7 @@
             "status": null
           },
           {
-            "label": "Descendants Workshop AND Mini Villains Workshop",
+            "label": "Mini Villains Workshop",
             "start": "2026-08-03",
             "end": "2026-08-07",
             "year": 2026,
@@ -369,7 +377,7 @@
             "status": null
           },
           {
-            "label": "Descendants Workshop AND Mini Villains Workshop",
+            "label": "Descendants Workshop",
             "start": "2026-08-03",
             "end": "2026-08-07",
             "year": 2026,
@@ -433,7 +441,7 @@
           "https://theapaa.com/"
         ],
         "confidence": "medium",
-        "review_notes": "Confirm camp drop-off at the published academy address; the summer page gives it in the footer rather than explicitly identifying a camp venue. The summer page repeatedly states rising grades 4-9 but once says grades 4-10 in the performance paragraph; grades 4-9 were used. General hours end at 3pm, but the older group's Friday performance starts at 3:30pm and release follows the performance. Extended-care fee has no stated billing period. Registration URL is the official camp page containing registration buttons, not a verified direct form."
+        "review_notes": "Both summer pages state rising grades 4-9 throughout, but one performance paragraph says 4th-10th; grades 4-9 were retained. General hours end at 3pm, but older campers' Friday performance starts at 3:30pm and release follows the performance; its ending time is unknown. The provider address is used as the camp site, though the summer text does not explicitly identify a drop-off location. Confirm the direct registration-form links. The page also offers $70 off additional siblings' first week and $70 off each additional camp week, with the multi-camp discount refunded after payment in full; these discounts were not converted into inferred price tiers."
       }
     ]
   }

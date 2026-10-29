@@ -7,19 +7,22 @@
     "discovered_by": ["beyond_school"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T14:57:41.895Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T16:58:09.017Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "d2aacbad859b5989f6dd18e48990d51e03e1bfba93e83af311922d290935ab13",
   "response": {
-    "searches": ["site:ashevillecreativearts.org summer camp 2026 2027"],
+    "searches": [
+      "site:ashevillecreativearts.org summer camp 2026 2027",
+      "open https://ashevillecreativearts.org/shows-events/incubator-series/"
+    ],
     "usage": {
-      "inputTokens": 19444,
-      "cachedInputTokens": 8223,
-      "outputTokens": 416,
-      "reasoningTokens": 68
+      "inputTokens": 20958,
+      "cachedInputTokens": 8845,
+      "outputTokens": 520,
+      "reasoningTokens": 105
     },
     "status": "completed",
-    "ms": 13178,
+    "ms": 18064,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -53,27 +56,31 @@
   "extraction": {
     "provider_name": "Asheville Creative Arts",
     "website_url": "https://ashevillecreativearts.org/",
-    "notes": "No qualifying youth summer camp with 2027 or 2026 details was found on the official pages or in web searches. The news archive contains a Summer Theatre Camp announcement dated January 30, 2018; this historical offering is not evidence of a current camp and was not carried forward. The 2027 Sarah Malinak SUMMER CAMP is an artist residency, not a supervised youth camp. The Creative Farm page mentions forthcoming classes and workshops for artists and young people, but does not identify a finite summer youth program.",
+    "notes": "No eligible youth summer camp with 2026 or 2027 details was found. The current Camps and Classes and Register for Classes pages describe teaching-artist services and school residencies, not finite summer camps. The news archive contains a Summer Theatre Camp announcement for 2018 only; no current continuation was found. The 2027 Incubator Series lists Sarah Malinak Summer Camp in June 2027, but describes it as an artist residency rather than a supervised youth camp. Official pages checked additionally: https://ashevillecreativearts.org/shows-events/incubator-series/ and https://ashevillecreativearts.org/help-for-movers-shakers/asheville-creative-farm/.",
     "excluded": [
       {
         "name": "Arts POW!",
-        "reason": "Bookable in-school and out-of-school arts instruction; no finite summer-only youth camp is stated."
+        "reason": "Bookable in-school and out-of-school teaching-artist services; no finite summer camp offering is stated."
       },
       {
         "name": "TAPAS residency and performance opportunities",
-        "reason": "School residency and performance programming, not a summer camp."
+        "reason": "School residency and performance offerings for Asheville City Schools, not a public summer camp."
       },
       {
-        "name": "Sarah Malinak SUMMER CAMP",
-        "reason": "June 2027 artist residency for developing creative work, not a supervised youth camp."
+        "name": "Sarah Malinak Summer Camp",
+        "reason": "An international artist residency convening artists to develop works and artistic practices, not a supervised youth summer camp."
+      },
+      {
+        "name": "Classes and workshops at Asheville Creative Farm",
+        "reason": "General forthcoming classes and workshops; no finite youth summer program is described."
+      },
+      {
+        "name": "Legacy Neighborhoods Coalition Festival",
+        "reason": "Festival and vendor registration, not a youth camp."
       },
       {
         "name": "Asheville Creative Arts’ (End of) Summer Soiree",
-        "reason": "Community celebration on September 19, 2026, not a supervised youth summer program."
-      },
-      {
-        "name": "The Legacy Neighborhoods Coalition Festival",
-        "reason": "Community festival and marketplace vendor registration, not a supervised youth camp."
+        "reason": "Single community social event, not a supervised youth camp."
       }
     ],
     "cards": []

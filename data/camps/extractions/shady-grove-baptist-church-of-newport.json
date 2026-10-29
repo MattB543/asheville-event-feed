@@ -9,22 +9,22 @@
     "status": "review",
     "status_reason": "first page is a social media page or video, which our fetcher can't read"
   },
-  "extractedAt": "2026-10-29T15:31:23.529Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:26:36.265Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": null,
   "response": {
     "searches": [
       "Shady Grove Baptist Church Newport TN VBS 2026",
-      "site:facebook.com \"Shady Grove\" \"Newport\" \"VBS\" \"2026\""
+      "site:facebook.com/shadygrove37821 VBS 2026"
     ],
     "usage": {
-      "inputTokens": 17470,
-      "cachedInputTokens": 8223,
-      "outputTokens": 794,
-      "reasoningTokens": 238
+      "inputTokens": 16073,
+      "cachedInputTokens": 8845,
+      "outputTokens": 879,
+      "reasoningTokens": 218
     },
     "status": "completed",
-    "ms": 23761,
+    "ms": 23976,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -38,14 +38,27 @@
   "extraction": {
     "provider_name": "Shady Grove Baptist Church of Newport",
     "website_url": null,
-    "notes": "No standalone website for this Newport church or summer 2027 information was found. The supplied Facebook page could not be read. A third-party mirror of the church's June 2026 Facebook posts confirms a VBS offering, but its details need direct verification. Similarly named churches' websites were not used.",
-    "excluded": [],
+    "notes": "No standalone website or 2027 summer information was found. Both known Facebook URLs opened without readable content. A third-party mirror of the church's Facebook posts confirms VBS in June 2026, but exact dates could not be verified directly.",
+    "excluded": [
+      {
+        "name": "VBS 2026 — Shady Grove Baptist Church, Hattiesburg",
+        "reason": "Different church in Mississippi, outside the directory area."
+      },
+      {
+        "name": "VBS 2026 — Shady Grove Baptist Church, Boonville",
+        "reason": "Different church in central North Carolina, outside the directory area."
+      },
+      {
+        "name": "Vacation Bible School — Shady Grove Baptist Church, North Richland Hills",
+        "reason": "Different church in Texas, outside the directory area."
+      }
+    ],
     "cards": [
       {
         "name": "VBS",
         "type": "vbs",
         "categories": ["faith_based"],
-        "description": "Vacation Bible School includes classes for children. The church's mirrored posts also welcome adults and other ages.",
+        "description": "Vacation Bible School with classes for all ages, including children.",
         "camp_page_url": "https://www.facebook.com/104799757852449/",
         "registration_url": null,
         "season": {
@@ -82,10 +95,10 @@
         "transportation": null,
         "sources": [
           "https://www.facebook.com/104799757852449/",
-          "https://www.findglocal.com/US/Newport/104799757852449/Shady-Grove-Baptist-Church"
+          "https://www.facebook.com/shadygrove37821/"
         ],
-        "confidence": "low",
-        "review_notes": "The official Facebook page returned no readable content. The FindGlocal mirror contains June 23–27, 2026 posts about VBS and states evening hours of 6–9, but does not plainly provide the complete date range; dates were therefore left null. Verify the program, hours, drop-off location and address directly with the church. The address is shown on the mirror and corroborated by church directories, not a readable official location page."
+        "confidence": "medium",
+        "review_notes": "Facebook pages returned no readable text. VBS classes and hours come from church posts reproduced at https://www.findglocal.com/US/Newport/104799757852449/Shady-Grove-Baptist-Church. June 23–27, 2026 posts give inconsistent remaining-night counts, so exact season dates are left null. The address appears in that mirror and agrees with multiple local business listings, but could not be checked on a readable church-owned page. Verify the venue, dates and hours directly with the church."
       }
     ]
   }

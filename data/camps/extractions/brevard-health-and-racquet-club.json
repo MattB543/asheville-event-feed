@@ -7,19 +7,19 @@
     "discovered_by": ["grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:32:02.738Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:26:49.446Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "3938166e575de3a5e1f68dfcde1be6e410049b9894019c986ffc43b3475c3c95",
   "response": {
-    "searches": ["site:brevardhealthandracquetclub.com summer tennis 2027 2026"],
+    "searches": ["site:brevardhealthandracquetclub.com summer camp tennis 2026 2027"],
     "usage": {
-      "inputTokens": 15754,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1697,
-      "reasoningTokens": 152
+      "inputTokens": 16417,
+      "cachedInputTokens": 8845,
+      "outputTokens": 473,
+      "reasoningTokens": 79
     },
     "status": "completed",
-    "ms": 38319,
+    "ms": 15766,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -48,156 +48,37 @@
   "extraction": {
     "provider_name": "Brevard Health & Racquet Club",
     "website_url": "https://brevardhealthandracquetclub.com/",
-    "notes": "No 2027 summer information was found. The summer tennis page is undated and gives recurring weekday schedules but no season boundaries. Its prices are retained as undated current-page information under 2026 and require verification. Summer swim lessons still says '2026 Swim Lesson Information Coming Soon' and describes lessons typically offered, rather than confirmed sessions. Tennis offerings are grouped as one summer junior instruction program; without dated sessions, their individual schedules are recorded in hours.text rather than invented session rows.",
+    "notes": "No qualifying finite summer youth camps were found on the official pages or in the supplemental official-site search. No 2027 camp information was found. The previously listed Summer Tennis consists of recurring drop-in instruction without a stated finite camp or clinic session; Summer Swim Lessons is explicitly a lesson offering. Both are excluded under the current camp rule.",
     "excluded": [
       {
-        "name": "BEARACUDA SUMMER SWIM TEAM",
-        "reason": "Competitive team season in the Blue Ridge Swim League, not a camp or finite skill clinic."
-      },
-      {
-        "name": "After School Swim Club",
-        "reason": "Offered in spring and fall, outside summer."
-      },
-      {
-        "name": "Private swim lessons",
-        "reason": "Available year round, not a finite summer program."
-      },
-      {
-        "name": "Guardian/Baby",
-        "reason": "Guardian-child instruction rather than a supervised youth drop-off program."
-      },
-      {
-        "name": "Mixed Night Mondays",
-        "reason": "Recurring social tennis; not described as a supervised youth summer program."
-      },
-      {
-        "name": "Burgers, Backhands, and Beer!",
-        "reason": "Social tennis event with alcohol, not described as a supervised youth program."
-      },
-      {
-        "name": "Boot Camp",
-        "reason": "Ongoing fitness circuit class, not a finite youth summer camp."
-      },
-      {
-        "name": "Supervised Childcare",
-        "reason": "Ongoing membership childcare, not a summer-only program."
-      }
-    ],
-    "cards": [
-      {
         "name": "Summer Tennis",
-        "type": "clinic",
-        "categories": ["sports"],
-        "description": "Junior tennis instruction includes individual and group instruction, drills, and gameplay. Offerings include beginner instruction, junior tennis, junior high and high school tennis, and a high-performance academy with optional conditioning.",
-        "camp_page_url": "https://brevardhealthandracquetclub.com/summer-tennis/",
-        "registration_url": "https://brevardhealthandracquetclub.com/summer-tennis/",
-        "season": {
-          "year": 2026,
-          "status": "not_posted",
-          "start": null,
-          "end": null,
-          "text": null
-        },
-        "ages": null,
-        "grades": null,
-        "sites": [
-          {
-            "name": "Brevard Health & Racquet Club",
-            "address": "1325 N Country Club Rd Drive",
-            "town": "Brevard",
-            "state": "NC"
-          }
-        ],
-        "hours": {
-          "start": null,
-          "end": null,
-          "text": "Tiny Tots: Tuesday and Thursday, 4–6 PM, ages 10 and under. Jr. Tennis: Monday–Thursday, 10–11:30am; all ages welcome. Junior High and High School Tennis: Monday–Thursday, noon–1:30pm. High-Performance Academy: Monday–Thursday, noon–2:30pm instruction, with optional conditioning 2:30–3:15pm."
-        },
-        "extended_care": null,
-        "prices": [
-          {
-            "amount": 20,
-            "unit": "other",
-            "label": "Tiny Tots; billing unit not stated",
-            "year": 2026
-          },
-          {
-            "amount": 25,
-            "unit": "day",
-            "label": "Jr. Tennis",
-            "year": 2026
-          },
-          {
-            "amount": 25,
-            "unit": "day",
-            "label": "Junior High and High School Tennis",
-            "year": 2026
-          },
-          {
-            "amount": 40,
-            "unit": "day",
-            "label": "High-Performance Academy",
-            "year": 2026
-          }
-        ],
-        "sessions": [],
-        "registration": [],
-        "last_year_registration_opened": null,
-        "availability": null,
-        "financial_aid": null,
-        "special_needs": null,
-        "lunch": null,
-        "transportation": null,
-        "sources": [
-          "https://brevardhealthandracquetclub.com/summer-tennis/",
-          "https://brevardhealthandracquetclub.com/contact-us/"
-        ],
-        "confidence": "medium",
-        "review_notes": "The summer tennis page does not identify a season year or dates; 2026 prices are an inferred current-page fallback, not explicitly year-labeled. Verify applicability before publication. Tiny Tots states ages 10 and under, Jr. Tennis states all ages, and the other offerings do not give numerical eligibility limits, so no overall age or grade range is supplied. The page says Jr. Tennis does not require preregistration or advance payment; its signup form helps plan staffing."
+        "reason": "Tiny Tots, Jr. Tennis, Junior High and High School Tennis, and High-Performance Academy are recurring tennis instruction programs. The official page does not identify them as camps or provide finite camp or clinic sessions."
       },
       {
         "name": "Summer Swim Lessons",
-        "type": "clinic",
-        "categories": ["sports"],
-        "description": "Children's swim lessons cover water comfort and safety, fundamental swimming skills, stroke development, and more advanced stroke proficiency.",
-        "camp_page_url": "https://brevardhealthandracquetclub.com/summer-swim-lessons/",
-        "registration_url": null,
-        "season": {
-          "year": 2026,
-          "status": "not_posted",
-          "start": null,
-          "end": null,
-          "text": "2026 Swim Lesson Information Coming Soon"
-        },
-        "ages": null,
-        "grades": null,
-        "sites": [
-          {
-            "name": "Brevard Health & Racquet Club",
-            "address": "1325 N Country Club Rd Drive",
-            "town": "Brevard",
-            "state": "NC"
-          }
-        ],
-        "hours": null,
-        "extended_care": null,
-        "prices": [],
-        "sessions": [],
-        "registration": [],
-        "last_year_registration_opened": null,
-        "availability": null,
-        "financial_aid": null,
-        "special_needs": null,
-        "lunch": null,
-        "transportation": null,
-        "sources": [
-          "https://brevardhealthandracquetclub.com/summer-swim-lessons/",
-          "https://brevardhealthandracquetclub.com/aquatics/",
-          "https://brevardhealthandracquetclub.com/contact-us/"
-        ],
-        "confidence": "medium",
-        "review_notes": "The page describes lessons 'typically' offered and still awaits 2026 details; verify that finite group lessons will run. Level I states children 4+, but Levels II–VI give no ages, so no overall age range is inferred. No dates, prices, hours, or registration opening are posted. The coming-soon statement refers to 2026, not 2027."
+        "reason": "Swim lessons booked as lessons, including year-round private lessons; excluded under the lesson-series rule."
+      },
+      {
+        "name": "After School Swim Club",
+        "reason": "Spring and fall after-school swimming instruction, outside summer."
+      },
+      {
+        "name": "BEARACUDA SUMMER SWIM TEAM",
+        "reason": "Competitive swim team participating in the Blue Ridge Swim League; a sports team season rather than a camp."
+      },
+      {
+        "name": "Mixed Night Mondays",
+        "reason": "Recurring social tennis evenings rather than a finite supervised youth camp."
+      },
+      {
+        "name": "Burgers, Backhands, and Beer!",
+        "reason": "Social tennis events rather than a supervised youth camp."
+      },
+      {
+        "name": "Boot Camp",
+        "reason": "Women's recurring fitness circuit classes, not a summer youth camp."
       }
-    ]
+    ],
+    "cards": []
   }
 }

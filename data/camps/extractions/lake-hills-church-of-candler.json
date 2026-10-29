@@ -11,23 +11,23 @@
     "discovered_by": ["grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:14:10.752Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:11:39.218Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "f21f23868c37f6e7959fbf2299e7ab94f0ef3d59345f9034424f7050b5876f28",
   "response": {
     "searches": [
-      "site:lakehillslife.com \"2026\" \"VBS\"",
-      "site:lakehillslife.com soccer 2026",
+      "site:lakehillslife.com 2026 camp",
+      "Look Up Lodge official address",
       "site:lakehillslife.com/event/vacation-bible-school-2026 \"ages\""
     ],
     "usage": {
-      "inputTokens": 31578,
-      "cachedInputTokens": 8223,
-      "outputTokens": 2555,
-      "reasoningTokens": 379
+      "inputTokens": 28854,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1760,
+      "reasoningTokens": 295
     },
     "status": "completed",
-    "ms": 79786,
+    "ms": 44923,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -66,31 +66,35 @@
   "extraction": {
     "provider_name": "Lake Hills Church of Candler",
     "website_url": "https://lakehillslife.com/",
-    "notes": "No 2027 summer information was found. The official site has 2026 Vacation Bible School, Kids Camp and student Journey Camp pages. Soccer Camp was found only for 2025; its dates are retained as 2025, not projected forward. The supplied Church Center signup is unavailable. Older CentriKid offerings are not included because the 2026 Kids Camp page explicitly says the church changed camps.",
+    "notes": "No 2027 camp information found. The 2026 VBS page omits ages and daily hours; 2025 eligibility and hours were not carried forward. Soccer Camp was found only for 2025, so its historical dates and price are omitted rather than relabeled as 2026. The supplied Church Center signup is unavailable.",
     "excluded": [
       {
-        "name": "Lake Hills Kids",
-        "reason": "Year-round Sunday and Wednesday children's ministry, not a finite summer camp."
+        "name": "Lake Hills Students Journey Camp",
+        "reason": "The 2026 camp meets at Toccoa Falls, GA, plainly beyond about 75 minutes' drive from Asheville."
+      },
+      {
+        "name": "5th & 6th Grade Tourists Night",
+        "reason": "Single-evening baseball outing, not a camp."
+      },
+      {
+        "name": "Dominican Republic Mission Trip",
+        "reason": "Mission trip, not a camp."
       },
       {
         "name": "Adoration Kids Choir",
-        "reason": "Fall program running September through December."
+        "reason": "School-year choir practices outside summer."
       },
       {
-        "name": "Back to School Luau",
-        "reason": "Parents are required to stay; this is a family event rather than supervised drop-off programming."
-      },
-      {
-        "name": "Kid Min Family Trivia Night",
-        "reason": "Family-only event outside summer."
+        "name": "Lake Hills Kids",
+        "reason": "Year-round Sunday and Wednesday children's ministry, not a finite summer camp."
       }
     ],
     "cards": [
       {
         "name": "Vacation Bible School",
         "type": "vbs",
-        "categories": ["faith_based", "general"],
-        "description": "Children participate in worship, recreation, Bible time and crafts. The 2026 Illumination Station theme explores light and teachings about Jesus.",
+        "categories": ["faith_based"],
+        "description": "Children participate in worship, recreation, snacks, Bible time, and crafts. The 2026 theme is Illumination Station, focusing on who Jesus is.",
         "camp_page_url": "https://lakehillslife.com/event/vacation-bible-school-2026/",
         "registration_url": null,
         "season": {
@@ -102,7 +106,14 @@
         },
         "ages": null,
         "grades": null,
-        "sites": [],
+        "sites": [
+          {
+            "name": "Lake Hills Church",
+            "address": "370 Lake Drive",
+            "town": "Candler",
+            "state": "NC"
+          }
+        ],
         "hours": null,
         "extended_care": null,
         "prices": [],
@@ -114,17 +125,20 @@
         "special_needs": null,
         "lunch": null,
         "transportation": null,
-        "sources": ["https://lakehillslife.com/event/vacation-bible-school-2026/"],
-        "confidence": "high",
-        "review_notes": null
+        "sources": [
+          "https://lakehillslife.com/event/vacation-bible-school-2026/",
+          "https://lakehillslife.com/plan-your-visit/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The 2026 event page was readable only in partial page text and search results. It does not specify ages or hours. Church location comes from the official visit page; confirm the VBS drop-off venue when 2027 details appear."
       },
       {
         "name": "Kids Camp",
         "type": "overnight",
         "categories": ["faith_based", "nature_outdoor"],
-        "description": "Children attend an outdoor camp at Look Up Lodge with worship, teaching and personal discipleship.",
+        "description": "Children attend an outdoor camp at Look Up Lodge with worship, teaching, and personal discipleship.",
         "camp_page_url": "https://lakehillslife.com/event/kids-camp-2026/",
-        "registration_url": "https://lakehillslife.churchcenter.com/registrations/events/3397446",
+        "registration_url": null,
         "season": {
           "year": 2026,
           "status": "not_posted",
@@ -138,57 +152,21 @@
           "max": 6,
           "basis": "completed"
         },
-        "sites": [],
+        "sites": [
+          {
+            "name": "Look Up Lodge",
+            "address": "100 Look Up Lodge Rd",
+            "town": "Travelers Rest",
+            "state": "SC"
+          }
+        ],
         "hours": null,
         "extended_care": null,
         "prices": [
           {
             "amount": 267,
             "unit": "program",
-            "label": "Per child; $100 deposit due at registration",
-            "year": 2026
-          }
-        ],
-        "sessions": [],
-        "registration": [],
-        "last_year_registration_opened": null,
-        "availability": null,
-        "financial_aid": null,
-        "special_needs": null,
-        "lunch": null,
-        "transportation": null,
-        "sources": ["https://lakehillslife.com/event/kids-camp-2026/"],
-        "confidence": "medium",
-        "review_notes": "The camp destination is Look Up Lodge in Travelers Rest, SC, but the church page does not specify where parents drop children off. Confirm the departure or drop-off site before mapping this offering."
-      },
-      {
-        "name": "Lake Hills Students Journey Camp",
-        "type": "overnight",
-        "categories": ["faith_based", "general"],
-        "description": "Students attend Journey Camp at Toccoa Falls for recreation, fellowship and activities focused on spiritual growth.",
-        "camp_page_url": "https://lakehillslife.com/event/lake-hills-students-journey-camp-toccoa-falls/",
-        "registration_url": null,
-        "season": {
-          "year": 2026,
-          "status": "not_posted",
-          "start": "2026-06-22",
-          "end": "2026-06-26",
-          "text": null
-        },
-        "ages": null,
-        "grades": {
-          "min": 7,
-          "max": 12,
-          "basis": "completed"
-        },
-        "sites": [],
-        "hours": null,
-        "extended_care": null,
-        "prices": [
-          {
-            "amount": 375,
-            "unit": "program",
-            "label": "Per student; $100 deposit due at registration",
+            "label": "per child",
             "year": 2026
           }
         ],
@@ -201,86 +179,27 @@
         "lunch": null,
         "transportation": null,
         "sources": [
-          "https://lakehillslife.com/event/lake-hills-students-journey-camp-toccoa-falls/"
+          "https://lakehillslife.com/event/kids-camp-2026/",
+          "https://www.lookuplodge.com/contact-us"
         ],
         "confidence": "medium",
-        "review_notes": "Details were readable in official search results, but the opened page returned no text. Toccoa Falls, GA is the destination; the parent drop-off or departure location is not stated."
-      },
-      {
-        "name": "5th & 6th Grade Tourists Night",
-        "type": "evening",
-        "categories": ["general"],
-        "description": "Preteens meet at the church for a supervised outing to a Tourists baseball game and return to the church for pickup.",
-        "camp_page_url": "https://lakehillslife.com/event/5th-6th-grade-tourists-night/",
-        "registration_url": null,
-        "season": {
-          "year": 2026,
-          "status": "not_posted",
-          "start": "2026-07-29",
-          "end": "2026-07-29",
-          "text": null
-        },
-        "ages": null,
-        "grades": {
-          "min": 5,
-          "max": 6,
-          "basis": "completed"
-        },
-        "sites": [
-          {
-            "name": "Lake Hills Church",
-            "address": "370 Lake Drive",
-            "town": "Candler",
-            "state": "NC"
-          }
-        ],
-        "hours": {
-          "start": "17:00",
-          "end": "21:00",
-          "text": "We will meet at the church at 5:00 p.m. and return by 9:00 p.m. for pick up."
-        },
-        "extended_care": null,
-        "prices": [
-          {
-            "amount": 0,
-            "unit": "program",
-            "label": "FREE; bring money for food at the ballpark if desired",
-            "year": 2026
-          }
-        ],
-        "sessions": [],
-        "registration": [],
-        "last_year_registration_opened": null,
-        "availability": null,
-        "financial_aid": null,
-        "special_needs": null,
-        "lunch": null,
-        "transportation": null,
-        "sources": [
-          "https://lakehillslife.com/event/5th-6th-grade-tourists-night/",
-          "https://lakehillslife.com/plan-your-visit/"
-        ],
-        "confidence": "medium",
-        "review_notes": "Official search results state Wednesday, July 29 without a year. Assigned 2026 from its placement alongside the 2026 Kids Camp event and the matching weekday; confirm the event year. The opened event page returned no text."
+        "review_notes": "The 2026 church page names a multiday residential camp but does not explicitly say overnight. Look Up Lodge is the published camp location; the church does not specify whether families drop off there or travel together from the church. Keep this site for the directory's drive-time check."
       },
       {
         "name": "Soccer Camp",
         "type": "half_day",
         "categories": ["sports", "faith_based"],
-        "description": "Children learn soccer skills, play games and participate in a devotion. The church hosts the camp with Child Evangelism Fellowship and Fellowship of Christian Athletes.",
+        "description": "Children learn soccer skills, play games, and participate in a devotion and snack.",
         "camp_page_url": "https://lakehillslife.com/event/soccer-camp/",
         "registration_url": null,
         "season": {
-          "year": 2025,
+          "year": 2027,
           "status": "not_posted",
-          "start": "2025-06-30",
-          "end": "2025-07-03",
+          "start": null,
+          "end": null,
           "text": null
         },
-        "ages": {
-          "min": 7,
-          "max": 12
-        },
+        "ages": null,
         "grades": null,
         "sites": [
           {
@@ -290,11 +209,7 @@
             "state": "NC"
           }
         ],
-        "hours": {
-          "start": "09:00",
-          "end": "11:00",
-          "text": "9:00–11:00 a.m. each day. Check-in starts at 8:45 a.m."
-        },
+        "hours": null,
         "extended_care": null,
         "prices": [],
         "sessions": [],
@@ -306,8 +221,8 @@
         "lunch": null,
         "transportation": null,
         "sources": ["https://lakehillslife.com/event/soccer-camp/"],
-        "confidence": "medium",
-        "review_notes": "Only 2025 information was found. The 2025 page says the camp is completely FREE; no 2026 or 2027 price or schedule was found. Confirm whether this program still operates."
+        "confidence": "low",
+        "review_notes": "Only a 2025 offering was found. That page specifies ages 7–12, June 30–July 3, 9–11 a.m., and free admission; none of those season-specific facts were carried into 2026 or 2027. Confirm whether Soccer Camp returns."
       }
     ]
   }

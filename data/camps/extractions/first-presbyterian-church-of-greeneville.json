@@ -7,22 +7,23 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:31:09.254Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:26:28.673Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "ae32fa3128f911663c709c3102ebc4e6db1f50f6dbabe6b117b086bbd010c3d2",
   "response": {
     "searches": [
-      "site:firstpresgreeneville.org VBS 2026 2027",
-      "site:firstpresgreeneville.org \"VBS\" \"2026\""
+      "site:firstpresgreeneville.org \"2026\" \"VBS\"",
+      "\"Greeneville\" \"First Presbyterian\" \"VBS\" \"2026\"",
+      "open https://www.firstpresgreeneville.org/students"
     ],
     "usage": {
-      "inputTokens": 17577,
-      "cachedInputTokens": 8223,
-      "outputTokens": 769,
-      "reasoningTokens": 160
+      "inputTokens": 26636,
+      "cachedInputTokens": 8845,
+      "outputTokens": 719,
+      "reasoningTokens": 240
     },
     "status": "completed",
-    "ms": 25875,
+    "ms": 30591,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -41,19 +42,11 @@
   "extraction": {
     "provider_name": "First Presbyterian Church of Greeneville",
     "website_url": "https://www.firstpresgreeneville.org/",
-    "notes": "No 2027 or 2026 VBS details were found. The VBS registration page's embedded form failed to load in the supplied crawl. Search found an official VBS page advertising Wilderness Escape 2021 at Rural Resources; those historical dates, grades, hours and location were not carried forward. The newsletter page advertises a current newsletter, but no readable newsletter or PDF was accessible.",
+    "notes": "No 2027 or 2026 VBS details were found in readable official sources. The supplied VBS registration page's embedded form failed to load. Additional official pages opened during research returned no readable content; searches did not locate a relevant summer brochure or PDF.",
     "excluded": [
       {
-        "name": "WFC - Wednesday at First Church",
-        "reason": "Recurring school-year after-school ministry, not a finite summer program."
-      },
-      {
-        "name": "Children's Choir",
-        "reason": "Ongoing children's ministry rather than a stated summer camp."
-      },
-      {
-        "name": "Bell Choir",
-        "reason": "Ongoing children's ministry rather than a stated summer camp."
+        "name": "Exploring the Arts",
+        "reason": "The official 2026 schedule runs January through March, outside summer."
       }
     ],
     "cards": [
@@ -61,7 +54,7 @@
         "name": "Vacation Bible School",
         "type": "vbs",
         "categories": ["faith_based"],
-        "description": "The church offers Vacation Bible School for children. Current activities and summer program details are not published on the readable registration page.",
+        "description": "Vacation Bible School for children.",
         "camp_page_url": "https://www.firstpresgreeneville.org/vbs-registration",
         "registration_url": "https://www.firstpresgreeneville.org/vbs-registration",
         "season": {
@@ -87,11 +80,10 @@
         "transportation": null,
         "sources": [
           "https://www.firstpresgreeneville.org/vbs-registration",
-          "https://www.firstpresgreeneville.org/vbs",
-          "https://www.firstpresgreeneville.org/about/the-bell-newsletter"
+          "https://www.firstpresgreeneville.org/"
         ],
         "confidence": "low",
-        "review_notes": "Confirm whether VBS will run in summer 2027 and obtain dates, eligibility, activities and drop-off location directly from the church. The registration form is unreadable, and the separate VBS page contains only a 2021 offering at Rural Resources. The church publishes 110 North Main Street, Greeneville, TN, but this is not confirmed as the current VBS drop-off venue."
+        "review_notes": "The official VBS registration page establishes the offering but its form failed to load, leaving dates, eligibility and other program details unclear. Confirm the summer offering and drop-off venue with the church. Its published address is 110 North Main Street, Greeneville, TN 37743, but the readable VBS page does not explicitly identify the camp venue."
       }
     ]
   }

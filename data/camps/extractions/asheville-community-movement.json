@@ -10,22 +10,22 @@
     "discovered_by": ["seed_sheet", "macaroni_kid", "news828", "grid", "aggregator", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T14:52:52.016Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T16:53:40.513Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "b441825d314283fbc298c6e8f7b06edc9bfb779c386757bc5660ecd86121a51c",
   "response": {
     "searches": [
-      "site:ashevillecommunitymovement.com \"2027\" camp",
-      "site:ashevillecommunitymovement.com/summer-camp \"Hiking\" \"June\""
+      "site:ashevillecommunitymovement.com summer camp 2027",
+      "site:ashevillecommunitymovement.com \"camp\" \"$\" \"2026\""
     ],
     "usage": {
-      "inputTokens": 23526,
-      "cachedInputTokens": 8223,
-      "outputTokens": 2419,
-      "reasoningTokens": 180
+      "inputTokens": 24691,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2396,
+      "reasoningTokens": 155
     },
     "status": "completed",
-    "ms": 53150,
+    "ms": 48134,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -49,19 +49,23 @@
   "extraction": {
     "provider_name": "Asheville Community Movement",
     "website_url": "https://www.ashevillecommunitymovement.com/",
-    "notes": "No summer 2027 information found. The summer page still identifies its offerings as summer 2026. Direct web access was blocked by robots.txt; supplied official page text and official search results were used. Weekly tuition and Adventure Camp dates were not present in the readable materials.",
+    "notes": "No summer 2027 information found. Direct access to the provider website was blocked by robots.txt; extraction uses the supplied official page text and official search results. Tuition tables and specific Adventure Camp dates were not found in readable text.",
     "excluded": [
       {
-        "name": "Day Camps",
-        "reason": "School-break, holiday and teacher-workday camps; no summer sessions identified."
+        "name": "School Break Camps",
+        "reason": "Teacher workday, holiday, and school-year break camps; no summer sessions identified."
       },
       {
         "name": "Movers and Shakers After School Program",
-        "reason": "School-year afterschool childcare, not a finite summer program."
+        "reason": "School-year after-school childcare."
       },
       {
-        "name": "Gymnastics",
-        "reason": "Ongoing classes rather than finite summer camps. A gymnastics intensive is mentioned in the summer FAQ, but no identifiable summer intensive offering or schedule was found."
+        "name": "Gymnastics classes",
+        "reason": "Recurring classes rather than finite summer camps."
+      },
+      {
+        "name": "Parents' Night Out",
+        "reason": "Single-evening social or childcare events rather than multi-day summer programs."
       }
     ],
     "cards": [
@@ -69,7 +73,7 @@
         "name": "Movers and Shakers Summer Camp",
         "type": "day",
         "categories": ["general", "sports", "arts", "nature_outdoor"],
-        "description": "Campers participate in movement activities, group games, arts and crafts, outdoor water play, team building and conflict mediation. Weekly themes add activities such as cooking, music, building and nature-based art.",
+        "description": "Campers participate in themed crafts, group games, gymnastics and other movement activities, outdoor water play, team building, and conflict mediation.",
         "camp_page_url": "https://www.ashevillecommunitymovement.com/summer-camp",
         "registration_url": "https://portal.iclasspro.com/ashevillecm",
         "season": {
@@ -95,14 +99,21 @@
         "hours": {
           "start": "08:00",
           "end": "18:00",
-          "text": "Full Day: 8:00am–6:00pm, with pickup anytime between 3:00 and 6:00. Short Day: 9:00am–3:00pm, with pickup ending at 3:15."
+          "text": "Full Day: 8:00-6:00; Short Day: 9:00-3:00, with pick-up ending at 3:15."
         },
         "extended_care": {
           "early_dropoff_start": "07:45",
           "late_pickup_end": null,
-          "cost_text": "Full Day early drop-off 7:45–8:00: $25/week. Short Day early drop-off 8:00–9:00: $50/week."
+          "cost_text": "Full Day: 7:45-8:00 drop off for $25 for the week. Short Day: 8:00-9:00 drop off for $50 for the week."
         },
-        "prices": [],
+        "prices": [
+          {
+            "amount": 25,
+            "unit": "other",
+            "label": "Non-refundable annual registration fee",
+            "year": 2026
+          }
+        ],
         "sessions": [
           {
             "label": "Week 1 | Wild Week: Children Ye Art Loosed",
@@ -254,20 +265,23 @@
           "value": "no",
           "text": "We do not provide lunch, parents are asked to send their child to camp with a lunch."
         },
-        "transportation": null,
+        "transportation": {
+          "value": "yes",
+          "text": "Our weekly swim field trip is optional. We transport the children in newer model vans and all children are restrained in shoulder belts."
+        },
         "sources": [
           "https://www.ashevillecommunitymovement.com/summer-camp",
-          "https://www.ashevillecommunitymovement.com/contact",
+          "https://www.ashevillecommunitymovement.com/",
           "https://portal.iclasspro.com/ashevillecm"
         ],
         "confidence": "medium",
-        "review_notes": "Dates and registration opening year come from the SUMMER CAMP 2026 heading. The page describes separate groups ages 5–7 and 8+, but does not provide separate dated schedules for those bands. The oldest campers are generally 12–13, not a stated maximum eligibility age. Check missing weekly tuition. A $25 annual registration fee and $100/week deposit applied to tuition are stated. Transportation is described for optional swim field trips only, not home-to-camp service."
+        "review_notes": "Weekly dates take their year from the SUMMER CAMP 2026 heading. The page divides campers into ages 5-7 and 8+ but does not provide separately dated schedules for those groups; rows retain the published weekly schedule. Ages 12-13 are described as typical oldest campers, not a firm maximum. Tuition is missing from readable text. Transportation refers only to the optional swim field trip, not home-to-camp service."
       },
       {
         "name": "Movers and Shakers Adventure Camp",
         "type": "day",
         "categories": ["nature_outdoor", "arts", "sports", "general"],
-        "description": "Campers participate in themed activities involving hiking and orienteering, Appalachian art, plants and animals, water, games and movement. The program includes weekly field trips, which may require additional fees.",
+        "description": "Campers participate in themed outdoor, art, water, game, and movement activities with weekly field trips.",
         "camp_page_url": "https://www.ashevillecommunitymovement.com/summer-camp",
         "registration_url": "https://portal.iclasspro.com/ashevillecm",
         "season": {
@@ -308,11 +322,11 @@
         "transportation": null,
         "sources": [
           "https://www.ashevillecommunitymovement.com/summer-camp",
-          "https://www.ashevillecommunitymovement.com/contact",
+          "https://www.ashevillecommunitymovement.com/",
           "https://portal.iclasspro.com/ashevillecm"
         ],
         "confidence": "medium",
-        "review_notes": "The official page announces six themed weeks in 2026: Hiking and Orienteering, Art in Appalachia, Flora & Fauna, Water, Game and Move it. It refers readers to weekly themes for dates, but the readable weekly list only supplies the regular camp's eleven themes; Adventure dates could not be established. Check Adventure-specific hours, tuition and whether general camp FAQ provisions apply. Registration opening year is taken from the SUMMER CAMP 2026 heading."
+        "review_notes": "The page states six themed weeks spread over the eleven-week summer but readable text does not associate dates with Adventure Camp themes: Hiking and Orienteering, Art in Appalachia, Flora & Fauna, Water, Game, and Move it. Do not assign the regular camp's weekly dates to these themes. Check the registration portal or image-based tables for Adventure Camp dates, tuition, hours, and support policies. The registration opening is the page's general camp announcement."
       }
     ]
   }

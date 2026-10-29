@@ -7,19 +7,19 @@
     "discovered_by": ["seed_sheet"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T14:56:40.552Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T16:56:43.701Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "1a73ec0fc8526d50f85cdd3c52c90b12c93c2d243b2d0530793737eb0e24c224",
   "response": {
-    "searches": ["\"Westview Baptist\" \"Asheville\""],
+    "searches": ["\"Westview Baptist Church\" \"Asheville\""],
     "usage": {
-      "inputTokens": 14854,
-      "cachedInputTokens": 8223,
-      "outputTokens": 2681,
-      "reasoningTokens": 82
+      "inputTokens": 15394,
+      "cachedInputTokens": 8845,
+      "outputTokens": 489,
+      "reasoningTokens": 49
     },
     "status": "completed",
-    "ms": 52522,
+    "ms": 14332,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -72,321 +72,38 @@
   ],
   "extraction": {
     "provider_name": "Westview Baptist Church of Asheville",
-    "website_url": "https://westviewbaptist.org/",
-    "notes": "Provider identity mismatch: the supplied official website belongs to Westview Baptist Church in Sanford, Florida, at 4100 H.E. Thomas Jr. Pkwy, not Asheville. The cards below describe that Florida church's offerings and should not be published as Asheville-based camps without correcting the provider record. Its FUGE trip travels to Ridgecrest in North Carolina. No summer 2027 information was found. The dedicated VBS page has different, apparently older dates and a different theme than the explicitly labeled VBS 2026 listing; the 2026 summer listing was used.",
+    "website_url": null,
+    "notes": "Provider identity mismatch: the supplied website and Church Center account belong to Westview Baptist Church in Sanford, Florida, at 4100 H.E. Thomas Jr. Pkwy, not an Asheville church. The official homepage and About page confirm Sanford. Searches did not establish an Asheville provider by this exact name. Do not retain the existing programs under this provider. Although its FUGE trip visits nearby Ridgecrest, it is offered by the Florida church. No 2027 summer information was found in the supplied materials or search results.",
     "excluded": [
       {
-        "name": "Centershot Archery Club",
-        "reason": "All-ages club requiring a parent or guardian to accompany children under 16; not an independently supervised youth camp."
-      },
-      {
-        "name": "Magic Show",
-        "reason": "Family-only entertainment event, not a supervised youth camp."
-      },
-      {
-        "name": "VBS Family Night",
-        "reason": "Family event rather than a supervised youth camp session."
-      },
-      {
-        "name": "Upward Basketball & Cheer",
-        "reason": "Sports league season running January through March, not a summer camp."
-      },
-      {
-        "name": "Rock the Universe",
-        "reason": "January 23–24, 2027 event outside summer."
-      }
-    ],
-    "cards": [
-      {
         "name": "VBS",
-        "type": "vbs",
-        "categories": ["faith_based", "general"],
-        "description": "Children participate in games, science experiments, and activities about God using the Rainforest Falls theme. Snacks are provided.",
-        "camp_page_url": "https://westviewbaptist.org/summer/",
-        "registration_url": null,
-        "season": {
-          "year": 2026,
-          "status": "not_posted",
-          "start": "2026-06-08",
-          "end": "2026-06-11",
-          "text": null
-        },
-        "ages": {
-          "min": 4,
-          "max": null
-        },
-        "grades": {
-          "min": -1,
-          "max": 5,
-          "basis": "completed"
-        },
-        "sites": [
-          {
-            "name": "Westview Baptist Church",
-            "address": "4100 H.E. Thomas Jr. Pkwy",
-            "town": "Sanford",
-            "state": "FL"
-          }
-        ],
-        "hours": {
-          "start": "18:00",
-          "end": "20:30",
-          "text": null
-        },
-        "extended_care": null,
-        "prices": [
-          {
-            "amount": 0,
-            "unit": "program",
-            "label": "Free",
-            "year": 2026
-          }
-        ],
-        "sessions": [],
-        "registration": [],
-        "last_year_registration_opened": null,
-        "availability": null,
-        "financial_aid": null,
-        "special_needs": null,
-        "lunch": null,
-        "transportation": null,
-        "sources": [
-          "https://westviewbaptist.org/summer/",
-          "https://westviewbaptist.org/",
-          "https://westviewbaptist.org/vbs/"
-        ],
-        "confidence": "medium",
-        "review_notes": "Correct the provider's Asheville identity: this church is in Sanford, Florida. The summer page explicitly labels VBS 2026 and lists June 8–11, Rainforest Falls; the dedicated VBS page instead lists June 9–13 and an Alaskan theme without a year."
+        "reason": "Offered by the unrelated Westview Baptist Church in Sanford, Florida, outside the directory area."
       },
       {
         "name": "Summer Camps",
-        "type": "half_day",
-        "categories": ["general"],
-        "description": "Children play Olympic-style games, explore cultures through crafts and music, and complete Survivor-style physical challenges and brain puzzles across three themed weeks.",
-        "camp_page_url": "https://westviewbaptist.org/summer/",
-        "registration_url": null,
-        "season": {
-          "year": 2026,
-          "status": "not_posted",
-          "start": "2026-06-22",
-          "end": "2026-07-09",
-          "text": null
-        },
-        "ages": null,
-        "grades": {
-          "min": 0,
-          "max": 5,
-          "basis": "unspecified"
-        },
-        "sites": [
-          {
-            "name": "Westview Baptist Church",
-            "address": "4100 H.E. Thomas Jr. Pkwy",
-            "town": "Sanford",
-            "state": "FL"
-          }
-        ],
-        "hours": {
-          "start": "09:00",
-          "end": "12:30",
-          "text": null
-        },
-        "extended_care": null,
-        "prices": [
-          {
-            "amount": 50,
-            "unit": "session",
-            "label": "Per camper",
-            "year": 2026
-          }
-        ],
-        "sessions": [
-          {
-            "label": "Olympics Theme",
-            "start": "2026-06-22",
-            "end": "2026-06-25",
-            "year": 2026,
-            "site": null,
-            "ages": null,
-            "grades": null,
-            "hours": null,
-            "price": null,
-            "status": null
-          },
-          {
-            "label": "Around the World",
-            "start": "2026-06-29",
-            "end": "2026-07-02",
-            "year": 2026,
-            "site": null,
-            "ages": null,
-            "grades": null,
-            "hours": null,
-            "price": null,
-            "status": null
-          },
-          {
-            "label": "Survivor Theme",
-            "start": "2026-07-06",
-            "end": "2026-07-09",
-            "year": 2026,
-            "site": null,
-            "ages": null,
-            "grades": null,
-            "hours": null,
-            "price": null,
-            "status": null
-          }
-        ],
-        "registration": [],
-        "last_year_registration_opened": null,
-        "availability": null,
-        "financial_aid": null,
-        "special_needs": null,
-        "lunch": null,
-        "transportation": null,
-        "sources": ["https://westviewbaptist.org/summer/", "https://westviewbaptist.org/"],
-        "confidence": "medium",
-        "review_notes": "Correct the provider's Asheville identity: this church is in Sanford, Florida. Dates do not carry individual years; 2026 is taken from the VBS 2026 heading on the same summer schedule. The church address is published, but the individual camp entries do not explicitly identify their meeting location."
+        "reason": "The Olympics, Around the World and Survivor weeks are offered by the unrelated Westview Baptist Church in Sanford, Florida, outside the directory area."
       },
       {
         "name": "FUGE Camp at Ridgecrest",
-        "type": "overnight",
-        "categories": ["faith_based"],
-        "description": "Middle and high school students travel with the church to FUGE Camp at Ridgecrest Conference Center. The trip price includes camp fees, food, and charter bus travel.",
-        "camp_page_url": "https://westviewbaptist.org/summer/",
-        "registration_url": null,
-        "season": {
-          "year": 2026,
-          "status": "not_posted",
-          "start": "2026-07-07",
-          "end": "2026-07-12",
-          "text": null
-        },
-        "ages": null,
-        "grades": {
-          "min": 6,
-          "max": 12,
-          "basis": "completed"
-        },
-        "sites": [],
-        "hours": null,
-        "extended_care": null,
-        "prices": [
-          {
-            "amount": 505,
-            "unit": "program",
-            "label": "Per camper; includes camp fees, food, and charter bus",
-            "year": 2026
-          }
-        ],
-        "sessions": [],
-        "registration": [],
-        "last_year_registration_opened": null,
-        "availability": null,
-        "financial_aid": null,
-        "special_needs": null,
-        "lunch": {
-          "value": "yes",
-          "text": "The cost of the trip includes camp fees, food, and our charter bus."
-        },
-        "transportation": {
-          "value": "yes",
-          "text": "The cost of the trip includes camp fees, food, and our charter bus."
-        },
-        "sources": ["https://westviewbaptist.org/summer/"],
-        "confidence": "medium",
-        "review_notes": "This is a trip organized by the Sanford, Florida church, not an Asheville church. The parent drop-off/departure site is not stated, so sites is empty; Ridgecrest is the trip destination. Dates are assigned 2026 from the summer page's VBS 2026 heading, not a year printed beside this trip. The listing states just-completed sixth grade as the minimum and labels the program sixth–twelfth grade."
+        "reason": "A camp trip offered by the unrelated Sanford, Florida church, not the requested Asheville provider, despite its Ridgecrest destination."
       },
       {
         "name": "CHAMPS Basketball Camp",
-        "type": "half_day",
-        "categories": ["sports"],
-        "description": "Campers learn basketball basics and improve their skills while practicing sportsmanship and teamwork.",
-        "camp_page_url": "https://westviewbaptist.org/summer/",
-        "registration_url": null,
-        "season": {
-          "year": 2026,
-          "status": "not_posted",
-          "start": "2026-07-13",
-          "end": "2026-07-17",
-          "text": null
-        },
-        "ages": null,
-        "grades": {
-          "min": 0,
-          "max": 8,
-          "basis": "completed"
-        },
-        "sites": [
-          {
-            "name": "Westview Baptist Church",
-            "address": "4100 H.E. Thomas Jr. Pkwy",
-            "town": "Sanford",
-            "state": "FL"
-          }
-        ],
-        "hours": null,
-        "extended_care": null,
-        "prices": [
-          {
-            "amount": 75,
-            "unit": "session",
-            "label": "Per participant",
-            "year": 2026
-          }
-        ],
-        "sessions": [
-          {
-            "label": "Just completed K - 3rd grade",
-            "start": "2026-07-13",
-            "end": "2026-07-17",
-            "year": 2026,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 0,
-              "max": 3,
-              "basis": "completed"
-            },
-            "hours": {
-              "start": "08:30",
-              "end": "11:30"
-            },
-            "price": null,
-            "status": null
-          },
-          {
-            "label": "Just completed 4th - 8th grade",
-            "start": "2026-07-13",
-            "end": "2026-07-17",
-            "year": 2026,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 4,
-              "max": 8,
-              "basis": "completed"
-            },
-            "hours": {
-              "start": "13:00",
-              "end": "16:30"
-            },
-            "price": null,
-            "status": null
-          }
-        ],
-        "registration": [],
-        "last_year_registration_opened": null,
-        "availability": null,
-        "financial_aid": null,
-        "special_needs": null,
-        "lunch": null,
-        "transportation": null,
-        "sources": ["https://westviewbaptist.org/summer/", "https://westviewbaptist.org/"],
-        "confidence": "medium",
-        "review_notes": "Correct the provider's Asheville identity: this church is in Sanford, Florida. Dates are assigned 2026 from the VBS 2026 heading on the summer schedule; the basketball entry does not print its own year. The church address is published, but the camp entry does not explicitly identify its meeting location."
+        "reason": "Offered by the unrelated Westview Baptist Church in Sanford, Florida, outside the directory area."
+      },
+      {
+        "name": "Centershot Archery Club",
+        "reason": "A weekly archery club requiring parents to accompany children under 16, rather than a supervised youth camp; also offered by the unrelated Florida church."
+      },
+      {
+        "name": "Magic Show",
+        "reason": "A single-evening family entertainment event, not a camp; also offered by the unrelated Florida church."
+      },
+      {
+        "name": "Family Night",
+        "reason": "A single-evening family event, not a camp; also offered by the unrelated Florida church."
       }
-    ]
+    ],
+    "cards": []
   }
 }

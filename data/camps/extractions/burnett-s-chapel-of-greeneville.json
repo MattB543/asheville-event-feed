@@ -9,23 +9,23 @@
     "status": "review",
     "status_reason": "first page is a social media page or video, which our fetcher can't read"
   },
-  "extractedAt": "2026-10-29T15:25:36.442Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:21:55.802Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": null,
   "response": {
     "searches": [
-      "Burnett's Chapel Greeneville VBS 2026",
+      "Burnett's Chapel Greeneville Vacation Bible School 2026",
       "site:facebook.com/burnetts.chapel.1957 \"2026\" \"VBS\"",
-      "open https://happeningnext.com/event/2026-vbsim-on-gods-team-eid3a0dpkikja"
+      "\"2026 VBS...Im On Gods Team\""
     ],
     "usage": {
-      "inputTokens": 20692,
-      "cachedInputTokens": 8223,
-      "outputTokens": 807,
-      "reasoningTokens": 264
+      "inputTokens": 29307,
+      "cachedInputTokens": 8845,
+      "outputTokens": 758,
+      "reasoningTokens": 250
     },
     "status": "completed",
-    "ms": 22096,
+    "ms": 28230,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -39,21 +39,21 @@
   "extraction": {
     "provider_name": "Burnett's Chapel of Greeneville",
     "website_url": null,
-    "notes": "No standalone provider website or 2027 summer information was found. The supplied official Facebook page returned no readable content. A third-party event listing identifies a 2026 Vacation Bible School, but its details could not be verified on the church's own page. No registration dates were found.",
+    "notes": "No standalone provider website or 2027 announcement found. The supplied Facebook page opened without readable content. Third-party mirrors list a 2026 VBS called \"Im On Gods Team,\" but official details could not be read; dates and support facts are left unconfirmed.",
     "excluded": [],
     "cards": [
       {
         "name": "Vacation Bible School",
         "type": "vbs",
         "categories": ["faith_based"],
-        "description": "The church offers Vacation Bible School. A third-party listing gives the 2026 theme as I'm On God's Team.",
+        "description": "Vacation Bible School for children.",
         "camp_page_url": "https://www.facebook.com/burnetts.chapel.1957/",
         "registration_url": null,
         "season": {
           "year": 2026,
           "status": "not_posted",
-          "start": "2026-06-01",
-          "end": "2026-06-05",
+          "start": null,
+          "end": null,
           "text": null
         },
         "ages": null,
@@ -61,16 +61,12 @@
         "sites": [
           {
             "name": "Burnett's Chapel",
-            "address": "1555 Whitesands Road",
+            "address": "1555 Whitesands Rd",
             "town": "Greeneville",
             "state": "TN"
           }
         ],
-        "hours": {
-          "start": "18:30",
-          "end": "20:30",
-          "text": null
-        },
+        "hours": null,
         "extended_care": null,
         "prices": [],
         "sessions": [],
@@ -81,9 +77,9 @@
         "special_needs": null,
         "lunch": null,
         "transportation": null,
-        "sources": [],
+        "sources": ["https://www.facebook.com/burnetts.chapel.1957/"],
         "confidence": "low",
-        "review_notes": "The official Facebook page could not be read. Verify the program name, June 1–5, 2026 dates, evening hours, theme and venue address with the church before publication. Dates and hours were found only in the search snippet for https://stayhappening.com/e/2026-vbsim-on-gods-team-E2ISYLGAQH8; the venue address was also shown by https://www.findglocal.com/US/Greeneville/103099764903458/Burnett%27s-Chapel. No readable official source confirmed these facts."
+        "review_notes": "Facebook returned no readable content. AllEvents lists the 2026 VBS starting June 1 at 6:30 pm, but its ending date and official announcement could not be confirmed. HappeningNext and StayHappening mirror a description mentioning classes for all ages, nightly meals, lessons, games and crafts; these facts were not confirmed on the official page. The address 1555 Whitesands Rd is from event mirrors and FindGlocal's mirrored church profile; WGRV's location directory instead lists 1401 White Sands Road. Confirm the church's published drop-off address and all VBS details on Facebook. Third-party references: https://allevents.in/greeneville/2026-vbsim-on-gods-team/200030163149328 ; https://happeningnext.com/event/2026-vbsim-on-gods-team-eid3a0dpkikja ; https://www.findglocal.com/US/Greeneville/103099764903458/Burnett%27s-Chapel ; https://wgrv.com/locations/burnetts-chapel/"
       }
     ]
   }

@@ -7,23 +7,23 @@
     "discovered_by": ["grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:06:25.364Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:05:54.241Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "72606ff339b8540791740c6f186a3e517e1702cfaa15787b80c3036d960ff2a1",
   "response": {
     "searches": [
-      "site:fence.org \"Summer\" \"2027\"",
-      "open https://fence.org/",
-      "site:fence.org \"summer-day-camps\""
+      "site:fence.org \"summer\" \"2027\"",
+      "open https://fence.org/nature-center/day-camps/",
+      "site:fence.org \"Summer Day Camps\" \"scholarships\""
     ],
     "usage": {
-      "inputTokens": 19081,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1659,
-      "reasoningTokens": 164
+      "inputTokens": 20496,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1642,
+      "reasoningTokens": 181
     },
     "status": "completed",
-    "ms": 38376,
+    "ms": 37596,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -42,15 +42,15 @@
   "extraction": {
     "provider_name": "Foothills Equestrian Nature Center (FENCE)",
     "website_url": "https://fence.org/",
-    "notes": "No 2027 camp information found. The 2026 registration form describes Summer Day Camp as one program with themed weeks and half-day or full-day schedules, so these are grouped into one card. The form requests return by May 15, 2026; this past deadline is not a 2027 registration milestone. Camp pages at https://fence.org/summer-day-camps/ and https://www.fence.org/nature-center/day-camps returned no readable text.",
+    "notes": "No official 2027 camp information was found. Dates and fees are from the 2026 registration form. The legacy day-camps page returned no readable content. The registration form requests return by May 15, 2026; this is not a 2027 registration milestone.",
     "excluded": [
       {
-        "name": "FENCE Summer 2026 Camp Team",
-        "reason": "Counselor recruitment for summer employment, not a camper program."
+        "name": "Therapeutic Riding of Tryon (TROT)",
+        "reason": "Ongoing therapeutic riding program, not a finite summer camp."
       },
       {
-        "name": "Therapeutic Riding of Tryon (TROT)",
-        "reason": "Ongoing equine-assisted programs; no finite summer camp offering found."
+        "name": "Summer Camp Team",
+        "reason": "Counselor employment opportunity, not a camper program."
       }
     ],
     "cards": [
@@ -58,8 +58,8 @@
         "name": "Summer Day Camp",
         "type": "day",
         "categories": ["nature_outdoor", "arts", "horses"],
-        "description": "Campers explore nature, make crafts, and participate in outdoor activities such as hiking, creek stomping, and wildlife observations. The schedule includes horse, nature/art, environmental, and general camp weeks.",
-        "camp_page_url": "https://fence.org/wp-content/uploads/2026/02/Summer-Day-Camp-Registration-Form.pdf",
+        "description": "Campers explore nature, make crafts, and participate in outdoor activities such as hiking, wading, creek stomping, and wildlife observations. Weekly offerings include horse, nature and art, and environmental camps.",
+        "camp_page_url": "https://www.fence.org/nature-center/day-camps",
         "registration_url": "https://fence.org/wp-content/uploads/2026/02/Summer-Day-Camp-Registration-Form.pdf",
         "season": {
           "year": 2026,
@@ -75,17 +75,13 @@
         "grades": null,
         "sites": [
           {
-            "name": "FENCE",
+            "name": "Foothills Equestrian Nature Center",
             "address": "3381 Hunting Country Road",
             "town": "Tryon",
             "state": "NC"
           }
         ],
-        "hours": {
-          "start": "09:00",
-          "end": null,
-          "text": "Half-day weeks: 9:00am–1:00pm; full-day weeks: 9:00am–5:00pm."
-        },
+        "hours": null,
         "extended_care": null,
         "prices": [],
         "sessions": [
@@ -241,8 +237,8 @@
           "https://fence.org/wp-content/uploads/2026/02/Summer-Day-Camp-Registration-Form.pdf",
           "https://fence.org/"
         ],
-        "confidence": "high",
-        "review_notes": null
+        "confidence": "medium",
+        "review_notes": "The 2026 form explicitly identifies the season year in its liability release. The site address is FENCE's published main address; the form does not explicitly identify the drop-off entrance, so confirm whether horse weeks use a different entrance. The legacy camp page could not be read. Credit-card payments incur a 3% fee according to the registration form."
       }
     ]
   }

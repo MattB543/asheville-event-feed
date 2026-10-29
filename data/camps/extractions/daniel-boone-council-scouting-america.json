@@ -12,25 +12,24 @@
     "discovered_by": ["grid", "aggregator", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:10:34.750Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:09:02.559Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "d3656a2054ef966b1c0b825b53c790cf493d573f4a0425a10977d2717a453dad",
   "response": {
     "searches": [
       "open https://www.danielboonecouncil.org/cubdaycamp",
-      "site.campdanielboone.org \"Rapids\" \"2027\"",
-      "site.danielboonecouncil.org \"Cub\" \"camp\" \"2026\"",
-      "site.mycouncil.danielboonecouncil.org \"2027 Webelos Woods\"",
-      "site.mycouncil.danielboonecouncil.org/Event/WW2027 \"Pricing\""
+      "site.danielboonecouncil.org \"2026\" \"Twilight\"",
+      "\"Daniel Boone Council\" \"Twilight Camp\" 2026",
+      "site:mycouncil.danielboonecouncil.org/Event/WW2027 \"July\""
     ],
     "usage": {
-      "inputTokens": 56101,
-      "cachedInputTokens": 8223,
-      "outputTokens": 8232,
-      "reasoningTokens": 573
+      "inputTokens": 44557,
+      "cachedInputTokens": 8845,
+      "outputTokens": 7379,
+      "reasoningTokens": 522
     },
     "status": "completed",
-    "ms": 155437,
+    "ms": 135366,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -84,55 +83,39 @@
   "extraction": {
     "provider_name": "Daniel Boone Council, Scouting America",
     "website_url": "https://www.danielboonecouncil.org/",
-    "notes": "Camp Daniel Boone has posted its 2027 program list, dates and prices. Its homepage availability table is headed 2027 but labels the individual dates 2026; availability was not transferred from that table. Several official pages and both PDFs returned no readable body through the browser; supplied fetched text was used. The supplied PDFs end before their final pages. Cub Day Camp information was recoverable only through official search snippets and remains incomplete. Webelos Woods is listed for July 30–August 1, 2027, but its event page could not be read. Goin’ Great, merit badge classes, Stockton Farms classes and day rafting are components or add-ons of Base Camp rather than separate camp registrations. The Leader’s Guide conflicts internally on merit badge registration: March 30 versus April 6–8; the Program Guide supports April 6–8. No camp registration opening date was inferred from those class-selection dates.",
+    "notes": "2027 Scouts BSA summer camp dates and prices are posted. The homepage availability table labels its section 2027 but prints 2026 beside the weeks; availability was therefore omitted. Registration is currently offered, but no camp registration opening date was found. The fetched 2027 guides are truncated, and attempts to retrieve their remaining contents returned no readable text. The Cub Scout day camp page also returned no readable text. Webelos Woods has an official 2027 event listing, but its details could not be read. Twilight Camp is retained from official historical listings without projecting historical dates or prices forward. All Scouts BSA participants must be registered members of Scouting America. Unit registrations require a non-refundable $220 unit deposit; high-adventure reservations require a $50 minimum payment per spot.",
     "excluded": [
+      {
+        "name": "2027 Camp Webinars",
+        "reason": "Informational planning webinars, not supervised summer youth camps."
+      },
+      {
+        "name": "Adult Leader Programs",
+        "reason": "Adult-only trainings and activities."
+      },
+      {
+        "name": "Day Rafting Trips",
+        "reason": "Troop outings offered as additions to summer camp, not separate camp programs."
+      },
+      {
+        "name": "Family Night and Order of the Arrow Ice Cream Social",
+        "reason": "Single-evening social events within summer camp."
+      },
       {
         "name": "Camp Staff",
         "reason": "Employment program, not a camper offering."
       },
       {
-        "name": "Adult Leader Programs",
-        "reason": "Adult-only training and activities."
-      },
-      {
-        "name": "2027 Camp Webinars",
-        "reason": "Camp-planning webinars, not supervised youth summer programs."
-      },
-      {
-        "name": "Cub-Parent Weekend",
-        "reason": "Family-only weekends outside summer."
-      },
-      {
-        "name": "Operation Snowshoe",
-        "reason": "February program outside summer."
-      },
-      {
-        "name": "Council Camporee",
-        "reason": "April–May program outside summer."
-      },
-      {
-        "name": "Rock Fest",
-        "reason": "October program outside summer."
-      },
-      {
-        "name": "Klondike Derby",
-        "reason": "November program outside summer."
-      },
-      {
-        "name": "Falling Waters Merit Badge Midway",
-        "reason": "January program outside summer."
-      },
-      {
-        "name": "Lees-McRae Merit Badge College",
-        "reason": "April program outside summer."
+        "name": "Cub Scouts, Scouts BSA, and Venturing",
+        "reason": "Year-round membership programs; their finite summer camps are listed separately."
       }
     ],
     "cards": [
       {
         "name": "Base Camp",
         "type": "overnight",
-        "categories": ["nature_outdoor", "general"],
-        "description": "Scouts take merit badge classes and participate in outdoor activities and evening programs. First-year campers can work on rank requirements through Goin’ Great.",
+        "categories": ["general", "nature_outdoor"],
+        "description": "Scouts participate in merit badge classes, outdoor activities, and evening programs. First-year campers can work on rank requirements through the Goin’ Great program.",
         "camp_page_url": "https://www.campdanielboone.org/summer-programs/",
         "registration_url": "https://mycouncil.danielboonecouncil.org/Program/1",
         "season": {
@@ -152,17 +135,13 @@
             "state": "NC"
           }
         ],
-        "hours": {
-          "start": null,
-          "end": null,
-          "text": "Sunday arrival at 1:00 PM; Saturday departure at 9:00 AM."
-        },
+        "hours": null,
         "extended_care": null,
         "prices": [
           {
             "amount": 490,
             "unit": "week",
-            "label": "Youth participant; some classes have additional fees. A separate non-refundable $220 unit deposit is required.",
+            "label": "Youth participant",
             "year": 2027
           }
         ],
@@ -252,74 +231,34 @@
             "status": null
           }
         ],
-        "registration": [
-          {
-            "audience": "member",
-            "kind": "opens",
-            "date": "2026-06-12",
-            "time": "00:00",
-            "precision": "datetime",
-            "certainty": "announced",
-            "text": "Registration Starts 6/12/2026 (Fri) 12:00 AM Eastern Daylight Time",
-            "url": "https://mycouncil.danielboonecouncil.org/Event/3",
-            "year": 2027,
-            "confidence": "medium"
-          },
-          {
-            "audience": "member",
-            "kind": "closes",
-            "date": "2027-05-30",
-            "time": "00:00",
-            "precision": "datetime",
-            "certainty": "announced",
-            "text": "Registration Ends 5/30/2027 (Sun) 12:00 AM Eastern Daylight Time",
-            "url": "https://mycouncil.danielboonecouncil.org/Event/3",
-            "year": 2027,
-            "confidence": "medium"
-          },
-          {
-            "audience": "member",
-            "kind": "closes",
-            "date": "2027-06-06",
-            "time": "00:00",
-            "precision": "datetime",
-            "certainty": "announced",
-            "text": "Registration Ends 6/6/2027 (Sun) 12:00 AM Eastern Daylight Time",
-            "url": "https://mycouncil.danielboonecouncil.org/Event/10",
-            "year": 2027,
-            "confidence": "medium"
-          }
-        ],
+        "registration": [],
         "last_year_registration_opened": null,
         "availability": null,
-        "financial_aid": {
-          "value": "case_by_case",
-          "text": "2027 Campership Assistance Form (Daniel Boone Council scouts only)"
-        },
+        "financial_aid": null,
         "special_needs": {
           "value": "case_by_case",
           "text": "Mobility accommodations can be made, please contact the Camp Director prior to your arrival to discuss options."
         },
-        "lunch": null,
+        "lunch": {
+          "value": "yes",
+          "text": "A LUNCH; B LUNCH"
+        },
         "transportation": null,
         "sources": [
+          "https://www.campdanielboone.org/summer-programs/",
           "https://www.campdanielboone.org/Register/",
-          "https://www.campdanielboone.org/",
           "https://mycouncil.danielboonecouncil.org/Program/1",
-          "https://mycouncil.danielboonecouncil.org/Event/3",
-          "https://mycouncil.danielboonecouncil.org/Event/10",
-          "https://www.campdanielboone.org/resources/",
           "https://www.campdanielboone.org/wp-content/uploads/sites/2/2026/10/2027-Leaders-Guide.pdf",
           "https://www.campdanielboone.org/wp-content/uploads/sites/2/2026/10/2027-CDB-Program-Guide.pdf"
         ],
-        "confidence": "medium",
-        "review_notes": "Registration milestones were available only in official search snippets. May 30 closing applies to Week 1 and June 6 closing applies to Week 2; other weeks' closing dates were not recovered. All participants must be registered Scouting America members. Verify the conflicting homepage availability year and class-selection dates before publishing availability or merit badge registration reminders."
+        "confidence": "high",
+        "review_notes": null
       },
       {
         "name": "Boonesboro Village",
         "type": "overnight",
-        "categories": ["nature_outdoor", "arts"],
-        "description": "Scouts experience late-1700s life skills and crafts, work with craftspeople and cook over an open flame.",
+        "categories": ["arts", "nature_outdoor", "cooking"],
+        "description": "Scouts experience crafts and life skills associated with the late 1700s, including open-fire cooking. The living-history program also offers merit badge opportunities.",
         "camp_page_url": "https://www.campdanielboone.org/summer-programs/boonesboro-village/",
         "registration_url": "https://mycouncil.danielboonecouncil.org/Program/1",
         "season": {
@@ -348,7 +287,7 @@
           {
             "amount": 525,
             "unit": "week",
-            "label": "Participant; $50 minimum reservation payment and separate $220 unit deposit required.",
+            "label": "Participant",
             "year": 2027
           }
         ],
@@ -446,21 +385,20 @@
         "lunch": null,
         "transportation": null,
         "sources": [
-          "https://www.campdanielboone.org/summer-programs/boonesboro-village/",
-          "https://www.campdanielboone.org/summer-programs/",
           "https://www.campdanielboone.org/Register/",
-          "https://mycouncil.danielboonecouncil.org/Program/1",
+          "https://www.campdanielboone.org/summer-programs/",
+          "https://www.campdanielboone.org/summer-programs/boonesboro-village/",
           "https://www.campdanielboone.org/wp-content/uploads/sites/2/2026/10/2027-CDB-Program-Guide.pdf"
         ],
         "confidence": "medium",
-        "review_notes": "Registration page requires high-adventure youth to be 13 by June 1, 2027; Program Guide says June 1 is preferred and permits age 13 by arrival. Confirm which cutoff applies to Boonesboro Village. Weeks follow the common summer camp schedule; program-specific capacity was not readable."
+        "review_notes": "The registration page requires high-adventure youth to be 13 by June 1, 2027; the program guide allows age 13 by arrival. Check the unread remainder of the Boonesboro section for any program-specific age exception. Weekly rows use the published overall summer camp schedule."
       },
       {
         "name": "Backpacking Treks",
         "type": "overnight",
         "categories": ["nature_outdoor"],
-        "description": "Scouts take staff-led backcountry treks and practice hiking, camping, navigation and low-impact outdoor skills.",
-        "camp_page_url": "https://www.campdanielboone.org/summer-programs/the-outpost/backpacking-treks/",
+        "description": "Scouts take staff-led backpacking treks and practice hiking, camping, navigation, first aid, and low-impact backcountry skills.",
+        "camp_page_url": "https://www.campdanielboone.org/summer-programs/",
         "registration_url": "https://mycouncil.danielboonecouncil.org/Program/1",
         "season": {
           "year": 2027,
@@ -488,7 +426,7 @@
           {
             "amount": 515,
             "unit": "week",
-            "label": "Participant; $50 minimum reservation payment and separate $220 unit deposit required.",
+            "label": "Participant",
             "year": 2027
           }
         ],
@@ -586,19 +524,18 @@
         "lunch": null,
         "transportation": null,
         "sources": [
-          "https://www.campdanielboone.org/summer-programs/the-outpost/backpacking-treks/",
           "https://www.campdanielboone.org/Register/",
-          "https://mycouncil.danielboonecouncil.org/Program/1",
+          "https://www.campdanielboone.org/summer-programs/",
           "https://www.campdanielboone.org/wp-content/uploads/sites/2/2026/10/2027-CDB-Program-Guide.pdf"
         ],
         "confidence": "medium",
-        "review_notes": "Registration page requires age 13 by June 1, 2027; Program Guide permits age 13 by arrival. Shining Rock Wilderness and Panthertown Valley are named trek options, but their week-by-week assignments were not recovered. Weeks use the common summer schedule; confirm route offerings and capacities."
+        "review_notes": "The registration page requires age 13 by June 1, 2027, while the program guide allows age 13 by arrival. Weekly rows use the overall camp schedule; check the remaining backpacking section for route-specific weeks. The readable guide names Shining Rock Wilderness and begins a Panthertown Valley section, but does not establish their separate schedules."
       },
       {
         "name": "R.O.P.E.S. Trek",
         "type": "overnight",
-        "categories": ["nature_outdoor", "sports"],
-        "description": "Scouts practice climbing equipment use, belaying, rappelling and climbing techniques, then use those skills at climbing sites during the week.",
+        "categories": ["sports", "nature_outdoor"],
+        "description": "Scouts practice climbing equipment use, belaying, rappelling, climbing commands, and climbing techniques. They apply those skills at climbing sites during the week.",
         "camp_page_url": "https://www.campdanielboone.org/summer-programs/the-outpost/ropes-trek/",
         "registration_url": "https://mycouncil.danielboonecouncil.org/Program/1",
         "season": {
@@ -627,7 +564,7 @@
           {
             "amount": 590,
             "unit": "week",
-            "label": "Participant; $50 minimum reservation payment and separate $220 unit deposit required.",
+            "label": "Participant",
             "year": 2027
           }
         ],
@@ -725,20 +662,19 @@
         "lunch": null,
         "transportation": null,
         "sources": [
-          "https://www.campdanielboone.org/summer-programs/the-outpost/ropes-trek/",
           "https://www.campdanielboone.org/Register/",
-          "https://mycouncil.danielboonecouncil.org/Program/1",
+          "https://www.campdanielboone.org/summer-programs/the-outpost/ropes-trek/",
           "https://www.campdanielboone.org/wp-content/uploads/sites/2/2026/10/2027-CDB-Program-Guide.pdf"
         ],
         "confidence": "medium",
-        "review_notes": "Registration page requires age 13 by June 1, 2027; Program Guide permits age 13 by arrival. Program-page description was available only through an official search snippet. Weeks use the common summer schedule; program-specific capacity was not recovered."
+        "review_notes": "The registration page requires age 13 by June 1, 2027, while the program guide allows age 13 by arrival. Weekly rows use the overall summer camp schedule. Activity details were readable only in the official search snippet."
       },
       {
         "name": "Rapids Adventure Program",
         "type": "overnight",
-        "categories": ["nature_outdoor", "sports"],
-        "description": "Scouts participate in a week of whitewater rafting through the camp’s high-adventure program.",
-        "camp_page_url": "https://www.campdanielboone.org/summer-programs/the-outpost/",
+        "categories": ["sports", "nature_outdoor"],
+        "description": "Scouts go whitewater rafting on rivers in Western North Carolina and East Tennessee, navigating Class 1–4 rapids.",
+        "camp_page_url": "https://www.campdanielboone.org/summer-programs/the-outpost/rapids-adventure-program/",
         "registration_url": "https://mycouncil.danielboonecouncil.org/Program/1",
         "season": {
           "year": 2027,
@@ -766,7 +702,7 @@
           {
             "amount": 695,
             "unit": "week",
-            "label": "Provisional participant price; not final until December 2026 pending outfitter pricing. $50 minimum reservation payment and separate $220 unit deposit required.",
+            "label": "Participant; pricing not final until December 2026 pending outfitter pricing",
             "year": 2027
           }
         ],
@@ -864,21 +800,18 @@
         "lunch": null,
         "transportation": null,
         "sources": [
-          "https://www.campdanielboone.org/summer-programs/",
-          "https://www.campdanielboone.org/summer-programs/the-outpost/",
           "https://www.campdanielboone.org/Register/",
-          "https://mycouncil.danielboonecouncil.org/Program/1",
-          "https://mycouncil.danielboonecouncil.org/Event/summercamp-week5",
+          "https://www.campdanielboone.org/summer-programs/the-outpost/rapids-adventure-program/",
           "https://www.campdanielboone.org/wp-content/uploads/sites/2/2026/10/2027-CDB-Program-Guide.pdf"
         ],
         "confidence": "medium",
-        "review_notes": "Registration page requires age 13 by June 1, 2027; Program Guide permits age 13 by arrival. Recheck provisional price after December 2026. Weeks use the common summer schedule; program-specific capacities were not recovered."
+        "review_notes": "The registration page requires age 13 by June 1, 2027, while the program guide allows age 13 by arrival. Price remains provisional until December 2026. Weekly rows use the overall camp schedule. Activity details were readable only in the official search snippet."
       },
       {
         "name": "5 Day Adventure Trek",
         "type": "overnight",
-        "categories": ["nature_outdoor", "sports"],
-        "description": "Scouts take part in whitewater rafting, ziplining and a caving expedition during a week-long high-adventure camp.",
+        "categories": ["sports", "nature_outdoor"],
+        "description": "Scouts participate in a multi-activity high-adventure trek that includes whitewater rafting.",
         "camp_page_url": "https://www.campdanielboone.org/summer-programs/the-outpost/5-days-adventure-trek/",
         "registration_url": "https://mycouncil.danielboonecouncil.org/Program/1",
         "season": {
@@ -907,7 +840,7 @@
           {
             "amount": 750,
             "unit": "week",
-            "label": "Provisional participant price; not final until December 2026 pending outfitter pricing. $50 minimum reservation payment and separate $220 unit deposit required.",
+            "label": "Participant; pricing not final until December 2026 pending outfitter pricing",
             "year": 2027
           }
         ],
@@ -1005,83 +938,32 @@
         "lunch": null,
         "transportation": null,
         "sources": [
-          "https://www.campdanielboone.org/summer-programs/the-outpost/5-days-adventure-trek/",
           "https://www.campdanielboone.org/Register/",
-          "https://mycouncil.danielboonecouncil.org/Program/1",
-          "https://www.campdanielboone.org/wp-content/uploads/sites/2/2026/10/CDB-High-Adventure-Trifold-27.pdf",
+          "https://www.campdanielboone.org/summer-programs/",
+          "https://www.campdanielboone.org/summer-programs/the-outpost/5-days-adventure-trek/",
           "https://www.campdanielboone.org/wp-content/uploads/sites/2/2026/10/2027-CDB-Program-Guide.pdf"
         ],
         "confidence": "medium",
-        "review_notes": "Registration page requires age 13 by June 1, 2027; Program Guide permits age 13 by arrival. Recheck provisional price after December 2026. Program description was supplemented by official search snippets. Weeks use the common summer schedule; program-specific capacities were not recovered."
+        "review_notes": "The registration page requires age 13 by June 1, 2027, while the program guide allows age 13 by arrival. Price remains provisional until December 2026. Weekly rows use the overall camp schedule. Check the unread adventure section for the complete activity itinerary."
       },
       {
         "name": "Twilight Camp",
         "type": "evening",
         "categories": ["general", "nature_outdoor"],
-        "description": "Cub Scouts attend a five-evening camp at Grandad’s Apples.",
+        "description": "Cub Scout twilight camp.",
         "camp_page_url": "https://www.danielboonecouncil.org/cubdaycamp",
         "registration_url": null,
         "season": {
-          "year": 2026,
-          "status": "not_posted",
-          "start": "2026-06-22",
-          "end": "2026-06-26",
-          "text": null
-        },
-        "ages": null,
-        "grades": null,
-        "sites": [
-          {
-            "name": "Grandad’s Apples",
-            "address": "2951 Chimney Rock Road",
-            "town": "Hendersonville",
-            "state": "NC"
-          }
-        ],
-        "hours": {
-          "start": "16:30",
-          "end": "20:00",
-          "text": "4:30-8 PM"
-        },
-        "extended_care": null,
-        "prices": [],
-        "sessions": [],
-        "registration": [],
-        "last_year_registration_opened": null,
-        "availability": null,
-        "financial_aid": null,
-        "special_needs": null,
-        "lunch": null,
-        "transportation": null,
-        "sources": [
-          "https://www.danielboonecouncil.org/cubdaycamp",
-          "https://grandadsapples.com/contact-directions/"
-        ],
-        "confidence": "medium",
-        "review_notes": "Camp dates, venue and hours were available only in an official search snippet. The snippet explicitly says June 22–26, 2026 but the page description mentions 2025. No 2027 Cub Day Camp list was found; the 2027 Camp Daniel Boone list does not establish replacement of council day camps. Confirm ages, price and activities."
-      },
-      {
-        "name": "Webelos Woods",
-        "type": "overnight",
-        "categories": ["nature_outdoor", "general"],
-        "description": "The council lists a summer Webelos Woods event running from Friday morning through Sunday noon.",
-        "camp_page_url": "https://mycouncil.danielboonecouncil.org/Event/WW2027",
-        "registration_url": "https://mycouncil.danielboonecouncil.org/Event/WW2027",
-        "season": {
           "year": 2027,
-          "status": "posted",
-          "start": "2027-07-30",
-          "end": "2027-08-01",
+          "status": "not_posted",
+          "start": null,
+          "end": null,
           "text": null
         },
         "ages": null,
         "grades": null,
         "sites": [],
-        "hours": {
-          "start": null,
-          "end": null,
-          "text": "July 30 at 8:00 AM to August 1 at 12:00 PM."
-        },
+        "hours": null,
         "extended_care": null,
         "prices": [],
         "sessions": [],
@@ -1093,11 +975,46 @@
         "lunch": null,
         "transportation": null,
         "sources": [
-          "https://www.danielboonecouncil.org/calendar/programcalendar/",
-          "https://mycouncil.danielboonecouncil.org/Event/WW2027"
+          "https://www.danielboonecouncil.org/LGDC24",
+          "https://www.danielboonecouncil.org/LGBDC21"
         ],
         "confidence": "low",
-        "review_notes": "Only the official calendar search snippet supplied dates and event times. The event page body could not be read. Confirm supervised youth format, activity description, eligibility, meeting site, fees and registration milestones before publication."
+        "review_notes": "Only historical official Twilight Camp listings were found. The current cubdaycamp page returned no readable text. Check whether Twilight Camp will run in 2027 and obtain its sites, dates, eligibility, hours, prices, and registration information."
+      },
+      {
+        "name": "Webelos Woods",
+        "type": "overnight",
+        "categories": ["general", "nature_outdoor"],
+        "description": "A camping program for Webelos and Arrow of Light Cub Scouts.",
+        "camp_page_url": "https://mycouncil.danielboonecouncil.org/Event/WW2027",
+        "registration_url": "https://mycouncil.danielboonecouncil.org/Event/WW2027",
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://mycouncil.danielboonecouncil.org/Event/WW2027",
+          "https://www.danielboonecouncil.org/content/125937/Webelos-Woods-2025"
+        ],
+        "confidence": "low",
+        "review_notes": "The official registration platform indexes a 2027 Webelos Woods event, updated October 24, 2026, but its contents could not be read and no dates appeared in search snippets. Confirm that it occurs in summer and obtain dates, venue, eligibility, price, and registration milestones. Description and overnight format are based on the official historical offering; no historical venue or dates were carried forward."
       }
     ]
   }

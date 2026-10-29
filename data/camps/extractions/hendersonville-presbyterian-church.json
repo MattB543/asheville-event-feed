@@ -7,19 +7,22 @@
     "discovered_by": ["grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:17:36.272Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:15:05.181Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "6894cb382bb5d855820f120db037bccf5d0827165a2150a03faf8410a6f5defd",
   "response": {
-    "searches": ["site:hendersonvillepc.org \"2027\" \"Summer\""],
+    "searches": [
+      "site:hendersonvillepc.org \"2027\" \"Summer\"",
+      "site:hendersonvillepc.org \"2026\" \"5-Day\""
+    ],
     "usage": {
-      "inputTokens": 20655,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1068,
-      "reasoningTokens": 92
+      "inputTokens": 25477,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1149,
+      "reasoningTokens": 153
     },
     "status": "completed",
-    "ms": 28829,
+    "ms": 33922,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -58,11 +61,19 @@
   "extraction": {
     "provider_name": "Hendersonville Presbyterian Church",
     "website_url": "https://www.hendersonvillepc.org/",
-    "notes": "Summer Art Program dates and age bands are posted for 2027. The available summer registration packet is for 2026; its prices and exact morning hours are retained as prior-year information. Searches found no 2027 registration opening announcement. The website blocks direct browser access, so supplied official-page text and official search results were used.",
+    "notes": "2027 Summer Art Program dates and age groups are posted. No 2027 registration packet or registration opening date was found. Direct web access was blocked by robots.txt; supplied official-page text and official search results were used. Historical mentions of a 5-Day Club were found, but no 2026 or 2027 offering was established.",
     "excluded": [
       {
         "name": "Creative Beginnings Christian Preschool",
-        "reason": "School-year preschool classes, rather than a finite summer program."
+        "reason": "School-year preschool, not a finite summer camp."
+      },
+      {
+        "name": "Summer Ministry Internship",
+        "reason": "Employment program, not a youth camp."
+      },
+      {
+        "name": "Letting Hope In!",
+        "reason": "Adult Sunday school class, not a supervised youth summer camp."
       }
     ],
     "cards": [
@@ -78,7 +89,7 @@
           "status": "posted",
           "start": "2027-07-12",
           "end": "2027-07-23",
-          "text": "July 12-23rd, 2027"
+          "text": "Classes are Monday-Friday mornings in July, with sufficient enrollment."
         },
         "ages": {
           "min": 2,
@@ -96,26 +107,26 @@
         "hours": {
           "start": "08:45",
           "end": "11:45",
-          "text": "2026 registration packet: Monday through Friday 8:45am -11:45am. The 2027 page states Monday-Friday mornings."
+          "text": "Monday through Friday 8:45am -11:45am"
         },
         "extended_care": null,
         "prices": [
           {
             "amount": 250,
             "unit": "program",
-            "label": "Tuition for two-week program",
+            "label": "Tuition",
             "year": 2026
           },
           {
             "amount": 75,
             "unit": "other",
-            "label": "Non-refundable registration and materials fee",
+            "label": "Registration/Materials Fee (non-refundable)",
             "year": 2026
           }
         ],
         "sessions": [
           {
-            "label": "Younger group",
+            "label": "Ages 2-3",
             "start": "2027-07-12",
             "end": "2027-07-23",
             "year": 2027,
@@ -130,7 +141,7 @@
             "status": null
           },
           {
-            "label": "Older group",
+            "label": "Ages 4-6",
             "start": "2027-07-12",
             "end": "2027-07-23",
             "year": 2027,
@@ -151,17 +162,16 @@
         "financial_aid": null,
         "special_needs": {
           "value": "case_by_case",
-          "text": "Given the size and scope of Creative Beginnings Christian Preschool, the school is unable to accommodate certain special needs of children and their behavioral problems."
+          "text": "Given the size and scope of Creative Beginnings Christian Preschool, the school is unable to accommodate certain special needs of children and their behavioral problems. Please inform the director of any special needs or problems your child has."
         },
         "lunch": null,
         "transportation": null,
         "sources": [
           "https://www.hendersonvillepc.org/preschool/summer-program.cfm",
-          "https://www.hendersonvillepc.org/editoruploads/files/Preschool/Summer%20Art%202026%20registration%20packet%20English.pdf",
-          "https://www.hendersonvillepc.org/"
+          "https://www.hendersonvillepc.org/editoruploads/files/Preschool/Summer%20Art%202026%20registration%20packet%20English.pdf"
         ],
-        "confidence": "medium",
-        "review_notes": "Confirm 2027 exact hours, fees, registration procedure, and special-needs policy. Exact hours and special-needs wording come from the 2026 summer packet, not a 2027 packet. The 2027 page says classes run with sufficient enrollment. The two age-band rows span the published two-week program; separate weekly enrollment is not stated."
+        "confidence": "high",
+        "review_notes": "Exact hours and special-needs policy are from the 2026 Summer Art registration packet; the 2027 page states only mornings. Prices are explicitly labeled 2026. A 2027 packet has not been found."
       }
     ]
   }

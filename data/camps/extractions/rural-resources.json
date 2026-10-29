@@ -7,19 +7,19 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:23:29.400Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:19:54.106Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "cf0a70937b1817258083e4d6a3c0e74e4cb6f3e15b1c821feb9eb033cc77b3e9",
   "response": {
     "searches": ["site:ruralresources.net \"2027\" camp"],
     "usage": {
-      "inputTokens": 16244,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1827,
-      "reasoningTokens": 60
+      "inputTokens": 16846,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1788,
+      "reasoningTokens": 45
     },
     "status": "completed",
-    "ms": 32762,
+    "ms": 30888,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -68,15 +68,15 @@
   "extraction": {
     "provider_name": "Rural Resources",
     "website_url": "https://www.ruralresources.net/",
-    "notes": "No 2027 camp information or registration dates were found. Cards use the posted 2026 schedule. The linked scholarship application uses older camp names and age bands; those were not treated as additional current programs or used to override the 2026 camp page.",
+    "notes": "No 2027 camp information or registration opening date was found. Dates and prices are from 2026. The linked scholarship application uses older program names and age/grade bands; those were not used for current camp eligibility. Its scholarship fee was not treated as a camp price.",
     "excluded": [
       {
         "name": "Farm & Food Teen Training Program",
-        "reason": "Year-round, multi-year training program with school-year and summer classes and paid participation, rather than a finite summer camp."
+        "reason": "A four-year, ongoing training program with school-year and summer classes and paid participation, rather than a finite summer camp."
       },
       {
         "name": "F.A.R.M. [Farmer And Rancher Mentoring]",
-        "reason": "Paid agricultural internship and employment training program."
+        "reason": "Paid internship and employment training program."
       }
     ],
     "cards": [
@@ -84,7 +84,7 @@
         "name": "Lil Sprouts",
         "type": "half_day",
         "categories": ["nature_outdoor"],
-        "description": "Campers explore the farm and food education center through songs and hands-on activities. Activities include supervised creek water play.",
+        "description": "Campers explore the farm and food education center, sing songs, participate in hands-on activities, and enjoy supervised water play at the creek.",
         "camp_page_url": "https://www.ruralresources.net/farm-day-camps",
         "registration_url": "https://www.ruralresources.net/farm-day-camps",
         "season": {
@@ -186,7 +186,7 @@
         "name": "Explorers",
         "type": "day",
         "categories": ["nature_outdoor", "arts", "cooking"],
-        "description": "Campers explore the farm through working with animals, arts and crafts, cooking, gardening, and creek stomping.",
+        "description": "Campers explore the farm through activities including working with animals, arts and crafts, cooking, gardening, and creek stomping.",
         "camp_page_url": "https://www.ruralresources.net/farm-day-camps",
         "registration_url": "https://www.ruralresources.net/farm-day-camps",
         "season": {

@@ -7,19 +7,19 @@
     "discovered_by": ["grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:28:09.324Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:23:45.421Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "c9f0b2b3a1f72a62c4e450a0de7aa784f6e8d21270ee721c3d52067d4a1f0b1d",
   "response": {
-    "searches": ["site:corylacecove.com 2027", "\"Corylace Cove\" \"address\""],
+    "searches": ["site:corylacecove.com address", "open https://www.corylacecove.com/teencamp"],
     "usage": {
-      "inputTokens": 26187,
-      "cachedInputTokens": 8223,
-      "outputTokens": 3313,
-      "reasoningTokens": 268
+      "inputTokens": 19355,
+      "cachedInputTokens": 8845,
+      "outputTokens": 3370,
+      "reasoningTokens": 184
     },
     "status": "completed",
-    "ms": 72219,
+    "ms": 62611,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -68,31 +68,23 @@
   "extraction": {
     "provider_name": "Corylace Cove",
     "website_url": "https://www.corylacecove.com/",
-    "notes": "No 2027 information or registration opening dates found. Dates and tuition below are from the explicitly labeled 2026 summer schedule. The provider identifies its property in the Beech Glen neighborhood of Mars Hill but no published street address was found. Store 'from' amounts reflect deposit/payment options rather than full camp tuition. Older standalone pages for Teen Overnight Camp, Craft Camp and Blacksmithing Camp appeared in search but returned no readable content; their season could not be established, so they are not included.",
+    "notes": "No 2027 summer information or registration opening dates were found. Dates and tuition below are from the explicitly titled 2026 Summer Camps schedule. The official contact page identifies only the Beech Glenn neighborhood in Mars Hill, not a street address. A business-record listing gives 1311 Hamburg Road, but this was not verified as the camper drop-off address. Search also surfaced legacy /craft, /blacksmithing and /teencamp pages; those pages returned no readable content when opened, and their search snippets did not establish a 2026 or 2027 offering, so they were not added. Store starting amounts represent payment options including deposits rather than full camp tuition.",
     "excluded": [
       {
-        "name": "Wild Crafters",
-        "reason": "Fall homeschool program, not a summer camp."
+        "name": "Fall Homeschool Programs",
+        "reason": "School-year programs outside summer, including Wild Crafters, Craft Guild and Wood Gnomes."
       },
       {
-        "name": "Craft Guild - Fall 2026",
-        "reason": "Fall homeschool program."
+        "name": "Spring Homeschool Programs",
+        "reason": "Programs outside summer, including Hearth & Harvest, Craft Guild and Wood Gnomes."
       },
       {
-        "name": "Wood Gnomes - Fall 2026",
-        "reason": "Fall homeschool program."
+        "name": "Fireside Fridays",
+        "reason": "Listed among non-summer programs; no summer camp offering was established."
       },
       {
-        "name": "Hearth & Harvest - Spring 2026",
-        "reason": "Spring program outside summer."
-      },
-      {
-        "name": "Craft Guild - Spring 2026",
-        "reason": "Spring program outside summer."
-      },
-      {
-        "name": "Wood Gnomes - Spring 2026",
-        "reason": "Spring forest kindergarten outside summer."
+        "name": "Monthly payment for Ezren",
+        "reason": "Individual payment item, not a camp program."
       }
     ],
     "cards": [
@@ -100,7 +92,7 @@
         "name": "Wood Gnomes Camp",
         "type": "half_day",
         "categories": ["nature_outdoor", "arts", "music"],
-        "description": "Children participate in outdoor imaginative play, stories, group music, crafts and creek exploration. They also explore edible plants and practical outdoor skills.",
+        "description": "Children participate in outdoor imaginative play, songs, stories, group music making and crafts. They explore the woods and creek, taste edible plants and learn practical skills.",
         "camp_page_url": "https://www.corylacecove.com/summer-camps",
         "registration_url": "https://www.corylacecove.com/tuition/p/woodgnomescamp26",
         "season": {
@@ -132,8 +124,8 @@
         "prices": [
           {
             "amount": 275,
-            "unit": "week",
-            "label": "Full tuition",
+            "unit": "session",
+            "label": "Full Tuition",
             "year": 2026
           }
         ],
@@ -148,8 +140,7 @@
         "sources": [
           "https://www.corylacecove.com/summer-camps",
           "https://www.corylacecove.com/tuition/p/woodgnomescamp26",
-          "https://www.corylacecove.com/contact",
-          "https://www.corylacecove.com/about"
+          "https://www.corylacecove.com/contact"
         ],
         "confidence": "high",
         "review_notes": null
@@ -158,7 +149,7 @@
         "name": "Wild Ones Camp",
         "type": "day",
         "categories": ["nature_outdoor"],
-        "description": "Campers learn fire safety, tracking, wayfinding, safe tool use, plant identification and animal ecology. Activities include awareness games and quiet forest observation.",
+        "description": "Campers learn fire safety, tracking, wayfinding, safe tool use, plant identification, animal behavior and ecology. They play awareness games and observe forest creatures.",
         "camp_page_url": "https://www.corylacecove.com/summer-camps",
         "registration_url": "https://www.corylacecove.com/tuition/p/wildonescamp26",
         "season": {
@@ -190,8 +181,8 @@
         "prices": [
           {
             "amount": 350,
-            "unit": "week",
-            "label": "Full tuition",
+            "unit": "session",
+            "label": "Full Tuition",
             "year": 2026
           }
         ],
@@ -206,7 +197,7 @@
         "sources": [
           "https://www.corylacecove.com/summer-camps",
           "https://www.corylacecove.com/tuition/p/wildonescamp26",
-          "https://www.corylacecove.com/about"
+          "https://www.corylacecove.com/contact"
         ],
         "confidence": "high",
         "review_notes": null
@@ -215,7 +206,7 @@
         "name": "Craft Gnomes Camp",
         "type": "day",
         "categories": ["arts", "nature_outdoor"],
-        "description": "Campers make crafts inspired by gnome and faerie stories using wool, silk and forest materials. The outdoor program includes imaginative play and creek exploration.",
+        "description": "Campers hear gnome and faerie tales and make crafts using wool, silk and forest materials. Activities include outdoor imaginative play and creek exploration.",
         "camp_page_url": "https://www.corylacecove.com/summer-camps",
         "registration_url": "https://www.corylacecove.com/tuition/p/craftgnomescamp26",
         "season": {
@@ -241,14 +232,14 @@
         "hours": {
           "start": "10:00",
           "end": "16:00",
-          "text": "Tuesday–Thursday, 3 Day Camp"
+          "text": "Tuesday-Thursday"
         },
         "extended_care": null,
         "prices": [
           {
             "amount": 200,
             "unit": "session",
-            "label": "Full tuition; three-day camp",
+            "label": "Full Tuition",
             "year": 2026
           }
         ],
@@ -263,7 +254,7 @@
         "sources": [
           "https://www.corylacecove.com/summer-camps",
           "https://www.corylacecove.com/tuition/p/craftgnomescamp26",
-          "https://www.corylacecove.com/about"
+          "https://www.corylacecove.com/contact"
         ],
         "confidence": "high",
         "review_notes": null
@@ -272,7 +263,7 @@
         "name": "Craft Guild",
         "type": "day",
         "categories": ["arts", "nature_outdoor"],
-        "description": "Teens learn forging, safe tool use and metalworking through knife-making or metalsmithing sessions. Projects include steel knives with handles and sheaths, or objects made from steel and copper.",
+        "description": "Campers learn blacksmithing and metalworking techniques, tool use and shop safety. The Knife Making week includes forging a knife, making its handle and sheath, and learning sharpening and care; Metalsmithing includes steel and copper projects.",
         "camp_page_url": "https://www.corylacecove.com/summer-camps",
         "registration_url": "https://www.corylacecove.com/tuition",
         "season": {
@@ -298,14 +289,14 @@
         "hours": {
           "start": "10:00",
           "end": "16:00",
-          "text": "Monday–Friday"
+          "text": "Monday-Friday"
         },
         "extended_care": null,
         "prices": [
           {
             "amount": 400,
-            "unit": "week",
-            "label": "Full tuition",
+            "unit": "session",
+            "label": "Full Tuition",
             "year": 2026
           }
         ],
@@ -346,7 +337,7 @@
           "https://www.corylacecove.com/summer-camps",
           "https://www.corylacecove.com/tuition/p/knifemakingcamp26",
           "https://www.corylacecove.com/tuition/p/metalsmithingcamp26",
-          "https://www.corylacecove.com/about"
+          "https://www.corylacecove.com/contact"
         ],
         "confidence": "high",
         "review_notes": null
@@ -355,7 +346,7 @@
         "name": "Critters of the Creek",
         "type": "half_day",
         "categories": ["nature_outdoor"],
-        "description": "Children explore the creek, study salamanders and crawdads, and learn to recognize tracks and other animal signs. They practice moving through rocky creek terrain and forest hillsides.",
+        "description": "Children explore the creek ecosystem, studying salamanders, crawdads and signs of other animals. They practice traversing the creek and hillsides through forest exploration and water play.",
         "camp_page_url": "https://www.corylacecove.com/summer-camps",
         "registration_url": "https://www.corylacecove.com/tuition/p/crittersofthecreekcamp26",
         "season": {
@@ -387,8 +378,8 @@
         "prices": [
           {
             "amount": 275,
-            "unit": "week",
-            "label": "Full tuition",
+            "unit": "session",
+            "label": "Full Tuition",
             "year": 2026
           }
         ],
@@ -397,7 +388,7 @@
         "last_year_registration_opened": null,
         "availability": {
           "status": "available",
-          "scope": "2026 camp",
+          "scope": null,
           "text": "Only 3 spaces left!"
         },
         "financial_aid": null,
@@ -407,16 +398,16 @@
         "sources": [
           "https://www.corylacecove.com/summer-camps",
           "https://www.corylacecove.com/tuition/p/crittersofthecreekcamp26",
-          "https://www.corylacecove.com/about"
+          "https://www.corylacecove.com/contact"
         ],
         "confidence": "medium",
-        "review_notes": "The summer page still says 'Only 3 spaces left!' for a session that ended July 31, 2026. Treat this as stale 2026 availability, not 2027 availability."
+        "review_notes": "The summer page still says 'Only 3 spaces left!' for a session that ended July 31, 2026. Check whether this retained availability notice should be displayed."
       },
       {
         "name": "Craft Camp: Copper, Clay & Carving",
         "type": "day",
         "categories": ["arts", "nature_outdoor"],
-        "description": "Campers forge copper objects, shape and campfire-fire clay pottery, and learn wood carving and knife safety. The week also includes creek time, games and nature exploration.",
+        "description": "Campers forge copper crafts, shape clay pottery and fire it in a campfire, and learn basic wood carving and knife safety. They also play games, explore nature and cool off in the creek.",
         "camp_page_url": "https://www.corylacecove.com/summer-camps",
         "registration_url": "https://www.corylacecove.com/tuition/p/craftcampcopperclayandcarving26",
         "season": {
@@ -448,8 +439,8 @@
         "prices": [
           {
             "amount": 350,
-            "unit": "week",
-            "label": "Full tuition",
+            "unit": "session",
+            "label": "Full Tuition",
             "year": 2026
           }
         ],
@@ -458,7 +449,7 @@
         "last_year_registration_opened": null,
         "availability": {
           "status": "available",
-          "scope": "2026 camp",
+          "scope": null,
           "text": "Only 2 spaces left!"
         },
         "financial_aid": null,
@@ -468,10 +459,10 @@
         "sources": [
           "https://www.corylacecove.com/summer-camps",
           "https://www.corylacecove.com/tuition/p/craftcampcopperclayandcarving26",
-          "https://www.corylacecove.com/about"
+          "https://www.corylacecove.com/contact"
         ],
         "confidence": "medium",
-        "review_notes": "The summer page still says 'Only 2 spaces left!' for a session that ended July 31, 2026. Treat this as stale 2026 availability, not 2027 availability."
+        "review_notes": "The summer page still says 'Only 2 spaces left!' for a session that ended July 31, 2026. Check whether this retained availability notice should be displayed."
       }
     ]
   }

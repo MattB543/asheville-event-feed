@@ -8,22 +8,24 @@
     "status": "review",
     "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
   },
-  "extractedAt": "2026-10-29T15:33:58.127Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:28:41.171Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "ae1d9a0e60c4474f2f5983161a4f8c5ec187946b25c343aaadf99d7d5e5557d3",
   "response": {
     "searches": [
       "Cornerstone Wesleyan Bryson City vacation bible school 2026 2027",
-      "\"Cornerstone Wesleyan\" \"Bryson City\" \"VBS\""
+      "\"Cornerstone Wesleyan\" \"Bryson\" \"VBS\"",
+      "\"cornerstonewesleyan\" \"Bryson City\"",
+      "site:facebook.com/groups/BrysonCityWesleyan \"2026\" \"Bible\""
     ],
     "usage": {
-      "inputTokens": 22938,
-      "cachedInputTokens": 8223,
-      "outputTokens": 393,
-      "reasoningTokens": 166
+      "inputTokens": 24929,
+      "cachedInputTokens": 8845,
+      "outputTokens": 571,
+      "reasoningTokens": 350
     },
     "status": "completed",
-    "ms": 15293,
+    "ms": 30627,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -42,17 +44,8 @@
   "extraction": {
     "provider_name": "Cornerstone Wesleyan Church of Bryson City",
     "website_url": "https://cornerstonewesleyan.wixsite.com/home",
-    "notes": "No qualifying summer camp or Vacation Bible School could be verified for 2026 or 2027. The supplied homepage contains regular worship and Bible study information but no summer program announcement. Searches of the church's official website and indexed Facebook content did not locate a summer program. The Events, Bulletin Online, Calendar and Services pages returned no readable body text when opened; indexed Services text describes recurring youth and children's programs. Search results for similarly named churches' VBS programs were not attributed to this provider.",
-    "excluded": [
-      {
-        "name": "Sunday School",
-        "reason": "Recurring Sunday religious instruction, not a finite summer program."
-      },
-      {
-        "name": "Wednesday youth and children's programs",
-        "reason": "The official Services search result describes recurring Wednesday evening programs, not a finite summer offering."
-      }
-    ],
+    "notes": "No 2027 summer information found. The official home page contains no camp information; the events, calendar and bulletin-online URLs returned no readable text. A third-party AllEvents listing identifies Vacation Bible School at the church's address on June 18, 2026, from 6–8:30 p.m., but does not provide a readable multi-day schedule or program details. The listing is https://allevents.in/bryson-city/vacation-bible-school/200030251882140. Official confirmation is needed before creating a camp card; this is not evidence that the church offers no VBS. The church's official website prints its address as 495 Franklin Church Grove Road, Bryson City, NC, while third-party listings use 495 Franklin Grove Church Road. Search results for other Cornerstone churches were not treated as this provider's programs.",
+    "excluded": [],
     "cards": []
   }
 }

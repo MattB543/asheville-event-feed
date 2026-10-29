@@ -8,25 +8,24 @@
     "status": "review",
     "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
   },
-  "extractedAt": "2026-10-29T15:25:33.905Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:21:43.703Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "4b322e33446fe3d158aea8d00685a7bdb0096e03604d1b330d9ecee6120e98f6",
   "response": {
     "searches": [
-      "site:roanstreet.com VBS",
-      "\"Roan Street Church of God\" \"VBS\"",
+      "site:roanstreet.com \"Bible\"",
+      "\"Roan Street Church of God\" \"Vacation Bible\"",
       "open https://www.elizabethton.com/2026/06/03/roan-street-church-of-god-to-host-emerald-crossing-vacation-bible-school/",
-      "open https://roanstreetchurchofgod.myanswers.com/emerald-crossing/",
-      "site:roanstreetchurchofgod.myanswers.com/emerald-crossing"
+      "open https://roanstreetchurchofgod.myanswers.com/emerald-crossing/"
     ],
     "usage": {
-      "inputTokens": 23325,
-      "cachedInputTokens": 8223,
-      "outputTokens": 914,
-      "reasoningTokens": 299
+      "inputTokens": 22866,
+      "cachedInputTokens": 8845,
+      "outputTokens": 736,
+      "reasoningTokens": 222
     },
     "status": "completed",
-    "ms": 34366,
+    "ms": 28853,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -40,16 +39,25 @@
   "extraction": {
     "provider_name": "Roan Street Church of God of Elizabethton",
     "website_url": "https://roanstreet.com/",
-    "notes": "No 2027 summer program information was found. A June 3, 2026 Elizabethton Star article documents the church's 2026 Vacation Bible School, but the church's MyAnswers program page returned no readable content. Dates and activity details below therefore require official confirmation.",
-    "excluded": [],
+    "notes": "No 2027 Vacation Bible School information was found. The church events page and myAnswers pages returned no readable content. A June 3, 2026 Elizabethton Star article supplied the 2026 program details; no official registration opening date was found.",
+    "excluded": [
+      {
+        "name": "Youth group",
+        "reason": "Weekly year-round youth ministry, not a finite summer camp."
+      },
+      {
+        "name": "Children's ministry",
+        "reason": "Regular children's church ministry, not a finite summer camp."
+      }
+    ],
     "cards": [
       {
         "name": "Vacation Bible School",
         "type": "vbs",
         "categories": ["faith_based"],
-        "description": "Children rotate through Bible lessons, worship, science activities, crafts and games exploring Psalm 23. The 2026 theme was Emerald Crossing: An Irish Adventure Through Psalm 23.",
+        "description": "Children rotate through Bible lessons, worship, science activities, crafts and games. The Emerald Crossing theme explores Psalm 23.",
         "camp_page_url": null,
-        "registration_url": null,
+        "registration_url": "https://roanstreetchurchofgod.myanswers.com/",
         "season": {
           "year": 2026,
           "status": "not_posted",
@@ -87,11 +95,17 @@
         "availability": null,
         "financial_aid": null,
         "special_needs": null,
-        "lunch": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Lunch and snacks will be provided to all participants."
+        },
         "transportation": null,
-        "sources": ["https://roanstreet.com/"],
+        "sources": [
+          "https://roanstreet.com/",
+          "https://www.elizabethton.com/2026/06/03/roan-street-church-of-god-to-host-emerald-crossing-vacation-bible-school/"
+        ],
         "confidence": "medium",
-        "review_notes": "Confirm dates, hours, free admission and activities with the church. These are stated in the June 3, 2026 article at https://www.elizabethton.com/2026/06/03/roan-street-church-of-god-to-host-emerald-crossing-vacation-bible-school/, not on a readable official program page. The article also reports lunch and snacks, but lunch is left null because official wording was unavailable. The attempted MyAnswers URL https://roanstreetchurchofgod.myanswers.com/emerald-crossing/ returned no readable content; its validity as a registration destination could not be confirmed."
+        "review_notes": "Dates, hours, activities, free admission and lunch come from the June 3, 2026 Elizabethton Star article rather than a readable official camp page. The article identifies the church's myAnswers registration page, but the platform returned no readable content. Confirm those details with the church; ages were not specified. No 2027 announcement was found."
       }
     ]
   }

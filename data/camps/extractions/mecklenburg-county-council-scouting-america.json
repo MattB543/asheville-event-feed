@@ -7,29 +7,31 @@
     "discovered_by": ["gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:36:32.821Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
-  "sourceHash": "ff6068714f17198b4ffc3b73d08b11023a09c29492b5d1edd6cfe9203f8606e9",
+  "extractedAt": "2026-10-29T17:30:56.186Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "1bcb300eafc3cec2c2e8d5a6ea00a762f330ea4fe471ea7c0bb407d2c26b6728",
   "response": {
     "searches": [
-      "open https://www.mycampgrimes.org/wp-content/uploads/sites/2/2026/10/2027CampGrimesSummerCampGuide_lores.pdf",
-      "site.mycampgrimes.org \"383\""
+      "open https://www.mycampgrimes.org/",
+      "site.mycampgrimes.org \"2027\" reservations",
+      "open https://mycouncil.mccscouting.org/Event/Grimes2027-Week1",
+      "site:mycouncil.mccscouting.org \"2027\" \"Webelos\""
     ],
     "usage": {
-      "inputTokens": 26808,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1750,
-      "reasoningTokens": 203
+      "inputTokens": 31773,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2326,
+      "reasoningTokens": 298
     },
     "status": "completed",
-    "ms": 39439,
+    "ms": 59829,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
   "bundle": [
     {
       "url": "https://www.mycampgrimes.org/",
-      "chars": 4376,
+      "chars": 4398,
       "method": "fetch"
     },
     {
@@ -76,31 +78,39 @@
   "extraction": {
     "provider_name": "Mecklenburg County Council, Scouting America",
     "website_url": "https://www.mycampgrimes.org/",
-    "notes": "2027 summer camp dates and fees are posted. Merit badge classes, Trailblazer, Adventure Academy activities and provisional placement are treated as components or participation options of the resident summer camp, not separate camps. The 2027 guide contains conflicting payment deadlines; confirm these with the council before publishing payment reminders. The fetched guide ends partway through page 12, and the PDF could not be read further through the browser.",
+    "notes": "2027 summer dates are posted. Webelos Adventure Camp is also listed on the council website. Direct browser opens returned no readable content; supplementary facts were obtained from official search results. The supplied 2027 guide text was truncated after page 12. Merit badge classes, Trailblazer activities and adventure electives are components of Summer Camp, not separate camp cards.",
     "excluded": [
       {
         "name": "Weekend Camping",
-        "reason": "General weekend campsite reservations, not a finite supervised summer youth program."
+        "reason": "Facility and campsite reservations rather than a finite supervised summer youth program."
       },
       {
-        "name": "Camp Grimes Staff",
-        "reason": "Summer employment program."
+        "name": "Camp Grimes Staff Employment",
+        "reason": "Employment program."
       },
       {
-        "name": "8th Annual Girl Camporee of the East Coast",
-        "reason": "October event outside summer."
+        "name": "Girl Camporee of the East Coast",
+        "reason": "October program outside summer."
       },
       {
         "name": "Beaver Days",
-        "reason": "May work weekend to prepare camp, outside summer."
+        "reason": "May work weekend outside summer."
+      },
+      {
+        "name": "Cub Scout Summer Day Camp",
+        "reason": "Held at Belk Scout Camp in the Charlotte area, outside the directory's drive radius."
+      },
+      {
+        "name": "Council Webeloree",
+        "reason": "October program outside summer."
       }
     ],
     "cards": [
       {
         "name": "Camp Grimes Summer Camp",
         "type": "overnight",
-        "categories": ["nature_outdoor", "general"],
-        "description": "Scouts spend a week camping with their troop and participating in outdoor skills, merit badge instruction, aquatics, climbing and range activities. Provisional Scouts can be placed with another troop when they cannot attend their own troop’s camp week.",
+        "categories": ["nature_outdoor", "sports", "stem", "arts"],
+        "description": "Scouts practice outdoor living skills and work on merit badges. Activities include boating, swimming, fishing, climbing, range and target activities, and crafts.",
         "camp_page_url": "https://www.mycampgrimes.org/summercamp/",
         "registration_url": "https://www.mycampgrimes.org/summercamp/",
         "season": {
@@ -108,35 +118,31 @@
           "status": "posted",
           "start": "2027-06-13",
           "end": "2027-07-10",
-          "text": "Camp Grimes will host four weeks of Scouts-BSA Long Term Resident Camp in 2027."
+          "text": null
         },
         "ages": null,
         "grades": null,
         "sites": [
           {
             "name": "Camp Grimes",
-            "address": "383 Vein Mountain Road",
+            "address": "383 Vein Mountain Rd",
             "town": "Nebo",
             "state": "NC"
           }
         ],
-        "hours": {
-          "start": null,
-          "end": null,
-          "text": "Sunday check-in is scheduled between 2:00 pm and 3:30 pm; camp administration contacts troops two weeks before arrival with their check-in time."
-        },
+        "hours": null,
         "extended_care": null,
         "prices": [
           {
             "amount": 475,
             "unit": "week",
-            "label": "In-council and out-of-council Scouts",
+            "label": "in-council and out-of-council Scouts",
             "year": 2027
           },
           {
-            "amount": 427.5,
+            "amount": 460,
             "unit": "week",
-            "label": "Sibling: 10% discount after the first Scout pays full price; claim before final payment",
+            "label": "early",
             "year": 2027
           }
         ],
@@ -198,8 +204,8 @@
             "time": null,
             "precision": "date",
             "certainty": "announced",
-            "text": "April 14, 2027 Campership Applications Due",
-            "url": "https://www.mycampgrimes.org/fees/",
+            "text": "April 14, 2027 — Campership Applications Due. Camperships are for Mecklenburg County Council Scouts only.",
+            "url": "https://www.mycampgrimes.org/wp-content/uploads/sites/2/2026/10/2027CampGrimesSummerCampGuide_lores.pdf",
             "year": 2027,
             "confidence": "high"
           }
@@ -207,7 +213,7 @@
         "last_year_registration_opened": null,
         "availability": {
           "status": "available",
-          "scope": "2027 troop reservations",
+          "scope": null,
           "text": "We are now accepting reservations for the 2027 Summer Camp season!"
         },
         "financial_aid": {
@@ -225,13 +231,69 @@
         "transportation": null,
         "sources": [
           "https://www.mycampgrimes.org/",
-          "https://www.mycampgrimes.org/summercamp/",
           "https://www.mycampgrimes.org/fees/",
-          "https://www.mycampgrimes.org/campguide2026/",
-          "https://www.mycampgrimes.org/wp-content/uploads/sites/2/2026/10/2027CampGrimesSummerCampGuide_lores.pdf"
+          "https://www.mycampgrimes.org/summercamp/",
+          "https://www.mycampgrimes.org/directions",
+          "https://www.mycampgrimes.org/wp-content/uploads/sites/2/2026/10/2027CampGrimesSummerCampGuide_lores.pdf",
+          "https://mycouncil.mccscouting.org/Event/Grimes2027-Week1"
         ],
         "confidence": "medium",
-        "review_notes": "The guide's page 4 fee schedule says a $50 deposit is due December 15, 2026 and the balance May 1, 2027, but its due-date list and the fees webpage say $20 per Scout January 16, 2027 and balance May 30, 2027. Payment deadlines are omitted pending clarification. The $427.50 sibling price is calculated from the explicitly stated 10% discount on $475. The address is the camp mailing address printed in the guide; the driving-directions page could not be read to independently confirm the entrance location. No overall camper age or grade range was found."
+        "review_notes": "The guide's fee schedule says a $50 deposit is due December 15, 2026 and balance May 1, 2027, but its Due Dates section and fees webpage say $20 January 16, installments February 15 and April 1, and balance May 30. Payment deadlines were omitted pending clarification. The registration platform lists a $460 early youth price; its cutoff and applicability to all weeks were not readable. The guide also states a 10% sibling discount claimed before final payment. The fees webpage retains a stale 2024 schedule sentence, but every individual week explicitly says 2027. Special-needs information describes only a disability-related golf cart accommodation."
+      },
+      {
+        "name": "Webelos Adventure Camp",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "sports"],
+        "description": "Webelos participate in archery and BB shooting and work on Scouting achievements. Registration is by pack only.",
+        "camp_page_url": "https://www.mccscouting.org/WAC2026/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-07-11",
+          "end": "2027-07-15",
+          "text": "One session only! July 11-15"
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Camp Grimes",
+            "address": "383 Vein Mountain Rd",
+            "town": "Nebo",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 250,
+            "unit": "session",
+            "label": "Scout",
+            "year": 2026
+          },
+          {
+            "amount": 275,
+            "unit": "session",
+            "label": "Scout late fee",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.mccscouting.org/WAC2026/",
+          "https://www.mycampgrimes.org/directions"
+        ],
+        "confidence": "medium",
+        "review_notes": "Official search results show a 2027 heading and July 11–15 without a year next to the dates; year is taken from that heading. The same page retains explicitly 2026 late-fee and closing dates adjacent to its prices, so prices are conservatively retained as 2026. Confirm 2027 pricing and overnight format; the readable snippet does not explicitly describe overnight lodging. Registration opening and class selection are TBD."
       }
     ]
   }

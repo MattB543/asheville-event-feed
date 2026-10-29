@@ -11,23 +11,23 @@
     "discovered_by": ["grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:14:10.288Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:12:09.064Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "3c49e9e00c3d2e287dcb8527819563f7706c8a419acf0ee057fb90652e714ed2",
   "response": {
     "searches": [
-      "site:ashevillecommunityyoga.org summer camp 2027",
+      "site:ashevillecommunityyoga.org \"Summer Camp\" \"2027\"",
       "open https://ashevillecommunityyoga.org/home/youth-family-programming/",
-      "site:ashevillecommunityyoga.org \"Summer Camp\" \"2026\" \"ages\""
+      "site:ashevillecommunityyoga.org \"camp\" \"2026\" \"ages\""
     ],
     "usage": {
-      "inputTokens": 30332,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1601,
-      "reasoningTokens": 183
+      "inputTokens": 26157,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1528,
+      "reasoningTokens": 213
     },
     "status": "completed",
-    "ms": 38641,
+    "ms": 40620,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -71,27 +71,23 @@
   "extraction": {
     "provider_name": "Asheville Community Yoga",
     "website_url": "https://ashevillecommunityyoga.org/",
-    "notes": "2027 sessions are posted, but the registration page's descriptive tuition and selectable checkout tiers conflict. No 2027 registration opening date was found. Ages and hours found on the older event page explicitly describe 2025, so they were not carried forward.",
+    "notes": "2027 session dates are posted. The 2027 sign-up page has conflicting tuition amounts and tier names; prices are omitted rather than choosing between them. No official registration opening date was found. The youth programming and older event pages returned no readable text when opened through the browser; supplied page text and official search results were used.",
     "excluded": [
       {
         "name": "Youth Yoga Classes",
-        "reason": "Recurring classes, paused during summer; not a finite summer camp."
+        "reason": "Recurring youth yoga classes, not a finite summer camp; classes pause during summer."
       },
       {
         "name": "Tween/Teen Yoga",
-        "reason": "Recurring classes rather than a finite summer program."
+        "reason": "Recurring yoga classes, not a finite summer camp."
       },
       {
         "name": "Prenatal Yoga",
-        "reason": "Adult classes, not a youth summer program."
+        "reason": "Adult classes, not a supervised youth summer program."
       },
       {
         "name": "Baby & Me Yoga",
-        "reason": "Caregiver-and-baby classes rather than a supervised youth summer camp."
-      },
-      {
-        "name": "Winter/Spring 2027 Yoga Teacher Training Program",
-        "reason": "Outside summer and not presented as a youth camp."
+        "reason": "Caregiver-and-baby classes, not a supervised youth summer camp."
       }
     ],
     "cards": [
@@ -99,7 +95,7 @@
         "name": "Youth Summer Camp",
         "type": "day",
         "categories": ["sports", "arts", "nature_outdoor"],
-        "description": "Children practice mindfulness, movement and yoga games and participate in art and gardening. Activities also include music, storytelling and nature exploration.",
+        "description": "Campers participate in mindfulness, movement, yoga games, art and gardening. Activities also include music, storytelling and nature.",
         "camp_page_url": "https://ashevillecommunityyoga.org/summer-camp-2027-sign-up/",
         "registration_url": "https://ashevillecommunityyoga.org/summer-camp-2027-sign-up/",
         "season": {
@@ -121,44 +117,7 @@
         ],
         "hours": null,
         "extended_care": null,
-        "prices": [
-          {
-            "amount": 400,
-            "unit": "week",
-            "label": "Community Rate — descriptive tuition; conflicts with checkout",
-            "year": 2027
-          },
-          {
-            "amount": 450,
-            "unit": "week",
-            "label": "Sustainer Rate — descriptive tuition; conflicts with checkout tier name",
-            "year": 2027
-          },
-          {
-            "amount": 500,
-            "unit": "week",
-            "label": "Supporter Rate — descriptive tuition; conflicts with checkout",
-            "year": 2027
-          },
-          {
-            "amount": 350,
-            "unit": "week",
-            "label": "Community Rate — selectable checkout tier",
-            "year": 2027
-          },
-          {
-            "amount": 450,
-            "unit": "week",
-            "label": "Supporter Rate — selectable checkout tier",
-            "year": 2027
-          },
-          {
-            "amount": 550,
-            "unit": "week",
-            "label": "Sustainer Rate — selectable checkout tier",
-            "year": 2027
-          }
-        ],
+        "prices": [],
         "sessions": [
           {
             "label": "Week 1",
@@ -245,13 +204,13 @@
         "transportation": null,
         "sources": [
           "https://ashevillecommunityyoga.org/summer-camp-2027-sign-up/",
-          "https://ashevillecommunityyoga.org/product/week-5-aug-2-6-2027/",
           "https://ashevillecommunityyoga.org/home/how-to-register-for-youth-classes/",
+          "https://ashevillecommunityyoga.org/home/youth-family-programming/",
           "https://ashevillecommunityyoga.org/contactdirections/",
           "https://ashevillecommunityyoga.org/event/summer-camp-2024/"
         ],
         "confidence": "medium",
-        "review_notes": "Confirm 2027 tuition before publishing: the sign-up page describes Community $400, Sustainer $450 and Supporter $500, but its checkout options list Community $350, Supporter $450 and Sustainer $550. Confirm the 2027 drop-off location at the published campus address; the explicit camp location is on the 2025 event page. Obtain 2027 ages and hours: only the 2025 event page states ages 5–10 and 8:30 am–3:00 pm."
+        "review_notes": "The 2027 sign-up descriptions list $400 Community, $450 Sustainer and $500 Supporter per week, but purchase selectors list $350 Community, $450 Supporter and $550 Sustainer. Confirm tuition and tier names. Ages 5–10 and hours 8:30–15:00 appear only in the supplied 2025 event page, so they were not carried forward. Confirm the 2027 drop-off location; the older camp event identifies the provider's Brookdale Road site, whose address is confirmed by the official contact page. Add-to-cart controls alone were not treated as an explicit availability announcement."
       }
     ]
   }

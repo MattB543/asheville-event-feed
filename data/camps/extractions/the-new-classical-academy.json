@@ -7,19 +7,19 @@
     "discovered_by": ["grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:27:31.959Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:23:15.562Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "8a1f47966d4f48c0697c5a9e348c52bf01d02ab6116ade34ac3355db651c306f",
   "response": {
-    "searches": ["site:thenewclassicalacademy.org summer 2027 camp"],
+    "searches": ["site:thenewclassicalacademy.org \"2027\" \"summer\""],
     "usage": {
-      "inputTokens": 19231,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1415,
-      "reasoningTokens": 53
+      "inputTokens": 19779,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1378,
+      "reasoningTokens": 55
     },
     "status": "completed",
-    "ms": 29781,
+    "ms": 28094,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -68,23 +68,19 @@
   "extraction": {
     "provider_name": "The New Classical Academy",
     "website_url": "https://thenewclassicalacademy.org/",
-    "notes": "No summer 2027 information or registration opening date was found on official pages. The card uses the published 2026 summer schedule. Registration forms contain a stale May 1, 2025 payment agreement and PayPal fee wording that differs from the summer page; confirm payment terms before registering.",
+    "notes": "No summer 2027 program information or registration dates were found on official pages. The card retains the published 2026 schedule. School tuition aid and school-year care policies were not applied to summer camp.",
     "excluded": [
       {
-        "name": "Lower School",
-        "reason": "School-year academic program, not a finite summer camp."
-      },
-      {
-        "name": "Middle School",
-        "reason": "School-year academic program, not a finite summer camp."
-      },
-      {
         "name": "Before & After-School Care",
-        "reason": "School-year childcare; no summer-only offering stated."
+        "reason": "School-year childcare, not a finite summer camp."
       },
       {
-        "name": "Hospitality sports teams",
-        "reason": "Sports team seasons in fall, winter and spring, not summer clinics or camps."
+        "name": "Lower School and Middle School",
+        "reason": "Regular school-year educational programs."
+      },
+      {
+        "name": "Adventure Trips",
+        "reason": "School enrichment trips, not summer camps."
       }
     ],
     "cards": [
@@ -92,7 +88,7 @@
         "name": "TNCA Summer Camp",
         "type": "day",
         "categories": ["general", "cooking", "nature_outdoor"],
-        "description": "Campers participate in weekly themes covering mythology, cooking and outdoor adventures, with free play and outside time. The two cooking weeks use different recipes and foods.",
+        "description": "Campers participate in weekly themes covering mythology, cooking and outdoor adventures, with free play and outside time.",
         "camp_page_url": "https://thenewclassicalacademy.org/summerprograms",
         "registration_url": "https://thenewclassicalacademy.org/summerprograms",
         "season": {
@@ -185,21 +181,21 @@
         "availability": null,
         "financial_aid": {
           "value": "yes",
-          "text": "Need-based scholarships are available. This financial support is for children who would otherwise not get to participate in the community, friendships, and fun that come with summer day camps."
+          "text": "Need-based scholarships are available."
         },
         "special_needs": null,
         "lunch": null,
         "transportation": null,
         "sources": [
           "https://thenewclassicalacademy.org/summerprograms",
-          "https://thenewclassicalacademy.org/contact",
+          "https://thenewclassicalacademy.org/",
           "https://docs.google.com/forms/d/e/1FAIpQLSfi94hU0zPsE0aEMeEOXPMy0DXCwqyQQsUxRYbElArjeyrbOw/viewform?usp=send_form",
           "https://docs.google.com/forms/d/e/1FAIpQLSfdLTt8hDKcM1_W4LPIauJBT-E71-sLKR1L6TNrebHbvW1NnA/viewform?usp=send_form",
           "https://docs.google.com/forms/d/e/1FAIpQLSfpfs_-qT2uMEBeh47d1KZ5x7BHioN3MMxLqdMbpDUP0X4KqQ/viewform?usp=publish-editor",
           "https://docs.google.com/forms/d/e/1FAIpQLSdyuxFsPn2aoQW9O5G7gitXo5N1l-I_gfrG19A_iraWBGlxog/viewform?usp=send_form"
         ],
         "confidence": "medium",
-        "review_notes": "The summer page states rising K4/Kindergarten-5th grade; K4 is represented as pre-K, grade -1. The summer page states the remaining payment is due May 1, 2026, but all four registration forms retain a May 1, 2025 agreement. The page specifies a $7 PayPal fee per transaction; forms list $5 fees for installment payments and $7 per week for full payment. Base tuition agrees at $300 per week. Confirm these payment terms with the provider."
+        "review_notes": "K4 is represented as pre-K grade -1; the camp states rising K4/Kindergarten–5th grade. The registration forms retain a May 1, 2025 payment-agreement deadline despite their explicit 2026 session dates; the camp page says May 1, 2026. PayPal fees also differ: the camp page says $7 per transaction, while forms describe $5 fees for installments and $7 per week for full payment. Only the consistent $300 base price is included. The published location uses Sandhill Rd in session text and Sand Hill Road in the provider footer; the footer spelling is used."
       }
     ]
   }

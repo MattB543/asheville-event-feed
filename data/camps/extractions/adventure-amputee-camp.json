@@ -7,8 +7,8 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:19:27.046Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:16:38.662Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "a963355fab6e5373c3e7a8b4db9cbb3bc75c5110f1297b44979161c90e95068a",
   "response": {
     "searches": [
@@ -16,13 +16,13 @@
       "open https://adventureamputeecamp.org/camper-registration"
     ],
     "usage": {
-      "inputTokens": 16747,
-      "cachedInputTokens": 8223,
-      "outputTokens": 955,
-      "reasoningTokens": 104
+      "inputTokens": 17364,
+      "cachedInputTokens": 8845,
+      "outputTokens": 973,
+      "reasoningTokens": 146
     },
     "status": "completed",
-    "ms": 23501,
+    "ms": 25018,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -71,11 +71,11 @@
   "extraction": {
     "provider_name": "Adventure Amputee Camp",
     "website_url": "https://adventureamputeecamp.org/",
-    "notes": "No 2027 summer dates or registration milestones were found. The camper-registration page's official search result states an age-at-start date of July 8, 2026, but the page returned no readable text when opened. No explicit 2026 end date was found.",
+    "notes": "No official 2027 summer information was found. The camper registration page's search result states a July 8, 2026 start, but opening that page returned no readable text. No exact 2026 end date or registration opening date was found.",
     "excluded": [
       {
         "name": "Winter Camp",
-        "reason": "Held in January or February, outside summer."
+        "reason": "Held outside summer in Wintergreen, Virginia, outside the directory's geographic area."
       }
     ],
     "cards": [
@@ -83,7 +83,7 @@
         "name": "Summer Camp",
         "type": "overnight",
         "categories": ["nature_outdoor", "sports", "special_needs"],
-        "description": "Children with amputations or limb differences participate in rafting, ropes courses, zip-lining, swimming and adaptive water sports. Campers stay at Nantahala Outdoor Center.",
+        "description": "Children with amputations or limb differences participate in rafting, ropes courses, zip-lining, swimming and adaptive water sports. Activities are modified to meet each camper's ability and interest level.",
         "camp_page_url": "https://adventureamputeecamp.org/summer-camp-1/",
         "registration_url": "https://adventureamputeecamp.org/camper-registration",
         "season": {
@@ -91,7 +91,7 @@
           "status": "not_posted",
           "start": "2026-07-08",
           "end": null,
-          "text": "Summer Camp is held for 5 days during the 2nd week in July."
+          "text": null
         },
         "ages": {
           "min": 8,
@@ -112,7 +112,7 @@
           {
             "amount": 0,
             "unit": "program",
-            "label": "Campers never pay a fee",
+            "label": "Free for families",
             "year": 2026
           }
         ],
@@ -134,7 +134,7 @@
         },
         "transportation": {
           "value": "yes",
-          "text": "These funds help cover camper lodging, meals, activities, transportation (including charter bus from Atlanta), gear, volunteer support, and rising costs due to inflation."
+          "text": "Transportation (including charter bus from Atlanta)"
         },
         "sources": [
           "https://adventureamputeecamp.org/summer-camp-1/",
@@ -144,7 +144,7 @@
           "https://noc.com/locations/nantahala-nc/"
         ],
         "confidence": "medium",
-        "review_notes": "July 8, 2026 comes from the official camper-registration search snippet: Age at start of camp (7/8/26). The page could not be read when opened. Confirm the end date and 2027 schedule with AAC. The summer page's typical itinerary lists Tuesday between Wednesday and Friday; no dates were inferred from that itinerary. Free attendance, meals and Atlanta transportation are described in the 2025–2026 giving campaign rather than a summer-specific registration document."
+        "review_notes": "The July 8, 2026 start is stated in the official camper-registration search snippet as 'Age at start of camp (7/8/26)'; the page could not be read directly. The summer page describes five days but gives no exact end date, so no end date was inferred. Its typical itinerary lists Tuesday after Wednesday, an apparent weekday error. Free attendance, meals and transportation are supported by the Giving Season 2025–2026 donation page; transportation routes and arrangements for individual families are not specified."
       }
     ]
   }

@@ -9,22 +9,19 @@
     "status": "review",
     "status_reason": "first page is a social media page or video, which our fetcher can't read"
   },
-  "extractedAt": "2026-10-29T15:38:39.699Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:32:47.936Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": null,
   "response": {
-    "searches": [
-      "Barnardsville Baptist Church VBS 2026",
-      "site:facebook.com/barnardsvillebaptist \"VBS\""
-    ],
+    "searches": ["Barnardsville Baptist Church VBS 2026", "\"Barnardsville Baptist\" \"VBS\""],
     "usage": {
-      "inputTokens": 22911,
-      "cachedInputTokens": 8223,
-      "outputTokens": 341,
-      "reasoningTokens": 162
+      "inputTokens": 24259,
+      "cachedInputTokens": 8845,
+      "outputTokens": 331,
+      "reasoningTokens": 158
     },
     "status": "completed",
-    "ms": 18333,
+    "ms": 18594,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -38,7 +35,7 @@
   "extraction": {
     "provider_name": "Barnardsville Baptist Church",
     "website_url": null,
-    "notes": "No summer camp program could be verified from readable official pages. The church's Facebook page returned no readable content. Direct access to barnardsvillebaptist.org was blocked by robots.txt; although directories identify it as the church's website, indexed pages contain unrelated Miro content, so it is not treated as a verified current church website. A third-party mirror of Facebook posts includes a June 30, 2026 fundraiser mentioning Vacation Bible School, but no dates, ages, hours or program details were found. This is a lead for manual follow-up, not enough to create a verified card. No 2027 camp information or registration announcements were found.",
+    "notes": "The supplied official Facebook page could not be read. Directories link to barnardsvillebaptist.org, but that domain was blocked by robots.txt and its indexed pages contain unrelated Miro content, so it could not be verified as a current church website. A FindGlocal mirror of a June 30, 2026 church post mentions donations toward Vacation Bible School, but no official readable announcement establishing the program's dates, ages, location or registration was found. No 2027 camp information was found. No cards were created from the fundraiser mention alone; check the church's Facebook page directly for a VBS announcement.",
     "excluded": [],
     "cards": []
   }

@@ -10,19 +10,19 @@
     "discovered_by": ["grid", "aggregator", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:16:53.318Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:14:12.514Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "579b8594430e56c234c4bc4acfd61963a70daa910d5dd01bb992a302ce9b779d",
   "response": {
-    "searches": ["site:waynesvillenc.gov \"camp\" \"2027\""],
+    "searches": ["site:waynesvillenc.gov \"Summer Basecamp\" \"2027\""],
     "usage": {
-      "inputTokens": 21326,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1623,
-      "reasoningTokens": 127
+      "inputTokens": 21924,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1678,
+      "reasoningTokens": 135
     },
     "status": "completed",
-    "ms": 34739,
+    "ms": 36224,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -71,27 +71,23 @@
   "extraction": {
     "provider_name": "Town of Waynesville Parks & Recreation",
     "website_url": "https://www.waynesvillenc.gov/departments/parks-recreation",
-    "notes": "No summer 2027 program information or registration dates were found. The card uses 2026 information. Registration is in person at the Recreation Center front desk, with full payment and completed packets required.",
+    "notes": "No summer 2027 announcement was found on official pages. The older Camps page refers to summer 2022; the current youth camps page and 2026 registration announcement describe Summer Basecamp. Registration is in person at the Recreation Center front desk.",
     "excluded": [
       {
         "name": "After-School Program",
-        "reason": "School-year after-school childcare, not a summer program."
+        "reason": "School-year childcare, not a summer camp."
       },
       {
         "name": "Impending Weather Camps",
-        "reason": "Snow-day and teacher-workday programs, not summer camps."
+        "reason": "Snow-day and teacher-workday camps are outside summer."
       },
       {
         "name": "Morning Childcare",
-        "reason": "Ongoing childcare rather than a finite summer program; parents must remain on site."
+        "reason": "Ongoing drop-in childcare requiring parents to remain on site, not a finite summer camp."
       },
       {
-        "name": "Base Camp On The Go",
-        "reason": "Mobile recreation and event rental service, not a listed finite summer youth camp."
-      },
-      {
-        "name": "Summer Camp Assistant / Lead Summer Camp Assistant",
-        "reason": "Paid employment positions, not camper programs."
+        "name": "Base Camp On the Go Festival Fees",
+        "reason": "Festival equipment or activity rental, not a supervised summer youth program."
       }
     ],
     "cards": [
@@ -99,9 +95,9 @@
         "name": "Summer Basecamp",
         "type": "day",
         "categories": ["general", "nature_outdoor", "arts"],
-        "description": "Children participate in outdoor activities, hands-on arts and crafts, and exploration of the mountainous region of western North Carolina.",
+        "description": "Campers enjoy outdoor activities, make hands-on arts and crafts, and explore the mountainous region of Western North Carolina.",
         "camp_page_url": "https://www.waynesvillenc.gov/departments/parks-recreation/camps-youth",
-        "registration_url": "https://www.waynesvillenc.gov/news/summer-basecamp-2026-registration-march-14th-600-am",
+        "registration_url": null,
         "season": {
           "year": 2026,
           "status": "not_posted",
@@ -133,19 +129,19 @@
           {
             "amount": 175,
             "unit": "week",
-            "label": "Residents and Town employees: first child; 3 days or more per week",
+            "label": "Residents and Town Employees: first child, 3 days or more per week",
             "year": 2026
           },
           {
             "amount": 90,
             "unit": "week",
-            "label": "Residents and Town employees: each additional child",
+            "label": "Residents and Town Employees: each additional child",
             "year": 2026
           },
           {
             "amount": 190,
             "unit": "week",
-            "label": "Non-residents: first child; 3 days or more per week",
+            "label": "Non-residents: first child, 3 days or more per week",
             "year": 2026
           },
           {
@@ -157,7 +153,7 @@
           {
             "amount": 60,
             "unit": "day",
-            "label": "Per child; maximum 2 days per week",
+            "label": "Per child, maximum of 2 days per week",
             "year": 2026
           }
         ],
@@ -242,10 +238,10 @@
         "sources": [
           "https://www.waynesvillenc.gov/departments/parks-recreation/camps-youth",
           "https://www.waynesvillenc.gov/news/summer-basecamp-2026-registration-march-14th-600-am",
-          "https://www.waynesvillenc.gov/departments/parks-recreation/membership-and-rental-rates"
+          "https://www.waynesvillenc.gov/departments/parks-recreation/contact-operating-hours-directions"
         ],
         "confidence": "medium",
-        "review_notes": "Confirm the final camp date: July 31 is calculated from the news page's eight-week duration beginning June 8 and the camp page's Monday-Friday schedule, not explicitly printed. No individual weekly dates or themes were published in the supplied text. The news page calls The Oaks '5th Grade & Up'; the camp page limits overall eligibility to rising PreK-8th graders, so the row uses grades 5-8. The year for the camp page's unyearmarked June 8 date is established by the explicit 2026 news announcement."
+        "review_notes": "July 31 is calculated as the final Friday of eight consecutive Monday-Friday weeks starting June 8; the 2026 announcement does not explicitly print an end date or individual weekly dates. Confirm the end date and any holiday closures. The youth camps page omits a year beside June 8 and rates; these are treated as 2026 because the dated 2026 announcement matches them. The Oaks is listed as 5th Grade & Up in the announcement; its maximum of rising 8th grade comes from the overall eligibility on the youth camps page. The Recreation Center is the registration venue and provider location; confirm that it is also the camp drop-off venue."
       }
     ]
   }

@@ -7,22 +7,23 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:11:48.529Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:10:08.041Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "5fc5199dd61aa6e04f3863e7665c1d61a372e716dc131e6ef87e146941a8774c",
   "response": {
     "searches": [
       "site:xcelsportsplex.com \"2026\" \"camp\"",
-      "\"Xcel\" \"2026\" \"summer camps\" volleyball"
+      "open https://www.xcelsportsplex.com/camps",
+      "site:xcelsportsplex.com \"summer\" \"2026\" -ical_feed"
     ],
     "usage": {
-      "inputTokens": 27624,
-      "cachedInputTokens": 8223,
-      "outputTokens": 460,
-      "reasoningTokens": 164
+      "inputTokens": 24894,
+      "cachedInputTokens": 8845,
+      "outputTokens": 596,
+      "reasoningTokens": 253
     },
     "status": "completed",
-    "ms": 23683,
+    "ms": 27432,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -66,27 +67,27 @@
   "extraction": {
     "provider_name": "Xcel Volleyball Performance",
     "website_url": "https://www.xcelsportsplex.com/",
-    "notes": "No identifiable 2026 or 2027 summer camp offerings could be verified. The homepage lists a '2026 Summer Camps' quick link, but the supplied Clinics, Camps, and Academy page contains no program details; opening that page through the browser also returned no readable content. Searches did not locate official 2026 camp details, PDFs, or 2027 announcements. An older official Facebook post announces summer camp schedules but does not establish current offerings. No cards were created rather than guessing program names, dates, or locations. A reviewer should check the camp page visually for image-only flyers or contact director Lindsey Rogers at lindsey@xcelsportsplex.com.",
+    "notes": "No identifiable summer camp programs could be extracted. The official homepage links to \"2026 Summer Camps,\" but the Clinics, Camps, and Academy page contains no readable program names, dates, ages, prices, locations, or registration links. Direct browser opens of the homepage and camps page returned no readable content; official search results likewise showed no camp details. Searches found no 2027 summer camp announcement or camp PDF. Cards are empty because specific offerings and their formats could not be established, not because the provider has confirmed that it offers no camps.",
     "excluded": [
       {
-        "name": "Girls 26-27 Tryout information",
-        "reason": "Tryouts for a club team season, not a finite summer camp."
+        "name": "Girls 26-27 Tryouts",
+        "reason": "Tryouts for a club team season, not a summer camp or skill clinic."
       },
       {
         "name": "2026-2027 Boys Season",
-        "reason": "Club volleyball team season, not a summer camp."
+        "reason": "Club volleyball team season and practices, not a finite summer camp."
       },
       {
         "name": "2025-2026 Armour Season",
         "reason": "Club volleyball team season, not a summer camp."
       },
       {
-        "name": "2025-2026 Boys Season",
-        "reason": "Club volleyball team season, not a summer camp."
+        "name": "Xcel Advanced Camp",
+        "reason": "Offered by a different Xcel Volleyball organization in Texas, outside the Asheville service area."
       },
       {
-        "name": "Make-up Tryouts",
-        "reason": "October 25 tryouts are outside summer and are for club team participation."
+        "name": "College Camp",
+        "reason": "Offered by a different Xcel Volleyball organization in Texas, outside the Asheville service area."
       }
     ],
     "cards": []

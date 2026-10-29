@@ -10,8 +10,8 @@
     "discovered_by": ["seed_sheet", "news828", "grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T14:56:00.568Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T16:56:21.591Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "0562cc09e94430cfe5eafb65ff5703a284f1e19188957ef97cc1b624fbd41e60",
   "response": {
     "searches": [
@@ -19,13 +19,13 @@
       "open https://www.thelittlegym.com/north-carolina-asheville/camps/"
     ],
     "usage": {
-      "inputTokens": 32886,
-      "cachedInputTokens": 8223,
-      "outputTokens": 839,
-      "reasoningTokens": 104
+      "inputTokens": 33535,
+      "cachedInputTokens": 8845,
+      "outputTokens": 768,
+      "reasoningTokens": 107
     },
     "status": "completed",
-    "ms": 21965,
+    "ms": 19554,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -64,15 +64,19 @@
   "extraction": {
     "provider_name": "The Little Gym of Asheville",
     "website_url": "https://www.thelittlegym.com/north-carolina-asheville/",
-    "notes": "No summer 2027 dates, prices or registration milestones were found. The accessible camp calendar displays October–December 2026, not summer sessions. Skill Thrill Camps appear in general FAQs, but an Asheville summer offering was not confirmed, so no separate card was created. Booking buttons did not expose a readable registration destination.",
+    "notes": "No summer 2027 dates, prices or registration milestones were found. The readable camp calendar shows October–December 2026 rather than summer dates. Searches did not locate a summer 2026 schedule or a usable registration-platform link. Skill Thrill Camps appear only in the general FAQ; an Asheville offering was not confirmed.",
     "excluded": [
       {
         "name": "Parent/Child, Pre-K Gymnastics, Grade School Gymnastics and Dance classes",
-        "reason": "Ongoing membership classes, not finite summer programs."
+        "reason": "Ongoing classes and lesson series, not finite summer camps."
       },
       {
-        "name": "Search for Ice Crystal Camp, Dinosaur Ice Age Camp, Treasure of Blizzard Mountain Camp, Poko the Polite Penguin Camp, The Missing Polar Bear's Palace and Snowman Slumber Party Camp",
-        "reason": "Calendar offerings outside summer, displayed in December 2026."
+        "name": "Winter holiday camps",
+        "reason": "The December calendar's Ice Crystal, Dinosaur Ice Age, Blizzard Mountain, Penguin, Polar Bear and Snowman themes occur outside summer."
+      },
+      {
+        "name": "Birthday parties and member events",
+        "reason": "Parties and social events, not summer camp programs."
       }
     ],
     "cards": [
@@ -80,7 +84,7 @@
         "name": "Super Quest Camps",
         "type": "half_day",
         "categories": ["sports", "general"],
-        "description": "Children participate in active play, skill-building games and creative activities with weekly themes. Children must be bathroom independent.",
+        "description": "Children participate in active play, skill-building games and creative activities with weekly themes. Campers must be bathroom independent.",
         "camp_page_url": "https://www.thelittlegym.com/north-carolina-asheville/camps/",
         "registration_url": null,
         "season": {
@@ -123,11 +127,10 @@
         "transportation": null,
         "sources": [
           "https://www.thelittlegym.com/north-carolina-asheville/camps/",
-          "https://www.thelittlegym.com/north-carolina-asheville/blog/summer-camp-procedures/",
-          "https://www.thelittlegym.com/north-carolina-asheville/"
+          "https://www.thelittlegym.com/north-carolina-asheville/blog/summer-camp-procedures/"
         ],
-        "confidence": "medium",
-        "review_notes": "Super Quest Camps is named in the camp-page FAQs; the local introductory text calls the offering Indoor Camps for Kids. Confirm the local program name and summer schedule. The procedures page is undated; its lunch instructions are not explicitly labeled 2026 or 2027. No summer session dates or clock hours were accessible."
+        "confidence": "high",
+        "review_notes": null
       }
     ]
   }

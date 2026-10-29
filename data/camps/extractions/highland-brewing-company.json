@@ -8,22 +8,22 @@
     "status": "review",
     "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
   },
-  "extractedAt": "2026-10-29T15:02:41.632Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:02:37.757Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "86e1d75bc5c1d2febaba236b991603479b914b2497f4ec9d9f11b4cdee9a9d4a",
   "response": {
     "searches": [
-      "site:highlandbrewing.com summer camp youth 2026",
-      "\"Highland\" \"2026\" \"camp\" \"volleyball\" ages"
+      "site:highlandbrewing.com \"2026\" \"camp\" volleyball",
+      "site:highlandbrewing.com \"camp\" \"June\" \"2026\""
     ],
     "usage": {
-      "inputTokens": 22693,
-      "cachedInputTokens": 8223,
-      "outputTokens": 636,
-      "reasoningTokens": 126
+      "inputTokens": 23262,
+      "cachedInputTokens": 8845,
+      "outputTokens": 669,
+      "reasoningTokens": 143
     },
     "status": "completed",
-    "ms": 22528,
+    "ms": 24728,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -42,23 +42,27 @@
   "extraction": {
     "provider_name": "Highland Brewing Company",
     "website_url": "https://highlandbrewing.com/",
-    "notes": "The official volleyball page confirms 2026 youth camps but no longer lists dates, ages, hours, prices or registration details. It says camps are full and expresses hope that camps will return in 2027; this is not a confirmed 2027 offering or announcement of forthcoming dates.",
+    "notes": "The official volleyball page says the 2026 camps are all full and expresses hope that camps will return in 2027, but does not announce 2027 dates or registration. No dated camp schedule, ages, hours or prices were found.",
     "excluded": [
       {
-        "name": "Volleyball League Play",
-        "reason": "Sports leagues, restricted to ages 21+, not finite supervised youth summer programs."
+        "name": "Volleyball leagues",
+        "reason": "Sports leagues, restricted to adults ages 21+, rather than youth camps."
       },
       {
         "name": "Pick-up Volleyball",
-        "reason": "Adult-only open recreation for ages 21+, not a supervised youth camp."
+        "reason": "Adult drop-in recreation for ages 21+, not a finite supervised youth program."
       },
       {
         "name": "Corn Hole League",
         "reason": "Year-round sports league, not a summer camp."
       },
       {
+        "name": "Crokinole League",
+        "reason": "Ongoing league, not a finite summer youth program."
+      },
+      {
         "name": "Run Club",
-        "reason": "Recurring recreational club, not a finite supervised youth summer program."
+        "reason": "Recurring recreational runs, not a supervised summer youth camp."
       }
     ],
     "cards": [
@@ -66,7 +70,7 @@
         "name": "Summer Youth Volleyball Camps",
         "type": "day",
         "categories": ["sports"],
-        "description": "Youth participate in volleyball camps at Highland Brewing.",
+        "description": "Summer volleyball camps for youth.",
         "camp_page_url": "https://highlandbrewing.com/volleyball/",
         "registration_url": null,
         "season": {
@@ -80,8 +84,8 @@
         "grades": null,
         "sites": [
           {
-            "name": "Volleyball Courts",
-            "address": "12 Old Charlotte Hwy",
+            "name": "Highland Brewing Volleyball Courts",
+            "address": "12 Old Charlotte Highway",
             "town": "Asheville",
             "state": "NC"
           }
@@ -103,10 +107,11 @@
         "transportation": null,
         "sources": [
           "https://highlandbrewing.com/volleyball/",
-          "https://highlandbrewing.com/venue/volleyball-courts/"
+          "https://highlandbrewing.com/",
+          "https://highlandbrewing.com/calendar/vb-hbc-league/2026-09-08/"
         ],
         "confidence": "medium",
-        "review_notes": "The official volleyball page was readable through search results, but direct opening returned no text. Camp format is provisionally classified as day; the page does not state hours or format. Confirm format and missing 2026 details with the provider. The page's statement that camps are underway appears stale as of October 29, 2026; full status is retained exactly as published and applies only to 2026."
+        "review_notes": "The current volleyball page retains an 'underway' notice for summer 2026 despite the October research date. Day format and the volleyball-court drop-off venue are inferred from the offering's context; the page does not provide a camp-specific schedule or drop-off instructions. The statement about 2027 is tentative return language, not an announcement that dates are coming."
       }
     ]
   }

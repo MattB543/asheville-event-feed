@@ -5,28 +5,26 @@
     "urls": ["https://www.facebook.com/events/1420847309803781/"],
     "area": "Asheville, NC (520 Rose Hill Rd)",
     "hint": "Its 2026 VBS (\"Illumination Station\") was posted as a Facebook event, the URL above; AVLGO's feed picked it up from Facebook. Look for the church's own website too.",
-    "discovered_by": ["pilot"],
-    "status": "ok"
+    "discovered_by": ["pilot", "our_db", "grid"],
+    "status": "review",
+    "status_reason": "first page is a social media page or video, which our fetcher can't read"
   },
-  "extractedAt": "2026-10-29T03:18:02.716Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T16:51:46.448Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": null,
   "response": {
     "searches": [
-      "Reynolds Baptist Church Asheville Illumination Station 2026 VBS",
-      "open https://www.reynoldsbaptistchurch.org/uploads/1/5/6/0/15609766/06-21-2026_bulletin_kw.pdf",
-      "site:reynoldsbaptistchurch.org \"VBS\" \"2026\"",
-      "open https://reynoldsbaptistchurch.org/uploads/1/5/6/0/15609766/rbc_06_2026.pdf",
-      "site:reynoldsbaptistchurch.org/uploads/ \"VBS\""
+      "Reynolds Baptist Church 520 Rose Hill VBS 2026 Illumination Station",
+      "site.facebook.com \"Reynolds\" \"Illumination\" \"2026\""
     ],
     "usage": {
-      "inputTokens": 26957,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1055,
-      "reasoningTokens": 399
+      "inputTokens": 25138,
+      "cachedInputTokens": 0,
+      "outputTokens": 839,
+      "reasoningTokens": 215
     },
     "status": "completed",
-    "ms": 39372,
+    "ms": 28210,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -40,19 +38,14 @@
   "extraction": {
     "provider_name": "Reynolds Baptist Church (Vacation Bible School)",
     "website_url": "https://www.reynoldsbaptistchurch.org/",
-    "notes": "No 2027 VBS information found. The supplied Facebook event returned no readable content. The official website was accessible through indexed search text, but direct opens and the June 2026 calendar and bulletin PDFs returned no readable content. Third-party event mirrors list the 2026 Illumination Station VBS as June 24–26, 5:30–7:30 pm; these details require official confirmation.",
-    "excluded": [
-      {
-        "name": "CrossTied Youth & Children's Ministry",
-        "reason": "Recurring year-round youth and children's ministry, not a finite summer camp."
-      }
-    ],
+    "notes": "No 2027 VBS information was found. The supplied official Facebook event returned no readable text, and the church website's calendar and bulletin pages also returned no readable text. Search results confirmed the church's official website and address. The 2026 dates and hours below come from third-party event listings, not a readable official announcement.",
+    "excluded": [],
     "cards": [
       {
         "name": "Vacation Bible School",
         "type": "vbs",
         "categories": ["faith_based"],
-        "description": "The church offers a children's Vacation Bible School. Its 2026 theme was Illumination Station.",
+        "description": "Vacation Bible School for children with the Illumination Station theme.",
         "camp_page_url": "https://www.facebook.com/events/1420847309803781/",
         "registration_url": null,
         "season": {
@@ -75,7 +68,7 @@
         "hours": {
           "start": "17:30",
           "end": "19:30",
-          "text": "Third-party event mirrors list 5:30–7:30 pm; daily hours have not been verified on the official event."
+          "text": null
         },
         "extended_care": null,
         "prices": [],
@@ -87,9 +80,13 @@
         "special_needs": null,
         "lunch": null,
         "transportation": null,
-        "sources": ["https://www.reynoldsbaptistchurch.org/"],
-        "confidence": "low",
-        "review_notes": "Confirm dates, daily hours, ages, activities and registration details on the supplied Facebook event, https://www.facebook.com/events/1420847309803781/. Dates and hours currently come only from third-party event mirrors, including https://allevents.in/asheville/vbs-illumination-station/200030259061504 and https://happeningnext.com/event/vbs-illumination-station-eid3a0droatjm. The official homepage's indexed text confirms the church address. The official June calendar and June 21 bulletin PDFs could not be read."
+        "sources": [
+          "https://www.reynoldsbaptistchurch.org/",
+          "https://www.reynoldsbaptistchurch.org/about-us.html",
+          "https://www.reynoldsbaptistchurch.org/directions.html"
+        ],
+        "confidence": "medium",
+        "review_notes": "Confirm June 24–26, 2026 and nightly 5:30–7:30 p.m. against the church's Facebook event https://www.facebook.com/events/1420847309803781/, which could not be read. These dates and hours were reported by https://happeningnext.com/event/vbs-illumination-station-eid3a0droatjm and https://allevents.in/asheville/vbs-illumination-station/200030259061504. The church's official homepage, About Us page, and Directions page confirm the venue address through search results. Ages, registration details, prices, and support provisions could not be established."
       }
     ]
   }

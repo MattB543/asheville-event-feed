@@ -11,22 +11,22 @@
     "discovered_by": ["news828", "grid", "aggregator", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T14:59:22.664Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T16:59:27.949Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "a75e35e04af1743db72390828fdd5bdd57debe11a58540fcbc7ba984cbc33f48",
   "response": {
     "searches": [
-      "site.camptimberlake.com 2027 registration",
-      "site:camptimberlake.com \"Family Camp\""
+      "site.camptimberlake.com 2027 registration opens",
+      "open https://camptimberlake.com/enrolled-families/faqs/"
     ],
     "usage": {
-      "inputTokens": 26769,
-      "cachedInputTokens": 0,
-      "outputTokens": 1655,
-      "reasoningTokens": 188
+      "inputTokens": 26282,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1619,
+      "reasoningTokens": 130
     },
     "status": "completed",
-    "ms": 36848,
+    "ms": 32371,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -75,19 +75,19 @@
   "extraction": {
     "provider_name": "Camp Timberlake",
     "website_url": "https://camptimberlake.com/",
-    "notes": "2027 summer dates and fees are posted. No dated 2027 registration opening announcement was found. The Save a Spot page says some 2027 sessions are wait-list only but does not identify them.",
+    "notes": "2027 summer dates and tuition are posted. No dated registration opening announcement was found; the FAQ describes rolling admission with no registration deadline. The winter office is not a camper drop-off site.",
     "excluded": [
       {
         "name": "Father Son Weekend",
-        "reason": "Parent-and-child family program, not a supervised youth-only camp; the posted 2027 weekends are also in spring and fall."
+        "reason": "Family-only program; the listed 2027 weekends also occur in spring and fall rather than summer."
       },
       {
         "name": "Family Camp",
-        "reason": "Family-only camp or retreat."
+        "reason": "Family-only program."
       },
       {
-        "name": "Work at Timberlake",
-        "reason": "Staff employment opportunities, not a youth camp program."
+        "name": "Counselor-In-Training (CIT)",
+        "reason": "Listed under available summer staff positions rather than as a youth camp offering."
       }
     ],
     "cards": [
@@ -95,9 +95,9 @@
         "name": "Camp Timberlake",
         "type": "overnight",
         "categories": ["nature_outdoor", "sports", "faith_based", "general"],
-        "description": "Boys participate in scheduled activities, outdoor excursions, chapel, and camp-wide evening games. Activities and trips include backpacking, canoeing, kayaking, rafting, mountain biking, fly fishing, and rock climbing.",
+        "description": "Boys participate in scheduled activities, outdoor excursions, chapel, and camp-wide evening games. Excursions include backpacking, canoeing, kayaking, rafting, mountain biking, fly fishing, and rock climbing.",
         "camp_page_url": "https://camptimberlake.com/prospective-families/program/",
-        "registration_url": "https://camptimberlake.com/dates-enrollment/",
+        "registration_url": "https://camptimberlake.campintouch.com/ui/login/Login",
         "season": {
           "year": 2027,
           "status": "posted",
@@ -105,7 +105,10 @@
           "end": "2027-08-12",
           "text": "2027 Summer Sessions"
         },
-        "ages": null,
+        "ages": {
+          "min": 6,
+          "max": 16
+        },
         "grades": {
           "min": 1,
           "max": 11,
@@ -247,7 +250,7 @@
         "last_year_registration_opened": null,
         "availability": {
           "status": "mixed",
-          "scope": "Unspecified 2027 sessions",
+          "scope": null,
           "text": "Please note that some sessions are already wait-list only for 2027."
         },
         "financial_aid": null,
@@ -256,13 +259,18 @@
           "value": "yes",
           "text": "Two scheduled activities are held before a tasty lunch and rest time."
         },
-        "transportation": null,
+        "transportation": {
+          "value": "yes",
+          "text": "Campers arriving by plane will be met by camp personnel in camp vans."
+        },
         "sources": [
           "https://camptimberlake.com/",
           "https://camptimberlake.com/prospective-families/program/",
           "https://camptimberlake.com/dates-enrollment/",
           "https://camptimberlake.com/dates-enrollment/reserve/",
-          "https://camptimberlake.com/contact/"
+          "https://camptimberlake.com/enrolled-families/faqs/",
+          "https://camptimberlake.com/enrolled-families/traveling-to-camp/",
+          "https://camptimberlake.campintouch.com/ui/login/Login"
         ],
         "confidence": "high",
         "review_notes": null

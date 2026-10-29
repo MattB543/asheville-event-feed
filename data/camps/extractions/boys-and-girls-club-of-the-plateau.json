@@ -12,19 +12,19 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:18:47.326Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:15:58.512Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "6ba8938636b3ce30a5496c67546c9d52d19be7f1de61aa0f513b10398dd28499",
   "response": {
     "searches": ["site:bgcplateau.org \"2027\" \"summer\""],
     "usage": {
-      "inputTokens": 20292,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1413,
-      "reasoningTokens": 120
+      "inputTokens": 20577,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1424,
+      "reasoningTokens": 112
     },
     "status": "completed",
-    "ms": 29130,
+    "ms": 31877,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -73,27 +73,31 @@
   "extraction": {
     "provider_name": "Boys & Girls Club of the Plateau",
     "website_url": "https://www.bgcplateau.org/",
-    "notes": "No summer 2027 information was found. The current Summer Camp page explicitly describes 2026; older location pages still describe 2025. The 2026 camp was closed June 22 and July 2–3. Current availability is not established by the registration announcements for the past season.",
+    "notes": "No summer 2027 information was found. The card uses the explicitly dated 2026 summer camp page and orientation guide. The registration-open language remaining on the website refers to 2026, not 2027.",
     "excluded": [
       {
         "name": "(ASP) After-School Program",
-        "reason": "School-year after-school programming, not a finite summer program."
+        "reason": "School-year after-school childcare, not a summer camp."
       },
       {
         "name": "Summer Program group leaders",
-        "reason": "Employment opportunity, not a youth camp offering."
+        "reason": "Summer employment positions, not a youth camp offering."
       },
       {
-        "name": "Mission to the Moon",
-        "reason": "An all-ages community telescope viewing event in April, outside summer."
+        "name": "Mission to the Moon Lands in Cashiers",
+        "reason": "Single-evening community telescope viewing event outside summer."
+      },
+      {
+        "name": "Annual career conference",
+        "reason": "Conference held in April, not a summer camp."
       }
     ],
     "cards": [
       {
         "name": "Summer Camp",
         "type": "day",
-        "categories": ["general", "nature_outdoor", "arts", "stem"],
-        "description": "Campers participate in outdoor activities, games, art, STEM projects, reading, swimming and local field trips. Teen activities also include career exploration, cooking and technology workshops.",
+        "categories": ["general", "arts", "stem", "nature_outdoor"],
+        "description": "Campers participate in outdoor activities, swimming, art, STEM projects, reading, group games and local field trips. Teens also participate in career exploration, cooking and technology workshops.",
         "camp_page_url": "https://www.bgcplateau.org/parentportal/summercamp",
         "registration_url": "https://www.bgcplateau.org/parentportal/summercamp",
         "season": {
@@ -132,7 +136,7 @@
         "hours": {
           "start": "07:30",
           "end": "18:00",
-          "text": "Monday–Friday, 7:30 am–6:00 pm. Drop-off between 7:30 am and 9:00 am; pickup between 4:00 pm and 6:00 pm. Closed June 22 and July 2–3."
+          "text": "Monday - Friday, 7:30 am - 6:00 pm. Closed June 22nd and July 2nd and 3rd. Drop-off between 7:30 am and 9:00 am; pick-up between 4:00 pm and 6:00 pm."
         },
         "extended_care": null,
         "prices": [

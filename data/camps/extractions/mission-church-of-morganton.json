@@ -7,22 +7,22 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:22:11.287Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:18:55.594Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "5507c8fe80fe431ff2f3e909b3b22ee2b03892d384fb008736ac101a821bb723",
   "response": {
     "searches": [
-      "Mission Church Morganton VBS 2026 2027 address",
-      "\"missionchurchmorganton\" \"VBS\""
+      "Mission Church Morganton VBS 2026 address",
+      "open https://www.missionchurchnc.com/campaigns/view-campaign/nS9aw8uiAYEKeiq2V6A4CsVLT_woWpK6lkn68G1lu8AsnGknYx7HRi874t_oDoGgwgpVxjxWZyIacTFfxDpFl2rwsEoRY1zU"
     ],
     "usage": {
-      "inputTokens": 16295,
-      "cachedInputTokens": 8223,
-      "outputTokens": 585,
-      "reasoningTokens": 123
+      "inputTokens": 15242,
+      "cachedInputTokens": 8845,
+      "outputTokens": 767,
+      "reasoningTokens": 110
     },
     "status": "completed",
-    "ms": 19177,
+    "ms": 19994,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -36,15 +36,11 @@
   "extraction": {
     "provider_name": "Mission Church of Morganton",
     "website_url": "https://www.missionchurchnc.com/",
-    "notes": "No summer 2027 information found. The available 2026 source is a volunteer interest form, not camper registration. The official events page returned no readable text.",
+    "notes": "No summer 2027 VBS information was found. The available 2026 form is for volunteer interest, not camper registration. A church newsletter also confirms June 12–14.",
     "excluded": [
       {
-        "name": "Mission Kids",
-        "reason": "Year-round children's ministry, not a finite summer camp."
-      },
-      {
-        "name": "Mission Youth",
-        "reason": "Year-round youth ministry, not a finite summer camp."
+        "name": "Childcare for VBS volunteers",
+        "reason": "Childcare for volunteers ages 0–2 is an ancillary service, not a separately advertised summer camp."
       }
     ],
     "cards": [
@@ -52,7 +48,7 @@
         "name": "VBS",
         "type": "vbs",
         "categories": ["faith_based"],
-        "description": "The church offers Vacation Bible School over two evenings, with a Sunday morning service on the final day. The volunteer form does not describe specific camper activities.",
+        "description": "Vacation Bible School for children.",
         "camp_page_url": "https://missionchurchmorganton.churchcenter.com/people/forms/1194521",
         "registration_url": null,
         "season": {
@@ -64,7 +60,14 @@
         },
         "ages": null,
         "grades": null,
-        "sites": [],
+        "sites": [
+          {
+            "name": "Mission Church",
+            "address": "221 Herron Street",
+            "town": "Morganton",
+            "state": "NC"
+          }
+        ],
         "hours": {
           "start": null,
           "end": null,
@@ -82,10 +85,11 @@
         "transportation": null,
         "sources": [
           "https://missionchurchmorganton.churchcenter.com/people/forms/1194521",
-          "https://www.missionchurchnc.com/contact"
+          "https://www.missionchurchnc.com/contact",
+          "https://www.missionchurchnc.com/campaigns/view-campaign/PrV3hZ0kC1xva-KRWZSN5OlFOyplc9zr09MKyca4T3zlloYzRhiEym-6jYguSaGPY4zLdMKkjpjtl5J64zAQw3c-n1WSkYt1"
         ],
         "confidence": "medium",
-        "review_notes": "Confirm camper eligibility, activities, registration and meeting venue: only a volunteer interest form was found. Ages 0–2 refer to childcare for volunteers, not VBS eligibility. The church publishes its location as 221 Herron Street, Morganton, NC 28655, but the VBS form does not explicitly identify the venue, so sites is empty. Dates take their year from the form title, VBS 2026 Volunteer Interest Form."
+        "review_notes": "The church location is taken from its contact page; the VBS volunteer form does not explicitly identify the drop-off venue. Confirm that VBS meets at 221 Herron Street. Ages 0–2 on the form refer only to volunteer childcare, not VBS eligibility. Camper ages, pricing, and registration details were not found."
       }
     ]
   }

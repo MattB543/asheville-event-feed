@@ -12,22 +12,23 @@
     "discovered_by": ["news828", "grid", "aggregator", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:01:41.114Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:01:31.480Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "6297efcf260cffa6eb44555a482b622fa4e76e572c7dcc1357fefe9d34fa8438",
   "response": {
     "searches": [
-      "site:campwayfarer.com Cascadia 2027 registration",
-      "open https://www.campwayfarer.com/summer-camp-costs-dates/"
+      "site.campwayfarer.com 2027 registration opens",
+      "open https://www.campwayfarer.com/wayfarer-expeditions/",
+      "site:campwayfarer.com \"campintouch\""
     ],
     "usage": {
-      "inputTokens": 32496,
-      "cachedInputTokens": 8223,
-      "outputTokens": 2515,
-      "reasoningTokens": 156
+      "inputTokens": 37496,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2017,
+      "reasoningTokens": 240
     },
     "status": "completed",
-    "ms": 48543,
+    "ms": 45608,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -76,15 +77,19 @@
   "extraction": {
     "provider_name": "Camp Wayfarer",
     "website_url": "https://www.campwayfarer.com/",
-    "notes": "2027 dates and prices are posted. Residential session lengths, including Adventure Camp, are grouped as rows of Camp Wayfarer; Cascadia is a separate expedition program. Horseback riding is an optional activity within residential camp, not a separately scheduled camp. No official registration opening date was found. Additional pages opened through the browser returned no readable body text; official search results supplied Cascadia and activity details. The costs page labels some sessions Limited, which is recorded as available rather than full or waitlist.",
+    "notes": "2027 dates and prices are posted. No dated registration opening announcement was found. Supplemental pages opened without readable text, including Wayfarer Expeditions, Camp Life, and Preparing for Camp; search snippets supplemented the supplied pages. Horseback riding is an optional activity within Camp Wayfarer, not a separately scheduled camp.",
     "excluded": [
       {
+        "name": "Cascadia",
+        "reason": "Both 2027 expedition sessions take place in the Pacific Northwest, outside the Asheville-area drive radius."
+      },
+      {
         "name": "Working at Camp",
-        "reason": "Staff employment, not a youth camp."
+        "reason": "Summer staff employment, not a youth camp offering."
       },
       {
         "name": "Events & Facility Rentals",
-        "reason": "Private venue rentals and retreats, not a posted supervised youth summer program."
+        "reason": "Venue rentals and private retreats, not a listed supervised youth summer program."
       }
     ],
     "cards": [
@@ -92,7 +97,7 @@
         "name": "Camp Wayfarer",
         "type": "overnight",
         "categories": ["general", "nature_outdoor", "sports", "horses", "arts"],
-        "description": "Campers participate in outdoor activities, sports, creative arts, horseback riding, and off-campus trips. Adventure Camp sessions provide younger first-time campers with five age-specific activity periods.",
+        "description": "Campers participate in sports, swimming and boating, creative arts, horseback riding, and outdoor adventures. Overnight sessions include cabin life and evening activities.",
         "camp_page_url": "https://www.campwayfarer.com/summer-camp-costs-dates/",
         "registration_url": null,
         "season": {
@@ -100,7 +105,7 @@
           "status": "posted",
           "start": "2027-06-06",
           "end": "2027-07-29",
-          "text": "2027 Costs & Dates"
+          "text": null
         },
         "ages": {
           "min": 5,
@@ -139,7 +144,7 @@
             "price": {
               "amount": 8325,
               "unit": "session",
-              "label": "32 nights",
+              "label": null,
               "year": 2027
             },
             "status": "available"
@@ -160,7 +165,7 @@
             "price": {
               "amount": 9925,
               "unit": "session",
-              "label": "39 nights",
+              "label": null,
               "year": 2027
             },
             "status": "available"
@@ -181,7 +186,7 @@
             "price": {
               "amount": 2175,
               "unit": "session",
-              "label": "6 nights",
+              "label": null,
               "year": 2027
             },
             "status": "available"
@@ -202,7 +207,7 @@
             "price": {
               "amount": 2175,
               "unit": "session",
-              "label": "6 nights",
+              "label": null,
               "year": 2027
             },
             "status": "available"
@@ -223,7 +228,7 @@
             "price": {
               "amount": 6325,
               "unit": "session",
-              "label": "18 nights",
+              "label": null,
               "year": 2027
             },
             "status": "available"
@@ -244,7 +249,7 @@
             "price": {
               "amount": 6325,
               "unit": "session",
-              "label": "18 nights",
+              "label": null,
               "year": 2027
             },
             "status": "available"
@@ -265,7 +270,7 @@
             "price": {
               "amount": 4925,
               "unit": "session",
-              "label": "11 nights",
+              "label": null,
               "year": 2027
             },
             "status": "available"
@@ -286,7 +291,7 @@
             "price": {
               "amount": 4925,
               "unit": "session",
-              "label": "11 nights",
+              "label": null,
               "year": 2027
             },
             "status": "available"
@@ -296,104 +301,25 @@
         "last_year_registration_opened": null,
         "availability": {
           "status": "available",
-          "scope": "All residential sessions; some have limited availability.",
-          "text": "Junior Main Camp, June Camp and 1st Session: Available. Main Camp, both Adventure Camp sessions, July Camp and 2nd Session: Limited."
+          "scope": null,
+          "text": "Available; Limited"
         },
         "financial_aid": null,
         "special_needs": null,
-        "lunch": null,
+        "lunch": {
+          "value": "yes",
+          "text": "We serve three hearty, nutritious meals as well as a midday snack."
+        },
         "transportation": null,
         "sources": [
-          "https://www.campwayfarer.com/summer-camp-costs-dates/",
           "https://www.campwayfarer.com/",
+          "https://www.campwayfarer.com/summer-camp-costs-dates/",
           "https://www.campwayfarer.com/horseback-riding-camps/",
-          "https://www.campwayfarer.com/camp-life/camp-activities/"
+          "https://www.campwayfarer.com/camp-life/camp-activities/",
+          "https://www.campwayfarer.com/camp-life/summer-camp-food/"
         ],
         "confidence": "medium",
-        "review_notes": "Confirm kindergarten eligibility: the costs page says rising K5–3rd grade for Adventure Camp, but its explanatory example says children who have completed kindergarten through completed 2nd grade. Grades follow the explicitly labeled rising-grade table. Main Camp prose says five weeks while its table gives 39 nights; dates follow the table. Activity details were also available through official search snippets."
-      },
-      {
-        "name": "Cascadia",
-        "type": "overnight",
-        "categories": ["nature_outdoor"],
-        "description": "Campers travel through the Pacific Northwest on a camping-based expedition featuring overnight whitewater rafting, rock climbing, sea kayaking, backpacking, and day adventures.",
-        "camp_page_url": "https://www.campwayfarer.com/wayfarer-expeditions/cascadia/",
-        "registration_url": null,
-        "season": {
-          "year": 2027,
-          "status": "posted",
-          "start": "2027-06-04",
-          "end": "2027-07-06",
-          "text": "2027 Costs & Dates"
-        },
-        "ages": null,
-        "grades": {
-          "min": 9,
-          "max": 12,
-          "basis": "rising"
-        },
-        "sites": [],
-        "hours": null,
-        "extended_care": null,
-        "prices": [
-          {
-            "amount": 5325,
-            "unit": "session",
-            "label": "14 nights",
-            "year": 2027
-          }
-        ],
-        "sessions": [
-          {
-            "label": "Cascadia I",
-            "start": "2027-06-04",
-            "end": "2027-06-18",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 11,
-              "max": 12,
-              "basis": "rising"
-            },
-            "hours": null,
-            "price": null,
-            "status": "available"
-          },
-          {
-            "label": "Cascadia II",
-            "start": "2027-06-22",
-            "end": "2027-07-06",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 9,
-              "max": 10,
-              "basis": "rising"
-            },
-            "hours": null,
-            "price": null,
-            "status": "available"
-          }
-        ],
-        "registration": [],
-        "last_year_registration_opened": null,
-        "availability": {
-          "status": "available",
-          "scope": "Cascadia I and Cascadia II",
-          "text": "Available"
-        },
-        "financial_aid": null,
-        "special_needs": null,
-        "lunch": null,
-        "transportation": null,
-        "sources": [
-          "https://www.campwayfarer.com/summer-camp-costs-dates/",
-          "https://www.campwayfarer.com/wayfarer-expeditions/cascadia/"
-        ],
-        "confidence": "high",
-        "review_notes": null
+        "review_notes": "The costs page lists rising K5–3rd grade for Adventure Camp, but its explanatory sentence describes children who have completed kindergarten through completed 2nd grade. Grades follow the explicit session tables, with K5 represented as kindergarten. The homepage states ages 5–16 without a year. Availability labels 'Limited' are mapped to available, not full or waitlist. Activity and meal details were accessible only through official search snippets. The Apply Now destination could not be established."
       }
     ]
   }

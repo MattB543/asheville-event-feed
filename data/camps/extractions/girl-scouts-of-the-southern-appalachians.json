@@ -7,24 +7,22 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:26:10.285Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:20:39.255Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "a6efa115f81b0c1aadcc2d1f82812de954b40887a4a350e62d7b1d3fea181441",
   "response": {
     "searches": [
-      "site:girlscoutcsa.org summer camp 2027",
-      "site:girlscoutcsa.org \"Camper Sampler\" \"When\"",
-      "site:girlscoutcsa.org \"Ultimate Scout\" \"When\"",
-      "site:girlscoutcsa.org \"sheros-journey\" \"Session 1\" \"Cost\""
+      "site:girlscoutcsa.org \"Shero\" \"2026\"",
+      "site:girlscoutcsa.org/en \"sheros-journey\" \"Cost\""
     ],
     "usage": {
-      "inputTokens": 60156,
-      "cachedInputTokens": 8223,
-      "outputTokens": 9150,
-      "reasoningTokens": 568
+      "inputTokens": 44518,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2470,
+      "reasoningTokens": 257
     },
     "status": "completed",
-    "ms": 169453,
+    "ms": 49841,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -73,887 +71,77 @@
   "extraction": {
     "provider_name": "Girl Scouts of the Southern Appalachians",
     "website_url": "https://www.girlscoutcsa.org/",
-    "notes": "No 2027 summer camp dates or registration milestones were found as of October 29, 2026. The summer camp overview still identifies its offerings as 2026. Most additional pages were blocked by robots.txt; their official search-result text was used. Dates without a year on individual program pages are assigned to 2026 from the overview heading. The statement that registration is NOW OPEN refers to the old 2026 overview and is not treated as current availability. The 2027 anniversary celebration is not summer camp. Tanasi day programs mention three bus pickup locations but do not identify them in the accessible text.",
+    "notes": "No 2027 summer camp dates or registration milestones were found. Camp Tanasi programs meet in Andersonville, TN, plainly outside the directory's drive-time area; only Camp Wildwood programs are retained. The Shero’s Journey page was readable through the search index, although direct site access is restricted by robots.txt. No dated 2026 registration opening was found.",
     "excluded": [
       {
+        "name": "Camper Sampler",
+        "reason": "Held at Camp Tanasi in Andersonville, TN, outside the Asheville drive-time area."
+      },
+      {
+        "name": "Glamping (Overnight Camp)",
+        "reason": "Held at Camp Tanasi in Andersonville, TN, outside the Asheville drive-time area."
+      },
+      {
+        "name": "Glamping (Day Camp)",
+        "reason": "Held at Camp Tanasi in Andersonville, TN, outside the Asheville drive-time area."
+      },
+      {
+        "name": "Classic Camp",
+        "reason": "Held at Camp Tanasi in Andersonville, TN, outside the Asheville drive-time area."
+      },
+      {
+        "name": "Cowgirl Week",
+        "reason": "Held at Camp Tanasi in Andersonville, TN, outside the Asheville drive-time area."
+      },
+      {
+        "name": "Ultimate Scout",
+        "reason": "Held at Camp Tanasi in Andersonville, TN, outside the Asheville drive-time area."
+      },
+      {
+        "name": "Pirates vs Mermaids",
+        "reason": "Held at Camp Tanasi in Andersonville, TN, outside the Asheville drive-time area."
+      },
+      {
+        "name": "Wilderness",
+        "reason": "Held at Camp Tanasi in Andersonville, TN, outside the Asheville drive-time area."
+      },
+      {
+        "name": "Counselor-in-Training",
+        "reason": "Held at Camp Tanasi in Andersonville, TN, outside the Asheville drive-time area."
+      },
+      {
+        "name": "Day Camp at Tanasi",
+        "reason": "Held at Camp Tanasi in Andersonville, TN, outside the Asheville drive-time area."
+      },
+      {
         "name": "Me & Mine",
-        "reason": "Family-only camp weekend requiring an accompanying adult."
+        "reason": "Family-only weekend program, also held outside the Asheville drive-time area."
       },
       {
         "name": "Summer Stack Club",
         "reason": "Independent reading and patch program, not a supervised camp."
       },
       {
-        "name": "Individually Registered Members",
-        "reason": "Year-round Girl Scout membership, not a finite summer program."
+        "name": "Camp Tanasi 70th Anniversary",
+        "reason": "Spring anniversary celebration with adult and family events, not a summer youth camp."
       },
       {
         "name": "Summer Camp Staff",
-        "reason": "Employment opportunities, not youth camp enrollment."
+        "reason": "Employment positions, not youth camp programs."
       },
       {
-        "name": "Camp Tanasi 70th Anniversary",
-        "reason": "April 16–18, 2027 activities are outside summer; offerings are adult-only or family celebrations."
+        "name": "Leadership Initiatives Summer Internships",
+        "reason": "Held at Georgetown University, outside the Asheville drive-time area."
       }
     ],
     "cards": [
       {
-        "name": "Camper Sampler",
-        "type": "overnight",
-        "categories": ["nature_outdoor", "general"],
-        "description": "Campers spend two nights trying badge work, crafts, swimming, and lakefront activities.",
-        "camp_page_url": "https://www.girlscoutcsa.org/en/members/for-girl-scouts/camp-and-outdoors/camp-tanasi/summer-camp/camper-sampler.html",
-        "registration_url": null,
-        "season": {
-          "year": 2026,
-          "status": "not_posted",
-          "start": "2026-06-07",
-          "end": "2026-07-14",
-          "text": null
-        },
-        "ages": null,
-        "grades": {
-          "min": 2,
-          "max": 8,
-          "basis": "rising"
-        },
-        "sites": [
-          {
-            "name": "Camp Tanasi",
-            "address": "123 Dark Hollow Rd North",
-            "town": "Andersonville",
-            "state": "TN"
-          }
-        ],
-        "hours": null,
-        "extended_care": null,
-        "prices": [
-          {
-            "amount": 450,
-            "unit": "session",
-            "label": "Member",
-            "year": 2026
-          },
-          {
-            "amount": 550,
-            "unit": "session",
-            "label": "Non-member",
-            "year": 2026
-          }
-        ],
-        "sessions": [
-          {
-            "label": "Rising 4th-5th Graders",
-            "start": "2026-06-07",
-            "end": "2026-06-09",
-            "year": 2026,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 4,
-              "max": 5,
-              "basis": "rising"
-            },
-            "hours": null,
-            "price": null,
-            "status": null
-          },
-          {
-            "label": "Rising 4th-5th Graders",
-            "start": "2026-06-10",
-            "end": "2026-06-12",
-            "year": 2026,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 4,
-              "max": 5,
-              "basis": "rising"
-            },
-            "hours": null,
-            "price": null,
-            "status": null
-          },
-          {
-            "label": "Rising 2nd-3rd Graders",
-            "start": "2026-06-14",
-            "end": "2026-06-16",
-            "year": 2026,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 2,
-              "max": 3,
-              "basis": "rising"
-            },
-            "hours": null,
-            "price": null,
-            "status": null
-          },
-          {
-            "label": "Rising 2nd-3rd Graders",
-            "start": "2026-06-17",
-            "end": "2026-06-19",
-            "year": 2026,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 2,
-              "max": 3,
-              "basis": "rising"
-            },
-            "hours": null,
-            "price": null,
-            "status": null
-          },
-          {
-            "label": "Rising 6th-8th Graders",
-            "start": "2026-06-21",
-            "end": "2026-06-23",
-            "year": 2026,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 6,
-              "max": 8,
-              "basis": "rising"
-            },
-            "hours": null,
-            "price": null,
-            "status": null
-          },
-          {
-            "label": "Rising 6th-8th Graders",
-            "start": "2026-06-24",
-            "end": "2026-06-26",
-            "year": 2026,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 6,
-              "max": 8,
-              "basis": "rising"
-            },
-            "hours": null,
-            "price": null,
-            "status": null
-          },
-          {
-            "label": "Rising 2nd-3rd Graders",
-            "start": "2026-07-05",
-            "end": "2026-07-07",
-            "year": 2026,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 2,
-              "max": 3,
-              "basis": "rising"
-            },
-            "hours": null,
-            "price": null,
-            "status": null
-          },
-          {
-            "label": "Rising 4th-5th Graders",
-            "start": "2026-07-12",
-            "end": "2026-07-14",
-            "year": 2026,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 4,
-              "max": 5,
-              "basis": "rising"
-            },
-            "hours": null,
-            "price": null,
-            "status": null
-          }
-        ],
-        "registration": [],
-        "last_year_registration_opened": null,
-        "availability": null,
-        "financial_aid": {
-          "value": "yes",
-          "text": "limited summer camp scholarships are available"
-        },
-        "special_needs": null,
-        "lunch": {
-          "value": "yes",
-          "text": "We provide all meals"
-        },
-        "transportation": null,
-        "sources": [
-          "https://www.girlscoutcsa.org/en/members/for-girl-scouts/camp-and-outdoors/camp-tanasi/summer-camp/camper-sampler.html",
-          "https://www.girlscoutcsa.org/en/members/for-girl-scouts/camp-and-outdoors/camp-tanasi/summer-camp.html",
-          "https://www.girlscoutcsa.org/en/members/for-girl-scouts/camp-and-outdoors/camp-tanasi.html"
-        ],
-        "confidence": "medium",
-        "review_notes": "Program details and venue address were available through official search results only. Individual dates omit the year; 2026 comes from the summer camp overview."
-      },
-      {
-        "name": "Glamping (Overnight Camp)",
-        "type": "overnight",
-        "categories": ["nature_outdoor", "general"],
-        "description": "Campers decorate their campsite and participate in classic and specialty camp activities.",
-        "camp_page_url": "https://www.girlscoutcsa.org/en/members/for-girl-scouts/camp-and-outdoors/camp-tanasi/summer-camp/glamping.html",
-        "registration_url": null,
-        "season": {
-          "year": 2026,
-          "status": "not_posted",
-          "start": "2026-06-14",
-          "end": "2026-06-19",
-          "text": null
-        },
-        "ages": null,
-        "grades": {
-          "min": 2,
-          "max": 8,
-          "basis": "unspecified"
-        },
-        "sites": [
-          {
-            "name": "Camp Tanasi",
-            "address": "123 Dark Hollow Rd North",
-            "town": "Andersonville",
-            "state": "TN"
-          }
-        ],
-        "hours": null,
-        "extended_care": null,
-        "prices": [
-          {
-            "amount": 750,
-            "unit": "session",
-            "label": "Member",
-            "year": 2026
-          },
-          {
-            "amount": 850,
-            "unit": "session",
-            "label": "Non-member",
-            "year": 2026
-          }
-        ],
-        "sessions": [],
-        "registration": [],
-        "last_year_registration_opened": null,
-        "availability": null,
-        "financial_aid": {
-          "value": "yes",
-          "text": "limited summer camp scholarships are available"
-        },
-        "special_needs": null,
-        "lunch": {
-          "value": "yes",
-          "text": "We provide all meals"
-        },
-        "transportation": null,
-        "sources": [
-          "https://www.girlscoutcsa.org/en/members/for-girl-scouts/camp-and-outdoors/camp-tanasi/summer-camp/glamping.html",
-          "https://www.girlscoutcsa.org/en/members/for-girl-scouts/camp-and-outdoors/camp-tanasi/summer-camp.html",
-          "https://www.girlscoutcsa.org/en/members/for-girl-scouts/camp-and-outdoors/camp-tanasi.html"
-        ],
-        "confidence": "medium",
-        "review_notes": "Official search-result text supplies the details. Dates omit a year; 2026 comes from the overview. Overnight eligibility says 2nd-8th Graders without stating rising."
-      },
-      {
-        "name": "Glamping (Day Camp)",
-        "type": "day",
-        "categories": ["nature_outdoor", "general"],
-        "description": "Campers decorate their campsite and try classic and specialty camp activities, returning home each day.",
-        "camp_page_url": "https://www.girlscoutcsa.org/en/members/for-girl-scouts/camp-and-outdoors/camp-tanasi/summer-camp/glamping.html",
-        "registration_url": null,
-        "season": {
-          "year": 2026,
-          "status": "not_posted",
-          "start": "2026-06-15",
-          "end": "2026-06-19",
-          "text": null
-        },
-        "ages": null,
-        "grades": {
-          "min": 1,
-          "max": 8,
-          "basis": "rising"
-        },
-        "sites": [],
-        "hours": null,
-        "extended_care": null,
-        "prices": [
-          {
-            "amount": 350,
-            "unit": "session",
-            "label": "Member",
-            "year": 2026
-          },
-          {
-            "amount": 450,
-            "unit": "session",
-            "label": "Non-member",
-            "year": 2026
-          }
-        ],
-        "sessions": [],
-        "registration": [],
-        "last_year_registration_opened": null,
-        "availability": null,
-        "financial_aid": {
-          "value": "yes",
-          "text": "limited summer camp scholarships are available"
-        },
-        "special_needs": null,
-        "lunch": {
-          "value": "yes",
-          "text": "We provide all meals"
-        },
-        "transportation": {
-          "value": "yes",
-          "text": "Girls will have three locations to be picked up and dropped off each day by a bus chaperoned by Summer Camp Staff."
-        },
-        "sources": [
-          "https://www.girlscoutcsa.org/en/members/for-girl-scouts/camp-and-outdoors/camp-tanasi/summer-camp/glamping.html",
-          "https://www.girlscoutcsa.org/en/members/for-girl-scouts/camp-and-outdoors/camp-tanasi/summer-camp/day-camp-at-tanasi.html",
-          "https://www.girlscoutcsa.org/en/members/for-girl-scouts/camp-and-outdoors/camp-tanasi/summer-camp.html"
-        ],
-        "confidence": "medium",
-        "review_notes": "Official search-result text supplies the details. Dates omit a year; 2026 comes from the overview. Activities occur at Tanasi, but the three actual bus drop-off sites are not identified. This is the same Glamping Day Camp also listed on the Day Camp at Tanasi page."
-      },
-      {
-        "name": "Classic Camp",
-        "type": "overnight",
-        "categories": ["nature_outdoor", "general"],
-        "description": "Campers try different camp activities each day and repeat activities they enjoy.",
-        "camp_page_url": "https://www.girlscoutcsa.org/en/members/for-girl-scouts/camp-and-outdoors/camp-tanasi/summer-camp/classic-camp.html",
-        "registration_url": null,
-        "season": {
-          "year": 2026,
-          "status": "not_posted",
-          "start": "2026-07-05",
-          "end": "2026-07-16",
-          "text": null
-        },
-        "ages": null,
-        "grades": {
-          "min": 2,
-          "max": 8,
-          "basis": "rising"
-        },
-        "sites": [
-          {
-            "name": "Camp Tanasi",
-            "address": "123 Dark Hollow Rd North",
-            "town": "Andersonville",
-            "state": "TN"
-          }
-        ],
-        "hours": null,
-        "extended_care": null,
-        "prices": [
-          {
-            "amount": 700,
-            "unit": "session",
-            "label": "Member",
-            "year": 2026
-          },
-          {
-            "amount": 800,
-            "unit": "session",
-            "label": "Non-member",
-            "year": 2026
-          }
-        ],
-        "sessions": [
-          {
-            "label": null,
-            "start": "2026-07-05",
-            "end": "2026-07-09",
-            "year": 2026,
-            "site": null,
-            "ages": null,
-            "grades": null,
-            "hours": null,
-            "price": null,
-            "status": null
-          },
-          {
-            "label": null,
-            "start": "2026-07-12",
-            "end": "2026-07-16",
-            "year": 2026,
-            "site": null,
-            "ages": null,
-            "grades": null,
-            "hours": null,
-            "price": null,
-            "status": null
-          }
-        ],
-        "registration": [],
-        "last_year_registration_opened": null,
-        "availability": null,
-        "financial_aid": {
-          "value": "yes",
-          "text": "limited summer camp scholarships are available"
-        },
-        "special_needs": null,
-        "lunch": {
-          "value": "yes",
-          "text": "We provide all meals"
-        },
-        "transportation": null,
-        "sources": [
-          "https://www.girlscoutcsa.org/en/members/for-girl-scouts/camp-and-outdoors/camp-tanasi/summer-camp/classic-camp.html",
-          "https://www.girlscoutcsa.org/en/members/for-girl-scouts/camp-and-outdoors/camp-tanasi/summer-camp.html",
-          "https://www.girlscoutcsa.org/en/members/for-girl-scouts/camp-and-outdoors/camp-tanasi.html"
-        ],
-        "confidence": "medium",
-        "review_notes": "Details and address were read through official search results. Dates omit a year; 2026 comes from the overview."
-      },
-      {
-        "name": "Cowgirl Week",
-        "type": "overnight",
-        "categories": ["horses", "nature_outdoor"],
-        "description": "Campers learn about horses and ride with Faith N Friends Horse Rescue & Sanctuary.",
-        "camp_page_url": "https://www.girlscoutcsa.org/en/members/for-girl-scouts/camp-and-outdoors/camp-tanasi/summer-camp/cowgirl-week.html",
-        "registration_url": null,
-        "season": {
-          "year": 2026,
-          "status": "not_posted",
-          "start": "2026-06-07",
-          "end": "2026-06-12",
-          "text": null
-        },
-        "ages": null,
-        "grades": {
-          "min": 4,
-          "max": 8,
-          "basis": "rising"
-        },
-        "sites": [
-          {
-            "name": "Camp Tanasi",
-            "address": "123 Dark Hollow Rd North",
-            "town": "Andersonville",
-            "state": "TN"
-          }
-        ],
-        "hours": null,
-        "extended_care": null,
-        "prices": [
-          {
-            "amount": 1150,
-            "unit": "session",
-            "label": "Member",
-            "year": 2026
-          },
-          {
-            "amount": 1250,
-            "unit": "session",
-            "label": "Non-member",
-            "year": 2026
-          }
-        ],
-        "sessions": [],
-        "registration": [],
-        "last_year_registration_opened": null,
-        "availability": null,
-        "financial_aid": {
-          "value": "no",
-          "text": "EXCEPT Cowgirl Week"
-        },
-        "special_needs": null,
-        "lunch": {
-          "value": "yes",
-          "text": "We provide all meals"
-        },
-        "transportation": null,
-        "sources": [
-          "https://www.girlscoutcsa.org/en/members/for-girl-scouts/camp-and-outdoors/camp-tanasi/summer-camp/cowgirl-week.html",
-          "https://www.girlscoutcsa.org/en/members/for-girl-scouts/camp-and-outdoors/camp-tanasi/summer-camp.html",
-          "https://www.girlscoutcsa.org/en/members/for-girl-scouts/camp-and-outdoors/camp-tanasi.html"
-        ],
-        "confidence": "medium",
-        "review_notes": "Details and address were read through official search results. Dates omit a year; 2026 comes from the overview. The overview excludes this program from summer camp scholarships."
-      },
-      {
-        "name": "Ultimate Scout",
-        "type": "overnight",
-        "categories": ["nature_outdoor"],
-        "description": "Campers hike, cook outdoors, camp out, and practice survival skills.",
-        "camp_page_url": "https://www.girlscoutcsa.org/en/members/for-girl-scouts/camp-and-outdoors/camp-tanasi/summer-camp/ultimate-scout.html",
-        "registration_url": null,
-        "season": {
-          "year": 2026,
-          "status": "not_posted",
-          "start": "2026-06-21",
-          "end": "2026-06-26",
-          "text": null
-        },
-        "ages": null,
-        "grades": {
-          "min": 2,
-          "max": 8,
-          "basis": "rising"
-        },
-        "sites": [
-          {
-            "name": "Camp Tanasi",
-            "address": "123 Dark Hollow Rd North",
-            "town": "Andersonville",
-            "state": "TN"
-          }
-        ],
-        "hours": null,
-        "extended_care": null,
-        "prices": [
-          {
-            "amount": 750,
-            "unit": "session",
-            "label": "Member",
-            "year": 2026
-          },
-          {
-            "amount": 850,
-            "unit": "session",
-            "label": "Non-member",
-            "year": 2026
-          }
-        ],
-        "sessions": [],
-        "registration": [],
-        "last_year_registration_opened": null,
-        "availability": null,
-        "financial_aid": {
-          "value": "yes",
-          "text": "limited summer camp scholarships are available"
-        },
-        "special_needs": null,
-        "lunch": {
-          "value": "yes",
-          "text": "We provide all meals"
-        },
-        "transportation": null,
-        "sources": [
-          "https://www.girlscoutcsa.org/en/members/for-girl-scouts/camp-and-outdoors/camp-tanasi/summer-camp/ultimate-scout.html",
-          "https://www.girlscoutcsa.org/en/members/for-girl-scouts/camp-and-outdoors/camp-tanasi/summer-camp.html",
-          "https://www.girlscoutcsa.org/en/members/for-girl-scouts/camp-and-outdoors/camp-tanasi.html"
-        ],
-        "confidence": "medium",
-        "review_notes": "Details and address were read through official search results. Dates omit a year; 2026 comes from the overview."
-      },
-      {
-        "name": "Pirates vs Mermaids",
-        "type": "overnight",
-        "categories": ["nature_outdoor", "general"],
-        "description": "Campers swim and paddle while creating pirate or mermaid characters.",
-        "camp_page_url": "https://www.girlscoutcsa.org/en/members/for-girl-scouts/camp-and-outdoors/camp-tanasi/summer-camp/pirates-vs-mermaids.html",
-        "registration_url": null,
-        "season": {
-          "year": 2026,
-          "status": "not_posted",
-          "start": "2026-06-07",
-          "end": "2026-06-12",
-          "text": null
-        },
-        "ages": null,
-        "grades": {
-          "min": 2,
-          "max": 8,
-          "basis": "rising"
-        },
-        "sites": [
-          {
-            "name": "Camp Tanasi",
-            "address": "123 Dark Hollow Rd North",
-            "town": "Andersonville",
-            "state": "TN"
-          }
-        ],
-        "hours": null,
-        "extended_care": null,
-        "prices": [
-          {
-            "amount": 750,
-            "unit": "session",
-            "label": "Member",
-            "year": 2026
-          },
-          {
-            "amount": 850,
-            "unit": "session",
-            "label": "Non-member",
-            "year": 2026
-          }
-        ],
-        "sessions": [],
-        "registration": [],
-        "last_year_registration_opened": null,
-        "availability": null,
-        "financial_aid": {
-          "value": "yes",
-          "text": "limited summer camp scholarships are available"
-        },
-        "special_needs": null,
-        "lunch": {
-          "value": "yes",
-          "text": "We provide all meals"
-        },
-        "transportation": null,
-        "sources": [
-          "https://www.girlscoutcsa.org/en/members/for-girl-scouts/camp-and-outdoors/camp-tanasi/summer-camp/pirates-vs-mermaids.html",
-          "https://www.girlscoutcsa.org/en/members/for-girl-scouts/camp-and-outdoors/camp-tanasi/summer-camp.html",
-          "https://www.girlscoutcsa.org/en/members/for-girl-scouts/camp-and-outdoors/camp-tanasi.html"
-        ],
-        "confidence": "medium",
-        "review_notes": "Individual dates omit the year; 2026 comes from the overview. Venue address was available through official search results."
-      },
-      {
-        "name": "Wilderness",
-        "type": "overnight",
-        "categories": ["nature_outdoor"],
-        "description": "Campers sleep in hammocks in a primitive unit and learn knife use, lashing, and campfire cooking. They also participate in traditional camp activities.",
-        "camp_page_url": "https://www.girlscoutcsa.org/en/members/for-girl-scouts/camp-and-outdoors/camp-tanasi/summer-camp/wilderness.html",
-        "registration_url": null,
-        "season": {
-          "year": 2026,
-          "status": "not_posted",
-          "start": "2026-06-21",
-          "end": "2026-06-26",
-          "text": null
-        },
-        "ages": null,
-        "grades": {
-          "min": 8,
-          "max": 10,
-          "basis": "rising"
-        },
-        "sites": [
-          {
-            "name": "Camp Tanasi",
-            "address": "123 Dark Hollow Rd North",
-            "town": "Andersonville",
-            "state": "TN"
-          }
-        ],
-        "hours": null,
-        "extended_care": null,
-        "prices": [
-          {
-            "amount": 800,
-            "unit": "session",
-            "label": "Member",
-            "year": 2026
-          },
-          {
-            "amount": 900,
-            "unit": "session",
-            "label": "Non-member",
-            "year": 2026
-          }
-        ],
-        "sessions": [],
-        "registration": [],
-        "last_year_registration_opened": null,
-        "availability": null,
-        "financial_aid": {
-          "value": "yes",
-          "text": "limited summer camp scholarships are available"
-        },
-        "special_needs": null,
-        "lunch": {
-          "value": "yes",
-          "text": "We provide all meals"
-        },
-        "transportation": null,
-        "sources": [
-          "https://www.girlscoutcsa.org/en/members/for-girl-scouts/camp-and-outdoors/camp-tanasi/summer-camp/wilderness.html",
-          "https://www.girlscoutcsa.org/en/members/for-girl-scouts/camp-and-outdoors/camp-tanasi/summer-camp.html",
-          "https://www.girlscoutcsa.org/en/members/for-girl-scouts/camp-and-outdoors/camp-tanasi.html"
-        ],
-        "confidence": "medium",
-        "review_notes": "Details and address were read through official search results. Dates omit a year; 2026 comes from the overview. The program recommends at least one previous year of camp experience."
-      },
-      {
-        "name": "Counselor-in-Training",
-        "type": "overnight",
-        "categories": ["nature_outdoor", "general"],
-        "description": "Campers learn leadership, teamwork, and program planning while mentoring younger campers. Participation requires an application and interview; CIT II requires prior completion of CIT I.",
-        "camp_page_url": "https://www.girlscoutcsa.org/en/members/for-girl-scouts/camp-and-outdoors/camp-tanasi/summer-camp/counselor-in-training.html",
-        "registration_url": null,
-        "season": {
-          "year": 2026,
-          "status": "not_posted",
-          "start": "2026-06-07",
-          "end": "2026-07-16",
-          "text": null
-        },
-        "ages": null,
-        "grades": {
-          "min": 9,
-          "max": 12,
-          "basis": "rising"
-        },
-        "sites": [
-          {
-            "name": "Camp Tanasi",
-            "address": "123 Dark Hollow Rd North",
-            "town": "Andersonville",
-            "state": "TN"
-          }
-        ],
-        "hours": null,
-        "extended_care": null,
-        "prices": [
-          {
-            "amount": 1050,
-            "unit": "session",
-            "label": "CIT II member",
-            "year": 2026
-          },
-          {
-            "amount": 1150,
-            "unit": "session",
-            "label": "CIT II non-member",
-            "year": 2026
-          },
-          {
-            "amount": 950,
-            "unit": "session",
-            "label": "CIT I member",
-            "year": 2026
-          },
-          {
-            "amount": 1050,
-            "unit": "session",
-            "label": "CIT I non-member",
-            "year": 2026
-          }
-        ],
-        "sessions": [
-          {
-            "label": "Counselor-in-Training (CIT) II",
-            "start": "2026-06-07",
-            "end": "2026-06-26",
-            "year": 2026,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 11,
-              "max": 12,
-              "basis": "rising"
-            },
-            "hours": null,
-            "price": null,
-            "status": null
-          },
-          {
-            "label": "Counselor-In-Training (CIT) I",
-            "start": "2026-07-05",
-            "end": "2026-07-16",
-            "year": 2026,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 9,
-              "max": 12,
-              "basis": "rising"
-            },
-            "hours": null,
-            "price": null,
-            "status": null
-          }
-        ],
-        "registration": [],
-        "last_year_registration_opened": null,
-        "availability": null,
-        "financial_aid": {
-          "value": "yes",
-          "text": "limited summer camp scholarships are available"
-        },
-        "special_needs": null,
-        "lunch": {
-          "value": "yes",
-          "text": "We provide all meals"
-        },
-        "transportation": null,
-        "sources": [
-          "https://www.girlscoutcsa.org/en/members/for-girl-scouts/camp-and-outdoors/camp-tanasi/summer-camp/counselor-in-training.html",
-          "https://www.girlscoutcsa.org/en/members/for-girl-scouts/camp-and-outdoors/camp-tanasi/summer-camp.html",
-          "https://www.girlscoutcsa.org/en/members/for-girl-scouts/camp-and-outdoors/camp-tanasi.html"
-        ],
-        "confidence": "medium",
-        "review_notes": "Details and address were read through official search results. Dates omit a year; 2026 comes from the overview."
-      },
-      {
-        "name": "Day Camp at Tanasi",
-        "type": "day",
-        "categories": ["nature_outdoor", "general"],
-        "description": "Day campers choose camp activities and return home each night.",
-        "camp_page_url": "https://www.girlscoutcsa.org/en/members/for-girl-scouts/camp-and-outdoors/camp-tanasi/summer-camp/day-camp-at-tanasi.html",
-        "registration_url": null,
-        "season": {
-          "year": 2026,
-          "status": "not_posted",
-          "start": "2026-07-06",
-          "end": "2026-07-09",
-          "text": null
-        },
-        "ages": null,
-        "grades": {
-          "min": 1,
-          "max": 8,
-          "basis": "rising"
-        },
-        "sites": [],
-        "hours": null,
-        "extended_care": null,
-        "prices": [
-          {
-            "amount": 300,
-            "unit": "session",
-            "label": "Member",
-            "year": 2026
-          },
-          {
-            "amount": 400,
-            "unit": "session",
-            "label": "Non-member",
-            "year": 2026
-          }
-        ],
-        "sessions": [],
-        "registration": [],
-        "last_year_registration_opened": null,
-        "availability": null,
-        "financial_aid": {
-          "value": "yes",
-          "text": "limited summer camp scholarships are available"
-        },
-        "special_needs": null,
-        "lunch": {
-          "value": "yes",
-          "text": "We provide all meals"
-        },
-        "transportation": {
-          "value": "yes",
-          "text": "Girls will have three locations to be picked up and dropped off each day by a bus chaperoned by Summer Camp Staff."
-        },
-        "sources": [
-          "https://www.girlscoutcsa.org/en/members/for-girl-scouts/camp-and-outdoors/camp-tanasi/summer-camp/day-camp-at-tanasi.html",
-          "https://www.girlscoutcsa.org/en/members/for-girl-scouts/camp-and-outdoors/camp-tanasi/summer-camp.html"
-        ],
-        "confidence": "medium",
-        "review_notes": "Details were read through official search results. Dates omit a year; 2026 comes from the overview. Activities occur at Tanasi, but the actual bus pickup/drop-off sites and times are not identified. Glamping Day Camp is represented separately rather than duplicated."
-      },
-      {
         "name": "Shero’s Journey",
         "type": "day",
-        "categories": ["nature_outdoor", "arts", "stem", "general"],
-        "description": "Campers earn badges, make crafts, conduct experiments, and participate in Girl Scout traditions and splash-pad field trips.",
+        "categories": ["general", "arts", "stem", "nature_outdoor"],
+        "description": "Campers earn badges, make crafts, conduct experiments, and participate in Girl Scout traditions.",
         "camp_page_url": "https://www.girlscoutcsa.org/en/members/for-girl-scouts/camp-and-outdoors/camp-tanasi/summer-camp/sheros-journey.html",
-        "registration_url": null,
+        "registration_url": "https://mygs.girlscouts.org/",
         "season": {
           "year": 2026,
           "status": "not_posted",
@@ -979,7 +167,7 @@
         "extended_care": {
           "early_dropoff_start": null,
           "late_pickup_end": "17:30",
-          "cost_text": "$50/girl/week; after hours care from 4:00-5:30pm"
+          "cost_text": "$50/girl/week"
         },
         "prices": [
           {
@@ -1015,11 +203,7 @@
             "year": 2026,
             "site": null,
             "ages": null,
-            "grades": {
-              "min": 0,
-              "max": 5,
-              "basis": "rising"
-            },
+            "grades": null,
             "hours": null,
             "price": null,
             "status": null
@@ -1031,11 +215,7 @@
             "year": 2026,
             "site": null,
             "ages": null,
-            "grades": {
-              "min": 0,
-              "max": 5,
-              "basis": "rising"
-            },
+            "grades": null,
             "hours": null,
             "price": null,
             "status": null
@@ -1047,11 +227,7 @@
             "year": 2026,
             "site": null,
             "ages": null,
-            "grades": {
-              "min": 0,
-              "max": 5,
-              "basis": "rising"
-            },
+            "grades": null,
             "hours": null,
             "price": null,
             "status": null
@@ -1062,29 +238,29 @@
         "availability": null,
         "financial_aid": {
           "value": "yes",
-          "text": "limited summer camp scholarships are available"
+          "text": "Limited summer camp scholarships are available."
         },
         "special_needs": null,
         "lunch": {
           "value": "no",
-          "text": "All attendees will need to pack a lunch and a water bottle each day."
+          "text": "All attendees will need to pack a lunch and a water bottle each day. Snacks will be provided."
         },
         "transportation": null,
         "sources": [
           "https://www.girlscoutcsa.org/en/members/for-girl-scouts/camp-and-outdoors/camp-tanasi/summer-camp/sheros-journey.html",
-          "https://www.girlscoutcsa.org/en/members/for-girl-scouts/camp-and-outdoors/camp-tanasi/summer-camp.html",
-          "https://www.girlscoutcsa.org/en/members/for-girl-scouts/camp-and-outdoors/camp-wildwood.html"
+          "https://www.girlscoutcsa.org/en/members/for-girl-scouts/camp-and-outdoors/camp-wildwood.html",
+          "https://www.girlscoutcsa.org/en/members/for-girl-scouts/camp-and-outdoors/camp-tanasi/summer-camp.html"
         ],
         "confidence": "medium",
-        "review_notes": "Official search-result text was used. Session headings say rising K-5, but the same page explicitly permits current fifth graders/rising sixth graders as campers; the card spans K-6 while rows preserve their printed bands. Dates are assigned to 2026 from the page's Fall 2026 eligibility wording and overview."
+        "review_notes": "The program page lists rising K–5 for each session but explicitly permits current fifth graders/rising sixth graders as campers; the card spans K–6. Dates are assigned to 2026 from the page's Fall 2026 eligibility wording and the parent page's Summer Camp 2026 heading. Aftercare begins at 16:00; regular camp start time is not stated. Program and address details were read through indexed official-page text."
       },
       {
         "name": "Day Camp Counselor",
         "type": "day",
         "categories": ["general"],
-        "description": "Participants assist with Shero’s Journey and earn leadership or service awards. Required training is included.",
+        "description": "Older Girl Scouts train and assist during Shero’s Journey Session 3, earning leadership or service awards.",
         "camp_page_url": "https://www.girlscoutcsa.org/en/members/for-girl-scouts/camp-and-outdoors/camp-tanasi/summer-camp/sheros-journey.html",
-        "registration_url": null,
+        "registration_url": "https://mygs.girlscouts.org/",
         "season": {
           "year": 2026,
           "status": "not_posted",
@@ -1096,7 +272,7 @@
         "grades": {
           "min": 7,
           "max": 12,
-          "basis": "rising"
+          "basis": "unspecified"
         },
         "sites": [
           {
@@ -1112,7 +288,7 @@
           {
             "amount": 25,
             "unit": "program",
-            "label": "Member",
+            "label": "member",
             "year": 2026
           }
         ],
@@ -1145,10 +321,7 @@
         "registration": [],
         "last_year_registration_opened": null,
         "availability": null,
-        "financial_aid": {
-          "value": "yes",
-          "text": "limited summer camp scholarships are available"
-        },
+        "financial_aid": null,
         "special_needs": null,
         "lunch": {
           "value": "no",
@@ -1157,11 +330,10 @@
         "transportation": null,
         "sources": [
           "https://www.girlscoutcsa.org/en/members/for-girl-scouts/camp-and-outdoors/camp-tanasi/summer-camp/sheros-journey.html",
-          "https://www.girlscoutcsa.org/en/members/for-girl-scouts/camp-and-outdoors/camp-tanasi/summer-camp.html",
           "https://www.girlscoutcsa.org/en/members/for-girl-scouts/camp-and-outdoors/camp-wildwood.html"
         ],
         "confidence": "medium",
-        "review_notes": "Details were available through official search results. Eligibility is stated as rising seventh graders through graduated twelfth graders; the numeric grade range cannot express the graduated upper endpoint. Dates are 2026 from the overview and eligibility wording. This is an award-bearing youth leadership offering, distinct from paid camp staff jobs."
+        "review_notes": "Eligibility is rising seventh graders through graduated twelfth graders, so grade basis is unspecified to preserve the mixed basis. June 27 training is required for all DCCs; PA/VIT training that day is required unless already earned. Dates are assigned to 2026 from explicit Fall 2026 eligibility wording and the parent summer camp heading. Details were read through indexed official-page text."
       }
     ]
   }

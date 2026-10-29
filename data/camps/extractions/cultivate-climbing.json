@@ -7,8 +7,8 @@
     "discovered_by": ["seed_sheet", "grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T14:54:00.867Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T16:54:52.550Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "0e522f566e379c11b014bdf7b166ae22412dad4099b506841e9ecd350d04086a",
   "response": {
     "searches": [
@@ -16,13 +16,13 @@
       "open https://cultivateclimbing.com/summer-camp/"
     ],
     "usage": {
-      "inputTokens": 24628,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1397,
-      "reasoningTokens": 104
+      "inputTokens": 25214,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1403,
+      "reasoningTokens": 113
     },
     "status": "completed",
-    "ms": 34669,
+    "ms": 31083,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -51,27 +51,27 @@
   "extraction": {
     "provider_name": "Cultivate Climbing",
     "website_url": "https://cultivateclimbing.com/",
-    "notes": "No summer 2027 camp information or registration milestones were found. The camp page lists dates without an explicit season year; they are recorded as 2026 from the page's 2026 context and require confirmation. Registration buttons were present in the supplied text, but their destination could not be retrieved.",
+    "notes": "No official 2027 summer camp information or registration milestones were found. The camp page lists dates without an explicit season year; they are retained as 2026 with medium confidence. Registration button destinations could not be extracted.",
     "excluded": [
       {
         "name": "Spring Break Camp",
-        "reason": "April 6–10 is outside summer."
+        "reason": "Held April 6–10, outside summer."
       },
       {
         "name": "Youth Climbing Teams",
-        "reason": "Ongoing youth team training, not a finite summer camp offering."
+        "reason": "Ongoing youth teams rather than a finite summer camp."
       },
       {
         "name": "Yoga and Pilates Classes",
-        "reason": "Ongoing classes, not a finite supervised youth summer program."
+        "reason": "Ongoing classes rather than summer camps."
       },
       {
-        "name": "Adult Classes",
-        "reason": "Adult-only classes."
+        "name": "NCBiPOC Meetup",
+        "reason": "Recurring community meetup, not a supervised youth summer program."
       },
       {
-        "name": "Community Programs",
-        "reason": "Recurring community and affinity-group activities rather than finite supervised youth summer camps."
+        "name": "Sunset Rooftop Flow",
+        "reason": "Single-evening yoga, Pilates and social event, not a camp."
       }
     ],
     "cards": [
@@ -79,9 +79,9 @@
         "name": "Summer Camp",
         "type": "day",
         "categories": ["sports"],
-        "description": "Campers practice indoor climbing with coaches and take part in interactive games and creative activities. Each week includes a midweek outing when weather allows.",
+        "description": "Campers practice climbing technique and participate in interactive games and creative activities. Each week includes a midweek outing when weather allows.",
         "camp_page_url": "https://cultivateclimbing.com/summer-camp/",
-        "registration_url": "https://cultivateclimbing.com/summer-camp/",
+        "registration_url": null,
         "season": {
           "year": 2026,
           "status": "not_posted",
@@ -105,26 +105,26 @@
         "hours": {
           "start": "08:30",
           "end": "15:30",
-          "text": "8:30 AM – 3:30 PM (full-day). Drop-off: 8:30–8:45 AM. Pick-up: 3:30–3:45 PM."
+          "text": "Drop-off: 8:30–8:45 AM; Pick-up: 3:30–3:45 PM"
         },
         "extended_care": null,
         "prices": [
           {
             "amount": 375,
             "unit": "week",
-            "label": "members",
+            "label": "member",
             "year": 2026
           },
           {
             "amount": 425,
             "unit": "week",
-            "label": "non-members",
+            "label": "non-member",
             "year": 2026
           }
         ],
         "sessions": [
           {
-            "label": "June 8-12",
+            "label": "June 8–12",
             "start": "2026-06-08",
             "end": "2026-06-12",
             "year": 2026,
@@ -136,7 +136,7 @@
             "status": null
           },
           {
-            "label": "June 15-19",
+            "label": "June 15–19",
             "start": "2026-06-15",
             "end": "2026-06-19",
             "year": 2026,
@@ -148,7 +148,7 @@
             "status": null
           },
           {
-            "label": "June 22-26",
+            "label": "June 22–26",
             "start": "2026-06-22",
             "end": "2026-06-26",
             "year": 2026,
@@ -160,7 +160,7 @@
             "status": null
           },
           {
-            "label": "July 6-10",
+            "label": "July 6–10",
             "start": "2026-07-06",
             "end": "2026-07-10",
             "year": 2026,
@@ -172,7 +172,7 @@
             "status": null
           },
           {
-            "label": "July 13-17",
+            "label": "July 13–17",
             "start": "2026-07-13",
             "end": "2026-07-17",
             "year": 2026,
@@ -184,7 +184,7 @@
             "status": null
           },
           {
-            "label": "July 20-24",
+            "label": "July 20–24",
             "start": "2026-07-20",
             "end": "2026-07-24",
             "year": 2026,
@@ -208,7 +208,7 @@
         "transportation": null,
         "sources": ["https://cultivateclimbing.com/summer-camp/", "https://cultivateclimbing.com/"],
         "confidence": "medium",
-        "review_notes": "Confirm the season year for dates and prices on the summer camp page: its camp details do not explicitly print a year, and 2026 was assigned from the page context, including its footer. Resolve the registration button destination. The page also states a sibling discount of $25 off each additional sibling."
+        "review_notes": "The summer-camp page does not explicitly print a season year alongside its dates. Dates and prices are treated as 2026 based on the supplied current-page context, including dated 2026 homepage events; confirm the season year with the provider. The camp page also states a $25 discount for each additional sibling, which is not represented as a separate price tier."
       }
     ]
   }

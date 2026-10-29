@@ -10,23 +10,22 @@
     "discovered_by": ["grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:28:34.140Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
-  "sourceHash": "12e45c84150dd310290cb240ddb9c0e29de6d44e51d15215541c34cfbdd7e94e",
+  "extractedAt": "2026-10-29T17:24:04.530Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "dcc2dda25e6d333a8a51cbdaa4dc8bd8541225872da395d237b54294bdc97e7d",
   "response": {
     "searches": [
-      "site:thewell-landrum.com VBS 2027 Rainforest 2026",
-      "site:thewell-landrum.com \"2026\" \"camp\"",
-      "site:scbaptist.org/ministries/camps/summersalt \"overnight\""
+      "site:thewell-landrum.com \"2026\" \"Salt\"",
+      "Kidsalt Summersalt 2026 camp location Charleston university"
     ],
     "usage": {
-      "inputTokens": 18271,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1572,
-      "reasoningTokens": 233
+      "inputTokens": 24400,
+      "cachedInputTokens": 8845,
+      "outputTokens": 955,
+      "reasoningTokens": 173
     },
     "status": "completed",
-    "ms": 42156,
+    "ms": 26570,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -50,23 +49,35 @@
   "extraction": {
     "provider_name": "The Well of Landrum",
     "website_url": "https://www.thewell-landrum.com/",
-    "notes": "No church-specific summer 2027 offerings or registration dates were found. The statewide KidSalt operator has posted 2027 dates, but The Well has not identified which session its group will attend. Church camp dates below remain labeled 2026. Camp drop-off locations are not explicitly stated: the church footer lists 395 W. Rutherford St., Landrum, SC, while the homepage mentions the Landrum High School auditorium. Neither was assumed to be a camp meeting place. The Where We Meet page returned no readable text.",
+    "notes": "No 2027 VBS information was found. The 2025 True North VBS is an older version of the same program, not a separate card. KidSalt and SummerSalt are held at Charleston Southern University in North Charleston, outside the directory's geographic range, according to their official operator pages: https://www.scbaptist.org/ministries/camps/kidsalt/ and https://www.scbaptist.org/ministries/camps/summersalt/. The VBS event page does not identify its meeting venue; the church footer lists 395 W. Rutherford St., while its homepage refers to worship at Landrum High School, so neither was assumed to be the VBS site.",
     "excluded": [
       {
+        "name": "KidSalt Summer Camp!",
+        "reason": "Overnight camp held at Charleston Southern University in North Charleston, SC, outside about 75 minutes' drive of Asheville."
+      },
+      {
+        "name": "Overflow Student Ministries - SummerSalt Youth Camp",
+        "reason": "Camp held at Charleston Southern University in North Charleston, SC, outside about 75 minutes' drive of Asheville."
+      },
+      {
         "name": "SPOUT! Ages 3 to 5th Grade",
-        "reason": "Recurring year-round Wednesday children's ministry, not a finite summer program."
+        "reason": "Recurring school-year children's ministry, not a finite summer camp."
       },
       {
         "name": "Overflow Student Ministries - OVERFLOW WEDNESDAYS!",
-        "reason": "Recurring year-round youth ministry, not a summer-only program."
-      },
-      {
-        "name": "Trunk or Treat!",
-        "reason": "October event outside summer."
+        "reason": "Recurring youth ministry meetings, not a finite summer camp."
       },
       {
         "name": "Overflow Youth Ministries - BIG C YOUTH RALLY!",
-        "reason": "Listed October and November events are outside summer."
+        "reason": "Single-evening youth event outside summer."
+      },
+      {
+        "name": "Trunk or Treat!",
+        "reason": "Seasonal social event outside summer."
+      },
+      {
+        "name": "Churchwide Picnic & Rubber Ducky Race!",
+        "reason": "Churchwide social event, not a supervised youth camp."
       }
     ],
     "cards": [
@@ -74,7 +85,7 @@
         "name": "VBS - RAINFOREST FALLS!",
         "type": "vbs",
         "categories": ["faith_based"],
-        "description": "Children attend the church's Rainforest Falls Vacation Bible School. Supper is served during the evening program.",
+        "description": "Evening Vacation Bible School. Supper is served.",
         "camp_page_url": "https://www.thewell-landrum.com/events/event/1057/vbs-rainforest-falls/2026-06-10",
         "registration_url": null,
         "season": {
@@ -100,89 +111,13 @@
         "availability": null,
         "financial_aid": null,
         "special_needs": null,
-        "lunch": {
-          "value": "yes",
-          "text": "Supper will be served"
-        },
+        "lunch": null,
         "transportation": null,
         "sources": [
           "https://www.thewell-landrum.com/events/event/1057/vbs-rainforest-falls/2026-06-10"
         ],
         "confidence": "high",
         "review_notes": null
-      },
-      {
-        "name": "KidSalt Summer Camp!",
-        "type": "overnight",
-        "categories": ["faith_based", "general"],
-        "description": "Campers participate in worship, Bible study, recreation and activity tracks at KidSalt overnight camp.",
-        "camp_page_url": "https://www.thewell-landrum.com/events/event/1061/kidsalt-summer-camp/2026-07-13",
-        "registration_url": null,
-        "season": {
-          "year": 2026,
-          "status": "not_posted",
-          "start": "2026-07-13",
-          "end": "2026-07-16",
-          "text": null
-        },
-        "ages": null,
-        "grades": {
-          "min": 3,
-          "max": 5,
-          "basis": "completed"
-        },
-        "sites": [],
-        "hours": null,
-        "extended_care": null,
-        "prices": [],
-        "sessions": [],
-        "registration": [],
-        "last_year_registration_opened": null,
-        "availability": null,
-        "financial_aid": null,
-        "special_needs": null,
-        "lunch": null,
-        "transportation": null,
-        "sources": [
-          "https://www.thewell-landrum.com/events/event/1061/kidsalt-summer-camp/2026-07-13",
-          "https://www.scbaptist.org/ministries/camps/kidsalt/"
-        ],
-        "confidence": "high",
-        "review_notes": null
-      },
-      {
-        "name": "Overflow Student Ministries - SummerSalt Youth Camp",
-        "type": "overnight",
-        "categories": ["faith_based"],
-        "description": "The church's Overflow Student Ministries group attends SummerSalt Youth Camp.",
-        "camp_page_url": "https://www.thewell-landrum.com/events/event/1052/overflow-student-ministries-summersalt-youth-camp/2026-06-22",
-        "registration_url": null,
-        "season": {
-          "year": 2026,
-          "status": "not_posted",
-          "start": "2026-06-22",
-          "end": "2026-06-26",
-          "text": null
-        },
-        "ages": null,
-        "grades": null,
-        "sites": [],
-        "hours": null,
-        "extended_care": null,
-        "prices": [],
-        "sessions": [],
-        "registration": [],
-        "last_year_registration_opened": null,
-        "availability": null,
-        "financial_aid": null,
-        "special_needs": null,
-        "lunch": null,
-        "transportation": null,
-        "sources": [
-          "https://www.thewell-landrum.com/events/event/1052/overflow-student-ministries-summersalt-youth-camp/2026-06-22"
-        ],
-        "confidence": "medium",
-        "review_notes": "The church's official search result states June 22–26, 2026, but opening the event page returned no readable text. Overnight format is inferred from the multiday youth camp listing; confirm format and church drop-off location."
       }
     ]
   }

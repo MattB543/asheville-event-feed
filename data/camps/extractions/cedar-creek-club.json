@@ -7,19 +7,19 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:18:40.248Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:15:48.537Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "7d40bd121f66237f9b4c7408e5bea16b4cd514ddfe51093a19c5569538614031",
   "response": {
-    "searches": ["site:cedarcreekclub.com camp 2027 2026"],
+    "searches": ["site:cedarcreekclub.com camp 2027 summer kids"],
     "usage": {
-      "inputTokens": 13795,
-      "cachedInputTokens": 8223,
-      "outputTokens": 711,
-      "reasoningTokens": 98
+      "inputTokens": 14381,
+      "cachedInputTokens": 8845,
+      "outputTokens": 663,
+      "reasoningTokens": 131
     },
     "status": "completed",
-    "ms": 19234,
+    "ms": 17939,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -38,15 +38,19 @@
   "extraction": {
     "provider_name": "Cedar Creek Club",
     "website_url": "https://cedarcreekclub.com/",
-    "notes": "No public 2027 camp dates or registration announcements were found. The public Family Fun page describes an eight-week summer camp beginning mid-June and running through mid-August, but gives no year, exact dates, ages, prices or camp hours. Member pages appear to require login; additional schedules and registration details may be available only to members.",
+    "notes": "No 2027 camp information or dated 2026 schedule was found on the public official pages. The member website includes a private login; detailed camp schedules and registration may be restricted to members. The public camp description gives a recurring mid-June through mid-August season without a year or exact dates.",
     "excluded": [
       {
         "name": "Sports Clinics & Camps",
-        "reason": "The public page describes youth tennis, pickleball and croquet instruction generically, but does not identify a finite summer offering or summer schedule. Summer eligibility could not be established."
+        "reason": "The public page describes youth tennis, pickleball and croquet instruction generally, but does not identify a finite summer offering or summer schedule."
       },
       {
         "name": "Private Lessons",
-        "reason": "General ongoing sports instruction, not an identified finite summer youth program."
+        "reason": "Lessons booked as lessons, rather than a summer camp."
+      },
+      {
+        "name": "Weekly Yoga classes",
+        "reason": "Recurring classes rather than a finite youth summer program."
       }
     ],
     "cards": [
@@ -54,11 +58,11 @@
         "name": "Summer Kids Camp",
         "type": "day",
         "categories": ["general", "arts", "nature_outdoor"],
-        "description": "Campers participate in outdoor activities, arts and crafts, and nature discovery. The club describes an eight-week day camp running from mid-June through mid-August.",
+        "description": "Campers participate in outdoor activities, arts and crafts, and nature discovery.",
         "camp_page_url": "https://cedarcreekclub.com/family-fun",
         "registration_url": null,
         "season": {
-          "year": 2026,
+          "year": 2027,
           "status": "not_posted",
           "start": null,
           "end": null,
@@ -86,8 +90,8 @@
         "lunch": null,
         "transportation": null,
         "sources": ["https://cedarcreekclub.com/family-fun", "https://cedarcreekclub.com/"],
-        "confidence": "medium",
-        "review_notes": "The Family Fun page is undated: 2026 is used as the fallback season, not as an explicitly stated camp year. Confirm the operating year, exact weekly dates and drop-off location with the club. The published club address is used as the site; the page does not specify a separate camp check-in location. Club facility hours and dining hours are not camp hours or evidence of included lunch."
+        "confidence": "high",
+        "review_notes": null
       }
     ]
   }

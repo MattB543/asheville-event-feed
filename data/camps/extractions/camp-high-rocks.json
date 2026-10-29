@@ -11,23 +11,22 @@
     "discovered_by": ["news828", "grid", "aggregator", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:01:04.108Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:00:47.302Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "287d0840545538cbb1fa1e70640debd11c0fc73d610d0aeb0a3cd68a0ec751b4",
   "response": {
     "searches": [
-      "site:highrocks.com leadership program",
-      "open https://www.highrocks.com/current-families/leadership-program/",
-      "site:highrocks.com \"2027\" \"September\" registration"
+      "site:highrocks.com leadership summit 2027",
+      "site:highrocks.com \"2027\" \"September\""
     ],
     "usage": {
-      "inputTokens": 27794,
-      "cachedInputTokens": 8223,
-      "outputTokens": 2688,
-      "reasoningTokens": 232
+      "inputTokens": 31279,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2470,
+      "reasoningTokens": 171
     },
     "status": "completed",
-    "ms": 60486,
+    "ms": 49074,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -76,37 +75,33 @@
   "extraction": {
     "provider_name": "Camp High Rocks",
     "website_url": "https://www.highrocks.com/",
-    "notes": "Summer 2027 registration is stated to be open, but no dated opening milestone was found. Session lengths are grouped in one overnight camp card. A separate Summit Leadership Program card covers camper leadership training, not paid junior-staff employment. The registration policies, meals and travel pages returned empty text when opened; meals and airport transportation were visible in official search results.",
+    "notes": "Summer 2027 dates and rates are posted and registration is open, but no dated registration-opening announcement was found. Session lengths and Junior Camp are grouped under Camp High Rocks. Horseback riding is an included activity, not a separately booked camp.",
     "excluded": [
       {
         "name": "Father-Son Weekends",
-        "reason": "Family-only programs held in spring."
+        "reason": "Family-only weekends held in spring, outside summer."
       },
       {
         "name": "Family Camp",
         "reason": "Family-only Labor Day retreat."
       },
       {
-        "name": "Counselor Trainee and Assistant Counselor",
-        "reason": "Paid junior-staff employment roles, not camper programs."
+        "name": "Counselor Trainee",
+        "reason": "Paid staff employment program for students finishing 11th grade."
       },
       {
-        "name": "Summer Jobs",
-        "reason": "Employment positions."
-      },
-      {
-        "name": "Horseback Riding",
-        "reason": "An activity within overnight camp tuition, not a separately enrolled camp."
+        "name": "Assistant Counselor",
+        "reason": "Paid staff employment program after 12th grade."
       }
     ],
     "cards": [
       {
         "name": "Camp High Rocks",
         "type": "overnight",
-        "categories": ["general", "nature_outdoor", "sports", "arts", "horses"],
-        "description": "Boys participate in outdoor adventure activities, sports, crafts and cabin camp-outs. Longer sessions include horseback riding and opportunities for off-property adventure trips; Junior Camp rotates cabin groups through activities and does not include horseback riding, pottery or rocketry.",
+        "categories": ["nature_outdoor", "sports", "horses", "arts", "general"],
+        "description": "An overnight camp for boys with activities including canoeing, climbing, mountain biking, swimming, crafts and horseback riding. Junior Camp rotates cabin groups through activities and includes an on-property camp-out; horseback riding, rocketry and pottery are reserved for longer sessions.",
         "camp_page_url": "https://www.highrocks.com/dates-rates/",
-        "registration_url": "https://www.highrocks.com/apply-now/",
+        "registration_url": "https://www.highrocks.com/camper-application/",
         "season": {
           "year": 2027,
           "status": "posted",
@@ -286,7 +281,10 @@
         "registration": [],
         "last_year_registration_opened": null,
         "availability": null,
-        "financial_aid": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "This scholarship fund enables children to attend Camp High Rocks that would not otherwise be able to do so."
+        },
         "special_needs": null,
         "lunch": {
           "value": "yes",
@@ -306,25 +304,27 @@
           "https://www.highrocks.com/dates-rates/july-session/",
           "https://www.highrocks.com/activities/horseback-riding/",
           "https://www.highrocks.com/apply-now/",
+          "https://www.highrocks.com/contact-us/",
+          "https://www.highrocks.com/alumni/campership-fund/",
           "https://www.highrocks.com/current-families/meals-at-camp/",
           "https://www.highrocks.com/current-families/traveling-to-camp/"
         ],
         "confidence": "medium",
-        "review_notes": "The July Session detail page says current grades 1–10, but the explicitly dated 2027 rates table says grades 3–10; the row uses the rates table. Grades refer to the 2026–2027 school year. The homepage's general ages 7–16 are retained without converting Junior Camp's kindergarten eligibility to an age. Meals and transportation wording was read only through official search snippets."
+        "review_notes": "The 2027 dates-and-rates table lists July four-week eligibility as grades 3–10, while the July Session page says currently grades 1–10. Used the year-specific table. Grades refer to the 2026–2027 school year. The homepage's general age range is 7–16, while Junior Camp explicitly admits kindergarteners without giving a separate age range."
       },
       {
         "name": "Summit Leadership Program",
         "type": "overnight",
         "categories": ["general", "nature_outdoor"],
-        "description": "Older campers receive leadership instruction and practice through activity apprenticeships, mentoring younger campers and helping with camp events. Responsibilities increase across eighth, ninth and tenth grades.",
+        "description": "Boys in grades 8–10 participate in leadership training, activity apprenticeships and opportunities to help younger campers. Responsibilities increase by grade, with 10th graders helping organize an all-camp activity and practicing residential counseling skills.",
         "camp_page_url": "https://www.highrocks.com/current-families/leadership-program/",
-        "registration_url": "https://www.highrocks.com/apply-now/",
+        "registration_url": "https://www.highrocks.com/camper-application/",
         "season": {
           "year": 2027,
           "status": "posted",
           "start": "2027-06-06",
           "end": "2027-07-24",
-          "text": "The June and July sessions include the Leadership Program for current 8–10th graders."
+          "text": "Registration for Summer 2027 is now open!"
         },
         "ages": null,
         "grades": {
@@ -356,7 +356,7 @@
             "price": {
               "amount": 7600,
               "unit": "session",
-              "label": "June session tuition; leadership program included",
+              "label": null,
               "year": 2027
             },
             "status": null
@@ -373,7 +373,7 @@
             "price": {
               "amount": 9225,
               "unit": "session",
-              "label": "July session tuition; leadership program included",
+              "label": null,
               "year": 2027
             },
             "status": null
@@ -391,7 +391,8 @@
           "https://www.highrocks.com/dates-rates/june-session/",
           "https://www.highrocks.com/dates-rates/july-session/",
           "https://www.highrocks.com/dates-rates/",
-          "https://www.highrocks.com/apply-now/"
+          "https://www.highrocks.com/apply-now/",
+          "https://www.highrocks.com/contact-us/"
         ],
         "confidence": "high",
         "review_notes": null

@@ -7,22 +7,19 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:32:30.007Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:27:17.222Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "f2d585c677c0d3457ce8225cd0eef4032467a91a9eaaf68a937ee27ab2401c08",
   "response": {
-    "searches": [
-      "site:anchoredoakfarm.com 2027 summer camp",
-      "open https://www.anchoredoakfarm.com/explorers"
-    ],
+    "searches": ["site:anchoredoakfarm.com \"2027\""],
     "usage": {
-      "inputTokens": 15890,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1429,
-      "reasoningTokens": 93
+      "inputTokens": 16379,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1052,
+      "reasoningTokens": 55
     },
     "status": "completed",
-    "ms": 34151,
+    "ms": 24368,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -61,7 +58,7 @@
   "extraction": {
     "provider_name": "Anchored Oak Adventure Farm",
     "website_url": "https://www.anchoredoakfarm.com/",
-    "notes": "No summer 2027 information or registration milestones found. The restricted-access page could not be read. Tuesday camp meets off-campus at an unnamed local horse farm; its name and drop-off address are not published in the supplied camp information.",
+    "notes": "No summer 2027 information or registration opening date found. The 2026 camp page says Tuesdays meet off-campus at a local horse farm but does not name or locate that drop-off venue. Restricted enrolled-family page requires access.",
     "excluded": [
       {
         "name": "Anchored Oak Farm Microschool",
@@ -69,15 +66,23 @@
       },
       {
         "name": "Anchored Oak Explorers",
-        "reason": "Homeschool afternoon enrichment program; no finite summer offering identified."
+        "reason": "Ongoing afternoon homeschool enrichment program, not a finite summer camp."
       },
       {
         "name": "Homeschool Enrichment Clubs",
-        "reason": "School-year enrichment classes with winter and spring dates, outside summer."
+        "reason": "School-year enrichment classes outside summer."
       },
       {
-        "name": "Birthday Parties, Field Trips and Petting Farm",
-        "reason": "Private group visits and parties, not scheduled supervised summer youth programs."
+        "name": "Birthday Parties",
+        "reason": "Private social events, not camps."
+      },
+      {
+        "name": "Petting Farm",
+        "reason": "Group visits by appointment, not a supervised summer camp program."
+      },
+      {
+        "name": "Field Trips",
+        "reason": "Group outings booked by schools or organizations, not camp offerings."
       }
     ],
     "cards": [
@@ -85,9 +90,9 @@
         "name": "Anchored Oak Farm Summer Camp",
         "type": "day",
         "categories": ["nature_outdoor", "horses"],
-        "description": "Campers participate in animal care, farm chores, crafts, outdoor games and nature exploration on a working regenerative farm. Tuesdays meet at a local horse farm for horse activities and riding.",
+        "description": "Campers participate in animal care, farm chores, crafts, outdoor games and nature exploration on a working regenerative farm. Tuesdays include activities and riding at a local horse farm.",
         "camp_page_url": "https://www.anchoredoakfarm.com/summer-camp",
-        "registration_url": "https://www.anchoredoakfarm.com/product/anchored-oak-farm-summer-camp-2026/R73ICW2LPWZT5RSKGI7EBN6T",
+        "registration_url": "https://www.anchoredoakfarm.com/summer-camp",
         "season": {
           "year": 2026,
           "status": "not_posted",
@@ -199,12 +204,12 @@
         "transportation": null,
         "sources": [
           "https://www.anchoredoakfarm.com/summer-camp",
-          "https://www.anchoredoakfarm.com/product/anchored-oak-farm-summer-camp-2026/R73ICW2LPWZT5RSKGI7EBN6T",
           "https://www.anchoredoakfarm.com/shop/events/XJEZNPVMCX34UD2FANLFLOZE",
+          "https://www.anchoredoakfarm.com/product/anchored-oak-farm-summer-camp-2026/R73ICW2LPWZT5RSKGI7EBN6T",
           "https://www.anchoredoakfarm.com/"
         ],
         "confidence": "medium",
-        "review_notes": "The product page lists July 22–26, while the summer-camp page and store date filters list June 22–26; the rows use June. Confirm the final week with the provider. Dates on the summer-camp page omit the year; 2026 comes from its linked product title and navigation. The summer-camp metadata says eight weeks, but the visible schedule and 2026 product describe five. Confirm the unnamed Tuesday horse farm's drop-off location."
+        "review_notes": "Final week conflicts: summer-camp page and shop date filters list June 22–26, while the 2026 product description lists July 22–26. Rows use June from the camp page and shop filters. Camp-page dates omit the year; 2026 is taken from the linked product title and Summer Camp 2026 navigation. Camp-page metadata says eight weeks, but the page and product list five. Tuesday horse-farm meeting location is unnamed and needs an address."
       }
     ]
   }

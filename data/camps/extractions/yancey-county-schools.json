@@ -10,8 +10,8 @@
     "discovered_by": ["grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:21:42.878Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:18:26.053Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "97859e0ffdf46deb999b46485a7945b101d07cd81d71080a1ac0c8bc45ebf8ba",
   "response": {
     "searches": [
@@ -19,13 +19,13 @@
       "site:yanceync.net \"2027\" \"summer camps\""
     ],
     "usage": {
-      "inputTokens": 24533,
-      "cachedInputTokens": 8223,
-      "outputTokens": 4720,
-      "reasoningTokens": 152
+      "inputTokens": 25353,
+      "cachedInputTokens": 8845,
+      "outputTokens": 4259,
+      "reasoningTokens": 187
     },
     "status": "completed",
-    "ms": 76208,
+    "ms": 70143,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -54,14 +54,19 @@
   "extraction": {
     "provider_name": "Yancey County Schools",
     "website_url": "https://www.yanceync.net/",
-    "notes": "No summer 2027 camp information or registration dates were found. Cards use the official 2026 camp list. The 2025 registration announcement does not establish a 2026 opening date. Heavy Equipment Camp has conflicting months in its heading and daily itinerary. Carpentry Camp mentions attending both carpentry camps, but only one session is listed.",
-    "excluded": [],
+    "notes": "No 2027 camp information or registration milestones were found. Cards use the official 2026 camp listing. The 2025 registration announcement does not establish a 2026 opening date. Graphic Design Camp is excluded because it is a learning program restricted to YCS students. Other camps explicitly permit students not enrolled in a NC public school.",
+    "excluded": [
+      {
+        "name": "Graphic Design Camp",
+        "reason": "Learning program restricted to the school district's own enrolled students: the page states that software licensing restricts this camp to YCS students only."
+      }
+    ],
     "cards": [
       {
         "name": "Health Science Career Camp",
         "type": "day",
-        "categories": ["stem"],
-        "description": "Students explore healthcare careers through hands-on activities and interactive learning. Possible site visits introduce local medical facilities and healthcare professionals.",
+        "categories": ["academic"],
+        "description": "Students explore healthcare careers through hands-on activities and interactive learning, with possible visits to local medical facilities.",
         "camp_page_url": "https://www.yanceync.net/page/cte-summer-camps/",
         "registration_url": "https://forms.gle/ZTiLvUySsUdtjdfP6",
         "season": {
@@ -91,7 +96,7 @@
           {
             "amount": 0,
             "unit": "program",
-            "label": "All camps are FREE!",
+            "label": "Free",
             "year": 2026
           }
         ],
@@ -107,74 +112,11 @@
         },
         "transportation": {
           "value": "no",
-          "text": "Transportation to and from Mtn. Heritage High School is not provided as part of the camp. Transportation to and from any camp activities as part of that camp will be provided. Note: Students who are not enrolled in a NC Public School may participate but will need to provide their own transportation on any field trips."
+          "text": "Transportation to and from Mtn. Heritage High School is not provided as part of the camp. Transportation to and from any camp activities as part of that camp will be provided. Students who are not enrolled in a NC Public School may participate but will need to provide their own transportation on any field trips."
         },
         "sources": [
           "https://www.yanceync.net/page/cte-summer-camps/",
-          "https://mhhs.yanceync.net/"
-        ],
-        "confidence": "high",
-        "review_notes": null
-      },
-      {
-        "name": "Graphic Design Camp",
-        "type": "day",
-        "categories": ["arts", "stem"],
-        "description": "Students create custom graphics in Adobe Illustrator and design a camp logo to transfer onto a T-shirt. This camp is restricted to Yancey County Schools students because of software licensing.",
-        "camp_page_url": "https://www.yanceync.net/page/cte-summer-camps/",
-        "registration_url": "https://forms.gle/fFnZS8k4X8MJvBnR6",
-        "season": {
-          "year": 2026,
-          "status": "not_posted",
-          "start": "2026-06-22",
-          "end": "2026-06-24",
-          "text": null
-        },
-        "ages": null,
-        "grades": {
-          "min": 7,
-          "max": 10,
-          "basis": "rising"
-        },
-        "sites": [
-          {
-            "name": "Mountain Heritage High School lower parking lot",
-            "address": "333 Mountain Heritage HS Road",
-            "town": "Burnsville",
-            "state": "NC"
-          }
-        ],
-        "hours": {
-          "start": "09:00",
-          "end": "14:00",
-          "text": null
-        },
-        "extended_care": null,
-        "prices": [
-          {
-            "amount": 0,
-            "unit": "program",
-            "label": "All camps are FREE!",
-            "year": 2026
-          }
-        ],
-        "sessions": [],
-        "registration": [],
-        "last_year_registration_opened": null,
-        "availability": null,
-        "financial_aid": null,
-        "special_needs": null,
-        "lunch": {
-          "value": "yes",
-          "text": "Lunch will be provided."
-        },
-        "transportation": {
-          "value": "no",
-          "text": "Transportation to and from Mtn. Heritage High School is not provided as part of the camp. Transportation to and from any camp activities as part of that camp will be provided. Note: Students who are not enrolled in a NC Public School may participate but will need to provide their own transportation on any field trips."
-        },
-        "sources": [
-          "https://www.yanceync.net/page/cte-summer-camps/",
-          "https://mhhs.yanceync.net/"
+          "https://mhhs.yanceync.net/o/mhh/page/administration"
         ],
         "confidence": "high",
         "review_notes": null
@@ -183,7 +125,7 @@
         "name": "Community College Camp - Dream Big, Start Smart",
         "type": "day",
         "categories": ["academic"],
-        "description": "Students tour Mayland Community College and A-B Tech Community College to explore career training programs. Tours include labs, classrooms and opportunities to meet instructors.",
+        "description": "Students tour Mayland Community College and A-B Tech Community College to explore career training programs, labs and classrooms and meet instructors.",
         "camp_page_url": "https://www.yanceync.net/page/cte-summer-camps/",
         "registration_url": "https://forms.gle/skuNXxGNtmxgWSJQ7",
         "season": {
@@ -213,7 +155,7 @@
           {
             "amount": 0,
             "unit": "program",
-            "label": "All camps are FREE!",
+            "label": "Free",
             "year": 2026
           }
         ],
@@ -229,11 +171,11 @@
         },
         "transportation": {
           "value": "no",
-          "text": "Transportation to and from Mtn. Heritage High School is not provided as part of the camp. Transportation to and from any camp activities as part of that camp will be provided. Note: Students who are not enrolled in a NC Public School may participate but will need to provide their own transportation on any field trips."
+          "text": "Transportation to and from Mtn. Heritage High School is not provided as part of the camp. Transportation to and from any camp activities as part of that camp will be provided. Students who are not enrolled in a NC Public School may participate but will need to provide their own transportation on any field trips."
         },
         "sources": [
           "https://www.yanceync.net/page/cte-summer-camps/",
-          "https://mhhs.yanceync.net/"
+          "https://mhhs.yanceync.net/o/mhh/page/administration"
         ],
         "confidence": "high",
         "review_notes": null
@@ -242,7 +184,7 @@
         "name": "Aviation Camp",
         "type": "day",
         "categories": ["stem"],
-        "description": "Students explore flight, aviation careers and related education pathways. The tentative itinerary includes aviation facilities in Asheville, Hickory Aviation Museum and Northeast State Community College.",
+        "description": "Students explore flight, aviation careers and education pathways through activities and tentative visits to aviation facilities, a museum and a community college.",
         "camp_page_url": "https://www.yanceync.net/page/cte-summer-camps/",
         "registration_url": "https://forms.gle/6B5L53QZadGzixjD6",
         "season": {
@@ -272,7 +214,7 @@
           {
             "amount": 0,
             "unit": "program",
-            "label": "All camps are FREE!",
+            "label": "Free",
             "year": 2026
           }
         ],
@@ -288,11 +230,11 @@
         },
         "transportation": {
           "value": "no",
-          "text": "Transportation to and from Mtn. Heritage High School is not provided as part of the camp. Transportation to and from any camp activities as part of that camp will be provided. Note: Students who are not enrolled in a NC Public School may participate but will need to provide their own transportation on any field trips."
+          "text": "Transportation to and from Mtn. Heritage High School is not provided as part of the camp. Transportation to and from any camp activities as part of that camp will be provided. Students who are not enrolled in a NC Public School may participate but will need to provide their own transportation on any field trips."
         },
         "sources": [
           "https://www.yanceync.net/page/cte-summer-camps/",
-          "https://mhhs.yanceync.net/"
+          "https://mhhs.yanceync.net/o/mhh/page/administration"
         ],
         "confidence": "high",
         "review_notes": null
@@ -301,7 +243,7 @@
         "name": "Heavy Equipment Camp",
         "type": "day",
         "categories": ["stem"],
-        "description": "Students learn introductory heavy equipment operation using simulators and real machinery. Listed field trips include Dig’n Zone and The Quartz Corp.",
+        "description": "Students learn introductory heavy equipment operation using simulators and real equipment and explore construction and mining careers.",
         "camp_page_url": "https://www.yanceync.net/page/cte-summer-camps/",
         "registration_url": "https://forms.gle/33fmq2jX5KfKLd726",
         "season": {
@@ -325,17 +267,13 @@
             "state": "NC"
           }
         ],
-        "hours": {
-          "start": null,
-          "end": null,
-          "text": "The itinerary lists 7:30 AM–7:00 PM on June 13th and 9:00 AM–2:00 PM on June 14th, conflicting with the July 13–14 heading."
-        },
+        "hours": null,
         "extended_care": null,
         "prices": [
           {
             "amount": 0,
             "unit": "program",
-            "label": "All camps are FREE!",
+            "label": "Free",
             "year": 2026
           }
         ],
@@ -351,20 +289,20 @@
         },
         "transportation": {
           "value": "no",
-          "text": "Transportation to and from Mtn. Heritage High School is not provided as part of the camp. Transportation to and from any camp activities as part of that camp will be provided. Note: Students who are not enrolled in a NC Public School may participate but will need to provide their own transportation on any field trips."
+          "text": "Transportation to and from Mtn. Heritage High School is not provided as part of the camp. Transportation to and from any camp activities as part of that camp will be provided. Students who are not enrolled in a NC Public School may participate but will need to provide their own transportation on any field trips."
         },
         "sources": [
           "https://www.yanceync.net/page/cte-summer-camps/",
-          "https://mhhs.yanceync.net/"
+          "https://mhhs.yanceync.net/o/mhh/page/administration"
         ],
         "confidence": "medium",
-        "review_notes": "The official camp heading says July 13–14, 2026, but both daily itinerary entries say June 13th and June 14th. Dates use the explicit heading; confirm the month and associated daily hours with the provider."
+        "review_notes": "The camp heading states July 13–14, 2026, but the detailed itinerary states June 13 and June 14. Dates follow the heading. Hours are omitted because the itinerary assigns 07:30–19:00 and 09:00–14:00 to the conflicting June dates. Confirm dates and daily hours with the coordinator."
       },
       {
         "name": "Carpentry Camp",
         "type": "day",
         "categories": ["stem"],
-        "description": "Students design and build small tables while learning measuring, cutting, assembling and finishing skills. They use woodworking tools under supervision.",
+        "description": "Campers practice measuring, cutting, assembling and finishing wood while using tools under supervision to build small tables.",
         "camp_page_url": "https://www.yanceync.net/page/cte-summer-camps/",
         "registration_url": "https://forms.gle/9jBTBQfcZUKUSjYG6",
         "season": {
@@ -398,7 +336,7 @@
           {
             "amount": 0,
             "unit": "program",
-            "label": "All camps are FREE!",
+            "label": "Free",
             "year": 2026
           }
         ],
@@ -427,11 +365,11 @@
         },
         "transportation": {
           "value": "no",
-          "text": "Transportation to and from Mtn. Heritage High School is not provided as part of the camp. Transportation to and from any camp activities as part of that camp will be provided. Note: Students who are not enrolled in a NC Public School may participate but will need to provide their own transportation on any field trips."
+          "text": "Transportation to and from Mtn. Heritage High School is not provided as part of the camp. Transportation to and from any camp activities as part of that camp will be provided. Students who are not enrolled in a NC Public School may participate but will need to provide their own transportation on any field trips."
         },
         "sources": [
           "https://www.yanceync.net/page/cte-summer-camps/",
-          "https://mhhs.yanceync.net/"
+          "https://mhhs.yanceync.net/o/mhh/page/administration"
         ],
         "confidence": "high",
         "review_notes": null
@@ -440,7 +378,7 @@
         "name": "A Taste of Ag Camp",
         "type": "day",
         "categories": ["nature_outdoor", "cooking"],
-        "description": "Students visit cattle, vegetable and goat farms, then take part in food preparation and product-making activities. Listed activities include charcuterie board creation and goat soap making.",
+        "description": "Campers visit farms and return to school for cooking and crafting activities connected to farm products, including charcuterie board creation and goat soap making.",
         "camp_page_url": "https://www.yanceync.net/page/cte-summer-camps/",
         "registration_url": "https://forms.gle/abgYa65U7pgwR8aX7",
         "season": {
@@ -474,7 +412,7 @@
           {
             "amount": 0,
             "unit": "program",
-            "label": "All camps are FREE!",
+            "label": "Free",
             "year": 2026
           }
         ],
@@ -490,11 +428,11 @@
         },
         "transportation": {
           "value": "no",
-          "text": "Transportation to and from Mtn. Heritage High School is not provided as part of the camp. Transportation to and from any camp activities as part of that camp will be provided. Note: Students who are not enrolled in a NC Public School may participate but will need to provide their own transportation on any field trips."
+          "text": "Transportation to and from Mtn. Heritage High School is not provided as part of the camp. Transportation to and from any camp activities as part of that camp will be provided. Students who are not enrolled in a NC Public School may participate but will need to provide their own transportation on any field trips."
         },
         "sources": [
           "https://www.yanceync.net/page/cte-summer-camps/",
-          "https://mhhs.yanceync.net/"
+          "https://mhhs.yanceync.net/o/mhh/page/administration"
         ],
         "confidence": "high",
         "review_notes": null
@@ -503,7 +441,7 @@
         "name": "STEM Camp",
         "type": "day",
         "categories": ["stem"],
-        "description": "Students use Raspberry Pi computers and Scratch to build a quick reaction game and a wire-loop game. Activities cover circuits, programming, buttons, buzzers and variables.",
+        "description": "Students use Raspberry Pi computers and Scratch to build and program a quick reaction game and a wire-loop game, learning circuits, variables and scoring.",
         "camp_page_url": "https://www.yanceync.net/page/cte-summer-camps/",
         "registration_url": "https://forms.gle/RsF42NFG6a465zF3A",
         "season": {
@@ -537,7 +475,7 @@
           {
             "amount": 0,
             "unit": "program",
-            "label": "All camps are FREE!",
+            "label": "Free",
             "year": 2026
           }
         ],
@@ -566,11 +504,11 @@
         },
         "transportation": {
           "value": "no",
-          "text": "Transportation to and from Mtn. Heritage High School is not provided as part of the camp. Transportation to and from any camp activities as part of that camp will be provided. Note: Students who are not enrolled in a NC Public School may participate but will need to provide their own transportation on any field trips."
+          "text": "Transportation to and from Mtn. Heritage High School is not provided as part of the camp. Transportation to and from any camp activities as part of that camp will be provided. Students who are not enrolled in a NC Public School may participate but will need to provide their own transportation on any field trips."
         },
         "sources": [
           "https://www.yanceync.net/page/cte-summer-camps/",
-          "https://mhhs.yanceync.net/"
+          "https://mhhs.yanceync.net/o/mhh/page/administration"
         ],
         "confidence": "high",
         "review_notes": null
@@ -579,7 +517,7 @@
         "name": "Be Your Own Boss Camp",
         "type": "day",
         "categories": ["academic"],
-        "description": "Students explore starting a small business and developing a product or service idea. They visit Burnsville businesses and hear from owners about how they started.",
+        "description": "Students explore entrepreneurship through hands-on activities, visits to Burnsville small businesses and conversations with business owners about starting a business.",
         "camp_page_url": "https://www.yanceync.net/page/cte-summer-camps/",
         "registration_url": "https://forms.gle/U6w9r2Xt88binc9m9",
         "season": {
@@ -613,7 +551,7 @@
           {
             "amount": 0,
             "unit": "program",
-            "label": "All camps are FREE!",
+            "label": "Free",
             "year": 2026
           }
         ],
@@ -629,11 +567,11 @@
         },
         "transportation": {
           "value": "no",
-          "text": "Transportation to and from Mtn. Heritage High School is not provided as part of the camp. Transportation to and from any camp activities as part of that camp will be provided. Note: Students who are not enrolled in a NC Public School may participate but will need to provide their own transportation on any field trips."
+          "text": "Transportation to and from Mtn. Heritage High School is not provided as part of the camp. Transportation to and from any camp activities as part of that camp will be provided. Students who are not enrolled in a NC Public School may participate but will need to provide their own transportation on any field trips."
         },
         "sources": [
           "https://www.yanceync.net/page/cte-summer-camps/",
-          "https://mhhs.yanceync.net/"
+          "https://mhhs.yanceync.net/o/mhh/page/administration"
         ],
         "confidence": "high",
         "review_notes": null

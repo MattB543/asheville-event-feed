@@ -7,22 +7,22 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:20:36.874Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:17:39.492Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "9e70a39231187eb9f627f4bd02391f9279f8cf4b0bdea41173860e41f04b3386",
   "response": {
     "searches": [
       "site:summerfunshine.org 2027 camp",
-      "\"Summer Funshine\" \"2026\" Burnsville camp"
+      "\"Funshine\" \"2026\" \"camp\" Burnsville location"
     ],
     "usage": {
-      "inputTokens": 21042,
-      "cachedInputTokens": 8223,
-      "outputTokens": 981,
-      "reasoningTokens": 124
+      "inputTokens": 18491,
+      "cachedInputTokens": 8845,
+      "outputTokens": 919,
+      "reasoningTokens": 123
     },
     "status": "completed",
-    "ms": 22714,
+    "ms": 22007,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -71,19 +71,35 @@
   "extraction": {
     "provider_name": "Summer Funshine Day Camp",
     "website_url": "https://www.summerfunshine.org/",
-    "notes": "No 2027 information found. The official website still lists June 22–25, 2026. Applications are requested by emailing funshine.info@gmail.com or calling Lucy at 828-385-0211; no dated registration opening is posted. The contact page returned no readable text. The former Toe River Campground is no longer the camp location.",
+    "notes": "No 2027 information found. Applications are requested by email or telephone; no public downloadable application was found. The provider says its former campground was lost after Hurricane Helene and does not identify a current summer camp site. Higgins Methodist's volunteer notice identifies West Yancey Volunteer Fire Department Training Center as the camp location; this remains a third-party location claim.",
     "excluded": [
       {
         "name": "SPRING FUNSHINE PARTY",
-        "reason": "Family community event outside summer, held April 2, 2026."
+        "reason": "Single social event outside summer."
       },
       {
         "name": "FALL FUNSHINE Festival",
-        "reason": "Family community event outside summer, held October 1, 2026."
+        "reason": "Fall festival outside summer."
       },
       {
         "name": "CHRISTMAS FUNSHINE PARTY",
-        "reason": "Family community event outside summer, held December 3, 2026."
+        "reason": "Single social event outside summer."
+      },
+      {
+        "name": "Summer Funshine Program",
+        "reason": "Unrelated provider in Farmers Branch, Texas."
+      },
+      {
+        "name": "Camp Funshine",
+        "reason": "Unrelated provider in Valley Stream, New York."
+      },
+      {
+        "name": "Funshine Day Camp",
+        "reason": "Unrelated Girl Scout provider serving Eugene and Springfield, Oregon."
+      },
+      {
+        "name": "FUNSHINE CAMP",
+        "reason": "Unrelated Cross Lanes YMCA provider outside the Asheville area."
       }
     ],
     "cards": [
@@ -91,9 +107,9 @@
         "name": "Summer Funshine Day Camp",
         "type": "day",
         "categories": ["general", "special_needs", "faith_based"],
-        "description": "Campers with developmental disabilities participate in games, arts and crafts, music, dancing, water activities and entertainment. Each camper must be accompanied by an adult family member or assistant.",
+        "description": "Campers with developmental disabilities participate in games, arts and crafts, dancing, performances, and recreational activities. Each camper is accompanied by an adult family member or assistant.",
         "camp_page_url": "https://www.summerfunshine.org/",
-        "registration_url": "https://www.summerfunshine.org/",
+        "registration_url": "https://www.summerfunshine.org/contact",
         "season": {
           "year": 2026,
           "status": "not_posted",
@@ -103,14 +119,7 @@
         },
         "ages": null,
         "grades": null,
-        "sites": [
-          {
-            "name": "West Yancey VFD Training Center",
-            "address": "6553 HWY 19E",
-            "town": "Burnsville",
-            "state": "NC"
-          }
-        ],
+        "sites": [],
         "hours": {
           "start": null,
           "end": null,
@@ -132,19 +141,19 @@
         "financial_aid": null,
         "special_needs": {
           "value": "yes",
-          "text": "Funshine Camp was created with one heartfelt mission: to offer meaningful recreational and educational experiences to individuals of all ages with developmental disabilities--at absolutely no cost to them or their families."
+          "text": "Funshine Camp was created with one heartfelt mission: to offer meaningful recreational and educational experiences to individuals of all ages with developmental disabilities."
         },
         "lunch": null,
         "transportation": null,
         "sources": [
           "https://www.summerfunshine.org/",
           "https://www.summerfunshine.org/camp-activities",
-          "https://www.summerfunshine.org/statement-of-faith",
-          "https://www.summerfunshine.org/news-and-events",
-          "https://www.higginsmethodist.com/missions-blog/camp-funshine-volunteer-opportunities"
+          "https://www.summerfunshine.org/contact",
+          "https://www.summerfunshine.org/volunteer",
+          "https://www.summerfunshine.org/statement-of-faith"
         ],
-        "confidence": "medium",
-        "review_notes": "The 2026 summer venue is stated by Higgins Methodist's May 20, 2026 volunteer announcement, not by the provider's summer camp page. The provider publishes the same venue's address for seasonal parties as 6553 HWY 19E; Higgins prints 6553 US Hwy 19. Confirm the summer drop-off location directly. Eligibility is stated as all ages, with no numeric age limits. Adult accompaniment is required."
+        "confidence": "high",
+        "review_notes": null
       }
     ]
   }

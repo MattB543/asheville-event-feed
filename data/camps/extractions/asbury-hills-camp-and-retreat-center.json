@@ -7,24 +7,25 @@
     "discovered_by": ["grid", "aggregator"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:10:52.983Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:08:46.176Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "e7e80fae77ec854fb43c163d413cb51c38b5105adca9fbca0dd3684c1ebf3430",
   "response": {
     "searches": [
+      "site:asburyhills.org 2027 schedule camp",
       "open https://asburyhills.org/summer-camp/",
-      "site:asburyhills.org \"2027\" \"Schedule\"",
-      "site:asburyhills.org \"2027\" filetype:pdf",
-      "site:asburyhills.org/camps/altitude-for-junior-high \"2026\""
+      "site:asburyhills.org/wp-content/uploads/ \"2027\"",
+      "site:asburyhills.org/camps/counselor-in-training \"Dates\"",
+      "site:asburyhills.org \"ALTITUDE for Junior High\" \"$\""
     ],
     "usage": {
-      "inputTokens": 36635,
-      "cachedInputTokens": 8223,
-      "outputTokens": 7628,
-      "reasoningTokens": 353
+      "inputTokens": 36355,
+      "cachedInputTokens": 8845,
+      "outputTokens": 7163,
+      "reasoningTokens": 412
     },
     "status": "completed",
-    "ms": 165512,
+    "ms": 118916,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -73,35 +74,27 @@
   "extraction": {
     "provider_name": "Asbury Hills Camp and Retreat Center",
     "website_url": "https://asburyhills.org/",
-    "notes": "The official summer page lists 2027 programs and announces registration opening October 17, interpreted as October 17, 2026 for summer 2027. It says the 2027 schedule is here, but the schedule was not readable through the web tool and searches did not locate a readable 2027 schedule PDF. Individual program pages still describe 2026 dates and prices, retained below without projecting them forward. Age bands are grouped as rows of the named programs. Registration platform links could not be recovered.",
+    "notes": "The main summer page lists the 2027 programs and announces registration opening October 17. October 17 is interpreted as October 17, 2026 for summer 2027. It says the 2027 schedule is here, but the schedule was not accessible in readable text; individual program pages still provide 2026 dates and prices. Those facts are retained as 2026, not projected into 2027. Direct page opens returned empty text, so additional program facts were read from official search results.",
     "excluded": [
       {
+        "name": "SEASIDE",
+        "reason": "Held at Sea Islands Camp & Retreat Center on the South Carolina coast, outside the Asheville drive-time area."
+      },
+      {
         "name": "Family Camp",
-        "reason": "Family-only weekend program, rather than a supervised youth camp."
+        "reason": "Family-only weekend program."
       },
       {
         "name": "Hands and Feet: Diakonos",
-        "reason": "Youth service retreat takes place March 12–14, 2027, outside summer."
-      },
-      {
-        "name": "Summer Camp Staff",
-        "reason": "Employment program."
-      },
-      {
-        "name": "Open House",
-        "reason": "Public family event outside summer, not a supervised youth camp."
+        "reason": "Youth-group service retreat outside summer, March 12–14, 2027."
       },
       {
         "name": "Fall Festival",
-        "reason": "Fall event outside summer."
+        "reason": "Festival outside summer."
       },
       {
-        "name": "Group Retreats",
-        "reason": "Year-round custom group retreats, not a listed finite summer youth program."
-      },
-      {
-        "name": "Pastoral Retreats",
-        "reason": "Adult retreat offering."
+        "name": "Open House",
+        "reason": "Open-house event rather than a supervised summer youth program."
       }
     ],
     "cards": [
@@ -109,7 +102,7 @@
         "name": "CORE",
         "type": "overnight",
         "categories": ["nature_outdoor", "faith_based", "general"],
-        "description": "Campers participate in canoeing, creek hiking, climbing, water activities, worship and devotions. Older campers also have high-ropes activities and an overnight camping experience.",
+        "description": "Campers participate in canoeing, creek hiking, climbing, water activities, campfire cooking and worship. Older campers have additional ropes and aquatic challenge activities.",
         "camp_page_url": "https://asburyhills.org/summer-camp/",
         "registration_url": null,
         "season": {
@@ -380,16 +373,17 @@
           "https://asburyhills.org/camps/corefor-elementary-students/",
           "https://asburyhills.org/camps/core-for-junior-high/",
           "https://asburyhills.org/camps/core-for-senior-high/",
-          "https://asburyhills.org/for-parents/"
+          "https://asburyhills.org/for-parents/",
+          "https://asburyhills.org/contact/"
         ],
         "confidence": "medium",
-        "review_notes": "Check the unreadable 2027 schedule linked from the summer page before publishing current dates or prices. Junior and Senior High details were read through official search results. The October registration announcement omits the calendar year; 2026 is inferred from the summer 2027 context."
+        "review_notes": "Junior and Senior High dates and prices were available through official search results only. The main page announces a 2027 schedule, but its dates could not be read; program pages still label dates 2026. Registration opening calendar year is inferred from the summer 2027 announcement and October 2026 context."
       },
       {
         "name": "DRENCHED",
         "type": "overnight",
         "categories": ["nature_outdoor", "sports", "faith_based"],
-        "description": "Campers take part in swimming, canoeing, water slides and activities at the Drenched Lake. Junior High campers have an off-site tubing trip, and Senior High campers have an off-site whitewater rafting trip.",
+        "description": "Campers swim, canoe and use water slides and the Drenched lake. Junior High campers also take a tubing trip, and Senior High campers take a whitewater rafting trip.",
         "camp_page_url": "https://asburyhills.org/summer-camp/",
         "registration_url": null,
         "season": {
@@ -564,15 +558,16 @@
           "https://asburyhills.org/camps/drenched-for-elementary-students/",
           "https://asburyhills.org/camps/drenched-for-junior-high/",
           "https://asburyhills.org/camps/drenched-for-senior-high/",
-          "https://asburyhills.org/for-parents/"
+          "https://asburyhills.org/for-parents/",
+          "https://asburyhills.org/contact/"
         ],
         "confidence": "medium",
-        "review_notes": "Check the unreadable 2027 schedule for current dates and prices. Older age-band dates and prices were read through official search results. The registration announcement omits the calendar year; 2026 is inferred."
+        "review_notes": "Junior and Senior High dates and prices were read through official search results. The announced 2027 schedule could not be read, so 2026 program-page dates are retained. Registration opening calendar year is inferred as 2026."
       },
       {
         "name": "EXPRESS",
         "type": "overnight",
-        "categories": ["nature_outdoor", "general", "faith_based"],
+        "categories": ["nature_outdoor", "arts", "faith_based", "general"],
         "description": "This two-night, three-day camp includes team building, creek hiking and arts and crafts.",
         "camp_page_url": "https://asburyhills.org/camps/express-for-elementary-students/",
         "registration_url": null,
@@ -672,25 +667,25 @@
         },
         "transportation": null,
         "sources": [
-          "https://asburyhills.org/summer-camp/",
           "https://asburyhills.org/camps/express-for-elementary-students/",
+          "https://asburyhills.org/summer-camp/",
           "https://asburyhills.org/for-parents/"
         ],
         "confidence": "medium",
-        "review_notes": "Check the unreadable 2027 schedule; individual page still gives 2026 dates and pricing. Registration calendar year 2026 is inferred from the summer 2027 announcement."
+        "review_notes": "The main page announces a 2027 schedule, but its dates could not be read; the program page provides 2026 dates. Registration opening calendar year is inferred as 2026."
       },
       {
         "name": "ALTITUDE",
         "type": "overnight",
         "categories": ["nature_outdoor", "sports", "faith_based"],
-        "description": "Campers climb the Alpine Tower, use canopy zip lines and the Giant Swing, and spend a night in a tree house. The program also includes climbing excursions.",
+        "description": "Campers climb the Alpine Tower, use zip lines and the Giant Swing, and spend a night in a tree house. The program also includes a climbing excursion.",
         "camp_page_url": "https://asburyhills.org/summer-camp/",
         "registration_url": null,
         "season": {
           "year": 2026,
           "status": "not_posted",
           "start": "2026-07-05",
-          "end": "2026-07-10",
+          "end": "2026-07-24",
           "text": null
         },
         "ages": null,
@@ -711,6 +706,12 @@
         "extended_care": null,
         "prices": [
           {
+            "amount": 760,
+            "unit": "session",
+            "label": "Junior High",
+            "year": 2026
+          },
+          {
             "amount": 805,
             "unit": "session",
             "label": "Senior High",
@@ -728,6 +729,22 @@
             "grades": {
               "min": 9,
               "max": 12,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Junior High",
+            "start": "2026-07-19",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 6,
+              "max": 8,
               "basis": "rising"
             },
             "hours": null,
@@ -763,17 +780,19 @@
         "transportation": null,
         "sources": [
           "https://asburyhills.org/summer-camp/",
+          "https://asburyhills.org/camps/altitude-for-junior-high/",
           "https://asburyhills.org/camps/altitude-for-senior-high/",
-          "https://asburyhills.org/for-parents/"
+          "https://asburyhills.org/for-parents/",
+          "https://asburyhills.org/contact/"
         ],
         "confidence": "medium",
-        "review_notes": "Junior High is listed on the 2027 overview, but its dates and price were not recovered. Season span only covers the recovered Senior High 2026 session, read through official search results. Check the 2027 schedule. Registration calendar year is inferred as 2026."
+        "review_notes": "Dates and prices were read through official search results only and are explicitly 2026. The announced 2027 schedule could not be read. Registration opening calendar year is inferred as 2026."
       },
       {
         "name": "ENDEAVOR",
         "type": "overnight",
-        "categories": ["nature_outdoor", "general", "faith_based"],
-        "description": "Campers participate in water activities, climbing and high ropes, group games and a late-night experience.",
+        "categories": ["nature_outdoor", "sports", "faith_based"],
+        "description": "Campers participate in water activities, high ropes, a Gaga Ball tournament and late-night activities.",
         "camp_page_url": "https://asburyhills.org/summer-camp/",
         "registration_url": null,
         "season": {
@@ -803,7 +822,7 @@
           {
             "amount": 750,
             "unit": "session",
-            "label": "Junior High and Senior High",
+            "label": null,
             "year": 2026
           }
         ],
@@ -871,16 +890,17 @@
           "https://asburyhills.org/summer-camp/",
           "https://asburyhills.org/camps/endeavor-for-junior-high/",
           "https://asburyhills.org/camps/endeavor-for-senior-high/",
-          "https://asburyhills.org/for-parents/"
+          "https://asburyhills.org/for-parents/",
+          "https://asburyhills.org/contact/"
         ],
         "confidence": "medium",
-        "review_notes": "2026 dates and prices were read through official search results. Check the unreadable 2027 schedule for replacements. Registration calendar year 2026 is inferred."
+        "review_notes": "Dates and prices were read through official search results only and are explicitly 2026. The announced 2027 schedule could not be read. Registration opening calendar year is inferred as 2026."
       },
       {
         "name": "EXPEDITION",
         "type": "overnight",
-        "categories": ["nature_outdoor", "faith_based"],
-        "description": "This two-week camp combines on-site camp activities with off-site excursions, including rafting and a two-night primitive backpacking trip. Campers also participate in Christian faith activities.",
+        "categories": ["nature_outdoor", "sports", "faith_based"],
+        "description": "This two-week program combines on-site camp activities with off-site adventures, including a two-night primitive backpacking trip.",
         "camp_page_url": "https://asburyhills.org/summer-camp/",
         "registration_url": null,
         "season": {
@@ -984,121 +1004,17 @@
           "https://asburyhills.org/summer-camp/",
           "https://asburyhills.org/camps/expedition-for-junior-high/",
           "https://asburyhills.org/camps/expedition-for-senior-high/",
-          "https://asburyhills.org/for-parents/"
+          "https://asburyhills.org/for-parents/",
+          "https://asburyhills.org/contact/"
         ],
         "confidence": "medium",
-        "review_notes": "2026 dates and prices were read through official search results. Check the unreadable 2027 schedule for current details. Registration calendar year 2026 is inferred."
-      },
-      {
-        "name": "SEASIDE",
-        "type": "overnight",
-        "categories": ["nature_outdoor", "faith_based"],
-        "description": "Campers visit the beach and aquarium, take a dolphin cruise, and participate in group games, worship and devotions. Junior High programming includes guided kayaking, while Senior High programming includes crabbing.",
-        "camp_page_url": "https://asburyhills.org/summer-camp/",
-        "registration_url": null,
-        "season": {
-          "year": 2026,
-          "status": "not_posted",
-          "start": "2026-06-21",
-          "end": "2026-07-03",
-          "text": null
-        },
-        "ages": null,
-        "grades": {
-          "min": 6,
-          "max": 12,
-          "basis": "rising"
-        },
-        "sites": [
-          {
-            "name": "Sea Islands Camp & Retreat Center",
-            "address": "3429 Camp Care Road",
-            "town": "Johns Island",
-            "state": "SC"
-          }
-        ],
-        "hours": null,
-        "extended_care": null,
-        "prices": [
-          {
-            "amount": 780,
-            "unit": "session",
-            "label": "Junior High and Senior High",
-            "year": 2026
-          }
-        ],
-        "sessions": [
-          {
-            "label": "Junior High",
-            "start": "2026-06-21",
-            "end": "2026-06-26",
-            "year": 2026,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 6,
-              "max": 8,
-              "basis": "rising"
-            },
-            "hours": null,
-            "price": null,
-            "status": null
-          },
-          {
-            "label": "Senior High",
-            "start": "2026-06-28",
-            "end": "2026-07-03",
-            "year": 2026,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 9,
-              "max": 12,
-              "basis": "rising"
-            },
-            "hours": null,
-            "price": null,
-            "status": null
-          }
-        ],
-        "registration": [
-          {
-            "audience": "public",
-            "kind": "opens",
-            "date": "2026-10-17",
-            "time": null,
-            "precision": "date",
-            "certainty": "announced",
-            "text": "Registration for Summer 2027 Opens October 17!",
-            "url": "https://asburyhills.org/summer-camp/",
-            "year": 2027,
-            "confidence": "medium"
-          }
-        ],
-        "last_year_registration_opened": null,
-        "availability": null,
-        "financial_aid": {
-          "value": "yes",
-          "text": "We truly see the value in the summer camp experience and encourage you to fill out our Camper Scholarship Application should you need financial assistance."
-        },
-        "special_needs": null,
-        "lunch": null,
-        "transportation": null,
-        "sources": [
-          "https://asburyhills.org/summer-camp/",
-          "https://asburyhills.org/camps/seaside-for-junior-high/",
-          "https://asburyhills.org/camps/seaside-for-senior-high/",
-          "https://sccarm.org/sea-islands-camp-retreat-center-open-house/",
-          "https://asburyhills.org/for-parents/"
-        ],
-        "confidence": "medium",
-        "review_notes": "This program meets in Johns Island, not Cleveland. Confirm drop-off arrangements at Sea Islands. Dates, prices and venue address were read through official search results. Check the unreadable 2027 schedule. Registration calendar year 2026 is inferred."
+        "review_notes": "Dates and prices were read through official search results only and are explicitly 2026. The announced 2027 schedule could not be read. Registration opening calendar year is inferred as 2026."
       },
       {
         "name": "Counselor-in-Training",
         "type": "overnight",
         "categories": ["faith_based", "general"],
-        "description": "Campers spend a week learning Christian leadership skills and how camp staff work. Rising 11th and 12th graders may return for a volunteer second week; admission requires an application and interview.",
+        "description": "Campers attend a week of Christian leadership training and learn about being on camp staff. Rising 11th and 12th graders may return for a volunteer week assisting counselors; an application and interview are required.",
         "camp_page_url": "https://asburyhills.org/camps/counselor-in-training/",
         "registration_url": null,
         "season": {
@@ -1133,7 +1049,20 @@
           }
         ],
         "sessions": [],
-        "registration": [],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2026-10-17",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "Registration for Summer 2027 Opens October 17!",
+            "url": "https://asburyhills.org/summer-camp/",
+            "year": 2027,
+            "confidence": "medium"
+          }
+        ],
         "last_year_registration_opened": null,
         "availability": null,
         "financial_aid": {
@@ -1149,10 +1078,11 @@
         "sources": [
           "https://asburyhills.org/summer-camp/",
           "https://asburyhills.org/camps/counselor-in-training/",
-          "https://asburyhills.org/for-parents/"
+          "https://asburyhills.org/for-parents/",
+          "https://asburyhills.org/contact/"
         ],
         "confidence": "medium",
-        "review_notes": "2026 training dates and price were read through official search results. Check the unreadable 2027 schedule and CIT application for current dates and admissions milestones. The general registration opening was not applied to this application-and-interview program."
+        "review_notes": "Dates and price were read through official search results only and are explicitly 2026. The announced 2027 schedule could not be read. Registration opening calendar year is inferred as 2026; the general announcement does not separately state when CIT applications open."
       }
     ]
   }

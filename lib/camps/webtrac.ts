@@ -62,20 +62,22 @@ const SHARED_PROGRAMS: Array<[RegExp, string]> = [
   [/^therapeutic\s+(?:youth|teen)\s+camp$/i, 'Therapeutic Recreation Day Camp'],
 ];
 
-/** Read the catalog: every location and category search, then one detail page per program and site. */
-export async function readWebTracCatalog(): Promise<WebTracCatalog> {
-  const fetcher = await createPageFetcher();
+/**
+ * Read the catalog: every location and category search, then one detail page per program and site.
+ * All of it or nothing: a failed search or detail page throws, since a missed search drops rows
+ * from a card (a failed Youth search leaves Grant Summer out of Youth Day Camp) and a missed detail
+ * page its site's address, and a card read that way would replace a complete one. Aborting `signal`
+ * stops the read, its requests and waits included.
+ */
+export async function readWebTracCatalog(signal?: AbortSignal): Promise<WebTracCatalog> {
+  const fetcher = await createPageFetcher({ signal });
   try {
-    const all = await fetchAllActivities(fetcher);
+    const all = await fetchAllActivities(fetcher, { strict: true });
     // Every summer row is kept (not just camps), so the camp rule can be re-run without a re-crawl.
     const rows = all.filter((row) => SUMMER_MONTHS.has(row.beginDate.slice(5, 7)));
     const details: Record<string, ActivityDetail> = {};
     for (const row of firstRowPerSite(rows.filter(isSummerCampRow))) {
-      try {
-        details[row.fmid] = parseDetailPage(await fetcher.get(activityUrl(row.fmid)));
-      } catch (error) {
-        console.warn(`[camps/webtrac] detail page failed for ${row.fmid}: ${String(error)}`);
-      }
+      details[row.fmid] = parseDetailPage(await fetcher.get(activityUrl(row.fmid)));
     }
     return { readAt: new Date().toISOString(), activities: all.length, rows, details };
   } finally {

@@ -7,22 +7,22 @@
     "discovered_by": ["gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:36:18.385Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:30:40.799Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "54b487029d8ebb679cce2f7040f14262ec51e33d6d25052e01c9009e4f6d788c",
   "response": {
     "searches": [
-      "site.gfcnow.com summer camp 2027 Pine Cove",
-      "open https://www.pinecove.com/city/grace-fellowship/"
+      "site.gfcnow.com pine cove 2027 registration",
+      "open https://pinecovecitytools.com/nurse-information"
     ],
     "usage": {
-      "inputTokens": 14065,
-      "cachedInputTokens": 8223,
-      "outputTokens": 730,
-      "reasoningTokens": 88
+      "inputTokens": 14594,
+      "cachedInputTokens": 8845,
+      "outputTokens": 707,
+      "reasoningTokens": 132
     },
     "status": "completed",
-    "ms": 18649,
+    "ms": 21477,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -46,15 +46,15 @@
   "extraction": {
     "provider_name": "Grace Fellowship Church of Johnson City",
     "website_url": "https://www.gfcnow.com/",
-    "notes": "The church has posted 2027 camp dates and says registration information will be available in December 2026; that is not a registration opening date. Pine Cove's general announcement says City registration opens in January 2027, but the church-specific Pine Cove page has not yet published registration details.",
+    "notes": "The church has posted 2027 camp dates and says registration information will be available in December 2026; this is not an announced registration opening. Pine Cove's location page still describes the previous summer. A Pine Cove City tools search result says registration opens in January 2027 across all locations, but the page could not be read and its ownership was not independently established, so no registration milestone was extracted.",
     "excluded": [
+      {
+        "name": "Summer Kickoff Event",
+        "reason": "A single social event for families, not a supervised youth camp."
+      },
       {
         "name": "Grace Kids",
         "reason": "Year-round Sunday children's ministry, not a finite summer camp."
-      },
-      {
-        "name": "Pine Cove City Serving Opportunities",
-        "reason": "Volunteer opportunities supporting camp, not a youth camp offering."
       }
     ],
     "cards": [
@@ -70,7 +70,7 @@
           "status": "posted",
           "start": "2027-06-28",
           "end": "2027-07-02",
-          "text": "SAVE-THE-DATE: Monday, June 28 – Friday, July 2, 2027. Registration information will be available in December 2026."
+          "text": "Registration information will be available in December 2026."
         },
         "ages": null,
         "grades": {
@@ -92,11 +92,7 @@
         "sessions": [],
         "registration": [],
         "last_year_registration_opened": null,
-        "availability": {
-          "status": "available",
-          "scope": "Camp capacity; registration opening has not been posted.",
-          "text": "We will have a stacked week – which means plenty of space is available. Invite your friends to join us!"
-        },
+        "availability": null,
         "financial_aid": null,
         "special_needs": null,
         "lunch": {
@@ -104,11 +100,7 @@
           "text": "Lunch is included in price."
         },
         "transportation": null,
-        "sources": [
-          "https://www.gfcnow.com/pinecove/",
-          "https://www.gfcnow.com/",
-          "https://www.pinecove.com/city/grace-fellowship/"
-        ],
+        "sources": ["https://www.gfcnow.com/pinecove/", "https://www.gfcnow.com/"],
         "confidence": "high",
         "review_notes": null
       }

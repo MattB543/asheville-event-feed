@@ -19,6 +19,7 @@ import type { Milestone } from '@/lib/camps/contract';
 import {
   AI_NOTICE,
   TARGET_SEASON,
+  campWithProvider,
   isRemindable,
   isUnconfirmed,
   milestoneLabel,
@@ -108,9 +109,13 @@ export function milestoneEvents(camp: CampListing, milestones: Milestone[], now:
     const uid = uidOf(milestone);
     if (emitted.has(uid)) return [];
     emitted.add(uid);
-    const label = milestoneLabel(milestone).toLowerCase();
+    // A date for 'other' families is the camp's own words, kept as written
+    const label =
+      milestone.audience === 'other'
+        ? milestoneLabel(milestone)
+        : milestoneLabel(milestone).toLowerCase();
     const timed = milestone.precision === 'datetime' && !!milestone.time;
-    const summary = `${card.name}: ${label}${timed ? '' : ' (time not stated)'}`;
+    const summary = `${campWithProvider(card.name, camp.providerName)}: ${label}${timed ? '' : ' (time not stated)'}`;
     const description = [
       `“${milestone.text}”`,
       isUnconfirmed(milestone, camp.confirmed) ? 'This date is not confirmed yet.' : null,
@@ -165,7 +170,7 @@ export function seasonStartEvent(camp: CampListing, now: Date): string[] | null 
     `DTSTAMP:${utcStamp(now)}`,
     `DTSTART;VALUE=DATE:${dayValue(season.start)}`,
     `DTEND;VALUE=DATE:${dayValue(season.start, 1)}`,
-    `SUMMARY:${escapeText(`${camp.card.name} starts`)}`,
+    `SUMMARY:${escapeText(`${campWithProvider(camp.card.name, camp.providerName)} starts`)}`,
     `DESCRIPTION:${escapeText(`Camp on AVL GO: ${campUrl(camp)}\n\n${AI_NOTICE}`)}`,
     `URL:${campUrl(camp)}`,
     'TRANSP:TRANSPARENT',

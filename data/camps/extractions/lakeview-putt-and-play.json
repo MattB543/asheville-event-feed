@@ -7,19 +7,19 @@
     "discovered_by": ["news828"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:01:32.143Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:01:15.900Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "7a7e990af0f3a4f91ede990532f61edd6db458decf9654c90be9957744b02ae9",
   "response": {
     "searches": ["site:lakeviewputtandplay.com summer camp 2027 2026"],
     "usage": {
-      "inputTokens": 16501,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1276,
-      "reasoningTokens": 114
+      "inputTokens": 17119,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1229,
+      "reasoningTokens": 56
     },
     "status": "completed",
-    "ms": 28141,
+    "ms": 28047,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -48,14 +48,14 @@
   "extraction": {
     "provider_name": "Lakeview Putt and Play",
     "website_url": "https://lakeviewputtandplay.com/",
-    "notes": "No 2027 camp information or registration milestones found. The camp page lists dates without an explicit season year; dates are provisionally recorded as 2026 and need confirmation. The Google registration form could not be read without signing in. The homepage says VR is temporarily unavailable, although the camp page includes VR activities.",
+    "notes": "No 2027 camp information or registration milestones found. The linked Google registration form requires sign-in and could not be read.",
     "excluded": [],
     "cards": [
       {
         "name": "Lakeview Putt & Play Summer Camp",
         "type": "day",
         "categories": ["general", "stem", "arts", "nature_outdoor"],
-        "description": "Campers play mini golf, laser tag and Gellyball, do science experiments and nature activities, make arts and crafts, and mine gems. The camp page also lists virtual reality activities.",
+        "description": "Campers participate in mini-golf, science experiments, nature walks, arts and crafts, outdoor games, laser tag, Gellyball and gem mining.",
         "camp_page_url": "https://lakeviewputtandplay.com/summer-camp/",
         "registration_url": "https://docs.google.com/forms/d/e/1FAIpQLSfOHYxMXIH75wwv_VQvLq0HWb0pcJMa6MxgLjI8-JybYYvjGw/viewform",
         "season": {
@@ -81,7 +81,7 @@
         "hours": {
           "start": "08:00",
           "end": "16:00",
-          "text": "Camp Hours: 8:00 AM – 4:00 PM"
+          "text": null
         },
         "extended_care": {
           "early_dropoff_start": null,
@@ -92,7 +92,7 @@
           {
             "amount": 300,
             "unit": "week",
-            "label": "$25 deposit due at sign up; call to pay after signing up.",
+            "label": null,
             "year": 2026
           }
         ],
@@ -186,7 +186,7 @@
           "https://lakeviewputtandplay.com/contact/"
         ],
         "confidence": "medium",
-        "review_notes": "Confirm the season year for dates and price: the camp page has no explicit season year, only a 2026 footer, and these dates are provisionally assigned to 2026. Confirm whether VR remains part of camp, since the homepage says it is temporarily unavailable. The linked Google Form requires sign-in and could not be checked."
+        "review_notes": "The camp dates do not print a year; 2026 is taken from the page footer and is consistent with the listed Monday–Friday weeks. Confirm the season year with the provider. The camp page lists VR activities, but the homepage says VR is temporarily unavailable. A $25 deposit is due at sign-up, with payment by phone after submitting the form."
       }
     ]
   }

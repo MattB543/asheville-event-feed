@@ -11,23 +11,24 @@
     "status": "review",
     "status_reason": "first page is a social media page or video, which our fetcher can't read"
   },
-  "extractedAt": "2026-10-29T15:13:19.670Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:11:14.347Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": null,
   "response": {
     "searches": [
-      "Elk Mountain Missionary Baptist Church Woodfin vacation Bible school 2026",
-      "site:facebook.com \"Elk Mountain\" \"2026\" \"Bible\"",
-      "site:facebook.com \"Cruising Through Rome\" \"Elk\""
+      "Elk Mountain Missionary Baptist Church Woodfin Vacation Bible School 2026",
+      "open https://www.facebook.com/Elk-Mountain-Baptist-Vacation-Bible-School-2318881058372564/",
+      "site:facebook.com \"Elk Mountain\" \"2026\" \"VBS\"",
+      "\"Cruising Through Rome\" \"Elk\""
     ],
     "usage": {
-      "inputTokens": 28363,
-      "cachedInputTokens": 8223,
-      "outputTokens": 857,
-      "reasoningTokens": 293
+      "inputTokens": 26263,
+      "cachedInputTokens": 8845,
+      "outputTokens": 850,
+      "reasoningTokens": 283
     },
     "status": "completed",
-    "ms": 36946,
+    "ms": 30696,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -41,14 +42,19 @@
   "extraction": {
     "provider_name": "Elk Mountain Missionary Baptist Church of Woodfin",
     "website_url": null,
-    "notes": "No standalone church website or 2027 summer information was found. The supplied Facebook page returned no readable text, and its photos page was available only as a search snippet. Third-party listings indicate a 2026 Vacation Bible School called Cruising Through Rome With Paul, beginning July 13, 2026, but these details could not be verified on an official page and have not been entered as confirmed facts. A social-media mirror lists 197 Elk Mountain Road, Asheville, NC; other directories list conflicting street numbers. The camp location needs official confirmation.",
-    "excluded": [],
+    "notes": "No standalone church website or 2027 camp announcement was found. The supplied Facebook page opened without readable content. A FindGlocal mirror mentions promotion of Vacation Bible School on June 17, 2026, and AllEvents lists a 2026 event titled Cruising Through Rome With Paul VBS 2026 beginning July 13. These third-party listings were insufficient to confirm the full schedule, so dates and hours are omitted.",
+    "excluded": [
+      {
+        "name": "Popsicles in the Park",
+        "reason": "A single promotional social event for Vacation Bible School, not a camp."
+      }
+    ],
     "cards": [
       {
         "name": "Vacation Bible School",
         "type": "vbs",
         "categories": ["faith_based"],
-        "description": "The church offers Vacation Bible School for children.",
+        "description": "Vacation Bible School for children.",
         "camp_page_url": "https://www.facebook.com/Elk-Mountain-Baptist-Vacation-Bible-School-2318881058372564/",
         "registration_url": null,
         "season": {
@@ -60,7 +66,14 @@
         },
         "ages": null,
         "grades": null,
-        "sites": [],
+        "sites": [
+          {
+            "name": "Elk Mountain Missionary Baptist Church",
+            "address": "197 Elk Mountain Road",
+            "town": "Woodfin",
+            "state": "NC"
+          }
+        ],
         "hours": null,
         "extended_care": null,
         "prices": [],
@@ -73,11 +86,10 @@
         "lunch": null,
         "transportation": null,
         "sources": [
-          "https://www.facebook.com/Elk-Mountain-Baptist-Vacation-Bible-School-2318881058372564/",
-          "https://www.facebook.com/Elk-Mountain-Baptist-Vacation-Bible-School-2318881058372564/photos/"
+          "https://www.facebook.com/Elk-Mountain-Baptist-Vacation-Bible-School-2318881058372564/"
         ],
         "confidence": "low",
-        "review_notes": "The official Facebook page could not be read. Confirm the program name, dates, hours, eligibility, registration details and drop-off address directly with the church. The third-party AllEvents listing for Cruising Through Rome With Paul VBS 2026 gives July 13, 2026 at 5:30 p.m. and 197 Elk Mountain Road, Asheville, NC, but no official source was accessible to verify those facts. No 2027 announcement was found."
+        "review_notes": "Facebook content could not be read directly. Confirm the program's dates, ages, hours and registration details with the church. The address 197 Elk Mountain Road appears in the Facebook-content mirror on FindGlocal and the AllEvents event listing, but could not be verified directly on the church's page. Other business directories list 176 or 187 Elk Mountain Road; confirm the published venue address before mapping."
       }
     ]
   }

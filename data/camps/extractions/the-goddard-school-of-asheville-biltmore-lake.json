@@ -9,21 +9,21 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:05:04.228Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:04:53.724Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "6e84d0475d289aea80b3eb8e870f968f0012619011794b46b0118ccc585ea299",
   "response": {
     "searches": [
-      "site:goddardschool.com/schools/nc/asheville/asheville-biltmore-lake \"2027\" summer"
+      "site:goddardschool.com/schools/nc/asheville/asheville-biltmore-lake \"summer\" \"2027\""
     ],
     "usage": {
-      "inputTokens": 16404,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1909,
-      "reasoningTokens": 78
+      "inputTokens": 17040,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1989,
+      "reasoningTokens": 110
     },
     "status": "completed",
-    "ms": 33157,
+    "ms": 43063,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -62,11 +62,15 @@
   "extraction": {
     "provider_name": "The Goddard School of Asheville – Biltmore Lake",
     "website_url": "https://www.goddardschool.com/schools/nc/asheville/asheville-biltmore-lake",
-    "notes": "No 2027 summer information was found. The summer page labels the calendar Summer 2026, but the PDF itself does not print a year. Tuition and summer-specific enrollment eligibility are not published. School operating hours are published, but summer camp hours are not separately specified.",
+    "notes": "No 2027 summer information was found. The summer page identifies Summer 2026; its calendar does not print a year. Tuition is available by contacting the school. The published 7:00 am–6:00 pm hours are school operating hours, not explicitly summer camp hours.",
     "excluded": [
       {
         "name": "Preschool and daycare",
-        "reason": "Year-round early education and childcare, rather than a finite summer program."
+        "reason": "Year-round early education and childcare, rather than a finite summer camp."
+      },
+      {
+        "name": "Before & After School Programs",
+        "reason": "School-year childcare, not a summer camp."
       }
     ],
     "cards": [
@@ -74,7 +78,7 @@
         "name": "Summer Programs",
         "type": "day",
         "categories": ["general", "arts", "stem", "nature_outdoor"],
-        "description": "Children participate in teacher-guided outdoor play, music, art and hands-on investigations. Weekly activities explore tools, senses, kindness, weather and outer space.",
+        "description": "Children take part in outdoor play, music, art and hands-on investigations. Weekly activities explore tools, weather, kindness and outer space.",
         "camp_page_url": "https://www.goddardschool.com/schools/nc/asheville/asheville-biltmore-lake/our-school/special-programs/summer-camp",
         "registration_url": "https://www.goddardschool.com/schools/nc/asheville/asheville-biltmore-lake/our-school/goddard-form?source=widget",
         "season": {
@@ -265,10 +269,11 @@
         "sources": [
           "https://www.goddardschool.com/schools/nc/asheville/asheville-biltmore-lake/our-school/special-programs/summer-camp",
           "https://www.goddardschool.com/content/dam/gsi/schools/nc/asheville/asheville-biltmore-lake/summer-camps/summer%20calendar-1774006930761.pdf",
-          "https://www.goddardschool.com/schools/nc/asheville/asheville-biltmore-lake/our-school/goddard-form?source=widget"
+          "https://www.goddardschool.com/schools/nc/asheville/asheville-biltmore-lake/our-school/goddard-form?source=widget",
+          "https://www.goddardschool.com/tuition-benefits"
         ],
         "confidence": "medium",
-        "review_notes": "The calendar PDF prints dates without a year; 2026 is taken from the summer page's Summer 2026 heading. Confirm summer-specific ages, hours and enrollment terms with the school. The published 07:00–18:00 hours are school operating hours, not explicitly camp hours. Pizza days appear in the calendar, but a general lunch provision policy is not stated."
+        "review_notes": "The calendar PDF prints month/day ranges without a year; 2026 is taken from the summer page's Summer 2026 heading. Confirm the calendar's year with the school. Summer-specific ages, hours and pricing are not published in the supplied pages; general classroom ages and school operating hours were not assigned to camp. The calendar lists pizza days but does not establish a general lunch policy."
       }
     ]
   }

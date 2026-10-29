@@ -7,22 +7,22 @@
     "discovered_by": ["seed_sheet"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T14:56:22.160Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T16:56:42.601Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "327b1ff84f1dde2994c95209c2b43144257a31c7ad6419c592adf66c1f95ecd0",
   "response": {
     "searches": [
       "site:moogfoundation.org summer camp 2026 2027",
-      "\"Bob Moog Foundation\" \"camp\" \"2026\""
+      "\"Bob Moog Foundation\" \"camp\" \"2026\" \"2027\""
     ],
     "usage": {
-      "inputTokens": 23480,
-      "cachedInputTokens": 8223,
-      "outputTokens": 438,
-      "reasoningTokens": 195
+      "inputTokens": 24098,
+      "cachedInputTokens": 8845,
+      "outputTokens": 446,
+      "reasoningTokens": 167
     },
     "status": "completed",
-    "ms": 22331,
+    "ms": 16225,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -46,11 +46,19 @@
   "extraction": {
     "provider_name": "Bob Moog Foundation",
     "website_url": "https://moogfoundation.org/",
-    "notes": "No official 2027 or 2026 summer camp announcement was found. The supplied camp page explicitly describes summer 2018; additional official announcements found describe 2019 and 2020. These historical offerings were not used to create current cards or projected forward. The 2020 announcement names Sound Explorers and Synth Explorers: https://moogfoundation.org/announcing-2020-sound-and-synthesis-summer-camps/. Current operation of these summer camps needs confirmation from the provider. The historical 2018 page gives AMOS as 42 Patton Avenue, but the museum's current official contact page publishes 43 Patton Ave, Asheville, NC: https://ashevillescience.org/contact-2/.",
+    "notes": "No official summer 2027 or 2026 camp information was found. The supplied camp announcement describes 2018, and searches found later historical announcements for 2019 and 2020, but no current camp offering. Historical camps have not been represented as current cards. The 2020 announcement returned only truncated text, and the Dr. Bob’s SoundSchool project page returned no readable text.",
     "excluded": [
       {
+        "name": "Dr. Bob’s SoundSchool Summer Camps",
+        "reason": "Historical summer camp announcements only (2017–2020); no 2026 or 2027 offering found. The 2018 and 2019 announcements describe Science of Sound and Science of Synthesis camps, while the 2020 announcement names Sound Explorers and Synth Explorors."
+      },
+      {
         "name": "Dr. Bob’s SoundSchool",
-        "reason": "The ongoing school educational curriculum is not a finite summer camp; historical summer camp versions are discussed separately in notes."
+        "reason": "The ongoing educational curriculum is not itself a finite summer camp."
+      },
+      {
+        "name": "The Moogseum",
+        "reason": "An ongoing museum attraction, not a finite supervised youth summer program."
       }
     ],
     "cards": []

@@ -11,23 +11,22 @@
     "status": "review",
     "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
   },
-  "extractedAt": "2026-10-29T15:28:54.593Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:24:21.410Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "e0f08b393e387ae2c8e93eca6753dd6b7fffc6b42440ba1e0a4a7fa20b73245e",
   "response": {
     "searches": [
       "\"Lake Lure Baptist Church\" \"VBS\" \"2026\"",
-      "site:facebook.com/LakeLureBaptist \"VBS\"",
-      "\"LakeLureBaptist\" \"2026\" \"VBS\""
+      "site:facebook.com/LakeLureBaptist \"2026\" \"VBS\""
     ],
     "usage": {
-      "inputTokens": 30299,
-      "cachedInputTokens": 8223,
-      "outputTokens": 532,
-      "reasoningTokens": 310
+      "inputTokens": 22105,
+      "cachedInputTokens": 8845,
+      "outputTokens": 429,
+      "reasoningTokens": 161
     },
     "status": "completed",
-    "ms": 30448,
+    "ms": 16572,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -51,19 +50,23 @@
   "extraction": {
     "provider_name": "Lake Lure Baptist Church",
     "website_url": "https://www.lakelurebaptistchurch.com/",
-    "notes": "No summer 2027 announcement or verifiable summer 2026 program details were found. The supplied Upcoming Events text contains no event details. Both Facebook URLs opened without readable content. Search results show historical official VBS posts from 2022 and 2023, and a third-party Wonder Junction listing for July 2025; these are insufficient to establish a 2026 or 2027 offering. No cards were created rather than carry older dates forward. A reviewer should check the church's Facebook announcements and embedded events calendar directly.",
+    "notes": "No 2027 or 2026 summer camp or Vacation Bible School details were found in readable official sources. The supplied upcoming-events page contains no readable event details. The official Facebook page returned no readable content. Search found third-party listings for Vacation Bible School 2025: Wonder Junction, but no corresponding official 2026 or 2027 announcement; no card was created from those older listings.",
     "excluded": [
       {
-        "name": "Sunday School/Small Groups",
-        "reason": "Recurring year-round church classes, not a finite summer program."
+        "name": "True Vine Kids",
+        "reason": "Ongoing children's ministry for birth through fifth grade, not a finite summer camp."
       },
       {
         "name": "S3 Student Ministry",
-        "reason": "Recurring Wednesday youth ministry for grades 6–12, not a finite summer program."
+        "reason": "Regular Wednesday youth ministry for grades 6–12, not a finite summer camp."
       },
       {
         "name": "Kids of the Kingdom",
-        "reason": "Recurring Wednesday children's ministry, not a finite summer program."
+        "reason": "Regular Wednesday children's ministry, not a finite summer camp."
+      },
+      {
+        "name": "Sunday School/Small Groups",
+        "reason": "Year-round religious classes, not a summer camp."
       }
     ],
     "cards": []

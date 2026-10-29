@@ -7,19 +7,19 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:28:45.862Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:24:25.496Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "641b2afdd372fe56fb2cbadf0874344213a79b7cc10d2676da12e0d1deaa1636",
   "response": {
     "searches": ["site:clearviewfarmlandrum.com camp 2026 2027"],
     "usage": {
-      "inputTokens": 13341,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1284,
-      "reasoningTokens": 82
+      "inputTokens": 13983,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1189,
+      "reasoningTokens": 99
     },
     "status": "completed",
-    "ms": 32245,
+    "ms": 28884,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -43,19 +43,19 @@
   "extraction": {
     "provider_name": "Clear View Farm",
     "website_url": "https://www.clearviewfarmlandrum.com/",
-    "notes": "No 2027 or 2026 camp schedule was found. The official summer-camps page still lists 2023 dates and prices: Clear View Day Camp July 10–12 at $425 and IEA Camp July 25–26 at $330. Those historical dates and prices are omitted rather than relabeled. Program descriptions and logistics below come from that older page and require confirmation for 2027.",
+    "notes": "No official 2027 or 2026 camp information was found. The summer-camps page still lists 2023 dates and prices; those historical dates, prices and hours are omitted. The two existing programs are retained pending updated information.",
     "excluded": [
       {
         "name": "Lessons",
-        "reason": "Weekly riding lessons are a year-round offering, not a finite summer camp."
+        "reason": "Weekly riding lessons, not a finite summer camp."
       },
       {
         "name": "IEA Team",
-        "reason": "Equestrian team competition season, distinct from IEA Camp."
+        "reason": "An equestrian team season, distinct from IEA Camp."
       },
       {
         "name": "Carolina Schooling Series",
-        "reason": "Horse-show competition series, not a supervised youth summer camp."
+        "reason": "Horse shows, not supervised summer camp programs."
       }
     ],
     "cards": [
@@ -63,7 +63,7 @@
         "name": "Clear View Day Camp",
         "type": "day",
         "categories": ["horses"],
-        "description": "Campers take riding lessons and learn horse management and care. Horses and riding equipment are provided, although participants must bring appropriate footwear and helmets.",
+        "description": "Riders participate in riding lessons and learn horse management and care. Day camps are open to riders of all levels.",
         "camp_page_url": "https://www.clearviewfarmlandrum.com/summer-camps/",
         "registration_url": "https://www.clearviewfarmlandrum.com/wp-content/uploads/2022/03/CVF-Camp-form-1.pdf",
         "season": {
@@ -100,16 +100,16 @@
         "sources": [
           "https://www.clearviewfarmlandrum.com/summer-camps/",
           "https://www.clearviewfarmlandrum.com/wp-content/uploads/2022/03/CVF-Camp-form-1.pdf",
-          "https://www.clearviewfarmlandrum.com/map-directions/"
+          "https://www.clearviewfarmlandrum.com/"
         ],
         "confidence": "medium",
-        "review_notes": "Confirm that this program will run in 2027 and obtain dates, hours, prices and eligibility. The camp page's schedule is explicitly headed 2023 Camp Dates; its lunch and equipment statements are not confirmed for 2026 or 2027. Registration uses a downloadable form submitted by text or email, not an online checkout."
+        "review_notes": "The official camp page is headed 2023 Camp Dates. Confirm that this program and its lunch provision will continue in 2027. The historical July 10–12 dates, $425 price and 8:00–2:30 hours are not carried forward."
       },
       {
         "name": "IEA Camp",
         "type": "day",
         "categories": ["horses"],
-        "description": "Riders learn horsemanship and showmanship with a professional adult instructor. The camp is described as open to middle-school and high-school riders eligible to compete in IEA, including riders who are not on Clear View Farm's team.",
+        "description": "Camp emphasizes horsemanship and showmanship for middle-school and high-school riders eligible to compete in IEA. Riders do not need to belong to the Clear View Farm IEA team.",
         "camp_page_url": "https://www.clearviewfarmlandrum.com/summer-camps/",
         "registration_url": "https://www.clearviewfarmlandrum.com/wp-content/uploads/2022/03/CVF-Camp-form-1.pdf",
         "season": {
@@ -146,11 +146,10 @@
         "sources": [
           "https://www.clearviewfarmlandrum.com/summer-camps/",
           "https://www.clearviewfarmlandrum.com/wp-content/uploads/2022/03/CVF-Camp-form-1.pdf",
-          "https://www.clearviewfarmlandrum.com/map-directions/",
-          "https://www.clearviewfarmlandrum.com/iea-and-ihs-wofford/"
+          "https://www.clearviewfarmlandrum.com/"
         ],
         "confidence": "medium",
-        "review_notes": "Confirm 2027 operation, dates, hours, prices and eligibility. The camp schedule is explicitly for 2023. The camp page specifies middle-school and high-school riders, while the general IEA Team page describes IEA as grades 4–12; that general team range was not assigned to this camp. Lunch is stated on the older camp page and needs reconfirmation. Registration uses a form submitted by text or email."
+        "review_notes": "The official camp page is headed 2023 Camp Dates. Confirm that this program, its eligibility requirements and lunch provision will continue in 2027. The historical July 25–26 dates, $330 price and 8:00–2:30 hours are not carried forward. Middle-school and high-school eligibility is stated without numeric grades, so grades remain null."
       }
     ]
   }

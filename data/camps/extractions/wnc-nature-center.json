@@ -8,23 +8,23 @@
     "status": "review",
     "status_reason": "page didn't load: fetch: HTTP 403; chrome-tls: HTTP 403 for https://wildwnc.org/teen-programs/; browser: HTTP 403"
   },
-  "extractedAt": "2026-10-29T15:35:38.576Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:29:57.407Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": null,
   "response": {
     "searches": [
       "open https://wildwnc.org/teen-programs/",
-      "site wildwnc.org summer camp 2026",
-      "site:wildwnc.org \"summer camp\" \"2026\""
+      "site.wildwnc.org summer camp 2026",
+      "site:wildwnc.org \"camp\" \"2026\""
     ],
     "usage": {
-      "inputTokens": 22269,
-      "cachedInputTokens": 8223,
-      "outputTokens": 821,
-      "reasoningTokens": 239
+      "inputTokens": 25757,
+      "cachedInputTokens": 8845,
+      "outputTokens": 719,
+      "reasoningTokens": 171
     },
     "status": "completed",
-    "ms": 26460,
+    "ms": 26950,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -48,51 +48,47 @@
   "extraction": {
     "provider_name": "WNC Nature Center",
     "website_url": "https://wildwnc.org/",
-    "notes": "No active summer camp programs or 2027 summer program announcements were found. The official Teen Programs page explicitly cancels the Young Naturalist Teen Program for summer 2026 and says, \"We plan to continue the program in the future as resources allow.\" The Education page still advertises two summer teen volunteer opportunities, and older 2026 information PDFs remain indexed; these conflict with the cancellation notice and should not be treated as active offerings. Direct opens of the supplied pages and both PDFs returned no readable text; official search-indexed text was available. Recheck https://wildwnc.org/teen-programs/ for a future restart announcement.",
+    "notes": "No 2027 summer program dates or registration announcements were found. The current Teen Programs page explicitly cancels the Young Naturalist Teen Program for summer 2026 and says it may continue in the future as resources allow. Older official 2026 PDFs still list Young Naturalist and Shift Leader dates; these should not be treated as active offerings. The education overview still mentions two summer teen volunteer opportunities. A 2022 article mentions elementary summer camps, but no current 2026 or 2027 offering was found. Direct opens of the two supplied pages returned no readable text; their indexed official-page text was available through search.",
     "excluded": [
       {
         "name": "Young Naturalist Teen Program",
-        "reason": "The current official Teen Programs page states that the program will not be offered for summer 2026. No confirmed 2027 restart was found."
+        "reason": "The current official Teen Programs page says the program was not offered for summer 2026. No confirmed 2027 offering was found."
       },
       {
-        "name": "Young Naturalist Shift Leader",
-        "reason": "An older 2026 information PDF describes this component of the Young Naturalist program, but the current Teen Programs page cancels the summer 2026 program. No separate active offering or 2027 restart was confirmed."
-      },
-      {
-        "name": "Painting With Animals",
-        "reason": "Year-round children's art classes, not a finite summer camp."
-      },
-      {
-        "name": "Wild Seasons",
-        "reason": "Adult art and craft classes offered throughout the year."
-      },
-      {
-        "name": "Jr. Wild Walk: A Junior Zookeeper Experience",
-        "reason": "A family-attended experience requiring an adult to accompany children, rather than a supervised drop-off youth program."
-      },
-      {
-        "name": "Wolf Howl",
-        "reason": "Offered in the fall, outside summer."
-      },
-      {
-        "name": "Night at the Nature Center",
-        "reason": "Offered in the spring for children and families, outside summer."
-      },
-      {
-        "name": "Holiday Critter Check Up",
-        "reason": "December event, outside summer."
+        "name": "Young Naturalist Shift Leader Program",
+        "reason": "The older 2026 information letter describes leading Young Naturalists during their shifts, but the current official page cancels the Young Naturalist summer program. No independently confirmed 2027 Shift Leader offering was found."
       },
       {
         "name": "Schools & Groups",
-        "reason": "School and group field-trip services, not a provider-run summer youth camp."
+        "reason": "Group field trips and educational visits, rather than a finite supervised summer camp enrollment."
       },
       {
         "name": "Outreach Education",
-        "reason": "Educational visits to classrooms, libraries, camps and other groups, not a standalone summer camp."
+        "reason": "Educational presentations booked by classrooms, libraries, camps and other groups, rather than a summer camp operated by this provider."
       },
       {
-        "name": "Apprenticeship Opportunities",
-        "reason": "Adult apprenticeship positions, not youth summer camps."
+        "name": "Wild Walks & Junior Wild Walks",
+        "reason": "Monthly behind-the-scenes events for children and adults, not summer camps."
+      },
+      {
+        "name": "Painting With Animals",
+        "reason": "Children's art classes offered throughout the year, not a summer camp."
+      },
+      {
+        "name": "Wolf Howl",
+        "reason": "Fall evening events, outside summer."
+      },
+      {
+        "name": "Night at the Nature Center",
+        "reason": "Spring events for children and families, outside summer."
+      },
+      {
+        "name": "Holiday Critter Check Up",
+        "reason": "A December event, outside summer."
+      },
+      {
+        "name": "Brews & Bears Summer Event Series",
+        "reason": "After-hours social and fundraising events, not supervised youth camps."
       }
     ],
     "cards": []

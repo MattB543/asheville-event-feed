@@ -7,19 +7,19 @@
     "discovered_by": ["grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:29:48.633Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:25:18.434Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "b1bd7f2608727d4f6d449351dbd99ae10f88fe3f96519be4a44690bf3183ddf4",
   "response": {
-    "searches": ["Hoopers Creek Baptist Church official VBS 2027 2026 Are You Prepared"],
+    "searches": ["Hoopers Creek Baptist Church Fletcher official VBS 2027"],
     "usage": {
-      "inputTokens": 13849,
-      "cachedInputTokens": 8223,
-      "outputTokens": 678,
+      "inputTokens": 14594,
+      "cachedInputTokens": 8845,
+      "outputTokens": 577,
       "reasoningTokens": 51
     },
     "status": "completed",
-    "ms": 17449,
+    "ms": 14917,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -43,14 +43,19 @@
   "extraction": {
     "provider_name": "Hoopers Creek Baptist Church of Fletcher",
     "website_url": "https://www.hooperscreekbaptist.com/",
-    "notes": "No 2027 camp information found. The 2025 VBS theme, Missions of all Missions, is treated as an earlier edition of the same VBS, not a separate program. The church's undated ministries page lists different July dates from the explicitly dated 2026 registration page; the 2026 registration page is used.",
-    "excluded": [],
+    "notes": "No summer 2027 announcement was found. The supplied 2025 page, Missions of all Missions, is a prior-year VBS theme and is not included as a separate current program.",
+    "excluded": [
+      {
+        "name": "Fall Festival",
+        "reason": "A seasonal social event outside summer, not a camp."
+      }
+    ],
     "cards": [
       {
         "name": "Are You Prepared?",
         "type": "vbs",
         "categories": ["faith_based"],
-        "description": "Children attend the church's summer Vacation Bible School with classroom instruction.",
+        "description": "Vacation Bible School for children.",
         "camp_page_url": "https://vbspro.events/p/events/9d3d85",
         "registration_url": "https://vbspro.events/p/events/9d3d85",
         "season": {
@@ -65,7 +70,7 @@
         "sites": [
           {
             "name": "Hoopers Creek Baptist Church",
-            "address": "71 Hoopers Creek Church Road",
+            "address": "71 Hoopers Creek Church Rd",
             "town": "Fletcher",
             "state": "NC"
           }
@@ -73,7 +78,7 @@
         "hours": {
           "start": "18:30",
           "end": "21:00",
-          "text": null
+          "text": "6:30pm (EDT) to 9:00pm (EDT)"
         },
         "extended_care": null,
         "prices": [],
@@ -91,11 +96,10 @@
         "transportation": null,
         "sources": [
           "https://vbspro.events/p/events/9d3d85",
-          "https://www.hooperscreekbaptist.com/",
-          "https://www.hooperscreekbaptist.com/our-ministries"
+          "https://www.hooperscreekbaptist.com/contact-us"
         ],
-        "confidence": "medium",
-        "review_notes": "The undated Our Ministries page says VBS is July 12 through July 16, with supper at 5:45pm and gathering at 6:30pm. The explicitly dated 2026 VBS Pro event instead states July 20–26, 2026, 6:30–9:00pm. Dates and hours follow VBS Pro; supper information is not assigned to 2026 because the ministries page does not establish its year."
+        "confidence": "high",
+        "review_notes": null
       }
     ]
   }

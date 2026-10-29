@@ -7,24 +7,24 @@
     "discovered_by": ["beyond_school"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T14:58:17.551Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T16:58:33.799Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "644769a61913d74a16257a22641fbfc333d7e2b85ae846d5a7b3696ff18421f9",
   "response": {
     "searches": [
-      "site:goservetolead.org summer 2026 2027 JumpStart",
+      "site:goservetolead.org Jumpstart summer 2026 2027",
       "open https://goservetolead.org/asheville-student-summer-jumpstart-program/",
-      "site:goservetolead.org/asheville-student-summer-jumpstart-program \"students\"",
-      "site:goservetolead.org/asheville-student-summer-jumpstart-program/ \"\""
+      "site:goservetolead.org \"Jumpstart\" \"2026\"",
+      "site:goservetolead.org/asheville-student-summer-jumpstart-program/ \"program\" \"children\""
     ],
     "usage": {
-      "inputTokens": 20750,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1018,
-      "reasoningTokens": 355
+      "inputTokens": 25983,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1044,
+      "reasoningTokens": 367
     },
     "status": "completed",
-    "ms": 33973,
+    "ms": 31662,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -48,27 +48,27 @@
   "extraction": {
     "provider_name": "Serve To LEAD",
     "website_url": "https://goservetolead.org/",
-    "notes": "No 2027 schedule or registration announcements, and no explicitly dated 2026 camp schedule, were found. The current website identifies a Youthful HAND Summer Jumpstart Program, but its page returned no readable body text when opened; official search snippets supplied the program description only. Historical materials mention Camp Connect and a Dominican Republic youth leadership camp, but do not establish current offerings. The old registration page still carries a COVID-era cancellation message and should not be treated as current availability.",
+    "notes": "No 2027 summer dates or registration milestones were found. The current official Summer Jumpstart page was indexed recently but returned no readable body when opened; its search snippet confirms the program's academic purpose. No usable 2026 schedule, prices, registration opening or drop-off address were found. Historical summer reports were not used to populate current ages or dates.",
     "excluded": [
       {
-        "name": "Workforce Development",
-        "reason": "Youth employment and job-development program, not a camper offering."
+        "name": "Youthful HAND after-school programming",
+        "reason": "School-year after-school care, rather than a finite summer camp."
       },
       {
-        "name": "Global Leadership Academy",
-        "reason": "Described as an internship, not a confirmed finite summer camp."
+        "name": "Workforce Development",
+        "reason": "Youth employment and workforce-readiness programming."
       },
       {
         "name": "World Changer Clubs",
-        "reason": "Ongoing school-based leadership and service clubs rather than finite summer programs."
-      },
-      {
-        "name": "Youthful H.A.N.D. after-school program",
-        "reason": "School-year homework help and enrichment, distinct from the summer program."
+        "reason": "School-year leadership and service clubs rather than finite summer camps."
       },
       {
         "name": "International Service Teams",
-        "reason": "Ongoing international service opportunities; no current finite summer youth program dates are established."
+        "reason": "International mission and service trips; also outside the Asheville-area drive range."
+      },
+      {
+        "name": "Youth Leadership Camp in Dominican Republic",
+        "reason": "Held in the Dominican Republic, outside the Asheville-area drive range."
       }
     ],
     "cards": [
@@ -76,7 +76,7 @@
         "name": "Youthful HAND Summer Jumpstart Program",
         "type": "day",
         "categories": ["academic", "general"],
-        "description": "Students participate in academic and creative activities to prepare for the upcoming school year. The program supports low-income students across Asheville and addresses academic gaps.",
+        "description": "A summer academic enrichment program that helps low-income Asheville students bridge learning gaps and prepare for the upcoming school year.",
         "camp_page_url": "https://goservetolead.org/asheville-student-summer-jumpstart-program/",
         "registration_url": null,
         "season": {
@@ -100,9 +100,13 @@
         "special_needs": null,
         "lunch": null,
         "transportation": null,
-        "sources": ["https://goservetolead.org/asheville-student-summer-jumpstart-program/"],
+        "sources": [
+          "https://goservetolead.org/asheville-student-summer-jumpstart-program/",
+          "https://old.goservetolead.org/serve-to-leads-jumpstart-program-bridges-gaps-for-diverse-asheville-youth/",
+          "https://old.goservetolead.org/summer-camp-advances-education-opportunity/"
+        ],
         "confidence": "medium",
-        "review_notes": "Program name and activities are supported by official search snippets, but the page returned no readable body text. Confirm its continuation for 2027, day-program format, eligibility, drop-off venue, dates, fees and enrollment process directly with the provider. Historical Hillcrest ages and locations were not transferred to this card."
+        "review_notes": "The current Summer Jumpstart page could only be read through its official search snippet. Check the full page for current eligibility, schedule, registration and drop-off location. Historical reports place summer programming in Hillcrest, but a current venue and its street address could not be established. The existing program name was retained."
       }
     ]
   }

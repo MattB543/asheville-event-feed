@@ -7,19 +7,19 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:31:53.853Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:26:59.090Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "afb5b7b255e7aa19b094f8e20245a5d2a873566fa97a424b4293b7a7a62a4acc",
   "response": {
-    "searches": ["site:northtoxaway.org VBS 2027 2026", "site:northtoxaway.org \"VBS\" \"August\""],
+    "searches": ["site:northtoxaway.org \"VBS\"", "site:northtoxaway.org \"VBS\" \"August\""],
     "usage": {
-      "inputTokens": 22683,
-      "cachedInputTokens": 8223,
-      "outputTokens": 733,
-      "reasoningTokens": 187
+      "inputTokens": 23251,
+      "cachedInputTokens": 8845,
+      "outputTokens": 751,
+      "reasoningTokens": 178
     },
     "status": "completed",
-    "ms": 24045,
+    "ms": 21899,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -48,15 +48,15 @@
   "extraction": {
     "provider_name": "North Toxaway Baptist Church of Lake Toxaway",
     "website_url": "https://northtoxaway.org/",
-    "notes": "No 2027 summer program information found. Official pastor updates confirm VBS began on August 10, 2026 and occurred that week, but do not give its ending date, ages, fees or detailed activities. The ministries page and August 10 update returned no readable text when opened; the August 10 announcement was readable in official search results.",
+    "notes": "No 2027 camp information found. The August 10, 2026 pastor update says VBS starts that night; the August 17 update confirms it took place during the preceding week, but does not give an exact ending date. The ministries page and August 14 pastor update returned no readable text.",
     "excluded": [],
     "cards": [
       {
         "name": "Vacation Bible School",
         "type": "vbs",
         "categories": ["faith_based"],
-        "description": "The church holds Vacation Bible School during the summer.",
-        "camp_page_url": "https://northtoxaway.org/pastor-updates/pastors-update-august-10-2026/",
+        "description": "Vacation Bible School for children.",
+        "camp_page_url": "https://northtoxaway.org/pastor-updates/pastors-update-august-17-2026/",
         "registration_url": null,
         "season": {
           "year": 2026,
@@ -67,7 +67,14 @@
         },
         "ages": null,
         "grades": null,
-        "sites": [],
+        "sites": [
+          {
+            "name": "North Toxaway Baptist Church",
+            "address": "51 Slick Fisher Road",
+            "town": "Lake Toxaway",
+            "state": "NC"
+          }
+        ],
         "hours": null,
         "extended_care": null,
         "prices": [],
@@ -80,13 +87,13 @@
         "lunch": null,
         "transportation": null,
         "sources": [
+          "https://northtoxaway.org/",
           "https://northtoxaway.org/pastor-updates/pastors-update-august-10-2026/",
           "https://northtoxaway.org/pastor-updates/pastors-update-august-17-2026/",
-          "https://northtoxaway.org/",
-          "https://northtoxaway.org/contact/"
+          "https://northtoxaway.org/pastor-updates/pastors-update-july-23-2026/"
         ],
         "confidence": "medium",
-        "review_notes": "The August 10, 2026 official search result says 'Remeber VBS starts tonight.' The August 17 update confirms the preceding week included VBS but does not establish an exact ending date. Confirm the participant ages, activities, schedule and drop-off venue with the church. Its published address is 51 Slick Fisher Rd., Lake Toxaway, NC 28747, but the VBS announcements do not explicitly identify the meeting location."
+        "review_notes": "The start date comes from the August 10, 2026 official search snippet saying 'VBS starts tonight.' The church is used as the site based on its own VBS announcements and published home-page address; no explicit drop-off location was found. Check the church's VBS announcement for the exact venue, ending date, ages and evening hours."
       }
     ]
   }

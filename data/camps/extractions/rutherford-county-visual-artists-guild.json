@@ -8,19 +8,19 @@
     "status": "review",
     "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
   },
-  "extractedAt": "2026-10-29T15:37:14.722Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:31:24.193Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "fa637f6ed155ad4a6df1b21550744526f3efde3098503e1162d7c56dff7db567",
   "response": {
-    "searches": ["site:rcartguild.com summer camp 2026 2027", "site:rcartguild.com \"summer\""],
+    "searches": ["site:rcartguild.com summer camp 2026 2027", "site:rcartguild.com \"kids\""],
     "usage": {
-      "inputTokens": 22781,
-      "cachedInputTokens": 8223,
-      "outputTokens": 442,
-      "reasoningTokens": 124
+      "inputTokens": 18696,
+      "cachedInputTokens": 8845,
+      "outputTokens": 502,
+      "reasoningTokens": 114
     },
     "status": "completed",
-    "ms": 18433,
+    "ms": 18591,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -39,23 +39,47 @@
   "extraction": {
     "provider_name": "Rutherford County Visual Artists Guild",
     "website_url": "https://www.rcartguild.com/",
-    "notes": "No qualifying summer 2027 or summer 2026 youth camp was found on the supplied official pages or the official classes, events and news listings found through search. The classes listing includes non-summer dates through April 2027, not a 2027 summer program list. A third-party-hosted PDF titled Summer Art Experience surfaced, but its contents could not be read and its season could not be verified; it was not used to create a card. The /classes URL returned no readable text; the actual classes listing was found at https://www.rcartguild.com/art-classes.",
+    "notes": "No qualifying summer camp or 2027 summer camp announcement found. Reviewed the supplied pages and searched official class, event and news pages, including https://www.rcartguild.com/art-classes and https://www.rcartguild.com/event-list. Offerings found were recurring art lessons, family classes and public events rather than supervised summer youth camps. The /classes URL returned no readable text; the current class page is /art-classes.",
     "excluded": [
       {
-        "name": "Art and pottery classes",
-        "reason": "The provider describes these as classes offered throughout the year, rather than summer-only youth programs."
+        "name": "Mud Magic",
+        "reason": "Monthly four-week pottery lesson series for ages 7 and up, offered throughout the year; not a camp."
+      },
+      {
+        "name": "Clay Conjuring",
+        "reason": "Recurring pottery classes for ages 13 and up, rather than a summer camp."
+      },
+      {
+        "name": "Ceramic Sorcery",
+        "reason": "Monthly pottery lesson series for experienced potters; not a camp."
+      },
+      {
+        "name": "The Magic of Watercolor",
+        "reason": "Year-round watercolor classes with standalone projects, rather than a youth summer camp."
+      },
+      {
+        "name": "Big & Little: Pitter Potter",
+        "reason": "Parent-and-child pottery class; family-only offering rather than a supervised youth camp."
       },
       {
         "name": "Pottery Studio Pass",
-        "reason": "Ongoing independent studio access for experienced potters, not a finite supervised youth summer program."
-      },
-      {
-        "name": "Private Parties & Groups",
-        "reason": "Private group experiences, not a listed supervised youth summer program."
+        "reason": "Independent shared-studio access, not a finite supervised youth program."
       },
       {
         "name": "Pottery Studio Open House",
-        "reason": "A community and family studio-tour event with demonstrations and beginner activities, not a supervised youth camp."
+        "reason": "Public studio tour and family activity event, not a supervised youth camp."
+      },
+      {
+        "name": "Art After Hours",
+        "reason": "Single-evening social art event, not a camp."
+      },
+      {
+        "name": "Celebration of the Arts (COTA)",
+        "reason": "Art exhibition and community event held in the fall, not a summer camp."
+      },
+      {
+        "name": "Rooted in Art: Growing 25 Years of Creativity",
+        "reason": "Anniversary fundraiser dinner, not a youth camp."
       }
     ],
     "cards": []

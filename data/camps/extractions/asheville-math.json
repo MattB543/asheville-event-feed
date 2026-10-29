@@ -7,22 +7,19 @@
     "discovered_by": ["news828", "grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:02:03.389Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:02:03.111Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "a9438e5603267227f735fe8c22814353437e03360f13c46c6a5bd70daaa9d113",
   "response": {
-    "searches": [
-      "site:ashevillemath.com summer camp 2026 2027",
-      "\"Asheville Math\" \"camp\" \"2026\""
-    ],
+    "searches": ["site:ashevillemath.com camp 2026 2027"],
     "usage": {
-      "inputTokens": 18247,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1811,
-      "reasoningTokens": 156
+      "inputTokens": 14769,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1895,
+      "reasoningTokens": 96
     },
     "status": "completed",
-    "ms": 41022,
+    "ms": 33826,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -46,30 +43,22 @@
   "extraction": {
     "provider_name": "Asheville Math",
     "website_url": "https://ashevillemath.com/",
-    "notes": "No 2027 information or registration opening date found. The official summer page does not print a year; dates are provisionally recorded as 2026 and require confirmation. The registration button destinations could not be extracted. Dungeons and Dragons age-band offerings are combined as rows of one program.",
+    "notes": "No 2027 camp information or registration milestones were found. The camp page gives July dates without a year; the dates below are provisionally assigned to 2026 and require confirmation. Sign Up buttons were present, but their destination URLs could not be recovered.",
     "excluded": [
       {
-        "name": "Elementary, Middle and High School Tutoring",
-        "reason": "Ongoing tutoring, not a finite summer camp."
-      },
-      {
-        "name": "Homeschool Tutoring and Classes",
-        "reason": "Ongoing tutoring and classes, not summer-only programs."
-      },
-      {
-        "name": "SAT, ACT and Accuplacer Prep",
-        "reason": "No finite summer program stated."
+        "name": "Math tutoring, homeschool classes and test preparation",
+        "reason": "Ongoing tutoring, lessons and classes rather than finite summer camps."
       },
       {
         "name": "Adult Math Tutoring",
-        "reason": "Adult tutoring, not a youth summer camp."
+        "reason": "Adult tutoring rather than a supervised youth summer camp."
       }
     ],
     "cards": [
       {
         "name": "Young Minds Math Camp",
         "type": "half_day",
-        "categories": ["stem", "academic"],
+        "categories": ["stem"],
         "description": "Campers explore math through cryptography, origami, engineering balloon-drop devices, art, harmonics and games.",
         "camp_page_url": "https://ashevillemath.com/summer-camp",
         "registration_url": null,
@@ -97,7 +86,7 @@
         "hours": {
           "start": "09:00",
           "end": "12:00",
-          "text": null
+          "text": "9am - 12noon"
         },
         "extended_care": null,
         "prices": [
@@ -118,7 +107,7 @@
         "transportation": null,
         "sources": ["https://ashevillemath.com/summer-camp", "https://ashevillemath.com/contact"],
         "confidence": "medium",
-        "review_notes": "The summer page does not state a year; confirm that July 6–10 and $250 describe 2026. The provider address is used as the camp site, but the page does not explicitly identify the drop-off location. Registration button destination was not accessible."
+        "review_notes": "The camp page does not print a year; July 6–10 is provisionally treated as 2026, not confirmed by an explicit year heading. The $250 price is interpreted as covering the listed five-day session. The provider's address is published in the camp footer and contact page, but the camp location is not explicitly identified separately."
       },
       {
         "name": "Game Camp!",
@@ -151,7 +140,7 @@
         "hours": {
           "start": "13:00",
           "end": "16:00",
-          "text": null
+          "text": "1pm-4pm"
         },
         "extended_care": null,
         "prices": [
@@ -172,13 +161,13 @@
         "transportation": null,
         "sources": ["https://ashevillemath.com/summer-camp", "https://ashevillemath.com/contact"],
         "confidence": "medium",
-        "review_notes": "The summer page does not state a year; confirm that July 13–17 and $250 describe 2026. The provider address is used as the camp site, but the page does not explicitly identify the drop-off location. Registration button destination was not accessible."
+        "review_notes": "The camp page does not print a year; July 13–17 is provisionally treated as 2026, not confirmed by an explicit year heading. The $250 price is interpreted as covering the listed five-day session. The provider's address is published in the camp footer and contact page, but the camp location is not explicitly identified separately."
       },
       {
         "name": "Dungeons and Dragons",
         "type": "half_day",
         "categories": ["general", "arts"],
-        "description": "Campers play Dungeons and Dragons campaigns and create characters, stories and terrain. Activities include mapmaking, miniature painting and learning how to design or run a campaign.",
+        "description": "Campers play Dungeons and Dragons, create characters and stories, and make terrain for their adventures. Activities include designing campaigns, crafting maps and painting miniatures.",
         "camp_page_url": "https://ashevillemath.com/summer-camp",
         "registration_url": null,
         "season": {
@@ -204,7 +193,7 @@
         "hours": {
           "start": "13:00",
           "end": "16:00",
-          "text": null
+          "text": "1pm-4pm"
         },
         "extended_care": null,
         "prices": [
@@ -217,7 +206,7 @@
         ],
         "sessions": [
           {
-            "label": "Dungeons and Dragons: Young Warriors (Ages 9-12)",
+            "label": "Young Warriors",
             "start": "2026-07-20",
             "end": "2026-07-24",
             "year": 2026,
@@ -232,7 +221,7 @@
             "status": null
           },
           {
-            "label": "Dungeons and Dragons: Wise Wizards (Ages 13+)",
+            "label": "Wise Wizards",
             "start": "2026-07-20",
             "end": "2026-07-24",
             "year": 2026,
@@ -256,7 +245,7 @@
         "transportation": null,
         "sources": ["https://ashevillemath.com/summer-camp", "https://ashevillemath.com/contact"],
         "confidence": "medium",
-        "review_notes": "The summer page does not state a year; confirm that July 20–24 and $300 describe 2026. Young Warriors and Wise Wizards are grouped as separate age-band rows. The provider address is used as the camp site, but the page does not explicitly identify the drop-off location. Registration button destinations were not accessible."
+        "review_notes": "The camp page does not print a year; July 20–24 is provisionally treated as 2026, not confirmed by an explicit year heading. Young Warriors and Wise Wizards are grouped as age-band rows under the existing program name. The $300 price is interpreted as covering the listed five-day session. The provider's address is published in the camp footer and contact page, but the camp location is not explicitly identified separately."
       }
     ]
   }

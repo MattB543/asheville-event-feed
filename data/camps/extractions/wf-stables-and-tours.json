@@ -7,19 +7,22 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:23:26.673Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:19:52.647Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "00fba3c953ab22f096c610efa40c0fac815a5fc4bd5329d17c4b6e646f702992",
   "response": {
-    "searches": ["site:wfstables.com camp", "\"wfstables.com\" \"camp\""],
+    "searches": [
+      "site:wfstables.com summer camps",
+      "\"WF Stables\" \"summer\" \"camp\" Jonesborough"
+    ],
     "usage": {
-      "inputTokens": 20157,
-      "cachedInputTokens": 8223,
-      "outputTokens": 702,
-      "reasoningTokens": 153
+      "inputTokens": 20915,
+      "cachedInputTokens": 8845,
+      "outputTokens": 622,
+      "reasoningTokens": 125
     },
     "status": "completed",
-    "ms": 21467,
+    "ms": 20540,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -33,23 +36,15 @@
   "extraction": {
     "provider_name": "WF Stables & Tours",
     "website_url": "https://www.wfstables.com/",
-    "notes": "The official homepage mentions summer camps but provides no dedicated camp page, program list, dates, ages, hours, prices or registration information. No official 2027 announcement or detailed 2026 camp listing was found. Third-party listings describe named camps, but their details were not used as verified program facts.",
+    "notes": "The official homepage mentions summer camps but provides no dated camp details. No official 2026 or 2027 camp schedule or registration announcement was found. The arena-riding and contact-us URLs returned no readable text. Search results included third-party 2025 camp listings; their dates and details were not used.",
     "excluded": [
       {
         "name": "Riding lessons",
-        "reason": "Ongoing riding lessons, not a finite summer camp."
-      },
-      {
-        "name": "Boarding",
-        "reason": "Horse boarding service, not a supervised youth summer program."
+        "reason": "Lessons booked as lessons, rather than a finite summer camp."
       },
       {
         "name": "Parties",
-        "reason": "Private parties, not a listed summer camp program."
-      },
-      {
-        "name": "Arena Riding",
-        "reason": "General riding offering; no finite summer youth program was established."
+        "reason": "Social events, not summer camp programs."
       }
     ],
     "cards": [
@@ -57,7 +52,7 @@
         "name": "Summer Camps",
         "type": "day",
         "categories": ["horses"],
-        "description": "WF Stables lists summer camps among its equine services. The official website does not describe the camp activities.",
+        "description": "Summer camps at WF Stables & Tours.",
         "camp_page_url": "https://www.wfstables.com/",
         "registration_url": null,
         "season": {
@@ -69,7 +64,14 @@
         },
         "ages": null,
         "grades": null,
-        "sites": [],
+        "sites": [
+          {
+            "name": "WF Stables and Tours",
+            "address": "165 Tommy Campbell Road",
+            "town": "Jonesborough",
+            "state": "TN"
+          }
+        ],
         "hours": null,
         "extended_care": null,
         "prices": [],
@@ -82,8 +84,8 @@
         "lunch": null,
         "transportation": null,
         "sources": ["https://www.wfstables.com/"],
-        "confidence": "low",
-        "review_notes": "Only a general mention of summer camps is verified. Confirm the program name, day-camp format and all operational details directly with the provider. The homepage publishes the stable address as 165 Tommy Campbell Road, Jonesborough, TN, but does not explicitly identify it as the camp drop-off site. It also says access is from Highway 81 because Tommy Campbell Road is closed on the Cherokee Road side."
+        "confidence": "medium",
+        "review_notes": "The homepage confirms summer camps but does not specify their format or explicitly identify the camp drop-off site. Day format and use of the published stables address should be confirmed with the provider. The homepage says Tommy Campbell Road is closed on the Cherokee Road side; access is from Highway 81."
       }
     ]
   }

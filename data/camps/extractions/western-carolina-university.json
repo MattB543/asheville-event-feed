@@ -13,25 +13,24 @@
     "discovered_by": ["grid", "aggregator", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:11:51.359Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:10:15.388Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "00fa3306a5e04bc8632ece13780ce8efc6a69b60e37c7b5606f70d980ae8616c",
   "response": {
     "searches": [
-      "site.wcu.edu summer camps 2027 2026 Lil Cats",
-      "site.continuinged.wcu.edu \"Lego\"",
-      "site.wcu.edu/experience/campus-recreation/summer-day-camp.aspx \"2027\" \"June\"",
-      "site.continuinged.wcu.edu \"Appalachian Adventures\" \"Cost\"",
-      "site.wcu.edu \"CRC\" \"379\""
+      "site:wcu.edu \"Lil’ Cats\" \"2026\"",
+      "site:continuinged.wcu.edu \"Lego\" camp",
+      "site:catamountsports.com \"2026\" \"camps\" summer",
+      "site:wcu.edu \"summer-symposium.aspx\" \"overnight\""
     ],
     "usage": {
-      "inputTokens": 57537,
-      "cachedInputTokens": 8223,
-      "outputTokens": 4670,
-      "reasoningTokens": 625
+      "inputTokens": 48382,
+      "cachedInputTokens": 8845,
+      "outputTokens": 5761,
+      "reasoningTokens": 501
     },
     "status": "completed",
-    "ms": 114269,
+    "ms": 113243,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -80,27 +79,35 @@
   "extraction": {
     "provider_name": "Western Carolina University",
     "website_url": "https://www.wcu.edu/",
-    "notes": "Educational Outreach still lists summer 2026 camps; no 2027 list was found for that department. Lil' Cats separately announces registration for summer 2027. Several official pages returned empty bodies when opened, so additional details were available only through official search results. Athletics camp details could not be comprehensively verified; this extraction is not a complete athletics inventory. ACE machining materials found describe 2025 only, so no 2026 or 2027 ACE card was created. Additional course-catalog names without verified summer dates require follow-up.",
+    "notes": "2027 dates and registration information were found for Lil' Cats Summer Camp and 2027 dates for Summer Symposium. Educational Outreach still lists its 2026 camps; those are retained because it has not posted a replacement 2027 list. Many additional official pages returned empty bodies when opened; search-indexed official text supplied some details. Athletics camp information could not be fully extracted from the athletics hub, so this is not a complete inventory of athletics camps. The ACE article describes 2025 bootcamps; no 2026 or 2027 dates were established. Other catalog-only offerings, including Capture the Summer and Let's Go Naturing, lacked an identifiable 2026 or 2027 season in the readable material and require follow-up.",
     "excluded": [
       {
         "name": "Magic Mondays!",
-        "reason": "The posted offering runs January 25 through April 12, 2027, outside summer."
+        "reason": "Spring art series outside summer."
+      },
+      {
+        "name": "Fun Fridays!",
+        "reason": "Fall art series outside summer."
+      },
+      {
+        "name": "Swim Programs",
+        "reason": "Swimming lessons, rather than a finite summer camp."
       },
       {
         "name": "Rocket to Creativity Teacher Registration",
-        "reason": "Teacher registration is not a youth camp offering."
-      },
-      {
-        "name": "Summer Institute on Special Education and Inclusive Learning",
-        "reason": "Professional development for educators, not a youth program."
+        "reason": "Registration for adult teachers receiving CEUs, not a separate youth camp."
       },
       {
         "name": "Forensic Anthropology and Burned Remains",
-        "reason": "Professional workshop scheduled November 13-15, 2026, outside summer."
+        "reason": "Professional investigator course held in November, not a youth summer camp."
       },
       {
-        "name": "Elite Prospect Camp",
-        "reason": "Verified softball sessions are November 1 and December 5, 2026, outside summer."
+        "name": "Summer Bridge Programs",
+        "reason": "College coursework for students accepted to WCU, rather than a youth pre-college camp."
+      },
+      {
+        "name": "Catamount Football Preseason Camp",
+        "reason": "University team preseason training, not a youth camp."
       }
     ],
     "cards": [
@@ -108,9 +115,9 @@
         "name": "Lego Camp",
         "type": "day",
         "categories": ["stem"],
-        "description": "Students build and program robots using LEGO building sets and explore robotic technology.",
+        "description": "Campers build and program LEGO robots and complete robotics challenges in pairs.",
         "camp_page_url": "https://www.wcu.edu/engage/professional-enrichment/camps-and-programs-for-kids/day-camps.aspx",
-        "registration_url": "https://continuinged.wcu.edu/public/category/programArea.do?method=load&selectedProgramAreaId=1049146",
+        "registration_url": "https://continuinged.wcu.edu/search/publicCourseSearchDetails.do?courseId=1063912&method=load",
         "season": {
           "year": 2026,
           "status": "not_posted",
@@ -124,7 +131,14 @@
           "max": 7,
           "basis": "rising"
         },
-        "sites": [],
+        "sites": [
+          {
+            "name": "Western Carolina University",
+            "address": "1 University Drive",
+            "town": "Cullowhee",
+            "state": "NC"
+          }
+        ],
         "hours": {
           "start": "08:00",
           "end": "15:00",
@@ -134,7 +148,7 @@
         "prices": [],
         "sessions": [
           {
-            "label": "Lego Camp (Rising 3-4 Graders)",
+            "label": "Rising 3rd-4th graders",
             "start": "2026-06-01",
             "end": "2026-06-05",
             "year": 2026,
@@ -150,7 +164,7 @@
             "status": null
           },
           {
-            "label": "Lego Camp (Rising 5-7 Graders)",
+            "label": "Rising 5th-7th graders",
             "start": "2026-07-06",
             "end": "2026-07-10",
             "year": 2026,
@@ -171,21 +185,24 @@
         "availability": null,
         "financial_aid": null,
         "special_needs": null,
-        "lunch": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Lunch will be provided at WCU’s Catamount Café (the main dining hall)."
+        },
         "transportation": null,
         "sources": [
           "https://www.wcu.edu/engage/professional-enrichment/camps-and-programs-for-kids/day-camps.aspx",
           "https://continuinged.wcu.edu/search/publicCourseSearchDetails.do?courseId=1063912&method=load"
         ],
         "confidence": "medium",
-        "review_notes": "Robotics description was read through an official registration-page search result. Verify the specific drop-off building and prices."
+        "review_notes": "Robotics description and lunch were read through official search-indexed text for the younger band; check the older band's registration page for differing details. Campus address is general, not a building-specific drop-off."
       },
       {
         "name": "Introduction to Forensic Anthropology for High School Students",
         "type": "day",
-        "categories": ["stem", "academic"],
-        "description": "Students work with real human skeletal remains in instructional and laboratory activities. They learn methods for analyzing remains and searching for and recovering skeletal material.",
-        "camp_page_url": "https://continuinged.wcu.edu/search/publicCourseSearchDetails.do?courseId=1049225&method=load",
+        "categories": ["stem"],
+        "description": "High school students receive an introduction to forensic anthropology.",
+        "camp_page_url": "https://www.wcu.edu/engage/professional-enrichment/camps-and-programs-for-kids/day-camps.aspx",
         "registration_url": "https://continuinged.wcu.edu/search/publicCourseSearchDetails.do?courseId=1049225&method=load",
         "season": {
           "year": 2026,
@@ -199,7 +216,14 @@
           "max": 18
         },
         "grades": null,
-        "sites": [],
+        "sites": [
+          {
+            "name": "Western Carolina University",
+            "address": "1 University Drive",
+            "town": "Cullowhee",
+            "state": "NC"
+          }
+        ],
         "hours": {
           "start": "09:00",
           "end": "16:00",
@@ -219,16 +243,16 @@
           "https://www.wcu.edu/engage/professional-enrichment/camps-and-programs-for-kids/day-camps.aspx",
           "https://continuinged.wcu.edu/search/publicCourseSearchDetails.do?courseId=1049225&method=load"
         ],
-        "confidence": "medium",
-        "review_notes": "Description was accessible through an official search result. Specific drop-off venue and price were not verified."
+        "confidence": "high",
+        "review_notes": null
       },
       {
         "name": "Mountain Explorers Camp",
         "type": "day",
         "categories": ["nature_outdoor", "arts"],
-        "description": "Campers investigate habitats and local plants and animals, then complete art-based activities. The week includes a field trip to a wild area in Jackson County.",
-        "camp_page_url": "https://www.wcu.edu/engage/mountain-heritage-center/calendar-of-events.aspx",
-        "registration_url": "https://continuinged.wcu.edu/public/category/programArea.do?method=load&selectedProgramAreaId=1049146",
+        "description": "Campers investigate local habitats, plants and animals, complete art activities, and take a field trip within Jackson County.",
+        "camp_page_url": "https://www.wcu.edu/engage/professional-enrichment/camps-and-programs-for-kids/day-camps.aspx",
+        "registration_url": "https://continuinged.wcu.edu/search/publicCourseSearchDetails.do?courseId=1063914&method=load",
         "season": {
           "year": 2026,
           "status": "not_posted",
@@ -242,7 +266,14 @@
           "max": 3,
           "basis": "rising"
         },
-        "sites": [],
+        "sites": [
+          {
+            "name": "Western Carolina University",
+            "address": "1 University Drive",
+            "town": "Cullowhee",
+            "state": "NC"
+          }
+        ],
         "hours": {
           "start": "09:00",
           "end": "15:00",
@@ -256,20 +287,23 @@
         "availability": null,
         "financial_aid": null,
         "special_needs": null,
-        "lunch": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Lunch will be provided daily at WCU’s Catamount Café (the main dining hall) or via a boxed lunch."
+        },
         "transportation": null,
         "sources": [
           "https://www.wcu.edu/engage/professional-enrichment/camps-and-programs-for-kids/day-camps.aspx",
-          "https://www.wcu.edu/engage/mountain-heritage-center/calendar-of-events.aspx"
+          "https://continuinged.wcu.edu/search/publicCourseSearchDetails.do?courseId=1063914&method=load"
         ],
         "confidence": "medium",
-        "review_notes": "Activity description was read through official search results. The hosting museum was not confirmed as the drop-off location."
+        "review_notes": "Description and lunch were available through official search-indexed text. A specific drop-off building was not established."
       },
       {
         "name": "Catamount Engineering Experience",
         "type": "overnight",
         "categories": ["stem"],
-        "description": "High school students receive a hands-on introduction to engineering and experience college life at WCU during a three-day, two-night camp.",
+        "description": "Students design, build and test engineering projects with WCU faculty and students, explore engineering labs, and stay in campus housing.",
         "camp_page_url": "https://continuinged.wcu.edu/search/publicCourseSearchDetails.do?courseId=1270023&method=load",
         "registration_url": "https://continuinged.wcu.edu/search/publicCourseSearchDetails.do?courseId=1270023&method=load",
         "season": {
@@ -285,32 +319,49 @@
           "max": 12,
           "basis": "rising"
         },
-        "sites": [],
+        "sites": [
+          {
+            "name": "Western Carolina University",
+            "address": "1 University Drive",
+            "town": "Cullowhee",
+            "state": "NC"
+          }
+        ],
         "hours": null,
         "extended_care": null,
-        "prices": [],
+        "prices": [
+          {
+            "amount": 220,
+            "unit": "program",
+            "label": "Includes two nights in a shared dorm room, linens and meals",
+            "year": 2026
+          }
+        ],
         "sessions": [],
         "registration": [],
         "last_year_registration_opened": null,
         "availability": null,
         "financial_aid": null,
         "special_needs": null,
-        "lunch": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Your $220 registration fee includes: camp enrollment, 2 nights in a SHARED dorm room, a linen packet (bed sheets, a blanket and towels) and meals in WCU's dining hall."
+        },
         "transportation": null,
         "sources": [
           "https://www.wcu.edu/engage/professional-enrichment/camps-and-programs-for-kids/day-camps.aspx",
           "https://continuinged.wcu.edu/search/publicCourseSearchDetails.do?courseId=1270023&method=load"
         ],
         "confidence": "medium",
-        "review_notes": "Program description was accessible only through an official search result. Check-in venue, price and meals require verification."
+        "review_notes": "Price and residential details came from official search-indexed registration text. The year for that price is associated with the June 17-19 dates on the 2026 camp list. Check the specific check-in venue."
       },
       {
         "name": "Rocket to Creativity",
         "type": "day",
-        "categories": ["stem", "arts", "general"],
-        "description": "Children work in small groups on projects such as inventions, Rube Goldberg machines, news broadcasts and archaeology. They also complete creative challenges in a maker space.",
+        "categories": ["stem", "arts"],
+        "description": "Children work in small groups on creative problem-solving projects such as inventions, Rube Goldberg machines, broadcasts and investigations, and complete maker-space challenges.",
         "camp_page_url": "https://www.wcu.edu/engage/professional-enrichment/camps-and-programs-for-kids/rocket-to-creativity.aspx",
-        "registration_url": "https://continuinged.wcu.edu/public/category/programArea.do?method=load&selectedProgramAreaId=1049146",
+        "registration_url": null,
         "season": {
           "year": 2026,
           "status": "not_posted",
@@ -347,20 +398,19 @@
         "lunch": null,
         "transportation": null,
         "sources": [
-          "https://www.wcu.edu/engage/professional-enrichment/camps-and-programs-for-kids/day-camps.aspx",
           "https://www.wcu.edu/engage/professional-enrichment/camps-and-programs-for-kids/rocket-to-creativity.aspx",
-          "https://www.wcu.edu/WebFiles/PDFs/OFE_US_Travel.pdf"
+          "https://humanservices.wcu.edu/"
         ],
         "confidence": "medium",
-        "review_notes": "Official program search result says children must be 7 by August 31. Venue and activities were accessible through search results; building address comes from an official office document."
+        "review_notes": "Official search-indexed camp text specifies age 7 by August 31 and identifies Killian Building. Building address comes from the resident department's official contact page."
       },
       {
         "name": "Appalachian Adventures Camp",
         "type": "day",
-        "categories": ["academic", "nature_outdoor"],
-        "description": "Campers explore southern Appalachian heritage, beginning with Native Americans and continuing through the arrival of the railroad.",
-        "camp_page_url": "https://www.wcu.edu/engage/mountain-heritage-center/calendar-of-events.aspx",
-        "registration_url": "https://continuinged.wcu.edu/public/category/programArea.do?method=load&selectedProgramAreaId=1049146",
+        "categories": ["nature_outdoor", "arts", "academic"],
+        "description": "Campers explore Appalachian history through crafts, artifacts, stories and field trips to farms and historic sites.",
+        "camp_page_url": "https://www.wcu.edu/engage/professional-enrichment/camps-and-programs-for-kids/day-camps.aspx",
+        "registration_url": "https://continuinged.wcu.edu/search/publicCourseSearchDetails.do?courseId=1063916&method=load",
         "season": {
           "year": 2026,
           "status": "not_posted",
@@ -374,7 +424,14 @@
           "max": 5,
           "basis": "rising"
         },
-        "sites": [],
+        "sites": [
+          {
+            "name": "Western Carolina University",
+            "address": "1 University Drive",
+            "town": "Cullowhee",
+            "state": "NC"
+          }
+        ],
         "hours": {
           "start": "09:00",
           "end": "15:00",
@@ -388,20 +445,23 @@
         "availability": null,
         "financial_aid": null,
         "special_needs": null,
-        "lunch": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Lunch will be provided daily at WCU’s Catamount Café (the main dining hall) or via a boxed lunch."
+        },
         "transportation": null,
         "sources": [
           "https://www.wcu.edu/engage/professional-enrichment/camps-and-programs-for-kids/day-camps.aspx",
-          "https://www.wcu.edu/engage/mountain-heritage-center/calendar-of-events.aspx"
+          "https://continuinged.wcu.edu/search/publicCourseSearchDetails.do?courseId=1063916&method=load"
         ],
         "confidence": "medium",
-        "review_notes": "Description was accessible through an official search result. Specific drop-off location and price were not verified."
+        "review_notes": "Description and lunch came from official search-indexed registration text. A building-specific drop-off location was not established."
       },
       {
         "name": "Mages in the Mountains",
         "type": "day",
-        "categories": ["stem", "nature_outdoor"],
-        "description": "Campers explore science and nature through a wizard-school-themed curriculum.",
+        "categories": ["stem", "arts", "nature_outdoor"],
+        "description": "Campers conduct chemistry experiments, explore astronomy and Appalachian history, create imaginary creatures, and participate in wizard-themed team games.",
         "camp_page_url": "https://continuinged.wcu.edu/search/publicCourseSearchDetails.do?courseId=1418526&method=load",
         "registration_url": "https://continuinged.wcu.edu/search/publicCourseSearchDetails.do?courseId=1418526&method=load",
         "season": {
@@ -434,7 +494,7 @@
         "prices": [
           {
             "amount": 200,
-            "unit": "session",
+            "unit": "program",
             "label": null,
             "year": 2026
           }
@@ -447,29 +507,29 @@
         "special_needs": null,
         "lunch": {
           "value": "yes",
-          "text": "Lunch Provided"
+          "text": "Lunch will be provided daily at WCU’s Catamount Café (the main dining hall)."
         },
         "transportation": null,
         "sources": [
-          "https://www.wcu.edu/engage/professional-enrichment/camps-and-programs-for-kids/day-camps.aspx",
-          "https://continuinged.wcu.edu/search/publicCourseSearchDetails.do?courseId=1418526&method=load"
+          "https://continuinged.wcu.edu/search/publicCourseSearchDetails.do?courseId=1418526&method=load",
+          "https://www.wcu.edu/engage/professional-enrichment/camps-and-programs-for-kids/day-camps.aspx"
         ],
         "confidence": "medium",
-        "review_notes": "Price, lunch and description were read through an official registration search result. Location is stated only as WCU; the general university address is not a confirmed building-level drop-off point."
+        "review_notes": "Price and activities came from official search-indexed text. The registration page identifies WCU but not a specific drop-off building."
       },
       {
         "name": "Lil' Cats Summer Camp",
         "type": "day",
         "categories": ["general", "nature_outdoor", "sports", "arts"],
-        "description": "Campers participate in recreation activities, creek time, arts and crafts and outdoor-themed field trips.",
+        "description": "Campers participate in campus games, creek activities, crafts and climbing, with outdoor field trips on Thursdays. The camp serves dependents of WCU faculty, staff and students.",
         "camp_page_url": "https://www.wcu.edu/experience/campus-recreation/summer-day-camp.aspx",
-        "registration_url": "https://myrec.wcu.edu/program?classificationId=370009f8-7f4c-4ee9-af77-f03c0be4fb82",
+        "registration_url": "https://myrec.wcu.edu/",
         "season": {
           "year": 2027,
-          "status": "not_posted",
-          "start": null,
-          "end": null,
-          "text": "Summer 2027 Registration Opens January 1st, 2027"
+          "status": "posted",
+          "start": "2027-05-31",
+          "end": "2027-07-30",
+          "text": null
         },
         "ages": {
           "min": 8,
@@ -487,11 +547,121 @@
         "hours": {
           "start": "07:45",
           "end": "17:15",
-          "text": "Drop off 7:45-8:30am; scheduled activities continue through 5:15pm."
+          "text": "Drop off will be from 7:45am-8:30am each morning, and Pick up will be from 3:30pm-5:15pm each afternoon."
         },
         "extended_care": null,
-        "prices": [],
-        "sessions": [],
+        "prices": [
+          {
+            "amount": 200,
+            "unit": "week",
+            "label": "CRC members",
+            "year": 2027
+          },
+          {
+            "amount": 225,
+            "unit": "week",
+            "label": "non-CRC members",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Week 1",
+            "start": "2027-05-31",
+            "end": "2027-06-04",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 2",
+            "start": "2027-06-07",
+            "end": "2027-06-11",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 3",
+            "start": "2027-06-14",
+            "end": "2027-06-18",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 4",
+            "start": "2027-06-21",
+            "end": "2027-06-25",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 5",
+            "start": "2027-06-28",
+            "end": "2027-07-02",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 6",
+            "start": "2027-07-12",
+            "end": "2027-07-16",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 7",
+            "start": "2027-07-19",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 8",
+            "start": "2027-07-26",
+            "end": "2027-07-30",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
         "registration": [
           {
             "audience": "other",
@@ -500,7 +670,7 @@
             "time": null,
             "precision": "date",
             "certainty": "announced",
-            "text": "Summer 2027 Registration Opens January 1st, 2027",
+            "text": "Summer 2027 Registration Opens January 1st, 2027. Lil Cat’s will serve the dependents of WCU Faculty, Staff, and Students.",
             "url": "https://www.wcu.edu/experience/campus-recreation/summer-day-camp.aspx",
             "year": 2027,
             "confidence": "medium"
@@ -517,7 +687,48 @@
           "https://reccenter.wcu.edu/"
         ],
         "confidence": "medium",
-        "review_notes": "Eligibility is limited to dependents of WCU faculty, staff and students. The official search result announces 2027 registration and says camp will not operate July 5-9, but individual weekly dates and fees could not be read. Season status remains not_posted because actual camp dates were not verified. Schedule includes a lunch period but does not establish that food is provided."
+        "review_notes": "Details were read through official search-indexed text because direct opens returned empty bodies. Weekly dates and prices are associated with the Summer 2027 heading; individual week labels omit the year. CRC members must maintain active membership from registration through camp season."
+      },
+      {
+        "name": "Summer Symposium",
+        "type": "overnight",
+        "categories": ["music"],
+        "description": "Students receive marching-band instruction through specialized tracks and participate in rehearsals and performances.",
+        "camp_page_url": "https://www.wcu.edu/learn/departments-schools-colleges/FPA/music/prideofthemountains/events-and-annoucements/summer-symposium.aspx",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-07-11",
+          "end": "2027-07-16",
+          "text": "Registration and other information will come out in late January."
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Western Carolina University",
+            "address": "1 University Drive",
+            "town": "Cullowhee",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.wcu.edu/learn/departments-schools-colleges/FPA/music/prideofthemountains/events-and-annoucements/summer-symposium.aspx"
+        ],
+        "confidence": "low",
+        "review_notes": "2027 dates were found in official search-indexed text. Residential format, 2027 track details, eligibility and check-in location need confirmation when January information is released. The January statement promises information, not explicitly a registration opening, so no opening milestone is recorded."
       }
     ]
   }

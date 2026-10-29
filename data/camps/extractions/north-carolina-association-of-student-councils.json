@@ -7,22 +7,19 @@
     "discovered_by": ["aggregator"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:34:54.386Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:29:08.472Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "9bf3d92263de92d6fd441705c9ab74cdab8a9bb50d1e3010e79f19aa5d32b5d5",
   "response": {
-    "searches": [
-      "site.mhu.edu \"100 Athletic\"",
-      "site.ncasc.us \"2027\" \"counselor\" application"
-    ],
+    "searches": ["site.mhu.edu \"100 Athletic\""],
     "usage": {
-      "inputTokens": 28236,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1427,
-      "reasoningTokens": 164
+      "inputTokens": 20533,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1329,
+      "reasoningTokens": 122
     },
     "status": "completed",
-    "ms": 37473,
+    "ms": 26496,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -61,34 +58,38 @@
   "extraction": {
     "provider_name": "North Carolina Association of Student Councils",
     "website_url": "https://ncasc.us/",
-    "notes": "2027 dates, prices and enrollment periods are posted. Supporting delegate information, brochure and schedule remain labeled 2026; updated documents are promised. The workshop page could not be rendered by the browser, so its supplied crawler text was used. The Junior Counselor application link could not be inspected to determine whether it describes a separate youth training program or a staff role.",
+    "notes": "The workshop page posts 2027 dates, prices and registration windows, but still links 2026 delegate information, brochure and schedule. Eligibility and meal coverage below come from the 2026 materials; updated 2027 documents are pending.",
     "excluded": [
       {
+        "name": "State convention and district leadership conferences",
+        "reason": "Conferences and conventions are excluded."
+      },
+      {
         "name": "Advisor Program",
-        "reason": "Adult adviser training and professional-development sessions, not a youth camp."
+        "reason": "Adult adviser training within the workshop, not a separate youth camp."
       }
     ],
     "cards": [
       {
         "name": "Summer Leadership Workshop",
         "type": "overnight",
-        "categories": ["academic"],
-        "description": "Student leaders practice leadership through hands-on activities, small-group sessions and team challenges. Activities address communication, decision making, group processes and self-awareness.",
+        "categories": ["general"],
+        "description": "Student leaders practice leadership skills through hands-on activities, small-group sessions and team challenges.",
         "camp_page_url": "https://ncasc.us/summer-workshop/",
-        "registration_url": "https://ncasc.us/summer-workshop/",
+        "registration_url": null,
         "season": {
           "year": 2027,
           "status": "posted",
           "start": "2027-07-12",
           "end": "2027-07-16",
-          "text": "July 12-16, 2027"
+          "text": null
         },
         "ages": null,
         "grades": null,
         "sites": [
           {
             "name": "Mars Hill University",
-            "address": "100 Athletic St",
+            "address": "100 Athletic Street",
             "town": "Mars Hill",
             "state": "NC"
           }
@@ -148,7 +149,7 @@
             "time": null,
             "precision": "date",
             "certainty": "announced",
-            "text": "Regular Registration (May 16-31): All schools may register students at the increased rate during this time;",
+            "text": "Reglar Registration: May 16-31",
             "url": "https://ncasc.us/summer-workshop/",
             "year": 2027,
             "confidence": "high"
@@ -160,7 +161,7 @@
             "time": null,
             "precision": "date",
             "certainty": "announced",
-            "text": "Reglar Registration: May 16-31\nAll schools may register students at the increased rate during this time; however, registration may close early if all beds are full",
+            "text": "All schools may register students at the increased rate during this time; however, registration may close early if all beds are full",
             "url": "https://ncasc.us/summer-workshop/",
             "year": 2027,
             "confidence": "high"
@@ -185,7 +186,7 @@
           "https://www.marshilllions.com/"
         ],
         "confidence": "medium",
-        "review_notes": "Enrollment periods omit a year but appear beneath the July 12-16, 2027 heading and are recorded for that summer. Meal inclusion and the detailed overnight format are stated in 2026 materials; verify them when updated 2027 documents appear. The 2026 brochure limits delegates to middle and high school student leaders approved for a school delegation with an adviser or responsible adult; no numeric program-specific grade range is stated. The 2026 arrival location is Broyhill Chapel, but the 2027 page currently gives only Mars Hill University; verify the 2027 check-in location."
+        "review_notes": "The 2026 brochure limits participation to middle and high school student leaders approved for their school's delegation, accompanied by an adviser or responsible adult; confirm this requirement for 2027. No numeric grade range is specified for the workshop. Meal coverage is explicitly stated only in the 2026 brochure. The 2026 arrival location is Broyhill Chapel; the 2027 page names only Mars Hill University. The individual registration form destination could not be retrieved. Registration windows without printed years are interpreted within the page's explicit 2027 workshop heading."
       }
     ]
   }

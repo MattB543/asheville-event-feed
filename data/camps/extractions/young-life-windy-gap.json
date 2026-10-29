@@ -11,22 +11,23 @@
     "discovered_by": ["seed_sheet", "news828", "grid", "aggregator", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T14:57:16.407Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T16:57:49.924Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "b6dce29b1709ef122ed6fb959b90141520fb51b84cd271bae22b14f0eb63cb1a",
   "response": {
     "searches": [
-      "site.windygap.younglife.org parents contact address summer 2027",
-      "site:windygap.younglife.org \"2027\" \"camp\""
+      "site:windygap.younglife.org parents contact 2027",
+      "site:windygap.younglife.org \"2027\" camp",
+      "site:carolinapoint.younglife.org \"Address\" \"Brevard\""
     ],
     "usage": {
-      "inputTokens": 22671,
-      "cachedInputTokens": 8223,
-      "outputTokens": 987,
-      "reasoningTokens": 184
+      "inputTokens": 27635,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1356,
+      "reasoningTokens": 258
     },
     "status": "completed",
-    "ms": 28137,
+    "ms": 36084,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -75,23 +76,23 @@
   "extraction": {
     "provider_name": "Young Life — Windy Gap",
     "website_url": "https://windygap.younglife.org/",
-    "notes": "No camper-specific 2027 dates, prices or registration milestones were found. The volunteers page posts 2027 service-session dates, but these are not youth camper sessions and were not copied onto the camp card. Its adult guest and physician week dates also were not treated as camper dates. Registration is handled by local Young Life areas, not directly by Windy Gap. Carolina Point is a separate Young Life property and is not included under this provider.",
+    "notes": "No camper-specific 2027 dates, prices or registration milestones were found. The 2027 announcements on volunteer pages concern staffing, not camper registration; adult-guest and physician weeks were not reused as youth sessions. Carolina Point is included as a nearby site because it was supplied among the provider's known pages. Its scrapbook dates have no clear season year and were not extracted. Parent and Carolina Point contact pages returned empty text when opened; official search results supplied their information. Camp enrollment is arranged through local Young Life offices.",
     "excluded": [
       {
-        "name": "Summer Staff",
-        "reason": "College-age volunteer work assignments, not a youth camp."
-      },
-      {
         "name": "Work Crew",
-        "reason": "High-school volunteer work assignments serving in housekeeping, dining, dishwashing and grounds roles, rather than a camper program."
+        "reason": "Volunteer work assignments serving camp operations, rather than a camper program."
       },
       {
-        "name": "Summer Interns",
-        "reason": "Summer employment and internship program, not a youth camp."
+        "name": "Summer Staff",
+        "reason": "College-age volunteer staffing positions, rather than a youth camp."
       },
       {
-        "name": "Year Long Interns",
-        "reason": "Year-round internship program, not a finite summer youth camp."
+        "name": "Summer Internships",
+        "reason": "Internship and staffing program, rather than a youth camp."
+      },
+      {
+        "name": "Year-Long Internships",
+        "reason": "Year-round employment program."
       },
       {
         "name": "Adult Guests",
@@ -99,31 +100,39 @@
       },
       {
         "name": "Physicians Program",
-        "reason": "Medical volunteer service and accompanying-family guest program, not a youth camp."
+        "reason": "Medical volunteer service with accompanying families, not a separately enrolled youth camp."
       },
       {
-        "name": "Work Week 2027",
-        "reason": "Volunteer work program preparing the property for summer campers."
+        "name": "Work Week",
+        "reason": "Volunteer work preparing camp for summer guests."
       },
       {
-        "name": "weekend wranglers",
-        "reason": "College-age volunteer service during the school season."
+        "name": "Weekend Wranglers",
+        "reason": "School-season volunteer staffing program."
       },
       {
-        "name": "Retreats",
-        "reason": "School-year group bookings, not a posted summer youth camp offering."
+        "name": "YL Weekend Camp",
+        "reason": "November 6–8, 2026 offering is outside summer."
+      },
+      {
+        "name": "Young Life and WyldLife Club",
+        "reason": "Recurring school-year meetings, not finite summer camps."
+      },
+      {
+        "name": "Retreat Bookings",
+        "reason": "School-season group facility rentals, not a listed youth summer camp."
       }
     ],
     "cards": [
       {
         "name": "Young Life Camp",
         "type": "overnight",
-        "categories": ["faith_based", "nature_outdoor", "general"],
-        "description": "Campers stay in bunk-bed dorms and participate in Young Life club, swimming, horseback riding, mountain biking, ropes-course activities, games and crafts.",
+        "categories": ["faith_based", "general", "nature_outdoor", "sports"],
+        "description": "Overnight camp for middle school and high school students with swimming, outdoor games, adventure activities and Young Life club gatherings. Campers stay in bunk-bed dorms and eat in the dining hall.",
         "camp_page_url": "https://windygap.younglife.org/at-camp/",
-        "registration_url": "https://windygap.younglife.org/parents/",
+        "registration_url": null,
         "season": {
-          "year": 2026,
+          "year": 2027,
           "status": "not_posted",
           "start": null,
           "end": null,
@@ -137,6 +146,12 @@
             "address": "120 Coles Cove Road",
             "town": "Weaverville",
             "state": "NC"
+          },
+          {
+            "name": "Carolina Point",
+            "address": "19 Pinnacle Point Lane",
+            "town": "Brevard",
+            "state": "NC"
           }
         ],
         "hours": null,
@@ -147,19 +162,28 @@
         "last_year_registration_opened": null,
         "availability": null,
         "financial_aid": null,
-        "special_needs": null,
+        "special_needs": {
+          "value": "case_by_case",
+          "text": "At Windy Gap, all of our main buildings are accessible to strollers or wheelchairs."
+        },
         "lunch": {
           "value": "yes",
-          "text": "get ready for incredible food to be served in the dining hall."
+          "text": "Food served in the dining hall."
         },
         "transportation": null,
         "sources": [
           "https://windygap.younglife.org/",
           "https://windygap.younglife.org/at-camp/",
-          "https://windygap.younglife.org/parents/"
+          "https://windygap.younglife.org/parents/",
+          "https://windygap.younglife.org/contact/",
+          "https://windygap.younglife.org/bookings/",
+          "https://carolinapoint.younglife.org/",
+          "https://carolinapoint.younglife.org/at-camp/",
+          "https://carolinapoint.younglife.org/parents/",
+          "https://carolinapoint.younglife.org/contact/"
         ],
-        "confidence": "high",
-        "review_notes": null
+        "confidence": "medium",
+        "review_notes": "Windy Gap accessibility and both site addresses were read from official search results because some pages opened with empty text. Accessibility wording applies specifically to Windy Gap. Meals are described generally, without a separate lunch statement. Middle school and high school eligibility is stated without numerical grades or ages. Confirm whether Carolina Point should remain grouped with this Windy Gap provider. No youth session dates were inferred from volunteer or adult-guest schedules."
       }
     ]
   }

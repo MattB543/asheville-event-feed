@@ -13,24 +13,24 @@
     "discovered_by": ["seed_sheet", "grid", "aggregator", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T14:56:01.531Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T16:56:02.374Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "751d4a7c4ba23692c84f3db9b2ee76c69d148d0e48fe9d0b46bdf6ee709dfb7b",
   "response": {
     "searches": [
-      "site.montreat.org \"2027\" \"registration\" youth",
+      "site:montreat.org clubs childcare 2027 2026",
       "site:montreat.org/clubs \"2026\"",
-      "site:montreat.org \"clubs\" \"June 8\" \"2026\"",
-      "site:montreat.org \"Childcare\" \"six\""
+      "site:montreat.org \"Clubs\" \"2026\" \"weeks\"",
+      "site:montreat.org/y-ya-events/myc-guidebook \"Clubs\" \"four\""
     ],
     "usage": {
-      "inputTokens": 59596,
-      "cachedInputTokens": 8223,
-      "outputTokens": 3841,
-      "reasoningTokens": 458
+      "inputTokens": 56033,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1612,
+      "reasoningTokens": 397
     },
     "status": "completed",
-    "ms": 97706,
+    "ms": 51945,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -79,481 +79,55 @@
   "extraction": {
     "provider_name": "Montreat Conference Center",
     "website_url": "https://montreat.org/",
-    "notes": "2027 youth conference and Worship & Music dates are posted. The Clubs page returned no readable content; its dates, fees, age bands, drop-off sites and childcare details could not be verified. The Middle School Conference meets in Maryville, TN, not Montreat. The event calendar is not clearly a complete 2027 summer recreation program list, so Clubs remains included with missing details.",
+    "notes": "The conferences in the existing program list are excluded under the conference rule. The Clubs page returned no readable content, so dates, prices, age bands and drop-off locations could not be extracted. Official 2027 Worship & Music materials still mention Clubs and childcare, but do not provide their full summer schedules. No complete 2027 camp program list was found. The searchable Clubs registration FAQ is from 2023 and was not used for 2026 or 2027 facts.",
     "excluded": [
       {
-        "name": "Road Scholar Programs",
-        "reason": "Adult lifelong-learning programs, not supervised youth camps."
+        "name": "Montreat Youth Conference",
+        "reason": "Youth conference; conferences and conventions are excluded."
       },
       {
-        "name": "Fall Sabbath Getaway at Montreat",
-        "reason": "Fall individual and family lodging offer, not a youth camp."
+        "name": "Jeremiah Project",
+        "reason": "Worship-leadership participation within Montreat Youth Conference, rather than a separately offered summer camp."
       },
       {
-        "name": "Thanksgiving at Montreat",
-        "reason": "Outside summer; lodging and buffet offer."
+        "name": "Middle School Conference",
+        "reason": "Youth conference; conferences and conventions are excluded."
       },
       {
-        "name": "Holiday Market",
-        "reason": "Outside summer; public market rather than a supervised youth program."
+        "name": "Worship & Music",
+        "reason": "Intergenerational conference; conferences and conventions are excluded."
       },
       {
-        "name": "College Conference",
-        "reason": "January conference, outside summer."
+        "name": "Currie Craft Center and Sally Jones Pottery classes",
+        "reason": "Individual arts classes and workshops, not a supervised youth camp program."
       },
       {
-        "name": "The Manna Retreat",
-        "reason": "January young-adult retreat, outside summer."
+        "name": "Montreat Summer Staff",
+        "reason": "Seasonal employment program."
       },
       {
-        "name": "Discovering Renewal",
-        "reason": "Adult program outside summer."
+        "name": "Montreat Mission Experience",
+        "reason": "Youth-group service outings associated with the youth conference."
       },
       {
-        "name": "Arts, Recreation, and Worship Conference",
-        "reason": "Adult continuing-education conference in May."
+        "name": "Friday Night at the Barn",
+        "reason": "Weekly social dances, not a finite supervised youth camp."
       },
       {
-        "name": "Summer Staff",
-        "reason": "Employment program."
+        "name": "Public Hikes",
+        "reason": "Public recreational outings, not a supervised youth camp."
       },
       {
         "name": "Montreat Campground",
-        "reason": "Recreational campsite rentals, not a supervised youth program."
-      },
-      {
-        "name": "Public Hikes, Summer Worship Series, Hymn Sings and Friday Night at the Barn",
-        "reason": "Community activities, not finite supervised youth programs."
+        "reason": "Recreational campsite rentals, not a supervised youth camp."
       }
     ],
     "cards": [
       {
-        "name": "Montreat Youth Conference",
-        "type": "overnight",
-        "categories": ["faith_based", "general"],
-        "description": "Youth participate in worship, keynote presentations, small-group discussions, recreation and mission activities.",
-        "camp_page_url": "https://montreat.org/events/myc-27",
-        "registration_url": "https://montreat.org/forms/youth-individual-registration",
-        "season": {
-          "year": 2027,
-          "status": "posted",
-          "start": "2027-06-06",
-          "end": "2027-08-07",
-          "text": "Orbiting Faith"
-        },
-        "ages": null,
-        "grades": {
-          "min": 8,
-          "max": 12,
-          "basis": "completed"
-        },
-        "sites": [
-          {
-            "name": "Montreat Conference Center",
-            "address": "401 Assembly Drive",
-            "town": "Montreat",
-            "state": "NC"
-          }
-        ],
-        "hours": null,
-        "extended_care": null,
-        "prices": [
-          {
-            "amount": 355,
-            "unit": "session",
-            "label": "Conference registration on or before April 1; housing and meals not included",
-            "year": 2027
-          },
-          {
-            "amount": 405,
-            "unit": "session",
-            "label": "Conference registration after April 1; housing and meals not included",
-            "year": 2027
-          },
-          {
-            "amount": 941,
-            "unit": "session",
-            "label": "Individual registration, Week 6 only; conference, housing and meals included",
-            "year": 2027
-          }
-        ],
-        "sessions": [
-          {
-            "label": "Week 1",
-            "start": "2027-06-06",
-            "end": "2027-06-12",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": null,
-            "hours": null,
-            "price": null,
-            "status": null
-          },
-          {
-            "label": "Week 2",
-            "start": "2027-06-13",
-            "end": "2027-06-19",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": null,
-            "hours": null,
-            "price": null,
-            "status": null
-          },
-          {
-            "label": "Week 3",
-            "start": "2027-07-11",
-            "end": "2027-07-17",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": null,
-            "hours": null,
-            "price": null,
-            "status": null
-          },
-          {
-            "label": "Week 4",
-            "start": "2027-07-18",
-            "end": "2027-07-24",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": null,
-            "hours": null,
-            "price": null,
-            "status": null
-          },
-          {
-            "label": "Week 5",
-            "start": "2027-07-25",
-            "end": "2027-07-31",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": null,
-            "hours": null,
-            "price": null,
-            "status": null
-          },
-          {
-            "label": "Week 6",
-            "start": "2027-08-01",
-            "end": "2027-08-07",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": null,
-            "hours": null,
-            "price": null,
-            "status": null
-          }
-        ],
-        "registration": [
-          {
-            "audience": "public",
-            "kind": "opens",
-            "date": "2026-10-01",
-            "time": null,
-            "precision": "date",
-            "certainty": "announced",
-            "text": "In fact, registration for the 2027 conference will open on October 1.",
-            "url": "https://montreat.org/myc27-registration-opens-soon",
-            "year": 2027,
-            "confidence": "high"
-          }
-        ],
-        "last_year_registration_opened": null,
-        "availability": null,
-        "financial_aid": {
-          "value": "yes",
-          "text": "As such, we have a limited number of scholarships available for this conference."
-        },
-        "special_needs": null,
-        "lunch": {
-          "value": "case_by_case",
-          "text": "The comprehensive fee includes conference fee, plus housing and meals at the Conference Center, and the community services fee."
-        },
-        "transportation": null,
-        "sources": [
-          "https://montreat.org/events/myc-27",
-          "https://montreat.org/forms/youth-individual-registration",
-          "https://montreat.org/myc27-registration-opens-soon"
-        ],
-        "confidence": "high",
-        "review_notes": null
-      },
-      {
-        "name": "Jeremiah Project",
-        "type": "overnight",
-        "categories": ["faith_based"],
-        "description": "Returning youth conference participants prepare for worship leadership, participate in keynote and discuss vocation.",
-        "camp_page_url": "https://montreat.org/y-ya-events/myc-guidebook",
-        "registration_url": null,
-        "season": {
-          "year": 2027,
-          "status": "not_posted",
-          "start": null,
-          "end": null,
-          "text": null
-        },
-        "ages": null,
-        "grades": null,
-        "sites": [
-          {
-            "name": "Montreat Conference Center",
-            "address": "401 Assembly Drive",
-            "town": "Montreat",
-            "state": "NC"
-          }
-        ],
-        "hours": null,
-        "extended_care": null,
-        "prices": [],
-        "sessions": [],
-        "registration": [],
-        "last_year_registration_opened": null,
-        "availability": null,
-        "financial_aid": null,
-        "special_needs": null,
-        "lunch": null,
-        "transportation": null,
-        "sources": [
-          "https://montreat.org/events/myc-27",
-          "https://montreat.org/y-ya-events/myc-guidebook"
-        ],
-        "confidence": "medium",
-        "review_notes": "The 2027 youth conference page lists this leadership program, but separate dates, prices and enrollment instructions were not accessible. Its description was available through an official guidebook search result; do not assume every conference week offers it."
-      },
-      {
-        "name": "Middle School Conference",
-        "type": "overnight",
-        "categories": ["faith_based", "general"],
-        "description": "Youth participate in keynote, worship, recreation, singing and small groups while staying in college dormitories.",
-        "camp_page_url": "https://montreat.org/events/msc-27",
-        "registration_url": null,
-        "season": {
-          "year": 2027,
-          "status": "posted",
-          "start": "2027-07-21",
-          "end": "2027-07-25",
-          "text": "Bear Much Fruit"
-        },
-        "ages": null,
-        "grades": {
-          "min": 5,
-          "max": 8,
-          "basis": "completed"
-        },
-        "sites": [
-          {
-            "name": "Maryville College",
-            "address": "502 East Lamar Alexander Parkway",
-            "town": "Maryville",
-            "state": "TN"
-          }
-        ],
-        "hours": null,
-        "extended_care": null,
-        "prices": [
-          {
-            "amount": 485,
-            "unit": "session",
-            "label": "Before April 1, 2027; conference, room and meals included",
-            "year": 2027
-          },
-          {
-            "amount": 500,
-            "unit": "session",
-            "label": "On or after April 1, 2027; conference, room and meals included",
-            "year": 2027
-          }
-        ],
-        "sessions": [],
-        "registration": [],
-        "last_year_registration_opened": null,
-        "availability": null,
-        "financial_aid": null,
-        "special_needs": null,
-        "lunch": {
-          "value": "yes",
-          "text": "This Comprehensive rate includes conference, room, and meals."
-        },
-        "transportation": null,
-        "sources": [
-          "https://montreat.org/events/msc-27",
-          "https://montreat.org/y-ya-events/msc-reg-faq",
-          "https://www.maryvillecollege.edu/legal/contact-us/",
-          "https://www.maryvillecollege.edu/business-office/"
-        ],
-        "confidence": "medium",
-        "review_notes": "Official program and registration FAQ facts were readable through search results, but the full event page would not open. This program is in Tennessee, outside the Asheville area."
-      },
-      {
-        "name": "Worship & Music",
-        "type": "overnight",
-        "categories": ["faith_based", "music", "arts", "theater"],
-        "description": "Children and youth attend choirs, small groups, worship and music-making activities. Children's programming includes instrumental music, drama, devotionals and games.",
-        "camp_page_url": "https://www.presbymusic.org/conference",
-        "registration_url": null,
-        "season": {
-          "year": 2027,
-          "status": "posted",
-          "start": "2027-06-20",
-          "end": "2027-07-02",
-          "text": null
-        },
-        "ages": null,
-        "grades": {
-          "min": 3,
-          "max": 12,
-          "basis": "completed"
-        },
-        "sites": [
-          {
-            "name": "Montreat Conference Center",
-            "address": "401 Assembly Drive",
-            "town": "Montreat",
-            "state": "NC"
-          }
-        ],
-        "hours": null,
-        "extended_care": null,
-        "prices": [],
-        "sessions": [
-          {
-            "label": "Week 1: Children",
-            "start": "2027-06-20",
-            "end": "2027-06-25",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 3,
-              "max": 5,
-              "basis": "completed"
-            },
-            "hours": null,
-            "price": null,
-            "status": null
-          },
-          {
-            "label": "Week 1: Middlers",
-            "start": "2027-06-20",
-            "end": "2027-06-25",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 6,
-              "max": 8,
-              "basis": "completed"
-            },
-            "hours": null,
-            "price": null,
-            "status": null
-          },
-          {
-            "label": "Week 1: Senior Highs",
-            "start": "2027-06-20",
-            "end": "2027-06-25",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 9,
-              "max": 12,
-              "basis": "completed"
-            },
-            "hours": null,
-            "price": null,
-            "status": null
-          },
-          {
-            "label": "Week 2: Children",
-            "start": "2027-06-27",
-            "end": "2027-07-02",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 3,
-              "max": 5,
-              "basis": "completed"
-            },
-            "hours": null,
-            "price": null,
-            "status": null
-          },
-          {
-            "label": "Week 2: Middlers",
-            "start": "2027-06-27",
-            "end": "2027-07-02",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 6,
-              "max": 8,
-              "basis": "completed"
-            },
-            "hours": null,
-            "price": null,
-            "status": null
-          },
-          {
-            "label": "Week 2: Senior Highs",
-            "start": "2027-06-27",
-            "end": "2027-07-02",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 9,
-              "max": 12,
-              "basis": "completed"
-            },
-            "hours": null,
-            "price": null,
-            "status": null
-          }
-        ],
-        "registration": [
-          {
-            "audience": "public",
-            "kind": "opens",
-            "date": "2026-12-07",
-            "time": null,
-            "precision": "date",
-            "certainty": "announced",
-            "text": "Conference Registration opens December 7th.",
-            "url": "https://montreat.org/events/wm27-wk1",
-            "year": 2027,
-            "confidence": "medium"
-          }
-        ],
-        "last_year_registration_opened": null,
-        "availability": null,
-        "financial_aid": null,
-        "special_needs": null,
-        "lunch": null,
-        "transportation": null,
-        "sources": [
-          "https://montreat.org/events/wm27-wk1",
-          "https://www.presbymusic.org/conference",
-          "https://www.presbymusic.org/conference-schedule",
-          "https://www.presbymusic.org/events"
-        ],
-        "confidence": "medium",
-        "review_notes": "Includes organized youth programming within an intergenerational conference, not an independent drop-off camp. Confirm lodging and chaperone arrangements with PAM. December 7 is stated without a calendar year; 2026 is interpreted from the upcoming 2027 conference context. Rates page could not be read."
-      },
-      {
         "name": "Montreat Clubs",
         "type": "day",
-        "categories": ["general", "faith_based", "nature_outdoor", "arts", "sports"],
-        "description": "Children and youth play games, make crafts, explore trails and creeks, and participate in boating, music and group activities with counselors.",
+        "categories": ["general", "faith_based", "nature_outdoor"],
+        "description": "Children and teenagers participate in games, music, crafts, boating, creek activities and hikes with counselors.",
         "camp_page_url": "https://montreat.org/clubs",
         "registration_url": "https://montreat.org/clubs",
         "season": {
@@ -581,18 +155,19 @@
           "https://montreat.org/tsim26",
           "https://montreat.org/a-week-in-the-world-of-clubs",
           "https://montreat.org/day-in-life-of-clubbie",
-          "https://montreat.org/clubs"
+          "https://montreat.org/clubs-corner-reflections",
+          "https://montreat.org/events/wm27-wk1"
         ],
         "confidence": "low",
-        "review_notes": "Clubs page returned no readable text. The older Clubs article describes completed kindergarten through graduated high school, while the guidebook describes age four to senior high; eligibility is left null pending verification. No exact 2026 or 2027 dates or drop-off locations were verified."
+        "review_notes": "The primary page https://montreat.org/clubs returned no readable content. Check that page or its registration platform for dates, separate age bands, prices, hours and actual drop-off addresses. The published age range of two years through graduated high school seniors combines Clubs and Childcare, so it was not assigned to Clubs alone. The 2027 Worship & Music page mentions continued availability but does not post the Clubs season dates."
       },
       {
         "name": "Childcare",
         "type": "day",
         "categories": ["general"],
-        "description": "Montreat offers childcare during its summer season.",
+        "description": "Summer daytime childcare for children ages two and three.",
         "camp_page_url": "https://montreat.org/clubs",
-        "registration_url": null,
+        "registration_url": "https://montreat.org/clubs",
         "season": {
           "year": 2026,
           "status": "not_posted",
@@ -600,7 +175,10 @@
           "end": null,
           "text": null
         },
-        "ages": null,
+        "ages": {
+          "min": 2,
+          "max": 3
+        },
         "grades": null,
         "sites": [],
         "hours": null,
@@ -614,9 +192,13 @@
         "special_needs": null,
         "lunch": null,
         "transportation": null,
-        "sources": ["https://montreat.org/tsim26", "https://montreat.org/twim-06-05-26"],
+        "sources": [
+          "https://montreat.org/tsim26",
+          "https://montreat.org/y-ya-events/myc-guidebook",
+          "https://montreat.org/events/wm27-wk1"
+        ],
         "confidence": "low",
-        "review_notes": "Summer childcare is mentioned in official 2026 materials, but the linked Clubs & Childcare page could not be read. Confirm exact program name, eligibility, dates, hours, fees and venue."
+        "review_notes": "Daytime ages two and three are stated in the official MYC Guidebook search result, which is not explicitly year-dated. The primary Clubs page could not be read. Check the registration platform for the childcare season, hours, prices and drop-off location. Official materials also mention evening childcare for conference participants, but no finite evening schedule was readable, so no separate evening card was created."
       }
     ]
   }

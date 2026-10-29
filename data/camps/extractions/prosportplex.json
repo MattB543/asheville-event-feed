@@ -7,19 +7,22 @@
     "discovered_by": ["gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:35:18.226Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:29:35.867Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "0b7c5493f09b04d4767a4fefb467dd31583651759fc23c58ed49f5bf201ae1ad",
   "response": {
-    "searches": ["site.prosportplex.com Rico Dowdle 2027", "site:prosportplex.com \"2027\""],
+    "searches": [
+      "site.prosportplex.com Rico Dowdle 2027 2026 camp",
+      "site:prosportplex.com \"2027\""
+    ],
     "usage": {
-      "inputTokens": 23660,
-      "cachedInputTokens": 8223,
-      "outputTokens": 697,
-      "reasoningTokens": 177
+      "inputTokens": 20257,
+      "cachedInputTokens": 8845,
+      "outputTokens": 924,
+      "reasoningTokens": 184
     },
     "status": "completed",
-    "ms": 20451,
+    "ms": 25412,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -53,14 +56,39 @@
   "extraction": {
     "provider_name": "ProSportPlex",
     "website_url": "https://www.prosportplex.com/",
-    "notes": "No 2027 Asheville camp information or registration milestones found. This card uses the explicitly dated 2026 Asheville offering. The provider lists camps nationally; offerings outside the Asheville area were not included. The camp page returned no readable content in the browser, so program details were taken from the supplied official-page text. The BUY TICKETS destination could not be verified.",
-    "excluded": [],
+    "notes": "No 2027 camp information or registration milestones found. The North Carolina archive lists the Asheville Rico Dowdle camp for 2026 and its older 2025 edition. The live camp page returned no readable text through the browser; program details below use the supplied official-page text. No readable ticket destination or price was found.",
+    "excluded": [
+      {
+        "name": "Rico Dowdle: Youth Football Camp (Pennsylvania)",
+        "reason": "Held in Cheswick, Pennsylvania, outside the Asheville drive-time area."
+      },
+      {
+        "name": "Avery Johnson: Youth Football Camp",
+        "reason": "Held in Manhattan, Kansas, outside the Asheville drive-time area."
+      },
+      {
+        "name": "Tommy DeVito: Youth Football Camp",
+        "reason": "Held in Ramsey, New Jersey, outside the Asheville drive-time area."
+      },
+      {
+        "name": "Nyck Harbor: Youth Football Camp",
+        "reason": "Held in Columbia, South Carolina, outside the Asheville drive-time area."
+      },
+      {
+        "name": "Talanoa Hufanga: Youth Football Camp",
+        "reason": "Held in Denver, Colorado, outside the Asheville drive-time area."
+      },
+      {
+        "name": "Cassie Sumfest: Field Hockey Camp",
+        "reason": "Held in Philadelphia, Pennsylvania, outside the Asheville drive-time area."
+      }
+    ],
     "cards": [
       {
         "name": "Rico Dowdle: Youth Football Camp",
         "type": "clinic",
         "categories": ["sports"],
-        "description": "Campers practice football fundamentals and teamwork through drills and on-field instruction with Rico Dowdle and camp instructors. Motivational talks address discipline, perseverance, confidence, and leadership.",
+        "description": "Campers practice football fundamentals and teamwork through drills and on-field instruction with Rico Dowdle and camp instructors. The program also includes motivational talks about discipline, perseverance, confidence, and leadership.",
         "camp_page_url": "https://www.prosportplex.com/ricodowdle/",
         "registration_url": null,
         "season": {
@@ -86,7 +114,7 @@
         "hours": {
           "start": "10:00",
           "end": null,
-          "text": "06/20/2026 10:00 am"
+          "text": null
         },
         "extended_care": null,
         "prices": [],
@@ -100,6 +128,7 @@
         "transportation": null,
         "sources": [
           "https://www.prosportplex.com/ricodowdle/",
+          "https://www.prosportplex.com/location/north-carolina/",
           "https://acrhs.buncombeschools.org/o/acrhs/page/directions"
         ],
         "confidence": "high",

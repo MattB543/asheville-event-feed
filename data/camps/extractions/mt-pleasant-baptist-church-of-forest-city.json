@@ -8,23 +8,23 @@
     "status": "review",
     "status_reason": "page didn't load: fetch: fetch failed (Hostname/IP does not match certificate's altnames: Host: mtpleasantfc.org. is not in the cert's altnames: DNS:*.e-zekielcms.com, DNS:e-zekielcms.com); chrome-tls: fetch failed (Hostname/IP does not match certificate's altnames: Host: mtpleasantfc.org. is not in the cert's altnam"
   },
-  "extractedAt": "2026-10-29T15:28:46.911Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:24:11.395Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": null,
   "response": {
     "searches": [
-      "site:mtpleasantfc.org VBS 2026",
-      "site:facebook.com \"Mt. Pleasant\" \"Illumination\" \"Forest\"",
-      "\"397\" \"Pleasant\" \"VBS\" \"2026\""
+      "site:mtpleasantfc.org VBS 2026 2027",
+      "site:mtpleasantfc.org \"Illumination\"",
+      "site:facebook.com \"Illumination Station\" \"397\""
     ],
     "usage": {
-      "inputTokens": 21717,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1568,
-      "reasoningTokens": 311
+      "inputTokens": 24048,
+      "cachedInputTokens": 8845,
+      "outputTokens": 972,
+      "reasoningTokens": 288
     },
     "status": "completed",
-    "ms": 38648,
+    "ms": 27497,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -38,19 +38,19 @@
   "extraction": {
     "provider_name": "Mt. Pleasant Baptist Church of Forest City",
     "website_url": "https://mtpleasantfc.org/",
-    "notes": "No summer 2027 information was found. The official website blocked direct access; indexed official page text was available, but bulletin PDFs could not be opened or their file URLs retrieved. A third-party event listing identifies a 2026 VBS. The official ministry page also describes two annual summer youth retreats without dated session details.",
+    "notes": "No summer 2027 information was found. Direct access to the church website and its 2026 bulletin page was blocked by robots.txt; official page text was available through search results, but bulletin PDF links could not be retrieved. The VBS dates were found only in a third-party event listing, so they require official confirmation.",
     "excluded": [
       {
-        "name": "1st through 5th",
-        "reason": "Recurring Wednesday-night ministry, not a finite summer program."
+        "name": "Spiritual Growth camping retreat",
+        "reason": "The ministry page describes this as a summer trip taken by the Jr. Youth group, rather than a separately offered camp. Excluded under the youth-group outings or trips rule."
       },
       {
-        "name": "Jr. Youth and Sr. Youth weekly meetings",
-        "reason": "Recurring Wednesday-night ministries; their separately described summer retreats are included."
+        "name": "Spiritual Growth Retreat",
+        "reason": "The ministry page describes this as a summer retreat taken by the Sr. Youth group. Excluded under the youth-group outings or trips rule."
       },
       {
-        "name": "Sunday School Classes",
-        "reason": "Year-round Bible study classes, not summer camps."
+        "name": "Wednesday youth and children's ministries",
+        "reason": "Recurring year-round Bible study and youth-group meetings, not finite summer camps."
       }
     ],
     "cards": [
@@ -58,7 +58,7 @@
         "name": "Welcome to Illumination Station- VBS",
         "type": "vbs",
         "categories": ["faith_based"],
-        "description": "The church offers a Vacation Bible School with an Illumination Station theme.",
+        "description": "Vacation Bible School at Mt. Pleasant Baptist Church.",
         "camp_page_url": null,
         "registration_url": null,
         "season": {
@@ -78,42 +78,6 @@
             "state": "NC"
           }
         ],
-        "hours": {
-          "start": "18:00",
-          "end": "20:00",
-          "text": null
-        },
-        "extended_care": null,
-        "prices": [],
-        "sessions": [],
-        "registration": [],
-        "last_year_registration_opened": null,
-        "availability": null,
-        "financial_aid": null,
-        "special_needs": null,
-        "lunch": null,
-        "transportation": null,
-        "sources": ["https://mtpleasantfc.org/", "https://mtpleasantfc.org/about-us-2/directions"],
-        "confidence": "medium",
-        "review_notes": "The program name, July 12–17, 2026 dates and 6–8 PM hours appear only in third-party listings at https://allevents.in/forest-city/welcome-to-illumination-station-vbs/200030291219726 and https://happeningnext.com/event/welcome-to-illumination-station-vbs-eid3a0dsed23o. Confirm these details with the church. The address is stated in indexed official website text; no official VBS page or registration announcement was accessible."
-      },
-      {
-        "name": "Spiritual Growth camping retreat",
-        "type": "overnight",
-        "categories": ["faith_based", "nature_outdoor"],
-        "description": "The Jr. Youth group attends a summer camping retreat focused on spiritual growth.",
-        "camp_page_url": "https://mtpleasantfc.org/ministry",
-        "registration_url": null,
-        "season": {
-          "year": 2026,
-          "status": "not_posted",
-          "start": null,
-          "end": null,
-          "text": null
-        },
-        "ages": null,
-        "grades": null,
-        "sites": [],
         "hours": null,
         "extended_care": null,
         "prices": [],
@@ -125,41 +89,9 @@
         "special_needs": null,
         "lunch": null,
         "transportation": null,
-        "sources": ["https://mtpleasantfc.org/ministry"],
+        "sources": ["https://mtpleasantfc.org/", "https://mtpleasantfc.org/2026-bulletins"],
         "confidence": "medium",
-        "review_notes": "Indexed official ministry text says the Jr. Youth go on a Spiritual Growth camping retreat in summer, but gives no year, dates, venue, eligibility or registration details. Confirm that it ran in 2026 and that the camping retreat is overnight. No dated 2026 facts are supplied."
-      },
-      {
-        "name": "Spiritual Growth Retreat",
-        "type": "overnight",
-        "categories": ["faith_based"],
-        "description": "The Sr. Youth group attends a summer retreat with Bible study and sharing focused on their knowledge of God.",
-        "camp_page_url": "https://mtpleasantfc.org/ministry",
-        "registration_url": null,
-        "season": {
-          "year": 2026,
-          "status": "not_posted",
-          "start": null,
-          "end": null,
-          "text": null
-        },
-        "ages": null,
-        "grades": null,
-        "sites": [],
-        "hours": null,
-        "extended_care": null,
-        "prices": [],
-        "sessions": [],
-        "registration": [],
-        "last_year_registration_opened": null,
-        "availability": null,
-        "financial_aid": null,
-        "special_needs": null,
-        "lunch": null,
-        "transportation": null,
-        "sources": ["https://mtpleasantfc.org/ministry"],
-        "confidence": "medium",
-        "review_notes": "Indexed official ministry text describes a Sr. Youth Spiritual Growth Retreat every summer, but gives no year, dates, venue, eligibility or registration details. Overnight format is inferred from the retreat description and needs confirmation, as does operation in 2026. No dated 2026 facts are supplied."
+        "review_notes": "The third-party listing https://happeningnext.com/event/welcome-to-illumination-station-vbs-eid3a0dsed23o gives July 12–17, 2026 at the church address. Confirm those dates in the church's July 2026 bulletins or official social media. The listing's 6 p.m. start and 8 p.m. end describe event endpoints and do not establish daily hours, so hours are null. The address is published in the official church homepage search result. No official VBS announcement or registration page was accessible."
       }
     ]
   }

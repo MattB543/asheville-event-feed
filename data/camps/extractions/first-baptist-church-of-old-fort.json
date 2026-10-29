@@ -8,22 +8,22 @@
     "status": "review",
     "status_reason": "page didn't load: fetch: fetch failed (Hostname/IP does not match certificate's altnames: Host: oldfortfirstbaptist.com. is not in the cert's altnames: DNS:*.websrvcs.com, DNS:websrvcs.com); chrome-tls: fetch failed (Hostname/IP does not match certificate's altnames: Host: oldfortfirstbaptist.com. is not in the cert'"
   },
-  "extractedAt": "2026-10-29T15:14:35.654Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:12:27.845Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": null,
   "response": {
     "searches": [
-      "site:oldfortfirstbaptist.com VBS 2026",
-      "\"First Baptist Church of Old Fort\" \"2026\" \"VBS\" facebook"
+      "site:oldfortfirstbaptist.com VBS 2026 Emerald Crossing",
+      "\"First Baptist Church of Old Fort\" \"VBS\" \"2026\" facebook"
     ],
     "usage": {
-      "inputTokens": 18330,
-      "cachedInputTokens": 8223,
-      "outputTokens": 891,
-      "reasoningTokens": 202
+      "inputTokens": 19271,
+      "cachedInputTokens": 8845,
+      "outputTokens": 777,
+      "reasoningTokens": 223
     },
     "status": "completed",
-    "ms": 24738,
+    "ms": 28799,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -42,19 +42,14 @@
   "extraction": {
     "provider_name": "First Baptist Church of Old Fort",
     "website_url": "https://oldfortfirstbaptist.com/system/",
-    "notes": "No summer 2027 information was found. The official website and its alternate homepage were blocked by robots.txt; search-indexed official bulletins establish the church address but are older materials. Two third-party event listings report Emerald Crossing VBS for July 19–23, 2026; these dates and hours require official confirmation. Search results for Old Fort Baptist Church's 2027 VBS belong to a different provider and were not used.",
-    "excluded": [
-      {
-        "name": "Sunday School, Mission Programs, Youth Services and Bible Study",
-        "reason": "The official homepage describes ongoing church ministries, not finite summer camp programs."
-      }
-    ],
+    "notes": "No 2027 information was found. The official website was blocked by robots.txt; its homepage and older bulletins were readable through search results. The existing VBS program is retained with 2026 dates from third-party event listings, which require official confirmation. No official registration announcement was found.",
+    "excluded": [],
     "cards": [
       {
         "name": "Emerald Crossing VBS",
         "type": "vbs",
         "categories": ["faith_based"],
-        "description": "A Vacation Bible School program. Specific camper activities could not be verified from accessible official materials.",
+        "description": "Vacation Bible School for children.",
         "camp_page_url": null,
         "registration_url": null,
         "season": {
@@ -74,11 +69,7 @@
             "state": "NC"
           }
         ],
-        "hours": {
-          "start": "17:45",
-          "end": "20:45",
-          "text": "Third-party event listings give 5:45 pm–8:45 pm; daily hours need official confirmation."
-        },
+        "hours": null,
         "extended_care": null,
         "prices": [],
         "sessions": [],
@@ -89,12 +80,9 @@
         "special_needs": null,
         "lunch": null,
         "transportation": null,
-        "sources": [
-          "https://oldfortfirstbaptist.com/system/",
-          "https://oldfortfirstbaptist.com/clientimages/35448/5.28.17%20two-sided.pdf"
-        ],
+        "sources": ["https://oldfortfirstbaptist.com/system/"],
         "confidence": "low",
-        "review_notes": "Confirm the program name, July 19–23, 2026 dates, daily hours and meeting location with the church. Program details were found only at https://allevents.in/old-fort/emerald-crossing-vbs-at-first-baptist-church-of-old-fort/200030146842612 and https://happeningnext.com/event/emerald-crossing-vbs-at-first-baptist-church-of-old-fort-eid3a0dp8boe0. The address is supported by an indexed official May 28, 2017 bulletin, but current official camp details could not be read."
+        "review_notes": "Confirm the July 19–23, 2026 dates with the church: they appear only in AllEvents and HappeningNext listings (https://allevents.in/old-fort/emerald-crossing-vbs-at-first-baptist-church-of-old-fort/200030146842612 and https://happeningnext.com/event/emerald-crossing-vbs-at-first-baptist-church-of-old-fort-eid3a0dp8boe0). Those listings give event endpoints of 5:45 p.m. and 8:45 p.m.; daily hours are left null because no official daily schedule was found. The church's official homepage search result confirms its street address. Ages, activities, prices and registration details could not be confirmed on official sources."
       }
     ]
   }

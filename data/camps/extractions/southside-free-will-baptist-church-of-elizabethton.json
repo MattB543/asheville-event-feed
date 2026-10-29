@@ -8,24 +8,24 @@
     "status": "review",
     "status_reason": "no official page found"
   },
-  "extractedAt": "2026-10-29T15:38:07.197Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:32:18.247Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": null,
   "response": {
     "searches": [
-      "Southside Free Will Baptist Church Elizabethton VBS 2026",
+      "Southside Free Will Baptist Church Elizabethton vacation bible school 2026",
       "\"Southside\" \"Elizabethton\" \"VBS\"",
-      "\"Southside Free Will Baptist Church of Elizabethton\"",
-      "open https://www.findglocal.com/US/Elizabethton/126748543850244/Southside-Free-Will-Baptist-Church-of-Elizabethton"
+      "site:facebook.com \"Southside Free Will Baptist Church of Elizabethton\"",
+      "\"southsidechurch.info\" \"Bradley\""
     ],
     "usage": {
-      "inputTokens": 24231,
-      "cachedInputTokens": 8223,
-      "outputTokens": 442,
-      "reasoningTokens": 247
+      "inputTokens": 33081,
+      "cachedInputTokens": 8845,
+      "outputTokens": 555,
+      "reasoningTokens": 291
     },
     "status": "completed",
-    "ms": 20607,
+    "ms": 28507,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -33,11 +33,23 @@
   "extraction": {
     "provider_name": "Southside Free Will Baptist Church of Elizabethton",
     "website_url": null,
-    "notes": "No official 2026 or 2027 summer program information or provider-owned website could be verified. Search found third-party listings for Wonder Junction VBS in July 2025 and a youth lock-in named Juniors 4th to 8th Grade in July 2025, but no readable official announcement or newer information; these were not made into cards. The FindGlocal profile and AllEvents VBS page returned no readable content. Do not confuse this provider with Southside Christian Church in Elizabethton or Southside Church in Clayton, NC.",
+    "notes": "No supplied page text was available. Searches found the church at 224 Jack Bradley Road, Elizabethton, TN, and third-party references to its Wonder Junction VBS in July 2025, but no verifiable official 2026 or 2027 summer program information. No cards were created rather than carrying forward 2025 dates. The church's official YouTube channel was identified, but no camp details were found there. Search results also surfaced southsidechurch.info, whose identity could not be confirmed; its home and contact pages returned no readable text, so its VBS information was not attributed to this provider.",
     "excluded": [
       {
+        "name": "Juniors 4th to 8th Grade",
+        "reason": "Youth lock-in: a single overnight social event, not a summer camp."
+      },
+      {
         "name": "Sunday Morning Sunday School",
-        "reason": "Recurring church classes rather than a finite summer camp."
+        "reason": "Recurring church classes, not a finite summer camp."
+      },
+      {
+        "name": "VBS Graduation Celebration",
+        "reason": "Single celebration event, not a multi-day supervised summer program."
+      },
+      {
+        "name": "Southside Christian Church VBS",
+        "reason": "A different church in Elizabethton, not this provider."
       }
     ],
     "cards": []

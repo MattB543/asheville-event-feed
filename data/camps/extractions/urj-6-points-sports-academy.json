@@ -12,22 +12,19 @@
     "discovered_by": ["news828", "grid", "aggregator", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T14:59:27.549Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T16:59:35.402Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "29d6da8b49182945821262e5e215bd803a3f466ec1166e7bc7d04b71efda7565",
   "response": {
-    "searches": [
-      "site.ashevilleschool.org \"360\" address",
-      "open https://www.ashevilleschool.org/"
-    ],
+    "searches": ["site.6pointssports.org summer getting camp transportation financial assistance"],
     "usage": {
-      "inputTokens": 24730,
-      "cachedInputTokens": 8223,
-      "outputTokens": 3088,
-      "reasoningTokens": 185
+      "inputTokens": 25016,
+      "cachedInputTokens": 8845,
+      "outputTokens": 3226,
+      "reasoningTokens": 119
     },
     "status": "completed",
-    "ms": 65106,
+    "ms": 56324,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -76,15 +73,11 @@
   "extraction": {
     "provider_name": "URJ 6 Points Sports Academy",
     "website_url": "https://6pointssports.org/",
-    "notes": "Summer 2027 dates and rates are posted. Registration dates in September and October refer to fall 2026 for summer 2027. Intersession is included as a separate supervised overnight adventure offering, available only to campers attending multiple sessions. The general FAQ includes entering grade 12, while the regular camper registration grid ends at grade 11 and the CIT program serves students entering their final high-school year.",
+    "notes": "Summer 2027 dates and rates are posted. Getting to Camp says 2027 travel information is coming in February 2027 and identifies its current travel details as Summer 2026. Intersession is retained as a supervised overnight camp extension, not a standalone youth-group outing.",
     "excluded": [
       {
         "name": "Yallah! Israel",
-        "reason": "A linked teen travel offering in Israel, not a camp near Asheville operated at this provider's local site."
-      },
-      {
-        "name": "Work at Camp",
-        "reason": "Staff employment opportunities, not a youth camp program."
+        "reason": "Teen travel program in Israel, outside the Asheville-area service radius."
       }
     ],
     "cards": [
@@ -92,20 +85,20 @@
         "name": "6 Points Sports Academy",
         "type": "overnight",
         "categories": ["sports", "faith_based"],
-        "description": "Campers choose a sport major and train with coaches through drills, competition, and game situations. They also participate in recreational electives, Jewish rituals, Shabbat, and camp activities.",
-        "camp_page_url": "https://6pointssports.org/summer/",
+        "description": "Campers select a sport major and practice through drills, competition and game-like situations with coaches. They also take daily recreational electives and participate in Jewish camp rituals and activities.",
+        "camp_page_url": "https://6pointssports.org/summer/activities-schedule/",
         "registration_url": "https://6pointssports.org/register-login/",
         "season": {
           "year": 2027,
           "status": "posted",
           "start": "2027-06-15",
           "end": "2027-07-25",
-          "text": "2027 DATES & RATES"
+          "text": null
         },
         "ages": null,
         "grades": {
           "min": 4,
-          "max": 11,
+          "max": 12,
           "basis": "rising"
         },
         "sites": [
@@ -122,7 +115,7 @@
           {
             "amount": 4595,
             "unit": "session",
-            "label": "Tuition",
+            "label": null,
             "year": 2027
           }
         ],
@@ -178,6 +171,18 @@
             "confidence": "high"
           },
           {
+            "audience": "returning",
+            "kind": "closes",
+            "date": "2026-10-14",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "Priority Registration: September 24 – October 14 – Families that were enrolled in 2026 can register for Summer 2027.",
+            "url": "https://6pointssports.org/register-login/",
+            "year": 2027,
+            "confidence": "high"
+          },
+          {
             "audience": "public",
             "kind": "opens",
             "date": "2026-10-15",
@@ -193,7 +198,7 @@
         "last_year_registration_opened": null,
         "availability": {
           "status": "mixed",
-          "scope": "Regular camper sessions; availability varies by grade, gender, and sport major.",
+          "scope": "Sessions 1–3",
           "text": "All of Session 2 is currently on Waitlist status."
         },
         "financial_aid": {
@@ -205,25 +210,23 @@
           "value": "yes",
           "text": "At both lunch and dinner, campers are welcome to a full salad and sandwich station, as well as fresh fruit."
         },
-        "transportation": {
-          "value": "yes",
-          "text": "Camp will offer bus transportation to/from Atlanta, Raleigh, Greensboro, and Charlotte on each opening and closing day. The fee is $150.00 per camper, each way."
-        },
+        "transportation": null,
         "sources": [
           "https://6pointssports.org/summer/",
           "https://6pointssports.org/summer/activities-schedule/",
           "https://6pointssports.org/register-login/",
           "https://6pointssports.org/about-6-points/faqs/",
-          "https://6pointssports.org/summer/directions-contact/"
+          "https://6pointssports.org/summer/financial-assistance/",
+          "https://www.ashevilleschool.org/explore/"
         ],
         "confidence": "medium",
-        "review_notes": "Regular camper grades use the 4th–11th grade registration grid; the FAQ describes the provider's campers collectively as entering grades 4–12, with grade 12 apparently served by CIT. Confirm the regular camper upper grade. Bus information was available only through an official search snippet without an explicit year. Verify that the availability grid has been updated for 2027 rather than carried over."
+        "review_notes": "The FAQ states entering grades 4–12, but the summer page's camper availability table stops at grade 11, and the CIT program serves students entering their final high-school year. Check whether grade 12 is eligible for the regular camper program. Availability is taken from the current Summer 2027 page; its availability tables do not independently print a year."
       },
       {
         "name": "Counselor-In-Training Program",
         "type": "overnight",
-        "categories": ["sports", "faith_based", "general"],
-        "description": "Participants receive leadership and counseling training, help coach younger campers, and work alongside counselors and camp leadership. They also participate in sports, social activities, and offsite service projects.",
+        "categories": ["sports", "faith_based"],
+        "description": "CITs learn counseling, safety and program-leading skills and gain hands-on experience with younger campers. They participate in sports, coaching, service projects and social activities alongside camp staff.",
         "camp_page_url": "https://6pointssports.org/summer/counselor-in-training/",
         "registration_url": "https://6pointssports.org/register-login/",
         "season": {
@@ -231,7 +234,7 @@
           "status": "posted",
           "start": "2027-06-15",
           "end": "2027-07-25",
-          "text": "Participants must attend the entire 4-week program with the option of adding session 3."
+          "text": null
         },
         "ages": null,
         "grades": {
@@ -263,13 +266,13 @@
             "price": {
               "amount": 5395,
               "unit": "program",
-              "label": "Includes Intersession A",
+              "label": "includes Intersession A",
               "year": 2027
             },
             "status": null
           },
           {
-            "label": "CIT Session 3 Add On",
+            "label": "Optional Session 3 Add-On (Including Intersession)",
             "start": "2027-07-11",
             "end": "2027-07-25",
             "year": 2027,
@@ -280,7 +283,7 @@
             "price": {
               "amount": 2245,
               "unit": "session",
-              "label": "Optional add-on including Intersession",
+              "label": "CIT Session 3 Add On",
               "year": 2027
             },
             "status": null
@@ -288,7 +291,7 @@
         ],
         "registration": [
           {
-            "audience": "other",
+            "audience": "public",
             "kind": "opens",
             "date": "2026-09-10",
             "time": null,
@@ -297,10 +300,10 @@
             "text": "CIT Application Window – September 10-November 22",
             "url": "https://6pointssports.org/summer/counselor-in-training/",
             "year": 2027,
-            "confidence": "high"
+            "confidence": "medium"
           },
           {
-            "audience": "other",
+            "audience": "public",
             "kind": "deadline",
             "date": "2026-11-22",
             "time": null,
@@ -309,10 +312,10 @@
             "text": "All applications are due by Sunday, November 22nd, before Thanksgiving!",
             "url": "https://6pointssports.org/summer/counselor-in-training/",
             "year": 2027,
-            "confidence": "high"
+            "confidence": "medium"
           },
           {
-            "audience": "other",
+            "audience": "returning",
             "kind": "opens",
             "date": "2026-09-24",
             "time": null,
@@ -321,7 +324,7 @@
             "text": "Priority Registration Opens – September 24",
             "url": "https://6pointssports.org/summer/counselor-in-training/",
             "year": 2027,
-            "confidence": "high"
+            "confidence": "medium"
           }
         ],
         "last_year_registration_opened": null,
@@ -331,20 +334,26 @@
           "text": "We are committed to ensuring that no child is denied a Jewish summer experience at 6 Points Sports Academy."
         },
         "special_needs": null,
-        "lunch": null,
+        "lunch": {
+          "value": "yes",
+          "text": "At both lunch and dinner, campers are welcome to a full salad and sandwich station, as well as fresh fruit."
+        },
         "transportation": null,
         "sources": [
           "https://6pointssports.org/summer/counselor-in-training/",
-          "https://6pointssports.org/summer/"
+          "https://6pointssports.org/summer/",
+          "https://6pointssports.org/register-login/",
+          "https://6pointssports.org/about-6-points/faqs/",
+          "https://www.ashevilleschool.org/explore/"
         ],
-        "confidence": "high",
-        "review_notes": null
+        "confidence": "medium",
+        "review_notes": "CIT dates take their year from the Summer 2027 context and explicit fall-2027 eligibility. The application window does not print a calendar year; 2026 is inferred from that context and the stated Sunday, November 22 deadline. Grade 12 represents the stated final year of high school, corroborated by the application instructions for current 11th graders. The required four-week program ends July 11; the season end includes the optional add-on."
       },
       {
         "name": "Intersession",
         "type": "overnight",
         "categories": ["general"],
-        "description": "Campers staying for multiple sessions participate in a supervised two-day, two-night adventure between sessions. Offsite activities may include amusement parks, baseball games, or movies.",
+        "description": "Campers staying for multiple sessions take part in a two-day, two-night supervised program with lodging at camp and off-site activities. Possible activities include amusement parks, Minor League Baseball games and movies.",
         "camp_page_url": "https://6pointssports.org/summer/",
         "registration_url": "https://6pointssports.org/register-login/",
         "season": {
@@ -352,7 +361,7 @@
           "status": "posted",
           "start": "2027-06-27",
           "end": "2027-07-13",
-          "text": "Intersession is a 2 day/2 night adventure exclusively available to campers who stay at camp for multiple sessions."
+          "text": null
         },
         "ages": null,
         "grades": null,
@@ -370,7 +379,7 @@
           {
             "amount": 450,
             "unit": "session",
-            "label": "Intersession",
+            "label": null,
             "year": 2027
           }
         ],
@@ -413,7 +422,11 @@
           "value": "yes",
           "text": "All food and lodging at camp, supervision, transportation and admission to off-site activities are included."
         },
-        "sources": ["https://6pointssports.org/summer/"],
+        "sources": [
+          "https://6pointssports.org/summer/",
+          "https://6pointssports.org/about-6-points/faqs/",
+          "https://www.ashevilleschool.org/explore/"
+        ],
         "confidence": "high",
         "review_notes": null
       }

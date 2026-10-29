@@ -7,19 +7,19 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:17:09.629Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:14:27.809Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "bcb62d612d0fa6ec8dc21eb93afac14a9af02ba8f39a76c8a0610afe384adcc4",
   "response": {
-    "searches": ["site:acofhc.org summer camp 2026 2027"],
+    "searches": ["site:acofhc.org \"camp\" \"2026\""],
     "usage": {
-      "inputTokens": 17681,
-      "cachedInputTokens": 8223,
-      "outputTokens": 583,
-      "reasoningTokens": 54
+      "inputTokens": 14142,
+      "cachedInputTokens": 8845,
+      "outputTokens": 601,
+      "reasoningTokens": 70
     },
     "status": "completed",
-    "ms": 16884,
+    "ms": 17038,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -38,23 +38,23 @@
   "extraction": {
     "provider_name": "Arts Council of Henderson County",
     "website_url": "https://www.acofhc.org/",
-    "notes": "The official education page describes Summer Arts Camps but publishes no dates, ages, prices, registration details or meeting locations. Searches found no specific 2026 camp schedule or 2027 announcement. The published PO Box is a mailing address, not a camp drop-off site.",
+    "notes": "The official education page describes Summer Arts Camps but supplies no dated schedule, ages, prices, registration details or camp venue. Searches found no additional official 2026 camp schedule or 2027 announcement. The published PO Box is a mailing address, not a camp drop-off site.",
     "excluded": [
       {
         "name": "Artists in Schools",
-        "reason": "School-day classroom workshops, performances and residencies, not a finite summer camp."
+        "reason": "Classroom arts programming during the school day, not a finite summer camp."
       },
       {
         "name": "Mentors & Students Art Show",
-        "reason": "Spring artwork exhibition, not a supervised summer youth program."
+        "reason": "Spring art exhibition, not a supervised summer camp."
       },
       {
-        "name": "Music on Main",
-        "reason": "Public summer concert series, not a supervised youth camp."
+        "name": "Art on Main",
+        "reason": "Art and craft show, not a summer camp."
       },
       {
-        "name": "Saturday Night Street Dances",
-        "reason": "Public community dancing events, not a supervised youth camp."
+        "name": "Music on Main and Saturday Night Street Dances",
+        "reason": "Concerts and social events, not supervised youth camps."
       }
     ],
     "cards": [
@@ -88,7 +88,7 @@
         "transportation": null,
         "sources": ["https://www.acofhc.org/education.html"],
         "confidence": "medium",
-        "review_notes": "The education page describes the program generically without identifying a summer year or camp format. Day-camp classification is provisional; confirm format and current offerings directly with the provider."
+        "review_notes": "The official page confirms the program and activities but does not specify its format; day camp classification is provisional. No year-specific camp details or drop-off venue are published."
       }
     ]
   }

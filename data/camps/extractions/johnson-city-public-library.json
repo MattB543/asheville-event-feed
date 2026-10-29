@@ -7,29 +7,30 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:30:28.236Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
-  "sourceHash": "54c2c2117b5664994d313ab474183fac89278a0ad42de6d52ea9c7588910c2bb",
+  "extractedAt": "2026-10-29T17:25:53.776Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "2de43428672ced73818fcc3a7dbcf00e789542826e6e0719901243095a19613f",
   "response": {
     "searches": [
-      "site:jcpl.org summer 2026 camp theater lab",
-      "site:jcpl.org \"Theater\" \"2026\""
+      "site:jcpl.org \"ETSU Day\"",
+      "site:jcpl.org \"2026\" \"Theater\"",
+      "site:jcpl.org \"theater lab\""
     ],
     "usage": {
-      "inputTokens": 23551,
-      "cachedInputTokens": 8223,
-      "outputTokens": 883,
-      "reasoningTokens": 166
+      "inputTokens": 28647,
+      "cachedInputTokens": 8845,
+      "outputTokens": 900,
+      "reasoningTokens": 196
     },
     "status": "completed",
-    "ms": 28983,
+    "ms": 29256,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
   "bundle": [
     {
       "url": "https://www.jcpl.org/summer-reading/",
-      "chars": 4856,
+      "chars": 4873,
       "method": "fetch"
     },
     {
@@ -46,27 +47,27 @@
   "extraction": {
     "provider_name": "Johnson City Public Library",
     "website_url": "https://www.jcpl.org/",
-    "notes": "No summer 2027 information was found. ETSU Day qualifies as a finite youth college-exploration program. The summer-reading page mentions teen theater labs and writing groups but does not provide enough detail to establish separate finite summer programs; their schedules could not be recovered from the current calendar.",
+    "notes": "No 2027 summer program information was found. The Connect Magazine page lists a June–August 2026 issue, but its embedded magazine and links were not accessible in the readable page. The summer-reading page mentions theater labs and writing groups without enough detail to establish separate finite camp programs.",
     "excluded": [
       {
         "name": "Summer Reading: Unearth a Story",
-        "reason": "Self-directed reading and tracking challenge with optional library events, not a supervised camp or finite instructional youth program."
+        "reason": "Self-directed reading challenge with prizes and library events, not a supervised camp."
       },
       {
         "name": "Read & Romp",
-        "reason": "Ongoing year-round storytime attended with caregivers."
+        "reason": "Ongoing weekly storytime with caregivers, not a finite summer camp."
+      },
+      {
+        "name": "Teen Advisory Board",
+        "reason": "Year-round monthly advisory and volunteer program, not a finite summer camp."
       },
       {
         "name": "Art Explorers",
-        "reason": "Ongoing year-round art program, rather than a summer-only offering."
+        "reason": "Year-round monthly art program, not a finite summer camp."
       },
       {
-        "name": "Teen Volunteer Program",
-        "reason": "Ongoing volunteer placements, not a finite summer camp."
-      },
-      {
-        "name": "Summer Storytellers",
-        "reason": "Public storytelling performances, including adult and family audiences, rather than supervised youth camp instruction."
+        "name": "Fossil Discovery and Reconstruction",
+        "reason": "Adult-only program for ages 18 and older."
       }
     ],
     "cards": [
@@ -74,7 +75,7 @@
         "name": "ETSU Day",
         "type": "pre_college",
         "categories": ["academic"],
-        "description": "Teens explore ETSU academic programs, admissions, student life, and university library resources through presentations, activities, and games. Participants also create custom t-shirts and meet the university mascot.",
+        "description": "Teens meet ETSU staff, learn about academic programs, admissions and college life, and explore university library resources. Activities include games, creating custom t-shirts and meeting the university mascot.",
         "camp_page_url": "https://www.jcpl.org/news/2026/05/teens-imagine-future-possibilities-at-etsu-day/",
         "registration_url": null,
         "season": {
@@ -117,7 +118,8 @@
         "transportation": null,
         "sources": [
           "https://www.jcpl.org/news/2026/05/teens-imagine-future-possibilities-at-etsu-day/",
-          "https://www.jcpl.org/about-us/"
+          "https://www.jcpl.org/hours-and-location/",
+          "https://www.jcpl.org/summer-reading/"
         ],
         "confidence": "high",
         "review_notes": null

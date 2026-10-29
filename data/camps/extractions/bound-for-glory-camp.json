@@ -7,30 +7,30 @@
     "discovered_by": ["grid", "aggregator"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:29:11.266Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
-  "sourceHash": "022f8743b2aea103e7f0d9f35d0ea4466b1b1bbfde3cb4db724297d9eb0988a3",
+  "extractedAt": "2026-10-29T17:24:45.932Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "83aba3db3ca7c3111795ce71c5a7c73040246ee93e88b2387b041e3715d9135c",
   "response": {
     "searches": [
       "site:bfgcamp.org 2027",
-      "\"Bound for Glory Camp\" \"address\"",
-      "\"Bound for Glory\" camp \"road\" Brevard"
+      "\"Bound for Glory\" \"camp\" \"address\" Brevard",
+      "\"bfgcamp\" \"address\""
     ],
     "usage": {
-      "inputTokens": 30438,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1044,
-      "reasoningTokens": 194
+      "inputTokens": 32790,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1004,
+      "reasoningTokens": 216
     },
     "status": "completed",
-    "ms": 31919,
+    "ms": 34280,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
   "bundle": [
     {
       "url": "https://bfgcamp.org/",
-      "chars": 5921,
+      "chars": 5919,
       "method": "fetch"
     },
     {
@@ -72,14 +72,14 @@
   "extraction": {
     "provider_name": "Bound for Glory Camp",
     "website_url": "https://bfgcamp.org/",
-    "notes": "No summer 2027 dates or registration milestones were found. The homepage and application page publish July 6–31, 2026; the parents page still displays 2025 dates. The contact page returned no readable text. Searches did not locate a published campus street address; the website's PO Box is a mailing address, not a drop-off location. Optional Friday sleepovers are part of the day camp, not a separately advertised overnight program.",
+    "notes": "No 2027 dates or registration milestones found. The home and application pages list July 6–31, 2026; the parents page still lists 2025 dates. The campus street address could not be established from official sources; the published PO Box is a mailing address, not a drop-off location. Some official pages returned empty content when opened, but indexed official-page text was readable.",
     "excluded": [],
     "cards": [
       {
         "name": "Bound for Glory Camp",
         "type": "day",
         "categories": ["academic", "nature_outdoor", "faith_based"],
-        "description": "Campers receive individualized literacy tutoring, writing instruction and guided oral reading, alongside outdoor games, enrichment activities and Christian devotions. The four-week day camp includes optional Friday sleepovers and Saturday adventure excursions.",
+        "description": "Campers receive literacy tutoring, writing instruction, and guided oral reading, with outdoor play, enrichment classes, and Christian devotions in the afternoons. Optional Friday sleepovers include Saturday adventure excursions.",
         "camp_page_url": "https://bfgcamp.org/",
         "registration_url": "https://bfgcamp.org/apply/",
         "season": {
@@ -105,14 +105,14 @@
         "hours": {
           "start": "08:30",
           "end": "17:30",
-          "text": "Monday–Friday, 8:30–5:30. The daily schedule lists arrival from 7:45–8:30 and parent pickup from 5:30–5:45."
+          "text": "Monday-Friday from 8:30-5:30"
         },
         "extended_care": null,
         "prices": [
           {
             "amount": 0,
             "unit": "program",
-            "label": "Free for qualifying campers",
+            "label": "Free",
             "year": 2026
           }
         ],
@@ -120,10 +120,7 @@
         "registration": [],
         "last_year_registration_opened": null,
         "availability": null,
-        "financial_aid": {
-          "value": "yes",
-          "text": "We provide our four-week camp at zero costs to our campers’ families."
-        },
+        "financial_aid": null,
         "special_needs": null,
         "lunch": {
           "value": "yes",
@@ -133,14 +130,13 @@
         "sources": [
           "https://bfgcamp.org/",
           "https://bfgcamp.org/apply/",
-          "https://bfgcamp.org/info/a-day-at-camp/",
-          "https://bfgcamp.org/educate/",
           "https://bfgcamp.org/our-home/",
-          "https://bfgcamp.org/donate/",
+          "https://bfgcamp.org/info/a-day-at-camp/",
+          "https://bfgcamp.org/info/frequently-asked-questions/",
           "https://bfgcamp.org/author/johndavidclark/"
         ],
         "confidence": "medium",
-        "review_notes": "Obtain the campus street address from the provider. The homepage says overnight excursions occur each Friday, while the A Day At Camp page specifies the first three Fridays, with Saturday pickup at 3:00pm. Daily hours are 8:30–5:30 on the homepage; the daily schedule additionally permits arrival at 7:45 and pickup through 5:45. Eligibility requires Transylvania County residency, age 9–12 at camp onset, eligibility for NC free or reduced-price lunch, and reading or writing scores at least one year below grade level. Application does not guarantee acceptance."
+        "review_notes": "Confirm the campus street address. The home page gives 8:30–5:30 hours, while A Day At Camp lists arrival from 7:45–8:30; no separate extended-care terms were found. The home page says each Friday has an optional overnight, whereas A Day At Camp specifies the first three Fridays and Saturday pickup at 3:00pm. These are optional components of the day camp, not a separately advertised overnight program. Several supporting facts were read through official search results because direct page opens returned empty content. Eligibility requires Transylvania County residence, eligibility for NC free or reduced-price lunch, and reading or writing scores at least one year below grade level; admission includes school review and a director conversation."
       }
     ]
   }

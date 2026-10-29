@@ -7,19 +7,19 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:22:11.201Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:18:25.752Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "fbecf50abeaa83a14fbcdcd73abecd80579c9a1d7c3d7888d14a57cf4848d0db",
   "response": {
     "searches": ["site:bigfootclimbinggym.com \"2027\" \"camp\""],
     "usage": {
-      "inputTokens": 17759,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1591,
-      "reasoningTokens": 53
+      "inputTokens": 18316,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1555,
+      "reasoningTokens": 54
     },
     "status": "completed",
-    "ms": 60352,
+    "ms": 31857,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -63,27 +63,31 @@
   "extraction": {
     "provider_name": "Bigfoot Climbing Gym",
     "website_url": "https://www.bigfootclimbinggym.com/",
-    "notes": "No summer 2027 camp information was found. The current camps page still lists Summer Camps 2026. Direct web access is blocked by robots.txt; supplied official-page text and official search results were used. Event calendar date ranges conflict with the camp details; the rows below follow the camps page's week starts and Monday–Thursday schedule.",
+    "notes": "No summer 2027 camp information or registration dates found. Registration for the published camp is by phone with a $50 non-refundable deposit, transferable to another week; reservations must be made at least one week in advance. The page also states a 20% discount when booking more than one week.",
     "excluded": [
       {
         "name": "HOMESCHOOL CLIMB",
-        "reason": "Recurring year-round climbing offering, not a finite summer camp; parents must stay with students under 12."
+        "reason": "Recurring year-round climbing offering, not a finite supervised summer camp; parents must stay with children under 12."
       },
       {
         "name": "BFT: Bigfoot Teen Night",
-        "reason": "Recurring year-round teen night, not a finite summer program."
+        "reason": "Recurring social teen nights, not a finite summer camp."
       },
       {
         "name": "BIGFOOT HALLOWEEN",
-        "reason": "October event outside summer."
+        "reason": "Seasonal event outside summer."
       },
       {
         "name": "PING PONG CHALLENGE",
-        "reason": "Recurring competition rather than a finite supervised summer youth program."
+        "reason": "Recurring competition event, not a supervised youth summer camp."
       },
       {
-        "name": "Route Reading and Projecting Clinic",
-        "reason": "The supplied page references a July 2023 clinic; no 2026 or 2027 summer offering was found."
+        "name": "Monday $12 Day Pass",
+        "reason": "General admission promotion, not a supervised camp."
+      },
+      {
+        "name": "WORKOUT WEDNESDAY",
+        "reason": "Recurring year-round offering, not a finite youth summer camp."
       }
     ],
     "cards": [
@@ -91,7 +95,7 @@
         "name": "Summer Youth Climbing Camp",
         "type": "day",
         "categories": ["sports", "arts"],
-        "description": "Campers play games, develop climbing skills, make art projects, and spend time climbing. Parents are invited at the end of the week to see what campers have learned.",
+        "description": "Campers play games, develop climbing skills, make art projects, and spend time on the climbing walls. Parents are invited at the end of the week to see what campers have learned.",
         "camp_page_url": "https://www.bigfootclimbinggym.com/camps/",
         "registration_url": null,
         "season": {
@@ -117,7 +121,7 @@
         "hours": {
           "start": "09:00",
           "end": "14:00",
-          "text": "Monday–Thursday, 9:00 AM – 2:00 PM"
+          "text": "Monday – Thursday"
         },
         "extended_care": null,
         "prices": [
@@ -136,7 +140,7 @@
           {
             "amount": 200,
             "unit": "week",
-            "label": "Non-members",
+            "label": "Non-Members",
             "year": 2026
           },
           {
@@ -148,13 +152,13 @@
           {
             "amount": 45,
             "unit": "day",
-            "label": "Members: day camp option",
+            "label": "Members",
             "year": 2026
           },
           {
             "amount": 50,
             "unit": "day",
-            "label": "Non-members: day camp option",
+            "label": "Non-Members",
             "year": 2026
           }
         ],
@@ -256,12 +260,12 @@
         "transportation": null,
         "sources": [
           "https://www.bigfootclimbinggym.com/camps/",
+          "https://www.bigfootclimbinggym.com/",
           "https://www.bigfootclimbinggym.com/events/2026-08-03-090000-bigfoot-summer-camp/",
-          "https://www.bigfootclimbinggym.com/events/2026-08-10-090000-bigfoot-summer-camp/",
-          "https://www.bigfootclimbinggym.com/"
+          "https://www.bigfootclimbinggym.com/events/2026-08-10-090000-bigfoot-summer-camp/"
         ],
         "confidence": "medium",
-        "review_notes": "Session end dates are derived from the stated Monday–Thursday schedule and listed week starts under Summer Camps 2026. The August 3 event header instead says August 3–14, and the August 10 header says August 10–21; verify these conflicting calendar ranges with the gym. Weekly price units follow the weekly camp context. The camps page states a 20% multi-week discount and asks parents to call (828) 608-0995 to pay a $50 non-refundable deposit, transferable to another week. Spots must be reserved at least one week in advance to guarantee availability."
+        "review_notes": "Session years come from the Summer Camps 2026 heading. Thursday end dates are derived from the listed Monday starts and explicit Monday–Thursday schedule. Event headers conflict: the August 3 event says August 3–14 and the August 10 event says August 10–21, with additional shifting date ranges. Used the dedicated camps page's weekly schedule instead. Weekly pricing units are implied by the camp-week pricing and separate daily options."
       }
     ]
   }

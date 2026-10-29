@@ -7,22 +7,22 @@
     "discovered_by": ["grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:26:08.818Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:22:18.612Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "f39942a56518db898317b4400d89b6adee6e0a7ff080c177590ed23caaffb757",
   "response": {
     "searches": [
-      "site.madisoncclc.org summer camps 2027",
+      "site.madisoncclc.org camp 2027 2026",
       "\"Woodson Branch Nature School\" \"camp\" \"2026\""
     ],
     "usage": {
-      "inputTokens": 21830,
-      "cachedInputTokens": 8223,
+      "inputTokens": 26416,
+      "cachedInputTokens": 8631,
       "outputTokens": 1319,
-      "reasoningTokens": 167
+      "reasoningTokens": 197
     },
     "status": "completed",
-    "ms": 30929,
+    "ms": 34212,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -51,35 +51,35 @@
   "extraction": {
     "provider_name": "Madison County Community Learning Centers",
     "website_url": "https://www.madisoncclc.org/",
-    "notes": "No 2027 summer camp information or registration milestones were found. The official page still lists 2026 camps. Sawyer returned a generic discovery page rather than readable camp listings, so prices, hours and detailed eligibility could not be verified. The five themed weeks are grouped as one K-8 Camps program.",
+    "notes": "No summer 2027 camp information or registration milestones were found. The official camp page still lists summer 2026. Sawyer returned no readable program details, so prices, hours and ages remain unknown. Van pickup is advertised from Marshall and Weaverville, but pickup locations are not specified.",
     "excluded": [
       {
         "name": "Winter Camps",
-        "reason": "Outside the summer."
-      },
-      {
-        "name": "K-8 After School Enrichment Clubs",
-        "reason": "School-year enrichment rather than a finite summer program."
-      },
-      {
-        "name": "K-8 After School Program",
-        "reason": "Year-round or school-year childcare rather than summer-only childcare."
+        "reason": "Programs outside summer."
       },
       {
         "name": "Woodson Branch Nature School K-8",
-        "reason": "Regular school program rather than a summer camp."
+        "reason": "School-year education rather than a finite summer camp."
+      },
+      {
+        "name": "K-8 After School Enrichment Clubs",
+        "reason": "School-year enrichment classes."
+      },
+      {
+        "name": "K-8 After School Program",
+        "reason": "School-year childcare."
       },
       {
         "name": "Mermaid Ball",
-        "reason": "Family event and spring fundraiser, not a supervised youth summer program."
+        "reason": "Single family-friendly fundraising event, not a supervised youth camp."
       }
     ],
     "cards": [
       {
         "name": "K-8 Camps",
         "type": "day",
-        "categories": ["nature_outdoor", "stem", "theater", "cooking", "arts"],
-        "description": "Campers explore nature through themed weeks involving outdoor skills, STEAM activities, theater, gardening and cooking. Activities include hiking, shelter building, experiments and harvesting food.",
+        "categories": ["nature_outdoor", "stem", "arts", "theater", "cooking"],
+        "description": "Campers explore nature through hiking, shelter building, science experiments, art and outdoor theater. Activities vary by week and include gardening, harvesting food and cooking.",
         "camp_page_url": "https://www.madisoncclc.org/k-8-camps",
         "registration_url": "https://www.hisawyer.com/woodson-branch-nature-school/schedules?schedule_id=camps&slug=woodson-branch-nature-school",
         "season": {
@@ -176,11 +176,12 @@
         "lunch": null,
         "transportation": {
           "value": "yes",
-          "text": "Put on by our Woodson Branch Nature School, we hold both Summer AND Winter Camps with van pickup available from both Marshall and Weaverville!"
+          "text": "Van pickup available from both Marshall and Weaverville!"
         },
         "sources": [
           "https://www.madisoncclc.org/k-8-camps",
-          "https://www.madisoncclc.org/about-mcclc"
+          "https://www.madisoncclc.org/about-mcclc",
+          "https://www.madisoncclc.org/contact"
         ],
         "confidence": "high",
         "review_notes": null

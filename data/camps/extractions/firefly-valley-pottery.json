@@ -10,19 +10,19 @@
     "discovered_by": ["news828", "grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T14:59:14.138Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T16:59:33.221Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "d295b6b8d48b014988eab8f6a5fe68bec07d68d9f91cdf85491847c6adf8db59",
   "response": {
-    "searches": ["site:fireflyvalleydesign.com 2027 camp"],
+    "searches": ["site:fireflyvalleydesign.com \"2027\""],
     "usage": {
-      "inputTokens": 21732,
-      "cachedInputTokens": 8223,
-      "outputTokens": 4122,
-      "reasoningTokens": 115
+      "inputTokens": 22349,
+      "cachedInputTokens": 8845,
+      "outputTokens": 4161,
+      "reasoningTokens": 112
     },
     "status": "completed",
-    "ms": 74006,
+    "ms": 78168,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -56,39 +56,43 @@
   "extraction": {
     "provider_name": "Firefly Valley Pottery",
     "website_url": "https://www.fireflyvalleydesign.com/",
-    "notes": "2027 registration and scholarship application dates are announced, but 2027 camp dates, sites and tuition are not posted. Cards retain 2026 sessions and tuition. The singular /potterysummercamp URL returned no readable content. Camp Summer Haven and SPEAK on Ona's Favorite Camps are other providers' offerings, not Firefly Valley programs.",
+    "notes": "2027 registration and scholarship application dates are announced, but summer session dates, locations and tuition remain labeled 2026. The FAQ conflicts with the camp page about hours, half-day tickets and scholarship timing; the specific camp page was used. Camp Summer Haven and SPEAK are referrals to other providers, not Firefly Valley programs. Older 2025 event listings were not used as current offerings.",
     "excluded": [
       {
-        "name": "Winter and Spring Break Pottery Camps",
-        "reason": "Outside summer."
-      },
-      {
         "name": "Kids Pottery Classes",
-        "reason": "Spring and fall after-school classes, not summer camps."
+        "reason": "Spring and fall lesson series, not summer camps."
       },
       {
         "name": "Freedom Fridays",
-        "reason": "Year-round homeschool enrichment classes."
+        "reason": "School-year homeschool enrichment classes."
       },
       {
-        "name": "Wild Wednesdays",
-        "reason": "Fall classes, outside summer."
+        "name": "Winter and Spring Break Pottery Camps",
+        "reason": "Programs outside summer."
       },
       {
-        "name": "Women’s Pottery Church",
-        "reason": "Adult-only spring and fall classes."
+        "name": "Adult pottery classes and workshops",
+        "reason": "Adult-only offerings and lesson series."
       },
       {
-        "name": "Drop-in pottery classes and holiday workshops",
-        "reason": "Recurring classes and holiday offerings, not identified as finite summer youth programs."
+        "name": "Birthday parties and special events",
+        "reason": "Private social events rather than summer camp programs."
+      },
+      {
+        "name": "Camp Summer Haven",
+        "reason": "Referral to a different provider."
+      },
+      {
+        "name": "SPEAK",
+        "reason": "Referral to a different provider."
       }
     ],
     "cards": [
       {
         "name": "Pottery Summer Camp",
         "type": "day",
-        "categories": ["arts"],
-        "description": "Campers learn pinch, slab and coil hand-building techniques and receive individual wheel-throwing lessons. Activities also include sculpture, painting, fiber arts, baking and outdoor play.",
+        "categories": ["arts", "nature_outdoor"],
+        "description": "Campers learn pinch, slab and coil hand-building techniques and receive individual pottery wheel tutorials. Activities also include outdoor play, painting, fiber arts, sculpture and baking.",
         "camp_page_url": "https://www.fireflyvalleydesign.com/potterysummercamps",
         "registration_url": "https://www.fireflyvalleydesign.com/potterysummercamps",
         "season": {
@@ -96,7 +100,7 @@
           "status": "not_posted",
           "start": "2026-06-08",
           "end": "2026-08-21",
-          "text": "Registration for 2027 Summer Camp will be February 14 at 9am - put a reminder in your phone."
+          "text": null
         },
         "ages": {
           "min": 5,
@@ -137,7 +141,7 @@
           {
             "amount": 522.5,
             "unit": "week",
-            "label": "Early Bird, February 14-28",
+            "label": "Early Bird, Feb 14-28",
             "year": 2026
           }
         ],
@@ -338,7 +342,7 @@
           },
           {
             "audience": "other",
-            "kind": "deadline",
+            "kind": "closes",
             "date": "2027-02-01",
             "time": null,
             "precision": "date",
@@ -371,13 +375,13 @@
           "https://rainbowcommunityschool.org/contact/"
         ],
         "confidence": "medium",
-        "review_notes": "The camp page states 10am-4:15pm and no half-day or single-day tickets; the FAQ lists 10am-4pm and says shorter tickets are available. Camp-page details take precedence. Tuition is treated as 2026 because it remains with the explicitly headed 2026 schedule; 2027 tuition is not explicitly confirmed. Site assignments use the statement that the final three August weeks meet at Firefly Valley and other weeks at Rainbow. BIPOC Week is restricted to Black, Indigenous and People of Color youth, including Asian and Pacific Islander youth. The old scholarship section incorrectly mentions February 14, 2025; use the explicit 2027 announcement at the top instead."
+        "review_notes": "2026 sites are assigned from the statement that the final three August weeks meet at Firefly Valley and earlier camps meet at Rainbow. The FAQ gives 10am-4pm and says half-day/single-day tickets are available, while the camp page gives 10am-4:15pm and explicitly disallows those tickets. The FAQ describes year-round scholarship applications with January 31 awards; the camp page's updated introduction explicitly announces January 1-February 1, 2027, while its older scholarship section contains 2026 and 2025 dates. BIPOC Week is restricted to Black, Indigenous and People of Color youth, including Asian Pacific Islanders; the simultaneous Pottery Around the World offering welcomes all campers. Tuition and operational details are retained as 2026, not confirmed for 2027."
       },
       {
         "name": "Camp Helpers",
         "type": "day",
         "categories": ["arts"],
-        "description": "Helpers support camp staff and lead afternoon activities while also receiving time for hand-building and wheel throwing. New helpers apply before registering.",
+        "description": "Helpers support camp staff, lead afternoon activities and have time for pottery hand-building and wheel work. New helpers apply before registering.",
         "camp_page_url": "https://www.fireflyvalleydesign.com/potterysummercamps",
         "registration_url": "https://www.fireflyvalleydesign.com/potterysummercamps",
         "season": {
@@ -385,7 +389,7 @@
           "status": "not_posted",
           "start": "2026-06-08",
           "end": "2026-08-21",
-          "text": "Registration for 2027 Summer Camp will be February 14 at 9am - put a reminder in your phone."
+          "text": null
         },
         "ages": {
           "min": 11,
@@ -409,26 +413,30 @@
         "hours": {
           "start": "10:00",
           "end": "16:15",
-          "text": "Full-day helper tickets; camp runs 10am - 4:15pm Monday-Friday."
+          "text": "10am - 4:15pm Monday-Friday"
         },
-        "extended_care": null,
+        "extended_care": {
+          "early_dropoff_start": "09:00",
+          "late_pickup_end": "17:00",
+          "cost_text": "$10/ hour per child"
+        },
         "prices": [
           {
             "amount": 300,
             "unit": "week",
-            "label": "Helper, full day",
+            "label": "Helper tickets (full day)",
             "year": 2026
           },
           {
             "amount": 285,
             "unit": "week",
-            "label": "Helper Early Bird, February 14-28",
+            "label": "Early Bird, Feb 14-28",
             "year": 2026
           }
         ],
         "sessions": [
           {
-            "label": "Pottery & Pollinators",
+            "label": "Pottery & Pollinators with Ona",
             "start": "2026-06-08",
             "end": "2026-06-12",
             "year": 2026,
@@ -440,7 +448,7 @@
             "status": null
           },
           {
-            "label": "Spanish Language Week / Cats Week",
+            "label": "Spanish Language Week with Ona; Cats Week with Megan",
             "start": "2026-06-15",
             "end": "2026-06-19",
             "year": 2026,
@@ -452,7 +460,7 @@
             "status": null
           },
           {
-            "label": "BIPOC Week / Pottery Around the World",
+            "label": "BIPOC Week; Pottery Around the World",
             "start": "2026-06-22",
             "end": "2026-06-26",
             "year": 2026,
@@ -464,7 +472,7 @@
             "status": null
           },
           {
-            "label": "Cats Week",
+            "label": "Cats Week with Megan and Ona",
             "start": "2026-06-29",
             "end": "2026-07-03",
             "year": 2026,
@@ -476,7 +484,7 @@
             "status": null
           },
           {
-            "label": "LGBTQIA+ Week / Pottery Around the World",
+            "label": "LGBTQIA+ Week; Pottery Around the World Week",
             "start": "2026-07-06",
             "end": "2026-07-10",
             "year": 2026,
@@ -488,7 +496,7 @@
             "status": null
           },
           {
-            "label": "Mexico Week",
+            "label": "Mexico Week with Ona",
             "start": "2026-07-13",
             "end": "2026-07-17",
             "year": 2026,
@@ -500,7 +508,7 @@
             "status": null
           },
           {
-            "label": "Australia Pottery Week",
+            "label": "Australia Pottery Week with Megan and Ona",
             "start": "2026-07-20",
             "end": "2026-07-24",
             "year": 2026,
@@ -512,7 +520,7 @@
             "status": null
           },
           {
-            "label": "Cherokee Culture Week HELPER",
+            "label": "Cherokee Pottery Week with Ona",
             "start": "2026-07-27",
             "end": "2026-07-31",
             "year": 2026,
@@ -524,7 +532,7 @@
             "status": null
           },
           {
-            "label": "Ocean Week HELPER",
+            "label": "Ocean Week with Ona",
             "start": "2026-08-03",
             "end": "2026-08-07",
             "year": 2026,
@@ -536,7 +544,7 @@
             "status": null
           },
           {
-            "label": "Pottery Around W HELPER",
+            "label": "Pottery Around the World Week with Ona",
             "start": "2026-08-10",
             "end": "2026-08-14",
             "year": 2026,
@@ -548,7 +556,7 @@
             "status": null
           },
           {
-            "label": "Ocean Week HELPER",
+            "label": "Oceans Week with Ms. Jesse",
             "start": "2026-08-17",
             "end": "2026-08-21",
             "year": 2026,
@@ -582,12 +590,12 @@
         "transportation": null,
         "sources": [
           "https://www.fireflyvalleydesign.com/potterysummercamps",
-          "https://www.fireflyvalleydesign.com/book-online",
+          "https://www.fireflyvalleydesign.com/firefly-valley-faqs",
           "https://www.fireflyvalleydesign.com/contact",
           "https://rainbowcommunityschool.org/contact/"
         ],
         "confidence": "medium",
-        "review_notes": "Helper weeks follow the main camp schedule and the instruction to register for the desired week; separate helper theme assignments for simultaneous themes are not clearly stated, so those weeks are combined. Late-summer helper ticket names and prices were visible in official registration search results. Tuition is retained as 2026, not confirmed for 2027. Site assignments follow the main camp's final-three-August-weeks statement. New helpers must apply; returning helpers are told not to reapply. Scholarship and sibling codes are explicitly unavailable for helper tickets during Early Bird, but broader helper aid eligibility is unclear."
+        "review_notes": "Helper weeks and sites follow the main camp schedule; the page invites helpers to register for their chosen week but does not separately enumerate helper sessions. Simultaneous themes are retained together in helper week rows because separate helper assignments are not stated. Sites follow the final-three-August-weeks location statement. The camp page states 4:15pm pickup while the FAQ says 4pm. Helper tuition and operational details are retained as 2026, not confirmed for 2027. Scholarship and sibling codes are explicitly disallowed for helper tickets during Early Bird, but scholarship eligibility outside that period is unclear."
       }
     ]
   }

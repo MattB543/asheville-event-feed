@@ -8,24 +8,23 @@
     "status": "review",
     "status_reason": "page didn't load: fetch: fetch failed (Hostname/IP does not match certificate's altnames: Host: www.windingcreekstablesnc.com. is not in the cert's altnames: DNS:*.secureserversites.net, DNS:secureserversites.net); chrome-tls: fetch failed (Hostname/IP does not match certificate's altnames: Host: www.windingcreekstab"
   },
-  "extractedAt": "2026-10-29T15:06:21.982Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:05:54.084Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": null,
   "response": {
     "searches": [
       "open https://www.windingcreekstablesnc.com/summer-camps.html",
-      "site:windingcreekstablesnc.com summer camps",
-      "site:windingcreekstablesnc.com \"camp\"",
-      "\"Equestrian Adventure\" \"2026\" \"Winding\""
+      "site:windingcreekstablesnc.com summer camp 2026",
+      "\"Winding Creek Stables\" \"2026\" camp"
     ],
     "usage": {
-      "inputTokens": 23212,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1549,
-      "reasoningTokens": 298
+      "inputTokens": 21307,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1576,
+      "reasoningTokens": 315
     },
     "status": "completed",
-    "ms": 38888,
+    "ms": 40589,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -44,15 +43,19 @@
   "extraction": {
     "provider_name": "Winding Creek Stables",
     "website_url": "https://www.windingcreekstablesnc.com/",
-    "notes": "No 2027 information found. Official pages could not be opened directly; their indexed search text was readable. The summer page does not print a year in the retrieved text. Dates are provisionally labeled 2026 using the matching June 22–26, 2026 ACTIVEkids listing; confirm the year with the provider. The upcoming-events page still mentions 2025 registration.",
+    "notes": "Official pages were readable through search-indexed text only; direct opens returned no readable content or robots restrictions. No 2027 or clearly labeled 2026 camp information was found. The summer-camps page still says Summer Camp 2025 Sessions are OPEN for registration, while listing June 8-12 and June 22-26 without a year alongside them. Dates, prices and registration milestones are omitted rather than assigning these ambiguous details to 2026 or 2027. Registration button destinations could not be recovered.",
     "excluded": [
       {
-        "name": "Private and group riding lessons",
-        "reason": "Year-round classes, not finite summer camps."
+        "name": "Riding Lessons",
+        "reason": "Year-round private and group riding lessons, not a finite summer camp."
+      },
+      {
+        "name": "Lead-line lessons",
+        "reason": "Booked riding lessons, not a camp."
       },
       {
         "name": "Holiday and Spring Break camps",
-        "reason": "Outside summer; mentioned generally on the services page without specific sessions."
+        "reason": "Programs outside summer."
       }
     ],
     "cards": [
@@ -60,14 +63,14 @@
         "name": "Equestrian Adventure Camp",
         "type": "day",
         "categories": ["horses"],
-        "description": "Campers take horsemanship lessons, ride, and attend mini clinics with local professionals. An optional Thursday-night barn sleepover includes cooking dinner and breakfast.",
+        "description": "Campers take horsemanship lessons, participate in mini clinics with local professionals, and ride. Riders must be proficient at the posting trot; Thursday night includes an optional barn sleepover with dinner and breakfast preparation.",
         "camp_page_url": "https://www.windingcreekstablesnc.com/summer-camps.html",
         "registration_url": null,
         "season": {
-          "year": 2026,
+          "year": 2027,
           "status": "not_posted",
-          "start": "2026-06-08",
-          "end": "2026-06-12",
+          "start": null,
+          "end": null,
           "text": null
         },
         "ages": {
@@ -84,42 +87,42 @@
           }
         ],
         "hours": null,
-        "extended_care": null,
-        "prices": [
-          {
-            "amount": 650,
-            "unit": "session",
-            "label": "Tuition",
-            "year": 2026
-          }
-        ],
+        "extended_care": {
+          "early_dropoff_start": null,
+          "late_pickup_end": null,
+          "cost_text": "$10 per day ($20 for both before care and after care)"
+        },
+        "prices": [],
         "sessions": [],
         "registration": [],
         "last_year_registration_opened": null,
         "availability": null,
         "financial_aid": null,
         "special_needs": null,
-        "lunch": null,
+        "lunch": {
+          "value": "no",
+          "text": "Campers bring a lunch. We do provide snacks!"
+        },
         "transportation": null,
         "sources": [
           "https://www.windingcreekstablesnc.com/summer-camps.html",
           "https://www.windingcreekstablesnc.com/contact-us.html"
         ],
         "confidence": "medium",
-        "review_notes": "Confirm the year of June 8–12: the indexed official summer page has no printed year, and 2026 is inferred from the other camp's matching 2026 listing. Information was read through search results because direct pages returned no readable content. Campers must be proficient at the posting trot; the provider asks families to contact it if unsure. The registration button's destination could not be retrieved."
+        "review_notes": "Program details come from official search-indexed text on a page still labeled 2025. Confirm the intended year for June 8-12 and the $650 tuition before adding dates or prices. The FAQ offers care 30 minutes before and after camp, but this program's daily hours are not stated. The optional single-night sleepover remains part of the day camp."
       },
       {
         "name": "Horsin' Around Camp Week",
         "type": "day",
         "categories": ["horses"],
-        "description": "Campers participate in riding, horse care, crafts, and games. The camp accepts riders of all experience levels.",
+        "description": "Campers participate in riding, horse care, crafts and games over five days. The camp accepts all riding experience levels.",
         "camp_page_url": "https://www.windingcreekstablesnc.com/summer-camps.html",
         "registration_url": null,
         "season": {
-          "year": 2026,
+          "year": 2027,
           "status": "not_posted",
-          "start": "2026-06-22",
-          "end": "2026-06-26",
+          "start": null,
+          "end": null,
           "text": null
         },
         "ages": {
@@ -140,21 +143,12 @@
           "end": "15:00",
           "text": "Camp runs 9 am- 3 pm each day."
         },
-        "extended_care": null,
-        "prices": [
-          {
-            "amount": 475,
-            "unit": "week",
-            "label": "Camp tuition",
-            "year": 2026
-          },
-          {
-            "amount": 100,
-            "unit": "day",
-            "label": "A la carte days; contact provider",
-            "year": 2026
-          }
-        ],
+        "extended_care": {
+          "early_dropoff_start": "08:30",
+          "late_pickup_end": "15:30",
+          "cost_text": "$10 per day ($20 for both before care and after care)"
+        },
+        "prices": [],
         "sessions": [],
         "registration": [],
         "last_year_registration_opened": null,
@@ -168,11 +162,10 @@
         "transportation": null,
         "sources": [
           "https://www.windingcreekstablesnc.com/summer-camps.html",
-          "https://www.windingcreekstablesnc.com/contact-us.html",
-          "https://www.activekids.com/rutherfordton-nc/equestrian/equestrian-camps/horsin-around-2026"
+          "https://www.windingcreekstablesnc.com/contact-us.html"
         ],
         "confidence": "medium",
-        "review_notes": "The official summer page's indexed text lists ages 6–13 and 9 am–3 pm; ACTIVEkids lists ages 7–15 and 9 am–2 pm for June 22–26, 2026. Official website values are used, but confirm this conflict and the season year. The official page's retrieved text does not print a year. Direct pages could not be read, and an official registration destination could not be verified."
+        "review_notes": "Program details come from official search-indexed text on a page still labeled 2025. Confirm the intended year for June 22-26, $475 weekly tuition and $100 a la carte days before adding dated records. Extended-care endpoints are calculated from the stated 9 am-3 pm hours and the FAQ's 30 minutes before and after camp. No 2026 or 2027 registration opening date was found."
       }
     ]
   }

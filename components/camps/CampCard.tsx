@@ -1,5 +1,6 @@
 'use client';
 
+import { memo } from 'react';
 import Link from 'next/link';
 import {
   BellPlus,
@@ -26,21 +27,37 @@ import { TONE_CLASSES } from './tones';
 const chipClasses =
   'rounded-full bg-gray-100 dark:bg-gray-800 px-2 py-0.5 text-xs text-gray-700 dark:text-gray-300';
 const actionClasses =
-  'inline-flex items-center gap-1 rounded-lg px-2 py-1.5 text-sm whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500';
+  'inline-flex min-h-9 items-center gap-1 rounded-lg px-2 py-1.5 text-sm whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500';
 
-/** One program card in the directory. `match` says which of its rows the filters kept. */
-export default function CampCard({
+/**
+ * One program card in the directory. `match` says which of its rows the filters kept, and
+ * `schedule` the earlier summer whose weeks it matched on (the week filter, before 2027 is posted).
+ * Memoized: a keystroke in the search box re-renders the directory before its list changes.
+ */
+export default memo(function CampCard({
   camp,
   showProvider,
   match,
+  schedule,
 }: {
   camp: CampCardData;
   showProvider: boolean;
   match: string | null;
+  schedule: number | null;
 }) {
+  const { registration } = camp;
+  // Most camps haven't posted 2027 yet: that reads as a quiet line, and only news gets a banner
+  const quiet = registration.tone === 'unknown';
+  const agesStated = !!camp.who || camp.rows.some((row) => row.ages || row.grades);
   // `note` is the camp's own words under a fact: what a price is for, exceptions to the hours
   const facts = [
-    { icon: Users, label: 'Who', text: camp.who, year: null, note: null },
+    {
+      icon: Users,
+      label: 'Who',
+      text: camp.who ?? (agesStated ? 'Ages vary by session' : 'Ages not stated'),
+      year: null,
+      note: null,
+    },
     {
       icon: CalendarDays,
       label: 'Dates',
@@ -73,18 +90,29 @@ export default function CampCard({
 
   return (
     <li className="flex flex-col rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 overflow-hidden">
-      <div className={`border-b px-3 py-2 ${TONE_CLASSES[camp.registration.tone]}`}>
-        <p className="font-semibold leading-snug">
-          {camp.registration.text}
-          {camp.registration.unconfirmed && <UnconfirmedTag />}
-        </p>
-        <RegistrationDetails
-          details={camp.registration.details}
-          className="mt-0.5 text-xs opacity-90"
-        />
-      </div>
+      {!quiet && (
+        <div className={`border-b px-3 py-2 ${TONE_CLASSES[registration.tone]}`}>
+          <p className="font-semibold leading-snug">
+            {registration.text}
+            {registration.unconfirmed && <UnconfirmedTag />}
+          </p>
+          <RegistrationDetails
+            details={registration.details}
+            className="mt-0.5 text-xs opacity-90"
+          />
+        </div>
+      )}
 
       <div className="flex-1 p-3">
+        {quiet && (
+          <div className="mb-1.5 text-xs text-gray-600 dark:text-gray-400">
+            <p>
+              {registration.text}
+              {registration.unconfirmed && <UnconfirmedTag />}
+            </p>
+            <RegistrationDetails details={registration.details} className="" />
+          </div>
+        )}
         <div className="flex items-start gap-2">
           <div className="min-w-0 flex-1">
             {showProvider && (
@@ -133,7 +161,17 @@ export default function CampCard({
         </dl>
 
         {match && (
-          <p className="mt-2 text-sm font-medium text-brand-700 dark:text-brand-300">{match}</p>
+          <p className="mt-2 text-sm font-medium text-brand-700 dark:text-brand-300">
+            {match}
+            {schedule && (
+              <span
+                title={`Matched on the camp's ${schedule} weeks: it hasn't posted 2027 dates yet`}
+                className="ml-1.5 inline-block rounded px-1 text-[11px] font-medium leading-4 bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300"
+              >
+                {schedule} schedule
+              </span>
+            )}
+          </p>
         )}
 
         {(camp.support.length > 0 || camp.views > 0) && (
@@ -157,7 +195,7 @@ export default function CampCard({
         )}
       </div>
 
-      <div className="flex flex-wrap gap-x-0.5 border-t border-gray-100 dark:border-gray-800 px-1.5 py-1.5">
+      <div className="flex flex-wrap gap-x-0.5 border-t border-gray-100 dark:border-gray-800 px-1.5 py-1">
         <Link
           href={`/camps/${camp.slug}`}
           className={`${actionClasses} font-medium text-brand-700 dark:text-brand-300 hover:bg-brand-50 dark:hover:bg-brand-950/50`}
@@ -189,4 +227,4 @@ export default function CampCard({
       </div>
     </li>
   );
-}
+});

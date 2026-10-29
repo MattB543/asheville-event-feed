@@ -9,23 +9,22 @@
     "status": "review",
     "status_reason": "first page is a social media page or video, which our fetcher can't read"
   },
-  "extractedAt": "2026-10-29T15:21:18.287Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:18:01.627Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": null,
   "response": {
     "searches": [
       "Victorious Church of God Morganton vacation bible school 2026",
-      "site:facebook.com/victoriouschurchofgod \"VBS\"",
-      "site:victoriouschurchofgod.org VBS 2026"
+      "\"victoriouschurchofgod\" \"VBS\""
     ],
     "usage": {
-      "inputTokens": 27341,
-      "cachedInputTokens": 8223,
-      "outputTokens": 553,
-      "reasoningTokens": 268
+      "inputTokens": 25599,
+      "cachedInputTokens": 8845,
+      "outputTokens": 330,
+      "reasoningTokens": 160
     },
     "status": "completed",
-    "ms": 27636,
+    "ms": 16417,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -39,17 +38,8 @@
   "extraction": {
     "provider_name": "Victorious Church of God of Morganton",
     "website_url": "https://www.victoriouschurchofgod.org/",
-    "notes": "Found the provider's own website. Its indexed homepage publishes 109 Old Rock Quarry Rd, Morganton, NC 28655, but no summer camp information. Direct opens of the homepage and Facebook page returned no readable text; official Facebook search snippets confirm historical VBS offerings, including a VBS Program 2023 album and a 2022 Kingdom Chronicles announcement. No official 2026 or 2027 summer program details were found, so no cards were created rather than carrying older facts forward. Check the church's Facebook posts directly for newer announcements. Historical sources: https://www.facebook.com/victoriouschurchofgod/posts/vbs-family-fun-day/588559393476879/ and https://www.facebook.com/victoriouschurchofgod/posts/hear-ye-hear-ye-grab-your-helmets-and-mount-your-trusty-steeds-this-july-great-a/2518428054957492/",
-    "excluded": [
-      {
-        "name": "VBS Family Fun Day",
-        "reason": "Historical 2023 family event; not a confirmed supervised drop-off youth program."
-      },
-      {
-        "name": "Youth and Young Adult Sunday School",
-        "reason": "Recurring Sunday School, not a finite summer program."
-      }
-    ],
+    "notes": "Found the church's own website; its indexed text identifies its location as 109 Old Rock Quarry Rd, Morganton, NC 28655. The website and Facebook page returned no readable page content when opened. Searches found a historical Kingdom Chronicles Vacation Bible School announcement for July 18–23, with a registration link referring to 2022, but no identifiable 2026 or 2027 summer camp announcement. No cards were created from that older announcement. Review the church's Facebook posts directly for summer 2026 or 2027 information.",
+    "excluded": [],
     "cards": []
   }
 }

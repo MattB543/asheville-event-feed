@@ -7,23 +7,22 @@
     "discovered_by": ["grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:13:57.263Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:11:58.142Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "f0f947a92bd667055898e84334bb2705b7388cc2cf533702e19bc0357365bc8d",
   "response": {
     "searches": [
       "site:ashevillemontessorischool.com \"2027\" \"camp\"",
-      "open https://ashevillemontessorischool.com/wp-content/uploads/2026/08/AMS-2026-2027-Calendar.pdf",
-      "?"
+      "open https://ashevillemontessorischool.com/wp-content/uploads/2026/09/AMS-2026-2027-Calendar-1.pdf"
     ],
     "usage": {
-      "inputTokens": 20094,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1927,
-      "reasoningTokens": 132
+      "inputTokens": 20514,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2113,
+      "reasoningTokens": 114
     },
     "status": "completed",
-    "ms": 36394,
+    "ms": 41416,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -72,19 +71,23 @@
   "extraction": {
     "provider_name": "Asheville Montessori School",
     "website_url": "https://ashevillemontessorischool.com/",
-    "notes": "No 2027 summer camp announcement found. The official camp page lists 2026 offerings. Camp is restricted to children enrolled in the current or next school year; children must be fully potty trained and meet the school's Entry Level Skills. Registration forms are shared with families through Brightwheel. The August-uploaded 2026-2027 calendar PDF could not be read, so a reviewer should check it for possible 2027 camp dates.",
+    "notes": "No 2027 summer camp dates or registration announcement found. Summer camp is restricted to children enrolled in the current or next school year; this is a private-school camp, not a district-only summer learning program. School-year tuition, scholarships and extended-care arrangements were not applied to camp. The September 2026 calendar PDF returned no readable text.",
     "excluded": [
       {
-        "name": "School-year Montessori programs and beforecare/aftercare",
-        "reason": "Year-round education and school-year childcare, not finite summer camp offerings."
+        "name": "Primary Class",
+        "reason": "School-year preschool and kindergarten education, not a finite summer camp."
+      },
+      {
+        "name": "Before School Care and After School Care",
+        "reason": "School-year childcare; no summer camp extended-care offering is stated."
       }
     ],
     "cards": [
       {
         "name": "Summer Camp",
         "type": "day",
-        "categories": ["arts", "music", "stem", "nature_outdoor", "cooking", "general"],
-        "description": "Children participate in themed weeks featuring hands-on science, building, cooking, crafts, music, and nature exploration. Activities vary by the selected weekly theme.",
+        "categories": ["general", "arts", "stem", "nature_outdoor", "cooking", "music"],
+        "description": "Children participate in themed weeks featuring hands-on science, building, cooking, fiber arts, pottery, music and nature activities. Camp is only open to children enrolled in the current or next school year.",
         "camp_page_url": "https://ashevillemontessorischool.com/enrollment/summer-camp/",
         "registration_url": null,
         "season": {
@@ -110,14 +113,14 @@
         "hours": {
           "start": "08:45",
           "end": "15:00",
-          "text": "Monday-Friday. Morning carline is 8:45-9:00 and afternoon carline is 2:45-3:00. Friday Parent Gathering is at 2:30."
+          "text": "Monday-Friday. Morning carline is 8:45-9:00 and afternoon carline is 2:45-3:00. Parent Gathering each Friday at 2:30."
         },
         "extended_care": null,
         "prices": [
           {
             "amount": 325,
             "unit": "week",
-            "label": "Per child; $75 non-refundable deposit applied to camp tuition",
+            "label": "per child",
             "year": 2026
           }
         ],
@@ -308,6 +311,7 @@
         "transportation": null,
         "sources": [
           "https://ashevillemontessorischool.com/enrollment/summer-camp/",
+          "https://ashevillemontessorischool.com/contact-us/",
           "https://ashevillemontessorischool.com/enrollment/entry-level-skills/"
         ],
         "confidence": "high",

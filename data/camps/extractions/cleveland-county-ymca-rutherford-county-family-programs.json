@@ -7,23 +7,23 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:28:11.658Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:23:53.403Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "cc7c86f2ce8baed9cd7d378364065f094878f4583ed2474b1f068189967c9930",
   "response": {
     "searches": [
       "site.clevecoymca.org Rutherford summer camp 2027 ages",
-      "\"ROC\" \"140 Old Caroleen\"",
-      "open https://roc.rcsnc.org/"
+      "site.clevecoymca.org \"Rutherford\" \"2026\" \"camp\"",
+      "site.rcsnc.org \"140 Old Caroleen\""
     ],
     "usage": {
-      "inputTokens": 19856,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1700,
-      "reasoningTokens": 158
+      "inputTokens": 24647,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1654,
+      "reasoningTokens": 189
     },
     "status": "completed",
-    "ms": 41229,
+    "ms": 39752,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -52,19 +52,15 @@
   "extraction": {
     "provider_name": "Cleveland County YMCA — Rutherford County Family Programs",
     "website_url": "https://www.clevecoymca.org/",
-    "notes": "The official camp page lists both 2027 and 2028 sessions. Only summer 2027 sessions are included. No 2027 summer registration opening date or camper ages were found. Older summer brochures surfaced in search but were not used to fill 2027 details. The venue's own website returned no readable text; the YMCA publishes the street address and town.",
+    "notes": "The camp page lists both 2027 and 2028 sessions; only summer 2027 is included. An older summer-camp PDF was found, but its contents could not be read. The venue's own website returned no readable text; the address is published on the YMCA camp page.",
     "excluded": [
       {
         "name": "Spring Break Camp",
-        "reason": "Occurs outside summer."
+        "reason": "Outside summer."
       },
       {
-        "name": "Christmas Camp",
-        "reason": "School-break program outside summer, mentioned in the spring-break FAQ."
-      },
-      {
-        "name": "Rutherford County Schools Kids Day Out",
-        "reason": "Single-day school-year care referenced as an alternative to spring-break camp; no summer offering established."
+        "name": "Rutherford County Kids Day Out",
+        "reason": "School-year childcare for days out of school, rather than a summer camp."
       }
     ],
     "cards": [
@@ -72,7 +68,7 @@
         "name": "Summer Camp",
         "type": "day",
         "categories": ["general"],
-        "description": "Campers swim three days a week and take Tuesday field trips, weather permitting.",
+        "description": "Campers swim three days a week and take field trips on Tuesdays, weather permitting.",
         "camp_page_url": "https://www.clevecoymca.org/programs/23000024/rutherford-county-youth-camps/",
         "registration_url": "https://www.clevecoymca.org/programs/23000024/rutherford-county-youth-camps/",
         "season": {
@@ -102,7 +98,7 @@
           {
             "amount": 102,
             "unit": "week",
-            "label": "Cost; subject to change",
+            "label": null,
             "year": 2027
           }
         ],
@@ -220,7 +216,7 @@
         "last_year_registration_opened": null,
         "availability": {
           "status": "closed",
-          "scope": "All listed summer 2027 sessions",
+          "scope": "All listed 2027 sessions",
           "text": "Registration Closed"
         },
         "financial_aid": null,
@@ -232,7 +228,7 @@
         "transportation": null,
         "sources": ["https://www.clevecoymca.org/programs/23000024/rutherford-county-youth-camps/"],
         "confidence": "medium",
-        "review_notes": "The $102 cost and hours appear in the general youth-camps introduction rather than a year-specific Summer Camp section; confirm that they apply to 2027. Weekly price unit is inferred from the statement that camp fees are drafted weekly. The section heading spans 2027 and 2028; season dates here use only the explicitly dated 2027 session rows. The venue website https://roc.rcsnc.org/ returned no readable text, so the address uses the YMCA's published location."
+        "review_notes": "The $102 cost and Monday-Friday hours appear in the shared Youth Camps introduction without a year, above both spring-break and summer offerings. Confirm that the weekly fee applies to summer 2027. Dates come from the explicitly dated 2027 session rows, not the program heading spanning 2027–2028. Registration is marked closed for future sessions; no summer opening date is stated."
       }
     ]
   }

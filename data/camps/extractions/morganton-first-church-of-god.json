@@ -8,19 +8,23 @@
     "status": "review",
     "status_reason": "page didn't load: fetch: fetch failed (Hostname/IP does not match certificate's altnames: Host: m1cog.org. is not in the cert's altnames: DNS:*.cloversites.com, DNS:cloversites.com); chrome-tls: fetch failed (Hostname/IP does not match certificate's altnames: Host: m1cog.org. is not in the cert's altnames: DNS:*.clov"
   },
-  "extractedAt": "2026-10-29T15:38:21.365Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:32:32.920Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": null,
   "response": {
-    "searches": ["site:m1cog.org VBS 2027 2026", "site:m1cog.org/events/2026/07/ \"vbs\" \"29\""],
+    "searches": [
+      "site:m1cog.org VBS 2026 2027 Wonder Junction",
+      "site:m1cog.org/events/2026/07/ \"VBS\"",
+      "site:m1cog.org/events/2026/07/30/vbs"
+    ],
     "usage": {
-      "inputTokens": 22042,
-      "cachedInputTokens": 8223,
-      "outputTokens": 667,
-      "reasoningTokens": 170
+      "inputTokens": 19379,
+      "cachedInputTokens": 8845,
+      "outputTokens": 721,
+      "reasoningTokens": 235
     },
     "status": "completed",
-    "ms": 23249,
+    "ms": 25407,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -39,15 +43,11 @@
   "extraction": {
     "provider_name": "Morganton First Church of God",
     "website_url": "https://m1cog.org/",
-    "notes": "No summer 2027 information found. The official website blocked direct access with robots.txt; details were read from indexed official event pages. VBS listings found cover July 26–29, 2026; the complete schedule could not be verified.",
+    "notes": "No 2027 camp information found. The official website blocks direct access via robots.txt; 2026 VBS details were read from indexed official event pages. Confirm whether VBS continued beyond July 29; only July 26–29 events were found.",
     "excluded": [
       {
         "name": "Adventure Kids",
-        "reason": "Recurring year-round children's ministry classes, not a finite summer camp."
-      },
-      {
-        "name": "Adventure Kids Church",
-        "reason": "Recurring Sunday children's church, not a finite summer camp."
+        "reason": "Recurring year-round children's church classes, not a finite summer camp."
       },
       {
         "name": "The Ridge Youth Ministries",
@@ -59,7 +59,7 @@
         "name": "Wonder Junction VBS",
         "type": "vbs",
         "categories": ["faith_based"],
-        "description": "Children participate in the church's Wonder Junction Vacation Bible School.",
+        "description": "Evening Vacation Bible School for children.",
         "camp_page_url": "https://m1cog.org/events/2026/07/27/vbs",
         "registration_url": null,
         "season": {
@@ -98,10 +98,11 @@
           "https://m1cog.org/events/2026/07/26/vbs",
           "https://m1cog.org/events/2026/07/27/vbs",
           "https://m1cog.org/events/2026/07/28/vbs",
-          "https://m1cog.org/events/2026/07/29/vbs"
+          "https://m1cog.org/events/2026/07/29/vbs",
+          "https://m1cog.org/services"
         ],
         "confidence": "medium",
-        "review_notes": "Official pages were readable only through search indexing because direct access was blocked. Dates use the 2026 year in the event URLs. Confirm whether July 26–29 is the complete VBS schedule; indexed listings explicitly confirm those four evenings, but no complete schedule or age eligibility was found."
+        "review_notes": "Details came from indexed official pages because direct access was blocked. The year is explicit in the event URLs. July 26–29 each list VBS from 6–8pm; check the church calendar for any additional dates beyond July 29. Ages, pricing and registration details were not found."
       }
     ]
   }

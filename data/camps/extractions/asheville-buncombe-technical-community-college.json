@@ -7,27 +7,30 @@
     "discovered_by": ["grid", "aggregator", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:10:12.977Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
-  "sourceHash": "e820d8332b43faf7ba4b51d704dfb3322ed0f5d52f7d1d41e62bf475e25c29f6",
+  "extractedAt": "2026-10-29T17:08:19.248Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "ba869286bf7b34055019b37e58f0411dae61de028cc255b7ea880c8253e24a31",
   "response": {
-    "searches": ["site:abtech.edu \"camp\" \"2026\"", "\"A-B Tech\" \"2026\" \"summer camp\""],
+    "searches": [
+      "site:abtech.edu \"camp\" \"2026\" \"Allied\"",
+      "site:abtech.edu \"camp\" \"June\" \"2026\""
+    ],
     "usage": {
-      "inputTokens": 29844,
-      "cachedInputTokens": 8223,
-      "outputTokens": 632,
-      "reasoningTokens": 136
+      "inputTokens": 26438,
+      "cachedInputTokens": 8845,
+      "outputTokens": 535,
+      "reasoningTokens": 125
     },
     "status": "completed",
-    "ms": 21231,
+    "ms": 17751,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
   "bundle": [
     {
       "url": "https://abtech.edu/summercamps",
-      "chars": 4840,
-      "method": "chrome-tls"
+      "chars": 5639,
+      "method": "browser"
     },
     {
       "url": "https://abtech.edu/becoming-student/registration",
@@ -68,14 +71,14 @@
   "extraction": {
     "provider_name": "Asheville-Buncombe Technical Community College",
     "website_url": "https://abtech.edu/",
-    "notes": "No summer 2027 camp information found. The official summer camps page describes a free, week-long 2026 Allied Health camp but does not publish dates, participant eligibility, daily hours, a meeting location, or a registration link. General college registration and tuition information were not treated as camp information.",
+    "notes": "No summer 2027 camp information was found. The official 2026 camp page does not specify dates, hours, eligibility, registration instructions or a camp meeting location. General college registration and tuition information does not apply to this camp.",
     "excluded": [],
     "cards": [
       {
         "name": "Allied Health Summer Camp",
         "type": "day",
         "categories": ["stem", "academic"],
-        "description": "Students explore healthcare careers through interactive labs and activities with medical professionals. Areas covered include dental assisting and hygiene, medical laboratory technology, occupational therapy, radiography, sonography, surgical technology, and veterinary technology.",
+        "description": "Campers explore healthcare careers with medical professionals and participate in interactive labs covering dental, laboratory, therapy, imaging, surgical and veterinary programs.",
         "camp_page_url": "https://abtech.edu/summercamps",
         "registration_url": null,
         "season": {
@@ -94,7 +97,7 @@
           {
             "amount": 0,
             "unit": "week",
-            "label": "Free week-long camp",
+            "label": "Free",
             "year": 2026
           }
         ],
@@ -110,8 +113,8 @@
         },
         "transportation": null,
         "sources": ["https://abtech.edu/summercamps"],
-        "confidence": "medium",
-        "review_notes": "Confirm youth eligibility and day-camp format with the provider; the page says students and week-long camp but gives no ages, grades, or daily schedule. Confirm dates, drop-off location, and registration process. The college's footer address is not explicitly identified as the camp meeting location."
+        "confidence": "high",
+        "review_notes": null
       }
     ]
   }

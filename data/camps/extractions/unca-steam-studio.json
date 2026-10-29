@@ -7,25 +7,23 @@
     "discovered_by": ["beyond_school"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T14:58:53.401Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T16:58:50.932Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "01192765cf3b137937f8a298df11e212cc56051ddf3a5f4b217be0e8b81b94ba",
   "response": {
     "searches": [
-      "site:skillset.tools summer 2026 camp",
-      "site:eventbrite.com \"Summer Camp 2026\" \"STEAM\" \"Costumes\"",
-      "open https://www.eventbrite.com/cc/skillset-unca-steam-studio-300139/",
-      "\"Costumes & Cosplay Summer Camp 2026\"",
-      "site:unca.edu \"Carol Belk\" \"300\""
+      "site:skillset.tools summer camp 2026",
+      "site:eventbrite.com \"Woodturning Summer Camp 2026\"",
+      "site:unca.edu \"Carol Belk Theatre\" address"
     ],
     "usage": {
-      "inputTokens": 34897,
-      "cachedInputTokens": 8223,
-      "outputTokens": 2535,
-      "reasoningTokens": 313
+      "inputTokens": 32717,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2368,
+      "reasoningTokens": 206
     },
     "status": "completed",
-    "ms": 65564,
+    "ms": 53796,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -49,23 +47,23 @@
   "extraction": {
     "provider_name": "UNCA STEAM Studio",
     "website_url": "https://www.skillset.tools/",
-    "notes": "No summer 2027 dates or registration announcements found. Cards use the four explicitly dated 2026 summer offerings. Older historical camps are not included because no 2026 or 2027 details were found. Eventbrite's collection-level 'From $0.00' is not treated as tuition. Individual ended event pages expose limited program descriptions and no tuition.",
+    "notes": "No summer 2027 program list, dates, or registration milestones were found. Cards use the official 2026 Eventbrite listings. Eventbrite's collection-level 'From $0.00' is not treated as a camp tuition price. Historical camp examples on the Programs page without 2026 dates were not added.",
     "excluded": [
       {
-        "name": "After School programs",
-        "reason": "Fall and spring after-school classes, including Junior Woodworking, Silly Circuits, Welding Cute Art, Whimsical Woodturning, The 3D Fab Lab, Game Hardware, Creating a Cute Lil Library, Bowl Turning, Spooky Machines, and chair-building classes, occur outside summer."
+        "name": "After-school programming",
+        "reason": "Fall and spring after-school classes are school-year programs, not summer camps."
       },
       {
-        "name": "Adult Classes",
-        "reason": "Adult-only workshops."
+        "name": "Adult classes and workshops",
+        "reason": "Adult-only programming."
       },
       {
         "name": "Bridge The Gap! A Fundraiser for SkillSet Scholarships",
-        "reason": "Fundraising event, not a supervised youth camp."
+        "reason": "Single-evening fundraising event, not a supervised youth camp."
       },
       {
-        "name": "School field trips and studio tours",
-        "reason": "School or organization visits arranged on request, not a listed finite summer camp."
+        "name": "Studio tours and school field trips",
+        "reason": "Bookable tours and field trips rather than finite summer camp offerings."
       }
     ],
     "cards": [
@@ -73,7 +71,7 @@
         "name": "Woodturning Summer Camp",
         "type": "day",
         "categories": ["arts", "stem"],
-        "description": "Campers participate in woodturning at UNC Asheville STEAM Studio.",
+        "description": "Woodturning summer camp for ages 13-17.",
         "camp_page_url": "https://www.eventbrite.com/e/woodturning-summer-camp-2026-ages-13-17-registration-1983388481339",
         "registration_url": "https://www.eventbrite.com/e/woodturning-summer-camp-2026-ages-13-17-registration-1983388481339",
         "season": {
@@ -121,7 +119,8 @@
         "sources": [
           "https://www.eventbrite.com/e/woodturning-summer-camp-2026-ages-13-17-registration-1983388481339",
           "https://www.skillset.tools/programs/",
-          "https://www.skillset.tools/faqs"
+          "https://www.skillset.tools/faqs",
+          "https://www.skillset.tools/"
         ],
         "confidence": "high",
         "review_notes": null
@@ -129,8 +128,8 @@
       {
         "name": "Make Your Own Custom Electric Guitar Summer Camp",
         "type": "day",
-        "categories": ["arts", "stem"],
-        "description": "Campers make a custom electric guitar at UNC Asheville STEAM Studio.",
+        "categories": ["arts", "stem", "music"],
+        "description": "Summer camp for ages 13-17 focused on making a custom electric guitar.",
         "camp_page_url": "https://www.eventbrite.com/e/make-your-own-custom-electric-guitar-summer-camp-2026-ages-13-17-registration-1983389038004",
         "registration_url": "https://www.eventbrite.com/e/make-your-own-custom-electric-guitar-summer-camp-2026-ages-13-17-registration-1983389038004",
         "season": {
@@ -178,7 +177,8 @@
         "sources": [
           "https://www.eventbrite.com/e/make-your-own-custom-electric-guitar-summer-camp-2026-ages-13-17-registration-1983389038004",
           "https://www.skillset.tools/programs/",
-          "https://www.skillset.tools/faqs"
+          "https://www.skillset.tools/faqs",
+          "https://www.skillset.tools/"
         ],
         "confidence": "high",
         "review_notes": null
@@ -187,7 +187,7 @@
         "name": "Form Function Fabrication Summer Camp",
         "type": "day",
         "categories": ["arts", "stem"],
-        "description": "Returning students participate in a design and fabrication camp at UNC Asheville STEAM Studio.",
+        "description": "Form Function Fabrication summer camp for returning students ages 13-17.",
         "camp_page_url": "https://www.eventbrite.com/e/form-function-fabrication-summer-camp-2026-returning-students-ages-13-17-registration-1983464385370",
         "registration_url": "https://www.eventbrite.com/e/form-function-fabrication-summer-camp-2026-returning-students-ages-13-17-registration-1983464385370",
         "season": {
@@ -235,7 +235,8 @@
         "sources": [
           "https://www.eventbrite.com/e/form-function-fabrication-summer-camp-2026-returning-students-ages-13-17-registration-1983464385370",
           "https://www.skillset.tools/programs/",
-          "https://www.skillset.tools/faqs"
+          "https://www.skillset.tools/faqs",
+          "https://www.skillset.tools/"
         ],
         "confidence": "high",
         "review_notes": null
@@ -244,7 +245,7 @@
         "name": "Costumes & Cosplay Summer Camp",
         "type": "day",
         "categories": ["arts", "theater"],
-        "description": "Campers participate in a costumes and cosplay camp at Carol Belk Theatre.",
+        "description": "Costumes and cosplay summer camp for ages 11-14.",
         "camp_page_url": "https://www.eventbrite.com/e/costumes-cosplay-summer-camp-2026-ages-11-14-registration-1983387205523",
         "registration_url": "https://www.eventbrite.com/e/costumes-cosplay-summer-camp-2026-ages-11-14-registration-1983387205523",
         "season": {
@@ -279,19 +280,20 @@
         "last_year_registration_opened": null,
         "availability": {
           "status": "full",
-          "scope": "2026 camp; ended event page retains its sold-out notice",
-          "text": "Sold out? Financial Aid Still Available! OR Join the waitlist at skillset@unca.edu"
+          "scope": "2026 camp",
+          "text": "Sold out"
         },
         "financial_aid": {
           "value": "yes",
-          "text": "Financial Aid Still Available!"
+          "text": "Sold out? Financial Aid Still Available!"
         },
         "special_needs": null,
         "lunch": null,
         "transportation": null,
         "sources": [
           "https://www.eventbrite.com/e/costumes-cosplay-summer-camp-2026-ages-11-14-registration-1983387205523",
-          "https://www.skillset.tools/programs/"
+          "https://www.skillset.tools/programs/",
+          "https://www.unca.edu/venue/carol-belk-theatre/"
         ],
         "confidence": "high",
         "review_notes": null

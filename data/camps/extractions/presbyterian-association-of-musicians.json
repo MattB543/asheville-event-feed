@@ -8,22 +8,19 @@
     "status": "review",
     "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
   },
-  "extractedAt": "2026-10-29T15:07:23.519Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:06:05.370Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "4ccb3ac44befdca971c7d34c36763edf784c2f3b7f8d4fd128a325b9ea34d8c0",
   "response": {
-    "searches": [
-      "site.montreat.org Anderson Auditorium address",
-      "site.presbymusic.org \"2027\" \"Children\" \"$\""
-    ],
+    "searches": ["site.presbymusic.org summer camp 2027 Worship Music conference"],
     "usage": {
-      "inputTokens": 29473,
-      "cachedInputTokens": 8223,
-      "outputTokens": 2018,
-      "reasoningTokens": 202
+      "inputTokens": 17281,
+      "cachedInputTokens": 8845,
+      "outputTokens": 301,
+      "reasoningTokens": 76
     },
     "status": "completed",
-    "ms": 45078,
+    "ms": 11568,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -52,216 +49,21 @@
   "extraction": {
     "provider_name": "Presbyterian Association of Musicians",
     "website_url": "https://www.presbymusic.org/",
-    "notes": "2027 conference dates and registration windows are posted. Youth programming is included because children and teens have supervised, grade-specific schedules; this is not an independently staffed residential camp. Lodging and meals must be arranged separately. Montreat Clubs & Childcare is a separate provider's program and is not included here. Additional page opens returned no readable content; scholarship information was available through official search results. Rates and linked FAQ/PDF contents could not be verified.",
+    "notes": "The existing Worship & Music Conference program is excluded under the explicit conference rule, despite its children's and youth programming. Montreat's Clubs & Childcare, referenced on the registration page, is operated and registered separately by Montreat Conference Center, not this provider. No qualifying summer camp programs were identified for this provider.",
     "excluded": [
       {
+        "name": "Worship & Music Conference",
+        "reason": "Intergenerational conference for children, youth, and adults; conferences and conventions are excluded under the camp rule."
+      },
+      {
         "name": "Rooted and Renewed: Intergenerational Worship through Liturgy and Music",
-        "reason": "January 22–23, 2027 program outside summer."
+        "reason": "January conference outside summer, held in Lakeland, Florida, outside the geographic coverage area."
       },
       {
-        "name": "Child of Blessing Monthly Conversations",
-        "reason": "Recurring conversations rather than a finite supervised summer youth program."
-      },
-      {
-        "name": "First Call Community Hallway Conversations",
-        "reason": "Professional community conversations rather than a summer youth program."
+        "name": "Dashing Through the Snow with Favorites We Know: A Hymn Festival",
+        "reason": "Hymn festival outside summer, held in Buffalo, New York; festivals are excluded and the venue is outside the geographic coverage area."
       }
     ],
-    "cards": [
-      {
-        "name": "Worship & Music Conference",
-        "type": "day",
-        "categories": ["music", "faith_based", "theater", "arts"],
-        "description": "Children and teens participate in choir, instrumental music, worship, drama, and small-group activities. The conference also offers intergenerational ensembles and evening concerts and events.",
-        "camp_page_url": "https://www.presbymusic.org/conference",
-        "registration_url": "https://www.presbymusic.org/conference-registration",
-        "season": {
-          "year": 2027,
-          "status": "posted",
-          "start": "2027-06-20",
-          "end": "2027-07-02",
-          "text": null
-        },
-        "ages": null,
-        "grades": {
-          "min": 3,
-          "max": 12,
-          "basis": "completed"
-        },
-        "sites": [
-          {
-            "name": "Montreat Conference Center",
-            "address": "401 Assembly Drive",
-            "town": "Montreat",
-            "state": "NC"
-          }
-        ],
-        "hours": {
-          "start": null,
-          "end": null,
-          "text": "Grade-specific daytime schedules begin at 8:00 am. Children have morning programming 8:00–10:50 am and afternoon programming 1:30–3:20 pm, with optional 3:30 pm activities. Evening events are also offered."
-        },
-        "extended_care": null,
-        "prices": [],
-        "sessions": [
-          {
-            "label": "Week 1: Children",
-            "start": "2027-06-20",
-            "end": "2027-06-25",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 3,
-              "max": 5,
-              "basis": "completed"
-            },
-            "hours": null,
-            "price": null,
-            "status": null
-          },
-          {
-            "label": "Week 1: Middlers",
-            "start": "2027-06-20",
-            "end": "2027-06-25",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 6,
-              "max": 8,
-              "basis": "completed"
-            },
-            "hours": null,
-            "price": null,
-            "status": null
-          },
-          {
-            "label": "Week 1: Senior Highs",
-            "start": "2027-06-20",
-            "end": "2027-06-25",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 9,
-              "max": 12,
-              "basis": "completed"
-            },
-            "hours": null,
-            "price": null,
-            "status": null
-          },
-          {
-            "label": "Week 2: Children",
-            "start": "2027-06-27",
-            "end": "2027-07-02",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 3,
-              "max": 5,
-              "basis": "completed"
-            },
-            "hours": null,
-            "price": null,
-            "status": null
-          },
-          {
-            "label": "Week 2: Middlers",
-            "start": "2027-06-27",
-            "end": "2027-07-02",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 6,
-              "max": 8,
-              "basis": "completed"
-            },
-            "hours": null,
-            "price": null,
-            "status": null
-          },
-          {
-            "label": "Week 2: Senior Highs",
-            "start": "2027-06-27",
-            "end": "2027-07-02",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 9,
-              "max": 12,
-              "basis": "completed"
-            },
-            "hours": null,
-            "price": null,
-            "status": null
-          }
-        ],
-        "registration": [
-          {
-            "audience": "public",
-            "kind": "opens",
-            "date": "2026-12-07",
-            "time": null,
-            "precision": "date",
-            "certainty": "announced",
-            "text": "Early Registration Period: December 7, 2026 – January 31, 2027",
-            "url": "https://www.presbymusic.org/conference",
-            "year": 2027,
-            "confidence": "high"
-          },
-          {
-            "audience": "early_bird",
-            "kind": "deadline",
-            "date": "2027-01-31",
-            "time": null,
-            "precision": "date",
-            "certainty": "announced",
-            "text": "Early Registration Period: December 7, 2026 – January 31, 2027",
-            "url": "https://www.presbymusic.org/conference",
-            "year": 2027,
-            "confidence": "high"
-          },
-          {
-            "audience": "public",
-            "kind": "deadline",
-            "date": "2027-04-30",
-            "time": null,
-            "precision": "date",
-            "certainty": "announced",
-            "text": "On-Time Registration Period: February 1, 2027 – April 30, 2027",
-            "url": "https://www.presbymusic.org/conference",
-            "year": 2027,
-            "confidence": "high"
-          }
-        ],
-        "last_year_registration_opened": null,
-        "availability": null,
-        "financial_aid": {
-          "value": "yes",
-          "text": "PAM Scholarship is for any conference participant (child, youth, or adult) with financial need. Full or partial registration scholarships may be granted to fulfill need."
-        },
-        "special_needs": null,
-        "lunch": {
-          "value": "no",
-          "text": "No, lodging and meals are not included in your registration."
-        },
-        "transportation": null,
-        "sources": [
-          "https://www.presbymusic.org/conference",
-          "https://www.presbymusic.org/conference-registration",
-          "https://www.presbymusic.org/conference-schedule",
-          "https://www.presbymusic.org/scholarships",
-          "https://montreat.org/about/contact",
-          "https://montreat.org/events/wm27-wk1"
-        ],
-        "confidence": "medium",
-        "review_notes": "Day classification reflects separately arranged lodging, not a conventional drop-off camp; verify youth chaperone requirements in the linked conference FAQs. The site address is the conference center's published physical address, not the children's Anderson Auditorium drop-off entrance. Scholarship wording was read through an official search snippet. Verify rates and linked schedule/FAQ PDFs on the registration and schedule pages."
-      }
-    ]
+    "cards": []
   }
 }

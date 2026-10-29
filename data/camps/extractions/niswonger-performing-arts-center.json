@@ -7,23 +7,23 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:12:47.450Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:10:49.386Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "859093ec1863a9913932be457c778235b84270ff2417cff5878698df263e3f60",
   "response": {
     "searches": [
-      "site.npacgreeneville.com \"camp\" \"2027\"",
-      "site:npacgreeneville.com \"Camp\"",
-      "\"NPAC\" \"2026\" \"Dalmatians\""
+      "site.npacgreeneville.com \"Camp\" \"2026\"",
+      "\"NPAC\" \"2026\" \"camp\" \"Dalmatians\"",
+      "open https://npacgreeneville.com/education/"
     ],
     "usage": {
-      "inputTokens": 34500,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1257,
-      "reasoningTokens": 224
+      "inputTokens": 26970,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1071,
+      "reasoningTokens": 190
     },
     "status": "completed",
-    "ms": 32604,
+    "ms": 28278,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -72,31 +72,19 @@
   "extraction": {
     "provider_name": "Niswonger Performing Arts Center",
     "website_url": "https://www.npacgreeneville.com/",
-    "notes": "No summer 2027 camp information found. The education page lists summer camp dates without a year alongside its 2026-2027 school-year series. The camp flyer and camp registration link were not accessible in the retrieved page text.",
+    "notes": "No summer 2027 camp information was found. The education page advertises the 2026-2027 school-year performance series, which is not a summer camp announcement. Live page opens returned no readable content, so camp details rely on the supplied official-page text; the camp flyer and camp registration destination could not be retrieved.",
     "excluded": [
       {
-        "name": "Carnival! | Knoxville Symphony Orchestra's Young People's Concert",
-        "reason": "School field-trip performance on November 4, 2026, outside summer; not a supervised camp."
-      },
-      {
-        "name": "Lightwire Theater’s A Very Electric Christmas",
-        "reason": "School field-trip performance on December 15, 2026, outside summer; not a supervised camp."
-      },
-      {
-        "name": "Rosie Revere, Ada Twist, and Iggy Peck: The Questioneers",
-        "reason": "School field-trip performance on February 23, 2027, outside summer; not a supervised camp."
-      },
-      {
-        "name": "The Peking Acrobats",
-        "reason": "School field-trip performance on March 12, 2027, outside summer; not a supervised camp."
+        "name": "Education Series",
+        "reason": "School-year field-trip performances, not supervised summer camp programs. Includes Carnival!, A Very Electric Christmas, The Questioneers, and The Peking Acrobats."
       }
     ],
     "cards": [
       {
         "name": "Camp NPAC Kids!",
         "type": "day",
-        "categories": ["theater", "music", "dance", "arts"],
-        "description": "Campers sing, act, dance, and design costumes, sets, and props during a week-long theatrical day camp. Separate grade groups work on 101 Dalmatians KIDS and Mary Poppins JR.",
+        "categories": ["theater"],
+        "description": "Campers sing, act, dance, and design costumes, sets, and props during a week-long theatrical day camp.",
         "camp_page_url": "https://www.npacgreeneville.com/education/",
         "registration_url": null,
         "season": {
@@ -165,7 +153,7 @@
         "last_year_registration_opened": null,
         "availability": {
           "status": "waitlist",
-          "scope": "Camp section; retained listing for the past summer",
+          "scope": null,
           "text": "Registration Full - Waitlist Registrations Accepted"
         },
         "financial_aid": null,
@@ -174,10 +162,10 @@
         "transportation": null,
         "sources": [
           "https://www.npacgreeneville.com/education/",
-          "https://www.npacgreeneville.com/contact-us/"
+          "https://www.npacgreeneville.com/"
         ],
         "confidence": "medium",
-        "review_notes": "The camp dates June 1-5 and June 15-19 have no explicit year. They are provisionally labeled 2026 from the current page context, not treated as 2027 dates. Verify the year against the camp flyer. The page retains both an open-registration heading and a full/waitlist message for this past-season camp; availability reflects the camp-specific message, not summer 2027 availability."
+        "review_notes": "The camp dates omit a year; 2026 is taken from the page's current-year context, not an explicit camp heading. Check the camp flyer for explicit year confirmation, prices, and registration details. The supplied page still displays a waitlist message for these past sessions; it does not describe summer 2027 availability. The venue address is published in the official footer, but the camp section does not separately specify a drop-off location."
       }
     ]
   }

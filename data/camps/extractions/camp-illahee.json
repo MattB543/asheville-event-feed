@@ -14,22 +14,22 @@
     "discovered_by": ["news828", "grid", "aggregator", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:00:47.881Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:00:48.654Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "8cd70f66110bbadf15482f8da36a9ceb83a70d70f666db3a4e82625a7728faf1",
   "response": {
     "searches": [
-      "site:campillahee.com 2027 CIT enrollment financial aid",
-      "site:campillahee.com/illahee-counselor-in-training \"CIT\""
+      "site:campillahee.com 2027 counselor training apply financial aid transportation",
+      "site:campillahee.com \"CIT\" \"2027\""
     ],
     "usage": {
-      "inputTokens": 28904,
-      "cachedInputTokens": 8223,
-      "outputTokens": 2086,
-      "reasoningTokens": 181
+      "inputTokens": 27354,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2120,
+      "reasoningTokens": 262
     },
     "status": "completed",
-    "ms": 40941,
+    "ms": 44735,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -78,30 +78,19 @@
   "extraction": {
     "provider_name": "Camp Illahee",
     "website_url": "https://www.campillahee.com/",
-    "notes": "2027 session dates, rates and enrollment opening are posted. Session lengths are grouped as one overnight program. The Counselor-In-Training page contains no program details; the activities page describes CIT leadership for rising 11th graders, but does not explicitly assign 2027 CIT dates or prices.",
+    "notes": "2027 session dates, rates and public enrollment opening are posted. The Counselor-In-Training page contains only a title and contact information; the activities page describes the leadership course but does not give separate CIT dates or rates. The at-a-glance and FAQ pages returned no readable text. The August 31 returning-camper deadline does not print a calendar year, so it was not extracted.",
     "excluded": [
       {
-        "name": "Junior Counselors",
-        "reason": "Staff employment program for high school seniors requiring a staff application, interview and staff training."
+        "name": "Junior Counselor",
+        "reason": "Staff employment program with an application, hiring process and required staff orientation."
       }
     ],
     "cards": [
       {
         "name": "Camp Illahee",
         "type": "overnight",
-        "categories": [
-          "general",
-          "nature_outdoor",
-          "sports",
-          "horses",
-          "arts",
-          "theater",
-          "dance",
-          "music",
-          "cooking",
-          "faith_based"
-        ],
-        "description": "Girls choose activities including swimming, horseback riding, sports, arts and outdoor adventures. Cabin activities, campwide evening events and Sunday Christian worship are also part of camp.",
+        "categories": ["general", "nature_outdoor", "sports", "arts", "horses", "faith_based"],
+        "description": "Girls choose activities including swimming, horseback riding, sports, arts and outdoor adventures. Camp also includes cabin activities, evening programs and Christian worship.",
         "camp_page_url": "https://www.campillahee.com/parents/sessions-rates/",
         "registration_url": "https://www.campillahee.com/apply/",
         "season": {
@@ -109,7 +98,7 @@
           "status": "posted",
           "start": "2027-06-06",
           "end": "2027-08-13",
-          "text": "2027 SESSION DATES:"
+          "text": null
         },
         "ages": null,
         "grades": {
@@ -283,10 +272,9 @@
           "text": "At Camp Illahee there are no extra charges for activities, laundry or transportation."
         },
         "sources": [
-          "https://www.campillahee.com/parents/sessions-rates/",
+          "https://www.campillahee.com/",
           "https://www.campillahee.com/parents/program-activities/",
-          "https://www.campillahee.com/parents/program-activities/sports/",
-          "https://www.campillahee.com/parents/contact-us/",
+          "https://www.campillahee.com/parents/sessions-rates/",
           "https://www.campillahee.com/apply/"
         ],
         "confidence": "high",
@@ -296,7 +284,7 @@
         "name": "Illahee Counselor-In-Training",
         "type": "overnight",
         "categories": ["general"],
-        "description": "Rising 11th graders participate in a leadership course led by a director. CITs choose to assist in activities and help set up the dining hall.",
+        "description": "Rising 11th-grade girls participate in a leadership course led by a director. CITs choose to assist in activities and help set up the dining hall.",
         "camp_page_url": "https://www.campillahee.com/illahee-counselor-in-training/",
         "registration_url": null,
         "season": {
@@ -334,10 +322,10 @@
         "sources": [
           "https://www.campillahee.com/illahee-counselor-in-training/",
           "https://www.campillahee.com/parents/program-activities/",
-          "https://www.campillahee.com/parents/contact-us/"
+          "https://www.campillahee.com/parents/sessions-rates/"
         ],
-        "confidence": "medium",
-        "review_notes": "The dedicated CIT page has only a title and footer. The activities page describes rising 11th-grade CITs without a season year. Confirm 2027 CIT participation, session dates, rates and application process; general camp session dates and prices were not assigned to this card."
+        "confidence": "high",
+        "review_notes": null
       }
     ]
   }

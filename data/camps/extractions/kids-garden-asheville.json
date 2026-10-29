@@ -10,19 +10,19 @@
     "discovered_by": ["grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:04:41.841Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:04:01.933Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "139b17d4cebc156aaacb1cdaad795a7485bbaf9229f6581c636ba391df270525",
   "response": {
     "searches": ["site:kidsplaygarden.com/asheville \"2027\" camp"],
     "usage": {
-      "inputTokens": 29344,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1830,
-      "reasoningTokens": 102
+      "inputTokens": 30038,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1791,
+      "reasoningTokens": 103
     },
     "status": "completed",
-    "ms": 43198,
+    "ms": 35902,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -51,23 +51,23 @@
   "extraction": {
     "provider_name": "Kids Garden Asheville",
     "website_url": "https://kidsplaygarden.com/asheville",
-    "notes": "No summer 2027 dates or registration milestones were found. The summer page lists Junior Explorer Camps as COMING SOON without dates, ages, or a description establishing a separate summer offering; no separate card was created. Camp booking currently directs families to call 828-417-7310 for availability. A yearly $40 per-family registration fee applies. Campers may enroll in the morning or afternoon session, but not both; siblings enrolled for the full week receive 25% off.",
+    "notes": "No summer 2027 dates or registration milestones were found. Junior Explorer Camps appears only as COMING SOON, without dates or sufficient program details to create a card; this does not explicitly refer to 2027.",
     "excluded": [
       {
-        "name": "Drop-In Childcare",
-        "reason": "Year-round childcare, not a finite summer-only program."
+        "name": "Preschool",
+        "reason": "Year-round preschool, not a finite summer camp."
       },
       {
-        "name": "Preschool",
-        "reason": "Year-round preschool."
+        "name": "Drop-In Childcare",
+        "reason": "Year-round drop-in childcare; summer camp enrollment is included separately."
       },
       {
         "name": "Art Classes & After School",
-        "reason": "Ongoing classes and after-school programming, not a finite summer offering."
+        "reason": "Year-round classes and school-year after-school care."
       },
       {
         "name": "Parent's Night Out",
-        "reason": "Recurring year-round evening childcare rather than a summer program."
+        "reason": "Single-evening social and childcare event."
       },
       {
         "name": "Spring Camp",
@@ -76,10 +76,6 @@
       {
         "name": "Winter Camp",
         "reason": "Outside summer."
-      },
-      {
-        "name": "Federal holiday and schools-out camps",
-        "reason": "No specific summer holiday or summer session is identified."
       }
     ],
     "cards": [
@@ -87,7 +83,7 @@
         "name": "Summer Camps",
         "type": "half_day",
         "categories": ["arts", "stem", "general"],
-        "description": "Children participate in weekly themed arts and crafts, hands-on science activities, outdoor play, movement breaks, and unstructured play. Families can choose morning camp or Afternoon Art Lab & Studio Camp.",
+        "description": "Children participate in creative art projects, outdoor play, hands-on science experiments, and movement activities. Camps have weekly themes, with morning and afternoon enrollment options.",
         "camp_page_url": "https://kidsplaygarden.com/asheville/summer",
         "registration_url": "https://kidsplaygarden.com/asheville/book?tab=camps",
         "season": {
@@ -113,32 +109,38 @@
         "hours": {
           "start": null,
           "end": null,
-          "text": "Morning Camp: 9am–1pm. Afternoon Art Lab & Studio Camp: 1:30pm–5:30pm. Campers may attend either session, but not both."
+          "text": "Morning Camp 9am - 1pm; Afternoon Art Lab & Studio Camp 1:30pm - 5:30pm. Campers may be enrolled in either the morning or afternoon session, but not both."
         },
         "extended_care": null,
         "prices": [
           {
             "amount": 270,
             "unit": "week",
-            "label": "Morning Camp, member",
+            "label": "member, morning",
             "year": 2026
           },
           {
             "amount": 240,
             "unit": "week",
-            "label": "Afternoon Art Lab & Studio Camp, member",
+            "label": "member, afternoon",
             "year": 2026
           },
           {
             "amount": 310,
             "unit": "week",
-            "label": "Morning Camp, non-member",
+            "label": "non-member, morning",
             "year": 2026
           },
           {
             "amount": 280,
             "unit": "week",
-            "label": "Afternoon Art Lab & Studio Camp, non-member",
+            "label": "non-member, afternoon",
+            "year": 2026
+          },
+          {
+            "amount": 40,
+            "unit": "other",
+            "label": "annual registration fee per family",
             "year": 2026
           }
         ],
@@ -282,7 +284,7 @@
           "https://kidsplaygarden.com/asheville/book?tab=camps"
         ],
         "confidence": "medium",
-        "review_notes": "Confirm price-to-session mapping in the visual pricing controls on the summer or camps page: fetched text lists the morning and afternoon options followed by two prices, so their association follows displayed order. Dates use the explicit 2026 Camp Themes By Week heading. Pricing is undated and retained as the 2026 fallback. The summer page's introductory metadata says ages 1 and up, but its program body, Summer Camps listing, and seasonal-camp FAQs specify ages 3–12; the camp-specific range is used."
+        "review_notes": "Confirm morning/afternoon price assignments on the summer or camps page: the flattened pricing text lists both camp options before the two amounts, so their assignment follows display order. Prices are undated current rates retained as 2026 alongside the explicitly headed 2026 schedule. The summer page's introductory metadata says ages 1 and up, but its program body and camp listing specify ages 3–12. Morning and afternoon options are consolidated under the existing Summer Camps program name. The booking page says online booking is unavailable and directs families to call for availability; this is not evidence that camp is full or closed."
       }
     ]
   }

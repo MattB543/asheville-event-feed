@@ -14,23 +14,22 @@
     "discovered_by": ["grid", "aggregator", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:07:25.634Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:06:11.631Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "92dd51d7efc1ed8b8fcb9cef6673d3505572fc9e5e2b5cb62f43d972945697b9",
   "response": {
     "searches": [
-      "site:bluestarcamps.com driving directions 179",
-      "site:bluestarcamps.com \"179\"",
-      "Blue Star Camps address 179 Blue Star"
+      "site:bluestarcamps.com \"address\" \"Blue Star\"",
+      "open https://www.bluestarcamps.com/contact/"
     ],
     "usage": {
-      "inputTokens": 30242,
-      "cachedInputTokens": 8223,
-      "outputTokens": 4253,
-      "reasoningTokens": 238
+      "inputTokens": 23971,
+      "cachedInputTokens": 8845,
+      "outputTokens": 3000,
+      "reasoningTokens": 154
     },
     "status": "completed",
-    "ms": 90283,
+    "ms": 55427,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -84,23 +83,23 @@
   "extraction": {
     "provider_name": "Blue Star Camps",
     "website_url": "https://www.bluestarcamps.com/",
-    "notes": "2027 dates and fees are posted. Traditional camp divisions are represented as grade-band rows of one overnight program; Teen Village is separate because of its leadership and community-service format. No official registration opening date was found. Official contact pages publish only a PO box; the physical address below is corroborated by local tourism and business listings but needs provider confirmation.",
+    "notes": "2027 dates and fees are posted. No official registration opening date was found. Rookies, Pioneers and Seniors are grouped as age divisions of the main overnight program; Teen Village is retained separately for its leadership format.",
     "excluded": [
       {
+        "name": "Private horseback, tennis and waterskiing lessons",
+        "reason": "Lessons offered as camp activities, not separate finite camp programs."
+      },
+      {
         "name": "Staff Training Institute",
-        "reason": "Professional instructor certifications and training for camp staff, not a youth summer camp offering."
+        "reason": "Staff training rather than a youth summer camp."
       },
       {
-        "name": "Work at Camp",
-        "reason": "Employment program."
+        "name": "Get-Togethers",
+        "reason": "Reunions and new-family social events, not supervised summer camp programs."
       },
       {
-        "name": "Equestrian",
-        "reason": "An activity within traditional camp, not an additional standalone program; Horseback Skills Camp is included separately."
-      },
-      {
-        "name": "Creative Arts",
-        "reason": "An activity within traditional camp, not a separately scheduled summer program."
+        "name": "Group Rentals",
+        "reason": "Venue rental service, not a named youth camp offering."
       }
     ],
     "cards": [
@@ -108,7 +107,7 @@
         "name": "Blue Star Camps",
         "type": "overnight",
         "categories": ["general", "faith_based", "nature_outdoor", "sports", "arts"],
-        "description": "Campers participate in waterfront activities, sports, arts and outdoor adventures in a Jewish camp community. Activities and schedules are organized by grade and gender divisions.",
+        "description": "Campers participate in elective activities, athletics, swimming and evening programs in a Jewish camp community. Activities include pottery, rock climbing, kayaking, mountain biking, archery, photography and cooking.",
         "camp_page_url": "https://www.bluestarcamps.com/",
         "registration_url": "https://www.bluestarcamps.com/enroll/",
         "season": {
@@ -116,7 +115,7 @@
           "status": "posted",
           "start": "2027-06-13",
           "end": "2027-08-01",
-          "text": "2027 Dates & Fees"
+          "text": null
         },
         "ages": null,
         "grades": {
@@ -137,17 +136,13 @@
         "prices": [],
         "sessions": [
           {
-            "label": "Rookies & Juniors — First Session",
+            "label": "First Session",
             "start": "2027-06-13",
             "end": "2027-07-09",
             "year": 2027,
             "site": null,
             "ages": null,
-            "grades": {
-              "min": 2,
-              "max": 3,
-              "basis": "rising"
-            },
+            "grades": null,
             "hours": null,
             "price": {
               "amount": 7500,
@@ -158,20 +153,33 @@
             "status": null
           },
           {
-            "label": "Rookies & Juniors — Second Session",
+            "label": "Second Session",
             "start": "2027-07-12",
             "end": "2027-08-01",
             "year": 2027,
             "site": null,
             "ages": null,
-            "grades": {
-              "min": 2,
-              "max": 3,
-              "basis": "rising"
-            },
+            "grades": null,
             "hours": null,
             "price": {
               "amount": 6250,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Full Season",
+            "start": "2027-06-13",
+            "end": "2027-08-01",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 12500,
               "unit": "session",
               "label": null,
               "year": 2027
@@ -240,258 +248,6 @@
               "year": 2027
             },
             "status": null
-          },
-          {
-            "label": "Pioneer Girls — First Session",
-            "start": "2027-06-13",
-            "end": "2027-07-09",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 4,
-              "max": 6,
-              "basis": "rising"
-            },
-            "hours": null,
-            "price": {
-              "amount": 7500,
-              "unit": "session",
-              "label": null,
-              "year": 2027
-            },
-            "status": null
-          },
-          {
-            "label": "Pioneer Girls — Second Session",
-            "start": "2027-07-12",
-            "end": "2027-08-01",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 4,
-              "max": 6,
-              "basis": "rising"
-            },
-            "hours": null,
-            "price": {
-              "amount": 6250,
-              "unit": "session",
-              "label": null,
-              "year": 2027
-            },
-            "status": null
-          },
-          {
-            "label": "Pioneer Girls — Full Season",
-            "start": "2027-06-13",
-            "end": "2027-08-01",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 4,
-              "max": 6,
-              "basis": "rising"
-            },
-            "hours": null,
-            "price": {
-              "amount": 12500,
-              "unit": "session",
-              "label": null,
-              "year": 2027
-            },
-            "status": null
-          },
-          {
-            "label": "Pioneer Boys — First Session",
-            "start": "2027-06-13",
-            "end": "2027-07-09",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 4,
-              "max": 6,
-              "basis": "rising"
-            },
-            "hours": null,
-            "price": {
-              "amount": 7500,
-              "unit": "session",
-              "label": null,
-              "year": 2027
-            },
-            "status": null
-          },
-          {
-            "label": "Pioneer Boys — Second Session",
-            "start": "2027-07-12",
-            "end": "2027-08-01",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 4,
-              "max": 6,
-              "basis": "rising"
-            },
-            "hours": null,
-            "price": {
-              "amount": 6250,
-              "unit": "session",
-              "label": null,
-              "year": 2027
-            },
-            "status": null
-          },
-          {
-            "label": "Pioneer Boys — Full Season",
-            "start": "2027-06-13",
-            "end": "2027-08-01",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 4,
-              "max": 6,
-              "basis": "rising"
-            },
-            "hours": null,
-            "price": {
-              "amount": 12500,
-              "unit": "session",
-              "label": null,
-              "year": 2027
-            },
-            "status": null
-          },
-          {
-            "label": "Senior Girls — First Session",
-            "start": "2027-06-13",
-            "end": "2027-07-09",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 7,
-              "max": 9,
-              "basis": "rising"
-            },
-            "hours": null,
-            "price": {
-              "amount": 7500,
-              "unit": "session",
-              "label": null,
-              "year": 2027
-            },
-            "status": null
-          },
-          {
-            "label": "Senior Girls — Second Session",
-            "start": "2027-07-12",
-            "end": "2027-08-01",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 7,
-              "max": 9,
-              "basis": "rising"
-            },
-            "hours": null,
-            "price": {
-              "amount": 6250,
-              "unit": "session",
-              "label": null,
-              "year": 2027
-            },
-            "status": null
-          },
-          {
-            "label": "Senior Girls — Full Season",
-            "start": "2027-06-13",
-            "end": "2027-08-01",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 7,
-              "max": 9,
-              "basis": "rising"
-            },
-            "hours": null,
-            "price": {
-              "amount": 12500,
-              "unit": "session",
-              "label": null,
-              "year": 2027
-            },
-            "status": null
-          },
-          {
-            "label": "Senior Boys — First Session",
-            "start": "2027-06-13",
-            "end": "2027-07-09",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 7,
-              "max": 9,
-              "basis": "rising"
-            },
-            "hours": null,
-            "price": {
-              "amount": 7500,
-              "unit": "session",
-              "label": null,
-              "year": 2027
-            },
-            "status": null
-          },
-          {
-            "label": "Senior Boys — Second Session",
-            "start": "2027-07-12",
-            "end": "2027-08-01",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 7,
-              "max": 9,
-              "basis": "rising"
-            },
-            "hours": null,
-            "price": {
-              "amount": 6250,
-              "unit": "session",
-              "label": null,
-              "year": 2027
-            },
-            "status": null
-          },
-          {
-            "label": "Senior Boys — Full Season",
-            "start": "2027-06-13",
-            "end": "2027-08-01",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 7,
-              "max": 9,
-              "basis": "rising"
-            },
-            "hours": null,
-            "price": {
-              "amount": 12500,
-              "unit": "session",
-              "label": null,
-              "year": 2027
-            },
-            "status": null
           }
         ],
         "registration": [],
@@ -507,18 +263,19 @@
         "sources": [
           "https://www.bluestarcamps.com/",
           "https://www.bluestarcamps.com/dates-fees/",
-          "https://www.bluestarcamps.com/enroll/",
-          "https://www.bluestarcamps.com/about/featured-activities/",
-          "https://www.bluestarcamps.com/visiting-camp/driving-directions/"
+          "https://www.bluestarcamps.com/about/our-individual-camps/",
+          "https://www.bluestarcamps.com/current-families/faqs/",
+          "https://www.bluestarcamps.com/contact/",
+          "https://www.bluestarcamps.com/enroll/"
         ],
-        "confidence": "medium",
-        "review_notes": "Confirm physical address 179 Blue Star Way with the provider; official pages retrieved publish only a PO box. Dates and prices are camp-wide and mapped to the named grade/gender divisions. The dates page explicitly lists First or Second Session eligibility for rising 2nd and 3rd graders, so no full-season Rookie row is included."
+        "confidence": "high",
+        "review_notes": null
       },
       {
         "name": "Teen Village",
         "type": "overnight",
         "categories": ["general", "faith_based", "nature_outdoor"],
-        "description": "Teen campers help design aspects of their summer, develop leadership skills and volunteer within camp and the Hendersonville community. They also pursue camp activities and participate in extended trips.",
+        "description": "Teen campers develop leadership skills, help design aspects of their summer and volunteer in camp and the Hendersonville community. They also pursue camp activities and participate in extended trips.",
         "camp_page_url": "https://www.bluestarcamps.com/about/our-individual-camps/teen-village/",
         "registration_url": "https://www.bluestarcamps.com/enroll/",
         "season": {
@@ -526,7 +283,7 @@
           "status": "posted",
           "start": "2027-06-13",
           "end": "2027-08-01",
-          "text": "2027 Dates & Fees"
+          "text": null
         },
         "ages": null,
         "grades": {
@@ -611,19 +368,19 @@
         "sources": [
           "https://www.bluestarcamps.com/about/our-individual-camps/teen-village/",
           "https://www.bluestarcamps.com/dates-fees/",
-          "https://www.bluestarcamps.com/enroll/",
-          "https://www.bluestarcamps.com/visiting-camp/driving-directions/"
+          "https://www.bluestarcamps.com/contact/",
+          "https://www.bluestarcamps.com/enroll/"
         ],
         "confidence": "medium",
-        "review_notes": "Teen Village page metadata mentions grades 10–12, but its visible heading and the homepage specify rising 10th and 11th grades; visible eligibility is used. Dates and fees are from the camp-wide schedule. Confirm physical address 179 Blue Star Way with the provider."
+        "review_notes": "Teen Village's body and division listings specify rising 10th and 11th grades, but its page metadata mentions 10th, 11th and 12th grades. Used the body eligibility. Dates and fees come from the shared 2027 schedule rather than a Teen Village-specific schedule."
       },
       {
         "name": "Horseback Skills Camp",
         "type": "overnight",
-        "categories": ["horses"],
-        "description": "Campers receive English riding instruction and learn horse care, including grooming, tacking and stabling. Riders are grouped by age and experience and participate in a final horse show.",
+        "categories": ["horses", "nature_outdoor"],
+        "description": "Campers receive English riding instruction and learn horse care, including grooming, tacking and stabling. Each camper is paired with a pony for the week and participates in a final horse show, with other camp activities offered outside riding.",
         "camp_page_url": "https://www.bluestarcamps.com/specialty-camps/",
-        "registration_url": "https://www.bluestarcamps.com/specialty-camps/",
+        "registration_url": "https://bluestar.campintouch.com/ui/login/Login",
         "season": {
           "year": 2027,
           "status": "posted",
@@ -694,10 +451,10 @@
         "sources": [
           "https://www.bluestarcamps.com/specialty-camps/",
           "https://www.bluestarcamps.com/pdfs/Horseback-Skills-Camp-2027.pdf",
-          "https://www.bluestarcamps.com/visiting-camp/driving-directions/"
+          "https://www.bluestarcamps.com/contact/"
         ],
         "confidence": "medium",
-        "review_notes": "Confirm physical address 179 Blue Star Way with the provider. The equestrian activity page still displays 2026 Skills Camp dates; the explicitly dated 2027 specialty page and brochure are used. Overnight format is supported by the brochure's cabins and meal descriptions rather than an explicit format label."
+        "review_notes": "Overnight format is inferred from the residential camp setting, cabin safety information and meals in the 2027 brochure; the supplied brochure does not explicitly label the program overnight."
       }
     ]
   }

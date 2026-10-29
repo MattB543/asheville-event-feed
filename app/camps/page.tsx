@@ -74,10 +74,13 @@ export default async function CampsPage() {
           <h1 className="text-lg sm:text-2xl font-bold text-gray-900 dark:text-gray-100">
             {title}
           </h1>
+          {/* Shorter on a phone, so the first camps show on the first screen */}
           <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
-            When registration opens, plus ages, weeks, prices and drive times, read from each camp’s
-            own site. Where a camp hasn’t posted 2027 yet, you’ll see its 2026 details, labeled
-            2026.
+            <span className="hidden sm:inline">
+              When registration opens, plus ages, weeks, prices and drive times, read from each
+              camp’s own site.{' '}
+            </span>
+            Where a camp hasn’t posted 2027 yet, you’ll see its 2026 details, labeled 2026.
           </p>
           {cards.length > 0 && (
             <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">

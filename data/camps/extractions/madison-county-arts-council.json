@@ -11,23 +11,22 @@
     "discovered_by": ["grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:26:12.486Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:22:19.243Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "0bf2df37b4f0d34aae56db32afc88c7fb56213ca8736544a9ff5fccc798a1cee",
   "response": {
     "searches": [
-      "site:madisoncountyarts.com camp 2026",
-      "site:madisoncountyarts.com \"2026\" \"JAM\"",
-      "\"\" \"Val and Andy Clark\" \"camp\""
+      "site:madisoncountyarts.com \"camp\" \"2026\"",
+      "site:madisoncountyarts.com \"2026\" \"JAM\""
     ],
     "usage": {
-      "inputTokens": 26161,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1641,
-      "reasoningTokens": 231
+      "inputTokens": 26867,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1634,
+      "reasoningTokens": 242
     },
     "status": "completed",
-    "ms": 36849,
+    "ms": 38297,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -76,15 +75,19 @@
   "extraction": {
     "provider_name": "Madison County Arts Council",
     "website_url": "https://madisoncountyarts.com/",
-    "notes": "No 2027 camp information or registration milestones were found. First Stage and JAM event pages still show only 2025 dates; those dates, hours and age eligibility have not been carried forward. The education page continues to describe both summer camps. Two additional Art Camp weeks are posted for 2026, but their pages do not state ages or the meeting location. No camp drop-off venue is explicitly identified; the provider's office address has not been assumed to be a camp site.",
+    "notes": "No 2027 camp information or registration milestones were found. The First Stage and JAM event pages supplied describe summer 2025; no 2026 replacements were found, so their historical dates and hours are not carried forward. Two 2026 Art Camp weeks were found. Camp drop-off locations were not identified: the organization's office address alone does not establish where these camps meet.",
     "excluded": [
       {
-        "name": "First Stage Youth Theatre after-school programs",
-        "reason": "School-year after-school theater programs, rather than finite summer camps."
+        "name": "JAM after-school program",
+        "reason": "School-year musical instrument instruction, rather than a finite summer camp."
       },
       {
-        "name": "Junior Appalachian Musicians after-school classes",
-        "reason": "Thursday-afternoon instruction during the school year."
+        "name": "First Stage Youth Theatre after-school programs",
+        "reason": "After-school programs outside the summer camp offering."
+      },
+      {
+        "name": "29th Annual Bluff Mountain Festival",
+        "reason": "Festival, not a supervised youth camp."
       }
     ],
     "cards": [
@@ -92,7 +95,7 @@
         "name": "First Stage Youth Theatre Summer Camp",
         "type": "day",
         "categories": ["theater"],
-        "description": "A one-week theater and drama camp in Marshall. First Stage programs give participants opportunities to perform and create their own scripts.",
+        "description": "A one-week youth theatre camp in Marshall. First Stage's theatre programs give participants opportunities to perform in productions and create their own scripts.",
         "camp_page_url": "https://madisoncountyarts.com/events-calendar/first-stage-youth-theatre-summer-camp/",
         "registration_url": null,
         "season": {
@@ -120,8 +123,8 @@
         "lunch": null,
         "transportation": null,
         "sources": [
-          "https://madisoncountyarts.com/education/",
-          "https://madisoncountyarts.com/events-calendar/first-stage-youth-theatre-summer-camp/"
+          "https://madisoncountyarts.com/events-calendar/first-stage-youth-theatre-summer-camp/",
+          "https://madisoncountyarts.com/education/"
         ],
         "confidence": "high",
         "review_notes": null
@@ -130,7 +133,7 @@
         "name": "JAM Beginners Camp",
         "type": "day",
         "categories": ["music"],
-        "description": "A one-week summer camp associated with Junior Appalachian Musicians, a program centered on the traditional music of the county and region.",
+        "description": "A one-week summer music camp offered by Madison County's Junior Appalachian Musicians program.",
         "camp_page_url": "https://madisoncountyarts.com/events-calendar/jam-beginners-camp/",
         "registration_url": null,
         "season": {
@@ -158,8 +161,8 @@
         "lunch": null,
         "transportation": null,
         "sources": [
-          "https://madisoncountyarts.com/education/",
-          "https://madisoncountyarts.com/events-calendar/jam-beginners-camp/"
+          "https://madisoncountyarts.com/events-calendar/jam-beginners-camp/",
+          "https://madisoncountyarts.com/education/"
         ],
         "confidence": "high",
         "review_notes": null
@@ -168,7 +171,7 @@
         "name": "Art Camp w Val and Andy Clark",
         "type": "half_day",
         "categories": ["arts"],
-        "description": "An art camp with Val and Andy Clark, offered in two five-day sessions.",
+        "description": "An art camp with Val and Andy Clark.",
         "camp_page_url": "https://madisoncountyarts.com/events-calendar/art-camp-w-val-and-andy-clark-july-27-31/",
         "registration_url": null,
         "season": {
@@ -226,7 +229,7 @@
           "https://madisoncountyarts.com/events-calendar/art-camp-w-val-and-andy-clark-aug-3-7/"
         ],
         "confidence": "medium",
-        "review_notes": "Both official event pages plainly state 2026 dates and hours but contain no activity description, youth eligibility, price, registration instructions or camp venue. Confirm that this is a supervised youth offering before publishing. Half-day format is inferred from the three-hour schedule."
+        "review_notes": "Both official event pages plainly state 2026 dates and hours, but their readable text does not specify youth eligibility, activities, or the camp venue. Confirm these details with the provider."
       }
     ]
   }

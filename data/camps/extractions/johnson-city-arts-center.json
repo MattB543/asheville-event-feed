@@ -10,19 +10,22 @@
     "discovered_by": ["grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:06:11.094Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:05:41.352Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "8b69bbbed14df61ec3100395c6dc261573da8069d897e8f355cb3fff8f4ab325",
   "response": {
-    "searches": ["site:jcartscenter.com \"2027\" \"summer\""],
+    "searches": [
+      "site:jcartscenter.com \"2027\" \"summer\"",
+      "open https://www.jcartscenter.com/event-details-registration/tap-intensive"
+    ],
     "usage": {
-      "inputTokens": 18025,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1540,
-      "reasoningTokens": 129
+      "inputTokens": 18860,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1497,
+      "reasoningTokens": 118
     },
     "status": "completed",
-    "ms": 35341,
+    "ms": 31696,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -71,23 +74,23 @@
   "extraction": {
     "provider_name": "Johnson City Arts Center",
     "website_url": "https://www.jcartscenter.com/",
-    "notes": "No summer 2027 information was found. Cards use summer 2026 information. Regular summer drop-in dance classes and individually scheduled music lessons are continuations of ongoing classes, rather than finite camp programs.",
+    "notes": "No summer 2027 program dates or registration announcements found. The 2026-2027 registration announcement is for academic-year classes, not summer camps.",
     "excluded": [
       {
-        "name": "Summer Dance Classes",
-        "reason": "Regular drop-in dance classes continuing the provider's ongoing instruction, not a finite camp or clinic. The separately named Tap Intensive is included."
+        "name": "Summer Music Lessons",
+        "reason": "Private music lesson series, not a camp."
       },
       {
-        "name": "Summer Music Lessons",
-        "reason": "Individually scheduled private lessons continuing year-round music instruction, not a camp."
+        "name": "Summer Dance Classes",
+        "reason": "Drop-in summer dance lessons and rotating class workshops, not a finite camp."
       },
       {
         "name": "Academic-year dance, music, and art classes",
-        "reason": "Ongoing academic-year classes outside the summer camp rule."
+        "reason": "School-year classes rather than summer camps."
       },
       {
         "name": "Adult Dance",
-        "reason": "Adult-only classes."
+        "reason": "Adult-only lessons."
       }
     ],
     "cards": [
@@ -95,7 +98,7 @@
         "name": "Princess Ballerina Camp",
         "type": "half_day",
         "categories": ["arts", "dance", "music"],
-        "description": "Girls participate in ballet, music activities, princess-themed crafts, dress-up, and creative play. Activities introduce friendship and leadership through princess and ballet characters.",
+        "description": "Girls participate in dress-up, ballet classes, music instruction, princess-themed art projects, games, and creative play.",
         "camp_page_url": "https://www.jcartscenter.com/princess-ballerina-camp",
         "registration_url": "https://docs.google.com/forms/d/e/1FAIpQLSeBSVML18XWKVj_5k4ShwJuuYMxHrMN0IjeYmXXzoea54ImZA/closedform",
         "season": {
@@ -127,13 +130,13 @@
         "prices": [
           {
             "amount": 175,
-            "unit": "session",
+            "unit": "program",
             "label": "Early bird: register before May 1 and pay by May 4",
             "year": 2026
           },
           {
             "amount": 225,
-            "unit": "session",
+            "unit": "program",
             "label": "Regular tuition",
             "year": 2026
           }
@@ -148,7 +151,7 @@
         },
         "availability": {
           "status": "closed",
-          "scope": "2026 camp registration",
+          "scope": null,
           "text": "Registration for this event has closed."
         },
         "financial_aid": null,
@@ -161,15 +164,15 @@
           "https://docs.google.com/forms/d/e/1FAIpQLSeBSVML18XWKVj_5k4ShwJuuYMxHrMN0IjeYmXXzoea54ImZA/closedform"
         ],
         "confidence": "medium",
-        "review_notes": "The camp page says registration was full as of April 29; the registration form says April 28 and now explicitly says registration has closed. Availability follows the closed form. The form adds a May 4 payment deadline for early bird tuition that is not stated on the camp page. A mid-morning snack and juice are provided, but lunch is not addressed."
+        "review_notes": "The camp page retains a full/waitlist announcement dated April 29, while the registration form says April 28 and now explicitly states registration is closed; closed is used as the current status. The form adds a May 4 payment requirement for the early-bird price."
       },
       {
         "name": "Tap Intensive",
         "type": "clinic",
         "categories": ["dance"],
-        "description": "Dancers who do not currently take tap receive four days of tap instruction. Participants may subsequently join Intermediate Tap for the fall term without taking the beginner-level class.",
+        "description": "Dancers new to tap receive four days of tap instruction. Completing the intensive allows dancers to join Intermediate Tap in the fall rather than the beginner class.",
         "camp_page_url": "https://www.jcartscenter.com/summer-dance",
-        "registration_url": null,
+        "registration_url": "https://www.jcartscenter.com/event-details-registration/tap-intensive",
         "season": {
           "year": 2026,
           "status": "not_posted",
@@ -190,13 +193,13 @@
         "hours": {
           "start": "16:00",
           "end": "18:00",
-          "text": "Classes are 4:00-6:00 daily."
+          "text": "4:00-6:00 daily"
         },
         "extended_care": null,
         "prices": [
           {
             "amount": 80,
-            "unit": "session",
+            "unit": "program",
             "label": null,
             "year": 2026
           }
@@ -204,17 +207,22 @@
         "sessions": [],
         "registration": [],
         "last_year_registration_opened": null,
-        "availability": null,
+        "availability": {
+          "status": "closed",
+          "scope": null,
+          "text": "Registration is closed"
+        },
         "financial_aid": null,
         "special_needs": null,
         "lunch": null,
         "transportation": null,
         "sources": [
           "https://www.jcartscenter.com/summer",
-          "https://www.jcartscenter.com/summer-dance"
+          "https://www.jcartscenter.com/summer-dance",
+          "https://www.jcartscenter.com/event-details-registration/tap-intensive"
         ],
         "confidence": "medium",
-        "review_notes": "The summer-dance page does not print a year beside July 28-31; 2026 is taken from the linking Summer 2026 page. Eligibility is stated as dancers in levels 3-7, or new students age 10+, who do not currently take tap. Ages are left null because the age minimum applies only to new students and no overall age range is stated. The intensive's registration destination could not be recovered."
+        "review_notes": "Eligibility is dance levels 3-7, or new students age 10+ who do not currently take tap. Ages are left null because the minimum applies only to new students; dance levels are not school grades. The official event search result explicitly supplies the 2026 dates and closed registration status, but opening that event page returned no readable text."
       }
     ]
   }

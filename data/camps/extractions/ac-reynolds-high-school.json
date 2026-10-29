@@ -9,26 +9,25 @@
     "discovered_by": ["grid", "aggregator", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:12:09.536Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:10:18.701Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "c89791aa59cf9ba2f0f80708743739985ade125ba5c52ea44741577c3441f5d8",
   "response": {
     "searches": [
-      "site:acrhs.buncombeschools.org \"2027\" \"camp\"",
+      "site.acrhs.buncombeschools.org \"2027\" \"camp\"",
       "open https://files-backend.assets.thrillshare.com/documents/asset/uploaded_file/3100/Acrhs/38f4a7ed-bcc5-4554-9a16-d66b756c29a8/2026-AC-Reynolds-Rockets-Youth-Camps-%282%29.pdf?disposition=inline",
-      "\"2026 AC Reynolds\" \"Volleyball\" \"camp\"",
-      "site:files-backend.assets.thrillshare.com/documents/asset/uploaded_file/3100/Acrhs/38f4a7ed \"camp\"",
-      "\"2026 AC Reynolds Rockets Youth Camps\" cost",
+      "?",
+      "site:acrhs.buncombeschools.org \"2026\" \"Youth Camps\"",
       "open https://acrhs.buncombeschools.org/o/acrhs/article/2844393"
     ],
     "usage": {
-      "inputTokens": 31324,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1177,
-      "reasoningTokens": 511
+      "inputTokens": 24873,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1311,
+      "reasoningTokens": 318
     },
     "status": "completed",
-    "ms": 47851,
+    "ms": 47216,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -52,15 +51,15 @@
   "extraction": {
     "provider_name": "A.C. Reynolds High School",
     "website_url": "https://acrhs.buncombeschools.org/",
-    "notes": "No official summer 2027 information was found. The official document directory lists a 2026 youth camps PDF, but attempts to open it returned no readable contents and the screenshot tool could not render it. Its official search excerpt confirms summer sports camps staffed by coaches and varsity players and recommends kindergarten through eighth grade. The card is a provisional umbrella entry; individual sports offerings, dates, hours and fees require review of the PDF. The April 27, 2026 announcement offers mail-in and online registration but does not explicitly state a registration opening date.",
+    "notes": "No 2027 camp information found. The 2026 PDF was readable as extracted text, but its visual layout could not be opened; month assignments for individual camps therefore remain unconfirmed. The extracted PDF repeats the volleyball listing. The official April 27, 2026 news article offers online and mail registration but does not state an opening date; its publication date has not been treated as registration opening.",
     "excluded": [],
     "cards": [
       {
         "name": "AC Reynolds Rockets Youth Camps",
-        "type": "clinic",
+        "type": "day",
         "categories": ["sports"],
-        "description": "Youth participate in summer sports camps staffed by A.C. Reynolds coaches and varsity players.",
-        "camp_page_url": "https://acrhs.buncombeschools.org/o/acrhs/article/2844393",
+        "description": "Youth sports camps staffed by A.C. Reynolds coaches and varsity players include basketball, volleyball, soccer, softball, tennis, baseball, cheer and football.",
+        "camp_page_url": "https://acrhs.buncombeschools.org/o/acrhs/documents/athletics/youth-summer-camps/334465",
         "registration_url": "https://acrhs.buncombeschools.org/o/acrhs/article/2844393",
         "season": {
           "year": 2026,
@@ -72,13 +71,33 @@
         "ages": null,
         "grades": {
           "min": 0,
-          "max": 8,
+          "max": 9,
           "basis": "unspecified"
         },
-        "sites": [],
+        "sites": [
+          {
+            "name": "A.C. Reynolds High School",
+            "address": "1 Rocket Drive",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
         "hours": null,
         "extended_care": null,
-        "prices": [],
+        "prices": [
+          {
+            "amount": 75,
+            "unit": "session",
+            "label": "3-day camps",
+            "year": 2026
+          },
+          {
+            "amount": 100,
+            "unit": "session",
+            "label": "4-day camps",
+            "year": 2026
+          }
+        ],
         "sessions": [],
         "registration": [],
         "last_year_registration_opened": null,
@@ -89,11 +108,12 @@
         "transportation": null,
         "sources": [
           "https://acrhs.buncombeschools.org/o/acrhs/documents/athletics/youth-summer-camps/334465",
+          "https://files-backend.assets.thrillshare.com/documents/asset/uploaded_file/3100/Acrhs/38f4a7ed-bcc5-4554-9a16-d66b756c29a8/2026-AC-Reynolds-Rockets-Youth-Camps-%282%29.pdf?disposition=inline",
           "https://acrhs.buncombeschools.org/o/acrhs/article/2844393",
-          "https://files-backend.assets.thrillshare.com/documents/asset/uploaded_file/3100/Acrhs/38f4a7ed-bcc5-4554-9a16-d66b756c29a8/2026-AC-Reynolds-Rockets-Youth-Camps-%282%29.pdf?disposition=inline"
+          "https://acrhs.buncombeschools.org/"
         ],
-        "confidence": "low",
-        "review_notes": "Read the 2026 PDF to identify separately named sports programs and their dates, prices, hours, drop-off venues and registration links; replace this provisional umbrella card as appropriate. The grade recommendation is visible only in the official PDF's search excerpt, which also says exceptions can be made. The school's published address is 1 Rocket Drive, Asheville, NC, but the readable announcement does not explicitly identify camp drop-off locations, so sites are left empty."
+        "confidence": "medium",
+        "review_notes": "Check the visual table in the 2026 PDF before adding session dates: extracted text loses the June, July and August column assignments. Listings are Girls Basketball 10th–12th (June 10, 16:00–19:00; June 11–12, 09:00–12:00), Volleyball 6th–9th (K–5, 09:00–11:30; grades 6–9, 12:30–15:00), Soccer 3rd–5th (09:00–12:00), Softball 15th–17th (09:00–12:00), Boys Basketball 15th–17th (09:00–12:00), Tennis 14th–16th (09:00–12:00), Baseball 22nd–24th (09:00–12:00), Cheer 20th–23rd (15:30–18:30), and Football 28th–30th (18:00–21:00). Volleyball appears twice; check whether this represents two months or a duplicate. General recommendation is K–8 with coach-approved exceptions, but volleyball explicitly includes grade 9, so the card spans K–9. School location is inferred from the provider and application mailing address; confirm drop-off location. Online registration links were not exposed in the readable news article, so registration_url points to the official article containing them."
       }
     ]
   }

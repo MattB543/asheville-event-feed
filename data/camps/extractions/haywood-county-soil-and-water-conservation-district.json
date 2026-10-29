@@ -12,22 +12,22 @@
     "discovered_by": ["grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:15:49.377Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:13:02.168Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "47eb9946df5b9e365a38757a3b247bce365a5edd39bcfbd4447317c9abe792bd",
   "response": {
     "searches": [
       "site.haywoodcountync.gov \"YES\" \"2026\" camp",
-      "open https://www.ncagr.gov/divisions/soil-water-conservation/programs-initiatives/education-programs/resource-conservation-workshop"
+      "\"Haywood\" \"Youth Environmental\" \"2026\""
     ],
     "usage": {
-      "inputTokens": 21713,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1221,
-      "reasoningTokens": 172
+      "inputTokens": 25384,
+      "cachedInputTokens": 8845,
+      "outputTokens": 902,
+      "reasoningTokens": 220
     },
     "status": "completed",
-    "ms": 29078,
+    "ms": 28216,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -76,11 +76,15 @@
   "extraction": {
     "provider_name": "Haywood County Soil and Water Conservation District",
     "website_url": "https://www.haywoodcountync.gov/300/Education-Programs",
-    "notes": "No 2027 program dates or registration milestones were found. YES Camp's linked flyer is labeled 2025; its dates were not carried forward. The district also sponsors Haywood County students at the statewide Resource Conservation Workshop in Raleigh. Library pages supplied in the input belong to a separate county department.",
+    "notes": "No official 2027 or 2026 YES Camp dates or registration-opening dates were found. The camp page still links a flyer labeled 2025; that document returned no readable content, and the screenshot attempt failed. No drop-off location was identified; the county government footer address and Mountain Research Station field-trip location were not treated as camp sites. The supplied library pages concern a different county department.",
     "excluded": [
       {
-        "name": "Conservation Contests",
-        "reason": "School-year contests with a February submission deadline, not a supervised summer program."
+        "name": "Resource Conservation Workshop",
+        "reason": "Participants stay at NC State University in Raleigh, outside the approximately 75-minute drive area from Asheville."
+      },
+      {
+        "name": "Summer Reading",
+        "reason": "Library reading challenges and associated activities are not a finite supervised camp; they are also offered by the Public Library rather than this provider."
       },
       {
         "name": "Envirothon",
@@ -88,19 +92,15 @@
       },
       {
         "name": "Conservation Field Days",
-        "reason": "Held in the fall, outside summer."
+        "reason": "School field-day program held in the fall, outside summer."
       },
       {
-        "name": "Summer Reading",
-        "reason": "Self-directed reading challenge rather than a finite supervised camp; offered by the library, not this provider."
+        "name": "Conservation Contests",
+        "reason": "Student contests with school-year submission deadlines, not supervised summer camps."
       },
       {
-        "name": "Area 1 Scholarship",
-        "reason": "College scholarship, not a supervised youth summer program."
-      },
-      {
-        "name": "Careers in Conservation Scholarship",
-        "reason": "College scholarship, not a supervised youth summer program."
+        "name": "Awards Night",
+        "reason": "Single evening awards event in February, not a summer camp."
       }
     ],
     "cards": [
@@ -108,9 +108,9 @@
         "name": "Youth Environmental Stewardship (YES) Camp",
         "type": "day",
         "categories": ["nature_outdoor", "stem"],
-        "description": "Campers participate in hands-on environmental activities and regional field trips covering water quality, forestry, wildlife, soils, agriculture and natural resource management.",
+        "description": "Campers participate in hands-on activities and regional field trips to learn about water and air quality, conservation, wildlife, soils, agriculture and natural resource management.",
         "camp_page_url": "https://www.haywoodcountync.gov/682/YES-Camp",
-        "registration_url": null,
+        "registration_url": "https://www.haywoodcountync.gov/682/YES-Camp",
         "season": {
           "year": 2027,
           "status": "not_posted",
@@ -138,50 +138,7 @@
         "transportation": null,
         "sources": [
           "https://www.haywoodcountync.gov/682/YES-Camp",
-          "https://www.haywoodcountync.gov/300/Education-Programs",
-          "https://www.haywoodcountync.gov/DocumentCenter/View/6923/YES-Camp-flyer-2025pdf"
-        ],
-        "confidence": "high",
-        "review_notes": null
-      },
-      {
-        "name": "Resource Conservation Workshop",
-        "type": "overnight",
-        "categories": ["nature_outdoor", "stem"],
-        "description": "Students study natural resource conservation through field studies, tours and hands-on sessions, with evening activities focused on college and career decisions. Participants stay in NC State University dormitories.",
-        "camp_page_url": "https://growforit.ces.ncsu.edu/growforit-programs/resource-conservation-workshop/",
-        "registration_url": "https://www.haywoodcountync.gov/300/Education-Programs",
-        "season": {
-          "year": 2026,
-          "status": "not_posted",
-          "start": "2026-06-14",
-          "end": "2026-06-19",
-          "text": null
-        },
-        "ages": null,
-        "grades": {
-          "min": 10,
-          "max": 12,
-          "basis": "rising"
-        },
-        "sites": [],
-        "hours": null,
-        "extended_care": null,
-        "prices": [],
-        "sessions": [],
-        "registration": [],
-        "last_year_registration_opened": null,
-        "availability": null,
-        "financial_aid": {
-          "value": "yes",
-          "text": "Each June, the District sponsors 2 high school students from Haywood County at the Resource Conservation Workshop."
-        },
-        "special_needs": null,
-        "lunch": null,
-        "transportation": null,
-        "sources": [
-          "https://www.haywoodcountync.gov/300/Education-Programs",
-          "https://growforit.ces.ncsu.edu/growforit-programs/resource-conservation-workshop/"
+          "https://www.haywoodcountync.gov/300/Education-Programs"
         ],
         "confidence": "high",
         "review_notes": null

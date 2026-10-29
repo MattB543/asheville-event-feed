@@ -10,22 +10,22 @@
     "discovered_by": ["grid", "aggregator"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:14:59.048Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:12:41.862Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "f0d5e3981ab011934b7b3fe443508243389b8c2599f0778897c6b1689abedf26",
   "response": {
     "searches": [
       "site.passportcamps.org 2027 registration October 1",
-      "open https://passportcamps.org/"
+      "open https://passportcamps.org/passportkids/"
     ],
     "usage": {
-      "inputTokens": 24337,
-      "cachedInputTokens": 8223,
-      "outputTokens": 2239,
-      "reasoningTokens": 159
+      "inputTokens": 24644,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2066,
+      "reasoningTokens": 155
     },
     "status": "completed",
-    "ms": 47183,
+    "ms": 43712,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -74,14 +74,23 @@
   "extraction": {
     "provider_name": "PASSPORT",
     "website_url": "https://passportcamps.org/",
-    "notes": "2027 dates and rates are posted. Cards cover the two supplied regional locations, Montreat and Converse; the national dates page also lists camps outside this directory's region. Registration is through church group leaders, not individual parent registration. The undated How To Register page says registration begins October 1st at 8:00 am CDT, but does not explicitly identify a calendar year; no dated opening milestone was assigned. Linked registration-policy PDFs are labeled 2025 and were not used for 2027 facts.",
-    "excluded": [],
+    "notes": "The official dates page posts summer 2027 programs. Registration is through church group leaders, not individual families. The how-to-register page states October 1 at 8:00 am CDT but does not identify a calendar year; no year-specific opening milestone was recorded. Only Montreat and Converse sites were retained.",
+    "excluded": [
+      {
+        "name": "PASSPORTmissions",
+        "reason": "All listed 2027 sites are outside the approximately 75-minute drive area around Asheville."
+      },
+      {
+        "name": "PASSPORT to Puerto Rico",
+        "reason": "Held in Cidra, Puerto Rico, outside the directory's geographic area."
+      }
+    ],
     "cards": [
       {
         "name": "PASSPORTkids",
         "type": "overnight",
-        "categories": ["faith_based", "general"],
-        "description": "Children participate in Bible studies, hands-on missions education, recreation, and worship during a four-day, three-night camp with their church groups.",
+        "categories": ["faith_based", "nature_outdoor"],
+        "description": "Overnight church camp for children who have completed grades 3–6. At Montreat, campers can swim, canoe or paddle boat during free time.",
         "camp_page_url": "https://passportcamps.org/project/montreat/",
         "registration_url": "https://registration.passportcamps.org/",
         "season": {
@@ -108,7 +117,7 @@
         "hours": {
           "start": null,
           "end": null,
-          "text": "Check-in is from 12–2 pm. Churches depart after Closing Worship ends at 11:15 am."
+          "text": "Check-In is from 12-2pm. Churches depart after Closing Worship ends at 11:15 am."
         },
         "extended_care": null,
         "prices": [
@@ -125,26 +134,13 @@
             "year": 2027
           }
         ],
-        "sessions": [
-          {
-            "label": "Mon - Thurs, July 5 - 8",
-            "start": "2027-07-05",
-            "end": "2027-07-08",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": null,
-            "hours": null,
-            "price": null,
-            "status": "waitlist"
-          }
-        ],
+        "sessions": [],
         "registration": [],
         "last_year_registration_opened": null,
         "availability": {
           "status": "waitlist",
-          "scope": "Montreat session",
-          "text": "Mon - Thurs, July 5 - 8 (WAIT LIST ONLY)"
+          "scope": null,
+          "text": "WAIT LIST ONLY"
         },
         "financial_aid": {
           "value": "yes",
@@ -152,20 +148,20 @@
         },
         "special_needs": {
           "value": "case_by_case",
-          "text": "In the registration system on the “Group Information” page, please indicate any requests to which you would like the PASSPORT team to pay special attention such as: Specific student or adult needs (dietary, mobility, etc.)"
+          "text": "Campus is wheelchair accessible, though there are hills and uneven terrain."
         },
         "lunch": {
           "value": "yes",
-          "text": "Breakfast, lunch and dinner are served buffet-style in Montreat's Galax Dining Room. Churches depart after Closing Worship ends at 11:15 am (lunch is not provided on the last day)."
+          "text": "Breakfast, lunch and dinner are served buffet-style in Montreat's Galax Dining Room. Lunch is not provided on the last day."
         },
         "transportation": null,
         "sources": [
           "https://passportcamps.org/project/montreat/",
           "https://passportcamps.org/dates/",
-          "https://passportcamps.org/kids-camps/",
           "https://passportcamps.org/how-to-register/",
           "https://passportcamps.org/registration-policies/",
-          "https://montreat.org/about/contact"
+          "https://montreat.org/about/contact",
+          "https://montreat.org/what-to-expect"
         ],
         "confidence": "high",
         "review_notes": null
@@ -174,7 +170,7 @@
         "name": "PASSPORTchoices",
         "type": "overnight",
         "categories": ["faith_based", "general"],
-        "description": "Students attend small-group Bible studies and choose afternoon activities that explore their interests and faith during a six-day, five-night camp.",
+        "description": "Campers participate in Bible study, worship, choice groups and recreation. The schedule includes free time, a volleyball tournament and a variety show.",
         "camp_page_url": "https://passportcamps.org/project/converse/",
         "registration_url": "https://registration.passportcamps.org/",
         "season": {
@@ -220,7 +216,7 @@
         ],
         "sessions": [
           {
-            "label": "June 13 - 18 (Apartments: Wait List; Dorms: Almost Full)",
+            "label": "June 13 - 18",
             "start": "2027-06-13",
             "end": "2027-06-18",
             "year": 2027,
@@ -232,7 +228,7 @@
             "status": "mixed"
           },
           {
-            "label": "June 20 - 25 (Apartments: Almost Full; Dorms: Almost Full)",
+            "label": "June 20 - 25",
             "start": "2027-06-20",
             "end": "2027-06-25",
             "year": 2027,
@@ -244,7 +240,7 @@
             "status": "available"
           },
           {
-            "label": "June 27 - July 2 (Dorms: Almost Full; Apartments: Available)",
+            "label": "June 27 - July 2",
             "start": "2027-06-27",
             "end": "2027-07-02",
             "year": 2027,
@@ -256,7 +252,7 @@
             "status": "available"
           },
           {
-            "label": "July 4 -9",
+            "label": "July 4 - 9",
             "start": "2027-07-04",
             "end": "2027-07-09",
             "year": 2027,
@@ -268,7 +264,7 @@
             "status": null
           },
           {
-            "label": "July 11 - 16 (Wait List Only)",
+            "label": "July 11 - 16",
             "start": "2027-07-11",
             "end": "2027-07-16",
             "year": 2027,
@@ -284,7 +280,7 @@
         "last_year_registration_opened": null,
         "availability": {
           "status": "mixed",
-          "scope": "Converse sessions and housing options",
+          "scope": "Converse University sessions",
           "text": "June 13 - 18 (Apartments: Wait List; Dorms: Almost Full); June 20 - 25 (Apartments: Almost Full; Dorms: Almost Full); June 27 - July 2 (Dorms: Almost Full; Apartments: Available); July 11 - 16 (Wait List Only)"
         },
         "financial_aid": {
@@ -293,14 +289,17 @@
         },
         "special_needs": {
           "value": "case_by_case",
-          "text": "In the registration system on the “Group Information” page, please indicate any requests to which you would like the PASSPORT team to pay special attention such as: Specific student or adult needs (dietary, mobility, etc.)"
+          "text": "Campus is wheelchair accessible."
         },
-        "lunch": null,
+        "lunch": {
+          "value": "yes",
+          "text": "11:30 am Lunch"
+        },
         "transportation": null,
         "sources": [
           "https://passportcamps.org/project/converse/",
           "https://passportcamps.org/dates/",
-          "https://passportcamps.org/passport-choices/",
+          "https://passportcamps.org/youth-daily-schedules/",
           "https://passportcamps.org/how-to-register/",
           "https://passportcamps.org/registration-policies/",
           "https://www.converse.edu/about/contact-us/"

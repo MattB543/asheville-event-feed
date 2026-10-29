@@ -7,19 +7,19 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:31:32.569Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:26:45.653Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "0433b8348b660b23d974967ab227c9784c5ae36377ecc7615603ea84325a5c8e",
   "response": {
-    "searches": ["site:carolinadancecollective.com summer camp 2026 2027"],
+    "searches": ["site:carolinadancecollective.com summer camp SPLASH 2026 2027"],
     "usage": {
-      "inputTokens": 13827,
-      "cachedInputTokens": 8223,
-      "outputTokens": 736,
-      "reasoningTokens": 158
+      "inputTokens": 14465,
+      "cachedInputTokens": 8845,
+      "outputTokens": 705,
+      "reasoningTokens": 105
     },
     "status": "completed",
-    "ms": 22755,
+    "ms": 22931,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -43,23 +43,27 @@
   "extraction": {
     "provider_name": "Carolina Dance Collective",
     "website_url": "https://www.carolinadancecollective.com/",
-    "notes": "No official summer 2026 or 2027 camp information was found. The SPLASH page is an archived announcement headed COMING JULY 2022, with July 25–29 and August 1–5 sessions. Those dates and grade bands have not been carried forward. The camp card identifies this historical offering only; its return for summer 2027 is unconfirmed.",
+    "notes": "No 2027 or 2026 summer camp information was found. The SPLASH page is an old announcement headed COMING JULY 2022; its dates and grade bands have not been carried forward. The 2026-2027 class schedule is a school-year schedule, not a summer camp announcement.",
     "excluded": [
       {
         "name": "2026-2027 Class Schedule",
-        "reason": "School-year dance classes beginning September 1, 2026, not a finite summer camp."
+        "reason": "School-year dance classes, not a finite summer camp."
       },
       {
         "name": "Adult Classes",
-        "reason": "Adult-only ongoing dance classes, not a youth summer camp."
+        "reason": "Adult dance classes, not supervised youth summer programs."
+      },
+      {
+        "name": "Carolina Dance Center Summer Camps",
+        "reason": "A different provider located in Raleigh, NC, outside the directory's area."
       }
     ],
     "cards": [
       {
         "name": "SPLASH",
         "type": "day",
-        "categories": ["dance", "theater"],
-        "description": "The historical summer camp offered ballet, tap, jazz, modern, musical theatre, and improvisation.",
+        "categories": ["dance"],
+        "description": "A summer dance camp offering ballet, tap, jazz, modern, musical theatre, and improvisation.",
         "camp_page_url": "https://www.carolinadancecollective.com/splash",
         "registration_url": null,
         "season": {
@@ -94,8 +98,8 @@
           "https://www.carolinadancecollective.com/splash",
           "https://www.carolinadancecollective.com/"
         ],
-        "confidence": "low",
-        "review_notes": "Confirm that SPLASH will return before publishing as a current camp. The only camp announcement found explicitly describes summer 2022; no 2026 or 2027 dates, eligibility, hours, prices, or registration details were found. The studio address appears on the historical camp page and current homepage."
+        "confidence": "medium",
+        "review_notes": "The only camp announcement found is explicitly for July 2022. Confirm that SPLASH will return in 2027 and confirm its format, location, eligibility, dates, and hours. The day-camp classification is inferred from the studio summer camp announcement; hours are not published. The old Registration Coming Soon wording is not a 2027 announcement."
       }
     ]
   }

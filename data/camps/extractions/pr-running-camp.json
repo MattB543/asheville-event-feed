@@ -11,19 +11,19 @@
     "discovered_by": ["grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:19:35.802Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:16:38.415Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "dd24bf3e188b9e866803276a96e3adbda6580d8ab1960ca1d176d91cb7f12fba",
   "response": {
-    "searches": ["site.prrunningcamp.com 2027 registration opens"],
+    "searches": ["site.prrunningcamp.com 2027 registration"],
     "usage": {
-      "inputTokens": 18413,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1833,
-      "reasoningTokens": 48
+      "inputTokens": 18931,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1785,
+      "reasoningTokens": 47
     },
     "status": "completed",
-    "ms": 37690,
+    "ms": 32707,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -72,11 +72,11 @@
   "extraction": {
     "provider_name": "P.R. Running Camp",
     "website_url": "https://www.prrunningcamp.com/",
-    "notes": "2027 dates and registration listings are posted. Official pages conflict on combined-session pricing, team pricing, the between-session stay fee, and the youngest eligible grade. No registration opening date was found.",
+    "notes": "2027 information is posted. Official pages disagree on combined-session pricing, team pricing, between-session fees and the combined session's minimum grade. No dated registration opening announcement was found.",
     "excluded": [
       {
         "name": "Counselor Application",
-        "reason": "Application for camp staff employment, not a youth camp program."
+        "reason": "Camp counselor employment application, not a youth camp program."
       }
     ],
     "cards": [
@@ -84,7 +84,7 @@
         "name": "P.R. Running Camp",
         "type": "overnight",
         "categories": ["sports"],
-        "description": "Campers train on regional trails and attend talks and small-group sessions about running, nutrition and sports psychology. Activities also include river tubing, field games and an end-of-camp cross-country race.",
+        "description": "Campers train on mountain trails, attend talks about training, nutrition and sports psychology, and participate in a cross-country race. Other activities include river tubing, field day, color wars and a talent show.",
         "camp_page_url": "https://www.prrunningcamp.com/pr-running-camp-information",
         "registration_url": "https://info.abcsportscamps.com/prrunningcamps",
         "season": {
@@ -92,7 +92,7 @@
           "status": "posted",
           "start": "2027-07-11",
           "end": "2027-07-21",
-          "text": "P.R. Running Camp 2027: Week 1: July 11-15; Week 2: July 17-21."
+          "text": null
         },
         "ages": null,
         "grades": {
@@ -111,32 +111,26 @@
         "hours": {
           "start": null,
           "end": null,
-          "text": "Overnight. Check-in 11:00 AM–1:00 PM on the first day; check-out by noon on the final day."
+          "text": "Check-In: From 11:00AM-1:00PM. Pick Up/Check Out: By 12 PM on the final day of camp."
         },
         "extended_care": null,
         "prices": [
           {
             "amount": 840,
             "unit": "session",
-            "label": "Early bird, by December 31",
+            "label": "Early Bird (By Dec. 31st)",
             "year": 2027
           },
           {
             "amount": 875,
             "unit": "session",
-            "label": "Standard, after December 31",
+            "label": "Standard (After Dec. 31st)",
             "year": 2027
           },
           {
             "amount": 825,
             "unit": "session",
-            "label": "Teams, per camper; Dates & Price page",
-            "year": 2027
-          },
-          {
-            "amount": 1815,
-            "unit": "program",
-            "label": "2 Weeks Of Camp; Dates & Price page; registration platform lists $1,850",
+            "label": "Teams (Per Camper)",
             "year": 2027
           }
         ],
@@ -157,7 +151,7 @@
             "price": {
               "amount": 875,
               "unit": "session",
-              "label": "Registration platform standard price",
+              "label": null,
               "year": 2027
             },
             "status": null
@@ -177,8 +171,8 @@
             "hours": null,
             "price": {
               "amount": 1850,
-              "unit": "program",
-              "label": "Both sessions including days in between; registration platform",
+              "unit": "session",
+              "label": "Both Camp Sessions, including the days in between",
               "year": 2027
             },
             "status": null
@@ -199,7 +193,7 @@
             "price": {
               "amount": 875,
               "unit": "session",
-              "label": "Registration platform standard price; $35 early bird discount through December 31, 2026",
+              "label": null,
               "year": 2027
             },
             "status": null
@@ -213,7 +207,7 @@
             "time": null,
             "precision": "date",
             "certainty": "announced",
-            "text": "5-Day, 4 Night Overnight Event | $35 early bird discount through December 31, 2026",
+            "text": "$35 early bird discount through December 31, 2026",
             "url": "https://info.abcsportscamps.com/prrunningcamps",
             "year": 2027,
             "confidence": "high"
@@ -264,7 +258,7 @@
           "https://www.wcu.edu/discover/locations/main-campus/directions-to-campus.aspx"
         ],
         "confidence": "medium",
-        "review_notes": "Confirm eligibility: individual registration listings state rising grades 7–12, while the combined listing states 6–12 despite all listings giving graduation years 2028–2033. Dates & Price lists two weeks at $1,815 versus $1,850 on registration; team price is $825 versus starting at $810 on Team Registration, whose price has no explicit year and is omitted from prices. Info says the between-session stay is free, while registration says $100 extra. Registration includes incorrect weekday names for July 17 and July 21; numeric dates match the 2027 camp pages. The July 11 registration deadline applies to Session #1 and the combined booking; July 17 applies to Session #2. Teams must provide their own transportation for the duration of camp."
+        "review_notes": "The registration platform lists rising grades 7–12 for individual weeks but 6–12 for the combined session despite identical graduation years 2028–2033; confirm sixth-grade eligibility. The price page lists two weeks at $1815, while the registration platform lists $1850; the combined row uses the platform price. The price page lists teams at $825 per camper, while Team Registration says starting at $810 without a year. The information page says between-session lodging and meals are included at no additional fee, while the registration platform says $100 extra. Week 2 weekday names on the platform are inconsistent with its numeric dates; numeric dates match the provider's 2027 schedule. July 11 registration closing applies to Session #1 and the combined session; July 17 applies to Session #2. Airport shuttle wording applies to Asheville airport transportation; teams must provide their own transportation during camp."
       }
     ]
   }

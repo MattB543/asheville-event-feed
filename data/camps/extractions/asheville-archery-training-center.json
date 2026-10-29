@@ -7,22 +7,22 @@
     "discovered_by": ["seed_sheet"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T14:52:27.764Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T16:53:08.946Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "e7d069fede78d58043be76de63e83607708b7bf2541b8f8c45655140172eb07e",
   "response": {
     "searches": [
-      "site:ashevillearchery.org \"2027\"",
-      "\"Asheville Archery\" \"summer\" \"2026\" registration"
+      "site:ashevillearchery.org summer camp 2027",
+      "site:ashevillearchery.org \"2026\" \"Registration\""
     ],
     "usage": {
-      "inputTokens": 18701,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1114,
-      "reasoningTokens": 171
+      "inputTokens": 18938,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1135,
+      "reasoningTokens": 160
     },
     "status": "completed",
-    "ms": 29025,
+    "ms": 26468,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -41,35 +41,31 @@
   "extraction": {
     "provider_name": "Asheville Archery Training Center",
     "website_url": "https://www.ashevillearchery.org/",
-    "notes": "No official 2027 summer camp information or registration opening date was found. The card uses the explicitly labeled 2026 camp information supplied from the official page. Live opens of the camp and programs pages returned no readable text; official search results corroborated the supplied camp details. The destinations of the camp page's two CLICK HERE registration links could not be resolved.",
+    "notes": "No 2027 summer camp information or registration opening date was found. The camp page still lists 2026. Direct web opens returned no readable text; the supplied official-page text and indexed official pages were used. The destinations of the two CLICK HERE registration links could not be resolved. The homepage mentions camps with Master Coach Alexander Kirillov but provides no finite summer offering, dates, or location to extract.",
     "excluded": [
       {
         "name": "Intro to archery (adult)",
-        "reason": "Recurring class, not a summer-specific youth camp."
+        "reason": "A four-week lesson series, not a camp."
       },
       {
         "name": "Intro to archery (kids)",
-        "reason": "Recurring four-week class, not a summer-specific camp."
+        "reason": "A four-week lesson series, not a camp."
       },
       {
         "name": "Intro to Compound archery",
-        "reason": "Recurring class, not a summer-specific camp."
+        "reason": "Archery lessons, not a camp."
       },
       {
         "name": "intermediate",
-        "reason": "Ongoing archery training with weekly practices."
+        "reason": "Ongoing archery classes and weekly practice, not a finite summer program."
       },
       {
         "name": "AATC TEAM",
-        "reason": "Ongoing competition team and practice program."
+        "reason": "Ongoing competition team training, not a finite summer program."
       },
       {
         "name": "AATC COMPOUND TEAM",
-        "reason": "Ongoing competition team and practice program."
-      },
-      {
-        "name": "Assistant Archery Coach",
-        "reason": "Employment opportunity, not a youth camp."
+        "reason": "Ongoing competition team training, not a finite summer program."
       }
     ],
     "cards": [
@@ -77,9 +73,9 @@
         "name": "Summer Camp",
         "type": "half_day",
         "categories": ["sports"],
-        "description": "Campers learn Olympic recurve archery, including range safety, equipment setup and shooting technique, with equipment provided. Each five-day session concludes with an in-house tournament.",
+        "description": "Campers learn Olympic recurve archery, range and equipment safety, and shooting technique using provided equipment. Each week concludes with an in-house tournament.",
         "camp_page_url": "https://www.ashevillearchery.org/summer-camp",
-        "registration_url": "https://www.ashevillearchery.org/summer-camp",
+        "registration_url": null,
         "season": {
           "year": 2026,
           "status": "not_posted",

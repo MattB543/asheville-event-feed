@@ -7,24 +7,24 @@
     "discovered_by": ["seed_sheet", "grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T14:54:29.798Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T16:55:46.460Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "e4e3d4856e86226a57bfc946b3f9cff5992352ad86dffe740c1bd59f441ba41a",
   "response": {
     "searches": [
-      "site:fbca.net summer 2027 camp FirstShine",
-      "site:fbca.net \"2026\" \"Vacation Bible\"",
+      "site:fbca.net \"2026\" \"camp\"",
       "site:fbca.net \"Via Karis Camp\" \"2026\"",
-      "site:fbca.net \"Via Karis Camp\" \"June\" \"2026\""
+      "site:fbca.net \"Discovery Camp\"",
+      "site:fbca.net \"camp\" \"9:00\" \"2026\""
     ],
     "usage": {
-      "inputTokens": 27219,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1957,
-      "reasoningTokens": 284
+      "inputTokens": 43617,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2000,
+      "reasoningTokens": 386
     },
     "status": "completed",
-    "ms": 49463,
+    "ms": 62955,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -43,23 +43,35 @@
   "extraction": {
     "provider_name": "First Baptist Church of Asheville",
     "website_url": "https://fbca.net/",
-    "notes": "No summer 2027 dates or registration announcements found. The children's ministry page still refers to Summer 2023; its grade ranges were not reused as 2026 facts. Discovery Camp and PassportKids appear only in those older materials and could not be confirmed for 2026. The Vacation Bible School page lists June 24-27 without a year, so those dates and its free price were not assigned to 2026. Official 2026 bulletin PDFs were accessible only through search-indexed text.",
+    "notes": "No 2027 camp dates or registration milestones were found. The 2026 June worship bulletin lists Via Karis Camp June 22-26 and Advocacy Camp June 29-July 3. The Vacation Bible School page appears to retain the 2019 June 24-27 offering; no 2026 or 2027 VBS offering was confirmed. Discovery Camp and PassportKids remain named on the general children's ministry page, but current dates, formats and locations were not confirmed. Several PDFs returned only partial text.",
     "excluded": [
       {
+        "name": "Vacation Bible School",
+        "reason": "Only an undated legacy page matching the church's 2019 VBS dates was found; no 2026 or 2027 offering confirmed."
+      },
+      {
+        "name": "Unidiversity",
+        "reason": "The published location is Maryville College, Tennessee, outside the directory's approximate 75-minute drive area."
+      },
+      {
         "name": "Child Development Center",
-        "reason": "Year-round full-time childcare, not a finite summer program."
+        "reason": "Year-round childcare, not a finite summer program."
       },
       {
         "name": "First Kids Preschool",
-        "reason": "School-year preschool; the 2026-2027 handbook lists August through May."
+        "reason": "School-year preschool; its possible June session is described as preschool rather than a separate camp."
       },
       {
-        "name": "FBCA Youth Fall Retreat",
-        "reason": "October 23-25, 2026 is outside summer."
+        "name": "FBCA Summer Church Retreat",
+        "reason": "Church-wide family retreat, not a youth-only camp."
       },
       {
-        "name": "Agape Kids",
-        "reason": "Recurring school-year ministry rather than a summer camp."
+        "name": "Summer Reading for Adults",
+        "reason": "Adult reading program, not a supervised youth camp."
+      },
+      {
+        "name": "Helene Hospitality Ministry",
+        "reason": "Hosting volunteer mission groups, not a youth camp."
       }
     ],
     "cards": [
@@ -67,7 +79,7 @@
         "name": "FirstShine Summer Camp",
         "type": "day",
         "categories": ["general", "special_needs"],
-        "description": "Teenagers and young adults with special needs participate in activities adapted to their interests, including swimming outings, games, and crafts.",
+        "description": "A day camp for teenagers and young adults with special needs. Activities can include swimming outings, games and crafts, designed around each camper's age and interests.",
         "camp_page_url": "https://fbca.net/firstshine-summer-camp/",
         "registration_url": null,
         "season": {
@@ -103,12 +115,9 @@
           "value": "yes",
           "text": "FirstShine is a traditional summer day camp for teenagers and young adults with special needs in our greater community."
         },
-        "lunch": {
-          "value": "yes",
-          "text": "We also welcome volunteer nurses, special education teachers, and Bible Study classes to help provide camp meals."
-        },
+        "lunch": null,
         "transportation": null,
-        "sources": ["https://fbca.net/firstshine-summer-camp/", "https://fbca.net/"],
+        "sources": ["https://fbca.net/firstshine-summer-camp/"],
         "confidence": "high",
         "review_notes": null
       },
@@ -116,7 +125,7 @@
         "name": "Via Karis Camp",
         "type": "day",
         "categories": ["faith_based"],
-        "description": "Children explore Bible stories through the themes Water, Word, Table, Body, and Creation. The 2026 camp focuses on the creation story.",
+        "description": "Children explore Bible stories through Water, Word, Table, Body and Creation. The 2026 camp focuses on the creation story.",
         "camp_page_url": "https://fbca.net/childrens-ministry/",
         "registration_url": null,
         "season": {
@@ -127,7 +136,11 @@
           "text": null
         },
         "ages": null,
-        "grades": null,
+        "grades": {
+          "min": 0,
+          "max": 5,
+          "basis": "unspecified"
+        },
         "sites": [],
         "hours": null,
         "extended_care": null,
@@ -141,17 +154,18 @@
         "lunch": null,
         "transportation": null,
         "sources": [
+          "https://fbca.net/childrens-ministry/",
           "https://fbca.net/wp-content/uploads/2026/06/200607web.pdf",
           "https://fbca.net/wp-content/uploads/2026/06/260621web.pdf"
         ],
         "confidence": "medium",
-        "review_notes": "June 22-26 dates come from search-indexed text of the June 2026 bulletin PDF; the PDF could not be read directly. Confirm hours, eligibility, and drop-off venue. The children's ministry grade range belongs to its older Summer 2023 section."
+        "review_notes": "Dates come from the June summer schedule in a 2026 bulletin search excerpt; grades come from the undated children's ministry page. Confirm format and drop-off location; no camp-specific location or hours were recovered."
       },
       {
         "name": "Advocacy Camp",
         "type": "day",
         "categories": ["faith_based"],
-        "description": "The church lists Advocacy Camp as a summer program for children.",
+        "description": "A summer camp for children in second through sixth grades.",
         "camp_page_url": "https://fbca.net/childrens-ministry/",
         "registration_url": null,
         "season": {
@@ -162,7 +176,11 @@
           "text": null
         },
         "ages": null,
-        "grades": null,
+        "grades": {
+          "min": 2,
+          "max": 6,
+          "basis": "unspecified"
+        },
         "sites": [],
         "hours": null,
         "extended_care": null,
@@ -176,41 +194,34 @@
         "lunch": null,
         "transportation": null,
         "sources": [
-          "https://fbca.net/wp-content/uploads/2026/06/200607web.pdf",
-          "https://fbca.net/childrens-ministry/"
+          "https://fbca.net/childrens-ministry/",
+          "https://fbca.net/wp-content/uploads/2026/06/200607web.pdf"
         ],
         "confidence": "medium",
-        "review_notes": "June 29-July 3 dates come from search-indexed text of the June 2026 bulletin PDF; the PDF could not be read directly. Format is provisionally classified as day camp; confirm activities, hours, eligibility, and drop-off venue."
+        "review_notes": "Dates come from the June summer schedule in a 2026 bulletin search excerpt; grades come from the undated children's ministry page. Confirm day-camp format and drop-off venue. The advocacy-camp-2020-2 URL now contains an adult reading program, not camp details."
       },
       {
-        "name": "Vacation Bible School",
-        "type": "vbs",
-        "categories": ["faith_based"],
-        "description": "Children learn Bible stories, play games, eat snacks, make crafts, and do science experiments.",
-        "camp_page_url": "https://fbca.net/vacation-bible-school/",
+        "name": "Discovery Camp",
+        "type": "day",
+        "categories": ["general"],
+        "description": "A summer camp for children in kindergarten through fifth grade.",
+        "camp_page_url": "https://fbca.net/childrens-ministry/",
         "registration_url": null,
         "season": {
-          "year": 2027,
+          "year": 2026,
           "status": "not_posted",
           "start": null,
           "end": null,
           "text": null
         },
         "ages": null,
-        "grades": null,
-        "sites": [
-          {
-            "name": "First Baptist Church of Asheville",
-            "address": "5 Oak Street",
-            "town": "Asheville",
-            "state": "NC"
-          }
-        ],
-        "hours": {
-          "start": "09:00",
-          "end": "12:00",
-          "text": "9:00-Noon"
+        "grades": {
+          "min": 0,
+          "max": 5,
+          "basis": "unspecified"
         },
+        "sites": [],
+        "hours": null,
         "extended_care": null,
         "prices": [],
         "sessions": [],
@@ -221,9 +232,48 @@
         "special_needs": null,
         "lunch": null,
         "transportation": null,
-        "sources": ["https://fbca.net/vacation-bible-school/", "https://fbca.net/"],
-        "confidence": "medium",
-        "review_notes": "The official page was readable only through search results and lists June 24-27 without a year. It says the event is free and registration required, but neither dates nor price can safely be labeled 2026 or 2027. Confirm whether this is an older offering or the same program now named Via Karis Camp."
+        "sources": ["https://fbca.net/childrens-ministry/"],
+        "confidence": "low",
+        "review_notes": "Only a recurring summer-camp listing on the undated children's ministry page was found. Confirm that this program ran in 2026 or will run in 2027, its day-camp format, activities and location."
+      },
+      {
+        "name": "PassportKids",
+        "type": "overnight",
+        "categories": ["faith_based"],
+        "description": "A summer camp for children in third through sixth grades.",
+        "camp_page_url": "https://fbca.net/childrens-ministry/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 3,
+          "max": 6,
+          "basis": "unspecified"
+        },
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://fbca.net/childrens-ministry/",
+          "https://fbca.net/wp-content/uploads/2026/06/260628web.pdf"
+        ],
+        "confidence": "low",
+        "review_notes": "The 2026 June 28 bulletin search excerpt lists a Passport Kids pre-trip meeting, confirming a planned offering but not dates or venue. Confirm overnight format and that the 2026 or 2027 venue is within the directory area; do not reuse the Converse College location from older materials."
       }
     ]
   }

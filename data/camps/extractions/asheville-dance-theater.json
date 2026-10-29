@@ -7,19 +7,22 @@
     "discovered_by": ["seed_sheet", "news828", "grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T14:52:28.498Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T16:53:28.144Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "46dd5ba335608ea0d1153f28219457983d7261507240ac2cacf1d3ee2f8cbed0",
   "response": {
-    "searches": ["site:ashevilledancetheater.com summer camp 2026 2027"],
+    "searches": [
+      "site:ashevilledancetheater.com summer camp 2026 2027",
+      "site:ashevilledancetheater.com \"2026\""
+    ],
     "usage": {
-      "inputTokens": 13876,
-      "cachedInputTokens": 8223,
-      "outputTokens": 996,
-      "reasoningTokens": 71
+      "inputTokens": 18670,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1094,
+      "reasoningTokens": 142
     },
     "status": "completed",
-    "ms": 29855,
+    "ms": 31458,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -43,19 +46,19 @@
   "extraction": {
     "provider_name": "Asheville Dance Theater",
     "website_url": "https://ashevilledancetheater.com/",
-    "notes": "No 2027 summer information or camp registration dates were found. The official camp page does not print a year with its dates; the dates below are provisionally assigned to 2026 and require confirmation. The page says it holds two theme camps but lists three. Monthly tuition and class registration fees were not treated as camp prices.",
+    "notes": "No 2027 camp information or camp registration dates found. The listed camp dates have no printed year; they are provisionally recorded as 2026 and require confirmation. Monthly tuition and class registration fees were not treated as camp prices.",
     "excluded": [
       {
-        "name": "Year-round dance classes",
-        "reason": "Recurring dance instruction with monthly tuition, not finite summer camp programs."
+        "name": "Dance classes",
+        "reason": "Recurring dance lessons, including Creative Movement, Preschool, Ballet, Tap, Jazz, Hip Hop and Modern / Contemporary, rather than finite summer camps."
       },
       {
-        "name": "Competitive Company",
-        "reason": "Ongoing competitive dance company, not a finite summer camp."
+        "name": "The Dancing Gems",
+        "reason": "Competitive company training, competitions and conventions throughout the dance season, not a finite summer camp."
       },
       {
-        "name": "Stretch and Move",
-        "reason": "Recurring adult class for ages 19 and up."
+        "name": "Adult Ballet, Adult Tap and Stretch and Move",
+        "reason": "Adult-only recurring classes."
       }
     ],
     "cards": [
@@ -63,7 +66,7 @@
         "name": "Summer Camps",
         "type": "half_day",
         "categories": ["dance", "arts"],
-        "description": "Campers dance to theme music, make themed crafts, watch short movies and have snacks. Sessions include a performance for friends and families.",
+        "description": "Campers participate in themed crafts, snacks, short movies and dance activities. Camps include routines performed for friends and families.",
         "camp_page_url": "https://ashevilledancetheater.com/summer_camp",
         "registration_url": null,
         "season": {
@@ -143,7 +146,7 @@
           "https://ashevilledancetheater.com/"
         ],
         "confidence": "medium",
-        "review_notes": "Confirm the season year: neither the homepage nor the summer camp page prints a year with the dates. They have been provisionally interpreted as 2026, not 2027. Bluey Camp is listed June 15-17 on both pages, but its description promises a Thursday presentation; June 17, 2026 is Wednesday. Retained the printed date range rather than extending it. The introduction says two camps although three are listed."
+        "review_notes": "Neither the camp page nor homepage prints a year with the dates. The dates are provisionally assigned to 2026 based on the Monday–Thursday alignment of K-Pop and Wicked camps and the homepage's May 29–31 recital weekend; confirm the year with the provider. The homepage also says 46 years since 1979, suggesting stale text. Bluey lists June 15–17 but describes a Thursday presentation, which would fall June 18 in 2026; retain the printed dates pending confirmation. The introductory text says two camps, but three current themes are listed."
       }
     ]
   }

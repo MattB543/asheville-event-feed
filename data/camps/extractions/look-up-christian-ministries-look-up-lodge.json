@@ -7,23 +7,22 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:33:09.179Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:27:41.188Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "947467bca7879fa0fa0b2350d2808b7dacbc6fc66c38c8010b63f3fdf8143196",
   "response": {
     "searches": [
-      "site.lookuplodge.com summer camp kids teen ages 2027",
-      "open https://www.lookuplodge.com/summer-camp",
-      "site:lookuplodge.com/school-year-conferences \"2027\""
+      "site.lookuplodge.com \"2027\" registration",
+      "open https://www.lookuplodge.com/summer-camp"
     ],
     "usage": {
-      "inputTokens": 21845,
-      "cachedInputTokens": 8223,
-      "outputTokens": 2171,
-      "reasoningTokens": 200
+      "inputTokens": 17335,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1798,
+      "reasoningTokens": 111
     },
     "status": "completed",
-    "ms": 47984,
+    "ms": 34487,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -57,35 +56,19 @@
   "extraction": {
     "provider_name": "Look Up Christian Ministries — Look Up Lodge",
     "website_url": "https://www.lookuplodge.com/",
-    "notes": "Summer 2027 dates are posted, but the summer rate heading explicitly says 2026. Summer Camp is group-only, not open to individual campers, and groups must bring a chaperone; the provider suggests an 8:1 camper-to-leader ratio. No numeric summer camper ages or grades or registration opening dates were found. The Programmed Conferences page could only be read through official search results. Its Lil' Kids Camp on May 22–23 is excluded as a school-year offering before summer.",
+    "notes": "2027 summer dates are posted, but rates remain explicitly labeled 2026. Summer Camp is group-only and requires an accompanying chaperon; individual campers cannot register. Numeric age or grade limits and a registration opening date were not found. Direct browser opens returned no readable text; the supplied official-page text and official search results were used.",
     "excluded": [
       {
         "name": "Custom Retreats",
-        "reason": "Year-round custom group retreats, not a finite summer youth program."
+        "reason": "Year-round customizable group retreats, not a listed finite summer youth camp offering."
       },
       {
         "name": "Summer Staff 2027",
-        "reason": "Employment and staff service program, not a camper offering."
+        "reason": "Employment program."
       },
       {
-        "name": "Work at Look Up Lodge",
-        "reason": "Employment opportunities."
-      },
-      {
-        "name": "Winter Camp Teens",
-        "reason": "January 15–18, 2027; outside summer."
-      },
-      {
-        "name": "Winter Camp Teens 2.0",
-        "reason": "January 29–31, 2027; outside summer."
-      },
-      {
-        "name": "Kids Winter Camp",
-        "reason": "February 19–21, 2027; outside summer."
-      },
-      {
-        "name": "Lil' Kids Camp",
-        "reason": "May 22–23, 2027 school-year conference offering; outside summer."
+        "name": "Programmed Conferences",
+        "reason": "School-year conferences are excluded; the listed Winter Camp Teens runs January 15–18, 2027, outside summer."
       }
     ],
     "cards": [
@@ -93,9 +76,9 @@
         "name": "Summer Camp",
         "type": "overnight",
         "categories": ["faith_based", "nature_outdoor", "general"],
-        "description": "Church groups participate in chapel, worship, small groups, recreational games, and activities including boating, a giant swing, zipline, and climbing wall. Groups must bring an accompanying chaperone.",
+        "description": "Church groups participate in chapel teaching, worship, small groups, recreational games, and activities including boating, a zipline, a giant swing, and a climbing wall. Camp is for groups only, with an accompanying chaperon required.",
         "camp_page_url": "https://www.lookuplodge.com/summer-camp",
-        "registration_url": null,
+        "registration_url": "https://www.lookuplodge.com/contact-us",
         "season": {
           "year": 2027,
           "status": "posted",
@@ -297,8 +280,8 @@
         "last_year_registration_opened": null,
         "availability": {
           "status": "mixed",
-          "scope": "All teen sessions and July kids sessions are marked full; August kids sessions have REGISTER buttons.",
-          "text": "CAMP FULL"
+          "scope": "May and June sessions and all listed July sessions are full; August sessions display REGISTER.",
+          "text": "CAMP FULL / REGISTER"
         },
         "financial_aid": null,
         "special_needs": null,
@@ -311,8 +294,8 @@
           "https://www.lookuplodge.com/summer-camp",
           "https://www.lookuplodge.com/contact-us"
         ],
-        "confidence": "high",
-        "review_notes": null
+        "confidence": "medium",
+        "review_notes": "The contact form is supplied as the registration inquiry route; the destination of the summer page's REGISTER buttons could not be resolved. August row statuses remain null because REGISTER does not explicitly state availability. Confirm that route and availability on the summer page."
       }
     ]
   }

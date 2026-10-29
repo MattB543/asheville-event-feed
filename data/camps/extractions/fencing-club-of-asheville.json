@@ -7,19 +7,19 @@
     "discovered_by": ["gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:35:47.254Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:30:11.058Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "f60a5633e158dd50db577705692961abd72f772302f8bca5bbbd179c6c68576a",
   "response": {
-    "searches": ["site:fencingclubasheville.com summer camps 2027 2026"],
+    "searches": ["site:fencingclubasheville.com summer 2027 camps"],
     "usage": {
-      "inputTokens": 18078,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1233,
-      "reasoningTokens": 79
+      "inputTokens": 14650,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1217,
+      "reasoningTokens": 112
     },
     "status": "completed",
-    "ms": 26257,
+    "ms": 28797,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -63,43 +63,31 @@
   "extraction": {
     "provider_name": "Fencing Club of Asheville",
     "website_url": "https://fencingclubasheville.com/",
-    "notes": "2027 summer camp dates, pricing and sign-up will be announced in the spring; no specific registration date is posted. The summer page describes beginner and intermediate options within the same summer camp offering, represented as session rows. Financial assistance pages discuss memberships and equipment but do not explicitly establish camp assistance.",
+    "notes": "The official summer page announces that 2027 dates, pricing and sign-up will be announced in spring, but gives no specific registration date. Web searches found no additional updates. Customized homeschool camps are mentioned without a summer offering or schedule.",
     "excluded": [
       {
         "name": "Asheville Sport Fencing Winter Camp",
         "reason": "Held during winter break, outside summer."
       },
       {
-        "name": "Intro Class",
-        "reason": "Recurring year-round monthly class."
-      },
-      {
-        "name": "Beginner Class",
-        "reason": "Year-round ongoing class."
-      },
-      {
-        "name": "Intermediate Class",
-        "reason": "Year-round ongoing class."
-      },
-      {
-        "name": "Competitive Track",
-        "reason": "Ongoing individualized competitive training, not a finite summer program."
-      },
-      {
-        "name": "Open Fencing",
-        "reason": "Year-round open practice, not a finite summer program."
+        "name": "Intro Class, Beginner Class and Intermediate Class",
+        "reason": "Year-round fencing classes, not finite summer camps."
       },
       {
         "name": "Private Lessons",
-        "reason": "Year-round individually scheduled instruction."
+        "reason": "Individually booked lessons, not camps."
+      },
+      {
+        "name": "Competitive Track",
+        "reason": "Ongoing individualized training and tournament coaching, not a finite summer program."
+      },
+      {
+        "name": "Open Fencing",
+        "reason": "Ongoing open-floor fencing, not a finite supervised summer camp."
       },
       {
         "name": "Asheville Homeschool Sports Classes, Camps and Demos",
-        "reason": "Customized homeschool options without an identified finite summer offering."
-      },
-      {
-        "name": "Pre-Competitive Class",
-        "reason": "Ongoing year-round class."
+        "reason": "Custom options are offered by arrangement, but no identifiable summer camp offering is listed."
       }
     ],
     "cards": [
@@ -107,7 +95,7 @@
         "name": "Asheville Sport Fencing Summer Camps",
         "type": "day",
         "categories": ["sports"],
-        "description": "Campers learn Olympic fencing with equipment provided. The beginner option requires no experience; the intermediate option is for fencers with at least a month of previous experience.",
+        "description": "Campers learn Olympic fencing with equipment provided. Beginner sessions require no experience; intermediate sessions are intended for fencers with at least a month of previous experience.",
         "camp_page_url": "https://fencingclubasheville.com/asheville-sport-fencing-summer-camps/",
         "registration_url": null,
         "season": {
@@ -144,7 +132,7 @@
           {
             "amount": 475,
             "unit": "week",
-            "label": "Including lunch and snacks",
+            "label": "including lunch and snacks",
             "year": 2026
           }
         ],
@@ -190,7 +178,7 @@
           "https://fencingclubasheville.com/fencing-equipment-faqs/"
         ],
         "confidence": "medium",
-        "review_notes": "Hours are described as typical, and extended care as historically available, rather than confirmed for 2027. Lunch and price describe 2026 only. The equipment guide says owning gear is required for camps, but the specific summer camp page explicitly provides equipment for both options; the description follows the summer page. Historical statements that both 2026 sessions filled up are not treated as current availability."
+        "review_notes": "Hours are described as typical, and extended care as historically available, rather than confirmed for 2027. Lunch and prices describe 2026 only. The equipment guide generically says owning gear is required for camps, while the summer camp page explicitly provides equipment for both beginner and intermediate camps; the program-specific wording was used. The statement that both 2026 camps filled up is historical and was not treated as current availability."
       }
     ]
   }

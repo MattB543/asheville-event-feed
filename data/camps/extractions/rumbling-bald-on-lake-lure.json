@@ -7,32 +7,33 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:28:20.585Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
-  "sourceHash": "730a43337581e4fc9a7a12b543e937c9fd19b6cb639a84bbc5b74ae08186a50a",
+  "extractedAt": "2026-10-29T17:24:00.368Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "e35c868132273ff02c2445775f35cb2f4beb18e638f95cc4590277497141afbe",
   "response": {
     "searches": [
       "site:rumblingbald.com \"camp\" \"2026\"",
       "site:rumblingbald.com \"2026\" \"camp\" \"ages\"",
-      "site:rumblingbald.com \"camp\" \"drop\"",
-      "open https://rumblingbald.com/wp-content/uploads/2026/02/2026-Camp-Week-Highlights-1.pdf",
-      "site:rumblingbald.com/wp-content/uploads/2026/02/2026-Camp-Week-Highlights-1.pdf \"Dates\""
+      "?",
+      "open https://rumblingbald.com/wp-content/uploads/2026/02/2026-Camp-Week-Highlights.pdf",
+      "site:rumblingbald.com/wp-content/uploads/2026 camp",
+      "open https://rumblingbald.com/wp-content/uploads/2026/02/2026-Camp-Week-Highlights-1.pdf"
     ],
     "usage": {
-      "inputTokens": 46509,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1256,
-      "reasoningTokens": 348
+      "inputTokens": 47940,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1297,
+      "reasoningTokens": 320
     },
     "status": "completed",
-    "ms": 46450,
+    "ms": 43285,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
   "bundle": [
     {
       "url": "https://rumblingbald.com/amenities/",
-      "chars": 21456,
+      "chars": 21457,
       "method": "fetch"
     },
     {
@@ -47,42 +48,38 @@
     },
     {
       "url": "https://rumblingbald.com/",
-      "chars": 8687,
+      "chars": 8686,
       "method": "fetch"
     }
   ],
   "extraction": {
     "provider_name": "Rumbling Bald on Lake Lure",
     "website_url": "https://rumblingbald.com/",
-    "notes": "2027 dates will be released early next year; no 2027 registration date found. Two official 2026 camp PDFs appear to contain different prices. PDF extraction did not expose a complete dated camp calendar or an explicit drop-off venue.",
+    "notes": "2027 dates will be released early next year; no 2027 registration dates were found. The 2026 PDFs were readable only as partial extracted text/search snippets; PDF screenshots could not be generated. The camp's precise drop-off venue and registration link were not recovered.",
     "excluded": [
       {
         "name": "Group Fitness Classes",
-        "reason": "Recurring fitness classes, not a finite supervised summer youth program."
-      },
-      {
-        "name": "Personal Training Program",
-        "reason": "Ongoing individual training, not a summer youth camp."
+        "reason": "Recurring fitness classes, not a finite supervised youth summer camp."
       },
       {
         "name": "Racket Sports Open Play",
-        "reason": "Recurring social drop-in play, not a supervised youth camp."
-      },
-      {
-        "name": "The Rumble 2026",
-        "reason": "March climbing competition outside summer."
+        "reason": "Drop-in social play, not a supervised youth camp or skill clinic."
       },
       {
         "name": "July 4th Celebration",
-        "reason": "Family holiday events rather than a supervised youth program."
+        "reason": "Family holiday celebration and seasonal events, not a supervised youth camp."
+      },
+      {
+        "name": "The Rumble 2026",
+        "reason": "Regional climbing competition outside summer, not a youth summer camp."
       }
     ],
     "cards": [
       {
         "name": "Summer Adventure Camp",
         "type": "day",
-        "categories": ["general", "nature_outdoor", "arts"],
-        "description": "Campers participate in arts and crafts, nature exploration, field trips, swimming, tubing, and team games.",
+        "categories": ["general", "nature_outdoor"],
+        "description": "Campers participate in arts and crafts, nature exploration, field trips, swimming, tubing, and team games. Groups stay together throughout the day and separate for select age-based activities.",
         "camp_page_url": "https://rumblingbald.com/amenities/",
         "registration_url": null,
         "season": {
@@ -101,20 +98,32 @@
         "hours": {
           "start": "09:30",
           "end": "16:30",
-          "text": "9:30am-4:30pm"
+          "text": "Drop off is from 9-9:20am. Camp starts promptly at 9:30am."
         },
         "extended_care": null,
         "prices": [
           {
             "amount": 75,
             "unit": "day",
-            "label": "2026 Camp Week Highlights.pdf; conflicting alternate PDF pricing",
+            "label": null,
             "year": 2026
           },
           {
             "amount": 325,
             "unit": "week",
-            "label": "2026 Camp Week Highlights.pdf; conflicting alternate PDF pricing",
+            "label": null,
+            "year": 2026
+          },
+          {
+            "amount": 65,
+            "unit": "day",
+            "label": "Week of July 4th",
+            "year": 2026
+          },
+          {
+            "amount": 220,
+            "unit": "week",
+            "label": "Week of July 4th, camp is only 4 days",
             "year": 2026
           }
         ],
@@ -124,7 +133,7 @@
         "availability": {
           "status": "closed",
           "scope": "2026 season",
-          "text": "Our 2026 Summer Adventure Camp season has come to a close, and we are grateful to everyone who took part."
+          "text": "Our 2026 Summer Adventure Camp season has come to a close."
         },
         "financial_aid": null,
         "special_needs": null,
@@ -139,7 +148,7 @@
           "https://rumblingbald.com/wp-content/uploads/2026/02/2026-Camp-Week-Highlights-1.pdf"
         ],
         "confidence": "medium",
-        "review_notes": "Dates, ages, hours and listed prices were visible in an official search snippet for 2026-Camp-Week-Highlights.pdf. The alternate 2026-Camp-Week-Highlights-1.pdf snippet states $65/day or $220/week and says the July 4th week has four days; confirm which version is authoritative. Full calendar details were not exposed by PDF text extraction, so no weekly rows were invented. Confirm the camp's drop-off venue; the provider's general address and Wellness Center address were not explicitly identified as camp drop-off locations."
+        "review_notes": "Dates, ages, hours, and prices were stated in official PDF search snippets but omitted from the tool's partial PDF text. Check both 2026 Camp Week Highlights PDFs for the complete weekly calendar, any no-camp days, the July 4th week dates, registration QR destination, and precise drop-off venue. Screenshots failed because the tool did not recognize these files as PDFs. Sites are empty rather than assigning the resort office or Wellness Center without camp-specific evidence."
       }
     ]
   }

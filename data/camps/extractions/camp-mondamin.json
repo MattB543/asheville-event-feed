@@ -12,22 +12,19 @@
     "discovered_by": ["news828", "grid", "aggregator", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:00:48.392Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:00:47.213Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "6842b264ae77af0d707f18a1911d9f5f306ecd47634df3dc141a39dd7991f3c3",
   "response": {
-    "searches": [
-      "site:mondamin.com contact address 413",
-      "open https://www.mondamin.com/contact-us"
-    ],
+    "searches": ["site:mondamin.com contact address 413"],
     "usage": {
-      "inputTokens": 19720,
-      "cachedInputTokens": 8223,
-      "outputTokens": 2013,
-      "reasoningTokens": 106
+      "inputTokens": 20180,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2156,
+      "reasoningTokens": 76
     },
     "status": "completed",
-    "ms": 39471,
+    "ms": 38077,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -76,39 +73,39 @@
   "extraction": {
     "provider_name": "Camp Mondamin",
     "website_url": "https://www.mondamin.com/",
-    "notes": "The 2027 camper session list is posted. All six session lengths are grouped as one overnight program. The homepage gives ages 6–17, but the specific 2027 sessions span ages 7–17; the card uses the session-specific eligibility. Physical address was verified through official contact and directions search results; opening the contact page returned no readable text.",
+    "notes": "2027 camper sessions are posted. The returning-family registration opening date is not stated. Registration milestone calendar years are interpreted from the 2027 season context.",
     "excluded": [
       {
         "name": "Father-Son Weekends",
-        "reason": "Family-only programs attended by fathers and sons together."
+        "reason": "Family-only programs requiring a father and son to attend together."
       },
       {
         "name": "Friends and Family Weekend",
-        "reason": "Family-only weekend rather than a supervised youth camp."
+        "reason": "Family-only retreat, not a supervised youth camp."
       },
       {
         "name": "Summer Jobs",
-        "reason": "Employment positions, not youth camp offerings."
+        "reason": "Employment opportunities, not youth camp programs."
       },
       {
         "name": "Spring Paddling Clinic and Fundraiser",
-        "reason": "Spring program, outside summer."
+        "reason": "Spring program outside the summer."
       }
     ],
     "cards": [
       {
         "name": "Camp Mondamin",
         "type": "overnight",
-        "categories": ["nature_outdoor", "sports", "horses", "arts"],
-        "description": "Boys choose activities including swimming, canoeing, kayaking, sailing, mountain biking, horseback riding, rock climbing, nature study and crafts. Sessions include instruction and wilderness trips suited to campers' skills.",
+        "categories": ["nature_outdoor", "horses", "arts", "sports"],
+        "description": "Boys choose activities including swimming, canoeing, kayaking, sailing, mountain biking, horseback riding, rock climbing, woodworking, and arts and crafts. Camp activities include instruction and overnight wilderness trips.",
         "camp_page_url": "https://www.mondamin.com/dates-and-rates",
-        "registration_url": "https://campmondamin.campintouch.com/ui/login/Login",
+        "registration_url": "https://campmondamin.campintouch.com/",
         "season": {
           "year": 2027,
           "status": "posted",
           "start": "2027-06-04",
           "end": "2027-08-11",
-          "text": "2027 Sessions"
+          "text": null
         },
         "ages": {
           "min": 7,
@@ -270,7 +267,7 @@
             "price": {
               "amount": 3200,
               "unit": "session",
-              "label": "Boys may attend for one year only",
+              "label": null,
               "year": 2027
             },
             "status": null
@@ -300,6 +297,30 @@
             "url": "https://www.mondamin.com/dates-and-rates",
             "year": 2027,
             "confidence": "medium"
+          },
+          {
+            "audience": "other",
+            "kind": "deadline",
+            "date": "2027-01-01",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "Please contact us by January 1 for a scholarship application.",
+            "url": "https://www.mondamin.com/dates-and-rates",
+            "year": 2027,
+            "confidence": "medium"
+          },
+          {
+            "audience": "other",
+            "kind": "deadline",
+            "date": "2027-02-01",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "Limited financial assistance is available if you apply before February 1.",
+            "url": "https://www.mondamin.com/dates-and-rates",
+            "year": 2027,
+            "confidence": "medium"
           }
         ],
         "last_year_registration_opened": null,
@@ -326,7 +347,7 @@
           "https://www.mondamin.com/"
         ],
         "confidence": "medium",
-        "review_notes": "September 1 and December 1 do not print a calendar year; 2026 is inferred from their placement on the 2027 registration page. Grades stated as 'before camp' are interpreted as completed grades. The homepage says ages 6–17, while all listed 2027 sessions begin at age 7 or 8. Address is supported by official search snippets only."
+        "review_notes": "The homepage gives general ages 6–17; the 2027 session descriptions give ages 7–17 overall, used here. Grades stated as 'before camp' are interpreted as completed grades. Registration and scholarship milestone years are not printed alongside the dates: September 1 and December 1 are interpreted as 2026, and January 1 and February 1 as 2027, from the 2027 registration context. August Junior Camp may be attended for one year only."
       }
     ]
   }

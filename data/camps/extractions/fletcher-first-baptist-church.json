@@ -10,19 +10,19 @@
     "discovered_by": ["grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:13:26.981Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:11:30.937Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "669c9eee70712041aac9961ff302a2d93aebe175b6b31f3e540dbc0c44238359",
   "response": {
     "searches": ["site:fletcherfirstbaptist.com \"2027\" \"Vacation\""],
     "usage": {
-      "inputTokens": 14800,
-      "cachedInputTokens": 8223,
-      "outputTokens": 770,
-      "reasoningTokens": 74
+      "inputTokens": 15459,
+      "cachedInputTokens": 8845,
+      "outputTokens": 815,
+      "reasoningTokens": 75
     },
     "status": "completed",
-    "ms": 24555,
+    "ms": 20285,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -51,15 +51,19 @@
   "extraction": {
     "provider_name": "Fletcher First Baptist Church",
     "website_url": "https://www.fletcherfirstbaptist.com/",
-    "notes": "No summer 2027 information or registration dates were found. The 2026 VBS registration page contains conflicting weekday and commencement information; the official events calendar confirms July 13–17, 2026.",
+    "notes": "No summer 2027 information or registration opening date was found on the official pages. The 2026 event calendar confirms July 13–17, but the ministry page contains conflicting weekday and commencement details.",
     "excluded": [
       {
         "name": "AWANA Clubs",
-        "reason": "Recurring school-year program offered September–May, not a finite summer camp."
+        "reason": "School-year weekly program, September–May, rather than a finite summer camp."
       },
       {
-        "name": "Sunday School",
-        "reason": "Year-round weekly classes, not a finite summer camp."
+        "name": "Commencement Ceremony and Games",
+        "reason": "Single-evening ceremony and social event, not a separate camp."
+      },
+      {
+        "name": "Special Youth Service with Rev. Luke Waldroup",
+        "reason": "Single-day church service, not a summer camp."
       }
     ],
     "cards": [
@@ -67,7 +71,7 @@
         "name": "Vacation Bible School",
         "type": "vbs",
         "categories": ["faith_based"],
-        "description": "Children explore Psalm 23 through Bible lessons, games, crafts, music and snacks. The 2026 theme is Emerald Crossing: An Irish Adventure.",
+        "description": "Children participate in Bible lessons, games, crafts, music, and snacks. The Emerald Crossing theme explores Psalm 23 and Jesus as the Good Shepherd.",
         "camp_page_url": "https://www.fletcherfirstbaptist.com/event/vacation-bible-school/",
         "registration_url": "https://www.fletcherfirstbaptist.com/ministries/vacation-bible-school-2022/",
         "season": {
@@ -103,13 +107,13 @@
         "lunch": null,
         "transportation": null,
         "sources": [
-          "https://www.fletcherfirstbaptist.com/event/vacation-bible-school/",
           "https://www.fletcherfirstbaptist.com/ministries/vacation-bible-school-2022/",
+          "https://www.fletcherfirstbaptist.com/event/vacation-bible-school/",
           "https://www.fletcherfirstbaptist.com/events/",
-          "https://www.fletcherfirstbaptist.com/contact/"
+          "https://www.fletcherfirstbaptist.com/wp-content/uploads/2017/04/Fletcher-First-Baptist-VBS-Registration.pdf"
         ],
         "confidence": "medium",
-        "review_notes": "The registration page labels VBS 2026 and states July 13–17, but also says Monday–Thursday and lists commencement as Friday, July 25. July 25, 2026 is a Saturday. Dates here follow the official events calendar, which explicitly lists July 13–17, 2026; the separate commencement date is omitted pending clarification. Eligible ages, grades and fees are not stated. The event page says the event has passed but does not explicitly state registration availability."
+        "review_notes": "Dates and hours follow the event page, with the year explicitly confirmed by the 2026 event calendar. The ministry page labels July 13–17 as Monday–Thursday and lists commencement as Friday, July 25, which is inconsistent with the 2026 calendar and event listing. Check the church's intended final-day schedule. No eligibility ages or grades are stated; the registration form requests these details but does not establish limits."
       }
     ]
   }

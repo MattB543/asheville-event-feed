@@ -7,19 +7,22 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:09:54.591Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:08:21.763Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "34f422698c3e92f638fe5249bc6d1c4700ec91c9a5d3bbfa894218c545f16835",
   "response": {
-    "searches": ["site:mahec.net summer camp 2027 2026 Health Careers"],
+    "searches": [
+      "site:mahec.net \"summer camp\" \"2027\"",
+      "open https://mahec.net/residents-and-students/health-careers-academy"
+    ],
     "usage": {
-      "inputTokens": 15832,
-      "cachedInputTokens": 8223,
-      "outputTokens": 937,
-      "reasoningTokens": 105
+      "inputTokens": 16767,
+      "cachedInputTokens": 8845,
+      "outputTokens": 940,
+      "reasoningTokens": 173
     },
     "status": "completed",
-    "ms": 31243,
+    "ms": 33937,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -48,23 +51,15 @@
   "extraction": {
     "provider_name": "Mountain Area Health Education Center (MAHEC)",
     "website_url": "https://mahec.net/",
-    "notes": "No summer 2027 camp information or registration milestones were found. The camp page explicitly lists 2026 dates. MAHEC's Health Careers Academy page gives a generic late June/early July camp timeframe; the dated camp page was used instead.",
+    "notes": "No summer 2027 camp information or registration milestones were found. The camp card retains the explicitly dated 2026 information. An archived 2015 Health Careers Summer Camp brochure describes a different historical audience and venue and was not used. The Health Careers Academy page and Project PROMISE internships page returned no readable text when opened.",
     "excluded": [
       {
         "name": "Health Careers Academy",
-        "reason": "Spring-semester enrichment program; its culminating summer camp is included separately."
+        "reason": "The current official search result advertises Spring 2027 programming, outside summer."
       },
       {
-        "name": "Project PROMISE Internships",
-        "reason": "School-sanctioned internships for course credit, not a finite summer camp offering."
-      },
-      {
-        "name": "Project PROMISE Workshops",
-        "reason": "School-based workshops with no finite summer offering identified."
-      },
-      {
-        "name": "MAHECxplorer Internship",
-        "reason": "Paid undergraduate summer internship, not a youth camp."
+        "name": "MAHECxplorer",
+        "reason": "Paid summer internship for undergraduate students; an employment program rather than a youth camp."
       }
     ],
     "cards": [
@@ -72,7 +67,7 @@
         "name": "Health Careers Summer Camp",
         "type": "overnight",
         "categories": ["stem", "academic"],
-        "description": "Students stay in UNC Asheville dorms and participate in hands-on healthcare activities at UNC Asheville and MAHEC. The four-day, three-night program also includes a ropes-course trip.",
+        "description": "Students stay in UNC Asheville dorms and participate in hands-on healthcare activities on the UNC Asheville and MAHEC campuses. The four-day, three-night camp also includes a trip to the Adventure Center of Asheville’s ropes course.",
         "camp_page_url": "https://mahec.net/rhi/project-promise-camp",
         "registration_url": null,
         "season": {
@@ -90,7 +85,7 @@
         },
         "sites": [
           {
-            "name": "University of North Carolina Asheville",
+            "name": "UNC Asheville",
             "address": "1 University Heights",
             "town": "Asheville",
             "state": "NC"
@@ -111,7 +106,7 @@
         "last_year_registration_opened": null,
         "availability": {
           "status": "closed",
-          "scope": "2026 applications",
+          "scope": "2026 season",
           "text": "Applications for the 2026 season have closed."
         },
         "financial_aid": null,
@@ -123,11 +118,10 @@
         "transportation": null,
         "sources": [
           "https://mahec.net/rhi/project-promise-camp",
-          "https://www.unca.edu/campus-map/",
-          "https://mahec.net/residents-and-students/health-careers-academy"
+          "https://www.unca.edu/campus-map/"
         ],
         "confidence": "medium",
-        "review_notes": "The introductory description includes rising juniors, seniors, or class of 2026 seniors, but the eligibility requirements list only rising juniors and seniors from rural WNC. The structured grades reflect the eligibility list; confirm whether graduating seniors are eligible. A minimum weighted GPA of 3.0 and a strong desire to pursue healthcare are required. UNC Asheville is the stated overnight venue, but no specific dorm or drop-off location is published; the address is its official general campus address. MAHEC is an activity location and the ropes course is a field trip, so neither is listed as a drop-off site."
+        "review_notes": "The camp description includes rising juniors, seniors, or class of 2026 seniors, but the eligibility section only lists rising high school juniors and seniors from rural WNC. Grades encode the rising students; confirm eligibility for graduating seniors. The page also requires a strong desire to pursue a healthcare career and a minimum weighted GPA of 3.0. UNC Asheville is the overnight lodging venue; its official campus address is used, but the camp does not identify a specific dorm or check-in location. MAHEC and the Adventure Center are activity destinations, not confirmed drop-off sites."
       }
     ]
   }

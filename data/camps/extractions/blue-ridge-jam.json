@@ -8,22 +8,23 @@
     "status": "review",
     "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
   },
-  "extractedAt": "2026-10-29T15:18:31.424Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:15:50.865Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "8b13b01443e0afd01dd81b207feae64c215e986a1a9472bd9fddb9ef98f6c9a1",
   "response": {
     "searches": [
-      "\"Blue Ridge JAM\" \"summer\" camp 2026",
-      "open https://www.cashiershistory.org/jam-camp-2026"
+      "\"Blue Ridge JAM\" \"camp\" 2026",
+      "open https://www.cashiershistory.org/jam-camp-2026",
+      "site:cashiershistory.org \"JAM\" \"2026\" \"$75\""
     ],
     "usage": {
-      "inputTokens": 19314,
-      "cachedInputTokens": 8223,
-      "outputTokens": 535,
-      "reasoningTokens": 86
+      "inputTokens": 24177,
+      "cachedInputTokens": 8845,
+      "outputTokens": 887,
+      "reasoningTokens": 250
     },
     "status": "completed",
-    "ms": 20442,
+    "ms": 25234,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -42,19 +43,19 @@
   "extraction": {
     "provider_name": "Blue Ridge JAM",
     "website_url": "https://jamkids.org/blueridge",
-    "notes": "No summer 2027 information found. The 2026 summer camp is published by co-host Cashiers Historical Society. Its page still says registration is open despite the camp dates being past; that statement is not treated as current availability.",
+    "notes": "No 2027 JAM Camp information found. The official partner's 2026 camp page lists downloadable welcome, registration and waiver documents, but their links were not exposed in the readable page. The 2026 page still says registration is open despite the camp dates being past; availability is therefore left null.",
     "excluded": [
       {
-        "name": "Blue Ridge JAM after-school lessons and String Band fun jams",
-        "reason": "Recurring semester-based after-school music instruction, not a finite summer program."
+        "name": "Blue Ridge JAM afternoon lessons and String Band fun jams",
+        "reason": "Semester-based music lessons and recurring afternoon meetings, not a finite summer camp."
       }
     ],
     "cards": [
       {
         "name": "JAM Camp",
         "type": "day",
-        "categories": ["music", "arts"],
-        "description": "Campers receive stringed-instrument instruction and explore Appalachian traditions through crafts, storytelling, games, and activities rooted in local history. The camp concludes with a short concert at The Village Green.",
+        "categories": ["music"],
+        "description": "Campers receive beginner, intermediate or advanced instruction on stringed instruments and participate in crafts, games and activities rooted in local history and culture. On the final day, campers present a short concert at The Village Green.",
         "camp_page_url": "https://www.cashiershistory.org/jam-camp-2026",
         "registration_url": "https://www.cashiershistory.org/jam-camp-2026",
         "season": {
@@ -104,9 +105,9 @@
         },
         "transportation": null,
         "sources": [
+          "https://jamkids.org/blueridge",
           "https://www.cashiershistory.org/jam-camp-2026",
-          "https://www.cashiershistory.org/events/jam-camp",
-          "https://jamkids.org/blueridge"
+          "https://www.cashiershistory.org/events/jam-camp"
         ],
         "confidence": "high",
         "review_notes": null

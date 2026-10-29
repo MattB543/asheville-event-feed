@@ -7,22 +7,22 @@
     "discovered_by": ["aggregator"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:35:15.408Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:29:44.338Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "617ef399c0c4fc45dca7389a59b08532e7491c96a4088bc359a3fe760e633e96",
   "response": {
     "searches": [
-      "site:americandancetrainingcamp.com CIT program scholarships",
+      "site:americandancetrainingcamp.com \"CIT\" \"16\"",
       "open https://americandancetrainingcamp.com/staff-application/dance-camp-cit-program/"
     ],
     "usage": {
-      "inputTokens": 33053,
-      "cachedInputTokens": 8223,
-      "outputTokens": 2558,
-      "reasoningTokens": 169
+      "inputTokens": 33787,
+      "cachedInputTokens": 8845,
+      "outputTokens": 3117,
+      "reasoningTokens": 151
     },
     "status": "completed",
-    "ms": 57780,
+    "ms": 61930,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -46,47 +46,23 @@
   "extraction": {
     "provider_name": "American Dance Training Camps",
     "website_url": "https://americandancetrainingcamp.com/",
-    "notes": "2027 dates are not yet posted. The official registration page says dates and Holiday Enrollment will be available by Thanksgiving. Cards cover the Cullowhee location only. Thanksgiving is November 26, 2026; the opening milestone represents a latest-by date, not a promised opening on that exact day. The 2026 rates page conflicts on multi-week discounts: its tuition table says $200 off two weeks, while later text says $250 off. Prices below preserve the explicitly listed components rather than calculating totals.",
+    "notes": "2027 dates are not yet posted; the registration page promises dates and Holiday Enrollment by Thanksgiving. Dates and rates below describe 2026. Thanksgiving is interpreted as November 26, 2026; enrollment may open earlier. The 2026 rates page conflicts internally about multi-week discounts, so prices use its explicit rate table. The policies page confirms a day-camper option. CIT application deadlines lack a season year and were not recorded as 2027 milestones.",
     "excluded": [
       {
-        "name": "Live Virtual Dance Classes",
-        "reason": "Ongoing classes rather than a finite summer program."
+        "name": "ADTC camps outside North Carolina",
+        "reason": "The Colorado, California, Texas, Illinois, Vermont, Maryland, Wisconsin and New Jersey sites are outside the Asheville-area drive range."
       },
       {
-        "name": "1-On-1 Private Classes",
-        "reason": "Year-round private classes."
+        "name": "Spring Break Dance Camps",
+        "reason": "Programs outside summer."
       },
       {
         "name": "Free Zoom Dance Camp",
-        "reason": "The advertised April 18, 2026 camp is outside summer."
+        "reason": "The advertised April 18, 2026 program is outside summer and virtual."
       },
       {
-        "name": "Jazz Dance for Teens (Int/Adv) Spring Break Dance Camp",
-        "reason": "Spring break program, outside summer."
-      },
-      {
-        "name": "Hip Hop/Street Jazz 101 Spring Break Camp",
-        "reason": "Spring break program, outside summer."
-      },
-      {
-        "name": "Contemporary Dance for Teens (Int/Adv) Spring Break Camp",
-        "reason": "Spring break program, outside summer."
-      },
-      {
-        "name": "Contemporary Dance 101 Spring Break Camp",
-        "reason": "Spring break program, outside summer."
-      },
-      {
-        "name": "Shining Stars! Sr Contemporary Dance Club for Teens (Int/Adv)",
-        "reason": "Ongoing weekly class with rolling enrollment."
-      },
-      {
-        "name": "Rising Stars! Jr Contemporary Dance Club",
-        "reason": "Ongoing weekly class with rolling enrollment."
-      },
-      {
-        "name": "Jobs @ ADTC",
-        "reason": "Employment rather than a camper program."
+        "name": "Live Virtual Dance Classes, Dance Clubs and Private Classes",
+        "reason": "Ongoing classes and lessons rather than finite summer camps."
       }
     ],
     "cards": [
@@ -94,7 +70,7 @@
         "name": "ADTC ULTIMATE Smoky Mountains",
         "type": "overnight",
         "categories": ["dance"],
-        "description": "Girls take four to five dance classes daily in contemporary, hip hop, jazz and elective styles, grouped by age and ability. Camp includes a Friday performance and recreational activities.",
+        "description": "Girls ages 8–17 take four to five daily dance classes, including contemporary, hip hop and jazz, with elective styles and a Friday show. Campers also participate in camp activities and optional outdoor excursions.",
         "camp_page_url": "https://americandancetrainingcamp.com/locations/nc-dance-camp/",
         "registration_url": "https://americandancetrainingcamp.com/adtc-registration/overnight-dance-camps/",
         "season": {
@@ -121,63 +97,63 @@
         "extended_care": null,
         "prices": [
           {
-            "amount": 1099,
-            "unit": "week",
-            "label": "Early bird by April 20, 2026; one session; base tuition only",
-            "year": 2026
-          },
-          {
-            "amount": 1049,
-            "unit": "week",
-            "label": "Alumni early bird; one session; base tuition only",
-            "year": 2026
-          },
-          {
-            "amount": 999,
-            "unit": "week",
-            "label": "Early bird; two sessions; base tuition only",
-            "year": 2026
-          },
-          {
-            "amount": 949,
-            "unit": "week",
-            "label": "Alumni early bird; two sessions; base tuition only",
-            "year": 2026
-          },
-          {
             "amount": 1249,
             "unit": "week",
-            "label": "Regular; one session; base tuition only",
+            "label": "Regular base tuition, one session; room and board additional",
             "year": 2026
           },
           {
             "amount": 1199,
             "unit": "week",
-            "label": "Alumni regular; one session; base tuition only",
+            "label": "Alumni regular base tuition, one session; room and board additional",
             "year": 2026
           },
           {
             "amount": 1149,
             "unit": "week",
-            "label": "Regular; two sessions; base tuition only",
+            "label": "Regular base tuition, two sessions; room and board additional",
             "year": 2026
           },
           {
             "amount": 1099,
             "unit": "week",
-            "label": "Alumni regular; two sessions; base tuition only",
+            "label": "Alumni regular base tuition, two sessions; room and board additional",
+            "year": 2026
+          },
+          {
+            "amount": 1099,
+            "unit": "week",
+            "label": "Early bird base tuition, one session, by April 20; room and board additional",
+            "year": 2026
+          },
+          {
+            "amount": 1049,
+            "unit": "week",
+            "label": "Alumni early bird base tuition, one session, by April 20; room and board additional",
+            "year": 2026
+          },
+          {
+            "amount": 999,
+            "unit": "week",
+            "label": "Early bird base tuition, two sessions, by April 20; room and board additional",
+            "year": 2026
+          },
+          {
+            "amount": 949,
+            "unit": "week",
+            "label": "Alumni early bird base tuition, two sessions, by April 20; room and board additional",
             "year": 2026
           },
           {
             "amount": 599,
             "unit": "session",
-            "label": "Required room and board, additional to tuition; one week, six nights",
+            "label": "Required room and board, one week (6 nights)",
             "year": 2026
           },
           {
             "amount": 1148,
             "unit": "program",
-            "label": "Required room and board, additional to tuition; two weeks, thirteen nights",
+            "label": "Required room and board, two weeks (13 nights)",
             "year": 2026
           }
         ],
@@ -236,7 +212,7 @@
         "last_year_registration_opened": null,
         "availability": {
           "status": "waitlist",
-          "scope": "2026 Session 1 only",
+          "scope": "2026 Session 1",
           "text": "Session 1: 6/21 – 6/27, 2026 Waitlist"
         },
         "financial_aid": {
@@ -254,16 +230,96 @@
           "https://americandancetrainingcamp.com/dates-and-rates/",
           "https://americandancetrainingcamp.com/adtc-registration/overnight-dance-camps/",
           "https://americandancetrainingcamp.com/scholarship-application/",
-          "https://www.wcu.edu/discover/locations/main-campus/directions-to-campus.aspx"
+          "https://www.wcu.edu/discover/contact-wcu/index.aspx"
         ],
         "confidence": "medium",
-        "review_notes": "Check conflicting multi-week discount wording on the rates page. The published waitlist status remains attached to an already-past 2026 session and is not 2027 availability. University address is the campus address; a specific check-in building is not identified."
+        "review_notes": "Opening is promised by Thanksgiving, not necessarily on November 26. The rate table says two sessions receive $200 off tuition, while a later paragraph says $250; listed prices follow the explicit table. Session 1's waitlist label remains on the page despite the 2026 session being past. Campus address is WCU's published general address; a specific check-in building was not identified."
+      },
+      {
+        "name": "ADTC ULTIMATE Smoky Mountains (day)",
+        "type": "day",
+        "categories": ["dance"],
+        "description": "Day campers join overnight campers for dance classes and camp activities, from morning warm-up through evening all-camp activities.",
+        "camp_page_url": "https://americandancetrainingcamp.com/locations/nc-dance-camp/",
+        "registration_url": "https://americandancetrainingcamp.com/adtc-registration/overnight-dance-camps/",
+        "season": {
+          "year": 2026,
+          "status": "coming_soon",
+          "start": "2026-06-21",
+          "end": "2026-07-04",
+          "text": "2027 camp dates and Holiday Enrollment will be available by Thanksgiving."
+        },
+        "ages": {
+          "min": 8,
+          "max": 17
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Western Carolina University",
+            "address": "1 University Drive",
+            "town": "Cullowhee",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "08:45",
+          "end": "21:30",
+          "text": "Day campers participate in all dance classes and activities with overnight campers from 8:45am warm-up through 9:30pm pick-up after all-camp night activities."
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Session 1",
+            "start": "2026-06-21",
+            "end": "2026-06-27",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 2",
+            "start": "2026-06-28",
+            "end": "2026-07-04",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Day campers must pay the “Meal Plan” fee for their number of sessions. The “Meal Plan” fee includes three meals per-day from Sunday night dinner through Saturday morning breakfast."
+        },
+        "transportation": null,
+        "sources": [
+          "https://americandancetrainingcamp.com/adtc-policies/",
+          "https://americandancetrainingcamp.com/locations/nc-dance-camp/",
+          "https://americandancetrainingcamp.com/dates-and-rates/",
+          "https://americandancetrainingcamp.com/adtc-registration/overnight-dance-camps/",
+          "https://www.wcu.edu/discover/contact-wcu/index.aspx"
+        ],
+        "confidence": "medium",
+        "review_notes": "The undated general policies page permits day campers at overnight camps; session dates are taken from the 2026 North Carolina overnight schedule. Confirm day attendance dates, fees and check-in building. No day-specific 2027 registration milestones are stated."
       },
       {
         "name": "Dance Camp CIT Program",
         "type": "overnight",
         "categories": ["dance", "general"],
-        "description": "Counselors-in-training participate in dance classes and camp activities while developing leadership through workshops, program planning and supervised responsibilities with younger campers.",
+        "description": "Counselors-in-training attend dance classes and camp activities while developing leadership skills through workshops, program planning and supervised work with younger campers.",
         "camp_page_url": "https://americandancetrainingcamp.com/staff-application/dance-camp-cit-program/",
         "registration_url": "https://americandancetrainingcamp.com/cit-application/",
         "season": {
@@ -291,7 +347,7 @@
         "prices": [],
         "sessions": [
           {
-            "label": "Minimum two-week attendance",
+            "label": "Two-week CIT program",
             "start": "2026-06-21",
             "end": "2026-07-04",
             "year": 2026,
@@ -312,12 +368,12 @@
         "transportation": null,
         "sources": [
           "https://americandancetrainingcamp.com/staff-application/dance-camp-cit-program/",
-          "https://americandancetrainingcamp.com/locations/nc-dance-camp/",
+          "https://americandancetrainingcamp.com/adtc-policies/",
           "https://americandancetrainingcamp.com/dates-and-rates/",
-          "https://www.wcu.edu/discover/locations/main-campus/directions-to-campus.aspx"
+          "https://www.wcu.edu/discover/contact-wcu/index.aspx"
         ],
         "confidence": "medium",
-        "review_notes": "The undated CIT page permits attendance at any ADTC camp for a minimum of two weeks; the Cullowhee span is inferred from its two posted 2026 sessions. Confirm 2027 CIT participation and pricing. The page says first-year CITs pay regular tuition, second-year CITs pay half price and third-plus-year participants attend free, without clarifying room-and-board treatment. April 15 application and May 15 notification dates have no explicit year and were not assigned to 2027."
+        "review_notes": "CITs must attend at least two weeks at any ADTC camp; the North Carolina span is derived from its two 2026 sessions. The CIT page welcomes applicants without prior ADTC experience, but the policies page requires two prior summers. The undated CIT page says first-year participants pay regular tuition, second-year participants half price and third-plus-year participants attend free; dollar prices and room-and-board treatment were left unspecified. April 15 application and May 15 notification deadlines are undated and not assigned to 2027."
       }
     ]
   }

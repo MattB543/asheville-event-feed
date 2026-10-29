@@ -10,19 +10,22 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:12:47.175Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:11:00.773Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "f42fe8e472f145159a0686fca0b12dbd71c0e954cf7cf243a1d3c9b8ac226f31",
   "response": {
-    "searches": ["site.freedombaptistasheville.org VBS 2026 2027", "\"freedomasheville\" \"VBS\""],
+    "searches": [
+      "site.freedombaptistasheville.org VBS 2026 2027",
+      "\"site:freedombaptistasheville.org\" \"children\""
+    ],
     "usage": {
-      "inputTokens": 22275,
-      "cachedInputTokens": 8223,
-      "outputTokens": 827,
-      "reasoningTokens": 222
+      "inputTokens": 19027,
+      "cachedInputTokens": 8845,
+      "outputTokens": 769,
+      "reasoningTokens": 156
     },
     "status": "completed",
-    "ms": 23114,
+    "ms": 24030,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -46,15 +49,15 @@
   "extraction": {
     "provider_name": "Freedom Baptist Church of Asheville",
     "website_url": "https://www.freedombaptistasheville.org/",
-    "notes": "No confirmed 2027 or 2026 summer VBS announcement was found. The VBS Pro page has no event year; its Sunday, August 1 through Thursday, August 5 dates cannot be assigned to 2026 or 2027. The platform's 2026 copyright is not an event year. The main VBS Pro event page and the church's children's ministry and Awana pages returned no readable text.",
+    "notes": "No dated 2026 or 2027 VBS announcement was found. The VBS Pro details page gives August 1–5 as Sunday–Thursday and August 6 as Friday, but does not identify a year; its platform copyright is not an event year. These dates have therefore not been assigned to either summer. The registration landing page returned no readable text.",
     "excluded": [
       {
         "name": "Awana",
-        "reason": "Recurring Sunday ministry, not a finite summer program."
+        "reason": "Recurring church ministry, not a finite summer camp."
       },
       {
         "name": "Youth Ministry",
-        "reason": "Recurring Sunday ministry; no finite summer offering was identified."
+        "reason": "Recurring youth ministry; no qualifying finite summer camp was identified."
       }
     ],
     "cards": [
@@ -62,9 +65,9 @@
         "name": "Bible Circle VBS",
         "type": "vbs",
         "categories": ["faith_based"],
-        "description": "Children participate in Bible lessons, crafts, music and games with a circus theme.",
+        "description": "Children participate in Bible lessons, crafts, music and games with a circus theme. Dinner is offered for the entire family.",
         "camp_page_url": "https://vbspro.events/p/events/freedomasheville/details",
-        "registration_url": null,
+        "registration_url": "https://vbspro.events/p/events/freedomasheville",
         "season": {
           "year": 2027,
           "status": "not_posted",
@@ -97,8 +100,8 @@
           "https://vbspro.events/p/events/freedomasheville/details",
           "https://www.freedombaptistasheville.org/"
         ],
-        "confidence": "low",
-        "review_notes": "Confirm whether this historical VBS listing remains an offering and obtain a dated 2027 announcement. The page title says Bible Circle VBS, while the body says Bible Circus. It lists August 1–5 and commencement August 6 without an event year, plus nightly kickoff at 6:20pm and dismissal at 8:45pm and dinner for the entire family. These schedule and meal details were not assigned to 2026 or 2027 because the event year is unknown."
+        "confidence": "medium",
+        "review_notes": "The undated VBS page calls the theme Bible Circus but its program heading is Bible Circle VBS; the existing program name is retained. Confirm whether this historical offering will return in 2027. The page lists August 1–5, commencement August 6, nightly kickoff at 6:20pm and dismissal at 8:45pm, but no event year is printed. Dates and hours are withheld because they cannot be attributed to 2026 or 2027."
       }
     ]
   }

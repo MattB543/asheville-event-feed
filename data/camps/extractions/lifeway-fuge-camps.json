@@ -14,24 +14,25 @@
     "discovered_by": ["grid", "aggregator", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:15:22.654Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:14:43.402Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "4a0b2880869b383e417addc162ba90e8fc1f70e939afa742fa331775bc681acb",
   "response": {
     "searches": [
-      "site.fugecamps.lifeway.com 2027 registration opens SLA Ridgecrest",
-      "open https://fugecamps.lifeway.com/sla/",
-      "site:fugecamps.lifeway.com \"2027\" \"June 1\" registration",
-      "site:fugecamps.lifeway.com/product/27mfrcc01 \"$394\""
+      "site.fugecamps.lifeway.com 2027 registration June 1",
+      "site:fugecamps.lifeway.com \"2027\" \"opens\"",
+      "site:fugecamps.lifeway.com/venue/carson-springs-baptist-conference-center \"2027\"",
+      "site:fugecamps.lifeway.com \"Carson Springs\" \"2027\"",
+      "site:fugecamps.lifeway.com \"2027\" \"SLA\" \"LOCATIONS\""
     ],
     "usage": {
-      "inputTokens": 41652,
-      "cachedInputTokens": 8223,
-      "outputTokens": 3553,
-      "reasoningTokens": 427
+      "inputTokens": 64794,
+      "cachedInputTokens": 8845,
+      "outputTokens": 8050,
+      "reasoningTokens": 704
     },
     "status": "completed",
-    "ms": 84200,
+    "ms": 165460,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -70,16 +71,33 @@
   "extraction": {
     "provider_name": "Lifeway — FUGE Camps",
     "website_url": "https://fugecamps.lifeway.com/",
-    "notes": "Cards cover Ridgecrest and the supplied Asheville Student Life offering. Registration is through church groups, not individual parent enrollment. No dated 2027 registration opening announcement was found. Carson Springs, Milligan University, North Greenville University and the SLA locations are outside the requested Asheville/Black Mountain area and are not included. MFuge with Your Church is an option within MFuge. The Black Church Leadership and Family Conference FUGE session is included as a Centrifuge row because the venue lists it as a youth camp offering.",
-    "excluded": [],
+    "notes": "2027 schedules are posted. Parents register for FUGE through their church, not individually. Rec Camp is operated by Lifeway's Student Life brand and is retained because it is an existing program and was supplied for this provider. Some official pages were readable only as search excerpts. Additional Milligan and Tusculum sessions may need checking because their venue pages did not return complete schedules. Price ranges on event pages do not identify which amount applies to each camp type; those prices are omitted rather than assigned by assumption. The 2026 sessions supplied in the input have been superseded by 2027 listings.",
+    "excluded": [
+      {
+        "name": "FUGE summer staff employment",
+        "reason": "Employment program, not a youth summer camp."
+      },
+      {
+        "name": "Student Leader Apprentice — Union University site",
+        "reason": "Jackson, Tennessee is outside the local drive area."
+      },
+      {
+        "name": "FUGE Camps — Carson-Newman University",
+        "reason": "Jefferson City, Tennessee is plainly farther than approximately 75 minutes from Asheville."
+      },
+      {
+        "name": "FUGE Camps — Southern Wesleyan University",
+        "reason": "Central, South Carolina is plainly farther than approximately 75 minutes from Asheville."
+      }
+    ],
     "cards": [
       {
         "name": "Centrifuge",
         "type": "overnight",
         "categories": ["faith_based", "general"],
-        "description": "Students participate in Bible study, worship, recreation and activity tracks such as sports, crafts, drama and outdoor activities. Recreation and Bible study groups are organized by grade completed.",
-        "camp_page_url": "https://fugecamps.lifeway.com/venue/ridgecrest-conference-center/",
-        "registration_url": "https://fugecamps.lifeway.com/product/27cfrcc01-may-31-june-4/",
+        "description": "Students participate in Bible study, worship, recreation, activity tracks, and church group time.",
+        "camp_page_url": "https://fugecamps.lifeway.com/centrifuge/",
+        "registration_url": "https://fugecamps.lifeway.com/2027-early-access/",
         "season": {
           "year": 2027,
           "status": "posted",
@@ -99,6 +117,30 @@
             "address": "1 Ridgecrest Drive",
             "town": "Black Mountain",
             "state": "NC"
+          },
+          {
+            "name": "North Greenville University",
+            "address": "7801 N. Tigerville Road",
+            "town": "Tigerville",
+            "state": "SC"
+          },
+          {
+            "name": "Carson Springs Baptist Conference Center",
+            "address": "1120 Carson Springs Road",
+            "town": "Newport",
+            "state": "TN"
+          },
+          {
+            "name": "Milligan University",
+            "address": "1 Blowers Boulevard",
+            "town": "Milligan",
+            "state": "TN"
+          },
+          {
+            "name": "Tusculum University",
+            "address": "60 Shiloh Road",
+            "town": "Greeneville",
+            "state": "TN"
           }
         ],
         "hours": null,
@@ -106,28 +148,28 @@
         "prices": [],
         "sessions": [
           {
-            "label": "May 31–June 4",
+            "label": null,
             "start": "2027-05-31",
             "end": "2027-06-04",
             "year": 2027,
-            "site": null,
+            "site": "Ridgecrest Conference Center",
             "ages": null,
             "grades": null,
             "hours": null,
             "price": {
               "amount": 379,
               "unit": "session",
-              "label": "Per participant; maximum occupancy",
+              "label": "per participant; max occupancy",
               "year": 2027
             },
             "status": null
           },
           {
-            "label": "June 7–June 12",
+            "label": null,
             "start": "2027-06-07",
             "end": "2027-06-12",
             "year": 2027,
-            "site": null,
+            "site": "Ridgecrest Conference Center",
             "ages": null,
             "grades": null,
             "hours": null,
@@ -135,11 +177,11 @@
             "status": "waitlist"
           },
           {
-            "label": "June 14–June 18",
+            "label": null,
             "start": "2027-06-14",
             "end": "2027-06-18",
             "year": 2027,
-            "site": null,
+            "site": "Ridgecrest Conference Center",
             "ages": null,
             "grades": null,
             "hours": null,
@@ -147,11 +189,11 @@
             "status": "waitlist"
           },
           {
-            "label": "June 19–June 23",
+            "label": null,
             "start": "2027-06-19",
             "end": "2027-06-23",
             "year": 2027,
-            "site": null,
+            "site": "Ridgecrest Conference Center",
             "ages": null,
             "grades": null,
             "hours": null,
@@ -159,11 +201,11 @@
             "status": "waitlist"
           },
           {
-            "label": "June 24–June 28",
+            "label": null,
             "start": "2027-06-24",
             "end": "2027-06-28",
             "year": 2027,
-            "site": null,
+            "site": "Ridgecrest Conference Center",
             "ages": null,
             "grades": null,
             "hours": null,
@@ -171,11 +213,11 @@
             "status": "waitlist"
           },
           {
-            "label": "June 29–July 3",
+            "label": null,
             "start": "2027-06-29",
             "end": "2027-07-03",
             "year": 2027,
-            "site": null,
+            "site": "Ridgecrest Conference Center",
             "ages": null,
             "grades": null,
             "hours": null,
@@ -183,11 +225,11 @@
             "status": "waitlist"
           },
           {
-            "label": "July 4–July 8",
+            "label": null,
             "start": "2027-07-04",
             "end": "2027-07-08",
             "year": 2027,
-            "site": null,
+            "site": "Ridgecrest Conference Center",
             "ages": null,
             "grades": null,
             "hours": null,
@@ -195,11 +237,11 @@
             "status": null
           },
           {
-            "label": "July 9–July 13",
+            "label": null,
             "start": "2027-07-09",
             "end": "2027-07-13",
             "year": 2027,
-            "site": null,
+            "site": "Ridgecrest Conference Center",
             "ages": null,
             "grades": null,
             "hours": null,
@@ -207,11 +249,11 @@
             "status": "waitlist"
           },
           {
-            "label": "July 14–July 18",
+            "label": null,
             "start": "2027-07-14",
             "end": "2027-07-18",
             "year": 2027,
-            "site": null,
+            "site": "Ridgecrest Conference Center",
             "ages": null,
             "grades": null,
             "hours": null,
@@ -219,18 +261,18 @@
             "status": "waitlist"
           },
           {
-            "label": "July 19–July 23",
+            "label": null,
             "start": "2027-07-19",
             "end": "2027-07-23",
             "year": 2027,
-            "site": null,
+            "site": "Ridgecrest Conference Center",
             "ages": null,
             "grades": null,
             "hours": null,
             "price": {
               "amount": 379,
               "unit": "session",
-              "label": "Per participant",
+              "label": "per participant",
               "year": 2027
             },
             "status": "waitlist"
@@ -240,16 +282,213 @@
             "start": "2027-07-19",
             "end": "2027-07-23",
             "year": 2027,
-            "site": null,
+            "site": "Ridgecrest Conference Center",
             "ages": null,
             "grades": null,
             "hours": null,
             "price": {
               "amount": 379,
               "unit": "session",
-              "label": "Per participant",
+              "label": "per participant",
               "year": 2027
             },
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2027-05-31",
+            "end": "2027-06-05",
+            "year": 2027,
+            "site": "North Greenville University",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "waitlist"
+          },
+          {
+            "label": null,
+            "start": "2027-06-07",
+            "end": "2027-06-12",
+            "year": 2027,
+            "site": "North Greenville University",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2027-06-14",
+            "end": "2027-06-19",
+            "year": 2027,
+            "site": "North Greenville University",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "waitlist"
+          },
+          {
+            "label": null,
+            "start": "2027-06-21",
+            "end": "2027-06-26",
+            "year": 2027,
+            "site": "North Greenville University",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "waitlist"
+          },
+          {
+            "label": null,
+            "start": "2027-06-28",
+            "end": "2027-07-03",
+            "year": 2027,
+            "site": "North Greenville University",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "waitlist"
+          },
+          {
+            "label": null,
+            "start": "2027-07-05",
+            "end": "2027-07-10",
+            "year": 2027,
+            "site": "North Greenville University",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2027-07-12",
+            "end": "2027-07-17",
+            "year": 2027,
+            "site": "North Greenville University",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "waitlist"
+          },
+          {
+            "label": null,
+            "start": "2027-06-28",
+            "end": "2027-07-02",
+            "year": 2027,
+            "site": "Carson Springs Baptist Conference Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 399,
+              "unit": "session",
+              "label": "per participant",
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2027-06-21",
+            "end": "2027-06-25",
+            "year": 2027,
+            "site": "Milligan University",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2027-06-28",
+            "end": "2027-07-02",
+            "year": 2027,
+            "site": "Milligan University",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2027-07-05",
+            "end": "2027-07-09",
+            "year": 2027,
+            "site": "Milligan University",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2027-07-12",
+            "end": "2027-07-16",
+            "year": 2027,
+            "site": "Milligan University",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2027-07-19",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": "Milligan University",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2027-06-07",
+            "end": "2027-06-11",
+            "year": 2027,
+            "site": "Tusculum University",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2027-06-14",
+            "end": "2027-06-18",
+            "year": 2027,
+            "site": "Tusculum University",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2027-07-12",
+            "end": "2027-07-16",
+            "year": 2027,
+            "site": "Tusculum University",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
             "status": null
           }
         ],
@@ -257,35 +496,49 @@
         "last_year_registration_opened": null,
         "availability": null,
         "financial_aid": null,
-        "special_needs": {
-          "value": "case_by_case",
-          "text": "However, when accommodations are possible, we maintain a posture of openness and partnership with church groups, desiring that every student have the opportunity to respond to the gospel message at camp."
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "We provide all the essentials – program, meals, and lodging"
         },
-        "lunch": null,
         "transportation": null,
         "sources": [
+          "https://fugecamps.lifeway.com/",
+          "https://fugecamps.lifeway.com/why-fuge-2/",
+          "https://fugecamps.lifeway.com/centrifuge/",
+          "https://fugecamps.lifeway.com/parents-2/",
           "https://fugecamps.lifeway.com/venue/ridgecrest-conference-center/",
           "https://fugecamps.lifeway.com/camp/ridgecrest-may-31-june-4-2027/",
           "https://fugecamps.lifeway.com/product/27cfrcc01-may-31-june-4/",
-          "https://fugecamps.lifeway.com/centrifuge/",
-          "https://fugecamps.lifeway.com/frequently-asked-questions/",
-          "https://ridgecrestconferencecenter.com/"
+          "https://fugecamps.lifeway.com/venue/north-greenville-university/",
+          "https://www.ngu.edu/office-communications/contact-info/",
+          "https://fugecamps.lifeway.com/venue/carson-springs-baptist-convention-center/",
+          "https://fugecamps.lifeway.com/camp/carson-springs-june-28-july-2-2027/",
+          "https://fugecamps.lifeway.com/camp/carson-springs-june-1-june-5-2026/",
+          "https://fugecamps.lifeway.com/find-a-camp/category/centrifuge/page/4/",
+          "https://fugecamps.lifeway.com/find-a-camp/category/centrifuge/page/7/",
+          "https://fugecamps.lifeway.com/find-a-camp/page/9/",
+          "https://fugecamps.lifeway.com/camp/milligan-university-july-19-july-23-2027/",
+          "https://milligan.edu/admissions/visit/campus-map/",
+          "https://fugecamps.lifeway.com/camp/tusculum-university-june-7-june-11-2027/",
+          "https://fugecamps.lifeway.com/find-a-camp/category/mfuge/page/2/",
+          "https://site.tusculum.edu/reference/maps-locations/"
         ],
-        "confidence": "high",
-        "review_notes": null
+        "confidence": "medium",
+        "review_notes": "Several additional-site facts come from official search excerpts. Tusculum event pages and category listings show Centrifuge, but other official listings show only an MFuge registration button; confirm Centrifuge is offered on these dates. Confirm complete Milligan and Tusculum schedules. Carson Springs address is carried from its supplied 2026 official page. Ridgecrest's Black Church Week row is the youth Centrifuge offering associated with the conference, not the conference itself. Event-page price ranges were not assigned to camp types."
       },
       {
         "name": "MFuge",
         "type": "overnight",
-        "categories": ["faith_based"],
-        "description": "Students participate in Bible study, worship and community ministry tracks, including children's activities, games and recreation, social ministry, and painting, construction or yardwork. MFuge with Your Church keeps a church's students together for Bible study and ministry work.",
-        "camp_page_url": "https://fugecamps.lifeway.com/venue/ridgecrest-conference-center/",
-        "registration_url": "https://fugecamps.lifeway.com/product/27mfrcc01-may-31-june-4/",
+        "categories": ["faith_based", "general"],
+        "description": "Students participate in Bible study and worship and serve at local ministry sites, including children's activities, food banks, and painting, construction, or yardwork. Churches may choose to keep their students together through MFuge with Your Church.",
+        "camp_page_url": "https://fugecamps.lifeway.com/mfuge/",
+        "registration_url": "https://fugecamps.lifeway.com/2027-early-access/",
         "season": {
           "year": 2027,
           "status": "posted",
           "start": "2027-05-31",
-          "end": "2027-07-18",
+          "end": "2027-07-23",
           "text": null
         },
         "ages": null,
@@ -300,6 +553,24 @@
             "address": "1 Ridgecrest Drive",
             "town": "Black Mountain",
             "state": "NC"
+          },
+          {
+            "name": "North Greenville University",
+            "address": "7801 N. Tigerville Road",
+            "town": "Tigerville",
+            "state": "SC"
+          },
+          {
+            "name": "Milligan University",
+            "address": "1 Blowers Boulevard",
+            "town": "Milligan",
+            "state": "TN"
+          },
+          {
+            "name": "Tusculum University",
+            "address": "60 Shiloh Road",
+            "town": "Greeneville",
+            "state": "TN"
           }
         ],
         "hours": null,
@@ -307,11 +578,11 @@
         "prices": [],
         "sessions": [
           {
-            "label": "May 31–June 4",
+            "label": null,
             "start": "2027-05-31",
             "end": "2027-06-04",
             "year": 2027,
-            "site": null,
+            "site": "Ridgecrest Conference Center",
             "ages": null,
             "grades": null,
             "hours": null,
@@ -319,11 +590,11 @@
             "status": null
           },
           {
-            "label": "June 7–June 12",
+            "label": null,
             "start": "2027-06-07",
             "end": "2027-06-12",
             "year": 2027,
-            "site": null,
+            "site": "Ridgecrest Conference Center",
             "ages": null,
             "grades": null,
             "hours": null,
@@ -331,11 +602,11 @@
             "status": "waitlist"
           },
           {
-            "label": "June 14–June 18",
+            "label": null,
             "start": "2027-06-14",
             "end": "2027-06-18",
             "year": 2027,
-            "site": null,
+            "site": "Ridgecrest Conference Center",
             "ages": null,
             "grades": null,
             "hours": null,
@@ -343,11 +614,11 @@
             "status": "waitlist"
           },
           {
-            "label": "June 19–June 23",
+            "label": null,
             "start": "2027-06-19",
             "end": "2027-06-23",
             "year": 2027,
-            "site": null,
+            "site": "Ridgecrest Conference Center",
             "ages": null,
             "grades": null,
             "hours": null,
@@ -355,11 +626,11 @@
             "status": "waitlist"
           },
           {
-            "label": "June 24–June 28",
+            "label": null,
             "start": "2027-06-24",
             "end": "2027-06-28",
             "year": 2027,
-            "site": null,
+            "site": "Ridgecrest Conference Center",
             "ages": null,
             "grades": null,
             "hours": null,
@@ -367,11 +638,11 @@
             "status": "waitlist"
           },
           {
-            "label": "June 29–July 3",
+            "label": null,
             "start": "2027-06-29",
             "end": "2027-07-03",
             "year": 2027,
-            "site": null,
+            "site": "Ridgecrest Conference Center",
             "ages": null,
             "grades": null,
             "hours": null,
@@ -379,11 +650,11 @@
             "status": "waitlist"
           },
           {
-            "label": "July 4–July 8",
+            "label": null,
             "start": "2027-07-04",
             "end": "2027-07-08",
             "year": 2027,
-            "site": null,
+            "site": "Ridgecrest Conference Center",
             "ages": null,
             "grades": null,
             "hours": null,
@@ -391,11 +662,11 @@
             "status": null
           },
           {
-            "label": "July 9–July 13",
+            "label": null,
             "start": "2027-07-09",
             "end": "2027-07-13",
             "year": 2027,
-            "site": null,
+            "site": "Ridgecrest Conference Center",
             "ages": null,
             "grades": null,
             "hours": null,
@@ -403,44 +674,236 @@
             "status": "waitlist"
           },
           {
-            "label": "July 14–July 18",
+            "label": null,
             "start": "2027-07-14",
             "end": "2027-07-18",
             "year": 2027,
-            "site": null,
+            "site": "Ridgecrest Conference Center",
             "ages": null,
             "grades": null,
             "hours": null,
             "price": null,
             "status": "waitlist"
+          },
+          {
+            "label": null,
+            "start": "2027-05-31",
+            "end": "2027-06-05",
+            "year": 2027,
+            "site": "North Greenville University",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "waitlist"
+          },
+          {
+            "label": null,
+            "start": "2027-06-07",
+            "end": "2027-06-12",
+            "year": 2027,
+            "site": "North Greenville University",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "waitlist"
+          },
+          {
+            "label": null,
+            "start": "2027-06-14",
+            "end": "2027-06-19",
+            "year": 2027,
+            "site": "North Greenville University",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "waitlist"
+          },
+          {
+            "label": null,
+            "start": "2027-06-21",
+            "end": "2027-06-26",
+            "year": 2027,
+            "site": "North Greenville University",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "waitlist"
+          },
+          {
+            "label": null,
+            "start": "2027-06-28",
+            "end": "2027-07-03",
+            "year": 2027,
+            "site": "North Greenville University",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "waitlist"
+          },
+          {
+            "label": null,
+            "start": "2027-07-05",
+            "end": "2027-07-10",
+            "year": 2027,
+            "site": "North Greenville University",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "waitlist"
+          },
+          {
+            "label": null,
+            "start": "2027-07-12",
+            "end": "2027-07-17",
+            "year": 2027,
+            "site": "North Greenville University",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "waitlist"
+          },
+          {
+            "label": null,
+            "start": "2027-06-21",
+            "end": "2027-06-25",
+            "year": 2027,
+            "site": "Milligan University",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "waitlist"
+          },
+          {
+            "label": null,
+            "start": "2027-06-28",
+            "end": "2027-07-02",
+            "year": 2027,
+            "site": "Milligan University",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "waitlist"
+          },
+          {
+            "label": null,
+            "start": "2027-07-05",
+            "end": "2027-07-09",
+            "year": 2027,
+            "site": "Milligan University",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2027-07-12",
+            "end": "2027-07-16",
+            "year": 2027,
+            "site": "Milligan University",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "waitlist"
+          },
+          {
+            "label": null,
+            "start": "2027-07-19",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": "Milligan University",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2027-06-07",
+            "end": "2027-06-11",
+            "year": 2027,
+            "site": "Tusculum University",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2027-06-14",
+            "end": "2027-06-18",
+            "year": 2027,
+            "site": "Tusculum University",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2027-07-12",
+            "end": "2027-07-16",
+            "year": 2027,
+            "site": "Tusculum University",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
           }
         ],
         "registration": [],
         "last_year_registration_opened": null,
         "availability": null,
         "financial_aid": null,
-        "special_needs": {
-          "value": "case_by_case",
-          "text": "However, when accommodations are possible, we maintain a posture of openness and partnership with church groups, desiring that every student have the opportunity to respond to the gospel message at camp."
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "We provide all the essentials – program, meals, and lodging"
         },
-        "lunch": null,
-        "transportation": null,
+        "transportation": {
+          "value": "no",
+          "text": "Attending church groups are responsible for providing enough transportation with seat belts, drivers and gasoline"
+        },
         "sources": [
+          "https://fugecamps.lifeway.com/",
+          "https://fugecamps.lifeway.com/why-fuge-2/",
+          "https://fugecamps.lifeway.com/mfuge/",
           "https://fugecamps.lifeway.com/venue/ridgecrest-conference-center/",
           "https://fugecamps.lifeway.com/camp/ridgecrest-may-31-june-4-2027/",
-          "https://fugecamps.lifeway.com/mfuge/",
-          "https://fugecamps.lifeway.com/frequently-asked-questions/",
-          "https://ridgecrestconferencecenter.com/"
+          "https://fugecamps.lifeway.com/venue/north-greenville-university/",
+          "https://www.ngu.edu/office-communications/contact-info/",
+          "https://fugecamps.lifeway.com/find-a-camp/category/mfuge/page/4/",
+          "https://fugecamps.lifeway.com/find-a-camp/category/centrifuge/page/7/",
+          "https://fugecamps.lifeway.com/find-a-camp/page/9/",
+          "https://fugecamps.lifeway.com/camp/milligan-university-july-19-july-23-2027/",
+          "https://milligan.edu/admissions/visit/campus-map/",
+          "https://fugecamps.lifeway.com/find-a-camp/category/mfuge/page/2/",
+          "https://site.tusculum.edu/reference/maps-locations/"
         ],
-        "confidence": "high",
-        "review_notes": null
+        "confidence": "medium",
+        "review_notes": "Several additional-site dates and statuses were available only in official search excerpts. Confirm complete Milligan and Tusculum schedules and program-specific prices. North Greenville's May 31 MFuge availability conflicts between its venue page, which says Waitlist Only, and other official listings without that label; venue-page status is retained. MFuge is retained as a staffed overnight camp with local service tracks, rather than an independent mission trip."
       },
       {
         "name": "Rec Camp",
         "type": "overnight",
         "categories": ["faith_based", "general"],
-        "description": "Students participate in worship, biblical teaching, Life Group Bible study and recreation. Church leaders lead their students' small groups and join activities.",
-        "camp_page_url": "https://studentlife.lifeway.com/camp/27unca01/",
+        "description": "Students participate in worship, Bible study, Life Groups, and staff-led recreation.",
+        "camp_page_url": "https://studentlife.lifeway.com/rec/",
         "registration_url": "https://studentlife.lifeway.com/camp/27unca01/",
         "season": {
           "year": 2027,
@@ -450,7 +913,11 @@
           "text": null
         },
         "ages": null,
-        "grades": null,
+        "grades": {
+          "min": 6,
+          "max": 12,
+          "basis": "unspecified"
+        },
         "sites": [
           {
             "name": "University of North Carolina – Asheville",
@@ -465,7 +932,7 @@
           {
             "amount": 449,
             "unit": "session",
-            "label": "Per participant",
+            "label": "per participant",
             "year": 2027
           }
         ],
@@ -483,10 +950,146 @@
         "sources": [
           "https://studentlife.lifeway.com/camp/27unca01/",
           "https://studentlife.lifeway.com/rec/",
-          "https://studentlife.lifeway.com/"
+          "https://www.lifeway.com/en/events/christian-summer-camps"
         ],
-        "confidence": "high",
-        "review_notes": null
+        "confidence": "medium",
+        "review_notes": "Program-wide grade eligibility and included meals were read from official search excerpts. The supplied UNC Asheville event page plainly states 2027 dates, price, and address."
+      },
+      {
+        "name": "Student Leader Apprentice",
+        "type": "overnight",
+        "categories": ["faith_based", "general"],
+        "description": "Students gain hands-on leadership experience behind the scenes at FUGE Camps in a two-week camp program.",
+        "camp_page_url": "https://fugecamps.lifeway.com/sla/",
+        "registration_url": "https://fugecamps.lifeway.com/sla/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-05-31",
+          "end": "2027-07-17",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "North Greenville University",
+            "address": "7801 N. Tigerville Road",
+            "town": "Tigerville",
+            "state": "SC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 499,
+            "unit": "session",
+            "label": null,
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": null,
+            "start": "2027-05-31",
+            "end": "2027-06-12",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2027-06-07",
+            "end": "2027-06-19",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2027-06-14",
+            "end": "2027-06-26",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2027-06-21",
+            "end": "2027-07-03",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2027-06-28",
+            "end": "2027-07-10",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2027-07-05",
+            "end": "2027-07-17",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "deadline",
+            "date": "2026-12-31",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "We ask that you fill out your application by December 31, 2026. You must also have 3 references submitted by December 31, 2026 in order to be considered.",
+            "url": "https://fugecamps.lifeway.com/wp-content/uploads/2026/06/2027-SLA-Info-Doc-1.pdf",
+            "year": 2027,
+            "confidence": "medium"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://fugecamps.lifeway.com/sla/",
+          "https://fugecamps.lifeway.com/wp-content/uploads/2026/06/2027-SLA-Info-Doc-1.pdf",
+          "https://www.ngu.edu/office-communications/contact-info/"
+        ],
+        "confidence": "medium",
+        "review_notes": "2027 PDF facts were obtained through official search excerpts because the PDF did not render fully. Eligibility is students about to enter or who have just completed their senior year in high school; this mixes rising and completed grade bases, so grades remain null. PDF states a $200 non-refundable deposit within two weeks of placement and $299 balance due April 15; payment deadlines are not registration milestones. The application uses Lifeway's employment platform, but the PDF explicitly says this is not paid employment."
       }
     ]
   }

@@ -7,19 +7,22 @@
     "discovered_by": ["gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:35:47.996Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:30:09.986Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "f3b397ea9c3096ca4a4dc3344457c44aab821842753ab635c429c6a3d3eefc49",
   "response": {
-    "searches": ["site.x10lacrosse.com Asheville 2027 registration"],
+    "searches": [
+      "site:x10lacrosse.com Asheville 2027 registration",
+      "open https://www.x10lacrosse.com/asheville?x=1"
+    ],
     "usage": {
-      "inputTokens": 19759,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1271,
-      "reasoningTokens": 106
+      "inputTokens": 20716,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1358,
+      "reasoningTokens": 105
     },
     "status": "completed",
-    "ms": 29704,
+    "ms": 33814,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -53,35 +56,51 @@
   "extraction": {
     "provider_name": "X10 Lacrosse",
     "website_url": "https://www.x10lacrosse.com/",
-    "notes": "No Asheville-specific 2027 dates or registration milestones were found. Asheville cards use the explicitly labeled 2026 information, despite the page's stale Summer 2022 title. The Adirondack page has 2027 dates, but this is not a complete 2027 provider program list and does not establish that Asheville has been discontinued. Other overnight locations outside the Asheville area were not included.",
+    "notes": "No 2027 Asheville information was found. Adirondack has posted 2027 dates, but the supplied homepage still lists 2026 camps; this is not a complete 2027 program list. The Asheville page returned no readable text during web verification, so Asheville details use the supplied official-page text. Existing programs contained duplicate names; the overnight card retains X10 Asheville and the day version adds (day) to distinguish the formats.",
     "excluded": [
       {
+        "name": "X10 Adirondack",
+        "reason": "Held in Warrensburg, NY, outside the Asheville-area drive range."
+      },
+      {
+        "name": "X10 Vero Beach",
+        "reason": "Held in Vero Beach, FL, outside the Asheville-area drive range."
+      },
+      {
+        "name": "X10 Utah",
+        "reason": "Held in Mt. Pleasant, UT, outside the Asheville-area drive range."
+      },
+      {
+        "name": "X10 Colorado",
+        "reason": "Held in Gunnison, CO, outside the Asheville-area drive range."
+      },
+      {
+        "name": "X10 New England",
+        "reason": "Held in Kent, CT, outside the Asheville-area drive range."
+      },
+      {
+        "name": "X10 Catskill",
+        "reason": "Held in Shandaken, NY, outside the Asheville-area drive range."
+      },
+      {
         "name": "Offense VS Defense Clinic",
-        "reason": "October clinic, outside summer."
+        "reason": "October clinic in Ponte Vedra, FL; outside summer and the Asheville-area drive range."
       },
       {
         "name": "2-Day Training Camp - Private Schools",
-        "reason": "October training camp, outside summer."
+        "reason": "October camp at Fort Family Park outside the Asheville-area drive range; outside summer."
       },
       {
         "name": "Wednesday Fall Skills Training",
-        "reason": "October–November training, outside summer."
+        "reason": "Fall training series in Ponte Vedra, FL; outside summer and the Asheville-area drive range."
       },
       {
         "name": "Savanahh: Shooting Clinic with Coach Bocklet",
-        "reason": "November clinic, outside summer."
+        "reason": "November clinic at Benedictine Military School outside the Asheville-area drive range; outside summer."
       },
       {
         "name": "Thanksgiving Break Lacrosse Camp",
-        "reason": "Thanksgiving break program, outside summer."
-      },
-      {
-        "name": "Gobbler Games",
-        "reason": "Fall event, outside summer."
-      },
-      {
-        "name": "The Lax Mash",
-        "reason": "November event, outside summer."
+        "reason": "November camp in Ponte Vedra, FL; outside summer and the Asheville-area drive range."
       }
     ],
     "cards": [
@@ -89,9 +108,9 @@
         "name": "X10 Asheville",
         "type": "overnight",
         "categories": ["sports", "nature_outdoor"],
-        "description": "Campers receive lacrosse skills instruction and play games, with separate goalkeeper training available. Activities between lacrosse sessions include hiking, frisbee golf, a talent show, campfire and X10 Olympics.",
+        "description": "Campers receive lacrosse instruction and play games, with additional activities including hiking, frisbee, basketball, volleyball, a talent show and campfire. Campers stay in Christ School dormitories.",
         "camp_page_url": "https://www.x10lacrosse.com/asheville",
-        "registration_url": "https://x10lacrosse.leagueapps.com/",
+        "registration_url": "https://www.x10lacrosse.com/asheville",
         "season": {
           "year": 2026,
           "status": "not_posted",
@@ -116,11 +135,7 @@
             "state": "NC"
           }
         ],
-        "hours": {
-          "start": null,
-          "end": null,
-          "text": "Monday arrival 9:00–10:00 AM; Friday pickup 10:00–11:00 AM."
-        },
+        "hours": null,
         "extended_care": null,
         "prices": [
           {
@@ -143,21 +158,19 @@
         "transportation": null,
         "sources": [
           "https://www.x10lacrosse.com/asheville",
-          "https://www.x10lacrosse.com/the-overnight-camp-experience",
           "https://www.x10lacrosse.com/",
-          "https://www.christschool.org/about-us/contact-us",
-          "https://x10lacrosse.leagueapps.com/"
+          "https://www.christschool.org/about-us/contact-us"
         ],
         "confidence": "high",
         "review_notes": null
       },
       {
-        "name": "X10 Asheville",
+        "name": "X10 Asheville (day)",
         "type": "day",
         "categories": ["sports", "nature_outdoor"],
-        "description": "Day campers participate in lacrosse instruction and evening games alongside overnight campers. The camp also offers recreational activities including frisbee golf, hiking and X10 Olympics.",
+        "description": "Day campers participate in lacrosse instruction, games and campus activities at Christ School. They attend Monday through Thursday and do not attend Friday departure day.",
         "camp_page_url": "https://www.x10lacrosse.com/asheville",
-        "registration_url": "https://x10lacrosse.leagueapps.com/",
+        "registration_url": "https://www.x10lacrosse.com/asheville",
         "season": {
           "year": 2026,
           "status": "not_posted",
@@ -185,7 +198,7 @@
         "hours": {
           "start": "09:00",
           "end": "19:30",
-          "text": "Monday arrival 10:00 AM; Tuesday–Thursday arrival 9:00 AM. Pickup each evening at 7:30 PM. Day campers do not attend Friday."
+          "text": "Day Campers arrive at 10:00 on Monday and 9:00 Tues, Wed, Thurs. Day Campers need to be picked up each evening at 7:30 and do not attend Friday."
         },
         "extended_care": null,
         "prices": [
@@ -210,8 +223,7 @@
         "sources": [
           "https://www.x10lacrosse.com/asheville",
           "https://www.x10lacrosse.com/",
-          "https://www.christschool.org/about-us/contact-us",
-          "https://x10lacrosse.leagueapps.com/"
+          "https://www.christschool.org/about-us/contact-us"
         ],
         "confidence": "high",
         "review_notes": null

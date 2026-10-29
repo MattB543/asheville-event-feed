@@ -7,23 +7,19 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:27:09.144Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:22:54.928Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "e72bbd5ba5f0c7d7da92e011fc992418c7778009e2f3d4a92fe257f1eb4ccccf",
   "response": {
-    "searches": [
-      "site:sartplays.com youth camp 2027 2026",
-      "open https://www.sartplays.com/youth",
-      "site:sartplays.com \"camp\" \"9\" \"2026\""
-    ],
+    "searches": ["site:sartplays.com youth camp 2027", "open https://www.sartplays.com/youth"],
     "usage": {
-      "inputTokens": 18440,
-      "cachedInputTokens": 8223,
-      "outputTokens": 801,
-      "reasoningTokens": 242
+      "inputTokens": 15449,
+      "cachedInputTokens": 8845,
+      "outputTokens": 745,
+      "reasoningTokens": 146
     },
     "status": "completed",
-    "ms": 26815,
+    "ms": 18355,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -47,15 +43,11 @@
   "extraction": {
     "provider_name": "Southern Appalachian Repertory Theatre",
     "website_url": "https://www.sartplays.com/",
-    "notes": "No 2027 youth camp information was found. The linked PDF could not be read or rendered, so its registration instructions and any additional schedule details remain unverified.",
+    "notes": "No 2027 camp information found. The linked information/registration PDF returned no readable content, and its screenshot could not be retrieved. The camp page identifies June 22–July 9 as camp dates and July 11–12 as production dates.",
     "excluded": [
       {
-        "name": "2026 Summer Stock Theatre Internship Program",
-        "reason": "College-student professional theatre internship; excluded as a job or employment program."
-      },
-      {
         "name": "Theatre for Young Audiences",
-        "reason": "Audience programming, not a finite supervised youth camp."
+        "reason": "The official page describes theatre opportunities for younger audiences and links to tickets, rather than a supervised summer camp."
       }
     ],
     "cards": [
@@ -63,9 +55,9 @@
         "name": "SART Youth Theatre Camp",
         "type": "day",
         "categories": ["theater"],
-        "description": "Campers work with theatre professionals on acting and stage experience, preparing a production of Seussical, Jr. Performances follow camp on July 11 and 12.",
+        "description": "Campers work with theatre professionals and other young actors on stage skills and a production of Seussical, Jr. Optional mini-camps, individual tutoring and line work are offered during the holiday week.",
         "camp_page_url": "https://www.sartplays.com/youth",
-        "registration_url": null,
+        "registration_url": "https://85cd0fbd-bd29-460d-b776-19ba414f1828.filesusr.com/ugd/feb280_94fa4e2e4c284f99b8cbdfe0c7d184b8.pdf",
         "season": {
           "year": 2026,
           "status": "not_posted",
@@ -107,11 +99,7 @@
         "special_needs": null,
         "lunch": null,
         "transportation": null,
-        "sources": [
-          "https://www.sartplays.com/youth",
-          "https://www.sartplays.com/",
-          "https://www.sartplays.com/box-office"
-        ],
+        "sources": ["https://www.sartplays.com/youth", "https://www.sartplays.com/"],
         "confidence": "high",
         "review_notes": null
       }

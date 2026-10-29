@@ -7,19 +7,19 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:25:25.190Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:21:31.209Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "1fc1af04b02257bd16e2b6361b0535d4bcbedcb5a27cf429207bf5fc7e3e424a",
   "response": {
-    "searches": ["Oak Grove FWB Church Greeneville official VBS 2027"],
+    "searches": ["Oak Grove FWB Church Greeneville VBS 2027 2026 Rainforest Falls"],
     "usage": {
-      "inputTokens": 13597,
-      "cachedInputTokens": 8223,
-      "outputTokens": 591,
-      "reasoningTokens": 52
+      "inputTokens": 14220,
+      "cachedInputTokens": 8845,
+      "outputTokens": 442,
+      "reasoningTokens": 57
     },
     "status": "completed",
-    "ms": 15909,
+    "ms": 13603,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -38,11 +38,11 @@
   "extraction": {
     "provider_name": "Oak Grove Church of Greeneville",
     "website_url": "https://www.oakgrovegreeneville.com/",
-    "notes": "No 2027 summer program information was found. The VBS card uses the explicitly dated 2026 registration page.",
+    "notes": "No official 2027 VBS information found. Dates and hours are from the explicitly titled 2026 registration page.",
     "excluded": [
       {
         "name": "AWANA Kid's Club",
-        "reason": "Regular Wednesday children's ministry, not a finite summer program."
+        "reason": "Regular Wednesday children's ministry, not a finite summer camp."
       }
     ],
     "cards": [
@@ -50,7 +50,7 @@
         "name": "Oak Grove VBS: Rainforest Falls",
         "type": "vbs",
         "categories": ["faith_based"],
-        "description": "Children explore the nature of God and what it means to be rooted in a relationship with their creator through a rainforest-themed Vacation Bible School.",
+        "description": "Children explore the nature of God and their relationship with God through a rainforest-themed Vacation Bible School.",
         "camp_page_url": "https://vbspro.events/p/8e9d81",
         "registration_url": "https://vbspro.events/p/8e9d81",
         "season": {
@@ -82,7 +82,7 @@
         "last_year_registration_opened": null,
         "availability": {
           "status": "closed",
-          "scope": "2026 VBS",
+          "scope": null,
           "text": "Event Registration is closed."
         },
         "financial_aid": null,

@@ -8,22 +8,23 @@
     "status": "review",
     "status_reason": "page didn't load: fetch: fetch failed (getaddrinfo ENOTFOUND www.ecoconline.com); chrome-tls: fetch failed (getaddrinfo ENOTFOUND www.ecoconline.com); browser: page.goto: net::ERR_NAME_NOT_RESOLVED at http://www.ecoconline.com/"
   },
-  "extractedAt": "2026-10-29T15:24:44.534Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:20:58.131Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": null,
   "response": {
     "searches": [
-      "site.ecoconline.com VBS 2026",
-      "site.facebook.com/embreevillechurchofchrist \"2026\" \"VBS\""
+      "Embreeville Church Christ VBS 2026",
+      "site:facebook.com/embreevillechurchofchrist \"2026\" \"VBS\"",
+      "\"Embreeville\" \"BIG GOD VBS IS COMING\""
     ],
     "usage": {
-      "inputTokens": 25069,
-      "cachedInputTokens": 8223,
-      "outputTokens": 767,
-      "reasoningTokens": 194
+      "inputTokens": 24313,
+      "cachedInputTokens": 8845,
+      "outputTokens": 906,
+      "reasoningTokens": 249
     },
     "status": "completed",
-    "ms": 25709,
+    "ms": 28781,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -42,15 +43,15 @@
   "extraction": {
     "provider_name": "Embreeville Church of Christ of Erwin",
     "website_url": "http://www.ecoconline.com/",
-    "notes": "The church website and official Facebook page returned no readable text. No 2027 information was found. A third-party event listing attributed to the church describes Big God VBS for July 13–17, 2026; the card below is provisional because its details could not be verified on an accessible official page. The listing is https://allevents.in/erwin/big-god-vbs-2026/200030227291713.",
+    "notes": "No 2027 camp information found. The church website was blocked by robots.txt, and its Facebook page returned no readable content. Official Facebook search results confirm prior VBS offerings but did not expose the 2026 announcement. The 2026 details below come from a third-party reproduction attributed to the church: https://allevents.in/erwin/big-god-vbs-2026/200030227291713. No registration dates were recoverable.",
     "excluded": [],
     "cards": [
       {
         "name": "Big God VBS",
         "type": "vbs",
         "categories": ["faith_based"],
-        "description": "The event listing describes Bible lessons, songs, crafts and games, with a block party on Friday.",
-        "camp_page_url": null,
+        "description": "Vacation Bible School with Bible lessons, songs, crafts and games.",
+        "camp_page_url": "https://www.facebook.com/embreevillechurchofchrist/",
         "registration_url": null,
         "season": {
           "year": 2026,
@@ -72,7 +73,7 @@
         "hours": {
           "start": "17:30",
           "end": "20:00",
-          "text": "The third-party listing states 5:30–8:00 PM nightly, with a meal at 5:30 PM and opening assembly at 6:00 PM."
+          "text": "5:30–8:00 PM nightly; opening assembly begins at 6:00 PM."
         },
         "extended_care": null,
         "prices": [],
@@ -84,9 +85,12 @@
         "special_needs": null,
         "lunch": null,
         "transportation": null,
-        "sources": [],
-        "confidence": "low",
-        "review_notes": "Verify the program, dates, hours and venue address with the church. These details came only from the AllEvents listing at https://allevents.in/erwin/big-god-vbs-2026/200030227291713, not a readable official page. That listing says classes are available from nursery through adults, but does not give numerical youth age limits. The official website and Facebook page could not be read."
+        "sources": [
+          "https://www.facebook.com/embreevillechurchofchrist/photos/can-you-believe-it-vbs-is-right-around-the-corner-below-you-will-find-a-link-to-/647237880765929/",
+          "https://www.facebook.com/embreevillechurchofchrist/posts/last-night-of-vbs-see-you-soon-/676646867825030/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Check the church's original 2026 Facebook announcement for dates, hours, activities and venue address. These details were accessible only in the AllEvents reproduction, not on readable official pages. That listing states classes for nursery through adults, without numeric youth ages or grades, and a meal at 5:30 PM before the 6:00 PM assembly. The venue address could not be independently confirmed against the church's own location page. Official Facebook snippets read during research concern older VBS offerings."
       }
     ]
   }

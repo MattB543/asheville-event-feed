@@ -8,29 +8,29 @@
     "status": "review",
     "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
   },
-  "extractedAt": "2026-10-29T15:02:35.927Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
-  "sourceHash": "9a71487431fa97e05fe46d88d2355c6fafce7044179ccf7f74e030769e21188e",
+  "extractedAt": "2026-10-29T17:02:22.594Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "9a354a9b2b18db7cd2af35d299d8cfd55625ad63714aa0270a30ca331bc30108",
   "response": {
     "searches": [
-      "site:ams.ashevillecityschools.net summer camp 2026 2027",
-      "site:ashevillecityschools.net \"summer\" \"camp\" \"2026\""
+      "site:ams.ashevillecityschools.net \"summer\" \"camp\"",
+      "\"Asheville Middle School\" \"summer camp\""
     ],
     "usage": {
-      "inputTokens": 38520,
-      "cachedInputTokens": 8223,
-      "outputTokens": 405,
-      "reasoningTokens": 157
+      "inputTokens": 35261,
+      "cachedInputTokens": 8845,
+      "outputTokens": 411,
+      "reasoningTokens": 140
     },
     "status": "completed",
-    "ms": 18930,
+    "ms": 20076,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
   "bundle": [
     {
       "url": "https://ams.ashevillecityschools.net/",
-      "chars": 10130,
+      "chars": 10025,
       "method": "fetch"
     },
     {
@@ -65,30 +65,34 @@
     },
     {
       "url": "https://www.ashevillecityschools.net/enroll/homepage",
-      "chars": 18704,
+      "chars": 18809,
       "method": "fetch"
     }
   ],
   "extraction": {
     "provider_name": "Asheville Middle School",
     "website_url": "https://ams.ashevillecityschools.net/",
-    "notes": "No qualifying summer camp operated by Asheville Middle School was identified in the supplied official pages or targeted web searches for 2026 and 2027 offerings. No 2027 summer camp dates or registration announcements were found. The district's Beyond School directory lists camps operated by other organizations; these were not attributed to the school. School enrollment dates are not camp registration dates.",
+    "notes": "No qualifying summer camp operated by Asheville Middle School was found in the supplied official pages or searches for 2026 and 2027 summer offerings. The district's Beyond School directory lists other organizations' programs, which are not Asheville Middle School offerings. School enrollment dates are not camp registration dates.",
     "excluded": [
       {
         "name": "In Real Life After School Program",
-        "reason": "School-year after-school programming, not a summer camp."
+        "reason": "School-year after-school programming; no separate summer camp offering was found."
       },
       {
         "name": "AMS Athletics",
-        "reason": "School sports teams and seasonal competition, not finite summer camps or clinics."
+        "reason": "School sports teams, seasons and tryouts rather than finite summer camps or clinics."
+      },
+      {
+        "name": "Washington DC Field Trip",
+        "reason": "School field trip, not a summer camp."
       },
       {
         "name": "Science Olympiad Meetings",
-        "reason": "School-year club meetings outside summer."
+        "reason": "School-year student club meetings, not a summer camp."
       },
       {
         "name": "Halloween Dance (7th & 8th Grade)",
-        "reason": "October event outside summer."
+        "reason": "Single social event outside summer."
       }
     ],
     "cards": []

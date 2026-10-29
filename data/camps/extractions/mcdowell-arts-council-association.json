@@ -7,19 +7,22 @@
     "discovered_by": ["gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:37:07.360Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:31:34.310Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "9e9205af8c07cf37a00c9d26f19eeab25ccac5f83df2fc869e7498e7f615ba68",
   "response": {
-    "searches": ["site:mcdowellarts.org \"2027\"", "site:mcdowellarts.org/uploads \"Shrek\""],
+    "searches": [
+      "site:mcdowellarts.org \"2027\" \"summer\"",
+      "site:mcdowellarts.org \"Shrek\" \"June\""
+    ],
     "usage": {
-      "inputTokens": 26169,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1463,
-      "reasoningTokens": 212
+      "inputTokens": 24653,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1668,
+      "reasoningTokens": 287
     },
     "status": "completed",
-    "ms": 34518,
+    "ms": 40816,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -38,7 +41,7 @@
   "extraction": {
     "provider_name": "McDowell Arts Council Association",
     "website_url": "https://www.mcdowellarts.org/",
-    "notes": "The theatre page has Spring, Summer and Fall 2027 headings, but readable text does not identify the 2027 summer show or provide dates. No complete 2027 program list was found. Retained the two summer formats documented in the official 2026 policies. The live theatre page and policies PDF returned no readable content through the browser; supplied page text and official search-indexed PDF text were used. Embedded audition documents and image-only season announcements could not be inspected.",
+    "notes": "The theatre page includes a Summer 2027 heading, but no readable 2027 camp dates or registration milestones were found. The embedded audition documents and show graphics could not be inspected through the browser. Retained the two existing theatre programs using the explicitly identified 2026 season. Search also found undated Summer Art Camp policies and a volunteer listing for Summer Art Camp Assistants; these did not establish a 2026 or 2027 offering, so no additional card was created.",
     "excluded": [
       {
         "name": "Sweeney Todd (School Edition)",
@@ -46,19 +49,27 @@
       },
       {
         "name": "Mary Poppins Jr.",
-        "reason": "Fall 12-week production, outside summer."
+        "reason": "Fall production, outside summer."
       },
       {
-        "name": "Chapters Scrapbooking Club",
-        "reason": "Recurring monthly club, not a finite summer youth program."
+        "name": "Mountain Arts Program",
+        "reason": "School-based arts residencies, including summer enrichment for McDowell County Schools students, rather than an independently enrollable public camp."
+      },
+      {
+        "name": "crescendo! Piano in the Classroom",
+        "reason": "School-based music education rather than a finite summer camp."
+      },
+      {
+        "name": "Theatre Kid Karaoke Night",
+        "reason": "Single evening social event."
       },
       {
         "name": "Art Club for Adults with Intellectual Disabilities",
-        "reason": "Adult-only program."
+        "reason": "Adult-only recurring program."
       },
       {
-        "name": "Crescendo! Piano in the Classroom",
-        "reason": "School-based instruction, not an identified finite summer camp."
+        "name": "Chapters Scrapbooking Club",
+        "reason": "Recurring club meetings rather than a finite supervised summer youth program."
       }
     ],
     "cards": [
@@ -66,7 +77,7 @@
         "name": "Summer Camps",
         "type": "day",
         "categories": ["theater"],
-        "description": "Participants rehearse a JR or KIDS musical adaptation and perform it over one weekend. Youth also make props, build sets, design costumes, and operate lights, sound and backstage roles.",
+        "description": "Participants rehearse a JR or KIDS musical adaptation and work on performance or technical theatre tasks such as props, sets, costumes, lights and sound. Camps typically include two weeks of rehearsals followed by a weekend of performances.",
         "camp_page_url": "https://www.mcdowellarts.org/mct.html",
         "registration_url": null,
         "season": {
@@ -96,7 +107,7 @@
           {
             "amount": 0,
             "unit": "program",
-            "label": "No enrollment, participation or materials fees",
+            "label": "No enrollment, participation, or materials fees",
             "year": 2026
           }
         ],
@@ -114,13 +125,13 @@
           "https://www.mcdowellarts.org/uploads/1/0/1/9/101973652/mct_about___policies.pdf"
         ],
         "confidence": "medium",
-        "review_notes": "The 2026 policies identify Shrek the Musical KIDS as the summer production; the theatre FAQ gives Shrek KIDS eligibility as K–12. The page describes two weeks of rehearsals plus a performance weekend but provides no readable dates or hours. Verify the embedded season images and audition PDFs for the 2027 offering and whether rehearsals are daytime."
+        "review_notes": "The official policies PDF identifies Shrek the Musical KIDS as the 2026 summer camp; the theatre FAQ gives Shrek KIDS eligibility as K–12th grade. No readable session dates were found. The day format is inferred from the rehearsal-based camp description; daily hours are unknown. The programs directory places McDowell Children's Theatre on site at MACA. Check embedded audition documents and the Summer 2027 graphic for updated offerings and dates."
       },
       {
         "name": "Page to Stage",
         "type": "day",
         "categories": ["theater"],
-        "description": "Participants attend guest workshops and write, direct, costume, provide technical support for, and produce their own short plays. The program lasts one week and concludes with four performances over a weekend.",
+        "description": "Participants attend guest workshops and write, direct, handle technical work, costume and produce their own short plays. The one-week program ends with four performances over a weekend.",
         "camp_page_url": "https://www.mcdowellarts.org/mct.html",
         "registration_url": null,
         "season": {
@@ -149,7 +160,7 @@
           {
             "amount": 0,
             "unit": "program",
-            "label": "No enrollment, participation or materials fees",
+            "label": "No enrollment, participation, or materials fees",
             "year": 2026
           }
         ],
@@ -167,7 +178,7 @@
           "https://www.mcdowellarts.org/uploads/1/0/1/9/101973652/mct_about___policies.pdf"
         ],
         "confidence": "medium",
-        "review_notes": "The official search-indexed 2026 policies identify Page to Stage as the one-week summer intensive. No readable session dates, hours or registration milestones were found. Verify embedded season images and audition PDFs for dates and whether this program returns in 2027; daytime format is not explicitly stated."
+        "review_notes": "The official policies PDF explicitly includes Page to Stage in the 2026 season. No readable session dates were found. The day format is inferred from the workshop and production description; daily hours are unknown. The programs directory places McDowell Children's Theatre on site at MACA. The Summer 2027 heading alone does not establish whether Page to Stage returns; check the unreadable embedded audition documents and show graphics."
       }
     ]
   }

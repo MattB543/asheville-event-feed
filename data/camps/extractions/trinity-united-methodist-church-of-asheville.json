@@ -8,23 +8,22 @@
     "status": "review",
     "status_reason": "page didn't load: fetch: fetch failed (Connect Timeout Error (attempted address: trinitywavl.org:443, timeout: 10000ms)); chrome-tls: fetch failed (Connect Timeout Error (attempted address: trinitywavl.org:443, timeout: 10000ms)); browser: page.goto: net::ERR_CONNECTION_TIMED_OUT at https://trinitywavl.org/"
   },
-  "extractedAt": "2026-10-29T15:04:04.049Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:03:39.992Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": null,
   "response": {
     "searches": [
-      "site:trinitywavl.org 2026 VBS summer",
-      "site:trinitywavl.org \"Vacation\"",
-      "site:trinitywavl.org/event/vacation-bible-school/ \"2015\""
+      "site:trinitywavl.org vacation bible summer 2026 2027",
+      "site:trinitywavl.org \"Camp Connect\""
     ],
     "usage": {
-      "inputTokens": 28334,
-      "cachedInputTokens": 8223,
-      "outputTokens": 706,
-      "reasoningTokens": 303
+      "inputTokens": 18990,
+      "cachedInputTokens": 8845,
+      "outputTokens": 596,
+      "reasoningTokens": 248
     },
     "status": "completed",
-    "ms": 43129,
+    "ms": 30030,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -38,27 +37,27 @@
   "extraction": {
     "provider_name": "Trinity United Methodist Church of Asheville",
     "website_url": "https://trinitywavl.org/",
-    "notes": "No summer 2027 or 2026 camp information could be verified. Direct access to the official website and event pages was blocked by robots.txt; official search-indexed text was available. Historical Vacation Bible School and Camp Connect listings were found at https://trinitywavl.org/event/vacation-bible-school/, https://trinitywavl.org/event/vacation-bible-school-0/, https://trinitywavl.org/event/camp-connect/ and https://trinitywavl.org/event/camp-connect-0/. The latter Camp Connect listing dates to 2016, and a 2022 newsletter also mentions VBS. These historical offerings were not turned into 2026 or 2027 cards because current operation and year-specific details could not be established. Contact the church to confirm whether either program will return in 2027.",
+    "notes": "No 2027 or 2026 summer camp offerings could be verified. The official website blocked direct access through robots.txt; official search snippets showed historical Vacation Bible School and Camp Connect pages, but no current summer announcement. The Camp Connect page is indexed as published about ten years ago. Its June 20 week and the matching VBS dates must not be treated as 2026 or 2027 dates. Historical pages: https://trinitywavl.org/event/vacation-bible-school-0/ and https://trinitywavl.org/event/camp-connect-0/.",
     "excluded": [
       {
-        "name": "Sunday School Classes",
-        "reason": "Ongoing church classes, not a finite summer program."
+        "name": "Vacation Bible School",
+        "reason": "Only a historical announcement was found; no 2026 or 2027 offering could be verified."
       },
       {
-        "name": "Nursery",
-        "reason": "Regular Sunday childcare, not summer-only childcare."
+        "name": "Camp Connect",
+        "reason": "Only a historical announcement indexed as approximately ten years old was found; no 2026 or 2027 offering could be verified."
       },
       {
-        "name": "Church Picnic at Camp Tekoa",
-        "reason": "Church-wide picnic rather than a supervised youth camp; the verified announcement is for May 22, 2016."
+        "name": "Hinton Rural Life Summer Mission Trip",
+        "reason": "Mission trips are excluded."
       },
       {
-        "name": "Confirmation Retreat",
-        "reason": "Historical retreat scheduled for March 24–26, 2017, outside summer."
+        "name": "Children’s Aquarium Overnight",
+        "reason": "Children’s outing or trip, rather than a summer camp."
       },
       {
-        "name": "Camp Tekoa Week",
-        "reason": "Historical transportation arrangement for a separate provider's camp; registration and payments were directed to Camp Tekoa, not Trinity."
+        "name": "Church Picnic @ Camp Tekoa",
+        "reason": "Church-wide social event, rather than a supervised youth camp."
       }
     ],
     "cards": []

@@ -10,22 +10,22 @@
     "discovered_by": ["grid", "aggregator", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:18:16.937Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:15:29.544Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "757d18de0e55485f9d251977d6692d934d32ca6f765b5bcc1729c184248e01dc",
   "response": {
     "searches": [
       "site.hendersoncountypublicschoolsnc.org/hhs \"camp\" \"2026\"",
-      "\"Bearcat Basketball\" \"2026\" Hendersonville"
+      "site.hendersonvillesoccer.com \"Contact\" \"615\""
     ],
     "usage": {
-      "inputTokens": 26213,
-      "cachedInputTokens": 8223,
-      "outputTokens": 948,
-      "reasoningTokens": 253
+      "inputTokens": 26853,
+      "cachedInputTokens": 8845,
+      "outputTokens": 834,
+      "reasoningTokens": 219
     },
     "status": "completed",
-    "ms": 28230,
+    "ms": 24058,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -74,19 +74,15 @@
   "extraction": {
     "provider_name": "Hendersonville High School",
     "website_url": "https://www.hendersoncountypublicschoolsnc.org/hhs/",
-    "notes": "No 2027 camp information or 2026 basketball camp details were found. The athletic camps page links a basketball flyer dated June 3–6, 2024; those historical dates, hours, grades and price have not been carried forward. The supplied hendersonvillesoccer.com pages and Google registration form belong to the Hendersonville High School Commandos in Sumner County, Tennessee, not this North Carolina provider.",
+    "notes": "No 2027 or 2026 basketball camp details were found. The athletic camps page still links a flyer explicitly dated June 3–6, 2024; its dates, price, grades and hours have not been carried forward. The supplied hendersonvillesoccer.com pages belong to the Tennessee school, not this North Carolina provider.",
     "excluded": [
       {
         "name": "Hendersonville High School Camp of Champions",
-        "reason": "This soccer camp belongs to the Hendersonville High School in Tennessee, not the Hendersonville, NC provider."
+        "reason": "This is the Hendersonville, Tennessee school’s soccer camp, associated with Russ Plummer Stadium and Sumner County BOE, not Hendersonville High School in North Carolina."
       },
       {
         "name": "Bearcat Bridge",
-        "reason": "The enrollment page describes a new-student school orientation, rather than a summer camp or skill clinic."
-      },
-      {
-        "name": "Commando Varsity and JV Soccer",
-        "reason": "School team seasons, not camps; also associated with the Tennessee school."
+        "reason": "School orientation for the school's incoming students, rather than a summer camp."
       }
     ],
     "cards": [
@@ -94,7 +90,7 @@
         "name": "Bearcat Basketball Camp",
         "type": "half_day",
         "categories": ["sports"],
-        "description": "Campers practice basketball fundamentals and basic game skills.",
+        "description": "Campers practice the basic fundamentals and skills of basketball.",
         "camp_page_url": "https://www.hendersoncountypublicschoolsnc.org/hhs/athletic-camps/",
         "registration_url": null,
         "season": {
@@ -127,11 +123,10 @@
         "transportation": null,
         "sources": [
           "https://www.hendersoncountypublicschoolsnc.org/hhs/athletic-camps/",
-          "https://www.hendersoncountypublicschoolsnc.org/hhs/files/2024/09/Bearcat-Basketball-Camp-boys.ADA2_.pdf",
-          "https://www.hendersoncountypublicschoolsnc.org/hhs/"
+          "https://www.hendersoncountypublicschoolsnc.org/hhs/files/2024/09/Bearcat-Basketball-Camp-boys.ADA2_.pdf"
         ],
         "confidence": "medium",
-        "review_notes": "The current athletic camps page lists this program, but its linked flyer describes only the 2024 camp. The half-day format, activity description and Jim Pardue Gymnasium venue come from that flyer; verify the format and venue for 2027. No 2026 or 2027 dates, eligibility, hours, prices or registration opening date were found."
+        "review_notes": "The currently linked flyer describes only the 2024 camp, including its half-day format and Jim Pardue Gymnasium location. Check whether the program will return in 2027 and whether its format and venue remain the same. No 2026 or 2027 logistical details were found."
       }
     ]
   }

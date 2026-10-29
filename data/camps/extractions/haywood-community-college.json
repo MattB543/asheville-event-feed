@@ -10,19 +10,19 @@
     "discovered_by": ["grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:10:24.633Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:08:38.980Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "ee14958cbfd85712b536a547f0a5918ca572c13bf7ec57b3cf7c151c5e52d2c3",
   "response": {
-    "searches": ["site.haywood.edu \"2027\" \"Bobcat\""],
+    "searches": ["site.haywood.edu \"Bobcat\" \"2027\""],
     "usage": {
-      "inputTokens": 17917,
-      "cachedInputTokens": 8223,
-      "outputTokens": 901,
-      "reasoningTokens": 65
+      "inputTokens": 18556,
+      "cachedInputTokens": 8845,
+      "outputTokens": 671,
+      "reasoningTokens": 52
     },
     "status": "completed",
-    "ms": 25577,
+    "ms": 14500,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -71,17 +71,8 @@
   "extraction": {
     "provider_name": "Haywood Community College",
     "website_url": "https://www.haywood.edu/",
-    "notes": "No summer 2027 camp information was found; the official camp pages still list 2026. The registration platform shows both Sold Out and registration closed, with instructions to call HCC.",
-    "excluded": [
-      {
-        "name": "Continuing Education",
-        "reason": "General continuing education and workforce courses are not finite supervised youth summer camps."
-      },
-      {
-        "name": "Summer Classes",
-        "reason": "Regular college summer coursework, not a supervised youth camp or named teen pre-college program."
-      }
-    ],
+    "notes": "No summer 2027 camp information found. The official camp listing contains Bobcat College 2026 only.",
+    "excluded": [],
     "cards": [
       {
         "name": "Bobcat College",
@@ -108,7 +99,7 @@
         },
         "sites": [
           {
-            "name": "Haywood Community College — Sunrise Café",
+            "name": "Sunrise Café, Haywood Community College",
             "address": "185 Freedlander Drive",
             "town": "Clyde",
             "state": "NC"
@@ -133,7 +124,7 @@
         "last_year_registration_opened": null,
         "availability": {
           "status": "closed",
-          "scope": "2026 camp",
+          "scope": null,
           "text": "Registration for this camp closed on Jun 15, 2026."
         },
         "financial_aid": {
@@ -153,7 +144,7 @@
           "https://hcc-register.fundfive.com/file/filedetails?filename=5PsU4twGPrOWYkR9JYzuuQjCMRytfA22Qw2lEAPC.pdf"
         ],
         "confidence": "medium",
-        "review_notes": "The camp page and flyer state registration ends May 16, 2026, while the registration platform says it closed June 15, 2026 and also shows Sold Out. The platform footer spells the street Freelander Drive; the college's own page and platform camp-location section use Freedlander Drive, which is retained here."
+        "review_notes": "The camp page and flyer give a May 16, 2026 registration deadline, while the registration platform says registration closed June 15, 2026 and also displays Sold Out and instructions to call to register. Availability is recorded as closed. The registration platform footer misspells the street as Freelander Drive; the college's own published address is 185 Freedlander Drive. Ages 10–14 are stated in the official camp search listing; rising grades 6–8 are stated on the program page."
       }
     ]
   }

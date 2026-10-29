@@ -7,22 +7,22 @@
     "discovered_by": ["gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:36:22.605Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
-  "sourceHash": "5c5d3ac87f4489a29736a9ec9554d04cdb43446858d2ba3710cc252ac7b28fd4",
+  "extractedAt": "2026-10-29T17:30:34.409Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "579d11d3e59f12d8bffde33baac59cc5071e61ea79866031b3943ea413d967c5",
   "response": {
     "searches": [
-      "site:headwatersoutfitters.com \"Foundation\" \"2026\"",
+      "site:headwatersoutfitters.com \"Forks Foundation\" \"2026\"",
       "open https://headwatersoutfitters.com/event/forks-foundation-class/?ical=1"
     ],
     "usage": {
-      "inputTokens": 29899,
-      "cachedInputTokens": 8223,
-      "outputTokens": 924,
-      "reasoningTokens": 156
+      "inputTokens": 29545,
+      "cachedInputTokens": 8845,
+      "outputTokens": 964,
+      "reasoningTokens": 180
     },
     "status": "completed",
-    "ms": 24484,
+    "ms": 25622,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -56,23 +56,27 @@
   "extraction": {
     "provider_name": "Headwaters Outfitters",
     "website_url": "https://headwatersoutfitters.com/",
-    "notes": "No official 2027 youth-program dates or registration milestones were found. The 2026 fishing brochure was checked and lists general guided fishing trips, not additional summer youth camps.",
+    "notes": "No 2027 summer program information or registration dates were found. The FareHarbor booking page and event calendar export returned no readable content.",
     "excluded": [
       {
         "name": "Paddle and Overnight Camping Trip",
-        "reason": "Family recreational paddling and camping trips, not supervised drop-off youth programs; participants are responsible for themselves and their children."
+        "reason": "Family camping and self-guided paddling trips, not a supervised youth camp."
       },
       {
         "name": "Tuesday Night Fly Tying: Summer Series",
-        "reason": "General community fly-tying nights; the page does not establish a supervised youth program."
+        "reason": "Weekly drop-in fly tying social and learning nights for general audiences, not a finite supervised youth program."
       },
       {
         "name": "East Fork Slump Busters After School Fly Tying Series",
-        "reason": "The youth class found is scheduled in February, outside summer."
+        "reason": "School-year after-school classes, outside summer."
+      },
+      {
+        "name": "Hellbender 20-Miler Canoe Race",
+        "reason": "A canoe race and associated social event, not a youth camp or skill clinic."
       },
       {
         "name": "Fall 2026 Fly Fishing Retreat with Earthshine Mountain Lodge",
-        "reason": "November 6–8 retreat, outside summer."
+        "reason": "November retreat, outside summer."
       }
     ],
     "cards": [
@@ -80,7 +84,7 @@
         "name": "Forks Foundation Class",
         "type": "clinic",
         "categories": ["nature_outdoor", "sports"],
-        "description": "Students practice casting through games, find and identify aquatic insects in the river, and learn ethical fish handling. Equipment and educational take-home materials are provided.",
+        "description": "Students practice fly fishing through casting games, finding and identifying aquatic insects in the river, and learning ethical fish handling. Equipment and educational take-home materials are provided.",
         "camp_page_url": "https://headwatersoutfitters.com/event/forks-foundation-class/",
         "registration_url": "https://fareharbor.com/embeds/book/headwatersoutfitters/items/472813/?full-items=yes&flow=1612107",
         "season": {
@@ -106,7 +110,7 @@
         "hours": {
           "start": "13:00",
           "end": "15:00",
-          "text": "Students will meet at 1pm; the class will wrap up around 3pm."
+          "text": "1:00 pm - 3:00 pm"
         },
         "extended_care": null,
         "prices": [
@@ -125,9 +129,12 @@
         "special_needs": null,
         "lunch": null,
         "transportation": null,
-        "sources": ["https://headwatersoutfitters.com/event/forks-foundation-class/"],
+        "sources": [
+          "https://headwatersoutfitters.com/event/forks-foundation-class/",
+          "https://headwatersoutfitters.com/"
+        ],
         "confidence": "medium",
-        "review_notes": "The event prints June 21 without a year. It is treated as 2026 based on its placement immediately before the June 23, 2026 Tuesday Night Fly Tying event in the official calendar navigation; verify the event year. The page mentions booking future class dates, but no additional dated youth sessions could be confirmed."
+        "review_notes": "The event page prints June 21 without a year. Its current site context and adjacent June 23 recurring event indicate 2026, but the event's own year could not be verified through the calendar export or booking platform. Check the year and whether additional summer class dates were offered; only the listed June 21 event is represented."
       }
     ]
   }

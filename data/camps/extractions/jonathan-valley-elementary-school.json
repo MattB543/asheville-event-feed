@@ -7,19 +7,19 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:16:44.061Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:14:00.976Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "19f8ecae11712316da0bd7f9b3e720e80fb2e847f7ad96b0f7cbb777c752a7a2",
   "response": {
     "searches": ["site:jve.haywood.k12.nc.us \"summer\" \"2026\""],
     "usage": {
-      "inputTokens": 16704,
-      "cachedInputTokens": 8223,
-      "outputTokens": 702,
-      "reasoningTokens": 101
+      "inputTokens": 17330,
+      "cachedInputTokens": 8845,
+      "outputTokens": 478,
+      "reasoningTokens": 72
     },
     "status": "completed",
-    "ms": 23527,
+    "ms": 19573,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -58,11 +58,23 @@
   "extraction": {
     "provider_name": "Jonathan Valley Elementary School",
     "website_url": "https://jve.haywood.k12.nc.us/",
-    "notes": "No 2027 camp details or dated 2026 camp schedule were found. The current camp page says registration opens each year right after spring break, but this recurring statement does not establish a 2027 registration date. Search also found a 2020 application announcement; its outdated details were not used. Direct web access to the school domain was blocked by robots.txt; supplied page text and official search results were used.",
+    "notes": "No summer 2027 details or dated 2026 camp schedule were found. The camp page states only that registration opens each year right after spring break; no registration date was inferred from this recurring statement. Direct browsing of the school domain was blocked by robots.txt, but supplied page text and official search results were readable.",
     "excluded": [
       {
         "name": "After School Care",
-        "reason": "School-year after-school childcare, not a summer-only program. Its hours and prices were not applied to Summer Camp."
+        "reason": "School-year after-school childcare, not a summer camp."
+      },
+      {
+        "name": "Summer school",
+        "reason": "Academic summer school for the school’s own students, referenced in its attendance policy."
+      },
+      {
+        "name": "Spring STEAM Fling",
+        "reason": "A single family event outside summer."
+      },
+      {
+        "name": "Fall Festival",
+        "reason": "A seasonal event outside summer."
       }
     ],
     "cards": [
@@ -70,11 +82,11 @@
         "name": "Summer Camp",
         "type": "day",
         "categories": ["general"],
-        "description": "The school offers summer care for children. Its current camp page does not describe specific activities.",
+        "description": "A summer camp for children at Jonathan Valley Elementary School.",
         "camp_page_url": "https://jve.haywood.k12.nc.us/parents/summer-camp/",
         "registration_url": null,
         "season": {
-          "year": 2026,
+          "year": 2027,
           "status": "not_posted",
           "start": null,
           "end": null,
@@ -105,8 +117,8 @@
           "https://jve.haywood.k12.nc.us/parents/summer-camp/",
           "https://jve.haywood.k12.nc.us/faqs-forms-info-and-links/directionsmap/"
         ],
-        "confidence": "medium",
-        "review_notes": "The camp page is undated and provides no season dates, eligibility, hours, prices or activity details. The school is treated as the camp venue from the school-hosted offering, but the page does not explicitly identify the drop-off location. Confirm the venue and 2027 details with director Michelle Mull through the front office at 828-926-3207. Season year 2026 is a fallback with no dated facts, not a year explicitly printed for the camp."
+        "confidence": "high",
+        "review_notes": null
       }
     ]
   }

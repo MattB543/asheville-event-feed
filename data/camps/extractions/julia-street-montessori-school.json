@@ -7,19 +7,19 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:04:55.249Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:04:34.909Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "525a1022aced40b0ed454ab1ad7fbdb536cf1ed0ba32cf8e0205290ae0570f87",
   "response": {
     "searches": ["site:juliastmontessori.com \"2027\" \"camp\""],
     "usage": {
-      "inputTokens": 15509,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1122,
-      "reasoningTokens": 53
+      "inputTokens": 15885,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1108,
+      "reasoningTokens": 51
     },
     "status": "completed",
-    "ms": 20842,
+    "ms": 22986,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -53,19 +53,19 @@
   "extraction": {
     "provider_name": "Julia Street Montessori School",
     "website_url": "https://juliastmontessori.com/",
-    "notes": "No summer 2027 camp information or registration milestones found. The official summer page still lists 2026 sessions and says all classes are full. School-year tuition and registration dates do not apply to summer camp.",
+    "notes": "No summer 2027 program dates or registration announcements were found. The camp page still lists summer 2026 and says all classes are full; that availability applies to the past 2026 season.",
     "excluded": [
       {
         "name": "Primary Class",
-        "reason": "School-year Montessori education for ages 3–6, not a finite summer program."
+        "reason": "School-year Montessori preschool program, not a finite summer camp."
       }
     ],
     "cards": [
       {
         "name": "Summer Exploration Days",
         "type": "half_day",
-        "categories": ["arts", "dance", "nature_outdoor", "general"],
-        "description": "Children participate in weekly themed activities in a Montessori environment, including art, yoga and dance, treasure hunts, ocean exploration, and gardening.",
+        "categories": ["general", "arts", "dance", "nature_outdoor"],
+        "description": "Children explore art, yoga and dance, treasure hunts, ocean life, and gardening through hands-on activities in a Montessori environment.",
         "camp_page_url": "https://juliastmontessori.com/summer-camp/",
         "registration_url": "https://juliastmontessori.com/summer-camp/",
         "season": {
@@ -168,7 +168,7 @@
         "last_year_registration_opened": null,
         "availability": {
           "status": "full",
-          "scope": "All listed 2026 sessions",
+          "scope": "2026 sessions",
           "text": "All classes are full."
         },
         "financial_aid": null,

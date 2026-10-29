@@ -7,22 +7,22 @@
     "discovered_by": ["seed_sheet", "news828", "grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T14:54:32.533Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T16:55:23.013Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "b1e5b4825e31eb5de9f5399854315d717a204adf9eaed666d0a33de8d58fe242",
   "response": {
     "searches": [
-      "site:theeducationalgardenproject.org \"2027\"",
-      "Land of the Sky United Church Christ address official"
+      "site:theeducationalgardenproject.org 2027 summer",
+      "open https://www.theeducationalgardenproject.org/before-you-come"
     ],
     "usage": {
-      "inputTokens": 23517,
-      "cachedInputTokens": 8223,
-      "outputTokens": 3306,
-      "reasoningTokens": 156
+      "inputTokens": 20328,
+      "cachedInputTokens": 8845,
+      "outputTokens": 3196,
+      "reasoningTokens": 148
     },
     "status": "completed",
-    "ms": 66032,
+    "ms": 54542,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -61,19 +61,19 @@
   "extraction": {
     "provider_name": "The Educational Garden Project",
     "website_url": "https://www.theeducationalgardenproject.org/",
-    "notes": "The official calendar search result says '2027 DATES COMING SOON'; the calendar returned no readable text when opened. Summer details remain for 2026. The homepage's general program ages (Garden Camp 5–10; CIT 11–15) differ from the summer-specific page and FAQ (6–10; 11–16); summer-specific ages are used. No dated 2027 registration announcement was found.",
+    "notes": "No 2027 summer information or registration opening date was found. Cards retain the explicitly dated 2026 summer schedule. The calendar and Before You Come pages returned no readable text when opened. A direct Jumbula registration URL could not be recovered. The homepage gives different general age ranges from the summer-specific page; cards use the summer page and FAQ ranges. The summer page's combined grades K–10 cannot be assigned separately to these two programs.",
     "excluded": [
       {
         "name": "Winter Camp",
-        "reason": "December program, outside summer."
+        "reason": "December program outside summer."
       },
       {
         "name": "Homeschool",
-        "reason": "School-year homeschool programming, not a summer camp."
+        "reason": "School-year homeschool program."
       },
       {
-        "name": "Spring camp sessions",
-        "reason": "Outside summer."
+        "name": "Spring Camp",
+        "reason": "Seasonal spring program outside summer."
       }
     ],
     "cards": [
@@ -81,15 +81,15 @@
         "name": "Garden Camp",
         "type": "day",
         "categories": ["nature_outdoor", "cooking", "arts"],
-        "description": "Campers garden, cook, make nature crafts, explore outdoors, and learn about animals and insects. Activities include supervised use of hand tools.",
+        "description": "Campers garden, cook, make nature art, explore outdoors, and learn about animals and insects. Activities include supervised use of outdoor tools.",
         "camp_page_url": "https://www.theeducationalgardenproject.org/summer-camp",
-        "registration_url": "https://www.theeducationalgardenproject.org/how-to-register",
+        "registration_url": "https://www.theeducationalgardenproject.org/summer-camp",
         "season": {
           "year": 2026,
-          "status": "coming_soon",
+          "status": "not_posted",
           "start": "2026-06-08",
           "end": "2026-08-21",
-          "text": "2027 DATES COMING SOON"
+          "text": null
         },
         "ages": {
           "min": 6,
@@ -162,7 +162,7 @@
             "status": null
           },
           {
-            "label": "Week 4: Herbal Remedies (new!)",
+            "label": "Week 4: Herbal Remedies",
             "start": "2026-06-29",
             "end": "2026-07-03",
             "year": 2026,
@@ -186,7 +186,7 @@
             "status": null
           },
           {
-            "label": "Week 6: Outdoor Skills and Tools (new!)",
+            "label": "Week 6: Outdoor Skills and Tools",
             "start": "2026-07-13",
             "end": "2026-07-17",
             "year": 2026,
@@ -272,33 +272,31 @@
         },
         "transportation": {
           "value": "no",
-          "text": "No, The Educational Garden Project will never transport your children to any location other than where they were dropped off."
+          "text": "The Educational Garden Project will never transport your children to any location other than where they were dropped off."
         },
         "sources": [
           "https://www.theeducationalgardenproject.org/summer-camp",
           "https://www.theeducationalgardenproject.org/faq",
           "https://www.theeducationalgardenproject.org/how-to-register",
           "https://www.theeducationalgardenproject.org/policies",
-          "https://www.theeducationalgardenproject.org/calendar",
-          "https://www.theeducationalgardenproject.org/",
-          "https://landoftheskychurch.org/contact"
+          "https://www.theeducationalgardenproject.org/"
         ],
         "confidence": "medium",
-        "review_notes": "Confirm 2027 announcement on the calendar; it was readable only in an official search snippet. Confirm minimum age: summer page and FAQ say 6, homepage general program description says 5. The summer page's combined K–10 statement is not allocated between Garden Camp and CIT, so grades are left null. Registration URL is an instruction page rather than the unverified Jumbula destination."
+        "review_notes": "The homepage describes Garden Camp as ages 5–10, whereas the 2026 summer page and FAQ say 6–10. Confirm the minimum age before publishing a new season. The venue name is stated in the official policies search result; the address is also printed in the supplied official footer and FAQ."
       },
       {
         "name": "CIT Program",
         "type": "day",
         "categories": ["nature_outdoor", "general"],
-        "description": "Counselors in training work alongside a director or senior staff member to help younger campers participate in activities. Participants practice teaching, leading, and working with children.",
+        "description": "Participants work alongside a director or senior team member, helping younger campers with activities. They practice working with children, teaching, and leading.",
         "camp_page_url": "https://www.theeducationalgardenproject.org/summer-camp",
-        "registration_url": "https://www.theeducationalgardenproject.org/how-to-register",
+        "registration_url": "https://www.theeducationalgardenproject.org/summer-camp",
         "season": {
           "year": 2026,
-          "status": "coming_soon",
+          "status": "not_posted",
           "start": "2026-06-08",
           "end": "2026-08-21",
-          "text": "2027 DATES COMING SOON"
+          "text": null
         },
         "ages": {
           "min": 11,
@@ -371,7 +369,7 @@
             "status": null
           },
           {
-            "label": "Week 4: Herbal Remedies (new!)",
+            "label": "Week 4: Herbal Remedies",
             "start": "2026-06-29",
             "end": "2026-07-03",
             "year": 2026,
@@ -395,7 +393,7 @@
             "status": null
           },
           {
-            "label": "Week 6: Outdoor Skills and Tools (new!)",
+            "label": "Week 6: Outdoor Skills and Tools",
             "start": "2026-07-13",
             "end": "2026-07-17",
             "year": 2026,
@@ -478,19 +476,17 @@
         },
         "transportation": {
           "value": "no",
-          "text": "No, The Educational Garden Project will never transport your children to any location other than where they were dropped off."
+          "text": "The Educational Garden Project will never transport your children to any location other than where they were dropped off."
         },
         "sources": [
           "https://www.theeducationalgardenproject.org/summer-camp",
           "https://www.theeducationalgardenproject.org/faq",
           "https://www.theeducationalgardenproject.org/how-to-register",
           "https://www.theeducationalgardenproject.org/policies",
-          "https://www.theeducationalgardenproject.org/calendar",
-          "https://www.theeducationalgardenproject.org/",
-          "https://landoftheskychurch.org/contact"
+          "https://www.theeducationalgardenproject.org/"
         ],
         "confidence": "medium",
-        "review_notes": "Confirm 2027 announcement on the calendar; it was readable only in an official search snippet. Summer page and FAQ say CIT ages 11–16, while the homepage general description says 11–15 and grades 6 through high school. Grades are left null because that general description conflicts with the summer page's combined K–10 statement. Registration URL is an instruction page rather than the unverified Jumbula destination."
+        "review_notes": "The homepage describes CIT as ages 11–15 and grades 6 through high school, while the 2026 summer page and FAQ say ages 11–16. Use the summer-specific ages pending confirmation; no season-specific CIT grade range was assigned. The shared weekly themes are listed on the summer page, which says each week may have Garden Camp and CIT registration options. The venue name is stated in the official policies search result."
       }
     ]
   }

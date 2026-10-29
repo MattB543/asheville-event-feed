@@ -10,23 +10,23 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:23:27.366Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:20:03.124Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "8ea8d3df325dec0f4da0ded04c3e41c6b0999babb471c6bbd6b12d3952ebbb7a",
   "response": {
     "searches": [
-      "site.ecschools.net \"summer\" \"2026\" camp",
-      "\"Elizabethton\" \"summer camp\" \"2026\"",
-      "\"site:resources.finalsite.net\" \"elizabethton\" \"summer\""
+      "site.ecschools.net summer 2026 ESP camp",
+      "site:ecschools.net \"summer\" \"2026\" \"ESP\"",
+      "site:resources.finalsite.net ecschoolsnet \"summer\" \"ESP\""
     ],
     "usage": {
-      "inputTokens": 38866,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1222,
-      "reasoningTokens": 292
+      "inputTokens": 47231,
+      "cachedInputTokens": 8845,
+      "outputTokens": 977,
+      "reasoningTokens": 291
     },
     "status": "completed",
-    "ms": 43942,
+    "ms": 42104,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -70,27 +70,31 @@
   "extraction": {
     "provider_name": "Elizabethton City Schools",
     "website_url": "https://www.ecschools.net/",
-    "notes": "No summer 2027 program dates or registration milestones were found. The 2026-2027 school-year ESP update is not a summer announcement; its fees and school-year locations were not applied to summer. The Summer School and ESP pages returned no readable content through the browser, so their linked documents, images and registration buttons could not be inspected. Cards use the supplied official page text; summer-specific details remain unconfirmed.",
+    "notes": "No summer 2027 dates or registration milestones were found. The ESP page confirms summer programming, but its current fees and home-school locations are explicitly school-year information and were not applied to summer. Web searches did not locate summer-specific 2026 details. The calendar PDFs under resources.finalsite.net/cityschoolsnet belong to a different school system and were not used. The ESP and Summer School pages returned no readable content when opened with the browser; the supplied page text and official search results were used.",
     "excluded": [
       {
-        "name": "Extended School Program school-year after-school care",
-        "reason": "Year-round or school-year after-school childcare; only the explicitly described summer component is included."
+        "name": "ECS Summer Learning Camp",
+        "reason": "District summer-school learning program for the district's students; excluded under the rule for district-only summer learning programs."
       },
       {
-        "name": "EHS Sports and TAD Sports",
-        "reason": "School athletic teams and seasons, not finite summer camps or clinics. No specific summer clinic was found."
+        "name": "Extended School Program (school-year care)",
+        "reason": "Year-round or school-year after-school childcare; only the separately described summer programming is retained."
       },
       {
-        "name": "Student Registration and Tuition",
-        "reason": "Academic school-year enrollment and tuition, not a summer camp."
+        "name": "Cyclone Athletics school teams",
+        "reason": "Sports teams and team seasons, not finite summer camps or clinics."
+      },
+      {
+        "name": "ESP Summer Break and Kindercamp",
+        "reason": "Search results for cityschoolsesp.net and cityschoolsnet materials refer to a different Tennessee school system, not Elizabethton City Schools."
       }
     ],
     "cards": [
       {
         "name": "Extended School Program",
         "type": "day",
-        "categories": ["academic", "general"],
-        "description": "Students participate in educational activities and physical exercise throughout the summer.",
+        "categories": ["general"],
+        "description": "Children participate in educational activities and physical exercise throughout the summer.",
         "camp_page_url": "https://www.ecschools.net/administration/extended-school-program-1",
         "registration_url": null,
         "season": {
@@ -120,45 +124,7 @@
         "transportation": null,
         "sources": ["https://www.ecschools.net/administration/extended-school-program-1"],
         "confidence": "medium",
-        "review_notes": "The general ESP description states Pre-K through grade 8 and summer participation, but does not separately confirm summer eligibility. Confirm summer dates, drop-off locations, hours, fees and registration with the provider. Linked ESP documents and registration buttons could not be inspected."
-      },
-      {
-        "name": "ECS Summer Learning Camp",
-        "type": "day",
-        "categories": ["academic"],
-        "description": "The district lists a Summer Learning Camp on its Summer School page.",
-        "camp_page_url": "https://www.ecschools.net/students/summer-school",
-        "registration_url": null,
-        "season": {
-          "year": 2027,
-          "status": "not_posted",
-          "start": null,
-          "end": null,
-          "text": null
-        },
-        "ages": null,
-        "grades": null,
-        "sites": [],
-        "hours": null,
-        "extended_care": null,
-        "prices": [],
-        "sessions": [],
-        "registration": [],
-        "last_year_registration_opened": null,
-        "availability": null,
-        "financial_aid": null,
-        "special_needs": null,
-        "lunch": {
-          "value": "yes",
-          "text": "Summer Menus: Breakfast; Lunch"
-        },
-        "transportation": {
-          "value": "yes",
-          "text": "Bus Schedule for Bus Numbers 12, 26, 35, and 37"
-        },
-        "sources": ["https://www.ecschools.net/students/summer-school"],
-        "confidence": "low",
-        "review_notes": "The page names the camp and lists summer meal menus and a bus schedule, but gives no year or readable program details. Meal and transportation references are undated, not confirmed for 2027. Inspect linked camp materials and confirm activities, eligibility, dates, locations, hours, costs and enrollment."
+        "review_notes": "The official page gives Pre-K through grade 8 for ESP generally, rather than a summer-specific eligibility statement. Check summer eligibility, drop-off sites, dates, hours, fees and registration links when summer materials appear. The $50 weekly fee, sliding scale, sibling and employee discounts, home-school locations and Pre-K capacity currently printed on the page are explicitly for the 2026-2027 school year and have not been carried into this summer card."
       }
     ]
   }

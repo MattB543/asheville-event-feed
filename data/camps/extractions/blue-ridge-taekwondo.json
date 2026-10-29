@@ -7,22 +7,19 @@
     "discovered_by": ["aggregator", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:34:41.719Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:28:50.243Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "02288018ae74bb55fa9e5ccaa2679b46998eaeb96c3a0c2a8f67eb5e6dbf9f77",
   "response": {
-    "searches": [
-      "site:blueridgetkd.com \"2027\" camp",
-      "open https://blueridgetkd.com/parentsnightout/"
-    ],
+    "searches": ["site:blueridgetkd.com \"2027\" camp"],
     "usage": {
-      "inputTokens": 17112,
-      "cachedInputTokens": 8223,
-      "outputTokens": 2652,
-      "reasoningTokens": 178
+      "inputTokens": 17580,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2030,
+      "reasoningTokens": 112
     },
     "status": "completed",
-    "ms": 55220,
+    "ms": 36031,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -41,47 +38,47 @@
   "extraction": {
     "provider_name": "Blue Ridge Taekwondo",
     "website_url": "https://blueridgetkd.com/",
-    "notes": "No 2027 summer information or registration dates were found. The summer camp page still advertises 2026 enrollment and 11 passes remaining after the season has ended; confirm availability directly. The $99 summer camp deposit is not a published total tuition price.",
+    "notes": "No 2027 camp information or registration milestones were found on official pages. The summer camp page still advertises 2026 enrollment and 'Only [11] Passes Remaining' after its listed season ended; these promotional statements were not treated as current availability. A $99 deposit is stated, but no total camp tuition is published.",
     "excluded": [
       {
-        "name": "\"Little Dragons\" Martial Arts",
-        "reason": "Year-round preschool martial arts classes, not a finite summer program."
+        "name": "Parents Night Out",
+        "reason": "Single-evening social events, including Snow in July and Escape the Dojo; not a multi-day evening camp."
+      },
+      {
+        "name": "Little Dragons Martial Arts",
+        "reason": "Ongoing preschool martial arts classes, not a finite summer camp."
       },
       {
         "name": "Kids Martial Arts",
-        "reason": "Year-round martial arts classes."
+        "reason": "Ongoing martial arts classes, not a finite summer camp."
       },
       {
         "name": "Teen & Adult Martial Arts",
-        "reason": "Year-round martial arts classes."
+        "reason": "Ongoing martial arts classes, not a finite summer camp."
       },
       {
         "name": "Hapkido",
-        "reason": "Ongoing martial arts classes, not a summer camp."
+        "reason": "Ongoing classes, not a finite summer camp."
       },
       {
         "name": "Fitness Kickboxing",
-        "reason": "Ongoing fitness classes."
+        "reason": "Ongoing fitness classes, not a finite summer camp."
       },
       {
         "name": "Boxing",
-        "reason": "Ongoing classes."
+        "reason": "Ongoing classes, not a finite summer camp."
       },
       {
         "name": "Weight Training",
-        "reason": "Ongoing fitness program."
-      },
-      {
-        "name": "Corporate Self-Defense Seminar",
-        "reason": "Workplace program for adults, not a youth summer program."
+        "reason": "Ongoing training, not a finite summer camp."
       },
       {
         "name": "Birthday Parties",
-        "reason": "Private birthday celebrations, not scheduled summer youth programs."
+        "reason": "Single social events, not camps."
       },
       {
-        "name": "Parents Night Out — February, April, October and December events",
-        "reason": "Outside summer."
+        "name": "Corporate Self-Defense Seminar",
+        "reason": "Workplace program for employees, not a youth summer camp."
       }
     ],
     "cards": [
@@ -89,7 +86,7 @@
         "name": "Summer Camp",
         "type": "day",
         "categories": ["sports", "arts"],
-        "description": "Campers practice taekwondo, balance and coordination exercises, and games. The daily schedule also includes painting, drawing, crafts, life-skills discussions and quiet time.",
+        "description": "Campers practice Tae Kwon Do, balance and coordination exercises, and play games. Activities also include painting, drawing, crafts, and life-skills discussions.",
         "camp_page_url": "https://blueridgetkd.com/summer-camp-in-east-asheville/",
         "registration_url": "https://blueridgetkd.com/summer-camp-in-east-asheville/",
         "season": {
@@ -115,7 +112,7 @@
         "hours": {
           "start": "08:30",
           "end": "16:30",
-          "text": "FULL DAY CAMPS 8:30am-4:30pm; drop off between 8:30-8:45."
+          "text": "FULL DAY CAMPS 8:30am-4:30pm (extended hours also available)"
         },
         "extended_care": {
           "early_dropoff_start": null,
@@ -259,11 +256,7 @@
         ],
         "registration": [],
         "last_year_registration_opened": null,
-        "availability": {
-          "status": "available",
-          "scope": "2026 summer camp; no session-specific availability stated",
-          "text": "ENROLLMENT OPEN NOW! Only [11] Passes Remaining!"
-        },
+        "availability": null,
         "financial_aid": null,
         "special_needs": null,
         "lunch": {
@@ -276,68 +269,7 @@
           "https://blueridgetkd.com/"
         ],
         "confidence": "medium",
-        "review_notes": "The 11 themes and 11 date ranges are matched in their listed order; the page does not pair them explicitly. Dates use the page's 2026 heading. Before and after care is stated, but times and cost are not published. Enrollment and passes-remaining claims remain on the page after the 2026 season ended and may be stale."
-      },
-      {
-        "name": "Parents Night Out",
-        "type": "evening",
-        "categories": ["general"],
-        "description": "Evening events provide supervised time for children while parents take a break. Summer event themes are Snow in July and Escape the Dojo.",
-        "camp_page_url": "https://blueridgetkd.com/parentsnightout/",
-        "registration_url": "https://blueridgetkd.com/parentsnightout/",
-        "season": {
-          "year": 2026,
-          "status": "not_posted",
-          "start": "2026-07-25",
-          "end": "2026-08-29",
-          "text": null
-        },
-        "ages": null,
-        "grades": null,
-        "sites": [],
-        "hours": {
-          "start": "17:00",
-          "end": "22:00",
-          "text": "5-10 PM"
-        },
-        "extended_care": null,
-        "prices": [],
-        "sessions": [
-          {
-            "label": "Snow in July",
-            "start": "2026-07-25",
-            "end": "2026-07-25",
-            "year": 2026,
-            "site": null,
-            "ages": null,
-            "grades": null,
-            "hours": null,
-            "price": null,
-            "status": "full"
-          },
-          {
-            "label": "Escape the Dojo",
-            "start": "2026-08-29",
-            "end": "2026-08-29",
-            "year": 2026,
-            "site": null,
-            "ages": null,
-            "grades": null,
-            "hours": null,
-            "price": null,
-            "status": null
-          }
-        ],
-        "registration": [],
-        "last_year_registration_opened": null,
-        "availability": null,
-        "financial_aid": null,
-        "special_needs": null,
-        "lunch": null,
-        "transportation": null,
-        "sources": ["https://blueridgetkd.com/parentsnightout/"],
-        "confidence": "medium",
-        "review_notes": "The official page was readable only through its search snippet; opening it returned no text. The snippet does not print a year. Summer dates are provisionally assigned to 2026 because July 25 and August 29 are Saturdays that year; confirm with the provider. The same listing calls October 30 a Saturday, which does not match 2026. Confirm ages, activities, venue and registration links; the snippet does not explicitly identify the drop-off location."
+        "review_notes": "The dates take their year from the page's '2026 Summer Camp in Asheville' heading. The page lists eleven numbered themes and eleven date ranges separately; session themes were paired with dates in their listed order. Confirm these pairings. Before and after care is explicitly available, but hours and fees are not published. The registration URL contains an inquiry form rather than a separately identified enrollment checkout."
       }
     ]
   }

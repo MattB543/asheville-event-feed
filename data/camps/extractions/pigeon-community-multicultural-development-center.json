@@ -7,19 +7,19 @@
     "discovered_by": ["grid", "aggregator"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:16:57.380Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:14:19.766Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "21e7f5462f088ecdc9791d3d2571bdc90875568ad81a55f824a356b1e4cee38e",
   "response": {
     "searches": ["site:pcmdc.org \"2026\" \"summer\""],
     "usage": {
-      "inputTokens": 14516,
-      "cachedInputTokens": 8223,
-      "outputTokens": 946,
-      "reasoningTokens": 158
+      "inputTokens": 15115,
+      "cachedInputTokens": 8845,
+      "outputTokens": 985,
+      "reasoningTokens": 117
     },
     "status": "completed",
-    "ms": 24813,
+    "ms": 25558,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -38,31 +38,35 @@
   "extraction": {
     "provider_name": "Pigeon Community Multicultural Development Center",
     "website_url": "https://www.pcmdc.org/",
-    "notes": "No official 2027 or 2026 summer program details were found. The program page still features Summer Enrichment Program 2025, and an official event page lists June 16–August 15, 2025. Those dates and the older $650 price have not been carried forward. No current registration application link was found.",
+    "notes": "No official 2027 or 2026 summer program details were found. The program page still features Summer Enrichment Program 2025; the official event page lists June 16–August 15, 2025. Those dates, the $650 price, and May 1 enrollment opening were not carried forward as 2026 or 2027 facts.",
     "excluded": [
       {
-        "name": "Summer Classroom Counselor",
-        "reason": "Employment position for adults, not a youth camp offering."
+        "name": "After School Program",
+        "reason": "School-year childcare, not a summer camp."
       },
       {
-        "name": "After School Program",
-        "reason": "School-year after-school programming, not a summer camp."
+        "name": "Summer Classroom Counselor",
+        "reason": "Employment position, not a youth camp offering."
       },
       {
         "name": "Season of Light 2026",
-        "reason": "Winter community celebration, outside summer."
+        "reason": "Winter cultural celebration and fundraiser, outside summer."
       },
       {
         "name": "Conversations with Storytellers Series",
-        "reason": "Community performances rather than a supervised youth camp."
+        "reason": "Public storytelling events, not a finite supervised youth camp."
+      },
+      {
+        "name": "Juneteenth Celebration",
+        "reason": "Community celebration and social event, not a separate camp."
       }
     ],
     "cards": [
       {
         "name": "Summer Enrichment Program",
         "type": "day",
-        "categories": ["academic", "arts", "music", "stem", "general"],
-        "description": "Students participate in reading and math exercises, crafts, music, hands-on STEAM activities, and character-building activities. The program also includes field trips and guest workshops.",
+        "categories": ["academic", "arts", "general", "stem"],
+        "description": "Students participate in reading and math activities, crafts, music, hands-on STEAM activities, and character-building programs. The program also includes field trips and guest workshops.",
         "camp_page_url": "https://www.pcmdc.org/programs/summer-enrichment-program",
         "registration_url": null,
         "season": {
@@ -72,7 +76,10 @@
           "end": null,
           "text": null
         },
-        "ages": null,
+        "ages": {
+          "min": 5,
+          "max": null
+        },
         "grades": {
           "min": 0,
           "max": 12,
@@ -86,7 +93,11 @@
             "state": "NC"
           }
         ],
-        "hours": null,
+        "hours": {
+          "start": "08:00",
+          "end": "17:00",
+          "text": "Monday through Friday from 8 AM to 5 PM"
+        },
         "extended_care": null,
         "prices": [],
         "sessions": [],
@@ -94,8 +105,8 @@
         "last_year_registration_opened": null,
         "availability": null,
         "financial_aid": {
-          "value": "case_by_case",
-          "text": "Additionally, we are pleased to offer limited scholarship opportunities as they become available"
+          "value": "yes",
+          "text": "Limited scholarship opportunities as they become available, as well as multi-child discounts for families with more than one child enrolled in our program."
         },
         "special_needs": null,
         "lunch": {
@@ -105,11 +116,11 @@
         "transportation": null,
         "sources": [
           "https://www.pcmdc.org/programs/summer-enrichment-program",
-          "https://www.pcmdc.org/events/pcmdc-summer-enrichment-program",
-          "https://www.pcmdc.org/"
+          "https://www.pcmdc.org/",
+          "https://www.pcmdc.org/events/pcmdc-summer-enrichment-program"
         ],
         "confidence": "medium",
-        "review_notes": "The general program description says K–12, but the 2025 section says kindergarten through middle school. Age bands also conflict between the counselor job description and the parent-facing text. Confirm current eligibility. Meals and scholarships are described on the page but have not been confirmed for 2026 or 2027. The 2025 or undated nine-week schedule, 8 AM–5 PM hours, $650 new-student price, May 1 application opening, and parent volunteer requirement have not been treated as current-season facts."
+        "review_notes": "The program page mixes general information with a 2025 announcement. Its introduction says K–12, but the 2025 announcement says kindergarten through middle school. General age bands are 5–7, 8–10, 11–13, and 14 and up; the counselor job description instead says young adults 13 and up. Confirm current eligibility, hours, and meal and scholarship provisions before treating these as 2027 details. No 2026 or 2027 dated session information was found."
       }
     ]
   }

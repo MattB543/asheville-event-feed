@@ -11,29 +11,29 @@
     "discovered_by": ["grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:19:15.117Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
-  "sourceHash": "939954b1d228f9c425d825f67c00982fb67391aa5c3f232e2e945a82fac6acc0",
+  "extractedAt": "2026-10-29T17:16:16.257Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "3951b515226a22f8ddfd17a8a87c58526371759f04c423f07235709678e1e98e",
   "response": {
     "searches": [
       "site:cullowheeumc.org \"2027\" camp",
-      "site:cullowheeumc.org \"Vacation Bible\" \"2026\""
+      "site:cullowheeumc.org \"camp\" \"2026\" preschool"
     ],
     "usage": {
-      "inputTokens": 19605,
-      "cachedInputTokens": 8223,
-      "outputTokens": 2206,
-      "reasoningTokens": 271
+      "inputTokens": 20083,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1967,
+      "reasoningTokens": 236
     },
     "status": "completed",
-    "ms": 49231,
+    "ms": 40002,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
   "bundle": [
     {
       "url": "https://www.cullowheeumc.org/events/vacation-bible-school/",
-      "chars": 1698,
+      "chars": 1690,
       "method": "fetch"
     },
     {
@@ -65,31 +65,23 @@
   "extraction": {
     "provider_name": "Cullowhee United Methodist Church",
     "website_url": "https://www.cullowheeumc.org/",
-    "notes": "No 2027 camp dates or registration milestones were found. Vacation Bible School and Whee Read have explicit 2026 dates. The Summer Camps page and linked flyer describe 2025 only; the two day-camp offerings are retained as unconfirmed programs without transferring their 2025 dates, eligibility or prices into 2026 or 2027 fields. The flyer opened without readable text, and the screenshot attempt failed. A 2027 ministry spending plan mentions Whee Read but does not announce camp dates or registration.",
+    "notes": "No 2027 camp dates or registration milestones were found. The 2027 ministry spending plan mentions Whee Read but does not announce summer dates or registration. The preschool and elementary camp page still describes 2025; no 2026 or 2027 details were found, so those cards retain the existing program names but omit historical dates, prices and eligibility. The linked 2025 summer-camp PDF returned no readable content, and the screenshot attempt failed.",
     "excluded": [
       {
-        "name": "Cullowhee Kids Preschool",
-        "reason": "Regular school-year preschool, separate from the finite summer day camps."
+        "name": "End of Summer Picnic",
+        "reason": "Single evening social event, not a camp."
       },
       {
-        "name": "End of Summer Picnic",
-        "reason": "Community picnic, not a supervised youth camp."
+        "name": "Cullowhee Kids Preschool",
+        "reason": "School-year preschool, separate from the finite summer day camps."
       },
       {
         "name": "Whee Read Too! Book-A-Thon Fundraiser",
-        "reason": "Fundraising activity, not a supervised youth program."
+        "reason": "Fundraising activity, not a supervised youth camp."
       },
       {
         "name": "Reading Buddies for Whee Read",
         "reason": "Volunteer opportunity supporting Whee Read, not a separate camper program."
-      },
-      {
-        "name": "Youth Groups",
-        "reason": "Recurring youth ministry and spring-semester meetings, not a finite summer program."
-      },
-      {
-        "name": "Application for Employment at Cullowhee Kids",
-        "reason": "Employment application, not a camp."
       }
     ],
     "cards": [
@@ -97,7 +89,7 @@
         "name": "Vacation Bible School",
         "type": "vbs",
         "categories": ["faith_based"],
-        "description": "The church hosts a two-morning Vacation Bible School. The event page does not describe specific activities.",
+        "description": "Vacation Bible School at Cullowhee United Methodist Church.",
         "camp_page_url": "https://www.cullowheeumc.org/events/vacation-bible-school/",
         "registration_url": null,
         "season": {
@@ -140,7 +132,7 @@
         "name": "Whee Read Summer Literacy Program",
         "type": "day",
         "categories": ["academic"],
-        "description": "Children receive reading instruction and practice reading individually with adult reading buddies during a five-week literacy program.",
+        "description": "Children practice reading during a five-week summer literacy program. Reading Buddy volunteers provide one-on-one reading practice.",
         "camp_page_url": "https://www.cullowheeumc.org/wheeread/",
         "registration_url": null,
         "season": {
@@ -174,7 +166,7 @@
         "financial_aid": null,
         "special_needs": null,
         "lunch": {
-          "value": "case_by_case",
+          "value": "yes",
           "text": "Lunch is served from 11:30 to 12:00 on Tuesday-Thursday."
         },
         "transportation": null,
@@ -190,7 +182,7 @@
         "name": "Preschool Summer Day Camp",
         "type": "day",
         "categories": ["general"],
-        "description": "The church's summer-camp materials describe a supervised preschool day camp. Specific camper activities are not described in the readable material.",
+        "description": "Summer day camp for preschool children.",
         "camp_page_url": "https://www.cullowheeumc.org/summer-camps-at-cullowhee-umc/",
         "registration_url": null,
         "season": {
@@ -223,17 +215,16 @@
         "transportation": null,
         "sources": [
           "https://www.cullowheeumc.org/summer-camps-at-cullowhee-umc/",
-          "https://www.cullowheeumc.org/wp-content/uploads/2025/01/summer-camp.pdf",
           "https://www.cullowheeumc.org/"
         ],
-        "confidence": "low",
-        "review_notes": "Confirm that this program will return. The official page describes 2025 only, with preschool eligibility of ages 2–5 who have not attended kindergarten. No 2026 or 2027 details were found. The flyer was readable only in a search snippet, which collectively names Preschool and Elementary School Summer Day Camps."
+        "confidence": "medium",
+        "review_notes": "The official camp page describes only 2025. Confirm whether this program will return in 2027 and obtain current eligibility, dates, hours, prices and enrollment instructions. The linked 2025 PDF could not be read."
       },
       {
         "name": "Elementary School Summer Day Camp",
         "type": "day",
         "categories": ["general"],
-        "description": "The church's summer-camp materials describe a supervised elementary-school day camp. Specific camper activities are not described in the readable material.",
+        "description": "Summer day camp for elementary school children.",
         "camp_page_url": "https://www.cullowheeumc.org/summer-camps-at-cullowhee-umc/",
         "registration_url": null,
         "season": {
@@ -266,11 +257,10 @@
         "transportation": null,
         "sources": [
           "https://www.cullowheeumc.org/summer-camps-at-cullowhee-umc/",
-          "https://www.cullowheeumc.org/wp-content/uploads/2025/01/summer-camp.pdf",
           "https://www.cullowheeumc.org/"
         ],
-        "confidence": "low",
-        "review_notes": "Confirm that this program will return. The official page describes 2025 only, with eligibility of completed kindergarten through fifth grade. No 2026 or 2027 details were found. The flyer was readable only in a search snippet, which collectively names Preschool and Elementary School Summer Day Camps."
+        "confidence": "medium",
+        "review_notes": "The official camp page describes only 2025. Confirm whether this program will return in 2027 and obtain current eligibility, dates, hours, prices and enrollment instructions. The linked 2025 PDF could not be read."
       }
     ]
   }

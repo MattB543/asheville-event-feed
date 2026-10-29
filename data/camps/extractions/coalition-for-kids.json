@@ -7,22 +7,19 @@
     "discovered_by": ["grid", "aggregator"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:22:40.771Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:19:10.960Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "c5aef6a8a20caa2d0c188f03e5f791a8139985a55d9e61334f3b6bd69159d87d",
   "response": {
-    "searches": [
-      "site:coalitionforkids.org summer 2027",
-      "open https://www.coalitionforkids.org/summer-programs/"
-    ],
+    "searches": ["site:coalitionforkids.org summer 2027"],
     "usage": {
-      "inputTokens": 15837,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1065,
-      "reasoningTokens": 108
+      "inputTokens": 16373,
+      "cachedInputTokens": 8845,
+      "outputTokens": 988,
+      "reasoningTokens": 84
     },
     "status": "completed",
-    "ms": 30896,
+    "ms": 25650,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -56,15 +53,15 @@
   "extraction": {
     "provider_name": "Coalition for Kids",
     "website_url": "https://www.coalitionforkids.org/",
-    "notes": "No 2027 information found. The current summer page gives an April 17, 2026 interest-form deadline but its undated June 5–July 28 dates match the provider's 2023 flyer and sample calendar. These dates have not been assigned to 2026. The page also mentions facilitating Bristol Tennessee City Schools summer-school afterschool programming in June, but provides no distinct program name, drop-off site, or enrollment details; verify this offering with the provider. Washington County summer programming is described only as coming soon, without a year.",
+    "notes": "No official summer 2027 information found. The current summer page displays June 5–July 28 without a year; the same dates appear in the provider's 2023 flyer, and the sample schedule uploaded in March 2026 is labeled June 2023. Those dates and sample-calendar rows were not assigned to 2026. The page also conflicts on when applications are emailed: April versus mid-March. Johnson City is retained for the directory's drive-time check.",
     "excluded": [
       {
-        "name": "After School",
-        "reason": "School-year afterschool programming, not a finite summer camp."
+        "name": "After School Programs",
+        "reason": "School-year after-school childcare, not a summer camp."
       },
       {
-        "name": "Careers",
-        "reason": "Employment opportunities, not youth summer camp programming."
+        "name": "Bristol Tennessee City Schools Summer School afterschool program",
+        "reason": "Afterschool portion of a school district's summer school program; no independently enrollable camp is described."
       }
     ],
     "cards": [
@@ -72,7 +69,7 @@
         "name": "Summer Bridge Program",
         "type": "day",
         "categories": ["academic", "faith_based", "general"],
-        "description": "Students participate in classroom learning, enrichment activities, sports, outdoor play, supervised field trips, and pool days. The program includes character development and spiritual exploration.",
+        "description": "Children participate in academic enrichment, outdoor play, sports, supervised field trips and pool days in a faith-based setting.",
         "camp_page_url": "https://www.coalitionforkids.org/summer-programs/",
         "registration_url": null,
         "season": {
@@ -90,7 +87,7 @@
         },
         "sites": [
           {
-            "name": "Main Campus",
+            "name": "Coalition for Kids Main Campus",
             "address": "2423 Susannah St.",
             "town": "Johnson City",
             "state": "TN"
@@ -99,14 +96,14 @@
         "hours": {
           "start": "07:30",
           "end": "17:30",
-          "text": "Monday–Friday from 7:30am–5:30pm in June and July. Drop-off is 7:30–8:15 AM; pickup is 4:00–5:30 PM."
+          "text": "Monday–Friday from 7:30am–5:30pm in June and July."
         },
         "extended_care": null,
         "prices": [
           {
             "amount": 0,
             "unit": "program",
-            "label": "Grant funded; free for all families",
+            "label": "All families",
             "year": 2026
           }
         ],
@@ -131,7 +128,7 @@
           "https://coalitionforkids.org/wp-content/uploads/2023/08/C4K_Summer-Program_Flyer.pdf"
         ],
         "confidence": "medium",
-        "review_notes": "Verify actual 2026 and 2027 season dates. The current page's undated June 5–July 28 range matches the 2023 flyer, and the sample schedule uploaded under 2026/03 explicitly shows June 2023. Dates are therefore left null and obsolete sample-calendar themes are not extracted. Current-page grades, hours, and free pricing are treated as 2026 information based on the explicit April 17, 2026 deadline. The page conflicts on when applications are emailed: April in the main text versus mid-March in the FAQ. April 17, 2026 is an interest-form deadline, not a registration opening."
+        "review_notes": "Current page explicitly gives an April 17, 2026 interest-form deadline, but its June 5–July 28 dates are unyeared and match the 2023 flyer. The linked sample schedule is also from 2023 despite its 2026 upload path. Confirm actual 2026 dates and whether current undated operating details remain applicable. The interest form is explicitly not registration; the page says the application will arrive in April in one section and mid-March in the FAQ. No registration opening date was extracted."
       }
     ]
   }

@@ -11,19 +11,19 @@
     "discovered_by": ["grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:13:18.177Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:11:12.218Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "abd6107aac919be4a9be40605b20792e15dd71aeb67e217748d0da6770420ec0",
   "response": {
-    "searches": ["site:northpointbaptist.org 2027 VBS summer"],
+    "searches": ["site:northpointbaptist.org 2027 VBS"],
     "usage": {
-      "inputTokens": 15530,
-      "cachedInputTokens": 8223,
-      "outputTokens": 794,
-      "reasoningTokens": 69
+      "inputTokens": 16163,
+      "cachedInputTokens": 8845,
+      "outputTokens": 761,
+      "reasoningTokens": 67
     },
     "status": "completed",
-    "ms": 25127,
+    "ms": 18798,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -57,15 +57,19 @@
   "extraction": {
     "provider_name": "North Point Baptist Church of Weaverville",
     "website_url": "https://northpointbaptist.org/",
-    "notes": "No 2027 summer program information found. The 2026 registration page confirms June 15–19; the church calendar also displays scattered July and August VBS entries that are not corroborated by the registration page. Historical YUC Summer Camp and Youth at Fort Caswell listings were found for 2024, but no 2026 or 2027 details were found, so they are not included.",
+    "notes": "No 2027 summer program details or registration dates found. The calendar contains additional recurring VBS entries extending outside summer; these were not treated as separate sessions because the dated 2026 event page and registration platform agree on June 15–19. A 2024 YUC Summer Camp listing was found, but no 2026 or 2027 details or camp location were found.",
     "excluded": [
       {
-        "name": "Youth Sunday Nights!",
-        "reason": "Recurring youth ministry during September through May, not a finite summer camp."
+        "name": "Sunday School and Praiseland",
+        "reason": "Year-round children's ministry programs, not finite summer camps."
       },
       {
-        "name": "Youth Group & Kids ROC",
-        "reason": "Recurring church ministry activities, not a finite summer program."
+        "name": "Youth ministry gatherings, mission opportunities and excursions",
+        "reason": "Regular youth gatherings, mission opportunities and youth-group outings are outside the camp rule."
+      },
+      {
+        "name": "Youth at Fort Caswell",
+        "reason": "The historical listing names a coastal North Carolina venue outside the local drive-time area."
       }
     ],
     "cards": [
@@ -73,7 +77,7 @@
         "name": "Kids Summer VBS!",
         "type": "vbs",
         "categories": ["faith_based"],
-        "description": "Children explore the nature of God and their relationship with their creator through the Rainforest Falls Vacation Bible School program.",
+        "description": "Rainforest Falls Vacation Bible School explores the nature of God and what it means to be rooted in a relationship with their creator.",
         "camp_page_url": "https://northpointbaptist.org/events/2026/06/15/kids-summer-vbs",
         "registration_url": "https://vbspro.events/p/e5c4cf",
         "season": {
@@ -103,7 +107,7 @@
         "hours": {
           "start": "08:30",
           "end": "11:30",
-          "text": "8:30am (EDT) to 11:30am (EDT)"
+          "text": null
         },
         "extended_care": null,
         "prices": [],
@@ -121,11 +125,10 @@
         "transportation": null,
         "sources": [
           "https://northpointbaptist.org/events/2026/06/15/kids-summer-vbs",
-          "https://vbspro.events/p/e5c4cf",
-          "https://northpointbaptist.org/"
+          "https://vbspro.events/p/e5c4cf"
         ],
-        "confidence": "medium",
-        "review_notes": "The dedicated church event and registration page agree on June 15–19, 2026. Related-event listings on the church page show additional July VBS dates, and search results show an August 22 VBS entry; verify whether these are calendar artifacts or additional offerings before adding sessions."
+        "confidence": "high",
+        "review_notes": null
       }
     ]
   }

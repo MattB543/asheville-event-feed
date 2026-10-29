@@ -7,8 +7,8 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:04:01.774Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:03:43.253Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "c3e13b46f684876d1b25ccd239fc633c3455f18033551d18358f1352e96acdb6",
   "response": {
     "searches": [
@@ -16,13 +16,13 @@
       "open https://arteriesbystina.com/pages/summer-fashion-sewing-creative-camp"
     ],
     "usage": {
-      "inputTokens": 16614,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1008,
-      "reasoningTokens": 80
+      "inputTokens": 16818,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1098,
+      "reasoningTokens": 103
     },
     "status": "completed",
-    "ms": 26546,
+    "ms": 25678,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -61,15 +61,19 @@
   "extraction": {
     "provider_name": "ARTeries Fashion Sewing School",
     "website_url": "https://arteriesbystina.com/",
-    "notes": "No summer 2027 information found. The homepage's 2027 announcements concern boutique scheduling and winter classes, not summer camp.",
+    "notes": "No summer 2027 information or registration milestones were found. The homepage's 2027 announcements concern winter classes and boutique scheduling, not summer camp. The camp page's REGISTER NOW destination could not be resolved; the account sign-in page is not a verified camp registration destination.",
     "excluded": [
       {
-        "name": "Group Sewing Classes",
-        "reason": "Recurring semester classes, not summer-only youth camps; includes Kids, Tweens, Teens Sewing Workshop and ongoing sewing lessons."
+        "name": "Kids, Tweens, Teens Sewing Workshop",
+        "reason": "School-year sewing lesson series, not a summer camp."
       },
       {
-        "name": "Sewing Retreat",
-        "reason": "Fashion sewing retreat described for women and general sewists, not a supervised youth program."
+        "name": "Group Sewing Classes and Private Sewing Lesson",
+        "reason": "Regular sewing classes and lessons rather than finite summer camp programs."
+      },
+      {
+        "name": "ARTeries Fashion Sewing School Retreat",
+        "reason": "Adult-oriented sewing retreat, not a supervised youth camp."
       }
     ],
     "cards": [
@@ -77,7 +81,7 @@
         "name": "Summer Fashion Sewing Creative Camp",
         "type": "half_day",
         "categories": ["arts"],
-        "description": "Campers learn sewing techniques and design, cut, sew and fit one garment per week. They also make daily crafts or accessories and practice fashion sketching.",
+        "description": "Campers learn sewing techniques and design, cut, sew and fit one garment per week. They also make daily crafts or accessory projects and participate in fashion sketching and outdoor activities when weather permits.",
         "camp_page_url": "https://arteriesbystina.com/pages/summer-fashion-sewing-creative-camp",
         "registration_url": null,
         "season": {
@@ -165,7 +169,7 @@
           "https://arteriesbystina.com/"
         ],
         "confidence": "medium",
-        "review_notes": "The camp page's main body states ages 8–15 and three weeks; its summary text states ages 7–15 and four weeks. Used the detailed main-body listing, supported by the school's general page stating ages 8–15. Dates lack an inline year; 2026 comes from the page title. The $260 cost is interpreted as per week from the weekly enrollment structure, but the price line does not explicitly state its unit. REGISTER NOW appears without a readable registration destination."
+        "review_notes": "The camp page body lists ages 8–15 and three weeks, while its search-description text lists ages 7–15 and four weeks; the card follows the detailed body. Dates omit a year in the body and are assigned 2026 from the page title. The page states COST: $260 without explicitly naming the billing unit; week is inferred from the separately listed weekly registrations. Check the price unit and age discrepancy with the provider."
       }
     ]
   }

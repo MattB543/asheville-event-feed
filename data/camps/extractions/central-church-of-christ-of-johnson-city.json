@@ -7,30 +7,29 @@
     "discovered_by": ["grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:23:00.158Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
-  "sourceHash": "3e4bb064a1143f44d9e63bdd3e41898516c0a4e1d6ac51378cf7758b3f6ba852",
+  "extractedAt": "2026-10-29T17:19:28.514Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "239fd84ca26b7e7cc583c03d30e46318b085dd37b4ce49a8ed18efbb5c4db915",
   "response": {
     "searches": [
       "site:gracemine.org \"2027\" \"VBS\"",
-      "High Rock Bible Camp 2026 teen preteen official",
-      "\"High Rock Bible Camp\" \"2026\""
+      "High Rock Bible Camp official 2710 Mabe Stanleytown"
     ],
     "usage": {
-      "inputTokens": 25963,
-      "cachedInputTokens": 8223,
-      "outputTokens": 972,
-      "reasoningTokens": 188
+      "inputTokens": 22515,
+      "cachedInputTokens": 8845,
+      "outputTokens": 876,
+      "reasoningTokens": 140
     },
     "status": "completed",
-    "ms": 26418,
+    "ms": 25764,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
   "bundle": [
     {
       "url": "https://gracemine.org/events/vbs-2026/",
-      "chars": 1926,
+      "chars": 1923,
       "method": "fetch"
     },
     {
@@ -62,23 +61,23 @@
   "extraction": {
     "provider_name": "Central Church of Christ of Johnson City",
     "website_url": "https://gracemine.org/",
-    "notes": "No 2027 VBS information or registration dates were found. The church also lists HRBC Teen Week (June 7–12, 2026) and HRBc Preteen Event (June 14–18, 2026); these belong to the separate provider High Rock Bible Camp and are not included as Central Church programs.",
+    "notes": "No 2027 VBS information or registration dates were found. High Rock Bible Camp summer events linked by the church meet in Duffield, VA, outside the directory's drive-time area.",
     "excluded": [
       {
-        "name": "HRBC Spring Retreat",
-        "reason": "April 17–19, 2026; outside summer."
+        "name": "HRBC Teen Week",
+        "reason": "Held at High Rock Bible Camp, 2710 Mabe Stanleytown Rd, Duffield, VA, outside approximately 75 minutes' drive of Asheville."
+      },
+      {
+        "name": "HRBc Preteen Event",
+        "reason": "Held at High Rock Bible Camp in Duffield, VA, outside approximately 75 minutes' drive of Asheville."
       },
       {
         "name": "HRBC Fall Retreat",
-        "reason": "September 11–13, 2026; outside summer."
+        "reason": "Fall retreat, outside summer."
       },
       {
-        "name": "HRBC Workday",
-        "reason": "April volunteer cleanup and repair event, not a supervised summer youth program."
-      },
-      {
-        "name": "Sunday Morning Bible Class",
-        "reason": "Recurring year-round Bible class, not a finite summer program."
+        "name": "HRBC Spring Retreat",
+        "reason": "Spring retreat, outside summer."
       }
     ],
     "cards": [
@@ -86,7 +85,7 @@
         "name": "VBS",
         "type": "vbs",
         "categories": ["faith_based"],
-        "description": "Children in pre-K through sixth grade attend Living Bible School. Teens who are not assisting with VBS are directed to attend Adult Bible Class.",
+        "description": "Vacation Bible School for children in Pre-K through sixth grade.",
         "camp_page_url": "https://gracemine.org/events/vbs-2026/",
         "registration_url": "https://docs.google.com/forms/d/e/1FAIpQLSfWyHfPyJ7WF6HoWp_j38idK_PaJOpO0MwTme06_5l59rCxeQ/closedform",
         "season": {
@@ -113,7 +112,7 @@
         "hours": {
           "start": "18:00",
           "end": "20:00",
-          "text": "6:00 pm – 8:00 pm"
+          "text": null
         },
         "extended_care": null,
         "prices": [],
@@ -122,7 +121,7 @@
         "last_year_registration_opened": null,
         "availability": {
           "status": "closed",
-          "scope": "2026 VBS registration",
+          "scope": "2026 registration",
           "text": "The form 2026 VBS Registration WWJD is no longer accepting responses."
         },
         "financial_aid": null,

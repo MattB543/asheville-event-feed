@@ -7,22 +7,22 @@
     "discovered_by": ["grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:28:47.328Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
-  "sourceHash": "7a8323bba3eda4c84617752dbe320d13aa915d7d36509726f20a80ba35aa6410",
+  "extractedAt": "2026-10-29T17:24:08.433Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "b3c167b3a7520630d776b884b73f195da682d8533effa471a7ce0e3c21d19434",
   "response": {
     "searches": [
-      "site:mwbaptist.org \"2027\" \"VBS\"",
-      "open https://mwbaptist.org/events/vbs-2025-magnified/"
+      "site:mwbaptist.org VBS 2027 Illumination Station",
+      "site.fortcaswell.com address Oak Island"
     ],
     "usage": {
-      "inputTokens": 19033,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1481,
-      "reasoningTokens": 168
+      "inputTokens": 23721,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1181,
+      "reasoningTokens": 156
     },
     "status": "completed",
-    "ms": 33652,
+    "ms": 33043,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -34,8 +34,8 @@
     },
     {
       "url": "https://mwbaptist.org/",
-      "chars": 2604,
-      "method": "chrome-tls"
+      "chars": 3109,
+      "method": "browser"
     },
     {
       "url": "https://mwbaptist.org/event-category/camp/",
@@ -71,35 +71,51 @@
   "extraction": {
     "provider_name": "Midway Baptist Church of Columbus",
     "website_url": "https://mwbaptist.org/",
-    "notes": "No summer 2027 program dates or registration announcements were found. Cards use the church's 2026 information. The VBS event and ministry pages were readable through official search results but returned no text when opened; the MyVBS registration page also returned no readable text.",
+    "notes": "No Midway summer 2027 program information was found. The VBS event and ministries pages were readable through official search results, but direct opens returned no readable text. The MyVBS registration page also returned no readable text.",
     "excluded": [
       {
-        "name": "Men’s Camping Trip",
-        "reason": "April 30–May 2, 2026, outside summer; not described as a supervised youth program."
+        "name": "Camp Caswell",
+        "reason": "Held at Fort Caswell, 100 Caswell Beach Rd, Oak Island, NC, on the coast and outside the approximately 75-minute drive area. Meeting at Midway for departure does not make the overnight camp local."
       },
       {
-        "name": "Respond Women’s Retreat",
-        "reason": "Women's retreat held April 17–19, 2026, outside summer and not a youth camp."
+        "name": "Men’s Camping Trip",
+        "reason": "Outside summer: April 30–May 2, 2026; not identified as a supervised youth camp."
       },
       {
         "name": "Camp Property Workday",
-        "reason": "Volunteer cabin cleanup in April, not a youth camp."
+        "reason": "Volunteer cabin cleanup, not a youth camp, and held outside summer."
       },
       {
         "name": "VBS Decorating – Volunteers Needed",
-        "reason": "Volunteer preparation for VBS, not a camper program."
-      },
-      {
-        "name": "Women’s Ministry Archery & Badminton",
-        "reason": "September ministry event, outside summer and not described as a youth clinic."
+        "reason": "Volunteer decorating and preparation, not a supervised youth camp."
       },
       {
         "name": "Children’s Church",
-        "reason": "Recurring church ministry, not a finite summer program."
+        "reason": "Recurring year-round church programming, not a finite summer camp."
+      },
+      {
+        "name": "Kids Bible Class – Sunday Evenings",
+        "reason": "Weekly church classes, not a finite summer camp."
       },
       {
         "name": "Donuts with Dad",
-        "reason": "Family gathering before Sunday School, not a supervised youth camp."
+        "reason": "Single social event, not a camp."
+      },
+      {
+        "name": "Worship In The Park 2026",
+        "reason": "Community worship events, not supervised youth camps."
+      },
+      {
+        "name": "Respond Women’s Retreat",
+        "reason": "Women's retreat outside summer, not a youth camp."
+      },
+      {
+        "name": "Women’s Ministry Archery & Badminton",
+        "reason": "September women's ministry event, outside summer and not identified as a youth clinic."
+      },
+      {
+        "name": "Bible-Themed Trunk or Treat",
+        "reason": "Single seasonal social event outside summer."
       }
     ],
     "cards": [
@@ -155,70 +171,11 @@
         "sources": [
           "https://mwbaptist.org/recent-events/",
           "https://mwbaptist.org/events/vbs-2025-magnified/",
-          "https://mwbaptist.org/ministries-2/vbs/",
+          "https://mwbaptist.org/ministries-2/",
           "https://mwbaptist.org/"
         ],
         "confidence": "medium",
-        "review_notes": "The supplied recent-events page and official VBS event search result state 5:30–8:45 pm, but older sidebar search results on other church pages show 5:30–8:30 pm. Use the event's 8:45 pm end time; verify the discrepancy. The event page and registration platform returned no readable text when opened."
-      },
-      {
-        "name": "Camp Caswell",
-        "type": "overnight",
-        "categories": ["faith_based", "sports", "nature_outdoor"],
-        "description": "Youth attend worship, dramas and a hands-on missions experience at Camp Caswell. Activities include sports, swimming, beach time and games.",
-        "camp_page_url": "https://mwbaptist.org/events/2023-summer-youth-camp-caswell/",
-        "registration_url": null,
-        "season": {
-          "year": 2026,
-          "status": "not_posted",
-          "start": "2026-06-01",
-          "end": "2026-06-05",
-          "text": null
-        },
-        "ages": null,
-        "grades": {
-          "min": 7,
-          "max": 12,
-          "basis": "rising"
-        },
-        "sites": [
-          {
-            "name": "Midway Baptist Church",
-            "address": "2101 NC-108",
-            "town": "Columbus",
-            "state": "NC"
-          }
-        ],
-        "hours": null,
-        "extended_care": null,
-        "prices": [
-          {
-            "amount": 125,
-            "unit": "program",
-            "label": "Midway student",
-            "year": 2026
-          },
-          {
-            "amount": 350,
-            "unit": "program",
-            "label": "Friends/nonmembers",
-            "year": 2026
-          }
-        ],
-        "sessions": [],
-        "registration": [],
-        "last_year_registration_opened": null,
-        "availability": null,
-        "financial_aid": null,
-        "special_needs": null,
-        "lunch": null,
-        "transportation": null,
-        "sources": [
-          "https://mwbaptist.org/events/2023-summer-youth-camp-caswell/",
-          "https://mwbaptist.org/"
-        ],
-        "confidence": "high",
-        "review_notes": null
+        "review_notes": "The program-specific venue and activity description were obtained through official search results because direct opens returned no readable text. Dates, hours and eligibility are also plainly stated in the supplied recent-events text. The event URL retains an older theme, but its displayed title explicitly identifies VBS 2026 – Illumination Station. Meal support records dinner, not a midday lunch."
       }
     ]
   }

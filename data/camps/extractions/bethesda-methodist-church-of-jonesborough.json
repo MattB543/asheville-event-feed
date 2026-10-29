@@ -8,25 +8,25 @@
     "status": "review",
     "status_reason": "no official page found"
   },
-  "extractedAt": "2026-10-29T15:25:12.725Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:21:30.091Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": null,
   "response": {
     "searches": [
-      "Bethesda Methodist Church Jonesborough vacation bible school 2026 2027",
-      "Bethesda Methodist Jonesborough church website 4708",
-      "\"Bethesda Methodist Church of Jonesborough\"",
-      "\"Bethesda\" \"Jonesborough\" site:facebook.com",
-      "site:facebook.com/bethesdaumchurch \"VBS\""
+      "Bethesda Methodist Church Jonesborough vacation bible school 2026",
+      "\"Bethesda\" \"Jonesborough\" \"VBS\"",
+      "\"Bethesda Methodist Church of Jonesborough\" \"VBS\"",
+      "Bethesda Jonesborough Junkyard Redemption VBS 2026 facebook",
+      "open https://allevents.in/jonesborough/vbs-2026-junkyard-redemption/200029852819130"
     ],
     "usage": {
-      "inputTokens": 27472,
-      "cachedInputTokens": 8223,
-      "outputTokens": 584,
-      "reasoningTokens": 358
+      "inputTokens": 31642,
+      "cachedInputTokens": 8845,
+      "outputTokens": 877,
+      "reasoningTokens": 331
     },
     "status": "completed",
-    "ms": 28190,
+    "ms": 36454,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -34,8 +34,57 @@
   "extraction": {
     "provider_name": "Bethesda Methodist Church of Jonesborough",
     "website_url": null,
-    "notes": "No readable official summer 2026 or 2027 program announcement was found. The church's Facebook page, https://www.facebook.com/bethesdaumchurch/, could not be read. A third-party listing at https://happeningnext.com/event/vbs-2026-junkyard-redemption-eid3a0diqawsi advertises VBS 2026 Junkyard Redemption for June 21–24, 2026, 6:00–8:30 p.m., at 4708 Cherokee Rd, Jonesborough, TN. This is an unverified lead, not an official-source confirmation, so no card was created. A reviewer should confirm the offering and venue directly with the church. No 2027 dates or registration milestones were found. Search results for bethesdamethodist.net refer to a different church in Gastonia, NC.",
-    "excluded": [],
-    "cards": []
+    "notes": "No 2027 camp information found. The church's Facebook page could not be read. A 2026 VBS was found in third-party event search results, but no readable official announcement was located. No standalone website was confirmed for this Jonesborough church.",
+    "excluded": [
+      {
+        "name": "2026 Bethesda EC Church VBS - Junkyard Redemption",
+        "reason": "Different provider in Schuylkill Haven, Pennsylvania, outside the service area."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Vacation Bible School for children.",
+        "camp_page_url": null,
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-21",
+          "end": "2026-06-24",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Bethesda Methodist Church",
+            "address": "4708 Cherokee Rd",
+            "town": "Jonesborough",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": "18:00",
+          "end": "20:30",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [],
+        "confidence": "low",
+        "review_notes": "Dates and hours come only from the search result for https://happeningnext.com/event/vbs-2026-junkyard-redemption-eid3a0diqawsi, titled VBS 2026 Junkyard Redemption. Confirm the announcement with the church; https://www.facebook.com/bethesdaumchurch/ could not be read. The 4708 Cherokee Rd address appears in event listings and several church directories, but a Chamber of Commerce listing gives 4755 Cherokee Rd. No readable venue-owned address source was found, so confirm the drop-off address."
+      }
+    ]
   }
 }

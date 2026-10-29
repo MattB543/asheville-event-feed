@@ -12,23 +12,23 @@
     "discovered_by": ["news828", "grid", "aggregator", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:00:04.759Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:00:13.116Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "b54410eeade7649a6d2165814f29eb7738b0592750c95ec6710a67741d25464d",
   "response": {
     "searches": [
       "site:kahdalea.com Chosatonga address directions",
-      "open https://www.kahdalea.com/boys-camp/",
-      "site:kahdalea.com \"campintouch\" \"application\""
+      "open https://www.kahdalea.com/camp-sessions/",
+      "site:kahdalea.com \"campintouch\""
     ],
     "usage": {
-      "inputTokens": 27840,
-      "cachedInputTokens": 8223,
-      "outputTokens": 4725,
-      "reasoningTokens": 206
+      "inputTokens": 28522,
+      "cachedInputTokens": 8845,
+      "outputTokens": 4308,
+      "reasoningTokens": 204
     },
     "status": "completed",
-    "ms": 92773,
+    "ms": 82371,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -77,23 +77,27 @@
   "extraction": {
     "provider_name": "Camps Kahdalea and Chosatonga",
     "website_url": "https://www.kahdalea.com/",
-    "notes": "2027 dates and rates are posted. The Main Session start is printed as Tuesday, June 30, but June 30, 2027 is Wednesday; numerical dates are retained. Tuition tables display two amounts without clearly identifying each amount's payment tier in the fetched text; lower amounts are retained as discounted tuition, consistent with the payment-method explanation. Early-bird registration is already open, but no opening date is stated. Direct browser opens returned no readable text; supplied page text and official search results were used.",
+    "notes": "2027 dates and rates are posted. The June 30 weekday is printed as Tuesday, although June 30, 2027 is Wednesday; numeric dates were retained. Several session prices appear as two amounts without labels in the fetched text, so those prices were omitted pending review of their visual formatting. Additional official pages opened as empty documents; the Chosatonga location was available in the official directions search result. No dated registration-opening announcement was found.",
     "excluded": [
       {
         "name": "Family Camp",
-        "reason": "Family-only camp rather than a supervised youth-only program."
+        "reason": "Family-only program."
       },
       {
         "name": "JC Spring Retreat",
-        "reason": "Outside summer."
+        "reason": "School-year spring retreat, outside summer."
       },
       {
         "name": "Summer Staff",
-        "reason": "Work-based positions with additional kitchen or other service duties, rather than a separate youth camp offering."
+        "reason": "Staff positions with additional work duties, rather than a separate youth camp program."
       },
       {
         "name": "Off-Season Programs",
-        "reason": "Spring and fall retreats, school experiences, meetings and reunions."
+        "reason": "Spring and fall retreats and facility rentals, outside summer."
+      },
+      {
+        "name": "CKC Missions",
+        "reason": "Mission trips are excluded."
       },
       {
         "name": "Join Our Staff",
@@ -104,16 +108,8 @@
       {
         "name": "Camp Kahdalea",
         "type": "overnight",
-        "categories": [
-          "general",
-          "nature_outdoor",
-          "sports",
-          "horses",
-          "arts",
-          "music",
-          "faith_based"
-        ],
-        "description": "Girls participate in outdoor activities including hiking, climbing, paddling, swimming, horseback riding and archery, along with arts, music and field sports. Camp includes Christian faith activities and cabin living.",
+        "categories": ["nature_outdoor", "sports", "horses", "arts", "music", "faith_based"],
+        "description": "Girls participate in hiking, climbing, canoeing, horseback riding, archery, swimming, arts and crafts, and guitar in a Christian camp setting.",
         "camp_page_url": "https://www.kahdalea.com/girls-camp/",
         "registration_url": "https://www.kahdalea.com/camp-sessions/",
         "season": {
@@ -152,12 +148,7 @@
             },
             "grades": null,
             "hours": null,
-            "price": {
-              "amount": 6645,
-              "unit": "session",
-              "label": "Discounted tuition; table also displays $6,845",
-              "year": 2027
-            },
+            "price": null,
             "status": null
           },
           {
@@ -172,12 +163,7 @@
             },
             "grades": null,
             "hours": null,
-            "price": {
-              "amount": 7725,
-              "unit": "session",
-              "label": "Discounted tuition; table also displays $7,950",
-              "year": 2027
-            },
+            "price": null,
             "status": null
           },
           {
@@ -192,12 +178,7 @@
             },
             "grades": null,
             "hours": null,
-            "price": {
-              "amount": 11845,
-              "unit": "session",
-              "label": "Discounted tuition; table also displays $12,250",
-              "year": 2027
-            },
+            "price": null,
             "status": null
           },
           {
@@ -232,12 +213,7 @@
             },
             "grades": null,
             "hours": null,
-            "price": {
-              "amount": 4300,
-              "unit": "session",
-              "label": "Discounted tuition; table also displays $4,450",
-              "year": 2027
-            },
+            "price": null,
             "status": null
           },
           {
@@ -252,12 +228,7 @@
             },
             "grades": null,
             "hours": null,
-            "price": {
-              "amount": 4300,
-              "unit": "session",
-              "label": "Discounted tuition; table also displays $4,450",
-              "year": 2027
-            },
+            "price": null,
             "status": null
           },
           {
@@ -272,12 +243,7 @@
             },
             "grades": null,
             "hours": null,
-            "price": {
-              "amount": 4300,
-              "unit": "session",
-              "label": "Discounted tuition; table also displays $4,450",
-              "year": 2027
-            },
+            "price": null,
             "status": null
           }
         ],
@@ -299,10 +265,7 @@
         "availability": null,
         "financial_aid": null,
         "special_needs": null,
-        "lunch": {
-          "value": "yes",
-          "text": "Our kitchens and dining halls are \"Grade A\" facilities which provide nutritious food for active youngsters."
-        },
+        "lunch": null,
         "transportation": {
           "value": "yes",
           "text": "Campers arriving by plane will be met at the Asheville, NC Airport. The airport pick-up and return is provided by the camps."
@@ -314,22 +277,14 @@
           "https://www.kahdalea.com/"
         ],
         "confidence": "medium",
-        "review_notes": "Confirm Main Session start: the 2027 table says Tuesday, June 30, although that date is Wednesday. Confirm the two displayed tuition amounts and their payment-method labels. The homepage says ages 8–17 with seven-year-olds in mini sessions; the 2027 session table explicitly permits ages 7–15 in primary sessions and is used here."
+        "review_notes": "The 2027 sessions page says Tuesday, June 30, but that date is Wednesday in 2027. The homepage says campers are ages 8–17 with seven-year-olds in introductory sessions, while the 2027 session table explicitly allows ages 7–15 in primary sessions; the session table was used. Check the paired tuition amounts and payment-method labels visually before adding prices."
       },
       {
         "name": "Camp Chosatonga",
         "type": "overnight",
-        "categories": [
-          "general",
-          "nature_outdoor",
-          "sports",
-          "horses",
-          "arts",
-          "music",
-          "faith_based"
-        ],
-        "description": "Boys participate in wilderness and camp activities including backpacking, paddling, climbing, swimming, horseback riding, sports, arts and guitar. Camp includes Christian character-building and cabin living.",
-        "camp_page_url": "https://www.kahdalea.com/",
+        "categories": ["nature_outdoor", "sports", "horses", "arts", "music", "faith_based"],
+        "description": "Boys participate in wilderness activities, swimming, canoeing, climbing, archery, team sports, and arts and crafts in a Christian camp setting. Chosatonga shares riding and tennis facilities with Kahdalea.",
+        "camp_page_url": "https://www.kahdalea.com/boys-camp/",
         "registration_url": "https://www.kahdalea.com/camp-sessions/",
         "season": {
           "year": 2027,
@@ -367,12 +322,7 @@
             },
             "grades": null,
             "hours": null,
-            "price": {
-              "amount": 6645,
-              "unit": "session",
-              "label": "Discounted tuition; table also displays $6,845",
-              "year": 2027
-            },
+            "price": null,
             "status": null
           },
           {
@@ -387,12 +337,7 @@
             },
             "grades": null,
             "hours": null,
-            "price": {
-              "amount": 7725,
-              "unit": "session",
-              "label": "Discounted tuition; table also displays $7,950",
-              "year": 2027
-            },
+            "price": null,
             "status": null
           },
           {
@@ -407,12 +352,7 @@
             },
             "grades": null,
             "hours": null,
-            "price": {
-              "amount": 11845,
-              "unit": "session",
-              "label": "Discounted tuition; table also displays $12,250",
-              "year": 2027
-            },
+            "price": null,
             "status": null
           },
           {
@@ -447,12 +387,7 @@
             },
             "grades": null,
             "hours": null,
-            "price": {
-              "amount": 4300,
-              "unit": "session",
-              "label": "Discounted tuition; table also displays $4,450",
-              "year": 2027
-            },
+            "price": null,
             "status": null
           },
           {
@@ -467,12 +402,7 @@
             },
             "grades": null,
             "hours": null,
-            "price": {
-              "amount": 4300,
-              "unit": "session",
-              "label": "Discounted tuition; table also displays $4,450",
-              "year": 2027
-            },
+            "price": null,
             "status": null
           },
           {
@@ -487,12 +417,7 @@
             },
             "grades": null,
             "hours": null,
-            "price": {
-              "amount": 4300,
-              "unit": "session",
-              "label": "Discounted tuition; table also displays $4,450",
-              "year": 2027
-            },
+            "price": null,
             "status": null
           }
         ],
@@ -514,10 +439,7 @@
         "availability": null,
         "financial_aid": null,
         "special_needs": null,
-        "lunch": {
-          "value": "yes",
-          "text": "Our kitchens and dining halls are \"Grade A\" facilities which provide nutritious food for active youngsters."
-        },
+        "lunch": null,
         "transportation": {
           "value": "yes",
           "text": "Campers arriving by plane will be met at the Asheville, NC Airport. The airport pick-up and return is provided by the camps."
@@ -529,13 +451,13 @@
           "https://mail.kahdalea.com/directions.html"
         ],
         "confidence": "medium",
-        "review_notes": "Confirm Main Session weekday/date mismatch and payment-tier labels on the sessions page. Primary ages 7–15 follow the 2027 table rather than the conflicting homepage summary. Chosatonga's physical address comes from the official legacy directions page search result; the shared Brevard footer is the office, not this campus."
+        "review_notes": "Chosatonga's GPS address comes from the official directions search snippet; the page opened empty. The boys-camp page also opened empty. The 2027 table prints an incorrect weekday for June 30. The homepage age range conflicts with the explicit session-table ages, which were used. Check paired tuition amounts and payment-method labels visually."
       },
       {
         "name": "Junior Counselor Program",
         "type": "overnight",
-        "categories": ["general", "faith_based"],
-        "description": "Junior Counselors take on extra duties and responsibilities in a leadership-training program. Training emphasizes attitudes, confidence, resourcefulness, values and Christian living.",
+        "categories": ["faith_based", "nature_outdoor", "general"],
+        "description": "Junior counselors receive leadership training and additional duties and responsibilities at camp. The program emphasizes Christian living, resourcefulness, self-confidence, and modeling high standards.",
         "camp_page_url": "https://www.kahdalea.com/camper-info/",
         "registration_url": "https://www.kahdalea.com/camp-sessions/",
         "season": {
@@ -717,17 +639,17 @@
             "text": "Early Bird: (applied before or by November 1st)",
             "url": "https://www.kahdalea.com/camp-sessions/",
             "year": 2027,
-            "confidence": "high"
+            "confidence": "medium"
           }
         ],
         "last_year_registration_opened": null,
         "availability": null,
-        "financial_aid": null,
-        "special_needs": null,
-        "lunch": {
-          "value": "yes",
-          "text": "Our kitchens and dining halls are \"Grade A\" facilities which provide nutritious food for active youngsters."
+        "financial_aid": {
+          "value": "case_by_case",
+          "text": "There are a limited number of Summer Staff JC positions with some added duties available for those who may be in financial need. Please call our office to learn more."
         },
+        "special_needs": null,
+        "lunch": null,
         "transportation": {
           "value": "yes",
           "text": "Campers arriving by plane will be met at the Asheville, NC Airport. The airport pick-up and return is provided by the camps."
@@ -735,11 +657,10 @@
         "sources": [
           "https://www.kahdalea.com/camp-sessions/",
           "https://www.kahdalea.com/camper-info/",
-          "https://www.kahdalea.com/",
           "https://mail.kahdalea.com/directions.html"
         ],
         "confidence": "medium",
-        "review_notes": "Eligible students are rising grades 11 and 12 and rising college freshmen; the schema cannot represent college freshman as a numbered high-school grade, so grade maximum is null. Age 16 is described as typical, not a minimum. Confirm Main Session weekday/date mismatch. Chosatonga physical address was available only in an official search result."
+        "review_notes": "Eligibility includes rising college freshmen, which cannot be represented as a high-school maximum in the grades field; maximum is null. The stated typical age of 16 is not an eligibility limit. The June 30 weekday is incorrect for 2027. Chosatonga's address was read only in an official search snippet. Early-bird terms are general and do not specifically mention JCs; confirm applicability. Financial assistance described involves additional Summer Staff duties."
       }
     ]
   }

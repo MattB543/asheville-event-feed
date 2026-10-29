@@ -9,23 +9,22 @@
     "status": "review",
     "status_reason": "first page is a social media page or video, which our fetcher can't read"
   },
-  "extractedAt": "2026-10-29T15:18:57.918Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:16:09.073Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": null,
   "response": {
     "searches": [
       "Piney Mountain Baptist Church Whittier VBS 2026",
-      "site:facebook.com/PineyMtnBaptistChurchNC \"VBS\"",
-      "\"PineyMtnBaptistChurchNC\" \"Bible\""
+      "site:facebook.com/PineyMtnBaptistChurchNC \"VBS\""
     ],
     "usage": {
-      "inputTokens": 23706,
-      "cachedInputTokens": 8223,
-      "outputTokens": 518,
-      "reasoningTokens": 286
+      "inputTokens": 18196,
+      "cachedInputTokens": 8845,
+      "outputTokens": 458,
+      "reasoningTokens": 250
     },
     "status": "completed",
-    "ms": 21989,
+    "ms": 20369,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -39,8 +38,13 @@
   "extraction": {
     "provider_name": "Piney Mountain Baptist Church of Whittier",
     "website_url": null,
-    "notes": "The supplied Facebook page returned no readable content. No independent official website could be verified; pmbconline.com also returned no readable content and could not be confirmed as this church's site. Third-party event listings identify a Vacation Bible School event on June 10, 2026, at 6:30–8:30 p.m., but no official announcement, complete session dates, eligibility, or registration information could be read. No 2027 information was found. No cards are returned because the summer offering could not be verified on an official source. Reviewer leads: https://allevents.in/dillsboro/vacation-bible-school/200030070895901 and https://happeningnext.com/event/vacation-bible-school-eid3a0dnjhej7. Address listings also vary between 344 Piney Mountain Road and 344 E Piney Mountain Road, Whittier, NC; confirm the church's published location before mapping.",
-    "excluded": [],
+    "notes": "No standalone official website was found. The supplied Facebook page opened without readable content, and searches did not locate an official summer 2026 or 2027 camp announcement. Third-party event listings show Vacation Bible School on June 10, 2026, from 6:30–8:30 p.m. at 344 Piney Mountain Road, but do not establish whether it met on multiple days. No card was created because a qualifying camp could not be confirmed. A reviewer should check the church's Facebook posts or contact the church for the full VBS schedule.",
+    "excluded": [
+      {
+        "name": "Camp Fusion",
+        "reason": "Offered by the separate Piney Mountain Baptist Church in Weaverville, not this Whittier provider."
+      }
+    ],
     "cards": []
   }
 }

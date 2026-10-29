@@ -7,19 +7,22 @@
     "discovered_by": ["seed_sheet", "news828", "grid", "aggregator", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T14:57:26.474Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T16:57:25.069Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "7082470d325e29f0a83f4da2503b31e4c8ea84cd4b7247bf4b54f414271d6a65",
   "response": {
-    "searches": ["site:osegagym.com summer camp 2027 2026"],
+    "searches": [
+      "site.osegagym.com \"2027\" camp",
+      "open https://portal.iclasspro.com/osegagym/camps"
+    ],
     "usage": {
-      "inputTokens": 16548,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1620,
-      "reasoningTokens": 97
+      "inputTokens": 17287,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1121,
+      "reasoningTokens": 106
     },
     "status": "completed",
-    "ms": 41274,
+    "ms": 25082,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -48,51 +51,51 @@
   "extraction": {
     "provider_name": "Olympic Start Elite Gymnastics Academy (OSEGA)",
     "website_url": "https://osegagym.com/",
-    "notes": "No 2027 summer dates or registration announcements were found. The events page describes two summer camp formats but gives no dated summer schedule. Its weekly prices are undated; they are recorded as 2026 fallback information, not confirmed 2027 prices. The camp portal did not expose session listings. Search-indexed portal results sometimes displayed unrelated providers and were not used.",
+    "notes": "No official 2027 summer dates or registration milestones found. The events page lists ongoing camp descriptions and undated summer prices, but no session dates or explicit summer year. The iClassPro camps page returned no readable session listings.",
     "excluded": [
       {
         "name": "Spring Break and Winter camps",
         "reason": "Programs outside summer."
       },
       {
-        "name": "Gymnastics & Ninja Classes",
-        "reason": "Recurring classes rather than finite summer camps."
-      },
-      {
-        "name": "Competitive Teams",
-        "reason": "Team training and seasons rather than summer camps."
-      },
-      {
-        "name": "After School",
-        "reason": "School-year childcare rather than summer-only programming."
-      },
-      {
-        "name": "Bright Stars Pre-K Program",
-        "reason": "Year-round preschool; separate from the included Pre-K camp."
-      },
-      {
         "name": "Open Gyms",
-        "reason": "Recurring open play; the page explicitly says no open gyms over summer."
+        "reason": "Drop-in open play, not a finite supervised summer camp; the provider states there are no summer open gyms."
+      },
+      {
+        "name": "Birthday Parties",
+        "reason": "Social events rather than camps."
       },
       {
         "name": "PARENT'S NIGHT OUT",
-        "reason": "No events are currently offered and no finite summer offering is listed."
+        "reason": "Single-evening social event rather than a multi-day evening camp."
       },
       {
-        "name": "Birthday Parties and Field Trips",
-        "reason": "Private bookings rather than scheduled summer camp programs."
+        "name": "Field Trips",
+        "reason": "Group outings rather than summer camp programs."
       },
       {
-        "name": "TRIUMPH OCR Training Center",
-        "reason": "Recurring training rather than a finite summer camp."
+        "name": "Gymnastics & Ninja Classes",
+        "reason": "Recurring lesson series, not camps."
+      },
+      {
+        "name": "After School",
+        "reason": "School-year childcare."
+      },
+      {
+        "name": "Bright Stars Pre-K Program",
+        "reason": "Year-round preschool, separate from the Pre-K camp."
+      },
+      {
+        "name": "Competitive Teams",
+        "reason": "Team seasons rather than camps."
       }
     ],
     "cards": [
       {
         "name": "Full-Day camp",
         "type": "day",
-        "categories": ["sports", "general"],
-        "description": "Campers rotate through gymnastics and ninja free play, outdoor play, games, STEM activities, arts and crafts, foam pits, and trampolines. Summer weeks also include gymnastics, ninja obstacle, and outdoor obstacle course racing training.",
+        "categories": ["sports", "stem", "arts", "general"],
+        "description": "Campers rotate through gymnastics and ninja free play, outdoor playground time, games, STEM activities, foam pit and trampoline time, and arts and crafts. Summer camps also include gymnastics, ninja obstacle, and outdoor obstacle course racing training.",
         "camp_page_url": "https://osegagym.com/events/",
         "registration_url": "https://portal.iclasspro.com/osegagym/booking",
         "season": {
@@ -118,26 +121,26 @@
         "hours": {
           "start": "08:30",
           "end": "17:30",
-          "text": "Monday – Friday, 8:30 am – 5:30 pm"
+          "text": "Monday – Friday"
         },
         "extended_care": null,
         "prices": [
           {
             "amount": 300,
             "unit": "week",
-            "label": "Register before April 1st; undated posted rate",
+            "label": "register before April 1st",
             "year": 2026
           },
           {
             "amount": 325,
             "unit": "week",
-            "label": "After April 1st; undated posted rate",
+            "label": "after April 1st",
             "year": 2026
           },
           {
             "amount": 350,
             "unit": "week",
-            "label": "After May 1st; undated posted rate",
+            "label": "after May 1st",
             "year": 2026
           }
         ],
@@ -155,17 +158,16 @@
         "sources": [
           "https://osegagym.com/events/",
           "https://osegagym.com/specials/",
-          "https://osegagym.com/contact-us/",
           "https://portal.iclasspro.com/osegagym/booking"
         ],
         "confidence": "medium",
-        "review_notes": "The events page does not specify the summer year for prices, ages, or hours. Prices are retained as 2026 fallback rates; confirm their applicable year and the exact April/May price boundaries. No session dates were readable in the portal."
+        "review_notes": "Summer prices have no explicit year on the events page; retained as 2026 fallback information, not confirmed 2026-specific pricing. No dated summer session listings were readable in the registration portal."
       },
       {
         "name": "Pre-K Half-Day camp",
         "type": "half_day",
-        "categories": ["sports", "general"],
-        "description": "Pre-K campers rotate through preschool gymnastics and ninja gyms, classroom play, table activities, arts, outdoor play, foam pits, and trampolines. This camp is separate from the year-round Pre-K learning program.",
+        "categories": ["sports", "arts", "general"],
+        "description": "Campers rotate through the Pre-K gymnastics and ninja gyms, classroom play, table activities and arts, outdoor playground time, and foam pit and trampoline time.",
         "camp_page_url": "https://osegagym.com/events/",
         "registration_url": "https://portal.iclasspro.com/osegagym/booking",
         "season": {
@@ -191,7 +193,7 @@
         "hours": {
           "start": "08:30",
           "end": "12:30",
-          "text": "Monday – Friday, 8:30 am – 12:30 pm"
+          "text": "Monday – Friday"
         },
         "extended_care": null,
         "prices": [],
@@ -209,11 +211,10 @@
         "sources": [
           "https://osegagym.com/events/",
           "https://osegagym.com/specials/",
-          "https://osegagym.com/contact-us/",
           "https://portal.iclasspro.com/osegagym/booking"
         ],
         "confidence": "medium",
-        "review_notes": "The events page describes this camp without a summer year or dates. General details are retained as 2026 fallback information. No Pre-K price or session schedule was readable in the portal."
+        "review_notes": "The camp description and hours are undated; retained as current fallback information under 2026. No explicit summer year or dated sessions were readable in the registration portal."
       }
     ]
   }

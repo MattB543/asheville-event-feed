@@ -7,22 +7,22 @@
     "discovered_by": ["seed_sheet"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T14:56:55.552Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T16:57:13.225Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "65956b22a6ddb3a1ba0de6884fb174a9fdece143ab4bb992f3c27073af91a6b7",
   "response": {
     "searches": [
-      "site:destinationspace-stem.org 2026 camp",
-      "\"Destination SPACE\" \"2026\" camp satellite"
+      "site:destinationspace-stem.org \"2026\" camp",
+      "site:unca.edu 2026 \"satellite\" \"camp\""
     ],
     "usage": {
-      "inputTokens": 26701,
-      "cachedInputTokens": 8223,
-      "outputTokens": 804,
-      "reasoningTokens": 167
+      "inputTokens": 17775,
+      "cachedInputTokens": 8845,
+      "outputTokens": 756,
+      "reasoningTokens": 181
     },
     "status": "completed",
-    "ms": 32862,
+    "ms": 25298,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -46,19 +46,15 @@
   "extraction": {
     "provider_name": "Destination SPACE",
     "website_url": "https://www.destinationspace-stem.org/",
-    "notes": "No 2027 or 2026 camp dates, prices, eligibility requirements, or registration milestones were found. The current camp page describes Satellite Week without a season year; its archive ends at 2025. Historical locations and eligibility in media stories were not treated as current camp facts. The press-releases page returned no readable text. Destination Aerospace appears only as an archived 2020 virtual camp and was not treated as a current offering.",
+    "notes": "No 2027 or 2026 camp dates or registration announcements were found. The summer camp page is undated and its archive runs through 2025. Historical Asheville locations were not treated as confirmed upcoming drop-off sites. The press-releases page returned no readable text.",
     "excluded": [
       {
         "name": "Deep Space Program",
-        "reason": "Ongoing student projects, curriculum development, and internship opportunities, not a finite summer camp."
+        "reason": "Ongoing student projects, curriculum development and internship opportunities, rather than a finite summer camp."
       },
       {
-        "name": "ThinSat Program",
-        "reason": "Multi-phase school-based satellite project, not a finite summer camp."
-      },
-      {
-        "name": "Project Midnight Ghost",
-        "reason": "Ongoing aircraft-recovery research collaboration, not a finite summer camp."
+        "name": "Destination SPACE Labs",
+        "reason": "Technology platforms and educational kits, not a scheduled supervised summer camp."
       }
     ],
     "cards": [
@@ -66,7 +62,7 @@
         "name": "Satellite Week",
         "type": "pre_college",
         "categories": ["stem"],
-        "description": "Students learn about satellites and remote sensing by building weather stations, launching them on weather balloons, and analyzing data. Activities also include robotic rovers, model rockets, and space weather forecasting.",
+        "description": "Students learn about satellites and remote sensing through hands-on projects. They build weather stations, launch them on weather balloons, and analyze the data, with additional activities including robotic rovers, model rockets, and space weather forecasting.",
         "camp_page_url": "https://www.destinationspace-stem.org/summer-camp-programs",
         "registration_url": null,
         "season": {
@@ -96,10 +92,10 @@
         "sources": [
           "https://www.destinationspace-stem.org/summer-camp-programs",
           "https://www.destinationspace-stem.org/media",
-          "https://www.destinationspace-stem.org/past-events"
+          "https://www.destinationspace-stem.org/overview"
         ],
         "confidence": "medium",
-        "review_notes": "The current undated camp page does not specify day versus residential format or eligibility. The pre_college classification is supported by historical UNCA coverage and the provider's 2021 past-events description, not a 2026 or 2027 announcement. Confirm the current format and drop-off venue before publication. Scholarship wording is on the undated current program page."
+        "review_notes": "The program description and scholarship statement are on an undated ongoing program page, not a 2026 or 2027 announcement. Pre-college classification is based on historical coverage reproduced on the provider's media page; the current camp page does not specify day versus overnight format or eligibility. Confirm upcoming format and Asheville-area location before publishing a site."
       }
     ]
   }

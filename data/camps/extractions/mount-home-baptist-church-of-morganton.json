@@ -8,22 +8,22 @@
     "status": "review",
     "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
   },
-  "extractedAt": "2026-10-29T15:38:13.365Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:32:24.210Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "a5d0b8b04bb848fe0d78eae643778845fd532c54511e3c2276682429ef063698",
   "response": {
     "searches": [
-      "site:mounthomebaptist.org \"2026\" \"Vacation\"",
-      "\"Mount Home\" \"Morganton\" \"VBS\""
+      "site:mounthomebaptist.org VBS 2026",
+      "\"Mount Home Baptist\" \"VBS\" \"2026\" Morganton"
     ],
     "usage": {
-      "inputTokens": 20825,
-      "cachedInputTokens": 8223,
-      "outputTokens": 344,
-      "reasoningTokens": 139
+      "inputTokens": 26425,
+      "cachedInputTokens": 8845,
+      "outputTokens": 387,
+      "reasoningTokens": 154
     },
     "status": "completed",
-    "ms": 15422,
+    "ms": 17584,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -37,15 +37,15 @@
   "extraction": {
     "provider_name": "Mount Home Baptist Church of Morganton",
     "website_url": "https://www.mounthomebaptist.org/",
-    "notes": "No verifiable 2026 or 2027 summer program details were found on the official website or in web searches. The events page's calendar did not expose event entries in readable text, and the home page reported a failure to fetch events. Older Vacation Bible School listings were found for 2024 and 2025 on third-party sites, but these were not used as current camp facts. Search results for Mountain Home Baptist Church at mountainhomebaptistchurch.com refer to a differently named provider and were not used. Check with the church for current Vacation Bible School plans.",
+    "notes": "No 2026 or 2027 summer camp or Vacation Bible School details were found on readable official pages or official search results. The events and involvement pages returned no readable content when opened; indexed events text contained no camp listings. An older official Facebook post advertises Vacation Bible School, and a third-party listing gives June 23–27, 2025 dates, but neither establishes a 2026 or 2027 offering. No card was created from those older materials.",
     "excluded": [
       {
-        "name": "Sunday School",
-        "reason": "Weekly, year-round religious classes rather than a finite summer program."
+        "name": "Sunday School and children's ministry",
+        "reason": "Ongoing church ministries rather than finite summer camp programs."
       },
       {
-        "name": "Children's Choir",
-        "reason": "Recurring Sunday choir program, not a summer-only camp or clinic."
+        "name": "Illumination Station - 2026 VBS",
+        "reason": "Offered by Mountain Home Baptist Church in Mountain Home, Arkansas, a different provider outside the Asheville area."
       }
     ],
     "cards": []

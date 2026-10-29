@@ -7,22 +7,19 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:23:19.808Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:19:44.502Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "c58d725bec4e9b365f1e99bcc97da8b906fd416fae7af0118237adeae5acbca2",
   "response": {
-    "searches": [
-      "site.fumcnewport.org \"2027\" camp",
-      "\"Newport\" \"CITC\" \"2026\" registration"
-    ],
+    "searches": ["site.fumcnewport.org \"2027\" camp", "\"fumcnewport.org\" \"camp\""],
     "usage": {
-      "inputTokens": 18504,
-      "cachedInputTokens": 8223,
-      "outputTokens": 628,
-      "reasoningTokens": 163
+      "inputTokens": 19166,
+      "cachedInputTokens": 8845,
+      "outputTokens": 477,
+      "reasoningTokens": 158
     },
     "status": "completed",
-    "ms": 19157,
+    "ms": 16558,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -46,14 +43,14 @@
   "extraction": {
     "provider_name": "First United Methodist Church of Newport",
     "website_url": "https://www.fumcnewport.org/",
-    "notes": "No 2027 camp information was found. The supplied church page lists June 8–12, 2026. Live page opens returned no readable text, so the registration button destination and linked camp booklet could not be retrieved. Youth assistant-counselor training is mentioned as part of the ministry, but no separate named summer offering or enrollment details are provided.",
+    "notes": "No 2027 information found. The camp page returned no readable content through the browser; the supplied official page text and an official search result confirm the 2026 offering. The registration button destination and linked camp booklet could not be retrieved.",
     "excluded": [],
     "cards": [
       {
         "name": "Camp in the Community",
         "type": "day",
         "categories": ["faith_based", "general"],
-        "description": "Children attend a week-long day camp with games, songs and stories focused on Christian faith and relationships.",
+        "description": "A week-long day camp for children that shares the Gospel and develops relationships between the community and the church.",
         "camp_page_url": "https://www.fumcnewport.org/camp-in-the-community.html",
         "registration_url": null,
         "season": {
@@ -86,8 +83,7 @@
         "transportation": null,
         "sources": [
           "https://www.fumcnewport.org/camp-in-the-community.html",
-          "https://www.fumcnewport.org/",
-          "https://www.campinthecommunity.org/"
+          "https://www.fumcnewport.org/"
         ],
         "confidence": "high",
         "review_notes": null

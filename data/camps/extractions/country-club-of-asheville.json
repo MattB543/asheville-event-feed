@@ -7,22 +7,22 @@
     "discovered_by": ["gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:35:44.976Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:29:52.404Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "60b4560eccae9432b278c13eb0feb907b2de618a8588b7feb965e9463395cf33",
   "response": {
     "searches": [
-      "site:ccofasheville.com summer camp 2026 kids",
-      "\"Country Club of Asheville\" \"2026\" \"camp\""
+      "site.ccofasheville.com \"Kids Club\" camp",
+      "\"Country Club of Asheville\" \"camp\" \"2026\""
     ],
     "usage": {
-      "inputTokens": 20276,
-      "cachedInputTokens": 8223,
-      "outputTokens": 930,
-      "reasoningTokens": 183
+      "inputTokens": 19516,
+      "cachedInputTokens": 8845,
+      "outputTokens": 923,
+      "reasoningTokens": 175
     },
     "status": "completed",
-    "ms": 28765,
+    "ms": 27452,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -41,31 +41,35 @@
   "extraction": {
     "provider_name": "Country Club of Asheville",
     "website_url": "https://www.ccofasheville.com/",
-    "notes": "No 2027 camp dates, prices, or registration announcements were found, and no dated 2026 camp schedule was found. Public pages confirm summer camps through Kids Club but do not publish a specific summer program name or schedule. An official 2019 blog describes older summer camps and mini-camps; its ages and themes were not treated as 2026 facts. The tennis page mentions youth camps without confirming summer timing, so no separate tennis camp card was created.",
+    "notes": "No 2027 camp information or year-specific 2026 camp schedule was found on the public official pages. Kids Club is retained as the existing summer camp program name. Official search results supplied readable Kids Club text, but direct opening returned no readable content. An undated official STEAM article describes older camp age bands and themes; these were not treated as 2026 facts. The tennis page mentions youth camps without establishing a summer offering or schedule. The golf page describes summer practice-and-play programming but does not establish a finite supervised camp.",
     "excluded": [
       {
         "name": "Drop & Play",
-        "reason": "Year-round childcare, not a summer-only finite program."
+        "reason": "Short-term year-round childcare while parents use club amenities or spend time off-site, not a finite summer camp."
       },
       {
-        "name": "Friday night childcare",
-        "reason": "Recurring year-round childcare rather than a summer camp."
+        "name": "Friday night childcare, birthday parties and movie nights",
+        "reason": "Year-round childcare and social events rather than summer camps."
       },
       {
         "name": "Spring and fall junior golf camps and clinics",
-        "reason": "Outside summer."
+        "reason": "Programs outside summer."
       },
       {
-        "name": "Junior Golf summer practice-and-play program",
-        "reason": "Described as a season-long practice-and-play schedule leading to a season-end prize; the public page does not establish a finite supervised camp or clinic distinct from the golf season."
+        "name": "Swim lessons",
+        "reason": "Lesson offerings, not camps."
       },
       {
         "name": "Swim team",
-        "reason": "Sports team season."
+        "reason": "Team season, not a camp."
       },
       {
-        "name": "School-break camps",
-        "reason": "The historical official blog mentions President’s Day and teacher-workday camps, which are outside summer."
+        "name": "Private and group golf and tennis lessons",
+        "reason": "Year-round lessons, not camps."
+      },
+      {
+        "name": "School-break and teacher-workday camps",
+        "reason": "Programs outside summer."
       }
     ],
     "cards": [
@@ -73,11 +77,11 @@
         "name": "Kids Club",
         "type": "day",
         "categories": ["general"],
-        "description": "Kids Club offers summer camps. Staff-led activities include art projects, science experiments, and outdoor games.",
+        "description": "Kids Club offers summer camps for children at Country Club of Asheville.",
         "camp_page_url": "https://www.ccofasheville.com/kids-club",
         "registration_url": null,
         "season": {
-          "year": 2026,
+          "year": 2027,
           "status": "not_posted",
           "start": null,
           "end": null,
@@ -110,7 +114,7 @@
           "https://www.ccofasheville.com/contact"
         ],
         "confidence": "medium",
-        "review_notes": "The homepage explicitly mentions summer camps, but the Kids Club page describes activities across the year rather than a dated summer offering. Kids Club is the published umbrella name; verify the summer camp's specific name, day format, and drop-off location with the provider. The club address is officially published, but no camp-specific drop-off instructions were found. No dated 2026 or 2027 schedule was available."
+        "review_notes": "The homepage confirms summer camps under Kids Club, but public pages do not describe a year-specific offering or its format. Day type is inferred from the club-based children's program. Kids Club details were readable only in official search results. Check the club's member materials for 2027 dates, ages, prices, registration and exact drop-off location."
       }
     ]
   }

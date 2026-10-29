@@ -7,24 +7,23 @@
     "discovered_by": ["beyond_school", "news828", "aggregator", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T14:58:08.339Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T16:58:21.152Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "146a27527e4f9ec8babffc59a90ef27e1116424b44786baba4051124abddd74a",
   "response": {
     "searches": [
       "site:riverlink.org RiverCamp 2027",
-      "site:riverlink.org \"2026\" \"Info\" \"pdf\" RiverCamp",
-      "open https://riverlink.org/wp-content/uploads/French-Broad-RiverCamp-Parent-Packet.pdf",
-      "site:riverlink.org/wp-content/uploads/French-Broad-RiverCamp-Parent-Packet.pdf \"2026\""
+      "open https://riverlink.org/work/rivercamp/",
+      "site:riverlink.org \"2026\" \"camp\" \"June\""
     ],
     "usage": {
-      "inputTokens": 28203,
-      "cachedInputTokens": 8223,
-      "outputTokens": 967,
-      "reasoningTokens": 322
+      "inputTokens": 27119,
+      "cachedInputTokens": 8845,
+      "outputTokens": 746,
+      "reasoningTokens": 233
     },
     "status": "completed",
-    "ms": 32163,
+    "ms": 23995,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -48,15 +47,19 @@
   "extraction": {
     "provider_name": "RiverLink",
     "website_url": "https://riverlink.org/",
-    "notes": "No 2027 dates or registration milestones were found. The official camp page lists a 2026 Info Packet, but the browser returned no readable content or links from that page. A parent-packet PDF was found through search, but could not be read or verified as the 2026 packet. Dates, prices, hours and the camper drop-off location remain unknown; the provider's office address was not assumed to be the camp site.",
+    "notes": "No 2027 dates or registration milestones were found. The camp page still advertises 2026 as sold out. Direct opens of the camp page and the indexed parent-packet PDF returned no readable content; the supplied camp-page text was used. The PDF's year and connection to the current 2026 Info Packet could not be established, so no packet-specific details were extracted.",
     "excluded": [
       {
         "name": "Out of School",
-        "reason": "Year-round enrichment partnerships delivering lessons to existing afterschool programs, summer school groups and camps, rather than a separate summer camp offering."
+        "reason": "Partner-requested enrichment lessons for existing afterschool programs, summer school groups and summer camps, not a separately enrolled finite summer camp."
       },
       {
         "name": "Voices of the River Contest",
-        "reason": "Spring art and poetry contest, not a supervised summer camp."
+        "reason": "Art and poetry contest and exhibition, not a supervised summer camp."
+      },
+      {
+        "name": "Creek Week",
+        "reason": "Community celebration with public events and outings, not a supervised youth camp."
       }
     ],
     "cards": [
@@ -64,7 +67,7 @@
         "name": "RiverCamp",
         "type": "day",
         "categories": ["nature_outdoor", "stem"],
-        "description": "Campers explore local waterways and ecosystems through hands-on environmental education, science experiments and river recreation. Activities include visits to waterfalls, forests, lakes and swimming holes.",
+        "description": "Campers explore local freshwater ecosystems through science experiments, guided tours and river-based recreation. Activities include visits to waterfalls, forests, lakes and swimming holes.",
         "camp_page_url": "https://riverlink.org/work/rivercamp/",
         "registration_url": null,
         "season": {
@@ -88,17 +91,17 @@
         "registration": [],
         "last_year_registration_opened": null,
         "availability": {
-          "status": "waitlist",
-          "scope": "2026 RiverCamp",
+          "status": "full",
+          "scope": "2026",
           "text": "RiverCamp is sold out for 2026, you can join the wait list below and we’ll reach out if a spot opens."
         },
         "financial_aid": null,
         "special_needs": null,
         "lunch": null,
         "transportation": null,
-        "sources": ["https://riverlink.org/work/rivercamp/", "https://riverlink.org/education/"],
+        "sources": ["https://riverlink.org/work/rivercamp/"],
         "confidence": "medium",
-        "review_notes": "Check the 2026 Info Packet linked on the camp page for session dates, prices, hours and drop-off location. Its link could not be retrieved, and the separately indexed French-Broad-RiverCamp-Parent-Packet.pdf could not be read or assigned to a season. Confirm the day-camp format from the packet; the readable page describes a week of activities but does not explicitly label the format."
+        "review_notes": "Read the current 2026 Info Packet linked from the camp page to establish dates, drop-off location, hours, prices and registration details. The supplied page gives rising grades 3–8 but no session dates or drop-off site. The provider's office address was not assumed to be the camp drop-off location. The indexed French-Broad-RiverCamp-Parent-Packet.pdf could not be read or verified as the current packet."
       }
     ]
   }

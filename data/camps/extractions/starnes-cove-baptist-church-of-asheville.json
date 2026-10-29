@@ -9,22 +9,22 @@
     "discovered_by": ["grid", "aggregator", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:12:49.713Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:10:49.926Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "301b47a043e70ffc683424e8536bfcbe857646487842552f0269db23bc873398",
   "response": {
     "searches": [
-      "site:starnescovebaptist.org \"2027\"",
-      "open https://www.starnescovebaptist.org/outreach-ministries"
+      "site:starnescovebaptist.org \"Summer Kids\"",
+      "site:starnescovebaptist.org \"Summer Kids\" \"2026\""
     ],
     "usage": {
-      "inputTokens": 15540,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1221,
-      "reasoningTokens": 155
+      "inputTokens": 19465,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1292,
+      "reasoningTokens": 194
     },
     "status": "completed",
-    "ms": 32479,
+    "ms": 29092,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -48,23 +48,19 @@
   "extraction": {
     "provider_name": "Starnes Cove Baptist Church of Asheville",
     "website_url": "https://www.starnescovebaptist.org/",
-    "notes": "No summer 2027 program dates or registration milestones were found. The official outreach page also describes Summer Kids, a summer-only youth program, but provides no dated schedule, eligibility details or registration form.",
+    "notes": "No 2027 summer dates or registration milestones were found. Summer Kids remains listed on the official outreach page, but the only dated Summer Kids event found was from 2023; its dates, hours and grades were not carried forward. Some additional official pages returned no readable text when opened and were available only through official search snippets.",
     "excluded": [
       {
+        "name": "Cove Kids",
+        "reason": "Regular school-year church programming, September through May."
+      },
+      {
+        "name": "Cove Students (Summer Schedule)",
+        "reason": "Recurring youth-group meetings rather than a finite summer camp."
+      },
+      {
         "name": "New Wednesday Night Schedule Begins",
-        "reason": "Fall kickoff of recurring church programs, not a finite summer camp."
-      },
-      {
-        "name": "Cove Kids Ministry",
-        "reason": "Regular school-year children's ministry."
-      },
-      {
-        "name": "Cove Students Ministry",
-        "reason": "Recurring youth ministry rather than a separately named finite summer program."
-      },
-      {
-        "name": "Live Nativity",
-        "reason": "December program outside summer."
+        "reason": "Fall church programming outside summer."
       }
     ],
     "cards": [
@@ -72,7 +68,7 @@
         "name": "Vacation Bible School",
         "type": "vbs",
         "categories": ["faith_based"],
-        "description": "Children participate in Bible study, music, crafts, games and snacks. The 2026 theme is Illumination Station, focused on learning about Jesus.",
+        "description": "Children participate in Bible study, music, crafts, games and snacks. The 2026 theme is Illumination Station.",
         "camp_page_url": "https://www.starnescovebaptist.org/events-1/vacation-bible-school-2026-2026-06-22-08-30",
         "registration_url": "https://www.starnescovebaptist.org/events-1/vacation-bible-school-2026-2026-06-22-08-30",
         "season": {
@@ -120,8 +116,7 @@
         "transportation": null,
         "sources": [
           "https://www.starnescovebaptist.org/events-1/vacation-bible-school-2026-2026-06-22-08-30",
-          "https://www.starnescovebaptist.org/",
-          "https://www.starnescovebaptist.org/outreach-ministries"
+          "https://www.starnescovebaptist.org/"
         ],
         "confidence": "high",
         "review_notes": null
@@ -130,7 +125,7 @@
         "name": "Summer Kids",
         "type": "evening",
         "categories": ["faith_based", "general"],
-        "description": "Children play games, participate in activities and learn about Jesus in a summer-only program.",
+        "description": "Children play games, participate in activities and learn about Jesus.",
         "camp_page_url": "https://www.starnescovebaptist.org/outreach-ministries",
         "registration_url": null,
         "season": {
@@ -142,7 +137,14 @@
         },
         "ages": null,
         "grades": null,
-        "sites": [],
+        "sites": [
+          {
+            "name": "Starnes Cove Baptist Church",
+            "address": "149 Starnes Cove Road",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
         "hours": null,
         "extended_care": null,
         "prices": [],
@@ -156,10 +158,11 @@
         "transportation": null,
         "sources": [
           "https://www.starnescovebaptist.org/outreach-ministries",
-          "https://www.starnescovebaptist.org/events-1/last-day-of-summer-programs"
+          "https://www.starnescovebaptist.org/events-1/summer-kids-program-2023-07-19-18-30",
+          "https://www.starnescovebaptist.org/"
         ],
         "confidence": "medium",
-        "review_notes": "The outreach page describes Summer Kids without a year, dates, ages, hours or explicit drop-off location. Evening format is inferred from the official Last Day of Summer Programs search result describing the last evening of the summer schedule; that event page returned no readable text. Confirm the program's current schedule and format with the church."
+        "review_notes": "The current outreach page lists this summer-only program without a year, dates, ages or hours. Evening format and church location are supported by the older 2023 event, not a 2026 schedule. Confirm the current format and meeting location; no 2023 eligibility or dates were carried forward."
       }
     ]
   }

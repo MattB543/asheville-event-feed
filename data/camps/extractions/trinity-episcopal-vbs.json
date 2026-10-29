@@ -3,23 +3,26 @@
     "key": "trinity-episcopal-vbs",
     "name": "Trinity Episcopal Church Asheville (Vacation Bible School)",
     "urls": ["https://www.trinityasheville.org/vbs"],
-    "area": null,
-    "discovered_by": ["pilot"],
+    "area": "Asheville, NC",
+    "discovered_by": ["pilot", "seed_sheet", "grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T03:20:39.062Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T16:52:56.121Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "c54f0d5667f323df28e6c72c9f3aac87b4e1c5bb1e825835f8648935a5ebc979",
   "response": {
-    "searches": ["site:trinityasheville.org \"VBS\" \"2027\""],
+    "searches": [
+      "site:trinityasheville.org \"VBS\" \"2027\"",
+      "site:trinityasheville.org/event-details \"VBS Child\" \"2026\""
+    ],
     "usage": {
-      "inputTokens": 15474,
-      "cachedInputTokens": 8223,
-      "outputTokens": 882,
-      "reasoningTokens": 75
+      "inputTokens": 16414,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1071,
+      "reasoningTokens": 170
     },
     "status": "completed",
-    "ms": 20003,
+    "ms": 26690,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -46,29 +49,29 @@
     }
   ],
   "extraction": {
-    "provider_name": "Trinity Episcopal Church Asheville",
+    "provider_name": "Trinity Episcopal Church Asheville (Vacation Bible School)",
     "website_url": "https://www.trinityasheville.org/",
-    "notes": "No 2027 VBS information found; the card retains explicitly dated 2026 information. Older child and volunteer registration pages display June 24–27 without a year and were not used for dates.",
+    "notes": "No 2027 Vacation Bible School information was found. The card retains the explicitly dated 2026 main VBS page. Registration-related pages returned no readable text when opened; search snippets show differing dates or hours.",
     "excluded": [
       {
-        "name": "Godly Play",
-        "reason": "Recurring Sunday religious education, not a finite summer camp."
-      },
-      {
-        "name": "Children’s Chapel",
-        "reason": "Recurring Sunday worship program, not a finite summer camp."
+        "name": "Godly Play and Children's Chapel",
+        "reason": "Regular Sunday children's formation and worship, rather than a finite summer camp."
       },
       {
         "name": "Come Join the Circle",
-        "reason": "Sunday worship offering during the summer schedule, not a camp."
+        "reason": "Regular Sunday summer worship offering, rather than a finite summer camp."
       },
       {
-        "name": "Nursery",
-        "reason": "Recurring worship-time childcare, not a summer camp."
+        "name": "Middle School Experience",
+        "reason": "Youth-group backpacking trip."
+      },
+      {
+        "name": "Sunday Supper Club",
+        "reason": "Social event, not a summer camp."
       },
       {
         "name": "Celtic Saints of Ireland",
-        "reason": "October pilgrimage outside the summer, not a youth camp."
+        "reason": "October pilgrimage outside summer and outside the Asheville service area."
       }
     ],
     "cards": [
@@ -76,9 +79,9 @@
         "name": "Vacation Bible School",
         "type": "vbs",
         "categories": ["faith_based"],
-        "description": "Children explore God's love through music, movement, crafts, science, yoga, and snacks. The fourth day features water play.",
+        "description": "Children explore God's love through music, movement, crafts, science, yoga, and snacks. The fourth day is a water play day.",
         "camp_page_url": "https://www.trinityasheville.org/vbs",
-        "registration_url": "https://www.trinityasheville.org/event-details/vbs-2026-child-registration",
+        "registration_url": "https://www.trinityasheville.org/vbs-child-registration",
         "season": {
           "year": 2026,
           "status": "not_posted",
@@ -113,13 +116,13 @@
           {
             "amount": 45,
             "unit": "program",
-            "label": "Per child",
+            "label": "per child",
             "year": 2026
           },
           {
             "amount": 25,
             "unit": "program",
-            "label": "Children of adult volunteers",
+            "label": "children of adult volunteers",
             "year": 2026
           }
         ],
@@ -136,10 +139,11 @@
         "transportation": null,
         "sources": [
           "https://www.trinityasheville.org/vbs",
-          "https://www.trinityasheville.org/event-details/vbs-2026-child-registration"
+          "https://www.trinityasheville.org/vbs-child-registration",
+          "https://www.trinityasheville.org/event-details/vbs-volunteer-registration"
         ],
         "confidence": "medium",
-        "review_notes": "The VBS page states 9:00–12:00, but the official 2026 child registration event search result lists June 22 at 9:00 AM through June 25 at 1:00 PM. Verify dismissal time; the card uses the VBS page's daily hours. Children age 3 must be potty trained."
+        "review_notes": "The main VBS page explicitly states June 22–25, 2026, 9:00–12:00, and requires three-year-olds to be potty trained. The child registration page's search snippet instead lists June 24–27 without a year; its content could not be opened to establish whether this is an outdated form. The 2026 volunteer event search snippet lists June 22–25, 9:30–12:30, differing from the main camp hours. Main VBS page dates and hours were retained; check the child registration destination before directing families to it."
       }
     ]
   }

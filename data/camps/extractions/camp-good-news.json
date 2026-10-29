@@ -7,19 +7,19 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:30:21.186Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:25:47.431Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "cb959e4bd3e20605230627e25a53267561da953307dd18d7e9507ba22711fb6c",
   "response": {
     "searches": ["site:campgoodnewsnc.org \"2027\""],
     "usage": {
-      "inputTokens": 18429,
-      "cachedInputTokens": 8223,
-      "outputTokens": 2068,
-      "reasoningTokens": 84
+      "inputTokens": 18290,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2111,
+      "reasoningTokens": 89
     },
     "status": "completed",
-    "ms": 39844,
+    "ms": 42706,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -68,35 +68,35 @@
   "extraction": {
     "provider_name": "Camp Good News",
     "website_url": "https://campgoodnewsnc.org/",
-    "notes": "2027 registration forms are announced for 'the new year,' but no precise opening date or 2027 summer schedule was found. Returning campers should receive forms by the end of March 2027; this is a mailing notice, not a registration opening or deadline. Cards retain the explicitly labeled Summer 2026 schedule. The 2026 registration PDF contains stale 2024 headings and dates alongside the correct 2026 dates. The About Us page publishes 110 Maranatha Rd; Directions spells the road 'Marantha.' The About Us address is used.",
+    "notes": "2027 registration forms are announced for the new year, but no specific opening date or 2027 summer schedule is posted. Returning campers are told to expect forms by the end of March 2027; this is a mailing estimate, not a registration milestone. Cards retain the explicitly labeled 2026 schedule. The registration PDF contains overlapping 2024 and 2026 text; dates below follow the Summer 2026 Schedule on the website. The $350 figure is an operating cost and suggested donation, not required tuition.",
     "excluded": [
       {
         "name": "Discipleship Training",
-        "reason": "Runs October through May, outside summer."
+        "reason": "October–May program outside summer."
       },
       {
         "name": "Winter Advance",
-        "reason": "Listed January and April weekends are outside summer."
+        "reason": "January and April weekends outside summer."
       },
       {
         "name": "Saturday Night Alive",
-        "reason": "The listed January 3 evening is outside summer."
+        "reason": "Single evening event in January, outside summer."
       },
       {
         "name": "Fall Advance",
-        "reason": "October 16-18, 2026 is outside summer."
+        "reason": "October weekend outside summer."
       },
       {
         "name": "Counselors",
-        "reason": "Volunteer counselor recruitment, not a camper or counselor-in-training program."
+        "reason": "Volunteer staffing opportunity rather than a camper program."
       }
     ],
     "cards": [
       {
         "name": "Day Camp",
         "type": "day",
-        "categories": ["faith_based", "general", "nature_outdoor"],
-        "description": "Campers attend chapel and participate in activities including swimming, archery, games, crafts and scripture memory.",
+        "categories": ["faith_based", "general"],
+        "description": "A Christian day camp for boys and girls ages 7–10. Camp activities include chapel, games, crafts, swimming and scripture memory.",
         "camp_page_url": "https://campgoodnewsnc.org/summer-schedule/",
         "registration_url": "https://campgoodnewsnc.org/registration-form/",
         "season": {
@@ -124,29 +124,20 @@
           "end": "16:00",
           "text": "8:30am-4pm, Monday-Friday. Campers will be dropped off between 8am-8:45am and will be picked up at 4pm everyday."
         },
-        "extended_care": null,
+        "extended_care": {
+          "early_dropoff_start": "08:00",
+          "late_pickup_end": null,
+          "cost_text": null
+        },
         "prices": [
           {
             "amount": 0,
             "unit": "week",
-            "label": "Tuition free; donations accepted",
+            "label": "tuition free",
             "year": 2026
           }
         ],
-        "sessions": [
-          {
-            "label": "Day Camp",
-            "start": "2026-06-15",
-            "end": "2026-06-19",
-            "year": 2026,
-            "site": null,
-            "ages": null,
-            "grades": null,
-            "hours": null,
-            "price": null,
-            "status": null
-          }
-        ],
+        "sessions": [],
         "registration": [],
         "last_year_registration_opened": null,
         "availability": null,
@@ -156,18 +147,20 @@
         "transportation": null,
         "sources": [
           "https://campgoodnewsnc.org/summer-schedule/",
+          "https://campgoodnewsnc.org/registration-form/",
           "https://campgoodnewsnc.org/about-us/",
-          "https://campgoodnewsnc.org/",
-          "https://campgoodnewsnc.org/registration-form/"
+          "https://campgoodnewsnc.org/why-camp-is-free/",
+          "https://campgoodnewsnc.org/wp-content/uploads/2025/12/Camp-Reg-2026-2.pdf",
+          "https://campgoodnewsnc.org/"
         ],
-        "confidence": "high",
-        "review_notes": null
+        "confidence": "medium",
+        "review_notes": "The registration PDF contains overlapping 2024 and 2026 text; the day-camp dates use the explicitly labeled 2026 website schedule. The Directions page spells the street Marantha; the About Us page and registration release publish Maranatha, which is used here. Activities are described camp-wide rather than separately for day camp."
       },
       {
         "name": "Children’s Summer Camp",
         "type": "overnight",
-        "categories": ["faith_based", "general", "nature_outdoor"],
-        "description": "Campers stay in cabins, attend chapel twice daily and participate in swimming, archery, games, crafts, scripture memory and campfires.",
+        "categories": ["faith_based", "general"],
+        "description": "Campers attend chapel twice daily and participate in archery, swimming, sports, crafts, scripture memory, music and campfires. Overnight weeks are divided by age and gender.",
         "camp_page_url": "https://campgoodnewsnc.org/summer-schedule/",
         "registration_url": "https://campgoodnewsnc.org/registration-form/",
         "season": {
@@ -200,7 +193,7 @@
           {
             "amount": 0,
             "unit": "week",
-            "label": "Tuition free; donations accepted",
+            "label": "tuition free",
             "year": 2026
           }
         ],
@@ -305,13 +298,14 @@
         "transportation": null,
         "sources": [
           "https://campgoodnewsnc.org/summer-schedule/",
-          "https://campgoodnewsnc.org/about-us/",
-          "https://campgoodnewsnc.org/",
           "https://campgoodnewsnc.org/registration-form/",
-          "https://campgoodnewsnc.org/wp-content/uploads/2025/12/Camp-Reg-2026-2.pdf"
+          "https://campgoodnewsnc.org/about-us/",
+          "https://campgoodnewsnc.org/why-camp-is-free/",
+          "https://campgoodnewsnc.org/wp-content/uploads/2025/12/Camp-Reg-2026-2.pdf",
+          "https://campgoodnewsnc.org/"
         ],
         "confidence": "medium",
-        "review_notes": "The registration PDF contains a stale 'SUMMER CAMP REGISTRATION 2024' heading and June 30-August 9 dates, alongside a 2026 block matching the Summer 2026 schedule. This card uses the explicitly labeled Summer 2026 web schedule, June 28-August 7. Review the form before distributing it to parents."
+        "review_notes": "The registration PDF contains overlapping 2024 and 2026 dates, including June 30–July 5 versus June 28–July 3 for teen boys. All session dates follow the explicitly labeled Summer 2026 Schedule on the website. The Directions page spells the street Marantha; the About Us page and registration release publish Maranatha, which is used here."
       }
     ]
   }

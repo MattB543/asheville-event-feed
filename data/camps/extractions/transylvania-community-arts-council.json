@@ -7,19 +7,22 @@
     "discovered_by": ["grid", "aggregator", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:31:43.654Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:27:00.404Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "2b121e7201ed34f402c06c63b6acb0c7626a945363cca0da163ca757210153e4",
   "response": {
-    "searches": ["site:tcarts.org \"2027\" \"summer\""],
+    "searches": [
+      "site:tcarts.org \"2027\" \"Summer\"",
+      "open https://static1.squarespace.com/static/671f8f170e5ae71ad55c6482/t/69b1a787d91e7e78270af1c4/1773250439338/2026_Summer%2BArts%2BAcademy_Registration%2BForm_FINAL_03.11.2026.docx"
+    ],
     "usage": {
-      "inputTokens": 35253,
-      "cachedInputTokens": 8223,
-      "outputTokens": 2164,
-      "reasoningTokens": 144
+      "inputTokens": 36143,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2314,
+      "reasoningTokens": 168
     },
     "status": "completed",
-    "ms": 38505,
+    "ms": 42347,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -53,27 +56,39 @@
   "extraction": {
     "provider_name": "Transylvania Community Arts Council",
     "website_url": "https://www.tcarts.org/",
-    "notes": "No 2027 Summer Arts Academy information or registration milestones were found. The linked 2026 DOCX registration form could not be read; it may contain additional price tiers or policies.",
+    "notes": "No 2027 summer program information or registration dates were found. The linked 2026 registration form is a DOCX file that could not be read; additional price tiers or support policies may appear there.",
     "excluded": [
       {
+        "name": "Teens Wheel Throwing Pottery Class (Ages 14-17)",
+        "reason": "A four-Thursday pottery lesson series, not a camp."
+      },
+      {
         "name": "The Great Pumpkin Contest!",
-        "reason": "Seasonal contest rather than a supervised summer youth program."
+        "reason": "An autumn contest, not a supervised summer camp."
+      },
+      {
+        "name": "The Great Pumpkin Party!",
+        "reason": "A single autumn social event, not a summer camp."
       },
       {
         "name": "Collage! - A Workshop with Mary Alice Braukman",
-        "reason": "September workshop, outside summer."
+        "reason": "Held September 21–25, outside summer."
       },
       {
-        "name": "Teens Wheel Throwing Pottery Class (Ages 14-17)",
-        "reason": "Older May–June 2025 class listing; not identified as a summer-only program or a 2026 summer offering."
+        "name": "TC Arts 20th Annual Duck Race",
+        "reason": "A community fundraising event, not a supervised youth camp."
+      },
+      {
+        "name": "Transylvania Art Guild Summer Showcase",
+        "reason": "An art exhibition, not a supervised youth camp."
       }
     ],
     "cards": [
       {
         "name": "Summer Arts Academy",
         "type": "half_day",
-        "categories": ["arts", "music", "dance", "stem", "nature_outdoor"],
-        "description": "Students choose classes in drawing, clay, photography, songwriting, dance, animation, nature journaling, and video game design. Younger students select two morning classes, while tweens and teens select specialized morning or afternoon classes.",
+        "categories": ["arts", "music", "dance", "stem"],
+        "description": "Students study drawing, painting, clay, photography, animation, songwriting, dance, and video game design. Younger students select two morning classes; tweens and teens can select specialized afternoon classes.",
         "camp_page_url": "https://www.tcarts.org/summer-arts-academy",
         "registration_url": "https://www.tcarts.org/summer-arts-academy/p/2026-summer-arts-academy",
         "season": {
@@ -99,7 +114,7 @@
         "hours": {
           "start": null,
           "end": null,
-          "text": "Morning classes 9:15am–12:30pm; afternoon classes 1:00–2:30pm."
+          "text": "Morning (9.15am-12.30pm); Afternoon (1.00-2.30pm)"
         },
         "extended_care": null,
         "prices": [
@@ -112,7 +127,7 @@
         ],
         "sessions": [
           {
-            "label": "Session 1 MORNINGS — ages 6–11",
+            "label": "Session 1 MORNINGS: Ages 6-11",
             "start": "2026-06-15",
             "end": "2026-06-19",
             "year": 2026,
@@ -130,7 +145,7 @@
             "status": null
           },
           {
-            "label": "Session 1 MORNINGS — Drawing with Billy Smith",
+            "label": "Session 1 MORNINGS: Drawing with Billy Smith",
             "start": "2026-06-15",
             "end": "2026-06-19",
             "year": 2026,
@@ -166,7 +181,7 @@
             "status": null
           },
           {
-            "label": "Session 2 MORNINGS — ages 6–11",
+            "label": "Session 2 MORNINGS: Ages 6-11",
             "start": "2026-06-22",
             "end": "2026-06-26",
             "year": 2026,
@@ -184,7 +199,7 @@
             "status": null
           },
           {
-            "label": "Session 2 MORNINGS — Drawing with Billy Smith",
+            "label": "Session 2 MORNINGS: Drawing with Billy Smith",
             "start": "2026-06-22",
             "end": "2026-06-26",
             "year": 2026,
@@ -220,7 +235,7 @@
             "status": null
           },
           {
-            "label": "Session 3 MORNINGS — ages 6–11",
+            "label": "Session 3 MORNINGS: Ages 6-11",
             "start": "2026-07-06",
             "end": "2026-07-10",
             "year": 2026,
@@ -238,7 +253,7 @@
             "status": null
           },
           {
-            "label": "Session 3 MORNINGS — Drawing with Billy Smith",
+            "label": "Session 3 MORNINGS: Drawing with Billy Smith",
             "start": "2026-07-06",
             "end": "2026-07-10",
             "year": 2026,
@@ -314,7 +329,7 @@
         "last_year_registration_opened": null,
         "availability": {
           "status": "full",
-          "scope": "2026 Session 4 mornings only",
+          "scope": "Session 4 mornings",
           "text": "Week 4 Mornings are Full!"
         },
         "financial_aid": null,
@@ -327,7 +342,7 @@
           "https://www.tcarts.org/all-upcoming-events/summer-arts-academy-session-1-thru-june-19-cgjne-e3ljd-wzeey"
         ],
         "confidence": "medium",
-        "review_notes": "The schedule lists afternoon students ages 11–16, but the Teens & Tweens Pottery Wheel Throwing description says ages 11–15, or with instructor’s permission. Confirm wheel-throwing eligibility. Drawing and some afternoon classes also allow instructor permission outside the listed age range. The product lists only 'from $150.00'; confirm exact morning and afternoon rates in the unreadable DOCX. The full notice concerns past 2026 Session 4 mornings, not 2027 availability."
+        "review_notes": "The session schedule gives afternoon ages 11–16, but the wheel-throwing class description gives ages 11–15; rows use the scheduled afternoon band. Several teen classes also allow participation with instructor permission. The product lists a starting price of $150 without exposing variant prices. The linked DOCX registration form could not be read. The full notice applies to past 2026 Session 4 mornings, not 2027 availability."
       }
     ]
   }

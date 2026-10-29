@@ -13,23 +13,23 @@
     "discovered_by": ["news828", "grid", "aggregator", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:00:42.546Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:00:28.865Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "60d45ab2e839aa19725d2db2a5c53c4ebff35215b8c87df5593d05719ae65cc0",
   "response": {
     "searches": [
-      "site:campcarolina.com counselor assistants",
+      "site:campcarolina.com counselor assistants 2027",
       "open https://www.campcarolina.com/CA",
-      "site:campcarolina.com/CA \"grade\""
+      "site:campcarolina.com/CA \"session\" \"fee\""
     ],
     "usage": {
-      "inputTokens": 28322,
-      "cachedInputTokens": 8223,
-      "outputTokens": 2338,
-      "reasoningTokens": 207
+      "inputTokens": 36643,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2218,
+      "reasoningTokens": 196
     },
     "status": "completed",
-    "ms": 48519,
+    "ms": 45656,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -83,27 +83,31 @@
   "extraction": {
     "provider_name": "Camp Carolina",
     "website_url": "https://www.campcarolina.com/",
-    "notes": "2027 dates and rates are posted and registration is open, but no dated registration-opening announcement was found. The Counselor Assistant pages returned no readable body when opened; official search snippets establish a youth leadership offering but do not establish its session dates or prices. The older DatesRates page has an outdated payment schedule; the 2027 page was used instead.",
+    "notes": "2027 dates and rates are posted and the homepage says registration is open, but no dated registration opening announcement was found. Counselor Assistant pages remain linked from the current site, but no program-specific 2027 dates or prices were found. CA pages could not be opened as readable text; official search results supplied their content. The 2026 DatesRates page has outdated payment dates; these were not used.",
     "excluded": [
       {
         "name": "Father & Son Adventure Weekends",
-        "reason": "Family-only program requiring fathers and sons to attend together."
+        "reason": "Family-only weekends, rather than supervised youth camps without parents."
       },
       {
         "name": "Backcountry Training Institute",
-        "reason": "Professional instructor and outdoor leadership certification courses in May, not a summer youth camp."
+        "reason": "Spring staff training and certification courses, outside summer."
       },
       {
-        "name": "Counselor In Training",
-        "reason": "Described as an invited staff-responsibility pathway after the Counselor Assistant program; no separate supervised youth camp offering was established."
+        "name": "Camp Shows",
+        "reason": "Informational social events, not summer camps."
+      },
+      {
+        "name": "Staff Positions",
+        "reason": "Employment programs, not youth camps."
       }
     ],
     "cards": [
       {
         "name": "Camp Carolina",
         "type": "overnight",
-        "categories": ["general", "nature_outdoor", "sports", "arts", "music"],
-        "description": "Boys choose sports, waterfront activities, climbing, arts and crafts, music and other in-camp activities. They can also sign up for half-day, full-day and overnight outdoor trips.",
+        "categories": ["nature_outdoor", "sports", "arts", "music", "general"],
+        "description": "Boys choose in-camp activities including sports, arts and crafts, music, climbing and waterfront activities. They can also sign up for supervised outdoor trips.",
         "camp_page_url": "https://www.campcarolina.com/future-campers",
         "registration_url": "https://www.campcarolina.com/current-families",
         "season": {
@@ -111,7 +115,7 @@
           "status": "posted",
           "start": "2027-06-06",
           "end": "2027-08-08",
-          "text": "2027 Registration is Open!"
+          "text": null
         },
         "ages": null,
         "grades": {
@@ -295,7 +299,10 @@
           "scope": null,
           "text": "2027 Registration is Open!"
         },
-        "financial_aid": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Boys are hand-selected by a board and chosen by their “True Gentlemen” character."
+        },
         "special_needs": null,
         "lunch": {
           "value": "yes",
@@ -310,8 +317,8 @@
           "https://www.campcarolina.com/future-campers",
           "https://www.campcarolina.com/dates-rates-2027",
           "https://www.campcarolina.com/in-camp-activities",
-          "https://www.campcarolina.com/daily-schedule",
-          "https://www.campcarolina.com/current-families"
+          "https://www.campcarolina.com/current-families",
+          "https://www.campcarolina.com/nath-thompson-scholarship"
         ],
         "confidence": "high",
         "review_notes": null
@@ -320,11 +327,11 @@
         "name": "Counselor Assistant Program",
         "type": "overnight",
         "categories": ["general", "nature_outdoor"],
-        "description": "Boys practice leadership through camp responsibilities and community service, alongside an activity program for Counselor Assistants.",
+        "description": "Boys practice leadership by assisting activity counselors, helping supervise cabins and serving meals. The program also includes CA-only activities and overnight trips.",
         "camp_page_url": "https://www.campcarolina.com/CA",
         "registration_url": "https://www.campcarolina.com/current-families",
         "season": {
-          "year": 2027,
+          "year": 2026,
           "status": "not_posted",
           "start": null,
           "end": null,
@@ -333,7 +340,7 @@
         "ages": null,
         "grades": {
           "min": 9,
-          "max": 11,
+          "max": 12,
           "basis": "completed"
         },
         "sites": [
@@ -358,12 +365,11 @@
         "sources": [
           "https://www.campcarolina.com/CA",
           "https://www.campcarolina.com/CA-Additional-Info",
-          "https://www.campcarolina.com/work-here",
           "https://www.campcarolina.com/CampCabins",
           "https://www.campcarolina.com/"
         ],
         "confidence": "medium",
-        "review_notes": "CA and CA-Additional-Info could not be read beyond official search snippets. Eligibility is stated on the official work-here search result; overnight accommodation is described on CampCabins. Confirm 2027 participation, dates, rates and registration link directly with camp. Do not assume the regular camper session rates apply."
+        "review_notes": "The CA introduction says completed grades 9-11, but its eligibility FAQ and CA-Additional-Info say completed grades 9-12; the cabin page also identifies CAs as grades 9-12. Verify eligibility. CA content was available through official search results only. No year-specific CA dates or fees were stated, so regular camp sessions and prices were not assigned to this program."
       }
     ]
   }

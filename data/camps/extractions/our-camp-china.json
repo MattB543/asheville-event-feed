@@ -7,19 +7,19 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:15:06.639Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:12:41.322Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "f0209caf3e639dd1b91cfb4411e0df24a9aefa442f55211115f54cded9978192",
   "response": {
-    "searches": ["site:ourcampchina.com 2027", "open https://ourcampchina.com/faq/"],
+    "searches": ["site:ourcampchina.com 2027"],
     "usage": {
-      "inputTokens": 23209,
-      "cachedInputTokens": 8223,
-      "outputTokens": 363,
-      "reasoningTokens": 100
+      "inputTokens": 23731,
+      "cachedInputTokens": 8845,
+      "outputTokens": 310,
+      "reasoningTokens": 70
     },
     "status": "completed",
-    "ms": 16569,
+    "ms": 19222,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -73,23 +73,19 @@
   "extraction": {
     "provider_name": "Our Camp China",
     "website_url": "https://ourcampchina.com/",
-    "notes": "No 2027 information was found on the official website. The posted 2026 event ran July 3–6. Camp China describes itself as a weekend summer heritage camp designed for the entire family, with youth breakout sessions, parent programming and family activities; it is excluded under the family-only retreat rule rather than listed as a standalone youth camp.",
+    "notes": "No summer 2027 information was found on the official website. The published 2026 event ran July 3–6. The homepage and FAQ identify Camp China as a family camp, with youth breakout sessions, parent programming and shared family activities; no independently enrolled youth camp was identified.",
     "excluded": [
       {
         "name": "Camp China",
-        "reason": "Family-only heritage camp/retreat for families with children from China. Youth grade groups are breakout tracks within the whole-family event, not separately offered youth camps."
+        "reason": "Family-only summer heritage camp for families with children from China, rather than a standalone youth camp. The official homepage describes it as designed for the entire family, and the FAQ explicitly identifies it as a family camp."
       },
       {
         "name": "Adult Adoptees",
-        "reason": "Adult-only activity track for adoptees age 18 and older."
+        "reason": "Adult-only activity track for adoptees ages 18 and older."
       },
       {
-        "name": "Parents",
-        "reason": "Adult-only programming within the family heritage camp."
-      },
-      {
-        "name": "Counselor Application",
-        "reason": "Volunteer counselor application and staffing role, not a youth camp or counselor-in-training program."
+        "name": "Counselor Application / Registration",
+        "reason": "Volunteer counselor recruitment and registration, not a separate youth camp or counselor-in-training program."
       }
     ],
     "cards": []

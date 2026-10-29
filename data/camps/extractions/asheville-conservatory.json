@@ -10,22 +10,22 @@
     "discovered_by": ["seed_sheet", "grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T14:52:56.370Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T16:53:42.888Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "779c576f97c09103c3124b30dbae4cac1068848db4bcfbc32fb60f47bfd1610e",
   "response": {
     "searches": [
-      "site:theashevilleconservatory.com \"2027\"",
-      "open https://www.ashevillesummer.com/policies-summer"
+      "site:theashevilleconservatory.com \"2027\" camp",
+      "open https://www.theashevilleconservatory.com/policies-summer"
     ],
     "usage": {
-      "inputTokens": 19911,
-      "cachedInputTokens": 8223,
-      "outputTokens": 2330,
-      "reasoningTokens": 125
+      "inputTokens": 20607,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2147,
+      "reasoningTokens": 94
     },
     "status": "completed",
-    "ms": 53253,
+    "ms": 42434,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -74,23 +74,23 @@
   "extraction": {
     "provider_name": "Asheville Conservatory",
     "website_url": "https://www.theashevilleconservatory.com/",
-    "notes": "No official 2027 summer camp information found. Cards retain the posted 2026 offerings. All camps require a $75 non-refundable deposit, with the remaining tuition due 30 days before camp begins; the deposit is not an additional tuition tier. The summer policies page was found, but its body could not be read through the browser. The homepage gives conflicting ZIP codes for 830 Hendersonville Rd.; the street address, town and state agree.",
+    "notes": "No official 2027 camp information or registration milestones found. Cards retain 2026 information. The summer policies page returned no readable text. The homepage gives conflicting ZIP codes for 830 Hendersonville Rd.; the street address, Asheville and NC agree, and ZIP codes are omitted here.",
     "excluded": [
       {
-        "name": "Music Classes",
-        "reason": "Year-round private lessons and weekly group instruction, not finite summer camps."
+        "name": "Private Lessons and Small-Group Music Classes",
+        "reason": "Ongoing lessons and year-round classes, not finite summer camps."
       },
       {
         "name": "Art Classes",
-        "reason": "Ongoing classes with continuing enrollment, not finite summer camps."
+        "reason": "Ongoing art classes, not finite summer camps."
       },
       {
         "name": "Kindermusik",
-        "reason": "Ongoing early-childhood classes with caregiver participation, not a finite summer camp."
+        "reason": "Caregiver-participation music classes, not summer camps."
       },
       {
-        "name": "Teacher training program",
-        "reason": "Teacher training and teaching-assistant opportunities, not a supervised youth summer camp."
+        "name": "Teacher Training Program",
+        "reason": "Teacher training and college-credit teaching-assistant opportunities, not a finite youth summer camp."
       }
     ],
     "cards": [
@@ -98,7 +98,7 @@
         "name": "Mini Maestros: A Preschool Music & Rhythm Experience!",
         "type": "day",
         "categories": ["music"],
-        "description": "Preschool campers explore rhythm, movement, singing, drums and hands-on instrument play. Activities include music games, creative projects and imaginative play.",
+        "description": "Preschool campers explore rhythm, movement, singing, drums and hands-on instrument play through music games, creative activities and imaginative play.",
         "camp_page_url": "https://www.theashevilleconservatory.com/summer-camps",
         "registration_url": "https://form.jotform.com/260717223370047",
         "season": {
@@ -130,7 +130,7 @@
         "prices": [
           {
             "amount": 275,
-            "unit": "week",
+            "unit": "session",
             "label": null,
             "year": 2026
           }
@@ -181,7 +181,7 @@
         "name": "Piano & Art: Discovery Adventure Camp!",
         "type": "day",
         "categories": ["music", "arts"],
-        "description": "Campers develop piano, rhythm and music skills and spend part of each day creating projects in the art studio. Beginners and experienced students can participate; no prior experience is required.",
+        "description": "Campers develop piano, rhythm and music skills and spend part of each day making projects in the art studio. No prior experience is required.",
         "camp_page_url": "https://www.theashevilleconservatory.com/summer-camps",
         "registration_url": "https://form.jotform.com/260717223370047",
         "season": {
@@ -213,7 +213,7 @@
         "prices": [
           {
             "amount": 315,
-            "unit": "week",
+            "unit": "session",
             "label": null,
             "year": 2026
           }
@@ -270,13 +270,13 @@
           "https://www.theashevilleconservatory.com/"
         ],
         "confidence": "medium",
-        "review_notes": "Both camp pages list July 20-24, but the registration form lists July 20-25. The row follows the camp pages; confirm the ending date with the provider. Ages are printed as '6-12, 13+' with no upper limit or separately scheduled age bands."
+        "review_notes": "Both camp pages list July 20–24, but the registration form lists July 20–25; the row uses the camp-page dates. The camp lists ages 6–12, 13+ without separate schedules for the bands, so these are retained as a combined range with no stated upper limit."
       },
       {
         "name": "Jazz & Rock: Band Experience",
         "type": "day",
         "categories": ["music"],
-        "description": "Intermediate and advanced musicians play in a band while exploring jazz, rock, rhythm, improvisation and ensemble skills. Each week ends with an informal performance for families.",
+        "description": "Intermediate and advanced musicians explore jazz, rock, rhythm and improvisation while learning tunes and developing ensemble skills. Each week ends with an informal performance for families.",
         "camp_page_url": "https://www.theashevilleconservatory.com/summer-camps",
         "registration_url": "https://form.jotform.com/260717223370047",
         "season": {
@@ -308,7 +308,7 @@
         "prices": [
           {
             "amount": 275,
-            "unit": "week",
+            "unit": "session",
             "label": null,
             "year": 2026
           }

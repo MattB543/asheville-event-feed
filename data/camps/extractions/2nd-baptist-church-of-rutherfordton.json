@@ -8,23 +8,23 @@
     "status": "review",
     "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
   },
-  "extractedAt": "2026-10-29T15:38:38.331Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:32:48.395Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "71688e2e9b1a51499b4a8bc1cef26e373d7ee931b9ea0bc230b6381a5e93cd31",
   "response": {
     "searches": [
-      "site:2ndbaptistchurch.net \"2026\" \"VBS\"",
-      "\"\" \"Rutherfordton\" \"2nd\" \"VBS\"",
-      "site:facebook.com/RSBC.rftn \"VBS\" \"2026\""
+      "site:2ndbaptistchurch.net VBS 2026 2027",
+      "\"2nd Baptist Church Rutherfordton\" \"2026\" \"VBS\"",
+      "\"Rutherfordton\" \"VBS 2026\" \"2nd\""
     ],
     "usage": {
-      "inputTokens": 26926,
-      "cachedInputTokens": 8223,
-      "outputTokens": 483,
-      "reasoningTokens": 266
+      "inputTokens": 31878,
+      "cachedInputTokens": 8845,
+      "outputTokens": 811,
+      "reasoningTokens": 242
     },
     "status": "completed",
-    "ms": 35247,
+    "ms": 39873,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -38,13 +38,54 @@
   "extraction": {
     "provider_name": "2nd Baptist Church of Rutherfordton",
     "website_url": "https://www.2ndbaptistchurch.net/",
-    "notes": "No 2027 or 2026 summer camp or Vacation Bible School details could be verified. Searches found older official Facebook VBS announcements, including one listing July 16–20, but these do not establish a 2026 or 2027 offering and were not carried forward. The official VBS URLs https://2ndbc.tv/vbs and https://www.2ndbaptistchurch.net/vbs/ returned no readable text. Some official website content was blocked by robots.txt; indexed upcoming-event content contained no camp details. Review the church's current announcements or contact its office before adding a VBS card.",
+    "notes": "No official 2026 or 2027 summer program details were found. The church's indexed Linktree lists VBS 2025 registration for July 6–10, 6–8:30 PM, but those facts were not carried forward. Older official VBS pages and church Facebook posts also confirm past offerings. Direct access to the church domain was blocked by robots.txt; the Linktree and 2ndbc.tv/vbs registration shortcut returned no readable content. The VBS card retains only the program's identity pending current details.",
     "excluded": [
       {
-        "name": "Sunday Bible Study Groups",
-        "reason": "Regular weekly Bible study, not a finite summer youth program."
+        "name": "Sunday School Small Groups",
+        "reason": "Regular year-round Bible study, not a finite summer camp."
+      },
+      {
+        "name": "Mission Trip Opportunities",
+        "reason": "Mission trips are excluded under the camp rule."
       }
     ],
-    "cards": []
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Vacation Bible School for children.",
+        "camp_page_url": null,
+        "registration_url": "https://2ndbc.tv/vbs",
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://linktr.ee/2ndbaptistnc",
+          "https://www.2ndbaptistchurch.net/vbs-2017/",
+          "https://www.2ndbaptistchurch.net/"
+        ],
+        "confidence": "low",
+        "review_notes": "Current VBS details could not be read. The indexed church Linktree describes the 2025 offering only; check the current registration shortcut and church announcements for 2026 fallback or 2027 dates, eligibility, hours, and meeting location. The church publishes 191 Green Street, Rutherfordton, NC, but no current camp source confirmed it as the drop-off venue."
+      }
+    ]
   }
 }

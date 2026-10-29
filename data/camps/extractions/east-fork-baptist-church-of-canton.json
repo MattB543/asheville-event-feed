@@ -7,8 +7,8 @@
     "discovered_by": ["gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:38:38.374Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:32:56.490Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "fb823c2c3836d6c33c98892cf50fd4a103f41840ce8d374c0258f15b4fc58994",
   "response": {
     "searches": [
@@ -17,13 +17,13 @@
       "site:eastforkbaptist.org/vbs \"2026\""
     ],
     "usage": {
-      "inputTokens": 18581,
-      "cachedInputTokens": 8223,
-      "outputTokens": 733,
-      "reasoningTokens": 208
+      "inputTokens": 17885,
+      "cachedInputTokens": 8845,
+      "outputTokens": 751,
+      "reasoningTokens": 230
     },
     "status": "completed",
-    "ms": 22874,
+    "ms": 31679,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -42,14 +42,14 @@
   "extraction": {
     "provider_name": "East Fork Baptist Church of Canton",
     "website_url": "https://eastforkbaptist.org/",
-    "notes": "No readable official 2027 or 2026 camp schedule was found. The supplied Subsplash event describes VBS 2025: True North, June 22–26, 2025; those dates, grades, hours, free registration and nightly meals have not been carried forward. The church's official VBS and VBS 26 Devotion pages were found, but returned no readable content.",
+    "notes": "No readable official 2026 or 2027 camp announcement was found. The supplied Subsplash announcement explicitly describes VBS 2025, June 22–26; those dates, grades, hours, meal provision and free registration have not been carried forward. The official VBS and VBS devotion pages returned no readable text when opened.",
     "excluded": [],
     "cards": [
       {
         "name": "Vacation Bible School",
         "type": "vbs",
         "categories": ["faith_based"],
-        "description": "The church offers Vacation Bible School with classes focused on learning about Jesus. Its documented 2025 theme was True North.",
+        "description": "Vacation Bible School for children and teens.",
         "camp_page_url": "https://eastforkbaptist.org/vbs",
         "registration_url": null,
         "season": {
@@ -82,10 +82,12 @@
         "transportation": null,
         "sources": [
           "https://eastforkbaptist.org/",
-          "https://subsplash.com/eastforkbaptistchur/lb/ev/%2B788chnb"
+          "https://eastforkbaptist.org/vbs",
+          "https://subsplash.com/eastforkbaptistchur/lb/ev/%2B788chnb",
+          "https://subsplash.com/eastforkbaptistchur/lb/ev/+788chnb/register"
         ],
-        "confidence": "medium",
-        "review_notes": "The program and meeting location are documented in the 2025 official event only. Verify the current offering and eligibility with the church. https://eastforkbaptist.org/vbs and https://eastforkbaptist.org/vbsdevotion returned no readable content; no 2026 or 2027 dates or registration milestones could be confirmed."
+        "confidence": "low",
+        "review_notes": "Program existence and the church drop-off location are supported by the supplied 2025 announcement; the church's current official website confirms its address. Check the official VBS page for a readable 2026 or 2027 announcement before publishing current eligibility, schedule, pricing or registration details."
       }
     ]
   }

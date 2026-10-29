@@ -11,22 +11,22 @@
     "discovered_by": ["seed_sheet", "grid", "aggregator"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T14:53:23.742Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T16:54:12.108Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "c7448cda70b490ec2feaff828cb4435c3bc47dff59d78a44ac81b2d4e3ee67f9",
   "response": {
     "searches": [
       "site:blueridgebravo.org 2027 camp",
-      "site:blueridgebravo.org \"2027\" \"summer\""
+      "open https://wildwaterrafting.com/locations/wildwater-nantahala/"
     ],
     "usage": {
-      "inputTokens": 19296,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1891,
-      "reasoningTokens": 153
+      "inputTokens": 17485,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1510,
+      "reasoningTokens": 113
     },
     "status": "completed",
-    "ms": 38178,
+    "ms": 31332,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -60,11 +60,15 @@
   "extraction": {
     "provider_name": "Bravo: Blue Ridge Adventures – Vision Optional",
     "website_url": "https://www.blueridgebravo.org/",
-    "notes": "No summer 2027 program dates or registration announcements were found. Cards use explicitly dated 2026 information. The linked 2026 interest form is currently unavailable. Asheville and Charlotte camp pages identify only their cities, not drop-off venues; the provider's contact address was not treated as a camp site. Charlotte is included because it is a summer camp offered by this provider, although outside the Asheville area.",
+    "notes": "No summer 2027 information found. The linked 2026 summer camp interest form is unavailable. Nantahala retained for AVLGO's drive-time check: Bravo describes it as about an hour from Asheville, while Wildwater's directions PDF says 1.5 hours.",
     "excluded": [
       {
+        "name": "Bravo Charlotte Day Camp",
+        "reason": "Held in Charlotte, outside the Asheville-area drive range."
+      },
+      {
         "name": "School Year Programming",
-        "reason": "School-year programs rather than summer camps."
+        "reason": "School-year events, not summer camps."
       }
     ],
     "cards": [
@@ -72,7 +76,7 @@
         "name": "Bravo Nantahala Adventure Camp",
         "type": "overnight",
         "categories": ["nature_outdoor", "special_needs"],
-        "description": "Youth with blindness or low vision hike, raft, climb, swim, and zipline in the Nantahala Gorge. Campers stay in supervised bunkhouse lodging at Wildwater Nantahala.",
+        "description": "Campers hike, raft the Nantahala River, climb, swim and complete a zipline canopy tour. This four-night outdoor adventure camp serves youth with blindness or low vision.",
         "camp_page_url": "https://www.blueridgebravo.org/bravo-adventure-camp",
         "registration_url": "https://form.jotform.com/252334347180150",
         "season": {
@@ -90,7 +94,7 @@
         },
         "sites": [
           {
-            "name": "Wildwater Nantahala",
+            "name": "Wildwater Nantahala Group Lodge",
             "address": "10345 Highway 19 South/74 West",
             "town": "Bryson City",
             "state": "NC"
@@ -102,13 +106,13 @@
           {
             "amount": 0,
             "unit": "program",
-            "label": "Minimum tuition; tuition ranges from $0-$1500 depending on ability to pay",
+            "label": "Minimum tuition, depending on ability to pay",
             "year": 2026
           },
           {
             "amount": 1500,
             "unit": "program",
-            "label": "Maximum tuition; tuition ranges from $0-$1500 depending on ability to pay",
+            "label": "Maximum tuition, depending on ability to pay",
             "year": 2026
           }
         ],
@@ -126,8 +130,8 @@
           "text": "No camper will be turned away due to lack of funds."
         },
         "special_needs": {
-          "value": "case_by_case",
-          "text": "Bravo Adventure Camp is open to rising 9-12th graders who are blind or visually impaired. A screening interview with our staff will help us determine whether you are the right fit for camp."
+          "value": "yes",
+          "text": "Bravo Adventure Camp is open to rising 9-12th graders who are blind or visually impaired."
         },
         "lunch": {
           "value": "yes",
@@ -139,18 +143,18 @@
         },
         "sources": [
           "https://www.blueridgebravo.org/bravo-adventure-camp",
+          "https://form.jotform.com/252334347180150",
           "https://wildwaterrafting.com/locations/wildwater-nantahala/",
-          "https://wildwaterrafting.com/wp-content/uploads/21_WWDirections_Nantahala_map.pdf",
-          "https://form.jotform.com/252334347180150"
+          "https://wildwaterrafting.com/wp-content/uploads/21_WWDirections_Nantahala_map.pdf"
         ],
-        "confidence": "high",
-        "review_notes": null
+        "confidence": "medium",
+        "review_notes": "The camp identifies Wildwater Nantahala's Group Lodge as lodging but does not specify the exact check-in point. The venue publishes 10345 Highway 19 South/74 West for Wildwater Nantahala; its directions also identify lodging facilities across the street. Confirm the lodge/check-in address. The interest form is currently unavailable. Eligibility requires screening, mostly independent self-care and travel, and appropriate verbal communication; the camp cannot accommodate certain behaviors or provide 24-hour nursing care."
       },
       {
         "name": "Bravo Asheville Day Camp",
         "type": "day",
         "categories": ["nature_outdoor", "special_needs"],
-        "description": "Youth with blindness or low vision walk, hike, splash, and paddle in the woods and outdoor areas around Asheville. Staff include certified Teachers for the Visually Impaired and Orientation & Mobility Specialists.",
+        "description": "Campers walk, hike, splash and paddle in the woods and wilds around Asheville. The day camp serves youth with blindness or low vision.",
         "camp_page_url": "https://www.blueridgebravo.org/bravo-asheville-day-camp",
         "registration_url": "https://form.jotform.com/252334347180150",
         "season": {
@@ -187,57 +191,8 @@
         "transportation": null,
         "sources": [
           "https://www.blueridgebravo.org/bravo-asheville-day-camp",
-          "https://form.jotform.com/252334347180150"
-        ],
-        "confidence": "high",
-        "review_notes": null
-      },
-      {
-        "name": "Bravo Charlotte Day Camp",
-        "type": "day",
-        "categories": ["general", "special_needs"],
-        "description": "Youth with blindness or low vision explore Charlotte through local adventures, movement, and teamwork. Activities focus on independence and connection with other campers.",
-        "camp_page_url": "https://www.blueridgebravo.org/charlotte-day-camp",
-        "registration_url": "https://form.jotform.com/252334347180150",
-        "season": {
-          "year": 2026,
-          "status": "not_posted",
-          "start": "2026-06-15",
-          "end": "2026-06-18",
-          "text": null
-        },
-        "ages": null,
-        "grades": {
-          "min": 0,
-          "max": 12,
-          "basis": "rising"
-        },
-        "sites": [],
-        "hours": {
-          "start": "09:00",
-          "end": "14:30",
-          "text": "9-2:30 pm daily."
-        },
-        "extended_care": null,
-        "prices": [],
-        "sessions": [],
-        "registration": [],
-        "last_year_registration_opened": null,
-        "availability": {
-          "status": "full",
-          "scope": "Summer 2026",
-          "text": "Please note: Bravo Charlotte Day Camp is full for Summer 2026. Campers may apply for spots on the waitlist, but of course there are no guarantees."
-        },
-        "financial_aid": null,
-        "special_needs": {
-          "value": "yes",
-          "text": "Campers are rising K-12 graders with blindness or low vision."
-        },
-        "lunch": null,
-        "transportation": null,
-        "sources": [
-          "https://www.blueridgebravo.org/charlotte-day-camp",
-          "https://form.jotform.com/252334347180150"
+          "https://form.jotform.com/252334347180150",
+          "https://www.blueridgebravo.org/contact"
         ],
         "confidence": "high",
         "review_notes": null

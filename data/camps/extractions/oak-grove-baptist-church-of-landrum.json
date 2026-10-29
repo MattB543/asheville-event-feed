@@ -7,23 +7,24 @@
     "discovered_by": ["grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:28:56.461Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:24:40.593Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "995e8cfc7e35c6b582c73d2f16311db1add04e5e4d5383f29a3b502ec3d8c0e9",
   "response": {
     "searches": [
       "site:oglandrum.com VBS 2026 2027",
-      "site:oglandrum.com/event-details/vbs-2026",
-      "open https://www.oglandrum.com/event-details/vbs-2026-06-02-18-00"
+      "site:oglandrum.com \"VBS\" \"2026\" \"Jun\"",
+      "open https://www.oglandrum.com/event-details/vbs-2026-06-04-18-00",
+      "site:oglandrum.com/event-details/vbs-2026-06-04 \"Jun 04, 2026\""
     ],
     "usage": {
-      "inputTokens": 14939,
-      "cachedInputTokens": 8223,
-      "outputTokens": 919,
-      "reasoningTokens": 241
+      "inputTokens": 16660,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1010,
+      "reasoningTokens": 298
     },
     "status": "completed",
-    "ms": 24638,
+    "ms": 31933,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -42,23 +43,15 @@
   "extraction": {
     "provider_name": "Oak Grove Baptist Church of Landrum",
     "website_url": "https://www.oglandrum.com/",
-    "notes": "No 2027 summer program information was found. The VBS details page and events page returned no readable text. Only June 1 and June 2, 2026 were confirmed; these may not represent the full VBS schedule.",
+    "notes": "No 2027 camp information was found. The VBS and events pages returned no readable text. Official search results identify additional 2026 VBS event pages, including May 31, June 2 and June 4; the June 4 event's date is identifiable only from its URL.",
     "excluded": [
       {
         "name": "Fall Festival",
-        "reason": "Outside summer and described as an event for children and the whole family."
+        "reason": "A seasonal festival, not a summer camp."
       },
       {
-        "name": "Walking with Jesus",
-        "reason": "Recurring ladies' walking and Bible study group, not a finite supervised youth summer program."
-      },
-      {
-        "name": "Senior Outing",
-        "reason": "Adult-only outing for ages 55 and older."
-      },
-      {
-        "name": "GriefShare",
-        "reason": "Recurring bereavement support group, not a youth summer camp."
+        "name": "2026 VBS at Oak Grove Baptist Church in Carrollton",
+        "reason": "A different church in Carrollton, GA, outside the directory area."
       }
     ],
     "cards": [
@@ -66,14 +59,14 @@
         "name": "VBS",
         "type": "vbs",
         "categories": ["faith_based"],
-        "description": "Children attend an evening Vacation Bible School at Oak Grove Baptist Church.",
-        "camp_page_url": "https://www.oglandrum.com/event-details/vbs-2026-06-01-18-00",
+        "description": "Vacation Bible School held in the evening at Oak Grove Baptist Church.",
+        "camp_page_url": "https://www.oglandrum.com/vbs",
         "registration_url": null,
         "season": {
           "year": 2026,
           "status": "not_posted",
-          "start": "2026-06-01",
-          "end": "2026-06-02",
+          "start": "2026-05-31",
+          "end": "2026-06-04",
           "text": null
         },
         "ages": null,
@@ -102,12 +95,14 @@
         "lunch": null,
         "transportation": null,
         "sources": [
+          "https://www.oglandrum.com/",
+          "https://www.oglandrum.com/event-details/vbs-2026-05-31-18-00",
           "https://www.oglandrum.com/event-details/vbs-2026-06-01-18-00",
           "https://www.oglandrum.com/event-details/vbs-2026-06-02-18-00",
-          "https://www.oglandrum.com/"
+          "https://www.oglandrum.com/event-details/vbs-2026-06-04-18-00"
         ],
         "confidence": "medium",
-        "review_notes": "June 1 is stated in the supplied official page text; June 2 and its hours are stated in an official search result only. Verify the full VBS date range, eligible ages, activities and registration destination with the church. The linked /vbs page returned no readable content; dates beyond June 2 could not be confirmed."
+        "review_notes": "Confirm the full date range on the VBS page when readable. May 31 and June 2 dates and hours appear in official search snippets; June 1 is explicit in the supplied official page. June 4 is inferred from the official event URL, whose search snippet confirms VBS but does not print its date. Hours are explicit for May 31, June 1 and June 2, but could not be checked for the remaining evenings. Ages, activities and registration details could not be obtained from the unreadable VBS page."
       }
     ]
   }

@@ -910,6 +910,9 @@ export const camps = pgTable(
     // cardHash of the effective card he confirmed: a re-extraction that changes it re-queues the camp
     reviewedHash: text('reviewed_hash'),
     hidden: boolean('hidden').default(false).notNull(), // Moderation; the import never writes it
+    // The provider extraction this camp was last in (drizzle/0027). Live only while it equals the
+    // provider's extracted_at: a program the newest extraction drops is retired, never deleted.
+    lastExtractedAt: timestamp('last_extracted_at', { withTimezone: true }),
     firstSeenAt: timestamp('first_seen_at', { withTimezone: true }).defaultNow().notNull(),
     createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
     updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow().notNull(), // Card or override changed

@@ -7,22 +7,22 @@
     "discovered_by": ["gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:35:12.449Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:29:23.363Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "e3f67b3c980bf0b2a2c639d17d3ca52e9b9d51342737b004af92e176abc28b8d",
   "response": {
     "searches": [
-      "Asheville Sand Volleyball Club camp 2026 2027 Highland",
-      "\"Asheville Sand Volleyball Club\" website"
+      "\"Asheville Sand Volleyball Club\" camp 2026 2027",
+      "open https://highlandbrewing.com/volleyball/"
     ],
     "usage": {
-      "inputTokens": 21432,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1133,
-      "reasoningTokens": 136
+      "inputTokens": 18999,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1162,
+      "reasoningTokens": 109
     },
     "status": "completed",
-    "ms": 31778,
+    "ms": 27752,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -36,14 +36,23 @@
   "extraction": {
     "provider_name": "Asheville Sand Volleyball Club",
     "website_url": null,
-    "notes": "No separate provider website or confirmed 2027 schedule was found. Highland Brewing's official volleyball page says, \"We’re hopeful that youth volleyball camps will return in 2027.\" This is not a commitment to offer the camp or publish dates. The registration form retains 2026 details; Highland's current page says all 2026 camps are full.",
-    "excluded": [],
+    "notes": "Highland Brewing's official volleyball page says it hopes youth camps will return in 2027, but does not announce dates or registration. No separate provider website was found. The venue page says all 2026 camps are full, superseding the registration form's June-only full notice.",
+    "excluded": [
+      {
+        "name": "Volleyball leagues",
+        "reason": "Sports leagues rather than finite youth camps; Highland's leagues are for ages 21+."
+      },
+      {
+        "name": "Pick-up Volleyball",
+        "reason": "Adult recreational play for ages 21+, not a supervised youth camp."
+      }
+    ],
     "cards": [
       {
         "name": "Asheville Beach Volleyball Camp",
         "type": "half_day",
         "categories": ["sports"],
-        "description": "Campers practice passing, setting, hitting, serving, defensive positioning and offensive strategies through drills and games. They learn beach doubles, fours and six-on-six formats according to skill level.",
+        "description": "Campers practice passing, setting, hitting, serving, defensive positioning and offensive strategies through drills and games. They play beach doubles, fours and six-on-six formats based on skill level.",
         "camp_page_url": "https://pci.jotform.com/form/260769187292167",
         "registration_url": "https://pci.jotform.com/form/260769187292167",
         "season": {
@@ -69,7 +78,7 @@
         "hours": {
           "start": "09:00",
           "end": "12:00",
-          "text": "Monday - Friday 9am-12pm (early drop off starting at 8:15am)"
+          "text": "Monday - Friday 9am-12pm"
         },
         "extended_care": {
           "early_dropoff_start": "08:15",
@@ -139,7 +148,7 @@
           "https://highlandbrewing.com/contact/"
         ],
         "confidence": "medium",
-        "review_notes": "The form does not print a year beside its dates; 2026 is assigned using Highland Brewing's official 2026 camp heading. Friday end dates are derived from the stated Monday-Friday weeks. The introduction distinguishes 9am instruction from 8:15am early drop-off, while question 28 calls sessions 8:15-12pm. Verify these hours when 2027 information appears. Highland's current official page says all 2026 camps are full, while the form only marks June 22 full."
+        "review_notes": "The registration form does not print a year beside its dates; 2026 is assigned using Highland's official 2026 camp notice. Friday end dates are derived from the stated Monday–Friday weeks. The introductory text states camp runs 9am–12pm with early drop-off at 8:15am, while question 28 says sessions run 8:15–12pm; the card treats 8:15 as early drop-off. Highland's current page still describes 2026 camps as underway although their dates have passed."
       }
     ]
   }

@@ -7,22 +7,19 @@
     "discovered_by": ["grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:11:13.204Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:09:21.539Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "d1d2c5b6b1d294aba8db4767cfe043d83ab9ebd2e9aef15a50312c2adb50479f",
   "response": {
-    "searches": [
-      "site:werockthespectrumasheville.com \"2027\"",
-      "open https://www.werockthespectrumasheville.com/schedule/"
-    ],
+    "searches": ["site:werockthespectrumasheville.com \"2027\""],
     "usage": {
-      "inputTokens": 21251,
-      "cachedInputTokens": 8223,
-      "outputTokens": 2023,
-      "reasoningTokens": 165
+      "inputTokens": 23209,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1810,
+      "reasoningTokens": 85
     },
     "status": "completed",
-    "ms": 45606,
+    "ms": 34531,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -71,49 +68,53 @@
   "extraction": {
     "provider_name": "We Rock the Spectrum Asheville",
     "website_url": "https://www.werockthespectrumasheville.com/",
-    "notes": "No summer 2027 information was found on the official website. Cards use the posted 2026 information. Summer camp hours and prices were not found; spring break prices and hours were not reused. The January 13, 2026 blog publication date is not an announced registration opening date. The schedule page did not expose a readable registration calendar.",
+    "notes": "No 2027 summer camp information or registration milestones were found. The January 2026 camp page could not be opened because of robots.txt, but its text was available in official-site search results. Hours and prices were not found for summer camp; spring-break prices and hours were not carried over. The May 2026 registration statement is historical, so current availability is left null.",
     "excluded": [
       {
         "name": "Spring Break Camp!",
-        "reason": "Runs April 6–10, 2026, outside summer."
+        "reason": "Held April 6–10, outside summer."
       },
       {
         "name": "School’s Out Camps",
-        "reason": "Described for teacher workdays, holidays and snow days rather than a separate summer offering."
+        "reason": "Advertised for teacher workdays, holidays and snow days rather than summer."
       },
       {
-        "name": "Kids Morning Out",
-        "reason": "Ongoing weekday drop-off care, not a summer-only program."
-      },
-      {
-        "name": "Pre-K Program",
+        "name": "Asheville Preschool",
         "reason": "Ongoing preschool program, not a finite summer camp."
       },
       {
+        "name": "Kids Morning Out",
+        "reason": "Ongoing weekday drop-off care, not a finite summer program."
+      },
+      {
         "name": "Birthday Parties",
-        "reason": "Private birthday events, not a summer camp program."
+        "reason": "Private social events, not camps."
       },
       {
         "name": "Private Playdates",
-        "reason": "Private facility rentals explicitly exclude childcare."
+        "reason": "Private facility rentals; childcare is explicitly not included."
       },
       {
-        "name": "Classes",
-        "reason": "Ongoing classes with no finite summer offering identified."
+        "name": "Parent's Night Out",
+        "reason": "Single-evening events, not multi-day evening camps."
       },
       {
-        "name": "Parent's night out",
-        "reason": "General recurring event offering; no specific summer session was identified."
+        "name": "Let Children Lead Offers Academic Tutoring",
+        "reason": "Ongoing academic tutoring, not a finite summer camp."
+      },
+      {
+        "name": "Not So Spooky Halloween Event",
+        "reason": "Seasonal social event outside summer."
       }
     ],
     "cards": [
       {
         "name": "Summer Camp",
         "type": "day",
-        "categories": ["general", "arts", "stem"],
-        "description": "Children participate in imaginative play, group activities, games, crafts and movement. Each week follows a theme such as space, animals, inventing or fairy tales.",
+        "categories": ["general"],
+        "description": "Campers participate in imaginative play, group activities, games, crafts and movement organized around weekly themes.",
         "camp_page_url": "https://www.werockthespectrumasheville.com/summer-camp-2026-2/",
-        "registration_url": "https://www.werockthespectrumasheville.com/schedule/",
+        "registration_url": null,
         "season": {
           "year": 2026,
           "status": "not_posted",
@@ -299,17 +300,19 @@
         "last_year_registration_opened": null,
         "availability": null,
         "financial_aid": null,
-        "special_needs": null,
+        "special_needs": {
+          "value": "case_by_case",
+          "text": "If your child has not previously attended our gym for drop-off services, please call the gym to discuss your child’s needs before enrolling in camp."
+        },
         "lunch": null,
         "transportation": null,
         "sources": [
           "https://www.werockthespectrumasheville.com/summer-camp-2026-2/",
           "https://www.werockthespectrumasheville.com/summer-camp-2026/",
-          "https://www.werockthespectrumasheville.com/contact-us/",
           "https://www.werockthespectrumasheville.com/schedule/"
         ],
-        "confidence": "high",
-        "review_notes": null
+        "confidence": "medium",
+        "review_notes": "The pre-enrollment needs consultation is stated on the January 2026 official camp page, read through search results only; it does not specify particular accommodations. The May camp page calls ages 3–7 ideal rather than stating a strict eligibility range."
       }
     ]
   }

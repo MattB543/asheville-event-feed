@@ -7,8 +7,8 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:20:48.523Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:17:43.178Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "25b426474b42250e05b41af325f5a2ffc6efc79eebbaa74f24078cc02ddfbea9",
   "response": {
     "searches": [
@@ -16,13 +16,13 @@
       "open https://www.sprucepinemontessori.org/forms"
     ],
     "usage": {
-      "inputTokens": 13972,
-      "cachedInputTokens": 8223,
-      "outputTokens": 914,
-      "reasoningTokens": 134
+      "inputTokens": 17656,
+      "cachedInputTokens": 8845,
+      "outputTokens": 864,
+      "reasoningTokens": 130
     },
     "status": "completed",
-    "ms": 36287,
+    "ms": 27032,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -41,19 +41,19 @@
   "extraction": {
     "provider_name": "Spruce Pine Montessori School",
     "website_url": "https://www.sprucepinemontessori.org/",
-    "notes": "No summer-specific 2027 or 2026 dates, prices, or registration opening dates were found. The summer page is undated and says exact dates are determined each spring. The Forms page lists 2026-27 tuition, handbook, and calendar documents, but their linked contents were not accessible in the retrieved page.",
+    "notes": "No dated 2027 summer announcement or dated 2026 camp schedule was found. The summer page gives an undated recurring schedule. Search results show 2026-27 tuition and calendar documents on the Forms page, but opening that page returned no readable content, so those documents could not be checked.",
     "excluded": [
       {
         "name": "Toddler Program",
-        "reason": "Regular school-year childcare program; its summer participation is included under Summer Camp."
+        "reason": "Year-round childcare program; its explicitly named Summer Camp offering is included separately."
       },
       {
         "name": "Primary Program",
-        "reason": "Regular school-year education program; its summer participation is included under Summer Camp."
+        "reason": "School-year preschool program; its explicitly named Summer Camp offering is included separately."
       },
       {
         "name": "Elementary Program",
-        "reason": "Regular school-year education program, not a separately listed summer offering."
+        "reason": "School-year elementary education, not a summer camp."
       }
     ],
     "cards": [
@@ -61,11 +61,11 @@
         "name": "Summer Camp",
         "type": "day",
         "categories": ["general", "arts", "nature_outdoor"],
-        "description": "Toddlers continue the regular Montessori curriculum. Primary students participate in weekly themed lessons, hands-on projects, art, storytelling, outdoor games, woodland explorations, and water play.",
+        "description": "Toddlers continue the regular Montessori materials and curriculum. Primary students participate in weekly-themed lessons, hands-on projects, art, singing, storytelling, outdoor games, woods explorations and water play.",
         "camp_page_url": "https://www.sprucepinemontessori.org/summer-program",
         "registration_url": null,
         "season": {
-          "year": 2027,
+          "year": 2026,
           "status": "not_posted",
           "start": null,
           "end": null,
@@ -84,7 +84,7 @@
         "hours": {
           "start": "08:30",
           "end": "14:45",
-          "text": "Regular Hours: 8:30-2:45. The typical daily schedule instead lists arrival at 8:15-8:45am and pick-up at 2:45-3pm."
+          "text": "Regular Hours: 8:30-2:45"
         },
         "extended_care": {
           "early_dropoff_start": "07:30",
@@ -105,7 +105,7 @@
           "https://www.sprucepinemontessori.org/our-school/location/"
         ],
         "confidence": "medium",
-        "review_notes": "The undated summer page gives regular hours of 8:30-2:45 but its typical schedule lists arrival at 8:15-8:45 and pickup at 2:45-3; confirm actual drop-off and pickup times. The school address is verified on its Contact Us page, but the summer page does not explicitly identify the drop-off location. Toddler and primary groups are described without summer-specific numerical ages or dated sessions, so ages and session rows are omitted. Enrollment is first come, first served, with currently enrolled students offered enrollment first; no opening date is stated."
+        "review_notes": "The summer page is undated; no exact 2026 or 2027 dates were established. Hours use its explicit Regular Hours statement, although its typical daily schedule lists arrival at 8:15-8:45 and pickup at 2:45-3:00. Confirm summer eligibility ages directly: the camp names toddler and primary groups but does not state ages. No age-band session rows were created because exact season dates are unknown. Lunch appears in the daily schedule, but the page does not say whether it is provided."
       }
     ]
   }

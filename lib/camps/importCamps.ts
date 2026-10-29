@@ -5,8 +5,10 @@
  *
  * - Camps are keyed by camp_key (campKeyFor: provider key + program name). A new camp gets its slug
  *   once and it never changes. The import writes the card and the columns copied from the effective
- *   card; it never writes override, hidden or reviewed_*, and never deletes anything: a camp missing
- *   from its provider's new extraction is reported, not removed.
+ *   card; it never writes override, hidden or reviewed_*, and never deletes anything.
+ * - Every camp in a provider's extraction, changed or not, gets last_extracted_at = that
+ *   extraction's extractedAt. A camp missing from it keeps its old stamp, so it no longer matches
+ *   the provider's extracted_at and is retired (liveCamp: not shown, not queued, no feed event).
  * - An extraction older than the one the database already has (the refresh job re-extracted that
  *   provider since the file was written) is skipped, so a file import never undoes a refresh.
  * - Sites are keyed by (provider_key, name), from the effective cards. New, changed and unplaced
@@ -14,7 +16,7 @@
  *   drive minutes get them on apply. A 'hand' pin is never overwritten. Sites an earlier import
  *   left unplaced or unrouted are retried too, whichever provider they belong to, since the refresh
  *   job imports only the providers it re-extracted. With `placeBy` (the refresh job's time limit),
- *   a lookup that might not finish in time isn't started and its site waits for the next import.
+ *   lookups and routing are cut off then, and what they didn't reach waits for the next import.
  * - The refresh columns (checked_at, check_error) belong to the refresh job and are never written
  *   here.
  *
@@ -33,7 +35,13 @@ import {
   type Site,
 } from './contract';
 import type { SavedExtraction } from './extract';
-import { driveMinutesFromDowntown, geocodeSite, geocodeText, type SiteGeo } from './geo';
+import {
+  ROUTE_BATCH,
+  driveMinutesFromDowntown,
+  geocodeSite,
+  geocodeText,
+  type SiteGeo,
+} from './geo';
 
 type ProviderRow = typeof campProviders.$inferSelect;
 type CampRow = typeof camps.$inferSelect;
@@ -46,8 +54,6 @@ type CampValues = typeof camps.$inferInsert;
 type SiteValues = typeof campSites.$inferInsert;
 
 const SHOW = 15;
-// The longest one placement call can take: Census then ORS, two 20s attempts each (geo.ts)
-const PLACE_CALL_MS = 90_000;
 
 export interface ImportOptions {
   /** Printed after APPLY / DRY RUN, e.g. "742 providers from data/camps/providers.json; ..." */
@@ -60,15 +66,16 @@ export interface ImportOptions {
   geocodeCache: Record<string, SiteGeo | null>;
   apply: boolean;
   /**
-   * Epoch ms the import must be done placing sites by. A geocoder lookup or drive-minutes call that
-   * might not finish by then isn't started; the rows are still written, the site unplaced or
-   * without minutes, and the next import places it.
+   * Epoch ms the import must be done placing sites by: geocoder lookups and drive-minutes calls in
+   * flight then are cancelled and no more are started. The rows are still written, those sites
+   * unplaced or without minutes, and the next import places them.
    */
   placeBy?: number;
 }
 
 export interface ImportSummary {
   providers: { new: number; changed: number; unchanged: number };
+  /** `missing`: in the database but not in their provider's new extraction, so retired. */
   camps: { new: number; changed: number; unchanged: number; missing: number; duplicates: number };
   sites: { new: number; updated: number; unchanged: number; unplaced: number; lookups: number };
   /** Extractions skipped because the database has a newer one. */
@@ -100,9 +107,10 @@ async function readExisting(): Promise<{
   } catch (error) {
     // undefined_column: the schema is ahead of the live table
     if (errorCode(error) === '42703')
-      throw new Error('A camps table is missing a column: apply drizzle/0026_camps_refresh.sql', {
-        cause: error,
-      });
+      throw new Error(
+        'A camps table is missing a column: apply drizzle/0026_camps_refresh.sql and 0027_camps_last_extracted.sql',
+        { cause: error }
+      );
     if (errorCode(error) !== '42P01') throw error;
     return { providers: [], camps: [], sites: [], tablesExist: false };
   }
@@ -143,19 +151,35 @@ function siteKey(providerKey: string, name: string): string {
   return `${providerKey}\n${name}`;
 }
 
+type CampAfter = Pick<
+  CampRow,
+  'providerKey' | 'card' | 'override' | 'reviewedHash' | 'hidden' | 'lastExtractedAt'
+>;
+
+/** In its provider's newest extraction (liveCamp's rule), as the rows will stand. */
+function inLatestExtraction(camp: CampAfter, providerExtractedAt: Date | null): boolean {
+  return (
+    !!camp.lastExtractedAt &&
+    !!providerExtractedAt &&
+    camp.lastExtractedAt.getTime() === providerExtractedAt.getTime()
+  );
+}
+
 /** The same rule as the pages: live camps short of high confidence, not confirmed as they stand. */
 function inReviewQueue(
-  row: Pick<CampRow, 'card' | 'override' | 'reviewedHash' | 'hidden'>,
-  providerHidden: boolean
+  row: CampAfter,
+  providerHidden: boolean,
+  providerExtractedAt: Date | null
 ): boolean {
-  if (row.hidden || providerHidden) return false;
+  if (row.hidden || providerHidden || !inLatestExtraction(row, providerExtractedAt)) return false;
   const card = effectiveCard(row);
   return needsReview(card) && row.reviewedHash !== cardHash(card);
 }
 
 export async function importCamps(options: ImportOptions): Promise<ImportSummary> {
   const { apply, providers: listed, geocodeCache: cache, placeBy } = options;
-  const timeToPlace = () => placeBy === undefined || Date.now() + PLACE_CALL_MS <= placeBy;
+  const placeSignal =
+    placeBy === undefined ? undefined : AbortSignal.timeout(Math.max(0, placeBy - Date.now()));
   const existing = await readExisting();
 
   console.log(`${apply ? 'APPLY' : 'DRY RUN'}: ${options.source}`);
@@ -234,17 +258,17 @@ export async function importCamps(options: ImportOptions): Promise<ImportSummary
     new: [] as CampValues[],
     changed: [] as Array<{ values: CampValues; fields: string[] }>,
     unchanged: 0,
+    /** Unchanged camps that only need this extraction's last_extracted_at. */
+    restamp: [] as Array<{ campKey: string; providerKey: string; at: Date }>,
     duplicates: [] as string[],
     missing: [] as CampRow[],
   };
   /** Every camp as it will stand after the import, for sites and the review count. */
-  const after = new Map<
-    string,
-    Pick<CampRow, 'providerKey' | 'card' | 'override' | 'reviewedHash' | 'hidden'>
-  >(existing.camps.map((row) => [row.campKey, row]));
+  const after = new Map<string, CampAfter>(existing.camps.map((row) => [row.campKey, row]));
 
   for (const file of files) {
     const provider = providerByKey.get(file.provider.key)!;
+    const extractedAt = new Date(file.extractedAt);
     const seen = new Set<string>();
     for (const card of file.extraction.cards) {
       const campKey = campKeyFor(provider.key, card.name);
@@ -263,6 +287,7 @@ export async function importCamps(options: ImportOptions): Promise<ImportSummary
         providerKey: provider.key,
         card,
         ...columns,
+        lastExtractedAt: extractedAt,
       };
       after.set(campKey, {
         providerKey: provider.key,
@@ -270,6 +295,7 @@ export async function importCamps(options: ImportOptions): Promise<ImportSummary
         override,
         reviewedHash: current?.reviewedHash ?? null,
         hidden: current?.hidden ?? false,
+        lastExtractedAt: extractedAt,
       });
 
       if (!current) {
@@ -283,20 +309,29 @@ export async function importCamps(options: ImportOptions): Promise<ImportSummary
       );
       if (fields.length || stableJson(columns) !== stableJson(stored))
         campPlan.changed.push({ values, fields });
-      else campPlan.unchanged += 1;
+      else {
+        campPlan.unchanged += 1;
+        if (current.lastExtractedAt?.getTime() !== extractedAt.getTime())
+          campPlan.restamp.push({ campKey, providerKey: provider.key, at: extractedAt });
+      }
     }
     for (const row of existing.camps) {
       if (row.providerKey === provider.key && !seen.has(row.campKey)) campPlan.missing.push(row);
     }
   }
 
-  // --- Sites: every site an extracted provider's effective cards list
+  /** Each provider's extracted_at as it will stand after the import. */
+  const providerExtractedAt = (key: string): Date | null =>
+    plannedExtractedAt.get(key) ?? existingProvider.get(key)?.extractedAt ?? null;
+
+  // --- Sites: every site an extracted provider's effective cards list (not its retired cards')
   const existingSite = new Map(
     existing.sites.map((row) => [siteKey(row.providerKey, row.name), row])
   );
   const wanted = new Map<string, Site & { providerKey: string }>();
   for (const camp of after.values()) {
     if (!fileByKey.has(camp.providerKey)) continue;
+    if (!inLatestExtraction(camp, providerExtractedAt(camp.providerKey))) continue;
     for (const site of effectiveCard(camp).sites) {
       if (!site.name?.trim()) continue;
       const key = siteKey(camp.providerKey, site.name);
@@ -372,15 +407,19 @@ export async function importCamps(options: ImportOptions): Promise<ImportSummary
         );
     } else if (textChanged || current?.lat == null) {
       const text = geocodeText(site);
-      if (!(text in cache) && !timeToPlace()) {
+      if (!(text in cache) && placeSignal?.aborted) {
         outOfTime += 1;
       } else if (!(text in cache)) {
         try {
           lookups += 1;
-          cache[text] = await geocodeSite(site);
+          cache[text] = await geocodeSite(site, placeSignal);
         } catch (error) {
           // Not cached, so the next run retries it
-          geocodeErrors.push(`${text}: ${error instanceof Error ? error.message : String(error)}`);
+          if (placeSignal?.aborted) outOfTime += 1;
+          else
+            geocodeErrors.push(
+              `${text}: ${error instanceof Error ? error.message : String(error)}`
+            );
         }
       }
       const geo = cache[text] ?? null;
@@ -411,7 +450,11 @@ export async function importCamps(options: ImportOptions): Promise<ImportSummary
 
   const providerHidden = new Map(existing.providers.map((row) => [row.key, row.hidden]));
   const reviewCount = [...after.values()].filter((camp) =>
-    inReviewQueue(camp, providerHidden.get(camp.providerKey) ?? false)
+    inReviewQueue(
+      camp,
+      providerHidden.get(camp.providerKey) ?? false,
+      providerExtractedAt(camp.providerKey)
+    )
   ).length;
 
   // --- Report
@@ -422,7 +465,7 @@ export async function importCamps(options: ImportOptions): Promise<ImportSummary
     console.log(`  ! ${file.provider.key}: has an extraction but is not in the provider list`);
 
   console.log(
-    `\nCamps: ${campPlan.new.length} new, ${campPlan.changed.length} changed, ${campPlan.unchanged} unchanged`
+    `\nCamps: ${campPlan.new.length} new, ${campPlan.changed.length} changed, ${campPlan.unchanged} unchanged (${campPlan.restamp.length} of them restamped with their extraction)`
   );
   for (const v of campPlan.new.slice(0, SHOW)) console.log(`  + /camps/${v.slug} (${v.campKey})`);
   if (campPlan.new.length > SHOW) console.log(`  + ... and ${campPlan.new.length - SHOW} more`);
@@ -431,11 +474,13 @@ export async function importCamps(options: ImportOptions): Promise<ImportSummary
   if (campPlan.changed.length > SHOW)
     console.log(`  ~ ... and ${campPlan.changed.length - SHOW} more`);
   if (campPlan.missing.length) {
-    console.log(
-      `  ${campPlan.missing.length} missing from their provider's new extraction (kept, not removed):`
+    const wasLive = campPlan.missing.filter((row) =>
+      inLatestExtraction(row, existingProvider.get(row.providerKey)?.extractedAt ?? null)
     );
-    for (const row of campPlan.missing)
-      console.log(`  ? ${row.campKey}${row.hidden ? ' (hidden)' : ''}`);
+    console.log(
+      `  ${campPlan.missing.length} missing from their provider's new extraction, so retired (kept, not shown); ${wasLive.length} of them were live until now:`
+    );
+    for (const row of wasLive) console.log(`  - ${row.campKey}${row.hidden ? ' (hidden)' : ''}`);
   }
   if (campPlan.duplicates.length) {
     console.log(
@@ -465,6 +510,7 @@ export async function importCamps(options: ImportOptions): Promise<ImportSummary
   let providerRows = [...providerPlan.new, ...providerPlan.changed];
   let campRows = [...campPlan.new, ...campPlan.changed.map((c) => c.values)];
   let siteRows = sitePlan.write.map((w) => w.values);
+  let restamp = campPlan.restamp;
   const summary: ImportSummary = {
     providers: {
       new: providerPlan.new.length,
@@ -496,17 +542,24 @@ export async function importCamps(options: ImportOptions): Promise<ImportSummary
   }
 
   // --- Write. Drive minutes first: they're API calls, and a failure only leaves them for next time.
-  if (toDrive.length && !timeToPlace()) {
-    console.log(`  drive minutes left for the next run: out of time`);
-  } else if (toDrive.length) {
+  // One ORS call per batch, so the batches routed before placeBy keep their minutes.
+  for (let start = 0; start < toDrive.length; start += ROUTE_BATCH) {
+    if (placeSignal?.aborted) {
+      console.log(
+        `  drive minutes for ${toDrive.length - start} sites left for the next run: out of time`
+      );
+      break;
+    }
+    const batch = toDrive.slice(start, start + ROUTE_BATCH);
     try {
       const minutes = await driveMinutesFromDowntown(
-        toDrive.map((w) => ({ lat: w.values.lat!, lng: w.values.lng! }))
+        batch.map((w) => ({ lat: w.values.lat!, lng: w.values.lng! })),
+        placeSignal
       );
-      toDrive.forEach((w, index) => (w.values.driveMinutes = minutes[index]));
+      batch.forEach((w, index) => (w.values.driveMinutes = minutes[index]));
     } catch (error) {
       console.log(
-        `  drive minutes failed, left for the next run: ${error instanceof Error ? error.message : String(error)}`
+        `  drive minutes for ${batch.length} sites failed, left for the next run: ${error instanceof Error ? error.message : String(error)}`
       );
     }
   }
@@ -526,7 +579,10 @@ export async function importCamps(options: ImportOptions): Promise<ImportSummary
     // Checked again under lock: a refresh that re-extracted a provider after readExisting wins, so
     // none of this import's rows for that provider are written (they'd restore older cards)
     const keys = [
-      ...new Set([...providerRows, ...campRows, ...siteRows].map((row) => providerKeyOf(row))),
+      ...new Set([
+        ...[...providerRows, ...campRows, ...siteRows].map((row) => providerKeyOf(row)),
+        ...restamp.map((row) => row.providerKey),
+      ]),
     ];
     const stored = keys.length
       ? await tx
@@ -554,6 +610,7 @@ export async function importCamps(options: ImportOptions): Promise<ImportSummary
       providerRows = fresh(providerRows);
       campRows = fresh(campRows);
       siteRows = fresh(siteRows);
+      restamp = restamp.filter((row) => !newer.has(row.providerKey));
     }
 
     if (providerRows.length)
@@ -614,15 +671,25 @@ export async function importCamps(options: ImportOptions): Promise<ImportSummary
             seasonYear: excluded('season_year'),
             seasonStart: excluded('season_start'),
             seasonEnd: excluded('season_end'),
+            lastExtractedAt: excluded('last_extracted_at'),
             updatedAt: sql`now()`,
           },
         });
+    // Unchanged camps: only the stamp that keeps them live (their card and updated_at stand)
+    const restampByAt = new Map<number, string[]>();
+    for (const { campKey, at } of restamp)
+      restampByAt.set(at.getTime(), [...(restampByAt.get(at.getTime()) ?? []), campKey]);
+    for (const [at, campKeys] of restampByAt)
+      await tx
+        .update(camps)
+        .set({ lastExtractedAt: new Date(at) })
+        .where(inArray(camps.campKey, campKeys));
   });
 
   summary.wrote = {
     providers: providerRows.length,
     sites: siteRows.length,
-    camps: campRows.length,
+    camps: campRows.length + restamp.length,
   };
   return summary;
 }

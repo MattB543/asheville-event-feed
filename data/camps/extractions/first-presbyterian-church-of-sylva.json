@@ -10,23 +10,23 @@
     "discovered_by": ["grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:18:56.289Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:16:15.427Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "52f2d978cdeeadc5147126801ede9b97f6d9f60e45983a12d6d4f34fb9783f16",
   "response": {
     "searches": [
-      "site:sylvapres.org VBS 2026 2027",
-      "site:sylvapres.org/new-events/2026 \"VBS\"",
-      "open https://www.sylvapres.org/new-events/2026/5/20/choir-party-fh"
+      "site:sylvapres.org VBS 2026",
+      "open https://www.sylvapres.org/new-events/2026/5/27/vbs-fh-mjpc-pavillion",
+      "site:sylvapres.org \"VBS\" \"2026\" \"May 29\""
     ],
     "usage": {
-      "inputTokens": 23651,
-      "cachedInputTokens": 8223,
-      "outputTokens": 932,
-      "reasoningTokens": 222
+      "inputTokens": 20717,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1058,
+      "reasoningTokens": 299
     },
     "status": "completed",
-    "ms": 25524,
+    "ms": 30173,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -45,15 +45,15 @@
   "extraction": {
     "provider_name": "First Presbyterian Church of Sylva",
     "website_url": "https://www.sylvapres.org/",
-    "notes": "No 2027 camp information found. The supplied 2026 calendar lists VBS on May 26; adjacent-event search results also reference VBS on May 27 and May 28, but their event details could not be read. The full VBS date range and participant hours need confirmation. Several additional official pages returned no readable text.",
+    "notes": "No 2027 VBS information was found. The supplied calendar entry confirms May 26, 2026; adjacent official calendar search results also reference VBS on May 27 and May 28. Those individual event pages and the newsletters page returned no readable content, so the complete schedule could not be confirmed.",
     "excluded": [
       {
         "name": "Sunday School",
-        "reason": "Recurring year-round religious education, not a finite summer program."
+        "reason": "Year-round religious education, not a finite summer camp."
       },
       {
         "name": "Sunday morning childcare",
-        "reason": "Year-round Sunday childcare, not summer-only childcare."
+        "reason": "Year-round Sunday childcare, not a summer camp."
       }
     ],
     "cards": [
@@ -61,14 +61,14 @@
         "name": "VBS",
         "type": "vbs",
         "categories": ["faith_based"],
-        "description": "The church lists a Vacation Bible School program. Specific camper activities are not described in the available calendar entry.",
+        "description": "Vacation Bible School at First Presbyterian Church of Sylva.",
         "camp_page_url": "https://www.sylvapres.org/new-events/2026/5/26/vbs-fh-mjpc-pavillion",
         "registration_url": null,
         "season": {
           "year": 2026,
           "status": "not_posted",
           "start": "2026-05-26",
-          "end": "2026-05-26",
+          "end": "2026-05-28",
           "text": null
         },
         "ages": null,
@@ -81,14 +81,23 @@
             "state": "NC"
           }
         ],
-        "hours": {
-          "start": "08:00",
-          "end": "12:00",
-          "text": "8:00 AM–12:00 PM"
-        },
+        "hours": null,
         "extended_care": null,
         "prices": [],
-        "sessions": [],
+        "sessions": [
+          {
+            "label": null,
+            "start": "2026-05-26",
+            "end": "2026-05-28",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
         "registration": [],
         "last_year_registration_opened": null,
         "availability": null,
@@ -98,12 +107,13 @@
         "transportation": null,
         "sources": [
           "https://www.sylvapres.org/new-events/2026/5/26/vbs-fh-mjpc-pavillion",
+          "https://www.sylvapres.org/new-events/2026/5/20/choir-party-fh",
+          "https://www.sylvapres.org/new-events/2026/5/24/missions",
           "https://www.sylvapres.org/",
-          "https://www.sylvapres.org/new-events/2026/5/26/circles-fh",
-          "https://www.sylvapres.org/new-events/2026/5/20/choir-party-fh"
+          "https://www.sylvapres.org/contact-directions/"
         ],
         "confidence": "medium",
-        "review_notes": "Dates cover only the fully documented May 26 calendar entry, not a confirmed complete session. The Circles event search snippet references May 27 VBS, and the Choir Party event snippet references May 28 VBS. Confirm the full date range and whether 8:00 AM–12:00 PM represents participant hours or facility reservations. The event title lists FH, MJPC, Pavillion; these are treated as spaces at the church, but the drop-off location is not explicitly stated."
+        "review_notes": "Confirm the complete VBS date range and participant hours with the church. May 26 is explicitly dated 2026 in the supplied event page and lists 08:00–12:00, but this facility-calendar time may include setup. May 27 and May 28 are referenced as adjacent VBS events in official search results for the choir-party and missions pages; their individual event pages could not be read. The May 26–28 range is therefore only partly confirmed. No ages, registration details, or activity description were found."
       }
     ]
   }

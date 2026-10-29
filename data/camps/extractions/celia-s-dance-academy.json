@@ -8,19 +8,22 @@
     "status": "review",
     "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
   },
-  "extractedAt": "2026-10-29T15:27:02.547Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:22:41.915Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "170f6f49afe9279bcb16cc0d3728a6c3f15b100cd0595aca7be8d41c1325cbff",
   "response": {
-    "searches": ["site:celiasdance.com summer camp", "\"Celia's Dance Academy\" \"summer camps\""],
+    "searches": [
+      "site:celiasdance.com summer camp",
+      "\"Celia's Dance Academy\" \"summer\" \"camp\" facebook"
+    ],
     "usage": {
-      "inputTokens": 20650,
-      "cachedInputTokens": 8223,
-      "outputTokens": 370,
-      "reasoningTokens": 136
+      "inputTokens": 21649,
+      "cachedInputTokens": 8845,
+      "outputTokens": 405,
+      "reasoningTokens": 176
     },
     "status": "completed",
-    "ms": 21297,
+    "ms": 17542,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -44,15 +47,15 @@
   "extraction": {
     "provider_name": "Celia's Dance Academy",
     "website_url": "https://celiasdance.com/",
-    "notes": "No qualifying summer program could be verified on official pages, and no summer 2027 information was found. The supplied website and registration form describe the August–May dance season. A third-party AllEvents listing titled Summer Dance Camps - Celia's Dance Academy lists June 20, 2026, 11 a.m.–2 p.m., but does not establish whether this was a supervised camp or a registration/open-house event. It was not used to create a camp card. Summer offerings should be confirmed with the provider.",
+    "notes": "No summer 2027 camp information or verifiable summer 2026 camp schedule was found on the official pages. Search found a third-party event titled \"Summer Dance Camps - Celia's Dance Academy\" dated June 20, 2026, and a directory describing a summer open house, but neither establishes a supervised camp schedule. No card was created from these unconfirmed leads. The August 29, 2026 registration date on the official website applies to school-year dance classes, not summer camps.",
     "excluded": [
       {
         "name": "2026–2027 Dance Classes",
-        "reason": "Recurring school-year classes with 36 lessons from August through May, rather than a finite summer program."
+        "reason": "School-year lesson series meeting once per week from August through May, rather than a finite summer camp."
       },
       {
         "name": "GEMS competition dance team",
-        "reason": "Competition team offering, not a finite summer camp or clinic."
+        "reason": "Competition team program, not a finite summer camp."
       }
     ],
     "cards": []

@@ -7,22 +7,19 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:32:52.959Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:27:36.887Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "2879d7737b68a0f547719b0ecc0bded1ab5a3d6c71545ba396add510b7da4ae7",
   "response": {
-    "searches": [
-      "site:valleyforestschool.com \"2027\"",
-      "\"Broken Oak Organics\" \"280\" \"site\""
-    ],
+    "searches": ["site.valleyforestschool.com 2027 summer", "\"Broken Oak Organics\" \"280\""],
     "usage": {
-      "inputTokens": 26370,
-      "cachedInputTokens": 8009,
-      "outputTokens": 3643,
-      "reasoningTokens": 284
+      "inputTokens": 26399,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2547,
+      "reasoningTokens": 175
     },
     "status": "completed",
-    "ms": 78586,
+    "ms": 50937,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -71,19 +68,27 @@
   "extraction": {
     "provider_name": "Valley Forest School",
     "website_url": "https://www.valleyforestschool.com/",
-    "notes": "No official 2027 summer information or registration dates were found. This extraction covers the Travelers Rest, SC summer offerings, not the provider's Virginia locations. Named camp themes are grouped as sessions of the Forest Day Camps program. The website returned empty text when opened through the browser; camp details use the supplied official-page text. The parent portal registration destination could not be retrieved. Fishing and Water Adventure drop-off locations are supplied to enrolled families and are not mapped here.",
+    "notes": "No 2027 camp information or registration milestones were found. The supplied 2026 camp page remains the basis for dates and prices. The official pages returned empty content when reopened. A search result for the apparent parent portal showed an unrelated business, so no registration-platform URL is supplied.",
     "excluded": [
       {
+        "name": "Catawba, VA Summer Camps",
+        "reason": "Virginia location outside the Asheville-area drive range."
+      },
+      {
+        "name": "Fincastle, VA Farm Summer Camps",
+        "reason": "Virginia location outside the Asheville-area drive range."
+      },
+      {
+        "name": "Palmyra, VA Summer Camps",
+        "reason": "Virginia location outside the Asheville-area drive range."
+      },
+      {
         "name": "School-year Forest School programs",
-        "reason": "School-year classes running September–May, not summer camps."
+        "reason": "September–May classes rather than summer camps."
       },
       {
         "name": "Sprouts",
-        "reason": "Parent-and-child introductory classes, not supervised youth drop-off summer programs."
-      },
-      {
-        "name": "Single Day Camps",
-        "reason": "The website advertises semester-based single-day camps, but no Travelers Rest summer dates were found."
+        "reason": "Parent-and-child introductory class series, not a supervised summer drop-off camp."
       }
     ],
     "cards": [
@@ -91,7 +96,7 @@
         "name": "Forest Day Camps",
         "type": "day",
         "categories": ["nature_outdoor"],
-        "description": "Campers explore outdoor skills through fishing, handicrafts, survival activities, water adventures, forest games, herbal preparations, and forest school activities. Activities vary by session.",
+        "description": "Children participate in outdoor activities including fishing, handcrafts, survival skills, water adventures, forest games, plant identification, and nature journaling.",
         "camp_page_url": "https://www.valleyforestschool.com/trsummercamps",
         "registration_url": null,
         "season": {
@@ -121,7 +126,7 @@
           },
           {
             "name": "Paris Mountain State Park",
-            "address": "2401 State Park Rd",
+            "address": "2401 State Park RD",
             "town": "Greenville",
             "state": "SC"
           }
@@ -129,7 +134,7 @@
         "hours": {
           "start": "09:00",
           "end": "14:30",
-          "text": "Camps are from 9-2:30 (exception for Fishing Camp). Ages 3-5 may be picked up at 1:00 for a partial refund of $25; email Owen after registration."
+          "text": "Camps are from 9-2:30 (exception for Fishing Camp). Ages 3-5 may pick up at 1:00 for a partial refund of $25."
         },
         "extended_care": null,
         "prices": [],
@@ -152,7 +157,7 @@
             "price": {
               "amount": 395,
               "unit": "session",
-              "label": "Ages 7-12",
+              "label": null,
               "year": 2026
             },
             "status": null
@@ -175,13 +180,13 @@
             "price": {
               "amount": 395,
               "unit": "session",
-              "label": "Ages 7-12",
+              "label": null,
               "year": 2026
             },
             "status": null
           },
           {
-            "label": "Wildcraft Camp — Ages 6-12",
+            "label": "Wildcraft Camp — ages 6-12",
             "start": "2026-06-08",
             "end": "2026-06-10",
             "year": 2026,
@@ -195,13 +200,13 @@
             "price": {
               "amount": 225,
               "unit": "session",
-              "label": "Ages 6-12",
+              "label": null,
               "year": 2026
             },
             "status": null
           },
           {
-            "label": "Wildcraft Camp — Ages 3-5: June 8 and 10 only",
+            "label": "Wildcraft Camp — June 8 and 10 only",
             "start": "2026-06-08",
             "end": "2026-06-10",
             "year": 2026,
@@ -215,13 +220,13 @@
             "price": {
               "amount": 175,
               "unit": "session",
-              "label": "Ages 3-5; two days only",
+              "label": null,
               "year": 2026
             },
             "status": null
           },
           {
-            "label": "Survival Camp — Ages 6-12",
+            "label": "Survival Camp — ages 6-12",
             "start": "2026-06-15",
             "end": "2026-06-18",
             "year": 2026,
@@ -235,13 +240,13 @@
             "price": {
               "amount": 280,
               "unit": "session",
-              "label": "Ages 6-12",
+              "label": null,
               "year": 2026
             },
             "status": null
           },
           {
-            "label": "Survival Camp — Ages 3-5: June 15 and 17 only",
+            "label": "Survival Camp — June 15 and 17 only",
             "start": "2026-06-15",
             "end": "2026-06-17",
             "year": 2026,
@@ -255,13 +260,13 @@
             "price": {
               "amount": 165,
               "unit": "session",
-              "label": "Ages 3-5; two days only",
+              "label": null,
               "year": 2026
             },
             "status": null
           },
           {
-            "label": "Water Adventure Camp — Ages 6-12",
+            "label": "Water Adventure Camp — ages 6-12",
             "start": "2026-06-22",
             "end": "2026-06-25",
             "year": 2026,
@@ -275,13 +280,13 @@
             "price": {
               "amount": 280,
               "unit": "session",
-              "label": "Ages 6-12",
+              "label": null,
               "year": 2026
             },
             "status": null
           },
           {
-            "label": "Water Adventure Camp — Ages 3-5: June 22 and 24 only",
+            "label": "Water Adventure Camp — June 22 and 24 only",
             "start": "2026-06-22",
             "end": "2026-06-24",
             "year": 2026,
@@ -295,13 +300,13 @@
             "price": {
               "amount": 165,
               "unit": "session",
-              "label": "Ages 3-5; two days only",
+              "label": null,
               "year": 2026
             },
             "status": null
           },
           {
-            "label": "Games of the Forest Camp — Ages 6-12",
+            "label": "Games of the Forest Camp — ages 6-12",
             "start": "2026-06-29",
             "end": "2026-07-01",
             "year": 2026,
@@ -315,13 +320,13 @@
             "price": {
               "amount": 210,
               "unit": "session",
-              "label": "Ages 6-12",
+              "label": null,
               "year": 2026
             },
             "status": null
           },
           {
-            "label": "Games of the Forest Camp — Ages 3-5: June 29 and July 1 only",
+            "label": "Games of the Forest Camp — June 29 and July 1 only",
             "start": "2026-06-29",
             "end": "2026-07-01",
             "year": 2026,
@@ -335,13 +340,13 @@
             "price": {
               "amount": 165,
               "unit": "session",
-              "label": "Ages 3-5; two days only",
+              "label": null,
               "year": 2026
             },
             "status": null
           },
           {
-            "label": "Herbalist Camp — Ages 6-12",
+            "label": "Herbalist Camp — ages 6-12",
             "start": "2026-07-06",
             "end": "2026-07-08",
             "year": 2026,
@@ -355,13 +360,13 @@
             "price": {
               "amount": 230,
               "unit": "session",
-              "label": "Ages 6-12",
+              "label": null,
               "year": 2026
             },
             "status": null
           },
           {
-            "label": "Herbalist Camp — Ages 3-5: July 6 and 8 only",
+            "label": "Herbalist Camp — July 6 and 8 only",
             "start": "2026-07-06",
             "end": "2026-07-08",
             "year": 2026,
@@ -375,13 +380,13 @@
             "price": {
               "amount": 175,
               "unit": "session",
-              "label": "Ages 3-5; two days only",
+              "label": null,
               "year": 2026
             },
             "status": null
           },
           {
-            "label": "Water Adventure Camp — Ages 6-12",
+            "label": "Water Adventure Camp — ages 6-12",
             "start": "2026-07-13",
             "end": "2026-07-16",
             "year": 2026,
@@ -395,13 +400,13 @@
             "price": {
               "amount": 280,
               "unit": "session",
-              "label": "Ages 6-12",
+              "label": null,
               "year": 2026
             },
             "status": null
           },
           {
-            "label": "Water Adventure Camp — Ages 3-5: July 13 and 15 only",
+            "label": "Water Adventure Camp — July 13 and 15 only",
             "start": "2026-07-13",
             "end": "2026-07-15",
             "year": 2026,
@@ -415,13 +420,13 @@
             "price": {
               "amount": 165,
               "unit": "session",
-              "label": "Ages 3-5; two days only",
+              "label": null,
               "year": 2026
             },
             "status": null
           },
           {
-            "label": "Survival Camp — Ages 6-12",
+            "label": "Survival Camp — ages 6-12",
             "start": "2026-07-20",
             "end": "2026-07-23",
             "year": 2026,
@@ -435,13 +440,13 @@
             "price": {
               "amount": 280,
               "unit": "session",
-              "label": "Ages 6-12",
+              "label": null,
               "year": 2026
             },
             "status": null
           },
           {
-            "label": "Survival Camp — Ages 3-5: July 20 and 22 only",
+            "label": "Survival Camp — July 20 and 22 only",
             "start": "2026-07-20",
             "end": "2026-07-22",
             "year": 2026,
@@ -455,13 +460,13 @@
             "price": {
               "amount": 165,
               "unit": "session",
-              "label": "Ages 3-5; two days only",
+              "label": null,
               "year": 2026
             },
             "status": null
           },
           {
-            "label": "Forest School Camp — Ages 6-12",
+            "label": "Forest School Camp — ages 6-12",
             "start": "2026-07-27",
             "end": "2026-07-30",
             "year": 2026,
@@ -475,13 +480,13 @@
             "price": {
               "amount": 250,
               "unit": "session",
-              "label": "Ages 6-12",
+              "label": null,
               "year": 2026
             },
             "status": null
           },
           {
-            "label": "Forest School Camp — Ages 3-5: July 27 and 29 only",
+            "label": "Forest School Camp — July 27 and 29 only",
             "start": "2026-07-27",
             "end": "2026-07-29",
             "year": 2026,
@@ -495,7 +500,7 @@
             "price": {
               "amount": 140,
               "unit": "session",
-              "label": "Ages 3-5; two days only",
+              "label": null,
               "year": 2026
             },
             "status": null
@@ -518,7 +523,7 @@
           "https://southcarolinaparks.com/paris-mountain"
         ],
         "confidence": "medium",
-        "review_notes": "Dates use the camp page's 2026 heading. Confirm grouping of the individually named camp themes under the FAQ's Forest Day Camps umbrella. Broken Oaks Organic Farm's official street address could not be verified; search results for Broken Oak Organics at 280 River Rd may refer to the venue, but the identity was not established, so the address is left null. Confirm exact park drop-off points and obtain the parent portal URL from the Further Details and Registration button. The FAQ accommodation policy is general to the provider; confirm its application to summer camps. The 2026 registration-is-open statement has no opening date and is not treated as current availability for a season that has ended."
+        "review_notes": "Confirm the address and identity of Broken Oaks Organic Farm: searches found Broken Oak Organics at 280 River Rd, Marietta, SC, but no venue-published address confirming it is the camp venue; another listing gives 280 N River Rd, Cleveland. Fishing and Water Adventure drop-off locations are sent to enrolled families, so no specific sites are assigned to those rows. Fishing examples are not treated as confirmed drop-off venues. Park addresses were available through official search results. The general FAQ's caregiver accommodation wording is not summer-camp-specific. Theme weeks are grouped under the existing Forest Day Camps program name."
       }
     ]
   }

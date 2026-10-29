@@ -7,19 +7,19 @@
     "discovered_by": ["grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:15:18.723Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:12:49.845Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "a046952234e9cae57a8f9d29147c8d7bcdd2638f4a17c9fdde46a646ebcf0396",
   "response": {
     "searches": ["site:kidquest.love \"2027\" \"camp\""],
     "usage": {
-      "inputTokens": 13093,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1532,
-      "reasoningTokens": 52
+      "inputTokens": 12941,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1435,
+      "reasoningTokens": 48
     },
     "status": "completed",
-    "ms": 34047,
+    "ms": 33775,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -48,19 +48,15 @@
   "extraction": {
     "provider_name": "KidQuest",
     "website_url": "https://www.kidquest.love/",
-    "notes": "No 2027 summer information or dated registration announcement was found. The summer page still displays 2026 availability after those sessions have ended. The registration form has a stale '24-'25 school-year grade prompt despite matching the 2026 camp weeks.",
+    "notes": "No summer 2027 information or dated registration opening was found. The summer page still displays 2026 space counts even though those sessions are in the past. The registration form has a stale '24-'25 grade prompt; the summer page explicitly states rising 1st–6th grade.",
     "excluded": [
       {
-        "name": "Afterschool",
-        "reason": "School-year afterschool childcare, not a finite summer program."
+        "name": "KidQuest Afterschool",
+        "reason": "School-year childcare, including school's-out day care, rather than a summer camp."
       },
       {
-        "name": "Teacher work day care",
-        "reason": "Teacher-workday childcare outside the summer camp program."
-      },
-      {
-        "name": "Winter break care",
-        "reason": "Outside summer."
+        "name": "Black Mountain Tailgate Market",
+        "reason": "Market and parade craft event, not a finite supervised summer camp."
       }
     ],
     "cards": [
@@ -68,7 +64,7 @@
         "name": "KidQuest Camp",
         "type": "day",
         "categories": ["general", "nature_outdoor", "arts", "stem"],
-        "description": "Campers take field trips, swim, visit playgrounds, hike, make art projects, and do STEM experiments. Weekly activities include pool days on Mondays and Fridays and park or hiking days on Wednesdays.",
+        "description": "Campers take field trips, swim, visit playgrounds, hike, make art projects, and do STEM experiments and outdoor activities.",
         "camp_page_url": "https://www.kidquest.love/summer-camp",
         "registration_url": "https://schools.procareconnect.com/register/62cef752-13e5-4344-9499-78e8017e35ca",
         "season": {
@@ -87,7 +83,7 @@
         "sites": [
           {
             "name": "KidQuest",
-            "address": "101 Church St",
+            "address": "101 Church Street",
             "town": "Black Mountain",
             "state": "NC"
           }
@@ -102,7 +98,7 @@
           {
             "amount": 420,
             "unit": "week",
-            "label": "Includes $200 registration/supply fee, paid as deposit; all fees included in tuition.",
+            "label": "Includes $200 registration/supply fee paid as deposit",
             "year": 2026
           }
         ],
@@ -196,8 +192,8 @@
         "last_year_registration_opened": null,
         "availability": {
           "status": "mixed",
-          "scope": "2026 sessions; stale availability displayed after the season ended",
-          "text": "June 15 - June 19: 2 Spaces Available; June 22 - June 26: Full; June 29 -July 3: 3 Spaces Available; July 13 - July 17: 3 Spaces Available; July 20 - July 24: 2 Spaces Available; July 27- July 31: 1 Space Available; August 3 - August 7: FULL"
+          "scope": "2026 camp weeks",
+          "text": "June 22 - June 26 Full; August 3 - August 7 FULL"
         },
         "financial_aid": null,
         "special_needs": null,
@@ -212,7 +208,7 @@
           "https://www.kidquest.love/contact-us"
         ],
         "confidence": "medium",
-        "review_notes": "The registration form says 'Choose Grade Beginning '24-'25 School Year'; the summer page explicitly lists rising 1st-6th grade and Camp Weeks 2026, which are used here. Availability is reproduced as displayed but is stale as of October 29, 2026; do not interpret it as 2027 availability."
+        "review_notes": "The Procare form's grade prompt refers to the '24-'25 school year, while the official summer page labels the weeks 2026 and states rising 1st–6th grade; grades follow the summer page. Availability records the site's displayed 2026 counts, which remain posted after the sessions ended and should not be treated as 2027 availability."
       }
     ]
   }

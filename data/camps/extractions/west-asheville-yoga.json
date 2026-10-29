@@ -8,23 +8,19 @@
     "status": "review",
     "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
   },
-  "extractedAt": "2026-10-29T14:58:26.255Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T16:58:52.480Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "4c42d161001ceb353669a866299f12f9666e9fa61d432dc4190cc1e160e301cf",
   "response": {
-    "searches": [
-      "site:westashevilleyoga.com summer camp 2026 2027",
-      "site:westashevilleyoga.com \"camp\"",
-      "site:westashevilleyoga.com \"summer\" \"2026\" \"kids\""
-    ],
+    "searches": ["site:westashevilleyoga.com camp", "site:westashevilleyoga.com \"camp\" \"2026\""],
     "usage": {
-      "inputTokens": 27824,
-      "cachedInputTokens": 8223,
-      "outputTokens": 543,
-      "reasoningTokens": 245
+      "inputTokens": 22687,
+      "cachedInputTokens": 8845,
+      "outputTokens": 846,
+      "reasoningTokens": 160
     },
     "status": "completed",
-    "ms": 24075,
+    "ms": 30301,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -48,25 +44,54 @@
   "extraction": {
     "provider_name": "West Asheville Yoga",
     "website_url": "https://www.westashevilleyoga.com/",
-    "notes": "No official 2027 or 2026 youth summer program information was found. Official archived pages advertise Kids Yoga & Art Summer Camp (August 5–9, 2024), Mindful Mornings – Movement + Making (July 2024), and Summer Kids Yoga + Art (June–July 2024), but these older offerings were not used as 2026 or 2027 cards. A Pre-teen/Teen Yoga & Art Summer Pop-Up page was also found, but its date could not be verified from the accessible text. Several archived event pages returned no readable body when opened; search results supplied some archived details. The empty cards array does not establish that the provider has stopped offering summer programs.",
+    "notes": "No 2027 or 2026 summer camp details were found. Historical official materials include Kids Yoga & Art Summer Camp in August 2024 and Mindful Mornings – Movement + Making in July 2024; the provider's Momence platform also retains passed Kids Yoga + Art Summer Camp listings associated with 2025. Historical dates, prices, ages and venues have not been carried into 2026 fields. Momence pages exposed only program titles and a passed-event message.",
     "excluded": [
       {
-        "name": "Regular drop-in yoga classes",
-        "reason": "Ongoing classes, not finite summer youth programs."
-      },
-      {
-        "name": "Asheville Kids Yoga + Art (Fall Series ages 3-8)",
-        "reason": "Fall program, outside summer."
-      },
-      {
-        "name": "Baby + Beloved",
-        "reason": "Baby-and-caregiver offering rather than a supervised drop-off youth summer program."
+        "name": "Drop-in yoga classes",
+        "reason": "Regular ongoing classes, not finite supervised youth summer programs."
       },
       {
         "name": "Find Your Way 200 Hour Teacher Training",
-        "reason": "Teacher training running September 2026 through May 2027, outside summer and not identified as a youth program."
+        "reason": "Professional teacher training running September 2026 through May 2027, not a youth summer camp."
       }
     ],
-    "cards": []
+    "cards": [
+      {
+        "name": "Kids Yoga + Art Summer Camp",
+        "type": "half_day",
+        "categories": ["arts", "sports"],
+        "description": "Children practice yoga, make art, and take part in free play.",
+        "camp_page_url": "https://www.westashevilleyoga.com/event/kids-yoga-art-summer-camp-1-week-aug5/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.westashevilleyoga.com/event/kids-yoga-art-summer-camp-1-week-aug5/",
+          "https://momence.com/West-Asheville-Yoga/Kids-Yoga-%2B-Art-Summer-Camp-%28Week-1%29/127717339",
+          "https://momence.com/West-Asheville-Yoga/Kids-Yoga-%2B-Art-Summer-Camp-%28Week-2---Afternoon-Session%29/127717730"
+        ],
+        "confidence": "low",
+        "review_notes": "Confirm whether this historical program will return in 2027. Half-day format and activities are documented on the 2024 official camp page, not in 2026 materials. That page specifies St George’s Church, 1 School Rd., as the camp location but its event footer lists the studio at 602 Haywood Road; neither historical venue has been assumed for a future season. The readable Momence listings do not provide dates, ages, hours or prices."
+      }
+    ]
   }
 }

@@ -7,22 +7,22 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:32:55.588Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:27:52.550Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "82eea365339d6bf500e95f2f9a1657088d237bb381607978ea889c5979fee7e7",
   "response": {
     "searches": [
-      "site:awanita.org \"2027\" camp",
+      "site:awanita.org \"summer\" \"teen\"",
       "open https://www.awanita.org/programmed-summer-session"
     ],
     "usage": {
-      "inputTokens": 16538,
-      "cachedInputTokens": 8223,
-      "outputTokens": 867,
-      "reasoningTokens": 102
+      "inputTokens": 15532,
+      "cachedInputTokens": 8845,
+      "outputTokens": 863,
+      "reasoningTokens": 111
     },
     "status": "completed",
-    "ms": 24175,
+    "ms": 24857,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -46,35 +46,35 @@
   "extraction": {
     "provider_name": "Awanita Valley",
     "website_url": "https://www.awanita.org/",
-    "notes": "No summer 2027 camper dates or registration milestones were found. Summer Staff 2027 is employment, not a camper offering. The 2026 programmed summer session is for groups; the official inquiry form asks for a church or group name and number of guests. Custom retreat prices were not applied to the programmed summer session. Generic page metadata mentions Inferno Summer Camp, but no separate dated offering was found.",
+    "notes": "No 2027 camper dates or registration milestones found. The 2027 summer staff announcement is an employment offering, not a camper announcement. The 2026 programmed summer session and inquiry pages were readable in official search results, but direct opens returned no text.",
     "excluded": [
       {
-        "name": "Custom Retreats",
-        "reason": "Year-round group retreat hosting rather than a scheduled summer youth program; Children's Camp and Youth Camp are examples of stays groups may arrange, not separately scheduled offerings."
-      },
-      {
-        "name": "Teen Winter Weekend",
-        "reason": "December 4–6, 2026 event outside summer."
-      },
-      {
-        "name": "Rooted: A Study on Rahab",
-        "reason": "February 26–28, 2027 event outside summer."
-      },
-      {
         "name": "Summer Staff 2027",
-        "reason": "Summer employment program."
+        "reason": "Employment program, not a youth camp."
       },
       {
         "name": "Year-Round Internship Program",
-        "reason": "Year-long internship with employment responsibilities and a stipend, not a finite summer camper program."
+        "reason": "Year-long paid internship rather than a finite summer youth camp."
+      },
+      {
+        "name": "Teen Winter Weekend",
+        "reason": "December 4–6, 2026 event outside summer; also presented as a programmed conference."
+      },
+      {
+        "name": "Rooted: A Study on Rahab",
+        "reason": "February 26–28, 2027 event outside summer; also presented as a programmed conference."
+      },
+      {
+        "name": "Custom Retreats",
+        "reason": "Group-booked retreat services, not scheduled supervised youth camp offerings. Children's Camp and Youth Camp are listed as examples of retreats groups can plan, rather than separate scheduled programs."
       }
     ],
     "cards": [
       {
         "name": "Programmed Teen Summer Session",
         "type": "overnight",
-        "categories": ["faith_based", "nature_outdoor", "general"],
-        "description": "Teen groups participate in teaching sessions, discussion groups, worship, staff-led hikes, mountaintop adventure rides, and group recreation. Awanita provides the programmed schedule for participating groups.",
+        "categories": ["faith_based", "nature_outdoor"],
+        "description": "A programmed teen camp week for groups, with teaching sessions, discussion groups, worship, staff-led hikes, mountaintop adventure rides, and group recreation.",
         "camp_page_url": "https://www.awanita.org/programmed-summer-session",
         "registration_url": "https://www.awanita.org/contact-8",
         "season": {
@@ -108,11 +108,11 @@
         "sources": [
           "https://www.awanita.org/programmed-summer-session",
           "https://www.awanita.org/contact-8",
-          "https://www.awanita.org/retreats-and-camps",
-          "https://www.awanita.org/directions"
+          "https://www.awanita.org/",
+          "https://www.awanita.org/retreats-and-camps"
         ],
         "confidence": "medium",
-        "review_notes": "The overnight format is inferred from the five-day group camp and the provider's lodging-based retreat model; the summer session page does not explicitly state overnight lodging. Numeric ages, grades, prices, and registration opening dates are not stated. The registration URL is a Programmed Summer Session Inquiry form, not individual camper checkout."
+        "review_notes": "The program dates and activities were obtained from official search-result text; direct opens returned no readable text. Overnight format is inferred from the five-day camp week and the provider's group lodging model. The inquiry page is titled Programmed Summer Session Inquiry, but its connection to the Register Now button could not be verified. Custom-retreat prices and meals were not assigned to this programmed session."
       }
     ]
   }

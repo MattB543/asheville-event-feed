@@ -7,22 +7,19 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:31:44.138Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:26:47.572Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "6ef3f5ab46e239b53a6c82132f1bfec17b52a12e659adf26c47d6e8871131bc8",
   "response": {
-    "searches": [
-      "site:sapphirevalleyresorts.com camp 2026",
-      "\"Sapphire Valley\" \"camp\" \"2026\""
-    ],
+    "searches": ["site:sapphirevalleyresorts.com camp 2026 2027"],
     "usage": {
-      "inputTokens": 21796,
-      "cachedInputTokens": 8223,
-      "outputTokens": 756,
-      "reasoningTokens": 185
+      "inputTokens": 19242,
+      "cachedInputTokens": 8845,
+      "outputTokens": 715,
+      "reasoningTokens": 102
     },
     "status": "completed",
-    "ms": 26516,
+    "ms": 18655,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -51,23 +48,23 @@
   "extraction": {
     "provider_name": "Sapphire Valley Master Association",
     "website_url": "https://sapphirevalleyresorts.com/",
-    "notes": "No official 2027 or 2026 youth camp information was found. The Mermaid Art Camp page describes a past event on July 15, 2025; its dates and hours have not been carried forward. A Kids Camp listing on sapphirevalleyresort.com is on an independent website that explicitly says it is not associated with the Master Association; its undated details were not used.",
+    "notes": "No official 2027 or 2026 camp information was found. The only camp listing found is dated July 15, 2025; its historical dates are retained without projecting them forward. The camp page does not identify a drop-off venue, so the association's mailing address has not been used as a camp site.",
     "excluded": [
       {
+        "name": "MERMAID Splash Pool Party",
+        "reason": "A pool-party social event, not a supervised camp or skill clinic."
+      },
+      {
         "name": "Arts & Crafts Festival",
-        "reason": "Family event, not a supervised youth camp."
+        "reason": "A festival, not a youth camp."
       },
       {
-        "name": "WATER AEROBICS",
-        "reason": "Recurring classes rather than a finite summer youth program."
+        "name": "WATERFALLS & OVERLOOKS HIKE",
+        "reason": "A recreational outing, not a youth camp."
       },
       {
-        "name": "Nike Adult Pickleball Camp at Sapphire Valley Resort",
-        "reason": "Adult-only camp."
-      },
-      {
-        "name": "Nike Adult Tennis Camp at Sapphire Valley Resort",
-        "reason": "Adult-only camp."
+        "name": "Vordach Zipline",
+        "reason": "An ongoing recreational attraction booked by reservation, not a finite youth camp."
       }
     ],
     "cards": [
@@ -75,20 +72,24 @@
         "name": "MERMAID ART CAMP!!",
         "type": "half_day",
         "categories": ["arts"],
-        "description": "A mermaid-themed art program for kids.",
+        "description": "A mermaid-themed art camp for children.",
         "camp_page_url": "https://sapphirevalleyresorts.com/event/mermaid-art-camp/",
         "registration_url": null,
         "season": {
-          "year": 2027,
+          "year": 2025,
           "status": "not_posted",
-          "start": null,
-          "end": null,
+          "start": "2025-07-15",
+          "end": "2025-07-15",
           "text": null
         },
         "ages": null,
         "grades": null,
         "sites": [],
-        "hours": null,
+        "hours": {
+          "start": "13:00",
+          "end": "16:00",
+          "text": "1:00 pm to 4:00 pm"
+        },
         "extended_care": null,
         "prices": [],
         "sessions": [],
@@ -101,7 +102,7 @@
         "transportation": null,
         "sources": ["https://sapphirevalleyresorts.com/event/mermaid-art-camp/"],
         "confidence": "medium",
-        "review_notes": "Only the July 15, 2025 event is documented, running 13:00–16:00. Confirm whether this program will return in 2027, its drop-off venue, ages, price and registration details. The official event page does not identify a venue, so the association's mailing address was not used as a camp site."
+        "review_notes": "The official listing explicitly dates this camp July 15, 2025. No 2026 or 2027 replacement was found; check for a new listing before treating this as a current offering. The page does not state ages, price, registration instructions or the drop-off venue."
       }
     ]
   }

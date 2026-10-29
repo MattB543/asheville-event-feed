@@ -10,22 +10,22 @@
     "discovered_by": ["grid", "aggregator"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:16:04.028Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:13:31.372Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "36c8f28c70beb8d6da4037e2c709b5e33ce978dfccef023b214d85792bfb33c8",
   "response": {
     "searches": [
-      "site:bes.haywood.k12.nc.us \"2027\" \"summer\"",
-      "site:bes.haywood.k12.nc.us/2026/07/28/kinder-kickstart \"opportunity\""
+      "site:bes.haywood.k12.nc.us \"2027\" \"camp\"",
+      "site:bes.haywood.k12.nc.us \"Summer Library\" \"students\""
     ],
     "usage": {
-      "inputTokens": 66095,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1808,
-      "reasoningTokens": 183
+      "inputTokens": 67451,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2091,
+      "reasoningTokens": 229
     },
     "status": "completed",
-    "ms": 44453,
+    "ms": 48614,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -69,11 +69,15 @@
   "extraction": {
     "provider_name": "Bethel Elementary School",
     "website_url": "https://bes.haywood.k12.nc.us/",
-    "notes": "No summer 2027 information was found. The supplied 2026 pages were used; the official site blocked direct browsing of supplemental materials, including the summer camp flyer image. Kinder Kickstart Camp was also found in official search results.",
+    "notes": "No summer 2027 information was found. The official site blocks direct browsing with robots.txt; supplied page text and official search results were used. The linked summer-camp packet and image flyers could not be read independently. Summer Library Program eligibility and whether children may attend without a parent should be checked.",
     "excluded": [
       {
-        "name": "After-School Program",
-        "reason": "School-year afterschool childcare, not a summer-only program."
+        "name": "Kinder Kickstart Camp",
+        "reason": "Kindergarten screening and school-readiness program for the school's incoming enrolled kindergarten students; excluded under the rule for district-only learning programs."
+      },
+      {
+        "name": "Afterschool Program",
+        "reason": "School-year after-school childcare, not a finite summer program."
       }
     ],
     "cards": [
@@ -81,7 +85,7 @@
         "name": "Bethel Elementary Summer Camp",
         "type": "day",
         "categories": ["general"],
-        "description": "Children attend supervised summer childcare Monday through Friday. Breakfast, lunch, and a daily snack are included.",
+        "description": "Summer day camp providing child care, breakfast, lunch, and a snack each day.",
         "camp_page_url": "https://bes.haywood.k12.nc.us/2026/05/10/new-bes-summer-camp-2026-packet/",
         "registration_url": "https://bes.haywood.k12.nc.us/2026/05/10/new-bes-summer-camp-2026-packet/",
         "season": {
@@ -111,19 +115,19 @@
           {
             "amount": 160,
             "unit": "week",
-            "label": "One child; no daily rates",
+            "label": "one child",
             "year": 2026
           },
           {
             "amount": 140,
             "unit": "week",
-            "label": "Each additional child in the immediate family",
+            "label": "each additional child in the immediate family",
             "year": 2026
           },
           {
             "amount": 25,
             "unit": "other",
-            "label": "Application fee per child, towards snacks",
+            "label": "application fee per child",
             "year": 2026
           }
         ],
@@ -148,8 +152,8 @@
       {
         "name": "Summer Library Program",
         "type": "half_day",
-        "categories": ["academic", "stem", "arts"],
-        "description": "Children read, build, solve story-based problems, craft, and check out books. The Storybook STEM program also encourages tracking summer reading.",
+        "categories": ["stem", "academic", "arts"],
+        "description": "Children build, read, solve problems, craft, play, and create through Storybook STEM activities. They can check out books each week and track their summer reading.",
         "camp_page_url": "https://bes.haywood.k12.nc.us/2026/05/10/summer-library-program-june-16-aug-4-2026/",
         "registration_url": null,
         "season": {
@@ -175,18 +179,115 @@
         "hours": {
           "start": "10:00",
           "end": "14:00",
-          "text": "Tuesdays, 10:00 am–2:00 pm"
+          "text": "Tuesdays – 10:00 am – 2:00 pm"
         },
         "extended_care": null,
         "prices": [
           {
             "amount": 0,
             "unit": "program",
-            "label": "Free",
+            "label": "Free for ages 5-11",
             "year": 2026
           }
         ],
-        "sessions": [],
+        "sessions": [
+          {
+            "label": null,
+            "start": "2026-06-16",
+            "end": "2026-06-16",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2026-06-23",
+            "end": "2026-06-23",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2026-06-30",
+            "end": "2026-06-30",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2026-07-07",
+            "end": "2026-07-07",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2026-07-14",
+            "end": "2026-07-14",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2026-07-21",
+            "end": "2026-07-21",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2026-07-28",
+            "end": "2026-07-28",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2026-08-04",
+            "end": "2026-08-04",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
         "registration": [],
         "last_year_registration_opened": {
           "date": "2026-06-16",
@@ -203,58 +304,8 @@
           "https://bes.haywood.k12.nc.us/2026/05/10/summer-library-program-june-16-aug-4-2026/",
           "https://bes.haywood.k12.nc.us/"
         ],
-        "confidence": "high",
-        "review_notes": null
-      },
-      {
-        "name": "Kinder Kickstart Camp",
-        "type": "half_day",
-        "categories": ["academic"],
-        "description": "Incoming kindergarten children attend camp and screening days before classroom assignment for the school year.",
-        "camp_page_url": "https://bes.haywood.k12.nc.us/2026/07/28/kinder-kickstart-camp-8-4-8-5-26/",
-        "registration_url": null,
-        "season": {
-          "year": 2026,
-          "status": "not_posted",
-          "start": "2026-08-04",
-          "end": "2026-08-05",
-          "text": null
-        },
-        "ages": null,
-        "grades": {
-          "min": 0,
-          "max": 0,
-          "basis": "rising"
-        },
-        "sites": [
-          {
-            "name": "Bethel Elementary School",
-            "address": "4700 Old River Rd.",
-            "town": "Canton",
-            "state": "NC"
-          }
-        ],
-        "hours": {
-          "start": "08:30",
-          "end": "12:30",
-          "text": null
-        },
-        "extended_care": null,
-        "prices": [],
-        "sessions": [],
-        "registration": [],
-        "last_year_registration_opened": null,
-        "availability": null,
-        "financial_aid": null,
-        "special_needs": null,
-        "lunch": null,
-        "transportation": null,
-        "sources": [
-          "https://bes.haywood.k12.nc.us/2026/07/28/kinder-kickstart-camp-8-4-8-5-26/",
-          "https://bes.haywood.k12.nc.us/"
-        ],
         "confidence": "medium",
-        "review_notes": "Camp details were available only through official search snippets because direct access was blocked. Check the full July 28, 2026 page for participation requirements and any additional logistics."
+        "review_notes": "The 2026 page says 'your school library' but does not explicitly restrict eligibility to enrolled students or state whether this is supervised drop-off programming. Check those points before publication. Session dates expand the stated Tuesday recurrence from June 16 through August 4."
       }
     ]
   }

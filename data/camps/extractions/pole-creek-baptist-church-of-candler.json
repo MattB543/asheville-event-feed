@@ -11,23 +11,19 @@
     "status": "review",
     "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
   },
-  "extractedAt": "2026-10-29T15:37:36.384Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:31:39.053Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "730dd747519e87177a65d2ee2c4cfa17ce9df2875e7e506fc50075ab3110b795",
   "response": {
-    "searches": [
-      "site:polecreek.org 2027 VBS camp",
-      "\"Pole Creek\" \"Vacation Bible\" 2026",
-      "open https://polecreek.org/upcoming-events"
-    ],
+    "searches": ["site:polecreek.org \"2027\" camp", "site.lookuplodge.com address"],
     "usage": {
-      "inputTokens": 21190,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1096,
-      "reasoningTokens": 253
+      "inputTokens": 22928,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1064,
+      "reasoningTokens": 168
     },
     "status": "completed",
-    "ms": 30997,
+    "ms": 29076,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -56,27 +52,31 @@
   "extraction": {
     "provider_name": "Pole Creek Baptist Church of Candler",
     "website_url": "https://polecreek.org/",
-    "notes": "Official search results announce Kids Camp 2027. The upcoming-events and Church Center pages returned no readable body when opened, so camp details rely on official search snippets. The older Vacation Bible School registration has a title saying 2025 but lists Monday, June 15 through Friday, June 19 without a year. It is omitted because current official materials announce a 2027 camp and do not confirm VBS for 2027.",
+    "notes": "Official search results publish Kids Camp 2027. The upcoming-events and Church Center pages returned no readable body when opened, so their indexed official text was used. The supplied VBS registration URL is indexed with the title Vacation Bible School 2025 but describes grades entering Fall 2026; no reliable current VBS dates were recovered, and it was not carried into the posted 2027 program list.",
     "excluded": [
       {
-        "name": "Sunday Morning Bible Study / Small Groups",
-        "reason": "Recurring year-round children's Bible study, not a finite summer program."
+        "name": "Sunday Morning Bible Study",
+        "reason": "Year-round Bible study, not a finite summer camp."
       },
       {
         "name": "Toddler Time with Jesus",
-        "reason": "Recurring Wednesday evening preschool program, not summer-only."
+        "reason": "Recurring Wednesday ministry and childcare, not a finite summer camp."
       },
       {
         "name": "Pole Creek Kids Connect",
-        "reason": "Recurring Wednesday evening program, not a finite summer program."
+        "reason": "Year-round Wednesday activities, not a finite summer camp."
       },
       {
         "name": "Sunday Evening Small Group",
-        "reason": "Recurring student Bible study, not a finite summer program."
+        "reason": "Recurring youth Bible study, not a finite summer camp."
       },
       {
-        "name": "Mission Friends",
-        "reason": "Recurring Wednesday evening preschool program, not summer-only."
+        "name": "Trunk or Treat",
+        "reason": "Single-evening seasonal event outside summer."
+      },
+      {
+        "name": "Mission Trips",
+        "reason": "Mission trips are excluded under the camp rule."
       }
     ],
     "cards": [
@@ -84,7 +84,7 @@
         "name": "Kids Camp",
         "type": "overnight",
         "categories": ["faith_based"],
-        "description": "Children attend a multi-day church camp at Look Up Lodge.",
+        "description": "An overnight church camp at Look Up Lodge for children in grades 3–6.",
         "camp_page_url": "https://polecreek.org/upcoming-events",
         "registration_url": "https://polecreek.churchcenter.com/registrations/events/3861574",
         "season": {
@@ -92,7 +92,7 @@
           "status": "posted",
           "start": "2027-08-04",
           "end": "2027-08-07",
-          "text": "When: Wednesday, August 4 - Saturday, August 7, 2027"
+          "text": null
         },
         "ages": null,
         "grades": {
@@ -100,14 +100,21 @@
           "max": 6,
           "basis": "unspecified"
         },
-        "sites": [],
+        "sites": [
+          {
+            "name": "Look Up Lodge",
+            "address": "100 Look Up Lodge Rd",
+            "town": "Travelers Rest",
+            "state": "SC"
+          }
+        ],
         "hours": null,
         "extended_care": null,
         "prices": [],
         "sessions": [],
         "registration": [
           {
-            "audience": "other",
+            "audience": "public",
             "kind": "deadline",
             "date": "2026-11-01",
             "time": null,
@@ -130,10 +137,11 @@
         "transportation": null,
         "sources": [
           "https://polecreek.org/upcoming-events",
-          "https://polecreek.churchcenter.com/registrations/events/3861574"
+          "https://polecreek.churchcenter.com/registrations/events/3861574",
+          "https://www.lookuplodge.com/contact-us"
         ],
         "confidence": "medium",
-        "review_notes": "Dates, grades, deposit deadline and scholarships are stated in official search snippets; both pages returned empty bodies when opened. Overnight format is inferred from the multi-day lodge camp. Confirm format, total fee and parent drop-off location. Look Up Lodge is identified as the camp destination, but neither snippet states where parents drop children off. The $50 deposit is not represented as the total program price."
+        "review_notes": "2027 dates, grades and deposit deadline were read from official search-indexed text because both event pages returned empty bodies. The $50 is a deposit, not the total camp price. Look Up Lodge is the stated camp venue; the church does not specify whether families drop off there or at the church for group travel. Confirm drop-off arrangements and grade basis."
       }
     ]
   }

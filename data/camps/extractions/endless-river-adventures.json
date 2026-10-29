@@ -10,19 +10,22 @@
     "discovered_by": ["grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:20:11.985Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:17:06.837Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "bf750a3121b8f9ba40ff1704c8f701bc706888c546927ab02e4d0b8e9b82e3f5",
   "response": {
-    "searches": ["site:endlessriveradventures.com kids camp 2027"],
+    "searches": [
+      "site:endlessriveradventures.com kids camp 2027",
+      "open https://www.endlessriveradventures.com/contact/"
+    ],
     "usage": {
-      "inputTokens": 40210,
-      "cachedInputTokens": 8223,
-      "outputTokens": 3755,
-      "reasoningTokens": 78
+      "inputTokens": 41096,
+      "cachedInputTokens": 8845,
+      "outputTokens": 3563,
+      "reasoningTokens": 137
     },
     "status": "completed",
-    "ms": 75022,
+    "ms": 64202,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -71,23 +74,23 @@
   "extraction": {
     "provider_name": "Endless River Adventures",
     "website_url": "https://www.endlessriveradventures.com/",
-    "notes": "No summer 2027 camp dates or registration milestones were found. Dates and prices below describe 2026. Booking pages expose only general booking policies, not session inventory. Memorial Day and Labor Day offerings are included as the provider's summer camps. Custom EcoSplash programs are part of the EcoSplash offering, with dates and prices arranged individually.",
+    "notes": "No 2027 summer camp dates or registration milestones found. Booking pages expose no readable session availability. The official contact search result publishes 14157 Highway 19 W, Bryson City, NC 28713, but opening the contact and directions pages returned no readable text. Ocoee paddling destinations are not listed as drop-off sites because camp transportation is included and the FAQ identifies the Nantahala outpost as the activity base.",
     "excluded": [
       {
         "name": "Private Kayaking Instruction",
-        "reason": "Year-round instruction, rather than a finite summer-only youth program; includes private instruction and custom teen weekends."
+        "reason": "Year-round instruction booked as lessons, rather than a finite summer camp."
       },
       {
         "name": "Ecuador Whitewater Kayak Trips",
-        "reason": "Published trips run November through February, outside summer, and are not designated youth camps."
-      },
-      {
-        "name": "Custom Whitewater Spring Break Trips",
-        "reason": "Outside summer."
+        "reason": "Trips take place in Ecuador, outside the directory's geographic area; published trips also fall outside summer."
       },
       {
         "name": "Custom days for the whole family",
         "reason": "Family-only activities rather than supervised youth camps."
+      },
+      {
+        "name": "Paddle It Forward Kids Program",
+        "reason": "Equipment purchase and exchange program, not a supervised camp."
       }
     ],
     "cards": [
@@ -95,7 +98,7 @@
         "name": "EcoSplash Camp",
         "type": "day",
         "categories": ["nature_outdoor", "sports"],
-        "description": "Campers spend time rafting or paddling inflatable kayaks, swimming and exploring rivers. Environmental education activities with Mainspring Conservation Trust include observing stream ecosystems with goggles, snorkels and nets.",
+        "description": "Campers raft or paddle inflatable kayaks, swim, and explore stream ecosystems with a biologist using snorkels, goggles and nets.",
         "camp_page_url": "https://www.endlessriveradventures.com/ecosplash-kids-camp/",
         "registration_url": "https://www.endlessriveradventures.com/booking/?%2Freserve%2Ftt27-eco-splash",
         "season": {
@@ -134,7 +137,7 @@
         ],
         "sessions": [
           {
-            "label": "EcoSplash Camp",
+            "label": null,
             "start": "2026-05-23",
             "end": "2026-05-24",
             "year": 2026,
@@ -146,7 +149,7 @@
             "status": null
           },
           {
-            "label": "EcoSplash Camp",
+            "label": null,
             "start": "2026-06-13",
             "end": "2026-06-14",
             "year": 2026,
@@ -158,7 +161,7 @@
             "status": null
           },
           {
-            "label": "EcoSplash Camp",
+            "label": null,
             "start": "2026-07-02",
             "end": "2026-07-03",
             "year": 2026,
@@ -170,7 +173,7 @@
             "status": null
           },
           {
-            "label": "EcoSplash Camp",
+            "label": null,
             "start": "2026-07-18",
             "end": "2026-07-19",
             "year": 2026,
@@ -182,7 +185,7 @@
             "status": null
           },
           {
-            "label": "EcoSplash Camp",
+            "label": null,
             "start": "2026-08-01",
             "end": "2026-08-02",
             "year": 2026,
@@ -194,7 +197,7 @@
             "status": null
           },
           {
-            "label": "EcoSplash Camp",
+            "label": null,
             "start": "2026-08-29",
             "end": "2026-08-30",
             "year": 2026,
@@ -225,18 +228,18 @@
         "sources": [
           "https://www.endlessriveradventures.com/ecosplash-kids-camp/",
           "https://www.endlessriveradventures.com/kid-kayaking-instruction/",
+          "https://www.endlessriveradventures.com/our-trips/",
           "https://www.endlessriveradventures.com/faq/",
-          "https://www.endlessriveradventures.com/contact/",
-          "https://www.endlessriveradventures.com/our-trips/"
+          "https://www.endlessriveradventures.com/contact/"
         ],
         "confidence": "medium",
-        "review_notes": "The dedicated EcoSplash page states ages 6–12 and $300 per two-day camp; the kids kayaking page says $200, while the undated Our Trips page lists ages 8–12 and $150/day. Dedicated program-page facts are used. Confirm camp drop-off at the Nantahala Outpost: the FAQ says all activities are coordinated there but the camp page does not explicitly give a drop-off location."
+        "review_notes": "The dedicated EcoSplash page gives $300 and ages 6–12; the kayaking page's EcoSplash summary gives $200, and the official Our trips search result gives ages 8–12 and $150/day. Used the dedicated program page. Outpost drop-off is inferred from the FAQ's activity-base statement and included transportation; address was available only in the official contact search snippet. Custom EcoSplash dates and durations are also offered, without a published schedule."
       },
       {
         "name": "Kids Kayak Camps",
         "type": "day",
         "categories": ["sports", "nature_outdoor"],
-        "description": "Campers learn or develop whitewater kayaking skills in sessions grouped by paddling experience. Activities include strokes, rolling, river maneuvers, river rescue and advanced paddling on the Ocoee.",
+        "description": "Campers learn and practice whitewater kayaking, including wet exits, strokes, rolling and river maneuvers. More advanced sessions cover river rescue, decision-making and paddling harder whitewater.",
         "camp_page_url": "https://www.endlessriveradventures.com/kid-kayaking-instruction/",
         "registration_url": "https://www.endlessriveradventures.com/booking/?%2Freserve%2Ftt25-kids-kayak-camp",
         "season": {
@@ -269,7 +272,7 @@
           {
             "amount": 130,
             "unit": "day",
-            "label": "Annual 4th of July camp: three or more days",
+            "label": "4th of July camp, three or more days",
             "year": 2026
           },
           {
@@ -289,12 +292,7 @@
             "ages": null,
             "grades": null,
             "hours": null,
-            "price": {
-              "amount": 300,
-              "unit": "session",
-              "label": "2-day camp",
-              "year": 2026
-            },
+            "price": null,
             "status": null
           },
           {
@@ -366,12 +364,7 @@
             "ages": null,
             "grades": null,
             "hours": null,
-            "price": {
-              "amount": 300,
-              "unit": "session",
-              "label": "2-day camp",
-              "year": 2026
-            },
+            "price": null,
             "status": null
           },
           {
@@ -383,12 +376,7 @@
             "ages": null,
             "grades": null,
             "hours": null,
-            "price": {
-              "amount": 300,
-              "unit": "session",
-              "label": "2-day camp",
-              "year": 2026
-            },
+            "price": null,
             "status": null
           },
           {
@@ -400,12 +388,7 @@
             "ages": null,
             "grades": null,
             "hours": null,
-            "price": {
-              "amount": 300,
-              "unit": "session",
-              "label": "2-day camp",
-              "year": 2026
-            },
+            "price": null,
             "status": null
           },
           {
@@ -417,12 +400,7 @@
             "ages": null,
             "grades": null,
             "hours": null,
-            "price": {
-              "amount": 300,
-              "unit": "session",
-              "label": "2-day camp",
-              "year": 2026
-            },
+            "price": null,
             "status": null
           },
           {
@@ -434,12 +412,7 @@
             "ages": null,
             "grades": null,
             "hours": null,
-            "price": {
-              "amount": 300,
-              "unit": "session",
-              "label": "2-day camp",
-              "year": 2026
-            },
+            "price": null,
             "status": null
           },
           {
@@ -451,12 +424,7 @@
             "ages": null,
             "grades": null,
             "hours": null,
-            "price": {
-              "amount": 300,
-              "unit": "session",
-              "label": "2-day camp",
-              "year": 2026
-            },
+            "price": null,
             "status": null
           }
         ],
@@ -465,7 +433,7 @@
         "availability": null,
         "financial_aid": {
           "value": "yes",
-          "text": "If you need scholarship help, consider applying for a scholarship through our partner non-profit Need More Outdoors."
+          "text": "Scholarships are also available through our partner non-profit Need More Outdoors."
         },
         "special_needs": null,
         "lunch": {
@@ -478,19 +446,19 @@
         },
         "sources": [
           "https://www.endlessriveradventures.com/kid-kayaking-instruction/",
+          "https://www.endlessriveradventures.com/our-trips/",
           "https://www.endlessriveradventures.com/faq/",
           "https://www.endlessriveradventures.com/contact/",
-          "https://www.endlessriveradventures.com/our-trips/",
           "https://www.endlessriveradventures.com/booking/?%2Freserve%2Ftt26-kids-camps-2-days"
         ],
         "confidence": "medium",
-        "review_notes": "Program page recommends ages 8–14; undated Our Trips page lists ages 6–16. Ages here are recommended, not a stated eligibility cutoff. Program page retains a SUMMER 2025 heading but explicitly dates the annual camp and weekends 2026; yearless annual session dates use the annual camp's 2026 heading. Weekend registration uses the separate tt26-kids-camps-2-days booking URL. Confirm drop-off at the Nantahala Outpost, especially for Ocoee weekends; the FAQ coordinates activities there but camp-specific drop-off is not explicit."
+        "review_notes": "The program section retains a SUMMER 2025 heading, but its overall June 27–July 5 range, advanced session and weekend dates explicitly say 2026; used 2026 for the nested July sessions. Ages 8–14 are recommended rather than strict eligibility; the official Our trips search result instead lists ages 6–16. Outpost drop-off is inferred from the FAQ and included transportation; its address was available only in the official contact search snippet. Weekend camps use a separate booking link listed in sources."
       },
       {
         "name": "3-Day Leadership Camp",
         "type": "day",
         "categories": ["sports", "nature_outdoor"],
-        "description": "Young paddlers practice rolling and whitewater maneuvers alongside leadership and team-building activities. Advanced paddlers can develop leadership skills through hands-on instructor training.",
+        "description": "Young paddlers practice rolling and whitewater moves alongside leadership and team-building activities. Advanced paddlers work on leadership through hands-on instructor training.",
         "camp_page_url": "https://www.endlessriveradventures.com/kid-kayaking-instruction/",
         "registration_url": "https://www.endlessriveradventures.com/booking/?%2Freserve%2Ftt25-kids-kayak-camp",
         "season": {
@@ -513,23 +481,19 @@
             "state": "NC"
           }
         ],
-        "hours": {
-          "start": "09:00",
-          "end": "16:30",
-          "text": "Our sessions are all day camps, running from 9AM to 4:30PM."
-        },
+        "hours": null,
         "extended_care": null,
         "prices": [
           {
             "amount": 130,
             "unit": "day",
-            "label": "3-day participation",
+            "label": "3 days",
             "year": 2026
           },
           {
             "amount": 150,
             "unit": "day",
-            "label": "2-day participation",
+            "label": "2 days",
             "year": 2026
           }
         ],
@@ -539,7 +503,7 @@
         "availability": null,
         "financial_aid": {
           "value": "yes",
-          "text": "If you need scholarship help, consider applying for a scholarship through our partner non-profit Need More Outdoors."
+          "text": "Scholarships are also available through our partner non-profit Need More Outdoors."
         },
         "special_needs": null,
         "lunch": {
@@ -553,11 +517,10 @@
         "sources": [
           "https://www.endlessriveradventures.com/kid-kayaking-instruction/",
           "https://www.endlessriveradventures.com/faq/",
-          "https://www.endlessriveradventures.com/contact/",
-          "https://www.endlessriveradventures.com/our-trips/"
+          "https://www.endlessriveradventures.com/contact/"
         ],
         "confidence": "medium",
-        "review_notes": "Ages 8–14 are the youth programs' recommended ages, not a leadership-specific cutoff; undated Our Trips page lists Kids Kayak Camp ages 6–16. Hours use the program page's general all-day session statement. Confirm leadership camp drop-off at the Nantahala Outpost; FAQ says activities are coordinated there but camp-specific drop-off is not explicit."
+        "review_notes": "Included the September 5–7 camp because the provider explicitly describes it as finishing summer. Ages 8–14 are the youth page's general recommendation, not separate leadership-camp eligibility. Leadership camp hours are not separately stated. Outpost drop-off is inferred from the FAQ and included transportation; its address was available only in the official contact search snippet."
       }
     ]
   }

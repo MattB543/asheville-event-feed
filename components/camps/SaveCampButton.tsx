@@ -24,8 +24,9 @@ export default function SaveCampButton({
       onClick={() => toggleSavedCamp(campId)}
       className={`inline-flex shrink-0 items-center gap-1.5 rounded-lg ${
         withLabel
-          ? 'px-3 py-1.5 text-sm font-medium border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900'
-          : 'p-1.5'
+          ? 'min-h-9 px-3 py-1.5 text-sm font-medium border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900'
+          : // A 40px tap target, pulled into the card's padding so the star sits where it did
+            '-m-2 h-10 w-10 justify-center'
       } ${
         saved
           ? 'text-amber-600 dark:text-amber-400'

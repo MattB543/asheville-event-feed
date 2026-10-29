@@ -4,25 +4,25 @@
     "name": "Mason Plumlee Basketball Camp",
     "urls": ["https://register.ryzer.com/camp.cfm?id=309477"],
     "area": "Christ School, Arden, NC",
-    "discovered_by": ["pilot"],
+    "discovered_by": ["pilot", "seed_sheet", "grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T03:19:47.258Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T16:52:25.437Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "003cea092890394bd8a5ade06659067926c48c9c24712174f38b321454ae33ee",
   "response": {
     "searches": [
-      "Mason Plumlee basketball camp 2027 2026 official",
+      "Mason Plumlee basketball camp 2027 commuter 2026",
       "open https://register.ryzer.com/camp.cfm?id=338224"
     ],
     "usage": {
-      "inputTokens": 19083,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1903,
-      "reasoningTokens": 142
+      "inputTokens": 19778,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1937,
+      "reasoningTokens": 159
     },
     "status": "completed",
-    "ms": 38956,
+    "ms": 42348,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -36,15 +36,15 @@
   "extraction": {
     "provider_name": "Mason Plumlee Basketball Camp",
     "website_url": "https://www.plumleebasketball.com/",
-    "notes": "2027 dates and registration are posted. The Christ School September 1, 2026 article says June 21–27, but the provider homepage, camp page and Ryzer registration all say June 21–24, 2027; the cards use the provider's dates. Commuter daily arrival and pickup hours are not published. Price cutoff dates omit calendar years, so no early-bird registration milestones were inferred.",
+    "notes": "2027 camp information is posted. The Christ School September 1, 2026 news article says June 21–27, while the provider's camp page and Ryzer registration both say June 21–24; the cards use the provider's dates. Overnight price cutoff dates list months and days without calendar years, so they are retained as price labels rather than registration milestones.",
     "excluded": [
       {
         "name": "Transform Your Tryout",
-        "reason": "Fall clinic held in September, outside summer."
+        "reason": "Fall clinic held September 12, 2026; outside summer."
       },
       {
         "name": "Earn Your Minutes",
-        "reason": "Fall clinic held in September, outside summer."
+        "reason": "Fall clinic held September 13, 2026; outside summer."
       }
     ],
     "cards": [
@@ -52,7 +52,7 @@
         "name": "Overnight Camp",
         "type": "overnight",
         "categories": ["sports"],
-        "description": "Boys practice basketball skills, play competitive games, review NBA film and participate in leadership discussions, conditioning and outdoor team-building activities. Meals and overnight lodging are included.",
+        "description": "Boys practice basketball skills, compete in games, study NBA film, and participate in strength and conditioning, outdoor team-building activities, and leadership discussions.",
         "camp_page_url": "https://www.plumleebasketball.com/basketball-camp-at-christ-school.cfm",
         "registration_url": "https://register.ryzer.com/camp.cfm?id=338224",
         "season": {
@@ -78,26 +78,26 @@
         "hours": {
           "start": null,
           "end": null,
-          "text": "Check-in 9:00 AM–10:30 AM on June 21; camp begins at 10:30 AM on June 21 and ends at 1:00 PM on June 24."
+          "text": "Check-in June 21, 9:00–10:30 AM; camp begins at 10:30 AM and ends June 24 at 1:00 PM."
         },
         "extended_care": null,
         "prices": [
           {
             "amount": 800,
-            "unit": "program",
-            "label": "Overnight by August 1st; plus $53 fees; meals and lodging included",
+            "unit": "session",
+            "label": "Overnight by August 1; plus $53 fees; meals and lodging included",
             "year": 2027
           },
           {
             "amount": 850,
-            "unit": "program",
-            "label": "Overnight by March 1st; plus $56 fees; meals and lodging included",
+            "unit": "session",
+            "label": "Overnight by March 1; plus $56 fees; meals and lodging included",
             "year": 2027
           },
           {
             "amount": 900,
-            "unit": "program",
-            "label": "Overnight after March 1st; plus $59 fees; meals and lodging included",
+            "unit": "session",
+            "label": "Overnight after March 1; plus $59 fees; meals and lodging included",
             "year": 2027
           }
         ],
@@ -106,9 +106,9 @@
           {
             "audience": "public",
             "kind": "deadline",
-            "date": "2027-06-20",
-            "time": null,
-            "precision": "date",
+            "date": "2027-06-21",
+            "time": "00:59",
+            "precision": "datetime",
             "certainty": "announced",
             "text": "Register By Jun 20, 2027 11:59pm CST",
             "url": "https://register.ryzer.com/camp.cfm?id=338224",
@@ -120,7 +120,7 @@
         "availability": {
           "status": "available",
           "scope": null,
-          "text": "Register for this event! Select a price option to continue."
+          "text": "Register for this event!"
         },
         "financial_aid": null,
         "special_needs": null,
@@ -137,13 +137,13 @@
           "https://www.christschool.org/article/plumlee-fall-clinics-coming-campus-month"
         ],
         "confidence": "medium",
-        "review_notes": "Christ School's September 1, 2026 article gives June 21–27, unlike the provider and Ryzer's June 21–24, 2027. Price cutoff years are not printed. Registration deadline time is labeled CST on Ryzer and is left null rather than assuming an Eastern conversion."
+        "review_notes": "Christ School's fall-clinic article says the 2027 summer camp returns June 21–27; the provider and Ryzer say June 21–24. Price cutoff calendar years are not printed. Ryzer currently selects the $850 overnight tier plus $56 fees. Registration deadline converted from the page's stated Central time to Eastern, moving June 20 at 11:59 PM to June 21 at 00:59. Format check: public deadline time 00:59 is before 5 a.m.."
       },
       {
         "name": "Commuter Camper",
         "type": "day",
         "categories": ["sports"],
-        "description": "Boys take part in basketball skill development, competitive games, film review, conditioning and leadership activities. The commuter option includes meals but no lodging.",
+        "description": "Boys attend the basketball camp without overnight lodging, practicing skills and competing in games. Activities include NBA film study, strength and conditioning, outdoor team-building, and leadership discussions.",
         "camp_page_url": "https://www.plumleebasketball.com/basketball-camp-at-christ-school.cfm",
         "registration_url": "https://register.ryzer.com/camp.cfm?id=338224",
         "season": {
@@ -166,16 +166,12 @@
             "state": "NC"
           }
         ],
-        "hours": {
-          "start": null,
-          "end": null,
-          "text": "Camp begins at 10:30 AM on June 21 and ends at 1:00 PM on June 24. Daily commuter hours are not stated."
-        },
+        "hours": null,
         "extended_care": null,
         "prices": [
           {
             "amount": 750,
-            "unit": "program",
+            "unit": "session",
             "label": "Commuter; plus $50 fees; meals included, no lodging",
             "year": 2027
           }
@@ -185,9 +181,9 @@
           {
             "audience": "public",
             "kind": "deadline",
-            "date": "2027-06-20",
-            "time": null,
-            "precision": "date",
+            "date": "2027-06-21",
+            "time": "00:59",
+            "precision": "datetime",
             "certainty": "announced",
             "text": "Register By Jun 20, 2027 11:59pm CST",
             "url": "https://register.ryzer.com/camp.cfm?id=338224",
@@ -199,7 +195,7 @@
         "availability": {
           "status": "available",
           "scope": null,
-          "text": "Register for this event! Select a price option to continue."
+          "text": "Register for this event!"
         },
         "financial_aid": null,
         "special_needs": null,
@@ -216,7 +212,7 @@
           "https://www.christschool.org/article/plumlee-fall-clinics-coming-campus-month"
         ],
         "confidence": "medium",
-        "review_notes": "Christ School's September 1, 2026 article gives June 21–27, unlike the provider and Ryzer's June 21–24, 2027. Confirm daily commuter arrival and pickup hours. Registration deadline time is labeled CST on Ryzer and is left null rather than assuming an Eastern conversion."
+        "review_notes": "Christ School's fall-clinic article says June 21–27; the provider and Ryzer say June 21–24. Daily commuter arrival and pickup times are not specified; the sample overnight schedule was not used as commuter hours. Registration deadline converted from the page's stated Central time to Eastern, moving June 20 at 11:59 PM to June 21 at 00:59. Format check: public deadline time 00:59 is before 5 a.m.."
       }
     ]
   }

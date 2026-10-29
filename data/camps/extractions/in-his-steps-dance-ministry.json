@@ -10,22 +10,22 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:05:29.883Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:05:09.352Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "42c7c0a92166af7241ab78f113794d76d556daaa4d9beefc176507bff8efc183",
   "response": {
     "searches": [
-      "site:inhisstepsdanceministry.org summer 2026 2027 workshops",
-      "site:inhisstepsdanceministry.org \"summer\""
+      "site:inhisstepsdanceministry.org summer camp workshop 2026 2027",
+      "\"In His Steps Dance Ministry\" \"camp\""
     ],
     "usage": {
-      "inputTokens": 12710,
-      "cachedInputTokens": 8223,
-      "outputTokens": 346,
-      "reasoningTokens": 149
+      "inputTokens": 13619,
+      "cachedInputTokens": 8845,
+      "outputTokens": 353,
+      "reasoningTokens": 130
     },
     "status": "completed",
-    "ms": 14222,
+    "ms": 14303,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -49,11 +49,15 @@
   "extraction": {
     "provider_name": "In His Steps Dance Ministry",
     "website_url": "https://www.inhisstepsdanceministry.org/",
-    "notes": "No verifiable summer 2026 or 2027 program details were found. The homepage advertises Summer Workshops but explicitly refers to summer classes for 2025 and directs visitors to the Dance Classes page, which now contains only the 2026-2027 regular class schedule. That school-year schedule and registration form do not establish a summer program. The calendar page returned no readable content when opened; search results did not reveal summer offerings. No cards were created from the stale 2025 workshop reference.",
+    "notes": "No qualifying summer camp could be established from the supplied official pages or additional web searches. The homepage references 2025 Summer Workshops but directs visitors to the Dance Classes page, which now lists school-year 2026-2027 classes only. No 2026 or 2027 summer workshop schedule, camp details, or summer registration dates were found. The official calendar page returned no readable text when opened; search results showed school-year calendar information.",
     "excluded": [
       {
         "name": "2026-2027 Class Schedule",
-        "reason": "Regular ongoing dance classes with annual prorated tuition, not a finite summer program."
+        "reason": "School-year dance classes and lesson series, not a finite summer camp."
+      },
+      {
+        "name": "Summer Workshops",
+        "reason": "The homepage references summer classes for 2025 only; no current qualifying camp or finite youth workshop details were found."
       }
     ],
     "cards": []

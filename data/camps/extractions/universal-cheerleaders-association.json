@@ -7,22 +7,22 @@
     "discovered_by": ["grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:24:23.728Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:20:48.062Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "ce9562a5d732cd7b8a6f926514bb8281aff8935c6ad82262cc34790630943879",
   "response": {
     "searches": [
-      "site.etsu.edu \"Culp\" \"412\" address",
-      "open https://www.varsity.com/uca/school/camps/locations/tn-etsu/"
+      "site.etsu.edu Culp Center \"412\" address",
+      "open https://www.varsity.com/uca/school/camps/locations/unc-asheville-2/"
     ],
     "usage": {
-      "inputTokens": 28171,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1033,
-      "reasoningTokens": 129
+      "inputTokens": 29563,
+      "cachedInputTokens": 8845,
+      "outputTokens": 997,
+      "reasoningTokens": 146
     },
     "status": "completed",
-    "ms": 25083,
+    "ms": 26749,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -76,31 +76,27 @@
   "extraction": {
     "provider_name": "Universal Cheerleaders Association",
     "website_url": "https://www.varsity.com/uca/",
-    "notes": "No 2027 ETSU camp dates or registration milestones were found. The supplied location page lists 2026 dates. Research is scoped to the Johnson City offering, not UCA's nationwide locations. The location page could not be independently reopened with readable text; its supplied fetched text was used.",
+    "notes": "No 2027 summer dates or registration opening dates were found. The ETSU extraction uses the supplied official 2026 page text. The UNC Asheville location page was also checked, but its readable content did not list dates or camp types, so no additional session was added. The supplied ESPN page is a missing-page notice.",
     "excluded": [
       {
         "name": "College Spirit Camp",
-        "reason": "The July 23–26, 2026 ETSU session is listed for college teams, not as a youth or teen pre-college program."
+        "reason": "The July 23–26, 2026 ETSU session is for college teams, not a youth summer program."
       },
       {
         "name": "Fall Build Your Own Camps",
-        "reason": "Fall program outside summer."
+        "reason": "Outside summer."
       },
       {
         "name": "Fall Stunt Camps",
-        "reason": "Fall program outside summer."
+        "reason": "Outside summer."
       },
       {
-        "name": "Routine Choreography",
-        "reason": "Choreography service with no finite summer youth offering identified."
+        "name": "Spirit Days",
+        "reason": "Stadium performance events rather than summer camps."
       },
       {
-        "name": "Sectional Routine Choreography",
-        "reason": "No summer-specific offering or dates identified."
-      },
-      {
-        "name": "Choreography Clean Ups",
-        "reason": "Routine coaching service rather than a listed summer program."
+        "name": "Routine Choreography and Choreography Clean Ups",
+        "reason": "Choreography instruction services rather than a posted local summer camp."
       }
     ],
     "cards": [
@@ -108,7 +104,7 @@
         "name": "Traditional Overnight Camp",
         "type": "overnight",
         "categories": ["sports"],
-        "description": "Cheer teams practice crowd leading and cheerleading skills, with leadership training and team bonding. Squads stay in campus dorms.",
+        "description": "Cheerleaders practice crowd leading and cheer skills and participate in leadership and team-bonding activities. Squads stay in campus dorms.",
         "camp_page_url": "https://www.varsity.com/uca/school/camps/locations/tn-etsu/",
         "registration_url": "https://www.varsity.com/uca/school/camps/locations/tn-etsu/",
         "season": {
@@ -122,7 +118,7 @@
         "grades": null,
         "sites": [
           {
-            "name": "East Tennessee State University — D.P. Culp Student Center",
+            "name": "East Tennessee State University — D.P. Culp University Center",
             "address": "412 J L Seehorn Jr. Road",
             "town": "Johnson City",
             "state": "TN"
@@ -149,7 +145,7 @@
         "last_year_registration_opened": null,
         "availability": {
           "status": "available",
-          "scope": "July 11–14, 2026 session",
+          "scope": "July 11–14, 2026",
           "text": "Register Now!"
         },
         "financial_aid": null,
@@ -159,11 +155,10 @@
         "sources": [
           "https://www.varsity.com/uca/school/camps/locations/tn-etsu/",
           "https://www.varsity.com/uca/school/camps/types/",
-          "https://www.varsity.com/uca/school/camps/camp-brochure/",
           "https://www.etsu.edu/students/student-center/contactus.php"
         ],
         "confidence": "medium",
-        "review_notes": "The supplied location page still says Register Now! for a session that ended July 14, 2026; verify this stale availability before displaying it. No numerical ages or grades are given for Junior High and High School teams. The camp page supplies a PO box; ETSU's official contact page supplies the physical street address used here. Pricing and a direct registration-platform link were not accessible."
+        "review_notes": "The supplied ETSU page still says Register Now for a session that ended July 14, 2026; availability may be stale. Its live page returned no readable text during this check. The camp page gives a PO Box; the physical street address comes from ETSU's own Culp Center contact page. Junior High and High School is stated without numeric grade limits."
       }
     ]
   }

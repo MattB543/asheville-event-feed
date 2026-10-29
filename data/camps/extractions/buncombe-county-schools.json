@@ -14,25 +14,23 @@
     "discovered_by": ["seed_sheet", "grid", "aggregator", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T14:55:08.596Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T16:54:49.960Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "bc3b4fba486d64aad6f262e19bb14f9e287e923fced73017754e379987929c23",
   "response": {
     "searches": [
-      "site:buncombeschools.org summer camp 2027",
-      "site:buncombeschools.org \"2944915\"",
-      "site:les.buncombeschools.org \"Leicester\" \"Road\"",
-      "site:buncombeschools.org \"North Buncombe Youth Football Camp\" \"2026\"",
-      "site:tes.buncombeschools.org \"Estes\" \"Overlook\""
+      "site:buncombeschools.org camp \"2027\"",
+      "site:buncombeschools.org \"North Buncombe\" \"Youth Football Camp\"",
+      "site:buncombeschools.org/o/nbhs/article/2944915 \"June\""
     ],
     "usage": {
-      "inputTokens": 41676,
-      "cachedInputTokens": 8223,
-      "outputTokens": 2661,
-      "reasoningTokens": 614
+      "inputTokens": 37698,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1436,
+      "reasoningTokens": 326
     },
     "status": "completed",
-    "ms": 72749,
+    "ms": 50396,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -81,234 +79,51 @@
   "extraction": {
     "provider_name": "Buncombe County Schools",
     "website_url": "https://www.buncombeschools.org/",
-    "notes": "No 2027 camp dates or registration milestones were found. The supplied Blackhawk basketball and baseball listings describe summer 2023, not 2026; they were not used as current fallback cards. Searches also found older 2024 CTE and Erwin basketball camps, which were not treated as 2026 offerings. The 2026 ACRHS Youth Sports Camp announcement and document directory were found, but the pages returned no readable content when opened and the linked PDF could not be retrieved; its individual programs need further review. Several supplied article pages likewise returned empty content. No student registration date was inferred from employee application deadlines.",
+    "notes": "No summer 2027 camp information was found. The North Buncombe football article could not be opened; official search results confirm the program but provide no readable dates, eligibility, fees or meeting location. The 2026 A.C. Reynolds article and documents listing were readable, but the registration links and PDF contents were not accessible in the returned page text. The 2023 Blackhawk basketball and baseball listings were not used as 2026 facts.",
     "excluded": [
       {
+        "name": "Agriculture Career Exploration Camp",
+        "reason": "Career exploration learning program specifically restricted to rising Buncombe County Schools 5th-8th graders; excluded under the district-only learning-program rule."
+      },
+      {
+        "name": "Summer Reading Camp",
+        "reason": "District reading instruction for its own current 2nd- and 3rd-grade students who have not met reading proficiency."
+      },
+      {
         "name": "Summer School Employment",
-        "reason": "Employee hiring opportunities, not a youth camp offering. The separately described student Summer Reading Camp is included."
+        "reason": "Employment opportunities for current BCS employees, not a youth camp."
       },
       {
         "name": "Blackhawks Volleyball Camp",
-        "reason": "The supplied listing runs May 15-18, 2023, outside summer."
+        "reason": "The supplied offering takes place May 15-18, 2023, outside summer."
       },
       {
-        "name": "Williams-Baldwin Teacher Campus",
-        "reason": "Housing for employed educators, not a supervised summer youth program."
+        "name": "Fuel & Flavor Camp",
+        "reason": "Career learning program restricted to currently enrolled BCS students."
+      },
+      {
+        "name": "Cupcakes at the Creek",
+        "reason": "Career learning program restricted to currently enrolled BCS students."
+      },
+      {
+        "name": "Space Jam",
+        "reason": "Career learning program restricted to currently enrolled BCS students."
+      },
+      {
+        "name": "Woodworking Camp",
+        "reason": "Career learning program restricted to currently enrolled BCS students."
+      },
+      {
+        "name": "BCS E-Sports Camp",
+        "reason": "Learning program restricted to currently enrolled BCS students."
       }
     ],
     "cards": [
       {
-        "name": "Agriculture Career Exploration Camp",
-        "type": "day",
-        "categories": ["nature_outdoor", "academic"],
-        "description": "Students explore agriculture through hands-on activities and field trips, and sample Career and Technical Education course options available in BCS high schools.",
-        "camp_page_url": "https://ces.buncombeschools.org/o/ce/article/2893086",
-        "registration_url": null,
-        "season": {
-          "year": 2026,
-          "status": "not_posted",
-          "start": "2026-07-06",
-          "end": "2026-07-09",
-          "text": null
-        },
-        "ages": null,
-        "grades": {
-          "min": 5,
-          "max": 8,
-          "basis": "rising"
-        },
-        "sites": [],
-        "hours": {
-          "start": "08:00",
-          "end": "14:30",
-          "text": null
-        },
-        "extended_care": null,
-        "prices": [
-          {
-            "amount": 0,
-            "unit": "program",
-            "label": "Free",
-            "year": 2026
-          }
-        ],
-        "sessions": [],
-        "registration": [],
-        "last_year_registration_opened": null,
-        "availability": null,
-        "financial_aid": null,
-        "special_needs": null,
-        "lunch": null,
-        "transportation": null,
-        "sources": [
-          "https://nbhs.buncombeschools.org/o/bes/article/2893079",
-          "https://ces.buncombeschools.org/o/ce/article/2893086"
-        ],
-        "confidence": "high",
-        "review_notes": null
-      },
-      {
-        "name": "Summer Reading Camp",
-        "type": "day",
-        "categories": ["academic"],
-        "description": "BCS students in current second and third grades who have not met reading proficiency receive focused instruction in phonemic awareness, phonics, fluency, vocabulary and comprehension.",
-        "camp_page_url": "https://oes.buncombeschools.org/o/bcs/page/summer-school-employment",
-        "registration_url": null,
-        "season": {
-          "year": 2026,
-          "status": "not_posted",
-          "start": "2026-06-22",
-          "end": "2026-07-14",
-          "text": null
-        },
-        "ages": null,
-        "grades": {
-          "min": 2,
-          "max": 3,
-          "basis": "current"
-        },
-        "sites": [
-          {
-            "name": "Enka Intermediate",
-            "address": "125 Asheville Commerce Parkway",
-            "town": "Candler",
-            "state": "NC"
-          },
-          {
-            "name": "Leicester Elementary",
-            "address": "31 Gilbert Rd",
-            "town": "Leicester",
-            "state": "NC"
-          },
-          {
-            "name": "Weaverville Elementary",
-            "address": "129 South Main St.",
-            "town": "Weaverville",
-            "state": "NC"
-          },
-          {
-            "name": "Black Mountain Primary",
-            "address": "301 East State Street",
-            "town": "Black Mountain",
-            "state": "NC"
-          },
-          {
-            "name": "Oakley Elementary",
-            "address": "753 Fairview Road",
-            "town": "Asheville",
-            "state": "NC"
-          },
-          {
-            "name": "Estes Elementary",
-            "address": null,
-            "town": null,
-            "state": null
-          }
-        ],
-        "hours": {
-          "start": "08:00",
-          "end": "13:30",
-          "text": "Monday-Thursday"
-        },
-        "extended_care": null,
-        "prices": [],
-        "sessions": [
-          {
-            "label": "Enka",
-            "start": "2026-06-22",
-            "end": "2026-07-14",
-            "year": 2026,
-            "site": "Enka Intermediate",
-            "ages": null,
-            "grades": null,
-            "hours": null,
-            "price": null,
-            "status": null
-          },
-          {
-            "label": "Erwin",
-            "start": "2026-06-22",
-            "end": "2026-07-14",
-            "year": 2026,
-            "site": "Leicester Elementary",
-            "ages": null,
-            "grades": null,
-            "hours": null,
-            "price": null,
-            "status": null
-          },
-          {
-            "label": "North Buncombe",
-            "start": "2026-06-22",
-            "end": "2026-07-14",
-            "year": 2026,
-            "site": "Weaverville Elementary",
-            "ages": null,
-            "grades": null,
-            "hours": null,
-            "price": null,
-            "status": null
-          },
-          {
-            "label": "Owen",
-            "start": "2026-06-22",
-            "end": "2026-07-14",
-            "year": 2026,
-            "site": "Black Mountain Primary",
-            "ages": null,
-            "grades": null,
-            "hours": null,
-            "price": null,
-            "status": null
-          },
-          {
-            "label": "Reynolds",
-            "start": "2026-06-22",
-            "end": "2026-07-14",
-            "year": 2026,
-            "site": "Oakley Elementary",
-            "ages": null,
-            "grades": null,
-            "hours": null,
-            "price": null,
-            "status": null
-          },
-          {
-            "label": "Roberson",
-            "start": "2026-06-22",
-            "end": "2026-07-14",
-            "year": 2026,
-            "site": "Estes Elementary",
-            "ages": null,
-            "grades": null,
-            "hours": null,
-            "price": null,
-            "status": null
-          }
-        ],
-        "registration": [],
-        "last_year_registration_opened": null,
-        "availability": null,
-        "financial_aid": null,
-        "special_needs": null,
-        "lunch": null,
-        "transportation": null,
-        "sources": [
-          "https://oes.buncombeschools.org/o/bcs/page/summer-school-employment",
-          "https://eis.buncombeschools.org/o/eis/article/2987658",
-          "https://les.buncombeschools.org/o/les/page/resource",
-          "https://wves.buncombeschools.org/",
-          "https://bmps.buncombeschools.org/o/bmps/page/about-us",
-          "https://oes.buncombeschools.org/o/oes/page/directions"
-        ],
-        "confidence": "medium",
-        "review_notes": "Student dates have no year printed alongside them; 2026 comes from the page's 2026 Employment Opportunities heading. The page says 15 student days and Monday-Thursday, but the stated June 22-July 14 span contains 14 Monday-Thursday dates; verify the actual calendar. Estes Elementary's official address could not be verified."
-      },
-      {
         "name": "North Buncombe Youth Football Camp",
         "type": "clinic",
         "categories": ["sports"],
-        "description": "North Buncombe offers a youth football camp in June.",
+        "description": "Youth football camp.",
         "camp_page_url": "https://wves.buncombeschools.org/o/nbhs/article/2944915",
         "registration_url": null,
         "season": {
@@ -332,9 +147,44 @@
         "special_needs": null,
         "lunch": null,
         "transportation": null,
-        "sources": ["https://ccms.buncombeschools.org/o/nbhs/article/2944915"],
+        "sources": ["https://wves.buncombeschools.org/o/nbhs/article/2944915"],
         "confidence": "low",
-        "review_notes": "Only an official search snippet was readable: 'The North Buncombe Youth Football Camp is back this June'. The full article returned empty content. Verify the season year, dates, format, eligibility, location, price and registration link before publishing."
+        "review_notes": "Only the official search snippet was readable: it names the camp and says it returns this June. Check the article for its publication year, dates, format, eligibility, price, registration link and drop-off venue. No location was inferred from the hosting school's footer."
+      },
+      {
+        "name": "ACRHS Youth Sports Camp",
+        "type": "clinic",
+        "categories": ["sports"],
+        "description": "Summer youth sports camps offered by A.C. Reynolds High.",
+        "camp_page_url": "https://acrhs.buncombeschools.org/o/acrhs/article/2844393",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://acrhs.buncombeschools.org/o/acrhs/article/2844393",
+          "https://acrhs.buncombeschools.org/o/acrhs/documents/athletics/youth-summer-camps/334465"
+        ],
+        "confidence": "low",
+        "review_notes": "The April 27, 2026 article announces multiple youth sports camps. The documents listing names a 2026 AC Reynolds Rockets Youth Camps PDF, but its contents and the article's registration destinations were not accessible. Read that PDF to determine individual programs, session rows, dates, eligibility, fees and drop-off venues before publishing."
       }
     ]
   }

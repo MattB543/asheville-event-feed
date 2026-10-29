@@ -7,8 +7,8 @@
     "discovered_by": ["seed_sheet", "macaroni_kid", "grid", "aggregator", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T14:56:42.716Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T16:57:14.244Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "58d6f453c440f9cf789e85410b9a4d25769f35280f7bf5bf5be79071f2deb9a5",
   "response": {
     "searches": [
@@ -16,13 +16,13 @@
       "open https://fullmoonequestrian.com/camp"
     ],
     "usage": {
-      "inputTokens": 15011,
-      "cachedInputTokens": 8223,
-      "outputTokens": 761,
-      "reasoningTokens": 135
+      "inputTokens": 15725,
+      "cachedInputTokens": 8845,
+      "outputTokens": 784,
+      "reasoningTokens": 145
     },
     "status": "completed",
-    "ms": 20358,
+    "ms": 22080,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -41,23 +41,23 @@
   "extraction": {
     "provider_name": "Full Moon Equestrian",
     "website_url": "https://fullmoonequestrian.com/",
-    "notes": "No official 2026 or 2027 camp dates were found. The supplied camp page advertises June 23–27, 2025, at $600 per week; those historical dates and prices are omitted rather than relabeled. Direct opens of the camp and contact pages returned no readable text; the supplied camp text and official search results were used.",
+    "notes": "No official 2026 or 2027 camp information was found. The supplied camp page lists June 23–27, 2025 and $600 per week; those older dates and prices are omitted rather than relabeled. Additional page opens returned no readable text; the official contact page's search result supplied the site address.",
     "excluded": [
       {
         "name": "Lessons",
-        "reason": "Ongoing horseback riding lessons, not a finite summer program."
+        "reason": "Ongoing group, duet and private riding lessons, not a finite summer camp."
       },
       {
         "name": "Horse Leases",
-        "reason": "Ongoing horse leasing and riding arrangements, not a finite supervised summer youth program."
+        "reason": "Ongoing horse leasing and riding arrangements, not a supervised finite summer youth program."
       }
     ],
     "cards": [
       {
         "name": "Summer Camp",
         "type": "day",
-        "categories": ["horses"],
-        "description": "Campers ride, care for horses, do barn chores and groundwork, and learn positive reinforcement training. Activities also include horse-related games and arts and crafts.",
+        "categories": ["horses", "arts"],
+        "description": "Campers ride, care for horses, do barn chores and groundwork, and learn about positive reinforcement training. Activities also include horse-related games and arts and crafts.",
         "camp_page_url": "https://fullmoonequestrian.com/camp",
         "registration_url": null,
         "season": {
@@ -98,7 +98,7 @@
           "https://fullmoonequestrian.com/services"
         ],
         "confidence": "medium",
-        "review_notes": "Confirm eligibility and continued operation for 2027. The camp page body specifies ages 8–12, while its introductory text and the services page say ages 6 and up; the narrower camp-body range is used here. The only dated camp information found is for 2025, including 9am–3pm hours, so dates, prices and hours are omitted. The venue address is stated in the official contact-page search result."
+        "review_notes": "The camp page's body specifies ages 8–12, while its introductory text and the services page say ages 6+. The card uses the specific camp-body range; confirm eligibility for the next summer. Only 2025 scheduling was found (June 23–27, 9am–3pm, $600 per week), so dates, hours and prices are left empty pending 2026 or 2027 information. The site address was obtained from an official contact-page search snippet."
       }
     ]
   }

@@ -10,19 +10,19 @@
     "discovered_by": ["grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:17:17.737Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:14:42.569Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "07450d2cadca34373e6cefec10abe24b16d72a0eedec17dfce14414cf645c8ec",
   "response": {
     "searches": ["site:mmbchnc.org VBS 2027"],
     "usage": {
-      "inputTokens": 13446,
-      "cachedInputTokens": 8223,
-      "outputTokens": 736,
-      "reasoningTokens": 70
+      "inputTokens": 12397,
+      "cachedInputTokens": 8845,
+      "outputTokens": 487,
+      "reasoningTokens": 49
     },
     "status": "completed",
-    "ms": 18181,
+    "ms": 16699,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -46,19 +46,19 @@
   "extraction": {
     "provider_name": "Mount Moriah Baptist Church of Hendersonville",
     "website_url": "https://www.mmbchnc.org/",
-    "notes": "No 2027 VBS dates or registration announcements found. The card retains the official 2026 event details. Ages, cost and registration opening date were not stated.",
+    "notes": "No summer 2027 program information or registration dates were found on the official pages searched. The card retains the published 2026 VBS information.",
     "excluded": [
       {
+        "name": "Trunk or Treat",
+        "reason": "Single social event outside summer."
+      },
+      {
         "name": "Thrive Youth Service",
-        "reason": "Recurring Sunday youth service, not a finite summer program."
+        "reason": "Recurring year-round youth service, not a finite summer camp."
       },
       {
         "name": "Sunday School Classes",
         "reason": "Year-round classes, not a summer camp."
-      },
-      {
-        "name": "Trunk or Treat",
-        "reason": "October event outside summer."
       }
     ],
     "cards": [
@@ -66,8 +66,8 @@
         "name": "Illumination Station VBS",
         "type": "vbs",
         "categories": ["faith_based"],
-        "description": "Children learn about Jesus through Bible lessons and explore how light brightens, illuminates, reflects and reveals.",
-        "camp_page_url": "https://www.mmbchnc.org/vbs2026",
+        "description": "Children explore how light brightens, illuminates, reflects, and reveals while learning about Jesus and the Bible.",
+        "camp_page_url": "https://www.mmbchnc.org/event-details-registration/vbs-2026-illumination-station",
         "registration_url": "https://www.mmbchnc.org/event-details-registration/vbs-2026-illumination-station",
         "season": {
           "year": 2026,
@@ -89,7 +89,7 @@
         "hours": {
           "start": "17:00",
           "end": "20:30",
-          "text": "Jul 13, 2026, 5:00 PM – Jul 17, 2026, 8:30 PM"
+          "text": null
         },
         "extended_care": null,
         "prices": [],
@@ -106,12 +106,12 @@
         "lunch": null,
         "transportation": null,
         "sources": [
-          "https://www.mmbchnc.org/vbs2026",
           "https://www.mmbchnc.org/event-details-registration/vbs-2026-illumination-station",
+          "https://www.mmbchnc.org/vbs2026",
           "https://www.mmbchnc.org/"
         ],
-        "confidence": "medium",
-        "review_notes": "The event page states a date-range start time of 5:00 PM and end time of 8:30 PM, but does not explicitly confirm those hours for each evening. Verify daily hours with the church."
+        "confidence": "high",
+        "review_notes": null
       }
     ]
   }

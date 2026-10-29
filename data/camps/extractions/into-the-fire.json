@@ -7,19 +7,19 @@
     "discovered_by": ["grid", "aggregator", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:22:32.327Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:19:10.553Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "e5488ce4ac32af89001fdc1c7e5ffbb338c721898ae5780e0ee9af6bdf4a7d46",
   "response": {
-    "searches": ["site:intothefirejc.com \"2027\" camp"],
+    "searches": ["site:intothefirejc.com \"2027\" \"camp\""],
     "usage": {
-      "inputTokens": 16320,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1127,
-      "reasoningTokens": 48
+      "inputTokens": 16705,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1520,
+      "reasoningTokens": 50
     },
     "status": "completed",
-    "ms": 22526,
+    "ms": 29235,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -53,31 +53,27 @@
   "extraction": {
     "provider_name": "Into the Fire",
     "website_url": "https://www.intothefirejc.com/",
-    "notes": "No 2027 camp information or registration opening date found. The official camp page still lists summer 2026. Its payment instructions conflict with the registration PDF.",
+    "notes": "No 2027 camp information or registration opening date was found. The official camp page still lists 2026 sessions and sold-out notices.",
     "excluded": [
       {
         "name": "Open pottery painting",
-        "reason": "Year-round drop-in activity, not a finite supervised summer youth program."
+        "reason": "Year-round walk-in studio activity, not a finite supervised summer youth program."
       },
       {
-        "name": "Halloween Cat Kids Canvas",
-        "reason": "October program, outside summer."
-      },
-      {
-        "name": "Harvest Moon Canvas Class",
-        "reason": "October program, outside summer."
-      },
-      {
-        "name": "November Ladies Night",
-        "reason": "Outside summer and not a youth camp."
+        "name": "Canvas Reservations for Private Parties",
+        "reason": "Private parties, not a summer camp program."
       },
       {
         "name": "To-Go Kits",
-        "reason": "At-home kits, not supervised youth programs."
+        "reason": "Take-home art supplies, not a supervised program."
       },
       {
-        "name": "Storytime & Paint",
-        "reason": "Year-round recurring activity rather than a summer-only program."
+        "name": "Halloween Cat Kids Canvas, Owl Kids Canvas, Turkey Kids Canvas, and Storytime & Paint",
+        "reason": "The listed youth events occur outside summer."
+      },
+      {
+        "name": "Ladies Night and Book Lovers Paint Night",
+        "reason": "Single-evening social events, not camps."
       }
     ],
     "cards": [
@@ -85,9 +81,9 @@
         "name": "Summer Camp",
         "type": "half_day",
         "categories": ["arts"],
-        "description": "Campers make themed projects using pottery, canvas, wood, string art and other materials, with games and crafts. Each week ends with a Friday art show for families.",
+        "description": "Campers make themed projects using pottery, canvas, wood, string art and other materials, with snacks, games and crafts. Each week ends with a Friday art show for families.",
         "camp_page_url": "https://www.intothefirejc.com/summer-camp",
-        "registration_url": "https://www.intothefirejc.com/summer-camp",
+        "registration_url": "https://static1.squarespace.com/static/66dc7af2a78a2f16173cb6c3/t/6961256e12815d1ea70ca766/1767974254034/Summer+Camp+Registration+Form+2026.pdf",
         "season": {
           "year": 2026,
           "status": "not_posted",
@@ -111,14 +107,14 @@
         "hours": {
           "start": "09:00",
           "end": "11:30",
-          "text": "Tuesday-Friday 9:00-11:30am; Friday art show at 11:00am."
+          "text": "Tuesday-Friday 9:00-11:30am"
         },
         "extended_care": null,
         "prices": [
           {
             "amount": 150,
             "unit": "week",
-            "label": "Per child, four days; plus tax. Registration form lists $164.25 including tax.",
+            "label": "plus tax; 4 days",
             "year": 2026
           }
         ],
@@ -216,22 +212,19 @@
         ],
         "registration": [],
         "last_year_registration_opened": null,
-        "availability": {
-          "status": "mixed",
-          "scope": "2026 listings: Capybara, KPop Hunters, Creepy Crawly and Shark Week marked sold out; other weeks have no explicit status.",
-          "text": "June 2-5 - SOLD OUT; June 9-12 - SOLD OUT; June 16-19 -SOLD OUT; July 7-10- SOLD OUT"
-        },
+        "availability": null,
         "financial_aid": null,
         "special_needs": null,
         "lunch": null,
         "transportation": null,
         "sources": [
           "https://www.intothefirejc.com/summer-camp",
+          "https://static1.squarespace.com/static/66dc7af2a78a2f16173cb6c3/t/696123d312815d1ea70c33fa/1767973843268/Summer+Camp+Registration+Form+2026.pdf",
           "https://static1.squarespace.com/static/66dc7af2a78a2f16173cb6c3/t/6961256e12815d1ea70ca766/1767974254034/Summer+Camp+Registration+Form+2026.pdf",
           "https://www.intothefirejc.com/"
         ],
         "confidence": "medium",
-        "review_notes": "The camp page says payment is due by the first day and offers pay plans; the 2026 registration PDF says payment in full is expected at registration. Confirm payment policy. Sold-out labels describe past 2026 sessions, not 2027 availability. The PDF calls the Creepy Crawly theme 'Creepy Crawlers'; the session label follows the camp page."
+        "review_notes": "Payment terms conflict: the camp page says payment is due by the first day and offers pay plans, while both 2026 registration PDFs require payment in full at registration. The PDFs specify $164.25 including tax. Sold-out row statuses are retained from the official page for past 2026 sessions; they do not describe 2027 availability."
       }
     ]
   }

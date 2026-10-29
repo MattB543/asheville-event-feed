@@ -7,19 +7,19 @@
     "discovered_by": ["seed_sheet"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T14:56:21.290Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T16:56:59.672Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "03d5af67fb39ce4a5b55e7a49b706e9cd963b87fcbd763633196de1b00901b0d",
   "response": {
-    "searches": ["site:wncdanceacademy.com summer 2027 camp"],
+    "searches": ["site:wncdanceacademy.com summer 2027"],
     "usage": {
-      "inputTokens": 18642,
-      "cachedInputTokens": 8223,
-      "outputTokens": 2310,
-      "reasoningTokens": 116
+      "inputTokens": 19712,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2370,
+      "reasoningTokens": 71
     },
     "status": "completed",
-    "ms": 43020,
+    "ms": 39840,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -43,27 +43,31 @@
   "extraction": {
     "provider_name": "WNC Dance Academy",
     "website_url": "https://www.wncdanceacademy.com/",
-    "notes": "No summer 2027 information was found. Cards use the homepage's summer 2026 schedule. A separate summer-intensive page still describes 2020 and was not used for current dates. The registration-form page could not be read because access was blocked.",
+    "notes": "No summer 2027 information or registration milestones were found. Cards use the explicitly labeled summer 2026 schedules supplied in the fetched homepage text. Web access reported a robots.txt restriction, but official search results were readable. The separate summer-intensive page contains 2020 information and was not used for current facts. No camp-specific registration destination was confirmed.",
     "excluded": [
       {
-        "name": "Recreational Dance / Classes by Age",
-        "reason": "Regular school-year dance classes, not finite summer camp programs."
+        "name": "Summer Classes",
+        "reason": "Five-week series of separately scheduled dance lessons, not a camp."
+      },
+      {
+        "name": "Fall 2026 / Spring 2027 Classes",
+        "reason": "School-year dance classes, not summer camps."
       },
       {
         "name": "WNC Dance Repertory Company",
-        "reason": "Ongoing performance-company training and rehearsals rather than a finite summer camp."
+        "reason": "Ongoing school-year performance and training program, not a finite summer camp."
       },
       {
         "name": "WNC Dance RepCo Auditions",
-        "reason": "May auditions for the ongoing company, outside summer and not a camp or instructional clinic."
-      },
-      {
-        "name": "Summer Classes",
-        "reason": "Weekly ordinary dance classes continuing the academy's regular curriculum, rather than a separately described camp or clinic."
+        "reason": "May auditions for the ongoing repertory company, outside summer and not a camp."
       },
       {
         "name": "Adult Classes",
-        "reason": "Adult-only classes."
+        "reason": "Adult-only dance lessons."
+      },
+      {
+        "name": "Winter Benefit Showcase",
+        "reason": "Single performance event outside summer."
       }
     ],
     "cards": [
@@ -71,7 +75,7 @@
         "name": "Summer Intensive",
         "type": "day",
         "categories": ["dance"],
-        "description": "Dancers take a variety of classes and learn choreography from academy instructors. The week ends with a studio showcase.",
+        "description": "Dancers take a variety of classes and learn choreography from several instructors. The week ends with a showcase at the studio.",
         "camp_page_url": "https://www.wncdanceacademy.com/",
         "registration_url": null,
         "season": {
@@ -94,7 +98,11 @@
             "state": "NC"
           }
         ],
-        "hours": null,
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "RepCo1: 9am to 12pm; RepCo2, RepCo3, RepCo4: 10am to 3pm"
+        },
         "extended_care": null,
         "prices": [],
         "sessions": [
@@ -175,7 +183,7 @@
             "site": null,
             "ages": {
               "min": 13,
-              "max": null
+              "max": 18
             },
             "grades": null,
             "hours": {
@@ -206,7 +214,7 @@
         "name": "Summer Theme Camps",
         "type": "half_day",
         "categories": ["dance"],
-        "description": "Children attend themed dance camps based on Moana, Frozen, Defying Gravity and pop stars.",
+        "description": "Themed summer dance camps for children ages 4–9.",
         "camp_page_url": "https://www.wncdanceacademy.com/",
         "registration_url": null,
         "season": {
@@ -232,7 +240,7 @@
         "hours": {
           "start": "09:30",
           "end": "12:30",
-          "text": null
+          "text": "9:30am-12:30pm"
         },
         "extended_care": null,
         "prices": [
@@ -314,13 +322,13 @@
         "transportation": null,
         "sources": ["https://www.wncdanceacademy.com/"],
         "confidence": "medium",
-        "review_notes": "The summer 2026 homepage prints 'Jun2 29th' for Frozen; interpreted as June 29. It lists POP STAR Week as August 3–8, including Saturday; verify that end date rather than assuming August 7."
+        "review_notes": "The homepage prints 'Jun2 29th' for Frozen Week; interpreted as June 29 under the Summer Camps 2026 heading. POP STAR Week explicitly ends August 8, a Saturday; retained as printed rather than changing it to August 7. Check these dates with the provider."
       },
       {
         "name": "Junior Dance Camp Weekend",
         "type": "day",
         "categories": ["dance"],
-        "description": "A three-day dance camp weekend for children ages 9–14.",
+        "description": "A summer dance camp weekend for children ages 9–14.",
         "camp_page_url": "https://www.wncdanceacademy.com/",
         "registration_url": null,
         "season": {
@@ -346,7 +354,7 @@
         "hours": {
           "start": "09:00",
           "end": "14:00",
-          "text": null
+          "text": "9am-2pm"
         },
         "extended_care": null,
         "prices": [],

@@ -7,22 +7,22 @@
     "discovered_by": ["grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:17:36.150Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:15:04.110Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "6979024e97482dd57ed1e24ad25b11095bd5875fa0013666231d362d6456752f",
   "response": {
     "searches": [
       "site:stoneymountainbaptist.com VBS 2026 2027",
-      "\"Stoney Mountain Baptist\" \"vacation bible\" 2026"
+      "\"Stoney Mountain Baptist Church\" \"VBS\" \"2026\""
     ],
     "usage": {
-      "inputTokens": 21589,
-      "cachedInputTokens": 8223,
-      "outputTokens": 649,
-      "reasoningTokens": 173
+      "inputTokens": 18158,
+      "cachedInputTokens": 8845,
+      "outputTokens": 771,
+      "reasoningTokens": 198
     },
     "status": "completed",
-    "ms": 26500,
+    "ms": 23865,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -41,15 +41,15 @@
   "extraction": {
     "provider_name": "Stoney Mountain Baptist Church of Hendersonville",
     "website_url": "https://stoneymountainbaptist.com/",
-    "notes": "No official 2027 or 2026 VBS details were found. The VBS page still lists July 21–24, 2025; those dates and historical age bands have not been carried forward. Search results call the historical offering VBS/Teen Connection 2025, but do not describe a separate teen program sufficiently to split it into another card.",
+    "notes": "No official 2026 or 2027 Vacation Bible School information was found. The supplied VBS page still lists July 21–24, 2025; those dates have not been carried forward. Additional official pages opened during research returned no readable text.",
     "excluded": [
       {
         "name": "Beyond The Game",
-        "reason": "Sports ministry organized into recurring sports seasons throughout the year, rather than a summer camp or clinic."
+        "reason": "Sports ministry organized into approximately five-week sports seasons, rather than a camp or short clinic."
       },
       {
-        "name": "Sunday School, BLAST, TnT, Afterglow and Youth Activities",
-        "reason": "Regular year-round church programs, not finite summer programs."
+        "name": "Kids BLAST and TNT (Teens-n-Truth)",
+        "reason": "Recurring Wednesday church ministries, not finite summer camp programs."
       }
     ],
     "cards": [
@@ -57,7 +57,7 @@
         "name": "Vacation Bible School",
         "type": "vbs",
         "categories": ["faith_based"],
-        "description": "The church offers Vacation Bible School for children and teens. Current pages do not describe its activities.",
+        "description": "Vacation Bible School at Stoney Mountain Baptist Church.",
         "camp_page_url": "https://stoneymountainbaptist.com/vbs/",
         "registration_url": null,
         "season": {
@@ -88,14 +88,9 @@
         "special_needs": null,
         "lunch": null,
         "transportation": null,
-        "sources": [
-          "https://stoneymountainbaptist.com/vbs/",
-          "https://stoneymountainbaptist.com/",
-          "https://stoneymountainbaptist.com/plan-your-visit",
-          "https://stoneymountainbaptist.com/events/"
-        ],
+        "sources": ["https://stoneymountainbaptist.com/vbs/", "https://stoneymountainbaptist.com/"],
         "confidence": "medium",
-        "review_notes": "The VBS page contains only 2025 information: July 21–24, ages 4 and up and ages 11–18. Confirm that VBS returns in 2027 and whether Teen Connection is a separately described offering. No 2026 fallback information was found."
+        "review_notes": "The VBS page describes only the July 21–24, 2025 offering and lists both 'Ages 4 and up' and 'Ages 11 to 18' without explaining the bands. Confirm that VBS will return in 2027 and obtain current dates, eligibility, hours and the registration destination. Historical 2025 dates and age bands were not used as 2026 or 2027 facts."
       }
     ]
   }

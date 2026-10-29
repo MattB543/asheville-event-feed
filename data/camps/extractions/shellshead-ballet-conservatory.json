@@ -7,22 +7,19 @@
     "discovered_by": ["gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:37:16.851Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:31:24.272Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "04313a183e1afdfa4b497f69b6ae785d0c895dd5770011289c39dc4e1c1999f9",
   "response": {
-    "searches": [
-      "site:shellshead.com summer intensive 2026 2027",
-      "open https://shellshead.com/class-information"
-    ],
+    "searches": ["site:shellshead.com summer intensive 2026 2027"],
     "usage": {
-      "inputTokens": 14092,
-      "cachedInputTokens": 8223,
-      "outputTokens": 795,
-      "reasoningTokens": 94
+      "inputTokens": 13049,
+      "cachedInputTokens": 8845,
+      "outputTokens": 715,
+      "reasoningTokens": 49
     },
     "status": "completed",
-    "ms": 23061,
+    "ms": 20150,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -41,31 +38,31 @@
   "extraction": {
     "provider_name": "Shellshead Ballet Conservatory",
     "website_url": "https://shellshead.com/",
-    "notes": "No 2027 summer information or dated 2026 intensive schedule was found. The homepage describes an undated Summer Ballet Intensive. The class-information and contact pages returned no readable text when opened; the official contact page's search result confirmed the studio address. Homepage header and footer disagree on ZIP code, but agree on street, town and state.",
+    "notes": "No 2027 summer information or dated 2026 intensive schedule was found on the official pages. The homepage's July open-studio registration dates are not explicitly tied to the summer intensive and were not extracted. The homepage lists two ZIP codes for the studio, but both give the same street address, town and state.",
     "excluded": [
       {
-        "name": "Beginner Ballet Classes",
-        "reason": "Regular classes, not a finite summer program."
-      },
-      {
-        "name": "Intermediate Ballet Classes",
-        "reason": "Regular classes, not a finite summer program."
-      },
-      {
-        "name": "Advanced Ballet Classes",
-        "reason": "Regular classes, not a finite summer program."
+        "name": "Ballet Classes for All Ages",
+        "reason": "Ongoing beginner, intermediate and advanced ballet classes, not finite summer camps."
       },
       {
         "name": "Private Ballet Lessons",
-        "reason": "Ongoing individualized lessons, not a finite summer program."
+        "reason": "Private lessons booked as lessons."
       },
       {
-        "name": "FALL 2026 Schedule",
-        "reason": "Fall semester classes are outside summer; adult classes are also not youth camps."
+        "name": "Fall 2026 Classes",
+        "reason": "School-year dance classes outside summer."
+      },
+      {
+        "name": "Purple Tutu",
+        "reason": "Listed as ongoing ballet classes, with no finite summer offering stated."
+      },
+      {
+        "name": "Hip Hop/ Acrobatics/ Dance Team Clinic",
+        "reason": "Listed within general class information without summer dates or evidence of a finite summer clinic."
       },
       {
         "name": "Ballet Performances",
-        "reason": "Annual performances, not a supervised summer camp offering."
+        "reason": "Performances rather than supervised summer camp programs."
       }
     ],
     "cards": [
@@ -109,7 +106,7 @@
         "transportation": null,
         "sources": ["https://shellshead.com/", "https://shellshead.com/contact-us/"],
         "confidence": "medium",
-        "review_notes": "The intensive description is undated; 2026 is a fallback year, not a confirmed intensive season. Confirm whether the program will run in 2027, its schedule and day format, and whether drop-off is at the published studio address. The homepage lists ZIP 37601 in the header and 37604 in the footer; the official contact search result lists 37601. July open-studio registration and current registration announcements concern regular or fall classes, not the summer intensive."
+        "review_notes": "The intensive description is undated on a homepage currently advertising fall 2026; no summer dates, hours or prices are given. Day format and use of the provider's studio are inferred from the studio-based offering, not explicitly stated for the intensive. Confirm format and drop-off location."
       }
     ]
   }

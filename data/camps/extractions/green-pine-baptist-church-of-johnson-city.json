@@ -9,19 +9,23 @@
     "status": "review",
     "status_reason": "first page is a social media page or video, which our fetcher can't read"
   },
-  "extractedAt": "2026-10-29T15:30:55.700Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:26:05.075Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "383e2945ca9149c8c07a3c75bb7e968f3fdb49d3185f7f5d7e0a41bfda07fa27",
   "response": {
-    "searches": ["\"Green Pine Baptist\" \"VBS\"", "\"Green Pine\" \"Awesome Wonders\""],
+    "searches": [
+      "\"Green Pine Baptist\" \"VBS\" \"2026\"",
+      "\"Green Pine Baptist Church\" \"VBS 2026\"",
+      "\"Green Pine\" \"Awesome Wonders\""
+    ],
     "usage": {
-      "inputTokens": 23734,
-      "cachedInputTokens": 8223,
-      "outputTokens": 648,
-      "reasoningTokens": 123
+      "inputTokens": 31166,
+      "cachedInputTokens": 8845,
+      "outputTokens": 771,
+      "reasoningTokens": 251
     },
     "status": "completed",
-    "ms": 31224,
+    "ms": 25786,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -45,11 +49,11 @@
   "extraction": {
     "provider_name": "Green Pine Baptist Church of Johnson City",
     "website_url": null,
-    "notes": "No standalone official website or identifiable official Facebook or Instagram page was found. The official YouTube channel lists VBS 2026 (Awesome Wonders: Discovering the Greatness of God), but accessible text does not provide dates, hours, ages, prices or registration details. No 2027 announcement was found. A VBS announcement video opened without readable text.",
+    "notes": "No standalone official website or 2027 camp announcement was found. The official YouTube channel's indexed video list confirms VBS 2026 (Awesome Wonders: Discovering the Greatness of God), but no dates, ages, hours, prices or registration information could be recovered. Direct opens of the YouTube channel and videos page returned no readable text.",
     "excluded": [
       {
-        "name": "Teen Sunday School class",
-        "reason": "Recurring Sunday School class, not a finite summer program."
+        "name": "Green Pines Baptist Church Knightdale VBS",
+        "reason": "A different church in Knightdale, NC, outside the directory's geographic area."
       }
     ],
     "cards": [
@@ -57,7 +61,7 @@
         "name": "VBS",
         "type": "vbs",
         "categories": ["faith_based"],
-        "description": "The church's 2026 Vacation Bible School theme was Awesome Wonders: Discovering the Greatness of God.",
+        "description": "Vacation Bible School with the theme Awesome Wonders: Discovering the Greatness of God.",
         "camp_page_url": "https://www.youtube.com/@GreenPineBaptistChurch",
         "registration_url": null,
         "season": {
@@ -69,14 +73,7 @@
         },
         "ages": null,
         "grades": null,
-        "sites": [
-          {
-            "name": "Green Pine Baptist Church",
-            "address": "101 Toll Branch Lane",
-            "town": "Johnson City",
-            "state": "TN"
-          }
-        ],
+        "sites": [],
         "hours": null,
         "extended_care": null,
         "prices": [],
@@ -90,10 +87,10 @@
         "transportation": null,
         "sources": [
           "https://www.youtube.com/@GreenPineBaptistChurch",
-          "https://www.youtube.com/watch?v=tVialwu5Jag"
+          "https://www.youtube.com/@GreenPineBaptistChurch/videos"
         ],
-        "confidence": "medium",
-        "review_notes": "The 2026 offering and theme are visible in the official channel's indexed video list; the announcement video had no readable text. Verify dates, eligibility and drop-off location with the church. The address is the church's published location on its official YouTube channel, not an explicit VBS drop-off instruction."
+        "confidence": "low",
+        "review_notes": "The indexed official channel lists a video titled VBS 2026 (Awesome Wonders: Discovering the Greatness of God), but its individual video page and event details could not be recovered. Check the church's social media or contact the church for dates, eligibility, hours and registration. The official channel publishes the church address as 101 Toll Branch Lane, Johnson City, TN; sites is empty because the available VBS text does not explicitly identify the drop-off venue."
       }
     ]
   }

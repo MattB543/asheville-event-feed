@@ -8,23 +8,19 @@
     "status": "review",
     "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
   },
-  "extractedAt": "2026-10-29T15:27:07.064Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:23:03.116Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "80c1c3cd83c423ebfd90ed5cd26bf6e5416cc4816e739c96e3391035067979ef",
   "response": {
-    "searches": [
-      "site:enonbc.net \"VBS\"",
-      "open https://enonbc.net/upcoming-events",
-      "site:facebook.com \"Enon\" \"Junkyard\" \"2026\""
-    ],
+    "searches": ["site:enonbc.net \"Bible\" \"2026\"", "\"Enon\" \"Junkyard Redemption\" \"2026\""],
     "usage": {
-      "inputTokens": 14661,
-      "cachedInputTokens": 8223,
-      "outputTokens": 780,
-      "reasoningTokens": 187
+      "inputTokens": 23407,
+      "cachedInputTokens": 8845,
+      "outputTokens": 747,
+      "reasoningTokens": 207
     },
     "status": "completed",
-    "ms": 22466,
+    "ms": 23666,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -38,15 +34,15 @@
   "extraction": {
     "provider_name": "Enon Baptist Church of Marshall",
     "website_url": "https://enonbc.net/",
-    "notes": "No 2027 summer information found. The official events page's search description mentions VBS Junkyard Redemption, but the page could not be read. A third-party mirror of church social posts confirms a 2026 VBS, but complete dates, ages and registration details could not be verified officially. An unrelated Enon Church Center account in Alabama was not used. A shared Bible camp application was not included because it was not established as this church's own program.",
+    "notes": "No 2027 summer information found. The official Upcoming Events search result identifies VBS Junkyard Redemption, but the page opened without readable event details. Third-party listings reference a June 2026 VBS; those dates and hours were not included because the original announcement could not be verified.",
     "excluded": [
       {
         "name": "Wednesday Night Youth and Children's Church",
-        "reason": "Year-round weekly ministry, not a finite summer program."
+        "reason": "Recurring year-round church ministries, not finite summer camps."
       },
       {
-        "name": "Sunday School",
-        "reason": "Year-round weekly ministry, not a finite summer program."
+        "name": "Vacation Bible School at Mt. Enon Missionary Baptist Church",
+        "reason": "A different church in Dayton, Ohio, not this Marshall provider."
       }
     ],
     "cards": [
@@ -54,7 +50,7 @@
         "name": "Vacation Bible School",
         "type": "vbs",
         "categories": ["faith_based"],
-        "description": "The church offers Vacation Bible School with Bible study. Its listed theme is Junkyard Redemption.",
+        "description": "Vacation Bible School with the theme Junkyard Redemption.",
         "camp_page_url": "https://enonbc.net/upcoming-events",
         "registration_url": null,
         "season": {
@@ -87,7 +83,7 @@
         "transportation": null,
         "sources": ["https://enonbc.net/", "https://enonbc.net/upcoming-events"],
         "confidence": "medium",
-        "review_notes": "The official events page mentions VBS Junkyard Redemption only in its search description; its content could not be opened. A third-party mirror at https://www.findglocal.com/US/Marshall/237859476867/Enon-Baptist-Church reproduces June 2026 church posts about this theme and Bible study. Verify the program details and meeting location with the church. Dates and hours from third-party posts were left unfilled."
+        "review_notes": "VBS theme is supported only by the official Upcoming Events search snippet. The church address is published on its homepage, but the readable official event material does not explicitly confirm the drop-off location. Check the church's original 2026 VBS announcement for dates, hours, eligibility and venue; no 2027 announcement was found."
       }
     ]
   }

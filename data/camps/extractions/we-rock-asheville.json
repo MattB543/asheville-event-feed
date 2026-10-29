@@ -7,19 +7,19 @@
     "discovered_by": ["seed_sheet", "grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T14:55:54.506Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T16:56:33.334Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "633259c582e3169a8d3cd8e987b0972b78dbaee51a51f8c0421033acf3233d0e",
   "response": {
-    "searches": ["site:werockasheville.org 2027 camp registration"],
+    "searches": ["site:werockasheville.org \"2027\""],
     "usage": {
-      "inputTokens": 15022,
-      "cachedInputTokens": 8223,
-      "outputTokens": 620,
-      "reasoningTokens": 66
+      "inputTokens": 15642,
+      "cachedInputTokens": 8845,
+      "outputTokens": 801,
+      "reasoningTokens": 65
     },
     "status": "completed",
-    "ms": 24064,
+    "ms": 21232,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -43,15 +43,15 @@
   "extraction": {
     "provider_name": "We Rock Asheville",
     "website_url": "https://www.werockasheville.org/",
-    "notes": "No summer 2027 information or registration milestones found. The 2026 camp page is used. The July 25 camper showcase is a culminating performance, not a separate camp or regular drop-off site. The homepage's older metadata says ages 8-14, but its current body and the 2026 camp page explicitly say ages 8-16.",
+    "notes": "No 2027 camp information or registration dates were found. The 2026 camp page supplies the retained camp details. Older homepage metadata describes ages 8-14, but the current homepage body and 2026 camp page both specify ages 8-16.",
     "excluded": [
       {
         "name": "Junior volunteers",
-        "reason": "A volunteer role for ages 16-18, not a separately described supervised camper or leadership program."
+        "reason": "Volunteer roles for youth ages 16-18, not a separately described supervised camp program."
       },
       {
-        "name": "Winter Camp 2020 workshops",
-        "reason": "Archived winter programs outside summer."
+        "name": "Camper Showcase",
+        "reason": "A single performance event associated with camp, not a separate camp program."
       }
     ],
     "cards": [
@@ -59,7 +59,7 @@
         "name": "We Rock Asheville Camp",
         "type": "day",
         "categories": ["music", "arts"],
-        "description": "Campers form bands, write an original song, receive instrument instruction, and learn about music equipment and sound. They also attend creative workshops and performances and Q&A sessions with local musicians.",
+        "description": "Campers form bands, write an original song, receive instrument instruction, and learn about sound equipment. They also participate in workshops and attend performances and Q&A sessions with local musicians.",
         "camp_page_url": "https://www.werockasheville.org/summer-camp-2026",
         "registration_url": null,
         "season": {
@@ -96,7 +96,7 @@
           {
             "amount": 150,
             "unit": "week",
-            "label": "Suggested enrollment fee per participant",
+            "label": "suggested enrollment fee",
             "year": 2026
           }
         ],
@@ -105,7 +105,7 @@
         "last_year_registration_opened": null,
         "availability": {
           "status": "closed",
-          "scope": "2026 camp registration",
+          "scope": "2026 camp",
           "text": "Registration has now closed."
         },
         "financial_aid": {

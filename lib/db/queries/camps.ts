@@ -21,11 +21,16 @@ import {
 import { cleanCard, validDate } from '@/lib/camps/display';
 import {
   DRIVE_LIMIT_MINUTES,
+  NEAR_CUTOFF_MINUTES,
   PACK_SQUARE,
   driveMinutesFromDowntown,
   kmBetween,
+  townFromArea,
+  townKey,
+  type TownPoint,
 } from '@/lib/camps/geo';
 import { getTodayStringEastern } from '@/lib/utils/timezone';
+import townPointsFile from '@/data/camps/town-points.json';
 
 /**
  * Summer camp reads and writes (/camps, /camps/[slug], /admin/camps). docs/camps/04-v2-plan.md §4.
@@ -46,13 +51,21 @@ const CAMP_CACHE_OPTIONS = { tags: [CAMPS_TAG], revalidate: 3600 };
  * the wrapper's source text plus these parts, so entries written by the old code would keep being
  * served until they expire (Vercel's data cache survives deploys).
  */
-const CAMP_CACHE_SHAPE = 'v4';
+const CAMP_CACHE_SHAPE = 'v5';
 
 /** Popularity window: views in the last 14 Eastern days, today included. */
 const VIEW_WINDOW_DAYS = 14;
 
-/** Live = shown on /camps: neither the camp nor its provider is hidden. Join camp_providers to use it. */
-export const liveCamp = and(eq(camps.hidden, false), eq(campProviders.hidden, false))!;
+/**
+ * Live = shown on /camps: neither the camp nor its provider is hidden, and the camp is in its
+ * provider's newest extraction (a program that extraction dropped is retired, not deleted; it comes
+ * back if a later one finds it). Join camp_providers to use it.
+ */
+export const liveCamp = and(
+  eq(camps.hidden, false),
+  eq(campProviders.hidden, false),
+  eq(camps.lastExtractedAt, campProviders.extractedAt)
+)!;
 
 // ---------------------------------------------------------------------------
 // The effective card
@@ -145,10 +158,19 @@ function siteKey(providerKey: string, name: string): string {
 // ---------------------------------------------------------------------------
 
 export interface CampSiteInfo extends Site {
+  /** The site's own point; null when it isn't placed (a town estimate has no point). */
   lat: number | null;
   lng: number | null;
-  /** Unrounded minutes from Pack Square; null when the site isn't placed or ORS couldn't route it. */
+  /**
+   * Unrounded minutes from Pack Square: to the site's point, or for a site with no point, to its
+   * town (driveFromTown). Null when neither is known or ORS couldn't route it.
+   */
   driveMinutes: number | null;
+  /**
+   * driveMinutes is the drive to the town's centroid, not the site: an estimate ("~25 min"). Also
+   * true for the one site a camp that lists none is given: its provider's area town, named after it.
+   */
+  driveFromTown: boolean;
 }
 
 export interface CampListing {
@@ -321,6 +343,7 @@ export async function queryCamps(where?: SQL): Promise<CampListing[]> {
       providerKey: camps.providerKey,
       providerName: campProviders.name,
       providerUrl: campProviders.websiteUrl,
+      providerArea: campProviders.area,
       extractedAt: campProviders.extractedAt,
       checkedAt: campProviders.checkedAt,
       card: camps.card,
@@ -380,16 +403,31 @@ export async function queryCamps(where?: SQL): Promise<CampListing[]> {
       providerName: row.providerName,
       providerUrl: row.providerUrl,
       card,
-      // The card's own wording for each site, placed by the provider's site row of that name
-      sites: card.sites.map((site) => {
-        const placed = sitesByKey.get(siteKey(row.providerKey, site.name));
-        return {
-          ...site,
-          lat: placed?.lat ?? null,
-          lng: placed?.lng ?? null,
-          driveMinutes: placed?.driveMinutes ?? null,
-        };
-      }),
+      // The card's own wording for each site, placed by the provider's site row of that name, or
+      // else estimated from its town; a camp that lists no sites gets its provider's area town
+      sites:
+        card.sites.length > 0
+          ? card.sites.map((site) => {
+              const placed = sitesByKey.get(siteKey(row.providerKey, site.name));
+              if (placed?.lat != null && placed.lng != null) {
+                return {
+                  ...site,
+                  lat: placed.lat,
+                  lng: placed.lng,
+                  driveMinutes: placed.driveMinutes,
+                  driveFromTown: false,
+                };
+              }
+              const town = townMinutes(site.town, site.state);
+              return {
+                ...site,
+                lat: null,
+                lng: null,
+                driveMinutes: town,
+                driveFromTown: town !== null,
+              };
+            })
+          : areaSite(row.providerArea),
       views: viewsById.get(row.id) ?? 0,
       confirmed: row.reviewedHash === cardHash(effective),
       checkedAt: checkedAt?.toISOString() ?? null,
@@ -400,9 +438,44 @@ export async function queryCamps(where?: SQL): Promise<CampListing[]> {
   return listings.filter(withinRadius);
 }
 
+/** data/camps/town-points.json (scripts/camps/town-points.ts) by lower-cased townKey. */
+const TOWN_POINTS = new Map(
+  Object.entries(townPointsFile as unknown as Record<string, TownPoint | null>).map(
+    ([key, point]) => [key.toLowerCase(), point]
+  )
+);
+
+/** Minutes from Pack Square to a town's centroid, or null when the town isn't known or routed. */
+function townMinutes(town: string | null, state: string | null): number | null {
+  if (!town?.trim() || !state?.trim()) return null;
+  return TOWN_POINTS.get(townKey(town, state).toLowerCase())?.minutes ?? null;
+}
+
+/** The one site a camp that lists none is given: its provider's area town, when that's known. */
+function areaSite(area: string | null): CampSiteInfo[] {
+  const place = townFromArea(area);
+  const minutes = place && townMinutes(place.town, place.state);
+  if (!place || minutes == null) return [];
+  return [
+    {
+      name: place.town,
+      address: null,
+      town: place.town,
+      state: place.state,
+      lat: null,
+      lng: null,
+      driveMinutes: minutes,
+      driveFromTown: true,
+    },
+  ];
+}
+
 /**
  * D3: a camp is in when any of its sites is within the drive limit (55 min day, 75 overnight).
- * A camp with an unplaced site stays in until Matt pins it; discovery only looked near Asheville.
+ * A town estimate gets NEAR_CUTOFF_MINUTES of slack, since the site can be anywhere around the
+ * town's centroid. A site with neither a point nor a known town stays in unless it's plainly far
+ * away (FAR_KM, NEARBY_STATES), as does a camp with no sites and no known area town; discovery
+ * only looked near Asheville.
  */
 /** Straight-line km past which no camp is within 75 minutes' drive (Camp Greenville is ~60). */
 const FAR_KM = 160;
@@ -421,9 +494,11 @@ function withinRadius(camp: CampListing): boolean {
   const limit =
     camp.card.type === 'overnight' ? DRIVE_LIMIT_MINUTES.overnight : DRIVE_LIMIT_MINUTES.day;
   if (camp.sites.length === 0) return true;
-  // No route (unplaced, or ORS found none): out only when the site is plainly far away
+  // No route (unplaced with no known town, or ORS found none): out only when plainly far away
   return camp.sites.some((site) =>
-    site.driveMinutes === null ? siteMayBeNear(site) : site.driveMinutes <= limit
+    site.driveMinutes === null
+      ? siteMayBeNear(site)
+      : site.driveMinutes <= limit + (site.driveFromTown ? NEAR_CUTOFF_MINUTES : 0)
   );
 }
 

@@ -9,23 +9,24 @@
     "status": "review",
     "status_reason": "first page is a social media page or video, which our fetcher can't read"
   },
-  "extractedAt": "2026-10-29T15:16:21.395Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:12:01.740Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": null,
   "response": {
     "searches": [
-      "\"Project Lighten Up\" camp 2026",
-      "\"Project Lighten Up\" \"2026\" \"summer\"",
+      "\"Project Lighten Up\" \"2026\"",
+      "\"Project Lighten Up\" \"2026\" summer academy",
+      "site:projectlightenupprogram.com",
       "open https://rockhillbcnc.cfsites.org/"
     ],
     "usage": {
-      "inputTokens": 22580,
-      "cachedInputTokens": 8223,
-      "outputTokens": 837,
-      "reasoningTokens": 176
+      "inputTokens": 24351,
+      "cachedInputTokens": 8845,
+      "outputTokens": 963,
+      "reasoningTokens": 250
     },
     "status": "completed",
-    "ms": 177327,
+    "ms": 30800,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -39,11 +40,15 @@
   "extraction": {
     "provider_name": "Project Lighten Up",
     "website_url": null,
-    "notes": "No dedicated website for this Asheville provider was verified. The similarly named projectlightenupprogram.com appears to be unrelated. Facebook returned no readable page text; indexed official posts confirm a summer camp historically, but no 2026 or 2027 schedule or registration announcement was found. Historical dates, grades, hours and meals have not been carried forward. The card needs provider confirmation before publication.",
+    "notes": "No 2027 or 2026 summer details were found. Facebook returned no readable page content; indexed official posts confirm the summer program but describe older summers. No standalone website for the Asheville provider was identified. projectlightenupprogram.com belongs to an unrelated adult wellness program. Historical dates, hours and eligibility were not carried forward.",
     "excluded": [
       {
         "name": "After School Action Program for Excellence",
-        "reason": "School-year afterschool program, not a finite summer offering."
+        "reason": "School-year after-school care, not a summer camp."
+      },
+      {
+        "name": "Project Lighten Up 28-day wellness program",
+        "reason": "Unrelated adult wellness offering at projectlightenupprogram.com, not the Asheville youth provider."
       }
     ],
     "cards": [
@@ -51,7 +56,7 @@
         "name": "Summer Learning Academy",
         "type": "day",
         "categories": ["academic", "general"],
-        "description": "Campers take part in educational and recreational activities, including reading and math practice.",
+        "description": "Campers participate in educational and recreational activities, including reading, math, science, art and field trips.",
         "camp_page_url": "https://www.facebook.com/ProjectLightenUp",
         "registration_url": null,
         "season": {
@@ -84,12 +89,12 @@
         "transportation": null,
         "sources": [
           "https://www.facebook.com/ProjectLightenUp",
+          "https://www.facebook.com/ProjectLightenUp/posts/2069520656391396/",
           "https://www.facebook.com/ProjectLightenUp/posts/we-blend-education-and-recreation-into-daily-activities-campers-keeping-up-their/3233079656702151/",
-          "https://www.facebook.com/ProjectLightenUp/videos/take-a-look-at-this-video-summer-fun-at-the-arboretum/321609740485158/",
-          "https://www.buncombenc.gov/Facilities/Facility/Details/Rock-Hill-Baptist-Church-47"
+          "https://www.facebook.com/ProjectLightenUp/posts/good-morning-friends-of-project-lighten-up-last-week-we-studied-math-science-and/829846480358826/"
         ],
         "confidence": "low",
-        "review_notes": "Confirm current operation, program name and drop-off venue directly with the provider. Summer Learning Academy and the church venue are documented in a December 2023 Urban News article and the provider's volunteer-directory profile, rather than readable current official camp pages. The county confirms the church address, but the church's own website returned no readable text. Official Facebook search snippets establish historical educational and recreational summer activities, not a 2026 or 2027 offering. No year-specific dates, eligibility, prices, hours or registration details were verified."
+        "review_notes": "Confirm that the program remains active and obtain 2027 dates, eligibility, hours, fees and registration details directly from the provider. Official Facebook information was accessible only through older search snippets. The site address is supported by the provider profile at https://www.handsonasheville.org/agency/detail/?agency_id=116863 and the December 2023 article at https://theurbannews.com/communities/2023/project-lighten-up-december-2023/; the venue's own website returned no readable content, so its published address and continued camp location could not be independently confirmed."
       }
     ]
   }

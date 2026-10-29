@@ -7,22 +7,22 @@
     "discovered_by": ["our_db", "grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:02:38.571Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:02:34.230Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "157f467b8f1e7cfc3b876deff05b59e460805969cb2f3e80c67ad118c4f4a0d3",
   "response": {
     "searches": [
       "site:fireduplounge.com \"Summer Camp\" \"2026\"",
-      "site:fireduplounge.com/event/ \"Summer Camp Asheville\" \"26\" \"July\""
+      "site:fireduplounge.com/event/ \"Summer Camp\" \"26\" \"July\""
     ],
     "usage": {
-      "inputTokens": 40857,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1019,
-      "reasoningTokens": 147
+      "inputTokens": 34128,
+      "cachedInputTokens": 8845,
+      "outputTokens": 920,
+      "reasoningTokens": 146
     },
     "status": "completed",
-    "ms": 25921,
+    "ms": 23089,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -61,23 +61,15 @@
   "extraction": {
     "provider_name": "Fired Up Creative Lounge",
     "website_url": "https://fireduplounge.com/",
-    "notes": "No summer 2027 information or registration announcement was found. Only one 2026 camp session could be verified; older camp listings were not used to fill 2026 details. The upcoming Summer Camp calendar lists no events.",
+    "notes": "No 2027 camp information was found. Only one 2026 camp week was located; the past-events category page returned no readable content. Older camp listings were not used to fill 2026 dates or Hendersonville offerings.",
     "excluded": [
       {
         "name": "“Try-It-Out” Wheel Lessons",
-        "reason": "Year-round pottery lessons for general audiences, not a summer youth program."
-      },
-      {
-        "name": "Paint Your Own Pottery, Glass Fusing, and Canvas Painting",
-        "reason": "Year-round walk-in studio activities, not finite supervised summer youth programs."
+        "reason": "Booked as pottery wheel lessons, not a youth camp."
       },
       {
         "name": "Holiday Painting Party",
-        "reason": "November event outside summer."
-      },
-      {
-        "name": "Parties & Groups",
-        "reason": "Year-round private parties and group bookings, not scheduled summer youth programs."
+        "reason": "A single evening social event outside summer."
       }
     ],
     "cards": [
@@ -124,7 +116,7 @@
         ],
         "sessions": [
           {
-            "label": "Summer Camp Asheville 6/22/26-6/26/26",
+            "label": "June 22–26",
             "start": "2026-06-22",
             "end": "2026-06-26",
             "year": 2026,
@@ -140,7 +132,7 @@
         "last_year_registration_opened": null,
         "availability": {
           "status": "closed",
-          "scope": "June 22–26, 2026 session",
+          "scope": "June 22–26, 2026",
           "text": "Tickets are no longer available"
         },
         "financial_aid": null,
@@ -150,8 +142,7 @@
         "sources": [
           "https://fireduplounge.com/event/summer-camp-asheville-6-22-26-6-26-26-52641/",
           "https://fireduplounge.com/",
-          "https://fireduplounge.com/events/category/summer-camp/",
-          "https://fireduplounge.com/studio/fired-up-asheville/"
+          "https://fireduplounge.com/events/category/summer-camp/"
         ],
         "confidence": "high",
         "review_notes": null

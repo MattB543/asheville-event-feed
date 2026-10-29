@@ -3,33 +3,33 @@
     "key": "asheville-art-museum",
     "name": "Asheville Art Museum (Summer Art Camp)",
     "urls": ["https://www.ashevilleart.org/learn/family-programs/summer-camp/"],
-    "area": null,
-    "discovered_by": ["pilot"],
+    "area": "Asheville, NC",
+    "discovered_by": ["pilot", "seed_sheet", "our_db", "grid", "aggregator", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T03:18:13.770Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
-  "sourceHash": "533b3125f2afb940db780a80f064738e8076b010525135876c883a8f0434338f",
+  "extractedAt": "2026-10-29T16:52:13.613Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "3ceaad37303da3ce16075b310f3c2b18bbe1202d62828987cf90f78479093469",
   "response": {
     "searches": [
-      "site.ashevilleart.org \"camp\" \"2027\"",
+      "site:ashevilleart.org \"camp\" \"2027\"",
       "open https://www.ashevilleart.org/learn/family-programs/summer-camp/"
     ],
     "usage": {
-      "inputTokens": 23700,
-      "cachedInputTokens": 8223,
-      "outputTokens": 2719,
-      "reasoningTokens": 107
+      "inputTokens": 24101,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2494,
+      "reasoningTokens": 108
     },
     "status": "completed",
-    "ms": 49835,
+    "ms": 49005,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
   "bundle": [
     {
       "url": "https://www.ashevilleart.org/learn/family-programs/summer-camp/",
-      "chars": 5246,
+      "chars": 5251,
       "method": "fetch"
     },
     {
@@ -39,48 +39,57 @@
     },
     {
       "url": "https://www.ashevilleart.org/summer-art-camp-2026-wait-list/",
-      "chars": 2133,
+      "chars": 2138,
       "method": "fetch"
     },
     {
       "url": "https://www.ashevilleart.org/event/summer-art-camp-appalachian-arts-crafts-rising-6th-8th-grade/2026-06-15/",
-      "chars": 7055,
+      "chars": 7060,
       "method": "fetch"
     },
     {
       "url": "https://www.ashevilleart.org/event/summer-art-camp-ancient-to-modern-mixed-media-traditions-reimagined-rising-6th-8th-grade/2026-06-15/",
-      "chars": 7063,
+      "chars": 7068,
       "method": "fetch"
     },
     {
       "url": "https://www.ashevilleart.org/event/summer-art-camp-art-around-the-world-rising-3rd-5th-grade/2026-06-22/",
-      "chars": 6622,
+      "chars": 6627,
       "method": "fetch"
     },
     {
       "url": "https://www.ashevilleart.org/event/summer-art-camp-art-around-the-world-rising-3rd-5th-grade-2/2026-06-22/",
-      "chars": 6824,
+      "chars": 6829,
       "method": "fetch"
     },
     {
       "url": "https://www.ashevilleart.org/event/summer-art-camp-the-joy-of-painting-rising-k-2nd-grade/2026-06-29/",
-      "chars": 6935,
+      "chars": 6940,
       "method": "fetch"
     }
   ],
   "extraction": {
     "provider_name": "Asheville Art Museum",
     "website_url": "https://www.ashevilleart.org/",
-    "notes": "No official 2027 camp information was found. Dates, prices and registration opening below describe summer 2026. The supplied REGISTER HERE link leads to the Museum store homepage rather than a camp-specific registration page.",
-    "excluded": [],
+    "notes": "No official 2027 summer camp information found. Dates and prices describe 2026. The current camp page returned no readable text in the browser; the supplied official page text was used. Archived 2021–2022 themes were not treated as additional programs.",
+    "excluded": [
+      {
+        "name": "Winter Art Camp",
+        "reason": "Outside summer."
+      },
+      {
+        "name": "Spring Break Camp",
+        "reason": "Outside summer."
+      }
+    ],
     "cards": [
       {
         "name": "Summer Art Camp",
         "type": "day",
         "categories": ["arts"],
-        "description": "Students explore drawing, painting, printmaking, sculpture, collage and craft techniques in grade-specific weekly sessions. Campers can attend a morning or afternoon session, or register for both with a supervised lunch break between them.",
+        "description": "Students make art using painting, mixed media, paper and book making, fiber art, and other techniques in weekly themed sessions. Campers may attend morning, afternoon, or both sessions.",
         "camp_page_url": "https://www.ashevilleart.org/learn/family-programs/summer-camp/",
-        "registration_url": "https://shop.ashevilleart.org/?_pos=2&_sid=2c677c2f5&_ss=r",
+        "registration_url": "https://www.ashevilleart.org/summer-art-camp-registration-form/",
         "season": {
           "year": 2026,
           "status": "not_posted",
@@ -105,14 +114,14 @@
         "hours": {
           "start": "09:00",
           "end": "16:00",
-          "text": "Morning 9am–noon; Afternoon 1–4pm. All Day Campers attend both sessions with a supervised lunch break noon–1pm."
+          "text": "Morning (9am–noon) and Afternoon (1–4pm). Campers who stay All Day will break for a supervised lunch from noon–1pm."
         },
         "extended_care": null,
         "prices": [
           {
             "amount": 175,
             "unit": "week",
-            "label": "Each Morning or Afternoon session; members receive a 10% discount. All Day Campers must register and pay for both sessions separately.",
+            "label": "Each session (Morning or Afternoon); members receive a 10% discount",
             "year": 2026
           }
         ],
@@ -394,14 +403,14 @@
         "availability": null,
         "financial_aid": {
           "value": "yes",
-          "text": "With support from the Walnut Cove Members Association, we are able to provide a limited amount of financial aid to help students who could not otherwise afford to enroll in our programs."
+          "text": "We are able to provide a limited amount of financial aid to help students who could not otherwise afford to enroll in our programs."
         },
         "special_needs": null,
         "lunch": null,
         "transportation": null,
         "sources": [
           "https://www.ashevilleart.org/learn/family-programs/summer-camp/",
-          "https://shop.ashevilleart.org/?_pos=2&_sid=2c677c2f5&_ss=r",
+          "https://www.ashevilleart.org/summer-art-camp-registration-form/",
           "https://www.ashevilleart.org/event/summer-art-camp-appalachian-arts-crafts-rising-6th-8th-grade/2026-06-15/",
           "https://www.ashevilleart.org/event/summer-art-camp-ancient-to-modern-mixed-media-traditions-reimagined-rising-6th-8th-grade/2026-06-15/",
           "https://www.ashevilleart.org/event/summer-art-camp-art-around-the-world-rising-3rd-5th-grade/2026-06-22/",

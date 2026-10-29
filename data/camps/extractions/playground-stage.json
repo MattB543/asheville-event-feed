@@ -7,22 +7,19 @@
     "discovered_by": ["seed_sheet", "news828", "grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T14:55:11.624Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T16:56:11.286Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "0f27ffaf14a8cb346eb663c24e7ba7efbfe86c4fa09b989b8b1498dab637a63d",
   "response": {
-    "searches": [
-      "site:playgroundstage.org 2027 summer",
-      "open https://playgroundstage.org/summer-camp-2026"
-    ],
+    "searches": ["site:playgroundstage.org \"2027\"", "open https://playgroundstage.org/cit"],
     "usage": {
-      "inputTokens": 21216,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1842,
+      "inputTokens": 20989,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2052,
       "reasoningTokens": 168
     },
     "status": "completed",
-    "ms": 38556,
+    "ms": 39214,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -56,27 +53,31 @@
   "extraction": {
     "provider_name": "Playground Stage",
     "website_url": "https://playgroundstage.org/",
-    "notes": "No 2027 camp dates or full program list were found. The CIT page announces that applications will resume in March 2027. The registration platform returned no readable content. CIT and financial-aid details were readable in official-page search results, but direct opens returned empty text.",
+    "notes": "No 2027 camp dates or program list found. The CIT page announces applications will resume in March 2027. Additional official pages returned empty content when opened, but their indexed text was readable. Two financial-aid pages differ on scholarship percentages; only their shared statement that scholarships are available is used.",
     "excluded": [
       {
         "name": "After-School Theatre Programs",
-        "reason": "School-year after-school classes, not summer camp."
+        "reason": "School-year after-school classes, not summer camps."
       },
       {
         "name": "Summer Family Musical",
-        "reason": "Family-only participation: every registered child must have an adult participating with them."
+        "reason": "Family-only production: every registered child must have at least one adult participating."
       },
       {
         "name": "Summer College Acting and Teaching Interns",
-        "reason": "Employment program; the provider describes hiring college interns."
+        "reason": "Employment program."
+      },
+      {
+        "name": "Willy Wonka",
+        "reason": "Public performances of the family musical, not a separate supervised youth camp."
       }
     ],
     "cards": [
       {
         "name": "Musical Theatre Summer Camps",
         "type": "day",
-        "categories": ["theater", "music", "dance", "arts"],
-        "description": "Campers rehearse and perform a children's musical and participate in acting, singing, dancing, set design, costume design, and theatre crafts. Each session ends with a performance for friends and family.",
+        "categories": ["theater"],
+        "description": "Campers practice acting, singing and dancing, make sets and costumes, and rehearse a children's musical. Each session ends with a performance for friends and family.",
         "camp_page_url": "https://playgroundstage.org/summer-camp-2026",
         "registration_url": "https://playgroundstage.jumbula.com/view#/home",
         "season": {
@@ -103,14 +104,14 @@
         "hours": {
           "start": "09:00",
           "end": "16:00",
-          "text": "Monday-Friday, 9:00am - 4:00pm"
+          "text": "Monday-Friday"
         },
         "extended_care": null,
         "prices": [
           {
             "amount": 600,
             "unit": "session",
-            "label": "Two-week session tuition",
+            "label": "Tuition",
             "year": 2026
           }
         ],
@@ -157,7 +158,7 @@
         "availability": null,
         "financial_aid": {
           "value": "yes",
-          "text": "Financial Aid Scholarships are available for families in need who apply. Financial Aid resources are limited and cannot be guaranteed."
+          "text": "Financial Aid Scholarships are available for families in need who apply."
         },
         "special_needs": null,
         "lunch": {
@@ -167,23 +168,24 @@
         "transportation": null,
         "sources": [
           "https://playgroundstage.org/summer-camp-2026",
-          "https://playgroundstage.org/financial-aid"
+          "https://playgroundstage.org/financial-aid",
+          "https://playgroundstage.org/financial-aid-1"
         ],
-        "confidence": "medium",
-        "review_notes": "Financial aid was read through official search results; direct opening returned empty text. The financial-aid pages disagree on award percentages, so no percentage is supplied. Meal-program participation for 2026 remains conditional on the camp page."
+        "confidence": "high",
+        "review_notes": null
       },
       {
         "name": "Counselor In Training",
         "type": "day",
         "categories": ["theater"],
-        "description": "Teen volunteers learn theatre education, backstage theatre arts, and theatre administration. They help campers with lines and choreography, lead theatre games, and create props, backdrops, and costumes.",
+        "description": "Teen volunteers learn theatre education, backstage theatre arts and theatre administration. They help campers rehearse, lead theatre games, create production materials and assist with backstage duties.",
         "camp_page_url": "https://playgroundstage.org/cit",
         "registration_url": null,
         "season": {
           "year": 2026,
           "status": "coming_soon",
-          "start": null,
-          "end": null,
+          "start": "2026-06-15",
+          "end": "2026-07-24",
           "text": "Applications will resume in March 2027 for summer 2027"
         },
         "ages": {
@@ -206,11 +208,48 @@
         "hours": {
           "start": "08:45",
           "end": "16:30",
-          "text": "Will be expected to arrive to camp at 8:45am & stay until 4:30pm each day unless otherwise cleared with Executive Director Leslie Putnam."
+          "text": null
         },
         "extended_care": null,
         "prices": [],
-        "sessions": [],
+        "sessions": [
+          {
+            "label": "Session 1",
+            "start": "2026-06-15",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 2",
+            "start": "2026-06-29",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 3",
+            "start": "2026-07-13",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
         "registration": [
           {
             "audience": "public",
@@ -228,7 +267,7 @@
         "last_year_registration_opened": null,
         "availability": {
           "status": "closed",
-          "scope": "2026 CIT applications",
+          "scope": "2026",
           "text": "CIT Applications are closed for the 2026 season"
         },
         "financial_aid": null,
@@ -240,7 +279,7 @@
           "https://playgroundstage.org/summer-camp-2026"
         ],
         "confidence": "medium",
-        "review_notes": "CIT details and the March 2027 application announcement were read through official search results; direct opening returned empty text. The requirements say rising 7th-12th grader OR age 12-18 at camp start. No separate CIT session dates are printed, so camper session dates were not copied. The location is supported by the CIT training location and the linked summer-camp venue."
+        "review_notes": "CIT details and the March 2027 application announcement were readable only through official-page search results; opening the page returned empty content. Session dates and the camp venue are taken from the 2026 summer-camp page because CITs serve those camp sessions. The CIT page also requires training June 10, 2026, 2–4 p.m. at Avery's Creek Community Center and completion of Red Cross Babysitting Basics. Eligibility is stated as rising 7th–12th grader OR age 12–18, not necessarily both."
       }
     ]
   }

@@ -7,19 +7,19 @@
     "discovered_by": ["beyond_school", "grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T14:57:43.755Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T16:57:59.464Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "a8b11fdf518ff91ba908dc2d259afcff6375271d14a42f70d2e2ff34e88c9031",
   "response": {
-    "searches": ["site:childrenfirstcisbc.org \"summer\" \"2027\""],
+    "searches": ["site:childrenfirstcisbc.org \"summer\" \"2026\""],
     "usage": {
-      "inputTokens": 14249,
-      "cachedInputTokens": 8223,
-      "outputTokens": 608,
-      "reasoningTokens": 70
+      "inputTokens": 14897,
+      "cachedInputTokens": 8845,
+      "outputTokens": 609,
+      "reasoningTokens": 90
     },
     "status": "completed",
-    "ms": 17789,
+    "ms": 15685,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -38,15 +38,15 @@
   "extraction": {
     "provider_name": "Children First/Communities In Schools of Buncombe County",
     "website_url": "https://www.childrenfirstcisbc.org/",
-    "notes": "No 2027 dates or registration announcements were found. The official camp description is undated and describes a six-week summer camp without dates, hours, prices, or a confirmed drop-off location. The office address in the footer is not identified as a camp location.",
+    "notes": "No 2027 camp announcement or dated 2026 schedule was found. The official camp description is undated and describes a recurring six-week summer program. The published office address is not identified as a camp drop-off location, so sites are left empty.",
     "excluded": [
       {
         "name": "Learning Centers",
-        "reason": "School-year afterschool program, not a summer camp."
+        "reason": "School-year after-school care, not a finite summer camp."
       },
       {
         "name": "Project POWER/AmeriCorps",
-        "reason": "Service and professional-development program, not a supervised youth summer camp."
+        "reason": "An 11-month service and professional-development program, not a youth summer camp."
       }
     ],
     "cards": [
@@ -54,11 +54,11 @@
         "name": "Summer Camp",
         "type": "day",
         "categories": ["general"],
-        "description": "Campers participate in swimming, crafts, and local field trips during a six-week program. Past activities have included museum visits, parks, minigolf, dance classes, roller skating, and stream exploration.",
+        "description": "A six-week summer camp for rising kindergarten through sixth graders. Activities include swimming, crafts, and local field trips.",
         "camp_page_url": "https://www.childrenfirstcisbc.org/after-school-summer-enrichment",
         "registration_url": null,
         "season": {
-          "year": 2027,
+          "year": 2026,
           "status": "not_posted",
           "start": null,
           "end": null,
@@ -84,7 +84,7 @@
         "transportation": null,
         "sources": ["https://www.childrenfirstcisbc.org/after-school-summer-enrichment"],
         "confidence": "medium",
-        "review_notes": "The camp description and rising kindergarten-through-sixth-grade eligibility are undated, not specifically confirmed for 2026 or 2027. Confirm the upcoming season's eligibility and drop-off location with the provider. The Learning Centers paragraph says its afterschool program is free, but does not establish that summer camp is free."
+        "review_notes": "The program description is undated; season.year is a fallback with no dates assigned. Confirm the current summer schedule, eligibility, and drop-off location with the provider. The free-program wording applies to the after-school Learning Centers, not explicitly to Summer Camp, so no camp price is assigned."
       }
     ]
   }

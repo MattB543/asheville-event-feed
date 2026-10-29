@@ -7,22 +7,22 @@
     "discovered_by": ["grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:28:38.385Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:24:19.832Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "bf0a525d5be26f6f09daea3860d5ca2487c480371fb293bafd44ef3e9ebf1811",
   "response": {
     "searches": [
-      "Green Creek First Baptist Church Columbus VBS 2027 2026",
+      "Green Creek First Baptist Church Columbus official VBS 2027",
       "open https://vbspro.events/p/events/greencreekfb/details"
     ],
     "usage": {
-      "inputTokens": 13707,
-      "cachedInputTokens": 8223,
-      "outputTokens": 612,
-      "reasoningTokens": 94
+      "inputTokens": 14402,
+      "cachedInputTokens": 8845,
+      "outputTokens": 621,
+      "reasoningTokens": 92
     },
     "status": "completed",
-    "ms": 17790,
+    "ms": 16036,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -41,14 +41,14 @@
   "extraction": {
     "provider_name": "Green Creek First Baptist Church of Columbus",
     "website_url": "https://greencreek.tithelysetup5.com/",
-    "notes": "No summer 2027 information was found on the official church website or VBS registration pages. The card retains the posted 2026 VBS information. Additional official pages returned no readable body text when opened; their search results confirmed the church address and VBS description.",
+    "notes": "No official 2027 VBS information was found. The church website and VBS details page returned no readable body text when opened; their official search results confirmed the church address and the Rome program description. The supplied 2026 registration page provides the dates, hours and closed registration status.",
     "excluded": [],
     "cards": [
       {
         "name": "Rome VBS",
         "type": "vbs",
         "categories": ["faith_based"],
-        "description": "Children explore the sights, sounds, and culture of Paul's world and learn about his experiences and life for early Christians.",
+        "description": "Vacation Bible School exploring Paul’s world and life for early Christians.",
         "camp_page_url": "https://vbspro.events/p/greencreekfb",
         "registration_url": "https://vbspro.events/p/greencreekfb",
         "season": {
@@ -63,7 +63,7 @@
         "sites": [
           {
             "name": "Green Creek First Baptist Church",
-            "address": "534 Coxe Rd",
+            "address": "534 Coxe Road",
             "town": "Columbus",
             "state": "NC"
           }
@@ -71,7 +71,7 @@
         "hours": {
           "start": "17:30",
           "end": "20:00",
-          "text": null
+          "text": "5:30pm (EDT) to 8:00pm (EDT)"
         },
         "extended_care": null,
         "prices": [],

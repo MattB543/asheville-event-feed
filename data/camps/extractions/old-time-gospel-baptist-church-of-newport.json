@@ -9,22 +9,23 @@
     "status": "review",
     "status_reason": "first page is a social media page or video, which our fetcher can't read"
   },
-  "extractedAt": "2026-10-29T15:31:18.162Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:26:26.871Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": null,
   "response": {
     "searches": [
-      "\"Old Time Gospel Baptist Church\" Newport \"2026\"",
-      "site:facebook.com \"Old Time Gospel\" \"June\" \"2026\""
+      "\"Old Time Gospel Baptist\" \"Newport\" \"Bible\"",
+      "\"Old Time Gospel Baptist Church\" Newport website",
+      "site:facebook.com \"Newport\" \"VBS\" \"Old Time\""
     ],
     "usage": {
-      "inputTokens": 19857,
-      "cachedInputTokens": 8223,
-      "outputTokens": 729,
-      "reasoningTokens": 237
+      "inputTokens": 20438,
+      "cachedInputTokens": 8845,
+      "outputTokens": 757,
+      "reasoningTokens": 290
     },
     "status": "completed",
-    "ms": 24967,
+    "ms": 22333,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -38,20 +39,20 @@
   "extraction": {
     "provider_name": "Old Time Gospel Baptist Church of Newport",
     "website_url": null,
-    "notes": "No standalone official website or 2027 summer information was found. The supplied Facebook page opened without readable content. A third-party AllEvents listing identifies a 2026 Vacation Bible School beginning June 21, 2026, at the church, but its full schedule and eligibility could not be verified officially. Listing: https://allevents.in/newport/vacation-bible-school/200030152272521",
+    "notes": "No standalone website or 2027 camp information found. The supplied Facebook page returned no readable content. Third-party event listings identify a 2026 Vacation Bible School beginning June 21, but its complete dates and details could not be verified on an official page.",
     "excluded": [],
     "cards": [
       {
         "name": "Vacation Bible School",
         "type": "vbs",
         "categories": ["faith_based"],
-        "description": "The church lists a Vacation Bible School offering; specific activities could not be verified.",
-        "camp_page_url": null,
+        "description": "Vacation Bible School.",
+        "camp_page_url": "https://www.facebook.com/Old-Time-Gospel-Baptist-Church-283421165042636/",
         "registration_url": null,
         "season": {
           "year": 2026,
           "status": "not_posted",
-          "start": "2026-06-21",
+          "start": null,
           "end": null,
           "text": null
         },
@@ -78,7 +79,7 @@
         "transportation": null,
         "sources": [],
         "confidence": "low",
-        "review_notes": "Verify the program, full 2026 date range, activities, eligibility and venue address with the church's Facebook page: https://www.facebook.com/Old-Time-Gospel-Baptist-Church-283421165042636/. That page returned no readable text. The start date and venue come only from AllEvents; the address is also corroborated by Yellow Pages, not a readable venue-published source. No registration date or 2027 information was verified."
+        "review_notes": "The official Facebook page could not be read. Confirm the church's location and VBS details directly with the provider. The address appears in the Foothills Quartet's venue listing and third-party event listings, not a readable church-published location page. AllEvents lists June 21, 2026 at 6:15 p.m.; NewsBreak reproduces an invitation describing nightly classes and meals, but no official post was accessible, so dates, hours and meal support are left null."
       }
     ]
   }

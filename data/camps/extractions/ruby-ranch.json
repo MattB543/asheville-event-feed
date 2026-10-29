@@ -10,19 +10,19 @@
     "discovered_by": ["seed_sheet", "grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T14:55:07.771Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T16:55:59.783Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "8e96fbccfb643e9b775770cdb4a5ad735d605d79335f640736da4899624a00f3",
   "response": {
-    "searches": ["site:rubyranchnc.com address Ruby Ranch Candler"],
+    "searches": ["site:rubyranchnc.com address Candler"],
     "usage": {
-      "inputTokens": 20171,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1074,
-      "reasoningTokens": 75
+      "inputTokens": 20762,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1139,
+      "reasoningTokens": 118
     },
     "status": "completed",
-    "ms": 26652,
+    "ms": 25599,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -71,23 +71,27 @@
   "extraction": {
     "provider_name": "Ruby Ranch",
     "website_url": "https://www.rubyranchnc.com/",
-    "notes": "The 2027 summer page announces dates coming soon and publishes hours, eligibility and prices. Its browser title still says 2026. The old summer-2026 URL returns a missing-page message in the supplied crawl. The registration product lists six undated weeks; these were not assigned a year or treated as 2027 dates. An older Ruby Ranch Firefly Camp product remains searchable but is not included in the announced 2027 offering.",
+    "notes": "The 2027 summer page says dates are coming soon; the homepage says summer dates will be released in January 2027. The former summer-2026 URL returns a missing-page message in the supplied crawl. The store lists six summer weeks without a year, so they were not assigned to 2026 or 2027. An older Ruby Ranch Firefly Camp store listing remains online but is not part of the posted 2027 program list and was left out.",
     "excluded": [
       {
         "name": "Ruby Ranch Spring Break Camp",
-        "reason": "Spring-break program, outside summer."
+        "reason": "Outside summer."
       },
       {
-        "name": "Horse Riding Lessons",
-        "reason": "Ongoing riding lessons, not a finite summer camp."
+        "name": "Lessons",
+        "reason": "Riding lessons booked as lessons, rather than a finite summer camp."
       },
       {
-        "name": "Community Supported Skill-share",
-        "reason": "Year-round membership and monthly classes, not a summer youth camp."
+        "name": "Pony Parties",
+        "reason": "Parties rather than supervised summer camp programs."
       },
       {
-        "name": "Permaculture Design Course 2026",
-        "reason": "Course meets during fall, outside summer."
+        "name": "Community Work Day & Gathering",
+        "reason": "Community gathering rather than a supervised youth camp."
+      },
+      {
+        "name": "Hominy Market",
+        "reason": "Market and seasonal social events rather than camps."
       }
     ],
     "cards": [
@@ -95,7 +99,7 @@
         "name": "Ruby Ranch Summer Camp",
         "type": "day",
         "categories": ["nature_outdoor", "horses", "arts", "music", "cooking"],
-        "description": "Campers garden, cook, make art, sing, and explore the creek and farm on a working ranch. Horse programming includes care, horsemanship and an opportunity for every camper to ride.",
+        "description": "Campers garden, cook, make art and music, and participate in horse care and riding. Afternoon activities include creek play and exploration of the working ranch.",
         "camp_page_url": "https://www.rubyranchnc.com/ashevillecamps/summer-2027",
         "registration_url": "https://www.rubyranchnc.com/payment-for-events/p/ruby-ranch-summer-camp",
         "season": {
@@ -103,7 +107,7 @@
           "status": "coming_soon",
           "start": null,
           "end": null,
-          "text": "2027 Summer Camp Dates Coming Soon!"
+          "text": "We will release summer camp dates in January 2027."
         },
         "ages": {
           "min": 6,
@@ -131,14 +135,14 @@
         "prices": [
           {
             "amount": 450,
-            "unit": "session",
-            "label": "Online payment; sibling discount of 10% with code FAMILY10",
+            "unit": "other",
+            "label": "Online payment",
             "year": 2027
           },
           {
             "amount": 425,
-            "unit": "session",
-            "label": "Check, Zelle or Venmo; sibling discount of 10% with code FAMILY10",
+            "unit": "other",
+            "label": "Check, Zelle or Venmo",
             "year": 2027
           }
         ],
@@ -156,10 +160,11 @@
         "sources": [
           "https://www.rubyranchnc.com/ashevillecamps/summer-2027",
           "https://www.rubyranchnc.com/payment-for-events/p/ruby-ranch-summer-camp",
-          "https://www.rubyranchnc.com/events/fall-festival-and-healing-day"
+          "https://www.rubyranchnc.com/",
+          "https://www.rubyranchnc.com/events/community-work-day-potluck-36yzy-5tfb8-4h8mz"
         ],
         "confidence": "medium",
-        "review_notes": "The 2027 page body explicitly identifies 2027, but its browser title says 2026. Prices are interpreted as per session; the page does not explicitly state the unit. The registration product still lists June 15-19, June 29-July 3, July 6-10, July 27-31, August 3-7 and August 10-14 without a year, while the 2027 page says dates are coming soon; confirm the year before adding rows. Eligibility is ages 6-16 or adventurous rising kindergarteners; the kindergarten grade entry represents this exception, not a stated grade range. Lunch together and cooking are mentioned, but whether lunch is provided is not stated."
+        "review_notes": "The summer page body explicitly identifies 2027, but its metadata still says 2026. The registration store lists June 15–19, June 29–July 3, July 6–10, July 27–31, August 3–7 and August 10–14 without a year; these were omitted. Confirm the price unit when 2027 sessions are posted. Ages are stated as 6–16 with an additional allowance for adventurous rising kindergarteners; the grade minimum records that exception, not a separate age band. Lunch together and cooking are described, but provision of lunch is not stated."
       }
     ]
   }

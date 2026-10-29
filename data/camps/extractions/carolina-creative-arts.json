@@ -7,24 +7,24 @@
     "discovered_by": ["news828", "grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T14:58:31.113Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T16:58:48.724Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "4e4388d4a0df0b99b269d1230f0d7454fda2a45dcf2f25b5e42264eeb3ffc26d",
   "response": {
     "searches": [
-      "site:carolinacreativearts.org camp 2026 2027",
-      "Grace Brevard 55 East Jordan Street official",
-      "site:carolinacreativearts.org/store-2/p/2-week-theater-camp-2026-early-bird \"ages\"",
-      "\"2 Week Theater Camp 2026\""
+      "site:carolinacreativearts.org camp 2026",
+      "open https://www.carolinacreativearts.org/store-2/p/2-week-theater-camp-2026-early-bird",
+      "site:carolinacreativearts.org/store-2/p/2-week-theater-camp-2026-early-bird \"July\"",
+      "\"Carolina Creative Arts\" \"2026\" \"camp\" \"July\""
     ],
     "usage": {
-      "inputTokens": 25078,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1002,
-      "reasoningTokens": 303
+      "inputTokens": 20224,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1109,
+      "reasoningTokens": 377
     },
     "status": "completed",
-    "ms": 39813,
+    "ms": 35985,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -43,72 +43,50 @@
   "extraction": {
     "provider_name": "Carolina Creative Arts",
     "website_url": "https://www.carolinacreativearts.org/",
-    "notes": "No summer 2027 dates or registration announcements found. The camp page currently contains only a 2025 performance video; the homepage confirms a 2026 summer production. The 2026 theater camp details survive in official registration-page search results, but opening that page returned no readable text. Older creative arts camp listings were not treated as additional 2026 programs.",
+    "notes": "No summer 2027 information was found. The official 2026 camp product page and several other official pages returned no readable body text when opened; the 2026 offering was confirmed through official search results and the supplied homepage text. An older product titled '1 Week Creative Arts Camp' describes two weeks in July without a readable year; it was not treated as a separate current offering. No summer drop-off location or street address could be established.",
     "excluded": [
       {
-        "name": "Improv Acting Day Camp",
-        "reason": "Listed for September 7, 2026, outside the summer season."
+        "name": "Improv Acting Day Camp - Youth",
+        "reason": "Scheduled September 7, 2026, outside summer."
       },
       {
         "name": "Youth Intermediate Acting 12-Week Course",
-        "reason": "Course begins February 2027; not a summer program."
-      },
-      {
-        "name": "Adult Improv Acting Workshop",
-        "reason": "Adult-only offering."
-      },
-      {
-        "name": "Creative Life Workshop",
-        "reason": "Listed on the adult programming page."
+        "reason": "A youth course rather than a finite summer camp."
       },
       {
         "name": "Private Study",
-        "reason": "Ongoing one-on-one instruction, not a finite summer camp."
+        "reason": "Private lessons, not a summer camp."
       },
       {
-        "name": "PRODUCTION TECH - 8 Week Winter Semester",
-        "reason": "Winter program, outside summer."
+        "name": "Adult Improv Acting Workshop",
+        "reason": "Adult-only program."
+      },
+      {
+        "name": "Creative Life Workshop",
+        "reason": "Listed under adult programming."
       }
     ],
     "cards": [
       {
         "name": "2 Week Theater Camp",
         "type": "day",
-        "categories": ["theater", "arts", "music", "dance"],
-        "description": "Students write a play, build sets, choreograph and write songs to create an original production. The camp ends with a performance.",
-        "camp_page_url": "https://www.carolinacreativearts.org/store-2/p/2-week-theater-camp-2026-early-bird",
+        "categories": ["theater", "music", "arts", "dance"],
+        "description": "Students write a play, build the set, choreograph and write songs to create an original production. Camp includes performing and backstage design and building activities.",
+        "camp_page_url": "https://www.carolinacreativearts.org/camp",
         "registration_url": "https://www.carolinacreativearts.org/store-2/p/2-week-theater-camp-2026-early-bird",
         "season": {
           "year": 2026,
           "status": "not_posted",
-          "start": "2026-07-13",
-          "end": "2026-07-24",
+          "start": null,
+          "end": null,
           "text": null
         },
         "ages": null,
         "grades": null,
-        "sites": [
-          {
-            "name": "Grace Brevard",
-            "address": "55 E. Jordan Street",
-            "town": "Brevard",
-            "state": "NC"
-          }
-        ],
-        "hours": {
-          "start": "09:00",
-          "end": "15:30",
-          "text": "Monday-Friday, 9am - 3:30pm; performance July 24."
-        },
+        "sites": [],
+        "hours": null,
         "extended_care": null,
-        "prices": [
-          {
-            "amount": 550,
-            "unit": "session",
-            "label": "Early Bird",
-            "year": 2026
-          }
-        ],
+        "prices": [],
         "sessions": [],
         "registration": [],
         "last_year_registration_opened": null,
@@ -118,14 +96,13 @@
         "lunch": null,
         "transportation": null,
         "sources": [
-          "https://www.carolinacreativearts.org/store-2/p/2-week-theater-camp-2026-early-bird",
-          "https://www.carolinacreativearts.org/store-2",
-          "https://www.carolinacreativearts.org/",
           "https://www.carolinacreativearts.org/camp",
-          "https://www.gracebrevardchurch.org/"
+          "https://www.carolinacreativearts.org/",
+          "https://www.carolinacreativearts.org/store-2/p/2-week-theater-camp-2026-early-bird",
+          "https://www.carolinacreativearts.org/videos"
         ],
         "confidence": "medium",
-        "review_notes": "Dates, hours, activities and camp venue were readable only in official registration-page search results; opening the product page returned no text. The year is explicit in the product title. Verify eligibility ages, lunch arrangements and any additional price tiers directly with the provider. The $550 early-bird price is stated in the official store listing. Venue address confirmed on Grace Brevard Church's own website."
+        "review_notes": "The official 2026 product was visible only through search results; opening it returned no readable body text. Check that product for dates, ages, hours, prices and the drop-off venue. The homepage confirms that the 2026 campers produced The Magic Bridge, and the official videos search result identifies it as the 2026 two-week summer camp. No 2027 schedule or registration milestone was found."
       }
     ]
   }

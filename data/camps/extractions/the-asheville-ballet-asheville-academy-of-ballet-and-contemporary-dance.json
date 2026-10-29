@@ -10,19 +10,19 @@
     "discovered_by": ["grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:05:31.517Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:05:11.277Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "6a14be533dafca9503685c8b576caa9b4b21b9caf27467455814056614cf85eb",
   "response": {
-    "searches": ["site:ashevilleballet.com \"Blue Ridge\" \"2027\""],
+    "searches": ["site:ashevilleballet.com \"Blue Ridge\" \"2026\""],
     "usage": {
-      "inputTokens": 20359,
-      "cachedInputTokens": 8223,
-      "outputTokens": 766,
-      "reasoningTokens": 57
+      "inputTokens": 21000,
+      "cachedInputTokens": 8845,
+      "outputTokens": 911,
+      "reasoningTokens": 80
     },
     "status": "completed",
-    "ms": 19284,
+    "ms": 24089,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -61,15 +61,27 @@
   "extraction": {
     "provider_name": "The Asheville Ballet / Asheville Academy of Ballet and Contemporary Dance",
     "website_url": "https://www.ashevilleballet.com/",
-    "notes": "2027 Blue Ridge Dance Camp dates and registration details are coming soon. The camp page mixes its 2027 announcement with a June 15, 2026 deposit deadline; that deadline is not treated as a 2027 milestone. Regular summer dance classes are excluded as continuing year-round instruction.",
+    "notes": "2027 camp dates and registration details are coming soon. The camp page has been updated to mention 2027 but retains a June 15, 2026 deposit deadline; its undated tuition may also be retained from 2026.",
     "excluded": [
       {
         "name": "Summer Classes",
-        "reason": "Recurring dance classes continuing the academy's year-round instruction, with drop-in and monthly tuition, rather than a distinct finite summer camp."
+        "reason": "Recurring weekly dance and Pilates lessons with monthly or drop-in pricing, not a camp."
       },
       {
         "name": "Fall/Spring Classes",
-        "reason": "School-year recurring classes outside summer."
+        "reason": "School-year dance classes, not a summer camp."
+      },
+      {
+        "name": "The Nutcracker auditions and performances",
+        "reason": "Auditions and theatrical performances, not a supervised summer camp."
+      },
+      {
+        "name": "Alice in Wonderland and The Firebird",
+        "reason": "A theatrical performance outside summer, not a camp."
+      },
+      {
+        "name": "Fall Into Dance",
+        "reason": "A theatrical performance, not a camp."
       }
     ],
     "cards": [
@@ -92,18 +104,25 @@
           "max": 18
         },
         "grades": null,
-        "sites": [],
+        "sites": [
+          {
+            "name": "Asheville Academy of Ballet and Contemporary Dance",
+            "address": "4 Weaverville Hwy",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
         "hours": {
           "start": "09:00",
           "end": "16:00",
-          "text": "Monday-Friday day camp, with classes from 9am – 4pm."
+          "text": "Monday-Friday, 9am – 4pm"
         },
         "extended_care": null,
         "prices": [
           {
             "amount": 550,
             "unit": "session",
-            "label": "Monday-Friday camp; year unclear on mixed-year page, retained as 2026 pending confirmation",
+            "label": "Monday-Friday camp",
             "year": 2026
           }
         ],
@@ -124,7 +143,7 @@
           "https://www.ashevilleballet.com/contact-us"
         ],
         "confidence": "medium",
-        "review_notes": "Confirm whether $550 tuition, Monday-Friday format, 9am–4pm hours and packed-lunch requirement apply to 2027: the camp page announces summer 2027 but retains a June 15, 2026 deposit deadline. No camp dates or explicit drop-off venue are stated. Contact page publishes the studio as 4 Weaverville Hwy, Asheville, NC 28804, but does not explicitly identify it as this camp's venue."
+        "review_notes": "The camp page announces summer 2027 dates TBA but retains a deposit deadline of June 15, 2026. The $550 tuition is undated and recorded as a 2026 fallback rather than a confirmed 2027 price. Confirm tuition and whether the stated hours remain applicable for 2027. The studio is inferred as the camp venue from the provider's location; the camp text does not explicitly name its drop-off venue. The official contact page publishes Asheville as the postal town, although the provider is in the Woodfin area."
       }
     ]
   }

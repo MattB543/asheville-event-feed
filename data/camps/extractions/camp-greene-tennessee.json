@@ -7,19 +7,19 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:24:22.566Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:20:39.027Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "3c0e3cd30d5b6eb0061064bc86586ee2e82f57944e60db6a9997aeba4efd2517",
   "response": {
-    "searches": ["site:campgreenetn.org 2027 camp"],
+    "searches": ["site:campgreenetn.org 2027 camp", "\"site:campgreenetn.org\""],
     "usage": {
-      "inputTokens": 16572,
-      "cachedInputTokens": 8223,
-      "outputTokens": 2461,
-      "reasoningTokens": 100
+      "inputTokens": 18598,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2217,
+      "reasoningTokens": 139
     },
     "status": "completed",
-    "ms": 52770,
+    "ms": 43576,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -63,23 +63,19 @@
   "extraction": {
     "provider_name": "Camp Greene Tennessee",
     "website_url": "https://www.campgreenetn.org/",
-    "notes": "No 2027 program dates or registration milestones were found. Cards use the explicitly dated 2026 registration forms. Overnight and day-camper offerings are separated by camp type, with grade bands represented as sessions. The Upcoming Events page still lists 2022 dates; those dates were not used. The payment mailing address is not the camp location. Scholarship references in older newsletters were not treated as confirmation of 2026 or 2027 financial aid.",
+    "notes": "No summer 2027 information found. The existing program list contains two identical Summer Camp names; the day version is distinguished with '(day)' to avoid duplicate card names. The Holly Creek Road address on the payment form is a mailing address, not the camp site. The young-adult pilot program lacks summer dates and eligibility details.",
     "excluded": [
       {
-        "name": "Fall Retreat",
-        "reason": "Outside summer."
-      },
-      {
-        "name": "Young Adult and College Age Retreat",
-        "reason": "Described for young adults and college-age participants, not as a supervised youth summer program; dates and details are pending."
-      },
-      {
-        "name": "Camp Greene Day",
-        "reason": "The listed event occurred March 26, 2022, outside summer."
+        "name": "Fall children's retreat",
+        "reason": "Held outside summer."
       },
       {
         "name": "Counselor and volunteer roles",
-        "reason": "Staff and service applications rather than camper programs. The youth counselor-in-training offering is included separately."
+        "reason": "Staff and volunteer service roles rather than camper programs; the separately named youth CIT offering is retained."
+      },
+      {
+        "name": "URJ Greene Family Camp",
+        "reason": "Different provider in Bruceville, Texas, outside the service area."
       }
     ],
     "cards": [
@@ -87,7 +83,7 @@
         "name": "Camp Greene Summer Camp",
         "type": "overnight",
         "categories": ["faith_based", "general"],
-        "description": "Campers participate in worship, Bible study, games and group activities. Overnight sessions run separately for elementary, middle-school and high-school students.",
+        "description": "Campers participate in worship, Bible study and summer camp activities.",
         "camp_page_url": "https://www.campgreenetn.org/camp-registration",
         "registration_url": "https://docs.google.com/forms/d/e/1FAIpQLSfkJY0ETHNMsZ2hKmTMDHzjzmBp6-BV1IoL-lXWMwDewa0tog/viewform?usp=send_form",
         "season": {
@@ -182,17 +178,16 @@
           "https://www.campgreenetn.org/",
           "https://www.campgreenetn.org/about-us",
           "https://www.campgreenetn.org/camp-registration",
-          "https://docs.google.com/forms/d/e/1FAIpQLSfkJY0ETHNMsZ2hKmTMDHzjzmBp6-BV1IoL-lXWMwDewa0tog/viewform?usp=send_form",
-          "https://docs.google.com/forms/d/e/1FAIpQLSdpGLunUkFevXjK3-15k1CRHowb28mYLnhp35WaU7qBrbw0ZQ/viewform?usp=send_form"
+          "https://docs.google.com/forms/d/e/1FAIpQLSfkJY0ETHNMsZ2hKmTMDHzjzmBp6-BV1IoL-lXWMwDewa0tog/viewform?usp=send_form"
         ],
         "confidence": "high",
         "review_notes": null
       },
       {
-        "name": "Camp Greene Summer Camp",
+        "name": "Camp Greene Summer Camp (day)",
         "type": "day",
         "categories": ["faith_based", "general"],
-        "description": "Day campers attend Camp Greene's faith-based summer camp activities without staying overnight. The registration form offers day-camper sessions for elementary and middle-school students.",
+        "description": "Day campers join the junior and junior-high summer camps for worship and camp activities.",
         "camp_page_url": "https://www.campgreenetn.org/camp-registration",
         "registration_url": "https://docs.google.com/forms/d/e/1FAIpQLSfkJY0ETHNMsZ2hKmTMDHzjzmBp6-BV1IoL-lXWMwDewa0tog/viewform?usp=send_form",
         "season": {
@@ -279,8 +274,8 @@
       {
         "name": "CIT for Jr Camp",
         "type": "overnight",
-        "categories": ["faith_based"],
-        "description": "High-school freshmen and sophomores serve as counselors-in-training at Jr Camp. CITs participate alongside campers in activities, worship and Bible study and help include campers in activities.",
+        "categories": ["faith_based", "general"],
+        "description": "Counselors-in-training serve alongside campers, participate in worship and Bible study, and help include campers in activities. Applicants must be born-again believers and members in good standing of their local church.",
         "camp_page_url": "https://www.campgreenetn.org/camp-registration",
         "registration_url": "https://docs.google.com/forms/d/e/1FAIpQLSdpGLunUkFevXjK3-15k1CRHowb28mYLnhp35WaU7qBrbw0ZQ/viewform?usp=send_form",
         "season": {
@@ -294,7 +289,7 @@
         "grades": {
           "min": 9,
           "max": 10,
-          "basis": "unspecified"
+          "basis": "rising"
         },
         "sites": [
           {
@@ -321,7 +316,7 @@
           "https://docs.google.com/forms/d/e/1FAIpQLSdpGLunUkFevXjK3-15k1CRHowb28mYLnhp35WaU7qBrbw0ZQ/viewform?usp=send_form"
         ],
         "confidence": "medium",
-        "review_notes": "The 2026 Counselor/CIT form describes a selected youth service role, not a separately described training curriculum. Confirm that it should be listed as a CIT program. Overnight format is inferred from the combined Counselor/CIT commitment and the requirement that counselors stay all day and night. Eligibility says freshman or sophomore without explicitly stating rising or current grades."
+        "review_notes": "The 2026 counselor/CIT form lists freshman or sophomore eligibility and asks for the grade entering Fall 2026. Overnight format follows the form's all-day-and-night requirement, but that sentence explicitly says counselors rather than CITs. Check whether CITs have the same overnight requirement and whether this is a structured training program rather than solely volunteer service."
       }
     ]
   }

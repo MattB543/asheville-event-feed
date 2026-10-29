@@ -8,23 +8,22 @@
     "status": "review",
     "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
   },
-  "extractedAt": "2026-10-29T15:25:16.111Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:21:23.743Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "1da3d963f7a1a865ea1e8245765da69be16291a5e5d0ca7b3b9a809505345ea0",
   "response": {
     "searches": [
-      "site:stoneycreekchurchofchrist.org \"2026\" \"Vacation\"",
-      "\"Stoney Creek\" \"Christ\" \"VBS\" \"2026\"",
-      "open https://allevents.in/org/stoney-creek-church-of-christ/27844099"
+      "site:stoneycreekchurchofchrist.org \"VBS\"",
+      "\"Stoney Creek Church of Christ\" \"Bible school\""
     ],
     "usage": {
-      "inputTokens": 17728,
-      "cachedInputTokens": 8223,
-      "outputTokens": 371,
-      "reasoningTokens": 181
+      "inputTokens": 17832,
+      "cachedInputTokens": 8845,
+      "outputTokens": 360,
+      "reasoningTokens": 144
     },
     "status": "completed",
-    "ms": 17616,
+    "ms": 16122,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -38,15 +37,19 @@
   "extraction": {
     "provider_name": "Stoney Creek Church of Christ of Elizabethton",
     "website_url": "https://www.stoneycreekchurchofchrist.org/",
-    "notes": "No finite summer youth camp or Vacation Bible School could be verified for 2026 or 2027. The supplied official homepage lists recurring worship and Bible study only. Web searches did not locate an official summer program announcement or PDF. The official ministries page returned no readable text. No cards were created rather than assuming the church offers VBS.",
+    "notes": "No qualifying summer camp or Vacation Bible School program for 2026 or 2027 was found in the supplied homepage or targeted web searches. The official ministries page returned no readable text. Search results included similarly named churches elsewhere; their offerings were not attributed to this provider. No camp cards can be supported by the available official information.",
     "excluded": [
       {
-        "name": "Bible Class",
-        "reason": "Recurring Sunday Bible classes, not a finite summer youth program."
+        "name": "Bible Class and Wednesday Bible Study",
+        "reason": "Recurring church classes, not finite summer youth programs."
       },
       {
-        "name": "Bible Study",
-        "reason": "Recurring Wednesday Bible study, not a finite summer youth program."
+        "name": "Stoney Creek Church Vacation Bible School",
+        "reason": "The offering found at stoneycreekchurch.net belongs to a different provider, not the Elizabethton Church of Christ."
+      },
+      {
+        "name": "Stoney Creek Childcare Center",
+        "reason": "Located in Goldsboro, NC, and belongs to a different provider; also described as ongoing childcare rather than a finite summer camp."
       }
     ],
     "cards": []

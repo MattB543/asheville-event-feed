@@ -7,19 +7,19 @@
     "discovered_by": ["grid", "aggregator"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:11:00.058Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:09:11.117Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "0277a7c5c6f466d0bf8ec914c4a1e86645ec72b37a57538f9a5815ae2dfc543e",
   "response": {
-    "searches": ["site:campabilitywnc.org 2027 camp", "\"campabilitywnc.org\""],
+    "searches": ["\"Camp Ability\" \"2026\" Waynesville", "\"Camp Ability of WNC\" \"location\""],
     "usage": {
-      "inputTokens": 21596,
-      "cachedInputTokens": 8223,
-      "outputTokens": 978,
-      "reasoningTokens": 135
+      "inputTokens": 18117,
+      "cachedInputTokens": 8845,
+      "outputTokens": 988,
+      "reasoningTokens": 127
     },
     "status": "completed",
-    "ms": 24737,
+    "ms": 23851,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -43,19 +43,19 @@
   "extraction": {
     "provider_name": "Camp Ability of WNC",
     "website_url": "https://www.campabilitywnc.org/",
-    "notes": "No 2027 information found. The official services page announces 2026 but retains a 2025 page title and links to a closed 2025 registration form. No current camper drop-off location was confirmed; the Canton address is explicitly a mailing address. An older Weebly site names New Covenant Church, but its dates are not current and that venue was not carried forward.",
+    "notes": "No 2027 information found. The current program page announces 2026, although its title and linked camper form still say 2025. No current drop-off location was found; 77 Shady Drive is explicitly a mailing address. An older Weebly site lists New Covenant Church in Clyde, but its location and prices were not used because they could not be tied to 2026.",
     "excluded": [
       {
-        "name": "Buddies",
-        "reason": "Volunteer recruitment and required training, not a camper program."
+        "name": "Camp Ability (AbilityPoint)",
+        "reason": "A different provider in Kansas, outside the directory's geographic area."
       }
     ],
     "cards": [
       {
         "name": "Camp Ability",
         "type": "day",
-        "categories": ["general", "special_needs"],
-        "description": "Youth with special needs participate in therapeutic activities and are paired with a buddy who supports their needs and serves as a companion.",
+        "categories": ["special_needs", "general"],
+        "description": "A summer day camp for youth with special needs. Campers are partnered with a buddy who supports their needs and serves as a friend and companion.",
         "camp_page_url": "https://www.campabilitywnc.org/services",
         "registration_url": "https://docs.google.com/forms/d/e/1FAIpQLSfxbKpwFEhkKvKy8d57zlqbeGUpoW6SnMhQfN8knIN6Dxd_3A/closedform",
         "season": {
@@ -113,10 +113,11 @@
         "sources": [
           "https://www.campabilitywnc.org/",
           "https://www.campabilitywnc.org/services",
+          "https://www.campabilitywnc.org/contact",
           "https://docs.google.com/forms/d/e/1FAIpQLSfxbKpwFEhkKvKy8d57zlqbeGUpoW6SnMhQfN8knIN6Dxd_3A/closedform"
         ],
         "confidence": "medium",
-        "review_notes": "Confirm Week 1's end date: the services page says 'Friday, July 16', but July 16, 2026 is Thursday. The numeric date is preserved rather than changed to July 17. Dates use the explicit 2026 heading despite the stale 2025 page title. The linked form says Camp Ability 2025 is full; this was not treated as 2026 or 2027 availability. Confirm a current registration link and camper drop-off venue."
+        "review_notes": "The 2026 program heading supplies the year. Week 1 says 'Monday, July 13 - Friday, July 16'; July 16, 2026 is Thursday. The numeric end date was retained, but the provider should clarify whether July 17 was intended. The linked registration form says Camp Ability 2025 is full, so that status was not applied to 2026. Confirm the current registration link and drop-off venue."
       }
     ]
   }

@@ -8,8 +8,8 @@
     "status": "review",
     "status_reason": "no official page found"
   },
-  "extractedAt": "2026-10-29T15:21:32.259Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:18:00.091Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": null,
   "response": {
     "searches": [
@@ -17,16 +17,17 @@
       "\"Central Baptist\" \"Spruce Pine\" \"VBS\"",
       "site:sprucepineumc.org \"2026\" \"VBS\"",
       "open https://sprucepineumc.org/NewSite/index.php?Itemid=212&catid=2&id=530%3Ajuly-2026-spumc-newsletter&option=com_jdownloads&view=download",
-      "site:sprucepineumc.org \"July 21\" \"2026\""
+      "site:sprucepineumc.org \"July\" \"2026\" \"Creation\"",
+      "open https://sprucepineumc.org/NewSite/index.php?Itemid=0&catid=2&id=530&m=0&option=com_jdownloads&task=download.send"
     ],
     "usage": {
-      "inputTokens": 32743,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1110,
-      "reasoningTokens": 444
+      "inputTokens": 25975,
+      "cachedInputTokens": 8845,
+      "outputTokens": 972,
+      "reasoningTokens": 438
     },
     "status": "completed",
-    "ms": 62925,
+    "ms": 35882,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -34,38 +35,32 @@
   "extraction": {
     "provider_name": "Central Baptist Church of Spruce Pine",
     "website_url": "https://www.mycentralbaptist.com/",
-    "notes": "No summer 2027 information found. Central Baptist participated in a joint 2026 Vacation Bible School with three other Spruce Pine churches. The listed provider website and centralbaptistcdc.org returned no readable text; participating churches' official pages and indexed bulletin text supplied the program confirmation.",
-    "excluded": [],
+    "notes": "No 2027 information found. The provider's historical website and centralbaptistcdc.org returned no readable text. First Presbyterian Church of Spruce Pine's official page confirms Central Baptist participated in the joint 2026 Vacation Bible School. The host's July 2026 newsletter download could not be read. Details from the joint 2025 VBS were not carried forward.",
+    "excluded": [
+      {
+        "name": "Summer Vacation Bible School — Central Baptist Church, Southington",
+        "reason": "Different provider in Southington, CT; its posted 2027 dates do not apply to Spruce Pine."
+      }
+    ],
     "cards": [
       {
         "name": "Vacation Bible School",
         "type": "vbs",
         "categories": ["faith_based"],
-        "description": "Children learn about God's creation through a Genesis-themed Vacation Bible School. Central Baptist participates with First Presbyterian of Spruce Pine, Trinity Episcopal, and Spruce Pine United Methodist Church.",
+        "description": "A joint Vacation Bible School with the theme God's Good Creation, based on Genesis 1:1–2:3. Participating churches include Central Baptist, First Presbyterian of Spruce Pine, Spruce Pine United Methodist, and Trinity Episcopal.",
         "camp_page_url": "https://www.firstpressprucepine.org/home",
         "registration_url": null,
         "season": {
           "year": 2026,
           "status": "not_posted",
-          "start": "2026-07-21",
-          "end": "2026-07-23",
+          "start": null,
+          "end": null,
           "text": null
         },
         "ages": null,
         "grades": null,
-        "sites": [
-          {
-            "name": "Spruce Pine United Methodist Church",
-            "address": "11090 Hwy 226 South",
-            "town": "Spruce Pine",
-            "state": "NC"
-          }
-        ],
-        "hours": {
-          "start": null,
-          "end": null,
-          "text": "Evenings."
-        },
+        "sites": [],
+        "hours": null,
         "extended_care": null,
         "prices": [],
         "sessions": [],
@@ -76,13 +71,9 @@
         "special_needs": null,
         "lunch": null,
         "transportation": null,
-        "sources": [
-          "https://www.firstpressprucepine.org/home",
-          "https://sprucepineumc.org/NewSite/index.php?Itemid=0&catid=2&id=521&m=0&option=com_jdownloads&task=download.send",
-          "https://sprucepineumc.org/NewSite/index.php?Itemid=139&id=16&option=com_content&view=category"
-        ],
+        "sources": ["https://www.firstpressprucepine.org/home"],
         "confidence": "medium",
-        "review_notes": "Dates and evening format were stated in indexed official SPUMC bulletin text, which initially listed the location as to be determined. A later NewsBreak article, 'God’s Creation from Genesis VBS at Spruce Pine UMC,' identifies SPUMC as the host; verify the final venue in the July 2026 church newsletter, whose download returned no readable text. The venue address is published on SPUMC's official website. First Presbyterian's official VBS page confirms the 2026 event and Central Baptist's participation but was readable only through search results. No 2026 ages, grades, prices, or registration opening were verified; 2025 details were not carried forward."
+        "review_notes": "The official partner church's search-indexed page explicitly confirms the 2026 program and Central Baptist's participation, but opening that page returned no readable text. It does not establish the 2026 drop-off venue, dates, hours, or eligibility. Check the July 2026 Spruce Pine UMC newsletter and the participating churches for those details; the newsletter download returned no readable content."
       }
     ]
   }

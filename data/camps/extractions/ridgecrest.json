@@ -11,23 +11,25 @@
     "discovered_by": ["seed_sheet", "news828", "grid", "aggregator"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T14:55:56.773Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T16:55:44.353Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "e2677e37ce573e2f2d10cc2c0bff5df430d209fa0a124decd7b5d7cae0525f56",
   "response": {
     "searches": [
-      "site:ridgecrestcamps.com 2027 registration September SALT",
-      "site:ridgecrestcamps.com \"2027\" \"registration\" \"September\"",
-      "site:boys.ridgecrestcamps.com \"Pisgah Trailblazers\" \"hiking\""
+      "site:boys.ridgecrestcamps.com SALT 2027",
+      "open https://boys.ridgecrestcamps.com/salt-program",
+      "site:boys.ridgecrestcamps.com/connect/contact \"Address\"",
+      "Ridgecrest SALT program 2027 dates",
+      "site:boys.ridgecrestcamps.com/salt-program \"dates\""
     ],
     "usage": {
-      "inputTokens": 40281,
-      "cachedInputTokens": 8223,
-      "outputTokens": 9970,
-      "reasoningTokens": 352
+      "inputTokens": 37574,
+      "cachedInputTokens": 8845,
+      "outputTokens": 4849,
+      "reasoningTokens": 531
     },
     "status": "completed",
-    "ms": 183194,
+    "ms": 110174,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -76,27 +78,27 @@
   "extraction": {
     "provider_name": "Ridgecrest",
     "website_url": "https://ridgecrestcamps.com/",
-    "notes": "2027 dates and tuition are posted for the regular camps and wilderness offerings. Homepage registration countdowns are explicitly labeled 2024 and were not used. The Friends page states the public opening for summer 2027 as September 21, 2026. Dates-and-rates pages contain outdated deposit language in their introductory text that conflicts with the detailed 2027 payment policies; deposits are not included as tuition prices here. Starter Camp appears in older testimonials, videos and registration-page boilerplate but is absent from the posted 2027 session tables, so it is not included. SALT pages do not identify a summer year or publish calendar dates; their recurring October 1 application instructions were not converted into a 2027 milestone.",
+    "notes": "2027 dates and tuition are posted for the main camps and wilderness offerings. The homepages retain a 2024 registration countdown; it was not used. SALT pages could not be opened in readable form, although official search results establish the program and completed-grade eligibility. No SALT dates or rates were recovered. Dates-and-rates pages contain stale $200 deposit introductory text conflicting with the detailed 2027 deposit policy; deposits are not represented as tuition prices. Availability tables are not updated in real time.",
     "excluded": [
       {
         "name": "Father Son Camp",
-        "reason": "Parent-child family camp, not a youth-only supervised program."
+        "reason": "Family-only camp attended by fathers and sons together."
       },
       {
         "name": "Mother Daughter Camp",
-        "reason": "Parent-child family camp, not a youth-only supervised program."
+        "reason": "Family-only camp attended by mothers and daughters together."
       },
       {
         "name": "Family Camp",
         "reason": "Family-only retreat."
       },
       {
-        "name": "Summer Staff",
-        "reason": "Employment opportunities, not camper programs."
+        "name": "Summer Staff Positions",
+        "reason": "Employment program rather than a youth camp."
       },
       {
         "name": "Starter Camp",
-        "reason": "Not listed in the posted 2027 program dates; only older references and registration boilerplate were found."
+        "reason": "Found only in historical testimonials and video archives, not in the posted 2027 program schedule."
       }
     ],
     "cards": [
@@ -104,7 +106,7 @@
         "name": "Camp Ridgecrest for Boys",
         "type": "overnight",
         "categories": ["faith_based", "general", "nature_outdoor"],
-        "description": "Boys live in cabins and participate in age-group activities, skills, campouts and Christian discipleship.",
+        "description": "Boys live in cabins and participate in camp activities, ropes-course adventures, games and Christian discipleship.",
         "camp_page_url": "https://boys.ridgecrestcamps.com/",
         "registration_url": "https://boys.ridgecrestcamps.com/register-now",
         "season": {
@@ -134,455 +136,55 @@
           {
             "amount": 3725,
             "unit": "session",
-            "label": "Two-week session; horseback and paintball fees extra",
+            "label": "two-week session",
             "year": 2027
           }
         ],
         "sessions": [
           {
-            "label": "Session One: Turtleback",
+            "label": "Session One",
             "start": "2027-06-06",
             "end": "2027-06-18",
             "year": 2027,
             "site": null,
             "ages": null,
-            "grades": {
-              "min": 1,
-              "max": 2,
-              "basis": "completed"
-            },
+            "grades": null,
             "hours": null,
             "price": null,
             "status": "available"
           },
           {
-            "label": "Session One: Eaglenest",
-            "start": "2027-06-06",
-            "end": "2027-06-18",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 3,
-              "max": 3,
-              "basis": "completed"
-            },
-            "hours": null,
-            "price": null,
-            "status": "available"
-          },
-          {
-            "label": "Session One: Leatherwood",
-            "start": "2027-06-06",
-            "end": "2027-06-18",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 4,
-              "max": 4,
-              "basis": "completed"
-            },
-            "hours": null,
-            "price": null,
-            "status": "available"
-          },
-          {
-            "label": "Session One: Graybeard",
-            "start": "2027-06-06",
-            "end": "2027-06-18",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 5,
-              "max": 5,
-              "basis": "completed"
-            },
-            "hours": null,
-            "price": null,
-            "status": "available"
-          },
-          {
-            "label": "Session One: Rattlesnake",
-            "start": "2027-06-06",
-            "end": "2027-06-18",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 6,
-              "max": 6,
-              "basis": "completed"
-            },
-            "hours": null,
-            "price": null,
-            "status": "available"
-          },
-          {
-            "label": "Session One: Thunderhead",
-            "start": "2027-06-06",
-            "end": "2027-06-18",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 7,
-              "max": 7,
-              "basis": "completed"
-            },
-            "hours": null,
-            "price": null,
-            "status": "available"
-          },
-          {
-            "label": "Session One: Highland",
-            "start": "2027-06-06",
-            "end": "2027-06-18",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 8,
-              "max": 8,
-              "basis": "completed"
-            },
-            "hours": null,
-            "price": null,
-            "status": "available"
-          },
-          {
-            "label": "Session Two: Turtleback",
+            "label": "Session Two",
             "start": "2027-06-20",
             "end": "2027-07-02",
             "year": 2027,
             "site": null,
             "ages": null,
-            "grades": {
-              "min": 1,
-              "max": 2,
-              "basis": "completed"
-            },
+            "grades": null,
             "hours": null,
             "price": null,
             "status": "available"
           },
           {
-            "label": "Session Two: Eaglenest",
-            "start": "2027-06-20",
-            "end": "2027-07-02",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 3,
-              "max": 3,
-              "basis": "completed"
-            },
-            "hours": null,
-            "price": null,
-            "status": "available"
-          },
-          {
-            "label": "Session Two: Leatherwood",
-            "start": "2027-06-20",
-            "end": "2027-07-02",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 4,
-              "max": 4,
-              "basis": "completed"
-            },
-            "hours": null,
-            "price": null,
-            "status": "available"
-          },
-          {
-            "label": "Session Two: Graybeard",
-            "start": "2027-06-20",
-            "end": "2027-07-02",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 5,
-              "max": 5,
-              "basis": "completed"
-            },
-            "hours": null,
-            "price": null,
-            "status": "available"
-          },
-          {
-            "label": "Session Two: Rattlesnake",
-            "start": "2027-06-20",
-            "end": "2027-07-02",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 6,
-              "max": 6,
-              "basis": "completed"
-            },
-            "hours": null,
-            "price": null,
-            "status": "available"
-          },
-          {
-            "label": "Session Two: Thunderhead",
-            "start": "2027-06-20",
-            "end": "2027-07-02",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 7,
-              "max": 7,
-              "basis": "completed"
-            },
-            "hours": null,
-            "price": null,
-            "status": "available"
-          },
-          {
-            "label": "Session Two: Highland",
-            "start": "2027-06-20",
-            "end": "2027-07-02",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 8,
-              "max": 8,
-              "basis": "completed"
-            },
-            "hours": null,
-            "price": null,
-            "status": "available"
-          },
-          {
-            "label": "Session Three: Turtleback",
+            "label": "Session Three",
             "start": "2027-07-04",
             "end": "2027-07-16",
             "year": 2027,
             "site": null,
             "ages": null,
-            "grades": {
-              "min": 1,
-              "max": 2,
-              "basis": "completed"
-            },
+            "grades": null,
             "hours": null,
             "price": null,
             "status": "available"
           },
           {
-            "label": "Session Three: Eaglenest",
-            "start": "2027-07-04",
-            "end": "2027-07-16",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 3,
-              "max": 3,
-              "basis": "completed"
-            },
-            "hours": null,
-            "price": null,
-            "status": "available"
-          },
-          {
-            "label": "Session Three: Leatherwood",
-            "start": "2027-07-04",
-            "end": "2027-07-16",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 4,
-              "max": 4,
-              "basis": "completed"
-            },
-            "hours": null,
-            "price": null,
-            "status": "available"
-          },
-          {
-            "label": "Session Three: Graybeard",
-            "start": "2027-07-04",
-            "end": "2027-07-16",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 5,
-              "max": 5,
-              "basis": "completed"
-            },
-            "hours": null,
-            "price": null,
-            "status": "available"
-          },
-          {
-            "label": "Session Three: Rattlesnake",
-            "start": "2027-07-04",
-            "end": "2027-07-16",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 6,
-              "max": 6,
-              "basis": "completed"
-            },
-            "hours": null,
-            "price": null,
-            "status": "available"
-          },
-          {
-            "label": "Session Three: Thunderhead",
-            "start": "2027-07-04",
-            "end": "2027-07-16",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 7,
-              "max": 7,
-              "basis": "completed"
-            },
-            "hours": null,
-            "price": null,
-            "status": "available"
-          },
-          {
-            "label": "Session Three: Highland",
-            "start": "2027-07-04",
-            "end": "2027-07-16",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 8,
-              "max": 8,
-              "basis": "completed"
-            },
-            "hours": null,
-            "price": null,
-            "status": "available"
-          },
-          {
-            "label": "Session Four: Turtleback",
+            "label": "Session Four",
             "start": "2027-07-18",
             "end": "2027-07-30",
             "year": 2027,
             "site": null,
             "ages": null,
-            "grades": {
-              "min": 1,
-              "max": 2,
-              "basis": "completed"
-            },
-            "hours": null,
-            "price": null,
-            "status": "available"
-          },
-          {
-            "label": "Session Four: Eaglenest",
-            "start": "2027-07-18",
-            "end": "2027-07-30",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 3,
-              "max": 3,
-              "basis": "completed"
-            },
-            "hours": null,
-            "price": null,
-            "status": "available"
-          },
-          {
-            "label": "Session Four: Leatherwood",
-            "start": "2027-07-18",
-            "end": "2027-07-30",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 4,
-              "max": 4,
-              "basis": "completed"
-            },
-            "hours": null,
-            "price": null,
-            "status": "available"
-          },
-          {
-            "label": "Session Four: Graybeard",
-            "start": "2027-07-18",
-            "end": "2027-07-30",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 5,
-              "max": 5,
-              "basis": "completed"
-            },
-            "hours": null,
-            "price": null,
-            "status": "available"
-          },
-          {
-            "label": "Session Four: Rattlesnake",
-            "start": "2027-07-18",
-            "end": "2027-07-30",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 6,
-              "max": 6,
-              "basis": "completed"
-            },
-            "hours": null,
-            "price": null,
-            "status": "available"
-          },
-          {
-            "label": "Session Four: Thunderhead",
-            "start": "2027-07-18",
-            "end": "2027-07-30",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 7,
-              "max": 7,
-              "basis": "completed"
-            },
-            "hours": null,
-            "price": null,
-            "status": "available"
-          },
-          {
-            "label": "Session Four: Highland",
-            "start": "2027-07-18",
-            "end": "2027-07-30",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 8,
-              "max": 8,
-              "basis": "completed"
-            },
+            "grades": null,
             "hours": null,
             "price": null,
             "status": "available"
@@ -596,22 +198,19 @@
             "time": null,
             "precision": "date",
             "certainty": "announced",
-            "text": "Registration for summer 2027 will open to the general public beginning on September 21st, 2026.",
-            "url": "https://girls.ridgecrestcamps.com/friends",
+            "text": "Registration for summer 2027 will open to the general public beginning on September 21st.",
+            "url": "https://boys.ridgecrestcamps.com/friends",
             "year": 2027,
-            "confidence": "high"
+            "confidence": "medium"
           }
         ],
         "last_year_registration_opened": null,
         "availability": {
           "status": "available",
-          "scope": "Completed grades 1–8",
-          "text": "Numbers indicate spots left in a session."
+          "scope": "Completed grades 1–8, all four sessions",
+          "text": "Open"
         },
-        "financial_aid": {
-          "value": "yes",
-          "text": "Have scholarship questions? Email: scholarships@ridgecrestcamps.com"
-        },
+        "financial_aid": null,
         "special_needs": null,
         "lunch": null,
         "transportation": null,
@@ -619,17 +218,16 @@
           "https://boys.ridgecrestcamps.com/",
           "https://boys.ridgecrestcamps.com/registration/datesandrates",
           "https://boys.ridgecrestcamps.com/connect/contact",
-          "https://boys.ridgecrestcamps.com/information/campouts-and-trips",
-          "https://girls.ridgecrestcamps.com/friends"
+          "https://boys.ridgecrestcamps.com/friends"
         ],
-        "confidence": "high",
-        "review_notes": null
+        "confidence": "medium",
+        "review_notes": "Address and public registration opening were recovered from official search results. September 21 is assigned to fall 2026 from the explicitly stated summer 2027 registration context. Availability summarizes numerical spots and Open entries across the grade columns; the provider warns the chart is not real-time."
       },
       {
         "name": "Highland Outpost",
         "type": "overnight",
         "categories": ["faith_based", "nature_outdoor", "general"],
-        "description": "High school boys live primarily in cabins on Highland Hill and spend time at an outpost on camp property. Their schedule and skill time differ from the regular camp program.",
+        "description": "Boys combine cabin living and traditional camp activities with woodland adventures, platform-tent overnights and breakfast preparation over an open fire.",
         "camp_page_url": "https://boys.ridgecrestcamps.com/highland-outpost",
         "registration_url": "https://boys.ridgecrestcamps.com/register-now",
         "season": {
@@ -659,7 +257,7 @@
           {
             "amount": 3725,
             "unit": "session",
-            "label": "Two-week session",
+            "label": "two-week session",
             "year": 2027
           }
         ],
@@ -713,24 +311,11 @@
             "status": "available"
           }
         ],
-        "registration": [
-          {
-            "audience": "public",
-            "kind": "opens",
-            "date": "2026-09-21",
-            "time": null,
-            "precision": "date",
-            "certainty": "announced",
-            "text": "Registration for summer 2027 will open to the general public beginning on September 21st, 2026.",
-            "url": "https://girls.ridgecrestcamps.com/friends",
-            "year": 2027,
-            "confidence": "high"
-          }
-        ],
+        "registration": [],
         "last_year_registration_opened": null,
         "availability": {
           "status": "mixed",
-          "scope": "Session One waiting list; Sessions Two–Four have spaces",
+          "scope": "Session One",
           "text": "Waiting List"
         },
         "financial_aid": null,
@@ -740,17 +325,16 @@
         "sources": [
           "https://boys.ridgecrestcamps.com/highland-outpost",
           "https://boys.ridgecrestcamps.com/registration/datesandrates",
-          "https://boys.ridgecrestcamps.com/connect/contact",
-          "https://girls.ridgecrestcamps.com/friends"
+          "https://boys.ridgecrestcamps.com/connect/contact"
         ],
         "confidence": "medium",
-        "review_notes": "The Highland Outpost descriptive page could only be read through its official search excerpt; dates, grades and tuition are explicit in the supplied 2027 table."
+        "review_notes": "Official address was recovered through search results. Activity description comes from the program's 2026 launch page; 2027 dates, eligibility and tuition come from the 2027 table. Availability is not real-time."
       },
       {
         "name": "Pisgah Trailblazers",
         "type": "overnight",
         "categories": ["faith_based", "nature_outdoor"],
-        "description": "Boys take two hiking and camping trips during a two-week session. Hiking groups leave on Monday and return Thursday afternoon.",
+        "description": "Boys take two backpacking trips during their session, learning to set up camp and cook over a fire. They return to camp between trips for games, worship and other camp activities.",
         "camp_page_url": "https://boys.ridgecrestcamps.com/trailblazer-program",
         "registration_url": "https://boys.ridgecrestcamps.com/register-now",
         "season": {
@@ -780,7 +364,7 @@
           {
             "amount": 3725,
             "unit": "session",
-            "label": "Two-week session",
+            "label": "two-week session",
             "year": 2027
           }
         ],
@@ -834,24 +418,11 @@
             "status": "available"
           }
         ],
-        "registration": [
-          {
-            "audience": "public",
-            "kind": "opens",
-            "date": "2026-09-21",
-            "time": null,
-            "precision": "date",
-            "certainty": "announced",
-            "text": "Registration for summer 2027 will open to the general public beginning on September 21st, 2026.",
-            "url": "https://girls.ridgecrestcamps.com/friends",
-            "year": 2027,
-            "confidence": "high"
-          }
-        ],
+        "registration": [],
         "last_year_registration_opened": null,
         "availability": {
           "status": "mixed",
-          "scope": "Sessions One–Three waiting list; Session Four has spaces",
+          "scope": "Sessions One, Two and Three",
           "text": "Waiting List"
         },
         "financial_aid": null,
@@ -861,17 +432,16 @@
         "sources": [
           "https://boys.ridgecrestcamps.com/trailblazer-program",
           "https://boys.ridgecrestcamps.com/registration/datesandrates",
-          "https://boys.ridgecrestcamps.com/connect/contact",
-          "https://girls.ridgecrestcamps.com/friends"
+          "https://boys.ridgecrestcamps.com/connect/contact"
         ],
-        "confidence": "high",
-        "review_notes": null
+        "confidence": "medium",
+        "review_notes": "Official address was recovered through search results. Availability table is not updated in real time."
       },
       {
         "name": "Camp Crestridge for Girls",
         "type": "overnight",
         "categories": ["faith_based", "general", "nature_outdoor"],
-        "description": "Girls live in cabins and participate in skills, activities and Christian spiritual direction. The in-camp program follows the regular daily camp schedule.",
+        "description": "Girls live in cabins and participate in camp games, skill activities, ropes-course adventures and Christian discipleship.",
         "camp_page_url": "https://girls.ridgecrestcamps.com/",
         "registration_url": "https://girls.ridgecrestcamps.com/register-now",
         "season": {
@@ -901,557 +471,75 @@
           {
             "amount": 3725,
             "unit": "session",
-            "label": "Two-week session; horseback and paintball fees extra",
+            "label": "two-week session",
             "year": 2027
           }
         ],
         "sessions": [
           {
-            "label": "Session One: Bear Paw",
+            "label": "Session One",
             "start": "2027-06-06",
             "end": "2027-06-18",
             "year": 2027,
             "site": null,
             "ages": null,
-            "grades": {
-              "min": 1,
-              "max": 2,
-              "basis": "completed"
-            },
+            "grades": null,
             "hours": null,
             "price": null,
-            "status": "available"
+            "status": "mixed"
           },
           {
-            "label": "Session One: Fox Creek",
-            "start": "2027-06-06",
-            "end": "2027-06-18",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 3,
-              "max": 3,
-              "basis": "completed"
-            },
-            "hours": null,
-            "price": null,
-            "status": "available"
-          },
-          {
-            "label": "Session One: Wolf Den",
-            "start": "2027-06-06",
-            "end": "2027-06-18",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 4,
-              "max": 4,
-              "basis": "completed"
-            },
-            "hours": null,
-            "price": null,
-            "status": "available"
-          },
-          {
-            "label": "Session One: Hemlock",
-            "start": "2027-06-06",
-            "end": "2027-06-18",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 5,
-              "max": 5,
-              "basis": "completed"
-            },
-            "hours": null,
-            "price": null,
-            "status": "available"
-          },
-          {
-            "label": "Session One: Hawksbill",
-            "start": "2027-06-06",
-            "end": "2027-06-18",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 6,
-              "max": 6,
-              "basis": "completed"
-            },
-            "hours": null,
-            "price": null,
-            "status": "waitlist"
-          },
-          {
-            "label": "Session One: Cumberland",
-            "start": "2027-06-06",
-            "end": "2027-06-18",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 7,
-              "max": 7,
-              "basis": "completed"
-            },
-            "hours": null,
-            "price": null,
-            "status": "waitlist"
-          },
-          {
-            "label": "Session One: Roan",
-            "start": "2027-06-06",
-            "end": "2027-06-18",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 8,
-              "max": 8,
-              "basis": "completed"
-            },
-            "hours": null,
-            "price": null,
-            "status": "available"
-          },
-          {
-            "label": "Session One: Bluerock (In-Camp)",
-            "start": "2027-06-06",
-            "end": "2027-06-18",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 9,
-              "max": 11,
-              "basis": "completed"
-            },
-            "hours": null,
-            "price": null,
-            "status": "available"
-          },
-          {
-            "label": "Session Two: Bear Paw",
+            "label": "Session Two",
             "start": "2027-06-20",
             "end": "2027-07-02",
             "year": 2027,
             "site": null,
             "ages": null,
-            "grades": {
-              "min": 1,
-              "max": 2,
-              "basis": "completed"
-            },
+            "grades": null,
             "hours": null,
             "price": null,
-            "status": "available"
+            "status": "mixed"
           },
           {
-            "label": "Session Two: Fox Creek",
-            "start": "2027-06-20",
-            "end": "2027-07-02",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 3,
-              "max": 3,
-              "basis": "completed"
-            },
-            "hours": null,
-            "price": null,
-            "status": "available"
-          },
-          {
-            "label": "Session Two: Wolf Den",
-            "start": "2027-06-20",
-            "end": "2027-07-02",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 4,
-              "max": 4,
-              "basis": "completed"
-            },
-            "hours": null,
-            "price": null,
-            "status": "available"
-          },
-          {
-            "label": "Session Two: Hemlock",
-            "start": "2027-06-20",
-            "end": "2027-07-02",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 5,
-              "max": 5,
-              "basis": "completed"
-            },
-            "hours": null,
-            "price": null,
-            "status": "available"
-          },
-          {
-            "label": "Session Two: Hawksbill",
-            "start": "2027-06-20",
-            "end": "2027-07-02",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 6,
-              "max": 6,
-              "basis": "completed"
-            },
-            "hours": null,
-            "price": null,
-            "status": "waitlist"
-          },
-          {
-            "label": "Session Two: Cumberland",
-            "start": "2027-06-20",
-            "end": "2027-07-02",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 7,
-              "max": 7,
-              "basis": "completed"
-            },
-            "hours": null,
-            "price": null,
-            "status": "waitlist"
-          },
-          {
-            "label": "Session Two: Roan",
-            "start": "2027-06-20",
-            "end": "2027-07-02",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 8,
-              "max": 8,
-              "basis": "completed"
-            },
-            "hours": null,
-            "price": null,
-            "status": "available"
-          },
-          {
-            "label": "Session Two: Bluerock (In-Camp)",
-            "start": "2027-06-20",
-            "end": "2027-07-02",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 9,
-              "max": 11,
-              "basis": "completed"
-            },
-            "hours": null,
-            "price": null,
-            "status": "available"
-          },
-          {
-            "label": "Session Three: Bear Paw",
+            "label": "Session Three",
             "start": "2027-07-04",
             "end": "2027-07-16",
             "year": 2027,
             "site": null,
             "ages": null,
-            "grades": {
-              "min": 1,
-              "max": 2,
-              "basis": "completed"
-            },
+            "grades": null,
             "hours": null,
             "price": null,
-            "status": "available"
+            "status": "mixed"
           },
           {
-            "label": "Session Three: Fox Creek",
-            "start": "2027-07-04",
-            "end": "2027-07-16",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 3,
-              "max": 3,
-              "basis": "completed"
-            },
-            "hours": null,
-            "price": null,
-            "status": "available"
-          },
-          {
-            "label": "Session Three: Wolf Den",
-            "start": "2027-07-04",
-            "end": "2027-07-16",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 4,
-              "max": 4,
-              "basis": "completed"
-            },
-            "hours": null,
-            "price": null,
-            "status": "available"
-          },
-          {
-            "label": "Session Three: Hemlock",
-            "start": "2027-07-04",
-            "end": "2027-07-16",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 5,
-              "max": 5,
-              "basis": "completed"
-            },
-            "hours": null,
-            "price": null,
-            "status": "available"
-          },
-          {
-            "label": "Session Three: Hawksbill",
-            "start": "2027-07-04",
-            "end": "2027-07-16",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 6,
-              "max": 6,
-              "basis": "completed"
-            },
-            "hours": null,
-            "price": null,
-            "status": "available"
-          },
-          {
-            "label": "Session Three: Cumberland",
-            "start": "2027-07-04",
-            "end": "2027-07-16",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 7,
-              "max": 7,
-              "basis": "completed"
-            },
-            "hours": null,
-            "price": null,
-            "status": "available"
-          },
-          {
-            "label": "Session Three: Roan",
-            "start": "2027-07-04",
-            "end": "2027-07-16",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 8,
-              "max": 8,
-              "basis": "completed"
-            },
-            "hours": null,
-            "price": null,
-            "status": "available"
-          },
-          {
-            "label": "Session Three: Bluerock (In-Camp)",
-            "start": "2027-07-04",
-            "end": "2027-07-16",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 9,
-              "max": 11,
-              "basis": "completed"
-            },
-            "hours": null,
-            "price": null,
-            "status": "waitlist"
-          },
-          {
-            "label": "Session Four: Bear Paw",
+            "label": "Session Four",
             "start": "2027-07-18",
             "end": "2027-07-30",
             "year": 2027,
             "site": null,
             "ages": null,
-            "grades": {
-              "min": 1,
-              "max": 2,
-              "basis": "completed"
-            },
+            "grades": null,
             "hours": null,
             "price": null,
-            "status": "available"
-          },
-          {
-            "label": "Session Four: Fox Creek",
-            "start": "2027-07-18",
-            "end": "2027-07-30",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 3,
-              "max": 3,
-              "basis": "completed"
-            },
-            "hours": null,
-            "price": null,
-            "status": "available"
-          },
-          {
-            "label": "Session Four: Wolf Den",
-            "start": "2027-07-18",
-            "end": "2027-07-30",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 4,
-              "max": 4,
-              "basis": "completed"
-            },
-            "hours": null,
-            "price": null,
-            "status": "available"
-          },
-          {
-            "label": "Session Four: Hemlock",
-            "start": "2027-07-18",
-            "end": "2027-07-30",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 5,
-              "max": 5,
-              "basis": "completed"
-            },
-            "hours": null,
-            "price": null,
-            "status": "available"
-          },
-          {
-            "label": "Session Four: Hawksbill",
-            "start": "2027-07-18",
-            "end": "2027-07-30",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 6,
-              "max": 6,
-              "basis": "completed"
-            },
-            "hours": null,
-            "price": null,
-            "status": "waitlist"
-          },
-          {
-            "label": "Session Four: Cumberland",
-            "start": "2027-07-18",
-            "end": "2027-07-30",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 7,
-              "max": 7,
-              "basis": "completed"
-            },
-            "hours": null,
-            "price": null,
-            "status": "waitlist"
-          },
-          {
-            "label": "Session Four: Roan",
-            "start": "2027-07-18",
-            "end": "2027-07-30",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 8,
-              "max": 8,
-              "basis": "completed"
-            },
-            "hours": null,
-            "price": null,
-            "status": "available"
-          },
-          {
-            "label": "Session Four: Bluerock (In-Camp)",
-            "start": "2027-07-18",
-            "end": "2027-07-30",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 9,
-              "max": 11,
-              "basis": "completed"
-            },
-            "hours": null,
-            "price": null,
-            "status": "available"
+            "status": "mixed"
           }
         ],
-        "registration": [
-          {
-            "audience": "public",
-            "kind": "opens",
-            "date": "2026-09-21",
-            "time": null,
-            "precision": "date",
-            "certainty": "announced",
-            "text": "Registration for summer 2027 will open to the general public beginning on September 21st, 2026.",
-            "url": "https://girls.ridgecrestcamps.com/friends",
-            "year": 2027,
-            "confidence": "high"
-          }
-        ],
+        "registration": [],
         "last_year_registration_opened": null,
         "availability": {
           "status": "mixed",
-          "scope": "Several grade bands have waiting lists",
-          "text": "Numbers indicate spots left in a session. If a session is marked \"waiting list\", proceed with online registration to be added to this list."
+          "scope": "Completed grades 6 and 7 in Sessions One, Two and Four; completed grades 9–11 in Session Three",
+          "text": "Waiting List"
         },
-        "financial_aid": {
-          "value": "yes",
-          "text": "Have scholarship questions? Email: scholarships@ridgecrestcamps.com"
-        },
+        "financial_aid": null,
         "special_needs": null,
         "lunch": null,
         "transportation": null,
         "sources": [
           "https://girls.ridgecrestcamps.com/",
           "https://girls.ridgecrestcamps.com/registration/datesandrates",
-          "https://girls.ridgecrestcamps.com/connect/contact",
-          "https://girls.ridgecrestcamps.com/friends",
-          "https://girls.ridgecrestcamps.com/wilderness-program"
+          "https://girls.ridgecrestcamps.com/connect/contact"
         ],
         "confidence": "high",
         "review_notes": null
@@ -1460,7 +548,7 @@
         "name": "Wilderness Program",
         "type": "overnight",
         "categories": ["faith_based", "nature_outdoor"],
-        "description": "Girls spend most of their session outside camp hiking and camping in Pisgah National Forest rather than following the regular in-camp schedule.",
+        "description": "Girls spend most of their session outside camp hiking and camping in Pisgah National Forest.",
         "camp_page_url": "https://girls.ridgecrestcamps.com/wilderness-program",
         "registration_url": "https://girls.ridgecrestcamps.com/register-now",
         "season": {
@@ -1490,7 +578,7 @@
           {
             "amount": 3725,
             "unit": "session",
-            "label": "Two-week session",
+            "label": "two-week session",
             "year": 2027
           }
         ],
@@ -1544,24 +632,11 @@
             "status": "available"
           }
         ],
-        "registration": [
-          {
-            "audience": "public",
-            "kind": "opens",
-            "date": "2026-09-21",
-            "time": null,
-            "precision": "date",
-            "certainty": "announced",
-            "text": "Registration for summer 2027 will open to the general public beginning on September 21st, 2026.",
-            "url": "https://girls.ridgecrestcamps.com/friends",
-            "year": 2027,
-            "confidence": "high"
-          }
-        ],
+        "registration": [],
         "last_year_registration_opened": null,
         "availability": {
           "status": "mixed",
-          "scope": "Sessions One–Three waiting list; Session Four has spaces",
+          "scope": "Sessions One, Two and Three",
           "text": "Waiting List"
         },
         "financial_aid": null,
@@ -1569,10 +644,8 @@
         "lunch": null,
         "transportation": null,
         "sources": [
-          "https://girls.ridgecrestcamps.com/wilderness-program",
           "https://girls.ridgecrestcamps.com/registration/datesandrates",
-          "https://girls.ridgecrestcamps.com/connect/contact",
-          "https://girls.ridgecrestcamps.com/friends"
+          "https://girls.ridgecrestcamps.com/connect/contact"
         ],
         "confidence": "high",
         "review_notes": null
@@ -1581,9 +654,9 @@
         "name": "SALT Program",
         "type": "overnight",
         "categories": ["faith_based", "general"],
-        "description": "Service and Leadership Training participants receive leadership training and volunteer to assist camp. Each group commits to four weeks during either the first or second half of summer.",
+        "description": "Service and Leadership Training equips participants with leadership skills for camp and beyond. Participants assist camp in its mission.",
         "camp_page_url": "https://boys.ridgecrestcamps.com/salt-program",
-        "registration_url": "https://boys.ridgecrestcamps.com/register-now",
+        "registration_url": null,
         "season": {
           "year": 2027,
           "status": "not_posted",
@@ -1628,8 +701,8 @@
           "https://boys.ridgecrestcamps.com/connect/contact",
           "https://girls.ridgecrestcamps.com/connect/contact"
         ],
-        "confidence": "medium",
-        "review_notes": "Both undated SALT pages state a $1500 program cost, but neither establishes whether this is 2026 or 2027, so no dated price is supplied. Calendar dates are assigned after application; no dated rows were created. The pages instruct applicants to apply by October 1 of junior year without identifying a calendar year. Girls apply through https://girls.ridgecrestcamps.com/register-now using a parent's account."
+        "confidence": "low",
+        "review_notes": "Both SALT pages returned no readable body. Official search snippets establish completed 11th-grade eligibility and service/leadership content, but not dates, tuition, application milestones or overnight details. Check both full program pages for 2027 information and confirm the overnight format. Both sites are retained as locations of their respective SALT programs; no dated site rows could be recovered."
       }
     ]
   }

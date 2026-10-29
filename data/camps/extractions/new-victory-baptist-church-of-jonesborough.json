@@ -11,23 +11,24 @@
     "status": "review",
     "status_reason": "page didn't load: fetch: fetch failed (80410000:error:0A000410:SSL routines:ssl3_read_bytes:ssl/tls alert handshake failure:openssl\\ssl\\record\\rec_layer_s3.c:918:SSL alert number 40 ); chrome-tls: fetch failed (80410000:error:0A000410:SSL routines:ssl3_read_bytes:ssl/tls alert handshake failure:openssl\\ssl\\record\\rec"
   },
-  "extractedAt": "2026-10-29T15:25:24.599Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:21:43.306Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": null,
   "response": {
     "searches": [
       "open https://newvictorybaptist.org/vacation-bible-school/",
-      "\"New Victory Baptist\" \"2026\" \"VBS\"",
-      "site:facebook.com/NewVictoryBaptist \"Bible\" \"2026\""
+      "site:newvictorybaptist.org vacation bible school 2026",
+      "site:facebook.com \"New Victory\" \"Illumination\"",
+      "\"New Victory Baptist\" \"VBS\" \"2027\""
     ],
     "usage": {
-      "inputTokens": 16685,
-      "cachedInputTokens": 8223,
-      "outputTokens": 708,
-      "reasoningTokens": 276
+      "inputTokens": 23214,
+      "cachedInputTokens": 8845,
+      "outputTokens": 898,
+      "reasoningTokens": 358
     },
     "status": "completed",
-    "ms": 24917,
+    "ms": 31513,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -35,7 +36,7 @@
     {
       "url": "https://newvictorybaptist.org/vacation-bible-school/",
       "chars": 0,
-      "error": "fetch: fetch failed (B0980000:error:0A000410:SSL routines:ssl3_read_bytes:ssl/tls alert handshake failure:openssl\\ssl\\record\\rec_layer_s3.c:918:SSL alert number 40\n); chrome-tls: fetch failed (B0980000:error:0A000410:SSL routines:ssl3_read_bytes:ssl/tls alert handshake failure:openssl\\ssl\\record\\rec_layer_s3.c:918:SSL alert number 40\n); browser: page.goto: net::ERR_SSL_VERSION_OR_CIPHER_MISMATCH at https://newvictorybaptist.org/vacation-bible-school/\nCall log:\n\u001b[2m  - navigating to \"https://newvictorybaptist.org/vacation-bible-school/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+      "error": "fetch: fetch failed (98760000:error:0A000410:SSL routines:ssl3_read_bytes:ssl/tls alert handshake failure:openssl\\ssl\\record\\rec_layer_s3.c:918:SSL alert number 40\n); chrome-tls: fetch failed (98760000:error:0A000410:SSL routines:ssl3_read_bytes:ssl/tls alert handshake failure:openssl\\ssl\\record\\rec_layer_s3.c:918:SSL alert number 40\n); browser: page.goto: net::ERR_SSL_VERSION_OR_CIPHER_MISMATCH at https://newvictorybaptist.org/vacation-bible-school/\nCall log:\n\u001b[2m  - navigating to \"https://newvictorybaptist.org/vacation-bible-school/\", waiting until \"domcontentloaded\"\u001b[22m\n"
     },
     {
       "url": "http://www.newvictorybaptist.org/",
@@ -45,24 +46,24 @@
     {
       "url": "https://newvictorybaptist.org/",
       "chars": 0,
-      "error": "fetch: fetch failed (B0980000:error:0A000410:SSL routines:ssl3_read_bytes:ssl/tls alert handshake failure:openssl\\ssl\\record\\rec_layer_s3.c:918:SSL alert number 40\n); chrome-tls: fetch failed (B0980000:error:0A000410:SSL routines:ssl3_read_bytes:ssl/tls alert handshake failure:openssl\\ssl\\record\\rec_layer_s3.c:918:SSL alert number 40\n); browser: page.goto: net::ERR_SSL_VERSION_OR_CIPHER_MISMATCH at https://newvictorybaptist.org/\nCall log:\n\u001b[2m  - navigating to \"https://newvictorybaptist.org/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+      "error": "fetch: fetch failed (98760000:error:0A000410:SSL routines:ssl3_read_bytes:ssl/tls alert handshake failure:openssl\\ssl\\record\\rec_layer_s3.c:918:SSL alert number 40\n); chrome-tls: fetch failed (98760000:error:0A000410:SSL routines:ssl3_read_bytes:ssl/tls alert handshake failure:openssl\\ssl\\record\\rec_layer_s3.c:918:SSL alert number 40\n); browser: page.goto: net::ERR_SSL_VERSION_OR_CIPHER_MISMATCH at https://newvictorybaptist.org/\nCall log:\n\u001b[2m  - navigating to \"https://newvictorybaptist.org/\", waiting until \"domcontentloaded\"\u001b[22m\n"
     }
   ],
   "extraction": {
     "provider_name": "New Victory Baptist Church of Jonesborough",
     "website_url": "https://newvictorybaptist.org/",
-    "notes": "The official homepage and Vacation Bible School page returned no readable content; subsequent access was blocked by robots.txt. An official search result confirms a Vacation Bible School page but provides no program details. No 2027 announcement or usable 2026 dates were found. The church's Facebook page also returned no readable content. The church address appears in external directories, but the camp's drop-off location could not be confirmed.",
+    "notes": "The official website and Facebook page returned no readable content. The official VBS page is indexed, but its search snippet contains no program details. No 2027 information was found. Third-party event listings describe a 2026 Illumination Station VBS on June 12–13; these dates need official confirmation.",
     "excluded": [],
     "cards": [
       {
         "name": "Vacation Bible School",
         "type": "vbs",
         "categories": ["faith_based"],
-        "description": "A Vacation Bible School program.",
+        "description": "Vacation Bible School for children.",
         "camp_page_url": "https://newvictorybaptist.org/vacation-bible-school/",
         "registration_url": null,
         "season": {
-          "year": 2027,
+          "year": 2026,
           "status": "not_posted",
           "start": null,
           "end": null,
@@ -70,7 +71,14 @@
         },
         "ages": null,
         "grades": null,
-        "sites": [],
+        "sites": [
+          {
+            "name": "New Victory Baptist Church",
+            "address": "527 Conklin Rd",
+            "town": "Jonesborough",
+            "state": "TN"
+          }
+        ],
         "hours": null,
         "extended_care": null,
         "prices": [],
@@ -84,7 +92,7 @@
         "transportation": null,
         "sources": ["https://newvictorybaptist.org/vacation-bible-school/"],
         "confidence": "low",
-        "review_notes": "Only the program name was visible in an official search result. Verify whether the program is still offered and obtain dates, ages, hours, registration details and the published drop-off address directly from the church; the official page could not be read."
+        "review_notes": "Official pages could not be read; program existence is supported by the indexed official VBS page. Confirm the 2026 dates, ages, daily schedule and registration details with the church. Third-party AllEvents and HappeningNext listings give June 12–13, 2026, but dates were left null pending official confirmation. The address is corroborated by the Southern Baptist Convention directory at https://churches.sbc.net/church/new-victory-baptist-church-2/ and the Town of Jonesborough church directory at https://www.jonesboroughtn.org/residents/churches/; the church's own published address could not be read."
       }
     ]
   }

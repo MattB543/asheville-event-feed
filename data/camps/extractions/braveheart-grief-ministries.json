@@ -7,19 +7,19 @@
     "discovered_by": ["gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:36:44.460Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:31:03.868Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "c873eb12f6957da8e70d4f84ea92d0161a6cf0b47519ccae4e0ac8851208c23a",
   "response": {
     "searches": ["site.campbraveheart.com 2027 registration"],
     "usage": {
-      "inputTokens": 17269,
-      "cachedInputTokens": 8223,
-      "outputTokens": 603,
+      "inputTokens": 17956,
+      "cachedInputTokens": 8845,
+      "outputTokens": 621,
       "reasoningTokens": 63
     },
     "status": "completed",
-    "ms": 19586,
+    "ms": 22730,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -68,14 +68,27 @@
   "extraction": {
     "provider_name": "Braveheart Grief Ministries",
     "website_url": "https://www.campbraveheart.com/",
-    "notes": "2027 dates and pricing are posted. Official pages disagree about camper pickup time on June 12. No dated registration opening announcement was found.",
-    "excluded": [],
+    "notes": "2027 dates and pricing are posted. No registration opening date was found. The May 19 balance-payment due date is not a registration deadline.",
+    "excluded": [
+      {
+        "name": "Camp Braveheart — Children's Healthcare of Atlanta",
+        "reason": "A different provider's program, not Braveheart Grief Ministries in Brevard."
+      },
+      {
+        "name": "Camp BraveHeart — HopeHealth",
+        "reason": "A different provider's program in Massachusetts, not this provider."
+      },
+      {
+        "name": "Camp Brave Heart — Good Shepherd Hospice",
+        "reason": "A different provider's program in Lake Wales, Florida, outside the directory area."
+      }
+    ],
     "cards": [
       {
         "name": "Camp Braveheart",
         "type": "overnight",
         "categories": ["faith_based"],
-        "description": "Youth grieving the death of a loved one learn about the grief process, expressing emotions and healthy coping skills in a Christ-centered setting. Campers build support with others experiencing similar losses.",
+        "description": "A Christ-centered camp for youth grieving the death of a loved one. Campers learn about the grief process, express their emotions, and develop healthy coping skills alongside others experiencing loss.",
         "camp_page_url": "https://www.campbraveheart.com/",
         "registration_url": "https://www.campbraveheart.com/camp-registration",
         "season": {
@@ -99,17 +112,13 @@
             "state": "NC"
           }
         ],
-        "hours": {
-          "start": null,
-          "end": null,
-          "text": "Drop-off June 7 at 2 PM. June 12 pickup is listed as 10 AM on the homepage and 11 AM on the Purpose and Goals page."
-        },
+        "hours": null,
         "extended_care": null,
         "prices": [
           {
             "amount": 400,
-            "unit": "program",
-            "label": "$200 deposit or full payment due at registration; remaining $200 due May 19, 2027.",
+            "unit": "session",
+            "label": null,
             "year": 2027
           }
         ],
@@ -119,19 +128,19 @@
         "availability": null,
         "financial_aid": {
           "value": "case_by_case",
-          "text": "Scholarships are available. Please email us at campbraveheart@gmail.com to make a scholarship request for review. Note there are additional scholarship funds for those who lost loved ones in the storms of Helene and Milton 2024."
+          "text": "Scholarships are available. Please email us at campbraveheart@gmail.com to make a scholarship request for review."
         },
         "special_needs": null,
         "lunch": null,
         "transportation": null,
         "sources": [
           "https://www.campbraveheart.com/",
-          "https://www.campbraveheart.com/who-we-are",
           "https://www.campbraveheart.com/camp-registration",
+          "https://www.campbraveheart.com/who-we-are",
           "https://www.ridgehaven.org/contact"
         ],
         "confidence": "medium",
-        "review_notes": "Confirm June 12, 2027 pickup time: the homepage says 10 AM, while https://www.campbraveheart.com/who-we-are says 11 AM. Grades 4–12 are stated without specifying rising or completed grades."
+        "review_notes": "The homepage states June 12 pickup at 10:00 AM, while the Purpose and Goals page states 11:00 AM. Confirm pickup time. Both pages state June 7 drop-off at 2:00 PM. A $200 deposit or full payment is due at registration, with the remaining $200 due May 19, 2027."
       }
     ]
   }

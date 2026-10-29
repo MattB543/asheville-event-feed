@@ -7,23 +7,22 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:24:19.941Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:20:33.397Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "eabb8b52ecae1874d14ba39f32205c3dc46a0fb1067d376c346985a12d2f57fc",
   "response": {
     "searches": [
-      "site.campinthecommunity.org \"2027\"",
-      "site:campinthecommunity.org \"2027\" \"dates\"",
-      "site:campinthecommunity.org/juniorcounselor"
+      "site:campinthecommunity.org \"Junior\" \"2027\"",
+      "\"Camp in the Community\" \"2027\" dates"
     ],
     "usage": {
-      "inputTokens": 32635,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1290,
-      "reasoningTokens": 214
+      "inputTokens": 32386,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1242,
+      "reasoningTokens": 142
     },
     "status": "completed",
-    "ms": 37038,
+    "ms": 29871,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -72,27 +71,27 @@
   "extraction": {
     "provider_name": "Camp in the Community",
     "website_url": "https://www.campinthecommunity.org/",
-    "notes": "Summer 2027 program information and a 2027 host handbook are published, but no camper session dates, confirmed drop-off sites, or camper registration opening dates were found. Host applications being open is not a camper registration milestone. The Alcoa address in the 2025 handbook is not established as a camper drop-off site. The Junior Counselor and staff pages returned no readable body text when opened; the Junior Counselor card uses the supplied 2027 host handbook. No Newport-specific current host site was confirmed.",
+    "notes": "The summer camp page and church handbook now describe 2027, but no dated camper sessions, host-site list, or camper registration opening dates were found. Sites are left empty rather than carrying forward historical host churches or using the administrative address. The Junior Counselor page returned no readable body text; its program description was available in official search results and the supplied 2027 handbook. Host applications and host payment deadlines are not camper registration milestones.",
     "excluded": [
       {
         "name": "Summer Staff",
-        "reason": "Paid seasonal employment, not a youth camp program."
+        "reason": "Summer employment program, not a youth camp."
       },
       {
         "name": "Internship Program",
-        "reason": "Listed as a staff/ministry internship opportunity rather than a supervised youth summer camp."
+        "reason": "Ministry internship rather than a finite supervised youth summer camp."
       },
       {
-        "name": "Pickleball for a Purpose",
-        "reason": "November 7, 2026 fundraising tournament outside summer."
+        "name": "Camp is Where the Heart Is",
+        "reason": "Historical 2020 take-home activity kit program, not a current supervised summer camp."
       }
     ],
     "cards": [
       {
         "name": "Camp in the Community",
         "type": "day",
-        "categories": ["faith_based", "general", "nature_outdoor", "stem", "arts"],
-        "description": "Campers participate in archery, Gaga Ball, water games, STEM activities, arts and crafts, worship, and Bible study at local host sites.",
+        "categories": ["faith_based", "general", "stem", "nature_outdoor", "arts", "sports"],
+        "description": "Campers participate in archery, Gaga Ball, water games, STEM activities, arts and crafts, worship, and Bible study. The program brings a week of Christian day camp to local host churches and community spaces.",
         "camp_page_url": "https://www.campinthecommunity.org/summercamp",
         "registration_url": null,
         "season": {
@@ -100,7 +99,7 @@
           "status": "not_posted",
           "start": null,
           "end": null,
-          "text": "The summer camp page is headed 2027, but session dates are not listed."
+          "text": null
         },
         "ages": {
           "min": 5,
@@ -111,14 +110,14 @@
         "hours": {
           "start": "08:30",
           "end": "16:30",
-          "text": "Monday–Thursday 8:30 a.m.–4:30 p.m.; Friday 8:30 a.m.–2:00 p.m."
+          "text": "Monday to Thursday from 8:30 a.m. to 4:30 p.m. Friday runs from 8:30 a.m. to 2:00 p.m."
         },
         "extended_care": null,
         "prices": [
           {
             "amount": 0,
             "unit": "week",
-            "label": "Free for families",
+            "label": "Free",
             "year": 2027
           }
         ],
@@ -138,8 +137,7 @@
         "transportation": null,
         "sources": [
           "https://www.campinthecommunity.org/summercamp",
-          "https://www.campinthecommunity.org/_files/ugd/ac6ce2_3635ffd3be78468190123fd87c9febf1.pdf",
-          "https://www.campinthecommunity.org/hosting-101"
+          "https://www.campinthecommunity.org/_files/ugd/ac6ce2_3635ffd3be78468190123fd87c9febf1.pdf"
         ],
         "confidence": "high",
         "review_notes": null
@@ -148,7 +146,7 @@
         "name": "Junior Counselor Program",
         "type": "day",
         "categories": ["faith_based", "general"],
-        "description": "Youth receive leadership training and practice working with groups of campers alongside camp staff. They serve under the supervision of older peers at host sites.",
+        "description": "Junior Counselors receive leadership training and work alongside camp counselors with groups of children. Participants help lead activities and practice leadership under staff supervision.",
         "camp_page_url": "https://www.campinthecommunity.org/juniorcounselor",
         "registration_url": null,
         "season": {
@@ -156,7 +154,7 @@
           "status": "not_posted",
           "start": null,
           "end": null,
-          "text": "The 2027 host handbook describes the program, but no dated sessions are listed."
+          "text": null
         },
         "ages": {
           "min": 15,
@@ -164,7 +162,11 @@
         },
         "grades": null,
         "sites": [],
-        "hours": null,
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "Junior Counselor training on Sunday from 4 pm to 6 pm."
+        },
         "extended_care": null,
         "prices": [],
         "sessions": [],
@@ -176,6 +178,8 @@
         "lunch": null,
         "transportation": null,
         "sources": [
+          "https://www.campinthecommunity.org/juniorcounselor",
+          "https://www.campinthecommunity.org/summercamp",
           "https://www.campinthecommunity.org/_files/ugd/ac6ce2_3635ffd3be78468190123fd87c9febf1.pdf"
         ],
         "confidence": "high",

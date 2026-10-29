@@ -13,22 +13,23 @@
     "discovered_by": ["grid", "aggregator", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:06:37.961Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
-  "sourceHash": "389b6e3ff08affda898911e90df2e31b1aacf65c215b8543edc09c39a41bbc5a",
+  "extractedAt": "2026-10-29T17:06:02.194Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "501fc7e6a5a08863be314c5e891336837f8e51c7e0ddfb35ba341553d77df203",
   "response": {
     "searches": [
-      "site:rockbrookcamp.com address 3460",
-      "open https://www.rockbrookcamp.com/parents/driving-directions/"
+      "site:rockbrookcamp.com address 3460 scholarship 2027",
+      "open https://www.rockbrookcamp.com/parents/driving-directions/",
+      "site:rockbrookcamp.com \"2027\" \"registration\" \"opens\""
     ],
     "usage": {
-      "inputTokens": 27130,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1784,
-      "reasoningTokens": 162
+      "inputTokens": 27933,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1862,
+      "reasoningTokens": 234
     },
     "status": "completed",
-    "ms": 40828,
+    "ms": 42384,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -77,31 +78,31 @@
   "extraction": {
     "provider_name": "Rockbrook Camp",
     "website_url": "https://www.rockbrookcamp.com/",
-    "notes": "2027 main camp dates and rates are posted. Specialty Horse Camp remains described on an evergreen page but is absent from the posted 2027 session list, so it is omitted pending confirmation that it will return. No explicitly year-dated 2027 registration opening was found; the evergreen September 1 priority policy was not converted into a dated milestone. Additional pages opened during research returned no readable text; official search results supplied the address information.",
+    "notes": "The 2027 Dates & Rates page lists only main camp sessions. Specialty Horse Camp and Kayak Trip Camp remain on separate pages but have no sessions in the posted 2027 list; they are omitted pending confirmation that they will run in 2027. Additional pages opened through the browser returned no readable body text; the driving address was obtained from the official search result. The enrollment policy mentions September 1 without a calendar year, so no dated registration milestone was inferred.",
     "excluded": [
       {
         "name": "Specialty Horse Camp",
-        "reason": "Not included in the posted 2027 program/session list. Its evergreen description does not establish a 2027 offering."
+        "reason": "Not included in the provider's posted 2027 program/session list; the separate specialty page supplies no 2027 dates."
       },
       {
-        "name": "105-year Alumnae Reunion",
-        "reason": "An alumnae reunion rather than a supervised youth summer camp."
-      },
-      {
-        "name": "Work at Camp",
-        "reason": "Staff employment opportunities, not a youth camp program."
+        "name": "Kayak Trip Camp",
+        "reason": "Not included in the provider's posted 2027 program/session list; the separate program page supplies no 2027 dates."
       },
       {
         "name": "Internship in Social Emotional Learning",
-        "reason": "A staff internship rather than a youth summer camp program."
+        "reason": "Staff internship/employment program, not a youth camp."
+      },
+      {
+        "name": "105 Year Reunion",
+        "reason": "Alumnae reunion, not a supervised youth summer camp."
       }
     ],
     "cards": [
       {
         "name": "Rockbrook Camp for Girls",
         "type": "overnight",
-        "categories": ["general", "nature_outdoor", "arts", "sports", "horses", "theater"],
-        "description": "Girls participate in horseback riding, whitewater rafting, hiking, climbing, crafts, swimming, sports and drama. All main camp sessions offer the full range of activities.",
+        "categories": ["general", "arts", "nature_outdoor", "sports", "horses", "theater"],
+        "description": "Girls participate in horseback riding, whitewater rafting, rock climbing, swimming, arts and crafts, sports, and drama. All sessions offer the full range of activities.",
         "camp_page_url": "https://www.rockbrookcamp.com/camps/",
         "registration_url": "https://www.rockbrookcamp.com/registration/",
         "season": {
@@ -109,7 +110,7 @@
           "status": "posted",
           "start": "2027-06-06",
           "end": "2027-08-08",
-          "text": "2027 Main Camp Session Dates"
+          "text": "2027 Overnight Camps"
         },
         "ages": {
           "min": 6,
@@ -267,15 +268,14 @@
         "lunch": null,
         "transportation": null,
         "sources": [
-          "https://www.rockbrookcamp.com/",
           "https://www.rockbrookcamp.com/camps/",
           "https://www.rockbrookcamp.com/registration/",
           "https://www.rockbrookcamp.com/registration/enrollment-information/",
-          "https://www.rockbrookcamp.com/parents/driving-directions/",
-          "https://www.rockbrookcamp.com/contact/"
+          "https://www.rockbrookcamp.com/describe/",
+          "https://www.rockbrookcamp.com/parents/driving-directions/"
         ],
         "confidence": "medium",
-        "review_notes": "The official driving-directions search result identifies the camp entrance at 3460 Greenville Highway, used here as the drop-off address. The official contact page instead lists 368 Castle Rock Road for non-USPS shipments; confirm the preferred parent navigation address. Session dates take their year from the explicit 2027 heading. Session grade ranges use the completed-grade basis stated on the Life at Summer Camp page."
+        "review_notes": "The official driving-directions search result identifies the entrance as 3460 Greenville Highway; the contact search result lists 368 Castle Rock Road for non-USPS shipping, which was not used as the drop-off address. Session grade ranges are printed without a basis on Dates & Rates; completed-grade basis follows the Life at Summer Camp page's explicit statement that campers have finished first through tenth grade."
       }
     ]
   }

@@ -7,19 +7,19 @@
     "discovered_by": ["grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:18:29.680Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:15:44.729Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "a51989733b8ce157b972f8d7f4d36ad1849d8ec2739fc322dd01327128c58b34",
   "response": {
-    "searches": ["site:cashiershistory.org \"2027\" camp"],
+    "searches": ["site:cashiershistory.org \"2027\" \"camp\""],
     "usage": {
-      "inputTokens": 20962,
-      "cachedInputTokens": 8223,
-      "outputTokens": 859,
-      "reasoningTokens": 48
+      "inputTokens": 21563,
+      "cachedInputTokens": 8845,
+      "outputTokens": 952,
+      "reasoningTokens": 50
     },
     "status": "completed",
-    "ms": 21021,
+    "ms": 19813,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -68,27 +68,27 @@
   "extraction": {
     "provider_name": "Cashiers Historical Society",
     "website_url": "https://www.cashiershistory.org/",
-    "notes": "No 2027 JAM Camp information found. The 2026 waiver's media-release section retains July 23–25, 2025 dates; the camp page, registration form and waiver consent section agree on July 22–24, 2026.",
+    "notes": "No 2027 JAM Camp information or registration milestones were found. The 2026 waiver's media-release section retains July 23–25, 2025 dates, while the camp page, registration form and consent section agree on July 22–24, 2026. The Village Green is a final-performance destination, not a listed camp drop-off site.",
     "excluded": [
       {
         "name": "Campfires & the Embers of Youth",
-        "reason": "Museum and digital exhibit about summer camps, not a supervised youth camp."
+        "reason": "Museum and digital exhibit about summer camp history, not a supervised youth camp."
       },
       {
-        "name": "Campus Tour",
-        "reason": "Year-round self-guided visitor activity, not a supervised youth program."
+        "name": "Jan Wyatt Symposium",
+        "reason": "Symposium, not a youth camp."
       },
       {
         "name": "Young Preservationist",
-        "reason": "Social events for young professionals and community members, not a youth camp."
+        "reason": "Social events for young professionals and community members, not youth camps."
       },
       {
-        "name": "Internship Opportunities",
-        "reason": "Internship opportunities for college and graduate students, not a summer camp."
+        "name": "Camp Historical Society",
+        "reason": "Single-evening Capture the Flag and movie events, not multi-day evening camps."
       },
       {
-        "name": "Holidays at the Historical Society",
-        "reason": "December holiday visitor event outside summer."
+        "name": "Campus Tour",
+        "reason": "Self-guided visitor attraction, not a supervised youth program."
       }
     ],
     "cards": [
@@ -96,7 +96,7 @@
         "name": "JAM Camp",
         "type": "day",
         "categories": ["music", "arts", "nature_outdoor"],
-        "description": "Campers receive instruction in traditional folk and old-time string music and participate in crafts, storytelling, games and nature exploration. The program ends with a short concert at The Village Green.",
+        "description": "Campers receive instruction in traditional folk and old-time music on stringed instruments and participate in crafts, storytelling, games and nature activities. They present a short concert at The Village Green on the final day.",
         "camp_page_url": "https://www.cashiershistory.org/jam-camp-2026",
         "registration_url": "https://static1.squarespace.com/static/67c917a10994a41b882cd353/t/69c23045eccfcd345da65c2b/1774334021512/JAMCamp2026_RegistrationForm.pdf",
         "season": {
@@ -123,7 +123,7 @@
         "hours": {
           "start": "10:00",
           "end": "17:00",
-          "text": "10:00am -5:00pm daily; arrive by 9:50 AM for check-in. A short concert follows on Friday at The Village Green."
+          "text": "10:00am -5:00pm daily"
         },
         "extended_care": null,
         "prices": [
@@ -148,11 +148,10 @@
         "sources": [
           "https://www.cashiershistory.org/jam-camp-2026",
           "https://static1.squarespace.com/static/67c917a10994a41b882cd353/t/69c23045eccfcd345da65c2b/1774334021512/JAMCamp2026_RegistrationForm.pdf",
-          "https://static1.squarespace.com/static/67c917a10994a41b882cd353/t/69bcda3cfcd2fb5b80936579/1773984316913/JAMCamp2026_WelcomeInfoLetter.pdf",
-          "https://static1.squarespace.com/static/67c917a10994a41b882cd353/t/69bcda63547a420e0590d281/1773984355632/JAMCamp2026_WaiverMediaRelease.pdf"
+          "https://static1.squarespace.com/static/67c917a10994a41b882cd353/t/69bcda3cfcd2fb5b80936579/1773984316913/JAMCamp2026_WelcomeInfoLetter.pdf"
         ],
-        "confidence": "medium",
-        "review_notes": "The waiver's media release retains July 23–25, 2025 dates, while its consent section, registration form and camp page state July 22–24, 2026. Check for a corrected media release. The page still says registration is open despite the 2026 camp being past; availability is left null."
+        "confidence": "high",
+        "review_notes": null
       }
     ]
   }

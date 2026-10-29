@@ -7,23 +7,22 @@
     "discovered_by": ["gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:38:25.910Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:32:33.700Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "2e66f61c5c3d3689afa63335c1cfc69526646ec62e5d9d417fb1ca913341dd71",
   "response": {
     "searches": [
-      "site:stfrancisrutherfordton.org \"2026\" \"Vacation\"",
-      "\"St. Francis\" \"Rutherfordton\" \"VBS\" \"2026\"",
-      "site:stfrancisrutherfordton.org \"Vacation Bible School\""
+      "site:stfrancisrutherfordton.org \"2026\" \"Bible\"",
+      "site:stfrancisrutherfordton.org \"VBS\""
     ],
     "usage": {
-      "inputTokens": 26650,
-      "cachedInputTokens": 8223,
-      "outputTokens": 740,
-      "reasoningTokens": 257
+      "inputTokens": 19176,
+      "cachedInputTokens": 8845,
+      "outputTokens": 739,
+      "reasoningTokens": 189
     },
     "status": "completed",
-    "ms": 26833,
+    "ms": 24483,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -42,14 +41,27 @@
   "extraction": {
     "provider_name": "St. Francis Episcopal Church of Rutherfordton",
     "website_url": "https://www.stfrancisrutherfordton.org/",
-    "notes": "No 2027 or 2026 summer camp details were found in official web searches. The gallery documents Vacation Bible School on July 19, 2025 only; that historical date has not been used as a 2026 or 2027 date. Christian Living and St. Francis Day School pages returned no readable text. Search results for 2026 worship bulletin PDFs provided only partial text, insufficient to verify additional camp details.",
-    "excluded": [],
+    "notes": "No 2027 or 2026 Vacation Bible School announcement was found. The gallery documents Vacation Bible School on July 19, 2025; that historical date has not been reused as a 2026 or 2027 date. Searches of official pages and indexed PDFs did not yield current camp details.",
+    "excluded": [
+      {
+        "name": "St. Francis Day School",
+        "reason": "School-year preschool, not a finite summer camp."
+      },
+      {
+        "name": "Back to School Parents Night Out",
+        "reason": "A single-evening event, not a camp."
+      },
+      {
+        "name": "Movie Night at Kiwanis Park",
+        "reason": "A single social event, not a camp."
+      }
+    ],
     "cards": [
       {
         "name": "Vacation Bible School",
         "type": "vbs",
         "categories": ["faith_based"],
-        "description": "The church's gallery documents a Vacation Bible School event. Activities are not described in the available text.",
+        "description": "Vacation Bible School for children.",
         "camp_page_url": "https://www.stfrancisrutherfordton.org/gallery.html",
         "registration_url": null,
         "season": {
@@ -73,9 +85,12 @@
         "special_needs": null,
         "lunch": null,
         "transportation": null,
-        "sources": ["https://www.stfrancisrutherfordton.org/gallery.html"],
+        "sources": [
+          "https://www.stfrancisrutherfordton.org/gallery.html",
+          "https://www.stfrancisrutherfordton.org/"
+        ],
         "confidence": "low",
-        "review_notes": "Only the July 19, 2025 gallery entry establishes this offering. Confirm whether Vacation Bible School will return in 2027, its drop-off venue, dates, ages, activities and registration details directly with the church. The home page distinguishes a mailing address of 395 N Main St from the church office's physical address of 408 N Main St; neither is explicitly identified as the VBS venue."
+        "review_notes": "Only a historical gallery entry for July 19, 2025 establishes this program. Confirm whether it will return in 2027 and obtain its venue, ages, schedule and registration details. No camp drop-off location is stated. The homepage distinguishes the mailing address, 395 N Main St, from the church office physical address, 408 N Main St; neither has been assumed to be the VBS venue."
       }
     ]
   }

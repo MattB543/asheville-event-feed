@@ -12,23 +12,24 @@
     "discovered_by": ["news828", "grid", "aggregator", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:01:48.990Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:02:03.817Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "4565607eb1d5127b3d9ef515879794e48e1310c3d12b8bf88fd8878bf5656416",
   "response": {
     "searches": [
-      "site:enf.org junior counselor 2027",
+      "site:enf.org Junior Counselor 2027",
       "open https://www.enf.org/camp/junior-counselor/",
-      "site:enf.org/hante-adventures/ \"Alaska\" \"2027\" \"completing\""
+      "site:enf.org/hante-adventures/hante-adventures-alaska 2027",
+      "open https://www.enf.org/craft-nest/"
     ],
     "usage": {
-      "inputTokens": 43193,
-      "cachedInputTokens": 8223,
-      "outputTokens": 3401,
-      "reasoningTokens": 211
+      "inputTokens": 42473,
+      "cachedInputTokens": 8845,
+      "outputTokens": 4013,
+      "reasoningTokens": 238
     },
     "status": "completed",
-    "ms": 67256,
+    "ms": 80006,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -77,35 +78,31 @@
   "extraction": {
     "provider_name": "Eagle’s Nest Foundation",
     "website_url": "https://www.enf.org/",
-    "notes": "2027 camp, Junior Counselor and Hante information is posted. Hante dates, eligibility and application deadlines conflict across official pages; program-specific pages were preferred. Hante Scotland and Nature Lore Added Adventure appear only in 2026 materials and were omitted because the 2027 program list is posted. Shorter B and Nestling sessions are included as rows of Eagle’s Nest Camp.",
+    "notes": "2027 programs are posted. Hante expeditions are retained because participants start and end at Eagle’s Nest Camp; distant expedition destinations are not drop-off sites. Older Hante offerings are omitted because the 2027 list is posted. No official registration opening date was found. The undated early-bird September 30 wording was not assigned a calendar year.",
     "excluded": [
       {
         "name": "The Outdoor Academy",
-        "reason": "Academic semester boarding school, not a finite summer program."
+        "reason": "Academic semester boarding school, not a summer camp."
       },
       {
         "name": "Craft Nest",
-        "reason": "October 9–12, 2026 retreat, outside summer."
+        "reason": "October 9–12, 2026 workshop, outside summer."
       },
       {
         "name": "Fall Fest at the Nest",
         "reason": "Family retreat in October, outside summer."
       },
       {
-        "name": "Hante Scout",
-        "reason": "Adult-only program for ages 21 and older."
-      },
-      {
-        "name": "Summer 2027 - Apply to Work",
-        "reason": "Employment, not a youth camp program."
+        "name": "Camp Parties and Virtual Q&A Events",
+        "reason": "Social and informational events, not supervised summer programs."
       }
     ],
     "cards": [
       {
         "name": "Eagle’s Nest Camp",
         "type": "overnight",
-        "categories": ["general", "nature_outdoor", "arts", "music", "sports", "horses"],
-        "description": "Campers participate in activities including horseback riding, rock climbing, songwriting and crafts. Sessions also include group celebrations and camper performances.",
+        "categories": ["general", "nature_outdoor", "arts", "horses", "sports", "music"],
+        "description": "Campers participate in activities including horseback riding, rock climbing, songwriting and blacksmithing. Shorter B sessions and introductory Nestling sessions are offered within the overnight camp.",
         "camp_page_url": "https://www.enf.org/camp/",
         "registration_url": "https://www.enf.org/camp/register/",
         "season": {
@@ -166,7 +163,7 @@
             "price": {
               "amount": 2756,
               "unit": "session",
-              "label": "Can only attend first two years",
+              "label": null,
               "year": 2027
             },
             "status": "available"
@@ -187,7 +184,7 @@
             "price": {
               "amount": 1060,
               "unit": "session",
-              "label": "First time campers only",
+              "label": "first time campers only",
               "year": 2027
             },
             "status": "waitlist"
@@ -225,7 +222,7 @@
             "price": {
               "amount": 4781,
               "unit": "session",
-              "label": "Can only attend first two years",
+              "label": null,
               "year": 2027
             },
             "status": "available"
@@ -246,7 +243,7 @@
             "price": {
               "amount": 1060,
               "unit": "session",
-              "label": "First time campers only",
+              "label": "first time campers only",
               "year": 2027
             },
             "status": "available"
@@ -284,7 +281,7 @@
             "price": {
               "amount": 4781,
               "unit": "session",
-              "label": "Can only attend first two years",
+              "label": null,
               "year": 2027
             },
             "status": "waitlist"
@@ -305,7 +302,7 @@
             "price": {
               "amount": 1060,
               "unit": "session",
-              "label": "First time campers only",
+              "label": "first time campers only",
               "year": 2027
             },
             "status": "waitlist"
@@ -328,12 +325,25 @@
             "status": null
           }
         ],
-        "registration": [],
+        "registration": [
+          {
+            "audience": "other",
+            "kind": "deadline",
+            "date": "2027-01-01",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "Campership applications must be received by January 1st; awards will be confirmed in mid January.",
+            "url": "https://www.enf.org/camp/financial-information/",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
         "last_year_registration_opened": null,
         "availability": {
           "status": "mixed",
           "scope": null,
-          "text": "Session 1 Nestling Camp (Full/Waitlist); Session 3B (Full/Waitlist); Session 3 Nestling Camp (Full/Waitlist). Other listed sessions have Limited Availability."
+          "text": "Limited Availability; Full/Waitlist"
         },
         "financial_aid": {
           "value": "yes",
@@ -342,11 +352,11 @@
         "special_needs": null,
         "lunch": {
           "value": "yes",
-          "text": "The tuition fees include all meals and activities, such as riding, rock climbing, whitewater paddling, laundry, and airport transportation to and from Asheville, NC."
+          "text": "The tuition fees include all meals and activities"
         },
         "transportation": {
           "value": "yes",
-          "text": "The tuition fees include all meals and activities, such as riding, rock climbing, whitewater paddling, laundry, and airport transportation to and from Asheville, NC."
+          "text": "airport transportation to and from Asheville, NC"
         },
         "sources": [
           "https://www.enf.org/camp/",
@@ -361,7 +371,7 @@
         "name": "Junior Counselor",
         "type": "overnight",
         "categories": ["general"],
-        "description": "Junior Counselors participate in leadership classes and help staff counselors supervise campers. They remain campers while taking on additional responsibilities.",
+        "description": "Junior counselors help staff counselors supervise campers and participate in leadership classes. They remain campers while taking on additional responsibilities.",
         "camp_page_url": "https://www.enf.org/camp/junior-counselor/",
         "registration_url": "https://www.enf.org/camp/register/",
         "season": {
@@ -485,7 +495,7 @@
             "text": "Junior Counselor registration and application materials are due by December 30th.",
             "url": "https://www.enf.org/camp/junior-counselor/",
             "year": 2027,
-            "confidence": "high"
+            "confidence": "medium"
           }
         ],
         "last_year_registration_opened": null,
@@ -496,16 +506,17 @@
         "transportation": null,
         "sources": [
           "https://www.enf.org/camp/junior-counselor/",
+          "https://www.enf.org/camp/registration-faq/",
           "https://www.enf.org/camp/register/"
         ],
         "confidence": "medium",
-        "review_notes": "The Junior Counselor introduction says rising high school juniors and seniors, but the 2027 table includes grades 9–11 in Session 1 and 10–11 in the other sessions without a grade basis. Table eligibility is retained; confirm whether grades mean completed and whether Session 1 admits younger participants."
+        "review_notes": "The 2027 Junior Counselor table lists grades 9–11 for Session 1 and 10–11 for other sessions, while introductory text says rising juniors and seniors. Table grade basis is unspecified. The program page says December 30 application deadline; registration FAQs say December 31 before the camp year. Used the program-specific December 30 deadline."
       },
       {
         "name": "Hante Adventures",
         "type": "overnight",
         "categories": ["nature_outdoor", "arts"],
-        "description": "Teens take wilderness expeditions involving backpacking, paddling and group travel. Alaska includes participant-directed projects, while Rivers & Reeds combines canoe travel on the Edisto River with natural-fiber weaving.",
+        "description": "Teen participants travel on three-week wilderness expeditions. Alaska includes backpacking and paddling; Rivers & Reeds combines canoe travel on the Edisto River with natural-fiber weaving.",
         "camp_page_url": "https://www.enf.org/hante-adventures/hante-adventures-2027/",
         "registration_url": "https://www.enf.org/hante-adventures/register/",
         "season": {
@@ -549,7 +560,7 @@
             "price": {
               "amount": 6575,
               "unit": "session",
-              "label": "Plus airfare",
+              "label": "plus Airfare",
               "year": 2027
             },
             "status": null
@@ -584,10 +595,22 @@
             "time": null,
             "precision": "date",
             "certainty": "announced",
-            "text": "Please follow the link and instructions in the CampDoc email to complete your participant’s Camp Application and Parent/Guardian Questionnaire as well as have your participant complete the online Participant Questionnaire by December 30th to be considered for a Hante Adventure.",
-            "url": "https://www.enf.org/hante-adventures/register/",
+            "text": "Hantes have an application deadline of December 30th.",
+            "url": "https://www.enf.org/hante-adventures/hante-adventures-dates-and-rates/",
             "year": 2027,
             "confidence": "medium"
+          },
+          {
+            "audience": "other",
+            "kind": "deadline",
+            "date": "2027-01-01",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "Campership applications must be received by January 1st; awards will be confirmed in mid January.",
+            "url": "https://www.enf.org/camp/financial-information/",
+            "year": 2027,
+            "confidence": "high"
           }
         ],
         "last_year_registration_opened": null,
@@ -599,11 +622,11 @@
         "special_needs": null,
         "lunch": {
           "value": "yes",
-          "text": "The tuition fees include all meals and activities, such as riding, rock climbing, whitewater paddling, laundry, and airport transportation to and from Asheville, NC."
+          "text": "The tuition fees include all meals and activities"
         },
         "transportation": {
           "value": "yes",
-          "text": "The tuition fees include all meals and activities, such as riding, rock climbing, whitewater paddling, laundry, and airport transportation to and from Asheville, NC."
+          "text": "airport transportation to and from Asheville, NC"
         },
         "sources": [
           "https://www.enf.org/hante-adventures/hante-adventures-2027/",
@@ -612,10 +635,10 @@
           "https://www.enf.org/hante-adventures/hante-adventures-dates-and-rates/",
           "https://www.enf.org/hante-adventures/register/",
           "https://www.enf.org/camp/financial-information/",
-          "https://www.enf.org/hante-adventures/enrolled-participants/"
+          "https://www.enf.org/camp/registration-faq/"
         ],
         "confidence": "medium",
-        "review_notes": "The Alaska description and 2027 overview say completed grades 8–12, but dates/rates and registration summaries say 9–12. Rivers & Reeds description and itinerary say July 11–30; dates/rates and registration summaries incorrectly print June 11–July 30. Program-specific dates and grades were used. Registration and trip pages give December 30 as the application deadline, whereas financial FAQs and the enrolled-participant checklist give November 15. Confirm deadline with the registrar. December 30 is interpreted as 2026 for summer 2027."
+        "review_notes": "Used detailed expedition pages: Alaska is completed grades 8–12, while dates/register tables say 9–12. Rivers & Reeds detailed page and 2027 overview say July 11–30; dates/register tables incorrectly print June 11 and mismatched weekdays. December 30 deadline on program pages conflicts with December 31 in registration FAQs and November 15 for select Hantes in financial FAQs. Both expeditions explicitly start/end at Eagle’s Nest Camp."
       }
     ]
   }

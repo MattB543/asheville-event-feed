@@ -7,19 +7,22 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:19:58.984Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:17:05.531Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "5cfd6345fe106dd4e139768294657ee1dbe99372fdb582cef16c2412be637a4c",
   "response": {
-    "searches": ["site:toeriverarts.org \"2027\" \"camp\""],
+    "searches": [
+      "site:toeriverarts.org \"2027\" \"camp\"",
+      "\"Toe River Arts\" \"2026\" \"camps\" \"269\""
+    ],
     "usage": {
-      "inputTokens": 18920,
-      "cachedInputTokens": 8223,
-      "outputTokens": 2349,
-      "reasoningTokens": 114
+      "inputTokens": 24499,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2496,
+      "reasoningTokens": 185
     },
     "status": "completed",
-    "ms": 40753,
+    "ms": 42641,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -48,15 +51,15 @@
   "extraction": {
     "provider_name": "Toe River Arts",
     "website_url": "https://toeriverarts.org/",
-    "notes": "No summer 2027 camp information found; the card uses the explicitly dated 2026 schedule. The linked registration form returned no readable text, so price and drop-off location could not be verified. Older Outdoor Summer Art Camps with Anna Early listings describe 2025 offerings and were not used as 2026 or 2027 programs.",
+    "notes": "No summer 2027 camp information was found. The linked registration form and archived Textiles Camp event page returned no readable text. The camp page does not explicitly identify a drop-off venue; its gallery footer alone was not used as a camp location.",
     "excluded": [
       {
         "name": "Traditional Arts Program for Students (TAPS)",
-        "reason": "School-year instruction, not a finite summer camp."
+        "reason": "School-year instrumental instruction, not a finite summer camp."
       },
       {
-        "name": "Mayland Community College Small Business Center classes",
-        "reason": "Professional arts-business classes, not supervised youth summer programs."
+        "name": "Mayland Community College Small Business Center workshops",
+        "reason": "Professional arts-business classes, not supervised youth summer camps."
       }
     ],
     "cards": [
@@ -64,7 +67,7 @@
         "name": "Summer Art Camps",
         "type": "half_day",
         "categories": ["arts"],
-        "description": "Campers explore portrait painting, drawing, sculpture, mask making, collage and printmaking. Sessions include creating textured portraits, miniature places and collaborative zines.",
+        "description": "Campers explore drawing, painting, sculpture, collage, printmaking and mask making. Sessions include portraits, miniature buildings, animal masks and collaborative zines.",
         "camp_page_url": "https://toeriverarts.org/artists/education-outreach/summer-art-camps/",
         "registration_url": "https://secure.lglforms.com/form_engine/s/ceBEt3wGniGO6O_6AQs_iA?t=1776382882",
         "season": {
@@ -83,7 +86,7 @@
         "hours": {
           "start": null,
           "end": null,
-          "text": "Tuesdays and Thursdays: 10am–1pm for ages 8–12; 2pm–5pm for ages 13–16. Only the listed session dates are included."
+          "text": "Held every Tuesday & Thursday from June through July. 10am – 1pm – Ages 8 -12; 2pm – 5pm – Ages 13 – 16"
         },
         "extended_care": null,
         "prices": [],

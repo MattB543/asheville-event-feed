@@ -9,22 +9,22 @@
     "status": "review",
     "status_reason": "first page is a social media page or video, which our fetcher can't read"
   },
-  "extractedAt": "2026-10-29T15:29:02.451Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:24:35.847Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": null,
   "response": {
     "searches": [
-      "Roseland Community Center Tryon summer camp 2026",
-      "site:facebook.com \"Roseland\" \"2026\" \"RISE\""
+      "Roseland Community Center Tryon RISE summer camp 2026",
+      "site:facebook.com \"Roseland\" \"RISE\" \"2026\""
     ],
     "usage": {
-      "inputTokens": 24187,
-      "cachedInputTokens": 8223,
-      "outputTokens": 863,
-      "reasoningTokens": 135
+      "inputTokens": 20572,
+      "cachedInputTokens": 8845,
+      "outputTokens": 828,
+      "reasoningTokens": 138
     },
     "status": "completed",
-    "ms": 24065,
+    "ms": 20932,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -38,19 +38,11 @@
   "extraction": {
     "provider_name": "Roseland Community Center",
     "website_url": null,
-    "notes": "No standalone provider website or summer 2027 information was found. The supplied Facebook page returned no readable text. A 2026 camp was identified through local newspaper coverage and a third-party mirror of the center's Facebook posts; its details require official confirmation.",
+    "notes": "No standalone provider website or 2027 camp information was found. The supplied Facebook page opened without readable content. The 2026 details below come from local newspaper coverage and a mirror of the center's social posts, rather than directly readable official pages. No official registration opening date could be verified.",
     "excluded": [
       {
         "name": "Juneteenth Celebration",
-        "reason": "Community-wide event, not a supervised youth camp."
-      },
-      {
-        "name": "Black History Month program",
-        "reason": "February event outside summer."
-      },
-      {
-        "name": "Kwanzaa Program",
-        "reason": "December community event outside summer."
+        "reason": "Community festival, not a supervised summer camp."
       }
     ],
     "cards": [
@@ -58,7 +50,7 @@
         "name": "RISE!",
         "type": "day",
         "categories": ["general", "arts", "academic", "nature_outdoor"],
-        "description": "Children participate in cultural activities, sports, games, arts and crafts, local-history workshops and field trips.",
+        "description": "Children participate in cultural activities, sports, games, arts and crafts, local history workshops, and field trips.",
         "camp_page_url": "https://www.facebook.com/225857359381223/",
         "registration_url": null,
         "season": {
@@ -91,7 +83,7 @@
           {
             "amount": 0,
             "unit": "program",
-            "label": "Free participation",
+            "label": "Free",
             "year": 2026
           }
         ],
@@ -105,7 +97,7 @@
         "transportation": null,
         "sources": [],
         "confidence": "medium",
-        "review_notes": "Confirm dates, ages, hours and free participation with the center: these are stated in the June 8, 2026 Tryon Daily Bulletin article at https://www.tryondailybulletin.com/2026/06/08/roseland-community-center-announces-summer-enrichment-program-juneteenth-celebration/, not a readable official page. The July 7 newspaper recap confirms the July 1 conclusion. The address appears in the Facebook mirror at https://www.findglocal.com/US/Tryon/225857359381223/Roseland-Community-Center and local venue listings but could not be verified directly on the provider's Facebook page. No separately scheduled weeks were found. A mirrored June 15 registration-closed post was not used as official current availability."
+        "review_notes": "Verify dates, ages, hours and free participation against the center's original 2026 announcement: https://www.tryondailybulletin.com/2026/06/08/roseland-community-center-announces-summer-enrichment-program-juneteenth-celebration/ reports these details. The July 7 newspaper recap confirms the July 1 conclusion. Address appears in the social-post mirror at https://www.findglocal.com/US/Tryon/225857359381223/Roseland-Community-Center and the county tourism venue listing at https://firstpeaknc.com/venue/roseland-community-center/. The mirror also reports a special July 1 drop-off at Garrison Chapel Baptist Church for a historical walk; its original post and venue address were not verified, so that temporary site is omitted. Facebook could not be read directly."
       }
     ]
   }

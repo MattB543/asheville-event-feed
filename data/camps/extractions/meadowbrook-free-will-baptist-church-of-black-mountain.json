@@ -8,23 +8,23 @@
     "status": "review",
     "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
   },
-  "extractedAt": "2026-10-29T15:13:55.190Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:11:55.118Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "0e913082f167c4a7cc5921ac03d3b75a51a4d497025e391ba40defa1d684fa42",
   "response": {
     "searches": [
-      "Meadowbrook Free Will Baptist Black Mountain VBS 2026 2027",
-      "\"Meadowbrook\" \"Black Mountain\" \"VBS\" \"2026\"",
-      "\"Meadowbrook FWB\" \"VBS\""
+      "Meadowbrook Black Mountain church VBS 2026",
+      "\"Meadowbrook FWB\" \"VBS\" \"2026\"",
+      "open https://www.meadowbrookchurch.info/"
     ],
     "usage": {
-      "inputTokens": 21682,
-      "cachedInputTokens": 8223,
-      "outputTokens": 502,
-      "reasoningTokens": 214
+      "inputTokens": 26586,
+      "cachedInputTokens": 8845,
+      "outputTokens": 555,
+      "reasoningTokens": 195
     },
     "status": "completed",
-    "ms": 28191,
+    "ms": 21118,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -43,23 +43,31 @@
   "extraction": {
     "provider_name": "Meadowbrook Free Will Baptist Church of Black Mountain",
     "website_url": "https://www.meadowbrookchurch.info/",
-    "notes": "No qualifying summer camp or Vacation Bible School could be verified for 2026 or 2027 from the supplied official pages or web searches. The official ChurchTrac upcoming-events listing showed fall 2026 church activities, not summer programs. Attempts to read /kids-ministry and /special-events returned no readable text. Search results for VBS at other Meadowbrook churches were not used because they refer to different providers. This does not establish that this church offers no summer programs; its special-event announcements should be checked directly with the church.",
+    "notes": "No qualifying summer camp or Vacation Bible School offering could be confirmed for this Black Mountain provider for 2026 or 2027. Searches found VBS offerings at other similarly named churches, including Meadowbrook Church in Lacombe, Alberta, and Redmond, Washington; these are not this provider. The official ChurchTrac upcoming-events listing showed fall 2026 activities but no summer camp information. Attempts to read /kids-ministry and /special-events returned no readable text, so those paths could not establish an offering.",
     "excluded": [
       {
-        "name": "AWANA",
-        "reason": "Recurring Wednesday children's ministry, not identified as a finite summer-only program."
+        "name": "AWANA Kids",
+        "reason": "Recurring Wednesday children's ministry, not a finite summer camp."
       },
       {
-        "name": "Sunday Morning Children's Classes",
-        "reason": "Recurring Sunday classes rather than a finite summer camp."
-      },
-      {
-        "name": "Teen Bible Study",
-        "reason": "Recurring Wednesday teen ministry rather than a finite summer program."
+        "name": "Sunday School",
+        "reason": "Recurring year-round religious classes, not a summer camp."
       },
       {
         "name": "Nursery Care",
-        "reason": "Childcare during regular church services, not summer-only childcare."
+        "reason": "Childcare during regular church services, not a finite summer program."
+      },
+      {
+        "name": "Wednesday Teen Bible Study",
+        "reason": "Recurring youth ministry, not a finite summer camp."
+      },
+      {
+        "name": "VBS 2027 — Meadowbrook Church, Lacombe",
+        "reason": "Different similarly named provider in Alberta, Canada, outside the Asheville area."
+      },
+      {
+        "name": "Vacation Bible School — Meadowbrook Church, Redmond",
+        "reason": "Different similarly named provider in Washington, outside the Asheville area."
       }
     ],
     "cards": []

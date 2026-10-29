@@ -10,24 +10,23 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:18:20.335Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:15:24.126Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "c25d4fc185eaec3e36afb2198d372faf7879df19fa659934eb761203b2e798df",
   "response": {
     "searches": [
       "site:bullingtongardens.org \"camp\" \"2026\"",
-      "\"Bullington\" \"camp\" \"2026\" \"ages\"",
-      "\"Bullington Gardens\" \"Nature\" \"Camp\" \"June\"",
-      "site:bullingtongardens.org \"Fairy Tea\""
+      "\"Bullington\" \"Nature Explorers\" \"2026\" camp",
+      "site:bullingtongardens.org \"Nature\" \"Camp\" \"ages\""
     ],
     "usage": {
-      "inputTokens": 44632,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1170,
-      "reasoningTokens": 371
+      "inputTokens": 32486,
+      "cachedInputTokens": 8845,
+      "outputTokens": 979,
+      "reasoningTokens": 262
     },
     "status": "completed",
-    "ms": 46271,
+    "ms": 32131,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -61,39 +60,47 @@
   "extraction": {
     "provider_name": "Bullington Gardens",
     "website_url": "https://www.bullingtongardens.org/",
-    "notes": "No 2027 camp information or registration milestones found. The current enrollment page contains only the Nature Explorers Camp heading, with no dates, eligibility, fees or enrollment form visible. A Summer 2025 official newsletter confirms the program, but no 2026 camp schedule was found. Historical details have not been carried forward.",
+    "notes": "No 2027 camp details or registration milestones were found. The current enrollment page contains only the program heading and site footer. Searches did not locate a 2026 camp schedule or enrollment PDF. Historical newsletter search results describe a week-long camp, but their camp details could not be assigned reliably to 2026.",
     "excluded": [
       {
-        "name": "Fairy Tea Party",
-        "reason": "Family-only activity: the official 2026 page requires each child to be accompanied by an adult."
-      },
-      {
         "name": "BOOST",
-        "reason": "School-year pre-vocational student training program, not a finite summer camp."
+        "reason": "School-based occupational skills training, not a finite summer camp."
       },
       {
-        "name": "Elementary School Programs",
-        "reason": "School field-trip and curriculum programs offered throughout the year, not summer camps."
+        "name": "Elementary School",
+        "reason": "Year-round curriculum programs for school students, not a summer camp."
       },
       {
         "name": "Horticultural Therapy",
-        "reason": "Ongoing weekly therapeutic programming, not a separately identified summer camp."
+        "reason": "Ongoing therapy programs, not a separately listed finite summer youth camp."
       },
       {
-        "name": "Book Nook Story Time",
-        "reason": "Public story-time activity; not identified as a supervised drop-off youth program."
+        "name": "Fairy Trail & Village",
+        "reason": "Seasonal visitor attraction, not a supervised camp."
+      },
+      {
+        "name": "Fairy Tea Party",
+        "reason": "Social event, not a camp."
       },
       {
         "name": "Blood Drive",
-        "reason": "October community blood-donation event, not a summer youth program."
+        "reason": "Blood donation event outside summer, not a youth camp."
       },
       {
         "name": "Invasive Plants",
-        "reason": "November gardening class, outside summer."
+        "reason": "November gardening class outside summer, not a youth camp."
       },
       {
         "name": "Trees for the Mountain Landscape",
-        "reason": "November gardening class, outside summer."
+        "reason": "November gardening class outside summer, not a youth camp."
+      },
+      {
+        "name": "WITS Workout",
+        "reason": "Fall class series, not a summer youth camp."
+      },
+      {
+        "name": "The Joy of Propagation",
+        "reason": "Gardening lesson series, not a youth camp."
       }
     ],
     "cards": [
@@ -101,7 +108,7 @@
         "name": "Nature Explorers Camp",
         "type": "day",
         "categories": ["nature_outdoor"],
-        "description": "A week-long youth nature exploration camp led by educators.",
+        "description": "Nature camp at Bullington Gardens.",
         "camp_page_url": "https://www.bullingtongardens.org/nature-camp-enrollment",
         "registration_url": null,
         "season": {
@@ -113,7 +120,14 @@
         },
         "ages": null,
         "grades": null,
-        "sites": [],
+        "sites": [
+          {
+            "name": "Bullington Gardens",
+            "address": "95 Upper Red Oak Trail",
+            "town": "Hendersonville",
+            "state": "NC"
+          }
+        ],
         "hours": null,
         "extended_care": null,
         "prices": [],
@@ -127,10 +141,10 @@
         "transportation": null,
         "sources": [
           "https://www.bullingtongardens.org/nature-camp-enrollment",
-          "https://www.bullingtongardens.org/campaigns/view-campaign/uO3qTTwaf035QYSUTwHK0UwVftCHhOJY4N0UAH1HtrsfH_ndRXSfzBxXx13vVbVJOq3GKg4oMYWdCjihsmM9XIQYGjfVBn9E"
+          "https://www.bullingtongardens.org/contact/"
         ],
         "confidence": "medium",
-        "review_notes": "Confirm that the program will run in 2027 and obtain its schedule, eligibility, format and drop-off location. The current enrollment page shows only its name. The week-long description comes from the official Summer 2025 newsletter; no 2026 or 2027 details were found. The provider publishes 95 Upper Red Oak Trail, Hendersonville, NC, but current camp materials do not explicitly identify the drop-off site."
+        "review_notes": "The enrollment page currently gives only the camp name. Confirm the day format and drop-off location when enrollment details return; the location uses the provider's published address. Historical official newsletter snippets describe a week-long camp and a special-needs Nature Camp, but do not reliably establish the current program's eligibility or 2026 details, so those facts were omitted."
       }
     ]
   }

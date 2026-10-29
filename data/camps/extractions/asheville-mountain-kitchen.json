@@ -10,19 +10,22 @@
     "discovered_by": ["seed_sheet", "grid", "aggregator"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T14:52:49.398Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T16:53:50.184Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "cadeca058fc5e9bd8ea65095f88d5811ea47fddd6eb17040a0679f162dee1a95",
   "response": {
-    "searches": ["site:ashevillemountainkitchen.com \"2027\" camp"],
+    "searches": [
+      "site:ashevillemountainkitchen.com \"2027\" camp",
+      "site:ashevillemountainkitchen.com/event/ \"camp\" \"July 20\""
+    ],
     "usage": {
-      "inputTokens": 18244,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1906,
-      "reasoningTokens": 106
+      "inputTokens": 19981,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1977,
+      "reasoningTokens": 172
     },
     "status": "completed",
-    "ms": 37768,
+    "ms": 38756,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -71,15 +74,19 @@
   "extraction": {
     "provider_name": "Asheville Mountain Kitchen",
     "website_url": "https://ashevillemountainkitchen.com/",
-    "notes": "No official 2027 camp dates or registration announcements were found. The 2026 camp overview, homepage and individual event pages disagree on some dates and themes; individual event pages were preferred where supplied.",
+    "notes": "No 2027 camp dates or registration milestones were found. The 2026 camp page and individual event pages disagree on Week 2's end date and Week 4's theme; individual event details were used for those rows. Later weeks are taken from the main camp page.",
     "excluded": [
       {
-        "name": "Homestyle cooking classes and private classes",
-        "reason": "Ongoing public and private classes, not a finite summer-only youth program."
+        "name": "Private Classes",
+        "reason": "Private cooking classes booked as classes, not a finite summer youth camp."
+      },
+      {
+        "name": "3 HR Classes",
+        "reason": "Public cooking classes, not identified as summer youth camps."
       },
       {
         "name": "Dumplings from around the world-Sold Out",
-        "reason": "The listed October 24 class is outside summer."
+        "reason": "October cooking class outside summer."
       }
     ],
     "cards": [
@@ -87,7 +94,7 @@
         "name": "Hands-On Kids Cooking and Baking Camp",
         "type": "day",
         "categories": ["cooking"],
-        "description": "Campers practice kitchen skills and prepare a full meal, including dessert, each day. Weekly menus explore different cuisines and baking using seasonal ingredients.",
+        "description": "Campers practice kitchen skills and prepare a full meal, including dessert, each day. Weekly menus explore international cuisines and baking, using seasonal ingredients.",
         "camp_page_url": "https://ashevillemountainkitchen.com/hands-on-kids-cooking-and-baking-camp/",
         "registration_url": "https://ashevillemountainkitchen.com/hands-on-kids-cooking-and-baking-camp/",
         "season": {
@@ -113,7 +120,7 @@
         "hours": {
           "start": "09:00",
           "end": "14:00",
-          "text": "9:00 am to 2:00 pm; 8:30 drop off is fine."
+          "text": null
         },
         "extended_care": {
           "early_dropoff_start": "08:30",
@@ -123,14 +130,14 @@
         "prices": [
           {
             "amount": 460,
-            "unit": "week",
-            "label": "15% sibling discount on one purchase",
+            "unit": "session",
+            "label": null,
             "year": 2026
           }
         ],
         "sessions": [
           {
-            "label": "Cooking camp-Mediterranean week 1",
+            "label": "Week 1-Mediterranean week",
             "start": "2026-06-15",
             "end": "2026-06-19",
             "year": 2026,
@@ -154,7 +161,7 @@
             "status": "closed"
           },
           {
-            "label": "Cooking Camp-Italian Week 3",
+            "label": "Week 3-Italian camp",
             "start": "2026-06-29",
             "end": "2026-07-03",
             "year": 2026,
@@ -178,7 +185,7 @@
             "status": "closed"
           },
           {
-            "label": "Cooking camp Asian week 5",
+            "label": "Week 5-Asian week",
             "start": "2026-07-13",
             "end": "2026-07-17",
             "year": 2026,
@@ -268,7 +275,7 @@
           "https://www.stjohnsasheville.org/contact-us/"
         ],
         "confidence": "medium",
-        "review_notes": "Week 2 ends June 25 on the camp overview but June 26 on its event page and homepage; the event page says CANCELLED while still displaying six tickets available. Recorded June 26 and closed. Week 4 is World cuisine on the overview but Asian on its event page; used the event-page theme. The homepage omits June 29–July 3 and August 17–21, both listed on the camp overview. Individual event dates omit the year; assigned 2026 from the explicit Summer 2026 overview, not the copyright. The overview states $460 and individual events describe five days of camp for $460. Preparing a meal does not explicitly establish whether lunch is provided, so lunch remains null."
+        "review_notes": "The main camp page lists Week 2 as June 22–25; the homepage and event page list June 22–26. The Week 2 event title says CANCELLED despite a ticket widget showing six available; closed was used. Week 4 is World cuisine on the camp page but Asian on its event page; the event theme was used. Individual event dates omit the year and were assigned 2026 from the summer 2026 camp schedule. Weeks 3 and 10 appear on the camp page but are omitted from the homepage's shorter schedule. The camp page states a 15% sibling discount on one purchase. Cooking a meal each day does not explicitly establish whether lunch is provided, so lunch is null."
       }
     ]
   }

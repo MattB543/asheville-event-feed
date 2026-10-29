@@ -11,19 +11,23 @@
     "status": "review",
     "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
   },
-  "extractedAt": "2026-10-29T15:14:20.652Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:12:03.962Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "75a34fc3694870c60b744f42e44eba278f70b55424231d5fa9ce448a04143834",
   "response": {
-    "searches": ["site:valleyhope.church VBS 2026 2027", "\"Valley Hope\" \"VBS\" \"2026\""],
+    "searches": [
+      "site:valleyhope.church VBS 2026 2027",
+      "\"site:valley-hope.churchcenter.com\" \"VBS\"",
+      "\"valleyhope.church\" \"VBS\" \"2026\""
+    ],
     "usage": {
-      "inputTokens": 20163,
-      "cachedInputTokens": 8223,
-      "outputTokens": 934,
-      "reasoningTokens": 260
+      "inputTokens": 27443,
+      "cachedInputTokens": 8845,
+      "outputTokens": 793,
+      "reasoningTokens": 295
     },
     "status": "completed",
-    "ms": 36710,
+    "ms": 24440,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -57,15 +61,15 @@
   "extraction": {
     "provider_name": "Valley Hope Church of Swannanoa",
     "website_url": "https://valleyhope.church/",
-    "notes": "No 2027 or verified 2026 summer VBS information was found. Search results retain an older Magnified! VBS announcement listing July 15–18, but the accessible snippets do not establish its year. Those dates and other older-season details have not been treated as 2026 or 2027 facts. The linked announcement returned no readable page text when opened.",
+    "notes": "No 2027 or reliably dated 2026 VBS information was found. The supplied Magnified VBS page and alternate official URLs returned no readable text when opened; indexed snippets appear older and were not treated as 2026 facts. The Church Center registrations index also returned no readable text.",
     "excluded": [
       {
         "name": "Kids Club Fall 2026",
-        "reason": "Fall program running September–December; the recurring Kids Club operates fall through spring, not summer."
+        "reason": "School-year children's ministry meeting in fall through spring, not a summer camp."
       },
       {
         "name": "Sunday School",
-        "reason": "Year-round Sunday children's ministry, not a finite summer camp."
+        "reason": "Year-round children's ministry, not a finite summer program."
       },
       {
         "name": "Missional Community Groups (Small Groups)",
@@ -73,7 +77,11 @@
       },
       {
         "name": "Youth Winter Retreat",
-        "reason": "Winter program, outside summer."
+        "reason": "Outside summer."
+      },
+      {
+        "name": "Sharing Night",
+        "reason": "Single social and ministry event outside summer."
       }
     ],
     "cards": [
@@ -81,7 +89,7 @@
         "name": "Vacation Bible School",
         "type": "vbs",
         "categories": ["faith_based"],
-        "description": "The children's ministry hosts Vacation Bible School for children from inside and outside the church to learn about Jesus.",
+        "description": "Vacation Bible School where children hear about Jesus.",
         "camp_page_url": "https://valleyhope.church/children",
         "registration_url": null,
         "season": {
@@ -93,14 +101,7 @@
         },
         "ages": null,
         "grades": null,
-        "sites": [
-          {
-            "name": "Valley Hope Church",
-            "address": "115 Rockdale Ave",
-            "town": "Swannanoa",
-            "state": "NC"
-          }
-        ],
+        "sites": [],
         "hours": null,
         "extended_care": null,
         "prices": [],
@@ -114,11 +115,11 @@
         "transportation": null,
         "sources": [
           "https://mail.valleyhope.church/children",
-          "https://valleyhope.church/",
-          "https://valleyhope.church/missions?catid=21&id=537%3Avbs-magnified-vacation-bible-school-at-vhc&view=article"
+          "https://valleyhope.church/children",
+          "https://valleyhope.church/give?catid=21&id=537%3Avbs-magnified-vacation-bible-school-at-vhc&view=article"
         ],
         "confidence": "medium",
-        "review_notes": "The annual VBS description was available through an official children's ministry search result. The older Magnified! announcement was readable only in search snippets and returned an empty page when opened. Confirm the 2027 offering and meeting location with the church; the listed church address is its published location, but no 2027 venue announcement was found."
+        "review_notes": "The annual VBS description was found in an indexed official children's ministry page. No dated 2026 or 2027 offering could be verified. Older Magnified snippets give ages 4–12 and completed 5th grade, but these were omitted because their applicable summer could not be established. The church publishes 115 Rockdale Ave, Swannanoa, NC, but a current VBS drop-off venue has not been confirmed."
       }
     ]
   }

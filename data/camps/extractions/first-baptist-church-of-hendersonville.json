@@ -10,23 +10,23 @@
     "discovered_by": ["grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:14:25.555Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:12:17.273Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "8c644fe0ba0ee197c1ddfb4308096d0ee22c4e05fdcff6a1f86c1014c51ff77c",
   "response": {
     "searches": [
-      "site:fbchnc.org 2027 summer camp",
-      "site:fbchnc.org \"Summer Kids\" \"2026\" dates",
-      "site:myrock.fbchnc.org \"Splash\" \"2026\""
+      "site:fbchnc.org \"2026\" \"Splash Camp\"",
+      "site:fbchnc.org \"Summer Kids\" \"2026\" hours",
+      "site:fbchnc.org \"FBC Kids Choir Camp\" \"2026\""
     ],
     "usage": {
-      "inputTokens": 28114,
-      "cachedInputTokens": 8009,
-      "outputTokens": 3176,
-      "reasoningTokens": 435
+      "inputTokens": 33677,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2477,
+      "reasoningTokens": 324
     },
     "status": "completed",
-    "ms": 75051,
+    "ms": 62325,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -60,27 +60,47 @@
   "extraction": {
     "provider_name": "First Baptist Church of Hendersonville",
     "website_url": "https://fbchnc.org/",
-    "notes": "No summer 2027 program information or registration milestones were found. Retained 2026 offerings. Several official pages returned no readable text through the browser; supplied page text and official search results were used. Event pages and the homepage give different ZIP codes for the church, but agree on the street, town and state. Student Ministry Summer Bible Study 2026 also appears on the calendar; its supervision and finite program format could not be established, so it needs review rather than automatic inclusion.",
+    "notes": "No summer 2027 program dates or registration announcements found. The registration platform exposes only limited details for FBC Summer Kids. Kids Camp at Hickory Cove has a Hendersonville departure location, but its overnight destination is approximately 95 miles east of Asheville; retained for drive-time review because families meet locally. Revive Student Camp is held in Old Fort, Tennessee, not Old Fort, North Carolina.",
     "excluded": [
       {
-        "name": "First Baptist Academy",
-        "reason": "School-year enrollment, not a summer camp."
+        "name": "Revive Student Camp",
+        "reason": "Held at Ocoee Ridge Camp in Old Fort, Tennessee, plainly outside the approximately 75-minute Asheville service area."
       },
       {
-        "name": "Sunday School, Awana Clubs and Wednesday Nights",
-        "reason": "Recurring ministry classes rather than finite summer programs."
+        "name": "Revive Student Conf. 2026",
+        "reason": "Conference, not a camp."
       },
       {
-        "name": "Student Ministry High School Winter Retreat 2027",
-        "reason": "January program outside summer."
+        "name": "First Baptist Academy 2026 / 2027",
+        "reason": "School-year enrollment, not a finite summer camp."
+      },
+      {
+        "name": "Awana Clubs",
+        "reason": "School-year weekly program."
+      },
+      {
+        "name": "S.P.A.R.K.",
+        "reason": "Single-evening parents' night out, outside summer."
       },
       {
         "name": "Middle School Fall Retreat",
-        "reason": "November program outside summer."
+        "reason": "Outside summer."
       },
       {
-        "name": "S.P.A.R.K. - Parents Night Out",
-        "reason": "The identified 2026 offering is in November, outside summer."
+        "name": "High School Winter Retreat",
+        "reason": "Outside summer."
+      },
+      {
+        "name": "High School Dollywood Trip",
+        "reason": "Youth-group outing outside summer."
+      },
+      {
+        "name": "High School Girls Hockey Game",
+        "reason": "Youth-group outing outside summer."
+      },
+      {
+        "name": "Fallapalooza",
+        "reason": "Seasonal social event outside summer."
       }
     ],
     "cards": [
@@ -88,7 +108,7 @@
         "name": "VBS",
         "type": "vbs",
         "categories": ["faith_based"],
-        "description": "Vacation Bible School for children age four through completed fifth grade.",
+        "description": "Vacation Bible School for children ages 4 by August 31, 2026, through completed fifth grade.",
         "camp_page_url": "https://fbchnc.org/events/2026/06/09/vbs-2026",
         "registration_url": null,
         "season": {
@@ -110,7 +130,7 @@
         "sites": [
           {
             "name": "First Baptist Church",
-            "address": "312 5th Ave W",
+            "address": "312 5th Ave West",
             "town": "Hendersonville",
             "state": "NC"
           }
@@ -118,7 +138,7 @@
         "hours": {
           "start": "08:15",
           "end": "12:00",
-          "text": "Event runs from Tuesday at 8:15am to Friday at noon; daily hours are not separately stated."
+          "text": null
         },
         "extended_care": null,
         "prices": [],
@@ -138,7 +158,7 @@
         "name": "FBC Summer Kids",
         "type": "day",
         "categories": ["general"],
-        "description": "A summer children's program meeting in the church's Children's Building. Activities are not described on the available event page.",
+        "description": "Summer children's program at First Baptist Church.",
         "camp_page_url": "https://myrock.fbchnc.org/page/414?EventOccurrenceId=320",
         "registration_url": "https://myrock.fbchnc.org/page/414?EventOccurrenceId=320",
         "season": {
@@ -152,8 +172,8 @@
         "grades": null,
         "sites": [
           {
-            "name": "First Baptist Church Children's Building",
-            "address": "312 5th Ave W",
+            "name": "Children's Building",
+            "address": "312 5th Ave West",
             "town": "Hendersonville",
             "state": "NC"
           }
@@ -166,7 +186,7 @@
         "last_year_registration_opened": null,
         "availability": {
           "status": "closed",
-          "scope": "2026 registration",
+          "scope": null,
           "text": "Registration closed on Thursday, July 30, 2026"
         },
         "financial_aid": null,
@@ -177,14 +197,14 @@
           "https://myrock.fbchnc.org/page/414?EventOccurrenceId=320",
           "https://fbchnc.org/"
         ],
-        "confidence": "medium",
-        "review_notes": "The registration page displays Error and omits dates, eligibility, activities, hours and prices. Verify the summer program format and details with summerkids@fbchnc.org."
+        "confidence": "low",
+        "review_notes": "Registration page shows an Error and only the program title, contact, Children's Building location, and registration closure. Confirm summer-only childcare format, dates, eligibility, hours, and prices with the provider."
       },
       {
         "name": "Kids Camp at Hickory Cove",
         "type": "overnight",
         "categories": ["faith_based"],
-        "description": "A week-long overnight camp at Hickory Cove for rising second through sixth graders.",
+        "description": "A week-long overnight camp for rising second through rising sixth graders.",
         "camp_page_url": "https://fbchnc.org/events/2026/06/22/kids-camp-at-hickory-cove",
         "registration_url": "https://myrock.fbchnc.org/page/414?EventOccurrenceId=319",
         "season": {
@@ -202,8 +222,8 @@
         },
         "sites": [
           {
-            "name": "First Baptist Church — Crosswalk meeting point",
-            "address": "312 5th Ave W",
+            "name": "Crosswalk Student Center",
+            "address": null,
             "town": "Hendersonville",
             "state": "NC"
           }
@@ -225,16 +245,16 @@
         "sources": [
           "https://fbchnc.org/events/2026/06/22/kids-camp-at-hickory-cove",
           "https://myrock.fbchnc.org/page/414?EventOccurrenceId=319",
-          "https://fbchnc.org/"
+          "https://hickorycove.org/about/"
         ],
         "confidence": "medium",
-        "review_notes": "The event lists a 7am start, but the official registration search result says Meet at Crosswalk on Monday morning - June 22 (Time TBA). Verify departure time and Crosswalk's exact drop-off address; the general church address is supplied. A $50 deposit is required, but total tuition is not stated."
+        "review_notes": "Registration search snippet specifies meeting at Crosswalk Monday morning June 22, time TBA; event page instead lists the general church address and 7 a.m. start. Crosswalk's own street address could not be verified. The $50 deposit is not the total camp price. Overnight destination Hickory Cove in Taylorsville is 95 miles east of Asheville; check geographic eligibility despite local departure."
       },
       {
         "name": "Splash Camp",
         "type": "half_day",
         "categories": ["general"],
-        "description": "A morning camp for children age three through completed kindergarten. The 2026 listing does not describe activities.",
+        "description": "Camp for children age 3 by August 31, 2026, through completed kindergarten.",
         "camp_page_url": "https://fbchnc.org/events/2026/07/06/splash-camp",
         "registration_url": null,
         "season": {
@@ -256,7 +276,7 @@
         "sites": [
           {
             "name": "First Baptist Church",
-            "address": "312 5th Ave W",
+            "address": "312 5th Ave West",
             "town": "Hendersonville",
             "state": "NC"
           }
@@ -285,13 +305,13 @@
         "transportation": null,
         "sources": ["https://fbchnc.org/events/2026/07/06/splash-camp"],
         "confidence": "medium",
-        "review_notes": "Official search text lists only July 6, 8:45am-noon, and $90. Confirm whether additional days or weeks are omitted from the calendar. Children must be three by August 31, 2026. Direct browser access returned no readable text."
+        "review_notes": "The 2026 event page lists only Monday July 6, 8:45 a.m.–noon. Earlier years describe week-long Splash Camps, but no additional 2026 dates were verified; check whether this calendar entry represents only the first day."
       },
       {
         "name": "FBC Kids Choir Camp",
         "type": "half_day",
         "categories": ["music", "faith_based"],
-        "description": "A children's choir camp for children who have completed first through fifth grades.",
+        "description": "Choir camp for children who have completed first through fifth grades.",
         "camp_page_url": "https://fbchnc.org/events/2026/07/06/fbc-kids-choir-camp",
         "registration_url": null,
         "season": {
@@ -310,7 +330,7 @@
         "sites": [
           {
             "name": "First Baptist Church, Room 409",
-            "address": "312 5th Ave W",
+            "address": "312 5th Ave West",
             "town": "Hendersonville",
             "state": "NC"
           }
@@ -318,7 +338,7 @@
         "hours": {
           "start": "09:00",
           "end": "12:00",
-          "text": "Event listing gives Monday at 9am through Friday at noon; daily hours are not separately stated."
+          "text": null
         },
         "extended_care": null,
         "prices": [
@@ -339,53 +359,7 @@
         "transportation": null,
         "sources": ["https://fbchnc.org/events/2026/07/06/fbc-kids-choir-camp"],
         "confidence": "medium",
-        "review_notes": "Facts were available through official search results only; direct browser access returned no readable text. Confirm daily hours."
-      },
-      {
-        "name": "Revive Student Camp",
-        "type": "overnight",
-        "categories": ["faith_based"],
-        "description": "A student ministry summer camp at Ocoee Ridge Camp in Old Fort, Tennessee.",
-        "camp_page_url": "https://myrock.fbchnc.org/page/414?EventOccurrenceId=335",
-        "registration_url": "https://myrock.fbchnc.org/page/414?EventOccurrenceId=335",
-        "season": {
-          "year": 2026,
-          "status": "not_posted",
-          "start": "2026-07-30",
-          "end": "2026-08-03",
-          "text": null
-        },
-        "ages": null,
-        "grades": null,
-        "sites": [
-          {
-            "name": "Ocoee Ridge Camp",
-            "address": "479 Frey Rd",
-            "town": "Old Fort",
-            "state": "TN"
-          }
-        ],
-        "hours": null,
-        "extended_care": null,
-        "prices": [],
-        "sessions": [],
-        "registration": [],
-        "last_year_registration_opened": null,
-        "availability": {
-          "status": "closed",
-          "scope": "2026 registration",
-          "text": "Registration closed on Thursday, July 30, 2026"
-        },
-        "financial_aid": null,
-        "special_needs": null,
-        "lunch": null,
-        "transportation": null,
-        "sources": [
-          "https://myrock.fbchnc.org/page/414?EventOccurrenceId=335",
-          "https://www.ocoeeridgecamp.com/"
-        ],
-        "confidence": "medium",
-        "review_notes": "Official registration search results provide dates and destination but no eligibility, price or departure details. Confirm whether parents drop campers at the church rather than Ocoee Ridge Camp; no church departure location was stated for this program."
+        "review_notes": "Official event details were readable through search results; direct page opening returned no text. Calendar gives 9 a.m. Monday start and noon Friday end; confirm these are the daily hours."
       }
     ]
   }

@@ -7,23 +7,24 @@
     "discovered_by": ["beyond_school", "grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T14:57:50.482Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T16:58:38.779Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "773b9e56b369cd4af2dde8ba446919b82942594634b20fadc8c6423a86c12f14",
   "response": {
     "searches": [
-      "site:cwalearningcenter.org summer camp 2026 2027",
-      "\"Christine\" \"Avery\" \"summer camp\" 2026",
-      "\"CWA Learning Center\" \"summer\" \"2026\""
+      "site:cwalearningcenter.org summer camp",
+      "\"Christine\" \"Avery\" \"summer camp\"",
+      "open https://www.cwalearningcenter.org/",
+      "\"CWA\" \"2026\" \"summer camp\" Asheville"
     ],
     "usage": {
-      "inputTokens": 22854,
-      "cachedInputTokens": 8223,
-      "outputTokens": 696,
-      "reasoningTokens": 224
+      "inputTokens": 25039,
+      "cachedInputTokens": 8845,
+      "outputTokens": 722,
+      "reasoningTokens": 231
     },
     "status": "completed",
-    "ms": 27840,
+    "ms": 68867,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -57,39 +58,43 @@
   "extraction": {
     "provider_name": "The Christine W. Avery Learning Center",
     "website_url": "https://www.cwalearningcenter.org/",
-    "notes": "No summer 2027 announcements or sufficiently documented 2026 summer camp programs were found in the supplied official pages or web searches. The current website describes early learning, after-school, music and workforce-development programs, but does not establish a separate summer camp offering. Additional .org pages and its sitemap returned no readable text; cwalearningcenter.com was blocked by robots.txt. Brightwheel forms require login. A partner's Youth Literacy page mentions Igniting Superhero Readers Summer Camp in 2021, but does not provide a current CWA summer offering, so no card was created from that historical reference.",
+    "notes": "No identifiable 2026 or 2027 summer camp offering was found on the supplied official pages or in official-site search results. Historical partner descriptions and summer-camp staff job listings indicate prior summer programming, but do not establish a current program name or season. No camp card was created from those historical references. The older cwalearningcenter.com website is blocked by robots.txt; additional pages on cwalearningcenter.org returned no readable text. The supplied Brightwheel registration forms require login.",
     "excluded": [
       {
         "name": "Early Learning",
-        "reason": "Ongoing early-learning childcare; no finite summer-only offering is documented."
+        "reason": "Ongoing early-childhood care, not a finite summer camp."
       },
       {
         "name": "NC Pre-K",
-        "reason": "School-readiness preschool program, not a documented summer camp."
+        "reason": "Preschool educational program, not a finite summer camp."
       },
       {
         "name": "School Aged Programs",
-        "reason": "The supplied page describes Monday–Friday after-school care, not a separate summer program."
+        "reason": "The current official description covers after-school care; no separate summer camp offering is described."
       },
       {
         "name": "Music is Life- CWA Marching Band",
-        "reason": "Ongoing music education and after-school engagement program; no finite summer camp or clinic is documented."
+        "reason": "Ongoing music education and after-school engagement program; no finite summer camp or summer intensive is identified."
       },
       {
         "name": "School of Life Workforce Development",
-        "reason": "Workforce-development and employment-preparation program, excluded under the camp rule."
+        "reason": "Workforce and employment preparation program, not an identified summer camp."
       },
       {
         "name": "End of Summer Bash (New Date Aug 28)",
-        "reason": "Community celebration; the page does not describe a supervised youth drop-off program."
-      },
-      {
-        "name": "Here We Grow! Kindergarten Readiness.",
-        "reason": "March kindergarten-readiness event, outside summer."
+        "reason": "Single social event on August 28, 2026, from 4–6 PM, not a camp."
       },
       {
         "name": "CWA’s 10th Annual Cultural Enrichment Trip",
-        "reason": "Historical 2025 trip described as part of the workforce-development program, rather than a separate current summer camp."
+        "reason": "Youth enrichment trip in July 2025, with destinations outside the directory's geographic area; not a local summer camp."
+      },
+      {
+        "name": "5th Annual Fall-ing With Families FALL FESTIVAL",
+        "reason": "Fall festival, not a summer camp."
+      },
+      {
+        "name": "Music is Life Marching Band Day",
+        "reason": "Community performance event in April, not a summer camp."
       }
     ],
     "cards": []

@@ -16,6 +16,8 @@
  *   Asheville 10 vs 7 min); past 30 minutes they agree (Hendersonville 35 vs 35, Camp Greenville
  *   74 vs 78).
  * - ORS results are CC-BY-SA: pages that show drive times credit ORS_ATTRIBUTION.
+ * - Towns: a site with no point but a known town, or a camp that lists no sites, gets an estimate
+ *   from the town's centroid (geocodeTown + data/camps/town-points.json), shown as approximate.
  */
 import type { Site } from './contract';
 import { fetchWithRetry } from '@/lib/utils/retry';
@@ -90,13 +92,16 @@ export function kmBetween(
  * Census one-line address lookup. It needs a town or ZIP in the line ("27 Church St" alone
  * matches nothing). Its point is interpolated along the street's address range.
  */
-export async function censusGeocode(oneLineAddress: string): Promise<SiteGeo | null> {
+export async function censusGeocode(
+  oneLineAddress: string,
+  signal?: AbortSignal
+): Promise<SiteGeo | null> {
   const params = new URLSearchParams({
     address: oneLineAddress,
     benchmark: 'Public_AR_Current',
     format: 'json',
   });
-  const response = await fetchWithRetry(`${CENSUS_URL}?${params}`, undefined, RETRY);
+  const response = await fetchWithRetry(`${CENSUS_URL}?${params}`, { signal }, RETRY);
   const json = (await response.json()) as {
     result?: {
       addressMatches?: Array<{ matchedAddress: string; coordinates: { x: number; y: number } }>;
@@ -131,7 +136,7 @@ function plausibleMatch(query: string, label: string): boolean {
 }
 
 /** Pelias search biased toward Asheville and bounded to MAX_KM_FROM_DOWNTOWN, in ADDRESS_LAYERS only. */
-async function orsGeocode(text: string): Promise<SiteGeo | null> {
+async function orsGeocode(text: string, signal?: AbortSignal): Promise<SiteGeo | null> {
   const params = new URLSearchParams({
     text,
     size: '1',
@@ -144,7 +149,7 @@ async function orsGeocode(text: string): Promise<SiteGeo | null> {
   });
   const response = await fetchWithRetry(
     `${ORS_URL}/pelias/v1/search?${params}`,
-    { headers: { Authorization: apiKey() } },
+    { headers: { Authorization: apiKey() }, signal },
     RETRY
   );
   const json = (await response.json()) as {
@@ -166,22 +171,28 @@ async function orsGeocode(text: string): Promise<SiteGeo | null> {
 
 /**
  * Census for a street address, then ORS; null when neither places it, and always null without a
- * street address (the site waits for a hand pin).
+ * street address (the site waits for a hand pin). Aborting `signal` ends the lookup.
  */
-export async function geocodeSite(site: SiteQuery): Promise<SiteGeo | null> {
+export async function geocodeSite(site: SiteQuery, signal?: AbortSignal): Promise<SiteGeo | null> {
   if (!site.address?.trim()) return null;
   const text = geocodeText(site);
-  return (await censusGeocode(text)) ?? orsGeocode(text);
+  return (await censusGeocode(text, signal)) ?? orsGeocode(text, signal);
 }
 
-/** Unrounded driving minutes from Pack Square to each point (null when ORS can't route it). */
+/** Points per ORS matrix call: origin + 49 destinations stays inside the free plan's 50 locations. */
+export const ROUTE_BATCH = 49;
+
+/**
+ * Unrounded driving minutes from Pack Square to each point (null when ORS can't route it), one
+ * matrix call per ROUTE_BATCH points. Aborting `signal` ends it.
+ */
 export async function driveMinutesFromDowntown(
-  points: Array<{ lat: number; lng: number }>
+  points: Array<{ lat: number; lng: number }>,
+  signal?: AbortSignal
 ): Promise<Array<number | null>> {
   const results: Array<number | null> = [];
-  const BATCH = 49; // origin + 49 destinations stays inside the free plan's 50-location matrix
-  for (let start = 0; start < points.length; start += BATCH) {
-    const batch = points.slice(start, start + BATCH);
+  for (let start = 0; start < points.length; start += ROUTE_BATCH) {
+    const batch = points.slice(start, start + ROUTE_BATCH);
     const response = await fetchWithRetry(
       `${ORS_URL}/openrouteservice/v2/matrix/driving-car`,
       {
@@ -196,6 +207,7 @@ export async function driveMinutesFromDowntown(
           destinations: batch.map((_, index) => index + 1),
           metrics: ['duration'],
         }),
+        signal,
       },
       { ...RETRY, timeoutMs: 30000 }
     );
@@ -205,6 +217,96 @@ export async function driveMinutesFromDowntown(
     }
   }
   return results;
+}
+
+// ---------------------------------------------------------------------------
+// Towns: a drive estimate for a site with no point, or a camp that lists no sites (its provider's
+// area). data/camps/town-points.json, built by scripts/camps/town-points.ts.
+// ---------------------------------------------------------------------------
+
+export interface TownPoint {
+  /** The town's centroid, as ORS has it. */
+  lat: number;
+  lng: number;
+  /** ORS's name for the match, e.g. "Brevard, NC, USA". */
+  label: string;
+  /** Unrounded driving minutes from Pack Square to the centroid; null when ORS can't route it. */
+  minutes: number | null;
+}
+
+/** "Brevard, NC": how town-points.json names a town. */
+export function townKey(town: string, state: string): string {
+  return `${town.trim().replace(/\s+/g, ' ')}, ${state.trim().toUpperCase()}`;
+}
+
+/**
+ * The town a provider's area names, as discovery wrote it: "Arden, NC", "Christ School, Arden, NC"
+ * (the part before the state), "Columbus and Saluda, NC" (the first town), "Hendersonville, NC
+ * (Henderson County)". Null without a two-letter state.
+ */
+export function townFromArea(area: string | null): { town: string; state: string } | null {
+  if (!area) return null;
+  const parts = area
+    .replace(/\([^)]*\)/g, '')
+    .split(',')
+    .map((part) => part.trim())
+    .filter(Boolean);
+  if (parts.length < 2) return null;
+  const state = parts[parts.length - 1];
+  if (!/^[A-Z]{2}$/.test(state)) return null;
+  const town = parts[parts.length - 2].split(/\s+and\s+|\s*[/;&]\s*/)[0].trim();
+  return town ? { town, state } : null;
+}
+
+function sameTownName(a: string, b: string): boolean {
+  const plain = (name: string) => name.toLowerCase().replace(/\./g, '').replace(/\s+/g, ' ').trim();
+  return plain(a) === plain(b);
+}
+
+/**
+ * A town's centroid: ORS structured search in the locality layer, accepted only when the locality
+ * has the town's own name in that state. A near name ("North Brevard", "Township of Brevard") or
+ * another state's town is a miss, as is a region ("Western North Carolina"). Of several towns of
+ * that name in the state (NC has six Fairviews; ORS listed the Union County one, near Charlotte,
+ * first), the one nearest Pack Square: discovery only looked near Asheville.
+ */
+export async function geocodeTown(
+  town: string,
+  state: string,
+  signal?: AbortSignal
+): Promise<Omit<TownPoint, 'minutes'> | null> {
+  const params = new URLSearchParams({
+    locality: town,
+    region: state,
+    country: 'US',
+    layers: 'locality',
+    size: '10',
+  });
+  const response = await fetchWithRetry(
+    `${ORS_URL}/pelias/v1/search/structured?${params}`,
+    { headers: { Authorization: apiKey() }, signal },
+    RETRY
+  );
+  const json = (await response.json()) as {
+    features?: Array<{
+      geometry: { coordinates: [number, number] };
+      properties: { label: string; layer: string; name: string; region_a?: string };
+    }>;
+  };
+  const [nearest] = (json.features ?? [])
+    .filter(
+      ({ properties }) =>
+        properties.layer === 'locality' &&
+        properties.region_a?.toUpperCase() === state.toUpperCase() &&
+        sameTownName(properties.name, town)
+    )
+    .map(({ geometry, properties }) => ({
+      lng: geometry.coordinates[0],
+      lat: geometry.coordinates[1],
+      label: properties.label,
+    }))
+    .sort((a, b) => kmBetween(PACK_SQUARE, a) - kmBetween(PACK_SQUARE, b));
+  return nearest ?? null;
 }
 
 export interface RadiusCheck {

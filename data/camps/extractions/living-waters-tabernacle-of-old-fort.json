@@ -11,23 +11,23 @@
     "status": "review",
     "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
   },
-  "extractedAt": "2026-10-29T15:37:43.316Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:31:45.128Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "eadaf0d124f60bcdfa1911d6cb170e734afabac6fac613c513632af487446479",
   "response": {
     "searches": [
       "\"Living Waters Tabernacle\" \"Old Fort\" \"VBS\" 2026",
-      "\"Living Waters Tabernacle-CGMA\" \"VBS\"",
-      "\"Living Waters\" \"Tabernacle\" \"VBS\" \"2026\" \"Old\""
+      "\"Living Waters Tabernacle\" \"vacation bible\"",
+      "site:lwt.connectioncard.net \"Bible\""
     ],
     "usage": {
-      "inputTokens": 25852,
-      "cachedInputTokens": 8223,
-      "outputTokens": 741,
-      "reasoningTokens": 308
+      "inputTokens": 26429,
+      "cachedInputTokens": 8845,
+      "outputTokens": 771,
+      "reasoningTokens": 263
     },
     "status": "completed",
-    "ms": 35015,
+    "ms": 29837,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -51,15 +51,11 @@
   "extraction": {
     "provider_name": "Living Waters Tabernacle of Old Fort",
     "website_url": "https://lwt.connectioncard.net/site/home",
-    "notes": "No 2027 summer program announcement was found. The church's official YouTube search result confirms a 2026 VBS commencement on June 7, 2026, but does not establish the VBS session dates. The supplied site-link URL returned no readable text. Public searches did not locate a 2026 VBS schedule or registration announcement.",
+    "notes": "No 2027 camp information or 2026 camp dates were found. The supplied site_link URL is a contact page, not a camp page, and returned no readable text when opened. An official indexed Young Adults ministry page describes an annual Vacation Bible School; its full page could not be read. An official YouTube video records a June 7, 2026 VBS commencement, but this does not establish the camp's dates.",
     "excluded": [
       {
-        "name": "Children's Ministries",
-        "reason": "General church ministry, not a documented finite summer program."
-      },
-      {
-        "name": "Youth Ministries",
-        "reason": "General church ministry, not a documented finite summer program."
+        "name": "Graduates Impact Class",
+        "reason": "Recurring Wednesday ministry class, not a finite summer camp."
       }
     ],
     "cards": [
@@ -67,11 +63,11 @@
         "name": "Vacation Bible School",
         "type": "vbs",
         "categories": ["faith_based"],
-        "description": "The church offers Vacation Bible School and held a VBS commencement service in June 2026.",
-        "camp_page_url": null,
+        "description": "Participants rotate through classes, activities and recreation, with lunch during the day.",
+        "camp_page_url": "https://lwt.connectioncard.net/process/page/site_link/?current_pgid=655&id=99&item=2434&pgid=720&sgid=110001380",
         "registration_url": null,
         "season": {
-          "year": 2026,
+          "year": 2027,
           "status": "not_posted",
           "start": null,
           "end": null,
@@ -89,14 +85,18 @@
         "availability": null,
         "financial_aid": null,
         "special_needs": null,
-        "lunch": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Throughout the day, participants rotate through a variety of classes, activities, recreation, and even lunch."
+        },
         "transportation": null,
         "sources": [
-          "https://www.youtube.com/watch?v=0hhYkBrLJT8",
-          "https://lwt.connectioncard.net/site/home"
+          "https://lwt.connectioncard.net/process/page/site_link/?current_pgid=655&id=99&item=2434&pgid=720&sgid=110001380",
+          "https://lwt.connectioncard.net/site/home",
+          "https://www.youtube.com/watch?v=0hhYkBrLJT8"
         ],
-        "confidence": "low",
-        "review_notes": "The official YouTube search result titled '6/7/2026- VBS Commencement- Youth Pastor Patrick McMahan and Pastor Keith Jamison' confirms a 2026 VBS, but no program announcement was located. Verify session dates, ages, activities, hours, registration and drop-off location with the church. Its published address is 344 Moffitt Hill Church Road, Old Fort, NC 28762, but the available VBS material does not specify that as the meeting site."
+        "confidence": "medium",
+        "review_notes": "The program description and lunch statement are available only in the official ministry page's indexed search text. The page describes an annual daytime VBS for all ages without summer dates or numeric eligibility. Confirm 2027 scheduling and drop-off location with the church. Its published address is 344 Moffitt Hill Church Road, Old Fort, NC, but no readable VBS source explicitly identifies that address as the camp venue."
       }
     ]
   }

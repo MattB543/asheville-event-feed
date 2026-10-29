@@ -7,26 +7,26 @@
     "discovered_by": ["grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:04:43.319Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
-  "sourceHash": "249f014e665f54af37f089a7727994809462ff333530ac2acc70de0579b24bde",
+  "extractedAt": "2026-10-29T17:04:16.518Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "ec2fc2bdd5da6dfb4aa4eefb2f22ed8bc07546eced3db322300314c309afb9b3",
   "response": {
-    "searches": ["site:eliada.org summer camp 2027 2026 Junior Volunteers"],
+    "searches": ["site.eliada.org \"summer\" \"2027\"", "site:eliada.org \"summer camp\""],
     "usage": {
-      "inputTokens": 16260,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1457,
-      "reasoningTokens": 101
+      "inputTokens": 21233,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1284,
+      "reasoningTokens": 135
     },
     "status": "completed",
-    "ms": 34862,
+    "ms": 31547,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
   "bundle": [
     {
       "url": "https://www.eliada.org/summer-camp/",
-      "chars": 2771,
+      "chars": 2772,
       "method": "fetch"
     },
     {
@@ -48,31 +48,35 @@
   "extraction": {
     "provider_name": "Eliada Homes",
     "website_url": "https://www.eliada.org/",
-    "notes": "No 2027 camp dates or registration announcements were found. The current camp page is undated; its hours and fees are retained as 2026 fallback information, not confirmed 2027 terms. Registration is by contacting Summer Camp Coordinator Melody Gonzalez at mgonzalez@eliada.org or (828) 348-3360. A wait-list form is present, but the page does not explicitly say the camp is currently full.",
+    "notes": "No 2027 camp information or dated 2026 session calendar was found. The current summer camp page is undated; its fees are recorded as 2026 fallback information, not confirmed 2027 prices. Search also found a 2014 field-trip calendar, which was not used.",
     "excluded": [
       {
         "name": "Child Care and Pre-K",
-        "reason": "Year-round childcare and preschool, not a finite summer program."
+        "reason": "Year-round childcare and preschool, not a finite summer camp."
       },
       {
         "name": "After School Program",
-        "reason": "School-year after-school care, not a summer camp."
+        "reason": "School-year childcare."
       },
       {
-        "name": "Campus Farm Program",
-        "reason": "Ongoing agricultural education, rather than a finite summer youth program."
+        "name": "Agricultural Education",
+        "reason": "Weekly classes forming part of Eliada Academy's science curriculum, not a summer camp."
       },
       {
         "name": "Farm Tours",
-        "reason": "General-public guided tours, not supervised youth camps."
+        "reason": "General guided tours, not a supervised youth camp program."
       },
       {
         "name": "Farm Internships",
-        "reason": "Year-round internships, not summer camp programs."
+        "reason": "Year-round internships, not a finite summer youth camp."
       },
       {
-        "name": "Corn Maze + Fall Festival",
-        "reason": "Fall attraction outside summer."
+        "name": "Eliada Corn Maze + Fall Festival",
+        "reason": "Fall seasonal attraction and festival, outside summer."
+      },
+      {
+        "name": "ESTA Program",
+        "reason": "Housing and workforce development support, not a summer camp."
       }
     ],
     "cards": [
@@ -80,7 +84,7 @@
         "name": "Summer Camp",
         "type": "day",
         "categories": ["general", "nature_outdoor"],
-        "description": "Campers participate in organized activities and team-building games, with access to a swimming pool, hiking trails, gymnasium, ball field, farm animals and playground. Field trips are planned around campers' expressed interests.",
+        "description": "Campers participate in organized activities and games focused on peer relations, conflict resolution and team building. Activities include swimming, hiking, recreation and field trips.",
         "camp_page_url": "https://www.eliada.org/summer-camp/",
         "registration_url": "https://www.eliada.org/summer-camp/",
         "season": {
@@ -110,26 +114,26 @@
         "hours": {
           "start": "07:00",
           "end": "17:30",
-          "text": "Monday through Friday from 7:00am-5:30pm."
+          "text": "Monday through Friday from 7:00am-5:30pm"
         },
         "extended_care": null,
         "prices": [
           {
             "amount": 50,
             "unit": "other",
-            "label": "Registration fee",
+            "label": "Registration Fee",
             "year": 2026
           },
           {
             "amount": 275,
             "unit": "week",
-            "label": "Private pay, full week",
+            "label": "Private Pay",
             "year": 2026
           },
           {
             "amount": 0,
             "unit": "week",
-            "label": "Subsidy: no additional cost",
+            "label": "Subsidy — No additional cost",
             "year": 2026
           }
         ],
@@ -146,13 +150,13 @@
         "transportation": null,
         "sources": ["https://www.eliada.org/summer-camp/", "https://www.eliada.org/"],
         "confidence": "medium",
-        "review_notes": "The camp page does not identify a season year or dates. Prices and hours are undated current-page facts retained under 2026. The published campus address is used; confirm the specific drop-off building. Eligibility is stated as rising 1st graders through youth age 12, so no minimum age or maximum grade was inferred. Private-pay parents receive a stated $5 discount for a second full-time child."
+        "review_notes": "The camp page does not explicitly identify a summer year or give season dates; fees are assigned to 2026 as current fallback information. Eligibility is stated as rising 1st graders through age 12, so no minimum age or maximum grade was inferred. A wait-list form is offered, but the page does not explicitly state that all camp enrollment is waitlisted. Registration is by contacting Melody Gonzalez at mgonzalez@eliada.org or (828) 348-3360."
       },
       {
         "name": "Junior Volunteers",
         "type": "day",
         "categories": ["general"],
-        "description": "Youth ages 13–16 may serve as Junior Volunteers in Eliada's summer camp.",
+        "description": "A summer camp junior volunteer program for youth ages 13–16.",
         "camp_page_url": "https://www.eliada.org/summer-camp/",
         "registration_url": "https://www.eliada.org/summer-camp/",
         "season": {
@@ -181,7 +185,7 @@
           {
             "amount": 75,
             "unit": "other",
-            "label": "Junior Volunteer; billing period not specified",
+            "label": "Junior Volunteer",
             "year": 2026
           }
         ],
@@ -195,7 +199,7 @@
         "transportation": null,
         "sources": ["https://www.eliada.org/summer-camp/", "https://www.eliada.org/"],
         "confidence": "medium",
-        "review_notes": "The page lists Junior Volunteers ages 13–16 and a $75 fee but does not describe duties, supervision, dates, hours or the fee's billing period. Confirm that this is a structured summer youth program rather than informal volunteering. The fee is undated and retained under 2026. The campus address is published, but the specific drop-off building is not."
+        "review_notes": "The summer camp page states that ages 13–16 may serve as Junior Volunteers and lists a $75 fee under both private pay and subsidy, but does not specify the fee's unit, duties, separate hours or dates. The undated fee is assigned to 2026 as fallback information. Retained as the existing summer youth volunteer offering; confirm its supervised program format and fee unit with the coordinator."
       }
     ]
   }

@@ -11,22 +11,23 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:29:22.889Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:24:53.568Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "a729ab28b803727318c6908671bd2107f6fe80c447af8bded7f359a038da8696",
   "response": {
     "searches": [
-      "site:bgctransylvania.org summer 2026 2027 registration",
-      "open https://www.bgctransylvania.org/parent-portal"
+      "site:bgctransylvania.org \"2026\" \"summer\"",
+      "open https://www.bgctransylvania.org/parent-portal",
+      "site:bgctransylvania.org summer registration membership 2026"
     ],
     "usage": {
-      "inputTokens": 17764,
-      "cachedInputTokens": 8223,
-      "outputTokens": 960,
-      "reasoningTokens": 121
+      "inputTokens": 19058,
+      "cachedInputTokens": 8845,
+      "outputTokens": 965,
+      "reasoningTokens": 176
     },
     "status": "completed",
-    "ms": 33134,
+    "ms": 29898,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -65,31 +66,27 @@
   "extraction": {
     "provider_name": "The Cindy Platt Boys & Girls Club of Transylvania County",
     "website_url": "https://www.bgctransylvania.org/",
-    "notes": "No official 2027 summer dates or registration milestones were found. The mission page describes an eight-week summer program but does not give dated sessions, fees or registration instructions. The Parent Portal could not be read beyond its search-result introduction. Summer Reading Hour and Walking Classroom are components of the summer program, not separate camp cards. The 2023 newsletter's temporary teen location was not used as a current drop-off site.",
+    "notes": "No 2027 summer dates or registration announcements were found. The Parent Portal returned no readable content when opened; its search snippet only provided staff contact information. The mission page describes an eight-week summer program but provides no dated session schedule. Summer Reading Hour and Walking Classroom are components of the Summer Program, not separate camps.",
     "excluded": [
       {
         "name": "Afterschool Program",
-        "reason": "School-year afterschool programming, not a finite summer camp."
+        "reason": "School-year childcare, not a summer camp."
       },
       {
-        "name": "Power Hour",
-        "reason": "Listed under school-year programming."
-      },
-      {
-        "name": "Tutoring",
-        "reason": "Listed under school-year programming."
-      },
-      {
-        "name": "S.T.E.M. (Science, Technology, Engineering, and Mathematics)",
-        "reason": "Listed under school-year programming, not as a separate summer camp."
-      },
-      {
-        "name": "Diplomas2Degrees",
-        "reason": "Listed under school-year programming, not as a finite summer pre-college program."
+        "name": "School Year Programming",
+        "reason": "Power Hour, Tutoring, STEM and Diplomas2Degrees are listed as school-year programming, not finite summer camps."
       },
       {
         "name": "Flag Football",
-        "reason": "The newsletter describes a sports team and tournament season, not a camp or clinic."
+        "reason": "A sports team season and tournaments, not a camp."
+      },
+      {
+        "name": "Mountain Song Festival",
+        "reason": "A festival, not a supervised youth camp."
+      },
+      {
+        "name": "Fundraisers & Events",
+        "reason": "Fundraising dinners, golf tournaments and social events are not youth camps."
       }
     ],
     "cards": [
@@ -97,7 +94,7 @@
         "name": "Summer Program",
         "type": "day",
         "categories": ["general", "academic"],
-        "description": "Members participate in recreation, reading and activities supporting social, emotional, physical and academic development. Summer academic activities include group reading and walking with recorded lessons.",
+        "description": "An eight-week summer program with learning, recreation and activities supporting social, emotional and physical development. Summer academic activities include group reading and walking with recorded lessons.",
         "camp_page_url": "https://www.bgctransylvania.org/our-mission",
         "registration_url": null,
         "season": {
@@ -123,7 +120,7 @@
         "hours": {
           "start": null,
           "end": "17:30",
-          "text": "The mission narrative states Monday-Friday, 7:30am-5:30pm; the same page's Hours of Operation states Summer Hours: 8am-5:30pm."
+          "text": "Monday-Friday"
         },
         "extended_care": null,
         "prices": [],
@@ -138,10 +135,11 @@
         "sources": [
           "https://www.bgctransylvania.org/our-mission",
           "https://www.bgctransylvania.org/academicsuccess",
-          "https://www.bgctransylvania.org/"
+          "https://www.bgctransylvania.org/",
+          "https://www.bgctransylvania.org/capital-campaign"
         ],
         "confidence": "medium",
-        "review_notes": "The mission page conflicts on opening time: its narrative says 7:30am, while its Hours of Operation says 8am. The eight-week duration, hours and membership ages are undated standing information, not an explicitly labeled 2026 schedule. Confirm summer eligibility and current drop-off arrangements for teens; the supplied 2023 newsletter mentions a temporary separate teen building, while the current campus expansion page describes a new Teen Center."
+        "review_notes": "The undated mission page states summer programming runs 7:30am-5:30pm, but its Hours of Operation section states 8am-5:30pm; start time is therefore null. Ages 5-18 are stated for year-round Club membership rather than separately for summer. No explicitly dated 2026 or 2027 summer schedule was found. The 2023 newsletter describes a separate temporary teen building across Gallimore Road; confirm the current teen drop-off location following the campus expansion before adding another site."
       }
     ]
   }

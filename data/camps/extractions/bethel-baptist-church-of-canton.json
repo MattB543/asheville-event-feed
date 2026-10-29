@@ -7,22 +7,23 @@
     "discovered_by": ["grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:16:12.151Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:13:41.075Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "6c46cc57b75cbb91e6c59c1465234aa9343ba5819a57c59faa613dcd263be06b",
   "response": {
     "searches": [
       "Bethel Baptist Church Canton 5868 Pigeon official VBS 2027",
-      "open https://www.bethelbaptistcanton.org/events/"
+      "open https://bethelgroups.churchcenter.com/",
+      "\"bethelgroups\" \"address\" church"
     ],
     "usage": {
-      "inputTokens": 13998,
-      "cachedInputTokens": 8223,
-      "outputTokens": 795,
-      "reasoningTokens": 131
+      "inputTokens": 18632,
+      "cachedInputTokens": 8845,
+      "outputTokens": 623,
+      "reasoningTokens": 152
     },
     "status": "completed",
-    "ms": 19661,
+    "ms": 21724,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -41,14 +42,14 @@
   "extraction": {
     "provider_name": "Bethel Baptist Church of Canton",
     "website_url": "https://www.bethelbaptistcanton.org/",
-    "notes": "No official 2027 camp information found. The VBS registration page explicitly lists 2026 dates but retains a 2025 reference in its introductory description. The church's events and ministries pages returned no readable text. The church's official contact-page search result confirms the venue address.",
+    "notes": "No 2027 information attributable to the Canton church was found. The church's events page could not be read. A search result for Spy University VBS 2027 at bethelgroups.churchcenter.com could not be connected to this provider and was not used.",
     "excluded": [],
     "cards": [
       {
         "name": "Egypt VBS at Bethel Baptist Church",
         "type": "vbs",
         "categories": ["faith_based"],
-        "description": "Children explore the Bible story of Joseph through Bible-times customs, occupations, food and games.",
+        "description": "Children explore Joseph's Bible story through Bible-times customs, occupations, food and games.",
         "camp_page_url": "https://vbspro.events/p/events/vbsbbc",
         "registration_url": "https://vbspro.events/p/events/vbsbbc",
         "season": {
@@ -78,7 +79,7 @@
         "hours": {
           "start": "18:00",
           "end": "20:35",
-          "text": "6:00pm (EDT) to 8:35pm (EDT). A meal will be served nightly from 5:15-5:45."
+          "text": null
         },
         "extended_care": null,
         "prices": [],
@@ -87,7 +88,7 @@
         "last_year_registration_opened": null,
         "availability": {
           "status": "closed",
-          "scope": "2026 VBS",
+          "scope": null,
           "text": "Event Registration is closed."
         },
         "financial_aid": null,
@@ -102,7 +103,7 @@
           "https://www.bethelbaptistcanton.org/contact/"
         ],
         "confidence": "medium",
-        "review_notes": "The VBS page explicitly dates the event May 31–June 4, 2026, but its introductory copy says '2025 Holy Land Adventure VBS'; verify that the descriptive copy and eligibility were updated for 2026. The meal is an evening meal, not lunch."
+        "review_notes": "The VBS event explicitly dates the program May 31–June 4, 2026, but its introductory description still says 2025. Dates use the explicit event dates; confirm that the activity description and eligibility text were updated for 2026. The provided meal is an evening meal, not midday lunch."
       }
     ]
   }

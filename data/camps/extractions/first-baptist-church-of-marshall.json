@@ -11,26 +11,26 @@
     "status": "review",
     "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
   },
-  "extractedAt": "2026-10-29T15:26:16.912Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
-  "sourceHash": "d29fbeb3c8dd30a3a198d412923396f5842b096efe4cdafc5260a3113d2b6e4b",
+  "extractedAt": "2026-10-29T17:22:09.475Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "5449b3949b66bc4499ef64c823dabc19c75c103784a95c1f2a29270971e2c532",
   "response": {
-    "searches": ["site:fbcmarshall.com VBS 2026 2027", "\"511837519898231\""],
+    "searches": ["site.fbcmarshall.com VBS 2026 2027", "\"511837519898231\""],
     "usage": {
-      "inputTokens": 19357,
-      "cachedInputTokens": 8223,
-      "outputTokens": 488,
-      "reasoningTokens": 236
+      "inputTokens": 26177,
+      "cachedInputTokens": 8845,
+      "outputTokens": 340,
+      "reasoningTokens": 192
     },
     "status": "completed",
-    "ms": 18755,
+    "ms": 15394,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
   "bundle": [
     {
       "url": "https://fbcmarshall.com/",
-      "chars": 1681,
+      "chars": 1682,
       "method": "fetch"
     },
     {
@@ -42,17 +42,8 @@
   "extraction": {
     "provider_name": "First Baptist Church of Marshall",
     "website_url": "https://fbcmarshall.com/",
-    "notes": "No summer 2027 or 2026 camp information could be verified on the official website or in official search results. The supplied Facebook event, VBS-Wilderness Escape, is identified in search results as an August 5, 2021 event, not a 2026 or 2027 offering; its full page could not be read. A third-party listing mentions Magnified VBS in July 2025, but no current official details were found. No cards were created from these historical events. The church publishes its address as 53 S Main Street, Marshall, NC 28753.",
-    "excluded": [
-      {
-        "name": "Children’s Ministry",
-        "reason": "Sunday School, nursery and Children’s Church are recurring year-round ministries, not finite summer programs."
-      },
-      {
-        "name": "Youth Ministry",
-        "reason": "Weekly Sunday meetings and monthly student events are recurring year-round ministry activities; no finite summer camp was identified."
-      }
-    ],
+    "notes": "No official 2027 or 2026 summer camp information was found. The supplied Facebook event, VBS-Wilderness Escape, is indexed as an August 5, 2021 event, not a current summer offering; its full page could not be read. The church's events page also returned no readable content. The official homepage publishes the church address as 53 S Main Street, Marshall, NC 28753. No cards were created from the historical event.",
+    "excluded": [],
     "cards": []
   }
 }

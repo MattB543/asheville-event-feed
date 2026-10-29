@@ -7,19 +7,19 @@
     "discovered_by": ["gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:37:47.757Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:31:49.652Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "38be8693fc14e4eb2f9397c274ac404dbb7e62d07b2aa682808ad304f37a95eb",
   "response": {
-    "searches": ["site.cbcjc.org VBS 2026 2027", "site.cbcjc.org \"VBS\""],
+    "searches": ["site.cbcjc.org VBS 2026 2027", "\"cbcjc\" \"VBS\""],
     "usage": {
-      "inputTokens": 18626,
-      "cachedInputTokens": 8223,
-      "outputTokens": 835,
-      "reasoningTokens": 135
+      "inputTokens": 19297,
+      "cachedInputTokens": 8845,
+      "outputTokens": 824,
+      "reasoningTokens": 122
     },
     "status": "completed",
-    "ms": 33012,
+    "ms": 25049,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -38,39 +38,27 @@
   "extraction": {
     "provider_name": "Central Baptist Church of Johnson City",
     "website_url": "https://www.cbcjc.org/",
-    "notes": "No 2027 camp dates or registration announcements were found. The kids page describes VBS without a season year, dates, hours or price. The official calendar returned no readable event details. No dated 2026 VBS listing was found. Unspecified summer activities were not sufficient to identify additional supervised youth programs.",
+    "notes": "No 2027 VBS announcement or dated 2026 VBS schedule was found. The kids page describes an ongoing annual VBS but supplies no dates, hours, price or registration link. The events page returned no readable content, and the calendar search result showed an error loading events.",
     "excluded": [
       {
-        "name": "Preschool Schedule",
-        "reason": "Recurring Sunday and Wednesday ministry and childcare, not a finite summer program."
+        "name": "Preschool Ministry and weekday preschool",
+        "reason": "Regular preschool and year-round ministry programming, not a finite summer camp."
       },
       {
-        "name": "COMPASS",
-        "reason": "Recurring Wednesday children's ministry, not a finite summer program."
+        "name": "COMPASS, Kingdom Kids, Kids Choir and Praise Ringers",
+        "reason": "Recurring weekly children's ministry programs, not summer camps."
       },
       {
-        "name": "KICK OFF COOK OUT",
-        "reason": "Church-wide family event, not a supervised youth camp."
-      },
-      {
-        "name": "TRUNK OR TREAT",
-        "reason": "Family festival outside summer."
-      },
-      {
-        "name": "CHRISTMAS ACTIVITIES",
-        "reason": "Programs outside summer."
-      },
-      {
-        "name": "EASTER EGGTRAVAGANZA",
-        "reason": "Easter family festival outside summer."
-      },
-      {
-        "name": "END OF YEAR PICNIC",
-        "reason": "Picnic rather than a finite supervised youth camp."
+        "name": "KICK OFF COOK OUT, TRUNK OR TREAT, CHRISTMAS ACTIVITIES, EASTER EGGTRAVAGANZA and END OF YEAR PICNIC",
+        "reason": "Social events, festivals or programs outside summer, not qualifying camps."
       },
       {
         "name": "SUMMER ACTIVITIES",
-        "reason": "General mention of family and children's activities without an identifiable supervised camp offering."
+        "reason": "Only unspecified activities for families and children are described; no finite supervised camp offering is identified."
+      },
+      {
+        "name": "Summer Vacation Bible School — Central Baptist Church, Southington",
+        "reason": "The July 12–16, 2027 offering belongs to a different Central Baptist Church in Southington, Connecticut."
       }
     ],
     "cards": [
@@ -94,7 +82,14 @@
           "max": 7,
           "basis": "rising"
         },
-        "sites": [],
+        "sites": [
+          {
+            "name": "Central Baptist Church",
+            "address": "300 North Roan Street",
+            "town": "Johnson City",
+            "state": "TN"
+          }
+        ],
         "hours": null,
         "extended_care": null,
         "prices": [],
@@ -108,7 +103,7 @@
         "transportation": null,
         "sources": ["https://www.cbcjc.org/kids", "https://www.cbcjc.org/"],
         "confidence": "medium",
-        "review_notes": "The kids page gives an undated recurring VBS description and rising Pre-K through 7th-grade eligibility; verify these for 2027. No dates describe the season. The church publishes 300 North Roan Street, Johnson City, TN, but the VBS description does not explicitly identify its drop-off venue, so sites is empty."
+        "review_notes": "The VBS description and rising Pre-K through seventh-grade eligibility are evergreen and not labeled for a specific summer. The church address is published in its footer, but no dated VBS announcement explicitly confirms the drop-off location."
       }
     ]
   }

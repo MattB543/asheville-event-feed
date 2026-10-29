@@ -7,19 +7,19 @@
     "discovered_by": ["aggregator"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:34:22.187Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:28:52.113Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "e2524939e0cf334cd01bfec9635c4d0316ab966b9d5cc11c4d4b3cfb24785138",
   "response": {
-    "searches": ["site:transylvaniacountyjam.org camp 2027 2026"],
+    "searches": ["site:transylvaniacountyjam.org summer camp 2026 2027"],
     "usage": {
-      "inputTokens": 13776,
-      "cachedInputTokens": 8223,
-      "outputTokens": 857,
-      "reasoningTokens": 134
+      "inputTokens": 14535,
+      "cachedInputTokens": 8845,
+      "outputTokens": 899,
+      "reasoningTokens": 72
     },
     "status": "completed",
-    "ms": 23351,
+    "ms": 19714,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -43,19 +43,15 @@
   "extraction": {
     "provider_name": "Transylvania County JAM",
     "website_url": "https://www.transylvaniacountyjam.org/",
-    "notes": "No 2027 information was found. The summer camp page lists June 15–18 and July 13–16 without a year; neither 2026 nor 2027 could be verified, so dated sessions are omitted. The provider's site blocked browser access, but supplied page text and official search results were available. Level One and Level Two are grouped as experience bands of the same half-day music camp.",
+    "notes": "No 2027 camp information or registration milestones were found. The summer-camps page gives dates without a year; 2026 is used provisionally and needs confirmation. Search indexing was available, but direct access to the provider's site was blocked by robots.txt; the supplied page text was used.",
     "excluded": [
       {
         "name": "JAM Discovery",
-        "reason": "Introductory class within the ongoing afternoon program; not identified as a summer-only camp."
+        "reason": "Introductory music lesson class, not identified as a summer camp."
       },
       {
-        "name": "Instrument classes and Ensemble Class",
-        "reason": "Ongoing music classes, not finite summer programs."
-      },
-      {
-        "name": "Interns and student-teachers",
-        "reason": "Student teaching pathway, not identified as a finite supervised summer camp."
+        "name": "JAM instrument classes and Ensemble Class",
+        "reason": "Regular afternoon music classes rather than finite summer camps."
       }
     ],
     "cards": [
@@ -63,14 +59,14 @@
         "name": "Summer Camps!",
         "type": "half_day",
         "categories": ["music"],
-        "description": "Students form stringbands, practice playing together, study music theory, and perform for friends and families at the end of camp. Level One serves students in their first two years in JAM; Level Two serves students with three or more years and includes harmony, improvisation, and arranging songs.",
+        "description": "Students form stringbands, work on music theory and ensemble skills, and perform for friends and families at the end of camp. Level Two also covers harmony, improvisation and arranging songs.",
         "camp_page_url": "https://www.transylvaniacountyjam.org/summer-camps",
         "registration_url": null,
         "season": {
           "year": 2026,
           "status": "not_posted",
-          "start": null,
-          "end": null,
+          "start": "2026-06-15",
+          "end": "2026-07-16",
           "text": null
         },
         "ages": null,
@@ -86,11 +82,36 @@
         "hours": {
           "start": "09:00",
           "end": "12:00",
-          "text": "Both levels meet 9am-Noon."
+          "text": "9am-Noon"
         },
         "extended_care": null,
         "prices": [],
-        "sessions": [],
+        "sessions": [
+          {
+            "label": "Level One Camp",
+            "start": "2026-06-15",
+            "end": "2026-06-18",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Level Two Camp",
+            "start": "2026-07-13",
+            "end": "2026-07-16",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
         "registration": [],
         "last_year_registration_opened": null,
         "availability": null,
@@ -100,7 +121,7 @@
         "transportation": null,
         "sources": ["https://www.transylvaniacountyjam.org/summer-camps"],
         "confidence": "medium",
-        "review_notes": "Verify the year of Level One Camp (June 15–18) and Level Two Camp (July 13–16) before creating dated rows. The page prints no year; season.year 2026 is a fallback container, not confirmation that these dates describe 2026. Camp-specific ages and prices are not stated. The ongoing program's ages 9–18 and free-class policy were not applied to summer camp. Registration is by email to jamkidstc@gmail.com with the child's name and preferred contact information; no opening date is stated."
+        "review_notes": "Confirm the year of the June 15–18 and July 13–16 dates: the supplied camp page and official search snippet do not print a year. Dates are provisionally recorded as 2026, not projected to 2027. Level One is for students in their first two years in JAM; Level Two is for students with three or more years in JAM. The general program's ages and free-class policy were not applied to camps because the camp page does not explicitly state camp ages or fees. Registration is by email to jamkidstc@gmail.com with the child's name and preferred contact information."
       }
     ]
   }

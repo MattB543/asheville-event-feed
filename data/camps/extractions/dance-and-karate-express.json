@@ -7,19 +7,19 @@
     "discovered_by": ["gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:37:02.215Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:31:13.893Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "51891e6dbcf7db0d74202512dd94d7bdcb89071c52eb2cd6884a959349da7f29",
   "response": {
     "searches": ["site:danceandkarateexpress.com summer camp 2027 2026"],
     "usage": {
-      "inputTokens": 14965,
-      "cachedInputTokens": 8223,
-      "outputTokens": 663,
-      "reasoningTokens": 53
+      "inputTokens": 15315,
+      "cachedInputTokens": 8845,
+      "outputTokens": 592,
+      "reasoningTokens": 52
     },
     "status": "completed",
-    "ms": 17197,
+    "ms": 16902,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -48,23 +48,19 @@
   "extraction": {
     "provider_name": "Dance and Karate Express",
     "website_url": "https://www.danceandkarateexpress.com/",
-    "notes": "No dated 2026 or 2027 camp details were found. The summer camp page advertises one combined offering without dates, ages, hours or camp prices. Regular class tuition was not applied to camp. Reservations are requested by telephone at 828-682-1493 or 828-808-2845.",
+    "notes": "No dated 2026 or 2027 camp details were found. The camp page invites parents to call to reserve a spot; the general registration page describes class enrollment rather than camp registration.",
     "excluded": [
       {
         "name": "Dance Classes",
-        "reason": "Regular ongoing classes, not a finite summer camp."
+        "reason": "Ongoing dance classes, not a finite summer camp."
       },
       {
         "name": "Karate Classes",
-        "reason": "Regular ongoing classes, not a finite summer camp."
-      },
-      {
-        "name": "Ninja Turtles training camp and Lego camp",
-        "reason": "Historical official social post describes spring-break programs in April, outside summer."
+        "reason": "Ongoing karate classes, not a finite summer camp."
       },
       {
         "name": "Recital",
-        "reason": "A performance event, not a supervised summer camp program."
+        "reason": "A single performance event, not a camp."
       }
     ],
     "cards": [
@@ -72,7 +68,7 @@
         "name": "Fairy Princess - Spiderman - Ninja Turtle Summer Camp",
         "type": "day",
         "categories": ["general"],
-        "description": "Children participate in activities and lessons in a camp with fairy princess, Spiderman and Ninja Turtle themes.",
+        "description": "A themed children's summer camp with activities and lessons.",
         "camp_page_url": "https://www.danceandkarateexpress.com/summer-camp",
         "registration_url": null,
         "season": {
@@ -108,7 +104,7 @@
           "https://www.danceandkarateexpress.com/"
         ],
         "confidence": "medium",
-        "review_notes": "The undated camp page does not explicitly confirm the camp format or drop-off location. Day format and the studio location are inferred from the studio's camp advertisement and published location; confirm these with the provider. No year-specific dates or eligibility are published."
+        "review_notes": "The undated camp page does not specify the daily format or explicitly identify the drop-off site. Day-camp classification and use of the studio's published address should be confirmed with the provider. Activities are described only generally, so dance and karate categories have not been assumed."
       }
     ]
   }

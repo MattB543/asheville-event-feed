@@ -12,22 +12,22 @@
     "discovered_by": ["seed_sheet", "news828", "grid", "aggregator", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T14:55:39.454Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T16:56:25.523Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "8f7432e6d213d2940e4984b12bff0cbe80dbb5af679fc2f191b3450cc2f06015",
   "response": {
     "searches": [
       "site:martialartsasheville.com \"Summer Camp 2026\"",
-      "open https://martialartsasheville.com/events/summer-camp-2026-week-3-dinosaurs/"
+      "open https://martialartsasheville.com/event-type/summer-camp/"
     ],
     "usage": {
-      "inputTokens": 29595,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1850,
-      "reasoningTokens": 116
+      "inputTokens": 30786,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1752,
+      "reasoningTokens": 89
     },
     "status": "completed",
-    "ms": 40630,
+    "ms": 39334,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -66,19 +66,19 @@
   "extraction": {
     "provider_name": "Asheville Sun Soo Martial Arts",
     "website_url": "https://martialartsasheville.com/",
-    "notes": "No official 2027 camp dates or registration milestones were found. The 2026 themed weeks are combined into one Summer Camp program. Some event pages were readable only through official search results; the Week 3 page returned no readable text.",
+    "notes": "No 2027 camp dates or registration milestones were found. The official summer-camp archive lists nine 2026 weeks. No registration platform URL could be recovered from the readable event pages.",
     "excluded": [
       {
-        "name": "Martial Arts Classes",
-        "reason": "Ongoing year-round classes, not a finite summer program."
+        "name": "After School Program",
+        "reason": "School-year after-school childcare."
       },
       {
-        "name": "After School Program",
-        "reason": "School-year after-school childcare, not summer-only childcare."
+        "name": "Martial Arts Classes",
+        "reason": "Year-round classes rather than finite summer camps."
       },
       {
         "name": "Kids Night Out",
-        "reason": "Recurring year-round offering; the listed November and December events are outside summer."
+        "reason": "Single-evening social events."
       },
       {
         "name": "Spring Break Camp",
@@ -86,7 +86,7 @@
       },
       {
         "name": "Birthday Parties",
-        "reason": "Private birthday events, not a listed summer camp program."
+        "reason": "Social events rather than summer camps."
       }
     ],
     "cards": [
@@ -94,9 +94,9 @@
         "name": "Summer Camp",
         "type": "day",
         "categories": ["sports", "nature_outdoor", "arts", "stem", "general"],
-        "description": "Campers participate in martial arts instruction, outdoor exploration, arts and crafts, science experiments, and team-building activities. Weekly themes include field trips and creative projects.",
+        "description": "Campers participate in martial arts instruction, outdoor adventures, arts and crafts, science experiments, and team-building activities. Weekly themes include field trips and activities focused on nature, science, transportation, and performing arts.",
         "camp_page_url": "https://martialartsasheville.com/summer-camps/",
-        "registration_url": "https://martialartsasheville.com/summer-camps/",
+        "registration_url": null,
         "season": {
           "year": 2026,
           "status": "not_posted",
@@ -113,7 +113,7 @@
         "sites": [
           {
             "name": "Asheville Sun Soo Martial Arts",
-            "address": "75 River Ridge Dr, #195",
+            "address": "75 River Ridge Drive #195",
             "town": "Asheville",
             "state": "NC"
           }
@@ -121,7 +121,7 @@
         "hours": {
           "start": "09:00",
           "end": "16:00",
-          "text": "9:00am – 4:00pm"
+          "text": null
         },
         "extended_care": {
           "early_dropoff_start": "08:00",
@@ -132,7 +132,7 @@
           {
             "amount": 375,
             "unit": "week",
-            "label": "per camper; sibling discount $20 off per camp week; January discount $25, February $20, March $15. Register for four weeks as a single purchase and get the fifth free. New campers require a $25 uniform.",
+            "label": "per camper",
             "year": 2026
           }
         ],
@@ -258,19 +258,14 @@
         "transportation": null,
         "sources": [
           "https://martialartsasheville.com/summer-camps/",
-          "https://martialartsasheville.com/contact-us/",
           "https://martialartsasheville.com/event-type/summer-camp/",
           "https://martialartsasheville.com/events/summer-camp-2026-week-1-outdoor-adventures/",
           "https://martialartsasheville.com/events/summer-camp-2026-week-2-shark-week/",
-          "https://martialartsasheville.com/events/summer-camp-2026-week-4-superheroes-villains/",
-          "https://martialartsasheville.com/events/summer-camp-2026-week-5-space-camp/",
-          "https://martialartsasheville.com/events/summer-camp-2026-week-6-planes-trains-automobiles/",
           "https://martialartsasheville.com/events/summer-camp-2026-week-7-arts-drama-rama/",
-          "https://martialartsasheville.com/events/summer-camp-2026-week-8-super-science/",
-          "https://martialartsasheville.com/events/summer-camp-2026-week-9-water-fun/"
+          "https://martialartsasheville.com/contact-us/"
         ],
         "confidence": "medium",
-        "review_notes": "The general summer-camp page does not explicitly label its price, grades, hours or discounts with a season year; these are retained as 2026 context, not 2027 promises. Week 3 dates come from the official camp archive search result, with the year taken from its event title; its individual page returned no readable text. Several other weeks were verified through official search-result text. Registration links were not exposed by the readable pages, so the registration URL is the official enrollment landing page."
+        "review_notes": "The general summer-camps page states the $375 weekly price, K–5 eligibility, hours, and extended care without an explicit season year; these are retained as 2026 context alongside the explicitly dated 2026 event listings. That page also lists January–March early-registration discounts, a $20 sibling discount per week, a buy-four-weeks/get-fifth-free offer, and a $25 uniform for new campers, but does not identify a year for those offers. Check updated season-specific pricing before publishing them."
       }
     ]
   }

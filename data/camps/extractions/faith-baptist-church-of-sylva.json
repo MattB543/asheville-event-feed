@@ -7,22 +7,22 @@
     "discovered_by": ["grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:33:48.140Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:28:32.053Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "702e7ea025cf07826cd5327ee638200f7f04ebb40bfc29463a8ce63be44c5100",
   "response": {
     "searches": [
-      "site:faithbaptistsylva.org \"address\"",
+      "site:faithbaptistsylva.org contact Faith Baptist Sylva",
       "site:facebook.com/faithbaptistsylva \"2026\" \"VBS\""
     ],
     "usage": {
-      "inputTokens": 16881,
-      "cachedInputTokens": 8223,
-      "outputTokens": 714,
-      "reasoningTokens": 189
+      "inputTokens": 17791,
+      "cachedInputTokens": 8845,
+      "outputTokens": 682,
+      "reasoningTokens": 167
     },
     "status": "completed",
-    "ms": 24607,
+    "ms": 24430,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -41,14 +41,14 @@
   "extraction": {
     "provider_name": "Faith Baptist Church of Sylva",
     "website_url": "https://www.faithbaptistsylva.org/",
-    "notes": "No official 2027 information or verified official 2026 schedule was found. The VBS page lists Sunday July 11 through Wednesday July 14 without a year; those weekdays do not match 2026 or 2027, so these dates were not entered. A third-party listing reports VBS June 22–25, 2026, but this could not be confirmed on official pages and was not used.",
+    "notes": "No official 2027 or 2026 camp details were found. The VBS page lists July 11–14 without a year; its Sunday–Wednesday weekdays match 2021, not 2026 or 2027, so those dates are omitted. A third-party listing advertises VBS June 22–25, 2026, but no corresponding official announcement was found.",
     "excluded": [],
     "cards": [
       {
         "name": "Destination Dig VBS",
         "type": "vbs",
         "categories": ["faith_based"],
-        "description": "Children explore archaeological finds and Bible events through a junior-archaeologist theme, with lessons about Jesus and Jeremiah 29:13.",
+        "description": "Children explore archaeological finds connected to biblical events and learn about Jesus and Jeremiah 29:13.",
         "camp_page_url": "https://www.faithbaptistsylva.org/vbs",
         "registration_url": null,
         "season": {
@@ -83,8 +83,8 @@
           "https://www.faithbaptistsylva.org/vbs",
           "https://www.faithbaptistsylva.org/contact-us"
         ],
-        "confidence": "low",
-        "review_notes": "The official VBS page appears stale: it gives July 11–14 with Sunday–Wednesday weekdays but no year. Confirm whether Destination Dig remains the program name and obtain the 2027 schedule, ages, hours, registration details, and meeting location directly from the church. The site address is the church's published contact address."
+        "confidence": "medium",
+        "review_notes": "The official VBS page appears historical: July 11 Sunday through July 14 Wednesday matches 2021, but no year is printed. Confirm whether Destination Dig remains the program name and whether VBS will run in 2027. The site uses the church's official contact address; the VBS page does not explicitly identify its drop-off venue."
       }
     ]
   }

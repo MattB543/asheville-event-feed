@@ -9,23 +9,24 @@
     "status": "review",
     "status_reason": "first page is a social media page or video, which our fetcher can't read"
   },
-  "extractedAt": "2026-10-29T15:17:14.521Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:14:43.077Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": null,
   "response": {
     "searches": [
-      "Liberty Missionary Baptist Church Waynesville VBS 2026",
+      "Liberty Missionary Baptist Church Waynesville VBS 2026 lmbcnc",
       "site:facebook.com/lmbcnc \"VBS\" \"2026\"",
-      "\"lmbcnc\" \"VBS\""
+      "\"lmbcnc\" \"230456553706154\"",
+      "site:findglocal.com/US/Waynesville/763088693892623 \"VBS\""
     ],
     "usage": {
-      "inputTokens": 30652,
-      "cachedInputTokens": 8223,
-      "outputTokens": 685,
-      "reasoningTokens": 257
+      "inputTokens": 31213,
+      "cachedInputTokens": 8845,
+      "outputTokens": 970,
+      "reasoningTokens": 351
     },
     "status": "completed",
-    "ms": 26278,
+    "ms": 35094,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -44,14 +45,23 @@
   "extraction": {
     "provider_name": "Liberty Missionary Baptist Church of Waynesville",
     "website_url": null,
-    "notes": "No standalone official website or 2027 summer information found. The official Facebook page returned no readable content. A FindGlocal mirror of church posts reports VBS 2026 and a September 20, 2026 post referring to VBS in July, but exact dates, eligibility and registration details could not be verified. A search result for a 2026 Jotform VBS registration names a different director and could not be linked to this Waynesville church; its facts were not used.",
-    "excluded": [],
+    "notes": "No standalone website or 2027 camp information was found for this Waynesville provider. Its Facebook home and videos pages returned no readable page text. A FindGlocal search snippet reproducing a September 20, 2026 church post mentions VBS held in July, but specific dates and registration details could not be recovered. The 2026 Jotform found in search names Stacy Pickard and appears associated with the McKinney, Texas church, not this provider; its facts were not used.",
+    "excluded": [
+      {
+        "name": "2026 VBS at Liberty MBC (McKinney)",
+        "reason": "The registration form names Stacy Pickard, who is associated with Liberty Missionary Baptist Church in McKinney, Texas; this is a different provider outside the Asheville area."
+      },
+      {
+        "name": "Family fun day",
+        "reason": "A family social event, not a supervised youth summer camp."
+      }
+    ],
     "cards": [
       {
         "name": "VBS",
         "type": "vbs",
-        "categories": ["faith_based", "music"],
-        "description": "Children participate in Vacation Bible School, including music activities.",
+        "categories": ["faith_based"],
+        "description": "Vacation Bible School for children.",
         "camp_page_url": "https://www.facebook.com/lmbcnc/",
         "registration_url": null,
         "season": {
@@ -82,9 +92,9 @@
         "special_needs": null,
         "lunch": null,
         "transportation": null,
-        "sources": ["https://www.facebook.com/lmbcnc/"],
+        "sources": ["https://www.facebook.com/lmbcnc/", "https://www.facebook.com/lmbcnc/videos/"],
         "confidence": "low",
-        "review_notes": "The official Facebook page could not be read. Program existence, music activities and July 2026 timing appear only in church posts reproduced at https://www.findglocal.com/US/Waynesville/763088693892623/Liberty-Missionary-Baptist-Church. That mirror publishes the church address, also corroborated by church directories; confirm the camp drop-off venue directly. Verify exact dates, ages or grades, hours, costs and registration details with the church before publishing."
+        "review_notes": "Facebook pages could not be read directly. The only recovered 2026 VBS reference was a third-party FindGlocal search snippet reproducing a September 20, 2026 post about VBS in July. Confirm the program details and drop-off location with the church. The street address was corroborated by FindGlocal, ChurchSearch and FaithStreet, but could not be checked against a readable church-published location page."
       }
     ]
   }

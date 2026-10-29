@@ -7,19 +7,22 @@
     "discovered_by": ["grid", "aggregator"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:22:50.778Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:19:21.062Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "f40e9e7883fb00ceb6c90cc5ca5623b09eeb9087cf4325b2cac09fdd5efb69f7",
   "response": {
-    "searches": ["site:visithandson.org camp 2027", "open https://visithandson.org/summer-camp/"],
+    "searches": [
+      "site:visithandson.org summer camp 2027 registration",
+      "site:9248.blackbaudhosting.com \"2026\" \"Camp\""
+    ],
     "usage": {
-      "inputTokens": 21847,
-      "cachedInputTokens": 8223,
-      "outputTokens": 2149,
-      "reasoningTokens": 95
+      "inputTokens": 29988,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1799,
+      "reasoningTokens": 140
     },
     "status": "completed",
-    "ms": 43062,
+    "ms": 42712,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -43,35 +46,51 @@
   "extraction": {
     "provider_name": "Hands On! Discovery Center",
     "website_url": "https://visithandson.org/",
-    "notes": "No 2027 camp information or registration milestones were found. Cards retain the published 2026 offerings. The camp page contains stale general-policy references to 2025 and Trade Up! Summer Camp, plus conflicting late-pickup policies. Registration buttons were present, but their destination could not be recovered.",
+    "notes": "No 2027 camp information or registration opening date was found. Cards retain 2026 details. The camp page's registration link destination could not be retrieved. General camp policies contain stale 2025 age requirements and a Trade Up! reference; the program-specific 2026 age requirements were used.",
     "excluded": [
       {
+        "name": "Discovery Cart Activities",
+        "reason": "Self-guided museum activities, not supervised summer camps."
+      },
+      {
+        "name": "Art Studio Programs",
+        "reason": "Self-guided museum activities, not supervised summer camps."
+      },
+      {
         "name": "Home School Day",
-        "reason": "Listed October and November programs are outside summer and require adult supervision."
+        "reason": "Fall programs requiring adult supervision, not summer camps."
       },
       {
-        "name": "Discovery Cart Activities and Art Studio Programs",
-        "reason": "Self-guided museum activities, not supervised youth camps."
+        "name": "Discovery Lab Programs",
+        "reason": "Museum admission activities rather than finite supervised youth camps."
       },
       {
-        "name": "Discovery Lab and Space Explorers Pop-up Programs",
-        "reason": "Listed offerings occur outside summer and are museum-admission activities rather than drop-off camps."
+        "name": "Family Pop-in Workshops",
+        "reason": "Family activities requiring children to be supervised; listed workshops occur outside summer."
       },
       {
-        "name": "National Fossil Day Family Pop-in Workshop",
-        "reason": "Family workshop in October; children must remain supervised."
+        "name": "BOO!SEUM",
+        "reason": "Single evening Halloween event outside summer."
       },
       {
-        "name": "“Gingerbread” Houses, Polymer Snow, and Snow Dough Family Pop-in Workshop",
-        "reason": "Family workshop in December, outside summer."
+        "name": "Haunting Tales at Hands On!",
+        "reason": "Single evening event outside summer."
       },
       {
         "name": "Sensory Night",
-        "reason": "Family-only museum event in December, outside summer."
+        "reason": "Family event outside summer, not a camp."
       },
       {
-        "name": "BOO!SEUM, Haunting Tales at Hands On!, and National S.T.E.A.M. Day Event",
-        "reason": "October and November museum events, outside summer."
+        "name": "National S.T.E.A.M. Day Event",
+        "reason": "November museum event outside summer."
+      },
+      {
+        "name": "FREE FAMILY Workshop: Be a Chemist",
+        "reason": "Family workshop rather than a supervised drop-off youth program."
+      },
+      {
+        "name": "Trade Up Workshop - October 8th",
+        "reason": "Archived October workshop outside summer."
       }
     ],
     "cards": [
@@ -79,7 +98,7 @@
         "name": "Hands On! S.T.E.A.M. Summer Camp",
         "type": "day",
         "categories": ["stem", "arts"],
-        "description": "Campers explore science, technology, engineering, arts, and mathematics through daily activities. They also tie dye a shirt and explore museum exhibits and the Pollinator Garden.",
+        "description": "Campers explore science, technology, engineering, arts, and mathematics through daily activities. They also tie dye a T-shirt and explore museum exhibits and the Pollinator Garden.",
         "camp_page_url": "https://visithandson.org/summer-camp/",
         "registration_url": null,
         "season": {
@@ -105,7 +124,7 @@
         "hours": {
           "start": "09:00",
           "end": "16:45",
-          "text": "Drop-off: 9:00am. Pick-up: 4:45pm; arriving between 4:30 and 4:45pm is recommended."
+          "text": "Drop-off: 9:00am; Pick-up: 4:45pm"
         },
         "extended_care": null,
         "prices": [
@@ -152,7 +171,7 @@
         "last_year_registration_opened": null,
         "availability": {
           "status": "full",
-          "scope": "Both published 2026 weeks",
+          "scope": "2026 sessions",
           "text": "FULL"
         },
         "financial_aid": null,
@@ -162,18 +181,15 @@
           "text": "Campers need to bring a NUT-FREE lunch with a drink, and two (2) NUT FREE snacks with drinks daily."
         },
         "transportation": null,
-        "sources": [
-          "https://visithandson.org/summer-camp/",
-          "https://visithandson.org/contact-us/"
-        ],
+        "sources": ["https://visithandson.org/summer-camp/", "https://visithandson.org/"],
         "confidence": "medium",
-        "review_notes": "Weeks omit the year; 2026 is taken from the page heading and program-specific age requirements. Program requires age 5 by June 1, 2026 and no older than 13 on July 31, 2026; general fine print instead references 2025. General policies conflict on late-pickup fees ($25 versus $20). Check-in instructions specify the Pollinator Garden entrance gate, while stale fine print says inside the building."
+        "review_notes": "STEAM session dates omit the year; 2026 is taken from the page heading and program-specific age requirements. Campers must be 5 by June 1, 2026 and no older than 13 on July 31, 2026. General policies instead retain 2025 age dates. Check-in instructions specify the Pollinator Garden entrance gate, while stale fine print says in the building."
       },
       {
         "name": "Paleontology Summer Camp",
         "type": "day",
         "categories": ["stem", "nature_outdoor"],
-        "description": "Campers dig daily at Gray Fossil Site, tour the fossil site, preparatory lab, and collections room, and explore geosciences and life sciences. Activities also include museum exploration, a Tesla Coil show, and shirt tie dyeing.",
+        "description": "Campers dig for fossils at Gray Fossil Site and tour the fossil site, preparatory lab, and collections room. Activities also include science exploration, museum exhibits, a Tesla Coil show, and T-shirt tie dyeing.",
         "camp_page_url": "https://visithandson.org/summer-camp/",
         "registration_url": null,
         "season": {
@@ -199,7 +215,7 @@
         "hours": {
           "start": "09:00",
           "end": "16:45",
-          "text": "Drop-off: 9:00am. Pick-up: 4:45pm; arriving between 4:30 and 4:45pm is recommended."
+          "text": "Drop-off: 9:00am; Pick-up: 4:45pm"
         },
         "extended_care": null,
         "prices": [
@@ -258,8 +274,8 @@
         "last_year_registration_opened": null,
         "availability": {
           "status": "full",
-          "scope": "All published 2026 weeks; first two list waiting lists",
-          "text": "FULL with waiting list; FULL with waiting list; FULL"
+          "scope": "2026 sessions; June 1 and June 29 sessions have waiting lists",
+          "text": "FULL with waiting list; FULL"
         },
         "financial_aid": null,
         "special_needs": null,
@@ -268,12 +284,9 @@
           "text": "Campers need to bring a NUT-FREE lunch with a drink, and two (2) NUT FREE snacks with drinks daily."
         },
         "transportation": null,
-        "sources": [
-          "https://visithandson.org/summer-camp/",
-          "https://visithandson.org/contact-us/"
-        ],
+        "sources": ["https://visithandson.org/summer-camp/", "https://visithandson.org/"],
         "confidence": "medium",
-        "review_notes": "Paleontology section says late pickup is available between 4:30 and 5:30pm, but immediately prohibits pickup after 4:45pm; extended care is therefore left null. Program requires age 6 by June 1, 2026 and no older than 13 on July 31, 2026, while general fine print references 2025. General policies also conflict on pickup location and late-pickup fees. Published full/waitlist labels describe past 2026 sessions, not 2027 availability."
+        "review_notes": "The Paleontology section says late pickup is available until 5:30pm, but immediately states that pickup after 4:45pm is not accommodated and incurs a fee; extended care is left null pending clarification. Campers must be 6 by June 1, 2026 and no older than 13 on July 31, 2026; general policies retain conflicting 2025 dates. Check-in instructions specify the Pollinator Garden entrance gate, while stale fine print says in the building."
       }
     ]
   }

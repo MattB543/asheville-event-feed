@@ -7,23 +7,23 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:05:13.912Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:04:53.216Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "dec5f629e99b5d73ceb73dcba1b2870c255f500ecb994d7e5b4d7bd719bc0cce",
   "response": {
     "searches": [
       "site.theashevillekitchen.com baking camp 2026",
-      "open https://www.theashevillekitchen.com/camp-2026-payments/p/dingess-2026-camp-payment-1",
-      "site.theashevillekitchen.com \"August 10\" \"2026\""
+      "open https://www.theashevillekitchen.com/camp-2026-payments/p/cake-decorating",
+      "site:theashevillekitchen.com \"August 10\" \"2026\""
     ],
     "usage": {
-      "inputTokens": 20565,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1143,
-      "reasoningTokens": 186
+      "inputTokens": 21130,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1160,
+      "reasoningTokens": 193
     },
     "status": "completed",
-    "ms": 29471,
+    "ms": 28267,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -47,15 +47,19 @@
   "extraction": {
     "provider_name": "The Crunchy Baker",
     "website_url": "https://crunchybaker.com/",
-    "notes": "No official summer 2027 information was found. The three 2026 baking weeks are grouped as themes of Youth Baking Camp. The Asheville Kitchen camp listing returned no readable text. Search found individualized 2026 payment pages, not a verified general registration checkout; their payment amounts were not treated as public camp prices.",
+    "notes": "No 2027 camp information or registration milestones were found. The Asheville Kitchen's /camps page returned no readable text. Search found personalized 2026 payment pages rather than a general camp registration listing; their prices and sold-out indicators were not treated as general camp pricing or availability.",
     "excluded": [
       {
         "name": "In-Person Classes",
-        "reason": "Year-round classes, rather than a finite summer youth camp offering."
+        "reason": "Year-round baking classes, not summer camp programs."
       },
       {
         "name": "Private Events",
-        "reason": "Custom birthday parties, team-building activities and homeschool events, not a scheduled summer youth camp."
+        "reason": "Birthday parties and other privately arranged events, not a posted summer youth camp."
+      },
+      {
+        "name": "Youth Class: Biscotti",
+        "reason": "December program outside summer."
       }
     ],
     "cards": [
@@ -63,7 +67,7 @@
         "name": "Youth Baking Camp",
         "type": "half_day",
         "categories": ["cooking"],
-        "description": "Campers practice baking through demonstrations and individual and group hands-on work. Sweet and savory weeks cover doughs and baked goods, while the cake and dessert week covers cakes, fillings and decorating techniques.",
+        "description": "Campers learn kitchen and baking skills through demonstrations and individual and group hands-on activities. Sessions cover sweet and savory baking or cake decorating and desserts, with baked goods to take home.",
         "camp_page_url": "https://crunchybaker.com/youth-baking-camp/",
         "registration_url": "https://www.theashevillekitchen.com/",
         "season": {
@@ -89,7 +93,7 @@
         "hours": {
           "start": "09:00",
           "end": "12:30",
-          "text": "9:00am-12:30pm, Monday-Friday."
+          "text": "9:00am-12:30pm, Monday-Friday"
         },
         "extended_care": null,
         "prices": [],
@@ -145,8 +149,8 @@
           "https://crunchybaker.com/youth-baking-camp/",
           "https://crunchybaker.com/youth-baking-camp-faqs-and-forms/",
           "https://www.theashevillekitchen.com/contact",
-          "https://www.theashevillekitchen.com/camp-2026-payments/p/dingess-2026-camp-payment-1",
-          "https://www.theashevillekitchen.com/camp-2026-payments/p/cake-decorating"
+          "https://www.theashevillekitchen.com/camp-2026-payments/p/cake-decorating",
+          "https://www.theashevillekitchen.com/camp-2026-payments/p/dingess-2026-camp-payment-1"
         ],
         "confidence": "high",
         "review_notes": null

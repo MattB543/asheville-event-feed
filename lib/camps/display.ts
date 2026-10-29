@@ -57,6 +57,12 @@ function cleanHours<H extends Hours>(hours: H | null): H | null {
   return hours && { ...hours, start: validTime(hours.start), end: validTime(hours.end) };
 }
 
+/** A registration time, where one before 5 a.m. ("12:15 a.m.") is a misreading: not stated. */
+function registrationTime(value: unknown): string | null {
+  const time = validTime(value);
+  return time && time >= '05:00' ? time : null;
+}
+
 /**
  * The card with every malformed date or time treated as unknown, so one bad value can't take down
  * the directory, a camp page or a calendar: a registration date or a session with a bad date is
@@ -91,13 +97,15 @@ export function cleanCard(card: CampCard): CampCard {
     }),
     registration: card.registration.flatMap((milestone) => {
       if (!validDate(milestone.date)) return [];
-      const time = validTime(milestone.time);
+      const time = registrationTime(milestone.time);
       const precision =
         milestone.precision === 'datetime' && !time ? ('date' as const) : milestone.precision;
       return [{ ...milestone, time, precision }];
     }),
     last_year_registration_opened:
-      lastYear && validDate(lastYear.date) ? { ...lastYear, time: validTime(lastYear.time) } : null,
+      lastYear && validDate(lastYear.date)
+        ? { ...lastYear, time: registrationTime(lastYear.time) }
+        : null,
   };
 }
 
@@ -232,17 +240,20 @@ export function gradeLabel(grade: number): string {
 
 export function formatGrades(grades: GradeRange | null): string | null {
   if (!grades || (grades.min === null && grades.max === null)) return null;
+  // School ends at 12th: "rising 13th" (a high-school graduate) reads as 12th
+  const min = grades.min === null ? null : Math.min(grades.min, 12);
+  const max = grades.max === null ? null : Math.min(grades.max, 12);
   const range =
-    grades.min !== null && grades.max !== null
-      ? grades.min === grades.max
-        ? gradeLabel(grades.min)
-        : `${gradeLabel(grades.min)}–${gradeLabel(grades.max)}`
-      : grades.min !== null
-        ? `${gradeLabel(grades.min)} grade and up`
-        : `up to ${gradeLabel(grades.max!)} grade`;
+    min !== null && max !== null
+      ? min === max
+        ? gradeLabel(min)
+        : `${gradeLabel(min)}–${gradeLabel(max)}`
+      : min !== null
+        ? `${gradeLabel(min)} grade and up`
+        : `up to ${gradeLabel(max!)} grade`;
   const prefix =
     grades.basis === 'rising' ? 'Rising ' : grades.basis === 'completed' ? 'Finished ' : '';
-  return `${prefix}${range}${grades.min !== null && grades.max !== null ? ' grade' : ''}`;
+  return `${prefix}${range}${min !== null && max !== null ? ' grade' : ''}`;
 }
 
 export function formatAges(ages: AgeRange | null): string | null {
@@ -300,6 +311,30 @@ export function driveLabel(minutes: number): string {
   return `${Math.max(1, Math.round(minutes))} min`;
 }
 
+/**
+ * The site's drive time is from its town's center, not the site itself (the site isn't placed),
+ * so it shows as "~N min". `=== true`: a list cached before the field existed lacks it.
+ */
+export function isDriveFromTown(site: CampSiteInfo): boolean {
+  return site.driveFromTown === true;
+}
+
+/**
+ * The provider's name as shown: without the trailing note discovery adds to tell two providers
+ * apart ("YMCA of WNC (summer day camps)" is "YMCA of WNC").
+ */
+export function providerLabel(name: string): string {
+  return name.replace(/\s*\([^()]*\)\s*$/, '') || name;
+}
+
+/** "Junior Camp (YMCA of WNC)", or the name alone when it already names the provider. */
+export function campWithProvider(campName: string, providerName: string): string {
+  const provider = providerLabel(providerName);
+  return campName.toLowerCase().includes(provider.toLowerCase())
+    ? campName
+    : `${campName} (${provider})`;
+}
+
 /** "Asheville", or "Cleveland, SC" outside North Carolina. */
 export function siteTown(site: Pick<CampSiteInfo, 'town' | 'state'>): string | null {
   if (!site.town) return null;
@@ -335,10 +370,11 @@ function daySpan(start: string, end: string): number {
 
 /**
  * The date names an audience and a kind, e.g. "Member registration opens" (or "... opened" with
- * `past`).
+ * `past`). A date for 'other' families (scholarship applications, staff families ...) can only be
+ * named in the camp's own words, so it is its `text` when there is one.
  */
 export function milestoneLabel(
-  milestone: { audience: Audience; kind: MilestoneKind },
+  milestone: { audience: Audience; kind: MilestoneKind; text?: string },
   past = false
 ): string {
   if (milestone.kind === 'lottery_results') return 'Lottery results';
@@ -363,7 +399,8 @@ export function milestoneLabel(
     early_bird: 'Early-bird',
     other: '',
   };
-  if (milestone.audience === 'other') return `${capitalize(what)} for some families`;
+  if (milestone.audience === 'other')
+    return milestone.text ?? `${capitalize(what)} (some families)`;
   return capitalize(who[milestone.audience] ? `${who[milestone.audience]} ${what}` : what);
 }
 
@@ -453,6 +490,14 @@ function coversCamp(scope: string | null): boolean {
 }
 
 /**
+ * Availability for part of a camp is worth showing only when its scope names sessions or weeks
+ * ("Session 1 only"); "BikeReg registration categories" says nothing a parent can use.
+ */
+export function namesSessions(scope: string | null): boolean {
+  return !!scope && /\b(?:sessions?|weeks?)\b/i.test(scope);
+}
+
+/**
  * Whose dates set the public status: everyone, or everyone by lottery. Member, returning-camper,
  * resident and early-bird dates are shown underneath, never as "Open now".
  */
@@ -474,8 +519,10 @@ export function registrationLine(
   confirmed: boolean,
   now: Date
 ): RegistrationLine {
+  // A date for 'other' families (scholarships, staff ...) needs the camp's wording, which the
+  // directory's cards don't carry: the camp page lists it
   const current = card.registration
-    .filter((milestone) => milestone.year === TARGET_SEASON)
+    .filter((milestone) => milestone.year === TARGET_SEASON && milestone.audience !== 'other')
     .sort(byMilestoneDate);
   const past = (milestone: CampListMilestone) => now >= upcomingUntil(milestone);
   const isPublic = (milestone: CampListMilestone) => PUBLIC_AUDIENCES.has(milestone.audience);
@@ -496,7 +543,10 @@ export function registrationLine(
   // A card still on 2026 describes 2026's availability, which says nothing about 2027.
   const availability = card.season.year === TARGET_SEASON ? card.availability : null;
   const campWide = availability && coversCamp(availability.scope) ? availability : null;
-  const scoped = availability && !coversCamp(availability.scope) ? availability : null;
+  const scoped =
+    availability && !coversCamp(availability.scope) && namesSessions(availability.scope)
+      ? availability
+      : null;
 
   /** "Member registration opens Jan 10, 2027, 9 a.m."; a past date without its time. */
   const say = (milestone: CampListMilestone): RegistrationNote => {
@@ -570,8 +620,9 @@ export function registrationLine(
     };
   }
 
-  // The last public date passed was a close or deadline, with none ahead: closed
-  if (lastPassed && isEnd(lastPassed) && !nextEnd) {
+  // The last public date passed closed registration (a close, or a deadline with no later end
+  // ahead; an early-bird deadline before a final one doesn't close it): closed
+  if (lastPassed && isEnd(lastPassed) && (lastPassed.kind === 'closes' || !nextEnd)) {
     return {
       tone: 'closed',
       text: `2027 registration ${lastPassed.kind === 'closes' ? 'closed' : 'deadline passed'} ${formatDate(lastPassed.date, true)}`,
@@ -626,22 +677,27 @@ export function registrationLine(
     };
   }
 
-  // No public date. Dates for members or returning campers still show, the last one as history.
+  // No public date. Dates for members or returning campers still show, the last one as history;
+  // with nothing for 2027 at all, last year's opening leads (01 §4.3).
   const lastYear = card.last_year_registration_opened
-    ? plain(`Last year it opened ${formatDate(card.last_year_registration_opened.date, true)}`)
+    ? `Opened ${formatDate(card.last_year_registration_opened.date)} last year`
     : null;
   const history = ahead.length === 0 ? announced.at(-1) : undefined;
   const posted = card.season.year === TARGET_SEASON && card.season.status === 'posted';
+  const text =
+    announced.length > 0
+      ? 'Public registration date not posted yet'
+      : posted
+        ? '2027 dates posted; registration date not posted yet'
+        : (lastYear ?? '2027 dates not posted yet');
   return {
     tone: 'unknown',
-    text:
-      announced.length > 0
-        ? 'Public registration date not posted yet'
-        : posted
-          ? '2027 dates posted; registration date not posted yet'
-          : '2027 registration not announced yet',
+    text,
     unconfirmed: false,
-    details: details([], [history && say(history), lastYear]),
+    details: details(
+      [],
+      [history && say(history), lastYear && lastYear !== text ? plain(lastYear) : null]
+    ),
     sortDate: null,
     status: 'not_announced',
   };
@@ -693,7 +749,8 @@ export const REMINDER_LABELS: Record<Audience, string> = {
   lottery: 'Add lottery reminder',
   resident: 'Add resident reminder',
   early_bird: 'Add early-bird reminder',
-  other: 'Add reminder for some families',
+  // The camp page names these in the camp's words (milestoneLabel)
+  other: 'Add reminder for other dates',
 };
 
 // ---------------------------------------------------------------------------
@@ -817,8 +874,25 @@ export const SUMMER_WEEKS = Array.from({ length: 12 }, (_, index) => {
   const monday = new Date(Date.UTC(2027, 4, 31 + index * 7));
   const friday = new Date(Date.UTC(2027, 4, 31 + index * 7 + 4));
   const start = monday.toISOString().slice(0, 10);
-  return { start, end: friday.toISOString().slice(0, 10), label: `Week of ${formatDate(start)}` };
+  return {
+    start,
+    end: friday.toISOString().slice(0, 10),
+    // The field is "Week", and a phone has room for this much
+    label: formatDate(start, true),
+  };
 });
+
+/**
+ * A date from an earlier summer moved to the same week of TARGET_SEASON, weekday kept (364 days
+ * a year: Mon Jul 6, 2026 is Mon Jul 5, 2027), so the week filter can read a 2026 schedule.
+ */
+export function inTargetSeason(date: string): string {
+  const [year, month, day] = date.split('-').map(Number);
+  if (year >= TARGET_SEASON) return date;
+  return new Date(Date.UTC(year, month - 1, day + 364 * (TARGET_SEASON - year)))
+    .toISOString()
+    .slice(0, 10);
+}
 
 export const HOURS_FILTERS = [
   { value: 'workday', label: 'Covers a workday' },
@@ -916,7 +990,11 @@ export interface CampCardData {
   providerName: string;
   type: string;
   categories: string[];
-  /** Lowercased text the search box matches. */
+  /**
+   * Lowercased text the search box matches besides what the card already holds (name, provider,
+   * type, categories, towns: campSearchText adds those in the browser): the description and site
+   * names. Every camp goes to the browser, so it isn't sent twice.
+   */
   search: string;
   who: string | null;
   /** "Asheville, Hendersonville · 12–30 min drive" */
@@ -946,6 +1024,21 @@ export interface CampCardData {
   websiteUrl: string | null;
   /** A remindable public 2027 date still ahead, so "Add reminder" has something to add. */
   hasReminder: boolean;
+}
+
+/** Everything the search box matches for a camp, lowercased. */
+export function campSearchText(camp: CampCardData): string {
+  return [
+    camp.name,
+    camp.providerName,
+    TYPE_LABELS[camp.type],
+    ...camp.categories.map((category) => CATEGORY_LABELS[category]),
+    ...camp.sites.map((site) => site.town),
+    camp.search,
+  ]
+    .filter(Boolean)
+    .join(' ')
+    .toLowerCase();
 }
 
 export function supportKeys(card: CampListCard): SupportKey[] {
@@ -1024,7 +1117,14 @@ function campRows(card: CampListCard, sites: CampSiteInfo[]): CampRow[] {
     if (seen) seen.sites = [...new Set([...seen.sites, ...row.sites])].sort((a, b) => a - b);
     else merged.set(key, row);
   }
-  return [...merged.values()];
+  // Each row gets its own objects: the page's RSC payload writes an object it has already sent
+  // (the card's ages, every-site list) as a path back to it, which is longer than the object.
+  return [...merged.values()].map((row) => ({
+    ...row,
+    ages: row.ages && { ...row.ages },
+    grades: row.grades && { ...row.grades },
+    sites: [...row.sites],
+  }));
 }
 
 /** The places a card runs: towns, then the drive range from downtown. */
@@ -1033,12 +1133,16 @@ function placeText(sites: CampSiteInfo[]): string | null {
   const minutes = sites
     .map((site) => site.driveMinutes)
     .filter((value): value is number => value !== null);
+  // "~" when a time is from a town's center rather than the site itself
+  const about = sites.some((site) => site.driveMinutes !== null && isDriveFromTown(site))
+    ? '~'
+    : '';
   const drive =
     minutes.length === 0
       ? null
       : Math.round(Math.min(...minutes)) === Math.round(Math.max(...minutes))
-        ? `${driveLabel(Math.min(...minutes))} drive`
-        : `${Math.max(1, Math.round(Math.min(...minutes)))}–${driveLabel(Math.max(...minutes))} drive`;
+        ? `${about}${driveLabel(Math.min(...minutes))} drive`
+        : `${about}${Math.max(1, Math.round(Math.min(...minutes)))}–${driveLabel(Math.max(...minutes))} drive`;
   const where =
     towns.length > 3 ? `${towns.slice(0, 3).join(', ')} +${towns.length - 3}` : towns.join(', ');
   const count = sites.length > 1 ? plural(sites.length, 'site') : null;
@@ -1131,24 +1235,21 @@ export function toCardData(camp: CampListItem, now: Date): CampCardData {
     id: camp.id,
     slug: camp.slug,
     name: card.name,
-    providerName: camp.providerName,
+    providerName: providerLabel(camp.providerName),
     type: card.type,
     categories: card.categories,
-    search: [
-      card.name,
-      camp.providerName,
-      card.description,
-      TYPE_LABELS[card.type],
-      ...card.categories.map((category) => CATEGORY_LABELS[category]),
-      ...camp.sites.flatMap((site) => [site.name, site.town]),
-    ]
+    search: [card.description, ...camp.sites.map((site) => site.name)]
       .filter(Boolean)
       .join(' ')
       .toLowerCase(),
     who: formatWho(card.ages, card.grades),
     place: placeText(camp.sites),
-    sites: camp.sites.map((site) => ({ town: siteTown(site), drive: site.driveMinutes })),
-    driveMinutes: minutes.length > 0 ? Math.min(...minutes) : null,
+    // Whole minutes, as the card shows them, so "15 min" is within "Up to 15 min"
+    sites: camp.sites.map((site) => ({
+      town: siteTown(site),
+      drive: site.driveMinutes === null ? null : Math.round(site.driveMinutes),
+    })),
+    driveMinutes: minutes.length > 0 ? Math.round(Math.min(...minutes)) : null,
     price: priceRange ? { text: priceRange, year: prices[0].year } : null,
     priceNote: priceNote(prices),
     priceSort: weekly.length > 0 ? Math.min(...weekly) : null,

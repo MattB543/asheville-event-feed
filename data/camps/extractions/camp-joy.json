@@ -7,23 +7,23 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:18:14.447Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:15:35.130Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "f0f940992ea9a6fa22bf7720bd56c2e748dfdd9b3086968986e96d5499540ce6",
   "response": {
     "searches": [
       "site:campjoy.net scholarships FAQ camper requirements",
-      "open https://campjoy.net/applications/scholarships/",
-      "site:campjoy.net \"scholarships\" \"financial\""
+      "open https://campjoy.net/camps/nc/",
+      "site:campjoy.net \"Scholarships\" \"financial\""
     ],
     "usage": {
-      "inputTokens": 21189,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1325,
+      "inputTokens": 21783,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1092,
       "reasoningTokens": 172
     },
     "status": "completed",
-    "ms": 35072,
+    "ms": 30623,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -72,15 +72,27 @@
   "extraction": {
     "provider_name": "Camp Joy",
     "website_url": "https://campjoy.net/",
-    "notes": "Extraction is limited to the North Carolina camp near Asheville. The NC page posts 2027 camper dates. No camper registration opening date was found; December availability on the counselor application page applies to counselors, not campers. Scholarship and FAQ pages returned no text when opened, but their official search results were readable.",
+    "notes": "2027 North Carolina camper dates are posted. Direct browser opens returned no readable text for the NC, scholarship and FAQ pages; the supplied NC page text and official search results were used. No camper registration opening date was found. Counselor application deadlines are not camper registration milestones.",
     "excluded": [
       {
-        "name": "Family Retreat 2026",
-        "reason": "Family retreat held March 27–29, outside summer."
+        "name": "Camp Joy SC",
+        "reason": "Held in Aiken, SC, outside the directory's drive-time area."
       },
       {
-        "name": "Counselor Applications",
-        "reason": "Staff and volunteer counselor recruitment, not a camper program."
+        "name": "Camp Joy FL",
+        "reason": "Held in Lake Wales, FL, outside the directory's drive-time area."
+      },
+      {
+        "name": "Camp Joy VA",
+        "reason": "Held in Wirtz, VA, outside the directory's drive-time area."
+      },
+      {
+        "name": "Camp Joy TN",
+        "reason": "Held at Johnston Woods in Tennessee, outside the directory's drive-time area."
+      },
+      {
+        "name": "Family Retreat 2026",
+        "reason": "Family retreat held March 27–29, outside summer; not a youth camp."
       }
     ],
     "cards": [
@@ -88,7 +100,7 @@
         "name": "Camp Joy NC",
         "type": "overnight",
         "categories": ["faith_based", "special_needs"],
-        "description": "Campers with intellectual and developmental disabilities are paired one-on-one with counselors for a Christian camp experience. Activities include worship, scripture, prayer and reflection.",
+        "description": "Christian co-ed overnight camp for people with intellectual and developmental disabilities. Campers are paired one-on-one with counselors and participate in Christian fellowship, prayer and worship.",
         "camp_page_url": "https://campjoy.net/camps/nc/",
         "registration_url": "https://campjoy.net/applications/",
         "season": {
@@ -96,7 +108,7 @@
           "status": "posted",
           "start": "2027-06-06",
           "end": "2027-07-23",
-          "text": "2027 Dates:"
+          "text": null
         },
         "ages": {
           "min": 16,
@@ -117,7 +129,7 @@
           {
             "amount": 675,
             "unit": "session",
-            "label": "Total cost: $150 registration due with application plus $525 tuition",
+            "label": "Total cost; includes $150 registration due with application and $525 tuition",
             "year": 2027
           }
         ],
@@ -190,14 +202,14 @@
         "sources": [
           "https://campjoy.net/camps/nc/",
           "https://campjoy.net/about/who-we-are/",
-          "https://campjoy.net/wp-content/uploads/2026/10/Statement-of-Faith.pdf",
           "https://campjoy.net/applications/",
           "https://campjoy.net/applications/scholarships/",
           "https://campjoy.net/camper-requirements/",
+          "https://campjoy.net/wp-content/uploads/2026/10/Statement-of-Faith.pdf",
           "https://bonclarken.org/contact-us/"
         ],
         "confidence": "medium",
-        "review_notes": "The $675 total is displayed alongside the 2027 schedule, but the fee itself has no explicit year or per-session unit; confirm it applies per 2027 session. Scholarship and cafeteria wording was read through official search results. Camper requirements include basic self-help skills and restrictions on extensive medical needs and special diets; families should review eligibility. Bonclarken publishes 500 Pine Drive as its location but recommends 5 Pine Drive for GPS navigation."
+        "review_notes": "Fees appear with the 2027 schedule but have no separate year label. Scholarship and cafeteria information were readable only through official search results. Camper eligibility includes self-help, dietary, behavioral and medical restrictions; review the requirements before applying. Bonclarken publishes 500 Pine Drive as its location, but its driving-directions page recommends 5 Pine Drive for GPS navigation."
       }
     ]
   }

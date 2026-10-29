@@ -3,26 +3,26 @@
     "key": "nc-arboretum",
     "name": "The North Carolina Arboretum (Discovery Camp)",
     "urls": ["https://ncarboretum.org/education-programs/discovery-camp/"],
-    "area": null,
-    "discovered_by": ["pilot"],
+    "area": "Asheville, NC",
+    "discovered_by": ["pilot", "seed_sheet", "news828", "grid", "aggregator", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T03:21:02.506Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T16:53:28.183Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "aa0622700f87e6e4a6444be3b23d929c14535db565e277f836b147c62ea28a36",
   "response": {
     "searches": [
-      "site.ncarboretum.org \"2026\" \"camp\" \"grades\"",
-      "site.ncarboretum.org \"Discovery Camp\" \"2026\" \"January\""
+      "site.ncarboretum.org \"Discovery\" \"2026\" \"registration\"",
+      "site.ncarboretum.org \"2026\" \"Discovery Camp\" \"February\""
     ],
     "usage": {
-      "inputTokens": 29546,
-      "cachedInputTokens": 8223,
-      "outputTokens": 4121,
-      "reasoningTokens": 183
+      "inputTokens": 30200,
+      "cachedInputTokens": 8845,
+      "outputTokens": 4007,
+      "reasoningTokens": 169
     },
     "status": "completed",
-    "ms": 75241,
+    "ms": 71838,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -51,15 +51,27 @@
   "extraction": {
     "provider_name": "The North Carolina Arboretum",
     "website_url": "https://ncarboretum.org/",
-    "notes": "2027 Discovery Camp dates and registration details are coming soon. The page still lists 2026 themes and sessions; these are retained as rows of Discovery Camp. No official age or grade eligibility or registration opening date was found. Optional Thursday campouts are included within their day-camp theme rows rather than treated as separate overnight programs.",
+    "notes": "2027 summer dates and registration details are coming soon. The official page retains its 2026 theme sessions but does not give their age or grade bands. Optional Thursday campouts are retained within Discovery Camp because they are optional additions to week-long day sessions, not separately described overnight programs.",
     "excluded": [
       {
         "name": "Spring Break Camp",
         "reason": "Outside summer."
       },
       {
-        "name": "OAK: Outdoor Adventure Kids 2026 Fall Session 1",
-        "reason": "Fall program, outside summer."
+        "name": "Winter Lights",
+        "reason": "Seasonal attraction, not a supervised summer youth program."
+      },
+      {
+        "name": "Sean Kenney’s Nature Connects Made with LEGO® Bricks",
+        "reason": "Exhibition, not a supervised summer youth program."
+      },
+      {
+        "name": "ecoExplore",
+        "reason": "Ongoing citizen-science program, not a finite supervised summer camp."
+      },
+      {
+        "name": "Adult Education Classes",
+        "reason": "Adult programs, not youth summer camps."
       }
     ],
     "cards": [
@@ -67,7 +79,7 @@
         "name": "Discovery Camp",
         "type": "day",
         "categories": ["nature_outdoor", "stem", "arts", "sports", "cooking"],
-        "description": "Campers explore forests, creeks and gardens through hikes, wildlife investigations, outdoor games and crafts. Selected themes include gardening and cooking, off-site adventures or an optional Thursday overnight.",
+        "description": "Campers explore forests, creeks and gardens through hikes, wildlife observations, games and crafts. Some themes include gardening and cooking, outdoor skills or off-site adventures, with optional Thursday campouts in selected sessions.",
         "camp_page_url": "https://ncarboretum.org/education-programs/discovery-camp/",
         "registration_url": null,
         "season": {
@@ -90,44 +102,44 @@
         "hours": {
           "start": "09:00",
           "end": "15:00",
-          "text": "Monday through Friday from 9 AM – 3 PM."
+          "text": "Monday through Friday from 9 AM – 3 PM"
         },
         "extended_care": null,
         "prices": [
           {
             "amount": 383,
             "unit": "week",
-            "label": "On-site camps, non-member; includes Eventbrite taxes and fees",
+            "label": "On-site camps, non-member",
             "year": 2026
           },
           {
             "amount": 345,
             "unit": "week",
-            "label": "On-site camps, member; includes Eventbrite taxes and fees",
+            "label": "On-site camps, member",
             "year": 2026
           },
           {
             "amount": 440,
             "unit": "week",
-            "label": "Off-site or overnight, non-member; includes Eventbrite taxes and fees",
+            "label": "Off-site or overnight, non-member",
             "year": 2026
           },
           {
             "amount": 394,
             "unit": "week",
-            "label": "Off-site or overnight, member; includes Eventbrite taxes and fees",
+            "label": "Off-site or overnight, member",
             "year": 2026
           },
           {
             "amount": 491,
             "unit": "week",
-            "label": "Off-site and overnight, non-member; includes Eventbrite taxes and fees",
+            "label": "Off-site and overnight, non-member",
             "year": 2026
           },
           {
             "amount": 442,
             "unit": "week",
-            "label": "Off-site and overnight, member; includes Eventbrite taxes and fees",
+            "label": "Off-site and overnight, member",
             "year": 2026
           }
         ],
@@ -373,7 +385,7 @@
             "status": null
           },
           {
-            "label": "Advanced Nature Rangers — NEW! Session 4",
+            "label": "Advanced Nature Rangers — Session 4",
             "start": "2026-08-17",
             "end": "2026-08-21",
             "year": 2026,
@@ -714,13 +726,13 @@
         "availability": null,
         "financial_aid": {
           "value": "yes",
-          "text": "If you would like to help more children attend camp, please follow this link and choose “Youth Discovery Camp Scholarships” in the dropdown menu."
+          "text": "Youth Discovery Camp Scholarships"
         },
         "special_needs": null,
         "lunch": null,
         "transportation": {
-          "value": "case_by_case",
-          "text": "Mountain Sports: We provide transportation to each off-site location, with convenient daily drop-off and pick-up at the Arboretum."
+          "value": "yes",
+          "text": "We provide transportation to each off-site location, with convenient daily drop-off and pick-up at the Arboretum."
         },
         "sources": [
           "https://ncarboretum.org/education-programs/discovery-camp/",
@@ -728,7 +740,7 @@
           "https://ncarboretum.org/wp-content/uploads/2026/02/Printable-Final-2026-Discovery-Camp-Medical-and-Legal-Liability.pdf"
         ],
         "confidence": "medium",
-        "review_notes": "Session dates take their year from the heading '2026 Discovery Camps'. The pricing table has no explicit year; retained as 2026 context, not confirmed 2027 pricing. Confirm rates and age/grade bands when registration details appear. The liability form gives 100 Frederick Law Olmsted Way for mailing forms; the venue's published location is 20 Frederick Law Olmsted Way, used here. Scholarship donation wording confirms scholarships exist but does not state application criteria. Transportation wording applies to selected off-site themes, not a home-to-camp service."
+        "review_notes": "Session dates take their year from the '2026 Discovery Camps' heading. The pricing table has no explicit year; retained as 2026 alongside the 2026 offerings, not as announced 2027 pricing. Prices include Eventbrite taxes and fees. The liability form gives 100 Frederick Law Olmsted Way as a mailing address; the site uses the Arboretum's published visitor address, 20 Frederick Law Olmsted Way. Transportation wording is explicitly stated for Mountain Sports; other off-site themes also describe provided transportation, but it is not a general home-to-camp service."
       }
     ]
   }

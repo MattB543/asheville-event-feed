@@ -50,7 +50,8 @@ export async function GET(request: Request) {
       browser: isLocalScrapeRuntime(),
       onOutcome: (outcome) => outcomes.push(outcome),
     });
-    if (result.imported) revalidateTag(CAMPS_TAG, { expire: 0 });
+    // An unchanged check moves the pages' "last checked" too
+    if (result.imported || result.unchanged > 0) revalidateTag(CAMPS_TAG, { expire: 0 });
 
     const record = { ...result, durationSeconds: Math.round((Date.now() - startTime) / 1000) };
     console.log(

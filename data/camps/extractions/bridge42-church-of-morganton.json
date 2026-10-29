@@ -8,24 +8,23 @@
     "status": "review",
     "status_reason": "page didn't load: fetch: fetch failed (Connect Timeout Error (attempted addresses: 10.67.1.33:443, 10.67.2.52:443, timeout: 10000ms)); chrome-tls: fetch failed (Connect Timeout Error (attempted addresses: 10.67.1.33:443, 10.67.2.52:443, timeout: 10000ms)); browser: page.goto: net::ERR_CONNECTION_TIMED_OUT at https://"
   },
-  "extractedAt": "2026-10-29T15:22:25.699Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:19:19.583Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "5ef52747fdc7940daf5270b8658033935126019031ae10177566257e7d6850c2",
   "response": {
     "searches": [
-      "Bridge42 Church VBS 2026 2027 Morganton",
-      "\"Bridge42\" \"VBS\" \"2026\"",
-      "\"Bridge42 Church\" \"VBS\"",
-      "site:bridge42.org/vbs-sign-up \"ages\""
+      "site.bridge42.org VBS 2026 2027",
+      "open https://www.bridge42.org/vbs-sign-up",
+      "\"site:bridge42.org/vbs-sign-up\""
     ],
     "usage": {
-      "inputTokens": 27676,
-      "cachedInputTokens": 8223,
-      "outputTokens": 915,
-      "reasoningTokens": 323
+      "inputTokens": 25958,
+      "cachedInputTokens": 8845,
+      "outputTokens": 774,
+      "reasoningTokens": 200
     },
     "status": "completed",
-    "ms": 31384,
+    "ms": 28771,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -33,7 +32,7 @@
     {
       "url": "https://kideventpro.lifeway.com/myEvent/?id=72078",
       "chars": 0,
-      "error": "fetch: fetch failed (Connect Timeout Error (attempted addresses: 10.67.2.52:443, 10.67.1.33:443, timeout: 10000ms)); chrome-tls: fetch failed (Connect Timeout Error (attempted addresses: 10.67.2.52:443, 10.67.1.33:443, timeout: 10000ms)); browser: page.goto: net::ERR_CONNECTION_TIMED_OUT at https://kideventpro.lifeway.com/myEvent/?id=72078\nCall log:\n\u001b[2m  - navigating to \"https://kideventpro.lifeway.com/myEvent/?id=72078\", waiting until \"domcontentloaded\"\u001b[22m\n"
+      "error": "fetch: fetch failed (Connect Timeout Error (attempted addresses: 10.67.1.33:443, 10.67.2.52:443, timeout: 10000ms)); chrome-tls: fetch failed (Connect Timeout Error (attempted addresses: 10.67.1.33:443, 10.67.2.52:443, timeout: 10000ms)); browser: page.goto: net::ERR_CONNECTION_TIMED_OUT at https://kideventpro.lifeway.com/myEvent/?id=72078\nCall log:\n\u001b[2m  - navigating to \"https://kideventpro.lifeway.com/myEvent/?id=72078\", waiting until \"domcontentloaded\"\u001b[22m\n"
     },
     {
       "url": "https://www.bridge42.org/",
@@ -49,19 +48,14 @@
   "extraction": {
     "provider_name": "Bridge42 Church of Morganton",
     "website_url": "https://www.bridge42.org/",
-    "notes": "No summer 2027 information found. The Lifeway registration page and church VBS page returned no readable body text; the church's indexed VBS snippet supplied dates and hours. Third-party event listings identify the corresponding event as Illumination Station VBS in 2026.",
-    "excluded": [
-      {
-        "name": "Student Ministry",
-        "reason": "Ongoing church youth ministry, not a finite summer camp."
-      }
-    ],
+    "notes": "No 2027 camp information found. The VBS sign-up page and supplied Lifeway registration page returned no readable body text when opened; the church's official search snippet supplies dates and hours. A third-party 2026 event listing corroborates the year but was not used for ages or registration facts.",
+    "excluded": [],
     "cards": [
       {
         "name": "B42 VBS",
         "type": "vbs",
         "categories": ["faith_based"],
-        "description": "Children participate in evening worship and activities. Dinner is scheduled before worship and activities.",
+        "description": "Evening Vacation Bible School with worship and activities.",
         "camp_page_url": "https://www.bridge42.org/vbs-sign-up",
         "registration_url": "https://kideventpro.lifeway.com/myEvent/?id=72078",
         "season": {
@@ -82,9 +76,9 @@
           }
         ],
         "hours": {
-          "start": "17:00",
+          "start": "18:00",
           "end": "20:30",
-          "text": "July 27-31, 5PM Dinner, 6-8:30 Worship and activities"
+          "text": "5PM Dinner, 6-8:30 Worship and activities"
         },
         "extended_care": null,
         "prices": [],
@@ -96,13 +90,9 @@
         "special_needs": null,
         "lunch": null,
         "transportation": null,
-        "sources": [
-          "https://www.bridge42.org/vbs-sign-up",
-          "https://www.bridge42.org/",
-          "https://www.bridge42.org/contact-us"
-        ],
+        "sources": ["https://www.bridge42.org/", "https://www.bridge42.org/vbs-sign-up"],
         "confidence": "medium",
-        "review_notes": "Dates and hours were readable only in the official VBS page's search snippet, which does not print a year. The 2026 year and church meeting location are corroborated by third-party Illumination Station VBS listings. Verify the year, ages, theme name and current registration link directly with the church; the supplied Lifeway page returned no readable text."
+        "review_notes": "Dates and hours are available only in the official VBS page's search snippet, which does not print a year. July 27-31 is assigned to 2026 based on the corroborating Illumination Station VBS event listing at https://allevents.in/morganton/illumination-station-vbs/200030249596132. Check the church's VBS page for explicit year, ages, and confirmation that the supplied Lifeway registration URL still belongs to this offering; its body could not be read."
       }
     ]
   }

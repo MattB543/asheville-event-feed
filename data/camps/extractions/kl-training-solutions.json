@@ -7,19 +7,19 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:13:46.356Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:11:39.969Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "5bb4b3e89353272b1ee8d855d1dc7e9dd6ab9a2f14662c9388a1f84768fa8eb1",
   "response": {
     "searches": ["site:mydaddytaughtmethat.org \"summer\" \"2027\""],
     "usage": {
-      "inputTokens": 17401,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1046,
-      "reasoningTokens": 118
+      "inputTokens": 18063,
+      "cachedInputTokens": 8845,
+      "outputTokens": 933,
+      "reasoningTokens": 72
     },
     "status": "completed",
-    "ms": 25145,
+    "ms": 24178,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -48,27 +48,27 @@
   "extraction": {
     "provider_name": "KL Training Solutions",
     "website_url": "https://mydaddytaughtmethat.org/",
-    "notes": "No official 2027 dates, registration milestones, or dated 2026 summer schedule were found. The Impact Academy page explicitly describes summer programming separately from afterschool programming. Its undated hours and free participation policy are recorded as fallback information, not confirmed 2027 terms.",
+    "notes": "No summer 2027 dates or registration milestones were found on official pages. The Impact Academy information is undated; no dated 2026 summer schedule was found.",
     "excluded": [
       {
         "name": "My Daddy Taught Me That (MDTMT)",
-        "reason": "Ongoing mentorship and after-school program; no separately scheduled finite summer offering found."
+        "reason": "Ongoing mentorship and after-school program; no distinct finite summer camp offering was found."
       },
       {
         "name": "My Sistah Taught Me That (MSTMT)",
-        "reason": "Ongoing mentorship and after-school program; no separately scheduled finite summer offering found."
+        "reason": "Ongoing mentorship and after-school program; no distinct finite summer camp offering was found."
       },
       {
-        "name": "KL Impact Academy afterschool programming",
-        "reason": "School-year afterschool programming is excluded; only the explicitly described summer component is included."
+        "name": "KL Impact Academy after-school programming",
+        "reason": "School-year after-school programming is excluded; the summer program is retained."
       }
     ],
     "cards": [
       {
         "name": "KL Impact Academy",
         "type": "day",
-        "categories": ["academic", "stem", "general"],
-        "description": "Students participate in academic enrichment, physical activity, creative learning, and mentorship. The program includes reading and math support and occasional educational field trips.",
+        "categories": ["academic", "general"],
+        "description": "Campers participate in academic enrichment, physical activity, and creative learning. The program provides reading and math support, mentorship, and occasional educational field trips.",
         "camp_page_url": "https://mydaddytaughtmethat.org/impact-academy/",
         "registration_url": "https://mydaddytaughtmethat.org/impact-academy-form/",
         "season": {
@@ -102,7 +102,7 @@
           {
             "amount": 0,
             "unit": "program",
-            "label": "Free of charge; undated participation policy",
+            "label": "Free of charge",
             "year": 2026
           }
         ],
@@ -111,7 +111,7 @@
         "last_year_registration_opened": null,
         "availability": {
           "status": "waitlist",
-          "scope": "Current general application; not explicitly summer 2027",
+          "scope": "Current application form",
           "text": "All programs are currently full at this time. Completing this form will place your child on the waitlist rather than enroll them in the program."
         },
         "financial_aid": null,
@@ -124,11 +124,10 @@
         "sources": [
           "https://mydaddytaughtmethat.org/impact-academy/",
           "https://mydaddytaughtmethat.org/impact-academy-form/",
-          "https://mydaddytaughtmethat.org/contact-us/",
-          "https://mydaddytaughtmethat.org/our-story/"
+          "https://mydaddytaughtmethat.org/"
         ],
         "confidence": "medium",
-        "review_notes": "The program body and FAQ specify K–8, but a navigation description on the same site says grades 6–12. K–8 is used here because it is stated in the program's dedicated eligibility section and FAQ. Summer hours and free participation are undated; the 2026 price year is a fallback label, not an explicitly dated announcement. Confirm summer dates and 2027 terms. The application asks about transportation needs but does not guarantee service or state its cost. Its waitlist notice is general and does not specifically apply to summer 2027. The center address uses the provider's published contact location."
+        "review_notes": "The program body and FAQ specify grades K–8, while duplicated navigation describes grades 6–12; the application also offers an 8+ school-level option. Grades K–8 follow the program-specific FAQ. Hours and free participation are on undated pages, with the fallback price labeled 2026 rather than a confirmed dated 2026 offer. The Impact Center location uses the provider's published footer address. The application waitlist notice is not summer-specific and does not establish summer 2027 availability. Transportation needs are collected on the application, but summer service and eligibility are not specified."
       }
     ]
   }

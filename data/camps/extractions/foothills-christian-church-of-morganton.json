@@ -7,19 +7,19 @@
     "discovered_by": ["gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:38:07.843Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:32:10.144Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "f0db67e4ca96c6402a5bf0a8577ba5b9accb87215792b25075be683bfd7c4f37",
   "response": {
-    "searches": ["site:foothillschristianchurchnc.org VBS 2027 summer"],
+    "searches": ["site:foothillschristianchurchnc.org VBS 2027"],
     "usage": {
-      "inputTokens": 14423,
-      "cachedInputTokens": 8223,
-      "outputTokens": 495,
-      "reasoningTokens": 76
+      "inputTokens": 15067,
+      "cachedInputTokens": 8845,
+      "outputTokens": 481,
+      "reasoningTokens": 71
     },
     "status": "completed",
-    "ms": 14428,
+    "ms": 14183,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -43,15 +43,15 @@
   "extraction": {
     "provider_name": "Foothills Christian Church of Morganton (formerly First Advent Christian Church)",
     "website_url": "https://foothillschristianchurchnc.org/",
-    "notes": "No summer 2027 information found on the official website or in targeted searches. The card retains the explicitly dated 2026 VBS information. Ages, prices and registration opening dates were not stated.",
+    "notes": "No 2027 summer camp information or registration dates were found. The card retains the explicitly dated 2026 VBS information.",
     "excluded": [
       {
         "name": "Children's Church",
-        "reason": "Recurring Sunday children's ministry, not a finite summer program."
+        "reason": "Recurring year-round church program, not a finite summer camp."
       },
       {
         "name": "Wednesday Night Kids & Youth",
-        "reason": "Recurring weekly children's and youth ministry, not a finite summer program."
+        "reason": "Recurring year-round church program, not a finite summer camp."
       }
     ],
     "cards": [
@@ -59,7 +59,7 @@
         "name": "Vacation Bible School: Rainforest Falls",
         "type": "vbs",
         "categories": ["faith_based"],
-        "description": "Children explore the nature of God and a relationship with their creator through a rainforest-themed Vacation Bible School.",
+        "description": "Children explore the nature of God and what it means to have a relationship with their creator through a rainforest-themed Vacation Bible School.",
         "camp_page_url": "https://vbspro.events/p/events/61e04e",
         "registration_url": "https://vbspro.events/p/events/61e04e",
         "season": {

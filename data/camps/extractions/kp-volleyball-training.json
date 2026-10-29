@@ -10,22 +10,19 @@
     "discovered_by": ["grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:12:49.071Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:10:49.206Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "c91557332e0eee31bd4ce60adc6e61f3c8b2a95370e9696b106540a4c608adce",
   "response": {
-    "searches": [
-      "site:kpvolleyballtraining.com 2027",
-      "open https://kpvolleyballtraining.com/strength-%26-agility"
-    ],
+    "searches": ["site:kpvolleyballtraining.com 2027"],
     "usage": {
-      "inputTokens": 17024,
-      "cachedInputTokens": 8223,
-      "outputTokens": 4894,
-      "reasoningTokens": 164
+      "inputTokens": 17409,
+      "cachedInputTokens": 8845,
+      "outputTokens": 4538,
+      "reasoningTokens": 95
     },
     "status": "completed",
-    "ms": 89613,
+    "ms": 75146,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -54,15 +51,15 @@
   "extraction": {
     "provider_name": "KP Volleyball Training",
     "website_url": "https://kpvolleyballtraining.com/",
-    "notes": "No 2027 information found; cards use 2026 information. High School Mini Camps have conflicting dates, hours and prices across official pages and the registration form. Beginner and high-school clinics with dates TBD are included within their respective clinic cards but have no dated rows. No registration opening date is stated. Private Lessons and Strength & Agility pages returned no readable text when opened; search snippets describe ongoing training rather than finite summer programs.",
+    "notes": "No 2027 information was found. Cards retain 2026 information. Newbies offerings and High School Mini Camps listed on multiple pages are consolidated rather than duplicated under the clinic cards. All listed summer offerings meet at FernLeaf; the general Candler location is not assigned to these programs.",
     "excluded": [
       {
         "name": "Private Lessons",
-        "reason": "Individually scheduled ongoing lessons, not a finite summer program."
+        "reason": "Individual or small-group lessons scheduled by arrangement, not a finite summer camp."
       },
       {
-        "name": "Strength & Agility",
-        "reason": "Ongoing training; no finite summer offering could be verified."
+        "name": "Strength & Agility Training",
+        "reason": "General training offering without a stated finite summer camp schedule."
       }
     ],
     "cards": [
@@ -70,7 +67,7 @@
         "name": "Fundamentals Volleyball Camp",
         "type": "day",
         "categories": ["sports"],
-        "description": "Players practice passing, attacking, serving and setting, with an introduction to blocking and digging. Camp includes instruction, drills, games, competitive play and free play.",
+        "description": "Campers practice passing, attacking, serving and setting, with an introduction to blocking and digging. Camp days include instruction, games, drills, competitive play and free play.",
         "camp_page_url": "https://kpvolleyballtraining.com/summer-volleyball-camps",
         "registration_url": "https://pci.jotform.com/form/260404995123153",
         "season": {
@@ -84,7 +81,7 @@
         "grades": {
           "min": 6,
           "max": 11,
-          "basis": "rising"
+          "basis": "unspecified"
         },
         "sites": [
           {
@@ -97,20 +94,20 @@
         "hours": {
           "start": "09:30",
           "end": "16:00",
-          "text": "Session 1: Tuesday–Thursday 9:30 am–4 pm; Friday 9:30 am–12:30 pm. Session 2: daily 9:30 am–4 pm. Half-day option: daily 9:30 am–12:30 pm."
+          "text": "Half day: 9:30 - 12:30 pm Daily"
         },
         "extended_care": null,
         "prices": [
           {
             "amount": 225,
             "unit": "session",
-            "label": "Session 1 half-day option",
+            "label": "Session 1 half day",
             "year": 2026
           },
           {
             "amount": 175,
             "unit": "session",
-            "label": "Session 2 half-day option",
+            "label": "Session 2 half day",
             "year": 2026
           }
         ],
@@ -127,7 +124,7 @@
             "price": {
               "amount": 325,
               "unit": "session",
-              "label": "Full day",
+              "label": "full day",
               "year": 2026
             },
             "status": null
@@ -140,14 +137,11 @@
             "site": null,
             "ages": null,
             "grades": null,
-            "hours": {
-              "start": "09:30",
-              "end": "16:00"
-            },
+            "hours": null,
             "price": {
               "amount": 275,
               "unit": "session",
-              "label": "Full day",
+              "label": "full day",
               "year": 2026
             },
             "status": null
@@ -163,7 +157,6 @@
         "sources": [
           "https://kpvolleyballtraining.com/summer-volleyball-camps",
           "https://kpvolleyballtraining.com/",
-          "https://pci.jotform.com/form/260404995123153",
           "https://www.fernleafccs.org/contact-us"
         ],
         "confidence": "high",
@@ -173,7 +166,7 @@
         "name": "Volleyball Mini Camp for Newbies!",
         "type": "clinic",
         "categories": ["sports"],
-        "description": "New volleyball players practice basic skills, including passing, attacking, serving and setting.",
+        "description": "An all-skills volleyball mini camp for players new to the sport.",
         "camp_page_url": "https://kpvolleyballtraining.com/summer-volleyball-camps",
         "registration_url": "https://pci.jotform.com/form/260404995123153",
         "season": {
@@ -187,7 +180,7 @@
         "grades": {
           "min": 6,
           "max": 12,
-          "basis": "rising"
+          "basis": "unspecified"
         },
         "sites": [
           {
@@ -202,7 +195,7 @@
         "prices": [],
         "sessions": [
           {
-            "label": "June 15",
+            "label": null,
             "start": "2026-06-15",
             "end": "2026-06-15",
             "year": 2026,
@@ -222,7 +215,7 @@
             "status": null
           },
           {
-            "label": "July 13",
+            "label": null,
             "start": "2026-07-13",
             "end": "2026-07-13",
             "year": 2026,
@@ -253,17 +246,16 @@
           "https://kpvolleyballtraining.com/summer-volleyball-camps",
           "https://kpvolleyballtraining.com/volleyball-skills-clinics",
           "https://kpvolleyballtraining.com/",
-          "https://pci.jotform.com/form/260404995123153",
           "https://www.fernleafccs.org/contact-us"
         ],
         "confidence": "medium",
-        "review_notes": "Summer camp page gives grades 6–12, while the homepage gives grades 6–10. Grade basis follows the registration form's Fall 2026 grade field. The same dates appear as All-Skills Clinics for Newbies on the clinic page; treated as the same offering."
+        "review_notes": "Summer camp page states grades 6-12; homepage states grades 6-10. Clinic page lists the same dates as All-Skills Clinics for Newbies, consolidated here. Single-date offerings are classified as clinics."
       },
       {
         "name": "High School Mini Camps",
-        "type": "clinic",
+        "type": "half_day",
         "categories": ["sports"],
-        "description": "Players train in setter and libero skills, serving and serve receive, and attacking and blocking through two-day skill sessions.",
+        "description": "Players train in setter and libero skills, serving and serve receive, and attacking and blocking through two-day skills sessions.",
         "camp_page_url": "https://kpvolleyballtraining.com/summer-volleyball-camps",
         "registration_url": "https://pci.jotform.com/form/260404995123153",
         "season": {
@@ -277,7 +269,7 @@
         "grades": {
           "min": 9,
           "max": 12,
-          "basis": "rising"
+          "basis": "unspecified"
         },
         "sites": [
           {
@@ -293,7 +285,7 @@
           {
             "amount": 260,
             "unit": "session",
-            "label": "Mini Skills Camp Bundle: all three skill sessions in one session",
+            "label": "Mini Skills Camp Bundle",
             "year": 2026
           }
         ],
@@ -313,7 +305,7 @@
             "price": {
               "amount": 115,
               "unit": "session",
-              "label": "Includes both days",
+              "label": "includes both days",
               "year": 2026
             },
             "status": null
@@ -333,7 +325,7 @@
             "price": {
               "amount": 115,
               "unit": "session",
-              "label": "Includes both days",
+              "label": "includes both days",
               "year": 2026
             },
             "status": null
@@ -353,7 +345,7 @@
             "price": {
               "amount": 115,
               "unit": "session",
-              "label": "Includes both days",
+              "label": "includes both days",
               "year": 2026
             },
             "status": null
@@ -373,7 +365,7 @@
             "price": {
               "amount": 95,
               "unit": "session",
-              "label": "Includes both days",
+              "label": "includes both days",
               "year": 2026
             },
             "status": null
@@ -393,27 +385,7 @@
             "price": {
               "amount": 95,
               "unit": "session",
-              "label": "Includes both days",
-              "year": 2026
-            },
-            "status": null
-          },
-          {
-            "label": "Session 2: Attacking & Blocking",
-            "start": "2026-07-20",
-            "end": "2026-07-21",
-            "year": 2026,
-            "site": null,
-            "ages": null,
-            "grades": null,
-            "hours": {
-              "start": "14:00",
-              "end": "16:00"
-            },
-            "price": {
-              "amount": 115,
-              "unit": "session",
-              "label": "Includes both days",
+              "label": "includes both days",
               "year": 2026
             },
             "status": null
@@ -434,13 +406,13 @@
           "https://www.fernleafccs.org/contact-us"
         ],
         "confidence": "medium",
-        "review_notes": "Session 1 rows follow the summer camp page, but the registration bundle description starts at 10:30 am. Session 2 setter/libero and serve/receive rows follow matching clinic-page and individual registration listings: July 21–22, $95, shorter hours. Summer camp page instead says July 20–21, $115 and earlier hours; registration bundle retains July 20–21. Session 2 attacking/blocking appears only in the summer-page schedule and bundle, so its row follows that page. Confirm all Session 2 details and bundle coverage."
+        "review_notes": "Session 2 uses July 21-22, $95 and hours agreed upon by clinic page and individual registration products. Summer camp page instead lists July 20-21, $115 and three skills blocks. Registration bundle retains July 20-21 and 10:30-4, conflicting with both schedules. No July attacking/blocking mini-camp row included because the revised clinic listing and individual registration products do not list it. June hours follow the camp page but conflict with registration bundle hours."
       },
       {
         "name": "Middle School Tryout Prep Clinic Series",
         "type": "clinic",
         "categories": ["sports"],
-        "description": "Players practice serving, passing, attacking and setting in preparation for middle-school tryouts. The final session includes all-skills competitive play.",
+        "description": "Players prepare for middle school tryouts with serving, passing, attacking, setting and all-skills clinics. The final session includes competitive play.",
         "camp_page_url": "https://kpvolleyballtraining.com/volleyball-skills-clinics",
         "registration_url": "https://pci.jotform.com/form/260404995123153",
         "season": {
@@ -463,20 +435,20 @@
         "hours": {
           "start": "17:00",
           "end": "19:00",
-          "text": "5–7 pm"
+          "text": null
         },
         "extended_care": null,
         "prices": [
           {
             "amount": 175,
             "unit": "program",
-            "label": "All four sessions",
+            "label": "Series (All 4 Sessions)",
             "year": 2026
           },
           {
             "amount": 55,
             "unit": "session",
-            "label": "Individual session",
+            "label": "Individual Sessions",
             "year": 2026
           }
         ],
@@ -549,7 +521,7 @@
         "name": "BEGINNER CLINICS",
         "type": "clinic",
         "categories": ["sports"],
-        "description": "Beginning players practice volleyball fundamentals, including passing, attacking, serving and setting.",
+        "description": "Beginner clinics cover basic volleyball skills including passing, attacking, serving and setting.",
         "camp_page_url": "https://kpvolleyballtraining.com/volleyball-skills-clinics",
         "registration_url": "https://pci.jotform.com/form/260404995123153",
         "season": {
@@ -581,13 +553,13 @@
           {
             "amount": 45,
             "unit": "session",
-            "label": "Beg. Setting & Attacking Clinic; dates TBD",
+            "label": "Beg. Setting & Attacking Clinic",
             "year": 2026
           },
           {
             "amount": 45,
             "unit": "session",
-            "label": "Beg. Serve & Pass Clinic; dates TBD",
+            "label": "Beg. Serve & Pass Clinic",
             "year": 2026
           }
         ],
@@ -658,7 +630,7 @@
         "name": "HS CLINICS",
         "type": "clinic",
         "categories": ["sports"],
-        "description": "High-school players practice attacking and blocking, serving and serve receive, and setter and libero skills.",
+        "description": "High school volleyball clinics focus on attacking and blocking, serving and serve receive, and setter and libero training.",
         "camp_page_url": "https://kpvolleyballtraining.com/volleyball-skills-clinics",
         "registration_url": "https://pci.jotform.com/form/260404995123153",
         "season": {
@@ -672,7 +644,7 @@
         "grades": {
           "min": 9,
           "max": 12,
-          "basis": "rising"
+          "basis": "unspecified"
         },
         "sites": [
           {
@@ -688,7 +660,7 @@
           {
             "amount": 45,
             "unit": "session",
-            "label": "Each clinic; Setter & Libero Training dates TBD",
+            "label": null,
             "year": 2026
           }
         ],

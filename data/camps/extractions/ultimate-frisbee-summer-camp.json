@@ -7,22 +7,19 @@
     "discovered_by": ["macaroni_kid", "grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T14:57:35.436Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T16:57:58.151Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "44fd0838b9d397f315bf8fbb60582c78342d74ab8469f129e30abf70e350a29b",
   "response": {
-    "searches": [
-      "\"UltimateFrisbeeSummerCamp\" \"2027\"",
-      "\"Ultimate Frisbee Summer Camp\" Asheville 2027"
-    ],
+    "searches": ["\"UltimateFrisbeeSummerCamp\" \"2027\""],
     "usage": {
-      "inputTokens": 24876,
-      "cachedInputTokens": 8223,
-      "outputTokens": 2149,
+      "inputTokens": 21809,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2199,
       "reasoningTokens": 166
     },
     "status": "completed",
-    "ms": 45422,
+    "ms": 43398,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -41,31 +38,14 @@
   "extraction": {
     "provider_name": "Ultimate Frisbee Summer Camp",
     "website_url": "https://www.facebook.com/UltimateFrisbeeSummerCamp",
-    "notes": "No 2027 information found. The supplied official form lists 2026 programs. Facebook and the separate registration short link returned no readable text. The form conflicts on multiweek discounts: \"$25 discount for multiple weeks!\" versus \"$20 off each additional week!\"; discounted prices were not calculated. Older third-party listings describe other locations and full-day options; those were not used.",
-    "excluded": [
-      {
-        "name": "Spring Break Camps",
-        "reason": "Outside summer; mentioned in the Go Local Asheville listing."
-      },
-      {
-        "name": "Winter Break Camps",
-        "reason": "Outside summer; mentioned in the Go Local Asheville listing."
-      },
-      {
-        "name": "After School Programming/Clubs",
-        "reason": "Year-round programming rather than a finite summer camp."
-      },
-      {
-        "name": "Individual and Small Group Coaching",
-        "reason": "Ongoing coaching, not a stated finite summer offering."
-      }
-    ],
+    "notes": "No official 2027 information was found. The Facebook page and separate registration short link returned no readable text. The supplied 2026 information form is the primary source. Older listings mention Carrier Park and full-day options; these were not used because the 2026 form specifies Asheville Middle School and 9am–1pm.",
+    "excluded": [],
     "cards": [
       {
         "name": "Ultimate Camp",
         "type": "half_day",
         "categories": ["sports"],
-        "description": "Campers learn Ultimate Frisbee fundamentals and techniques and practice understanding the sport's self-officiating rule, Spirit of the Game.",
+        "description": "Campers learn Ultimate Frisbee fundamentals, techniques, rules and self-officiating through the Spirit of the Game.",
         "camp_page_url": "https://forms.gle/1nQy8WQhCtkkebke7",
         "registration_url": "https://forms.gle/VXAWyyUomLJVVUed8",
         "season": {
@@ -98,14 +78,14 @@
         "prices": [
           {
             "amount": 225,
-            "unit": "week",
+            "unit": "session",
             "label": "Camper",
             "year": 2026
           }
         ],
         "sessions": [
           {
-            "label": "Ultimate Camp",
+            "label": null,
             "start": "2026-06-15",
             "end": "2026-06-19",
             "year": 2026,
@@ -117,7 +97,7 @@
             "status": null
           },
           {
-            "label": "Ultimate Camp",
+            "label": null,
             "start": "2026-06-29",
             "end": "2026-07-03",
             "year": 2026,
@@ -129,7 +109,7 @@
             "status": null
           },
           {
-            "label": "Ultimate Camp",
+            "label": null,
             "start": "2026-07-06",
             "end": "2026-07-10",
             "year": 2026,
@@ -141,7 +121,7 @@
             "status": null
           },
           {
-            "label": "Ultimate Camp",
+            "label": null,
             "start": "2026-07-13",
             "end": "2026-07-17",
             "year": 2026,
@@ -153,7 +133,7 @@
             "status": null
           },
           {
-            "label": "Ultimate Camp",
+            "label": null,
             "start": "2026-07-20",
             "end": "2026-07-24",
             "year": 2026,
@@ -165,7 +145,7 @@
             "status": null
           },
           {
-            "label": "Ultimate Camp",
+            "label": null,
             "start": "2026-07-27",
             "end": "2026-07-31",
             "year": 2026,
@@ -189,13 +169,13 @@
           "https://ams.ashevillecityschools.net/students"
         ],
         "confidence": "medium",
-        "review_notes": "Confirm multiweek discounts with the provider: the official form states both $25 off for multiple weeks and $20 off each additional week. The undiscounted price is $225 per weekly camp."
+        "review_notes": "The 2026 form gives conflicting multiweek discounts: '$25 discount for multiple weeks!' and '$20 off each additional week!' Neither discount was entered. The $225 camper fee is presented alongside the weekly sessions, without an explicit billing unit."
       },
       {
         "name": "Advanced/High School Pre Season Camp",
         "type": "half_day",
         "categories": ["sports"],
-        "description": "This is an Ultimate Frisbee preseason camp for advanced or high school players.",
+        "description": "An advanced/high school preseason Ultimate Frisbee camp.",
         "camp_page_url": "https://forms.gle/1nQy8WQhCtkkebke7",
         "registration_url": "https://forms.gle/VXAWyyUomLJVVUed8",
         "season": {
@@ -224,7 +204,7 @@
         "prices": [
           {
             "amount": 225,
-            "unit": "week",
+            "unit": "session",
             "label": "Camper",
             "year": 2026
           }
@@ -242,13 +222,13 @@
           "https://ams.ashevillecityschools.net/students"
         ],
         "confidence": "medium",
-        "review_notes": "The form names the audience as Advanced/High School but does not state numeric ages or grades. Confirm the conflicting multiweek discounts before publishing a discounted price."
+        "review_notes": "The $225 camper fee is stated generally above the session list, without an explicit billing unit. The form also conflicts on multiweek discounts ($25 versus $20); neither discount was entered. The program title does not specify a numerical grade range."
       },
       {
         "name": "CIT (Coaches in Training)",
         "type": "half_day",
         "categories": ["sports"],
-        "description": "Participants take part in the camp as Coaches in Training.",
+        "description": "A Coaches in Training program at Ultimate Frisbee Summer Camp.",
         "camp_page_url": "https://forms.gle/1nQy8WQhCtkkebke7",
         "registration_url": "https://forms.gle/VXAWyyUomLJVVUed8",
         "season": {
@@ -274,7 +254,7 @@
           {
             "amount": 0,
             "unit": "program",
-            "label": "CIT (Coaches in Training) Free",
+            "label": "Free",
             "year": 2026
           }
         ],
@@ -291,7 +271,7 @@
           "https://ams.ashevillecityschools.net/students"
         ],
         "confidence": "medium",
-        "review_notes": "The 2026 form explicitly offers free Coaches in Training participation but does not separately specify eligibility, dates, hours, or duties. Confirm which camp weeks accept CITs; older third-party eligibility descriptions were not carried forward."
+        "review_notes": "The official 2026 form names CIT, states it is free and asks whether the athlete is a CIT, but does not separately specify eligibility, duties, dates or hours. Confirm which camp sessions accept CIT participants and whether the half-day format applies."
       }
     ]
   }

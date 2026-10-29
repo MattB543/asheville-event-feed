@@ -7,19 +7,22 @@
     "discovered_by": ["seed_sheet"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T14:55:27.375Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T16:56:20.559Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "79f4fb83b3ede90b0118e3ed75f0e33eef40aa8ab372bd104f30d0ca79f332f0",
   "response": {
-    "searches": ["site:sodancewnc.com \"2027\" summer", "\"Southside Dance\" \"4110\" \"NC\""],
+    "searches": [
+      "site:sodancewnc.com summer intensive 2026 2027",
+      "\"Southside Dance Studio\" \"4110\" \"Fletcher\""
+    ],
     "usage": {
-      "inputTokens": 21018,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1346,
-      "reasoningTokens": 145
+      "inputTokens": 21485,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1432,
+      "reasoningTokens": 170
     },
     "status": "completed",
-    "ms": 30015,
+    "ms": 35833,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -68,23 +71,23 @@
   "extraction": {
     "provider_name": "Southside Dance Studio",
     "website_url": "https://www.sodancewnc.com/",
-    "notes": "No summer 2027 information was found. The official Summer Intensive page was readable through search results, but opening it returned no text. The camp registration form requires a $50 non-refundable deposit toward the $165 total.",
+    "notes": "No summer 2027 information or registration dates found. Summer 2026 facts are retained. The intensive page and contact page were readable through official search results, but direct opens returned no text. No intensive registration destination could be recovered.",
     "excluded": [
       {
         "name": "Summer Classes",
-        "reason": "Seasonal continuation of regular dance classes, including drop-in classes, rather than a separately described supervised camp."
+        "reason": "Dance lesson series and drop-in classes, not a camp."
       },
       {
-        "name": "Fall 2026",
-        "reason": "Regular dance classes outside summer."
+        "name": "Fall Classes",
+        "reason": "School-year dance classes outside summer."
       },
       {
-        "name": "Spring 2026",
-        "reason": "Regular dance classes outside summer."
+        "name": "Spring Classes",
+        "reason": "Dance classes outside summer."
       },
       {
         "name": "Hendersonville Ballet",
-        "reason": "Ongoing performing company and rehearsals, not a finite summer camp."
+        "reason": "Ongoing performing company, rehearsals and performances, not a finite summer camp."
       }
     ],
     "cards": [
@@ -92,7 +95,7 @@
         "name": "K-Pop Summer Dance Camp",
         "type": "half_day",
         "categories": ["dance"],
-        "description": "Beginning and continuing dancers explore ballet technique and are divided by level. No previous dance experience is required, and snacks are served.",
+        "description": "Beginning and continuing dancers explore ballet technique in groups divided by level. No previous dance experience is required.",
         "camp_page_url": "https://www.sodancewnc.com/summer-2026/summer-camp",
         "registration_url": "https://docs.google.com/forms/d/e/1FAIpQLSf4eQT10_jaRym-bEXRarhp7Lz4RgQuL9Yl6OnnovZzn5Q1Bw/viewform?usp=header",
         "season": {
@@ -140,17 +143,16 @@
         "sources": [
           "https://www.sodancewnc.com/summer-2026/summer-camp",
           "https://docs.google.com/forms/d/e/1FAIpQLSf4eQT10_jaRym-bEXRarhp7Lz4RgQuL9Yl6OnnovZzn5Q1Bw/viewform?usp=header",
-          "https://www.sodancewnc.com/contact-us",
-          "https://www.hendersonvilleballet.org/about/training"
+          "https://www.sodancewnc.com/contact-us"
         ],
-        "confidence": "high",
-        "review_notes": null
+        "confidence": "medium",
+        "review_notes": "Studio location is assumed as the camp venue from the provider's contact page; camp materials do not explicitly name a drop-off site. The official contact page gives the street address but omits town and state; Fletcher, NC was corroborated by multiple business listings. The registration form requires a $50 non-refundable deposit toward the $165 total. Snacks are stated, but lunch is not addressed."
       },
       {
         "name": "Intermediate/Advanced Intensive",
         "type": "half_day",
         "categories": ["dance"],
-        "description": "Dancers receive instruction in ballet technique, pointe, variations and conditioning. Instruction is divided by level for students in Ballet 4 and Advanced Ballet.",
+        "description": "Dancers receive instruction in ballet technique, pointe, variations and conditioning, divided by level. The intensive is for dancers in Ballet 4 and Advanced Ballet.",
         "camp_page_url": "https://www.sodancewnc.com/summer-2026/summer-intensive",
         "registration_url": null,
         "season": {
@@ -194,11 +196,10 @@
         "transportation": null,
         "sources": [
           "https://www.sodancewnc.com/summer-2026/summer-intensive",
-          "https://www.sodancewnc.com/contact-us",
-          "https://www.hendersonvilleballet.org/about/training"
+          "https://www.sodancewnc.com/contact-us"
         ],
         "confidence": "medium",
-        "review_notes": "Dates, hours, eligibility and price were read from the official page's search-result text; opening the page returned no text. Check the registration link on the Summer Intensive page. Eligibility is stated as Ballet 4 and Advanced Ballet, with no numeric ages or school grades."
+        "review_notes": "Dates, eligibility, hours and price were read from the official page's search result; direct opening returned no text. Its registration link destination could not be recovered. Ballet 4 is a dance level, not a school grade. Studio location is assumed as the camp venue from the provider's contact page. The official contact page omits town and state; Fletcher, NC was corroborated by multiple business listings."
       }
     ]
   }

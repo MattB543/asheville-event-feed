@@ -3,23 +3,27 @@
     "key": "leaf-global-arts",
     "name": "LEAF Global Arts (summer camps)",
     "urls": ["https://www.theleaf.org/camps"],
-    "area": null,
-    "discovered_by": ["pilot"],
+    "area": "Asheville, NC",
+    "discovered_by": ["pilot", "seed_sheet", "news828", "grid", "aggregator", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T03:19:59.789Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T16:52:25.165Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "b4c933d0f7f4147562e4581d8442bf568d6d1ed787c703b8c557fa5b8d31ddc0",
   "response": {
-    "searches": ["site.theleaf.org camps 2027 registration", "open https://www.theleaf.org/"],
+    "searches": [
+      "site.theleaf.org \"2027\" \"camp\"",
+      "open https://www.theleaf.org/",
+      "\"LEAF\" \"2026\" \"camp\" \"ultracamp\""
+    ],
     "usage": {
-      "inputTokens": 14982,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1825,
-      "reasoningTokens": 237
+      "inputTokens": 19717,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1706,
+      "reasoningTokens": 179
     },
     "status": "completed",
-    "ms": 39891,
+    "ms": 38282,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -36,25 +40,29 @@
     }
   ],
   "extraction": {
-    "provider_name": "LEAF Global Arts",
+    "provider_name": "LEAF Global Arts (summer camps)",
     "website_url": "https://www.theleaf.org/",
-    "notes": "The homepage announces summer 2027 dates and a starting price, but says further information is coming soon. The youth camps page still lists 2026 weekly themes and details. LEAF is now a program powered by Camp Grier. No 2027 registration opening date was found.",
+    "notes": "The homepage announces a 2027 season of June 14–August 13, starting at $300/week, while saying additional information is coming soon. The camps page still lists 2026 themes and details. No 2027 weekly schedule or registration opening date was found. Official pages returned no readable body through the browser; supplied page text and official search results were used.",
     "excluded": [
       {
         "name": "Teaching Artist Residencies",
-        "reason": "Ongoing arts classes and school residencies, not a finite summer camp offering."
+        "reason": "Year-round classes and arts education residencies, not a finite summer camp offering."
       },
       {
-        "name": "LEAF Winter Day Camps",
-        "reason": "Outside the summer season."
+        "name": "Lake Eden Reunion",
+        "reason": "Festival gathering in October, not a supervised summer youth camp."
+      },
+      {
+        "name": "LEAF International",
+        "reason": "Ongoing international arts education programs, not local finite summer camps."
       }
     ],
     "cards": [
       {
         "name": "LEAF Summer Camps",
         "type": "day",
-        "categories": ["arts", "music", "dance", "theater"],
-        "description": "Campers explore music, dance, theatre, and visual art from cultures around the world with teaching artists and Culture Keepers.",
+        "categories": ["arts", "music", "theater", "dance"],
+        "description": "Campers explore music, dance, theatre, and visual art from cultures around the world with teaching artists.",
         "camp_page_url": "https://www.theleaf.org/camps",
         "registration_url": null,
         "season": {
@@ -84,7 +92,7 @@
         "hours": {
           "start": "09:00",
           "end": "15:00",
-          "text": "Drop-off: 8:30–9:00 AM. Monday–Thursday pick-up: 3:00 PM sharp. Friday pick-up: 12:00 PM after the Parent Showcase."
+          "text": "Drop-off: 8:30 – 9:00 AM. Monday- Thursday Pick-up: 3:00 PM (sharp). Friday Pick-up: 12:00 PM after the Parent Showcase."
         },
         "extended_care": {
           "early_dropoff_start": null,
@@ -95,7 +103,7 @@
           {
             "amount": 300,
             "unit": "week",
-            "label": "Starting at",
+            "label": "from",
             "year": 2027
           }
         ],
@@ -207,16 +215,12 @@
         "special_needs": null,
         "lunch": {
           "value": "no",
-          "text": "What to Bring: Loose-fitting clothes and shoes you can move in, a packed lunch and water bottle, and a positive attitude and willingness to participate!"
+          "text": "What to Bring: a packed lunch and water bottle. Leaf provides a daily snack."
         },
         "transportation": null,
-        "sources": [
-          "https://www.theleaf.org/",
-          "https://www.theleaf.org/camps",
-          "https://form.jotform.com/261239463699269"
-        ],
+        "sources": ["https://www.theleaf.org/", "https://www.theleaf.org/camps"],
         "confidence": "medium",
-        "review_notes": "The season dates and starting price are explicitly for 2027 on the homepage; sessions are 2026 fallback rows, not 2027 dates. The camps page does not print a year beside its weekly dates; 2026 is taken from its scholarship wording. Eligibility, location, hours, extended care and packed-lunch requirements are fallback details from that page. An indexed 2026 Jotform registration form conflicts with the camps page: it says current Pre-K through Grade 6 in the 2025–2026 school year and hours of 9 AM–4 PM, while the camps page says rising 1st grade through age 12 and pick-up at 3 PM Monday–Thursday and noon Friday. Confirm eligibility and hours with the provider. Browser opens returned no readable content; the supplied page text and official search snippets were used. The current registration destination could not be verified."
+        "review_notes": "2027 season dates and starting price come from the homepage; sessions retain 2026 dates. The camps page does not print a year beside its weekly dates; 2026 is taken from its scholarship wording. Ages, grades, site, hours, extended care and packed-lunch policy are fallback details from that page, not confirmed for 2027. The 09:00 start is inferred from the end of the stated drop-off window. The page gives only a minimum grade and maximum age, not a complete age or grade range. Check the eventual 2027 schedule and registration destination."
       }
     ]
   }

@@ -8,19 +8,19 @@
     "status": "review",
     "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
   },
-  "extractedAt": "2026-10-29T15:21:47.548Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:18:29.606Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "611aa16fdb930fb3fd2a2bde93e555e947ad923f021cba1d00dcc49be001ffce",
   "response": {
-    "searches": ["site:ffcn.org vacation bible summer", "site:ffcn.org/contact-us \"Partner\""],
+    "searches": ["site:ffcn.org \"Vacation\""],
     "usage": {
-      "inputTokens": 17776,
-      "cachedInputTokens": 8223,
-      "outputTokens": 650,
-      "reasoningTokens": 118
+      "inputTokens": 17008,
+      "cachedInputTokens": 8845,
+      "outputTokens": 590,
+      "reasoningTokens": 89
     },
     "status": "completed",
-    "ms": 17699,
+    "ms": 16223,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -37,17 +37,13 @@
     }
   ],
   "extraction": {
-    "provider_name": "Faith Fellowship Church of Newdale",
+    "provider_name": "Faith Fellowship Church of Newdale (Burnsville)",
     "website_url": "https://ffcn.org/",
-    "notes": "The official Upcoming Events page announces 2027 Vacation Bible School with the SPY U theme, but says to check back for the date. Upcoming Events and Contact Us returned empty text when opened directly; their indexed official-page text was readable through search results. No registration date, ages, hours or prices were found.",
+    "notes": "The official Upcoming Events search result announces 2027 Vacation Bible School with the theme SPY U and says to check back for the date. Direct opens of the Upcoming Events and Contact Us pages returned no readable text; their official search results supplied the program details and location.",
     "excluded": [
       {
-        "name": "Sunday School",
-        "reason": "Recurring year-round church program, not a finite summer camp."
-      },
-      {
-        "name": "Wednesday Bible Study",
-        "reason": "Recurring year-round church program, not a finite summer camp."
+        "name": "Sunday School and Wednesday Bible Study",
+        "reason": "Recurring year-round church activities, not finite summer camp programs."
       }
     ],
     "cards": [
@@ -55,7 +51,7 @@
         "name": "Vacation Bible School",
         "type": "vbs",
         "categories": ["faith_based"],
-        "description": "Children follow a SPY U theme, collecting clues and cracking codes while learning about God and the Bible.",
+        "description": "Children explore Bible teachings through the SPY U theme, collecting clues and cracking codes to learn about God.",
         "camp_page_url": "https://ffcn.org/upcoming-events",
         "registration_url": null,
         "season": {
@@ -88,7 +84,7 @@
         "transportation": null,
         "sources": ["https://ffcn.org/upcoming-events", "https://ffcn.org/contact-us"],
         "confidence": "medium",
-        "review_notes": "The 2027 theme and church venue are stated in indexed official Upcoming Events text; the venue address is stated in indexed official Contact Us text. Both pages returned empty text on direct opening. Check these pages for dates, eligibility, hours, prices and registration details when updated."
+        "review_notes": "Program announcement and venue address were readable only in official-page search results. The Upcoming Events result explicitly identifies 2027 Vacation Bible School and SPY U, but gives no dates, ages, hours, prices or registration information. Check the full pages when readable."
       }
     ]
   }

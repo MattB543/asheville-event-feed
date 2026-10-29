@@ -7,19 +7,19 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:34:21.863Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:28:55.436Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "11b32b4321418deff444dded855b8d068b82985aa5240f7a746ec56ff5525d92",
   "response": {
-    "searches": ["site.trcommunitychurch.com address Travelers Rest Community Church"],
+    "searches": ["site.ymcagreenville.org George Theisen YMCA address"],
     "usage": {
-      "inputTokens": 24496,
-      "cachedInputTokens": 8223,
-      "outputTokens": 8571,
-      "reasoningTokens": 112
+      "inputTokens": 25141,
+      "cachedInputTokens": 8845,
+      "outputTokens": 7872,
+      "reasoningTokens": 92
     },
     "status": "completed",
-    "ms": 139394,
+    "ms": 121875,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -68,30 +68,34 @@
   "extraction": {
     "provider_name": "YMCA of Greenville",
     "website_url": "https://www.ymcagreenville.org/",
-    "notes": "Cards cover the George I. Theisen Family YMCA programs in Travelers Rest identified by the supplied branch page. Other YMCA branches and YMCA Camp Greenville are not included in this branch-focused extraction. The association page says 'Registrations for Summer 2027 coming later!' No 2027 dates or registration milestones were found; dates and prices below describe summer 2026. Extended Day is represented as extended care, not a separate program. The church currently publishes 30 Ebenezer Church Road as its location; confirm that this remains the camp drop-off address for the next season.",
+    "notes": "Extraction covers the George I. Theisen Family YMCA programs identified in the request. Other YMCA branches and independently presented YMCA Camp Greenville overnight programs are not included in this branch extraction. The association summer-day-camp page says registrations for Summer 2027 are coming later; branch dates and prices remain explicitly for Summer 2026. No 2027 registration opening date was found. Extended Day is recorded as specialty-camp extended care rather than a separate program.",
     "excluded": [
       {
-        "name": "Childwatch",
-        "reason": "Year-round membership childcare, not a finite summer camp."
+        "name": "Summer Basketball League",
+        "reason": "Sports league/team season, not a camp."
+      },
+      {
+        "name": "Swim Lessons",
+        "reason": "Lessons booked as lessons, not a camp."
       },
       {
         "name": "After School",
-        "reason": "School-year childcare rather than a summer program."
+        "reason": "School-year childcare."
       },
       {
         "name": "School Holiday Childcare",
-        "reason": "School holiday programming outside the summer camp offerings."
+        "reason": "Programs outside summer."
       },
       {
-        "name": "GXP Class Schedule",
-        "reason": "Recurring fitness classes and court reservations, not finite youth summer programs."
+        "name": "Summer Day Camp Orientation",
+        "reason": "Single evening orientation event, not a camp."
       }
     ],
     "cards": [
       {
         "name": "Full Day Summer Camp",
         "type": "day",
-        "categories": ["general", "sports", "arts"],
+        "categories": ["general"],
         "description": "Campers participate in games, swimming, sports, crafts and field trips in grade-level groups.",
         "camp_page_url": "https://www.ymcagreenville.org/summer-day-camp-george-i-theisen-family-y",
         "registration_url": "https://operations.daxko.com/Online/10004/ProgramsV2/Home.mvc",
@@ -114,7 +118,7 @@
         "sites": [
           {
             "name": "Travelers Rest Community Church",
-            "address": "30 Ebenezer Church Road",
+            "address": "30 Ebenezer Church Rd",
             "town": "Travelers Rest",
             "state": "SC"
           }
@@ -122,7 +126,7 @@
         "hours": {
           "start": "07:30",
           "end": "18:00",
-          "text": "7:30 am - 6:00 pm"
+          "text": null
         },
         "extended_care": null,
         "prices": [
@@ -139,21 +143,21 @@
             "year": 2026
           },
           {
-            "amount": 50,
-            "unit": "other",
-            "label": "Registration fee per child; non-refundable and non-transferable",
-            "year": 2026
-          },
-          {
             "amount": 160,
             "unit": "week",
-            "label": "Week 5 holiday pricing: members",
+            "label": "Week 5 members",
             "year": 2026
           },
           {
             "amount": 200,
             "unit": "week",
-            "label": "Week 5 holiday pricing: community",
+            "label": "Week 5 community",
+            "year": 2026
+          },
+          {
+            "amount": 50,
+            "unit": "program",
+            "label": "Registration fee per child",
             "year": 2026
           }
         ],
@@ -272,7 +276,7 @@
         "availability": null,
         "financial_aid": {
           "value": "yes",
-          "text": "Apply for financial assistance online! All Summer Camp related financial assistance applications must be completed prior to May 1, 2026."
+          "text": "Apply for financial assistance online!"
         },
         "special_needs": null,
         "lunch": null,
@@ -280,7 +284,7 @@
         "sources": [
           "https://www.ymcagreenville.org/summer-day-camp-george-i-theisen-family-y",
           "https://www.ymcagreenville.org/programs/youth-family/summer-day-camp",
-          "https://trcc.churchtrac.com/"
+          "https://www.trcommunitychurch.com/contact"
         ],
         "confidence": "high",
         "review_notes": null
@@ -288,8 +292,8 @@
       {
         "name": "Full Day Middle School Camp",
         "type": "day",
-        "categories": ["general", "sports"],
-        "description": "Middle school campers participate in activities, sports and weekly outings and field trips around Greenville.",
+        "categories": ["general"],
+        "description": "Middle school campers participate in sports, activities, weekly outings and field trips around Greenville.",
         "camp_page_url": "https://www.ymcagreenville.org/summer-day-camp-george-i-theisen-family-y",
         "registration_url": "https://operations.daxko.com/Online/10004/ProgramsV2/Home.mvc",
         "season": {
@@ -308,7 +312,7 @@
         "sites": [
           {
             "name": "Travelers Rest Community Church",
-            "address": "30 Ebenezer Church Road",
+            "address": "30 Ebenezer Church Rd",
             "town": "Travelers Rest",
             "state": "SC"
           }
@@ -316,7 +320,7 @@
         "hours": {
           "start": "07:30",
           "end": "18:00",
-          "text": "7:30 am - 6:00 pm"
+          "text": null
         },
         "extended_care": null,
         "prices": [
@@ -333,21 +337,21 @@
             "year": 2026
           },
           {
-            "amount": 50,
-            "unit": "other",
-            "label": "Registration fee per child",
-            "year": 2026
-          },
-          {
             "amount": 160,
             "unit": "week",
-            "label": "Week 5 holiday pricing: members",
+            "label": "Week 5 members",
             "year": 2026
           },
           {
             "amount": 200,
             "unit": "week",
-            "label": "Week 5 holiday pricing: community",
+            "label": "Week 5 community",
+            "year": 2026
+          },
+          {
+            "amount": 50,
+            "unit": "program",
+            "label": "Registration fee per child",
             "year": 2026
           }
         ],
@@ -466,7 +470,7 @@
         "availability": null,
         "financial_aid": {
           "value": "yes",
-          "text": "Apply for financial assistance online! All Summer Camp related financial assistance applications must be completed prior to May 1, 2026."
+          "text": "Apply for financial assistance online!"
         },
         "special_needs": null,
         "lunch": null,
@@ -474,7 +478,7 @@
         "sources": [
           "https://www.ymcagreenville.org/summer-day-camp-george-i-theisen-family-y",
           "https://www.ymcagreenville.org/programs/youth-family/summer-day-camp",
-          "https://trcc.churchtrac.com/"
+          "https://www.trcommunitychurch.com/contact"
         ],
         "confidence": "high",
         "review_notes": null
@@ -483,7 +487,7 @@
         "name": "Leaders in Training",
         "type": "day",
         "categories": ["general"],
-        "description": "Participants gain hands-on skills and certifications, work as a team and shadow summer camp counselors. Admission is through an application process.",
+        "description": "Campers shadow summer camp counselors, learn teamwork and gain hands-on skills and certifications. Admission is through an application process for rising eighth graders.",
         "camp_page_url": "https://www.ymcagreenville.org/summer-day-camp-george-i-theisen-family-y",
         "registration_url": null,
         "season": {
@@ -502,7 +506,7 @@
         "sites": [
           {
             "name": "Travelers Rest Community Church",
-            "address": "30 Ebenezer Church Road",
+            "address": "30 Ebenezer Church Rd",
             "town": "Travelers Rest",
             "state": "SC"
           }
@@ -510,7 +514,7 @@
         "hours": {
           "start": "07:30",
           "end": "18:00",
-          "text": "7:30 am - 6:00 pm"
+          "text": null
         },
         "extended_care": null,
         "prices": [
@@ -527,21 +531,21 @@
             "year": 2026
           },
           {
-            "amount": 50,
-            "unit": "other",
-            "label": "Registration fee per child",
-            "year": 2026
-          },
-          {
             "amount": 160,
             "unit": "week",
-            "label": "Week 5 holiday pricing: members",
+            "label": "Week 5 members",
             "year": 2026
           },
           {
             "amount": 200,
             "unit": "week",
-            "label": "Week 5 holiday pricing: community",
+            "label": "Week 5 community",
+            "year": 2026
+          },
+          {
+            "amount": 50,
+            "unit": "program",
+            "label": "Registration fee per child",
             "year": 2026
           }
         ],
@@ -659,12 +663,12 @@
         "last_year_registration_opened": null,
         "availability": {
           "status": "closed",
-          "scope": "2026 LIT applications",
+          "scope": "2026 applications",
           "text": "LIT Camp applications are no longer being accepted. Thank you for your interest."
         },
         "financial_aid": {
           "value": "yes",
-          "text": "Apply for financial assistance online! All Summer Camp related financial assistance applications must be completed prior to May 1, 2026."
+          "text": "Apply for financial assistance online!"
         },
         "special_needs": null,
         "lunch": null,
@@ -672,7 +676,7 @@
         "sources": [
           "https://www.ymcagreenville.org/summer-day-camp-george-i-theisen-family-y",
           "https://www.ymcagreenville.org/programs/youth-family/summer-day-camp",
-          "https://trcc.churchtrac.com/"
+          "https://www.trcommunitychurch.com/contact"
         ],
         "confidence": "high",
         "review_notes": null
@@ -681,7 +685,7 @@
         "name": "Counselor in Training",
         "type": "day",
         "categories": ["general"],
-        "description": "Participants shadow counselors, practice leading small-group activities and receive hands-on training, certifications and professional development. Accepted applicants must attend the full six-week program.",
+        "description": "Campers shadow counselors, practice leading small-group activities and receive hands-on training, certifications and professional development. Rising ninth graders apply for a program requiring attendance for the full six-week session.",
         "camp_page_url": "https://www.ymcagreenville.org/summer-day-camp-george-i-theisen-family-y",
         "registration_url": null,
         "season": {
@@ -700,7 +704,7 @@
         "sites": [
           {
             "name": "Travelers Rest Community Church",
-            "address": "30 Ebenezer Church Road",
+            "address": "30 Ebenezer Church Rd",
             "town": "Travelers Rest",
             "state": "SC"
           }
@@ -708,7 +712,7 @@
         "hours": {
           "start": "07:30",
           "end": "18:00",
-          "text": "7:30 am - 6:00 pm"
+          "text": null
         },
         "extended_care": null,
         "prices": [
@@ -726,7 +730,7 @@
           },
           {
             "amount": 50,
-            "unit": "other",
+            "unit": "program",
             "label": "Registration fee per child",
             "year": 2026
           }
@@ -809,12 +813,12 @@
         "last_year_registration_opened": null,
         "availability": {
           "status": "closed",
-          "scope": "2026 CIT applications",
+          "scope": "2026 applications",
           "text": "CIT Camp applications are no longer being accepted. Thank you for your interest."
         },
         "financial_aid": {
           "value": "yes",
-          "text": "Apply for financial assistance online! All Summer Camp related financial assistance applications must be completed prior to May 1, 2026."
+          "text": "Apply for financial assistance online!"
         },
         "special_needs": null,
         "lunch": null,
@@ -822,7 +826,7 @@
         "sources": [
           "https://www.ymcagreenville.org/summer-day-camp-george-i-theisen-family-y",
           "https://www.ymcagreenville.org/programs/youth-family/summer-day-camp",
-          "https://trcc.churchtrac.com/"
+          "https://www.trcommunitychurch.com/contact"
         ],
         "confidence": "high",
         "review_notes": null
@@ -831,7 +835,7 @@
         "name": "Soccer Camp",
         "type": "half_day",
         "categories": ["sports", "faith_based"],
-        "description": "Campers practice passing, shooting, dribbling, defense and conditioning, with a Friday scrimmage. Snack time includes a daily devotion.",
+        "description": "Campers practice passing, shooting, dribbling, defense and conditioning, with a daily devotion during snack time. The week ends with a Friday scrimmage.",
         "camp_page_url": "https://www.ymcagreenville.org/summer-day-camp-george-i-theisen-family-y",
         "registration_url": "https://operations.daxko.com/Online/10004/ProgramsV2/Home.mvc",
         "season": {
@@ -852,35 +856,29 @@
             "address": "100 Inspirational Way",
             "town": "Travelers Rest",
             "state": "SC"
-          },
-          {
-            "name": "Travelers Rest Community Church",
-            "address": "30 Ebenezer Church Road",
-            "town": "Travelers Rest",
-            "state": "SC"
           }
         ],
         "hours": {
           "start": "09:00",
           "end": "12:00",
-          "text": "9:00 am - Noon"
+          "text": null
         },
         "extended_care": {
           "early_dropoff_start": "07:30",
           "late_pickup_end": "18:00",
-          "cost_text": "Members: $75/week; Community: $90/week. Extended care at Travelers Rest Community Church, 7:30-9:00 am and Noon-6:00 pm; only available with specialty camp registration."
+          "cost_text": "Members: $75/week; Community: $90/week"
         },
         "prices": [
           {
             "amount": 125,
             "unit": "session",
-            "label": "Members; payment due in full at registration",
+            "label": "Members",
             "year": 2026
           },
           {
             "amount": 160,
             "unit": "session",
-            "label": "Community; payment due in full at registration",
+            "label": "Community",
             "year": 2026
           }
         ],
@@ -890,7 +888,7 @@
             "start": "2026-06-15",
             "end": "2026-06-19",
             "year": 2026,
-            "site": "George I. Theisen Family YMCA fields",
+            "site": null,
             "ages": null,
             "grades": null,
             "hours": null,
@@ -903,7 +901,7 @@
         "availability": null,
         "financial_aid": {
           "value": "yes",
-          "text": "Apply for financial assistance online! All Summer Camp related financial assistance applications must be completed prior to May 1, 2026."
+          "text": "Apply for financial assistance online!"
         },
         "special_needs": null,
         "lunch": null,
@@ -914,8 +912,7 @@
         "sources": [
           "https://www.ymcagreenville.org/summer-day-camp-george-i-theisen-family-y",
           "https://www.ymcagreenville.org/programs/youth-family/summer-day-camp",
-          "https://www.ymcagreenville.org/locations/george-i-theisen-family-ymca",
-          "https://trcc.churchtrac.com/"
+          "https://www.ymcagreenville.org/locations/george-i-theisen-family-ymca"
         ],
         "confidence": "high",
         "review_notes": null
@@ -924,7 +921,7 @@
         "name": "Pickleball Camp",
         "type": "half_day",
         "categories": ["sports", "faith_based"],
-        "description": "Beginners learn pickleball rules, paddle skills, serving, footwork and court strategy through drills and partner games. The week includes daily devotions and ends with tournament-style matches.",
+        "description": "Beginning players learn rules, paddle skills, serving, footwork and court strategy through drills and partner games. Camp includes daily snack-time devotions and finishes with friendly tournament-style matches.",
         "camp_page_url": "https://www.ymcagreenville.org/summer-day-camp-george-i-theisen-family-y",
         "registration_url": "https://operations.daxko.com/Online/10004/ProgramsV2/Home.mvc",
         "season": {
@@ -942,7 +939,7 @@
         "sites": [
           {
             "name": "Travelers Rest Community Church",
-            "address": "30 Ebenezer Church Road",
+            "address": "30 Ebenezer Church Rd",
             "town": "Travelers Rest",
             "state": "SC"
           }
@@ -950,24 +947,24 @@
         "hours": {
           "start": "09:00",
           "end": "12:00",
-          "text": "9:00 am – Noon"
+          "text": null
         },
         "extended_care": {
           "early_dropoff_start": "07:30",
           "late_pickup_end": "18:00",
-          "cost_text": "Members: $75/week; Community: $90/week. Extended care 7:30-9:00 am and Noon-6:00 pm; only available with specialty camp registration."
+          "cost_text": "Members: $75/week; Community: $90/week"
         },
         "prices": [
           {
             "amount": 125,
             "unit": "session",
-            "label": "Members; payment due in full at registration",
+            "label": "Members",
             "year": 2026
           },
           {
             "amount": 160,
             "unit": "session",
-            "label": "Community; payment due in full at registration",
+            "label": "Community",
             "year": 2026
           }
         ],
@@ -990,7 +987,7 @@
         "availability": null,
         "financial_aid": {
           "value": "yes",
-          "text": "Apply for financial assistance online! All Summer Camp related financial assistance applications must be completed prior to May 1, 2026."
+          "text": "Apply for financial assistance online!"
         },
         "special_needs": null,
         "lunch": null,
@@ -998,7 +995,7 @@
         "sources": [
           "https://www.ymcagreenville.org/summer-day-camp-george-i-theisen-family-y",
           "https://www.ymcagreenville.org/programs/youth-family/summer-day-camp",
-          "https://trcc.churchtrac.com/"
+          "https://www.trcommunitychurch.com/contact"
         ],
         "confidence": "high",
         "review_notes": null
@@ -1007,7 +1004,7 @@
         "name": "Basketball Camp",
         "type": "half_day",
         "categories": ["sports", "faith_based"],
-        "description": "Campers practice passing, shooting, dribbling, rebounding, defense and conditioning in age or ability groups. Each day includes a devotion, and the week ends with a scrimmage.",
+        "description": "Campers practice passing, shooting, dribbling, rebounding, defense and conditioning, with daily snack-time devotions. The week ends with a Friday scrimmage.",
         "camp_page_url": "https://www.ymcagreenville.org/summer-day-camp-george-i-theisen-family-y",
         "registration_url": "https://operations.daxko.com/Online/10004/ProgramsV2/Home.mvc",
         "season": {
@@ -1025,7 +1022,7 @@
         "sites": [
           {
             "name": "Travelers Rest Community Church",
-            "address": "30 Ebenezer Church Road",
+            "address": "30 Ebenezer Church Rd",
             "town": "Travelers Rest",
             "state": "SC"
           }
@@ -1033,24 +1030,24 @@
         "hours": {
           "start": "09:00",
           "end": "12:00",
-          "text": "9:00 am – Noon"
+          "text": null
         },
         "extended_care": {
           "early_dropoff_start": "07:30",
           "late_pickup_end": "18:00",
-          "cost_text": "Members: $75/week; Community: $90/week. Extended care 7:30-9:00 am and Noon-6:00 pm; only available with specialty camp registration."
+          "cost_text": "Members: $75/week; Community: $90/week"
         },
         "prices": [
           {
             "amount": 125,
             "unit": "session",
-            "label": "Members; payment due in full at registration",
+            "label": "Members",
             "year": 2026
           },
           {
             "amount": 160,
             "unit": "session",
-            "label": "Community; payment due in full at registration",
+            "label": "Community",
             "year": 2026
           }
         ],
@@ -1073,7 +1070,7 @@
         "availability": null,
         "financial_aid": {
           "value": "yes",
-          "text": "Apply for financial assistance online! All Summer Camp related financial assistance applications must be completed prior to May 1, 2026."
+          "text": "Apply for financial assistance online!"
         },
         "special_needs": null,
         "lunch": null,
@@ -1081,7 +1078,7 @@
         "sources": [
           "https://www.ymcagreenville.org/summer-day-camp-george-i-theisen-family-y",
           "https://www.ymcagreenville.org/programs/youth-family/summer-day-camp",
-          "https://trcc.churchtrac.com/"
+          "https://www.trcommunitychurch.com/contact"
         ],
         "confidence": "high",
         "review_notes": null
@@ -1090,7 +1087,7 @@
         "name": "Princess Dance Camp",
         "type": "half_day",
         "categories": ["dance"],
-        "description": "Campers learn jazz, ballet and hip-hop routines to Disney songs featuring princess characters. They perform their routines for family and friends on Friday.",
+        "description": "Campers learn jazz, ballet and hip-hop routines to Disney songs. They perform for family and friends on Friday.",
         "camp_page_url": "https://www.ymcagreenville.org/summer-day-camp-george-i-theisen-family-y",
         "registration_url": "https://operations.daxko.com/Online/10004/ProgramsV2/Home.mvc",
         "season": {
@@ -1111,35 +1108,29 @@
             "address": "100 Inspirational Way",
             "town": "Travelers Rest",
             "state": "SC"
-          },
-          {
-            "name": "Travelers Rest Community Church",
-            "address": "30 Ebenezer Church Road",
-            "town": "Travelers Rest",
-            "state": "SC"
           }
         ],
         "hours": {
           "start": "13:00",
           "end": "16:00",
-          "text": "1:00-4:00 pm"
+          "text": null
         },
         "extended_care": {
           "early_dropoff_start": "07:30",
           "late_pickup_end": "18:00",
-          "cost_text": "Members: $75/week; Community: $90/week. Extended care at Travelers Rest Community Church, 7:30 am-1:00 pm and 4:00-6:00 pm; only available with specialty camp registration."
+          "cost_text": "Members: $75/week; Community: $90/week"
         },
         "prices": [
           {
             "amount": 125,
             "unit": "session",
-            "label": "Members; payment due in full at registration",
+            "label": "Members",
             "year": 2026
           },
           {
             "amount": 160,
             "unit": "session",
-            "label": "Community; payment due in full at registration",
+            "label": "Community",
             "year": 2026
           }
         ],
@@ -1149,7 +1140,7 @@
             "start": "2026-06-08",
             "end": "2026-06-12",
             "year": 2026,
-            "site": "George I. Theisen Family YMCA",
+            "site": null,
             "ages": null,
             "grades": null,
             "hours": null,
@@ -1173,8 +1164,7 @@
         "sources": [
           "https://www.ymcagreenville.org/summer-day-camp-george-i-theisen-family-y",
           "https://www.ymcagreenville.org/programs/youth-family/summer-day-camp",
-          "https://www.ymcagreenville.org/locations/george-i-theisen-family-ymca",
-          "https://trcc.churchtrac.com/"
+          "https://www.ymcagreenville.org/locations/george-i-theisen-family-ymca"
         ],
         "confidence": "high",
         "review_notes": null
@@ -1182,8 +1172,8 @@
       {
         "name": "Tumbling Camp",
         "type": "half_day",
-        "categories": ["sports", "dance"],
-        "description": "Participants practice balance, skipping, hopping and movement skills appropriate to their age and gross motor development. Parents may watch a Friday demonstration of skills and routines.",
+        "categories": ["sports"],
+        "description": "Participants practice balance, skipping, hopping and movement skills based on age and gross motor development. Parents are invited to a Friday demonstration of skills and routines.",
         "camp_page_url": "https://www.ymcagreenville.org/summer-day-camp-george-i-theisen-family-y",
         "registration_url": "https://operations.daxko.com/Online/10004/ProgramsV2/Home.mvc",
         "season": {
@@ -1204,35 +1194,29 @@
             "address": "100 Inspirational Way",
             "town": "Travelers Rest",
             "state": "SC"
-          },
-          {
-            "name": "Travelers Rest Community Church",
-            "address": "30 Ebenezer Church Road",
-            "town": "Travelers Rest",
-            "state": "SC"
           }
         ],
         "hours": {
           "start": "13:00",
           "end": "16:00",
-          "text": "1:00-4:00 pm"
+          "text": null
         },
         "extended_care": {
           "early_dropoff_start": "07:30",
           "late_pickup_end": "18:00",
-          "cost_text": "Members: $75/week; Community: $90/week. Extended care at Travelers Rest Community Church, 7:30 am-1:00 pm and 4:00-6:00 pm; only available with specialty camp registration."
+          "cost_text": "Members: $75/week; Community: $90/week"
         },
         "prices": [
           {
             "amount": 125,
             "unit": "session",
-            "label": "Members; payment due in full at registration",
+            "label": "Members",
             "year": 2026
           },
           {
             "amount": 160,
             "unit": "session",
-            "label": "Community; payment due in full at registration",
+            "label": "Community",
             "year": 2026
           }
         ],
@@ -1242,7 +1226,7 @@
             "start": "2026-07-06",
             "end": "2026-07-10",
             "year": 2026,
-            "site": "George I. Theisen Family YMCA",
+            "site": null,
             "ages": null,
             "grades": null,
             "hours": null,
@@ -1266,8 +1250,7 @@
         "sources": [
           "https://www.ymcagreenville.org/summer-day-camp-george-i-theisen-family-y",
           "https://www.ymcagreenville.org/programs/youth-family/summer-day-camp",
-          "https://www.ymcagreenville.org/locations/george-i-theisen-family-ymca",
-          "https://trcc.churchtrac.com/"
+          "https://www.ymcagreenville.org/locations/george-i-theisen-family-ymca"
         ],
         "confidence": "high",
         "review_notes": null

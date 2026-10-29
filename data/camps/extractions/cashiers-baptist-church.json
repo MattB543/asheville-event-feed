@@ -8,23 +8,22 @@
     "status": "review",
     "status_reason": "page didn't load: fetch: fetch failed (getaddrinfo ENOTFOUND www.cashiersbaptistchurch.com); chrome-tls: fetch failed (getaddrinfo ENOTFOUND www.cashiersbaptistchurch.com); browser: page.goto: net::ERR_NAME_NOT_RESOLVED at https://www.cashiersbaptistchurch.com/"
   },
-  "extractedAt": "2026-10-29T15:19:00.112Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:16:13.418Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": null,
   "response": {
     "searches": [
-      "Cashiers Baptist Church VBS 2026 2027",
-      "\"Cashiers Baptist\" \"VBS\"",
-      "site:facebook.com \"Cashiers Baptist Church\" \"VBS\""
+      "Cashiers Baptist Church VBS 2026",
+      "site.facebook.com \"Cashiers Baptist Church\" \"2026\" \"VBS\""
     ],
     "usage": {
-      "inputTokens": 25451,
-      "cachedInputTokens": 8223,
-      "outputTokens": 397,
-      "reasoningTokens": 251
+      "inputTokens": 25549,
+      "cachedInputTokens": 8845,
+      "outputTokens": 534,
+      "reasoningTokens": 149
     },
     "status": "completed",
-    "ms": 19658,
+    "ms": 22610,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -43,8 +42,46 @@
   "extraction": {
     "provider_name": "Cashiers Baptist Church",
     "website_url": "https://www.cashiersbaptistchurch.com/",
-    "notes": "The official website returned no readable content and was reported blocked by robots.txt; the supplied Facebook page also returned no readable content. Searches did not locate an official 2026 or 2027 summer camp or Vacation Bible School announcement, registration page, or brochure. A historical third-party document mentions Cashiers Baptist VBS, but does not establish a current offering. No cards could be verified; this does not establish that the church offers no summer programs. A reviewer should check the church's Facebook posts directly or contact the church.",
-    "excluded": [],
-    "cards": []
+    "notes": "No 2027 camp information was found. The church website and official Facebook page returned no readable text. A third-party mirror of church Facebook posts at https://www.findglocal.com/US/Cashiers/90875213381/Cashiers-Baptist-Church includes a June 26, 2026 post saying Rainforest Falls VBS had ended after a week of learning about the Nature of God. This establishes a tentative program lead but does not establish its dates, eligibility, hours or registration details.",
+    "excluded": [
+      {
+        "name": "Missions Conference",
+        "reason": "Conferences are excluded under the camp rule."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Rainforest Falls VBS",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Vacation Bible School focused on learning about the Nature of God.",
+        "camp_page_url": "https://www.facebook.com/90875213381/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [],
+        "confidence": "low",
+        "review_notes": "Program name and activity description come only from the June 26, 2026 church post reproduced by FindGlocal; the official website and Facebook page could not be read. Check the original Facebook announcement for dates, ages, hours, registration and drop-off location. No official venue address was readable, so sites are left empty."
+      }
+    ]
   }
 }

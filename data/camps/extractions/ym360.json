@@ -7,19 +7,23 @@
     "discovered_by": ["gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:36:53.571Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
-  "sourceHash": "4b0ea727bbb0e217989965ac6b74a9258a72558ecf9701afbf178a8caf0eec77",
+  "extractedAt": "2026-10-29T17:31:32.374Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "c3f73611dcbbcc452fca93c16221c7ba9ee9f546f47d4031163deb52b99e7923",
   "response": {
-    "searches": ["site:wcu.edu \"1 University Way\""],
+    "searches": [
+      "site:wcu.edu \"1 University Way\"",
+      "open https://generatestudents.com/pages/kids-academy",
+      "site:generatestudents.com/pages/kids-academy \"grade\""
+    ],
     "usage": {
-      "inputTokens": 32116,
-      "cachedInputTokens": 8223,
-      "outputTokens": 816,
-      "reasoningTokens": 47
+      "inputTokens": 32995,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1840,
+      "reasoningTokens": 188
     },
     "status": "completed",
-    "ms": 23408,
+    "ms": 41833,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -68,15 +72,23 @@
   "extraction": {
     "provider_name": "YM360",
     "website_url": "https://generatestudents.com/",
-    "notes": "Only the Cullowhee offering is included; the national 2027 catalog lists one Cullowhee session. Registration is through church groups, with accompanying adults. The January 31 deposit deadline has no explicit year and is therefore not entered as a dated registration milestone.",
+    "notes": "The 2027 list has one local GENERATE Camp session, at Western Carolina University. Other listed camp sites are outside the directory's area. Registration is organized through church groups. Kids Academy of Awesomeness is also described on the official site, but its local dates, price and daily schedule were not accessible; its page opened without readable text.",
     "excluded": [
       {
         "name": "GENERATE Conference",
-        "reason": "The posted conferences occur January through March, outside summer."
+        "reason": "Conferences are excluded; the listed events also occur outside summer."
+      },
+      {
+        "name": "GENERATE Camp — other locations",
+        "reason": "All sites other than Cullowhee are plainly outside about 75 minutes' drive of Asheville."
+      },
+      {
+        "name": "BEACH Camp",
+        "reason": "Beach locations are outside the directory's geographic area."
       },
       {
         "name": "LEAD TEAM",
-        "reason": "The Cullowhee session explicitly states that LEAD TEAM is not needed for this week."
+        "reason": "The Cullowhee session explicitly says LEAD TEAM is not needed for this week; no local offering was found."
       }
     ],
     "cards": [
@@ -84,7 +96,7 @@
         "name": "GENERATE Camp",
         "type": "overnight",
         "categories": ["faith_based", "general"],
-        "description": "Church youth groups participate in Bible study, worship, and recreation while staying in university dormitories. Groups choose options involving group-building activities, community service, evangelism training, or activities planned by their church.",
+        "description": "Church youth groups participate in Bible study, worship and group activities while staying in university dormitories. Groups choose recreation, community service, evangelism training or activities planned by their own leaders.",
         "camp_page_url": "https://generatestudents.com/products/cullowhee-nc-july-29-23-2027",
         "registration_url": "https://generatestudents.com/products/cullowhee-nc-july-29-23-2027",
         "season": {
@@ -92,7 +104,7 @@
           "status": "posted",
           "start": "2027-07-19",
           "end": "2027-07-23",
-          "text": "Dates: July 19 – 23, 2027"
+          "text": null
         },
         "ages": null,
         "grades": {
@@ -103,7 +115,7 @@
         "sites": [
           {
             "name": "Western Carolina University",
-            "address": "1 University Drive",
+            "address": "1 University Way",
             "town": "Cullowhee",
             "state": "NC"
           }
@@ -111,43 +123,69 @@
         "hours": {
           "start": null,
           "end": null,
-          "text": "First-day registration and check-in: 1:00–3:00 PM. Closing-day dismissal: 9:00 AM."
+          "text": "First day: 1:00 - 3:00 PM Registration & Check-In. Closing day: 9:00 AM Dismiss."
         },
         "extended_care": null,
         "prices": [
           {
             "amount": 399,
             "unit": "session",
-            "label": "CONNECT OPTION; per person",
+            "label": "CONNECT OPTION",
             "year": 2027
           },
           {
             "amount": 419,
             "unit": "session",
-            "label": "SERVE OPTION; per person",
+            "label": "SERVE OPTION",
             "year": 2027
           },
           {
             "amount": 409,
             "unit": "session",
-            "label": "GUIDE OPTION; per person; church groups of 40 or less",
+            "label": "GUIDE OPTION",
             "year": 2027
           },
           {
             "amount": 389,
             "unit": "session",
-            "label": "EXPLORE OPTION; per person",
+            "label": "EXPLORE OPTION",
             "year": 2027
           },
           {
             "amount": 399,
             "unit": "session",
-            "label": "SHARE Option; per person",
+            "label": "SHARE Option",
             "year": 2027
           }
         ],
-        "sessions": [],
-        "registration": [],
+        "sessions": [
+          {
+            "label": "July 19 - 23, 2027",
+            "start": "2027-07-19",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "deadline",
+            "date": "2027-01-31",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "January 31: Deadline for deposit required to secure your space at GENERATE. Deposits are 25% of your price per person.",
+            "url": "https://generatestudents.com/products/cullowhee-nc-july-29-23-2027",
+            "year": 2027,
+            "confidence": "medium"
+          }
+        ],
         "last_year_registration_opened": null,
         "availability": null,
         "financial_aid": null,
@@ -164,10 +202,49 @@
           "https://generatestudents.com/pages/serve-option",
           "https://generatestudents.com/pages/guide-option",
           "https://generatestudents.com/pages/explore-option",
-          "https://www.wcu.edu/discover/locations/main-campus/campus-map.aspx"
+          "https://www.wcu.edu/learn/departments-schools-colleges/ceap/humanserv/resources/CEAP-HS_StudentResourceGuide.pdf"
         ],
         "confidence": "medium",
-        "review_notes": "The camp page gives 1 University Way; WCU's own campus map publishes 1 University Drive, which is used here. Eligibility also includes graduates and accompanying adults, beyond the numeric grade range. The product header displays $389 discounted from $409; the explicit option-specific prices are used instead. January 31 deposit instructions do not print a year. SERVE groups must provide their own transportation to assigned service sites; no camp-wide transportation policy is stated."
+        "review_notes": "January 31 has no printed year in the financial section; 2027 is taken from the product heading. The FAQ also welcomes graduates beyond grade 12 and accepts sixth graders regardless of promotion timing. Use the location-specific option prices rather than the lower generic starting prices on option pages. The product URL contains 'july-29-23', but its heading and dates consistently state July 19–23, 2027."
+      },
+      {
+        "name": "Kids Academy of Awesomeness",
+        "type": "day",
+        "categories": ["general", "faith_based"],
+        "description": "GENERATE staff teach and play with children accompanying youth ministers during their week at camp. Children must be potty-trained and have completed kindergarten.",
+        "camp_page_url": "https://generatestudents.com/pages/kids-academy",
+        "registration_url": "https://generatestudents.com/pages/toolkit",
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 0,
+          "max": null,
+          "basis": "completed"
+        },
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://generatestudents.com/pages/kids-academy",
+          "https://generatestudents.com/pages/toolkit"
+        ],
+        "confidence": "low",
+        "review_notes": "Official search snippets describe this supervised program for children accompanying youth ministers and say other adults' children may attend if space permits. The toolkit says it is offered at camp, except beach events, but no explicit Cullowhee or 2027 dates were found. Confirm local operation, venue, upper grade limit, price and hours. The Kids Academy page returned no readable text when opened."
       }
     ]
   }

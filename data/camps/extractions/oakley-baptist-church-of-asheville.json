@@ -8,23 +8,23 @@
     "status": "review",
     "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
   },
-  "extractedAt": "2026-10-29T15:12:59.924Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:11:09.135Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "5929fdd2c467a7a0a28d061ffeed1157eb78d92e3598c8904a2d7f0a03836ec2",
   "response": {
     "searches": [
       "site:oakleybaptistchurch.org \"VBS\"",
       "open https://www.oakleybaptistchurch.org/newsletter",
-      "\"Oakley Baptist\" \"2026\" \"VBS\" Asheville"
+      "\"Oakley Baptist\" \"2026\" \"July\" \"VBS\""
     ],
     "usage": {
-      "inputTokens": 21408,
-      "cachedInputTokens": 8223,
-      "outputTokens": 669,
-      "reasoningTokens": 223
+      "inputTokens": 22286,
+      "cachedInputTokens": 8845,
+      "outputTokens": 780,
+      "reasoningTokens": 198
     },
     "status": "completed",
-    "ms": 24206,
+    "ms": 27005,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -38,19 +38,15 @@
   "extraction": {
     "provider_name": "Oakley Baptist Church of Asheville",
     "website_url": "https://www.oakleybaptistchurch.org/",
-    "notes": "No 2027 summer information found. Official search-indexed volunteer page confirms Vacation Bible School, but dates and participant details could not be verified officially. Third-party event listings mention July 12, 2026 at 6 PM; these unverified details were not entered. Events and newsletter pages returned no readable content when opened; search results list June and July 2026 newsletters, but no accessible PDF links were exposed.",
+    "notes": "No 2027 summer information was found. The official newsletter page lists January–August 2026 newsletters, but the readable page exposes no newsletter contents or PDF links. Third-party event listings mention Vacation Bible School on July 12, 2026, at 70 Fairview Avenue; these were insufficient to establish the full schedule or official program details.",
     "excluded": [
       {
         "name": "Youth Lock-in and Fall Festival",
-        "reason": "November event, outside summer."
+        "reason": "November event outside summer; lock-ins and festivals are also excluded."
       },
       {
-        "name": "Nursery",
-        "reason": "Childcare during recurring Sunday and Wednesday services, not a finite summer program."
-      },
-      {
-        "name": "OBC Kids Club",
-        "reason": "No finite summer offering established on the official volunteer page."
+        "name": "Churchwide Thanksgiving Family Meal",
+        "reason": "Single social event outside summer."
       }
     ],
     "cards": [
@@ -58,11 +54,11 @@
         "name": "Vacation Bible School",
         "type": "vbs",
         "categories": ["faith_based"],
-        "description": "Children receive teaching and play games during the church's Vacation Bible School.",
-        "camp_page_url": "https://www.oakleybaptistchurch.org/donate-1",
+        "description": "Vacation Bible School for children.",
+        "camp_page_url": null,
         "registration_url": null,
         "season": {
-          "year": 2027,
+          "year": 2026,
           "status": "not_posted",
           "start": null,
           "end": null,
@@ -70,7 +66,14 @@
         },
         "ages": null,
         "grades": null,
-        "sites": [],
+        "sites": [
+          {
+            "name": "Oakley Baptist Church",
+            "address": "70 Fairview Ave",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
         "hours": null,
         "extended_care": null,
         "prices": [],
@@ -83,11 +86,13 @@
         "lunch": null,
         "transportation": null,
         "sources": [
-          "https://www.oakleybaptistchurch.org/donate-1",
-          "https://www.oakleybaptistchurch.org/"
+          "https://www.oakleybaptistchurch.org/",
+          "https://www.oakleybaptistchurch.org/contact",
+          "https://www.oakleybaptistchurch.org/newsletter",
+          "https://www.oakleybaptistchurch.org/events"
         ],
-        "confidence": "medium",
-        "review_notes": "Program existence and activities are confirmed only through the official volunteer page's search snippet. Verify summer dates, ages, hours, registration and drop-off location with the church. Church address is officially 70 Fairview Ave, Asheville, NC 28803, but the accessible official text does not explicitly identify it as the VBS venue."
+        "confidence": "low",
+        "review_notes": "Retained the existing program, but no readable official VBS announcement was found. The church publishes its address; the VBS venue is supported only by third-party event snippets. Check the June and July 2026 newsletters or obtain the church's official announcement to confirm venue, full dates, ages, hours and registration details. No third-party dates or hours were copied into the card."
       }
     ]
   }

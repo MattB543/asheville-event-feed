@@ -9,23 +9,22 @@
     "status": "review",
     "status_reason": "first page is a social media page or video, which our fetcher can't read"
   },
-  "extractedAt": "2026-10-29T15:25:58.146Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:21:51.177Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": null,
   "response": {
     "searches": [
-      "\"Point Pleasant Baptist Church\" \"Newport\" \"VBS\"",
-      "site:facebook.com/groups/597934280977480 \"VBS\" \"2026\"",
-      "open https://form.jotform.com/260428490456057"
+      "\"Point Pleasant Baptist Church\" \"Newport\" \"VBS\" 2026",
+      "site:facebook.com \"597934280977480\" \"VBS\""
     ],
     "usage": {
-      "inputTokens": 17543,
-      "cachedInputTokens": 8223,
-      "outputTokens": 943,
-      "reasoningTokens": 220
+      "inputTokens": 24673,
+      "cachedInputTokens": 8845,
+      "outputTokens": 731,
+      "reasoningTokens": 186
     },
     "status": "completed",
-    "ms": 33546,
+    "ms": 21084,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -39,30 +38,21 @@
   "extraction": {
     "provider_name": "Point Pleasant Baptist Church of Newport",
     "website_url": null,
-    "notes": "No standalone church website or 2027 summer information found. The church's Facebook group could not be read. Indexed church registration forms identify a July 6–10 Vacation Bible School but omit the year; a third-party event listing dates it to 2026. Registration forms were readable only through search results.",
-    "excluded": [
-      {
-        "name": "Point Pleasant Baptist Church Easter Egg Hunt",
-        "reason": "March 21 event outside summer."
-      },
-      {
-        "name": "Sunday School/Kids Church",
-        "reason": "Regular church programming, not a finite summer camp."
-      }
-    ],
+    "notes": "No standalone church website or 2027 camp information was found. The church's Facebook group could not be read. The Southern Baptist Convention directory links to that group and lists the church address. A third-party AllEvents search result lists a 2026 VBS event on July 6 at 5:30 p.m., but the official announcement and full date range could not be verified; those dates and hours have not been populated.",
+    "excluded": [],
     "cards": [
       {
         "name": "Vacation Bible School",
         "type": "vbs",
         "categories": ["faith_based"],
-        "description": "Children attend the church's Vacation Bible School in the evening. A meal is served before the program.",
+        "description": "Vacation Bible School for children.",
         "camp_page_url": "https://www.facebook.com/groups/597934280977480",
-        "registration_url": "https://form.jotform.com/260428490456057",
+        "registration_url": null,
         "season": {
-          "year": 2026,
+          "year": 2027,
           "status": "not_posted",
-          "start": "2026-07-06",
-          "end": "2026-07-10",
+          "start": null,
+          "end": null,
           "text": null
         },
         "ages": null,
@@ -75,11 +65,7 @@
             "state": "TN"
           }
         ],
-        "hours": {
-          "start": "18:30",
-          "end": "20:30",
-          "text": "Meal served at 5:30 for those attending and VBS is 6:30-8:30."
-        },
+        "hours": null,
         "extended_care": null,
         "prices": [],
         "sessions": [],
@@ -88,17 +74,14 @@
         "availability": null,
         "financial_aid": null,
         "special_needs": null,
-        "lunch": {
-          "value": "yes",
-          "text": "Meal served at 5:30 for those attending"
-        },
+        "lunch": null,
         "transportation": null,
         "sources": [
-          "https://form.jotform.com/260428490456057",
-          "https://form.jotform.com/260429435420048"
+          "https://www.facebook.com/groups/597934280977480",
+          "https://churches.sbc.net/church/point-pleasant-baptist-church/"
         ],
-        "confidence": "medium",
-        "review_notes": "Confirm the year and location with the church. Official registration form search results state July 6–10 without a year; 2026 comes from https://allevents.in/lowland/point-pleasant-baptist-church-vbs/200030095404545. Address is supported by that listing and the SBC church directory, rather than a readable church-published address. The third-party event starts at 5:30 p.m.; the official form distinguishes the 5:30 meal from VBS at 6:30–8:30. The form asks for sensory issues and ways to support children but does not state an accommodation policy. Its bus-route question concerns Sunday School/Kids Church, not VBS transportation."
+        "confidence": "low",
+        "review_notes": "Retained the existing program name, but the official Facebook group returned no readable content. Check the group for the VBS announcement, dates, ages, hours and registration details. The church address is from the SBC directory, not a readable church-published location page; confirm that VBS meets there. The third-party listing at https://allevents.in/lowland/point-pleasant-baptist-church-vbs/200030095404545 suggests a 2026 event but is insufficient to establish its full schedule."
       }
     ]
   }

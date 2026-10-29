@@ -13,22 +13,22 @@
     "discovered_by": ["grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:18:42.316Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:15:49.869Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "e0f9399782bf325d4f9d36259e4d2f93ab7d4cd1d9b74fc3b83bb45725101af1",
   "response": {
     "searches": [
-      "site:firstbaptistsylva.com \"2027\" camp",
-      "site:firstbaptistsylva.com \"summer camp\" \"2026\" \"registration\""
+      "site:firstbaptistsylva.com \"2026\" \"summer camp\"",
+      "site:firstbaptistsylva.com \"2026\" \"camp\" \"registration\""
     ],
     "usage": {
-      "inputTokens": 27106,
-      "cachedInputTokens": 8223,
-      "outputTokens": 889,
-      "reasoningTokens": 190
+      "inputTokens": 27614,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1012,
+      "reasoningTokens": 157
     },
     "status": "completed",
-    "ms": 25438,
+    "ms": 23458,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -72,20 +72,44 @@
   "extraction": {
     "provider_name": "First Baptist Church of Sylva",
     "website_url": "https://firstbaptistsylva.com/",
-    "notes": "No 2027 camp information or registration dates found. The 2026 summer camp recaps confirm the program operated but do not publish exact session dates, ages, hours or tuition. Community Vacation Bible School appears in older official materials, but no 2026 or 2027 offering was found; it is not included as a current card.",
+    "notes": "No 2027 camp information or registration announcement was found. Official 2026 summer-camp recaps confirm the program, but do not explicitly give session date ranges, ages, hours or tuition. Community Vacation Bible School appears in older materials, but no 2026 or 2027 offering was found; it is not included as a current card.",
     "excluded": [
       {
         "name": "1st Explorers After-School Ministry",
-        "reason": "School-year after-school childcare, not a summer program. Its tuition, transportation and capacity statements do not apply to summer camp."
+        "reason": "School-year after-school childcare, not a finite summer camp."
+      },
+      {
+        "name": "Wee Explorers",
+        "reason": "Preschool ministry, not a finite summer camp."
+      },
+      {
+        "name": "Youth Picnic at the Lake!",
+        "reason": "Youth-group outing."
+      },
+      {
+        "name": "Youth Movie and Pizza Night",
+        "reason": "Single-evening social event."
+      },
+      {
+        "name": "Prayer Walk and Homemade Ice Cream Contest",
+        "reason": "Single-evening community event."
+      },
+      {
+        "name": "End of Summer Explorers Camp CELEBRATION",
+        "reason": "Camp celebration event rather than a separate supervised summer program."
+      },
+      {
+        "name": "Asheville Tourists Game",
+        "reason": "Community social outing rather than a camp."
       }
     ],
     "cards": [
       {
         "name": "First Explorers Summer Camp",
         "type": "day",
-        "categories": ["general", "nature_outdoor", "arts", "faith_based"],
-        "description": "Campers make crafts, participate in plant and nature activities, attend chapel, and visit parks, libraries and the public pool. Other outings include movies and local museums.",
-        "camp_page_url": "https://firstbaptistsylva.com/news-events-blog/2026/6/10/first-explorers-summer-camp-recap-61026",
+        "categories": ["general", "faith_based", "nature_outdoor", "arts"],
+        "description": "Campers make crafts, learn about plants, attend chapel, swim and play at parks. They also take trips to libraries, museums and other local destinations.",
+        "camp_page_url": "https://firstbaptistsylva.com/first-explorers",
         "registration_url": null,
         "season": {
           "year": 2026,
@@ -116,11 +140,11 @@
         "lunch": null,
         "transportation": null,
         "sources": [
+          "https://firstbaptistsylva.com/first-explorers",
           "https://firstbaptistsylva.com/news-events-blog/2026/6/10/first-explorers-summer-camp-recap-61026",
-          "https://firstbaptistsylva.com/news-events-blog/2026/6/10/first-explorers-summer-camp-recap-61026-phxcg",
           "https://firstbaptistsylva.com/news-events-blog/2026/6/10/first-explorers-summer-camp-recap-61026-phxcg-38xh8",
-          "https://firstbaptistsylva.com/news-events-blog/2026/6/10/first-explorers-summer-camp-recap-61026-phxcg-38xh8-alyzd-bkwlb-pww6a-wd775",
-          "https://firstbaptistsylva.com/"
+          "https://firstbaptistsylva.com/news-events-blog/2026/6/10/first-explorers-summer-camp-recap-61026-phxcg-38xh8-alyzd-bkwlb",
+          "https://firstbaptistsylva.com/news-events-blog/2026/6/10/first-explorers-summer-camp-recap-61026-phxcg-38xh8-alyzd-bkwlb-pww6a-wd775"
         ],
         "confidence": "high",
         "review_notes": null

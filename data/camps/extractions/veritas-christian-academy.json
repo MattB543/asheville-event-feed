@@ -7,19 +7,19 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:07:28.115Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:07:02.385Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "04baf4f42e03a665588e3cec905b6a71cd4cbf56e1d26300ff70ade44a1bc1da",
   "response": {
-    "searches": ["site:veritasnc.org \"2027\" \"camp\""],
+    "searches": ["site:veritasnc.org \"camp\" \"2027\""],
     "usage": {
-      "inputTokens": 18486,
-      "cachedInputTokens": 8223,
-      "outputTokens": 6311,
-      "reasoningTokens": 91
+      "inputTokens": 19100,
+      "cachedInputTokens": 8845,
+      "outputTokens": 6655,
+      "reasoningTokens": 78
     },
     "status": "completed",
-    "ms": 100276,
+    "ms": 110032,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -68,14 +68,14 @@
   "extraction": {
     "provider_name": "Veritas Christian Academy",
     "website_url": "https://www.veritasnc.org/",
-    "notes": "No summer 2027 information was found. Dates and prices below are from the 2026 camp guide and event pages. The guide's year is established by the official page's '2026 CAMP GUIDE' heading and the event attachment title 'Camp Veritas 2026.pdf'. School tuition assistance and school-year aftercare policies were not applied to summer camps. Camp registration pages currently say 'Tickets are not on sale'.",
+    "notes": "No summer 2027 camp information was found. Cards use the 2026 camp guide and event pages. The guide's dates do not print a year; the camp page labels it the 2026 CAMP GUIDE and the event pages confirm 2026. The 2026 early-bird discount required registration before May 22; this is not a 2027 registration milestone. Camp Early Bird and Aftercare are included as extended care rather than separate programs. School tuition assistance is not evidence of camp financial aid.",
     "excluded": [
       {
-        "name": "School-year AfterCare",
-        "reason": "Year-round school childcare, not a summer-only program."
+        "name": "School AfterCare",
+        "reason": "School-year childcare offered on days school is in session, not a summer camp."
       },
       {
-        "name": "Veritas Athletics",
+        "name": "Veritas athletic teams",
         "reason": "School sports teams and seasons, not finite summer camps."
       }
     ],
@@ -83,8 +83,8 @@
       {
         "name": "Basketball",
         "type": "half_day",
-        "categories": ["sports", "faith_based"],
-        "description": "Campers practice basketball fundamentals through skill-building games and Biblical teamwork principles. A game ball is included.",
+        "categories": ["sports"],
+        "description": "Campers practice basketball fundamentals through competitive skill-building games and Biblical teamwork principles. Includes a game ball.",
         "camp_page_url": "https://www.veritasnc.org/camp-veritas",
         "registration_url": "https://www.veritasnc.org/camp-veritas",
         "season": {
@@ -116,7 +116,7 @@
         "extended_care": {
           "early_dropoff_start": "08:00",
           "late_pickup_end": "17:00",
-          "cost_text": "Early Bird (8:00–8:45 a.m.): $50/week; Aftercare (3:30–5:00 p.m.): $75/week. Available to any child enrolled in Camp Veritas."
+          "cost_text": "Early Bird (8:00–8:45 a.m.) - $50/week; Aftercare (3:30–5:00 p.m.) – $75/week"
         },
         "prices": [
           {
@@ -156,7 +156,7 @@
         "last_year_registration_opened": null,
         "availability": {
           "status": "closed",
-          "scope": "2026 registration",
+          "scope": "2026 sessions",
           "text": "Tickets are not on sale"
         },
         "financial_aid": null,
@@ -169,13 +169,13 @@
           "https://www.veritasnc.org/event-info/camp-veritas-week1",
           "https://www.veritasnc.org/event-info/camp-veritas-week2"
         ],
-        "confidence": "high",
-        "review_notes": null
+        "confidence": "medium",
+        "review_notes": "Guide dates are assigned to 2026 using the camp-page heading and dated event pages. The guide does not explain supervision between morning camp ending at noon and Aftercare starting at 3:30 p.m."
       },
       {
         "name": "Bible Adventure",
         "type": "half_day",
-        "categories": ["faith_based", "arts", "nature_outdoor"],
+        "categories": ["faith_based", "general"],
         "description": "Campers participate in Bible study, praise, crafts including tie dye, outdoor recreation, and splash day.",
         "camp_page_url": "https://www.veritasnc.org/camp-veritas",
         "registration_url": "https://www.veritasnc.org/camp-veritas",
@@ -211,7 +211,7 @@
         "extended_care": {
           "early_dropoff_start": "08:00",
           "late_pickup_end": "17:00",
-          "cost_text": "Early Bird (8:00–8:45 a.m.): $50/week; Aftercare (3:30–5:00 p.m.): $75/week. Available to any child enrolled in Camp Veritas."
+          "cost_text": "Early Bird (8:00–8:45 a.m.) - $50/week; Aftercare (3:30–5:00 p.m.) – $75/week"
         },
         "prices": [
           {
@@ -251,7 +251,7 @@
         "last_year_registration_opened": null,
         "availability": {
           "status": "closed",
-          "scope": "2026 registration",
+          "scope": "2026 sessions",
           "text": "Tickets are not on sale"
         },
         "financial_aid": null,
@@ -264,14 +264,14 @@
           "https://www.veritasnc.org/event-info/camp-veritas-week1",
           "https://www.veritasnc.org/event-info/camp-veritas-week2"
         ],
-        "confidence": "high",
-        "review_notes": null
+        "confidence": "medium",
+        "review_notes": "Guide dates are assigned to 2026 using the camp-page heading and dated event pages. Eligibility is stated as 4 years–Rising 3rd. The guide does not explain supervision between morning camp and afternoon Aftercare."
       },
       {
         "name": "Common Arts",
         "type": "half_day",
         "categories": ["arts", "nature_outdoor"],
-        "description": "Campers do woodworking, fabric arts, gardening, and archery. The older-grade Common Arts & Bushcraft session also includes advanced camping skills.",
+        "description": "Campers do woodworking, fabric arts, gardening, and archery activities. The older group's Common Arts & Bushcraft week also includes advanced camping skills.",
         "camp_page_url": "https://www.veritasnc.org/camp-veritas",
         "registration_url": "https://www.veritasnc.org/camp-veritas",
         "season": {
@@ -303,7 +303,7 @@
         "extended_care": {
           "early_dropoff_start": "08:00",
           "late_pickup_end": "17:00",
-          "cost_text": "Early Bird (8:00–8:45 a.m.): $50/week; Aftercare (3:30–5:00 p.m.): $75/week. Available to any child enrolled in Camp Veritas."
+          "cost_text": "Early Bird (8:00–8:45 a.m.) - $50/week; Aftercare (3:30–5:00 p.m.) – $75/week"
         },
         "prices": [
           {
@@ -351,7 +351,7 @@
         "last_year_registration_opened": null,
         "availability": {
           "status": "closed",
-          "scope": "2026 registration",
+          "scope": "2026 sessions",
           "text": "Tickets are not on sale"
         },
         "financial_aid": null,
@@ -364,14 +364,14 @@
           "https://www.veritasnc.org/event-info/camp-veritas-week1",
           "https://www.veritasnc.org/event-info/camp-veritas-week2"
         ],
-        "confidence": "high",
-        "review_notes": null
+        "confidence": "medium",
+        "review_notes": "Common Arts & Bushcraft is grouped as the older-age session of Common Arts. Guide dates are assigned to 2026 using the camp-page heading and event pages. The guide does not explain supervision between morning camp and afternoon Aftercare."
       },
       {
         "name": "Soccer Skills",
         "type": "half_day",
         "categories": ["sports"],
-        "description": "Campers practice soccer skills including dribbling, passing, receiving, and defending. The older-grade session includes team-building.",
+        "description": "Campers practice foundational soccer skills including dribbling, passing, receiving, and defending. The older group's week includes team-building.",
         "camp_page_url": "https://www.veritasnc.org/camp-veritas",
         "registration_url": "https://www.veritasnc.org/camp-veritas",
         "season": {
@@ -403,7 +403,7 @@
         "extended_care": {
           "early_dropoff_start": "08:00",
           "late_pickup_end": "17:00",
-          "cost_text": "Early Bird (8:00–8:45 a.m.): $50/week; Aftercare (3:30–5:00 p.m.): $75/week. Available to any child enrolled in Camp Veritas."
+          "cost_text": "Early Bird (8:00–8:45 a.m.) - $50/week; Aftercare (3:30–5:00 p.m.) – $75/week"
         },
         "prices": [
           {
@@ -451,7 +451,7 @@
         "last_year_registration_opened": null,
         "availability": {
           "status": "closed",
-          "scope": "2026 registration",
+          "scope": "2026 sessions",
           "text": "Tickets are not on sale"
         },
         "financial_aid": null,
@@ -464,14 +464,14 @@
           "https://www.veritasnc.org/event-info/camp-veritas-week1",
           "https://www.veritasnc.org/event-info/camp-veritas-week2"
         ],
-        "confidence": "high",
-        "review_notes": null
+        "confidence": "medium",
+        "review_notes": "Guide dates are assigned to 2026 using the camp-page heading and dated event pages. The guide does not explain supervision between morning camp and afternoon Aftercare."
       },
       {
         "name": "Book Adventures",
         "type": "half_day",
         "categories": ["academic", "arts"],
-        "description": "Campers read books and take part in games, crafts, and themed snacks connected to the stories.",
+        "description": "Campers bring books to life through games, crafts, and themed snacks.",
         "camp_page_url": "https://www.veritasnc.org/camp-veritas",
         "registration_url": "https://www.veritasnc.org/camp-veritas",
         "season": {
@@ -503,7 +503,7 @@
         "extended_care": {
           "early_dropoff_start": "08:00",
           "late_pickup_end": "17:00",
-          "cost_text": "Early Bird (8:00–8:45 a.m.): $50/week; Aftercare (3:30–5:00 p.m.): $75/week. Available to any child enrolled in Camp Veritas."
+          "cost_text": "Early Bird (8:00–8:45 a.m.) - $50/week; Aftercare (3:30–5:00 p.m.) – $75/week"
         },
         "prices": [
           {
@@ -543,7 +543,7 @@
         "last_year_registration_opened": null,
         "availability": {
           "status": "closed",
-          "scope": "2026 registration",
+          "scope": "2026 sessions",
           "text": "Tickets are not on sale"
         },
         "financial_aid": null,
@@ -556,13 +556,13 @@
           "https://www.veritasnc.org/event-info/camp-veritas-week1",
           "https://www.veritasnc.org/event-info/camp-veritas-week2"
         ],
-        "confidence": "high",
-        "review_notes": null
+        "confidence": "medium",
+        "review_notes": "Guide dates are assigned to 2026 using the camp-page heading and dated event pages. Early Bird is available to any enrolled child, but supervision between 8:45 a.m. and afternoon camp is not explained."
       },
       {
         "name": "Dart Camp",
         "type": "half_day",
-        "categories": ["general"],
+        "categories": ["sports", "general"],
         "description": "Campers play Nerf-style dart games and participate in daily water activities.",
         "camp_page_url": "https://www.veritasnc.org/camp-veritas",
         "registration_url": "https://www.veritasnc.org/event-info/camp-veritas-week1",
@@ -595,7 +595,7 @@
         "extended_care": {
           "early_dropoff_start": "08:00",
           "late_pickup_end": "17:00",
-          "cost_text": "Early Bird (8:00–8:45 a.m.): $50/week; Aftercare (3:30–5:00 p.m.): $75/week. Available to any child enrolled in Camp Veritas."
+          "cost_text": "Early Bird (8:00–8:45 a.m.) - $50/week; Aftercare (3:30–5:00 p.m.) – $75/week"
         },
         "prices": [
           {
@@ -610,7 +610,7 @@
         "last_year_registration_opened": null,
         "availability": {
           "status": "closed",
-          "scope": "2026 registration",
+          "scope": "2026 session",
           "text": "Tickets are not on sale"
         },
         "financial_aid": null,
@@ -622,14 +622,14 @@
           "https://www.veritasnc.org/_files/ugd/a794af_a78d40633aec491388b79be047be8c2d.pdf",
           "https://www.veritasnc.org/event-info/camp-veritas-week1"
         ],
-        "confidence": "high",
-        "review_notes": null
+        "confidence": "medium",
+        "review_notes": "Guide dates are assigned to 2026 using the camp-page heading and dated event page. Early Bird is available to any enrolled child, but supervision between 8:45 a.m. and afternoon camp is not explained."
       },
       {
         "name": "Spanish Fun",
         "type": "half_day",
-        "categories": ["academic", "faith_based", "arts"],
-        "description": "Campers learn Spanish through songs, conversation, books, crafts, dancing, and games. Activities include outdoor play, piñatas, and Friday water games.",
+        "categories": ["academic", "faith_based"],
+        "description": "Campers learn Spanish through songs, conversation, books, crafts, dance, and games. Activities include outdoor play, piñatas, and Friday water games.",
         "camp_page_url": "https://www.veritasnc.org/camp-veritas",
         "registration_url": "https://www.veritasnc.org/camp-veritas",
         "season": {
@@ -656,11 +656,15 @@
             "state": "NC"
           }
         ],
-        "hours": null,
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "July 6–10: 12:30 p.m. – 3:30 p.m.; July 13–17: 9:00 a.m. – Noon"
+        },
         "extended_care": {
           "early_dropoff_start": "08:00",
           "late_pickup_end": "17:00",
-          "cost_text": "Early Bird (8:00–8:45 a.m.): $50/week; Aftercare (3:30–5:00 p.m.): $75/week. Available to any child enrolled in Camp Veritas."
+          "cost_text": "Early Bird (8:00–8:45 a.m.) - $50/week; Aftercare (3:30–5:00 p.m.) – $75/week"
         },
         "prices": [
           {
@@ -672,7 +676,7 @@
         ],
         "sessions": [
           {
-            "label": "July 6–10 | Afternoon",
+            "label": "July 6–10",
             "start": "2026-07-06",
             "end": "2026-07-10",
             "year": 2026,
@@ -687,7 +691,7 @@
             "status": null
           },
           {
-            "label": "July 13–17 | Morning",
+            "label": "July 13–17",
             "start": "2026-07-13",
             "end": "2026-07-17",
             "year": 2026,
@@ -706,7 +710,7 @@
         "last_year_registration_opened": null,
         "availability": {
           "status": "closed",
-          "scope": "2026 registration",
+          "scope": "2026 sessions",
           "text": "Tickets are not on sale"
         },
         "financial_aid": null,
@@ -719,14 +723,14 @@
           "https://www.veritasnc.org/event-info/camp-veritas-week1",
           "https://www.veritasnc.org/event-info/camp-veritas-week2"
         ],
-        "confidence": "high",
-        "review_notes": null
+        "confidence": "medium",
+        "review_notes": "Guide dates are assigned to 2026 using the camp-page heading and dated event pages. Eligibility is stated as 4 years–Rising 3rd. Extended-care supervision outside the stated care periods and camp hours is not explained."
       },
       {
         "name": "Game On! Variety Camp",
         "type": "half_day",
         "categories": ["general"],
-        "description": "Campers play indoor and outdoor creative games, with different activities each day.",
+        "description": "Campers play indoor and outdoor creative games with new surprise activities daily.",
         "camp_page_url": "https://www.veritasnc.org/camp-veritas",
         "registration_url": "https://www.veritasnc.org/event-info/camp-veritas-week2",
         "season": {
@@ -758,7 +762,7 @@
         "extended_care": {
           "early_dropoff_start": "08:00",
           "late_pickup_end": "17:00",
-          "cost_text": "Early Bird (8:00–8:45 a.m.): $50/week; Aftercare (3:30–5:00 p.m.): $75/week. Available to any child enrolled in Camp Veritas."
+          "cost_text": "Early Bird (8:00–8:45 a.m.) - $50/week; Aftercare (3:30–5:00 p.m.) – $75/week"
         },
         "prices": [
           {
@@ -773,7 +777,7 @@
         "last_year_registration_opened": null,
         "availability": {
           "status": "closed",
-          "scope": "2026 event registration",
+          "scope": "2026 session",
           "text": "Tickets are not on sale"
         },
         "financial_aid": null,
@@ -783,11 +787,10 @@
         "sources": [
           "https://www.veritasnc.org/camp-veritas",
           "https://www.veritasnc.org/_files/ugd/a794af_a78d40633aec491388b79be047be8c2d.pdf",
-          "https://www.veritasnc.org/event-info/camp-veritas-week2",
-          "https://www.veritasnc.org/product-page/game-on-variety-camp"
+          "https://www.veritasnc.org/event-info/camp-veritas-week2"
         ],
         "confidence": "medium",
-        "review_notes": "The 2026 guide lists rising 2nd–7th grades, while the undated official product page lists rising 2nd–6th grades. The card follows the season-specific guide; verify the upper grade limit."
+        "review_notes": "Guide dates are assigned to 2026 using the camp-page heading and dated event page. Early Bird is available to any enrolled child, but supervision between 8:45 a.m. and afternoon camp is not explained."
       },
       {
         "name": "Sign Language & Movement",
@@ -828,7 +831,7 @@
         "extended_care": {
           "early_dropoff_start": "08:00",
           "late_pickup_end": "17:00",
-          "cost_text": "Early Bird (8:00–8:45 a.m.): $50/week; Aftercare (3:30–5:00 p.m.): $75/week. Available to any child enrolled in Camp Veritas."
+          "cost_text": "Early Bird (8:00–8:45 a.m.) - $50/week; Aftercare (3:30–5:00 p.m.) – $75/week"
         },
         "prices": [
           {
@@ -843,7 +846,7 @@
         "last_year_registration_opened": null,
         "availability": {
           "status": "closed",
-          "scope": "2026 registration",
+          "scope": "2026 session",
           "text": "Tickets are not on sale"
         },
         "financial_aid": null,
@@ -855,14 +858,14 @@
           "https://www.veritasnc.org/_files/ugd/a794af_a78d40633aec491388b79be047be8c2d.pdf",
           "https://www.veritasnc.org/event-info/camp-veritas-week2"
         ],
-        "confidence": "high",
-        "review_notes": null
+        "confidence": "medium",
+        "review_notes": "Guide dates are assigned to 2026 using the camp-page heading and dated event page. Eligibility is stated as 4's–Rising 3rd. Early Bird is available to any enrolled child, but supervision between 8:45 a.m. and afternoon camp is not explained."
       },
       {
         "name": "Girls Volleyball Academy",
         "type": "clinic",
         "categories": ["sports"],
-        "description": "Girls receive serving, passing, and setting instruction for all skill levels from Coaches Donna Russell and Mrs. Pritz.",
+        "description": "Girls receive serving, passing, and setting instruction for all skill levels with Coaches Donna Russell and Mrs. Pritz.",
         "camp_page_url": "https://www.veritasnc.org/camp-veritas",
         "registration_url": "https://www.veritasnc.org/camp-veritas",
         "season": {
@@ -891,12 +894,16 @@
           "end": "17:00",
           "text": null
         },
-        "extended_care": null,
+        "extended_care": {
+          "early_dropoff_start": "08:00",
+          "late_pickup_end": "17:00",
+          "cost_text": "Early Bird (8:00–8:45 a.m.) - $50/week; Aftercare (3:30–5:00 p.m.) – $75/week"
+        },
         "prices": [
           {
             "amount": 110,
             "unit": "week",
-            "label": "Girls",
+            "label": null,
             "year": 2026
           }
         ],
@@ -913,7 +920,7 @@
           "https://www.veritasnc.org/_files/ugd/a794af_a78d40633aec491388b79be047be8c2d.pdf"
         ],
         "confidence": "medium",
-        "review_notes": "The 2026 guide lists the academy's hours, grades, and weekly price on its care/registration page but does not explicitly assign it to either camp week. Verify whether it runs July 6–10, July 13–17, or both before adding dates."
+        "review_notes": "The 2026 guide lists Volleyball Academy separately from the dated weekly schedules and does not explicitly specify which week or weeks it meets; dates and sessions are left empty. Rising Juniors is interpreted as rising grade 11. Early Bird and Aftercare are stated as available to any child enrolled in Camp Veritas, but Early Bird does not provide documented supervision through this clinic's afternoon start."
       }
     ]
   }

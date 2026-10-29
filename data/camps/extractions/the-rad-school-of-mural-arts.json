@@ -9,24 +9,23 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:05:42.240Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:04:10.157Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "d0b8920cf45f9184d42f1bf23071ffd54fd4a04ff02c58ca7570489767a33943",
   "response": {
     "searches": [
       "site:radschoolofmuralarts.com summer camp 2026 2027",
-      "\"RAD\" \"Summer Mural Camp\"",
-      "open https://jgilmoreart.com/cafe/",
-      "site:jgilmoreart.com \"2026\" \"Camp\" \"Ages\""
+      "\"RAD\" \"Mural Camp\" \"2026\"",
+      "site:radschoolofmuralarts.com \"camp\" \"2026\" \"ages\""
     ],
     "usage": {
-      "inputTokens": 19481,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1190,
-      "reasoningTokens": 347
+      "inputTokens": 17331,
+      "cachedInputTokens": 8845,
+      "outputTokens": 892,
+      "reasoningTokens": 255
     },
     "status": "completed",
-    "ms": 37810,
+    "ms": 32952,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -80,19 +79,15 @@
   "extraction": {
     "provider_name": "The RAD School of Mural Arts",
     "website_url": "https://radschoolofmuralarts.com/",
-    "notes": "No summer 2027 information found. The current shop lists fall 2026 and spring 2027 classes, but no summer registration product. Several official pages opened with no readable text; 2026 camp dates and tuition were available only in an indexed search result from the provider's jgilmoreart.com website. No detailed 2026 weekly schedule was found.",
+    "notes": "No summer 2027 announcement or dated 2026 summer schedule was found. Current registration listings contain fall 2026 and spring 2027 classes, not summer camp registration. Several official pages returned no readable body when opened, including the 2026RAD_Mural_camper_Appr_web attachment page; search snippets did not expose camp details.",
     "excluded": [
       {
-        "name": "2026 Fall Mural 101",
-        "reason": "Afterschool classes outside summer; monthly payment products are the same offering."
-      },
-      {
-        "name": "2027 Spring Mural 101",
-        "reason": "Spring classes outside summer."
+        "name": "Mural 101",
+        "reason": "Afterschool mural class offered during fall and spring, not a summer camp."
       },
       {
         "name": "Community Mural Workshop for Adults",
-        "reason": "Adult-only workshop, also scheduled outside summer."
+        "reason": "Adult-only workshop, offered outside summer."
       }
     ],
     "cards": [
@@ -100,14 +95,14 @@
         "name": "RAD Summer Mural Camp",
         "type": "day",
         "categories": ["arts"],
-        "description": "Youth develop visual art skills in a social setting and work on mural projects.",
+        "description": "A youth summer camp focused on mural arts.",
         "camp_page_url": "https://radschoolofmuralarts.com/support-the-scholarship-fund-for-the-1st-rad-summer-mural-camp/",
         "registration_url": null,
         "season": {
           "year": 2026,
           "status": "not_posted",
-          "start": "2026-07-06",
-          "end": "2026-07-30",
+          "start": null,
+          "end": null,
           "text": null
         },
         "ages": null,
@@ -122,39 +117,24 @@
         ],
         "hours": null,
         "extended_care": null,
-        "prices": [
-          {
-            "amount": 650,
-            "unit": "session",
-            "label": "2 week project",
-            "year": 2026
-          },
-          {
-            "amount": 350,
-            "unit": "week",
-            "label": "1 week",
-            "year": 2026
-          }
-        ],
+        "prices": [],
         "sessions": [],
         "registration": [],
         "last_year_registration_opened": null,
         "availability": null,
         "financial_aid": {
-          "value": "yes",
+          "value": "case_by_case",
           "text": "We would love to see that fund grow so any kid that wants to participate in the classes and Summer Mural Camp can regardless of their families’ income."
         },
         "special_needs": null,
         "lunch": null,
         "transportation": null,
         "sources": [
-          "https://radschoolofmuralarts.com/",
           "https://radschoolofmuralarts.com/support-the-scholarship-fund-for-the-1st-rad-summer-mural-camp/",
-          "https://jgilmoreart.com/support-the-scholarship-fund-for-the-1st-rad-summer-mural-camp/",
           "https://radschoolofmuralarts.com/the-rad-school-of-mural-arts-shop/"
         ],
         "confidence": "medium",
-        "review_notes": "Verify dates and tuition on the provider's jgilmoreart.com scholarship page: its indexed snippet states July 6 start, July 30, 2026 end, $650 for a two-week project and $350 for one week, but opening the page returned no readable text. July 6 is interpreted within that explicit 2026 season. The current radschoolofmuralarts.com scholarship page confirms the venue but no longer prints dates or tuition. Camp hours, age limits and individual sessions remain unverified."
+        "review_notes": "The official scholarship page confirms the camp and its venue but gives no summer year, schedule, eligibility, hours or price. The 2026 season year is a fallback with no dated facts. Confirm the camp's current format and scholarship availability; the scholarship page expresses a funding goal rather than guaranteeing awards."
       }
     ]
   }

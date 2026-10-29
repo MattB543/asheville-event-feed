@@ -7,23 +7,19 @@
     "discovered_by": ["gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:37:11.402Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:30:55.329Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "168a9a2c75df6b2a39e3446c9b6569041c80d630cb7b58857a017561de2bf50b",
   "response": {
-    "searches": [
-      "site:baptistsonmission.org \"2027\" \"Deep Impact\" \"cost\"",
-      "open https://baptistsonmission.org/camps/deep-impact/",
-      "site:baptistsonmission.org \"2027 Deep Impact Marion\""
-    ],
+    "searches": ["site:baptistsonmission.org \"DI Kids\" \"2027\""],
     "usage": {
-      "inputTokens": 29599,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1388,
-      "reasoningTokens": 216
+      "inputTokens": 25794,
+      "cachedInputTokens": 8845,
+      "outputTokens": 468,
+      "reasoningTokens": 38
     },
     "status": "completed",
-    "ms": 36311,
+    "ms": 17054,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -67,137 +63,29 @@
   "extraction": {
     "provider_name": "Baptists on Mission",
     "website_url": "https://baptistsonmission.org/",
-    "notes": "2027 Deep Impact dates are posted. Included the Marion, Black Mountain and Spruce Pine sessions near Asheville; the same program also has sessions in Shelby and Rose Hill. Additional official pages returned no readable text, and searches did not establish prices or registration opening dates. DI Kids has no dated local summer offering on its current official page.",
+    "notes": "No qualifying camp cards found under the mission-trip exclusion. The official Deep Impact page has posted 2027 mission weeks, including Marion, Black Mountain and Spruce Pine, but describes church groups serving at mission centers and rebuild sites, primarily on construction and community-service projects. The existing Deep Impact program is therefore excluded rather than carried forward as a camp. DI Kids was checked on the official page at https://baptistsonmission.org/missions/di-kids/; it describes group mission events rather than a separate qualifying summer camp.",
     "excluded": [
       {
+        "name": "Deep Impact",
+        "reason": "Pre-packaged mission trips for students and adult church leaders. The 2027 format centers on construction and community service at mission centers and rebuild sites; mission trips are excluded even when called camps."
+      },
+      {
+        "name": "DI Kids",
+        "reason": "Pre-packaged mission experiences for children's ministry groups; excluded as mission trips or youth-group service outings. The current official listing is an October 24, 2026 Forest City mission event marked cancelled, also outside summer."
+      },
+      {
         "name": "Charity Mission Camp",
-        "reason": "Ongoing, flexible-length volunteer mission accommodation rather than a finite summer youth program."
+        "reason": "Lodging and pre-arranged service projects for volunteer mission teams, not a separate supervised summer youth camp. Also located in Rose Hill, outside the Asheville-area drive range."
       },
       {
         "name": "Red Springs Mission Camp",
-        "reason": "Ongoing, flexible-length volunteer mission accommodation rather than a finite summer youth program."
+        "reason": "Lodging and service projects for volunteer mission teams, excluded as mission trips. Also located in Red Springs, outside the Asheville-area drive range."
       },
       {
         "name": "Shelby Mission Camp",
-        "reason": "Ongoing, flexible-length volunteer mission accommodation rather than a finite summer youth program; separately scheduled Deep Impact weeks are part of Deep Impact."
+        "reason": "Lodging and pre-arranged construction and community-service projects for church mission teams, excluded as mission trips rather than a supervised summer youth camp."
       }
     ],
-    "cards": [
-      {
-        "name": "Deep Impact",
-        "type": "overnight",
-        "categories": ["faith_based"],
-        "description": "Students and adult church leaders undertake construction and community-service mission projects at mission centers and rebuild sites. The overnight schedule includes worship, devotions and outdoor activities.",
-        "camp_page_url": "https://baptistsonmission.org/camps/deep-impact/",
-        "registration_url": null,
-        "season": {
-          "year": 2027,
-          "status": "posted",
-          "start": "2027-06-14",
-          "end": "2027-07-23",
-          "text": "Dates have been set for the summer of 2027 and we look forward to serving with you!"
-        },
-        "ages": null,
-        "grades": {
-          "min": 6,
-          "max": 12,
-          "basis": "unspecified"
-        },
-        "sites": [
-          {
-            "name": "Marion Rebuild Center",
-            "address": "325 Resistoflex Road",
-            "town": "Marion",
-            "state": "NC"
-          },
-          {
-            "name": "Black Mountain Rebuild Center",
-            "address": "1114 Montreat Road",
-            "town": "Black Mountain",
-            "state": "NC"
-          },
-          {
-            "name": "Spruce Pine Rebuild Center",
-            "address": "308 Harris Street",
-            "town": "Spruce Pine",
-            "state": "NC"
-          }
-        ],
-        "hours": {
-          "start": null,
-          "end": null,
-          "text": "Monday group check-in is 1:30–2:30 PM. Friday lunch is at noon, followed by debrief, packing and cleaning at 1:00 PM; a departure time is not stated."
-        },
-        "extended_care": null,
-        "prices": [],
-        "sessions": [
-          {
-            "label": "2027 Deep Impact Marion",
-            "start": "2027-06-14",
-            "end": "2027-06-18",
-            "year": 2027,
-            "site": "Marion Rebuild Center",
-            "ages": null,
-            "grades": null,
-            "hours": null,
-            "price": null,
-            "status": null
-          },
-          {
-            "label": "2027 Deep Impact Black Mountain 1",
-            "start": "2027-06-28",
-            "end": "2027-07-02",
-            "year": 2027,
-            "site": "Black Mountain Rebuild Center",
-            "ages": null,
-            "grades": null,
-            "hours": null,
-            "price": null,
-            "status": null
-          },
-          {
-            "label": "2027 Deep Impact Black Mountain 2",
-            "start": "2027-07-12",
-            "end": "2027-07-16",
-            "year": 2027,
-            "site": "Black Mountain Rebuild Center",
-            "ages": null,
-            "grades": null,
-            "hours": null,
-            "price": null,
-            "status": null
-          },
-          {
-            "label": "2027 Deep Impact Spruce Pine",
-            "start": "2027-07-19",
-            "end": "2027-07-23",
-            "year": 2027,
-            "site": "Spruce Pine Rebuild Center",
-            "ages": null,
-            "grades": null,
-            "hours": null,
-            "price": null,
-            "status": null
-          }
-        ],
-        "registration": [],
-        "last_year_registration_opened": null,
-        "availability": null,
-        "financial_aid": null,
-        "special_needs": null,
-        "lunch": {
-          "value": "yes",
-          "text": "12:00 PM Lunch (on site)"
-        },
-        "transportation": null,
-        "sources": [
-          "https://baptistsonmission.org/camps/deep-impact/",
-          "https://baptistsonmission.org/wp-content/uploads/2026/09/2027-DI-Week-Mission-Schedule.pdf",
-          "https://baptistsonmission.org/camps/"
-        ],
-        "confidence": "high",
-        "review_notes": null
-      }
-    ]
+    "cards": []
   }
 }

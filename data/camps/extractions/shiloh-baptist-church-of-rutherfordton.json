@@ -7,22 +7,22 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:29:12.271Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:24:34.018Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "669323f637ca9204502f0fd18b0a61caf3a606fe4528ac44fc49a32ccfa64044",
   "response": {
     "searches": [
       "Shiloh Baptist Church Rutherfordton address",
-      "\"Shiloh\" \"Rutherfordton\" \"1850\" site:facebook.com"
+      "\"Shiloh\" \"Rutherfordton\" \"church\" \"1850\" official"
     ],
     "usage": {
-      "inputTokens": 17225,
-      "cachedInputTokens": 8223,
-      "outputTokens": 866,
-      "reasoningTokens": 107
+      "inputTokens": 17805,
+      "cachedInputTokens": 8845,
+      "outputTokens": 904,
+      "reasoningTokens": 125
     },
     "status": "completed",
-    "ms": 25609,
+    "ms": 25660,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -46,14 +46,19 @@
   "extraction": {
     "provider_name": "Shiloh Baptist Church of Rutherfordton",
     "website_url": "https://shilohbaptistrutherfordton.myanswers.com/vbs2026/",
-    "notes": "No 2027 program information or registration dates found. The 2026 event page says the event has ended. No separate church website with a published venue address was located.",
-    "excluded": [],
+    "notes": "No official 2027 program or registration information was found. An independent church website could not be identified confidently.",
+    "excluded": [
+      {
+        "name": "Youth VBS at Shiloh Baptist Church in Shiloh, NC",
+        "reason": "A different church in eastern North Carolina, outside the service area."
+      }
+    ],
     "cards": [
       {
         "name": "Emerald Crossing VBS",
         "type": "vbs",
         "categories": ["faith_based"],
-        "description": "Children participate in games, music, crafts and Bible lessons about Psalm 23. Food is served before the evening program.",
+        "description": "Children participate in games, music, crafts and Bible lessons about Psalm 23.",
         "camp_page_url": "https://shilohbaptistrutherfordton.myanswers.com/vbs2026/",
         "registration_url": "https://shilohbaptistrutherfordton.myanswers.com/vbs2026/register/",
         "season": {
@@ -89,7 +94,7 @@
         "last_year_registration_opened": null,
         "availability": {
           "status": "closed",
-          "scope": "2026 event",
+          "scope": null,
           "text": "Event has ended"
         },
         "financial_aid": null,
@@ -104,7 +109,7 @@
           "https://shilohbaptistrutherfordton.myanswers.com/vbs2026/register/"
         ],
         "confidence": "medium",
-        "review_notes": "The registration form prints June 7–12 without a year; 2026 is taken from the event URL. The form's overall time is 5–8:15 p.m., while the description separates food at 5–5:45 p.m. from VBS at 6–8:15 p.m. Age Group choices include Toddlers and grades 1–6; toddler ages are not specified and the numeric grade range does not represent that additional group. Address 1850 Poors Ford Rd appears in multiple directories and a Fruitland Baptist Bible College Facebook recruitment post; no venue-published address was found. Other third-party listings give 1810 Poors Ford Rd, so confirm the drop-off address. The lunch field records the stated evening food service, not a midday lunch."
+        "review_notes": "The year is taken from the official vbs2026 page URL; the registration form prints June 7–12 without a year. The form lists Toddlers in addition to grades 1–6, without toddler ages, so the numeric grade range does not represent all participants. The registration heading gives 5–8:15 p.m.; the descriptive text distinguishes food at 5–5:45 p.m. from VBS at 6–8:15 p.m. The street address is supported by multiple third-party listings, including MapQuest and Church Finder, but no venue-published address was found; other third-party datasets give 1810 Poors Ford Road. Confirm the church's physical drop-off address. The lunch field represents the stated evening food service, not a midday meal."
       }
     ]
   }

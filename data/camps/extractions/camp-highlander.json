@@ -13,22 +13,23 @@
     "discovered_by": ["news828", "grid", "aggregator", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:00:31.613Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:00:42.836Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "80c43d0c61e44681e0340aa2d561e77a0a7c62e5dd62fa1dd33a4012f9829cd5",
   "response": {
     "searches": [
-      "site:camphighlander.com \"Counselor in Training\"",
-      "open https://www.camphighlander.com/sessions/counselor-in-training"
+      "site:camphighlander.com counselor training 2027",
+      "open https://www.camphighlander.com/sessions/counselor-in-training",
+      "site:camphighlander.com \"airport\" \"transportation\""
     ],
     "usage": {
-      "inputTokens": 24611,
-      "cachedInputTokens": 8223,
-      "outputTokens": 2171,
-      "reasoningTokens": 182
+      "inputTokens": 33392,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2020,
+      "reasoningTokens": 232
     },
     "status": "completed",
-    "ms": 45160,
+    "ms": 49765,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -77,23 +78,23 @@
   "extraction": {
     "provider_name": "Camp Highlander",
     "website_url": "https://www.camphighlander.com/",
-    "notes": "2027 dates and rates are posted for overnight camp and the Counselor in Training Program. Activity departments such as arts, sports and horseback riding are components of overnight camp, not separate camps. The homepage describes older session lengths; the explicit 2027 session table was used. Registration policies state a recurring September 1 opening but do not explicitly identify a 2027 registration opening, so no registration milestone was inferred.",
+    "notes": "2027 dates and rates are posted for residential camp and the Counselor in Training Program. Registration policies describe September 1 annually but do not explicitly date the 2027 registration opening, so no registration milestone was inferred. The FAQ page and an older transportation URL returned no readable content; the current transportation page was found separately.",
     "excluded": [
       {
+        "name": "Family Camp Weekend",
+        "reason": "Family-only camp weekend."
+      },
+      {
         "name": "Father Son Weekend",
-        "reason": "Family-only program."
+        "reason": "Parent-child family-only weekend."
       },
       {
-        "name": "Family Camp",
-        "reason": "Family-only program."
+        "name": "Mother Daughter First Weekend",
+        "reason": "Parent-child family-only weekend outside summer."
       },
       {
-        "name": "Mother Daughter Weekend",
-        "reason": "Family-only program held outside summer."
-      },
-      {
-        "name": "Staff Positions",
-        "reason": "Employment opportunities, not youth camp programs."
+        "name": "Mother Daughter Last Weekend",
+        "reason": "Parent-child family-only weekend outside summer."
       }
     ],
     "cards": [
@@ -101,15 +102,15 @@
         "name": "Camp Highlander",
         "type": "overnight",
         "categories": ["general", "nature_outdoor", "sports", "arts", "horses", "cooking"],
-        "description": "Campers participate with their cabin groups in outdoor activities, sports, waterfront activities, horseback riding and arts. Longer sessions also include age-dependent off-camp trips, cabin overnights and evening programs.",
-        "camp_page_url": "https://www.camphighlander.com/sessions",
-        "registration_url": "https://highlander.campintouch.com/ui/login/Login",
+        "description": "Campers participate with their cabin in outdoor activities, sports, waterfront activities, horseback riding and arts and crafts. Longer sessions also include age-dependent off-camp trips, cabin overnights and evening programs.",
+        "camp_page_url": "https://www.camphighlander.com/sessions/2027-sessions",
+        "registration_url": "https://highlander.campintouch.com/",
         "season": {
           "year": 2027,
           "status": "posted",
           "start": "2027-06-06",
           "end": "2027-07-27",
-          "text": "2027 Camp Sessions"
+          "text": null
         },
         "ages": {
           "min": 6,
@@ -245,43 +246,47 @@
         "last_year_registration_opened": null,
         "availability": {
           "status": "available",
-          "scope": "All five overnight camp sessions, boys and girls",
-          "text": "BOYS OPEN GIRLS OPEN"
+          "scope": null,
+          "text": "OPEN"
         },
         "financial_aid": null,
         "special_needs": null,
         "lunch": null,
-        "transportation": null,
+        "transportation": {
+          "value": "yes",
+          "text": "We gladly offer a free shuttle service both to and from the Asheville airport."
+        },
         "sources": [
           "https://www.camphighlander.com/",
           "https://www.camphighlander.com/programs",
           "https://www.camphighlander.com/programs/arts",
-          "https://www.camphighlander.com/sessions",
           "https://www.camphighlander.com/sessions/2027-sessions",
+          "https://www.camphighlander.com/sessions",
           "https://www.camphighlander.com/sessions/dates-rates",
-          "https://www.camphighlander.com/sessions/registration-policies"
+          "https://www.camphighlander.com/sessions/registration-policies",
+          "https://www.camphighlander.com/parents/preparing-for-camp/travel-and-transportation"
         ],
         "confidence": "medium",
-        "review_notes": "The homepage describes an 8-day introductory session and two-week sessions, while the 2027 table specifies 6, 13, 17 and 31 days; the table controls this card. Registration policies require all 6-year-old campers to have completed kindergarten, while the session table lists K without a grade basis. Session BC has no separately stated age restriction; confirm eligibility with the provider."
+        "review_notes": "The homepage describes an 8-day introductory session, but the explicit 2027 table lists Kickoff as 6 days; the table dates and prices were used. Grade basis is not specified in that table. Registration policies additionally require all 6-year-old campers to have completed kindergarten and state Session C ages 8–16; confirm these evergreen eligibility policies apply unchanged in 2027."
       },
       {
         "name": "Counselor in Training Program",
         "type": "overnight",
-        "categories": ["general", "nature_outdoor"],
-        "description": "Teens participate in leadership training, service opportunities, team building and on- and off-camp activities. They later shadow staff, join cabins and help with activities and Color War, receiving 150 community service hours upon completion.",
+        "categories": ["general"],
+        "description": "Teens participate in leadership training, service opportunities, team building and on- and off-camp activities. They shadow staff and join cabins to learn counselor responsibilities, earning 150 community service hours upon completion.",
         "camp_page_url": "https://www.camphighlander.com/sessions/counselor-in-training",
-        "registration_url": "https://highlander.campintouch.com/ui/login/Login",
+        "registration_url": "https://highlander.campintouch.com/",
         "season": {
           "year": 2027,
           "status": "posted",
           "start": "2027-06-27",
           "end": "2027-07-27",
-          "text": "The CIT program dates are June 27th - July 27th, 2027."
+          "text": null
         },
         "ages": null,
         "grades": {
           "min": 11,
-          "max": null,
+          "max": 11,
           "basis": "completed"
         },
         "sites": [
@@ -298,7 +303,7 @@
           {
             "amount": 5200,
             "unit": "program",
-            "label": "Four and one half week program",
+            "label": null,
             "year": 2027
           }
         ],

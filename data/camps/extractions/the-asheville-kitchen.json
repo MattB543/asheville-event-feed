@@ -10,22 +10,22 @@
     "discovered_by": ["seed_sheet", "grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T14:55:46.923Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T16:56:24.594Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "5523ef4ad7d53161c3764910ede5ee0af577378729aa91d65d8b129433f280ca",
   "response": {
     "searches": [
       "site:theashevillekitchen.com \"camp\" \"2027\"",
-      "site:theashevillekitchen.com \"baking camp\""
+      "open https://www.theashevillekitchen.com/camp-2026-payments/p/bricker-2026-camp-payment-1"
     ],
     "usage": {
-      "inputTokens": 23494,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1242,
-      "reasoningTokens": 144
+      "inputTokens": 17561,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1072,
+      "reasoningTokens": 100
     },
     "status": "completed",
-    "ms": 36804,
+    "ms": 25330,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -64,23 +64,23 @@
   "extraction": {
     "provider_name": "The Asheville Kitchen",
     "website_url": "https://www.theashevillekitchen.com/",
-    "notes": "No 2027 camp information or registration dates found. The 2026 camp overview page returns a page-not-found message; surviving payment pages document two baking themes, grouped as sessions of one youth baking camp. Personalized installment listings are not separate camps. The June session's full tuition is not stated plainly and has been left unknown.",
+    "notes": "No 2027 camp information was found. The former 2026 camp overview page returns a page-not-found message. Surviving payment pages identify two 2026 baking camp weeks; personalized installment-payment listings were not treated as separate programs or full-session prices.",
     "excluded": [
       {
-        "name": "Regular cooking classes and private classes",
-        "reason": "Year-round classes and custom group bookings, not finite summer youth programs."
+        "name": "Youth Class: Biscotti",
+        "reason": "December holiday class outside summer."
       },
       {
         "name": "Youth Class: Scones & Biscuits",
-        "reason": "December 28 offering, outside summer."
-      },
-      {
-        "name": "Youth Class: Biscotti",
-        "reason": "December 19 offering, outside summer."
+        "reason": "December holiday class outside summer."
       },
       {
         "name": "Gingerbread House Class (Child + Parent)",
-        "reason": "Family-only December offering, outside summer."
+        "reason": "Family class in December, outside summer."
+      },
+      {
+        "name": "Private Classes",
+        "reason": "Custom private cooking classes, not a listed finite summer youth camp."
       }
     ],
     "cards": [
@@ -88,9 +88,9 @@
         "name": "Youth Baking Camp",
         "type": "half_day",
         "categories": ["cooking"],
-        "description": "Campers learn kitchen and baking fundamentals through demonstrations and individual and group hands-on work. Sessions cover sweet and savory baked goods or cakes, decorating techniques, and desserts, with creations taken home each day.",
-        "camp_page_url": "https://www.theashevillekitchen.com/kids-camp-policies",
-        "registration_url": "https://www.theashevillekitchen.com/camp-2026-payments",
+        "description": "Campers learn kitchen and baking fundamentals through hands-on baking. Weeks focus on sweet and savory baked goods or cakes, decorating techniques, and desserts.",
+        "camp_page_url": "https://www.theashevillekitchen.com/camp-2026-payments",
+        "registration_url": null,
         "season": {
           "year": 2026,
           "status": "not_posted",
@@ -114,7 +114,7 @@
         "hours": {
           "start": "09:00",
           "end": "12:30",
-          "text": "Each day of camp starts promptly at 9am, and ends at 12:30pm."
+          "text": null
         },
         "extended_care": null,
         "prices": [],
@@ -153,7 +153,7 @@
         "last_year_registration_opened": null,
         "availability": {
           "status": "full",
-          "scope": "Surviving 2026 payment listings only; not 2027 availability.",
+          "scope": "Listed 2026 payment pages",
           "text": "Sold Out"
         },
         "financial_aid": null,
@@ -161,15 +161,14 @@
         "lunch": null,
         "transportation": null,
         "sources": [
-          "https://www.theashevillekitchen.com/camp-2026-payments/p/bricker-2026-camp-payment-1",
-          "https://www.theashevillekitchen.com/camp-2026-payments/p/dingess-2026-camp-payment-1",
-          "https://www.theashevillekitchen.com/camp-2026-payments/p/cake-decorating",
           "https://www.theashevillekitchen.com/camp-2026-payments",
+          "https://www.theashevillekitchen.com/camp-2026-payments/p/bricker-2026-camp-payment-1",
+          "https://www.theashevillekitchen.com/camp-2026-payments/p/cake-decorating",
           "https://www.theashevillekitchen.com/kids-camp-policies",
           "https://www.theashevillekitchen.com/contact"
         ],
         "confidence": "medium",
-        "review_notes": "The original 2026 overview is unavailable, so completeness of the session list cannot be confirmed. Youth Baking Camp uses the descriptive name in the surviving listings; the two baking themes are grouped under the camp rule. July dates obtain their year from the Camp 2026 Payments heading. June payment pages are personalized installment listings rather than a public registration page; do not treat $184 as full-session tuition. Sold Out refers to past 2026 listings."
+        "review_notes": "The deleted overview prevents confirming whether these are all 2026 weeks. The surviving pages are personalized payment products, so their Sold Out status may describe payment listings rather than general camp capacity. The Sweet & Savory page states only an installment amount, so its full-session price is omitted. July dates take their year from the Camp 2026 Payments collection."
       }
     ]
   }

@@ -8,22 +8,22 @@
     "status": "review",
     "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
   },
-  "extractedAt": "2026-10-29T15:15:52.227Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
-  "sourceHash": "c7c157163a21cada27c5e147994a49660f51076cb6646f63cfeac4ddd3eed43e",
+  "extractedAt": "2026-10-29T17:13:19.168Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "485610cb6a4d2cbd49025ee61897c2b6142179d7ce2d08a585fb9e9799127d8b",
   "response": {
     "searches": [
-      "site:ratcliffecovebaptistchurch.com \"2026\" \"Bible\"",
-      "\"Ratcliffe Cove Baptist Church\" \"Vacation Bible School\""
+      "site:ratcliffecovebaptistchurch.com \"VBS\"",
+      "\"Ratcliffe Cove\" \"Vacation Bible School\""
     ],
     "usage": {
-      "inputTokens": 21363,
-      "cachedInputTokens": 8223,
-      "outputTokens": 393,
-      "reasoningTokens": 169
+      "inputTokens": 17881,
+      "cachedInputTokens": 8845,
+      "outputTokens": 366,
+      "reasoningTokens": 181
     },
     "status": "completed",
-    "ms": 19284,
+    "ms": 16119,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -37,15 +37,15 @@
   "extraction": {
     "provider_name": "Ratcliffe Cove Baptist Church of Waynesville",
     "website_url": "https://www.ratcliffecovebaptistchurch.com/",
-    "notes": "No summer 2027 or 2026 camp or Vacation Bible School offering could be verified on the official website or through searches for the church's official social media announcements. The Events page lists recurring worship and Wednesday activities. The Ministries and News pages returned no readable text. A third-party social-media mirror mentions a July 2023 VBS kickoff, but this does not establish a 2026 or 2027 offering and was not used to create a card.",
+    "notes": "No qualifying summer camp or Vacation Bible School program could be confirmed for 2026 or 2027 from the supplied homepage or web searches. The official Events, Ministries and News pages returned no readable text. No cards were created rather than assuming the church offers VBS.",
     "excluded": [
       {
-        "name": "Wednesday Night Small Groups",
-        "reason": "Recurring year-round activities, including Adventure Club and Youth, rather than a finite summer program."
+        "name": "Sunday School and weekly Bible study / small groups",
+        "reason": "Recurring church services and year-round ministry meetings, not finite summer camp programs."
       },
       {
-        "name": "Sunday School",
-        "reason": "Recurring year-round religious classes rather than a finite summer program."
+        "name": "Embrace",
+        "reason": "Women's meeting, not a supervised youth summer program."
       }
     ],
     "cards": []

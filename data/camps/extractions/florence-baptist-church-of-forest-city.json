@@ -7,8 +7,8 @@
     "discovered_by": ["gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:38:32.049Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:32:33.993Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "3ccd6791bc27c9276ea664a595b42dfe09ad6b0fb58001d57ca6cfc8718665f9",
   "response": {
     "searches": [
@@ -16,13 +16,13 @@
       "\"Florence\" \"Forest City\" \"VBS\" \"2026\""
     ],
     "usage": {
-      "inputTokens": 23487,
-      "cachedInputTokens": 8223,
-      "outputTokens": 866,
-      "reasoningTokens": 168
+      "inputTokens": 19857,
+      "cachedInputTokens": 8845,
+      "outputTokens": 844,
+      "reasoningTokens": 145
     },
     "status": "completed",
-    "ms": 26184,
+    "ms": 22269,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -41,39 +41,43 @@
   "extraction": {
     "provider_name": "Florence Baptist Church of Forest City",
     "website_url": "https://www.florencechurch.net/",
-    "notes": "No 2027 camp dates or registration announcements were found. The children's ministry confirms an annual summer VBS, but the latest dated VBS listing found is for June 1–4, 2025; those dates and hours are not used as 2026 or 2027 facts. Search results for florencebaptist.org concern a different church.",
+    "notes": "No official 2027 or 2026 VBS dates or registration information found. The events page still lists June 1–4, 2025; those older dates and hours are not carried into this card. The Florence Kids page returned no readable body text when opened, although its official search result confirms Vacation Bible School.",
     "excluded": [
       {
         "name": "Adult VBS",
-        "reason": "Adult-only portion of Vacation Bible School."
+        "reason": "Adult-only offering."
       },
       {
-        "name": "Florence Kids Sunday mornings and Wednesday evenings",
-        "reason": "Year-round children's ministry activities, not a finite summer program."
+        "name": "Camp 2024 at Fort Caswell",
+        "reason": "Youth-group camp trip to Fort Caswell, outside the local drive area."
       },
       {
-        "name": "Florence Students weekly meetings",
-        "reason": "Year-round youth ministry meetings, not a finite summer program."
-      },
-      {
-        "name": "Florence Students Summer 2026 Schedule",
-        "reason": "Lists youth social outings and recreation events, not camps or instructed sports or skill clinics."
-      },
-      {
-        "name": "Upward Sports",
-        "reason": "Sports league or team season; no summer camp or clinic was identified."
+        "name": "Upward 2023-2024 Season",
+        "reason": "Sports league or team season, not a finite summer camp."
       },
       {
         "name": "Churchwide Pool Party",
-        "reason": "Churchwide fellowship event, not a supervised youth camp."
+        "reason": "Single-evening social event."
       },
       {
-        "name": "Summer family fun events",
-        "reason": "Family-only fellowship events rather than youth drop-off programs."
+        "name": "Pumpkin Patch",
+        "reason": "Seasonal attraction and fundraiser, not a supervised summer camp."
       },
       {
-        "name": "Children's Christmas Performance",
-        "reason": "Outside summer."
+        "name": "Men’s Mission Trip",
+        "reason": "Mission trip outside summer."
+      },
+      {
+        "name": "Florence Kids weekly programs",
+        "reason": "Year-round Sunday and Wednesday children's ministry programs."
+      },
+      {
+        "name": "First Florence VBS 2026",
+        "reason": "Different provider in Florence, Mississippi."
+      },
+      {
+        "name": "FCC VBS 2026",
+        "reason": "Different provider in Florence, Oregon."
       }
     ],
     "cards": [
@@ -81,8 +85,8 @@
         "name": "Vacation Bible School (VBS)",
         "type": "vbs",
         "categories": ["faith_based"],
-        "description": "Children attend a week of Vacation Bible School on the church campus to learn about Jesus.",
-        "camp_page_url": "https://www.florencechurch.net/florence-kids",
+        "description": "Vacation Bible School for children and youth at Florence Church.",
+        "camp_page_url": "https://www.florencechurch.net/events",
         "registration_url": null,
         "season": {
           "year": 2027,
@@ -113,9 +117,9 @@
         "lunch": null,
         "transportation": null,
         "sources": [
-          "https://www.florencechurch.net/florence-kids",
           "https://www.florencechurch.net/events",
-          "https://www.florencechurch.net/"
+          "https://www.florencechurch.net/",
+          "https://www.florencechurch.net/florence-kids"
         ],
         "confidence": "high",
         "review_notes": null

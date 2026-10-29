@@ -7,29 +7,28 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:36:23.212Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:31:06.784Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "a83edbea3d36498d7b153ec7fc988a1d06e7eff9c5b01383d393785787348a97",
   "response": {
     "searches": [
-      "site:scgsah.org/summer-programs \"2027\"",
-      "open https://www.scgsah.org/summer-programs/creative-writing",
-      "site:scgsah.org/summer-programs/dance \"Dates:\"",
-      "site:scgsah.org/summer-programs/drama",
-      "SCGSAH Drama summer 2027",
-      "open https://www.scgsah.org/summer-programs/music?x=1",
-      "SCGSAH \"Modern Intensive\" \"Dates\"",
-      "\"scgsah.org/summer-programs/music\" \"Piano\" \"Dates\"",
-      "\"scgsah\" \"Piano Solo\" \"2027\""
+      "site:scgsah.org summer 2027 deadline applications September",
+      "site:scgsah.org \"2027\" \"June\"",
+      "open https://www.scgsah.org/summer-programs/music",
+      "site:scgsah.org/summer-programs/music",
+      "site:scgsah.org \"Piano\" \"Dates:\" \"2027\"",
+      "site:scgsah.org \"music\" \"Piano Solo and Chamber\" \"2027\" \"Dates\"",
+      "site:scgsah.org/summer-programs/music \"Composition and Songwriting\" \"Dates:\"",
+      "site:scgsah.org \"Strings Solo\" \"Dates\""
     ],
     "usage": {
-      "inputTokens": 62861,
-      "cachedInputTokens": 8223,
-      "outputTokens": 10455,
-      "reasoningTokens": 887
+      "inputTokens": 49179,
+      "cachedInputTokens": 8845,
+      "outputTokens": 11601,
+      "reasoningTokens": 880
     },
     "status": "completed",
-    "ms": 222548,
+    "ms": 217726,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -68,19 +67,27 @@
   "extraction": {
     "provider_name": "South Carolina Governor's School for the Arts and Humanities",
     "website_url": "https://www.scgsah.org/",
-    "notes": "2027 offerings and tuition are posted. Applicants must be South Carolina residents; these programs are not generally open to Asheville residents. Program pages returned empty bodies when opened, but official search results exposed portions of their contents. Several dates and program-specific details could not be recovered; those are left unknown rather than inferred. The summer onboarding page still describes 2026 and its deadlines are not used for 2027.",
+    "notes": "2027 programs and application deadlines are published. Applicants must be South Carolina residents; these programs are not restricted to students already enrolled at the school. Direct opens of the department pages returned no readable text, so department facts were recovered from official search-index excerpts. Several programs' dates could not be recovered safely. The summer onboarding page still describes 2026; its dates were not treated as 2027 application dates.",
     "excluded": [
       {
         "name": "Residential High School",
         "reason": "School-year residential education, not a finite summer camp."
       },
       {
-        "name": "Go Govie! Day",
-        "reason": "Admissions events in November and January, outside summer."
+        "name": "Grand Jeté",
+        "reason": "Dance competition and celebration outside summer."
       },
       {
-        "name": "Student Shadowing",
-        "reason": "School-year admissions visits offered October through April."
+        "name": "Century Cycle Continues",
+        "reason": "February monologue competition, outside summer."
+      },
+      {
+        "name": "Go Govie! Day",
+        "reason": "Admissions information event outside summer."
+      },
+      {
+        "name": "Coastal Creatives",
+        "reason": "Coastal outreach program outside the Asheville-area drive range."
       }
     ],
     "cards": [
@@ -88,9 +95,9 @@
         "name": "Creative Writing",
         "type": "overnight",
         "categories": ["arts"],
-        "description": "Students write fiction, poetry, and creative nonfiction, participate in workshops and critiques, and present their writing in readings.",
+        "description": "Students develop poetry and fiction through workshops, critique, reading contemporary writers, and presenting their work in a reading.",
         "camp_page_url": "https://www.scgsah.org/summer-programs/creative-writing",
-        "registration_url": "https://scgsah.fsenrollment.com/portal",
+        "registration_url": "https://www.scgsah.org/admissions/apply-summer",
         "season": {
           "year": 2027,
           "status": "posted",
@@ -118,29 +125,13 @@
           {
             "amount": 1600,
             "unit": "session",
-            "label": "Includes $200 non-refundable enrollment fee, room, board, and materials",
+            "label": "Includes enrollment fee, room, board, and materials",
             "year": 2027
           }
         ],
         "sessions": [
           {
-            "label": "Creative Writing for 9th Graders",
-            "start": "2027-06-20",
-            "end": "2027-07-02",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 9,
-              "max": 9,
-              "basis": "current"
-            },
-            "hours": null,
-            "price": null,
-            "status": null
-          },
-          {
-            "label": "Creative Writing for 7th & 8th Graders",
+            "label": "7th & 8th Graders",
             "start": "2027-07-11",
             "end": "2027-07-23",
             "year": 2027,
@@ -149,6 +140,22 @@
             "grades": {
               "min": 7,
               "max": 8,
+              "basis": "current"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "9th Graders",
+            "start": "2027-06-20",
+            "end": "2027-07-02",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 9,
+              "max": 9,
               "basis": "current"
             },
             "hours": null,
@@ -191,25 +198,25 @@
         "special_needs": null,
         "lunch": {
           "value": "yes",
-          "text": "Fees: $1,600.00, includes a $200.00 non-refundable enrollment fee, room, board, and materials."
+          "text": "Fees include room, board, and materials."
         },
         "transportation": null,
         "sources": [
           "https://www.scgsah.org/summer-programs/creative-writing",
           "https://www.scgsah.org/admissions",
           "https://www.scgsah.org/admissions/fees-payments",
-          "https://scgsah.fsenrollment.com/portal"
+          "https://www.scgsah.org/summer-programs"
         ],
         "confidence": "medium",
-        "review_notes": "Dates and eligibility were recovered from official search results rather than an opened page. Grades refer to the 2026-2027 school year. Verify against the program page."
+        "review_notes": "Department and admissions facts were recovered from official search excerpts because direct opens returned no text. Grades refer to the 2026-2027 school year. Financial assistance is limited to South Carolina residents."
       },
       {
         "name": "Dance Immersion Program",
         "type": "overnight",
         "categories": ["dance"],
-        "description": "Students explore ballet, modern and contemporary dance, jazz, hip hop, African dance, acting for dancers, yoga, and Pilates.",
+        "description": "Students explore ballet, modern and contemporary dance, jazz, hip hop, African dance, acting, yoga, and Pilates.",
         "camp_page_url": "https://www.scgsah.org/summer-programs/dance",
-        "registration_url": "https://scgsah.fsenrollment.com/portal",
+        "registration_url": "https://www.scgsah.org/admissions/apply-summer",
         "season": {
           "year": 2027,
           "status": "posted",
@@ -240,7 +247,7 @@
           {
             "amount": 1600,
             "unit": "session",
-            "label": "Includes $200 non-refundable enrollment fee, room, board, and materials",
+            "label": "Includes enrollment fee, room, board, and materials",
             "year": 2027
           }
         ],
@@ -280,7 +287,7 @@
         "special_needs": null,
         "lunch": {
           "value": "yes",
-          "text": "Fees: $1,600.00, includes a $200.00 non-refundable enrollment fee, room, board, and materials."
+          "text": "Fees include room, board, and materials."
         },
         "transportation": null,
         "sources": [
@@ -289,15 +296,15 @@
           "https://www.scgsah.org/admissions/fees-payments"
         ],
         "confidence": "medium",
-        "review_notes": "Official search results state students must be 12 by June 1 and in grades 6-8 during 2026-2027. Verify the page directly; do not assume the early-decision dance deadline applies to Immersion."
+        "review_notes": "Official search excerpts supplied department facts. Students must be 12 by June 1; grades refer to the 2026-2027 school year. The early-decision Summer Dance deadline was not assigned to Immersion because its applicability is unclear."
       },
       {
         "name": "Summer Dance Ballet Intensive",
         "type": "overnight",
         "categories": ["dance"],
-        "description": "Students receive classical ballet training with additional concert dance classes, including variations, partnering, modern dance, and acting for dancers.",
+        "description": "Students take daily classical ballet classes complemented by variations, men's technique, partnering, historical dance, modern dance, and acting for dancers.",
         "camp_page_url": "https://www.scgsah.org/summer-programs/dance",
-        "registration_url": "https://scgsah.fsenrollment.com/portal",
+        "registration_url": "https://www.scgsah.org/admissions/apply-summer",
         "season": {
           "year": 2027,
           "status": "not_posted",
@@ -325,20 +332,20 @@
           {
             "amount": 3000,
             "unit": "session",
-            "label": "Five-week session; includes $200 non-refundable fee",
+            "label": "5-week session, includes non-refundable fee",
             "year": 2027
           }
         ],
         "sessions": [],
         "registration": [
           {
-            "audience": "early_bird",
+            "audience": "other",
             "kind": "deadline",
             "date": "2026-10-23",
             "time": null,
             "precision": "date",
             "certainty": "announced",
-            "text": "October 23, 2026 - Priority Application Deadline",
+            "text": "Early Decision Dance: Residential High School Dance & Summer Dance — October 23, 2026 - Priority Application Deadline",
             "url": "https://www.scgsah.org/admissions",
             "year": 2027,
             "confidence": "medium"
@@ -383,15 +390,15 @@
           "https://www.scgsah.org/admissions/fees-payments"
         ],
         "confidence": "medium",
-        "review_notes": "2027 offering is listed, but its date block could not be recovered; not_posted reflects unverified dates, not a confirmed absence of dates. Price uses the explicitly described five-week length and the 2027 five-week fee schedule. Early-decision audience is mapped to early_bird because the schema lacks early_decision."
+        "review_notes": "2027 offering is listed, but exact dates and any minimum-age condition could not be recovered from official search excerpts. Season status does not establish that dates are absent from the full page. Price uses the explicit five-week format and 2027 five-week tuition."
       },
       {
         "name": "Summer Dance Modern Intensive",
         "type": "overnight",
         "categories": ["dance"],
-        "description": "Students receive pre-professional training in modern and contemporary dance in a two-week intensive.",
+        "description": "A two-week pre-professional modern and contemporary dance intensive.",
         "camp_page_url": "https://www.scgsah.org/summer-programs/dance",
-        "registration_url": "https://scgsah.fsenrollment.com/portal",
+        "registration_url": "https://www.scgsah.org/admissions/apply-summer",
         "season": {
           "year": 2027,
           "status": "not_posted",
@@ -419,20 +426,20 @@
           {
             "amount": 1600,
             "unit": "session",
-            "label": "Two-week session; includes $200 non-refundable fee",
+            "label": "2-week session, includes non-refundable fee",
             "year": 2027
           }
         ],
         "sessions": [],
         "registration": [
           {
-            "audience": "early_bird",
+            "audience": "other",
             "kind": "deadline",
             "date": "2026-10-23",
             "time": null,
             "precision": "date",
             "certainty": "announced",
-            "text": "October 23, 2026 - Priority Application Deadline",
+            "text": "Early Decision Dance: Residential High School Dance & Summer Dance — October 23, 2026 - Priority Application Deadline",
             "url": "https://www.scgsah.org/admissions",
             "year": 2027,
             "confidence": "medium"
@@ -477,7 +484,7 @@
           "https://www.scgsah.org/admissions/fees-payments"
         ],
         "confidence": "medium",
-        "review_notes": "Date block could not be recovered. Verify dates and detailed eligibility on the dance page. Price combines its stated two-week format with the 2027 fee schedule. Early-decision audience is mapped to early_bird."
+        "review_notes": "Exact dates and any minimum-age condition could not be recovered from official search excerpts. Season status does not establish that dates are absent from the full page. Price uses the stated two-week format and 2027 two-week tuition."
       },
       {
         "name": "Drama",
@@ -485,11 +492,11 @@
         "categories": ["theater"],
         "description": "Students study acting, voice, speech, movement, and ensemble work and demonstrate their work in a showcase.",
         "camp_page_url": "https://www.scgsah.org/summer-programs/drama",
-        "registration_url": "https://scgsah.fsenrollment.com/portal",
+        "registration_url": "https://www.scgsah.org/admissions/apply-summer",
         "season": {
           "year": 2027,
           "status": "posted",
-          "start": "2027-07-11",
+          "start": "2027-06-20",
           "end": "2027-07-23",
           "text": null
         },
@@ -497,7 +504,7 @@
         "grades": {
           "min": 7,
           "max": 9,
-          "basis": "unspecified"
+          "basis": "current"
         },
         "sites": [
           {
@@ -509,17 +516,10 @@
         ],
         "hours": null,
         "extended_care": null,
-        "prices": [
-          {
-            "amount": 1000,
-            "unit": "session",
-            "label": "Grades 7-8; includes enrollment fee, room, board, and materials",
-            "year": 2027
-          }
-        ],
+        "prices": [],
         "sessions": [
           {
-            "label": "Drama for 7th & 8th Graders",
+            "label": "7th & 8th Graders",
             "start": "2027-07-11",
             "end": "2027-07-16",
             "year": 2027,
@@ -531,11 +531,16 @@
               "basis": "current"
             },
             "hours": null,
-            "price": null,
+            "price": {
+              "amount": 1000,
+              "unit": "session",
+              "label": "Includes enrollment fee, room, board, and materials",
+              "year": 2027
+            },
             "status": null
           },
           {
-            "label": "Drama for 7th & 8th Graders",
+            "label": "7th & 8th Graders",
             "start": "2027-07-18",
             "end": "2027-07-23",
             "year": 2027,
@@ -547,7 +552,33 @@
               "basis": "current"
             },
             "hours": null,
-            "price": null,
+            "price": {
+              "amount": 1000,
+              "unit": "session",
+              "label": "Includes enrollment fee, room, board, and materials",
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "9th Graders",
+            "start": "2027-06-20",
+            "end": "2027-07-02",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 9,
+              "max": 9,
+              "basis": "current"
+            },
+            "hours": null,
+            "price": {
+              "amount": 1600,
+              "unit": "session",
+              "label": "Includes enrollment fee, room, board, and materials",
+              "year": 2027
+            },
             "status": null
           }
         ],
@@ -585,8 +616,8 @@
         },
         "special_needs": null,
         "lunch": {
-          "value": "case_by_case",
-          "text": "Fees: $1,000.00, includes a $200.00 non-refundable enrollment fee, room, board, and materials."
+          "value": "yes",
+          "text": "Fees include room, board, and materials."
         },
         "transportation": null,
         "sources": [
@@ -595,15 +626,15 @@
           "https://www.scgsah.org/admissions/fees-payments"
         ],
         "confidence": "medium",
-        "review_notes": "The 9th-grade offering is listed, but its dates and price were beyond the recovered search text. Season span covers only verified grades 7-8 sessions; verify the full span and add the 9th-grade row. Board wording recovered only for grades 7-8."
+        "review_notes": "Facts recovered from official search excerpts. Grades refer to the 2026-2027 school year. The department states fees are subject to change."
       },
       {
         "name": "Introduction to Filmmaking",
         "type": "overnight",
         "categories": ["arts"],
-        "description": "Students produce short films from original scripts while learning screenwriting, camera operation, lighting, sound, and editing.",
+        "description": "Students produce short films from original scripts, working with actors, cameras, lighting, sound, and editing.",
         "camp_page_url": "https://www.scgsah.org/summer-programs/film",
-        "registration_url": "https://scgsah.fsenrollment.com/portal",
+        "registration_url": "https://www.scgsah.org/admissions/apply-summer",
         "season": {
           "year": 2027,
           "status": "posted",
@@ -631,29 +662,13 @@
           {
             "amount": 1600,
             "unit": "session",
-            "label": "Includes $200 non-refundable enrollment fee, room, board, and materials",
+            "label": "Includes enrollment fee, room, board, and materials",
             "year": 2027
           }
         ],
         "sessions": [
           {
-            "label": "Introduction to Filmmaking for 9th Graders",
-            "start": "2027-06-20",
-            "end": "2027-07-02",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 9,
-              "max": 9,
-              "basis": "current"
-            },
-            "hours": null,
-            "price": null,
-            "status": null
-          },
-          {
-            "label": "Introduction to Filmmaking for 7th & 8th Graders",
+            "label": "7th & 8th Graders",
             "start": "2027-07-11",
             "end": "2027-07-23",
             "year": 2027,
@@ -662,6 +677,22 @@
             "grades": {
               "min": 7,
               "max": 8,
+              "basis": "current"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "9th Graders",
+            "start": "2027-06-20",
+            "end": "2027-07-02",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 9,
+              "max": 9,
               "basis": "current"
             },
             "hours": null,
@@ -704,7 +735,7 @@
         "special_needs": null,
         "lunch": {
           "value": "yes",
-          "text": "Fees: $1,600.00, includes a $200.00 non-refundable enrollment fee, room, board, and materials."
+          "text": "Fees include room, board, and materials."
         },
         "transportation": null,
         "sources": [
@@ -713,27 +744,27 @@
           "https://www.scgsah.org/admissions/fees-payments"
         ],
         "confidence": "medium",
-        "review_notes": "Facts recovered from official search results. Grades refer to the 2026-2027 school year."
+        "review_notes": "Facts recovered from official search excerpts. Grades refer to the 2026-2027 school year."
       },
       {
         "name": "Visual Arts",
         "type": "overnight",
         "categories": ["arts"],
-        "description": "Students explore two- and three-dimensional design through drawing, printmaking, graphic design, photography, and ceramics.",
+        "description": "Students explore two- and three-dimensional art through drawing, printmaking, graphic design, photography, ceramics, and sketchbook work.",
         "camp_page_url": "https://www.scgsah.org/summer-programs/visual-arts",
-        "registration_url": "https://scgsah.fsenrollment.com/portal",
+        "registration_url": "https://www.scgsah.org/admissions/apply-summer",
         "season": {
           "year": 2027,
-          "status": "not_posted",
-          "start": null,
-          "end": null,
+          "status": "posted",
+          "start": "2027-07-11",
+          "end": "2027-07-23",
           "text": null
         },
         "ages": null,
         "grades": {
           "min": 7,
           "max": 9,
-          "basis": "unspecified"
+          "basis": "current"
         },
         "sites": [
           {
@@ -745,15 +776,51 @@
         ],
         "hours": null,
         "extended_care": null,
-        "prices": [
+        "prices": [],
+        "sessions": [
           {
-            "amount": 1000,
-            "unit": "session",
-            "label": "Grades 7-8; includes enrollment fee, room, board, and materials",
-            "year": 2027
+            "label": "7th & 8th Graders",
+            "start": "2027-07-11",
+            "end": "2027-07-16",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 7,
+              "max": 8,
+              "basis": "current"
+            },
+            "hours": null,
+            "price": {
+              "amount": 1000,
+              "unit": "session",
+              "label": "Includes enrollment fee, room, board, and materials",
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "7th & 8th Graders",
+            "start": "2027-07-18",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 7,
+              "max": 8,
+              "basis": "current"
+            },
+            "hours": null,
+            "price": {
+              "amount": 1000,
+              "unit": "session",
+              "label": "Includes enrollment fee, room, board, and materials",
+              "year": 2027
+            },
+            "status": null
           }
         ],
-        "sessions": [],
         "registration": [
           {
             "audience": "public",
@@ -795,15 +862,15 @@
           "https://www.scgsah.org/admissions/fees-payments"
         ],
         "confidence": "medium",
-        "review_notes": "Both grade bands are listed, but date blocks and the 9th-grade price could not be recovered. not_posted indicates dates could not be verified, not a confirmed absence of posted dates. The grades 7-8 eligibility snippet specifies the 2026-2027 school year."
+        "review_notes": "The 9th-grade offering is listed, but its dates and price could not be recovered. Season bounds cover only recovered 7th-8th-grade rows and may not span the entire program. Department facts came from official search excerpts."
       },
       {
         "name": "Orchestra",
         "type": "overnight",
         "categories": ["music"],
-        "description": "Students participate in ensembles, seminars, and instrumental master classes.",
+        "description": "Students participate in ensembles, seminars, and master classes on their instruments.",
         "camp_page_url": "https://www.scgsah.org/summer-programs/music",
-        "registration_url": "https://scgsah.fsenrollment.com/portal",
+        "registration_url": "https://www.scgsah.org/admissions/apply-summer",
         "season": {
           "year": 2027,
           "status": "posted",
@@ -831,7 +898,7 @@
           {
             "amount": 1000,
             "unit": "session",
-            "label": "Includes $200 non-refundable enrollment fee, room, board, and materials",
+            "label": "Includes enrollment fee, room, board, and materials",
             "year": 2027
           }
         ],
@@ -871,7 +938,7 @@
         "special_needs": null,
         "lunch": {
           "value": "yes",
-          "text": "Fees: $1,000.00, includes a $200.00 non-refundable enrollment fee, room, board, and materials."
+          "text": "Fees include room, board, and materials."
         },
         "transportation": null,
         "sources": [
@@ -880,15 +947,15 @@
           "https://www.scgsah.org/admissions/fees-payments"
         ],
         "confidence": "medium",
-        "review_notes": "Facts recovered from official search results; grades refer to 2026-2027."
+        "review_notes": "Facts recovered from official search excerpts. Grades refer to the 2026-2027 school year."
       },
       {
         "name": "Band",
         "type": "overnight",
         "categories": ["music"],
-        "description": "Students study through ensembles, seminars, and master classes on their instruments.",
+        "description": "Students work in ensembles, seminars, and instrumental master classes. Audition videos may also be used to select a woodwind quartet or brass quintet.",
         "camp_page_url": "https://www.scgsah.org/summer-programs/music",
-        "registration_url": "https://scgsah.fsenrollment.com/portal",
+        "registration_url": "https://www.scgsah.org/admissions/apply-summer",
         "season": {
           "year": 2027,
           "status": "not_posted",
@@ -916,7 +983,7 @@
           {
             "amount": 1000,
             "unit": "session",
-            "label": "One-week session; includes $200 non-refundable fee",
+            "label": "1-week session, includes non-refundable fee",
             "year": 2027
           }
         ],
@@ -933,6 +1000,18 @@
             "url": "https://www.scgsah.org/admissions",
             "year": 2027,
             "confidence": "medium"
+          },
+          {
+            "audience": "public",
+            "kind": "closes",
+            "date": "2027-05-21",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "We will continue to accept applications on an \"as space is available\" basis until May 21, 2027, for Summer Program applications and June 18, 2027, for Residential High School applications",
+            "url": "https://www.scgsah.org/admissions",
+            "year": 2027,
+            "confidence": "medium"
           }
         ],
         "last_year_registration_opened": null,
@@ -950,15 +1029,15 @@
           "https://www.scgsah.org/admissions/fees-payments"
         ],
         "confidence": "medium",
-        "review_notes": "Date block unavailable in recovered text; verify dates and complete eligibility. Price combines stated one-week length with 2027 fee schedule. General final application cutoff is May 21, 2027, as space permits."
+        "review_notes": "Band dates could not be recovered from official search excerpts; Orchestra dates were not copied to Band. Season status does not establish that dates are absent from the full page. Price uses the stated one-week format and 2027 tuition."
       },
       {
         "name": "Composition and Songwriting",
         "type": "overnight",
         "categories": ["music"],
-        "description": "Students concentrate on composition and songwriting, with music electives and daily practice time.",
+        "description": "Students choose a composition or songwriting track and spend time in classes and working individually on new compositions or songs.",
         "camp_page_url": "https://www.scgsah.org/summer-programs/music",
-        "registration_url": "https://scgsah.fsenrollment.com/portal",
+        "registration_url": "https://www.scgsah.org/admissions/apply-summer",
         "season": {
           "year": 2027,
           "status": "not_posted",
@@ -996,6 +1075,18 @@
             "url": "https://www.scgsah.org/admissions",
             "year": 2027,
             "confidence": "medium"
+          },
+          {
+            "audience": "public",
+            "kind": "closes",
+            "date": "2027-05-21",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "We will continue to accept applications on an \"as space is available\" basis until May 21, 2027, for Summer Program applications and June 18, 2027, for Residential High School applications",
+            "url": "https://www.scgsah.org/admissions",
+            "year": 2027,
+            "confidence": "medium"
           }
         ],
         "last_year_registration_opened": null,
@@ -1013,15 +1104,15 @@
           "https://www.scgsah.org/admissions/fees-payments"
         ],
         "confidence": "medium",
-        "review_notes": "Offering and grade band recovered from official program list only. Verify dates, price, and detailed eligibility. General final application cutoff is May 21, 2027, as space permits."
+        "review_notes": "Offering and description recovered from official search excerpts, but program-specific dates and fees were not recovered. Season status does not establish that dates are absent from the full page."
       },
       {
         "name": "Jazz",
         "type": "overnight",
         "categories": ["music"],
-        "description": "Students concentrate on jazz, with music electives and daily practice time.",
+        "description": "An overnight jazz summer program for students in grades 7-9.",
         "camp_page_url": "https://www.scgsah.org/summer-programs/music",
-        "registration_url": "https://scgsah.fsenrollment.com/portal",
+        "registration_url": "https://www.scgsah.org/admissions/apply-summer",
         "season": {
           "year": 2027,
           "status": "not_posted",
@@ -1059,6 +1150,18 @@
             "url": "https://www.scgsah.org/admissions",
             "year": 2027,
             "confidence": "medium"
+          },
+          {
+            "audience": "public",
+            "kind": "closes",
+            "date": "2027-05-21",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "We will continue to accept applications on an \"as space is available\" basis until May 21, 2027, for Summer Program applications and June 18, 2027, for Residential High School applications",
+            "url": "https://www.scgsah.org/admissions",
+            "year": 2027,
+            "confidence": "medium"
           }
         ],
         "last_year_registration_opened": null,
@@ -1076,15 +1179,15 @@
           "https://www.scgsah.org/admissions/fees-payments"
         ],
         "confidence": "medium",
-        "review_notes": "Offering and grade band recovered from official program list only. Verify dates, price, and detailed eligibility. General final application cutoff is May 21, 2027, as space permits."
+        "review_notes": "Listed in the official indexed program list, but program-specific dates, fees, and detailed activities could not be recovered. Season status does not establish that dates are absent from the full page."
       },
       {
         "name": "Piano",
         "type": "overnight",
         "categories": ["music"],
-        "description": "Students concentrate on piano, with music electives and daily practice time.",
+        "description": "An overnight piano summer program for students in grades 7-9.",
         "camp_page_url": "https://www.scgsah.org/summer-programs/music",
-        "registration_url": "https://scgsah.fsenrollment.com/portal",
+        "registration_url": "https://www.scgsah.org/admissions/apply-summer",
         "season": {
           "year": 2027,
           "status": "not_posted",
@@ -1122,6 +1225,18 @@
             "url": "https://www.scgsah.org/admissions",
             "year": 2027,
             "confidence": "medium"
+          },
+          {
+            "audience": "public",
+            "kind": "closes",
+            "date": "2027-05-21",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "We will continue to accept applications on an \"as space is available\" basis until May 21, 2027, for Summer Program applications and June 18, 2027, for Residential High School applications",
+            "url": "https://www.scgsah.org/admissions",
+            "year": 2027,
+            "confidence": "medium"
           }
         ],
         "last_year_registration_opened": null,
@@ -1139,15 +1254,15 @@
           "https://www.scgsah.org/admissions/fees-payments"
         ],
         "confidence": "medium",
-        "review_notes": "Offering and grade band recovered from official program list only. Verify dates, price, and detailed eligibility. General final application cutoff is May 21, 2027, as space permits."
+        "review_notes": "Listed separately from the Piano Solo and Chamber Music Intensive in the official indexed program list. Program-specific dates and fees were not recovered; season status does not establish their absence from the full page."
       },
       {
         "name": "Piano Solo and Chamber Music Intensive",
         "type": "overnight",
         "categories": ["music"],
-        "description": "Students concentrate on piano solo and chamber music, with music electives and daily practice time.",
+        "description": "An overnight piano solo and chamber music intensive for students in grades 7-9.",
         "camp_page_url": "https://www.scgsah.org/summer-programs/music",
-        "registration_url": "https://scgsah.fsenrollment.com/portal",
+        "registration_url": "https://www.scgsah.org/admissions/apply-summer",
         "season": {
           "year": 2027,
           "status": "not_posted",
@@ -1185,6 +1300,18 @@
             "url": "https://www.scgsah.org/admissions",
             "year": 2027,
             "confidence": "medium"
+          },
+          {
+            "audience": "public",
+            "kind": "closes",
+            "date": "2027-05-21",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "We will continue to accept applications on an \"as space is available\" basis until May 21, 2027, for Summer Program applications and June 18, 2027, for Residential High School applications",
+            "url": "https://www.scgsah.org/admissions",
+            "year": 2027,
+            "confidence": "medium"
           }
         ],
         "last_year_registration_opened": null,
@@ -1202,15 +1329,15 @@
           "https://www.scgsah.org/admissions/fees-payments"
         ],
         "confidence": "medium",
-        "review_notes": "Offering and grade band recovered from official program list only. Verify dates, price, and detailed eligibility. General final application cutoff is May 21, 2027, as space permits."
+        "review_notes": "Official indexed program list confirms this offering. A July 11-16 date excerpt could not be tied safely to this subsection, so dates and fees remain empty. Season status does not establish that dates are absent from the full page."
       },
       {
         "name": "Strings Solo and Chamber Music Intensive",
         "type": "overnight",
         "categories": ["music"],
-        "description": "Students concentrate on strings solo and chamber music, with music electives and daily practice time.",
+        "description": "An overnight strings solo and chamber music intensive for students in grades 7-9.",
         "camp_page_url": "https://www.scgsah.org/summer-programs/music",
-        "registration_url": "https://scgsah.fsenrollment.com/portal",
+        "registration_url": "https://www.scgsah.org/admissions/apply-summer",
         "season": {
           "year": 2027,
           "status": "not_posted",
@@ -1248,6 +1375,18 @@
             "url": "https://www.scgsah.org/admissions",
             "year": 2027,
             "confidence": "medium"
+          },
+          {
+            "audience": "public",
+            "kind": "closes",
+            "date": "2027-05-21",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "We will continue to accept applications on an \"as space is available\" basis until May 21, 2027, for Summer Program applications and June 18, 2027, for Residential High School applications",
+            "url": "https://www.scgsah.org/admissions",
+            "year": 2027,
+            "confidence": "medium"
           }
         ],
         "last_year_registration_opened": null,
@@ -1265,15 +1404,15 @@
           "https://www.scgsah.org/admissions/fees-payments"
         ],
         "confidence": "medium",
-        "review_notes": "Offering and grade band recovered from official program list only. Verify dates, price, and detailed eligibility. General final application cutoff is May 21, 2027, as space permits."
+        "review_notes": "Official indexed program list confirms this offering, but its dates and fees could not be recovered. Season status does not establish that dates are absent from the full page."
       },
       {
         "name": "Voice",
         "type": "overnight",
         "categories": ["music"],
-        "description": "Students concentrate on voice, with music electives and daily practice time.",
+        "description": "An overnight voice summer program with offerings for grades 7-8 and grade 9.",
         "camp_page_url": "https://www.scgsah.org/summer-programs/music",
-        "registration_url": "https://scgsah.fsenrollment.com/portal",
+        "registration_url": "https://www.scgsah.org/admissions/apply-summer",
         "season": {
           "year": 2027,
           "status": "not_posted",
@@ -1311,6 +1450,18 @@
             "url": "https://www.scgsah.org/admissions",
             "year": 2027,
             "confidence": "medium"
+          },
+          {
+            "audience": "public",
+            "kind": "closes",
+            "date": "2027-05-21",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "We will continue to accept applications on an \"as space is available\" basis until May 21, 2027, for Summer Program applications and June 18, 2027, for Residential High School applications",
+            "url": "https://www.scgsah.org/admissions",
+            "year": 2027,
+            "confidence": "medium"
           }
         ],
         "last_year_registration_opened": null,
@@ -1328,7 +1479,7 @@
           "https://www.scgsah.org/admissions/fees-payments"
         ],
         "confidence": "medium",
-        "review_notes": "Separate grades 7-8 and grade 9 offerings are listed, but dates could not be recovered, so no dated band rows are supplied. Verify dates, prices, and detailed eligibility. General final application cutoff is May 21, 2027, as space permits."
+        "review_notes": "Official indexed program list confirms separate 7th-8th and 9th-grade bands. Their dates and fees could not be recovered, so dated band rows could not be created. Season status does not establish that dates are absent from the full page."
       }
     ]
   }

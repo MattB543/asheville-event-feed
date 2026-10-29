@@ -12,23 +12,23 @@
     "status": "review",
     "status_reason": "first page is a social media page or video, which our fetcher can't read"
   },
-  "extractedAt": "2026-10-29T15:19:48.014Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:16:46.108Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": null,
   "response": {
     "searches": [
       "Deep Creek Missionary Baptist Church Bryson City VBS 2026",
-      "site:facebook.com \"Deep Creek\" \"2026\" \"5:30\"",
-      "\"Junkyard Redemption\" \"Each Evening\""
+      "site:facebook.com \"Deep Creek\" \"Junkyard\" \"2026\"",
+      "\"DeepCreekMissionaryBaptistChurch\" \"VBS\" \"2026\""
     ],
     "usage": {
-      "inputTokens": 20323,
-      "cachedInputTokens": 8223,
-      "outputTokens": 874,
-      "reasoningTokens": 268
+      "inputTokens": 21171,
+      "cachedInputTokens": 8845,
+      "outputTokens": 786,
+      "reasoningTokens": 295
     },
     "status": "completed",
-    "ms": 33748,
+    "ms": 27555,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -47,26 +47,21 @@
   "extraction": {
     "provider_name": "Deep Creek Missionary Baptist Church of Bryson City",
     "website_url": null,
-    "notes": "No standalone church website or summer 2027 information was found. Both supplied Facebook pages returned no readable content. A 2026 Vacation Bible School was found in third-party event listings and a mirror of the church's Facebook posts; its details require official confirmation.",
-    "excluded": [
-      {
-        "name": "Classes for Young People",
-        "reason": "Regular Wednesday youth classes, not a finite summer program."
-      }
-    ],
+    "notes": "No standalone official website or 2027 camp information was found. Both supplied Facebook pages opened without readable content. Third-party event listings identify Junkyard Redemption VBS 2026, but the complete schedule could not be confirmed on official pages.",
+    "excluded": [],
     "cards": [
       {
         "name": "Vacation Bible School",
         "type": "vbs",
         "categories": ["faith_based"],
-        "description": "Children participate in Vacation Bible School focused on Bible teaching. The reported 2026 theme was Junkyard Redemption.",
+        "description": "Vacation Bible School at Deep Creek Missionary Baptist Church.",
         "camp_page_url": "https://www.facebook.com/DeepCreekMissionaryBaptistChurch/events/",
         "registration_url": null,
         "season": {
           "year": 2026,
           "status": "not_posted",
-          "start": "2026-06-07",
-          "end": "2026-06-12",
+          "start": null,
+          "end": null,
           "text": null
         },
         "ages": null,
@@ -74,7 +69,7 @@
         "sites": [
           {
             "name": "Deep Creek Missionary Baptist Church",
-            "address": "151 Deep Creek Church Road",
+            "address": "151 Deep Creek Church Rd",
             "town": "Bryson City",
             "state": "NC"
           }
@@ -91,12 +86,11 @@
         "lunch": null,
         "transportation": null,
         "sources": [
-          "https://www.facebook.com/dcmbc/",
-          "https://www.facebook.com/DeepCreekMissionaryBaptistChurch/events/",
+          "https://www.facebook.com/dcmbc/photos_stream/",
           "https://churchpop.ncbaptist.org/?orgid=190024317"
         ],
         "confidence": "low",
-        "review_notes": "The Facebook pages could not be read. Confirm the June 7–12, 2026 dates and Junkyard Redemption theme with the church; these were found only in https://happeningnext.com/event/junkyard-redemption-vbs-2026-deep-creek-missionary-baptist-church-eid3a0dqn5kn4 and third-party Facebook mirrors. The physical address is corroborated by the Baptist State Convention's church directory, but could not be verified on the church's own page. Ages, hours, cost and registration details remain unverified."
+        "review_notes": "Facebook camp details could not be read. AllEvents lists a June 7, 2026 event from 5:30–8:30 p.m. and other listings show additional dates, so neither the complete season nor daily hours are entered. Confirm the schedule, eligibility and registration directly with the church. Address is supported by the Baptist State Convention's ChurchPOP search snippet, rather than a readable church contact page."
       }
     ]
   }

@@ -7,19 +7,22 @@
     "discovered_by": ["aggregator"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:34:20.746Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:28:41.459Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "22bcd9efd02e1da43ae9aa2c747116e1d7cd74a8caac6aba8efab80df16de829",
   "response": {
-    "searches": ["site:oakhillonline.org \"2027\"", "open https://oakhillonline.org/community"],
+    "searches": [
+      "site:oakhillonline.org \"camp\" \"2027\"",
+      "open https://oakhillonline.org/community"
+    ],
     "usage": {
-      "inputTokens": 13426,
-      "cachedInputTokens": 8223,
-      "outputTokens": 795,
-      "reasoningTokens": 114
+      "inputTokens": 14104,
+      "cachedInputTokens": 8845,
+      "outputTokens": 846,
+      "reasoningTokens": 126
     },
     "status": "completed",
-    "ms": 23590,
+    "ms": 21601,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -38,15 +41,19 @@
   "extraction": {
     "provider_name": "Oak Hill Fire & Rescue Protection Association",
     "website_url": "https://oakhillonline.org/",
-    "notes": "No 2027 camp information found. The community page lists June 15–20, 2026 for camp but separately says the Saturday family cookout is July 20; that cookout date conflicts with the camp dates. The provider publishes its address as 2400 North Carolina Highway 181, Morganton, NC, but does not explicitly identify the camp drop-off location.",
+    "notes": "No 2027 camp information found. The community page gives June 15–20, 2026 for Fire Camp but separately lists a family cookout on 'Saturday July 20'; this conflicts with the camp dates. The official contact page publishes 2400 North Carolina Highway 181, Morganton, NC 28655, but the camp page does not explicitly identify its drop-off venue, so sites is empty.",
     "excluded": [
       {
         "name": "Oak Hill Fire Rescue Corps Program",
-        "reason": "Ongoing youth community stewardship and training program; not described as a finite summer camp."
+        "reason": "Ongoing youth community-service and training program, not a finite summer camp."
       },
       {
         "name": "Junior Firefighter Program",
-        "reason": "Ongoing junior membership and firefighter training program, not a finite summer offering."
+        "reason": "Ongoing junior membership and firefighter training program, not a finite summer camp."
+      },
+      {
+        "name": "Family cookout",
+        "reason": "Single social event associated with Fire Camp, not a separate camp."
       }
     ],
     "cards": [
@@ -54,7 +61,7 @@
         "name": "Fire Camp",
         "type": "day",
         "categories": ["general"],
-        "description": "Campers learn what firefighters do and practice CPR and search and rescue skills.",
+        "description": "Campers learn what it is like to be a firefighter, including CPR and search and rescue skills.",
         "camp_page_url": "https://oakhillonline.org/community",
         "registration_url": "https://oakhillonline.org/community",
         "season": {
@@ -97,7 +104,7 @@
         "transportation": null,
         "sources": ["https://oakhillonline.org/community", "https://oakhillonline.org/contact-us"],
         "confidence": "medium",
-        "review_notes": "Confirm the family cookout date: the community page states camp is June 15–20, 2026 but says the cookout is Saturday July 20, 4pm–5pm. Camp dates here follow the explicitly stated June range. Confirm the drop-off location; the provider's contact address is not explicitly identified as the camp venue. The page says 'Applications due: May 18, 2026 for a free T-shirt'; this is not a registration opening date or a 2027 milestone."
+        "review_notes": "The community page states camp dates June 15–20, 2026, but describes the associated cookout as 'Saturday July 20 4pm-5pm'; check the cookout date with the provider. The page states 'Applications due: May 18, 2026 for a free T-shirt'; this is not a registration opening and is not included among 2027 milestones. Confirm the camp drop-off venue; the provider's contact address is not explicitly identified as the camp location."
       }
     ]
   }

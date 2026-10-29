@@ -11,24 +11,22 @@
     "discovered_by": ["grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:26:57.668Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:22:24.086Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "c6d6c4164430941cfdf62315dc03b0ee44503642a587c66f7f2660d897013c53",
   "response": {
     "searches": [
-      "site:sites.google.com/view/marshillbc \"Contact\"",
-      "open https://sites.google.com/view/marshillbc/youth",
-      "site:sites.google.com/view/marshillbc \"UniDiversity\"",
-      "site.maryvillecollege.edu address \"502\""
+      "site:sites.google.com/view/marshillbc \"Contact\" \"address\"",
+      "\"Mars Hill Baptist Church\" \"67\" \"Main\""
     ],
     "usage": {
-      "inputTokens": 27708,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1765,
-      "reasoningTokens": 368
+      "inputTokens": 19533,
+      "cachedInputTokens": 8845,
+      "outputTokens": 902,
+      "reasoningTokens": 209
     },
     "status": "completed",
-    "ms": 48056,
+    "ms": 24782,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -57,19 +55,23 @@
   "extraction": {
     "provider_name": "Mars Hill Baptist Church of Mars Hill",
     "website_url": "https://sites.google.com/view/marshillbc/home",
-    "notes": "The church has not posted its own 2027 summer plans. UniDiversity's organizer has posted 2027 dates and group prices, but the church's participation is confirmed only for 2026. Several Google Sites pages returned empty content when opened; official search results supplied additional event details. Newsletter attachments were not accessible in the supplied fetch. The old marshillbc.org domain displays a hosting default page.",
+    "notes": "No 2027 Vacation Bible School information found. The legacy marshillbc.org website displays a hosting default page. Newsletter attachments and registration forms were not accessible in the supplied text; a Google Drive sign-in page was returned. The youth page also mentions UniDiversity Summer Camp for Middle Schoolers; its official website places the 2027 camp at Maryville College, Tennessee, outside the directory's drive-time area.",
     "excluded": [
       {
         "name": "Mars Hill Baptist Church Preschool",
-        "reason": "Preschool beginning in September, not a summer-only program."
-      },
-      {
-        "name": "Sunday School and weekly youth gatherings",
-        "reason": "Year-round religious education and youth activities, not finite summer programs."
+        "reason": "School-year preschool beginning in September, not a finite summer camp."
       },
       {
         "name": "Chicago Mission Trip",
-        "reason": "Church mission/service trip rather than a described summer camp or youth instructional program."
+        "reason": "Youth mission trips are excluded."
+      },
+      {
+        "name": "UniDiversity Summer Camp for Middle Schoolers",
+        "reason": "The official UniDiversity website lists its 2027 venue as Maryville College, Tennessee, plainly beyond about 75 minutes' drive from Asheville."
+      },
+      {
+        "name": "Sunday School and Sunday evening youth ministry",
+        "reason": "Ongoing year-round religious education and youth activities, not finite summer camps."
       }
     ],
     "cards": [
@@ -77,8 +79,8 @@
         "name": "Vacation Bible School",
         "type": "vbs",
         "categories": ["faith_based"],
-        "description": "Vacation Bible School has the theme Growing in Love.",
-        "camp_page_url": "https://sites.google.com/view/marshillbc/events",
+        "description": "Vacation Bible School with the theme Growing in Love.",
+        "camp_page_url": "https://sites.google.com/view/marshillbc/newsletters",
         "registration_url": null,
         "season": {
           "year": 2026,
@@ -89,7 +91,14 @@
         },
         "ages": null,
         "grades": null,
-        "sites": [],
+        "sites": [
+          {
+            "name": "Mars Hill Baptist Church",
+            "address": "67 N. Main St.",
+            "town": "Mars Hill",
+            "state": "NC"
+          }
+        ],
         "hours": null,
         "extended_care": null,
         "prices": [],
@@ -103,94 +112,10 @@
         "transportation": null,
         "sources": [
           "https://sites.google.com/view/marshillbc/newsletters",
-          "https://sites.google.com/view/marshillbc/events"
+          "https://sites.google.com/view/marshillbc/contact"
         ],
         "confidence": "medium",
-        "review_notes": "The official Events search result explicitly labels the August 4–6 dates as 2026. The July 31, 2026 newsletter supplies the theme and mentions attached registration forms, but those forms were not accessible. Confirm the meeting location, ages, hours and registration instructions; the announcement does not explicitly identify a drop-off venue."
-      },
-      {
-        "name": "UniDiversity Camp",
-        "type": "overnight",
-        "categories": ["faith_based"],
-        "description": "Teenagers participate in a week-long Christian camp led by church ministers and adult volunteers. The 2027 theme is Grounded in God.",
-        "camp_page_url": "https://www.unidiversity.org/camp-2027",
-        "registration_url": "https://www.unidiversity.org/register-for-camp",
-        "season": {
-          "year": 2027,
-          "status": "posted",
-          "start": "2027-07-12",
-          "end": "2027-07-16",
-          "text": "Make plans now to join us on the campus of Maryville College (Just outside of Knoxville, TN) July 12-16, 2027."
-        },
-        "ages": null,
-        "grades": null,
-        "sites": [
-          {
-            "name": "Maryville College",
-            "address": "502 E. Lamar Alexander Parkway",
-            "town": "Maryville",
-            "state": "TN"
-          }
-        ],
-        "hours": null,
-        "extended_care": null,
-        "prices": [
-          {
-            "amount": 435,
-            "unit": "program",
-            "label": "Early bird group registration, per person",
-            "year": 2027
-          },
-          {
-            "amount": 485,
-            "unit": "program",
-            "label": "Regular group registration, per person",
-            "year": 2027
-          }
-        ],
-        "sessions": [],
-        "registration": [
-          {
-            "audience": "early_bird",
-            "kind": "deadline",
-            "date": "2027-03-01",
-            "time": null,
-            "precision": "date",
-            "certainty": "announced",
-            "text": "Submit Group Commitment Form by March 1 (required for early bird rate)",
-            "url": "https://www.unidiversity.org/register-for-camp",
-            "year": 2027,
-            "confidence": "medium"
-          },
-          {
-            "audience": "other",
-            "kind": "deadline",
-            "date": "2027-05-01",
-            "time": null,
-            "precision": "date",
-            "certainty": "announced",
-            "text": "Submit Final Group Number by (May 1)",
-            "url": "https://www.unidiversity.org/register-for-camp",
-            "year": 2027,
-            "confidence": "medium"
-          }
-        ],
-        "last_year_registration_opened": null,
-        "availability": null,
-        "financial_aid": null,
-        "special_needs": null,
-        "lunch": null,
-        "transportation": null,
-        "sources": [
-          "https://sites.google.com/view/marshillbc/events",
-          "https://sites.google.com/view/marshillbc/youth",
-          "https://www.unidiversity.org/",
-          "https://www.unidiversity.org/camp-2027",
-          "https://www.unidiversity.org/register-for-camp",
-          "https://www.maryvillecollege.edu/legal/contact-us/"
-        ],
-        "confidence": "medium",
-        "review_notes": "The church announces participation only for July 6–10, 2026, open to all middle school youth; it directs interested families to Nicholas Honeycutt. The organizer's official search results supply 2027 dates, venue and group rates. Confirm church participation in 2027, its eligibility and family charges, overnight arrangements and whether families meet at the church or college. Numeric grades are omitted because the church says only middle school. Registration deadlines take their year from the Camp 2027 heading and are group deadlines, not individual family registration dates."
+        "review_notes": "August 4–6 is assigned to 2026 from the newsletter's July 31, 2026 heading. The newsletter does not explicitly name the drop-off venue; the church is used as the presumed venue. Its contact page labels 67 N. Main St. as its mailing address, and location listings corroborate that address. Check the inaccessible registration attachments for venue, ages, hours and any fees."
       }
     ]
   }

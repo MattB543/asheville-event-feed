@@ -11,23 +11,23 @@
     "discovered_by": ["grid", "aggregator", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:10:13.661Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:09:10.945Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "a03c71494f45145c80211ad094180d767197b051d49a1344e9eb39efe732b287",
   "response": {
     "searches": [
-      "site:talismancamps.com \"137\"",
-      "site:talismancamps.com \"Krewe\" \"Leadership\"",
-      "site:talismancamps.com \"Teen Adventure Series\" \"Ages\""
+      "site:talismancamps.com \"Krewe\"",
+      "site:talismancamps.com \"Flora\" \"Ages\"",
+      "site:talismancamps.com/our-programs/ \"Flora\""
     ],
     "usage": {
-      "inputTokens": 41905,
-      "cachedInputTokens": 8223,
-      "outputTokens": 10444,
-      "reasoningTokens": 434
+      "inputTokens": 46367,
+      "cachedInputTokens": 8845,
+      "outputTokens": 10655,
+      "reasoningTokens": 341
     },
     "status": "completed",
-    "ms": 178788,
+    "ms": 184824,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -76,19 +76,14 @@
   "extraction": {
     "provider_name": "Talisman Camps",
     "website_url": "https://talismancamps.com/",
-    "notes": "Summer 2027 dates and prices are posted and registration is open. The official Tri-Adventures search result states that 2027 registration opens October 1, 2026; that provider-wide footer announcement is recorded on the cards. Session 4 is labeled 13 days but its printed dates, July 19–30, span 12 calendar days; printed dates are preserved. Several official pages returned empty text when opened, so supplied page text and official search results were used. The 2026 catalog PDF could not be read beyond search excerpts. Teen Adventure Series is treated as the named introductory offering on the schedule, rather than duplicating all longer adventure programs under that umbrella. Krewe is excluded under the job-program rule.",
-    "excluded": [
-      {
-        "name": "Krewe",
-        "reason": "The official description characterizes participants as similar to interns, doing work contributions and learning to hold a job; excluded as a job or employment program."
-      }
-    ],
+    "notes": "Summer 2027 dates and tuition are posted, and registration is open. An official search result for the Team page states that registration opened October 1, 2026; that milestone is snippet-only. Session 4 is labeled 13 days but its printed dates, July 19–30, span 12 calendar days; the printed dates are retained. Several additional official pages returned empty bodies when opened, although official search results supplied program details. Older Build & Destroy material was omitted because it is absent from the posted 2027 schedule. Young Adult is retained as an explicitly listed young-adult camp, not an adult retreat. Teen Adventure Series is both an umbrella term and a separately priced seven-day offering on the schedule; the seven-day offering is retained separately.",
+    "excluded": [],
     "cards": [
       {
         "name": "Discovery",
         "type": "overnight",
         "categories": ["general", "nature_outdoor", "special_needs"],
-        "description": "Campers participate in nature walks, arts and crafts, tree climbing, kayaking, lake activities and campfires. Structured routines and activities incorporate social communication and conflict resolution.",
+        "description": "Campers participate in nature walks, arts and crafts, tree climbing, kayaking, lake activities, and campfire gatherings. Structured activities incorporate social communication and conflict resolution.",
         "camp_page_url": "https://talismancamps.com/aspergers-camp-overview/ages-6-7/",
         "registration_url": "https://talisman.campintouch.com/v2/family/inquiryForm.aspx",
         "season": {
@@ -142,7 +137,7 @@
             "precision": "date",
             "certainty": "announced",
             "text": "Summer 2027 registration opens October 1st, 2026.",
-            "url": "https://talismancamps.com/triadventures/",
+            "url": "https://talismancamps.com/team/",
             "year": 2027,
             "confidence": "medium"
           }
@@ -162,18 +157,18 @@
         "sources": [
           "https://talismancamps.com/aspergers-camp-overview/ages-6-7/",
           "https://talismancamps.com/dates-and-rates/",
+          "https://talismancamps.com/mapdirections/",
           "https://talismancamps.com/",
-          "https://talismancamps.com/directions-to-camp-talisman/",
-          "https://talismancamps.com/triadventures/"
+          "https://talismancamps.com/team/"
         ],
         "confidence": "medium",
-        "review_notes": "Registration opening date is available only in the official Tri-Adventures search result. The age-groups page still describes Discovery as Session 4 with a Summer 2026 call to action; the explicit 2027 schedule and Discovery page agree on Session 5."
+        "review_notes": "Registration opening date is from an official search snippet for the Team page. The older age-groups page says Session 4 only; the 2027 schedule and Discovery page agree on Session 5."
       },
       {
         "name": "Foundations",
         "type": "overnight",
         "categories": ["general", "nature_outdoor", "special_needs"],
-        "description": "Campers take part in hiking, canoeing and climbing with structured activities and staff support for ADHD. Peer groups are matched by age and ADHD profile.",
+        "description": "Campers practice social skills through structured camp activities, including hiking, canoeing, and climbing. The program serves campers with ADHD and learning differences.",
         "camp_page_url": "https://talismancamps.com/aspergers-camp-overview/ages-8-13/",
         "registration_url": "https://talisman.campintouch.com/v2/family/inquiryForm.aspx",
         "season": {
@@ -295,7 +290,7 @@
             "precision": "date",
             "certainty": "announced",
             "text": "Summer 2027 registration opens October 1st, 2026.",
-            "url": "https://talismancamps.com/triadventures/",
+            "url": "https://talismancamps.com/team/",
             "year": 2027,
             "confidence": "medium"
           }
@@ -315,19 +310,19 @@
         "sources": [
           "https://talismancamps.com/aspergers-camp-overview/ages-8-13/",
           "https://talismancamps.com/dates-and-rates/",
+          "https://talismancamps.com/mapdirections/",
           "https://talismancamps.com/",
-          "https://talismancamps.com/directions-to-camp-talisman/",
-          "https://talismancamps.com/triadventures/"
+          "https://talismancamps.com/team/"
         ],
         "confidence": "medium",
-        "review_notes": "Check Session 4: the 2027 schedule labels July 19–30 as 13 days. Registration opening date was seen only in an official search result."
+        "review_notes": "Session 4 is called 13 days but printed as July 19–30. Registration opening date is from an official Team-page search snippet."
       },
       {
         "name": "Sight",
         "type": "overnight",
         "categories": ["general", "nature_outdoor", "special_needs"],
-        "description": "Campers participate in outdoor adventure and structured social activities with predictable routines. Groups are matched by processing speed, with staff support for autism and sensory needs.",
-        "camp_page_url": "https://talismancamps.com/sight/",
+        "description": "Campers participate in outdoor adventures and structured group activities while practicing social communication. Groups are matched by processing speed for campers on the autism spectrum.",
+        "camp_page_url": "https://talismancamps.com/aspergers-camp-overview/ages-8-13/",
         "registration_url": "https://talisman.campintouch.com/v2/family/inquiryForm.aspx",
         "season": {
           "year": 2027,
@@ -465,7 +460,7 @@
             "precision": "date",
             "certainty": "announced",
             "text": "Summer 2027 registration opens October 1st, 2026.",
-            "url": "https://talismancamps.com/triadventures/",
+            "url": "https://talismancamps.com/team/",
             "year": 2027,
             "confidence": "medium"
           }
@@ -483,21 +478,20 @@
         "lunch": null,
         "transportation": null,
         "sources": [
-          "https://talismancamps.com/sight/",
           "https://talismancamps.com/aspergers-camp-overview/ages-8-13/",
           "https://talismancamps.com/dates-and-rates/",
+          "https://talismancamps.com/mapdirections/",
           "https://talismancamps.com/",
-          "https://talismancamps.com/directions-to-camp-talisman/",
-          "https://talismancamps.com/triadventures/"
+          "https://talismancamps.com/team/"
         ],
         "confidence": "medium",
-        "review_notes": "Check Session 4: the 2027 schedule labels July 19–30 as 13 days. Registration opening date was seen only in an official search result."
+        "review_notes": "Session 4 is called 13 days but printed as July 19–30. Registration opening date is from an official Team-page search snippet."
       },
       {
         "name": "Insight",
         "type": "overnight",
         "categories": ["general", "nature_outdoor", "special_needs"],
-        "description": "Teens practice goal-setting, self-advocacy and social skills through structured activities. Outdoor activities include hiking, canoeing, rock climbing and tree climbing.",
+        "description": "Teens practice independence, self-advocacy, and social skills through structured activities and outdoor adventures such as hiking, canoeing, rock climbing, and tree climbing.",
         "camp_page_url": "https://talismancamps.com/aspergers-camp-overview/ages-13-17/",
         "registration_url": "https://talisman.campintouch.com/v2/family/inquiryForm.aspx",
         "season": {
@@ -636,7 +630,7 @@
             "precision": "date",
             "certainty": "announced",
             "text": "Summer 2027 registration opens October 1st, 2026.",
-            "url": "https://talismancamps.com/triadventures/",
+            "url": "https://talismancamps.com/team/",
             "year": 2027,
             "confidence": "medium"
           }
@@ -656,18 +650,18 @@
         "sources": [
           "https://talismancamps.com/aspergers-camp-overview/ages-13-17/",
           "https://talismancamps.com/dates-and-rates/",
+          "https://talismancamps.com/mapdirections/",
           "https://talismancamps.com/",
-          "https://talismancamps.com/directions-to-camp-talisman/",
-          "https://talismancamps.com/triadventures/"
+          "https://talismancamps.com/team/"
         ],
         "confidence": "medium",
-        "review_notes": "The age-group heading says 13–17, but the Insight-specific description and navigation say 14–17; the specific range is used. Check Session 4's 13-day label against July 19–30. Registration date was seen only in an official search result."
+        "review_notes": "Program details were readable through official search results only. Specific Insight wording states ages 14–17 despite the broader page heading ages 13–17. Session 4 is called 13 days but printed as July 19–30. Registration date is snippet-only."
       },
       {
         "name": "Young Adult",
         "type": "overnight",
-        "categories": ["general", "cooking", "special_needs"],
-        "description": "Participants practice meal planning, cooking, household management, budgeting and navigation. Traditional camp activities accompany community service and real-world field trips.",
+        "categories": ["general", "special_needs"],
+        "description": "Participants combine life-skills instruction, community service, job-readiness field trips, and traditional camp activities.",
         "camp_page_url": "https://talismancamps.com/aspergers-camp-overview/ages-18-22/",
         "registration_url": "https://talisman.campintouch.com/v2/family/inquiryForm.aspx",
         "season": {
@@ -692,7 +686,14 @@
         ],
         "hours": null,
         "extended_care": null,
-        "prices": [],
+        "prices": [
+          {
+            "amount": 4160,
+            "unit": "session",
+            "label": "Base Camp",
+            "year": 2027
+          }
+        ],
         "sessions": [
           {
             "label": "Session 2",
@@ -703,12 +704,7 @@
             "ages": null,
             "grades": null,
             "hours": null,
-            "price": {
-              "amount": 4160,
-              "unit": "session",
-              "label": "Base Camp",
-              "year": 2027
-            },
+            "price": null,
             "status": null
           },
           {
@@ -720,12 +716,7 @@
             "ages": null,
             "grades": null,
             "hours": null,
-            "price": {
-              "amount": 4160,
-              "unit": "session",
-              "label": "Base Camp",
-              "year": 2027
-            },
+            "price": null,
             "status": null
           }
         ],
@@ -738,7 +729,7 @@
             "precision": "date",
             "certainty": "announced",
             "text": "Summer 2027 registration opens October 1st, 2026.",
-            "url": "https://talismancamps.com/triadventures/",
+            "url": "https://talismancamps.com/team/",
             "year": 2027,
             "confidence": "medium"
           }
@@ -751,26 +742,26 @@
         },
         "special_needs": {
           "value": "yes",
-          "text": "Talisman's Young Adult program is a neurodivergent young adult summer program built specifically for ages 18–22."
+          "text": "Our flagship program for neurodivergent individuals ages 18–22."
         },
         "lunch": null,
         "transportation": null,
         "sources": [
           "https://talismancamps.com/aspergers-camp-overview/ages-18-22/",
           "https://talismancamps.com/dates-and-rates/",
+          "https://talismancamps.com/mapdirections/",
           "https://talismancamps.com/",
-          "https://talismancamps.com/directions-to-camp-talisman/",
-          "https://talismancamps.com/triadventures/"
+          "https://talismancamps.com/team/"
         ],
         "confidence": "medium",
-        "review_notes": "Program description and registration opening date were read through official search results. This is a structured young-adult summer camp, not an adult retreat or employment placement. Format check: ages 22 outside 2-19."
+        "review_notes": "Program details and registration opening date were obtained from official search results; program page returned an empty body. Format check: ages 22 outside 2-19."
       },
       {
         "name": "Leadership",
         "type": "overnight",
         "categories": ["general", "nature_outdoor", "special_needs"],
-        "description": "Returning campers undertake a self-directed wilderness trip with staff guidance and an on-campus leadership training course. Participants practice leadership and mentorship within the camp community.",
-        "camp_page_url": "https://talismancamps.com/leadership/",
+        "description": "Returning Talisman alumni take on mentorship and leadership responsibilities and serve as role models for younger campers.",
+        "camp_page_url": "https://talismancamps.com/aspergers-camp-overview/ages-18-22/",
         "registration_url": "https://talisman.campintouch.com/v2/family/inquiryForm.aspx",
         "season": {
           "year": 2027,
@@ -814,20 +805,7 @@
             "status": null
           }
         ],
-        "registration": [
-          {
-            "audience": "returning",
-            "kind": "opens",
-            "date": "2026-10-01",
-            "time": null,
-            "precision": "date",
-            "certainty": "announced",
-            "text": "Summer 2027 registration opens October 1st, 2026.",
-            "url": "https://talismancamps.com/triadventures/",
-            "year": 2027,
-            "confidence": "medium"
-          }
-        ],
+        "registration": [],
         "last_year_registration_opened": null,
         "availability": null,
         "financial_aid": {
@@ -836,27 +814,25 @@
         },
         "special_needs": {
           "value": "yes",
-          "text": "Every camper is neurodivergent — no masking required"
+          "text": "Specialized programs for ages 6–22 with autism, ADHD, and learning differences."
         },
         "lunch": null,
         "transportation": null,
         "sources": [
-          "https://talismancamps.com/leadership/",
           "https://talismancamps.com/aspergers-camp-overview/ages-18-22/",
           "https://talismancamps.com/dates-and-rates/",
-          "https://talismancamps.com/",
-          "https://talismancamps.com/directions-to-camp-talisman/",
-          "https://talismancamps.com/triadventures/"
+          "https://talismancamps.com/mapdirections/",
+          "https://talismancamps.com/"
         ],
         "confidence": "medium",
-        "review_notes": "Invitation-only for alumni. Current navigation and young-adult page give ages 15–22; older resource pages use different ages. Session 4 is labeled 13 days despite July 19–30 dates. Opening date is a provider-wide announcement seen only in an official search result. Format check: ages 22 outside 2-19."
+        "review_notes": "Invitation-only alumni program; no invitation-specific registration date found. Current navigation states ages 15–22, while older official program pages state 14–17. Session 4 is called 13 days but printed as July 19–30. Format check: ages 22 outside 2-19."
       },
       {
         "name": "Quest",
         "type": "overnight",
         "categories": ["nature_outdoor", "special_needs"],
-        "description": "Campers learn paddling, camping, shelter building and map-and-compass navigation before a multi-day canoe expedition. Group discussions address responsibility and problem-solving.",
-        "camp_page_url": "https://talismancamps.com/quest/",
+        "description": "An adventure and outdoor-expedition camp for teens with ADHD.",
+        "camp_page_url": "https://talismancamps.com/aspergers-camp-overview/ages-13-17/",
         "registration_url": "https://talisman.campintouch.com/v2/family/inquiryForm.aspx",
         "season": {
           "year": 2027,
@@ -880,7 +856,14 @@
         ],
         "hours": null,
         "extended_care": null,
-        "prices": [],
+        "prices": [
+          {
+            "amount": 4550,
+            "unit": "session",
+            "label": "Teens",
+            "year": 2027
+          }
+        ],
         "sessions": [
           {
             "label": "Session 2",
@@ -891,12 +874,7 @@
             "ages": null,
             "grades": null,
             "hours": null,
-            "price": {
-              "amount": 4550,
-              "unit": "session",
-              "label": "Teens",
-              "year": 2027
-            },
+            "price": null,
             "status": null
           },
           {
@@ -908,12 +886,7 @@
             "ages": null,
             "grades": null,
             "hours": null,
-            "price": {
-              "amount": 4550,
-              "unit": "session",
-              "label": "Teens",
-              "year": 2027
-            },
+            "price": null,
             "status": null
           }
         ],
@@ -926,7 +899,7 @@
             "precision": "date",
             "certainty": "announced",
             "text": "Summer 2027 registration opens October 1st, 2026.",
-            "url": "https://talismancamps.com/triadventures/",
+            "url": "https://talismancamps.com/team/",
             "year": 2027,
             "confidence": "medium"
           }
@@ -939,26 +912,26 @@
         },
         "special_needs": {
           "value": "yes",
-          "text": "Quest ADHD & adventure, 14–17"
+          "text": "Quest: ADHD, adventure, outdoor expeditions"
         },
         "lunch": null,
         "transportation": null,
         "sources": [
-          "https://talismancamps.com/quest/",
-          "https://talismancamps.com/quest-2/",
+          "https://talismancamps.com/program-overview/",
+          "https://talismancamps.com/age-groups/",
           "https://talismancamps.com/dates-and-rates/",
+          "https://talismancamps.com/mapdirections/",
           "https://talismancamps.com/",
-          "https://talismancamps.com/directions-to-camp-talisman/",
-          "https://talismancamps.com/triadventures/"
+          "https://talismancamps.com/team/"
         ],
         "confidence": "medium",
-        "review_notes": "The age-group overview broadly says 13–17, but Quest-specific navigation says 14–17. Session 4's printed dates conflict with its 13-day label. Program description and opening date were read through official search results."
+        "review_notes": "Ages follow current program navigation, 14–17; broader teen and older materials sometimes say 13–17. Session 4 is called 13 days but printed as July 19–30. Registration date is snippet-only."
       },
       {
         "name": "Teen Adventure Series",
         "type": "overnight",
         "categories": ["nature_outdoor", "special_needs"],
-        "description": "Teens take part in adventure activities and outdoor challenges with staff support for ADHD and autism. Activities emphasize group problem-solving and peer interaction.",
+        "description": "An adventure-based camp for teens with ADHD and high-functioning autism, emphasizing outdoor challenges, peer connection, and problem-solving.",
         "camp_page_url": "https://talismancamps.com/aspergers-camp-overview/ages-13-17/",
         "registration_url": "https://talisman.campintouch.com/v2/family/inquiryForm.aspx",
         "season": {
@@ -983,7 +956,14 @@
         ],
         "hours": null,
         "extended_care": null,
-        "prices": [],
+        "prices": [
+          {
+            "amount": 2450,
+            "unit": "session",
+            "label": "Teens",
+            "year": 2027
+          }
+        ],
         "sessions": [
           {
             "label": "Session 1",
@@ -994,12 +974,7 @@
             "ages": null,
             "grades": null,
             "hours": null,
-            "price": {
-              "amount": 2450,
-              "unit": "session",
-              "label": "Teens",
-              "year": 2027
-            },
+            "price": null,
             "status": null
           },
           {
@@ -1011,12 +986,7 @@
             "ages": null,
             "grades": null,
             "hours": null,
-            "price": {
-              "amount": 2450,
-              "unit": "session",
-              "label": "Teens",
-              "year": 2027
-            },
+            "price": null,
             "status": null
           }
         ],
@@ -1029,7 +999,7 @@
             "precision": "date",
             "certainty": "announced",
             "text": "Summer 2027 registration opens October 1st, 2026.",
-            "url": "https://talismancamps.com/triadventures/",
+            "url": "https://talismancamps.com/team/",
             "year": 2027,
             "confidence": "medium"
           }
@@ -1042,26 +1012,26 @@
         },
         "special_needs": {
           "value": "yes",
-          "text": "Our Teen Adventure Series is a collection of neurodivergent teen summer camp programs for campers with ADHD and high-functioning autism ages 13–17."
+          "text": "For campers with ADHD and high-functioning autism ages 13–17."
         },
         "lunch": null,
         "transportation": null,
         "sources": [
           "https://talismancamps.com/aspergers-camp-overview/ages-13-17/",
           "https://talismancamps.com/dates-and-rates/",
+          "https://talismancamps.com/mapdirections/",
           "https://talismancamps.com/",
-          "https://talismancamps.com/directions-to-camp-talisman/",
-          "https://talismancamps.com/triadventures/"
+          "https://talismancamps.com/team/"
         ],
         "confidence": "medium",
-        "review_notes": "The overview also uses Teen Adventure Series as an umbrella term. This card contains only the two seven-day sessions explicitly named Teen Adventure Series in the 2027 schedule. Registration opening date was seen only in an official search result."
+        "review_notes": "The teen overview uses Teen Adventure Series as an umbrella, but the 2027 schedule separately lists it for Sessions 1 and 5. Confirm seven-day offering details. Program description and registration date are from official search results."
       },
       {
         "name": "Flora & Fauna",
         "type": "overnight",
         "categories": ["nature_outdoor", "special_needs"],
-        "description": "Campers explore local plants and wildlife through guided hikes and nature-focused outings.",
-        "camp_page_url": null,
+        "description": "A nature-immersion specialty camp.",
+        "camp_page_url": "https://talismancamps.com/our-programs/",
         "registration_url": "https://talisman.campintouch.com/v2/family/inquiryForm.aspx",
         "season": {
           "year": 2027,
@@ -1070,8 +1040,104 @@
           "end": "2027-08-08",
           "text": null
         },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Talisman Camps",
+            "address": "64 Gap Creek Road",
+            "town": "Zirconia",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 2450,
+            "unit": "session",
+            "label": "Teens",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Session 1",
+            "start": "2027-06-11",
+            "end": "2027-06-17",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 5",
+            "start": "2027-08-02",
+            "end": "2027-08-08",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2026-10-01",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "Summer 2027 registration opens October 1st, 2026.",
+            "url": "https://talismancamps.com/team/",
+            "year": 2027,
+            "confidence": "medium"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Financial aid is available for every program, every session."
+        },
+        "special_needs": {
+          "value": "yes",
+          "text": "Specialized programs for ages 6–22 with autism, ADHD, and learning differences."
+        },
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://talismancamps.com/program-overview/",
+          "https://talismancamps.com/dates-and-rates/",
+          "https://talismancamps.com/mapdirections/",
+          "https://talismancamps.com/",
+          "https://talismancamps.com/team/"
+        ],
+        "confidence": "medium",
+        "review_notes": "No program-specific 2027 age range recovered; 2026 catalog states 14–17, but that older age range is not assigned to the 2027 card. Registration opening date is snippet-only."
+      },
+      {
+        "name": "Mountain Odyssey",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "special_needs"],
+        "description": "Teens undertake multi-day backcountry adventures in the Blue Ridge Mountains, practicing navigation and problem-solving.",
+        "camp_page_url": "https://talismancamps.com/girls-boys-aspergers-summer-camps-14-17/adventure-program-hook-and-tackle/",
+        "registration_url": "https://talisman.campintouch.com/v2/family/inquiryForm.aspx",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-20",
+          "end": "2027-07-30",
+          "text": null
+        },
         "ages": {
-          "min": 14,
+          "min": 13,
           "max": 17
         },
         "grades": null,
@@ -1085,106 +1151,14 @@
         ],
         "hours": null,
         "extended_care": null,
-        "prices": [],
-        "sessions": [
+        "prices": [
           {
-            "label": "Session 1",
-            "start": "2027-06-11",
-            "end": "2027-06-17",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": null,
-            "hours": null,
-            "price": {
-              "amount": 2450,
-              "unit": "session",
-              "label": "Teens",
-              "year": 2027
-            },
-            "status": null
-          },
-          {
-            "label": "Session 5",
-            "start": "2027-08-02",
-            "end": "2027-08-08",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": null,
-            "hours": null,
-            "price": {
-              "amount": 2450,
-              "unit": "session",
-              "label": "Teens",
-              "year": 2027
-            },
-            "status": null
+            "amount": 4550,
+            "unit": "session",
+            "label": "Teens",
+            "year": 2027
           }
         ],
-        "registration": [
-          {
-            "audience": "public",
-            "kind": "opens",
-            "date": "2026-10-01",
-            "time": null,
-            "precision": "date",
-            "certainty": "announced",
-            "text": "Summer 2027 registration opens October 1st, 2026.",
-            "url": "https://talismancamps.com/triadventures/",
-            "year": 2027,
-            "confidence": "medium"
-          }
-        ],
-        "last_year_registration_opened": null,
-        "availability": null,
-        "financial_aid": {
-          "value": "yes",
-          "text": "Financial aid is available for every program, every session."
-        },
-        "special_needs": {
-          "value": "yes",
-          "text": "Every camper is neurodivergent — no masking required"
-        },
-        "lunch": null,
-        "transportation": null,
-        "sources": [
-          "https://talismancamps.com/dates-and-rates/",
-          "https://talismancamps.com/wp-content/uploads/2026/03/100293_Talisman-Camps-Catalog-2026_Web-1.pdf",
-          "https://talismancamps.com/",
-          "https://talismancamps.com/directions-to-camp-talisman/",
-          "https://talismancamps.com/triadventures/"
-        ],
-        "confidence": "medium",
-        "review_notes": "Ages 14–17 and activity description come from the official 2026 catalog search excerpt; 2027 program-specific ages were not found. Dates and prices are explicitly 2027. PDF opening returned no readable text. Registration opening date was seen only in an official search result."
-      },
-      {
-        "name": "Mountain Odyssey",
-        "type": "overnight",
-        "categories": ["nature_outdoor", "special_needs"],
-        "description": "Campers learn camping skills on campus and take day and multi-day trips exploring the history and culture of the Western North Carolina mountains.",
-        "camp_page_url": "https://talismancamps.com/girls-boys-aspergers-summer-camps-14-17/adventure-program-hook-and-tackle/",
-        "registration_url": "https://talisman.campintouch.com/v2/family/inquiryForm.aspx",
-        "season": {
-          "year": 2027,
-          "status": "posted",
-          "start": "2027-06-20",
-          "end": "2027-07-30",
-          "text": null
-        },
-        "ages": null,
-        "grades": null,
-        "sites": [
-          {
-            "name": "Talisman Camps",
-            "address": "64 Gap Creek Road",
-            "town": "Zirconia",
-            "state": "NC"
-          }
-        ],
-        "hours": null,
-        "extended_care": null,
-        "prices": [],
         "sessions": [
           {
             "label": "Session 2",
@@ -1195,12 +1169,7 @@
             "ages": null,
             "grades": null,
             "hours": null,
-            "price": {
-              "amount": 4550,
-              "unit": "session",
-              "label": "Teens",
-              "year": 2027
-            },
+            "price": null,
             "status": null
           },
           {
@@ -1212,12 +1181,7 @@
             "ages": null,
             "grades": null,
             "hours": null,
-            "price": {
-              "amount": 4550,
-              "unit": "session",
-              "label": "Teens",
-              "year": 2027
-            },
+            "price": null,
             "status": null
           }
         ],
@@ -1230,7 +1194,7 @@
             "precision": "date",
             "certainty": "announced",
             "text": "Summer 2027 registration opens October 1st, 2026.",
-            "url": "https://talismancamps.com/triadventures/",
+            "url": "https://talismancamps.com/team/",
             "year": 2027,
             "confidence": "medium"
           }
@@ -1243,26 +1207,27 @@
         },
         "special_needs": {
           "value": "yes",
-          "text": "Every camper is neurodivergent — no masking required"
+          "text": "ADHD, HIGH FUNCTIONING AUTISM"
         },
         "lunch": null,
         "transportation": null,
         "sources": [
+          "https://talismancamps.com/aspergers-camp-overview/ages-13-17/",
           "https://talismancamps.com/girls-boys-aspergers-summer-camps-14-17/adventure-program-hook-and-tackle/",
           "https://talismancamps.com/dates-and-rates/",
+          "https://talismancamps.com/mapdirections/",
           "https://talismancamps.com/",
-          "https://talismancamps.com/directions-to-camp-talisman/",
-          "https://talismancamps.com/triadventures/"
+          "https://talismancamps.com/team/"
         ],
         "confidence": "medium",
-        "review_notes": "The official page title and URL say Hook and Tackle, but its description says Mountain Odyssey. Confirm a dedicated current page and age range. Session 4 is labeled 13 days despite July 19–30 dates. Description and registration date were seen in official search results."
+        "review_notes": "Program details are from official search results. Older program page lists Session 2 only; the 2027 schedule lists Sessions 2 and 4. Session 4 is called 13 days but printed as July 19–30. Registration date is snippet-only."
       },
       {
         "name": "Caves & Mining",
         "type": "overnight",
         "categories": ["nature_outdoor", "special_needs"],
-        "description": "Campers explore caves and rock and gem mines, learning about cave geology and biology and practicing gemstone panning.",
-        "camp_page_url": "https://talismancamps.com/dates-and-rates/",
+        "description": "Campers explore caves while learning caving techniques, environmental education, and cave geology and biology.",
+        "camp_page_url": "https://talismancamps.com/girls-boys-aspergers-summer-camps-14-17/adventure-program-caves-climbing/",
         "registration_url": "https://talisman.campintouch.com/v2/family/inquiryForm.aspx",
         "season": {
           "year": 2027,
@@ -1271,7 +1236,10 @@
           "end": "2027-07-17",
           "text": null
         },
-        "ages": null,
+        "ages": {
+          "min": 14,
+          "max": 17
+        },
         "grades": null,
         "sites": [
           {
@@ -1312,7 +1280,7 @@
             "precision": "date",
             "certainty": "announced",
             "text": "Summer 2027 registration opens October 1st, 2026.",
-            "url": "https://talismancamps.com/triadventures/",
+            "url": "https://talismancamps.com/team/",
             "year": 2027,
             "confidence": "medium"
           }
@@ -1325,25 +1293,25 @@
         },
         "special_needs": {
           "value": "yes",
-          "text": "Every camper is neurodivergent — no masking required"
+          "text": "ADHD, HIGH FUNCTIONING AUTISM"
         },
         "lunch": null,
         "transportation": null,
         "sources": [
+          "https://talismancamps.com/girls-boys-aspergers-summer-camps-14-17/adventure-program-caves-climbing/",
           "https://talismancamps.com/dates-and-rates/",
-          "https://talismancamps.com/wp-content/uploads/2022/10/2023-Catalog.pdf",
+          "https://talismancamps.com/mapdirections/",
           "https://talismancamps.com/",
-          "https://talismancamps.com/directions-to-camp-talisman/",
-          "https://talismancamps.com/triadventures/"
+          "https://talismancamps.com/team/"
         ],
         "confidence": "medium",
-        "review_notes": "2027 dates and price are explicit. A current program-specific description and ages were not found; description is from an older official catalog search excerpt and should be confirmed. The Caves & Climbing page describes a different climbing component and was not used to fill ages or dates. Registration date was seen only in an official search result."
+        "review_notes": "Program ages and description, and registration opening date, were recovered through official search results."
       },
       {
         "name": "Tri-Adventures",
         "type": "overnight",
         "categories": ["nature_outdoor", "special_needs"],
-        "description": "Campers learn backpacking, flat-water canoeing and rock climbing through instruction and multi-day trips. They also practice camping skills, wilderness food preparation and group decision-making.",
+        "description": "Campers learn backpacking, flat-water canoeing, and rock climbing through multi-day trips. They also practice wilderness camping and group decision-making skills.",
         "camp_page_url": "https://talismancamps.com/triadventures/",
         "registration_url": "https://talisman.campintouch.com/v2/family/inquiryForm.aspx",
         "season": {
@@ -1397,7 +1365,7 @@
             "precision": "date",
             "certainty": "announced",
             "text": "Summer 2027 registration opens October 1st, 2026.",
-            "url": "https://talismancamps.com/triadventures/",
+            "url": "https://talismancamps.com/team/",
             "year": 2027,
             "confidence": "medium"
           }
@@ -1416,12 +1384,129 @@
         "transportation": null,
         "sources": [
           "https://talismancamps.com/triadventures/",
+          "https://talismancamps.com/aspergers-camp-overview/ages-13-17/",
           "https://talismancamps.com/dates-and-rates/",
+          "https://talismancamps.com/mapdirections/",
           "https://talismancamps.com/",
-          "https://talismancamps.com/directions-to-camp-talisman/"
+          "https://talismancamps.com/team/"
         ],
         "confidence": "medium",
-        "review_notes": "The program page search result says Session 1 while the explicit 2027 schedule says Session 3; 2027 schedule dates are used. Ages, description and registration opening date were read through the official search result."
+        "review_notes": "Older program-page search result says Session 1; the posted 2027 schedule says Session 3, which is retained. Program details and registration opening date are from official search results."
+      },
+      {
+        "name": "Krewe",
+        "type": "overnight",
+        "categories": ["general", "special_needs"],
+        "description": "An invitation-only alumni leadership track whose participants help shape camp culture and support the camp community.",
+        "camp_page_url": "https://talismancamps.com/krewe/",
+        "registration_url": "https://talisman.campintouch.com/v2/family/inquiryForm.aspx",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-11",
+          "end": "2027-08-08",
+          "text": "Krewe positions are available every session."
+        },
+        "ages": {
+          "min": 16,
+          "max": 22
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Talisman Camps",
+            "address": "64 Gap Creek Road",
+            "town": "Zirconia",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Session 1",
+            "start": "2027-06-11",
+            "end": "2027-06-17",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 2",
+            "start": "2027-06-20",
+            "end": "2027-07-02",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 3",
+            "start": "2027-07-05",
+            "end": "2027-07-17",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 4",
+            "start": "2027-07-19",
+            "end": "2027-07-30",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 5",
+            "start": "2027-08-02",
+            "end": "2027-08-08",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Financial aid is available for every program, every session."
+        },
+        "special_needs": {
+          "value": "yes",
+          "text": "Specialized programs for ages 6–22 with autism, ADHD, and learning differences."
+        },
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://talismancamps.com/krewe/",
+          "https://talismancamps.com/aspergers-camp-overview/ages-18-22/",
+          "https://talismancamps.com/dates-and-rates/",
+          "https://talismancamps.com/mapdirections/",
+          "https://talismancamps.com/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Retained as the provider's alumni camp leadership track, not paid employment. Program details were available only in official search results. Krewe-specific tuition and invitation dates are unknown. Session 4 is called 13 days but printed as July 19–30. Format check: ages 22 outside 2-19."
       }
     ]
   }

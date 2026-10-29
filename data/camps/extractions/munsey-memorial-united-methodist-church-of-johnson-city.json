@@ -7,19 +7,19 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:30:26.499Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:25:57.468Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "58b4fb9ec955dc21fcb7e9e5a933c5766e15f6040e240a5e1207f9581ed95b58",
   "response": {
-    "searches": ["site:munsey.org VBS 2026 2027", "\"Munsey\" \"VBS\" \"2026\""],
+    "searches": ["site.munsey.org VBS 2026 2027", "\"Munsey\" \"VBS\" \"2026\""],
     "usage": {
-      "inputTokens": 21398,
-      "cachedInputTokens": 8223,
-      "outputTokens": 771,
-      "reasoningTokens": 169
+      "inputTokens": 21560,
+      "cachedInputTokens": 8845,
+      "outputTokens": 757,
+      "reasoningTokens": 163
     },
     "status": "completed",
-    "ms": 22569,
+    "ms": 26016,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -38,15 +38,15 @@
   "extraction": {
     "provider_name": "Munsey Memorial United Methodist Church of Johnson City",
     "website_url": "https://www.munsey.org/",
-    "notes": "No clearly dated 2026 or 2027 VBS information was found. The VBS page says June 16-19 'this year' without a program year and has a 2025 footer; these dates have not been assigned to 2026 or 2027. It also says both 'We will be registering soon' and 'Registration is now closed.'",
+    "notes": "No 2027 or explicitly dated 2026 VBS information was found. The VBS page lists June 16–19 'this year' with a 2025 footer; these dates cannot safely be assigned to 2026 or 2027 and are omitted. Direct browser opens of the VBS and Spark Kids pages returned no readable text; the supplied official page text and official search result were used.",
     "excluded": [
       {
-        "name": "Spark",
-        "reason": "Weekly children's activities, fellowship and worship, not a finite summer program."
+        "name": "Youth Lock-in",
+        "reason": "A lock-in is a single social event, not a qualifying summer camp."
       },
       {
-        "name": "Munsey Preschool and Accredited Kindergarten",
-        "reason": "Regular preschool, kindergarten and extended childcare following the school calendar; no summer-only offering was identified."
+        "name": "Preschool",
+        "reason": "Year-round or school-year preschool, not a finite summer camp."
       }
     ],
     "cards": [
@@ -54,7 +54,7 @@
         "name": "Road Trip: On the Go with God",
         "type": "vbs",
         "categories": ["faith_based"],
-        "description": "Children participate in stories, crafts and activities at Vacation Bible School.",
+        "description": "Children participate in stories, crafts, and activities at Vacation Bible School.",
         "camp_page_url": "https://www.munsey.org/vbs",
         "registration_url": null,
         "season": {
@@ -82,7 +82,7 @@
         "last_year_registration_opened": null,
         "availability": {
           "status": "closed",
-          "scope": "The undated Road Trip VBS listing",
+          "scope": null,
           "text": "Registration is now closed."
         },
         "financial_aid": null,
@@ -91,7 +91,7 @@
         "transportation": null,
         "sources": ["https://www.munsey.org/vbs", "https://www.munsey.org/"],
         "confidence": "medium",
-        "review_notes": "Check the VBS page's program year before using its June 16-19 dates. The page has no explicit year for those dates and a 2025 footer. Confirm whether Road Trip remains the upcoming program and reconcile the introductory registration-soon statement with the registration-closed notice. The site address is published on the VBS page."
+        "review_notes": "The VBS page has undated June 16–19 dates and a 2025 footer; confirm the season before adding dates. Its closed-registration notice appears to concern the older offering, not summer 2027. The church address is published on the VBS page, but the page does not explicitly identify the drop-off venue."
       }
     ]
   }

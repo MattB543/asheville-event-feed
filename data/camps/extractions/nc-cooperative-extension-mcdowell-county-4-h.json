@@ -10,23 +10,23 @@
     "discovered_by": ["grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:20:35.355Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:17:45.859Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "9acc4d679d44ee6bb6d20c1ad24771baf072ebb378a0ec46b5fb32b6dfbe1284",
   "response": {
     "searches": [
-      "site:mcdowell.ces.ncsu.edu 2027 \"summer\" \"4-H\"",
-      "Marion NC EMS \"South Garden\" \"address\"",
-      "\"EMS\" \"Garden Street\" \"Marion\""
+      "site:mcdowell.ces.ncsu.edu \"2026\" \"Livestock Camp\"",
+      "\"Marion\" \"EMS\" \"South Garden\"",
+      "\"Marion NC\" \"EMS\" \"Garden Street\""
     ],
     "usage": {
-      "inputTokens": 26739,
-      "cachedInputTokens": 8223,
-      "outputTokens": 3511,
-      "reasoningTokens": 247
+      "inputTokens": 31125,
+      "cachedInputTokens": 8845,
+      "outputTokens": 3482,
+      "reasoningTokens": 231
     },
     "status": "completed",
-    "ms": 66892,
+    "ms": 69799,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -55,15 +55,15 @@
   "extraction": {
     "provider_name": "N.C. Cooperative Extension — McDowell County 4-H",
     "website_url": "https://mcdowell.ces.ncsu.edu/",
-    "notes": "No summer 2027 program dates or registration announcements were found. Cards use 2026 information. Summer Discovery registration is in person; 4-H Online enrollment is a prerequisite, not a camp reservation.",
+    "notes": "No summer 2027 information found. Cards retain 2026 information. Summer Discovery field trips are retained because participants begin and end in Marion, even when destinations are farther away.",
     "excluded": [
       {
         "name": "McDowell County 4-H Clubs",
         "reason": "Ongoing community clubs rather than finite summer camps."
       },
       {
-        "name": "Summer Thrive With McDowell 4-H",
-        "reason": "Family outdoor activities, not a supervised youth-only camp; the page describes a 2022 event."
+        "name": "80th Annual McDowell Junior Livestock Show",
+        "reason": "Livestock show rather than a supervised camp or clinic."
       }
     ],
     "cards": [
@@ -71,7 +71,7 @@
         "name": "4-H Summer Discovery",
         "type": "day",
         "categories": ["general", "cooking", "nature_outdoor"],
-        "description": "Youth participate in educational workshops, cooking activities and field trips. Trips include hiking, fishing, museums and other regional destinations.",
+        "description": "Youth participate in educational workshops, field trips and hands-on activities, including cooking, hiking, fishing and visits to museums and historic sites.",
         "camp_page_url": "https://mcdowell.ces.ncsu.edu/news/2026-4-h-summer-discovery/",
         "registration_url": null,
         "season": {
@@ -106,7 +106,7 @@
           {
             "amount": 1,
             "unit": "program",
-            "label": "Required one-time insurance fee, additional to activity fees",
+            "label": "Required one-time insurance fee",
             "year": 2026
           }
         ],
@@ -439,13 +439,13 @@
           "https://mcdowell.ces.ncsu.edu/"
         ],
         "confidence": "medium",
-        "review_notes": "The packet identifies the trip pickup lot only as behind the former EMS station on South Garden Street. Third-party listings suggest 41 S Garden St, but no venue-published street number was found, so the address remains null. Confirm with the provider. Bagged lunch instructions apply to field trips, not the three cooking workshops."
+        "review_notes": "The PDF identifies the departure parking lot only as behind the former EMS station on South Garden Street. Third-party listings give 41 S Garden St, but no official historical venue address was found; the address is left null. Bagged lunches are requested for field trips; cooking workshops do not state a lunch policy."
       },
       {
         "name": "McDowell Youth Livestock Camp",
         "type": "day",
-        "categories": ["nature_outdoor"],
-        "description": "Youth work with livestock, explore feedstuffs, learn meat identification and become familiar with livestock-production equipment. Participants can also earn Beef Quality Assurance certification.",
+        "categories": ["academic"],
+        "description": "Participants work with livestock, explore feedstuffs, learn meat identification and become familiar with livestock-production equipment. They also have an opportunity to earn Beef Quality Assurance certification.",
         "camp_page_url": "https://mcdowell.ces.ncsu.edu/news/mcdowell-youth-livestock-camp/",
         "registration_url": null,
         "season": {
@@ -462,8 +462,8 @@
         "grades": null,
         "sites": [
           {
-            "name": "Livestock Camp venue",
-            "address": "188 AG. Services Dr",
+            "name": "McDowell Agricultural Center, Inc.",
+            "address": "188 Ag Services Drive",
             "town": "Marion",
             "state": "NC"
           }
@@ -471,7 +471,7 @@
         "hours": {
           "start": "09:00",
           "end": "14:00",
-          "text": "Camp will be held daily from 9:00 a.m. to 2:00 p.m."
+          "text": null
         },
         "extended_care": null,
         "prices": [],
@@ -484,15 +484,20 @@
           "value": "case_by_case",
           "text": "Individuals with disabilities are invited to request reasonable accommodations to participate in Extension sponsored programs and events. Please contact the county Extension office or campus department offering the program at least 14 days prior to the event to make arrangements."
         },
-        "lunch": null,
+        "lunch": {
+          "value": "case_by_case",
+          "text": "Participants should bring a packed lunch on the first two days, and lunch will be provided on the final day."
+        },
         "transportation": null,
         "sources": [
           "https://mcdowell.ces.ncsu.edu/news/mcdowell-youth-livestock-camp/",
           "https://mcdowell.ces.ncsu.edu/event/114291/",
-          "https://mcdowell.ces.ncsu.edu/event/114292/"
+          "https://mcdowell.ces.ncsu.edu/event/114292/",
+          "https://mcdowell.ces.ncsu.edu/event/114293/",
+          "https://mcdowell.ces.ncsu.edu/news/mcdowell-county-cattlemens-association-will-meet/"
         ],
-        "confidence": "medium",
-        "review_notes": "The news article gives August 18–20 without repeating the year; 2026 is established by its July 28, 2026 publication date and the official dated calendar events. The calendar gives the venue address but not its name. No minimum age, price or registration instructions were found."
+        "confidence": "high",
+        "review_notes": null
       }
     ]
   }

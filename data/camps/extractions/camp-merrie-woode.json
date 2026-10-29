@@ -10,22 +10,23 @@
     "discovered_by": ["grid", "aggregator"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:08:02.626Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:06:59.014Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "09e711b693ffb4b5bdd63556832da018eb506fc5d1e98efdfcff4bd2982ce038",
   "response": {
     "searches": [
-      "site:merriewoode.com \"CIT\" \"JC\"",
-      "open https://www.merriewoode.com/jc/cit-programs"
+      "site:merriewoode.com \"JC\" \"2027\"",
+      "open https://www.merriewoode.com/jc/cit-programs",
+      "site:merriewoode.com \"merriewoode.campintouch.com\""
     ],
     "usage": {
-      "inputTokens": 22389,
-      "cachedInputTokens": 8223,
-      "outputTokens": 2098,
-      "reasoningTokens": 113
+      "inputTokens": 22670,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2169,
+      "reasoningTokens": 156
     },
     "status": "completed",
-    "ms": 41976,
+    "ms": 45952,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -74,27 +75,40 @@
   "extraction": {
     "provider_name": "Camp Merrie-Woode",
     "website_url": "https://www.merriewoode.com/",
-    "notes": "2027 camper and Junior Counselor dates and rates are posted. The dates-and-rates page's metadata still references 2026, but its session table explicitly says 2027. The Junior Counselor application deadline says September 15 without a year, so it is not recorded as a dated milestone.",
+    "notes": "The official pages post 2027 dates and rates for the camper and Junior Counselor programs. The dates-and-rates page's metadata still mentions 2026, but its program table explicitly says 2027. No year-specific Junior Counselor application deadline was found; its undated September 15 deadline was not projected into registration. The campership page gives recurring annual deadlines, which were not projected into 2027 milestones.",
     "excluded": [
       {
         "name": "Counselor in Training Program",
-        "reason": "A staff-transition work program: participants assist with teaching and all receive a stipend for their work, with service hours offered instead. Excluded under the employment-program rule."
+        "reason": "Participants work alongside counselors and receive a stipend, with service hours available instead; excluded as an employment program."
       },
       {
-        "name": "Summer Positions",
-        "reason": "Paid employment positions, not youth camp offerings."
+        "name": "Summer Positions and Staff Orientation",
+        "reason": "Employment positions and training for hired staff, not youth camp programs."
       },
       {
-        "name": "Staff Orientation and Activity Specific Pre-orientation",
-        "reason": "Training for hired staff, not youth camp offerings."
+        "name": "Mother Daughter Weekend",
+        "reason": "Family-only retreat offered through off-season programming."
+      },
+      {
+        "name": "Tour Merrie-Woode",
+        "reason": "A facility tour, not a supervised summer youth program."
       }
     ],
     "cards": [
       {
         "name": "Camp Merrie-Woode",
         "type": "overnight",
-        "categories": ["general", "nature_outdoor", "arts", "sports", "horses", "theater"],
-        "description": "Girls live in cabins and choose instructed activities including boating, riding, climbing, drama, crafts, and swimming. June and Main Session campers choose eight activities, while August Session campers choose five.",
+        "categories": [
+          "general",
+          "nature_outdoor",
+          "arts",
+          "sports",
+          "horses",
+          "theater",
+          "music",
+          "dance"
+        ],
+        "description": "Girls live in cabins and choose instructed activities including riding, boating, climbing, drama, arts, swimming, and sports. June and Main Session campers choose eight activities, while August Session campers choose five.",
         "camp_page_url": "https://www.merriewoode.com/newpage",
         "registration_url": "https://www.merriewoode.com/newpage",
         "season": {
@@ -102,7 +116,7 @@
           "status": "posted",
           "start": "2027-06-01",
           "end": "2027-08-08",
-          "text": "2027 Camp sessions"
+          "text": null
         },
         "ages": {
           "min": 7,
@@ -136,7 +150,7 @@
             "price": {
               "amount": 6825,
               "unit": "session",
-              "label": "Tuition",
+              "label": null,
               "year": 2027
             },
             "status": null
@@ -156,7 +170,7 @@
             "price": {
               "amount": 8950,
               "unit": "session",
-              "label": "Tuition",
+              "label": null,
               "year": 2027
             },
             "status": null
@@ -176,7 +190,7 @@
             "price": {
               "amount": 4150,
               "unit": "session",
-              "label": "Tuition",
+              "label": null,
               "year": 2027
             },
             "status": null
@@ -224,7 +238,7 @@
         "availability": null,
         "financial_aid": {
           "value": "yes",
-          "text": "Camperships are need-based full and partial tuition scholarships that make the Merrie-Woode experience available to a range of families, including alumnae families, for whom tuition is out of reach."
+          "text": "Camperships are need-based full and partial tuition scholarships."
         },
         "special_needs": null,
         "lunch": {
@@ -317,7 +331,8 @@
         "transportation": null,
         "sources": [
           "https://www.merriewoode.com/jc/cit-programs",
-          "https://www.merriewoode.com/jc/contact-us"
+          "https://www.merriewoode.com/jc/contact-us",
+          "https://www.merriewoode.com/newpage"
         ],
         "confidence": "high",
         "review_notes": null

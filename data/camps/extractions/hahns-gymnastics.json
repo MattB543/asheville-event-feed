@@ -4,27 +4,27 @@
     "name": "Hahn's Gymnastics (summer camps)",
     "urls": ["https://www.hahnsgymnastics.com/summer-camp"],
     "area": "Arden / Asheville, NC",
-    "discovered_by": ["pilot"],
+    "discovered_by": ["pilot", "seed_sheet", "grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T03:19:32.397Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T16:52:42.246Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "7b36f7638c89ef5aa2304d3ce0a56412f7ad7dd10f8a8a44e88e4888bf38202d",
   "response": {
     "searches": [
-      "site:hahnsgymnastics.com summer 2027 2026 camp",
-      "site:hahnsgymnastics.com/hahns-calendar/ \"Summer Camp Week\" \"2026\"",
-      "site:hahnsgymnastics.com/hahns-calendar \"Summer Camp Week 5\"",
-      "site:hahnsgymnastics.com \"Summer Camp Week 2: Wildlife\""
+      "site:hahnsgymnastics.com \"2027\" camp",
+      "site:hahnsgymnastics.com/hahns-calendar \"Summer Camp Week\" \"2026\"",
+      "site:hahnsgymnastics.com/hahns-calendar \"Summer Camp Week 2\" \"2026\"",
+      "site:hahnsgymnastics.com \"Summer Camp Week 9\" \"2026\""
     ],
     "usage": {
-      "inputTokens": 35405,
-      "cachedInputTokens": 8223,
-      "outputTokens": 2374,
-      "reasoningTokens": 383
+      "inputTokens": 36142,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2253,
+      "reasoningTokens": 405
     },
     "status": "completed",
-    "ms": 57451,
+    "ms": 63337,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -68,43 +68,39 @@
   "extraction": {
     "provider_name": "Hahn's Gymnastics",
     "website_url": "https://www.hahnsgymnastics.com/",
-    "notes": "No summer 2027 dates, prices or registration milestones found. The separate Summer Camp Calendar and Day Camps pages returned no readable content when opened; dated 2026 summer sessions were found in official search results for Hahn’s Calendar. No dated summer skill clinics found.",
+    "notes": "No summer 2027 dates or registration announcements found. The summer camp page has an empty weekly summary; 2026 sessions were recovered from official calendar search results. Skill Clinics and Day Camps pages returned no readable content when opened; no dated summer 2026 or 2027 skill clinic offering was found.",
     "excluded": [
       {
         "name": "Spring Break Camps",
         "reason": "Outside summer."
       },
       {
-        "name": "Day Camps / School's Out Camps",
-        "reason": "School-holiday and no-school-day offerings; no separate summer offering established."
-      },
-      {
-        "name": "Little Elves Workshop",
-        "reason": "Winter holiday offering, outside summer."
+        "name": "Extended Exploration of Skills",
+        "reason": "Recurring year-round Saturday class, not a finite summer program."
       },
       {
         "name": "Recreational Classes",
-        "reason": "Year-round classes."
-      },
-      {
-        "name": "Extended Exploration of Skills",
-        "reason": "Recurring practice class, not a summer-only program."
+        "reason": "Year-round gymnastics classes."
       },
       {
         "name": "After School",
         "reason": "School-year childcare."
       },
       {
-        "name": "Team Hahn / Acrobatics",
-        "reason": "Competitive teams and seasons, not summer camps."
+        "name": "Little Elves Workshop",
+        "reason": "Winter holiday program, outside summer."
       },
       {
-        "name": "Parent's Night Out",
-        "reason": "Recurring year-round events rather than a summer-only program."
+        "name": "Parents Night Out",
+        "reason": "Single-evening social events."
       },
       {
-        "name": "Showcase 1st Routine Clinic (Spring) / Showcase 1st Routine Clinic (Fall)",
-        "reason": "Dated clinics occur outside summer."
+        "name": "Day Camps",
+        "reason": "School closure camps outside summer; no separate summer offering identified."
+      },
+      {
+        "name": "Team Hahn",
+        "reason": "Competitive team season, not a summer camp."
       }
     ],
     "cards": [
@@ -112,7 +108,7 @@
         "name": "Summer Camps",
         "type": "day",
         "categories": ["sports", "general"],
-        "description": "Campers participate in theme-based games, crafts, gym playtime and parachute activities. Full-day campers usually take pool and themed field trips twice per week.",
+        "description": "Campers participate in weekly themed games, crafts, gym playtime and parachute activities. Full-day campers usually take pool and theme-based field trips.",
         "camp_page_url": "https://www.hahnsgymnastics.com/summer-camp",
         "registration_url": null,
         "season": {
@@ -138,12 +134,12 @@
         "hours": {
           "start": "08:00",
           "end": "17:30",
-          "text": "Full day: 8:00 AM–5:30 PM. Half-day options: 8:00 AM–12:30 PM or 1:00 PM–5:30 PM."
+          "text": "Full days: 8:00 AM to 5:30 PM. Half days: morning 8:00 AM to 12:30 PM; afternoon 1:00 PM to 5:30 PM."
         },
         "extended_care": {
           "early_dropoff_start": "07:30",
           "late_pickup_end": "18:00",
-          "cost_text": "Mornings: $5.00 per day; evenings: $5.00 per day."
+          "cost_text": "Mornings: 7:30 AM - 8:00 AM ($5.00 per day). Evenings: 5:30 PM - 6:00 PM ($5.00 per day)."
         },
         "prices": [],
         "sessions": [
@@ -155,10 +151,7 @@
             "site": null,
             "ages": null,
             "grades": null,
-            "hours": {
-              "start": "09:00",
-              "end": "17:00"
-            },
+            "hours": null,
             "price": null,
             "status": null
           },
@@ -170,10 +163,7 @@
             "site": null,
             "ages": null,
             "grades": null,
-            "hours": {
-              "start": "09:00",
-              "end": "17:00"
-            },
+            "hours": null,
             "price": null,
             "status": null
           },
@@ -185,10 +175,7 @@
             "site": null,
             "ages": null,
             "grades": null,
-            "hours": {
-              "start": "09:00",
-              "end": "17:00"
-            },
+            "hours": null,
             "price": null,
             "status": null
           },
@@ -200,10 +187,7 @@
             "site": null,
             "ages": null,
             "grades": null,
-            "hours": {
-              "start": "09:00",
-              "end": "17:00"
-            },
+            "hours": null,
             "price": null,
             "status": null
           },
@@ -215,10 +199,7 @@
             "site": null,
             "ages": null,
             "grades": null,
-            "hours": {
-              "start": "09:00",
-              "end": "17:00"
-            },
+            "hours": null,
             "price": null,
             "status": null
           },
@@ -230,10 +211,7 @@
             "site": null,
             "ages": null,
             "grades": null,
-            "hours": {
-              "start": "09:00",
-              "end": "17:00"
-            },
+            "hours": null,
             "price": null,
             "status": null
           },
@@ -245,10 +223,7 @@
             "site": null,
             "ages": null,
             "grades": null,
-            "hours": {
-              "start": "09:00",
-              "end": "17:00"
-            },
+            "hours": null,
             "price": null,
             "status": null
           },
@@ -260,10 +235,7 @@
             "site": null,
             "ages": null,
             "grades": null,
-            "hours": {
-              "start": "09:00",
-              "end": "17:00"
-            },
+            "hours": null,
             "price": null,
             "status": null
           },
@@ -275,10 +247,7 @@
             "site": null,
             "ages": null,
             "grades": null,
-            "hours": {
-              "start": "09:00",
-              "end": "17:00"
-            },
+            "hours": null,
             "price": null,
             "status": null
           },
@@ -290,10 +259,7 @@
             "site": null,
             "ages": null,
             "grades": null,
-            "hours": {
-              "start": "09:00",
-              "end": "17:00"
-            },
+            "hours": null,
             "price": null,
             "status": null
           },
@@ -305,10 +271,7 @@
             "site": null,
             "ages": null,
             "grades": null,
-            "hours": {
-              "start": "09:00",
-              "end": "17:00"
-            },
+            "hours": null,
             "price": null,
             "status": null
           }
@@ -336,7 +299,7 @@
           "https://www.hahnsgymnastics.com/hahns-calendar/summer-camp-week-11-hawaiian-hullabaloo"
         ],
         "confidence": "medium",
-        "review_notes": "2026 session dates were read through official search results. Week 1 explicitly ends June 16, overlapping Week 2; verify this apparent calendar error rather than assuming June 12. Main camp page states ten weeks and full-day hours 8:00 AM–5:30 PM, but calendar lists eleven weeks with 9:00 AM–5:00 PM timestamps. General ages and care information are undated. Calendar venue text says 18 Legend Drive Lane; used 18 Legend Dr from the provider's footer and enrollment form. The $50 weekly deposit is applied to tuition, not a total tuition price. Transportation wording addresses field trips only, not home-to-camp transportation."
+        "review_notes": "Calendar sessions were read through official search results. Week 1 explicitly ends Tuesday June 16, overlapping Week 2; retained as printed rather than correcting it. The main page says ten weeks, but the 2026 calendar lists eleven. Calendar events show 9 AM–5 PM while the camp page states 8 AM–5:30 PM; card hours use the camp page and row hours are left null. Calendar venue metadata says 18 Legend Drive Lane; address uses the provider's footer and enrollment form, 18 Legend Dr. General camp details are undated. The waiver provides vehicle transportation for field trips only, not pickup/drop-off transportation."
       }
     ]
   }

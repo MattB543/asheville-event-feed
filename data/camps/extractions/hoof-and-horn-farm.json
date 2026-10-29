@@ -7,8 +7,8 @@
     "discovered_by": ["news828"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:01:21.630Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:01:29.105Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "110a0bdf8a72c4708c076968bf24481d3e4d9fec77aa8788098a1ed1ad5712be",
   "response": {
     "searches": [
@@ -16,13 +16,13 @@
       "open https://www.hoofandhornfarm.com/"
     ],
     "usage": {
-      "inputTokens": 20201,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1182,
-      "reasoningTokens": 114
+      "inputTokens": 20833,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1283,
+      "reasoningTokens": 146
     },
     "status": "completed",
-    "ms": 29615,
+    "ms": 30739,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -46,31 +46,31 @@
   "extraction": {
     "provider_name": "Hoof and Horn Farm",
     "website_url": "https://www.hoofandhornfarm.com/",
-    "notes": "No official 2027 camp information was found. The card uses the supplied official 2026 registration catalog. Horse camp weeks and age bands are grouped into one day-camp program. The catalog contains conflicting age ranges and June tuition deadlines; these require confirmation.",
+    "notes": "No official 2027 camp dates or registration announcements were found. The two 2026 horse day camp offerings are grouped as sessions of Summer Horse Camp because they share the same format and activities, with a medieval theme for the younger session.",
     "excluded": [
       {
         "name": "Intro Lesson",
-        "reason": "An introductory riding lesson offered outside a finite summer-only program."
+        "reason": "An introductory riding lesson, not a camp."
       },
       {
         "name": "Bronze Program",
-        "reason": "Year-round monthly riding instruction."
+        "reason": "Year-round monthly riding lesson membership."
       },
       {
         "name": "Silver Package",
-        "reason": "Year-round monthly riding instruction."
+        "reason": "Year-round monthly riding lesson membership."
       },
       {
         "name": "Gold Level (Half-Lease: This is My Sport)",
-        "reason": "Year-round riding instruction and horse lease program."
+        "reason": "Year-round riding lessons and horse half-lease program."
       }
     ],
     "cards": [
       {
         "name": "Summer Horse Camp",
         "type": "day",
-        "categories": ["horses"],
-        "description": "Campers take daily riding lessons and learn grooming, tacking, safety, and horse care. Activities include mounted games, crafts, barn challenges, and an end-of-week showcase ride; the August week has a medieval fantasy theme.",
+        "categories": ["horses", "arts"],
+        "description": "Campers take daily riding lessons, learn grooming, tacking, safety and horse care, play mounted games, and make horse-themed crafts. Each week ends with a showcase ride for families; the younger session includes medieval-themed games and crafts.",
         "camp_page_url": "https://app.acuityscheduling.com/catalog/9a8264b1",
         "registration_url": "https://app.acuityscheduling.com/catalog/9a8264b1",
         "season": {
@@ -101,9 +101,16 @@
         "extended_care": {
           "early_dropoff_start": null,
           "late_pickup_end": null,
-          "cost_text": "Early or late drop-off available for an additional fee"
+          "cost_text": "Early/late drop-off available for an additional fee"
         },
-        "prices": [],
+        "prices": [
+          {
+            "amount": 525,
+            "unit": "week",
+            "label": "June camp: Black Friday Deal",
+            "year": 2026
+          }
+        ],
         "sessions": [
           {
             "label": "Summer Horse Camp",
@@ -120,7 +127,7 @@
             "price": {
               "amount": 550,
               "unit": "week",
-              "label": "Listed catalog price",
+              "label": "Regular price",
               "year": 2026
             },
             "status": null
@@ -140,7 +147,7 @@
             "price": {
               "amount": 547,
               "unit": "week",
-              "label": "Listed catalog price",
+              "label": null,
               "year": 2026
             },
             "status": null
@@ -153,15 +160,16 @@
         "special_needs": null,
         "lunch": {
           "value": "no",
-          "text": "Campers must bring their own lunch. Two snacks are provided daily (please send shelf-stable alternatives if your child has dietary restrictions)."
+          "text": "Campers must bring their own lunch. Two snacks are provided daily."
         },
         "transportation": null,
         "sources": [
           "https://app.acuityscheduling.com/catalog/9a8264b1",
-          "https://www.hoofandhornfarm.com/"
+          "https://www.hoofandhornfarm.com/",
+          "https://www.hoofandhornfarm.com/resume"
         ],
         "confidence": "medium",
-        "review_notes": "Confirm age eligibility in the official Acuity catalog: June's heading says ages 8–12 but its description says 9–12; August's heading says 5–9 but its details say 5–8. The extracted ages follow the product headings. June's listed price is $550, but its description also advertises a $525 Black Friday deal and gives conflicting dates for the $550 rate: after March 1st versus after January 1st. No precise registration opening date or extended-care hours or fee is stated."
+        "review_notes": "The Acuity product headings give ages 8–12 for June and 5–9 for August; their descriptions instead give 9–12 and 5–8. Ages here follow the product headings. June regular tuition is $550, but one passage says after March 1st and another says after January 1st; no price-change deadline was extracted. The $525 Black Friday price is stated only for June. Confirm the conflicting age ranges and discount terms with the provider. The official website and address page were available through search text, but opening the homepage returned no readable text."
       }
     ]
   }

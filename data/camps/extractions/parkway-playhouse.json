@@ -7,23 +7,23 @@
     "discovered_by": ["grid", "aggregator"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:12:12.375Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:10:31.745Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "72822a9f983e92f58dc46c5759434a3ad56212a85e5ca34dedd3872a2a07bcfd",
   "response": {
     "searches": [
       "site:parkwayplayhouse.com summer camp 2026 2027",
-      "\"Parkway Playhouse\" \"2026\" \"camp\"",
-      "site:parkwayplayhouse.com/classes \"camp\""
+      "\"Parkway Playhouse\" \"camp\" \"2026\"",
+      "site:parkwayplayhouse.com apprenticeships 2026"
     ],
     "usage": {
-      "inputTokens": 25592,
-      "cachedInputTokens": 8223,
-      "outputTokens": 572,
-      "reasoningTokens": 192
+      "inputTokens": 27534,
+      "cachedInputTokens": 8845,
+      "outputTokens": 548,
+      "reasoningTokens": 213
     },
     "status": "completed",
-    "ms": 23832,
+    "ms": 23499,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -37,31 +37,23 @@
   "extraction": {
     "provider_name": "Parkway Playhouse",
     "website_url": "https://parkwayplayhouse.com/",
-    "notes": "No qualifying summer camp program or 2027 camp announcement could be verified on the public official pages. The Classes page describes year-round performing arts instruction; its direct fetch returned no readable text, although official search results supplied class descriptions. The Junior Hub is password protected. Historical blog references confirm past summer camps but do not identify a current 2026 or 2027 offering. Public junior-production listings provide shows rather than verifiable summer camp enrollment details. No cards were created from these incomplete references.",
+    "notes": "No sufficiently documented 2026 or 2027 summer camp offering was found on accessible official pages. The current Classes page lists fall 2026 drama and year-round dance instruction. Older official material mentions summer camps but does not identify current offerings or dates. Third-party camp listings were not used to establish a current program. The Junior Hub is password protected, and opening the Classes page returned no readable text; its indexed official text was accessible through search. The official Ludus calendar was found but did not provide readable summer camp details in search results. Summer apprenticeships are mentioned on Get Involved, but their eligibility, format and employment status could not be established, so they require further review rather than a camp card.",
     "excluded": [
       {
-        "name": "Parkway School of Performing Arts",
-        "reason": "The Classes page describes year-round dance and group voice instruction with annual tuition, not a finite summer program."
+        "name": "Elf Junior Performance Class",
+        "reason": "Runs October 24–December 18, 2026, outside summer."
+      },
+      {
+        "name": "Parkway School of Performing Arts dance and group voice classes",
+        "reason": "Year-round lesson classes, not finite summer camps."
       },
       {
         "name": "Reading Is Alive!",
-        "reason": "The official 2026 page describes touring public performances with a craft and book giveaway, not a supervised youth drop-off program."
-      },
-      {
-        "name": "Into the Woods JR",
-        "reason": "The listed performances are November 6–14, 2026, outside summer; no summer camp offering was verified."
-      },
-      {
-        "name": "Elf JR",
-        "reason": "The listed performances are December 17–18, 2026, outside summer; no summer camp offering was verified."
-      },
-      {
-        "name": "Employment",
-        "reason": "Usher positions are employment opportunities, not camps."
+        "reason": "A series of public performances with crafts and books, not a supervised youth camp."
       },
       {
         "name": "Appalachian Playwriting Festival",
-        "reason": "A fall staged-reading festival, not a summer youth camp."
+        "reason": "A festival of staged readings, not a youth camp."
       }
     ],
     "cards": []

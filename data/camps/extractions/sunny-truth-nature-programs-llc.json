@@ -7,19 +7,19 @@
     "discovered_by": ["news828", "grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:01:21.910Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:01:32.800Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "920a8626c59052ddb7a72730ae679ed19a5c603c3525440705efaeb0f7d53cc6",
   "response": {
-    "searches": ["site:sunnytruthnsm.com \"Chestnut\"", "open https://sunnytruthnsm.com/contact"],
+    "searches": ["site:sunnytruthnsm.com \"2027\"", "open https://sunnytruthnsm.com/contact"],
     "usage": {
-      "inputTokens": 16164,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1376,
-      "reasoningTokens": 110
+      "inputTokens": 16803,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1760,
+      "reasoningTokens": 125
     },
     "status": "completed",
-    "ms": 32126,
+    "ms": 37306,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -58,23 +58,23 @@
   "extraction": {
     "provider_name": "Sunny Truth Nature Programs LLC",
     "website_url": "https://sunnytruthnsm.com/",
-    "notes": "No 2027 summer information found. The supplied summer page includes outdated text before the explicitly labeled 2026 program; only the 2026 section was used. Contact-page search results publish the current program address, while page footers retain the older Holland Creek address.",
+    "notes": "No 2027 summer information found. Used the explicitly labeled 2026 camp information, not the older undated camp text embedded in the page. The registration catalog still marks four 2026 weeks sold out; these are historical summer sessions, not 2027 availability.",
     "excluded": [
       {
         "name": "Young Explorers",
-        "reason": "Ongoing nature preschool program with monthly registration, not a finite summer camp."
+        "reason": "Nature preschool program that runs during the traditional school year."
       },
       {
         "name": "Week long school break camps, April 6-10",
-        "reason": "April school-break program outside summer."
+        "reason": "Spring-break program outside summer."
       },
       {
         "name": "Single Day Programs",
-        "reason": "Listed dates are in fall and winter 2026, outside summer."
+        "reason": "The published offerings are fall 2026 programs outside summer."
       },
       {
         "name": "Requested Programs",
-        "reason": "Custom group programming offered on request, not a listed finite summer youth offering."
+        "reason": "Custom group programming by request, with no finite summer youth camp offering or dates published."
       }
     ],
     "cards": [
@@ -82,7 +82,7 @@
         "name": "Summer Camp",
         "type": "day",
         "categories": ["nature_outdoor", "arts"],
-        "description": "Children explore forests, meadows, springs and creeks through games, art, science and time with farm animals. Weekly themes include natural history, building with natural materials, primitive skills and water.",
+        "description": "Campers explore meadows, forests, springs and trails through games, art, science and time with farm animals. Weekly themes include local history, building with natural materials, primitive skills and water exploration.",
         "camp_page_url": "https://sunnytruthnsm.com/summer-camp",
         "registration_url": "https://sunnytruthnsm.com/new-products",
         "season": {
@@ -108,14 +108,14 @@
         "hours": {
           "start": "08:30",
           "end": "15:00",
-          "text": null
+          "text": "8:30a-3:00p"
         },
         "extended_care": null,
         "prices": [
           {
             "amount": 170,
             "unit": "week",
-            "label": "Early registration before March 1",
+            "label": "early registration before March 1",
             "year": 2026
           },
           {
@@ -249,11 +249,7 @@
         ],
         "registration": [],
         "last_year_registration_opened": null,
-        "availability": {
-          "status": "mixed",
-          "scope": "2026 registration listings; weeks 2, 3, 5 and 10",
-          "text": "sold out"
-        },
+        "availability": null,
         "financial_aid": null,
         "special_needs": null,
         "lunch": null,
@@ -264,7 +260,7 @@
           "https://sunnytruthnsm.com/contact"
         ],
         "confidence": "medium",
-        "review_notes": "Confirm the Chestnut Mountain drop-off address: official contact-page search results say programs are currently located at 3816 Metcalf Creek Loop Rd, Mars Hill, NC 28754; the contact page returned no readable text when opened. Older footers give 288 Holland Creek. Availability reflects retained 2026 sold-out labels, not 2027 availability; all listed sessions are past. The daily schedule mentions lunch but does not say whether lunch is supplied."
+        "review_notes": "The official contact page's search result states programs are currently located at 3816 Metcalf Creek Loop Rd; opening that page returned no readable text. Used this current program location for Chestnut Mountain Property instead of the older footer address, 288 Holland Creek. The supplied camp page contains conflicting older undated text (ages 5-10, shorter hours and $95/week); all camp details here use its explicitly labeled summer 2026 section. The daily schedule mentions lunch but does not say whether lunch is provided."
       }
     ]
   }

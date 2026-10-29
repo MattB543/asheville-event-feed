@@ -3,23 +3,23 @@
     "key": "ninjaville",
     "name": "Ninjaville (ninja warrior camp for kids)",
     "urls": ["https://ninjaville.org/ninja-warrior-camp-for-kids/"],
-    "area": null,
-    "discovered_by": ["pilot"],
+    "area": "Asheville, NC",
+    "discovered_by": ["pilot", "seed_sheet", "our_db", "grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T03:20:26.771Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T16:52:52.014Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "afe9aad2176eeb72bd04702bd47a645874ae6787ad693a4d1446742945867bb4",
   "response": {
-    "searches": ["site:ninjaville.org \"2027\" camp"],
+    "searches": ["site:ninjaville.org summer camp 2026 2027"],
     "usage": {
-      "inputTokens": 14171,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1091,
-      "reasoningTokens": 100
+      "inputTokens": 15303,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1097,
+      "reasoningTokens": 95
     },
     "status": "completed",
-    "ms": 26978,
+    "ms": 26228,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -48,35 +48,39 @@
   "extraction": {
     "provider_name": "Ninjaville",
     "website_url": "https://ninjaville.org/",
-    "notes": "No summer 2027 information or registration milestones were found. The summer camp page lists June 10 through August 29 without a year; these dates have not been assigned to 2026 or projected into 2027. Its prices are retained as provisional 2026 fallback information based on the site's 2025-2026 season navigation, but the summer page itself does not explicitly date them.",
+    "notes": "No official 2027 summer information or registration milestones were found. The summer camp page does not print a year with its dates or prices; the site navigation says Ninjaville 2025-2026 Season. Dates were left unset because the summer dates cannot reliably be assigned to 2026.",
     "excluded": [
       {
         "name": "Winter Camp",
-        "reason": "Holiday-break program outside summer."
+        "reason": "Held during winter break, outside summer."
       },
       {
-        "name": "Spring camps",
-        "reason": "Spring-break offerings outside summer."
+        "name": "Spring camp",
+        "reason": "Spring-break camps are outside summer."
       },
       {
         "name": "Ninja Classes",
-        "reason": "Recurring weekly classes, not a finite summer camp."
+        "reason": "Ongoing weekly classes, not a finite summer camp."
       },
       {
         "name": "Gymnastics",
-        "reason": "Recurring classes with monthly tuition, not a finite summer program."
+        "reason": "Ongoing classes with monthly tuition, not a finite summer camp."
       },
       {
         "name": "Home School Program",
-        "reason": "Recurring weekly program beginning in September."
+        "reason": "Ongoing weekly classes beginning in September, not a summer camp."
       },
       {
-        "name": "After School Program",
-        "reason": "School-year after-school childcare, not summer-only childcare."
+        "name": "Fall After-School Program",
+        "reason": "School-year after-school childcare."
       },
       {
         "name": "Mom, Dad & Me Program",
-        "reason": "Parent-child class listed among fall offerings, not a supervised summer youth camp."
+        "reason": "Parent-child classes, not a supervised youth summer camp."
+      },
+      {
+        "name": "Parent’s Night Out",
+        "reason": "Single-evening social or childcare event rather than a multi-day summer camp."
       }
     ],
     "cards": [
@@ -84,7 +88,7 @@
         "name": "Ninja Warrior Camp for kids",
         "type": "day",
         "categories": ["sports"],
-        "description": "Campers practice running, jumping, climbing, swinging and flipping on matted obstacle courses. Full-day campers also take afternoon field trips.",
+        "description": "Campers run, jump, climb, swing and flip on matted obstacle courses. Full-day campers also take afternoon field trips.",
         "camp_page_url": "https://ninjaville.org/ninja-warrior-camp-for-kids/",
         "registration_url": "https://ninjaville.org/camp-registration/",
         "season": {
@@ -107,32 +111,32 @@
         "hours": {
           "start": "08:00",
           "end": "16:00",
-          "text": "Half day is 8:00-12:00 and full day is 8:00-4:00."
+          "text": "Half day is 8:00-12:00 and full day is 8:00-4:00"
         },
         "extended_care": null,
         "prices": [
           {
             "amount": 380,
             "unit": "week",
-            "label": "Full day",
+            "label": "full day",
             "year": 2026
           },
           {
             "amount": 280,
             "unit": "week",
-            "label": "Half day",
+            "label": "half day",
             "year": 2026
           },
           {
             "amount": 60,
             "unit": "day",
-            "label": "Half day",
+            "label": "half day",
             "year": 2026
           },
           {
             "amount": 80,
             "unit": "day",
-            "label": "Full day",
+            "label": "full day",
             "year": 2026
           }
         ],
@@ -143,7 +147,7 @@
         "financial_aid": null,
         "special_needs": null,
         "lunch": {
-          "value": "case_by_case",
+          "value": "yes",
           "text": "We provide lunch and snack for full day."
         },
         "transportation": null,
@@ -153,7 +157,7 @@
           "https://ninjaville.org/"
         ],
         "confidence": "medium",
-        "review_notes": "Confirm the summer dates and the year of the listed prices directly with Ninjaville. The camp page says 'Camp starts the week of June 10th and runs until August 29th' but gives no year; the navigation's 'Ninjaville 2025-2026 Season' is only indirect context for the provisional 2026 prices. No individual weeks or age limits are listed. Registration instructions request an email or call with requested dates, child's name and age, and a contact number; the registration page contains no visible form in the supplied text."
+        "review_notes": "The summer camp page says camp starts the week of June 10th and runs until August 29th, without a year. These dates were omitted rather than assigned to 2026. Prices are provisionally labeled 2026 based on the site's 2025-2026 Season navigation, but the camp page does not explicitly date the rates. Confirm the summer year, rates and hours with the provider. No individual weeks or camper age limits are listed. Generic requests to register while spaces remain were not treated as a current session availability statement."
       }
     ]
   }

@@ -7,23 +7,22 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:31:01.839Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:26:21.565Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "f6db1fc2acdb294165ad3dfd18e45a094ea019e4d1e3bdb6a6afefafabe5e3c2",
   "response": {
     "searches": [
-      "site.gcpchurch.org VBS 2026 2027 God's Neighborhood",
-      "open https://www.gcpchurch.org/vbs",
-      "\"gcpchurch\" \"VBS\" \"June\""
+      "site:gcpchurch.org VBS \"2026\"",
+      "\"Greeneville Cumberland\" \"June 20\" \"2026\" VBS"
     ],
     "usage": {
-      "inputTokens": 17441,
-      "cachedInputTokens": 8223,
-      "outputTokens": 721,
-      "reasoningTokens": 159
+      "inputTokens": 21564,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1203,
+      "reasoningTokens": 181
     },
     "status": "completed",
-    "ms": 21184,
+    "ms": 27339,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -42,21 +41,38 @@
   "extraction": {
     "provider_name": "Greeneville Cumberland Presbyterian Church",
     "website_url": "https://www.gcpchurch.org/",
-    "notes": "No 2027 information found. The VBS page provides activities and eligibility but no camp dates, daily hours, price, or registration opening date. Its June 21 worship presentation is not a camp session date. The online registration destination could not be retrieved.",
-    "excluded": [],
+    "notes": "No 2027 camp information was found. The official VBS page does not give the camp date or hours. A third-party mirror of the church's June 3, 2026 social post lists June 20, 2026, 9am-noon; these fallback details are included with medium confidence. No registration milestones were taken from that mirror.",
+    "excluded": [
+      {
+        "name": "Children's Choir",
+        "reason": "Recurring year-round choir rehearsals, not a finite summer camp."
+      },
+      {
+        "name": "Lower Elementary Sunday School",
+        "reason": "Recurring Sunday school, not a finite summer camp."
+      },
+      {
+        "name": "Upper Elementary Sunday School",
+        "reason": "Recurring Sunday school, not a finite summer camp."
+      },
+      {
+        "name": "Nursery",
+        "reason": "Regular Sunday childcare, not a summer camp; nursery activities within VBS are included in the VBS card."
+      }
+    ],
     "cards": [
       {
         "name": "God's Neighborhood VBS",
         "type": "vbs",
-        "categories": ["faith_based", "general"],
-        "description": "Children participate in crafts, music, games, and Bible stories, with light breakfast and lunch. Children birth through age 3 have nursery activities and play time.",
+        "categories": ["faith_based"],
+        "description": "Children participate in crafts, music, teamwork games and Bible Story Time, with a light breakfast and lunch. Children birth through age 3 have nursery activities and play time.",
         "camp_page_url": "https://www.gcpchurch.org/vbs",
         "registration_url": null,
         "season": {
           "year": 2026,
           "status": "not_posted",
-          "start": null,
-          "end": null,
+          "start": "2026-06-20",
+          "end": "2026-06-20",
           "text": null
         },
         "ages": {
@@ -76,10 +92,49 @@
             "state": "TN"
           }
         ],
-        "hours": null,
+        "hours": {
+          "start": "09:00",
+          "end": "12:00",
+          "text": "9am-noon"
+        },
         "extended_care": null,
         "prices": [],
-        "sessions": [],
+        "sessions": [
+          {
+            "label": "Nursery",
+            "start": "2026-06-20",
+            "end": "2026-06-20",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 0,
+              "max": 3
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Children 4 years through those who have completed the 5th grade",
+            "start": "2026-06-20",
+            "end": "2026-06-20",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 4,
+              "max": null
+            },
+            "grades": {
+              "min": null,
+              "max": 5,
+              "basis": "completed"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
         "registration": [],
         "last_year_registration_opened": null,
         "availability": null,
@@ -87,12 +142,12 @@
         "special_needs": null,
         "lunch": {
           "value": "yes",
-          "text": "eat together around the table for a light breakfast and lunch."
+          "text": "a light breakfast and lunch"
         },
         "transportation": null,
         "sources": ["https://www.gcpchurch.org/vbs", "https://www.gcpchurch.org/"],
         "confidence": "medium",
-        "review_notes": "The VBS page does not explicitly identify its program year; 2026 is provisional context, not established by a dated program heading. Confirm the season and camp dates with the church. Eligibility states birth–3 nursery activities and age 4 through completed fifth grade rotating centers; middle and high school youth have service opportunities, not a separately described camp. No rows were created because dates are unavailable. Format check: ages 0 outside 2-19."
+        "review_notes": "Confirm June 20, 2026 and 9am-noon directly with the church: these details were found only in a third-party mirror at https://www.findglocal.com/US/Greeneville/343190012470560/Greeneville-Cumberland-Presbyterian-Church, attributed to its June 3, 2026 post. The official VBS page gives only a Sunday, June 21 song presentation, which is excluded from camp dates as a worship service. Middle- and high-school service opportunities are mentioned but not described sufficiently to establish a separate supervised camp. The online registration destination could not be recovered. Format check: ages 0 outside 2-19; row 1 (Nursery) ages 0 outside 2-19."
       }
     ]
   }

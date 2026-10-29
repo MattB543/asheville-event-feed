@@ -9,23 +9,22 @@
     "status": "review",
     "status_reason": "first page is a social media page or video, which our fetcher can't read"
   },
-  "extractedAt": "2026-10-29T15:37:53.396Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:31:54.521Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": null,
   "response": {
     "searches": [
-      "Community Baptist Church Jonesborough vacation bible school 2026",
-      "\"Community Baptist Church-Jonesborough\" \"VBS\"",
-      "\"Community-Baptist-Church-Jonesborough\" \"2026\" \"VBS\""
+      "Community Baptist Church Jonesborough VBS 2026",
+      "site:facebook.com \"Community Baptist Church-Jonesborough\" \"2026\" \"VBS\""
     ],
     "usage": {
-      "inputTokens": 29009,
-      "cachedInputTokens": 8223,
-      "outputTokens": 421,
-      "reasoningTokens": 260
+      "inputTokens": 24789,
+      "cachedInputTokens": 8845,
+      "outputTokens": 390,
+      "reasoningTokens": 189
     },
     "status": "completed",
-    "ms": 22577,
+    "ms": 17701,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -39,8 +38,13 @@
   "extraction": {
     "provider_name": "Community Baptist Church of Jonesborough",
     "website_url": null,
-    "notes": "No separate official website was found. The supplied Facebook page returned no readable content. Indexed posts from the church confirm historical Vacation Bible School activity, but no official 2026 or 2027 program details could be verified. Third-party listings describe Camp Courageous VBS on August 6–8, 2025; those dates were not carried forward. Cards are empty because no offering for 2026 or 2027 could be established, not because the church is confirmed to have discontinued VBS. A reviewer should check the church's Facebook page directly for current announcements.",
-    "excluded": [],
+    "notes": "No standalone official website or 2027 summer program information was found. The supplied official Facebook page returned no readable text. Search found an older official Facebook VBS video, but no usable 2026 or 2027 program details. Third-party listings describe Camp Courageous VBS on August 6–8, 2025, with a family program August 9, at 430 Bill Jones Road, Jonesborough, TN; those historical listings were not used to create a current camp card. No 2026 dates or registration opening could be verified.",
+    "excluded": [
+      {
+        "name": "2026 VBS — Community Baptist Church, Greensboro",
+        "reason": "Different provider in Greensboro, NC, outside the directory's geographic area."
+      }
+    ],
     "cards": []
   }
 }

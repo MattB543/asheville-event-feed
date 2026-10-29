@@ -7,22 +7,22 @@
     "discovered_by": ["grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:17:21.810Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:14:51.679Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "a4e1cc442acdcfe456ef11234a91145d50a6f19756c1fd2b9caeb26348de8aab",
   "response": {
     "searches": [
       "site:pinecrestarpchurch.org VBS 2027",
-      "open https://pinecrestarpchurch.org/about/"
+      "open https://pinecrestarpchurch.org/ministries/youth-2/"
     ],
     "usage": {
-      "inputTokens": 14015,
-      "cachedInputTokens": 8223,
-      "outputTokens": 766,
-      "reasoningTokens": 114
+      "inputTokens": 14463,
+      "cachedInputTokens": 8631,
+      "outputTokens": 773,
+      "reasoningTokens": 120
     },
     "status": "completed",
-    "ms": 20419,
+    "ms": 22325,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -41,11 +41,23 @@
   "extraction": {
     "provider_name": "Pinecrest ARP Church of Flat Rock",
     "website_url": "https://pinecrestarpchurch.org/",
-    "notes": "No 2027 camp dates or registration milestones were found. The VBS page still lists July 14–17, 2026 and says \"See you next summer!\" The youth page mentions summer conferences but provides no named offering or summer dates to extract.",
+    "notes": "No 2027 VBS dates or registration milestones were found. The VBS page still lists July 14–17, 2026. The church publishes Hendersonville as its mailing/location city despite the provider's Flat Rock name. Youth and kids ministry pages returned no readable text when opened; the youth search result mentions additional activities but does not identify a summer camp.",
     "excluded": [
       {
-        "name": "Youth Group",
-        "reason": "Recurring school-year youth ministry, not a finite summer camp."
+        "name": "Weekly Youth Group",
+        "reason": "Year-round youth ministry, not a finite summer camp."
+      },
+      {
+        "name": "Monthly Fellowship Events",
+        "reason": "Recurring fellowship events, not a named finite summer camp."
+      },
+      {
+        "name": "Annual Mission Trips",
+        "reason": "Mission trips are excluded."
+      },
+      {
+        "name": "Independence Day barbecue",
+        "reason": "A social event rather than a supervised youth camp."
       }
     ],
     "cards": [
@@ -53,7 +65,7 @@
         "name": "Vacation Bible School",
         "type": "vbs",
         "categories": ["faith_based"],
-        "description": "Children attend a morning Vacation Bible School program at Pinecrest ARP Church.",
+        "description": "Vacation Bible School for children who completed Pre-K4 through fifth grade.",
         "camp_page_url": "https://pinecrestarpchurch.org/vbs/",
         "registration_url": "https://pinecrestarpchurch.org/vbs/",
         "season": {
@@ -73,21 +85,21 @@
           {
             "name": "Pinecrest ARP Church",
             "address": "1790 Greenville Highway",
-            "town": "Flat Rock",
+            "town": "Hendersonville",
             "state": "NC"
           }
         ],
         "hours": {
           "start": "09:00",
           "end": "12:00",
-          "text": "Tuesday-Friday, 9AM-NOON"
+          "text": "9AM-NOON"
         },
         "extended_care": null,
         "prices": [
           {
             "amount": 0,
             "unit": "program",
-            "label": "Provided free of charge",
+            "label": "Free of charge",
             "year": 2026
           }
         ],
@@ -99,13 +111,9 @@
         "special_needs": null,
         "lunch": null,
         "transportation": null,
-        "sources": [
-          "https://pinecrestarpchurch.org/vbs/",
-          "https://pinecrestarpchurch.org/",
-          "https://pinecrestarpchurch.org/about/"
-        ],
-        "confidence": "medium",
-        "review_notes": "The official About page's search result identifies the location as 1790 Greenville Highway, Flat Rock, NC 28731; the homepage and VBS footer instead say Hendersonville, NC 28792. Used the About page's explicit location address. The About page returned no readable text when opened. Grade eligibility is taken from the registration form's completed-school-year options, Pre-K4 through fifth grade; no separate age range is stated."
+        "sources": ["https://pinecrestarpchurch.org/vbs/", "https://pinecrestarpchurch.org/"],
+        "confidence": "high",
+        "review_notes": null
       }
     ]
   }

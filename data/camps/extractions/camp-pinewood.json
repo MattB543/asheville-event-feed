@@ -10,22 +10,23 @@
     "discovered_by": ["grid", "aggregator", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:17:37.193Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:14:59.292Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "fe21155cfbf89794bbc153a98b617ae0e70459cdc18a108777660ef25f52cc16",
   "response": {
     "searches": [
-      "site:camppinewood.net FAQ ages enroll counselor training activities",
-      "site:camppinewood.net/activities"
+      "site:camppinewood.net FAQ ages activities enroll 2027",
+      "\"Camp Pinewood\" \"camppinewood.net\" \"ages\"",
+      "site:camppinewood.net/faq \"age\""
     ],
     "usage": {
-      "inputTokens": 21588,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1889,
-      "reasoningTokens": 159
+      "inputTokens": 21846,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1929,
+      "reasoningTokens": 241
     },
     "status": "completed",
-    "ms": 39960,
+    "ms": 41768,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -74,15 +75,15 @@
   "extraction": {
     "provider_name": "Camp Pinewood",
     "website_url": "https://www.camppinewood.net/",
-    "notes": "2027 session dates are posted, but tuition is explicitly labeled 2026. Early Bird Enrollment is listed as July 1 to October 1 without a calendar year; no registration milestones were recorded because that year cannot be established safely. The activities, enroll and FAQ pages returned no readable body when opened; FAQ information was available through official search results. CIT is listed for 2027, but its specific session dates and tuition are not given.",
+    "notes": "The 2027 dates are posted, but tuition is explicitly labeled 2026. The early-bird enrollment range has no calendar year; no registration milestone was inferred. FAQ, activities and enrollment pages returned no readable body text during supplementary browsing. No additional official PDF was found.",
     "excluded": [
       {
-        "name": "Summer Camp Jobs",
-        "reason": "Paid staff employment, not a youth camp program."
+        "name": "Visitor's Day",
+        "reason": "A visiting-day social event, not a camp program."
       },
       {
-        "name": "Visitor's Day",
-        "reason": "A visiting event for families of enrolled campers, not a separate supervised youth camp."
+        "name": "Summer staff positions",
+        "reason": "Employment programs, not youth camps."
       }
     ],
     "cards": [
@@ -90,7 +91,7 @@
         "name": "Camp Pinewood",
         "type": "overnight",
         "categories": ["general", "sports", "horses"],
-        "description": "Campers live in cabins and participate in camp activities including horseback riding and waterskiing. Full, first, second and introductory sessions are offered.",
+        "description": "Campers stay in cabins and participate in in-camp activities including horseback riding and waterskiing.",
         "camp_page_url": "https://www.camppinewood.net/datesandrates",
         "registration_url": "https://www.camppinewood.net/login",
         "season": {
@@ -98,14 +99,10 @@
           "status": "posted",
           "start": "2027-06-13",
           "end": "2027-08-03",
-          "text": "2027 Dates & Rates"
+          "text": null
         },
         "ages": null,
-        "grades": {
-          "min": 1,
-          "max": 9,
-          "basis": "completed"
-        },
+        "grades": null,
         "sites": [
           {
             "name": "Camp Pinewood",
@@ -120,13 +117,13 @@
           {
             "amount": 10200,
             "unit": "session",
-            "label": "Full Session; explicitly labeled 2026 Tuition",
+            "label": "Full Session",
             "year": 2026
           },
           {
             "amount": 6850,
             "unit": "session",
-            "label": "1st Session or 2nd Session; explicitly labeled 2026 Tuition",
+            "label": "1st Session or 2nd Session",
             "year": 2026
           }
         ],
@@ -208,7 +205,10 @@
           "text": "We are pleased to offer scholarship funding to a number of families that are in need of assistance."
         },
         "special_needs": null,
-        "lunch": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Campers enjoy delicious food, prepared by our chefs and their well-trained staff."
+        },
         "transportation": {
           "value": "yes",
           "text": "Tuition Includes: Asheville Airport Transport"
@@ -216,18 +216,18 @@
         "sources": [
           "https://www.camppinewood.net/datesandrates",
           "https://www.camppinewood.net/important-dates",
-          "https://www.camppinewood.net/faq",
           "https://www.camppinewood.net/facilities",
-          "https://www.camppinewood.net/login"
+          "https://www.camppinewood.net/login",
+          "https://www.camppinewood.net/travel-visiting-camp"
         ],
         "confidence": "medium",
-        "review_notes": "The regular camper grade range comes from the undated official FAQ search result, which lists completed grades 1–9 separately from CIT. First-Timer dates take their year from the 2027 heading and are confirmed by Important Dates Summer 2027. Confirm whether the tuition labels are intentionally 2026 or have not yet been updated. Intro sessions are called First-Timer Sessions on Dates & Rates."
+        "review_notes": "The 2027 Dates & Rates page explicitly labels all listed tuition as 2026; retained those amounts only as 2026 prices. First-Timer dates take their year from the 2027 heading and are confirmed by Important Dates Summer 2027. Overall camper eligibility is unknown; grades 2–4 apply only to introductory sessions. The official travel page says the main entrance is on West Prince Road and warns that GPS does not reach it; the mapped address is the provider's published location. Early Bird Enrollment - July 1 to October 1 lacks a calendar year."
       },
       {
         "name": "Counselor-In-Training Program",
         "type": "overnight",
         "categories": ["general"],
-        "description": "The Counselor-In-Training Program is offered to previous campers who are rising 11th and 12th graders. Participation is limited and families must contact camp for information.",
+        "description": "A counselor-in-training program for previous campers who are rising 11th and 12th graders.",
         "camp_page_url": "https://www.camppinewood.net/datesandrates",
         "registration_url": null,
         "season": {
@@ -235,7 +235,7 @@
           "status": "not_posted",
           "start": null,
           "end": null,
-          "text": "The Counselor-In-Training Program is available for previous campers who are currently rising 11th & 12th graders."
+          "text": null
         },
         "ages": null,
         "grades": {
@@ -264,10 +264,11 @@
         "transportation": null,
         "sources": [
           "https://www.camppinewood.net/datesandrates",
-          "https://www.camppinewood.net/faq"
+          "https://www.camppinewood.net/facilities",
+          "https://www.camppinewood.net/travel-visiting-camp"
         ],
         "confidence": "medium",
-        "review_notes": "CIT appears under the 2027 Dates & Rates heading, but no CIT-specific dates are stated, so season status is not_posted. Overnight format is supported by the FAQ's description of CIT as a camp division and campers living in cabins. Do not assume CIT uses the regular full or half-session dates, tuition or benefits."
+        "review_notes": "The program is listed on the 2027 Dates & Rates page, but no CIT-specific dates, tuition or daily format are stated. Overnight format and camp location are inferred from the residential provider context; confirm with the camp. The travel page identifies the main entrance as West Prince Road rather than the published Orrs Camp Road address."
       }
     ]
   }

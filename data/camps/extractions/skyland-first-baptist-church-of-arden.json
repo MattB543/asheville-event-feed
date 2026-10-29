@@ -7,19 +7,19 @@
     "discovered_by": ["gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:37:19.155Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:31:24.744Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "27fbdec559ad24e479efc4c6cf04dd59945840316d978788aad56ba965f7d2dc",
   "response": {
-    "searches": ["\"Skyland\" \"Baptist\" \"VBS\" \"2026\""],
+    "searches": ["site:skylandbaptist.org VBS 2026 2027"],
     "usage": {
-      "inputTokens": 17966,
-      "cachedInputTokens": 8223,
-      "outputTokens": 550,
-      "reasoningTokens": 68
+      "inputTokens": 14476,
+      "cachedInputTokens": 8845,
+      "outputTokens": 588,
+      "reasoningTokens": 69
     },
     "status": "completed",
-    "ms": 18789,
+    "ms": 16867,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -43,19 +43,23 @@
   "extraction": {
     "provider_name": "Skyland First Baptist Church of Arden",
     "website_url": "https://skylandbaptist.org/",
-    "notes": "No official 2027 dates or registration announcements were found. The Children / Youth page describes an annual summer VBS but does not identify a specific season or dates; its general details are retained without projecting dates.",
+    "notes": "No official 2027 dates or registration announcements, or dated 2026 VBS schedule, were found. The children's ministry page describes an annual summer VBS without a specific year.",
     "excluded": [
       {
-        "name": "Children’s Group and Youth Group",
-        "reason": "Recurring Wednesday-night ministries, not finite summer programs."
+        "name": "Children’s Group / Youth Group",
+        "reason": "Weekly year-round church groups, not finite summer camps."
       },
       {
-        "name": "Sunday School",
-        "reason": "Year-round Sunday classes."
+        "name": "Sunday School / Preschool Church / Children’s Church",
+        "reason": "Year-round church classes and worship activities."
       },
       {
-        "name": "Preschool Church and Children’s Church",
-        "reason": "Recurring worship-time ministries, not summer camps."
+        "name": "Good News Clubs",
+        "reason": "After-school Bible studies, not summer camps."
+      },
+      {
+        "name": "SONshine Crafters Craft Show",
+        "reason": "Craft show rather than a supervised youth camp; held outside summer."
       }
     ],
     "cards": [
@@ -63,7 +67,7 @@
         "name": "Vacation Bible School",
         "type": "vbs",
         "categories": ["faith_based"],
-        "description": "Participants rotate through skits and music, games, crafts, Bible Adventure and Sticky Scriptures stations. Supper is provided before the stations.",
+        "description": "Children participate in skits, music, games, crafts, Bible Adventure and Sticky Scriptures during a week of evening Vacation Bible School. Supper is provided before the stations.",
         "camp_page_url": "https://skylandbaptist.org/?page_id=250",
         "registration_url": null,
         "season": {
@@ -71,7 +75,7 @@
           "status": "not_posted",
           "start": null,
           "end": null,
-          "text": "one week during the Summer"
+          "text": null
         },
         "ages": {
           "min": 3,
@@ -89,7 +93,7 @@
         "hours": {
           "start": "18:00",
           "end": "20:30",
-          "text": "Supper from 5:30-6, followed by VBS stations from 6-8:30."
+          "text": "Supper 5:30-6; VBS stations 6-8:30."
         },
         "extended_care": null,
         "prices": [],
@@ -101,12 +105,16 @@
         "special_needs": null,
         "lunch": {
           "value": "yes",
-          "text": "We enjoy supper, that is provided for us from 5:30-6"
+          "text": "We enjoy supper, that is provided for us from 5:30-6."
         },
         "transportation": null,
-        "sources": ["https://skylandbaptist.org/?page_id=250", "https://skylandbaptist.org/"],
+        "sources": [
+          "https://skylandbaptist.org/?page_id=250",
+          "https://skylandbaptist.org/?page_id=197",
+          "https://skylandbaptist.org/"
+        ],
         "confidence": "medium",
-        "review_notes": "The Children / Youth page gives evergreen VBS ages and hours without a season year. The 2026 season designation is a fallback for undated current information, not confirmation of a dated 2026 event. Meal information refers to supper rather than lunch."
+        "review_notes": "Ages and hours come from an undated annual VBS description, not a dated 2026 announcement. Season year 2026 is a fallback with no dates supplied. The meal field records the provided supper, not a midday lunch."
       }
     ]
   }

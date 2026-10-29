@@ -7,23 +7,23 @@
     "discovered_by": ["grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:17:21.030Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:14:40.119Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "bcc7fdfc4c91a2c8dec7f444b575e55b4de6a3bb57fe5e26688888c1310d3147",
   "response": {
     "searches": [
-      "site:outwardbound.org \"Blue Ridge Mountains – Backpack\"",
-      "site:outwardbound.org/course/ \"Blue Ridge Mountains – Backpack, Whitewater\"",
-      "site:outwardbound.org/course/outer-banks-sea-kayak/ \"Getting\" \"Starting\""
+      "site.outwardbound.org \"Blue Ridge Mountains\" \"Backpack & Rock\"",
+      "site:flyavl.com \"61 Terminal\"",
+      "site:outwardbound.org/course/blue-ridge-backpack-whitewater-canoe \"Airport\""
     ],
     "usage": {
-      "inputTokens": 35163,
-      "cachedInputTokens": 8223,
-      "outputTokens": 6167,
-      "reasoningTokens": 353
+      "inputTokens": 35526,
+      "cachedInputTokens": 8845,
+      "outputTokens": 4451,
+      "reasoningTokens": 274
     },
     "status": "completed",
-    "ms": 116071,
+    "ms": 95724,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -62,23 +62,23 @@
   "extraction": {
     "provider_name": "North Carolina Outward Bound School",
     "website_url": "https://www.outwardbound.org/ncobs/",
-    "notes": "Summer 2027 enrollment is advertised. The supplied national catalog did not actually filter to NCOBS; other schools' courses were not included. Included NCOBS youth expeditions; adult and family offerings were excluded. The three-activity Blue Ridge course page conflicts with the supplied catalog: it says dates are coming soon while the catalog lists 2027 sessions. The legacy forms/25/561 page returned no readable text. No dated 2027 registration-opening announcement was found.",
+    "notes": "Summer 2027 dates and prices are posted in the supplied official catalog. Individual course pages returned empty text when opened; search results supplied additional descriptions and meeting locations. The three-activity course page's indexed text says dates are coming soon, conflicting with the supplied catalog. No dated registration opening announcement was found. Adult-only sessions are omitted from youth cards, including the ages 18-24 backpacking and climbing session.",
     "excluded": [
       {
+        "name": "Outer Banks – Sea Kayak",
+        "reason": "Held on the North Carolina coast, outside the Asheville-area drive radius."
+      },
+      {
         "name": "Blue Ridge – Parent & Child – Backpack & Rock Climb",
-        "reason": "Family-only offering."
+        "reason": "Family-only program requiring a child and caretaker."
       },
       {
-        "name": "Ten Thousand Islands – Parent & Child – Canoe",
-        "reason": "Family-only offering, with sessions outside summer."
+        "name": "Blue Ridge Mountains – Pathfinder – Backpack Whitewater Canoe & Rock Climb",
+        "reason": "Listed sessions are outside summer and serve ages 18-25."
       },
       {
-        "name": "Blue Ridge Mountains – Backpack & Rock Climb (adult and young-adult sessions)",
-        "reason": "Sessions restricted to ages 18-24 or 25+ were excluded as adult-only offerings; youth sessions are included."
-      },
-      {
-        "name": "Outer Banks – Sea Kayak (young-adult session)",
-        "reason": "Restricted to ages 18-24; adult-only offering."
+        "name": "Blue Ridge – Outdoor Educator",
+        "reason": "Adult-only program outside summer."
       },
       {
         "name": "Blue Ridge – Veterans – Backpack & Whitewater Raft",
@@ -89,48 +89,28 @@
         "reason": "Adult-only veterans program."
       },
       {
-        "name": "Blue Ridge Mountains – Pathfinder – Backpack Whitewater Canoe & Rock Climb",
-        "reason": "Ages 18-25; posted sessions are outside summer."
+        "name": "Blue Ridge Mountains to Florida & Patagonia – Leadership Semester",
+        "reason": "Adult-only fall program."
       },
       {
         "name": "Patagonia to Florida & Blue Ridge – Leadership Semester",
-        "reason": "Posted session is outside summer and restricted to ages 18-25."
+        "reason": "Adult-only program outside summer."
       },
       {
-        "name": "Blue Ridge Mountains to Florida & Patagonia – Leadership Semester",
-        "reason": "Posted session is outside summer and restricted to ages 18-25."
-      },
-      {
-        "name": "Blue Ridge – Outdoor Educator",
-        "reason": "Adult-only course outside summer."
+        "name": "Ten Thousand Islands – Parent & Child – Canoe",
+        "reason": "Family-only program in Florida, outside the local drive radius."
       },
       {
         "name": "Ten Thousand Islands – Sea Kayak",
-        "reason": "Adult-only courses outside summer."
-      },
-      {
-        "name": "Patagonia – Backpack & Service",
-        "reason": "Adult-only courses outside summer."
-      },
-      {
-        "name": "Professional Programs",
-        "reason": "Professional team programs, not finite summer youth camps."
-      },
-      {
-        "name": "Educators Initiative",
-        "reason": "Programs for educators rather than youth."
-      },
-      {
-        "name": "Work with NCOBS",
-        "reason": "Employment opportunities, not camps."
+        "reason": "Adult-only program in Florida, outside the local drive radius."
       }
     ],
     "cards": [
       {
         "name": "Blue Ridge Mountains – Backpack & Rock Climb",
         "type": "overnight",
-        "categories": ["nature_outdoor"],
-        "description": "Students backpack mountain trails, camp outdoors, and learn rock climbing and backcountry skills. Crews share responsibilities and practice teamwork and leadership.",
+        "categories": ["nature_outdoor", "sports"],
+        "description": "Campers backpack mountain trails, camp outdoors, and learn backcountry living and rock climbing skills with their crew.",
         "camp_page_url": "https://www.outwardbound.org/course/blue-ridge-backpack-rock-climb/",
         "registration_url": "https://www.outwardbound.org/course/blue-ridge-backpack-rock-climb/",
         "season": {
@@ -452,23 +432,23 @@
         "special_needs": null,
         "lunch": {
           "value": "yes",
-          "text": "The tuition you pay prior to course covers all of your food while on course"
+          "text": "The tuition you pay prior to course covers all of your food while on course."
         },
         "transportation": null,
         "sources": [
-          "https://www.outwardbound.org/course/blue-ridge-backpack-rock-climb/",
           "https://www.outwardbound.org/find-a-program/enroll-in-a-course/full-course-catalog/?schoolfilter=north-carolina-outward-bound-school",
+          "https://www.outwardbound.org/course/blue-ridge-backpack-rock-climb/",
           "https://www.outwardbound.org/ncobs/about-our-school/faqs/",
-          "https://www2.flyavl.com/contact-us"
+          "https://flyavl.com/general-aviation/general-info"
         ],
         "confidence": "medium",
-        "review_notes": "Course-page meeting location and description were accessible through official search results only; direct opening returned no text. Session details are from the supplied official 2027 catalog."
+        "review_notes": "Meeting location and activity details were readable only through official search snippets; the course page returned empty text when opened. Dates, prices and age bands are from the supplied official 2027 catalog."
       },
       {
         "name": "Blue Ridge Mountains – Backpack & Whitewater Canoe",
         "type": "overnight",
-        "categories": ["nature_outdoor"],
-        "description": "Students backpack through the Blue Ridge Mountains and travel rivers by whitewater canoe. They learn outdoor living skills and share expedition responsibilities.",
+        "categories": ["nature_outdoor", "sports"],
+        "description": "Campers backpack mountain trails and paddle whitewater rivers. They learn campcraft, cook meals together, and practice paddle strokes for navigating rapids.",
         "camp_page_url": "https://www.outwardbound.org/course/blue-ridge-backpack-whitewater-canoe/",
         "registration_url": "https://www.outwardbound.org/course/blue-ridge-backpack-whitewater-canoe/",
         "season": {
@@ -770,23 +750,23 @@
         "special_needs": null,
         "lunch": {
           "value": "yes",
-          "text": "The tuition you pay prior to course covers all of your food while on course"
+          "text": "The tuition you pay prior to course covers all of your food while on course."
         },
         "transportation": null,
         "sources": [
-          "https://www.outwardbound.org/course/blue-ridge-backpack-whitewater-canoe/",
           "https://www.outwardbound.org/find-a-program/enroll-in-a-course/full-course-catalog/?schoolfilter=north-carolina-outward-bound-school",
+          "https://www.outwardbound.org/course/blue-ridge-backpack-whitewater-canoe/",
           "https://www.outwardbound.org/ncobs/about-our-school/faqs/",
-          "https://www2.flyavl.com/contact-us"
+          "https://flyavl.com/general-aviation/general-info"
         ],
         "confidence": "medium",
-        "review_notes": "Course-page meeting location and description were accessible through official search results only; direct opening returned no text. Session details are from the supplied official 2027 catalog."
+        "review_notes": "Meeting location and activity details were readable only through official search snippets; the course page returned empty text when opened. Dates, prices and age bands are from the supplied official 2027 catalog."
       },
       {
         "name": "Blue Ridge Mountains – Backpack, Whitewater Canoe & Rock Climb",
         "type": "overnight",
-        "categories": ["nature_outdoor"],
-        "description": "Students backpack forest trails, climb rock faces, and paddle whitewater rivers. They practice navigation, campcraft, teamwork, and leadership.",
+        "categories": ["nature_outdoor", "sports"],
+        "description": "Campers backpack forest trails, climb rock faces, and paddle whitewater rapids. They learn map-and-compass navigation and campcraft with their crew.",
         "camp_page_url": "https://www.outwardbound.org/course/blue-ridge-backpack-whitewater-canoe-rock-climb/",
         "registration_url": "https://www.outwardbound.org/course/blue-ridge-backpack-whitewater-canoe-rock-climb/",
         "season": {
@@ -801,7 +781,14 @@
           "max": 18
         },
         "grades": null,
-        "sites": [],
+        "sites": [
+          {
+            "name": "Asheville Regional Airport",
+            "address": "61 Terminal Drive",
+            "town": "Fletcher",
+            "state": "NC"
+          }
+        ],
         "hours": null,
         "extended_care": null,
         "prices": [
@@ -878,7 +865,7 @@
         "last_year_registration_opened": null,
         "availability": {
           "status": "available",
-          "scope": "2027 sessions in supplied catalog",
+          "scope": "Catalog sessions",
           "text": "Open"
         },
         "financial_aid": {
@@ -888,97 +875,17 @@
         "special_needs": null,
         "lunch": {
           "value": "yes",
-          "text": "The tuition you pay prior to course covers all of your food while on course"
+          "text": "The tuition you pay prior to course covers all of your food while on course."
         },
         "transportation": null,
         "sources": [
+          "https://www.outwardbound.org/find-a-program/enroll-in-a-course/full-course-catalog/?schoolfilter=north-carolina-outward-bound-school",
           "https://www.outwardbound.org/course/blue-ridge-backpack-whitewater-canoe-rock-climb/",
-          "https://www.outwardbound.org/find-a-program/enroll-in-a-course/full-course-catalog/?schoolfilter=north-carolina-outward-bound-school",
-          "https://www.outwardbound.org/ncobs/about-our-school/faqs/"
+          "https://www.outwardbound.org/ncobs/about-our-school/faqs/",
+          "https://flyavl.com/general-aviation/general-info"
         ],
         "confidence": "medium",
-        "review_notes": "The supplied official catalog lists four open 2027 sessions at $6,995. The official course page's search result instead says no upcoming sessions, dates coming this fall, tuition TBA, and meeting location TBA. Confirm the catalog sessions and meeting site with NCOBS."
-      },
-      {
-        "name": "Outer Banks – Sea Kayak",
-        "type": "overnight",
-        "categories": ["nature_outdoor"],
-        "description": "Students travel coastal waters by sea kayak, navigate tides and currents, and camp on remote islands and beaches. Crews practice kayaking, navigation, and campcraft.",
-        "camp_page_url": "https://www.outwardbound.org/course/outer-banks-sea-kayak/",
-        "registration_url": "https://www.outwardbound.org/course/outer-banks-sea-kayak/",
-        "season": {
-          "year": 2027,
-          "status": "posted",
-          "start": "2027-06-07",
-          "end": "2027-06-27",
-          "text": null
-        },
-        "ages": {
-          "min": 16,
-          "max": 18
-        },
-        "grades": null,
-        "sites": [],
-        "hours": null,
-        "extended_care": null,
-        "prices": [
-          {
-            "amount": 2945,
-            "unit": "session",
-            "label": "7 days",
-            "year": 2027
-          }
-        ],
-        "sessions": [
-          {
-            "label": "7 days",
-            "start": "2027-06-07",
-            "end": "2027-06-13",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": null,
-            "hours": null,
-            "price": null,
-            "status": "available"
-          },
-          {
-            "label": "7 days",
-            "start": "2027-06-21",
-            "end": "2027-06-27",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": null,
-            "hours": null,
-            "price": null,
-            "status": "available"
-          }
-        ],
-        "registration": [],
-        "last_year_registration_opened": null,
-        "availability": {
-          "status": "available",
-          "scope": "Listed youth sessions",
-          "text": "Open"
-        },
-        "financial_aid": {
-          "value": "yes",
-          "text": "Scholarships are awarded to those with financial need on a first-come, first-served basis and as resources allow."
-        },
-        "special_needs": null,
-        "lunch": {
-          "value": "yes",
-          "text": "The tuition you pay prior to course covers all of your food while on course"
-        },
-        "transportation": null,
-        "sources": [
-          "https://www.outwardbound.org/course/outer-banks-sea-kayak/",
-          "https://www.outwardbound.org/find-a-program/enroll-in-a-course/full-course-catalog/?schoolfilter=north-carolina-outward-bound-school",
-          "https://www.outwardbound.org/ncobs/about-our-school/faqs/"
-        ],
-        "confidence": "medium",
-        "review_notes": "This NCOBS course is on the coast, not near Asheville. The official course search result states New Bern, NC for getting there but did not identify a precise meeting venue; sites is therefore empty. Direct course-page opening returned no readable text."
+        "review_notes": "The supplied official catalog lists four open 2027 sessions at $6,995, but the indexed individual course page says there are no upcoming sessions and shows tuition and getting there as TBA. Its search summary identifies Asheville (AVL) as the start/end location. Confirm that the individual course page has been updated to match the catalog."
       }
     ]
   }

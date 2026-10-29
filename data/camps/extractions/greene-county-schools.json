@@ -9,23 +9,22 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:30:35.053Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:25:52.324Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "78db1915cd30d1fc53fb1113da1b328d5671956a1e4a6b6570053001cdeb5a87",
   "response": {
     "searches": [
-      "site.greenek12.org ESP summer 2026 2027",
-      "site.greenek12.org \"ESP\" \"summer\" \"2026\" handbook",
-      "site:doak.greenek12.org \"Address\" \"TN\""
+      "site.doak.greenek12.org address",
+      "site:greenek12.org \"ESP\" \"summer\" \"2026\""
     ],
     "usage": {
-      "inputTokens": 32239,
-      "cachedInputTokens": 8223,
-      "outputTokens": 972,
-      "reasoningTokens": 318
+      "inputTokens": 28453,
+      "cachedInputTokens": 8845,
+      "outputTokens": 918,
+      "reasoningTokens": 156
     },
     "status": "completed",
-    "ms": 38991,
+    "ms": 31099,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -64,27 +63,19 @@
   "extraction": {
     "provider_name": "Greene County Schools",
     "website_url": "https://www.greenek12.org/",
-    "notes": "No summer 2027 dates or registration milestones were found. The ESP page confirms a full summer program but does not date that description. Linked 2026-27 handbook, application and closure documents could not be retrieved from the accessible page text. School contact pages did not expose street addresses in the retrieved text; these remain unverified. School-year kindergarten registration is not summer ESP registration.",
+    "notes": "No summer 2027 dates or registration milestones were found. The district page was blocked by robots.txt when opened; its supplied text and indexed official pages were readable, but the linked 2026-27 handbook, application and closure documents could not be retrieved. School-year kindergarten registration is not ESP summer registration.",
     "excluded": [
       {
         "name": "Extended School Program before- and after-school care",
-        "reason": "Year-round school-day childcare; only the separately stated full summer program is included."
-      },
-      {
-        "name": "Extended School Program school-break care",
-        "reason": "Non-summer school-break childcare."
-      },
-      {
-        "name": "Online Employment Application",
-        "reason": "Employment application, not a supervised youth summer program."
+        "reason": "School-year childcare; only the separately stated full summer program is included."
       }
     ],
     "cards": [
       {
         "name": "Extended School Program",
         "type": "day",
-        "categories": ["general", "arts"],
-        "description": "Children participate in art, music, drama, crafts, storytelling, recreation and other educational activities supervised by trained staff.",
+        "categories": ["general", "arts", "music", "theater"],
+        "description": "Children participate in art, music, drama, crafts, storytelling, recreation and other creative activities supervised by trained staff.",
         "camp_page_url": "https://www.greenek12.org/apps/pages/index.jsp?pREC_ID=1513040&type=d&uREC_ID=1312535",
         "registration_url": null,
         "season": {
@@ -102,21 +93,21 @@
         "sites": [
           {
             "name": "Doak Elementary",
-            "address": null,
-            "town": null,
-            "state": null
+            "address": "70 West Street",
+            "town": "Greeneville",
+            "state": "TN"
           },
           {
             "name": "Mosheim Elementary",
-            "address": null,
-            "town": null,
-            "state": null
+            "address": "297 West School Street",
+            "town": "Mosheim",
+            "state": "TN"
           },
           {
             "name": "South Greene High School",
-            "address": null,
-            "town": null,
-            "state": null
+            "address": "7469 Asheville Highway",
+            "town": "Greeneville",
+            "state": "TN"
           }
         ],
         "hours": null,
@@ -135,12 +126,12 @@
         "transportation": null,
         "sources": [
           "https://www.greenek12.org/apps/pages/index.jsp?pREC_ID=1513040&type=d&uREC_ID=1312535",
-          "https://doak.greenek12.org/apps/pages/index.jsp?type=d&uREC_ID=1254162",
+          "https://doak.greenek12.org/",
           "https://mosheim.greenek12.org/apps/pages/index.jsp?type=d&uREC_ID=1254494",
           "https://sghs.greenek12.org/apps/pages/index.jsp?pREC_ID=1609110&type=d&uREC_ID=1255449"
         ],
         "confidence": "medium",
-        "review_notes": "The summer offering and ages appear in an undated ESP description; 2026 is a fallback season label, not an explicitly dated summer schedule. Verify summer dates, pricing, application requirements and addresses for all three schools with the provider. The displayed 5:30-7:30 morning and 15:00-18:00 after-school hours are not summer hours and were not used. The $10 annual registration fee is stated for before/after-school enrollment and was not assigned to summer."
+        "review_notes": "The summer description and ages are undated standing information on the ESP page, not an explicitly dated 2026 summer announcement. Site addresses were obtained from indexed official school pages. Check the linked handbook for summer dates, hours and fees; it could not be retrieved. Published morning and after-school hours and the $10 application fee expressly concern school-year care, so they were not applied to summer. No session rows were created because summer dates are unknown."
       }
     ]
   }

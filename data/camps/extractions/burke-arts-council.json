@@ -7,25 +7,23 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:20:19.491Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:17:30.812Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "41484a2191a9f9792f9c689c16953439484e15a398d58500aed70fbfd027e142",
   "response": {
     "searches": [
-      "site:burkearts.org summer camp 2026 2027",
-      "open https://www.burkearts.org/youth-classes",
-      "site:burkearts.org/youth-classes \"2026\" \"July\"",
-      "site:burkearts.org/youth-classes/intro-watercolor \"Saturday\"",
-      "open https://www.burkearts.org/youth-classes/intro-watercolor?format=json"
+      "site:burkearts.org summer camp 2026",
+      "site:burkearts.org \"camp\" -site:burkearts.org/history -\"Morganton Improv\"",
+      "site:burkearts.org \"Summer Theater\""
     ],
     "usage": {
-      "inputTokens": 22304,
-      "cachedInputTokens": 8223,
-      "outputTokens": 935,
-      "reasoningTokens": 414
+      "inputTokens": 29578,
+      "cachedInputTokens": 8845,
+      "outputTokens": 965,
+      "reasoningTokens": 280
     },
     "status": "completed",
-    "ms": 30707,
+    "ms": 44450,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -54,49 +52,65 @@
   "extraction": {
     "provider_name": "Burke Arts Council",
     "website_url": "https://www.burkearts.org/",
-    "notes": "No verified summer 2027 or 2026 camp schedule was found. The supplied Teens/Children Classes Summer Camp page contains only navigation and contact information. Search located a separate Youth Classes section, but its pages returned no readable body text when opened. Official search snippets describe Intro to Watercolor for Kids, Intro to Crochet for Kids! and A Foundational Drawing Class for Kids, but did not establish their dates or whether they occurred in summer; these require review before inclusion. No cards were created from the page title alone.",
+    "notes": "No 2027 camp information or dated 2026 camp schedule was found. The supplied youth camp page contains only navigation and contact information. The official history page names Summer Art Camp, but its description is undated and was readable only through official search excerpts; opening that page returned no readable text. A third-party listing names Summer Theater Camp for Teens, but no corresponding official summer offering was found, so no card was created for it. Official event biographies mention a summer improv camp offered in 2022, without evidence of a 2026 or 2027 offering.",
     "excluded": [
       {
-        "name": "After School Art Club",
-        "reason": "School-year after-school programming; verified listings include March, September and October rather than summer."
-      },
-      {
-        "name": "Clay Sculpture for Kids",
-        "reason": "Spring program starting April 18, 2026."
-      },
-      {
-        "name": "Children's Spring Theater",
-        "reason": "Spring program held April 15, 22 and 29, 2026."
-      },
-      {
-        "name": "Collage Button-Making for Kids with Lyvia Turpin",
-        "reason": "Held March 14, 2026, outside summer."
-      },
-      {
-        "name": "Theatrical Youth Improv for High Schoolers with Tracy Scott Ages 14 - 17",
-        "reason": "Listed for February 23, 2026, outside summer; the official listing also says it was postponed."
-      },
-      {
-        "name": "After School Improv for Teens",
-        "reason": "Held October 16 and 23, 2025, outside summer."
-      },
-      {
-        "name": "Act Out! Theater Workshop",
-        "reason": "Held September 24, 2026, outside summer."
-      },
-      {
-        "name": "BOO! Ceramic Ghosts Workshop",
-        "reason": "Held October 3, 2026, outside summer."
-      },
-      {
         "name": "Summer in Burke County",
-        "reason": "Gallery exhibition, not a finite supervised youth program."
+        "reason": "An art exhibition, not a supervised youth camp."
       },
       {
         "name": "Summer Strings Concert",
-        "reason": "Public concert and reception, not a supervised youth camp or clinic."
+        "reason": "A concert and social event, not a camp."
+      },
+      {
+        "name": "Act Out! Theater Workshop",
+        "reason": "Held in September, outside summer."
+      },
+      {
+        "name": "After School Drama and Theatre Workshop",
+        "reason": "After-school workshops held in September, outside summer."
+      },
+      {
+        "name": "After School Improv for Teens",
+        "reason": "School-year after-school classes, not a summer camp."
       }
     ],
-    "cards": []
+    "cards": [
+      {
+        "name": "Summer Art Camp",
+        "type": "day",
+        "categories": ["arts"],
+        "description": "Campers explore different art forms with artists and art teachers. Each week has a different theme, and each day features a different art form.",
+        "camp_page_url": "https://www.burkearts.org/teens-children-classes",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.burkearts.org/history",
+          "https://www.burkearts.org/teens-children-classes"
+        ],
+        "confidence": "low",
+        "review_notes": "The official history page describes eight weeks of Summer Art Camp but gives no year, dates, ages, fees, hours or registration details. Confirm that the program still operates and obtain its 2027 schedule. Day format is inferred from the description of daily art activities. The provider publishes 506 S. Sterling St., Morganton, NC as its address, but the readable camp materials do not establish that this is the camper drop-off venue, so sites is empty."
+      }
+    ]
   }
 }

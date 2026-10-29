@@ -7,19 +7,19 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:21:29.623Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:18:13.158Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "7ada1fae201b6f5a95da692c13292e1b2e50829c1fcf2cb624917f19902d7af1",
   "response": {
-    "searches": ["site:foothillslittleexplorers.org summer 2027 registration"],
+    "searches": ["site.foothillslittleexplorers.org summer 2027"],
     "usage": {
-      "inputTokens": 14697,
-      "cachedInputTokens": 8223,
-      "outputTokens": 818,
-      "reasoningTokens": 50
+      "inputTokens": 15410,
+      "cachedInputTokens": 8845,
+      "outputTokens": 789,
+      "reasoningTokens": 92
     },
     "status": "completed",
-    "ms": 18384,
+    "ms": 20043,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -58,23 +58,15 @@
   "extraction": {
     "provider_name": "Foothills Little Explorers",
     "website_url": "https://www.foothillslittleexplorers.org/",
-    "notes": "Summer 2027 June and July offerings are listed, but dates remain TBD. Both product pages currently say sold out; this may be a placeholder while dates are pending. No 2027 registration opening date was found. Sessions are empty because neither offering has exact dates.",
+    "notes": "The 2027 June and July offerings are listed, but their dates remain TBD. Both product pages currently say sold out; no registration opening date is stated. Sessions are empty because neither offering has dated camp days.",
     "excluded": [
       {
-        "name": "Busy Bumblebees",
-        "reason": "Academic-year nature school class, not a summer camp."
-      },
-      {
-        "name": "Wildflowers",
-        "reason": "Academic-year nature school class, not a summer camp."
-      },
-      {
-        "name": "Forest Detectives",
-        "reason": "Academic-year nature school class, not a summer camp."
+        "name": "Nature School",
+        "reason": "Year-round nature-school classes, rather than finite summer camps."
       },
       {
         "name": "Drop-In Play Sessions",
-        "reason": "Caregiver-and-me nature play rather than a supervised drop-off summer youth program."
+        "reason": "Caregiver-and-child play sessions, rather than supervised drop-off summer camps."
       }
     ],
     "cards": [
@@ -82,9 +74,9 @@
         "name": "Nature Camps",
         "type": "half_day",
         "categories": ["nature_outdoor"],
-        "description": "Children hike, take part in guided activities and trail lessons, and explore through open-ended outdoor play.",
+        "description": "Children hike, take part in guided lessons on the trail, and explore through open-ended outdoor play. Each camp includes four mornings.",
         "camp_page_url": "https://www.foothillslittleexplorers.org/summer-camps-1",
-        "registration_url": "https://www.foothillslittleexplorers.org/shop",
+        "registration_url": "https://www.foothillslittleexplorers.org/summer-camps-1",
         "season": {
           "year": 2027,
           "status": "coming_soon",
@@ -100,7 +92,7 @@
         "sites": [
           {
             "name": "Oak Hill Community Park and Forest",
-            "address": "820 NC-126",
+            "address": "820 NC 126",
             "town": "Morganton",
             "state": "NC"
           }
@@ -108,14 +100,14 @@
         "hours": {
           "start": "09:00",
           "end": "12:00",
-          "text": "4 camp days; 9:00am-12:00pm"
+          "text": "9:00am-12:00pm"
         },
         "extended_care": null,
         "prices": [
           {
             "amount": 180,
             "unit": "session",
-            "label": "Four camp days; June or July",
+            "label": "4 camp days",
             "year": 2027
           }
         ],
@@ -124,8 +116,8 @@
         "last_year_registration_opened": null,
         "availability": {
           "status": "full",
-          "scope": "June and July 2027 product listings",
-          "text": "sold out"
+          "scope": "June and July",
+          "text": "Sold Out"
         },
         "financial_aid": null,
         "special_needs": null,

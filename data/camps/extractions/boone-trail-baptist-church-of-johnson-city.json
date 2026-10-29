@@ -7,19 +7,23 @@
     "discovered_by": ["gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:38:04.841Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:32:19.457Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "9fcc811b19e491eb459d6f8933238977b3de287c2a30fe8db9b89a8ed357606e",
   "response": {
-    "searches": ["site:boonetrail.net 2026 VBS camp", "site.gardner-webb.edu \"110 South Main\""],
+    "searches": [
+      "site:boonetrail.net 2026 camp VBS Centrikid Fuge",
+      "site:boonetrail.net \"VBS\" \"2026\"",
+      "site:gardner-webb.edu \"110 South Main\""
+    ],
     "usage": {
-      "inputTokens": 21195,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1826,
-      "reasoningTokens": 242
+      "inputTokens": 31229,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1572,
+      "reasoningTokens": 259
     },
     "status": "completed",
-    "ms": 41868,
+    "ms": 46496,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -38,39 +42,31 @@
   "extraction": {
     "provider_name": "Boone Trail Baptist Church of Johnson City",
     "website_url": "https://www.boonetrail.net/",
-    "notes": "No church-specific summer 2027 information was found. The church lists CentriKid Camp and FUGE Camp for 2026. The supplied VBS @ Baptist Center page describes June 16, 17 and 19, 2025; no 2026 or 2027 update was found, so its historical dates are not used as current-season dates. Camp event pages returned no readable body when opened, but their official search results displayed the 2026 dates and venue information. General Lifeway registration dates and prices were not applied to this church's group trips.",
+    "notes": "No 2027 camp information found. CentriKid Camp and FUGE Camp have 2026 event listings. The only VBS listing found describes June 2025; its historical dates and hours were not carried into 2027 fields. Event pages returned no readable body when opened, but official search results supplied their event text.",
     "excluded": [
       {
         "name": "AWANA",
-        "reason": "Recurring school-year program running mid-August through May, not a summer camp."
+        "reason": "School-year program running mid-August through May."
       },
       {
         "name": "Upward Basketball and Cheer",
-        "reason": "Sports league season, not a finite summer camp or clinic."
-      },
-      {
-        "name": "Student Ministry",
-        "reason": "Weekly year-round ministry gatherings, not a summer camp."
-      },
-      {
-        "name": "Kids’ Worship",
-        "reason": "Recurring Sunday ministry, not a summer camp."
+        "reason": "Sports league season, not a camp."
       },
       {
         "name": "Women's Retreat",
-        "reason": "Adult retreat held in October, outside summer."
+        "reason": "Adult retreat held outside summer."
       },
       {
-        "name": "VBS - Zoomerang",
-        "reason": "Only a historical 2022 event was found; no 2026 or 2027 offering was established."
+        "name": "Evangelism Conference",
+        "reason": "Conference held outside summer."
       }
     ],
     "cards": [
       {
         "name": "CentriKid Camp",
         "type": "overnight",
-        "categories": ["faith_based", "general"],
-        "description": "Campers participate in Bible study, worship, recreation and activity tracks at an overnight camp for church groups.",
+        "categories": ["faith_based"],
+        "description": "Children's overnight camp at Gardner-Webb University.",
         "camp_page_url": "https://www.boonetrail.net/events/centrikid-kids-camp",
         "registration_url": null,
         "season": {
@@ -81,11 +77,7 @@
           "text": null
         },
         "ages": null,
-        "grades": {
-          "min": 2,
-          "max": 6,
-          "basis": "completed"
-        },
+        "grades": null,
         "sites": [
           {
             "name": "Gardner-Webb University",
@@ -107,18 +99,16 @@
         "transportation": null,
         "sources": [
           "https://www.boonetrail.net/events/centrikid-kids-camp",
-          "https://www.boonetrail.net/events/centrikid",
-          "https://centrikid.lifeway.com/our-camps/",
-          "https://centrikid.lifeway.com/frequently-asked-questions/"
+          "https://gardner-webb.edu/people/paul-mcelearney/"
         ],
         "confidence": "medium",
-        "review_notes": "The 2026 dates and university venue were readable only in official search results. The street address is printed on the church's 2025 CentriKid event page. Confirm the church group's actual drop-off location; the 2026 page lists the university but does not explain church departure arrangements. Completed grades 2–6 come from the camp operator's general FAQ, not the church's 2026 event listing. Event endpoint times of 13:00 and 14:00 are not daily camp hours."
+        "review_notes": "2026 dates and venue were read from the official search result. Overnight format is inferred from the multi-day camp listing. Retained Boiling Springs for the directory's drive-time check. Event start and end times are not daily camp hours."
       },
       {
         "name": "FUGE Camp",
         "type": "overnight",
         "categories": ["faith_based"],
-        "description": "Students participate in a Christian camp with staff-led Bible study and a Scripture-focused program.",
+        "description": "Summer camp for students.",
         "camp_page_url": "https://www.boonetrail.net/events/fuge-camp",
         "registration_url": null,
         "season": {
@@ -142,18 +132,15 @@
         "special_needs": null,
         "lunch": null,
         "transportation": null,
-        "sources": [
-          "https://www.boonetrail.net/events/fuge-camp",
-          "https://fugecamps.lifeway.com/"
-        ],
+        "sources": ["https://www.boonetrail.net/events/fuge-camp"],
         "confidence": "medium",
-        "review_notes": "The church's official search result states June 22–26, 2026, but the event page returned no readable body when opened. Confirm the overnight format and church-group eligibility; the church listing does not identify the FUGE variant, destination or drop-off site. The description comes from the operator's general program page. Event endpoint times of 13:00 and 14:00 are not daily hours."
+        "review_notes": "2026 dates were read from the official search result; the listing gives only United States as its location. Confirm the 2026 venue and geographic eligibility. Overnight format is inferred from the multi-day FUGE camp listing. An older Centrifuge listing names Panama City Beach, FL, but that location was not applied to 2026. General student-ministry grades were not treated as camp eligibility."
       },
       {
         "name": "VBS @ Baptist Center",
         "type": "vbs",
         "categories": ["faith_based"],
-        "description": "Boone Trail students host Vacation Bible School at the Johnson City Baptist Center.",
+        "description": "Vacation Bible School hosted by Boone Trail Baptist Church students at the Johnson City Baptist Center.",
         "camp_page_url": "https://www.boonetrail.net/events/vbs-baptist-center",
         "registration_url": null,
         "season": {
@@ -185,8 +172,8 @@
         "lunch": null,
         "transportation": null,
         "sources": ["https://www.boonetrail.net/events/vbs-baptist-center"],
-        "confidence": "low",
-        "review_notes": "Only the 2025 offering was established. Its dates were June 16, 17 and 19, 2025, with hours of 17:30–19:30. These were not relabeled as 2026 or 2027. Confirm that this program will return and that the Baptist Center remains its venue before publishing as an upcoming offering."
+        "confidence": "medium",
+        "review_notes": "Only a 2025 offering was found: June 16, 17 and 19, from 5:30 to 7:30 pm. Confirm whether VBS returns in 2027. Site is historical, from the church's event page. Third-party venue directories list 924 Hopson St rather than the event page's 926 Hopson St; no venue-owned address page was found to resolve the difference."
       }
     ]
   }

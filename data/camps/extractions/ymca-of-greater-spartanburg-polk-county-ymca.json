@@ -9,22 +9,24 @@
     "discovered_by": ["grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:28:02.353Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:23:35.900Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "5162156adba66f2660081759a39ad76a54ee3fdb3264c80565f1865940c78d27",
   "response": {
     "searches": [
-      "site:spartanburgymca.org Polk summer camp 2026 2027",
-      "site:spartanburgymca.org \"2027\" \"camp\" \"Polk\""
+      "site.spartanburgymca.org Polk summer camp 2026 2027",
+      "site.spartanburgymca.org \"Polk County\" \"2027\"",
+      "site.spartanburgymca.org \"Polk\" \"288\"",
+      "site.spartanburgymca.org \"Counselor\" \"Training\""
     ],
     "usage": {
-      "inputTokens": 29613,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1162,
-      "reasoningTokens": 157
+      "inputTokens": 35548,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1020,
+      "reasoningTokens": 315
     },
     "status": "completed",
-    "ms": 32032,
+    "ms": 32040,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -73,15 +75,11 @@
   "extraction": {
     "provider_name": "YMCA of Greater Spartanburg — Polk County YMCA",
     "website_url": "https://www.spartanburgymca.org/",
-    "notes": "No summer 2027 information was found. The official Summer Day Camp page explicitly describes 2026 and includes Polk County. The older Polk-specific page lists June 3–July 26 and February registration dates without a season year; those dates and fees were not assigned to 2026 or 2027. No year-confirmed 2026 weekly schedule or tuition was found.",
+    "notes": "No 2027 summer information found. The current unified Summer Day Camp page explicitly describes 2026; the older Polk-specific page has undated June 3–July 26 weeks and February 12/19 registration dates, which were not assigned to 2026 or 2027. A June 4, 2026 Tryon Daily Bulletin article reports a Counselor-in-Training program for ages 13–15, but no official program page was found; reviewer should investigate that additional offering.",
     "excluded": [
       {
         "name": "Afterschool Care",
-        "reason": "School-year childcare, not a finite summer program."
-      },
-      {
-        "name": "Youth Basketball",
-        "reason": "Sports league or team season."
+        "reason": "School-year childcare, not a summer camp."
       },
       {
         "name": "Youth Volleyball",
@@ -92,12 +90,8 @@
         "reason": "Sports league or team season."
       },
       {
-        "name": "Youth Soccer",
+        "name": "Youth Basketball",
         "reason": "Sports league or team season."
-      },
-      {
-        "name": "SOS Days-2026-2027 School Year",
-        "reason": "School-break childcare outside summer; the listed Polk County session is in November."
       }
     ],
     "cards": [
@@ -105,7 +99,7 @@
         "name": "Summer Day Camp",
         "type": "day",
         "categories": ["general", "stem", "sports", "arts"],
-        "description": "Campers participate in swimming, sports, team games, STEAM activities, reading, character development and field trips.",
+        "description": "Campers participate in swimming, sports, team games, field trips, and hands-on STEAM enrichment including science, reading, global learning, and character development.",
         "camp_page_url": "https://www.spartanburgymca.org/programs/22000393/summer-day-camp/",
         "registration_url": "https://www.spartanburgymca.org/programs/22000393/summer-day-camp/",
         "season": {
@@ -146,22 +140,17 @@
         "availability": null,
         "financial_aid": {
           "value": "yes",
-          "text": "To register with Financial Assistance, please visit your local YMCA branch."
+          "text": "Financial assistance and DSS vouchers accepted (see below for details)"
         },
         "special_needs": null,
-        "lunch": {
-          "value": "yes",
-          "text": "Polk Camps Provide Breakfast and Lunch Daily"
-        },
+        "lunch": null,
         "transportation": null,
         "sources": [
           "https://www.spartanburgymca.org/programs/22000393/summer-day-camp/",
-          "https://www.spartanburgymca.org/programs/22000394/summer-camp-polk-county-ymca/?locations=-1",
-          "https://www.spartanburgymca.org/branch/polk-county/",
-          "https://www.spartanburgymca.org/polk-county/"
+          "https://www.spartanburgymca.org/branch/polk-county/"
         ],
         "confidence": "medium",
-        "review_notes": "The February 16 opening is assigned to 2026 from the Summer Day Camp page's explicit 2026 heading; members and returning campers could register February 2. The older Polk-specific page instead lists February 12 and February 19 without a year, and its June 3–July 26 weekly schedule was omitted because its year cannot be established. Lunch is stated only on that undated Polk-specific page; confirm it remains applicable. The 2026 page names Polk County YMCA as a camp site, and the branch publishes 105 N Peak Street; confirm the drop-off location for 2027."
+        "review_notes": "The unified 2026 page lists Polk County YMCA as a camp site; its branch page supplies 105 N Peak Street, but does not separately confirm the camp drop-off address. Registration year is taken from the explicit 2026 heading. The older Polk-specific page lists different, undated registration dates and weeks; those dates, its rising-sixth-grade eligibility, fees, and breakfast/lunch statement were not carried into 2026. The unified page says DSS vouchers are accepted but specifically identifies Thomas E. Hannah for vouchers; confirm voucher eligibility at Polk County."
       }
     ]
   }

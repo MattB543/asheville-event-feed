@@ -7,22 +7,19 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:30:14.684Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:25:38.740Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "e152a51e4489a94baec9cdfacc56e50770508f0b6a4c0e9d62298e4cbf8f2f5a",
   "response": {
-    "searches": [
-      "site:blueridgekidscenter.com summer camp 2026 2027",
-      "\"Blue Ridge Kids Center\" \"camp\" \"2026\""
-    ],
+    "searches": ["site:blueridgekidscenter.com camp summer 2026 2027"],
     "usage": {
-      "inputTokens": 18921,
-      "cachedInputTokens": 8223,
-      "outputTokens": 476,
-      "reasoningTokens": 162
+      "inputTokens": 14729,
+      "cachedInputTokens": 8845,
+      "outputTokens": 518,
+      "reasoningTokens": 81
     },
     "status": "completed",
-    "ms": 18745,
+    "ms": 18845,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -51,43 +48,43 @@
   "extraction": {
     "provider_name": "Blue Ridge Kids Center",
     "website_url": "https://www.blueridgekidscenter.com/",
-    "notes": "No 2027 or 2026 summer camp details were found on the supplied official pages or in additional searches. The iClassPro camps page returned no readable content. Search results surfaced an older official Facebook summer-camp post, but it does not establish a 2026 or 2027 offering. No cards were created because a current summer program could not be verified.",
+    "notes": "No identifiable summer 2026 or 2027 camp schedule or registration dates were found on the official website or in search results. The Camps and Choreography page advertises custom camps for school and recreation teams throughout WNC, but does not establish summer timing, a finite session, or a drop-off location. Its free gym-training promotion refers to 2022. The supplied registration portal text contains no camp listings. Custom team camps may warrant a direct inquiry; no summer camp card could be substantiated from the available materials.",
     "excluded": [
       {
         "name": "Camps and Choreography",
-        "reason": "Custom training and choreography for school or recreation teams; no finite summer offering or summer dates are stated."
+        "reason": "Custom team camp and choreography services are advertised, but no identifiable finite summer youth program is specified."
       },
       {
-        "name": "Tumble Classes",
-        "reason": "Ongoing classes, not a finite summer program."
+        "name": "Tumbling",
+        "reason": "Recurring six-week class series, not a camp."
       },
       {
-        "name": "Ninja Kidz",
-        "reason": "Ongoing classes, not a finite summer program."
+        "name": "Ninja Kids",
+        "reason": "Regular classes, not a summer camp."
       },
       {
-        "name": "Gymnastics Classes",
-        "reason": "Ongoing classes, not a finite summer program."
+        "name": "Gymnastics",
+        "reason": "Recurring six-week class series, not a camp."
       },
       {
         "name": "Rec Cheer and Dance",
-        "reason": "Recurring recreational classes, not a finite summer program."
+        "reason": "Seasonal and recurring skill classes, not a camp."
       },
       {
-        "name": "BRC Novice",
-        "reason": "Cheerleading team program and competition season, not a camp."
+        "name": "Novice Cheerleading",
+        "reason": "Cheerleading team program, not a finite summer camp."
       },
       {
-        "name": "BRC Elite",
-        "reason": "Cheerleading team program and competition season, not a camp."
+        "name": "Elite Cheerleading",
+        "reason": "Competitive cheerleading team season, not a camp."
       },
       {
         "name": "Parents Night Out",
-        "reason": "Recurring date-night childcare; no summer-specific finite offering was found."
+        "reason": "Single-evening childcare and social events, including themed nights, are excluded."
       },
       {
         "name": "Open Gyms",
-        "reason": "Recurring gym activities; no finite summer program was found."
+        "reason": "Recurring open-gym activities, not an identified finite summer camp."
       }
     ],
     "cards": []

@@ -7,23 +7,22 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:23:01.284Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:19:34.364Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "28645c0672c3ed7b58b0c235dc819649d958f3c296710e1ee7823abf2f1d76ef",
   "response": {
     "searches": [
       "site:bgcecc.org summer 2026 2027 hours address",
-      "open https://bgcecc.org/wp-content/uploads/2025/11/Member-Parent-Handbook-2025-2026.pdf",
-      "site:bgcecc.org \"summer\" \"7:30\""
+      "open https://bgcecc.org/wp-content/uploads/2025/11/Member-Parent-Handbook-2025-2026.pdf"
     ],
     "usage": {
-      "inputTokens": 18614,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1010,
-      "reasoningTokens": 177
+      "inputTokens": 15492,
+      "cachedInputTokens": 8845,
+      "outputTokens": 901,
+      "reasoningTokens": 105
     },
     "status": "completed",
-    "ms": 26311,
+    "ms": 22928,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -42,19 +41,23 @@
   "extraction": {
     "provider_name": "Boys & Girls Club of Elizabethton/Carter County",
     "website_url": "https://bgcecc.org/",
-    "notes": "No summer 2027 dates or registration announcements were found. The summer page lists 2026 fees and says registration is currently closed. No dated summer schedule was found. The 2025–2026 handbook was only partly readable through the web tool; an older handbook contains outdated eligibility and COVID-era wording, so its hours were not used.",
+    "notes": "No 2027 summer information or registration milestones were found. The summer page lists 2026 fees and says registration is closed, but does not provide dates or hours. The parent handbook PDF's readable text was incomplete.",
     "excluded": [
       {
         "name": "After School",
-        "reason": "School-year afterschool childcare, not a summer program."
+        "reason": "School-year after-school childcare, not a summer camp."
       },
       {
         "name": "Athletic Leagues",
-        "reason": "Sports leagues and team seasons, rather than finite summer camps or clinics."
+        "reason": "Sports leagues and team seasons are excluded."
       },
       {
-        "name": "Teen Program",
-        "reason": "Ongoing Club programming; no separately named finite summer offering was found."
+        "name": "2026 DINO SENESI GOLF CLASSIC",
+        "reason": "A fundraising event, not a supervised youth summer program."
+      },
+      {
+        "name": "2026 Great Futures Dinner",
+        "reason": "A dinner event, not a supervised youth summer program."
       }
     ],
     "cards": [
@@ -62,7 +65,7 @@
         "name": "Summer",
         "type": "day",
         "categories": ["general"],
-        "description": "Children attend supervised Club programming and summer learning activities. Optional field trips are offered.",
+        "description": "A supervised summer program for children who have completed kindergarten. Members can participate in field trips.",
         "camp_page_url": "https://bgcecc.org/summer/",
         "registration_url": "https://parentportal.bgcecc.org/",
         "season": {
@@ -74,7 +77,7 @@
         },
         "ages": {
           "min": 5,
-          "max": 18
+          "max": null
         },
         "grades": {
           "min": 0,
@@ -101,13 +104,13 @@
           {
             "amount": 45,
             "unit": "week",
-            "label": "Weekly fee; includes meals and snacks",
+            "label": "Weekly fee",
             "year": 2026
           },
           {
             "amount": 0,
             "unit": "week",
-            "label": "Members ages 13 and older; registration and desired field trips still cost extra",
+            "label": "Members 13 years and older; registration and desired field trips cost extra",
             "year": 2026
           }
         ],
@@ -116,7 +119,7 @@
         "last_year_registration_opened": null,
         "availability": {
           "status": "closed",
-          "scope": "Summer 2026 registration",
+          "scope": "Summer 2026",
           "text": "SUMMER REGISTRATION IS CURRENTLY CLOSED"
         },
         "financial_aid": {
@@ -131,10 +134,8 @@
         "transportation": null,
         "sources": [
           "https://bgcecc.org/summer/",
-          "https://bgcecc.org/",
-          "https://parentportal.bgcecc.org/",
           "https://parentportal.bgcecc.org/Contact.aspx",
-          "https://bgcecc.org/wp-content/uploads/2025/11/Member-Parent-Handbook-2025-2026.pdf"
+          "https://parentportal.bgcecc.org/"
         ],
         "confidence": "high",
         "review_notes": null

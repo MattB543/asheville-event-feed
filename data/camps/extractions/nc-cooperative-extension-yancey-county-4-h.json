@@ -10,23 +10,23 @@
     "discovered_by": ["grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:20:12.969Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:17:23.458Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "59ce4f5c41436ae14cf80811bcab26f44a5f74450a09e0850323405cfd171bb8",
   "response": {
     "searches": [
-      "site:yancey.ces.ncsu.edu \"2026\" \"summer\" \"4-H\"",
-      "site:yancey.ces.ncsu.edu \"Summer Fun\" \"2026\"",
-      "site:yancey.ces.ncsu.edu/event/ \"2026\" \"camp\" \"4-H\""
+      "site:yancey.ces.ncsu.edu \"2026\" \"Summer Fun\"",
+      "site:yancey.ces.ncsu.edu/event/ \"camp\" \"2026\"",
+      "site:yancey.ces.ncsu.edu \"camp\" \"Jun\" \"2026\""
     ],
     "usage": {
-      "inputTokens": 28562,
-      "cachedInputTokens": 8223,
-      "outputTokens": 2185,
-      "reasoningTokens": 271
+      "inputTokens": 37898,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2009,
+      "reasoningTokens": 338
     },
     "status": "completed",
-    "ms": 48110,
+    "ms": 53014,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -65,11 +65,23 @@
   "extraction": {
     "provider_name": "N.C. Cooperative Extension — Yancey County 4-H",
     "website_url": "https://yancey.ces.ncsu.edu/",
-    "notes": "No 2027 camp dates or registration milestones found. Official 2026 calendar entries supply the Summer Fun rows below, but no 2026 brochure was found. The supplied 2025 brochure's ages, prices, aid policies, transportation and meeting location were not carried forward. The 2025 registration-full notice is historical. A June 29, 2026 article confirms participation in residential camp but does not publish session dates or county registration details.",
+    "notes": "No 2027 local summer camp dates or registration milestones found. Official 2026 calendar entries supply the Summer Fun rows; no 2026 brochure was found. The supplied Summer Fun article and PDF describe 2025, so their ages, prices, registration opening and support details were not carried forward. The 2026 residential camp took place at Betsy-Jeff Penn in Reidsville, outside the directory's geographic range.",
     "excluded": [
       {
+        "name": "NC 4-H Residential Camp",
+        "reason": "The official 2026 report places this overnight program at Betsy-Jeff Penn 4-H Educational Center in Reidsville, NC, plainly farther than about 75 minutes from Asheville."
+      },
+      {
         "name": "4-H Clubs",
-        "reason": "Recurring year-round clubs, including arts and crafts, sewing, LEGO, gardening, outdoor adventures and shooting sports; not finite summer camps."
+        "reason": "Recurring year-round clubs, including Lego, sewing, arts and crafts, garden and outdoor adventure clubs, rather than finite summer camps."
+      },
+      {
+        "name": "NC 4-H Electric Congress",
+        "reason": "Congress/conference."
+      },
+      {
+        "name": "Back to School Bash on the Town Square",
+        "reason": "Social/community event rather than a camp."
       },
       {
         "name": "Sizzlin’ Summer",
@@ -77,19 +89,15 @@
       },
       {
         "name": "Genesis Academy food pathway lessons",
-        "reason": "Instruction provided within an existing school or childcare program, not a separately offered camp."
+        "reason": "Lesson series delivered at a school, rather than a camp offered by this provider."
       },
       {
-        "name": "Safe Plates",
-        "reason": "Food safety training for managers and community members, not a youth summer camp; the supplied article announces a January class."
+        "name": "4-H School Enrichment in YCS",
+        "reason": "School enrichment for the school system's students rather than a publicly offered summer camp."
       },
       {
-        "name": "4-H Photography Contest 2026",
-        "reason": "Submission contest rather than a finite supervised camp."
-      },
-      {
-        "name": "2026 4-H Egg-cellent Egg Contest",
-        "reason": "At-home livestock project and contest with online trainings, not a supervised summer camp."
+        "name": "WNC Mountain State Fair",
+        "reason": "Fair rather than a camp."
       }
     ],
     "cards": [
@@ -97,7 +105,7 @@
         "name": "4-H Summer Fun",
         "type": "day",
         "categories": ["nature_outdoor", "sports", "general"],
-        "description": "Youth participate in summer day-camp activities in ecology, shooting sports, swimming, agriculture and treetop adventure.",
+        "description": "Summer youth day camps include ecology, shooting sports, swimming, agriculture and treetop adventure.",
         "camp_page_url": "https://yancey.ces.ncsu.edu/4-h-youth-development/4-h-programs-events/",
         "registration_url": null,
         "season": {
@@ -111,7 +119,7 @@
         "grades": null,
         "sites": [
           {
-            "name": "Shooting Sports camp location",
+            "name": "555 Landfill Rd",
             "address": "555 Landfill Rd",
             "town": "Burnsville",
             "state": "NC"
@@ -141,7 +149,7 @@
             "start": "2026-07-10",
             "end": "2026-07-10",
             "year": 2026,
-            "site": "Shooting Sports camp location",
+            "site": "555 Landfill Rd",
             "ages": null,
             "grades": null,
             "hours": {
@@ -232,42 +240,7 @@
           "https://yancey.ces.ncsu.edu/event/108631/"
         ],
         "confidence": "medium",
-        "review_notes": "Calendar entries were available through official search results. Verify whether the July 28 and July 29 Exploring Ag entries represent two days of one session or a rescheduled event; their hours differ. Other sessions may not be indexed. Only the shooting-sports entry states a location; its venue name is not published. Do not use that location for the other rows. The generic program calendar has no year and cannot establish a 2027 May registration opening."
-      },
-      {
-        "name": "NC 4-H Residential Camp",
-        "type": "overnight",
-        "categories": ["nature_outdoor", "general"],
-        "description": "Yancey County youth attended a week of adventure, learning and teamwork at Betsy-Jeff Penn 4-H Educational Center.",
-        "camp_page_url": "https://yancey.ces.ncsu.edu/news/yancey-county-4-h-at-betsy-jeff-penn-center/",
-        "registration_url": null,
-        "season": {
-          "year": 2026,
-          "status": "not_posted",
-          "start": null,
-          "end": null,
-          "text": null
-        },
-        "ages": null,
-        "grades": null,
-        "sites": [],
-        "hours": null,
-        "extended_care": null,
-        "prices": [],
-        "sessions": [],
-        "registration": [],
-        "last_year_registration_opened": null,
-        "availability": null,
-        "financial_aid": null,
-        "special_needs": null,
-        "lunch": null,
-        "transportation": null,
-        "sources": [
-          "https://yancey.ces.ncsu.edu/news/yancey-county-4-h-at-betsy-jeff-penn-center/",
-          "https://yancey.ces.ncsu.edu/4-h-youth-development/4-h-programs-events/"
-        ],
-        "confidence": "medium",
-        "review_notes": "The 2026 article is a retrospective, not a registration announcement. The program name comes from the county's general program calendar. County drop-off location, eligibility, session dates and prices are not stated; attendee ages were not treated as eligibility."
+        "review_notes": "The 2026 calendar camps were grouped under the existing Summer Fun program using the provider's annual program calendar. Several entries were readable only through official search snippets. Exploring Ag appears on July 28 and July 29 with different hours; retained as separate calendar-day rows because no brochure establishes the complete session span. Only Shooting Sports publishes a location, and that entry supplies an address without a venue name or explicit drop-off instructions. Other rows' locations are unknown; the 2025 office meeting-location rule was not carried forward. Confirm the 2026 program grouping, full session schedule and drop-off sites with the provider."
       }
     ]
   }

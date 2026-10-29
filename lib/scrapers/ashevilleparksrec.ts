@@ -252,11 +252,25 @@ async function scrapeActivity(
  * because a context that has been challenged keeps its Cloudflare cookie and
  * is challenged again (see mountainx.ts). Any other failure (timeout, 404,
  * 5xx) is thrown to the caller, which skips just that page.
+ *
+ * Aborting `signal` (the camps catalog read's time limit) ends the requests and
+ * navigations in flight, and every later get() fails with its reason.
  */
-export async function createPageFetcher(): Promise<PageFetcher> {
+export async function createPageFetcher(
+  options: { signal?: AbortSignal } = {}
+): Promise<PageFetcher> {
+  const { signal } = options;
   const dispatcher = await createChromeDispatcher();
   let browserPromise: Promise<Browser> | null = null;
   let useBrowser = false;
+  signal?.addEventListener(
+    'abort',
+    () => {
+      dispatcher.destroy().catch(() => {});
+      void browserPromise?.then((browser) => browser.close()).catch(() => {});
+    },
+    { once: true }
+  );
 
   async function getWithBrowser(url: string): Promise<string> {
     browserPromise ??= launchBrowser();
@@ -292,23 +306,32 @@ export async function createPageFetcher(): Promise<PageFetcher> {
     }
   }
 
+  async function get(url: string): Promise<string> {
+    if (!useBrowser) {
+      try {
+        return await fetchHtml(url, dispatcher);
+      } catch (error) {
+        if (!(error instanceof CloudflareChallengeError)) throw error;
+        console.warn(`[${LABEL}] ${error.message}; switching to a browser for the rest of the run`);
+        useBrowser = true;
+      }
+    }
+    return getWithBrowser(url);
+  }
+
   return {
     async get(url: string): Promise<string> {
-      if (!useBrowser) {
-        try {
-          return await fetchHtml(url, dispatcher);
-        } catch (error) {
-          if (!(error instanceof CloudflareChallengeError)) throw error;
-          console.warn(
-            `[${LABEL}] ${error.message}; switching to a browser for the rest of the run`
-          );
-          useBrowser = true;
-        }
+      signal?.throwIfAborted();
+      try {
+        return await get(url);
+      } catch (error) {
+        signal?.throwIfAborted();
+        throw error;
       }
-      return getWithBrowser(url);
     },
     async close(): Promise<void> {
-      await dispatcher.close();
+      // Already destroyed when `signal` aborted
+      await dispatcher.close().catch(() => {});
       if (browserPromise) {
         await (await browserPromise).close().catch(() => {});
       }
@@ -375,8 +398,13 @@ async function launchBrowser(): Promise<Browser> {
  * options are read off the search form itself so a new center or category is
  * picked up without a code change. A failed search (or later page) is skipped;
  * the two search kinds overlap heavily, so the rest usually cover for it.
+ * `strict` throws instead (the camps catalog: a missed category search drops
+ * rows from a camp's card, which must not replace a complete one).
  */
-export async function fetchAllActivities(fetcher: PageFetcher): Promise<ActivityRow[]> {
+export async function fetchAllActivities(
+  fetcher: PageFetcher,
+  { strict = false }: { strict?: boolean } = {}
+): Promise<ActivityRow[]> {
   const formHtml = await fetcher.get(SEARCH_URL);
   const options = [
     ...parseSelectOptions(formHtml, 'location'),
@@ -398,6 +426,7 @@ export async function fetchAllActivities(fetcher: PageFetcher): Promise<Activity
       try {
         html = await fetcher.get(url);
       } catch (error) {
+        if (strict) throw error;
         failedSearches++;
         console.warn(
           `[${LABEL}] Search ${option.param}=${option.value} page ${page} failed: ${describeError(error)}`

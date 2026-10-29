@@ -9,23 +9,23 @@
     "status": "review",
     "status_reason": "first page is a social media page or video, which our fetcher can't read"
   },
-  "extractedAt": "2026-10-29T15:21:21.963Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:18:16.999Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": null,
   "response": {
     "searches": [
-      "Carson Chapel Marion vacation bible school 2026",
+      "Carson Chapel Marion Vacation Bible School 2026",
       "site:facebook.com \"Carson\" \"Chapel\" \"July 31\"",
-      "\"Carson Chapel\" \"Vacation Bible\""
+      "open https://happeningnext.com/event/vacation-bible-school-july-31-aug-1-5-7-pm-eid3a0dwt9cd4"
     ],
     "usage": {
-      "inputTokens": 23753,
-      "cachedInputTokens": 8223,
-      "outputTokens": 935,
-      "reasoningTokens": 329
+      "inputTokens": 20707,
+      "cachedInputTokens": 8845,
+      "outputTokens": 843,
+      "reasoningTokens": 293
     },
     "status": "completed",
-    "ms": 26976,
+    "ms": 27554,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -38,21 +38,16 @@
   ],
   "extraction": {
     "provider_name": "Carson Chapel of Marion",
-    "website_url": "https://sites.google.com/view/carsons-chapel/home",
-    "notes": "Found a church website on Google Sites, but its readable search snippet contains no camp information. The supplied Facebook page returned no readable content. No 2027 summer information was found. A 2026 Vacation Bible School was found only in third-party event listings; the card below is provisional and requires official verification.",
-    "excluded": [
-      {
-        "name": "Sunday School",
-        "reason": "Regular year-round religious instruction, not a finite summer program."
-      }
-    ],
+    "website_url": null,
+    "notes": "No standalone provider website or 2027 camp information was found. The supplied Facebook page and an alternate Facebook URL returned no readable content. A third-party event listing identifies a 2026 Vacation Bible School; its details are retained provisionally and require official confirmation.",
+    "excluded": [],
     "cards": [
       {
         "name": "Vacation Bible School",
         "type": "vbs",
         "categories": ["faith_based"],
-        "description": "Children participate in songs and games during a two-day Vacation Bible School.",
-        "camp_page_url": null,
+        "description": "A two-day Vacation Bible School with songs, games and supper.",
+        "camp_page_url": "https://www.facebook.com/139524469420269",
         "registration_url": null,
         "season": {
           "year": 2026,
@@ -74,7 +69,7 @@
         "hours": {
           "start": "17:00",
           "end": "19:00",
-          "text": "July 31-Aug 1, 5-7 PM"
+          "text": "5-7 PM"
         },
         "extended_care": null,
         "prices": [],
@@ -88,7 +83,7 @@
         "transportation": null,
         "sources": [],
         "confidence": "low",
-        "review_notes": "No official camp announcement could be read. Dates and year come from https://allevents.in/marion/vacation-bible-school-july-31-aug-1-5-7-pm/200030382166427; activities and hours come from https://happeningnext.com/event/vacation-bible-school-july-31-aug-1-5-7-pm-eid3a0dwt9cd4. The venue address appears in the event listing and third-party church directories, but could not be verified against a venue-published address. Confirm the offering, dates, activities, hours and address with the church before publication. The event description mentions supper, but no official meal statement was accessible."
+        "review_notes": "Official Facebook content could not be read. Dates, hours and activities come only from third-party search snippets at https://allevents.in/marion/vacation-bible-school-july-31-aug-1-5-7-pm/200030382166427 and https://happeningnext.com/event/vacation-bible-school-july-31-aug-1-5-7-pm-eid3a0dwt9cd4. AllEvents explicitly labels the event July 31, 2026. The address is supported by the event listing and church directories, but could not be confirmed from the venue's own published location. Confirm all details with the church before publication."
       }
     ]
   }

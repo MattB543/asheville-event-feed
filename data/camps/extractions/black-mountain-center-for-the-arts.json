@@ -7,19 +7,19 @@
     "discovered_by": ["seed_sheet", "news828", "our_db", "grid", "aggregator", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T14:53:25.068Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T16:54:11.821Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "9c14912893c9b5a00e2d6b053829aed8d58b37698f42ba00b7d73e23147bda99",
   "response": {
-    "searches": ["site:blackmountainarts.org \"2027\" \"camp\""],
+    "searches": ["site:blackmountainarts.org summer camp 2027"],
     "usage": {
-      "inputTokens": 21478,
-      "cachedInputTokens": 8223,
-      "outputTokens": 2821,
-      "reasoningTokens": 52
+      "inputTokens": 22149,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2086,
+      "reasoningTokens": 62
     },
     "status": "completed",
-    "ms": 54258,
+    "ms": 39830,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -63,47 +63,35 @@
   "extraction": {
     "provider_name": "Black Mountain Center for the Arts",
     "website_url": "https://www.blackmountainarts.org/",
-    "notes": "No summer 2027 information or registration milestones found. Cards use 2026 information. The classes overview still describes summer 2025; the dedicated summer camp page describes 2026. Official camp pages and registration forms disagree on elementary ages, performance-camp discounts, and Book & a Brush dates.",
+    "notes": "No 2027 summer camp information or registration milestones found. Cards use 2026 information. The classes overview still describes 2025 camps and was not used for 2026 facts.",
     "excluded": [
       {
         "name": "2026/27 Youth Dance Classes",
-        "reason": "School-year recurring classes, not finite summer camps."
+        "reason": "School-year dance classes, not summer camps."
       },
       {
-        "name": "Grown Up & Me: Toddler Tumble and Groove",
-        "reason": "Caregiver-participation program beginning in October, outside summer."
+        "name": "Music Lessons, Voice Lessons, and JAM",
+        "reason": "Recurring lessons rather than finite summer camps."
       },
       {
-        "name": "Ballroom 1 - Fall 2026 and Ballroom 2 - Fall 2026",
-        "reason": "Fall classes, outside summer."
-      },
-      {
-        "name": "JAM",
-        "reason": "Weekly ongoing music instruction, not a summer camp."
-      },
-      {
-        "name": "SAM",
-        "reason": "Adult music instruction during the school year."
-      },
-      {
-        "name": "Music Lessons",
-        "reason": "Recurring private lessons, not a finite summer program."
-      },
-      {
-        "name": "Community Chorus",
-        "reason": "Recurring chorus with a fall season, not a summer camp."
+        "name": "Adult Dance Classes",
+        "reason": "Adult-only classes, including fall mini-mesters."
       },
       {
         "name": "Art in Bloom",
-        "reason": "Public exhibits and family-attended events, not supervised youth camp programming."
+        "reason": "Exhibition, garden tour, and social events rather than supervised youth camps."
+      },
+      {
+        "name": "Kids in Motion: Try Something Sweet",
+        "reason": "A pop-up dance class offered as a class rather than a camp or skill clinic."
       }
     ],
     "cards": [
       {
         "name": "Dance, Sing, & Play",
         "type": "half_day",
-        "categories": ["dance", "music", "theater", "arts"],
-        "description": "Campers participate in themed music, dance, crafts, and imaginative activities. Each week ends with a showcase on the BMCA stage.",
+        "categories": ["dance", "music", "arts", "theater"],
+        "description": "Campers participate in music, dance, crafts, and imaginative games around weekly themes. Each week ends with a performance on the BMCA stage.",
         "camp_page_url": "https://www.blackmountainarts.org/summercamp",
         "registration_url": "https://docs.google.com/forms/d/e/1FAIpQLScv8RD4Yn48bhEuOEIIvsYi2Zwo2Y4ucoJ5rC0aKDT6XoW9fg/viewform",
         "season": {
@@ -136,13 +124,13 @@
           {
             "amount": 175,
             "unit": "week",
-            "label": "Weekly tuition",
+            "label": null,
             "year": 2026
           },
           {
             "amount": 160,
             "unit": "week",
-            "label": "Sibling/multi-camp registrations; camp page rate",
+            "label": "sibling/multi-camp registrations",
             "year": 2026
           }
         ],
@@ -273,7 +261,7 @@
         "availability": null,
         "financial_aid": {
           "value": "yes",
-          "text": "If the price of these camps is inaccessible to your family you can apply for financial below: BMCA Scholarships and Alternative Tuition Program"
+          "text": "BMCA Scholarships and Alternative Tuition Program"
         },
         "special_needs": null,
         "lunch": null,
@@ -283,13 +271,13 @@
           "https://docs.google.com/forms/d/e/1FAIpQLScv8RD4Yn48bhEuOEIIvsYi2Zwo2Y4ucoJ5rC0aKDT6XoW9fg/viewform"
         ],
         "confidence": "medium",
-        "review_notes": "Rows follow the 2026 camp page. It lists elementary ages 5-9 and directs five-year-olds who attended kindergarten in 2025/2026 to elementary camp; the registration form instead lists ages 6-9. The page lists a $160 sibling/multi-camp rate; the form states a 10% discount. The form lists only July 27-31 and August 10-14, whereas the page also lists July 6-10 and July 20-24. Confirm eligibility and discount with BMCA."
+        "review_notes": "The camp page gives elementary ages 5–9 and a $160 sibling/multi-camp price; the registration form gives elementary ages 6–9 and a 10% discount. Card uses the camp page's ages and discount price. The page directs five-year-olds who attended kindergarten in 2025/2026 to elementary camp and those starting kindergarten in 2026/2027 to preschool camp. The form lists only July 27–31 and August 10–14; earlier weeks remain listed on the camp page without explicit availability status."
       },
       {
         "name": "Dungeons & Dragonslayers",
         "type": "day",
         "categories": ["general"],
-        "description": "Campers create characters and play tabletop role-playing games, including Dungeons & Dragons and other RPGs. Activities include shared storytelling, improvisation, and game design.",
+        "description": "Campers create and play characters in Dungeons & Dragons and sample other tabletop role-playing games. Activities include shared storytelling, improvisation, and game design.",
         "camp_page_url": "https://www.blackmountainarts.org/summercamp",
         "registration_url": "https://docs.google.com/forms/d/e/1FAIpQLSfwOlbXld5OsBRO--yrmQ-gGyOkre88j_jNzCQf8WGB36PyoA/viewform",
         "season": {
@@ -304,7 +292,14 @@
           "max": 17
         },
         "grades": null,
-        "sites": [],
+        "sites": [
+          {
+            "name": "Black Mountain Center for the Arts",
+            "address": "225 W State St",
+            "town": "Black Mountain",
+            "state": "NC"
+          }
+        ],
         "hours": {
           "start": "09:00",
           "end": "16:00",
@@ -315,7 +310,7 @@
           {
             "amount": 250,
             "unit": "session",
-            "label": "Per camper",
+            "label": "per camper",
             "year": 2026
           }
         ],
@@ -325,14 +320,15 @@
         "availability": null,
         "financial_aid": {
           "value": "yes",
-          "text": "If the price of this camp is inaccessible to your family you can apply for financial below: BMCA Scholarships and Alternative Tuition Program"
+          "text": "BMCA Scholarships and Alternative Tuition Program"
         },
         "special_needs": null,
         "lunch": null,
         "transportation": null,
         "sources": [
           "https://www.blackmountainarts.org/summercamp",
-          "https://docs.google.com/forms/d/e/1FAIpQLSfwOlbXld5OsBRO--yrmQ-gGyOkre88j_jNzCQf8WGB36PyoA/viewform"
+          "https://docs.google.com/forms/d/e/1FAIpQLSfwOlbXld5OsBRO--yrmQ-gGyOkre88j_jNzCQf8WGB36PyoA/viewform",
+          "https://www.blackmountainarts.org/"
         ],
         "confidence": "high",
         "review_notes": null
@@ -341,7 +337,7 @@
         "name": "Book & a Brush",
         "type": "day",
         "categories": ["arts"],
-        "description": "Campers use books as inspiration for painting, printmaking, collage, and papier-mâché projects. Projects incorporate reading, math, science, and social studies.",
+        "description": "Campers use books as inspiration for painting, printmaking, collage, and papier-mâché projects. Projects incorporate math, science, social studies, and reading.",
         "camp_page_url": "https://www.blackmountainarts.org/summercamp",
         "registration_url": "https://docs.google.com/forms/d/e/1FAIpQLSfsaWcIlElVqZGoVi5jg_EMl_LJSTA-IuCxvITpfh4dsk0Ong/viewform",
         "season": {
@@ -356,7 +352,14 @@
           "max": 10
         },
         "grades": null,
-        "sites": [],
+        "sites": [
+          {
+            "name": "Black Mountain Center for the Arts",
+            "address": "225 W State St",
+            "town": "Black Mountain",
+            "state": "NC"
+          }
+        ],
         "hours": {
           "start": "09:00",
           "end": "15:00",
@@ -367,13 +370,13 @@
           {
             "amount": 250,
             "unit": "session",
-            "label": "One camper",
+            "label": "one camper",
             "year": 2026
           },
           {
             "amount": 200,
             "unit": "session",
-            "label": "Registering more than one camper",
+            "label": "sibling",
             "year": 2026
           }
         ],
@@ -383,17 +386,18 @@
         "availability": null,
         "financial_aid": {
           "value": "yes",
-          "text": "If the price of this camp is inaccessible to your family you can apply for financial below: BMCA Scholarships and Alternative Tuition Program"
+          "text": "BMCA Scholarships and Alternative Tuition Program"
         },
         "special_needs": null,
         "lunch": null,
         "transportation": null,
         "sources": [
           "https://www.blackmountainarts.org/summercamp",
-          "https://docs.google.com/forms/d/e/1FAIpQLSfsaWcIlElVqZGoVi5jg_EMl_LJSTA-IuCxvITpfh4dsk0Ong/viewform"
+          "https://docs.google.com/forms/d/e/1FAIpQLSfsaWcIlElVqZGoVi5jg_EMl_LJSTA-IuCxvITpfh4dsk0Ong/viewform",
+          "https://www.blackmountainarts.org/"
         ],
         "confidence": "medium",
-        "review_notes": "The camp page prints August 3-3, while the registration form explicitly states August 3-7; dates follow the form. The form omits a year, so 2026 is taken from the dedicated camp page heading. Neither this program's description nor its registration form explicitly identifies the drop-off venue."
+        "review_notes": "The camp page prints August 3–3; the registration form gives August 3–7, which is used here. The form does not print a year; 2026 is taken from the linking summer camp page's heading."
       }
     ]
   }

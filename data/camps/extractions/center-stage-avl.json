@@ -7,22 +7,22 @@
     "discovered_by": ["seed_sheet", "grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T14:57:17.147Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T16:57:34.758Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "1a656fd4b0897e5262518912efc62fb6fdab57c580092b2f5155fe3e3319ebc3",
   "response": {
     "searches": [
-      "site:centerstageavl.com summer 2027 intensive camps",
-      "open https://www.centerstageavl.com/theme-camps"
+      "site:centerstageavl.com \"intensive\"",
+      "site:centerstageavl.com/theme-camps \"2026\""
     ],
     "usage": {
-      "inputTokens": 17419,
-      "cachedInputTokens": 8223,
-      "outputTokens": 3951,
-      "reasoningTokens": 212
+      "inputTokens": 20572,
+      "cachedInputTokens": 8845,
+      "outputTokens": 3631,
+      "reasoningTokens": 252
     },
     "status": "completed",
-    "ms": 73552,
+    "ms": 68563,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -66,15 +66,23 @@
   "extraction": {
     "provider_name": "Center Stage AVL",
     "website_url": "https://www.centerstageavl.com/",
-    "notes": "No summer 2027 program dates or registration milestones were found. The 2026-2027 navigation refers to the regular dance season, not confirmed summer 2027 offerings. Theme Camps, Dance Camps and Summer Classes lack a summer year and exact dates; they are retained provisionally as 2026 offerings. Direct web opens returned empty content, so additional intensive and Boot Camp details were obtained through official-site search results. Embedded camp schedules, registration links and the calendar PDF could not be retrieved.",
+    "notes": "No summer 2027 program dates or registration milestones were found. The 2026-2027 navigation heading refers to the regular dance season, not an explicit summer 2027 announcement. Theme and Dance Camps have no readable dated session listings. Intensive and Boot Camp details were accessible through official search results, but direct page opens returned empty content. Boot Camp is retained as a named three-day studio training camp despite its description as an in-studio convention experience.",
     "excluded": [
       {
-        "name": "2026-2027 Season Classes",
-        "reason": "Regular school-year dance classes, not finite summer programs."
+        "name": "Summer Classes",
+        "reason": "A four-week series of dance lessons booked as classes, rather than a camp."
       },
       {
-        "name": "CSPC",
-        "reason": "Season-long competitive dance program; its separately advertised summer Boot Camp is included."
+        "name": "2026-2027 Season Classes",
+        "reason": "Regular school-year dance classes."
+      },
+      {
+        "name": "Performance Company",
+        "reason": "An ongoing competitive dance program, not a finite summer camp."
+      },
+      {
+        "name": "Dance Team",
+        "reason": "An ongoing competitive team season, not a finite summer camp."
       }
     ],
     "cards": [
@@ -90,7 +98,7 @@
           "status": "not_posted",
           "start": null,
           "end": null,
-          "text": "June & July"
+          "text": null
         },
         "ages": {
           "min": 3,
@@ -108,14 +116,14 @@
         "hours": {
           "start": "09:00",
           "end": "13:00",
-          "text": "Monday–Friday | 9:00 AM–1:00 PM"
+          "text": "Monday–Friday"
         },
         "extended_care": null,
         "prices": [
           {
             "amount": 250,
             "unit": "week",
-            "label": "A non-refundable $50 deposit is due upon registration; remaining balance due June 1st for June camps and July 1st for July camps.",
+            "label": null,
             "year": 2026
           }
         ],
@@ -127,7 +135,7 @@
         "special_needs": null,
         "lunch": {
           "value": "no",
-          "text": "Campers should bring a lunch and morning snack each day"
+          "text": "Campers should bring a lunch and morning snack each day."
         },
         "transportation": null,
         "sources": [
@@ -135,13 +143,13 @@
           "https://www.centerstageavl.com/theme-camps"
         ],
         "confidence": "medium",
-        "review_notes": "The summer and theme-camp pages do not print a summer year or exact weeks in the accessible text. The 2026 attribution is provisional, based on the explicitly dated 2026 intensives on the same summer overview. Check the embedded SUMMER THEME CAMPS schedule for dates and themes."
+        "review_notes": "The summer overview says June and July, but no exact dates or explicit year accompany this program. The price is treated as 2026 alongside the explicitly dated 2026 intensives; check the year and any embedded session listings. A non-refundable $50 deposit is due at registration."
       },
       {
         "name": "Dance Camps",
         "type": "half_day",
         "categories": ["dance"],
-        "description": "Dancers work on technique, choreography and different dance styles, ending with a Friday showcase. Ballet camp options include classical technique, variations, appropriate pre-pointe or pointe work, contemporary movement and strength training.",
+        "description": "Dancers build technique, learn choreography and explore different dance styles, ending the week with a Friday showcase. Ballet camps include classical technique and age-appropriate training.",
         "camp_page_url": "https://www.centerstageavl.com/dance-camps",
         "registration_url": null,
         "season": {
@@ -149,7 +157,7 @@
           "status": "not_posted",
           "start": null,
           "end": null,
-          "text": "July"
+          "text": null
         },
         "ages": {
           "min": 6,
@@ -167,14 +175,14 @@
         "hours": {
           "start": "09:00",
           "end": "13:00",
-          "text": "Monday–Friday | 9:00 AM–1:00 PM; Ballet Camp hours are 9:00 AM–12:30 PM."
+          "text": "Monday–Friday; Ballet Camp 9:00 AM–12:30 PM"
         },
         "extended_care": null,
         "prices": [
           {
             "amount": 250,
             "unit": "week",
-            "label": "A non-refundable $50 deposit is due upon registration; remaining balance due June 1st for June camps and July 1st for July camps.",
+            "label": null,
             "year": 2026
           }
         ],
@@ -186,7 +194,7 @@
         "special_needs": null,
         "lunch": {
           "value": "no",
-          "text": "Campers should bring a lunch and morning snack each day"
+          "text": "Campers should bring a lunch and morning snack each day."
         },
         "transportation": null,
         "sources": [
@@ -194,13 +202,13 @@
           "https://www.centerstageavl.com/dance-camps"
         ],
         "confidence": "medium",
-        "review_notes": "The overview lists ages 7-10; the detailed page additionally lists Ballet Camp bands 6-9 and 9-14, producing the overall 6-14 range. Exact weeks and a summer year are absent from accessible text; 2026 is provisional based on the overview's dated intensives. Bands cannot be represented as dated rows until the embedded schedule is checked."
+        "review_notes": "The overview lists July and ages 7-10; the program page additionally lists Ballet Camp bands 6-9 and 9-14 with shorter hours. These bands are included in the overall age span, but no rows can be dated. No explicit year accompanies the price; 2026 is inferred from the dated intensive offerings. Check embedded session listings and the year. A non-refundable $50 deposit is due at registration."
       },
       {
         "name": "Hip Hop Intensive",
         "type": "clinic",
         "categories": ["dance"],
-        "description": "Dancers practice hip hop technique, choreography and freestyle and learn about hip hop culture with guest instructors and Center Stage instructor KG Brown.",
+        "description": "Dancers study hip hop technique, choreography, freestyle and hip hop culture with studio and guest instructors.",
         "camp_page_url": "https://www.centerstageavl.com/hiphop-intensive",
         "registration_url": null,
         "season": {
@@ -244,14 +252,14 @@
             },
             "price": {
               "amount": 60,
-              "unit": "session",
+              "unit": "program",
               "label": null,
               "year": 2026
             },
             "status": null
           },
           {
-            "label": "Ages 9-12",
+            "label": "Ages 9–12",
             "start": "2026-07-14",
             "end": "2026-07-16",
             "year": 2026,
@@ -267,14 +275,14 @@
             },
             "price": {
               "amount": 175,
-              "unit": "session",
+              "unit": "program",
               "label": null,
               "year": 2026
             },
             "status": null
           },
           {
-            "label": "Ages 13 & Up",
+            "label": "Ages 13 & up",
             "start": "2026-07-14",
             "end": "2026-07-16",
             "year": 2026,
@@ -290,7 +298,7 @@
             },
             "price": {
               "amount": 175,
-              "unit": "session",
+              "unit": "program",
               "label": null,
               "year": 2026
             },
@@ -305,17 +313,17 @@
         "lunch": null,
         "transportation": null,
         "sources": [
-          "https://www.centerstageavl.com/summer/",
-          "https://www.centerstageavl.com/hiphop-intensive"
+          "https://www.centerstageavl.com/hiphop-intensive",
+          "https://www.centerstageavl.com/summer/"
         ],
         "confidence": "medium",
-        "review_notes": "Dates, prices and hours were read through official-site search results; direct page open returned empty content. Registration button destinations were not accessible. Ages 9-12 and 13 & Up share the stated 4:00–7:00 PM schedule and $175 price."
+        "review_notes": "The explicitly dated 2026 details were read in official search results; the direct page returned empty content. Register Now links could not be resolved. The 9-12 and 13-and-up bands share the published time and price."
       },
       {
         "name": "Modern Intensive",
         "type": "clinic",
         "categories": ["dance"],
-        "description": "Dancers study beginner Horton technique, Horton technique or Martha Graham technique in age-based groups with Raquelle Chavis.",
+        "description": "Dancers study beginner Horton technique, Horton technique or Martha Graham technique in age-based groups.",
         "camp_page_url": "https://www.centerstageavl.com/modern-intensive",
         "registration_url": null,
         "season": {
@@ -359,7 +367,7 @@
             },
             "price": {
               "amount": 80,
-              "unit": "session",
+              "unit": "program",
               "label": null,
               "year": 2026
             },
@@ -382,7 +390,7 @@
             },
             "price": {
               "amount": 90,
-              "unit": "session",
+              "unit": "program",
               "label": null,
               "year": 2026
             },
@@ -405,7 +413,7 @@
             },
             "price": {
               "amount": 90,
-              "unit": "session",
+              "unit": "program",
               "label": null,
               "year": 2026
             },
@@ -420,17 +428,17 @@
         "lunch": null,
         "transportation": null,
         "sources": [
-          "https://www.centerstageavl.com/summer/",
-          "https://www.centerstageavl.com/modern-intensive"
+          "https://www.centerstageavl.com/modern-intensive",
+          "https://www.centerstageavl.com/summer/"
         ],
         "confidence": "medium",
-        "review_notes": "Details were available through official-site search results rather than a readable direct page. Registration is by contacting Ms. Chavis at geechieanne@gmail.com; no registration opening date is stated."
+        "review_notes": "Explicit 2026 dates, bands, hours and prices were read through official search results; the direct page returned empty content. The page directs families to contact Ms. Chavis at geechieanne@gmail.com to register and pay."
       },
       {
         "name": "Boot Camp",
         "type": "day",
         "categories": ["dance"],
-        "description": "Dancers train in jazz, tap, contemporary, musical theatre, lyrical, hip hop and other styles with Platinum Dance Collective. The three-day program concludes with showcases and awards.",
+        "description": "Dancers train in multiple styles including jazz, tap, contemporary, musical theatre, lyrical and hip hop with Platinum Dance Collective instructors. The program ends with a showcase and awards.",
         "camp_page_url": "https://www.centerstageavl.com/boot-camp",
         "registration_url": null,
         "season": {
@@ -453,11 +461,7 @@
             "state": "NC"
           }
         ],
-        "hours": {
-          "start": "09:00",
-          "end": "16:00",
-          "text": "Ages 6–8: Day 1, 9:00–11:30 AM; Days 2–3, 9:00 AM–12:30 PM. Ages 9 & Up: 9:00 AM–4:00 PM."
-        },
+        "hours": null,
         "extended_care": null,
         "prices": [],
         "sessions": [
@@ -475,7 +479,7 @@
             "hours": null,
             "price": {
               "amount": 225,
-              "unit": "session",
+              "unit": "program",
               "label": "per dancer",
               "year": 2026
             },
@@ -498,7 +502,7 @@
             },
             "price": {
               "amount": 385,
-              "unit": "session",
+              "unit": "program",
               "label": "per dancer",
               "year": 2026
             },
@@ -517,53 +521,7 @@
         "transportation": null,
         "sources": ["https://www.centerstageavl.com/boot-camp", "https://www.centerstageavl.com/"],
         "confidence": "medium",
-        "review_notes": "Official-site search results state the dates, age bands, prices and variable younger-group hours; direct opening returned empty content. Registration links and schedule PDF could not be retrieved. The page says mandatory for CSPC dancers and open to dancers from all studios. Past-season 'Limited spots available' wording was not treated as current availability."
-      },
-      {
-        "name": "Summer Classes",
-        "type": "clinic",
-        "categories": ["dance"],
-        "description": "Dancers take summer dance classes to try a new style or continue their training. The fee schedule describes a four-week summer class session.",
-        "camp_page_url": "https://www.centerstageavl.com/summer-classes/",
-        "registration_url": null,
-        "season": {
-          "year": 2026,
-          "status": "not_posted",
-          "start": null,
-          "end": null,
-          "text": null
-        },
-        "ages": {
-          "min": 2.5,
-          "max": null
-        },
-        "grades": null,
-        "sites": [
-          {
-            "name": "Center Stage AVL",
-            "address": "38L Rosscraggon Rd",
-            "town": "Asheville",
-            "state": "NC"
-          }
-        ],
-        "hours": null,
-        "extended_care": null,
-        "prices": [],
-        "sessions": [],
-        "registration": [],
-        "last_year_registration_opened": null,
-        "availability": null,
-        "financial_aid": null,
-        "special_needs": null,
-        "lunch": null,
-        "transportation": null,
-        "sources": [
-          "https://www.centerstageavl.com/summer/",
-          "https://www.centerstageavl.com/summer-classes/",
-          "https://static1.squarespace.com/static/69f0c0a06130204d15d94467/t/6a7d0b0c6b15a870db2d829a/1786579724103/2026-2027+Fee+Schedule.pdf"
-        ],
-        "confidence": "medium",
-        "review_notes": "Included as a finite summer skill program because the fee schedule specifies a four-week summer session. Exact dates, class rows and summer year are absent; 2026 is provisional from the summer overview's dated intensives. Minimum age comes from the summer overview. The 2026-2027 fee schedule's monthly tuition tiers were not assigned to an undated summer session."
+        "review_notes": "Explicit 2026 details were read through official search results; direct page content, registration links and the linked schedule PDF could not be accessed. Ages 6-8 meet 9:00-11:30 AM on day 1 and 9:00 AM-12:30 PM on days 2-3. Mandatory for CSPC dancers and open to outside dancers."
       }
     ]
   }

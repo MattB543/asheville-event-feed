@@ -9,22 +9,22 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:24:03.394Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:20:21.730Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "100c91728bdf363e7c84b10578ae1bfbb2bad7b82750dd8922c5bae7fe706f19",
   "response": {
     "searches": [
       "site.tnstateparks.com Sycamore Shoals \"Junior Ranger\" \"2026\"",
-      "\"Sycamore\" \"Junior Ranger Camp\" \"2026\" ages"
+      "\"Sycamore Shoals\" \"camp\" \"2026\" \"ages\""
     ],
     "usage": {
-      "inputTokens": 32364,
-      "cachedInputTokens": 8223,
-      "outputTokens": 894,
-      "reasoningTokens": 158
+      "inputTokens": 24766,
+      "cachedInputTokens": 8845,
+      "outputTokens": 806,
+      "reasoningTokens": 138
     },
     "status": "completed",
-    "ms": 33508,
+    "ms": 26602,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -73,19 +73,19 @@
   "extraction": {
     "provider_name": "Sycamore Shoals State Historic Park",
     "website_url": "https://tnstateparks.com/parks/sycamore-shoals",
-    "notes": "No 2027 camp information found. The 2026 volunteer listing confirms a youth Junior Ranger Camp, but a camper registration page with ages, hours and prices was not found. The park's 2026 schedule lists July 15–17, while the official volunteer listing explicitly says camp occurs July 14–17.",
+    "notes": "No 2027 camp details or registration dates were found. The available 2026 state park page is a volunteer recruitment listing, not camper registration. A separate park schedule search result lists July 15–17, conflicting with the volunteer page's explicit July 14–17 camp dates. The supplemental park website returned no readable text.",
     "excluded": [
       {
         "name": "Junior Ranger Camp 2026 Help (Background Check Required)",
-        "reason": "Volunteer support opportunity, not a youth camp enrollment offering. The underlying Junior Ranger Camp is included separately."
-      },
-      {
-        "name": "Campground Hosts",
-        "reason": "Live-in volunteer work program, not a supervised youth summer camp; Sycamore Shoals is not listed as a participating park."
+        "reason": "Volunteer recruitment for camp setup and support, not a youth camp offering; the underlying Junior Ranger Camp is retained separately."
       },
       {
         "name": "Camping at Tennessee State Parks",
-        "reason": "Recreational campsite stays, not supervised youth camp programs."
+        "reason": "Unsupervised recreational camping accommodations, not a finite supervised youth program."
+      },
+      {
+        "name": "Tennessee State Parks Campground Hosts",
+        "reason": "Live-in volunteer work program, not a supervised youth summer camp."
       }
     ],
     "cards": [
@@ -93,7 +93,7 @@
         "name": "Junior Ranger Camp",
         "type": "day",
         "categories": ["nature_outdoor"],
-        "description": "Children explore the natural world through hands-on activities led by park staff as part of Tennessee State Parks' Junior Ranger program.",
+        "description": "A four-day Junior Ranger Camp at Sycamore Shoals State Historic Park.",
         "camp_page_url": null,
         "registration_url": null,
         "season": {
@@ -126,12 +126,10 @@
         "transportation": null,
         "sources": [
           "https://tnstateparks.com/events/junior-ranger-camp-2026-help-background-check-required",
-          "https://tnstateparks.com/parks/sycamore-shoals",
-          "https://tnstateparks.com/happenings/junior-rangers",
           "https://sycamoreshoalstn.wordpress.com/special-events-calendar/2025-schedule-of-events/"
         ],
         "confidence": "medium",
-        "review_notes": "Verify camper dates: the official volunteer page says the four-day camp occurs July 14–17, 2026 (July 13 is volunteer setup), but the park's schedule headed 2026 lists July 15–17 with details coming soon. Camp type is inferred from the finite local camp listing; hours were not located. Description reflects the statewide Junior Ranger program rather than a detailed local 2026 activity schedule. Statewide ages 8–12 were not assigned because local 2026 eligibility was not found."
+        "review_notes": "Dates use the volunteer listing's explicit statement that camp occurs July 14–17, 2026; July 13 is volunteer setup, not a camper day. The supplemental page headed '2026 Schedule of Events' lists July 15–17 in its search result. Confirm the dates and day-camp format with the park. No camper-facing 2026 registration page was found; ages, hours, activities and prices remain unknown."
       }
     ]
   }

@@ -7,22 +7,22 @@
     "discovered_by": ["grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:21:41.873Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:18:21.755Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "593586a8e9ab9f00cb6367ed16ba504949966564580448cffe2d613590671501",
   "response": {
     "searches": [
-      "site:bigleaguecamp.com camps 2027 2026",
-      "open https://www.bigleaguecamp.com/camps/634165677_122119799529089813_7949479533837057211_n/"
+      "site:bigleaguecamp.com 2027 summer camp",
+      "open https://www.bigleaguecamp.com/camps/camp-brochure/"
     ],
     "usage": {
-      "inputTokens": 17595,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1562,
-      "reasoningTokens": 114
+      "inputTokens": 18095,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1544,
+      "reasoningTokens": 98
     },
     "status": "completed",
-    "ms": 33895,
+    "ms": 31109,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -71,27 +71,27 @@
   "extraction": {
     "provider_name": "Big League Camp",
     "website_url": "https://www.bigleaguecamp.com/",
-    "notes": "The camps page has a 2026-27 Dates heading but says dates are to be determined. No dated sessions or registration milestones were found. Day and overnight formats are separate cards. The page conflicts on ages and labels the day-camp schedule as a 5 Day Overnight Camp. Prices are listed beneath the combined 2026-27 heading and are treated as applying to 2027, subject to confirmation. An official image attachment page could not be read.",
+    "notes": "The camps page has a '2026-27 Dates' heading but says dates are to be determined. No registration opening date was found. The program schedule blocks conflict with the introductory age eligibility and describe Day Camp as overnight. The Camp Brochure page returned no readable brochure content. Pricing is taken from the table beneath the 2026-27 heading and labeled 2027; prices are subject to change.",
     "excluded": [
       {
-        "name": "Monthly Memberships",
-        "reason": "Year-round facility access and training, not a finite summer program."
+        "name": "Monthly Memberships and individual instruction",
+        "reason": "Ongoing facility memberships and instruction booked as lessons, not finite summer camp programs."
       },
       {
         "name": "Travel Baseball Tournaments",
-        "reason": "Team tournament competition rather than a supervised summer camp."
+        "reason": "Team competitions rather than supervised summer camp programs."
       },
       {
-        "name": "College Baseball & Softball",
-        "reason": "College team spring training and fall games, outside summer."
+        "name": "College Baseball & Softball Spring Training Practices and Games",
+        "reason": "College team training and tournaments outside summer."
       },
       {
         "name": "Donnie Suttles Mental Toughness Outdoor Team Camp",
-        "reason": "Listed as a college-team offering typically held late August through early November; no summer youth offering is established."
+        "reason": "Typically held late August through early November and presented as college team programming, not a youth summer offering."
       },
       {
-        "name": "Cabin Rentals and Facility Rentals",
-        "reason": "Lodging and venue rentals, not supervised youth programs."
+        "name": "Facility and Cabin Rentals",
+        "reason": "Rentals are not supervised youth camp programs."
       }
     ],
     "cards": [
@@ -99,7 +99,7 @@
         "name": "Day Camp",
         "type": "day",
         "categories": ["sports", "nature_outdoor"],
-        "description": "Campers practice baseball or softball with college and professional coaches, play games, and participate in outdoor challenges.",
+        "description": "Campers practice baseball or softball skills with coaches, play live games, and participate in daily outdoor challenges.",
         "camp_page_url": "https://www.bigleaguecamp.com/camps/",
         "registration_url": "https://www.bigleaguecamp.com/camps/",
         "season": {
@@ -107,9 +107,12 @@
           "status": "coming_soon",
           "start": null,
           "end": null,
-          "text": "2026-27 Dates: Camp Dates To Be Determined"
+          "text": "Camp Dates To Be Determined"
         },
-        "ages": null,
+        "ages": {
+          "min": 8,
+          "max": 12
+        },
         "grades": null,
         "sites": [
           {
@@ -152,15 +155,18 @@
           "text": "Prices cover all meals and insurance, housing and laundry."
         },
         "transportation": null,
-        "sources": ["https://www.bigleaguecamp.com/camps/", "https://www.bigleaguecamp.com/about/"],
+        "sources": [
+          "https://www.bigleaguecamp.com/camps/",
+          "https://www.bigleaguecamp.com/contact/"
+        ],
         "confidence": "medium",
-        "review_notes": "Confirm eligibility: the general text says ages 12 through 19, with under-13s day campers only, while DAY CAMP SCHEDULE says ages 8-12. That schedule also calls itself a 5 Day Overnight Camp. Confirm prices apply to summer 2027; they appear beneath the combined 2026-27 heading. Registration is by emailing athlete@bigleaguecamp.com for a form."
+        "review_notes": "The Day Camp schedule states ages 8-12, but the introduction says camps are open to ages 12-19 and those under 13 must be day campers only. The Day Camp block also says '5 Day Overnight Camp'; type follows the Day Camp name and day-camper pricing. Confirm eligibility and format with the provider. Baseball and softball are described as separate weeks, but no dates are provided, so no session rows can be created. Prices use the 2026-27 heading as their year context."
       },
       {
         "name": "Outdoor Camp",
         "type": "overnight",
         "categories": ["sports", "nature_outdoor"],
-        "description": "Campers receive baseball or softball instruction, play games, and compete in outdoor challenges such as canoe racing, fishing and archery. Campers stay in on-site log cabins during the five-day program.",
+        "description": "Campers receive baseball or softball instruction, play live games, and compete in outdoor challenges including canoe racing, fishing, archery, and a mud run. Campers stay in on-site log cabins.",
         "camp_page_url": "https://www.bigleaguecamp.com/camps/",
         "registration_url": "https://www.bigleaguecamp.com/camps/",
         "season": {
@@ -168,9 +174,12 @@
           "status": "coming_soon",
           "start": null,
           "end": null,
-          "text": "2026-27 Dates: Camp Dates To Be Determined"
+          "text": "Camp Dates To Be Determined"
         },
-        "ages": null,
+        "ages": {
+          "min": 13,
+          "max": 18
+        },
         "grades": null,
         "sites": [
           {
@@ -213,9 +222,13 @@
           "text": "Food will be catered in to the camp and three meals a day will be provided."
         },
         "transportation": null,
-        "sources": ["https://www.bigleaguecamp.com/camps/", "https://www.bigleaguecamp.com/about/"],
+        "sources": [
+          "https://www.bigleaguecamp.com/camps/",
+          "https://www.bigleaguecamp.com/about/",
+          "https://www.bigleaguecamp.com/contact/"
+        ],
         "confidence": "medium",
-        "review_notes": "Confirm eligibility: OUTDOOR CAMP SCHEDULE says ages 13-18, while introductory text allows ages 12 through 19 but requires under-13s to attend as day campers. Confirm prices apply to summer 2027; they appear beneath the combined 2026-27 heading. Baseball and softball are described as separate weeks, but no dates are posted. Registration is by emailing athlete@bigleaguecamp.com for a form."
+        "review_notes": "The Outdoor Camp schedule states ages 13-18, while the introduction allows ages 12-19 with campers under 13 restricted to day attendance. Confirm whether 19-year-olds are eligible. The schedule specifies five days; the About page calls it one week. Baseball and softball are described as separate weeks, but dates are not provided. Prices use the 2026-27 heading as their year context. Registration requires emailing athlete@bigleaguecamp.com for a registration form."
       }
     ]
   }

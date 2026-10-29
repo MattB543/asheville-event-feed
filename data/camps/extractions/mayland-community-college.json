@@ -7,22 +7,22 @@
     "discovered_by": ["gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:36:56.269Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:31:02.467Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "3a634662a2ed8b97973c22aa7e26fe9d16eca40b2e04aa343e21cdee268323aa",
   "response": {
     "searches": [
-      "site:mayland.edu summer camps 2026 2027 \"Space\"",
-      "site:mayland.edu \"2026\" \"camps\""
+      "site:mayland.edu \"summer\" \"2027\" camps",
+      "site:mayland.edu filetype:pdf \"Space Ranger\""
     ],
     "usage": {
-      "inputTokens": 36106,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1419,
-      "reasoningTokens": 190
+      "inputTokens": 36180,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1330,
+      "reasoningTokens": 177
     },
     "status": "completed",
-    "ms": 37878,
+    "ms": 32281,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -61,19 +61,14 @@
   "extraction": {
     "provider_name": "Mayland Community College",
     "website_url": "https://www.mayland.edu/",
-    "notes": "No summer 2027 camp information or registration milestones were found. The summer-camps page does not identify a season year. Junior Space Ranger Camp lists July 13–16 and $175 without a year; these have not been assigned to 2026 or 2027. The academic calendar is not evidence of camp dates.",
-    "excluded": [
-      {
-        "name": "Summer Session",
-        "reason": "Regular college credit courses, not a finite supervised youth camp or teen pre-college program."
-      }
-    ],
+    "notes": "No 2027 summer camp announcements or registration milestones were found. The summer-camps page is undated; its July 13–16 dates and $175 price cannot be securely assigned to 2026, so they are omitted rather than projected. Searches for additional camp schedules and PDFs did not resolve the year. The academic calendar is not a camp calendar.",
+    "excluded": [],
     "cards": [
       {
         "name": "Be a Hero, Become a Firefighter",
         "type": "clinic",
         "categories": ["academic"],
-        "description": "Students learn about protective firefighting gear and fire safety and check out a fire truck.",
+        "description": "Children learn about firefighter protective gear and safety tips and look at a fire truck.",
         "camp_page_url": "https://www.mayland.edu/summer-camps/",
         "registration_url": null,
         "season": {
@@ -85,7 +80,7 @@
         },
         "ages": {
           "min": 6,
-          "max": 11
+          "max": 10
         },
         "grades": null,
         "sites": [],
@@ -106,13 +101,13 @@
         "transportation": null,
         "sources": ["https://www.mayland.edu/summer-camps/"],
         "confidence": "medium",
-        "review_notes": "The heading states ages 6–10, while the description recommends ages 6–11; the age range records the full stated span. Confirm eligibility, season year, dates and drop-off location with the provider."
+        "review_notes": "The undated summer-camps page gives ages 6–10 in the heading but recommends ages 6–11 in the description. Confirm the age limit, season and drop-off location; no dates or venue are specified."
       },
       {
         "name": "Junior Space Ranger Camp",
         "type": "half_day",
         "categories": ["stem"],
-        "description": "Campers make upcycled jet packs and design rocket ships, watch STEAM programming in the Arthur Planetarium, and learn about space travel, planets, light and galaxies.",
+        "description": "Campers make upcycled rocket jet packs and design rocket ships, watch STEAM programming in the planetarium, and learn about space travel, planets, light and galaxies.",
         "camp_page_url": "https://www.mayland.edu/summer-camps/",
         "registration_url": null,
         "season": {
@@ -138,7 +133,7 @@
         "hours": {
           "start": "09:00",
           "end": "12:00",
-          "text": "Monday–Thursday, 9:00 a.m.–12:00 p.m.; 12 hours total."
+          "text": null
         },
         "extended_care": null,
         "prices": [],
@@ -150,18 +145,15 @@
         "special_needs": null,
         "lunch": null,
         "transportation": null,
-        "sources": [
-          "https://www.mayland.edu/summer-camps/",
-          "https://www.mayland.edu/campus-maps/"
-        ],
+        "sources": ["https://www.mayland.edu/summer-camps/"],
         "confidence": "medium",
-        "review_notes": "The camp page lists 7/13–7/16, Monday–Thursday, and $175, but provides no season year. Dates and price are omitted rather than assigned a guessed year. The page says a mid-morning snack is provided but does not address lunch. Confirm the season year and exact drop-off point within Earth to Sky Park."
+        "review_notes": "The page lists July 13–16, Monday–Thursday, and $175 without a year or a dated brochure heading. Dates and price are omitted because their season could not be established. Activities are explicitly located in the Arthur Planetarium and Earth to Sky Park classroom; the park address is published in the footer."
       },
       {
         "name": "Become a Health Care Hero",
         "type": "clinic",
         "categories": ["stem", "academic"],
-        "description": "Students explore an ambulance and ambulance classroom simulator, practice skills during a simulated EMS call, and learn basic nursing skills using nursing lab simulators.",
+        "description": "Children explore paramedic and nursing work using an ambulance classroom simulator and nursing simulation lab. They practice basic skills and apply them to simulated patient care.",
         "camp_page_url": "https://www.mayland.edu/summer-camps/",
         "registration_url": null,
         "season": {
@@ -194,7 +186,7 @@
         "transportation": null,
         "sources": ["https://www.mayland.edu/summer-camps/"],
         "confidence": "medium",
-        "review_notes": "The listing has no season year, dates or explicit drop-off venue. Mitchell is given as a contact, not an explicit meeting location; confirm whether camp meets at the main campus."
+        "review_notes": "The summer-camps listing is undated and gives no session dates. It names simulation facilities and a Mitchell contact number but does not explicitly identify the drop-off campus; confirm the venue before mapping it."
       }
     ]
   }

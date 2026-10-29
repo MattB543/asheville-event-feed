@@ -7,19 +7,19 @@
     "discovered_by": ["grid", "aggregator"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:29:07.755Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:24:39.915Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "29b51d92f615596ec9416bcef64366bd352af688dc6732bdc2a621356de26c9c",
   "response": {
-    "searches": ["site:tysa.us \"2027\" \"camp\""],
+    "searches": ["site:tysa.us \"camp\" \"2027\""],
     "usage": {
-      "inputTokens": 14441,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1165,
-      "reasoningTokens": 97
+      "inputTokens": 15019,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1247,
+      "reasoningTokens": 73
     },
     "status": "completed",
-    "ms": 28239,
+    "ms": 26639,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -48,15 +48,15 @@
   "extraction": {
     "provider_name": "Transylvania Youth Soccer Association",
     "website_url": "https://tysa.us/",
-    "notes": "No summer 2027 camp information or registration dates were found on the official website. The card uses the explicitly labeled 2026 summer camp information. Soccer eligibility is published as U8–U12 and U13–U19 divisions, not literal age ranges; these are preserved in session labels rather than converted to ages.",
+    "notes": "No summer 2027 camp information or registration opening date was found on official pages. The PlayMetrics signup page requires an account and does not expose additional camp details.",
     "excluded": [
       {
         "name": "5v5 Summer Series",
-        "reason": "A six-week soccer game season with one game each Tuesday, rather than a camp or skill clinic."
+        "reason": "Six-week sports competition series with one game each Tuesday evening, rather than a camp or skill clinic."
       },
       {
         "name": "TYSA Recreation",
-        "reason": "Recreational soccer leagues and team seasons."
+        "reason": "Sports leagues and team seasons."
       },
       {
         "name": "EFC Academy",
@@ -67,12 +67,8 @@
         "reason": "Competitive soccer team program, not a finite summer camp."
       },
       {
-        "name": "TYSA Ecusta FC Jamboree and Awards Day",
-        "reason": "Fall celebration on October 31, outside summer."
-      },
-      {
-        "name": "Mountain Fairways Golf Tournament",
-        "reason": "Charity golf tournament, not a supervised youth camp or skill clinic."
+        "name": "3v3 Community Cup",
+        "reason": "Adult-only soccer tournament for ages 18 and older."
       }
     ],
     "cards": [
@@ -80,7 +76,7 @@
         "name": "ECUSTA FC's Summer Camp",
         "type": "half_day",
         "categories": ["sports"],
-        "description": "Players participate in soccer technical training, small-sided games, and competitive activities led by coaches with collegiate playing backgrounds and Ecusta FC coaching staff. The camp is open to Ecusta FC players and other competitive players.",
+        "description": "Players participate in technical soccer training, small-sided games, and competitive activities led by coaches with collegiate playing backgrounds and Ecusta FC coaching staff. The camp is open to Ecusta FC players and other competitive players.",
         "camp_page_url": "https://tysa.us/summercamp/",
         "registration_url": "https://app.playmetrics.com/signup?clubToken=TG9naW4tQ2x1Yi52MS0xODU1LTE3ODIwNTk0OTJ8VWZLRzVVUEFFdzV3emxleGlIaDJZdGY4aU1pbjRCZWlpZjZaU2Q2K2l0bz0=&program_id=101190",
         "season": {
@@ -100,12 +96,16 @@
             "state": "NC"
           }
         ],
-        "hours": null,
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "Academy (U8–U12): 9:00 AM – 12:00 PM daily; Classic (U13–U19): 2:00 PM – 5:00 PM daily"
+        },
         "extended_care": null,
         "prices": [
           {
             "amount": 150,
-            "unit": "session",
+            "unit": "program",
             "label": "per player",
             "year": 2026
           }
@@ -151,11 +151,13 @@
         "transportation": null,
         "sources": [
           "https://tysa.us/summercamp/",
+          "https://app.playmetrics.com/signup?clubToken=TG9naW4tQ2x1Yi52MS0xODU1LTE3ODIwNTk0OTJ8VWZLRzVVUEFFdzV3emxleGlIaDJZdGY4aU1pbjRCZWlpZjZaU2Q2K2l0bz0=&program_id=101190",
           "https://tysa.us/Recreation/",
-          "https://app.playmetrics.com/signup?clubToken=TG9naW4tQ2x1Yi52MS0xODU1LTE3ODIwNTk0OTJ8VWZLRzVVUEFFdzV3emxleGlIaDJZdGY4aU1pbjRCZWlpZjZaU2Q2K2l0bz0=&program_id=101190"
+          "https://tysa.us/tryouts/",
+          "https://tysa.us/contact/ecusta-field/"
         ],
-        "confidence": "high",
-        "review_notes": null
+        "confidence": "medium",
+        "review_notes": "The camp lists soccer divisions U8–U12 and U13–U19 rather than ages in years; numeric ages are left null. Dates are labeled 2026 by the camp page heading. The camp and Recreation pages give 324 Ecusta Rd, while the 26/27 tryouts page gives 824 Ecusta Road for the Ecusta Turf Field. The dedicated field page provides no street address; confirm whether the tryouts address is a typo or a different entrance."
       }
     ]
   }

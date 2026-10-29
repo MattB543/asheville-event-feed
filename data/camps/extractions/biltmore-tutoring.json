@@ -7,8 +7,8 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:03:05.767Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:02:58.227Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "792337cec84aa98a03ec807695ad397ef33892ca9987091a8e2aa6b60a2c96d4",
   "response": {
     "searches": [
@@ -16,13 +16,13 @@
       "open https://www.biltmoretutoring.com/summer-boot-camp-2023/"
     ],
     "usage": {
-      "inputTokens": 15072,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1074,
-      "reasoningTokens": 92
+      "inputTokens": 15350,
+      "cachedInputTokens": 8845,
+      "outputTokens": 993,
+      "reasoningTokens": 82
     },
     "status": "completed",
-    "ms": 26122,
+    "ms": 25032,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -41,31 +41,19 @@
   "extraction": {
     "provider_name": "Biltmore Tutoring",
     "website_url": "https://www.biltmoretutoring.com/",
-    "notes": "Summer 2027 dates will be announced in spring. The card retains explicitly dated 2026 sessions as fallback; no 2027 registration date was found. The 2026 announcement has an old 2023 URL and stale footer text, but its heading and session table explicitly identify 2026.",
+    "notes": "2027 dates are coming in spring. The official 2026 boot camp announcement supplies the fallback dates and hours. Its heading, body and date table explicitly identify 2026, although a trailing excerpt still mentions 2023.",
     "excluded": [
       {
-        "name": "Private Tutoring",
-        "reason": "Ongoing one-on-one tutoring, not a finite summer camp."
-      },
-      {
-        "name": "Subject Tutoring",
-        "reason": "Ongoing subject support, not a summer-only program."
-      },
-      {
-        "name": "Test Preparation",
-        "reason": "Private hourly test preparation is ongoing rather than a finite summer camp; summer boot camps are included separately."
+        "name": "Private tutoring and individual test preparation",
+        "reason": "Individual tutoring booked as lessons, not a finite summer camp."
       },
       {
         "name": "College Counseling",
-        "reason": "Ongoing admissions guidance, not a finite supervised summer program."
+        "reason": "Individual counseling service, not a supervised summer camp."
       },
       {
-        "name": "Reading & Study Skills",
-        "reason": "Ongoing tutoring service rather than a stated summer-only camp."
-      },
-      {
-        "name": "Free SAT Practice",
-        "reason": "At-home diagnostic test rather than a supervised summer program."
+        "name": "Free SAT practice test",
+        "reason": "At-home diagnostic test, not a supervised summer camp."
       }
     ],
     "cards": [
@@ -73,7 +61,7 @@
         "name": "SAT and ACT summer boot camps",
         "type": "day",
         "categories": ["academic"],
-        "description": "Students receive five days of small-group SAT or ACT test-preparation instruction focused on test-taking strategies. Tuition includes books, practice materials, and two practice tests with diagnostic feedback.",
+        "description": "Students receive five days of small-group SAT or ACT instruction focused on test-taking strategies. Tuition includes books, practice materials and two practice tests with diagnostic feedback.",
         "camp_page_url": "https://www.biltmoretutoring.com/classes/",
         "registration_url": "https://www.biltmoretutoring.com/contact/",
         "season": {
@@ -81,7 +69,7 @@
           "status": "coming_soon",
           "start": "2026-07-27",
           "end": "2026-08-07",
-          "text": "Summer 2027 dates will be announced in spring. Call or contact us and we’ll let you know as soon as they’re set."
+          "text": "Summer 2027 dates will be announced in spring."
         },
         "ages": null,
         "grades": null,
@@ -96,15 +84,15 @@
         "hours": {
           "start": "10:00",
           "end": "15:00",
-          "text": "2026 boot camps: 10:00 AM – 3:00 PM."
+          "text": "10:00 AM – 3:00 PM"
         },
         "extended_care": null,
         "prices": [
           {
             "amount": 1295,
             "unit": "session",
-            "label": "Includes registration fees, books, practice materials, instruction, and diagnostic tests.",
-            "year": 2026
+            "label": "Includes registration, books, practice materials, instruction and diagnostic tests",
+            "year": 2027
           }
         ],
         "sessions": [
@@ -142,12 +130,12 @@
         "transportation": null,
         "sources": [
           "https://www.biltmoretutoring.com/classes/",
-          "https://www.biltmoretutoring.com/summer-boot-camp-2023/",
+          "https://www.biltmoretutoring.com/",
           "https://www.biltmoretutoring.com/contact/",
-          "https://www.biltmoretutoring.com/"
+          "https://www.biltmoretutoring.com/summer-boot-camp-2023/"
         ],
-        "confidence": "high",
-        "review_notes": null
+        "confidence": "medium",
+        "review_notes": "The classes page presents $1,295 tuition alongside its summer 2027 announcement, but does not explicitly attach a year to the price; it is recorded as 2027. Dates and hours are explicitly for 2026 in the archived announcement. That announcement's trailing excerpt mentions 2023, while its heading, main text and table all say 2026."
       }
     ]
   }

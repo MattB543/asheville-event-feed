@@ -13,9 +13,9 @@
  * last check failed stay due (checked_at didn't move) but go last, so a few unreadable sites can't
  * crowd out the rest.
  *
- * What's read. The bundle the extraction read (buildSourceBundle), plus the registration pages the
- * provider's cards cite that its crawl doesn't reach (milestoneUrls), so a date Sol found by web
- * search is checked too.
+ * What's read. The bundle the extraction read (buildSourceBundle), plus every registration page
+ * the provider's cards cite that its crawl doesn't reach (milestoneUrls), so a date Sol found by
+ * web search is checked too.
  *
  * A failed check: no page could be read, or a page in the bundle failed for a reason other than a
  * 404/410 answer (a timeout, a block, or a page only a browser renders: Vercel has no browser, the
@@ -29,8 +29,9 @@
  * only while that can finish within PLACE_AFTER_END_MS of `endBy` (the rest wait for the next import).
  *
  * WebTrac (Asheville Parks & Rec's catalog) is read without a model by lib/camps/webtrac.ts, which
- * needs the headless browser (Cloudflare), so only a local run with `webtrac: true` re-reads it,
- * weekly, and imports it with the rest.
+ * needs the headless browser (Cloudflare), so only a local run with `webtrac: true` re-reads it, on
+ * the same weekly / daily cadence, within WEBTRAC_READ_MS, and imports it with the rest. A read
+ * that misses any search or detail page fails like a provider's check: the stored cards stay.
  *
  * A dry run (apply: false) reads and hashes; it calls no model and writes nothing.
  */
@@ -61,7 +62,7 @@ const CHECK_EVERY_HOURS = 7 * 24 - 4;
 const HOT_CHECK_EVERY_HOURS = 20;
 const OPENING_WINDOW_DAYS = 3;
 const CONCURRENCY = 6;
-// Up to 8 pages plus 4 registration pages, each with its own fetch timeouts and retries
+// Up to 9 crawled pages plus the cards' registration pages, each with its own timeouts and retries
 const READ_TIMEOUT_MS = 120_000;
 // Sol with web search took up to 183s on one attempt (bulk extraction, 2026-10-29)
 const EXTRACT_TIMEOUT_MS = 300_000;
@@ -201,44 +202,50 @@ async function providersWithOpeningNear(today: string): Promise<Set<string>> {
   return new Set(rows.map((row) => row.key));
 }
 
+/** `due`: the providers to check by reading their pages; `webTrac`: the catalog's, when it's due. */
 export async function dueProviders(
   only?: string[]
-): Promise<{ eligible: RefreshRow[]; due: RefreshCandidate[] }> {
+): Promise<{ eligible: RefreshRow[]; due: RefreshCandidate[]; webTrac: RefreshCandidate[] }> {
   const today = getTodayStringEastern();
   const rows = await db
     .select(refreshColumns)
     .from(campProviders)
     .where(and(eq(campProviders.hidden, false), isNotNull(campProviders.extractionFingerprint)));
+  const isWebTrac = (row: RefreshRow) =>
+    !!row.extractionFingerprint?.startsWith('webtrac:') || !!LISTED.get(row.key)?.webtrac;
   // A provider known only by social pages has nothing we can read (login walls)
   const eligible = rows.filter(
-    (row) =>
-      !row.extractionFingerprint?.startsWith('webtrac:') &&
-      !LISTED.get(row.key)?.webtrac &&
-      row.urls.some((url) => !isSocialUrl(url))
+    (row) => !isWebTrac(row) && row.urls.some((url) => !isSocialUrl(url))
   );
   const openingNear = await providersWithOpeningNear(today);
   const january = today.slice(5, 7) === '01';
 
-  const candidates = eligible.map((row) => ({
+  const candidate = (row: RefreshRow): RefreshCandidate => ({
     row,
     hot: january || openingNear.has(row.key),
     openingNear: openingNear.has(row.key),
-  }));
-  if (only) return { eligible, due: candidates.filter((c) => only.includes(c.row.key)) };
+  });
+  const candidates = eligible.map(candidate);
+  const webTrac = rows.filter(isWebTrac).map(candidate);
+  if (only) {
+    const named = (c: RefreshCandidate) => only.includes(c.row.key);
+    return { eligible, due: candidates.filter(named), webTrac: webTrac.filter(named) };
+  }
 
   const now = Date.now();
+  const isDue = (c: RefreshCandidate) => {
+    const every = c.hot ? HOT_CHECK_EVERY_HOURS : CHECK_EVERY_HOURS;
+    return now - lastChecked(c.row) >= every * 3_600_000;
+  };
   const due = candidates
-    .filter((c) => {
-      const every = c.hot ? HOT_CHECK_EVERY_HOURS : CHECK_EVERY_HOURS;
-      return now - lastChecked(c.row) >= every * 3_600_000;
-    })
+    .filter(isDue)
     .sort(
       (a, b) =>
         Number(a.row.checkError !== null) - Number(b.row.checkError !== null) ||
         Number(b.openingNear) - Number(a.openingNear) ||
         lastChecked(a.row) - lastChecked(b.row)
     );
-  return { eligible, due };
+  return { eligible, due, webTrac: webTrac.filter(isDue) };
 }
 
 /** Aborts `controller` with a timeout error after `ms`; returns the function that calls it off. */
@@ -273,11 +280,15 @@ function milestoneUrls(cards: Iterable<CampCard>): string[] {
 }
 
 /** The provider's cards as extracted, by camp key, oldest program first. */
+/** The provider's current cards: those in its newest extraction (not retired ones). */
 async function currentCards(providerKey: string): Promise<Map<string, CampCard>> {
   const rows = await db
     .select({ campKey: camps.campKey, card: camps.card })
     .from(camps)
-    .where(eq(camps.providerKey, providerKey))
+    .innerJoin(campProviders, eq(camps.providerKey, campProviders.key))
+    .where(
+      and(eq(camps.providerKey, providerKey), eq(camps.lastExtractedAt, campProviders.extractedAt))
+    )
     .orderBy(camps.firstSeenAt);
   return new Map(rows.map((row) => [row.campKey, row.card]));
 }
@@ -369,6 +380,12 @@ async function checkProvider(
     }
     const next = await buildSourceBundle(provider, fetcher, milestoneUrls(after.values()));
     signal.throwIfAborted();
+    // A newly cited page that can't be read fails the check like any other: nothing is imported
+    const failedNext = next.log.filter(failedRead);
+    if (failedNext.length > 0) {
+      const detail = failedNext.map((entry) => `${entry.url}: ${entry.error}`).join(' | ');
+      throw new Error(`a page the new extraction cites could not be read: ${detail}`);
+    }
 
     const saved: SavedExtraction = {
       provider,
@@ -413,34 +430,28 @@ export async function checkProviders(
   return { outcomes, extractions };
 }
 
-/** The WebTrac providers, when the catalog was last read a week ago or more (or they're in `only`). */
-async function webTracDue(only?: string[]): Promise<RefreshRow[]> {
-  const keys = [...LISTED.values()].filter((p) => p.webtrac).map((p) => p.key);
-  if (keys.length === 0) return [];
-  const rows = await db
-    .select(refreshColumns)
-    .from(campProviders)
-    .where(and(inArray(campProviders.key, keys), eq(campProviders.hidden, false)));
-  if (only) return rows.filter((row) => only.includes(row.key));
-  return rows.filter((row) => Date.now() - lastChecked(row) >= CHECK_EVERY_HOURS * 3_600_000);
-}
-
-/** Read the WebTrac catalog once and make each WebTrac provider's cards from it (no model). */
+/**
+ * Read the WebTrac catalog once, aborted after WEBTRAC_READ_MS, and make each WebTrac provider's
+ * cards from it (no model).
+ */
 async function readWebTrac(
-  rows: RefreshRow[],
+  candidates: RefreshCandidate[],
   options: RefreshOptions
 ): Promise<{ outcomes: RefreshOutcome[]; extractions: SavedExtraction[] }> {
   const started = Date.now();
   const outcomes = (result: Pick<RefreshOutcome, 'outcome' | 'reason' | 'cards'>) =>
-    rows.map((row) => ({
+    candidates.map(({ row, hot }) => ({
       key: row.key,
-      hot: false,
+      hot,
       pages: 0,
       ms: Date.now() - started,
       ...result,
     }));
+  const controller = new AbortController();
+  const stopTimer = abortAfter(controller, WEBTRAC_READ_MS, 'reading the WebTrac catalog');
   try {
-    const catalog = await readWebTracCatalog();
+    const catalog = await readWebTracCatalog(controller.signal);
+    stopTimer();
     const reason = `catalog read: ${catalog.rows.length} summer rows`;
     if (!options.apply)
       return { outcomes: outcomes({ outcome: 'changed', reason }), extractions: [] };
@@ -448,7 +459,7 @@ async function readWebTrac(
 
     // As scripts/camps/extract.ts makes them from the saved catalog
     const sourceHash = createHash('sha256').update(JSON.stringify(catalog.rows)).digest('hex');
-    const extractions = rows.map((row): SavedExtraction => {
+    const extractions = candidates.map(({ row }): SavedExtraction => {
       const provider = providerFor(row);
       return {
         provider,
@@ -465,17 +476,19 @@ async function readWebTrac(
     return { outcomes: outcomes({ outcome: 're-extracted', reason, cards }), extractions };
   } catch (error) {
     const reason = error instanceof Error ? error.message : String(error);
-    if (options.apply) for (const row of rows) await markFailed(row.key, reason);
+    if (options.apply) for (const { row } of candidates) await markFailed(row.key, reason);
     return { outcomes: outcomes({ outcome: 'failed', reason }), extractions: [] };
+  } finally {
+    stopTimer();
   }
 }
 
 export async function refreshCamps(options: RefreshOptions): Promise<RefreshResult> {
-  const { eligible, due } = await dueProviders(options.only);
+  const { eligible, due, webTrac: webTracDue } = await dueProviders(options.only);
   const queue = due.slice(0, options.limit ?? due.length);
 
   // The catalog first: it takes minutes, and only a local run reads it
-  const webTrac = options.webtrac ? await webTracDue(options.only) : [];
+  const webTrac = options.webtrac ? webTracDue : [];
   const catalog =
     webTrac.length > 0 && Date.now() + WEBTRAC_READ_MS <= options.endBy
       ? await readWebTrac(webTrac, options)

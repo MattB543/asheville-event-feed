@@ -10,22 +10,22 @@
     "discovered_by": ["grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:11:03.357Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:09:17.416Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "94e73e1dbadbf7410ba27d074a147e53e55aebdf332adf73c8950f4e5acfebe3",
   "response": {
     "searches": [
-      "site:isothermal.edu camps 2027 TechSpire",
-      "open https://www.isothermal.edu/camps/patriotcamp/"
+      "site.isothermal.edu camps 2027 TechSpire",
+      "site:isothermal.edu/camps/patriotcamp \"register\""
     ],
     "usage": {
-      "inputTokens": 23597,
-      "cachedInputTokens": 8223,
-      "outputTokens": 2543,
-      "reasoningTokens": 198
+      "inputTokens": 28152,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2121,
+      "reasoningTokens": 229
     },
     "status": "completed",
-    "ms": 56148,
+    "ms": 50234,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -74,19 +74,19 @@
   "extraction": {
     "provider_name": "Isothermal Community College",
     "website_url": "https://www.isothermal.edu/",
-    "notes": "No summer 2027 program dates or registration milestones were found. Discovery Engineering Camp's official page says it was canceled for summer 2026 despite retaining dates and fees; its card preserves those historical details with closed availability. Additional web opens returned empty text, so supplied official-page text was used where available.",
+    "notes": "No summer 2027 camp information was found. The supplied 2026 pages are used for prior-season facts. Discovery Engineering Camp's detail page announces cancellation despite the summer camps index retaining its dates; it is excluded. Some official pages returned empty text when opened, so supplied crawler text was used. The Careers Electric academy news page yielded only its introductory paragraph.",
     "excluded": [
       {
+        "name": "Discovery Engineering Camp",
+        "reason": "The official detail page states that Engineering Camp will not be offered this summer, overriding the retained July 6–10, 2026 listing."
+      },
+      {
         "name": "Childcare Academy",
-        "reason": "Credential and pre-employment training for high school graduates entering childcare employment, rather than a youth camp."
+        "reason": "Employment credential training for high school graduates, including pre-employment support, rather than a youth summer camp."
       },
       {
         "name": "Careers Electric Summer Electrical Academy",
-        "reason": "Paid workforce-development and pre-apprenticeship program with workplace learning and employment credentials."
-      },
-      {
-        "name": "Summer Pre-apprenticeship Program",
-        "reason": "Workforce-readiness and pre-apprenticeship program with resume training, employment preparation, and a completion stipend."
+        "reason": "Paid pre-apprenticeship learning and employment preparation, rather than a summer camp."
       }
     ],
     "cards": [
@@ -94,9 +94,9 @@
         "name": "Patriot Basketball Youth Camp",
         "type": "day",
         "categories": ["sports"],
-        "description": "Students practice basketball skills, drills, and teamwork with Coach Kenneth Hines. Previous basketball experience is not required.",
+        "description": "Students develop basketball skills through drills and team-building activities led by Coach Kenneth Hines. Prior basketball experience is not required.",
         "camp_page_url": "https://www.isothermal.edu/camps/patriotcamp/index.html",
-        "registration_url": null,
+        "registration_url": "https://www.isothermal.edu/camps/patriotcamp/register.html",
         "season": {
           "year": 2026,
           "status": "not_posted",
@@ -112,7 +112,7 @@
         },
         "sites": [
           {
-            "name": "Isothermal Community College Student Center Gymnasium",
+            "name": "Isothermal Community College Student Center Building, Gymnasium",
             "address": "286 ICC Loop Road",
             "town": "Spindale",
             "state": "NC"
@@ -128,13 +128,13 @@
           {
             "amount": 60,
             "unit": "session",
-            "label": "First participant in household",
+            "label": "first participant",
             "year": 2026
           },
           {
             "amount": 55,
             "unit": "session",
-            "label": "Additional children in the same household",
+            "label": "additional children in the same household",
             "year": 2026
           }
         ],
@@ -182,15 +182,18 @@
           "text": "Participants should pack their lunch with a meal that will give them energy for the day. If this is a financial strain on a family, please reach out, and we will ensure each participant has access to a nutritious meal."
         },
         "transportation": null,
-        "sources": ["https://www.isothermal.edu/camps/patriotcamp/index.html"],
-        "confidence": "high",
-        "review_notes": null
+        "sources": [
+          "https://www.isothermal.edu/camps/patriotcamp/index.html",
+          "https://www.isothermal.edu/camps/patriotcamp/register.html"
+        ],
+        "confidence": "medium",
+        "review_notes": "The registration page search result still labels the form 2025 Patriot Basketball Camp, while the supplied program page explicitly lists 2026. Check that the application has been updated before directing families to register. The program also states current grades 2–7, corresponding to rising grades 3–8."
       },
       {
         "name": "TechSpire Summer Camp",
         "type": "half_day",
         "categories": ["stem"],
-        "description": "Campers select five activity tracks and rotate to a different track each day. Options include artificial intelligence, augmented reality, cybersecurity, filmmaking, health, and agriculture.",
+        "description": "Campers select five tracks and rotate daily through sessions covering technology and career fields, including artificial intelligence, augmented reality, cybersecurity, filmmaking, healthcare, and agriculture.",
         "camp_page_url": "https://www.isothermal.edu/camps/techspire/index.html",
         "registration_url": "https://www.isothermal.edu/camps/techspire/register.html",
         "season": {
@@ -224,7 +227,7 @@
           {
             "amount": 0,
             "unit": "program",
-            "label": "Free",
+            "label": "FREE",
             "year": 2026
           }
         ],
@@ -238,16 +241,17 @@
         "transportation": null,
         "sources": [
           "https://www.isothermal.edu/camps/techspire/index.html",
-          "https://www.isothermal.edu/camps/techspire/register.html"
+          "https://www.isothermal.edu/camps/techspire/register.html",
+          "https://www.isothermal.edu/camps/index.html"
         ],
         "confidence": "medium",
-        "review_notes": "The TechSpire page does not print a year with June 1–5. Assigned 2026 from the surrounding 2026 camp listings and the stated Monday–Friday weekdays; verify the year. Eligibility is limited to students from Polk and Rutherford Counties. Breakfast items and snacks are available, but lunch is not addressed."
+        "review_notes": "The TechSpire page gives Monday June 1–Friday June 5 without printing a year. These dates were assigned to 2026 from the surrounding 2026 camp listings and matching weekdays; confirm the year. Eligibility is limited to students from Polk and Rutherford Counties. Tracks are daily rotations, not separately dated sessions."
       },
       {
         "name": "Patriot's Journey Summer Bridge Program",
         "type": "pre_college",
         "categories": ["academic"],
-        "description": "Newly graduated high school seniors and adults starting college complete college success, writing, and mathematics courses during an eight-week summer term. Field trips and guest visits are included.",
+        "description": "Newly graduated high school seniors and adults starting college complete college-level writing, math, and college-transfer courses in an eight-week summer semester. Field trips and visits from special guests are included.",
         "camp_page_url": "https://www.isothermal.edu/camps/journey/index.html",
         "registration_url": null,
         "season": {
@@ -259,14 +263,7 @@
         },
         "ages": null,
         "grades": null,
-        "sites": [
-          {
-            "name": "Isothermal Community College Rutherford Campus",
-            "address": "286 ICC Loop Road",
-            "town": "Spindale",
-            "state": "NC"
-          }
-        ],
+        "sites": [],
         "hours": {
           "start": null,
           "end": null,
@@ -277,7 +274,7 @@
           {
             "amount": 0,
             "unit": "program",
-            "label": "Free tuition, fees, books and materials",
+            "label": "FREE",
             "year": 2026
           }
         ],
@@ -289,76 +286,18 @@
         "special_needs": null,
         "lunch": {
           "value": "yes",
-          "text": "Isothermal Community College Provides FREE Lunch and Snacks"
+          "text": "Lunch and Snacks"
         },
         "transportation": {
           "value": "case_by_case",
           "text": "Transportation, if needed"
         },
-        "sources": ["https://www.isothermal.edu/camps/journey/index.html"],
-        "confidence": "medium",
-        "review_notes": "The page identifies the college but does not explicitly name the meeting campus or building; Rutherford Campus is inferred from the program context and published footer. Verify the drop-off location. Includes newly graduated seniors as well as adults."
-      },
-      {
-        "name": "Discovery Engineering Camp",
-        "type": "day",
-        "categories": ["stem"],
-        "description": "Students work in groups on engineering challenges, planning, building, and testing designs. Licensed teachers trained by NC State lead the activities.",
-        "camp_page_url": "https://www.isothermal.edu/camps/engineeringcamp/index.html",
-        "registration_url": null,
-        "season": {
-          "year": 2026,
-          "status": "not_posted",
-          "start": "2026-07-06",
-          "end": "2026-07-10",
-          "text": null
-        },
-        "ages": null,
-        "grades": {
-          "min": 7,
-          "max": 10,
-          "basis": "rising"
-        },
-        "sites": [
-          {
-            "name": "Isothermal Community College Rutherford Campus",
-            "address": "286 ICC Loop Road",
-            "town": "Spindale",
-            "state": "NC"
-          }
-        ],
-        "hours": {
-          "start": "08:30",
-          "end": "15:00",
-          "text": null
-        },
-        "extended_care": null,
-        "prices": [
-          {
-            "amount": 325,
-            "unit": "program",
-            "label": "Published fee before cancellation",
-            "year": 2026
-          }
-        ],
-        "sessions": [],
-        "registration": [],
-        "last_year_registration_opened": null,
-        "availability": {
-          "status": "closed",
-          "scope": "Summer 2026 canceled",
-          "text": "After careful consideration, we have made the decision not to offer Engineering Camp this summer."
-        },
-        "financial_aid": null,
-        "special_needs": null,
-        "lunch": null,
-        "transportation": null,
         "sources": [
-          "https://www.isothermal.edu/camps/index.html",
-          "https://www.isothermal.edu/camps/engineeringcamp/index.html"
+          "https://www.isothermal.edu/camps/journey/index.html",
+          "https://www.isothermal.edu/camps/index.html"
         ],
-        "confidence": "medium",
-        "review_notes": "The detail page explicitly cancels camp but retains July 6–10, 2026 dates, a $325 fee, and application deadlines; the summer-camps index also retains the dates. These are canceled historical details, not an operating session. The statement about revisiting plans in the coming year is not a confirmed 2027 offering."
+        "confidence": "high",
+        "review_notes": null
       }
     ]
   }

@@ -8,22 +8,23 @@
     "status": "review",
     "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
   },
-  "extractedAt": "2026-10-29T15:21:47.542Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:18:30.952Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "d69b2857efba29f1ec0cbb94c08a672110e54f8b9aaa45a76a17aea8f125826b",
   "response": {
     "searches": [
-      "Cross Memorial Baptist Church Marion VBS 2026 2027",
-      "site:facebook.com \"Cross Memorial\" \"VBS\" \"2026\""
+      "site:crosschurchmarion.org VBS 2026",
+      "site:facebook.com \"CMBC VBS 2026\"",
+      "\"crosschurchmarion\" \"2027\""
     ],
     "usage": {
-      "inputTokens": 15819,
-      "cachedInputTokens": 8223,
-      "outputTokens": 860,
-      "reasoningTokens": 200
+      "inputTokens": 20428,
+      "cachedInputTokens": 8845,
+      "outputTokens": 864,
+      "reasoningTokens": 245
     },
     "status": "completed",
-    "ms": 29245,
+    "ms": 30682,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -42,19 +43,19 @@
   "extraction": {
     "provider_name": "Cross Memorial Baptist Church of Marion",
     "website_url": "https://crosschurchmarion.org/",
-    "notes": "No summer 2027 information was found. The official website lists recurring children's and youth ministries but no readable summer camp details. The church's Facebook page returned no readable content. A 2026 VBS event was found only on third-party event listings; its dates, hours and location require official confirmation. No registration opening date was found.",
+    "notes": "No 2027 camp information was found. The church's Facebook page returned no readable content. A 2026 VBS listing was found on AllEvents and HappeningNext, but its dates and venue could not be confirmed on readable official pages.",
     "excluded": [
       {
         "name": "CrossKids",
-        "reason": "Recurring Sunday and Wednesday children's ministry, not a finite summer program."
+        "reason": "Regular year-round children's ministry meetings, not a finite summer camp."
       },
       {
         "name": "CrossYouth",
-        "reason": "Recurring Sunday and Wednesday youth ministry, not a finite summer program."
+        "reason": "Regular year-round youth ministry meetings, not a finite summer camp."
       },
       {
         "name": "Family Retreat",
-        "reason": "Family-only retreat; the events page references a 2024 interest form."
+        "reason": "Family-only retreat; the events page lists a 2024 interest form."
       }
     ],
     "cards": [
@@ -62,7 +63,7 @@
         "name": "CMBC VBS",
         "type": "vbs",
         "categories": ["faith_based"],
-        "description": "The church offered a Vacation Bible School program in June 2026. Detailed activities were not available in the readable sources.",
+        "description": "Vacation Bible School for children.",
         "camp_page_url": null,
         "registration_url": null,
         "season": {
@@ -93,13 +94,9 @@
         "special_needs": null,
         "lunch": null,
         "transportation": null,
-        "sources": [
-          "https://crosschurchmarion.org/",
-          "https://allevents.in/marion/cmbc-vbs-2026/200030084931618",
-          "https://happeningnext.com/event/cmbc-vbs-2026-eid3a0dnu0i6e"
-        ],
+        "sources": ["https://crosschurchmarion.org/", "https://crosschurchmarion.org/crosskids"],
         "confidence": "low",
-        "review_notes": "The VBS name, June 21–24, 2026 dates and venue address are from third-party event listings, not readable official camp materials. Confirm these with the church. Listings show an event beginning at 6:00 PM and ending at 8:30 PM, but do not clearly establish nightly hours, so hours are null. The official Facebook page could not be read, and the official website's readable text did not publish the street address."
+        "review_notes": "Dates and camp venue come only from https://allevents.in/marion/cmbc-vbs-2026/200030084931618, corroborated by the HappeningNext search listing. Confirm these with the church's official Facebook event. The third-party event gives an overall interval from June 21 at 6:00 p.m. to June 24 at 8:30 p.m.; daily hours were left null because that does not establish each night's schedule. The street address is corroborated by the SBC church directory, but could not be read on the venue's own pages. Ages, activities, prices and registration details remain unconfirmed."
       }
     ]
   }

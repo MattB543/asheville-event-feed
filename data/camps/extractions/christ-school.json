@@ -7,23 +7,23 @@
     "discovered_by": ["grid", "aggregator", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:31:18.171Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:26:29.953Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "c06347f1debaee82c66011270d58c9a638930e5db3f6a6b3159b7e72561ffe38",
   "response": {
     "searches": [
-      "All American Cross Country Camp 2027 July 4 9",
+      "All American cross country camp 2027 July 4 9",
       "open https://www.crosscountrycamp.com/",
-      "site.crosscountrycamp.com \"2027\" \"890\""
+      "site:crosscountrycamp.com \"2027\""
     ],
     "usage": {
-      "inputTokens": 28872,
-      "cachedInputTokens": 8223,
-      "outputTokens": 3051,
-      "reasoningTokens": 235
+      "inputTokens": 33319,
+      "cachedInputTokens": 8845,
+      "outputTokens": 3306,
+      "reasoningTokens": 200
     },
     "status": "completed",
-    "ms": 91748,
+    "ms": 74381,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -72,14 +72,31 @@
   "extraction": {
     "provider_name": "Christ School",
     "website_url": "https://www.christschool.org/",
-    "notes": "The current camp page lists Plumlee Basketball Camp and All-American Cross Country Camp. Its introductory text still mentions lacrosse and Next Level Football Academy, but no current details accompany those names; they are not included as current offerings. The cross-country website confirms the listed July dates are for 2027, but its pages returned no readable body text when opened; search results supplied the dated heading. Cross-country prices on the school page have no explicit year and are omitted pending verification. School tuition financial aid and school-year transportation policies were not applied to camps.",
-    "excluded": [],
+    "notes": "The current summer-camps page lists 2027 basketball and cross-country offerings. Its introductory text still mentions lacrosse and Next Level Football Academy, but no current details for those programs were found. Older sports-camp pages and articles were not treated as current offerings. Cross-country pages returned empty bodies when opened; official search-indexed text supplied the details. The Info page lists 2027 information sheets, but their PDF links could not be retrieved.",
+    "excluded": [
+      {
+        "name": "Christ School's Lacrosse Camp",
+        "reason": "Mentioned only in the introductory text; absent from the detailed current program list and no 2027 offering found."
+      },
+      {
+        "name": "Next Level Football Academy",
+        "reason": "Mentioned only in the introductory text; absent from the detailed current program list and no 2027 offering found."
+      },
+      {
+        "name": "Christ School Football Camp",
+        "reason": "An older standalone page gives undated June dates; this program is absent from the current 2027 program list."
+      },
+      {
+        "name": "Father-Son Weekend",
+        "reason": "Family-only program found in a 2022 article."
+      }
+    ],
     "cards": [
       {
         "name": "Plumlee Basketball Camp",
         "type": "overnight",
         "categories": ["sports"],
-        "description": "Boys practice basketball skills and compete in games with Mason Plumlee and camp coaches. Activities also include film review, strength and conditioning, outdoor team-building, and leadership discussions.",
+        "description": "Boys ages 10–17 participate in basketball skill development, competitive drills, games, film review, conditioning, and leadership discussions.",
         "camp_page_url": "https://www.christschool.org/athletics/summer-camps",
         "registration_url": "https://register.ryzer.com/camp.cfm?sport=4&id=338224",
         "season": {
@@ -112,13 +129,13 @@
           {
             "amount": 850,
             "unit": "program",
-            "label": "Overnight by March 1; additional $56 fees; meals and lodging included",
+            "label": "Overnight by March 1; additional $56 fees",
             "year": 2027
           },
           {
             "amount": 900,
             "unit": "program",
-            "label": "Overnight after March 1; additional $59 fees; meals and lodging included",
+            "label": "Overnight after March 1; additional $59 fees",
             "year": 2027
           }
         ],
@@ -127,22 +144,18 @@
           {
             "audience": "public",
             "kind": "deadline",
-            "date": "2027-06-20",
-            "time": null,
-            "precision": "date",
+            "date": "2027-06-21",
+            "time": "00:59",
+            "precision": "datetime",
             "certainty": "announced",
             "text": "Register By Jun 20, 2027 11:59pm CST",
             "url": "https://register.ryzer.com/camp.cfm?sport=4&id=338224",
             "year": 2027,
-            "confidence": "medium"
+            "confidence": "high"
           }
         ],
         "last_year_registration_opened": null,
-        "availability": {
-          "status": "available",
-          "scope": null,
-          "text": "Register for this event! Select a price option to continue."
-        },
+        "availability": null,
         "financial_aid": null,
         "special_needs": null,
         "lunch": {
@@ -155,13 +168,13 @@
           "https://register.ryzer.com/camp.cfm?sport=4&id=338224"
         ],
         "confidence": "medium",
-        "review_notes": "Ryzer also lists an overnight rate of $800 plus $53 fees by August 1st, absent from the school page and without a calendar year for that cutoff; omitted pending confirmation. Ryzer labels its deadline time CST rather than Eastern; verify the intended timezone and Eastern calendar date before publishing a timed reminder."
+        "review_notes": "Ryzer additionally lists an $800 plus $53 fees tier 'By August 1st' without a calendar year; omitted because its applicability is unclear and it is absent from the school page. Registration deadline converted from the platform's Central time to Eastern, moving June 20 at 11:59 p.m. to June 21 at 00:59. Format check: public deadline time 00:59 is before 5 a.m.."
       },
       {
-        "name": "Plumlee Basketball Camp",
+        "name": "Plumlee Basketball Camp (day)",
         "type": "day",
         "categories": ["sports"],
-        "description": "Commuter campers participate in basketball skill development, competition, film review, conditioning, and leadership activities. Meals are included, but lodging is not.",
+        "description": "Commuter campers participate in basketball skill development, competition, conditioning, film review, and leadership activities without overnight lodging.",
         "camp_page_url": "https://www.christschool.org/athletics/summer-camps",
         "registration_url": "https://register.ryzer.com/camp.cfm?sport=4&id=338224",
         "season": {
@@ -187,14 +200,14 @@
         "hours": {
           "start": null,
           "end": null,
-          "text": "Check-in: 9 a.m. to 10:30 a.m. on June 21; Camp begins: 10:30 a.m. on June 21; Camp ends: 1 p.m. on June 24. Daily commuter arrival and departure hours are not stated."
+          "text": "Check-in: 9 a.m. to 10:30 a.m. on June 21; Camp begins: 10:30 a.m. on June 21; Camp ends: 1 p.m. on June 24."
         },
         "extended_care": null,
         "prices": [
           {
             "amount": 750,
             "unit": "program",
-            "label": "Commuter; additional $50 fees; meals included, no lodging",
+            "label": "Commuter; additional $50 fees",
             "year": 2027
           }
         ],
@@ -203,22 +216,18 @@
           {
             "audience": "public",
             "kind": "deadline",
-            "date": "2027-06-20",
-            "time": null,
-            "precision": "date",
+            "date": "2027-06-21",
+            "time": "00:59",
+            "precision": "datetime",
             "certainty": "announced",
             "text": "Register By Jun 20, 2027 11:59pm CST",
             "url": "https://register.ryzer.com/camp.cfm?sport=4&id=338224",
             "year": 2027,
-            "confidence": "medium"
+            "confidence": "high"
           }
         ],
         "last_year_registration_opened": null,
-        "availability": {
-          "status": "available",
-          "scope": null,
-          "text": "Commuter Camper $800.00 ($750.00 + $50.00 Fees)"
-        },
+        "availability": null,
         "financial_aid": null,
         "special_needs": null,
         "lunch": {
@@ -231,28 +240,24 @@
           "https://register.ryzer.com/camp.cfm?sport=4&id=338224"
         ],
         "confidence": "medium",
-        "review_notes": "Ryzer labels its deadline time CST rather than Eastern; verify the intended timezone and Eastern calendar date before publishing a timed reminder. The sample overnight schedule does not establish commuter hours."
+        "review_notes": "Format check: public deadline time 00:59 is before 5 a.m.."
       },
       {
         "name": "All-American Cross Country Camp",
         "type": "overnight",
         "categories": ["sports"],
-        "description": "High school runners train on trails around Christ School with camp instructors, including collegiate and high school All-Americans.",
+        "description": "High-school runners train on campus and nearby trails and participate in technique drills, strength exercises, guest-speaker sessions, and evening activities.",
         "camp_page_url": "https://www.crosscountrycamp.com/",
-        "registration_url": null,
+        "registration_url": "https://www.crosscountrycamp.com/take-action",
         "season": {
           "year": 2027,
           "status": "posted",
           "start": "2027-07-04",
           "end": "2027-07-23",
-          "text": "2027 Dates Session 1- July 4-9 Session 2- July 11-16 Session 3- July 18-23"
+          "text": null
         },
         "ages": null,
-        "grades": {
-          "min": 9,
-          "max": 12,
-          "basis": "unspecified"
-        },
+        "grades": null,
         "sites": [
           {
             "name": "Christ School",
@@ -261,9 +266,20 @@
             "state": "NC"
           }
         ],
-        "hours": null,
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "Registration/Check-in starts the Sunday of each week from 2:30-4:30 pm at the student center on the Christ School campus. Camp will terminate at 10:30 am on Friday of each week."
+        },
         "extended_care": null,
-        "prices": [],
+        "prices": [
+          {
+            "amount": 890,
+            "unit": "session",
+            "label": "Overnight Camper; additional 3.49% fee if paying via PayPal",
+            "year": 2027
+          }
+        ],
         "sessions": [
           {
             "label": "Session 1",
@@ -320,31 +336,31 @@
           "https://www.christschool.org/athletics/summer-camps",
           "https://www.crosscountrycamp.com/",
           "https://www.crosscountrycamp.com/camp",
-          "https://www.crosscountrycamp.com/camp-info"
+          "https://www.crosscountrycamp.com/pricing",
+          "https://www.crosscountrycamp.com/take-action",
+          "https://www.crosscountrycamp.com/camp-info",
+          "https://www.crosscountrycamp.com/schedule",
+          "https://www.crosscountrycamp.com/new-page-1"
         ],
         "confidence": "medium",
-        "review_notes": "2027 dates and registration availability were read through official search results because the camp website opened without readable text. The school states high school individuals and teams, boys and girls; grades 9-12 encode that school level. Verify precise grade eligibility. The school lists $890 overnight without an explicit year; omitted. Registration destination could not be recovered."
+        "review_notes": "Official camp-site facts were available only through search-indexed text. The homepage explicitly labels the sessions 2027; pricing and FAQ pages do not separately print a year. Eligibility says high-school-aged runners, without numerical ages or explicit grades. Check the linked 2027 information sheets for additional details."
       },
       {
-        "name": "All-American Cross Country Camp",
+        "name": "All-American Cross Country Camp (day)",
         "type": "day",
         "categories": ["sports"],
-        "description": "High school runners participate in cross-country training on trails around Christ School with camp instructors.",
+        "description": "A day-camp option for high-school cross-country runners includes running and training activities at Christ School and nearby trails.",
         "camp_page_url": "https://www.crosscountrycamp.com/",
-        "registration_url": null,
+        "registration_url": "https://www.crosscountrycamp.com/take-action",
         "season": {
           "year": 2027,
           "status": "posted",
           "start": "2027-07-04",
           "end": "2027-07-23",
-          "text": "2027 Dates Session 1- July 4-9 Session 2- July 11-16 Session 3- July 18-23"
+          "text": null
         },
         "ages": null,
-        "grades": {
-          "min": 9,
-          "max": 12,
-          "basis": "unspecified"
-        },
+        "grades": null,
         "sites": [
           {
             "name": "Christ School",
@@ -355,7 +371,14 @@
         ],
         "hours": null,
         "extended_care": null,
-        "prices": [],
+        "prices": [
+          {
+            "amount": 650,
+            "unit": "session",
+            "label": "Day Camper; additional 3.49% fee if paying via PayPal",
+            "year": 2027
+          }
+        ],
         "sessions": [
           {
             "label": "Session 1",
@@ -408,10 +431,12 @@
         "sources": [
           "https://www.christschool.org/athletics/summer-camps",
           "https://www.crosscountrycamp.com/",
-          "https://www.crosscountrycamp.com/camp"
+          "https://www.crosscountrycamp.com/camp",
+          "https://www.crosscountrycamp.com/pricing",
+          "https://www.crosscountrycamp.com/take-action"
         ],
         "confidence": "medium",
-        "review_notes": "2027 dates and registration availability were read through official search results because the camp website opened without readable text. Verify day-camper participation in all three sessions and precise grade eligibility; the school states high school individuals and teams, boys and girls. The school lists $650 day camp without an explicit year; omitted. Registration destination and day-camper hours could not be recovered."
+        "review_notes": "Official camp-site facts were available only through search-indexed text. The homepage explicitly labels the sessions 2027; pricing does not separately print a year. No day-camper-specific daily hours or meal inclusion were found. Eligibility says high-school-aged runners without numerical ages or explicit grades. Day suffixes distinguish the two formats because the existing names were duplicated."
       }
     ]
   }

@@ -7,22 +7,22 @@
     "discovered_by": ["grid", "aggregator", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:04:32.631Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:04:28.649Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "266f2970782f3d5d960bda53ca7286575718d653a12f865df720662aa948e11f",
   "response": {
     "searches": [
-      "site.blueridge.edu \"summer\" \"2027\"",
-      "open https://www.blueridge.edu/community/summer-camps/?x=1"
+      "site.blueridge.edu summer camps 2027",
+      "open https://www.blueridge.edu/community/summer-camps/summer-camps-information/"
     ],
     "usage": {
-      "inputTokens": 35760,
-      "cachedInputTokens": 8223,
-      "outputTokens": 4928,
-      "reasoningTokens": 202
+      "inputTokens": 36442,
+      "cachedInputTokens": 8845,
+      "outputTokens": 5651,
+      "reasoningTokens": 166
     },
     "status": "completed",
-    "ms": 86553,
+    "ms": 97109,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -61,16 +61,16 @@
   "extraction": {
     "provider_name": "Blue Ridge Community College",
     "website_url": "https://www.blueridge.edu/",
-    "notes": "No official summer 2027 camp information was found. Cards use the 2026 camp listing; June dates take their year from the page's explicit 2026 registration period. Registration link destinations could not be retrieved, so registration_url is null. The supplied college advising, tuition and course-fee materials concern regular college enrollment, not camp registration.",
+    "notes": "No official 2027 summer camp information was found. Cards retain the 2026 offerings. Camp dates omit the year; they are treated as 2026 from the page's explicit 2026 registration period and reference to 2026 graduates. Individual registration-link destinations could not be recovered; registration_url uses the official camp page containing those links. The camp rules page could not be opened, but official search results supplied its lunch and transportation rules. College advising, tuition, residency and payment-plan materials are not camp-specific and were not used.",
     "excluded": [],
     "cards": [
       {
         "name": "ArcStrong",
         "type": "day",
         "categories": ["stem"],
-        "description": "Students learn welding safety and introductory MIG and SMAW welding. They make a metal project to take home.",
+        "description": "Campers learn welding safety and introductory MIG and SMAW welding techniques. They make a metal project to take home.",
         "camp_page_url": "https://www.blueridge.edu/community/summer-camps/",
-        "registration_url": null,
+        "registration_url": "https://www.blueridge.edu/community/summer-camps/",
         "season": {
           "year": 2026,
           "status": "not_posted",
@@ -155,21 +155,25 @@
           "value": "no",
           "text": "Students are responsible for their lunches, drinks, and snacks throughout the day."
         },
-        "transportation": null,
+        "transportation": {
+          "value": "no",
+          "text": "Campers are responsible for their own transportation to and from camp."
+        },
         "sources": [
           "https://www.blueridge.edu/community/summer-camps/",
+          "https://www.blueridge.edu/community/summer-camps/summer-camps-information/",
           "https://bhs.tcsnc.org/o/bhs/page/directions-to-bhs"
         ],
-        "confidence": "high",
-        "review_notes": null
+        "confidence": "medium",
+        "review_notes": "Session dates are assigned 2026 from the camp page's registration period; individual dates omit the year. Transportation wording was read in an official search snippet. Brevard High School publishes 609 N. Country Club Rd.; its directions page warns that maps may still use the old mailing address, 747 Country Club Road."
       },
       {
         "name": "Amazing Race for Future Healthcare Heroes",
         "type": "half_day",
         "categories": ["stem"],
-        "description": "Campers participate in a team-based competition introducing healthcare skills, teamwork and healthcare careers. The camp is limited to 12 campers.",
+        "description": "Campers participate in a team-based competition introducing healthcare skills, teamwork and career exploration.",
         "camp_page_url": "https://www.blueridge.edu/community/summer-camps/",
-        "registration_url": null,
+        "registration_url": "https://www.blueridge.edu/community/summer-camps/",
         "season": {
           "year": 2026,
           "status": "not_posted",
@@ -223,18 +227,24 @@
           "value": "no",
           "text": "Students are responsible for their lunches, drinks, and snacks throughout the day."
         },
-        "transportation": null,
-        "sources": ["https://www.blueridge.edu/community/summer-camps/"],
-        "confidence": "high",
-        "review_notes": null
+        "transportation": {
+          "value": "no",
+          "text": "Campers are responsible for their own transportation to and from camp."
+        },
+        "sources": [
+          "https://www.blueridge.edu/community/summer-camps/",
+          "https://www.blueridge.edu/community/summer-camps/summer-camps-information/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The camp date is assigned 2026 from the camp page's registration period; the individual date omits the year. Transportation wording was read in an official search snippet. The page limits this camp to 12 campers."
       },
       {
         "name": "Automotive Refinishing Technology (ART)",
         "type": "day",
         "categories": ["stem", "arts"],
-        "description": "Middle school campers build and finish a model car and display their work at a closing ceremony. High school campers practice panel sanding, masking and automotive painting.",
+        "description": "Middle school campers build and finish a model car while exploring automotive refinishing. High school campers practice panel sanding, masking and painting through hands-on shop activities.",
         "camp_page_url": "https://www.blueridge.edu/community/summer-camps/",
-        "registration_url": null,
+        "registration_url": "https://www.blueridge.edu/community/summer-camps/",
         "season": {
           "year": 2026,
           "status": "not_posted",
@@ -256,17 +266,13 @@
             "state": "NC"
           }
         ],
-        "hours": {
-          "start": null,
-          "end": null,
-          "text": "Middle School: 1-5 p.m.; High School: 10 a.m. – 4 p.m."
-        },
+        "hours": null,
         "extended_care": null,
         "prices": [
           {
             "amount": 75,
             "unit": "session",
-            "label": "Registration Fee; middle school or high school",
+            "label": "Registration Fee",
             "year": 2026
           }
         ],
@@ -327,18 +333,24 @@
           "value": "no",
           "text": "Students are responsible for their lunches, drinks, and snacks throughout the day."
         },
-        "transportation": null,
-        "sources": ["https://www.blueridge.edu/community/summer-camps/"],
-        "confidence": "high",
-        "review_notes": null
+        "transportation": {
+          "value": "no",
+          "text": "Campers are responsible for their own transportation to and from camp."
+        },
+        "sources": [
+          "https://www.blueridge.edu/community/summer-camps/",
+          "https://www.blueridge.edu/community/summer-camps/summer-camps-information/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Session dates are assigned 2026 from the camp page's registration period; individual dates omit the year. Middle school meets for two half days, while high school meets for one full day; both are age-band rows of the named ART offering. The middle school session includes a pizza dinner at its concluding ceremony, distinct from the general bring-your-own-lunch rule. Transportation wording was read in an official search snippet."
       },
       {
         "name": "C.A.R.",
         "type": "day",
         "categories": ["stem"],
-        "description": "Students explore car design, roadside safety and basic automotive maintenance through hands-on activities. Activities include changing oil, checking tire pressure, identifying parts and a Pit-Crew Challenge.",
+        "description": "Campers explore car design, roadside safety and basic automotive maintenance. Hands-on activities include changing oil, checking tire pressure, identifying parts and a Pit-Crew Challenge.",
         "camp_page_url": "https://www.blueridge.edu/community/summer-camps/",
-        "registration_url": null,
+        "registration_url": "https://www.blueridge.edu/community/summer-camps/",
         "season": {
           "year": 2026,
           "status": "not_posted",
@@ -423,18 +435,24 @@
           "value": "no",
           "text": "Students are responsible for their lunches, drinks, and snacks throughout the day."
         },
-        "transportation": null,
-        "sources": ["https://www.blueridge.edu/community/summer-camps/"],
-        "confidence": "high",
-        "review_notes": null
+        "transportation": {
+          "value": "no",
+          "text": "Campers are responsible for their own transportation to and from camp."
+        },
+        "sources": [
+          "https://www.blueridge.edu/community/summer-camps/",
+          "https://www.blueridge.edu/community/summer-camps/summer-camps-information/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Session dates are assigned 2026 from the camp page's registration period; individual dates omit the year. Transportation wording was read in an official search snippet."
       },
       {
         "name": "Hair Art and Design",
         "type": "day",
         "categories": ["arts"],
-        "description": "Campers explore hair design through hands-on mannequin work and individual interaction with the Cosmetology Department. The offering includes rising ninth through twelfth graders and 2026 high school graduates.",
+        "description": "Campers explore hair design through hands-on mannequin work and one-on-one interaction with the cosmetology department.",
         "camp_page_url": "https://www.blueridge.edu/community/summer-camps/",
-        "registration_url": null,
+        "registration_url": "https://www.blueridge.edu/community/summer-camps/",
         "season": {
           "year": 2026,
           "status": "not_posted",
@@ -488,18 +506,24 @@
           "value": "no",
           "text": "Please Bring your Own Lunch"
         },
-        "transportation": null,
-        "sources": ["https://www.blueridge.edu/community/summer-camps/"],
-        "confidence": "high",
-        "review_notes": null
+        "transportation": {
+          "value": "no",
+          "text": "Campers are responsible for their own transportation to and from camp."
+        },
+        "sources": [
+          "https://www.blueridge.edu/community/summer-camps/",
+          "https://www.blueridge.edu/community/summer-camps/summer-camps-information/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The camp date is assigned 2026 from the camp page's registration period; the individual date omits the year. Eligibility also includes 2026 high school graduates, which the rising-grade range cannot represent. Transportation wording was read in an official search snippet."
       },
       {
         "name": "Metal Makers Academy",
         "type": "day",
         "categories": ["stem"],
-        "description": "Students receive an introduction to computer-aided drafting, machining and manufacturing processes. They make a metal creation to take home.",
+        "description": "Campers learn introductory computer-aided drafting, machining and manufacturing processes. They make a metal creation to take home.",
         "camp_page_url": "https://www.blueridge.edu/community/summer-camps/",
-        "registration_url": null,
+        "registration_url": "https://www.blueridge.edu/community/summer-camps/",
         "season": {
           "year": 2026,
           "status": "not_posted",
@@ -578,18 +602,24 @@
           "value": "no",
           "text": "Students are responsible for their lunches, drinks, and snacks throughout the day."
         },
-        "transportation": null,
-        "sources": ["https://www.blueridge.edu/community/summer-camps/"],
-        "confidence": "high",
-        "review_notes": null
+        "transportation": {
+          "value": "no",
+          "text": "Campers are responsible for their own transportation to and from camp."
+        },
+        "sources": [
+          "https://www.blueridge.edu/community/summer-camps/",
+          "https://www.blueridge.edu/community/summer-camps/summer-camps-information/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Session dates are assigned 2026 from the camp page's registration period; individual dates omit the year. Transportation wording was read in an official search snippet."
       },
       {
         "name": "Young Builders Camp",
         "type": "day",
         "categories": ["stem"],
-        "description": "Students learn woodworking safety and carpentry skills, including measuring, cutting and assembling a small project. They take their completed creation home.",
+        "description": "Campers learn woodworking skills and safety, including measuring, cutting and assembling a small project to take home.",
         "camp_page_url": "https://www.blueridge.edu/community/summer-camps/",
-        "registration_url": null,
+        "registration_url": "https://www.blueridge.edu/community/summer-camps/",
         "season": {
           "year": 2026,
           "status": "not_posted",
@@ -668,18 +698,24 @@
           "value": "no",
           "text": "Students are responsible for their lunches, drinks, and snacks throughout the day."
         },
-        "transportation": null,
-        "sources": ["https://www.blueridge.edu/community/summer-camps/"],
-        "confidence": "high",
-        "review_notes": null
+        "transportation": {
+          "value": "no",
+          "text": "Campers are responsible for their own transportation to and from camp."
+        },
+        "sources": [
+          "https://www.blueridge.edu/community/summer-camps/",
+          "https://www.blueridge.edu/community/summer-camps/summer-camps-information/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Session dates are assigned 2026 from the camp page's registration period; individual dates omit the year. June 22 is reserved for HC B&G Club, not a public session. Transportation wording was read in an official search snippet."
       },
       {
         "name": "Young Engineers Experience (YEE)",
         "type": "day",
         "categories": ["stem"],
-        "description": "Campers participate in engineering projects and demonstrations involving robotics, electrical circuits, soldering, hydraulics and balsa wood bridge building. Activities emphasize problem solving and teamwork.",
+        "description": "Campers work on engineering projects and demonstrations involving robotics, electrical circuits, soldering, hydraulics and balsa wood bridge building.",
         "camp_page_url": "https://www.blueridge.edu/community/summer-camps/",
-        "registration_url": null,
+        "registration_url": "https://www.blueridge.edu/community/summer-camps/",
         "season": {
           "year": 2026,
           "status": "not_posted",
@@ -764,10 +800,16 @@
           "value": "no",
           "text": "Students are responsible for their lunches, drinks, and snacks throughout the day."
         },
-        "transportation": null,
-        "sources": ["https://www.blueridge.edu/community/summer-camps/"],
-        "confidence": "high",
-        "review_notes": null
+        "transportation": {
+          "value": "no",
+          "text": "Campers are responsible for their own transportation to and from camp."
+        },
+        "sources": [
+          "https://www.blueridge.edu/community/summer-camps/",
+          "https://www.blueridge.edu/community/summer-camps/summer-camps-information/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Session dates are assigned 2026 from the camp page's registration period; individual dates omit the year. Transportation wording was read in an official search snippet."
       }
     ]
   }

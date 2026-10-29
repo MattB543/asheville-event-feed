@@ -7,22 +7,22 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:29:29.877Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:25:03.299Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "36b6337e37384c2976a3177215ac348bebf9eb48f11385860b9bbb1ff61e67d9",
   "response": {
     "searches": [
       "site:eastforkchurch.com VBS 2026 2027",
-      "\"East Fork Baptist Church\" \"VBS\" \"Rosman\""
+      "\"East Fork Baptist Church\" \"VBS\" \"2026\""
     ],
     "usage": {
-      "inputTokens": 15619,
-      "cachedInputTokens": 8223,
-      "outputTokens": 594,
-      "reasoningTokens": 123
+      "inputTokens": 16243,
+      "cachedInputTokens": 8845,
+      "outputTokens": 701,
+      "reasoningTokens": 150
     },
     "status": "completed",
-    "ms": 17301,
+    "ms": 21398,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -41,23 +41,23 @@
   "extraction": {
     "provider_name": "East Fork Baptist Church of Rosman",
     "website_url": "https://eastforkchurch.com/",
-    "notes": "The ministries page confirms a VBS week each summer, but no dated 2026 or 2027 VBS announcement or registration information was found. The calendar-of-events page returned no readable text.",
+    "notes": "The official ministries page confirms an annual summer VBS, but no dated 2026 or 2027 VBS announcement or registration details were found. The calendar-of-events URL returned no readable content.",
     "excluded": [
       {
-        "name": "Children's Ministry Sunday and Wednesday programs",
-        "reason": "Recurring year-round church programs, not finite summer camps."
+        "name": "Bible Studies and Classes",
+        "reason": "Recurring Bible classes and lesson series, not a finite summer youth camp."
       },
       {
-        "name": "Bible Studies and Classes",
-        "reason": "General church Bible studies, not identified as summer youth camps."
+        "name": "Children's Ministry",
+        "reason": "Regular Sunday and Wednesday ministry meetings are year-round programming; its summer VBS is included separately."
       },
       {
         "name": "Women's Ministry",
-        "reason": "Women's Bible studies and luncheons, not summer youth camps."
+        "reason": "Bible studies and themed luncheons, not summer youth camps."
       },
       {
         "name": "Men's Ministry",
-        "reason": "Quarterly men's breakfasts and community service, not summer youth camps."
+        "reason": "Quarterly breakfasts, Bible study and community service, not summer youth camps."
       }
     ],
     "cards": [
@@ -65,7 +65,7 @@
         "name": "VBS",
         "type": "vbs",
         "categories": ["faith_based"],
-        "description": "The church offers a week of Vacation Bible School each summer through its children's ministry.",
+        "description": "A week-long summer Vacation Bible School for children.",
         "camp_page_url": "https://eastforkchurch.com/ministries",
         "registration_url": null,
         "season": {
@@ -77,7 +77,14 @@
         },
         "ages": null,
         "grades": null,
-        "sites": [],
+        "sites": [
+          {
+            "name": "East Fork Baptist Church",
+            "address": "8081 East Fork Road",
+            "town": "Rosman",
+            "state": "NC"
+          }
+        ],
         "hours": null,
         "extended_care": null,
         "prices": [],
@@ -90,8 +97,8 @@
         "lunch": null,
         "transportation": null,
         "sources": ["https://eastforkchurch.com/ministries", "https://eastforkchurch.com/"],
-        "confidence": "high",
-        "review_notes": null
+        "confidence": "medium",
+        "review_notes": "The ministries page confirms annual summer VBS but does not explicitly identify its drop-off location; the church's published address is used. Confirm the VBS venue when a dated announcement appears."
       }
     ]
   }

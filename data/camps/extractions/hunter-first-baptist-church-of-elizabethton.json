@@ -7,23 +7,23 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:25:14.345Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:21:27.570Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "fb9f0e7734a94ded8c3d5b17f65d7d660b7cf1e5b2902436926e424158e04bb6",
   "response": {
     "searches": [
-      "site:hunterfbc.org VBS 2026 2027",
-      "open https://www.hunterfbc.org/vbs",
-      "\"Hunter First Baptist\" \"VBS\" \"2026\" facebook"
+      "site:hunterfbc.org VBS 2026",
+      "\"Hunter First Baptist\" \"VBS\" June",
+      "\"hunterfbc\" \"VBS\""
     ],
     "usage": {
-      "inputTokens": 23038,
-      "cachedInputTokens": 8223,
-      "outputTokens": 765,
-      "reasoningTokens": 200
+      "inputTokens": 26034,
+      "cachedInputTokens": 8845,
+      "outputTokens": 749,
+      "reasoningTokens": 217
     },
     "status": "completed",
-    "ms": 24535,
+    "ms": 27571,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -37,15 +37,15 @@
   "extraction": {
     "provider_name": "Hunter First Baptist Church of Elizabethton",
     "website_url": "https://www.hunterfbc.org/",
-    "notes": "No 2027 camp information or dated 2026 VBS details were found. The official VBS search result shows a pre-registration form and the church address, but opening the VBS, Summer Schedule and Ministries pages returned no readable content. The Summer Schedule search result advertises a downloadable schedule, but no PDF link could be retrieved.",
+    "notes": "No 2027 camp information or dated 2026 VBS details were found. The official VBS page was readable through indexed search text, but opening it directly returned no readable content. It contains an undated pre-registration form and the church address, without dates, hours, ages or prices.",
     "excluded": [
       {
-        "name": "Family Bucket List Challenge",
-        "reason": "Activities completed by families independently, not a supervised youth camp."
+        "name": "Wednesday Night Redemption Kids Program",
+        "reason": "School-year children's ministry; the church says it takes summers off."
       },
       {
-        "name": "Wednesday Night Redemption Kids Program",
-        "reason": "Recurring ministry program rather than a finite summer camp; the family ministry page says it takes summers off."
+        "name": "Family Bucket List Challenge",
+        "reason": "Self-directed family activities, not a supervised youth camp."
       }
     ],
     "cards": [
@@ -53,7 +53,7 @@
         "name": "VBS",
         "type": "vbs",
         "categories": ["faith_based"],
-        "description": "The church lists a children's VBS offering with a pre-registration form. Specific activities are not described in the readable page text.",
+        "description": "Vacation Bible School for children.",
         "camp_page_url": "https://www.hunterfbc.org/vbs",
         "registration_url": "https://www.hunterfbc.org/vbs",
         "season": {
@@ -86,7 +86,7 @@
         "transportation": null,
         "sources": ["https://www.hunterfbc.org/vbs", "https://www.hunterfbc.org/"],
         "confidence": "medium",
-        "review_notes": "VBS is documented only by the official search result, which shows an undated pre-registration form and church address. Confirm the offering's year, dates, eligibility, activities and meeting location; the page returned no readable content when opened."
+        "review_notes": "The VBS page is undated and was accessible only through indexed search text; its direct open returned no readable content. Confirm the current summer offering and schedule. The church address appears on the VBS pre-registration page, but no separate camp-location statement is provided."
       }
     ]
   }

@@ -7,19 +7,22 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:31:46.699Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:26:51.495Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "7d9b2cf491faf20f8f090a2db4a689f87f80443926011fc7effbb66d613545dd",
   "response": {
-    "searches": ["site.kecamps.com \"Toxaway\" \"2026\"", "\"Camp Toxaway\" \"2026\""],
+    "searches": [
+      "site.kecamps.com \"Toxaway\" \"2026\"",
+      "open https://kecamps.com/camps/lake-toxaway-country-club"
+    ],
     "usage": {
-      "inputTokens": 23210,
-      "cachedInputTokens": 8223,
-      "outputTokens": 823,
-      "reasoningTokens": 152
+      "inputTokens": 19328,
+      "cachedInputTokens": 8845,
+      "outputTokens": 769,
+      "reasoningTokens": 138
     },
     "status": "completed",
-    "ms": 21692,
+    "ms": 19800,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -78,19 +81,14 @@
   "extraction": {
     "provider_name": "KE Camps",
     "website_url": "https://kecamps.com/",
-    "notes": "The Camp Toxaway page says 2027 dates, rates and registration information are coming soon. No dated 2026 schedule or tuition was found. The registration platform requires an account to view enrollment details. The current camp page could not be rendered by the browsing tool; its supplied fetched text was used.",
-    "excluded": [
-      {
-        "name": "Employment Opportunities",
-        "reason": "Camp staff employment, not a youth summer camp program."
-      }
-    ],
+    "notes": "The supplied official camp page announces that 2027 dates, rates and registration information are coming soon. No dated 2026 session schedule or 2027 registration milestone was found. Direct browser opens returned no readable text; program details were extracted from the supplied official-page text. The weekly traditions PDF link was not available in that text.",
+    "excluded": [],
     "cards": [
       {
         "name": "Camp Toxaway",
         "type": "day",
         "categories": ["general", "sports", "arts", "stem"],
-        "description": "Campers participate in group games, arts and crafts, STEM challenges, food activities and a high ropes course. Golf and tennis each include one recreational group session per week.",
+        "description": "Campers participate in group games, arts and crafts, STEM challenges, food activities and recreational sports. Activities include high ropes, golf, tennis, pickleball and croquet.",
         "camp_page_url": "https://kecamps.com/camps/lake-toxaway-country-club",
         "registration_url": "https://kecamps.campbrainregistration.com/",
         "season": {
@@ -98,7 +96,7 @@
           "status": "coming_soon",
           "start": null,
           "end": null,
-          "text": "2027 Dates and Rates coming soon! Registration information for 2027 will be coming soon!"
+          "text": "2027 Dates and Rates coming soon!"
         },
         "ages": {
           "min": 5,
@@ -116,7 +114,7 @@
         "hours": {
           "start": "09:00",
           "end": "15:00",
-          "text": "Camp Day 9:00am - 3:00pm; Drop-Off Window 8:30am - 9:00am; Pick-Up Window 3:00pm - 3:30pm."
+          "text": "Camp Day: 9:00am - 3:00pm. Drop-Off Window: 8:30am - 9:00am. Pick-Up Window: 3:00pm - 3:30pm."
         },
         "extended_care": null,
         "prices": [],
@@ -136,7 +134,6 @@
         "transportation": null,
         "sources": [
           "https://kecamps.com/camps/lake-toxaway-country-club",
-          "https://kecamps.campbrainregistration.com/",
           "https://www.laketoxawaycc.com/our-story"
         ],
         "confidence": "high",

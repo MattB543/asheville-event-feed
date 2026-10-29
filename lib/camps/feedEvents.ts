@@ -33,13 +33,13 @@ import { TARGET_SEASON, toCardData, type CampCardData, type Labeled } from './di
  *   Summer Camp tag is selected, Top 30 never does (isCampEvent), and the cleanup cron skips them.
  *
  * planCampEvents() only reads; syncCampEvents() writes its plan. Running either twice changes nothing,
- * and two syncs at once run one after the other (SYNC_LOCK).
+ * and a sync that starts while another runs skips (SYNC_LOCK).
  */
 
 /** Canonical host, not SITE_URL: the url is the row's identity and must not change with the env. */
 const CAMP_PAGES = 'https://www.avlgo.com/camps/';
 
-/** pg_advisory_xact_lock key ("camps" in ASCII) held while a sync plans and writes. */
+/** pg_try_advisory_xact_lock key ("camps" in ASCII) held while a sync plans and writes. */
 const SYNC_LOCK = 0x63616d7073;
 
 /** Stored with timeUnknown when the camp gives no start time, as the Parks & Rec scraper does. */
@@ -165,7 +165,9 @@ function campTags(card: CampCard): string[] {
 /** "Asheville Archery Training Center, 1426 Brevard Road, Asheville, NC" */
 function siteLocation(site: CampSiteInfo): string {
   const town = site.town && (site.state ? `${site.town}, ${site.state}` : site.town);
-  return [site.name, site.address, town].filter(Boolean).join(', ');
+  // A town estimate (driveFromTown) is named after its town: "Weaverville, NC", not twice
+  const name = site.name === site.town ? null : site.name;
+  return [name, site.address, town].filter(Boolean).join(', ');
 }
 
 /** The camp's own description, then the facts parents filter on, as /camps shows them. */
@@ -195,12 +197,11 @@ function campEventValues(camp: CampListing, now: Date): CampEventValues | null {
   if (!start) return null;
   const time = start.time && HH_MM.test(start.time) ? start.time : null;
   const data = toCardData(camp, now);
-  // Where that first session is; else (no site named, or one the card doesn't list) the first
-  // placed site
-  const site =
-    (start.site ? camp.sites.find((s) => s.name === start.site) : undefined) ??
-    camp.sites.find((s) => s.lat !== null && s.lng !== null) ??
-    camp.sites[0];
+  // Where that first session is. A session naming a site the card doesn't list has no known
+  // location; one naming no site takes the first placed site.
+  const site = start.site
+    ? camp.sites.find((s) => s.name === start.site)
+    : (camp.sites.find((s) => s.lat !== null && s.lng !== null) ?? camp.sites[0]);
   return {
     sourceId: campSourceId(camp.id),
     url: `${CAMP_PAGES}${camp.slug}?season=${TARGET_SEASON}`,
@@ -301,7 +302,12 @@ export async function syncCampEvents(): Promise<{
   const now = new Date();
 
   const plan = await db.transaction(async (tx) => {
-    await tx.execute(sql`SELECT pg_advisory_xact_lock(${SYNC_LOCK}::bigint)`);
+    // Try, don't wait: a waiting sync would hold a pooled connection the running one may need for
+    // its reads. The running sync writes the same plan, so skipping is safe.
+    const [lock] = await tx.execute<{ locked: boolean }>(
+      sql`SELECT pg_try_advisory_xact_lock(${SYNC_LOCK}::bigint) AS locked`
+    );
+    if (!lock?.locked) return null;
     const plan = await planCampEvents(tx);
     if (plan.create.length > 0) {
       await tx.insert(events).values(
@@ -344,6 +350,10 @@ export async function syncCampEvents(): Promise<{
     return plan;
   });
 
+  if (!plan) {
+    console.log('[Camps] Feed events: another sync is running; skipped');
+    return { created: 0, updated: 0, removed: 0 };
+  }
   const result = {
     created: plan.create.length,
     updated: plan.update.length,

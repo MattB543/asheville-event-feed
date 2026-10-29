@@ -7,19 +7,22 @@
     "discovered_by": ["news828"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T14:59:55.489Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:00:02.896Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "ea8faadd8f1750bb00bceabe14660b7aab69c846ea5c84358b70b439f268a1dc",
   "response": {
-    "searches": ["site:artemisarcheryasheville.com \"2027\""],
+    "searches": [
+      "site:artemisarcheryasheville.com \"2027\"",
+      "open https://artemisarcheryasheville.com/saturday-teen-day-program"
+    ],
     "usage": {
-      "inputTokens": 17560,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1241,
-      "reasoningTokens": 71
+      "inputTokens": 19059,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1245,
+      "reasoningTokens": 94
     },
     "status": "completed",
-    "ms": 27709,
+    "ms": 27256,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -38,31 +41,23 @@
   "extraction": {
     "provider_name": "Artemis Archery Asheville",
     "website_url": "https://artemisarcheryasheville.com/",
-    "notes": "No 2027 camp information or registration opening date found. The camp meets in Alexander, not at the Leicester archery range; no camp street address was found. The 2026 page retains a conflicting '3 SESSIONS SUMMER 2025' heading, but repeatedly labels the same dates and registration form 2026.",
+    "notes": "No 2027 camp information or registration date found. The camp meets in Alexander, not at the published archery range in Leicester; no camp street address was found. The official summer page still advertises 2026 registration as open.",
     "excluded": [
       {
         "name": "Private Individual and Group Archery Lessons",
-        "reason": "Ongoing lessons by appointment, not a finite summer youth program."
+        "reason": "Booked as lessons, not a summer camp."
       },
       {
         "name": "Unique Archery Lessons",
-        "reason": "Recurring or appointment-based lessons, not a finite summer youth program."
+        "reason": "Archery lessons and shoots, not a camp."
       },
       {
-        "name": "Saturday Teen Day Program",
-        "reason": "April and May program, outside summer; currently on hold."
-      },
-      {
-        "name": "Sisters of the WildWisdom",
-        "reason": "Women's program, not a youth summer camp."
-      },
-      {
-        "name": "Wild Wisdom Trainings",
-        "reason": "General skills classes with no finite summer youth offering stated."
+        "name": "Teen Sisters of the Wild Wisdom",
+        "reason": "Alternating-Saturday program listed for April and May, outside summer, and currently on hold."
       },
       {
         "name": "Private RADkid training",
-        "reason": "Private training arranged on request, not a stated summer program."
+        "reason": "Private training booked as a series of classes, not a summer camp."
       }
     ],
     "cards": [
@@ -70,7 +65,7 @@
         "name": "Artemis Archery Adventure Day Camp",
         "type": "day",
         "categories": ["sports", "nature_outdoor"],
-        "description": "Campers practice traditional archery, wilderness skills including fire building, navigation and water purification, and elements of radKIDS self-defense and safety training. Teen sessions use more challenging survival skills and age-appropriate safety content.",
+        "description": "Campers practice traditional archery, outdoor survival skills, and radKIDS self-defense and safety skills. Activities include fire building, map-and-compass navigation, water purification, shelter building, knife safety, and campfire cooking.",
         "camp_page_url": "https://artemisarcheryasheville.com/summer-day-camp",
         "registration_url": "https://artemisarcheryasheville.com/summer-day-camp",
         "season": {
@@ -85,7 +80,14 @@
           "max": 15
         },
         "grades": null,
-        "sites": [],
+        "sites": [
+          {
+            "name": "Alexander",
+            "address": null,
+            "town": "Alexander",
+            "state": "NC"
+          }
+        ],
         "hours": {
           "start": "09:00",
           "end": "16:00",
@@ -96,25 +98,25 @@
           {
             "amount": 360,
             "unit": "week",
-            "label": "Local check or money order",
+            "label": "local check / money order",
             "year": 2026
           },
           {
             "amount": 371,
             "unit": "week",
-            "label": "PayPal, includes fee",
+            "label": "PayPal",
             "year": 2026
           },
           {
             "amount": 334,
             "unit": "week",
-            "label": "PayPal for second sibling only; 10 percent discount",
+            "label": "PayPal, second sibling",
             "year": 2026
           }
         ],
         "sessions": [
           {
-            "label": "kids",
+            "label": "Kids",
             "start": "2026-06-29",
             "end": "2026-07-03",
             "year": 2026,
@@ -129,7 +131,7 @@
             "status": null
           },
           {
-            "label": "kids",
+            "label": "Kids",
             "start": "2026-07-06",
             "end": "2026-07-10",
             "year": 2026,
@@ -144,7 +146,7 @@
             "status": null
           },
           {
-            "label": "teens",
+            "label": "Teens",
             "start": "2026-07-13",
             "end": "2026-07-17",
             "year": 2026,
@@ -177,7 +179,7 @@
           "https://artemisarcheryasheville.com/"
         ],
         "confidence": "medium",
-        "review_notes": "Confirm the Alexander drop-off street address with the provider; the homepage explicitly says camp is separate from 283 Sluder Branch Road. The camp page includes a stale 2025 heading, although repeated schedules and the registration form specify 2026. Standard kids eligibility is 8–11, with 'sometimes mature 7 yr. olds' mentioned separately. The page still says registration is open for past 2026 sessions, so current availability is left null."
+        "review_notes": "The summer page repeats the same dates under one stale '3 SESSIONS SUMMER 2025' heading; multiple other headings and the registration form explicitly label them 2026. Main age listings say 8–11 for kids, while Camp Details adds 'and sometimes mature 7 yr. olds'; confirm exceptions with the director. Obtain the Alexander drop-off street address; the home page explicitly says camp is separate from the Leicester range."
       }
     ]
   }

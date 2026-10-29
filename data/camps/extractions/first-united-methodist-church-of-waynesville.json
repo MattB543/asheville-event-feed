@@ -10,25 +10,23 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:16:53.903Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:13:31.505Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "b65bc1ab73511130fd01dd6b7aca09a008eae3063aedfba485e2d445ef30a92f",
   "response": {
     "searches": [
-      "site:fumc-waynesville.com summer camp 2027 2026",
+      "site:fumc-waynesville.com 2027 camp Bibletimes",
       "open https://www.fumc-waynesville.com/youthtrips/",
-      "site:afterschoolhq.com/FUMCWaynesville \"2027\" \"Wilderness\"",
-      "open https://afterschoolhq.com/FUMCWaynesville/activity/wildernesstrail2027",
-      "site.wildernesstrail.org \"301\""
+      "site:fumc-waynesville.com/youthtrips/ \"trip\""
     ],
     "usage": {
-      "inputTokens": 27866,
-      "cachedInputTokens": 8223,
-      "outputTokens": 4282,
-      "reasoningTokens": 353
+      "inputTokens": 24324,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1652,
+      "reasoningTokens": 260
     },
     "status": "completed",
-    "ms": 89375,
+    "ms": 44387,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -67,27 +65,47 @@
   "extraction": {
     "provider_name": "First United Methodist Church of Waynesville",
     "website_url": "https://www.fumc-waynesville.com/",
-    "notes": "2027 youth trips are posted, but no 2027 update was found for Bibletimes or Creation Care Camp; their 2026 facts are retained. The youth trips list is not a complete children's summer program list. The Youth Summer Camp event page returned no readable details. Superseded 2026 youth trips are not included.",
+    "notes": "No 2027 information found for Creation Care Camp or Bibletimes. The provider has posted 2027 youth trips, which are excluded under the camp rule; this is not a replacement list for its children's camps. Youth Summer Camp has an indexed event page but no readable program details; its current offering status could not be established. Several church pages returned empty content when opened, though official search snippets were readable.",
     "excluded": [
       {
-        "name": "Music Makers",
-        "reason": "School-year music education, not a summer program."
+        "name": "High School Mission Trip",
+        "reason": "Mission trip; excluded under the camp rule."
       },
       {
-        "name": "JAM",
-        "reason": "School-year music classes, not a finite summer program."
+        "name": "Middle School Mission Trip",
+        "reason": "Mission trip; excluded under the camp rule."
       },
       {
-        "name": "JOUNCE",
-        "reason": "School-year afterschool programming."
+        "name": "Local Mission Trip",
+        "reason": "Mission trip; excluded under the camp rule."
       },
       {
-        "name": "Child Development Center",
-        "reason": "Ongoing preschool childcare, not summer-only childcare."
+        "name": "Wilderness Trail",
+        "reason": "Youth-group backpacking trip in Troutdale, VA, outside the directory's geographic area."
       },
       {
         "name": "Winter Retreat",
-        "reason": "March 12-14, 2027 is outside summer."
+        "reason": "March retreat outside summer."
+      },
+      {
+        "name": "Music Makers",
+        "reason": "School-year music education classes, not a summer camp."
+      },
+      {
+        "name": "JAM",
+        "reason": "School-year Appalachian music lessons, not a summer camp."
+      },
+      {
+        "name": "Jounce 6th",
+        "reason": "School-year after-school care."
+      },
+      {
+        "name": "Jounce Middle",
+        "reason": "School-year after-school care."
+      },
+      {
+        "name": "Child Development Center",
+        "reason": "Year-round preschool, not a finite summer camp."
       }
     ],
     "cards": [
@@ -95,7 +113,7 @@
         "name": "Creation Care Camp",
         "type": "day",
         "categories": ["nature_outdoor"],
-        "description": "Children learn about caring for the environment through hands-on activities, field trips, and play.",
+        "description": "Campers learn about caring for the environment through hands-on activities, field trips, and play.",
         "camp_page_url": "https://afterschoolhq.com/FUMCWaynesville/activity/creationcarecamp2026",
         "registration_url": "https://afterschoolhq.com/FUMCWaynesville/activity/creationcarecamp2026",
         "season": {
@@ -113,7 +131,7 @@
         },
         "sites": [
           {
-            "name": "FUMC Waynesville",
+            "name": "First United Methodist Church",
             "address": "566 S Haywood St",
             "town": "Waynesville",
             "state": "NC"
@@ -138,8 +156,8 @@
         "last_year_registration_opened": null,
         "availability": {
           "status": "closed",
-          "scope": "2026 camp",
-          "text": "Registration Closed"
+          "scope": null,
+          "text": "Registration is now closed"
         },
         "financial_aid": null,
         "special_needs": null,
@@ -153,16 +171,16 @@
         },
         "sources": [
           "https://afterschoolhq.com/FUMCWaynesville/activity/creationcarecamp2026",
-          "https://www.fumc-waynesville.com/contact-us/"
+          "https://www.fumc-waynesville.com/"
         ],
         "confidence": "medium",
-        "review_notes": "The English description and schedule end at 5pm, but the Spanish description ends at 5:30pm. Grades refer to the 2025-2026 school year, recorded as completed grades for summer 2026."
+        "review_notes": "The English description and schedule end at 5pm, while the Spanish description ends at 5:30pm. Used the English description and structured schedule. Grades are explicitly for the 2025-2026 school year, recorded as completed for summer 2026."
       },
       {
         "name": "Bibletimes",
         "type": "vbs",
         "categories": ["faith_based"],
-        "description": "Children learn about God through interactive skits, crafts, games, and music. The 2026 theme explores different countries around the world.",
+        "description": "Children learn about God through interactive skits, crafts, games, and music.",
         "camp_page_url": "https://www.fumc-waynesville.com/events/bibletimes/",
         "registration_url": "https://docs.google.com/forms/d/e/1FAIpQLSdrkbQV6DTZxURAK4GAcBs3oEGMKQ5y6RwyTvr5IK25Wt-qlw/viewform?usp=sharing&ouid=109074652801964319975",
         "season": {
@@ -183,7 +201,7 @@
         },
         "sites": [
           {
-            "name": "FUMC Waynesville Gym/Christian Growth Center",
+            "name": "First United Methodist Church Gym/Christian Growth Center",
             "address": "566 S Haywood St",
             "town": "Waynesville",
             "state": "NC"
@@ -192,7 +210,7 @@
         "hours": {
           "start": "17:00",
           "end": "19:30",
-          "text": null
+          "text": "5:00PM - 7:30PM"
         },
         "extended_care": null,
         "prices": [],
@@ -206,348 +224,11 @@
         "transportation": null,
         "sources": [
           "https://www.fumc-waynesville.com/events/bibletimes/",
-          "https://www.fumc-waynesville.com/children/",
-          "https://docs.google.com/forms/d/e/1FAIpQLSdrkbQV6DTZxURAK4GAcBs3oEGMKQ5y6RwyTvr5IK25Wt-qlw/viewform?usp=sharing&ouid=109074652801964319975"
+          "https://docs.google.com/forms/d/e/1FAIpQLSdrkbQV6DTZxURAK4GAcBs3oEGMKQ5y6RwyTvr5IK25Wt-qlw/viewform?usp=sharing&ouid=109074652801964319975",
+          "https://www.fumc-waynesville.com/children/"
         ],
         "confidence": "high",
         "review_notes": null
-      },
-      {
-        "name": "High School Mission Trip",
-        "type": "overnight",
-        "categories": ["faith_based"],
-        "description": "Youth serve the Philadelphia community with YouthWorks and have a free day for sightseeing and activities.",
-        "camp_page_url": "https://www.fumc-waynesville.com/youthtrips/",
-        "registration_url": "https://afterschoolhq.com/FUMCWaynesville/activity/highschoolmissiontrip2027",
-        "season": {
-          "year": 2027,
-          "status": "posted",
-          "start": "2027-06-13",
-          "end": "2027-06-19",
-          "text": null
-        },
-        "ages": null,
-        "grades": {
-          "min": 9,
-          "max": 12,
-          "basis": "unspecified"
-        },
-        "sites": [],
-        "hours": null,
-        "extended_care": null,
-        "prices": [
-          {
-            "amount": 495,
-            "unit": "program",
-            "label": null,
-            "year": 2027
-          },
-          {
-            "amount": 500,
-            "unit": "program",
-            "label": "With Credit Card",
-            "year": 2027
-          }
-        ],
-        "sessions": [],
-        "registration": [
-          {
-            "audience": "public",
-            "kind": "deadline",
-            "date": "2027-05-01",
-            "time": null,
-            "precision": "date",
-            "certainty": "announced",
-            "text": "Registration Fees due May 1st",
-            "url": "https://afterschoolhq.com/FUMCWaynesville/activity/highschoolmissiontrip2027",
-            "year": 2027,
-            "confidence": "medium"
-          }
-        ],
-        "last_year_registration_opened": null,
-        "availability": {
-          "status": "available",
-          "scope": null,
-          "text": "Spots still available!"
-        },
-        "financial_aid": null,
-        "special_needs": null,
-        "lunch": null,
-        "transportation": null,
-        "sources": [
-          "https://www.fumc-waynesville.com/youthtrips/",
-          "https://afterschoolhq.com/FUMCWaynesville/activity/highschoolmissiontrip2027",
-          "https://afterschoolhq.com/FUMCWaynesville/browse"
-        ],
-        "confidence": "medium",
-        "review_notes": "Registration page details were available only through search snippets and the official browse listing. The registration snippet says Philadelphia, MO, while the church page describes Philadelphia without a state; verify destination. No camper drop-off site was stated. May 1 is interpreted within the explicitly labeled 2027 offering."
-      },
-      {
-        "name": "Wilderness Trail",
-        "type": "overnight",
-        "categories": ["nature_outdoor", "faith_based"],
-        "description": "Youth spend six days and five nights backpacking along the Appalachian Trail. Staff provide packs, tents, and meals, and the program accommodates different levels of backpacking experience.",
-        "camp_page_url": "https://www.fumc-waynesville.com/youthtrips/",
-        "registration_url": "https://afterschoolhq.com/FUMCWaynesville/activity/wildernesstrail2027",
-        "season": {
-          "year": 2027,
-          "status": "posted",
-          "start": "2027-06-26",
-          "end": "2027-07-01",
-          "text": null
-        },
-        "ages": null,
-        "grades": {
-          "min": 6,
-          "max": 12,
-          "basis": "unspecified"
-        },
-        "sites": [
-          {
-            "name": "Wilderness Trail Property",
-            "address": "301 Wilderness Trail",
-            "town": "Troutdale",
-            "state": "VA"
-          }
-        ],
-        "hours": null,
-        "extended_care": null,
-        "prices": [
-          {
-            "amount": 375,
-            "unit": "program",
-            "label": null,
-            "year": 2027
-          },
-          {
-            "amount": 380,
-            "unit": "program",
-            "label": "With Credit Card",
-            "year": 2027
-          }
-        ],
-        "sessions": [],
-        "registration": [
-          {
-            "audience": "public",
-            "kind": "deadline",
-            "date": "2027-05-01",
-            "time": null,
-            "precision": "date",
-            "certainty": "announced",
-            "text": "Registration Fees due May 1",
-            "url": "https://afterschoolhq.com/FUMCWaynesville/activity/wildernesstrail2027",
-            "year": 2027,
-            "confidence": "high"
-          },
-          {
-            "audience": "public",
-            "kind": "closes",
-            "date": "2027-06-26",
-            "time": "00:00",
-            "precision": "datetime",
-            "certainty": "announced",
-            "text": "Registration will close 6/26/2027 12:00 AM",
-            "url": "https://afterschoolhq.com/FUMCWaynesville/browse",
-            "year": 2027,
-            "confidence": "medium"
-          }
-        ],
-        "last_year_registration_opened": null,
-        "availability": {
-          "status": "available",
-          "scope": null,
-          "text": "56 seats left"
-        },
-        "financial_aid": null,
-        "special_needs": null,
-        "lunch": {
-          "value": "yes",
-          "text": "All equipment is provided by well informed staff including, pack, tent, and meals."
-        },
-        "transportation": null,
-        "sources": [
-          "https://www.fumc-waynesville.com/youthtrips/",
-          "https://afterschoolhq.com/FUMCWaynesville/activity/wildernesstrail2027",
-          "https://afterschoolhq.com/FUMCWaynesville/browse",
-          "https://wtrail.com/location/"
-        ],
-        "confidence": "medium",
-        "review_notes": "Availability and registration closing time were found in the official browse search snippet. The registration platform lists the Virginia property as the location; confirm whether church participants instead depart together from Waynesville."
-      },
-      {
-        "name": "Middle School Mission Trip",
-        "type": "overnight",
-        "categories": ["faith_based"],
-        "description": "Youth work on light construction projects such as painting and building steps or ramps in Copperhill, Tennessee. They stay at a Team Effort camp and have an excursion day.",
-        "camp_page_url": "https://www.fumc-waynesville.com/youthtrips/",
-        "registration_url": "https://afterschoolhq.com/FUMCWaynesville/activity/middleschoolmissiontrip2",
-        "season": {
-          "year": 2027,
-          "status": "posted",
-          "start": "2027-07-18",
-          "end": "2027-07-23",
-          "text": null
-        },
-        "ages": null,
-        "grades": {
-          "min": 6,
-          "max": 8,
-          "basis": "unspecified"
-        },
-        "sites": [],
-        "hours": null,
-        "extended_care": null,
-        "prices": [
-          {
-            "amount": 405,
-            "unit": "program",
-            "label": "Registration platform price",
-            "year": 2027
-          },
-          {
-            "amount": 410,
-            "unit": "program",
-            "label": "With Credit Card; registration platform price",
-            "year": 2027
-          }
-        ],
-        "sessions": [],
-        "registration": [
-          {
-            "audience": "public",
-            "kind": "deadline",
-            "date": "2027-05-01",
-            "time": null,
-            "precision": "date",
-            "certainty": "announced",
-            "text": "Registration Fees due May 1st",
-            "url": "https://afterschoolhq.com/FUMCWaynesville/activity/middleschoolmissiontrip2",
-            "year": 2027,
-            "confidence": "high"
-          },
-          {
-            "audience": "public",
-            "kind": "closes",
-            "date": "2027-07-18",
-            "time": "00:00",
-            "precision": "datetime",
-            "certainty": "announced",
-            "text": "Registration will close7/18/2027 12:00 AM",
-            "url": "https://afterschoolhq.com/FUMCWaynesville/activity/middleschoolmissiontrip2",
-            "year": 2027,
-            "confidence": "high"
-          }
-        ],
-        "last_year_registration_opened": null,
-        "availability": {
-          "status": "available",
-          "scope": null,
-          "text": "13 seats left"
-        },
-        "financial_aid": null,
-        "special_needs": null,
-        "lunch": {
-          "value": "yes",
-          "text": "We will stay at a Team Effort camp with meals provided."
-        },
-        "transportation": null,
-        "sources": [
-          "https://www.fumc-waynesville.com/youthtrips/",
-          "https://afterschoolhq.com/FUMCWaynesville/activity/middleschoolmissiontrip2",
-          "https://afterschoolhq.com/FUMCWaynesville/browse"
-        ],
-        "confidence": "medium",
-        "review_notes": "The church youth trips page lists $400 ($405 with Credit Card), but the registration platform lists $405 ($410 with Credit Card); platform prices are retained. Availability comes from the official browse search snippet. No camper drop-off location was stated."
-      },
-      {
-        "name": "Local Mission Trip",
-        "type": "overnight",
-        "categories": ["faith_based"],
-        "description": "Youth spend three days and two nights serving local needs around Haywood County. The trip is geared toward middle schoolers, with high schoolers leading.",
-        "camp_page_url": "https://www.fumc-waynesville.com/youthtrips/",
-        "registration_url": "https://afterschoolhq.com/FUMCWaynesville/activity/localmissiontrip2027",
-        "season": {
-          "year": 2027,
-          "status": "posted",
-          "start": "2027-07-27",
-          "end": "2027-07-29",
-          "text": null
-        },
-        "ages": null,
-        "grades": {
-          "min": 6,
-          "max": 12,
-          "basis": "rising"
-        },
-        "sites": [
-          {
-            "name": "FUMC Waynesville",
-            "address": "566 S Haywood St",
-            "town": "Waynesville",
-            "state": "NC"
-          }
-        ],
-        "hours": null,
-        "extended_care": null,
-        "prices": [
-          {
-            "amount": 100,
-            "unit": "program",
-            "label": null,
-            "year": 2027
-          },
-          {
-            "amount": 102,
-            "unit": "program",
-            "label": "With Credit Card",
-            "year": 2027
-          }
-        ],
-        "sessions": [],
-        "registration": [
-          {
-            "audience": "public",
-            "kind": "deadline",
-            "date": "2027-05-01",
-            "time": null,
-            "precision": "date",
-            "certainty": "announced",
-            "text": "Registration Fees due May 1st",
-            "url": "https://afterschoolhq.com/FUMCWaynesville/activity/localmissiontrip2027",
-            "year": 2027,
-            "confidence": "high"
-          },
-          {
-            "audience": "public",
-            "kind": "closes",
-            "date": "2027-07-27",
-            "time": "00:00",
-            "precision": "datetime",
-            "certainty": "announced",
-            "text": "Registration will close7/27/2027 12:00 AM",
-            "url": "https://afterschoolhq.com/FUMCWaynesville/activity/localmissiontrip2027",
-            "year": 2027,
-            "confidence": "high"
-          }
-        ],
-        "last_year_registration_opened": null,
-        "availability": {
-          "status": "available",
-          "scope": null,
-          "text": "33 seats left"
-        },
-        "financial_aid": null,
-        "special_needs": null,
-        "lunch": null,
-        "transportation": null,
-        "sources": [
-          "https://www.fumc-waynesville.com/youthtrips/",
-          "https://afterschoolhq.com/FUMCWaynesville/activity/localmissiontrip2027",
-          "https://afterschoolhq.com/FUMCWaynesville/browse"
-        ],
-        "confidence": "medium",
-        "review_notes": "The church specifies rising 6th graders as eligible; the platform lists grades 6-12 without a basis for the upper grades. Availability comes from the official browse search snippet. Dates and the May 1 fee deadline on the registration page take their year from its 2027 title and the church's explicit 2027 dates."
       }
     ]
   }

@@ -11,24 +11,23 @@
     "discovered_by": ["our_db", "grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:04:03.623Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:03:17.207Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "e409afde66466f204835c5e36496afca26ab9bfe363c7bdfe3359882736353b8",
   "response": {
     "searches": [
       "site:haywood.ces.ncsu.edu \"2027\" \"camp\"",
-      "open https://haywood.ces.ncsu.edu/2026-4-h-summer-camp-information/",
-      "site:eventbrite.com \"Haywood\" \"2026\" \"Farm to Fork\"",
-      "open https://bjpenn4h.org/about/contact-us/"
+      "open https://haywood.ces.ncsu.edu/2026-4-h-summer-fun-programs/",
+      "site:eventbrite.com \"Haywood\" \"Intermediate\" \"2026\""
     ],
     "usage": {
-      "inputTokens": 27049,
-      "cachedInputTokens": 8223,
-      "outputTokens": 4306,
-      "reasoningTokens": 262
+      "inputTokens": 27160,
+      "cachedInputTokens": 8845,
+      "outputTokens": 3023,
+      "reasoningTokens": 195
     },
     "status": "completed",
-    "ms": 87902,
+    "ms": 54609,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -77,125 +76,45 @@
   "extraction": {
     "provider_name": "Haywood County 4-H / N.C. Cooperative Extension",
     "website_url": "https://haywood.ces.ncsu.edu/",
-    "notes": "No summer 2027 program dates or registration announcements were found. Cards use the explicitly labeled 2026 offerings. The summer-opportunities news article is for 2025, not 2026; its outdated dates and prices were not carried forward. The Archery Clinic has conflicting dates on the Extension page and its official Eventbrite listing. Beginner and intermediate sewing offerings are grouped as level rows of one sewing program.",
+    "notes": "No 2027 camp information or registration milestones were found. Cards use the 2026 offerings. The 2025 summer opportunities article is historical and was not used to add discontinued offerings. The current Summer Fun page could not be reopened in readable form; its supplied text was used.",
     "excluded": [
       {
-        "name": "Donation Station / 2026 Summer Service Project",
-        "reason": "Family volunteering project rather than a supervised youth camp; families staff a farmers market donation booth."
+        "name": "Craft Night - Painted Signs",
+        "reason": "Single evening craft event."
+      },
+      {
+        "name": "Craft Night - String Art",
+        "reason": "Single evening craft event."
+      },
+      {
+        "name": "Donation Station Summer Service Project",
+        "reason": "Family volunteer service activity rather than a supervised youth camp."
+      },
+      {
+        "name": "Betsy-Jeff Penn 4-H summer camp",
+        "reason": "Held in Reidsville, NC, plainly outside the approximately 75-minute drive area."
       },
       {
         "name": "Family Cooking Night",
-        "reason": "Family-only offering in the 2025 article; parents are required to attend."
+        "reason": "Single evening family events requiring parents to attend."
       },
       {
         "name": "Summer Activity Buckets",
-        "reason": "Take-home activities, not a supervised program."
+        "reason": "Take-home activities, not a supervised camp."
       },
       {
-        "name": "Join us for a 4-H Adventure for 5-7 year olds!",
-        "reason": "April/May program outside summer, with an adult required to attend."
-      },
-      {
-        "name": "4-H Clubs / Joining 4-H",
-        "reason": "Year-round membership and club activities rather than a finite summer program."
+        "name": "Tie-Dye Camp",
+        "reason": "Historical 2025 offering consisting of a single evening event."
       }
     ],
     "cards": [
       {
-        "name": "Craft Night",
-        "type": "evening",
-        "categories": ["arts"],
-        "description": "Youth make painted signs and string art in two summer craft sessions.",
-        "camp_page_url": "https://haywood.ces.ncsu.edu/2026-4-h-summer-fun-programs/",
-        "registration_url": "https://www.eventbrite.com/e/4-h-craft-night-painted-signs-tickets-1990203856309?aff=oddtdtcreator",
-        "season": {
-          "year": 2026,
-          "status": "not_posted",
-          "start": "2026-07-07",
-          "end": "2026-08-11",
-          "text": null
-        },
-        "ages": {
-          "min": 9,
-          "max": 18
-        },
-        "grades": null,
-        "sites": [
-          {
-            "name": "Haywood County Extension Office",
-            "address": "589 Raccoon Rd, Suite 118",
-            "town": "Waynesville",
-            "state": "NC"
-          }
-        ],
-        "hours": {
-          "start": "17:30",
-          "end": "19:00",
-          "text": null
-        },
-        "extended_care": null,
-        "prices": [
-          {
-            "amount": 5,
-            "unit": "session",
-            "label": null,
-            "year": 2026
-          }
-        ],
-        "sessions": [
-          {
-            "label": "Craft Night - Painted Signs",
-            "start": "2026-07-07",
-            "end": "2026-07-07",
-            "year": 2026,
-            "site": null,
-            "ages": null,
-            "grades": null,
-            "hours": null,
-            "price": null,
-            "status": "closed"
-          },
-          {
-            "label": "Craft Night - String Art",
-            "start": "2026-08-11",
-            "end": "2026-08-11",
-            "year": 2026,
-            "site": null,
-            "ages": null,
-            "grades": null,
-            "hours": null,
-            "price": null,
-            "status": null
-          }
-        ],
-        "registration": [],
-        "last_year_registration_opened": null,
-        "availability": {
-          "status": "closed",
-          "scope": "Painted Signs session only",
-          "text": "Sales ended"
-        },
-        "financial_aid": null,
-        "special_needs": {
-          "value": "case_by_case",
-          "text": "N.C. Cooperative Extension will honor requests for reasonable accommodations made by individuals with disabilities."
-        },
-        "lunch": null,
-        "transportation": null,
-        "sources": [
-          "https://haywood.ces.ncsu.edu/2026-4-h-summer-fun-programs/",
-          "https://www.eventbrite.com/e/4-h-craft-night-painted-signs-tickets-1990203856309?aff=oddtdtcreator"
-        ],
-        "confidence": "high",
-        "review_notes": null
-      },
-      {
         "name": "Archery Clinic",
         "type": "clinic",
         "categories": ["sports"],
-        "description": "Youth participate in archery during a 45-minute slot selected at registration.",
+        "description": "Archery clinic for youth ages 8 and older.",
         "camp_page_url": "https://haywood.ces.ncsu.edu/2026-4-h-summer-fun-programs/",
-        "registration_url": "https://www.eventbrite.com/e/4-h-archery-clinic-tickets-1990204324710?aff=oddtdtcreator",
+        "registration_url": "https://www.eventbrite.com/e/4-h-archery-clinic-tickets-1990204324710",
         "season": {
           "year": 2026,
           "status": "not_posted",
@@ -205,7 +124,7 @@
         },
         "ages": {
           "min": 8,
-          "max": 18
+          "max": null
         },
         "grades": null,
         "sites": [
@@ -226,7 +145,7 @@
           {
             "amount": 5,
             "unit": "session",
-            "label": "45-minute slot",
+            "label": null,
             "year": 2026
           }
         ],
@@ -247,18 +166,19 @@
         "transportation": null,
         "sources": [
           "https://haywood.ces.ncsu.edu/2026-4-h-summer-fun-programs/",
-          "https://www.eventbrite.com/e/4-h-archery-clinic-tickets-1990204324710?aff=oddtdtcreator"
+          "https://www.eventbrite.com/e/4-h-archery-clinic-tickets-1990204324710",
+          "https://haywood.ces.ncsu.edu/"
         ],
         "confidence": "medium",
-        "review_notes": "Extension's 2026 table says July 14; the organizer's Eventbrite listing says July 28, 2026. Dates here follow Eventbrite; confirm the actual date."
+        "review_notes": "The Summer Fun table says July 14, 2026; the official Eventbrite registration page says July 28, 2026. The card uses the registration page date. Confirm the actual date with the provider."
       },
       {
         "name": "STEM Camp",
         "type": "half_day",
         "categories": ["stem"],
-        "description": "Youth explore electricity in the All About Electricity session.",
+        "description": "A STEM camp focused on electricity for youth ages 11 and older.",
         "camp_page_url": "https://haywood.ces.ncsu.edu/2026-4-h-summer-fun-programs/",
-        "registration_url": "https://www.eventbrite.com/e/4-h-stem-camp-all-about-electricity-tickets-1990204392914?aff=oddtdtcreator",
+        "registration_url": "https://www.eventbrite.com/e/4-h-stem-camp-all-about-electricity-tickets-1990204392914",
         "season": {
           "year": 2026,
           "status": "not_posted",
@@ -268,7 +188,7 @@
         },
         "ages": {
           "min": 11,
-          "max": 18
+          "max": null
         },
         "grades": null,
         "sites": [
@@ -304,7 +224,7 @@
             "grades": null,
             "hours": null,
             "price": null,
-            "status": "closed"
+            "status": null
           }
         ],
         "registration": [],
@@ -323,7 +243,8 @@
         "transportation": null,
         "sources": [
           "https://haywood.ces.ncsu.edu/2026-4-h-summer-fun-programs/",
-          "https://www.eventbrite.com/e/4-h-stem-camp-all-about-electricity-tickets-1990204392914?aff=oddtdtcreator"
+          "https://www.eventbrite.com/e/4-h-stem-camp-all-about-electricity-tickets-1990204392914",
+          "https://haywood.ces.ncsu.edu/"
         ],
         "confidence": "high",
         "review_notes": null
@@ -332,9 +253,9 @@
         "name": "Crochet Camp",
         "type": "day",
         "categories": ["arts"],
-        "description": "Youth participate in a one-day crochet camp.",
+        "description": "Crochet camp for youth ages 9 and older.",
         "camp_page_url": "https://haywood.ces.ncsu.edu/2026-4-h-summer-fun-programs/",
-        "registration_url": "https://www.eventbrite.com/e/4-h-crochet-camp-tickets-1990204737946?aff=oddtdtcreator",
+        "registration_url": "https://www.eventbrite.com/e/4-h-crochet-camp-tickets-1990204737946",
         "season": {
           "year": 2026,
           "status": "not_posted",
@@ -344,7 +265,7 @@
         },
         "ages": {
           "min": 9,
-          "max": 18
+          "max": null
         },
         "grades": null,
         "sites": [
@@ -386,7 +307,8 @@
         "transportation": null,
         "sources": [
           "https://haywood.ces.ncsu.edu/2026-4-h-summer-fun-programs/",
-          "https://www.eventbrite.com/e/4-h-crochet-camp-tickets-1990204737946?aff=oddtdtcreator"
+          "https://www.eventbrite.com/e/4-h-crochet-camp-tickets-1990204737946",
+          "https://haywood.ces.ncsu.edu/"
         ],
         "confidence": "high",
         "review_notes": null
@@ -395,9 +317,9 @@
         "name": "4-H Sewing Camp",
         "type": "day",
         "categories": ["arts"],
-        "description": "Youth attend beginner or intermediate sewing sessions. Participants may attend both days.",
+        "description": "Sewing day camp with beginner and intermediate sessions. Youth may attend both days.",
         "camp_page_url": "https://haywood.ces.ncsu.edu/2026-4-h-summer-fun-programs/",
-        "registration_url": "https://www.eventbrite.com/e/4-h-sewing-camp-beginner-level-tickets-1990204747976?aff=oddtdtcreator",
+        "registration_url": "https://www.eventbrite.com/e/4-h-sewing-camp-beginner-level-tickets-1990204747976",
         "season": {
           "year": 2026,
           "status": "not_posted",
@@ -407,7 +329,7 @@
         },
         "ages": {
           "min": 9,
-          "max": 18
+          "max": null
         },
         "grades": null,
         "sites": [
@@ -428,7 +350,7 @@
           {
             "amount": 15,
             "unit": "day",
-            "label": "Beginner or intermediate",
+            "label": null,
             "year": 2026
           }
         ],
@@ -462,7 +384,7 @@
         "last_year_registration_opened": null,
         "availability": {
           "status": "closed",
-          "scope": "Beginner session only",
+          "scope": "Beginner Sewing Day Camp",
           "text": "Sales ended"
         },
         "financial_aid": null,
@@ -474,7 +396,8 @@
         "transportation": null,
         "sources": [
           "https://haywood.ces.ncsu.edu/2026-4-h-summer-fun-programs/",
-          "https://www.eventbrite.com/e/4-h-sewing-camp-beginner-level-tickets-1990204747976?aff=oddtdtcreator"
+          "https://www.eventbrite.com/e/4-h-sewing-camp-beginner-level-tickets-1990204747976",
+          "https://haywood.ces.ncsu.edu/"
         ],
         "confidence": "high",
         "review_notes": null
@@ -483,7 +406,7 @@
         "name": "Farm to Fork Camp: Cooking Edition",
         "type": "day",
         "categories": ["cooking"],
-        "description": "Youth participate in a three-day cooking camp.",
+        "description": "A three-day cooking camp for youth ages 10–14.",
         "camp_page_url": "https://haywood.ces.ncsu.edu/2026-4-h-summer-fun-programs/",
         "registration_url": null,
         "season": {
@@ -516,7 +439,7 @@
           {
             "amount": 35,
             "unit": "session",
-            "label": "Three-day camp",
+            "label": null,
             "year": 2026
           }
         ],
@@ -531,92 +454,9 @@
         },
         "lunch": null,
         "transportation": null,
-        "sources": ["https://haywood.ces.ncsu.edu/2026-4-h-summer-fun-programs/"],
-        "confidence": "high",
-        "review_notes": null
-      },
-      {
-        "name": "4-H Summer Camp",
-        "type": "overnight",
-        "categories": ["nature_outdoor", "general"],
-        "description": "Campers participate in outdoor activities including canoeing, swimming, hiking, climbing and crafts. Older campers have adventure or trekker options with camping experiences.",
-        "camp_page_url": "https://haywood.ces.ncsu.edu/2026-4-h-summer-camp-information/",
-        "registration_url": null,
-        "season": {
-          "year": 2026,
-          "status": "not_posted",
-          "start": "2026-06-21",
-          "end": "2026-06-26",
-          "text": null
-        },
-        "ages": {
-          "min": 8,
-          "max": 14
-        },
-        "grades": null,
-        "sites": [
-          {
-            "name": "Betsy-Jeff Penn 4-H Educational Center",
-            "address": "804 Cedar Ln.",
-            "town": "Reidsville",
-            "state": "NC"
-          }
-        ],
-        "hours": null,
-        "extended_care": null,
-        "prices": [
-          {
-            "amount": 600,
-            "unit": "session",
-            "label": "Includes a T-shirt and $15 in the camp store",
-            "year": 2026
-          }
-        ],
-        "sessions": [
-          {
-            "label": "Traditional camp",
-            "start": "2026-06-21",
-            "end": "2026-06-26",
-            "year": 2026,
-            "site": null,
-            "ages": {
-              "min": 8,
-              "max": 12
-            },
-            "grades": null,
-            "hours": null,
-            "price": null,
-            "status": null
-          },
-          {
-            "label": "Adventure/trekker",
-            "start": "2026-06-21",
-            "end": "2026-06-26",
-            "year": 2026,
-            "site": null,
-            "ages": {
-              "min": 13,
-              "max": 14
-            },
-            "grades": null,
-            "hours": null,
-            "price": null,
-            "status": null
-          }
-        ],
-        "registration": [],
-        "last_year_registration_opened": null,
-        "availability": null,
-        "financial_aid": {
-          "value": "yes",
-          "text": "Active Haywood County 4-H members are eligible for a 100% camp scholarship for 2026. We have 10 scholarships that are on a first-come, first-serve basis. We have additional fundraising and scholarship options for non-4-H families who are interested in attending summer camp with us."
-        },
-        "special_needs": null,
-        "lunch": null,
-        "transportation": null,
         "sources": [
-          "https://haywood.ces.ncsu.edu/2026-4-h-summer-camp-information/",
-          "https://bjpenn4h.org/about/contact-us/"
+          "https://haywood.ces.ncsu.edu/2026-4-h-summer-fun-programs/",
+          "https://haywood.ces.ncsu.edu/"
         ],
         "confidence": "high",
         "review_notes": null

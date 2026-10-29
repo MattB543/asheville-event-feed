@@ -11,32 +11,33 @@
     "discovered_by": ["seed_sheet", "news828", "grid", "aggregator", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T14:54:56.211Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
-  "sourceHash": "95adcbccbb11431cc97e5773b8957db958e1970c32662d53019de6b799c6ba7b",
+  "extractedAt": "2026-10-29T16:55:45.722Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "a964b34697857c28a72c9aa160531997f86df469ffa69ffb4e916517477575b4",
   "response": {
     "searches": [
-      "site:abysa.org \"2026\" \"Camp\"",
-      "site:abysa.org \"Senior\" \"2026\" \"Camp\"",
-      "site:abysa.org/Default.aspx?tabid=950827 \"Half\" \"June\"",
-      "\"HFC Senior Summer Camp\" \"July\"",
-      "site:abysa.org \"1036509\""
+      "site:abysa.org \"Summer\" \"2026\" camp",
+      "site:abysa.org \"HFC Senior Summer Camp\"",
+      "site:abysa.org/Default.aspx?tabid=950827 \"2026\"",
+      "site:abysa.org \"Academy\" \"June 1\" \"270\"",
+      "site:abysa.org \"950827\" \"June\"",
+      "site:abysa.org \"950827\" \"Full Day Camps\" \"June\""
     ],
     "usage": {
-      "inputTokens": 66976,
-      "cachedInputTokens": 8223,
-      "outputTokens": 6194,
-      "reasoningTokens": 500
+      "inputTokens": 78582,
+      "cachedInputTokens": 8845,
+      "outputTokens": 6433,
+      "reasoningTokens": 690
     },
     "status": "completed",
-    "ms": 146369,
+    "ms": 135231,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
   "bundle": [
     {
       "url": "https://www.abysa.org/Default.aspx?tabid=946857",
-      "chars": 12624,
+      "chars": 12672,
       "method": "fetch"
     },
     {
@@ -61,38 +62,38 @@
     },
     {
       "url": "https://www.abysa.org/Default.aspx?tabid=938962",
-      "chars": 13400,
+      "chars": 13352,
       "method": "fetch"
     }
   ],
   "extraction": {
     "provider_name": "Asheville Buncombe Youth Soccer Association",
     "website_url": "https://www.abysa.org/",
-    "notes": "FUNdamentals has a summer 2027 introduction and eligibility chart, but its dates/location section still says summer 2026 and gives TBD dates and prices. No complete 2027 camp list or registration milestones were found. Other dedicated camp pages describe the 2026 series; the all-camps overview remains dated 2025 and was not used for current pricing or dates. Several official camp pages returned empty text when opened; indexed official-page text supplied additional details. U age groups and birth-date eligibility are retained in notes rather than converted into ages.",
+    "notes": "No summer 2027 dates or registration opening dates were found. FUNdamentals has a 2027 overview and age-group chart, but its schedule section still says 2026 and lists TBD dates and prices. The all-camps overview contains outdated 2025 information; newer individual program pages were used instead. Several official pages returned empty content when opened; their indexed official-page text supplied additional details. Age eligibility is expressed as soccer divisions and birth-date ranges, so numeric ages were left null rather than treating U-designations as actual ages. Camp-specific financial aid was not established by the competitive team financial-aid pages.",
     "excluded": [
       {
         "name": "Summer Academy & Classic 5v5 League",
-        "reason": "Sports league, not a camp or clinic."
+        "reason": "Sports league rather than a camp."
       },
       {
         "name": "Winter Outdoor Futsal Program",
-        "reason": "Outside summer."
+        "reason": "Program outside summer."
       },
       {
         "name": "ABYSA Recreation",
-        "reason": "Seasonal soccer teams and league play, not summer camp."
+        "reason": "Seasonal soccer teams and leagues rather than summer camps."
       },
       {
-        "name": "HFC Academy, HFC Intermediate, and HFC Competitive",
-        "reason": "Regular team training and sports seasons, not finite summer camps."
+        "name": "HFC Academy, HFC Intermediate, and HFC Competitive team programs",
+        "reason": "School-year or year-round team training and competition rather than finite summer camps."
       },
       {
         "name": "HFC Pre-Academy",
-        "reason": "Additional training offered during fall and spring recreation seasons."
+        "reason": "Additional skill-building sessions during fall and spring recreation seasons, outside summer."
       },
       {
-        "name": "ABYSA Adult Rec",
-        "reason": "Adult sports league."
+        "name": "Riverside Summer Shootout",
+        "reason": "Team soccer tournament rather than a supervised camp or skill clinic."
       }
     ],
     "cards": [
@@ -100,7 +101,7 @@
         "name": "FUNdamentals Summer Camps",
         "type": "day",
         "categories": ["sports"],
-        "description": "Players practice dribbling, passing, receiving, shielding, and shooting through soccer games. Older groups also work on individual and small-group tactics.",
+        "description": "Campers practice dribbling, passing, receiving, shielding, and shooting through soccer games. Full-day campers also play scrimmages and participate in lighter afternoon activities.",
         "camp_page_url": "https://www.abysa.org/Default.aspx?tabid=946857",
         "registration_url": null,
         "season": {
@@ -116,12 +117,12 @@
           {
             "name": "Buncombe County Sports Park",
             "address": "58 Apac Circle",
-            "town": "Asheville",
+            "town": "Candler",
             "state": "NC"
           },
           {
             "name": "Mills River Park",
-            "address": "124 Town Center Drive",
+            "address": null,
             "town": "Mills River",
             "state": "NC"
           },
@@ -135,7 +136,7 @@
         "hours": {
           "start": "09:00",
           "end": "16:00",
-          "text": "Half-day U5-U8: 9:00 AM–12 Noon. Full-day U7-U14: 9:00 AM–4:00 PM. Standard arrival is 8:45 AM."
+          "text": "Half-day: 9:00 AM–12 Noon; full-day: 9:00 AM–4:00 PM"
         },
         "extended_care": {
           "early_dropoff_start": "07:30",
@@ -153,18 +154,17 @@
         "transportation": null,
         "sources": [
           "https://www.abysa.org/Default.aspx?tabid=946857",
-          "https://www.abysa.org/Default.aspx?tabid=1022777",
-          "https://townofmarshill.org/_services/parks_recreation/index.php",
-          "https://www.buncombenc.gov/Calendar.aspx?EID=10032"
+          "https://www.abysa.org/Default.aspx?tabid=938989",
+          "https://townofmarshill.org/_services/parks_recreation/index.php"
         ],
         "confidence": "medium",
-        "review_notes": "The page mixes a 2027 introduction/age chart with a 2026 section containing only June/July TBD rows; no dated rows can be recorded. 2027 eligibility is U5-U14, birthdays August 1, 2012–July 31, 2022; half-day U5-U8 and full-day U7-U14. Confirm which year the undated daily schedule and early care fee apply to. County venue listings publish 58 Apac Circle, Asheville; ABYSA's field page says 58 Apac Circle, Candler, and other camp pages say 50 Apac Drive, Candler."
+        "review_notes": "The overview and age chart say 2027, but locations, TBD dates, and early-dropoff details are under 2026 headings. Half-day eligibility is U5–U8 and full-day eligibility U7–U14. No dated rows can be created from TBD weeks. Confirm Mills River Park's published street address; the searched town materials supplied a town-hall address, not an explicit park location. ABYSA also uses 50 Apac Drive for BCSP on other pages."
       },
       {
         "name": "Academy Summer Camps",
         "type": "day",
         "categories": ["sports"],
-        "description": "Academy players practice soccer skills, small-sided games, and scrimmages. Training covers juggling, dribbling, passing, possession, shooting, and finishing.",
+        "description": "Players practice juggling, dribbling, passing, possession, shooting, and finishing, with small-sided games and scrimmages. Half-day camps focus on technical competency, tactical understanding, and physical training.",
         "camp_page_url": "https://www.abysa.org/Default.aspx?tabid=950827",
         "registration_url": null,
         "season": {
@@ -186,12 +186,12 @@
           {
             "name": "Buncombe County Sports Park",
             "address": "58 Apac Circle",
-            "town": "Asheville",
+            "town": "Candler",
             "state": "NC"
           },
           {
             "name": "John B. Lewis Soccer Complex",
-            "address": "439 Azalea Road East",
+            "address": "498 Azalea Road East",
             "town": "Asheville",
             "state": "NC"
           }
@@ -199,56 +199,65 @@
         "hours": {
           "start": "09:00",
           "end": "16:00",
-          "text": "Full day 9am–4pm; half day 9am–12pm. Drop-off between 8:45–9:00am."
+          "text": "Full day: 9am–4pm; half day: 9am–12pm"
         },
         "extended_care": null,
         "prices": [
           {
             "amount": 270,
             "unit": "week",
-            "label": "Full day",
+            "label": "full day",
             "year": 2026
           },
           {
             "amount": 180,
             "unit": "week",
-            "label": "Half day",
+            "label": "half day",
             "year": 2026
           }
         ],
         "sessions": [
           {
-            "label": "Full Day",
+            "label": "Full Day Camps",
             "start": "2026-06-08",
             "end": "2026-06-12",
             "year": 2026,
             "site": "Hendersonville Athletics & Activities Center",
             "ages": null,
             "grades": null,
-            "hours": {
-              "start": "09:00",
-              "end": "16:00"
-            },
+            "hours": null,
             "price": null,
             "status": null
           },
           {
-            "label": "Full Day",
+            "label": "Full Day Camps",
             "start": "2026-06-15",
             "end": "2026-06-19",
             "year": 2026,
             "site": "Buncombe County Sports Park",
             "ages": null,
             "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Half Day Camps",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": "John B. Lewis Soccer Complex",
+            "ages": null,
+            "grades": null,
             "hours": {
               "start": "09:00",
-              "end": "16:00"
+              "end": "12:00"
             },
             "price": null,
             "status": null
           },
           {
-            "label": "Half Day",
+            "label": "Half Day Camps",
             "start": "2026-07-06",
             "end": "2026-07-10",
             "year": 2026,
@@ -263,7 +272,7 @@
             "status": null
           },
           {
-            "label": "Half Day",
+            "label": "Half Day Camps",
             "start": "2026-07-13",
             "end": "2026-07-17",
             "year": 2026,
@@ -278,7 +287,7 @@
             "status": null
           },
           {
-            "label": "Half Day",
+            "label": "Half Day Camps",
             "start": "2026-07-20",
             "end": "2026-07-24",
             "year": 2026,
@@ -302,18 +311,18 @@
         "transportation": null,
         "sources": [
           "https://www.abysa.org/Default.aspx?tabid=950827",
-          "https://www.hendersoncountync.gov/recreation/page/parks-facilities",
-          "https://www.abysa.org/Default.aspx?tabid=938990",
-          "https://www.buncombenc.gov/Calendar.aspx?EID=10032"
+          "https://www.abysa.org/Default.aspx?tabid=946884",
+          "https://www.abysa.org/Default.aspx?tabid=938989",
+          "https://www.abysa.org/Default.aspx?tabid=1036365"
         ],
         "confidence": "medium",
-        "review_notes": "Official indexed text was readable but direct page opening returned empty text. Dates do not print a year alongside them; 2026 is inferred from the current camp series and eligibility chart. Eligibility is 8U-13U, birthdays August 1, 2013–July 31, 2019. The indexed half-day schedule begins with a truncated John B. Lewis entry before July 6; verify any additional June half-day week. BCSP addresses differ across official sources: county publishes 58 Apac Circle, Asheville; camp materials use 50 Apac Drive, Candler."
+        "review_notes": "Individual camp text was readable through official search results only. Dates lack a printed summer year in that text; 2026 is inferred from the current school-year birth-date eligibility chart and the calendar, not projected to 2027. Eligibility is 8U–13U, born August 1, 2013–July 31, 2019. ABYSA publishes differing JBL addresses (498, 493, and 439 Azalea Road East) and BCSP addresses (58 Apac Circle and 50 Apac Drive); venue-owner confirmation remains needed."
       },
       {
         "name": "HFC Junior Summer Camp",
         "type": "day",
         "categories": ["sports"],
-        "description": "Girls and boys in competitive soccer train with HFC Classic coaches and directors.",
+        "description": "Soccer camp for boys and girls in the HFC competitive age groups, staffed by Classic coaches and directors.",
         "camp_page_url": "https://www.abysa.org/Default.aspx?tabid=1036508",
         "registration_url": null,
         "season": {
@@ -341,12 +350,12 @@
           {
             "name": "Buncombe County Sports Park",
             "address": "58 Apac Circle",
-            "town": "Asheville",
+            "town": "Candler",
             "state": "NC"
           },
           {
             "name": "John B. Lewis Soccer Complex",
-            "address": "439 Azalea Road East",
+            "address": "498 Azalea Road East",
             "town": "Asheville",
             "state": "NC"
           }
@@ -354,7 +363,7 @@
         "hours": {
           "start": "09:00",
           "end": "16:00",
-          "text": "9:00 a.m. - 4:00 p.m."
+          "text": null
         },
         "extended_care": {
           "early_dropoff_start": null,
@@ -383,7 +392,7 @@
             "status": null
           },
           {
-            "label": "June 22-26: CDS Monday–Thursday",
+            "label": "CDS (Mon-Thu)",
             "start": "2026-06-22",
             "end": "2026-06-25",
             "year": 2026,
@@ -395,7 +404,7 @@
             "status": null
           },
           {
-            "label": "June 22-26: BCSP Friday",
+            "label": "BCSP (Fri)",
             "start": "2026-06-26",
             "end": "2026-06-26",
             "year": 2026,
@@ -430,18 +439,18 @@
           "https://www.abysa.org/Default.aspx?tabid=1036508",
           "https://www.abysa.org/Default.aspx?tabid=946858",
           "https://www.veritasnc.org/",
-          "https://www.carolinaday.org/about/location",
-          "https://www.abysa.org/Default.aspx?tabid=938990",
-          "https://www.buncombenc.gov/Calendar.aspx?EID=10032"
+          "https://www.carolinaday.org/cf_enotify/view.cfm?n=3285",
+          "https://www.abysa.org/Default.aspx?tabid=938989",
+          "https://www.abysa.org/Default.aspx?tabid=1036365"
         ],
         "confidence": "medium",
-        "review_notes": "Dedicated page states rising 10U-14U for 2026-2027, birthdays August 1, 2012–July 31, 2017; overview instead gives birth years 2017–2013. Dates are assigned 2026 from the explicit 2026 series and registration wording. Early Bird Drop-off is offered without hours or fee. June 22-26 is one $350 week split between two sites. County BCSP address differs from ABYSA's 50 Apac Drive, Candler."
+        "review_notes": "Official indexed text states rising 10U–14U for 2026–2027, born August 1, 2012–July 31, 2017; the series overview instead gives birth years 2017–2013. Dates are assigned to summer 2026 from the explicit 2026 camp registration wording. The June 22–26 week changes sites on Friday and costs $350 for the whole week, not separately for its site rows. Early Bird Drop-off is offered but no camp-specific time or fee was found. Confirm JBL and BCSP address discrepancies noted on Academy Summer Camps."
       },
       {
         "name": "HFC Senior Summer Camp",
         "type": "day",
         "categories": ["sports"],
-        "description": "Boys follow a college preseason-style schedule with sports performance training, coached soccer sessions, and game situations. The week includes a college recruitment conversation.",
+        "description": "Boys take part in sports-performance training, college-coach soccer sessions, and game situations. The week includes a college-recruitment discussion and finishes with a half-day of games.",
         "camp_page_url": "https://www.abysa.org/Default.aspx?tabid=1036509",
         "registration_url": null,
         "season": {
@@ -456,7 +465,7 @@
         "sites": [
           {
             "name": "John B. Lewis Soccer Complex",
-            "address": "439 Azalea Road East",
+            "address": "498 Azalea Road East",
             "town": "Asheville",
             "state": "NC"
           }
@@ -464,7 +473,7 @@
         "hours": {
           "start": null,
           "end": null,
-          "text": "Monday - Friday: four full days and one half day."
+          "text": "Monday - Friday [four full days and one half day]"
         },
         "extended_care": null,
         "prices": [
@@ -481,24 +490,21 @@
         "availability": null,
         "financial_aid": null,
         "special_needs": null,
-        "lunch": {
-          "value": "no",
-          "text": "Recommended gear for all: Snacks & lunch"
-        },
+        "lunch": null,
         "transportation": null,
         "sources": [
           "https://www.abysa.org/Default.aspx?tabid=1036509",
           "https://www.abysa.org/Default.aspx?tabid=946858",
-          "https://www.abysa.org/Default.aspx?tabid=938990"
+          "https://www.abysa.org/Default.aspx?tabid=1036365"
         ],
         "confidence": "medium",
-        "review_notes": "Official indexed page text supplies July 6-10 and $400; direct opening returned empty text. Year comes from the 2026 series and 'Announced Spring 2026' staffing text, not the date line. Eligibility is boys 15U-19U; series overview lists birth years 2012–2008. JBL field page publishes 439 Azalea Road East, whereas other program pages use 493 or 498."
+        "review_notes": "Dates and price come from official indexed text. Summer 2026 is taken from the linked 2026 Summer Camp Series overview; the individual snippet does not print a year beside July 6–10. Eligibility is boys 15U–19U. Confirm JBL address: camp pages use 498 Azalea Road East, while other ABYSA pages use 493 or 439."
       },
       {
         "name": "Striker/Keeper Summer Camp",
         "type": "evening",
         "categories": ["sports"],
-        "description": "Players work on ball striking, creating and scoring goals, and attacking tactics. Sessions progress from individual technique and movements to game-like situations.",
+        "description": "Players practice ball striking, creating and scoring goals, and attacking tactics. Training progresses from individual technique and movement to game-like situations.",
         "camp_page_url": "https://www.abysa.org/Default.aspx?tabid=1036367",
         "registration_url": null,
         "season": {
@@ -512,16 +518,16 @@
         "grades": null,
         "sites": [
           {
-            "name": "Buncombe County Sports Park",
+            "name": "Buncombe County Sports Park Field 8",
             "address": "58 Apac Circle",
-            "town": "Asheville",
+            "town": "Candler",
             "state": "NC"
           }
         ],
         "hours": {
           "start": "16:15",
           "end": "19:30",
-          "text": "Rising 10U-12U: 4:15pm–5:45pm; rising 13U-15U: 6pm–7:30pm."
+          "text": "Rising 10U–12U: 4:15pm–5:45pm; rising 13U–15U: 6pm–7:30pm"
         },
         "extended_care": null,
         "prices": [
@@ -534,7 +540,7 @@
         ],
         "sessions": [
           {
-            "label": "Rising 10U-12U",
+            "label": "Rising 10U - 12U Players",
             "start": "2026-06-08",
             "end": "2026-06-12",
             "year": 2026,
@@ -549,7 +555,7 @@
             "status": null
           },
           {
-            "label": "Rising 13U-15U",
+            "label": "Rising 13U - 15U Players",
             "start": "2026-06-08",
             "end": "2026-06-12",
             "year": 2026,
@@ -573,16 +579,16 @@
         "transportation": null,
         "sources": [
           "https://www.abysa.org/Default.aspx?tabid=1036367",
-          "https://www.buncombenc.gov/Calendar.aspx?EID=10032"
+          "https://www.abysa.org/Default.aspx?tabid=938989"
         ],
         "confidence": "medium",
-        "review_notes": "Dates lack a year; 2026 comes from the page's explicit registration wording. Camp states Field 8 at 50 Apac Drive, Candler; county venue listing publishes 58 Apac Circle, Asheville. Eligibility is rising 10U-15U, not a stated age range."
+        "review_notes": "Official indexed text explicitly links registration for the 2026 camp. Numeric ages remain null because eligibility is stated as rising soccer divisions. The camp page gives 50 Apac Drive; the provider's dedicated BCSP location page gives 58 Apac Circle. Confirm the venue owner's preferred entrance address."
       },
       {
         "name": "Goalkeeper Summer Camp",
         "type": "half_day",
         "categories": ["sports"],
-        "description": "Goalkeepers train with the HFC Goalkeeper Director and goalkeeper coaches.",
+        "description": "Goalkeeper-only soccer camp run by the HFC Goalkeeper Director and goalkeeper coaches.",
         "camp_page_url": "https://www.abysa.org/Default.aspx?tabid=1036365",
         "registration_url": null,
         "season": {
@@ -597,7 +603,7 @@
         "sites": [
           {
             "name": "John B. Lewis Soccer Complex",
-            "address": "439 Azalea Road East",
+            "address": "498 Azalea Road East",
             "town": "Asheville",
             "state": "NC"
           }
@@ -605,7 +611,7 @@
         "hours": {
           "start": "08:30",
           "end": "12:00",
-          "text": "9U-12U: 8:30 AM–10:00 AM; 13U-15U: 10:30 AM–12:00 PM."
+          "text": "9U–12U: 8:30 AM–10:00 AM; 13U–15U: 10:30 AM–12:00 PM"
         },
         "extended_care": null,
         "prices": [
@@ -657,17 +663,16 @@
         "transportation": null,
         "sources": [
           "https://www.abysa.org/Default.aspx?tabid=1036365",
-          "https://www.abysa.org/Default.aspx?tabid=946858",
-          "https://www.abysa.org/Default.aspx?tabid=938990"
+          "https://www.abysa.org/Default.aspx?tabid=946858"
         ],
         "confidence": "medium",
-        "review_notes": "Year is uncertain: 2026 series links this page, but its registration wording still says 2025 and dates have no year. Verify June 22-26 and $170 for 2026. Dedicated page specifies 9U-15U; series overview says 10U-19U. Camp page gives 498 Azalea Road East; current JBL field page publishes 439 Azalea Road East, used here."
+        "review_notes": "The individual page's registration link still says 2025, but dates June 22–26 fit the linked 2026 series; summer 2026 is inferred and needs confirmation. The individual page lists 9U–15U in two groups, while the 2026 series overview lists 10U–19U. Individual-page bands were retained. Confirm JBL's address; ABYSA pages also publish 493 and 439 Azalea Road East."
       },
       {
         "name": "HFC Girls Summer Skills Program",
         "type": "evening",
         "categories": ["sports"],
-        "description": "Girls practice technical soccer skills and play scrimmages and small-sided games during six weekly sessions. Players receive individual exercises to work on between meetings.",
+        "description": "Girls practice ball mastery, passing, dribbling, shooting, finishing, and game understanding, with scrimmages and small-sided games. Players receive individual skills work to practice between weekly sessions.",
         "camp_page_url": "https://www.abysa.org/Default.aspx?tabid=1041424",
         "registration_url": null,
         "season": {
@@ -681,23 +686,23 @@
         "grades": null,
         "sites": [
           {
-            "name": "Buncombe County Sports Park",
+            "name": "Buncombe County Sports Park Field 8",
             "address": "58 Apac Circle",
-            "town": "Asheville",
+            "town": "Candler",
             "state": "NC"
           }
         ],
         "hours": {
           "start": "18:00",
           "end": "20:00",
-          "text": "Each Wednesday evening, 6pm–8pm."
+          "text": "Each Wednesday evening, players will meet from 6pm - 8pm"
         },
         "extended_care": null,
         "prices": [
           {
             "amount": 150,
             "unit": "program",
-            "label": "Six-week program",
+            "label": null,
             "year": 2026
           }
         ],
@@ -784,10 +789,10 @@
         "transportation": null,
         "sources": [
           "https://www.abysa.org/Default.aspx?tabid=1041424",
-          "https://www.buncombenc.gov/Calendar.aspx?EID=10032"
+          "https://www.abysa.org/Default.aspx?tabid=938989"
         ],
         "confidence": "medium",
-        "review_notes": "Eligibility is rising 10U-14U girls in HFC Competitive or joining for fall 2026. Dates omit the year; 2026 comes from the program introduction and registration wording. Camp meets on Field 8 and gives 50 Apac Drive, Candler; county venue listing publishes 58 Apac Circle, Asheville."
+        "review_notes": "Official indexed text explicitly identifies the 2026 summer skills camp and Fall 2026 participants. Eligibility is rising 10U–14U girls in or joining HFC Competitive. Included because the provider calls this finite six-week offering a summer skills camp. The camp page gives 50 Apac Drive; the dedicated BCSP location page gives 58 Apac Circle. Confirm the venue owner's preferred entrance address."
       }
     ]
   }

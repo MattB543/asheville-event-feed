@@ -10,24 +10,24 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:23:14.266Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:19:48.829Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "6f05af3db8cd3c37a03b0527373657b30085778325b947c2c33e81c0cd93bd42",
   "response": {
     "searches": [
-      "site.mckinneycenter.com \"2026\" \"camp\"",
+      "site:mckinneycenter.com summer camp 2026 Artsploration Pottery",
+      "McKinney Center 2026 summer camps catalog June pottery tuition",
       "open https://mckinneycenter.com/wp-content/uploads/2025/11/Spring-2026-Catalog-v6-compressed.pdf",
-      "site:mckinneycenter.com \"2026\" \"camp\" \"225\"",
-      "site:mc-kinney-center.coursestorm.com \"camp\" \"2026\""
+      "site:mckinneycenter.com \"2026\" \"Play\" \"Grades\""
     ],
     "usage": {
-      "inputTokens": 38627,
-      "cachedInputTokens": 8223,
-      "outputTokens": 2164,
-      "reasoningTokens": 350
+      "inputTokens": 34528,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2071,
+      "reasoningTokens": 290
     },
     "status": "completed",
-    "ms": 53510,
+    "ms": 51229,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -66,23 +66,19 @@
   "extraction": {
     "provider_name": "McKinney Center",
     "website_url": "https://mckinneycenter.com/",
-    "notes": "No summer 2027 information was found. The summer camp landing page contains placeholder text, and the CourseStorm summer 2026 category no longer lists offerings. The Spring 2026 catalog PDF was located but yielded no readable text. Cards use the official 2026 event calendar; ages, prices and registration opening dates could not be established.",
+    "notes": "No summer 2027 information or registration milestones found. The summer-camp landing page contains placeholder text, and the CourseStorm summer 2026 category no longer displays individual offerings. The Spring 2026 catalog PDF was found but returned no readable content. Cards use the official 2026 event calendar; ages, grades and prices from older camps were not carried forward.",
     "excluded": [
       {
-        "name": "Fall 2026 Classes",
-        "reason": "Classes outside summer."
-      },
-      {
-        "name": "Young Potters",
-        "reason": "Regular semester class, rather than a summer camp."
-      },
-      {
-        "name": "Acoustic Guitar - Private Lessons",
-        "reason": "Recurring year-round private lessons."
-      },
-      {
         "name": "Summer & Camp Intern",
-        "reason": "Employment or internship program."
+        "reason": "Employment/internship program, not a supervised youth camp."
+      },
+      {
+        "name": "Fall 2026 Classes",
+        "reason": "Classes outside summer, not summer camps."
+      },
+      {
+        "name": "StoryTown Radio Show",
+        "reason": "Public performance series, not a supervised youth camp."
       }
     ],
     "cards": [
@@ -90,7 +86,7 @@
         "name": "Play in A Week Summer Camp",
         "type": "day",
         "categories": ["theater"],
-        "description": "Campers participate in a week-long theater program.",
+        "description": "A summer theater camp.",
         "camp_page_url": "https://mckinneycenter.com/event/play-in-a-week-summer-camp-2026/",
         "registration_url": "https://mc-kinney-center.coursestorm.com/",
         "season": {
@@ -137,7 +133,7 @@
         "name": "Artsploration Camp",
         "type": "half_day",
         "categories": ["arts"],
-        "description": "Campers explore visual art in a summer art program.",
+        "description": "A summer art camp.",
         "camp_page_url": "https://mckinneycenter.com/event/artsploration-101-camp-2026/",
         "registration_url": "https://mc-kinney-center.coursestorm.com/",
         "season": {
@@ -166,7 +162,7 @@
         "prices": [],
         "sessions": [
           {
-            "label": "Artsploration 101 Camp",
+            "label": "Artsploration 101",
             "start": "2026-06-08",
             "end": "2026-06-12",
             "year": 2026,
@@ -178,7 +174,7 @@
             "status": null
           },
           {
-            "label": "Artsploration 202 Camp",
+            "label": "Artsploration 202",
             "start": "2026-06-22",
             "end": "2026-06-26",
             "year": 2026,
@@ -198,8 +194,8 @@
         "lunch": null,
         "transportation": null,
         "sources": [
-          "https://mckinneycenter.com/event/artsploration-101-camp-2026/",
           "https://mckinneycenter.com/events/month/2026-06/",
+          "https://mckinneycenter.com/event/artsploration-101-camp-2026/",
           "https://mckinneycenter.com/event/artsploration-202-camp-2026/",
           "https://mckinneycenter.com/event/artsploration-202-camp-2026-5/",
           "https://mc-kinney-center.coursestorm.com/"
@@ -211,8 +207,8 @@
         "name": "Pottery Camp",
         "type": "half_day",
         "categories": ["arts"],
-        "description": "Campers participate in a summer pottery program.",
-        "camp_page_url": "https://mckinneycenter.com/event/pottery-101-camp-2026-3/",
+        "description": "A summer pottery camp.",
+        "camp_page_url": "https://mckinneycenter.com/event/pottery-101-camp-2026/",
         "registration_url": "https://mc-kinney-center.coursestorm.com/",
         "season": {
           "year": 2026,
@@ -240,7 +236,7 @@
         "prices": [],
         "sessions": [
           {
-            "label": "Pottery 101 Camp",
+            "label": "Pottery 101",
             "start": "2026-06-08",
             "end": "2026-06-12",
             "year": 2026,
@@ -252,7 +248,7 @@
             "status": null
           },
           {
-            "label": "Pottery 202 Camp",
+            "label": "Pottery 202",
             "start": "2026-06-22",
             "end": "2026-06-26",
             "year": 2026,
@@ -273,7 +269,7 @@
         "transportation": null,
         "sources": [
           "https://mckinneycenter.com/events/month/2026-06/",
-          "https://mckinneycenter.com/event/pottery-101-camp-2026-3/",
+          "https://mckinneycenter.com/event/pottery-101-camp-2026/",
           "https://mckinneycenter.com/event/pottery-202-camp-2026/",
           "https://mckinneycenter.com/event/pottery-202-camp-2026-5/",
           "https://mc-kinney-center.coursestorm.com/"

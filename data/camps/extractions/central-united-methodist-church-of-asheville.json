@@ -10,22 +10,22 @@
     "discovered_by": ["aggregator"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:34:40.662Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:29:10.651Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "ca652ac2681ae785573e999d9ae93619b0e67caeb5c3356ae342385307334f52",
   "response": {
     "searches": [
-      "site:centralumc.org \"2027\" \"Bible\"",
-      "open https://www.centralumc.org/children"
+      "site.centralumc.org \"2027\" \"Bible\"",
+      "open https://subsplash.com/central-united-methodist/lb/ev/%2B437xffh"
     ],
     "usage": {
-      "inputTokens": 13822,
-      "cachedInputTokens": 8223,
-      "outputTokens": 785,
-      "reasoningTokens": 140
+      "inputTokens": 14298,
+      "cachedInputTokens": 8845,
+      "outputTokens": 690,
+      "reasoningTokens": 118
     },
     "status": "completed",
-    "ms": 19889,
+    "ms": 20202,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -44,19 +44,11 @@
   "extraction": {
     "provider_name": "Central United Methodist Church of Asheville",
     "website_url": "https://centralumc.org/",
-    "notes": "No official 2027 summer camp information was found. Vacation Bible School details below are for 2026. The supplied event text was readable, but opening the event and ministry pages through the browser returned no text; ministry search results were used to check for other offerings. The registration button's destination could not be verified.",
+    "notes": "No official 2027 camp information was found. The 2026 VBS details below come from the supplied official event-page text. The event and children's ministry pages returned no readable text when opened during research, so the registration button's destination could not be retrieved.",
     "excluded": [
       {
-        "name": "Nursery",
-        "reason": "Year-round Sunday childcare, not a finite summer program."
-      },
-      {
-        "name": "Children's Church",
-        "reason": "Year-round Sunday worship programming, not a summer camp."
-      },
-      {
         "name": "Youth Ministries",
-        "reason": "Recurring weekly youth ministry activities, not a separately documented finite summer program."
+        "reason": "Weekly year-round youth ministry gatherings, not a finite summer camp."
       }
     ],
     "cards": [
@@ -101,7 +93,7 @@
           {
             "amount": 0,
             "unit": "program",
-            "label": "There is no fee.",
+            "label": "There is no fee",
             "year": 2026
           }
         ],

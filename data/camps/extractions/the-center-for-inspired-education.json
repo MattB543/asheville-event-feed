@@ -7,22 +7,22 @@
     "discovered_by": ["news828", "grid", "aggregator"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:00:54.205Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:00:59.688Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "a9b5dcd621373f6f96c1c4359e5c3b03cfc7a3476ac21c01e242471624dff5af",
   "response": {
     "searches": [
-      "site:centerforinspirededucation.com camps 2027 Honey Hive address",
-      "open https://www.centerforinspirededucation.com/camps/"
+      "site:centerforinspirededucation.com camp 2027",
+      "\"Joanie Lamb\" \"address\" Asheville"
     ],
     "usage": {
-      "inputTokens": 14859,
-      "cachedInputTokens": 8223,
-      "outputTokens": 942,
-      "reasoningTokens": 119
+      "inputTokens": 23626,
+      "cachedInputTokens": 8631,
+      "outputTokens": 981,
+      "reasoningTokens": 157
     },
     "status": "completed",
-    "ms": 24708,
+    "ms": 27716,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -41,39 +41,39 @@
   "extraction": {
     "provider_name": "The Center for Inspired Education",
     "website_url": "https://www.centerforinspirededucation.com/",
-    "notes": "No 2027 information found. The camps page announces a summer off from kids camps, while retaining older Camp Summer Haven descriptions and assistant information. Camp Honey Hive is included because its explicit eligibility is ages 16 and older, despite being described as an adult camp. No published camp street address was found on the camps or contact pages.",
+    "notes": "No 2027 updates were found. The camps page says the provider is taking this summer off from kids camps but retains older Camp Summer Haven descriptions and assistant information. Camp Honey Hive is retained because its explicitly stated eligibility is ages 16 and older, despite its adult-camp description. No official drop-off address or readable registration destination was found.",
     "excluded": [
       {
         "name": "Camp Summer Haven",
-        "reason": "The provider announces that it is taking this summer off from kids camps; the retained description has no current sessions."
+        "reason": "The current camps page explicitly says kids camps are taking this summer off; the remaining description has no current session dates."
       },
       {
-        "name": "Camp Assistants",
-        "reason": "An assistant option attached to the paused Camp Summer Haven, with no currently scheduled sessions."
+        "name": "Camp Summer Haven Camp Assistants",
+        "reason": "Assistant participation belongs to the kids camp that the provider says is not running this summer; no separately scheduled current program is posted."
       },
       {
         "name": "Inspired Student",
-        "reason": "Ongoing tutoring and coaching, not a finite summer program."
+        "reason": "Ongoing individual coaching and tutoring, not a finite summer camp."
       },
       {
-        "name": "Nourishing the Teacher",
-        "reason": "Adult teacher retreat, not a youth camp."
+        "name": "Inspired Preschool",
+        "reason": "Preschool, not a finite summer camp."
       },
       {
-        "name": "Little Lambs",
-        "reason": "Preschool program, not identified as summer-only childcare."
+        "name": "Nourishing the Teacher Retreat",
+        "reason": "Adult-only teacher retreat."
       },
       {
         "name": "The Love Project",
-        "reason": "Year-long family and individual service projects, not a finite supervised youth summer program."
+        "reason": "Year-long family and individual service participation, not a supervised youth summer camp."
       }
     ],
     "cards": [
       {
         "name": "Camp Honey Hive Day Camp",
         "type": "day",
-        "categories": ["arts", "cooking", "general", "special_needs"],
-        "description": "Participants cook, dance, play bingo, and make arts and crafts. Afternoon activities include community field trips and a kindness outing.",
+        "categories": ["special_needs", "arts", "cooking", "general"],
+        "description": "Campers participate in cooking, dancing, bingo, arts and crafts, and afternoon community field trips.",
         "camp_page_url": "https://www.centerforinspirededucation.com/camps/",
         "registration_url": null,
         "season": {
@@ -109,11 +109,11 @@
         "availability": null,
         "financial_aid": {
           "value": "yes",
-          "text": "$125 full price/reduced pay options: Scholarship Forms"
+          "text": "$125 full price/reduced pay options"
         },
         "special_needs": {
           "value": "yes",
-          "text": "Welcome to our Special Needs Adult Camp, where laughter, creativity, and friendship are always on the agenda!"
+          "text": "Welcome to our Special Needs Adult Camp"
         },
         "lunch": null,
         "transportation": null,
@@ -122,7 +122,7 @@
           "https://www.centerforinspirededucation.com/contact/"
         ],
         "confidence": "medium",
-        "review_notes": "The camps page states Wednesday–Friday alongside August 17–19, 2026, which fall Monday–Wednesday. Dates follow the explicit numeric dates; verify with the provider. The program is described as an adult camp but explicitly accepts ages 16 and older. Confirm the drop-off street address; only East Asheville is published."
+        "review_notes": "The page prints August 17–19, 2026 but also says Wednesday–Friday; those calendar dates are Monday–Wednesday. Dates were preserved as printed. Confirm teen eligibility because the page explicitly says ages 16 and older but describes an adult camp. The $125 price appears to cover the mini-camp but its unit is not explicitly stated. The location is described only as East Asheville; obtain the official drop-off address."
       }
     ]
   }

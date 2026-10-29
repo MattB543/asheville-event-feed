@@ -7,22 +7,22 @@
     "discovered_by": ["seed_sheet", "grid", "aggregator", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T14:57:06.521Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
-  "sourceHash": "98dd60e8f935ebb76ed83e1ebd4748c9f58b3f32e0c02dba5d802979b8636f1b",
+  "extractedAt": "2026-10-29T16:57:24.458Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "87ab67f243cf2f5b592f5536200ec1d88700588af5d620b78137b0b0bb94c708",
   "response": {
     "searches": [
-      "site:newbridgebaptist.org \"2027\" \"Bible\"",
-      "site:facebook.com \"Newbridge Baptist Church\" \"2026\" \"July\""
+      "site:newbridgebaptist.org \"2026\" \"Bible\"",
+      "site:facebook.com \"Newbridge\" \"July 19\" \"2026\""
     ],
     "usage": {
-      "inputTokens": 21599,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1105,
-      "reasoningTokens": 200
+      "inputTokens": 16077,
+      "cachedInputTokens": 8845,
+      "outputTokens": 834,
+      "reasoningTokens": 140
     },
     "status": "completed",
-    "ms": 33766,
+    "ms": 21785,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -34,26 +34,26 @@
     },
     {
       "url": "https://newbridgebaptist.org/",
-      "chars": 2333,
+      "chars": 2338,
       "method": "fetch"
     }
   ],
   "extraction": {
     "provider_name": "Newbridge Baptist Church of Asheville",
     "website_url": "https://newbridgebaptist.org/",
-    "notes": "No 2027 summer information found. Third-party event listings advertise VBS July 19–22, 2026, 6:00–8:30pm, but those dates were not confirmed on an official page and are omitted. An indexed version of the official children's page describes a different recurring July schedule that is absent from the supplied current text. The youth page describes an annual summer mission trip but provides no year-specific details.",
+    "notes": "No 2027 camp dates or registration announcements found. Third-party listings give July 19–22, 2026 for VBS, while an indexed official children’s page describes a recurring schedule after July 4; dates are omitted rather than choosing between these. The youth page returned no readable text.",
     "excluded": [
       {
+        "name": "Summer Mission Trip",
+        "reason": "Mission trips are excluded under the camp rule."
+      },
+      {
         "name": "Children's Ministry",
-        "reason": "Recurring Sunday children's activities and classes, not a finite summer program."
+        "reason": "Recurring Sunday ministry activities are year-round programs, not finite summer camps."
       },
       {
-        "name": "Sunday School",
-        "reason": "Year-round religious classes."
-      },
-      {
-        "name": "Youth Activities",
-        "reason": "General year-round youth activities; no separately scheduled summer lock-in or retreat was found."
+        "name": "Newbridge Basketball Clinic",
+        "reason": "The listing found dates this clinic to October 20, 2026, outside summer."
       }
     ],
     "cards": [
@@ -103,40 +103,8 @@
         },
         "transportation": null,
         "sources": ["https://newbridgebaptist.org/children/", "https://newbridgebaptist.org/"],
-        "confidence": "high",
-        "review_notes": null
-      },
-      {
-        "name": "Summer Mission Trip",
-        "type": "overnight",
-        "categories": ["faith_based"],
-        "description": "The youth group takes a week-long summer mission trip to serve people in need. Participants serve together and take part in recreational activities.",
-        "camp_page_url": "https://newbridgebaptist.org/Youth/",
-        "registration_url": null,
-        "season": {
-          "year": 2026,
-          "status": "not_posted",
-          "start": null,
-          "end": null,
-          "text": null
-        },
-        "ages": null,
-        "grades": null,
-        "sites": [],
-        "hours": null,
-        "extended_care": null,
-        "prices": [],
-        "sessions": [],
-        "registration": [],
-        "last_year_registration_opened": null,
-        "availability": null,
-        "financial_aid": null,
-        "special_needs": null,
-        "lunch": null,
-        "transportation": null,
-        "sources": ["https://newbridgebaptist.org/Youth/"],
         "confidence": "medium",
-        "review_notes": "The official youth page was readable only through indexed search text. It describes an annual week-long summer mission trip without explicit 2026 or 2027 dates; overnight format is inferred from the week-long trip. Confirm format, eligibility, departure location, and whether registration is open to youth outside the church."
+        "review_notes": "The supplied children’s page has no VBS dates or hours. Its search-indexed version states an annual first-Sunday-through-Wednesday schedule after July 4 and 6:00–8:30pm, whereas third-party 2026 event listings give July 19–22. Confirm the dated announcement with the church; dates and hours were left null. The age 4 through sixth-grade range describes the overall children’s ministry, not explicitly VBS, so VBS eligibility is left null. The free price is from the undated current page, retained as a 2026 fallback."
       }
     ]
   }

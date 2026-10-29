@@ -14,23 +14,23 @@
     "discovered_by": ["news828", "grid", "aggregator", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:00:26.485Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:00:47.004Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "d48944d0b16c3ecc62879fed365ba39b3c633628851f2894f0f756b6aa72dfec",
   "response": {
     "searches": [
-      "site:wildsnc.org 2027 CIT registration opens summer",
-      "site:wildsnc.org/camps/junior-boot-camp \"2027\" \"eligibility\"",
-      "site:wildsnc.org/camps/junior-boot-camp \"Registered\""
+      "site:wildsnc.org 2027 CIT registration September",
+      "site:wildsnc.org/camps/junior-boot-camp \"Registered\" \"2027\"",
+      "site:wildsnc.org/camps/junior-boot-camp/ \"Registered by\""
     ],
     "usage": {
-      "inputTokens": 41258,
-      "cachedInputTokens": 8223,
-      "outputTokens": 3424,
-      "reasoningTokens": 280
+      "inputTokens": 50957,
+      "cachedInputTokens": 8845,
+      "outputTokens": 3552,
+      "reasoningTokens": 317
     },
     "status": "completed",
-    "ms": 71176,
+    "ms": 73712,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -79,27 +79,23 @@
   "extraction": {
     "provider_name": "The Wilds Christian Association",
     "website_url": "https://wildsnc.org/",
-    "notes": "Summer 2027 programs are posted. Some additional program pages returned empty bodies when opened but were readable in official search results. The Summer 2027 brochure link was listed in the supplied calendar text, but its PDF was not retrieved. Sponsor-child waiting lists are not camper waiting lists; these do not indicate that youth sessions are full. Registration opening dates were not found.",
+    "notes": "2027 dates are posted for all three summer youth programs. Some official pages returned empty bodies when opened; Junior Boot Camp eligibility and CIT details were readable through official search results. Searches did not locate a readable Summer 2027 brochure or an announced registration opening date. Sponsor-child waiting lists are recorded only for that audience, not as camper waiting lists.",
     "excluded": [
       {
         "name": "Senior Class Trip",
-        "reason": "School trips scheduled April–May, outside summer."
+        "reason": "School trips held April–May, outside summer."
       },
       {
         "name": "Spiritual Emphasis Week",
-        "reason": "School-year program scheduled September–October."
+        "reason": "School-year program held September–October, outside summer."
       },
       {
         "name": "Teen Adventure Weekend",
         "reason": "November program, outside summer."
       },
       {
-        "name": "Summer Staff",
-        "reason": "Employment program rather than a youth camp."
-      },
-      {
         "name": "Family Camp",
-        "reason": "Family-only camp, including Summer Family Camp."
+        "reason": "Family-only retreat, including Summer Family Camp."
       },
       {
         "name": "Campamento de fin de Semana para Familias",
@@ -107,31 +103,31 @@
       },
       {
         "name": "Father/Son Campout",
-        "reason": "Family-only program scheduled spring and fall."
+        "reason": "Family-only program outside summer."
       },
       {
         "name": "Mother/Daughter Retreat",
-        "reason": "Family-only retreat scheduled in September."
+        "reason": "Family-only retreat outside summer."
       },
       {
         "name": "Men’s Retreat",
-        "reason": "March retreat, outside summer."
+        "reason": "Retreat outside summer."
       },
       {
         "name": "Ladies’ Retreat",
-        "reason": "April retreats, outside summer."
+        "reason": "Retreat outside summer."
       },
       {
         "name": "College & Career Retreat",
-        "reason": "College-age program scheduled spring and fall, outside summer."
+        "reason": "College/adult retreat outside summer."
       },
       {
         "name": "Couples’ Conference",
-        "reason": "Adult couples-only retreat."
+        "reason": "Adult-only conference."
       },
       {
         "name": "Sweetheart Overnight Getaway",
-        "reason": "Adult couples-only getaway."
+        "reason": "Adult-only retreat outside summer."
       },
       {
         "name": "Senior Adult Conference",
@@ -139,7 +135,19 @@
       },
       {
         "name": "Youth Workers’ Conference",
-        "reason": "Conference for youth workers, not youth campers."
+        "reason": "Conference for youth workers, not a youth camp."
+      },
+      {
+        "name": "Summer Staff",
+        "reason": "Employment program, not a camp."
+      },
+      {
+        "name": "The Wilds of New England",
+        "reason": "New Hampshire location outside the Asheville drive area."
+      },
+      {
+        "name": "CampsAbroad",
+        "reason": "International programs outside the Asheville drive area."
       }
     ],
     "cards": [
@@ -147,7 +155,7 @@
         "name": "Summer Teen Camp",
         "type": "overnight",
         "categories": ["faith_based", "nature_outdoor", "sports"],
-        "description": "Teens participate in Bible study, chapel, cabin discussions, team games, water activities, sports and hiking.",
+        "description": "Campers participate in Bible study, chapel, team games, water activities, sports, and hiking with counselors.",
         "camp_page_url": "https://wildsnc.org/camps/summer-teen-camp/",
         "registration_url": "https://wildsregistration.org/",
         "season": {
@@ -177,26 +185,26 @@
         "hours": {
           "start": null,
           "end": null,
-          "text": "Check-in Monday 2:30–4:30 p.m.; departure Saturday after breakfast at 8:00 a.m. for Jr. High and 9:00 a.m. for Sr. High."
+          "text": "Check-in: 2:30 – 4:30 p.m. Monday; Departure: 8:00 a.m. (Jr. High) and 9 a.m. (Sr. High) Saturday after breakfast"
         },
         "extended_care": null,
         "prices": [
           {
             "amount": 415,
-            "unit": "week",
-            "label": "Registered by February 2, 2027",
+            "unit": "session",
+            "label": "Registered by Feb 2, 2027",
             "year": 2027
           },
           {
             "amount": 430,
-            "unit": "week",
-            "label": "Registered by March 2, 2027",
+            "unit": "session",
+            "label": "Registered by Mar 2, 2027",
             "year": 2027
           },
           {
             "amount": 455,
-            "unit": "week",
-            "label": "Registered after March 2, 2027",
+            "unit": "session",
+            "label": "Registered after Mar 2, 2027",
             "year": 2027
           }
         ],
@@ -337,7 +345,11 @@
           }
         ],
         "last_year_registration_opened": null,
-        "availability": null,
+        "availability": {
+          "status": "waitlist",
+          "scope": "Week 1 sponsor children only",
+          "text": "Waiting List for Sponsor Children"
+        },
         "financial_aid": null,
         "special_needs": null,
         "lunch": {
@@ -347,6 +359,7 @@
         "transportation": null,
         "sources": [
           "https://wildsnc.org/camps/summer-teen-camp/",
+          "https://wildsnc.org/camps/youth/",
           "https://wildsnc.org/about/faqs/"
         ],
         "confidence": "high",
@@ -356,7 +369,7 @@
         "name": "Junior Boot Camp",
         "type": "overnight",
         "categories": ["faith_based", "nature_outdoor", "sports"],
-        "description": "Campers participate in Bible teaching, team competitions, crafts, lake activities and hiking with their counselors.",
+        "description": "Campers participate in Bible teaching, team games, crafts, hiking, and lake activities under counselor supervision.",
         "camp_page_url": "https://wildsnc.org/camps/junior-boot-camp/",
         "registration_url": "https://wildsregistration.org/",
         "season": {
@@ -388,8 +401,8 @@
         "prices": [
           {
             "amount": 405,
-            "unit": "week",
-            "label": "from; camper",
+            "unit": "session",
+            "label": "from",
             "year": 2027
           }
         ],
@@ -505,7 +518,11 @@
         ],
         "registration": [],
         "last_year_registration_opened": null,
-        "availability": null,
+        "availability": {
+          "status": "waitlist",
+          "scope": "Week 1 sponsor children only",
+          "text": "Waiting List for Sponsor Children"
+        },
         "financial_aid": null,
         "special_needs": null,
         "lunch": {
@@ -520,15 +537,15 @@
           "https://wildsnc.org/about/faqs/"
         ],
         "confidence": "medium",
-        "review_notes": "Eligibility was readable through official search results only: at least 9 by September 1, 2027 and entering grades 4–7. Check the full Junior Boot Camp page for complete pricing tiers. It states Saturday departure at 8:00 a.m., while the supplied general FAQ says finished by 8:20 a.m.; hours omitted."
+        "review_notes": "Minimum age 9 by September 1, 2027 and rising grades 4–7 were readable only in official search results for the Junior Boot Camp page. Check that page for complete 2027 price tiers and registration deadlines; only the starting price was captured."
       },
       {
         "name": "CIT: Camper-In-Training",
         "type": "overnight",
-        "categories": ["faith_based"],
-        "description": "This two-week leadership program combines Bible instruction, one-on-one discipleship and practical application of servant-leadership principles.",
+        "categories": ["faith_based", "nature_outdoor"],
+        "description": "This two-week program combines biblical leadership lessons, one-on-one discipleship, recreation, and practical application of servant leadership.",
         "camp_page_url": "https://wildsnc.org/camps/camper-in-training/",
-        "registration_url": "https://cit.wilds.org/apply/twnc",
+        "registration_url": "https://cit.wilds.org/",
         "season": {
           "year": 2027,
           "status": "posted",
@@ -556,14 +573,14 @@
         "hours": {
           "start": null,
           "end": null,
-          "text": "Check-in Monday 2:30–4:30 p.m.; departure at 9 a.m. after breakfast of the second Saturday."
+          "text": "Check-in: 2:30 – 4:30 p.m. Monday; Departure: 9 a.m. after breakfast of the second Saturday"
         },
         "extended_care": null,
         "prices": [
           {
             "amount": 770,
             "unit": "session",
-            "label": "Per camper; two weeks",
+            "label": "Per camper",
             "year": 2027
           }
         ],
@@ -628,10 +645,10 @@
         "sources": [
           "https://wildsnc.org/camps/camper-in-training/",
           "https://wildsnc.org/camps/youth/",
-          "https://cit.wilds.org/apply/twnc"
+          "https://cit.wilds.org/"
         ],
         "confidence": "medium",
-        "review_notes": "Program details were readable in official search results, but direct opening returned an empty body. January 31 is interpreted within the page's 2027 program context. Eligibility also includes 2027 high school graduates. Applicants are notified of acceptance by early March; no exact notification date is stated."
+        "review_notes": "CIT dates, price, eligibility, arrival/departure and application deadline were readable through official search results, but the page returned an empty body when opened. January 31 is interpreted as 2027 from the surrounding 2027 schedule and eligibility. The program also accepts 2027 high school graduates. Acceptance notifications are stated as early March, but no notification milestone was entered because the schema does not include acceptance results."
       }
     ]
   }

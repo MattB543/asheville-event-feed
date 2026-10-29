@@ -7,22 +7,22 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:08:43.174Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:07:18.827Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "2695af2c90c5e2ff4d5603e8b5d8505fdd36d802de13ba88c966e6aafee45332",
   "response": {
     "searches": [
-      "site.millsriver.gov summer camp 2026 tennis science",
-      "site:millsriver.gov \"camp\" \"2026\""
+      "site.millsriver.gov \"2026\" \"camp\"",
+      "site:millsriver.gov \"Summer\" \"2026\" tennis"
     ],
     "usage": {
-      "inputTokens": 26707,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1429,
-      "reasoningTokens": 218
+      "inputTokens": 23258,
+      "cachedInputTokens": 8845,
+      "outputTokens": 976,
+      "reasoningTokens": 166
     },
     "status": "completed",
-    "ms": 35671,
+    "ms": 28733,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -41,39 +41,35 @@
   "extraction": {
     "provider_name": "Town of Mills River Parks & Recreation",
     "website_url": "https://www.millsriver.gov/",
-    "notes": "No summer 2027 dates or registration milestones were found. The recreation page lists two summer camp programs but does not label their information with a year or supply session dates, prices, or confirmed drop-off locations. The registration catalog was accessible through search results, but opening it returned no readable content; its indexed listings did not include the summer camps. Undated program details are retained as fallback information, not confirmed 2026 schedules.",
+    "notes": "No 2027 camp dates or registration milestones were found. The recreation page describes camps without a season year or session dates. The official registration catalog returned no readable program details. No camp brochure was found.",
     "excluded": [
       {
         "name": "REFIT-Dance Fitness Classes",
-        "reason": "Ongoing fitness classes, not a finite summer youth camp."
+        "reason": "Ongoing fitness classes, not a finite youth summer camp."
       },
       {
         "name": "Tennis and Pickleball Lessons",
-        "reason": "Regular lessons, including private and semi-private lessons offered year-round."
+        "reason": "Lesson series and year-round private or semi-private lessons."
       },
       {
         "name": "Taekwondo Classes",
-        "reason": "Regular self-defense classes, not identified as a summer-only program."
+        "reason": "Classes, not a stated finite summer camp."
       },
       {
         "name": "WINGS, WHISKERS AND WONDERS-Exploring Native Life Around Us",
-        "reason": "Listed as a regular nature program separately from Summer Science Camp; no finite summer schedule was stated."
+        "reason": "Nature lesson program; not identified as a finite summer camp. Summer Science Camp is listed separately."
       },
       {
         "name": "Holiday Wreath-Making Workshop",
-        "reason": "Holiday-season workshop outside summer."
+        "reason": "Holiday workshop outside summer."
       },
       {
         "name": "NC Wildlife Resources Commission Classes",
-        "reason": "Year-round classes; no specific summer youth clinic was identified."
+        "reason": "Year-round skill classes with no specific summer youth clinic identified."
       },
       {
         "name": "Tackle Loaner Program",
-        "reason": "Equipment lending rather than a supervised youth program."
-      },
-      {
-        "name": "Contract instructors",
-        "reason": "Instructor recruitment rather than a youth camp."
+        "reason": "Equipment lending, not a supervised youth program."
       }
     ],
     "cards": [
@@ -81,9 +77,9 @@
         "name": "Tennis Summer Camps",
         "type": "day",
         "categories": ["sports"],
-        "description": "Young athletes practice tennis through drills, games, and activities with Coach Dennis Harpell. All skill levels are welcome.",
+        "description": "Campers practice tennis with Coach Dennis Harpell through drills, games, and activities. All skill levels are welcome.",
         "camp_page_url": "https://www.millsriver.gov/258/Recreation-Programs",
-        "registration_url": "https://secure.rec1.com/NC/town-of-mills-river-parks-and-recreation-nc/catalog/index/",
+        "registration_url": "https://secure.rec1.com/NC/town-of-mills-river-parks-and-recreation-nc/catalog",
         "season": {
           "year": 2026,
           "status": "not_posted",
@@ -105,20 +101,17 @@
         "special_needs": null,
         "lunch": null,
         "transportation": null,
-        "sources": [
-          "https://www.millsriver.gov/258/Recreation-Programs",
-          "https://secure.rec1.com/NC/town-of-mills-river-parks-and-recreation-nc/catalog/index/"
-        ],
+        "sources": ["https://www.millsriver.gov/258/Recreation-Programs"],
         "confidence": "medium",
-        "review_notes": "The undated recreation page says there are two summer tennis camps but gives neither dates nor separate session details. Confirm the season year, camp hours/type, eligibility, price, and drop-off venue with the provider. Mills River Park is named for regular lessons, not explicitly for the camps, so it was not assigned as a camp site."
+        "review_notes": "The undated recreation page says there are two summer tennis camps but gives no dates, ages, hours, prices, or explicit camp venue. The Mills River Park reference applies to lessons, so it was not assigned as the camp drop-off site. Season year 2026 is a fallback for the current undated listing; confirm the year and camp format with the provider."
       },
       {
         "name": "Summer Science Camp",
         "type": "half_day",
         "categories": ["stem", "nature_outdoor"],
-        "description": "Campers explore native plants, animals, and insects through hands-on indoor and outdoor lessons. Activities examine how nature shapes the world and how people can protect it.",
+        "description": "Campers explore native plants, animals, and insects through hands-on indoor and outdoor lessons about nature and protecting the environment.",
         "camp_page_url": "https://www.millsriver.gov/258/Recreation-Programs",
-        "registration_url": "https://secure.rec1.com/NC/town-of-mills-river-parks-and-recreation-nc/catalog/index/",
+        "registration_url": "https://secure.rec1.com/NC/town-of-mills-river-parks-and-recreation-nc/catalog",
         "season": {
           "year": 2026,
           "status": "not_posted",
@@ -136,7 +129,7 @@
         "hours": {
           "start": "09:00",
           "end": "12:00",
-          "text": "Sessions offered in the summer Mon-Friday 9am-12pm."
+          "text": "Mon-Friday 9am-12pm"
         },
         "extended_care": null,
         "prices": [],
@@ -148,12 +141,9 @@
         "special_needs": null,
         "lunch": null,
         "transportation": null,
-        "sources": [
-          "https://www.millsriver.gov/258/Recreation-Programs",
-          "https://secure.rec1.com/NC/town-of-mills-river-parks-and-recreation-nc/catalog/index/"
-        ],
+        "sources": ["https://www.millsriver.gov/258/Recreation-Programs"],
         "confidence": "medium",
-        "review_notes": "The recreation page states grades 1–5 and Monday–Friday morning hours but does not identify a year, session dates, price, or camp venue. Confirm which summer these undated details describe and whether grades refer to rising or completed grades."
+        "review_notes": "The recreation page gives grades and hours but no year, session dates, price, or camp drop-off venue. Season year 2026 is a fallback for the current undated listing; confirm which summer these details describe."
       }
     ]
   }

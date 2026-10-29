@@ -7,23 +7,22 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:32:53.428Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:27:23.369Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "537c6834200d949be747e5b9c34062dd3cbfab6f245ac8f9195b700741d3d524",
   "response": {
     "searches": [
       "site:trmakersco.org summer 2026 camp",
-      "\"Travelers Rest Makers Co.\" \"camp\" \"Jun\" \"2026\"",
-      "open https://www.hisawyer.com/marketplace/activity-set/1869254"
+      "\"Travelers Rest Makers Co.\" \"camp\" \"2026\" summer art"
     ],
     "usage": {
-      "inputTokens": 28335,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1066,
-      "reasoningTokens": 205
+      "inputTokens": 27391,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1022,
+      "reasoningTokens": 194
     },
     "status": "completed",
-    "ms": 35592,
+    "ms": 30964,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -77,59 +76,59 @@
   "extraction": {
     "provider_name": "TR Makers Co.",
     "website_url": "https://trmakersco.org/",
-    "notes": "No summer 2027 dates or registration milestones were found. The summer page retains a general program description but currently displays school-year camps rather than summer sessions. Searches found older 2024 and 2025 summer materials, which were not used for 2026 dates or prices. Sawyer pages opened without readable content beyond the supplied extracts and search snippets.",
+    "notes": "No official summer 2027 dates or registration announcements were found. The current summer camp page describes the program but does not list summer 2026 dates, ages, hours or prices. Archived event listings found in search describe 2024 camps; those dates and prices were not carried forward. The Sawyer schedule embedded on the official website reported a loading problem.",
     "excluded": [
       {
-        "name": "Summer Student Internship – Ages 12-15",
-        "reason": "Studio internship and volunteer service program involving preparation and assistance with younger campers, rather than a camper offering."
-      },
-      {
-        "name": "Half Day Art Camp: Art History Explorers",
-        "reason": "November 2, 2026 school-closure camp, outside summer."
-      },
-      {
-        "name": "Half Day Art Camp: Abstract Sculptors",
-        "reason": "November 3, 2026 school-closure camp, outside summer."
+        "name": "Fall and Spring Half Day Camps",
+        "reason": "School-closure camps outside summer, including Art History Explorers and Abstract Sculptors in November 2026."
       },
       {
         "name": "Elf Camp!",
-        "reason": "December winter-break camp, outside summer."
+        "reason": "Winter-break camp in December 2026, outside summer."
       },
       {
         "name": "Fashion Camp MORNING (three days)",
-        "reason": "December winter-break camp, outside summer."
+        "reason": "Winter-break camp in December 2026, outside summer."
       },
       {
         "name": "Fashion Camp AFTERNOON (three days)",
-        "reason": "December winter-break camp, outside summer."
+        "reason": "Winter-break camp in December 2026, outside summer."
       },
       {
-        "name": "Mini Makers: Summer Series",
-        "reason": "Parent-participation guided-play classes, rather than a supervised drop-off youth camp."
+        "name": "Summer Student Internship – Ages 12-15",
+        "reason": "Volunteer and pre-employment internship assisting studio staff and campers, rather than a camper program."
       },
       {
-        "name": "Arts Lead Learning (Homeschool)",
-        "reason": "Academic-school-year homeschool classes, not a summer camp."
+        "name": "Arts Lead Learning – Homeschool Classes",
+        "reason": "School-year homeschool lesson series."
+      },
+      {
+        "name": "Mini Makers",
+        "reason": "Recurring early-childhood classes, including a summer class series, rather than a camp."
       },
       {
         "name": "Parents Night Out",
-        "reason": "Recurring year-round events, not a finite summer program."
+        "reason": "Single-evening events rather than a multi-day evening camp."
       },
       {
         "name": "Book a Play Date!",
-        "reason": "Year-round individually booked art experiences, not a summer camp."
+        "reason": "Individually booked art experiences rather than a summer camp."
+      },
+      {
+        "name": "Parties and Private Events",
+        "reason": "Private parties and social events rather than summer camps."
       }
     ],
     "cards": [
       {
         "name": "Summer Maker Camps for Kids",
-        "type": "half_day",
+        "type": "day",
         "categories": ["arts"],
-        "description": "Campers create handmade art projects and practice artistic techniques and maker tools. Projects involve developing an idea, sketching it and making the finished work.",
+        "description": "Campers create handmade projects, practice artistic techniques and use makers tools. Projects follow the process from conception and sketching through handcrafting and completion.",
         "camp_page_url": "https://trmakersco.org/kids-maker-day/",
-        "registration_url": "https://trmakersco.org/schedule/",
+        "registration_url": null,
         "season": {
-          "year": 2027,
+          "year": 2026,
           "status": "not_posted",
           "start": null,
           "end": null,
@@ -156,13 +155,9 @@
         "special_needs": null,
         "lunch": null,
         "transportation": null,
-        "sources": [
-          "https://trmakersco.org/kids-maker-day/",
-          "https://trmakersco.org/schedule/",
-          "https://trmakersco.org/event/summer-camp-coloration-nation-afternoon/"
-        ],
+        "sources": ["https://trmakersco.org/kids-maker-day/", "https://trmakersco.org/"],
         "confidence": "medium",
-        "review_notes": "The current summer page does not specify summer dates, ages, hours or prices. Half-day format is supported by older official summer offerings, but should be confirmed for 2027; no older dates or prices were carried forward. Confirm whether single Maker Days and week-long Maker Camps remain part of the same offering."
+        "review_notes": "The current program page retains a summer camp description without a dated summer schedule. Day type reflects the studio-based offering, but the current page does not establish whether summer sessions are half-day or full-day. Check the official summer page and Sawyer schedule when 2027 offerings are published."
       }
     ]
   }

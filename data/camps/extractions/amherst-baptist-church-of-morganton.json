@@ -10,22 +10,22 @@
     "discovered_by": ["grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:21:15.296Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:18:00.267Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "fa98907e91695a6921ab202222c11cbf181256f794b87f48f4d65f96bb9a3c36",
   "response": {
     "searches": [
-      "Amherst Baptist Church Morganton official 1024 Amherst VBS 2027",
-      "\"Amherst\" \"Morganton\" \"2027\" \"VBS\""
+      "Amherst Baptist Church Morganton official VBS 2027",
+      "open https://amherstbaptistchurch.org/"
     ],
     "usage": {
-      "inputTokens": 18678,
-      "cachedInputTokens": 8223,
-      "outputTokens": 590,
-      "reasoningTokens": 106
+      "inputTokens": 15141,
+      "cachedInputTokens": 8845,
+      "outputTokens": 663,
+      "reasoningTokens": 81
     },
     "status": "completed",
-    "ms": 27791,
+    "ms": 19841,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -58,20 +58,15 @@
   ],
   "extraction": {
     "provider_name": "Amherst Baptist Church of Morganton",
-    "website_url": null,
-    "notes": "No 2027 VBS information or registration dates were found. The listed church website, https://amherstbaptistchurch.org/, returned no readable content. The 2025 True North page is a prior-year version of the same VBS offering, not a separate program.",
-    "excluded": [
-      {
-        "name": "Adult Bible Study",
-        "reason": "Adult-only Bible study offered alongside VBS; not a supervised youth camp."
-      }
-    ],
+    "website_url": "https://amherstbaptistchurch.org/",
+    "notes": "No 2027 VBS information was found. The church website returned no readable text. The 2025 True North VBS page is an earlier edition of the same VBS program, not a separate card.",
+    "excluded": [],
     "cards": [
       {
         "name": "Snowball Mountain Challenge VBS",
         "type": "vbs",
         "categories": ["faith_based"],
-        "description": "Children participate in Bible lessons, music, games, snacks, and activities about finding strength in God.",
+        "description": "Children participate in Bible lessons, music, games, snacks, and activities focused on finding strength in God.",
         "camp_page_url": "https://vbsmate.com/events/amherstbc/32440",
         "registration_url": "https://vbsmate.com/students/amherstbc/32440",
         "season": {
@@ -107,7 +102,7 @@
         "last_year_registration_opened": null,
         "availability": {
           "status": "closed",
-          "scope": "2026 VBS registration",
+          "scope": null,
           "text": "Registration for Snowball Mountain Challenge VBS 2026 - Amherst Baptist Church is not currently open."
         },
         "financial_aid": null,
@@ -119,7 +114,7 @@
           "https://vbsmate.com/students/amherstbc/32440"
         ],
         "confidence": "medium",
-        "review_notes": "The VBSMate event header shows 12:00 AM - 12:00 AM, while the detailed 2026 announcement explicitly states 6:00 PM - 8:30 PM. The card uses the detailed announcement's hours; verify this discrepancy if needed."
+        "review_notes": "The event header lists 12:00 AM - 12:00 AM, while the detailed event description explicitly lists 6:00 PM - 8:30 PM. Used the detailed description's evening hours."
       }
     ]
   }

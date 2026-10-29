@@ -8,19 +8,22 @@
     "status": "review",
     "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
   },
-  "extractedAt": "2026-10-29T14:56:42.705Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T16:57:15.296Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "da91345114f8581967531da458cff7a2bc0dab30c7f785ab965a9c128a82963b",
   "response": {
-    "searches": ["site:mountaincitypublic.org \"camp\""],
+    "searches": [
+      "site:mountaincitypublic.org summer camp",
+      "site:mountaincitypublic.org \"summer\" \"2026\""
+    ],
     "usage": {
-      "inputTokens": 18005,
-      "cachedInputTokens": 8223,
-      "outputTokens": 300,
-      "reasoningTokens": 65
+      "inputTokens": 18589,
+      "cachedInputTokens": 8845,
+      "outputTokens": 398,
+      "reasoningTokens": 140
     },
     "status": "completed",
-    "ms": 12904,
+    "ms": 17452,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -39,19 +42,19 @@
   "extraction": {
     "provider_name": "Mountain City Public Montessori",
     "website_url": "https://mountaincitypublic.org/",
-    "notes": "No qualifying summer camp programs or summer 2027 camp information were found in the supplied official pages or targeted searches of the provider's website, including indexed PDFs. The January 1–March 31, 2026 enrollment period and April 13, 2026 lottery are for the 2026–2027 school year, not summer camp registration. The official events page lists enrollment information sessions and school tours rather than camps.",
+    "notes": "No qualifying summer camp program or summer 2027 camp information was found in the supplied official pages or targeted web searches of the provider's website, including indexed PDFs. The enrollment dates describe the 2026–2027 school year, not summer camp registration. The events page at https://mountaincitypublic.org/events/ returned no readable text. Reading camp references were found in Read to Achieve reporting PDFs, but no public camp offering was found.",
     "excluded": [
       {
-        "name": "Mountain City Public Montessori school enrollment",
-        "reason": "Regular school-year education, not a finite summer camp program."
+        "name": "School enrollment",
+        "reason": "Regular school-year education, not a finite summer camp."
       },
       {
         "name": "Little Grove Preschool",
-        "reason": "Referenced as a partner preschool enrollment program; no summer-only offering is stated."
+        "reason": "The enrollment page identifies this as a partner preschool program, not a summer camp."
       },
       {
-        "name": "Summer Board Retreat",
-        "reason": "Board governance meeting, not a supervised youth summer program."
+        "name": "Read to Achieve reading camp",
+        "reason": "Referenced in school accountability reporting as a student reading intervention; no publicly accessible camp offering was found. School learning programs limited to the school's own students are excluded."
       }
     ],
     "cards": []

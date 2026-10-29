@@ -7,44 +7,29 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:30:35.362Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
-  "sourceHash": "fa5b90cb79b9c1123bac13cd70157e28b66f30de22ba1e251ba18734495c5067",
+  "extractedAt": "2026-10-29T17:25:45.705Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "5422f5cab3c6c56995bd9119e3c8aba6c9a9965c596d80d7d8ab361d4eafb412",
   "response": {
     "searches": [
-      "site:biltmorechurch.com \"2027\" \"camp\"",
-      "open https://my.biltmorechurch.com/Content/files/students/CAMP_WEEK_PARENT_HANDBOOK.pdf",
-      "site:biltmorechurch.com \"CHECK-IN\" \"2026\" \"camp\""
+      "site:biltmorechurch.com adventure \"2026\"",
+      "open https://biltmorechurch.com/adventure",
+      "site:biltmorechurch.com/adventure \"cost\""
     ],
     "usage": {
-      "inputTokens": 22264,
-      "cachedInputTokens": 8223,
-      "outputTokens": 2200,
-      "reasoningTokens": 208
+      "inputTokens": 18729,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1863,
+      "reasoningTokens": 165
     },
     "status": "completed",
-    "ms": 62595,
+    "ms": 43582,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
   "bundle": [
     {
       "url": "https://biltmorechurch.com/adventure",
-      "chars": 7186,
-      "method": "fetch"
-    },
-    {
-      "url": "https://biltmorechurch.com/RegistrationSelector?RegistrationTemplateId=70",
-      "chars": 2764,
-      "method": "fetch"
-    },
-    {
-      "url": "https://biltmorechurch.com/RegistrationSelector?RegistrationTemplateId=305",
-      "chars": 2769,
-      "method": "fetch"
-    },
-    {
-      "url": "https://biltmorechurch.com/camp",
       "chars": 0,
       "error": "fetch: HTTP 404; browser: soft 404 (\"Page Not Found | Biltmore Church\")"
     },
@@ -57,37 +42,33 @@
   "extraction": {
     "provider_name": "Biltmore Church of Arden",
     "website_url": "https://biltmorechurch.com/",
-    "notes": "No summer 2027 information found. Adventure Week includes daytime and evening campuses within one named VBS program. Family Nights are excluded from camp dates. Camp Week takes place at Anderson University in South Carolina; its local departure/drop-off locations could not be verified.",
+    "notes": "No summer 2027 camp information was found. Adventure Week details are from the official 2026 page's search-indexed text; opening that page returned no readable text. Camp Week is held at Anderson University in Anderson, SC, outside the directory's drive-time area. Adventure Week's Thursday family nights are excluded from session dates because they are family social events rather than additional supervised camp days.",
     "excluded": [
       {
+        "name": "Camp Week",
+        "reason": "The 2026 overnight program is held at Anderson University in Anderson, SC, plainly outside about 75 minutes' drive of Asheville."
+      },
+      {
         "name": "Adventure Week Family Night",
-        "reason": "Family-only celebration, not a supervised youth camp."
+        "reason": "Single-evening family events on June 18 and June 25, rather than supervised youth camp sessions."
       },
       {
-        "name": "Adventure Week Volunteers - Adults",
-        "reason": "Adult volunteer registration, not a youth camp."
+        "name": "Biltmore Kids",
+        "reason": "Year-round Sunday children's ministry, not a finite summer camp."
       },
       {
-        "name": "Adventure Week Volunteers - Student",
-        "reason": "Volunteer service opportunity, not a separately described youth camp or leadership program."
-      },
-      {
-        "name": "Wake Weekend",
-        "reason": "February program outside summer."
-      },
-      {
-        "name": "Biltmore College Summer Project",
-        "reason": "College-student ministry project, not a youth summer camp."
+        "name": "Biltmore Students",
+        "reason": "Year-round Sunday and Wednesday student ministry gatherings, not finite summer camps."
       }
     ],
     "cards": [
       {
         "name": "Adventure Week",
         "type": "vbs",
-        "categories": ["faith_based"],
-        "description": "Children participate in worship, skits, Bible teaching, recreation, crafts, missions, and small-group discussion.",
+        "categories": ["faith_based", "general"],
+        "description": "Children participate in worship, Bible teaching, games, interactive lessons, and hands-on activities. The 2026 theme is Deep Sea Discovery.",
         "camp_page_url": "https://biltmorechurch.com/adventure",
-        "registration_url": null,
+        "registration_url": "https://biltmorechurch.com/adventure",
         "season": {
           "year": 2026,
           "status": "not_posted",
@@ -257,80 +238,18 @@
         ],
         "registration": [],
         "last_year_registration_opened": null,
-        "availability": null,
-        "financial_aid": null,
-        "special_needs": {
-          "value": "case_by_case",
-          "text": "If you have any special requests for your child (being in a group with a friend, dietary restrictions, medical needs, or any other need) you can note that on your registration. We will contact you with any questions to help create the best experience for you and your child."
-        },
-        "lunch": null,
-        "transportation": null,
-        "sources": ["https://biltmorechurch.com/adventure"],
-        "confidence": "high",
-        "review_notes": null
-      },
-      {
-        "name": "Camp Week",
-        "type": "overnight",
-        "categories": ["faith_based", "general"],
-        "description": "Students attend worship, Bible teaching, small groups, activities, and competitions at Crossroads Summer Camp at Anderson University.",
-        "camp_page_url": "https://biltmorechurch.com/camp",
-        "registration_url": "https://rock.biltmorechurch.com/RegistrationSelector?RegistrationTemplateId=34",
-        "season": {
-          "year": 2026,
-          "status": "not_posted",
-          "start": "2026-07-20",
-          "end": "2026-07-24",
-          "text": null
-        },
-        "ages": null,
-        "grades": {
-          "min": 6,
-          "max": 12,
-          "basis": "rising"
-        },
-        "sites": [],
-        "hours": null,
-        "extended_care": null,
-        "prices": [
-          {
-            "amount": 409,
-            "unit": "session",
-            "label": "March 1–June 1 registration price",
-            "year": 2026
-          },
-          {
-            "amount": 499,
-            "unit": "session",
-            "label": "June 2–July 12 registration price",
-            "year": 2026
-          }
-        ],
-        "sessions": [],
-        "registration": [],
-        "last_year_registration_opened": null,
         "availability": {
           "status": "closed",
-          "scope": null,
-          "text": "Registration is Closed!"
+          "scope": "Online pre-registration for both 2026 weeks",
+          "text": "Pre-Registration Closed"
         },
         "financial_aid": null,
         "special_needs": null,
-        "lunch": {
-          "value": "yes",
-          "text": "The cost of camp includes transportation, activities, room and board ( lodging and meals), camp materials, and camp T-shirt."
-        },
-        "transportation": {
-          "value": "yes",
-          "text": "All students will be transported to and from camp week on Young Bus Transportation charter buses."
-        },
-        "sources": [
-          "https://biltmorechurch.com/camp",
-          "https://rock.biltmorechurch.com/RegistrationSelector?RegistrationTemplateId=34",
-          "https://my.biltmorechurch.com/Content/files/students/CAMP_WEEK_PARENT_HANDBOOK.pdf"
-        ],
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://biltmorechurch.com/adventure"],
         "confidence": "medium",
-        "review_notes": "Camp page and parent handbook were accessible through official search-index text, but opening them returned no readable content. Verify local camper drop-off/departure locations in the parent handbook. March 1 is stated as the beginning of a price tier, not explicitly as registration opening, so no opening date is recorded. The page solicits camp scholarship donations but does not state how families obtain aid."
+        "review_notes": "Details and site addresses were available only in the official page's search-indexed text; the page returned no readable content when opened. The page labels Week 2's registration deadline 'Thursday, June 19,' but June 19, 2026 is Friday; no deadline was extracted. The page also offers in-person Monday registration despite closed online pre-registration, so availability is scoped to online pre-registration."
       }
     ]
   }

@@ -9,22 +9,22 @@
     "status": "review",
     "status_reason": "first page is a social media page or video, which our fetcher can't read"
   },
-  "extractedAt": "2026-10-29T15:38:26.256Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:32:50.974Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": null,
   "response": {
     "searches": [
-      "Yellow Hill Baptist Church Cherokee VBS 2026",
+      "Yellow Hill Baptist Church Cherokee vacation bible school 2026",
       "site:facebook.com/yhbaptistcherokee \"2026\" \"Bible\""
     ],
     "usage": {
-      "inputTokens": 21201,
-      "cachedInputTokens": 8223,
-      "outputTokens": 303,
-      "reasoningTokens": 152
+      "inputTokens": 22348,
+      "cachedInputTokens": 8845,
+      "outputTokens": 810,
+      "reasoningTokens": 204
     },
     "status": "completed",
-    "ms": 12890,
+    "ms": 31514,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -38,8 +38,48 @@
   "extraction": {
     "provider_name": "Yellow Hill Baptist Church of Cherokee",
     "website_url": null,
-    "notes": "No standalone official website was found. The supplied Facebook page returned no readable text. Search results surfaced older official Vacation Bible School posts, but no verifiable 2026 or 2027 summer program information. A third-party AllEvents listing advertises a 2025 Vacation Bible School beginning July 7, 2025; this was not used to populate a 2026 or 2027 card. No cards are returned because current summer offerings could not be verified; this does not establish that the church has stopped offering VBS. Review the church's Facebook page directly for newer announcements.",
-    "excluded": [],
-    "cards": []
+    "notes": "No standalone official website or 2027 summer information was found. The church's Facebook page returned no readable content. An indexed older official Facebook post confirms Vacation Bible School, but current details could only be found in a third-party 2026 event listing. That listing reports June 8, 2026 at 5:30 p.m.; these details are omitted pending official confirmation. The church's Facebook content is also mirrored at https://www.findglocal.com/US/Cherokee/128978831255890/Yellow-Hill-Baptist-Church, which lists 297 Yellowhill Road, Cherokee, NC. No registration opening date was verified.",
+    "excluded": [
+      {
+        "name": "1st Annual Men’s Retreat Weekend",
+        "reason": "Adult-only retreat outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Vacation Bible School at Yellow Hill Baptist Church.",
+        "camp_page_url": "https://www.facebook.com/yhbaptistcherokee/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.facebook.com/yhbaptistcherokee/posts/vacation-bible-school-is-just-around-the-corner-classes-start-july-9th-through-t/129986981155075/"
+        ],
+        "confidence": "low",
+        "review_notes": "The official source was readable only as an indexed historical Facebook snippet and does not establish 2026 details. Check the church's Facebook posts or contact the church to confirm the 2026 program, its full dates, hours, youth eligibility and drop-off location. A third-party listing at https://allevents.in/cherokee/vacation-bible-school-2026/200030159229212 reports a June 8, 2026 start at 5:30 p.m. at 297 Yellowhill Road, Cherokee, NC, but the official event could not be read. No 2027 details were found."
+      }
+    ]
   }
 }

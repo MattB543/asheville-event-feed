@@ -7,22 +7,22 @@
     "discovered_by": ["grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:11:18.997Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:09:21.560Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "b4dd837b96b0ceb68d84c20787a7468f14ce6699ab18dc6cddca2236c497ba57",
   "response": {
     "searches": [
-      "site:hendersonvilleracquetclub.com summer camp 2027",
+      "site:hendersonvilleracquetclub.com summer camp 2027 2026",
       "site:hendersonvilleracquetclub.com \"2026\" \"camp\" \"pdf\""
     ],
     "usage": {
-      "inputTokens": 21432,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1175,
-      "reasoningTokens": 190
+      "inputTokens": 19691,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1183,
+      "reasoningTokens": 213
     },
     "status": "completed",
-    "ms": 31677,
+    "ms": 29018,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -41,35 +41,31 @@
   "extraction": {
     "provider_name": "Hendersonville Racquet Club",
     "website_url": "https://hendersonvilleracquetclub.com/",
-    "notes": "No summer 2027 camp information or registration dates found. The website's reference to the 2027 pool season is not a camp announcement. The junior-program page mentions an informational flier and registration form, but its link target could not be retrieved; searches did not locate the 2026 flier.",
+    "notes": "No 2027 summer camp information found. The junior-program page advertises an informational flier and registration form, but the browser returned no page content or link targets, and searches did not locate the 2026 flier. Ages, hours, prices and registration details therefore remain unknown. The website's 2027 pool-season reference is not a camp announcement.",
     "excluded": [
       {
-        "name": "Holiday and Spring Break Camps",
-        "reason": "Outside summer."
-      },
-      {
         "name": "Try Tennis Kids",
-        "reason": "Regular junior instructional program, not identified as a summer-only camp or clinic."
+        "reason": "Introductory tennis lesson program, not a finite summer camp."
       },
       {
         "name": "FUNdamentals",
-        "reason": "Ongoing junior tennis classes rather than a summer-only program."
+        "reason": "Ongoing junior tennis classes, not a summer camp."
       },
       {
         "name": "Futures",
-        "reason": "Regular junior training program, not identified as a finite summer offering."
+        "reason": "Ongoing competitive junior tennis training, not a finite summer camp."
       },
       {
         "name": "HYPE Academy (Hendersonville Youth Performance Elite)",
-        "reason": "Ongoing invitation-only junior training program, not identified as a finite summer offering."
+        "reason": "Ongoing invitation-only junior tennis training, not a finite summer camp."
       },
       {
         "name": "College Training Program (CTP)",
-        "reason": "Regular Monday–Thursday training program; no finite summer session is stated."
+        "reason": "Recurring tennis training with no finite summer session stated; not presented as a camp or pre-college summer program."
       },
       {
-        "name": "Summer Pool and Fitness Promotion",
-        "reason": "Seasonal facility membership, not a supervised youth program."
+        "name": "Tennis Youth Holiday and Spring Break Camps",
+        "reason": "Programs outside summer."
       }
     ],
     "cards": [
@@ -77,7 +73,7 @@
         "name": "Junior Tennis Camps",
         "type": "day",
         "categories": ["sports"],
-        "description": "Campers receive tennis instruction and participate in skill development, teamwork and athletic movement. Activities also use the club's pool, pickleball courts, racquetball courts and recreation areas; half-day and full-day options are offered.",
+        "description": "Campers receive tennis instruction and use the club's pool, pickleball courts, racquetball courts and recreation areas. Half-day and full-day options are available.",
         "camp_page_url": "https://hendersonvilleracquetclub.com/tennis/junior-program/",
         "registration_url": null,
         "season": {
@@ -102,7 +98,7 @@
         "prices": [],
         "sessions": [
           {
-            "label": "Fun in the Sun",
+            "label": null,
             "start": "2026-06-15",
             "end": "2026-06-19",
             "year": 2026,
@@ -114,7 +110,7 @@
             "status": null
           },
           {
-            "label": "Fun in the Sun",
+            "label": null,
             "start": "2026-06-22",
             "end": "2026-06-26",
             "year": 2026,
@@ -126,7 +122,7 @@
             "status": null
           },
           {
-            "label": "Fun in the Sun",
+            "label": null,
             "start": "2026-07-13",
             "end": "2026-07-17",
             "year": 2026,
@@ -150,7 +146,7 @@
           "https://hendersonvilleracquetclub.com/about-us/contact-us/"
         ],
         "confidence": "medium",
-        "review_notes": "The official contact address was available through search results. Check the informational flier and registration form linked on the junior-program page for camp ages, hours, prices and registration instructions; the page could not be retrieved with usable links. The supplied official page explicitly labels the session dates as 2026."
+        "review_notes": "Camp dates and description are explicit in the supplied official page text. The venue address was available only through the official contact page's search result. Retrieve the informational flier and registration form linked on the junior-program page to check ages, hours, prices and registration instructions."
       }
     ]
   }

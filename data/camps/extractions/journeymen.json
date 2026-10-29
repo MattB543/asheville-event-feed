@@ -8,22 +8,22 @@
     "status": "review",
     "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
   },
-  "extractedAt": "2026-10-29T14:57:48.461Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
-  "sourceHash": "7048af582232ffee3ea714e15d9ce82dda4d7805dac012dedf8166ac74ef1651",
+  "extractedAt": "2026-10-29T16:58:07.032Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "859693b68b901bf57a74866f64612347c533843b51f050dbbaf20b590b02ed07",
   "response": {
     "searches": [
-      "site:journeymenasheville.org summer 2026 2027",
-      "\"Journeymen\" \"2026\" \"May 29\""
+      "site:journeymenasheville.org \"2026\" \"summer\"",
+      "site:journeymenasheville.org \"summer camp\""
     ],
     "usage": {
-      "inputTokens": 26155,
-      "cachedInputTokens": 8223,
-      "outputTokens": 491,
-      "reasoningTokens": 166
+      "inputTokens": 24013,
+      "cachedInputTokens": 0,
+      "outputTokens": 479,
+      "reasoningTokens": 138
     },
     "status": "completed",
-    "ms": 22463,
+    "ms": 17549,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -35,26 +35,34 @@
     },
     {
       "url": "https://journeymenasheville.org/",
-      "chars": 3152,
+      "chars": 3337,
       "method": "fetch"
     }
   ],
   "extraction": {
     "provider_name": "Journeymen",
     "website_url": "https://journeymenasheville.org/",
-    "notes": "No summer 2027 offering or registration announcement was found. The Rites of Passage page lists May 29–31 without a year; the provider's Givebutter listing identifies this as Spring 2026 Rite of Passage Adventure Weekend, so it is excluded as a spring program rather than treated as a summer camp. Sources checked include https://journeymenasheville.org/programs/rites-of-passage/, https://givebutter.com/Spring-2026-rite-of-passage-adventure-weekend-copy-sqojhv, https://journeymenasheville.org/programs/journeymen-out-groups/, and https://journeymenasheville.org/programs/journeymen-community-groups/.",
+    "notes": "No qualifying summer camp or 2027 summer announcement was found on the official pages or in targeted searches. The Rites of Passage page lists May 29–31 without a year; the official home-dev page identifies the event as May 2026, and the Whole Foods sponsor page calls it the Spring 2026 weekend. It was excluded as a spring program. Official pages reviewed included the programs overview, Pathways, Rites of Passage, Crafting Passages, about-us, home-dev and sponsor pages.",
     "excluded": [
       {
         "name": "In School Mentoring",
-        "reason": "School-year mentoring groups, not a finite summer program."
+        "reason": "School-based ongoing mentoring, not a finite summer camp."
       },
       {
         "name": "Pathways",
-        "reason": "Community-based mentoring and activities offered throughout the year; no separate finite summer program was found."
+        "reason": "Year-round community mentoring with activities, outings and mentoring circles; no separately named finite summer camp was found."
       },
       {
-        "name": "Rite of Passage Adventure Weekend",
-        "reason": "The official registration listing names the May 29–31, 2026 offering Spring 2026 Rite of Passage Adventure Weekend. No summer offering was found."
+        "name": "Rites of Passage Adventure Weekend",
+        "reason": "The published weekend is May 29–31, identified elsewhere on the official site as Spring 2026; outside the summer."
+      },
+      {
+        "name": "Crafting Passages",
+        "reason": "A 10-week after-school crafting program, not a posted summer camp."
+      },
+      {
+        "name": "Spring Camping & Canoe Outing",
+        "reason": "A spring mentoring-group outing, not a summer camp."
       }
     ],
     "cards": []

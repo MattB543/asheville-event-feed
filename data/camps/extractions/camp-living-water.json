@@ -7,22 +7,22 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:19:23.003Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:16:30.127Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "cf858a895fc2b6774f98c45ae569b8a419be61b160c02048763f42593df55fc3",
   "response": {
     "searches": [
-      "site:camplivingwater.com summer camp 2026 2027 ages",
-      "site:camplivingwater.com \"camp\" \"ages\""
+      "site:camplivingwater.com \"summer\" \"2026\"",
+      "\"site:camplivingwater.com\" \"camp\" \"week\""
     ],
     "usage": {
-      "inputTokens": 17562,
-      "cachedInputTokens": 8223,
-      "outputTokens": 945,
-      "reasoningTokens": 171
+      "inputTokens": 27832,
+      "cachedInputTokens": 8845,
+      "outputTokens": 974,
+      "reasoningTokens": 167
     },
     "status": "completed",
-    "ms": 25447,
+    "ms": 27488,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -66,19 +66,23 @@
   "extraction": {
     "provider_name": "Camp Living Water",
     "website_url": "https://www.camplivingwater.com/",
-    "notes": "The summer camp page announces registration for summer 2027 but does not publish dates, ages, prices, activities or a registration link. December 1 is interpreted as December 1, 2026, the upcoming registration opening for summer 2027. Searches found older 2021 Junior Camp and Boys High Trek pages, but no current confirmation of those named offerings; they were not carried forward.",
+    "notes": "The official summer camp page announces registration for summer 2027 but does not give camp dates, ages, prices, activities or a registration link. Searches did not locate additional official 2026 or 2027 summer schedules or PDFs. December 1 is interpreted as December 1, 2026, the upcoming registration opening for summer 2027.",
     "excluded": [
       {
         "name": "Smoky Mountain Road Rally",
-        "reason": "October 29–November 1, 2026 fall event for couples, families and singles, not a supervised summer youth program."
+        "reason": "October 29–November 1, 2026 event for couples, families and singles; outside summer and not a supervised youth camp."
       },
       {
         "name": "Praise Fest",
-        "reason": "October 31, 2026 community and family event outside summer."
+        "reason": "Single-evening fall community festival on October 31, 2026."
       },
       {
         "name": "Group Reservations",
-        "reason": "Custom group facility reservations, not a published finite summer camp offering."
+        "reason": "Facility reservations for groups, not a named provider-run summer youth program."
+      },
+      {
+        "name": "Kids Camp and Teen Camp at camp-livingwater.com",
+        "reason": "Different organization operating in British Columbia and Alberta, Canada."
       }
     ],
     "cards": [
@@ -86,7 +90,7 @@
         "name": "Summer Camp",
         "type": "overnight",
         "categories": ["faith_based"],
-        "description": "Summer camp at an inter-denominational Christian camp in Bryson City. Specific camper activities have not been published on the current summer camp page.",
+        "description": "Summer camp at an inter-denominational Christian camp in Bryson City.",
         "camp_page_url": "https://www.camplivingwater.com/summer-camp",
         "registration_url": null,
         "season": {
@@ -137,7 +141,7 @@
           "https://www.camplivingwater.com/facilities"
         ],
         "confidence": "medium",
-        "review_notes": "Confirm the camp format: overnight is provisional based on the residential camp facilities, not explicitly stated for summer 2027. The registration announcement states December 1 without a calendar year; 2026 is inferred from the upcoming summer 2027 context. Check the summer camp page for dates, program divisions and registration details when registration opens."
+        "review_notes": "The current official page does not specify day versus overnight format. Overnight classification is provisional, supported by historical 2025 Junior Overnight Camp listings at this address and the site's lodging facilities; confirm the 2027 format. The registration announcement omits the calendar year for December 1; interpreted as 2026 based on the upcoming summer 2027 season. Camp dates are not posted, despite the 2027 registration announcement."
       }
     ]
   }

@@ -7,23 +7,22 @@
     "discovered_by": ["seed_sheet"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T14:57:05.759Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T16:57:27.281Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "a89f34d472c126a1ce700ead28b64322d235d0cbd8dc38d60d8628b360586836",
   "response": {
     "searches": [
-      "Roots + Wings School of Art and Design Asheville summer camp 2026 2027",
-      "open https://www.rootsandwingsarts.com/",
-      "site:rootsandwingsarts.com \"2026\""
+      "Roots Wings School Art Design Asheville summer camp official",
+      "open https://www.rootsandwingsarts.com/"
     ],
     "usage": {
-      "inputTokens": 22103,
-      "cachedInputTokens": 8223,
-      "outputTokens": 529,
-      "reasoningTokens": 181
+      "inputTokens": 17411,
+      "cachedInputTokens": 8845,
+      "outputTokens": 452,
+      "reasoningTokens": 73
     },
     "status": "completed",
-    "ms": 22105,
+    "ms": 15618,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -62,23 +61,27 @@
   "extraction": {
     "provider_name": "Roots + Wings School of Art and Design",
     "website_url": "https://www.rootsandwingsarts.com/",
-    "notes": "Provider identity mismatch: the supplied rootsandwingsschool.com pages belong to Roots and Wings School in New Boston, New Hampshire, not the Asheville art-and-design provider. Do not import their 2026 camp dates or school tuition into this provider. Searches identified rootsandwingsarts.com and rootswingsarts.square.site as the Asheville provider's official sites, but opening those sites and an individual camp page returned no readable content. No verified 2026 or 2027 supervised summer program information was found for the Asheville provider; cards are therefore empty rather than populated from the unrelated New Hampshire school or older undated materials.",
+    "notes": "The supplied rootsandwingsschool.com pages belong to a different school in New Boston, New Hampshire, not the Asheville provider. The Asheville provider's former official website and camp page returned no readable text. No official 2026 or 2027 camp offerings were found. A third-party reproduction of the provider's farewell announcement says the Asheville school closed at the end of the 2022–2023 school year; this could not be confirmed on a readable official page. No current camp cards are included.",
     "excluded": [
       {
-        "name": "ANYtime Creativity Camps",
-        "reason": "Official search results describe shipped materials and at-home creative activities without live calls; these are self-directed activity kits rather than supervised youth summer programs."
+        "name": "Summer Camp",
+        "reason": "The supplied 2026 program is operated by Roots and Wings School at 20 River Rd, New Boston, NH, a different organization outside the Asheville area."
       },
       {
         "name": "Seeds & Sprouts School",
-        "reason": "School-year preschool and kindergarten, and belongs to the unrelated New Boston, NH provider."
+        "reason": "School-year preschool and kindergarten, not a summer camp; also operated by the unrelated New Hampshire school."
       },
       {
         "name": "The Learning Garden",
-        "reason": "School-year academic program, not a summer-only camp; belongs to the unrelated New Boston, NH provider."
+        "reason": "School-year learning program, not a summer camp; also operated by the unrelated New Hampshire school."
       },
       {
         "name": "Extended Care",
-        "reason": "Before- and after-school childcare, not summer-only childcare; belongs to the unrelated New Boston, NH provider."
+        "reason": "Before- and after-school childcare, not a summer camp; also operated by the unrelated New Hampshire school."
+      },
+      {
+        "name": "Dream + Discover Creativity Camp",
+        "reason": "A historical Asheville camp page appears in official-site search results, but it supplies no verified 2026 or 2027 offering and returned no readable content when opened."
       }
     ],
     "cards": []

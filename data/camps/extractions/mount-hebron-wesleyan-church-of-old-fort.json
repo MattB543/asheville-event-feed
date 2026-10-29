@@ -11,23 +11,22 @@
     "discovered_by": ["grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:14:51.683Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:12:29.384Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "2b95197799ff8c940e3fb574099633f6369641ee433977aa7961163e492911bf",
   "response": {
     "searches": [
-      "\"Mount Hebron Wesleyan\" \"2026\" \"Bible\"",
-      "\"Mount Hebron Wesleyan\" \"Vacation Bible School\"",
-      "open https://happeningnext.com/event/mount-hebron-wesleyan-church-vbs-eid3a0drdtg3l"
+      "site:facebook.com/mount.hebron.wesleyan \"Bible\" \"2026\"",
+      "site:facebook.com \"mount.hebron.wesleyan\" \"June 28\""
     ],
     "usage": {
-      "inputTokens": 27295,
-      "cachedInputTokens": 8223,
-      "outputTokens": 888,
-      "reasoningTokens": 185
+      "inputTokens": 23738,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1018,
+      "reasoningTokens": 203
     },
     "status": "completed",
-    "ms": 30284,
+    "ms": 27133,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -61,23 +60,35 @@
   "extraction": {
     "provider_name": "Mount Hebron Wesleyan Church of Old Fort",
     "website_url": "https://mounthebronwesleyan.blogspot.com/",
-    "notes": "No official 2027 or 2026 camp details were found. The church's Facebook page returned no readable content, and its events page was inaccessible. A third-party listing reports VBS June 28–July 1, 2026, 6–8:30 pm; these details could not be verified officially and are not entered. The supplied blog documents VBS in 2015, with an initial June schedule superseded by a July announcement. Historical dates and prices are not carried forward. Camp Wesley offerings mentioned in the blog are operated by another provider, not this church.",
+    "notes": "No 2027 camp information found. The official blog's latest posts are from 2015. The church's Facebook page and events page opened without readable content. A 2026 VBS listing was found on two third-party event sites, but could not be confirmed on an official page.",
     "excluded": [
       {
-        "name": "S.W.A.T. Youth",
-        "reason": "Recurring year-round youth meetings, rather than a finite summer camp."
+        "name": "S.W.A.T. Youth meetings",
+        "reason": "Recurring youth-group meetings, not a finite summer camp."
+      },
+      {
+        "name": "S.W.A.T. Summer Activities",
+        "reason": "Youth-group outings, including a baseball game, parsonage campout and swimming trip."
+      },
+      {
+        "name": "Camp Wesley Summer Youth Camp and Kid's Camp",
+        "reason": "Separate Camp Wesley offerings mentioned as camps the church's youth attend, not programs operated by this provider."
       },
       {
         "name": "Camp Wesley REFRESH Weekend",
-        "reason": "October program outside summer."
+        "reason": "Fall youth-group trip, outside summer."
       },
       {
         "name": "Gene Moffitt Memorial Camping Trip",
-        "reason": "October camping trip outside summer."
+        "reason": "Camping trip outside summer."
       },
       {
         "name": "Country Craft Day",
-        "reason": "November fundraiser outside summer, not a supervised youth camp."
+        "reason": "Fall fundraising event, not a summer camp."
+      },
+      {
+        "name": "District Conference",
+        "reason": "Conference, not a youth summer camp."
       }
     ],
     "cards": [
@@ -85,14 +96,14 @@
         "name": "Vacation Bible School",
         "type": "vbs",
         "categories": ["faith_based"],
-        "description": "Children participate in Bible-focused activities led by church volunteers.",
-        "camp_page_url": "https://www.facebook.com/mount.hebron.wesleyan/",
+        "description": "Vacation Bible School for children.",
+        "camp_page_url": "https://www.facebook.com/mount.hebron.wesleyan/events/",
         "registration_url": null,
         "season": {
-          "year": 2027,
+          "year": 2026,
           "status": "not_posted",
-          "start": null,
-          "end": null,
+          "start": "2026-06-28",
+          "end": "2026-07-01",
           "text": null
         },
         "ages": null,
@@ -120,8 +131,8 @@
           "https://mounthebronwesleyan.blogspot.com/",
           "https://mounthebronwesleyan.blogspot.com/2015/06/summer-is-almost-here.html"
         ],
-        "confidence": "low",
-        "review_notes": "Program existence and description are supported by historical church posts only. Verify current VBS details on the church's Facebook page; the third-party listing at https://happeningnext.com/event/mount-hebron-wesleyan-church-vbs-eid3a0drdtg3l reports June 28–July 1, 2026, but no readable official announcement was found. Confirm that the church remains the drop-off venue."
+        "confidence": "medium",
+        "review_notes": "2026 dates and church venue come only from matching third-party listings: https://allevents.in/old-fort/mount-hebron-wesleyan-church-vbs/200030245093011 and https://happeningnext.com/event/mount-hebron-wesleyan-church-vbs-eid3a0drdtg3l. Confirm these against the church's Facebook event. Listings give an event span from June 28 at 6 PM to July 1 at 8:30 PM; daily hours were left null because that span does not establish each evening's schedule. The street address is published on the official blog. Historical 2015 VBS details were not carried forward."
       }
     ]
   }

@@ -11,23 +11,26 @@
     "discovered_by": ["grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:10:46.838Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
-  "sourceHash": "a978992eff5b42dba63c9a40e4dd6f90f1ecd639fb0e042b47793223ad6b2b65",
+  "extractedAt": "2026-10-29T17:09:54.546Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "1c8033d3899b79b856fa1dc8d526b6ea3bf385a9931dbc32775552565f72a96a",
   "response": {
     "searches": [
-      "site.carolinasfca.org leadership camp 2027",
-      "site:mhu.edu \"120 Cascade\"",
-      "site:triadfca.org/camps \"2027\" \"Registration\""
+      "site:carolinasfca.org \"2027\" \"camp\"",
+      "open https://carolinasfca.org/western-n-c-team-football-camp-2026",
+      "site:carolinasfca.org/carolina-s-fca-wrestling-camp-2026 \"$\"",
+      "site:carolinasfca.org/carolina-s-fca-wrestling-camp-2026 \"Cost\" \"grade\"",
+      "\"FCA\" \"Wrestling\" \"2026\" \"Gardner\" \"$\"",
+      "site:gardner-webb.edu \"110 South Main\""
     ],
     "usage": {
-      "inputTokens": 33047,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1848,
-      "reasoningTokens": 273
+      "inputTokens": 42441,
+      "cachedInputTokens": 8845,
+      "outputTokens": 3936,
+      "reasoningTokens": 685
     },
     "status": "completed",
-    "ms": 49207,
+    "ms": 93278,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -44,7 +47,7 @@
     },
     {
       "url": "https://search.fcacamps.org/CampDetail.aspx?ID=11986",
-      "chars": 6074,
+      "chars": 5909,
       "method": "fetch"
     },
     {
@@ -76,47 +79,87 @@
   "extraction": {
     "provider_name": "Carolinas Fellowship of Christian Athletes",
     "website_url": "https://carolinasfca.org/",
-    "notes": "Cards cover the Asheville-area offerings in Black Mountain and Mars Hill, rather than the provider's entire two-state camp network. The official Triad FCA camps page announces July 12-16, 2027 for Black Mountain Leadership Camp; the regional provider page still displays 2026 details. No 2027 Mars Hill dates or registration milestones were found. The supplied regional-board registration pages are password-protected and are not youth camp pages.",
+    "notes": "No summer 2027 information or registration dates found. Several additional official pages returned empty text when opened; their indexed official search text supplied partial 2026 details. The password-protected board registration pages are not camp pages. Borderline-distance sites in Hickory, Boiling Springs, Duncan and Spartanburg are retained for the directory's drive-time check. No registration opening dates could be established.",
     "excluded": [
       {
         "name": "Black Mountain Coaches Camp",
-        "reason": "Camp for coaches and their families, not a standalone youth offering."
+        "reason": "Coaches and family-only camp, not a standalone youth offering."
       },
       {
         "name": "Coaches CTO at The Cove",
-        "reason": "Coaches retreat rather than a supervised youth camp."
+        "reason": "Adult coaches retreat."
       },
       {
         "name": "Winter Blast Collegiate Retreat",
-        "reason": "January 8-10, 2027 is outside summer."
+        "reason": "January program, outside summer."
       },
       {
         "name": "NC FCA at The Fort High School Retreat",
-        "reason": "March retreat outside summer."
+        "reason": "March program, outside summer; also held in Oak Island."
       },
       {
         "name": "NC FCA at The Fort Middle School Retreat",
-        "reason": "March retreat outside summer."
+        "reason": "March program, outside summer; also held in Oak Island."
       },
       {
-        "name": "SC FCA Spring Retreat",
-        "reason": "March retreat outside summer."
+        "name": "SC FCA Spring Retreat at Garden City",
+        "reason": "Spring program outside summer and outside the Asheville area."
       },
       {
         "name": "SC FCA Middle School Retreat",
-        "reason": "November retreat outside summer."
+        "reason": "November program outside summer and outside the Asheville area."
       },
       {
         "name": "FCA Greater Charlotte All Abilities Camp",
-        "reason": "April program outside summer."
+        "reason": "April program outside summer, held in Monroe."
+      },
+      {
+        "name": "Camp on The Coast",
+        "reason": "Held in North Myrtle Beach, SC, outside the service area."
+      },
+      {
+        "name": "SC Boys Team Basketball Camp",
+        "reason": "Held in Newberry, SC, outside the service area."
+      },
+      {
+        "name": "FCA Outdoors Power Camp-Florence",
+        "reason": "Held in Darlington, SC, outside the service area."
+      },
+      {
+        "name": "Lowcountry FCA All Abilities Camp",
+        "reason": "Held in Charleston, SC, outside the service area."
+      },
+      {
+        "name": "South Coastal All Abilities Camp",
+        "reason": "Held in Bluffton, SC, outside the service area."
+      },
+      {
+        "name": "Eastern NC Team Football Camp",
+        "reason": "Held in Rocky Mount, NC, outside the service area."
+      },
+      {
+        "name": "Central NC Football Team Camp",
+        "reason": "Held in Wingate, NC, outside the service area."
+      },
+      {
+        "name": "Girls Team Basketball Camp",
+        "reason": "Held in Columbia, SC, outside the service area."
+      },
+      {
+        "name": "Citadel SC Team Football Camp",
+        "reason": "Held in Charleston, SC, outside the service area."
+      },
+      {
+        "name": "Girls Volleyball Team Camp",
+        "reason": "Held in Columbia, SC, outside the service area."
+      },
+      {
+        "name": "FCA Basketball Power Camp",
+        "reason": "Held in Easley, SC, outside the service area."
       },
       {
         "name": "Clemson FCA Power Camp",
-        "reason": "September program outside summer."
-      },
-      {
-        "name": "Leadership Camp adult FCA volunteer track",
-        "reason": "Adult-only track; adult pricing is omitted from the youth card."
+        "reason": "September program outside summer, held in Pendleton, SC."
       }
     ],
     "cards": [
@@ -124,15 +167,15 @@
         "name": "Black Mountain Leadership Camp",
         "type": "overnight",
         "categories": ["faith_based", "sports"],
-        "description": "Student-athletes participate in leadership training, Christian faith activities, and competitions in huddles led by college students. The camp focuses on leadership on school campuses and sports teams.",
+        "description": "Student-athletes participate in Christian leadership training and huddles led by college students, with competition and faith activities.",
         "camp_page_url": "https://carolinasfca.org/leadership-camp-2026",
         "registration_url": null,
         "season": {
-          "year": 2027,
-          "status": "posted",
-          "start": "2027-07-12",
-          "end": "2027-07-16",
-          "text": "JULY 12-16, 2027 BLACK MOUNTAIN LEADERSHIP CAMP"
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-06",
+          "end": "2026-07-10",
+          "text": null
         },
         "ages": null,
         "grades": null,
@@ -150,20 +193,24 @@
           {
             "amount": 475,
             "unit": "program",
-            "label": "Student; 2026 middle school and high school offering",
+            "label": "Student",
             "year": 2026
           },
           {
             "amount": 500,
             "unit": "program",
-            "label": "GAP track; 2026 high school graduate",
+            "label": "GAP — 2026 high school graduate",
             "year": 2026
           }
         ],
         "sessions": [],
         "registration": [],
         "last_year_registration_opened": null,
-        "availability": null,
+        "availability": {
+          "status": "available",
+          "scope": "2026 registration",
+          "text": "Registration OPEN"
+        },
         "financial_aid": {
           "value": "yes",
           "text": "Regional Scholarship Opportunities"
@@ -173,18 +220,17 @@
         "transportation": null,
         "sources": [
           "https://carolinasfca.org/leadership-camp-2026",
-          "https://triadfca.org/camps",
           "https://carolinasfca.org/regional-camp-scholarship-information",
-          "https://blueridgeassembly.org/meet/"
+          "https://blueridgeassembly.org/"
         ],
         "confidence": "medium",
-        "review_notes": "The 2027 dates are stated in the official Triad FCA search result; opening that page returned no readable text. Confirm those dates and overnight format directly before publication. The regional page still lists July 6-10, 2026, middle school and high school students, and a 2026 graduate GAP track. Numerical grade boundaries and 2027 eligibility were not stated; grades are left null. Prices and scholarship wording are from the supplied 2026 regional page, not a 2027 announcement. Its Registration OPEN wording refers to the old season and is not treated as current availability."
+        "review_notes": "Middle School & High School is stated without numeric grades. Overnight format is inferred from the multi-day residential venue. The page still says Registration OPEN for the past 2026 season. Adult volunteer track and adult price omitted."
       },
       {
         "name": "Western NC Mars Hill Team Football Camp",
         "type": "overnight",
         "categories": ["sports", "faith_based"],
-        "description": "Football teams participate in 7-on-7 and lineman activities, team competition, and Christian programming. Coaches register their players as a team.",
+        "description": "Teams attend a 7-on-7 and lineman football camp with team competition and Christian training. Coaches register their players as a team.",
         "camp_page_url": "https://carolinasfca.org/western-n-c-team-football-camp-2026",
         "registration_url": "https://search.fcacamps.org/CampDetail.aspx?ID=11986",
         "season": {
@@ -227,12 +273,274 @@
         "lunch": null,
         "transportation": null,
         "sources": [
-          "https://carolinasfca.org/western-n-c-team-football-camp-2026",
           "https://search.fcacamps.org/CampDetail.aspx?ID=11986",
-          "https://www.mhu.edu/department/registrars-office/"
+          "https://carolinasfca.org/western-n-c-team-football-camp-2026",
+          "https://www.mhu.edu/about/where-we-are/"
         ],
         "confidence": "medium",
-        "review_notes": "Confirm overnight versus commuter format: the readable official materials give a three-day university camp but do not explicitly state lodging. The regional page was available only through its official search snippet. It prints 120 Cascad Street; the university publishes 120 Cascade Street, used here. This is a finite team camp, not a league or team season. Registration is through coaches rather than necessarily individual parent enrollment."
+        "review_notes": "Overnight format is inferred, not explicit in readable details. Camp page was available only through indexed text. Venue's official address corrects camp page's 'Cascad Street'."
+      },
+      {
+        "name": "Carolina's FCA Wrestling Camp",
+        "type": "overnight",
+        "categories": ["sports", "faith_based"],
+        "description": "Wrestlers receive instruction from college and high school clinicians, compete, and participate in an FCA inspirational program. The camp includes six training sessions over two nights and three days.",
+        "camp_page_url": "https://carolinasfca.org/carolina-s-fca-wrestling-camp-2026",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-09",
+          "end": "2026-06-11",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Gardner-Webb University",
+            "address": "110 South Main Street",
+            "town": "Boiling Springs",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://carolinasfca.org/carolina-s-fca-wrestling-camp-2026",
+          "https://www.carolinasfca.org/camps",
+          "https://admissions.gardner-webb.edu/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Program page could only be read through indexed official text; dates come from the supplied 2026 camp calendar. Eligibility is stated as middle school through high school, without numeric grades. Check price and registration link."
+      },
+      {
+        "name": "All Abilities Camp",
+        "type": "day",
+        "categories": ["sports", "faith_based", "special_needs"],
+        "description": "Campers with disabilities participate in soccer, football, baseball or softball, basketball, physical fitness and other sports. Activities include a spiritual message and lessons on teamwork.",
+        "camp_page_url": "https://carolinasfca.org/upstate-all-abilities-camp-2026",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-20",
+          "end": "2026-06-20",
+          "text": null
+        },
+        "ages": {
+          "min": 7,
+          "max": 27
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Wofford College",
+            "address": "429 North Church Street",
+            "town": "Spartanburg",
+            "state": "SC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "15:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 25,
+            "unit": "program",
+            "label": "camper",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": {
+          "value": "yes",
+          "text": "a fun, safe, quality camp environment for individuals with disabilities"
+        },
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://carolinasfca.org/upstate-all-abilities-camp-2026",
+          "https://www.carolinasfca.org/camps",
+          "https://www.wofford.edu/about/links-resources/campus-map"
+        ],
+        "confidence": "medium",
+        "review_notes": "Specific official camp page states June 20, while the regional calendar says June 19-20. Used specific page date. Page details were readable only through official search indexing. Format check: ages 27 outside 2-19."
+      },
+      {
+        "name": "South Carolina Team Football Camp",
+        "type": "overnight",
+        "categories": ["sports", "faith_based"],
+        "description": "Football teams attend a 7-on-7 and lineman camp hosted by USC Upstate.",
+        "camp_page_url": "https://www.carolinasfca.org/sc-team-football-camp-at-usc-upstate-2026",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-13",
+          "end": "2026-07-18",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "USC Upstate",
+            "address": "800 University Way",
+            "town": "Spartanburg",
+            "state": "SC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Session 1",
+            "start": "2026-07-13",
+            "end": "2026-07-15",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 2",
+            "start": "2026-07-16",
+            "end": "2026-07-18",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://www.carolinasfca.org/sc-team-football-camp-at-usc-upstate-2026"],
+        "confidence": "medium",
+        "review_notes": "Official page available only through indexed text. Overnight format inferred from multi-day university team-camp format; check lodging, eligibility, prices and registration link."
+      },
+      {
+        "name": "Upstate FCA Wrestling Camp",
+        "type": "day",
+        "categories": ["sports", "faith_based"],
+        "description": "Middle and high school wrestlers receive personal instruction and compete on the mat, with Christian spiritual training. The camp accepts all weight classes and experience levels.",
+        "camp_page_url": "https://www.carolinasfca.org/sc-upstate-fca-wrestling-camp-2026",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-15",
+          "end": "2026-06-17",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Byrnes High School",
+            "address": "150 E. Main Street",
+            "town": "Duncan",
+            "state": "SC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 75,
+            "unit": "program",
+            "label": "Student Athlete",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://www.carolinasfca.org/sc-upstate-fca-wrestling-camp-2026"],
+        "confidence": "medium",
+        "review_notes": "Official page read only through indexed text. Eligibility is middle and high school without numeric grades. Address is printed by the camp; venue address independently unverified."
+      },
+      {
+        "name": "Western NC Lenoir Rhyne Team Football Camp",
+        "type": "overnight",
+        "categories": ["sports", "faith_based"],
+        "description": "Teams participate in 7-on-7 and lineman football competition and Christian team-building activities. Coaches sign up their players as a team.",
+        "camp_page_url": "https://carolinasfca.org/western-n-c-lenoir-rhyne-team-football-camp-2026",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-18",
+          "end": "2026-06-20",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Lenoir-Rhyne University",
+            "address": "625 7th Ave NE",
+            "town": "Hickory",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 200,
+            "unit": "program",
+            "label": "Athlete",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://carolinasfca.org/western-n-c-lenoir-rhyne-team-football-camp-2026",
+          "https://www.lr.edu/maps-directions/hickory-map-directions"
+        ],
+        "confidence": "medium",
+        "review_notes": "Official camp page read only through indexed text. Overnight format inferred; check lodging and eligibility. Venue address used instead of camp page's '625 7th Avenue PI NE'."
       }
     ]
   }

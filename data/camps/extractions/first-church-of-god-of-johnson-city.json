@@ -8,22 +8,22 @@
     "status": "review",
     "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
   },
-  "extractedAt": "2026-10-29T15:30:59.767Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:26:13.927Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "abdcb1e26681507e0093efcad3ea432e79727ae8ea202c986fc8a49788234352",
   "response": {
     "searches": [
-      "\"First Church of God\" \"Johnson City\" \"VBS\" 2026",
-      "\"First Church of God of Johnson City\" \"2026\" \"VBS\""
+      "\"First Church of God\" \"Johnson City\" \"VBS\" \"2026\"",
+      "\"801 W Watauga\" \"VBS\""
     ],
     "usage": {
-      "inputTokens": 22064,
-      "cachedInputTokens": 8223,
-      "outputTokens": 744,
-      "reasoningTokens": 169
+      "inputTokens": 19287,
+      "cachedInputTokens": 8845,
+      "outputTokens": 681,
+      "reasoningTokens": 156
     },
     "status": "completed",
-    "ms": 34130,
+    "ms": 25214,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -52,15 +52,11 @@
   "extraction": {
     "provider_name": "First Church of God of Johnson City",
     "website_url": "https://firstchurchofgodjc.com/",
-    "notes": "No official 2027 or 2026 summer camp schedule or registration information was found. The supplied official YouTube video title identifies Vacation Bible School, but its accessible text does not establish the program year or camp details. Search also found third-party VBS listings for 2024 and 2025; those historical dates were not used. The church website contains unrelated School Food Service Cooperative and NETCO employment content.",
+    "notes": "No official 2027 camp information or readable official 2026 VBS schedule was found. Third-party listings mention Emerald Crossing VBS on June 7, 2026, but do not establish the complete schedule; those dates were not used. The supplied homepage also contains unrelated NETCO employment content.",
     "excluded": [
       {
-        "name": "Sunday School",
-        "reason": "Regular church programming, not a finite summer camp."
-      },
-      {
-        "name": "NETCO Employment Opportunities",
-        "reason": "Employment recruitment, not a supervised youth summer program; appears to be unrelated content on the church website."
+        "name": "VBS Block Party Kick Off",
+        "reason": "A single social kickoff event, not a multi-day camp."
       }
     ],
     "cards": [
@@ -68,7 +64,7 @@
         "name": "Vacation Bible School",
         "type": "vbs",
         "categories": ["faith_based"],
-        "description": "The church identifies a Vacation Bible School program in its official YouTube video title. Activities are not described in the accessible program text.",
+        "description": "Vacation Bible School for children.",
         "camp_page_url": "https://www.youtube.com/watch?v=6co66eDGUXs",
         "registration_url": null,
         "season": {
@@ -80,7 +76,14 @@
         },
         "ages": null,
         "grades": null,
-        "sites": [],
+        "sites": [
+          {
+            "name": "First Church of God Johnson City",
+            "address": "801 W Watauga Ave",
+            "town": "Johnson City",
+            "state": "TN"
+          }
+        ],
         "hours": null,
         "extended_care": null,
         "prices": [],
@@ -97,7 +100,7 @@
           "https://www.youtube.com/watch?v=6co66eDGUXs"
         ],
         "confidence": "low",
-        "review_notes": "Confirm that Vacation Bible School will be offered in summer 2027 and obtain dates, eligibility, activities, registration details and the drop-off location directly from the church. The accessible YouTube title confirms only the program name, not its year. The church publishes its address as 801 W Watauga Ave., Johnson City, TN 37604, but the accessible official sources do not explicitly identify it as the VBS drop-off location."
+        "review_notes": "The supplied official YouTube title establishes a historical VBS offering but gives no program year, schedule, ages, or registration details. Confirm that VBS will return in 2027. The site address is the church's published contact location; third-party 2026 VBS listings use the same address, but an official camp-specific venue statement was not found."
       }
     ]
   }

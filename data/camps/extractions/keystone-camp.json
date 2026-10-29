@@ -11,23 +11,23 @@
     "discovered_by": ["grid", "aggregator", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:07:20.034Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:06:33.138Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "e09b0f8ed822532d743896d8fb37d3c14d138ed247d903aee7076379f0e4c9b0",
   "response": {
     "searches": [
-      "site.keystonecamp.com 2027 registration policies",
-      "open https://d1b48phb7m9k7p.cloudfront.net/u/234af096-141a-4b8e-b9d0-94bd20d4b54e/fi/pdf/8195/Camper_Registration_Policies_for_2027.pdf",
-      "site:keystonecamp.com \"campintouch\""
+      "site:keystonecamp.com 2027 registration policies leadership aides CIT",
+      "site:keystonecamp.com \"2027\" \"priority\"",
+      "site:keystonecamp.com \"2027\" \"August 17\" registration"
     ],
     "usage": {
-      "inputTokens": 36462,
-      "cachedInputTokens": 8223,
-      "outputTokens": 2976,
-      "reasoningTokens": 206
+      "inputTokens": 39854,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2448,
+      "reasoningTokens": 245
     },
     "status": "completed",
-    "ms": 59936,
+    "ms": 67149,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -76,23 +76,19 @@
   "extraction": {
     "provider_name": "Keystone Camp",
     "website_url": "https://keystonecamp.com/",
-    "notes": "2027 sessions and tuition are posted. Leadership is explicitly mentioned in the 2027 registration policies, but its dates and tuition are not published there. The policies specify grades entering fall 2026 for leadership, whereas an older leadership blog describes grades completed before summer; the card uses the 2027 policies. Individual activities, including horseback riding, are choices within camp rather than separate camps.",
+    "notes": "2027 sessions and tuition are posted. The linked priority-enrollment policies and direct application destination could not be retrieved. Leadership Program was found in older official descriptions and referenced retrospectively in September 2026, but no 2027 offering details were found; it is omitted because the 2027 program list is posted. Individual activities, including horseback riding, are components of Keystone Camp rather than separate camps.",
     "excluded": [
       {
         "name": "Mother-Daughter Weekends",
-        "reason": "Family-only retreat held in May; mothers and daughters participate together."
-      },
-      {
-        "name": "Counselors-in-Training (CITs)",
-        "reason": "Hired staff employment program rather than a camper program."
-      },
-      {
-        "name": "Keystone Alumnae 110-Year Reunion",
-        "reason": "Adult-only reunion; attendees must be 25 or older."
+        "reason": "Family-only retreat, held in May rather than summer."
       },
       {
         "name": "Home Shows",
-        "reason": "Informational events for prospective families, not supervised youth summer programs."
+        "reason": "Informational open houses, not supervised youth camps."
+      },
+      {
+        "name": "Counselors-in-Training",
+        "reason": "The official Leadership Program description identifies the CIT stage as camp employment."
       }
     ],
     "cards": [
@@ -109,17 +105,20 @@
           "dance",
           "music"
         ],
-        "description": "Girls choose activities including horseback riding, water sports, climbing, arts and crafts, drama, and sports. Sessions include a cabin camp-out, tubing trip, and camp-wide activities.",
+        "description": "Girls choose an activity schedule from over 30 offerings, including horseback riding, canoeing, climbing, swimming, arts and crafts, and drama. Sessions include a camp-out on camp property and a cabin-group tubing trip.",
         "camp_page_url": "https://keystonecamp.com/dates-rates",
-        "registration_url": "https://keystonecamp.com/",
+        "registration_url": "https://keystonecamp.com/dates-rates",
         "season": {
           "year": 2027,
           "status": "posted",
           "start": "2027-06-06",
           "end": "2027-08-06",
-          "text": "2027 Summer Camp Sessions"
+          "text": null
         },
-        "ages": null,
+        "ages": {
+          "min": 7,
+          "max": 14
+        },
         "grades": {
           "min": 0,
           "max": 9,
@@ -153,7 +152,7 @@
             "price": {
               "amount": 7600,
               "unit": "session",
-              "label": "3 Week",
+              "label": null,
               "year": 2027
             },
             "status": null
@@ -174,7 +173,7 @@
             "price": {
               "amount": 2400,
               "unit": "session",
-              "label": "6 Day",
+              "label": null,
               "year": 2027
             },
             "status": null
@@ -195,7 +194,7 @@
             "price": {
               "amount": 5600,
               "unit": "session",
-              "label": "2 Week",
+              "label": null,
               "year": 2027
             },
             "status": null
@@ -216,7 +215,7 @@
             "price": {
               "amount": 9200,
               "unit": "session",
-              "label": "4 Week",
+              "label": null,
               "year": 2027
             },
             "status": null
@@ -237,7 +236,7 @@
             "price": {
               "amount": 5600,
               "unit": "session",
-              "label": "2 Week",
+              "label": null,
               "year": 2027
             },
             "status": null
@@ -258,7 +257,7 @@
             "price": {
               "amount": 5600,
               "unit": "session",
-              "label": "2 Week",
+              "label": null,
               "year": 2027
             },
             "status": null
@@ -279,7 +278,7 @@
             "price": {
               "amount": 5600,
               "unit": "session",
-              "label": "2 Week",
+              "label": null,
               "year": 2027
             },
             "status": null
@@ -300,7 +299,7 @@
             "price": {
               "amount": 2400,
               "unit": "session",
-              "label": "6 Day",
+              "label": null,
               "year": 2027
             },
             "status": null
@@ -321,7 +320,7 @@
             "price": {
               "amount": 2400,
               "unit": "session",
-              "label": "6 Day",
+              "label": null,
               "year": 2027
             },
             "status": null
@@ -332,105 +331,38 @@
             "audience": "public",
             "kind": "opens",
             "date": "2026-08-17",
-            "time": "10:00",
-            "precision": "datetime",
-            "certainty": "announced",
-            "text": "The camper application for the 2027 season will be available online on Monday, August 17 at 10 am EST.",
-            "url": "https://d1b48phb7m9k7p.cloudfront.net/u/234af096-141a-4b8e-b9d0-94bd20d4b54e/fi/pdf/8195/Camper_Registration_Policies_for_2027.pdf",
-            "year": 2027,
-            "confidence": "high"
-          },
-          {
-            "audience": "returning",
-            "kind": "deadline",
-            "date": "2026-08-30",
             "time": null,
             "precision": "date",
             "certainty": "announced",
-            "text": "Returning campers entering the 1st-8th grades in the fall of 2026 (for the 2026-2027 school year), enrolling for the same session as their 2026 session, will be given priority through August 30, 2026.",
-            "url": "https://d1b48phb7m9k7p.cloudfront.net/u/234af096-141a-4b8e-b9d0-94bd20d4b54e/fi/pdf/8195/Camper_Registration_Policies_for_2027.pdf",
+            "text": "Registration for 2027 Opens August 17th",
+            "url": "https://keystonecamp.com/dates-rates",
             "year": 2027,
-            "confidence": "high"
-          },
-          {
-            "audience": "public",
-            "kind": "opens",
-            "date": "2026-09-14",
-            "time": null,
-            "precision": "date",
-            "certainty": "announced",
-            "text": "On September 14, 2026, all campers (including those new to Keystone Camp) will be enrolled, as space allows, in the order in which applications were received.",
-            "url": "https://d1b48phb7m9k7p.cloudfront.net/u/234af096-141a-4b8e-b9d0-94bd20d4b54e/fi/pdf/8195/Camper_Registration_Policies_for_2027.pdf",
-            "year": 2027,
-            "confidence": "high"
+            "confidence": "medium"
           }
         ],
         "last_year_registration_opened": null,
         "availability": null,
         "financial_aid": {
           "value": "yes",
-          "text": "This fund allows us to extend the gift of camp to very deserving campers."
+          "text": "Our Campership Fund helps provide summer camp experiences for children of Transylvania County families who would otherwise not be able to attend."
         },
         "special_needs": null,
-        "lunch": null,
+        "lunch": {
+          "value": "yes",
+          "text": "At Keystone, we eat all three meals together in our dining hall."
+        },
         "transportation": null,
         "sources": [
-          "https://keystonecamp.com/",
           "https://keystonecamp.com/dates-rates",
           "https://keystonecamp.com/dates-rates/which-session-is-right-for-me",
           "https://keystonecamp.com/activities",
+          "https://keystonecamp.com/about-keystone",
+          "https://keystonecamp.com/contact-us",
           "https://keystonecamp.com/alumnae/the-bill-and-sue-ives-campership-fund",
-          "https://d1b48phb7m9k7p.cloudfront.net/u/234af096-141a-4b8e-b9d0-94bd20d4b54e/fi/pdf/8195/Camper_Registration_Policies_for_2027.pdf"
-        ],
-        "confidence": "high",
-        "review_notes": null
-      },
-      {
-        "name": "Leadership Program",
-        "type": "overnight",
-        "categories": ["general"],
-        "description": "Invitation-only camper leadership roles include Leaders-in-Training and Aides. Campers take on responsibilities such as leading assembly, helping with activities, and preparing camp events.",
-        "camp_page_url": "https://keystonecamp.com/blog/2024/7/pulling-back-the-curtain-the-ins-and-outs-of-keystone-s-leadership-program",
-        "registration_url": null,
-        "season": {
-          "year": 2027,
-          "status": "not_posted",
-          "start": null,
-          "end": null,
-          "text": "Returning campers eligible for our leadership program (those entering 9th and 10th grades in the fall of 2026) will be contacted directly regarding their application procedures, as this program is by invitation only."
-        },
-        "ages": null,
-        "grades": {
-          "min": 9,
-          "max": 10,
-          "basis": "current"
-        },
-        "sites": [
-          {
-            "name": "Keystone Camp",
-            "address": "101 Keystone Camp Rd.",
-            "town": "Brevard",
-            "state": "NC"
-          }
-        ],
-        "hours": null,
-        "extended_care": null,
-        "prices": [],
-        "sessions": [],
-        "registration": [],
-        "last_year_registration_opened": null,
-        "availability": null,
-        "financial_aid": null,
-        "special_needs": null,
-        "lunch": null,
-        "transportation": null,
-        "sources": [
-          "https://keystonecamp.com/blog/2024/7/pulling-back-the-curtain-the-ins-and-outs-of-keystone-s-leadership-program",
-          "https://keystonecamp.com/",
-          "https://d1b48phb7m9k7p.cloudfront.net/u/234af096-141a-4b8e-b9d0-94bd20d4b54e/fi/pdf/8195/Camper_Registration_Policies_for_2027.pdf"
+          "https://keystonecamp.com/staff/daily-schedule"
         ],
         "confidence": "medium",
-        "review_notes": "Confirm eligibility directly: the 2027 policies say entering 9th and 10th grades in fall 2026; the July 2024 leadership blog says LITs have finished 9th grade and Aides have finished 10th. Dates, tuition, and grade-specific rows are not published. CIT employment is excluded."
+        "review_notes": "August 17 is interpreted as August 17, 2026 for summer 2027 enrollment; the heading does not explicitly print the calendar year. Priority-enrollment policy details could not be retrieved, so separate audience dates are unknown. Grades follow the dates-and-rates page's stated 2026/2027 school-year basis. Ages 7–14 come from the undated About page rather than a year-specific eligibility statement; confirm that this range applies to every 2027 session. Registration URL points to the official page with Apply Now buttons rather than a verified direct application URL."
       }
     ]
   }

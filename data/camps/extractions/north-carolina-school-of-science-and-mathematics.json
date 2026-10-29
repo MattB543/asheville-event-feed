@@ -11,24 +11,26 @@
     "discovered_by": ["news828", "grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:03:27.723Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:03:53.736Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "50530b466f1959464cc257e10708fa63ebe40485c162cb321712a6848daae6ec",
   "response": {
     "searches": [
-      "site:ncssm.edu/summer \"2027\"",
+      "site:ncssm.edu/summer INSPIRE 2026",
       "open https://www.ncssm.edu/summer/summer-accelerator/accelerator-7th-9th/7th-9th-residential-courses",
       "site:ncssm.edu \"10th-12th Residential\" \"2026\"",
-      "site:ncssm.edu \"7th-9th Residential\" \"July 12\""
+      "site:ncssm.edu/summer/summer-accelerator/accelerator-7th-9th/7th-9th-residential-courses \"July 5\"",
+      "open https://www.ncssm.edu/summer/summer-accelerator/accelerator-7th-9th/7th-9th-residential-courses?x=1",
+      "site:ncssm.edu/courses \"2026 in Morganton\""
     ],
     "usage": {
-      "inputTokens": 47477,
-      "cachedInputTokens": 8223,
-      "outputTokens": 4954,
-      "reasoningTokens": 467
+      "inputTokens": 50540,
+      "cachedInputTokens": 8845,
+      "outputTokens": 5534,
+      "reasoningTokens": 671
     },
     "status": "completed",
-    "ms": 98195,
+    "ms": 114568,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -77,33 +79,49 @@
   "extraction": {
     "provider_name": "North Carolina School of Science and Mathematics",
     "website_url": "https://www.ncssm.edu/",
-    "notes": "Cards cover the Morganton offerings relevant to the requested area. Durham-only programs, other distant campuses, and virtual-only courses are not included. Early Accelerator and Summer Accelerator explicitly say Summer 2027 information is coming; their dates and prices below are 2026 facts. INSPIRE has announced its 2027 application opening but still displays 2026 program dates. The Summer Accelerator course pages returned truncated text, so its session inventory is incomplete. The undated December 6 application opening on the Accelerator overview was not assigned to either summer.",
+    "notes": "2027 Accelerator course dates are not yet posted. INSPIRE explicitly announces a January 6, 2027 application opening. Accelerator's December 6 application opening has no explicit year, so it was not assigned to 2027. Some course-list pages returned truncated or empty text; Summer Accelerator rows below are only the Morganton offerings recoverable from official pages and may be incomplete. Summer Ventures at Appalachian State is retained for the directory's drive-time check; other university sites are omitted.",
     "excluded": [
       {
+        "name": "Early Accelerator — Durham courses",
+        "reason": "Durham is outside the directory's geographic range."
+      },
+      {
+        "name": "Summer Accelerator — Durham and online courses",
+        "reason": "Durham is outside the geographic range; online-only courses have no local camp site."
+      },
+      {
+        "name": "Step Up to STEM",
+        "reason": "Published residential sites in Durham, Elizabeth City and Pembroke are outside the geographic range."
+      },
+      {
+        "name": "NC Teamship Showcase",
+        "reason": "Held in Durham, outside the geographic range."
+      },
+      {
+        "name": "Summer Ventures — East Carolina, UNC Charlotte and UNC Wilmington",
+        "reason": "These sites are outside the geographic range."
+      },
+      {
         "name": "Summer Employment",
-        "reason": "Employment opportunities for instructors and staff, not youth camp participation."
-      },
-      {
-        "name": "Residential",
-        "reason": "Two-year residential high school program, not a finite summer camp."
-      },
-      {
-        "name": "Online",
-        "reason": "Academic-year supplemental high school program, not a summer camp."
+        "reason": "Employment opportunities, not youth camps."
       },
       {
         "name": "UNC System Tuition Grant",
-        "reason": "College tuition assistance for graduates, not a supervised youth summer program."
+        "reason": "College tuition assistance, not a summer camp."
+      },
+      {
+        "name": "Residential Campus Life",
+        "reason": "School-year residential education, not a finite summer camp."
       }
     ],
     "cards": [
       {
         "name": "Early Accelerator",
         "type": "day",
-        "categories": ["stem", "academic", "arts"],
-        "description": "Students explore STEM concepts through interactive activities and hands-on projects in weeklong courses.",
+        "categories": ["stem"],
+        "description": "Students explore STEM concepts through interactive, hands-on activities in weeklong day courses.",
         "camp_page_url": "https://www.ncssm.edu/summer/early-accelerator/morganton-courses",
-        "registration_url": "https://www.ncssm.edu/summer/early-accelerator/early-accelerator-admissions",
+        "registration_url": null,
         "season": {
           "year": 2026,
           "status": "coming_soon",
@@ -135,7 +153,7 @@
           {
             "amount": 350,
             "unit": "session",
-            "label": "Weeklong course",
+            "label": null,
             "year": 2026
           }
         ],
@@ -319,29 +337,33 @@
         "special_needs": null,
         "lunch": {
           "value": "no",
-          "text": "Students must bring lunch."
+          "text": "Students must bring lunch, but all other materials are provided"
         },
-        "transportation": null,
+        "transportation": {
+          "value": "no",
+          "text": "The program is open to kids who reside anywhere, but they need to be transported daily to the NCSSM campus where their Early Accelerator cohort is based."
+        },
         "sources": [
           "https://www.ncssm.edu/summer/early-accelerator",
           "https://www.ncssm.edu/summer/early-accelerator/morganton-courses",
-          "https://www.ncssm.edu/summer/early-accelerator/early-accelerator-admissions"
+          "https://www.ncssm.edu/courses/ghost-yard-of-the-atlantic",
+          "https://www.ncssm.edu/courses/wild-wonders"
         ],
-        "confidence": "high",
-        "review_notes": null
+        "confidence": "medium",
+        "review_notes": "The main Morganton list was used for rows. Individual official course pages additionally list Ghost Yard of the Atlantic June 22–26 and Wild Wonders July 13–17, neither present in the supplied main list; check whether those were removed or omitted."
       },
       {
         "name": "Summer Accelerator",
         "type": "overnight",
         "categories": ["stem", "academic", "arts"],
-        "description": "Students take hands-on STEM courses and participate in afternoon and evening activities while living on campus. Courses for rising 10th through 12th graders include two weeks of online work before the residential week.",
+        "description": "Students take hands-on courses and participate in afternoon and evening activities. Courses for rising grades 10–12 include two weeks of online preparation followed by a residential week.",
         "camp_page_url": "https://www.ncssm.edu/summer/summer-accelerator",
-        "registration_url": null,
+        "registration_url": "https://www.ncssm.edu/summer/summer-accelerator/summer-accelerator-admissions",
         "season": {
           "year": 2026,
           "status": "coming_soon",
-          "start": null,
-          "end": null,
+          "start": "2026-06-01",
+          "end": "2026-07-17",
           "text": "Check back soon for more information regarding Summer 2027!"
         },
         "ages": null,
@@ -364,13 +386,13 @@
           {
             "amount": 1495,
             "unit": "session",
-            "label": "Rising 7th–9th graders, residential course",
+            "label": "rising grades 7–9",
             "year": 2026
           },
           {
             "amount": 1925,
             "unit": "session",
-            "label": "Rising 10th–12th graders, two online weeks and one residential week",
+            "label": "rising grades 10–12",
             "year": 2026
           }
         ],
@@ -389,7 +411,7 @@
             },
             "hours": null,
             "price": null,
-            "status": "full"
+            "status": "waitlist"
           },
           {
             "label": "Stream Savers",
@@ -421,7 +443,7 @@
             },
             "hours": null,
             "price": null,
-            "status": "full"
+            "status": "waitlist"
           },
           {
             "label": "Biotechnology",
@@ -485,7 +507,23 @@
             },
             "hours": null,
             "price": null,
-            "status": "full"
+            "status": "waitlist"
+          },
+          {
+            "label": "Read Between the Lines: Storytelling through Music",
+            "start": "2026-06-14",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 7,
+              "max": 9,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
           },
           {
             "label": "Design, Build, Code",
@@ -501,7 +539,7 @@
             },
             "hours": null,
             "price": null,
-            "status": "full"
+            "status": "waitlist"
           },
           {
             "label": "Pump It Up! An Exploration of Body Systems and the Role of Exercise",
@@ -520,7 +558,39 @@
             "status": null
           },
           {
-            "label": "Explorations in Genetics",
+            "label": "Intro to Analytical Chemistry",
+            "start": "2026-07-05",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 7,
+              "max": 9,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Introduction to Rapid Prototyping",
+            "start": "2026-07-12",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 7,
+              "max": 9,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Exploring Anatomy: Hands on Dissections (HS)",
             "start": "2026-06-01",
             "end": "2026-06-19",
             "year": 2026,
@@ -552,9 +622,9 @@
             "status": null
           },
           {
-            "label": "Exploring Anatomy: Hands-On Dissection",
-            "start": "2026-06-01",
-            "end": "2026-06-19",
+            "label": "Forensics",
+            "start": "2026-06-08",
+            "end": "2026-06-26",
             "year": 2026,
             "site": null,
             "ages": null,
@@ -600,7 +670,39 @@
             "status": null
           },
           {
-            "label": "Art Studio: Drawing and Painting",
+            "label": "The Entrepreneurial Mindset",
+            "start": "2026-06-22",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 10,
+              "max": 12,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Exploring Anatomy: Hands on Dissections (HS)",
+            "start": "2026-06-29",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 10,
+              "max": 12,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Art Studio: Drawing and Painting (HS)",
             "start": "2026-06-29",
             "end": "2026-07-17",
             "year": 2026,
@@ -625,26 +727,29 @@
         },
         "special_needs": null,
         "lunch": null,
-        "transportation": {
-          "value": "no",
-          "text": "NCSSM will NOT provide transportation from Durham to Morganton (and back at the end of the week)."
-        },
+        "transportation": null,
         "sources": [
           "https://www.ncssm.edu/summer/summer-accelerator",
           "https://www.ncssm.edu/summer/summer-accelerator/accelerator-7th-9th/7th-9th-residential-courses",
           "https://www.ncssm.edu/summer/summer-accelerator/accelerator-10th-12th/10th-12th-residential-courses",
+          "https://www.ncssm.edu/courses/read-between-the-lines-storytelling-through-music",
+          "https://www.ncssm.edu/courses/intro-to-analytical-chemistry",
+          "https://www.ncssm.edu/courses/introduction-to-rapid-prototyping",
+          "https://www.ncssm.edu/courses/exploratory-dissections-and-comparative-anatomy-hs",
+          "https://www.ncssm.edu/courses/forensics",
           "https://www.ncssm.edu/courses/empowerment-through-leadership",
           "https://www.ncssm.edu/courses/introduction-to-human-biology",
+          "https://www.ncssm.edu/courses/the-entrepreneurial-mindset",
           "https://www.ncssm.edu/courses/art-studio-drawing-and-painting-hs"
         ],
         "confidence": "medium",
-        "review_notes": "The residential course-list pages returned truncated text; check both pages for additional Morganton sessions before publishing. Season boundaries are left null because the inventory is incomplete. High-school row dates include the two online weeks: Empowerment through Leadership begins in person June 21, Introduction to Human Biology July 5, and Art Studio July 12. FULL labels are retained from the currently displayed historical 2026 lists, not interpreted as 2027 availability. The overview's December 6 opening and February 3 early-bird deadline have no explicit summer year and were omitted."
+        "review_notes": "Course-list extraction was incomplete; verify remaining Morganton courses and weeks. Several rows came from official search snippets. Grades 10–12 dates include two online weeks: residential portions begin June 14, June 21, July 5 or July 12 respectively. Full-labelled courses are encoded waitlist because the residential list explicitly says these have a waitlist. December 6 opening lacks a year; main and admissions pages also disagree on February 3 versus February 1 early-bird cutoff, so no registration milestones or discount prices were assigned."
       },
       {
         "name": "INSPIRE",
         "type": "overnight",
         "categories": ["stem", "academic"],
-        "description": "Students work with mentors on inquiry or research experiences and attend leadership, communication, and team-building workshops. They present their research results on the final day.",
+        "description": "Students work with mentors on inquiry or research experiences and present their results at the end of the week. Enrichment activities cover leadership, teamwork, communication and study skills.",
         "camp_page_url": "https://www.ncssm.edu/summer/inspire-program",
         "registration_url": "https://www.ncssm.edu/summer/inspire-program/inspire-admissions",
         "season": {
@@ -652,7 +757,7 @@
           "status": "not_posted",
           "start": "2026-06-21",
           "end": "2026-06-26",
-          "text": "Applications for Summer 2027 will open January 6, 2027."
+          "text": null
         },
         "ages": null,
         "grades": {
@@ -674,7 +779,7 @@
           {
             "amount": 0,
             "unit": "program",
-            "label": "Free for accepted North Carolina residents",
+            "label": null,
             "year": 2026
           }
         ],
@@ -696,8 +801,8 @@
         "last_year_registration_opened": {
           "date": "2026-01-06",
           "time": null,
-          "text": "For Summer 2026, the online application will be available beginning January 6, 2026.",
-          "url": "https://www.ncssm.edu/summer/inspire-program/inspire-admissions"
+          "text": "January 6, 2026: Application portal opens",
+          "url": "https://www.ncssm.edu/summer/inspire-program"
         },
         "availability": null,
         "financial_aid": null,
@@ -713,6 +818,77 @@
         ],
         "confidence": "high",
         "review_notes": null
+      },
+      {
+        "name": "Summer Ventures",
+        "type": "overnight",
+        "categories": ["stem", "academic"],
+        "description": "Students conduct hands-on science or mathematics research with university faculty and complete a research project, scientific paper and oral presentation.",
+        "camp_page_url": "https://msec.appstate.edu/outreach/svsm/",
+        "registration_url": "https://www.ncssm.edu/summer/summer-ventures/summer-ventures-admissions",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-21",
+          "end": "2026-07-18",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 11,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Appalachian State University",
+            "address": null,
+            "town": "Boone",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 0,
+            "unit": "program",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "deadline",
+            "date": "2027-01-05",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "Applicants must have each section of the CFNC.org electronic application completed by January 5, 2027.",
+            "url": "https://www.ncssm.edu/summer/summer-ventures/summer-ventures-admissions",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Meals and housing are provided at no cost to all program participants while on campus."
+        },
+        "transportation": null,
+        "sources": [
+          "https://msec.appstate.edu/outreach/svsm/",
+          "https://summerventures.appstate.edu/campus-life",
+          "https://www.ncssm.edu/summer/summer-ventures/summer-ventures-admissions",
+          "https://www.ncssm.edu/summer/summer-ventures/student-life"
+        ],
+        "confidence": "medium",
+        "review_notes": "Appalachian State program dates were available through an official search snippet. The specific arrival venue and its street address were not recovered; verify drop-off location rather than using an administrative mailing address. Boone is retained for the directory's drive-time check. No explicit 2027 camp dates were found."
       }
     ]
   }

@@ -11,22 +11,22 @@
     "status": "review",
     "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
   },
-  "extractedAt": "2026-10-29T15:36:34.059Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:30:52.993Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "008b972a37fd4ea8d0cc82e618ca042c933f3e4feae473818383b7e9f955824f",
   "response": {
     "searches": [
-      "site.victorybaptistchurchasheville.org \"Bible\"",
-      "\"victoryofasheville\" \"Bible\""
+      "site:victorybaptistchurchasheville.org \"Bible\"",
+      "site:facebook.com/victoryofasheville \"VBS\""
     ],
     "usage": {
-      "inputTokens": 21179,
-      "cachedInputTokens": 8223,
-      "outputTokens": 352,
-      "reasoningTokens": 179
+      "inputTokens": 19632,
+      "cachedInputTokens": 8845,
+      "outputTokens": 760,
+      "reasoningTokens": 177
     },
     "status": "completed",
-    "ms": 15660,
+    "ms": 21990,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -45,13 +45,73 @@
   "extraction": {
     "provider_name": "Victory Baptist Church of Asheville",
     "website_url": "https://victorybaptistchurchasheville.org/",
-    "notes": "No qualifying summer camp or Vacation Bible School offering could be verified for 2026 or 2027. The supplied homepage gives the church address and regular worship schedule but no summer program information. Attempts to read the official Events and Ministries pages and Facebook page returned no readable content. Web searches did not locate an official summer program announcement. This does not establish that the church offers no summer programs; reviewer follow-up with the church is needed.",
+    "notes": "The official events page describes an annual Vacation Bible School but provides no dated 2026 or 2027 schedule. No 2027 announcement or registration date was found. The official Facebook page returned no readable content, and searches did not locate a dated VBS announcement.",
     "excluded": [
       {
-        "name": "Sunday School",
-        "reason": "Regular weekly church programming, not a finite summer camp."
+        "name": "Valentine’s Banquet",
+        "reason": "A social event outside summer, not a youth camp."
+      },
+      {
+        "name": "July 4th Celebration",
+        "reason": "A community fireworks celebration, not a supervised youth camp."
+      },
+      {
+        "name": "Fall and Christmas Craft Events",
+        "reason": "Seasonal community events outside summer."
+      },
+      {
+        "name": "Fall Festival",
+        "reason": "A fall festival, not a summer camp."
+      },
+      {
+        "name": "Happy Birthday Jesus",
+        "reason": "A Christmas celebration outside summer."
       }
     ],
-    "cards": []
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Vacation Bible School includes learning about God with volunteer teachers.",
+        "camp_page_url": "https://victorybaptistchurchasheville.org/events-2/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Victory Baptist Church",
+            "address": "80 Olivette Rd",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://victorybaptistchurchasheville.org/events-2/",
+          "https://victorybaptistchurchasheville.org/",
+          "https://victorybaptistchurchasheville.org/directions/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The events page describes VBS as an annual church offering without identifying a season or dates. Confirm that it will run in summer 2027 and that drop-off is at the church's published address; no separate VBS venue is specified."
+      }
+    ]
   }
 }

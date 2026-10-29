@@ -7,19 +7,19 @@
     "discovered_by": ["grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:29:04.905Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:24:41.604Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "4f7823df7bd25b3793af89346bd48d8cea2eddd438381af5ebab8a88d7465884",
   "response": {
-    "searches": ["site.stjamesepiscopal.com VBS 2027"],
+    "searches": ["site.stjamesepiscopal.com \"2027\" \"Bible\""],
     "usage": {
-      "inputTokens": 15539,
-      "cachedInputTokens": 8223,
-      "outputTokens": 660,
-      "reasoningTokens": 87
+      "inputTokens": 15691,
+      "cachedInputTokens": 8845,
+      "outputTokens": 620,
+      "reasoningTokens": 75
     },
     "status": "completed",
-    "ms": 17271,
+    "ms": 15860,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -38,15 +38,15 @@
   "extraction": {
     "provider_name": "St. James Episcopal Church of Hendersonville",
     "website_url": "https://stjamesepiscopal.com/",
-    "notes": "No 2027 summer program information was found. The 2026 Vacation Bible School is hosted at Trinity Presbyterian Church. The participant registration short link returned no readable content, so registration details could not be checked.",
+    "notes": "No summer 2027 information found. The participant registration short link returned no readable content; 2026 details are from the supplied official children's page.",
     "excluded": [
       {
         "name": "Sunday School for Children",
-        "reason": "Recurring Sunday faith formation, not a finite summer program."
+        "reason": "Year-round religious education classes, not a finite summer camp."
       },
       {
         "name": "Nursery",
-        "reason": "Ongoing nursery ministry during worship, not summer-only childcare."
+        "reason": "Year-round care during church services, not a summer camp."
       }
     ],
     "cards": [
@@ -54,7 +54,7 @@
         "name": "Vacation Bible School",
         "type": "vbs",
         "categories": ["faith_based"],
-        "description": "Children connect Bible stories with ways to mend God's world and practice faith in daily life. Participants rotate through crafts, story time, hands-on learning, and games/snacks.",
+        "description": "Children connect Bible stories with actions they can take in daily life. Participants rotate through crafts, story time, hands-on learning, and games/snacks.",
         "camp_page_url": "https://stjamesepiscopal.com/learn/children/",
         "registration_url": "https://bit.ly/vbs-2026-glc",
         "season": {
@@ -81,7 +81,7 @@
         "hours": {
           "start": "09:00",
           "end": "12:00",
-          "text": "June 1-4, 9 a.m. to noon"
+          "text": "9 a.m. to noon"
         },
         "extended_care": null,
         "prices": [],
@@ -95,7 +95,7 @@
         "transportation": null,
         "sources": [
           "https://stjamesepiscopal.com/learn/children/",
-          "https://www.trinitypresnc.org/about-us"
+          "https://www.trinitypresnc.org/"
         ],
         "confidence": "high",
         "review_notes": null

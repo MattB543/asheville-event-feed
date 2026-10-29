@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useDeferredValue, useEffect, useMemo, useState } from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { Search, SlidersHorizontal, Star, X } from 'lucide-react';
 import {
@@ -8,16 +8,19 @@ import {
   HOURS_FILTERS,
   PRICE_BANDS,
   REGISTRATION_FILTERS,
-  matchesRegistration,
   SUMMER_WEEKS,
   SUPPORT_LABELS,
   TARGET_SEASON,
   TYPE_LABELS,
+  campSearchText,
   formatDate,
   gradeLabel,
+  inTargetSeason,
   kidFit,
+  matchesRegistration,
   type CampCardData,
   type CampRow,
+  type CampSiteData,
   type HoursFilter,
   type KidFit,
   type PriceBand,
@@ -42,7 +45,8 @@ const SUPPORT_KEYS = Object.keys(SUPPORT_LABELS) as SupportKey[];
 /** The kids' ages and grades, kept on this device only (01 §4.1, "My kids"). */
 const KIDS_STORAGE_KEY = 'avlgo:camps:kids';
 const MAX_KIDS = 4;
-const PROVIDER_PREVIEW = 4;
+/** Cards shown at first and per "Show more": all of them is ~1,000 cards and a slow page. */
+const PAGE_SIZE = 30;
 
 /**
  * A kid as the URL and this browser keep it: "7" is age 7 next summer, "g3" a rising 3rd grader
@@ -89,12 +93,24 @@ const GRADE_OPTIONS = Array.from({ length: 14 }, (_, index) => index - 1);
 // Matching: card filters say yes or no; row filters (kids, week, price, drive, town, hours) are
 // tested together on each row (a week, session or age band, at its own site), and a camp matches
 // when one row passes them all. Unknown is not "no": a camp stating no ages stays in as "may fit",
-// and one with no drive time, town, price, hours or 2027 dates is hidden behind "show them".
+// and one with no drive time, town, price, dates or hours is hidden behind that filter's own
+// "show them".
 // ---------------------------------------------------------------------------
 
-type Verdict = 'match' | 'unknown' | 'no';
 /** Yes, no, or can't tell (null). */
 type Test = boolean | null;
+
+/** The row filters a camp can lack the facts for, each with its own "show them". */
+type UnknownKind = 'drive' | 'town' | 'week' | 'price' | 'hours';
+const UNKNOWN_KINDS: Array<{ kind: UnknownKind; without: string }> = [
+  { kind: 'drive', without: 'a drive time' },
+  { kind: 'town', without: 'a town' },
+  { kind: 'week', without: 'dates' },
+  { kind: 'price', without: 'a price' },
+  { kind: 'hours', without: 'hours' },
+];
+const UNKNOWN_VALUES = UNKNOWN_KINDS.map(({ kind }) => kind);
+const EVERY_UNKNOWN = new Set(UNKNOWN_VALUES);
 
 /** Which kids a camp must suit, when there are several: any one, each (by age/grade), or all in one session. */
 type KidsMode = 'any' | 'all' | 'same';
@@ -108,92 +124,112 @@ interface RowFilters {
   hours: HoursFilter | null;
 }
 
-const allOf = (tests: Test[]): Test =>
-  tests.includes(false) ? false : tests.includes(null) ? null : true;
-const anyOf = (tests: Test[]): Test =>
-  tests.includes(true) ? true : tests.includes(null) ? null : false;
+/**
+ * Does the row run that week? A row from an earlier summer is read as the same week of summer
+ * 2027 (inTargetSeason), and the card then says "2026 schedule".
+ */
+function inWeek(row: CampRow, week: { start: string; end: string }): Test {
+  if (!row.start || !row.end) return null;
+  return inTargetSeason(row.start) <= week.end && inTargetSeason(row.end) >= week.start;
+}
 
-/** Everything but the kids, on one row: drive time and town on the same site of that row. */
-function rowVerdict(row: CampRow, camp: CampCardData, filters: RowFilters): Verdict {
-  const tests: Test[] = [];
-  if (filters.week) {
-    // 2026 weeks say nothing about 2027's
-    tests.push(
-      !row.start || !row.end || !row.start.startsWith(String(TARGET_SEASON))
-        ? null
-        : row.start <= filters.week.end && row.end >= filters.week.start
-    );
+/**
+ * Everything but the kids, on one row: the ways it can pass, each listing the filters it can't
+ * tell for ([] is a sure match), and none when it fails one. Drive time and town are read at the
+ * same site, any of the row's, so each site is a way.
+ */
+function rowWays(row: CampRow, camp: CampCardData, filters: RowFilters): UnknownKind[][] {
+  const { week, band, drive, town, hours } = filters;
+  const tests: Array<[UnknownKind, Test]> = [];
+  if (week) tests.push(['week', inWeek(row, week)]);
+  if (band) tests.push(['price', row.weekly.length === 0 ? null : row.weekly.some(band.test)]);
+  if (hours) {
+    const length = row.length === null ? null : row.length === hours;
+    tests.push(['hours', hours === 'workday' ? row.workday : length]);
   }
-  if (filters.band) {
-    tests.push(row.weekly.length === 0 ? null : row.weekly.some(filters.band.test));
-  }
-  if (filters.drive !== null || filters.town) {
-    const atSite = (index: number): Test => {
-      const site = camp.sites[index];
-      return allOf([
-        filters.drive === null ? true : site.drive === null ? null : site.drive <= filters.drive,
-        !filters.town ? true : site.town === null ? null : site.town === filters.town,
-      ]);
-    };
-    tests.push(row.sites.length === 0 ? null : anyOf(row.sites.map(atSite)));
-  }
-  if (filters.hours) {
-    tests.push(
-      filters.hours === 'workday'
-        ? row.workday
-        : row.length === null
-          ? null
-          : row.length === filters.hours
-    );
-  }
-  const result = allOf(tests);
-  return result === false ? 'no' : result === null ? 'unknown' : 'match';
+  // A row at no known site is one way, with its drive time and town unknown
+  const sites: Array<CampSiteData | null> =
+    (drive !== null || town) && row.sites.length > 0
+      ? row.sites.map((index) => camp.sites[index])
+      : [null];
+  return sites.flatMap((site) => {
+    const atSite = [...tests];
+    if (drive !== null) {
+      atSite.push(['drive', !site || site.drive === null ? null : site.drive <= drive]);
+    }
+    if (town) atSite.push(['town', !site || site.town === null ? null : site.town === town]);
+    if (atSite.some(([, test]) => test === false)) return [];
+    return [atSite.filter(([, test]) => test === null).map(([kind]) => kind)];
+  });
 }
 
 const bestFit = (fits: KidFit[]): KidFit =>
   fits.includes('fits') ? 'fits' : fits.includes('may_fit') ? 'may_fit' : 'no';
 const worstFit = (fits: KidFit[]): KidFit =>
   fits.includes('no') ? 'no' : fits.includes('may_fit') ? 'may_fit' : 'fits';
-const bestVerdict = (verdicts: Verdict[]): Verdict =>
-  verdicts.includes('match') ? 'match' : verdicts.includes('unknown') ? 'unknown' : 'no';
-const worstVerdict = (verdicts: Verdict[]): Verdict =>
-  verdicts.includes('no') ? 'no' : verdicts.includes('unknown') ? 'unknown' : 'match';
 
-interface Judged {
-  verdict: Verdict;
-  /** Matching rows the kids surely fit... */
-  fits: number;
-  /** ...and those they only may fit (by a converted age or grade, or no stated eligibility). */
-  mayFit: number;
+interface JudgedRow {
+  /** How each kid fits, and how the row fits for the kids mode. */
+  fits: KidFit[];
+  fit: KidFit;
+  /** rowWays; none when the kids don't fit. */
+  ways: UnknownKind[][];
+  /** The summer the row's dates are from. */
+  year: number | null;
 }
 
-/** A camp's verdict and how many of its rows matched; null when no row passes. */
-function judgeCamp(
+interface Judged {
+  camp: CampCardData;
+  rows: JudgedRow[];
+}
+
+function judgeRows(
   camp: CampCardData,
   kids: Kid[],
   mode: KidsMode,
   filters: RowFilters
-): Judged | null {
-  const rows = camp.rows.map((row) => {
+): JudgedRow[] {
+  return camp.rows.map((row) => {
     const fits = kids.map((kid) => kidFit(row, kid));
     const fit = fits.length === 0 ? 'fits' : mode === 'same' ? worstFit(fits) : bestFit(fits);
-    return { fits, fit, verdict: fit === 'no' ? 'no' : rowVerdict(row, camp, filters) };
+    return {
+      fits,
+      fit,
+      ways: fit === 'no' ? [] : rowWays(row, camp, filters),
+      year: row.start ? Number(row.start.slice(0, 4)) : null,
+    };
   });
-  // "All of them": each kid needs a row of its own that passes
-  const verdict =
-    mode === 'all'
-      ? worstVerdict(
-          kids.map((_, index) =>
-            bestVerdict(rows.filter((row) => row.fits[index] !== 'no').map((row) => row.verdict))
-          )
-        )
-      : bestVerdict(rows.map((row) => row.verdict));
-  if (verdict === 'no') return null;
-  const matched = rows.filter((row) => row.verdict === 'match');
+}
+
+/** The row passes when every fact it lacks is one whose camps are shown. */
+const passes = (row: JudgedRow, shown: Set<UnknownKind>) =>
+  row.ways.some((way) => way.every((kind) => shown.has(kind)));
+
+/** A camp is listed when a row passes; for "all of them (by age/grade)", one per kid. */
+function isListed(rows: JudgedRow[], kidCount: number, mode: KidsMode, shown: Set<UnknownKind>) {
+  if (mode !== 'all') return rows.some((row) => passes(row, shown));
+  return Array.from({ length: kidCount }, (_, index) =>
+    rows.some((row) => row.fits[index] !== 'no' && passes(row, shown))
+  ).every(Boolean);
+}
+
+interface MatchCounts {
+  /** Rows that surely match (every fact known) the kids surely fit... */
+  fits: number;
+  /** ...and those they only may fit (by a converted age or grade, or no stated eligibility). */
+  mayFit: number;
+  /** The earlier summer whose weeks matched the week filter, when no 2027 week did. */
+  schedule: number | null;
+}
+
+function matchCounts(rows: JudgedRow[], byWeek: boolean): MatchCounts {
+  const sure = rows.filter((row) => row.ways.some((way) => way.length === 0));
+  const earlier = sure.every((row) => row.year !== null && row.year < TARGET_SEASON);
   return {
-    verdict,
-    fits: matched.filter((row) => row.fit === 'fits').length,
-    mayFit: matched.filter((row) => row.fit === 'may_fit').length,
+    fits: sure.filter((row) => row.fit === 'fits').length,
+    mayFit: sure.filter((row) => row.fit === 'may_fit').length,
+    schedule:
+      byWeek && sure.length > 0 && earlier ? Math.max(...sure.map((row) => row.year!)) : null,
   };
 }
 
@@ -204,15 +240,17 @@ function listJoin(parts: string[], conjunction = 'and'): string {
 
 /**
  * "3 of 9 weeks fit age 7", when the camp lists rows and a row filter is on. A row that only may
- * fit (a converted age or grade, or none stated) is never counted as fitting: "2 more may fit".
+ * fit (a converted age or grade) is never counted as fitting: "2 more may fit". A camp stating no
+ * ages or grades says "Ages not stated" on the card instead of "may fit".
  */
 function matchNote(
   camp: CampCardData,
-  judged: Judged,
+  counts: MatchCounts,
   filters: RowFilters,
   kidTokens: string[],
   mode: KidsMode
 ): string | null {
+  const withKids = kidTokens.length > 0 && camp.rows.some((row) => row.ages || row.grades);
   const kids =
     kidTokens.length === 1
       ? kidName(kidTokens[0])
@@ -222,12 +260,17 @@ function matchNote(
           : `all ${kidTokens.length} kids`
         : 'one of your kids';
   if (!camp.listsRows || camp.rows.length < 2) {
-    return kidTokens.length > 0 && judged.fits === 0 && judged.mayFit > 0
-      ? `May fit ${kids}: check the ages`
-      : null;
+    return (
+      [
+        withKids && counts.fits === 0 && counts.mayFit > 0 && `May fit ${kids}: check the ages`,
+        counts.schedule && filters.week && `Runs the week of ${formatDate(filters.week.start)}`,
+      ]
+        .filter(Boolean)
+        .join(' · ') || null
+    );
   }
   const rowFiltered =
-    kidTokens.length > 0 ||
+    withKids ||
     filters.week ||
     filters.band ||
     filters.drive !== null ||
@@ -240,7 +283,7 @@ function matchNote(
   const sentence = (count: number, maybe: boolean) => {
     const one = count === 1;
     const verbs = [
-      kidTokens.length > 0 && `${maybe ? 'may fit' : one ? 'fits' : 'fit'} ${kids}`,
+      withKids && `${maybe ? 'may fit' : one ? 'fits' : 'fit'} ${kids}`,
       filters.week && `${one ? 'runs' : 'run'} the week of ${formatDate(filters.week.start)}`,
       filters.band && `${one ? 'is' : 'are'} ${filters.band.label.toLowerCase()}`,
       filters.drive !== null && `${one ? 'is' : 'are'} within ${filters.drive} min`,
@@ -252,10 +295,14 @@ function matchNote(
     ].filter((verb): verb is string => !!verb);
     return `${count === total ? `All ${total}` : `${count} of ${total}`} ${noun} ${listJoin(verbs)}`;
   };
-  if (judged.fits > 0) {
-    return `${sentence(judged.fits, false)}${judged.mayFit > 0 ? ` (${judged.mayFit} more may fit)` : ''}`;
+  if (!withKids) {
+    const matched = counts.fits + counts.mayFit;
+    return matched > 0 ? sentence(matched, false) : null;
   }
-  return judged.mayFit > 0 ? sentence(judged.mayFit, true) : null;
+  if (counts.fits > 0) {
+    return `${sentence(counts.fits, false)}${counts.mayFit > 0 ? ` (${counts.mayFit} more may fit)` : ''}`;
+  }
+  return counts.mayFit > 0 ? sentence(counts.mayFit, true) : null;
 }
 
 const TONE_RANK: Record<string, number> = {
@@ -266,9 +313,16 @@ const TONE_RANK: Record<string, number> = {
   closed: 4,
 };
 
-function compare(sort: Sort) {
-  const byName = (a: CampCardData, b: CampCardData) =>
-    `${a.name} ${a.providerName}`.localeCompare(`${b.name} ${b.providerName}`);
+/** Each camp's place in name order, worked out once: localeCompare is slow inside every sort. */
+function nameRanks(camps: CampCardData[]): Map<string, number> {
+  const sorted = [...camps].sort((a, b) =>
+    `${a.name} ${a.providerName}`.localeCompare(`${b.name} ${b.providerName}`)
+  );
+  return new Map(sorted.map((camp, index) => [camp.id, index]));
+}
+
+function compare(sort: Sort, ranks: Map<string, number>) {
+  const byName = (a: CampCardData, b: CampCardData) => ranks.get(a.id)! - ranks.get(b.id)!;
   const nullsLast = (a: number | string | null, b: number | string | null) =>
     a === b ? 0 : a === null ? 1 : b === null ? -1 : a < b ? -1 : 1;
 
@@ -288,10 +342,31 @@ function compare(sort: Sort) {
   };
 }
 
+/** The URL keys this page owns (others in the URL are left alone). */
+const URL_KEYS = [
+  'q',
+  'kids',
+  'all',
+  'type',
+  'cat',
+  'drive',
+  'town',
+  'week',
+  'hours',
+  'price',
+  'reg',
+  'need',
+  'sort',
+  'saved',
+  'group',
+  'unknown',
+];
+
 const selectClasses =
   'h-9 w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 px-2 text-sm text-gray-900 dark:text-gray-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500';
 const textButtonClasses =
   'font-medium text-brand-600 dark:text-brand-400 hover:underline underline-offset-2 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500';
+const labelClasses = 'text-xs text-gray-500 dark:text-gray-400';
 
 function chipClasses(active: boolean): string {
   return `inline-flex items-center gap-1 rounded-full border px-3 py-1.5 sm:py-1 text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 ${
@@ -363,13 +438,16 @@ export default function CampDirectory({ camps }: { camps: CampCardData[] }) {
     )
   );
   const [savedOnly, setSavedOnly] = useState(() => param('saved') === '1');
-  const [grouped, setGrouped] = useState(() => param('flat') !== '1');
-  const [withUnknown, setWithUnknown] = useState(() => param('unknown') === '1');
-  const [expanded, setExpanded] = useState<Set<string>>(new Set());
+  const [grouped, setGrouped] = useState(() => param('group') === '1');
+  // ?unknown=1 (older links) shows every kind
+  const [showUnknown, setShowUnknown] = useState<UnknownKind[]>(() =>
+    param('unknown') === '1' ? UNKNOWN_VALUES : listParam('unknown', UNKNOWN_VALUES)
+  );
   const [moreOpen, setMoreOpen] = useState(
     () =>
       !!(
-        param('week') ||
+        param('type') ||
+        param('cat') ||
         param('price') ||
         param('reg') ||
         param('need') ||
@@ -378,53 +456,43 @@ export default function CampDirectory({ camps }: { camps: CampCardData[] }) {
       )
   );
 
+  // The view as URL parameters: the URL follows it, and "Show more" starts over when it changes.
+  const listKey = new URLSearchParams(
+    (
+      [
+        ['q', query.trim()],
+        ['kids', kids.join(',')],
+        ['all', kids.length > 1 && kidsMode !== 'any' ? (kidsMode === 'all' ? '1' : kidsMode) : ''],
+        ['type', type === 'all' ? '' : type],
+        ['cat', category === 'all' ? '' : category],
+        ['drive', drive],
+        ['town', town],
+        ['week', week],
+        ['hours', hours],
+        ['price', price],
+        ['reg', registration],
+        ['need', needs.join(',')],
+        ['sort', sort === 'registration' ? '' : sort],
+        ['saved', savedOnly ? '1' : ''],
+        ['group', grouped ? '1' : ''],
+        ['unknown', showUnknown.join(',')],
+      ] as Array<[string, string]>
+    ).filter(([, value]) => value)
+  ).toString();
+
   // replaceState, not router.replace: filtering is client-side, so no server round trip.
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    const values: Array<[string, string]> = [
-      ['q', query.trim()],
-      ['kids', kids.join(',')],
-      ['all', kids.length > 1 && kidsMode !== 'any' ? (kidsMode === 'all' ? '1' : kidsMode) : ''],
-      ['type', type === 'all' ? '' : type],
-      ['cat', category === 'all' ? '' : category],
-      ['drive', drive],
-      ['town', town],
-      ['week', week],
-      ['hours', hours],
-      ['price', price],
-      ['reg', registration],
-      ['need', needs.join(',')],
-      ['sort', sort === 'registration' ? '' : sort],
-      ['saved', savedOnly ? '1' : ''],
-      ['flat', grouped ? '' : '1'],
-      ['unknown', withUnknown ? '1' : ''],
-    ];
-    for (const [key, value] of values) {
+    const own = new URLSearchParams(listKey);
+    for (const key of URL_KEYS) {
+      const value = own.get(key);
       if (value) params.set(key, value);
       else params.delete(key);
     }
     const next = params.toString();
     if (next === window.location.search.replace(/^\?/, '')) return;
     window.history.replaceState(window.history.state, '', next ? `${pathname}?${next}` : pathname);
-  }, [
-    query,
-    kids,
-    kidsMode,
-    type,
-    category,
-    drive,
-    town,
-    week,
-    hours,
-    price,
-    registration,
-    needs,
-    sort,
-    savedOnly,
-    grouped,
-    withUnknown,
-    pathname,
-  ]);
+  }, [listKey, pathname]);
 
   // Restore the kids from this device, unless the link already names some.
   useEffect(() => {
@@ -447,6 +515,10 @@ export default function CampDirectory({ camps }: { camps: CampCardData[] }) {
     }
   }
 
+  // "Show more" is for one view: a change of filters, sort or grouping starts again at one page.
+  const [more, setMore] = useState({ view: listKey, count: PAGE_SIZE });
+  const limit = more.view === listKey ? more.count : PAGE_SIZE;
+
   const towns = useMemo(
     () =>
       [
@@ -458,12 +530,24 @@ export default function CampDirectory({ camps }: { camps: CampCardData[] }) {
       ].sort((a, b) => a.localeCompare(b)),
     [camps]
   );
+  const searchTexts = useMemo(
+    () => new Map(camps.map((camp) => [camp.id, campSearchText(camp)])),
+    [camps]
+  );
 
+  const ranks = useMemo(() => nameRanks(camps), [camps]);
+
+  // Typing stays quick: the list catches up with the search box a moment later, and a keystroke
+  // only re-runs the text match (the rows are judged when the other filters change).
+  const searchQuery = useDeferredValue(query);
+  const terms = useMemo(
+    () => searchQuery.toLowerCase().split(/\s+/).filter(Boolean),
+    [searchQuery]
+  );
   const filters = useMemo(() => {
     const band = PRICE_BANDS.find((option) => option.value === price) ?? null;
     const summerWeek = SUMMER_WEEKS.find((option) => option.start === week) ?? null;
     return {
-      terms: query.toLowerCase().split(/\s+/).filter(Boolean),
       kids: kids.map((token) => parseKid(token)!),
       // One kid is "any of them"
       kidsMode: kids.length > 1 ? kidsMode : ('any' as const),
@@ -476,7 +560,7 @@ export default function CampDirectory({ camps }: { camps: CampCardData[] }) {
         hours: hours || null,
       } satisfies RowFilters,
     };
-  }, [query, kids, kidsMode, week, price, drive, town, towns, hours]);
+  }, [kids, kidsMode, week, price, drive, town, towns, hours]);
 
   const types = useMemo(() => [...new Set(camps.map((camp) => camp.type))].sort(), [camps]);
   const categories = useMemo(
@@ -484,55 +568,105 @@ export default function CampDirectory({ camps }: { camps: CampCardData[] }) {
     [camps]
   );
 
-  // Every camp with its verdict and how many of its rows matched.
+  const rowsById = useMemo(
+    () =>
+      new Map(
+        camps.map((camp) => [
+          camp.id,
+          judgeRows(camp, filters.kids, filters.kidsMode, filters.rows),
+        ])
+      ),
+    [camps, filters]
+  );
+
+  // Every camp that could be listed (with every unknown shown), with its rows judged.
   const judged = useMemo(() => {
     const saved = new Set(savedIds);
-    return camps.flatMap((camp) => {
+    return camps.flatMap((camp): Judged[] => {
       if (savedOnly && !saved.has(camp.id)) return [];
       if (type !== 'all' && camp.type !== type) return [];
       if (category !== 'all' && !camp.categories.includes(category)) return [];
       if (registration && !matchesRegistration(camp.registration.status, registration)) return [];
       if (!needs.every((need) => camp.support.includes(need))) return [];
-      if (!filters.terms.every((term) => camp.search.includes(term))) return [];
-      const result = judgeCamp(camp, filters.kids, filters.kidsMode, filters.rows);
-      return result ? [{ camp, ...result }] : [];
+      const text = searchTexts.get(camp.id)!;
+      if (!terms.every((term) => text.includes(term))) return [];
+      const rows = rowsById.get(camp.id)!;
+      return isListed(rows, filters.kids.length, filters.kidsMode, EVERY_UNKNOWN)
+        ? [{ camp, rows }]
+        : [];
     });
-  }, [camps, savedIds, savedOnly, type, category, registration, needs, filters]);
+  }, [
+    camps,
+    searchTexts,
+    rowsById,
+    savedIds,
+    savedOnly,
+    type,
+    category,
+    registration,
+    needs,
+    terms,
+    filters,
+  ]);
 
-  const unknownCount = judged.filter((entry) => entry.verdict === 'unknown').length;
-  const unknownKinds = [
-    filters.rows.drive !== null && 'a drive time',
-    filters.rows.town && 'a town',
-    filters.rows.band && 'a price',
-    filters.rows.week && '2027 dates',
-    filters.rows.hours && 'hours',
-  ].filter((kind): kind is string => !!kind);
+  const shownKinds = useMemo(() => new Set(showUnknown), [showUnknown]);
 
-  const shown = useMemo(
-    () =>
-      judged
-        .filter((entry) => withUnknown || entry.verdict === 'match')
-        .sort((a, b) => compare(sort)(a.camp, b.camp)),
-    [judged, withUnknown, sort]
-  );
+  const shown = useMemo(() => {
+    const order = compare(sort, ranks);
+    return judged
+      .filter((entry) => isListed(entry.rows, filters.kids.length, filters.kidsMode, shownKinds))
+      .sort((a, b) => order(a.camp, b.camp));
+  }, [judged, filters, shownKinds, sort, ranks]);
 
-  const providers = useMemo(() => {
-    const map = new Map<string, typeof shown>();
-    for (const entry of shown)
-      map.set(entry.camp.providerName, [...(map.get(entry.camp.providerName) ?? []), entry]);
-    return [...map.entries()];
-  }, [shown]);
+  // Per filter that's on: how many camps its "show them" adds (or "hide them" takes away).
+  const unknownNotes = useMemo(() => {
+    const { rows } = filters;
+    const on: Record<UnknownKind, boolean> = {
+      drive: rows.drive !== null,
+      town: !!rows.town,
+      week: !!rows.week,
+      price: !!rows.band,
+      hours: !!rows.hours,
+    };
+    return UNKNOWN_KINDS.filter(({ kind }) => on[kind]).flatMap(({ kind, without }) => {
+      const included = shownKinds.has(kind);
+      const toggled = new Set(shownKinds);
+      if (included) toggled.delete(kind);
+      else toggled.add(kind);
+      const listed = (entry: Judged, kinds: Set<UnknownKind>) =>
+        isListed(entry.rows, filters.kids.length, filters.kidsMode, kinds);
+      const count = judged.filter(
+        (entry) => listed(entry, toggled) !== listed(entry, shownKinds)
+      ).length;
+      return count > 0 ? [{ kind, without, included, count }] : [];
+    });
+  }, [judged, filters, shownKinds]);
+
+  // Grouped: providers in the order of their first camp, cut off at the same number of cards.
+  const groups = useMemo(() => {
+    if (!grouped) return [];
+    const byProvider = new Map<string, Judged[]>();
+    for (const entry of shown) {
+      const list = byProvider.get(entry.camp.providerName);
+      if (list) list.push(entry);
+      else byProvider.set(entry.camp.providerName, [entry]);
+    }
+    const visible: Array<{ provider: string; total: number; list: Judged[] }> = [];
+    let left = limit;
+    for (const [provider, list] of byProvider) {
+      if (left <= 0) break;
+      visible.push({ provider, total: list.length, list: list.slice(0, left) });
+      left -= list.length;
+    }
+    return visible;
+  }, [grouped, shown, limit]);
 
   const moreCount =
-    [week, price, registration, filters.rows.town, hours].filter(Boolean).length + needs.length;
+    [type !== 'all', category !== 'all', price, registration, filters.rows.town, hours].filter(
+      Boolean
+    ).length + needs.length;
   const filtered =
-    moreCount > 0 ||
-    !!query.trim() ||
-    kids.length > 0 ||
-    type !== 'all' ||
-    category !== 'all' ||
-    !!drive ||
-    savedOnly;
+    moreCount > 0 || !!query.trim() || kids.length > 0 || !!drive || !!week || savedOnly;
 
   function clearFilters() {
     setQuery('');
@@ -548,16 +682,30 @@ export default function CampDirectory({ camps }: { camps: CampCardData[] }) {
     setRegistration('');
     setNeeds([]);
     setSavedOnly(false);
+    setShowUnknown([]);
   }
 
-  const card = (entry: (typeof shown)[number], showProvider: boolean) => (
-    <CampCard
-      key={entry.camp.id}
-      camp={entry.camp}
-      showProvider={showProvider}
-      match={matchNote(entry.camp, entry, filters.rows, kids, filters.kidsMode)}
-    />
-  );
+  function toggleUnknown(kind: UnknownKind) {
+    setShowUnknown((current) =>
+      current.includes(kind) ? current.filter((value) => value !== kind) : [...current, kind]
+    );
+  }
+
+  const card = (entry: Judged, showProvider: boolean) => {
+    const counts = matchCounts(entry.rows, !!filters.rows.week);
+    return (
+      <CampCard
+        key={entry.camp.id}
+        camp={entry.camp}
+        showProvider={showProvider}
+        match={matchNote(entry.camp, counts, filters.rows, kids, filters.kidsMode)}
+        schedule={counts.schedule}
+      />
+    );
+  };
+
+  // Below sm these sit behind "More filters", so the list starts higher on a phone
+  const extraField = `${moreOpen ? 'flex' : 'hidden'} sm:flex flex-col gap-1`;
 
   return (
     <div>
@@ -574,15 +722,12 @@ export default function CampDirectory({ camps }: { camps: CampCardData[] }) {
             value={query}
             onChange={(event) => setQuery(event.target.value)}
             placeholder="Search camps, activities, towns"
-            className="w-full h-10 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-950 pl-9 pr-3 text-sm text-gray-900 dark:text-gray-100 placeholder:text-gray-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
+            className="w-full h-10 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-950 pl-9 pr-3 text-sm text-gray-900 dark:text-gray-100 placeholder:text-gray-500 dark:placeholder:text-gray-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
           />
         </label>
 
         <div>
-          <p className="text-xs text-gray-500 dark:text-gray-400">
-            Your kids{' '}
-            <span className="text-gray-400 dark:text-gray-500">(kept in this browser)</span>
-          </p>
+          <p className={labelClasses}>Your kids (kept in this browser)</p>
           <div className="mt-1 flex flex-wrap items-center gap-2">
             {kids.map((token) => (
               <button
@@ -646,85 +791,9 @@ export default function CampDirectory({ camps }: { camps: CampCardData[] }) {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 gap-2 text-sm">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-sm">
           <label className="flex flex-col gap-1">
-            <span className="text-xs text-gray-500 dark:text-gray-400">Type</span>
-            <select
-              value={type}
-              onChange={(event) => setType(event.target.value)}
-              className={selectClasses}
-            >
-              <option value="all">All types</option>
-              {types.map((value) => (
-                <option key={value} value={value}>
-                  {TYPE_LABELS[value] ?? value}
-                </option>
-              ))}
-            </select>
-          </label>
-          <label className="flex flex-col gap-1">
-            <span className="text-xs text-gray-500 dark:text-gray-400">Category</span>
-            <select
-              value={category}
-              onChange={(event) => setCategory(event.target.value)}
-              className={selectClasses}
-            >
-              <option value="all">All categories</option>
-              {categories.map((value) => (
-                <option key={value} value={value}>
-                  {CATEGORY_LABELS[value] ?? value}
-                </option>
-              ))}
-            </select>
-          </label>
-          <label className="flex flex-col gap-1">
-            <span className="text-xs text-gray-500 dark:text-gray-400">Drive from downtown</span>
-            <select
-              value={drive}
-              onChange={(event) => setDrive(event.target.value)}
-              className={selectClasses}
-            >
-              <option value="">Any distance</option>
-              {DRIVE_LIMITS.map((limit) => (
-                <option key={limit} value={limit}>
-                  Up to {limit} min
-                </option>
-              ))}
-            </select>
-          </label>
-          <label className="flex flex-col gap-1">
-            <span className="text-xs text-gray-500 dark:text-gray-400">Sort</span>
-            <select
-              value={sort}
-              onChange={(event) => setSort(event.target.value as Sort)}
-              className={selectClasses}
-            >
-              {SORTS.map((option) => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
-          </label>
-
-          {/* Below sm these sit behind "More filters", so the list starts higher on a phone */}
-          <label className={`${moreOpen ? 'flex' : 'hidden'} sm:flex flex-col gap-1`}>
-            <span className="text-xs text-gray-500 dark:text-gray-400">Town</span>
-            <select
-              value={filters.rows.town ?? ''}
-              onChange={(event) => setTown(event.target.value)}
-              className={selectClasses}
-            >
-              <option value="">Any town</option>
-              {towns.map((name) => (
-                <option key={name} value={name}>
-                  {name}
-                </option>
-              ))}
-            </select>
-          </label>
-          <label className={`${moreOpen ? 'flex' : 'hidden'} sm:flex flex-col gap-1`}>
-            <span className="text-xs text-gray-500 dark:text-gray-400">Week</span>
+            <span className={labelClasses}>Week</span>
             <select
               value={week}
               onChange={(event) => setWeek(event.target.value)}
@@ -738,8 +807,68 @@ export default function CampDirectory({ camps }: { camps: CampCardData[] }) {
               ))}
             </select>
           </label>
-          <label className={`${moreOpen ? 'flex' : 'hidden'} sm:flex flex-col gap-1`}>
-            <span className="text-xs text-gray-500 dark:text-gray-400">Hours</span>
+          <label className="flex flex-col gap-1">
+            <span className={labelClasses}>Drive from downtown</span>
+            <select
+              value={drive}
+              onChange={(event) => setDrive(event.target.value)}
+              className={selectClasses}
+            >
+              <option value="">Any distance</option>
+              {DRIVE_LIMITS.map((minutes) => (
+                <option key={minutes} value={minutes}>
+                  Up to {minutes} min
+                </option>
+              ))}
+            </select>
+          </label>
+          <label className={extraField}>
+            <span className={labelClasses}>Type</span>
+            <select
+              value={type}
+              onChange={(event) => setType(event.target.value)}
+              className={selectClasses}
+            >
+              <option value="all">All types</option>
+              {types.map((value) => (
+                <option key={value} value={value}>
+                  {TYPE_LABELS[value] ?? value}
+                </option>
+              ))}
+            </select>
+          </label>
+          <label className={extraField}>
+            <span className={labelClasses}>Category</span>
+            <select
+              value={category}
+              onChange={(event) => setCategory(event.target.value)}
+              className={selectClasses}
+            >
+              <option value="all">All categories</option>
+              {categories.map((value) => (
+                <option key={value} value={value}>
+                  {CATEGORY_LABELS[value] ?? value}
+                </option>
+              ))}
+            </select>
+          </label>
+          <label className={extraField}>
+            <span className={labelClasses}>Town</span>
+            <select
+              value={filters.rows.town ?? ''}
+              onChange={(event) => setTown(event.target.value)}
+              className={selectClasses}
+            >
+              <option value="">Any town</option>
+              {towns.map((name) => (
+                <option key={name} value={name}>
+                  {name}
+                </option>
+              ))}
+            </select>
+          </label>
+          <label className={extraField}>
+            <span className={labelClasses}>Hours</span>
             <select
               value={hours}
               onChange={(event) => setHours(event.target.value as HoursFilter | '')}
@@ -753,8 +882,8 @@ export default function CampDirectory({ camps }: { camps: CampCardData[] }) {
               ))}
             </select>
           </label>
-          <label className={`${moreOpen ? 'flex' : 'hidden'} sm:flex flex-col gap-1`}>
-            <span className="text-xs text-gray-500 dark:text-gray-400">Price</span>
+          <label className={extraField}>
+            <span className={labelClasses}>Price</span>
             <select
               value={price}
               onChange={(event) => setPrice(event.target.value as PriceBand | '')}
@@ -768,8 +897,8 @@ export default function CampDirectory({ camps }: { camps: CampCardData[] }) {
               ))}
             </select>
           </label>
-          <label className={`${moreOpen ? 'flex' : 'hidden'} sm:flex flex-col gap-1`}>
-            <span className="text-xs text-gray-500 dark:text-gray-400">Registration</span>
+          <label className={extraField}>
+            <span className={labelClasses}>Registration</span>
             <select
               value={registration}
               onChange={(event) => setRegistration(event.target.value as RegistrationStatus | '')}
@@ -812,48 +941,11 @@ export default function CampDirectory({ camps }: { camps: CampCardData[] }) {
           type="button"
           aria-expanded={moreOpen}
           onClick={() => setMoreOpen((open) => !open)}
-          className={`sm:hidden inline-flex items-center gap-1.5 text-sm ${textButtonClasses}`}
+          className={`sm:hidden inline-flex min-h-9 items-center gap-1.5 text-sm ${textButtonClasses}`}
         >
           <SlidersHorizontal size={15} aria-hidden="true" />
           {moreOpen ? 'Fewer filters' : `More filters${moreCount ? ` (${moreCount} on)` : ''}`}
         </button>
-
-        <div className="flex flex-wrap items-center justify-between gap-2 text-sm text-gray-600 dark:text-gray-400">
-          <p aria-live="polite">
-            {shown.length} of {camps.length} camps
-            {kids.length > 0 && ' · camps that state no ages or grades are included'}
-            {unknownCount > 0 && unknownKinds.length > 0 && (
-              <>
-                {' · '}
-                {unknownCount} without {listJoin(unknownKinds, 'or')}{' '}
-                {withUnknown ? 'included' : 'hidden'}{' '}
-                <button
-                  type="button"
-                  onClick={() => setWithUnknown((current) => !current)}
-                  className={textButtonClasses}
-                >
-                  {withUnknown ? 'hide them' : 'show them'}
-                </button>
-              </>
-            )}
-            {filtered && (
-              <>
-                {' · '}
-                <button type="button" onClick={clearFilters} className={textButtonClasses}>
-                  Clear filters
-                </button>
-              </>
-            )}
-          </p>
-          <label className="inline-flex items-center gap-2">
-            <input
-              type="checkbox"
-              checked={grouped}
-              onChange={(event) => setGrouped(event.target.checked)}
-            />
-            Group by provider
-          </label>
-        </div>
       </div>
 
       {(savedIds.length > 0 || savedOnly) && (
@@ -881,57 +973,108 @@ export default function CampDirectory({ camps }: { camps: CampCardData[] }) {
         </div>
       )}
 
+      <div className="mt-4 flex flex-wrap items-center justify-between gap-x-4 gap-y-2 text-sm text-gray-600 dark:text-gray-400">
+        <div aria-live="polite" className="space-y-0.5">
+          <p>
+            <span className="font-semibold text-gray-900 dark:text-gray-100">
+              {shown.length.toLocaleString('en-US')}
+            </span>{' '}
+            of {camps.length.toLocaleString('en-US')} camps
+            {filtered && (
+              <>
+                {' · '}
+                <button type="button" onClick={clearFilters} className={textButtonClasses}>
+                  Clear filters
+                </button>
+              </>
+            )}
+          </p>
+          {kids.length > 0 && (
+            <p className="text-xs">Camps that state no ages or grades are included.</p>
+          )}
+          {unknownNotes.map((note) => (
+            <p key={note.kind}>
+              {note.count} without {note.without} {note.included ? 'included' : 'hidden'}
+              {' · '}
+              <button
+                type="button"
+                onClick={() => toggleUnknown(note.kind)}
+                className={textButtonClasses}
+              >
+                {note.included ? 'hide them' : 'show them'}
+              </button>
+            </p>
+          ))}
+        </div>
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
+          <label className="inline-flex items-center gap-2">
+            Sort
+            <select
+              value={sort}
+              onChange={(event) => setSort(event.target.value as Sort)}
+              className={`${selectClasses} w-auto`}
+            >
+              {SORTS.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
+          </label>
+          <label className="inline-flex min-h-9 items-center gap-2">
+            <input
+              type="checkbox"
+              checked={grouped}
+              onChange={(event) => setGrouped(event.target.checked)}
+              className="h-4 w-4"
+            />
+            Group by provider
+          </label>
+        </div>
+      </div>
+
       {shown.length === 0 ? (
-        <p className="mt-6 p-8 text-center rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 text-gray-600 dark:text-gray-400">
+        <p className="mt-4 p-8 text-center rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 text-gray-600 dark:text-gray-400">
           No camps match these filters.{' '}
           <button type="button" onClick={clearFilters} className={textButtonClasses}>
             Clear filters
           </button>
         </p>
       ) : grouped ? (
-        <div className="mt-6 space-y-8">
-          {providers.map(([provider, list]) => {
-            const open = expanded.has(provider);
-            const listId = `camps-${provider.replace(/\W+/g, '-')}`;
-            return (
-              <section key={provider} aria-label={provider}>
-                <h2 className="text-base font-semibold text-gray-900 dark:text-gray-100">
-                  {provider}{' '}
-                  <span className="font-normal text-gray-500 dark:text-gray-400">
-                    ({list.length} {list.length === 1 ? 'camp' : 'camps'})
-                  </span>
-                </h2>
-                <ul id={listId} className="mt-3 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
-                  {(open ? list : list.slice(0, PROVIDER_PREVIEW)).map((entry) =>
-                    card(entry, false)
-                  )}
-                </ul>
-                {list.length > PROVIDER_PREVIEW && (
-                  <button
-                    type="button"
-                    aria-expanded={open}
-                    aria-controls={listId}
-                    onClick={() =>
-                      setExpanded((current) => {
-                        const next = new Set(current);
-                        if (open) next.delete(provider);
-                        else next.add(provider);
-                        return next;
-                      })
-                    }
-                    className={`mt-3 text-sm ${textButtonClasses}`}
-                  >
-                    {open ? 'Show fewer' : `Show all ${list.length} ${provider} camps`}
-                  </button>
-                )}
-              </section>
-            );
-          })}
+        <div className="mt-4 space-y-8">
+          {groups.map(({ provider, total, list }) => (
+            <section key={provider} aria-label={provider}>
+              <h2 className="text-base font-semibold text-gray-900 dark:text-gray-100">
+                {provider}{' '}
+                <span className="font-normal text-gray-500 dark:text-gray-400">
+                  ({total} {total === 1 ? 'camp' : 'camps'})
+                </span>
+              </h2>
+              <ul className="mt-3 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+                {list.map((entry) => card(entry, false))}
+              </ul>
+            </section>
+          ))}
         </div>
       ) : (
-        <ul className="mt-6 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
-          {shown.map((entry) => card(entry, true))}
+        <ul className="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+          {shown.slice(0, limit).map((entry) => card(entry, true))}
         </ul>
+      )}
+
+      {shown.length > limit && (
+        <div className="mt-6 flex flex-col items-center gap-1.5">
+          <button
+            type="button"
+            onClick={() => setMore({ view: listKey, count: limit + PAGE_SIZE })}
+            className="min-h-11 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 px-5 text-sm font-medium text-gray-800 dark:text-gray-200 hover:border-brand-400 hover:text-brand-700 dark:hover:border-brand-500 dark:hover:text-brand-300 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
+          >
+            Show {Math.min(PAGE_SIZE, shown.length - limit)} more
+          </button>
+          <p className="text-xs text-gray-500 dark:text-gray-400">
+            Showing {limit} of {shown.length.toLocaleString('en-US')}
+          </p>
+        </div>
       )}
     </div>
   );

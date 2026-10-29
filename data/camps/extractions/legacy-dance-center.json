@@ -7,24 +7,23 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:06:39.357Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:05:48.769Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "72109e93c8ed06e37d5661b5a8ba6b1dc0a211f8ec1d92b61688e115468af3b5",
   "response": {
     "searches": [
       "site:legacydance.net summer camps",
-      "\"Legacy Dance Center\" \"2026\" \"camp\"",
-      "site:legacydance.net/wp-content/uploads/2026 \"camp\" \"July\"",
-      "open https://legacydance.net/wp-content/uploads/2026/01/Jan-Newsletter-2026-1-1.pdf"
+      "site:legacydance.net \"2026\" \"Camp\"",
+      "open https://legacydance.net/wp-content/uploads/2026/05/MAY-NEWSLETTER-2026-.pdf"
     ],
     "usage": {
-      "inputTokens": 36171,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1994,
-      "reasoningTokens": 365
+      "inputTokens": 28432,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1934,
+      "reasoningTokens": 251
     },
     "status": "completed",
-    "ms": 60180,
+    "ms": 42462,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -73,23 +72,23 @@
   "extraction": {
     "provider_name": "Legacy Dance Center",
     "website_url": "https://legacydance.net/",
-    "notes": "No summer 2027 dates or registration milestones found. The 2026 summer camp details were readable in official search-indexed text from the January 2026 newsletter, but direct PDF opens returned no readable content. The 2026-2027 fall class registration date is not a summer camp registration date. Undated competition-team pages also mention Summer Dance Camp and League Intensive requirements, but no year-specific schedules or standalone program details were found.",
+    "notes": "No summer 2027 information found. The January 2026 newsletter supplies the summer 2026 camp schedule; the 2026–2027 class schedule is a fall/school-year schedule, not a summer announcement. PDF text was available through official search results, but opening the PDFs returned no readable content and the screenshot attempt failed. Undated competition-team pages mention Summer Dance Camp and League Intensive without enough seasonal details to establish separate current offerings.",
     "excluded": [
       {
         "name": "Summer Dance Preview Camp",
-        "reason": "Held April 6–8, 2026 during spring break, not summer."
+        "reason": "April 6–8, 2026 spring-break program, outside summer."
       },
       {
-        "name": "General Class Fall Schedule",
-        "reason": "School-year dance, cheer and tumbling classes beginning September 8, 2026, not finite summer programs."
+        "name": "General Classes",
+        "reason": "School-year dance, cheer and tumbling lesson series beginning September 8, 2026."
       },
       {
         "name": "Competition Teams",
-        "reason": "Competition team seasons, not summer camps."
+        "reason": "Competition team seasons, rather than finite summer camps."
       },
       {
-        "name": "Adult Pilates and Adult Zumba",
-        "reason": "Adult-only recurring classes."
+        "name": "Open House & In-Person Registration",
+        "reason": "Registration event, not a supervised summer camp."
       }
     ],
     "cards": [
@@ -97,7 +96,7 @@
         "name": "Legacy's Summer Camps",
         "type": "half_day",
         "categories": ["dance", "sports", "arts"],
-        "description": "Campers participate in dance, tumbling, games, crafts, snacks and themed activities. Themes include princesses, Toy Story, K-pop Demon Hunters and circus acro and tumbling.",
+        "description": "Camps include dance, tumbling, games, crafts, snacks and activities, with princess, Toy Story, K-pop and circus themes.",
         "camp_page_url": "https://legacydance.net/how-to-make-up-missed-classes-2/",
         "registration_url": "https://app.jackrabbitclass.com/regv2.asp?id=531196",
         "season": {
@@ -122,7 +121,14 @@
         ],
         "hours": null,
         "extended_care": null,
-        "prices": [],
+        "prices": [
+          {
+            "amount": 110,
+            "unit": "session",
+            "label": null,
+            "year": 2026
+          }
+        ],
         "sessions": [
           {
             "label": "A Royal Princess Academy",
@@ -279,11 +285,12 @@
         "sources": [
           "https://legacydance.net/wp-content/uploads/2026/01/Jan-Newsletter-2026-1-1.pdf",
           "https://legacydance.net/how-to-make-up-missed-classes-2/",
+          "https://legacydance.net/about-us/location-and-facility/",
           "https://legacydance.net/about-us/contact-us/",
           "https://app.jackrabbitclass.com/regv2.asp?id=531196"
         ],
         "confidence": "medium",
-        "review_notes": "Verify dates, ages and hours visually in the January 2026 newsletter PDF; these were available only through official search-indexed text. Dates take their year from the newsletter title. Camp location is inferred to be the studio at its published contact address; confirm drop-off location. No camp price or exact registration opening date was found. The preview camp's $110 price does not apply to these summer sessions."
+        "review_notes": "Dates, ages, hours and $110 camp cost were extracted from the official January 2026 newsletter's search text; verify the visual PDF because it could not be rendered. The newsletter heading establishes 2026 for the summer dates. July sessions meet in the afternoon or evening but remain rows of the same themed summer camp offering. The studio address is official; the camp text does not separately name its drop-off venue. No exact 2026 registration opening date was found; 'REGISTER NOW' does not establish one."
       }
     ]
   }

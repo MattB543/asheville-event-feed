@@ -7,24 +7,23 @@
     "discovered_by": ["grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:06:19.351Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:05:34.705Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "67f229131a4ba3e8a433ded9ca5a803409c15ed01166a7f719d368db91f0fd21",
   "response": {
     "searches": [
-      "site:performwithmusicworks.com summer 2027 camps",
-      "site:performwithmusicworks.com \"2027\" \"summer\"",
-      "site:performwithmusicworks.com/event/ \"camp\"",
-      "site:performwithmusicworks.com/event/broadway-bootcamp-with-hamiltons-tyler-mckenzie/ \"Description\""
+      "site:performwithmusicworks.com \"2027\" \"camp\"",
+      "open https://performwithmusicworks.com/event/broadway-bootcamp-with-hamiltons-tyler-mckenzie/",
+      "\"MusicWorks\" \"Tyler\" \"2026\""
     ],
     "usage": {
-      "inputTokens": 34491,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1648,
-      "reasoningTokens": 360
+      "inputTokens": 28143,
+      "cachedInputTokens": 8845,
+      "outputTokens": 856,
+      "reasoningTokens": 229
     },
     "status": "completed",
-    "ms": 44062,
+    "ms": 27090,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -53,35 +52,15 @@
   "extraction": {
     "provider_name": "MusicWorks! Studio of Performing Arts",
     "website_url": "https://performwithmusicworks.com/",
-    "notes": "No summer 2027 camp information was found. The summer page still solicits interest for 2026 without dates or prices. Its four activity headings are grouped as one Summer Camps offering because no separate scheduled programs are listed. An official search result also lists a July 2026 Broadway Bootcamp, but its full event details could not be opened. The calendar PDF could not be opened; its search text mentions summer sessions beginning June 23 but does not establish dates for individual camps, so that date was not assigned to cards. Cloudflare's email-protection page does not expose a usable registration destination.",
+    "notes": "No summer 2027 camp dates or registration milestones were found. The summer camp page still promotes its summer 2026 interest list. The official Broadway Bootcamp with HAMILTON’s TYLER MCKENZIE event page returned only its title and unrelated testimonials; its dates, summer season, youth eligibility and program details could not be established, so it is not included as a card. The studio calendar PDF appeared in official search results, but could not be read or rendered; its general summer-session milestone was not assigned to individual camps.",
     "excluded": [
       {
-        "name": "School-year dance programs",
-        "reason": "DiscoverDance, Youth/Early Intermediate, Intermediate/Early Advanced, Advanced Dance, Classical Ballet, Tap, Lyrical Dance, and tumbling are ongoing school-year classes, not finite summer camps."
+        "name": "Music Lessons (Ages 6+)",
+        "reason": "Private and group music lessons, rather than a finite summer camp."
       },
       {
-        "name": "Musical Theater Performance & Production",
-        "reason": "School-year instruction and productions rather than a finite summer program."
-      },
-      {
-        "name": "Music Lessons",
-        "reason": "Ongoing private and group lessons rather than a finite summer camp."
-      },
-      {
-        "name": "Performing Companies",
-        "reason": "Ongoing performance teams and rehearsals rather than finite summer camps."
-      },
-      {
-        "name": "Careers – Join The MW! Team!",
-        "reason": "Employment opportunities."
-      },
-      {
-        "name": "Spring 2026: Dare to Dream",
-        "reason": "Spring performance, not a supervised summer camp."
-      },
-      {
-        "name": "A VERY MERRY GRINCHMAS!",
-        "reason": "Holiday performance outside summer, not a camp."
+        "name": "School-year dance and musical theater programs",
+        "reason": "School-year classes and performing-company training, rather than finite summer camps."
       }
     ],
     "cards": [
@@ -89,9 +68,9 @@
         "name": "Summer Camps",
         "type": "half_day",
         "categories": ["dance", "music", "theater", "arts"],
-        "description": "Campers participate in themed dance, music, theater, tumbling, crafts, and performance activities. Activities include preschool movement, ballet storytelling, musical theater scenes, and rhythm and choreography.",
+        "description": "Campers explore dance, music, theater, tumbling and themed crafts. Activities include beginner choreography, rhythm games, storytelling and performance.",
         "camp_page_url": "https://performwithmusicworks.com/cp/summer-camps/",
-        "registration_url": "https://performwithmusicworks.com/cp/summer-camps/",
+        "registration_url": null,
         "season": {
           "year": 2026,
           "status": "not_posted",
@@ -132,49 +111,8 @@
           "https://performwithmusicworks.com/",
           "https://performwithmusicworks.com/about-us/studio-calendar/"
         ],
-        "confidence": "medium",
-        "review_notes": "Confirm that camps meet at the studio's published address. The page gives no scheduled dates or separate age-band sessions; Preschool Dance + Tumbling specifies ages 3–6, while the overall page states ages 3–11. The 2026 interest-list and waitlist language does not establish current session availability."
-      },
-      {
-        "name": "Broadway Bootcamp with HAMILTON’s TYLER MCKENZIE",
-        "type": "evening",
-        "categories": ["theater", "dance"],
-        "description": "A two-day Broadway bootcamp with Tyler McKenzie.",
-        "camp_page_url": "https://performwithmusicworks.com/event/broadway-bootcamp-with-hamiltons-tyler-mckenzie/",
-        "registration_url": null,
-        "season": {
-          "year": 2026,
-          "status": "not_posted",
-          "start": "2026-07-27",
-          "end": "2026-07-28",
-          "text": null
-        },
-        "ages": null,
-        "grades": null,
-        "sites": [],
-        "hours": null,
-        "extended_care": null,
-        "prices": [
-          {
-            "amount": 165,
-            "unit": "program",
-            "label": null,
-            "year": 2026
-          }
-        ],
-        "sessions": [],
-        "registration": [],
-        "last_year_registration_opened": null,
-        "availability": null,
-        "financial_aid": null,
-        "special_needs": null,
-        "lunch": null,
-        "transportation": null,
-        "sources": [
-          "https://performwithmusicworks.com/event/broadway-bootcamp-with-hamiltons-tyler-mckenzie/"
-        ],
-        "confidence": "low",
-        "review_notes": "The official search snippet states July 27, 2026 4:00 pm through July 28, 2026 7:00 pm and price 165.00, but the full event page returned no readable content. Confirm youth eligibility, venue, curriculum, registration destination, and daily hours. The event's overall start and end times were not treated as daily camp hours."
+        "confidence": "high",
+        "review_notes": null
       }
     ]
   }

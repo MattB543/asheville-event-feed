@@ -7,22 +7,22 @@
     "discovered_by": ["grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:30:16.808Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:25:39.147Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "566cd19c94e87721de6b3fe3fec07785a021679a4a4ba227e695281e0c768ae4",
   "response": {
     "searches": [
       "site:fearlessathletics-wnc.com camps 2027 2026",
-      "site:fearlessathletics-wnc.com \"2027\" \"camp\""
+      "open https://www.fearlessathletics-wnc.com/summer-camps-clinics"
     ],
     "usage": {
-      "inputTokens": 16309,
-      "cachedInputTokens": 8223,
-      "outputTokens": 730,
-      "reasoningTokens": 241
+      "inputTokens": 14007,
+      "cachedInputTokens": 8845,
+      "outputTokens": 759,
+      "reasoningTokens": 123
     },
     "status": "completed",
-    "ms": 27845,
+    "ms": 20548,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -46,11 +46,11 @@
   "extraction": {
     "provider_name": "Fearless Athletics",
     "website_url": "https://www.fearlessathletics-wnc.com/",
-    "notes": "The official Camps and Clinics page advertises week-long summer camps and one-day clinics but does not identify individual offerings or publish dates, ages, prices or registration milestones for 2026 or 2027. One umbrella card preserves that listing without inventing separate programs. Additional camp and special-events URLs returned no readable content; searches found no dated camp schedule or PDF.",
+    "notes": "No dated 2026 summer schedule or 2027 summer information was found. The camps page describes week-long camps and one-day clinics together without listing separate offerings. The alternate summer-camps-clinics page and contact page returned no readable text when opened; the official contact search result confirms the address.",
     "excluded": [
       {
         "name": "Tumbling Program",
-        "reason": "Ongoing leveled tumbling classes and private lessons, not a finite summer program."
+        "reason": "Ongoing tumbling classes, not a finite summer camp."
       },
       {
         "name": "All-Star competitive cheerleading",
@@ -58,7 +58,11 @@
       },
       {
         "name": "Fearless Lock-ins",
-        "reason": "The official page describes October, winter and spring events; no summer lock-in is listed."
+        "reason": "Single-night social events; the listed Halloween, winter and spring events are also outside summer."
+      },
+      {
+        "name": "Birthday Parties",
+        "reason": "Private social events, not summer camps."
       }
     ],
     "cards": [
@@ -66,11 +70,11 @@
         "name": "Fearless Camps and Clinics",
         "type": "day",
         "categories": ["sports"],
-        "description": "Fearless Athletics offers week-long summer camps and focused one-day skill clinics. Specialty instruction can include stunting, tumbling and choreography.",
+        "description": "Summer camps and clinics focus on cheerleading skills, including stunts, tumbling and choreography. The provider describes week-long camps and focused one-day clinics.",
         "camp_page_url": "https://www.fearlessathletics-wnc.com/summer-camps",
         "registration_url": null,
         "season": {
-          "year": 2027,
+          "year": 2026,
           "status": "not_posted",
           "start": null,
           "end": null,
@@ -99,10 +103,10 @@
         "transportation": null,
         "sources": [
           "https://www.fearlessathletics-wnc.com/summer-camps",
-          "https://www.fearlessathletics-wnc.com/facility"
+          "https://www.fearlessathletics-wnc.com/contact-us"
         ],
         "confidence": "medium",
-        "review_notes": "The camp page is an undated umbrella description rather than a schedule. Day format and the gym as the site are inferred from the in-house week-long camp description; confirm these with the provider. One-day clinics are mentioned but not separately named or scheduled. No numerical ages, dates, hours, prices or registration information are published."
+        "review_notes": "The camps page is undated and gives only a general description, not a dated 2026 or 2027 offering list. Day format is based on its week-long camps and one-day clinics; no daily hours are published. The site uses the provider's published gym address for its in-house programs."
       }
     ]
   }

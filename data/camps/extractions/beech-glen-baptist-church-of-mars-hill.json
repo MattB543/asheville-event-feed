@@ -9,23 +9,23 @@
     "status": "review",
     "status_reason": "first page is a social media page or video, which our fetcher can't read"
   },
-  "extractedAt": "2026-10-29T15:26:40.215Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:22:37.645Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": null,
   "response": {
     "searches": [
-      "Beech Glen Baptist Church Mars Hill vacation bible school 2026",
+      "Beech Glen Baptist Church Mars Hill VBS 2026",
       "site:facebook.com/BeechGlenBaptistChurch \"2026\" \"VBS\"",
-      "\"Beech Glen Baptist\" \"2026\" \"Bible\""
+      "\"Beech Glen\" \"2026\" \"Bible\" \"6:30\""
     ],
     "usage": {
-      "inputTokens": 23726,
-      "cachedInputTokens": 8223,
-      "outputTokens": 908,
-      "reasoningTokens": 263
+      "inputTokens": 24397,
+      "cachedInputTokens": 8845,
+      "outputTokens": 842,
+      "reasoningTokens": 241
     },
     "status": "completed",
-    "ms": 29929,
+    "ms": 28168,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -39,14 +39,14 @@
   "extraction": {
     "provider_name": "Beech Glen Baptist Church of Mars Hill",
     "website_url": null,
-    "notes": "No standalone provider website or 2027 summer information was found. The church's Facebook page could not be read directly. A 2026 Vacation Bible School listing was found on AllEvents and HappeningNext, but its dates could not be verified on the church's own pages. No registration milestones were found.",
+    "notes": "No standalone church website or 2027 camp information was found. The church's Facebook page could not be read directly. Third-party event listings report VBS July 6–10, 2026, but those dates could not be verified on an accessible official page. No registration opening date was found.",
     "excluded": [],
     "cards": [
       {
         "name": "Vacation Bible School (VBS)",
         "type": "vbs",
         "categories": ["faith_based"],
-        "description": "Vacation Bible School at Beech Glen Baptist Church.",
+        "description": "Vacation Bible School for children.",
         "camp_page_url": "https://www.facebook.com/BeechGlenBaptistChurch/",
         "registration_url": null,
         "season": {
@@ -78,12 +78,10 @@
         "lunch": null,
         "transportation": null,
         "sources": [
-          "https://www.facebook.com/BeechGlenBaptistChurch/",
-          "https://www.facebook.com/BeechGlenBaptistChurch/posts/vacation-bible-school-is-here-again-monday-june-16-20th-7-9-at-beech-glen-baptis/518715688255548/",
-          "https://churchpop.bscnc.org/?orgid=190022512"
+          "https://www.facebook.com/BeechGlenBaptistChurch/posts/vacation-bible-school-is-here-again-monday-june-16-20th-7-9-at-beech-glen-baptis/518715688255548/"
         ],
         "confidence": "low",
-        "review_notes": "Verify the 2026 dates against the church's Facebook event or post. AllEvents (https://allevents.in/mars-hill/vacation-bible-school-vbs/200030236024545) and HappeningNext (https://happeningnext.com/event/vacation-bible-school-vbs-eid3a0dr72pe1) list July 6–10, 2026, starting at 6:30 p.m.; their end-time listing is unclear, so hours are left null. The official Facebook search results confirm historical VBS offerings but not the 2026 details. The address is supported by the Baptist State Convention's church directory rather than a readable provider contact page. Ages, activities, price and registration details need official confirmation."
+        "review_notes": "The official Facebook search result establishes a historical VBS program, but the current Facebook page could not be read. The 2026 dates and venue come from third-party search results at https://happeningnext.com/event/vacation-bible-school-vbs-eid3a0dr72pe1 and https://allevents.in/mars-hill/vacation-bible-school-vbs/200030236024545; verify them against the church's 2026 announcement. The physical address is corroborated by the NC Baptist church directory at https://churchpop.bscnc.org/?orgid=190022512. Event snippets show a 6:30 p.m. start but do not establish reliable daily hours, so hours are left null."
       }
     ]
   }

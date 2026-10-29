@@ -73,3 +73,34 @@ sources.
 | 21  | Invalid extracted season dates could abort the import                       | Fix: semantic date check in the derived columns                                                                                                                                                              |
 | 22  | Reminders bundled every audience                                            | Fix: public by default, others as separate links                                                                                                                                                             |
 | 23  | Header menu keyboard reopen on desktop                                      | Fix                                                                                                                                                                                                          |
+
+### Gate 3: confirmation of the gate-2 fixes (Oct 29)
+
+Reviewed `242e438..582eef5`. Confirmed: 3, 4, 6, 8, 9, 10, 12, 14, 16, 18, 19, 21, 22, 23 (1 and 15
+are the accepted deferral/rejection). Still open, and fixed in the next round:
+
+- Must: a failed read in the post-extraction bundle still let the import through (#2); routing
+  batches could overrun the cron deadline (#5); a passed close was ignored when a later
+  deadline existed (#7: fixed so a passed close always closes, while an early-bird deadline
+  before a final one still doesn't); NEW1 a connection-pool deadlock between concurrent feed
+  syncs (fixed: try-lock and skip instead of waiting); NEW2 a partial WebTrac catalog read
+  could replace complete cards.
+- Should: all milestone URLs read in bounded batches (#11); an unmatched feed-event site now
+  has no location (#13); "last checked" revalidated after unchanged checks (#17); WebTrac on
+  the daily January/opening cadence (NEW3) and under a deadline (NEW4).
+
+### UX review (Oct 29)
+
+An Opus agent reviewed /camps and camp pages at 1280 and 375, light and dark. It used the
+app's built-in browser: Claude in Chrome reported "not connected" (no browser listed). Its
+P1s: the week filter dropped every 2026-dated camp; /camps shipped all ~1,070 cards (7.3MB
+HTML, ~99k DOM nodes); out-of-radius camps with unplaced sites were listed. P2s: 406 camps
+vanished under any drive filter; AI review notes leaked into season text and price labels;
+contradictory registration copy; a grey "not announced" banner on 77% of cards; group-by-
+provider hid matches; the phone layout showed no camp on the first screen; the sessions table
+overflowed on phones; unclear audience labels; "may fit" for camps with no stated ages. It also
+listed ~25 non-camps or out-of-area entries (swim/tennis lessons, mission trips, childcare,
+Reidsville 4-H, a Charlotte camp) and one duplicate. Fixes: page items by a pages agent;
+drive-time estimates from the camp's town, a prompt revision with a full re-extraction (notes
+out of parent-facing text, non-camps excluded), and retiring cards a newer extraction drops
+(migration 0027, approved by Matt) by a data agent.

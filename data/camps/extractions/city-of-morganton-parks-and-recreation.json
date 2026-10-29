@@ -10,23 +10,23 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:10:39.938Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:08:26.917Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "58f67d91b0b8c9958bfbd1e0fde0389073d3c51d9486ab23da578e7142bdb66c",
   "response": {
     "searches": [
-      "site:morgantonnc.gov summer camp 2027",
-      "site:morgantonnc.gov \"Mini-Camp\" \"2026\"",
-      "site:morgantonnc.gov/media \"mini\" \"2026\""
+      "site:morgantonnc.gov camp 2027",
+      "site:morgantonnc.gov \"Mini\" \"2026\" camp",
+      "site:morgantonnc.gov \"Mini\" \"August 4\""
     ],
     "usage": {
-      "inputTokens": 33436,
-      "cachedInputTokens": 8223,
-      "outputTokens": 3624,
-      "reasoningTokens": 388
+      "inputTokens": 34365,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2555,
+      "reasoningTokens": 366
     },
     "status": "completed",
-    "ms": 88937,
+    "ms": 54579,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -75,19 +75,31 @@
   "extraction": {
     "provider_name": "City of Morganton Parks & Recreation",
     "website_url": "https://www.morgantonnc.gov/parksrec",
-    "notes": "No 2027 camp information was found. Official pages and the registration catalog returned no readable content when opened; indexed official search results supplemented the supplied text. The mini-camp's current flyer could not be read, so its ages, price, hours and meeting location remain unknown. Safe Haven is administered by Morganton Public Safety rather than Parks & Recreation, but is included because its official materials were supplied.",
+    "notes": "No 2027 camp information found. Official media URLs and the registration catalog returned no readable content when opened; some PDF details were available through official search results. The older Mini-Camp PDF at /media/19631 lists August 5–7 and was not used for 2026 facts. Safe Haven is operated by Morganton Public Safety.",
     "excluded": [
       {
+        "name": "Tennis Lessons",
+        "reason": "Booked and described as tennis lessons, not a camp."
+      },
+      {
         "name": "Exercise and Basketball Camp",
-        "reason": "The official page describes an ongoing Tuesday–Thursday program without finite summer dates, not a summer-only camp."
+        "reason": "The current page describes a recurring Tuesday–Thursday program with no finite summer dates; summer camp eligibility could not be established."
+      },
+      {
+        "name": "Learn To Swim",
+        "reason": "Swim lesson series, not a camp."
+      },
+      {
+        "name": "Fencing Lessons",
+        "reason": "Recurring lessons, not a camp."
+      },
+      {
+        "name": "Morganton JAM",
+        "reason": "Recurring music instruction, not a finite summer camp."
       },
       {
         "name": "IDAP! monthly activities",
-        "reason": "Year-round monthly adaptive recreation activities; the separate finite summer day camp is included."
-      },
-      {
-        "name": "Youth basketball",
-        "reason": "A sports league held from late November through January, outside summer."
+        "reason": "Social events and outings are not camps; the fall day camp is outside summer."
       }
     ],
     "cards": [
@@ -95,7 +107,7 @@
         "name": "Summer Camp",
         "type": "day",
         "categories": ["general", "stem", "arts", "sports", "nature_outdoor"],
-        "description": "Campers participate in weekly themes covering science and nature, cultural arts, sports and adventure, and pop culture.",
+        "description": "Campers participate in science and nature, cultural arts, sports and adventure, and pop culture activities, with a different theme each week.",
         "camp_page_url": "https://www.morgantonnc.gov/parksrec/page/summer-camp-0",
         "registration_url": "https://secure.rec1.com/NC/morganton-parks-recreation-nc/catalog",
         "season": {
@@ -117,19 +129,19 @@
           {
             "amount": 100,
             "unit": "week",
-            "label": "Resident; 50% off for each additional sibling",
+            "label": "resident; 50% off for each additional sibling",
             "year": 2026
           },
           {
             "amount": 120,
             "unit": "week",
-            "label": "Non-resident; 50% off for each additional sibling",
+            "label": "non-resident; 50% off for each additional sibling",
             "year": 2026
           }
         ],
         "sessions": [
           {
-            "label": null,
+            "label": "Week 1",
             "start": "2026-06-15",
             "end": "2026-06-19",
             "year": 2026,
@@ -141,7 +153,7 @@
             "status": null
           },
           {
-            "label": null,
+            "label": "Week 2",
             "start": "2026-06-22",
             "end": "2026-06-26",
             "year": 2026,
@@ -153,7 +165,7 @@
             "status": null
           },
           {
-            "label": null,
+            "label": "Week 3",
             "start": "2026-07-06",
             "end": "2026-07-10",
             "year": 2026,
@@ -165,7 +177,7 @@
             "status": null
           },
           {
-            "label": null,
+            "label": "Week 4",
             "start": "2026-07-13",
             "end": "2026-07-17",
             "year": 2026,
@@ -194,13 +206,13 @@
           "https://www.morgantonnc.gov/media/23371"
         ],
         "confidence": "medium",
-        "review_notes": "Flyer facts were accessible only through official search results. Weekly rows divide the two published date ranges into weeks; the flyer does not assign its four themes to specific weeks. Verify meeting site and hours in the flyer or registration catalog."
+        "review_notes": "PDF facts were read through official search results. Weekly rows split the two printed date ranges into weeks; theme-to-week assignments were not readable. Confirm the drop-off venue and hours in the flyer or catalog."
       },
       {
         "name": "Mini-Camp",
         "type": "half_day",
         "categories": ["general"],
-        "description": "A three-day summer camp for younger participants.",
+        "description": "Mini-Camp is a summer camp for younger participants.",
         "camp_page_url": "https://www.morgantonnc.gov/parksrec/page/summer-camp-0",
         "registration_url": "https://secure.rec1.com/NC/morganton-parks-recreation-nc/catalog",
         "season": {
@@ -231,13 +243,13 @@
         "transportation": null,
         "sources": ["https://www.morgantonnc.gov/parksrec/page/summer-camp-0"],
         "confidence": "medium",
-        "review_notes": "Verify the half-day format against the 2026 Mini-Camp Flyer, which could not be read. The older media/19631 flyer lists August 5–7 and morning hours and should not be treated as 2026 information."
+        "review_notes": "Confirm half-day format, ages, price, hours and venue in the 2026 Mini-Camp flyer. The older /media/19631 flyer describes a morning camp but its dates differ from the 2026 page; its details were not carried forward."
       },
       {
         "name": "IDAP! Summer Camp",
         "type": "day",
-        "categories": ["special_needs", "general"],
-        "description": "A one-day adaptive summer camp for individuals with disabilities. Guardians and support staff are welcome.",
+        "categories": ["general", "special_needs"],
+        "description": "A one-day summer camp for individuals with disabilities. Guardians and support staff are welcome.",
         "camp_page_url": "https://www.morgantonnc.gov/parksrec/page/summer-camp-0",
         "registration_url": "https://secure.rec1.com/NC/morganton-parks-recreation-nc/catalog",
         "season": {
@@ -263,19 +275,19 @@
           {
             "amount": 10,
             "unit": "day",
-            "label": "Early registration: April 1–June 19, 2026",
+            "label": "early registration: April 1–June 19",
             "year": 2026
           },
           {
             "amount": 15,
             "unit": "day",
-            "label": "Late registration: June 20–July 1, 2026",
+            "label": "late registration: June 20–July 1",
             "year": 2026
           },
           {
             "amount": 0,
             "unit": "day",
-            "label": "Guardian/support staff",
+            "label": "guardian/support staff",
             "year": 2026
           }
         ],
@@ -322,7 +334,7 @@
         "financial_aid": null,
         "special_needs": {
           "value": "yes",
-          "text": "A free, community-supported adaptive and inclusive recreation program for individuals of all ages with cognitive or physical disabilities."
+          "text": "A one-day IDAP! camp for individuals with disabilities"
         },
         "lunch": {
           "value": "yes",
@@ -331,18 +343,17 @@
         "transportation": null,
         "sources": [
           "https://www.morgantonnc.gov/parksrec/page/summer-camp-0",
-          "https://www.morgantonnc.gov/media/23381",
-          "https://www.morgantonnc.gov/media/23916"
+          "https://www.morgantonnc.gov/media/23381"
         ],
         "confidence": "medium",
-        "review_notes": "Flyer details were available only through official search results. The address 300 Collett St. is explicitly an in-person registration location, not clearly the camp drop-off site. The general IDAP brochure calls the program free, but the camp flyer explicitly charges a camp registration fee."
+        "review_notes": "Flyer details were available only through official search results. The address 300 Collett St. is explicitly for in-person registration, not clearly camp drop-off, so sites is empty. Confirm venue and whether age groups run separately."
       },
       {
         "name": "Safe Haven Summer Camp",
         "type": "day",
         "categories": ["general"],
-        "description": "Students participate in activities with law enforcement officers that reinforce D.A.R.E. messages and build relationships. The program includes community service and ends with a family graduation banquet.",
-        "camp_page_url": "https://www.morgantonnc.gov/publicsafety/page/operation-safe-haven",
+        "description": "Students participate in activities such as swimming and athletic events while building relationships with law enforcement.",
+        "camp_page_url": "https://www.morgantonnc.gov/media/23251",
         "registration_url": "https://www.morgantonnc.gov/media/23251",
         "season": {
           "year": 2026,
@@ -353,14 +364,14 @@
         },
         "ages": null,
         "grades": {
-          "min": 6,
-          "max": 6,
-          "basis": "rising"
+          "min": 5,
+          "max": 5,
+          "basis": "unspecified"
         },
         "sites": [
           {
             "name": "Collett Street Recreation Center",
-            "address": "300 Collett Street",
+            "address": "300 Collett St.",
             "town": "Morganton",
             "state": "NC"
           }
@@ -368,14 +379,14 @@
         "hours": {
           "start": "08:00",
           "end": "17:00",
-          "text": "Hours may vary depending on scheduled events for the day. Final-day family banquet is 5–7 pm at Morganton Community House."
+          "text": "Camp days will begin at 8:00am and conclude at 5:00pm, hours may vary depending on scheduled events for the day."
         },
         "extended_care": null,
         "prices": [
           {
             "amount": 0,
             "unit": "program",
-            "label": "Free of charge",
+            "label": "free",
             "year": 2026
           }
         ],
@@ -391,81 +402,14 @@
         },
         "transportation": {
           "value": "no",
-          "text": "I further understand and agree that I will be responsible for delivering my child to the summer camp and for picking up my child at the conclusion of each day"
+          "text": "I will be responsible for delivering my child to the summer camp and for picking up my child at the conclusion of each day"
         },
         "sources": [
           "https://www.morgantonnc.gov/media/23251",
-          "https://www.morgantonnc.gov/publicsafety/page/operation-safe-haven"
+          "https://www.morgantonnc.gov/parksrec/park/collett-street-recreation-center"
         ],
         "confidence": "medium",
-        "review_notes": "The invitation heading and waiver identify 2026 and July 13–17, 2026, but its opening paragraph incorrectly prints 2025. The invitation specifies a May 31, 2026 application deadline while the program page says the 2026 deadline is TBD. Transportation by van or bus is provided for camp destinations, not home pickup."
-      },
-      {
-        "name": "Tennis Lessons",
-        "type": "clinic",
-        "categories": ["sports"],
-        "description": "Children attend weekday tennis instruction with Wayne Giese in one-week summer sessions.",
-        "camp_page_url": "https://www.morgantonnc.gov/parksrec/page/tennis-lessons-summer-2026",
-        "registration_url": "https://secure.rec1.com/NC/morganton-parks-recreation-nc/catalog",
-        "season": {
-          "year": 2026,
-          "status": "not_posted",
-          "start": "2026-06-15",
-          "end": "2026-08-21",
-          "text": null
-        },
-        "ages": {
-          "min": 4,
-          "max": 17
-        },
-        "grades": null,
-        "sites": [
-          {
-            "name": "Collett Street Recreation Center",
-            "address": "300 Collett St.",
-            "town": "Morganton",
-            "state": "NC"
-          }
-        ],
-        "hours": {
-          "start": null,
-          "end": null,
-          "text": "Monday–Friday, except July 3; 8:30–9:30 am or 9:30–10:30 am."
-        },
-        "extended_care": null,
-        "prices": [
-          {
-            "amount": 15,
-            "unit": "week",
-            "label": "City residents; 1/2 off for each additional sibling",
-            "year": 2026
-          },
-          {
-            "amount": 20,
-            "unit": "week",
-            "label": "Non-city residents; 1/2 off for each additional sibling",
-            "year": 2026
-          }
-        ],
-        "sessions": [],
-        "registration": [],
-        "last_year_registration_opened": {
-          "date": "2026-04-01",
-          "time": null,
-          "text": "Online Registration begins April 1st",
-          "url": "https://www.morgantonnc.gov/parksrec/page/tennis-lessons-summer-2026"
-        },
-        "availability": null,
-        "financial_aid": null,
-        "special_needs": null,
-        "lunch": null,
-        "transportation": null,
-        "sources": [
-          "https://www.morgantonnc.gov/parksrec/page/tennis-lessons-summer-2026",
-          "https://www.morgantonnc.gov/media/24026"
-        ],
-        "confidence": "medium",
-        "review_notes": "The official page was accessible only through search results. It states a season range and one-week sessions but does not enumerate dated sessions; verify individual weeks in the registration catalog."
+        "review_notes": "The invitation sentence says July 13–17, 2025, but the heading, application deadline and waiver identify 2026; dates use the waiver's explicit July 13–17, 2026. Applications were due May 31, 2026, not a 2027 milestone. Transportation is provided during camp field trips, but parents handle daily drop-off and pickup. The final family banquet is July 17, 5–7 pm at Morganton Community House, not a separate drop-off site."
       }
     ]
   }

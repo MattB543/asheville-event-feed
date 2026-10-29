@@ -7,23 +7,23 @@
     "discovered_by": ["news828", "grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:00:39.103Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:00:55.180Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "cbd5d79ec348c69c572608dd1afb54d8d0b9eccceffaf051cde92b66fed8fb39",
   "response": {
     "searches": [
-      "site:theadventureschool.org address 2027",
+      "site:theadventureschool.org address Tryon 2027 summer",
       "\"The Adventure School\" \"address\" Tryon",
       "\"The Adventure School\" \"Tryon\" \"Road\""
     ],
     "usage": {
-      "inputTokens": 23892,
-      "cachedInputTokens": 8223,
-      "outputTokens": 4244,
-      "reasoningTokens": 195
+      "inputTokens": 20878,
+      "cachedInputTokens": 8845,
+      "outputTokens": 4252,
+      "reasoningTokens": 221
     },
     "status": "completed",
-    "ms": 74975,
+    "ms": 81707,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -57,31 +57,31 @@
   "extraction": {
     "provider_name": "The Adventure School",
     "website_url": "https://theadventureschool.org/",
-    "notes": "No summer 2027 information or registration milestones found. All dates and prices below are explicitly for summer 2026. A published campus street address could not be located; campus sites are retained with null addresses. FULL/WAITLIST wording is retained as waitlist availability for the listed 2026 offerings, not as 2027 availability.",
+    "notes": "No summer 2027 information or registration milestones were found. Cards retain the explicitly labeled 2026 information. Searches did not locate an official published campus street address or expedition drop-off location. Some additional official pages returned no readable text when opened, although search snippets were readable.",
     "excluded": [
       {
         "name": "Wild Child",
-        "reason": "School-year semester program, distinct from Wild Child Summer."
+        "reason": "School-year preschool outdoor education program; distinct from Wild Child Summer."
       },
       {
         "name": "Explorers",
-        "reason": "School-year semester program."
+        "reason": "School-year enrichment program."
       },
       {
         "name": "Navigators",
-        "reason": "School-year semester program."
+        "reason": "School-year enrichment program."
       },
       {
         "name": "Adventure Youth Group",
-        "reason": "Recurring trimester-based program, not a finite summer camp."
+        "reason": "Ongoing youth-group program and trimester expeditions, not a finite summer camp."
       },
       {
         "name": "Adventure Days and Teen Day Trips",
-        "reason": "Recurring monthly program; no explicitly summer-dated offering found. Listed teen trips include a May trip."
+        "reason": "Recurring year-round Adventure Saturdays and teen outings; no finite summer offering found."
       },
       {
         "name": "Adventure by Design",
-        "reason": "Customized programs for all ages; no specific finite youth summer offering posted."
+        "reason": "Customized programs for individuals or groups without a published finite youth summer offering."
       }
     ],
     "cards": [
@@ -89,7 +89,7 @@
         "name": "Canoe Expedition",
         "type": "overnight",
         "categories": ["nature_outdoor"],
-        "description": "Campers travel down a regional river in tandem canoes for four days and camp on shore each night, carrying their supplies with them.",
+        "description": "Campers travel down a regional river in tandem canoes for four days, camping on shore each night and carrying their supplies.",
         "camp_page_url": "https://theadventureschool.org/summer-camps",
         "registration_url": "https://docs.google.com/forms/d/e/1FAIpQLSfNV-mKr9f3BsfocT7_i_7-fD8fB2M_09sL0qE4za9rLdQYFw/viewform?usp=send_form",
         "season": {
@@ -114,7 +114,7 @@
         "prices": [
           {
             "amount": 615,
-            "unit": "session",
+            "unit": "program",
             "label": null,
             "year": 2026
           }
@@ -124,7 +124,7 @@
         "last_year_registration_opened": null,
         "availability": {
           "status": "waitlist",
-          "scope": "2026 expedition",
+          "scope": null,
           "text": "FULL/WAITLIST"
         },
         "financial_aid": null,
@@ -148,7 +148,7 @@
         "name": "Multi-Adventure Expedition",
         "type": "overnight",
         "categories": ["nature_outdoor"],
-        "description": "Campers practice outdoor living skills on a four-day, three-night expedition with activities such as hiking, paddling, biking, rafting, and climbing.",
+        "description": "Campers practice outdoor living skills and participate in activities such as hiking, paddling, biking, rafting and climbing during a four-day, three-night expedition.",
         "camp_page_url": "https://theadventureschool.org/summer-camps",
         "registration_url": "https://docs.google.com/forms/d/e/1FAIpQLSfNV-mKr9f3BsfocT7_i_7-fD8fB2M_09sL0qE4za9rLdQYFw/viewform?usp=send_form",
         "season": {
@@ -173,7 +173,7 @@
         "prices": [
           {
             "amount": 615,
-            "unit": "session",
+            "unit": "program",
             "label": null,
             "year": 2026
           }
@@ -183,7 +183,7 @@
         "last_year_registration_opened": null,
         "availability": {
           "status": "waitlist",
-          "scope": "2026 expedition",
+          "scope": null,
           "text": "FULL/WAITLIST"
         },
         "financial_aid": null,
@@ -207,7 +207,7 @@
         "name": "Counselor-In-Training Camp",
         "type": "day",
         "categories": ["nature_outdoor"],
-        "description": "Campers train in rock climbing, canoeing, camp craft, outdoor safety, and assisting others. The four-day program includes one overnight.",
+        "description": "Campers train in rock climbing, canoeing and camp craft while developing outdoor skills, safety awareness and skills for assisting others. The four-day program includes one overnight.",
         "camp_page_url": "https://theadventureschool.org/summer-camps",
         "registration_url": "https://docs.google.com/forms/d/e/1FAIpQLSfNV-mKr9f3BsfocT7_i_7-fD8fB2M_09sL0qE4za9rLdQYFw/viewform?usp=send_form",
         "season": {
@@ -232,7 +232,7 @@
         "prices": [
           {
             "amount": 500,
-            "unit": "session",
+            "unit": "program",
             "label": null,
             "year": 2026
           }
@@ -242,7 +242,7 @@
         "last_year_registration_opened": null,
         "availability": {
           "status": "waitlist",
-          "scope": "2026 camp",
+          "scope": null,
           "text": "FULL/WAITLIST"
         },
         "financial_aid": null,
@@ -254,13 +254,13 @@
           "https://docs.google.com/forms/d/e/1FAIpQLSfNV-mKr9f3BsfocT7_i_7-fD8fB2M_09sL0qE4za9rLdQYFw/viewform?usp=send_form"
         ],
         "confidence": "medium",
-        "review_notes": "The summer camp page states ages 12-15, but the 2026 registration form states ages 12-14. Confirm the upper age limit. Classified as day camp with one required overnight rather than duplicating the same offering."
+        "review_notes": "The summer camp page lists ages 12-15, but the 2026 registration form lists ages 12-14 for CIT Camp. Ages follow the camp page. Classified as day camp with its included single overnight rather than a separate overnight offering."
       },
       {
         "name": "Kin Ye",
         "type": "day",
         "categories": ["nature_outdoor"],
-        "description": "Campers play games, explore outdoors, and participate in shared adventures in a group limited to ten campers. A Thursday-night campout is optional.",
+        "description": "Campers play games, explore outdoors and build friendships through shared adventures in a group of up to 10 campers. An optional Thursday-night campout is offered.",
         "camp_page_url": "https://theadventureschool.org/summer-camps",
         "registration_url": "https://docs.google.com/forms/d/e/1FAIpQLSfNV-mKr9f3BsfocT7_i_7-fD8fB2M_09sL0qE4za9rLdQYFw/viewform?usp=send_form",
         "season": {
@@ -320,7 +320,7 @@
         "last_year_registration_opened": null,
         "availability": {
           "status": "waitlist",
-          "scope": "Both 2026 weeks",
+          "scope": null,
           "text": "FULL/WAITLIST"
         },
         "financial_aid": null,
@@ -338,7 +338,7 @@
         "name": "Wild Weeks",
         "type": "day",
         "categories": ["nature_outdoor"],
-        "description": "Campers explore the campus river, fields, creeks, woods, and pond. Activities follow campers' interests and can include tubing, canoeing, field games, stream walks, and shelter building.",
+        "description": "Campers explore the campus river, fields, creeks, woods and pond through activities guided by their interests. Activities have included tubing, canoeing, field games, stream walks, shelter building and treasure hunts.",
         "camp_page_url": "https://theadventureschool.org/summer-camps",
         "registration_url": "https://docs.google.com/forms/d/e/1FAIpQLSfNV-mKr9f3BsfocT7_i_7-fD8fB2M_09sL0qE4za9rLdQYFw/viewform?usp=send_form",
         "season": {
@@ -429,7 +429,7 @@
         "last_year_registration_opened": null,
         "availability": {
           "status": "waitlist",
-          "scope": "All four 2026 weeks",
+          "scope": null,
           "text": "FULL/WAITLIST"
         },
         "financial_aid": null,
@@ -447,7 +447,7 @@
         "name": "Wild Child Summer",
         "type": "half_day",
         "categories": ["nature_outdoor"],
-        "description": "Young campers explore and play on campus with their own counselors and join some activities with older Wild Weeks campers. Families choose three, four, or five days per week.",
+        "description": "Younger campers explore and play outdoors at their own pace and join some activities with older Wild Weeks campers. Campers must be potty-trained, and families choose three to five days per week.",
         "camp_page_url": "https://theadventureschool.org/summer-camps",
         "registration_url": "https://docs.google.com/forms/d/e/1FAIpQLScyF95BUL6MthJ6vNgwoTI-QNwpthfNZWDQy4pkxfnyUxU-GQ/viewform?usp=send_form",
         "season": {
@@ -550,7 +550,7 @@
         "last_year_registration_opened": null,
         "availability": {
           "status": "waitlist",
-          "scope": "All four 2026 weeks",
+          "scope": null,
           "text": "FULL/WAITLIST"
         },
         "financial_aid": null,

@@ -8,24 +8,22 @@
     "status": "review",
     "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
   },
-  "extractedAt": "2026-10-29T15:17:49.460Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:15:05.856Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "0c7c5fa90538faaff2ead713a5bc40f0d36e467706387697cc59c864e50967ba",
   "response": {
     "searches": [
-      "\"Maple Hill Baptist\" \"Etowah\" \"VBS\"",
-      "\"Maple Hill Baptist Church of Etowah\" \"VBS\"",
-      "\"Maple Hill Baptist\" \"Etowah\" facebook",
-      "open https://www.findglocal.com/US/Etowah/689888051115683/Maple-Hill-Baptist-Church"
+      "Maple Hill Baptist Church Etowah vacation bible school 2026 2027",
+      "site:facebook.com \"Maple Hill Baptist Church\" \"3 DAY\""
     ],
     "usage": {
-      "inputTokens": 28756,
-      "cachedInputTokens": 8223,
-      "outputTokens": 480,
-      "reasoningTokens": 284
+      "inputTokens": 15529,
+      "cachedInputTokens": 8845,
+      "outputTokens": 787,
+      "reasoningTokens": 214
     },
     "status": "completed",
-    "ms": 28405,
+    "ms": 24087,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -44,17 +42,55 @@
   "extraction": {
     "provider_name": "Maple Hill Baptist Church of Etowah",
     "website_url": "https://maplehillbc.wixsite.com/maple-hill",
-    "notes": "No 2027 summer program information was found. A third-party AllEvents listing mentions Vacation Bible School on June 11, 2026, but its page could not be read and no official summer announcement was located. This is insufficient to establish a camp card reliably; confirm VBS details directly with the church. The official Ministries page also returned no readable text. The supplied official homepage publishes the church location as 186 Holly Springs Rd, Etowah, NC 28729.",
-    "excluded": [
+    "notes": "No 2027 camp information found. A 2026 Vacation Bible School announcement was found on AllEvents, attributed to this church and matching its official street address, but the original church announcement could not be located. The ministries page and maplehillbc.com returned no readable text.",
+    "excluded": [],
+    "cards": [
       {
-        "name": "Sunday School",
-        "reason": "Recurring weekly church program, not a finite summer camp."
-      },
-      {
-        "name": "Ice Cream Giveaway and VBS Registration!",
-        "reason": "Third-party listing describes a registration and giveaway event, not a supervised youth camp."
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Children participate in Bible lessons and crafts. The program concludes with a family fun day featuring games, crafts and a waterslide.",
+        "camp_page_url": null,
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-11",
+          "end": "2026-06-13",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Maple Hill Baptist Church",
+            "address": "186 Holly Springs Rd",
+            "town": "Etowah",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "Thursday and Friday 5pm-7pm; Saturday 10am-2pm Fun Day!"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://maplehillbc.wixsite.com/maple-hill",
+          "https://maplehillbc.wixsite.com/maple-hill/form"
+        ],
+        "confidence": "medium",
+        "review_notes": "Dates, activities and hours come only from the church-attributed third-party announcement at https://allevents.in/etowah/vacation-bible-school-at-maple-hill-baptist-church/200030075505642, not a readable official announcement. It calls this a three-day VBS and welcomes children of all ages; Saturday is described as a whole-family fun day. Confirm those details with the church. The official website confirms the venue address."
       }
-    ],
-    "cards": []
+    ]
   }
 }

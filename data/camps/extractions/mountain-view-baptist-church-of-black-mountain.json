@@ -7,19 +7,23 @@
     "discovered_by": ["seed_sheet"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T14:57:10.367Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
-  "sourceHash": "d12e3d5c5652cec124390e8696ee68666b3ff14fadd39cbc814447478d1b4f5a",
+  "extractedAt": "2026-10-29T16:57:43.009Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "9f4642b265b851324ff1358ddccda9346a81c715a208f8993132f3cfbc06f711",
   "response": {
-    "searches": ["site:mvcnc.com VBS 2026 2027", "site:mvcnc.com \"Vacation Bible\""],
+    "searches": [
+      "site:mvcnc.com VBS 2026 2027",
+      "open https://www.mvcnc.com/events/mountain-view-baptist-church-vacation-bible-school/2026-06-14",
+      "site:mvcnc.com/events/mountain-view-baptist-church-vacation-bible-school \"2026\""
+    ],
     "usage": {
-      "inputTokens": 18091,
-      "cachedInputTokens": 8223,
-      "outputTokens": 956,
-      "reasoningTokens": 231
+      "inputTokens": 16493,
+      "cachedInputTokens": 8845,
+      "outputTokens": 978,
+      "reasoningTokens": 262
     },
     "status": "completed",
-    "ms": 26712,
+    "ms": 29818,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -38,19 +42,19 @@
   "extraction": {
     "provider_name": "Mountain View Baptist Church of Black Mountain",
     "website_url": "https://www.mvcnc.com/",
-    "notes": "No summer 2027 information was found. An official indexed calendar entry confirms a Vacation Bible School occurrence on June 14, 2026, but its event page and calendar download returned no readable content when opened. The supplied VBS 2025 page does not provide dates or program details.",
+    "notes": "No 2027 summer information found. An official 2026 VBS calendar entry was indexed in search, but the event page and calendar download returned no readable content when opened. The supplied VBS 2025 page remains online but does not provide dates or eligibility.",
     "excluded": [
       {
         "name": "Sunday School",
-        "reason": "Recurring year-round religious classes, not a finite summer program."
+        "reason": "Recurring year-round religious classes, not a finite summer camp."
       },
       {
         "name": "Youth Group",
-        "reason": "Recurring year-round youth ministry, not a finite summer program."
+        "reason": "Recurring year-round youth-group meetings, not a summer camp."
       },
       {
         "name": "Fall Festival",
-        "reason": "October family event outside summer."
+        "reason": "Seasonal festival outside summer."
       }
     ],
     "cards": [
@@ -58,7 +62,7 @@
         "name": "Vacation Bible School",
         "type": "vbs",
         "categories": ["faith_based"],
-        "description": "The church offers Vacation Bible School. Activities are not described in the accessible official materials.",
+        "description": "Vacation Bible School for children at Mountain View Baptist Church.",
         "camp_page_url": "https://www.mvcnc.com/events/mountain-view-baptist-church-vacation-bible-school/2026-06-14",
         "registration_url": null,
         "season": {
@@ -81,7 +85,7 @@
         "hours": {
           "start": "18:00",
           "end": "20:30",
-          "text": "The June 14, 2026 calendar occurrence runs from 6:00 PM to 8:30 PM Eastern."
+          "text": null
         },
         "extended_care": null,
         "prices": [],
@@ -100,7 +104,7 @@
           "https://www.mvcnc.com/celebrate-recovery/celebrate-recovery/events"
         ],
         "confidence": "medium",
-        "review_notes": "The 2026 date and hours come from an official search-indexed ICS entry: DTSTART 20260614T220000Z and DTEND 20260615T003000Z, converted to Eastern daylight time. Only this occurrence was found; verify the full VBS date range rather than assuming it was a one-day program. The event page and ICS returned no readable content when opened. Ages, activities, prices and registration details remain unconfirmed."
+        "review_notes": "The indexed official ICS states June 14, 2026, 22:00 UTC through June 15, 00:30 UTC, converted to June 14, 18:00–20:30 Eastern. These hours are confirmed only for that occurrence. Another official events search snippet lists VBS on Tuesday, June 16 at 6:00 PM, suggesting multiple evenings, but the complete schedule and final date could not be established. Check the event page or church directly for the full date range, eligibility, and registration link; neither the event page nor ICS was readable when opened."
       }
     ]
   }

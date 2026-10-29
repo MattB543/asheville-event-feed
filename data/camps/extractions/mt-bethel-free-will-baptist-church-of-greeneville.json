@@ -8,19 +8,23 @@
     "status": "review",
     "status_reason": "page didn't load: fetch: fetch failed (getaddrinfo ENOTFOUND www.mountbethelfwb.org); chrome-tls: fetch failed (getaddrinfo ENOTFOUND www.mountbethelfwb.org); browser: page.goto: net::ERR_NAME_NOT_RESOLVED at https://www.mountbethelfwb.org/"
   },
-  "extractedAt": "2026-10-29T15:25:37.541Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:21:53.897Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": null,
   "response": {
-    "searches": ["site:mountbethelfwb.org VBS 2026", "site:mountbethelfwb.org \"403\""],
+    "searches": [
+      "site:mountbethelfwb.org \"2026\" \"Bible\"",
+      "site:mountbethelfwb.org \"403\"",
+      "site:mountbethelfwb.org \"Road\""
+    ],
     "usage": {
-      "inputTokens": 19921,
-      "cachedInputTokens": 8223,
-      "outputTokens": 821,
-      "reasoningTokens": 215
+      "inputTokens": 25203,
+      "cachedInputTokens": 8845,
+      "outputTokens": 827,
+      "reasoningTokens": 286
     },
     "status": "completed",
-    "ms": 24156,
+    "ms": 27346,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -34,14 +38,23 @@
   "extraction": {
     "provider_name": "Mt. Bethel Free Will Baptist Church of Greeneville",
     "website_url": "https://www.mountbethelfwb.org/",
-    "notes": "The provider's website was blocked by robots.txt, and searches did not locate official 2026 or 2027 camp details. A local radio station's listing identifies a 2026 Vacation Bible School; its details are included provisionally for review. No 2027 information was found. Similarly named churches at mtbethelfwbc.com and mtbethel.org were not used because their identity as this Greeneville provider could not be established.",
-    "excluded": [],
+    "notes": "The supplied official website was blocked by robots.txt. No 2027 summer information or official VBS registration announcement was found. The 2026 VBS dates and hours were found in WGRV's local event listing, not an accessible official church page. No official published venue address could be read; local listings consistently give 403 Mount Bethel Road.",
+    "excluded": [
+      {
+        "name": "Vacation Bible School and Youth Camp at Mt. Bethel FWBC in Weaverville",
+        "reason": "The programs at mtbethelfwbc.com belong to a different church in Weaverville, NC, not this Greeneville provider."
+      },
+      {
+        "name": "Vacation Bible School 2026 at Mt. Bethel Church",
+        "reason": "The offering at mtbethel.org belongs to a different church in Marietta, GA, outside the directory area."
+      }
+    ],
     "cards": [
       {
         "name": "Vacation Bible School",
         "type": "vbs",
         "categories": ["faith_based"],
-        "description": "Vacation Bible School with the theme Junkyard Redemption offers Bible classes for all ages.",
+        "description": "Vacation Bible School with the theme Junkyard Redemption.",
         "camp_page_url": null,
         "registration_url": null,
         "season": {
@@ -56,7 +69,7 @@
         "sites": [
           {
             "name": "Mt. Bethel Free Will Baptist Church",
-            "address": "403 Mt. Bethel Road",
+            "address": "403 Mount Bethel Road",
             "town": "Greeneville",
             "state": "TN"
           }
@@ -64,7 +77,7 @@
         "hours": {
           "start": "18:30",
           "end": "20:30",
-          "text": "6:30 PM to 8:30 PM"
+          "text": null
         },
         "extended_care": null,
         "prices": [],
@@ -78,7 +91,7 @@
         "transportation": null,
         "sources": [],
         "confidence": "medium",
-        "review_notes": "Confirm the program, dates, hours, theme and youth eligibility directly with the church: these were stated only in the third-party listing https://wgrv.com/events/vacation-bible-school-mt-bethel-free-will-baptist/. The listing says classes for all ages but gives no numeric youth age range. The address comes from https://wgrv.com/locations/mt-bethel-freewill-baptist-church/ and was corroborated by other third-party listings; the venue's own published address could not be checked because https://www.mountbethelfwb.org/ was blocked by robots.txt. No official pages could be read to verify these facts."
+        "review_notes": "Confirm the 2026 dates, hours and venue address directly with the church. WGRV's listing at https://wgrv.com/events/vacation-bible-school-mt-bethel-free-will-baptist/ states July 13–17, 2026, 6:30–8:30 PM, with classes for all ages; no numeric youth age range is given. The address is supported by https://wgrv.com/locations/mt-bethel-freewill-baptist-church/ and other local listings, but the church's own published address could not be read. Official website access was blocked, so sources is empty."
       }
     ]
   }

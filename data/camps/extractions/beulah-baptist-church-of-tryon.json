@@ -7,19 +7,19 @@
     "discovered_by": ["grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:29:44.331Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:25:04.946Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "8be811840552615dfea94d5ac7e46a674403327f9976c5ad01c2a4e26fae39fd",
   "response": {
-    "searches": ["site:bbctryon.com \"2026\" \"Vacation\""],
+    "searches": ["site:bbctryon.com \"2026\" \"Bible\""],
     "usage": {
-      "inputTokens": 13493,
-      "cachedInputTokens": 8223,
-      "outputTokens": 698,
-      "reasoningTokens": 105
+      "inputTokens": 14125,
+      "cachedInputTokens": 8845,
+      "outputTokens": 683,
+      "reasoningTokens": 102
     },
     "status": "completed",
-    "ms": 17570,
+    "ms": 16624,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -38,27 +38,27 @@
   "extraction": {
     "provider_name": "Beulah Baptist Church of Tryon",
     "website_url": "https://bbctryon.com/",
-    "notes": "No official 2026 or 2027 summer program information was found. The events page still advertises Vacation Bible School 2025, May 30–June 1, 2025. The card identifies that historical program but does not carry its 2025 dates, eligibility, hours, or registration link forward to 2027.",
+    "notes": "No 2027 or 2026 Vacation Bible School information was found. The official events page still lists Vacation Bible School 2025, May 30–June 1. Those historical dates, eligibility, hours and registration link have not been carried forward.",
     "excluded": [
       {
         "name": "BBC Kids",
-        "reason": "Recurring children's ministry during regular church services, not a finite summer program."
+        "reason": "Regular weekly children's ministry, not a finite summer camp."
       },
       {
-        "name": "Student Ministry",
-        "reason": "Weekly youth worship and Bible study, not a finite summer program."
+        "name": "Youth Bible Study",
+        "reason": "Regular weekly youth ministry, not a finite summer camp."
       },
       {
         "name": "Next Steps Membership Class",
-        "reason": "Recurring membership class, not a summer youth camp."
+        "reason": "Ongoing church membership class, not a youth summer camp."
       }
     ],
     "cards": [
       {
         "name": "Vacation Bible School",
         "type": "vbs",
-        "categories": ["faith_based"],
-        "description": "The church's historical Vacation Bible School offering includes games, Bible stories, crafts, and music.",
+        "categories": ["faith_based", "general"],
+        "description": "Vacation Bible School includes games, Bible stories, crafts and music.",
         "camp_page_url": "https://bbctryon.com/events",
         "registration_url": null,
         "season": {
@@ -89,9 +89,13 @@
         "special_needs": null,
         "lunch": null,
         "transportation": null,
-        "sources": ["https://bbctryon.com/events", "https://bbctryon.com/contact"],
+        "sources": [
+          "https://bbctryon.com/events",
+          "https://bbctryon.com/contact",
+          "https://bbctryon.com/"
+        ],
         "confidence": "medium",
-        "review_notes": "Confirm whether Vacation Bible School returns in 2027; the only posted offering is explicitly labeled 2025. The contact page publishes 140 Beulah Church Rd as the church's location, while the 2025 event says 140 Beulah Church Lane and the homepage says 140 Beulah Baptist Church Lane. The contact-page address is used here; confirm the 2027 drop-off location."
+        "review_notes": "The program is documented only for 2025; confirm whether it returns in 2027. The 2025 events page gives 140 Beulah Church Lane, and the homepage gives 140 Beulah Baptist Church Lane; the contact page explicitly publishes its location as 140 Beulah Church Rd, which is used here. Activities and venue are based on the historical offering."
       }
     ]
   }

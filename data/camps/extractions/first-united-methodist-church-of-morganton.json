@@ -7,23 +7,23 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:07:12.773Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:06:26.077Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "090be80c42a4e61238c01ddb67fe32ffa8e99c1f52112825260ca56571ce671b",
   "response": {
     "searches": [
-      "site:firstumcmorganton.org \"camp\" \"2026\"",
-      "open https://www.firstumcmorganton.org/programs/childrens-ministries-birth-5th-grade",
-      "\"First United Methodist\" \"Morganton\" \"camp\" \"2026\""
+      "site:firstumcmorganton.org \"2026\" camp",
+      "open https://www.firstumcmorganton.org/music-arts-camp-2025",
+      "\"First United Methodist\" \"Morganton\" \"camp\" \"2026\" \"July\""
     ],
     "usage": {
-      "inputTokens": 20171,
-      "cachedInputTokens": 8223,
-      "outputTokens": 840,
+      "inputTokens": 22509,
+      "cachedInputTokens": 8845,
+      "outputTokens": 906,
       "reasoningTokens": 240
     },
     "status": "completed",
-    "ms": 33045,
+    "ms": 31644,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -42,15 +42,19 @@
   "extraction": {
     "provider_name": "First United Methodist Church of Morganton",
     "website_url": "https://www.firstumcmorganton.org/",
-    "notes": "No 2027 or 2026 camp information was found. The only identifiable camp page is explicitly titled Music & Arts Camp 2025; its historical eligibility information is retained without projecting it forward. The camp and children's ministry pages returned no readable content when opened, and embedded files and registration forms could not be inspected. The church's denominational directory lists 200 N. King Street, Morganton, NC 28655, but the readable camp text does not establish the drop-off location.",
+    "notes": "No official 2027 camp information was found. The supplied camp page is labeled 2025 and provides only registration age-band headings. Third-party event listings identify a 2026 Music & Arts Camp on July 6–10, but those dates could not be confirmed on readable official pages and have been omitted. Official pages opened through the browser returned no readable content. The church address was confirmed through United Methodist church directories.",
     "excluded": [
       {
-        "name": "Student Ministries",
-        "reason": "Weekly, year-round youth ministry meetings rather than a finite summer camp."
+        "name": "Active Sunday School",
+        "reason": "Weekly year-round religious education, not a finite summer camp."
       },
       {
-        "name": "Christmas Cookies, Cocoa, & Crafts!",
-        "reason": "Christmas program outside summer."
+        "name": "Kids Worship",
+        "reason": "Weekly worship program, not a finite summer camp."
+      },
+      {
+        "name": "Student Ministries",
+        "reason": "Year-round youth-group meetings and mission trips are outside the camp rule."
       }
     ],
     "cards": [
@@ -58,23 +62,26 @@
         "name": "Music & Arts Camp",
         "type": "day",
         "categories": ["music", "arts"],
-        "description": "A children's music and arts camp with separate registration groups for pre-K and rising kindergarten, and rising first grade and up.",
+        "description": "A children's music and arts camp.",
         "camp_page_url": "https://www.firstumcmorganton.org/music-arts-camp-2025",
         "registration_url": null,
         "season": {
-          "year": 2025,
+          "year": 2027,
           "status": "not_posted",
           "start": null,
           "end": null,
           "text": null
         },
         "ages": null,
-        "grades": {
-          "min": -1,
-          "max": null,
-          "basis": "rising"
-        },
-        "sites": [],
+        "grades": null,
+        "sites": [
+          {
+            "name": "First United Methodist Church of Morganton",
+            "address": "200 N King Street",
+            "town": "Morganton",
+            "state": "NC"
+          }
+        ],
         "hours": null,
         "extended_care": null,
         "prices": [],
@@ -86,9 +93,13 @@
         "special_needs": null,
         "lunch": null,
         "transportation": null,
-        "sources": ["https://www.firstumcmorganton.org/music-arts-camp-2025"],
+        "sources": [
+          "https://www.firstumcmorganton.org/music-arts-camp-2025",
+          "https://www.wnccumc.org/churchdetail/2166094",
+          "https://www.umc.org/en/find-a-church/church?id=001Um00000PFGizIAH"
+        ],
         "confidence": "low",
-        "review_notes": "Only the 2025 page title and registration-group labels were readable. Confirm whether the camp returns in 2027, its day-camp format, activities, location, dates, hours, fees and eligibility. The page says 'Registration for Rising 1st Grade and Up' and 'Registration for Pre-K and Rising Kindergarten'; no upper grade is stated, and pre-K itself is not explicitly described as rising. No session rows were created because dates are unavailable."
+        "review_notes": "Confirm the 2026 or 2027 camp details and drop-off location directly with the church. The only readable official camp text is for 2025 and lists registration for Pre-K and rising kindergarten, and rising first grade and up; those historical grade bands were not assigned to 2026 or 2027. The church site did not expose registration destinations or embedded camp details. The day format and church venue remain only partly supported."
       }
     ]
   }

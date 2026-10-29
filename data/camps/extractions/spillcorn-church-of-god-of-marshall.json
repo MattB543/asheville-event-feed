@@ -12,23 +12,22 @@
     "status": "review",
     "status_reason": "first page is a social media page or video, which our fetcher can't read"
   },
-  "extractedAt": "2026-10-29T15:26:58.926Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:22:17.904Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": null,
   "response": {
     "searches": [
-      "Spillcorn Church of God Marshall VBS 2026",
-      "site:facebook.com \"Spillcorn\" \"Bible\" \"2026\"",
-      "\"Spillcorn Church of God\" \"Vacation Bible School\" \"July\""
+      "Spillcorn Church of God Marshall vacation bible school 2026",
+      "site:facebook.com \"Spillcorn\" \"Bible\" \"2026\""
     ],
     "usage": {
-      "inputTokens": 18324,
-      "cachedInputTokens": 8223,
-      "outputTokens": 916,
-      "reasoningTokens": 344
+      "inputTokens": 22877,
+      "cachedInputTokens": 8845,
+      "outputTokens": 824,
+      "reasoningTokens": 226
     },
     "status": "completed",
-    "ms": 67097,
+    "ms": 24075,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -47,15 +46,20 @@
   "extraction": {
     "provider_name": "Spillcorn Church of God of Marshall",
     "website_url": null,
-    "notes": "No standalone provider website or 2027 camp announcement was found. Both supplied Facebook URLs returned no readable content. A 2026 Vacation Bible School appears in third-party event search results, but its official announcement could not be verified. The card is provisional. No registration dates were found.",
-    "excluded": [],
+    "notes": "No standalone provider website or 2027 camp information was found. Both supplied Facebook URLs returned no readable content. Third-party event search results identify a 2026 Vacation Bible School beginning July 27, with another listing mentioning July 28–30, but the complete schedule could not be confirmed on an official page. Dates and hours have therefore been left null. The church's official YouTube search result publishes 525 Bakers Creek Rd, Marshall, NC.",
+    "excluded": [
+      {
+        "name": "Homecoming",
+        "reason": "A church gathering, not a finite supervised youth camp."
+      }
+    ],
     "cards": [
       {
         "name": "Vacation Bible School",
         "type": "vbs",
         "categories": ["faith_based"],
-        "description": "A Vacation Bible School offering at Spillcorn Church of God. Specific camper activities were not available in readable official materials.",
-        "camp_page_url": null,
+        "description": "Vacation Bible School at Spillcorn Church of God.",
+        "camp_page_url": "https://www.facebook.com/Spillcorn-Church-of-God-2047155955527228/",
         "registration_url": null,
         "season": {
           "year": 2026,
@@ -85,9 +89,9 @@
         "special_needs": null,
         "lunch": null,
         "transportation": null,
-        "sources": ["https://www.youtube.com/@spillcornchurchofgod525/videos"],
+        "sources": ["https://www.youtube.com/@spillcornchurchofgod525"],
         "confidence": "low",
-        "review_notes": "Verify the program and schedule directly with the church or its Facebook page. Third-party search snippets at https://allevents.in/marshall/spillcorn-church-of-god-vacation-bible-school/200030189003808 and https://happeningnext.com/event/spillcorn-church-of-god-vacation-bible-school-eid3a0dq5ue16 list July 27, 2026 at 7 PM; https://happeningnext.com/event/spillcorn-church-of-god-vacation-bible-school-eid3a0dwdo6vm lists July 28–30, 2026. Dates and hours are withheld because the official announcement was inaccessible and the complete schedule is unclear. The church's own YouTube search result publishes the Marshall address; a Chamber of Commerce listing instead labels the same street address Burnsville, NC."
+        "review_notes": "The Facebook pages could not be read, so the VBS offering is supported only by third-party event search results and the existing program record. Confirm the schedule, youth eligibility, activities and registration details directly with the church. AllEvents lists July 27, 2026 at 7 p.m.; HappeningNext has separate listings for July 27 and July 28–30. These dates and hours were not entered because no official announcement was accessible. The site address comes from the church's official YouTube search snippet; confirm that VBS meets there. A third-party business directory incorrectly or inconsistently places the same street address in Burnsville."
       }
     ]
   }

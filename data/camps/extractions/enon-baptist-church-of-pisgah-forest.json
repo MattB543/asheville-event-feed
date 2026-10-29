@@ -9,22 +9,22 @@
     "discovered_by": ["gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:37:30.357Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:31:45.685Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "97d88e050a3a461f6ab8afdba97fa659404ba412b548c6332ad3730d17e96de7",
   "response": {
     "searches": [
-      "Enon Baptist Pisgah Forest vacation bible school 2026 2027",
-      "site:facebook.com \"Enon\" \"Pisgah Forest\" \"Vacation\""
+      "Enon Baptist Pisgah Forest VBS 2026 2027",
+      "site:facebook.com/enonbc \"VBS\" \"2026\""
     ],
     "usage": {
-      "inputTokens": 15872,
-      "cachedInputTokens": 8223,
-      "outputTokens": 508,
-      "reasoningTokens": 145
+      "inputTokens": 19256,
+      "cachedInputTokens": 8845,
+      "outputTokens": 718,
+      "reasoningTokens": 181
     },
     "status": "completed",
-    "ms": 16343,
+    "ms": 23742,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -43,11 +43,15 @@
   "extraction": {
     "provider_name": "Enon Baptist Church of Pisgah Forest",
     "website_url": "https://enonbaptistpisgahforest.org/",
-    "notes": "No 2027 or 2026 VBS dates or registration announcements were found. The official VBS page describes the annual program but its latest explicitly dated account is from 2023. Historical meals and themes have not been carried forward as current facts.",
+    "notes": "No 2027 or 2026 VBS dates or registration announcements were found. The official VBS page describes the annual program but its latest dated account is from 2023. The events page returned no readable text. Search results for other Enon churches were not used.",
     "excluded": [
       {
         "name": "TeamKID",
-        "reason": "School-year discipleship club, not a finite summer program."
+        "reason": "School-year children's discipleship club, not a finite summer camp."
+      },
+      {
+        "name": "Community VBS at Enon Baptist Church, 1875 Enon Church Road",
+        "reason": "A different Enon Baptist Church in the Salisbury area, outside this provider and the directory's geographic area."
       }
     ],
     "cards": [
@@ -55,7 +59,7 @@
         "name": "Vacation Bible School",
         "type": "vbs",
         "categories": ["faith_based"],
-        "description": "Children learn about Jesus and life lessons through a yearly theme, games and fellowship with peers.",
+        "description": "Children learn about Jesus and life lessons, play games, and spend time with their peers.",
         "camp_page_url": "https://enonbaptistpisgahforest.org/ministries-at-enon-baptist/vacation-bible-school/",
         "registration_url": null,
         "season": {

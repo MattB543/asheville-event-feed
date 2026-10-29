@@ -13,23 +13,23 @@
     "discovered_by": ["seed_sheet", "news828", "grid", "aggregator", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T14:56:38.003Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T16:57:12.228Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "1df54253e47a2e1b5ddc47ba57024d33bf66be0ab16167f1b2c06ac2f594a062",
   "response": {
     "searches": [
       "site:forestfloorasheville.com \"2027\"",
-      "site:forestfloorasheville.com/summer-camps \"Price\" \"Blacksmithing\"",
-      "site:forestfloorasheville.com/summer-camps/knife-making \"Price:\""
+      "site:forestfloorasheville.com/summer-camps \"Price\" \"Boffing\"",
+      "site:forestfloorasheville.com/summer-camps/ \"Price:\" \"Knife\""
     ],
     "usage": {
-      "inputTokens": 46018,
-      "cachedInputTokens": 8223,
-      "outputTokens": 9640,
-      "reasoningTokens": 392
+      "inputTokens": 45835,
+      "cachedInputTokens": 8845,
+      "outputTokens": 9228,
+      "reasoningTokens": 311
     },
     "status": "completed",
-    "ms": 163301,
+    "ms": 142036,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -78,27 +78,27 @@
   "extraction": {
     "provider_name": "Forest Floor Wilderness",
     "website_url": "https://forestfloorasheville.com/",
-    "notes": "No program-specific summer 2027 dates or registration milestones were found. The event calendar says Summer ’27: June – August TBD – Summer Camps; cards retain 2026 dates. Nature-camp themes are consolidated as session rows. Several pages contain conflicting drop-off information, so hours are omitted where unresolved. PDF V4 could not be rendered through the browser; its supplied extracted text was garbled. Registration platform URL was not verified.",
+    "notes": "No summer 2027 dates or registration announcements were found. All dates below describe summer 2026. General wilderness themes are grouped under the existing Asheville Summer Camps program. The FAQ's typical registration window was not projected into 2027. PDF V4 could not be rendered through the browser; its supplied text is garbled, so dates were taken from the readable camp listings. Several additional program pages returned empty browser content; unknown prices remain omitted.",
     "excluded": [
       {
         "name": "Homeschool Programs",
-        "reason": "Fall, winter, spring and school-year programs, not summer camps."
+        "reason": "School-year and non-summer classes, including Heartwood and seasonal homeschool programs."
       },
       {
         "name": "Blacksmithing Saturdays",
-        "reason": "Seasonal classes advertised for fall, including a parent-child series; not a summer offering."
+        "reason": "Lesson series outside the summer camp offering."
       },
       {
-        "name": "Mentor Training / Educator Training",
-        "reason": "Professional educator workshops, not supervised youth camps."
-      },
-      {
-        "name": "Employment & Internships",
-        "reason": "Employment offerings."
+        "name": "Educator Training",
+        "reason": "Adult educator training and conference, not a supervised youth summer camp."
       },
       {
         "name": "Shuttle Van",
-        "reason": "Transportation reservation, not an independent supervised camp program."
+        "reason": "Transportation reservation, not a separate camp program."
+      },
+      {
+        "name": "Employment & Internships",
+        "reason": "Employment programs, not youth summer camps."
       }
     ],
     "cards": [
@@ -106,7 +106,7 @@
         "name": "Asheville Summer Camps",
         "type": "day",
         "categories": ["nature_outdoor", "arts"],
-        "description": "Campers explore the forest through wilderness skills, animal observation, stories, games and natural-material crafts. Weekly themes include fantasy adventures, foraging, archery and survival skills.",
+        "description": "Campers explore the forest, learn wilderness skills, make nature-based crafts, and participate in games and themed adventures.",
         "camp_page_url": "https://forestfloorasheville.com/summer-camps/",
         "registration_url": null,
         "season": {
@@ -135,7 +135,7 @@
             "state": "NC"
           },
           {
-            "name": "Haw Creek Commons Shuttle Van Base",
+            "name": "Haw Creek Commons",
             "address": "315 Old Haw Creek Rd",
             "town": "Asheville",
             "state": "NC"
@@ -157,12 +157,7 @@
             },
             "grades": null,
             "hours": null,
-            "price": {
-              "amount": 421,
-              "unit": "week",
-              "label": null,
-              "year": 2026
-            },
+            "price": null,
             "status": null
           },
           {
@@ -177,12 +172,7 @@
             },
             "grades": null,
             "hours": null,
-            "price": {
-              "amount": 421,
-              "unit": "week",
-              "label": null,
-              "year": 2026
-            },
+            "price": null,
             "status": null
           },
           {
@@ -257,12 +247,7 @@
             },
             "grades": null,
             "hours": null,
-            "price": {
-              "amount": 421,
-              "unit": "week",
-              "label": null,
-              "year": 2026
-            },
+            "price": null,
             "status": null
           },
           {
@@ -311,6 +296,36 @@
             "status": null
           },
           {
+            "label": "Crafty Critters",
+            "start": "2026-06-29",
+            "end": "2026-07-03",
+            "year": 2026,
+            "site": "Hutch Mountain",
+            "ages": {
+              "min": 6,
+              "max": 8
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Journey of the Green Man",
+            "start": "2026-07-27",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": "Hutch Mountain",
+            "ages": {
+              "min": 6,
+              "max": 8
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
             "label": "Nature’s Kitchen",
             "start": "2026-06-08",
             "end": "2026-06-12",
@@ -322,12 +337,7 @@
             },
             "grades": null,
             "hours": null,
-            "price": {
-              "amount": 421,
-              "unit": "week",
-              "label": null,
-              "year": 2026
-            },
+            "price": null,
             "status": null
           },
           {
@@ -342,12 +352,7 @@
             },
             "grades": null,
             "hours": null,
-            "price": {
-              "amount": 421,
-              "unit": "week",
-              "label": null,
-              "year": 2026
-            },
+            "price": null,
             "status": null
           },
           {
@@ -392,32 +397,7 @@
             },
             "grades": null,
             "hours": null,
-            "price": {
-              "amount": 421,
-              "unit": "week",
-              "label": null,
-              "year": 2026
-            },
-            "status": null
-          },
-          {
-            "label": "Crafty Critters",
-            "start": "2026-06-29",
-            "end": "2026-07-03",
-            "year": 2026,
-            "site": "Hutch Mountain",
-            "ages": {
-              "min": 6,
-              "max": 8
-            },
-            "grades": null,
-            "hours": null,
-            "price": {
-              "amount": 421,
-              "unit": "week",
-              "label": null,
-              "year": 2026
-            },
+            "price": null,
             "status": null
           },
           {
@@ -428,21 +408,6 @@
             "site": "Shope Creek Wilderness",
             "ages": {
               "min": 7,
-              "max": 8
-            },
-            "grades": null,
-            "hours": null,
-            "price": null,
-            "status": null
-          },
-          {
-            "label": "Journey of the Green Man",
-            "start": "2026-07-27",
-            "end": "2026-07-31",
-            "year": 2026,
-            "site": "Hutch Mountain",
-            "ages": {
-              "min": 6,
               "max": 8
             },
             "grades": null,
@@ -462,12 +427,7 @@
             },
             "grades": null,
             "hours": null,
-            "price": {
-              "amount": 421,
-              "unit": "week",
-              "label": null,
-              "year": 2026
-            },
+            "price": null,
             "status": null
           },
           {
@@ -542,32 +502,7 @@
             },
             "grades": null,
             "hours": null,
-            "price": {
-              "amount": 421,
-              "unit": "week",
-              "label": null,
-              "year": 2026
-            },
-            "status": null
-          },
-          {
-            "label": "Secrets of the Jedi",
-            "start": "2026-07-27",
-            "end": "2026-07-31",
-            "year": 2026,
-            "site": "Hutch Mountain",
-            "ages": {
-              "min": 9,
-              "max": 12
-            },
-            "grades": null,
-            "hours": null,
-            "price": {
-              "amount": 421,
-              "unit": "week",
-              "label": null,
-              "year": 2026
-            },
+            "price": null,
             "status": null
           },
           {
@@ -601,6 +536,21 @@
             "status": null
           },
           {
+            "label": "Secrets of the Jedi",
+            "start": "2026-07-27",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": "Hutch Mountain",
+            "ages": {
+              "min": 9,
+              "max": 12
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
             "label": "Survival Skills: Fundamental Four",
             "start": "2026-06-29",
             "end": "2026-07-03",
@@ -612,12 +562,7 @@
             },
             "grades": null,
             "hours": null,
-            "price": {
-              "amount": 421,
-              "unit": "week",
-              "label": null,
-              "year": 2026
-            },
+            "price": null,
             "status": null
           }
         ],
@@ -625,13 +570,13 @@
         "last_year_registration_opened": {
           "date": "2026-02-06",
           "time": null,
-          "text": "On Friday, Feb 6th we will transition from the Staggered Registration phase to Open Enrollment, allowing anyone to register for the remaining spots and removing the two camp per child limit and all access codes.",
-          "url": "https://forestfloorasheville.com/summer-camps/theater-camp/"
+          "text": "Families that didn't sign-up for the Lottery will have to wait until Open Enrollment is activated on Friday, 2/6 to register for camp.",
+          "url": "https://forestfloorasheville.com/summer-camps/pottery/"
         },
         "availability": null,
         "financial_aid": {
           "value": "yes",
-          "text": "We offer assistance of up to 50% of tuition costs through two possible avenues: work trade and scholarships."
+          "text": "Tuition assistance is available."
         },
         "special_needs": null,
         "lunch": {
@@ -640,31 +585,24 @@
         },
         "transportation": {
           "value": "case_by_case",
-          "text": "Shuttle van seats are offered free of charge for your convenience."
+          "text": "Shuttle reservations are free and must be added to your order to reserve a spot."
         },
         "sources": [
           "https://forestfloorasheville.com/summer-camps/",
-          "https://forestfloorasheville.com/summer-camps/legend-of-the-gnomes/",
-          "https://forestfloorasheville.com/summer-camps/feathered-friends/",
-          "https://forestfloorasheville.com/summer-camps/natures-kitchen/",
-          "https://forestfloorasheville.com/summer-camps/crafty-critters/",
-          "https://forestfloorasheville.com/summer-camps/mountain-dwellers/",
-          "https://forestfloorasheville.com/summer-camps/secrets-of-the-jedi/",
-          "https://forestfloorasheville.com/summer-camps/survival-skills-the-fundamental-four/",
-          "https://forestfloorasheville.com/summer-camps/theater-camp/",
+          "https://forestfloorasheville.com/summer-camps/cit-camp/",
+          "https://forestfloorasheville.com/homeschool-programs/",
           "https://forestfloorasheville.com/faq/",
-          "https://forestfloorasheville.com/tuition-assistance-work-trade/",
-          "https://forestfloorasheville.com/homeschool-programs/spring-homeschool-programs/hutch-mountain-heart-of-the-mountains/"
+          "https://forestfloorasheville.com/summer-camps/pottery/"
         ],
-        "confidence": "medium",
-        "review_notes": "Mountain Dwellers is ages 7-8 on the summer overview but 6-7 on its detail page; overview ages retained. Dates without years on detail pages are interpreted from their 2026 registration headings. Some individual prices remain unknown rather than assigning the overview's 'most camps' price. Haw Creek Commons is an optional reserved shuttle base only for Shope Creek sessions; Hutch Mountain has direct drop-off. Several supporting detail pages were available only as search-result text."
+        "confidence": "high",
+        "review_notes": null
       },
       {
         "name": "Forest Guardians Boffing Camp",
         "type": "day",
-        "categories": ["sports", "nature_outdoor"],
-        "description": "Campers practice foam-sword fighting and participate in tournaments framed around defending the natural world.",
-        "camp_page_url": "https://forestfloorasheville.com/summer-camps/",
+        "categories": ["sports"],
+        "description": "Campers train with foam swords and shields, practice defense and teamwork, and participate in battles and tournaments.",
+        "camp_page_url": "https://forestfloorasheville.com/summer-camps/forest-guardians-boffing-camp/",
         "registration_url": null,
         "season": {
           "year": 2026,
@@ -688,7 +626,14 @@
         ],
         "hours": null,
         "extended_care": null,
-        "prices": [],
+        "prices": [
+          {
+            "amount": 421,
+            "unit": "week",
+            "label": null,
+            "year": 2026
+          }
+        ],
         "sessions": [
           {
             "label": null,
@@ -716,30 +661,40 @@
           }
         ],
         "registration": [],
-        "last_year_registration_opened": null,
+        "last_year_registration_opened": {
+          "date": "2026-02-06",
+          "time": null,
+          "text": "Families that didn't sign-up for the Lottery will have to wait until Open Enrollment is activated on Friday, 2/6 to register for camp.",
+          "url": "https://forestfloorasheville.com/summer-camps/pottery/"
+        },
         "availability": null,
         "financial_aid": {
           "value": "yes",
-          "text": "Tuition assistance is available."
+          "text": "Work-Trade & Tuition Assistance are available"
         },
         "special_needs": null,
         "lunch": {
           "value": "no",
           "text": "Sack lunch."
         },
-        "transportation": null,
+        "transportation": {
+          "value": "no",
+          "text": "There is no shuttle van service offered for programs at this location."
+        },
         "sources": [
           "https://forestfloorasheville.com/summer-camps/",
+          "https://forestfloorasheville.com/summer-camps/forest-guardians-boffing-camp/",
+          "https://forestfloorasheville.com/summer-camps/pottery/",
           "https://forestfloorasheville.com/faq/"
         ],
-        "confidence": "high",
-        "review_notes": null
+        "confidence": "medium",
+        "review_notes": "Program detail was available through official search text. Hours omitted because the shared Haw Creek logistics on the pottery page conflict."
       },
       {
         "name": "Advanced Boffing Camp",
         "type": "day",
-        "categories": ["sports", "nature_outdoor"],
-        "description": "Experienced foam fighters practice combinations, footwork, tactics and coordinated team fighting with additional weapons.",
+        "categories": ["sports"],
+        "description": "Experienced foam fighters practice advanced techniques, try additional weapons, and learn coordinated team tactics.",
         "camp_page_url": "https://forestfloorasheville.com/summer-camps/advanced-boffing-camp/",
         "registration_url": null,
         "season": {
@@ -764,54 +719,43 @@
         ],
         "hours": null,
         "extended_care": null,
-        "prices": [
-          {
-            "amount": 421,
-            "unit": "week",
-            "label": null,
-            "year": 2026
-          }
-        ],
-        "sessions": [
-          {
-            "label": null,
-            "start": "2026-07-20",
-            "end": "2026-07-24",
-            "year": 2026,
-            "site": null,
-            "ages": null,
-            "grades": null,
-            "hours": null,
-            "price": null,
-            "status": null
-          }
-        ],
+        "prices": [],
+        "sessions": [],
         "registration": [],
-        "last_year_registration_opened": null,
+        "last_year_registration_opened": {
+          "date": "2026-02-06",
+          "time": null,
+          "text": "Families that didn't sign-up for the Lottery will have to wait until Open Enrollment is activated on Friday, 2/6 to register for camp.",
+          "url": "https://forestfloorasheville.com/summer-camps/pottery/"
+        },
         "availability": null,
         "financial_aid": {
           "value": "yes",
-          "text": "Work-Trade & Tuition Assistance are available"
+          "text": "Tuition assistance is available."
         },
         "special_needs": null,
         "lunch": {
           "value": "no",
           "text": "Sack lunch."
         },
-        "transportation": null,
+        "transportation": {
+          "value": "no",
+          "text": "There is no shuttle van service offered for programs at this location."
+        },
         "sources": [
-          "https://forestfloorasheville.com/summer-camps/advanced-boffing-camp/",
           "https://forestfloorasheville.com/summer-camps/",
+          "https://forestfloorasheville.com/summer-camps/advanced-boffing-camp/",
+          "https://forestfloorasheville.com/summer-camps/pottery/",
           "https://forestfloorasheville.com/faq/"
         ],
-        "confidence": "medium",
-        "review_notes": "Detail page read through search-result text. Requires previous Forest Guardians Boffing Camp attendance or regular foam-fighting practice."
+        "confidence": "high",
+        "review_notes": null
       },
       {
         "name": "Run Wild!",
         "type": "day",
         "categories": ["sports", "nature_outdoor"],
-        "description": "Campers play gaga ball, kickball, team games and forest-and-field challenges, with wood carving during breaks.",
+        "description": "Campers play Gaga Ball and forest and field games, with wood carving during quieter breaks.",
         "camp_page_url": "https://forestfloorasheville.com/summer-camps/run-wild/",
         "registration_url": null,
         "season": {
@@ -836,14 +780,7 @@
         ],
         "hours": null,
         "extended_care": null,
-        "prices": [
-          {
-            "amount": 421,
-            "unit": "week",
-            "label": null,
-            "year": 2026
-          }
-        ],
+        "prices": [],
         "sessions": [
           {
             "label": null,
@@ -895,31 +832,40 @@
           }
         ],
         "registration": [],
-        "last_year_registration_opened": null,
+        "last_year_registration_opened": {
+          "date": "2026-02-06",
+          "time": null,
+          "text": "Families that didn't sign-up for the Lottery will have to wait until Open Enrollment is activated on Friday, 2/6 to register for camp.",
+          "url": "https://forestfloorasheville.com/summer-camps/pottery/"
+        },
         "availability": null,
         "financial_aid": {
           "value": "yes",
-          "text": "Work-Trade & Tuition Assistance are available"
+          "text": "Tuition assistance is available."
         },
         "special_needs": null,
         "lunch": {
           "value": "no",
           "text": "Sack lunch."
         },
-        "transportation": null,
+        "transportation": {
+          "value": "no",
+          "text": "There is no shuttle van service offered for programs at this location."
+        },
         "sources": [
-          "https://forestfloorasheville.com/summer-camps/run-wild/",
           "https://forestfloorasheville.com/summer-camps/",
+          "https://forestfloorasheville.com/summer-camps/run-wild/",
+          "https://forestfloorasheville.com/summer-camps/pottery/",
           "https://forestfloorasheville.com/faq/"
         ],
         "confidence": "medium",
-        "review_notes": "Detail page read through search-result text. Metadata says ages 8-12, but Camp Details and overview agree on 9-13; Camp Details retained."
+        "review_notes": "The 2026 summer listing states ages 9-13; the program's search-result summary says ages 8-12. Used the explicitly seasonal listing."
       },
       {
         "name": "Pottery",
         "type": "day",
         "categories": ["arts"],
-        "description": "Campers practice hand-building, wheel throwing, surface decoration and glazing, and learn about firing clay.",
+        "description": "Campers learn hand-building, pottery-wheel throwing, surface decoration, glazing, and firing techniques.",
         "camp_page_url": "https://forestfloorasheville.com/summer-camps/pottery/",
         "registration_url": null,
         "season": {
@@ -1016,13 +962,13 @@
           "https://forestfloorasheville.com/summer-camps/"
         ],
         "confidence": "medium",
-        "review_notes": "Same page gives drop-off 9:30-9:45 and pickup 4:00-4:15 in one section, versus drop-off 8:30-9:00 and pickup 3:00-3:30 in Haw Creek logistics. Hours omitted. Dates assigned 2026 from registration heading."
+        "review_notes": "Hours omitted: the program page lists drop-off 9:30-9:45 and pickup 4:00-4:15, but its Haw Creek logistics section lists drop-off 8:30-9:00 and pickup 3:00-3:30. Dates use the page's explicit 2026 registration context."
       },
       {
         "name": "Jewelry Camp",
         "type": "day",
         "categories": ["arts"],
-        "description": "Campers cut, hammer, rivet and forge metal to make rings, pendants and earrings.",
+        "description": "Campers use copper, brass, and steel to make rings, pendants, and earrings, learning metal cutting, hammering, riveting, and forging.",
         "camp_page_url": "https://forestfloorasheville.com/summer-camps/jewelry-camp/",
         "registration_url": null,
         "season": {
@@ -1047,55 +993,44 @@
         ],
         "hours": null,
         "extended_care": null,
-        "prices": [
-          {
-            "amount": 504,
-            "unit": "week",
-            "label": null,
-            "year": 2026
-          }
-        ],
-        "sessions": [
-          {
-            "label": null,
-            "start": "2026-08-03",
-            "end": "2026-08-07",
-            "year": 2026,
-            "site": null,
-            "ages": null,
-            "grades": null,
-            "hours": null,
-            "price": null,
-            "status": null
-          }
-        ],
+        "prices": [],
+        "sessions": [],
         "registration": [],
-        "last_year_registration_opened": null,
+        "last_year_registration_opened": {
+          "date": "2026-02-06",
+          "time": null,
+          "text": "Families that didn't sign-up for the Lottery will have to wait until Open Enrollment is activated on Friday, 2/6 to register for camp.",
+          "url": "https://forestfloorasheville.com/summer-camps/pottery/"
+        },
         "availability": null,
         "financial_aid": {
           "value": "yes",
-          "text": "Work-Trade & Tuition Assistance are available"
+          "text": "Tuition assistance is available."
         },
         "special_needs": null,
         "lunch": {
           "value": "no",
           "text": "Sack lunch."
         },
-        "transportation": null,
+        "transportation": {
+          "value": "no",
+          "text": "There is no shuttle van service offered for programs at this location."
+        },
         "sources": [
-          "https://forestfloorasheville.com/summer-camps/jewelry-camp/",
           "https://forestfloorasheville.com/summer-camps/",
+          "https://forestfloorasheville.com/summer-camps/jewelry-camp/",
+          "https://forestfloorasheville.com/summer-camps/pottery/",
           "https://forestfloorasheville.com/faq/"
         ],
-        "confidence": "medium",
-        "review_notes": "Detail page read through search-result text; 2026 year established by overview and registration heading."
+        "confidence": "high",
+        "review_notes": null
       },
       {
         "name": "Blacksmithing",
         "type": "day",
         "categories": ["arts"],
-        "description": "Campers heat metal in a forge and shape it with hammers and anvils to make tools and other items.",
-        "camp_page_url": "https://forestfloorasheville.com/summer-camps/blacksmithing/",
+        "description": "Campers make tools from heated metal using a forge, hammer, and anvil.",
+        "camp_page_url": "https://forestfloorasheville.com/summer-camps/",
         "registration_url": null,
         "season": {
           "year": 2026,
@@ -1119,14 +1054,7 @@
         ],
         "hours": null,
         "extended_care": null,
-        "prices": [
-          {
-            "amount": 504,
-            "unit": "week",
-            "label": null,
-            "year": 2026
-          }
-        ],
+        "prices": [],
         "sessions": [
           {
             "label": null,
@@ -1166,32 +1094,40 @@
           }
         ],
         "registration": [],
-        "last_year_registration_opened": null,
+        "last_year_registration_opened": {
+          "date": "2026-02-06",
+          "time": null,
+          "text": "Families that didn't sign-up for the Lottery will have to wait until Open Enrollment is activated on Friday, 2/6 to register for camp.",
+          "url": "https://forestfloorasheville.com/summer-camps/pottery/"
+        },
         "availability": null,
         "financial_aid": {
           "value": "yes",
-          "text": "Work-Trade & Tuition Assistance are available"
+          "text": "Tuition assistance is available."
         },
         "special_needs": null,
         "lunch": {
           "value": "no",
           "text": "Sack lunch."
         },
-        "transportation": null,
+        "transportation": {
+          "value": "no",
+          "text": "There is no shuttle van service offered for programs at this location."
+        },
         "sources": [
-          "https://forestfloorasheville.com/summer-camps/blacksmithing/",
           "https://forestfloorasheville.com/summer-camps/",
+          "https://forestfloorasheville.com/summer-camps/pottery/",
           "https://forestfloorasheville.com/faq/"
         ],
-        "confidence": "medium",
-        "review_notes": "Detail page read through search-result text; dates assigned 2026 from summer overview."
+        "confidence": "high",
+        "review_notes": null
       },
       {
         "name": "Knife Making",
         "type": "day",
         "categories": ["arts"],
-        "description": "Campers make a knife from scratch using blacksmithing and shop tools.",
-        "camp_page_url": "https://forestfloorasheville.com/summer-camps/knife-making/",
+        "description": "Campers create a handmade knife from scratch using blacksmithing and shop tools.",
+        "camp_page_url": "https://forestfloorasheville.com/summer-camps/",
         "registration_url": null,
         "season": {
           "year": 2026,
@@ -1243,7 +1179,12 @@
           }
         ],
         "registration": [],
-        "last_year_registration_opened": null,
+        "last_year_registration_opened": {
+          "date": "2026-02-06",
+          "time": null,
+          "text": "Families that didn't sign-up for the Lottery will have to wait until Open Enrollment is activated on Friday, 2/6 to register for camp.",
+          "url": "https://forestfloorasheville.com/summer-camps/pottery/"
+        },
         "availability": null,
         "financial_aid": {
           "value": "yes",
@@ -1254,9 +1195,13 @@
           "value": "no",
           "text": "Sack lunch."
         },
-        "transportation": null,
+        "transportation": {
+          "value": "no",
+          "text": "There is no shuttle van service offered for programs at this location."
+        },
         "sources": [
           "https://forestfloorasheville.com/summer-camps/",
+          "https://forestfloorasheville.com/summer-camps/pottery/",
           "https://forestfloorasheville.com/faq/"
         ],
         "confidence": "high",
@@ -1266,7 +1211,7 @@
         "name": "Theater Camp!",
         "type": "day",
         "categories": ["theater"],
-        "description": "Campers use voice, movement and expression in improv games and work together to perform a short play at the end of the week.",
+        "description": "Campers practice acting through voice, movement, and improvisation games, then work together to perform a short play.",
         "camp_page_url": "https://forestfloorasheville.com/summer-camps/theater-camp/",
         "registration_url": null,
         "season": {
@@ -1289,7 +1234,7 @@
             "state": "NC"
           },
           {
-            "name": "Haw Creek Commons Shuttle Van Base",
+            "name": "Haw Creek Commons",
             "address": "315 Old Haw Creek Rd",
             "town": "Asheville",
             "state": "NC"
@@ -1305,20 +1250,7 @@
             "year": 2026
           }
         ],
-        "sessions": [
-          {
-            "label": null,
-            "start": "2026-07-20",
-            "end": "2026-07-24",
-            "year": 2026,
-            "site": "Shope Creek Wilderness",
-            "ages": null,
-            "grades": null,
-            "hours": null,
-            "price": null,
-            "status": null
-          }
-        ],
+        "sessions": [],
         "registration": [],
         "last_year_registration_opened": {
           "date": "2026-02-06",
@@ -1337,18 +1269,21 @@
           "text": "A sack lunch"
         },
         "transportation": {
-          "value": "case_by_case",
+          "value": "yes",
           "text": "Shuttle van seats are offered free of charge for your convenience."
         },
-        "sources": ["https://forestfloorasheville.com/summer-camps/theater-camp/"],
+        "sources": [
+          "https://forestfloorasheville.com/summer-camps/theater-camp/",
+          "https://forestfloorasheville.com/summer-camps/"
+        ],
         "confidence": "medium",
-        "review_notes": "Dates assigned 2026 from registration heading. An apparently unrelated Haw Creek section gives 9:30-4:15 logistics, while Shope Creek logistics give drop-off 8:45-9:15 and pickup 2:45-3:15. Hours omitted. Haw Creek is only an optional reserved shuttle base."
+        "review_notes": "Haw Creek Commons is an optional reserved shuttle drop-off, not a second camp session. Hours omitted because the generic Haw Creek toggle conflicts with the Shope Creek-specific logistics. Dates use the explicit 2026 registration context."
       },
       {
         "name": "Wild Girls Teen Camp",
         "type": "day",
         "categories": ["nature_outdoor"],
-        "description": "Teen girls practice survival skills, first aid and natural-material crafts during day trips. The week includes a Thursday-to-Friday overnight campout.",
+        "description": "Campers learn survival skills, first aid, and nature-based crafts on local day trips. The week includes a Thursday-to-Friday overnight campout.",
         "camp_page_url": "https://forestfloorasheville.com/summer-camps/wild-girls-teen-camp/",
         "registration_url": null,
         "season": {
@@ -1373,56 +1308,39 @@
         ],
         "hours": null,
         "extended_care": null,
-        "prices": [
-          {
-            "amount": 504,
-            "unit": "week",
-            "label": null,
-            "year": 2026
-          }
-        ],
-        "sessions": [
-          {
-            "label": null,
-            "start": "2026-06-22",
-            "end": "2026-06-26",
-            "year": 2026,
-            "site": null,
-            "ages": null,
-            "grades": null,
-            "hours": null,
-            "price": null,
-            "status": null
-          }
-        ],
+        "prices": [],
+        "sessions": [],
         "registration": [],
-        "last_year_registration_opened": null,
+        "last_year_registration_opened": {
+          "date": "2026-02-06",
+          "time": null,
+          "text": "Families that didn't sign-up for the Lottery will have to wait until Open Enrollment is activated on Friday, 2/6 to register for camp.",
+          "url": "https://forestfloorasheville.com/summer-camps/pottery/"
+        },
         "availability": null,
         "financial_aid": {
           "value": "yes",
-          "text": "Work-Trade & Tuition Assistance are available"
+          "text": "Tuition assistance is available."
         },
         "special_needs": null,
-        "lunch": {
-          "value": "case_by_case",
-          "text": "Forest Floor will provide food and group gear such as pots and pans, rope, and cleaning materials."
-        },
+        "lunch": null,
         "transportation": {
           "value": "yes",
           "text": "A shuttle van has been reserved for this camp and is included. Please DO NOT make an additional shuttle van reservation."
         },
         "sources": [
+          "https://forestfloorasheville.com/summer-camps/",
           "https://forestfloorasheville.com/summer-camps/wild-girls-teen-camp/",
-          "https://forestfloorasheville.com/summer-camps/"
+          "https://forestfloorasheville.com/summer-camps/pottery/"
         ],
         "confidence": "medium",
-        "review_notes": "Detail page could only be read through search-result text. Day-camp format retained with one overnight included, not a separate offering. Provided-food wording applies to overnight campout only. Campout location is TBD."
+        "review_notes": "Kept as one day-camp program with an included overnight, not a separate overnight offering. Program details were readable only in official search text; overnight location is TBD."
       },
       {
         "name": "Counselor In Training Camp",
         "type": "day",
-        "categories": ["nature_outdoor", "academic"],
-        "description": "Teens learn nature mentoring through storytelling, games and wilderness skills during a training week, then assist staff for two weeks of summer camp.",
+        "categories": ["nature_outdoor"],
+        "description": "Teens learn nature mentoring through storytelling, games, and wilderness skills during a training week, then assist staff for two weeks of summer camp. Applicants must have completed two Forest Floor summer camps or a fall or spring homeschool program.",
         "camp_page_url": "https://forestfloorasheville.com/summer-camps/cit-camp/",
         "registration_url": null,
         "season": {
@@ -1445,7 +1363,7 @@
             "state": "NC"
           },
           {
-            "name": "Haw Creek Commons Shuttle Van Base",
+            "name": "Haw Creek Commons",
             "address": "315 Old Haw Creek Rd",
             "town": "Asheville",
             "state": "NC"
@@ -1461,20 +1379,7 @@
             "year": 2026
           }
         ],
-        "sessions": [
-          {
-            "label": "Training week",
-            "start": "2026-06-15",
-            "end": "2026-06-19",
-            "year": 2026,
-            "site": "Shope Creek Wilderness",
-            "ages": null,
-            "grades": null,
-            "hours": null,
-            "price": null,
-            "status": null
-          }
-        ],
+        "sessions": [],
         "registration": [],
         "last_year_registration_opened": null,
         "availability": null,
@@ -1488,12 +1393,15 @@
           "text": "A sack lunch"
         },
         "transportation": {
-          "value": "case_by_case",
+          "value": "yes",
           "text": "Shuttle van seats are offered free of charge for your convenience."
         },
-        "sources": ["https://forestfloorasheville.com/summer-camps/cit-camp/"],
+        "sources": [
+          "https://forestfloorasheville.com/summer-camps/cit-camp/",
+          "https://forestfloorasheville.com/summer-camps/"
+        ],
         "confidence": "medium",
-        "review_notes": "Must have completed at least two Forest Floor summer camps or one fall/spring homeschool program; teens apply personally and need acceptance before registration. Two assisting weeks have no published dates, so season spans training only. Dates assigned 2026 from registration heading. Page contains conflicting/unrelated Haw Creek hours; hours omitted. Haw Creek is an optional reserved shuttle base."
+        "review_notes": "Season dates cover the listed training week only; dates for the two assisting weeks are not supplied. Admission requires a teen application and acceptance before registration. Haw Creek Commons is the optional reserved shuttle base. Hours omitted because the generic Haw Creek toggle conflicts with Shope Creek logistics. Dates use the explicit 2026 registration context."
       }
     ]
   }

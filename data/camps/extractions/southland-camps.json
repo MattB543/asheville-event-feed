@@ -7,24 +7,23 @@
     "discovered_by": ["grid", "aggregator", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:30:44.108Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:25:36.336Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "d3d01448817cfca3413b241b493f8429e97e06be0405e3e0637580c54cde5472",
   "response": {
     "searches": [
-      "site.ridgehaven.org address Brevard 215",
-      "site.southlandcamps.org \"SUMMER\" \"2027\"",
-      "site:southlandcamps.org \"SUMMER CAMP\" -site:southlandcamp.org",
+      "site.ridgehaven.org address Brevard",
+      "site:southlandcamps.org \"SUMMER\" \"CAMP PLANS\"",
       "open https://www.southlandcamps.org/high-school-1"
     ],
     "usage": {
-      "inputTokens": 24305,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1515,
-      "reasoningTokens": 299
+      "inputTokens": 23746,
+      "cachedInputTokens": 8845,
+      "outputTokens": 977,
+      "reasoningTokens": 213
     },
     "status": "completed",
-    "ms": 54756,
+    "ms": 25738,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -83,27 +82,27 @@
   "extraction": {
     "provider_name": "Southland Camps",
     "website_url": "https://www.southlandcamps.org/",
-    "notes": "2027 dates are posted for both summer camps. The middle-school camp is in Florida, not near Asheville, but is included as a qualifying summer program of this provider. Program detail pages returned no readable body when opened; official search results supplied additional details. Both detail pages say Registration Spring 2027, which cannot be represented as a precise date or month; no opening milestone was inferred.",
+    "notes": "2027 summer dates are posted. The high-school detail page was readable through official search results but returned no text when opened. Registration is stated as Spring 2027, which cannot be represented as an exact date or month; no opening milestone was created.",
     "excluded": [
       {
+        "name": "Middle School Summer Camp",
+        "reason": "Held at Camp Kulaqua in High Springs, Florida, outside the Asheville-area drive radius."
+      },
+      {
         "name": "High School Winter Retreat",
-        "reason": "February 19-21, 2027 is outside summer."
+        "reason": "Winter program, outside summer, held in Ocklawaha, Florida."
       },
       {
         "name": "Middle School Winter Retreat",
-        "reason": "January 8-10, 2027 is outside summer."
-      },
-      {
-        "name": "Southland Network",
-        "reason": "Year-round ministry networking and leader training, not a finite supervised summer youth program."
+        "reason": "Winter program, outside summer, held in Ocklawaha, Florida."
       }
     ],
     "cards": [
       {
         "name": "High School Summer Camp",
         "type": "overnight",
-        "categories": ["faith_based", "nature_outdoor", "sports"],
-        "description": "Students participate in worship through song and Bible teaching, huddle time, and group activities. The camp page lists rafting, paintball, hiking, mountain biking, ropes courses, and sports tournaments.",
+        "categories": ["faith_based", "nature_outdoor"],
+        "description": "Students participate in worship through song and God's Word, huddle time, and outdoor recreation. Activities listed include hiking, mountain biking, ropes courses, and sports tournaments.",
         "camp_page_url": "https://www.southlandcamps.org/high-school-1",
         "registration_url": null,
         "season": {
@@ -111,7 +110,7 @@
           "status": "posted",
           "start": "2027-06-07",
           "end": "2027-06-12",
-          "text": "June 7-12, 2027"
+          "text": "Registration Spring 2027"
         },
         "ages": null,
         "grades": null,
@@ -127,59 +126,16 @@
         "extended_care": null,
         "prices": [],
         "sessions": [],
-        "registration": [],
-        "last_year_registration_opened": null,
-        "availability": null,
-        "financial_aid": null,
-        "special_needs": null,
-        "lunch": null,
-        "transportation": null,
-        "sources": [
-          "https://www.southlandcamps.org/summer-camps",
-          "https://www.southlandcamps.org/high-school-1",
-          "https://www.ridgehaven.org/contact"
-        ],
-        "confidence": "medium",
-        "review_notes": "The detail page was readable only through official search results. Verify activity details, overnight format, eligibility, prices, and the registration destination on high-school-1. The page states Registration Spring 2027 without a specific date; high school is not translated into numerical grades."
-      },
-      {
-        "name": "Middle School Summer Camp",
-        "type": "overnight",
-        "categories": ["faith_based", "nature_outdoor", "sports"],
-        "description": "Students participate in worship through song and Bible teaching, huddle time, and group activities. The page lists water-park and spring activities, go-karts, horseback riding, disc golf, and tubing.",
-        "camp_page_url": "https://www.southlandcamps.org/middle-school-1",
-        "registration_url": null,
-        "season": {
-          "year": 2027,
-          "status": "posted",
-          "start": "2027-07-12",
-          "end": "2027-07-16",
-          "text": "July 12-16, 2027"
-        },
-        "ages": null,
-        "grades": null,
-        "sites": [
-          {
-            "name": "Camp Kulaqua",
-            "address": "23400 NW 212 Ave",
-            "town": "High Springs",
-            "state": "FL"
-          }
-        ],
-        "hours": null,
-        "extended_care": null,
-        "prices": [],
-        "sessions": [],
         "registration": [
           {
             "audience": "early_bird",
             "kind": "deadline",
-            "date": "2027-06-06",
+            "date": "2027-05-01",
             "time": null,
             "precision": "date",
             "certainty": "announced",
-            "text": "Registered and paid by June 6th, 2027",
-            "url": "https://www.southlandcamps.org/middle-school-1",
+            "text": "Registered and paid by May 1st, 2027",
+            "url": "https://www.southlandcamps.org/high-school-1",
             "year": 2027,
             "confidence": "medium"
           }
@@ -189,14 +145,17 @@
         "financial_aid": null,
         "special_needs": null,
         "lunch": null,
-        "transportation": null,
+        "transportation": {
+          "value": "no",
+          "text": "No. Each parent or church is responsible to cover the cost and transportation needs to get their child/student to and from the event."
+        },
         "sources": [
           "https://www.southlandcamps.org/summer-camps",
-          "https://www.southlandcamps.org/middle-school-1",
-          "https://www.campkulaqua.com/kulaqua-s-summer-camp/about-us/our-location/"
+          "https://www.southlandcamps.org/high-school-1",
+          "https://www.ridgehaven.org/contact"
         ],
         "confidence": "medium",
-        "review_notes": "The detail page was readable only through official search results. Verify the June 6, 2027 early-rate deadline, activities, overnight format, eligibility, and registration destination on middle-school-1. Early and regular prices are TBD. Registration Spring 2027 has no specific opening date; middle school is not translated into numerical grades."
+        "review_notes": "High-school program details and the May 1 early-rate deadline were obtained from the official page's search result; opening the detail page returned no readable text. Prices remain TBD. The provider identifies participants as high school students without specifying numeric grades or ages."
       }
     ]
   }

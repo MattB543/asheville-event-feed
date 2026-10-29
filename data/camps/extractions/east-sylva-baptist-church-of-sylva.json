@@ -7,19 +7,19 @@
     "discovered_by": ["grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:19:55.155Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:16:35.798Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "5f0eaffc9c2e2c3b7e612336e035d6c69636ecff81d6a01f956b24a726361046",
   "response": {
     "searches": ["site:eastsylvabaptist.org \"2027\" \"Bible\""],
     "usage": {
-      "inputTokens": 12947,
-      "cachedInputTokens": 8223,
-      "outputTokens": 669,
+      "inputTokens": 14105,
+      "cachedInputTokens": 8845,
+      "outputTokens": 490,
       "reasoningTokens": 71
     },
     "status": "completed",
-    "ms": 43799,
+    "ms": 17645,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -38,19 +38,23 @@
   "extraction": {
     "provider_name": "East Sylva Baptist Church of Sylva",
     "website_url": "https://eastsylvabaptist.org/",
-    "notes": "No summer 2027 information or registration dates were found. The official event page lists the 2026 Vacation Bible School dates and theme but does not describe activities, eligibility, cost, or registration.",
+    "notes": "No summer 2027 information or registration opening date was found on the official pages searched. The 2026 Vacation Bible School dates are retained.",
     "excluded": [
       {
-        "name": "Sunday School Bible Classes",
-        "reason": "Recurring year-round religious classes, not a finite summer program."
+        "name": "Children and Youth Activities Sunday evening",
+        "reason": "Recurring year-round youth activities, not a finite summer camp."
       },
       {
-        "name": "Children and Youth Activities",
-        "reason": "Recurring Sunday evening activities, not a summer-only program."
+        "name": "Fall Festival",
+        "reason": "Fall event outside summer; festivals are excluded."
+      },
+      {
+        "name": "Sunday School Bible Classes",
+        "reason": "Recurring year-round religious classes, not a summer camp."
       },
       {
         "name": "Senior adult retreat at Fort Caswell",
-        "reason": "Adult-only retreat outside summer."
+        "reason": "Adult-only retreat."
       }
     ],
     "cards": [
@@ -58,7 +62,7 @@
         "name": "Vacation Bible School",
         "type": "vbs",
         "categories": ["faith_based"],
-        "description": "An evening Vacation Bible School with the theme Faith On The Farm.",
+        "description": "Vacation Bible School with the theme Faith On The Farm.",
         "camp_page_url": "https://eastsylvabaptist.org/events-calendar/vacation-bible-school/",
         "registration_url": null,
         "season": {
@@ -95,10 +99,11 @@
         "transportation": null,
         "sources": [
           "https://eastsylvabaptist.org/events-calendar/vacation-bible-school/",
-          "https://eastsylvabaptist.org/"
+          "https://eastsylvabaptist.org/",
+          "https://eastsylvabaptist.org/contact-us/"
         ],
-        "confidence": "medium",
-        "review_notes": "The event page does not explicitly identify a meeting venue; the church's own address is used as the presumed site. Confirm that Vacation Bible School meets at the church. The event is marked Expired!, which is not treated as a stated registration availability status."
+        "confidence": "high",
+        "review_notes": null
       }
     ]
   }

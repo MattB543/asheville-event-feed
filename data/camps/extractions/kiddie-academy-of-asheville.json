@@ -7,26 +7,26 @@
     "discovered_by": ["grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:04:30.147Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
-  "sourceHash": "c86ae2d9782595385dc749093890aacc7bd881525394de7f5d695c09e44e4c2f",
+  "extractedAt": "2026-10-29T17:04:11.712Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "875ef47fc37b48e733fe2f6777d9cef981321eb81789e62a800efcbf4fdea58d",
   "response": {
-    "searches": ["site:kiddieacademy.com/academies/asheville \"2027\" \"camp\""],
+    "searches": ["site:kiddieacademy.com/academies/asheville CampVentures 2027 2026 summer dates"],
     "usage": {
-      "inputTokens": 21845,
-      "cachedInputTokens": 8223,
-      "outputTokens": 773,
-      "reasoningTokens": 66
+      "inputTokens": 22410,
+      "cachedInputTokens": 8845,
+      "outputTokens": 645,
+      "reasoningTokens": 64
     },
     "status": "completed",
-    "ms": 19424,
+    "ms": 16537,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
   "bundle": [
     {
       "url": "https://kiddieacademy.com/academies/asheville/programs/summer-camp/",
-      "chars": 7901,
+      "chars": 7910,
       "method": "fetch"
     },
     {
@@ -63,31 +63,11 @@
   "extraction": {
     "provider_name": "Kiddie Academy of Asheville",
     "website_url": "https://kiddieacademy.com/academies/asheville/",
-    "notes": "No summer 2027 dates or registration milestones were found. The CampVentures page is undated and provides no season dates, session calendar or published prices. Age-band rows cannot be dated, so sessions is empty. The site's general operating hours and general 'Now Enrolling' notice were not treated as camp-specific hours or availability.",
+    "notes": "No summer 2027 dates or registration milestones were found. The CampVentures page is undated and does not publish session dates or prices. Academy hours of 7:30am–5:30pm are not explicitly identified as camp hours, so camp hours are left null. Age-band rows cannot be created without published season dates.",
     "excluded": [
       {
-        "name": "Infant",
-        "reason": "Year-round childcare, not a finite summer program."
-      },
-      {
-        "name": "Toddler",
-        "reason": "Year-round childcare, not a finite summer program."
-      },
-      {
-        "name": "Early Preschool",
-        "reason": "Year-round preschool, separate from the summer CampVentures offering."
-      },
-      {
-        "name": "Preschool",
-        "reason": "Year-round preschool, separate from the summer CampVentures offering."
-      },
-      {
-        "name": "Pre-Kindergarten",
-        "reason": "Year-round educational program, not a finite summer camp."
-      },
-      {
-        "name": "Kindergarten",
-        "reason": "Regular educational program, not a finite summer camp."
+        "name": "Infant, Toddler, Early Preschool, Preschool, Pre-Kindergarten and Kindergarten",
+        "reason": "Regular year-round childcare and educational programs, rather than finite summer camps."
       }
     ],
     "cards": [
@@ -95,7 +75,7 @@
         "name": "CampVentures",
         "type": "day",
         "categories": ["general"],
-        "description": "Children participate in summer-themed hands-on activities, creative arts, science exploration, outdoor play and cooking activities. Older children take local field trips, while younger children have on-site enrichment opportunities.",
+        "description": "Children participate in summer-themed hands-on activities, creative arts, stories, outdoor play and experiments. Older children take local field trips, while younger children have on-site enrichment activities.",
         "camp_page_url": "https://kiddieacademy.com/academies/asheville/programs/summer-camp/",
         "registration_url": null,
         "season": {

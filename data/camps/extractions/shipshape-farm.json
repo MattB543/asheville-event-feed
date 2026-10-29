@@ -7,19 +7,19 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:32:25.772Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:27:27.738Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "de7beed67cb7086a13d42073a62dc0c9ef9794c1622b5576ab570a9985a4cc66",
   "response": {
-    "searches": ["site:shipshapefarm.com 2027 summer camp registration"],
+    "searches": ["site:shipshapefarm.com summer camp 2027 registration"],
     "usage": {
-      "inputTokens": 15904,
-      "cachedInputTokens": 8223,
-      "outputTokens": 2102,
-      "reasoningTokens": 99
+      "inputTokens": 16578,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2099,
+      "reasoningTokens": 113
     },
     "status": "completed",
-    "ms": 41810,
+    "ms": 38189,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -38,15 +38,23 @@
   "extraction": {
     "provider_name": "Shipshape Farm",
     "website_url": "https://www.shipshapefarm.com/",
-    "notes": "2027 early registration is tentatively described as late January/early February; no 2027 camp dates or prices were found. The current page's explicitly labeled 2026 schedule takes precedence over an undated embedded social post describing six themed weeks and different capacity limits.",
+    "notes": "2027 early registration is expected in late January or early February, with the date still to be determined. Camp dates and pricing remain labeled 2026. The undated social-media feed embedded in the footer describes older themes and different capacities; these were not used.",
     "excluded": [
       {
-        "name": "Preschool Play & Learn",
-        "reason": "Fall, winter and spring classes; a grown-up must remain with the child. Not a supervised summer drop-off camp."
+        "name": "Preschool Program",
+        "reason": "Weekly preschool classes in fall, winter and spring, rather than a summer camp."
       },
       {
         "name": "Homeschool Farm School",
-        "reason": "Seasonal school-year classes, with fall and winter offerings posted; no summer camp offering stated."
+        "reason": "School-year homeschool classes, rather than a summer camp."
+      },
+      {
+        "name": "Field Trips",
+        "reason": "Group-booked educational visits, not a summer camp program."
+      },
+      {
+        "name": "Parties and shindigs",
+        "reason": "Private parties and social events, not summer camps."
       }
     ],
     "cards": [
@@ -54,7 +62,7 @@
         "name": "Summer Camp",
         "type": "day",
         "categories": ["nature_outdoor", "general"],
-        "description": "Campers care for farm animals, explore the garden, make crafts and play outdoor games. Activities include farm chores and a weekly water day.",
+        "description": "Campers explore the farm, care for animals, dig in the garden, play outdoor games and make crafts. Activities include collecting eggs, farm chores and water play.",
         "camp_page_url": "https://www.shipshapefarm.com/summer-camp",
         "registration_url": null,
         "season": {
@@ -62,7 +70,7 @@
           "status": "not_posted",
           "start": "2026-06-01",
           "end": "2026-07-24",
-          "text": "Early registration opens in late January/early February 2027. ***Date still to be determined"
+          "text": null
         },
         "ages": {
           "min": 4,
@@ -80,60 +88,60 @@
         "hours": {
           "start": "09:00",
           "end": "16:00",
-          "text": "Ages 8–11: full day, 9:00 AM–4:00 PM. Ages 4–7: morning 9:00 AM–12:00 PM, afternoon 1:00–4:00 PM, or full day 9:00 AM–4:00 PM."
+          "text": "Ages 8–11: 9:00 AM–4:00 PM. Ages 4–7: Morning: 9:00 AM–12:00 PM; Afternoon: 1:00–4:00 PM; Full Day: 9:00 AM–4:00 PM."
         },
         "extended_care": {
           "early_dropoff_start": "08:00",
           "late_pickup_end": "17:30",
-          "cost_text": "Early Drop-Off: 8:00–9:00 AM — $15/day; Late Stay: 4:00–5:30 PM — $20/day. Registered and paid for the month before your camp week."
+          "cost_text": "Early Drop-Off: 8:00–9:00 AM — $15/day; Late Stay: 4:00–5:30 PM — $20/day"
         },
         "prices": [
           {
             "amount": 175,
             "unit": "week",
-            "label": "Half day, ages 4–7; Earliest Early Bird, January 31–February 6",
+            "label": "Half day, January 31–February 6, Earliest Early Bird",
             "year": 2026
           },
           {
             "amount": 345,
             "unit": "week",
-            "label": "Full day; Earliest Early Bird, January 31–February 6",
+            "label": "Full day, January 31–February 6, Earliest Early Bird",
             "year": 2026
           },
           {
             "amount": 185,
             "unit": "week",
-            "label": "Half day, ages 4–7; Early Bird, February 7–March 6",
+            "label": "Half day, February 7–March 6, Early Bird",
             "year": 2026
           },
           {
             "amount": 355,
             "unit": "week",
-            "label": "Full day; Early Bird, February 7–March 6",
+            "label": "Full day, February 7–March 6, Early Bird",
             "year": 2026
           },
           {
             "amount": 195,
             "unit": "week",
-            "label": "Half day, ages 4–7; Early Bird, March 7–April 3",
+            "label": "Half day, March 7–April 3, Early Bird",
             "year": 2026
           },
           {
             "amount": 365,
             "unit": "week",
-            "label": "Full day; Early Bird, March 7–April 3",
+            "label": "Full day, March 7–April 3, Early Bird",
             "year": 2026
           },
           {
             "amount": 205,
             "unit": "week",
-            "label": "Half day, ages 4–7; Full Price, April 4–Camp Sellout",
+            "label": "Half day, April 4–Camp Sellout, Full Price",
             "year": 2026
           },
           {
             "amount": 375,
             "unit": "week",
-            "label": "Full day; Full Price, April 4–Camp Sellout",
+            "label": "Full day, April 4–Camp Sellout, Full Price",
             "year": 2026
           }
         ],
@@ -246,13 +254,13 @@
         ],
         "registration": [
           {
-            "audience": "early_bird",
+            "audience": "other",
             "kind": "opens",
             "date": "2027-01-01",
             "time": null,
             "precision": "month",
             "certainty": "expected",
-            "text": "Early registration opens in late January/early February 2027. ***Date still to be determined",
+            "text": "Get on our newsletter email list to have early registration access! Early registration opens in late January/early February 2027. ***Date still to be determined",
             "url": "https://www.shipshapefarm.com/summer-camp",
             "year": 2027,
             "confidence": "medium"
@@ -274,7 +282,7 @@
         "transportation": null,
         "sources": ["https://www.shipshapefarm.com/summer-camp", "https://www.shipshapefarm.com/"],
         "confidence": "medium",
-        "review_notes": "The 2027 opening window spans late January and early February; January 1 is only the required month-precision encoding of the first month, not an opening date. Confirm the final date before scheduling reminders. The page also contains an undated embedded social post with older themes, six weeks and 30 spots per session, conflicting with the explicitly labeled 2026 seven-week schedule; those embedded details and its 'registration is now open' statement were not used."
+        "review_notes": "The expected newsletter opening spans late January/early February 2027; the month-precision January record represents the beginning of that window, not a committed January opening. Check the camp page for the final date. Hours and extended-care details accompany the 2026 schedule and have no separate 2027 confirmation. Ignore the undated embedded social post's older themes and capacities."
       }
     ]
   }

@@ -11,23 +11,19 @@
     "discovered_by": ["news828", "grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T14:59:32.777Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T16:59:43.525Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "04241fcd2846a3fda74d16300c98bc0652303e140f46a4ca2fdc261c63c183aa",
   "response": {
-    "searches": [
-      "site.camplurecrest.org summer camp 2027 registration activities",
-      "open https://www.camplurecrest.org/camp/camps",
-      "Providence Preparatory School 3031 Providence Road address"
-    ],
+    "searches": ["site.camplurecrest.org", "open https://www.camplurecrest.org/"],
     "usage": {
-      "inputTokens": 27325,
-      "cachedInputTokens": 8223,
-      "outputTokens": 2832,
-      "reasoningTokens": 195
+      "inputTokens": 23729,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2541,
+      "reasoningTokens": 90
     },
     "status": "completed",
-    "ms": 58164,
+    "ms": 50694,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -76,27 +72,27 @@
   "extraction": {
     "provider_name": "Camp Lurecrest",
     "website_url": "https://www.camplurecrest.org/",
-    "notes": "The 2027 camp list is posted. Named weeks and grade bands are grouped as sessions of the residential summer camp. Charlotte sites are optional bus drop-off locations, not additional residential campuses. Bus check-in is 1:00–1:15 PM; car arrival at camp is 2:45–3:15 PM. A $75 non-refundable deposit is required; full tuition is due April 1. Siblings receive $40 off after full tuition for the oldest child.",
+    "notes": "2027 dates, rates and registration milestones are posted. Charlotte bus pickup locations are outside the directory's geographic scope and are omitted from sites. The registration platform requires an account; no session-level availability was established.",
     "excluded": [
       {
         "name": "Family Camp 2026",
-        "reason": "Family-only camp, not a supervised youth-only offering."
+        "reason": "Family-only camp."
       },
       {
         "name": "2027 Summer Staff",
-        "reason": "Employment program."
+        "reason": "Employment program, not a camper program."
       },
       {
         "name": "Retreats",
-        "reason": "Group retreats hosted September through April, outside summer."
+        "reason": "Retreat groups hosted September through April, outside summer."
       }
     ],
     "cards": [
       {
         "name": "Summer Camp",
         "type": "overnight",
-        "categories": ["faith_based", "nature_outdoor", "arts", "sports", "general"],
-        "description": "Campers stay in cabins and participate in outdoor activities, crafts, games, chapel and cabin devotions. Pinnacle campers also choose skill clinics and take an off-campus excursion.",
+        "categories": ["faith_based", "nature_outdoor", "arts", "sports"],
+        "description": "Campers participate in supervised crafts, target sports, court games and cabin activities. The daily schedule includes chapel, worship and counselor-led devotions.",
         "camp_page_url": "https://www.camplurecrest.org/camp/camps",
         "registration_url": "https://lurecrest.campintouch.com/ui/login/Login",
         "season": {
@@ -118,18 +114,6 @@
             "address": "207 Charlotte Drive",
             "town": "Lake Lure",
             "state": "NC"
-          },
-          {
-            "name": "Providence Preparatory School",
-            "address": "3031 Providence Road",
-            "town": "Charlotte",
-            "state": "NC"
-          },
-          {
-            "name": "Central Church",
-            "address": "5301 Sardis Rd",
-            "town": "Charlotte",
-            "state": "NC"
           }
         ],
         "hours": null,
@@ -141,7 +125,7 @@
             "start": "2027-06-20",
             "end": "2027-06-23",
             "year": 2027,
-            "site": "Camp Lurecrest",
+            "site": null,
             "ages": null,
             "grades": {
               "min": 3,
@@ -162,7 +146,7 @@
             "start": "2027-06-23",
             "end": "2027-06-26",
             "year": 2027,
-            "site": "Camp Lurecrest",
+            "site": null,
             "ages": null,
             "grades": {
               "min": 3,
@@ -183,7 +167,7 @@
             "start": "2027-06-27",
             "end": "2027-07-03",
             "year": 2027,
-            "site": "Camp Lurecrest",
+            "site": null,
             "ages": null,
             "grades": {
               "min": 6,
@@ -204,7 +188,7 @@
             "start": "2027-07-04",
             "end": "2027-07-10",
             "year": 2027,
-            "site": "Camp Lurecrest",
+            "site": null,
             "ages": null,
             "grades": {
               "min": 7,
@@ -225,7 +209,7 @@
             "start": "2027-07-11",
             "end": "2027-07-17",
             "year": 2027,
-            "site": "Camp Lurecrest",
+            "site": null,
             "ages": null,
             "grades": {
               "min": 9,
@@ -246,7 +230,7 @@
             "start": "2027-07-18",
             "end": "2027-07-24",
             "year": 2027,
-            "site": "Camp Lurecrest",
+            "site": null,
             "ages": null,
             "grades": {
               "min": 6,
@@ -267,7 +251,7 @@
             "start": "2027-07-25",
             "end": "2027-07-30",
             "year": 2027,
-            "site": "Camp Lurecrest",
+            "site": null,
             "ages": null,
             "grades": {
               "min": 4,
@@ -288,7 +272,7 @@
             "start": "2027-08-01",
             "end": "2027-08-06",
             "year": 2027,
-            "site": "Camp Lurecrest",
+            "site": null,
             "ages": null,
             "grades": {
               "min": 3,
@@ -325,7 +309,7 @@
             "time": "17:00",
             "precision": "datetime",
             "certainty": "announced",
-            "text": "For the first time ever, we are opening a returners-only, one-week registration window for summer 2027 starting Monday, August 10 at 9 AM and running through Friday, August 14 at 5 PM.",
+            "text": "This special window will only last one week and is not available to siblings or campers who did not attend Camp Lurecrest during summer 2026.",
             "url": "https://www.camplurecrest.org/news/2027-dates-rates",
             "year": 2027,
             "confidence": "high"
@@ -338,7 +322,7 @@
             "precision": "datetime",
             "certainty": "announced",
             "text": "We will open camp registration for returning families (including siblings, previous year campers, and previously waitlisted campers) on October 13 at 7 PM.",
-            "url": "https://www.camplurecrest.org/news/2027-dates-rates",
+            "url": "https://www.camplurecrest.org/camp/coming-to-camp",
             "year": 2027,
             "confidence": "high"
           },
@@ -350,7 +334,7 @@
             "precision": "datetime",
             "certainty": "announced",
             "text": "Registration for first time campers will open October 14 at 6:30 AM.",
-            "url": "https://www.camplurecrest.org/news/2027-dates-rates",
+            "url": "https://www.camplurecrest.org/camp/coming-to-camp",
             "year": 2027,
             "confidence": "high"
           },
@@ -373,7 +357,7 @@
             "time": null,
             "precision": "date",
             "certainty": "announced",
-            "text": "This form will be available through March 1, 2027.",
+            "text": "Complete the Camp Lurecrest Sponsorship Request Form, which will be available after general registration opens in October. Applications are considered in the order received and based on available funds. This form will be available through March 1, 2027.",
             "url": "https://www.camplurecrest.org/camp/coming-to-camp",
             "year": 2027,
             "confidence": "high"
@@ -383,7 +367,7 @@
         "availability": null,
         "financial_aid": {
           "value": "yes",
-          "text": "Because we know cost can still be a challenge for some families, Camp Lurecrest offers sponsorships (scholarships/financial assistance)."
+          "text": "Camp Lurecrest offers sponsorships (scholarships/financial assistance)."
         },
         "special_needs": null,
         "lunch": {
@@ -392,16 +376,15 @@
         },
         "transportation": {
           "value": "yes",
-          "text": "BY BUS – Buses will depart from Charlotte"
+          "text": "Buses will depart from Charlotte"
         },
         "sources": [
           "https://www.camplurecrest.org/camp/camps",
+          "https://www.camplurecrest.org/",
           "https://www.camplurecrest.org/news/2027-dates-rates",
           "https://www.camplurecrest.org/camp/coming-to-camp",
           "https://www.camplurecrest.org/camp/activity-categories/campus-activities",
-          "https://www.camplurecrest.org/camps/pinnacle",
-          "https://www.providenceprepschool.com/contact-us",
-          "https://www.centralnc.org/contact_us"
+          "https://www.camplurecrest.org/comingtocamp/registration"
         ],
         "confidence": "high",
         "review_notes": null

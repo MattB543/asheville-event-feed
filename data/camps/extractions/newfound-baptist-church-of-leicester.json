@@ -7,22 +7,22 @@
     "discovered_by": ["grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:14:06.397Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:11:58.474Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "a155c9e02478f15d76994f88a3f7d956dcd26ebc993ce879fd5464440a8c67bc",
   "response": {
     "searches": [
-      "site.newfoundbaptist.com \"VBS\" \"2026\"",
-      "\"Newfound Baptist\" \"July 26\" \"2026\""
+      "site.newfoundbaptist.com VBS 2026 2027 \"July\"",
+      "\"Newfound Baptist\" \"Emerald\""
     ],
     "usage": {
-      "inputTokens": 17748,
-      "cachedInputTokens": 8223,
-      "outputTokens": 922,
-      "reasoningTokens": 151
+      "inputTokens": 18235,
+      "cachedInputTokens": 8845,
+      "outputTokens": 663,
+      "reasoningTokens": 116
     },
     "status": "completed",
-    "ms": 27225,
+    "ms": 21624,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -41,23 +41,23 @@
   "extraction": {
     "provider_name": "Newfound Baptist Church of Leicester",
     "website_url": "https://www.newfoundbaptist.com/",
-    "notes": "No summer 2027 information was found. The VBS page does not print a year; its dates are provisionally recorded as 2026 because July 31 falls on Friday in 2026, matching the stated Friday family night.",
+    "notes": "No 2027 camp announcement was found. The VBS page does not print a year; its dates are retained as inferred 2026 dates, with the uncertainty noted on the card.",
     "excluded": [
       {
         "name": "Family Night",
-        "reason": "Family-only VBS celebration on July 31, not a separate supervised youth camp."
-      },
-      {
-        "name": "Awana Clubs",
-        "reason": "Recurring school-year ministry, not a finite summer program."
-      },
-      {
-        "name": "Children's Bible Study",
-        "reason": "Recurring ministry rather than a finite summer camp."
+        "reason": "Single evening family celebration, not a separate supervised youth camp."
       },
       {
         "name": "Fall Festival",
-        "reason": "October event outside summer."
+        "reason": "Seasonal festival outside summer."
+      },
+      {
+        "name": "Awana Clubs",
+        "reason": "School-year church program, not a finite summer camp."
+      },
+      {
+        "name": "Children's Bible Study",
+        "reason": "Recurring church class, not a finite summer camp."
       }
     ],
     "cards": [
@@ -65,7 +65,7 @@
         "name": "Vacation Bible School",
         "type": "vbs",
         "categories": ["faith_based"],
-        "description": "Children participate in music, Bible stories, crafts, and recreation. The Emerald Crossing theme explores Psalm 23 and David's story.",
+        "description": "Children participate in music, Bible stories, crafts, and recreation. The Emerald Crossing theme explores Psalm 23 and David’s story.",
         "camp_page_url": "https://www.newfoundbaptist.com/vbs",
         "registration_url": null,
         "season": {
@@ -112,7 +112,7 @@
         },
         "sources": ["https://www.newfoundbaptist.com/vbs", "https://www.newfoundbaptist.com/"],
         "confidence": "medium",
-        "review_notes": "Confirm the year of July 26-30 with the church: the VBS page omits it, and 2026 is inferred from the stated Friday family night on July 31. Eligibility includes preschoolers aged 4 and 5 who are at least 4 and potty trained at the beginning of VBS, plus children who have completed kindergarten through eighth grade; no overall maximum age is stated. The page says online registration has ended and directs families to register in person at the Welcome Center, so it does not establish that the program itself is closed. July 19 is a prize-drawing eligibility deadline, not a stated registration closing date."
+        "review_notes": "The VBS page prints July 26–30 and Family Night Friday July 31 without a year. Dates are interpreted as 2026, when July 31 falls on Friday; confirm the year with the church. Eligibility also includes preschoolers aged 4 and 5, who must be 4 and potty trained at the beginning of VBS; the completed kindergarten–eighth-grade range applies to older children. The page says online registration has ended but permits in-person registration, so overall availability is left null."
       }
     ]
   }

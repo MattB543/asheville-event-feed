@@ -7,23 +7,23 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:18:06.307Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:15:26.020Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "38893e06c7c928ce15cdbc4227de7ab8f2be06ca8f2b8eabb19461619084d1fe",
   "response": {
     "searches": [
-      "site.hendersoncountypublicschoolsnc.org/johnson-farm \"2026\" \"camp\"",
-      "\"Historic Johnson Farm\" \"camp\" \"2026\" summer",
-      "\"Historic Johnson Farm\" \"2026\" \"summer camp\" -site:johnsonsfarm.com"
+      "site:hendersoncountypublicschoolsnc.org/johnson-farm \"2026\" \"camp\"",
+      "\"Historic Johnson Farm\" \"summer camp\" \"2026\"",
+      "\"Johnson Farm\" \"summer camps\" Hendersonville"
     ],
     "usage": {
-      "inputTokens": 35230,
-      "cachedInputTokens": 8223,
-      "outputTokens": 574,
-      "reasoningTokens": 260
+      "inputTokens": 30215,
+      "cachedInputTokens": 8845,
+      "outputTokens": 777,
+      "reasoningTokens": 250
     },
     "status": "completed",
-    "ms": 29718,
+    "ms": 26584,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -52,31 +52,55 @@
   "extraction": {
     "provider_name": "Historic Johnson Farm",
     "website_url": "https://www.hendersoncountypublicschoolsnc.org/johnson-farm/",
-    "notes": "No official 2027 summer camp announcement or verifiable 2026 summer camp details were found. The supplied October 27, 2026 events page lists only workday camps and a year-round volunteer club. Search found older summer camp announcements, including Summer Camp 2020, and an undated tourism listing mentioning summer day camp; these do not establish a 2026 or 2027 offering and were not used to create cards. The official home page and field-trip page returned no readable body when opened, although official search snippets were available.",
+    "notes": "No qualifying summer youth camp with 2026 or 2027 details was found on the official pages or in targeted web searches. The current events page lists only school-year workday camps. The calendar page's embedded events were not readable, so summer offerings there could not be checked. No summer 2027 announcement was found.",
     "excluded": [
       {
         "name": "School’s Out Workday Camps",
-        "reason": "One-day camps on school-year student closure days, including November 3; outside summer."
+        "reason": "Teacher workday camps during the school year, outside summer."
       },
       {
         "name": "Junior Interpreters",
-        "reason": "Year-round volunteer club with monthly September-May meetings, not a finite summer youth program."
-      },
-      {
-        "name": "Spring Break Farm & Arts Camp",
-        "reason": "Spring-break program in March, outside summer; found in third-party event listings."
+        "reason": "Year-round volunteer club with school-year meetings, not a finite summer camp or counselor-training program."
       },
       {
         "name": "Candlelight Christmas Tours",
-        "reason": "December visitor tours, outside summer and not a supervised youth camp."
+        "reason": "Seasonal public tours outside summer, not a supervised youth camp."
       },
       {
         "name": "Daytime Christmas Tours",
-        "reason": "December visitor tours, outside summer and not a supervised youth camp."
+        "reason": "Seasonal public tours outside summer, not a supervised youth camp."
       },
       {
         "name": "Field Trips and Student Programs",
-        "reason": "School and group field trips, not a finite summer camp offering."
+        "reason": "Group field trips and school instructional programs booked throughout the year, not a listed finite summer camp."
+      },
+      {
+        "name": "Cadette Trees Badge",
+        "reason": "September scout program, outside summer."
+      },
+      {
+        "name": "Girl Scout Pet Therapy",
+        "reason": "October information session requiring adults to stay, outside summer."
+      },
+      {
+        "name": "Spring Girl Scout Day",
+        "reason": "April 17, 2027 program, outside summer."
+      },
+      {
+        "name": "Heritage Weavers and Fiber Artists classes",
+        "reason": "Year-round fiber arts classes, not a listed summer camp."
+      },
+      {
+        "name": "Food & Farm Fellowship",
+        "reason": "Year-long teacher professional development and school instructional initiative, not a summer youth camp."
+      },
+      {
+        "name": "House Tours",
+        "reason": "Public historic-site tours, not a supervised youth camp."
+      },
+      {
+        "name": "Summer Farm Camp",
+        "reason": "Offered by Johnson’s Corner Farm in Medford, New Jersey, a different provider outside the Asheville area."
       }
     ],
     "cards": []

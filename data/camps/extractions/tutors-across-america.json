@@ -7,26 +7,29 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:03:34.508Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
-  "sourceHash": "b7c0d2847c9d448fea74ed32fb7ec7f4982181e1a6130bffd9d494ea7e09ba78",
+  "extractedAt": "2026-10-29T17:03:13.878Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "6af65652f82279f4b27c1f3001cce6540cfd7c5804c0eb98873bf535b4f15654",
   "response": {
-    "searches": ["site.tutorsacrossamerica.com Asheville 2027 bootcamp"],
+    "searches": [
+      "site.tutorsacrossamerica.com Asheville 2027 bootcamp",
+      "open https://tutorsacrossamerica.com/ACTcourse/"
+    ],
     "usage": {
-      "inputTokens": 27770,
-      "cachedInputTokens": 8223,
-      "outputTokens": 869,
-      "reasoningTokens": 70
+      "inputTokens": 29007,
+      "cachedInputTokens": 8845,
+      "outputTokens": 962,
+      "reasoningTokens": 146
     },
     "status": "completed",
-    "ms": 24252,
+    "ms": 23872,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
   "bundle": [
     {
       "url": "https://tutorsacrossamerica.com/product/asheville-christian-academy-combo-bootcamp/",
-      "chars": 3345,
+      "chars": 3303,
       "method": "fetch"
     },
     {
@@ -45,62 +48,70 @@
       "method": "fetch"
     },
     {
-      "url": "https://tutorsacrossamerica.com/product/shadow-ridge-high-school-act-bootcamp/",
-      "chars": 3423,
+      "url": "https://tutorsacrossamerica.com/product/online-act-bootcamp/",
+      "chars": 4202,
       "method": "fetch"
     },
     {
-      "url": "https://tutorsacrossamerica.com/product/centennial-high-school-act-bootcamp/",
-      "chars": 3447,
+      "url": "https://tutorsacrossamerica.com/product/cookeville-high-school-act-bootcamp-2/",
+      "chars": 3434,
       "method": "fetch"
     },
     {
-      "url": "https://tutorsacrossamerica.com/product/amplus-academy-act-bootcamp-2/",
-      "chars": 3337,
+      "url": "https://tutorsacrossamerica.com/product/damonte-ranch-high-school-act-bootcamp/",
+      "chars": 3483,
       "method": "fetch"
     },
     {
-      "url": "https://tutorsacrossamerica.com/product/las-vegas-academy-of-the-arts-act-bootcamp-2/",
-      "chars": 3502,
+      "url": "https://tutorsacrossamerica.com/product/veterans-tribute-cta-act-bootcamp/",
+      "chars": 3420,
       "method": "fetch"
     }
   ],
   "extraction": {
     "provider_name": "Tutors Across America",
     "website_url": "https://tutorsacrossamerica.com/",
-    "notes": "No 2027 Asheville camp dates or registration milestones were found. The local card uses the explicitly dated 2026 offering. Other nationwide bootcamps are outside the Asheville-area scope.",
+    "notes": "No summer 2027 information was found for the Asheville program. The ACT Courses page returned no readable text when opened; search results showed winter 2027 offerings elsewhere, not an Asheville summer 2027 program list.",
     "excluded": [
       {
         "name": "Individual tutoring",
-        "reason": "Year-round tutoring rather than a finite summer camp."
+        "reason": "Tutoring lessons booked individually, rather than a finite summer camp."
       },
       {
-        "name": "Online Supplemental Class Options / Summer Email Program",
-        "reason": "Self-paced online materials and emailed practice problems, not a supervised youth camp."
+        "name": "Online supplemental courses and Summer Email Program",
+        "reason": "Self-paced lesson materials and emailed practice problems, rather than a supervised camp."
       },
       {
-        "name": "Shadow Ridge High School ACT Bootcamp",
-        "reason": "October 2–4, 2026 is outside summer; also outside the Asheville area."
+        "name": "Online ACT Bootcamp",
+        "reason": "Online-only program with no local meeting site."
       },
       {
-        "name": "Centennial High School ACT Bootcamp",
-        "reason": "September 11–13, 2026 is outside summer; also outside the Asheville area."
+        "name": "Online ACT/SAT Bootcamp and Online PSAT/SAT Bootcamp",
+        "reason": "Online-only programs with no local meeting site."
       },
       {
-        "name": "Amplus Academy ACT Bootcamp",
-        "reason": "Outside the Asheville-area geographic scope."
+        "name": "Cookeville High School ACT Bootcamp",
+        "reason": "September program outside summer and outside the Asheville drive area."
       },
       {
-        "name": "Las Vegas Academy of the Arts ACT Bootcamp",
-        "reason": "Outside the Asheville-area geographic scope."
+        "name": "Damonte Ranch High School ACT Bootcamp",
+        "reason": "October program outside summer and outside the Asheville drive area."
+      },
+      {
+        "name": "Veterans Tribute CTA ACT Bootcamp",
+        "reason": "October program outside summer and outside the Asheville drive area."
+      },
+      {
+        "name": "Other nonlocal bootcamps in the Bootcamp Archives",
+        "reason": "Listed venues are outside the Asheville drive area."
       }
     ],
     "cards": [
       {
         "name": "ACT/SAT Bootcamp",
-        "type": "clinic",
+        "type": "day",
         "categories": ["academic"],
-        "description": "Students prepare for the ACT and SAT in a three-day, 20-hour bootcamp, reviewing test-taking strategies and completing practice tests.",
+        "description": "A three-day ACT/SAT preparation bootcamp.",
         "camp_page_url": "https://tutorsacrossamerica.com/product/asheville-christian-academy-combo-bootcamp/",
         "registration_url": "https://tutorsacrossamerica.com/product/asheville-christian-academy-combo-bootcamp/",
         "season": {
@@ -123,14 +134,14 @@
         "hours": {
           "start": null,
           "end": null,
-          "text": "Monday, July 27: 1 PM to 5:30 PM. Tuesday, July 28 and Wednesday, July 29: 9 AM to 6 PM, with a lunch break from 1 to 2 PM."
+          "text": "Monday: 1 PM to 5:30 PM; Tuesday and Wednesday: 9 AM to 6 PM (lunch break 1 – 2)"
         },
         "extended_care": null,
         "prices": [
           {
             "amount": 399,
             "unit": "program",
-            "label": "Bootcamp; coupons applied at checkout",
+            "label": null,
             "year": 2026
           }
         ],
@@ -144,7 +155,6 @@
         "transportation": null,
         "sources": [
           "https://tutorsacrossamerica.com/product/asheville-christian-academy-combo-bootcamp/",
-          "https://tutorsacrossamerica.com/faqs/faq-students/",
           "https://www.ashevillechristian.org/contact"
         ],
         "confidence": "high",

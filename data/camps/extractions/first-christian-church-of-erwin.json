@@ -7,19 +7,19 @@
     "discovered_by": ["grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:31:01.917Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:26:10.600Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "1758124905335fc57b588c8d6f538ee92dca519885949c35b2b926d4559ac881",
   "response": {
     "searches": ["site:fccerwin.org VBS 2026 2027", "site:facebook.com/fccerwin \"2026\" \"VBS\""],
     "usage": {
-      "inputTokens": 17602,
-      "cachedInputTokens": 8223,
-      "outputTokens": 366,
-      "reasoningTokens": 164
+      "inputTokens": 18300,
+      "cachedInputTokens": 8845,
+      "outputTokens": 736,
+      "reasoningTokens": 200
     },
     "status": "completed",
-    "ms": 33672,
+    "ms": 24713,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -38,8 +38,53 @@
   "extraction": {
     "provider_name": "First Christian Church of Erwin",
     "website_url": "https://fccerwin.org/",
-    "notes": "No summer 2027 or 2026 camp information was found on the official website or in searches of the church's official Facebook posts. The supplied VBS Pro page describes FCC Erwin - True North VBS on July 27–30, 2025, from 6:00–8:30 p.m., with registration closed. It was not turned into a card because only 2025 information is available, outside the requested 2027 season and 2026 fallback. The church's official website confirms its address as 307 South Main Ave., Erwin, TN 37650. The homepage and registration page returned no readable text when opened through the browser, although official search results supplied the homepage content and address.",
-    "excluded": [],
-    "cards": []
+    "notes": "No official 2027 or 2026 summer camp information was found. The supplied VBS registration page describes July 27–30, 2025, not 2026; its 2026 copyright does not establish the event year. The card identifies this historical offering without carrying its 2025 dates or hours into 2027. The church's news and registration pages returned no readable text.",
+    "excluded": [
+      {
+        "name": "Vacation Bible Spectacular!",
+        "reason": "Offered by a different First Christian Church in Springfield, Ohio, not this provider."
+      }
+    ],
+    "cards": [
+      {
+        "name": "FCC Erwin - True North VBS",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Children explore an Alaska-themed Vacation Bible School focused on Jesus as a faithful friend.",
+        "camp_page_url": "https://vbspro.events/p/events/3298c6",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "First Christian Church",
+            "address": "307 South Main Ave.",
+            "town": "Erwin",
+            "state": "TN"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://vbspro.events/p/events/3298c6", "https://fccerwin.org/contact/"],
+        "confidence": "medium",
+        "review_notes": "Only a 2025 offering is documented. Confirm whether the church will offer VBS in 2027 and whether its name, theme and location will remain the same. The supplied page's closed registration status applies to the 2025 event and was not carried forward."
+      }
+    ]
   }
 }

@@ -7,8 +7,8 @@
     "discovered_by": ["grid", "aggregator"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:22:47.488Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:19:22.564Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "cc50e1ef9a50afb818ee6eb746872cf60ebc3e2051d5b5e4863e14c784036275",
   "response": {
     "searches": [
@@ -16,13 +16,13 @@
       "open https://www.gokidz.org/our-programs"
     ],
     "usage": {
-      "inputTokens": 16946,
-      "cachedInputTokens": 8223,
-      "outputTokens": 898,
-      "reasoningTokens": 109
+      "inputTokens": 17588,
+      "cachedInputTokens": 8845,
+      "outputTokens": 852,
+      "reasoningTokens": 108
     },
     "status": "completed",
-    "ms": 22364,
+    "ms": 23229,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -46,31 +46,27 @@
   "extraction": {
     "provider_name": "Boys & Girls Club of Johnson City / Washington County",
     "website_url": "https://www.gokidz.org/",
-    "notes": "No 2027 summer dates or registration milestones were found. The Summer Program card uses the explicitly posted 2026 information. The website mentions free sports camps throughout the year but provides no specific summer offerings or dates. The programs page could not be reopened through the browser; the supplied official page text and official search results were used.",
+    "notes": "No 2027 summer information or registration milestones were found. The programs page mentions free sports camps throughout the year but gives no identifiable summer offering or dates. A direct fetch of the programs and membership pages returned no readable content; the supplied programs text and official search results provided the summer details. No usable online registration destination was found.",
     "excluded": [
       {
         "name": "After School Program",
-        "reason": "School-year afterschool childcare, not a summer program."
-      },
-      {
-        "name": "Trauma Informed Care",
-        "reason": "Staff and caregiver training and an ongoing care approach, not a finite supervised youth summer program."
+        "reason": "School-year after-school childcare."
       },
       {
         "name": "Organized Sports",
-        "reason": "Sports leagues are excluded; the page states there are no current organized sports offerings."
+        "reason": "Sports leagues and team activities are excluded; no current organized sports offerings are listed."
       },
       {
-        "name": "Youth Development Professional",
-        "reason": "Employment opportunity, not a youth camp."
+        "name": "Trauma Informed Care",
+        "reason": "Staff training and an organization-wide care approach, not a separate summer youth camp."
       }
     ],
     "cards": [
       {
         "name": "Summer Program",
         "type": "day",
-        "categories": ["general", "academic", "sports", "arts", "stem"],
-        "description": "Members participate in academic activities, healthy lifestyle programs, and themed activities during extended summer hours. The 2026 theme is a year of celebrations and holidays.",
+        "categories": ["general", "academic", "arts", "sports", "stem"],
+        "description": "Campers participate in themed activities, academic programs, and healthy lifestyle programs. Summer activities expand the Club's established programming.",
         "camp_page_url": "https://www.gokidz.org/our-programs",
         "registration_url": null,
         "season": {
@@ -107,7 +103,7 @@
           {
             "amount": 75,
             "unit": "week",
-            "label": "Weekly summer fee",
+            "label": null,
             "year": 2026
           },
           {
@@ -131,7 +127,6 @@
         "sources": [
           "https://www.gokidz.org/our-programs",
           "https://www.gokidz.org/faq",
-          "https://www.gokidz.org/",
           "https://www.gokidz.org/contact"
         ],
         "confidence": "high",

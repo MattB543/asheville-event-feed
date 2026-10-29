@@ -7,23 +7,19 @@
     "discovered_by": ["beyond_school", "news828", "grid", "aggregator", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:00:46.033Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:01:02.087Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "fdcd8b03e84d4ee4c2abf7bbf2faa46a8f532348af6bf1b60ac1c43712d4f3de",
   "response": {
-    "searches": [
-      "site.campgrier.org \"Day Camp\" \"2027\"",
-      "open https://www.campgrier.org/summer-day-camp",
-      "site.campgrier.org/summer-day-camp \"Pathfinders\""
-    ],
+    "searches": ["site:campgrier.org \"Day Camp\" \"2027\"", "site:worxproject.org \"summer\""],
     "usage": {
-      "inputTokens": 31406,
-      "cachedInputTokens": 8223,
-      "outputTokens": 10670,
-      "reasoningTokens": 377
+      "inputTokens": 24965,
+      "cachedInputTokens": 8845,
+      "outputTokens": 12150,
+      "reasoningTokens": 232
     },
     "status": "completed",
-    "ms": 177173,
+    "ms": 182041,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -72,39 +68,35 @@
   "extraction": {
     "provider_name": "Camp Grier",
     "website_url": "https://www.campgrier.org/",
-    "notes": "2027 rates and registration listings are posted. Several program-description dates and eligibility ranges conflict with UltraCamp; these are flagged on the affected cards. Browser opens returned no readable text, so additional research relied on official search-indexed pages and the supplied page text. No dated 2027 registration opening announcement was found. The WORX Project has no verified 2027 schedule; its undated registration-page weeks were not assigned a year. Canoeing and climbing appear as themed Pioneers day-camp sessions in UltraCamp, although the rates page lists them as $575 specialty day camps.",
+    "notes": "2027 rates and programs are posted. The camp-description page does not print a year beside its dates; its 2027 navigation, matching rates, and the explicitly dated 2027 day-camp page supply the season context. Navigator Wilderness Adventures retains June 21–26 while the other Session 2 programs list June 20–25; this may be an uncorrected older schedule. Registration is advertised as open now, but no dated opening announcement was found. The WORX Project registration page lists July weeks without a season year; no identifiable 2026 or 2027 summer offering was found, so it is not included. Canoeing and rock climbing appear as Pioneers weeks within Summer Day Camp rather than separate cards. The WORX programs page could not be read.",
     "excluded": [
       {
-        "name": "Sleep Away Family Camp",
-        "reason": "Family-only program."
-      },
-      {
-        "name": "Summer Staff",
-        "reason": "Employment applications, not camper programs."
-      },
-      {
-        "name": "Streets to Peaks Jan",
-        "reason": "January program, outside summer."
-      },
-      {
-        "name": "Streets to Peaks Spring Break",
-        "reason": "Spring-break program, outside summer."
+        "name": "Family Camp",
+        "reason": "Family-only camp rather than a supervised youth offering."
       },
       {
         "name": "Equestrian lessons and guided trail rides",
-        "reason": "Year-round lessons and activities, not finite summer camps."
+        "reason": "Lessons and recreational rides, not finite youth summer camps."
       },
       {
-        "name": "YouthBuild CORE-2",
-        "reason": "Workforce-development and employment program."
+        "name": "Overnight Camping with your Horse",
+        "reason": "Recreational camping accommodation, not a supervised youth camp."
+      },
+      {
+        "name": "Summer staff positions",
+        "reason": "Employment programs."
+      },
+      {
+        "name": "Weekend Camping and Music",
+        "reason": "Recreational camping and social events, not supervised youth camps."
       }
     ],
     "cards": [
       {
         "name": "Explorers",
         "type": "overnight",
-        "categories": ["nature_outdoor", "general", "faith_based"],
-        "description": "Campers participate in worship, art, canoeing, hiking, swimming and games on Camp Grier's campus.",
+        "categories": ["nature_outdoor", "faith_based", "general"],
+        "description": "Campers participate in worship, art, canoeing, hiking, swimming, and games on Camp Grier's campus.",
         "camp_page_url": "https://www.campgrier.org/summer-camps",
         "registration_url": "https://www.ultracamp.com/clientlogin.aspx?idCamp=1220&campCode=CGN",
         "season": {
@@ -202,7 +194,11 @@
         ],
         "registration": [],
         "last_year_registration_opened": null,
-        "availability": null,
+        "availability": {
+          "status": "available",
+          "scope": null,
+          "text": "Overnight and Day Summer Camp Registration OPEN NOW!"
+        },
         "financial_aid": null,
         "special_needs": null,
         "lunch": null,
@@ -212,13 +208,13 @@
           "https://www.campgrier.org/summer-rates-registration"
         ],
         "confidence": "medium",
-        "review_notes": "Description-page dates have no explicit year alongside them; interpreted as 2027 from the linked Summer 2027 rates and current navigation."
+        "review_notes": "Dates have no year beside them on the description page; 2027 is taken from the current navigation and matching Summer 2027 rates."
       },
       {
         "name": "Discoverers",
         "type": "overnight",
-        "categories": ["nature_outdoor", "general", "faith_based"],
-        "description": "Campers spend one night camping away from their cabin on campus and participate in worship, art, canoeing, hiking, swimming and games.",
+        "categories": ["nature_outdoor", "faith_based", "general"],
+        "description": "Campers spend one night camping away from their cabin on campus and participate in worship, art, canoeing, hiking, swimming, and games.",
         "camp_page_url": "https://www.campgrier.org/summer-camps",
         "registration_url": "https://www.ultracamp.com/clientlogin.aspx?idCamp=1220&campCode=CGN",
         "season": {
@@ -292,7 +288,7 @@
           {
             "label": "Session 5",
             "start": "2027-07-11",
-            "end": "2027-07-16",
+            "end": "2027-07-15",
             "year": 2027,
             "site": null,
             "ages": null,
@@ -328,24 +324,27 @@
         ],
         "registration": [],
         "last_year_registration_opened": null,
-        "availability": null,
+        "availability": {
+          "status": "available",
+          "scope": null,
+          "text": "Overnight and Day Summer Camp Registration OPEN NOW!"
+        },
         "financial_aid": null,
         "special_needs": null,
         "lunch": null,
         "transportation": null,
         "sources": [
           "https://www.campgrier.org/summer-camps",
-          "https://www.campgrier.org/summer-rates-registration",
-          "https://www.ultracamp.com/info/sessiondetail.aspx?campCode=CGN&idCamp=1220&idSession=488357"
+          "https://www.campgrier.org/summer-rates-registration"
         ],
         "confidence": "medium",
-        "review_notes": "Session 5 ends July 15 on the description page but July 16 in UltraCamp; used UltraCamp's explicitly dated 2027 listing."
+        "review_notes": "Dates are assigned to 2027 from navigation and rates context. Discoverers lists Session 5 ending July 15, while most other programs end July 16; retained as printed."
       },
       {
         "name": "Adventurers",
         "type": "overnight",
-        "categories": ["nature_outdoor", "general", "faith_based"],
-        "description": "Campers use Camp Grier as a base for river paddling or rock climbing and traditional camp activities. Two-week campers take a two-night backpacking trip.",
+        "categories": ["nature_outdoor", "faith_based"],
+        "description": "Campers paddle a river or rock climb in Pisgah National Forest and participate in traditional camp activities. Two-week campers also take a two-night backpacking trip.",
         "camp_page_url": "https://www.campgrier.org/summer-camps",
         "registration_url": "https://www.ultracamp.com/clientlogin.aspx?idCamp=1220&campCode=CGN",
         "season": {
@@ -432,7 +431,7 @@
             "price": {
               "amount": 1205,
               "unit": "session",
-              "label": "1 week; description-page price",
+              "label": "1 week",
               "year": 2027
             },
             "status": null
@@ -440,7 +439,7 @@
           {
             "label": "Session 5",
             "start": "2027-07-11",
-            "end": "2027-07-16",
+            "end": "2027-07-15",
             "year": 2027,
             "site": null,
             "ages": null,
@@ -525,24 +524,27 @@
         ],
         "registration": [],
         "last_year_registration_opened": null,
-        "availability": null,
+        "availability": {
+          "status": "available",
+          "scope": null,
+          "text": "Overnight and Day Summer Camp Registration OPEN NOW!"
+        },
         "financial_aid": null,
         "special_needs": null,
         "lunch": null,
         "transportation": null,
         "sources": [
           "https://www.campgrier.org/summer-camps",
-          "https://www.campgrier.org/summer-rates-registration",
-          "https://www.ultracamp.com/info/sessiondetail.aspx?campCode=CGN&idCamp=1220&idSession=488357"
+          "https://www.campgrier.org/summer-rates-registration"
         ],
         "confidence": "medium",
-        "review_notes": "UltraCamp lists Session 3 at $1305 rather than $1205, Session 7 grades 10–12 rather than rising 7–9, and Session 6/7 ending July 23 rather than July 30. Used description-page eligibility, Session 3 price and two-week end date. Session 5 ends July 15 on the description page but July 16 in UltraCamp."
+        "review_notes": "Dates are assigned to 2027 from navigation and rates context. Session 5 ends July 15 as printed, unlike most other programs' July 16."
       },
       {
         "name": "Navigators",
         "type": "overnight",
-        "categories": ["nature_outdoor", "general", "faith_based"],
-        "description": "Campers participate in traditional camp activities and off-campus river or rock-climbing trips. Two-week campers also backpack for three nights, develop leadership skills and complete service activities.",
+        "categories": ["nature_outdoor", "faith_based"],
+        "description": "Campers take river or rock-climbing trips and participate in traditional camp activities. Two-week campers also take a three-night backpacking trip, develop leadership skills, and provide community service.",
         "camp_page_url": "https://www.campgrier.org/summer-camps",
         "registration_url": "https://www.ultracamp.com/clientlogin.aspx?idCamp=1220&campCode=CGN",
         "season": {
@@ -671,7 +673,11 @@
         ],
         "registration": [],
         "last_year_registration_opened": null,
-        "availability": null,
+        "availability": {
+          "status": "available",
+          "scope": null,
+          "text": "Overnight and Day Summer Camp Registration OPEN NOW!"
+        },
         "financial_aid": null,
         "special_needs": null,
         "lunch": null,
@@ -681,13 +687,13 @@
           "https://www.campgrier.org/summer-rates-registration"
         ],
         "confidence": "medium",
-        "review_notes": "Description-page dates lack an adjacent year; interpreted as 2027 from the current Summer 2027 rates and navigation."
+        "review_notes": "Dates have no adjacent year; 2027 is taken from navigation and Summer 2027 rates."
       },
       {
         "name": "Navigator Wilderness Adventures",
         "type": "overnight",
         "categories": ["nature_outdoor"],
-        "description": "Campers practice hiking, orienteering, canoeing and rock climbing, with one or two nights camping in the woods.",
+        "description": "Campers hike, orienteer, swim, canoe, and rock climb in Western North Carolina, including one or two nights camping in the woods.",
         "camp_page_url": "https://www.campgrier.org/summer-camps",
         "registration_url": "https://www.ultracamp.com/clientlogin.aspx?idCamp=1220&campCode=CGN",
         "season": {
@@ -737,7 +743,11 @@
         ],
         "registration": [],
         "last_year_registration_opened": null,
-        "availability": null,
+        "availability": {
+          "status": "available",
+          "scope": null,
+          "text": "Overnight and Day Summer Camp Registration OPEN NOW!"
+        },
         "financial_aid": null,
         "special_needs": null,
         "lunch": null,
@@ -747,13 +757,13 @@
           "https://www.campgrier.org/summer-rates-registration"
         ],
         "confidence": "medium",
-        "review_notes": "The description lists June 21–26, unlike other Session 2 programs' June 20–25. Confirm whether this is a stale date; year is inferred from current 2027 context."
+        "review_notes": "The current page lists June 21–26, unlike other Session 2 programs' June 20–25. Check whether this block retains older dates. Year 2027 is supplied by page navigation and rates context."
       },
       {
         "name": "Onewheel Camp",
         "type": "overnight",
         "categories": ["sports", "nature_outdoor"],
-        "description": "Campers receive Onewheel instruction and participate in trail riding, trick sessions, challenges and competitions.",
+        "description": "Campers receive Onewheel instruction, ride trails, practice tricks, and participate in challenges and competitions.",
         "camp_page_url": "https://www.campgrier.org/summer-camps",
         "registration_url": "https://www.ultracamp.com/clientlogin.aspx?idCamp=1220&campCode=CGN",
         "season": {
@@ -823,24 +833,27 @@
         ],
         "registration": [],
         "last_year_registration_opened": null,
-        "availability": null,
+        "availability": {
+          "status": "available",
+          "scope": null,
+          "text": "Overnight and Day Summer Camp Registration OPEN NOW!"
+        },
         "financial_aid": null,
         "special_needs": null,
         "lunch": null,
         "transportation": null,
         "sources": [
           "https://www.campgrier.org/summer-camps",
-          "https://www.campgrier.org/summer-rates-registration",
-          "https://www.ultracamp.com/info/sessiondetail.aspx?campCode=CGN&idCamp=1220&idSession=488357"
+          "https://www.campgrier.org/summer-rates-registration"
         ],
         "confidence": "medium",
-        "review_notes": "UltraCamp's Middle School One Wheel listing says grades 6–9; the description page says rising 6–8 and a separate rising 9–12 group. Used description-page bands."
+        "review_notes": "Dates have no adjacent year; 2027 is taken from navigation and Summer 2027 rates."
       },
       {
         "name": "Equestrian",
         "type": "overnight",
         "categories": ["horses", "nature_outdoor", "faith_based"],
-        "description": "Campers practice ground horsemanship, arena riding and trail riding, alongside worship, swimming, canoeing and art.",
+        "description": "Campers learn ground horsemanship, arena riding, and trail riding, with daily on-horse activities. They also participate in worship, swimming, canoeing, and art.",
         "camp_page_url": "https://www.campgrier.org/summer-camps",
         "registration_url": "https://www.ultracamp.com/clientlogin.aspx?idCamp=1220&campCode=CGN",
         "season": {
@@ -876,7 +889,7 @@
         ],
         "sessions": [
           {
-            "label": "Session 1 Discoverer",
+            "label": "Session 1: Discoverer",
             "start": "2027-06-13",
             "end": "2027-06-18",
             "year": 2027,
@@ -892,7 +905,7 @@
             "status": null
           },
           {
-            "label": "Session 2 Navigator",
+            "label": "Session 2: Navigator",
             "start": "2027-06-20",
             "end": "2027-06-25",
             "year": 2027,
@@ -908,7 +921,7 @@
             "status": null
           },
           {
-            "label": "Session 3 Adventurer",
+            "label": "Session 3: Adventurer",
             "start": "2027-06-27",
             "end": "2027-07-02",
             "year": 2027,
@@ -924,7 +937,7 @@
             "status": null
           },
           {
-            "label": "Session 5 Navigator",
+            "label": "Session 5: Navigator",
             "start": "2027-07-11",
             "end": "2027-07-16",
             "year": 2027,
@@ -940,7 +953,7 @@
             "status": null
           },
           {
-            "label": "Session 6 Discoverer",
+            "label": "Session 6: Discoverer",
             "start": "2027-07-18",
             "end": "2027-07-23",
             "year": 2027,
@@ -956,7 +969,7 @@
             "status": null
           },
           {
-            "label": "Session 7 Adventurer",
+            "label": "Session 7: Adventurer",
             "start": "2027-07-25",
             "end": "2027-07-30",
             "year": 2027,
@@ -974,7 +987,11 @@
         ],
         "registration": [],
         "last_year_registration_opened": null,
-        "availability": null,
+        "availability": {
+          "status": "available",
+          "scope": null,
+          "text": "Overnight and Day Summer Camp Registration OPEN NOW!"
+        },
         "financial_aid": null,
         "special_needs": null,
         "lunch": null,
@@ -984,13 +1001,13 @@
           "https://www.campgrier.org/summer-rates-registration"
         ],
         "confidence": "medium",
-        "review_notes": "Description-page dates lack an adjacent year; interpreted as 2027 from current rates and navigation."
+        "review_notes": "Dates have no adjacent year; 2027 is taken from navigation and Summer 2027 rates."
       },
       {
         "name": "Equestrian Day Camp",
         "type": "day",
-        "categories": ["horses", "nature_outdoor"],
-        "description": "Campers practice ground horsemanship, arena riding and trail riding and participate in other camp activities.",
+        "categories": ["horses", "nature_outdoor", "faith_based"],
+        "description": "Campers learn ground horsemanship, arena riding, and trail riding, alongside swimming, canoeing, art, and worship.",
         "camp_page_url": "https://www.campgrier.org/summer-camps",
         "registration_url": "https://www.ultracamp.com/clientlogin.aspx?idCamp=1220&campCode=CGN",
         "season": {
@@ -1060,24 +1077,27 @@
         ],
         "registration": [],
         "last_year_registration_opened": null,
-        "availability": null,
+        "availability": {
+          "status": "available",
+          "scope": null,
+          "text": "Overnight and Day Summer Camp Registration OPEN NOW!"
+        },
         "financial_aid": null,
         "special_needs": null,
         "lunch": null,
         "transportation": null,
         "sources": [
           "https://www.campgrier.org/summer-camps",
-          "https://www.campgrier.org/summer-rates-registration",
-          "https://www.ultracamp.com/info/upcomingsessions.aspx?campcode=CGN&idCamp=1220"
+          "https://www.campgrier.org/summer-rates-registration"
         ],
         "confidence": "medium",
-        "review_notes": "Description page says rising grades 5–12 and August 2–6; UltraCamp says grades 4–12 and August 2–5. Used description-page eligibility and Friday end date."
+        "review_notes": "Year 2027 is taken from navigation and Summer 2027 rates. Pickup ends at 5:00, interpreted as 17:00 in the daytime schedule."
       },
       {
         "name": "Mountain Bike",
         "type": "overnight",
         "categories": ["sports", "nature_outdoor"],
-        "description": "Campers practice riding skills and trail etiquette through instruction and guided rides. They also participate in art, canoeing, swimming and games.",
+        "description": "Campers practice mountain-bike skills and trail etiquette with professional instruction, guided trail rides, and bike-park features. They also participate in art, canoeing, swimming, and games.",
         "camp_page_url": "https://www.campgrier.org/summer-camps",
         "registration_url": "https://www.ultracamp.com/clientlogin.aspx?idCamp=1220&campCode=CGN",
         "season": {
@@ -1113,7 +1133,7 @@
         ],
         "sessions": [
           {
-            "label": "Session 1 Discoverer",
+            "label": "Session 1: Discoverer",
             "start": "2027-06-13",
             "end": "2027-06-18",
             "year": 2027,
@@ -1129,7 +1149,7 @@
             "status": null
           },
           {
-            "label": "Session 2 Navigator",
+            "label": "Session 2: Navigator",
             "start": "2027-06-20",
             "end": "2027-06-25",
             "year": 2027,
@@ -1145,7 +1165,7 @@
             "status": null
           },
           {
-            "label": "Session 3 Adventurer",
+            "label": "Session 3: Adventurer",
             "start": "2027-06-27",
             "end": "2027-07-02",
             "year": 2027,
@@ -1161,7 +1181,7 @@
             "status": null
           },
           {
-            "label": "Session 5 Navigator",
+            "label": "Session 5: Navigator",
             "start": "2027-07-11",
             "end": "2027-07-16",
             "year": 2027,
@@ -1177,7 +1197,7 @@
             "status": null
           },
           {
-            "label": "Session 6 Discoverer",
+            "label": "Session 6: Discoverer",
             "start": "2027-07-18",
             "end": "2027-07-23",
             "year": 2027,
@@ -1193,7 +1213,7 @@
             "status": null
           },
           {
-            "label": "Session 7 Adventurer",
+            "label": "Session 7: Adventurer",
             "start": "2027-07-25",
             "end": "2027-07-30",
             "year": 2027,
@@ -1211,7 +1231,11 @@
         ],
         "registration": [],
         "last_year_registration_opened": null,
-        "availability": null,
+        "availability": {
+          "status": "available",
+          "scope": null,
+          "text": "Overnight and Day Summer Camp Registration OPEN NOW!"
+        },
         "financial_aid": null,
         "special_needs": null,
         "lunch": null,
@@ -1221,13 +1245,13 @@
           "https://www.campgrier.org/summer-rates-registration"
         ],
         "confidence": "medium",
-        "review_notes": "Description-page dates lack an adjacent year; interpreted as 2027 from current rates and navigation."
+        "review_notes": "Dates have no adjacent year; 2027 is taken from navigation and Summer 2027 rates."
       },
       {
         "name": "Mountain Bike Day Camp",
         "type": "day",
         "categories": ["sports", "nature_outdoor"],
-        "description": "Campers receive mountain-bike instruction and practice riding skills and trail etiquette on guided rides.",
+        "description": "Campers receive mountain-bike instruction, practice riding skills and trail etiquette, and take guided rides.",
         "camp_page_url": "https://www.campgrier.org/summer-camps",
         "registration_url": "https://www.ultracamp.com/clientlogin.aspx?idCamp=1220&campCode=CGN",
         "season": {
@@ -1238,11 +1262,7 @@
           "text": null
         },
         "ages": null,
-        "grades": {
-          "min": 4,
-          "max": 9,
-          "basis": "rising"
-        },
+        "grades": null,
         "sites": [
           {
             "name": "Camp Grier",
@@ -1251,45 +1271,41 @@
             "state": "NC"
           }
         ],
-        "hours": null,
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "Monday-Friday"
+        },
         "extended_care": null,
         "prices": [
           {
             "amount": 575,
             "unit": "week",
-            "label": "Monday-Friday specialty day camp",
+            "label": null,
             "year": 2027
           }
         ],
         "sessions": [
           {
-            "label": "Session 4 Adventurers",
+            "label": "Session 4: Adventurers",
             "start": "2027-07-05",
             "end": "2027-07-09",
             "year": 2027,
             "site": null,
             "ages": null,
-            "grades": {
-              "min": 7,
-              "max": 9,
-              "basis": "rising"
-            },
+            "grades": null,
             "hours": null,
             "price": null,
             "status": null
           },
           {
-            "label": "Session 8 Discoverers",
+            "label": "Session 8: Discoverers",
             "start": "2027-08-02",
             "end": "2027-08-06",
             "year": 2027,
             "site": null,
             "ages": null,
-            "grades": {
-              "min": 4,
-              "max": 6,
-              "basis": "rising"
-            },
+            "grades": null,
             "hours": null,
             "price": null,
             "status": null
@@ -1297,7 +1313,11 @@
         ],
         "registration": [],
         "last_year_registration_opened": null,
-        "availability": null,
+        "availability": {
+          "status": "available",
+          "scope": null,
+          "text": "Overnight and Day Summer Camp Registration OPEN NOW!"
+        },
         "financial_aid": null,
         "special_needs": null,
         "lunch": null,
@@ -1307,13 +1327,13 @@
           "https://www.campgrier.org/summer-rates-registration"
         ],
         "confidence": "medium",
-        "review_notes": "Day-session eligibility is expressed only as Adventurers and Discoverers; grade ranges follow those explicitly defined bands on the same page. Dates interpreted as 2027 from current rates."
+        "review_notes": "Dates are assigned to 2027 from navigation and rates context. Day-camp rows name Adventurers and Discoverers without explicit grades; overnight age bands were not copied. The rates page lists specialty day camps Monday-Friday for $575."
       },
       {
         "name": "Eco Camp",
         "type": "overnight",
-        "categories": ["stem", "nature_outdoor"],
-        "description": "Campers explore sustainable farming, food systems and environmental science through hands-on activities. They also swim, play field games and use the climbing wall.",
+        "categories": ["nature_outdoor", "stem"],
+        "description": "Campers explore sustainable agriculture, food systems, fish sampling, plant identification, and wildlife conservation. They also participate in swimming, creek walks, field games, and climbing.",
         "camp_page_url": "https://www.campgrier.org/summer-camps",
         "registration_url": "https://www.ultracamp.com/clientlogin.aspx?idCamp=1220&campCode=CGN",
         "season": {
@@ -1349,7 +1369,7 @@
         ],
         "sessions": [
           {
-            "label": "Session 1 Discoverer",
+            "label": "Session 1: Discoverer",
             "start": "2027-06-13",
             "end": "2027-06-18",
             "year": 2027,
@@ -1363,24 +1383,27 @@
         ],
         "registration": [],
         "last_year_registration_opened": null,
-        "availability": null,
+        "availability": {
+          "status": "available",
+          "scope": null,
+          "text": "Overnight and Day Summer Camp Registration OPEN NOW!"
+        },
         "financial_aid": null,
         "special_needs": null,
         "lunch": null,
         "transportation": null,
         "sources": [
           "https://www.campgrier.org/summer-camps",
-          "https://www.campgrier.org/summer-rates-registration",
-          "https://www.ultracamp.com/info/sessiondetail.aspx?campCode=CGN&idCamp=1220&idSession=488357"
+          "https://www.campgrier.org/summer-rates-registration"
         ],
-        "confidence": "high",
-        "review_notes": null
+        "confidence": "medium",
+        "review_notes": "Dates have no adjacent year; 2027 is taken from navigation and Summer 2027 rates."
       },
       {
         "name": "Leadership & Counselor Training",
         "type": "overnight",
         "categories": ["nature_outdoor"],
-        "description": "Campers practice communication, problem solving and outdoor leadership. The two-week program includes a multi-day canoeing or backpacking trip.",
+        "description": "Campers practice outdoor leadership, communication, conflict resolution, and wilderness living skills. The two-week program includes a multi-day canoeing or backpacking trip.",
         "camp_page_url": "https://www.campgrier.org/summer-camps",
         "registration_url": "https://www.ultracamp.com/clientlogin.aspx?idCamp=1220&campCode=CGN",
         "season": {
@@ -1430,7 +1453,11 @@
         ],
         "registration": [],
         "last_year_registration_opened": null,
-        "availability": null,
+        "availability": {
+          "status": "available",
+          "scope": null,
+          "text": "Overnight and Day Summer Camp Registration OPEN NOW!"
+        },
         "financial_aid": null,
         "special_needs": null,
         "lunch": null,
@@ -1440,15 +1467,15 @@
           "https://www.campgrier.org/summer-rates-registration"
         ],
         "confidence": "medium",
-        "review_notes": "Eligibility is rising 11th grade through rising college freshman; college freshman is not encoded as a numeric K–12 grade. Dates lack an adjacent year and are interpreted from current 2027 rates."
+        "review_notes": "Eligibility is stated as Rising 11th grade–Rising College Freshman; the schema has no college-freshman grade value, so the maximum is null. Dates have no adjacent year; 2027 is taken from navigation and rates context."
       },
       {
         "name": "Summer Day Camp",
         "type": "day",
-        "categories": ["general", "nature_outdoor", "sports"],
-        "description": "Campers participate in outdoor adventures, games and classic camp activities, with meals in the dining hall. Pioneers have rock-climbing and canoeing themed sessions.",
+        "categories": ["nature_outdoor", "general"],
+        "description": "Campers participate in outdoor adventures, games, and traditional camp activities, with meals in the dining hall. Pioneers includes rock-climbing and canoeing weeks.",
         "camp_page_url": "https://www.campgrier.org/summer-day-camp",
-        "registration_url": "https://www.ultracamp.com/reservations.aspx?campcode=CGN&idCamp=1220",
+        "registration_url": "https://www.ultracamp.com/clientlogin.aspx?idCamp=1220&campCode=CGN",
         "season": {
           "year": 2027,
           "status": "posted",
@@ -1460,7 +1487,7 @@
         "grades": {
           "min": 1,
           "max": 8,
-          "basis": "unspecified"
+          "basis": "rising"
         },
         "sites": [
           {
@@ -1472,17 +1499,10 @@
         ],
         "hours": null,
         "extended_care": null,
-        "prices": [
-          {
-            "amount": 400,
-            "unit": "session",
-            "label": "UltraCamp day-camp listing",
-            "year": 2027
-          }
-        ],
+        "prices": [],
         "sessions": [
           {
-            "label": "Session 1 Pathfinders Day Camp",
+            "label": "Pathfinders: Session 1",
             "start": "2027-06-13",
             "end": "2027-06-18",
             "year": 2027,
@@ -1491,14 +1511,126 @@
             "grades": {
               "min": 1,
               "max": 2,
-              "basis": "unspecified"
+              "basis": "rising"
             },
             "hours": null,
             "price": null,
-            "status": "available"
+            "status": null
           },
           {
-            "label": "Session 1 Expeditioners Day Camp",
+            "label": "Pathfinders: Session 2",
+            "start": "2027-06-20",
+            "end": "2027-06-25",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 1,
+              "max": 2,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Pathfinders: Session 3",
+            "start": "2027-06-27",
+            "end": "2027-07-02",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 1,
+              "max": 2,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Pathfinders: Session 4",
+            "start": "2027-07-05",
+            "end": "2027-07-09",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 1,
+              "max": 2,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Pathfinders: Session 5",
+            "start": "2027-07-11",
+            "end": "2027-07-16",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 1,
+              "max": 2,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Pathfinders: Session 6",
+            "start": "2027-07-18",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 1,
+              "max": 2,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Pathfinders: Session 7",
+            "start": "2027-07-25",
+            "end": "2027-07-30",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 1,
+              "max": 2,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Pathfinders: Session 8",
+            "start": "2027-08-02",
+            "end": "2027-08-06",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 1,
+              "max": 2,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Expeditioners: Session 1",
             "start": "2027-06-13",
             "end": "2027-06-18",
             "year": 2027,
@@ -1507,14 +1639,126 @@
             "grades": {
               "min": 3,
               "max": 5,
-              "basis": "unspecified"
+              "basis": "rising"
             },
             "hours": null,
             "price": null,
             "status": null
           },
           {
-            "label": "Session 1 Pioneers Day Camp",
+            "label": "Expeditioners: Session 2",
+            "start": "2027-06-20",
+            "end": "2027-06-25",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 3,
+              "max": 5,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Expeditioners: Session 3",
+            "start": "2027-06-27",
+            "end": "2027-07-02",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 3,
+              "max": 5,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Expeditioners: Session 4",
+            "start": "2027-07-05",
+            "end": "2027-07-09",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 3,
+              "max": 5,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Expeditioners: Session 5",
+            "start": "2027-07-11",
+            "end": "2027-07-16",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 3,
+              "max": 5,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Expeditioners: Session 6",
+            "start": "2027-07-18",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 3,
+              "max": 5,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Expeditioners: Session 7",
+            "start": "2027-07-25",
+            "end": "2027-07-30",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 3,
+              "max": 5,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Expeditioners: Session 8",
+            "start": "2027-08-02",
+            "end": "2027-08-06",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 3,
+              "max": 5,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Pioneers: Session 1",
             "start": "2027-06-13",
             "end": "2027-06-18",
             "year": 2027,
@@ -1523,46 +1767,14 @@
             "grades": {
               "min": 6,
               "max": 8,
-              "basis": "unspecified"
+              "basis": "rising"
             },
             "hours": null,
             "price": null,
             "status": null
           },
           {
-            "label": "Session 2 Pathfinders Day Camp",
-            "start": "2027-06-20",
-            "end": "2027-06-25",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 1,
-              "max": 2,
-              "basis": "unspecified"
-            },
-            "hours": null,
-            "price": null,
-            "status": null
-          },
-          {
-            "label": "Session 2 Expeditioners Day Camp",
-            "start": "2027-06-20",
-            "end": "2027-06-25",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 3,
-              "max": 5,
-              "basis": "unspecified"
-            },
-            "hours": null,
-            "price": null,
-            "status": null
-          },
-          {
-            "label": "Session 2 Pioneers Day Camp",
+            "label": "Pioneers: Session 2",
             "start": "2027-06-20",
             "end": "2027-06-25",
             "year": 2027,
@@ -1571,46 +1783,14 @@
             "grades": {
               "min": 6,
               "max": 8,
-              "basis": "unspecified"
+              "basis": "rising"
             },
             "hours": null,
             "price": null,
             "status": null
           },
           {
-            "label": "Session 3 Pathfinders Day Camp",
-            "start": "2027-06-27",
-            "end": "2027-07-02",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 1,
-              "max": 2,
-              "basis": "unspecified"
-            },
-            "hours": null,
-            "price": null,
-            "status": null
-          },
-          {
-            "label": "Session 3 Expeditioners Day Camp",
-            "start": "2027-06-27",
-            "end": "2027-07-02",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 3,
-              "max": 5,
-              "basis": "unspecified"
-            },
-            "hours": null,
-            "price": null,
-            "status": null
-          },
-          {
-            "label": "Session 3 Pioneers Day Camp",
+            "label": "Pioneers: Session 3",
             "start": "2027-06-27",
             "end": "2027-07-02",
             "year": 2027,
@@ -1619,47 +1799,15 @@
             "grades": {
               "min": 6,
               "max": 8,
-              "basis": "unspecified"
+              "basis": "rising"
             },
             "hours": null,
             "price": null,
             "status": null
           },
           {
-            "label": "Session 4 Pathfinders Day Camp",
-            "start": "2027-07-04",
-            "end": "2027-07-09",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 1,
-              "max": 2,
-              "basis": "unspecified"
-            },
-            "hours": null,
-            "price": null,
-            "status": null
-          },
-          {
-            "label": "Session 4 Expeditioners Day Camp",
-            "start": "2027-07-04",
-            "end": "2027-07-09",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 3,
-              "max": 5,
-              "basis": "unspecified"
-            },
-            "hours": null,
-            "price": null,
-            "status": null
-          },
-          {
-            "label": "Session 4 Pioneers Rock Climbing Camp",
-            "start": "2027-07-04",
+            "label": "Pioneers: Session 4 Rock Climbing",
+            "start": "2027-07-05",
             "end": "2027-07-09",
             "year": 2027,
             "site": null,
@@ -1667,46 +1815,19 @@
             "grades": {
               "min": 6,
               "max": 8,
-              "basis": "unspecified"
+              "basis": "rising"
             },
             "hours": null,
-            "price": null,
+            "price": {
+              "amount": 575,
+              "unit": "week",
+              "label": "Specialty Day Camp",
+              "year": 2027
+            },
             "status": null
           },
           {
-            "label": "Session 5 Pathfinders Day Camp",
-            "start": "2027-07-11",
-            "end": "2027-07-16",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 1,
-              "max": 2,
-              "basis": "unspecified"
-            },
-            "hours": null,
-            "price": null,
-            "status": null
-          },
-          {
-            "label": "Session 5 Expeditioners Day Camp",
-            "start": "2027-07-11",
-            "end": "2027-07-16",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 3,
-              "max": 5,
-              "basis": "unspecified"
-            },
-            "hours": null,
-            "price": null,
-            "status": null
-          },
-          {
-            "label": "Session 5 Pioneers Day Camp",
+            "label": "Pioneers: Session 5",
             "start": "2027-07-11",
             "end": "2027-07-16",
             "year": 2027,
@@ -1715,46 +1836,14 @@
             "grades": {
               "min": 6,
               "max": 8,
-              "basis": "unspecified"
+              "basis": "rising"
             },
             "hours": null,
             "price": null,
             "status": null
           },
           {
-            "label": "Session 6 Pathfinders Day Camp",
-            "start": "2027-07-18",
-            "end": "2027-07-23",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 1,
-              "max": 2,
-              "basis": "unspecified"
-            },
-            "hours": null,
-            "price": null,
-            "status": null
-          },
-          {
-            "label": "Session 6 Expeditioners Day Camp",
-            "start": "2027-07-18",
-            "end": "2027-07-23",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 3,
-              "max": 5,
-              "basis": "unspecified"
-            },
-            "hours": null,
-            "price": null,
-            "status": null
-          },
-          {
-            "label": "Session 6 Pioneers Day Camp",
+            "label": "Pioneers: Session 6",
             "start": "2027-07-18",
             "end": "2027-07-23",
             "year": 2027,
@@ -1763,46 +1852,14 @@
             "grades": {
               "min": 6,
               "max": 8,
-              "basis": "unspecified"
+              "basis": "rising"
             },
             "hours": null,
             "price": null,
             "status": null
           },
           {
-            "label": "Session 7 Pathfinders Day Camp",
-            "start": "2027-07-25",
-            "end": "2027-07-30",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 1,
-              "max": 2,
-              "basis": "unspecified"
-            },
-            "hours": null,
-            "price": null,
-            "status": null
-          },
-          {
-            "label": "Session 7 Expeditioners Day Camp",
-            "start": "2027-07-25",
-            "end": "2027-07-30",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 3,
-              "max": 5,
-              "basis": "unspecified"
-            },
-            "hours": null,
-            "price": null,
-            "status": null
-          },
-          {
-            "label": "Session 7 Pioneers Day Camp",
+            "label": "Pioneers: Session 7",
             "start": "2027-07-25",
             "end": "2027-07-30",
             "year": 2027,
@@ -1811,47 +1868,15 @@
             "grades": {
               "min": 6,
               "max": 8,
-              "basis": "unspecified"
+              "basis": "rising"
             },
             "hours": null,
             "price": null,
             "status": null
           },
           {
-            "label": "Session 8 Pathfinders Day Camp",
-            "start": "2027-08-01",
-            "end": "2027-08-06",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 1,
-              "max": 2,
-              "basis": "unspecified"
-            },
-            "hours": null,
-            "price": null,
-            "status": null
-          },
-          {
-            "label": "Session 8 Expeditioners Day Camp",
-            "start": "2027-08-01",
-            "end": "2027-08-06",
-            "year": 2027,
-            "site": null,
-            "ages": null,
-            "grades": {
-              "min": 3,
-              "max": 5,
-              "basis": "unspecified"
-            },
-            "hours": null,
-            "price": null,
-            "status": null
-          },
-          {
-            "label": "Session 8 Pioneers Canoeing Day Camp",
-            "start": "2027-08-01",
+            "label": "Pioneers: Session 8 Canoeing",
+            "start": "2027-08-02",
             "end": "2027-08-06",
             "year": 2027,
             "site": null,
@@ -1859,108 +1884,39 @@
             "grades": {
               "min": 6,
               "max": 8,
-              "basis": "unspecified"
+              "basis": "rising"
             },
             "hours": null,
-            "price": null,
-            "status": null
-          }
-        ],
-        "registration": [
-          {
-            "audience": "public",
-            "kind": "closes",
-            "date": "2027-05-29",
-            "time": null,
-            "precision": "date",
-            "certainty": "announced",
-            "text": "Registration will end on 5/29/2027.",
-            "url": "https://www.ultracamp.com/info/sessiondetail.aspx?campCode=CGN&idCamp=1220&idSession=594992",
-            "year": 2027,
-            "confidence": "medium"
-          }
-        ],
-        "last_year_registration_opened": null,
-        "availability": {
-          "status": "available",
-          "scope": "Session 1 Pathfinders Day Camp only",
-          "text": "Availability: This session has openings"
-        },
-        "financial_aid": null,
-        "special_needs": null,
-        "lunch": {
-          "value": "yes",
-          "text": "with meals in the dining hall"
-        },
-        "transportation": null,
-        "sources": [
-          "https://www.campgrier.org/summer-day-camp",
-          "https://www.ultracamp.com/info/upcomingsessions.aspx?campcode=CGN&idCamp=1220",
-          "https://www.ultracamp.com/info/sessiondetail.aspx?campCode=CGN&idCamp=1220&idSession=594992",
-          "https://www.campgrier.org/summer-rates-registration"
-        ],
-        "confidence": "medium",
-        "review_notes": "Additional facts were accessible only through official search snippets. UltraCamp lists Sunday–Friday dates; actual weekday attendance and hours need confirmation. Rates page lists canoe and climbing specialty day camps at $575, while the Pioneers themed listings are $400. The May 29 registration close applies only to Session 1 Pathfinders, not all sessions."
-      },
-      {
-        "name": "The WORX Project",
-        "type": "day",
-        "categories": ["stem", "nature_outdoor", "cooking"],
-        "description": "Students explore skilled trades and career-connected learning through hands-on outdoor activities.",
-        "camp_page_url": "https://www.worxproject.org/",
-        "registration_url": "https://www.worxproject.org/registration",
-        "season": {
-          "year": 2026,
-          "status": "not_posted",
-          "start": "2026-07-13",
-          "end": "2026-07-16",
-          "text": null
-        },
-        "ages": null,
-        "grades": {
-          "min": 6,
-          "max": 9,
-          "basis": "rising"
-        },
-        "sites": [],
-        "hours": null,
-        "extended_care": null,
-        "prices": [
-          {
-            "amount": 0,
-            "unit": "session",
-            "label": "Eligible public-school students",
-            "year": 2026
-          }
-        ],
-        "sessions": [
-          {
-            "label": "Week Two",
-            "start": "2026-07-13",
-            "end": "2026-07-16",
-            "year": 2026,
-            "site": null,
-            "ages": null,
-            "grades": null,
-            "hours": null,
-            "price": null,
+            "price": {
+              "amount": 575,
+              "unit": "week",
+              "label": "Specialty Day Camp",
+              "year": 2027
+            },
             "status": null
           }
         ],
         "registration": [],
         "last_year_registration_opened": null,
-        "availability": null,
+        "availability": {
+          "status": "available",
+          "scope": null,
+          "text": "Overnight and Day Summer Camp Registration OPEN NOW!"
+        },
         "financial_aid": null,
         "special_needs": null,
-        "lunch": null,
+        "lunch": {
+          "value": "yes",
+          "text": "meals in the dining hall"
+        },
         "transportation": null,
         "sources": [
-          "https://www.worxproject.org/",
-          "https://www.worxproject.org/registration",
-          "https://form.jotform.com/260564135874159"
+          "https://www.campgrier.org/summer-day-camp",
+          "https://www.campgrier.org/summer-rates-registration",
+          "https://www.campgrier.org/contact"
         ],
         "confidence": "medium",
-        "review_notes": "The indexed registration form title says 2026 Week 1 July 7–10, but its body says Week Two July 13–16; used the body dates and title's year. Eligibility is rising grades 6–8 attending Buncombe County or Asheville City public schools, plus ACS IRL rising 9th graders. The official website lists four undated July weeks; their year could not be verified, so only the form-supported week is included. A school-system listing gives Camp Woodson, 55 Woodson Rd, Fairview, NC, but describes traveling there; the parent drop-off site was not established, so sites is empty."
+        "review_notes": "Day-camp content was readable through official search results, but opening the page returned no text. Retained the printed June 13–18 and other Sunday–Friday ranges without changing them to weekdays. Rates for general day-camp weeks were not found; $575 specialty-day pricing is applied only to climbing and canoeing rows."
       }
     ]
   }

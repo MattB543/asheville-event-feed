@@ -10,8 +10,8 @@
     "discovered_by": ["grid", "aggregator", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:05:25.185Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:04:54.346Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "6b496c0591ca19801fcdff8ff433e8e9abb870e24fd007a4b073d26441a219c2",
   "response": {
     "searches": [
@@ -19,13 +19,13 @@
       "site:fletchernc.org \"SDC\" \"Handbook\""
     ],
     "usage": {
-      "inputTokens": 33395,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1740,
-      "reasoningTokens": 208
+      "inputTokens": 34054,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1712,
+      "reasoningTokens": 212
     },
     "status": "completed",
-    "ms": 46404,
+    "ms": 36658,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -74,14 +74,14 @@
   "extraction": {
     "provider_name": "Town of Fletcher Parks & Recreation",
     "website_url": "https://www.fletchernc.org/",
-    "notes": "No 2027 summer camp information or registration milestones were found. The 2026 materials list Fletcher Summer Day Camp. Middle School Adventure Camp appears only in 2025 materials; no 2026 offering was found, so it is not included as a current card. The camp-specific page requires online-only registration despite the general registration page describing an in-person option.",
+    "notes": "No 2027 camp information found. The current program pages and field-trip calendar describe summer 2026. Middle School Adventure Camp was found only in 2025 and older materials; no 2026 or 2027 offering was found, so it is not included. The camp-specific page requires online-only registration, despite the general online-registration page describing in-person registration.",
     "excluded": [],
     "cards": [
       {
         "name": "Fletcher Summer Day Camp",
         "type": "day",
         "categories": ["general", "nature_outdoor", "sports", "arts"],
-        "description": "Campers take field trips, swim at Cane Creek Pool, and participate in arts and crafts, sports, and nature activities.",
+        "description": "Campers participate in field trips, swimming at Cane Creek Pool, arts and crafts, sports, and nature activities.",
         "camp_page_url": "https://www.fletchernc.org/departments/parks-and-recreation/fletcher-summer-day-camp-2/",
         "registration_url": "https://fletcherparks.recdesk.com/Community/Program",
         "season": {
@@ -111,7 +111,7 @@
         "hours": {
           "start": "07:30",
           "end": "17:30",
-          "text": "Monday – Friday, 7:30 -5:30 PM"
+          "text": "Monday – Friday"
         },
         "extended_care": null,
         "prices": [
@@ -258,7 +258,7 @@
           "https://www.fletchernc.org/departments/parks-and-recreation/billmoorecommunitypark/"
         ],
         "confidence": "medium",
-        "review_notes": "Dates and registration dates on the detail page omit the year; 2026 is established by the parent Summer Camp 2026 page, linked 2026 payment information, and June/July 2026 field-trip calendar. The PDF calendar was readable through official search results but its direct opening returned no text. Non-resident registration began March 10, 2026 at 10:00 AM. A $50 nonrefundable deposit per child per week applies toward tuition, and the camp page states a 3% online credit-card transaction fee."
+        "review_notes": "The detailed camp page prints dates and registration dates without a year; assigned 2026 from the linked 2026 payment information, the Summer Camp 2026 parent page, and the 2026 field-trip calendar. Non-resident registration began March 10, 2026 at 10:00 AM. The hours are printed as '7:30 -5:30 PM'; interpreted as 07:30–17:30."
       }
     ]
   }

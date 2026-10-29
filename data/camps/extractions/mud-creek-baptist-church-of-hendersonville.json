@@ -10,22 +10,19 @@
     "discovered_by": ["grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:17:32.522Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
-  "sourceHash": "cb2786922e1f28ef11452a88ba4d4cb06d5fda0312b2b7d9025e4369b315efa9",
+  "extractedAt": "2026-10-29T17:14:51.450Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "807c3d5edd9cba6f41ea155b4fd6033cd2f2c66bb5ee81cccc62821ec459c7c2",
   "response": {
-    "searches": [
-      "site:mudcreekchurch.org summer camp 2027 VBS",
-      "site:mudcreekchurch.org \"Kids\" \"camp\""
-    ],
+    "searches": ["site:mudcreekchurch.org \"2027\" \"VBS\""],
     "usage": {
-      "inputTokens": 17612,
-      "cachedInputTokens": 8223,
-      "outputTokens": 745,
-      "reasoningTokens": 149
+      "inputTokens": 15249,
+      "cachedInputTokens": 8845,
+      "outputTokens": 896,
+      "reasoningTokens": 66
     },
     "status": "completed",
-    "ms": 31032,
+    "ms": 22516,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -37,7 +34,7 @@
     },
     {
       "url": "https://www.mudcreekchurch.org/",
-      "chars": 1853,
+      "chars": 1724,
       "method": "fetch"
     },
     {
@@ -59,27 +56,27 @@
   "extraction": {
     "provider_name": "Mud Creek Baptist Church of Hendersonville",
     "website_url": "https://www.mudcreekchurch.org/",
-    "notes": "No 2027 summer program dates or registration announcements were found. The card uses the explicitly dated 2026 registration page. The June 7 Sunday worship finale is not included in the supervised VBS dates. The volunteer signup lists a VBS Unlimited- Special Needs role, but participant eligibility and accommodations are not described; confirm with the church.",
+    "notes": "No official summer 2027 program information or registration dates found. The card retains the posted 2026 VBS information. The June 7 worship-service finale is not included in the camp dates.",
     "excluded": [
       {
         "name": "VBS 2026 Volunteers",
-        "reason": "Volunteer recruitment, not a camper program."
-      },
-      {
-        "name": "Campus Workday",
-        "reason": "November campus cleanup event, outside summer and not a supervised youth camp."
+        "reason": "Volunteer recruitment for the same VBS, not a separate camper program."
       },
       {
         "name": "CreekKids",
-        "reason": "Year-round Sunday School and Wednesday ministry, not a finite summer program."
+        "reason": "Year-round Sunday and Wednesday ministry meetings, not a finite summer camp."
       },
       {
         "name": "CreekJuniors",
-        "reason": "Year-round nursery and children's ministry, not a finite summer program."
+        "reason": "Year-round nursery and children's ministry meetings, not a finite summer camp."
       },
       {
-        "name": "Midweek At The Creek",
-        "reason": "Recurring weekly church service and meal, not a summer youth camp."
+        "name": "Campus Workday",
+        "reason": "November volunteer work event outside summer."
+      },
+      {
+        "name": "Camp Mud Creek",
+        "reason": "Unrelated provider in Fall City, Washington, not this Hendersonville church."
       }
     ],
     "cards": [
@@ -87,7 +84,7 @@
         "name": "Illumination Station VBS",
         "type": "vbs",
         "categories": ["faith_based"],
-        "description": "Children participate in Bible teaching, a missions emphasis, crafts, games, and snack. Lessons explore who Jesus is using the theme of light.",
+        "description": "Children participate in Bible teaching, a missions emphasis, snacks, crafts, and games while exploring teachings about Jesus.",
         "camp_page_url": "https://mudcreekchurch.churchcenter.com/registrations/events/3601400",
         "registration_url": "https://mudcreekchurch.churchcenter.com/registrations/events/3601400",
         "season": {
@@ -117,14 +114,14 @@
         "hours": {
           "start": "18:00",
           "end": "20:15",
-          "text": "6:00pm-8:15pm each night"
+          "text": "6:00pm-8:15pm"
         },
         "extended_care": null,
         "prices": [
           {
             "amount": 0,
             "unit": "program",
-            "label": "Kids (3-year-olds through 5th graders): Free",
+            "label": "Free",
             "year": 2026
           }
         ],
@@ -137,16 +134,19 @@
           "text": "Registration closed"
         },
         "financial_aid": null,
-        "special_needs": null,
+        "special_needs": {
+          "value": "yes",
+          "text": "VBS Unlimited- Special Needs"
+        },
         "lunch": null,
         "transportation": null,
         "sources": [
           "https://mudcreekchurch.churchcenter.com/registrations/events/3601400",
-          "https://www.mudcreekchurch.org/",
-          "https://mudcreekchurch.churchcenter.com/registrations/events/3529860"
+          "https://mudcreekchurch.churchcenter.com/registrations/events/3529860",
+          "https://www.mudcreekchurch.org/"
         ],
-        "confidence": "high",
-        "review_notes": null
+        "confidence": "medium",
+        "review_notes": "Participants must be potty trained and 3 years old by April 2026. Special-needs support is indicated only by the volunteer role 'VBS Unlimited- Special Needs'; confirm eligibility and accommodations with the church."
       }
     ]
   }

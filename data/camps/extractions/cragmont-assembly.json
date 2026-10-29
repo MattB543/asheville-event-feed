@@ -7,22 +7,19 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:15:32.932Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:12:15.166Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "b27b06c313893b25cbbe8b59e98b2e3f3fc7dfa6515a79c9e48ae6a0676d4fe0",
   "response": {
-    "searches": [
-      "site:cragmontassembly.com 2027 summer camp",
-      "\"General Youth Conference\" \"2026\" Cragmont registration"
-    ],
+    "searches": ["site:cragmontassembly.com 2027 summer camp"],
     "usage": {
-      "inputTokens": 24999,
-      "cachedInputTokens": 8223,
-      "outputTokens": 2042,
-      "reasoningTokens": 221
+      "inputTokens": 16224,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1659,
+      "reasoningTokens": 79
     },
     "status": "completed",
-    "ms": 43481,
+    "ms": 32520,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -66,19 +63,15 @@
   "extraction": {
     "provider_name": "Cragmont Assembly",
     "website_url": "https://cragmontassembly.com/wp/",
-    "notes": "No summer 2027 information was found. The seven named camp weeks are grouped as sessions of Summer Camp, following the provider's description of its seven youth summer camp weeks. All dates and prices below describe summer 2026. The CYC Google document could not be read beyond the supplied preview; one supplied Jotform was unavailable and a Google Forms registration required sign-in.",
+    "notes": "No summer 2027 information was found. The provider presents all seven named weeks as one Summer Camp offering; weeks called conferences are included because the official pages describe them as youth summer camps, not standalone conferences. The supplied Jotform was unavailable, one Google Form required sign-in, and the CYC Google document yielded only partial text.",
     "excluded": [
       {
-        "name": "Wild at Heart Retreat",
-        "reason": "Men's retreat, not a supervised youth summer camp."
+        "name": "Men’s Events",
+        "reason": "Adult-only retreats."
       },
       {
-        "name": "New Year retreat",
-        "reason": "Occurs around New Year, outside summer."
-      },
-      {
-        "name": "Weekday and Weekend Retreats",
-        "reason": "General individual, family and group retreat reservations in fall, winter and spring, not a finite supervised youth summer program."
+        "name": "Conferences and Retreats",
+        "reason": "General conference and retreat offerings, rather than finite youth summer camp programs."
       }
     ],
     "cards": [
@@ -86,7 +79,7 @@
         "name": "Summer Camp",
         "type": "overnight",
         "categories": ["faith_based", "general"],
-        "description": "Campers participate in Christian instruction, worship, music and recreation. Individual weeks include activities such as games, crafts, small groups and campfire gatherings.",
+        "description": "Campers participate in worship, music, instruction and recreation. Activities vary by week and include games, crafts, small groups and campfire activities.",
         "camp_page_url": "https://cragmontassembly.com/wp/summercamp/",
         "registration_url": "https://cragmontassembly.com/wp/summercamp/",
         "season": {
@@ -168,7 +161,7 @@
             "status": null
           },
           {
-            "label": "Week 4 – Youth Frontier Conference: AFC",
+            "label": "Week 4 – Youth Frontier Conference",
             "start": "2026-06-29",
             "end": "2026-07-03",
             "year": 2026,
@@ -179,30 +172,6 @@
             },
             "grades": {
               "min": 1,
-              "max": 6,
-              "basis": "rising"
-            },
-            "hours": null,
-            "price": {
-              "amount": 400,
-              "unit": "session",
-              "label": "All-inclusive; $125 nonrefundable deposit",
-              "year": 2026
-            },
-            "status": null
-          },
-          {
-            "label": "Week 4 – Youth Frontier Conference: YFA",
-            "start": "2026-06-29",
-            "end": "2026-07-03",
-            "year": 2026,
-            "site": null,
-            "ages": {
-              "min": 7,
-              "max": 18
-            },
-            "grades": {
-              "min": 7,
               "max": 12,
               "basis": "unspecified"
             },
@@ -210,7 +179,7 @@
             "price": {
               "amount": 400,
               "unit": "session",
-              "label": "All-inclusive; $125 nonrefundable deposit",
+              "label": "All-inclusive",
               "year": 2026
             },
             "status": null
@@ -276,11 +245,10 @@
           "https://cragmontassembly.com/wp/about/",
           "https://cragmontassembly.com/wp/contact-us/",
           "https://cragmontassembly.com/wp/wp-content/uploads/2026/04/YFC-Registration-2026.pdf",
-          "https://oasis-514948.churchcenter.com/registrations/events/3280218",
-          "https://docs.google.com/document/d/1457xQC1gvvbwkwrGuJZh9ssvsFq3eTwBBEnroFPafZY/edit?tab=t.0"
+          "https://oasis-514948.churchcenter.com/registrations/events/3280218"
         ],
         "confidence": "medium",
-        "review_notes": "The Youth Frontier main page states ages 7–18 for the entire week, not separate AFC/YFA age ranges; that shared range is repeated on both rows. Its PDF admits rising grades 1–6 for AFC and rising grade 7 through completed high school for YFA, so YFA and the card use an unspecified grade basis. The general About page states ages 9–18 and grades 3–12, which do not cover the session-specific eligibility; no overall age range was inferred. Oasis still says 'Registration is open' for its past June 2026 session; its listed 10am start and 4pm finish are arrival/departure timestamps, not daily hours. The YFC PDF's May 24 application deadline is for 2026 and is not a 2027 registration milestone."
+        "review_notes": "Youth Frontier's PDF accepts entering first through entering sixth grade for AFC, and entering seventh through just-completed high school for YFA; its combined grade basis is therefore recorded as unspecified. The summer page states ages 7–18 for that week. The general About page states ages 9–18 and grades 3–12, which does not capture the week-specific eligibility; no overall age range was assigned. Oasis still says 'Registration is open' for the past June 2026 session, so its row status reflects that stale platform wording rather than a future booking opportunity. Its 10am opening-day and 4pm final-day times are not daily camp hours."
       }
     ]
   }

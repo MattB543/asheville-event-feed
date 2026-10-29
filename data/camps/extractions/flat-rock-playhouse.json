@@ -10,19 +10,19 @@
     "discovered_by": ["news828", "grid", "aggregator", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T14:59:28.577Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T16:59:39.559Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "aee8d2e99a35c7ac93c968555b3a7f1d51dadf6c79da4510e9e5ac373c3204ce",
   "response": {
     "searches": ["site:flatrockplayhouse.org \"2027\" \"camp\""],
     "usage": {
-      "inputTokens": 25452,
-      "cachedInputTokens": 8223,
-      "outputTokens": 4099,
-      "reasoningTokens": 101
+      "inputTokens": 26168,
+      "cachedInputTokens": 8845,
+      "outputTokens": 4155,
+      "reasoningTokens": 104
     },
     "status": "completed",
-    "ms": 82228,
+    "ms": 78010,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -71,19 +71,19 @@
   "extraction": {
     "provider_name": "Flat Rock Playhouse",
     "website_url": "https://www.flatrockplayhouse.org/",
-    "notes": "No official 2027 summer camp information was found. Dates and prices below are for 2026, anchored by the 2026 Summer Camps landing page. Sold-out and closed notices describe the past 2026 sessions, not 2027 availability. The summer page offers a $25 discount for each additional camp for multiple enrollments or siblings.",
+    "notes": "No official 2027 summer camp information was found. Dates and prices below describe 2026. The summer landing page states registration opens February 23; scholarship applications open February 23 and close March 31. Its lower scholarship section instead describes Winter/Spring applications and was not used for summer deadlines. Footloose is described as a one-time-only camp. Published sold-out and closed notices concern the past 2026 sessions, not 2027 availability.",
     "excluded": [
       {
         "name": "2026 Fall Classes",
-        "reason": "Runs August 31–October 29, outside the summer camp season."
+        "reason": "School-year lesson series outside summer."
       },
       {
-        "name": "2026 Winter/Spring Session",
-        "reason": "Winter/spring classes are outside summer."
+        "name": "Playhouse Jr. Apprenticeships",
+        "reason": "Professional training and employment opportunities for early-career artists, not a youth summer camp."
       },
       {
-        "name": "Apprenticeships",
-        "reason": "Professional opportunities for early-career artists, rather than supervised youth summer camps."
+        "name": "Playhouse Jr. School Tour",
+        "reason": "Touring school performances, not a supervised summer camp."
       }
     ],
     "cards": [
@@ -91,7 +91,7 @@
         "name": "Acting Camp",
         "type": "day",
         "categories": ["theater"],
-        "description": "Students practice acting, voice, movement, improvisation and collaborative scene work. Each age group finishes with a performance for family and friends.",
+        "description": "Campers practice acting, voice, movement, improvisation, and scene work. Each group prepares a performance for family and friends.",
         "camp_page_url": "https://www.flatrockplayhouse.org/2026summercamps",
         "registration_url": "https://app.jackrabbitclass.com/regv2.asp?id=548849",
         "season": {
@@ -123,20 +123,7 @@
         ],
         "hours": null,
         "extended_care": null,
-        "prices": [
-          {
-            "amount": 205,
-            "unit": "session",
-            "label": "Rising K–5th grades; half day",
-            "year": 2026
-          },
-          {
-            "amount": 260,
-            "unit": "session",
-            "label": "Rising 6th–8th grades",
-            "year": 2026
-          }
-        ],
+        "prices": [],
         "sessions": [
           {
             "label": "Rising K - 2nd Acting Camp",
@@ -154,7 +141,12 @@
               "start": "09:00",
               "end": "12:00"
             },
-            "price": null,
+            "price": {
+              "amount": 205,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
             "status": "closed"
           },
           {
@@ -173,11 +165,16 @@
               "start": "09:00",
               "end": "12:00"
             },
-            "price": null,
+            "price": {
+              "amount": 205,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
             "status": "full"
           },
           {
-            "label": "NEW CAMP! Rising 3rd - 5th Acting Camp",
+            "label": "Rising 3rd - 5th Acting Camp",
             "start": "2026-06-22",
             "end": "2026-06-26",
             "year": 2026,
@@ -192,7 +189,12 @@
               "start": "09:00",
               "end": "12:00"
             },
-            "price": null,
+            "price": {
+              "amount": 205,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
             "status": "full"
           },
           {
@@ -211,7 +213,12 @@
               "start": "09:00",
               "end": "14:00"
             },
-            "price": null,
+            "price": {
+              "amount": 260,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
             "status": "full"
           }
         ],
@@ -222,7 +229,11 @@
           "text": "REGISTRATION OPENS ON FEBRUARY 23!",
           "url": "https://www.flatrockplayhouse.org/2026summercamps"
         },
-        "availability": null,
+        "availability": {
+          "status": "mixed",
+          "scope": "2026 sessions",
+          "text": "REGISTRATION CLOSED; SOLD OUT!"
+        },
         "financial_aid": {
           "value": "yes",
           "text": "Need-based scholarships are available upon application."
@@ -240,13 +251,13 @@
           "https://www.flatrockplayhouse.org/playhousejrfaqs"
         ],
         "confidence": "medium",
-        "review_notes": "Individual camp pages omit the year beside their dates; 2026 is taken from the linking 2026 Summer Camps page. Age bands and half-day sessions are grouped under Acting Camp."
+        "review_notes": "Session subpages print dates without a year; 2026 is taken from the linking 2026 Summer Camps landing page. Elementary sessions are half-day; the middle-school session runs until 2 pm."
       },
       {
         "name": "Musical Theatre Camp",
         "type": "half_day",
         "categories": ["theater", "music", "dance"],
-        "description": "Students practice acting, singing and dance through training and rehearsals. The week ends with a camp sharing for family and friends.",
+        "description": "Campers practice acting, singing, and dancing through training and rehearsals. They share their work with family and friends at the end of the week.",
         "camp_page_url": "https://www.flatrockplayhouse.org/risingk-5thsummercamps",
         "registration_url": "https://app.jackrabbitclass.com/regv2.asp?id=548849",
         "season": {
@@ -341,18 +352,18 @@
         "lunch": null,
         "transportation": null,
         "sources": [
-          "https://www.flatrockplayhouse.org/2026summercamps",
           "https://www.flatrockplayhouse.org/risingk-5thsummercamps",
+          "https://www.flatrockplayhouse.org/2026summercamps",
           "https://www.flatrockplayhouse.org/playhousejrfaqs"
         ],
         "confidence": "medium",
-        "review_notes": "The detail page omits the year beside dates; 2026 is taken from the linking 2026 Summer Camps page."
+        "review_notes": "The session page prints dates without a year; 2026 is taken from the linking 2026 Summer Camps landing page."
       },
       {
         "name": "Musical Mania Camp",
         "type": "day",
         "categories": ["theater", "music", "dance"],
-        "description": "Students study and perform songs, scenes and choreography from Seussical the Musical. The camp concludes with a performance for family and friends; auditions are not required.",
+        "description": "Campers study and perform songs, scenes, and choreography from Seussical the Musical. The week ends with a performance for family and friends.",
         "camp_page_url": "https://www.flatrockplayhouse.org/rising6th-12thsummercamps",
         "registration_url": "https://app.jackrabbitclass.com/regv2.asp?id=548849",
         "season": {
@@ -414,18 +425,18 @@
         "lunch": null,
         "transportation": null,
         "sources": [
-          "https://www.flatrockplayhouse.org/2026summercamps",
           "https://www.flatrockplayhouse.org/rising6th-12thsummercamps",
+          "https://www.flatrockplayhouse.org/2026summercamps",
           "https://www.flatrockplayhouse.org/playhousejrfaqs"
         ],
         "confidence": "medium",
-        "review_notes": "The detail page omits the year beside dates; 2026 is taken from the linking 2026 Summer Camps page."
+        "review_notes": "The program page prints dates without a year; 2026 is taken from the linking 2026 Summer Camps landing page."
       },
       {
         "name": "\"Footloose\": An Immersive Experience",
         "type": "half_day",
         "categories": ["theater", "music", "dance"],
-        "description": "Students explore songs, dances, scenes, technical theatre and the production process with members of the cast and creative team. The week ends with attendance at the Friday matinee of Footloose, with the ticket included in tuition.",
+        "description": "Campers explore songs, dances, scenes, and technical theatre with members of the Footloose cast and creative team. The week ends with attendance at the Friday matinee.",
         "camp_page_url": "https://www.flatrockplayhouse.org/footloosecamp",
         "registration_url": "https://app.jackrabbitclass.com/regv2.asp?id=548849",
         "season": {
@@ -465,7 +476,7 @@
           {
             "amount": 275,
             "unit": "session",
-            "label": "Includes the ticket to see the show",
+            "label": "includes the price of the ticket to see the show",
             "year": 2026
           }
         ],
@@ -489,19 +500,19 @@
         "lunch": null,
         "transportation": null,
         "sources": [
-          "https://www.flatrockplayhouse.org/2026summercamps",
           "https://www.flatrockplayhouse.org/footloosecamp",
           "https://www.flatrockplayhouse.org/rising6th-12thsummercamps",
+          "https://www.flatrockplayhouse.org/2026summercamps",
           "https://www.flatrockplayhouse.org/playhousejrfaqs"
         ],
         "confidence": "medium",
-        "review_notes": "The detail pages omit the year beside dates; 2026 is taken from the linking 2026 Summer Camps page. Both properties are listed as camp locations, but daily drop-off assignments and Friday hours are not stated. The page describes this as a one-time-only camp; do not assume it returns in 2027."
+        "review_notes": "Dates lack a year on the program pages; 2026 is taken from the linking 2026 Summer Camps landing page. Friday drop-off and pickup times and the daily allocation between the two listed camp locations are not specified. The provider calls this a one-time-only camp."
       },
       {
         "name": "Conservatory Musical Theatre Camp",
         "type": "day",
         "categories": ["theater", "music", "dance"],
-        "description": "Teen students take collegiate-style classes in acting, dance and music with industry professionals. They collaborate on an original revue presented at the end of the week.",
+        "description": "Teen campers take acting, dance, and music classes in a collegiate-style musical theatre session. They collaborate on an original revue presented at the end of the week.",
         "camp_page_url": "https://www.flatrockplayhouse.org/rising6th-12thsummercamps",
         "registration_url": "https://app.jackrabbitclass.com/regv2.asp?id=548849",
         "season": {
@@ -563,12 +574,12 @@
         "lunch": null,
         "transportation": null,
         "sources": [
-          "https://www.flatrockplayhouse.org/2026summercamps",
           "https://www.flatrockplayhouse.org/rising6th-12thsummercamps",
+          "https://www.flatrockplayhouse.org/2026summercamps",
           "https://www.flatrockplayhouse.org/playhousejrfaqs"
         ],
         "confidence": "medium",
-        "review_notes": "The detail page omits the year beside dates; 2026 is taken from the linking 2026 Summer Camps page."
+        "review_notes": "The program page prints dates without a year; 2026 is taken from the linking 2026 Summer Camps landing page."
       }
     ]
   }

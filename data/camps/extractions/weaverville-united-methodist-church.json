@@ -7,19 +7,19 @@
     "discovered_by": ["grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:13:06.407Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:11:11.775Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "6d22a60411d60505b2fe635385c0a3752905c4c196fe54f3c6cc9de6b17aa326",
   "response": {
-    "searches": ["site:weavervilleumc.org \"2027\" \"VBS\""],
+    "searches": ["site:weavervilleumc.org \"2027\" \"Bible\""],
     "usage": {
-      "inputTokens": 13843,
-      "cachedInputTokens": 8223,
-      "outputTokens": 532,
-      "reasoningTokens": 75
+      "inputTokens": 14391,
+      "cachedInputTokens": 8845,
+      "outputTokens": 756,
+      "reasoningTokens": 77
     },
     "status": "completed",
-    "ms": 16025,
+    "ms": 20450,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -38,19 +38,19 @@
   "extraction": {
     "provider_name": "Weaverville United Methodist Church",
     "website_url": "https://www.weavervilleumc.org/",
-    "notes": "No summer 2027 VBS information found. The church's main building is at 85 N. Main Street, but VBS explicitly meets in the Fellowship Center at 90 N. Main Street.",
+    "notes": "No summer 2027 information or registration announcement was found. The VBS page still lists 2026. The Fellowship Center's camp address is 90 N. Main Street, distinct from the church's main street address of 85 N. Main Street.",
     "excluded": [
       {
         "name": "WUMC Preschool",
-        "reason": "School-year preschool in session August through May, not a summer program."
+        "reason": "School-year preschool, not a finite summer camp."
       },
       {
         "name": "Sunday School",
-        "reason": "Recurring religious classes, not a finite summer camp; children's and youth classes break during summer."
+        "reason": "Year-round religious classes, not a summer camp."
       },
       {
         "name": "Children & Youth Ministries",
-        "reason": "Regular Sunday meetings and ongoing ministry activities, not a separately listed finite summer camp."
+        "reason": "Regular youth-group meetings, retreats and outings, not a separately named finite summer camp."
       }
     ],
     "cards": [
@@ -58,7 +58,7 @@
         "name": "Vacation Bible School",
         "type": "vbs",
         "categories": ["faith_based"],
-        "description": "Children explore the nature of God and their relationship with their Creator through the Rainforest Falls theme.",
+        "description": "Children explore the nature of God and their relationship with their Creator through the Rainforest Falls theme. All children must be potty trained to register.",
         "camp_page_url": "https://www.weavervilleumc.org/vbs/",
         "registration_url": null,
         "season": {
@@ -88,7 +88,7 @@
         "hours": {
           "start": "09:00",
           "end": "12:00",
-          "text": null
+          "text": "9:00am to 12:00pm"
         },
         "extended_care": null,
         "prices": [
@@ -104,7 +104,7 @@
         "last_year_registration_opened": null,
         "availability": {
           "status": "closed",
-          "scope": "2026 Vacation Bible School registration",
+          "scope": "2026 Vacation Bible School",
           "text": "Register or Volunteer: CLOSED"
         },
         "financial_aid": null,
@@ -113,7 +113,8 @@
         "transportation": null,
         "sources": [
           "https://www.weavervilleumc.org/vbs/",
-          "https://www.weavervilleumc.org/u-m-men/"
+          "https://www.weavervilleumc.org/",
+          "https://www.weavervilleumc.org/blood-drive/"
         ],
         "confidence": "high",
         "review_notes": null

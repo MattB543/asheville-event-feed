@@ -8,23 +8,22 @@
     "status": "review",
     "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
   },
-  "extractedAt": "2026-10-29T15:21:08.642Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:17:52.465Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "f80cb2647d5739cdec7cf0c550a3cce00e70531f0ce08d0b71138484b834482f",
   "response": {
     "searches": [
       "site.grassycreekbc.org vacation bible school 2026",
-      "\"GCBCSprucePine\" \"VBS\" \"2026\"",
-      "\"Grassy Creek Baptist\" \"Illumination\""
+      "\"site:grassycreekbc.org\" \"VBS\""
     ],
     "usage": {
-      "inputTokens": 26378,
-      "cachedInputTokens": 8223,
-      "outputTokens": 564,
-      "reasoningTokens": 314
+      "inputTokens": 26539,
+      "cachedInputTokens": 8845,
+      "outputTokens": 375,
+      "reasoningTokens": 184
     },
     "status": "completed",
-    "ms": 31754,
+    "ms": 14345,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -43,19 +42,15 @@
   "extraction": {
     "provider_name": "Grassy Creek Baptist Church of Spruce Pine",
     "website_url": "https://grassycreekbc.org/",
-    "notes": "No 2027 summer information or verifiable 2026 summer offering was found on readable official pages. Official Facebook search results confirm historical VBS offerings, but the results are several years old and do not establish a 2026 or 2027 program. The Facebook page, church calendar and kids ministry page returned no readable content when opened. A third-party HappeningNext result titled VBS 2026 - Illumination Station listed July 12–17, 2026, but its page could not be read and its attribution to this church could not be verified; those facts were not used. Review the church's Facebook announcements or contact the church before creating a current VBS card.",
+    "notes": "No qualifying summer camp or Vacation Bible School offering for 2026 or 2027 could be verified from the supplied official homepage or web searches. The official GCBC Kids Ministry page and Facebook page returned no readable text when opened. Review the church's Facebook announcements directly for summer offerings; the absence of cards does not establish that the church offers no camps.",
     "excluded": [
       {
         "name": "GCBC Kids",
-        "reason": "Regular Sunday-evening children's ministry, not a finite summer program."
+        "reason": "Recurring Sunday-evening children's ministry, not a finite summer program."
       },
       {
-        "name": "Impact Youth",
-        "reason": "Regular youth Bible-study ministry; no finite summer camp offering could be verified."
-      },
-      {
-        "name": "Disciple Life Classes",
-        "reason": "Regular Sunday classes, not a finite summer program."
+        "name": "Youth Bible Study",
+        "reason": "Recurring church youth Bible study, not a finite summer program."
       }
     ],
     "cards": []

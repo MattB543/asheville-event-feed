@@ -7,19 +7,19 @@
     "discovered_by": ["seed_sheet"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T14:54:15.970Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T16:55:08.873Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "2808821ed55905e2aa1f2995d5ccc54c2f862ad38842fefb74f70d17d2626923",
   "response": {
     "searches": ["site:lakewoodbmt.com VBS 2027"],
     "usage": {
-      "inputTokens": 13657,
-      "cachedInputTokens": 8223,
-      "outputTokens": 605,
-      "reasoningTokens": 94
+      "inputTokens": 13998,
+      "cachedInputTokens": 8845,
+      "outputTokens": 654,
+      "reasoningTokens": 79
     },
     "status": "completed",
-    "ms": 14793,
+    "ms": 15819,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -38,11 +38,23 @@
   "extraction": {
     "provider_name": "Lakewood Church of Black Mountain",
     "website_url": "https://lakewoodbmt.com/",
-    "notes": "No summer 2027 information was found. The card uses the explicitly dated 2026 event page. The Church Center registration link opened but returned no readable text, so ages, prices and registration milestones could not be verified there.",
+    "notes": "No 2027 VBS information was found. The linked Church Center calendar page returned no readable text, so eligibility, cost and registration timing could not be extracted from it.",
     "excluded": [
       {
-        "name": "Youth Ministry",
-        "reason": "Recurring Sunday youth ministry, not a finite summer program."
+        "name": "Back 2 School Bon-Fire",
+        "reason": "A single social event, not a multi-day summer camp."
+      },
+      {
+        "name": "Halloween Outreach",
+        "reason": "Outside summer."
+      },
+      {
+        "name": "Family Meeting",
+        "reason": "A church meeting, not a supervised youth camp."
+      },
+      {
+        "name": "Starting Point",
+        "reason": "A single church event outside summer, not a summer camp."
       }
     ],
     "cards": [
@@ -50,7 +62,7 @@
         "name": "Kingdom Quest - VBS",
         "type": "vbs",
         "categories": ["faith_based"],
-        "description": "Children participate in Bible lessons, worship, games, crafts and activities exploring what it means to follow Jesus and live for His Kingdom.",
+        "description": "Children participate in Bible lessons, worship, games, crafts and activities focused on following Jesus and exploring God's Word.",
         "camp_page_url": "https://lakewoodbmt.com/events/vbs",
         "registration_url": "https://lakewood-church-488490.churchcenter.com/calendar/event/213858799",
         "season": {
@@ -65,7 +77,7 @@
         "sites": [
           {
             "name": "Lakewood Church",
-            "address": "41 Byrd Road",
+            "address": "41 Byrd Rd",
             "town": "Black Mountain",
             "state": "NC"
           }
@@ -73,7 +85,7 @@
         "hours": {
           "start": "17:30",
           "end": "20:00",
-          "text": "July 26–30 from 5:30 PM–8:00 PM each evening"
+          "text": "5:30 PM–8:00 PM each evening"
         },
         "extended_care": null,
         "prices": [],

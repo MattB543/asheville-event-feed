@@ -7,8 +7,8 @@
     "discovered_by": ["gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:35:57.083Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:30:10.384Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "d60cf398704f89498c21fcac351457871cb27cebdfdbb88ca05dec51e5b0628d",
   "response": {
     "searches": [
@@ -16,13 +16,13 @@
       "open https://montessoricountryday.com/admissions/calendar/"
     ],
     "usage": {
-      "inputTokens": 17510,
-      "cachedInputTokens": 8223,
-      "outputTokens": 721,
-      "reasoningTokens": 80
+      "inputTokens": 18919,
+      "cachedInputTokens": 8845,
+      "outputTokens": 859,
+      "reasoningTokens": 134
     },
     "status": "completed",
-    "ms": 19244,
+    "ms": 26134,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -61,29 +61,21 @@
   "extraction": {
     "provider_name": "Montessori Country Day",
     "website_url": "https://montessoricountryday.com/",
-    "notes": "No summer 2027 information found. The summer camp page still describes 2025 sessions; those dates were not reused. The official 2025-2026 calendar explicitly states that summer camp begins May 28, 2026, but does not give its ending date or 2026 session breakdown. School-year tuition and schedules were not assumed to apply to summer camp.",
+    "notes": "No 2027 summer information found. The calendar explicitly states that summer camp begins May 28, 2026; no 2026 end date or session schedule was found. The Summer Camp page still describes summer 2025 and its two sessions, which have not been carried forward. School-year tuition and daily schedules were not applied to camp.",
     "excluded": [
       {
-        "name": "Toddler Classroom",
-        "reason": "Year-round classroom program, not a separate finite summer offering."
-      },
-      {
-        "name": "Pre-Primary Classroom",
-        "reason": "Year-round classroom program, not a separate finite summer offering."
-      },
-      {
-        "name": "Primary Classrooms",
-        "reason": "Year-round classroom program, not a separate finite summer offering."
+        "name": "Toddler Classroom, Pre-Primary Classroom and Primary Classrooms",
+        "reason": "Year-round or school-year preschool and classroom programs, rather than finite summer camps."
       }
     ],
     "cards": [
       {
         "name": "Summer Camp",
         "type": "day",
-        "categories": ["general", "arts", "music", "dance", "nature_outdoor"],
-        "description": "Camp activities include arts and crafts, music, dance, gardening, picnics, splash days and theme-based activities involving movement and imagination.",
+        "categories": ["general", "arts", "nature_outdoor"],
+        "description": "Campers participate in arts, crafts, music, dance, gardening, picnics, splash days and theme-based activities using movement and imagination.",
         "camp_page_url": "https://montessoricountryday.com/classrooms-and-programs/summer-camp/",
-        "registration_url": null,
+        "registration_url": "https://montessoricountryday.com/admissions/forms/",
         "season": {
           "year": 2026,
           "status": "not_posted",
@@ -91,7 +83,10 @@
           "end": null,
           "text": null
         },
-        "ages": null,
+        "ages": {
+          "min": 1.25,
+          "max": 8
+        },
         "grades": null,
         "sites": [
           {
@@ -110,15 +105,20 @@
         "availability": null,
         "financial_aid": null,
         "special_needs": null,
-        "lunch": null,
+        "lunch": {
+          "value": "case_by_case",
+          "text": "Parents may also opt to buy a pizza lunch on Friday which will be supplemented with a side of fruit and milk or lemonade."
+        },
         "transportation": null,
         "sources": [
           "https://montessoricountryday.com/classrooms-and-programs/summer-camp/",
           "https://montessoricountryday.com/admissions/calendar/",
-          "https://montessoricountryday.com/contact/"
+          "https://montessoricountryday.com/admissions/handbook/",
+          "https://montessoricountryday.com/admissions/forms/",
+          "https://montessoricountryday.com/"
         ],
         "confidence": "medium",
-        "review_notes": "The calendar explicitly states 'May 28 Summer camp begins (2026)', while the summer camp page remains labeled summer 2025. Confirm the current program description, summer eligibility, hours, fees, ending date and session breakdown. The 2025 pizza lunch option was not assumed to apply to 2026."
+        "review_notes": "The 2025-2026 calendar explicitly labels May 28 as the 2026 camp opening, but does not give the rest of that summer's schedule. The camp page's description and Friday pizza option remain under its 2025 introduction; check whether these continue in 2026 or 2027. Camp ages of 15 months through eight years are stated in the official handbook search snippet, but that passage was not returned in the opened page. The forms page offers general enrollment forms rather than a camp-specific registration form. Format check: ages 1.25 outside 2-19."
       }
     ]
   }

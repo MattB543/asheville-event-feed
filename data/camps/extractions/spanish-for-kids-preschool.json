@@ -7,24 +7,22 @@
     "discovered_by": ["gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:36:22.334Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:30:29.880Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "7a8c1f9713c02d5867705fbd40fe828e40b05ec84f4dabac88f9d18c05396358",
   "response": {
     "searches": [
-      "site:spanishforkidspres.wixsite.com/class summer camp",
-      "open https://spanishforkidspres.wixsite.com/class",
-      "site:spanishforkidspres.wixsite.com \"2027\"",
-      "site:spanishforkidspres.wixsite.com/summer-camp"
+      "site:spanishforkidspres.wixsite.com/class summer camp contact",
+      "open https://spanishforkidspres.wixsite.com/class/contact"
     ],
     "usage": {
-      "inputTokens": 14510,
-      "cachedInputTokens": 8223,
-      "outputTokens": 915,
-      "reasoningTokens": 302
+      "inputTokens": 14306,
+      "cachedInputTokens": 8845,
+      "outputTokens": 697,
+      "reasoningTokens": 126
     },
     "status": "completed",
-    "ms": 28759,
+    "ms": 18354,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -48,24 +46,28 @@
   "extraction": {
     "provider_name": "Spanish for Kids Preschool",
     "website_url": "https://spanishforkidspres.wixsite.com/class",
-    "notes": "No 2027 camp information or dated 2026 camp schedule was found. The main site advertises summer camp for ages 4–8 but still includes older school-year enrollment information. Official Wix pages opened without readable text; additional information was accessible through official search snippets. Preschool tuition and enrollment fees were not treated as camp prices.",
+    "notes": "No 2027 camp information or dated 2026 camp schedule was found. The homepage advertises Summer Camp without a year. Contact-page address was available through an official search result, but the page returned no readable text when opened. Tuition information describes the school-year program and was not applied to camp.",
     "excluded": [
       {
-        "name": "Immersion Spanish Program",
-        "reason": "Year-round preschool/childcare program, not a finite summer offering."
+        "name": "Immersion Spanish Program for little kids",
+        "reason": "Year-round preschool program, not a finite summer camp."
       },
       {
         "name": "After School program",
-        "reason": "Ongoing after-school childcare, not a summer-only program."
+        "reason": "School-year after-school childcare."
+      },
+      {
+        "name": "Spanish Academy of Asheville Summer Camp",
+        "reason": "A different Asheville provider with a similar name."
       }
     ],
     "cards": [
       {
         "name": "Summer Camp",
         "type": "day",
-        "categories": ["academic", "arts"],
-        "description": "Children participate in drawing, painting, crafts, songs, storytelling and games.",
-        "camp_page_url": "https://spanishforkidspres.wixsite.com/summer-camp",
+        "categories": ["general"],
+        "description": "Summer camp for children ages 4 to 8.",
+        "camp_page_url": "https://spanishforkidspres.wixsite.com/class",
         "registration_url": null,
         "season": {
           "year": 2026,
@@ -100,11 +102,10 @@
         "transportation": null,
         "sources": [
           "https://spanishforkidspres.wixsite.com/class",
-          "https://spanishforkidspres.wixsite.com/class/contact",
-          "https://spanishforkidspres.wixsite.com/summer-camp/untitled"
+          "https://spanishforkidspres.wixsite.com/class/contact"
         ],
         "confidence": "medium",
-        "review_notes": "The main page states ages 4–8 without a camp year. No dated 2026 or 2027 schedule was found; season.year is a fallback with no dates. The address comes from the official contact-page search snippet, and activities come from an undated official summer-camp search snippet. Confirm that these activities and the preschool location apply to the upcoming camp."
+        "review_notes": "Camp listing and ages are undated on the homepage; no summer-specific 2026 or 2027 details were found. The site is the provider's published address from its official contact-page search snippet; confirm that camp drop-off occurs there."
       }
     ]
   }

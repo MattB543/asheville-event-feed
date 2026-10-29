@@ -7,23 +7,24 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:21:25.228Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:17:53.517Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "b22860add5d9605e7e03abc6aff1c2f635dd7a61cab37bcd473a7130d166c344",
   "response": {
     "searches": [
-      "site:ymcacv.org Burke summer camp 2026 program guide",
+      "site:ymcacv.org \"2026\" \"Burke\" \"camp\"",
       "open https://www.ymcacv.org/summer-camp-burke-county",
-      "site:ymcacv.org \"2026\" \"Burke\" \"7\" summer camp guide"
+      "site:ymcacv.org \"2026\" \"Burke\" \"June\"",
+      "site:ymcacv.org/sites/ymcacv/files/ \"2026\" \"BEST SUMMER\""
     ],
     "usage": {
-      "inputTokens": 28633,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1515,
-      "reasoningTokens": 216
+      "inputTokens": 35430,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1862,
+      "reasoningTokens": 366
     },
     "status": "completed",
-    "ms": 61974,
+    "ms": 47711,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -72,15 +73,35 @@
   "extraction": {
     "provider_name": "YMCA of Catawba Valley",
     "website_url": "https://www.ymcacv.org/",
-    "notes": "Research focused on the supplied Burke County offerings. No summer 2027 information was found. The Burke County page could not be rendered by the browser; its supplied text and official search results were used. The linked Program Guide could not be retrieved. Supplied registration pages show zero offerings, which does not establish that registration is closed. DSS voucher and United Way registrations are funding-specific paths, not separate camp cards.",
+    "notes": "No summer 2027 camp information or registration milestones were found. The supplied 2026 registration instructions identify the Burke County offerings, but the registration pages return zero offerings. The official camp pages returned no readable body when opened with the browser; supplied page text and official search results were used. The Program Guide link could not be resolved, so dates, weekly sessions, hours and prices remain unknown. Other county camp pages identify Hickory, Conover, Lincolnton and Denver offerings; these were left out as outside the directory's approximate drive-time area.",
     "excluded": [
       {
-        "name": "Burke County Before and After School Program",
-        "reason": "School-year childcare, not a summer-only program."
+        "name": "Burke County Before and After School Programs",
+        "reason": "School-year childcare, not a summer camp."
       },
       {
         "name": "Burke County School’s Out Day Camp Program",
-        "reason": "Listed for teacher workdays, vacation days and holidays rather than a finite summer offering."
+        "reason": "Teacher workday, vacation-day and holiday care outside summer."
+      },
+      {
+        "name": "Youth and Adult Sports",
+        "reason": "Sports leagues and team seasons, not finite summer camps or clinics."
+      },
+      {
+        "name": "Swim Lessons",
+        "reason": "Booked as lessons rather than camps."
+      },
+      {
+        "name": "Bright Beginnings",
+        "reason": "A single back-to-school shopping event, not a camp."
+      },
+      {
+        "name": "Catawba County summer camps",
+        "reason": "Sites in Hickory and Conover are outside the approximate 75-minute drive area."
+      },
+      {
+        "name": "Lincoln County summer camps",
+        "reason": "Sites in Lincolnton and Denver are outside the approximate 75-minute drive area."
       }
     ],
     "cards": [
@@ -88,7 +109,7 @@
         "name": "YMCA Summer Camp",
         "type": "day",
         "categories": ["general"],
-        "description": "Campers participate in age-appropriate group activities and learn new skills. Camp activities incorporate character development.",
+        "description": "A supervised summer day camp with age-appropriate group activities and opportunities to learn new skills.",
         "camp_page_url": "https://ymcacv.org/summer-camp-burke-county",
         "registration_url": "https://operations.daxko.com/Online/4075/ProgramsV2/Search.mvc?program_id=CMP39316",
         "season": {
@@ -134,8 +155,8 @@
         "last_year_registration_opened": null,
         "availability": null,
         "financial_aid": {
-          "value": "case_by_case",
-          "text": "the ‘UNITED WAY ONLY Summer Camp’ registration is for families that have been approved through Burke County United Way"
+          "value": "yes",
+          "text": "Summer Camp Financial Aid Application"
         },
         "special_needs": null,
         "lunch": null,
@@ -146,13 +167,13 @@
           "https://www.ymcacv.org/programs/youth-development/day-and-summer-camp"
         ],
         "confidence": "medium",
-        "review_notes": "Retrieve the Program Guide linked on the Burke County page to check dates, age eligibility, hours and prices. Sessions are empty because no dated weeks were accessible; site rows cannot be created without season dates. The registration guide calls New Dimensions Elementary New Dimensions Charter School."
+        "review_notes": "The general activities description and financial aid application are supported by official search results for the provider's Day and Summer Camp page. The Program Guide could not be accessed. No site rows were created because their season dates are unknown. DSS voucher and United Way registrations are treated as funding options within this program, not separate camps."
       },
       {
         "name": "21st CCLC YMCA Summer Camp – Traditional",
         "type": "day",
         "categories": ["general"],
-        "description": "This traditional YMCA summer camp is offered at Mountain View Elementary and W.A. Young Elementary through the 21st CCLC program.",
+        "description": "Traditional summer day camp offered at Mountain View Elementary and W.A. Young Elementary.",
         "camp_page_url": "https://ymcacv.org/summer-camp-burke-county",
         "registration_url": "https://operations.daxko.com/Online/4075/ProgramsV2/Search.mvc?program_id=CMP39329",
         "season": {
@@ -194,7 +215,7 @@
           "https://www.ymcacv.org/sites/ymcacv/files/2026-02/2026-SC-Burke%20County%2021st%20CCLC%20Cheat%20Sheet%20Guide.pdf"
         ],
         "confidence": "medium",
-        "review_notes": "Retrieve the Burke County Program Guide and current registration offerings to verify activities, eligibility, dates, hours and total cost. The 2026 instructions say $0.00 Due Today, which is not sufficient to establish total camp price. Sessions are empty because no dated weeks were accessible."
+        "review_notes": "The 2026 instructions explicitly name this offering Summer Camp – Traditional. The provider's general 21st CCLC page describes academic enrichment for children attending low-performing schools, but accessible 2026 camp instructions do not state enrollment restrictions; check eligibility and whether the district-only learning-program exclusion applies. The instruction that checkout should show $0 due today was not treated as a free tuition price. No site rows were created because dates are unknown."
       }
     ]
   }

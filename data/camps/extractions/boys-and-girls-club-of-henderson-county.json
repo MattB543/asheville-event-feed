@@ -13,22 +13,22 @@
     "discovered_by": ["grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:05:15.147Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:04:44.216Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "89346a672f67ac645ddd8e2e508c79e141a0f3f392ed351a96efacf9af2f202a",
   "response": {
     "searches": [
-      "site:bgchendersonco.org summer 2026 2027",
-      "site:bgchendersonco.org \"summer\" \"June\" \"2026\""
+      "site:bgchendersonco.org summer 2026 registration",
+      "site:bgchendersonco.org \"Summer\" \"June\" \"2026\""
     ],
     "usage": {
-      "inputTokens": 25520,
-      "cachedInputTokens": 8223,
-      "outputTokens": 824,
-      "reasoningTokens": 164
+      "inputTokens": 30242,
+      "cachedInputTokens": 8845,
+      "outputTokens": 844,
+      "reasoningTokens": 136
     },
     "status": "completed",
-    "ms": 29981,
+    "ms": 22568,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -57,23 +57,35 @@
   "extraction": {
     "provider_name": "Boys & Girls Club of Henderson County",
     "website_url": "https://bgchendersonco.org/",
-    "notes": "No summer 2027 dates or registration announcements were found. Official July 2026 news confirms free summer programming, but no 2026 summer schedule, eligibility limits or registration opening date was located. The supplied Summer Application and the field-trip PDF found in search describe 2025; their facts were not carried forward.",
+    "notes": "No summer 2027 dates or registration milestones were found. An official July 1, 2026 news article confirms free summer programming in 2026, but does not provide season dates, hours or eligibility. The linked summer application and field-trip calendar are explicitly for 2025 and were not used to populate 2026 facts. The membership page currently describes only school-year programming.",
     "excluded": [
       {
-        "name": "Afterschool Online Membership Application",
-        "reason": "School-year programming runs August 12, 2026–May 14, 2027, not summer."
+        "name": "Afterschool Programming",
+        "reason": "School-year childcare running August 12, 2026–May 14, 2027, not a summer camp."
       },
       {
         "name": "Sports Leagues",
-        "reason": "Basketball and flag football are seasonal sports leagues, not finite summer camps or clinics."
+        "reason": "Basketball and flag football leagues and team seasons, not finite summer camps or clinics."
+      },
+      {
+        "name": "Good Character & Citizenship",
+        "reason": "Ongoing Club activities and leadership programs, not separately advertised finite summer camps."
+      },
+      {
+        "name": "Christmas Family Night",
+        "reason": "Single family social event outside summer."
+      },
+      {
+        "name": "Youth of the Year 2027",
+        "reason": "January recognition event, not a summer camp."
       }
     ],
     "cards": [
       {
         "name": "Summer Programming",
         "type": "day",
-        "categories": ["general", "stem", "academic", "nature_outdoor"],
-        "description": "Youth participate in Brain Gain, reading, STEM activities and member-selected activities. The program also includes local field trips and outdoor walks.",
+        "categories": ["general", "academic", "stem", "nature_outdoor"],
+        "description": "Members participate in Brain Gain, reading, STEM activities and activities chosen around their interests. Summer programming also includes field trips to local attractions and walks on the Parkway.",
         "camp_page_url": "https://bgchendersonco.org/difference-makers-help-lead-one-of-the-highest-attendance-days-on-record/",
         "registration_url": null,
         "season": {
@@ -99,7 +111,7 @@
           {
             "amount": 0,
             "unit": "program",
-            "label": "Completely free",
+            "label": "free",
             "year": 2026
           }
         ],
@@ -113,11 +125,11 @@
         "transportation": null,
         "sources": [
           "https://bgchendersonco.org/difference-makers-help-lead-one-of-the-highest-attendance-days-on-record/",
-          "https://bgchendersonco.org/programs/",
+          "https://bgchendersonco.org/",
           "https://bgchendersonco.org/Membership/"
         ],
-        "confidence": "medium",
-        "review_notes": "The July 1, 2026 official article calls this summer programming but does not supply a distinct branded program name; Summer Programming is used as its descriptive name. Confirm summer dates, ages or grades, hours and registration process with the Club. The membership page currently offers only school-year registration."
+        "confidence": "high",
+        "review_notes": null
       }
     ]
   }

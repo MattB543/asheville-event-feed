@@ -9,22 +9,19 @@
     "discovered_by": ["grid"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:28:46.633Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:24:22.772Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "8e1002bcff7b59178f1b7ff6f753cc67514de0d636c7be3bbce95d282269afdb",
   "response": {
-    "searches": [
-      "site:llcharter.org \"camp\" \"2026\"",
-      "site:llcharter.org \"camp\" -\"Physical\" -\"Academics\" -\"Athletics at\""
-    ],
+    "searches": ["site:llcharter.org \"camp\" \"2026\""],
     "usage": {
-      "inputTokens": 33367,
-      "cachedInputTokens": 8223,
-      "outputTokens": 641,
-      "reasoningTokens": 159
+      "inputTokens": 25720,
+      "cachedInputTokens": 8845,
+      "outputTokens": 657,
+      "reasoningTokens": 83
     },
     "status": "completed",
-    "ms": 32428,
+    "ms": 19701,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -68,19 +65,19 @@
   "extraction": {
     "provider_name": "Lake Lure Classical Academy",
     "website_url": "https://www.llcharter.org/",
-    "notes": "The athletics page mentions Summer Youth Sports Camps only in a general facilities/program overview. Searches found no specific 2026 or 2027 camp announcement, dates, registration form, or camp brochure. The card preserves that mention but does not establish that a scheduled camp is currently offered. School enrollment lottery dates and school-year bus services are not camp facts.",
+    "notes": "No summer 2027 announcement or dated 2026 camp schedule was found. The athletics page mentions Summer Youth Sports Camps only as part of the school's physical education offerings; it does not provide camp-specific registration, dates, eligibility, hours or prices. School enrollment lottery dates and school-year bus service do not establish camp registration or transportation.",
     "excluded": [
       {
         "name": "Raptor Care",
-        "reason": "After-school childcare offered each day school is in session, not a summer-only program."
+        "reason": "School-year after-school childcare, offered each day school is in session."
       },
       {
         "name": "LLCA athletic teams",
-        "reason": "School sports teams and competitive seasons, not finite summer camps or clinics."
+        "reason": "School sports team seasons, not finite summer camp programs."
       },
       {
         "name": "Rumbling Bald Golf Tournament - 4 Man Scramble",
-        "reason": "September 11, 2026 fundraising tournament outside summer; not identified as a supervised youth camp."
+        "reason": "September fundraising tournament outside summer, not a supervised youth camp."
       }
     ],
     "cards": [
@@ -88,7 +85,7 @@
         "name": "Summer Youth Sports Camps",
         "type": "day",
         "categories": ["sports"],
-        "description": "The school lists summer youth sports camps as part of its physical education and athletics offerings.",
+        "description": "Summer youth sports camps offered through Lake Lure Classical Academy's athletics program.",
         "camp_page_url": "https://www.llcharter.org/apps/pages/index.jsp?pREC_ID=2553116&type=d&uREC_ID=4359135",
         "registration_url": null,
         "season": {
@@ -115,8 +112,8 @@
         "sources": [
           "https://www.llcharter.org/apps/pages/index.jsp?pREC_ID=2553116&type=d&uREC_ID=4359135"
         ],
-        "confidence": "low",
-        "review_notes": "The athletics overview gives only a general mention, with no season-specific camp details. Confirm that camps are actually scheduled, their format and drop-off venue, and whether individual sports are separate named programs. Day format is provisional; no hours or overnight format are stated. The school's published address is 1058 Island Creek Rd., Lake Lure, NC, but the page does not explicitly identify a camp meeting location."
+        "confidence": "medium",
+        "review_notes": "The athletics page mentions the program without a summer year or camp details. Day format is inferred from the school athletics context. Confirm whether camps will run in 2027 and obtain their schedule, eligibility and drop-off venue. The school publishes 1058 Island Creek Rd., Lake Lure, NC, but does not explicitly identify it as the camp drop-off location."
       }
     ]
   }

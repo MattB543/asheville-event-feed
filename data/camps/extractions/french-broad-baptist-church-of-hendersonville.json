@@ -10,22 +10,22 @@
     "discovered_by": ["grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:13:38.880Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T17:11:39.504Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "7fc746547688b44fe29c9216b9d706c91586eede3181d77003f4a13e8adadfcc",
   "response": {
     "searches": [
       "site:frenchbroadbaptistchurch.com VBS 2026 2027",
-      "\"French Broad Baptist Church\" \"Vacation Bible\""
+      "\"French Broad Baptist Church\" \"2026\" \"VBS\""
     ],
     "usage": {
-      "inputTokens": 17371,
-      "cachedInputTokens": 8223,
-      "outputTokens": 454,
-      "reasoningTokens": 180
+      "inputTokens": 18046,
+      "cachedInputTokens": 8845,
+      "outputTokens": 436,
+      "reasoningTokens": 148
     },
     "status": "completed",
-    "ms": 24693,
+    "ms": 24983,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -44,23 +44,23 @@
   "extraction": {
     "provider_name": "French Broad Baptist Church of Hendersonville",
     "website_url": "https://www.frenchbroadbaptistchurch.com/",
-    "notes": "No official 2026 or 2027 summer camp information was found. The supplied WOW VBS page describes an undated livestream for kids and families, not a supervised camp. Search results also surfaced Hendersonville VBS events from 2019 and 2023; these were not used as current offerings. The official site blocks browser access via robots.txt; the calendar and linked WOW signup form returned no readable content.",
+    "notes": "No official 2027 or 2026 summer camp information was found. The supplied WOW VBS page describes an undated virtual broadcast, not supervised camp attendance. Search also surfaced Rocky Railway VBS in June 2025 and an official Eventbrite VBS listing from June 2023; neither establishes a 2026 or 2027 offering. The church website blocks browser access with robots.txt; its supplied page text and indexed search results were readable.",
     "excluded": [
       {
         "name": "WOW VBS",
-        "reason": "A four-day virtual livestream viewed by kids and families; the page does not establish a supervised youth program or summer dates."
-      },
-      {
-        "name": "Bible Study Groups",
-        "reason": "Recurring year-round Sunday groups, not a finite summer program."
-      },
-      {
-        "name": "Wednesday night children and youth groups",
-        "reason": "Recurring year-round groups, not a finite summer program."
+        "reason": "An undated four-day livestream for children and families to watch; the page does not describe supervised youth attendance or a local drop-off program."
       },
       {
         "name": "Fall Festival",
-        "reason": "A fall event, outside the summer."
+        "reason": "A seasonal festival, not a summer camp."
+      },
+      {
+        "name": "Kid’s Choir",
+        "reason": "Recurring Wednesday-night music ministry, not a finite summer camp."
+      },
+      {
+        "name": "Bible Study Groups and Wednesday-night groups",
+        "reason": "Recurring church ministries rather than finite summer programs."
       }
     ],
     "cards": []

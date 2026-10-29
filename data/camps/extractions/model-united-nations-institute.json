@@ -7,19 +7,19 @@
     "discovered_by": ["seed_sheet"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T14:57:56.678Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T16:58:15.050Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "087f4bd8569e8da54fe4b0c166c98cdff9069533b6ee0e447616cc098ad2ce1f",
   "response": {
-    "searches": ["site:muninstitute.com \"2027\" summer registration"],
+    "searches": ["site:muninstitute.com \"2027\" \"Virtual\""],
     "usage": {
-      "inputTokens": 29947,
-      "cachedInputTokens": 8223,
-      "outputTokens": 4944,
-      "reasoningTokens": 93
+      "inputTokens": 30588,
+      "cachedInputTokens": 8845,
+      "outputTokens": 4890,
+      "reasoningTokens": 87
     },
     "status": "completed",
-    "ms": 86966,
+    "ms": 81929,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -53,27 +53,39 @@
   "extraction": {
     "provider_name": "Model United Nations Institute",
     "website_url": "https://muninstitute.com/",
-    "notes": "No 2027 camp dates or registration opening dates were found. The savings-code page says, \"Check Back December 1 for Summer 2027 Discount Codes!\" This is not a registration opening announcement. Cards cover virtual youth camps accessible from Asheville; the provider's in-person university camps are outside the Asheville area. Private group camps also permit customized dates, levels, topics and virtual hours, but no fixed sessions were found. Official navigation marks virtual camps SOLD OUT while page bodies still say spots are available; availability is left null pending review.",
+    "notes": "Virtual camps are retained because Asheville families can participate from home; there are no local drop-off sites. No 2027 camp dates or registration opening dates were found. The savings page says to check back December 1 for Summer 2027 discount codes; this is not a registration opening announcement. Navigation says SOLD OUT while camp-page body text says camps are still enrolling, so availability is left null.",
     "excluded": [
       {
-        "name": "Virtual Advisor MUN Institute",
-        "reason": "Adult program for teachers and parents."
+        "name": "On Campus Model UN Institute",
+        "reason": "All listed campuses are outside the Asheville-area drive limit: Georgetown, Columbia, Boston University, UCLA, UC Berkeley, UC Irvine, Rutgers, and SMU."
+      },
+      {
+        "name": "Virtual MUN Advisor Institute",
+        "reason": "Training for teachers and parents, not a youth camp."
       },
       {
         "name": "Tutoring",
-        "reason": "Year-round tutoring, rather than a finite summer camp; optional camp tutoring is an add-on."
-      },
-      {
-        "name": "Best Delegate MUN Club",
-        "reason": "School-year program."
-      },
-      {
-        "name": "MUN Club Accelerator",
-        "reason": "School-year club support rather than a summer camp."
+        "reason": "Individual lesson packages, not camps."
       },
       {
         "name": "MUN Leadership Training",
-        "reason": "School-year or anytime training rather than a stated summer youth camp."
+        "reason": "School-year training rather than a finite summer youth camp."
+      },
+      {
+        "name": "Best Delegate MUN Club",
+        "reason": "School-year programming."
+      },
+      {
+        "name": "Private Model UN Teams",
+        "reason": "After-school program running October 2026 through April 2027."
+      },
+      {
+        "name": "MUN Conferences",
+        "reason": "Conferences are excluded under the camp rule."
+      },
+      {
+        "name": "Club Accelerator",
+        "reason": "School club support and training, not a summer camp."
       }
     ],
     "cards": [
@@ -81,9 +93,9 @@
         "name": "Virtual Model United Nations Institute",
         "type": "half_day",
         "categories": ["academic"],
-        "description": "Campers practice public speaking, debate, negotiation and resolution writing through online Model UN lessons, games and simulations. Beginner and experienced participants attend separate age and skill-level sessions.",
+        "description": "Campers participate online in Model UN simulations, public speaking games, debates, and resolution writing. Beginner and experienced groups practice representing countries or leaders and negotiating solutions to global issues.",
         "camp_page_url": "https://muninstitute.com/pages/virtual-model-un-institute-summer-camp",
-        "registration_url": "https://muninstitute.com/collections/virtual-model-united-nations-institute-enrollment",
+        "registration_url": null,
         "season": {
           "year": 2026,
           "status": "coming_soon",
@@ -100,14 +112,14 @@
         "hours": {
           "start": "13:00",
           "end": "16:00",
-          "text": "Monday - Friday from 1-4pm EST"
+          "text": "Monday - Friday from 1-4pm"
         },
         "extended_care": null,
         "prices": [
           {
             "amount": 449,
             "unit": "week",
-            "label": "Mini Diplomat, without tutoring, before $50 discount",
+            "label": "Mini Diplomat, without tutoring",
             "year": 2026
           },
           {
@@ -119,19 +131,19 @@
           {
             "amount": 598,
             "unit": "week",
-            "label": "Mini Diplomat with tutoring, before $50 discount",
+            "label": "Mini Diplomat, with tutoring",
             "year": 2026
           },
           {
             "amount": 548,
             "unit": "week",
-            "label": "Mini Diplomat with tutoring, discounted",
+            "label": "Mini Diplomat, discounted, with tutoring",
             "year": 2026
           },
           {
             "amount": 599,
             "unit": "week",
-            "label": "Ages 11-18, without tutoring, before $50 discount",
+            "label": "Ages 11-18, without tutoring",
             "year": 2026
           },
           {
@@ -143,13 +155,13 @@
           {
             "amount": 748,
             "unit": "week",
-            "label": "Ages 11-18 with tutoring, before $50 discount",
+            "label": "Ages 11-18, with tutoring",
             "year": 2026
           },
           {
             "amount": 698,
             "unit": "week",
-            "label": "Ages 11-18 with tutoring, discounted",
+            "label": "Ages 11-18, discounted, with tutoring",
             "year": 2026
           }
         ],
@@ -430,27 +442,26 @@
         "availability": null,
         "financial_aid": {
           "value": "yes",
-          "text": "Financial aid is available. Learn more and apply here!"
+          "text": "Financial aid is available."
         },
         "special_needs": null,
         "lunch": null,
         "transportation": null,
         "sources": [
           "https://muninstitute.com/pages/virtual-model-un-institute-summer-camp",
-          "https://muninstitute.com/",
           "https://muninstitute.com/pages/virtual-model-un-institute-savings-code",
-          "https://muninstitute.com/collections/virtual-model-united-nations-institute-enrollment"
+          "https://muninstitute.com/"
         ],
         "confidence": "medium",
-        "review_notes": "The overview and tuition table give Beginner - Diplomat ages 13-18, but its detailed description gives ages 14-18; rows use the detailed description. Navigation and homepage say SOLD OUT while the camp body says spots remain. The June 29-July 2 beginner session is four days despite the general Monday-Friday hours and 15-hour tuition description. Discounted prices remain printed although the discount-code page now only announces 2027 codes."
+        "review_notes": "Beginner Diplomat ages conflict: the overview and tuition table say 13-18, while the detailed description says 14-18; rows use the detailed description. The page labels Eastern hours EST during summer; 13:00-16:00 is treated as local Eastern time because its parallel Pacific and Central hours agree. SOLD OUT navigation conflicts with still-enrolling body text. The 2027 announcement concerns discount codes only, not dates or registration."
       },
       {
         "name": "Public Speaking Camp",
         "type": "half_day",
         "categories": ["academic"],
-        "description": "Campers practice storytelling, speech preparation, respectful debate and audience awareness through online lessons and activities. They create a leadership campaign speech and practice job interviews.",
+        "description": "Campers practice storytelling, speech structure, respectful debate, and speaking to an audience online. Activities include preparing a leadership campaign speech and practicing a job interview.",
         "camp_page_url": "https://muninstitute.com/pages/virtual-public-speaking-us-politics-and-social-skills-summer-camp",
-        "registration_url": "https://muninstitute.com/blogs/news/enroll",
+        "registration_url": null,
         "season": {
           "year": 2026,
           "status": "coming_soon",
@@ -467,32 +478,32 @@
         "hours": {
           "start": "13:00",
           "end": "16:00",
-          "text": "Monday - Friday from 1-4pm EST"
+          "text": "Monday - Friday from 1-4pm"
         },
         "extended_care": null,
         "prices": [
           {
             "amount": 599,
             "unit": "week",
-            "label": "Without tutoring, before $50 discount",
+            "label": "without tutoring",
             "year": 2026
           },
           {
             "amount": 549,
             "unit": "week",
-            "label": "Discounted, without tutoring; first 5 students per class",
+            "label": "first 5 students per class, with savings code, without tutoring",
             "year": 2026
           },
           {
             "amount": 748,
             "unit": "week",
-            "label": "With tutoring, before $50 discount",
+            "label": "with tutoring",
             "year": 2026
           },
           {
             "amount": 698,
             "unit": "week",
-            "label": "With tutoring, discounted",
+            "label": "discounted, with tutoring",
             "year": 2026
           }
         ],
@@ -527,7 +538,7 @@
         "availability": null,
         "financial_aid": {
           "value": "yes",
-          "text": "Financial aid is available. Learn more and apply here!"
+          "text": "Financial aid is available."
         },
         "special_needs": null,
         "lunch": null,
@@ -535,18 +546,18 @@
         "sources": [
           "https://muninstitute.com/pages/virtual-public-speaking-us-politics-and-social-skills-summer-camp",
           "https://muninstitute.com/pages/virtual-model-un-institute-savings-code",
-          "https://muninstitute.com/blogs/news/enroll"
+          "https://muninstitute.com/blogs/news/public-speaking-camp"
         ],
         "confidence": "medium",
-        "review_notes": "Dates on the shared camp page omit the year; 2026 is taken from the provider's current summer materials and matching calendar dates. Navigation says SOLD OUT but the body says spots remain. Discounted prices remain printed while the linked code page only announces 2027 codes."
+        "review_notes": "The combined camp page does not explicitly print a season year; 2026 is inferred from the site's current summer materials. The official Public Speaking blog additionally lists July 20-24 and ages 11-17, conflicting with the detailed camp page, which lists only two middle-school weeks; rows follow the detailed camp page. SOLD OUT navigation conflicts with still-enrolling text. EST is treated as local Eastern time. The 2027 announcement is for discount codes only."
       },
       {
         "name": "Social Skills Camp",
         "type": "half_day",
         "categories": ["academic"],
-        "description": "Campers practice starting conversations, listening, making friends and navigating disagreements through online games, role-plays and group challenges. Activities address emotional awareness, empathy and self-advocacy.",
+        "description": "Campers practice starting conversations, building friendships, listening, and managing disagreements through online games, role-plays, and team activities.",
         "camp_page_url": "https://muninstitute.com/pages/virtual-public-speaking-us-politics-and-social-skills-summer-camp",
-        "registration_url": "https://muninstitute.com/blogs/news/enroll",
+        "registration_url": null,
         "season": {
           "year": 2026,
           "status": "coming_soon",
@@ -563,32 +574,32 @@
         "hours": {
           "start": "13:00",
           "end": "16:00",
-          "text": "Monday - Friday from 1-4pm EST"
+          "text": "Monday - Friday from 1-4pm"
         },
         "extended_care": null,
         "prices": [
           {
             "amount": 599,
             "unit": "week",
-            "label": "Without tutoring, before $50 discount",
+            "label": "without tutoring",
             "year": 2026
           },
           {
             "amount": 549,
             "unit": "week",
-            "label": "Discounted, without tutoring; first 5 students per class",
+            "label": "first 5 students per class, with savings code, without tutoring",
             "year": 2026
           },
           {
             "amount": 748,
             "unit": "week",
-            "label": "With tutoring, before $50 discount",
+            "label": "with tutoring",
             "year": 2026
           },
           {
             "amount": 698,
             "unit": "week",
-            "label": "With tutoring, discounted",
+            "label": "discounted, with tutoring",
             "year": 2026
           }
         ],
@@ -629,26 +640,25 @@
         "availability": null,
         "financial_aid": {
           "value": "yes",
-          "text": "Financial aid is available. Learn more and apply here!"
+          "text": "Financial aid is available."
         },
         "special_needs": null,
         "lunch": null,
         "transportation": null,
         "sources": [
           "https://muninstitute.com/pages/virtual-public-speaking-us-politics-and-social-skills-summer-camp",
-          "https://muninstitute.com/pages/virtual-model-un-institute-savings-code",
-          "https://muninstitute.com/blogs/news/enroll"
+          "https://muninstitute.com/pages/virtual-model-un-institute-savings-code"
         ],
         "confidence": "medium",
-        "review_notes": "Dates on the shared page omit the year; 2026 is taken from the provider's current summer materials and matching calendar dates. Introductory text says ages 11-17, but detailed age bands and tuition table say 11-18. Navigation says SOLD OUT but the body says spots remain. Discounted prices remain printed while the linked code page only announces 2027 codes."
+        "review_notes": "The combined camp page does not explicitly print a season year; 2026 is inferred from the site's current summer materials. Introductory text says ages 11-17, while detailed bands and tuition table say 11-13 and 14-18; rows use the detailed bands. SOLD OUT navigation conflicts with still-enrolling body text. EST is treated as local Eastern time. The 2027 announcement concerns discount codes only."
       },
       {
         "name": "U.S. Politics Camp",
         "type": "half_day",
         "categories": ["academic"],
-        "description": "Campers study Congress, elections, lobbying and political funding through online lessons, debates and simulations. They practice writing legislation, creating campaigns and discussing different viewpoints, concluding with an immigration case study.",
+        "description": "Campers explore Congress, elections, lobbying, and campaign funding through online lessons, discussions, and political simulations. Activities include writing bills, creating campaigns, and studying U.S. immigration.",
         "camp_page_url": "https://muninstitute.com/pages/virtual-public-speaking-us-politics-and-social-skills-summer-camp",
-        "registration_url": "https://muninstitute.com/blogs/news/enroll",
+        "registration_url": null,
         "season": {
           "year": 2026,
           "status": "coming_soon",
@@ -665,32 +675,32 @@
         "hours": {
           "start": "13:00",
           "end": "16:00",
-          "text": "Monday - Friday from 1-4pm EST"
+          "text": "Monday - Friday from 1-4pm"
         },
         "extended_care": null,
         "prices": [
           {
             "amount": 599,
             "unit": "week",
-            "label": "Without tutoring, before $50 discount",
+            "label": "without tutoring",
             "year": 2026
           },
           {
             "amount": 549,
             "unit": "week",
-            "label": "Discounted, without tutoring; first 5 students per class",
+            "label": "first 5 students per class, with savings code, without tutoring",
             "year": 2026
           },
           {
             "amount": 748,
             "unit": "week",
-            "label": "With tutoring, before $50 discount",
+            "label": "with tutoring",
             "year": 2026
           },
           {
             "amount": 698,
             "unit": "week",
-            "label": "With tutoring, discounted",
+            "label": "discounted, with tutoring",
             "year": 2026
           }
         ],
@@ -731,18 +741,17 @@
         "availability": null,
         "financial_aid": {
           "value": "yes",
-          "text": "Financial aid is available. Learn more and apply here!"
+          "text": "Financial aid is available."
         },
         "special_needs": null,
         "lunch": null,
         "transportation": null,
         "sources": [
           "https://muninstitute.com/pages/virtual-public-speaking-us-politics-and-social-skills-summer-camp",
-          "https://muninstitute.com/pages/virtual-model-un-institute-savings-code",
-          "https://muninstitute.com/blogs/news/enroll"
+          "https://muninstitute.com/pages/virtual-model-un-institute-savings-code"
         ],
         "confidence": "medium",
-        "review_notes": "Dates on the shared page omit the year; 2026 is taken from the provider's current summer materials and matching calendar dates. Introductory text says ages 11-17, but detailed age bands and tuition table say 11-18. Navigation says SOLD OUT but the body says spots remain. Discounted prices remain printed while the linked code page only announces 2027 codes."
+        "review_notes": "The combined camp page does not explicitly print a season year; 2026 is inferred from the site's current summer materials. Introductory text says ages 11-17, while detailed bands and tuition table say 11-13 and 14-18; rows use the detailed bands. SOLD OUT navigation conflicts with still-enrolling body text. EST is treated as local Eastern time. The 2027 announcement concerns discount codes only."
       }
     ]
   }

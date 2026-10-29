@@ -7,25 +7,24 @@
     "discovered_by": ["seed_sheet"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T14:57:25.964Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T16:57:37.160Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "58fbbb1e0ba618997e8856168477c34f8a129710f33014c83d0bcdc123b424c3",
   "response": {
     "searches": [
-      "site:ncstage.org \"summer\" \"2026\"",
-      "site:ncstage.org \"Youth Summer Camps\"",
-      "open https://www.ncstage.org/",
-      "site:ncstage.org/education/ summer camps",
-      "site:ncstage.org \"Summer Camps\" -2015 -attachment -productions -blog"
+      "site:ncstage.org \"summer\" \"2026\" camp",
+      "open https://www.ncstage.org/education/",
+      "\"ncstage\" \"camps\" \"2027\"",
+      "site:ncstage.org/education \"camp\""
     ],
     "usage": {
-      "inputTokens": 32247,
-      "cachedInputTokens": 8223,
-      "outputTokens": 837,
-      "reasoningTokens": 311
+      "inputTokens": 30578,
+      "cachedInputTokens": 8845,
+      "outputTokens": 762,
+      "reasoningTokens": 271
     },
     "status": "completed",
-    "ms": 39414,
+    "ms": 29611,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -54,11 +53,11 @@
   "extraction": {
     "provider_name": "North Carolina Stage Company",
     "website_url": "https://www.ncstage.org/",
-    "notes": "The education page lists Youth Summer Camps but provides no program details. Searches found no official 2026 or 2027 camp dates, prices, or registration announcements; only historical 2015 and 2016 offerings were found. Direct attempts to open the education page and possible camp subpages returned no readable text. The generic camp listing is retained below pending confirmation of the current offering. Historical camp details were not carried forward.",
+    "notes": "The current education page lists Youth Summer Camps, but no 2027 or 2026 camp details were found in official search results. Attempts to open the education page and likely camp-page paths returned no readable content. Historical 2015 and 2016 camp posts were not used for current dates, ages, prices or venues.",
     "excluded": [
       {
         "name": "Youth Classes",
-        "reason": "Listed as classes rather than a finite summer program; no summer-only offering was documented."
+        "reason": "Classes rather than a finite summer camp."
       },
       {
         "name": "Adult Classes",
@@ -66,7 +65,7 @@
       },
       {
         "name": "Arts in Schools",
-        "reason": "School classroom residencies, not summer camps."
+        "reason": "In-school residency programs, not summer camps."
       }
     ],
     "cards": [
@@ -74,7 +73,7 @@
         "name": "Youth Summer Camps",
         "type": "day",
         "categories": ["theater"],
-        "description": "NC Stage lists youth summer camps as part of its theatre education programming.",
+        "description": "Youth theatre summer camps.",
         "camp_page_url": "https://www.ncstage.org/education/",
         "registration_url": null,
         "season": {
@@ -100,7 +99,7 @@
         "transportation": null,
         "sources": ["https://www.ncstage.org/education/"],
         "confidence": "low",
-        "review_notes": "Confirm whether Youth Summer Camps is currently offered and obtain its program name, format, venue, and season details. The education page only lists the category; day-camp format is not confirmed. The provider's published address is 15 Stage Lane, Asheville, NC, but no current camp drop-off location is stated, so it is not assigned as a camp site."
+        "review_notes": "Only the program listing on the education page could be confirmed. Check the actual linked camp page for program format, 2026 or 2027 details, registration and drop-off venue. Day format is provisional; the current listing does not specify it. The provider's 15 Stage Lane address was not assigned as a camp site because camp location was not established."
       }
     ]
   }

@@ -11,27 +11,31 @@
     "discovered_by": ["grid", "gap_fill"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T15:12:35.705Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
-  "sourceHash": "a82d05022dd3e1c136c957a90b10eaa4f8ee2d72617e40627e3d48df36d51414",
+  "extractedAt": "2026-10-29T17:10:43.169Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "1d89a64f7783ea8688e50ddfe05e00cf0d3bb5a37873b24e1828fe95501beef1",
   "response": {
-    "searches": ["Enka \"camp\" \"2026\" wrestling", "site:gofan.co \"Enka\" \"Camp\" \"2026\""],
+    "searches": [
+      "Enka volleyball camp 2026 2027",
+      "site:ehs.buncombeschools.org camp volleyball 2026",
+      "\"Enka\" \"camp\" \"2026\" \"wrestling\" -site:wrestlinginc.com -WWE"
+    ],
     "usage": {
-      "inputTokens": 29881,
-      "cachedInputTokens": 8223,
-      "outputTokens": 1217,
-      "reasoningTokens": 257
+      "inputTokens": 38674,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1416,
+      "reasoningTokens": 366
     },
     "status": "completed",
-    "ms": 40276,
+    "ms": 46629,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
   "bundle": [
     {
       "url": "https://ehs.buncombeschools.org/",
-      "chars": 5702,
-      "method": "browser"
+      "chars": 1731,
+      "method": "fetch"
     },
     {
       "url": "https://sites.google.com/bcsemail.org/enkajetathletics/mens-sports/wrestling/wrestling-camp",
@@ -54,11 +58,6 @@
       "method": "browser"
     },
     {
-      "url": "http://www.buncombeschools.org/o/bcs/page/summer-meals",
-      "chars": 3033,
-      "method": "browser"
-    },
-    {
       "url": "https://sites.google.com/bcsemail.org/enkajetathletics/faq",
       "chars": 1682,
       "method": "fetch"
@@ -72,32 +71,37 @@
       "url": "https://sites.google.com/",
       "chars": 1253,
       "method": "fetch"
+    },
+    {
+      "url": "https://gofan.co/",
+      "chars": 2360,
+      "method": "browser"
     }
   ],
   "extraction": {
     "provider_name": "Enka High School",
     "website_url": "https://ehs.buncombeschools.org/",
-    "notes": "No official summer 2027 camp dates or registration announcements were found. The wrestling page references a 2026 flyer, but its embedded contents could not be read. GoFan's volleyball event returned no readable page body; only its official search result supplied a date and grade band. An older school summer-camp announcement is dated June 5, 2024 and was not used for 2026 facts.",
+    "notes": "No official summer 2027 camp information was found. The wrestling page references an embedded 2026 flyer, but its contents could not be retrieved. The volleyball GoFan page returned no readable body; its official search result supplies a July 29, 2026 date and grades 6–8, but not the complete schedule. A third-party listing also mentions Sugar Jet Softball Camp in July 2026; no official camp details could be retrieved, so it is not included as a card.",
     "excluded": [
       {
-        "name": "Enka High School 2026-2027 Athletic Registration",
-        "reason": "Registration for school sports teams and seasons, not a finite summer camp."
+        "name": "Enka High School Athletic Registration",
+        "reason": "School-year sports participation and team seasons, not a finite summer camp."
       },
       {
-        "name": "Summer Meals",
-        "reason": "Meal service, not a supervised youth camp."
+        "name": "BCS Agriculture Career Exploration Camp",
+        "reason": "The official listing describes the program specifically for rising Buncombe County Schools students in grades 5–8; district-only learning programs are excluded."
       },
       {
-        "name": "School Tours",
-        "reason": "School tours are not summer camp programs."
+        "name": "ENKA Summer Sports School",
+        "reason": "A similarly named organization in Turkey, not Enka High School in Candler, NC."
       }
     ],
     "cards": [
       {
         "name": "WNC Elite Wrestling Camp",
-        "type": "clinic",
+        "type": "day",
         "categories": ["sports"],
-        "description": "Campers receive wrestling instruction from Gardner-Webb University staff, Enka High staff, and Owen High Coach Rich Caisse. The camp is open to all ages and experience levels.",
+        "description": "Wrestling camp open to all ages and experience levels, with instruction from Gardner-Webb University staff, Enka High staff, and Owen High Coach Rich Caisse.",
         "camp_page_url": "https://sites.google.com/bcsemail.org/enkajetathletics/mens-sports/wrestling/wrestling-camp",
         "registration_url": null,
         "season": {
@@ -132,14 +136,14 @@
           "https://sites.google.com/bcsemail.org/enkajetathletics/mens-sports/wrestling/wrestling-camp",
           "https://ehs.buncombeschools.org/"
         ],
-        "confidence": "high",
-        "review_notes": null
+        "confidence": "medium",
+        "review_notes": "The official page confirms the camp occurred in 2026 and says all ages and experience levels. Check the embedded 2026 Enka Camp Flyer for dates, hours, price, registration instructions, and confirmation of day format; the flyer could not be read."
       },
       {
         "name": "Enka Jet Volleyball Camp",
-        "type": "clinic",
+        "type": "day",
         "categories": ["sports"],
-        "description": "A youth volleyball camp with a listed sixth-through-eighth-grade offering.",
+        "description": "Volleyball camp for children in grades 6–8.",
         "camp_page_url": "https://gofan.co/event/6717358",
         "registration_url": "https://gofan.co/event/6717358",
         "season": {
@@ -169,7 +173,7 @@
         "transportation": null,
         "sources": ["https://gofan.co/event/6717358"],
         "confidence": "medium",
-        "review_notes": "The official GoFan search result states 'Enka Jet Volleyball Camp (6th-8th grade) - Registration - Jul 29, 2026'; the event body could not be read. Verify the ending date, drop-off venue, hours, price, and whether grades are rising. A third-party copy of an athletic booster announcement also mentions a second-through-fifth-grade offering, but its details were not independently confirmed on an official page and are omitted."
+        "review_notes": "The official GoFan search result reads 'Enka Jet Volleyball Camp (6th-8th grade) - Registration - Jul 29, 2026'. The page body could not be read. Check whether July 29 is the first or only camp day, the day format, the venue, grade basis, hours, and price. The school's address is known, but the retrieved camp information does not establish it as the drop-off venue."
       }
     ]
   }

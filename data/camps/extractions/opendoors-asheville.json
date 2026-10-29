@@ -7,19 +7,22 @@
     "discovered_by": ["beyond_school"],
     "status": "ok"
   },
-  "extractedAt": "2026-10-29T14:58:01.732Z",
-  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "extractedAt": "2026-10-29T16:58:21.676Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
   "sourceHash": "0ab05a0441bb90eeca90be533397df2801810437cb53fbfb1543ed934d5f5d51",
   "response": {
-    "searches": ["site:opendoorsasheville.org \"2027\" camp"],
+    "searches": [
+      "site:opendoorsasheville.org \"refresher\"",
+      "\"OpenDoors Asheville\" \"2026\" \"camp\""
+    ],
     "usage": {
-      "inputTokens": 14192,
-      "cachedInputTokens": 8223,
-      "outputTokens": 703,
-      "reasoningTokens": 94
+      "inputTokens": 19046,
+      "cachedInputTokens": 8845,
+      "outputTokens": 677,
+      "reasoningTokens": 130
     },
     "status": "completed",
-    "ms": 20894,
+    "ms": 22829,
     "model": "gpt-6.1-sol",
     "attempts": 1
   },
@@ -38,19 +41,15 @@
   "extraction": {
     "provider_name": "OpenDoors Asheville",
     "website_url": "https://opendoorsasheville.org/",
-    "notes": "No 2027 or 2026 camp schedule was found on official pages. The enrichment page describes Back-To-School Refresher Week under Summer 2024; its current operation and public enrollment eligibility need confirmation. Other named camps are operated by outside providers, not OpenDoors. The published office address is not identified as a camp drop-off location.",
+    "notes": "No 2027 or 2026 camp details were found. The enrichment page describes Back-To-School Refresher Week under Summer 2024, without exact dates. The office address is published, but the camp's drop-off location is not identified. The student referral page lists an organization-wide intake waitlist; this is not a camp-specific availability statement.",
     "excluded": [
       {
-        "name": "Partner day camps and overnight camps",
-        "reason": "Green River Preserve, Camp Watia, Camp Rockmont, Firefly Valley Pottery Camp, Asheville Museum of Science and ABYSA Soccer Camp are described as outside camps attended by OpenDoors students, not programs operated by this provider."
+        "name": "Green River Preserve, Camp Watia, Camp Rockmont, Firefly Valley Pottery Camp, Asheville Museum of Science, and ABYSA Soccer Camp",
+        "reason": "These are other providers' camps attended by OpenDoors students, not programs operated by OpenDoors Asheville."
       },
       {
-        "name": "AVL Rise",
-        "reason": "A peer-to-peer literacy tutoring and paid high-school tutor employment program, not a finite summer camp."
-      },
-      {
-        "name": "Academic tutoring and extracurricular enrichment",
-        "reason": "Ongoing educational services and extracurricular activities, not separately identified finite summer programs."
+        "name": "Tutoring and enrichment classes",
+        "reason": "Ongoing tutoring and enrichment classes are not identified as finite summer camps."
       }
     ],
     "cards": [
@@ -58,11 +57,11 @@
         "name": "Back-To-School Refresher Week",
         "type": "day",
         "categories": ["academic"],
-        "description": "Students prepare for the school year during a week that OpenDoors describes as its final summer camp in August.",
+        "description": "A summer camp week for students of all ages to prepare for the school year.",
         "camp_page_url": "https://opendoorsasheville.org/enrichment/",
         "registration_url": null,
         "season": {
-          "year": 2027,
+          "year": 2024,
           "status": "not_posted",
           "start": null,
           "end": null,
@@ -82,12 +81,9 @@
         "special_needs": null,
         "lunch": null,
         "transportation": null,
-        "sources": [
-          "https://opendoorsasheville.org/enrichment/",
-          "https://opendoorsasheville.org/the-why"
-        ],
+        "sources": ["https://opendoorsasheville.org/enrichment/"],
         "confidence": "medium",
-        "review_notes": "The official description appears in Summer 2024 material and says students of all ages, without numeric ages or grades. Confirm that the program will run in 2027, its day-camp format, enrollment eligibility, dates and drop-off location. No historical dates have been projected into 2027; the day classification is inferred from the school-readiness week description."
+        "review_notes": "The program is described under the Summer 2024 heading as taking place in August; no exact dates or 2026/2027 details were found. Day-camp format is inferred from the local back-to-school week description, not explicitly stated. The page does not identify a camp venue, numeric age range, hours, price, or registration process."
       }
     ]
   }

@@ -209,6 +209,19 @@ export const LIST_EVIDENCE_FIELDS = [
   'registration_milestones',
 ] as const;
 
+/** Every piece of evidence on a card, with its field name. */
+export function evidenceItems(card: ExtractedCard): Array<{ field: string; evidence: Evidence }> {
+  const items: Array<{ field: string; evidence: Evidence }> = [];
+  for (const field of SINGLE_EVIDENCE_FIELDS) {
+    const evidence = card[field];
+    if (evidence) items.push({ field, evidence });
+  }
+  for (const field of LIST_EVIDENCE_FIELDS) {
+    for (const evidence of card[field]) items.push({ field, evidence });
+  }
+  return items;
+}
+
 // ---------------------------------------------------------------------------
 // Verification
 // ---------------------------------------------------------------------------

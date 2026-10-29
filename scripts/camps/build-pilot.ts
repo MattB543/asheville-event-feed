@@ -41,7 +41,7 @@ import {
   type ExtractedCard,
   type Extraction,
 } from '../../lib/camps/types';
-import { evidenceItems } from '../../lib/camps/verify';
+import { evidenceItems } from '../../lib/camps/types';
 import { WEBTRAC_PROVIDER, webTracCards, type WebTracCatalog } from '../../lib/camps/webtrac';
 import type { SavedVerification } from './run-pilot';
 

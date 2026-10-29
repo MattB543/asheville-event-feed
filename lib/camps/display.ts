@@ -260,9 +260,12 @@ function registrationLine(
     availability?.seasonYear === TARGET_SEASON && rowPublishable(availability)
       ? availability
       : null;
-  // A reading about some sessions ("Session A: full") never speaks for the whole camp.
-  const campWide = currentAvailability && !currentAvailability.scope ? currentAvailability : null;
-  const scoped = currentAvailability?.scope ? currentAvailability : null;
+  // A reading about some sessions ("Session A: full") never speaks for the whole camp; one about
+  // all of them ("All four sessions") does.
+  const coversCamp =
+    !currentAvailability?.scope || /^(?:all|every)\b/i.test(currentAvailability.scope);
+  const campWide = currentAvailability && coversCamp ? currentAvailability : null;
+  const scoped = currentAvailability && !coversCamp ? currentAvailability : null;
 
   const closing = settled.find(
     (milestone) =>
@@ -356,7 +359,7 @@ function registrationLine(
     return {
       tone: 'unknown',
       text: 'Registration date found, not confirmed yet',
-      detail: 'Shown on the details page once checked',
+      detail: 'See details for what the camp’s site says',
       sortDate: null,
     };
   }
@@ -474,11 +477,11 @@ export function formatGrades(grades: {
         ? gradeLabel(grades.min)
         : `${gradeLabel(grades.min)}–${gradeLabel(grades.max)}`
       : grades.min !== null
-        ? `${gradeLabel(grades.min)} and up`
-        : `up to ${gradeLabel(grades.max!)}`;
+        ? `${gradeLabel(grades.min)} grade and up`
+        : `up to ${gradeLabel(grades.max!)} grade`;
   const prefix =
     grades.basis === 'rising' ? 'Rising ' : grades.basis === 'completed' ? 'Finished ' : '';
-  return `${prefix}${range} grade`;
+  return `${prefix}${range}${grades.min !== null && grades.max !== null ? ' grade' : ''}`;
 }
 
 export function formatAges(ages: { min: number | null; max: number | null }): string | null {
@@ -570,18 +573,46 @@ export function fitsAge(ages: AgeRange | null, age: number): boolean | null {
 
 /**
  * Does a camp take a kid entering this grade in fall 2027 ("rising" grade)? "Completed 2nd" and
- * "current 2nd" (this school year) are both rising 3rd. Null when the camp states no grades, or
- * doesn't say whether its grades are rising or completed: "3rd-9th" alone could be either.
+ * "current 2nd" (this school year) are both rising 3rd. "3rd-9th" alone could be either, so it
+ * fits when either reading does. Null when the camp states no grades.
  */
 export function fitsGrade(grades: GradeRange | null, risingGrade: number): boolean | null {
   if (!grades || (grades.min === null && grades.max === null)) return null;
-  if (grades.basis !== 'rising' && grades.basis !== 'completed' && grades.basis !== 'current') {
-    return null;
+  const within = (grade: number) =>
+    (grades.min === null || grade >= grades.min) && (grades.max === null || grade <= grades.max);
+  if (grades.basis === 'rising') return within(risingGrade);
+  if (grades.basis === 'completed' || grades.basis === 'current') return within(risingGrade - 1);
+  return within(risingGrade) || within(risingGrade - 1);
+}
+
+/**
+ * Does a camp take this kid? Each thing the parent gave is tested against what the camp states,
+ * converting when the camp states the other one: a rising 2nd grader is 7 or 8 next summer, and a
+ * 7-year-old is a rising 1st or 2nd grader. Null when the camp states neither ages nor grades.
+ */
+export function fitsKid(
+  camp: { ages: AgeRange | null; grades: GradeRange | null },
+  kid: { age: number | null; grade: number | null }
+): boolean | null {
+  const states = (range: AgeRange | GradeRange | null) =>
+    !!range && (range.min !== null || range.max !== null);
+  const results: Array<boolean | null> = [];
+  if (kid.age !== null) {
+    results.push(
+      states(camp.ages)
+        ? fitsAge(camp.ages, kid.age)
+        : fitsGrade(camp.grades, kid.age - 5) || fitsGrade(camp.grades, kid.age - 6)
+    );
   }
-  const grade = grades.basis === 'rising' ? risingGrade : risingGrade - 1;
-  return (
-    (grades.min === null || grade >= grades.min) && (grades.max === null || grade <= grades.max)
-  );
+  if (kid.grade !== null) {
+    results.push(
+      states(camp.grades)
+        ? fitsGrade(camp.grades, kid.grade)
+        : fitsAge(camp.ages, kid.grade + 5) || fitsAge(camp.ages, kid.grade + 6)
+    );
+  }
+  if (results.includes(false)) return false;
+  return results.includes(true) ? true : null;
 }
 
 // ---------------------------------------------------------------------------

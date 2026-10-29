@@ -236,7 +236,6 @@ export default async function CampPage({ params }: PageProps) {
                         for {audienceLabel(milestone.audience)}:
                       </span>{' '}
                       {formatMilestoneWhen(milestone)}
-                      {milestone.precision === 'date' && ' (time not stated)'}
                       {isTentative(milestone) && (
                         <span className="ml-1.5 rounded px-1 text-[11px] font-medium bg-amber-100 text-amber-800 dark:bg-amber-900/50 dark:text-amber-200">
                           expected, not confirmed
@@ -254,13 +253,11 @@ export default async function CampPage({ params }: PageProps) {
                         {host(milestone.sourceUrl)}
                       </a>{' '}
                       ·{' '}
-                      {milestone.verifyStatus === 'verified'
-                        ? 'quote found on the page'
-                        : `needs a check (${milestone.flags.filter((flag) => flag !== 'needs_hand_check').join(', ')})`}{' '}
-                      ·{' '}
                       {milestone.handCheckedAt
-                        ? `checked by hand ${formatDate(milestone.handCheckedAt.slice(0, 10), true)} (pilot session, not yet by Matt)`
-                        : 'not yet checked by a person'}
+                        ? `checked in a browser ${formatDate(milestone.handCheckedAt.slice(0, 10), true)}`
+                        : milestone.verifyStatus === 'verified'
+                          ? 'quote found on the page, not confirmed yet'
+                          : 'not confirmed yet'}
                     </p>
                   </li>
                 ))}
@@ -274,7 +271,7 @@ export default async function CampPage({ params }: PageProps) {
                   {camp.availability.seasonYear < 2027 && ' · last summer, not 2027'}
                   {camp.availability.verifyStatus !== 'verified' &&
                     !camp.availability.handCheckedAt &&
-                    ' · needs a check'}
+                    ' · not confirmed yet'}
                 </p>
                 <p className="text-xs text-gray-500 dark:text-gray-400">
                   “{camp.availability.quote}” ·{' '}
@@ -340,11 +337,11 @@ export default async function CampPage({ params }: PageProps) {
                         {row.evidence.check && (
                           <p className="mt-0.5">
                             Checked {formatDate(row.evidence.check.checkedAt.slice(0, 10), true)}:{' '}
-                            {row.evidence.check.status}
-                            {row.evidence.check.flags.length > 0 &&
-                              ` (${row.evidence.check.flags.join(', ')})`}
-                            {row.evidence.check.handCheckedAt &&
-                              `; checked by hand: ${row.evidence.check.handCheckNote ?? 'confirmed'}`}
+                            {row.evidence.check.handCheckedAt
+                              ? `confirmed in a browser. ${row.evidence.check.handCheckNote ?? ''}`
+                              : row.evidence.publishable
+                                ? 'quote found on the page'
+                                : 'not confirmed yet'}
                           </p>
                         )}
                         {row.evidence.check?.handCheckSource && (
@@ -371,10 +368,9 @@ export default async function CampPage({ params }: PageProps) {
           {camp.geo && (
             <p className="mt-4 text-sm text-gray-600 dark:text-gray-400">
               {isSiteLevel(camp.geo) && camp.geo.driveMinutes !== null
-                ? `About ${Math.round(camp.geo.driveMinutes)} minutes’ drive from downtown Asheville (Pack Square, no traffic).`
+                ? `About ${Math.max(1, Math.round(camp.geo.driveMinutes))} min drive from downtown Asheville (Pack Square, no traffic).`
                 : `Drive time not shown: we could only place this camp at the town (${camp.geo.label}).`}
               {camp.geo.inRadius === false && ' Outside the directory’s drive-time limit.'}
-              {camp.geo.nearCutoff && ' Close to the drive-time limit; needs a look.'}
             </p>
           )}
 

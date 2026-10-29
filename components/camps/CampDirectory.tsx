@@ -2,13 +2,13 @@
 
 import { useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
+import { usePathname, useSearchParams } from 'next/navigation';
 import { CalendarClock, Car, ExternalLink, MapPin, Search, Tag, Users } from 'lucide-react';
 import {
   CATEGORY_LABELS,
   TARGET_SEASON,
   TYPE_LABELS,
-  fitsAge,
-  fitsGrade,
+  fitsKid,
   gradeLabel,
   type CampCardData,
   type Labeled,
@@ -20,6 +20,8 @@ interface CampDirectoryProps {
 
 type Sort = 'registration' | 'drive' | 'price' | 'name';
 type DriveLimit = 'any' | '15' | '30' | '45';
+const DRIVE_LIMITS: DriveLimit[] = ['any', '15', '30', '45'];
+const SORTS: Sort[] = ['registration', 'drive', 'price', 'name'];
 
 /** The kid's age or rising grade, kept on this device only (plan §4.1, "My kids"). */
 const KID_STORAGE_KEY = 'avlgo:camps:kid';
@@ -35,18 +37,51 @@ const GRADE_OPTIONS = [
 ];
 
 export default function CampDirectory({ camps }: CampDirectoryProps) {
-  const [query, setQuery] = useState('');
-  const [type, setType] = useState('all');
-  const [category, setCategory] = useState('all');
-  const [drive, setDrive] = useState<DriveLimit>('any');
-  const [age, setAge] = useState('');
-  const [grade, setGrade] = useState('');
-  const [sort, setSort] = useState<Sort>('registration');
-  const [grouped, setGrouped] = useState(true);
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  // The filters live in the URL so Back from a camp restores them (as on /groups). The URL is only
+  // read on mount; after that local state leads and the URL follows.
+  const param = (key: string) => searchParams.get(key) ?? '';
+  const [query, setQuery] = useState(() => param('q'));
+  const [type, setType] = useState(() => param('type') || 'all');
+  const [category, setCategory] = useState(() => param('cat') || 'all');
+  const [drive, setDrive] = useState<DriveLimit>(() =>
+    DRIVE_LIMITS.includes(param('drive') as DriveLimit) ? (param('drive') as DriveLimit) : 'any'
+  );
+  const [age, setAge] = useState(() => param('age'));
+  const [grade, setGrade] = useState(() => param('grade'));
+  const [sort, setSort] = useState<Sort>(() =>
+    SORTS.includes(param('sort') as Sort) ? (param('sort') as Sort) : 'registration'
+  );
+  const [grouped, setGrouped] = useState(() => param('flat') !== '1');
+  const [withUnknownDrive, setWithUnknownDrive] = useState(false);
   const [expanded, setExpanded] = useState<Set<string>>(new Set());
 
-  // Restore the kid's age / grade from this device.
+  // replaceState, not router.replace: filtering is client-side, so no server round trip.
   useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const values: Array<[string, string, string]> = [
+      ['q', query.trim(), ''],
+      ['type', type, 'all'],
+      ['cat', category, 'all'],
+      ['drive', drive, 'any'],
+      ['age', age, ''],
+      ['grade', grade, ''],
+      ['sort', sort, 'registration'],
+      ['flat', grouped ? '' : '1', ''],
+    ];
+    for (const [key, value, fallback] of values) {
+      if (value && value !== fallback) params.set(key, value);
+      else params.delete(key);
+    }
+    const next = params.toString();
+    if (next === window.location.search.replace(/^\?/, '')) return;
+    window.history.replaceState(window.history.state, '', next ? `${pathname}?${next}` : pathname);
+  }, [query, type, category, drive, age, grade, sort, grouped, pathname]);
+
+  // Restore the kid's age / grade from this device, unless the link already says.
+  useEffect(() => {
+    if (searchParams.has('age') || searchParams.has('grade')) return;
     try {
       const saved = JSON.parse(localStorage.getItem(KID_STORAGE_KEY) ?? 'null') as {
         age?: string;
@@ -59,7 +94,7 @@ export default function CampDirectory({ camps }: CampDirectoryProps) {
     } catch {
       // Private mode or blocked storage: start empty.
     }
-  }, []);
+  }, [searchParams]);
 
   useEffect(() => {
     try {
@@ -75,40 +110,59 @@ export default function CampDirectory({ camps }: CampDirectoryProps) {
     [camps]
   );
 
-  const filtered = useMemo(() => {
+  // Every filter but drive time, so we can say how many camps without one the drive filter hides.
+  const matching = useMemo(() => {
     const terms = query.toLowerCase().split(/\s+/).filter(Boolean);
-    const kidAge = age === '' ? null : Number(age);
-    const kidGrade = grade === '' ? null : Number(grade);
+    const kid = {
+      age: age === '' ? null : Number(age),
+      grade: grade === '' ? null : Number(grade),
+    };
 
-    return camps
-      .filter((camp) => type === 'all' || camp.type === type)
-      .filter((camp) => category === 'all' || camp.categories.includes(category))
-      .filter((camp) => {
-        if (drive === 'any') return true;
-        return camp.driveMinutes !== null && camp.driveMinutes <= Number(drive);
-      })
-      .filter((camp) => {
+    return (
+      camps
+        .filter((camp) => type === 'all' || camp.type === type)
+        .filter((camp) => category === 'all' || camp.categories.includes(category))
         // A camp that states neither ages nor grades stays in: unknown is not "no".
-        const byAge = kidAge === null ? null : fitsAge(camp.ages, kidAge);
-        const byGrade = kidGrade === null ? null : fitsGrade(camp.grades, kidGrade);
-        return byAge !== false && byGrade !== false;
-      })
-      .filter((camp) => {
-        if (terms.length === 0) return true;
-        const haystack = [
-          camp.name,
-          camp.variant,
-          camp.providerName,
-          camp.town,
-          TYPE_LABELS[camp.type],
-          ...camp.categories.map((value) => CATEGORY_LABELS[value]),
-        ]
-          .join(' ')
-          .toLowerCase();
-        return terms.every((term) => haystack.includes(term));
-      })
-      .sort(compare(sort));
-  }, [camps, query, type, category, drive, age, grade, sort]);
+        .filter((camp) => fitsKid(camp, kid) !== false)
+        .filter((camp) => {
+          if (terms.length === 0) return true;
+          const haystack = [
+            camp.name,
+            camp.variant,
+            camp.providerName,
+            camp.town,
+            TYPE_LABELS[camp.type],
+            ...camp.categories.map((value) => CATEGORY_LABELS[value]),
+          ]
+            .join(' ')
+            .toLowerCase();
+          return terms.every((term) => haystack.includes(term));
+        })
+    );
+  }, [camps, query, type, category, age, grade]);
+
+  const filtered = useMemo(
+    () =>
+      matching
+        .filter((camp) => {
+          if (drive === 'any') return true;
+          if (camp.driveMinutes === null) return withUnknownDrive;
+          return camp.driveMinutes <= Number(drive);
+        })
+        .sort(compare(sort)),
+    [matching, drive, withUnknownDrive, sort]
+  );
+  const noDriveTime =
+    drive === 'any' ? 0 : matching.filter((camp) => camp.driveMinutes === null).length;
+
+  function clearFilters() {
+    setQuery('');
+    setType('all');
+    setCategory('all');
+    setDrive('any');
+    setAge('');
+    setGrade('');
+  }
 
   const providers = useMemo(() => {
     const map = new Map<string, CampCardData[]>();
@@ -230,6 +284,19 @@ export default function CampDirectory({ camps }: CampDirectoryProps) {
           <p aria-live="polite">
             {filtered.length} of {camps.length} camps
             {(age || grade) && ' · camps that state no ages or grades are included'}
+            {noDriveTime > 0 && (
+              <>
+                {' · '}
+                {noDriveTime} without a drive time {withUnknownDrive ? 'included' : 'hidden'}{' '}
+                <button
+                  type="button"
+                  onClick={() => setWithUnknownDrive((current) => !current)}
+                  className="font-medium text-brand-600 dark:text-brand-400 hover:underline underline-offset-2 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
+                >
+                  {withUnknownDrive ? 'hide them' : 'show them'}
+                </button>
+              </>
+            )}
           </p>
           <label className="inline-flex items-center gap-2">
             <input
@@ -244,7 +311,14 @@ export default function CampDirectory({ camps }: CampDirectoryProps) {
 
       {filtered.length === 0 ? (
         <p className="mt-6 p-8 text-center rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 text-gray-600 dark:text-gray-400">
-          No camps match these filters.
+          No camps match these filters.{' '}
+          <button
+            type="button"
+            onClick={clearFilters}
+            className="font-medium text-brand-600 dark:text-brand-400 hover:underline underline-offset-2 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
+          >
+            Clear filters
+          </button>
         </p>
       ) : grouped ? (
         <div className="mt-6 space-y-8">
@@ -360,7 +434,7 @@ export function YearTag({ value }: { value: { year: number; unconfirmed?: boolea
           title="Our checker couldn't fully confirm this on the camp's page"
           className="ml-1 inline-block rounded px-1 text-[11px] font-medium leading-4 bg-amber-100 text-amber-800 dark:bg-amber-900/50 dark:text-amber-200"
         >
-          check
+          unconfirmed
         </span>
       )}
     </>

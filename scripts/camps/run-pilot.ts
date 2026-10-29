@@ -77,6 +77,7 @@ async function main() {
   const fetcher = createPageTextFetcher();
   let next = 0;
 
+  const failed: string[] = [];
   async function worker() {
     while (next < selected.length) {
       const provider = selected[next++];
@@ -130,6 +131,7 @@ async function main() {
             `${saved.run.response.searches.length} searches`
         );
       } catch (error) {
+        failed.push(provider.key);
         console.error(
           `✗ ${provider.key}: ${error instanceof Error ? error.message : String(error)}`
         );
@@ -139,6 +141,13 @@ async function main() {
 
   await Promise.all(Array.from({ length: CONCURRENCY }, worker));
   await fetcher.close();
+  // Their previous files are still on disk, so a build would silently use them: stop here.
+  if (failed.length > 0) {
+    console.error(
+      `\n${failed.length} provider(s) failed (${failed.join(', ')}); previous files kept.`
+    );
+    process.exitCode = 1;
+  }
 }
 
 main().catch((error) => {

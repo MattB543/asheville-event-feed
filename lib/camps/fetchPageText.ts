@@ -460,11 +460,6 @@ async function writeCache(url: string, page: PageText): Promise<void> {
   }
 }
 
-/** sha256 of whitespace-normalized text: what the refresh job compares between runs. */
-export function hashPageText(text: string): string {
-  return createHash('sha256').update(text.replace(/\s+/g, ' ').trim()).digest('hex');
-}
-
 function describe(error: unknown): string {
   if (error instanceof Error) {
     const cause = (error as Error & { cause?: unknown }).cause;

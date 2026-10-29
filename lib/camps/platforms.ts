@@ -70,7 +70,7 @@ const SOCIAL_HOSTS = /(?:^|\.)(?:facebook\.com|fb\.me|fb\.com|instagram\.com)$/;
 const SHARED_SITE_HOSTS =
   /(?:^|\.)(?:squarespace\.com|wixsite\.com|myshopify\.com|weebly\.com|wordpress\.com|godaddysites\.com|square\.site)$/;
 
-export function hostOf(url: string): string | null {
+function hostOf(url: string): string | null {
   try {
     return new URL(url).hostname.toLowerCase().replace(/^www\./, '');
   } catch {

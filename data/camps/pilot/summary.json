@@ -4,8 +4,8 @@
       "providers": 20,
       "cards": 129,
       "facts": 649,
-      "verified": 543,
-      "review": 106,
+      "verified": 512,
+      "review": 137,
       "dropped": 0,
       "milestones": 24,
       "milestonesKept": 24,
@@ -14,7 +14,7 @@
       "outputTokens": 97742,
       "searches": 47,
       "extractSeconds": 1696,
-      "verifySeconds": 0
+      "verifySeconds": 1
     },
     "providers": [
       {
@@ -29,12 +29,14 @@
         "milestonesKept": 0,
         "year2027Facts": 0,
         "extractMs": 70297,
-        "verifyMs": 28,
+        "verifyMs": 56,
         "inputTokens": 20400,
         "outputTokens": 4233,
         "searches": 1,
         "bundlePages": 6,
-        "flags": {},
+        "flags": {
+          "needs_hand_check": 4
+        },
         "droppedExamples": []
       },
       {
@@ -49,13 +51,14 @@
         "milestonesKept": 0,
         "year2027Facts": 0,
         "extractMs": 80294,
-        "verifyMs": 25,
+        "verifyMs": 20,
         "inputTokens": 24647,
         "outputTokens": 4438,
         "searches": 2,
         "bundlePages": 2,
         "flags": {
-          "year_not_on_page": 12
+          "year_not_on_page": 12,
+          "needs_hand_check": 3
         },
         "droppedExamples": []
       },
@@ -71,12 +74,13 @@
         "milestonesKept": 0,
         "year2027Facts": 0,
         "extractMs": 259128,
-        "verifyMs": 60,
+        "verifyMs": 88,
         "inputTokens": 25801,
         "outputTokens": 17426,
         "searches": 1,
         "bundlePages": 6,
         "flags": {
+          "needs_hand_check": 17,
           "weekday_supports_year": 17
         },
         "droppedExamples": []
@@ -93,7 +97,7 @@
         "milestonesKept": 0,
         "year2027Facts": 0,
         "extractMs": 21178,
-        "verifyMs": 8,
+        "verifyMs": 2,
         "inputTokens": 30381,
         "outputTokens": 509,
         "searches": 2,
@@ -113,7 +117,7 @@
         "milestonesKept": 0,
         "year2027Facts": 0,
         "extractMs": 31285,
-        "verifyMs": 3,
+        "verifyMs": 4,
         "inputTokens": 15868,
         "outputTokens": 1366,
         "searches": 2,
@@ -133,7 +137,7 @@
         "milestonesKept": 11,
         "year2027Facts": 27,
         "extractMs": 87823,
-        "verifyMs": 29,
+        "verifyMs": 34,
         "inputTokens": 30478,
         "outputTokens": 4765,
         "searches": 7,
@@ -157,7 +161,7 @@
         "milestonesKept": 0,
         "year2027Facts": 33,
         "extractMs": 84542,
-        "verifyMs": 37,
+        "verifyMs": 58,
         "inputTokens": 19488,
         "outputTokens": 4865,
         "searches": 2,
@@ -179,7 +183,7 @@
         "milestonesKept": 0,
         "year2027Facts": 0,
         "extractMs": 33583,
-        "verifyMs": 20,
+        "verifyMs": 33,
         "inputTokens": 15670,
         "outputTokens": 1756,
         "searches": 1,
@@ -192,20 +196,20 @@
         "cards": 1,
         "excluded": 7,
         "facts": 4,
-        "verified": 2,
-        "review": 2,
+        "verified": 1,
+        "review": 3,
         "dropped": 0,
         "milestones": 0,
         "milestonesKept": 0,
         "year2027Facts": 0,
         "extractMs": 44028,
-        "verifyMs": 3,
+        "verifyMs": 2,
         "inputTokens": 30005,
         "outputTokens": 1698,
         "searches": 2,
         "bundlePages": 5,
         "flags": {
-          "year_not_on_page": 2
+          "year_not_on_page": 3
         },
         "droppedExamples": []
       },
@@ -221,7 +225,7 @@
         "milestonesKept": 0,
         "year2027Facts": 0,
         "extractMs": 42979,
-        "verifyMs": 5,
+        "verifyMs": 4,
         "inputTokens": 22061,
         "outputTokens": 1692,
         "searches": 5,
@@ -244,13 +248,14 @@
         "milestonesKept": 0,
         "year2027Facts": 3,
         "extractMs": 37985,
-        "verifyMs": 7,
+        "verifyMs": 32,
         "inputTokens": 18022,
         "outputTokens": 1799,
         "searches": 2,
         "bundlePages": 1,
         "flags": {
-          "platform_tenant_not_linked": 4
+          "platform_tenant_not_linked": 4,
+          "value_not_in_quote:age_range": 1
         },
         "droppedExamples": []
       },
@@ -259,14 +264,14 @@
         "cards": 23,
         "excluded": 13,
         "facts": 49,
-        "verified": 9,
-        "review": 40,
+        "verified": 8,
+        "review": 41,
         "dropped": 0,
         "milestones": 0,
         "milestonesKept": 0,
         "year2027Facts": 49,
         "extractMs": 142212,
-        "verifyMs": 36,
+        "verifyMs": 54,
         "inputTokens": 33431,
         "outputTokens": 8899,
         "searches": 2,
@@ -276,7 +281,7 @@
           "weekday_supports_year": 2,
           "value_not_in_quote:start": 2,
           "grade_basis_not_in_quote": 20,
-          "year_not_on_page": 17
+          "year_not_on_page": 38
         },
         "droppedExamples": []
       },
@@ -292,7 +297,7 @@
         "milestonesKept": 1,
         "year2027Facts": 14,
         "extractMs": 35918,
-        "verifyMs": 12,
+        "verifyMs": 16,
         "inputTokens": 20683,
         "outputTokens": 1920,
         "searches": 2,
@@ -300,6 +305,7 @@
         "flags": {
           "domain_not_reviewed": 8,
           "platform_tenant_not_linked": 6,
+          "availability_status_not_in_quote": 1,
           "needs_hand_check": 1
         },
         "droppedExamples": []
@@ -316,7 +322,7 @@
         "milestonesKept": 0,
         "year2027Facts": 0,
         "extractMs": 151384,
-        "verifyMs": 12,
+        "verifyMs": 19,
         "inputTokens": 34215,
         "outputTokens": 8936,
         "searches": 4,
@@ -336,7 +342,7 @@
         "milestonesKept": 0,
         "year2027Facts": 0,
         "extractMs": 30089,
-        "verifyMs": 3,
+        "verifyMs": 19,
         "inputTokens": 13892,
         "outputTokens": 1349,
         "searches": 1,
@@ -349,19 +355,21 @@
         "cards": 11,
         "excluded": 4,
         "facts": 33,
-        "verified": 33,
-        "review": 0,
+        "verified": 4,
+        "review": 29,
         "dropped": 0,
         "milestones": 0,
         "milestonesKept": 0,
         "year2027Facts": 0,
         "extractMs": 118114,
-        "verifyMs": 47,
+        "verifyMs": 63,
         "inputTokens": 23685,
         "outputTokens": 5789,
         "searches": 4,
         "bundlePages": 5,
-        "flags": {},
+        "flags": {
+          "year_not_on_page": 29
+        },
         "droppedExamples": []
       },
       {
@@ -376,7 +384,7 @@
         "milestonesKept": 0,
         "year2027Facts": 0,
         "extractMs": 24653,
-        "verifyMs": 6,
+        "verifyMs": 7,
         "inputTokens": 24580,
         "outputTokens": 793,
         "searches": 2,
@@ -399,7 +407,7 @@
         "milestonesKept": 0,
         "year2027Facts": 0,
         "extractMs": 26001,
-        "verifyMs": 4,
+        "verifyMs": 1,
         "inputTokens": 15294,
         "outputTokens": 1283,
         "searches": 1,
@@ -419,7 +427,7 @@
         "milestonesKept": 12,
         "year2027Facts": 12,
         "extractMs": 182676,
-        "verifyMs": 62,
+        "verifyMs": 87,
         "inputTokens": 28321,
         "outputTokens": 11891,
         "searches": 2,
@@ -442,7 +450,7 @@
         "milestonesKept": 0,
         "year2027Facts": 0,
         "extractMs": 191529,
-        "verifyMs": 31,
+        "verifyMs": 38,
         "inputTokens": 31819,
         "outputTokens": 12335,
         "searches": 2,

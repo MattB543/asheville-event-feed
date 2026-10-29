@@ -8,15 +8,14 @@
  *   dropped   the quote isn't on the page, or a registration date came from anywhere but the
  *             camp's own site or its own registration-platform account
  *
- * Every registration milestone also carries `needs_hand_check`: it is shown as settled only after a
- * person has looked (N15), whatever its status here.
+ * Every registration date (this season's milestones and last year's opening) also carries
+ * `needs_hand_check`: it is shown only after a person has looked (N15), whatever its status here.
  */
 
 import { FetchPageError, type PageText, type PageTextFetcher } from './fetchPageText';
 import { isSocialUrl, platformOf, platformTenant, registrableDomain } from './platforms';
 import {
-  LIST_EVIDENCE_FIELDS,
-  SINGLE_EVIDENCE_FIELDS,
+  evidenceItems,
   type Check,
   type CheckStatus,
   type Evidence,
@@ -55,6 +54,9 @@ const YEAR_SENSITIVE_FIELDS = new Set([
   'registration_milestones',
   'availability',
   'last_year_registration_opened',
+  // "Rising 3rd-5th" names different children every summer.
+  'ages',
+  'grades',
 ]);
 
 /** Flags that don't send a fact to review on their own. */
@@ -138,18 +140,6 @@ export async function verifyExtraction(
         : { url, ok: true, method: result.method, kind: result.kind }
     ),
   };
-}
-
-export function evidenceItems(card: ExtractedCard): Array<{ field: string; evidence: Evidence }> {
-  const items: Array<{ field: string; evidence: Evidence }> = [];
-  for (const field of SINGLE_EVIDENCE_FIELDS) {
-    const evidence = card[field];
-    if (evidence) items.push({ field, evidence });
-  }
-  for (const field of LIST_EVIDENCE_FIELDS) {
-    for (const evidence of card[field]) items.push({ field, evidence });
-  }
-  return items;
 }
 
 // ---------------------------------------------------------------------------
@@ -273,14 +263,15 @@ async function checkEvidence(
   page: PageReader,
   checkedAt: string
 ): Promise<Check> {
-  const isMilestone = field === 'registration_milestones';
+  const claim = registrationClaim(field, evidence);
+  const isRegistrationDate = claim !== null;
   if (classify(evidence.url, authority) === 'bad') {
     return done('dropped', 'not_checked', ['bad_url']);
   }
 
   const source = sourceFlags(evidence.url, authority, card);
   const flags = [...source.flags];
-  if (isMilestone) {
+  if (isRegistrationDate) {
     flags.push('needs_hand_check');
     if (!source.officialForRegistration) {
       return done('dropped', 'not_checked', [...flags, 'registration_source_not_official']);
@@ -305,7 +296,7 @@ async function checkEvidence(
   ) {
     const landed = sourceFlags(resolvedUrl, authority, card);
     flags.push(...landed.flags, 'redirected');
-    if (isMilestone && !landed.officialForRegistration) {
+    if (isRegistrationDate && !landed.officialForRegistration) {
       return done(
         'dropped',
         'not_checked',
@@ -326,11 +317,11 @@ async function checkEvidence(
       resolvedUrl
     );
   }
-  if (isMilestone) flags.push(...milestoneContextFlags(evidence, result.text));
+  if (claim) flags.push(...milestoneContextFlags(evidence.quote, claim, result.text));
 
-  // A quote with no year in it ("June 22-26") takes its year from the page; a page that never
-  // mentions that year can't be what made it a 2027 fact. A weekday written next to the date
-  // ("June 7-11 Mon - Fri" is only Mon-Fri in 2027) settles the year on its own.
+  // A quote with no year in it ("June 22-26") takes its year from the section it sits in; a page
+  // that never names that year near the quote can't be what made it a 2027 fact. A weekday written
+  // next to the date ("June 7-11 Mon - Fri" is only Mon-Fri in 2027) settles the year on its own.
   const weekday = weekdayCheck(field, evidence);
   if (weekday) flags.push(weekday);
   if (
@@ -338,11 +329,9 @@ async function checkEvidence(
     weekday !== 'weekday_supports_year' &&
     !/\b20[2-3]\d\b/.test(evidence.quote)
   ) {
-    const pageYears = new Set(
-      [...result.text.matchAll(/\b(20[2-3]\d)\b/g)].map((m) => Number(m[1]))
-    );
-    const allowed = isMilestone ? [evidence.year, evidence.year - 1] : [evidence.year];
-    if (!allowed.some((year) => pageYears.has(year))) flags.push('year_not_on_page');
+    const nearby = yearsAround(result.text, evidence.quote);
+    const allowed = isRegistrationDate ? [evidence.year, evidence.year - 1] : [evidence.year];
+    if (!allowed.some((year) => nearby.has(year))) flags.push('year_not_on_page');
   }
 
   const reviewFlags = flags.filter((flag) => !INFORMATIONAL_FLAGS.has(flag));
@@ -370,6 +359,71 @@ async function checkEvidence(
       ...(resolvedUrl ? { resolvedUrl } : {}),
     };
   }
+}
+
+/**
+ * A registration date and what it claims. Last year's opening is shown as a public opening
+ * ("Opened Feb 9, 2026 last year"), so it is checked as one: official source, context, hand check.
+ */
+function registrationClaim(field: string, evidence: Evidence): RegistrationClaim | null {
+  if (field === 'registration_milestones') {
+    const { audience, kind } = evidence as unknown as RegistrationClaim;
+    return { audience, kind };
+  }
+  if (field === 'last_year_registration_opened') return { audience: 'public', kind: 'opens' };
+  return null;
+}
+
+interface RegistrationClaim {
+  audience: string;
+  kind: string;
+}
+
+/** A year written just after the quote speaks for it ("$200 deposit. Rates for summer 2027 ..."). */
+const YEAR_BESIDE_QUOTE = 300;
+/** How far below a title the year may come when nothing above the quote names one. */
+const YEAR_BELOW_TITLE = 2000;
+const COPYRIGHT =
+  /(?:©|\(c\)|copyright)\s*(?:20\d{2}\s*-\s*)?20\d{2}|20\d{2}\.?\s*all rights reserved/g;
+
+/**
+ * Where a normalized quote sits on the normalized page: the whole quote first, so a shared opening
+ * ("Summer 2027 registration opens October ...") can't point at a different sentence.
+ */
+function quoteIndex(page: string, quote: string): number {
+  const at = page.indexOf(quote);
+  return at >= 0 ? at : page.indexOf(quote.slice(0, 40));
+}
+
+/**
+ * The season the quote sits under: the year written closest above it ("Summer 2026 Camps" over a
+ * long list, with any year beside it: "2026-2027"), one written just after it, or, with none
+ * above, one below a title ("Summer Art Camp | Painting ... June 22-26, 2026"). Never the
+ * footer's: "© 2027" says nothing about a schedule, and a 2027 banner elsewhere on a 2026 page
+ * doesn't make its program 2027's.
+ */
+function yearsAround(pageText: string, quote: string): Set<number> {
+  const page = normalizeForMatch(pageText).replace(COPYRIGHT, ' ');
+  const wanted = normalizeForMatch(quote);
+  const years = [...page.matchAll(/\b(20[2-3]\d)\b/g)].map((match) => ({
+    year: Number(match[1]),
+    index: match.index ?? 0,
+  }));
+  const at = quoteIndex(page, wanted);
+  if (at < 0) return new Set(years.map(({ year }) => year));
+  const above = years.filter(({ index }) => index < at);
+  const reach = above.length > 0 ? YEAR_BESIDE_QUOTE : YEAR_BELOW_TITLE;
+  const below = years.filter(({ index }) => index >= at && index - at <= wanted.length + reach);
+  // The closest year above, and the closest one that heads a section rather than ending a date
+  // ("Summer 2027 Dates + Rates" above "Phase 2 - October 13, 2026" above the 2027 deposit).
+  const isDated = ({ index }: { index: number }) =>
+    /(?:\d(?:st|nd|rd|th)?,?\s*\(?|\/)$/.test(page.slice(Math.max(0, index - 6), index));
+  const nearest = above.at(-1);
+  const heading = above.filter((year) => !isDated(year)).at(-1);
+  const governing = above.filter(({ index }) =>
+    [nearest, heading].some((anchor) => anchor && anchor.index - index <= 20)
+  );
+  return new Set([...governing, ...below].map(({ year }) => year));
 }
 
 // ---------------------------------------------------------------------------
@@ -491,14 +545,131 @@ function valueFlags(field: string, evidence: Evidence): string[] {
       checkNumber(record.amount, 'amount');
       break;
     case 'ages':
-      checkNumber(record.min, 'min');
-      checkNumber(record.max, 'max');
+      flags.push(...ageFlags(record as { min: unknown; max: unknown }, quote));
       break;
     case 'grades':
       flags.push(...gradeFlags(record as { min: unknown; max: unknown; basis: unknown }, quote));
       break;
+    case 'availability':
+      flags.push(...availabilityFlags(record.status as string, evidence.year, quote));
+      break;
   }
   return flags;
+}
+
+/** The quote with its dates blanked out: "June 3-12" is not ages 3-12, "June 3rd" not 3rd grade. */
+function withoutDates(quote: string): string {
+  let text = quote;
+  for (const { index, end } of dateExpressions(quote)) {
+    text = text.slice(0, index) + ' '.repeat(end - index) + text.slice(end);
+  }
+  return text;
+}
+
+// --- Availability -----------------------------------------------------------------------------
+
+const AVAILABILITY_WORDS: Record<string, RegExp> = {
+  available:
+    /\b(?:(?:is|are|now) open|open now|spots? (?:left|remain\w*|available)|space available|register now|enroll(?:ing)? now|accepting (?:registrations?|applications|campers))\b/,
+  // Not "full day": only a session, camp or status that is full ("StatusFull" in WebTrac's text).
+  full: /\b(?:is|are|now|currently|session|camp|status)\s*full\b|^full\b|\bfull\s*(?:[!.]|$)|\bsold out\b|\bno (?:spots|space|openings)\b/,
+  waitlist: /\bwait\s?-?list/,
+  closed: /\b(?:closed|(?:registration|enrollment) (?:has )?ended|no longer accepting)\b/,
+};
+
+/**
+ * The quote must say the status, nothing else, and say it about this season: "2026 Registration
+ * Closed - ... When 2027 Registration Opens" is 2026's status, not 2027's.
+ */
+function availabilityFlags(status: string, year: number, quote: string): string[] {
+  if (status === 'unknown') return [];
+  const says = (name: string, text: string) => AVAILABILITY_WORDS[name].test(text.trim());
+  const named = Object.keys(AVAILABILITY_WORDS).filter((name) => says(name, quote));
+  const flags: string[] = [];
+  if (status === 'mixed') {
+    const someFull = named.includes('full') || named.includes('waitlist');
+    if (!someFull || !(named.includes('available') || /\blimited\b/.test(quote))) {
+      flags.push('availability_status_not_in_quote');
+    }
+    return flags;
+  }
+  if (!named.includes(status)) flags.push('availability_status_not_in_quote');
+  if (named.some((name) => name !== status)) flags.push('availability_status_conflict');
+  const clauses = quote
+    .split(/[.;!?]|\s-\s|,\s+(?:and|but)\b/)
+    .filter((clause) => says(status, clause));
+  for (const clause of clauses) {
+    const years = [...clause.matchAll(/\b(20[2-3]\d)\b/g)].map((match) => Number(match[1]));
+    if (years.length > 0 && !years.includes(year)) flags.push('availability_year_conflict');
+  }
+  return flags;
+}
+
+// --- Ages -------------------------------------------------------------------------------------
+
+const AGE = '\\d{1,2}(?:\\.\\d+)?';
+const AGE_RANGE = `${AGE}\\s*(?:-|to|through|thru)\\s*(?:${AGE}|adults?)`;
+const AGE_RANGES = `${AGE_RANGE}(?:\\s*(?:,|and|&|or)\\s*${AGE_RANGE})*`;
+
+interface AgeRange {
+  min: number;
+  max: number | null;
+}
+
+/**
+ * Ranges the quote states as ages: "ages 4-7 and 8-16", "Ages11-16.99", "ages 13-adult",
+ * "8-10 and 10-12 years-old", "Ages 15+", and single ages ("through age 12", "3 years old").
+ * A bare "3-12" is never an age.
+ */
+function ageRanges(quote: string): AgeRange[] {
+  const text = withoutDates(quote);
+  const ranges: AgeRange[] = [];
+  const readRanges = (list: string) => {
+    for (const match of list.matchAll(
+      new RegExp(`(${AGE})\\s*(?:-|to|through|thru)\\s*(${AGE}|adults?)`, 'g')
+    )) {
+      ranges.push({ min: Number(match[1]), max: /adult/.test(match[2]) ? null : Number(match[2]) });
+    }
+  };
+  for (const match of text.matchAll(new RegExp(`\\bages?:?\\s*(${AGE_RANGES})`, 'g'))) {
+    readRanges(match[1]);
+  }
+  for (const match of text.matchAll(
+    new RegExp(`(?<![\\d.])(${AGE_RANGES})\\s*(?:years?|yrs?)\\b`, 'g')
+  )) {
+    readRanges(match[1]);
+  }
+  for (const match of text.matchAll(
+    new RegExp(`\\bages?:?\\s*(${AGE})\\s*(?:\\+|and up|and older|or older)`, 'g')
+  )) {
+    ranges.push({ min: Number(match[1]), max: null });
+  }
+  for (const match of text.matchAll(
+    new RegExp(`\\bages?:?\\s*(${AGE})(?!\\s*(?:-|to|through|thru)\\s*\\d)`, 'g')
+  )) {
+    ranges.push({ min: Number(match[1]), max: Number(match[1]) });
+  }
+  for (const match of text.matchAll(
+    new RegExp(`(?<![\\d.-])(${AGE})[\\s-]*(?:years?|yrs?)[\\s-]*olds?\\b`, 'g')
+  )) {
+    ranges.push({ min: Number(match[1]), max: Number(match[1]) });
+  }
+  return ranges;
+}
+
+/** Both bounds must belong to one stated age range; one bound alone must be a stated age. */
+function ageFlags(ages: { min: unknown; max: unknown }, quote: string): string[] {
+  const min = typeof ages.min === 'number' ? ages.min : null;
+  const max = typeof ages.max === 'number' ? ages.max : null;
+  if (min === null && max === null) return [];
+  const ranges = ageRanges(quote);
+  const stated =
+    min !== null && max !== null
+      ? ranges.some((range) => range.min === min && range.max === max)
+      : min !== null
+        ? ranges.some((range) => range.min === min)
+        : ranges.some((range) => range.max === max);
+  return stated ? [] : ['value_not_in_quote:age_range'];
 }
 
 // --- Dates: month, day and year read together, as one expression -----------------------------
@@ -520,7 +691,8 @@ const MONTH_KEYS = [
   'dec',
 ];
 const DAY = '(\\d{1,2})(?:st|nd|rd|th)?(?![\\d:])';
-const YEAR = '(?:,?\\s*(20\\d{2}))?';
+/** A year written right after the date: "October 6, 2026", "October 6 (2026)". */
+const YEAR = '(?:,?\\s*\\(?(20\\d{2})\\)?)?';
 
 interface DateExpression {
   month: number;
@@ -609,26 +781,26 @@ export function dateExpressions(quote: string): DateExpression[] {
 
 function dateInQuote(date: string, quote: string, monthOnly: boolean): boolean {
   const [year, month, day] = date.split('-').map(Number);
+  const expressions = dateExpressions(quote);
   if (monthOnly) {
     // A full date carries its own year ("opens October 6, 2026" is not October 2027); a month
     // mentioned without a day can carry one right after it ("opens October 2027"). Either may match.
-    const fullDate = dateExpressions(quote).some(
+    const fullDate = expressions.some(
       (e) => e.month === month && (e.year === null || e.year === year)
     );
     // A month inside a written full date ("Oct. 6, 2026", "6 October, 2026") is that date's month,
     // with that date's year, never a month-only mention.
-    const spans = dateExpressions(quote).map((e) => [e.index, e.end]);
-    const monthOnly = new RegExp(`\\b${MONTH_PATTERN}(?![a-z])(?:\\s+(20\\d{2}))?`, 'g');
+    const monthMention = new RegExp(`\\b${MONTH_PATTERN}(?![a-z])(?:\\s+(20\\d{2}))?`, 'g');
     return (
       fullDate ||
-      [...quote.matchAll(monthOnly)].some((match) => {
+      [...quote.matchAll(monthMention)].some((match) => {
         const at = match.index ?? 0;
-        if (spans.some(([start, end]) => at >= start && at < end)) return false;
+        if (expressions.some((e) => at >= e.index && at < e.end)) return false;
         return monthNumber(match[1]) === month && (!match[2] || Number(match[2]) === year);
       })
     );
   }
-  return dateExpressions(quote).some(
+  return expressions.some(
     (expression) =>
       expression.month === month &&
       expression.day === day &&
@@ -728,28 +900,46 @@ const GRADE_WORDS: Record<string, number> = {
   senior: 12,
 };
 
-/** Grade numbers the quote names: Pre-K -1, K 0, "3rd", "third", "grades 3-5". */
+/**
+ * Every grade the quote covers: Pre-K -1, K 0, "3rd", "third", "grades 6, 7 and 8", and every grade
+ * inside a written range ("K-5", "3rd-5th", "1st graders through rising 6th graders"). Two ranges
+ * with a gap ("K-2 and 6-8") leave the gap uncovered.
+ */
 function gradesInQuote(quote: string): Set<number> {
-  const grades = new Set<number>();
-  if (/\bpre-?k\b|pre-?kindergarten|preschool/.test(quote)) grades.add(-1);
-  if (/(?<!pre-?)\bk(?:inder(?:garten)?)?\b/.test(quote)) grades.add(0);
+  const text = withoutDates(quote);
+  const tokens: Array<{ grade: number; index: number; end: number }> = [];
+  const add = (grade: number, index: number, length: number) =>
+    tokens.push({ grade, index, end: index + length });
+
+  for (const match of text.matchAll(/\bpre-?k(?:indergarten)?\b|\bpreschool\b/g))
+    add(-1, match.index ?? 0, match[0].length);
+  for (const match of text.matchAll(/(?<!pre-?)\bk(?:inder(?:garten)?)?\b/g))
+    add(0, match.index ?? 0, match[0].length);
   // No word boundary before the digit: page text runs a name into its grades ("Climb High4th-6th").
-  for (const match of quote.matchAll(/(?<!\d)(\d{1,2})(?:st|nd|rd|th)\b/g))
-    grades.add(Number(match[1]));
-  for (const match of quote.matchAll(
-    /\bgrades?\s+(\d{1,2})(?:\s*(?:-|to|through)\s*(\d{1,2}))?/g
+  for (const match of text.matchAll(/(?<!\d)(\d{1,2})(?:st|nd|rd|th)\b/g))
+    add(Number(match[1]), match.index ?? 0, match[0].length);
+  // A bare number is a grade only after "grade(s)" or a K: "grades 3-5", "grades 6, 7 and 8", "K-5".
+  for (const match of text.matchAll(
+    /\b(?:grades?|pre-?k|k|kinder(?:garten)?)\s*(?:-|to|through|thru)?\s*(\d{1,2}(?:\s*(?:-|to|through|thru|,|and|&|or)\s*\d{1,2})*)\b(?!st|nd|rd|th)/g
   )) {
-    grades.add(Number(match[1]));
-    if (match[2]) grades.add(Number(match[2]));
-  }
-  // "K-5", "kindergarten through 5th", "pre-k-2"
-  for (const match of quote.matchAll(
-    /\b(?:pre-?k|k|kinder(?:garten)?)\s*(?:-|to|through)\s*(\d{1,2})/g
-  )) {
-    grades.add(Number(match[1]));
+    const start = (match.index ?? 0) + match[0].length - match[1].length;
+    for (const number of match[1].matchAll(/\d{1,2}/g)) {
+      add(Number(number[0]), start + (number.index ?? 0), number[0].length);
+    }
   }
   for (const [word, grade] of Object.entries(GRADE_WORDS)) {
-    if (new RegExp(`\\b${word}\\b`).test(quote)) grades.add(grade);
+    for (const match of text.matchAll(new RegExp(`\\b${word}\\b`, 'g')))
+      add(grade, match.index ?? 0, match[0].length);
+  }
+
+  tokens.sort((a, b) => a.index - b.index);
+  const grades = new Set(tokens.map((token) => token.grade));
+  for (let i = 0; i + 1 < tokens.length; i++) {
+    const [from, to] = [tokens[i], tokens[i + 1]];
+    const between = text.slice(from.end, to.index);
+    if (/^\s*(?:graders?\s*)?(?:-|to|through|thru)\s*(?:rising\s+)?$/.test(between)) {
+      for (let grade = from.grade; grade <= to.grade; grade++) grades.add(grade);
+    }
   }
   return grades;
 }
@@ -760,17 +950,27 @@ const CURRENT =
 const COMPLETED =
   /\b(completed|completing|finished|have finished|who've completed|who have completed)\b/;
 
-/** Both grade bounds must be in the quote, and the quote must say rising or completed as stated. */
+/**
+ * Every grade from min to max must be covered by the quote (so "K-2 and 6-8" is not K-8), and the
+ * quote must say rising or completed as stated.
+ */
 function gradeFlags(
   grades: { min: unknown; max: unknown; basis: unknown },
   quote: string
 ): string[] {
   const flags: string[] = [];
   const named = gradesInQuote(quote);
-  if (typeof grades.min === 'number' && !named.has(grades.min))
-    flags.push('value_not_in_quote:grade_min');
-  if (typeof grades.max === 'number' && !named.has(grades.max))
-    flags.push('value_not_in_quote:grade_max');
+  const { min, max } = grades;
+  if (typeof min === 'number' && !named.has(min)) flags.push('value_not_in_quote:grade_min');
+  if (typeof max === 'number' && !named.has(max)) flags.push('value_not_in_quote:grade_max');
+  if (typeof min === 'number' && typeof max === 'number') {
+    for (let grade = min + 1; grade < max; grade++) {
+      if (!named.has(grade)) {
+        flags.push('value_not_in_quote:grade_range');
+        break;
+      }
+    }
+  }
   const saysRising = RISING.test(quote);
   const saysCompleted = COMPLETED.test(quote);
   if (grades.basis === 'rising' && !saysRising) flags.push('grade_basis_not_in_quote');
@@ -829,12 +1029,9 @@ function weekdayCheck(field: string, evidence: Evidence): string | null {
 
 function yearFlags(field: string, evidence: Evidence): string[] {
   const flags: string[] = [];
-  const isMilestone = field === 'registration_milestones';
   // A 2027 milestone can be dated 2026; a 2026 "last year" opening can be dated 2025.
   const okYears = new Set(
-    isMilestone || field === 'last_year_registration_opened'
-      ? [evidence.year, evidence.year - 1]
-      : [evidence.year]
+    registrationClaim(field, evidence) ? [evidence.year, evidence.year - 1] : [evidence.year]
   );
 
   const quoteYears = [...evidence.quote.matchAll(/\b(20[2-3]\d)\b/g)].map((match) =>
@@ -904,7 +1101,7 @@ const KIND_WORDS: Record<string, RegExp> = {
 function statementAround(page: string, at: number, length: number): string {
   const quoted = page.slice(at, at + length);
   const before = page.slice(Math.max(0, at - 200), at);
-  const start = before.lastIndexOf('. ');
+  const start = Math.max(...['. ', '! ', '? '].map((stop) => before.lastIndexOf(stop)));
   const after = /[.!?]$/.test(quoted) ? '' : page.slice(at + length, at + length + 200);
   const end = after.search(/[.!?](\s|$)/);
   return `${start >= 0 ? before.slice(start + 2) : before}${quoted}${end >= 0 ? after.slice(0, end + 1) : after}`;
@@ -912,15 +1109,18 @@ function statementAround(page: string, at: number, length: number): string {
 
 /** The clause of the statement that holds the quote: split at semicolons and "and"/"but". */
 function clauseAround(statement: string, quote: string): string {
-  const clauses = statement.split(/;|,\s+(?:and|but|then)\b|\.\s/);
+  const clauses = statement.split(/;|,\s+(?:and|but|then)\b|[.!?]\s/);
   return clauses.find((clause) => clause.includes(quote.slice(0, 20))) ?? statement;
 }
 
-function milestoneContextFlags(evidence: Evidence, pageText: string): string[] {
-  const { audience, kind } = evidence as unknown as { audience: string; kind: string };
+function milestoneContextFlags(
+  quoteText: string,
+  { audience, kind }: RegistrationClaim,
+  pageText: string
+): string[] {
   const page = normalizeForMatch(pageText);
-  const quote = normalizeForMatch(evidence.quote);
-  const at = page.indexOf(quote.slice(0, 40));
+  const quote = normalizeForMatch(quoteText);
+  const at = quoteIndex(page, quote);
   // The quote, the line before it and what follows (a heading's date, then its sentence).
   const context = at >= 0 ? page.slice(Math.max(0, at - 100), at + quote.length + 200) : quote;
   // A restricted audience is often named once above a list of phase times ("...all returning

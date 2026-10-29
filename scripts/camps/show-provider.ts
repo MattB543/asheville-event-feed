@@ -6,7 +6,7 @@
  */
 import { readFileSync } from 'node:fs';
 import type { SessionFact } from '../../lib/camps/types';
-import { evidenceItems } from '../../lib/camps/verify';
+import { evidenceItems } from '../../lib/camps/types';
 import type { SavedVerification } from './run-pilot';
 const [mode, key] = process.argv.slice(2);
 const v = JSON.parse(

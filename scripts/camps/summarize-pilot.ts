@@ -7,7 +7,7 @@
  */
 import { existsSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { evidenceItems } from '../../lib/camps/verify';
+import { evidenceItems } from '../../lib/camps/types';
 import type { SavedExtraction, SavedVerification } from './run-pilot';
 
 const PILOT_DIR = join(process.cwd(), 'data', 'camps', 'pilot');

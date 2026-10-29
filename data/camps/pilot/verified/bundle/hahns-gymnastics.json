@@ -6,8 +6,8 @@
     "area": "Arden / Asheville, NC",
     "covers": ["iclasspro", "daily_drop_in"]
   },
-  "verifiedAt": "2026-10-28T23:07:39.086Z",
-  "verifyMs": 3,
+  "verifiedAt": "2026-10-29T00:56:15.065Z",
+  "verifyMs": 2,
   "extraction": {
     "provider_name": "Hahn's Gymnastics",
     "website_url": "https://www.hahnsgymnastics.com/",
@@ -60,10 +60,10 @@
           "quote": "Here at Hahn’s, we have ten weeks of summer camps available from June to August for ages 3 to 12!",
           "source_kind": "official_site",
           "check": {
-            "status": "verified",
+            "status": "review",
             "match": "exact",
-            "flags": [],
-            "checkedAt": "2026-10-28T23:07:39.083Z",
+            "flags": ["year_not_on_page"],
+            "checkedAt": "2026-10-29T00:56:15.063Z",
             "fetchMethod": "fetch"
           }
         },
@@ -79,7 +79,7 @@
             "status": "review",
             "match": "exact",
             "flags": ["year_not_on_page"],
-            "checkedAt": "2026-10-28T23:07:39.083Z",
+            "checkedAt": "2026-10-29T00:56:15.063Z",
             "fetchMethod": "fetch"
           }
         },
@@ -95,7 +95,7 @@
             "status": "review",
             "match": "exact",
             "flags": ["year_not_on_page"],
-            "checkedAt": "2026-10-28T23:07:39.083Z",
+            "checkedAt": "2026-10-29T00:56:15.063Z",
             "fetchMethod": "fetch"
           }
         },
@@ -115,7 +115,7 @@
               "status": "verified",
               "match": "exact",
               "flags": [],
-              "checkedAt": "2026-10-28T23:07:39.083Z",
+              "checkedAt": "2026-10-29T00:56:15.063Z",
               "fetchMethod": "fetch"
             }
           }
@@ -186,8 +186,8 @@
     "byField": {
       "ages": {
         "total": 1,
-        "verified": 1,
-        "review": 0,
+        "verified": 0,
+        "review": 1,
         "dropped": 0
       },
       "hours": {
@@ -211,8 +211,8 @@
     },
     "totals": {
       "total": 4,
-      "verified": 2,
-      "review": 2,
+      "verified": 1,
+      "review": 3,
       "dropped": 0
     },
     "pages": [

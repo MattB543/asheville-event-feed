@@ -5,14 +5,16 @@ end (extract → verify → store → show) before scaling to several hundred ca
 Oct 28, 2026, ahead of the Nov 4 due date. A whole-pilot Codex review (§11), four step-level
 Codex review gates and three confirmation gates (§12, per Matt's rule in plan §8) ran the same
 day; their verifier, fetcher, schema and display findings are fixed here (all four steps' gates
-closed, the last verifier fix without a further Codex pass), and the data-contract changes are on
-the Nov 5 list (§8).
+closed), and the data-contract changes are on the Nov 5 list (§8). A final whole-branch Codex
+review (gate 8) and a hands-on UX review of the pages followed on Oct 28-29; their fixes are in
+too (§12).
 
 ## 1. Summary
 
 - **The extraction approach works, with one change: give Sol our own fetched page text ("bundle
-  mode") as well as web search.** On the same 20 providers, bundle mode produced **649 facts, 543
-  (84%) verified on the cited page, 106 sent to review, none dropped**. Web search alone produced
+  mode") as well as web search.** On the same 20 providers, bundle mode produced **649 facts, 512
+  (79%) verified on the cited page, 137 sent to review, none dropped** (543 / 106 before gate 8
+  tied each fact's year to the section it sits in: PACA's pages name no year but their © footer). Web search alone produced
   404 facts with **68 dropped**: the search index quotes pages as they used to be (Lutheridge moved
   to novusway.org; all 66 of its quotes were stale). Bundle mode also found 24 registration
   milestones against search-only's 4, at the same token cost.
@@ -20,7 +22,7 @@ the Nov 5 list (§8).
   fact, not that the fact is right.** The Codex reviews showed the first verifiers passed a wrong
   calendar year, a time read from a day number or a price, a relabeled audience or action, a
   shuffled date, an invented fragment, a grade basis and another tenant's platform page; those
-  checks are now in (§4), with 45 offline regressions in `scripts/camps/test-verify.ts`. What no mechanical check
+  checks are now in (§4), with 61 offline regressions in `scripts/camps/test-verify.ts`. What no mechanical check
   catches: a quote read slightly wrong (Evergreen's "case-by-case" accommodation became "special
   needs: yes"), and a provider-wide statement copied onto every card. Every registration date I
   checked by hand was right.
@@ -35,8 +37,13 @@ the Nov 5 list (§8).
 - **Geocoding is the weak link.** HeiGIT/ORS (Pelias) placed 48 of 131 camps at an address or
   street, 68 only at the town centroid, and 15 have no publishable site. Town-level drive times are
   meaningless (the NC Arboretum came out 2 minutes from downtown) and are no longer shown or used
-  for the radius. Per N12 ("Google only if geocodes are poor"), this is the case for a better
-  address geocoder plus ORS for routing. **Decision needed.**
+  for the radius. The cause is narrower than the count: the 131 cards sit at under 40 places.
+  Pelias lacks house numbers for 6 real street addresses (Rockmont, the Arboretum, PACA and Hahn's
+  alone account for 40 cards), 5 places came with a name and no address (Lutheridge, Kanuga, UNCA,
+  two Hendersonville Ys), and 15 cards have no checked site (mostly YMCA's school sites). The free
+  US Census geocoder placed 15 of the 17 street addresses Pelias missed or put mid-street (§8.16).
+  ORS's drive times also look long (Greenville SC 90 min, Hendersonville 36). **Decision needed**
+  (§9).
 - **No site blocked us.** The fetch ladder read all 95 seed URLs (89 plain fetch, 1 Chrome TLS, 5
   headless browser) and every page cited during verification. WebTrac needs the browser (~4.5 min
   a run). A church's public Facebook event reads fine in a real browser, not by plain fetch.
@@ -173,19 +180,19 @@ is the search-only run.
 | camp-greenville             |       6 |      27 |       15 |      12 |       0 |         11 |         27 |        88s | 30.5k / 4.8k   | 35 / 0                       |
 | camp-rockmont               |       6 |      33 |       32 |       1 |       0 |          0 |         33 |        85s | 19.5k / 4.9k   | 17 / 0                       |
 | evergreen-summer-adventures |       1 |      12 |       12 |       0 |       0 |          0 |          0 |        34s | 15.7k / 1.8k   | 12 / 0                       |
-| hahns-gymnastics            |       1 |       4 |        2 |       2 |       0 |          0 |          0 |        44s | 30.0k / 1.7k   | 4 / 0                        |
+| hahns-gymnastics            |       1 |       4 |        1 |       3 |       0 |          0 |          0 |        44s | 30.0k / 1.7k   | 4 / 0                        |
 | kanuga-day-camp             |       1 |       7 |        0 |       7 |       0 |          0 |          0 |        43s | 22.1k / 1.7k   | 7 / 0                        |
 | leaf-global-arts            |       1 |      11 |        7 |       4 |       0 |          0 |          3 |        38s | 18.0k / 1.8k   | 11 / 0                       |
-| lutheridge                  |      23 |      49 |        9 |      40 |       0 |          0 |         49 |       142s | 33.4k / 8.9k   | 68 / 66                      |
+| lutheridge                  |      23 |      49 |        8 |      41 |       0 |          0 |         49 |       142s | 33.4k / 8.9k   | 68 / 66                      |
 | mason-plumlee-basketball    |       1 |      14 |        0 |      14 |       0 |          1 |         14 |        36s | 20.7k / 1.9k   | 14 / 0                       |
 | nc-arboretum                |      22 |      23 |       23 |       0 |       0 |          0 |          0 |       151s | 34.2k / 8.9k   | 3 / 0                        |
 | ninjaville                  |       1 |       7 |        7 |       0 |       0 |          0 |          0 |        30s | 13.9k / 1.3k   | 0 / 0                        |
-| paca                        |      11 |      33 |       33 |       0 |       0 |          0 |          0 |       118s | 23.7k / 5.8k   | 11 / 0                       |
+| paca                        |      11 |      33 |        4 |      29 |       0 |          0 |          0 |       118s | 23.7k / 5.8k   | 11 / 0                       |
 | reynolds-baptist-vbs        |       1 |       2 |        0 |       2 |       0 |          0 |          0 |        25s | 24.6k / 0.8k   | 3 / 2                        |
 | trinity-episcopal-vbs       |       1 |       8 |        8 |       0 |       0 |          0 |          0 |        26s | 15.3k / 1.3k   | 8 / 0                        |
 | unca-precollege             |      12 |      96 |       84 |      12 |       0 |         12 |         12 |       183s | 28.3k / 11.9k  | 74 / 0                       |
 | ymca-wnc                    |      16 |      93 |       93 |       0 |       0 |          0 |          0 |       192s | 31.8k / 12.3k  | 73 / 0                       |
-| **Total**                   | **129** | **649** |  **543** | **106** |   **0** |     **24** |    **138** | **1,696s** | **479k / 98k** | **404 / 68**                 |
+| **Total**                   | **129** | **649** |  **512** | **137** |   **0** |     **24** |    **138** | **1,696s** | **479k / 98k** | **404 / 68**                 |
 
 The search-only totals: 404 facts, 296 verified, 40 review, 68 dropped, 4 milestones.
 
@@ -347,6 +354,23 @@ Prompt and pipeline:
     `/v2/checkout/` URLs need a real account id; a quote holding a whole sentence with both an
     opening and a deadline still lets the deadline date pass as an opening; a seed that redirects
     to another platform account regains authority if that page links to itself.
+16. **Location**: geocode street addresses with the US Census geocoder (free, no key, public
+    domain, so the points can be stored, unlike Google's), ask the extraction for the street
+    address (most camps print it), and hand-pin the rest (the Arboretum, YMCA's school sites).
+    Straight-line miles from the camp's town could decide the radius instead of drive time (60 mi
+    overnight / 40 mi day is close to D3), so the geocoder never decides who's in; ORS drive times
+    run long here and need checking against a known route before they're shown. Matt to decide.
+17. **Card granularity** (UX review and §9.3): one card per program, with sites, weeks/themes, age
+    bands and price tiers as rows inside; a new card only for a different program or camp type.
+    Pilot: 131 cards to about 45-50. Filters match on the rows and the card says what matched.
+18. **Week-level truth on cards** (UX review): show session weeks, not a season span ("Jun 29 - Jul
+    24" hid that the Art Museum has no week of Jul 13), add a "Week of" filter, keep half-day and
+    per-day qualifiers on the card price and normalize the price sort to a week. Builds on §8.4-5.
+19. **Variants are parent-facing text**: the prompt must not put reviewer notes in `variant`
+    ("individual trips require further review", "attendance site unconfirmed").
+20. **Last year's opening needs a hand check** (gate 8). The Art Museum's, AMOS's and Parks & Rec's
+    no longer show until checked; worth doing for every provider, since it is the best hint a
+    parent gets before 2027 dates are out.
 
 ## 9. Decisions for Matt
 
@@ -354,11 +378,11 @@ Prompt and pipeline:
    and the pilot both say the milestone and identity tables change (§8, 1–3), so apply once after
    those changes. (The gate fixes already added verification columns to milestones and
    availability, and named every constraint the way Drizzle does.)
-2. **Geocoding**: Google geocoding (billing account; its terms limit storing results) or hand pins
-   for the ~60% (83 of 131) that come back town-level or without a site?
-3. **Card granularity**: YMCA's 16 cards and Lutheridge's 23 follow D5. Keep them as cards grouped
-   under the provider (as the pilot page does), or collapse site variants into one card with a site
-   list?
+2. **Location** (§8.16): Census geocoder plus hand pins (recommended; Google's terms don't allow
+   storing its geocodes), and the radius by straight-line miles from the town (60 / 40) or by drive
+   time (D3)?
+3. **Card granularity** (§8.17): one card per program with sites, weeks and age bands inside
+   (recommended, and the UX review's pick), one per provider, one per week, or today's split?
 
 ## 10. Blocked sites
 
@@ -436,6 +460,8 @@ is the whole-pilot review in §11.
 | 5    | Confirmation of gates 1–4                                                           | Gate 3 closed; 1, 2, 4 open                                                | 9 partly fixed + 2 must / 2 should regressions | All adopted                                                        |
 | 6    | Second confirmation                                                                 | Gate 4 closed; 1, 2 open                                                   | 4 partly fixed + 2 must / 1 should regressions | All adopted                                                        |
 | 7    | Final confirmation of gates 1–2                                                     | Gate 1 closed with a follow-up; gate 2 open on one regression, since fixed | 4 partly fixed + 2 must regressions            | One fixed; the rest are Nov 5 follow-ups (§8.15)                   |
+| 8    | Final deep review of the whole branch                                               | Sound base; fix 4 musts before bulk extraction                             | 4 / 4 / simplifications                        | All adopted; fixed and re-verified                                 |
+| UX   | Hands-on UX review of `/camps` and `/camps/[slug]` (Opus, browser)                  | Filters and registration messaging untrustworthy in places                 | 7 P1 / 11 P2 / ~15 P3                          | Filter and wording P1s fixed; the rest to Nov 5 (§8.17-20)         |
 
 ### Gate 1: fetch layer
 
@@ -577,6 +603,76 @@ That fix was not re-reviewed by Codex. Codex itself suggested the other two part
 (a whole-sentence quote with both an opening and a deadline; a redirected seed account that links
 to itself) as Nov 5 follow-ups rather than keeping the gate open: they are §8.15.
 
-**Where the gates stand:** schema/import, pages/display and the fetch layer closed; extraction and
-verification closed except the one fix above, which has regression tests but no further Codex pass.
 The pilot numbers are unchanged by gates 6 and 7: 649 facts, 543 verified, 106 review, 0 dropped.
+
+### Gate 8: final deep review (Oct 28-29)
+
+A whole-branch review at xhigh, looking at the seams between layers and at the unreviewed gate-7
+fix. Codex replayed all 40 saved runs offline (1,053 facts) and rebuilt the import in memory (both
+matched). Verdict: the architecture is a sound base; four musts before bulk extraction; no migration
+blocker beyond §8. All findings adopted:
+
+- _Must:_ availability checked the quote but not its status or season ("2026 Registration Closed
+  ... When 2027 Registration Opens" verified as 2027 closed; "is closed" verified as open). Now the
+  quote must state the status and no other, and the status's own clause must name this season or
+  none (`availability_status_not_in_quote`, `availability_status_conflict`,
+  `availability_year_conflict`).
+- _Must:_ a page's year came from anywhere on it, footer included, and ages and grades skipped the
+  check (PACA's dates and prices "verified" for 2026 on pages whose only year is "© 2026"). Now the
+  year must govern the quote: the nearest year above it (a dated year like "October 13, 2026" does
+  not hide the section heading above it), one written just after it, or one below a title; © and
+  "all rights reserved" years never count; ages and grades are year-checked. A first version
+  (years within 4,000 characters) flagged 34 correct facts whose "2026" heading sat above a long
+  list (Parks & Rec, the Arboretum, the Art Museum, LEAF), and a nearest-year-above rule flagged
+  Camp Greenville's 2027 deposit (5) under "families of 2026 waitlisted campers", with "rates for
+  summer 2027" just after it; the final rule flags none of those. Net effect on the pilot: 31 facts to review, all genuine (PACA 29: footer
+  year only; Hahn's and Lutheridge: the page never names the season).
+- _Must:_ last year's opening ("Opened Feb 9, 2026 last year") skipped N15 and the context checks,
+  and "Register by February 9, 2026" verified as an opening. Now it is a registration date like any
+  milestone: official source, `kind_conflict` and audience checks, `needs_hand_check` (§8.20).
+- _Must:_ "Camp runs June 3-12, 2027" verified as ages 3-12, and "K-2 and grades 6-8" as rising
+  K-8. Now ages must come from one stated age range ("ages 4-7 and 8-16", "13-adult", "15+"; dates
+  are blanked first) and every grade from min to max must be covered.
+- _Should:_ parenthesized years ("October 6 (2026)") are bound to their date; `run-pilot` exits
+  non-zero when a provider fails (its old files would otherwise feed the build); an availability
+  scope covering every session ("All four sessions") is camp-wide; 16 regression cases added (61).
+  Publication and display assertions are not in the script yet (Codex ran 16 of its own offline;
+  they passed): a Nov 5 item.
+- Simplifications: `dateExpressions` evaluated once per check; `evidenceItems` moved to `types.ts`
+  so import code no longer depends on the verifier; `hostOf` and `campKeyFor` private;
+  `hashPageText` deleted until §8.14 needs it. Also from reading the replays: quote positions now
+  use the whole quote before its first 40 characters (two Greenville sentences share a 40-character
+  opening), and sentences split on "!" and "?" as well as ".".
+- Not re-reviewed by Codex after these fixes.
+
+### UX review (Oct 29)
+
+An Opus agent used the pages as a parent would (four scenarios: a week for a 7-year-old, overnight
+registration timing, browsing by interest, the big providers), at desktop, 375 px and in dark mode.
+It ran in the app's built-in browser: the Claude in Chrome window was minimized and screenshots
+timed out. No console errors.
+
+- **Fixed now (P1):** the age filter ignored camps that state only grades and the grade filter
+  those that state only ages (a 7-year-old saw "Rising 9th-12th"; `fitsKid` now converts: rising
+  grade = age - 5 or 6, and an unspecified basis fits when either reading does); the drive filter
+  silently hid 68 camps with no drive time (now "68 without a drive time hidden · show them");
+  filters were lost on Back (now in the URL, as on /groups); verifier codes, "not yet by Matt" and
+  "needs a look" showed on detail pages (now plain "not confirmed yet" / "checked in a browser");
+  "(time not stated)" printed above a quote that states 11:59pm; the card said the date was "shown
+  on the details page once checked" when it already was. Also: "unconfirmed" instead of a yellow
+  "check" chip, "Rising 1st grade and up", "About 1 min drive", a "Clear filters" button on the
+  empty state.
+- **Rejected:** putting UNCA's "expected December 2026" on the card unconfirmed. N15 (Matt's
+  decision) keeps every registration date off cards until a person checks it; the detail page shows
+  it labeled.
+- **To Nov 5** (it changes with the card redesign): card granularity (§8.17), session weeks, a
+  "Week of" filter, price qualifiers and a per-week price sort (§8.18), pipeline text in variants
+  (§8.19), last year's opening for every provider (§8.20), unconfirmed-but-found facts shown in an
+  unconfirmed style on cards, a single card-level "2026 details" note instead of per-fact chips
+  (touch devices never show their tooltip), a collapsed filter panel at 375 px, search over
+  descriptions and session names, pill chips like /groups, map links for addresses, and a check of
+  the hidden duplicate page copy dev mode renders.
+
+**Where the gates stand:** all gates closed; the gate-8 and UX fixes have regression cases and a
+browser check but no further Codex pass. Pilot numbers after gate 8: 649 facts, 512 verified, 137
+review, 0 dropped.

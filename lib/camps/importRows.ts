@@ -10,6 +10,7 @@
 import { cleanTitle } from '@/lib/utils/slugify';
 import { platformOf } from './platforms';
 import {
+  evidenceItems,
   isPublishable,
   type CheckStatus,
   type Evidence,
@@ -17,7 +18,6 @@ import {
   type Extraction,
   type SINGLE_EVIDENCE_FIELDS,
 } from './types';
-import { evidenceItems } from './verify';
 
 /** Imports never write `hidden`: that is moderation, and stays in the database. */
 export interface CampRow {
@@ -122,7 +122,7 @@ function verificationColumns(evidence: Evidence): VerificationColumns {
   };
 }
 
-export function campKeyFor(providerKey: string, card: ExtractedCard): string {
+function campKeyFor(providerKey: string, card: ExtractedCard): string {
   return [providerKey, cleanTitle(card.name), card.variant ? cleanTitle(card.variant) : null]
     .filter(Boolean)
     .join(':');

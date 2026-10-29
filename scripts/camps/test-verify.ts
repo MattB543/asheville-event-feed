@@ -48,7 +48,20 @@ Grades 4-6 welcome. Current students receive a discount.
 Registration opens March 3, 2027 at 9:00.
 Registration opens October 2027; last year it opened October 6, 2026.
 Summer 2027 registration opens Oct. 6, 2026.
-Summer 2027 registration opens 6 October, 2026.`;
+Summer 2027 registration opens 6 October, 2026.
+2026 Registration Closed – Sign Up To Be The First To Know When 2027 Registration Opens
+Registration for summer 2027 is closed.
+Registration is Open!
+Register by February 9, 2026.
+Camp runs June 3–12, 2027.
+Summer Camp (ages 4-7 and 8-16)
+For rising grades K–2 and grades 6–8.
+Summer 2027 registration opens October 6 (2026).`;
+
+/** A schedule whose only year is the footer's. */
+const SCHEDULE = 'https://www.campgreenville.org/schedule';
+/** A program page that is explicitly last summer's. */
+const PROGRAMS_2026 = 'https://www.campgreenville.org/precollege';
 
 const PAGES: Record<string, { text: string; finalUrl?: string; links?: string[] }> = {
   [SITE]: {
@@ -67,6 +80,17 @@ const PAGES: Record<string, { text: string; finalUrl?: string; links?: string[] 
   },
   'https://register.ryzer.com/camp.cfm?id=556': { text: GREENVILLE },
   [DATES]: { text: GREENVILLE },
+  [SCHEDULE]: {
+    text: `Greatest Show! Circus Meets Stage
+July 13-17
+$195 per week
+© 2027 Camp Greenville. All rights reserved.`,
+  },
+  [PROGRAMS_2026]: {
+    text: `2026 Pre-College Programs
+Eligibility: Open to rising high school sophomores, juniors, and seniors
+Apply now.`,
+  },
   'https://othercamp.campintouch.com/register': { text: GREENVILLE },
   'https://register.ryzer.com/camp.cfm?id=999': { text: GREENVILLE },
   'https://www.campgreenville.org/old-dates': {
@@ -146,7 +170,15 @@ function emptyCard(): ExtractedCard {
 
 interface Case {
   name: string;
-  field: 'registration_milestones' | 'season_dates' | 'prices' | 'hours' | 'grades';
+  field:
+    | 'registration_milestones'
+    | 'season_dates'
+    | 'prices'
+    | 'hours'
+    | 'ages'
+    | 'grades'
+    | 'availability'
+    | 'last_year_registration_opened';
   fact: Evidence & Record<string, unknown>;
   expect: 'verified' | 'flagged' | 'dropped';
   flag?: string;
@@ -536,6 +568,138 @@ const CASES: Case[] = [
     }),
     expect: 'flagged',
     flag: 'value_not_in_quote:date',
+  },
+  // Final deep review (gate 8)
+  {
+    name: "availability: 2026's closed status read as 2027's",
+    field: 'availability',
+    fact: evidence(
+      '2026 Registration Closed – Sign Up To Be The First To Know When 2027 Registration Opens',
+      { status: 'closed', scope: null }
+    ),
+    expect: 'flagged',
+    flag: 'availability_year_conflict',
+  },
+  {
+    name: 'availability: the same quote as 2026 closed',
+    field: 'availability',
+    fact: evidence(
+      '2026 Registration Closed – Sign Up To Be The First To Know When 2027 Registration Opens',
+      { year: 2026, status: 'closed', scope: null }
+    ),
+    expect: 'verified',
+  },
+  {
+    name: 'availability: "is closed" read as open',
+    field: 'availability',
+    fact: evidence('Registration for summer 2027 is closed.', { status: 'available', scope: null }),
+    expect: 'flagged',
+    flag: 'availability_status_not_in_quote',
+  },
+  {
+    name: 'availability: "Registration is Open!"',
+    field: 'availability',
+    fact: evidence('Registration is Open!', { status: 'available', scope: null }),
+    expect: 'verified',
+  },
+  {
+    name: 'season year only in a "© 2027" footer',
+    field: 'season_dates',
+    fact: evidence('July 13-17', { url: SCHEDULE, start: '2027-07-13', end: '2027-07-17' }),
+    expect: 'flagged',
+    flag: 'year_not_on_page',
+  },
+  {
+    name: 'grades labeled 2027 on a 2026 program page',
+    field: 'grades',
+    fact: evidence('Eligibility: Open to rising high school sophomores, juniors, and seniors', {
+      url: PROGRAMS_2026,
+      min: 10,
+      max: 12,
+      basis: 'rising',
+    }),
+    expect: 'flagged',
+    flag: 'year_not_on_page',
+  },
+  {
+    name: 'grades labeled 2026 on that page',
+    field: 'grades',
+    fact: evidence('Eligibility: Open to rising high school sophomores, juniors, and seniors', {
+      url: PROGRAMS_2026,
+      year: 2026,
+      min: 10,
+      max: 12,
+      basis: 'rising',
+    }),
+    expect: 'verified',
+  },
+  {
+    name: "last year's opening needs a hand check",
+    field: 'last_year_registration_opened',
+    fact: evidence('Registration opens October 2027; last year it opened October 6, 2026.', {
+      year: 2026,
+      date: '2026-10-06',
+      time: null,
+    }),
+    expect: 'verified',
+    flag: 'needs_hand_check',
+  },
+  {
+    name: 'last year’s "opening" from "Register by February 9, 2026"',
+    field: 'last_year_registration_opened',
+    fact: evidence('Register by February 9, 2026.', { year: 2026, date: '2026-02-09', time: null }),
+    expect: 'flagged',
+    flag: 'kind_conflict',
+  },
+  {
+    name: 'ages 3-12 from "June 3–12, 2027"',
+    field: 'ages',
+    fact: evidence('Camp runs June 3–12, 2027.', { min: 3, max: 12 }),
+    expect: 'flagged',
+    flag: 'value_not_in_quote:age_range',
+  },
+  {
+    name: 'ages 8-16 from "ages 4-7 and 8-16"',
+    field: 'ages',
+    fact: evidence('Summer Camp (ages 4-7 and 8-16)', { min: 8, max: 16 }),
+    expect: 'verified',
+  },
+  {
+    name: 'ages 4-16 across two ranges',
+    field: 'ages',
+    fact: evidence('Summer Camp (ages 4-7 and 8-16)', { min: 4, max: 16 }),
+    expect: 'flagged',
+    flag: 'value_not_in_quote:age_range',
+  },
+  {
+    name: 'rising K-8 from "K–2 and grades 6–8"',
+    field: 'grades',
+    fact: evidence('For rising grades K–2 and grades 6–8.', { min: 0, max: 8, basis: 'rising' }),
+    expect: 'flagged',
+    flag: 'value_not_in_quote:grade_range',
+  },
+  {
+    name: 'rising 6-8 from "K–2 and grades 6–8"',
+    field: 'grades',
+    fact: evidence('For rising grades K–2 and grades 6–8.', { min: 6, max: 8, basis: 'rising' }),
+    expect: 'verified',
+  },
+  {
+    name: 'parenthesized year: "October 6 (2026)" is not October 2027',
+    field: 'registration_milestones',
+    fact: milestone('Summer 2027 registration opens October 6 (2026).', {
+      audience: 'public',
+      date: '2027-10-01',
+      precision: 'month',
+    }),
+    expect: 'flagged',
+    flag: 'value_not_in_quote:date',
+  },
+  {
+    name: 'parenthesized year: the right date',
+    field: 'registration_milestones',
+    fact: milestone('Summer 2027 registration opens October 6 (2026).', { audience: 'public' }),
+    expect: 'verified',
   },
 ];
 

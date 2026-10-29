@@ -84,8 +84,11 @@ function Tabs({ activeTab, query }: EventTabSwitcherProps & { query: string }) {
       <IntentLink href="/news" className={tabClass(activeTab === 'news')}>
         News
       </IntentLink>
-      {/* No page of its own, so the label only opens the menu. Right-aligned: near the end
-          of the row, a left-aligned menu would run off a 360px phone */}
+      <Link href="/parking" className={tabClass(activeTab === 'parking')}>
+        Parking
+      </Link>
+      {/* No page of its own, so the label only opens the menu. Right-aligned: at the end of
+          the row, a left-aligned menu would run off a 360px phone */}
       <HeaderMenu
         label="More"
         className={tabClass(activeTab === 'playlist' || activeTab === 'camps')}
@@ -95,9 +98,6 @@ function Tabs({ activeTab, query }: EventTabSwitcherProps & { query: string }) {
           { href: '/camps', label: 'Summer camps', icon: Tent, active: activeTab === 'camps' },
         ]}
       />
-      <Link href="/parking" className={tabClass(activeTab === 'parking')}>
-        Parking
-      </Link>
     </nav>
   );
 }

@@ -114,7 +114,7 @@ export default async function CampsPage() {
             )}
           </div>
 
-          <p className="mt-8 text-xs text-gray-500 dark:text-gray-400">
+          <p className="mt-4 text-center text-xs text-gray-500 dark:text-gray-400">
             Drive times from Pack Square, without traffic: {ORS_ATTRIBUTION}
           </p>
         </div>

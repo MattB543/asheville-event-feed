@@ -715,6 +715,23 @@ export default function CampDirectory({ camps }: { camps: CampCardData[] }) {
   };
 
   const field = 'flex flex-col gap-1';
+  // "12 of 889 camps · Clear filters": above the cards and again below them
+  const countLine = (
+    <>
+      <span className="font-semibold text-gray-900 dark:text-gray-100">
+        {shown.length.toLocaleString('en-US')}
+      </span>{' '}
+      of {camps.length.toLocaleString('en-US')} camps
+      {filtered && (
+        <>
+          {' · '}
+          <button type="button" onClick={clearFilters} className={textButtonClasses}>
+            Clear filters
+          </button>
+        </>
+      )}
+    </>
+  );
 
   return (
     <div>
@@ -734,7 +751,7 @@ export default function CampDirectory({ camps }: { camps: CampCardData[] }) {
               value={query}
               onChange={(event) => setQuery(event.target.value)}
               placeholder="Search camps, activities, towns"
-              className="w-full h-10 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 pl-9 pr-3 text-sm text-gray-900 dark:text-gray-100 placeholder:text-gray-500 dark:placeholder:text-gray-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
+              className="w-full h-9 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 pl-9 pr-3 text-sm text-gray-900 dark:text-gray-100 placeholder:text-gray-500 dark:placeholder:text-gray-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
             />
           </label>
 
@@ -994,20 +1011,7 @@ export default function CampDirectory({ camps }: { camps: CampCardData[] }) {
 
       <div className="mt-4 flex flex-wrap items-center justify-between gap-x-4 gap-y-2 text-sm text-gray-600 dark:text-gray-400">
         <div aria-live="polite" className="space-y-0.5">
-          <p>
-            <span className="font-semibold text-gray-900 dark:text-gray-100">
-              {shown.length.toLocaleString('en-US')}
-            </span>{' '}
-            of {camps.length.toLocaleString('en-US')} camps
-            {filtered && (
-              <>
-                {' · '}
-                <button type="button" onClick={clearFilters} className={textButtonClasses}>
-                  Clear filters
-                </button>
-              </>
-            )}
-          </p>
+          <p>{countLine}</p>
           {kids.length > 0 && (
             <p className="text-xs">Camps that state no ages or grades are included.</p>
           )}
@@ -1094,6 +1098,10 @@ export default function CampDirectory({ camps }: { camps: CampCardData[] }) {
             Showing {limit} of {shown.length.toLocaleString('en-US')}
           </p>
         </div>
+      )}
+
+      {shown.length > 0 && (
+        <p className="mt-6 text-center text-sm text-gray-600 dark:text-gray-400">{countLine}</p>
       )}
     </div>
   );

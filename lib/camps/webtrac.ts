@@ -333,13 +333,17 @@ const WEEK_STATUS: Record<string, AvailabilityStatus> = {
   canceled: 'closed',
 };
 
-/** Each week's own status, rolled up; one week we can't read leaves the card's status unknown. */
+/**
+ * Each week's own status, rolled up; one week we can't read leaves the card's status unknown. The
+ * roll-up covers every row of the card, so it has no scope: a program with every week full reads
+ * as full.
+ */
 function availabilityOf(rows: ActivityRow[]): CampCard['availability'] {
   const weeks = rows.map((row) => WEEK_STATUS[row.status.trim().toLowerCase()]);
   if (weeks.some((week) => !week)) return null;
   return {
     status: rollUp(weeks),
-    scope: rows.length > 1 ? `${rows.length} weekly sessions` : null,
+    scope: null,
     text: [...new Set(rows.map((row) => row.status))].join(', '),
   };
 }

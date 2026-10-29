@@ -142,13 +142,35 @@ export async function buildSourceBundle(
   return { pages, log, sourceHash: hashPages(pages) };
 }
 
+/** Prefix of hashes made by `hashPages`; a stored hash without it predates the boilerplate rule. */
+export const SOURCE_HASH_VERSION = 'v2:';
+
+/**
+ * The bundle's text minus lines that repeat on two or more of its pages (header, menu, footer, a
+ * site-wide alert banner), so a new banner doesn't count as the camp's pages changing. A refresh
+ * re-extracts on every hash change, and each re-extraction can send a confirmed camp back to review.
+ */
 function hashPages(pages: BundlePage[]): string | null {
   if (pages.length === 0) return null;
+  const linesOf = (text: string) =>
+    text
+      .split('\n')
+      .map((line) => line.trim())
+      .filter(Boolean);
+  const pagesWithLine = new Map<string, number>();
+  for (const page of pages) {
+    for (const line of new Set(linesOf(page.text))) {
+      pagesWithLine.set(line, (pagesWithLine.get(line) ?? 0) + 1);
+    }
+  }
   const hash = createHash('sha256');
   for (const page of [...pages].sort((a, b) => a.url.localeCompare(b.url))) {
-    hash.update(`${page.url}\n${page.text}\n`);
+    const own = linesOf(page.text).filter(
+      (line) => pages.length === 1 || pagesWithLine.get(line) === 1
+    );
+    hash.update(`${page.url}\n${own.join('\n')}\n`);
   }
-  return hash.digest('hex');
+  return SOURCE_HASH_VERSION + hash.digest('hex');
 }
 
 /** The camp rule, card rule, year and registration rules and the confidence scale, for every call. */

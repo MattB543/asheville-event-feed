@@ -26,6 +26,19 @@ import {
 import { parseAsEastern } from '@/lib/utils/timezone';
 import { extractCity, isAshevilleArea } from '@/lib/utils/geo';
 import { isAshevilleZip } from '@/lib/config/zipNames';
+import { SUMMER_CAMP_TAG } from '@/lib/config/tagCategories';
+
+/** One event per summer camp card, written by syncCampEvents (lib/camps/feedEvents.ts). */
+export const CAMPS_SOURCE = 'CAMPS';
+
+/**
+ * A summer camp: one of our camp events, or a scraped listing the AI tagged as a camp. Listed only
+ * while the Summer Camp tag is selected (100+ camps share the same June start dates) and never in
+ * Top 30. The server's twin is `notCampEvent` in lib/db/queries/events.ts.
+ */
+export function isCampEvent(event: { source?: string | null; tags?: string[] | null }): boolean {
+  return event.source === CAMPS_SOURCE || !!event.tags?.includes(SUMMER_CAMP_TAG);
+}
 
 /** Parse a price string ("$20", "Free", "$15-25") to a number; free/donation/unknown are 0. */
 export function parsePrice(priceStr: string | null | undefined): number {
@@ -51,6 +64,7 @@ export function isFreeEvent(price: string | null | undefined): boolean {
 }
 
 export interface FilterableEvent {
+  source?: string | null;
   title: string;
   description?: string | null;
   aiSummary?: string | null;
@@ -190,6 +204,8 @@ export function matchesEventFilters(
         break;
     }
   }
+
+  if (isCampEvent(event) && !filters.tagsInclude.includes(SUMMER_CAMP_TAG)) return false;
 
   const tags = event.tags ?? [];
   if (filters.tagsInclude.length > 0 && !filters.tagsInclude.some((tag) => tags.includes(tag))) {

@@ -190,8 +190,10 @@ async function scrapeDetail() {
 }
 
 // Sources with no scraper behind them: they only change when a human submits an
-// event or uploads a poster, so "stale" is normal here and not a problem.
-const UNSCRAPED_SOURCES = ['MANUAL', 'POSTER'];
+// event or uploads a poster, so "stale" is normal here and not a problem. CAMPS
+// events come from the camps directory (syncCampEvents in the daily camps-refresh
+// job), which the CAMPS REFRESH section checks instead.
+const UNSCRAPED_SOURCES = ['MANUAL', 'POSTER', 'CAMPS'];
 
 async function staleSources() {
   console.log('\nSTALE SOURCES — no event refreshed in over 24h');
@@ -410,6 +412,83 @@ NEWS — last ${DAYS} days`);
   }
 }
 
+// Summer camps refresh (lib/camps/refresh.ts), daily. Like verify it can "succeed"
+// while doing nothing useful (every page unreadable, Sol down), so judge it by the
+// providers it actually checked and by how many have gone two weeks unchecked.
+const CAMPS_RUN_MAX_AGE_HOURS = 30;
+const CAMPS_IDLE_RUNS = 3;
+const CAMPS_FAIL_MAX_RATE = 0.5;
+const CAMPS_FAIL_MIN_CHECKED = 20;
+const CAMPS_STALE_DAYS = 14;
+const CAMPS_STALE_MAX_SHARE = 0.2;
+
+async function campsRefresh() {
+  console.log(`\nCAMPS REFRESH — last ${DAYS} days`);
+  hr();
+  const [ever] = await sql<{ n: number }[]>`
+    select count(*)::int as n from cron_job_runs where job_name = 'camps-refresh'`;
+  if (ever.n === 0) {
+    console.log('(no camps-refresh runs yet: not deployed?)');
+    return;
+  }
+
+  const runs = await sql<
+    { status: string; age_hours: number; result: Record<string, unknown> | null }[]
+  >`
+    select status, (extract(epoch from (now() - started_at)) / 3600)::float8 as age_hours, result
+    from cron_job_runs
+    where job_name = 'camps-refresh' and started_at > now() - make_interval(days => ${DAYS})
+    order by started_at desc`;
+  if (runs.length === 0 || runs[0].age_hours > CAMPS_RUN_MAX_AGE_HOURS) {
+    const last = runs.length ? `${fmtAge(runs[0].age_hours)} ago` : `not in ${DAYS} days`;
+    problems.push(`camps-refresh: last run ${last} (runs daily).`);
+  }
+
+  const total = (field: string) => runs.reduce((n, run) => n + Number(run.result?.[field] ?? 0), 0);
+  const checked = total('checked');
+  const failed = total('failed');
+  console.log(`Runs:           ${runs.length}`);
+  console.log(
+    `Providers:      ${checked} checked, ${total('unchanged')} unchanged, ${total('reExtracted')} re-extracted, ${failed} failed`
+  );
+
+  // Newest-first streak of runs that had providers due but checked none. A run
+  // with nothing due ends the streak.
+  let idle = 0;
+  for (const run of runs) {
+    if (run.status === 'running') continue;
+    const r = run.result ?? {};
+    if (Number(r.checked ?? 0) > 0 || (run.status === 'success' && Number(r.due) === 0)) break;
+    idle++;
+  }
+  if (idle >= CAMPS_IDLE_RUNS) {
+    problems.push(`camps-refresh: checked no providers on the last ${idle} runs despite some due.`);
+  }
+  if (checked >= CAMPS_FAIL_MIN_CHECKED && failed / checked > CAMPS_FAIL_MAX_RATE) {
+    problems.push(
+      `camps-refresh: ${Math.round((failed / checked) * 100)}% of checks failed; see check_error in camp_providers.`
+    );
+  }
+
+  // The providers the refresh looks after (WebTrac's catalog is refreshed by hand)
+  const [freshness] = await sql<{ total: number; stale: number; failing: number }[]>`
+    select count(*)::int as total,
+           count(*) filter (where greatest(checked_at, extracted_at)
+                              < now() - make_interval(days => ${CAMPS_STALE_DAYS}))::int as stale,
+           count(*) filter (where check_error is not null)::int as failing
+    from camp_providers
+    where not hidden and extraction_fingerprint is not null
+      and extraction_fingerprint not like 'webtrac:%' and cardinality(urls) > 0`;
+  console.log(
+    `Freshness:      ${freshness.stale} of ${freshness.total} providers unchecked for ${CAMPS_STALE_DAYS}+ days; ${freshness.failing} failing now`
+  );
+  if (freshness.total > 0 && freshness.stale / freshness.total > CAMPS_STALE_MAX_SHARE) {
+    problems.push(
+      `camps-refresh: ${freshness.stale} of ${freshness.total} camp providers unchecked for ${CAMPS_STALE_DAYS}+ days (pages unreadable from Vercel? try npx tsx scripts/camps/refresh.ts --apply).`
+    );
+  }
+}
+
 async function main() {
   console.log('='.repeat(74));
   console.log(`CRON HEALTH  —  generated ${new Date().toISOString()}`);
@@ -421,6 +500,7 @@ async function main() {
   await verifyWork();
   await enrichment();
   await news();
+  await campsRefresh();
 
   console.log('\n' + '='.repeat(74));
   if (problems.length === 0) {

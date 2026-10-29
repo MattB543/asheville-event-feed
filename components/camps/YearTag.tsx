@@ -1,4 +1,4 @@
-import { TARGET_SEASON } from '@/lib/camps/display';
+import { TARGET_SEASON, type RegistrationNote } from '@/lib/camps/display';
 
 /** "2026" beside a value from last summer, when the camp hasn't posted 2027 yet (D12). */
 export function YearTag({ year }: { year: number }) {
@@ -22,5 +22,27 @@ export function UnconfirmedTag() {
     >
       unconfirmed
     </span>
+  );
+}
+
+/** The registration line's smaller lines, each date with its own "unconfirmed" label. */
+export function RegistrationDetails({
+  details,
+  className,
+}: {
+  details: RegistrationNote[];
+  className: string;
+}) {
+  if (details.length === 0) return null;
+  return (
+    <p className={className}>
+      {details.map((note, index) => (
+        <span key={index}>
+          {index > 0 && ' · '}
+          {note.text}
+          {note.unconfirmed && <UnconfirmedTag />}
+        </span>
+      ))}
+    </p>
   );
 }

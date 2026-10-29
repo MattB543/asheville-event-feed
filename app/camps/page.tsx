@@ -8,7 +8,7 @@ import CampDirectory from '@/components/camps/CampDirectory';
 import CampFeedback from '@/components/camps/CampFeedback';
 import { toCardData, type CampCardData } from '@/lib/camps/display';
 import { ORS_ATTRIBUTION } from '@/lib/camps/geo';
-import { campsLastUpdated, listLiveCamps } from '@/lib/db/queries/camps';
+import { campsLastChecked, listLiveCamps } from '@/lib/db/queries/camps';
 import { SITE_URL } from '@/lib/seo/site';
 
 const pageUrl = `${SITE_URL}/camps`;
@@ -48,13 +48,13 @@ export default async function CampsPage() {
   let checked: string | null = null;
   let failed = false;
   try {
-    const [camps, lastUpdated] = await Promise.all([listLiveCamps(), campsLastUpdated()]);
+    const [camps, lastChecked] = await Promise.all([listLiveCamps(), campsLastChecked()]);
     const now = new Date();
     cards = camps.map((camp) => toCardData(camp, now));
     providers = new Set(camps.map((camp) => camp.providerKey)).size;
     checked =
-      lastUpdated &&
-      new Date(lastUpdated).toLocaleDateString('en-US', {
+      lastChecked &&
+      new Date(lastChecked).toLocaleDateString('en-US', {
         month: 'short',
         day: 'numeric',
         year: 'numeric',

@@ -15,6 +15,7 @@
  *   npx tsx scripts/camps/extract.ts                                    # data/camps/providers.json
  *   npx tsx scripts/camps/extract.ts --providers data/camps/pilot/providers.json
  *   npx tsx scripts/camps/extract.ts --only ymca-wnc,lutheridge --force   # spends tokens
+ *   npx tsx scripts/camps/extract.ts --concurrency 12
  */
 import '../../lib/config/env';
 import { createHash } from 'node:crypto';
@@ -36,7 +37,7 @@ const OUT_DIR = join(CAMPS_DIR, 'extractions');
 const PILOT_PROVIDERS = join(CAMPS_DIR, 'pilot', 'providers.json');
 // Written by scripts/camps/read-webtrac.ts.
 const WEBTRAC_CACHE = join(CAMPS_DIR, 'pilot', 'webtrac.json');
-const CONCURRENCY = 6;
+const DEFAULT_CONCURRENCY = 6;
 
 /** A providers.json entry: a discovery `Provider`, or a pilot row without the discovery fields. */
 type ProviderEntry = Omit<Provider, 'area' | 'discovered_by' | 'status'> &
@@ -110,7 +111,8 @@ async function main() {
           ) as WebTracCatalog);
           saved = {
             provider,
-            extractedAt: new Date().toISOString(),
+            // When the catalog was read, not now: rebuilding cards from the same cache checks nothing.
+            extractedAt: webtrac.readAt,
             fingerprint: `webtrac:${webtrac.readAt}`,
             sourceHash: createHash('sha256').update(JSON.stringify(webtrac.rows)).digest('hex'),
             response: null,
@@ -158,7 +160,8 @@ async function main() {
     }
   }
 
-  await Promise.all(Array.from({ length: CONCURRENCY }, worker));
+  const concurrency = Number(arg('--concurrency') ?? DEFAULT_CONCURRENCY);
+  await Promise.all(Array.from({ length: concurrency }, worker));
   await fetcher.close();
 
   const cards = done.flatMap((saved) => saved.extraction.cards);

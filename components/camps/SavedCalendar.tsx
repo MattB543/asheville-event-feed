@@ -2,7 +2,12 @@
 
 import { useState } from 'react';
 import { CalendarPlus, Check, Copy } from 'lucide-react';
-import { calendarFeedUrl, subscribeSavedCamps, useSavedCamps } from './savedCamps';
+import {
+  calendarFeedUrl,
+  retryCalendarSync,
+  subscribeSavedCamps,
+  useSavedCamps,
+} from './savedCamps';
 
 const linkClasses =
   'inline-flex items-center gap-1.5 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 px-3 py-1.5 text-sm font-medium text-gray-700 dark:text-gray-300 hover:border-brand-400 hover:text-brand-600 dark:hover:border-brand-500 dark:hover:text-brand-400 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500';
@@ -12,7 +17,7 @@ const linkClasses =
  * later reach the parent's calendar on their own, and saving or unsaving a camp updates it.
  */
 export default function SavedCalendar() {
-  const { ids, token } = useSavedCamps();
+  const { ids, token, sync } = useSavedCamps();
   const [status, setStatus] = useState<'idle' | 'working' | 'error'>('idle');
   const [copied, setCopied] = useState(false);
 
@@ -82,6 +87,21 @@ export default function SavedCalendar() {
           {copied ? 'Copied' : 'Copy link'}
         </button>
       </div>
+      {sync === 'failed' && (
+        <p role="alert" className="text-amber-800 dark:text-amber-200">
+          Couldn’t update your calendar with your latest changes.{' '}
+          <button
+            type="button"
+            onClick={retryCalendarSync}
+            className="font-medium underline underline-offset-2 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
+          >
+            Try again
+          </button>
+        </p>
+      )}
+      {sync === 'pending' && (
+        <p className="text-xs text-gray-500 dark:text-gray-400">Updating your calendar…</p>
+      )}
       <p className="text-xs text-gray-500 dark:text-gray-400">
         Google Calendar checks for changes every few hours to a day; Apple and Outlook more often.
         The list lives in this browser: save camps here to change it.

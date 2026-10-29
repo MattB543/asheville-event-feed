@@ -855,7 +855,8 @@ export const genreNotes = pgTable('genre_notes', {
 // Summer camps (/camps): docs/camps/04-v2-plan.md §4 (drizzle/0025). One card per program, as Sol
 // extracted it (`card`), plus Matt's fixes (`override`); the columns beside them are copied from the
 // effective card ({...card, ...override}) so the pages can filter in SQL. Written by
-// scripts/camps/import.ts and the /admin/camps actions in lib/db/queries/camps.ts.
+// lib/camps/importCamps.ts (scripts/camps/import.ts and the refresh cron) and the /admin/camps
+// actions in lib/db/queries/camps.ts.
 
 // One row per provider from discovery (data/camps/providers.json).
 export const campProviders = pgTable('camp_providers', {
@@ -869,6 +870,12 @@ export const campProviders = pgTable('camp_providers', {
   notes: text('notes'), // The extraction's notes on the provider
   extractedAt: timestamp('extracted_at', { withTimezone: true }),
   sourceHash: text('source_hash'), // Hash of the fetched source text, so a refresh re-extracts only changes
+  // The extraction's fingerprint (prompt + schema, or 'webtrac:...'): a new prompt re-extracts on refresh
+  extractionFingerprint: text('extraction_fingerprint'),
+  // Refresh bookkeeping (lib/camps/refresh.ts, drizzle/0026); the import never writes these.
+  // Last time the refresh read the pages and compared them; a failed read doesn't advance it
+  checkedAt: timestamp('checked_at', { withTimezone: true }),
+  checkError: text('check_error'), // Why the last check failed; null once one succeeds
   createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
   updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow().notNull(),
 });

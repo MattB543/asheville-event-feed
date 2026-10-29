@@ -588,7 +588,9 @@ function prepareEvents(events: EventForDedup[]): PreparedEventForDedup[] {
 export function findDuplicates(events: EventForDedup[]): DuplicateGroup[] {
   const duplicateGroups: DuplicateGroup[] = [];
   const processed = new Set<string>();
-  const preparedEvents = prepareEvents(events);
+  // Camp events (lib/camps/feedEvents.ts) are one per camp by construction and never take part:
+  // method E would merge two camps at one venue on one shared word ("camp")
+  const preparedEvents = prepareEvents(events.filter((event) => event.source !== 'CAMPS'));
   const eventById = new Map(preparedEvents.map((event) => [event.id, event]));
   const eventsByDate = new Map<string, PreparedEventForDedup[]>();
 

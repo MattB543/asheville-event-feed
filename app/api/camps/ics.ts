@@ -3,23 +3,25 @@
  * feed. Not lib/utils/icsGenerator.ts: that one has random UIDs, a 2-hour default and no date-only
  * events. Rules:
  *
+ * - Only dates the camp has announced to the day (isRemindable): "expected mid-December" or a
+ *   month alone never becomes an event, since it would invent the day (N14).
  * - A stated time is a timed event (sent in UTC, the same instant as Eastern) with two alarms: the
  *   day before and 15 minutes before.
  * - A date with no time is an all-day event titled "(time not stated)", alarmed at 9 a.m. the day
- *   before. A time is never invented. A month ("expected mid-December") is an all-day event on the
- *   1st, titled as a month to check.
- * - The UID is stable per camp + season + milestone kind + audience, so a calendar app updates a
- *   date in place when the camp changes it, and a members' opening stays separate from the public
- *   one. Lottery and deadline dates say so in the title.
+ *   before. A time is never invented.
+ * - The UID is camp + season + milestone kind + audience + date (+ time, when two dates of one kind
+ *   and audience fall on the same day), so a members' opening stays separate from the public one
+ *   and a date that doesn't change keeps its event however the camp's other dates move. Lottery
+ *   and deadline dates say so in the title.
  */
 
 import type { Milestone } from '@/lib/camps/contract';
 import {
   AI_NOTICE,
   TARGET_SEASON,
+  isRemindable,
   isUnconfirmed,
   milestoneLabel,
-  milestoneWhen,
 } from '@/lib/camps/display';
 import type { CampListing } from '@/lib/db/queries/camps';
 import { SITE_URL } from '@/lib/seo/site';
@@ -85,39 +87,30 @@ function campUrl(camp: CampListing): string {
   return `${SITE_URL}/camps/${camp.slug}`;
 }
 
-/** One VEVENT per 2027 registration date of a camp (the caller picks which). */
+/**
+ * One VEVENT per remindable registration date of a camp, out of `milestones` (the caller picks
+ * which: those still ahead for a download, all of them for the feed).
+ */
 export function milestoneEvents(camp: CampListing, milestones: Milestone[], now: Date): string[][] {
   const { card } = camp;
-  const seen = new Map<string, number>();
-  // Numbered per kind + audience in date order, for camps with several of one (three returning
-  // openings an hour apart): the number stays put when a date moves.
-  const ordered = card.registration
-    .filter((milestone) => milestone.year === TARGET_SEASON)
-    .sort((a, b) => `${a.date} ${a.time ?? ''}`.localeCompare(`${b.date} ${b.time ?? ''}`));
-  const uidOf = new Map<Milestone, string>();
-  for (const milestone of ordered) {
-    const key = `${milestone.kind}-${milestone.audience}`;
-    const count = (seen.get(key) ?? 0) + 1;
-    seen.set(key, count);
-    uidOf.set(
-      milestone,
-      `camp-${camp.id}-${milestone.year}-${key}${count > 1 ? `-${count}` : ''}@avlgo.com`
-    );
-  }
+  const remindable = card.registration.filter(isRemindable);
+  const day = (milestone: Milestone) =>
+    `${milestone.kind}-${milestone.audience}-${milestone.date.replace(/-/g, '')}`;
+  const uidOf = (milestone: Milestone) => {
+    // Three returning-family openings an hour apart on one day: the time tells them apart
+    const shared =
+      remindable.filter((other) => day(other) === day(milestone)).length > 1 && milestone.time;
+    return `camp-${camp.id}-${milestone.year}-${day(milestone)}${shared ? `-${milestone.time!.replace(':', '')}` : ''}@avlgo.com`;
+  };
+  const emitted = new Set<string>();
 
-  return milestones.flatMap((milestone) => {
-    const uid = uidOf.get(milestone);
-    if (!uid) return [];
-    // "registration opens" -> "registration expected" when the camp only expects the date
-    const label =
-      milestone.certainty === 'expected'
-        ? `${milestoneLabel(milestone).replace(/ opens?$/, '')} expected`.toLowerCase()
-        : milestoneLabel(milestone).toLowerCase();
+  return milestones.filter(isRemindable).flatMap((milestone) => {
+    const uid = uidOf(milestone);
+    if (emitted.has(uid)) return [];
+    emitted.add(uid);
+    const label = milestoneLabel(milestone).toLowerCase();
     const timed = milestone.precision === 'datetime' && !!milestone.time;
-    const summary =
-      milestone.precision === 'month'
-        ? `${card.name}: ${label} ${milestoneWhen(milestone)} (check the date)`
-        : `${card.name}: ${label}${timed ? '' : ' (time not stated)'}`;
+    const summary = `${card.name}: ${label}${timed ? '' : ' (time not stated)'}`;
     const description = [
       `“${milestone.text}”`,
       isUnconfirmed(milestone, camp.confirmed) ? 'This date is not confirmed yet.' : null,

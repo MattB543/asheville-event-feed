@@ -1,7 +1,7 @@
 /**
  * Camp review for the super admin (docs/camps/04-v2-plan.md §1.2). Unlisted by design - there is
- * no nav link to it. Confirm, hide or fix the camps short of high confidence, and pin the sites
- * the geocoder couldn't place.
+ * no nav link to it. Confirm, hide or fix the camps short of high confidence, find any other camp
+ * to fix it (`?q=`), and pin the sites the geocoder couldn't place.
  */
 
 import type { Metadata } from 'next';
@@ -10,8 +10,15 @@ import Header from '@/components/Header';
 import CampAdmin, { type CampAdminData } from '@/components/camps/admin/CampAdmin';
 import { createClient } from '@/lib/supabase/server';
 import { isSuperAdmin } from '@/lib/utils/superAdmin';
-import { reviewQueue, sitesWithoutPin } from '@/lib/db/queries/camps';
-import { CAMP_CARD_KEYS, hiddenCamps, orsPinnedSites } from '@/lib/db/queries/campsAdmin';
+import { sitesWithoutPin } from '@/lib/db/queries/camps';
+import {
+  CAMP_CARD_KEYS,
+  adminReviewQueue,
+  hiddenCamps,
+  liveCampCount,
+  orsPinnedSites,
+  searchCamps,
+} from '@/lib/db/queries/campsAdmin';
 
 export const metadata: Metadata = {
   title: 'Camp review',
@@ -21,7 +28,11 @@ export const metadata: Metadata = {
 // Every decision has to show on the very next request.
 export const dynamic = 'force-dynamic';
 
-export default async function AdminCampsPage() {
+export default async function AdminCampsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ q?: string | string[] }>;
+}) {
   const supabase = await createClient();
   const {
     data: { user },
@@ -31,15 +42,20 @@ export default async function AdminCampsPage() {
     redirect('/');
   }
 
+  const q = (await searchParams).q;
+  const query = (Array.isArray(q) ? q[0] : q)?.trim() ?? '';
+
   let data: CampAdminData | null = null;
   try {
-    const [queue, unpinned, orsPins, hidden] = await Promise.all([
-      reviewQueue(),
+    const [queue, unpinned, orsPins, hidden, liveCount, results] = await Promise.all([
+      adminReviewQueue(),
       sitesWithoutPin(),
       orsPinnedSites(),
       hiddenCamps(),
+      liveCampCount(),
+      query ? searchCamps(query) : Promise.resolve([]),
     ]);
-    data = { queue, unpinned, orsPins, hidden };
+    data = { queue, unpinned, orsPins, hidden, liveCount, search: { query, results } };
   } catch (error) {
     console.error('[Camps] Failed to load the admin page:', error);
   }

@@ -1,10 +1,12 @@
 /**
  * Summer camps: load discovery and extraction output into camp_providers, camps and camp_sites
- * (docs/camps/04-v2-plan.md §3).
+ * (docs/camps/04-v2-plan.md §3). The work is lib/camps/importCamps.ts, which the refresh job calls
+ * too; this script feeds it every provider from the files.
  *
  * - Providers come from data/camps/providers.json (before discovery has run, the pilot's
  *   data/camps/pilot/providers.json), each provider's latest extraction from
- *   data/camps/extractions/<key>.json.
+ *   data/camps/extractions/<key>.json. A file older than the extraction the database already has
+ *   (the refresh job re-extracted that provider) is skipped.
  * - Camps are keyed by camp_key (campKeyFor: provider key + program name). A new camp gets its slug
  *   once and it never changes. The import writes the card and the columns copied from the effective
  *   card; it never writes override, hidden or reviewed_*, and never deletes anything: a camp missing
@@ -24,38 +26,16 @@
 import '../../lib/config/env';
 import { existsSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { sql } from 'drizzle-orm';
-import { db } from '../../lib/db';
-import { campProviders, camps, campSites } from '../../lib/db/schema';
-import { campColumns, cardHash, effectiveCard, stableJson } from '../../lib/db/queries/camps';
-import {
-  campKeyFor,
-  needsReview,
-  slugPart,
-  type CampCard,
-  type Provider,
-  type Site,
-} from '../../lib/camps/contract';
+import type { Provider } from '../../lib/camps/contract';
 import type { SavedExtraction } from '../../lib/camps/extract';
-import {
-  driveMinutesFromDowntown,
-  geocodeSite,
-  geocodeText,
-  type SiteGeo,
-} from '../../lib/camps/geo';
+import type { SiteGeo } from '../../lib/camps/geo';
+import { importCamps } from '../../lib/camps/importCamps';
 
 const DATA = join(process.cwd(), 'data', 'camps');
 const PROVIDERS = join(DATA, 'providers.json');
 const PILOT_PROVIDERS = join(DATA, 'pilot', 'providers.json');
 const EXTRACTIONS = join(DATA, 'extractions');
 const GEOCODE_CACHE = join(DATA, 'geocode-cache.json');
-
-type ProviderRow = typeof campProviders.$inferSelect;
-type CampRow = typeof camps.$inferSelect;
-type SiteRow = typeof campSites.$inferSelect;
-type ProviderValues = Omit<typeof campProviders.$inferInsert, 'hidden' | 'createdAt' | 'updatedAt'>;
-
-const SHOW = 15;
 
 function readJson<T>(path: string): T {
   return JSON.parse(readFileSync(path, 'utf8')) as T;
@@ -98,443 +78,34 @@ function loadExtractions(): SavedExtraction[] {
     .map((name) => readJson<SavedExtraction>(join(EXTRACTIONS, name)));
 }
 
-function isMissingTable(error: unknown): boolean {
-  const cause = (error as { cause?: unknown }).cause ?? error;
-  return (cause as { code?: string }).code === '42P01';
-}
-
-/** The current rows; empty (and says so) when drizzle/0025_camps.sql hasn't been applied yet. */
-async function readExisting(): Promise<{
-  providers: ProviderRow[];
-  camps: CampRow[];
-  sites: SiteRow[];
-  tablesExist: boolean;
-}> {
-  try {
-    const [providerRows, campRows, siteRows] = await Promise.all([
-      db.select().from(campProviders),
-      db.select().from(camps),
-      db.select().from(campSites),
-    ]);
-    return { providers: providerRows, camps: campRows, sites: siteRows, tablesExist: true };
-  } catch (error) {
-    if (!isMissingTable(error)) throw error;
-    return { providers: [], camps: [], sites: [], tablesExist: false };
-  }
-}
-
-/** Words that don't identify a provider, so they never decide whether a program name names it. */
-const SLUG_STOPWORDS = new Set(['the', 'a', 'of', 'and', 'at', 'camp', 'camps', 'summer']);
-
-/** '<provider>-<program>', without the provider when the program name already names it. */
-function newSlug(providerName: string, programName: string, taken: Set<string>): string {
-  const program = slugPart(programName);
-  const provider = slugPart(providerName.replace(/\(.*?\)/g, ' '));
-  const word = provider.split('-').find((part) => !SLUG_STOPWORDS.has(part));
-  const named = word !== undefined && program.split('-').includes(word);
-  const base =
-    (named ? program : `${provider}-${program}`).slice(0, 100).replace(/-+$/, '') || 'camp';
-  let slug = base;
-  for (let n = 2; taken.has(slug); n++) slug = `${base}-${n}`;
-  taken.add(slug);
-  return slug;
-}
-
-/** Top-level card fields that differ, for the report. */
-function changedFields(a: CampCard, b: CampCard): string[] {
-  const keys = new Set([...Object.keys(a), ...Object.keys(b)]) as Set<keyof CampCard>;
-  return [...keys].filter((key) => stableJson(a[key] ?? null) !== stableJson(b[key] ?? null));
-}
-
-function siteKey(providerKey: string, name: string): string {
-  return `${providerKey}\n${name}`;
-}
-
-/** The same rule as the pages: live camps short of high confidence, not confirmed as they stand. */
-function inReviewQueue(
-  row: Pick<CampRow, 'card' | 'override' | 'reviewedHash' | 'hidden'>,
-  providerHidden: boolean
-): boolean {
-  if (row.hidden || providerHidden) return false;
-  const card = effectiveCard(row);
-  return needsReview(card) && row.reviewedHash !== cardHash(card);
-}
-
 async function main() {
   const apply = process.argv.includes('--apply');
-  const { providers: listed, from } = loadProviders();
-  const files = loadExtractions();
-  const existing = await readExisting();
-
-  console.log(
-    `${apply ? 'APPLY' : 'DRY RUN'}: ${listed.length} providers from ${from}; ${files.length} extraction files in data/camps/extractions`
-  );
-  if (!existing.tablesExist) {
-    console.log(
-      '  The camps tables do not exist yet (drizzle/0025_camps.sql not applied): treating them as empty'
-    );
-    if (apply) throw new Error('Apply drizzle/0025_camps.sql before --apply');
-  } else {
-    console.log(
-      `  Table has ${existing.providers.length} providers, ${existing.camps.length} camps, ${existing.sites.length} sites`
-    );
-  }
-
-  // --- Providers: discovery's list plus any provider an extraction file names that it doesn't.
-  const fileByKey = new Map(files.map((file) => [file.provider.key, file]));
-  const providers = [...listed];
-  const listedKeys = new Set(listed.map((p) => p.key));
-  const unlisted = files.filter((file) => !listedKeys.has(file.provider.key));
-  providers.push(...unlisted.map((file) => file.provider));
-  const providerByKey = new Map(providers.map((p) => [p.key, p]));
-
-  const existingProvider = new Map(existing.providers.map((row) => [row.key, row]));
-  const providerPlan = {
-    new: [] as ProviderValues[],
-    changed: [] as ProviderValues[],
-    unchanged: 0,
-  };
-  for (const provider of providers) {
-    const file = fileByKey.get(provider.key);
-    const current = existingProvider.get(provider.key);
-    // Without a new extraction, keep what the last one recorded
-    const values: ProviderValues = {
-      key: provider.key,
-      name: provider.name,
-      websiteUrl: file ? file.extraction.website_url : (current?.websiteUrl ?? null),
-      urls: provider.urls,
-      area: provider.area,
-      discoveredBy: provider.discovered_by,
-      notes: file ? file.extraction.notes : (current?.notes ?? null),
-      extractedAt: file ? new Date(file.extractedAt) : (current?.extractedAt ?? null),
-      sourceHash: file ? file.sourceHash : (current?.sourceHash ?? null),
-    };
-    if (!current) {
-      providerPlan.new.push(values);
-      continue;
-    }
-    const stored = Object.fromEntries(
-      Object.keys(values).map((column) => [column, current[column as keyof ProviderValues]])
-    );
-    if (stableJson(values) !== stableJson(stored)) providerPlan.changed.push(values);
-    else providerPlan.unchanged += 1;
-  }
-
-  // --- Camps
-  type CampValues = typeof camps.$inferInsert;
-  const existingCamp = new Map(existing.camps.map((row) => [row.campKey, row]));
-  const takenSlugs = new Set(existing.camps.map((row) => row.slug));
-  const campPlan = {
-    new: [] as CampValues[],
-    changed: [] as Array<{ values: CampValues; fields: string[] }>,
-    unchanged: 0,
-    duplicates: [] as string[],
-    missing: [] as CampRow[],
-  };
-  /** Every camp as it will stand after the import, for sites and the review count. */
-  const after = new Map<
-    string,
-    Pick<CampRow, 'providerKey' | 'card' | 'override' | 'reviewedHash' | 'hidden'>
-  >(existing.camps.map((row) => [row.campKey, row]));
-
-  for (const file of files) {
-    const provider = providerByKey.get(file.provider.key)!;
-    const seen = new Set<string>();
-    for (const card of file.extraction.cards) {
-      const campKey = campKeyFor(provider.key, card.name);
-      if (seen.has(campKey)) {
-        campPlan.duplicates.push(`${campKey} ("${card.name}")`);
-        continue;
-      }
-      seen.add(campKey);
-
-      const current = existingCamp.get(campKey);
-      const override = current?.override ?? null;
-      const columns = campColumns(effectiveCard({ card, override }));
-      const values: CampValues = {
-        campKey,
-        slug: current?.slug ?? newSlug(provider.name, card.name, takenSlugs),
-        providerKey: provider.key,
-        card,
-        ...columns,
-      };
-      after.set(campKey, {
-        providerKey: provider.key,
-        card,
-        override,
-        reviewedHash: current?.reviewedHash ?? null,
-        hidden: current?.hidden ?? false,
-      });
-
-      if (!current) {
-        campPlan.new.push(values);
-        continue;
-      }
-      const fields = changedFields(current.card, card);
-      // Stored columns that no longer match also count, e.g. after a change to campColumns
-      const stored = Object.fromEntries(
-        Object.keys(columns).map((column) => [column, current[column as keyof typeof columns]])
-      );
-      if (fields.length || stableJson(columns) !== stableJson(stored))
-        campPlan.changed.push({ values, fields });
-      else campPlan.unchanged += 1;
-    }
-    for (const row of existing.camps) {
-      if (row.providerKey === provider.key && !seen.has(row.campKey)) campPlan.missing.push(row);
-    }
-  }
-
-  // --- Sites: every site an extracted provider's effective cards list
-  const existingSite = new Map(
-    existing.sites.map((row) => [siteKey(row.providerKey, row.name), row])
-  );
-  const wanted = new Map<string, Site & { providerKey: string }>();
-  for (const camp of after.values()) {
-    if (!fileByKey.has(camp.providerKey)) continue;
-    for (const site of effectiveCard(camp).sites) {
-      if (!site.name?.trim()) continue;
-      const key = siteKey(camp.providerKey, site.name);
-      const seenSite = wanted.get(key);
-      // Cards that share a site may word it differently: the first stated value of each field wins
-      wanted.set(key, {
-        providerKey: camp.providerKey,
-        name: site.name,
-        address: seenSite?.address ?? site.address,
-        town: seenSite?.town ?? site.town,
-        state: seenSite?.state ?? site.state,
-      });
-    }
-  }
-
+  const { providers, from } = loadProviders();
+  const extractions = loadExtractions();
   const cache: Record<string, SiteGeo | null> = existsSync(GEOCODE_CACHE)
     ? readJson(GEOCODE_CACHE)
     : {};
-  let lookups = 0;
-  const geocodeErrors: string[] = [];
-  type SiteValues = typeof campSites.$inferInsert;
-  const sitePlan = {
-    write: [] as Array<{ values: SiteValues; isNew: boolean }>,
-    unchanged: 0,
-    handKept: [] as string[],
-  };
-  /** Every wanted site as it will stand after the import. */
-  const finalSites: SiteValues[] = [];
 
-  for (const [key, site] of wanted) {
-    const current = existingSite.get(key);
-    const textChanged =
-      !current ||
-      current.address !== site.address ||
-      current.town !== site.town ||
-      current.state !== site.state;
-    const values: SiteValues = {
-      providerKey: site.providerKey,
-      name: site.name,
-      address: site.address,
-      town: site.town,
-      state: site.state,
-      lat: current?.lat ?? null,
-      lng: current?.lng ?? null,
-      geocodeSource: current?.geocodeSource ?? null,
-      geocodeLabel: current?.geocodeLabel ?? null,
-      driveMinutes: current?.driveMinutes ?? null,
-    };
-
-    if (current?.geocodeSource === 'hand') {
-      if (textChanged)
-        sitePlan.handKept.push(
-          `${site.providerKey} / ${site.name}: ${site.address ?? '(no address)'}`
-        );
-    } else if (textChanged || current?.lat == null) {
-      const text = geocodeText(site);
-      if (!(text in cache)) {
-        try {
-          lookups += 1;
-          cache[text] = await geocodeSite(site);
-        } catch (error) {
-          // Not cached, so the next run retries it
-          geocodeErrors.push(`${text}: ${error instanceof Error ? error.message : error}`);
-        }
-      }
-      const geo = cache[text] ?? null;
-      const moved = geo?.lat !== current?.lat || geo?.lng !== current?.lng;
-      Object.assign(values, {
-        lat: geo?.lat ?? null,
-        lng: geo?.lng ?? null,
-        geocodeSource: geo?.source ?? null,
-        geocodeLabel: geo?.label ?? null,
-        driveMinutes: moved ? null : values.driveMinutes,
-      });
-    }
-
-    const needsDrive = values.lat != null && values.driveMinutes == null;
-    if (!current || textChanged || needsDrive || values.lat !== current.lat)
-      sitePlan.write.push({ values, isNew: !current });
-    else sitePlan.unchanged += 1;
-    finalSites.push(values);
-  }
-
-  const sortedCache = Object.fromEntries(
-    Object.entries(cache).sort(([a], [b]) => a.localeCompare(b))
-  );
-  writeFileSync(GEOCODE_CACHE, `${JSON.stringify(sortedCache, null, 2)}\n`);
-
-  const placed = finalSites.filter((site) => site.lat != null);
-  const unplaced = finalSites.filter((site) => site.lat == null);
-  const bySource = (source: string) =>
-    placed.filter((site) => site.geocodeSource === source).length;
-  const toDrive = sitePlan.write.filter(
-    (w) => w.values.lat != null && w.values.driveMinutes == null
-  );
-
-  const providerHidden = new Map(existing.providers.map((row) => [row.key, row.hidden]));
-  const reviewCount = [...after.values()].filter((camp) =>
-    inReviewQueue(camp, providerHidden.get(camp.providerKey) ?? false)
-  ).length;
-
-  // --- Report
-  console.log(
-    `\nProviders: ${providerPlan.new.length} new, ${providerPlan.changed.length} changed, ${providerPlan.unchanged} unchanged; ${providers.filter((p) => !fileByKey.has(p.key)).length} have no extraction yet`
-  );
-  for (const file of unlisted)
-    console.log(`  ! ${file.provider.key}: has an extraction but is not in the provider list`);
-
-  console.log(
-    `\nCamps: ${campPlan.new.length} new, ${campPlan.changed.length} changed, ${campPlan.unchanged} unchanged`
-  );
-  for (const v of campPlan.new.slice(0, SHOW)) console.log(`  + /camps/${v.slug} (${v.campKey})`);
-  if (campPlan.new.length > SHOW) console.log(`  + ... and ${campPlan.new.length - SHOW} more`);
-  for (const c of campPlan.changed.slice(0, SHOW))
-    console.log(`  ~ ${c.values.campKey}: ${c.fields.join(', ') || 'derived columns'}`);
-  if (campPlan.changed.length > SHOW)
-    console.log(`  ~ ... and ${campPlan.changed.length - SHOW} more`);
-  if (campPlan.missing.length) {
-    console.log(
-      `  ${campPlan.missing.length} missing from their provider's new extraction (kept, not removed):`
-    );
-    for (const row of campPlan.missing)
-      console.log(`  ? ${row.campKey}${row.hidden ? ' (hidden)' : ''}`);
-  }
-  if (campPlan.duplicates.length) {
-    console.log(
-      `  ${campPlan.duplicates.length} cards skipped: same program name as an earlier card of that provider:`
-    );
-    for (const d of campPlan.duplicates) console.log(`  x ${d}`);
-  }
-
-  const newSites = sitePlan.write.filter((w) => w.isNew).length;
-  console.log(
-    `\nSites: ${newSites} new, ${sitePlan.write.length - newSites} to update, ${sitePlan.unchanged} unchanged`
-  );
-  console.log(
-    `  placed ${placed.length} (census ${bySource('census')}, ors ${bySource('ors')}, hand ${bySource('hand')}), unplaced ${unplaced.length}; ${lookups} geocoder lookups this run`
-  );
-  console.log(`  drive minutes to compute: ${toDrive.length}${apply ? '' : ' (on --apply)'}`);
-  for (const site of unplaced)
-    console.log(
-      `  - ${site.providerKey} / ${site.name}: ${[site.address, site.town, site.state].filter(Boolean).join(', ') || '(no address)'}`
-    );
-  for (const line of sitePlan.handKept) console.log(`  hand pin kept, address now ${line}`);
-  for (const line of geocodeErrors) console.log(`  geocode failed (retried next run): ${line}`);
-
-  console.log(`\nReview queue after import: ${reviewCount} camps`);
-
-  if (!apply) {
-    console.log('\n(dry run - no rows written; re-run with --apply)');
-    return;
-  }
-
-  // --- Write. Drive minutes first: they're API calls, and a failure only leaves them for next time.
-  if (toDrive.length) {
-    try {
-      const minutes = await driveMinutesFromDowntown(
-        toDrive.map((w) => ({ lat: w.values.lat!, lng: w.values.lng! }))
-      );
-      toDrive.forEach((w, index) => (w.values.driveMinutes = minutes[index]));
-    } catch (error) {
+  try {
+    const summary = await importCamps({
+      source: `${providers.length} providers from ${from}; ${extractions.length} extraction files in data/camps/extractions`,
+      providers,
+      extractions,
+      geocodeCache: cache,
+      apply,
+    });
+    if (apply) {
+      const { wrote } = summary;
       console.log(
-        `  drive minutes failed, left for the next run: ${error instanceof Error ? error.message : error}`
+        `\nWrote ${wrote.providers} providers, ${wrote.sites} sites, ${wrote.camps} camps. ` +
+          `Cache tag 'camps': scripts can't revalidate it, so /camps shows this within the hour.`
       );
     }
+  } finally {
+    // Lookups made before a failed write are kept too
+    const sorted = Object.fromEntries(Object.entries(cache).sort(([a], [b]) => a.localeCompare(b)));
+    writeFileSync(GEOCODE_CACHE, `${JSON.stringify(sorted, null, 2)}\n`);
   }
-
-  const providerRows = [...providerPlan.new, ...providerPlan.changed];
-  const campRows = [...campPlan.new, ...campPlan.changed.map((c) => c.values)];
-  const siteRows = sitePlan.write.map((w) => w.values);
-  const excluded = (column: string) => sql.raw(`excluded.${column}`);
-  // A pin pasted by hand is never overwritten, even one saved while this import ran
-  const unlessHand = (column: string) =>
-    sql.raw(
-      `CASE WHEN camp_sites.geocode_source = 'hand' THEN camp_sites.${column} ELSE excluded.${column} END`
-    );
-
-  await db.transaction(async (tx) => {
-    if (providerRows.length)
-      await tx
-        .insert(campProviders)
-        .values(providerRows)
-        .onConflictDoUpdate({
-          target: campProviders.key,
-          set: {
-            name: excluded('name'),
-            websiteUrl: excluded('website_url'),
-            urls: excluded('urls'),
-            area: excluded('area'),
-            discoveredBy: excluded('discovered_by'),
-            notes: excluded('notes'),
-            extractedAt: excluded('extracted_at'),
-            sourceHash: excluded('source_hash'),
-            updatedAt: sql`now()`,
-          },
-        });
-    if (siteRows.length)
-      await tx
-        .insert(campSites)
-        .values(siteRows)
-        .onConflictDoUpdate({
-          target: [campSites.providerKey, campSites.name],
-          set: {
-            address: excluded('address'),
-            town: excluded('town'),
-            state: excluded('state'),
-            lat: unlessHand('lat'),
-            lng: unlessHand('lng'),
-            geocodeSource: unlessHand('geocode_source'),
-            geocodeLabel: unlessHand('geocode_label'),
-            driveMinutes: excluded('drive_minutes'),
-            updatedAt: sql`now()`,
-          },
-        });
-    // The slug, override, hidden and reviewed_* of an existing camp are never touched
-    if (campRows.length)
-      await tx
-        .insert(camps)
-        .values(campRows)
-        .onConflictDoUpdate({
-          target: camps.campKey,
-          set: {
-            card: excluded('card'),
-            name: excluded('name'),
-            type: excluded('type'),
-            categories: excluded('categories'),
-            confidence: excluded('confidence'),
-            reviewNotes: excluded('review_notes'),
-            ageMin: excluded('age_min'),
-            ageMax: excluded('age_max'),
-            gradeMin: excluded('grade_min'),
-            gradeMax: excluded('grade_max'),
-            seasonYear: excluded('season_year'),
-            seasonStart: excluded('season_start'),
-            seasonEnd: excluded('season_end'),
-            updatedAt: sql`now()`,
-          },
-        });
-  });
-
-  console.log(
-    `\nWrote ${providerRows.length} providers, ${siteRows.length} sites, ${campRows.length} camps. ` +
-      `Cache tag 'camps': scripts can't revalidate it, so /camps shows this within the hour.`
-  );
 }
 
 main()

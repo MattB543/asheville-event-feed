@@ -5,7 +5,8 @@ import { useRouter } from 'next/navigation';
 
 /** A request to POST /api/admin/camps. */
 export type CampAdminAction =
-  | { action: 'confirm' | 'hide' | 'unhide' | 'clear_override'; id: string }
+  | { action: 'confirm'; id: string; hash: string }
+  | { action: 'hide' | 'unhide' | 'clear_override'; id: string }
   | { action: 'override'; id: string; key: string; value: unknown }
   | { action: 'pin'; siteId: string; lat: number; lng: number };
 

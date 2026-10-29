@@ -9,7 +9,8 @@ interface RouteParams {
 
 /**
  * GET /api/camps/[id]/reminder: a .ics file with the camp's 2027 registration dates still ahead
- * (01 §4.4), for "Add reminder". 404 when the camp has none posted.
+ * (01 §4.4), for "Add reminder": only dates announced to the day (isRemindable). 404 when the camp
+ * has none.
  */
 export async function GET(_request: Request, { params }: RouteParams) {
   const { id } = await params;

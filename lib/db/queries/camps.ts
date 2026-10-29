@@ -1,6 +1,6 @@
 import { createHash, randomBytes } from 'node:crypto';
 import { revalidateTag, unstable_cache } from 'next/cache';
-import { and, asc, eq, gte, inArray, isNull, sql, type SQL } from 'drizzle-orm';
+import { and, asc, eq, gte, inArray, isNull, lt, or, sql, type SQL } from 'drizzle-orm';
 import { db } from '@/lib/db';
 import { campCalendars, campProviders, camps, campSites, campViews } from '@/lib/db/schema';
 import {
@@ -11,7 +11,6 @@ import {
   type CampCategory,
   type CampType,
   type GradeRange,
-  type Hours,
   type Milestone,
   type PriceTier,
   type Session,
@@ -19,6 +18,7 @@ import {
   type SupportFact,
   type SupportValue,
 } from '@/lib/camps/contract';
+import { cleanCard } from '@/lib/camps/display';
 import { DRIVE_LIMIT_MINUTES, driveMinutesFromDowntown, kmBetween } from '@/lib/camps/geo';
 import { getTodayStringEastern } from '@/lib/utils/timezone';
 
@@ -41,7 +41,7 @@ const CAMP_CACHE_OPTIONS = { tags: [CAMPS_TAG], revalidate: 3600 };
  * the wrapper's source text plus these parts, so entries written by the old code would keep being
  * served until they expire (Vercel's data cache survives deploys).
  */
-const CAMP_CACHE_SHAPE = 'v2';
+const CAMP_CACHE_SHAPE = 'v3';
 
 /** Popularity window: views in the last 14 Eastern days, today included. */
 const VIEW_WINDOW_DAYS = 14;
@@ -72,8 +72,21 @@ export function stableJson(value: unknown): string {
   return JSON.stringify(value);
 }
 
+/**
+ * What Matt's confirmation is tied to: the card's facts. Its confidence (the card's and each
+ * registration date's), review notes and sources change from one extraction to the next when the
+ * facts don't, and would otherwise send a confirmed camp back to his queue.
+ */
 export function cardHash(card: CampCard): string {
-  return createHash('sha256').update(stableJson(card)).digest('hex');
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars -- left out of the hash
+  const { confidence, review_notes, sources, ...facts } = card;
+  const registration = facts.registration.map(
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars -- left out of the hash
+    ({ confidence: _confidence, ...milestone }) => milestone
+  );
+  return createHash('sha256')
+    .update(stableJson({ ...facts, registration }))
+    .digest('hex');
 }
 
 function isoDateOrNull(value: string | null | undefined): string | null {
@@ -143,7 +156,10 @@ export interface CampListing {
   providerName: string;
   /** The provider's own site, for when the card has no camp page. */
   providerUrl: string | null;
-  /** The effective card: the extraction with Matt's fixes on top. */
+  /**
+   * The effective card (the extraction with Matt's fixes on top), with any malformed date or time
+   * read as unknown (cleanCard).
+   */
   card: CampCard;
   /** The card's sites, in its order, with where they are. */
   sites: CampSiteInfo[];
@@ -161,12 +177,13 @@ export interface CampListing {
 }
 
 /**
- * A session as the directory reads it: dates, eligibility and price (without its label). No label,
- * hours or site (the drive filter is per camp), so the same week at four sites is one row.
+ * A session as the directory reads it: dates, site, eligibility, hours and price. Its label and
+ * status are left to the detail page, so rows differing only in those are one row.
  */
-export type CampListSession = Pick<Session, 'start' | 'end' | 'ages' | 'grades'> & {
-  price: Omit<PriceTier, 'label'> | null;
-};
+export type CampListSession = Pick<
+  Session,
+  'start' | 'end' | 'site' | 'ages' | 'grades' | 'hours' | 'price'
+>;
 
 /** A registration date without the camp's wording and link (the detail page shows those). */
 export type CampListMilestone = Omit<Milestone, 'text' | 'url'>;
@@ -184,9 +201,11 @@ export interface CampListCard {
   season: CampCard['season'];
   ages: AgeRange | null;
   grades: GradeRange | null;
-  hours: Hours | null;
+  /** With the camp's own wording ("Friday pickup at noon"). */
+  hours: CampCard['hours'];
   extended_care: CampCard['extended_care'];
-  prices: Array<Omit<PriceTier, 'label'>>;
+  /** With their labels ("half day", "starting at"): a price alone can read as the full-day one. */
+  prices: PriceTier[];
   sessions: CampListSession[];
   registration: CampListMilestone[];
   last_year_registration_opened: { date: string; time: string | null } | null;
@@ -216,16 +235,17 @@ export interface CampListItem {
 }
 
 export function toListCard(card: CampCard): CampListCard {
-  const price = ({ amount, unit, year }: PriceTier) => ({ amount, unit, year });
   const support = (fact: SupportFact | null) => (fact ? { value: fact.value } : null);
   const sessions = new Map<string, CampListSession>();
   for (const session of card.sessions) {
     const row = {
       start: session.start,
       end: session.end,
+      site: session.site,
       ages: session.ages,
       grades: session.grades,
-      price: session.price && price(session.price),
+      hours: session.hours,
+      price: session.price,
     };
     sessions.set(stableJson(row), row);
   }
@@ -238,9 +258,9 @@ export function toListCard(card: CampCard): CampListCard {
     season: card.season,
     ages: card.ages,
     grades: card.grades,
-    hours: card.hours && { start: card.hours.start, end: card.hours.end },
+    hours: card.hours,
     extended_care: card.extended_care,
-    prices: card.prices.map(price),
+    prices: card.prices,
     sessions: [...sessions.values()],
     registration: card.registration.map((milestone) => ({
       audience: milestone.audience,
@@ -282,8 +302,11 @@ function toListItem(camp: CampListing): CampListItem {
   };
 }
 
-/** Live camps (optionally narrowed by `where`) with their sites and recent views, by name. */
-async function queryCamps(where?: SQL): Promise<CampListing[]> {
+/**
+ * Live camps (optionally narrowed by `where`) with their sites and recent views, by name.
+ * Uncached: the reader for scripts and crons, where unstable_cache can't run.
+ */
+export async function queryCamps(where?: SQL): Promise<CampListing[]> {
   const rows = await db
     .select({
       id: camps.id,
@@ -335,7 +358,8 @@ async function queryCamps(where?: SQL): Promise<CampListing[]> {
   const viewsById = new Map(viewRows.map((row) => [row.campId, row.views]));
 
   const listings: CampListing[] = rows.map((row) => {
-    const card = effectiveCard(row);
+    const effective = effectiveCard(row);
+    const card = cleanCard(effective);
     return {
       id: row.id,
       slug: row.slug,
@@ -355,7 +379,7 @@ async function queryCamps(where?: SQL): Promise<CampListing[]> {
         };
       }),
       views: viewsById.get(row.id) ?? 0,
-      confirmed: row.reviewedHash === cardHash(card),
+      confirmed: row.reviewedHash === cardHash(effective),
       checkedAt: row.extractedAt?.toISOString() ?? null,
       firstSeenAt: row.firstSeenAt.toISOString(),
       updatedAt: row.updatedAt.toISOString(),
@@ -455,14 +479,17 @@ export async function relatedCamps(camp: CampListItem, limit = 4): Promise<CampL
     .map(({ other }) => other);
 }
 
-/** When the directory last changed: the newest extraction or card change among live camps (ISO). */
-export function campsLastUpdated(): Promise<string | null> {
+/**
+ * When camps' own pages were last read: the newest extraction among live camps' providers (ISO).
+ * Not an admin edit, which changes a card without checking the camp's site.
+ */
+export function campsLastChecked(): Promise<string | null> {
   return unstable_cache(
     async () => {
       const [row] = await db
         .select({
-          at: sql<Date | null>`greatest(max(${camps.updatedAt}), max(${campProviders.extractedAt}))`.mapWith(
-            camps.updatedAt
+          at: sql<Date | null>`max(${campProviders.extractedAt})`.mapWith(
+            campProviders.extractedAt
           ),
         })
         .from(camps)
@@ -470,7 +497,7 @@ export function campsLastUpdated(): Promise<string | null> {
         .where(liveCamp);
       return row?.at ? row.at.toISOString() : null;
     },
-    ['camps-last-updated', CAMP_CACHE_SHAPE],
+    ['camps-last-checked', CAMP_CACHE_SHAPE],
     CAMP_CACHE_OPTIONS
   )();
 }
@@ -721,6 +748,11 @@ export async function recordCampView(campId: string): Promise<void> {
 /** Tokens are 16 random bytes, base64url. */
 const CALENDAR_TOKEN_PATTERN = /^[A-Za-z0-9_-]{22}$/;
 
+/** Could be a calendar token: checked before anything touches the database. */
+export function isCalendarToken(token: string): boolean {
+  return CALENDAR_TOKEN_PATTERN.test(token);
+}
+
 /** Most camps one calendar holds; more is a bug or abuse, not a family. */
 export const MAX_CALENDAR_CAMPS = 200;
 
@@ -748,16 +780,28 @@ export async function saveCampCalendar(token: string | null, campIds: string[]):
 
 /**
  * The live camps a calendar holds, with full cards, or null for an unknown token. Marks the
- * calendar as fetched. Uncached: calendar apps poll every few hours and the route sets
+ * calendar as fetched, at most once an hour, so a polling app (or a script) can't turn every
+ * request into a write. Uncached: calendar apps poll every few hours and the route sets
  * Cache-Control.
  */
 export async function campsForCalendar(token: string): Promise<CampListing[] | null> {
-  if (!CALENDAR_TOKEN_PATTERN.test(token)) return null;
+  if (!isCalendarToken(token)) return null;
   const [row] = await db
+    .select({ campIds: campCalendars.campIds })
+    .from(campCalendars)
+    .where(eq(campCalendars.token, token));
+  if (!row) return null;
+  await db
     .update(campCalendars)
     .set({ lastFetchedAt: sql`now()` })
-    .where(eq(campCalendars.token, token))
-    .returning({ campIds: campCalendars.campIds });
-  if (!row) return null;
+    .where(
+      and(
+        eq(campCalendars.token, token),
+        or(
+          isNull(campCalendars.lastFetchedAt),
+          lt(campCalendars.lastFetchedAt, sql`now() - interval '1 hour'`)
+        )
+      )
+    );
   return row.campIds.length > 0 ? queryCamps(inArray(camps.id, row.campIds)) : [];
 }

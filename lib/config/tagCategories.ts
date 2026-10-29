@@ -40,6 +40,7 @@ export const TAG_CATEGORIES = [
     name: 'Audience/Social',
     tags: [
       'Family',
+      'Summer Camp',
       'Dating',
       'Networking',
       'Nightlife',
@@ -96,6 +97,7 @@ export const TAG_GUIDANCE = {
   'Museum Exhibition': 'museum exhibits, gallery shows, curated displays',
   // Audience/Social
   Family: 'kid-friendly, all-ages',
+  'Summer Camp': "kids' and teens' summer camps: day, overnight, Vacation Bible School",
   Dating: 'singles events, speed dating',
   Networking: 'business, professional meetups',
   Nightlife: '21+, bar events, late-night',
@@ -109,6 +111,12 @@ export const TAG_GUIDANCE = {
   Holiday: 'seasonal celebrations, Christmas, Halloween, etc.',
   Markets: 'pop-ups, vendors, shopping, craft fairs',
 } satisfies Record<OfficialTag, string>;
+
+/**
+ * Camp events are opt-in on the feed: listed only while this tag is selected, and never in
+ * Top 30 (isCampEvent in lib/utils/eventFilterMatch.ts).
+ */
+export const SUMMER_CAMP_TAG = 'Summer Camp' satisfies OfficialTag;
 
 // Flat list of all known tags
 export const ALL_KNOWN_TAGS: string[] = TAG_CATEGORIES.flatMap((cat) => [...cat.tags]);

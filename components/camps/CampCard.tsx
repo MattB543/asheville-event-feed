@@ -19,7 +19,7 @@ import {
   type CampCardData,
 } from '@/lib/camps/display';
 import SaveCampButton from './SaveCampButton';
-import { UnconfirmedTag, YearTag } from './YearTag';
+import { RegistrationDetails, UnconfirmedTag, YearTag } from './YearTag';
 import { sendCampView } from './campViews';
 import { TONE_CLASSES } from './tones';
 
@@ -38,23 +38,38 @@ export default function CampCard({
   showProvider: boolean;
   match: string | null;
 }) {
+  // `note` is the camp's own words under a fact: what a price is for, exceptions to the hours
   const facts = [
-    { icon: Users, label: 'Who', text: camp.who, year: null },
-    { icon: CalendarDays, label: 'Dates', text: camp.season?.text, year: camp.season?.year },
+    { icon: Users, label: 'Who', text: camp.who, year: null, note: null },
+    {
+      icon: CalendarDays,
+      label: 'Dates',
+      text: camp.season?.text,
+      year: camp.season?.year,
+      note: null,
+    },
     {
       icon: Clock,
       label: 'Hours',
       text: [camp.hours, camp.care].filter(Boolean).join(' · ') || null,
       year: null,
+      note: camp.hoursNote,
     },
-    { icon: Tag, label: 'Price', text: camp.price?.text, year: camp.price?.year },
+    {
+      icon: Tag,
+      label: 'Price',
+      text: camp.price?.text,
+      year: camp.price?.year,
+      note: camp.priceNote,
+    },
     {
       icon: camp.driveMinutes !== null ? Car : MapPin,
       label: 'Where',
       text: camp.place ?? 'Location not stated',
       year: null,
+      note: null,
     },
-  ].filter((fact) => fact.text);
+  ].filter((fact) => fact.text || fact.note);
 
   return (
     <li className="flex flex-col rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 overflow-hidden">
@@ -63,9 +78,10 @@ export default function CampCard({
           {camp.registration.text}
           {camp.registration.unconfirmed && <UnconfirmedTag />}
         </p>
-        {camp.registration.detail && (
-          <p className="mt-0.5 text-xs opacity-90">{camp.registration.detail}</p>
-        )}
+        <RegistrationDetails
+          details={camp.registration.details}
+          className="mt-0.5 text-xs opacity-90"
+        />
       </div>
 
       <div className="flex-1 p-3">
@@ -96,13 +112,21 @@ export default function CampCard({
         </p>
 
         <dl className="mt-3 space-y-1 text-sm text-gray-700 dark:text-gray-300">
-          {facts.map(({ icon: Icon, label, text, year }) => (
+          {facts.map(({ icon: Icon, label, text, year, note }) => (
             <div key={label} className="flex items-start gap-2">
               <dt className="sr-only">{label}</dt>
               <Icon size={15} aria-hidden="true" className="mt-0.5 shrink-0 text-gray-400" />
               <dd className="min-w-0">
                 {text}
-                {year ? <YearTag year={year} /> : null}
+                {text && year ? <YearTag year={year} /> : null}
+                {note && (
+                  <span
+                    title={note}
+                    className="block text-xs text-gray-500 dark:text-gray-400 line-clamp-2"
+                  >
+                    {note}
+                  </span>
+                )}
               </dd>
             </div>
           ))}

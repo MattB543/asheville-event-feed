@@ -5,17 +5,20 @@ import { usePathname, useSearchParams } from 'next/navigation';
 import { Search, SlidersHorizontal, Star, X } from 'lucide-react';
 import {
   CATEGORY_LABELS,
+  HOURS_FILTERS,
   PRICE_BANDS,
   REGISTRATION_FILTERS,
   SUMMER_WEEKS,
   SUPPORT_LABELS,
   TARGET_SEASON,
   TYPE_LABELS,
-  fitsKid,
   formatDate,
   gradeLabel,
+  kidFit,
   type CampCardData,
   type CampRow,
+  type HoursFilter,
+  type KidFit,
   type PriceBand,
   type RegistrationStatus,
   type SupportKey,
@@ -82,36 +85,115 @@ const AGE_OPTIONS = Array.from({ length: 16 }, (_, index) => index + 3);
 const GRADE_OPTIONS = Array.from({ length: 14 }, (_, index) => index - 1);
 
 // ---------------------------------------------------------------------------
-// Matching: card filters say yes or no; row filters (kids, week, price) are tested row by row, and
-// a camp matches when one row passes them all. Unknown is not "no": a camp stating no ages stays
-// in, and one with no drive time, price or 2027 dates is hidden behind "show them".
+// Matching: card filters say yes or no; row filters (kids, week, price, drive, town, hours) are
+// tested together on each row (a week, session or age band, at its own site), and a camp matches
+// when one row passes them all. Unknown is not "no": a camp stating no ages stays in as "may fit",
+// and one with no drive time, town, price, hours or 2027 dates is hidden behind "show them".
 // ---------------------------------------------------------------------------
 
 type Verdict = 'match' | 'unknown' | 'no';
+/** Yes, no, or can't tell (null). */
+type Test = boolean | null;
+
+/** Which kids a camp must suit, when there are several: any one, each (by age/grade), or all in one session. */
+type KidsMode = 'any' | 'all' | 'same';
+const KIDS_MODES: KidsMode[] = ['any', 'all', 'same'];
 
 interface RowFilters {
-  kids: Kid[];
-  allKids: boolean;
   week: { start: string; end: string } | null;
   band: (typeof PRICE_BANDS)[number] | null;
+  drive: number | null;
+  town: string | null;
+  hours: HoursFilter | null;
 }
 
-function rowVerdict(row: CampRow, filters: RowFilters): Verdict {
-  if (filters.kids.length > 0) {
-    const fits = filters.kids.map((kid) => fitsKid(row, kid) !== false);
-    if (filters.allKids ? !fits.every(Boolean) : !fits.some(Boolean)) return 'no';
-  }
-  let unknown = false;
+const allOf = (tests: Test[]): Test =>
+  tests.includes(false) ? false : tests.includes(null) ? null : true;
+const anyOf = (tests: Test[]): Test =>
+  tests.includes(true) ? true : tests.includes(null) ? null : false;
+
+/** Everything but the kids, on one row: drive time and town on the same site of that row. */
+function rowVerdict(row: CampRow, camp: CampCardData, filters: RowFilters): Verdict {
+  const tests: Test[] = [];
   if (filters.week) {
     // 2026 weeks say nothing about 2027's
-    if (!row.start || !row.end || !row.start.startsWith(String(TARGET_SEASON))) unknown = true;
-    else if (row.start > filters.week.end || row.end < filters.week.start) return 'no';
+    tests.push(
+      !row.start || !row.end || !row.start.startsWith(String(TARGET_SEASON))
+        ? null
+        : row.start <= filters.week.end && row.end >= filters.week.start
+    );
   }
   if (filters.band) {
-    if (row.weekly.length === 0) unknown = true;
-    else if (!row.weekly.some(filters.band.test)) return 'no';
+    tests.push(row.weekly.length === 0 ? null : row.weekly.some(filters.band.test));
   }
-  return unknown ? 'unknown' : 'match';
+  if (filters.drive !== null || filters.town) {
+    const atSite = (index: number): Test => {
+      const site = camp.sites[index];
+      return allOf([
+        filters.drive === null ? true : site.drive === null ? null : site.drive <= filters.drive,
+        !filters.town ? true : site.town === null ? null : site.town === filters.town,
+      ]);
+    };
+    tests.push(row.sites.length === 0 ? null : anyOf(row.sites.map(atSite)));
+  }
+  if (filters.hours) {
+    tests.push(
+      filters.hours === 'workday'
+        ? row.workday
+        : row.length === null
+          ? null
+          : row.length === filters.hours
+    );
+  }
+  const result = allOf(tests);
+  return result === false ? 'no' : result === null ? 'unknown' : 'match';
+}
+
+const bestFit = (fits: KidFit[]): KidFit =>
+  fits.includes('fits') ? 'fits' : fits.includes('may_fit') ? 'may_fit' : 'no';
+const worstFit = (fits: KidFit[]): KidFit =>
+  fits.includes('no') ? 'no' : fits.includes('may_fit') ? 'may_fit' : 'fits';
+const bestVerdict = (verdicts: Verdict[]): Verdict =>
+  verdicts.includes('match') ? 'match' : verdicts.includes('unknown') ? 'unknown' : 'no';
+const worstVerdict = (verdicts: Verdict[]): Verdict =>
+  verdicts.includes('no') ? 'no' : verdicts.includes('unknown') ? 'unknown' : 'match';
+
+interface Judged {
+  verdict: Verdict;
+  /** Matching rows the kids surely fit... */
+  fits: number;
+  /** ...and those they only may fit (by a converted age or grade, or no stated eligibility). */
+  mayFit: number;
+}
+
+/** A camp's verdict and how many of its rows matched; null when no row passes. */
+function judgeCamp(
+  camp: CampCardData,
+  kids: Kid[],
+  mode: KidsMode,
+  filters: RowFilters
+): Judged | null {
+  const rows = camp.rows.map((row) => {
+    const fits = kids.map((kid) => kidFit(row, kid));
+    const fit = fits.length === 0 ? 'fits' : mode === 'same' ? worstFit(fits) : bestFit(fits);
+    return { fits, fit, verdict: fit === 'no' ? 'no' : rowVerdict(row, camp, filters) };
+  });
+  // "All of them": each kid needs a row of its own that passes
+  const verdict =
+    mode === 'all'
+      ? worstVerdict(
+          kids.map((_, index) =>
+            bestVerdict(rows.filter((row) => row.fits[index] !== 'no').map((row) => row.verdict))
+          )
+        )
+      : bestVerdict(rows.map((row) => row.verdict));
+  if (verdict === 'no') return null;
+  const matched = rows.filter((row) => row.verdict === 'match');
+  return {
+    verdict,
+    fits: matched.filter((row) => row.fit === 'fits').length,
+    mayFit: matched.filter((row) => row.fit === 'may_fit').length,
+  };
 }
 
 function listJoin(parts: string[], conjunction = 'and'): string {
@@ -119,34 +201,60 @@ function listJoin(parts: string[], conjunction = 'and'): string {
   return `${parts.slice(0, -1).join(', ')} ${conjunction} ${parts.at(-1)}`;
 }
 
-/** "3 of 9 weeks fit age 7", when the camp lists rows and a row filter is on. */
+/**
+ * "3 of 9 weeks fit age 7", when the camp lists rows and a row filter is on. A row that only may
+ * fit (a converted age or grade, or none stated) is never counted as fitting: "2 more may fit".
+ */
 function matchNote(
   camp: CampCardData,
-  matched: number,
+  judged: Judged,
   filters: RowFilters,
-  kidTokens: string[]
+  kidTokens: string[],
+  mode: KidsMode
 ): string | null {
-  const rowFiltered = filters.kids.length > 0 || filters.week || filters.band;
-  if (!camp.listsRows || camp.rows.length < 2 || !rowFiltered || matched === 0) return null;
-  const one = matched === 1;
   const kids =
     kidTokens.length === 1
       ? kidName(kidTokens[0])
-      : filters.allKids
+      : mode === 'same'
         ? kidTokens.length === 2
           ? 'both kids'
           : `all ${kidTokens.length} kids`
         : 'one of your kids';
-  const verbs = [
-    filters.kids.length > 0 && `${one ? 'fits' : 'fit'} ${kids}`,
-    filters.week && `${one ? 'runs' : 'run'} the week of ${formatDate(filters.week.start)}`,
-    filters.band && `${one ? 'is' : 'are'} ${filters.band.label.toLowerCase()}`,
-  ].filter((verb): verb is string => !!verb);
+  if (!camp.listsRows || camp.rows.length < 2) {
+    return kidTokens.length > 0 && judged.fits === 0 && judged.mayFit > 0
+      ? `May fit ${kids}: check the ages`
+      : null;
+  }
+  const rowFiltered =
+    kidTokens.length > 0 ||
+    filters.week ||
+    filters.band ||
+    filters.drive !== null ||
+    filters.town ||
+    filters.hours;
+  if (!rowFiltered) return null;
+
   const total = camp.rows.length;
   const noun = `${camp.rowNoun}${total === 1 ? '' : 's'}`;
-  return matched === total
-    ? `All ${total} ${noun} ${listJoin(verbs)}`
-    : `${matched} of ${total} ${noun} ${listJoin(verbs)}`;
+  const sentence = (count: number, maybe: boolean) => {
+    const one = count === 1;
+    const verbs = [
+      kidTokens.length > 0 && `${maybe ? 'may fit' : one ? 'fits' : 'fit'} ${kids}`,
+      filters.week && `${one ? 'runs' : 'run'} the week of ${formatDate(filters.week.start)}`,
+      filters.band && `${one ? 'is' : 'are'} ${filters.band.label.toLowerCase()}`,
+      filters.drive !== null && `${one ? 'is' : 'are'} within ${filters.drive} min`,
+      filters.town && `${one ? 'is' : 'are'} in ${filters.town}`,
+      filters.hours &&
+        (filters.hours === 'workday'
+          ? `${one ? 'covers' : 'cover'} a workday`
+          : `${one ? 'is' : 'are'} ${filters.hours} day`),
+    ].filter((verb): verb is string => !!verb);
+    return `${count === total ? `All ${total}` : `${count} of ${total}`} ${noun} ${listJoin(verbs)}`;
+  };
+  if (judged.fits > 0) {
+    return `${sentence(judged.fits, false)}${judged.mayFit > 0 ? ` (${judged.mayFit} more may fit)` : ''}`;
+  }
+  return judged.mayFit > 0 ? sentence(judged.mayFit, true) : null;
 }
 
 const TONE_RANK: Record<string, number> = {
@@ -209,10 +317,21 @@ export default function CampDirectory({ camps }: { camps: CampCardData[] }) {
 
   const [query, setQuery] = useState(() => param('q'));
   const [kids, setKids] = useState<string[]>(() => validKids(param('kids').split(',')));
-  const [allKids, setAllKids] = useState(() => param('all') === '1');
+  // ?all=1 is "all of them", ?all=same "all in one session"
+  const [kidsMode, setKidsMode] = useState<KidsMode>(() =>
+    param('all') === '1' ? 'all' : oneOf(param('all'), KIDS_MODES, 'any')
+  );
   const [type, setType] = useState(() => param('type') || 'all');
   const [category, setCategory] = useState(() => param('cat') || 'all');
   const [drive, setDrive] = useState(() => oneOf(param('drive'), DRIVE_LIMITS, ''));
+  const [town, setTown] = useState(() => param('town'));
+  const [hours, setHours] = useState<HoursFilter | ''>(() =>
+    oneOf(
+      param('hours'),
+      HOURS_FILTERS.map((option) => option.value),
+      ''
+    )
+  );
   const [week, setWeek] = useState(() =>
     oneOf(
       param('week'),
@@ -244,10 +363,18 @@ export default function CampDirectory({ camps }: { camps: CampCardData[] }) {
   );
   const [savedOnly, setSavedOnly] = useState(() => param('saved') === '1');
   const [grouped, setGrouped] = useState(() => param('flat') !== '1');
-  const [withUnknown, setWithUnknown] = useState(false);
+  const [withUnknown, setWithUnknown] = useState(() => param('unknown') === '1');
   const [expanded, setExpanded] = useState<Set<string>>(new Set());
   const [moreOpen, setMoreOpen] = useState(
-    () => !!(param('week') || param('price') || param('reg') || param('need'))
+    () =>
+      !!(
+        param('week') ||
+        param('price') ||
+        param('reg') ||
+        param('need') ||
+        param('town') ||
+        param('hours')
+      )
   );
 
   // replaceState, not router.replace: filtering is client-side, so no server round trip.
@@ -256,17 +383,20 @@ export default function CampDirectory({ camps }: { camps: CampCardData[] }) {
     const values: Array<[string, string]> = [
       ['q', query.trim()],
       ['kids', kids.join(',')],
-      ['all', allKids && kids.length > 1 ? '1' : ''],
+      ['all', kids.length > 1 && kidsMode !== 'any' ? (kidsMode === 'all' ? '1' : kidsMode) : ''],
       ['type', type === 'all' ? '' : type],
       ['cat', category === 'all' ? '' : category],
       ['drive', drive],
+      ['town', town],
       ['week', week],
+      ['hours', hours],
       ['price', price],
       ['reg', registration],
       ['need', needs.join(',')],
       ['sort', sort === 'registration' ? '' : sort],
       ['saved', savedOnly ? '1' : ''],
       ['flat', grouped ? '' : '1'],
+      ['unknown', withUnknown ? '1' : ''],
     ];
     for (const [key, value] of values) {
       if (value) params.set(key, value);
@@ -278,17 +408,20 @@ export default function CampDirectory({ camps }: { camps: CampCardData[] }) {
   }, [
     query,
     kids,
-    allKids,
+    kidsMode,
     type,
     category,
     drive,
+    town,
     week,
+    hours,
     price,
     registration,
     needs,
     sort,
     savedOnly,
     grouped,
+    withUnknown,
     pathname,
   ]);
 
@@ -313,20 +446,36 @@ export default function CampDirectory({ camps }: { camps: CampCardData[] }) {
     }
   }
 
+  const towns = useMemo(
+    () =>
+      [
+        ...new Set(
+          camps.flatMap((camp) =>
+            camp.sites.map((site) => site.town).filter((name): name is string => !!name)
+          )
+        ),
+      ].sort((a, b) => a.localeCompare(b)),
+    [camps]
+  );
+
   const filters = useMemo(() => {
     const band = PRICE_BANDS.find((option) => option.value === price) ?? null;
     const summerWeek = SUMMER_WEEKS.find((option) => option.start === week) ?? null;
     return {
       terms: query.toLowerCase().split(/\s+/).filter(Boolean),
+      kids: kids.map((token) => parseKid(token)!),
+      // One kid is "any of them"
+      kidsMode: kids.length > 1 ? kidsMode : ('any' as const),
       rows: {
-        kids: kids.map((token) => parseKid(token)!),
-        allKids: allKids && kids.length > 1,
         week: summerWeek && { start: summerWeek.start, end: summerWeek.end },
         band,
+        drive: drive ? Number(drive) : null,
+        // A town from an old link that no camp is in any more is ignored, not an empty list
+        town: towns.includes(town) ? town : null,
+        hours: hours || null,
       } satisfies RowFilters,
-      drive: drive ? Number(drive) : null,
     };
-  }, [query, kids, allKids, week, price, drive]);
+  }, [query, kids, kidsMode, week, price, drive, town, towns, hours]);
 
   const types = useMemo(() => [...new Set(camps.map((camp) => camp.type))].sort(), [camps]);
   const categories = useMemo(
@@ -344,27 +493,18 @@ export default function CampDirectory({ camps }: { camps: CampCardData[] }) {
       if (registration && camp.registration.status !== registration) return [];
       if (!needs.every((need) => camp.support.includes(need))) return [];
       if (!filters.terms.every((term) => camp.search.includes(term))) return [];
-
-      let unknown = false;
-      if (filters.drive !== null) {
-        if (camp.driveMinutes === null) unknown = true;
-        else if (camp.driveMinutes > filters.drive) return [];
-      }
-      const verdicts = camp.rows.map((row) => rowVerdict(row, filters.rows));
-      const matched = verdicts.filter((verdict) => verdict === 'match').length;
-      if (matched === 0) {
-        if (!verdicts.includes('unknown')) return [];
-        unknown = true;
-      }
-      return [{ camp, matched, verdict: (unknown ? 'unknown' : 'match') as Verdict }];
+      const result = judgeCamp(camp, filters.kids, filters.kidsMode, filters.rows);
+      return result ? [{ camp, ...result }] : [];
     });
   }, [camps, savedIds, savedOnly, type, category, registration, needs, filters]);
 
   const unknownCount = judged.filter((entry) => entry.verdict === 'unknown').length;
   const unknownKinds = [
-    filters.drive !== null && 'a drive time',
+    filters.rows.drive !== null && 'a drive time',
+    filters.rows.town && 'a town',
     filters.rows.band && 'a price',
     filters.rows.week && '2027 dates',
+    filters.rows.hours && 'hours',
   ].filter((kind): kind is string => !!kind);
 
   const shown = useMemo(
@@ -382,7 +522,8 @@ export default function CampDirectory({ camps }: { camps: CampCardData[] }) {
     return [...map.entries()];
   }, [shown]);
 
-  const moreCount = [week, price, registration].filter(Boolean).length + needs.length;
+  const moreCount =
+    [week, price, registration, filters.rows.town, hours].filter(Boolean).length + needs.length;
   const filtered =
     moreCount > 0 ||
     !!query.trim() ||
@@ -395,11 +536,13 @@ export default function CampDirectory({ camps }: { camps: CampCardData[] }) {
   function clearFilters() {
     setQuery('');
     updateKids([]);
-    setAllKids(false);
+    setKidsMode('any');
     setType('all');
     setCategory('all');
     setDrive('');
+    setTown('');
     setWeek('');
+    setHours('');
     setPrice('');
     setRegistration('');
     setNeeds([]);
@@ -411,7 +554,7 @@ export default function CampDirectory({ camps }: { camps: CampCardData[] }) {
       key={entry.camp.id}
       camp={entry.camp}
       showProvider={showProvider}
-      match={matchNote(entry.camp, entry.matched, filters.rows, kids)}
+      match={matchNote(entry.camp, entry, filters.rows, kids, filters.kidsMode)}
     />
   );
 
@@ -487,18 +630,22 @@ export default function CampDirectory({ camps }: { camps: CampCardData[] }) {
             )}
             {kids.length > 1 && (
               <label className="inline-flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300">
-                <input
-                  type="checkbox"
-                  checked={allKids}
-                  onChange={(event) => setAllKids(event.target.checked)}
-                />
-                Same session for all of them
+                Camps for
+                <select
+                  value={kidsMode}
+                  onChange={(event) => setKidsMode(event.target.value as KidsMode)}
+                  className={`${selectClasses} w-auto`}
+                >
+                  <option value="any">any of them</option>
+                  <option value="all">all of them (by age/grade)</option>
+                  <option value="same">all of them, same session</option>
+                </select>
               </label>
             )}
           </div>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2 text-sm">
+        <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 gap-2 text-sm">
           <label className="flex flex-col gap-1">
             <span className="text-xs text-gray-500 dark:text-gray-400">Type</span>
             <select
@@ -561,6 +708,21 @@ export default function CampDirectory({ camps }: { camps: CampCardData[] }) {
 
           {/* Below sm these sit behind "More filters", so the list starts higher on a phone */}
           <label className={`${moreOpen ? 'flex' : 'hidden'} sm:flex flex-col gap-1`}>
+            <span className="text-xs text-gray-500 dark:text-gray-400">Town</span>
+            <select
+              value={filters.rows.town ?? ''}
+              onChange={(event) => setTown(event.target.value)}
+              className={selectClasses}
+            >
+              <option value="">Any town</option>
+              {towns.map((name) => (
+                <option key={name} value={name}>
+                  {name}
+                </option>
+              ))}
+            </select>
+          </label>
+          <label className={`${moreOpen ? 'flex' : 'hidden'} sm:flex flex-col gap-1`}>
             <span className="text-xs text-gray-500 dark:text-gray-400">Week</span>
             <select
               value={week}
@@ -570,6 +732,21 @@ export default function CampDirectory({ camps }: { camps: CampCardData[] }) {
               <option value="">Any week</option>
               {SUMMER_WEEKS.map((option) => (
                 <option key={option.start} value={option.start}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
+          </label>
+          <label className={`${moreOpen ? 'flex' : 'hidden'} sm:flex flex-col gap-1`}>
+            <span className="text-xs text-gray-500 dark:text-gray-400">Hours</span>
+            <select
+              value={hours}
+              onChange={(event) => setHours(event.target.value as HoursFilter | '')}
+              className={selectClasses}
+            >
+              <option value="">Any hours</option>
+              {HOURS_FILTERS.map((option) => (
+                <option key={option.value} value={option.value}>
                   {option.label}
                 </option>
               ))}

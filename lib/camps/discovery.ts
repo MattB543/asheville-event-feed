@@ -1250,15 +1250,17 @@ export function mergeCandidates(
     }
   }
 
-  // Prior keys stay with their provider: by site, then by name.
+  // Prior keys stay with their provider: by site, then by name. Every prior provider of a name is
+  // kept, since two churches can share one ("First Baptist Church").
   const priorBySite = new Map<string, Provider>();
-  const priorByName = new Map<string, Provider>();
+  const priorByName = new Map<string, Provider[]>();
   for (const provider of prior) {
     for (const url of provider.urls) {
       const key = siteKey(url);
       if (key && !priorBySite.has(key)) priorBySite.set(key, provider);
     }
-    priorByName.set(nameKey(provider.name), provider);
+    const name = nameKey(provider.name);
+    priorByName.set(name, [...(priorByName.get(name) ?? []), provider]);
   }
 
   // A new slug never takes a pilot's or an earlier run's key, even one no longer found.
@@ -1324,7 +1326,7 @@ interface ProviderKeys {
 function buildProvider(
   group: MergeNode[],
   priorBySite: Map<string, Provider>,
-  priorByName: Map<string, Provider>,
+  priorByName: Map<string, Provider[]>,
   keys: ProviderKeys,
   rename?: string
 ): MergedProvider {
@@ -1336,14 +1338,18 @@ function buildProvider(
   const sites = group
     .flatMap((node) => node.urls.map(siteKey))
     .filter((key): key is string => !!key);
+  const townKeys = new Set(group.map((node) => townKey(node.candidate.town)).filter(Boolean));
+  // A name alone isn't the same provider: its site or its town has to match too.
+  const samePlace = (p: Provider) =>
+    p.urls.some((url) => sites.includes(siteKey(url) ?? '')) || townKeys.has(townKey(p.area));
 
   let prior: Provider | undefined;
   if (!pilot) {
     prior =
       sites.map((site) => priorBySite.get(site)).find((p) => p && !keys.claimed.has(p.key)) ??
       group
-        .map((node) => priorByName.get(nameKey(node.candidate.name)))
-        .find((p) => p && !keys.claimed.has(p.key));
+        .flatMap((node) => priorByName.get(nameKey(node.candidate.name)) ?? [])
+        .find((p) => !keys.claimed.has(p.key) && samePlace(p));
   }
 
   const name = pilot?.name ?? rename ?? prior?.name ?? bestName(group);

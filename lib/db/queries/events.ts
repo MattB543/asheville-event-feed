@@ -27,9 +27,10 @@ import {
 import { matchesDefaultFilter } from '@/lib/config/defaultFilters';
 import { extractCity, isAshevilleArea } from '@/lib/utils/geo';
 import { isAshevilleZip } from '@/lib/config/zipNames';
-import { parsePrice, isFreeEvent } from '@/lib/utils/eventFilterMatch';
+import { parsePrice, isFreeEvent, CAMPS_SOURCE } from '@/lib/utils/eventFilterMatch';
 import { addDaysToDateString } from '@/lib/utils/dateFilters';
 import { liveEvent } from '@/lib/db/liveEvent';
+import { SUMMER_CAMP_TAG } from '@/lib/config/tagCategories';
 
 // Verbose per-request query logging, dev only
 const DEBUG_QUERY_LOGS = process.env.NODE_ENV !== 'production';
@@ -155,8 +156,20 @@ function getWeekendBoundaries(): { start: Date; end: Date } {
   return { start, end };
 }
 
-/** WHERE conditions every listed event meets, before any user filter. */
-function listedEventConditions(startOfToday: Date): SQL[] {
+/**
+ * Not a summer camp (isCampEvent in lib/utils/eventFilterMatch.ts). IS NOT TRUE because an
+ * untagged row's `tags && ...` is NULL, and NOT NULL would drop it.
+ */
+const notCampEvent = sql`(${or(
+  sql`${events.source} = ${CAMPS_SOURCE}`,
+  arrayOverlaps(events.tags, [SUMMER_CAMP_TAG])
+)}) IS NOT TRUE`;
+
+/**
+ * WHERE conditions every listed event meets, before any user filter. Camps are listed only
+ * while the Summer Camp tag is selected.
+ */
+function listedEventConditions(startOfToday: Date, includeCamps = false): SQL[] {
   return [
     // Future events only
     gte(events.startDate, startOfToday),
@@ -166,6 +179,7 @@ function listedEventConditions(startOfToday: Date): SQL[] {
       and(notIlike(events.location, '%online%'), notIlike(events.location, '%virtual%'))
     )!,
     liveEvent,
+    ...(includeCamps ? [] : [notCampEvent]),
   ];
 }
 
@@ -208,7 +222,10 @@ export async function queryFilteredEvents(params: EventFilterParams): Promise<Ev
   }
 
   // Build WHERE conditions
-  const conditions: SQL[] = listedEventConditions(startOfToday);
+  const conditions: SQL[] = listedEventConditions(
+    startOfToday,
+    params.tagsInclude?.includes(SUMMER_CAMP_TAG)
+  );
 
   // NOTE: Cursor-based pagination is handled in the iterative fetch loop below,
   // not here, to allow multiple batches with updated cursors.
@@ -807,7 +824,9 @@ function buildTop30BaseWhere() {
       and(notIlike(events.location, '%online%'), notIlike(events.location, '%virtual%'))
     ),
     // Exclude LaZoom events (repetitive tourist-oriented tours)
-    notIlike(events.title, '%LaZoom%')
+    notIlike(events.title, '%LaZoom%'),
+    // Camps never rank: they score like other events, and the query has no minimum
+    notCampEvent
   );
 }
 

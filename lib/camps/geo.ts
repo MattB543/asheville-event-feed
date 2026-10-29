@@ -1,11 +1,12 @@
 /**
  * Where a camp site is and how long the drive is from downtown (docs/camps/04-v2-plan.md §1.5).
  *
- * - Geocoding: the US Census geocoder first (free, no key, public domain, so the points may be
- *   stored). It only places street addresses. ORS / Pelias is the fallback, and only when it finds
- *   the address, street or venue: Pelias lacks house numbers for many WNC addresses and returned a
- *   town centroid for the Arboretum, PACA, Rockmont and Hahn's in the pilot, and a centroid's drive
- *   time means nothing. Anything else gets no point; Matt pins it by hand in /admin/camps.
+ * - Geocoding: street addresses only. The US Census geocoder first (free, no key, public domain,
+ *   so the points may be stored), then ORS / Pelias, and only when it finds the address, street or
+ *   venue: Pelias lacks house numbers for many WNC addresses and returned a town centroid for the
+ *   Arboretum, PACA, Rockmont and Hahn's in the pilot, and a centroid's drive time means nothing.
+ *   A site with no street address is never looked up by its venue name (the pilot's venue matches
+ *   were lookalikes); it and anything else unplaced wait for Matt's hand pin in /admin/camps.
  * - Drive time: one fixed origin (Pack Square) and a 1xN ORS driving matrix, on api.heigit.org (the
  *   old api.openrouteservice.org host is retired Nov 2-6, 2026). Never the model: Sol guessed
  *   Hendersonville at 50-60 minutes, about twice the real drive (plan 01 §2.5).
@@ -39,11 +40,9 @@ const RETRY = { maxRetries: 2, timeoutMs: 20000 } as const;
 
 /**
  * Pelias layers precise enough to route from; never locality, county or other centroids. A street
- * match is the street's midpoint, so it counts only when the query was an address on that street:
- * for a bare venue name it is a lookalike ("Avery's Creek Elementary" -> Avery's Creek Lane).
+ * match is the street's midpoint, which is close enough for an address on that street.
  */
 const ADDRESS_LAYERS = ['address', 'street', 'venue'];
-const VENUE_LAYERS = ['address', 'venue'];
 
 export type SiteQuery = Pick<Site, 'name' | 'address' | 'town' | 'state'>;
 
@@ -133,8 +132,8 @@ function plausibleMatch(query: string, label: string): boolean {
   return words.length === 0 || words.some((word) => text.includes(word));
 }
 
-/** Pelias search biased toward Asheville and bounded to MAX_KM_FROM_DOWNTOWN, in the given layers only. */
-async function orsGeocode(text: string, layers: string[]): Promise<SiteGeo | null> {
+/** Pelias search biased toward Asheville and bounded to MAX_KM_FROM_DOWNTOWN, in ADDRESS_LAYERS only. */
+async function orsGeocode(text: string): Promise<SiteGeo | null> {
   const params = new URLSearchParams({
     text,
     size: '1',
@@ -157,7 +156,7 @@ async function orsGeocode(text: string, layers: string[]): Promise<SiteGeo | nul
     }>;
   };
   const feature = json.features?.[0];
-  if (!feature || !layers.includes(feature.properties.layer)) return null;
+  if (!feature || !ADDRESS_LAYERS.includes(feature.properties.layer)) return null;
   if (!plausibleMatch(text, feature.properties.label)) return null;
   return {
     lng: feature.geometry.coordinates[0],
@@ -167,11 +166,14 @@ async function orsGeocode(text: string, layers: string[]): Promise<SiteGeo | nul
   };
 }
 
-/** Census for a street address, then ORS; null when neither places the site itself. */
+/**
+ * Census for a street address, then ORS; null when neither places it, and always null without a
+ * street address (the site waits for a hand pin).
+ */
 export async function geocodeSite(site: SiteQuery): Promise<SiteGeo | null> {
+  if (!site.address?.trim()) return null;
   const text = geocodeText(site);
-  if (!site.address) return orsGeocode(text, VENUE_LAYERS);
-  return (await censusGeocode(text)) ?? orsGeocode(text, ADDRESS_LAYERS);
+  return (await censusGeocode(text)) ?? orsGeocode(text);
 }
 
 /** Unrounded driving minutes from Pack Square to each point (null when ORS can't route it). */

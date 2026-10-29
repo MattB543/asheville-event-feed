@@ -10,7 +10,7 @@ import CampFeedback from '@/components/camps/CampFeedback';
 import { CampViewBeacon, CampWebsiteLink } from '@/components/camps/CampLinks';
 import { TONE_CLASSES } from '@/components/camps/tones';
 import SaveCampButton from '@/components/camps/SaveCampButton';
-import { UnconfirmedTag, YearTag } from '@/components/camps/YearTag';
+import { RegistrationDetails, UnconfirmedTag, YearTag } from '@/components/camps/YearTag';
 import type { Milestone, SupportFact } from '@/lib/camps/contract';
 import {
   AVAILABILITY_LABELS,
@@ -40,6 +40,7 @@ import {
 import { ORS_ATTRIBUTION } from '@/lib/camps/geo';
 import { getCampBySlug, relatedCamps, type CampListItem } from '@/lib/db/queries/camps';
 import { mapsSearchUrl } from '@/lib/utils/maps';
+import { getDateStringEastern } from '@/lib/utils/timezone';
 import { SITE_URL } from '@/lib/seo/site';
 
 interface PageProps {
@@ -226,7 +227,10 @@ export default async function CampPage({ params }: PageProps) {
     })),
   ].filter((fact) => fact.value);
 
-  const checked = camp.checkedAt ? formatDate(camp.checkedAt.slice(0, 10), true) : null;
+  // The Eastern day it was read, not the UTC one (an evening check is the next day in UTC)
+  const checked = camp.checkedAt
+    ? formatDate(getDateStringEastern(new Date(camp.checkedAt)), true)
+    : null;
 
   return (
     <main className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-950">
@@ -307,7 +311,7 @@ export default async function CampPage({ params }: PageProps) {
                 {line.text}
                 {line.unconfirmed && <UnconfirmedTag />}
               </p>
-              {line.detail && <p className="text-sm opacity-90">{line.detail}</p>}
+              <RegistrationDetails details={line.details} className="text-sm opacity-90" />
             </div>
 
             <div className="p-4 space-y-4">
@@ -471,8 +475,19 @@ export default async function CampPage({ params }: PageProps) {
                           </td>
                         )}
                         {columns.price && (
-                          <td className="px-3 py-2 whitespace-nowrap">
-                            {session.price ? formatPriceTier(session.price) : ''}
+                          <td className="px-3 py-2 min-w-28">
+                            {session.price && (
+                              <>
+                                <span className="whitespace-nowrap">
+                                  {formatPriceTier(session.price)}
+                                </span>
+                                {session.price.label && (
+                                  <span className="block text-xs text-gray-500 dark:text-gray-400">
+                                    {session.price.label}
+                                  </span>
+                                )}
+                              </>
+                            )}
                           </td>
                         )}
                         {columns.status && (

@@ -3,7 +3,8 @@
  *
  * 1. How many sites `geocodeSite` places (Census, then ORS) versus what ORS alone did in the pilot
  *    (its cache, data/camps/pilot/geocode.json). Sites come from the bundle extractions' card
- *    locations, the providers' fallback `site`, and the Parks & Rec community centers.
+ *    locations, the providers' fallback `site`, and the Parks & Rec community centers. Sites with
+ *    only a venue name are never looked up, so their group reads "none": they wait for hand pins.
  * 2. ORS matrix minutes versus the public OSRM demo server for a sample of sites, since ORS's drive
  *    times looked long in the pilot (Camp Greenville ~90 min). One OSRM request, per its usage policy.
  *

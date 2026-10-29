@@ -1,7 +1,13 @@
 import Link from 'next/link';
 import type { ReactNode } from 'react';
-import type { CampCard, Confidence, PriceTier, Session } from '@/lib/camps/contract';
-import type { CampReviewItem } from '@/lib/db/queries/camps';
+import {
+  needsReview,
+  type CampCard,
+  type Confidence,
+  type PriceTier,
+  type Session,
+} from '@/lib/camps/contract';
+import type { AdminCamp } from '@/lib/db/queries/campsAdmin';
 import ActionButton from './ActionButton';
 import FixField from './FixField';
 
@@ -85,18 +91,22 @@ function Fact({ label, children }: { label: string; children: ReactNode }) {
   );
 }
 
-/** The key facts of one camp short of high confidence, with Confirm, Hide and Fix. */
+/**
+ * The key facts of one camp, with Hide and Fix, and Confirm while it's short of high confidence
+ * and not confirmed as it stands.
+ */
 export default function ReviewItem({
   item,
   cardKeys,
 }: {
-  item: CampReviewItem;
+  item: AdminCamp;
   cardKeys: Array<keyof CampCard>;
 }) {
   const { card } = item;
   const fixed = Object.keys(item.override ?? {});
   const ages = formatRange(card.ages);
   const grades = formatRange(card.grades, gradeLabel);
+  const toConfirm = needsReview(card) && !item.confirmed;
 
   return (
     <li className="rounded-xl border border-gray-200 bg-white p-4 dark:border-gray-800 dark:bg-gray-900">
@@ -117,7 +127,7 @@ export default function ReviewItem({
       )}
       {item.reviewedAt && (
         <p className="mt-1 text-xs text-gray-600 dark:text-gray-400">
-          Confirmed before, then the card changed
+          {item.confirmed ? 'Confirmed as it stands' : 'Confirmed before, then the card changed'}
         </p>
       )}
 
@@ -214,7 +224,13 @@ export default function ReviewItem({
       </p>
 
       <div className="mt-3 flex flex-wrap items-start gap-2">
-        <ActionButton body={{ action: 'confirm', id: item.id }} label="Confirm" tone="primary" />
+        {toConfirm && (
+          <ActionButton
+            body={{ action: 'confirm', id: item.id, hash: item.hash }}
+            label="Confirm"
+            tone="primary"
+          />
+        )}
         <ActionButton body={{ action: 'hide', id: item.id }} label="Hide" tone="danger" />
         {fixed.length > 0 && (
           <ActionButton body={{ action: 'clear_override', id: item.id }} label="Clear fixes" />

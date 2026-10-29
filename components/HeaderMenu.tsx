@@ -16,10 +16,14 @@ export interface HeaderMenuItem {
 /** Desktop hover (or keyboard focus) opens the menu; a trigger with an href still links there. */
 const HOVER_QUERY = '(pointer: fine) and (min-width: 1024px)';
 
+const hovers = () => window.matchMedia(HOVER_QUERY).matches;
+
 /**
- * A header tab with a menu of links underneath. At lg+ with a mouse the menu opens on hover
- * and a label with an `href` is a plain link; on touch the label toggles the menu, since
- * there is no hover to reveal it. A label with no `href` only ever opens the menu.
+ * A header tab with a menu of links underneath. At lg+ with a mouse the menu opens on hover (or
+ * keyboard focus) and a label with an `href` is a plain link; on touch the label toggles the menu,
+ * since there is no hover to reveal it. A label with no `href` only ever opens the menu. Every way
+ * of opening goes through `isOpen`, so aria-expanded is always true while the menu shows and
+ * Escape or a press outside always closes it.
  */
 export default function HeaderMenu({
   label,
@@ -47,7 +51,7 @@ export default function HeaderMenu({
     'aria-expanded': isOpen,
     'aria-controls': menuId,
     onClick: (event: MouseEvent<HTMLElement>) => {
-      if (window.matchMedia(HOVER_QUERY).matches) return;
+      if (hovers()) return;
       event.preventDefault();
       setIsOpen((open) => !open);
     },
@@ -65,7 +69,16 @@ export default function HeaderMenu({
   );
 
   return (
-    <div ref={rootRef} className="group/menu relative">
+    <div
+      ref={rootRef}
+      className="relative"
+      onMouseEnter={() => hovers() && setIsOpen(true)}
+      onMouseLeave={() => hovers() && setIsOpen(false)}
+      onFocus={() => hovers() && setIsOpen(true)}
+      onBlur={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget)) setIsOpen(false);
+      }}
+    >
       {href ? (
         <IntentLink href={href} {...trigger}>
           {triggerContent}
@@ -81,7 +94,7 @@ export default function HeaderMenu({
         id={menuId}
         className={`absolute top-full z-50 pt-1 ${align === 'right' ? 'right-0' : 'left-0'} ${
           isOpen ? 'block' : 'hidden'
-        } lg:group-hover/menu:block pointer-fine:lg:group-focus-within/menu:block`}
+        }`}
       >
         <ul className="min-w-36 rounded-lg border border-gray-200 bg-white py-1 shadow-lg dark:border-gray-700 dark:bg-gray-900">
           {items.map((item) => (

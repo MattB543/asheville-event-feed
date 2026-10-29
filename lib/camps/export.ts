@@ -448,9 +448,10 @@ function campSection(camp: CampListing, now: Date): CampSection {
   const list =
     !long && !weeks && sessions.length > 0 ? sessionList(sessions, card, multiSite) : null;
 
-  // The times, then the camp's wording when it says more ("Friday Pick-up: 12:00 PM"), cut short
+  // The times, then the camp's wording when it says more ("Friday Pick-up: 12:00 PM"), in full:
+  // an exception cut short ("returning the following Sunday") misleads more than it saves
   const hours =
-    [shortHours(card.hours), brief(hoursNote(card.hours?.text))].filter(Boolean).join('; ') || null;
+    [shortHours(card.hours), hoursNote(card.hours?.text)].filter(Boolean).join('; ') || null;
   const care = card.extended_care;
   // "7:30am–5:30pm, $40/week": drop-off from the first time, pickup until the second
   const careText =

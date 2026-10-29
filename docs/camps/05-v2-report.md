@@ -155,3 +155,10 @@ description); Google Calendar links could pick the wrong milestone; the card's m
 footer could change height; the earliest-opening headline skipped the 'other' audience. Should:
 cache version bump. Rejected: "remove the Hours row from cards" (Matt asked to drop the hours
 detail text, not the row).
+
+### Gate 7: confirmation of the gate-6 fixes (Oct 29)
+
+Reviewed `c529e8b..a798c25`: items 1, 3, 4, 6, 7 and 8 confirmed. One must-fix left: the
+Markdown still cut long hours notes at 100 characters (Camp ACC Pathway lost "returning the
+following Sunday"). Fixed by keeping hours notes whole (+0.6 KB on the Markdown export);
+checked on the export.

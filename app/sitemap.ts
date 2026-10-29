@@ -64,10 +64,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   ];
 
-  // A holiday page is listed while its season runs
+  // A holiday page is listed while its season runs (once: /plan is listed all year)
   const season = currentSeason();
-  if (season) {
-    staticPages.push({ url: `${SITE_URL}${season.href}`, changeFrequency: 'daily', priority: 0.8 });
+  const seasonUrl = season && `${SITE_URL}${season.href}`;
+  if (seasonUrl && !staticPages.some((page) => page.url === seasonUrl)) {
+    staticPages.push({ url: seasonUrl, changeFrequency: 'daily', priority: 0.8 });
   }
 
   // If no database, return only static pages

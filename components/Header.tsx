@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import ThemeToggle from '@/components/ThemeToggle';
-import SubmitEventButton from '@/components/SubmitEventButton';
 import UserMenu from '@/components/UserMenu';
 import EventTabSwitcher, { type HeaderTab } from '@/components/EventTabSwitcher';
 import CityStatusBadges from '@/components/cityStatus/CityStatusBadges';
@@ -62,7 +61,6 @@ export default function Header({ activeTab }: HeaderProps) {
               <SeasonalBadge />
               <Attribution className="ml-auto min-w-0 truncate text-xs" />
               <div className="flex shrink-0 items-center gap-1 sm:gap-2">
-                <SubmitEventButton />
                 <ThemeToggle />
                 <UserMenu />
               </div>
@@ -96,7 +94,6 @@ export default function Header({ activeTab }: HeaderProps) {
               {/* Steps aside only while a water badge needs the room (CSS :has, no
                 client state); the footers always carry it */}
               <Attribution className="text-xs xl:text-sm group-has-[[data-water-badge]]/header:hidden" />
-              <SubmitEventButton />
               <ThemeToggle />
               <UserMenu />
             </div>

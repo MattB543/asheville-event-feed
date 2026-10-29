@@ -13,6 +13,7 @@ import {
   FileCode,
 } from 'lucide-react';
 import { ShareNote, useShareNote } from './ShareButton';
+import SubmitEventButton from './SubmitEventButton';
 import { useDismiss } from '@/lib/hooks/useDismiss';
 
 // Re-export types for backwards compatibility (canonical definitions in lib/types/filters)
@@ -239,7 +240,9 @@ export default function FilterBar({
           )}
         </div>
 
-        {/* Ask AI Button */}
+        <SubmitEventButton className={`${buttonBaseStyle} px-2.5 sm:px-3`} />
+
+        {/* AI Button */}
         {onOpenChat && (
           <button
             onClick={onOpenChat}
@@ -247,7 +250,7 @@ export default function FilterBar({
             aria-label="Ask AI"
           >
             <Sparkles size={15} />
-            <span className="hidden sm:inline text-sm">Ask AI</span>
+            <span className="hidden sm:inline text-sm">AI</span>
           </button>
         )}
       </div>

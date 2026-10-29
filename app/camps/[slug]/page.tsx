@@ -41,6 +41,7 @@ import {
   registrationLine,
   reminderDates,
   reminderMilestones,
+  shownCategories,
   siteTown,
   toCardData,
   upcomingUntil,
@@ -103,7 +104,7 @@ const linkClasses =
   'text-brand-600 dark:text-brand-400 underline underline-offset-2 hover:text-brand-700 dark:hover:text-brand-300';
 const sectionHeading = 'text-lg font-semibold text-gray-900 dark:text-gray-100';
 
-/** Parts as sentences: a period after each but the last, unless it ends in one ("5 p.m."). */
+/** Parts as sentences: a period after each but the last, unless it ends in one already. */
 function sentences(parts: Array<string | null | undefined>): string | null {
   const kept = parts.filter((part): part is string => !!part);
   return (
@@ -347,7 +348,7 @@ export default async function CampPage({ params }: PageProps) {
           <p className="mt-2 flex flex-wrap gap-1">
             {[
               TYPE_LABELS[card.type] ?? card.type,
-              ...card.categories.map((value) => CATEGORY_LABELS[value] ?? value),
+              ...shownCategories(card.categories).map((value) => CATEGORY_LABELS[value] ?? value),
             ].map((label) => (
               <span
                 key={label}

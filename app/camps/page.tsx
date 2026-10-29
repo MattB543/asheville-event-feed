@@ -82,13 +82,19 @@ export default async function CampsPage() {
             </span>
             Where a camp hasn’t posted 2027 yet, you’ll see its 2026 details, labeled 2026.
           </p>
+          {/* One line from sm; on a phone the export links wrap under the counts */}
           {cards.length > 0 && (
-            <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
-              {cards.length} camps from {providers} {providers === 1 ? 'provider' : 'providers'}
-              {checked && ` · last checked ${checked}`}
-            </p>
+            <div className="mt-1 flex flex-wrap items-center gap-x-1 gap-y-0.5 text-xs text-gray-500 dark:text-gray-400">
+              <p>
+                {cards.length} camps from {providers} {providers === 1 ? 'provider' : 'providers'}
+                {checked && ` · last checked ${checked}`}
+              </p>
+              <span aria-hidden="true" className="hidden sm:inline">
+                ·
+              </span>
+              <CampExportLinks />
+            </div>
           )}
-          {cards.length > 0 && <CampExportLinks className="mt-1" />}
 
           <AiNotice className="mt-4" />
 

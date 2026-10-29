@@ -61,7 +61,7 @@ function cleanHours<H extends Hours>(hours: H | null): H | null {
  * The card with every malformed date or time treated as unknown, so one bad value can't take down
  * the directory, a camp page or a calendar: a registration date or a session with a bad date is
  * left out, and a bad season date or time becomes null (a datetime without its time is a date).
- * Every well-formed time stays, an early-morning one too: "00:59" is an 11:59 p.m. Central
+ * Every well-formed time stays, an early-morning one too: "00:59" is an 11:59 PM Central
  * deadline in Eastern time, and a time the extraction doubts is in its review notes.
  */
 export function cleanCard(card: CampCard): CampCard {
@@ -133,6 +133,14 @@ export const CATEGORY_LABELS: Record<string, string> = {
   special_needs: 'Special needs',
 };
 
+/**
+ * The categories the pages show: "General" tells a parent nothing, so it's left off the chips and
+ * the Category filter (the data and the exports keep it).
+ */
+export function shownCategories<C extends string>(categories: C[]): C[] {
+  return categories.filter((category) => category !== 'general');
+}
+
 export const SUPPORT_LABELS = {
   financial_aid: 'Financial aid',
   special_needs: 'Special-needs support',
@@ -187,16 +195,16 @@ export function formatDateRange(start: string | null, end: string | null): strin
   return `${formatDate(start)} – ${formatDate(end)}`;
 }
 
-/** "13:00" -> "1 p.m.", "08:30" -> "8:30 a.m.", anything else -> null. */
+/** "13:00" -> "1 PM", "08:30" -> "8:30 AM" (minutes only when not :00), anything else -> null. */
 export function formatTime(time: string | null | undefined): string | null {
   if (!validTime(time)) return null;
   const [hour, minute] = time!.split(':').map(Number);
-  const suffix = hour >= 12 ? 'p.m.' : 'a.m.';
+  const suffix = hour >= 12 ? 'PM' : 'AM';
   const hour12 = hour % 12 === 0 ? 12 : hour % 12;
   return `${hour12}${minute ? `:${String(minute).padStart(2, '0')}` : ''} ${suffix}`;
 }
 
-/** "7:30 a.m. – 5:30 p.m."; one end alone when that's all the camp says. */
+/** "7:30 AM – 5:30 PM"; one end alone when that's all the camp says. */
 export function formatHours(
   hours: { start: string | null; end: string | null } | null
 ): string | null {
@@ -208,7 +216,7 @@ export function formatHours(
   return end ? `Until ${end}` : null;
 }
 
-/** "Drop-off from 7 a.m., pickup until 6 p.m." from a card's extended care. */
+/** "Drop-off from 7 AM, pickup until 6 PM" from a card's extended care. */
 export function formatExtendedCare(care: CampListCard['extended_care']): string | null {
   if (!care) return null;
   const parts = [
@@ -216,6 +224,15 @@ export function formatExtendedCare(care: CampListCard['extended_care']): string 
     care.late_pickup_end && `pickup until ${formatTime(care.late_pickup_end)}`,
   ].filter(Boolean);
   return parts.length > 0 ? capitalize(parts.join(', ')) : 'Extended care offered';
+}
+
+/** Extended care's times for a card's hours line: "7 AM & 6 PM", "from 7 AM", "until 6 PM". */
+function careTimes(care: CampListCard['extended_care']): string | null {
+  if (!care) return null;
+  const dropoff = formatTime(care.early_dropoff_start);
+  const pickup = formatTime(care.late_pickup_end);
+  if (dropoff && pickup) return `${dropoff} & ${pickup}`;
+  return dropoff ? `from ${dropoff}` : pickup ? `until ${pickup}` : null;
 }
 
 export function gradeLabel(grade: number): string {
@@ -267,8 +284,9 @@ export function formatWho(ages: AgeRange | null, grades: GradeRange | null): str
   return [formatAges(ages), formatGrades(grades)].filter(Boolean).join(' · ') || null;
 }
 
+/** "$1,523": money is shown to the nearest dollar everywhere ($522.50 is $523). */
 export function formatPrice(amount: number): string {
-  return Number.isInteger(amount) ? `$${amount.toLocaleString('en-US')}` : `$${amount.toFixed(2)}`;
+  return `$${Math.round(amount).toLocaleString('en-US')}`;
 }
 
 const UNIT_LABEL: Record<string, string> = {
@@ -296,8 +314,9 @@ export function formatPriceRange(prices: Array<{ amount: number; unit: string }>
     .sort(([, a], [, b]) => Math.max(...b) - Math.max(...a))
     .slice(0, 2)
     .map(([unit, amounts]) => {
-      const min = Math.min(...amounts);
-      const max = Math.max(...amounts);
+      // In dollars, so $549.50 and $550 are one price
+      const min = Math.round(Math.min(...amounts));
+      const max = Math.round(Math.max(...amounts));
       if (max === 0) return 'Free';
       const range = min === max ? formatPrice(min) : `${formatPrice(min)}–${formatPrice(max)}`;
       return `${range}${UNIT_LABEL[unit] ?? ''}`;
@@ -411,7 +430,7 @@ export function milestoneLabel(
   return capitalize(who[milestone.audience] ? `${who[milestone.audience]} ${what}` : what);
 }
 
-/** "Jan 10, 2027, 9 a.m.", "Jan 10, 2027", or "in December 2026" for a month. */
+/** "Jan 10, 2027, 9 AM", "Jan 10, 2027", or "in December 2026" for a month. */
 export function milestoneWhen(
   milestone: Pick<CampListMilestone, 'date' | 'time' | 'precision'>
 ): string {
@@ -576,7 +595,7 @@ export function registrationLine(
       ? availability
       : null;
 
-  /** "Member registration opens Jan 10, 2027, 9 a.m."; a past date without its time. */
+  /** "Member registration opens Jan 10, 2027, 9 AM"; a past date without its time. */
   const say = (milestone: CampListMilestone): RegistrationNote => {
     const passed = past(milestone);
     const when =
@@ -1077,7 +1096,10 @@ export interface CampCardData {
   hours: string | null;
   /** The camp's own words on hours, when they say more than the times ("Friday pickup at noon"). */
   hoursNote: string | null;
+  /** Extended care in words ("Drop-off from 7 AM, pickup until 6 PM"), null without it. */
   care: string | null;
+  /** Its times, for the card ("7 AM & 6 PM"); null when the camp doesn't give them. */
+  careTimes: string | null;
   registration: RegistrationLine;
   /** Support the camp says it has (yes or case by case). */
   support: SupportKey[];
@@ -1346,7 +1368,7 @@ export function toCardData(camp: CampListItem, now: Date): CampCardData {
     name: card.name,
     providerName: providerLabel(camp.providerName),
     type: card.type,
-    categories: card.categories,
+    categories: shownCategories(card.categories),
     summary,
     search: [card.description.trim().slice(summary.length), ...camp.sites.map((site) => site.name)]
       .filter(Boolean)
@@ -1368,6 +1390,7 @@ export function toCardData(camp: CampListItem, now: Date): CampCardData {
     hours: formatHours(card.hours),
     hoursNote: hoursNote(card.hours),
     care: card.extended_care ? formatExtendedCare(card.extended_care) : null,
+    careTimes: careTimes(card.extended_care),
     registration: registrationLine(card, camp.confirmed, now, { earliestOpening: true }),
     support: supportKeys(card),
     rows,

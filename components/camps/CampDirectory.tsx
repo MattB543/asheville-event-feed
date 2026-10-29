@@ -718,7 +718,8 @@ export default function CampDirectory({ camps }: { camps: CampCardData[] }) {
 
   return (
     <div>
-      <div className="rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 p-3 sm:p-4">
+      {/* On the page itself, no box around them */}
+      <div>
         {/* The search box, then the kids and "Filters": one row from lg, two on a phone */}
         <div className="flex flex-col gap-2 lg:flex-row lg:items-center lg:gap-4">
           <label className="relative block lg:min-w-72 lg:flex-1">
@@ -733,7 +734,7 @@ export default function CampDirectory({ camps }: { camps: CampCardData[] }) {
               value={query}
               onChange={(event) => setQuery(event.target.value)}
               placeholder="Search camps, activities, towns"
-              className="w-full h-10 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-950 pl-9 pr-3 text-sm text-gray-900 dark:text-gray-100 placeholder:text-gray-500 dark:placeholder:text-gray-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
+              className="w-full h-10 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 pl-9 pr-3 text-sm text-gray-900 dark:text-gray-100 placeholder:text-gray-500 dark:placeholder:text-gray-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
             />
           </label>
 
@@ -820,11 +821,7 @@ export default function CampDirectory({ camps }: { camps: CampCardData[] }) {
           </div>
         </div>
 
-        <div
-          id={filtersId}
-          hidden={!filtersOpen}
-          className="mt-3 space-y-3 border-t border-gray-100 dark:border-gray-800 pt-3"
-        >
+        <div id={filtersId} hidden={!filtersOpen} className="mt-3 space-y-3">
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-sm">
             <label className={field}>
               <span className={labelClasses}>Week</span>
@@ -970,7 +967,8 @@ export default function CampDirectory({ camps }: { camps: CampCardData[] }) {
       </div>
 
       {(savedIds.length > 0 || savedOnly) && (
-        <div className="mt-4 rounded-xl border border-amber-200 dark:border-amber-900 bg-amber-50/60 dark:bg-amber-950/20 p-3 sm:p-4 space-y-3">
+        <div className="mt-4 rounded-xl border border-amber-200 dark:border-amber-900 bg-amber-50/60 dark:bg-amber-950/20 p-3 sm:p-4">
+          {/* The calendar button sits on this row; once subscribed, its links take a full line */}
           <div className="flex flex-wrap items-center gap-2 text-sm">
             <Star
               size={16}
@@ -989,8 +987,8 @@ export default function CampDirectory({ camps }: { camps: CampCardData[] }) {
             >
               Show only saved
             </button>
+            <SavedCalendar />
           </div>
-          <SavedCalendar />
         </div>
       )}
 

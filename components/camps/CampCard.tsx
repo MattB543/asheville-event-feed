@@ -2,7 +2,17 @@
 
 import { memo } from 'react';
 import Link from 'next/link';
-import { CalendarDays, Car, Clock, ExternalLink, Eye, MapPin, Tag, Users } from 'lucide-react';
+import {
+  CalendarDays,
+  Car,
+  Clock,
+  ExternalLink,
+  Eye,
+  MapPin,
+  Route,
+  Tag,
+  Users,
+} from 'lucide-react';
 import {
   CATEGORY_LABELS,
   REMINDER_LABELS,
@@ -58,8 +68,10 @@ export default memo(function CampCard({
     {
       icon: Clock,
       label: 'Hours',
-      text: [camp.hours, camp.care].filter(Boolean).join(' · '),
+      text: camp.hours,
       missing: 'Hours not stated',
+      // Extended care follows the hours: the car is drop-off and pickup
+      care: camp.care,
     },
     {
       icon: Tag,
@@ -69,7 +81,7 @@ export default memo(function CampCard({
       missing: 'Price unknown',
     },
     { icon: MapPin, label: 'Where', text: camp.location, missing: 'Location not stated' },
-    { icon: Car, label: 'Drive', text: camp.drive, missing: 'Drive time unknown' },
+    { icon: Route, label: 'Drive', text: camp.drive, missing: 'Drive time unknown' },
   ];
 
   return (
@@ -127,7 +139,7 @@ export default memo(function CampCard({
         </p>
 
         <dl className="mt-2 space-y-1 text-sm leading-5">
-          {facts.map(({ icon: Icon, label, text, year, missing }) => (
+          {facts.map(({ icon: Icon, label, text, year, missing, care }) => (
             <div key={label} className="flex h-5 items-center gap-2">
               <dt className="sr-only">{label}</dt>
               <Icon size={15} aria-hidden="true" className="shrink-0 text-gray-400" />
@@ -141,6 +153,19 @@ export default memo(function CampCard({
                   </>
                 ) : (
                   <span className="truncate text-gray-500 dark:text-gray-400">{missing}</span>
+                )}
+                {care && (
+                  <span
+                    title={care}
+                    className="ml-1 flex min-w-0 items-center gap-1 text-gray-700 dark:text-gray-300"
+                  >
+                    <span aria-hidden="true">·</span>
+                    <Car size={15} aria-hidden="true" className="shrink-0 text-gray-400" />
+                    <span className="sr-only">{care}</span>
+                    <span aria-hidden="true" className="truncate">
+                      {camp.careTimes ?? 'Extended care'}
+                    </span>
+                  </span>
                 )}
               </dd>
             </div>
@@ -196,16 +221,14 @@ export default memo(function CampCard({
             className={`${actionClasses} text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800`}
           />
         )}
-        {camp.views > 0 && (
+        {camp.views > 1 && (
           <span
             title="Views of this camp in the last 14 days"
             className="ml-auto inline-flex min-w-0 items-center gap-0.5 overflow-hidden pl-1 pr-1.5 text-xs text-gray-500 dark:text-gray-400"
           >
             <Eye size={13} aria-hidden="true" className="shrink-0" />
             {camp.views}
-            <span className="sr-only">
-              {camp.views === 1 ? ' view' : ' views'} in the last 14 days
-            </span>
+            <span className="sr-only"> views in the last 14 days</span>
           </span>
         )}
       </div>

@@ -22,6 +22,7 @@ import {
   formatGrades,
   formatPriceRange,
   formatPriceTier,
+  formatTime,
   isUnconfirmed,
   milestoneLabel,
   milestoneWhen,
@@ -181,20 +182,11 @@ function dateRange(start: string, end: string, summer: number): string {
   return `${formatDate(start)} – ${formatDate(end)}${year}`;
 }
 
-/** "9am", "4:15pm", "noon": shorter than the pages' "9 a.m.", which adds up over 900 camps. */
-function shortTime(time: string | null | undefined): string | null {
-  const match = time ? /^(\d{2}):(\d{2})$/.exec(time) : null;
-  if (!match) return null;
-  const hour = Number(match[1]);
-  if (hour === 12 && match[2] === '00') return 'noon';
-  return `${hour % 12 || 12}${match[2] === '00' ? '' : `:${match[2]}`}${hour < 12 ? 'am' : 'pm'}`;
-}
-
-/** "9am–3pm", "from 9am", "until 3pm". */
+/** "9 AM–3 PM", "from 9 AM", "until 3 PM". */
 function shortHours(hours: { start: string | null; end: string | null } | null): string | null {
   if (!hours) return null;
-  const start = shortTime(hours.start);
-  const end = shortTime(hours.end);
+  const start = formatTime(hours.start);
+  const end = formatTime(hours.end);
   if (start && end) return `${start}–${end}`;
   if (start) return `from ${start}`;
   return end ? `until ${end}` : null;
@@ -347,7 +339,7 @@ function plainWeeks(sessions: Session[], card: CampCard, multiSite: boolean): bo
 }
 
 /**
- * The Registration line's dates: "opens Feb 14, 2027 9am", "Member registration opens Jan 10, 2027
+ * The Registration line's dates: "opens Feb 14, 2027 9 AM","Member registration opens Jan 10, 2027
  * (unconfirmed)". A date for 'other' families (scholarships, staff ...) can only be named in the
  * camp's words, and dates worded alike share them: "Scholarships open Jan 1 ... (Jan 1, 2027; Feb
  * 1, 2027)".
@@ -357,7 +349,7 @@ function registrationDates(milestones: Milestone[], confirmed: boolean, now: Dat
   for (const milestone of [...milestones].sort(byMilestoneDate)) {
     const when =
       milestone.precision === 'datetime' && milestone.time
-        ? `${formatDate(milestone.date, true)} ${shortTime(milestone.time)}`
+        ? `${formatDate(milestone.date, true)} ${formatTime(milestone.time)}`
         : milestoneWhen(milestone);
     const marks = [
       milestone.certainty === 'expected' && 'expected',
@@ -453,7 +445,7 @@ function campSection(camp: CampListing, now: Date): CampSection {
   const hours =
     [shortHours(card.hours), hoursNote(card.hours?.text)].filter(Boolean).join('; ') || null;
   const care = card.extended_care;
-  // "7:30am–5:30pm, $40/week": drop-off from the first time, pickup until the second
+  // "7:30 AM–5:30 PM, $40/week": drop-off from the first time, pickup until the second
   const careText =
     care &&
     ([
@@ -468,7 +460,7 @@ function campSection(camp: CampListing, now: Date): CampSection {
   const registration = [
     ...registrationDates(card.registration, camp.confirmed, now),
     lastYear &&
-      `last year opened ${formatDate(lastYear.date, true)}${lastYear.time ? ` ${shortTime(lastYear.time)}` : ''}`,
+      `last year opened ${formatDate(lastYear.date, true)}${lastYear.time ? ` ${formatTime(lastYear.time)}` : ''}`,
   ].filter(Boolean);
 
   // Last summer's availability says nothing about this one
@@ -562,7 +554,7 @@ Info pulled from each camp's website by AI; double-check with the camp before bo
 How to read it:
 - Each camp's first bullet starts with the summer its facts describe. ${TARGET_SEASON} means the camp has posted ${TARGET_SEASON}; ${TARGET_SEASON - 1} means it hasn't yet, so its dates, sessions and prices are ${TARGET_SEASON - 1}'s: a guide, not the ${TARGET_SEASON} schedule.
 - Camps are day camps unless the line under the name says otherwise (Half-day, Overnight, Vacation Bible School ...). A provider with several camps has its own heading; the bullets right under it apply to all of its camps.
-- A camp with more than ${MAX_LISTED_SESSIONS} sessions gives a count, then each site, age group, price or hours its sessions state, with how many sessions and their date range. "Extended care 7:30am–5:30pm" means drop-off from 7:30, pickup until 5:30.
+- A camp with more than ${MAX_LISTED_SESSIONS} sessions gives a count, then each site, age group, price or hours its sessions state, with how many sessions and their date range. "Extended care 7:30 AM–5:30 PM" means drop-off from 7:30, pickup until 5:30.
 - Registration dates marked "expected" are the camp's estimate; "unconfirmed" means AVL GO hasn't verified the date.
 - Drive times are minutes from downtown Asheville (Pack Square) without traffic, rounded to 5; "~" means estimated from the town's center. Places are in North Carolina unless a state is named.
 - "Rising 3rd grade" means entering 3rd grade in the fall after camp; "finished" is the grade just completed. Times are Eastern.
@@ -601,7 +593,7 @@ export const CAMP_EXPORT_FIELDS = {
   hours: "HH:MM, 24-hour, Eastern; note is the camp's own wording.",
   extendedCare: 'Before/after care: dropoffFrom and pickupUntil (HH:MM), cost in the camp’s words.',
   prices:
-    'amount in US dollars, per week | session | day | program | month | other; label says which price it is; summer only when it differs from season.summer.',
+    'amount in whole US dollars (rounded), per week | session | day | program | month | other; label says which price it is; summer only when it differs from season.summer.',
   sites:
     'Where campers are dropped off. driveMinutes: from downtown Asheville (Pack Square) without traffic, rounded to 5. driveFromTown: estimated from the town center, not the site.',
   sessions:
@@ -654,7 +646,7 @@ function campRecord(camp: CampListing) {
       : null,
     prices: card.prices.map((price) =>
       present({
-        amount: price.amount,
+        amount: Math.round(price.amount),
         per: price.unit,
         label: clean(price.label),
         summer: price.year !== card.season.year ? price.year : null,
@@ -682,7 +674,7 @@ function campRecord(camp: CampListing) {
         price:
           session.price &&
           present({
-            amount: session.price.amount,
+            amount: Math.round(session.price.amount),
             per: session.price.unit,
             label: clean(session.price.label),
             summer: session.price.year !== card.season.year ? session.price.year : null,

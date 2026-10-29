@@ -63,7 +63,8 @@ export default function SavedCalendar() {
   const https = calendarFeedUrl(token);
   const webcal = https.replace(/^https?:\/\//, 'webcal://');
   return (
-    <div className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
+    // w-full: a line of its own when it sits in a row of buttons (the directory's saved box)
+    <div className="w-full space-y-2 text-sm text-gray-600 dark:text-gray-400">
       <p>
         Your saved camps’ registration dates, as a calendar you can subscribe to. Saving or unsaving
         a camp updates it.

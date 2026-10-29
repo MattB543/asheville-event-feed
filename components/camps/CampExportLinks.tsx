@@ -7,8 +7,9 @@ import { FileCode, FileText } from 'lucide-react';
 const MARKDOWN_PATH = '/api/camps/export/markdown';
 const JSON_PATH = '/api/camps/export/json';
 
+// The text around them sets their size, weight and color (on /camps, the counts line's)
 const linkClasses =
-  'inline-flex items-center gap-1 rounded font-medium text-gray-700 dark:text-gray-300 underline-offset-2 hover:text-brand-600 hover:underline dark:hover:text-brand-400 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500';
+  'inline-flex items-center gap-1 rounded underline underline-offset-2 hover:text-brand-600 dark:hover:text-brand-400 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500';
 
 /**
  * "Export for your AI: Markdown · JSON": every listed camp as one file (lib/camps/export.ts) a
@@ -18,9 +19,7 @@ const linkClasses =
 export default function CampExportLinks({ className = '' }: { className?: string }) {
   const title = 'Download every camp as one file to give ChatGPT, Claude or another AI';
   return (
-    <p
-      className={`flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-gray-500 dark:text-gray-400 ${className}`}
-    >
+    <p className={`flex flex-wrap items-center gap-x-1 ${className}`}>
       <span>Export for your AI:</span>
       <a href={MARKDOWN_PATH} download title={title} className={linkClasses}>
         <FileText size={13} aria-hidden="true" />

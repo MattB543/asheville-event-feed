@@ -1,0 +1,30 @@
+{
+  "about": "Hand decisions applied by the discovery merge (lib/camps/discovery.ts, DiscoveryOverrides). Each join side, exclude match and rename match is a site key as siteKey() prints it or a provider name; a join by name takes every provider of that name. Reviewed 2026-10-29 from merged.json's possible_duplicates.",
+  "join": [
+    ["worxproject.org", "campgrier.org"],
+    ["Bricks 4 Kidz", "bricks4kidz.us"],
+    ["lakelogan.org", "camphenry.net"],
+    ["Lifeway Christian Resources", "Lifeway"],
+    ["Lifeway", "Lifeway Student Life"],
+    ["Lifeway", "Lifeway — FUGE Camps"],
+    ["cherokeeyouthcenter.com", "ebci.gov"],
+    ["carolinasfca.org", "fcacamps.org"],
+    ["sites.google.com/polkschools.org/advancedlearningaig", "polkschools.org"]
+  ],
+  "exclude": [
+    {
+      "match": "haywood.k12.nc.us",
+      "reason": "Haywood County Schools' summer meals page, not a camp (its schools' own camps are separate providers)"
+    },
+    {
+      "match": "ymcatriangle.org",
+      "reason": "YMCA of the Triangle (Raleigh) Y-Guides: parent-child weekends for its own members at Camp Rockmont, which is listed itself"
+    }
+  ],
+  "rename": [
+    {
+      "match": "Unidentified church at 2221 N Fork Right Fork Road, Black Mountain",
+      "name": "Mountain View Baptist Church of Black Mountain"
+    }
+  ]
+}

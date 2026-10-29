@@ -1,0 +1,79 @@
+{
+  "method": "gap_fill",
+  "id": "r2-church-day-camps--asheville",
+  "input": "Find churches that run weekly summer day camps (not just Vacation Bible School) for kids and teens in Asheville and Buncombe County, NC. Look past the big, well-known camps: search with varied wording and town names and list every organization you find.",
+  "at": "2026-10-29T03:57:34.953Z",
+  "webSearch": true,
+  "calls": 1,
+  "usage": {
+    "inputTokens": 55858,
+    "cachedInputTokens": 5180,
+    "outputTokens": 1411,
+    "reasoningTokens": 612
+  },
+  "searches": [
+    "church \"summer day camp\" Asheville 2026",
+    "church \"summer camp\" \"Candler\"",
+    "church \"summer camp\" \"Asheville\" \"weeks\"",
+    "\"church\" \"summer day camp\" \"Asheville\" -Lutheridge -Cedar -bestchristian",
+    "\"Hominy Baptist\" \"summer camp\" \"2025\"",
+    "Groce church music camp 2025 2026"
+  ],
+  "ms": 56536,
+  "candidates": [
+    {
+      "name": "Arden Seventh-day Adventist Church",
+      "url": "https://ardenadventist.com/flag-camp/",
+      "town": "Arden",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["faith_based", "general"],
+      "note": "FLAG Camp for ages 5–12 operated Monday–Friday, June 15–July 31, 2026."
+    },
+    {
+      "name": "First Baptist Church of Swannanoa",
+      "url": "https://subsplash.com/firstbaptistchurchofswan/lb/ev/%2B5fcx5tc",
+      "town": "Swannanoa",
+      "state": "NC",
+      "kinds": ["day", "half_day"],
+      "categories": ["faith_based", "general"],
+      "note": "Summer Camp Alive offered free, separately registered weekly camps in July 2025 for children completing K4–5th grade, with full- and half-day options."
+    },
+    {
+      "name": "Hominy Baptist Church of Candler",
+      "url": "https://www.hominybaptist.com/child-care",
+      "town": "Candler",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["general", "nature_outdoor"],
+      "note": "School-age summer childcare runs mid-June–mid-August with swimming and field trips; its current page does not specify a summer year."
+    },
+    {
+      "name": "Emmanuel Lutheran Church and School of Asheville",
+      "url": "https://emmanuellutheranschool.org/summer/",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["arts", "sports", "stem", "cooking", "music", "faith_based"],
+      "note": "Summer Rocks offers weekly camps for rising grades 1–6, including arts, athletics, LEGO engineering, cooking and science."
+    },
+    {
+      "name": "Groce United Methodist Church of Asheville",
+      "url": "https://www.groceumc.org/musiccamp",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["music", "arts", "faith_based"],
+      "note": "Music camp for ages 5–12 includes crafts, recreation and lunch; the 2026 session ran July 13–17, 10 a.m.–3 p.m."
+    },
+    {
+      "name": "First Baptist Church of Asheville",
+      "url": "https://fbca.net/firstshine-summer-camp/",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["special_needs", "general"],
+      "note": "FirstShine is a single four-day camp, not recurring weekly care, for teens and young adults with special needs; July 27–30, 2026, 9 a.m.–3 p.m."
+    }
+  ]
+}

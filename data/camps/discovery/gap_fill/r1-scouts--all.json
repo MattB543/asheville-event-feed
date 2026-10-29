@@ -1,0 +1,78 @@
+{
+  "method": "gap_fill",
+  "id": "r1-scouts--all",
+  "input": "Find Boy Scouts / Scouting America and Girl Scouts summer camps and day camps for kids and teens in the Asheville area of Western North Carolina (within about an hour of Asheville). Look past the big, well-known camps: search with varied wording and town names and list every organization you find.",
+  "at": "2026-10-29T03:39:28.754Z",
+  "webSearch": true,
+  "calls": 1,
+  "usage": {
+    "inputTokens": 47495,
+    "cachedInputTokens": 5180,
+    "outputTokens": 1253,
+    "reasoningTokens": 564
+  },
+  "searches": [
+    "Scouting America Daniel Boone council 2026 cub scout day camp",
+    "2026 2025 \"scout\" \"day camp\" \"Marion\" \"Asheville\"",
+    "2026 Camp Grimes Nebo council summer",
+    "\"Girl Scouts\" \"2026\" \"day camp\" \"Hendersonville\"",
+    "site.danielboonecouncil.org \"2026\" \"Day Camp\""
+  ],
+  "ms": 49186,
+  "candidates": [
+    {
+      "name": "Daniel Boone Council, Scouting America",
+      "url": "https://www.danielboonecouncil.org/cubdaycamp",
+      "town": "Canton; Hendersonville",
+      "state": "NC",
+      "kinds": ["day", "evening", "overnight"],
+      "categories": ["nature_outdoor", "general"],
+      "note": "Camp Daniel Boone overnight programs for Scouts; Cub day/twilight camps include Grandad’s Apples in Hendersonville, June 22–26, 2026."
+    },
+    {
+      "name": "Girl Scouts Carolinas Peaks to Piedmont",
+      "url": "https://www.girlscoutsp2p.org/en/members/for-girl-scouts/camp-and-outdoors/summer-camp.html",
+      "town": "Brevard",
+      "state": "NC",
+      "kinds": ["overnight"],
+      "categories": ["nature_outdoor", "general"],
+      "note": "Camp Pisgah offered summer 2026 overnight troop camping; 2027 summer details are due November 19, 2026."
+    },
+    {
+      "name": "Mecklenburg County Council, Scouting America",
+      "url": "https://www.mycampgrimes.org/",
+      "town": "Nebo",
+      "state": "NC",
+      "kinds": ["overnight"],
+      "categories": ["nature_outdoor", "general"],
+      "note": "Camp Grimes has four overnight Scout sessions announced for 2027, plus Webelos Adventure Camp July 11–15."
+    },
+    {
+      "name": "Blue Ridge Council, Scouting America",
+      "url": "https://www.blueridgecouncil.org/camps/camp-old-indian/",
+      "town": "Travelers Rest",
+      "state": "SC",
+      "kinds": ["overnight"],
+      "categories": ["nature_outdoor", "stem", "arts", "sports", "general"],
+      "note": "Camp Old Indian runs overnight Scout summer camp with merit badges, aquatics, climbing and outdoor activities; 2027 guide posted."
+    },
+    {
+      "name": "Girl Scouts of South Carolina—Mountains to Midlands",
+      "url": "https://www.gssc-mm.org/en/get-involved/camps-and-properties/summer-camp/camp-wabak.html",
+      "town": "Marietta",
+      "state": "SC",
+      "kinds": ["overnight"],
+      "categories": ["nature_outdoor", "general"],
+      "note": "Camp WaBak offered girls’ overnight summer camp in 2025 near Jones Gap State Park and the NC border."
+    },
+    {
+      "name": "Sequoyah Council, Scouting America",
+      "url": "https://scoutingevent.com/713-CubDayCamps26",
+      "town": "Greeneville",
+      "state": "TN",
+      "kinds": ["day", "evening"],
+      "categories": ["nature_outdoor", "stem", "arts", "general"],
+      "note": "2026 Cub day/twilight camps for registered Scouts entering grades 1–5; Greeneville activities included crafts, STEM and target sports."
+    }
+  ]
+}

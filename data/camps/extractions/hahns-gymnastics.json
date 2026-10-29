@@ -1,0 +1,343 @@
+{
+  "provider": {
+    "key": "hahns-gymnastics",
+    "name": "Hahn's Gymnastics (summer camps)",
+    "urls": ["https://www.hahnsgymnastics.com/summer-camp"],
+    "area": "Arden / Asheville, NC",
+    "discovered_by": ["pilot"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T03:19:32.397Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "7b36f7638c89ef5aa2304d3ce0a56412f7ad7dd10f8a8a44e88e4888bf38202d",
+  "response": {
+    "searches": [
+      "site:hahnsgymnastics.com summer 2027 2026 camp",
+      "site:hahnsgymnastics.com/hahns-calendar/ \"Summer Camp Week\" \"2026\"",
+      "site:hahnsgymnastics.com/hahns-calendar \"Summer Camp Week 5\"",
+      "site:hahnsgymnastics.com \"Summer Camp Week 2: Wildlife\""
+    ],
+    "usage": {
+      "inputTokens": 35405,
+      "cachedInputTokens": 8223,
+      "outputTokens": 2374,
+      "reasoningTokens": 383
+    },
+    "status": "completed",
+    "ms": 57451,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.hahnsgymnastics.com/summer-camp",
+      "chars": 4741,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.hahnsgymnastics.com/s/Form_SummerCamp_Fillable-67ge.pdf",
+      "chars": 9121,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.hahnsgymnastics.com/spring-break-camps",
+      "chars": 2395,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.hahnsgymnastics.com/day-camps",
+      "chars": 0,
+      "error": "fetch: HTTP 401; chrome-tls: HTTP 401 for https://www.hahnsgymnastics.com/day-camps; browser: HTTP 401"
+    },
+    {
+      "url": "https://www.hahnsgymnastics.com/competition-schedule",
+      "chars": 2127,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.hahnsgymnastics.com/camps_clinics",
+      "chars": 2395,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.hahnsgymnastics.com/",
+      "chars": 5502,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Hahn's Gymnastics",
+    "website_url": "https://www.hahnsgymnastics.com/",
+    "notes": "No summer 2027 dates, prices or registration milestones found. The separate Summer Camp Calendar and Day Camps pages returned no readable content when opened; dated 2026 summer sessions were found in official search results for Hahn’s Calendar. No dated summer skill clinics found.",
+    "excluded": [
+      {
+        "name": "Spring Break Camps",
+        "reason": "Outside summer."
+      },
+      {
+        "name": "Day Camps / School's Out Camps",
+        "reason": "School-holiday and no-school-day offerings; no separate summer offering established."
+      },
+      {
+        "name": "Little Elves Workshop",
+        "reason": "Winter holiday offering, outside summer."
+      },
+      {
+        "name": "Recreational Classes",
+        "reason": "Year-round classes."
+      },
+      {
+        "name": "Extended Exploration of Skills",
+        "reason": "Recurring practice class, not a summer-only program."
+      },
+      {
+        "name": "After School",
+        "reason": "School-year childcare."
+      },
+      {
+        "name": "Team Hahn / Acrobatics",
+        "reason": "Competitive teams and seasons, not summer camps."
+      },
+      {
+        "name": "Parent's Night Out",
+        "reason": "Recurring year-round events rather than a summer-only program."
+      },
+      {
+        "name": "Showcase 1st Routine Clinic (Spring) / Showcase 1st Routine Clinic (Fall)",
+        "reason": "Dated clinics occur outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Camps",
+        "type": "day",
+        "categories": ["sports", "general"],
+        "description": "Campers participate in theme-based games, crafts, gym playtime and parachute activities. Full-day campers usually take pool and themed field trips twice per week.",
+        "camp_page_url": "https://www.hahnsgymnastics.com/summer-camp",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-08",
+          "end": "2026-08-21",
+          "text": null
+        },
+        "ages": {
+          "min": 3,
+          "max": 12
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Hahn's Gymnastics",
+            "address": "18 Legend Dr",
+            "town": "Arden",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "08:00",
+          "end": "17:30",
+          "text": "Full day: 8:00 AM–5:30 PM. Half-day options: 8:00 AM–12:30 PM or 1:00 PM–5:30 PM."
+        },
+        "extended_care": {
+          "early_dropoff_start": "07:30",
+          "late_pickup_end": "18:00",
+          "cost_text": "Mornings: $5.00 per day; evenings: $5.00 per day."
+        },
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Week 1: Survivor",
+            "start": "2026-06-08",
+            "end": "2026-06-16",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "17:00"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 2: Wildlife Wanderers",
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "17:00"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 3: Splish, Splash, Water Bash",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "17:00"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 4: Party In The USA",
+            "start": "2026-06-29",
+            "end": "2026-07-03",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "17:00"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 5: Lights, Camera, Action",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "17:00"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 6: Shipwrecked!",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "17:00"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 7: Ooey Gooey Science",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "17:00"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 8: Wizarding World",
+            "start": "2026-07-27",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "17:00"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 9: Retro Rewind",
+            "start": "2026-08-03",
+            "end": "2026-08-07",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "17:00"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 10: Disney Dreamers",
+            "start": "2026-08-10",
+            "end": "2026-08-14",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "17:00"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 11: Hawaiian Hullabaloo",
+            "start": "2026-08-17",
+            "end": "2026-08-21",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "17:00"
+            },
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.hahnsgymnastics.com/summer-camp",
+          "https://static1.squarespace.com/static/5db26ea462933b631ac69467/t/6a0c532691192878c48d11a9/1779192615116/Form_SummerCamp_Fillable.pdf",
+          "https://www.hahnsgymnastics.com/hahns-calendar/summer-camp-week-1-survivor",
+          "https://www.hahnsgymnastics.com/hahns-calendar/summer-camp-week-2-wildlife-wanderers",
+          "https://www.hahnsgymnastics.com/hahns-calendar/summer-camp-week-2-splish-splash-waterbash",
+          "https://www.hahnsgymnastics.com/hahns-calendar/summer-camp-week-4-party-in-the-usa",
+          "https://www.hahnsgymnastics.com/hahns-calendar/summer-camp-week-5-lights-camera-action",
+          "https://www.hahnsgymnastics.com/hahns-calendar/summer-camp-week-6-shipwrecked",
+          "https://www.hahnsgymnastics.com/hahns-calendar/summer-camp-week-7-ooey-gooey-science",
+          "https://www.hahnsgymnastics.com/hahns-calendar/summer-camp-week-8-wizarding-world",
+          "https://www.hahnsgymnastics.com/hahns-calendar/summer-camp-week-9-retro-rewind",
+          "https://www.hahnsgymnastics.com/hahns-calendar/summer-camp-week-10-disney-dreamers",
+          "https://www.hahnsgymnastics.com/hahns-calendar/summer-camp-week-11-hawaiian-hullabaloo"
+        ],
+        "confidence": "medium",
+        "review_notes": "2026 session dates were read through official search results. Week 1 explicitly ends June 16, overlapping Week 2; verify this apparent calendar error rather than assuming June 12. Main camp page states ten weeks and full-day hours 8:00 AM–5:30 PM, but calendar lists eleven weeks with 9:00 AM–5:00 PM timestamps. General ages and care information are undated. Calendar venue text says 18 Legend Drive Lane; used 18 Legend Dr from the provider's footer and enrollment form. The $50 weekly deposit is applied to tuition, not a total tuition price. Transportation wording addresses field trips only, not home-to-camp transportation."
+      }
+    ]
+  }
+}

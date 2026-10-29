@@ -1,0 +1,550 @@
+{
+  "provider": {
+    "key": "asheville-museum-of-science",
+    "name": "Asheville Museum of Science (summer science camps)",
+    "urls": ["https://ashevillescience.org/event/summer-science-camps/"],
+    "area": null,
+    "discovered_by": ["pilot"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T03:18:41.711Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "26350029bdf3fa1f3ea2fa1f03cdef842b6083face14a5c8078316012a1fd41a",
+  "response": {
+    "searches": [
+      "site:ashevillescience.org camps 2027",
+      "open https://ashevillescience.org/wp-content/uploads/AMOS-Summer-Camp-Guide-26.pdf",
+      "site:ashevillescience.org \"2026\" \"camps\" \"$\"",
+      "site:ashevillescience.org/wp-content/uploads/AMOS-Summer-Camp-Guide-26.pdf \"drop\""
+    ],
+    "usage": {
+      "inputTokens": 28395,
+      "cachedInputTokens": 8223,
+      "outputTokens": 3617,
+      "reasoningTokens": 335
+    },
+    "status": "completed",
+    "ms": 77517,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://ashevillescience.org/event/summer-science-camps/",
+      "chars": 5191,
+      "method": "fetch"
+    },
+    {
+      "url": "webcal://ashevillescience.org/event/summer-science-camps/?ical=1",
+      "chars": 0,
+      "error": "fetch: fetch failed (unknown scheme); chrome-tls: fetch failed (unknown scheme); browser: page.goto: net::ERR_ABORTED at webcal://ashevillescience.org/event/summer-science-camps/?ical=1\nCall log:\n\u001b[2m  - navigating to \"webcal://ashevillescience.org/event/summer-science-camps/?ical=1\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "url": "https://ashevillescience.org/events/category/camp/",
+      "chars": 4651,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ashevillescience.org/",
+      "chars": 6605,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Asheville Museum of Science",
+    "website_url": "https://ashevillescience.org/",
+    "notes": "No summer 2027 information found. The 2026 PDF was available through indexed search text but did not render when opened. The PDF and event page conflict on some dates; see review_notes.",
+    "excluded": [
+      {
+        "name": "School’s Out Camp: The Facts of Fantasy",
+        "reason": "October school-closure camp, outside summer."
+      },
+      {
+        "name": "School's Out Camp: Critter Camp",
+        "reason": "November school-closure camp, outside summer."
+      },
+      {
+        "name": "STEAM Winter Break Camp",
+        "reason": "Winter-break program, outside summer."
+      },
+      {
+        "name": "Winter Day Camps",
+        "reason": "Winter-break program, outside summer."
+      },
+      {
+        "name": "Winter Science Camp",
+        "reason": "Winter-break program, outside summer."
+      },
+      {
+        "name": "Afterschool Clubs",
+        "reason": "School-year enrichment, not a summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Science Camps",
+        "type": "day",
+        "categories": ["stem", "arts", "nature_outdoor"],
+        "description": "Campers explore science through hands-on experiments and activities. Weekly themes cover fossils, tinkering, space, nature, chemistry, physics, and connections between science and art.",
+        "camp_page_url": "https://ashevillescience.org/event/summer-science-camps/",
+        "registration_url": "https://ashevillescience.org/event/summer-science-camps/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-15",
+          "end": "2026-08-07",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 0,
+          "max": 5,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Asheville Museum of Science",
+            "address": "43 Patton Ave",
+            "town": "Asheville",
+            "state": "NC"
+          },
+          {
+            "name": "Central United Methodist Church",
+            "address": "27 Church St",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "08:45",
+          "end": "15:30",
+          "text": null
+        },
+        "extended_care": {
+          "early_dropoff_start": null,
+          "late_pickup_end": "17:00",
+          "cost_text": "Full week: $60; single day: $15"
+        },
+        "prices": [
+          {
+            "amount": 375,
+            "unit": "week",
+            "label": "Full week",
+            "year": 2026
+          },
+          {
+            "amount": 85,
+            "unit": "day",
+            "label": "Single day",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Week 1: Paleontology and Archaeology — Rising K-1st",
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 0,
+              "max": 1,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 1: Paleontology and Archaeology — Rising 2nd-3rd",
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 2,
+              "max": 3,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 1: Paleontology and Archaeology — Rising 4th-5th",
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 4,
+              "max": 5,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 2: Tinkering Workshop — Rising K-1st",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 0,
+              "max": 1,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 2: Tinkering Workshop — Rising 2nd-3rd",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 2,
+              "max": 3,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 2: Tinkering Workshop — Rising 4th-4th",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 4,
+              "max": 4,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 3: Space Explorers — Rising K-1st",
+            "start": "2026-06-29",
+            "end": "2026-07-03",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 0,
+              "max": 1,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 3: Space Explorers — Rising 2nd-3rd",
+            "start": "2026-06-29",
+            "end": "2026-07-03",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 2,
+              "max": 3,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 3: Space Explorers — Rising 4th-5th",
+            "start": "2026-06-29",
+            "end": "2026-07-03",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 4,
+              "max": 5,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 4: The Natural World — Rising K-1st",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 0,
+              "max": 1,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 4: The Natural World — Rising 2nd-3rd",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 2,
+              "max": 3,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 4: The Natural World — Rising 4th-5th",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 4,
+              "max": 5,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 5: The Art of Science — Rising K-1st",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 0,
+              "max": 1,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 5: The Art of Science — Rising 2nd-3rd",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 2,
+              "max": 3,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 5: The Art of Science — Rising 4th-5th",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 4,
+              "max": 5,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 6: Chemistry — Rising K-1st",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 0,
+              "max": 1,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 6: Chemistry — Rising 2nd-3rd",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 2,
+              "max": 3,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 6: Chemistry — Rising 4th-5th",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 4,
+              "max": 5,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 7: Forces and Energy — Rising K-1st",
+            "start": "2026-07-27",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 0,
+              "max": 1,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 7: Forces and Energy — Rising 2nd-3rd",
+            "start": "2026-07-27",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 2,
+              "max": 3,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 7: Forces and Energy — Rising 4th-5th",
+            "start": "2026-07-27",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 4,
+              "max": 5,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 8: The Art of Science II — Rising K-1st",
+            "start": "2026-08-03",
+            "end": "2026-08-07",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 0,
+              "max": 1,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 8: The Art of Science II — Rising 2nd-3rd",
+            "start": "2026-08-03",
+            "end": "2026-08-07",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 2,
+              "max": 3,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 8: The Art of Science II — Rising 4th-5th",
+            "start": "2026-08-03",
+            "end": "2026-08-07",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 4,
+              "max": 5,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-01-12",
+          "time": null,
+          "text": "Registration for week-long packages begins January 12 and will be open through August 2.",
+          "url": "https://ashevillescience.org/event/summer-science-camps/"
+        },
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://ashevillescience.org/event/summer-science-camps/",
+          "https://ashevillescience.org/wp-content/uploads/AMOS-Summer-Camp-Guide-26.pdf",
+          "https://centralumc.org/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The PDF details list June 16-20 and June 23-27 for the first two themes, conflicting with its overview and event page (June 15-19 and June 22-26); rows follow the event page. Single-day registration opens April 13 on the event page but May 18 in the PDF. Week 2's oldest registration link says rising 4th-4th; retained literally pending confirmation against the general 4th-5th band. The PDF lists both camp locations, but the readable sources do not assign grade bands or sessions to locations, so row sites remain null. PDF prices and aftercare were read through search-indexed text."
+      }
+    ]
+  }
+}

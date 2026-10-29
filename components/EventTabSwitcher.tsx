@@ -1,11 +1,11 @@
 'use client';
 
-import { Suspense, useId, useRef, useState } from 'react';
-import { CalendarDays, ChevronDown, Heart, Trophy, Users, type LucideIcon } from 'lucide-react';
+import { Suspense } from 'react';
+import { CalendarDays, Heart, Music, Tent, Trophy, Users } from 'lucide-react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import IntentLink from '@/components/IntentLink';
-import { useDismiss } from '@/lib/hooks/useDismiss';
+import HeaderMenu, { type HeaderMenuItem } from '@/components/HeaderMenu';
 import { useSeasonalMenuItem } from '@/components/seasonal/SeasonalLinks';
 
 export type HeaderTab =
@@ -16,6 +16,7 @@ export type HeaderTab =
   | 'plan'
   | 'news'
   | 'playlist'
+  | 'camps'
   | 'parking';
 
 interface EventTabSwitcherProps {
@@ -75,7 +76,7 @@ function Tabs({ activeTab, query }: EventTabSwitcherProps & { query: string }) {
         top30Href={buildTabUrl('top30')}
       />
       {/* Plain /plan: the feed's filter params mean nothing on the letter.
-          /events, /plan, /news and /playlist are dynamic, so they prefetch on hover, not on sight */}
+          /events, /plan and /news are dynamic, so they prefetch on hover, not on sight */}
       <IntentLink href="/plan" className={tabClass(activeTab === 'plan')}>
         Disaster Plan
       </IntentLink>
@@ -83,9 +84,17 @@ function Tabs({ activeTab, query }: EventTabSwitcherProps & { query: string }) {
       <IntentLink href="/news" className={tabClass(activeTab === 'news')}>
         News
       </IntentLink>
-      <IntentLink href="/playlist" className={tabClass(activeTab === 'playlist')}>
-        Playlist
-      </IntentLink>
+      {/* No page of its own, so the label only opens the menu. Right-aligned: near the end
+          of the row, a left-aligned menu would run off a 360px phone */}
+      <HeaderMenu
+        label="More"
+        className={tabClass(activeTab === 'playlist' || activeTab === 'camps')}
+        align="right"
+        items={[
+          { href: '/playlist', label: 'Playlist', icon: Music, active: activeTab === 'playlist' },
+          { href: '/camps', label: 'Summer camps', icon: Tent, active: activeTab === 'camps' },
+        ]}
+      />
       <Link href="/parking" className={tabClass(activeTab === 'parking')}>
         Parking
       </Link>
@@ -105,14 +114,7 @@ function tabClass(active: boolean, activeTone = 'brand'): string {
     : `${TAB_BASE} text-brand-600 dark:text-brand-400 bg-brand-50 dark:bg-brand-950/30`;
 }
 
-/** Desktop hover (or keyboard focus) opens the menu; the trigger itself still links to /events. */
-const HOVER_QUERY = '(pointer: fine) and (min-width: 1024px)';
-
-/**
- * "Events" with All events / Top events / Your feed / Groups underneath. At lg+ with a mouse
- * the menu opens on hover and the label is a plain link to the feed; on touch the
- * label toggles the menu, since there is no hover to reveal the other two.
- */
+/** "Events" with All events / Top events / Your feed / Groups underneath; the label links to the feed */
 function EventsMenu({
   activeTab,
   allHref,
@@ -122,19 +124,13 @@ function EventsMenu({
   allHref: string;
   top30Href: string;
 }) {
-  const menuId = useId();
-  const rootRef = useRef<HTMLDivElement>(null);
-  const [isOpen, setIsOpen] = useState(false);
-
-  useDismiss(isOpen, () => setIsOpen(false), [rootRef]);
-
   // Groups lives only in this menu, so the directory lights up Events too
   const isEvents =
     activeTab === 'all' ||
     activeTab === 'top30' ||
     activeTab === 'yourList' ||
     activeTab === 'groups';
-  const items: { href: string; label: string; icon: LucideIcon; active: boolean }[] = [
+  const items: HeaderMenuItem[] = [
     { href: allHref, label: 'All events', icon: CalendarDays, active: activeTab === 'all' },
     { href: top30Href, label: 'Top events', icon: Trophy, active: activeTab === 'top30' },
     // Plain: the feed's filter params don't apply to a list of favorites
@@ -151,54 +147,11 @@ function EventsMenu({
   if (seasonal) items.push({ ...seasonal, active: false });
 
   return (
-    <div ref={rootRef} className="group/events relative">
-      <IntentLink
-        href={allHref}
-        aria-haspopup="true"
-        aria-expanded={isOpen}
-        aria-controls={menuId}
-        onClick={(event) => {
-          if (window.matchMedia(HOVER_QUERY).matches) return;
-          event.preventDefault();
-          setIsOpen((open) => !open);
-        }}
-        className={`${tabClass(isEvents, activeTab === 'all' ? 'gray' : 'brand')} gap-1`}
-      >
-        Events
-        <ChevronDown
-          size={14}
-          aria-hidden="true"
-          className={`text-gray-400 transition-transform ${isOpen ? 'rotate-180' : ''}`}
-        />
-      </IntentLink>
-      {/* pt-1 bridges the gap so the pointer can travel from the tab into the menu. Its links
-          keep viewport prefetch: they're display:none until the menu is opened */}
-      <div
-        id={menuId}
-        className={`absolute left-0 top-full z-50 pt-1 ${
-          isOpen ? 'block' : 'hidden'
-        } lg:group-hover/events:block pointer-fine:lg:group-focus-within/events:block`}
-      >
-        <ul className="min-w-36 rounded-lg border border-gray-200 bg-white py-1 shadow-lg dark:border-gray-700 dark:bg-gray-900">
-          {items.map((item) => (
-            <li key={item.label}>
-              <Link
-                href={item.href}
-                onClick={() => setIsOpen(false)}
-                aria-current={item.active ? 'page' : undefined}
-                className={`flex min-h-10 items-center gap-2 px-3 text-sm lg:min-h-9 hover:bg-gray-100 dark:hover:bg-gray-800 ${
-                  item.active
-                    ? 'font-semibold text-gray-900 dark:text-white'
-                    : 'text-gray-700 dark:text-gray-300'
-                }`}
-              >
-                <item.icon size={15} aria-hidden="true" className="shrink-0 text-gray-400" />
-                {item.label}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </div>
+    <HeaderMenu
+      label="Events"
+      href={allHref}
+      className={tabClass(isEvents, activeTab === 'all' ? 'gray' : 'brand')}
+      items={items}
+    />
   );
 }

@@ -1,0 +1,79 @@
+{
+  "method": "grid",
+  "id": "tennessee--summer-program",
+  "input": "Search the web for kids' \"summer program\" offerings (programs that don't call themselves camps) for kids and teens in northeast Tennessee near the NC line (Johnson City, Erwin, Greeneville, Newport). Use that wording in your searches, not just \"camp\", and list every organization you find.",
+  "at": "2026-10-29T03:45:47.240Z",
+  "webSearch": true,
+  "calls": 1,
+  "usage": {
+    "inputTokens": 55883,
+    "cachedInputTokens": 5164,
+    "outputTokens": 1218,
+    "reasoningTokens": 657
+  },
+  "searches": [
+    "\"Johnson City\" \"summer program\" kids 2026",
+    "\"Erwin\" \"summer program\" \"2025\" Tennessee",
+    "\"\" \"Erwin\" \"summer programs\" Tennessee children",
+    "Erwin Tennessee youth \"summer program\" YMCA",
+    "\"Erwin\" \"summer program\" -site:care.com -site:archive.org -site:acrhs.buncombeschools.org -site:pathwaysforyou.org",
+    "site:ggcbgc.org \"Summer\" \"2026\""
+  ],
+  "ms": 64165,
+  "candidates": [
+    {
+      "name": "Coalition for Kids",
+      "url": "https://www.coalitionforkids.org/summer-programs/",
+      "town": "Johnson City",
+      "state": "TN",
+      "kinds": ["day"],
+      "categories": ["academic", "general", "faith_based"],
+      "note": "Free Summer Bridge program with classroom enrichment and local field trips; 2026 registration confirmed."
+    },
+    {
+      "name": "East Tennessee State University",
+      "url": "https://www.etsu.edu/coe/summer-camp/applied-stem/",
+      "town": "Johnson City",
+      "state": "TN",
+      "kinds": ["day", "pre_college"],
+      "categories": ["stem", "academic"],
+      "note": "Applied STEM Institute offers three weeks of hands-on learning for grades 8–12; May 31–June 18, 2027 announced."
+    },
+    {
+      "name": "Boys & Girls Club of Johnson City / Washington County",
+      "url": "https://www.gokidz.org/our-programs",
+      "town": "Johnson City",
+      "state": "TN",
+      "kinds": ["day"],
+      "categories": ["general", "arts", "stem", "academic", "sports"],
+      "note": "Supervised summer programming for youth; summer 2025 registration verified."
+    },
+    {
+      "name": "Johnson City Public Library",
+      "url": "https://www.jcpl.org/summer-reading/",
+      "town": "Johnson City",
+      "state": "TN",
+      "kinds": ["day"],
+      "categories": ["academic", "general"],
+      "note": "2026 summer reading events for children and teens, including a registered college-exploration day for ages 12–18."
+    },
+    {
+      "name": "Boys & Girls Club of Greeneville & Greene County",
+      "url": "https://www.ggcbgc.org/",
+      "town": "Greeneville",
+      "state": "TN",
+      "kinds": ["day"],
+      "categories": ["general", "academic", "arts"],
+      "note": "Summer youth programming for school-age children and teens; operation documented in 2026."
+    },
+    {
+      "name": "Newport City School System",
+      "url": "https://www.newportcityschools.org/afterschoolprograms",
+      "town": "Newport",
+      "state": "TN",
+      "kinds": ["day"],
+      "categories": ["academic"],
+      "note": "Official school-system page lists summer programs for 2026 at Newport Grammar School; details available from the school office."
+    }
+  ]
+}

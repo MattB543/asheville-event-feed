@@ -1,0 +1,89 @@
+{
+  "method": "aggregator",
+  "id": "haywood-guides",
+  "input": "Use Haywood County summer camp guides (The Mountaineer, Smoky Mountain News) to find organizations running summer camps and summer programs for kids and teens. For each organization listed, give the organization's own official URL (search for it), never the listing page.",
+  "at": "2026-10-29T03:25:11.815Z",
+  "webSearch": true,
+  "calls": 1,
+  "usage": {
+    "inputTokens": 58941,
+    "cachedInputTokens": 5180,
+    "outputTokens": 1268,
+    "reasoningTokens": 597
+  },
+  "searches": [
+    "site.themountaineer.com summer camps 2026 Haywood guide",
+    "site.themountaineer.com \"summer\" \"camps\" \"2025\"",
+    "\"Haywood\" \"summer camps\" \"Mountaineer\"",
+    "\"Waynesville Art School\" \"2026\" camp",
+    "site.lakelogan.org \"2026\" \"Camp Henry\"",
+    "\"Outdoor Mission Camp\" summer 2025",
+    "\"Outdoor Mission Camp\" \"2025\" Maggie Valley"
+  ],
+  "ms": 50696,
+  "candidates": [
+    {
+      "name": "Smoky Mountain Sk8way & Fun Zone",
+      "url": "https://smokymountainsk8way.com/2026-summer-camp/",
+      "town": "Waynesville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["general", "sports", "arts", "stem", "cooking"],
+      "note": "Summer 2027 day camp preview for ages 6–12; skating, creative activities and field trips."
+    },
+    {
+      "name": "Waynesville Art School",
+      "url": "https://www.waynesvilleartschool.com/2027-summer-art-camps",
+      "town": "Waynesville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["arts"],
+      "note": "Summer 2027 art camps for kids and teens, with painting, crafts and creative projects."
+    },
+    {
+      "name": "Pigeon Community Multicultural Development Center",
+      "url": "https://www.pcmdc.org/programs/summer-enrichment-program",
+      "town": "Waynesville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["academic", "arts", "music", "stem", "general"],
+      "note": "Nine-week 2025 summer enrichment program for K–12 students, including academics, arts and field trips."
+    },
+    {
+      "name": "Town of Waynesville Parks & Recreation",
+      "url": "https://www.waynesvillenc.gov/departments/parks-recreation/camps-youth",
+      "town": "Waynesville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["general", "nature_outdoor", "arts"],
+      "note": "Summer Basecamp for rising pre-K–8th graders; weekdays 8 a.m.–6 p.m., with outdoor activities and crafts."
+    },
+    {
+      "name": "SOAR",
+      "url": "https://soarnc.org/adhd-camp/",
+      "town": "Balsam",
+      "state": "NC",
+      "kinds": ["overnight"],
+      "categories": ["special_needs", "nature_outdoor"],
+      "note": "Outdoor adventure summer camps for youth with ADHD and learning differences, based in Balsam."
+    },
+    {
+      "name": "Camp Daniel Boone",
+      "url": "https://www.campdanielboone.org/",
+      "town": "Canton",
+      "state": "NC",
+      "kinds": ["overnight"],
+      "categories": ["nature_outdoor", "general"],
+      "note": "2027 Scout summer camp registration announced; base camp, outdoor adventure treks and historical skills programs."
+    },
+    {
+      "name": "Episcopal Diocese of Western North Carolina — Camp Henry",
+      "url": "https://www.camphenry.net/",
+      "town": "Canton",
+      "state": "NC",
+      "kinds": ["overnight"],
+      "categories": ["faith_based", "nature_outdoor", "general"],
+      "note": "2026 youth overnight sessions at Lake Logan, including mini camp and grade-based traditional camps."
+    }
+  ]
+}

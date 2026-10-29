@@ -1,0 +1,81 @@
+{
+  "method": "aggregator",
+  "id": "vbs-roundups",
+  "input": "Use news or community roundups listing Vacation Bible Schools in Asheville and Western North Carolina (2024-2026) to find organizations running summer camps and summer programs for kids and teens. For each organization listed, give the organization's own official URL (search for it), never the listing page.",
+  "at": "2026-10-29T03:27:28.309Z",
+  "webSearch": true,
+  "calls": 1,
+  "usage": {
+    "inputTokens": 68540,
+    "cachedInputTokens": 5180,
+    "outputTokens": 1417,
+    "reasoningTokens": 817
+  },
+  "searches": [
+    "2025 vacation bible school Asheville roundup churches",
+    "\"2025\" \"VBS\" \"macaronikid\" \"Asheville\"",
+    "\"vacation bible schools\" \"2025\" \"Hendersonville\"",
+    "vacation bible school roundup Asheville churches 2024 2025",
+    "\"VBS\" \"2025\" \"Asheville\" churches",
+    "WNC vacation bible schools 2025 churches list",
+    "Newbridge Baptist Asheville vacation bible school 2026 official",
+    "\"281 New Leicester\" church"
+  ],
+  "ms": 71045,
+  "candidates": [
+    {
+      "name": "Starnes Cove Baptist Church of Asheville",
+      "url": "https://www.starnescovebaptist.org/events-1/vacation-bible-school-2026-2026-06-22-08-30",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["vbs", "half_day"],
+      "categories": ["faith_based"],
+      "note": "Morning VBS ran June 22–26, 2026, with Bible lessons, music, crafts and games."
+    },
+    {
+      "name": "Flat Creek Baptist Church of Weaverville",
+      "url": "https://www.fcbcweaverville.org/events/vbs/",
+      "town": "Weaverville",
+      "state": "NC",
+      "kinds": ["vbs", "evening"],
+      "categories": ["faith_based"],
+      "note": "Evening VBS ran June 14–19, 2026, with meals and children's activities."
+    },
+    {
+      "name": "Newbridge Baptist Church of Asheville",
+      "url": "https://newbridgebaptist.org/",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["vbs", "evening"],
+      "categories": ["faith_based"],
+      "note": "Evening VBS ran July 19–22, 2026, from 6–8:30 p.m."
+    },
+    {
+      "name": "Central United Methodist Church of Asheville",
+      "url": "https://centralumc.org/",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["vbs", "half_day"],
+      "categories": ["faith_based"],
+      "note": "Morning VBS ran July 14–18, 2025, with the theme Egypt: Joseph's Journey."
+    },
+    {
+      "name": "Hendersonville Church of Christ",
+      "url": "https://hvlcoc.org/children/",
+      "town": "Hendersonville",
+      "state": "NC",
+      "kinds": ["vbs", "half_day"],
+      "categories": ["faith_based"],
+      "note": "Morning VBS ran June 10–12, 2026, from 9:30–11:30 a.m., followed by lunch."
+    },
+    {
+      "name": "Covenant Presbyterian Church of Hendersonville",
+      "url": "https://www.covpca.org/",
+      "town": "Hendersonville",
+      "state": "NC",
+      "kinds": ["vbs"],
+      "categories": ["faith_based"],
+      "note": "Hosted VBS in summer 2026; the church website includes two recap videos."
+    }
+  ]
+}

@@ -1,0 +1,396 @@
+{
+  "provider": {
+    "key": "paca",
+    "name": "Performing Arts Center of Asheville (formerly Asheville Junior Theater) summer camps",
+    "urls": ["https://ashevillejuniortheater.com/summer-camps/"],
+    "area": "Arden, NC",
+    "discovered_by": ["pilot"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T03:19:19.892Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "6d424aa0427ea7dece69c0c6331ea8dc6b1144f6f933cf872aaa8cdf52c973bc",
+  "response": {
+    "searches": [
+      "site:thepaca.com camps 2027",
+      "site:thepaca.com \"address\"",
+      "site:thepaca.com/contact \"Arden\"",
+      "\"Performing Arts Company of Asheville\" address"
+    ],
+    "usage": {
+      "inputTokens": 35978,
+      "cachedInputTokens": 8223,
+      "outputTokens": 2975,
+      "reasoningTokens": 373
+    },
+    "status": "completed",
+    "ms": 66116,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://ashevillejuniortheater.com/summer-camps/",
+      "chars": 6211,
+      "method": "browser"
+    },
+    {
+      "url": "https://app.jackrabbitclass.com/regv2.asp?id=552202",
+      "chars": 20809,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.thepaca.com/class-schedule",
+      "chars": 30000,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.thepaca.com/camps",
+      "chars": 7647,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ashevillejuniortheater.com/",
+      "chars": 6663,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "The Performing Arts Company of Asheville (formerly Asheville Junior Theater)",
+    "website_url": "https://www.thepaca.com/",
+    "notes": "No summer 2027 information or registration milestones found. The old summer-camps URL is missing; the current listing is /camps. Individual camp pages and the contact page returned empty content when opened, but official search snippets supplied ages and some descriptions. Dates without years are treated as 2026 using the Dance Camp Intensive's explicit 2026 heading as context; verify before publishing. A Bradley Branch studio address was found on third-party listings, but an official published address and camp drop-off location could not be verified, so sites are empty.",
+    "excluded": [
+      {
+        "name": "Winter Break Camps",
+        "reason": "Outside summer."
+      },
+      {
+        "name": "School of the Arts classes",
+        "reason": "School-year classes running September 2026 through May 2027, not finite summer camps."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Camps",
+        "type": "day",
+        "categories": ["theater", "music", "dance", "arts"],
+        "description": "Campers explore acting, singing, dancing, and backstage technical activities through themed weeks. Activities vary by theme and include improvisation, character work, and circus skills.",
+        "camp_page_url": "https://www.thepaca.com/camps",
+        "registration_url": "https://app.jackrabbitclass.com/regv2.asp?id=552202",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-22",
+          "end": "2026-08-14",
+          "text": null
+        },
+        "ages": {
+          "min": 4,
+          "max": 18
+        },
+        "grades": null,
+        "sites": [],
+        "hours": {
+          "start": "09:00",
+          "end": "16:00",
+          "text": "Full-day camp 9:00-4:00pm; half-day camp 9:00-12:00pm."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 355,
+            "unit": "session",
+            "label": "Full day, before April 1",
+            "year": 2026
+          },
+          {
+            "amount": 375,
+            "unit": "session",
+            "label": "Full day, from April 1",
+            "year": 2026
+          },
+          {
+            "amount": 195,
+            "unit": "session",
+            "label": "Half day, before April 1",
+            "year": 2026
+          },
+          {
+            "amount": 215,
+            "unit": "session",
+            "label": "Half day, from April 1",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Witches of Oz: For Good",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 8,
+              "max": 16
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Improv Comedy",
+            "start": "2026-06-29",
+            "end": "2026-07-03",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 8,
+              "max": 16
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Harry Potter Wizarding Tech",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 8,
+              "max": 16
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "The Greatest Show! Circus Meets Stage — ages 4–7",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 4,
+              "max": 7
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "The Greatest Show! Circus Meets Stage — ages 8–16",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 8,
+              "max": 16
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Royal Knights & Fairy Lights",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 4,
+              "max": 7
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Stay Gold: Inspired by The Outsiders",
+            "start": "2026-07-27",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 10,
+              "max": 18
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "KPop Demon Hunters — ages 4–7",
+            "start": "2026-08-03",
+            "end": "2026-08-07",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 4,
+              "max": 7
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "KPop Demon Hunters — ages 8–16",
+            "start": "2026-08-03",
+            "end": "2026-08-07",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 8,
+              "max": 16
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "The Greatest Show! Circus Meets Stage — ages 4–7",
+            "start": "2026-08-10",
+            "end": "2026-08-14",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 4,
+              "max": 7
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "The Greatest Show! Circus Meets Stage — ages 8–16",
+            "start": "2026-08-10",
+            "end": "2026-08-14",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 8,
+              "max": 16
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Need a discount on your registration? You can receive 10% off by applying through our scholarship program."
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "no",
+          "text": "bring: a water bottle, a lunch if doing a full-day camp, and a small snack."
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.thepaca.com/camps",
+          "https://www.thepaca.com/camps/witches-of-oz",
+          "https://www.thepaca.com/camps/improv-comedy",
+          "https://www.thepaca.com/camps/harry-potter-wizarding-tech",
+          "https://www.thepaca.com/camps/the-greatest-show",
+          "https://www.thepaca.com/camps/royal-knights-fairy-lights",
+          "https://www.thepaca.com/camps/stay-gold-inspired-by-the-outsiders",
+          "https://www.thepaca.com/camps/kpop-demon-hunters"
+        ],
+        "confidence": "medium",
+        "review_notes": "Dates and April 1 price changes have no printed year in the supplied listing; 2026 is inferred from the linked Dance Camp Intensive heading. Ages came from official search snippets because detail pages opened empty. Verify drop-off address and which age bands offer half-day attendance. General warnings that camps will fill are not current availability statements."
+      },
+      {
+        "name": "Triple Threat: Advanced Performance Intensive",
+        "type": "day",
+        "categories": ["theater", "music", "dance"],
+        "description": "Performers train in improvisation, acting and character development, choreography, and vocal performance with industry professionals.",
+        "camp_page_url": "https://www.thepaca.com/camps/triple-threat-advanced-performance-intensive",
+        "registration_url": "https://app.jackrabbitclass.com/regv2.asp?id=552202",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-20",
+          "end": "2026-07-24",
+          "text": null
+        },
+        "ages": {
+          "min": 13,
+          "max": null
+        },
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.thepaca.com/camps",
+          "https://www.thepaca.com/camps/triple-threat-advanced-performance-intensive"
+        ],
+        "confidence": "medium",
+        "review_notes": "Official search snippet states ages 13-adult, so no upper age is supplied. Detail page opened empty. Dates are assigned to 2026 from the linked Dance Camp Intensive's explicit year, not a year printed beside this intensive. Verify hours, price, drop-off address, and whether general camp policies apply to this intensive."
+      },
+      {
+        "name": "Dance Camp Intensive",
+        "type": "day",
+        "categories": ["dance"],
+        "description": "Dancers work on technique and explore different dance styles during a week-long intensive with industry professionals.",
+        "camp_page_url": "https://www.thepaca.com/camps/dance-camp-intensive",
+        "registration_url": "https://app.jackrabbitclass.com/regv2.asp?id=552202",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-08-03",
+          "end": "2026-08-07",
+          "text": null
+        },
+        "ages": {
+          "min": 8,
+          "max": 18
+        },
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.thepaca.com/camps",
+          "https://www.thepaca.com/camps/dance-camp-intensive"
+        ],
+        "confidence": "medium",
+        "review_notes": "Official search snippet explicitly identifies Summer Dance Intensive 2026 and ages 8–18; dates appear in the listing and page title. Detail page opened empty. Verify hours, price, drop-off address, and whether general camp policies apply to this intensive."
+      }
+    ]
+  }
+}

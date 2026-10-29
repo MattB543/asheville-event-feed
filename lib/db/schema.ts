@@ -13,8 +13,10 @@ import {
   check,
   customType,
   primaryKey,
+  doublePrecision,
 } from 'drizzle-orm/pg-core';
 import { sql } from 'drizzle-orm';
+import type { CampCard } from '../camps/contract';
 
 export const events = pgTable(
   'events',
@@ -850,166 +852,96 @@ export const genreNotes = pgTable('genre_notes', {
   createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
 });
 
-// Summer camps (/camps): the revised model in docs/camps/01-context-and-plan.md §5 (drizzle/0025).
-// A camp is a stable offering; everything that can change from summer to summer lives on its
-// season row, and registration milestones and availability are kept apart because "2027 dates are
-// posted", "public registration opens Jan 10 at 9 a.m." and "some weeks are full" are different facts.
+// Summer camps (/camps): docs/camps/04-v2-plan.md §4 (drizzle/0025). One card per program, as Sol
+// extracted it (`card`), plus Matt's fixes (`override`); the columns beside them are copied from the
+// effective card ({...card, ...override}) so the pages can filter in SQL. Written by
+// scripts/camps/import.ts and the /admin/camps actions in lib/db/queries/camps.ts.
+
+// One row per provider from discovery (data/camps/providers.json).
+export const campProviders = pgTable('camp_providers', {
+  key: text('key').primaryKey(), // Provider.key: a stable slug, never changed once assigned
+  name: text('name').notNull(),
+  websiteUrl: text('website_url'), // As the extraction found it
+  urls: text('urls').array().default([]).notNull(), // Official camp pages that seed extraction
+  area: text('area'),
+  discoveredBy: text('discovered_by').array().default([]).notNull(),
+  hidden: boolean('hidden').default(false).notNull(), // Hides every camp it runs; the import never writes it
+  notes: text('notes'), // The extraction's notes on the provider
+  extractedAt: timestamp('extracted_at', { withTimezone: true }),
+  sourceHash: text('source_hash'), // Hash of the fetched source text, so a refresh re-extracts only changes
+  createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
+  updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow().notNull(),
+});
+
 export const camps = pgTable(
   'camps',
   {
     id: uuid('id').defaultRandom().primaryKey(),
-    // '<provider key>:<program>[:<variant>]'. Stable across years, slug and URL changes.
+    // '<provider key>:<slug of program name>' (campKeyFor). Never changes.
     campKey: text('camp_key').unique().notNull(),
-    slug: text('slug').unique().notNull(),
-    providerKey: text('provider_key').notNull(),
-    providerName: text('provider_name').notNull(),
-    name: text('name').notNull(),
-    variant: text('variant'), // What separates sibling cards: site or age band
-    type: text('type').notNull(), // CAMP_TYPES in lib/camps/types.ts
-    categories: text('categories').array().default([]).notNull(),
-    aliases: text('aliases').array().default([]).notNull(),
-    websiteUrl: text('website_url'),
-    campPageUrl: text('camp_page_url'),
-    registrationUrl: text('registration_url'),
-    platform: text('platform'), // 'WebTrac', 'CampMinder' ... (lib/camps/platforms.ts)
-    // e.g. { fmid: ['127024941'] }. Kept for refresh; a platform host is never a merge key on its own.
-    platformIds: jsonb('platform_ids').$type<Record<string, string[]>>(),
-    description: text('description'), // Short factual paraphrase of the official pages (N16)
-    discoveredBy: text('discovered_by').array().default([]).notNull(),
-    hidden: boolean('hidden').default(false).notNull(), // Moderation kill switch; imports never write it
-    createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
-    updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow().notNull(),
-  },
-  (table) => ({
-    campsProviderIdx: index('camps_provider_idx').on(table.providerKey),
-  })
-);
-
-// One summer's facts for one camp. The typed columns are for filtering and sorting; `facts` holds
-// every fact of that summer with its source URL, verbatim quote and verification result.
-export const campSeasons = pgTable(
-  'camp_seasons',
-  {
-    campId: uuid('camp_id')
+    slug: text('slug').unique().notNull(), // Assigned once on first import and never changed
+    providerKey: text('provider_key')
       .notNull()
-      .references(() => camps.id, { onDelete: 'cascade' }),
+      .references(() => campProviders.key),
+    card: jsonb('card').$type<CampCard>().notNull(), // As extracted
+    // Matt's fixes: top-level CampCard keys that replace the extracted ones
+    override: jsonb('override').$type<Partial<CampCard>>(),
+    // From here to season_end, copied from the effective card
+    name: text('name').notNull(),
+    type: text('type').notNull(), // CAMP_TYPES
+    categories: text('categories').array().default([]).notNull(), // CAMP_CATEGORIES
+    confidence: text('confidence').notNull(), // 'high' | 'medium' | 'low'
+    reviewNotes: text('review_notes'),
+    ageMin: integer('age_min'),
+    ageMax: integer('age_max'),
+    gradeMin: integer('grade_min'), // Pre-K -1, K 0, 1st 1 ...
+    gradeMax: integer('grade_max'),
     seasonYear: integer('season_year').notNull(),
     seasonStart: date('season_start'),
     seasonEnd: date('season_end'),
-    ageMin: integer('age_min'),
-    ageMax: integer('age_max'),
-    // Pre-K -1, K 0, 1st 1 ... Stated grades are never converted to ages (N11).
-    gradeMin: integer('grade_min'),
-    gradeMax: integer('grade_max'),
-    gradeBasis: text('grade_basis'), // 'rising' | 'completed' | 'current' | 'unspecified'
-    hoursStart: text('hours_start'), // 'HH:MM' Eastern
-    hoursEnd: text('hours_end'),
-    earlyDropoffStart: text('early_dropoff_start'),
-    latePickupEnd: text('late_pickup_end'),
-    priceMinCents: integer('price_min_cents'),
-    priceMaxCents: integer('price_max_cents'),
-    priceUnit: text('price_unit'), // 'week' | 'session' | 'day' | 'program' | 'month' | 'other'
-    town: text('town'),
-    state: text('state'),
-    driveSeconds: integer('drive_seconds'), // From Pack Square (ORS, no traffic); unrounded for D3
-    // Only what a page states: financial_aid, special_needs, aftercare, lunch, transportation.
-    // A missing tag means unknown, never "no" (plan §5: unknown is unknown).
-    tags: text('tags').array().default([]).notNull(),
-    facts: jsonb('facts').notNull(),
-    updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow().notNull(),
+    reviewedAt: timestamp('reviewed_at', { withTimezone: true }), // When Matt confirmed it
+    // cardHash of the effective card he confirmed: a re-extraction that changes it re-queues the camp
+    reviewedHash: text('reviewed_hash'),
+    hidden: boolean('hidden').default(false).notNull(), // Moderation; the import never writes it
+    firstSeenAt: timestamp('first_seen_at', { withTimezone: true }).defaultNow().notNull(),
+    createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
+    updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow().notNull(), // Card or override changed
   },
   (table) => ({
-    pk: primaryKey({ name: 'camp_seasons_pk', columns: [table.campId, table.seasonYear] }),
+    campsProviderIdx: index('camps_provider_idx').on(table.providerKey),
+    campsHiddenIdx: index('camps_hidden_idx').on(table.hidden),
   })
 );
 
-// One row per registration date per audience. `season_year` is the summer; `date` may fall in the
-// year before it. Every row is hand-checked before it is shown at launch (N15).
-export const campRegistrationMilestones = pgTable(
-  'camp_registration_milestones',
+// Where campers are dropped off, one row per provider and site name; cards point at sites by name.
+export const campSites = pgTable(
+  'camp_sites',
   {
     id: uuid('id').defaultRandom().primaryKey(),
-    campId: uuid('camp_id')
+    providerKey: text('provider_key')
       .notNull()
-      .references(() => camps.id, { onDelete: 'cascade' }),
-    seasonYear: integer('season_year').notNull(),
-    // 'public' | 'member' | 'returning' | 'lottery' | 'resident' | 'early_bird' | 'other'
-    audience: text('audience').notNull(),
-    kind: text('kind').notNull(), // 'opens' | 'deadline' | 'lottery_results' | 'closes'
-    date: date('date').notNull(),
-    time: text('time'), // 'HH:MM' Eastern, only when the source states one; never invented
-    precision: text('precision').notNull(), // 'datetime' | 'date' | 'month'
-    sourceUrl: text('source_url').notNull(),
-    quote: text('quote').notNull(),
-    sourceKind: text('source_kind').notNull(), // 'official_site' | 'registration_platform' | 'official_social'
-    verifyStatus: text('verify_status').notNull(), // 'verified' | 'review'
-    flags: text('flags').array().default([]).notNull(), // The checker's flags (lib/camps/verify.ts)
-    checkedAt: timestamp('checked_at', { withTimezone: true }).notNull(), // Last check of the quote
-    handCheckedAt: timestamp('hand_checked_at', { withTimezone: true }),
-    handCheckedBy: text('hand_checked_by'),
-    handCheckSource: text('hand_check_source'), // The official page it was confirmed on, if not source_url
+      .references(() => campProviders.key),
+    name: text('name').notNull(),
+    address: text('address'),
+    town: text('town'),
+    state: text('state'),
+    lat: doublePrecision('lat'), // Null until placed (geocoder miss: Matt pastes a pin in /admin/camps)
+    lng: doublePrecision('lng'),
+    geocodeSource: text('geocode_source'), // 'census' | 'ors' | 'hand'; the import never overwrites 'hand'
+    geocodeLabel: text('geocode_label'), // The match the geocoder returned, for checking
+    driveMinutes: doublePrecision('drive_minutes'), // From Pack Square (ORS, no traffic); unrounded for D3
     createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
     updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow().notNull(),
   },
   (table) => ({
-    milestoneUniqueIdx: uniqueIndex('camp_milestones_unique_idx').on(
-      table.campId,
-      table.seasonYear,
-      table.audience,
-      table.kind
+    campSitesProviderNameIdx: uniqueIndex('camp_sites_provider_name_idx').on(
+      table.providerKey,
+      table.name
     ),
   })
 );
 
-// The latest availability seen for a camp's summer. History is in camp_observations: a sell-out
-// is the interval between the last "available" and the first "full", never an exact time.
-export const campAvailability = pgTable(
-  'camp_availability',
-  {
-    campId: uuid('camp_id')
-      .notNull()
-      .references(() => camps.id, { onDelete: 'cascade' }),
-    seasonYear: integer('season_year').notNull(),
-    status: text('status').notNull(), // 'unknown' | 'available' | 'mixed' | 'waitlist' | 'full' | 'closed'
-    scope: text('scope'), // Which sessions it applies to, when not all
-    sourceUrl: text('source_url').notNull(),
-    quote: text('quote').notNull(),
-    // Shown as current only when verified or hand-checked, like every other fact
-    verifyStatus: text('verify_status').notNull(),
-    flags: text('flags').array().default([]).notNull(),
-    checkedAt: timestamp('checked_at', { withTimezone: true }).notNull(), // When it was observed
-    handCheckedAt: timestamp('hand_checked_at', { withTimezone: true }),
-    handCheckedBy: text('hand_checked_by'),
-    handCheckSource: text('hand_check_source'),
-  },
-  (table) => ({
-    pk: primaryKey({ name: 'camp_availability_pk', columns: [table.campId, table.seasonYear] }),
-  })
-);
-
-// Append-only log of every evidence-page fetch and availability reading. A failed fetch is logged
-// here and does not advance a camp's "checked on" date.
-export const campObservations = pgTable(
-  'camp_observations',
-  {
-    id: uuid('id').defaultRandom().primaryKey(),
-    campId: uuid('camp_id').references(() => camps.id, { onDelete: 'set null' }),
-    url: text('url').notNull(),
-    kind: text('kind').notNull(), // 'fetch' | 'availability'
-    ok: boolean('ok').notNull(),
-    fetchMethod: text('fetch_method'), // 'fetch' | 'chrome-tls' | 'browser'
-    textHash: text('text_hash'), // sha256 of the normalized page text
-    error: text('error'),
-    details: jsonb('details'),
-    observedAt: timestamp('observed_at', { withTimezone: true }).defaultNow().notNull(),
-  },
-  (table) => ({
-    campObservationsCampIdx: index('camp_observations_camp_idx').on(table.campId, table.observedAt),
-    campObservationsUrlIdx: index('camp_observations_url_idx').on(table.url, table.observedAt),
-  })
-);
-
-// Popularity (D8): one row per camp per Eastern day; the page shows the last 14 days (N6).
+// Popularity: one row per camp per Eastern day; the page shows the last 14 days.
 export const campViews = pgTable(
   'camp_views',
   {
@@ -1023,3 +955,12 @@ export const campViews = pgTable(
     pk: primaryKey({ name: 'camp_views_pk', columns: [table.campId, table.day] }),
   })
 );
+
+// A subscribable calendar feed of saved camps, addressed by an unguessable token (no sign-in).
+export const campCalendars = pgTable('camp_calendars', {
+  token: text('token').primaryKey(),
+  campIds: uuid('camp_ids').array().default([]).notNull(),
+  createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
+  updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow().notNull(),
+  lastFetchedAt: timestamp('last_fetched_at', { withTimezone: true }), // Last calendar-app poll
+});

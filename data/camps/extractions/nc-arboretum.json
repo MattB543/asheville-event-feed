@@ -1,0 +1,735 @@
+{
+  "provider": {
+    "key": "nc-arboretum",
+    "name": "The North Carolina Arboretum (Discovery Camp)",
+    "urls": ["https://ncarboretum.org/education-programs/discovery-camp/"],
+    "area": null,
+    "discovered_by": ["pilot"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T03:21:02.506Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "aa0622700f87e6e4a6444be3b23d929c14535db565e277f836b147c62ea28a36",
+  "response": {
+    "searches": [
+      "site.ncarboretum.org \"2026\" \"camp\" \"grades\"",
+      "site.ncarboretum.org \"Discovery Camp\" \"2026\" \"January\""
+    ],
+    "usage": {
+      "inputTokens": 29546,
+      "cachedInputTokens": 8223,
+      "outputTokens": 4121,
+      "reasoningTokens": 183
+    },
+    "status": "completed",
+    "ms": 75241,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://ncarboretum.org/education-programs/discovery-camp/",
+      "chars": 21783,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.ncarboretum.org/wp-content/uploads/2025/12/Eventbrite-Fees-Breakdown_Camps.pdf",
+      "chars": 6820,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ncarboretum.org/construction/",
+      "chars": 2775,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.ncarboretum.org/wp-content/uploads/2026/02/Printable-Final-2026-Discovery-Camp-Medical-and-Legal-Liability.pdf",
+      "chars": 5705,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "The North Carolina Arboretum",
+    "website_url": "https://ncarboretum.org/",
+    "notes": "2027 Discovery Camp dates and registration details are coming soon. The page still lists 2026 themes and sessions; these are retained as rows of Discovery Camp. No official age or grade eligibility or registration opening date was found. Optional Thursday campouts are included within their day-camp theme rows rather than treated as separate overnight programs.",
+    "excluded": [
+      {
+        "name": "Spring Break Camp",
+        "reason": "Outside summer."
+      },
+      {
+        "name": "OAK: Outdoor Adventure Kids 2026 Fall Session 1",
+        "reason": "Fall program, outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Discovery Camp",
+        "type": "day",
+        "categories": ["nature_outdoor", "stem", "arts", "sports", "cooking"],
+        "description": "Campers explore forests, creeks and gardens through hikes, wildlife investigations, outdoor games and crafts. Selected themes include gardening and cooking, off-site adventures or an optional Thursday overnight.",
+        "camp_page_url": "https://ncarboretum.org/education-programs/discovery-camp/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "coming_soon",
+          "start": "2026-06-08",
+          "end": "2026-08-21",
+          "text": "Discovery Camp: 2027 dates coming soon"
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "The North Carolina Arboretum",
+            "address": "20 Frederick Law Olmsted Way",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "15:00",
+          "text": "Monday through Friday from 9 AM – 3 PM."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 383,
+            "unit": "week",
+            "label": "On-site camps, non-member; includes Eventbrite taxes and fees",
+            "year": 2026
+          },
+          {
+            "amount": 345,
+            "unit": "week",
+            "label": "On-site camps, member; includes Eventbrite taxes and fees",
+            "year": 2026
+          },
+          {
+            "amount": 440,
+            "unit": "week",
+            "label": "Off-site or overnight, non-member; includes Eventbrite taxes and fees",
+            "year": 2026
+          },
+          {
+            "amount": 394,
+            "unit": "week",
+            "label": "Off-site or overnight, member; includes Eventbrite taxes and fees",
+            "year": 2026
+          },
+          {
+            "amount": 491,
+            "unit": "week",
+            "label": "Off-site and overnight, non-member; includes Eventbrite taxes and fees",
+            "year": 2026
+          },
+          {
+            "amount": 442,
+            "unit": "week",
+            "label": "Off-site and overnight, member; includes Eventbrite taxes and fees",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Arboretum Adventures — Session 1",
+            "start": "2026-06-29",
+            "end": "2026-07-03",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Arboretum Adventures — Session 2",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Buggin' Out — Session 1",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Buggin' Out — Session 2",
+            "start": "2026-08-17",
+            "end": "2026-08-21",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Fur, Feathers, and Scales — Session 1",
+            "start": "2026-06-08",
+            "end": "2026-06-12",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Fur, Feathers, and Scales — Session 2",
+            "start": "2026-08-03",
+            "end": "2026-08-07",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Head 2 Toe — Session 1",
+            "start": "2026-07-27",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Head 2 Toe — Session 2",
+            "start": "2026-08-17",
+            "end": "2026-08-21",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Little Mountaineers — Session 1",
+            "start": "2026-06-08",
+            "end": "2026-06-12",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Little Mountaineers — Session 2",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Natural Wonders — Session 1",
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Natural Wonders — Session 2",
+            "start": "2026-08-10",
+            "end": "2026-08-14",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Wet and Wild — Session 1",
+            "start": "2026-06-29",
+            "end": "2026-07-03",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Wet and Wild — Session 2",
+            "start": "2026-08-10",
+            "end": "2026-08-14",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Active Adventurers — Session 1",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Active Adventurers — Session 2",
+            "start": "2026-07-27",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Active Adventurers — Session 3",
+            "start": "2026-08-17",
+            "end": "2026-08-21",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Advanced Nature Rangers — Session 1",
+            "start": "2026-06-08",
+            "end": "2026-06-12",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Advanced Nature Rangers — Session 2",
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Advanced Nature Rangers — Session 3",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Advanced Nature Rangers — NEW! Session 4",
+            "start": "2026-08-17",
+            "end": "2026-08-21",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Appalachian Tales and Trails — Session 1",
+            "start": "2026-06-29",
+            "end": "2026-07-03",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Aquatic Adventures — Session 1",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Aquatic Adventures — Session 2",
+            "start": "2026-08-03",
+            "end": "2026-08-07",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Eco Detectives — Session 1",
+            "start": "2026-06-08",
+            "end": "2026-06-12",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Eco Detectives — Session 2",
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Eco Detectives — Session 3",
+            "start": "2026-08-10",
+            "end": "2026-08-14",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Junior Mountaineers — Session 1",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Junior Mountaineers — Session 2",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Junior Mountaineers — Session 3",
+            "start": "2026-08-03",
+            "end": "2026-08-07",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Nature's Studio — Session 1",
+            "start": "2026-07-27",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Nature's Superheroes — Session 1",
+            "start": "2026-06-29",
+            "end": "2026-07-03",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Nature's Superheroes — Session 2",
+            "start": "2026-08-10",
+            "end": "2026-08-14",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Woodland Ways — Session 1",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Appalachian Time Travelers — Session 1 (optional overnight Thursday evening)",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Eco-Investigators — Session 1",
+            "start": "2026-06-29",
+            "end": "2026-07-03",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Hydro Heroes — Session 1 (off-site)",
+            "start": "2026-08-10",
+            "end": "2026-08-14",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Mountain Sports — Session 1 (off-site)",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Natural Artists — Session 1",
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Plant to Plate — Session 1",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Walk on the Wild Side — Session 1",
+            "start": "2026-07-27",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Wild Encounters — Session 1",
+            "start": "2026-06-08",
+            "end": "2026-06-12",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Wilderness Explorers — Session 1",
+            "start": "2026-08-03",
+            "end": "2026-08-07",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Advanced Mountain Sports — Session 1 (off-site and optional overnight Thursday evening)",
+            "start": "2026-08-03",
+            "end": "2026-08-07",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Eco Trek — Session 1 (off-site and optional overnight Thursday evening)",
+            "start": "2026-07-27",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Outdoor Artists — Session 1",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Science Trek — Session 1 (off-site and optional overnight Thursday evening)",
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Wildlife Trek — Session 1 (off-site)",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "If you would like to help more children attend camp, please follow this link and choose “Youth Discovery Camp Scholarships” in the dropdown menu."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": {
+          "value": "case_by_case",
+          "text": "Mountain Sports: We provide transportation to each off-site location, with convenient daily drop-off and pick-up at the Arboretum."
+        },
+        "sources": [
+          "https://ncarboretum.org/education-programs/discovery-camp/",
+          "https://ncarboretum.org/",
+          "https://ncarboretum.org/wp-content/uploads/2026/02/Printable-Final-2026-Discovery-Camp-Medical-and-Legal-Liability.pdf"
+        ],
+        "confidence": "medium",
+        "review_notes": "Session dates take their year from the heading '2026 Discovery Camps'. The pricing table has no explicit year; retained as 2026 context, not confirmed 2027 pricing. Confirm rates and age/grade bands when registration details appear. The liability form gives 100 Frederick Law Olmsted Way for mailing forms; the venue's published location is 20 Frederick Law Olmsted Way, used here. Scholarship donation wording confirms scholarships exist but does not state application criteria. Transportation wording applies to selected off-site themes, not a home-to-camp service."
+      }
+    ]
+  }
+}

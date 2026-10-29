@@ -1,0 +1,68 @@
+{
+  "method": "gap_fill",
+  "id": "r2-half-day--south-west",
+  "input": "Find half-day and morning-only summer camps for young kids (ages 3-6) for kids and teens in Henderson, Transylvania, Polk, Haywood and Jackson counties, NC (Hendersonville, Brevard, Tryon, Waynesville, Sylva). Look past the big, well-known camps: search with varied wording and town names and list every organization you find.",
+  "at": "2026-10-29T03:55:31.901Z",
+  "webSearch": true,
+  "calls": 1,
+  "usage": {
+    "inputTokens": 113716,
+    "cachedInputTokens": 5180,
+    "outputTokens": 1969,
+    "reasoningTokens": 1535
+  },
+  "searches": [
+    "Hendersonville preschool summer camp 2026 half day ages 3 5",
+    "\"Hendersonville\" \"camp\" \"2026\" \"3-5\"",
+    "\"Hendersonville\" \"NC\" \"summer camps\" \"morning\"",
+    "\"Hendersonville\" \"NC\" \"camp\" \"half-day\" 2025 2026",
+    "\"Dance Track Studio\" address",
+    "\"Hendersonville\" \"dance\" \"summer camps\" 2026",
+    "\"Flat Rock\" \"camp\" \"half day\"",
+    "site:mountainroots.org \"2026\" \"half\"",
+    "\"Sylva\" \"summer\" \"camp\" \"half-day\"",
+    "site:handsonwnc.org \"camp\" \"2026\"",
+    "\"summer camp\" \"half\" \"Hendersonville\" \"NC\" -site:citizen-times.com -site:activityhero.com -site:activitieschildren.com",
+    "\"Hendersonville Presbyterian\" \"summer\" \"2025\"",
+    "site:waynesvilleartschool.com/2027-summer-art-camps \"am\""
+  ],
+  "ms": 108567,
+  "candidates": [
+    {
+      "name": "Grace Lutheran Church of Hendersonville",
+      "url": "https://www.gracehendersonville.com/preschool-programs",
+      "town": "Hendersonville",
+      "state": "NC",
+      "kinds": ["half_day"],
+      "categories": ["general", "arts", "faith_based"],
+      "note": "Preschool summer camp runs Tuesday–Thursday, 8:30 a.m.–1 p.m., late May–August; limited to enrolled preschool children."
+    },
+    {
+      "name": "Hendersonville Presbyterian Church",
+      "url": "https://www.hendersonvillepc.org/preschool/summer-program.cfm",
+      "town": "Hendersonville",
+      "state": "NC",
+      "kinds": ["half_day"],
+      "categories": ["arts", "music"],
+      "note": "Two-week July morning art program for ages 2–3 and 4–6, subject to enrollment; page does not specify the summer year."
+    },
+    {
+      "name": "Mountain Roots",
+      "url": "https://mountainroots.org/preschool-camp/",
+      "town": "Brevard",
+      "state": "NC",
+      "kinds": ["half_day", "day"],
+      "categories": ["nature_outdoor", "arts", "music", "general"],
+      "note": "Half-day preschool camp for ages 4–5, plus full-day camp and middle-school leadership opportunities; 2027 registration announced."
+    },
+    {
+      "name": "Tryon Fine Arts Center",
+      "url": "https://tryonarts.org/summer-camps/",
+      "town": "Tryon",
+      "state": "NC",
+      "kinds": ["half_day", "day"],
+      "categories": ["arts", "theater"],
+      "note": "2026 SASY camp offered ages 5–7 mornings, 9 a.m.–noon, and older children full days; also runs summer theater camp."
+    }
+  ]
+}

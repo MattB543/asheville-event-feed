@@ -1,0 +1,188 @@
+{
+  "method": "aggregator",
+  "id": "asheville-com",
+  "input": "Use asheville.com pages about summer camps to find organizations running summer camps and summer programs for kids and teens. For each organization listed, give the organization's own official URL (search for it), never the listing page.",
+  "at": "2026-10-29T03:22:34.151Z",
+  "webSearch": true,
+  "calls": 1,
+  "usage": {
+    "inputTokens": 56549,
+    "cachedInputTokens": 5180,
+    "outputTokens": 2240,
+    "reasoningTokens": 524
+  },
+  "searches": [
+    "site:asheville.com summer camps 2026",
+    "open https://www.asheville.com/directory/local/summer-camps/",
+    "site:asheville.com \"summer camp\" -\"Junior\" -\"LEAF\" -\"Wortham\" -\"Hands\" -\"WITCHES\" -\"Kpop\" -\"Improv\" -\"Stay Gold\"",
+    "Asheville Music School summer camps 2026 official",
+    "Hands On WNC summer camps 2026",
+    "LEAF Global Arts summer camp 2026",
+    "site:asheville.com \"summer\" \"camp\" \"2026\" -\"Junior\" -\"Hands\" -\"Local Cloth\" -\"Wortham\" -\"CAMP:\""
+  ],
+  "ms": 71561,
+  "candidates": [
+    {
+      "name": "Black Mountain Montessori",
+      "url": "https://www.bmtmont.org/summer-camps",
+      "town": "Black Mountain",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["general", "arts"],
+      "note": "Summer camps for ages 3–6, with before- and after-camp care."
+    },
+    {
+      "name": "Asheville Junior Theater",
+      "url": "https://www.thepaca.com/",
+      "town": "Arden",
+      "state": "NC",
+      "kinds": ["day", "half_day"],
+      "categories": ["theater", "music", "dance", "arts"],
+      "note": "2026 camps included musical theater, improv, dance and backstage skills for ages 4–18."
+    },
+    {
+      "name": "Falling Creek Camp",
+      "url": "https://fallingcreek.com/sessions",
+      "town": "Zirconia",
+      "state": "NC",
+      "kinds": ["overnight"],
+      "categories": ["general", "nature_outdoor", "sports", "faith_based"],
+      "note": "Boys' residential camp with multiple session lengths; 2027 enrollment announced."
+    },
+    {
+      "name": "Camp Timberlake",
+      "url": "https://camptimberlake.com/dates-enrollment/",
+      "town": "Marion",
+      "state": "NC",
+      "kinds": ["overnight"],
+      "categories": ["general", "nature_outdoor", "sports", "faith_based"],
+      "note": "Christian overnight camp for boys entering grades 1–11; 2027 sessions announced."
+    },
+    {
+      "name": "Camp Merri-Mac",
+      "url": "https://merri-mac.com/dates-rates/",
+      "town": "Black Mountain",
+      "state": "NC",
+      "kinds": ["overnight"],
+      "categories": ["general", "nature_outdoor", "sports", "horses", "faith_based"],
+      "note": "Christian overnight camp for girls entering grades 1–11; 2027 sessions announced."
+    },
+    {
+      "name": "WNC Nature Center",
+      "url": "https://wildwnc.org/teen-programs/",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["nature_outdoor"],
+      "note": "Young Naturalist summer program ran in 2025 for ages 13–17; canceled for 2026."
+    },
+    {
+      "name": "Asheville Music School",
+      "url": "https://www.ashevillemusicschool.org/summer-camps/",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day", "half_day"],
+      "categories": ["music"],
+      "note": "2026 music camps for ages 4–18 included rock, strings, jazz, voice and recording."
+    },
+    {
+      "name": "Asheville Community Movement",
+      "url": "https://www.ashevillecommunitymovement.com/summer-camp",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["general", "sports"],
+      "note": "Movers and Shakers summer day camp offered weekly themes in 2026."
+    },
+    {
+      "name": "Hands On! Children's Museum",
+      "url": "https://www.handsonwnc.org/?url=summer-camps",
+      "town": "Hendersonville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["arts", "stem", "nature_outdoor"],
+      "note": "2026 full-day camps for rising grades 1–3 included art, space and sustainability."
+    },
+    {
+      "name": "AVL Clay",
+      "url": "https://avlclay.kilnfire.com/classes/kids-makers-camp",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["half_day"],
+      "categories": ["arts"],
+      "note": "2026 Kids Maker's Camp met Monday–Thursday, 9 a.m.–1 p.m., with themed art projects."
+    },
+    {
+      "name": "Local Cloth",
+      "url": "https://localcloth.org/event-6516190",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["arts"],
+      "note": "2026 fiber arts camps for ages 8–13 and sewing camps for teens ages 13–18."
+    },
+    {
+      "name": "Wortham Center for the Performing Arts",
+      "url": "https://www.worthamarts.org/education/summer-camps/",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day", "half_day"],
+      "categories": ["arts", "music", "dance", "theater"],
+      "note": "2026 creative arts camps for rising grades 1–5, presented with ArtSpace Charter School."
+    },
+    {
+      "name": "LEAF Global Arts",
+      "url": "https://www.theleaf.org/camps",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["arts", "music", "dance", "theater"],
+      "note": "Ran youth arts camps in summer 2026; announced cessation of current operations August 21, 2026."
+    },
+    {
+      "name": "Forest Floor Wilderness Programs",
+      "url": "https://forestfloorasheville.com/summer-camps/",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["nature_outdoor", "arts"],
+      "note": "2026 weeklong outdoor camps included wilderness skills, imaginative play and jewelry-making."
+    },
+    {
+      "name": "Tryon Fine Arts Center",
+      "url": "https://tryonarts.org/event/pacjam-summer-camp-2026/",
+      "town": "Tryon",
+      "state": "NC",
+      "kinds": ["half_day"],
+      "categories": ["music", "arts"],
+      "note": "PacJAM summer camp offered instrument lessons, jams and Appalachian arts in 2026."
+    },
+    {
+      "name": "Asheville Performing Arts Academy",
+      "url": "https://theapaa.com/summer",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["theater", "music", "dance"],
+      "note": "Weeklong musical theater camps teach performance skills and conclude with a show."
+    },
+    {
+      "name": "XP League Asheville",
+      "url": "https://xpleague.com/north-carolina-asheville/camps/",
+      "town": "Arden",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["stem"],
+      "note": "In-person youth esports and STEM summer camps for ages 7–17."
+    },
+    {
+      "name": "Christmount",
+      "url": "https://www.christmount.org/",
+      "town": "Black Mountain",
+      "state": "NC",
+      "kinds": ["day", "overnight"],
+      "categories": ["special_needs", "nature_outdoor", "general"],
+      "note": "2027 offerings include Camp Lakey Gap, teen service-learning trips and Camp Brooke/Girls on the Run."
+    }
+  ]
+}

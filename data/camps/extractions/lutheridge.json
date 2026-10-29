@@ -1,0 +1,1934 @@
+{
+  "provider": {
+    "key": "lutheridge",
+    "name": "Lutheridge (summer camps)",
+    "urls": [
+      "https://lutheridge.org/wp-content/uploads/2026-SUMMER-BROCHURE-updated-11.20.25.pdf",
+      "https://lutheridge.org/"
+    ],
+    "area": "Arden, NC",
+    "discovered_by": ["pilot"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T03:21:02.934Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "c6b7535992d1230de334ef217ee763919209821f0edbce40ab1c422af282fb70",
+  "response": {
+    "searches": [
+      "open https://novusway.org/lutheridge/programs/prekamp/",
+      "site:novusway.org/lutheridge \"Appalachian Impact\" \"2027\"",
+      "site:novusway.org/lutheridge/programs/appalachian-impact \"June\""
+    ],
+    "usage": {
+      "inputTokens": 32751,
+      "cachedInputTokens": 8223,
+      "outputTokens": 9835,
+      "reasoningTokens": 344
+    },
+    "status": "completed",
+    "ms": 156517,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://lutheridge.org/wp-content/uploads/2026-SUMMER-BROCHURE-updated-11.20.25.pdf",
+      "chars": 26689,
+      "method": "fetch"
+    },
+    {
+      "url": "https://lutheridge.org/",
+      "chars": 8285,
+      "method": "fetch"
+    },
+    {
+      "url": "https://novusway.org/lutheridge/registration/",
+      "chars": 2512,
+      "method": "fetch"
+    },
+    {
+      "url": "https://novusway.org/lutheridge/summer-camp/",
+      "chars": 13680,
+      "method": "fetch"
+    },
+    {
+      "url": "https://novusway.org/lutheridge/campaign/",
+      "chars": 5047,
+      "method": "fetch"
+    },
+    {
+      "url": "https://novusway.org/lutheridge/programs/grands-camp/",
+      "chars": 6217,
+      "method": "fetch"
+    },
+    {
+      "url": "https://novusway.org/lutheridge/programs/day-camp/",
+      "chars": 7044,
+      "method": "fetch"
+    },
+    {
+      "url": "https://novusway.org/lutheridge/programs/family-camp-lutheridge/",
+      "chars": 7207,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Lutheridge",
+    "website_url": "https://novusway.org/lutheridge/",
+    "notes": "Summer 2027 programs and schedule are posted. First Camp, First Camp - Music Week, Gathering Expedition Camp, Soak & Soar Explorers and Soak & Soar Mountaineers appear only in the supplied 2026 brochure and are omitted. Individual program pages attempted through the browser returned no readable content; supplied fetched pages and the 2027 summer overview support the cards below. No registration opening date was found. The official registration page directs summer 2027 registrations to CampWise.",
+    "excluded": [
+      {
+        "name": "Grands Camp",
+        "reason": "Family-only program attended by grandparents and grandchildren together."
+      },
+      {
+        "name": "Family Camp",
+        "reason": "Family-only vacation program."
+      },
+      {
+        "name": "Music Week",
+        "reason": "Adult-only program for ages 18 and older."
+      },
+      {
+        "name": "bRIDGE Family Camp",
+        "reason": "Family-only program; not listed in the current 2027 summer offerings."
+      },
+      {
+        "name": "Quilt Camp",
+        "reason": "Adult retreat."
+      },
+      {
+        "name": "Geek Gathering",
+        "reason": "Adult/family retreat outside summer."
+      },
+      {
+        "name": "Faith Alive",
+        "reason": "Youth weekends outside summer."
+      },
+      {
+        "name": "Faith Ablaze",
+        "reason": "Youth weekend outside summer."
+      },
+      {
+        "name": "Handbell Retreats",
+        "reason": "Retreats outside summer."
+      },
+      {
+        "name": "Wild Women Weekend",
+        "reason": "Adult-only retreat outside summer."
+      },
+      {
+        "name": "Summer Staff",
+        "reason": "Employment program."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Day Camp",
+        "type": "day",
+        "categories": ["general", "nature_outdoor", "faith_based"],
+        "description": "Campers swim, practice archery and canoeing, climb, hike, play games and make crafts. Each week has a different theme; breakfast and lunch are included.",
+        "camp_page_url": "https://novusway.org/lutheridge/programs/day-camp/",
+        "registration_url": "https://novusway.org/lutheridge/registration/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-07",
+          "end": "2027-07-30",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 0,
+          "max": 4,
+          "basis": "completed"
+        },
+        "sites": [
+          {
+            "name": "Lutheridge Camp & Conference Center",
+            "address": "2511 Hendersonville Road",
+            "town": "Arden",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "08:00",
+          "end": "16:30",
+          "text": "Friday closing program at 3:00 pm."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 370,
+            "unit": "week",
+            "label": "Tier I",
+            "year": 2027
+          },
+          {
+            "amount": 445,
+            "unit": "week",
+            "label": "Tier II",
+            "year": 2027
+          },
+          {
+            "amount": 520,
+            "unit": "week",
+            "label": "Tier III",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Week 1: Nature Explorers Week",
+            "start": "2027-06-07",
+            "end": "2027-06-11",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 2: Splash Week",
+            "start": "2027-06-14",
+            "end": "2027-06-18",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 3: Critter Week",
+            "start": "2027-06-21",
+            "end": "2027-06-25",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 4: Sports Week",
+            "start": "2027-06-28",
+            "end": "2027-07-02",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 5: Up, Up & Away",
+            "start": "2027-07-05",
+            "end": "2027-07-09",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 6: Arts Week",
+            "start": "2027-07-12",
+            "end": "2027-07-16",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 7: Treasure Week",
+            "start": "2027-07-19",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 8: Christmas Week",
+            "start": "2027-07-26",
+            "end": "2027-07-30",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "early_bird",
+            "kind": "deadline",
+            "date": "2026-12-31",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "Save $50 when you register by December 31, 2026.",
+            "url": "https://novusway.org/lutheridge/summer-camp/",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "If Tier I is still out of reach, there are scholarship funds for families in that spot."
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Breakfast and lunch are included every day."
+        },
+        "transportation": null,
+        "sources": [
+          "https://novusway.org/lutheridge/programs/day-camp/",
+          "https://novusway.org/lutheridge/summer-camp/",
+          "https://novusway.org/lutheridge/contact/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "PreKamp",
+        "type": "half_day",
+        "categories": ["general", "faith_based"],
+        "description": "Children participate in songs, crafts, games, a water day and Bible stories.",
+        "camp_page_url": null,
+        "registration_url": "https://novusway.org/lutheridge/registration/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-07",
+          "end": "2027-07-30",
+          "text": null
+        },
+        "ages": {
+          "min": 3,
+          "max": 6
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Lutheridge Camp & Conference Center",
+            "address": "2511 Hendersonville Road",
+            "town": "Arden",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 300,
+            "unit": "session",
+            "label": "from",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": null,
+            "start": "2027-06-07",
+            "end": "2027-06-11",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2027-07-26",
+            "end": "2027-07-30",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://novusway.org/lutheridge/summer-camp/",
+          "https://novusway.org/lutheridge/contact/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Pioneers",
+        "type": "overnight",
+        "categories": ["general", "faith_based"],
+        "description": "Campers spend a full week at camp with a counselor living in their cabin and participate in classic camp activities.",
+        "camp_page_url": null,
+        "registration_url": "https://novusway.org/lutheridge/registration/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-06",
+          "end": "2027-07-30",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 1,
+          "max": 4,
+          "basis": "completed"
+        },
+        "sites": [
+          {
+            "name": "Lutheridge Camp & Conference Center",
+            "address": "2511 Hendersonville Road",
+            "town": "Arden",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 740,
+            "unit": "session",
+            "label": "from",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Week 1",
+            "start": "2027-06-06",
+            "end": "2027-06-11",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 2",
+            "start": "2027-06-13",
+            "end": "2027-06-18",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 3",
+            "start": "2027-06-20",
+            "end": "2027-06-25",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 4",
+            "start": "2027-06-27",
+            "end": "2027-07-02",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 5: Fourth of July Week",
+            "start": "2027-07-04",
+            "end": "2027-07-09",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 6",
+            "start": "2027-07-11",
+            "end": "2027-07-16",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 7",
+            "start": "2027-07-18",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 8: Christmas in July Week",
+            "start": "2027-07-25",
+            "end": "2027-07-30",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://novusway.org/lutheridge/summer-camp/",
+          "https://novusway.org/lutheridge/contact/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Pioneer Sampler",
+        "type": "overnight",
+        "categories": ["general", "faith_based"],
+        "description": "A two-night introduction to overnight camp for younger campers.",
+        "camp_page_url": null,
+        "registration_url": "https://novusway.org/lutheridge/registration/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-16",
+          "end": "2027-07-30",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 1,
+          "max": 4,
+          "basis": "completed"
+        },
+        "sites": [
+          {
+            "name": "Lutheridge Camp & Conference Center",
+            "address": "2511 Hendersonville Road",
+            "town": "Arden",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 385,
+            "unit": "session",
+            "label": "from",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Week 2: Wed–Fri",
+            "start": "2027-06-16",
+            "end": "2027-06-18",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 4: Wed–Fri",
+            "start": "2027-06-30",
+            "end": "2027-07-02",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 8: Wed–Fri",
+            "start": "2027-07-28",
+            "end": "2027-07-30",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://novusway.org/lutheridge/summer-camp/",
+          "https://novusway.org/lutheridge/contact/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Climb High",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "sports", "faith_based"],
+        "description": "Campers climb the indoor wall and challenge tower and spend a day on a nearby high ropes course.",
+        "camp_page_url": null,
+        "registration_url": "https://novusway.org/lutheridge/registration/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-13",
+          "end": "2027-07-23",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 4,
+          "max": 6,
+          "basis": "completed"
+        },
+        "sites": [
+          {
+            "name": "Lutheridge Camp & Conference Center",
+            "address": "2511 Hendersonville Road",
+            "town": "Arden",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 825,
+            "unit": "session",
+            "label": "from",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": null,
+            "start": "2027-06-13",
+            "end": "2027-06-18",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2027-07-18",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://novusway.org/lutheridge/summer-camp/",
+          "https://novusway.org/lutheridge/contact/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Crazy Cool Campout",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "faith_based"],
+        "description": "Campers spend a night in tents, hike to a waterfall and cook dinner over a fire.",
+        "camp_page_url": null,
+        "registration_url": "https://novusway.org/lutheridge/registration/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-20",
+          "end": "2027-07-16",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 4,
+          "max": 6,
+          "basis": "completed"
+        },
+        "sites": [
+          {
+            "name": "Lutheridge Camp & Conference Center",
+            "address": "2511 Hendersonville Road",
+            "town": "Arden",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 798,
+            "unit": "session",
+            "label": "from",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": null,
+            "start": "2027-06-20",
+            "end": "2027-06-25",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2027-07-11",
+            "end": "2027-07-16",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://novusway.org/lutheridge/summer-camp/",
+          "https://novusway.org/lutheridge/contact/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Cave & Wave Explorers",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "faith_based"],
+        "description": "Campers visit Worley's Cave, spend a day whitewater rafting and camp out for a night.",
+        "camp_page_url": null,
+        "registration_url": "https://novusway.org/lutheridge/registration/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-13",
+          "end": "2027-07-30",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 6,
+          "max": 8,
+          "basis": "completed"
+        },
+        "sites": [
+          {
+            "name": "Lutheridge Camp & Conference Center",
+            "address": "2511 Hendersonville Road",
+            "town": "Arden",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 880,
+            "unit": "session",
+            "label": "from",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": null,
+            "start": "2027-06-13",
+            "end": "2027-06-18",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2027-07-25",
+            "end": "2027-07-30",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://novusway.org/lutheridge/summer-camp/",
+          "https://novusway.org/lutheridge/contact/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Night Owl Explorers",
+        "type": "overnight",
+        "categories": ["general", "nature_outdoor", "faith_based"],
+        "description": "Campers follow a later sleeping schedule and watch the sunset from Bearwallow.",
+        "camp_page_url": null,
+        "registration_url": "https://novusway.org/lutheridge/registration/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-13",
+          "end": "2027-07-23",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 6,
+          "max": 8,
+          "basis": "completed"
+        },
+        "sites": [
+          {
+            "name": "Lutheridge Camp & Conference Center",
+            "address": "2511 Hendersonville Road",
+            "town": "Arden",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 798,
+            "unit": "session",
+            "label": "from",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": null,
+            "start": "2027-06-13",
+            "end": "2027-06-18",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2027-07-18",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://novusway.org/lutheridge/summer-camp/",
+          "https://novusway.org/lutheridge/contact/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Bike & Hike Explorers",
+        "type": "overnight",
+        "categories": ["sports", "nature_outdoor", "faith_based"],
+        "description": "Campers take mountain biking lessons, ride a trail in Dupont State Forest and hike in Pisgah.",
+        "camp_page_url": null,
+        "registration_url": "https://novusway.org/lutheridge/registration/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-20",
+          "end": "2027-07-23",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 6,
+          "max": 8,
+          "basis": "completed"
+        },
+        "sites": [
+          {
+            "name": "Lutheridge Camp & Conference Center",
+            "address": "2511 Hendersonville Road",
+            "town": "Arden",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 798,
+            "unit": "session",
+            "label": "from",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": null,
+            "start": "2027-06-20",
+            "end": "2027-06-25",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2027-07-18",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://novusway.org/lutheridge/summer-camp/",
+          "https://novusway.org/lutheridge/contact/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Kairos Confirmation Camp",
+        "type": "overnight",
+        "categories": ["faith_based", "music"],
+        "description": "Confirmation programming includes a keynote speaker, Kairos musicians and small groups.",
+        "camp_page_url": null,
+        "registration_url": "https://novusway.org/lutheridge/registration/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-20",
+          "end": "2027-06-25",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 6,
+          "max": 9,
+          "basis": "completed"
+        },
+        "sites": [
+          {
+            "name": "Lutheridge Camp & Conference Center",
+            "address": "2511 Hendersonville Road",
+            "town": "Arden",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 743,
+            "unit": "session",
+            "label": "from",
+            "year": 2027
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://novusway.org/lutheridge/summer-camp/",
+          "https://novusway.org/lutheridge/contact/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "River Explorers",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "general", "faith_based"],
+        "description": "Campers tube the French Broad River and choose activities throughout the week.",
+        "camp_page_url": null,
+        "registration_url": "https://novusway.org/lutheridge/registration/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-27",
+          "end": "2027-07-30",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 5,
+          "max": 8,
+          "basis": "completed"
+        },
+        "sites": [
+          {
+            "name": "Lutheridge Camp & Conference Center",
+            "address": "2511 Hendersonville Road",
+            "town": "Arden",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 775,
+            "unit": "session",
+            "label": "from",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": null,
+            "start": "2027-06-27",
+            "end": "2027-07-02",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2027-07-25",
+            "end": "2027-07-30",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://novusway.org/lutheridge/summer-camp/",
+          "https://novusway.org/lutheridge/contact/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Wild Waters Explorers",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "faith_based"],
+        "description": "Campers take a canoe trip with an overnight beside the water and spend a day whitewater rafting.",
+        "camp_page_url": null,
+        "registration_url": "https://novusway.org/lutheridge/registration/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-27",
+          "end": "2027-07-16",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 6,
+          "max": 8,
+          "basis": "completed"
+        },
+        "sites": [
+          {
+            "name": "Lutheridge Camp & Conference Center",
+            "address": "2511 Hendersonville Road",
+            "town": "Arden",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 880,
+            "unit": "session",
+            "label": "from",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": null,
+            "start": "2027-06-27",
+            "end": "2027-07-02",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2027-07-11",
+            "end": "2027-07-16",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://novusway.org/lutheridge/summer-camp/",
+          "https://novusway.org/lutheridge/contact/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Parkway Peak Explorers",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "faith_based"],
+        "description": "Campers hike two summits near the Blue Ridge Parkway and camp overnight above 5,000 feet.",
+        "camp_page_url": null,
+        "registration_url": "https://novusway.org/lutheridge/registration/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-07-04",
+          "end": "2027-07-09",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 6,
+          "max": 8,
+          "basis": "completed"
+        },
+        "sites": [
+          {
+            "name": "Lutheridge Camp & Conference Center",
+            "address": "2511 Hendersonville Road",
+            "town": "Arden",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 798,
+            "unit": "session",
+            "label": "from",
+            "year": 2027
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://novusway.org/lutheridge/summer-camp/",
+          "https://novusway.org/lutheridge/contact/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Sky Explorers",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "sports", "faith_based"],
+        "description": "Campers spend a day on a high ropes course with bridges, cable walks and climbs up to 25 feet.",
+        "camp_page_url": null,
+        "registration_url": "https://novusway.org/lutheridge/registration/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-07-04",
+          "end": "2027-07-09",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 5,
+          "max": 8,
+          "basis": "completed"
+        },
+        "sites": [
+          {
+            "name": "Lutheridge Camp & Conference Center",
+            "address": "2511 Hendersonville Road",
+            "town": "Arden",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 775,
+            "unit": "session",
+            "label": "from",
+            "year": 2027
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://novusway.org/lutheridge/summer-camp/",
+          "https://novusway.org/lutheridge/contact/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Campfirmation",
+        "type": "overnight",
+        "categories": ["faith_based", "general"],
+        "description": "Pastors teach confirmation through the seasons of the church year alongside camp activities.",
+        "camp_page_url": null,
+        "registration_url": "https://novusway.org/lutheridge/registration/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-07-11",
+          "end": "2027-07-16",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 6,
+          "max": 8,
+          "basis": "completed"
+        },
+        "sites": [
+          {
+            "name": "Lutheridge Camp & Conference Center",
+            "address": "2511 Hendersonville Road",
+            "town": "Arden",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 743,
+            "unit": "session",
+            "label": "from",
+            "year": 2027
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://novusway.org/lutheridge/summer-camp/",
+          "https://novusway.org/lutheridge/contact/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Parkway Peak Mountaineers",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "faith_based"],
+        "description": "Campers camp below Mount Mitchell and hike to its summit.",
+        "camp_page_url": null,
+        "registration_url": "https://novusway.org/lutheridge/registration/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-13",
+          "end": "2027-07-30",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 9,
+          "max": 12,
+          "basis": "completed"
+        },
+        "sites": [
+          {
+            "name": "Lutheridge Camp & Conference Center",
+            "address": "2511 Hendersonville Road",
+            "town": "Arden",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 798,
+            "unit": "session",
+            "label": "from",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": null,
+            "start": "2027-06-13",
+            "end": "2027-06-18",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2027-07-25",
+            "end": "2027-07-30",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://novusway.org/lutheridge/summer-camp/",
+          "https://novusway.org/lutheridge/contact/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Rock & Raft Mountaineers",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "sports", "faith_based"],
+        "description": "Campers climb and hike at Lutherock, camp out overnight and spend a full day whitewater rafting.",
+        "camp_page_url": null,
+        "registration_url": "https://novusway.org/lutheridge/registration/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-20",
+          "end": "2027-07-23",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 9,
+          "max": 12,
+          "basis": "completed"
+        },
+        "sites": [
+          {
+            "name": "Lutheridge Camp & Conference Center",
+            "address": "2511 Hendersonville Road",
+            "town": "Arden",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 880,
+            "unit": "session",
+            "label": "from",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": null,
+            "start": "2027-06-20",
+            "end": "2027-06-25",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2027-07-18",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://novusway.org/lutheridge/summer-camp/",
+          "https://novusway.org/lutheridge/contact/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Cave & Wave Mountaineers",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "faith_based"],
+        "description": "Campers visit Worley's Cave, raft whitewater and camp out for a night, with a focus on leadership.",
+        "camp_page_url": null,
+        "registration_url": "https://novusway.org/lutheridge/registration/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-27",
+          "end": "2027-07-16",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 9,
+          "max": 12,
+          "basis": "completed"
+        },
+        "sites": [
+          {
+            "name": "Lutheridge Camp & Conference Center",
+            "address": "2511 Hendersonville Road",
+            "town": "Arden",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 880,
+            "unit": "session",
+            "label": "from",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": null,
+            "start": "2027-06-27",
+            "end": "2027-07-02",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2027-07-11",
+            "end": "2027-07-16",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://novusway.org/lutheridge/summer-camp/",
+          "https://novusway.org/lutheridge/contact/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Night Owl Mountaineers",
+        "type": "overnight",
+        "categories": ["general", "faith_based"],
+        "description": "A late-night camp week during the Fourth of July and Christmas in July themes that introduces campers to what being a counselor involves.",
+        "camp_page_url": null,
+        "registration_url": "https://novusway.org/lutheridge/registration/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-07-04",
+          "end": "2027-07-30",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 8,
+          "max": 12,
+          "basis": "completed"
+        },
+        "sites": [
+          {
+            "name": "Lutheridge Camp & Conference Center",
+            "address": "2511 Hendersonville Road",
+            "town": "Arden",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 798,
+            "unit": "session",
+            "label": "from",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Fourth of July Week",
+            "start": "2027-07-04",
+            "end": "2027-07-09",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Christmas in July Week",
+            "start": "2027-07-25",
+            "end": "2027-07-30",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://novusway.org/lutheridge/summer-camp/",
+          "https://novusway.org/lutheridge/contact/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Wild Waters Mountaineers",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "faith_based"],
+        "description": "Campers take a canoe expedition with an overnight beside the water and spend a day whitewater rafting.",
+        "camp_page_url": null,
+        "registration_url": "https://novusway.org/lutheridge/registration/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-07-04",
+          "end": "2027-07-09",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 9,
+          "max": 12,
+          "basis": "completed"
+        },
+        "sites": [
+          {
+            "name": "Lutheridge Camp & Conference Center",
+            "address": "2511 Hendersonville Road",
+            "town": "Arden",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 880,
+            "unit": "session",
+            "label": "from",
+            "year": 2027
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://novusway.org/lutheridge/summer-camp/",
+          "https://novusway.org/lutheridge/contact/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Road Trip: Charleston",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "faith_based"],
+        "description": "Campers travel to Charleston, stay on the Isle of Palms, participate in a service project and visit the beach.",
+        "camp_page_url": null,
+        "registration_url": "https://novusway.org/lutheridge/registration/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-07-18",
+          "end": "2027-07-23",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 8,
+          "max": 12,
+          "basis": "completed"
+        },
+        "sites": [
+          {
+            "name": "Lutheridge Camp & Conference Center",
+            "address": "2511 Hendersonville Road",
+            "town": "Arden",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 798,
+            "unit": "session",
+            "label": "from",
+            "year": 2027
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://novusway.org/lutheridge/summer-camp/",
+          "https://novusway.org/lutheridge/contact/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Summershine",
+        "type": "overnight",
+        "categories": ["general", "faith_based", "special_needs"],
+        "description": "A full week of camp for teens and adults with developmental disabilities.",
+        "camp_page_url": null,
+        "registration_url": "https://novusway.org/lutheridge/registration/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-07-04",
+          "end": "2027-07-30",
+          "text": null
+        },
+        "ages": {
+          "min": 15,
+          "max": null
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Lutheridge Camp & Conference Center",
+            "address": "2511 Hendersonville Road",
+            "town": "Arden",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 772,
+            "unit": "session",
+            "label": "from",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": null,
+            "start": "2027-07-04",
+            "end": "2027-07-09",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2027-07-25",
+            "end": "2027-07-30",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": {
+          "value": "yes",
+          "text": "A full week of camp for teens and adults with developmental disabilities."
+        },
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://novusway.org/lutheridge/summer-camp/",
+          "https://novusway.org/lutheridge/contact/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Appalachian Impact",
+        "type": "overnight",
+        "categories": ["faith_based", "nature_outdoor"],
+        "description": "High school youth groups participate in service projects for communities rebuilding after Hurricane Helene and an adventure day.",
+        "camp_page_url": "https://novusway.org/lutheridge/programs/appalachian-impact/",
+        "registration_url": "https://novusway.org/lutheridge/appalachian-impact/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": null,
+          "end": null,
+          "text": "13 sessions · June – July"
+        },
+        "ages": null,
+        "grades": {
+          "min": 8,
+          "max": null,
+          "basis": "completed"
+        },
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 520,
+            "unit": "session",
+            "label": "from",
+            "year": 2027
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://novusway.org/lutheridge/summer-camp/",
+          "https://novusway.org/lutheridge/programs/appalachian-impact/",
+          "https://novusway.org/lutheridge/appalachian-impact/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The overview lists 13 sessions, but its week-by-week schedule does not distinguish all 13. Search results describe bases at both Lutheridge and Lutherock. Individual program pages returned no readable content; verify session dates, site assignments, drop-off locations and rates directly with the provider. The official service-week page says to email Pastor Drew Yoos at dyoos@novusway.org to reserve a group week."
+      }
+    ]
+  }
+}

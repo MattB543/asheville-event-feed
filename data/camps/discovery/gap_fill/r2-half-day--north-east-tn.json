@@ -1,0 +1,66 @@
+{
+  "method": "gap_fill",
+  "id": "r2-half-day--north-east-tn",
+  "input": "Find half-day and morning-only summer camps for young kids (ages 3-6) for kids and teens in Madison, Yancey, Mitchell, McDowell and Rutherford counties, NC, and Johnson City, TN. Look past the big, well-known camps: search with varied wording and town names and list every organization you find.",
+  "at": "2026-10-29T03:56:38.415Z",
+  "webSearch": true,
+  "calls": 1,
+  "usage": {
+    "inputTokens": 98184,
+    "cachedInputTokens": 5180,
+    "outputTokens": 1560,
+    "reasoningTokens": 1142
+  },
+  "searches": [
+    "\"Johnson City\" \"summer camp\" \"2026\" \"3\" \"5\"",
+    "\"Marion NC\" \"summer camp\" dance",
+    "\"Johnson City\" \"summer\" \"camp\" \"half-day\"",
+    "\"Johnson City\" \"2025\" \"camp\" \"preschool\"",
+    "Johnson City summer camps 2025 preschool dance gymnastics morning",
+    "\"Johnson City\" \"summer camps\" \"2026\" \"dance\"",
+    "site.jcartscenter.com \"2026\"",
+    "\"Into the Fire\" \"Johnson City\" \"summer camps\"",
+    "site:jcartscenter.com camp 2025",
+    "site:pathwnc.org/wp-content/uploads/2025/05/ \"3\" \"camp\"",
+    "\"Princess Ballerina Camp\" \"2026\""
+  ],
+  "ms": 104670,
+  "candidates": [
+    {
+      "name": "Corylace Cove",
+      "url": "https://www.corylacecove.com/summer-camps",
+      "town": "Mars Hill",
+      "state": "NC",
+      "kinds": ["half_day"],
+      "categories": ["nature_outdoor", "arts"],
+      "note": "2026 nature camps for ages 3–5 and craft camps for ages 4–16; younger groups have shortened days."
+    },
+    {
+      "name": "Mars Hill University",
+      "url": "https://www.mhu.edu/about/what-to-do-and-see/summer-opportunities-at-mars-hill/",
+      "town": "Mars Hill",
+      "state": "NC",
+      "kinds": ["half_day", "day"],
+      "categories": ["sports", "arts"],
+      "note": "2025 coed soccer camp for ages 5–15 offered a half-day option starting at 9 a.m.; also runs other sports and arts programs."
+    },
+    {
+      "name": "Into the Fire",
+      "url": "https://www.intothefirejc.com/summer-camp",
+      "town": "Johnson City",
+      "state": "TN",
+      "kinds": ["half_day"],
+      "categories": ["arts"],
+      "note": "2026 art camps for ages 5 and up met Tuesday–Friday, 9–11:30 a.m., with pottery and other craft projects."
+    },
+    {
+      "name": "Johnson City Arts Center",
+      "url": "https://www.jcartscenter.com/princess-ballerina-camp",
+      "town": "Johnson City",
+      "state": "TN",
+      "kinds": ["half_day"],
+      "categories": ["dance", "music", "arts"],
+      "note": "2026 Princess Ballerina Camp: weeklong half-day program for girls ages 3–8 with singing, dancing and creative play."
+    }
+  ]
+}

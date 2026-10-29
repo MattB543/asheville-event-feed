@@ -1,69 +1,115 @@
+import { Suspense } from 'react';
 import type { Metadata } from 'next';
 import { connection } from 'next/server';
 import Header from '@/components/Header';
 import FooterCredit from '@/components/FooterCredit';
+import AiNotice from '@/components/camps/AiNotice';
 import CampDirectory from '@/components/camps/CampDirectory';
-import { toCardData } from '@/lib/camps/display';
-import { campsDataInfo, getCampListings } from '@/lib/camps/pilotData';
+import CampFeedback from '@/components/camps/CampFeedback';
+import { toCardData, type CampCardData } from '@/lib/camps/display';
+import { ORS_ATTRIBUTION } from '@/lib/camps/geo';
+import { campsLastUpdated, listLiveCamps } from '@/lib/db/queries/camps';
 import { SITE_URL } from '@/lib/seo/site';
 
 const pageUrl = `${SITE_URL}/camps`;
+const title = 'Summer camps near Asheville, 2027';
 const description =
-  'Kids’ summer camps near Asheville for 2027: ages, dates, prices, drive times and when registration opens.';
+  'Kids’ summer camps near Asheville for 2027: ages, weeks, prices, drive times and when registration opens, with reminders.';
 
 export const metadata: Metadata = {
-  title: 'Summer camps near Asheville, 2027',
+  title,
   description,
   alternates: { canonical: pageUrl },
-  // Pilot data, not hand-checked: keep it out of search until launch (~Dec 1).
-  robots: { index: false, follow: false },
+  openGraph: {
+    type: 'website',
+    url: pageUrl,
+    title,
+    description,
+    siteName: 'AVL GO',
+    locale: 'en_US',
+    images: [{ url: '/avlgo-og.png', width: 1200, height: 630, alt: 'AVL GO' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title,
+    description,
+    images: ['/avlgo-og.png'],
+    creator: '@mattbrooksxyz',
+  },
 };
 
 export default async function CampsPage() {
-  // Per request: the registration line depends on the clock ("opens" turns into "opened").
+  // Per request: the registration line depends on the clock ("opens" turns into "opened"), and
+  // the camp list is cached per Eastern date under the `camps` tag.
   await connection();
-  const listings = getCampListings();
-  const cards = listings.map(toCardData);
-  const { generatedAt, attribution } = campsDataInfo();
-  const providers = new Set(listings.map((listing) => listing.providerKey)).size;
-  const checked = new Date(generatedAt).toLocaleDateString('en-US', {
-    month: 'short',
-    day: 'numeric',
-    year: 'numeric',
-    timeZone: 'America/New_York',
-  });
+
+  let cards: CampCardData[] = [];
+  let providers = 0;
+  let checked: string | null = null;
+  let failed = false;
+  try {
+    const [camps, lastUpdated] = await Promise.all([listLiveCamps(), campsLastUpdated()]);
+    const now = new Date();
+    cards = camps.map((camp) => toCardData(camp, now));
+    providers = new Set(camps.map((camp) => camp.providerKey)).size;
+    checked =
+      lastUpdated &&
+      new Date(lastUpdated).toLocaleDateString('en-US', {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric',
+        timeZone: 'America/New_York',
+      });
+  } catch (error) {
+    console.error('[Camps] Failed to load the camp directory:', error);
+    failed = true;
+  }
 
   return (
     <main className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-950">
-      <Header />
+      <Header activeTab="camps" />
 
       <div className="flex-grow">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-10">
           <h1 className="text-lg sm:text-2xl font-bold text-gray-900 dark:text-gray-100">
-            Summer camps near Asheville, 2027
+            {title}
           </h1>
           <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
-            Ages, dates, prices and when registration opens, read from each camp’s own pages. Where
-            a camp hasn’t posted 2027 yet, you’ll see its 2026 details, labeled 2026.
+            When registration opens, plus ages, weeks, prices and drive times, read from each camp’s
+            own site. Where a camp hasn’t posted 2027 yet, you’ll see its 2026 details, labeled
+            2026.
           </p>
-          <p className="mt-1 text-xs text-gray-500 dark:text-gray-500">
-            {cards.length} camps from {providers} providers · last checked {checked}
-          </p>
+          {cards.length > 0 && (
+            <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+              {cards.length} camps from {providers} {providers === 1 ? 'provider' : 'providers'}
+              {checked && ` · last checked ${checked}`}
+            </p>
+          )}
 
-          <div
-            role="note"
-            className="mt-4 rounded-lg border border-amber-200 dark:border-amber-800 bg-amber-50 dark:bg-amber-950/40 px-3 py-2 text-sm text-amber-900 dark:text-amber-200"
-          >
-            Pilot: 20 providers, extracted by AI and checked against each camp’s page by code. No
-            date here has been checked by a person yet. Always confirm on the camp’s site.
-          </div>
+          <AiNotice className="mt-4" />
 
           <div className="mt-6">
-            <CampDirectory camps={cards} />
+            {cards.length === 0 ? (
+              <div className="p-8 text-center bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl">
+                <p className="text-gray-600 dark:text-gray-400">
+                  {failed
+                    ? 'The camp directory is unavailable right now. Please try again shortly.'
+                    : 'No camps listed yet. Check back soon.'}
+                </p>
+              </div>
+            ) : (
+              <Suspense fallback={null}>
+                <CampDirectory camps={cards} />
+              </Suspense>
+            )}
           </div>
 
-          <p className="mt-8 text-xs text-gray-500 dark:text-gray-500">
-            Drive times from Pack Square, no traffic: {attribution}
+          <div className="mt-10 max-w-2xl">
+            <CampFeedback />
+          </div>
+
+          <p className="mt-8 text-xs text-gray-500 dark:text-gray-400">
+            Drive times from Pack Square, without traffic: {ORS_ATTRIBUTION}
           </p>
         </div>
       </div>

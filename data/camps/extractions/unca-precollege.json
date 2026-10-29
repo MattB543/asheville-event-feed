@@ -1,0 +1,1077 @@
+{
+  "provider": {
+    "key": "unca-precollege",
+    "name": "UNC Asheville Pre-College Programs",
+    "urls": ["https://www.unca.edu/precollege/"],
+    "area": null,
+    "discovered_by": ["pilot"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T03:20:28.760Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "8165851d05913af78f0d5f523df00b54a09d1a9839f61690e4cf9093be6d2693",
+  "response": {
+    "searches": [
+      "site:unca.edu/precollege \"2026\" \"$\"",
+      "site:unca.edu/precollege/music-composition \"Cost\"",
+      "site:unca.edu \"Music Composition\" \"Cost:\""
+    ],
+    "usage": {
+      "inputTokens": 35211,
+      "cachedInputTokens": 8223,
+      "outputTokens": 6649,
+      "reasoningTokens": 212
+    },
+    "status": "completed",
+    "ms": 107037,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.unca.edu/precollege/",
+      "chars": 18217,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.unca.edu/admission/financial-aid/tuition/",
+      "chars": 7441,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.unca.edu/academics/summer/",
+      "chars": 5778,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.unca.edu/campus-life/",
+      "chars": 6384,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.unca.edu/campus-rec/",
+      "chars": 5394,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.unca.edu/millennial-campus/",
+      "chars": 22813,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.unca.edu/wp-content/uploads/2026/07/the-path-forward-recommendations-for-unc-ashevilles-millennial-campus-development.pdf",
+      "chars": 13973,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "UNC Asheville Pre-College Programs",
+    "website_url": "https://www.unca.edu/precollege/",
+    "notes": "Summer 2027 programs are still being developed; the named offerings remain explicitly labeled 2026 reference information. Tentative provider-wide 2027 weeks are June 13-18 and June 20-25, but no individual program has been assigned to them. Registration is expected mid-December 2026. The FAQ contains stale between-week dates (June 20 and June 22), inconsistent with the 2026 schedule; these were not used. Campus address is published, but the specific residence hall/check-in building is not identified. Individual pages retain full/waitlist notices, while the homepage says 2026 registration closed; availability uses the homepage closure.",
+    "excluded": [
+      {
+        "name": "Summer Courses",
+        "reason": "University credit courses for degree-seeking and visiting students, not a finite supervised youth camp."
+      },
+      {
+        "name": "Campus Recreation programs",
+        "reason": "Ongoing fitness, outdoor activities, club sports and intramural leagues, not identified summer youth camps."
+      },
+      {
+        "name": "Student Employment",
+        "reason": "Employment programs, not camps."
+      },
+      {
+        "name": "Summer Intern Housing",
+        "reason": "Housing for university internships and employment, not a supervised youth camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Great Smokies Young Writers Workshop",
+        "type": "pre_college",
+        "categories": ["arts", "academic"],
+        "description": "Students generate and revise writing and critique others' work in workshops with authors and poets.",
+        "camp_page_url": "https://www.unca.edu/precollege/creative-writing-pre-college-program-2/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "coming_soon",
+          "start": "2026-06-14",
+          "end": "2026-06-26",
+          "text": "Our Summer 2027 Pre-College programs are currently being developed."
+        },
+        "ages": null,
+        "grades": {
+          "min": 10,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "UNC Asheville",
+            "address": "1 University Heights",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "Residential; Sunday check-in 3:30pm–5:00pm; Friday check-out 11:00am."
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Character as Story & The Poet’s Toolbox",
+            "start": "2026-06-14",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 1470,
+              "unit": "session",
+              "label": "Includes lodging, meals, course materials, activities, and excursions",
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Forms of Poetry & Writing Essays, Memoirs & Auto-Fiction",
+            "start": "2026-06-21",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2026-12-01",
+            "time": null,
+            "precision": "month",
+            "certainty": "expected",
+            "text": "We expect the Summer 2027 to be similar, with registration expected to open in mid-December 2026.",
+            "url": "https://www.unca.edu/precollege/",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": "2026 registration",
+          "text": "2026 Registration Closed – Sign Up To Be The First To Know When 2027 Registration Opens"
+        },
+        "financial_aid": {
+          "value": "no",
+          "text": "At this time, scholarships or financial aid are not available for UNC Asheville Pre-College Programs"
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Includes lodging, meals, course materials, activities, and excursions"
+        },
+        "transportation": {
+          "value": "case_by_case",
+          "text": "For participants that live outside of a reasonable driving distance, you may fly into the Asheville Regional Airport (AVL). Upon registration, please choose the appropriate “add on” shuttle option."
+        },
+        "sources": [
+          "https://www.unca.edu/precollege/",
+          "https://www.unca.edu/precollege/creative-writing-pre-college-program-2/",
+          "https://www.unca.edu/precollege/creative-writing-pre-college-program/"
+        ],
+        "confidence": "medium",
+        "review_notes": "First-week price was available only in an official search result. The second-week page returned no readable body; its price is unknown."
+      },
+      {
+        "name": "Ceramic Pottery",
+        "type": "pre_college",
+        "categories": ["arts"],
+        "description": "Students make pottery using wheel-throwing, coil construction and slab techniques, decorate with underglazes, and learn about kiln firing.",
+        "camp_page_url": "https://www.unca.edu/precollege/ceramic-pottery-week1/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "coming_soon",
+          "start": "2026-06-14",
+          "end": "2026-06-26",
+          "text": "Our Summer 2027 Pre-College programs are currently being developed."
+        },
+        "ages": null,
+        "grades": {
+          "min": 10,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "UNC Asheville",
+            "address": "1 University Heights",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "Residential; Sunday check-in 3:30pm–5:00pm; Friday check-out 11:00am."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 1680,
+            "unit": "session",
+            "label": "Includes lodging, meals, course materials, activities, and excursions",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": null,
+            "start": "2026-06-14",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2026-06-21",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2026-12-01",
+            "time": null,
+            "precision": "month",
+            "certainty": "expected",
+            "text": "We expect the Summer 2027 to be similar, with registration expected to open in mid-December 2026.",
+            "url": "https://www.unca.edu/precollege/",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": "2026 registration",
+          "text": "2026 Registration Closed – Sign Up To Be The First To Know When 2027 Registration Opens"
+        },
+        "financial_aid": {
+          "value": "no",
+          "text": "At this time, scholarships or financial aid are not available for UNC Asheville Pre-College Programs"
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Includes lodging, meals, course materials, activities, and excursions"
+        },
+        "transportation": {
+          "value": "case_by_case",
+          "text": "Upon registration, please choose the appropriate “add on” shuttle option."
+        },
+        "sources": [
+          "https://www.unca.edu/precollege/",
+          "https://www.unca.edu/precollege/ceramic-pottery-week1/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The homepage lists June 14-19 only; the individual program page explicitly offers June 14-19 or June 21-26, 2026. Both individual-page weeks are included."
+      },
+      {
+        "name": "Film Scoring & Sound Design",
+        "type": "pre_college",
+        "categories": ["music"],
+        "description": "Students compose cinematic music, work with virtual instruments, and use sound textures and effects to support visual storytelling.",
+        "camp_page_url": "https://www.unca.edu/precollege/film-scoring-sound-design/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "coming_soon",
+          "start": "2026-06-21",
+          "end": "2026-06-26",
+          "text": "Our Summer 2027 Pre-College programs are currently being developed."
+        },
+        "ages": null,
+        "grades": {
+          "min": 10,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "UNC Asheville",
+            "address": "1 University Heights",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "Residential; Sunday check-in 3:30pm–5:00pm; Friday check-out 11:00am."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 1460,
+            "unit": "session",
+            "label": "Includes lodging, meals, course materials, activities, and excursions",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2026-12-01",
+            "time": null,
+            "precision": "month",
+            "certainty": "expected",
+            "text": "We expect the Summer 2027 to be similar, with registration expected to open in mid-December 2026.",
+            "url": "https://www.unca.edu/precollege/",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": "2026 registration",
+          "text": "2026 Registration Closed – Sign Up To Be The First To Know When 2027 Registration Opens"
+        },
+        "financial_aid": {
+          "value": "no",
+          "text": "At this time, scholarships or financial aid are not available for UNC Asheville Pre-College Programs"
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Includes lodging, meals, course materials, activities, and excursions"
+        },
+        "transportation": {
+          "value": "case_by_case",
+          "text": "Upon registration, please choose the appropriate “add on” shuttle option."
+        },
+        "sources": [
+          "https://www.unca.edu/precollege/",
+          "https://www.unca.edu/precollege/film-scoring-sound-design/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Program-specific price read from an official search result."
+      },
+      {
+        "name": "Music Composition & Songwriting",
+        "type": "pre_college",
+        "categories": ["music"],
+        "description": "Students compose music individually and collaboratively, practice songwriting and improvisation, and perform original work.",
+        "camp_page_url": "https://www.unca.edu/precollege/music-composition-songwriting/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "coming_soon",
+          "start": "2026-06-21",
+          "end": "2026-06-26",
+          "text": "Our Summer 2027 Pre-College programs are currently being developed."
+        },
+        "ages": null,
+        "grades": {
+          "min": 10,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "UNC Asheville",
+            "address": "1 University Heights",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "Residential; Sunday check-in 3:30pm–5:00pm; Friday check-out 11:00am."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 1460,
+            "unit": "session",
+            "label": "Includes lodging, meals, course materials, activities, and excursions",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2026-12-01",
+            "time": null,
+            "precision": "month",
+            "certainty": "expected",
+            "text": "We expect the Summer 2027 to be similar, with registration expected to open in mid-December 2026.",
+            "url": "https://www.unca.edu/precollege/",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": "2026 registration",
+          "text": "2026 Registration Closed – Sign Up To Be The First To Know When 2027 Registration Opens"
+        },
+        "financial_aid": {
+          "value": "no",
+          "text": "At this time, scholarships or financial aid are not available for UNC Asheville Pre-College Programs"
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Includes lodging, meals, course materials, activities, and excursions"
+        },
+        "transportation": {
+          "value": "case_by_case",
+          "text": "Upon registration, please choose the appropriate “add on” shuttle option."
+        },
+        "sources": [
+          "https://www.unca.edu/precollege/",
+          "https://www.unca.edu/precollege/music-composition-songwriting/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Program-specific price read from an official search result."
+      },
+      {
+        "name": "River Ecology & Adventure",
+        "type": "pre_college",
+        "categories": ["stem", "nature_outdoor"],
+        "description": "Students study stream ecology and aquatic species through fieldwork paired with canoeing, hiking and whitewater rafting.",
+        "camp_page_url": "https://www.unca.edu/precollege/river-ecology-pre-college-program/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "coming_soon",
+          "start": "2026-06-21",
+          "end": "2026-06-26",
+          "text": "Our Summer 2027 Pre-College programs are currently being developed."
+        },
+        "ages": null,
+        "grades": {
+          "min": 10,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "UNC Asheville",
+            "address": "1 University Heights",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "Residential; Sunday check-in 3:30pm–5:00pm; Friday check-out 11:00am."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 1840,
+            "unit": "session",
+            "label": "Includes lodging, meals, course materials, activities, and excursions",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2026-12-01",
+            "time": null,
+            "precision": "month",
+            "certainty": "expected",
+            "text": "We expect the Summer 2027 to be similar, with registration expected to open in mid-December 2026.",
+            "url": "https://www.unca.edu/precollege/",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": "2026 registration",
+          "text": "2026 Registration Closed – Sign Up To Be The First To Know When 2027 Registration Opens"
+        },
+        "financial_aid": {
+          "value": "no",
+          "text": "At this time, scholarships or financial aid are not available for UNC Asheville Pre-College Programs"
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Includes lodging, meals, course materials, activities, and excursions"
+        },
+        "transportation": {
+          "value": "case_by_case",
+          "text": "Upon registration, please choose the appropriate “add on” shuttle option."
+        },
+        "sources": [
+          "https://www.unca.edu/precollege/",
+          "https://www.unca.edu/precollege/river-ecology-pre-college-program/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Geology & Adventure",
+        "type": "pre_college",
+        "categories": ["stem", "nature_outdoor"],
+        "description": "Students study Southern Appalachian geology through hiking, rock climbing, rappelling and caving, practicing mineral identification and field observations.",
+        "camp_page_url": "https://www.unca.edu/precollege/geology-pre-college-program/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "coming_soon",
+          "start": "2026-06-14",
+          "end": "2026-06-19",
+          "text": "Our Summer 2027 Pre-College programs are currently being developed."
+        },
+        "ages": null,
+        "grades": {
+          "min": 10,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "UNC Asheville",
+            "address": "1 University Heights",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "Residential; Sunday check-in 3:30pm–5:00pm; Friday check-out 11:00am."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 1840,
+            "unit": "session",
+            "label": "Includes lodging, meals, course materials, activities, and excursions",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2026-12-01",
+            "time": null,
+            "precision": "month",
+            "certainty": "expected",
+            "text": "We expect the Summer 2027 to be similar, with registration expected to open in mid-December 2026.",
+            "url": "https://www.unca.edu/precollege/",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": "2026 registration",
+          "text": "2026 Registration Closed – Sign Up To Be The First To Know When 2027 Registration Opens"
+        },
+        "financial_aid": {
+          "value": "no",
+          "text": "At this time, scholarships or financial aid are not available for UNC Asheville Pre-College Programs"
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Includes lodging, meals, course materials, activities, and excursions"
+        },
+        "transportation": {
+          "value": "case_by_case",
+          "text": "Upon registration, please choose the appropriate “add on” shuttle option."
+        },
+        "sources": [
+          "https://www.unca.edu/precollege/",
+          "https://www.unca.edu/precollege/geology-pre-college-program/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Introduction to Engineering & Mechatronics",
+        "type": "pre_college",
+        "categories": ["stem"],
+        "description": "Students explore mechanical and electrical engineering, computer science and robotics by building and programming robots.",
+        "camp_page_url": "https://www.unca.edu/precollege/engineering/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "coming_soon",
+          "start": "2026-06-14",
+          "end": "2026-06-26",
+          "text": "Our Summer 2027 Pre-College programs are currently being developed."
+        },
+        "ages": null,
+        "grades": {
+          "min": 10,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "UNC Asheville",
+            "address": "1 University Heights",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "Residential; Sunday check-in 3:30pm–5:00pm; Friday check-out 11:00am."
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": null,
+            "start": "2026-06-14",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 1840,
+              "unit": "session",
+              "label": "Includes lodging, meals, course materials, activities, and excursions",
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2026-06-21",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2026-12-01",
+            "time": null,
+            "precision": "month",
+            "certainty": "expected",
+            "text": "We expect the Summer 2027 to be similar, with registration expected to open in mid-December 2026.",
+            "url": "https://www.unca.edu/precollege/",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": "2026 registration",
+          "text": "2026 Registration Closed – Sign Up To Be The First To Know When 2027 Registration Opens"
+        },
+        "financial_aid": {
+          "value": "no",
+          "text": "At this time, scholarships or financial aid are not available for UNC Asheville Pre-College Programs"
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Includes lodging, meals, course materials, activities, and excursions"
+        },
+        "transportation": {
+          "value": "case_by_case",
+          "text": "Upon registration, please choose the appropriate “add on” shuttle option."
+        },
+        "sources": [
+          "https://www.unca.edu/precollege/",
+          "https://www.unca.edu/precollege/engineering/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Homepage lists two weeks; the individual page's official search result lists only June 14-19 and its $1,840 price. Second-week price left unknown. Historical full/waitlist notices superseded by homepage registration closure."
+      },
+      {
+        "name": "Wildlife Wonders: Appalachian Zoology",
+        "type": "pre_college",
+        "categories": ["stem", "nature_outdoor"],
+        "description": "Students investigate Appalachian animals through laboratory experiments and field trips, using microscopes and wildlife-observation tools.",
+        "camp_page_url": "https://www.unca.edu/precollege/wildlife-wonders/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "coming_soon",
+          "start": "2026-06-14",
+          "end": "2026-06-19",
+          "text": "Our Summer 2027 Pre-College programs are currently being developed."
+        },
+        "ages": null,
+        "grades": {
+          "min": 10,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "UNC Asheville",
+            "address": "1 University Heights",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "Residential; Sunday check-in 3:30pm–5:00pm; Friday check-out 11:00am."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 1590,
+            "unit": "session",
+            "label": "Includes lodging, meals, course materials, activities, and excursions",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2026-12-01",
+            "time": null,
+            "precision": "month",
+            "certainty": "expected",
+            "text": "We expect the Summer 2027 to be similar, with registration expected to open in mid-December 2026.",
+            "url": "https://www.unca.edu/precollege/",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": "2026 registration",
+          "text": "2026 Registration Closed – Sign Up To Be The First To Know When 2027 Registration Opens"
+        },
+        "financial_aid": {
+          "value": "no",
+          "text": "At this time, scholarships or financial aid are not available for UNC Asheville Pre-College Programs"
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Includes lodging, meals, course materials, activities, and excursions"
+        },
+        "transportation": {
+          "value": "case_by_case",
+          "text": "Upon registration, please choose the appropriate “add on” shuttle option."
+        },
+        "sources": [
+          "https://www.unca.edu/precollege/",
+          "https://www.unca.edu/precollege/wildlife-wonders/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Price read from an official search result. Historical full/waitlist notice superseded by homepage registration closure."
+      },
+      {
+        "name": "Game Design & AI",
+        "type": "pre_college",
+        "categories": ["stem"],
+        "description": "Students collaborate to prototype AI-enhanced or AI-themed games using low-code tools and discuss the ethics of AI in design.",
+        "camp_page_url": "https://www.unca.edu/precollege/game-design-pre-college-program/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "coming_soon",
+          "start": "2026-06-21",
+          "end": "2026-06-26",
+          "text": "Our Summer 2027 Pre-College programs are currently being developed."
+        },
+        "ages": null,
+        "grades": {
+          "min": 10,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "UNC Asheville",
+            "address": "1 University Heights",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "Residential; Sunday check-in 3:30pm–5:00pm; Friday check-out 11:00am."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 1590,
+            "unit": "session",
+            "label": "Includes lodging, meals, course materials, activities, and excursions",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2026-12-01",
+            "time": null,
+            "precision": "month",
+            "certainty": "expected",
+            "text": "We expect the Summer 2027 to be similar, with registration expected to open in mid-December 2026.",
+            "url": "https://www.unca.edu/precollege/",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": "2026 registration",
+          "text": "2026 Registration Closed – Sign Up To Be The First To Know When 2027 Registration Opens"
+        },
+        "financial_aid": {
+          "value": "no",
+          "text": "At this time, scholarships or financial aid are not available for UNC Asheville Pre-College Programs"
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Includes lodging, meals, course materials, activities, and excursions"
+        },
+        "transportation": {
+          "value": "case_by_case",
+          "text": "Upon registration, please choose the appropriate “add on” shuttle option."
+        },
+        "sources": [
+          "https://www.unca.edu/precollege/",
+          "https://www.unca.edu/precollege/game-design-pre-college-program/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Program-specific price read from an official search result."
+      },
+      {
+        "name": "Pre-Med",
+        "type": "pre_college",
+        "categories": ["stem", "academic"],
+        "description": "Students solve simulated patient cases, perform microbiology and biochemistry tests, discuss medical ethics, and dissect a pig heart.",
+        "camp_page_url": "https://www.unca.edu/precollege/pre-med-pre-college-program/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "coming_soon",
+          "start": "2026-06-14",
+          "end": "2026-06-19",
+          "text": "Our Summer 2027 Pre-College programs are currently being developed."
+        },
+        "ages": null,
+        "grades": {
+          "min": 10,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "UNC Asheville",
+            "address": "1 University Heights",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "Residential; Sunday check-in 3:30pm–5:00pm; Friday check-out 11:00am."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 1660,
+            "unit": "session",
+            "label": "Includes lodging, meals, course materials, activities, and excursions",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2026-12-01",
+            "time": null,
+            "precision": "month",
+            "certainty": "expected",
+            "text": "We expect the Summer 2027 to be similar, with registration expected to open in mid-December 2026.",
+            "url": "https://www.unca.edu/precollege/",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": "2026 registration",
+          "text": "2026 Registration Closed – Sign Up To Be The First To Know When 2027 Registration Opens"
+        },
+        "financial_aid": {
+          "value": "no",
+          "text": "At this time, scholarships or financial aid are not available for UNC Asheville Pre-College Programs"
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Includes lodging, meals, course materials, activities, and excursions"
+        },
+        "transportation": {
+          "value": "case_by_case",
+          "text": "Upon registration, please choose the appropriate “add on” shuttle option."
+        },
+        "sources": [
+          "https://www.unca.edu/precollege/",
+          "https://www.unca.edu/precollege/pre-med-pre-college-program/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Program-specific price and Biology prerequisite read from an official search result; verify prerequisite before registration."
+      },
+      {
+        "name": "Meteorology",
+        "type": "pre_college",
+        "categories": ["stem"],
+        "description": "Students study atmospheric science, build a weather station, visit weather-related workplaces and practice presenting a television forecast.",
+        "camp_page_url": "https://www.unca.edu/precollege/meteorology/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "coming_soon",
+          "start": "2026-06-21",
+          "end": "2026-06-26",
+          "text": "Our Summer 2027 Pre-College programs are currently being developed."
+        },
+        "ages": null,
+        "grades": {
+          "min": 10,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "UNC Asheville",
+            "address": "1 University Heights",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "Residential; Sunday check-in 3:30pm–5:00pm; Friday check-out 11:00am."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 1590,
+            "unit": "session",
+            "label": "Includes lodging, meals, course materials, activities, and excursions",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2026-12-01",
+            "time": null,
+            "precision": "month",
+            "certainty": "expected",
+            "text": "We expect the Summer 2027 to be similar, with registration expected to open in mid-December 2026.",
+            "url": "https://www.unca.edu/precollege/",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": "2026 registration",
+          "text": "2026 Registration Closed – Sign Up To Be The First To Know When 2027 Registration Opens"
+        },
+        "financial_aid": {
+          "value": "no",
+          "text": "At this time, scholarships or financial aid are not available for UNC Asheville Pre-College Programs"
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Includes lodging, meals, course materials, activities, and excursions"
+        },
+        "transportation": {
+          "value": "case_by_case",
+          "text": "Upon registration, please choose the appropriate “add on” shuttle option."
+        },
+        "sources": [
+          "https://www.unca.edu/precollege/",
+          "https://www.unca.edu/precollege/meteorology/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Individual page retains a full/join-waitlist notice for 2026; homepage explicitly closes 2026 registration, which is used for availability."
+      }
+    ]
+  }
+}

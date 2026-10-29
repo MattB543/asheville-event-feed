@@ -1,0 +1,96 @@
+{
+  "provider": {
+    "key": "reynolds-baptist-vbs",
+    "name": "Reynolds Baptist Church (Vacation Bible School)",
+    "urls": ["https://www.facebook.com/events/1420847309803781/"],
+    "area": "Asheville, NC (520 Rose Hill Rd)",
+    "hint": "Its 2026 VBS (\"Illumination Station\") was posted as a Facebook event, the URL above; AVLGO's feed picked it up from Facebook. Look for the church's own website too.",
+    "discovered_by": ["pilot"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T03:18:02.716Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": null,
+  "response": {
+    "searches": [
+      "Reynolds Baptist Church Asheville Illumination Station 2026 VBS",
+      "open https://www.reynoldsbaptistchurch.org/uploads/1/5/6/0/15609766/06-21-2026_bulletin_kw.pdf",
+      "site:reynoldsbaptistchurch.org \"VBS\" \"2026\"",
+      "open https://reynoldsbaptistchurch.org/uploads/1/5/6/0/15609766/rbc_06_2026.pdf",
+      "site:reynoldsbaptistchurch.org/uploads/ \"VBS\""
+    ],
+    "usage": {
+      "inputTokens": 26957,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1055,
+      "reasoningTokens": 399
+    },
+    "status": "completed",
+    "ms": 39372,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.facebook.com/events/1420847309803781/",
+      "chars": 0,
+      "error": "social page: not fetched (login wall)"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Reynolds Baptist Church (Vacation Bible School)",
+    "website_url": "https://www.reynoldsbaptistchurch.org/",
+    "notes": "No 2027 VBS information found. The supplied Facebook event returned no readable content. The official website was accessible through indexed search text, but direct opens and the June 2026 calendar and bulletin PDFs returned no readable content. Third-party event mirrors list the 2026 Illumination Station VBS as June 24–26, 5:30–7:30 pm; these details require official confirmation.",
+    "excluded": [
+      {
+        "name": "CrossTied Youth & Children's Ministry",
+        "reason": "Recurring year-round youth and children's ministry, not a finite summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "The church offers a children's Vacation Bible School. Its 2026 theme was Illumination Station.",
+        "camp_page_url": "https://www.facebook.com/events/1420847309803781/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-24",
+          "end": "2026-06-26",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Reynolds Baptist Church",
+            "address": "520 Rose Hill Road",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "17:30",
+          "end": "19:30",
+          "text": "Third-party event mirrors list 5:30–7:30 pm; daily hours have not been verified on the official event."
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://www.reynoldsbaptistchurch.org/"],
+        "confidence": "low",
+        "review_notes": "Confirm dates, daily hours, ages, activities and registration details on the supplied Facebook event, https://www.facebook.com/events/1420847309803781/. Dates and hours currently come only from third-party event mirrors, including https://allevents.in/asheville/vbs-illumination-station/200030259061504 and https://happeningnext.com/event/vbs-illumination-station-eid3a0droatjm. The official homepage's indexed text confirms the church address. The official June calendar and June 21 bulletin PDFs could not be read."
+      }
+    ]
+  }
+}

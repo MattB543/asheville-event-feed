@@ -1,0 +1,252 @@
+{
+  "method": "seed_sheet",
+  "id": "exa-sheet-3",
+  "input": "Below is a spreadsheet of kids' summer programs (summer 2026) that an earlier web search found near Asheville, one row per program; several rows can belong to one organization. Do not search the web. Return one row per organization, covering every organization in the list: drop a row only when it is clearly not a kids' summer program or clearly outside the area. Name the organization, not the program or the VBS theme. url: one of the row's sources when it is the organization's own page (prefer its camp page), never a directory, news article or event listing; otherwise null. town: the town where campers attend; a venue name is not a town (give the venue's town when you know it, else null).\n\n1. UNC Asheville Athletics Camps and Clinics | ages: Baseball: ages 6–13. Women’s basketball: ages 6–17, with an additional session for rising grades 1–5. Volleyball: rising grades 6–12. | location: UNC Asheville, One University Heights, Asheville, NC | sources: https://www.unca.edu/summer-camps/ https://www.uncashevillecamps.com/ https://828newsnow.com/summer-camp-guide-sports-camps/\n2. We Rock Asheville Summer Camp | ages: Ages 8-16 | location: ArtSpace Charter School, 2030 US-70, Swannanoa, Buncombe County | sources: https://www.werockasheville.org/summer-camp-2026\n3. Westview Baptist VBS (VBS) | ages: Pre-K through completed 5th grade; ages 4 through 5th grade | location: Westview Baptist Church, Asheville, Buncombe County | sources: https://westviewbaptist.org/summer/\n4. WNC Dance Academy Summer Camps and Intensive | ages: Theme camps 4-9; intensive 7-18; junior dance 9-14 | location: Asheville, NC 28801; studio address not exposed in result | sources: https://www.wncdanceacademy.com/\n5. Wortham Center/ArtSpace Creative Arts Camp | ages: Rising grades 1-5; approximately 6-11 | location: Wortham Center, 18 Biltmore Ave, Asheville, NC 28801 | sources: https://www.worthamarts.org/education/summer-camps/ https://www.worthamarts.org/education/summer-camps/faq/ https://thelaurelofasheville.com/arts/wortham-center-partners-with-artspace-charter-to-design-creative-arts-summer-camps/ https://asheville.macaronikid.com/directory/category/623a084d4aa4f27ce8606e46/2026-summer-camp-guide\n6. YMCA Adventure Camp | ages: ? | location: YMCA Youth Services Center at Beaverdam and Enka District locations: Sandhill, Hominy Valley, Candler, and Pisgah; Enka locations to be determined by Buncombe County Schools | sources: https://www.ymcawnc.org/programs/camp/summer-day-camp/adventure\n7. YMCA Camper in Leadership Training (CILT) | ages: 12-15 at Beaverdam; 13-15 at other locations | location: Youth Services Center at Beaverdam for ages 12-15; other YMCA locations for ages 13-15 | sources: https://www.ymcawnc.org/programs/camp/summer-day-camp/cilt\n8. YMCA Discovery Camp | ages: ? | location: Buncombe County sites: Sand Hill-Venable Elementary, Enka; Johnston Elementary, Erwin; Black Mountain Primary School, Owen; Fairview Elementary, Reynolds; and Avery's Creek Elementary, Roberson | sources: https://www.ymcawnc.org/programs/camp/summer-day-camp/discovery\n9. YMCA Explorer Camp | ages: 4–12 | location: YMCA Youth Services Center at Beaverdam, 201 Beaverdam Road, Asheville | sources: https://www.ymcawnc.org/programs/camp/summer-day-camp/explorer https://www.ymcawnc.org/programs/camp/summer-day-camp/adventure\n10. Zaniac Learning Asheville STEM Camps | ages: Kindergarten through grade 8; specific groups include grades K–2, 3–5, and 6–8. | location: Biltmore Park, UNC Asheville, and South Asheville locations, Buncombe County, North Carolina | sources: https://www.zaniaclearning.com/asheville/programs/summer-camps/ https://zaniac.s3.amazonaws.com/blog/assets/media/zaniac-summercamp2026-web-copy_none_media.pdf\n11. Asheville Empire Lacrosse | ages: 6-14 based on historical official listing | location: Asheville area | sources: https://ashevilleempire.com/programs/lacrosse-summer-camp/\n12. Asheville School Summer Camp | ages: ? | location: Asheville School | sources: https://www.ashevilleschool.org/academics-summer-reading/\n13. Bob Moog Foundation Dr. Bob's SoundSchool Camps | ages: Children | location: Historically associated with AMOS/Asheville | sources: https://moogfoundation.org/tag/asheville-museum-of-science/\n14. Center Stage AVL Summer Programs/Dance Camps | ages: 2.5+; dance camps include age bands 7-10 and older | location: 38L Rosscraggon Rd, Asheville, NC 28803 | sources: https://www.centerstageavl.com/summer/\n15. D-BAT Asheville | ages: ? | location: Asheville | sources: https://www.dbatasheville.com/camps https://asheville.macaronikid.com/directory/category/623a084d4aa4f27ce8606e46/2026-summer-camp-guide\n16. Destination SPACE Satellite Week | ages: High-school students | location: Historically associated with AMOS/UNC Asheville | sources: https://www.destinationspace-stem.org/media\n17. First Baptist Church Black Mountain VBS (VBS) | ages: ? | location: First Baptist Church Black Mountain, 130 Montreat Road, Black Mountain, Buncombe County | sources: https://allevents.in/black-mountain/first-baptist-church-black-mountain-vbs/200030291501603\n18. French Broad River Academy Summer Programs | ages: FBRA students and alumni; exact eligibility varies | location: North and South campuses, 1990 and 1424 Riverside Dr, Asheville | sources: https://www.fbra-avl.org/summer-programming/\n19. Full Moon Equestrian | ages: 6+ based on historical listing | location: Blackberry Stables, 45 Elevacres Rd, Leicester | sources: https://fullmoonequestrian.com/camp https://fullmoonequestrian.com/contact https://asheville.macaronikid.com/directory/category/623a084d4aa4f27ce8606e46/2026-summer-camp-guide\n20. Horizons at Carolina Day | ages: Summer after kindergarten through Grade 9 | location: Carolina Day School campus, 1345 Hendersonville Road, Asheville, NC 28803 | sources: https://www.carolinaday.org/outreach/horizons\n21. Model United Nations Institute | ages: ? | location: Buncombe County, NC; exact venue not specified | sources: https://asheville.macaronikid.com/directory/category/623a084d4aa4f27ce8606e46/2026-summer-camp-guide\n22. Mountain City Public Montessori Summer Camp | ages: ? | location: Asheville area | sources: https://mountaincitypublic.org/\n23. Newbridge Baptist Church VBS (VBS) | ages: Pre-K, age 4+, through 6th grade | location: Newbridge Baptist Church, 199 Elkwood Avenue, Asheville, Buncombe County | sources: https://happeningnext.com/event/vacation-bible-school-at-newbridge-baptist-church-eid3a0dnqt3nc\n24. North Carolina Stage Company Youth Summer Camps | ages: 5-12 according to third-party listing | location: NC Stage, 15 Stage Lane, Asheville, NC 28801; third-party camp listing says 46 Wall Street | sources: https://www.ncstage.org/education/ https://www.ncstage.org/programs/ https://kidvoyage.com/camps/usa/north-carolina-stage-company\n25. OSEGA Summer Camps | ages: Ages 5–12 for full-day camp; ages 3–4 for pre-K half-day camp | location: OSEGA Gym, 260 Rutledge Road, Fletcher, NC 28732 | sources: https://osegagym.com/events/\n26. Pegasus Hill Farm | ages: ? | location: 217 Flint Hill Rd, Alexander | sources: https://pegasushillfarm.com/services/\n27. Roots + Wings School of Art and Design Summer Camp | ages: 3-16 according to third-party listing; official search result describes a multi-age camp | location: 573 Fairview Rd Suite 1, Asheville, NC 28803 | sources: https://www.rootsandwingsschool.com/about-4 https://kidvoyage.com/camps/usa/roots-and-wings-school-of-art-and-design\n28. UNC Asheville Pre-College Residential Academic Programs | ages: Rising high-school sophomores, juniors and seniors | location: UNC Asheville, 1 University Heights, Asheville, NC 28804 | sources: https://www.unca.edu/precollege/\n29. UNC Asheville — Great Smokies Young Writers Workshop | ages: Rising high-school sophomores, juniors and seniors | location: UNC Asheville, 1 University Heights, Asheville, NC 28804 | sources: https://www.unca.edu/precollege/creative-writing-pre-college-program/\n30. UNC Asheville — Music Composition & Songwriting | ages: Rising high-school sophomores, juniors and seniors | location: UNC Asheville, 1 University Heights, Asheville, NC 28804 | sources: https://www.unca.edu/precollege/music-composition-songwriting/\n31. Vacation Bible School at 2221 N Fork Right Fork Road (VBS) | ages: ? | location: 2221 N Fork Right Fork Road, Black Mountain, Buncombe County | sources: https://allevents.in/black-mountain/vacation-bible-school/200030159385552\n32. Windy Gap Young Life Camp | ages: Youth sessions; exact camper age or grade eligibility varies by local Young Life chapter and was not verified. | location: Weaverville, Buncombe County, North Carolina | sources: https://windygap.younglife.org/volunteers https://ny21.younglife.events/2026-wgp-wk-8-sr-high-outreach-ny21",
+  "at": "2026-10-29T03:18:12.803Z",
+  "webSearch": false,
+  "calls": 1,
+  "usage": {
+    "inputTokens": 3271,
+    "cachedInputTokens": 0,
+    "outputTokens": 2354,
+    "reasoningTokens": 116
+  },
+  "searches": [],
+  "ms": 43096,
+  "candidates": [
+    {
+      "name": "UNC Asheville",
+      "url": "https://www.unca.edu/summer-camps/",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day", "clinic", "overnight", "pre_college"],
+      "categories": ["sports", "academic", "arts", "music"],
+      "note": "Youth athletics camps and clinics; residential high-school pre-college programs including creative writing and music composition."
+    },
+    {
+      "name": "We Rock Asheville",
+      "url": "https://www.werockasheville.org/summer-camp-2026",
+      "town": "Swannanoa",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["music"],
+      "note": "Summer camp for ages 8–16 at ArtSpace Charter School."
+    },
+    {
+      "name": "Westview Baptist Church of Asheville",
+      "url": "https://westviewbaptist.org/summer/",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["vbs"],
+      "categories": ["faith_based"],
+      "note": "VBS for ages 4 through completed fifth grade."
+    },
+    {
+      "name": "WNC Dance Academy",
+      "url": "https://www.wncdanceacademy.com/",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["dance"],
+      "note": "Theme camps for ages 4–9, junior dance for ages 9–14, and intensives for ages 7–18."
+    },
+    {
+      "name": "Wortham Center for the Performing Arts",
+      "url": "https://www.worthamarts.org/education/summer-camps/",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["arts"],
+      "note": "Creative arts camps for rising grades 1–5, developed with ArtSpace Charter School."
+    },
+    {
+      "name": "YMCA of Western North Carolina",
+      "url": "https://www.ymcawnc.org/programs/camp/summer-day-camp/explorer",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["general", "nature_outdoor"],
+      "note": "Explorer, Adventure, Discovery and teen leadership camps at Beaverdam and multiple Buncombe County school sites."
+    },
+    {
+      "name": "Zaniac Learning Asheville",
+      "url": "https://www.zaniaclearning.com/asheville/programs/summer-camps/",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["stem"],
+      "note": "STEM camps for kindergarten through eighth grade at several Asheville locations."
+    },
+    {
+      "name": "Asheville Empire Lacrosse",
+      "url": "https://ashevilleempire.com/programs/lacrosse-summer-camp/",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["sports"],
+      "note": "Youth lacrosse summer camp; historical listing gives ages 6–14."
+    },
+    {
+      "name": "Asheville School",
+      "url": "https://www.ashevilleschool.org/academics-summer-reading/",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": [],
+      "categories": ["general"],
+      "note": "Listed as a summer camp; supplied source is a summer-reading page, so camp details are unconfirmed."
+    },
+    {
+      "name": "Bob Moog Foundation",
+      "url": "https://moogfoundation.org/tag/asheville-museum-of-science/",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["music", "stem"],
+      "note": "Dr. Bob's SoundSchool camps for children; historically associated with Asheville Museum of Science."
+    },
+    {
+      "name": "Center Stage AVL",
+      "url": "https://www.centerstageavl.com/summer/",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["dance"],
+      "note": "Summer dance programs for ages 2.5 and older, including camps for ages 7–10 and older."
+    },
+    {
+      "name": "D-BAT Asheville",
+      "url": "https://www.dbatasheville.com/camps",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["sports"],
+      "note": "Youth baseball and softball camps; ages not provided."
+    },
+    {
+      "name": "Destination SPACE",
+      "url": "https://www.destinationspace-stem.org/media",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": [],
+      "categories": ["stem"],
+      "note": "Satellite Week for high-school students; historically associated with AMOS and UNC Asheville."
+    },
+    {
+      "name": "First Baptist Church of Black Mountain",
+      "url": null,
+      "town": "Black Mountain",
+      "state": "NC",
+      "kinds": ["vbs"],
+      "categories": ["faith_based"],
+      "note": "VBS at 130 Montreat Road; ages not provided."
+    },
+    {
+      "name": "French Broad River Academy",
+      "url": "https://www.fbra-avl.org/summer-programming/",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": [],
+      "categories": ["general"],
+      "note": "Summer programs for students and alumni at the North and South campuses; eligibility varies."
+    },
+    {
+      "name": "Full Moon Equestrian",
+      "url": "https://fullmoonequestrian.com/camp",
+      "town": "Leicester",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["horses"],
+      "note": "Horse camps at Blackberry Stables; historical listing gives ages 6 and older."
+    },
+    {
+      "name": "Carolina Day School",
+      "url": "https://www.carolinaday.org/outreach/horizons",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["academic", "general"],
+      "note": "Horizons summer program serving children after kindergarten through ninth grade."
+    },
+    {
+      "name": "Model United Nations Institute",
+      "url": null,
+      "town": null,
+      "state": "NC",
+      "kinds": [],
+      "categories": ["academic"],
+      "note": "Youth summer program listed in Buncombe County; venue and ages not provided."
+    },
+    {
+      "name": "Mountain City Public Montessori",
+      "url": "https://mountaincitypublic.org/",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["general"],
+      "note": "Summer camp listed in the Asheville area; ages and exact venue not provided."
+    },
+    {
+      "name": "Newbridge Baptist Church of Asheville",
+      "url": null,
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["vbs"],
+      "categories": ["faith_based"],
+      "note": "VBS for ages 4 through sixth grade at 199 Elkwood Avenue."
+    },
+    {
+      "name": "North Carolina Stage Company",
+      "url": "https://www.ncstage.org/education/",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["theater"],
+      "note": "Youth theater summer camps; third-party listing gives ages 5–12."
+    },
+    {
+      "name": "OSEGA Gym",
+      "url": "https://osegagym.com/events/",
+      "town": "Fletcher",
+      "state": "NC",
+      "kinds": ["day", "half_day"],
+      "categories": ["sports"],
+      "note": "Full-day camps for ages 5–12 and pre-K half-day camps for ages 3–4."
+    },
+    {
+      "name": "Pegasus Hill Farm",
+      "url": "https://pegasushillfarm.com/services/",
+      "town": "Alexander",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["horses"],
+      "note": "Horse summer program at 217 Flint Hill Road; ages not provided."
+    },
+    {
+      "name": "Roots + Wings School of Art and Design",
+      "url": "https://www.rootsandwingsschool.com/about-4",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["arts"],
+      "note": "Multi-age art and design summer camps; third-party listing gives ages 3–16."
+    },
+    {
+      "name": "Unidentified church at 2221 N Fork Right Fork Road, Black Mountain",
+      "url": null,
+      "town": "Black Mountain",
+      "state": "NC",
+      "kinds": ["vbs"],
+      "categories": ["faith_based"],
+      "note": "VBS listed at this address; the supplied text does not identify the organizing church or ages."
+    },
+    {
+      "name": "Windy Gap Young Life Camp",
+      "url": "https://windygap.younglife.org/volunteers",
+      "town": "Weaverville",
+      "state": "NC",
+      "kinds": ["overnight"],
+      "categories": ["faith_based", "nature_outdoor", "general"],
+      "note": "Youth overnight sessions through Young Life chapters, including a listed senior-high session."
+    }
+  ]
+}

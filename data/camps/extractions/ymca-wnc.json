@@ -1,0 +1,653 @@
+{
+  "provider": {
+    "key": "ymca-wnc",
+    "name": "YMCA of Western North Carolina (summer day camps)",
+    "urls": [
+      "https://www.ymcawnc.org/programs/camp/summer-day-camp/adventure",
+      "https://www.ymcawnc.org/programs/camp/summer-day-camp/cilt",
+      "https://www.ymcawnc.org/programs/camp/summer-day-camp/discovery",
+      "https://www.ymcawnc.org/programs/camp/summer-day-camp/explorer"
+    ],
+    "area": null,
+    "discovered_by": ["pilot"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T03:19:08.299Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "9e2c3dd1077a2f25761c7fbe7ebc13abec8a7aa656e9938f39a7ccc44e9a7380",
+  "response": {
+    "searches": [
+      "site:ymcawnc.org summer camp 2027 2026 registration",
+      "site:jes.buncombeschools.org address Johnston Elementary",
+      "site:ymcawnc.org \"Hendersonville\" \"810\""
+    ],
+    "usage": {
+      "inputTokens": 41097,
+      "cachedInputTokens": 8223,
+      "outputTokens": 4949,
+      "reasoningTokens": 319
+    },
+    "status": "completed",
+    "ms": 104363,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.ymcawnc.org/programs/camp/summer-day-camp/adventure",
+      "chars": 8099,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.ymcawnc.org/programs/camp/summer-day-camp/cilt",
+      "chars": 8012,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.ymcawnc.org/programs/camp/summer-day-camp/discovery",
+      "chars": 8557,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.ymcawnc.org/programs/camp/summer-day-camp/explorer",
+      "chars": 9143,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ymcawnc.org/activity-finder?step=results&selectedActivities=CAT125&searchKeywords=adventure%20camp",
+      "chars": 3924,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ymcawnc.org/activity-finder?step=results&selectedActivities=CAT125&searchKeywords=discovery",
+      "chars": 3924,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.ymcawnc.org/programs/camps",
+      "chars": 4037,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.ymcawnc.org/programs/camps/half-day",
+      "chars": 5787,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "YMCA of Western North Carolina (summer day camps)",
+    "website_url": "https://www.ymcawnc.org/",
+    "notes": "No official 2027 summer day-camp dates or registration milestones were found. The activity finder did not expose usable summer session listings or prices. Retained the seven existing programs using official 2026 pages and general program descriptions. Adventure Camp's Enka location remains undetermined on its page; CILT locations are described only as current summer day-camp sites. Camp Watia is a separately linked overnight offering outside this day-camp provider extraction.",
+    "excluded": [
+      {
+        "name": "School's Out Camps",
+        "reason": "School-break and teacher-workday programs outside summer."
+      },
+      {
+        "name": "Afterschool childcare",
+        "reason": "Year-round childcare; summer day camps are represented separately."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Adventure Camp",
+        "type": "day",
+        "categories": ["nature_outdoor"],
+        "description": "Campers travel around western North Carolina for hiking, swimming, and outdoor activities. Friday activities may include horseback riding, tubing, rafting, and paintball.",
+        "camp_page_url": "https://www.ymcawnc.org/programs/camp/summer-day-camp/adventure",
+        "registration_url": "https://www.ymcawnc.org/activity-finder?searchKeywords=adventure%20camp&selectedActivities=CAT125&step=results",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-15",
+          "end": "2026-08-14",
+          "text": "In 2026, Adventure Camp runs June 15-Aug. 14. (Closed on June 19)."
+        },
+        "ages": {
+          "min": 9,
+          "max": 15
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "YMCA Youth Services Center at Beaverdam",
+            "address": "201 Beaverdam Rd.",
+            "town": "Asheville",
+            "state": "NC"
+          },
+          {
+            "name": "Hendersonville Family YMCA",
+            "address": "810 6th Ave. W",
+            "town": "Hendersonville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "07:30",
+          "end": "17:30",
+          "text": "7:30am-5:30pm"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Tweens",
+            "start": "2026-06-15",
+            "end": "2026-08-14",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 9,
+              "max": 11
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Teens",
+            "start": "2026-06-15",
+            "end": "2026-08-14",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 12,
+              "max": 15
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Financial assistance is available for qualified applicants."
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "no",
+          "text": "Participant MUST bring lunch and snacks to Adventure Camp."
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.ymcawnc.org/programs/camp/summer-day-camp/adventure",
+          "https://www.ymcawnc.org/programs/camp/summer-day-camp/explorer",
+          "https://ymcawnc.org/locations/centers/hendersonville"
+        ],
+        "confidence": "medium",
+        "review_notes": "The Adventure page still says Enka District locations will be determined in spring 2026. Verify that location and which age bands run at each site; age-band rows do not assign sites because the page does not specify those combinations."
+      },
+      {
+        "name": "Campers in Leadership Training",
+        "type": "day",
+        "categories": ["general", "nature_outdoor"],
+        "description": "Participants shadow counselors, facilitate activities for younger campers, and lead projects. Weekly leadership training includes goal setting and job preparedness.",
+        "camp_page_url": "https://www.ymcawnc.org/programs/camp/summer-day-camp/cilt",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-15",
+          "end": "2026-08-14",
+          "text": "3-week sessions June 15-August 14, 2026 (closed June 19.)"
+        },
+        "ages": {
+          "min": 12,
+          "max": 15
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "YMCA Youth Services Center at Beaverdam",
+            "address": "201 Beaverdam Rd.",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "07:30",
+          "end": "17:30",
+          "text": "7:30am-5:30pm"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Youth Services Center at Beaverdam",
+            "start": "2026-06-15",
+            "end": "2026-08-14",
+            "year": 2026,
+            "site": "YMCA Youth Services Center at Beaverdam",
+            "ages": {
+              "min": 12,
+              "max": 15
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "All other locations",
+            "start": "2026-06-15",
+            "end": "2026-08-14",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 13,
+              "max": 15
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Financial assistance is available for qualified applicants."
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Yes, the Y provides lunch. Ask the camp director if you would like lunches provided for your child at summer day camp."
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.ymcawnc.org/programs/camp/summer-day-camp/cilt",
+          "https://www.ymcawnc.org/programs/camp/summer-day-camp/explorer"
+        ],
+        "confidence": "medium",
+        "review_notes": "The page names only Beaverdam in its age FAQ and otherwise says current SDC sites. Verify other drop-off sites and actual three-week session dates. Rows span the published season, not individual three-week sessions. An interview follows registration."
+      },
+      {
+        "name": "Discovery Camp",
+        "type": "day",
+        "categories": ["general", "arts", "nature_outdoor"],
+        "description": "Weekly themes guide field trips, games, arts and crafts, outdoor activities, and lessons.",
+        "camp_page_url": "https://www.ymcawnc.org/programs/camp/summer-day-camp/discovery",
+        "registration_url": "https://www.ymcawnc.org/activity-finder?searchKeywords=discovery&selectedActivities=CAT125&step=results",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-05-26",
+          "end": "2026-08-14",
+          "text": "In 2026, Discovery Camp runs from June 15-August 14. Closed June 19. Hendersonville Family YMCA is offered from May 26-29 and June 1-5."
+        },
+        "ages": {
+          "min": null,
+          "max": 12
+        },
+        "grades": {
+          "min": 1,
+          "max": null,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Sand Hill-Venable Elementary",
+            "address": "154 Sand Hill School Road",
+            "town": "Asheville",
+            "state": "NC"
+          },
+          {
+            "name": "Johnston Elementary",
+            "address": "230 Johnston Blvd.",
+            "town": "Asheville",
+            "state": "NC"
+          },
+          {
+            "name": "Black Mountain Primary School",
+            "address": "301 East State Street",
+            "town": "Black Mountain",
+            "state": "NC"
+          },
+          {
+            "name": "Fairview Elementary",
+            "address": "1355 Charlotte Hwy",
+            "town": "Fairview",
+            "state": "NC"
+          },
+          {
+            "name": "Avery's Creek Elementary",
+            "address": "15 Park South Blvd.",
+            "town": "Arden",
+            "state": "NC"
+          },
+          {
+            "name": "Pleasant Gardens Elementary",
+            "address": "100 John Roach Drive",
+            "town": "Marion",
+            "state": "NC"
+          },
+          {
+            "name": "Hendersonville Family YMCA",
+            "address": "810 6th Ave. W",
+            "town": "Hendersonville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "07:30",
+          "end": "17:30",
+          "text": "The sample schedule starts with drop-off at 7:30 am and ends with pickup at 5:30 pm."
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Enka District",
+            "start": "2026-06-15",
+            "end": "2026-08-14",
+            "year": 2026,
+            "site": "Sand Hill-Venable Elementary",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Erwin District",
+            "start": "2026-06-15",
+            "end": "2026-08-14",
+            "year": 2026,
+            "site": "Johnston Elementary",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Owen District",
+            "start": "2026-06-15",
+            "end": "2026-08-14",
+            "year": 2026,
+            "site": "Black Mountain Primary School",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Reynolds District",
+            "start": "2026-06-15",
+            "end": "2026-08-14",
+            "year": 2026,
+            "site": "Fairview Elementary",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Roberson District",
+            "start": "2026-06-15",
+            "end": "2026-08-14",
+            "year": 2026,
+            "site": "Avery's Creek Elementary",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "McDowell District",
+            "start": "2026-06-15",
+            "end": "2026-08-14",
+            "year": 2026,
+            "site": "Pleasant Gardens Elementary",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Henderson District: May 26-29",
+            "start": "2026-05-26",
+            "end": "2026-05-29",
+            "year": 2026,
+            "site": "Hendersonville Family YMCA",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Henderson District: June 1-5",
+            "start": "2026-06-01",
+            "end": "2026-06-05",
+            "year": 2026,
+            "site": "Hendersonville Family YMCA",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Financial assistance is available for qualified applicants. You must apply for DHHS vouchers with the Department of Social Services state subsidy program before you can qualify for financial assistance through the YMCA."
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Yes, the Y provides lunch. Parents may also pack lunch for their child."
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.ymcawnc.org/programs/camp/summer-day-camp/discovery",
+          "https://shves.buncombeschools.org/o/shves/page/contact-us",
+          "https://jes.buncombeschools.org/o/je/article/3040661",
+          "https://bmps.buncombeschools.org/",
+          "https://fes.buncombeschools.org/page/tours",
+          "https://aces.buncombeschools.org/",
+          "https://www.mcdowell.k12.nc.us/pge/about-us/our-history-purpose-and-future",
+          "https://ymcawnc.org/locations/centers/hendersonville"
+        ],
+        "confidence": "medium",
+        "review_notes": "Hours come from a sample schedule, not a dedicated hours statement. Hendersonville dates inherit 2026 from the page's dates heading. The FAQ states rising first graders through age 12, while cross-promotional text says ages 4-13; used the program-specific FAQ. School and YMCA addresses were verified through official search results; McDowell pages were blocked from direct access."
+      },
+      {
+        "name": "Explorer Camp",
+        "type": "day",
+        "categories": ["nature_outdoor"],
+        "description": "Campers participate in archery, high and low ropes, gardening, forestry, and field trips. Activities develop wilderness and adventure recreation skills.",
+        "camp_page_url": "https://www.ymcawnc.org/programs/camp/summer-day-camp/explorer",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-15",
+          "end": "2026-08-14",
+          "text": "In 2026, Explorer Camp runs June 15-Aug. 14. Closed on June 19 (no pro-rate)."
+        },
+        "ages": {
+          "min": 4,
+          "max": 12
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "YMCA Youth Services Center at Beaverdam",
+            "address": "201 Beaverdam Rd.",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "07:30",
+          "end": "17:30",
+          "text": "7:30am-5:30pm; drop-off 7:30-9:00 am."
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Financial assistance is available for qualified applicants. You must apply with the DSS’s [Department of Social Services] state subsidy program before you can qualify for financial assistance through the YMCA."
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "no",
+          "text": "Parents must pack a lunch for their campers."
+        },
+        "transportation": null,
+        "sources": ["https://www.ymcawnc.org/programs/camp/summer-day-camp/explorer"],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Camp Kiddos",
+        "type": "half_day",
+        "categories": ["general", "arts", "music"],
+        "description": "Children participate in arts, crafts, songs, outdoor play, and water safety activities. Campers must be potty-trained, and a small snack is provided.",
+        "camp_page_url": "https://www.ymcawnc.org/programs/camps/half-day",
+        "registration_url": "https://ymcawnc.org/activity-finder?searchKeywords=camp+kiddos&step=results",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 3,
+          "max": 6
+        },
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.ymcawnc.org/programs/camps/half-day",
+          "https://ymcawnc.org/newsroom/april-news-springtime-fun-time-y",
+          "https://ymcawnc.org/activity-finder?searchKeywords=camp+kiddos&step=results"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Camp Explorers",
+        "type": "half_day",
+        "categories": ["nature_outdoor", "arts", "stem"],
+        "description": "Children spend a week doing activities, projects, and experiments. Options focus on nature, art, and STEM.",
+        "camp_page_url": "https://www.ymcawnc.org/programs/camps/half-day",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 6,
+          "max": 12
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Corpening Memorial YMCA",
+            "address": "348 Grace Corpening Dr.",
+            "town": "Marion",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "08:30",
+          "end": "12:30",
+          "text": "8:30 a.m.-12:30 p.m., Monday-Friday"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Financial assistance is available."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.ymcawnc.org/programs/camps/half-day",
+          "https://ymcawnc.org/locations/centers/corpening"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Sports camps",
+        "type": "half_day",
+        "categories": ["sports"],
+        "description": "Campers learn game fundamentals, sportsmanship, and teamwork through drills and games. Summer offerings include basketball, soccer, flag football, and volleyball, varying by age and location.",
+        "camp_page_url": "https://www.ymcawnc.org/programs/camps/half-day",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 5,
+          "max": 13
+        },
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.ymcawnc.org/programs/camps/half-day",
+          "https://ymcawnc.org/newsroom/april-news-springtime-fun-time-y",
+          "https://ymcawnc.org/newsroom/july-news-whats-happening-y-july"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

@@ -1,0 +1,126 @@
+{
+  "method": "aggregator",
+  "id": "explore-asheville",
+  "input": "Use Explore Asheville (exploreasheville.com) pages and events about summer camps to find organizations running summer camps and summer programs for kids and teens. For each organization listed, give the organization's own official URL (search for it), never the listing page.",
+  "at": "2026-10-29T03:23:15.336Z",
+  "webSearch": true,
+  "calls": 1,
+  "usage": {
+    "inputTokens": 70920,
+    "cachedInputTokens": 5180,
+    "outputTokens": 1660,
+    "reasoningTokens": 713
+  },
+  "searches": [
+    "site:exploreasheville.com \"summer camp\"",
+    "site:exploreasheville.com/events \"camp\" \"2026\" kids",
+    "site:exploreasheville.com/article/overnight-summer-camps \"girls\"",
+    "Camp Cedar Cliff summer 2026 official",
+    "Windy Gap summer camp 2026 official Weaverville",
+    "site:exploreasheville.com \"summer\" \"camp\" \"Greystone\"",
+    "site:exploreasheville.com \"summer camps\" \"museum\"",
+    "Black Mountain Center for Arts summer camp 2026"
+  ],
+  "ms": 72187,
+  "candidates": [
+    {
+      "name": "Camp Cedar Cliff",
+      "url": "https://campcedarcliff.org/",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day", "overnight"],
+      "categories": ["nature_outdoor", "faith_based", "general"],
+      "note": "Youth day and overnight camps with outdoor activities and Christian programming."
+    },
+    {
+      "name": "NovusWay Ministries — Lutheridge",
+      "url": "https://novusway.org/lutheridge/summer-camp/",
+      "town": "Arden",
+      "state": "NC",
+      "kinds": ["day", "overnight"],
+      "categories": ["nature_outdoor", "faith_based", "general"],
+      "note": "Day and overnight programs for kindergarten through high school, including outdoor adventure weeks."
+    },
+    {
+      "name": "Forest Floor Wilderness Programs",
+      "url": "https://forestfloorasheville.com/summer-camps/",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day", "overnight"],
+      "categories": ["nature_outdoor"],
+      "note": "Weeklong nature-based day camps and teen overnight wilderness programs."
+    },
+    {
+      "name": "Montreat Conference Center",
+      "url": "https://montreat.org/mra_category/youth",
+      "town": "Montreat",
+      "state": "NC",
+      "kinds": ["overnight"],
+      "categories": ["faith_based", "music", "general"],
+      "note": "Summer youth conferences combining worship, music, study and recreation; 2027 dates announced."
+    },
+    {
+      "name": "Young Life — Windy Gap",
+      "url": "https://windygap.younglife.org/",
+      "town": "Weaverville",
+      "state": "NC",
+      "kinds": ["overnight"],
+      "categories": ["faith_based", "nature_outdoor", "general"],
+      "note": "Overnight summer camp for middle and high school students."
+    },
+    {
+      "name": "Camp Timberlake",
+      "url": "https://camptimberlake.com/",
+      "town": "Marion",
+      "state": "NC",
+      "kinds": ["overnight"],
+      "categories": ["faith_based", "nature_outdoor", "general"],
+      "note": "Christian overnight summer camp for boys at its Marion campus; operated in summer 2026."
+    },
+    {
+      "name": "Camp Rockmont",
+      "url": "https://rockmont.com/",
+      "town": "Black Mountain",
+      "state": "NC",
+      "kinds": ["overnight"],
+      "categories": ["faith_based", "nature_outdoor", "general"],
+      "note": "Christian overnight camp for boys ages 7–17; 2027 dates and rates announced."
+    },
+    {
+      "name": "Adventure Center of Asheville",
+      "url": "https://ashevilletreetopsadventurepark.com/camps/",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["nature_outdoor", "sports"],
+      "note": "Summer Adventure Camps and Kolo Bike Park mountain-biking day camps."
+    },
+    {
+      "name": "Black Mountain Center for the Arts",
+      "url": "https://www.blackmountainarts.org/summercamp",
+      "town": "Black Mountain",
+      "state": "NC",
+      "kinds": ["day", "half_day"],
+      "categories": ["arts", "music", "dance", "theater"],
+      "note": "Summer arts camps for children and teens, including music, dance, crafts and performance."
+    },
+    {
+      "name": "Nantahala Outdoor Center",
+      "url": "https://noc.com/youth-paddling-programs/",
+      "town": "Bryson City",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["sports", "nature_outdoor"],
+      "note": "Youth kayak day camps for ages 9–17 on Western North Carolina rivers and lakes."
+    },
+    {
+      "name": "Camp Pinnacle",
+      "url": "https://camppinnacle.com/",
+      "town": "Flat Rock",
+      "state": "NC",
+      "kinds": ["overnight"],
+      "categories": ["nature_outdoor", "general"],
+      "note": "Coeducational overnight summer camp; summer 2026 sessions documented on its official site."
+    }
+  ]
+}

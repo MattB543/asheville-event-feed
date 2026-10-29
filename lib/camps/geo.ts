@@ -1,15 +1,26 @@
 /**
- * Geocoding and drive time from downtown, via HeiGIT / OpenRouteService (plan §6.2, N12).
+ * Where a camp site is and how long the drive is from downtown (docs/camps/04-v2-plan.md §1.5).
  *
- * - The old api.openrouteservice.org host is retired Nov 2-6, 2026, so this uses api.heigit.org.
- * - One fixed origin (Pack Square) and a 1xN driving matrix. Never the model: Sol guessed
- *   Hendersonville at 50-60 minutes, about twice the real drive (plan §2.5).
- * - ORS durations have no traffic, so they run short; sites within 5 minutes of a cutoff are
- *   flagged for review rather than decided automatically.
- * - Results are CC-BY-SA: pages that show drive times credit ORS_ATTRIBUTION.
+ * - Geocoding: the US Census geocoder first (free, no key, public domain, so the points may be
+ *   stored). It only places street addresses. ORS / Pelias is the fallback, and only when it finds
+ *   the address, street or venue: Pelias lacks house numbers for many WNC addresses and returned a
+ *   town centroid for the Arboretum, PACA, Rockmont and Hahn's in the pilot, and a centroid's drive
+ *   time means nothing. Anything else gets no point; Matt pins it by hand in /admin/camps.
+ * - Drive time: one fixed origin (Pack Square) and a 1xN ORS driving matrix, on api.heigit.org (the
+ *   old api.openrouteservice.org host is retired Nov 2-6, 2026). Never the model: Sol guessed
+ *   Hendersonville at 50-60 minutes, about twice the real drive (plan 01 §2.5).
+ * - ORS durations have no traffic; sites within 5 minutes of a cutoff are flagged for review
+ *   rather than decided automatically. Against the public OSRM server on 17 sites (2026-10-28,
+ *   scripts/camps/test-geo.ts) ORS ran a median 15% longer, mostly on short town trips (UNC
+ *   Asheville 10 vs 7 min); past 30 minutes they agree (Hendersonville 35 vs 35, Camp Greenville
+ *   74 vs 78).
+ * - ORS results are CC-BY-SA: pages that show drive times credit ORS_ATTRIBUTION.
  */
+import type { Site } from './contract';
+import { fetchWithRetry } from '@/lib/utils/retry';
 
-const BASE_URL = 'https://api.heigit.org';
+const ORS_URL = 'https://api.heigit.org';
+const CENSUS_URL = 'https://geocoding.geo.census.gov/geocoder/locations/onelineaddress';
 
 /** Pack Square, downtown Asheville (where ORS snaps the origin: 35.59507, -82.55102). */
 export const PACK_SQUARE = { lat: 35.5951, lng: -82.5511 } as const;
@@ -20,22 +31,28 @@ export const NEAR_CUTOFF_MINUTES = 5;
 
 export const ORS_ATTRIBUTION = '© openrouteservice.org by HeiGIT | © OpenStreetMap contributors';
 
-export interface GeocodeQuery {
-  name: string;
-  address: string | null;
-  town: string | null;
-  state: string | null;
-}
+/** A match farther than this from Pack Square is another town's street of the same name. */
+const MAX_KM_FROM_DOWNTOWN = 200;
 
-export interface Geocode {
-  query: string;
+/** One attempt plus one retry; the Census geocoder is usually well under a second. */
+const RETRY = { maxRetries: 2, timeoutMs: 20000 } as const;
+
+/**
+ * Pelias layers precise enough to route from; never locality, county or other centroids. A street
+ * match is the street's midpoint, so it counts only when the query was an address on that street:
+ * for a bare venue name it is a lookalike ("Avery's Creek Elementary" -> Avery's Creek Lane).
+ */
+const ADDRESS_LAYERS = ['address', 'street', 'venue'];
+const VENUE_LAYERS = ['address', 'venue'];
+
+export type SiteQuery = Pick<Site, 'name' | 'address' | 'town' | 'state'>;
+
+export interface SiteGeo {
   lat: number;
   lng: number;
+  source: 'census' | 'ors';
+  /** The geocoder's own name for the match, e.g. "375 LAKE EDEN RD, BLACK MOUNTAIN, NC, 28711". */
   label: string;
-  confidence: number;
-  layer: string;
-  /** True when the match is only a town/region centroid or low confidence: needs a look. */
-  approximate: boolean;
 }
 
 function apiKey(): string {
@@ -48,18 +65,76 @@ export function isGeoConfigured(): boolean {
   return !!process.env.OPENROUTE_SERVICE_API_KEY;
 }
 
-export function geocodeText(query: GeocodeQuery): string {
-  // A street address is the drop-off; fall back to the venue name when there isn't one.
-  const place = query.address ? query.address : query.name;
+/** One line to geocode: the street address when there is one, else the venue name. */
+export function geocodeText(site: SiteQuery): string {
+  const place = site.address ? site.address : site.name;
   const parts = [place];
-  if (query.town && !place.toLowerCase().includes(query.town.toLowerCase())) parts.push(query.town);
-  if (query.state && !/\b[A-Z]{2}\b/.test(place)) parts.push(query.state);
+  if (site.town && !place.toLowerCase().includes(site.town.toLowerCase())) parts.push(site.town);
+  if (site.state && !/\b[A-Z]{2}\b/.test(place)) parts.push(site.state);
   return parts.join(', ');
 }
 
-/** Pelias search biased toward Asheville and bounded to ~200 km (rules out Asheville-named places elsewhere). */
-export async function geocode(query: GeocodeQuery): Promise<Geocode | null> {
-  const text = geocodeText(query);
+export function kmBetween(
+  a: { lat: number; lng: number },
+  b: { lat: number; lng: number }
+): number {
+  const rad = Math.PI / 180;
+  const dLat = (b.lat - a.lat) * rad;
+  const dLng = (b.lng - a.lng) * rad;
+  const h =
+    Math.sin(dLat / 2) ** 2 +
+    Math.cos(a.lat * rad) * Math.cos(b.lat * rad) * Math.sin(dLng / 2) ** 2;
+  return 6371 * 2 * Math.asin(Math.sqrt(h));
+}
+
+/**
+ * Census one-line address lookup. It needs a town or ZIP in the line ("27 Church St" alone
+ * matches nothing). Its point is interpolated along the street's address range.
+ */
+export async function censusGeocode(oneLineAddress: string): Promise<SiteGeo | null> {
+  const params = new URLSearchParams({
+    address: oneLineAddress,
+    benchmark: 'Public_AR_Current',
+    format: 'json',
+  });
+  const response = await fetchWithRetry(`${CENSUS_URL}?${params}`, undefined, RETRY);
+  const json = (await response.json()) as {
+    result?: {
+      addressMatches?: Array<{ matchedAddress: string; coordinates: { x: number; y: number } }>;
+    };
+  };
+  const matches = (json.result?.addressMatches ?? [])
+    .map((match) => ({
+      lat: match.coordinates.y,
+      lng: match.coordinates.x,
+      label: match.matchedAddress,
+    }))
+    .filter((point) => kmBetween(PACK_SQUARE, point) <= MAX_KM_FROM_DOWNTOWN);
+  const [first] = matches;
+  if (!first) return null;
+  // Matches more than a kilometer apart (the same number on two streets of that name) are a guess.
+  if (matches.some((point) => kmBetween(first, point) > 1)) return null;
+  return { lat: first.lat, lng: first.lng, source: 'census', label: first.label };
+}
+
+/**
+ * Pelias returns its best guess even for a vague venue name: "UNC Asheville campus residence hall"
+ * came back as a Residence Inn in Spartanburg, SC (pilot, 2026-10-28). Accept a match only when its
+ * town (the part of the label before the state) is named in the query.
+ */
+function plausibleMatch(query: string, label: string): boolean {
+  const parts = label.split(',').map((part) => part.trim());
+  const locality = parts.length >= 3 ? parts[parts.length - 3] : parts[0];
+  const words = locality
+    .toLowerCase()
+    .split(/\s+/)
+    .filter((word) => word.length >= 4 && word !== 'county');
+  const text = query.toLowerCase();
+  return words.length === 0 || words.some((word) => text.includes(word));
+}
+
+/** Pelias search biased toward Asheville and bounded to MAX_KM_FROM_DOWNTOWN, in the given layers only. */
+async function orsGeocode(text: string, layers: string[]): Promise<SiteGeo | null> {
   const params = new URLSearchParams({
     text,
     size: '1',
@@ -68,59 +143,35 @@ export async function geocode(query: GeocodeQuery): Promise<Geocode | null> {
     'focus.point.lon': String(PACK_SQUARE.lng),
     'boundary.circle.lat': String(PACK_SQUARE.lat),
     'boundary.circle.lon': String(PACK_SQUARE.lng),
-    'boundary.circle.radius': '200',
+    'boundary.circle.radius': String(MAX_KM_FROM_DOWNTOWN),
   });
-  const response = await fetch(`${BASE_URL}/pelias/v1/search?${params}`, {
-    headers: { Authorization: apiKey() },
-    signal: AbortSignal.timeout(20000),
-  });
-  if (!response.ok) throw new Error(`Geocode HTTP ${response.status} for "${text}"`);
+  const response = await fetchWithRetry(
+    `${ORS_URL}/pelias/v1/search?${params}`,
+    { headers: { Authorization: apiKey() } },
+    RETRY
+  );
   const json = (await response.json()) as {
     features?: Array<{
       geometry: { coordinates: [number, number] };
-      properties: { label: string; confidence?: number; layer: string };
+      properties: { label: string; layer: string };
     }>;
   };
   const feature = json.features?.[0];
-  if (!feature) return null;
-
-  const confidence = feature.properties.confidence ?? 0;
-  const layer = feature.properties.layer;
+  if (!feature || !layers.includes(feature.properties.layer)) return null;
+  if (!plausibleMatch(text, feature.properties.label)) return null;
   return {
-    query: text,
     lng: feature.geometry.coordinates[0],
     lat: feature.geometry.coordinates[1],
+    source: 'ors',
     label: feature.properties.label,
-    confidence,
-    layer,
-    approximate:
-      confidence < 0.8 ||
-      [
-        'locality',
-        'localadmin',
-        'county',
-        'region',
-        'postalcode',
-        'neighbourhood',
-        'borough',
-      ].includes(layer),
   };
 }
 
-/**
- * Pelias returns its best guess even for a vague venue name: "UNC Asheville campus residence hall"
- * came back as a Residence Inn in Spartanburg, SC (pilot, 2026-10-28). Accept a match only when its
- * town (the part of the label before the state) is named in the query.
- */
-export function plausibleMatch(query: string, hit: Geocode): boolean {
-  const parts = hit.label.split(',').map((part) => part.trim());
-  const locality = parts.length >= 3 ? parts[parts.length - 3] : parts[0];
-  const words = locality
-    .toLowerCase()
-    .split(/\s+/)
-    .filter((word) => word.length >= 4 && word !== 'county');
-  const text = query.toLowerCase();
-  return words.length === 0 || words.some((word) => text.includes(word));
+/** Census for a street address, then ORS; null when neither places the site itself. */
+export async function geocodeSite(site: SiteQuery): Promise<SiteGeo | null> {
+  const text = geocodeText(site);
+  if (!site.address) return orsGeocode(text, VENUE_LAYERS);
+  return (await censusGeocode(text)) ?? orsGeocode(text, ADDRESS_LAYERS);
 }
 
 /** Unrounded driving minutes from Pack Square to each point (null when ORS can't route it). */
@@ -131,23 +182,23 @@ export async function driveMinutesFromDowntown(
   const BATCH = 49; // origin + 49 destinations stays inside the free plan's 50-location matrix
   for (let start = 0; start < points.length; start += BATCH) {
     const batch = points.slice(start, start + BATCH);
-    const response = await fetch(`${BASE_URL}/openrouteservice/v2/matrix/driving-car`, {
-      method: 'POST',
-      headers: { Authorization: apiKey(), 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        locations: [
-          [PACK_SQUARE.lng, PACK_SQUARE.lat],
-          ...batch.map((point) => [point.lng, point.lat]),
-        ],
-        sources: [0],
-        destinations: batch.map((_, index) => index + 1),
-        metrics: ['duration'],
-      }),
-      signal: AbortSignal.timeout(30000),
-    });
-    if (!response.ok) {
-      throw new Error(`Matrix HTTP ${response.status}: ${(await response.text()).slice(0, 300)}`);
-    }
+    const response = await fetchWithRetry(
+      `${ORS_URL}/openrouteservice/v2/matrix/driving-car`,
+      {
+        method: 'POST',
+        headers: { Authorization: apiKey(), 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          locations: [
+            [PACK_SQUARE.lng, PACK_SQUARE.lat],
+            ...batch.map((point) => [point.lng, point.lat]),
+          ],
+          sources: [0],
+          destinations: batch.map((_, index) => index + 1),
+          metrics: ['duration'],
+        }),
+      },
+      { ...RETRY, timeoutMs: 30000 }
+    );
     const json = (await response.json()) as { durations: Array<Array<number | null>> };
     for (const seconds of json.durations[0]) {
       results.push(seconds === null ? null : seconds / 60);

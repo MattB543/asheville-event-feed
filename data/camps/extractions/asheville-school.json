@@ -1,0 +1,84 @@
+{
+  "provider": {
+    "key": "asheville-school",
+    "name": "Asheville School (summer programs)",
+    "urls": ["https://www.ashevilleschool.org/academics-summer-reading/"],
+    "area": null,
+    "discovered_by": ["pilot"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T03:18:20.444Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "0e2de250f28703d9d2485ab0f5c1980db8ffd683ef4a1a9f312f45f14c29f57e",
+  "response": {
+    "searches": [
+      "site.ashevilleschool.org summer camp 2026 2027",
+      "site:ashevilleschool.org \"camp\" \"2026\""
+    ],
+    "usage": {
+      "inputTokens": 27080,
+      "cachedInputTokens": 8223,
+      "outputTokens": 458,
+      "reasoningTokens": 135
+    },
+    "status": "completed",
+    "ms": 17722,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.ashevilleschool.org/academics-summer-reading/",
+      "chars": 7416,
+      "method": "chrome-tls"
+    },
+    {
+      "url": "https://www.ashevilleschool.org/admissions/tuition-financial-aid/",
+      "chars": 6007,
+      "method": "chrome-tls"
+    },
+    {
+      "url": "https://www.ashevilleschool.org/explore/campus/",
+      "chars": 6918,
+      "method": "chrome-tls"
+    },
+    {
+      "url": "https://www.ashevilleschool.org/admissions/visit-the-campus/",
+      "chars": 3804,
+      "method": "chrome-tls"
+    },
+    {
+      "url": "https://www.ashevilleschool.org/",
+      "chars": 5170,
+      "method": "chrome-tls"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Asheville School (summer programs)",
+    "website_url": "https://www.ashevilleschool.org/",
+    "notes": "No official 2026 or 2027 summer camp offering or registration information was found. The supplied summer-reading page describes independent reading assignments, not a supervised camp. Search found official news articles about App Development Camp and Camp Good Trouble from July and August 2019, but no current offering pages; these historical programs were not made into cards. Their continued operation should be confirmed directly with the school. Official search results also included school-year calendars and Winterim materials, not summer camp schedules.",
+    "excluded": [
+      {
+        "name": "2026 Summer Reading",
+        "reason": "Independent summer reading assignments for enrolled students, not a finite supervised youth program."
+      },
+      {
+        "name": "Spoleto Study Abroad",
+        "reason": "The school describes this program as four weeks in February and March, outside summer."
+      },
+      {
+        "name": "Winterim",
+        "reason": "School-year program held in February, outside summer."
+      },
+      {
+        "name": "Mountaineering",
+        "reason": "Ongoing school extracurricular instruction and competitive pathways, not a separately advertised summer camp."
+      },
+      {
+        "name": "Preseason Football",
+        "reason": "Return of invited varsity athletes for their school team season, not a separately advertised youth camp or clinic."
+      }
+    ],
+    "cards": []
+  }
+}

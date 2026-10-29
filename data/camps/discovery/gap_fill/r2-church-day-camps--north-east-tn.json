@@ -1,0 +1,52 @@
+{
+  "method": "gap_fill",
+  "id": "r2-church-day-camps--north-east-tn",
+  "input": "Find churches that run weekly summer day camps (not just Vacation Bible School) for kids and teens in Madison, Yancey, Mitchell, McDowell and Rutherford counties, NC, and Johnson City, TN. Look past the big, well-known camps: search with varied wording and town names and list every organization you find.",
+  "at": "2026-10-29T03:58:26.213Z",
+  "webSearch": true,
+  "calls": 1,
+  "usage": {
+    "inputTokens": 56194,
+    "cachedInputTokens": 5180,
+    "outputTokens": 859,
+    "reasoningTokens": 602
+  },
+  "searches": [
+    "church \"summer day camp\" \"Johnson City\" 2026",
+    "\"church\" \"summer camp\" \"Mars Hill\" -site:bestchristiancamps.com",
+    "church \"summer\" \"day camp\" \"Johnson City\" -site:pinecove.com",
+    "\"church\" \"summer day\" \"Marion\" \"NC\"",
+    "\"church\" \"summer camp\" \"Johnson City\" \"2026\" -site:yellowpages.com",
+    "\"First\" \"Johnson City\" \"Camp in the Community\" \"2025\""
+  ],
+  "ms": 51258,
+  "candidates": [
+    {
+      "name": "Grace Fellowship Church of Johnson City",
+      "url": "https://www.gfcnow.com/pinecove/",
+      "town": "Johnson City",
+      "state": "TN",
+      "kinds": ["day"],
+      "categories": ["faith_based", "general"],
+      "note": "Pine Cove weeklong day camp for rising grades 1–6; June 28–July 2, 2027 announced."
+    },
+    {
+      "name": "First Christian Church of Johnson City",
+      "url": "https://www.fcc-jc.org/daycamp/",
+      "town": "Johnson City",
+      "state": "TN",
+      "kinds": ["day"],
+      "categories": ["faith_based", "general"],
+      "note": "FCC Kids Day Camp ran June 9–13, 2025, for ages 4 through rising sixth graders."
+    },
+    {
+      "name": "First Baptist Church of Rutherfordton",
+      "url": "https://www.firstbaptistrutherfordton.com/events/2026/08/03/summer-advocacy-camp",
+      "town": "Rutherfordton",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["faith_based", "general"],
+      "note": "Listed Summer Advocacy Camp August 3–6, 2026, 9 a.m.–3 p.m.; ages not specified."
+    }
+  ]
+}

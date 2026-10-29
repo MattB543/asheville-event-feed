@@ -1,0 +1,223 @@
+{
+  "provider": {
+    "key": "leaf-global-arts",
+    "name": "LEAF Global Arts (summer camps)",
+    "urls": ["https://www.theleaf.org/camps"],
+    "area": null,
+    "discovered_by": ["pilot"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T03:19:59.789Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "b4c933d0f7f4147562e4581d8442bf568d6d1ed787c703b8c557fa5b8d31ddc0",
+  "response": {
+    "searches": ["site.theleaf.org camps 2027 registration", "open https://www.theleaf.org/"],
+    "usage": {
+      "inputTokens": 14982,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1825,
+      "reasoningTokens": 237
+    },
+    "status": "completed",
+    "ms": 39891,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.theleaf.org/camps",
+      "chars": 4319,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.theleaf.org/",
+      "chars": 5308,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "LEAF Global Arts",
+    "website_url": "https://www.theleaf.org/",
+    "notes": "The homepage announces summer 2027 dates and a starting price, but says further information is coming soon. The youth camps page still lists 2026 weekly themes and details. LEAF is now a program powered by Camp Grier. No 2027 registration opening date was found.",
+    "excluded": [
+      {
+        "name": "Teaching Artist Residencies",
+        "reason": "Ongoing arts classes and school residencies, not a finite summer camp offering."
+      },
+      {
+        "name": "LEAF Winter Day Camps",
+        "reason": "Outside the summer season."
+      }
+    ],
+    "cards": [
+      {
+        "name": "LEAF Summer Camps",
+        "type": "day",
+        "categories": ["arts", "music", "dance", "theater"],
+        "description": "Campers explore music, dance, theatre, and visual art from cultures around the world with teaching artists and Culture Keepers.",
+        "camp_page_url": "https://www.theleaf.org/camps",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-14",
+          "end": "2027-08-13",
+          "text": "Summer Camp 2027: Info Coming Soon"
+        },
+        "ages": {
+          "min": null,
+          "max": 12
+        },
+        "grades": {
+          "min": 1,
+          "max": null,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "LEAF Global Arts",
+            "address": "19 Eagle Street #120",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "15:00",
+          "text": "Drop-off: 8:30–9:00 AM. Monday–Thursday pick-up: 3:00 PM sharp. Friday pick-up: 12:00 PM after the Parent Showcase."
+        },
+        "extended_care": {
+          "early_dropoff_start": null,
+          "late_pickup_end": null,
+          "cost_text": "$60 per week"
+        },
+        "prices": [
+          {
+            "amount": 300,
+            "unit": "week",
+            "label": "Starting at",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Find Your Voice Through Music, Art, & Dance",
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "World Dance",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Visual Arts",
+            "start": "2026-06-29",
+            "end": "2026-07-03",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "African Drumming, Dance, & Culture",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "LEAF International",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Theatre & Puppetry",
+            "start": "2026-07-27",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "World Dance",
+            "start": "2026-08-03",
+            "end": "2026-08-07",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Raise Your Voice: Songwriting & Poetry",
+            "start": "2026-08-10",
+            "end": "2026-08-14",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Scholarships Available!"
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "no",
+          "text": "What to Bring: Loose-fitting clothes and shoes you can move in, a packed lunch and water bottle, and a positive attitude and willingness to participate!"
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.theleaf.org/",
+          "https://www.theleaf.org/camps",
+          "https://form.jotform.com/261239463699269"
+        ],
+        "confidence": "medium",
+        "review_notes": "The season dates and starting price are explicitly for 2027 on the homepage; sessions are 2026 fallback rows, not 2027 dates. The camps page does not print a year beside its weekly dates; 2026 is taken from its scholarship wording. Eligibility, location, hours, extended care and packed-lunch requirements are fallback details from that page. An indexed 2026 Jotform registration form conflicts with the camps page: it says current Pre-K through Grade 6 in the 2025–2026 school year and hours of 9 AM–4 PM, while the camps page says rising 1st grade through age 12 and pick-up at 3 PM Monday–Thursday and noon Friday. Confirm eligibility and hours with the provider. Browser opens returned no readable content; the supplied page text and official search snippets were used. The current registration destination could not be verified."
+      }
+    ]
+  }
+}

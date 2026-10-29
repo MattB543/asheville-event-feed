@@ -1,0 +1,74 @@
+{
+  "method": "aggregator",
+  "id": "mountain-xpress",
+  "input": "Use Mountain Xpress (mountainx.com) summer camp and kids guides (2024-2026) to find organizations running summer camps and summer programs for kids and teens. For each organization listed, give the organization's own official URL (search for it), never the listing page.",
+  "at": "2026-10-29T03:24:21.117Z",
+  "webSearch": true,
+  "calls": 1,
+  "usage": {
+    "inputTokens": 40540,
+    "cachedInputTokens": 5180,
+    "outputTokens": 1587,
+    "reasoningTokens": 1064
+  },
+  "searches": [
+    "site:mountainx.com 2026 summer camp guide kids",
+    "open https://mountainx.com/issues/guide-to-2026-summer-camps/",
+    "site:mountainx.com \"2026\" \"camp\" \"guide\" \"Asheville\"",
+    "Mountain xpress 2026 camp guide issuu",
+    "open https://issuu.com/mountainx/docs/mountain_xpress_03.18.26",
+    "site:issuu.com/mountainx \"2026\" \"camp\" \"Asheville\" \"Ages\"",
+    "site:issuu.com/mountainx/docs/mountain_xpress_03.19.25 \"SUMMER CAMPS\"",
+    "site:issuu.com/mountainx/docs/mountain_xpress_03.19.25 camp art",
+    "Forest Floor Wilderness Programs summer camps 2026",
+    "site:issuu.com/mountainx/docs/03.13.24_mx_opt \"camp\""
+  ],
+  "ms": 65778,
+  "candidates": [
+    {
+      "name": "Adventure Center of Asheville",
+      "url": "https://ashevilletreetopsadventurepark.com/camps/",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["nature_outdoor", "sports"],
+      "note": "Adventure and Kolo Bike Park summer day camps; listed in the 2025 guide."
+    },
+    {
+      "name": "Asheville Parks & Recreation",
+      "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["general", "nature_outdoor", "sports", "arts"],
+      "note": "Youth and teen summer camps, including outdoor programs; featured in the 2025 guide."
+    },
+    {
+      "name": "Asheville Sun Soo Martial Arts",
+      "url": "https://martialartsasheville.com/summer-camps/",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["sports", "nature_outdoor", "arts", "stem"],
+      "note": "Grades K–5 day camps with martial arts and themed activities; featured in the 2026 guide."
+    },
+    {
+      "name": "Camp Grier",
+      "url": "https://www.campgrier.org/summer-camps",
+      "town": "Old Fort",
+      "state": "NC",
+      "kinds": ["overnight"],
+      "categories": ["nature_outdoor", "general", "faith_based"],
+      "note": "Overnight outdoor and leadership camps; featured in the 2024 guide, with summer 2026 confirmed."
+    },
+    {
+      "name": "Forest Floor Wilderness Programs",
+      "url": "https://forestfloorasheville.com/summer-camps/",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["nature_outdoor", "arts"],
+      "note": "Weeklong nature-connection and specialty day camps at multiple locations; listed in the 2025–2026 issues. Only these five guide providers could be verified from accessible text."
+    }
+  ]
+}

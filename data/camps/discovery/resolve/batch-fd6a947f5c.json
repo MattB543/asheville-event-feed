@@ -1,0 +1,84 @@
+{
+  "method": "resolve",
+  "id": "batch-fd6a947f5c",
+  "input": "1. Yellow Hill Baptist Church of Cherokee | town: Cherokee, NC\n2. Mount Zion Baptist Church of Canton | town: Canton, NC | the page we have (https://thechurchinthemount.com/) failed: page doesn't mention a kids' camp, summer program or VBS\n3. Clyde Free Will Baptist Church | town: Clyde, NC\n4. Barnardsville Baptist Church | town: Barnardsville, NC",
+  "at": "2026-10-29T04:17:45.634Z",
+  "webSearch": true,
+  "calls": 1,
+  "usage": {
+    "inputTokens": 30178,
+    "cachedInputTokens": 4577,
+    "outputTokens": 589,
+    "reasoningTokens": 276
+  },
+  "searches": [
+    "Yellow Hill Baptist Church Cherokee VBS 2025 2026",
+    "\"Clyde Free\" \"facebook\"",
+    "\"Clyde Free Will Baptist Church\""
+  ],
+  "ms": 26845,
+  "candidates": [
+    {
+      "name": "Yellow Hill Baptist Church of Cherokee",
+      "url": "https://www.facebook.com/yhbaptistcherokee/",
+      "town": "Cherokee",
+      "state": "NC",
+      "kinds": [],
+      "categories": [],
+      "note": "Found a 2025 VBS announcement for July 7 at 297 Yellowhill Road; church uses Facebook."
+    },
+    {
+      "name": "Mount Zion Baptist Church of Canton",
+      "url": "https://thechurchinthemount.com/",
+      "town": "Canton",
+      "state": "NC",
+      "kinds": [],
+      "categories": [],
+      "note": "Official church website confirmed; no dated 2025–2027 kids’ summer program found."
+    },
+    {
+      "name": "Clyde Free Will Baptist Church",
+      "url": null,
+      "town": "Clyde",
+      "state": "NC",
+      "kinds": [],
+      "categories": [],
+      "note": "Found the Jones Cove Road church, but no qualifying official website or dated summer program."
+    },
+    {
+      "name": "Barnardsville Baptist Church",
+      "url": "https://www.facebook.com/barnardsvillebaptist/",
+      "town": "Barnardsville",
+      "state": "NC",
+      "kinds": [],
+      "categories": [],
+      "note": "June 30, 2026 church post solicits donations toward Vacation Bible School; post found via Facebook mirror."
+    }
+  ],
+  "asked": [
+    {
+      "name": "Yellow Hill Baptist Church of Cherokee",
+      "town": "Cherokee",
+      "state": "NC",
+      "note": null
+    },
+    {
+      "name": "Mount Zion Baptist Church of Canton",
+      "town": "Canton",
+      "state": "NC",
+      "note": "the page we have (https://thechurchinthemount.com/) failed: page doesn't mention a kids' camp, summer program or VBS"
+    },
+    {
+      "name": "Clyde Free Will Baptist Church",
+      "town": "Clyde",
+      "state": "NC",
+      "note": null
+    },
+    {
+      "name": "Barnardsville Baptist Church",
+      "town": "Barnardsville",
+      "state": "NC",
+      "note": null
+    }
+  ]
+}

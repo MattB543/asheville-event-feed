@@ -1,0 +1,416 @@
+{
+  "provider": {
+    "key": "asheville-art-museum",
+    "name": "Asheville Art Museum (Summer Art Camp)",
+    "urls": ["https://www.ashevilleart.org/learn/family-programs/summer-camp/"],
+    "area": null,
+    "discovered_by": ["pilot"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T03:18:13.770Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "533b3125f2afb940db780a80f064738e8076b010525135876c883a8f0434338f",
+  "response": {
+    "searches": [
+      "site.ashevilleart.org \"camp\" \"2027\"",
+      "open https://www.ashevilleart.org/learn/family-programs/summer-camp/"
+    ],
+    "usage": {
+      "inputTokens": 23700,
+      "cachedInputTokens": 8223,
+      "outputTokens": 2719,
+      "reasoningTokens": 107
+    },
+    "status": "completed",
+    "ms": 49835,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.ashevilleart.org/learn/family-programs/summer-camp/",
+      "chars": 5246,
+      "method": "fetch"
+    },
+    {
+      "url": "https://shop.ashevilleart.org/products/summer-art-camp-2026?_pos=2&_sid=2c677c2f5&_ss=r",
+      "chars": 2844,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.ashevilleart.org/summer-art-camp-2026-wait-list/",
+      "chars": 2133,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.ashevilleart.org/event/summer-art-camp-appalachian-arts-crafts-rising-6th-8th-grade/2026-06-15/",
+      "chars": 7055,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.ashevilleart.org/event/summer-art-camp-ancient-to-modern-mixed-media-traditions-reimagined-rising-6th-8th-grade/2026-06-15/",
+      "chars": 7063,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.ashevilleart.org/event/summer-art-camp-art-around-the-world-rising-3rd-5th-grade/2026-06-22/",
+      "chars": 6622,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.ashevilleart.org/event/summer-art-camp-art-around-the-world-rising-3rd-5th-grade-2/2026-06-22/",
+      "chars": 6824,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.ashevilleart.org/event/summer-art-camp-the-joy-of-painting-rising-k-2nd-grade/2026-06-29/",
+      "chars": 6935,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Asheville Art Museum",
+    "website_url": "https://www.ashevilleart.org/",
+    "notes": "No official 2027 camp information was found. Dates, prices and registration opening below describe summer 2026. The supplied REGISTER HERE link leads to the Museum store homepage rather than a camp-specific registration page.",
+    "excluded": [],
+    "cards": [
+      {
+        "name": "Summer Art Camp",
+        "type": "day",
+        "categories": ["arts"],
+        "description": "Students explore drawing, painting, printmaking, sculpture, collage and craft techniques in grade-specific weekly sessions. Campers can attend a morning or afternoon session, or register for both with a supervised lunch break between them.",
+        "camp_page_url": "https://www.ashevilleart.org/learn/family-programs/summer-camp/",
+        "registration_url": "https://shop.ashevilleart.org/?_pos=2&_sid=2c677c2f5&_ss=r",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-15",
+          "end": "2026-08-07",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 0,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Asheville Art Museum",
+            "address": "2 South Pack Square",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "16:00",
+          "text": "Morning 9am–noon; Afternoon 1–4pm. All Day Campers attend both sessions with a supervised lunch break noon–1pm."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 175,
+            "unit": "week",
+            "label": "Each Morning or Afternoon session; members receive a 10% discount. All Day Campers must register and pay for both sessions separately.",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Week 1 Morning: Appalachian Arts & Crafts",
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 6,
+              "max": 8,
+              "basis": "rising"
+            },
+            "hours": {
+              "start": "09:00",
+              "end": "12:00"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 1 Afternoon: Ancient to Modern - Mixed Media Traditions Reimagined",
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 6,
+              "max": 8,
+              "basis": "rising"
+            },
+            "hours": {
+              "start": "13:00",
+              "end": "16:00"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 2 Morning: Art Around the World",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 3,
+              "max": 5,
+              "basis": "rising"
+            },
+            "hours": {
+              "start": "09:00",
+              "end": "12:00"
+            },
+            "price": null,
+            "status": "waitlist"
+          },
+          {
+            "label": "Week 2 Afternoon: Paper and Book Making",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 3,
+              "max": 5,
+              "basis": "rising"
+            },
+            "hours": {
+              "start": "13:00",
+              "end": "16:00"
+            },
+            "price": null,
+            "status": "waitlist"
+          },
+          {
+            "label": "Week 3 Morning: The Joy of Painting!",
+            "start": "2026-06-29",
+            "end": "2026-07-03",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 0,
+              "max": 2,
+              "basis": "rising"
+            },
+            "hours": {
+              "start": "09:00",
+              "end": "12:00"
+            },
+            "price": null,
+            "status": "waitlist"
+          },
+          {
+            "label": "Week 3 Afternoon: Storybook Art",
+            "start": "2026-06-29",
+            "end": "2026-07-03",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 0,
+              "max": 2,
+              "basis": "rising"
+            },
+            "hours": {
+              "start": "13:00",
+              "end": "16:00"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 4 Morning: Appalachian Arts & Crafts",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 9,
+              "max": 12,
+              "basis": "rising"
+            },
+            "hours": {
+              "start": "09:00",
+              "end": "12:00"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 4 Afternoon: Exploring Photography Without a Camera",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 9,
+              "max": 12,
+              "basis": "rising"
+            },
+            "hours": {
+              "start": "13:00",
+              "end": "16:00"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 5 Morning: Art & Our Environment",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 0,
+              "max": 2,
+              "basis": "rising"
+            },
+            "hours": {
+              "start": "09:00",
+              "end": "12:00"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 5 Afternoon: Fun with Fiber Art",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 0,
+              "max": 2,
+              "basis": "rising"
+            },
+            "hours": {
+              "start": "13:00",
+              "end": "16:00"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 6 Morning: Art & Our Environment",
+            "start": "2026-07-27",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 3,
+              "max": 5,
+              "basis": "rising"
+            },
+            "hours": {
+              "start": "09:00",
+              "end": "12:00"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 6 Afternoon: Fun with Fiber Art",
+            "start": "2026-07-27",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 3,
+              "max": 5,
+              "basis": "rising"
+            },
+            "hours": {
+              "start": "13:00",
+              "end": "16:00"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 7 Morning: Art & Our Environment",
+            "start": "2026-08-03",
+            "end": "2026-08-07",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 6,
+              "max": 8,
+              "basis": "rising"
+            },
+            "hours": {
+              "start": "09:00",
+              "end": "12:00"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 7 Afternoon: Landscape - Real, Remembered, and Reimagined",
+            "start": "2026-08-03",
+            "end": "2026-08-07",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 6,
+              "max": 8,
+              "basis": "rising"
+            },
+            "hours": {
+              "start": "13:00",
+              "end": "16:00"
+            },
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-02-09",
+          "time": "10:00",
+          "text": "Registration opens at 10am on February 9, 2026.",
+          "url": "https://www.ashevilleart.org/learn/family-programs/summer-camp/"
+        },
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "With support from the Walnut Cove Members Association, we are able to provide a limited amount of financial aid to help students who could not otherwise afford to enroll in our programs."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.ashevilleart.org/learn/family-programs/summer-camp/",
+          "https://shop.ashevilleart.org/?_pos=2&_sid=2c677c2f5&_ss=r",
+          "https://www.ashevilleart.org/event/summer-art-camp-appalachian-arts-crafts-rising-6th-8th-grade/2026-06-15/",
+          "https://www.ashevilleart.org/event/summer-art-camp-ancient-to-modern-mixed-media-traditions-reimagined-rising-6th-8th-grade/2026-06-15/",
+          "https://www.ashevilleart.org/event/summer-art-camp-art-around-the-world-rising-3rd-5th-grade/2026-06-22/",
+          "https://www.ashevilleart.org/event/summer-art-camp-art-around-the-world-rising-3rd-5th-grade-2/2026-06-22/",
+          "https://www.ashevilleart.org/event/summer-art-camp-the-joy-of-painting-rising-k-2nd-grade/2026-06-29/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "method": "grid",
+  "id": "tennessee--clinic",
+  "input": "Search the web for youth sports or skill \"clinics\" held in the summer for kids and teens in northeast Tennessee near the NC line (Johnson City, Erwin, Greeneville, Newport). Use that wording in your searches, not just \"camp\", and list every organization you find.",
+  "at": "2026-10-29T03:46:27.079Z",
+  "webSearch": true,
+  "calls": 1,
+  "usage": {
+    "inputTokens": 73000,
+    "cachedInputTokens": 5164,
+    "outputTokens": 1091,
+    "reasoningTokens": 787
+  },
+  "searches": [
+    "Johnson City youth summer clinics 2026 2025 sports",
+    "\"Johnson City\" \"clinics\" \"summer\" \"2025\"",
+    "\"Johnson City\" summer sports clinics youth tennis",
+    "ETSU summer clinics 2025 2026 youth",
+    "\"Johnson City\" \"clinic\" \"July\" \"2025\" sports",
+    "Johnson City summer youth \"clinics\" -medical -health -site:allevents.in",
+    "\"Johnson City\" \"summer clinics\"",
+    "\"ETSU\" \"clinic\" \"June\" \"2026\" volleyball"
+  ],
+  "ms": 88320,
+  "candidates": [
+    {
+      "name": "East Tennessee State University",
+      "url": "https://etsubucs.com/sports/2023/7/24/_133347007970534047.aspx",
+      "town": "Johnson City",
+      "state": "TN",
+      "kinds": ["day", "half_day"],
+      "categories": ["sports"],
+      "note": "Summer 2026 soccer skills camps for girls ages 5+; half-day option for younger children; advertised as camps, not clinics."
+    },
+    {
+      "name": "Tusculum University",
+      "url": "https://www.tusculumpioneers.com/information/camps/MensBasketballCamps/MensBasketballCamps",
+      "town": "Greeneville",
+      "state": "TN",
+      "kinds": ["day"],
+      "categories": ["sports"],
+      "note": "July 27–29, 2026 boys basketball individual-skills camp for grades K–6; advertised as a camp, not a clinic."
+    },
+    {
+      "name": "Providence Academy",
+      "url": "https://www.providenceacademy.com/summer-camps",
+      "town": "Johnson City",
+      "state": "TN",
+      "kinds": ["day"],
+      "categories": ["sports", "arts", "general"],
+      "note": "Summer 2026 athletics, fine-arts and discovery programs open to the community; advertised as camps, not clinics."
+    }
+  ]
+}

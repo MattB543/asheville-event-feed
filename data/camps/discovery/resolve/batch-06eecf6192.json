@@ -1,0 +1,146 @@
+{
+  "method": "resolve",
+  "id": "batch-06eecf6192",
+  "input": "1. Piney Grove Methodist Church of Waynesville | town: Waynesville, NC | has a Facebook page: https://www.facebook.com/pineygrovemethodist/\n2. North Canton Baptist Church of Canton | town: Canton, NC | the page we have (http://www.northcantonbaptistchurch.com/) failed: page doesn't mention a kids' camp, summer program or VBS\n3. James Chapel Baptist Church of Clyde | town: Clyde, NC\n4. Clyde Free Will Baptist Church of Clyde | town: Clyde, NC\n5. Stockton Farms | town: Canton, NC\n6. The Orchard Church of Waynesville | town: Waynesville, NC | the page we have (https://www.theorchardnc.com/) failed: page doesn't mention a kids' camp, summer program or VBS\n7. Liberty Missionary Baptist Church of Waynesville | town: Waynesville, NC | has a Facebook page: https://www.facebook.com/lmbcnc/videos/\n8. Stoney Mountain Baptist Church of Hendersonville | town: Hendersonville, NC | the page we have (https://stoneymountainbaptist.com/) failed: page doesn't mention a kids' camp, summer program or VBS",
+  "at": "2026-10-29T03:56:59.293Z",
+  "webSearch": true,
+  "calls": 1,
+  "usage": {
+    "inputTokens": 47372,
+    "cachedInputTokens": 4577,
+    "outputTokens": 1092,
+    "reasoningTokens": 487
+  },
+  "searches": [
+    "site:facebook.com/pineygrovemethodist VBS 2025 2026",
+    "\"Stockton Farms\" \"camp\"",
+    "\"Clyde Free Will Baptist Church\"",
+    "\"The Orchard Church\" \"Waynesville\" \"camp\" \"2025\"",
+    "site:facebook.com/lmbcnc \"VBS\""
+  ],
+  "ms": 71042,
+  "candidates": [
+    {
+      "name": "Piney Grove Methodist Church of Waynesville",
+      "url": "https://www.facebook.com/pineygrovemethodist/",
+      "town": "Waynesville",
+      "state": "NC",
+      "kinds": [],
+      "categories": [],
+      "note": "Official Facebook page found; no 2025–2027 summer program confirmed."
+    },
+    {
+      "name": "North Canton Baptist Church of Canton",
+      "url": "https://northcantonbaptistchurch.com/",
+      "town": "Canton",
+      "state": "NC",
+      "kinds": [],
+      "categories": [],
+      "note": "Official site and 2024 VBS listing found, but no 2025–2027 program confirmed."
+    },
+    {
+      "name": "James Chapel Baptist Church of Clyde",
+      "url": "https://www.facebook.com/JamesChapelBaptistChurch/",
+      "town": "Clyde",
+      "state": "NC",
+      "kinds": [],
+      "categories": [],
+      "note": "VBS listed June 8–12, 2025, at 94 James Chapel Road; church Facebook page found."
+    },
+    {
+      "name": "Clyde Free Will Baptist Church of Clyde",
+      "url": null,
+      "town": "Clyde",
+      "state": "NC",
+      "kinds": [],
+      "categories": [],
+      "note": "No official website or church-owned Facebook page found; no recent summer program confirmed."
+    },
+    {
+      "name": "Stockton Farms",
+      "url": "https://stocktonfarmsnc.com/",
+      "town": "Canton",
+      "state": "NC",
+      "kinds": [],
+      "categories": [],
+      "note": "2026 Camp Daniel Boone material lists farm-based Scout horsemanship and animal science programs; farm site returned no readable content."
+    },
+    {
+      "name": "The Orchard Church of Waynesville",
+      "url": "https://www.theorchardnc.com/",
+      "town": "Waynesville",
+      "state": "NC",
+      "kinds": [],
+      "categories": [],
+      "note": "Official church website found; no 2025–2027 kids' summer program confirmed."
+    },
+    {
+      "name": "Liberty Missionary Baptist Church of Waynesville",
+      "url": "https://www.facebook.com/lmbcnc/",
+      "town": "Waynesville",
+      "state": "NC",
+      "kinds": [],
+      "categories": [],
+      "note": "Mirrored September 2026 church post recalls children's VBS in July 2026."
+    },
+    {
+      "name": "Stoney Mountain Baptist Church of Hendersonville",
+      "url": "https://stoneymountainbaptist.com/vbs/",
+      "town": "Hendersonville",
+      "state": "NC",
+      "kinds": [],
+      "categories": [],
+      "note": "Official VBS 2025 page found for the church at 3301 Asheville Highway."
+    }
+  ],
+  "asked": [
+    {
+      "name": "Piney Grove Methodist Church of Waynesville",
+      "town": "Waynesville",
+      "state": "NC",
+      "note": "has a Facebook page: https://www.facebook.com/pineygrovemethodist/"
+    },
+    {
+      "name": "North Canton Baptist Church of Canton",
+      "town": "Canton",
+      "state": "NC",
+      "note": "the page we have (http://www.northcantonbaptistchurch.com/) failed: page doesn't mention a kids' camp, summer program or VBS"
+    },
+    {
+      "name": "James Chapel Baptist Church of Clyde",
+      "town": "Clyde",
+      "state": "NC",
+      "note": null
+    },
+    {
+      "name": "Clyde Free Will Baptist Church of Clyde",
+      "town": "Clyde",
+      "state": "NC",
+      "note": null
+    },
+    {
+      "name": "Stockton Farms",
+      "town": "Canton",
+      "state": "NC",
+      "note": null
+    },
+    {
+      "name": "The Orchard Church of Waynesville",
+      "town": "Waynesville",
+      "state": "NC",
+      "note": "the page we have (https://www.theorchardnc.com/) failed: page doesn't mention a kids' camp, summer program or VBS"
+    },
+    {
+      "name": "Liberty Missionary Baptist Church of Waynesville",
+      "town": "Waynesville",
+      "state": "NC",
+      "note": "has a Facebook page: https://www.facebook.com/lmbcnc/videos/"
+    },
+    {
+      "name": "Stoney Mountain Baptist Church of Hendersonville",
+      "town": "Hendersonville",
+      "state": "NC",
+      "note": "the page we have (https://stoneymountainbaptist.com/) failed: page doesn't mention a kids' camp, summer program or VBS"
+    }
+  ]
+}

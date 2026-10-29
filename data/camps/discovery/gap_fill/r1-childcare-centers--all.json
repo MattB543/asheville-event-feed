@@ -1,0 +1,119 @@
+{
+  "method": "gap_fill",
+  "id": "r1-childcare-centers--all",
+  "input": "Find child care centers and preschools that run school-age summer camps for kids and teens in the Asheville area of Western North Carolina (within about an hour of Asheville). Look past the big, well-known camps: search with varied wording and town names and list every organization you find.",
+  "at": "2026-10-29T03:43:27.602Z",
+  "webSearch": true,
+  "calls": 1,
+  "usage": {
+    "inputTokens": 90121,
+    "cachedInputTokens": 5180,
+    "outputTokens": 2075,
+    "reasoningTokens": 1116
+  },
+  "searches": [
+    "Asheville childcare \"summer camp\" \"2026\"",
+    "\"Asheville\" \"preschool\" \"summer camp\" -site:activityhero.com -site:kidvoyage.com",
+    "\"Candler\" \"summer camp\" childcare",
+    "\"childcare\" \"summer camp\" \"Hendersonville NC\"",
+    "\"summer camp\" \"childcare\" \"Mars Hill\"",
+    "\"Kids Garden\" \"Asheville\" \"summer\" \"2026\"",
+    "Asheville preschool school age summer camp child development center -site:care.com -site:winnie.com -site:activityhero.com",
+    "site:eliada.org \"summer\"",
+    "\"preschool\" \"summer camp\" \"Arden\" \"NC\" -theatre -ardent",
+    "site:goddardschool.com \"biltmore-lake\" \"12\""
+  ],
+  "ms": 124259,
+  "candidates": [
+    {
+      "name": "Childcare Network",
+      "url": "https://schools.childcarenetwork.com/nc/asheville",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["general"],
+      "note": "School-age summer camps; local centers in Asheville, Arden and Fairview serve children through age 12."
+    },
+    {
+      "name": "Kiddie Academy of Asheville",
+      "url": "https://kiddieacademy.com/academies/asheville/programs/summer-camp/",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["general", "academic"],
+      "note": "CampVentures summer childcare includes a dedicated program for ages 5 and older, through age 12."
+    },
+    {
+      "name": "Eliada Homes",
+      "url": "https://www.eliada.org/summer-camp/",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["general", "nature_outdoor"],
+      "note": "Full-day camp for rising first graders through age 12; junior volunteer opportunities for ages 13–16."
+    },
+    {
+      "name": "Hominy Baptist Church of Candler",
+      "url": "https://www.hominybaptist.com/child-care",
+      "town": "Candler",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["general", "faith_based"],
+      "note": "Hominy Child Care runs summer camp for older children; the childcare ministry serves children through age 12."
+    },
+    {
+      "name": "Discovery Trails Learning Academy",
+      "url": "https://discoverytrailsschool.org/summer-camp/",
+      "town": "Hendersonville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["nature_outdoor", "stem", "arts"],
+      "note": "School-age summer camps combine outdoor skills, science, arts and field trips; separate preschool camp also offered."
+    },
+    {
+      "name": "Asheville Farmstead School",
+      "url": "https://ashevillefarmstead.org/camp-farmstead/",
+      "town": "Candler",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["nature_outdoor", "arts"],
+      "note": "Camp Farmstead offers weekly outdoor summer sessions for ages 3–12, including school-age children."
+    },
+    {
+      "name": "KidQuest",
+      "url": "https://www.kidquest.love/summer-camp",
+      "town": "Black Mountain",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["general", "arts", "stem", "nature_outdoor"],
+      "note": "Summer childcare for rising grades 1–6 includes swimming, hiking, field trips, art and STEM activities."
+    },
+    {
+      "name": "Asheville Jewish Community Center",
+      "url": "https://www.jcc-asheville.org/camp-ruach/",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["general", "faith_based"],
+      "note": "Licensed Camp Ruach serves children and teens; summer 2027 begins June 14 and welcomes all backgrounds."
+    },
+    {
+      "name": "Black Mountain Montessori",
+      "url": "https://www.bmtmont.org/summer-camps",
+      "town": "Black Mountain",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["general"],
+      "note": "July 2026 weeklong camps served ages 3–6, including kindergarten-age children, with extended care available."
+    },
+    {
+      "name": "Forest School Foundation",
+      "url": "https://www.growingwildforestschool.org/camp",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["half_day"],
+      "categories": ["nature_outdoor", "arts"],
+      "note": "Growing Wild Forest School summer camp serves ages 3–6, including kindergarten-age children, from 8:30 a.m.–1:30 p.m."
+    }
+  ]
+}

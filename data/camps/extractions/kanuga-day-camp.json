@@ -1,0 +1,169 @@
+{
+  "provider": {
+    "key": "kanuga-day-camp",
+    "name": "Kanuga Day Camp",
+    "urls": [],
+    "area": "Hendersonville, NC (Henderson County)",
+    "discovered_by": ["pilot"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T03:20:05.565Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": null,
+  "response": {
+    "searches": [
+      "site.kanuga.org day camp 2026 2027",
+      "open https://www.kanuga.org/daycamp/",
+      "site.kanuga.org/daycamp \"Visionary\""
+    ],
+    "usage": {
+      "inputTokens": 25069,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1327,
+      "reasoningTokens": 194
+    },
+    "status": "completed",
+    "ms": 33166,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [],
+  "extraction": {
+    "provider_name": "Kanuga Day Camp",
+    "website_url": "https://www.kanuga.org/daycamp/",
+    "notes": "No 2027 Day Camp dates or registration milestones were found. The separate Camp Kanuga residential program has 2027 information, which should not be applied to Day Camp. The Day Camp page and handbook were readable only as truncated text; the third pricing tier and registration destination could not be verified.",
+    "excluded": [
+      {
+        "name": "Summer Guest Period",
+        "reason": "Family lodging and activities, not a standalone supervised youth camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Kanuga Day Camp",
+        "type": "day",
+        "categories": ["nature_outdoor", "arts", "sports"],
+        "description": "Campers participate in swimming, climbing, archery, forest exploration, fort building, and arts and crafts.",
+        "camp_page_url": "https://www.kanuga.org/daycamp/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-08",
+          "end": "2026-07-24",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 1,
+          "max": 6,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Camp Bob Youth Campus",
+            "address": "130 Kanuga Chapel Drive",
+            "town": "Hendersonville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "16:30",
+          "text": "Arrival 9–9:30am; pickup 4–4:30pm."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 400,
+            "unit": "session",
+            "label": "Essential; voluntary tier",
+            "year": 2026
+          },
+          {
+            "amount": 430,
+            "unit": "session",
+            "label": "Sustainer; voluntary tier",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Session A",
+            "start": "2026-06-08",
+            "end": "2026-06-12",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session B",
+            "start": "2026-06-29",
+            "end": "2026-07-03",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session C",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session D",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session E",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.kanuga.org/daycamp/",
+          "https://www.kanuga.org/wp-content/uploads/2026/01/Kanuga-Day-Camp-Parent-Handbook-2026-DRAFT.docx.pdf",
+          "https://www.kanuga.org/directions/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The Day Camp page states rising grades 1–6, but the 2026 draft parent handbook states rising K–6; retained the main page's eligibility pending confirmation. Both fetched documents truncate within the pricing section, so the third tier, registration link, and any later handbook policies need checking. The site address is the provider's published GPS address and the handbook's address; confirm the precise campus drop-off entrance."
+      }
+    ]
+  }
+}

@@ -1,0 +1,146 @@
+{
+  "method": "aggregator",
+  "id": "allevents",
+  "input": "Use allevents.in listings of summer camps and kids camps in Asheville and nearby towns to find organizations running summer camps and summer programs for kids and teens. For each organization listed, give the organization's own official URL (search for it), never the listing page.",
+  "at": "2026-10-29T03:22:16.705Z",
+  "webSearch": true,
+  "calls": 1,
+  "usage": {
+    "inputTokens": 85191,
+    "cachedInputTokens": 5180,
+    "outputTokens": 2074,
+    "reasoningTokens": 908
+  },
+  "searches": [
+    "site:allevents.in/asheville \"summer camp\" 2026",
+    "site:allevents.in \"summer camp\" \"Black Mountain\"",
+    "\"1056 Haywood\" summer camp",
+    "\"1056 Haywood\" metalsmith camp official",
+    "site:allevents.in \"summer camp\" \"Morganton\" 2026",
+    "UNC Asheville summer camps 2026 precollege",
+    "\"Oak Hill\" \"Junior\" camp fire 2026 official",
+    "\"hands on cooking and baking summer camp\" Asheville organizer",
+    "Mountain Kitchen Asheville summer camps official",
+    "site:allevents.in/asheville \"Yoga & Art Summer Camps\""
+  ],
+  "ms": 109550,
+  "candidates": [
+    {
+      "name": "University of North Carolina Asheville",
+      "url": "https://www.unca.edu/summer-camps/",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day", "overnight", "pre_college"],
+      "categories": ["arts", "stem", "academic", "theater", "music", "nature_outdoor"],
+      "note": "SkillSet maker camps and residential high-school pre-college programs."
+    },
+    {
+      "name": "The North Carolina Arboretum",
+      "url": "https://ncarboretum.org/education-programs/discovery-camp/",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["nature_outdoor", "stem"],
+      "note": "2026 Discovery Camps offered weekly outdoor exploration for rising K–8 students."
+    },
+    {
+      "name": "Blue Ridge Taekwondo",
+      "url": "https://blueridgetkd.com/summer-camp-in-east-asheville/",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["sports", "general"],
+      "note": "Full-day martial arts camps for ages 6–13, with extended care available."
+    },
+    {
+      "name": "TORCHED Jewelry and Metalsmithing",
+      "url": "https://torchedavl.com/",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["arts"],
+      "note": "2026 five-day art and metalsmithing camps for children and teens."
+    },
+    {
+      "name": "AVL clay",
+      "url": "https://avlclay.kilnfire.com/classes/kids-makers-camp",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["half_day"],
+      "categories": ["arts"],
+      "note": "Summer maker camps with clay projects for elementary-age children."
+    },
+    {
+      "name": "Billy Jonas",
+      "url": "https://www.billyjonas.com/about/camp/",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["music", "arts"],
+      "note": "Camp Bangin’ & Sangin’ offered three 2026 youth weeks for ages 5–14."
+    },
+    {
+      "name": "Asheville Mountain Kitchen",
+      "url": "https://ashevillemountainkitchen.com/",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["cooking"],
+      "note": "Hands-on summer cooking and baking camps for ages 9–14."
+    },
+    {
+      "name": "FighterWithin Mixed Martial Arts",
+      "url": "https://www.fighterwithin.com/",
+      "town": "Hendersonville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["sports", "general"],
+      "note": "Kids’ summer camps and summer childcare at its Hendersonville facility."
+    },
+    {
+      "name": "White Squirrel Baseball Academy",
+      "url": "https://sites.google.com/brevard.edu/brevard-baseball-camps/summer-camps",
+      "town": "Brevard",
+      "state": "NC",
+      "kinds": ["day", "clinic"],
+      "categories": ["sports"],
+      "note": "Brevard College baseball camps for grades 3–8, plus prospect camps."
+    },
+    {
+      "name": "Fletcher Elementary School",
+      "url": "https://www.hendersoncountypublicschoolsnc.org/fle/",
+      "town": "Fletcher",
+      "state": "NC",
+      "kinds": ["half_day"],
+      "categories": ["academic"],
+      "note": "July 2025 Fox Cub Camp prepared incoming kindergarten students for school."
+    },
+    {
+      "name": "East Tennessee State University",
+      "url": "https://news.etsu.edu/articles/2026-summer-camps",
+      "town": "Johnson City",
+      "state": "TN",
+      "kinds": ["day", "overnight", "pre_college"],
+      "categories": ["music", "stem", "academic"],
+      "note": "Bluegrass music, residential GattonRx pharmacy, and middle-school nursing camps."
+    },
+    {
+      "name": "Oak Hill Fire & Rescue Protection Association",
+      "url": "https://oakhillonline.org/",
+      "town": "Morganton",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["general", "academic"],
+      "note": "Junior Fire Summer Camp listed in both July 2025 and June 2026."
+    },
+    {
+      "name": "Mimosa Hills Farm",
+      "url": "https://mimosahillsfarm.com/horse-camps-1",
+      "town": "Morganton",
+      "state": "NC",
+      "kinds": ["day", "half_day", "overnight"],
+      "categories": ["horses", "nature_outdoor"],
+      "note": "Age-group horse camps and an overnight camp for experienced current riders."
+    }
+  ]
+}

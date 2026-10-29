@@ -1,0 +1,80 @@
+{
+  "method": "aggregator",
+  "id": "upstate-overnight",
+  "input": "Use guides to overnight summer camps in upstate South Carolina (Kidding Around Greenville, Greenville Journal, Upstate Parent) to find organizations running summer camps and summer programs for kids and teens. For each organization listed, give the organization's own official URL (search for it), never the listing page.",
+  "at": "2026-10-29T03:25:45.727Z",
+  "webSearch": true,
+  "calls": 1,
+  "usage": {
+    "inputTokens": 64045,
+    "cachedInputTokens": 5180,
+    "outputTokens": 1277,
+    "reasoningTokens": 688
+  },
+  "searches": [
+    "site.kiddingaroundgreenville.com overnight summer camps",
+    "site.greenvillejournal.com \"camp\" \"overnight\" summer 2025",
+    "site.kiddingaroundgreenville.com/guide_categories/overnight-camps \"Camp\" -YMCA",
+    "site.greenvilleonline.com/story/upstateparent/2025/01/31/summer-overnight \"Brevard\"",
+    "\"Upstate Parent\" \"overnight\" \"Camp\" \"2025\" -site:greenvilleonline.com -site:usatoday.com",
+    "BJU EDUcamp 2026 overnight official",
+    "American Dance Training Camps Smoky Mountains NC 2026 Waynesville official"
+  ],
+  "ms": 64803,
+  "candidates": [
+    {
+      "name": "YMCA of Greenville",
+      "url": "https://www.campgreenville.org/summercampoverview",
+      "town": "Cleveland",
+      "state": "SC",
+      "kinds": ["overnight"],
+      "categories": ["general", "nature_outdoor"],
+      "note": "Camp Greenville offers overnight camp, adventure trips and teen leadership programs for grades K–12."
+    },
+    {
+      "name": "Bob Jones University",
+      "url": "https://educamp.bju.edu/",
+      "town": "Greenville",
+      "state": "SC",
+      "kinds": ["overnight", "pre_college"],
+      "categories": ["academic", "stem", "arts", "sports", "faith_based"],
+      "note": "EDUcamp offers subject-focused summer programs; overnight housing is available for grades 9–12."
+    },
+    {
+      "name": "Girl Scouts of South Carolina—Mountains to Midlands",
+      "url": "https://www.gssc-mm.org/en/get-involved/camps-and-properties/summer-camp.html",
+      "town": "Marietta",
+      "state": "SC",
+      "kinds": ["overnight"],
+      "categories": ["general", "nature_outdoor"],
+      "note": "Camp WaBak offers girls overnight summer sessions with outdoor activities and crafts."
+    },
+    {
+      "name": "Camp Cedar Cliff",
+      "url": "https://campcedarcliff.org/",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day", "overnight"],
+      "categories": ["faith_based", "nature_outdoor", "general"],
+      "note": "Christian youth camp offering summer day and overnight programs."
+    },
+    {
+      "name": "American Dance Training Camps",
+      "url": "https://americandancetrainingcamp.com/locations/nc-dance-camp/",
+      "town": "Cullowhee",
+      "state": "NC",
+      "kinds": ["overnight"],
+      "categories": ["dance", "nature_outdoor"],
+      "note": "Overnight dance camp for girls ages 8–17 at Western Carolina University, with recreational activities."
+    },
+    {
+      "name": "Green River Preserve",
+      "url": "https://greenriverpreserve.org/summer-camp/overnight-summer-camp",
+      "town": "Cedar Mountain",
+      "state": "NC",
+      "kinds": ["overnight"],
+      "categories": ["nature_outdoor"],
+      "note": "Nature-focused overnight camps for grades 1–9 and wilderness expeditions for grades 7–12; 2027 dates announced."
+    }
+  ]
+}

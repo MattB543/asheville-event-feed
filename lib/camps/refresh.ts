@@ -279,18 +279,28 @@ function milestoneUrls(cards: Iterable<CampCard>): string[] {
   return [...urls].sort();
 }
 
-/** The provider's cards as extracted, by camp key, oldest program first. */
-/** The provider's current cards: those in its newest extraction (not retired ones). */
-async function currentCards(providerKey: string): Promise<Map<string, CampCard>> {
+/**
+ * The provider's cards as extracted, oldest program first: `current`, by camp key, those in its
+ * newest extraction; `names`, every program's name, retired ones too, so a program that comes back
+ * keeps its key (and its saves, overrides and review).
+ */
+async function storedCards(
+  providerKey: string
+): Promise<{ current: Map<string, CampCard>; names: string[] }> {
   const rows = await db
-    .select({ campKey: camps.campKey, card: camps.card })
+    .select({
+      campKey: camps.campKey,
+      card: camps.card,
+      current: sql<boolean>`${camps.lastExtractedAt} = ${campProviders.extractedAt}`,
+    })
     .from(camps)
     .innerJoin(campProviders, eq(camps.providerKey, campProviders.key))
-    .where(
-      and(eq(camps.providerKey, providerKey), eq(camps.lastExtractedAt, campProviders.extractedAt))
-    )
+    .where(eq(camps.providerKey, providerKey))
     .orderBy(camps.firstSeenAt);
-  return new Map(rows.map((row) => [row.campKey, row.card]));
+  return {
+    current: new Map(rows.filter((row) => row.current).map((row) => [row.campKey, row.card])),
+    names: [...new Set(rows.map((row) => row.card.name))],
+  };
 }
 
 async function markChecked(keys: string[]): Promise<void> {
@@ -330,8 +340,8 @@ async function checkProvider(
   let stopTimer = abortAfter(controller, READ_TIMEOUT_MS, 'reading the pages');
 
   try {
-    const cards = await currentCards(row.key);
-    const evidence = milestoneUrls(cards.values());
+    const stored = await storedCards(row.key);
+    const evidence = milestoneUrls(stored.current.values());
     const bundle = await buildSourceBundle(provider, fetcher, evidence);
     signal.throwIfAborted();
     stopTimer();
@@ -363,20 +373,18 @@ async function checkProvider(
     // The fetcher remembers the pages, so the extraction's bundle is the one just hashed
     const run = await extractProvider(provider, today, {
       fetcher,
-      existingPrograms: [...cards.values()].map((card) => card.name),
+      existingPrograms: stored.names,
       evidence,
       signal,
     });
-    // Store the hash of what the next check will read: the registration pages of the cards as they
-    // will stand after the import (each new card replaces its program's; the import keeps the first
-    // of two with one name), so a page Sol newly cites isn't taken for a change next time.
-    const after = new Map(cards);
-    const replaced = new Set<string>();
+    // Store the hash of what the next check will read: the registration pages of the new cards,
+    // the provider's current ones after the import (which retires the programs this extraction
+    // dropped and keeps the first of two with one name), so a page Sol newly cites isn't taken
+    // for a change next time.
+    const after = new Map<string, CampCard>();
     for (const card of run.extraction.cards) {
       const campKey = campKeyFor(row.key, card.name);
-      if (replaced.has(campKey)) continue;
-      replaced.add(campKey);
-      after.set(campKey, card);
+      if (!after.has(campKey)) after.set(campKey, card);
     }
     const next = await buildSourceBundle(provider, fetcher, milestoneUrls(after.values()));
     signal.throwIfAborted();

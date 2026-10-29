@@ -222,14 +222,18 @@ interface MatchCounts {
   schedule: number | null;
 }
 
-function matchCounts(rows: JudgedRow[], byWeek: boolean): MatchCounts {
+function matchCounts(rows: JudgedRow[], byWeek: boolean, shown: Set<UnknownKind>): MatchCounts {
   const sure = rows.filter((row) => row.ways.some((way) => way.length === 0));
-  const earlier = sure.every((row) => row.year !== null && row.year < TARGET_SEASON);
+  // The schedule is read off the rows that passed on a known week, whatever else they lack
+  const dated = rows.filter((row) =>
+    row.ways.some((way) => !way.includes('week') && way.every((kind) => shown.has(kind)))
+  );
+  const earlier = dated.every((row) => row.year !== null && row.year < TARGET_SEASON);
   return {
     fits: sure.filter((row) => row.fit === 'fits').length,
     mayFit: sure.filter((row) => row.fit === 'may_fit').length,
     schedule:
-      byWeek && sure.length > 0 && earlier ? Math.max(...sure.map((row) => row.year!)) : null,
+      byWeek && dated.length > 0 && earlier ? Math.max(...dated.map((row) => row.year!)) : null,
   };
 }
 
@@ -259,11 +263,15 @@ function matchNote(
           ? 'both kids'
           : `all ${kidTokens.length} kids`
         : 'one of your kids';
+  // The "2026 schedule" badge sits beside the note, so a camp it applies to always gets one, even
+  // with no row a sure match to count
+  const runsThatWeek =
+    counts.schedule && filters.week ? `Runs the week of ${formatDate(filters.week.start)}` : null;
   if (!camp.listsRows || camp.rows.length < 2) {
     return (
       [
         withKids && counts.fits === 0 && counts.mayFit > 0 && `May fit ${kids}: check the ages`,
-        counts.schedule && filters.week && `Runs the week of ${formatDate(filters.week.start)}`,
+        runsThatWeek,
       ]
         .filter(Boolean)
         .join(' · ') || null
@@ -297,12 +305,12 @@ function matchNote(
   };
   if (!withKids) {
     const matched = counts.fits + counts.mayFit;
-    return matched > 0 ? sentence(matched, false) : null;
+    return matched > 0 ? sentence(matched, false) : runsThatWeek;
   }
   if (counts.fits > 0) {
     return `${sentence(counts.fits, false)}${counts.mayFit > 0 ? ` (${counts.mayFit} more may fit)` : ''}`;
   }
-  return counts.mayFit > 0 ? sentence(counts.mayFit, true) : null;
+  return counts.mayFit > 0 ? sentence(counts.mayFit, true) : runsThatWeek;
 }
 
 const TONE_RANK: Record<string, number> = {
@@ -618,7 +626,9 @@ export default function CampDirectory({ camps }: { camps: CampCardData[] }) {
       .sort((a, b) => order(a.camp, b.camp));
   }, [judged, filters, shownKinds, sort, ranks]);
 
-  // Per filter that's on: how many camps its "show them" adds (or "hide them" takes away).
+  // Per filter that's on: how many camps its "hide them" takes away, or how many hidden camps lack
+  // its fact on a row that passes the rest. A camp another unknown hides too still counts, or a camp
+  // with neither a price nor hours would leave neither filter a "show them".
   const unknownNotes = useMemo(() => {
     const { rows } = filters;
     const on: Record<UnknownKind, boolean> = {
@@ -628,15 +638,17 @@ export default function CampDirectory({ camps }: { camps: CampCardData[] }) {
       price: !!rows.band,
       hours: !!rows.hours,
     };
+    const listed = (entry: Judged, kinds: Set<UnknownKind>) =>
+      isListed(entry.rows, filters.kids.length, filters.kidsMode, kinds);
     return UNKNOWN_KINDS.filter(({ kind }) => on[kind]).flatMap(({ kind, without }) => {
       const included = shownKinds.has(kind);
-      const toggled = new Set(shownKinds);
-      if (included) toggled.delete(kind);
-      else toggled.add(kind);
-      const listed = (entry: Judged, kinds: Set<UnknownKind>) =>
-        isListed(entry.rows, filters.kids.length, filters.kidsMode, kinds);
-      const count = judged.filter(
-        (entry) => listed(entry, toggled) !== listed(entry, shownKinds)
+      const afterHiding = new Set([...shownKinds].filter((value) => value !== kind));
+      const lacksIt = (entry: Judged) =>
+        entry.rows.some((row) => row.ways.some((way) => way.includes(kind)));
+      const count = judged.filter((entry) =>
+        included
+          ? listed(entry, shownKinds) && !listed(entry, afterHiding)
+          : !listed(entry, shownKinds) && lacksIt(entry)
       ).length;
       return count > 0 ? [{ kind, without, included, count }] : [];
     });
@@ -692,7 +704,7 @@ export default function CampDirectory({ camps }: { camps: CampCardData[] }) {
   }
 
   const card = (entry: Judged, showProvider: boolean) => {
-    const counts = matchCounts(entry.rows, !!filters.rows.week);
+    const counts = matchCounts(entry.rows, !!filters.rows.week, shownKinds);
     return (
       <CampCard
         key={entry.camp.id}

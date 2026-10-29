@@ -1,7 +1,31 @@
 # Summer camps v2: build report (Oct 28-29, 2026)
 
-The v2 build from `04-v2-plan.md`, done in one night with parallel agents. Numbers and open items
-are filled in as each stage lands.
+The v2 build from `04-v2-plan.md`, done in one night with parallel agents.
+
+## Where it stands
+
+- **Data (live camps tables, not yet on the site):** 742 providers discovered (580 verified, 162
+  flagged for review), all extracted twice (prompt v1, then v2 after the UX review), 0 failures.
+  913 camps listed from 428 providers inside the D3 radius: 689 with an exact drive time, 218
+  estimated from their town, 6 with none. 137 cards retired by the v2 run, mostly as non-camps
+  (lessons, childcare, mission trips, single events) or out of area.
+- **Matt's review queue:** 675 camps, in order: 60 with a registration date short of high
+  confidence, 59 low confidence, 182 medium with 2027 facts, 374 medium with 2026 facts only
+  (shown labelled 2026). 69 sites need a pin.
+- **Cost:** discovery 17.0M input / 0.49M output tokens and 1,922 searches; each full extraction
+  ~18M / 1.2M and ~1,775 searches (two runs). At GPT-5-class list prices ($1.25/M in, $10/M out,
+  $10 per 1,000 searches) that is about $45 for discovery and $50 per extraction run, ~$150 in
+  all; check the Batch-AI resource for Sol's real price. The daily refresh only re-extracts
+  providers whose pages changed.
+- **Pages:** /camps (30 cards at a time, 2.0MB HTML for 913 camps), /camps/[slug], /admin/camps,
+  reminders, saved-camps calendar, More menu, camps season banner from Nov 5.
+- **Not done / follow-ups:** mapping scraped camp listings (AVL Today etc.) to their camp
+  (§4.8, deferred); a stable reminder identity across date corrections; source time zones beyond
+  the prompt's conversion; drive times from ORS run ~15% long at highway distances (Johnson City
+  71 min, Morganton 67), so about 116 day camps near the 55-minute limit are out: Matt's call;
+  /camps still ships the full compact list to the client (1.8MB RSC), fine at 913 camps.
+- **Deploy order:** merge → deploy → `npx tsx scripts/camps/sync-feed-events.ts --apply` (238 camp
+  events). Never sync before the deploy: older code doesn't hide camp events.
 
 ## Review gates
 
@@ -104,3 +128,13 @@ Reidsville 4-H, a Charlotte camp) and one duplicate. Fixes: page items by a page
 drive-time estimates from the camp's town, a prompt revision with a full re-extraction (notes
 out of parent-facing text, non-camps excluded), and retiring cards a newer extraction drops
 (migration 0027, approved by Matt) by a data agent.
+
+### Gate 4: UX fixes, data v2 and the gate-3 fixes (Oct 29)
+
+Reviewed `582eef5..802370e`. Gate-3 items confirmed except two carried over. New must-fix:
+valid early-morning times (a CST 11:59 p.m. deadline converted to 00:59) were dropped by the
+"before 5 a.m." display rule; a later deadline could reopen a closed registration; a strict
+WebTrac read still accepted an HTTP 200 maintenance page as zero rows. Should-fix: unknown-
+filter toggles could hide each other; availability scopes like "New campers" were suppressed;
+retired program names weren't offered for name reuse; grade 13 was shown as 12th. All fixed in
+the next round; the "before 5 a.m." rule moved to an extraction-time review flag only.

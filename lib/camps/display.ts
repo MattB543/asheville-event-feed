@@ -57,16 +57,12 @@ function cleanHours<H extends Hours>(hours: H | null): H | null {
   return hours && { ...hours, start: validTime(hours.start), end: validTime(hours.end) };
 }
 
-/** A registration time, where one before 5 a.m. ("12:15 a.m.") is a misreading: not stated. */
-function registrationTime(value: unknown): string | null {
-  const time = validTime(value);
-  return time && time >= '05:00' ? time : null;
-}
-
 /**
  * The card with every malformed date or time treated as unknown, so one bad value can't take down
  * the directory, a camp page or a calendar: a registration date or a session with a bad date is
  * left out, and a bad season date or time becomes null (a datetime without its time is a date).
+ * Every well-formed time stays, an early-morning one too: "00:59" is an 11:59 p.m. Central
+ * deadline in Eastern time, and a time the extraction doubts is in its review notes.
  */
 export function cleanCard(card: CampCard): CampCard {
   const lastYear = card.last_year_registration_opened;
@@ -97,15 +93,13 @@ export function cleanCard(card: CampCard): CampCard {
     }),
     registration: card.registration.flatMap((milestone) => {
       if (!validDate(milestone.date)) return [];
-      const time = registrationTime(milestone.time);
+      const time = validTime(milestone.time);
       const precision =
         milestone.precision === 'datetime' && !time ? ('date' as const) : milestone.precision;
       return [{ ...milestone, time, precision }];
     }),
     last_year_registration_opened:
-      lastYear && validDate(lastYear.date)
-        ? { ...lastYear, time: registrationTime(lastYear.time) }
-        : null,
+      lastYear && validDate(lastYear.date) ? { ...lastYear, time: validTime(lastYear.time) } : null,
   };
 }
 
@@ -240,9 +234,16 @@ export function gradeLabel(grade: number): string {
 
 export function formatGrades(grades: GradeRange | null): string | null {
   if (!grades || (grades.min === null && grades.max === null)) return null;
-  // School ends at 12th: "rising 13th" (a high-school graduate) reads as 12th
-  const min = grades.min === null ? null : Math.min(grades.min, 12);
-  const max = grades.max === null ? null : Math.min(grades.max, 12);
+  const { min, max } = grades;
+  const prefix =
+    grades.basis === 'rising' ? 'Rising ' : grades.basis === 'completed' ? 'Finished ' : '';
+  // School ends at 12th: past it ("rising 13th") is a high-school graduate
+  if (min !== null && min > 12) return 'High-school graduates';
+  if (max !== null && max > 12) {
+    return min === null
+      ? 'Up to high-school graduates'
+      : `${prefix}${gradeLabel(min)} grade – graduates`;
+  }
   const range =
     min !== null && max !== null
       ? min === max
@@ -251,8 +252,6 @@ export function formatGrades(grades: GradeRange | null): string | null {
       : min !== null
         ? `${gradeLabel(min)} grade and up`
         : `up to ${gradeLabel(max!)} grade`;
-  const prefix =
-    grades.basis === 'rising' ? 'Rising ' : grades.basis === 'completed' ? 'Finished ' : '';
   return `${prefix}${range}${min !== null && max !== null ? ' grade' : ''}`;
 }
 
@@ -490,12 +489,12 @@ function coversCamp(scope: string | null): boolean {
 }
 
 /**
- * Availability for part of a camp is worth showing only when its scope names sessions or weeks
- * ("Session 1 only"); "BikeReg registration categories" says nothing a parent can use.
+ * A scope that is a registration system's label ("BikeReg registration categories") rather than
+ * who or what it covers ("Session 1", "New campers", "Bunkhouse"): the directory's card leaves it
+ * out (the camp page shows every scope).
  */
-export function namesSessions(scope: string | null): boolean {
-  return !!scope && /\b(?:sessions?|weeks?)\b/i.test(scope);
-}
+const SYSTEM_SCOPE =
+  /\b(?:bikereg|campminder|ultracamp|sawyer|jackrabbit|activenet|webtrac|registration categor(?:y|ies))\b/i;
 
 /**
  * Whose dates set the public status: everyone, or everyone by lottery. Member, returning-camper,
@@ -508,11 +507,12 @@ const MAX_DETAILS = 3;
 
 /**
  * The registration line. The 2027 dates are split by kind and audience: the public dates, in
- * order, say where registration stands today (each opening starts a window, each close or deadline
- * ends one, and a later opening reopens it); lottery results, and dates for members or returning
- * campers, are only details. What the camp says about the whole camp now (open, waitlist, full,
- * closed) wins over the dates. "Open now" needs the camp saying it's open: an opening that has
- * passed, with nothing said since, is history ("Registration opened Jan 10").
+ * order, say where registration stands today (each opening starts a window, a close ends it, a
+ * deadline ends it unless a later end is ahead, and only an opening reopens it); lottery results,
+ * and dates for members or returning campers, are only details. What the camp says about the whole
+ * camp now (open, waitlist, full, closed) wins over the dates. "Open now" needs the camp saying
+ * it's open: an opening that has passed, with nothing said since, is history ("Registration opened
+ * Jan 10").
  */
 export function registrationLine(
   card: CampListCard,
@@ -533,18 +533,25 @@ export function registrationLine(
   const publicDates = announced.filter(
     (milestone) => isPublic(milestone) && milestone.kind !== 'lottery_results'
   );
-  const lastPassed = publicDates.filter(past).at(-1);
   const lastOpened = publicDates
     .filter((milestone) => milestone.kind === 'opens' && past(milestone))
     .at(-1);
   const nextOpen = publicDates.find((milestone) => milestone.kind === 'opens' && !past(milestone));
   const nextEnd = publicDates.find((milestone) => isEnd(milestone) && !past(milestone));
+  // Where the public dates passed so far leave registration, in order: an opening opens it, a close
+  // closes it, and a deadline closes it only when no later end is ahead (an early-bird deadline
+  // before a final one doesn't). Only an opening reopens it: a later deadline never does.
+  let closedBy: CampListMilestone | null = null;
+  for (const milestone of publicDates.filter(past)) {
+    if (milestone.kind === 'opens') closedBy = null;
+    else if (!closedBy && (milestone.kind === 'closes' || !nextEnd)) closedBy = milestone;
+  }
 
   // A card still on 2026 describes 2026's availability, which says nothing about 2027.
   const availability = card.season.year === TARGET_SEASON ? card.availability : null;
   const campWide = availability && coversCamp(availability.scope) ? availability : null;
   const scoped =
-    availability && !coversCamp(availability.scope) && namesSessions(availability.scope)
+    availability?.scope && !coversCamp(availability.scope) && !SYSTEM_SCOPE.test(availability.scope)
       ? availability
       : null;
 
@@ -620,13 +627,12 @@ export function registrationLine(
     };
   }
 
-  // The last public date passed closed registration (a close, or a deadline with no later end
-  // ahead; an early-bird deadline before a final one doesn't close it): closed
-  if (lastPassed && isEnd(lastPassed) && (lastPassed.kind === 'closes' || !nextEnd)) {
+  // The public dates passed closed registration, and none reopened it: closed
+  if (closedBy) {
     return {
       tone: 'closed',
-      text: `2027 registration ${lastPassed.kind === 'closes' ? 'closed' : 'deadline passed'} ${formatDate(lastPassed.date, true)}`,
-      unconfirmed: isUnconfirmed(lastPassed, confirmed),
+      text: `2027 registration ${closedBy.kind === 'closes' ? 'closed' : 'deadline passed'} ${formatDate(closedBy.date, true)}`,
+      unconfirmed: isUnconfirmed(closedBy, confirmed),
       details: details([]),
       sortDate: null,
       status: 'full',

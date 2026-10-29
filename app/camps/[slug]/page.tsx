@@ -35,7 +35,6 @@ import {
   isUnconfirmed,
   milestoneLabel,
   milestoneWhen,
-  namesSessions,
   providerLabel,
   registrationLine,
   reminderMilestones,
@@ -427,7 +426,7 @@ export default async function CampPage({ params }: PageProps) {
                     {card.season.year !== TARGET_SEASON && ` (summer ${card.season.year})`}:
                   </span>{' '}
                   {AVAILABILITY_LABELS[card.availability.status] ?? card.availability.status}
-                  {namesSessions(card.availability.scope) && ` (${card.availability.scope})`}
+                  {card.availability.scope && ` (${card.availability.scope})`}
                   <span className="block text-xs text-gray-600 dark:text-gray-400">
                     “{card.availability.text}”
                   </span>

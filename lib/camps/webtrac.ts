@@ -77,7 +77,8 @@ export async function readWebTracCatalog(signal?: AbortSignal): Promise<WebTracC
     const rows = all.filter((row) => SUMMER_MONTHS.has(row.beginDate.slice(5, 7)));
     const details: Record<string, ActivityDetail> = {};
     for (const row of firstRowPerSite(rows.filter(isSummerCampRow))) {
-      details[row.fmid] = parseDetailPage(await fetcher.get(activityUrl(row.fmid)));
+      const html = await fetcher.get(activityUrl(row.fmid));
+      details[row.fmid] = parseDetailPage(html, { strict: true });
     }
     return { readAt: new Date().toISOString(), activities: all.length, rows, details };
   } finally {

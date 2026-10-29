@@ -44,6 +44,8 @@ const ORGANIZER = 'Asheville Parks & Recreation';
 
 const REQUEST_DELAY_MS = 250;
 const MAX_SEARCH_PAGES = 10; // WebTrac pages at 200 rows; the biggest search is ~350
+// WebTrac's "Your search did not return any matching results" message
+const NO_RESULTS = /id="arwebsearch_noresultsmessage"/;
 const MAX_DAYS_AHEAD = 120;
 const LISTED_SESSION_LIMIT = 12; // longer schedules are summarised by count
 // Placeholder for a session with no listed time (flagged timeUnknown). Midday,
@@ -399,7 +401,10 @@ async function launchBrowser(): Promise<Browser> {
  * picked up without a code change. A failed search (or later page) is skipped;
  * the two search kinds overlap heavily, so the rest usually cover for it.
  * `strict` throws instead (the camps catalog: a missed category search drops
- * rows from a camp's card, which must not replace a complete one).
+ * rows from a camp's card, which must not replace a complete one), and also
+ * when a page answered 200 but isn't a results page (a maintenance or error
+ * page would otherwise read as an empty search) or a search's pages run out
+ * before its results do.
  */
 export async function fetchAllActivities(
   fetcher: PageFetcher,
@@ -439,7 +444,8 @@ export async function fetchAllActivities(
         await debugSave(name, html, { label: LABEL });
       }
 
-      for (const row of parseSearchRows(html)) {
+      const rows = parseSearchRows(html);
+      for (const row of rows) {
         const existing = byFmid.get(row.fmid);
         if (existing) {
           if (option.param === 'category') existing.category ??= option.label;
@@ -450,7 +456,18 @@ export async function fetchAllActivities(
       }
 
       const paging = html.match(/Showing results \d+-(\d+) of (\d+)/);
+      // A results page has its paging line and rows; only a first page may be "no matching results"
+      if (strict && !(paging ? rows.length > 0 : page === 1 && NO_RESULTS.test(html))) {
+        throw new Error(
+          `Search ${option.param}=${option.value} page ${page} is not a WebTrac results page`
+        );
+      }
       if (!paging || Number(paging[1]) >= Number(paging[2])) break;
+      if (strict && page === MAX_SEARCH_PAGES) {
+        throw new Error(
+          `Search ${option.param}=${option.value} has more than ${MAX_SEARCH_PAGES} pages of results`
+        );
+      }
     }
   }
 
@@ -584,12 +601,24 @@ function parseFees(text: string): [number | null, number | null] {
   return [resident ?? null, nonResident ?? null];
 }
 
-export function parseDetailPage(html: string): ActivityDetail {
+/**
+ * `strict` (the camps catalog) throws on a page with no activity markup, such
+ * as the 200 "Cannot find ARSection record" page or a maintenance page, which
+ * would otherwise read as an activity with no description or address.
+ */
+export function parseDetailPage(
+  html: string,
+  { strict = false }: { strict?: boolean } = {}
+): ActivityDetail {
   const detail: ActivityDetail = {};
 
   // The description is the main column's only details block outside the Fees
   // section. Greedy, so markup inside the description can't end it early.
   const main = html.match(/<section class="item-info-main-content">([\s\S]*?)<\/section>/)?.[1];
+  if (strict && main === undefined) {
+    const title = html.match(/<title[^>]*>([\s\S]*?)<\/title>/i)?.[1].trim();
+    throw new Error(`Not a WebTrac activity page${title ? ` ("${title}")` : ''}`);
+  }
   const descriptionHtml = main
     ?.split('<div class="item-info-additional"')[0]
     .match(/<div class="item-info__details-text">([\s\S]*)<\/div>\s*<\/div>/)?.[1];
